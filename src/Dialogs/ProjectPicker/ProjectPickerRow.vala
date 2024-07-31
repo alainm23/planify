@@ -27,11 +27,17 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
     private Gtk.Revealer main_revealer;
     private Widgets.IconColorProject icon_project;
 
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public ProjectPickerRow (Objects.Project project, string widget_type = "picker") {
         Object (
             project: project,
             widget_type: widget_type
         );
+    }
+
+    ~ProjectPickerRow () {
+        print ("Destroying Dialogs.ProjectPicker.ProjectPickerRow\n");
     }
 
     construct {
@@ -104,21 +110,28 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
 
         var select_gesture = new Gtk.GestureClick ();
         add_controller (select_gesture);
-
-        select_gesture.pressed.connect (() => {
+        signal_map[select_gesture.pressed.connect (() => {
             Services.EventBus.get_default ().project_picker_changed (project.id);
-        });
+        })] = select_gesture;
 
-        Services.EventBus.get_default ().project_picker_changed.connect ((id) => {
+        signal_map[Services.EventBus.get_default ().project_picker_changed.connect ((id) => {
             selected_revealer.reveal_child = project.id == id;
-        });
+        })] = Services.EventBus.get_default ();
 
-        project.deleted.connect (() => {
+        signal_map[project.deleted.connect (() => {
             hide_destroy ();
-        });
+        })] = project;
 
-        project.unarchived.connect (() => {
+        signal_map[project.unarchived.connect (() => {
             hide_destroy ();
+        })] = project;
+
+        destroy.connect (() => {
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+            
+            signal_map.clear ();
         });
     }
 
@@ -153,15 +166,15 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
 			width_request = 250
 		};
 
-		delete_item.clicked.connect (() => {
+		signal_map[delete_item.clicked.connect (() => {
 			menu_popover.popdown ();
 			project.delete_project ((Gtk.Window) Planify.instance.main_window);
-		});
+		})] = delete_item;
 
-		unarchive_item.clicked.connect (() => {
+		signal_map[unarchive_item.clicked.connect (() => {
 			menu_popover.popdown ();
 			project.unarchive_project ();
-		});
+		})] = unarchive_item;
 
 		return menu_popover;
 	}

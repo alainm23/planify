@@ -82,11 +82,17 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
 
     public signal void change (Objects.DueDate duedate);
 
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+
     public RepeatConfig () {
         Object (
             title: _("Repeat"),
             content_width: 320
         );
+    }
+
+    ~RepeatConfig() {
+        print ("Destroying Dialogs.RepeatConfig\n");
     }
 
     construct {
@@ -271,11 +277,11 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
         update_repeat_label ();
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        recurrency_interval.value_changed.connect (() => {
+        signal_map[recurrency_interval.value_changed.connect (() => {
             update_repeat_label ();
-        });
+        })] = recurrency_interval;
 
-        recurrency_combobox.notify["selected-item"].connect (() => {
+        signal_map[recurrency_combobox.notify["selected-item"].connect (() => {
             if ((RecurrencyType) this.recurrency_combobox.selected == RecurrencyType.EVERY_WEEK) {
                 weeks_revealer.reveal_child = true;
             } else {
@@ -283,65 +289,71 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
             }
 
             update_repeat_label ();
-        });
+        })] = recurrency_combobox;
 
-        mo_button.toggled.connect (() => {
+        signal_map[mo_button.toggled.connect (() => {
             update_repeat_label ();
-        });
+        })] = mo_button;
 
-        tu_button.toggled.connect (() => {
+        signal_map[tu_button.toggled.connect (() => {
             update_repeat_label ();
-        });
+        })] = tu_button;
 
-        we_button.toggled.connect (() => {
+        signal_map[we_button.toggled.connect (() => {
             update_repeat_label ();
-        });
+        })] = we_button;
 
-        th_button.toggled.connect (() => {
+        signal_map[th_button.toggled.connect (() => {
             update_repeat_label ();
-        });
+        })] = th_button;
 
-        fr_button.toggled.connect (() => {
+        signal_map[fr_button.toggled.connect (() => {
             update_repeat_label ();
-        });
+        })] = fr_button;
 
-        sa_button.toggled.connect (() => {
+        signal_map[sa_button.toggled.connect (() => {
             update_repeat_label ();
-        });
+        })] = sa_button;
 
-        su_button.toggled.connect (() => {
+        signal_map[su_button.toggled.connect (() => {
             update_repeat_label ();
-        });
+        })] = su_button;
 
         submit_button.clicked.connect (() => {
             set_repeat ();
         });
 
-        never_button.toggled.connect (() => {
+        signal_map[never_button.toggled.connect (() => {
 			ends_stack.visible_child_name = "never";
             update_repeat_label ();
-		});
+		})] = never_button;
 
-        on_button.toggled.connect (() => {
+        signal_map[on_button.toggled.connect (() => {
 			ends_stack.visible_child_name = "on";
             update_repeat_label ();
-		});
+		})] = on_button;
 
-        after_button.toggled.connect (() => {
+        signal_map[after_button.toggled.connect (() => {
 			ends_stack.visible_child_name = "after";
             update_repeat_label ();
-		});
+		})] = after_button;
 
-        calendar.day_selected.connect (() => {
+        signal_map[calendar.day_selected.connect (() => {
             calendar_popover.popdown ();
             update_repeat_label ();
-        });
+        })] = calendar;
 
-        count_interval.value_changed.connect (() => {
+        signal_map[count_interval.value_changed.connect (() => {
             update_repeat_label ();
-        });
+        })] = count_interval;
 
         closed.connect (() => {
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signal_map.clear ();
+
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }

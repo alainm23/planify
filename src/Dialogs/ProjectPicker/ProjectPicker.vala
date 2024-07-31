@@ -60,6 +60,8 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
 
     public signal void changed (string type, string id);
 
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+
     public ProjectPicker.for_project (Objects.Source source) {
         Object (
             picker_type: PickerType.PROJECTS,
@@ -91,6 +93,10 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
             content_width: 400,
             content_height: 550
         );
+    }
+
+    ~ProjectPicker () {
+        print ("Destroying Dialogs.ProjectPicker.ProjectPicker\n");
     }
 
     construct {
@@ -139,15 +145,15 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
         //      caldav_group.invalidate_filter ();
         //  });
 
-        Services.EventBus.get_default ().project_picker_changed.connect ((id) => {
+        signal_map[Services.EventBus.get_default ().project_picker_changed.connect ((id) => {
             _project = Services.Store.instance ().get_project (id);
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.EventBus.get_default ().section_picker_changed.connect ((id) => {
+        signal_map[Services.EventBus.get_default ().section_picker_changed.connect ((id) => {
             _section = Services.Store.instance ().get_section (id);
-        });
+        })] = Services.EventBus.get_default ();
 
-        submit_button.clicked.connect (() => {
+        signal_map[submit_button.clicked.connect (() => {
             if (main_stack.visible_child_name == "projects") {
                 changed ("project", project.id);
             } else {
@@ -160,17 +166,23 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
             }
 
             hide_destroy ();
-        });
+        })] = submit_button;
 
         var destroy_controller = new Gtk.EventControllerKey ();
         add_controller (destroy_controller);
-        destroy_controller.key_released.connect ((keyval, keycode, state) => {
+        signal_map[destroy_controller.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 hide_destroy ();
             }
-        });
+        })] = destroy_controller;
 
         closed.connect (() => {
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signal_map.clear ();
+            
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }

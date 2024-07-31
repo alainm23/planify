@@ -42,6 +42,8 @@ public class Dialogs.Project : Adw.Dialog {
         }
     }
 
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+
     public Project.new (string source_id, bool backend_picker = false, string parent_id = "") {
         var project = new Objects.Project ();
         project.color = "blue";
@@ -71,7 +73,7 @@ public class Dialogs.Project : Adw.Dialog {
 
     construct {
         Adw.NavigationPage main_page = get_main_page ();
-        //  sources_page = get_sources_page ();
+        sources_page = get_sources_page ();
 
         navigation_view = new Adw.NavigationView ();
         navigation_view.add (main_page);
@@ -80,6 +82,12 @@ public class Dialogs.Project : Adw.Dialog {
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
         closed.connect (() => {
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signal_map.clear ();
+            
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
@@ -245,42 +253,42 @@ public class Dialogs.Project : Adw.Dialog {
             return GLib.Source.REMOVE;
         });
         
-        name_entry.entry_activated.connect (add_update_project);
-        submit_button.clicked.connect (add_update_project);
+        signal_map[name_entry.entry_activated.connect (add_update_project)] = name_entry;
+        signal_map[submit_button.clicked.connect (add_update_project)] = submit_button;
 
-        emoji_chooser.emoji_picked.connect ((emoji) => {
+        signal_map[emoji_chooser.emoji_picked.connect ((emoji) => {
             emoji_label.label = emoji;
-        });
+        })] = emoji_chooser;
 
-        //  emoji_switch.notify["active"].connect (() => {
-        //      if (emoji_switch.active) {
-        //          color_box_revealer.reveal_child = false;
-        //          emoji_color_stack.visible_child_name = "emoji";
+        signal_map[emoji_switch.notify["active"].connect (() => {
+            if (emoji_switch.active) {
+                color_box_revealer.reveal_child = false;
+                emoji_color_stack.visible_child_name = "emoji";
 
-        //          if (emoji_label.label.strip () == "") {
-        //              emoji_label.label = "🚀️";
-        //          }
+                if (emoji_label.label.strip () == "") {
+                    emoji_label.label = "🚀️";
+                }
 
-        //          //  emoji_chooser.popup ();
-        //      } else {
-        //          color_box_revealer.reveal_child = true;
-        //          emoji_color_stack.visible_child_name = "color";
-        //      }
-        //  });
+                emoji_chooser.popup ();
+            } else {
+                color_box_revealer.reveal_child = true;
+                emoji_color_stack.visible_child_name = "color";
+            }
+        })] = emoji_switch;
 
-        color_picker_row.color_changed.connect (() => {
+        signal_map[color_picker_row.color_changed.connect (() => {
             progress_bar.color = color_picker_row.color;
-        });
+        })] = color_picker_row;
 
-        emoji_picker_button.clicked.connect (() => {
+        signal_map[emoji_picker_button.clicked.connect (() => {
             if (emoji_switch.active) {
                 emoji_chooser.popup ();
             }
-        });
+        })] = emoji_picker_button;
 
-        source_row.activated.connect (() => {
+        signal_map[source_row.activated.connect (() => {
             navigation_view.push (sources_page);
-        });
+        })] = source_row;
 
         return navigation_page;
     }
@@ -312,23 +320,23 @@ public class Dialogs.Project : Adw.Dialog {
             source_row.add_suffix (radio_button);
             source_row.set_activatable_widget (radio_button);
 
-            source_row.activated.connect (() => {
+            signal_map[source_row.activated.connect (() => {
                 project.source_id = source.id;
 
                 source_selected_label.label = source.display_name;
                 source_selected_label.tooltip_text = source.subheader_text;
 
                 navigation_view.pop ();
-            });
+            })] = source_row;
 
-            radio_button.toggled.connect (() => {
+            signal_map[radio_button.toggled.connect (() => {
                 project.source_id = source.id;
 
                 source_selected_label.label = source.display_name;
                 source_selected_label.tooltip_text = source.subheader_text;
 
                 navigation_view.pop ();
-            });
+            })] = radio_button;
 
             sources_group.add (source_row);
         }
@@ -365,34 +373,39 @@ public class Dialogs.Project : Adw.Dialog {
         submit_button.is_loading = true;
 
         if (!is_creating) {
-            update_project ();
+            update_project.begin ();
         } else {
             add_project ();
         }
     }
 
 
-    private void update_project () {
+    private async void update_project () {
         if (project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().update_project (project);
             hide_destroy ();
-        } else if (project.source_type == SourceType.TODOIST) {
-            Services.Todoist.get_default ().update.begin (project, (obj, res) => {
-                Services.Todoist.get_default ().update.end (res);
-                Services.Store.instance ().update_project (project);
-                hide_destroy ();
-            });
-        } else if (project.source_type == SourceType.CALDAV) {
-            Services.CalDAV.Core.get_default ().update_tasklist.begin (project, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().update_tasklist.end (res);
+            return;
+        }
+        
+        HttpResponse? response;
 
-                if (response.status) {
-                    Services.Store.instance ().update_project (project);
-                    hide_destroy ();
-                } else {
-                    //  Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                }
-            });
+        if (project.source_type == SourceType.TODOIST) {
+            response = yield Services.Todoist.get_default ().update (project);
+        } else {
+            response = yield Services.CalDAV.Core.get_default ().update_tasklist (project);
+        }
+
+        if (response == null) {
+            hide_destroy ();
+            return;
+        }
+
+        if (response.status) {
+            Services.Store.instance ().update_project (project);
+            hide_destroy ();
+        } else {
+            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+            hide_destroy ();
         }
     }
 
@@ -413,6 +426,7 @@ public class Dialogs.Project : Adw.Dialog {
                     go_project (project.id);
                 } else {
                     Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+                    hide_destroy ();
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
@@ -425,7 +439,8 @@ public class Dialogs.Project : Adw.Dialog {
                     Services.CalDAV.Core.get_default ().update_sync_token.begin (project);
                     go_project (project.id);
                 } else {
-                    //  Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+                    hide_destroy ();
                 }
             });
         }

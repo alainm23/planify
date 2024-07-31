@@ -39,8 +39,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
             return picker.picked;
         }
     }
-    
-
+        
     public LabelPicker () {
         Object (
             has_arrow: false,
@@ -48,6 +47,10 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
             width_request: 275,
             height_request: 300
         );
+    }
+
+    ~LabelPicker() {
+        print ("Destroying Widgets.LabelPicker.LabelPicker\n");
     }
 
     construct {

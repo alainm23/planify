@@ -41,6 +41,10 @@ public class Dialogs.Preferences.SettingsHeader : Adw.Bin {
         );
     }
 
+    ~SettingsHeader() {
+        print ("Destroying Dialogs.Preferences.SettingsHeader\n");
+    }
+
     construct {
         var back_button = new Gtk.Button.from_icon_name ("go-previous-symbolic") {
             valign = Gtk.Align.CENTER,

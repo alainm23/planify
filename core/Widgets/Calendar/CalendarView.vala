@@ -50,6 +50,10 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
         );
     }
 
+    ~CalendarView() {
+        print ("Destroying Widgets.Calendar.CalendarView\n");
+    }
+
     construct {
         days_arraylist = new Gee.ArrayList<Widgets.Calendar.CalendarDay> ();
 

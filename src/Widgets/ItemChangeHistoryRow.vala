@@ -30,6 +30,10 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
         );
     }
 
+    ~ItemChangeHistoryRow() {
+        print ("Destroying Widgets.ItemChangeHistoryRow\n");
+    }
+
     construct {
         add_css_class ("no-selectable");
         

@@ -32,6 +32,10 @@ public class Dialogs.ErrorDialog : Adw.Dialog {
         );
     }
 
+    ~ErrorDialog() {
+        print ("Destroying Dialogs.ErrorDialog\n");
+    }
+
     construct {
         var error_view = new Widgets.ErrorView () {
             error_code = error_code,

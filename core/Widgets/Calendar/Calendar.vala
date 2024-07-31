@@ -52,11 +52,17 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
 
     public signal void day_selected ();
 
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+
     public Calendar (bool block_past_days = Constants.BLOCK_PAST_DAYS) {
         Object (
             block_past_days: block_past_days,
             orientation: Gtk.Orientation.VERTICAL
         );
+    }
+
+    ~Calendar() {
+        print ("Destroying Widgets.Calendar.Calendar\n");
     }
 
     construct {
@@ -70,29 +76,31 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
 
         today ();
 
-        calendar_header.left_clicked.connect (() => {
+        signal_map[calendar_header.left_clicked.connect (() => {
             previous_month ();
-        });
+        })] = calendar_header;
 
-        calendar_header.center_clicked.connect (() => {
+        signal_map[calendar_header.center_clicked.connect (() => {
             today ();
-        });
+        })] = calendar_header;
 
-        calendar_header.right_clicked.connect (() => {
+        signal_map[calendar_header.right_clicked.connect (() => {
             next_month ();
-        });
+        })] = calendar_header;
 
-        calendar_view.day_selected.connect ((day) => {
+        signal_map[calendar_view.day_selected.connect ((day) => {
             day_nav = day;
             _date = new DateTime.local (year_nav, month_nav, day_nav, 0, 0, 0);
             day_selected ();
+        })] = calendar_view;
+
+        Services.Settings.get_default ().settings.changed["start-week"].connect (() => {
+            calendar_week.update ();
+            today ();
         });
 
-        Services.Settings.get_default ().settings.changed.connect ((key) => {
-            if (key == "start-week") {
-                calendar_week.update ();
-                today ();
-            }
+        destroy.connect (() => {
+            print ("Before Destroying Widgets.Calendar.Calendar\n");
         });
     }
 

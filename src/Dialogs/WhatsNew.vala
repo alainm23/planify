@@ -33,6 +33,10 @@ public class Dialogs.WhatsNew : Adw.Dialog {
 		);
 	}
 
+	~WhatsNew() {
+        print ("Destroying Dialogs.WhatsNew\n");
+    }
+
 	construct {
 		var headerbar = new Adw.HeaderBar () {
 			title_widget = new Gtk.Label (null),

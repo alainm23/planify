@@ -62,6 +62,10 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
         );
     }
 
+    ~LabelButton() {
+        print ("Destroying Widgets.LabelPicker.LabelButton\n");
+    }
+
     construct {
         labels_picker = new Widgets.LabelPicker.LabelPicker ();
 

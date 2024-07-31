@@ -54,6 +54,9 @@ public class Planify : Adw.Application {
         );
     }
 
+	~Planify() {
+        print ("Destroying Planify\n");
+    }
 
 	construct {
 		Intl.setlocale (LocaleCategory.ALL, "");

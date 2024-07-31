@@ -27,6 +27,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		);
 	}
 
+	~PreferencesWindow() {
+        print ("Destroying Dialogs.Preferences.PreferencesWindow\n");
+    }
+
 	construct {
 		add (get_preferences_home ());
 		Services.EventBus.get_default ().disconnect_typing_accel ();

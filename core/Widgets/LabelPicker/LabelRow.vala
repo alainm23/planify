@@ -37,16 +37,16 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
         );
     }
 
+    ~LabelRow() {
+        print ("Destroying Widgets.LabelPicker.LabelRow\n");
+    }
+
     construct {
         add_css_class ("no-selectable");
 
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.CENTER,
             css_classes = { "checkbutton-label" }
-        };
-
-        var name_label = new Gtk.Label (label.name) {
-            valign = Gtk.Align.CENTER,
         };
         
         var color_grid = new Gtk.Grid () {
@@ -56,21 +56,28 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
 			valign = Gtk.Align.CENTER,
 			css_classes = { "event-bar" }
 		};
+        
         Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), color_grid);
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 
         content_box.append (checked_button);
         content_box.append (color_grid);
-        content_box.append (name_label);
+        content_box.append (new Gtk.Label (label.name) {
+            valign = Gtk.Align.CENTER,
+        });
 
         child = content_box;
 
         var checked_button_gesture = new Gtk.GestureClick ();
         content_box.add_controller (checked_button_gesture);
-        checked_button_gesture.pressed.connect (() => {
+        ulong signal_id = checked_button_gesture.pressed.connect (() => {
             checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             update_checked_toggled ();
+        });
+
+        destroy.connect (() => {
+            checked_button_gesture.disconnect (signal_id);
         });
     }
 

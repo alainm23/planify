@@ -305,7 +305,7 @@ public class Views.Project : Adw.Bin {
 			dialog.clear = project.due_date != "";
 			dialog.present (Planify._instance.main_window);
 
-			dialog.date_changed.connect (() => {
+			ulong signal_datepicker_id = dialog.date_changed.connect (() => {
 				if (dialog.datetime == null) {
 					project.due_date = "";
 				} else {
@@ -313,6 +313,10 @@ public class Views.Project : Adw.Bin {
 				}
 
 				project.update_local ();
+			});
+
+			dialog.closed.connect (() => {
+				dialog.disconnect (signal_datepicker_id);
 			});
 		});
 

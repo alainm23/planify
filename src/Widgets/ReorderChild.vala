@@ -43,11 +43,17 @@ public class Widgets.ReorderChild : Adw.Bin {
     public signal void on_drop_end (Gtk.ListBox listbox);
     public signal void on_drag_event (bool active);
 
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+    
     public ReorderChild (Gtk.Widget widget, Gtk.ListBoxRow row) {
         Object (
             widget: widget,
             row: row
         );
+    }
+
+    ~ReorderChild() {
+        print ("Destroying Widgets.ReorderChild\n");
     }
 
     construct {
@@ -95,12 +101,20 @@ public class Widgets.ReorderChild : Adw.Bin {
         drop_motion_ctrl = new Gtk.DropControllerMotion ();
         row.add_controller (drop_motion_ctrl);
 
-        drop_motion_ctrl.enter .connect ((x, y) => {
+        signal_map[drop_motion_ctrl.enter .connect ((x, y) => {
             motion_top_revealer.reveal_child = true;
-        });
+        })] = drop_motion_ctrl;
 
-        drop_motion_ctrl.leave.connect (() => {
+        signal_map[drop_motion_ctrl.leave.connect (() => {
             motion_top_revealer.reveal_child = false;
+        })] = drop_motion_ctrl;
+
+        destroy.connect (() => {
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signal_map.clear ();
         });
     }
 
@@ -109,32 +123,32 @@ public class Widgets.ReorderChild : Adw.Bin {
         drag_source.set_actions (Gdk.DragAction.MOVE);
         widget.add_controller (drag_source);
 
-        drag_source.prepare.connect ((source, x, y) => {
+        signal_map[drag_source.prepare.connect ((source, x, y) => {
             return new Gdk.ContentProvider.for_value (this);
-        });
+        })] = drag_source;
 
-        drag_source.drag_begin.connect ((source, drag) => {
+        signal_map[drag_source.drag_begin.connect ((source, drag) => {
             var paintable = new Gtk.WidgetPaintable (widget);
             source.set_icon (paintable, 0, 0);
             drag_begin ();
-        });
+        })] = drag_source;
         
-        drag_source.drag_end.connect ((source, drag, delete_data) => {
+        signal_map[drag_source.drag_end.connect ((source, drag, delete_data) => {
             drag_end ();
-        });
+        })] = drag_source;
 
-        drag_source.drag_cancel.connect ((source, drag, reason) => {
+        signal_map[drag_source.drag_cancel.connect ((source, drag, reason) => {
             drag_end ();
             return false;
-        });
+        })] = drag_source;
 
         var drop_order_target = new Gtk.DropTarget (typeof (Widgets.ReorderChild), Gdk.DragAction.MOVE);
         motion_bottom_grid.add_controller (drop_order_target);
-        drop_order_target.drop.connect ((value, x, y) => on_drop (value, x, y, false));
+        signal_map[drop_order_target.drop.connect ((value, x, y) => on_drop (value, x, y, false))] = drop_order_target;
 
         var drop_order_first_target = new Gtk.DropTarget (typeof (Widgets.ReorderChild), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_first_target);
-        drop_order_first_target.drop.connect ((value, x, y) => on_drop (value, x, y, true));
+        signal_map[drop_order_first_target.drop.connect ((value, x, y) => on_drop (value, x, y, true))] = drop_order_first_target;
     }
 
     private bool on_drop (GLib.Value value, double x, double y, bool first = false) {

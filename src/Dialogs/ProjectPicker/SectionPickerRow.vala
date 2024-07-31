@@ -29,11 +29,17 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
 
     public signal void update_section ();
 
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+    
     public SectionPickerRow (Objects.Section section, string widget_type = "picker") {
         Object (
             section: section,
             widget_type: widget_type
         );
+    }
+
+    ~SectionPickerRow () {
+        print ("Destroying Dialogs.ProjectPicker.SectionPickerRow\n");
     }
 
     construct {
@@ -126,13 +132,13 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
             var select_gesture = new Gtk.GestureClick ();
             add_controller (select_gesture);
 
-            select_gesture.pressed.connect (() => {
+            signal_map[select_gesture.pressed.connect (() => {
                 Services.EventBus.get_default ().section_picker_changed (section.id);
-            });
+            })] = select_gesture;
     
-            Services.EventBus.get_default ().section_picker_changed.connect ((type, id) => {
+            signal_map[Services.EventBus.get_default ().section_picker_changed.connect ((type, id) => {
                 selected_revealer.reveal_child = section.id == id;
-            });
+            })] = Services.EventBus.get_default ();
         }
 
         if (widget_type == "order") {
@@ -140,7 +146,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
                 reorder_child.build_drag_and_drop ();
             }
             
-            hidded_switch.notify["active"].connect (() => {
+            signal_map[hidded_switch.notify["active"].connect (() => {
                 if (section.id == "") {
                     section.project.inbox_section_hidded = !hidded_switch.active;
                     section.project.update_local ();
@@ -150,21 +156,29 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
                 }
 
                 update_section ();
-            });
+            })] = hidded_switch;
 
-            reorder_child.on_drop_end.connect (() => {
+            signal_map[reorder_child.on_drop_end.connect (() => {
                 update_section ();
-            });
+            })] = reorder_child;
         }
 
         if (widget_type == "menu") {
-            section.unarchived.connect (() => {
+            signal_map[section.unarchived.connect (() => {
                 hide_destroy ();
-            });
+            })] = section;
         }
 
         section.deleted.connect (() => {
             hide_destroy ();
+        });
+
+        destroy.connect (() => {
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signal_map.clear ();
         });
     }
 
@@ -194,15 +208,15 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
 			width_request = 250
 		};
 
-		delete_item.clicked.connect (() => {
+		signal_map[delete_item.clicked.connect (() => {
 			menu_popover.popdown ();
 			section.delete_section ((Gtk.Window) Planify.instance.main_window);
-		});
+		})] = delete_item;
 
-		unarchive_item.clicked.connect (() => {
+		signal_map[unarchive_item.clicked.connect (() => {
 			menu_popover.popdown ();
 			section.unarchive_section ();
-		});
+		})] = unarchive_item;
 
 		return menu_popover;
 	}

@@ -48,7 +48,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Revealer motion_top_revealer;
 
     public Gee.HashMap <string, Layouts.ProjectRow> subprojects_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
-    
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+
     private bool has_subprojects {
         get {
             return Util.get_default ().get_children (listbox).length () > 0;
@@ -82,6 +83,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             drag_n_drop: drag_n_drop,
             focusable: false
         );
+    }
+
+    ~ProjectRow() {
+        print ("Destroying Layouts.ProjectRow\n");
     }
 
     construct {
@@ -242,66 +247,63 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         var select_gesture = new Gtk.GestureClick ();
         handle_grid.add_controller (select_gesture);
-        select_gesture.released.connect (() => {
+        signal_map[select_gesture.released.connect (() => {
             Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id_string);
-        });
+        })] = select_gesture;
 
         var menu_gesture = new Gtk.GestureClick () {
             button = 3
         };
         handle_grid.add_controller (menu_gesture);
-        menu_gesture.pressed.connect ((n_press, x, y) => {
+        signal_map[menu_gesture.pressed.connect ((n_press, x, y) => {
             build_context_menu (x, y);
-        });
+        })] = menu_gesture;
 
         var motion_gesture = new Gtk.EventControllerMotion ();
         handle_grid.add_controller (motion_gesture);
-
-        motion_gesture.enter.connect (() => {
+        signal_map[motion_gesture.enter.connect (() => {
             arrow_revealer.reveal_child = has_subprojects;
-        });
+        })] = motion_gesture;
 
-        motion_gesture.leave.connect (() => {
+        signal_map[motion_gesture.leave.connect (() => {
             if (project.due_date == "") {
                 menu_stack.visible_child_name = "count_revealer";
             } else {
                 menu_stack.visible_child_name = "due_label";
             }
-        });
+        })] = motion_gesture;
 
         var arrow_gesture = new Gtk.GestureClick ();
-        arrow_gesture.set_button (1);
         arrow_button.add_controller (arrow_gesture);
-
-        arrow_gesture.pressed.connect (() => {
+        signal_map[arrow_gesture.pressed.connect (() => {
             arrow_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             listbox_revealer.reveal_child = !listbox_revealer.reveal_child;
             update_listbox_revealer ();
             project.update_local ();
-        });
+        })] = arrow_gesture;
 
-        Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
+        signal_map[Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.PROJECT && project.id_string == id) {
                 handle_grid.add_css_class ("selected");
             } else {
                 handle_grid.remove_css_class ("selected");
             }
-        });
+        })] = Services.EventBus.get_default ();
 
-        project.updated.connect (update_request);
-        project.deleted.connect (hide_destroy);
-        project.archived.connect (hide_destroy);
+        signal_map[project.updated.connect (update_request)] = project;
+        signal_map[project.deleted.connect (hide_destroy)] = project;
+        signal_map[project.archived.connect (hide_destroy)] = project;
 
-        project.project_count_updated.connect (() => {
+        signal_map[project.project_count_updated.connect (() => {
             update_count_label (project.project_count);
             icon_project.update_request ();
-        });
+        })] = project;
 
-        project.subproject_added.connect ((subproject) => {
+        signal_map[project.subproject_added.connect ((subproject) => {
             add_subproject (subproject);
-        });
+        })] = project;
 
-        Services.EventBus.get_default ().project_parent_changed.connect ((_project, old_parent_id, collapsed) => {
+        signal_map[Services.EventBus.get_default ().project_parent_changed.connect ((_project, old_parent_id, collapsed) => {
             if (old_parent_id == project.id) {
                 if (subprojects_hashmap.has_key (_project.id)) {
                     subprojects_hashmap [_project.id].hide_destroy ();
@@ -317,9 +319,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                     arrow_button.add_css_class ("opened");
                 }
             }
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.EventBus.get_default ().update_inserted_project_map.connect ((_row, old_parent_id) => {
+        signal_map[Services.EventBus.get_default ().update_inserted_project_map.connect ((_row, old_parent_id) => {
             var row = (Layouts.ProjectRow) _row;
 
             if (old_parent_id == project.id) {
@@ -327,16 +329,24 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                     subprojects_hashmap.unset (row.project.id);
                 }
             }
-        });
+        })] = Services.EventBus.get_default ();
 
-        project.loading_change.connect (() => {
+        signal_map[project.loading_change.connect (() => {
             is_loading = project.loading;
-        });
+        })] = project;
 
-        Services.EventBus.get_default ().drag_projects_end.connect ((source_id) => {
+        signal_map[Services.EventBus.get_default ().drag_projects_end.connect ((source_id) => {
             if (project.source_id == source_id) {
                 motion_top_revealer.reveal_child = false;
             }
+        })] = Services.EventBus.get_default ();
+
+        destroy.connect (() => {
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signal_map.clear ();
         });
     }
 
@@ -354,11 +364,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         // Magic Button
         var drop_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
         handle_grid.add_controller (drop_magic_button_target);
-        drop_magic_button_target.drop.connect ((value, x, y) => {
+        signal_map[drop_magic_button_target.drop.connect ((value, x, y) => {
             var dialog = new Dialogs.Project.new (project.source_id, false, project.id);
             dialog.present (Planify._instance.main_window);
             return true;
-        });
+        })] = drop_magic_button_target;
 
         // Drop
         build_drop_project_target ();
@@ -367,7 +377,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         // Drop Order
         var drop_order_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_target);
-        drop_order_target.drop.connect ((value, x, y) => {
+        signal_map[drop_order_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ProjectRow) value;
             var target_widget = this;            
 
@@ -415,13 +425,13 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             update_projects_child_order (target_list);
 
             return true;
-        });
+        })] = drop_order_target;
     }
 
     private void build_drop_motion () {
         var drop_motion_ctrl = new Gtk.DropControllerMotion ();
         add_controller (drop_motion_ctrl);
-        drop_motion_ctrl.enter.connect ((x, y) => {
+        signal_map[drop_motion_ctrl.enter.connect ((x, y) => {
             var drop = drop_motion_ctrl.get_drop ();
             GLib.Value value = Value (typeof (Gtk.Widget));
 
@@ -437,11 +447,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             } catch (Error e) {
                 debug (e.message);
             }
-        });
+        })] = drop_motion_ctrl;
 
-        drop_motion_ctrl.leave.connect (() => {
+        signal_map[drop_motion_ctrl.leave.connect (() => {
             motion_top_revealer.reveal_child = false;
-        });
+        })] = drop_motion_ctrl;
     }
 
     private void build_drag_source () {
@@ -449,30 +459,30 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         drag_source.set_actions (Gdk.DragAction.MOVE);
         handle_grid.add_controller (drag_source);
 
-        drag_source.prepare.connect ((source, x, y) => {
+        signal_map[drag_source.prepare.connect ((source, x, y) => {
             return new Gdk.ContentProvider.for_value (this);
-        });
+        })] = drag_source;
 
-        drag_source.drag_begin.connect ((source, drag) => {
+        signal_map[drag_source.drag_begin.connect ((source, drag) => {
             var paintable = new Gtk.WidgetPaintable (handle_grid);
             source.set_icon (paintable, 0, 0);
             drag_begin ();
-        });
+        })] = drag_source;
         
-        drag_source.drag_cancel.connect ((source, drag, reason) => {
+        signal_map[drag_source.drag_cancel.connect ((source, drag, reason) => {
             drag_end ();
             return true;
-        });
+        })] = drag_source;
 
-        drag_source.drag_end.connect ((source, drag, delete_data) => {
+        signal_map[drag_source.drag_end.connect ((source, drag, delete_data) => {
             drag_end ();
-        });
+        })] = drag_source;
     }
 
     private void build_drop_project_target () {
         var drop_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
         handle_grid.add_controller (drop_target);
-        drop_target.accept.connect ((drop) => {
+        signal_map[drop_target.accept.connect ((drop) => {
             GLib.Value value = Value (typeof (Gtk.Widget));
 
             try {
@@ -489,9 +499,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             }
 
             return false;
-        });
+        })] = drop_target;
 
-        drop_target.drop.connect ((value, x, y) => {
+        signal_map[drop_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ProjectRow) value;
             var target_widget = this;
 
@@ -521,13 +531,13 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             }
 
             return true;
-        });
+        })] = drop_target;
     }
 
     private void build_drop_item_target () {
         var drop_row_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
         handle_grid.add_controller (drop_row_target);
-        drop_row_target.accept.connect ((drop) => {
+        signal_map[drop_row_target.accept.connect ((drop) => {
             var target_widget = this;
 
             if (target_widget.project.is_deck) {
@@ -555,9 +565,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             }
 
             return false;
-        });
+        })] = drop_row_target;
 
-        drop_row_target.drop.connect ((value, x, y) => {
+        signal_map[drop_row_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
 
@@ -568,12 +578,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             }
 
             return true;
-        });
+        })] = drop_row_target;
 
         var drop_board_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);
         handle_grid.add_controller (drop_board_target);
-
-        drop_board_target.accept.connect ((drop) => {
+        signal_map[drop_board_target.accept.connect ((drop) => {
             GLib.Value value = Value (typeof (Gtk.Widget));
 
             try {
@@ -595,9 +604,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             }
 
             return false;
-        });
+        })] = drop_board_target;
 
-        drop_board_target.drop.connect ((value, x, y) => {
+        signal_map[drop_board_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
 
@@ -608,7 +617,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             }
 
             return true;
-        });
+        })] = drop_board_target;
     }
 
     public void drag_begin () {

@@ -30,6 +30,10 @@ public class Dialogs.ProjectPicker.ProjectPickerSourceRow : Gtk.ListBoxRow {
         );
     }
 
+    ~ProjectPickerSourceRow () {
+        print ("Destroying Dialogs.ProjectPicker.ProjectPickerSourceRow\n");
+    }
+
     construct {
         css_classes = { "no-selectable", "no-padding" };
         

@@ -38,6 +38,10 @@ public class Dialogs.LabelPicker : Adw.Dialog {
         );
     }
 
+    ~LabelPicker() {
+        print ("Destroying Dialogs.LabelPicker\n");
+    }
+
     construct {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class ("flat");

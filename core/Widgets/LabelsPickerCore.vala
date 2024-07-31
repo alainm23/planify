@@ -65,10 +65,16 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
     public signal void close ();
 
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+
     public LabelsPickerCore (LabelPickerType picker_type) {
         Object (
             picker_type: picker_type
         );
+    }
+
+    ~LabelsPickerCore() {
+        print ("Destroying Widgets.LabelsPickerCore\n");
     }
 
     construct {
@@ -93,11 +99,14 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         };
 
         listbox.set_placeholder (get_placeholder ());
+
         listbox.set_sort_func ((row1, row2) => {
             Objects.Label item1 = ((Widgets.LabelPicker.LabelRow) row1).label;
             Objects.Label item2 = ((Widgets.LabelPicker.LabelRow) row2).label;
             return item1.item_order - item2.item_order;
         });
+        
+        listbox.set_sort_func (null);
 
         var listbox_grid = new Adw.Bin () {
             margin_start = 9,
@@ -124,7 +133,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
         var listbox_controller_key = new Gtk.EventControllerKey ();
         listbox.add_controller (listbox_controller_key);
-        listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             var key = Gdk.keyval_name (keyval).replace ("KP_", "");
                         
             if (key == "Up" || key == "Down") {
@@ -139,10 +148,11 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             }
 
             return false;
-        });
+        })] = listbox_controller_key;
 
-        search_entry.search_changed.connect (() => {
+        signal_map[search_entry.search_changed.connect (() => {
             int size = 0;
+
             listbox.set_filter_func ((row) => {
                 var label = ((Widgets.LabelPicker.LabelRow) row).label;
                 var return_value = search_entry.text.down () in label.name.down ();
@@ -154,13 +164,15 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
                 return return_value;
             });
 
+            listbox.set_filter_func (null);
+
             if (picker_type == LabelPickerType.SELECT) {
                 add_tag_revealer.reveal_child = size <= 0;
                 placeholder_message_label.label = size <= 0 ? PLACEHOLDER_CREATE_MESSAGE.printf (search_entry.text) : PLACEHOLDER_MESSAGE;
             }
-        });
+        })] = search_entry;
 
-        search_entry.activate.connect (() => {
+        signal_map[search_entry.activate.connect (() => {
             if (source != null && search_entry.text.length > 0) {
                 Objects.Label label = Services.Store.instance ().get_label_by_name (search_entry.text, true, source.id);
                 if (label != null) {
@@ -171,10 +183,21 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
                     add_assign_label ();
                 }
             }
-        });
+        })] = search_entry;
 
-        Services.Store.instance ().label_added.connect ((label) => {
+        signal_map[Services.Store.instance ().label_added.connect ((label) => {
             add_label (label);
+        })] = Services.Store.instance ();
+
+        destroy.connect (() => {
+            listbox.set_sort_func (null);
+            listbox.set_filter_func (null);
+
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signal_map.clear ();
         });
     }
 

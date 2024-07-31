@@ -125,21 +125,17 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
             ellipsize = Pango.EllipsizeMode.END
         };
 
-        var select_icon = new Gtk.Image.from_icon_name ("object-select-symbolic");
-
         select_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
-            child = select_icon
-        };
-
-        var arrow_icon = new Gtk.Image.from_icon_name ("go-next-symbolic") {
-            css_classes = { "dim-label" },
-            margin_start = 6
+            child = new Gtk.Image.from_icon_name ("object-select-symbolic")
         };
 
         arrow_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
-            child = arrow_icon
+            child = new Gtk.Image.from_icon_name ("go-next-symbolic") {
+                css_classes = { "dim-label" },
+                margin_start = 6
+            }
         };
 
         secondary_label = new Gtk.Label (null) {
@@ -151,14 +147,12 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
             child = secondary_label
         };
 
-        var loading_spinner = new Gtk.Spinner () {
-            css_classes = { "submit-spinner" },
-            spinning = true
-        };
-
         loading_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
-            child = loading_spinner
+            child = new Gtk.Spinner () {
+                css_classes = { "submit-spinner" },
+                spinning = true
+            }
         };
 
         var end_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {

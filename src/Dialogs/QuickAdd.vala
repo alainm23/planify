@@ -23,6 +23,10 @@ public class Dialogs.QuickAdd : Adw.Dialog {
     public Objects.Item item { get; construct; }
     private Layouts.QuickAdd quick_add_widget;
 
+    ~QuickAdd() {
+        print ("Destroying Dialogs.QuickAdd\n");
+    }
+
     construct {
         Services.EventBus.get_default ().disconnect_typing_accel ();
 

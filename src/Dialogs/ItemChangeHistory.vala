@@ -36,6 +36,10 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
         );
     }
 
+    ~ItemChangeHistory() {
+        print ("Destroying Dialogs.ItemChangeHistory\n");
+    }
+
     construct {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class ("flat");
@@ -112,6 +116,10 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
             start_week = end_week;
             end_week = end_week + 7;
             fetch_data ();
+        });
+
+        closed.connect (() => {
+            listbox.set_header_func (null);
         });
     }
 

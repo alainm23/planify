@@ -44,6 +44,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
     private Gtk.SearchEntry search_entry;
     private Gtk.ListBox listbox;
     private Gee.ArrayList<Dialogs.QuickFind.QuickFindItem> items = new Gee.ArrayList<Dialogs.QuickFind.QuickFindItem> ();
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public QuickFind () {
         Object (
@@ -109,43 +110,49 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         default_widget = search_entry;
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        search_entry.search_changed.connect (() => {
+        signal_map[search_entry.search_changed.connect (() => {
             search_changed ();
-        });
+        })] = search_entry;
 
         var listbox_controller_key = new Gtk.EventControllerKey ();
         listbox.add_controller (listbox_controller_key);
-        listbox_controller_key.key_pressed.connect (key_pressed);
+        signal_map[listbox_controller_key.key_pressed.connect (key_pressed)] = listbox_controller_key;
 
-        listbox.row_activated.connect ((row) => {
+        signal_map[listbox.row_activated.connect ((row) => {
             row_activated (row);
-        });
+        })] = listbox;
 
         var search_entry_ctrl_key = new Gtk.EventControllerKey ();
         search_entry.add_controller (search_entry_ctrl_key);
-        search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 hide_destroy ();
             }
 
             return false;
-        });
+        })] = search_entry_ctrl_key;
 
         var event_controller_key = new Gtk.EventControllerKey ();
 		((Gtk.Widget) this).add_controller (event_controller_key);
-        event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
 			if (keyval == 65307) {
 				hide_destroy ();
 			}
 
 			return false;
-        });
+        })] = event_controller_key;
 
-        cancel_button.clicked.connect (() => {
+        signal_map[cancel_button.clicked.connect (() => {
             hide_destroy ();
-        });
+        })] = cancel_button;
 
         closed.connect (() => {
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signal_map.clear ();
+            
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
