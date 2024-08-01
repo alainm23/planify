@@ -60,7 +60,7 @@ public class Objects.Source : Objects.BaseObject {
             }
 
             if (source_type == SourceType.CALDAV) {
-                _subheader_text = _("CalDAV - ") + caldav_data.caldav_type.title ();
+                _subheader_text = caldav_data.caldav_type.title ();
                 return _subheader_text;
             }
 
