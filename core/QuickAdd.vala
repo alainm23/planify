@@ -41,6 +41,7 @@ public class Layouts.QuickAdd : Adw.Bin {
     public signal void hide_destroy ();
     public signal void send_interface_id (string id);
     public signal void add_item_db (Objects.Item item, Gee.ArrayList<Objects.Reminder> reminders);
+    public signal void error (HttpResponse response);
 
     public bool ctrl_pressed { get; set; default = false; }
     public bool shift_pressed { get; set; default = false; }
@@ -126,7 +127,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         description_textview.remove_css_class ("view");
 
         item_labels = new Widgets.ItemLabels (item) {
-            margin_start = 6,
+            margin_start = 12,
             top_margin = 12
         };
 
@@ -139,9 +140,10 @@ public class Layouts.QuickAdd : Adw.Bin {
         reminder_button = new Widgets.ReminderPicker.ReminderButton (true);
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
-            margin_start = 3,
-            margin_end = 3,
-            margin_bottom = 3
+            margin_start = 6,
+            margin_end = 6,
+            margin_bottom = 6,
+            margin_top = 6
         };
 
         var action_box_right = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
@@ -393,7 +395,10 @@ public class Layouts.QuickAdd : Adw.Bin {
         if (item.project.source_type == SourceType.LOCAL) {
             item.id = Util.get_default ().generate_id ();
             _add_item (item);
-        } else if (item.project.source_type == SourceType.TODOIST) {
+            return;
+        }
+        
+        if (item.project.source_type == SourceType.TODOIST) {
             is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
                 HttpResponse response = Services.Todoist.get_default ().add.end (res);
@@ -402,9 +407,15 @@ public class Layouts.QuickAdd : Adw.Bin {
                 if (response.status) {
                     item.id = response.data;
                     _add_item (item);
+                } else {
+                    error (response);
                 }
             });
-        } else if (item.project.source_type == SourceType.CALDAV) {
+
+            return;
+        }
+        
+        if (item.project.source_type == SourceType.CALDAV) {
             is_loading = true;
             item.id = Util.get_default ().generate_id ();
             Services.CalDAV.Core.get_default ().add_task.begin (item, false, (obj, res) => {
@@ -413,8 +424,12 @@ public class Layouts.QuickAdd : Adw.Bin {
 
                 if (response.status) {
                     _add_item (item);
+                } else {
+                    error (response);
                 }
             });
+
+            return;
         }
     }
 

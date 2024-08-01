@@ -23,6 +23,12 @@ public class Dialogs.QuickAdd : Adw.Dialog {
     public Objects.Item item { get; construct; }
     private Layouts.QuickAdd quick_add_widget;
 
+    public QuickAdd () {
+        Object (
+            content_width: 450
+        );
+    }
+
     ~QuickAdd() {
         print ("Destroying Dialogs.QuickAdd\n");
     }
