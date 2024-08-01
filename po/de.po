@@ -1979,13 +1979,13 @@ msgstr "Aktualisiert am"
 #: src/Dialogs/ItemChangeHistory.vala:62
 msgid ""
 "Your change history will be displayed here once you start making changes."
-msgstr ""
+msgstr "Wenn Änderungen vorgenommen wurden, wird hier der Verlauf angezeigt."
 
 # # c-format
 #: src/Dialogs/ItemChangeHistory.vala:124
 #, c-format
 msgid "Load more history from %d weeks ago…"
-msgstr ""
+msgstr "Mehr Verlauf von vor %d Wochen laden…"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:39
 msgid "Quick Find"
@@ -2092,7 +2092,7 @@ msgstr "Kontaktiere uns"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:225
 msgid "Request a feature or ask us anything"
-msgstr "Fordere eine Funktion an oder frage uns etwas"
+msgstr "Schlage eine Funktion vor oder frage uns etwas"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:241
 msgid "Tweet Us"
@@ -2154,7 +2154,7 @@ msgstr "Startseite"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:363
 msgid "Custom Sort Order"
-msgstr "Benutzerdefinierte Sortierreihenfolge"
+msgstr "Benutzerdefiniert"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:367
 msgid "Sort by"
@@ -2281,7 +2281,7 @@ msgstr "Aufgabe abschließen"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:586
 msgid "Play a sound when tasks are completed"
-msgstr "Spiele einen Ton wenn Aufgaben vollendet wurden"
+msgstr "Spiele einen Ton ab, wenn Aufgaben abgeschlossen werden"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:592
 msgid "Open Task In Sidebar View"
@@ -2334,7 +2334,7 @@ msgstr "Du kannst diese Kategorien per Drag & Drop sortieren"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:969
 msgid "Display Name"
-msgstr "ANzeigename"
+msgstr "Anzeigename"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:975
 msgid "Sync Server"
@@ -2528,7 +2528,7 @@ msgstr "Von Planner migrieren"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:116
 msgid "The Backup was created successfully."
-msgstr "Aufgaben erfolgreich migriert"
+msgstr "Sicherung erfolgreich erstellt"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:133
 msgid "Tasks Migrate Successfully"
@@ -2573,7 +2573,7 @@ msgstr "Ausgewählte Datei ist ungültig"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:323
 msgid "View Backup"
-msgstr "Sicherung erstellen"
+msgstr "Sicherung anzeigen"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:30
 msgid "Show in Sidebar"
