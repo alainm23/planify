@@ -298,13 +298,9 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
             source.caldav_data.user_displayname = doc.get_elements_by_tag_name ("d:displayname").get_element (0).text_content;
         }
 
-        print ("source.caldav_data.user_displayname: %s\n".printf (source.caldav_data.user_displayname));
-
         if (doc.get_elements_by_tag_name ("s:email-address").length > 0) {
             source.caldav_data.user_email = doc.get_elements_by_tag_name ("s:email-address").get_element (0).text_content;
         }
-
-        print ("source.caldav_data.user_email: %s\n".printf (source.caldav_data.user_email));
 
         if (source.caldav_data.user_email != null && source.caldav_data.user_email != "") {
             source.display_name = source.caldav_data.user_email;
