@@ -1658,12 +1658,12 @@ msgstr "Erledigte Aufgaben unterstreichen"
 
 #: src/Views/Project/Project.vala:495
 msgid "Sort By"
-msgstr "Sortieren nach"
+msgstr "Sortieren"
 
 #: src/Views/Project/Project.vala:504 src/Views/Today.vala:642
 #: src/Views/Scheduled/Scheduled.vala:233
 msgid "Filter By"
-msgstr "Filter"
+msgstr "Filtern"
 
 # # c-format
 #: src/Views/Project/Project.vala:568
@@ -2334,7 +2334,7 @@ msgstr "Du kannst diese Kategorien per Drag & Drop sortieren"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:969
 msgid "Display Name"
-msgstr ""
+msgstr "ANzeigename"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:975
 msgid "Sync Server"
@@ -2542,7 +2542,7 @@ msgstr "Die Datenbankdatei ist nicht vorhanden."
 msgid "Import Overview"
 msgstr "Wiederherstellungsübersicht"
 
-# Maybe just "Hinzufügen" because of space issues
+# Maybe just "Hinzufügen" because of space issues!?
 #: src/Dialogs/Preferences/Pages/Backup.vala:176
 msgid "To-Dos"
 msgstr "Aufgabe hinzufügen"
