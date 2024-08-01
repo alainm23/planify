@@ -67,6 +67,15 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.10.4" date="2024-08-01">
+      <description translate="no">
+        <ul>
+          <li>Fixed bug that did not allow to see the completed tasks (#1386).</li>
+          <li>Support for syncing Nextcloud accounts that use a custom port (#1385).</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.10.3" date="2024-07-31">
       <description translate="no">
         <ul>
