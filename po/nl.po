@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-29 08:47-0500\n"
-"PO-Revision-Date: 2024-06-20 17:20+0200\n"
+"PO-Revision-Date: 2024-07-30 19:37+0200\n"
 "Last-Translator: Gert-dev\n"
 "Language-Team: Dutch <>\n"
 "Language: nl\n"
@@ -153,7 +153,7 @@ msgstr "Nextcloud"
 
 #: core/Enum.vala:358
 msgid "Radicale"
-msgstr ""
+msgstr "Radicale"
 
 #: core/Enum.vala:416 core/Enum.vala:584 core/Widgets/PriorityButton.vala:73
 #: src/Views/Project/Project.vala:455 src/Views/Project/Project.vala:499
@@ -173,18 +173,16 @@ msgid "Due Date"
 msgstr "Deadline"
 
 #: core/Enum.vala:528
-#, fuzzy
 msgid "Task Created"
-msgstr "Taak gedupliceerd"
+msgstr "Taak aangemaakt"
 
 #: core/Enum.vala:531
-#, fuzzy
 msgid "Task Updated"
-msgstr "Taak gedupliceerd"
+msgstr "Taak bijgewerkt"
 
 #: core/Enum.vala:575
 msgid "Content"
-msgstr ""
+msgstr "Inhoud"
 
 #: core/Enum.vala:578 src/Layouts/ItemSidebarView.vala:181
 #: src/Dialogs/Section.vala:85
@@ -202,7 +200,7 @@ msgstr "Naam taak"
 
 #: core/QuickAdd.vala:71
 msgid "This field is required"
-msgstr ""
+msgstr "Dit veld is verplicht"
 
 #: core/QuickAdd.vala:91
 msgid "Add a description…"
@@ -492,13 +490,12 @@ msgstr "Toon je kalenderevenementen"
 
 # Assumed error "turn ir on" -> "turn it on"
 #: core/Util/Util.vala:663
-#, fuzzy
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
 "Je kan de kalenderevenementen uit je systeem ook in Planify weergeven. Ga "
-"naar 'Voorkeuren' 🡒 Kalenderevenementen om dit aan te zetten."
+"naar 'Voorkeuren' 🡒 Algemeen 🡒 Kalenderevenementen om dit aan te zetten."
 
 #: core/Util/Util.vala:669
 msgid "Enable synchronization with third-party service."
@@ -593,31 +590,31 @@ msgstr "Project gedupliceerd"
 
 #: core/Util/Util.vala:1205 src/Dialogs/Preferences/PreferencesWindow.vala:613
 msgid "At due time"
-msgstr ""
+msgstr "Met deadline"
 
 #: core/Util/Util.vala:1208 src/Dialogs/Preferences/PreferencesWindow.vala:614
 msgid "10 minutes before"
-msgstr ""
+msgstr "10 minuten ervoor"
 
 #: core/Util/Util.vala:1211 src/Dialogs/Preferences/PreferencesWindow.vala:615
 msgid "30 minutes before"
-msgstr ""
+msgstr "30 minuten ervoor"
 
 #: core/Util/Util.vala:1214 src/Dialogs/Preferences/PreferencesWindow.vala:616
 msgid "45 minutes before"
-msgstr ""
+msgstr "45 minuten ervoor"
 
 #: core/Util/Util.vala:1217 src/Dialogs/Preferences/PreferencesWindow.vala:617
 msgid "1 hour before"
-msgstr ""
+msgstr "1 uur ervoor"
 
 #: core/Util/Util.vala:1220 src/Dialogs/Preferences/PreferencesWindow.vala:618
 msgid "2 hours before"
-msgstr ""
+msgstr "2 uren ervoor"
 
 #: core/Util/Util.vala:1223 src/Dialogs/Preferences/PreferencesWindow.vala:619
 msgid "3 hours before"
-msgstr ""
+msgstr "3 uren ervoor"
 
 #: core/Util/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:82
@@ -711,9 +708,8 @@ msgid "Unknown error"
 msgstr "Onbekende fout"
 
 #: core/Services/CalDAV/Core.vala:53 core/Services/CalDAV/Core.vala:117
-#, fuzzy
 msgid "No Provider Available"
-msgstr "Niet beschikbaar"
+msgstr "Geen provider beschikbaar"
 
 #: core/Widgets/PinButton.vala:31 src/Layouts/ItemBoard.vala:209
 msgid "Pinned"
@@ -778,10 +774,8 @@ msgid "Create '%s'"
 msgstr "'%s' aanmaken"
 
 #: core/Widgets/LabelsPickerCore.vala:78
-#, fuzzy
 msgid "Your list of filters will show up here."
-msgstr ""
-"Je herinneringen zullen hier getoond worden. Voeg er één toe via de '+'-knop."
+msgstr "Je filters zullen hier getoond worden."
 
 #: core/Widgets/LabelsPickerCore.vala:82
 msgid "Search or Create"
@@ -951,7 +945,7 @@ msgstr "Herinnering toevoegen"
 #: core/Widgets/Markdown/MarkdownEditView.vala:138
 #: core/Widgets/Markdown/MarkdownEditView.vala:141
 msgid "Couldn't find an app to handle file URIs"
-msgstr ""
+msgstr "Kon geen applicatie terugvinden om bestands-URI's mee te openen"
 
 #: core/Objects/Item.vala:1321
 msgid "Task copied to clipboard"
@@ -1009,14 +1003,12 @@ msgid "Todoist"
 msgstr "Todoist"
 
 #: core/Objects/Source.vala:63
-#, fuzzy
 msgid "CalDAV - "
-msgstr "CalDAV"
+msgstr "CalDAV - "
 
 #: core/Objects/Source.vala:161
-#, fuzzy
 msgid "Delete Source?"
-msgstr "Onderverdeling verwijderen"
+msgstr "Bron verwijderen?"
 
 #: core/Objects/Filters/Pinboard.vala:51 core/Objects/Filters/Scheduled.vala:51
 #: core/Objects/Filters/Today.vala:67 core/Objects/Filters/Priority.vala:59
@@ -1101,18 +1093,16 @@ msgid "All Tasks"
 msgstr "Alle taken"
 
 #: core/Objects/Filters/AllItems.vala:34
-#, fuzzy
 msgid "all tasks"
-msgstr "Alle taken"
+msgstr "alle taken"
 
 #: core/Objects/Filters/AllItems.vala:34
-#, fuzzy
 msgid "all"
-msgstr "Alle"
+msgstr "alle"
 
 #: src/App.vala:81
 msgid "Are you sure you want to reset all? (y/n): "
-msgstr "Weet je zeker dat je alles opnieuw wil instellen? (j/n):"
+msgstr "Weet je zeker dat je alles opnieuw wil instellen? (j/n): "
 
 #: src/App.vala:84
 msgid "y"
@@ -1160,12 +1150,11 @@ msgstr "Gearchiveerde projecten"
 
 #: src/MainWindow.vala:581
 msgid "Oops! Something happened"
-msgstr ""
+msgstr "Oeps! Er is iets gebeurd"
 
 #: src/MainWindow.vala:584
-#, fuzzy
 msgid "See More"
-msgstr "Nog één aanmaken"
+msgstr "Meer tonen"
 
 #: src/Services/Backups.vala:411
 msgid "Delete Backup"
@@ -1326,9 +1315,8 @@ msgid "Delete Task"
 msgstr "Taak verwijderen"
 
 #: src/Layouts/ItemRow.vala:1118 src/Layouts/ItemSidebarView.vala:454
-#, fuzzy
 msgid "Use as a Note"
-msgstr "Datum kiezen"
+msgstr "Als opmerking gebruiken"
 
 #: src/Layouts/ItemRow.vala:1121 src/Layouts/ItemSidebarView.vala:457
 msgid "Copy to Clipboard"
@@ -1342,7 +1330,7 @@ msgstr "Herhalen"
 #: src/Layouts/ItemRow.vala:1130 src/Layouts/ItemSidebarView.vala:466
 #: src/Dialogs/ItemChangeHistory.vala:33
 msgid "Change History"
-msgstr ""
+msgstr "Geschiedenis wijzigen"
 
 #: src/Layouts/ItemRow.vala:1232 src/Layouts/ItemSidebarView.vala:569
 msgid "Daily"
@@ -1476,19 +1464,17 @@ msgid "Add Section"
 msgstr "Onderverdeling toevoegen"
 
 #: src/Widgets/Attachments.vala:51
-#, fuzzy
 msgid "Attachments"
-msgstr "Bijlagen toevoegen"
+msgstr "Bijlagen"
 
 #. translators: Open file
 #: src/Widgets/Attachments.vala:134
 msgid "Open"
-msgstr ""
+msgstr "Openen"
 
 #: src/Widgets/Attachments.vala:235
-#, fuzzy
 msgid "Attach File"
-msgstr "Bestanden back-uppen"
+msgstr "Bijlage toevoegen"
 
 #: src/Widgets/Attachments.vala:293
 #: src/Dialogs/Preferences/Pages/Backup.vala:375
@@ -1497,35 +1483,34 @@ msgstr "Downloaden"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:60
 msgid "Previous"
-msgstr ""
+msgstr "Vorige"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:81
 msgid "New"
-msgstr ""
+msgstr "Nieuw"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:165
 #: src/Widgets/ItemChangeHistoryRow.vala:166
 msgid "Pin: Active"
-msgstr ""
+msgstr "Vastgeprikt: Actief"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:165
 #: src/Widgets/ItemChangeHistoryRow.vala:166
 msgid "Pin: Inactive"
-msgstr ""
+msgstr "Vastgeprikt: Inactief"
 
 #: src/Widgets/SourceRow.vala:63
 msgid "Remove"
-msgstr ""
+msgstr "Verwijderen"
 
 #: src/Widgets/SourceRow.vala:80
 #: src/Dialogs/Preferences/PreferencesWindow.vala:847
-#, fuzzy
 msgid "Add Source"
-msgstr "Bron"
+msgstr "Bron toevoegen"
 
 #: src/Widgets/ErrorView.vala:103
 msgid "Report Issue"
-msgstr ""
+msgstr "Probleem rapporteren"
 
 #: src/Views/Project/Project.vala:57
 msgid "Project Actions"
@@ -1669,7 +1654,7 @@ msgstr ""
 
 #: src/Views/Project/List.vala:52 src/Views/Project/Board.vala:42
 msgid "Note"
-msgstr "Opmerking..."
+msgstr "Opmerking"
 
 #: src/Views/Project/List.vala:82 src/Views/Today.vala:221
 #: src/Views/Label/Label.vala:69 src/Views/Filter.vala:83
@@ -1694,10 +1679,8 @@ msgid "Order by"
 msgstr "Sorteren op"
 
 #: src/Views/Label/LabelSourceRow.vala:43
-#, fuzzy
 msgid "No labels available. Create one by clicking on the '+' button"
-msgstr ""
-"Geen favorieten beschikbaar. Maak er één aan door op de '+'-knop te drukken"
+msgstr "Geen labels beschikbaar. Maak er één aan via de '+'-knop"
 
 #: src/Views/Label/LabelSourceRow.vala:51 src/Dialogs/Project.vala:213
 msgid "Add Project"
@@ -1731,9 +1714,8 @@ msgstr "Project bewerken"
 #: src/Dialogs/Project.vala:353
 #: src/Dialogs/Preferences/PreferencesWindow.vala:851
 #: src/Dialogs/Preferences/Pages/Backup.vala:164
-#, fuzzy
 msgid "Sources"
-msgstr "Bron"
+msgstr "Bronnen"
 
 #: src/Dialogs/Project.vala:441
 msgid "Project added successfully!"
@@ -1972,11 +1954,12 @@ msgstr "Bijgewerkt op"
 msgid ""
 "Your change history will be displayed here once you start making changes."
 msgstr ""
+"Een wijzigingslogboek zal hier getoond worden zodra je aanpassingen maakt."
 
 #: src/Dialogs/ItemChangeHistory.vala:124
 #, c-format
 msgid "Load more history from %d weeks ago…"
-msgstr ""
+msgstr "Meer geschiedenis van %d weken geleden laden…"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:39
 msgid "Quick Find"
@@ -2059,7 +2042,7 @@ msgstr "Back-ups"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:195
 msgid "Backup or migrate from Planner."
-msgstr "Back-up maken of migreren van Planner"
+msgstr "Back-up maken of migreren van Planner."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:201
 msgid "Create Tutorial Project"
@@ -2224,8 +2207,8 @@ msgstr "Taak afronden"
 msgid ""
 "Complete your to-do instantly or wait 2500 milliseconds with the undo option"
 msgstr ""
-"Taken onmiddellijk afronden of een vertraging gebruiken met optie om deze "
-"ongedaan maken?"
+"Taken onmiddellijk afronden of een vertraging van 2500 milliseconden "
+"gebruiken met optie om deze ongedaan maken?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:543
 msgid "Priority 1"
@@ -2281,17 +2264,18 @@ msgstr "Attentie vragen bij één"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:609
 msgid "Enabled"
-msgstr ""
+msgstr "Ingeschakeld"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:622
-#, fuzzy
 msgid "Automatic reminders"
-msgstr "Stel herinneringen op tijd in!"
+msgstr "Automatische herinneringen"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:623
 msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr ""
+"Wanneer ingeschakeld zal er standaard een herinnering ingesteld worden "
+"vooraleer de deadline van de taak afloopt."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:700
 msgid "App Theme"
@@ -2318,13 +2302,12 @@ msgid "Accounts"
 msgstr "Accounts"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:862
-#, fuzzy
 msgid "You can sort your accounts by dragging and dropping"
-msgstr "Je kan je weergaves sorteren door drag-'n-drop"
+msgstr "Je kan  accounts sorteren door te slepen"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:969
 msgid "Display Name"
-msgstr ""
+msgstr "Weergavenaam"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:975
 msgid "Sync Server"
@@ -2332,13 +2315,12 @@ msgstr "Met server synchroniseren"
 
 # Assumed error "Planner" -> "Planify"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:976
-#, fuzzy
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
 msgstr ""
 "Activeer deze instelling om Planify elke 15 minuten automatisch te laten "
-"synchroniseren met je Todoist-account"
+"synchroniseren met je account"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:989
 msgid "Last Sync"
@@ -2391,9 +2373,8 @@ msgstr ""
 "nemen"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1224
-#, fuzzy
 msgid "Synchronizing…"
-msgstr "Synchroniseren..."
+msgstr "Synchroniseren…"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1251
 msgid "Please Enter Your Credentials"
@@ -2504,10 +2485,8 @@ msgid "Backup Files"
 msgstr "Bestanden back-uppen"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:75
-#, fuzzy
 msgid "No backups found, create one clicking the button above."
-msgstr ""
-"Geen account beschikbaar, synchroniseer er één door op de '+'-knop te klikken"
+msgstr "Geen back-ups teruggevonden, maak er één aan via de '+'-knop."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:80
 msgid "Migrate"
@@ -2518,9 +2497,8 @@ msgid "Migrate From Planner"
 msgstr "Migreren van Planner"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:116
-#, fuzzy
 msgid "The Backup was created successfully."
-msgstr "Taken succesvol gemigreerd"
+msgstr "De back-up werd met succes aangemaakt."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:133
 msgid "Tasks Migrate Successfully"

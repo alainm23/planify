@@ -101,18 +101,8 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 		grid.append (color_grid);
 		grid.append (name_label);
 
-		var main_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			child = grid
-		};
-
-		child = main_revealer;
-
-		Timeout.add (main_revealer.transition_duration, () => {
-			main_revealer.reveal_child = true;
-			return GLib.Source.REMOVE;
-		});
-
+		child = grid;
+		
 		update_color ();
 		cal.notify["color"].connect (update_color);
 		update_timelabel ();

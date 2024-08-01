@@ -102,42 +102,98 @@ public enum FilterType {
 
 	public string to_string () {
 		switch (this) {
-		case TODAY:
-			return "today";
+			case INBOX:
+				return "inbox";
 
-		case INBOX:
-			return "inbox";
+			case TODAY:
+				return "today";
 
-		case SCHEDULED:
-			return "scheduled";
+			case SCHEDULED:
+				return "scheduled";
 
-		case PINBOARD:
-			return "pinboard";
+			case PINBOARD:
+				return "pinboard";
 
-		case LABELS:
-			return "labels";
+			case LABELS:
+				return "labels";
 
-		case COMPLETED:
-			return "completed";
+			case COMPLETED:
+				return "completed";
 
-		default:
-			assert_not_reached ();
-		}
+			default:
+				assert_not_reached ();
+			}
 	}
 
 	public string get_name () {
 		switch (this) {
-			case TODAY:
-				return _("Today");
-
 			case INBOX:
 				return _("Inbox");
+
+			case TODAY:
+				return _("Today");
 
 			case SCHEDULED:
 				return _("Scheduled");
 
 			case PINBOARD:
 				return _("Pinboard");
+
+			case LABELS:
+				return _("Labels");
+
+			case COMPLETED:
+				return _("Completed");
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public string get_icon () {
+		switch (this) {
+			case INBOX:
+				return "mailbox-symbolic";
+
+			case TODAY:
+				return "star-outline-thick-symbolic";
+
+			case SCHEDULED:
+				return "month-symbolic";
+
+			case PINBOARD:
+				return "pin-symbolic";
+
+			case LABELS:
+				return "tag-outline-symbolic";
+
+			case COMPLETED:
+				return "check-round-outline-symbolic";
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public string get_color () {
+		switch (this) {
+			case INBOX:
+				return "#3584e4";
+
+			case TODAY:
+				return "#33d17a";
+
+			case SCHEDULED:
+				return "#9141ac";
+
+			case PINBOARD:
+				return "#ed333b";
+
+			case LABELS:
+				return "#986a44";
+
+			case COMPLETED:
+				return "#ff7800";
 
 			default:
 				assert_not_reached ();

@@ -145,11 +145,8 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
             }
         });
 
-        Services.Settings.get_default ().settings.changed.connect ((key) => {
-            if (key == "projects-sort-by" || key == "projects-ordered") {
-                update_projects_sort ();
-            }
-        });
+        Services.Settings.get_default ().settings.changed["projects-sort-by"].connect (update_projects_sort);
+        Services.Settings.get_default ().settings.changed["projects-ordered"].connect (update_projects_sort);
     }
 
     public void hide_destroy () {

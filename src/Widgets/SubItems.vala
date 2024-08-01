@@ -278,13 +278,11 @@ public class Widgets.SubItems : Adw.Bin {
 			update_sort ();
 		})] = item_parent.project;
 
-        signals_map[Services.Settings.get_default ().settings.changed.connect ((key) => {
-			if (key == "always-show-completed-subtasks") {
-                checked_revealer.reveal_child = show_completed;
-                if (show_completed) {
-                    add_completed_items ();
-                }
-			}
+        signals_map[Services.Settings.get_default ().settings.changed["always-show-completed-subtasks"].connect (() => {
+            checked_revealer.reveal_child = show_completed;
+            if (show_completed) {
+                add_completed_items ();
+            }
 		})] = Services.Settings.get_default ().settings;
 
         signals_map[Services.EventBus.get_default ().expand_all.connect ((project_id, value) => {

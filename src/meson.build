@@ -26,7 +26,7 @@ sources = files(
   'Services/CalendarEvents/DateIterator.vala',
   'Services/CalendarEvents/DateRange.vala',
   'Services/CalendarEvents/Util.vala',
-
+  
   'Layouts/Sidebar.vala',
   'Layouts/FilterPaneRow.vala',
   'Layouts/ProjectRow.vala',
