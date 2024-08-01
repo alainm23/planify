@@ -278,6 +278,9 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
         try {
             var _uri = GLib.Uri.parse (url, GLib.UriFlags.NONE);
             server_url = "%s://%s".printf (_uri.get_scheme (), _uri.get_host ());
+            if (_uri.get_port () > 0) {
+                server_url = "%s://%s:%d".printf (_uri.get_scheme (), _uri.get_host (), _uri.get_port ());
+            }
         } catch (Error e) {
             debug (e.message);
         }
@@ -293,21 +296,21 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
         if (doc.get_elements_by_tag_name ("d:displayname").length > 0) {
             source.caldav_data.user_displayname = doc.get_elements_by_tag_name ("d:displayname").get_element (0).text_content;
         }
-
+        
         if (doc.get_elements_by_tag_name ("s:email-address").length > 0) {
             source.caldav_data.user_email = doc.get_elements_by_tag_name ("s:email-address").get_element (0).text_content;
         }
-
-        if (source.caldav_data.user_email != "") {
+        
+        if (source.caldav_data.user_email != null && source.caldav_data.user_email != "") {
             source.display_name = source.caldav_data.user_email;
             return;
         }
-
-        if (source.caldav_data.user_displayname != "") {
+        
+        if (source.caldav_data.user_displayname != null && source.caldav_data.user_displayname != "") {
             source.display_name = source.caldav_data.user_displayname;
             return;
         }
-
+        
         source.display_name = _("Nextcloud");
     }
 

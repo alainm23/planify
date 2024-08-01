@@ -39,7 +39,9 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
             active = source.is_visible
         };
 
-        var header_label = new Gtk.Label (source.display_name);
+        var header_label = new Gtk.Label (source.display_name) {
+            halign = Gtk.Align.START
+        };
 
         var subheader_label = new Gtk.Label (source.subheader_text) {
             halign = Gtk.Align.START,
