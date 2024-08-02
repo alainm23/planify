@@ -296,7 +296,8 @@ public class Widgets.AttachmentRow : Gtk.ListBoxRow {
 		var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 3,
             margin_start = 6,
-            margin_bottom = 3
+            margin_bottom = 3,
+            margin_end = 6
         };
 
 		content_box.append (new Gtk.Image.from_icon_name ("paper-symbolic"));
