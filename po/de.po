@@ -1007,7 +1007,7 @@ msgstr "Dies wird %s und alle seine Aufgaben archivieren."
 #: src/Layouts/ProjectRow.vala:655 src/Layouts/SectionRow.vala:670
 #: src/Views/Project/Project.vala:252
 msgid "Archive"
-msgstr "Archiv"
+msgstr "Archivieren"
 
 # # c-format
 #: core/Objects/Section.vala:325 src/Layouts/SectionBoard.vala:561
