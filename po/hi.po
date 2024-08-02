@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: https://github.com/alainm23/planify/issues\n"
 "POT-Creation-Date: 2024-08-02 06:25-0500\n"
-"PO-Revision-Date: 2024-07-13 22:12+0530\n"
+"PO-Revision-Date: 2024-08-03 00:05+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "Language: hi\n"
@@ -161,7 +161,7 @@ msgstr "Nextcloud"
 
 #: core/Enum.vala:414
 msgid "Radicale"
-msgstr ""
+msgstr "Radicale"
 
 #: core/Enum.vala:472 core/Enum.vala:640 core/Widgets/PriorityButton.vala:73
 #: src/Views/Project/Project.vala:426 src/Views/Project/Project.vala:470
@@ -1140,7 +1140,7 @@ msgstr "संग्रहीत परियोजनाएं"
 
 #: src/MainWindow.vala:571
 msgid "Oops! Something happened"
-msgstr ""
+msgstr "उफ़! कुछ हुआ"
 
 #: src/MainWindow.vala:574
 msgid "See More"
@@ -1488,7 +1488,7 @@ msgstr "पिन: निष्क्रिय"
 
 #: src/Widgets/SourceRow.vala:65
 msgid "Remove"
-msgstr ""
+msgstr "हटाएं"
 
 #: src/Widgets/SourceRow.vala:82
 #: src/Dialogs/Preferences/PreferencesWindow.vala:847
@@ -1497,7 +1497,7 @@ msgstr "स्रोत"
 
 #: src/Widgets/ErrorView.vala:103
 msgid "Report Issue"
-msgstr ""
+msgstr "समस्या दर्ज करें"
 
 #: src/Views/Project/Project.vala:57
 msgid "Project Actions"
@@ -2288,7 +2288,7 @@ msgstr "आप अपने विचारों को खींचकर औ�
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:969
 msgid "Display Name"
-msgstr ""
+msgstr "प्रदर्शन नाम"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:975
 msgid "Sync Server"
@@ -2637,48 +2637,3 @@ msgstr "लेबल खोलें"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "पिनबोर्ड खोलें"
-
-#~ msgid "On this Computer"
-#~ msgstr "इस कंप्यूटर पर"
-
-#~ msgid "Labels: On This Computer"
-#~ msgstr "लेबल: इस कंप्यूटर पर"
-
-#~ msgid "Labels: Todoist"
-#~ msgstr "लेबल: Todoist"
-
-#~ msgid "Labels: Nextcloud"
-#~ msgstr "लेबल: Nextcloud"
-
-#~ msgid "Synchronize with your Todoist Account"
-#~ msgstr "अपने Todoist खाते के साथ समन्वयित करें"
-
-#~ msgid "Synchronization based on open Internet standards"
-#~ msgstr "खुले इंटरनेट मानकों पर आधारित समन्वयन"
-
-#~ msgid ""
-#~ "Activate this setting so that Planify automatically synchronizes with "
-#~ "your CalDAV account every 15 minutes"
-#~ msgstr ""
-#~ "इस सेटिंग को सक्रिय करें ताकि प्लॅानिफाई स्वचालित रूप से हर 15 मिनट में आपके CalDAV "
-#~ "खाते के साथ समन्वयित हो जाए"
-
-#~ msgid "Failed to login"
-#~ msgstr "लॉगिन करने में विफल"
-
-#~ msgid ""
-#~ "Are you sure you want to remove the Todoist sync? This action will delete "
-#~ "all your tasks and settings."
-#~ msgstr ""
-#~ "क्या आप वाकई Todoist समन्वयन को हटाना चाहते हैं? यह कार्रवाई आपके सभी कार्य और "
-#~ "सेटिंग मिटा देगी।"
-
-#~ msgid ""
-#~ "Are you sure you want to remove the CalDAV sync? This action will delete "
-#~ "all your tasks and settings."
-#~ msgstr ""
-#~ "क्या आप वाकई CalDAV समन्वयन को हटाना चाहते हैं? यह कार्रवाई आपके सभी कार्य और "
-#~ "सेटिंग मिटा देगी।"
-
-#~ msgid "Sign Off"
-#~ msgstr "साइन ऑफ़"
