@@ -67,6 +67,13 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.10.5" date="2024-08-02">
+      <description translate="no">
+        <ul>
+          <li>German translation update thanks to @McBaumwolle.</li>
+        </ul>
+      </description>
+    </release>
     <release version="4.10.4" date="2024-08-01">
       <description translate="no">
         <ul>

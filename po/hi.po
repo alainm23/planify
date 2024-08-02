@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-01 05:05-0500\n"
+"POT-Creation-Date: 2024-08-02 06:25-0500\n"
 "PO-Revision-Date: 2024-07-13 22:12+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -967,8 +967,9 @@ msgstr "इसे पूर्ववत नहीं किया जा सक�
 #: core/Objects/Source.vala:166 src/Services/Backups.vala:416
 #: src/Layouts/LabelRow.vala:178 src/Layouts/ItemSidebarView.vala:679
 #: src/Layouts/SectionBoard.vala:566 src/Widgets/MultiSelectToolbar.vala:220
-#: src/Widgets/MultiSelectToolbar.vala:260 src/Views/Project/Project.vala:573
-#: src/Views/Filter.vala:540 src/Dialogs/Preferences/Pages/Backup.vala:376
+#: src/Widgets/MultiSelectToolbar.vala:260 src/Widgets/Attachments.vala:293
+#: src/Views/Project/Project.vala:573 src/Views/Filter.vala:540
+#: src/Dialogs/Preferences/Pages/Backup.vala:376
 msgid "Delete"
 msgstr "मिटाएं"
 
@@ -1117,31 +1118,31 @@ msgstr "मुख्य मेनू"
 msgid "Open Quick Find"
 msgstr "शीघ्र खोज खोलें"
 
-#: src/MainWindow.vala:450 src/Dialogs/Preferences/PreferencesWindow.vala:49
+#: src/MainWindow.vala:494 src/Dialogs/Preferences/PreferencesWindow.vala:49
 msgid "Preferences"
 msgstr "प्राथमिकताएं"
 
-#: src/MainWindow.vala:453
+#: src/MainWindow.vala:497
 msgid "Keyboard Shortcuts"
 msgstr "कीबोर्ड शॉर्टकट"
 
-#: src/MainWindow.vala:456 src/Dialogs/WhatsNew.vala:146
+#: src/MainWindow.vala:500 src/Dialogs/WhatsNew.vala:146
 msgid "What's New"
 msgstr "नया क्या है"
 
-#: src/MainWindow.vala:459
+#: src/MainWindow.vala:503
 msgid "About Planify"
 msgstr "प्लॅानिफाई के बारे में"
 
-#: src/MainWindow.vala:461 src/Dialogs/ManageProjects.vala:28
+#: src/MainWindow.vala:505 src/Dialogs/ManageProjects.vala:28
 msgid "Archived Projects"
 msgstr "संग्रहीत परियोजनाएं"
 
-#: src/MainWindow.vala:527
+#: src/MainWindow.vala:571
 msgid "Oops! Something happened"
 msgstr ""
 
-#: src/MainWindow.vala:530
+#: src/MainWindow.vala:574
 msgid "See More"
 msgstr "और बनाएं"
 
@@ -1466,11 +1467,6 @@ msgstr "खोलें"
 #: src/Widgets/Attachments.vala:235
 msgid "Attach File"
 msgstr "फाइल जोड़ें"
-
-#: src/Widgets/Attachments.vala:293
-#: src/Dialogs/Preferences/Pages/Backup.vala:375
-msgid "Download"
-msgstr "डाउनलोड"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:60
 msgid "Previous"
@@ -2522,6 +2518,10 @@ msgstr "चयनित फाइल अमान्य है"
 #: src/Dialogs/Preferences/Pages/Backup.vala:323
 msgid "View Backup"
 msgstr "बैकअप देखें"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:375
+msgid "Download"
+msgstr "डाउनलोड"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:30
 msgid "Show in Sidebar"

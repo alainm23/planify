@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-01 05:04-0500\n"
+"POT-Creation-Date: 2024-08-02 06:25-0500\n"
 "PO-Revision-Date: 2024-04-28 17:39+0200\n"
 "Last-Translator: twlvnn <kraft_werk@tutanota.com>\n"
 "Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
@@ -579,8 +579,9 @@ msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️Следващо"
 
 # c-format
-#: core/Util/Util.vala:891 core/Objects/Item.vala:1548
 # c-format
+#: core/Util/Util.vala:891 core/Objects/Item.vala:1548
+#, fuzzy, c-format
 msgid "Task moved to %s"
 msgstr "Задачата е копирана в буфера за обмен"
 
@@ -989,8 +990,9 @@ msgstr "Това не може да бъде върнато"
 #: core/Objects/Source.vala:166 src/Services/Backups.vala:416
 #: src/Layouts/LabelRow.vala:178 src/Layouts/ItemSidebarView.vala:679
 #: src/Layouts/SectionBoard.vala:566 src/Widgets/MultiSelectToolbar.vala:220
-#: src/Widgets/MultiSelectToolbar.vala:260 src/Views/Project/Project.vala:573
-#: src/Views/Filter.vala:540 src/Dialogs/Preferences/Pages/Backup.vala:376
+#: src/Widgets/MultiSelectToolbar.vala:260 src/Widgets/Attachments.vala:293
+#: src/Views/Project/Project.vala:573 src/Views/Filter.vala:540
+#: src/Dialogs/Preferences/Pages/Backup.vala:376
 msgid "Delete"
 msgstr "Изтриване"
 
@@ -1140,31 +1142,31 @@ msgstr ""
 msgid "Open Quick Find"
 msgstr "Отваряне на „Бързо Търсене“"
 
-#: src/MainWindow.vala:450 src/Dialogs/Preferences/PreferencesWindow.vala:49
+#: src/MainWindow.vala:494 src/Dialogs/Preferences/PreferencesWindow.vala:49
 msgid "Preferences"
 msgstr "Настройки"
 
-#: src/MainWindow.vala:453
+#: src/MainWindow.vala:497
 msgid "Keyboard Shortcuts"
 msgstr "Клавишни комбинации"
 
-#: src/MainWindow.vala:456 src/Dialogs/WhatsNew.vala:146
+#: src/MainWindow.vala:500 src/Dialogs/WhatsNew.vala:146
 msgid "What's New"
 msgstr "Какво ново има"
 
-#: src/MainWindow.vala:459
+#: src/MainWindow.vala:503
 msgid "About Planify"
 msgstr "Относно „Planify“"
 
-#: src/MainWindow.vala:461 src/Dialogs/ManageProjects.vala:28
+#: src/MainWindow.vala:505 src/Dialogs/ManageProjects.vala:28
 msgid "Archived Projects"
 msgstr "Добавяне на проект"
 
-#: src/MainWindow.vala:527
+#: src/MainWindow.vala:571
 msgid "Oops! Something happened"
 msgstr ""
 
-#: src/MainWindow.vala:530
+#: src/MainWindow.vala:574
 msgid "See More"
 msgstr "Създаване на повече"
 
@@ -1490,11 +1492,6 @@ msgstr ""
 msgid "Attach File"
 msgstr "Резервни Файлове"
 
-#: src/Widgets/Attachments.vala:293
-#: src/Dialogs/Preferences/Pages/Backup.vala:375
-msgid "Download"
-msgstr "Свалям, Изтеглям, Източвам"
-
 #: src/Widgets/ItemChangeHistoryRow.vala:60
 msgid "Previous"
 msgstr ""
@@ -1700,8 +1697,9 @@ msgid "Add Project"
 msgstr "Добавяне на проект"
 
 # c-format
-#: src/Views/Filter.vala:535
 # c-format
+#: src/Views/Filter.vala:535
+#, fuzzy, c-format
 msgid "This will delete %d completed tasks and their subtasks"
 msgstr "Това ще премахне %d завършени задачи и техните подзадачи от проект %s"
 
@@ -2543,6 +2541,10 @@ msgstr "Избраният файл е невалиден"
 #: src/Dialogs/Preferences/Pages/Backup.vala:323
 msgid "View Backup"
 msgstr "Създаване на резервен файл"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:375
+msgid "Download"
+msgstr "Свалям, Изтеглям, Източвам"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:30
 msgid "Show in Sidebar"

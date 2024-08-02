@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-01 05:05-0500\n"
+"POT-Creation-Date: 2024-08-02 06:25-0500\n"
 "PO-Revision-Date: 2024-06-24 02:42+0900\n"
 "Last-Translator: Wonje Jung <myunsyeya@ajou.ac.kr>\n"
 "Language-Team: \n"
@@ -969,8 +969,9 @@ msgstr "이 작업은 취소할 수 없습니다"
 #: core/Objects/Source.vala:166 src/Services/Backups.vala:416
 #: src/Layouts/LabelRow.vala:178 src/Layouts/ItemSidebarView.vala:679
 #: src/Layouts/SectionBoard.vala:566 src/Widgets/MultiSelectToolbar.vala:220
-#: src/Widgets/MultiSelectToolbar.vala:260 src/Views/Project/Project.vala:573
-#: src/Views/Filter.vala:540 src/Dialogs/Preferences/Pages/Backup.vala:376
+#: src/Widgets/MultiSelectToolbar.vala:260 src/Widgets/Attachments.vala:293
+#: src/Views/Project/Project.vala:573 src/Views/Filter.vala:540
+#: src/Dialogs/Preferences/Pages/Backup.vala:376
 msgid "Delete"
 msgstr "삭제"
 
@@ -1119,31 +1120,31 @@ msgstr "메인 메뉴"
 msgid "Open Quick Find"
 msgstr "빠른 검색 열기"
 
-#: src/MainWindow.vala:450 src/Dialogs/Preferences/PreferencesWindow.vala:49
+#: src/MainWindow.vala:494 src/Dialogs/Preferences/PreferencesWindow.vala:49
 msgid "Preferences"
 msgstr "설정"
 
-#: src/MainWindow.vala:453
+#: src/MainWindow.vala:497
 msgid "Keyboard Shortcuts"
 msgstr "키보드 단축키"
 
-#: src/MainWindow.vala:456 src/Dialogs/WhatsNew.vala:146
+#: src/MainWindow.vala:500 src/Dialogs/WhatsNew.vala:146
 msgid "What's New"
 msgstr "새로운 기능"
 
-#: src/MainWindow.vala:459
+#: src/MainWindow.vala:503
 msgid "About Planify"
 msgstr "Planify 정보"
 
-#: src/MainWindow.vala:461 src/Dialogs/ManageProjects.vala:28
+#: src/MainWindow.vala:505 src/Dialogs/ManageProjects.vala:28
 msgid "Archived Projects"
 msgstr "보관된 프로젝트"
 
-#: src/MainWindow.vala:527
+#: src/MainWindow.vala:571
 msgid "Oops! Something happened"
 msgstr ""
 
-#: src/MainWindow.vala:530
+#: src/MainWindow.vala:574
 msgid "See More"
 msgstr "추가 생성"
 
@@ -1469,11 +1470,6 @@ msgstr ""
 #: src/Widgets/Attachments.vala:235
 msgid "Attach File"
 msgstr "백업 파일"
-
-#: src/Widgets/Attachments.vala:293
-#: src/Dialogs/Preferences/Pages/Backup.vala:375
-msgid "Download"
-msgstr "다운로드"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:60
 msgid "Previous"
@@ -2522,6 +2518,10 @@ msgstr "선택한 파일이 유효하지 않습니다"
 #: src/Dialogs/Preferences/Pages/Backup.vala:323
 msgid "View Backup"
 msgstr "백업 보기"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:375
+msgid "Download"
+msgstr "다운로드"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:30
 msgid "Show in Sidebar"

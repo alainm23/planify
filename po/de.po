@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-01 05:05-0500\n"
+"POT-Creation-Date: 2024-08-02 06:25-0500\n"
 "PO-Revision-Date: 2024-06-03 01:28+0200\n"
 "Last-Translator: alp10711 <93343276+alp10711@users.noreply.github.com>\n"
 "Language-Team: German\n"
@@ -544,9 +544,8 @@ msgid ""
 "Tags allow you to improve your workflow in Planify. To add a Tag click on "
 "the tag button at the bottom."
 msgstr ""
-"Labels ermöglichen dir, deinen Workflow in Planify zu verbessern. "
-"Klicke auf die Label-Schaltfläche unten, um ein Label "
-"hinzuzufügen."
+"Labels ermöglichen dir, deinen Workflow in Planify zu verbessern. Klicke auf "
+"die Label-Schaltfläche unten, um ein Label hinzuzufügen."
 
 #: core/Util/Util.vala:700
 msgid "Set timely reminders!"
@@ -988,8 +987,9 @@ msgstr "Dies kann nicht rückgängig gemacht werden"
 #: core/Objects/Source.vala:166 src/Services/Backups.vala:416
 #: src/Layouts/LabelRow.vala:178 src/Layouts/ItemSidebarView.vala:679
 #: src/Layouts/SectionBoard.vala:566 src/Widgets/MultiSelectToolbar.vala:220
-#: src/Widgets/MultiSelectToolbar.vala:260 src/Views/Project/Project.vala:573
-#: src/Views/Filter.vala:540 src/Dialogs/Preferences/Pages/Backup.vala:376
+#: src/Widgets/MultiSelectToolbar.vala:260 src/Widgets/Attachments.vala:293
+#: src/Views/Project/Project.vala:573 src/Views/Filter.vala:540
+#: src/Dialogs/Preferences/Pages/Backup.vala:376
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1139,31 +1139,31 @@ msgstr "Hauptmenü"
 msgid "Open Quick Find"
 msgstr "Schnelle Suche öffnen"
 
-#: src/MainWindow.vala:450 src/Dialogs/Preferences/PreferencesWindow.vala:49
+#: src/MainWindow.vala:494 src/Dialogs/Preferences/PreferencesWindow.vala:49
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: src/MainWindow.vala:453
+#: src/MainWindow.vala:497
 msgid "Keyboard Shortcuts"
 msgstr "Tastenkombinationen"
 
-#: src/MainWindow.vala:456 src/Dialogs/WhatsNew.vala:146
+#: src/MainWindow.vala:500 src/Dialogs/WhatsNew.vala:146
 msgid "What's New"
 msgstr "Neuigkeiten"
 
-#: src/MainWindow.vala:459
+#: src/MainWindow.vala:503
 msgid "About Planify"
 msgstr "Über Planify"
 
-#: src/MainWindow.vala:461 src/Dialogs/ManageProjects.vala:28
+#: src/MainWindow.vala:505 src/Dialogs/ManageProjects.vala:28
 msgid "Archived Projects"
 msgstr "Projekt hinzufügen"
 
-#: src/MainWindow.vala:527
+#: src/MainWindow.vala:571
 msgid "Oops! Something happened"
 msgstr "Hoppla! Etwas ist passiert"
 
-#: src/MainWindow.vala:530
+#: src/MainWindow.vala:574
 msgid "See More"
 msgstr "Weitere erstellen"
 
@@ -1298,10 +1298,6 @@ msgstr "Unteraufgaben hinzufügen"
 #: src/Layouts/ItemRow.vala:433
 msgid "Add Attachments"
 msgstr "Anhang hinzufügen"
-
-#: /src/Widgets/Attachments.vala:293
-msgid "Delete"
-msgstr "Löschen"
 
 #: src/Layouts/ItemRow.vala:992 src/Layouts/ItemBoard.vala:639
 #: src/Views/Project/Project.vala:439 src/Views/Project/Project.vala:611
@@ -1497,11 +1493,6 @@ msgstr ""
 #: src/Widgets/Attachments.vala:235
 msgid "Attach File"
 msgstr "Datei anhängen"
-
-#: src/Widgets/Attachments.vala:293
-#: src/Dialogs/Preferences/Pages/Backup.vala:375
-msgid "Download"
-msgstr "Herunterladen"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:60
 msgid "Previous"
@@ -1822,8 +1813,8 @@ msgid ""
 "duplicated, saving you time and effort in managing your projects."
 msgstr ""
 "Wenn du nun eine Aufgabe duplizierst, werden automatisch auch alle "
-"Unteraufgaben und Labels dupliziert. Um deine Zeit und Bemühungen "
-"beim Verwalten der deiner Projekte zu sparen."
+"Unteraufgaben und Labels dupliziert. Um deine Zeit und Bemühungen beim "
+"Verwalten der deiner Projekte zu sparen."
 
 #: src/Dialogs/WhatsNew.vala:112
 msgid "Duplication of Sections and Projects"
@@ -2578,6 +2569,10 @@ msgstr "Ausgewählte Datei ist ungültig"
 #: src/Dialogs/Preferences/Pages/Backup.vala:323
 msgid "View Backup"
 msgstr "Sicherung anzeigen"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:375
+msgid "Download"
+msgstr "Herunterladen"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:30
 msgid "Show in Sidebar"
