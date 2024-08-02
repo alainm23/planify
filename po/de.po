@@ -62,7 +62,7 @@ msgstr "Pinnwand"
 #: src/Dialogs/Preferences/Pages/Backup.vala:180
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:40
 msgid "Labels"
-msgstr "Kennzeichnungen"
+msgstr "Labels"
 
 #: core/Enum.vala:146 core/Objects/Filters/Completed.vala:50
 #: src/Views/Filter.vala:194 src/Dialogs/Preferences/Pages/Sidebar.vala:41
@@ -175,7 +175,7 @@ msgstr "Priorität"
 
 #: core/Enum.vala:475
 msgid "Label"
-msgstr "Kennzeichnungen"
+msgstr "Label"
 
 #: core/Enum.vala:478 src/Views/Project/Project.vala:424
 #: src/Views/Today.vala:596 src/Views/Scheduled/Scheduled.vala:187
@@ -537,15 +537,15 @@ msgstr ""
 
 #: core/Util/Util.vala:693
 msgid "Tag your to-dos!"
-msgstr "Kennzeichne deine Aufgaben!"
+msgstr "Labele deine Aufgaben!"
 
 #: core/Util/Util.vala:694
 msgid ""
 "Tags allow you to improve your workflow in Planify. To add a Tag click on "
 "the tag button at the bottom."
 msgstr ""
-"Kennzeichnungen ermöglichen dir, deinen Workflow in Planify zu verbessern. "
-"Klicke auf die Kennzeichnen Schaltfläche unten, um eine Kennzeichnung "
+"Labels ermöglichen dir, deinen Workflow in Planify zu verbessern. "
+"Klicke auf die Label-Schaltfläche unten, um ein Label "
 "hinzuzufügen."
 
 #: core/Util/Util.vala:700
@@ -581,7 +581,6 @@ msgstr "🏡️Zuhause"
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️Nochmal aufgreifen"
 
-# # c-format
 #: core/Util/Util.vala:891 core/Objects/Item.vala:1548
 #, c-format
 msgid "Task moved to %s"
@@ -905,7 +904,7 @@ msgstr "Zurück"
 #: core/Widgets/LabelPicker/LabelButton.vala:54
 #: core/Widgets/LabelPicker/LabelButton.vala:61
 msgid "Add Labels"
-msgstr "Kennzeichnungen hinzufügen"
+msgstr "Labels hinzufügen"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:74
 #: core/Widgets/LabelPicker/LabelButton.vala:129
@@ -1058,7 +1057,7 @@ msgstr "Logbuch"
 
 #: core/Objects/Filters/Labels.vala:51
 msgid "labels"
-msgstr "Kennzeichnungen"
+msgstr "Labels"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "tomorrow"
@@ -1090,15 +1089,15 @@ msgstr "Wiederholend"
 
 #: core/Objects/Filters/Unlabeled.vala:33 src/Views/Filter.vala:224
 msgid "Unlabeled"
-msgstr "Nicht gekennzeichnet"
+msgstr "Nicht gelabelt"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "no label"
-msgstr "keine Kennzeichnung"
+msgstr "kein Label"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "unlabeled"
-msgstr "Nicht gekennzeichnet"
+msgstr "Nicht gelabelt"
 
 #: core/Objects/Filters/AllItems.vala:33 src/Views/Filter.vala:230
 msgid "All Tasks"
@@ -1203,7 +1202,7 @@ msgstr "Nach 'Geplant'"
 
 #: src/Layouts/Sidebar.vala:61
 msgid "Go to Labels"
-msgstr "Zu 'Kennzeichnungen'"
+msgstr "Zu den 'Labels'"
 
 #: src/Layouts/Sidebar.vala:65
 msgid "Go to Pinboard"
@@ -1394,17 +1393,17 @@ msgstr "Details anzeigen"
 
 #: src/Layouts/LabelRow.vala:142 src/Dialogs/Label.vala:50
 msgid "Edit Label"
-msgstr "Kennzeichnung bearbeiten"
+msgstr "Label bearbeiten"
 
 #: src/Layouts/LabelRow.vala:143
 msgid "Delete Label"
-msgstr "Kennzeichnung löschen"
+msgstr "Label löschen"
 
 # # c-format
 #: src/Layouts/LabelRow.vala:173
 #, c-format
 msgid "Delete Label %s"
-msgstr "Kennzeichnung %s löschen"
+msgstr "Label %s löschen"
 
 #: src/Layouts/ItemSidebarView.vala:79
 msgid "Close Detail"
@@ -1560,11 +1559,11 @@ msgstr "Einfügen"
 
 #: src/Views/Project/Project.vala:246
 msgid "Expand All"
-msgstr ""
+msgstr "Alle ausklappen"
 
 #: src/Views/Project/Project.vala:249
 msgid "Collapse All"
-msgstr ""
+msgstr "Alle einklappen"
 
 #: src/Views/Project/Project.vala:383
 msgid "List"
@@ -1574,9 +1573,10 @@ msgstr "Liste"
 msgid "Board"
 msgstr "Board"
 
+# "Benutzerdefinierte Sortierreihenfolge" was cut off
 #: src/Views/Project/Project.vala:422
 msgid "Custom sort order"
-msgstr "Benutzerdefinierte Sortierreihenfolge"
+msgstr "Benutzerdefiniert"
 
 #: src/Views/Project/Project.vala:423 src/Views/Today.vala:597
 #: src/Views/Scheduled/Scheduled.vala:188
@@ -1591,7 +1591,7 @@ msgstr "Erstellungsdatum"
 
 #: src/Views/Project/Project.vala:428
 msgid "Sorting"
-msgstr "Uns unterstützen"
+msgstr "Sortieren"
 
 #. Filters
 #: src/Views/Project/Project.vala:433
@@ -1616,7 +1616,7 @@ msgstr "Nächste 30 Tage"
 
 #: src/Views/Project/Project.vala:441
 msgid "Duedate"
-msgstr "Anwenden"
+msgstr "Fälligkeit"
 
 #: src/Views/Project/Project.vala:448 src/Views/Today.vala:609
 #: src/Views/Scheduled/Scheduled.vala:200
@@ -1641,7 +1641,7 @@ msgstr "P4"
 #: src/Views/Project/Project.vala:473 src/Views/Today.vala:634
 #: src/Views/Scheduled/Scheduled.vala:225
 msgid "Filter by Labels"
-msgstr "Nach Kennzeichnungen filtern"
+msgstr "Nach Labels filtern"
 
 #: src/Views/Project/Project.vala:478 src/Views/Project/Project.vala:537
 msgid "Hide Completed Tasks"
@@ -1658,12 +1658,12 @@ msgstr "Erledigte Aufgaben unterstreichen"
 
 #: src/Views/Project/Project.vala:495
 msgid "Sort By"
-msgstr "Sortieren"
+msgstr "Sortieren nach"
 
 #: src/Views/Project/Project.vala:504 src/Views/Today.vala:642
 #: src/Views/Scheduled/Scheduled.vala:233
 msgid "Filter By"
-msgstr "Filtern"
+msgstr "Filtern nach"
 
 # # c-format
 #: src/Views/Project/Project.vala:568
@@ -1759,19 +1759,19 @@ msgstr "Abschnitt bearbeiten"
 
 #: src/Dialogs/Label.vala:43
 msgid "New Label"
-msgstr "Neue Kennzeichnung"
+msgstr "Neues Label"
 
 #: src/Dialogs/Label.vala:59
 msgid "Give your label a name"
-msgstr "Gib deiner Kennzeichnung einen Namen"
+msgstr "Gib dem Label einen Namen"
 
 #: src/Dialogs/Label.vala:83
 msgid "Add Label"
-msgstr "Kennzeichnung hinzufügen"
+msgstr "Label hinzufügen"
 
 #: src/Dialogs/Label.vala:83
 msgid "Update Label"
-msgstr "Kennzeichnung aktualisieren"
+msgstr "Label aktualisieren"
 
 #: src/Dialogs/GoogleOAuth.vala:40
 msgid "Todoist Sync"
@@ -1819,7 +1819,7 @@ msgid ""
 "duplicated, saving you time and effort in managing your projects."
 msgstr ""
 "Wenn du nun eine Aufgabe duplizierst, werden automatisch auch alle "
-"Unteraufgaben und Kennzeichnungen dupliziert. Um deine Zeit und Bemühungen "
+"Unteraufgaben und Labels dupliziert. Um deine Zeit und Bemühungen "
 "beim Verwalten der deiner Projekte zu sparen."
 
 #: src/Dialogs/WhatsNew.vala:112
@@ -1995,7 +1995,7 @@ msgstr "Schnelle Suche"
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 "Wechsle schnell zwischen Projekten und Ansichten, finde Aufgaben, suche nach "
-"Kennzeichnungen."
+"Labels."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:58
 #: src/Dialogs/Preferences/PreferencesWindow.vala:286
@@ -2224,9 +2224,10 @@ msgstr "Einstellungen für Aufgaben"
 msgid "Instantly"
 msgstr "Sofort"
 
+# "2500 Millisekunden warten" is cut off
 #: src/Dialogs/Preferences/PreferencesWindow.vala:532
 msgid "Wait 2500 Milliseconds"
-msgstr "2500 Millisekunden warten"
+msgstr "2.5s warten"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:535
 msgid "Complete Task"
@@ -2293,7 +2294,7 @@ msgstr "Aufmerksamkeit auf Eines"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:609
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiv"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:622
 msgid "Automatic reminders"
@@ -2683,7 +2684,7 @@ msgstr "'Geplant' öffnen"
 #: data/resources/ui/shortcuts.ui:122
 msgctxt "shortcut window"
 msgid "Open Labels"
-msgstr "'Kennzeichnungen' öffnen"
+msgstr "'Labels' öffnen"
 
 #: data/resources/ui/shortcuts.ui:129
 msgctxt "shortcut window"
@@ -2697,13 +2698,13 @@ msgstr "'Pinnwand' öffnen"
 #~ msgstr "Auf diesem Computer"
 
 #~ msgid "Labels: On This Computer"
-#~ msgstr "Kennzeichnungen: Auf diesem Computer"
+#~ msgstr "Labels: Auf diesem Computer"
 
 #~ msgid "Labels: Todoist"
-#~ msgstr "Kennzeichnungen: Todoist"
+#~ msgstr "Labels: Todoist"
 
 #~ msgid "Labels: Nextcloud"
-#~ msgstr "Kennzeichnungen: Nextcloud"
+#~ msgstr "Labels: Nextcloud"
 
 #~ msgid "Synchronize with your Todoist Account"
 #~ msgstr "Mit deinem Todoist Account synchronisieren"
@@ -2790,7 +2791,7 @@ msgstr "'Pinnwand' öffnen"
 #~ msgstr "Projekt löschen"
 
 #~ msgid "Delete label"
-#~ msgstr "Kennzeichnung löschen"
+#~ msgstr "Label löschen"
 
 #~ msgid "Move tasks"
 #~ msgstr "Aufgaben verschieben"
@@ -2803,7 +2804,7 @@ msgstr "'Pinnwand' öffnen"
 #~ msgstr "Unteraufgabe hinzufügen"
 
 #~ msgid "Add label(s)"
-#~ msgstr "Kennzeichnung(en) hinzufügen"
+#~ msgstr "Label(s) hinzufügen"
 
 #~ msgid "pinboard"
 #~ msgstr "Pinwand"
