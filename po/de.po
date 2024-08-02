@@ -202,7 +202,7 @@ msgstr "Beschreibung"
 #: core/Enum.vala:646 src/Layouts/ItemRow.vala:990
 #: src/Layouts/ItemBoard.vala:637
 msgid "Pin"
-msgstr "Angeheftet"
+msgstr "Anheften"
 
 #: core/QuickAdd.vala:65
 msgid "To-do name"
@@ -951,8 +951,7 @@ msgstr "Erinnerungen"
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the '+' button."
 msgstr ""
-"Die Liste deiner Erinnerungen wird hier angezeigt. Füge eine hinzu, indem du "
-"auf den '+'-Knopf klickst."
+"Die Liste deiner Erinnerungen wird hier angezeigt. Füge eine mit '+' hinzu."
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:152
 msgid "Add Reminder"
@@ -1298,7 +1297,11 @@ msgstr "Unteraufgaben hinzufügen"
 
 #: src/Layouts/ItemRow.vala:433
 msgid "Add Attachments"
-msgstr "Aufgabe hinzufügen"
+msgstr "Anhang hinzufügen"
+
+#: /src/Widgets/Attachments.vala:293
+msgid "Delete"
+msgstr "Löschen"
 
 #: src/Layouts/ItemRow.vala:992 src/Layouts/ItemBoard.vala:639
 #: src/Views/Project/Project.vala:439 src/Views/Project/Project.vala:611
@@ -1407,7 +1410,7 @@ msgstr "Label %s löschen"
 
 #: src/Layouts/ItemSidebarView.vala:79
 msgid "Close Detail"
-msgstr "Details anzeigen"
+msgstr "Details schließen"
 
 #: src/Layouts/ItemSidebarView.vala:132
 msgid "Title"
@@ -1493,7 +1496,7 @@ msgstr ""
 
 #: src/Widgets/Attachments.vala:235
 msgid "Attach File"
-msgstr "Sicherungsdateien"
+msgstr "Datei anhängen"
 
 #: src/Widgets/Attachments.vala:293
 #: src/Dialogs/Preferences/Pages/Backup.vala:375
@@ -1502,11 +1505,11 @@ msgstr "Herunterladen"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:60
 msgid "Previous"
-msgstr ""
+msgstr "Vorherige"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:81
 msgid "New"
-msgstr ""
+msgstr "Neu"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:165
 #: src/Widgets/ItemChangeHistoryRow.vala:166

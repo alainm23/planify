@@ -290,7 +290,7 @@ public class Widgets.AttachmentRow : Gtk.ListBoxRow {
 			halign = END,
 			hexpand = true,
 			css_classes = { "flat" },
-			tooltip_text = _("Download")
+			tooltip_text = _("Delete")
 		};
 
 		var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
