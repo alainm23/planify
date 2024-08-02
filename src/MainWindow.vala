@@ -23,7 +23,7 @@ public class MainWindow : Adw.ApplicationWindow {
 	public weak Planify app { get; construct; }
 
 	private Layouts.Sidebar sidebar;
-	private Adw.NavigationView views_stack;
+	private Adw.ViewStack views_stack;
 	private Adw.OverlaySplitView overlay_split_view;
 	private Gtk.MenuButton settings_button;
 	private Layouts.ItemSidebarView item_sidebar_view;
@@ -101,10 +101,11 @@ public class MainWindow : Adw.ApplicationWindow {
 		sidebar_view.add_top_bar (sidebar_header);
 		sidebar_view.content = sidebar;
 
-		views_stack = new Adw.NavigationView () {
+		views_stack = new Adw.ViewStack () {
 			hexpand = true,
 			vexpand = true,
-			animate_transitions = false
+			vhomogeneous = false,
+			hhomogeneous = false
 		};
 
 		item_sidebar_view = new Layouts.ItemSidebarView ();
@@ -342,48 +343,78 @@ public class MainWindow : Adw.ApplicationWindow {
 		);
 	}
 
-	public void add_project_view (Objects.Project project) {
-		Adw.NavigationPage? page = new Adw.NavigationPage (new Views.Project (project), project.name);
-		views_stack.replace ({ page });
+	public Views.Project add_project_view (Objects.Project project) {
+		Views.Project? project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
+		if (project_view == null) {
+			project_view = new Views.Project (project);
+			views_stack.add_named (project_view, project.view_id);
+		}
+
+		views_stack.set_visible_child_name (project.view_id);
+		return project_view;
 	}
 
 	public void add_today_view () {
-		Adw.NavigationPage? page = new Adw.NavigationPage (new Views.Today (), "today-view");
-		views_stack.replace ({ page });
+		Views.Today? today_view = (Views.Today) views_stack.get_child_by_name ("today-view");
+		if (today_view == null) {
+			today_view = new Views.Today ();
+			views_stack.add_named (today_view, "today-view");
+		}
+
+		views_stack.set_visible_child_name ("today-view");
 	}
 
 	public void add_scheduled_view () {
-		Adw.NavigationPage? page = new Adw.NavigationPage (new Views.Scheduled.Scheduled (), "scheduled-view");
-		views_stack.replace ({ page });
+		Views.Scheduled.Scheduled? scheduled_view = (Views.Scheduled.Scheduled) views_stack.get_child_by_name ("scheduled-view");
+		if (scheduled_view == null) {
+			scheduled_view = new Views.Scheduled.Scheduled ();
+			views_stack.add_named (scheduled_view, "scheduled-view");
+		}
+
+		views_stack.set_visible_child_name ("scheduled-view");
 	}
 
 	public void add_labels_view () {		
-		Adw.NavigationPage? page = new Adw.NavigationPage (new Views.Labels (), "labels-view");
-		views_stack.replace ({ page });
+		Views.Labels? labels_view = (Views.Labels) views_stack.get_child_by_name ("labels-view");
+		if (labels_view == null) {
+			labels_view = new Views.Labels ();
+			views_stack.add_named (labels_view, "labels-view");
+		}
+
+		views_stack.set_visible_child_name ("labels-view");
 	}
 
 	private void add_label_view (string id) {
-		var label_view = new Views.Label ();
-		label_view.label = Services.Store.instance ().get_label (id);
+		Views.Label? label_view = (Views.Label) views_stack.get_child_by_name ("label-view");
+		if (label_view == null) {
+			label_view = new Views.Label ();
+			views_stack.add_named (label_view, "label-view");
+		}
 
-		Adw.NavigationPage? page = new Adw.NavigationPage (label_view, "label-view");
-		views_stack.replace ({ page });
+		label_view.label = Services.Store.instance ().get_label (id);
+		views_stack.set_visible_child_name ("label-view");
 	}
 
 	public void add_priority_view (string view_id) {
-		var filter_view = new Views.Filter ();
-		filter_view.filter = Util.get_default ().get_priority_filter (view_id);
+		Views.Filter? filter_view = (Views.Filter) views_stack.get_child_by_name (view_id);
+		if (filter_view == null) {
+			filter_view = new Views.Filter ();
+			views_stack.add_named (filter_view, view_id);
+		}
 
-		Adw.NavigationPage? page = new Adw.NavigationPage (filter_view, view_id);
-		views_stack.replace ({ page });
+		filter_view.filter = Util.get_default ().get_priority_filter (view_id);
+		views_stack.set_visible_child_name (view_id);
 	}
 
 	private void add_filter_view (Objects.BaseObject base_object) {
-		var filter_view = new Views.Filter ();
-		filter_view.filter = base_object;
+		Views.Filter? filter_view = (Views.Filter) views_stack.get_child_by_name (base_object.view_id);
+		if (filter_view == null) {
+			filter_view = new Views.Filter ();
+			filter_view.filter = base_object;
+			views_stack.add_named (filter_view, base_object.view_id);
+		}
 
-		Adw.NavigationPage? page = new Adw.NavigationPage (filter_view, base_object.view_id);
-		views_stack.replace ({ page });
+		views_stack.set_visible_child_name (base_object.view_id);
 	}
 
 	public void go_homepage () {
@@ -399,50 +430,63 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	public void valid_view_removed (Objects.Project project) {
-		if (views_stack.visible_page == null) {
+		if (views_stack.visible_child == null) {
 			return;
 		}
 
-		if (views_stack.visible_page.child is Views.Project) {
-			Views.Project? project_view = (Views.Project) views_stack.visible_page.child;
-			if (project_view != null && project_view.project.id == project.id) {
+		if (views_stack.visible_child is Views.Project) {
+			Views.Project? project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
+			if (project_view != null) {
 				go_homepage ();
 			}
 		}
 	}
 
 	public void add_task_action (string content = "") {
-		if (views_stack.visible_page == null) {
-			return;
-		}
-
-		if (views_stack.visible_page.child is Views.Project) {
-			Views.Project? project_view = (Views.Project) views_stack.visible_page.child;
+		if (views_stack.visible_child_name.has_prefix ("project")) {
+			Views.Project? project_view = (Views.Project) views_stack.visible_child;
 			if (project_view != null) {
 				project_view.prepare_new_item (content);
 			}
-		} else if (views_stack.visible_page.child is Views.Today) {
-			Views.Today? today_view = (Views.Today) views_stack.visible_page.child;
+		} else if (views_stack.visible_child_name.has_prefix ("today-view")) {
+			Views.Today? today_view = (Views.Today) views_stack.visible_child;
 			if (today_view != null) {
 				today_view.prepare_new_item (content);
 			}
-		} else {
+		} else if (views_stack.visible_child_name.has_prefix ("scheduled-view")) {
+			Views.Scheduled.Scheduled? scheduled_view = (Views.Scheduled.Scheduled) views_stack.visible_child;
+			if (scheduled_view != null) {
+			    scheduled_view.prepare_new_item (content);
+			}
+		} else if (views_stack.visible_child_name.has_prefix ("labels-view")) {
 			var dialog = new Dialogs.QuickAdd ();
 			dialog.update_content (content);
 			dialog.present (Planify._instance.main_window);
+		} else if (views_stack.visible_child_name.has_prefix ("label-view")) {
+			Views.Label? label_view = (Views.Label) views_stack.visible_child;
+			if (label_view != null) {
+			    label_view.prepare_new_item (content);
+			}
+		} else {
+			Views.Filter? filter_view = (Views.Filter) views_stack.visible_child;
+			if (filter_view != null) {
+				filter_view.prepare_new_item (content);
+			} else {
+				var dialog = new Dialogs.QuickAdd ();
+				dialog.update_content (content);
+				dialog.present (Planify._instance.main_window);
+			}
 		}
 	}
 
 	public void new_section_action () {
-		if (views_stack.visible_page == null) {
+		if (!views_stack.visible_child_name.has_prefix ("project")) {
 			return;
 		}
 
-		if (views_stack.visible_page.child is Views.Project) {
-			Views.Project? project_view = (Views.Project) views_stack.visible_page.child;
-			if (project_view != null) {
-				project_view.prepare_new_section ();
-			}
+		Views.Project? project_view = (Views.Project) views_stack.visible_child;
+		if (project_view != null) {
+			project_view.prepare_new_section ();
 		}
 	}
 
