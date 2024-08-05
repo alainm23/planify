@@ -67,7 +67,7 @@ public class Widgets.StatusButton : Adw.Bin {
         popover_picker.has_arrow = true;
         popover_picker.set_parent (card_grid);
 
-        css_classes = { "card" };
+        css_classes = { "card", "activatable" };
         child = card_grid;
         hexpand = true;
         vexpand = true;

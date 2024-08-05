@@ -53,7 +53,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                 }
             } else {
                 if (_datetime != null) {
-                    _datetime = Utils.Datetime.get_format_date (_datetime);
+                    _datetime = Utils.Datetime.get_date_only (_datetime);
                 }
             }
 
@@ -179,7 +179,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         });
 
         calendar_view.day_selected.connect (() => {
-            datetime = Utils.Datetime.get_format_date (calendar_view.date);
+            datetime = Utils.Datetime.get_date_only (calendar_view.date);
             visible_no_date = true;
             content_stack.visible_child_name = "items";
         });
@@ -189,7 +189,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         });
 
         time_picker.time_changed.connect (() => {
-            datetime = Utils.Datetime.get_format_date (datetime);
+            datetime = Utils.Datetime.get_date_only (datetime);
         });
 
         time_picker.time_added.connect (() => {
@@ -223,7 +223,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     private void set_date (DateTime date) {
-        datetime = Utils.Datetime.get_format_date (date);
+        datetime = Utils.Datetime.get_date_only (date);
         popdown ();
         date_changed ();
     }
@@ -265,7 +265,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             next_week_item.selected = true;
         } else {
             date_item.secondary_text = Utils.Datetime.get_relative_date_from_date (
-                Utils.Datetime.get_format_date (datetime)
+                Utils.Datetime.get_date_only (datetime)
             );
         }
     }

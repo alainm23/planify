@@ -327,7 +327,7 @@ public class Services.Todoist : GLib.Object {
 							}
 
 							if (old_checked != item.checked) {
-								Services.Store.instance ().checked_toggled (item, old_checked);
+								Services.Store.instance ().complete_item (item, old_checked);
 							}
 						}
 					} else {

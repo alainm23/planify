@@ -68,7 +68,7 @@ public class Dialogs.DatePicker : Adw.Dialog {
 
         var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next Week"), "work-week-symbolic");
         next_week_item.secondary_text = Utils.Datetime.get_relative_date_from_date (
-            Utils.Datetime.get_format_date (new GLib.DateTime.now_local ().add_days (7))
+            Utils.Datetime.get_date_only (new GLib.DateTime.now_local ().add_days (7))
         );
 
         no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
@@ -177,7 +177,7 @@ public class Dialogs.DatePicker : Adw.Dialog {
     }
 
     private void set_date (DateTime? date) {
-        _datetime = Utils.Datetime.get_format_date (date);
+        _datetime = Utils.Datetime.get_date_only (date);
         date_changed ();
         close ();
     }

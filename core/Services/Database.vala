@@ -1255,7 +1255,7 @@ public class Services.Database : GLib.Object {
         return stmt.step () == Sqlite.DONE;
     }
 
-    public bool checked_toggled (Objects.Item item, bool old_checked) {
+    public bool complete_item (Objects.Item item, bool old_checked) {
         Sqlite.Statement stmt;
 
         sql = """

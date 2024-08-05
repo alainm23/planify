@@ -79,10 +79,11 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 			child = listbox
         };
 
-		var filters = new Widgets.FilterFlowBox (Objects.Filters.Scheduled.get_default ()) {
+		var filters = new Widgets.FilterFlowBox () {
             valign = Gtk.Align.START,
             vexpand = false,
-            vexpand_set = true
+            vexpand_set = true,
+			base_object = Objects.Filters.Scheduled.get_default ()
         };
 
         filters.flowbox.margin_start = 24;
@@ -178,7 +179,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         var dialog = new Dialogs.QuickAdd ();
         dialog.update_content (content);
         dialog.set_project (inbox_project);
-        dialog.set_due (Utils.Datetime.get_format_date (new GLib.DateTime.now_local ().add_days (1)));
+        dialog.set_due (Utils.Datetime.get_date_only (new GLib.DateTime.now_local ().add_days (1)));
         dialog.present (Planify._instance.main_window);
     }
 

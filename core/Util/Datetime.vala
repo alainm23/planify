@@ -119,7 +119,7 @@ public class Utils.Datetime {
     }
 
     public static bool is_overdue (GLib.DateTime date) {
-        if (get_format_date (date).compare (get_format_date (new DateTime.now_local ())) == -1) {
+        if (get_date_only (date).compare (get_date_only (new DateTime.now_local ())) == -1) {
             return true;
         }
 
@@ -427,10 +427,10 @@ public class Utils.Datetime {
     }
 
     public static GLib.DateTime get_today_format_date () {
-        return get_format_date (new DateTime.now_local ());
+        return get_date_only (new DateTime.now_local ());
     }
 
-    public static GLib.DateTime get_format_date (GLib.DateTime date) {
+    public static GLib.DateTime get_date_only (GLib.DateTime date) {
         return new DateTime.local (
             date.get_year (),
             date.get_month (),

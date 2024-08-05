@@ -79,7 +79,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
 
             picker.set_parent (card_grid);
 
-            css_classes = { "card" };
+            css_classes = { "card", "activatable" };
             child = card_grid;
             hexpand = true;
             vexpand = true;

@@ -647,6 +647,14 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			section.delete_section ((Gtk.Window) Planify.instance.main_window);
 		});
 
+		show_completed_item.clicked.connect (() => {
+			menu_popover.popdown ();
+
+			var dialog = new Dialogs.CompletedTasks (section.project);
+			dialog.add_update_filter (section);
+			dialog.present (Planify._instance.main_window);
+		});
+
 		archive_item.clicked.connect (() => {
 			menu_popover.popdown ();
 			section.archive_section ((Gtk.Window) Planify.instance.main_window);

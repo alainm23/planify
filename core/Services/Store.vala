@@ -570,18 +570,27 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public void checked_toggled (Objects.Item item, bool old_checked) {
-        if (Services.Database.get_default ().checked_toggled (item, old_checked)) {
-            foreach (Objects.Item subitem in get_subitems (item)) {
-                subitem.checked = item.checked;
-                subitem.completed_at = item.completed_at;
-                checked_toggled (subitem, old_checked);
+    public void complete_item (Objects.Item item, bool old_checked, bool complete_subitems = true) {
+        if (Services.Database.get_default ().complete_item (item, old_checked)) {
+            if (complete_subitems) {
+                foreach (Objects.Item subitem in get_subitems (item)) {
+                    subitem.checked = item.checked;
+                    subitem.completed_at = item.completed_at;
+                    complete_item (subitem, old_checked);
+                }
             }
 
             item.updated ();
             item_updated (item, "");
 
             Services.EventBus.get_default ().checked_toggled (item, old_checked);
+
+            if (item.has_parent && !item.checked) {
+                item.parent.checked = item.checked;
+                item.parent.completed_at = item.completed_at;
+
+                complete_item (item.parent, old_checked, false);
+            }
         }
     }
 
@@ -906,9 +915,9 @@ public class Services.Store : GLib.Object {
             return false;
         }
 
-        var date = Utils.Datetime.get_format_date (item.due.datetime);
-        var start = Utils.Datetime.get_format_date (start_date);
-        var end = Utils.Datetime.get_format_date (end_date);
+        var date = Utils.Datetime.get_date_only (item.due.datetime);
+        var start = Utils.Datetime.get_date_only (start_date);
+        var end = Utils.Datetime.get_date_only (end_date);
 
         return (item.checked == checked && date.compare (start) >= 0 && date.compare (end) <= 0);
     }

@@ -74,13 +74,21 @@
 
     private bool is_ctrl = false;
 
-	public bool is_editable { get; set; }
+	public bool is_editable {
+		set {
+			markdown_view.editable = value;
+		}
+
+		get {
+			return markdown_view.editable;
+		}
+	}
 	public signal void enter ();
     public signal void leave ();
 	public signal void changed ();
 	public signal void escape ();
 
-	~EditView() {
+	~EditView () {
         print ("Destroying Widgets.Markdown.EditView\n");
     }
 
@@ -182,10 +190,6 @@
 		});
 
 		recolor (Color.RGB ());
-
-		notify["is_editable"].connect (() => {
-			markdown_view.sensitive = is_editable;
-		});
     }
 
 	private void handle_focus_in () {

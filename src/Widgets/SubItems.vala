@@ -194,10 +194,10 @@ public class Widgets.SubItems : Adw.Bin {
         })] = Services.EventBus.get_default ();
 
         signals_map[Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
-            if (item.parent.id == item_parent.id) {
+            if (item.parent_id == item_parent.id) {
                 if (!old_checked) {
                     if (items.has_key (item.id)) {
-                        items [item.id_string].hide_destroy ();
+                        items [item.id].hide_destroy ();
                         items.unset (item.id);
                     }
 
@@ -212,7 +212,7 @@ public class Widgets.SubItems : Adw.Bin {
                     }
                 } else {
                     if (items_checked.has_key (item.id)) {
-                        items_checked [item.id_string].hide_destroy ();
+                        items_checked [item.id].hide_destroy ();
                         items_checked.unset (item.id);
                     }
 

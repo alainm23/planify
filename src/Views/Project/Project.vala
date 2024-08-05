@@ -567,29 +567,6 @@ public class Views.Project : Adw.Bin {
 			check_default_filters ();
 		});
 
-		//  delete_all_completed.activate_item.connect (() => {
-		//  	popover.popdown ();
-
-		//  	var items = Services.Store.instance ().get_items_checked_by_project (project);
-
-		//  	var dialog = new Adw.AlertDialog (
-		//  	    _("Delete All Completed Tasks"),
-		//  		_("This will delete %d completed tasks and their subtasks from project %s".printf (items.size, project.name))
-		//  	);
-
-		//  	dialog.body_use_markup = true;
-		//  	dialog.add_response ("cancel", _("Cancel"));
-		//  	dialog.add_response ("delete", _("Delete"));
-		//  	dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-		//  	dialog.present (Planify._instance.main_window);
-
-		//  	dialog.response.connect ((response) => {
-		//  		if (response == "delete") {
-		//  			delete_all_action (items);
-		//  		}
-		//  	});
-		//  });
-
 		due_date_item.notify["selected"].connect (() => {
 			if (due_date_item.selected <= 0) {
 				Objects.Filters.FilterItem filter = project.get_filter (FilterItemType.DUE_DATE.to_string ());
@@ -688,11 +665,5 @@ public class Views.Project : Adw.Bin {
 
 		var dialog = new Dialogs.Section.new (project);
 		dialog.present (Planify._instance.main_window);
-	}
-
-	public void delete_all_action (Gee.ArrayList<Objects.Item> items) {
-		foreach (Objects.Item item in items) {
-			item.delete_item ();
-		}
 	}
 }

@@ -28,7 +28,7 @@ public class Objects.Filters.FilterItem : GLib.Object {
     public string id {
         get {
             _id = filter_type.to_string () + "-" + value;
-            if (filter_type == FilterItemType.DUE_DATE) {
+            if (filter_type == FilterItemType.DUE_DATE || filter_type == FilterItemType.SECTION) {
                 _id = filter_type.to_string ();
             }
 

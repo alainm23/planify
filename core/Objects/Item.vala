@@ -459,11 +459,11 @@ public class Objects.Item : Objects.BaseObject {
             checked = true;
             string completed = Util.find_string_value ("COMPLETED", data);
             if (completed != "") {
-                completed_at = Utils.Datetime.get_format_date (
+                completed_at = Utils.Datetime.get_date_only (
                     Utils.Datetime.ical_to_date_time_local (new ICal.Time.from_string (completed))
                 ).to_string ();
             } else {
-                completed_at = Utils.Datetime.get_format_date (new GLib.DateTime.now_local ()).to_string ();
+                completed_at = Utils.Datetime.get_date_only (new GLib.DateTime.now_local ()).to_string ();
             }
         } else {
             checked = false;
@@ -542,11 +542,11 @@ public class Objects.Item : Objects.BaseObject {
             checked = true;
             string completed = Util.find_string_value ("COMPLETED", data);
             if (completed != "") {
-                completed_at = Utils.Datetime.get_format_date (
+                completed_at = Utils.Datetime.get_date_only (
                     Utils.Datetime.ical_to_date_time_local (new ICal.Time.from_string (completed))
                 ).to_string ();
             } else {
-                completed_at = Utils.Datetime.get_format_date (new GLib.DateTime.now_local ()).to_string ();
+                completed_at = Utils.Datetime.get_date_only (new GLib.DateTime.now_local ()).to_string ();
             }
         } else {
             checked = false;
@@ -1638,5 +1638,41 @@ public class Objects.Item : Objects.BaseObject {
                 reminder.delete ();
             }
         }
+    }
+
+    public async HttpResponse complete_item (bool old_checked) {
+        HttpResponse response = new HttpResponse ();
+
+        if (project.source_type == SourceType.LOCAL) {
+            Services.Store.instance ().complete_item (this, old_checked);
+            response.status = true;
+
+            return response;
+        }
+
+        loading = true;
+
+        if (project.source_type == SourceType.TODOIST) {
+            response = yield Services.Todoist.get_default ().complete_item (this);
+        } else {
+            response = yield Services.CalDAV.Core.get_default ().complete_item (this);
+        }
+
+        loading = false;
+        
+        if (response.status) {
+            bool complete_subitems = project.source_type != SourceType.CALDAV;
+            Services.Store.instance ().complete_item (this, old_checked, complete_subitems);
+            if (project.source_type == SourceType.CALDAV) {
+                foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (this)) {
+                    subitem.checked = checked;
+                    subitem.completed_at = completed_at;
+
+                    subitem.complete_item (old_checked);
+                }
+            }
+        }
+
+        return response;
     }
 }

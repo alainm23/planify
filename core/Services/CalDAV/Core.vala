@@ -297,7 +297,7 @@ public class Services.CalDAV.Core : GLib.Object {
                     }
 
                     if (old_checked != item.checked) {
-                        Services.Store.instance ().checked_toggled (item, old_checked);
+                        Services.Store.instance ().complete_item (item, old_checked);
                     }
                 } else {
                     item = add_item_if_not_exists (element, project);
@@ -442,7 +442,7 @@ public class Services.CalDAV.Core : GLib.Object {
                         }
                         
                         if (old_checked != item.checked) {
-                            Services.Store.instance ().checked_toggled (item, old_checked);
+                            Services.Store.instance ().complete_item (item, old_checked);
                         }
                     } else {
                         var new_item = new Objects.Item.from_vtodo (vtodo, ics);

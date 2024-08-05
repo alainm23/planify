@@ -296,9 +296,11 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         label_button.source = item.project.source;
         update_request ();
+        
         subitems.present_item (item);
-        attachments.present_item (item);
         subitems.reveal_child = true;
+
+        attachments.present_item (item);
         
         if (item.has_parent) {
             parent_label.label = item.parent.content;
@@ -385,8 +387,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         
         reminder_button.set_reminders (item.reminders);
 
-        content_textview.sensitive = !item.completed;
-        markdown_edit_view.sensitive = !item.completed;
+        content_textview.editable = !item.completed;
+        markdown_edit_view.is_editable = !item.completed;
         schedule_button.sensitive = !item.completed;
         priority_button.sensitive = !item.completed;
         label_button.sensitive = !item.completed;
@@ -695,9 +697,11 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         if (active) {
             complete_item (old_checked);
         } else {
+            var old_completed_at = item.completed_at;
+
             item.checked = false;
             item.completed_at = "";
-            _complete_item (old_checked);
+            _complete_item.begin (old_checked, old_completed_at);
         }
     }
 
@@ -709,36 +713,27 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         if (item.due.is_recurring && !item.due.is_recurrency_end) {
             update_next_recurrency ();
         } else {
+            var old_completed_at = item.completed_at;
+
             item.checked = true;
-            item.completed_at = Utils.Datetime.get_format_date (
-                new GLib.DateTime.now_local ()
-            ).to_string ();
-            _complete_item (old_checked);
+            item.completed_at = new GLib.DateTime.now_local ().to_string ();
+            _complete_item (old_checked, old_completed_at);
         }
 	}
 
-    private void _complete_item (bool old_checked) {
-        if (item.project.source_type == SourceType.LOCAL) {
-            Services.Store.instance ().checked_toggled (item, old_checked);
-        } else if (item.project.source_type == SourceType.TODOIST) {
-            item.loading = true;
-            Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.Todoist.get_default ().complete_item.end (res).status) {
-                    Services.Store.instance ().checked_toggled (item, old_checked);
-                }
+    private async void _complete_item (bool old_checked, string old_completed_at) {
+        HttpResponse response = yield item.complete_item (old_checked);
 
-                item.loading = false;
-            });
-        } else if (item.project.source_type == SourceType.CALDAV) {
-            item.loading = true;
-            Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {
-                    Services.Store.instance ().checked_toggled (item, old_checked);
-                }
-
-                item.loading = false;
-            });
+        if (!response.status) {
+            _complete_item_error (response, old_checked, old_completed_at);
         }
+    }
+
+    private void _complete_item_error (HttpResponse response, bool old_checked, string old_completed_at) {
+        item.checked = old_checked;
+        item.completed_at = old_completed_at;
+        
+        Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
     }
 
     private void update_next_recurrency () {

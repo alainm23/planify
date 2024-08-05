@@ -448,7 +448,8 @@ public enum CalDAVType {
 public enum FilterItemType {
 	PRIORITY = 0,
 	LABEL = 1,
-	DUE_DATE = 2;
+	DUE_DATE = 2,
+	SECTION = 3;
 
 	public string to_string () {
 		switch (this) {
@@ -460,6 +461,9 @@ public enum FilterItemType {
 			
 			case DUE_DATE:
 				return "due-date";
+			
+			case SECTION:
+				return "section";
 
 			default:
 				assert_not_reached ();
@@ -477,6 +481,9 @@ public enum FilterItemType {
 			case DUE_DATE:
 				return _("Due Date");
 
+			case SECTION:
+				return _("Section");
+
 			default:
 				assert_not_reached ();
 		}
@@ -492,6 +499,9 @@ public enum FilterItemType {
 
 			case DUE_DATE:
 				return "month-symbolic";
+
+			case SECTION:
+				return "arrow3-right-symbolic";
 
 			default:
 				assert_not_reached ();

@@ -55,10 +55,13 @@ sources = files(
   'Widgets/ScrolledWindow.vala',
   'Widgets/ReorderChild.vala',
   'Widgets/FilterFlowBox.vala',
+  'Widgets/FilterFlowBoxChild.vala',
   'Widgets/Attachments.vala',
   'Widgets/ItemChangeHistoryRow.vala',
   'Widgets/SourceRow.vala',
   'Widgets/ErrorView.vala',
+  'Widgets/CompletedTaskRow.vala',
+  'Widgets/ItemDetail.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',

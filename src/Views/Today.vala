@@ -100,10 +100,11 @@ public class Views.Today : Adw.Bin {
             child = event_list
         };
 
-        var filters = new Widgets.FilterFlowBox (Objects.Filters.Today.get_default ()) {
+        var filters = new Widgets.FilterFlowBox () {
             valign = Gtk.Align.START,
             vexpand = false,
-            vexpand_set = true
+            vexpand_set = true,
+            base_object = Objects.Filters.Today.get_default ()
         };
 
         filters.flowbox.margin_start = 24;
@@ -565,7 +566,7 @@ public class Views.Today : Adw.Bin {
         var dialog = new Dialogs.QuickAdd ();
         dialog.update_content (content);
         dialog.set_project (inbox_project);
-        dialog.set_due (Utils.Datetime.get_format_date (date));
+        dialog.set_due (Utils.Datetime.get_date_only (date));
         dialog.present (Planify._instance.main_window);
     }
     

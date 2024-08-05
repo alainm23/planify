@@ -172,7 +172,7 @@ public class Views.Filter : Adw.Bin {
             Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
             dialog.set_priority (priority.priority);
         } else if (filter is Objects.Filters.Tomorrow) {
-            dialog.set_due (Utils.Datetime.get_format_date (
+            dialog.set_due (Utils.Datetime.get_date_only (
                 new GLib.DateTime.now_local ().add_days (1)
             ));
         } else if (filter is Objects.Filters.Pinboard) {

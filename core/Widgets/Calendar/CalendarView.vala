@@ -110,7 +110,7 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
                     item.add_css_class ("calendar-today");
                 }
 
-                if (show_day && Utils.Datetime.get_format_date (day).compare (generate_date (day, day_number)) == 0) {
+                if (show_day && Utils.Datetime.get_date_only (day).compare (generate_date (day, day_number)) == 0) {
                     item.add_css_class ("calendar-day-selected");
                 }
 

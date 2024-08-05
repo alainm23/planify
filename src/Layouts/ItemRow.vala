@@ -910,9 +910,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         if (item.completed) {
             due_label.label = Utils.Datetime.get_relative_date_from_date (
-                Utils.Datetime.get_format_date (
-                    Utils.Datetime.get_date_from_string (item.completed_at)
-                )
+                Utils.Datetime.get_date_from_string (item.completed_at)
             );
             due_box.add_css_class ("completed-grid");
             due_box_revealer.reveal_child = true;
@@ -1062,12 +1060,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         today_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
-            update_due (Utils.Datetime.get_format_date (new DateTime.now_local ()));
+            update_due (Utils.Datetime.get_date_only (new DateTime.now_local ()));
         });
 
         tomorrow_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
-            update_due (Utils.Datetime.get_format_date (new DateTime.now_local ().add_days (1)));
+            update_due (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
         });
 
         pinboard_item.activate_item.connect (() => {
@@ -1331,9 +1329,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 content_label.remove_css_class ("dim-label");
                 content_label.remove_css_class ("line-through");
             } else {
+                var old_completed_at = item.completed_at;
+
                 item.checked = false;
                 item.completed_at = "";
-                _complete_item (old_checked);
+                _complete_item.begin (old_checked, old_completed_at);
             }
         }
     }
@@ -1366,50 +1366,30 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (item.due.is_recurring && !item.due.is_recurrency_end) {
                 update_next_recurrency ();
             } else {
+                var old_completed_at = item.completed_at;
+
                 item.checked = true;
-                item.completed_at = Utils.Datetime.get_format_date (
-                    new GLib.DateTime.now_local ()
-                ).to_string ();    
-                _complete_item (old_checked);   
+                item.completed_at = new GLib.DateTime.now_local ().to_string ();    
+                _complete_item.begin (old_checked, old_completed_at);   
             }
             
             return GLib.Source.REMOVE;
         });
     }
 
-    private void _complete_item (bool old_checked) {
-        if (item.project.source_type == SourceType.LOCAL) {
-            Services.Store.instance ().checked_toggled (item, old_checked);
-        } else if (item.project.source_type == SourceType.TODOIST) {
-            checked_button.sensitive = false;
-            is_loading = true;
-            Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-                HttpResponse response = Services.Todoist.get_default ().complete_item.end (res);
-                if (response.status) {
-                    Services.Store.instance ().checked_toggled (item, old_checked);
-                    is_loading = false;
-                    checked_button.sensitive = true;
-                } else {
-                    _complete_item_error (response);
-                }
-            });
-        } else if (item.project.source_type == SourceType.CALDAV) {
-            checked_button.sensitive = false;
-            is_loading = true;
-            Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().complete_item.end (res);
-                if (response.status) {
-                    Services.Store.instance ().checked_toggled (item, old_checked);
-                    is_loading = false;
-                    checked_button.sensitive = true;
-                } else {
-                    _complete_item_error (response);
-                }
-            });
+    private async void _complete_item (bool old_checked, string old_completed_at) {
+        checked_button.sensitive = false;
+        HttpResponse response = yield item.complete_item (old_checked);
+
+        if (!response.status) {
+            _complete_item_error (response, old_checked, old_completed_at);
         }
     }
 
-    private void _complete_item_error (HttpResponse response) {
+    private void _complete_item_error (HttpResponse response, bool old_checked, string old_completed_at) {
+        item.checked = old_checked;
+        item.completed_at = old_completed_at;
+
         is_loading = false;
         checked_button.sensitive = true;
         checked_button.active = false;
@@ -1848,21 +1828,5 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             markdown_edit_view = null;
             return GLib.Source.REMOVE;
         });
-    }
-
-    public void view_mode () {
-        hide_loading_revealer.reveal_child = false;
-
-        content_textview.editable = false;
-        markdown_edit_view.is_editable = false;
-        item_labels.sensitive = false;
-        
-        schedule_button.sensitive = false;
-        priority_button.sensitive = false;
-        label_button.sensitive = false;
-        pin_button.sensitive = false;
-        reminder_button.sensitive = false;
-        add_button.sensitive = false;
-        attachments_button.sensitive = false;
     }
 }

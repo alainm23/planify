@@ -44,7 +44,6 @@ public class Layouts.QuickAdd : Adw.Bin {
     public signal void error (HttpResponse response);
 
     public bool ctrl_pressed { get; set; default = false; }
-    public bool shift_pressed { get; set; default = false; }
 
     public bool is_loading {
         set {
@@ -319,7 +318,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         var content_controller_key = new Gtk.EventControllerKey ();
         content_entry.add_controller (content_controller_key);
         content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-            if (keyval == 65293 && (ctrl_pressed || shift_pressed)) {
+            if (keyval == 65293 && ctrl_pressed) {
                 add_item ();
                 return false;
             }
@@ -330,7 +329,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         var description_controller_key = new Gtk.EventControllerKey ();
         description_textview.add_controller (description_controller_key);
         description_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-            if ((ctrl_pressed || shift_pressed) && keyval == 65293) {
+            if (ctrl_pressed && keyval == 65293) {
                 add_item ();
             }
 
@@ -342,13 +341,8 @@ public class Layouts.QuickAdd : Adw.Bin {
 		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
 			if (keyval == 65507) {
 				ctrl_pressed = true;
-                create_more_button.active = ctrl_pressed || shift_pressed;
+                create_more_button.active = ctrl_pressed;
 			}
-
-            if (keyval == 65505) {
-                shift_pressed = true;
-                create_more_button.active = ctrl_pressed || shift_pressed;
-            }
 
 			return false;
         });
@@ -356,13 +350,8 @@ public class Layouts.QuickAdd : Adw.Bin {
         event_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65507) {
 				ctrl_pressed = false;
-                create_more_button.active = ctrl_pressed || shift_pressed;
+                create_more_button.active = ctrl_pressed;
 			}
-
-            if (keyval == 65505) {
-                shift_pressed = false;
-                create_more_button.active = ctrl_pressed || shift_pressed;
-            }
         });
 
         create_more_button.activate.connect (() => {

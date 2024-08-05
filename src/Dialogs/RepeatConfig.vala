@@ -206,7 +206,7 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
 
         datepicker_button = new Gtk.MenuButton () {
             label = Utils.Datetime.get_default_date_format_from_date (
-                Utils.Datetime.get_format_date (new GLib.DateTime.now_local ().add_days (1))
+                Utils.Datetime.get_date_only (new GLib.DateTime.now_local ().add_days (1))
             ),
             popover = calendar_popover
         };
@@ -429,7 +429,7 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
         var end_label = "";
         if (on_button.active) {
             var date_label = Utils.Datetime.get_default_date_format_from_date (
-                Utils.Datetime.get_format_date (calendar.get_date ())
+                Utils.Datetime.get_date_only (calendar.get_date ())
             );
             end_label = _("until") + " " + date_label;
             datepicker_button.label = date_label;

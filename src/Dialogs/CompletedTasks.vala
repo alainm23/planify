@@ -25,6 +25,8 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
     private Adw.NavigationView navigation_view;
     private Gtk.ListBox listbox;
     private Gtk.SearchEntry search_entry;
+    private Widgets.FilterFlowBox filters_flowbox;
+    private string? filter_section_id = null;
 
     public Gee.HashMap <string, Widgets.CompletedTaskRow> items_checked = new Gee.HashMap <string, Widgets.CompletedTaskRow> ();
 
@@ -45,20 +47,45 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class ("flat");
 
+        var filter_button = new Gtk.MenuButton () {
+			valign = Gtk.Align.CENTER,
+			halign = Gtk.Align.CENTER,
+			popover = build_view_setting_popover (),
+			icon_name = "funnel-outline-symbolic",
+			css_classes = { "flat" },
+			tooltip_text = _("View Filter Menu")
+		};
+
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Search"),
             hexpand = true,
-            css_classes = { "border-radius-9" },
-			margin_start = 12,
+            css_classes = { "border-radius-9" }
+        };
+
+        var search_entry_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 12,
 			margin_end = 12
         };
+        search_entry_box.append (search_entry);
+        search_entry_box.append (filter_button);
+
+        filters_flowbox = new Widgets.FilterFlowBox () {
+            valign = Gtk.Align.START,
+            vexpand = false,
+            vexpand_set = true
+        };
+
+        filters_flowbox.flowbox.margin_start = 12;
+        filters_flowbox.flowbox.margin_top = 24;
+        filters_flowbox.flowbox.margin_end = 12;
 
         listbox = new Gtk.ListBox () {
             hexpand = true,
             valign = START,
             css_classes = { "listbox-background", "listbox-separator-6" },
             margin_start = 12,
-			margin_end = 12
+			margin_end = 12,
+            margin_top = 12
         };
         
         listbox.set_sort_func (sort_completed_function);
@@ -81,7 +108,8 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        content_box.append (search_entry);
+        content_box.append (search_entry_box);
+        content_box.append (filters_flowbox);
         content_box.append (listbox_scrolled);
 
         var content_clamp = new Adw.Clamp () {
@@ -91,8 +119,16 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
 
 		content_clamp.child = content_box;
 
+        var remove_all = new Gtk.Button.with_label (_("Delete All Completed Tasks")) {
+            css_classes = { "flat" },
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12
+        };
+
 		var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);
+        toolbar_view.add_bottom_bar (remove_all);
 		toolbar_view.content = content_clamp;
 
         var main_page = new Adw.NavigationPage (toolbar_view, _("Completed Tasks"));
@@ -103,6 +139,12 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         child = navigation_view;
         add_items ();
         Services.EventBus.get_default ().disconnect_typing_accel ();
+
+        filters_flowbox.filter_removed.connect (() => {
+            filter_section_id = null;
+            clear_items ();
+            add_items ();
+        });
 
         search_entry.search_changed.connect (() => {
             if (search_entry.text == "") {
@@ -131,10 +173,38 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
             }
 		});
 
+        remove_all.clicked.connect (() => {
+			var items = Services.Store.instance ().get_items_checked_by_project (project);
+
+			var dialog = new Adw.AlertDialog (
+			    _("Delete All Completed Tasks"),
+				_("This will delete %d completed tasks and their subtasks from project %s".printf (items.size, project.name))
+			);
+
+			dialog.body_use_markup = true;
+			dialog.add_response ("cancel", _("Cancel"));
+			dialog.add_response ("delete", _("Delete"));
+			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+			dialog.present (Planify._instance.main_window);
+
+			dialog.response.connect ((response) => {
+				if (response == "delete") {
+					delete_all_action (items);
+				}
+			});
+        });
+
         listbox.row_activated.connect ((row) => {
             Objects.Item item = ((Widgets.CompletedTaskRow) row).item;
             view_item (item);
         });
+
+        Services.Store.instance ().item_deleted.connect ((item) => {
+			if (items_checked.has_key (item.id)) {
+				items_checked [item.id].hide_destroy ();
+				items_checked.unset (item.id);
+			}
+		});
 
         closed.connect (() => {
             Services.EventBus.get_default ().connect_typing_accel ();
@@ -145,16 +215,12 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class ("flat");
 
-        Layouts.ItemRow item_row = new Layouts.ItemRow (item) {
-            edit = true,
-            margin_end = 16
-        };
-
-        item_row.view_mode ();
+        Widgets.ItemDetail item_detail = new Widgets.ItemDetail (item);
+        item_detail.view_item.connect (view_item);
 
         var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = item_row;
+		toolbar_view.content = item_detail;
 
         var item_page = new Adw.NavigationPage (toolbar_view, _("Task Detail"));
         navigation_view.push (item_page);
@@ -162,6 +228,9 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
 
     private void add_items () {
         foreach (Objects.Item item in project.items_checked) {
+            if (item.has_parent) {
+                continue;
+            }
             if (!items_checked.has_key (item.id)) {
                 items_checked [item.id] = new Widgets.CompletedTaskRow (item);
                 listbox.append (items_checked [item.id]);
@@ -177,8 +246,9 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
 
         if (lbbefore != null) {
             var before = (Widgets.CompletedTaskRow) lbbefore;
-            var comp_before = Utils.Datetime.get_date_from_string (before.item.completed_at);
-            if (comp_before.compare (Utils.Datetime.get_date_from_string (row.item.completed_at)) == 0) {
+            var comp_before = Utils.Datetime.get_date_only (Utils.Datetime.get_date_from_string (before.item.completed_at));
+            var comp_after = Utils.Datetime.get_date_only (Utils.Datetime.get_date_from_string (row.item.completed_at));
+            if (comp_before.compare (comp_after) == 0) {
                 return;
             }
         }
@@ -186,20 +256,30 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         row.set_header (
             get_header_box (
                 Utils.Datetime.get_relative_date_from_date (
-                    Utils.Datetime.get_date_from_string (row.item.completed_at)
+                    Utils.Datetime.get_date_only (Utils.Datetime.get_date_from_string (row.item.completed_at))
                 )
             )
         );
     }
 
     private int sort_completed_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow? row2) {
-        var completed_a = Utils.Datetime.get_date_from_string (((Widgets.CompletedTaskRow) row1).item.completed_at);
-        var completed_b = Utils.Datetime.get_date_from_string (((Widgets.CompletedTaskRow) row2).item.completed_at);
+        var completed_a = Utils.Datetime.get_date_only (
+            Utils.Datetime.get_date_from_string (((Widgets.CompletedTaskRow) row1).item.completed_at)
+        );
+        var completed_b = Utils.Datetime.get_date_only (
+            Utils.Datetime.get_date_from_string (((Widgets.CompletedTaskRow) row2).item.completed_at)
+        );
         return completed_b.compare (completed_a);
     }
 
     private bool filter_function (Gtk.ListBoxRow row) {
-        return ((Widgets.CompletedTaskRow) row).item.content.down ().contains (search_entry.text.down ());
+        Objects.Item item = ((Widgets.CompletedTaskRow) row).item;
+
+        if (filter_section_id != null) {
+            return item.section_id == filter_section_id;
+        } else {
+            return item.content.down ().contains (search_entry.text.down ());
+        }
     }
 
     private Gtk.Widget get_header_box (string title) {
@@ -226,153 +306,70 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
 
         items_checked.clear ();
     }
-}
 
-public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
-    public Objects.Item item { get; construct; }
+    private Gtk.Popover build_view_setting_popover () {
+		// Filters
+		var section_model = new Gee.ArrayList<string> ();
+        foreach (Objects.Section section in project.sections) {
+            section_model.add (section.name);
+        }
 
-    private Gtk.CheckButton checked_button;
-    private Gtk.Revealer main_revealer;
+		var section_item = new Widgets.ContextMenu.MenuPicker (_("Section"), "arrow3-right-symbolic", section_model);
 
-    public CompletedTaskRow (Objects.Item item) {
-        Object (
-            item: item
-        );
-    }
-
-    ~CompletedTaskRow () {
-        print ("Destroying Widgets.CompletedTaskRow\n");
-    }
-
-    construct {
-        add_css_class ("no-selectable");
-
-        checked_button = new Gtk.CheckButton () {
-			valign = Gtk.Align.START,
-            css_classes = { "priority-color" },
-            active = item.checked
-		};
-
-		var content_label = new Gtk.Label (item.content) {
-			wrap = true,
-            hexpand = true,
-            wrap_mode = Pango.WrapMode.WORD_CHAR,
-			xalign = 0,
-			yalign = 0
-		};
-
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-			margin_top = 3,
-			margin_start = 3,
-			margin_end = 3
-		};
-
-		content_box.append (checked_button);
-		content_box.append (content_label);
-
-        var description_label = new Gtk.Label (null) {
-			xalign = 0,
-			lines = 1,
-			ellipsize = Pango.EllipsizeMode.END,
-			margin_start = 30,
-			margin_end = 6,
-			css_classes = { "dim-label", "caption" }
-		};
-
-		var description_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-			child = description_label
-		};
-
-        description_label.label = Util.get_default ().line_break_to_space (item.description);
-		description_label.tooltip_text = item.description.strip ();
-		description_revealer.reveal_child = description_label.label.length > 0;
-
-        var section_label = new Gtk.Label (item.has_section ? "● " + item.section.name : null) {
-            hexpand = true,
-            halign = END,
-            css_classes = { "dim-label", "caption" }
-        };
-
-        var bottom_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        bottom_box.append (description_revealer);
-        bottom_box.append (section_label);
-
-        var handle_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 6,
-            margin_end = 9,
-            margin_bottom = 6,
-            margin_start = 6
-        };
-		handle_grid.append (content_box);
-		handle_grid.append (bottom_box);
-
-        var card = new Adw.Bin () {
-            child = handle_grid,
-            css_classes = { "card", "border-radius-9" }
-        };
-
-        main_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			child = card
-		};
-
-		child = main_revealer;
-
-        Timeout.add (main_revealer.transition_duration, () => {
-			main_revealer.reveal_child = true;
-			return GLib.Source.REMOVE;
+		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+		menu_box.margin_top = menu_box.margin_bottom = 3;
+		menu_box.append (new Gtk.Label (_("Filter By")) {
+			css_classes = { "heading", "h4" },
+			margin_start = 6,
+			margin_top = 6,
+			margin_bottom = 6,
+			halign = Gtk.Align.START
 		});
+		menu_box.append (section_item);
 
-        var checked_button_gesture = new Gtk.GestureClick ();
-		checked_button.add_controller (checked_button_gesture);
-		checked_button_gesture.pressed.connect (() => {
-			checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-			checked_button.active = !checked_button.active;
-            checked_toggled (checked_button.active);
-		});
-    }
+		var popover = new Gtk.Popover () {
+			has_arrow = false,
+			position = Gtk.PositionType.BOTTOM,
+			child = menu_box,
+			width_request = 250
+		};
 
-    public void hide_destroy () {
-		main_revealer.reveal_child = false;
-		Timeout.add (main_revealer.transition_duration, () => {
-			((Gtk.ListBox) parent).remove (this);
-			return GLib.Source.REMOVE;
-		});
+        section_item.notify["selected"].connect (() => {
+            popover.popdown ();
+
+            Objects.Section section = project.sections[section_item.selected];
+            add_update_filter (section);
+        });
+
+		return popover;
 	}
 
-    public void checked_toggled (bool active, uint? time = null) {
-		bool old_checked = item.checked;
+    public void add_update_filter (Objects.Section section) {
+        Objects.Filters.FilterItem filter = filters_flowbox.get_filter (FilterItemType.SECTION.to_string ());
+        bool insert = false;
 
-        if (!active) {
-            item.checked = false;
-            item.completed_at = "";
-            _complete_item (old_checked);
+        if (filter == null) {
+            filter = new Objects.Filters.FilterItem ();
+            filter.filter_type = FilterItemType.SECTION;
+            insert = true;
         }
-	}
 
-    private void _complete_item (bool old_checked) {
-        if (item.project.source_type == SourceType.LOCAL) {
-            Services.Store.instance ().checked_toggled (item, old_checked);
-            return;
+        filter.name = section.name;
+        filter.value = section.id;
+
+        if (insert) {
+            filters_flowbox.add_filter (filter);
+        } else {
+            filters_flowbox.update_filter (filter);
         }
-        
-        if (item.project.source_type == SourceType.TODOIST) {
-            checked_button.sensitive = false;
-            Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.Todoist.get_default ().complete_item.end (res).status) {
-                    Services.Store.instance ().checked_toggled (item, old_checked);
-                    checked_button.sensitive = true;
-                }
-            });
-        } else if (item.project.source_type == SourceType.CALDAV) {
-            checked_button.sensitive = false;
-            Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {
-                    Services.Store.instance ().checked_toggled (item, old_checked);
-                    checked_button.sensitive = true;
-                }
-            });
-        }
+
+        filter_section_id = section.id;
+        listbox.invalidate_filter ();
     }
+
+    public void delete_all_action (Gee.ArrayList<Objects.Item> items) {
+		foreach (Objects.Item item in items) {
+			item.delete_item ();
+		}
+	}
 }

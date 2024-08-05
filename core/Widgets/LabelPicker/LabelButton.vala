@@ -100,7 +100,7 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
             labels_picker.position = Gtk.PositionType.BOTTOM;
             labels_picker.has_arrow = true;
 
-            css_classes = { "card" };
+            css_classes = { "card", "activatable" };
             child = card_grid;
             hexpand = true;
             vexpand = true;

@@ -53,10 +53,11 @@ public class Views.Board : Adw.Bin {
 
         due_revealer = build_due_date_widget ();
 
-        var filters = new Widgets.FilterFlowBox (project) {
+        var filters = new Widgets.FilterFlowBox () {
             valign = Gtk.Align.START,
             vexpand = false,
-            vexpand_set = true
+            vexpand_set = true,
+            base_object = project
         };
 
         filters.flowbox.margin_start = 24;

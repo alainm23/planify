@@ -181,7 +181,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         };
         datetime_picker.set_parent (card_grid);
 
-        css_classes = { "card" };
+        css_classes = { "card", "activatable" };
         attach (card_grid, 0, 0);
         hexpand = true;
         vexpand = true;
@@ -239,7 +239,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             var end_label = "";
             if (item.due.end_type == RecurrencyEndType.ON_DATE) {
                 var date_label = Utils.Datetime.get_default_date_format_from_date (
-                    Utils.Datetime.get_format_date (
+                    Utils.Datetime.get_date_only (
                         Utils.Datetime.get_date_from_string (item.due.recurrency_end)
                     )
                 );

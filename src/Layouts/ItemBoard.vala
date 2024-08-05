@@ -276,6 +276,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		handle_grid.add_css_class ("card");
 		handle_grid.add_css_class ("border-radius-9");
 		handle_grid.add_css_class ("pb-6");
+        handle_grid.add_css_class ("activatable");
 
         var overlay = new Gtk.Overlay ();
 		overlay.child = handle_grid;
@@ -446,9 +447,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 content_label.remove_css_class ("dim-label");
                 content_label.remove_css_class ("line-through");
             } else {
+                var old_completed_at = item.completed_at;
+
                 item.checked = false;
                 item.completed_at = "";
-                _complete_item (old_checked);
+                _complete_item.begin (old_checked, old_completed_at);
             }
         }
 	}
@@ -479,41 +482,39 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			if (item.due.is_recurring && !item.due.is_recurrency_end) {
 				update_next_recurrency ();
 			} else {
+                var old_completed_at = item.completed_at;
+
 				item.checked = true;
-				item.completed_at = Utils.Datetime.get_format_date (
-					new GLib.DateTime.now_local ()
-                ).to_string ();
-                _complete_item (old_checked);
+				item.completed_at = new GLib.DateTime.now_local ().to_string ();
+                _complete_item.begin (old_checked, old_completed_at);
 			}
 
 			return GLib.Source.REMOVE;
 		});
 	}
 
-    private void _complete_item (bool old_checked) {
-        if (item.project.source_type == SourceType.LOCAL) {
-            Services.Store.instance ().checked_toggled (item, old_checked);
-        } else if (item.project.source_type == SourceType.TODOIST) {
-            checked_button.sensitive = false;
-            is_loading = true;
-            Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.Todoist.get_default ().complete_item.end (res).status) {
-                    Services.Store.instance ().checked_toggled (item, old_checked);
-                    is_loading = false;
-                    checked_button.sensitive = true;
-                }
-            });
-        } else if (item.project.source_type == SourceType.CALDAV) {
-            checked_button.sensitive = false;
-            is_loading = true;
-            Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {
-                    Services.Store.instance ().checked_toggled (item, old_checked);
-                    is_loading = false;
-                    checked_button.sensitive = true;
-                }
-            });
+    private async void _complete_item (bool old_checked, string old_completed_at) {
+        checked_button.sensitive = false;
+        HttpResponse response = yield item.complete_item (old_checked);
+
+        if (!response.status) {
+            _complete_item_error (response, old_checked, old_completed_at);
         }
+    }
+
+    private void _complete_item_error (HttpResponse response, bool old_checked, string old_completed_at) {
+        item.checked = old_checked;
+        item.completed_at = old_completed_at;
+
+        is_loading = false;
+        checked_button.sensitive = true;
+        checked_button.active = false;
+
+        handle_grid.remove_css_class ("complete-animation");
+        content_label.remove_css_class ("dim-label");
+        content_label.remove_css_class ("line-through");
+        
+        Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
     }
 
 	private void recurrency_update_complete (GLib.DateTime next_recurrency) {
@@ -566,7 +567,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         if (item.completed) {
             due_label.label = Utils.Datetime.get_relative_date_from_date (
-                Utils.Datetime.get_format_date (
+                Utils.Datetime.get_date_only (
                     Utils.Datetime.get_date_from_string (item.completed_at)
                 )
             );
@@ -701,12 +702,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         today_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
-            update_due (Utils.Datetime.get_format_date (new DateTime.now_local ()));
+            update_due (Utils.Datetime.get_date_only (new DateTime.now_local ()));
         });
 
         tomorrow_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
-            update_due (Utils.Datetime.get_format_date (new DateTime.now_local ().add_days (1)));
+            update_due (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
         });
 
         pinboard_item.activate_item.connect (() => {

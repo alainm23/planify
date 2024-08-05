@@ -100,7 +100,7 @@ public class Widgets.PriorityButton : Adw.Bin {
         priority_popover.has_arrow = true;
         priority_popover.set_parent (card_grid);
 
-        css_classes = { "card" };
+        css_classes = { "card", "activatable" };
         child = card_grid;
         hexpand = true;
         vexpand = true;
