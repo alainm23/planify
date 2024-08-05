@@ -67,6 +67,15 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.10.6" date="2024-08-05">
+      <description translate="no">
+        <ul>
+          <li>Fixed a bug that crashed the application when completing tasks with subtasks (#1395).</li>
+          <li>Hindi translation update thanks to @Scrambled777.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.10.5" date="2024-08-02">
       <description translate="no">
         <ul>
