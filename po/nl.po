@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-01 05:05-0500\n"
+"POT-Creation-Date: 2024-08-02 06:25-0500\n"
 "PO-Revision-Date: 2024-07-30 19:37+0200\n"
 "Last-Translator: Gert-dev\n"
 "Language-Team: Dutch <>\n"
@@ -984,8 +984,9 @@ msgstr "Dit kan niet ongedaan gemaakt worden"
 #: core/Objects/Source.vala:166 src/Services/Backups.vala:416
 #: src/Layouts/LabelRow.vala:178 src/Layouts/ItemSidebarView.vala:679
 #: src/Layouts/SectionBoard.vala:566 src/Widgets/MultiSelectToolbar.vala:220
-#: src/Widgets/MultiSelectToolbar.vala:260 src/Views/Project/Project.vala:573
-#: src/Views/Filter.vala:540 src/Dialogs/Preferences/Pages/Backup.vala:376
+#: src/Widgets/MultiSelectToolbar.vala:260 src/Widgets/Attachments.vala:293
+#: src/Views/Project/Project.vala:573 src/Views/Filter.vala:540
+#: src/Dialogs/Preferences/Pages/Backup.vala:376
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -1134,31 +1135,31 @@ msgstr "Hoofdmenu"
 msgid "Open Quick Find"
 msgstr "Snel zoeken openen"
 
-#: src/MainWindow.vala:450 src/Dialogs/Preferences/PreferencesWindow.vala:49
+#: src/MainWindow.vala:494 src/Dialogs/Preferences/PreferencesWindow.vala:49
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: src/MainWindow.vala:453
+#: src/MainWindow.vala:497
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
-#: src/MainWindow.vala:456 src/Dialogs/WhatsNew.vala:146
+#: src/MainWindow.vala:500 src/Dialogs/WhatsNew.vala:146
 msgid "What's New"
 msgstr "Wat is er nieuw"
 
-#: src/MainWindow.vala:459
+#: src/MainWindow.vala:503
 msgid "About Planify"
 msgstr "Over Planify"
 
-#: src/MainWindow.vala:461 src/Dialogs/ManageProjects.vala:28
+#: src/MainWindow.vala:505 src/Dialogs/ManageProjects.vala:28
 msgid "Archived Projects"
 msgstr "Gearchiveerde projecten"
 
-#: src/MainWindow.vala:527
+#: src/MainWindow.vala:571
 msgid "Oops! Something happened"
 msgstr "Oeps! Er is iets gebeurd"
 
-#: src/MainWindow.vala:530
+#: src/MainWindow.vala:574
 msgid "See More"
 msgstr "Meer tonen"
 
@@ -1486,11 +1487,6 @@ msgstr "Openen"
 #: src/Widgets/Attachments.vala:235
 msgid "Attach File"
 msgstr "Bijlage toevoegen"
-
-#: src/Widgets/Attachments.vala:293
-#: src/Dialogs/Preferences/Pages/Backup.vala:375
-msgid "Download"
-msgstr "Downloaden"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:60
 msgid "Previous"
@@ -2558,6 +2554,10 @@ msgstr "Geselecteerd bestand is ongeldig"
 #: src/Dialogs/Preferences/Pages/Backup.vala:323
 msgid "View Backup"
 msgstr "Back-up bekijken"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:375
+msgid "Download"
+msgstr "Downloaden"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:30
 msgid "Show in Sidebar"

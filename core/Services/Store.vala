@@ -560,7 +560,7 @@ public class Services.Store : GLib.Object {
 
     public void move_item (Objects.Item item) {
         if (Services.Database.get_default ().move_item (item)) {
-            foreach (Objects.Item subitem in item.items) {
+            foreach (Objects.Item subitem in get_subitems (item)) {
                 subitem.project_id = item.project_id;
                 move_item (subitem);
             }
@@ -572,7 +572,7 @@ public class Services.Store : GLib.Object {
 
     public void checked_toggled (Objects.Item item, bool old_checked) {
         if (Services.Database.get_default ().checked_toggled (item, old_checked)) {
-            foreach (Objects.Item subitem in item.items) {
+            foreach (Objects.Item subitem in get_subitems (item)) {
                 subitem.checked = item.checked;
                 subitem.completed_at = item.completed_at;
                 checked_toggled (subitem, old_checked);
@@ -594,7 +594,7 @@ public class Services.Store : GLib.Object {
             item_unarchived (item);
         }
 
-        foreach (Objects.Item subitem in item.items) {
+        foreach (Objects.Item subitem in get_subitems (item)) {
             archive_item (subitem, is_archived);
         }
     }

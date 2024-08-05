@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: planify\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-01 05:05-0500\n"
-"PO-Revision-Date: 2024-07-13 22:12+0530\n"
+"Report-Msgid-Bugs-To: https://github.com/alainm23/planify/issues\n"
+"POT-Creation-Date: 2024-08-02 06:25-0500\n"
+"PO-Revision-Date: 2024-08-03 00:05+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "Language: hi\n"
@@ -161,7 +161,7 @@ msgstr "Nextcloud"
 
 #: core/Enum.vala:414
 msgid "Radicale"
-msgstr ""
+msgstr "Radicale"
 
 #: core/Enum.vala:472 core/Enum.vala:640 core/Widgets/PriorityButton.vala:73
 #: src/Views/Project/Project.vala:426 src/Views/Project/Project.vala:470
@@ -967,8 +967,9 @@ msgstr "इसे पूर्ववत नहीं किया जा सक�
 #: core/Objects/Source.vala:166 src/Services/Backups.vala:416
 #: src/Layouts/LabelRow.vala:178 src/Layouts/ItemSidebarView.vala:679
 #: src/Layouts/SectionBoard.vala:566 src/Widgets/MultiSelectToolbar.vala:220
-#: src/Widgets/MultiSelectToolbar.vala:260 src/Views/Project/Project.vala:573
-#: src/Views/Filter.vala:540 src/Dialogs/Preferences/Pages/Backup.vala:376
+#: src/Widgets/MultiSelectToolbar.vala:260 src/Widgets/Attachments.vala:293
+#: src/Views/Project/Project.vala:573 src/Views/Filter.vala:540
+#: src/Dialogs/Preferences/Pages/Backup.vala:376
 msgid "Delete"
 msgstr "मिटाएं"
 
@@ -1117,31 +1118,31 @@ msgstr "मुख्य मेनू"
 msgid "Open Quick Find"
 msgstr "शीघ्र खोज खोलें"
 
-#: src/MainWindow.vala:450 src/Dialogs/Preferences/PreferencesWindow.vala:49
+#: src/MainWindow.vala:494 src/Dialogs/Preferences/PreferencesWindow.vala:49
 msgid "Preferences"
 msgstr "प्राथमिकताएं"
 
-#: src/MainWindow.vala:453
+#: src/MainWindow.vala:497
 msgid "Keyboard Shortcuts"
 msgstr "कीबोर्ड शॉर्टकट"
 
-#: src/MainWindow.vala:456 src/Dialogs/WhatsNew.vala:146
+#: src/MainWindow.vala:500 src/Dialogs/WhatsNew.vala:146
 msgid "What's New"
 msgstr "नया क्या है"
 
-#: src/MainWindow.vala:459
+#: src/MainWindow.vala:503
 msgid "About Planify"
 msgstr "प्लॅानिफाई के बारे में"
 
-#: src/MainWindow.vala:461 src/Dialogs/ManageProjects.vala:28
+#: src/MainWindow.vala:505 src/Dialogs/ManageProjects.vala:28
 msgid "Archived Projects"
 msgstr "संग्रहीत परियोजनाएं"
 
-#: src/MainWindow.vala:527
+#: src/MainWindow.vala:571
 msgid "Oops! Something happened"
-msgstr ""
+msgstr "उफ़! कुछ हुआ"
 
-#: src/MainWindow.vala:530
+#: src/MainWindow.vala:574
 msgid "See More"
 msgstr "और बनाएं"
 
@@ -1467,11 +1468,6 @@ msgstr "खोलें"
 msgid "Attach File"
 msgstr "फाइल जोड़ें"
 
-#: src/Widgets/Attachments.vala:293
-#: src/Dialogs/Preferences/Pages/Backup.vala:375
-msgid "Download"
-msgstr "डाउनलोड"
-
 #: src/Widgets/ItemChangeHistoryRow.vala:60
 msgid "Previous"
 msgstr "पिछला"
@@ -1492,7 +1488,7 @@ msgstr "पिन: निष्क्रिय"
 
 #: src/Widgets/SourceRow.vala:65
 msgid "Remove"
-msgstr ""
+msgstr "हटाएं"
 
 #: src/Widgets/SourceRow.vala:82
 #: src/Dialogs/Preferences/PreferencesWindow.vala:847
@@ -1501,7 +1497,7 @@ msgstr "स्रोत"
 
 #: src/Widgets/ErrorView.vala:103
 msgid "Report Issue"
-msgstr ""
+msgstr "समस्या दर्ज करें"
 
 #: src/Views/Project/Project.vala:57
 msgid "Project Actions"
@@ -2292,7 +2288,7 @@ msgstr "आप अपने विचारों को खींचकर औ�
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:969
 msgid "Display Name"
-msgstr ""
+msgstr "प्रदर्शन नाम"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:975
 msgid "Sync Server"
@@ -2523,6 +2519,10 @@ msgstr "चयनित फाइल अमान्य है"
 msgid "View Backup"
 msgstr "बैकअप देखें"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:375
+msgid "Download"
+msgstr "डाउनलोड"
+
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:30
 msgid "Show in Sidebar"
 msgstr "पार्श्वपट्टी में दिखाएं"
@@ -2637,48 +2637,3 @@ msgstr "लेबल खोलें"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "पिनबोर्ड खोलें"
-
-#~ msgid "On this Computer"
-#~ msgstr "इस कंप्यूटर पर"
-
-#~ msgid "Labels: On This Computer"
-#~ msgstr "लेबल: इस कंप्यूटर पर"
-
-#~ msgid "Labels: Todoist"
-#~ msgstr "लेबल: Todoist"
-
-#~ msgid "Labels: Nextcloud"
-#~ msgstr "लेबल: Nextcloud"
-
-#~ msgid "Synchronize with your Todoist Account"
-#~ msgstr "अपने Todoist खाते के साथ समन्वयित करें"
-
-#~ msgid "Synchronization based on open Internet standards"
-#~ msgstr "खुले इंटरनेट मानकों पर आधारित समन्वयन"
-
-#~ msgid ""
-#~ "Activate this setting so that Planify automatically synchronizes with "
-#~ "your CalDAV account every 15 minutes"
-#~ msgstr ""
-#~ "इस सेटिंग को सक्रिय करें ताकि प्लॅानिफाई स्वचालित रूप से हर 15 मिनट में आपके CalDAV "
-#~ "खाते के साथ समन्वयित हो जाए"
-
-#~ msgid "Failed to login"
-#~ msgstr "लॉगिन करने में विफल"
-
-#~ msgid ""
-#~ "Are you sure you want to remove the Todoist sync? This action will delete "
-#~ "all your tasks and settings."
-#~ msgstr ""
-#~ "क्या आप वाकई Todoist समन्वयन को हटाना चाहते हैं? यह कार्रवाई आपके सभी कार्य और "
-#~ "सेटिंग मिटा देगी।"
-
-#~ msgid ""
-#~ "Are you sure you want to remove the CalDAV sync? This action will delete "
-#~ "all your tasks and settings."
-#~ msgstr ""
-#~ "क्या आप वाकई CalDAV समन्वयन को हटाना चाहते हैं? यह कार्रवाई आपके सभी कार्य और "
-#~ "सेटिंग मिटा देगी।"
-
-#~ msgid "Sign Off"
-#~ msgstr "साइन ऑफ़"

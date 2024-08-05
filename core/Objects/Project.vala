@@ -252,13 +252,13 @@ public class Objects.Project : Objects.BaseObject {
             }
         });
 
-        item_deleted.connect ((item) => {
+        item_deleted.connect (() => {
             _project_count = update_project_count ();
             _percentage = update_percentage ();
             project_count_updated ();
         });
 
-        item_added.connect ((item) => {
+        item_added.connect (() => {
             _project_count = update_project_count ();
             _percentage = update_percentage ();
             project_count_updated ();
