@@ -97,9 +97,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 itemrow_box.add_css_class ("card");
                 itemrow_box.add_css_class ("card-selected");
 
-                if (markdown_edit_view == null) {
-                    build_markdown_edit_view ();
-                }
+                build_markdown_edit_view ();
 
                 detail_revealer.reveal_child = true;
                 content_label_revealer.reveal_child = false;
@@ -131,6 +129,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 remove_css_class ("row");
                 itemrow_box.remove_css_class ("card-selected");
                 itemrow_box.remove_css_class ("card");
+
+                destroy_markdown_edit_view ();
 
                 detail_revealer.reveal_child = false;
                 content_label_revealer.reveal_child = true;
@@ -389,6 +389,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         current_buffer = new Widgets.Markdown.Buffer ();
+
         markdown_revealer = new Gtk.Revealer ();
 
         item_labels = new Widgets.ItemLabels (item) {
@@ -1812,6 +1813,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void build_markdown_edit_view () {
+        if (markdown_edit_view != null) {
+            return;
+        }
+
         markdown_edit_view = new Widgets.Markdown.EditView () {
             left_margin = 24,
             right_margin = 6,
@@ -1834,5 +1839,30 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         markdown_edit_view.escape.connect (() => {
             edit = false;
         });
+    }
+
+    private void destroy_markdown_edit_view () {
+        markdown_revealer.reveal_child = false;
+        Timeout.add (markdown_revealer.transition_duration, () => {
+            markdown_revealer.child = null;
+            markdown_edit_view = null;
+            return GLib.Source.REMOVE;
+        });
+    }
+
+    public void view_mode () {
+        hide_loading_revealer.reveal_child = false;
+
+        content_textview.editable = false;
+        markdown_edit_view.is_editable = false;
+        item_labels.sensitive = false;
+        
+        schedule_button.sensitive = false;
+        priority_button.sensitive = false;
+        label_button.sensitive = false;
+        pin_button.sensitive = false;
+        reminder_button.sensitive = false;
+        add_button.sensitive = false;
+        attachments_button.sensitive = false;
     }
 }

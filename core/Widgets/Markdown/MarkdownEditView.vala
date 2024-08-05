@@ -80,6 +80,10 @@
 	public signal void changed ();
 	public signal void escape ();
 
+	~EditView() {
+        print ("Destroying Widgets.Markdown.EditView\n");
+    }
+
     construct {
         markdown_view = new Widgets.Markdown.View () {
             hexpand = true,
@@ -179,7 +183,7 @@
 
 		recolor (Color.RGB ());
 
-		notify["is-editable"].connect (() => {
+		notify["is_editable"].connect (() => {
 			markdown_view.sensitive = is_editable;
 		});
     }

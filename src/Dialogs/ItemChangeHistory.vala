@@ -36,7 +36,7 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
         );
     }
 
-    ~ItemChangeHistory() {
+    ~ItemChangeHistory () {
         print ("Destroying Dialogs.ItemChangeHistory\n");
     }
 
@@ -62,6 +62,7 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
             valign = START,
             css_classes = { "listbox-background" }
         };
+        
         listbox.set_header_func (header_completed_function);
         listbox.set_placeholder (new Gtk.Label (_("Your change history will be displayed here once you start making changes.")) {
             css_classes = { "dim-label" },

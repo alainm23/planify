@@ -90,6 +90,10 @@ public class Widgets.Markdown.View : GtkSource.View {
 		}
 	}
 
+	~View() {
+        print ("Destroying Widgets.Markdown.View\n");
+    }
+
 	public uint get_title_level (uint line) {
 		Gtk.TextIter start;
 		Gtk.TextIter end;
@@ -466,15 +470,6 @@ public class Widgets.Markdown.View : GtkSource.View {
 				if (button != 1) return;
 				var line = iter.get_line ();
 				var title_level = get_title_level (line);
-                // TODO: HeadingPopover
-				//  if (title_level == 0) return;
-				//  var popover = new HeadingPopover(this, line);
-				//  popover.autohide = true;
-				//  popover.has_arrow = true;
-				//  popover.position = Gtk.PositionType.LEFT;
-				//  popover.set_parent (this);
-				//  popover.pointing_to = area;
-				//  popover.popup ();
 			});
 			gutter.insert (renderer, 0);
 		}
@@ -1233,8 +1228,8 @@ public class Widgets.Markdown.View : GtkSource.View {
 		if (regex.match_full (buffer_text, buffer_text.length, 0, 0, out matches)) {
 			do {
 				int start_before_pos, end_before_pos;
-				int start_code_pos, end_code_pos;
-				int start_after_pos, end_after_pos;
+				int start_code_pos,   end_code_pos;
+				int start_after_pos,  end_after_pos;
 				bool have_code_start = matches.fetch_pos (1, out start_before_pos, out end_before_pos);
 				bool have_code = matches.fetch_pos (2, out start_code_pos, out end_code_pos);
 				bool have_code_close = matches.fetch_pos (3, out start_after_pos, out end_after_pos);
@@ -1249,8 +1244,8 @@ public class Widgets.Markdown.View : GtkSource.View {
 
 					// Convert the character offsets to TextIter's
 					Gtk.TextIter start_before_iter, end_before_iter;
-					Gtk.TextIter start_code_iter, end_code_iter;
-					Gtk.TextIter start_after_iter, end_after_iter;
+					Gtk.TextIter start_code_iter,   end_code_iter;
+					Gtk.TextIter start_after_iter,  end_after_iter;
 					buffer.get_iter_at_offset (out start_before_iter, start_before_pos);
 					buffer.get_iter_at_offset (out end_before_iter, end_before_pos);
 					buffer.get_iter_at_offset (out start_code_iter, start_code_pos);
@@ -1259,14 +1254,28 @@ public class Widgets.Markdown.View : GtkSource.View {
 					buffer.get_iter_at_offset (out end_after_iter, end_after_pos);
 
 					// Check to see if the tag has already been applied, if so, skip it.
-					if (start_code_iter.has_tag (text_tag) && end_code_iter.has_tag (text_tag) && start_before_iter.has_tag (text_tag_around) && start_after_iter.has_tag (text_tag_around)) {
+					if (start_code_iter.has_tag (text_tag) &&
+					    end_code_iter.has_tag (text_tag) &&
+						start_before_iter.has_tag (text_tag_around) &&
+						start_after_iter.has_tag (text_tag_around)
+					) {
 						continue;
 					}
 
-					// Apply styling
+					// Check to see if we're already in a link, in which case skip formatting.
+					if (start_code_iter.has_tag (text_tag_url) &&
+					    end_code_iter.has_tag (text_tag_url) &&
+						start_before_iter.has_tag (text_tag_url) &&
+						start_after_iter.has_tag (text_tag_url)
+					) {
+						continue;
+					}
+
+					// Remove other tags if directed to.
 					if (remove_other_tags)
 						remove_tags_format (start_before_iter, end_after_iter);
 
+					// Apply styling.
 					buffer.apply_tag (text_tag, start_code_iter, end_code_iter);
 					buffer.apply_tag (text_tag_around, start_before_iter, end_before_iter);
 					buffer.apply_tag (text_tag_around, start_after_iter, end_after_iter);

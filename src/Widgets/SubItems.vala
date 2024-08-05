@@ -44,11 +44,7 @@ public class Widgets.SubItems : Adw.Bin {
 
     public bool show_completed {
         get {
-            if (Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks")) {
-                return true;
-            } else {
-                return item_parent.project.show_completed;
-            }
+            return Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks");
         }
     }
 
@@ -253,22 +249,6 @@ public class Widgets.SubItems : Adw.Bin {
                 }
             }
 		})] = Services.EventBus.get_default ();
-
-        signals_map[item_parent.project.show_completed_changed.connect (() => {
-            if (!Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks")) {
-                checked_revealer.reveal_child = show_completed;
-
-                if (show_completed) {
-                    add_completed_items ();
-                } else {
-                    items_checked.clear ();
-                    
-                    foreach (unowned Gtk.Widget child in Util.get_default ().get_children (checked_listbox) ) {
-                        checked_listbox.remove (child);
-                    }
-                }
-            }
-        })] = item_parent.project;
 
         signals_map[add_button.clicked.connect (() => {
             prepare_new_item ();

@@ -133,6 +133,7 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
             foreach (var entry in signal_map.entries) {
                 entry.value.disconnect (entry.key);
             }
+            
             signal_map.clear ();
             
             //Clear Rows

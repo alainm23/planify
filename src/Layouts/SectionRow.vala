@@ -26,8 +26,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	private Gtk.Revealer bottom_revealer;
 	private Widgets.EditableLabel name_editable;
 	private Gtk.ListBox listbox;
-	private Gtk.ListBox checked_listbox;
-	private Gtk.Revealer checked_revealer;
 	private Gtk.Revealer content_revealer;
 	private Gtk.Grid drop_widget;
 	private Gtk.Revealer drop_revealer;
@@ -46,8 +44,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 	public bool has_children {
 		get {
-			return items.size > 0 ||
-			       items_checked.size > 0;
+			return item_map.size > 0;
 		}
 	}
 
@@ -63,8 +60,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		}
 	}
 
-	public Gee.HashMap <string, Layouts.ItemRow> items;
-	public Gee.HashMap <string, Layouts.ItemRow> items_checked;
+	public Gee.HashMap <string, Layouts.ItemRow> item_map;
 
 	public signal void children_size_changed ();
 
@@ -92,8 +88,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	construct {
 		add_css_class ("row");
 
-		items = new Gee.HashMap <string, Layouts.ItemRow> ();
-		items_checked = new Gee.HashMap <string, Layouts.ItemRow> ();
+		item_map = new Gee.HashMap <string, Layouts.ItemRow> ();
 
 		name_editable = new Widgets.EditableLabel (("New Section"), false) {
 			valign = Gtk.Align.CENTER,
@@ -190,31 +185,12 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			css_classes = { "listbox-background" }
 		};
 
-		checked_listbox = new Gtk.ListBox () {
-			valign = Gtk.Align.START,
-			hexpand = true,
-			css_classes = { "listbox-background" }
-		};
-
-		checked_listbox.set_sort_func (set_checked_sort_func);
-
-		var checked_listbox_grid = new Gtk.Grid ();
-		checked_listbox_grid.attach (checked_listbox, 0, 0);
-
-		checked_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			reveal_child = true
-		};
-
-		checked_revealer.child = checked_listbox_grid;
-
 		var bottom_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
 			hexpand = true,
 			margin_end = 12
 		};
 
 		bottom_grid.append (listbox);
-		bottom_grid.append (checked_revealer);
 
 		bottom_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -239,7 +215,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		child = content_revealer;
 
 		add_items ();
-		show_completed_changed ();
 		build_drag_and_drop ();
 
 		Timeout.add (content_revealer.transition_duration, () => {
@@ -282,69 +257,43 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				print ("Content: %s - %s\n".printf (item.content, old_checked.to_string ()));
 				
 				if (!old_checked) {
-					if (items.has_key (item.id)) {
-						items [item.id].hide_destroy ();
-						items.unset (item.id);
-					}
-
-					if (!items_checked.has_key (item.id)) {
-						items_checked [item.id] = new Layouts.ItemRow (item, true);
-						checked_listbox.insert (items_checked [item.id], 0);
+					if (item_map.has_key (item.id)) {
+						item_map [item.id].hide_destroy ();
+						item_map.unset (item.id);
 					}
 				} else {
-					if (items_checked.has_key (item.id)) {
-						items_checked [item.id].hide_destroy ();
-						items_checked.unset (item.id);
-					}
-
-					if (!items.has_key (item.id)) {
-						items [item.id] = new Layouts.ItemRow (item, true);
-						listbox.append (items [item.id]);
+					if (!item_map.has_key (item.id)) {
+						item_map [item.id] = new Layouts.ItemRow (item, true);
+						listbox.append (item_map [item.id]);
 					}
 				}
-
-				checked_listbox.invalidate_sort ();
 			}
 		});
 
 		Services.Store.instance ().item_updated.connect ((item, update_id) => {
-			if (items.has_key (item.id)) {
-				if (items [item.id].update_id != update_id) {
-					items [item.id].update_request ();
+			if (item_map.has_key (item.id)) {
+				if (item_map [item.id].update_id != update_id) {
+					item_map [item.id].update_request ();
 					update_sort ();
 				}
-			}
-
-			if (items_checked.has_key (item.id)) {
-				items_checked [item.id].update_request ();
 			}
 
 			listbox.invalidate_filter ();
 		});
 
 		Services.Store.instance ().item_deleted.connect ((item) => {
-			if (items.has_key (item.id)) {
-				items [item.id].hide_destroy ();
-				items.unset (item.id);
-			}
-
-			if (items_checked.has_key (item.id)) {
-				items_checked [item.id].hide_destroy ();
-				items_checked.unset (item.id);
+			if (item_map.has_key (item.id)) {
+				item_map [item.id].hide_destroy ();
+				item_map.unset (item.id);
 			}
 		});
 
 		Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
 			// vala-lint=no-space
 			if (old_project_id == section.project_id && old_section_id == section.id) {
-				if (items.has_key (item.id)) {
-					items [item.id].hide_destroy ();
-					items.unset (item.id);
-				}
-
-				if (items_checked.has_key (item.id)) {
-					items_checked [item.id].hide_destroy ();
-					items_checked.unset (item.id);
+				if (item_map.has_key (item.id)) {
+					item_map [item.id].hide_destroy ();
+					item_map.unset (item.id);
 				}
 			}
 
@@ -361,16 +310,16 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				var row = (Layouts.ItemRow) _row;
 
 				if (row.item.project_id == section.project_id && row.item.section_id == section.id) {
-					if (!items.has_key (row.item.id)) {
-						items [row.item.id] = row;
+					if (!item_map.has_key (row.item.id)) {
+						item_map [row.item.id] = row;
 						update_sort ();
 					}
 				}
 	
 				// vala-lint=no-space
 				if (row.item.project_id == section.project_id && row.item.section_id != section.id && old_section_id == section.id) {
-					if (items.has_key (row.item.id)) {
-						items.unset (row.item.id);
+					if (item_map.has_key (row.item.id)) {
+						item_map.unset (row.item.id);
 					}
 				}
 			}
@@ -384,8 +333,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				placeholder_revealer.reveal_child = true;
 			}
 		});
-
-		section.project.show_completed_changed.connect (show_completed_changed);
 
 		section.project.sort_order_changed.connect (() => {
 			update_sort ();
@@ -485,48 +432,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		Services.EventBus.get_default ().expand_all.connect ((project_id, value) => {
 			if (section.project_id == project_id) {
-				foreach (Layouts.ItemRow row in items.values) {
+				foreach (Layouts.ItemRow row in item_map.values) {
 					row.edit = value;
 				}
 			}
 		});
-	}
-
-	private void show_completed_changed () {
-		if (section.project.show_completed) {
-			add_completed_items ();
-		} else {
-			foreach (Layouts.ItemRow row in items_checked.values) {
-				row.hide_destroy ();
-			}
-
-			items_checked.clear ();
-		}
-
-		checked_revealer.reveal_child = section.project.show_completed;
-	}
-
-	public void add_completed_items () {
-		foreach (Layouts.ItemRow row in items_checked.values) {
-			row.hide_destroy ();
-		}
-
-		items_checked.clear ();
-
-		foreach (Objects.Item item in is_inbox_section ? section.project.items : section.items) {
-			add_complete_item (item);
-		}
-
-		checked_listbox.invalidate_sort ();
-	}
-
-	public void add_complete_item (Objects.Item item) {
-		if (section.project.show_completed && item.checked) {
-			if (!items_checked.has_key (item.id)) {
-				items_checked [item.id] = new Layouts.ItemRow (item, true);
-				checked_listbox.append (items_checked [item.id]);
-			}
-		}
 	}
 
 	private void update_sort () {
@@ -537,11 +447,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		}
 
 		listbox.invalidate_filter ();
-		checked_listbox.invalidate_sort ();
 	}
 
 	public void add_items () {
-		items.clear ();
+		item_map.clear ();
 
 		Gtk.Widget child;
 		for (child = listbox.get_first_child (); child != null; child = listbox.get_next_sibling ()) {
@@ -556,13 +465,13 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	}
 
 	public void add_item (Objects.Item item) {
-		if (!item.checked && !items.has_key (item.id)) {
-			items [item.id] = new Layouts.ItemRow (item, true);
+		if (!item.checked && !item_map.has_key (item.id)) {
+			item_map [item.id] = new Layouts.ItemRow (item, true);
 
 			if (item.custom_order) {
-				listbox.insert (items [item.id], item.child_order);
+				listbox.insert (item_map [item.id], item.child_order);
 			} else {
-				listbox.append (items [item.id]);
+				listbox.append (item_map [item.id]);
 			}
 		}
 	}
@@ -666,7 +575,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		var move_item = new Widgets.ContextMenu.MenuItem (_("Move Section"), "arrow3-right-symbolic");
 		var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "view-list-ordered-symbolic");
 		var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
-
+		var show_completed_item = new Widgets.ContextMenu.MenuItem (_("Show Completed Tasks"), "check-round-outline-symbolic");
+		
 		var archive_item = new Widgets.ContextMenu.MenuItem (_("Archive"), "shoe-box-symbolic");
 		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "user-trash-symbolic");
 		delete_item.add_css_class ("menu-item-danger");
@@ -683,6 +593,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		menu_box.append (move_item);
 		menu_box.append (manage_item);
 		menu_box.append (duplicate_item);
+		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+		menu_box.append (show_completed_item);
 
 		if (!is_inbox_section) {
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());

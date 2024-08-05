@@ -27,7 +27,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Gtk.Revealer spinner_revealer;
     private Widgets.TextView content_textview;
     private Widgets.Markdown.Buffer current_buffer;
-    private Widgets.Markdown.EditView markdown_edit_view;
+    private Widgets.Markdown.EditView markdown_edit_view = null;
+    private Gtk.Revealer markdown_revealer;
     private Widgets.StatusButton status_button;
     private Widgets.ScheduleButton schedule_button;
     private Widgets.PriorityButton priority_button;
@@ -49,11 +50,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
     public bool show_completed {
         get {
-            if (Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks")) {
-                return true;
-            } else {
-                return item.project.show_completed;
-            }
+            return Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks");
         }
     }
 
@@ -163,15 +160,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         properties_group.add (properties_grid);
 
         current_buffer = new Widgets.Markdown.Buffer ();
-
-        markdown_edit_view = new Widgets.Markdown.EditView () {
-            card = true,
-            left_margin = 12,
-            right_margin = 12,
-            top_margin = 12,
-            bottom_margin = 12,
-        };
-        markdown_edit_view.buffer = current_buffer;
+    
+        markdown_revealer = new Gtk.Revealer ();
 
         var description_group = new Adw.PreferencesGroup () {
             margin_start = 12,
@@ -179,7 +169,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             margin_top = 12
         };
 		description_group.title = _("Description");
-        description_group.add (markdown_edit_view);
+        description_group.add (markdown_revealer);
 
         subitems = new Widgets.SubItems.for_board () {
             margin_top = 12
@@ -302,6 +292,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         item = _item;
         update_id = Util.get_default ().generate_id ();
 
+        build_markdown_edit_view ();
+
         label_button.source = item.project.source;
         update_request ();
         subitems.present_item (item);
@@ -359,6 +351,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         signals_map.clear ();
         subitems.disconnect_all ();
         attachments.disconnect_all ();
+
+        destroy_markdown_edit_view ();
     }
 
     public void update_request () {
@@ -762,4 +756,31 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 		var toast = Util.get_default ().create_toast (title, 3);
 		Services.EventBus.get_default ().send_toast (toast);
 	}
+
+    private void build_markdown_edit_view () {
+        if (markdown_edit_view != null) {
+            return;
+        }
+
+        markdown_edit_view = new Widgets.Markdown.EditView () {
+            card = true,
+            left_margin = 12,
+            right_margin = 12,
+            top_margin = 12,
+            bottom_margin = 12
+        };
+        markdown_edit_view.buffer = current_buffer;
+
+        markdown_revealer.child = markdown_edit_view;
+        markdown_revealer.reveal_child = true;
+    }
+
+    private void destroy_markdown_edit_view () {
+        markdown_revealer.reveal_child = false;
+        Timeout.add (markdown_revealer.transition_duration, () => {
+            markdown_revealer.child = null;
+            markdown_edit_view = null;
+            return GLib.Source.REMOVE;
+        });
+    }
 }

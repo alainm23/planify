@@ -38,7 +38,7 @@ public class Dialogs.LabelPicker : Adw.Dialog {
         );
     }
 
-    ~LabelPicker() {
+    ~LabelPicker () {
         print ("Destroying Dialogs.LabelPicker\n");
     }
 

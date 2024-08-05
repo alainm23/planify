@@ -55,8 +55,6 @@ public class Services.EventBus : Object {
     public signal void day_changed ();
     public signal void open_labels ();
     public signal void close_labels ();
-    public signal void paste_action (string project_id, string content);
-    public signal void new_item_deleted (string project_id);
     public signal void update_labels_position ();
     public signal void section_sort_order_changed (string project_id);
     public signal void request_escape ();

@@ -91,6 +91,7 @@ sources = files(
   'Dialogs/RepeatConfig.vala',
   'Dialogs/ItemChangeHistory.vala',
   'Dialogs/ErrorDialog.vala',
+  'Dialogs/CompletedTasks.vala',
   
   'Dialogs/QuickFind/QuickFind.vala',
   'Dialogs/QuickFind/QuickFindItem.vala',
