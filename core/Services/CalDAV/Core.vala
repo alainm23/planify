@@ -57,6 +57,7 @@ public class Services.CalDAV.Core : GLib.Object {
         Services.CalDAV.Providers.Base provider = providers_map.get (caldav_type.to_string ());
 
         string url = provider.get_server_url (server_url, username, password);
+        print ("URL: %s\n".printf (url));
 
         if (Services.Store.instance ().source_caldav_exists (url, username)) {
             response.error_code = 409;

@@ -281,6 +281,8 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
             if (_uri.get_port () > 0) {
                 server_url = "%s://%s:%d".printf (_uri.get_scheme (), _uri.get_host (), _uri.get_port ());
             }
+            
+            server_url += _uri.get_path ();
         } catch (Error e) {
             debug (e.message);
         }
