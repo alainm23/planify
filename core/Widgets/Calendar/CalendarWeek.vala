@@ -22,10 +22,6 @@
 public class Widgets.Calendar.CalendarWeek : Gtk.Box {
     private Gtk.Label[] day_labels;
 
-    ~CalendarWeek() {
-        print ("Destroying Widgets.Calendar.CalendarWeek\n");
-    }
-
     construct {
         orientation = Gtk.Orientation.HORIZONTAL;
         homogeneous = true;

@@ -61,10 +61,6 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
         );
     }
 
-    ~Calendar() {
-        print ("Destroying Widgets.Calendar.Calendar\n");
-    }
-
     construct {
         calendar_header = new Widgets.Calendar.CalendarHeader ();
         calendar_week = new Widgets.Calendar.CalendarWeek ();

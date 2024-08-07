@@ -264,7 +264,7 @@ public class Objects.Project : Objects.BaseObject {
             project_count_updated ();
         });
 
-        Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, section_id) => {
+        Services.EventBus.get_default ().item_moved.connect ((item, old_project_id) => {
             if (item.project_id == id || old_project_id == id) {
                 _project_count = update_project_count ();
                 _percentage = update_percentage ();

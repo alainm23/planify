@@ -93,17 +93,6 @@ public class Widgets.FilterFlowBoxChild : Gtk.FlowBoxChild {
             return GLib.Source.REMOVE;
         });
         
-        var motion_gesture = new Gtk.EventControllerMotion ();
-        add_controller (motion_gesture);
-
-        motion_gesture.enter.connect (() => {
-            //  close_revealer.reveal_child = true;
-        });
-
-        motion_gesture.leave.connect (() => {
-            //  close_revealer.reveal_child = false;
-        });
-
         close_button.clicked.connect (() => {
             remove_filter (filter);
         });

@@ -75,6 +75,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 	}
 
     public bool on_drag = false;
+    private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
 
 	public ItemBoard (Objects.Item item) {
 		Object (
@@ -83,6 +84,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			can_focus: true
 		);
 	}
+
+    ~ItemBoard () {
+        print ("Destroying - Layouts.ItemBoard - %s\n".printf (item.content));
+    }
 
 	construct {
 		add_css_class ("row");
@@ -302,34 +307,36 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		child = main_revealer;
 		update_request ();
 
-        if (!item.checked) {
-            build_drag_and_drop ();
-        }
-
 		Timeout.add (main_revealer.transition_duration, () => {
 			main_revealer.reveal_child = true;
 			return GLib.Source.REMOVE;
 		});
 
-		var checked_button_gesture = new Gtk.GestureClick ();
-		checked_button.add_controller (checked_button_gesture);
-		checked_button_gesture.pressed.connect (() => {
-			checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-			checked_button.active = !checked_button.active;
-			checked_toggled (checked_button.active);
-		});
+        update_request ();
+
+        if (!item.checked) {
+            build_drag_and_drop ();
+        }
+        
+        var checked_button_gesture = new Gtk.GestureClick ();
+        checked_button.add_controller (checked_button_gesture);
+        signals_map[checked_button_gesture.pressed.connect (() => {
+            checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+            checked_button.active = !checked_button.active;
+            checked_toggled (checked_button.active);
+        })] = checked_button_gesture;
 
         var select_button_gesture = new Gtk.GestureClick ();
-		select_checkbutton.add_controller (select_button_gesture);
-		select_button_gesture.pressed.connect (() => {
-			select_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-			select_checkbutton.active = !select_checkbutton.active;
+        select_checkbutton.add_controller (select_button_gesture);
+        signals_map[select_button_gesture.pressed.connect (() => {
+            select_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+            select_checkbutton.active = !select_checkbutton.active;
             selected_toggled (select_checkbutton.active);   
-		});
+        })] = select_button_gesture;
 
         var detail_gesture_click = new Gtk.GestureClick ();
         handle_grid.add_controller (detail_gesture_click);
-        detail_gesture_click.released.connect ((n_press, x, y) => {
+        signals_map[detail_gesture_click.released.connect ((n_press, x, y) => {
             if (Services.EventBus.get_default ().multi_select_enabled) {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);             
@@ -338,43 +345,42 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                     open_detail ();
                 }
             }
-        });
+        })] = detail_gesture_click;
 
-		var menu_handle_gesture = new Gtk.GestureClick ();
+        var menu_handle_gesture = new Gtk.GestureClick ();
         menu_handle_gesture.set_button (3);
         handle_grid.add_controller (menu_handle_gesture);
-        menu_handle_gesture.released.connect ((n_press, x, y) => {
+        signals_map[menu_handle_gesture.released.connect ((n_press, x, y) => {
             if (!item.completed) {
                 build_handle_context_menu (x, y);
             }
-        });
+        })] = menu_handle_gesture;
 
-        item.reminder_added.connect (() => {
+        signals_map[item.reminder_added.connect (() => {
             update_request ();
-        });
+        })] = item;
 
-        item.reminder_deleted.connect (() => {
+        signals_map[item.reminder_deleted.connect (() => {
             update_request ();
-        });
+        })] = item;
 
-
-        item.item_added.connect (() => {
+        signals_map[item.item_added.connect (() => {
             update_request ();
-        });
+        })] = item;
         
-        Services.Store.instance ().item_updated.connect ((_item, _update_id) => {
+        signals_map[item.updated.connect ((_item, _update_id) => {
             if (item.id == _item.id && update_id != _update_id) {
                 update_request ();
             }
-        });
+        })] = item;
 
-        Services.Store.instance ().item_deleted.connect ((_item) => {
+        signals_map[Services.Store.instance ().item_deleted.connect ((_item) => {
             if (item.id == _item.parent_id) {
                 update_request ();
             }
-        });
+        })] = Services.Store.instance ();
 
-        Services.EventBus.get_default ().item_moved.connect ((_item, old_project_id, old_section_id, old_parent_id) => {
+        signals_map[Services.EventBus.get_default ().item_moved.connect ((_item, old_project_id, old_section_id, old_parent_id) => {
             if (item.id == old_parent_id) {
                 update_request ();
             }
@@ -382,15 +388,15 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             if (item.id == _item.parent_id) {
                 update_request ();
             }
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.EventBus.get_default ().checked_toggled.connect ((_item) => {
+        signals_map[Services.EventBus.get_default ().checked_toggled.connect ((_item) => {
             if (item.id == _item.parent_id) {
                 update_request ();
             }
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.EventBus.get_default ().show_multi_select.connect ((active) => {            
+        signals_map[Services.EventBus.get_default ().show_multi_select.connect ((active) => {            
             if (active) {
                 select_revealer.reveal_child = true;
                 checked_button.sensitive = false;
@@ -399,25 +405,25 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 checked_button.sensitive = true;
                 select_checkbutton.active = false;
             }
-        });
+        })] = Services.EventBus.get_default ();
 
-        item.show_item_changed.connect (() => {
+        signals_map[item.show_item_changed.connect (() => {
             main_revealer.reveal_child = item.show_item;
-        });
+        })] = item;
 
-        item.loading_change.connect (() => {
+        signals_map[item.loading_change.connect (() => {
             is_loading = item.loading;
-        });
+        })] = item;
 
-        item.sensitive_change.connect (() => {
+        signals_map[item.sensitive_change.connect (() => {
             sensitive = item.sensitive;
-        });
+        })] = item;
 
-        Services.EventBus.get_default ().drag_items_end.connect ((project_id) => {
+        signals_map[Services.EventBus.get_default ().drag_items_end.connect ((project_id) => {
             if (item.project_id == project_id) {
                 motion_top_revealer.reveal_child = false;
             }
-        });
+        })] = Services.EventBus.get_default ();
 	}
 
     private void update_next_recurrency () {
@@ -771,7 +777,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         var drop_motion_ctrl = new Gtk.DropControllerMotion ();
         add_controller (drop_motion_ctrl);
 
-        drop_motion_ctrl.enter.connect ((x, y) => {
+        signals_map[drop_motion_ctrl.enter.connect ((x, y) => {
 			var drop = drop_motion_ctrl.get_drop ();
             GLib.Value value = Value (typeof (Gtk.Widget));
 
@@ -789,11 +795,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             }  catch (Error e) {
                 debug (e.message);
             }
-        });
+        })] = drop_motion_ctrl;
 
-        drop_motion_ctrl.leave.connect (() => {
+        signals_map[drop_motion_ctrl.leave.connect (() => {
             motion_top_revealer.reveal_child = false;
-        });
+        })] = drop_motion_ctrl;
     }
 
 	private void build_drag_source () {
@@ -801,31 +807,31 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         drag_source.set_actions (Gdk.DragAction.MOVE);
         handle_grid.add_controller (drag_source);
 
-        drag_source.prepare.connect ((source, x, y) => {
+        signals_map[drag_source.prepare.connect ((source, x, y) => {
             return new Gdk.ContentProvider.for_value (this);
-        });
+        })] = drag_source;
 
-        drag_source.drag_begin.connect ((source, drag) => {
+        signals_map[drag_source.drag_begin.connect ((source, drag) => {
             var paintable = new Gtk.WidgetPaintable (handle_grid);
             source.set_icon (paintable, 0, 0);
             drag_begin ();
-        });
+        })] = drag_source;
 
-        drag_source.drag_end.connect ((source, drag, delete_data) => {
+        signals_map[drag_source.drag_end.connect ((source, drag, delete_data) => {
             drag_end ();
-        });
+        })] = drag_source;
 
-        drag_source.drag_cancel.connect ((source, drag, reason) => {
+        signals_map[drag_source.drag_cancel.connect ((source, drag, reason) => {
             drag_end ();
             return false;
-        });
+        })] = drag_source;
 	}
 
     private void build_drop_target () {
         var drop_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);
         handle_grid.add_controller (drop_target);
 
-        drop_target.drop.connect ((value, x, y) => {
+        signals_map[drop_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
 
@@ -865,24 +871,24 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             }
 
             return true;
-        });
+        })] = drop_target;
     }
 
     private void build_drop_magic_button_target () {
         var drop_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
         handle_grid.add_controller (drop_magic_button_target);
 
-        drop_magic_button_target.drop.connect ((value, x, y) => {
+        signals_map[drop_magic_button_target.drop.connect ((value, x, y) => {
             var dialog = new Dialogs.QuickAdd ();
             dialog.for_base_object (item);
             dialog.present (Planify._instance.main_window);
 
             return true;
-        });
+        })] = drop_magic_button_target;
 
         var drop_order_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_magic_button_target);
-        drop_order_magic_button_target.drop.connect ((value, x, y) => {            
+        signals_map[drop_order_magic_button_target.drop.connect ((value, x, y) => {            
             var dialog = new Dialogs.QuickAdd ();
             dialog.set_index (get_index ());
 
@@ -895,13 +901,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             dialog.present (Planify._instance.main_window);
 
             return true;
-        });
+        })] = drop_order_magic_button_target;
     }
 
 	private void build_drop_order_target () {
         var drop_order_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_target);
-		drop_order_target.drop.connect ((value, x, y) => {
+		signals_map[drop_order_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
             var old_section_id = "";
@@ -976,7 +982,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             update_items_item_order (target_list);
 
             return true;
-        });
+        })] = drop_order_target;
     }
 
 	public void drag_begin () {
@@ -1080,9 +1086,21 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
 	public override void hide_destroy () {
 		main_revealer.reveal_child = false;
+        clean_up ();
 		Timeout.add (main_revealer.transition_duration, () => {
 			((Gtk.ListBox) parent).remove (this);
 			return GLib.Source.REMOVE;
 		});
 	}
+
+    public void clean_up () {
+        // Clear Signals
+        foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+        
+        signals_map.clear ();
+
+        menu_handle_popover.unparent ();
+    }
 }

@@ -39,7 +39,7 @@ public class Views.List : Adw.Bin {
     }
 
     public Gee.HashMap <string, Layouts.SectionRow> sections_map;
-    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+    private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public List (Objects.Project project) {
         Object (
@@ -133,16 +133,16 @@ public class Views.List : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        signal_map[project.section_added.connect ((section) => {
+        signals_map[project.section_added.connect ((section) => {
             add_section (section);
         })] = project;
 
-        signal_map[project.section_sort_order_changed.connect (() => {
+        signals_map[project.section_sort_order_changed.connect (() => {
             listbox.invalidate_sort ();
             listbox.invalidate_filter ();
         })] = project;
 
-        signal_map[Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
+        signals_map[Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
             if (project.id == old_project_id && sections_map.has_key (section.id)) {
                     sections_map [section.id].hide_destroy ();
                     sections_map.unset (section.id);
@@ -154,7 +154,7 @@ public class Views.List : Adw.Bin {
             }
         })] = Services.Store.instance ();
 
-        signal_map[Services.Store.instance ().section_deleted.connect ((section) => {
+        signals_map[Services.Store.instance ().section_deleted.connect ((section) => {
             if (sections_map.has_key (section.id)) {
                 sections_map [section.id].hide_destroy ();
                 sections_map.unset (section.id);
@@ -163,11 +163,11 @@ public class Views.List : Adw.Bin {
             check_placeholder ();
         })] = Services.Store.instance ();
 
-        signal_map[project.updated.connect (() => {
+        signals_map[project.updated.connect (() => {
             update_request ();
         })] = project;
 
-        signal_map[project.project_count_updated.connect (() => {
+        signals_map[project.project_count_updated.connect (() => {
             check_placeholder ();
         })] = project;
 
@@ -192,12 +192,12 @@ public class Views.List : Adw.Bin {
             return !item.section.hidded;
         });
 
-        signal_map[description_widget.changed.connect (() => {
+        signals_map[description_widget.changed.connect (() => {
             project.description = description_widget.text;
             project.update_local ();
         })] = description_widget;
 
-        signal_map[Services.Store.instance ().section_archived.connect ((section) => {
+        signals_map[Services.Store.instance ().section_archived.connect ((section) => {
             if (sections_map.has_key (section.id)) {
                 sections_map [section.id].hide_destroy ();
                 sections_map.unset (section.id);
@@ -206,7 +206,7 @@ public class Views.List : Adw.Bin {
             check_placeholder ();
         })] = Services.Store.instance ();
 
-        signal_map[Services.Store.instance ().section_unarchived.connect ((section) => {
+        signals_map[Services.Store.instance ().section_unarchived.connect ((section) => {
             if (project.id == section.project_id) {
                 add_section (section);
             }
@@ -217,11 +217,11 @@ public class Views.List : Adw.Bin {
             listbox.set_filter_func (null);
 
             // Clear Signals
-            foreach (var entry in signal_map.entries) {
+            foreach (var entry in signals_map.entries) {
                 entry.value.disconnect (entry.key);
             }
             
-            signal_map.clear ();
+            signals_map.clear ();
         });
     }
 
@@ -365,5 +365,22 @@ public class Views.List : Adw.Bin {
         });
 
         return due_revealer;
+    }
+
+    public void clean_up () {
+        listbox.set_sort_func (null);
+        listbox.set_filter_func (null);
+
+        // Clear Signals
+        foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+        
+        signals_map.clear ();
+    }
+
+    public override void dispose () {
+        clean_up ();
+        base.dispose ();
     }
 }

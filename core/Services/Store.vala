@@ -540,7 +540,7 @@ public class Services.Store : GLib.Object {
             item_updated (item, update_id);
         }
     }
-    
+
     public void delete_item (Objects.Item item) {
         if (Services.Database.get_default ().delete_item (item)) {
             foreach (Objects.Item subitem in get_subitems (item)) {
@@ -558,13 +558,16 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public void move_item (Objects.Item item) {
+    public void move_item (Objects.Item item, string old_section_id = "", string old_parent_id = "") {
         if (Services.Database.get_default ().move_item (item)) {
             foreach (Objects.Item subitem in get_subitems (item)) {
                 subitem.project_id = item.project_id;
                 move_item (subitem);
             }
             
+            get_section (item.section_id).update_count ();
+            get_section (old_section_id).update_count ();
+
             item.updated ();
             item_updated (item, "");
         }
@@ -720,6 +723,19 @@ public class Services.Store : GLib.Object {
         lock (_items) {
             foreach (var item in items) {
                 if (item.parent_id == i.id) {
+                    return_value.add (item);
+                }
+            }
+        }
+
+        return return_value;
+    }
+
+    public Gee.ArrayList<Objects.Item> get_subitems_uncomplete (Objects.Item i) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (var item in items) {
+                if (item.parent_id == i.id && !item.checked) {
                     return_value.add (item);
                 }
             }

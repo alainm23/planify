@@ -40,11 +40,17 @@ public class Views.Project : Adw.Bin {
         }
     }
 
+	private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
 	public Project (Objects.Project project) {
 		Object (
 			project: project
 		);
 	}
+
+	~Project () {
+        print ("Destroying Views.Project\n");
+    }
 
 	construct {
 		var menu_button = new Gtk.MenuButton () {
@@ -144,21 +150,20 @@ public class Views.Project : Adw.Bin {
 		child = toolbar_view;
 		update_project_view ();
 		check_default_filters ();
-		show ();
 
-		magic_button.clicked.connect (() => {
+		signals_map[magic_button.clicked.connect (() => {
 			prepare_new_item ();
-		});
+		})] = magic_button;
 
-		project.updated.connect (() => {
+		signals_map[project.updated.connect (() => {
 			headerbar.title = project.name;
-		});
+		})] = project;
 
-		multiselect_toolbar.closed.connect (() => {
+		signals_map[multiselect_toolbar.closed.connect (() => {
 			project.show_multi_select = false;
-		});
+		})] = multiselect_toolbar;
 
-		project.show_multi_select_change.connect (() => {
+		signals_map[project.show_multi_select_change.connect (() => {
 			toolbar_view.reveal_bottom_bars = project.show_multi_select;
 			
 			if (project.show_multi_select) {
@@ -172,17 +177,17 @@ public class Views.Project : Adw.Bin {
 				Services.EventBus.get_default ().magic_button_visible (true);
 				Services.EventBus.get_default ().connect_typing_accel ();
 			}
-		});
+		})] = project;
 
-		project.filter_added.connect (() => {
+		signals_map[project.filter_added.connect (() => {
 			check_default_filters ();
-		});
+		})] = project;
 
-		project.filter_updated.connect (() => {
+		signals_map[project.filter_updated.connect (() => {
 			check_default_filters ();
-		});
+		})] = project;
 
-		project.filter_removed.connect ((filter) => {
+		signals_map[project.filter_removed.connect ((filter) => {
 			priority_filter.unchecked (filter);
 			
 			if (filter.filter_type == FilterItemType.DUE_DATE) {
@@ -190,13 +195,13 @@ public class Views.Project : Adw.Bin {
 			}
 
 			check_default_filters ();
-		});
+		})] = project;
 
-		project.view_style_changed.connect (() => {
+		signals_map[project.view_style_changed.connect (() => {
 			update_project_view ();
 			expand_all_item.visible = view_style == ProjectViewStyle.LIST;
 			collapse_all_item.visible = view_style == ProjectViewStyle.LIST;
-		});
+		})] = project;
 	}
 
 	private void check_default_filters () {
@@ -218,6 +223,8 @@ public class Views.Project : Adw.Bin {
 		project_view_revealer.reveal_child = false;
 
 		Timeout.add (project_view_revealer.transition_duration, () => {
+			destroy_current_view ();
+
 			if (view_style == ProjectViewStyle.LIST) {
 				project_view_revealer.child = new Views.List (project);
 			} else if (view_style == ProjectViewStyle.BOARD) {
@@ -228,6 +235,22 @@ public class Views.Project : Adw.Bin {
 			project_view_revealer.reveal_child = true;
 			return GLib.Source.REMOVE;
 		});
+	}
+
+	private void destroy_current_view () {
+		if (project_view_revealer.child is Views.List) {
+			Views.List? list_view = (Views.List) project_view_revealer.child;
+			if (list_view != null) {
+				list_view.clean_up ();
+			}
+		} else if (project_view_revealer.child is Views.Board) {
+			Views.Board? board_view = (Views.Board) project_view_revealer.child;
+			if (board_view != null) {
+                board_view.clean_up ();
+			}
+		}
+
+		project_view_revealer.child = null;
 	}
 
 	public void prepare_new_item (string content = "") {
@@ -666,4 +689,21 @@ public class Views.Project : Adw.Bin {
 		var dialog = new Dialogs.Section.new (project);
 		dialog.present (Planify._instance.main_window);
 	}
+
+	public void clean_up () {
+		print ("Clean Up: %s\n".printf (project.name));
+
+		foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+        
+        signals_map.clear ();
+		
+		destroy_current_view ();
+    }
+
+	public override void dispose () {
+		clean_up ();
+        base.dispose ();
+    }
 }

@@ -49,7 +49,7 @@ public class Dialogs.ProjectPicker.ProjectPickerSourceRow : Gtk.ListBoxRow {
 
     private void add_projects () {
         foreach (Objects.Project project in Services.Store.instance ().get_projects_by_source (source.id)) {
-            if (project.is_inbox_project || project.is_deck) {
+            if (project.is_archived || project.is_inbox_project || project.is_deck) {
                 continue ;  
             }
 

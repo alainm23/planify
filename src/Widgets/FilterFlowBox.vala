@@ -25,17 +25,17 @@ public class Widgets.FilterFlowBox : Adw.Bin {
         set {
             _base_object = value;
 
-            _base_object.filter_added.connect ((filter) => {
+            signals_map[_base_object.filter_added.connect ((filter) => {
                 add_filter (filter);
-            });
+            })] = _base_object;
     
-            _base_object.filter_removed.connect ((filter) => {
+            signals_map[_base_object.filter_removed.connect ((filter) => {
                 remove_filter (filter);
-            });
+            })] = _base_object;
     
-            _base_object.filter_updated.connect ((filter) => {
+            signals_map[_base_object.filter_updated.connect ((filter) => {
                 update_filter (filter);
-            });
+            })] = _base_object;
 
             add_filters ();
         }
@@ -48,6 +48,7 @@ public class Widgets.FilterFlowBox : Adw.Bin {
     public Gtk.FlowBox flowbox;
     private Gtk.Revealer main_revealer;
     private Gee.HashMap<string, Widgets.FilterFlowBoxChild> filters_map = new Gee.HashMap<string, Widgets.FilterFlowBoxChild> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public signal void filter_removed (Objects.Filters.FilterItem filter);
 
@@ -70,6 +71,14 @@ public class Widgets.FilterFlowBox : Adw.Bin {
         };
 
         child = main_revealer;
+
+        destroy.connect (() => {
+            foreach (var entry in signals_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+            
+            signals_map.clear ();
+        });
     }
 
     private void add_filters () {
@@ -82,13 +91,13 @@ public class Widgets.FilterFlowBox : Adw.Bin {
         if (!filters_map.has_key (filter.id)) {
             filters_map[filter.id] = new Widgets.FilterFlowBoxChild (filter);
 
-            filters_map[filter.id].remove_filter.connect ((_filter) => {
+            signals_map[filters_map[filter.id].remove_filter.connect ((_filter) => {
                 if (_base_object != null) {
                     _base_object.remove_filter (_filter);
                 } else {
                     remove_filter (_filter);
                 }
-            });
+            })] = filters_map[filter.id];
 
             flowbox.append (filters_map[filter.id]);
         }

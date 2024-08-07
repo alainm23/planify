@@ -489,6 +489,25 @@ public class Util : GLib.Object {
         return response;
     }
 
+    public List<Gtk.FlowBoxChild> get_flowbox_children (Gtk.FlowBox list) {
+        List<Gtk.FlowBoxChild> response = new List<Gtk.FlowBoxChild> ();
+
+        Gtk.FlowBoxChild item_row = null;
+        var row_index = 0;
+
+        do {
+            item_row = list.get_child_at_index (row_index);
+
+            if (item_row != null) {
+                response.append (item_row);
+            }
+
+            row_index++;
+        } while (item_row != null);
+
+        return response;
+    }
+
     public Adw.Toast create_toast (string title, uint timeout = 2, Adw.ToastPriority priority = Adw.ToastPriority.NORMAL) {
         var toast = new Adw.Toast (title);
         toast.timeout = timeout;

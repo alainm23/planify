@@ -261,6 +261,14 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    Gee.ArrayList<Objects.Item> _items_uncomplete;
+    public Gee.ArrayList<Objects.Item> items_uncomplete {
+        get {
+            _items_uncomplete = Services.Store.instance ().get_subitems_uncomplete (this);
+            return _items_uncomplete;
+        }
+    }
+
     Gee.ArrayList<Objects.Reminder> _reminders;
     public Gee.ArrayList<Objects.Reminder> reminders {
         get {
@@ -1541,7 +1549,7 @@ public class Objects.Item : Objects.BaseObject {
         this.section_id = _section_id;
         this.parent_id = "";
 
-        Services.Store.instance ().move_item (this);
+        Services.Store.instance ().move_item (this, old_section_id, old_parent_id);
         Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
         Services.EventBus.get_default ().drag_n_drop_active (old_project_id, false);
         Services.EventBus.get_default ().send_toast (

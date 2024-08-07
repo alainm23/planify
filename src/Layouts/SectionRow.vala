@@ -24,15 +24,14 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 	private Gtk.Revealer hide_revealer;
 	private Gtk.Revealer bottom_revealer;
-	private Widgets.EditableLabel name_editable;
+	private Gtk.Label name_label;
+	private Gtk.Label count_label;
 	private Gtk.ListBox listbox;
 	private Gtk.Revealer content_revealer;
 	private Gtk.Grid drop_widget;
 	private Gtk.Revealer drop_revealer;
 	private Adw.Bin handle_grid;
 	private Gtk.Box sectionrow_grid;
-	private Gtk.Label count_label;
-	private Gtk.Revealer count_revealer;
 	private Gtk.Revealer placeholder_revealer;
 	private Widgets.LoadingButton add_button;
 
@@ -44,7 +43,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 	public bool has_children {
 		get {
-			return item_map.size > 0;
+			return items_map.size > 0;
 		}
 	}
 
@@ -60,7 +59,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		}
 	}
 
-	public Gee.HashMap <string, Layouts.ItemRow> item_map;
+	public Gee.HashMap <string, Layouts.ItemRow> items_map = new Gee.HashMap <string, Layouts.ItemRow> ();
+	private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
 	public signal void children_size_changed ();
 
@@ -85,33 +85,24 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		);
 	}
 
+	~SectionRow () {
+        print ("Destroying Layouts.SectionRow\n");
+    }
+
 	construct {
 		add_css_class ("row");
 
-		item_map = new Gee.HashMap <string, Layouts.ItemRow> ();
-
-		name_editable = new Widgets.EditableLabel (("New Section"), false) {
-			valign = Gtk.Align.CENTER,
-			hexpand = true,
-			margin_start = 6,
+		name_label = new Gtk.Label (section.name) {
+			halign = START,
 			css_classes = { "font-bold" },
-			text = section.name
+			margin_start = 6
 		};
 
-		count_label = new Gtk.Label (section.section_count.to_string ()) {
-			hexpand = true,
-			halign = Gtk.Align.CENTER
+		count_label = new Gtk.Label (null) {
+			margin_start = 9,
+			halign = Gtk.Align.CENTER,
+			css_classes = { "dim-label", "caption" }
 		};
-
-		count_label.add_css_class ("dim-label");
-		count_label.add_css_class ("caption");
-
-		count_revealer = new Gtk.Revealer () {
-			reveal_child = int.parse (count_label.label) > 0,
-			transition_type = Gtk.RevealerTransitionType.CROSSFADE
-		};
-
-		count_revealer.child = count_label;
 
 		add_button = new Widgets.LoadingButton.with_icon ("plus-large-symbolic") {
 			valign = Gtk.Align.CENTER,
@@ -127,7 +118,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			css_classes = { "flat" }
 		};
 
-		var actions_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+		var actions_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+			hexpand = true,
+			halign = END
+		};
 		actions_box.append (add_button);
 		actions_box.append (menu_button);
 
@@ -141,7 +135,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		sectionrow_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
 			css_classes = { "transition", "drop-target" },
 		};
-		sectionrow_grid.append (name_editable);
+		sectionrow_grid.append (name_label);
+		sectionrow_grid.append (count_label);
         sectionrow_grid.append (actions_box_revealer);
 
 		var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
@@ -216,84 +211,76 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		add_items ();
 		build_drag_and_drop ();
+		update_count_label (section.section_count);
 
 		Timeout.add (content_revealer.transition_duration, () => {
 			content_revealer.reveal_child = true;
-
-			if (section.activate_name_editable) {
-				name_editable.editing (true, true);
-			}
-
 			return GLib.Source.REMOVE;
 		});
 
-		name_editable.changed.connect (() => {
-			section.name = name_editable.text;
-			section.update ();
-		});
-
-		section.updated.connect (() => {
-			name_editable.text = section.name;
-		});
+		signals_map[section.updated.connect (() => {
+			name_label.label = section.name;
+		})] = section;
 
 		if (is_inbox_section) {
-			section.project.item_added.connect ((item) => {
+			signals_map[section.project.item_added.connect ((item) => {
 				add_item (item);
-			});
+			})] = section;
 		} else {
-			section.item_added.connect ((item) => {
+			signals_map[section.item_added.connect ((item) => {
 				add_item (item);
-			});
+			})] = section;
 		}
 
 		var edit_gesture = new Gtk.GestureClick ();
-		name_editable.add_controller (edit_gesture);
-		edit_gesture.released.connect (() => {
-			name_editable.editing (true);
-		});
+		name_label.add_controller (edit_gesture);
+		signals_map[edit_gesture.released.connect ((n_press, x, y) => {
+			if (n_press == 2) {
+				var dialog = new Dialogs.Section (section);
+				dialog.present (Planify._instance.main_window);
+			}
+		})] = edit_gesture;
 
-		Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
-			if (item.project_id == section.project_id && item.section_id == section.id && !item.has_parent) {
-				print ("Content: %s - %s\n".printf (item.content, old_checked.to_string ()));
-				
+		signals_map[Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
+			if (item.project_id == section.project_id && item.section_id == section.id && !item.has_parent) {				
 				if (!old_checked) {
-					if (item_map.has_key (item.id)) {
-						item_map [item.id].hide_destroy ();
-						item_map.unset (item.id);
+					if (items_map.has_key (item.id)) {
+						items_map [item.id].hide_destroy ();
+						items_map.unset (item.id);
 					}
 				} else {
-					if (!item_map.has_key (item.id)) {
-						item_map [item.id] = new Layouts.ItemRow (item, true);
-						listbox.append (item_map [item.id]);
+					if (!items_map.has_key (item.id)) {
+						items_map [item.id] = new Layouts.ItemRow (item, true);
+						listbox.append (items_map [item.id]);
 					}
 				}
 			}
-		});
+		})] = Services.EventBus.get_default ();
 
-		Services.Store.instance ().item_updated.connect ((item, update_id) => {
-			if (item_map.has_key (item.id)) {
-				if (item_map [item.id].update_id != update_id) {
-					item_map [item.id].update_request ();
+		signals_map[Services.Store.instance ().item_updated.connect ((item, update_id) => {
+			if (items_map.has_key (item.id)) {
+				if (items_map [item.id].update_id != update_id) {
+					items_map [item.id].update_request ();
 					update_sort ();
 				}
 			}
 
 			listbox.invalidate_filter ();
-		});
+		})] = Services.Store.instance ();
 
-		Services.Store.instance ().item_deleted.connect ((item) => {
-			if (item_map.has_key (item.id)) {
-				item_map [item.id].hide_destroy ();
-				item_map.unset (item.id);
+		signals_map[Services.Store.instance ().item_deleted.connect ((item) => {
+			if (items_map.has_key (item.id)) {
+				items_map [item.id].hide_destroy ();
+				items_map.unset (item.id);
 			}
-		});
+		})] = Services.Store.instance ();
 
-		Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
+		signals_map[Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
 			// vala-lint=no-space
 			if (old_project_id == section.project_id && old_section_id == section.id) {
-				if (item_map.has_key (item.id)) {
-					item_map [item.id].hide_destroy ();
-					item_map.unset (item.id);
+				if (items_map.has_key (item.id)) {
+					items_map [item.id].hide_destroy ();
+					items_map.unset (item.id);
 				}
 			}
 
@@ -303,42 +290,33 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			}
 
 			listbox.invalidate_filter ();
-		});
+		})] = Services.EventBus.get_default ();
 
-		Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id) => {
+		signals_map[Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id) => {
 			if (_row is Layouts.ItemRow) {
 				var row = (Layouts.ItemRow) _row;
 
 				if (row.item.project_id == section.project_id && row.item.section_id == section.id) {
-					if (!item_map.has_key (row.item.id)) {
-						item_map [row.item.id] = row;
+					if (!items_map.has_key (row.item.id)) {
+						items_map [row.item.id] = row;
 						update_sort ();
 					}
 				}
 	
 				// vala-lint=no-space
 				if (row.item.project_id == section.project_id && row.item.section_id != section.id && old_section_id == section.id) {
-					if (item_map.has_key (row.item.id)) {
-						item_map.unset (row.item.id);
+					if (items_map.has_key (row.item.id)) {
+						items_map.unset (row.item.id);
 					}
 				}
 			}
-		});
+		})] = Services.EventBus.get_default ();
 
-		name_editable.focus_changed.connect ((active) => {
-			if (active) {
-				hide_revealer.reveal_child = false;
-				placeholder_revealer.reveal_child = false;
-			} else {
-				placeholder_revealer.reveal_child = true;
-			}
-		});
-
-		section.project.sort_order_changed.connect (() => {
+		signals_map[section.project.sort_order_changed.connect (() => {
 			update_sort ();
-		});
+		})] = section.project;
 
-		Services.EventBus.get_default ().update_section_sort_func.connect ((project_id, section_id, value) => {
+		signals_map[Services.EventBus.get_default ().update_section_sort_func.connect ((project_id, section_id, value) => {
 			if (section.project_id == project_id && section.id == section_id) {
 				if (value) {
 					update_sort ();
@@ -346,35 +324,21 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 					listbox.set_sort_func (null);
 				}
 			}
-		});
+		})] = Services.EventBus.get_default ();
 
-		section.section_count_updated.connect (() => {
-			count_label.label = section.section_count.to_string ();
-			count_revealer.reveal_child = int.parse (count_label.label) > 0;
-		});
+		signals_map[section.section_count_updated.connect (() => {
+			update_count_label (section.section_count);
+		})] = section;
 
-        add_button.clicked.connect (() => {
+        signals_map[add_button.clicked.connect (() => {
             prepare_new_item ();
-        });
+        })] = add_button;
 
-		var motion_gesture = new Gtk.EventControllerMotion ();
-        sectionrow_grid.add_controller (motion_gesture);
-
-        motion_gesture.enter.connect (() => {
-			name_editable.show_edit = true;
-        });
-
-        motion_gesture.leave.connect (() => {
-			if (!menu_button.active) {
-				name_editable.show_edit = false;
-			}
-        });
-
-		Services.EventBus.get_default ().drag_n_drop_active.connect ((project_id, active) => {
+		signals_map[Services.EventBus.get_default ().drag_n_drop_active.connect ((project_id, active) => {
 			if (is_inbox_section && section.project_id == project_id) {
 				drop_revealer.reveal_child = active;
 			}
-		});
+		})] = Services.EventBus.get_default ();
 
 		listbox.set_filter_func ((row) => {
 			var item = ((Layouts.ItemRow) row).item;
@@ -410,34 +374,38 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			return return_value;
 		});
 
-		section.project.filter_added.connect (() => {
+		signals_map[section.project.filter_added.connect (() => {
 			listbox.invalidate_filter ();
-		});
+		})] = section.project;
 
-		section.project.filter_removed.connect (() => {
+		signals_map[section.project.filter_removed.connect (() => {
 			listbox.invalidate_filter ();
-		});
+		})] = section.project;
 
-		section.project.filter_updated.connect (() => {
+		signals_map[section.project.filter_updated.connect (() => {
 			listbox.invalidate_filter ();
-		});
+		})] = section.project;
 
-		section.sensitive_change.connect (() => {
+		signals_map[section.sensitive_change.connect (() => {
 			sensitive = section.sensitive;
-		});
+		})] = section;
 
-		section.loading_change.connect (() => {
+		signals_map[section.loading_change.connect (() => {
 			is_loading = section.loading;
-		});
+		})] = section;
 
-		Services.EventBus.get_default ().expand_all.connect ((project_id, value) => {
+		signals_map[Services.EventBus.get_default ().expand_all.connect ((project_id, value) => {
 			if (section.project_id == project_id) {
-				foreach (Layouts.ItemRow row in item_map.values) {
+				foreach (Layouts.ItemRow row in items_map.values) {
 					row.edit = value;
 				}
 			}
-		});
+		})] = Services.EventBus.get_default ();
 	}
+
+	private void update_count_label (int count) {
+        count_label.label = count <= 0 ? "" : count.to_string ();
+    }
 
 	private void update_sort () {
 		if (section.project.sort_order == 0) {
@@ -450,7 +418,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	}
 
 	public void add_items () {
-		item_map.clear ();
+		items_map.clear ();
 
 		Gtk.Widget child;
 		for (child = listbox.get_first_child (); child != null; child = listbox.get_next_sibling ()) {
@@ -465,13 +433,13 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	}
 
 	public void add_item (Objects.Item item) {
-		if (!item.checked && !item_map.has_key (item.id)) {
-			item_map [item.id] = new Layouts.ItemRow (item, true);
+		if (!item.checked && !items_map.has_key (item.id)) {
+			items_map [item.id] = new Layouts.ItemRow (item, true);
 
 			if (item.custom_order) {
-				listbox.insert (item_map [item.id], item.child_order);
+				listbox.insert (items_map [item.id], item.child_order);
 			} else {
-				listbox.append (item_map [item.id]);
+				listbox.append (items_map [item.id]);
 			}
 		}
 	}
@@ -563,6 +531,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 	public void hide_destroy () {
 		content_revealer.reveal_child = false;
+		clean_up ();
 		Timeout.add (content_revealer.transition_duration, () => {
 			((Gtk.ListBox) parent).remove (this);
 			return GLib.Source.REMOVE;
@@ -671,7 +640,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	private void build_drag_and_drop () {
 		var drop_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
 		sectionrow_grid.add_controller (drop_target);
-		drop_target.drop.connect ((target, value, x, y) => {
+		signals_map[drop_target.drop.connect ((target, value, x, y) => {
 			var picked_widget = (Layouts.ItemRow) value;
 
 			picked_widget.drag_end ();
@@ -694,11 +663,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 				Services.Todoist.get_default ().move_item.begin (picked_widget.item, type, id, (obj, res) => {
 					if (Services.Todoist.get_default ().move_item.end (res).status) {
-						Services.Store.instance ().update_item (picked_widget.item);
+						Services.Store.instance ().move_item (picked_widget.item, old_section_id, old_parent_id);
 					}
 				});
 			} else if (picked_widget.item.project.source_type == SourceType.LOCAL) {
-				Services.Store.instance ().update_item (picked_widget.item);
+				Services.Store.instance ().move_item (picked_widget.item, old_section_id, old_parent_id);
 			}
 
 			var source_list = (Gtk.ListBox) picked_widget.parent;
@@ -709,11 +678,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			update_items_item_order (listbox);
 
 			return true;
-		});
+		})] = drop_target;
 
 		var drop_inbox_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
 		drop_widget.add_controller (drop_inbox_target);
-		drop_inbox_target.drop.connect ((target, value, x, y) => {
+		signals_map[drop_inbox_target.drop.connect ((target, value, x, y) => {
 			var picked_widget = (Layouts.ItemRow) value;
 
 			picked_widget.drag_end ();
@@ -736,11 +705,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 				Services.Todoist.get_default ().move_item.begin (picked_widget.item, type, id, (obj, res) => {
 					if (Services.Todoist.get_default ().move_item.end (res).status) {
-						Services.Store.instance ().update_item (picked_widget.item);
+						Services.Store.instance ().move_item (picked_widget.item, old_section_id, old_parent_id);
 					}
 				});
 			} else if (picked_widget.item.project.source_type == SourceType.LOCAL) {
-				Services.Store.instance ().update_item (picked_widget.item);
+				Services.Store.instance ().move_item (picked_widget.item, old_section_id, old_parent_id);
 			}
 
 			var source_list = (Gtk.ListBox) picked_widget.parent;
@@ -751,17 +720,17 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			update_items_item_order (listbox);
 
 			return true;
-		});
+		})] = drop_inbox_target;
 
 		var drop_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
 		sectionrow_grid.add_controller (drop_magic_button_target);
-		drop_magic_button_target.drop.connect ((target, value, x, y) => {
+		signals_map[drop_magic_button_target.drop.connect ((target, value, x, y) => {
 			var dialog = new Dialogs.QuickAdd ();
 			dialog.for_base_object (section);
             dialog.present (Planify._instance.main_window);
 
 			return true;
-		});
+		})] = drop_magic_button_target;
 	}
 
 	private void update_items_item_order (Gtk.ListBox listbox) {
@@ -810,4 +779,16 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			is_loading = false;
 		}
 	}
+
+	public void clean_up () {
+		listbox.set_sort_func (null);
+		listbox.set_filter_func (null);
+
+        // Clear Signals
+        foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+        
+        signals_map.clear ();
+    }
 }

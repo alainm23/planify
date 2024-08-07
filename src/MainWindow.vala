@@ -410,15 +410,16 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	public void valid_view_removed (Objects.Project project) {
-		if (views_stack.visible_child == null) {
-			return;
-		}
-
-		if (views_stack.visible_child is Views.Project) {
-			Views.Project? project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
-			if (project_view != null) {
+		Views.Project? project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
+		if (project_view != null) {
+			if (views_stack.visible_child == project_view) {
 				go_homepage ();
 			}
+
+			project_view.clean_up ();
+			project_view.destroy ();
+			
+			views_stack.remove (project_view);
 		}
 	}
 

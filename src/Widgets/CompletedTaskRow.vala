@@ -26,6 +26,8 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
     private Widgets.LoadingButton loading_button;
     private Gtk.Revealer main_revealer;
 
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public CompletedTaskRow (Objects.Item item) {
         Object (
             item: item
@@ -130,14 +132,22 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
 
         var checked_button_gesture = new Gtk.GestureClick ();
 		checked_button.add_controller (checked_button_gesture);
-		checked_button_gesture.pressed.connect (() => {
+		signals_map[checked_button_gesture.pressed.connect (() => {
 			checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
 			checked_button.active = !checked_button.active;
             checked_toggled (checked_button.active);
-		});
+		})] = checked_button_gesture;
 
-        item.loading_change.connect (() => {
+        signals_map[item.loading_change.connect (() => {
             loading_button.is_loading = item.loading;
+        })] = item;
+
+        destroy.connect (() => {
+            foreach (var entry in signals_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+            
+            signals_map.clear ();
         });
     }
 
@@ -169,5 +179,17 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
         if (!response.status) {
             //  _complete_item_error (response, old_checked, old_completed_at);
         }
+    }
+
+    public override void dispose () {
+        print ("Disposing Layouts.ItemBoard\n");
+        
+        foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+        
+        signals_map.clear ();
+
+        base.dispose ();
     }
 }

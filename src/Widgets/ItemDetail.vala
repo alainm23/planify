@@ -26,11 +26,16 @@ public class Widgets.ItemDetail : Adw.Bin {
 
     public signal void view_item (Objects.Item item);
     private Gee.HashMap <string, Widgets.CompletedTaskRow> items_checked = new Gee.HashMap <string, Widgets.CompletedTaskRow> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public ItemDetail (Objects.Item item) {
         Object (
             item: item
         );
+    }
+
+    ~ItemDetail () {
+        print ("Destroying Widgets.ItemDetail\n");
     }
 
     construct {
@@ -135,7 +140,7 @@ public class Widgets.ItemDetail : Adw.Bin {
         child = scrolled_window;
         add_items ();
 
-        Services.EventBus.get_default ().checked_toggled.connect ((_item, old_checked) => {
+        signals_map[Services.EventBus.get_default ().checked_toggled.connect ((_item, old_checked) => {
             if (_item.parent_id != item.id) {
                 return;
             }
@@ -151,11 +156,19 @@ public class Widgets.ItemDetail : Adw.Bin {
                     items_checked.unset (_item.id);
                 }
             }
-		});
+		})] = Services.EventBus.get_default ();
         
-        listbox.row_activated.connect ((row) => {
+        signals_map[listbox.row_activated.connect ((row) => {
             Objects.Item item = ((Widgets.CompletedTaskRow) row).item;
             view_item (item);
+        })] = listbox;
+
+        destroy.connect (() => {
+            foreach (var entry in signals_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+            
+            signals_map.clear ();
         });
     }
 

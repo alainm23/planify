@@ -283,6 +283,21 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             }
         });
 
+		var mastodon_row = new Adw.ActionRow ();
+		mastodon_row.activatable = true;
+		mastodon_row.add_prefix (generate_icon ("external-link-symbolic"));
+		mastodon_row.add_suffix (generate_icon ("go-next-symbolic"));
+		mastodon_row.title = _("Mastodon");
+		mastodon_row.subtitle = _("Share some love");
+
+		mastodon_row.activated.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri (Constants.MASTODON_URL, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
 		var supporting_us_row = new Adw.ActionRow ();
 		supporting_us_row.activatable = true;
 		supporting_us_row.add_prefix (generate_icon ("heart-outline-thick-symbolic"));
@@ -295,6 +310,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         });
 
 		reach_us_group.add (contact_us_row);
+		reach_us_group.add (mastodon_row);
 		reach_us_group.add (matrix_row);
 		reach_us_group.add (telegram_row);
 		reach_us_group.add (supporting_us_row);

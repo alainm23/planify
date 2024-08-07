@@ -29,6 +29,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
     private string? filter_section_id = null;
 
     public Gee.HashMap <string, Widgets.CompletedTaskRow> items_checked = new Gee.HashMap <string, Widgets.CompletedTaskRow> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public CompletedTasks (Objects.Project project) {
         Object (
@@ -63,8 +64,8 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         };
 
         var search_entry_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 12,
-			margin_end = 12
+            margin_start = 16,
+			margin_end = 16
         };
         search_entry_box.append (search_entry);
         search_entry_box.append (filter_button);
@@ -114,10 +115,9 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
 
         var content_clamp = new Adw.Clamp () {
 			maximum_size = 600,
-			margin_bottom = 12
+			margin_bottom = 12,
+            child = content_box
 		};
-
-		content_clamp.child = content_box;
 
         var remove_all = new Gtk.Button.with_label (_("Delete All Completed Tasks")) {
             css_classes = { "flat" },
@@ -140,73 +140,17 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         add_items ();
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        filters_flowbox.filter_removed.connect (() => {
-            filter_section_id = null;
-            clear_items ();
-            add_items ();
-        });
-
-        search_entry.search_changed.connect (() => {
-            if (search_entry.text == "") {
-                clear_items ();
-                add_items ();
-            }
-
-            listbox.invalidate_filter ();
-        });
-
-        Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
-			if (item.project_id != project.id) {
-                return;
-			}
-
-            if (!old_checked) {
-                if (!items_checked.has_key (item.id)) {
-                    items_checked [item.id] = new Widgets.CompletedTaskRow (item);
-                    listbox.insert (items_checked [item.id], 0);
-                }
-            } else {
-                if (items_checked.has_key (item.id)) {
-                    items_checked [item.id].hide_destroy ();
-                    items_checked.unset (item.id);
-                }
-            }
-		});
-
-        remove_all.clicked.connect (() => {
-			var items = Services.Store.instance ().get_items_checked_by_project (project);
-
-			var dialog = new Adw.AlertDialog (
-			    _("Delete All Completed Tasks"),
-				_("This will delete %d completed tasks and their subtasks from project %s".printf (items.size, project.name))
-			);
-
-			dialog.body_use_markup = true;
-			dialog.add_response ("cancel", _("Cancel"));
-			dialog.add_response ("delete", _("Delete"));
-			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-			dialog.present (Planify._instance.main_window);
-
-			dialog.response.connect ((response) => {
-				if (response == "delete") {
-					delete_all_action (items);
-				}
-			});
-        });
-
-        listbox.row_activated.connect ((row) => {
-            Objects.Item item = ((Widgets.CompletedTaskRow) row).item;
-            view_item (item);
-        });
-
-        Services.Store.instance ().item_deleted.connect ((item) => {
-			if (items_checked.has_key (item.id)) {
-				items_checked [item.id].hide_destroy ();
-				items_checked.unset (item.id);
-			}
-		});
-
         closed.connect (() => {
+            listbox.set_sort_func (null);
+            listbox.set_header_func (null);
+            listbox.set_filter_func (null);
+
+            foreach (var entry in signals_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+            
+            signals_map.clear ();
+
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
@@ -216,7 +160,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         headerbar.add_css_class ("flat");
 
         Widgets.ItemDetail item_detail = new Widgets.ItemDetail (item);
-        item_detail.view_item.connect (view_item);
+        signals_map[item_detail.view_item.connect (view_item)] = item_detail;
 
         var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);
@@ -231,6 +175,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
             if (item.has_parent) {
                 continue;
             }
+            
             if (!items_checked.has_key (item.id)) {
                 items_checked [item.id] = new Widgets.CompletedTaskRow (item);
                 listbox.append (items_checked [item.id]);
@@ -308,7 +253,6 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
     }
 
     private Gtk.Popover build_view_setting_popover () {
-		// Filters
 		var section_model = new Gee.ArrayList<string> ();
         foreach (Objects.Section section in project.sections) {
             section_model.add (section.name);

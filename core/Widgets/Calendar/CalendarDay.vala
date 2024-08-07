@@ -39,10 +39,6 @@ public class Widgets.Calendar.CalendarDay : Adw.Bin {
         );
     }
 
-    ~CalendarDay() {
-        print ("Destroying Widgets.Calendar.CalendarDay\n");
-    }
-
     construct {
         label = new Gtk.Label (null) {
             height_request = 16,

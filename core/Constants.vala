@@ -41,6 +41,7 @@ namespace Constants {
     public const string LIBERAPAY_URL = "https://liberapay.com/Alain/";
     public const string KOFI_URL = "https://ko-fi.com/alainm23";
     public const string MATRIX_URL = "https://matrix.to/#/#useplanify:matrix.org";
+    public const string MASTODON_URL = "https://mastodon.social/@planifyapp";
     public const bool SHOW_WHATSNEW = false;
     public const bool BLOCK_PAST_DAYS = false;
 }

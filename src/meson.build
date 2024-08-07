@@ -49,7 +49,6 @@ sources = files(
   'Widgets/EventsList.vala',
   'Widgets/EventRow.vala',
   'Widgets/SubItems.vala',
-  'Widgets/LabelChild.vala',
   'Widgets/LabelsSummary.vala',
   'Widgets/SectionsOrderPopover.vala',
   'Widgets/ScrolledWindow.vala',
