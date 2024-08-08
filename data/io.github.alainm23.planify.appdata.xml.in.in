@@ -67,6 +67,14 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.10.7" date="2024-08-08">
+      <description translate="no">
+        <ul>
+          <li>Support for syncing Nextcloud accounts that use a custom subpath (#1398).</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.10.6" date="2024-08-05">
       <description translate="no">
         <ul>
