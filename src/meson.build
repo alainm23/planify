@@ -60,7 +60,7 @@ sources = files(
   'Widgets/SourceRow.vala',
   'Widgets/ErrorView.vala',
   'Widgets/CompletedTaskRow.vala',
-  'Widgets/ItemDetail.vala',
+  'Widgets/ItemDetailCompleted.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',

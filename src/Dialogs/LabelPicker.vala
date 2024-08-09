@@ -46,7 +46,7 @@ public class Dialogs.LabelPicker : Adw.Dialog {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class ("flat");
 
-        picker = new Widgets.LabelsPickerCore (LabelPickerType.FILTER);
+        picker = new Widgets.LabelsPickerCore (LabelPickerType.FILTER_ONLY);
 
         var button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Filter")) {
             margin_top = 12,

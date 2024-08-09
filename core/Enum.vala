@@ -608,7 +608,10 @@ public enum ObjectEventKeyType {
 	DUE,
 	PRIORITY,
 	LABELS,
-	PINNED;
+	PINNED,
+	CHECKED,
+	PROJECT,
+	SECTION;
 
 	public static ObjectEventKeyType parse (string value) {
 		switch (value) {
@@ -629,6 +632,15 @@ public enum ObjectEventKeyType {
 
 			case "pinned":
 				return ObjectEventKeyType.PINNED;
+
+			case "checked":
+				return ObjectEventKeyType.CHECKED;
+			
+			case "project":
+				return ObjectEventKeyType.PROJECT;
+
+			case "section":
+				return ObjectEventKeyType.SECTION;
 
 			default:
 				assert_not_reached ();
@@ -662,6 +674,6 @@ public enum ObjectEventKeyType {
 }
 
 public enum LabelPickerType {
-	SELECT,
-	FILTER
+	FILTER_AND_CREATE,
+	FILTER_ONLY
 }

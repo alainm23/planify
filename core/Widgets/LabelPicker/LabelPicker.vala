@@ -56,7 +56,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     construct {
         css_classes = { "popover-contents" };
 
-        picker = new Widgets.LabelsPickerCore (LabelPickerType.SELECT) {
+        picker = new Widgets.LabelsPickerCore (LabelPickerType.FILTER_AND_CREATE) {
             margin_top = 12
         };
         

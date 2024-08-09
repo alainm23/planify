@@ -48,7 +48,11 @@ public class Objects.ObjectEvent : GLib.Object {
                     return "tag-outline-symbolic";
                 } else if (object_key == ObjectEventKeyType.PINNED) {
                     return "pin-symbolic";
-                }
+                } else if (object_key == ObjectEventKeyType.CHECKED) {
+                    return "check-round-outline-symbolic";
+                } else if (object_key == ObjectEventKeyType.SECTION || object_key == ObjectEventKeyType.PROJECT) {
+                    return "arrow3-right-symbolic";
+                } 
             }
 
             return "plus-large-symbolic";

@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.ItemDetail : Adw.Bin {
+public class Widgets.ItemDetailCompleted : Adw.Bin {
     public Objects.Item item { get; construct; }
 
     private Gtk.ListBox listbox;
@@ -28,14 +28,14 @@ public class Widgets.ItemDetail : Adw.Bin {
     private Gee.HashMap <string, Widgets.CompletedTaskRow> items_checked = new Gee.HashMap <string, Widgets.CompletedTaskRow> ();
     private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    public ItemDetail (Objects.Item item) {
+    public ItemDetailCompleted (Objects.Item item) {
         Object (
             item: item
         );
     }
 
-    ~ItemDetail () {
-        print ("Destroying Widgets.ItemDetail\n");
+    ~ItemDetailCompleted () {
+        print ("Destroying Widgets.ItemDetailCompleted\n");
     }
 
     construct {
@@ -45,7 +45,8 @@ public class Widgets.ItemDetail : Adw.Bin {
             top_margin = 12,
             bottom_margin = 12,
             height_request = 64,
-            wrap_mode = Gtk.WrapMode.WORD
+            wrap_mode = Gtk.WrapMode.WORD,
+            event_focus = false
         };
 
         content_textview.remove_css_class ("view");

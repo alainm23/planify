@@ -41,6 +41,8 @@ public class Widgets.TextView : Gtk.TextView {
     public signal void enter ();
     public signal void leave ();
 
+    public bool event_focus { get; set; default = true; }
+
     construct {
         var gesture = new Gtk.EventControllerFocus ();
         add_controller (gesture);
@@ -50,12 +52,18 @@ public class Widgets.TextView : Gtk.TextView {
     }
 
     private void handle_focus_in () {
-        Services.EventBus.get_default ().disconnect_typing_accel ();
+        if (event_focus) {
+            Services.EventBus.get_default ().disconnect_typing_accel ();
+        }
+
         enter ();
     }
 
     public void update_on_leave () {
-        Services.EventBus.get_default ().connect_typing_accel ();
+        if (event_focus) {
+            Services.EventBus.get_default ().connect_typing_accel ();
+        }
+        
         leave ();
     }
 }

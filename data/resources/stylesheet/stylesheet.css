@@ -647,3 +647,7 @@ checkbutton.theme-selector radio:checked {
 .pinboard-color {
     color: #ed333b;
 }
+
+.bg-danger {
+    background: #f66151;
+}

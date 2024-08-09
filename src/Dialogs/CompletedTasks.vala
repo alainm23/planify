@@ -140,6 +140,10 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         add_items ();
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
+        listbox.row_activated.connect ((row) => {
+            view_item (((Widgets.CompletedTaskRow) row).item); 
+        });
+
         closed.connect (() => {
             listbox.set_sort_func (null);
             listbox.set_header_func (null);
@@ -159,7 +163,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class ("flat");
 
-        Widgets.ItemDetail item_detail = new Widgets.ItemDetail (item);
+        Widgets.ItemDetailCompleted item_detail = new Widgets.ItemDetailCompleted (item);
         signals_map[item_detail.view_item.connect (view_item)] = item_detail;
 
         var toolbar_view = new Adw.ToolbarView ();

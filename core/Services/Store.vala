@@ -161,6 +161,7 @@ public class Services.Store : GLib.Object {
     */
 
     public void insert_source (Objects.Source source) {
+        source.child_order = sources.size + 1;
         if (Services.Database.get_default ().insert_source (source)) {
             sources.add (source);
             source_added (source);

@@ -80,12 +80,12 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
     construct {
         css_classes = { "popover-contents" };
         
-        if (picker_type == LabelPickerType.FILTER) {
+        if (picker_type == LabelPickerType.FILTER_ONLY) {
             PLACEHOLDER_MESSAGE = _("Your list of filters will show up here.");
         }
 
         search_entry = new Gtk.SearchEntry () {
-            placeholder_text = picker_type == LabelPickerType.SELECT ? _("Search or Create") : _("Search"),
+            placeholder_text = picker_type == LabelPickerType.FILTER_ONLY ? _("Search") : _("Search or Create"),
             valign = Gtk.Align.CENTER,
             hexpand = true,
             margin_start = 12,
@@ -105,8 +105,6 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             Objects.Label item2 = ((Widgets.LabelPicker.LabelRow) row2).label;
             return item1.item_order - item2.item_order;
         });
-        
-        listbox.set_sort_func (null);
 
         var listbox_grid = new Adw.Bin () {
             margin_start = 9,
@@ -150,9 +148,8 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             return false;
         })] = listbox_controller_key;
 
-        signal_map[search_entry.search_changed.connect (() => {
+        signal_map[search_entry.search_changed.connect (() => {                
             int size = 0;
-
             listbox.set_filter_func ((row) => {
                 var label = ((Widgets.LabelPicker.LabelRow) row).label;
                 var return_value = search_entry.text.down () in label.name.down ();
@@ -164,9 +161,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
                 return return_value;
             });
 
-            listbox.set_filter_func (null);
-
-            if (picker_type == LabelPickerType.SELECT) {
+            if (picker_type == LabelPickerType.FILTER_AND_CREATE) {
                 add_tag_revealer.reveal_child = size <= 0;
                 placeholder_message_label.label = size <= 0 ? PLACEHOLDER_CREATE_MESSAGE.printf (search_entry.text) : PLACEHOLDER_MESSAGE;
             }
