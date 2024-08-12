@@ -61,7 +61,6 @@ public class Widgets.SectionPicker.SectionPicker : Gtk.Popover {
             margin_end = 6,
             margin_bottom = 6,
             child = listbox,
-            css_classes = { "card" },
             valign = Gtk.Align.START
         };
 
@@ -78,15 +77,15 @@ public class Widgets.SectionPicker.SectionPicker : Gtk.Popover {
 
         child = toolbar_view;
 
-        listbox.row_activated.connect ((row) => {
-            var section = ((Widgets.SectionPicker.SectionPickerRow) row).section;
-            selected (section);
-            popdown ();
-        });
+        listbox.row_activated.connect (row_activated);
+
+        var listbox_controller_key = new Gtk.EventControllerKey ();
+        listbox.add_controller (listbox_controller_key);
+        listbox_controller_key.key_pressed.connect (key_pressed);
 
         search_entry.search_changed.connect (() => {
             listbox.invalidate_filter ();
-        });
+        }); 
     }
 
     public void set_sections (Gee.ArrayList<Objects.Section> sections) {
@@ -104,5 +103,29 @@ public class Widgets.SectionPicker.SectionPicker : Gtk.Popover {
 
     public void set_section (string section_id) {
         Services.EventBus.get_default ().section_picker_changed (section_id);
+    }
+
+    private void row_activated (Gtk.ListBoxRow row) {
+        var section = ((Widgets.SectionPicker.SectionPickerRow) row).section;
+        selected (section);
+        popdown ();
+    }
+
+    private bool key_pressed (uint keyval, uint keycode, Gdk.ModifierType state) {
+        var key = Gdk.keyval_name (keyval).replace ("KP_", "");
+        
+        if (key == "Up" || key == "Down") {
+        } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
+            row_activated (listbox.get_selected_row ());
+        } else {
+            if (!search_entry.has_focus) {
+                search_entry.grab_focus ();
+                if (search_entry.cursor_position < search_entry.text.length) {
+                    search_entry.set_position (search_entry.text.length);
+                }
+            }
+        }
+
+        return false;
     }
 }

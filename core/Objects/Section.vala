@@ -192,7 +192,7 @@ public class Objects.Section : Objects.BaseObject {
         this._items.add (item);
     }
 
-    public void update (bool cloud=true) {
+    public void update (bool cloud = true) {
         if (update_timeout_id != 0) {
             GLib.Source.remove (update_timeout_id);
         }
@@ -209,6 +209,10 @@ public class Objects.Section : Objects.BaseObject {
 
             return GLib.Source.REMOVE;
         });
+    }
+
+    public void update_local () {
+        Services.Store.instance ().update_section (this);
     }
 
     public override string get_update_json (string uuid, string? temp_id = null) {

@@ -70,11 +70,14 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 			css_classes = { "flat", "header-item-button", "dim-label" }
 		};
 
+        var loading_button = new Widgets.LoadingButton.with_icon ("go-next-symbolic", 16) {
+            valign = Gtk.Align.CENTER,
+            css_classes = { "flat", "dim-label", "no-padding" }
+        };
+
         var buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         buttons_box.append (menu_button);
-        buttons_box.append (new Gtk.Image.from_icon_name ("go-next-symbolic") {
-            css_classes = { "dim-label" }
-        });
+        buttons_box.append (loading_button);
         
         handle_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_start = 6,
@@ -115,6 +118,10 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         reorder_child.on_drop_end.connect ((listbox) => {
             update_labels_item_order (listbox);
         });
+
+        label.loading_change.connect (() => {
+			loading_button.is_loading = label.loading;
+		});
     }
 
     public void update_request () {
@@ -158,39 +165,13 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 
 		edit_item.clicked.connect (() => {
 			menu_popover.popdown ();
-
-            Services.EventBus.get_default ().close_labels ();
             var dialog = new Dialogs.Label (label);
             dialog.present (Planify._instance.main_window);
 		});
 
 		delete_item.clicked.connect (() => {
 			menu_popover.popdown ();
-
-            Services.EventBus.get_default ().close_labels ();
-            
-            var dialog = new Adw.AlertDialog (
-                _("Delete Label %s".printf (label.name)),
-                _("This can not be undone")
-            );
-
-            dialog.add_response ("cancel", _("Cancel"));
-            dialog.add_response ("delete", _("Delete"));
-            dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-            dialog.present (Planify._instance.main_window);
-
-            dialog.response.connect ((response) => {
-                if (response == "delete") {
-                    if (label.source_type == SourceType.TODOIST) {
-                        Services.Todoist.get_default ().delete.begin (label, (obj, res) => {
-                            Services.Todoist.get_default ().delete.end (res);
-                            Services.Store.instance ().delete_label (label);
-                        });
-                    } else if (label.source_type == SourceType.LOCAL) {
-                        Services.Store.instance ().delete_label (label);
-                    }
-                }
-            });
+            label.delete_label (Planify._instance.main_window);
 		});
 
 		return menu_popover;

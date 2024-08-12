@@ -28,12 +28,13 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	private Gtk.Label count_label;
 	private Gtk.ListBox listbox;
 	private Gtk.Revealer content_revealer;
-	private Gtk.Grid drop_widget;
-	private Gtk.Revealer drop_revealer;
+	private Gtk.Grid drop_inbox_widget;
+	private Gtk.Revealer drop_inbox_revealer;
 	private Adw.Bin handle_grid;
 	private Gtk.Box sectionrow_grid;
 	private Gtk.Revealer placeholder_revealer;
 	private Widgets.LoadingButton add_button;
+	private Gtk.Button hide_subtask_button;
 
 	public bool is_inbox_section {
 		get {
@@ -92,10 +93,19 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	construct {
 		add_css_class ("row");
 
+		hide_subtask_button = new Gtk.Button () {
+            valign = Gtk.Align.START,
+            margin_top = 3,
+            css_classes = { "flat", "dim-label", "no-padding", "hidden-button" },
+			child = new Gtk.Image.from_icon_name ("go-next-symbolic") {
+				pixel_size = 12
+			}
+        };
+		
 		name_label = new Gtk.Label (section.name) {
 			halign = START,
 			css_classes = { "font-bold" },
-			margin_start = 6
+			margin_start = 12
 		};
 
 		count_label = new Gtk.Label (null) {
@@ -135,6 +145,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		sectionrow_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
 			css_classes = { "transition", "drop-target" },
 		};
+
+		sectionrow_grid.append (hide_subtask_button);
 		sectionrow_grid.append (name_label);
 		sectionrow_grid.append (count_label);
         sectionrow_grid.append (actions_box_revealer);
@@ -142,7 +154,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
 			margin_bottom = 6,
 			margin_end = 6,
-			margin_start = 6
+			margin_start = 26
 		};
 
 		var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -157,21 +169,20 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		handle_grid = new Adw.Bin () {
 			margin_top = is_inbox_section ? 12 : 0,
-			margin_start = 19,
 			css_classes = { "transition", "drop-target" },
 			child = sectionrow_revealer
 		};
 
-		drop_widget = new Gtk.Grid () {
+		drop_inbox_widget = new Gtk.Grid () {
 			css_classes = { "transition", "drop-target" },
 			height_request = 32,
 			margin_start = 21,
 			margin_end = 12
 		};
 
-		drop_revealer = new Gtk.Revealer () {
+		drop_inbox_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			child = drop_widget
+			child = drop_inbox_widget
 		};
 
 		listbox = new Gtk.ListBox () {
@@ -189,17 +200,16 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		bottom_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			reveal_child = true
+			reveal_child = section.collapsed,
+			child = bottom_grid
 		};
-
-		bottom_revealer.child = bottom_grid;
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
 			hexpand = true
 		};
 
 		content_box.append (handle_grid);
-		content_box.append (drop_revealer);
+		content_box.append (drop_inbox_revealer);
 		content_box.append (bottom_revealer);
 
 		content_revealer = new Gtk.Revealer () {
@@ -212,6 +222,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		add_items ();
 		build_drag_and_drop ();
 		update_count_label (section.section_count);
+		update_collapsed_button ();
 
 		Timeout.add (content_revealer.transition_duration, () => {
 			content_revealer.reveal_child = true;
@@ -220,6 +231,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		signals_map[section.updated.connect (() => {
 			name_label.label = section.name;
+			bottom_revealer.reveal_child = section.collapsed;
+			update_collapsed_button ();
 		})] = section;
 
 		if (is_inbox_section) {
@@ -336,7 +349,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		signals_map[Services.EventBus.get_default ().drag_n_drop_active.connect ((project_id, active) => {
 			if (is_inbox_section && section.project_id == project_id) {
-				drop_revealer.reveal_child = active;
+				drop_inbox_revealer.reveal_child = active && !has_children;
 			}
 		})] = Services.EventBus.get_default ();
 
@@ -401,6 +414,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				}
 			}
 		})] = Services.EventBus.get_default ();
+
+		signals_map[hide_subtask_button.clicked.connect (() => {
+				section.collapsed = !section.collapsed;
+				section.update_local ();
+		})] = hide_subtask_button;
 	}
 
 	private void update_count_label (int count) {
@@ -680,8 +698,18 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			return true;
 		})] = drop_target;
 
+		var drop_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
+		sectionrow_grid.add_controller (drop_magic_button_target);
+		signals_map[drop_magic_button_target.drop.connect ((target, value, x, y) => {
+			var dialog = new Dialogs.QuickAdd ();
+			dialog.for_base_object (section);
+            dialog.present (Planify._instance.main_window);
+
+			return true;
+		})] = drop_magic_button_target;
+
 		var drop_inbox_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
-		drop_widget.add_controller (drop_inbox_target);
+		drop_inbox_widget.add_controller (drop_inbox_target);
 		signals_map[drop_inbox_target.drop.connect ((target, value, x, y) => {
 			var picked_widget = (Layouts.ItemRow) value;
 
@@ -721,16 +749,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 			return true;
 		})] = drop_inbox_target;
-
-		var drop_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
-		sectionrow_grid.add_controller (drop_magic_button_target);
-		signals_map[drop_magic_button_target.drop.connect ((target, value, x, y) => {
-			var dialog = new Dialogs.QuickAdd ();
-			dialog.for_base_object (section);
-            dialog.present (Planify._instance.main_window);
-
-			return true;
-		})] = drop_magic_button_target;
 	}
 
 	private void update_items_item_order (Gtk.ListBox listbox) {
@@ -777,6 +795,14 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		} else if (section.project.source_type == SourceType.LOCAL) {
 			Services.Store.instance ().move_section (section, project_id);
 			is_loading = false;
+		}
+	}
+
+	private void update_collapsed_button () {
+		if (section.collapsed) {
+            hide_subtask_button.add_css_class ("opened");
+        } else {
+			hide_subtask_button.remove_css_class ("opened");
 		}
 	}
 

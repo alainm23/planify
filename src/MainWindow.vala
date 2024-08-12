@@ -40,7 +40,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			app: application,
 			icon_name: Build.APPLICATION_ID,
 			title: "Planify",
-			width_request: 400,
+			width_request: 425,
 			height_request: 480
 		);
 	}

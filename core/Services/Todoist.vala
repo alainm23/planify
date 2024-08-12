@@ -217,6 +217,8 @@ public class Services.Todoist : GLib.Object {
 		url = url + "?sync_token=" + source.todoist_data.sync_token;
 		url = url + "&resource_types=" + "[\"all\"]";
 
+		print ("SYNC URL: %s\n".printf (url));
+
 		var message = new Soup.Message ("POST", url);
 		message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
 

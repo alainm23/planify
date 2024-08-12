@@ -758,6 +758,19 @@ public class Services.Store : GLib.Object {
         }
     }
 
+    public Gee.ArrayList<Objects.Item> get_items_by_project_pinned (Objects.Project project) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (item.exists_project (project) && item.pinned) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public Gee.ArrayList<Objects.Item> get_items_by_date (GLib.DateTime date, bool checked = true) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {

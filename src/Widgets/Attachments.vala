@@ -232,7 +232,7 @@ public class Widgets.Attachments : Adw.Bin {
     }
 
     private Gtk.Widget get_placeholder () {
-        var message_label = new Gtk.Label (_("Attach File")) {
+        var message_label = new Gtk.Label (_("No attachments found. Add files here.")) {
             wrap = true,
             justify = Gtk.Justification.CENTER,
             hexpand = true,

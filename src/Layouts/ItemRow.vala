@@ -78,6 +78,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Button hide_subtask_button;
     private Gtk.Revealer hide_subtask_revealer;
     private Widgets.ContextMenu.MenuItem no_date_item;
+    private Widgets.ContextMenu.MenuItem pinboard_item;
     
     private Gtk.DropControllerMotion drop_motion_ctrl;
     private Gtk.DragSource drag_source;
@@ -525,10 +526,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         box.append (itemrow_box);
         box.append (subitems);
 
-        hide_subtask_button = new Gtk.Button.from_icon_name ("go-next-symbolic") {
+        hide_subtask_button = new Gtk.Button () {
             valign = Gtk.Align.START,
             margin_top = 3,
-            css_classes = { "flat", "dim-label", "no-padding", "hidden-button" }
+            css_classes = { "flat", "dim-label", "no-padding", "hidden-button" },
+            child = new Gtk.Image.from_icon_name ("go-next-symbolic") {
+                pixel_size = 12
+            }
         };
 
         if (item.collapsed) {
@@ -970,6 +974,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
     
     public void update_pinned (bool pinned) {
+        if (pinned && item.project.items_pinned.size + 1 > 3) {
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (
+                    _("Up to 3 tasks can be pinned and they will appear at the top of the project page"),
+                    3
+                )
+            );
+
+            return;
+        }
+
         item.pinned = pinned;
         
         if (item.project.source_type == SourceType.CALDAV) {
@@ -987,6 +1002,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 no_date_item.visible = false;
             }
 
+            pinboard_item.title = item.pinned ? _("Unpin") : _("Pin");
+
             menu_handle_popover.pointing_to = { ((int) x), (int) y, 1, 1 };
             menu_handle_popover.popup ();
             return;
@@ -998,7 +1015,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
-        var pinboard_item = new Widgets.ContextMenu.MenuItem (_("Pin"), "pin-symbolic");
+        pinboard_item = new Widgets.ContextMenu.MenuItem (item.pinned ? _("Unpin") : _("Pin"), "pin-symbolic");
         
         no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = item.has_due;
@@ -1391,6 +1408,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     private async void _complete_item (bool old_checked, string old_completed_at) {
         checked_button.sensitive = false;
+        subitems.sensitive = false;
+
         HttpResponse response = yield item.complete_item (old_checked);
 
         if (!response.status) {
@@ -1405,6 +1424,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         is_loading = false;
         checked_button.sensitive = true;
         checked_button.active = false;
+        subitems.sensitive = true;
 
         itemrow_box.remove_css_class ("complete-animation");
         content_label.remove_css_class ("dim-label");

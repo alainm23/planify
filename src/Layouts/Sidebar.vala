@@ -222,6 +222,10 @@ public class Layouts.Sidebar : Adw.Bin {
 
             favorites_header.reveal = favorites_hashmap.size > 0;
         });
+
+        Services.Store.instance ().project_added.connect ((project) => {
+            add_row_favorite (project);
+        });
         
         inbox_filter.init ();
         today_filter.init ();

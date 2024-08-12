@@ -40,7 +40,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
         add_css_class ("quickfind-item");
 
         var main_grid = new Gtk.Grid () {
-            column_spacing = 6,
+            column_spacing = 9,
             margin_top = 3,
             margin_bottom = 3,
             margin_end = 3,
@@ -104,6 +104,10 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
                 xalign = 0,
                 css_classes = { "dim-label", "caption" }
             };
+
+            if (item.has_section) {
+                project_label.label += "%s / %s".printf (project_label.label, item.section.name);
+            }
 
             main_grid.attach (checked_button, 0, 0, 1, 2);
             main_grid.attach (content_label, 1, 0, 1, 1);

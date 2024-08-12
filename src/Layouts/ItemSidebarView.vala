@@ -435,6 +435,17 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     public void update_pinned (bool pinned) {
+        if (pinned && item.project.items_pinned.size + 1 > 3) {
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (
+                    _("Up to 3 tasks can be pinned and they will appear at the top of the project page"),
+                    3
+                )
+            );
+
+            return;
+        }
+        
         item.pinned = pinned;
         
         if (item.project.source_type == SourceType.CALDAV) {

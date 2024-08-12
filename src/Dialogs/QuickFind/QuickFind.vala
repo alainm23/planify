@@ -276,6 +276,11 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
             Services.EventBus.get_default ().pane_selected (PaneType.PROJECT,
                 ((Objects.Item) base_object).project_id.to_string ()
             );
+
+            Timeout.add (275, () => {
+                Services.EventBus.get_default ().open_item ((Objects.Item) base_object);
+                return GLib.Source.REMOVE;
+            });
         } else if (base_object.object_type == ObjectType.LABEL) {
             Services.EventBus.get_default ().pane_selected (PaneType.LABEL,
                 ((Objects.Label) base_object).id_string

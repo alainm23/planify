@@ -167,6 +167,14 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    Gee.ArrayList<Objects.Item> _items_pinned;
+    public Gee.ArrayList<Objects.Item> items_pinned {
+        get {
+            _items_pinned = Services.Store.instance ().get_items_by_project_pinned (this);
+            return _items_pinned;
+        }
+    }
+
     Gee.ArrayList<Objects.Project> _subprojects;
     public Gee.ArrayList<Objects.Project> subprojects {
         get {

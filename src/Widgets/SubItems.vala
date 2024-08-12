@@ -106,6 +106,10 @@ public class Widgets.SubItems : Adw.Bin {
             css_classes = { "listbox-background" },
             margin_start = 3
         };
+
+        if (is_board) {
+            listbox.set_placeholder (get_placeholder ());
+        }
         
         checked_listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -415,5 +419,31 @@ public class Widgets.SubItems : Adw.Bin {
         foreach (Layouts.ItemBase row in items.values) {
             ((Layouts.ItemRow) row).disable_drag_and_drop ();
         }
+    }
+
+    private Gtk.Widget get_placeholder () {
+        var message_label = new Gtk.Label (_("No subtasks added yet. Get started!")) {
+            wrap = true,
+            justify = Gtk.Justification.CENTER,
+            hexpand = true,
+            vexpand = true,
+            margin_top = 24,
+            margin_start = 24,
+            margin_end = 24,
+            margin_bottom = 24
+        };
+        
+        var placeholder_grid = new Adw.Bin () {
+            hexpand = true,
+            vexpand = true,
+            margin_top = 6,
+            margin_start = 6,
+            margin_end = 12,
+            margin_bottom = 6,
+            child = message_label,
+            css_classes = { "card" }
+        };
+
+        return placeholder_grid;
     }
 }

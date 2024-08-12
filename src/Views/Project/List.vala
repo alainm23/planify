@@ -26,6 +26,7 @@ public class Views.List : Adw.Bin {
     private Gtk.Label due_label;
     private Gtk.Label days_left_label;
     private Gtk.Revealer due_revealer;
+    private Widgets.PinnedItemsFlowBox pinned_items_flowbox;
 
     private Gtk.ListBox listbox;
     private Layouts.SectionRow inbox_section;
@@ -75,6 +76,8 @@ public class Views.List : Adw.Bin {
         filters.flowbox.margin_end = 12;
         filters.flowbox.margin_bottom = 3;
 
+        pinned_items_flowbox = new Widgets.PinnedItemsFlowBox (project);
+
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
             selection_mode = Gtk.SelectionMode.NONE,
@@ -109,8 +112,9 @@ public class Views.List : Adw.Bin {
             content_box.append (description_widget);
             content_box.append (due_revealer);
         }
-
+        
         content_box.append (filters);
+        content_box.append (pinned_items_flowbox);
         content_box.append (listbox_placeholder_stack);
 
         var content_clamp = new Adw.Clamp () {

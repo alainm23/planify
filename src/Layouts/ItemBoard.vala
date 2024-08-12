@@ -38,7 +38,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     private Gtk.Revealer repeat_revealer;
     private Gtk.Revealer due_box_revealer;
 	private Widgets.LabelsSummary labels_summary;
-    private Gtk.Revealer pinned_revealer;
     private Gtk.Revealer reminder_revealer;
     private Gtk.Label reminder_count;
     private Gtk.Label subtaks_label;
@@ -48,6 +47,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 	public Gtk.Box handle_grid;
 	private Gtk.Popover menu_handle_popover = null;
 	private Widgets.ContextMenu.MenuItem no_date_item;
+    private Widgets.ContextMenu.MenuItem pinboard_item;
 	private Gtk.Revealer main_revealer;
 
     private Gtk.CheckButton select_checkbutton;
@@ -196,7 +196,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             child = repeat_box
         };
 
-        due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            margin_end = 6
+        };
         due_box.append (due_label);
         due_box.append (repeat_revealer);
     
@@ -207,18 +209,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
 		labels_summary = new Widgets.LabelsSummary (item, 1);
         labels_summary.content_box.margin_top = 0;
-
-        var pinned_icon = new Adw.Bin () {
-            child = new Gtk.Image.from_icon_name ("pin-symbolic"),
-            css_classes = { "upcoming-grid" },
-            tooltip_text = _("Pinned"),
-            margin_end = 6
-        };
-
-        pinned_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
-			child = pinned_icon
-		};
 
         var reminder_icon = new Gtk.Image.from_icon_name ("alarm-symbolic");
 
@@ -261,7 +251,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
 		footer_box.append (due_box_revealer);
 		footer_box.append (labels_summary);
-        footer_box.append (pinned_revealer);
         footer_box.append (reminder_revealer);
         footer_box.append (subtaks_revealer);
 
@@ -300,7 +289,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         };
 
 		main_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+			transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
 			child = scrolled_window
 		};
 
@@ -558,12 +547,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		update_due_label ();
 		labels_summary.update_request ();
 		labels_summary.check_revealer ();
-        pinned_revealer.reveal_child = item.pinned;
         reminder_count.label = item.reminders.size.to_string ();
         reminder_revealer.reveal_child = item.reminders.size > 0;
         update_subtasks ();
 		footer_revealer.reveal_child = due_box_revealer.reveal_child || labels_summary.reveal_child ||
-            pinned_revealer.reveal_child || reminder_revealer.reveal_child || subtaks_revealer.reveal_child;
+            reminder_revealer.reveal_child || subtaks_revealer.reveal_child;
 	}
 
 	public void update_due_label () {
@@ -630,6 +618,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 no_date_item.visible = false;
             }
 
+            pinboard_item.title = item.pinned ? _("Unpin") : _("Pin");
+
             menu_handle_popover.pointing_to = { (int) x, (int) y, 1, 1 };
             menu_handle_popover.popup ();
             return;
@@ -641,7 +631,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "today-calendar-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
         
-        var pinboard_item = new Widgets.ContextMenu.MenuItem (_("Pin"), "pin-symbolic");
+        pinboard_item = new Widgets.ContextMenu.MenuItem (item.pinned ? _("Unpin") : _("Pin"), "pin-symbolic");
 
         no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = item.has_due;
@@ -1067,6 +1057,17 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     public void update_pinned (bool pinned) {
+        if (pinned && item.project.items_pinned.size + 1 > 3) {
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (
+                    _("Up to 3 tasks can be pinned and they will appear at the top of the project page"),
+                    3
+                )
+            );
+
+            return;
+        }
+        
         item.pinned = pinned;
         
         if (item.project.source_type == SourceType.CALDAV) {
@@ -1092,6 +1093,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			return GLib.Source.REMOVE;
 		});
 	}
+
+    public void hide_widget () {
+        main_revealer.reveal_child = false;
+    }
 
     public void clean_up () {
         // Clear Signals

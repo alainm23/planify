@@ -53,11 +53,7 @@ public class Services.EventBus : Object {
     public signal void update_inserted_item_map (Gtk.Widget row, string old_section_id, string old_parent_id);
     public signal void update_section_sort_func (string project_id, string section_id, bool active);
     public signal void day_changed ();
-    public signal void open_labels ();
-    public signal void close_labels ();
-    public signal void update_labels_position ();
     public signal void section_sort_order_changed (string project_id);
-    public signal void request_escape ();
     public signal void drag_n_drop_active (string project_id, bool active);
     public signal void expand_all (string project_id, bool active);
     public signal void drag_projects_end (string source_id);
