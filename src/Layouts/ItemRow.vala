@@ -673,7 +673,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = priority_button;
 
         signals_map[pin_button.changed.connect (() => {
-            update_pinned (!item.pinned);
+            item.update_pin (!item.pinned);
         })] = pin_button;
 
         signals_map[label_button.labels_changed.connect ((labels) => {
@@ -972,27 +972,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             return GLib.Source.REMOVE;
         });
     }
-    
-    public void update_pinned (bool pinned) {
-        if (pinned && item.project.items_pinned.size + 1 > 3) {
-            Services.EventBus.get_default ().send_toast (
-                Util.get_default ().create_toast (
-                    _("Up to 3 tasks can be pinned and they will appear at the top of the project page"),
-                    3
-                )
-            );
-
-            return;
-        }
-
-        item.pinned = pinned;
-        
-        if (item.project.source_type == SourceType.CALDAV) {
-            item.update_async ("");
-        } else {
-            item.update_local ();
-        }
-    }
 
     private void build_handle_context_menu (double x, double y) {
         if (menu_handle_popover != null) {
@@ -1099,7 +1078,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         pinboard_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
-            update_pinned (!item.pinned);
+            item.update_pin (!item.pinned);
         });
 
         no_date_item.activate_item.connect (() => {

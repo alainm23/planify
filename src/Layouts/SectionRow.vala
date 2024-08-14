@@ -271,11 +271,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		})] = Services.EventBus.get_default ();
 
 		signals_map[Services.Store.instance ().item_updated.connect ((item, update_id) => {
-			// vala-lint=no-space
-			if (!item.pinned && item.project_id == section.project_id && item.section_id == section.id && !item.has_parent) {
-				add_item (item);
-			}
-
 			if (!items_map.has_key (item.id)) {
 				return;
 			}
@@ -285,12 +280,21 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				update_sort ();
 			}
 
-			if (item.pinned) {
+			listbox.invalidate_filter ();
+		})] = Services.Store.instance ();
+
+		signals_map[Services.Store.instance ().item_pin_change.connect ((item) => {
+			// vala-lint=no-space
+			if (!item.pinned && item.project_id == section.project_id &&
+				item.section_id == section.id && !item.has_parent &&
+				!items_map.has_key (item.id)) {
+				add_item (item);
+			}
+
+			if (item.pinned && items_map.has_key (item.id)) {
 				items_map [item.id].hide_destroy ();
 				items_map.unset (item.id);
 			}
-
-			listbox.invalidate_filter ();
 		})] = Services.Store.instance ();
 
 		signals_map[Services.Store.instance ().item_deleted.connect ((item) => {

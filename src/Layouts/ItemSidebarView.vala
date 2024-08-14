@@ -236,7 +236,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         });
 
         pin_button.changed.connect (() => {
-            update_pinned (!item.pinned);
+            item.update_pin (!item.pinned);
         });
 
         section_button.selected.connect ((section) => {
@@ -325,6 +325,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             if (update_id != _update_id) {
                 update_request ();
             }
+        })] = item;
+
+        signals_map[item.pin_updated.connect (() => {
+            pin_button.update_from_item (item);
         })] = item;
 
         signals_map[item.reminder_added.connect ((reminder) => {
@@ -432,27 +436,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         }
 
         item.update_async ("");
-    }
-
-    public void update_pinned (bool pinned) {
-        if (pinned && item.project.items_pinned.size + 1 > 3) {
-            Services.EventBus.get_default ().send_toast (
-                Util.get_default ().create_toast (
-                    _("Up to 3 tasks can be pinned and they will appear at the top of the project page"),
-                    3
-                )
-            );
-
-            return;
-        }
-        
-        item.pinned = pinned;
-        
-        if (item.project.source_type == SourceType.CALDAV) {
-            item.update_async ("");
-        } else {
-            item.update_local ();
-        }
     }
 
     private Gtk.Popover build_context_menu () {

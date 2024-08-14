@@ -297,6 +297,7 @@ public class Objects.Item : Objects.BaseObject {
     public signal void collapsed_change ();
     public signal void attachment_added (Objects.Attachment attachment);
     public signal void attachment_deleted (Objects.Attachment attachment);
+    public signal void pin_updated ();
 
     public Item.from_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
@@ -799,6 +800,39 @@ public class Objects.Item : Objects.BaseObject {
                 loading = false;
             });
         } 
+    }
+
+    public void update_pin (bool _pinned) {
+        if (_pinned && project.items_pinned.size + 1 > 3) {
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (
+                    _("Up to 3 tasks can be pinned and they will appear at the top of the project page"),
+                    3
+                )
+            );
+
+            return;
+        }
+
+        pinned = _pinned; 
+        _update_pin ();
+    }
+
+    private void _update_pin () {
+        if (project.source_type == SourceType.CALDAV) {
+            loading = true;
+            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
+                HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+
+                if (response.status) {
+                    Services.Store.instance ().update_item_pin (this);
+                }
+                
+                loading = false;
+            });
+        } else {
+            Services.Store.instance ().update_item_pin (this);
+        }
     }
 
     public Objects.Reminder? add_reminder_if_not_exists (Objects.Reminder reminder, bool insert_db = true) {

@@ -93,10 +93,6 @@ public class Dialogs.QuickAdd : Adw.Dialog {
         quick_add_widget.set_due (date);
     }
 
-    public void set_pinned (bool pinned) {
-        quick_add_widget.set_pinned (pinned);
-    }
-
     public void set_priority (int priority) {
         quick_add_widget.set_priority (priority);
     }

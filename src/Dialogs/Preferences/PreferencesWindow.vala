@@ -1102,6 +1102,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		command_entry.title = quick_add_command;
 		command_entry.add_css_class ("caption");
 		command_entry.add_css_class ("monospace");
+		command_entry.add_css_class ("property");
 
 		var command_group = new Adw.PreferencesGroup () {
 			margin_top = 12

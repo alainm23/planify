@@ -29,7 +29,6 @@ public class Layouts.QuickAdd : Adw.Bin {
     private Widgets.ItemLabels item_labels;
     private Widgets.ProjectPicker.ProjectPickerButton project_picker_button;
     private Widgets.ScheduleButton schedule_button;
-    private Widgets.PinButton pin_button;
     private Widgets.PriorityButton priority_button;
     private Widgets.ReminderPicker.ReminderButton reminder_button;
     private Widgets.LabelPicker.LabelButton label_button;
@@ -131,7 +130,6 @@ public class Layouts.QuickAdd : Adw.Bin {
         };
 
         schedule_button = new Widgets.ScheduleButton ();
-        pin_button = new Widgets.PinButton ();
         priority_button = new Widgets.PriorityButton ();
         priority_button.update_from_item (item);
         label_button = new Widgets.LabelPicker.LabelButton ();
@@ -153,7 +151,6 @@ public class Layouts.QuickAdd : Adw.Bin {
         action_box_right.append (label_button);
         action_box_right.append (reminder_button);
         action_box_right.append (priority_button);
-        action_box_right.append (pin_button);
 
         action_box.append (schedule_button);
         action_box.append (action_box_right);
@@ -286,10 +283,6 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         schedule_button.date_changed.connect ((datetime) => {
             set_due (datetime);
-        });
-
-        pin_button.changed.connect (() => {
-            set_pinned (!item.pinned);
         });
 
         priority_button.changed.connect ((priority) => {
@@ -445,7 +438,6 @@ public class Layouts.QuickAdd : Adw.Bin {
                 description_textview.set_text ("");
                 schedule_button.reset ();
                 priority_button.reset ();
-                pin_button.reset ();
                 label_button.reset ();
                 item_labels.reset ();
 
@@ -483,11 +475,6 @@ public class Layouts.QuickAdd : Adw.Bin {
         }
 
         schedule_button.update_from_item (item);
-    }
-
-    public void set_pinned (bool pinned) {
-        item.pinned = pinned;
-        pin_button.update_request (pinned);
     }
 
     public void set_priority (int priority) {

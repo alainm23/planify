@@ -51,6 +51,7 @@ public class Services.Store : GLib.Object {
     public signal void item_updated (Objects.Item item, string update_id);
     public signal void item_archived (Objects.Item item);
     public signal void item_unarchived (Objects.Item item);
+    public signal void item_pin_change (Objects.Item item);
 
     public signal void item_label_added (Objects.Label label);
     public signal void item_label_deleted (Objects.Label label);
@@ -539,6 +540,13 @@ public class Services.Store : GLib.Object {
         if (Services.Database.get_default ().update_item (item, update_id)) {
             item.updated (update_id);
             item_updated (item, update_id);
+        }
+    }
+
+    public void update_item_pin (Objects.Item item) {
+        if (Services.Database.get_default ().update_item (item)) {
+            item_pin_change (item);
+            item.pin_updated ();
         }
     }
 

@@ -37,7 +37,8 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
             margin_start = 20,
             margin_end = 24,
             margin_top = 12,
-            homogeneous = true
+            homogeneous = true,
+            halign = Gtk.Align.START
         };
 
         if (Services.EventBus.get_default ().mobile_mode) {
@@ -76,7 +77,11 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
             check_reveal_child ();
         });
 
-        Services.Store.instance ().item_updated.connect ((item) => {
+        Services.Store.instance ().item_pin_change.connect ((item) => {
+            if (item.project_id != project.id) {
+                return;
+            }
+
             if (items_map.has_key (item.id) && !item.pinned) {
                 items_map[item.id].hide_widget ();
                 box_layout.remove (items_map[item.id]);
@@ -102,9 +107,19 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
             return;
         }
 
+        if (!item.pinned) {
+            return;
+        }
+
+        if (items_map.size + 1 > 3) {
+            return;
+        }
+
         items_map[item.id] = new Layouts.ItemBoard (item) {
             hexpand = true
         };
+
+        items_map[item.id].activate_pin_view ();
 
         box_layout.append (items_map[item.id]);
         check_reveal_child ();
@@ -114,11 +129,11 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
         if (Services.EventBus.get_default ().mobile_mode) {
             box_layout.orientation = Gtk.Orientation.VERTICAL;
             box_layout.homogeneous = false;
-            box_layout.spacing = 0;
+            box_layout.halign = Gtk.Align.FILL;
         } else {
             box_layout.orientation = Gtk.Orientation.HORIZONTAL;
             box_layout.homogeneous = true;
-            box_layout.spacing = 6;
+            box_layout.halign = Gtk.Align.START;
         }
     }
 

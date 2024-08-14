@@ -152,19 +152,9 @@ public class Widgets.SubItems : Adw.Bin {
         signals_map[item_parent.item_added.connect (add_item)] = item_parent;
 
         signals_map[Services.Store.instance ().item_updated.connect ((item, update_id) => {
-            // vala-lint=no-space
-			if (!item.pinned && item.parent_id == item_parent.id) {
-				add_item (item);
-			}
-
             if (items_map.has_key (item.id)) {
                 if (items_map [item.id].update_id != update_id) {
                     items_map [item.id].update_request ();
-                }
-
-                if (item.pinned) {
-                    items_map [item.id].hide_destroy ();
-                    items_map.unset (item.id);
                 }
             }
 
@@ -172,6 +162,19 @@ public class Widgets.SubItems : Adw.Bin {
                 items_checked [item.id].update_request ();
             }
         })] = Services.Store.instance ();
+
+        signals_map[Services.Store.instance ().item_pin_change.connect ((item) => {
+            // vala-lint=no-space
+			if (!item.pinned && item.parent_id == item_parent.id &&
+                !items_map.has_key (item.id)) {
+				add_item (item);
+			}
+
+			if (item.pinned && items_map.has_key (item.id)) {
+				items_map [item.id].hide_destroy ();
+				items_map.unset (item.id);
+			}
+		})] = Services.Store.instance ();
 
         signals_map[Services.Store.instance ().item_deleted.connect ((item) => {
             if (items_map.has_key (item.id)) {

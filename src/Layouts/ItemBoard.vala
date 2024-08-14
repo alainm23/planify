@@ -45,6 +45,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     private Gtk.Revealer footer_revealer;
 
 	public Gtk.Box handle_grid;
+    public Adw.Bin card_widget;
 	private Gtk.Popover menu_handle_popover = null;
 	private Widgets.ContextMenu.MenuItem no_date_item;
     private Widgets.ContextMenu.MenuItem pinboard_item;
@@ -115,12 +116,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			yalign = 0
 		};
 
-        hide_loading_button = new Widgets.LoadingButton.with_icon ("information", 16) {
+        hide_loading_button = new Widgets.LoadingButton.with_icon ("window-close", 16) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             margin_top = 7,
             margin_end = 7,
-            tooltip_text = _("View Details"),
+            tooltip_text = _("Unpin"),
             css_classes = { "min-height-0", "view-button" }
         };
 
@@ -267,13 +268,18 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		handle_grid.append (content_box);
 		handle_grid.append (description_revealer);
 		handle_grid.append (footer_revealer);
-		handle_grid.add_css_class ("card");
-		handle_grid.add_css_class ("border-radius-9");
-		handle_grid.add_css_class ("pb-6");
-        handle_grid.add_css_class ("activatable");
-        
+
+        card_widget = new Adw.Bin () {
+            child = handle_grid
+        };
+
+        card_widget.add_css_class ("card");
+		card_widget.add_css_class ("border-radius-9");
+		card_widget.add_css_class ("pb-6");
+        card_widget.add_css_class ("activatable");
+
         var overlay = new Gtk.Overlay ();
-		overlay.child = handle_grid;
+		overlay.child = card_widget;
 		overlay.add_overlay (hide_loading_revealer);
 
 		var v_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -289,7 +295,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         };
 
 		main_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
 			child = scrolled_window
 		};
 
@@ -324,7 +330,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         })] = select_button_gesture;
 
         var detail_gesture_click = new Gtk.GestureClick ();
-        handle_grid.add_controller (detail_gesture_click);
+        card_widget.add_controller (detail_gesture_click);
         signals_map[detail_gesture_click.released.connect ((n_press, x, y) => {
             if (Services.EventBus.get_default ().multi_select_enabled) {
                 select_checkbutton.active = !select_checkbutton.active;
@@ -338,7 +344,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         var menu_handle_gesture = new Gtk.GestureClick ();
         menu_handle_gesture.set_button (3);
-        handle_grid.add_controller (menu_handle_gesture);
+        card_widget.add_controller (menu_handle_gesture);
         signals_map[menu_handle_gesture.released.connect ((n_press, x, y) => {
             if (!item.completed) {
                 build_handle_context_menu (x, y);
@@ -413,6 +419,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 motion_top_revealer.reveal_child = false;
             }
         })] = Services.EventBus.get_default ();
+
+        signals_map[hide_loading_button.clicked.connect (() => {
+            item.update_pin (false);
+        })] = hide_loading_button;
 	}
 
     private void update_next_recurrency () {
@@ -438,7 +448,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             if (complete_timeout != 0) {
                 GLib.Source.remove (complete_timeout);
                 complete_timeout = 0;
-                handle_grid.remove_css_class ("complete-animation");
+                card_widget.remove_css_class ("complete-animation");
                 content_label.remove_css_class ("dim-label");
                 content_label.remove_css_class ("line-through");
             } else {
@@ -466,7 +476,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         }
 
         content_label.add_css_class ("dim-label");
-		handle_grid.add_css_class ("complete-animation");
+		card_widget.add_css_class ("complete-animation");
 		if (Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
 			content_label.add_css_class ("line-through");
 		}
@@ -505,7 +515,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         checked_button.sensitive = true;
         checked_button.active = false;
 
-        handle_grid.remove_css_class ("complete-animation");
+        card_widget.remove_css_class ("complete-animation");
         content_label.remove_css_class ("dim-label");
         content_label.remove_css_class ("line-through");
         
@@ -708,7 +718,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         pinboard_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
-            update_pinned (!item.pinned);
+            item.update_pin (!item.pinned);
         });
 
         no_date_item.activate_item.connect (() => {
@@ -776,7 +786,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
                 if (value.dup_object () is Layouts.ItemBoard) {
                     var picked_widget = (Layouts.ItemBoard) value;
-                    motion_top_grid.height_request = picked_widget.handle_grid.get_height ();
+                    motion_top_grid.height_request = picked_widget.card_widget.get_height ();
                 } else {
                     motion_top_grid.height_request = 32;
                 }
@@ -795,14 +805,14 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 	private void build_drag_source () {
         var drag_source = new Gtk.DragSource ();
         drag_source.set_actions (Gdk.DragAction.MOVE);
-        handle_grid.add_controller (drag_source);
+        card_widget.add_controller (drag_source);
 
         signals_map[drag_source.prepare.connect ((source, x, y) => {
             return new Gdk.ContentProvider.for_value (this);
         })] = drag_source;
 
         signals_map[drag_source.drag_begin.connect ((source, drag) => {
-            var paintable = new Gtk.WidgetPaintable (handle_grid);
+            var paintable = new Gtk.WidgetPaintable (card_widget);
             source.set_icon (paintable, 0, 0);
             drag_begin ();
         })] = drag_source;
@@ -819,7 +829,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     private void build_drop_target () {
         var drop_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);
-        handle_grid.add_controller (drop_target);
+        card_widget.add_controller (drop_target);
 
         signals_map[drop_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
@@ -866,7 +876,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     private void build_drop_magic_button_target () {
         var drop_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
-        handle_grid.add_controller (drop_magic_button_target);
+        card_widget.add_controller (drop_magic_button_target);
 
         signals_map[drop_magic_button_target.drop.connect ((value, x, y) => {
             var dialog = new Dialogs.QuickAdd ();
@@ -976,13 +986,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
 	public void drag_begin () {
-        handle_grid.add_css_class ("drop-begin");
+        card_widget.add_css_class ("drop-begin");
         on_drag = true;
         main_revealer.reveal_child = false;
     }
 
     public void drag_end () {
-        handle_grid.remove_css_class ("drop-begin");
+        card_widget.remove_css_class ("drop-begin");
         on_drag = false;
         main_revealer.reveal_child = item.show_item;
     }
@@ -1056,32 +1066,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         }
     }
 
-    public void update_pinned (bool pinned) {
-        if (pinned && item.project.items_pinned.size + 1 > 3) {
-            Services.EventBus.get_default ().send_toast (
-                Util.get_default ().create_toast (
-                    _("Up to 3 tasks can be pinned and they will appear at the top of the project page"),
-                    3
-                )
-            );
-
-            return;
-        }
-        
-        item.pinned = pinned;
-        
-        if (item.project.source_type == SourceType.CALDAV) {
-            item.update_async ("");
-        } else {
-            item.update_local ();
-        }
-    }
-
     public override void select_row (bool active) {
         if (active) {
-            handle_grid.add_css_class ("complete-animation");
+            card_widget.add_css_class ("complete-animation");
         } else {
-            handle_grid.remove_css_class ("complete-animation");
+            card_widget.remove_css_class ("complete-animation");
         }
     }
 
@@ -1096,6 +1085,14 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     public void hide_widget () {
         main_revealer.reveal_child = false;
+    }
+
+    public void activate_pin_view () {
+        hide_loading_revealer.reveal_child = true;
+        handle_grid.margin_top = 6;
+        handle_grid.margin_start = 6;
+        handle_grid.margin_end = 6;
+        handle_grid.width_request = 200;
     }
 
     public void clean_up () {
