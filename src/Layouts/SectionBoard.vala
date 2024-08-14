@@ -240,9 +240,26 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         })] = Services.EventBus.get_default ();
 
         signals_map[Services.Store.instance ().item_updated.connect ((item, update_id) => {
-            if (items_map.has_key (item.id)) {
-                listbox.invalidate_filter ();
+            // vala-lint=no-space
+            if (!item.pinned && item.project_id == section.project_id && item.section_id == section.id && !item.has_parent) {
+                add_item (item);
             }
+
+            if (!items_map.has_key (item.id)) {
+                return;
+            }
+
+            if (items_map [item.id].update_id != update_id) {
+                items_map [item.id].update_request ();
+                update_sort ();
+            }
+
+            if (item.pinned) {
+                items_map [item.id].hide_destroy ();
+                items_map.unset (item.id);
+            }
+
+            listbox.invalidate_filter ();
         })] = Services.Store.instance ();
 
         signals_map[Services.Store.instance ().item_deleted.connect ((item) => {
@@ -410,6 +427,10 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         if (item.checked) {
             return;
         }
+
+        if (item.pinned) {
+			return;
+		}
 
         if (items_map.has_key (item.id)) {
             return;

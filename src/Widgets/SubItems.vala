@@ -33,12 +33,12 @@ public class Widgets.SubItems : Adw.Bin {
     public Widgets.LoadingButton add_button;
 
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
-    public Gee.HashMap <string, Layouts.ItemBase> items = new Gee.HashMap <string, Layouts.ItemBase> ();
+    public Gee.HashMap <string, Layouts.ItemBase> items_map = new Gee.HashMap <string, Layouts.ItemBase> ();
     public Gee.HashMap <string, Layouts.ItemBase> items_checked = new Gee.HashMap <string, Layouts.ItemBase> ();
 
     public bool has_children {
         get {
-            return items.size > 0 || (items_checked.size > 0 && show_completed);
+            return items_map.size > 0 || (items_checked.size > 0 && show_completed);
         }
     }
 
@@ -152,26 +152,36 @@ public class Widgets.SubItems : Adw.Bin {
         signals_map[item_parent.item_added.connect (add_item)] = item_parent;
 
         signals_map[Services.Store.instance ().item_updated.connect ((item, update_id) => {
-            if (items.has_key (item.id_string)) {
-                if (items [item.id_string].update_id != update_id) {
-                    items [item.id_string].update_request ();
+            // vala-lint=no-space
+			if (!item.pinned && item.parent_id == item_parent.id) {
+				add_item (item);
+			}
+
+            if (items_map.has_key (item.id)) {
+                if (items_map [item.id].update_id != update_id) {
+                    items_map [item.id].update_request ();
+                }
+
+                if (item.pinned) {
+                    items_map [item.id].hide_destroy ();
+                    items_map.unset (item.id);
                 }
             }
 
-            if (items_checked.has_key (item.id_string)) {
-                items_checked [item.id_string].update_request ();
+            if (items_checked.has_key (item.id)) {
+                items_checked [item.id].update_request ();
             }
         })] = Services.Store.instance ();
 
         signals_map[Services.Store.instance ().item_deleted.connect ((item) => {
-            if (items.has_key (item.id_string)) {
-                items [item.id_string].hide_destroy ();
-                items.unset (item.id_string);
+            if (items_map.has_key (item.id)) {
+                items_map [item.id].hide_destroy ();
+                items_map.unset (item.id);
             }
 
-            if (items_checked.has_key (item.id_string)) {
-                items_checked [item.id_string].hide_destroy ();
-                items_checked.unset (item.id_string);
+            if (items_checked.has_key (item.id)) {
+                items_checked [item.id].hide_destroy ();
+                items_checked.unset (item.id);
             }
 
             children_changes ();
@@ -179,14 +189,14 @@ public class Widgets.SubItems : Adw.Bin {
 
         signals_map[Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
             if (old_parent_id == item_parent.id) {
-                if (items.has_key (item.id_string)) {
-                    items [item.id_string].hide_destroy ();
-                    items.unset (item.id_string);
+                if (items_map.has_key (item.id)) {
+                    items_map [item.id].hide_destroy ();
+                    items_map.unset (item.id);
                 }
 
-                if (items_checked.has_key (item.id_string)) {
-                    items_checked [item.id_string].hide_destroy ();
-                    items_checked.unset (item.id_string);
+                if (items_checked.has_key (item.id)) {
+                    items_checked [item.id].hide_destroy ();
+                    items_checked.unset (item.id);
                 }
             }
 
@@ -200,9 +210,9 @@ public class Widgets.SubItems : Adw.Bin {
         signals_map[Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
             if (item.parent_id == item_parent.id) {
                 if (!old_checked) {
-                    if (items.has_key (item.id)) {
-                        items [item.id].hide_destroy ();
-                        items.unset (item.id);
+                    if (items_map.has_key (item.id)) {
+                        items_map [item.id].hide_destroy ();
+                        items_map.unset (item.id);
                     }
 
                     if (!items_checked.has_key (item.id)) {
@@ -220,14 +230,14 @@ public class Widgets.SubItems : Adw.Bin {
                         items_checked.unset (item.id);
                     }
 
-                    if (!items.has_key (item.id)) {
+                    if (!items_map.has_key (item.id)) {
                         if (is_board) {
-                            items [item.id] = new Layouts.ItemBoard (item);
+                            items_map [item.id] = new Layouts.ItemBoard (item);
                         } else {
-                            items [item.id] = new Layouts.ItemRow (item, is_project_view);
+                            items_map [item.id] = new Layouts.ItemRow (item, is_project_view);
                         }
 
-                        listbox.append (items [item.id]);
+                        listbox.append (items_map [item.id]);
                         children_changes ();
                     }
                 }
@@ -241,8 +251,8 @@ public class Widgets.SubItems : Adw.Bin {
                 var row = (Layouts.ItemRow) _row;
 
                 if (old_parent_id == item_parent.id) {
-                    if (items.has_key (row.item.id)) {
-                        items.unset (row.item.id);
+                    if (items_map.has_key (row.item.id)) {
+                        items_map.unset (row.item.id);
                     }
     
                     if (items_checked.has_key (row.item.id)) {
@@ -271,7 +281,7 @@ public class Widgets.SubItems : Adw.Bin {
 
         signals_map[Services.EventBus.get_default ().expand_all.connect ((project_id, value) => {
 			if (item_parent.project_id == project_id) {
-				foreach (Layouts.ItemBase row_base in items.values) {
+				foreach (Layouts.ItemBase row_base in items_map.values) {
                     if (row_base is Layouts.ItemRow) {
                         ((Layouts.ItemRow) row_base).edit = value;
                     }
@@ -281,7 +291,7 @@ public class Widgets.SubItems : Adw.Bin {
     }
 
     public void add_items () {
-        items.clear ();
+        items_map.clear ();
 
         foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
             listbox.remove (child);
@@ -325,21 +335,31 @@ public class Widgets.SubItems : Adw.Bin {
     }
 
     public void add_item (Objects.Item item) {
-        if (!item.checked && !items.has_key (item.id)) {
-            if (is_board) {
-                items [item.id] = new Layouts.ItemBoard (item);
-            } else {
-                items [item.id] = new Layouts.ItemRow (item, is_project_view);
-            }
+        if (item.checked) {
+			return;
+		}
 
-            if (item.custom_order) {
-				listbox.insert (items [item.id], item.child_order);
-			} else {
-				listbox.append (items [item.id]);
-			}
-            
-            children_changes ();
+		if (item.pinned) {
+			return;
+		}
+
+		if (items_map.has_key (item.id)) {
+			return;
+		}
+
+        if (is_board) {
+            items_map [item.id] = new Layouts.ItemBoard (item);
+        } else {
+            items_map [item.id] = new Layouts.ItemRow (item, is_project_view);
         }
+
+        if (item.custom_order) {
+            listbox.insert (items_map [item.id], item.child_order);
+        } else {
+            listbox.append (items_map [item.id]);
+        }
+        
+        children_changes ();
     }
 
     private void update_sort () {
@@ -416,7 +436,7 @@ public class Widgets.SubItems : Adw.Bin {
     }
 
     public void disable_drag_and_drop () {
-        foreach (Layouts.ItemBase row in items.values) {
+        foreach (Layouts.ItemBase row in items_map.values) {
             ((Layouts.ItemRow) row).disable_drag_and_drop ();
         }
     }

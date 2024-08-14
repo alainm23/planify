@@ -271,7 +271,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		handle_grid.add_css_class ("border-radius-9");
 		handle_grid.add_css_class ("pb-6");
         handle_grid.add_css_class ("activatable");
-
+        
         var overlay = new Gtk.Overlay ();
 		overlay.child = handle_grid;
 		overlay.add_overlay (hide_loading_revealer);
@@ -303,7 +303,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         update_request ();
 
-        if (!item.checked) {
+        if (!item.pinned) {
             build_drag_and_drop ();
         }
         
@@ -753,13 +753,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		// Drag Souyrce
         build_drag_source ();
 
-        // Drop
+        //  Drop
         build_drop_target ();
 
-        // Drop Magic Button
+        //  Drop Magic Button
         build_drop_magic_button_target ();
 
-		// Drop Order
+		//  Drop Order
         build_drop_order_target ();
 	}
 

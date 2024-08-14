@@ -271,11 +271,23 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		})] = Services.EventBus.get_default ();
 
 		signals_map[Services.Store.instance ().item_updated.connect ((item, update_id) => {
-			if (items_map.has_key (item.id)) {
-				if (items_map [item.id].update_id != update_id) {
-					items_map [item.id].update_request ();
-					update_sort ();
-				}
+			// vala-lint=no-space
+			if (!item.pinned && item.project_id == section.project_id && item.section_id == section.id && !item.has_parent) {
+				add_item (item);
+			}
+
+			if (!items_map.has_key (item.id)) {
+				return;
+			}
+
+			if (items_map [item.id].update_id != update_id) {
+				items_map [item.id].update_request ();
+				update_sort ();
+			}
+
+			if (item.pinned) {
+				items_map [item.id].hide_destroy ();
+				items_map.unset (item.id);
 			}
 
 			listbox.invalidate_filter ();
@@ -451,14 +463,24 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	}
 
 	public void add_item (Objects.Item item) {
-		if (!item.checked && !items_map.has_key (item.id)) {
-			items_map [item.id] = new Layouts.ItemRow (item, true);
+		if (item.checked) {
+			return;
+		}
 
-			if (item.custom_order) {
-				listbox.insert (items_map [item.id], item.child_order);
-			} else {
-				listbox.append (items_map [item.id]);
-			}
+		if (item.pinned) {
+			return;
+		}
+
+		if (items_map.has_key (item.id)) {
+			return;
+		}
+		
+		items_map [item.id] = new Layouts.ItemRow (item, true);
+
+		if (item.custom_order) {
+			listbox.insert (items_map [item.id], item.child_order);
+		} else {
+			listbox.append (items_map [item.id]);
 		}
 	}
 
