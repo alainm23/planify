@@ -90,15 +90,6 @@ subdir('data')
 # subdir('search-provider')
 subdir('po')
 
-executable(
-  application_id,
-  sources,
-  asresources,
-  config_file,
-  dependencies: deps,
-  install: true
-)
-
 summary({
   'Tracing': get_option('tracing'),
   'Profile': get_option('profile'),

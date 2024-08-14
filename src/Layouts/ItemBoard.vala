@@ -753,13 +753,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		// Drag Souyrce
         build_drag_source ();
 
-        //  Drop
+        // Drop
         build_drop_target ();
 
         //  Drop Magic Button
         build_drop_magic_button_target ();
 
-		//  Drop Order
+		//  // Drop Order
         build_drop_order_target ();
 	}
 
