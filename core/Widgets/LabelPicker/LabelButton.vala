@@ -45,6 +45,7 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
     }
 
     public signal void labels_changed (Gee.HashMap<string, Objects.Label> labels);
+    public signal void picker_opened (bool active);
 
     public LabelButton () {
         Object (
@@ -123,6 +124,13 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
         labels_picker.closed.connect (() => {
             labels_changed (labels_picker.picked);
         });
+
+        labels_picker.show.connect (() => {
+            picker_opened (true);
+        });
+        labels_picker.closed.connect (() => {
+            picker_opened (false);
+        });
     }
 
     public void reset () {
@@ -144,6 +152,14 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
             }
 
             labels_label.tooltip_text = labels_label.label;
+        }
+    }
+
+    public void open_picker () {
+        if (is_board) {
+            labels_picker.show ();
+        } else {
+            button.active = true;
         }
     }
 }

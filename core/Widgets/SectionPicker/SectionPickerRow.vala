@@ -33,7 +33,7 @@ public class Widgets.SectionPicker.SectionPickerRow : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("quickfind-item");
+        add_css_class ("border-radius-6");
 
         var color_grid = new Gtk.Grid () {
 			width_request = 3,

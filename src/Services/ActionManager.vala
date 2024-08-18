@@ -113,11 +113,20 @@ public class Services.ActionManager : Object {
 
         Services.EventBus.get_default ().disconnect_typing_accel.connect (disable_typing_accels);
         Services.EventBus.get_default ().connect_typing_accel.connect (enable_typing_accels);
+
+        Services.EventBus.get_default ().disconnect_all_accels.connect (disable_all_accel);
+        Services.EventBus.get_default ().connect_all_accels.connect (enable_all_accel);
     }
 
     // Temporarily disable all the accelerators that might interfere with input fields.
     private void disable_typing_accels () {
         foreach (var action in typing_accelerators.get_keys ()) {
+            app.set_accels_for_action (ACTION_PREFIX + action, {});
+        }
+    }
+
+    private void disable_action_accels () {
+        foreach (var action in action_accelerators.get_keys ()) {
             app.set_accels_for_action (ACTION_PREFIX + action, {});
         }
     }
@@ -129,6 +138,24 @@ public class Services.ActionManager : Object {
             accels_array += null;
             app.set_accels_for_action (ACTION_PREFIX + action, accels_array);
         }
+    }
+
+    private void enable_action_accels () {
+        foreach (var action in action_accelerators.get_keys ()) {
+            var accels_array = action_accelerators[action].to_array ();
+            accels_array += null;
+            app.set_accels_for_action (ACTION_PREFIX + action, accels_array);
+        }
+    }
+
+    private void disable_all_accel () {
+        disable_typing_accels ();
+        disable_action_accels ();
+    }
+
+    private void enable_all_accel () {
+        enable_typing_accels ();
+        enable_action_accels ();
     }
 
     private void action_quit () {

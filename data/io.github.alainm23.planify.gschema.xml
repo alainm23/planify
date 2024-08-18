@@ -391,6 +391,12 @@
             <description>Mobile Mode</description>
         </key>
 
+        <key name="enable-markdown-formatting" type="b">
+            <default>true</default>
+            <summary>Enable Markdown Formatting</summary>
+            <description>Enable Markdown Formatting</description>
+        </key>
+
         <key name="caldav-server-url" type="s">
             <default>""</default>
             <summary>CalDAV Server URL</summary>

@@ -621,6 +621,13 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
 		group.add (attention_at_one);
 
+		var markdown_item = new Adw.SwitchRow ();
+		markdown_item.title = _("Enable Markdown Formatting");
+		markdown_item.subtitle = _("Toggle Markdown support for tasks on or off");
+		Services.Settings.get_default ().settings.bind ("enable-markdown-formatting", markdown_item, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		group.add (markdown_item);
+
 		var reminders_group = new Adw.PreferencesGroup () {
 			title = _("Reminders")
 		};

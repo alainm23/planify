@@ -99,7 +99,8 @@
             auto_indent = true,
             wrap_mode = Gtk.WrapMode.CHAR,
             show_gutter = false,
-            height_request = 64
+            height_request = 64,
+			text_mode = !Services.Settings.get_default ().settings.get_boolean ("enable-markdown-formatting")
         };
 
         markdown_view.remove_css_class ("view");
@@ -187,6 +188,10 @@
 		on_dark_changed (Services.Settings.get_default ().settings.get_boolean ("dark-mode"));
 		Services.EventBus.get_default ().theme_changed.connect (() => {
 			on_dark_changed (Services.Settings.get_default ().settings.get_boolean ("dark-mode"));
+		});
+
+		Services.Settings.get_default ().settings.changed["enable-markdown-formatting"].connect (() => {
+			markdown_view.text_mode = !Services.Settings.get_default ().settings.get_boolean ("enable-markdown-formatting");
 		});
 
 		recolor (Color.RGB ());

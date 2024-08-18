@@ -128,7 +128,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 		toolbar_view.content = listbox_scrolled;
 
         child = toolbar_view;
-
+                
         var listbox_controller_key = new Gtk.EventControllerKey ();
         listbox.add_controller (listbox_controller_key);
         signal_map[listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
@@ -179,6 +179,16 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
                 }
             }
         })] = search_entry;
+
+        var search_entry_ctrl_key = new Gtk.EventControllerKey ();
+        search_entry.add_controller (search_entry_ctrl_key);
+        signal_map[search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                close ();
+            }
+
+            return false;
+        })] = search_entry_ctrl_key;
 
         signal_map[Services.Store.instance ().label_added.connect ((label) => {
             add_label (label);
@@ -320,5 +330,12 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         foreach (Objects.Label label in labels_list) {
             add_label (label);
         }
+    }
+
+    public void entry_focus () {
+        Timeout.add (275, () => {
+            search_entry.grab_focus ();
+            return GLib.Source.REMOVE;
+        });
     }
 }

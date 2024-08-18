@@ -80,8 +80,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         Object (
             project: project,
             show_subprojects: show_subprojects,
-            drag_n_drop: drag_n_drop,
-            focusable: false
+            drag_n_drop: drag_n_drop
         );
     }
 

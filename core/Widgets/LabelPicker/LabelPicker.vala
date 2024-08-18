@@ -65,6 +65,10 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         picker.close.connect (() => {
             popdown ();
         });
+
+        picker.show.connect (() => {
+            picker.entry_focus ();
+        });
     }
 
     public void reset () {

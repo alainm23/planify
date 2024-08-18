@@ -458,7 +458,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         var popover = new Gtk.Popover () {
             has_arrow = false,
             position = Gtk.PositionType.BOTTOM,
-            width_request = 225
+            width_request = 250
         };
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -756,7 +756,11 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             left_margin = 12,
             right_margin = 12,
             top_margin = 12,
-            bottom_margin = 12
+            bottom_margin = 12,
+            margin_top = 3,
+            margin_bottom = 3,
+            margin_start = 3,
+            margin_end = 3
         };
         markdown_edit_view.buffer = current_buffer;
 

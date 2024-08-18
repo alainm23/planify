@@ -1136,7 +1136,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var popover = new Gtk.Popover () {
             has_arrow = false,
             position = Gtk.PositionType.BOTTOM,
-            width_request = 225
+            width_request = 250
         };
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

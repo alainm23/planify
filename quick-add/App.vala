@@ -32,7 +32,7 @@ public class QuickAdd : Adw.Application {
         set_accels_for_action ("app.quit", {"Escape"});
 
         quit_action.activate.connect (() => {
-            if (main_window != null) {
+            if (main_window != null && main_window.can_close) {
                 main_window.hide ();
 
                 Timeout.add (500, () => {

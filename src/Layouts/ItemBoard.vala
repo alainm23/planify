@@ -260,16 +260,15 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			child = footer_box
 		};
 
-		handle_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 3,
-            margin_end = 3,
-            margin_bottom = 3
-        };
+		handle_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		handle_grid.append (content_box);
 		handle_grid.append (description_revealer);
 		handle_grid.append (footer_revealer);
 
         card_widget = new Adw.Bin () {
+            margin_top = 3,
+            margin_end = 3,
+            margin_bottom = 3,
             child = handle_grid
         };
 
@@ -1089,8 +1088,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     public void activate_pin_view () {
         hide_loading_revealer.reveal_child = true;
-        handle_grid.margin_top = 6;
-        handle_grid.margin_start = 6;
+        handle_grid.margin_top = 3;
+        handle_grid.margin_start = 3;
         handle_grid.margin_end = 6;
         handle_grid.width_request = 200;
     }

@@ -42,7 +42,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("no-selectable");
+        add_css_class ("border-radius-6");
 
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.CENTER,
@@ -78,6 +78,10 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
 
         destroy.connect (() => {
             checked_button_gesture.disconnect (signal_id);
+        });
+
+        activate.connect (() => {
+            update_checked_toggled ();
         });
     }
 

@@ -352,6 +352,15 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         signals_map[section.loading_change.connect (() => {
             is_loading = section.loading;
         })] = section;
+
+        var edit_gesture = new Gtk.GestureClick ();
+		name_label.add_controller (edit_gesture);
+		signals_map[edit_gesture.released.connect ((n_press, x, y) => {
+			if (n_press == 2) {
+				var dialog = new Dialogs.Section (section);
+				dialog.present (Planify._instance.main_window);
+			}
+		})] = edit_gesture;
     }
 
     private void update_request () {
@@ -558,6 +567,14 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                 }
             });
         });
+
+        show_completed_item.clicked.connect (() => {
+			menu_popover.popdown ();
+
+			var dialog = new Dialogs.CompletedTasks (section.project);
+			dialog.add_update_filter (section);
+			dialog.present (Planify._instance.main_window);
+		});
 
         duplicate_item.clicked.connect (() => {
             menu_popover.popdown ();

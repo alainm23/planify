@@ -58,8 +58,7 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
         Object (
             title: title,
             icon: icon,
-            hexpand: true,
-            can_focus: false
+            hexpand: true
         );
     }
 

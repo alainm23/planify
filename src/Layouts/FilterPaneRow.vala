@@ -33,8 +33,7 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
 
     public FilterPaneRow (FilterType filter_type) {
         Object (
-            filter_type: filter_type,
-            can_focus: false
+            filter_type: filter_type
         );
     }
 

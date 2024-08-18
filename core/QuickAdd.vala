@@ -41,6 +41,7 @@ public class Layouts.QuickAdd : Adw.Bin {
     public signal void send_interface_id (string id);
     public signal void add_item_db (Objects.Item item, Gee.ArrayList<Objects.Reminder> reminders);
     public signal void error (HttpResponse response);
+    public signal void parent_can_close (bool active);
 
     public bool ctrl_pressed { get; set; default = false; }
 
@@ -119,7 +120,8 @@ public class Layouts.QuickAdd : Adw.Bin {
             top_margin = 12,
             wrap_mode = Gtk.WrapMode.WORD_CHAR,
             hexpand = true,
-            event_focus = false
+            event_focus = false,
+            accepts_tab = false
         };
 
         description_textview.remove_css_class ("view");
@@ -132,9 +134,15 @@ public class Layouts.QuickAdd : Adw.Bin {
         schedule_button = new Widgets.ScheduleButton ();
         priority_button = new Widgets.PriorityButton ();
         priority_button.update_from_item (item);
-        label_button = new Widgets.LabelPicker.LabelButton ();
+        
+        label_button = new Widgets.LabelPicker.LabelButton () {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Labels"), "Ctrl+L"),
+        };
         label_button.source = item.project.source;
-        reminder_button = new Widgets.ReminderPicker.ReminderButton (true);
+
+        reminder_button = new Widgets.ReminderPicker.ReminderButton (true) {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Reminders"), "Ctrl+R"),
+        };
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 6,
@@ -290,6 +298,13 @@ public class Layouts.QuickAdd : Adw.Bin {
         });
 
         label_button.labels_changed.connect (set_labels);
+        label_button.picker_opened.connect ((active) => {
+            parent_can_close (!active);
+        });
+
+        reminder_button.picker_opened.connect ((active) => {
+            parent_can_close (!active);
+        });
 
         var destroy_controller = new Gtk.EventControllerKey ();
         add_controller (destroy_controller);
@@ -350,6 +365,20 @@ public class Layouts.QuickAdd : Adw.Bin {
         create_more_button.activate.connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("quick-add-create-more", create_more_button.active);
         });
+
+        var open_label_shortcut = new Gtk.Shortcut (Gtk.ShortcutTrigger.parse_string ("<Control>l"), new Gtk.CallbackAction (() => {
+            label_button.open_picker ();
+        }));
+
+        var open_reminder_shortcut = new Gtk.Shortcut (Gtk.ShortcutTrigger.parse_string ("<Control>r"), new Gtk.CallbackAction (() => {
+            reminder_button.open_picker ();
+        }));
+
+        var shortcutController = new Gtk.ShortcutController ();
+        shortcutController.add_shortcut (open_label_shortcut);
+        shortcutController.add_shortcut (open_reminder_shortcut);
+
+        add_controller (shortcutController);
     }
 
     private void add_item () {

@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
+public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
     public bool is_creating { get; construct; }
 
     private Layouts.HeaderItem reminders_view;
@@ -32,7 +32,7 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
 
     public signal void reminder_added (Objects.Reminder reminder);
 
-    public _ReminderPicker (bool is_creating = false) {
+    public ReminderPicker (bool is_creating = false) {
         Object (
             is_creating: is_creating,
             position: Gtk.PositionType.BOTTOM,
@@ -52,7 +52,6 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
 
         var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            can_focus = false,
             css_classes = { "flat", "header-item-button" }
         };
 

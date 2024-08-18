@@ -32,6 +32,8 @@ public class Services.EventBus : Object {
     // Shortcuts
     public signal void disconnect_typing_accel ();
     public signal void connect_typing_accel ();
+    public signal void disconnect_all_accels ();
+    public signal void connect_all_accels ();
 
     // General
     public signal void theme_changed ();

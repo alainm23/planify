@@ -374,10 +374,6 @@ entry.flat:focus-within {
     border-radius: 50%;
 }
 
-.quickfind-item {
-    border-radius: 6px;
-}
-
 .item-label-child {
     background-color: alpha(@colorAccent, 0.125);
     border-radius: 6px;

@@ -162,7 +162,6 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         
         if (key == "Up" || key == "Down") {
         } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
-            row_activated (listbox.get_selected_row ());
         } else {
             if (!search_entry.has_focus) {
                 search_entry.grab_focus ();

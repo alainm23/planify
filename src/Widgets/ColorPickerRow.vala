@@ -51,29 +51,27 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
 
         var radio = new Gtk.CheckButton ();
         foreach (var entry in Util.get_default ().get_colors ().entries) {
-            if (!entry.key.has_prefix ("#")) {
-                Gtk.CheckButton color_radio = new Gtk.CheckButton () {
-                    valign = Gtk.Align.CENTER,
-                    halign = Gtk.Align.CENTER,
-                    tooltip_text = Util.get_default ().get_color_name (entry.key)
-                };
-                color_radio.add_css_class ("color-radio");
-                color_radio.set_group (radio);
-                
-                Util.get_default ().set_widget_color (Util.get_default ().get_color (entry.key), color_radio);
-                colors_hashmap [entry.key] = color_radio;
-                colors_flowbox.append (colors_hashmap [entry.key]);
-                
-                color_radio.toggled.connect (() => {
-                    color = entry.key;
-                    color_changed (color);
-                });
-
-                colors_flowbox.child_activated.connect ((child) => {
-                    // color = entry.key;
-                    // color_changed (color);
-                });
+            if (entry.key.has_prefix ("#")) {
+                continue;
             }
+
+            Gtk.CheckButton color_radio = new Gtk.CheckButton () {
+                valign = Gtk.Align.CENTER,
+                halign = Gtk.Align.CENTER,
+                tooltip_text = Util.get_default ().get_color_name (entry.key),
+                name = entry.key,
+                css_classes = { "color-radio" },
+                group = radio
+            };
+            
+            Util.get_default ().set_widget_color (Util.get_default ().get_color (entry.key), color_radio);
+            colors_hashmap [entry.key] = color_radio;
+            colors_flowbox.append (colors_hashmap [entry.key]);
+            
+            color_radio.toggled.connect (() => {
+                color = entry.key;
+                color_changed (color);
+            });
         }
 
         attach (colors_flowbox, 0, 0);
@@ -82,6 +80,11 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
             if (colors_hashmap.has_key (color)) {
                 colors_hashmap [color].active = true;
             }
+        });
+
+        colors_flowbox.child_activated.connect ((child) => {
+            color = child.child.name;
+            color_changed (color);
         });
     }
 }

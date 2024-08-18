@@ -37,7 +37,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("quickfind-item");
+        add_css_class ("border-radius-6");
 
         var main_grid = new Gtk.Grid () {
             column_spacing = 9,

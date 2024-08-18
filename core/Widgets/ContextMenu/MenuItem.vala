@@ -101,8 +101,7 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         Object (
             title: title,
             icon: icon,
-            hexpand: true,
-            can_focus: false
+            hexpand: true
         );
     }
 

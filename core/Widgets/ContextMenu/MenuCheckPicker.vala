@@ -163,7 +163,7 @@ public class Widgets.ContextMenu.MenuItemCheckPicker : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("no-selectable");
+        add_css_class ("border-radius-6");
 
         check_button = new Gtk.CheckButton.with_label (filter.name) {
             hexpand = true,
@@ -184,6 +184,11 @@ public class Widgets.ContextMenu.MenuItemCheckPicker : Gtk.ListBoxRow {
         add_controller (gesture);
         gesture.pressed.connect (() => {
             gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+            check_button.active = !check_button.active;
+            checked (filter, check_button.active);
+        });
+
+        activate.connect (() => {
             check_button.active = !check_button.active;
             checked (filter, check_button.active);
         });

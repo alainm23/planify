@@ -25,10 +25,12 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
 
     private Gtk.Revealer indicator_revealer;
     private Gtk.Label value_label;
-    private Widgets.ReminderPicker._ReminderPicker picker;
+    private Widgets.ReminderPicker.ReminderPicker picker;
+    private Gtk.MenuButton button;
 
     public signal void reminder_added (Objects.Reminder reminder);
-
+    public signal void picker_opened (bool active);
+    
     public ReminderButton (bool is_creating = false) {
         Object (
             is_board: false,
@@ -48,7 +50,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     }
 
     construct {
-        picker = new Widgets.ReminderPicker._ReminderPicker (is_creating);
+        picker = new Widgets.ReminderPicker.ReminderPicker (is_creating);
 
         if (is_board) {
             var title_label = new Gtk.Label (_("Reminders")) {
@@ -106,7 +108,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
                 sensitive = false,
             };
 
-            var button = new Gtk.MenuButton () {
+            button = new Gtk.MenuButton () {
                 icon_name = "alarm-symbolic",
                 popover = picker,
                 css_classes = { "flat" }
@@ -126,6 +128,13 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
                 reminder.id = Util.get_default ().generate_id (reminder);
                 add_reminder (reminder, new Gee.ArrayList<Objects.Reminder> ());
             }
+        });
+
+        picker.show.connect (() => {
+            picker_opened (true);
+        });
+        picker.closed.connect (() => {
+            picker_opened (false);
         });
     }
 
@@ -182,5 +191,13 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
 
     public Gee.ArrayList<Objects.Reminder> reminders () {
         return picker.reminders ();
+    }
+
+    public void open_picker () {
+        if (is_board) {
+            picker.show ();
+        } else {
+            button.active = true;
+        }
     }
 }
