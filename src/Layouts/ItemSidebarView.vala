@@ -116,7 +116,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             top_margin = 12,
             bottom_margin = 12,
             height_request = 64,
-            wrap_mode = Gtk.WrapMode.WORD
+            wrap_mode = Gtk.WrapMode.WORD,
+            accepts_tab = false
         };
 
         content_textview.remove_css_class ("view");
@@ -314,6 +315,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
                 parent_label.tooltip_text = item.project.name;
             }
         }
+
+        content_textview.grab_focus ();
 
         signals_map[Services.EventBus.get_default ().checked_toggled.connect ((_item) => {
             if (item.id == _item.id) {

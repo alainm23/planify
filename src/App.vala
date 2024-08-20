@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Planify : Adw.Application {
 	public MainWindow main_window;
@@ -48,15 +48,15 @@ public class Planify : Adw.Application {
 	};
 
 	public Planify () {
-        Object (
-            application_id: Build.APPLICATION_ID,
-            flags: ApplicationFlags.HANDLES_OPEN
-        );
-    }
+		Object (
+			application_id: Build.APPLICATION_ID,
+			flags: ApplicationFlags.HANDLES_OPEN
+			);
+	}
 
 	~Planify() {
-        print ("Destroying Planify\n");
-    }
+		print ("Destroying Planify\n");
+	}
 
 	construct {
 		Intl.setlocale (LocaleCategory.ALL, "");
@@ -86,7 +86,7 @@ public class Planify : Adw.Application {
 
 			if (option.down () == _("y") || option.down () == _("yes")) {
 				Services.Database.get_default ().clear_database ();
-                Services.Settings.get_default ().reset_settings ();
+				Services.Settings.get_default ().reset_settings ();
 				return;
 			}
 		}
@@ -113,10 +113,10 @@ public class Planify : Adw.Application {
 
 		var provider = new Gtk.CssProvider ();
 		provider.load_from_resource ("/io/github/alainm23/planify/index.css");
-		
+
 		Gtk.StyleContext.add_provider_for_display (
 			Gdk.Display.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-		);
+			);
 
 		Util.get_default ().update_theme ();
 
@@ -125,7 +125,7 @@ public class Planify : Adw.Application {
 		}
 
 		// Actions
-        build_shortcuts ();
+		build_shortcuts ();
 	}
 
 	public async bool ask_for_background (Xdp.BackgroundFlags flags = Xdp.BackgroundFlags.AUTOSTART) {
@@ -160,14 +160,14 @@ public class Planify : Adw.Application {
 	}
 
 	private void build_shortcuts () {
-        var show_item = new SimpleAction ("show-item", VariantType.STRING);
-        show_item.activate.connect ((parameter) => {
-            Planify.instance.main_window.view_item (parameter.get_string ());
-            activate ();
-        });
+		var show_item = new SimpleAction ("show-item", VariantType.STRING);
+		show_item.activate.connect ((parameter) => {
+			Planify.instance.main_window.view_item (parameter.get_string ());
+			activate ();
+		});
 
-        add_action (show_item);
-    }
+		add_action (show_item);
+	}
 
 	public static int main (string[] args) {
 		// NOTE: Workaround for https://github.com/alainm23/planify/issues/1069

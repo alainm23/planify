@@ -97,20 +97,14 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
             card_grid.attach (title_label, 1, 0, 1, 1);
             card_grid.attach (labels_label, 1, 1, 1, 1);
 
-            labels_picker.set_parent (card_grid);
-            labels_picker.position = Gtk.PositionType.BOTTOM;
-            labels_picker.has_arrow = true;
-
-            css_classes = { "card", "activatable" };
-            child = card_grid;
-            hexpand = true;
-            vexpand = true;
+            var menu_button = new Gtk.MenuButton () {
+                popover = labels_picker,
+                child = card_grid,
+                css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
+                hexpand = true
+            };
     
-            var click_gesture = new Gtk.GestureClick ();
-            card_grid.add_controller (click_gesture);
-            click_gesture.pressed.connect ((n_press, x, y) => {
-                labels_picker.show ();
-            });
+            child = menu_button;
         } else {
             button = new Gtk.MenuButton () {
                 icon_name = "tag-outline-symbolic",

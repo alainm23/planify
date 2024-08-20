@@ -35,6 +35,10 @@ check {
     border-radius: 9px;
 }
 
+.br-12 {
+    border-radius: 12px;
+}
+
 .border-radius-50 {
     border-radius: 9px;
 }
@@ -166,8 +170,8 @@ entry.flat:focus-within {
 }
 
 .row {
-    border-radius: 9px;
-    background-color: transparent;
+    border-radius: 6px;
+    background: transparent;
     transition: all 115ms ease-in-out;
 }
 
@@ -646,4 +650,8 @@ checkbutton.theme-selector radio:checked {
 
 .bg-danger {
     background: #f66151;
+}
+
+.menu-button-no-padding .toggle {
+    padding: 0;
 }

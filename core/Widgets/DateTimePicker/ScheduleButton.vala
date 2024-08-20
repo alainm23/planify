@@ -179,18 +179,21 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             position = Gtk.PositionType.BOTTOM,
             has_arrow = true
         };
-        datetime_picker.set_parent (card_grid);
 
-        css_classes = { "card", "activatable" };
-        attach (card_grid, 0, 0);
-        hexpand = true;
-        vexpand = true;
+        var model_button = new Gtk.MenuButton () {
+            popover = datetime_picker,
+            child = card_grid,
+            css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
+            hexpand = true
+        };
+        
+        attach (model_button, 0, 0);
 
-        var click_gesture = new Gtk.GestureClick ();
-        card_grid.add_controller (click_gesture);
-        click_gesture.pressed.connect ((n_press, x, y) => {
-            datetime_picker.show ();
-        });
+        //  var click_gesture = new Gtk.GestureClick ();
+        //  card_grid.add_controller (click_gesture);
+        //  click_gesture.pressed.connect ((n_press, x, y) => {
+        //      datetime_picker.show ();
+        //  });
 
         datetime_picker.date_changed.connect (() => {
             datetime = datetime_picker.datetime;

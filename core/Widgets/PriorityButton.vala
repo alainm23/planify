@@ -100,16 +100,14 @@ public class Widgets.PriorityButton : Adw.Bin {
         priority_popover.has_arrow = true;
         priority_popover.set_parent (card_grid);
 
-        css_classes = { "card", "activatable" };
-        child = card_grid;
-        hexpand = true;
-        vexpand = true;
+        var model_button = new Gtk.MenuButton () {
+            popover = priority_popover,
+            child = card_grid,
+            css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
+            hexpand = true
+        };
 
-        var click_gesture = new Gtk.GestureClick ();
-        card_grid.add_controller (click_gesture);
-        click_gesture.pressed.connect ((n_press, x, y) => {
-            priority_popover.show ();
-        });
+        child = model_button;
     }
 
     public Gtk.Popover build_popover () {

@@ -89,7 +89,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     construct {
-        css_classes = { "no-selectable", "transition", "no-padding" };
+        css_classes = { "row", "transition", "no-padding" };
 
         motion_top_grid = new Gtk.Grid () {
             height_request = 27,
@@ -130,11 +130,14 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             child = count_label
         };
 
-        arrow_button = new Gtk.Button.from_icon_name ("go-next-symbolic") {
+        arrow_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            css_classes = { "flat", "transparent", "hidden-button", "no-padding" },
-            margin_start = 6
+            css_classes = { "flat", "transparent", "hidden-button", "no-padding", "dim-label" },
+            margin_start = 6,
+            child = new Gtk.Image.from_icon_name ("go-next-symbolic") {
+                pixel_size = 12
+            }
         };
 
         arrow_revealer = new Gtk.Revealer () {
@@ -247,8 +250,12 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         var select_gesture = new Gtk.GestureClick ();
         handle_grid.add_controller (select_gesture);
         signal_map[select_gesture.released.connect (() => {
-            Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id_string);
+            Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id);
         })] = select_gesture;
+
+        signal_map[activate.connect (() => {
+            Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id);
+        })] = this;
 
         var menu_gesture = new Gtk.GestureClick () {
             button = 3
@@ -282,7 +289,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         })] = arrow_gesture;
 
         signal_map[Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
-            if (pane_type == PaneType.PROJECT && project.id_string == id) {
+            if (pane_type == PaneType.PROJECT && project.id == id) {
                 handle_grid.add_css_class ("selected");
             } else {
                 handle_grid.remove_css_class ("selected");

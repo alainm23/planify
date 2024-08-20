@@ -30,7 +30,7 @@ public class Widgets.StatusButton : Adw.Bin {
 
     public StatusButton () {
         Object (
-            tooltip_text: _("Set The Priority")
+            tooltip_text: _("Set The Status")
         );
     }
 
@@ -65,18 +65,15 @@ public class Widgets.StatusButton : Adw.Bin {
         popover_picker = build_popover ();
         popover_picker.position = Gtk.PositionType.BOTTOM;
         popover_picker.has_arrow = true;
-        popover_picker.set_parent (card_grid);
 
-        css_classes = { "card", "activatable" };
-        child = card_grid;
-        hexpand = true;
-        vexpand = true;
+        var menu_button = new Gtk.MenuButton () {
+            popover = popover_picker,
+            child = card_grid,
+            css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
+            hexpand = true
+        };
 
-        var click_gesture = new Gtk.GestureClick ();
-        card_grid.add_controller (click_gesture);
-        click_gesture.pressed.connect ((n_press, x, y) => {
-            popover_picker.show ();
-        });
+        child = menu_button;
     }
 
 

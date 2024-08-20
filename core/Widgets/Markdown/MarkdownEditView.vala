@@ -100,7 +100,8 @@
             wrap_mode = Gtk.WrapMode.CHAR,
             show_gutter = false,
             height_request = 64,
-			text_mode = !Services.Settings.get_default ().settings.get_boolean ("enable-markdown-formatting")
+			text_mode = !Services.Settings.get_default ().settings.get_boolean ("enable-markdown-formatting"),
+			accepts_tab = false
         };
 
         markdown_view.remove_css_class ("view");
