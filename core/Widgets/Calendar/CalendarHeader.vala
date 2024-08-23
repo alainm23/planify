@@ -55,13 +55,11 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
         
         left_button = new Gtk.Button.from_icon_name ("pan-start-symbolic") {
             valign = Gtk.Align.CENTER,
-            can_focus = false,
             css_classes = { "flat" }
         };
 
         right_button = new Gtk.Button.from_icon_name ("pan-end-symbolic") {
             valign = Gtk.Align.CENTER,
-            can_focus = false,
             css_classes = { "flat" }
         };
 

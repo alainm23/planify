@@ -85,11 +85,10 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         date_item.arrow = true;
 
         var time_icon = new Gtk.Image.from_icon_name ("clock-symbolic") {
-            margin_start = 12
+            css_classes = { "dim-label" }
         };
 
         var time_label = new Gtk.Label (_("Time")) {
-            margin_start = 6,
             css_classes = { "font-weight-500" }
         };
 
@@ -98,9 +97,10 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             halign = Gtk.Align.END
         };
 
-        var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+        var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
-            margin_top = 6
+            margin_top = 6,
+            margin_start = 12
         };
 
         time_box.append (time_icon);

@@ -1,3 +1,24 @@
+/*
+* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alainmh23@gmail.com>
+*/
+
 public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
     public signal void selected (Objects.Project project);
 
@@ -6,7 +27,7 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
     
     public bool search_visible {
         set {
-            search_entry_revealer.reveal_child = value;
+            //  search_entry_revealer.reveal_child = value;
         }
     }
 
@@ -20,6 +41,8 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
     }
 
     construct {
+        css_classes = { "popover-contents" };
+        
         var search_entry = new Gtk.SearchEntry () {
             margin_top = 9,
             margin_start = 9,
@@ -56,8 +79,6 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
 		toolbar_view.content = scrolled_window;
 
         child = toolbar_view;
-        add_css_class ("popover-no-content");
-        search_entry.grab_focus ();
         add_projects ();
 
         search_entry.search_changed.connect (() => {
@@ -68,6 +89,40 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         listbox.set_filter_func ((row) => {
             var project = ((Widgets.ProjectPicker.ProjectPickerRow) row).project;
             return search_entry.text.down () in project.name.down ();
+        });
+
+        listbox.row_activated.connect ((row) => {
+            selected (((Widgets.ProjectPicker.ProjectPickerRow) row).project);
+            popdown ();
+        });
+
+        var listbox_controller_key = new Gtk.EventControllerKey ();
+        listbox.add_controller (listbox_controller_key);
+        listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+            var key = Gdk.keyval_name (keyval).replace ("KP_", "");
+                        
+            if (key == "Up" || key == "Down") {
+            } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
+            } else {
+                if (!search_entry.has_focus) {
+                    search_entry.grab_focus ();
+                    if (search_entry.cursor_position < search_entry.text.length) {
+                        search_entry.set_position (search_entry.text.length);
+                    }
+                }
+            }
+
+            return false;
+        });
+
+        var search_entry_ctrl_key = new Gtk.EventControllerKey ();
+        search_entry.add_controller (search_entry_ctrl_key);
+        search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                popdown ();
+            }
+
+            return false;
         });
     }
 

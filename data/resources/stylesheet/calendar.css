@@ -1,13 +1,14 @@
-.calendar-today {
-    color: #33d17a;
+.calendar-day {
+    padding: 3px 6px;
     border-radius: 9px;
-    padding: 3px;
-    font-weight: bold;
 }
 
-.calendar-day-selected {
-    background-color: #4a82ef;
+.calendar-day.selected {
+    background-color: #3584e4;
     color: #fafafa;
-    border-radius: 9px;
-    padding: 3px;
+}
+
+.calendar-day.today {
+    color: #33d17a;
+    font-weight: bold;
 }

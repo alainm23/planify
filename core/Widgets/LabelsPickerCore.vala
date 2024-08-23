@@ -60,7 +60,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
     public bool search_visible {
         set {
-            search_entry_revealer.reveal_child = value;
+            //  search_entry_revealer.reveal_child = value;
         }
     }
 

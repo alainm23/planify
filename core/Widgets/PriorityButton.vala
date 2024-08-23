@@ -109,7 +109,7 @@ public class Widgets.PriorityButton : Adw.Bin {
         button = new Gtk.MenuButton () {
             popover = priority_picker,
             child = card_grid,
-            css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
+            css_classes = { "flat", "card", "activatable", "menu-button-no-padding", "transition" },
             hexpand = true
         };
 
@@ -198,5 +198,15 @@ public class Widgets.PriorityButton : Adw.Bin {
     
     public void reset () {
         priority_image.icon_name = "flag-outline-thick-symbolic";
+    }
+
+    public void animation () {
+        if (!button.has_css_class ("fancy-turn-animation")) {
+            button.add_css_class ("fancy-turn-animation");
+            Timeout.add (700, () => {
+                button.remove_css_class ("fancy-turn-animation");
+                return GLib.Source.REMOVE;
+            });
+        }
     }
 }

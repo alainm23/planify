@@ -19,38 +19,40 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.Calendar.CalendarDay : Adw.Bin {
-    int _day;
-    public int day {
-        set {
-            _day = value;
-            button.label = _day.to_string ();
-        }
-        get {
-            return _day;
-        }
+public class Widgets.ProjectPicker.SectionRow : Gtk.ListBoxRow {
+    public Objects.Section section { get; construct; }
+
+    public SectionRow (Objects.Section section) {
+        Object (
+            section: section
+        );
     }
 
-    private Gtk.Button button;
-    public signal void day_selected ();
+    public SectionRow.for_no_section () {
+        Objects.Section _section = new Objects.Section ();
+        _section.name = _("No Section");
 
-    public CalendarDay () {
         Object (
-            halign: Gtk.Align.CENTER,
-            valign: Gtk.Align.CENTER
+            section: _section
         );
     }
 
     construct {
-        button = new Gtk.Button () {
-            css_classes = { "flat", "calendar-day" }
+        css_classes = { "row" };
+
+        var name_label = new Gtk.Label (section.name) {
+            halign = Gtk.Align.START,
+            margin_start = 3
         };
 
-        child = button;
-
-        button.clicked.connect (() => {
-            day_selected ();
-            button.add_css_class ("selected");
-        });
+        var container = new Adw.Bin () {
+            child = name_label,
+            margin_top = 6,
+            margin_bottom = 6,
+            margin_start = 6,
+            margin_end = 6
+        };
+        
+        child = container;
     }
 }

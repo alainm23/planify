@@ -681,13 +681,11 @@ public class Layouts.QuickAdd : Adw.Bin {
 		if (priority_regex.match (text, 0, out match)) {
 			string result = match.fetch (1);
 			set_priority (ItemPriority.parse (result));
+			priority_button.animation ();
 
 			string new_text = text.replace (result, "");
 			content_entry.text = new_text;
-			content_entry.grab_focus ();
-			if (content_entry.cursor_position < content_entry.text.length) {
-				content_entry.set_position (content_entry.text.length);
-			}
+			entry_focus ();
 		}
 	}
 }

@@ -459,11 +459,8 @@ entry.flat:focus-within {
     padding: 0;
 }
 
-.popover-no-content > contents {
-    padding: 0;
-}
-
-.fancy-turn-animation {
+.fancy-turn-animation,
+.fancy-turn-animation image {
     animation: fancy-turn 0.7s ease-in-out;
 }
 
