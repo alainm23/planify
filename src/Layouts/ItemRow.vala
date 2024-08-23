@@ -71,6 +71,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 	private Widgets.ReminderPicker.ReminderButton reminder_button;
 	private Gtk.Button add_button;
 	private Gtk.MenuButton attachments_button;
+	private Widgets.Attachments attachments;
+	private Gtk.Label attachments_count;
 	private Gtk.Box action_box;
 
 	private Widgets.SubItems subitems;
@@ -435,7 +437,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 			sensitive = !item.completed
 		};
 
-		var attachments = new Widgets.Attachments ();
+		attachments = new Widgets.Attachments ();
 		attachments.present_item (item);
 
 		attachments_button = new Gtk.MenuButton () {
@@ -449,6 +451,20 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 			css_classes = { "flat" },
 			sensitive = !item.completed
 		};
+
+		attachments_count = new Gtk.Label (item.attachments.size.to_string ()) {
+			css_classes = { "badge", "caption" },
+			width_request = 12,
+			margin_end = 3,
+			halign = END,
+			valign = START,
+			visible = item.attachments.size > 0
+		};
+
+		var attachments_button_overlay = new Gtk.Overlay () {
+			child = attachments_button
+		};
+		attachments_button_overlay.add_overlay (attachments_count);
 
 		menu_button = new Gtk.MenuButton () {
 			icon_name = "view-more-symbolic",
@@ -475,7 +491,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		};
 
 		action_box_right.append (add_button);
-		action_box_right.append (attachments_button);
+		action_box_right.append (attachments_button_overlay);
 		action_box_right.append (label_button);
 		action_box_right.append (priority_button);
 		action_box_right.append (reminder_button);
@@ -787,6 +803,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 				motion_top_revealer.reveal_child = false;
 			}
 		})] = Services.EventBus.get_default ();
+
+		signals_map[attachments.update_count.connect ((count) => {
+			attachments_count.label = count <= 0 ? "" : count.to_string ();
+			attachments_count.visible = count > 0;
+		})] = attachments;
+
+		signals_map[attachments.file_selector_opened.connect ((active) => {
+			if (active) {
+				attachments_button.popover.popdown ();
+			}
+		})] = attachments;
 	}
 
 	public void check_hide_subtask_button () {

@@ -280,10 +280,7 @@ public class Objects.Item : Objects.BaseObject {
     Gee.ArrayList<Objects.Attachment> _attachments;
     public Gee.ArrayList<Objects.Attachment> attachments {
         get {
-            if (_attachments == null) {
-                _attachments = Services.Store.instance ().get_attachments_by_item (this);
-            }
-            
+            _attachments = Services.Store.instance ().get_attachments_by_item (this);
             return _attachments;
         }
     }

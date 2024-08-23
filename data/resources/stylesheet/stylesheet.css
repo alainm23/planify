@@ -652,3 +652,9 @@ checkbutton.theme-selector radio:checked {
 .menu-button-no-padding .toggle {
     padding: 0;
 }
+
+.badge {
+    background: #3584e4;
+    border-radius: 3px;
+    padding: 0 3px;
+}
