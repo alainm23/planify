@@ -26,9 +26,12 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
     private Layouts.HeaderItem sections_group;
     private Gtk.Popover sections_popover;
     private Gtk.Revealer section_box_revealer;
-    
+    private Gtk.MenuButton project_button;
+    private Widgets.ProjectPicker.ProjectPickerPopover project_picker_popover;
+
     public signal void project_change (Objects.Project project);
     public signal void section_change (Objects.Section? section);
+    public signal void picker_opened (bool active);
 
     public Gee.HashMap <string, Gtk.ListBoxRow> sections_map = new Gee.HashMap <string, Gtk.ListBoxRow> ();
 
@@ -47,9 +50,9 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         project_box.append (icon_project);
         project_box.append (name_label);
 
-        var project_picker_popover = new Widgets.ProjectPicker.ProjectPickerPopover ();
+        project_picker_popover = new Widgets.ProjectPicker.ProjectPickerPopover ();
 
-        var project_button = new Gtk.MenuButton () {
+        project_button = new Gtk.MenuButton () {
             popover = project_picker_popover,
             child = project_box,
             css_classes = { "flat" }
@@ -94,6 +97,23 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
             add_sections (project);
             project_change (_project);
         });
+
+        project_picker_popover.closed.connect (() => {
+			picker_opened (false);
+		});
+
+		project_picker_popover.show.connect (() => {
+            project_picker_popover.search_visible = true;
+			picker_opened (true);
+		});
+
+        sections_popover.closed.connect (() => {
+			picker_opened (false);
+		});
+
+		sections_popover.show.connect (() => {
+			picker_opened (true);
+		});
     }
 
     public void update_project_request () {
@@ -133,7 +153,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         };
 
         var row = new Gtk.ListBoxRow () {
-            css_classes = { "row" },
+            css_classes = { "row", "no-padding" },
             child = button
         };
 
@@ -143,6 +163,20 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
             section_change (section);
         });
 
+        row.activate.connect (() => {
+            sections_popover.popdown ();
+            section_label.label = section != null ? section.name : _("No Section");
+            section_change (section);
+        });
+
         return row;
+    }
+
+    public void open_picker () {
+        project_button.active = true;
+		Timeout.add (100, () => {
+			project_picker_popover.search_visible = false;
+			return GLib.Source.REMOVE;
+		});
     }
 }

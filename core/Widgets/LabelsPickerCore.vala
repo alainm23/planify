@@ -27,6 +27,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
     private Gtk.Label placeholder_message_label;
     private Gtk.Revealer add_tag_revealer;
     private Gtk.Revealer spinner_revealer;
+    private Gtk.Revealer search_entry_revealer;
     
     public Gee.ArrayList<Objects.Label> labels {
         set {
@@ -54,6 +55,12 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
     public bool is_loading {
         set {
             spinner_revealer.reveal_child = value;
+        }
+    }
+
+    public bool search_visible {
+        set {
+            search_entry_revealer.reveal_child = value;
         }
     }
 
@@ -89,7 +96,13 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             valign = Gtk.Align.CENTER,
             hexpand = true,
             margin_start = 12,
-            margin_end = 12
+            margin_end = 12,
+            margin_bottom = 12
+        };
+
+        search_entry_revealer = new Gtk.Revealer () {
+            child = search_entry,
+            reveal_child = true
         };
 
         listbox = new Gtk.ListBox () {
@@ -109,7 +122,6 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         var listbox_grid = new Adw.Bin () {
             margin_start = 9,
             margin_end = 9,
-            margin_top = 12,
             margin_bottom = 6,
             child = listbox,
             valign = Gtk.Align.START
@@ -124,7 +136,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         listbox_scrolled.child = listbox_grid;
 
         var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (search_entry);
+		toolbar_view.add_top_bar (search_entry_revealer);
 		toolbar_view.content = listbox_scrolled;
 
         child = toolbar_view;
@@ -330,12 +342,5 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         foreach (Objects.Label label in labels_list) {
             add_label (label);
         }
-    }
-
-    public void entry_focus () {
-        Timeout.add (275, () => {
-            search_entry.grab_focus ();
-            return GLib.Source.REMOVE;
-        });
     }
 }

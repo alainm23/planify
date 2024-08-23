@@ -61,13 +61,9 @@ public class Widgets.StatusButton : Adw.Bin {
         card_grid.attach (status_image, 0, 0, 1, 2);
         card_grid.attach (title_label, 1, 0, 1, 1);
         card_grid.attach (value_label, 1, 1, 1, 1);
-
-        popover_picker = build_popover ();
-        popover_picker.position = Gtk.PositionType.BOTTOM;
-        popover_picker.has_arrow = true;
-
+        
         var menu_button = new Gtk.MenuButton () {
-            popover = popover_picker,
+            popover = build_popover (),
             child = card_grid,
             css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
             hexpand = true

@@ -61,6 +61,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     }
 
     public signal void date_changed (GLib.DateTime? date);
+    public signal void picker_opened (bool active);
 
     public ScheduleButton (string label = _("Schedule")) {
         Object (
@@ -80,16 +81,24 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     }
 
     construct {
+        datetime_picker = new Widgets.DateTimePicker.DateTimePicker ();
+
         if (is_board) {
             build_card_ui ();
         } else {
             build_ui ();
         }
+
+        datetime_picker.closed.connect (() => {
+			picker_opened (false);
+		});
+
+		datetime_picker.show.connect (() => {
+			picker_opened (true);
+		});
     }
 
     private void build_ui () {
-        datetime_picker = new Widgets.DateTimePicker.DateTimePicker ();
-
         due_image = new Gtk.Image ();
         due_image.icon_name = "month-symbolic";
 
@@ -175,11 +184,6 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         card_grid.attach (title_label, 1, 0, 1, 1);
         card_grid.attach (due_label, 1, 1, 1, 1);
 
-        datetime_picker = new Widgets.DateTimePicker.DateTimePicker () {
-            position = Gtk.PositionType.BOTTOM,
-            has_arrow = true
-        };
-
         var model_button = new Gtk.MenuButton () {
             popover = datetime_picker,
             child = card_grid,
@@ -188,12 +192,6 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         };
         
         attach (model_button, 0, 0);
-
-        //  var click_gesture = new Gtk.GestureClick ();
-        //  card_grid.add_controller (click_gesture);
-        //  click_gesture.pressed.connect ((n_press, x, y) => {
-        //      datetime_picker.show ();
-        //  });
 
         datetime_picker.date_changed.connect (() => {
             datetime = datetime_picker.datetime;

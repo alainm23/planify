@@ -442,6 +442,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 			icon_name = "mail-attachment-symbolic",
 			tooltip_text = _("Add Attachments"),
 			popover = new Gtk.Popover () {
+				has_arrow = false,
 				child = attachments,
 				width_request = 350
 			},

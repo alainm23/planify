@@ -762,8 +762,24 @@ We hope you’ll enjoy using Planify!""");
         Services.Store.instance ().insert_label (label_05);
     }
 
-    public string markup_accel_tooltip (string description, string accels) {
-        return "%s\n%s".printf (description, """<span weight="600" size="smaller" alpha="75%">%s</span>""".printf (accels));
+    public string markup_accel_tooltip (string description, string accel) {
+        return "%s\n%s".printf (description, """<span weight="600" size="smaller" alpha="75%">%s</span>""".printf (accel));
+    }
+
+    public string markup_accels_tooltip (string description, string[] accels) {
+        string result = "%s\n".printf (description);
+
+        for (int index = 0; index < accels.length; index++) {
+            string accel = """<span weight="600" size="smaller" alpha="75%">%s</span>""".printf (accels[index]);
+
+            if (index < accels.length - 1) {
+                result += accel + ", ";
+            } else {
+                result += accel;
+            }
+        }
+
+        return result;
     }
 
     /*

@@ -677,3 +677,29 @@ public enum LabelPickerType {
 	FILTER_AND_CREATE,
 	FILTER_ONLY
 }
+
+public enum ItemPriority {
+	HIGHT = 4,
+	MEDIUM = 3,
+	LOW = 2,
+	NONE = 1;
+
+	public static ItemPriority parse (string value) {
+		switch (value) {
+			case "p1":
+				return ItemPriority.HIGHT;
+
+			case "p2":
+				return ItemPriority.MEDIUM;
+			
+			case "p3":
+				return ItemPriority.LOW;
+			
+			case "p4":
+				return ItemPriority.NONE;
+
+			default:
+				return ItemPriority.NONE;
+		}
+	}
+}

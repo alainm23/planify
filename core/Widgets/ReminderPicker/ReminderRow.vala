@@ -58,8 +58,7 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
         var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 3,
             margin_bottom = 3,
-            margin_start = 3,
-            margin_end = 3
+            margin_start = 3
         };
 
         reminder_box.append (new Gtk.Image.from_icon_name ("alarm-symbolic"));

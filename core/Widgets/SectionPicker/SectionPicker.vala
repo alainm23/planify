@@ -27,6 +27,7 @@ public class Widgets.SectionPicker.SectionPicker : Gtk.Popover {
 
     public SectionPicker () {
         Object (
+            has_arrow: false,
             position: Gtk.PositionType.BOTTOM,
             width_request: 275,
             height_request: 300

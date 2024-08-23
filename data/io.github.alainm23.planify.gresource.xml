@@ -95,6 +95,7 @@
     <file alias="cross-large-circle-outline-symbolic.svg">resources/icons/cross-large-circle-outline-symbolic.svg</file>
     <file alias="funnel-outline-symbolic.svg">resources/icons/funnel-outline-symbolic.svg</file>
     <file alias="external-link-symbolic.svg">resources/icons/external-link-symbolic.svg</file>
+    <file alias="delay-symbolic.svg">resources/icons/delay-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
@@ -164,6 +165,7 @@
     <file alias="cross-large-circle-outline-symbolic.svg">resources/icons/cross-large-circle-outline-symbolic.svg</file>
     <file alias="funnel-outline-symbolic.svg">resources/icons/funnel-outline-symbolic.svg</file>
     <file alias="external-link-symbolic.svg">resources/icons/external-link-symbolic.svg</file>
+    <file alias="delay-symbolic.svg">resources/icons/delay-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
@@ -233,5 +235,6 @@
     <file alias="cross-large-circle-outline-symbolic.svg">resources/icons/cross-large-circle-outline-symbolic.svg</file>
     <file alias="funnel-outline-symbolic.svg">resources/icons/funnel-outline-symbolic.svg</file>
     <file alias="external-link-symbolic.svg">resources/icons/external-link-symbolic.svg</file>
+    <file alias="delay-symbolic.svg">resources/icons/delay-symbolic.svg</file>
   </gresource>
 </gresources>

@@ -67,8 +67,11 @@ public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
 
         var select_gesture = new Gtk.GestureClick ();
         add_controller (select_gesture);
-
         select_gesture.pressed.connect (() => {
+            selected ();
+        });
+
+        activate.connect (() => {
             selected ();
         });
     }

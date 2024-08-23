@@ -1,9 +1,15 @@
 public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
     public signal void selected (Objects.Project project);
 
-    public Gee.HashMap <string, Layouts.HeaderItem> sources_hashmap = new Gee.HashMap <string, Layouts.HeaderItem> ();
-
+    private Gtk.ListBox listbox;
+    private Gtk.Revealer search_entry_revealer;
     
+    public bool search_visible {
+        set {
+            search_entry_revealer.reveal_child = value;
+        }
+    }
+
     public ProjectPickerPopover () {
         Object (
             height_request: 300,
@@ -17,102 +23,117 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         var search_entry = new Gtk.SearchEntry () {
             margin_top = 9,
             margin_start = 9,
-            margin_end = 9
-        };
-            
-        var inbox_group = new Layouts.HeaderItem (null) {
-            reveal_child = true,
-            card = true,
-            show_separator = false
+            margin_end = 9,
+            margin_bottom = 9
         };
 
-        var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
-        scrolled_box.append (inbox_group);
+        search_entry_revealer = new Gtk.Revealer () {
+            child = search_entry,
+            reveal_child = true
+        };
 
-        foreach (Objects.Source source in Services.Store.instance ().sources) {
-            if (!sources_hashmap.has_key (source.id)) {
-                sources_hashmap[source.id] = new Layouts.HeaderItem (source.display_name) {
-                    reveal_child = Services.Store.instance ().get_projects_by_source (source.id).size > 0,
-                    card = true,
-                    show_separator = false
-                };
-
-                scrolled_box.append (sources_hashmap[source.id]);
-            }
-		}
-
-        var listbox = new Gtk.ListBox () {
+        listbox = new Gtk.ListBox () {
             hexpand = true,
-            vexpand = true
-        };
-        
-        var stack = new Gtk.Stack () {
-            hexpand = true,
-            vexpand = true,
-            transition_type = Gtk.StackTransitionType.CROSSFADE,
-            margin_start = 6,
-            margin_end = 6,
-            margin_bottom = 6
+            valign = Gtk.Align.START,
+            css_classes = { "listbox-background" },
+            margin_start = 9,
+            margin_end = 9,
+            margin_bottom = 9
         };
 
-        stack.add_named (scrolled_box, "projects");
-        stack.add_named (listbox, "search");
+        listbox.set_sort_func (sort_source_function);
+        listbox.set_header_func (header_project_function);
         
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
             vexpand = true,
-            child = stack
+            child = listbox
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (search_entry);
+		toolbar_view.add_top_bar (search_entry_revealer);
 		toolbar_view.content = scrolled_window;
 
         child = toolbar_view;
         add_css_class ("popover-no-content");
         search_entry.grab_focus ();
-        
-        foreach (Objects.Project project in Services.Store.instance ().projects) {
-            var row_listbox = new Widgets.ProjectPicker.ProjectPickerRow (project);
-
-            row_listbox.selected.connect (() => {
-                selected (row_listbox.project);
-                popdown ();
-            });
-
-            listbox.append (row_listbox);
-
-            var row = new Widgets.ProjectPicker.ProjectPickerRow (project);
-
-            row.selected.connect (() => {
-                selected (row.project);
-                popdown ();
-            });
-
-            if (project.is_inbox_project) {
-                inbox_group.add_child (row);
-            } else {
-                if (sources_hashmap.has_key (project.source_id)) {
-                    sources_hashmap.get (project.source_id).add_child (row);
-                }
-
-            }
-        }
+        add_projects ();
 
         search_entry.search_changed.connect (() => {
             scrolled_window.vadjustment.value = 0;
             listbox.invalidate_filter ();
-            stack.visible_child_name = search_entry.text.length > 0 ? "search" : "projects";
         });
 
         listbox.set_filter_func ((row) => {
             var project = ((Widgets.ProjectPicker.ProjectPickerRow) row).project;
             return search_entry.text.down () in project.name.down ();
         });
+    }
 
-        closed.connect (() => {
-            stack.visible_child_name = "projects";
+    private void add_projects () {
+        foreach (Objects.Project project in Services.Store.instance ().projects) {
+            listbox.append (build_project_row (project));
+        }
+    }
+
+    private Gtk.Widget build_project_row (Objects.Project project) {
+        var row = new Widgets.ProjectPicker.ProjectPickerRow (project);
+
+        row.selected.connect (() => {
+            selected (row.project);
+            popdown ();
         });
+
+        return row;
+    }
+
+    private int sort_source_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow? row2) {
+        var project1 = ((Widgets.ProjectPicker.ProjectPickerRow) row1).project;
+        var project2 = ((Widgets.ProjectPicker.ProjectPickerRow) row2).project;
+        return project2.source.id.collate (project1.source.id);
+    }
+
+    private void header_project_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
+        if (!(lbrow is Widgets.ProjectPicker.ProjectPickerRow)) {
+            return;
+        }
+
+        var row = (Widgets.ProjectPicker.ProjectPickerRow) lbrow;
+        if (lbbefore != null && lbbefore is Widgets.ProjectPicker.ProjectPickerRow) {
+            var before = (Widgets.ProjectPicker.ProjectPickerRow) lbbefore;
+
+            if (row.project.source.id == before.project.source.id) {
+                row.set_header (null);
+                return;
+            }
+        }
+
+        row.set_header (get_header_box (row.project.source.header_text));   
+
+    }
+
+    private Gtk.Widget get_header_box (string title) {
+        var header_label = new Gtk.Label (title) {
+            css_classes = { "heading" },
+            halign = START,
+            margin_start = 3
+        };
+
+        var header_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            hexpand = true,
+            margin_bottom = 6,
+            margin_start = 3
+        };
+
+        var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            margin_top = 12,
+            margin_start = 3
+        };
+
+        header_box.append (header_label);
+        header_box.append (header_separator);
+
+        return header_box;
     }
 }

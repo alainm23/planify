@@ -39,6 +39,13 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
             return picker.picked;
         }
     }
+
+
+    public bool search_visible {
+        set {
+            picker.search_visible = value;
+        }
+    }
         
     public LabelPicker () {
         Object (
@@ -64,10 +71,6 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
 
         picker.close.connect (() => {
             popdown ();
-        });
-
-        picker.show.connect (() => {
-            picker.entry_focus ();
         });
     }
 
