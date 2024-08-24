@@ -41,9 +41,9 @@
 
 <a href="https://flathub.org/apps/details/io.github.alainm23.planify" rel="noreferrer noopener" target="_blank"><img loading="lazy" draggable="false" width='240' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png' /></a>
 
-<a href="https://snapcraft.io/planify">
+<!-- <a href="https://snapcraft.io/planify">
   <img alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg"  loading="lazy" width='240' draggable="false"/>
-</a>
+</a> -->
 
 ## 🛠 Compile
 
