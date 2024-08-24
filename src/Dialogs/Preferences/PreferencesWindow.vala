@@ -628,6 +628,13 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
 		group.add (markdown_item);
 
+		var always_show_sidebar_item = new Adw.SwitchRow ();
+		always_show_sidebar_item.title = _("Always Show Details Sidebar");
+		always_show_sidebar_item.subtitle = _("Keep the details panel always visible for easier navigation between tasks, avoiding the need to constantly open and close the panel.");
+		Services.Settings.get_default ().settings.bind ("always-show-details-sidebar", always_show_sidebar_item, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		group.add (always_show_sidebar_item);
+
 		var reminders_group = new Adw.PreferencesGroup () {
 			title = _("Reminders")
 		};

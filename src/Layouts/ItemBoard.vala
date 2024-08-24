@@ -789,12 +789,17 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
 				if (value.dup_object () is Layouts.ItemBoard) {
 					var picked_widget = (Layouts.ItemBoard) value;
-					motion_top_grid.height_request = picked_widget.card_widget.get_height ();
-				} else {
-					motion_top_grid.height_request = 32;
-				}
+					
+					if (picked_widget.item.id == item.parent_id) {
+						return;
+					}
 
-				motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+					motion_top_grid.height_request = picked_widget.card_widget.get_height ();
+					motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+				} else if (value.dup_object () is Widgets.MagicButton) {
+					motion_top_grid.height_request = 32;
+					motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+				}
 			}  catch (Error e) {
 				debug (e.message);
 			}
@@ -834,8 +839,27 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		var drop_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);
 		card_widget.add_controller (drop_target);
 
+		signals_map[drop_target.accept.connect ((drop) => {
+			GLib.Value value = Value (typeof (Gtk.Widget));
+
+            try {
+                drop.drag.content.get_value (ref value);
+            } catch (Error e) {
+                debug (e.message);
+            }
+
+            if (value.dup_object () is Layouts.ItemBoard) {
+                var picked_widget = (Layouts.ItemBoard) value;
+                if (picked_widget.item.id != item.parent_id) {
+                    return true;
+                }
+            }
+
+            return false;
+		})] = drop_target;
+
 		signals_map[drop_target.drop.connect ((value, x, y) => {
-			var picked_widget = (Layouts.ItemBoard) value;
+			var picked_widget = (Layouts.ItemBase) value;
 			var target_widget = this;
 
 			var picked_item = picked_widget.item;

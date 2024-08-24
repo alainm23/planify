@@ -103,13 +103,18 @@ public class MainWindow : Adw.ApplicationWindow {
 		};
 
 		item_sidebar_view = new Layouts.ItemSidebarView ();
+		if (Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
+			item_sidebar_view.add_css_class ("sidebar");
+		}
 
 		var views_split_view = new Adw.OverlaySplitView () {
 			sidebar_position = Gtk.PackType.END,
-			collapsed = true,
+			collapsed = !Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar"),
 			max_sidebar_width = 375,
+			min_sidebar_width = 375,
 			content = views_stack,
-			sidebar = item_sidebar_view
+			sidebar = item_sidebar_view,
+			show_sidebar = false
 		};
 
 		toast_overlay = new Adw.ToastOverlay () {
@@ -226,16 +231,21 @@ public class MainWindow : Adw.ApplicationWindow {
 		});
 
 		Services.EventBus.get_default ().open_item.connect ((item) => {
-			if (views_split_view.show_sidebar) {
-				views_split_view.show_sidebar = false;
-				Timeout.add (275, () => {
-					views_split_view.show_sidebar = true;
-					item_sidebar_view.present_item (item);
-					return GLib.Source.REMOVE;
-				});
-			} else {
+			if (Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
 				views_split_view.show_sidebar = true;
 				item_sidebar_view.present_item (item);
+			} else {
+				if (views_split_view.show_sidebar) {
+					views_split_view.show_sidebar = false;
+					Timeout.add (275, () => {
+						views_split_view.show_sidebar = true;
+						item_sidebar_view.present_item (item);
+						return GLib.Source.REMOVE;
+					});
+				} else {
+					views_split_view.show_sidebar = true;
+					item_sidebar_view.present_item (item);
+				}
 			}
 		});
 
@@ -252,6 +262,16 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		Services.Store.instance ().project_archived.connect (check_archived);
 		Services.Store.instance ().project_unarchived.connect (check_archived);
+
+		Services.Settings.get_default ().settings.changed["always-show-details-sidebar"].connect (() => {
+			if (Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
+				views_split_view.collapsed = false;
+				item_sidebar_view.add_css_class ("sidebar");
+			} else {
+				views_split_view.collapsed = true;
+				item_sidebar_view.add_css_class ("false");
+			}
+		});
 	}
 
 	public void show_hide_sidebar () {

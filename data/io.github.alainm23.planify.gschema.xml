@@ -397,6 +397,12 @@
             <description>Enable Markdown Formatting</description>
         </key>
 
+        <key name="always-show-details-sidebar" type="b">
+            <default>false</default>
+            <summary>Always Show Details Sidebar</summary>
+            <description>Keep the details panel always visible for easier navigation between tasks, avoiding the need to constantly open and close the panel.</description>
+        </key>
+
         <key name="caldav-server-url" type="s">
             <default>""</default>
             <summary>CalDAV Server URL</summary>
