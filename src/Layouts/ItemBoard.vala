@@ -711,12 +711,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
 		today_item.activate_item.connect (() => {
 			menu_handle_popover.popdown ();
-			update_due (Utils.Datetime.get_date_only (new DateTime.now_local ()));
+			update_date (Utils.Datetime.get_date_only (new DateTime.now_local ()));
 		});
 
 		tomorrow_item.activate_item.connect (() => {
 			menu_handle_popover.popdown ();
-			update_due (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
+			update_date (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
 		});
 
 		pinboard_item.activate_item.connect (() => {
@@ -726,7 +726,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
 		no_date_item.activate_item.connect (() => {
 			menu_handle_popover.popdown ();
-			update_due (null);
+			update_date (null);
 		});
 
 		complete_item.activate_item.connect (() => {
@@ -1081,8 +1081,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		}
 	}
 
-	public void update_due (GLib.DateTime? datetime) {
-		item.update_due (datetime);
+	public void update_date (GLib.DateTime? date) {
+		item.update_date (date);
 	}
 
 	private void selected_toggled (bool active) {

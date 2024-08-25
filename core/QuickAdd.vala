@@ -316,8 +316,8 @@ public class Layouts.QuickAdd : Adw.Bin {
 			}
 		});
 
-		schedule_button.date_changed.connect ((datetime) => {
-			set_due (datetime);
+		schedule_button.duedate_changed.connect (() => {
+			set_duedate (schedule_button.duedate);
 		});
 
 		schedule_button.picker_opened.connect ((active) => {
@@ -580,6 +580,16 @@ public class Layouts.QuickAdd : Adw.Bin {
 		item.due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
 
 		if (item.due.date == "") {
+			item.due.reset ();
+		}
+
+		schedule_button.update_from_item (item);
+	}
+
+	public void set_duedate (Objects.DueDate duedate) {
+		item.due = duedate;
+
+		if (!item.has_due) {
 			item.due.reset ();
 		}
 

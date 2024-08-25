@@ -93,7 +93,6 @@ sources = files(
   'Dialogs/ManageProjects.vala',
   'Dialogs/DatePicker.vala',
   'Dialogs/LabelPicker.vala',
-  'Dialogs/RepeatConfig.vala',
   'Dialogs/ItemChangeHistory.vala',
   'Dialogs/ErrorDialog.vala',
   'Dialogs/CompletedTasks.vala',

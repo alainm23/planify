@@ -39,6 +39,10 @@ public class Objects.DueDate : GLib.Object {
 
             return _datetime;
         }
+
+        set {
+            date = Utils.Datetime.get_todoist_datetime_format (value);
+        }
     }
 
     GLib.DateTime _end_datetime;

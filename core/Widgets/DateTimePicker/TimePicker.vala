@@ -107,7 +107,8 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
         var add_time_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.END,
-            css_classes = { "flat" }
+            tooltip_text = _("Add Time"),
+            css_classes = { "flat", "dim-label" }
         };
 
         time_stack = new Gtk.Stack () {

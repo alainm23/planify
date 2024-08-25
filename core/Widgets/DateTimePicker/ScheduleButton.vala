@@ -30,18 +30,18 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     private Widgets.DateTimePicker.DateTimePicker datetime_picker;
     private Gtk.Revealer clear_revealer;
 
-    private GLib.DateTime _datetime;
-    public GLib.DateTime datetime {
+    Objects.DueDate _duedate;
+    public Objects.DueDate duedate {
         get {
-            return _datetime;
+            return _duedate;
         }
 
         set {
-            _datetime = value;
+            _duedate = value;
 
-            if (_datetime != null) {
+            if (_duedate.datetime != null) {
                 datetime_picker.visible_no_date = true;
-                datetime_picker.datetime = _datetime;
+                datetime_picker.duedate = _duedate;
             } else {
                 datetime_picker.visible_no_date = false;
             }
@@ -60,7 +60,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         }
     }
 
-    public signal void date_changed (GLib.DateTime? date);
+    public signal void duedate_changed ();
     public signal void picker_opened (bool active);
 
     public ScheduleButton (string label = _("Schedule")) {
@@ -130,17 +130,17 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         attach (button, 0, 0);
         attach (clear_revealer, 1, 0);   
 
-        datetime_picker.date_changed.connect (() => {
-            datetime = datetime_picker.datetime;
+        datetime_picker.duedate_changed.connect (() => {
+            duedate = datetime_picker.duedate;
             clear_revealer.reveal_child = false;
-            date_changed (datetime);
+            duedate_changed ();
         });
 
         var motion_gesture = new Gtk.EventControllerMotion ();
         add_controller (motion_gesture);
 
         motion_gesture.enter.connect (() => {
-            clear_revealer.reveal_child = datetime != null;
+            clear_revealer.reveal_child = duedate.datetime != null;
         });
 
         motion_gesture.leave.connect (() => {
@@ -148,10 +148,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         });
 
         clear_button.clicked.connect (() => {
-            datetime = null;
-            date_changed (datetime);
-            clear_revealer.reveal_child = false;
-            datetime_picker.reset ();
+            reset ();
         });
     }
 
@@ -193,9 +190,9 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         
         attach (model_button, 0, 0);
 
-        datetime_picker.date_changed.connect (() => {
-            datetime = datetime_picker.datetime;
-            date_changed (datetime);
+        datetime_picker.duedate_changed.connect (() => {
+            duedate = datetime_picker.duedate;
+            duedate_changed ();
         });
     }
 
@@ -217,14 +214,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         due_label.label = Utils.Datetime.get_relative_date_from_date (item.due.datetime);
         due_label.tooltip_text = due_label.label;
     
-        datetime = new GLib.DateTime.local (
-            item.due.datetime.get_year (),
-            item.due.datetime.get_month (),
-            item.due.datetime.get_day_of_month (),
-            item.due.datetime.get_hour (),
-            item.due.datetime.get_minute (),
-            item.due.datetime.get_second ()
-        );
+        duedate = item.due;
         
         if (Utils.Datetime.is_today (item.due.datetime)) {
             due_image.icon_name = "star-outline-thick-symbolic";
@@ -268,7 +258,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         due_label.label = label;
         tooltip_text = label;
         due_image.icon_name = "month-symbolic";
-        datetime = null;
+        duedate = new Objects.DueDate ();
         datetime_picker.reset ();
     }
 }

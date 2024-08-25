@@ -1618,8 +1618,13 @@ public class Objects.Item : Objects.BaseObject {
         return text;
     }
 
-    public void update_due (GLib.DateTime? datetime) {
+    public void update_date (GLib.DateTime? datetime) {
         due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
+        update_due (due);
+    }
+
+    public void update_due (Objects.DueDate duedate) {
+        due.date = duedate.date;
 
         if (Services.Settings.get_default ().get_boolean ("automatic-reminders-enabled") && has_time) {
             remove_all_relative_reminders ();

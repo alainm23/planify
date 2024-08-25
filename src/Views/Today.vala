@@ -418,9 +418,9 @@ public class Views.Today : Adw.Bin {
             overdue_listbox.invalidate_filter ();
 		});
 
-        reschedule_button.date_changed.connect ((datetime) => {
+        reschedule_button.duedate_changed.connect (() => {
             foreach (unowned Gtk.Widget child in Util.get_default ().get_children (overdue_listbox) ) {
-                ((Layouts.ItemRow) child).update_due (datetime);
+                ((Layouts.ItemRow) child).update_due (reschedule_button.duedate);
             }
         });
     }

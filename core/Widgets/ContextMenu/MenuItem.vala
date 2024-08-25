@@ -138,7 +138,8 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         };
 
         secondary_label = new Gtk.Label (null) {
-            css_classes = { "dim-label", "no-font-bold" }
+            css_classes = { "dim-label", "no-font-bold" },
+            ellipsize = Pango.EllipsizeMode.END
         };
 
         secondary_label_revealer = new Gtk.Revealer () {

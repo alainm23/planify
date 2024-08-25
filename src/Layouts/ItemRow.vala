@@ -674,8 +674,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 			edit = false;
 		})] = hide_loading_button;
 
-		signals_map[schedule_button.date_changed.connect ((datetime) => {
-			update_due (datetime);
+		signals_map[schedule_button.duedate_changed.connect (() => {
+			update_due (schedule_button.duedate);
 		})] = schedule_button;
 
 		signals_map[priority_button.changed.connect ((priority) => {
@@ -1098,12 +1098,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
 		today_item.activate_item.connect (() => {
 			menu_handle_popover.popdown ();
-			update_due (Utils.Datetime.get_date_only (new DateTime.now_local ()));
+			update_date (Utils.Datetime.get_date_only (new DateTime.now_local ()));
 		});
 
 		tomorrow_item.activate_item.connect (() => {
 			menu_handle_popover.popdown ();
-			update_due (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
+			update_date (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
 		});
 
 		pinboard_item.activate_item.connect (() => {
@@ -1113,7 +1113,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
 		no_date_item.activate_item.connect (() => {
 			menu_handle_popover.popdown ();
-			update_due (null);
+			update_date (null);
 		});
 
 		complete_item.activate_item.connect (() => {
@@ -1147,8 +1147,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 	}
 
 	private Gtk.Popover build_button_context_menu () {
-		var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
-
 		var use_note_item = new Widgets.ContextMenu.MenuSwitch (_("Use as a Note"), "paper-symbolic");
 		use_note_item.active = item.item_type == ItemType.NOTE;
 
@@ -1178,24 +1176,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 			menu_box.append (copy_clipboard_item);
 			menu_box.append (duplicate_item);
 			menu_box.append (move_item);
-			menu_box.append (repeat_item);
-			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		}
-
 
 		menu_box.append (delete_item);
 		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (more_information_item);
 
-		var menu_stack = new Gtk.Stack () {
-			transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT,
-			vhomogeneous = false
-		};
-
-		menu_stack.add_named (menu_box, "menu");
-		menu_stack.add_named (get_repeat_widget (popover, back_item), "repeat");
-
-		popover.child = menu_stack;
+		popover.child = menu_box;
 
 		use_note_item.activate_item.connect (() => {
 			item.item_type = use_note_item.active ? ItemType.NOTE : ItemType.TASK;
@@ -1235,18 +1222,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 			});
 		});
 
-		repeat_item.clicked.connect (() => {
-			menu_stack.set_visible_child_name ("repeat");
-		});
-
-		popover.closed.connect (() => {
-			menu_stack.set_visible_child_name ("menu");
-		});
-
-		back_item.clicked.connect (() => {
-			menu_stack.set_visible_child_name ("menu");
-		});
-
 		delete_item.activate_item.connect (() => {
 			popover.popdown ();
 			delete_request ();
@@ -1259,99 +1234,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		});
 
 		return popover;
-	}
-
-	private Gtk.Widget get_repeat_widget (Gtk.Popover popover, Widgets.ContextMenu.MenuItem back_item) {
-		var none_item = new Widgets.ContextMenu.MenuItem (_("None"));
-		var daily_item = new Widgets.ContextMenu.MenuItem (_("Daily"));
-		var weekly_item = new Widgets.ContextMenu.MenuItem (_("Weekly"));
-		var monthly_item = new Widgets.ContextMenu.MenuItem (_("Monthly"));
-		var yearly_item = new Widgets.ContextMenu.MenuItem (_("Yearly"));
-		var custom_item = new Widgets.ContextMenu.MenuItem (_("Custom"));
-
-		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-		menu_box.margin_top = menu_box.margin_bottom = 3;
-		menu_box.append (back_item);
-		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-		menu_box.append (daily_item);
-		menu_box.append (weekly_item);
-		menu_box.append (monthly_item);
-		menu_box.append (yearly_item);
-		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-		menu_box.append (none_item);
-		menu_box.append (custom_item);
-
-		daily_item.clicked.connect (() => {
-			popover.popdown ();
-
-			var duedate = new Objects.DueDate ();
-			duedate.is_recurring = true;
-			duedate.recurrency_type = RecurrencyType.EVERY_DAY;
-			duedate.recurrency_interval = 1;
-
-			item.set_recurrency (duedate);
-		});
-
-		weekly_item.clicked.connect (() => {
-			popover.popdown ();
-
-			var duedate = new Objects.DueDate ();
-			duedate.is_recurring = true;
-			duedate.recurrency_type = RecurrencyType.EVERY_WEEK;
-			duedate.recurrency_interval = 1;
-
-			item.set_recurrency (duedate);
-		});
-
-		monthly_item.clicked.connect (() => {
-			popover.popdown ();
-
-			var duedate = new Objects.DueDate ();
-			duedate.is_recurring = true;
-			duedate.recurrency_type = RecurrencyType.EVERY_MONTH;
-			duedate.recurrency_interval = 1;
-
-			item.set_recurrency (duedate);
-		});
-
-		yearly_item.clicked.connect (() => {
-			popover.popdown ();
-
-			var duedate = new Objects.DueDate ();
-			duedate.is_recurring = true;
-			duedate.recurrency_type = RecurrencyType.EVERY_YEAR;
-			duedate.recurrency_interval = 1;
-
-			item.set_recurrency (duedate);
-		});
-
-		none_item.clicked.connect (() => {
-			popover.popdown ();
-
-			var duedate = new Objects.DueDate ();
-			duedate.is_recurring = false;
-			duedate.recurrency_type = RecurrencyType.NONE;
-			duedate.recurrency_interval = 0;
-
-			item.set_recurrency (duedate);
-		});
-
-		custom_item.clicked.connect (() => {
-			popover.popdown ();
-
-			var dialog = new Dialogs.RepeatConfig ();
-			dialog.present (Planify._instance.main_window);
-
-			if (item.has_due) {
-				dialog.duedate = item.due;
-			}
-
-			dialog.change.connect ((duedate) => {
-				item.set_recurrency (duedate);
-			});
-		});
-
-		return menu_box;
 	}
 
 	public override void checked_toggled (bool active, uint? time = null) {
@@ -1451,8 +1333,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		item.update_async ("");
 	}
 
-	public void update_due (GLib.DateTime? datetime) {
-		item.update_due (datetime);
+	public void update_due (Objects.DueDate duedate) {
+		item.update_due (duedate);
+	}
+
+	public void update_date (GLib.DateTime? date) {
+		item.update_date (date);
 	}
 
 	private void update_next_recurrency () {

@@ -658,3 +658,9 @@ checkbutton.theme-selector radio:checked {
     border-radius: 3px;
     padding: 0 3px;
 }
+
+.toggle-circle-button {
+    padding: 0px;
+    border-radius: 50%;
+    font-weight: bold;
+}

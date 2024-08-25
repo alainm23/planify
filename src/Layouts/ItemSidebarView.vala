@@ -215,8 +215,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             update_content_description ();
         });
 
-        schedule_button.date_changed.connect ((datetime) => {
-            update_due (datetime);
+        schedule_button.duedate_changed.connect (() => {
+            update_due (schedule_button.duedate);
         });
 
         priority_button.changed.connect ((priority) => {
@@ -409,12 +409,12 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         subitems.add_button.sensitive = !item.completed;
     }
 
-    public void update_due (GLib.DateTime? datetime) {
+    public void update_due (Objects.DueDate duedate) {
         if (item == null) {
             return;
         }
 
-        item.update_due (datetime);
+        item.update_due (duedate);
     }
 
     public void update_labels (Gee.HashMap<string, Objects.Label> new_labels) {
@@ -442,8 +442,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     private Gtk.Popover build_context_menu () {
-        var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
-
         var use_note_item = new Widgets.ContextMenu.MenuSwitch (_("Use as a Note"), "paper-symbolic");
         use_note_item.active = item.item_type == ItemType.NOTE;
 
@@ -473,8 +471,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             menu_box.append (copy_clipboard_item);
             menu_box.append (duplicate_item);
             menu_box.append (move_item);
-            menu_box.append (repeat_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         }
 
         
@@ -482,15 +478,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (more_information_item);
 
-        var menu_stack = new Gtk.Stack () {
-            transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT,
-            vhomogeneous = false
-        };
-
-        menu_stack.add_named (menu_box, "menu");
-        menu_stack.add_named (get_repeat_widget (popover, back_item), "repeat");
-
-        popover.child = menu_stack;
+        popover.child = menu_box;
 
         use_note_item.activate_item.connect (() => {
             item.item_type = use_note_item.active ? ItemType.NOTE : ItemType.TASK;
@@ -531,18 +519,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             });
         });
 
-        repeat_item.clicked.connect (() => {
-            menu_stack.set_visible_child_name ("repeat");
-        });
-
-        popover.closed.connect (() => {
-            menu_stack.set_visible_child_name ("menu");
-        });
-
-        back_item.clicked.connect (() => {
-            menu_stack.set_visible_child_name ("menu");
-        });
-
         delete_item.activate_item.connect (() => {
             popover.popdown ();
             delete_request ();
@@ -555,99 +531,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         });
 
         return popover;
-    }
-
-    private Gtk.Widget get_repeat_widget (Gtk.Popover popover, Widgets.ContextMenu.MenuItem back_item) {
-        var none_item = new Widgets.ContextMenu.MenuItem (_("None"));
-        var daily_item = new Widgets.ContextMenu.MenuItem (_("Daily"));
-        var weekly_item = new Widgets.ContextMenu.MenuItem (_("Weekly"));
-        var monthly_item = new Widgets.ContextMenu.MenuItem (_("Monthly"));
-        var yearly_item = new Widgets.ContextMenu.MenuItem (_("Yearly"));
-        var custom_item = new Widgets.ContextMenu.MenuItem (_("Custom"));
-        
-        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (back_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (daily_item);
-        menu_box.append (weekly_item);
-        menu_box.append (monthly_item);
-        menu_box.append (yearly_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (none_item);
-        menu_box.append (custom_item);
-        
-        daily_item.clicked.connect (() => {
-            popover.popdown ();
-
-            var duedate = new Objects.DueDate ();
-            duedate.is_recurring = true;
-            duedate.recurrency_type = RecurrencyType.EVERY_DAY;
-            duedate.recurrency_interval = 1;
-
-            item.set_recurrency (duedate);
-        });
-
-        weekly_item.clicked.connect (() => {
-            popover.popdown ();
-
-            var duedate = new Objects.DueDate ();
-            duedate.is_recurring = true;
-            duedate.recurrency_type = RecurrencyType.EVERY_WEEK;
-            duedate.recurrency_interval = 1;
-
-            item.set_recurrency (duedate);
-        });
-
-        monthly_item.clicked.connect (() => {
-            popover.popdown ();
-
-            var duedate = new Objects.DueDate ();
-            duedate.is_recurring = true;
-            duedate.recurrency_type = RecurrencyType.EVERY_MONTH;
-            duedate.recurrency_interval = 1;
-
-            item.set_recurrency (duedate);
-        });
-
-        yearly_item.clicked.connect (() => {
-            popover.popdown ();
-
-            var duedate = new Objects.DueDate ();
-            duedate.is_recurring = true;
-            duedate.recurrency_type = RecurrencyType.EVERY_YEAR;
-            duedate.recurrency_interval = 1;
-
-            item.set_recurrency (duedate);
-        });
-
-        none_item.clicked.connect (() => {
-            popover.popdown ();
-
-            var duedate = new Objects.DueDate ();
-            duedate.is_recurring = false;
-            duedate.recurrency_type = RecurrencyType.NONE;
-            duedate.recurrency_interval = 0;
-
-            item.set_recurrency (duedate);
-        });
-
-        custom_item.clicked.connect (() => {
-            popover.popdown ();
-
-            var dialog = new Dialogs.RepeatConfig ();
-            dialog.present (Planify._instance.main_window);
-
-            if (item.has_due) {
-                dialog.duedate = item.due;
-            }
-
-            dialog.change.connect ((duedate) => {
-                item.set_recurrency (duedate);
-            });
-        });
-
-        return menu_box;
     }
 
     public void move (Objects.Project project, string section_id, string parent_id = "") {
