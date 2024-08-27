@@ -649,7 +649,7 @@ checkbutton.theme-selector radio:checked {
     background: #f66151;
 }
 
-.menu-button-no-padding .toggle {
+.menu-button-no-padding > .toggle {
     padding: 0;
 }
 
@@ -657,10 +657,4 @@ checkbutton.theme-selector radio:checked {
     background: #3584e4;
     border-radius: 3px;
     padding: 0 3px;
-}
-
-.toggle-circle-button {
-    padding: 0px;
-    border-radius: 50%;
-    font-weight: bold;
 }

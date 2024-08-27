@@ -102,7 +102,8 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
             margin_top = 9,
             margin_bottom = 9,
             margin_start = 9,
-            margin_end = 9
+            margin_end = 9,
+            ellipsize = Pango.EllipsizeMode.END
         };
 
         var repeat_preview_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -124,8 +125,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
 
         recurrency_combobox = new Gtk.DropDown.from_strings (items) {
             hexpand = true,
-            selected = 0,
-            valign = CENTER,
+            vexpand = true,
             selected = 2
         };
 
@@ -138,43 +138,43 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         repeat_box.append (recurrency_combobox);
 
         mo_button = new Gtk.ToggleButton.with_label (_("Mo")) {
-            css_classes = { "no-padding", "caption", "toggle-circle-button" },
+            css_classes = { "no-padding", "caption" },
             width_request = 32,
             height_request = 32
         };        
         
         tu_button = new Gtk.ToggleButton.with_label (_("Tu")) {
-            css_classes = { "no-padding", "caption", "toggle-circle-button" },
+            css_classes = { "no-padding", "caption" },
             width_request = 32,
             height_request = 32
         };  
         
         we_button = new Gtk.ToggleButton.with_label (_("We")) {
-            css_classes = { "no-padding", "caption", "toggle-circle-button" },
+            css_classes = { "no-padding", "caption" },
             width_request = 32,
             height_request = 32
         };       
         
         th_button = new Gtk.ToggleButton.with_label (_("Th")) {
-            css_classes = { "no-padding", "caption", "toggle-circle-button" },
+            css_classes = { "no-padding", "caption" },
             width_request = 32,
             height_request = 32
         };        
         
         fr_button = new Gtk.ToggleButton.with_label (_("Fr")) {
-            css_classes = { "no-padding", "caption", "toggle-circle-button" },
+            css_classes = { "no-padding", "caption" },
             width_request = 32,
             height_request = 32
         };        
         
         sa_button = new Gtk.ToggleButton.with_label (_("Sa")) {
-            css_classes = { "no-padding", "caption", "toggle-circle-button" },
+            css_classes = { "no-padding", "caption" },
             width_request = 32,
             height_request = 32
         };
 
         su_button = new Gtk.ToggleButton.with_label (_("Su")) {
-            css_classes = { "no-padding", "caption", "toggle-circle-button" },
+            css_classes = { "no-padding", "caption" },
             width_request = 32,
             height_request = 32
         };
@@ -182,7 +182,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         var weeks_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
             margin_top = 12,
-            margin_bottom = 12,
+            margin_bottom = 6,
             homogeneous = true
         };
         weeks_box.append (mo_button);
