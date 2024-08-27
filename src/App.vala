@@ -54,7 +54,7 @@ public class Planify : Adw.Application {
 			);
 	}
 
-	~Planify() {
+	~Planify () {
 		print ("Destroying Planify\n");
 	}
 

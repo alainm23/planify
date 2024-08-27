@@ -33,7 +33,7 @@ public class Dialogs.WhatsNew : Adw.Dialog {
 		);
 	}
 
-	~WhatsNew() {
+	~WhatsNew () {
         print ("Destroying Dialogs.WhatsNew\n");
     }
 

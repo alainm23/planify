@@ -60,7 +60,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 			);
 	}
 
-	~QuickAdd() {
+	~QuickAdd () {
 		print ("Destroying Layouts.QuickAdd\n");
 	}
 
@@ -335,7 +335,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 		label_button.labels_changed.connect (set_labels);
 		label_button.picker_opened.connect ((active) => {
 			parent_can_close (!active);
-			
+
 			if (!active) {
 				Timeout.add (250, () => {
 					labels_picker_activate_shortcut = false;
@@ -353,7 +353,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 				remove_entry_char ("!");
 			}
 		});
-		
+
 		reminder_button.picker_opened.connect ((active) => {
 			parent_can_close (!active);
 
@@ -628,7 +628,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
 	private void remove_entry_char (string value) {
 		string current_text = content_entry.get_text ();
-		int at_position = content_entry.text.index_of(value);
+		int at_position = content_entry.text.index_of (value);
 		if (at_position != -1) {
 			string before_at = current_text.substring (0, at_position);
 			string after_at = current_text.substring (at_position + 1);

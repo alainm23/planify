@@ -67,7 +67,7 @@ public class Dialogs.Project : Adw.Dialog {
         );
     }
 
-    ~Project() {
+    ~Project () {
         print ("Destroying Dialogs.Project\n");
     }
 

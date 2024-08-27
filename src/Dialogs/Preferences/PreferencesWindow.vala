@@ -27,7 +27,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		);
 	}
 
-	~PreferencesWindow() {
+	~PreferencesWindow () {
         print ("Destroying Dialogs.Preferences.PreferencesWindow\n");
     }
 

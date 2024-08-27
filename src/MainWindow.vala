@@ -45,7 +45,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			);
 	}
 
-	~MainWindow() {
+	~MainWindow () {
 		print ("Destroy ing MainWindow\n");
 	}
 

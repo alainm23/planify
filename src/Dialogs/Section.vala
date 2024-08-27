@@ -52,7 +52,7 @@ public class Dialogs.Section : Adw.Dialog {
         );
     }
 
-    ~Section() {
+    ~Section () {
         print ("Destroying Dialogs.Section\n");
     }
 

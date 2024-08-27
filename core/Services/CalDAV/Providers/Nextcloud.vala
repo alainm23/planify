@@ -323,7 +323,7 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
     }
 
     public override string get_all_taskslist_url (string server_url, string username) {
-        return "%s/calendars/%s/".printf (server_url, username);;
+        return "%s/calendars/%s/".printf (server_url, username);
     }
 
     public override Gee.ArrayList<Objects.Project> get_projects_by_doc (GXml.DomDocument doc, Objects.Source source) {

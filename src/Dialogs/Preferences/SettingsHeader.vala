@@ -41,7 +41,7 @@ public class Dialogs.Preferences.SettingsHeader : Adw.Bin {
         );
     }
 
-    ~SettingsHeader() {
+    ~SettingsHeader () {
         print ("Destroying Dialogs.Preferences.SettingsHeader\n");
     }
 
