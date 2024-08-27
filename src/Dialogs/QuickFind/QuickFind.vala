@@ -19,10 +19,32 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
+/*
+* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alainmh23@gmail.com>
+*/
+
 public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
     private Gtk.SearchEntry search_entry;
     private Gtk.ListBox listbox;
-    private Gee.ArrayList<Dialogs.QuickFind.QuickFindItem> items;
+    private Gee.ArrayList<Dialogs.QuickFind.QuickFindItem> items = new Gee.ArrayList<Dialogs.QuickFind.QuickFindItem> ();
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public QuickFind () {
         Object (
@@ -32,9 +54,11 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         );
     }
 
-    construct {
-        items = new Gee.ArrayList<Dialogs.QuickFind.QuickFindItem> ();
+    ~QuickFind () {
+        print ("Destroying Dialogs.QuickFind.QuickFind\n");
+    }
 
+    construct {
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Quick Find"),
             hexpand = true,
@@ -86,43 +110,49 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         default_widget = search_entry;
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        search_entry.search_changed.connect (() => {
+        signal_map[search_entry.search_changed.connect (() => {
             search_changed ();
-        });
+        })] = search_entry;
 
         var listbox_controller_key = new Gtk.EventControllerKey ();
         listbox.add_controller (listbox_controller_key);
-        listbox_controller_key.key_pressed.connect (key_pressed);
+        signal_map[listbox_controller_key.key_pressed.connect (key_pressed)] = listbox_controller_key;
 
-        listbox.row_activated.connect ((row) => {
+        signal_map[listbox.row_activated.connect ((row) => {
             row_activated (row);
-        });
+        })] = listbox;
 
         var search_entry_ctrl_key = new Gtk.EventControllerKey ();
         search_entry.add_controller (search_entry_ctrl_key);
-        search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 hide_destroy ();
             }
 
             return false;
-        });
+        })] = search_entry_ctrl_key;
 
         var event_controller_key = new Gtk.EventControllerKey ();
 		((Gtk.Widget) this).add_controller (event_controller_key);
-		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
 			if (keyval == 65307) {
 				hide_destroy ();
 			}
 
 			return false;
-        });
+        })] = event_controller_key;
 
-        cancel_button.clicked.connect (() => {
+        signal_map[cancel_button.clicked.connect (() => {
             hide_destroy ();
-        });
+        })] = cancel_button;
 
         closed.connect (() => {
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signal_map.clear ();
+            
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
@@ -132,7 +162,6 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         
         if (key == "Up" || key == "Down") {
         } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
-            row_activated (listbox.get_selected_row ());
         } else {
             if (!search_entry.has_focus) {
                 search_entry.grab_focus ();
@@ -246,6 +275,11 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
             Services.EventBus.get_default ().pane_selected (PaneType.PROJECT,
                 ((Objects.Item) base_object).project_id.to_string ()
             );
+
+            Timeout.add (275, () => {
+                Services.EventBus.get_default ().open_item ((Objects.Item) base_object);
+                return GLib.Source.REMOVE;
+            });
         } else if (base_object.object_type == ObjectType.LABEL) {
             Services.EventBus.get_default ().pane_selected (PaneType.LABEL,
                 ((Objects.Label) base_object).id_string
@@ -258,6 +292,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
     }
 
     private void hide_destroy () {
+        listbox.set_header_func (null);
         close ();
     }
 

@@ -23,10 +23,10 @@
 public class Views.Project : Adw.Bin {
 	public Objects.Project project { get; construct; }
 
-	private Adw.NavigationView view_stack;
+	private Gtk.Revealer project_view_revealer;
+	private Gtk.Spinner loading_spinner;
+	private Adw.ViewStack project_stack;
 	private Adw.ToolbarView toolbar_view;
-	private Widgets.ContextMenu.MenuItem show_completed_item;
-	private Widgets.ContextMenu.MenuItem delete_all_completed;
 	private Widgets.ContextMenu.MenuItem expand_all_item;
 	private Widgets.ContextMenu.MenuItem collapse_all_item;
 	private Widgets.ContextMenu.MenuCheckPicker priority_filter;
@@ -40,11 +40,17 @@ public class Views.Project : Adw.Bin {
         }
     }
 
+	private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
 	public Project (Objects.Project project) {
 		Object (
 			project: project
 		);
 	}
+
+	~Project () {
+        print ("Destroying Views.Project\n");
+    }
 
 	construct {
 		var menu_button = new Gtk.MenuButton () {
@@ -95,18 +101,28 @@ public class Views.Project : Adw.Bin {
 
 		headerbar.pack_end (view_setting_overlay);
 
-		view_stack = new Adw.NavigationView () {
+		project_view_revealer = new Gtk.Revealer () {
 			hexpand = true,
 			vexpand = true,
-			animate_transitions = false
+			transition_type = Gtk.RevealerTransitionType.CROSSFADE
 		};
 
-		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-			hexpand = true,
-			vexpand = true
+		loading_spinner = new Gtk.Spinner () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
+			height_request = 64,
+			width_request = 64,
+            spinning = true
+        };
+
+		project_stack = new Adw.ViewStack () {
+			vexpand = true,
+			hexpand = true
 		};
 
-		content_box.append (view_stack);
+        project_stack.add (project_view_revealer);
+        project_stack.add (loading_spinner);
+		project_stack.visible_child = project_view_revealer;
 
 		var magic_button = new Widgets.MagicButton ();
 
@@ -115,7 +131,7 @@ public class Views.Project : Adw.Bin {
 			vexpand = true
 		};
 
-		content_overlay.child = content_box;
+		content_overlay.child = project_stack;
 
 		if (!project.is_deck) {
 			content_overlay.add_overlay (magic_button);
@@ -134,21 +150,20 @@ public class Views.Project : Adw.Bin {
 		child = toolbar_view;
 		update_project_view ();
 		check_default_filters ();
-		show ();
 
-		magic_button.clicked.connect (() => {
+		signals_map[magic_button.clicked.connect (() => {
 			prepare_new_item ();
-		});
+		})] = magic_button;
 
-		project.updated.connect (() => {
+		signals_map[project.updated.connect (() => {
 			headerbar.title = project.name;
-		});
+		})] = project;
 
-		multiselect_toolbar.closed.connect (() => {
+		signals_map[multiselect_toolbar.closed.connect (() => {
 			project.show_multi_select = false;
-		});
+		})] = multiselect_toolbar;
 
-		project.show_multi_select_change.connect (() => {
+		signals_map[project.show_multi_select_change.connect (() => {
 			toolbar_view.reveal_bottom_bars = project.show_multi_select;
 			
 			if (project.show_multi_select) {
@@ -162,17 +177,17 @@ public class Views.Project : Adw.Bin {
 				Services.EventBus.get_default ().magic_button_visible (true);
 				Services.EventBus.get_default ().connect_typing_accel ();
 			}
-		});
+		})] = project;
 
-		project.filter_added.connect (() => {
+		signals_map[project.filter_added.connect (() => {
 			check_default_filters ();
-		});
+		})] = project;
 
-		project.filter_updated.connect (() => {
+		signals_map[project.filter_updated.connect (() => {
 			check_default_filters ();
-		});
+		})] = project;
 
-		project.filter_removed.connect ((filter) => {
+		signals_map[project.filter_removed.connect ((filter) => {
 			priority_filter.unchecked (filter);
 			
 			if (filter.filter_type == FilterItemType.DUE_DATE) {
@@ -180,23 +195,19 @@ public class Views.Project : Adw.Bin {
 			}
 
 			check_default_filters ();
-		});
+		})] = project;
 
-		project.view_style_changed.connect (() => {
+		signals_map[project.view_style_changed.connect (() => {
 			update_project_view ();
 			expand_all_item.visible = view_style == ProjectViewStyle.LIST;
 			collapse_all_item.visible = view_style == ProjectViewStyle.LIST;
-		});
+		})] = project;
 	}
 
 	private void check_default_filters () {
 		bool defaults = true;
 		
 		if (project.sort_order != 0) {
-			defaults = false;
-		}
-
-		if (project.show_completed != false) {
 			defaults = false;
 		}
 
@@ -208,25 +219,56 @@ public class Views.Project : Adw.Bin {
 	}
 
 	private void update_project_view () {
-		if (view_style == ProjectViewStyle.LIST) {
-			view_stack.replace ({ new Adw.NavigationPage (new Views.List (project), project.name) });
-		} else if (view_style == ProjectViewStyle.BOARD) {
-			view_stack.replace ({ new Adw.NavigationPage (new Views.Board (project), project.name) });
+		project_stack.visible_child = loading_spinner;
+		project_view_revealer.reveal_child = false;
+
+		Timeout.add (project_view_revealer.transition_duration, () => {
+			destroy_current_view ();
+
+			if (view_style == ProjectViewStyle.LIST) {
+				project_view_revealer.child = new Views.List (project);
+			} else if (view_style == ProjectViewStyle.BOARD) {
+				project_view_revealer.child = new Views.Board (project);
+			}
+
+			project_stack.visible_child = project_view_revealer;
+			project_view_revealer.reveal_child = true;
+			return GLib.Source.REMOVE;
+		});
+	}
+
+	private void destroy_current_view () {
+		if (project_view_revealer.child is Views.List) {
+			Views.List? list_view = (Views.List) project_view_revealer.child;
+			if (list_view != null) {
+				list_view.clean_up ();
+			}
+		} else if (project_view_revealer.child is Views.Board) {
+			Views.Board? board_view = (Views.Board) project_view_revealer.child;
+			if (board_view != null) {
+                board_view.clean_up ();
+			}
 		}
+
+		project_view_revealer.child = null;
 	}
 
 	public void prepare_new_item (string content = "") {
 		if (project.is_deck) {
 			return;
 		}
+		
+		if (project_view_revealer.child == null) {
+			return;
+		}
 
-		if (view_style == ProjectViewStyle.LIST) {
-			Views.List? list_view = (Views.List) view_stack.visible_page.child;
+		if (project_view_revealer.child is Views.List) {
+			Views.List? list_view = (Views.List) project_view_revealer.child;
 			if (list_view != null) {
 				list_view.prepare_new_item (content);
 			}
-		} else {
-			Views.Board? board_view = (Views.Board) view_stack.visible_page.child;
+		} else if (project_view_revealer.child is Views.Board) {
+			Views.Board? board_view = (Views.Board) project_view_revealer.child;
 			if (board_view != null) {
                 board_view.prepare_new_item (content);
 			}
@@ -276,7 +318,6 @@ public class Views.Project : Adw.Bin {
 		menu_box.append (paste_item);
 		menu_box.append (expand_all_item);
 		menu_box.append (collapse_all_item);
-		menu_box.append (show_completed_item);
 
 		if (!project.is_deck && !project.inbox_project) {
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -305,7 +346,7 @@ public class Views.Project : Adw.Bin {
 			dialog.clear = project.due_date != "";
 			dialog.present (Planify._instance.main_window);
 
-			dialog.date_changed.connect (() => {
+			ulong signal_datepicker_id = dialog.date_changed.connect (() => {
 				if (dialog.datetime == null) {
 					project.due_date = "";
 				} else {
@@ -313,6 +354,10 @@ public class Views.Project : Adw.Bin {
 				}
 
 				project.update_local ();
+			});
+
+			dialog.closed.connect (() => {
+				dialog.disconnect (signal_datepicker_id);
 			});
 		});
 
@@ -334,7 +379,7 @@ public class Views.Project : Adw.Bin {
 			clipboard.read_text_async.begin (null, (obj, res) => {
 				try {
 					string content = clipboard.read_text_async.end (res);
-					Services.EventBus.get_default ().paste_action (project.id, content);
+					Planify.instance.main_window.add_task_action (content);
 				} catch (GLib.Error error) {
 					debug (error.message);
 				}
@@ -474,15 +519,7 @@ public class Views.Project : Adw.Bin {
 			arrow = true
 		};
 
-		show_completed_item = new Widgets.ContextMenu.MenuItem (
-			project.show_completed ? _("Hide Completed Tasks") : _("Show Completed Tasks"),
-			"check-round-outline-symbolic"
-		);
-
-		delete_all_completed = new Widgets.ContextMenu.MenuItem (_("Delete All Completed Tasks") ,"user-trash-symbolic") {
-			visible = project.show_completed && Services.Store.instance ().get_items_checked_by_project (project).size > 0
-		};
-		delete_all_completed.add_css_class ("menu-item-danger");
+		var show_completed_item = new Widgets.ContextMenu.MenuItem (_("Show Completed Tasks"), "check-round-outline-symbolic");
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
@@ -513,7 +550,6 @@ public class Views.Project : Adw.Bin {
 		menu_box.append (labels_filter);
 		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (show_completed_item);
-		menu_box.append (delete_all_completed);
 
 		var popover = new Gtk.Popover () {
 			has_arrow = false,
@@ -531,12 +567,8 @@ public class Views.Project : Adw.Bin {
 		show_completed_item.activate_item.connect (() => {
 			popover.popdown ();
 
-			project.show_completed = !project.show_completed;
-			project.update_local ();
-
-			show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show Completed Tasks");
-			delete_all_completed.visible = project.show_completed && Services.Store.instance ().get_items_checked_by_project (project).size > 0;
-			check_default_filters ();
+			var dialog = new Dialogs.CompletedTasks (project);
+			dialog.present (Planify._instance.main_window);
 		});
 
 		list_button.toggled.connect (() => {
@@ -556,29 +588,6 @@ public class Views.Project : Adw.Bin {
 		project.sort_order_changed.connect (() => {
 			order_by_item.update_selected (project.sort_order);
 			check_default_filters ();
-		});
-
-		delete_all_completed.activate_item.connect (() => {
-			popover.popdown ();
-
-			var items = Services.Store.instance ().get_items_checked_by_project (project);
-
-			var dialog = new Adw.AlertDialog (
-			    _("Delete All Completed Tasks"),
-				_("This will delete %d completed tasks and their subtasks from project %s".printf (items.size, project.name))
-			);
-
-			dialog.body_use_markup = true;
-			dialog.add_response ("cancel", _("Cancel"));
-			dialog.add_response ("delete", _("Delete"));
-			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-			dialog.present (Planify._instance.main_window);
-
-			dialog.response.connect ((response) => {
-				if (response == "delete") {
-					delete_all_action (items);
-				}
-			});
 		});
 
 		due_date_item.notify["selected"].connect (() => {
@@ -681,9 +690,20 @@ public class Views.Project : Adw.Bin {
 		dialog.present (Planify._instance.main_window);
 	}
 
-	public void delete_all_action (Gee.ArrayList<Objects.Item> items) {
-		foreach (Objects.Item item in items) {
-			item.delete_item ();
-		}
-	}
+	public void clean_up () {
+		print ("Clean Up: %s\n".printf (project.name));
+
+		foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+        
+        signals_map.clear ();
+		
+		destroy_current_view ();
+    }
+
+	public override void dispose () {
+		clean_up ();
+        base.dispose ();
+    }
 }

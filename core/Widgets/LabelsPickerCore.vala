@@ -27,6 +27,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
     private Gtk.Label placeholder_message_label;
     private Gtk.Revealer add_tag_revealer;
     private Gtk.Revealer spinner_revealer;
+    private Gtk.Revealer search_entry_revealer;
     
     public Gee.ArrayList<Objects.Label> labels {
         set {
@@ -57,6 +58,12 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         }
     }
 
+    public bool search_visible {
+        set {
+            //  search_entry_revealer.reveal_child = value;
+        }
+    }
+
     public Gee.HashMap <string, Widgets.LabelPicker.LabelRow> labels_widgets_map = new Gee.HashMap <string, Widgets.LabelPicker.LabelRow> ();
     public Gee.HashMap<string, Objects.Label> picked = new Gee.HashMap<string, Objects.Label> ();
 
@@ -65,25 +72,37 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
     public signal void close ();
 
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+
     public LabelsPickerCore (LabelPickerType picker_type) {
         Object (
             picker_type: picker_type
         );
     }
 
+    ~LabelsPickerCore() {
+        print ("Destroying Widgets.LabelsPickerCore\n");
+    }
+
     construct {
         css_classes = { "popover-contents" };
         
-        if (picker_type == LabelPickerType.FILTER) {
+        if (picker_type == LabelPickerType.FILTER_ONLY) {
             PLACEHOLDER_MESSAGE = _("Your list of filters will show up here.");
         }
 
         search_entry = new Gtk.SearchEntry () {
-            placeholder_text = picker_type == LabelPickerType.SELECT ? _("Search or Create") : _("Search"),
+            placeholder_text = picker_type == LabelPickerType.FILTER_ONLY ? _("Search") : _("Search or Create"),
             valign = Gtk.Align.CENTER,
             hexpand = true,
             margin_start = 12,
-            margin_end = 12
+            margin_end = 12,
+            margin_bottom = 12
+        };
+
+        search_entry_revealer = new Gtk.Revealer () {
+            child = search_entry,
+            reveal_child = true
         };
 
         listbox = new Gtk.ListBox () {
@@ -93,6 +112,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         };
 
         listbox.set_placeholder (get_placeholder ());
+
         listbox.set_sort_func ((row1, row2) => {
             Objects.Label item1 = ((Widgets.LabelPicker.LabelRow) row1).label;
             Objects.Label item2 = ((Widgets.LabelPicker.LabelRow) row2).label;
@@ -102,7 +122,6 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         var listbox_grid = new Adw.Bin () {
             margin_start = 9,
             margin_end = 9,
-            margin_top = 12,
             margin_bottom = 6,
             child = listbox,
             valign = Gtk.Align.START
@@ -117,14 +136,14 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         listbox_scrolled.child = listbox_grid;
 
         var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (search_entry);
+		toolbar_view.add_top_bar (search_entry_revealer);
 		toolbar_view.content = listbox_scrolled;
 
         child = toolbar_view;
-
+                
         var listbox_controller_key = new Gtk.EventControllerKey ();
         listbox.add_controller (listbox_controller_key);
-        listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             var key = Gdk.keyval_name (keyval).replace ("KP_", "");
                         
             if (key == "Up" || key == "Down") {
@@ -139,9 +158,9 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             }
 
             return false;
-        });
+        })] = listbox_controller_key;
 
-        search_entry.search_changed.connect (() => {
+        signal_map[search_entry.search_changed.connect (() => {                
             int size = 0;
             listbox.set_filter_func ((row) => {
                 var label = ((Widgets.LabelPicker.LabelRow) row).label;
@@ -154,13 +173,13 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
                 return return_value;
             });
 
-            if (picker_type == LabelPickerType.SELECT) {
+            if (picker_type == LabelPickerType.FILTER_AND_CREATE) {
                 add_tag_revealer.reveal_child = size <= 0;
                 placeholder_message_label.label = size <= 0 ? PLACEHOLDER_CREATE_MESSAGE.printf (search_entry.text) : PLACEHOLDER_MESSAGE;
             }
-        });
+        })] = search_entry;
 
-        search_entry.activate.connect (() => {
+        signal_map[search_entry.activate.connect (() => {
             if (source != null && search_entry.text.length > 0) {
                 Objects.Label label = Services.Store.instance ().get_label_by_name (search_entry.text, true, source.id);
                 if (label != null) {
@@ -171,10 +190,31 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
                     add_assign_label ();
                 }
             }
-        });
+        })] = search_entry;
 
-        Services.Store.instance ().label_added.connect ((label) => {
+        var search_entry_ctrl_key = new Gtk.EventControllerKey ();
+        search_entry.add_controller (search_entry_ctrl_key);
+        signal_map[search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                close ();
+            }
+
+            return false;
+        })] = search_entry_ctrl_key;
+
+        signal_map[Services.Store.instance ().label_added.connect ((label) => {
             add_label (label);
+        })] = Services.Store.instance ();
+
+        destroy.connect (() => {
+            listbox.set_sort_func (null);
+            listbox.set_filter_func (null);
+
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signal_map.clear ();
         });
     }
 

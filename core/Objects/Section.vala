@@ -90,20 +90,40 @@ public class Objects.Section : Objects.BaseObject {
     construct {
         Services.EventBus.get_default ().checked_toggled.connect ((item) => {
             if (item.section_id == id) {
-                _section_count = update_section_count ();
-                section_count_updated ();
+                update_count ();
             }
         });
 
         item_deleted.connect ((item) => {
-            _section_count = update_section_count ();
-            section_count_updated ();
+            update_count ();
         });
 
         item_added.connect ((item) => {
-            _section_count = update_section_count ();
-            section_count_updated ();
+            update_count ();
         });
+
+        Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id) => {
+            if (item.project_id == project_id) {
+                update_count ();
+            }
+        });
+
+        Services.Store.instance ().item_deleted.connect ((item) => {
+            if (item.project_id == project_id) {
+                update_count ();
+            }
+        });
+
+        Services.Store.instance ().item_added.connect ((item) => {
+            if (item.project_id == project_id) {
+                update_count ();
+            }
+        });
+    }
+
+    public void update_count () {
+        _section_count = update_section_count ();
+        section_count_updated ();
     }
 
     public Section.from_json (Json.Node node) {
@@ -172,7 +192,7 @@ public class Objects.Section : Objects.BaseObject {
         this._items.add (item);
     }
 
-    public void update (bool cloud=true) {
+    public void update (bool cloud = true) {
         if (update_timeout_id != 0) {
             GLib.Source.remove (update_timeout_id);
         }
@@ -189,6 +209,10 @@ public class Objects.Section : Objects.BaseObject {
 
             return GLib.Source.REMOVE;
         });
+    }
+
+    public void update_local () {
+        Services.Store.instance ().update_section (this);
     }
 
     public override string get_update_json (string uuid, string? temp_id = null) {
@@ -307,8 +331,27 @@ public class Objects.Section : Objects.BaseObject {
             if (!item.checked) {
                 returned++;
             }
+
+            returned += get_subitem_size (item);
         }
+
         return returned;
+    }
+
+    private int get_subitem_size (Objects.Item item) {
+        int size = item.items_uncomplete.size;
+
+        if (size <= 0) {
+            return 0;
+        }
+
+        int count = size;
+
+        foreach (Objects.Item subitem in item.items_uncomplete) {
+            count += get_subitem_size (subitem);
+        }
+
+        return count;
     }
 
     public Objects.Section duplicate () {
@@ -316,7 +359,6 @@ public class Objects.Section : Objects.BaseObject {
         new_section.name = name;
         new_section.color = color;
         new_section.description = description;
-
         return new_section;
     }
 

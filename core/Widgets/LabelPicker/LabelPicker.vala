@@ -39,8 +39,14 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
             return picker.picked;
         }
     }
-    
 
+
+    public bool search_visible {
+        set {
+            picker.search_visible = value;
+        }
+    }
+        
     public LabelPicker () {
         Object (
             has_arrow: false,
@@ -50,10 +56,14 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         );
     }
 
+    ~LabelPicker() {
+        print ("Destroying Widgets.LabelPicker.LabelPicker\n");
+    }
+
     construct {
         css_classes = { "popover-contents" };
 
-        picker = new Widgets.LabelsPickerCore (LabelPickerType.SELECT) {
+        picker = new Widgets.LabelsPickerCore (LabelPickerType.FILTER_AND_CREATE) {
             margin_top = 12
         };
         

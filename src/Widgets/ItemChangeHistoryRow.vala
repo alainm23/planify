@@ -30,6 +30,10 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
         );
     }
 
+    ~ItemChangeHistoryRow() {
+        print ("Destroying Widgets.ItemChangeHistoryRow\n");
+    }
+
     construct {
         add_css_class ("no-selectable");
         
@@ -38,11 +42,29 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
             valign = START
         };
 
-        string _type_string = "%s: %s".printf (object_event.event_type.get_label (), object_event.object_key.get_label ());
+        string _type_string = "";
+        if (object_event.object_key == ObjectEventKeyType.CHECKED) {
+            _type_string = object_event.object_new_value == "1" ? _("Task completed") : _("Task uncompleted");
+        } else if (object_event.object_key == ObjectEventKeyType.PROJECT) {
+            _type_string = _("Task moved to project: %s".printf (
+                Services.Store.instance ().get_project (object_event.object_new_value).name
+            ));
+        } else if (object_event.object_key == ObjectEventKeyType.SECTION) {
+            string section_name = Services.Store.instance ().get_item (object_event.object_id).project.name;
+            if (object_event.object_new_value != "") {
+                section_name = Services.Store.instance ().get_section (object_event.object_new_value).name;
+            }
+
+            _type_string = _("Task moved to: %s".printf (section_name));
+        } else {
+            _type_string = "%s: %s".printf (object_event.event_type.get_label (), object_event.object_key.get_label ());
+        }
+
         var type_string = new Gtk.Label (_type_string) {
             css_classes = { "font-bold" },
             halign = Gtk.Align.START,
-            margin_bottom = 3
+            margin_bottom = 3,
+            ellipsize = Pango.EllipsizeMode.END
         };
 
         var datetime_string = new Gtk.Label (object_event.time) {
@@ -51,7 +73,7 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
             hexpand = true
         };
 
-        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true
         };
         header_box.append (type_string);

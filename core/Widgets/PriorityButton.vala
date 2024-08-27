@@ -25,10 +25,11 @@ public class Widgets.PriorityButton : Adw.Bin {
     private Gtk.Image priority_image;
     private Gtk.Label priority_label;
     private Gtk.MenuButton button; 
-    private Gtk.Popover priority_picker = null;
+    private Gtk.Popover priority_picker;
 
     public signal void changed (int priority);
-
+    public signal void picker_opened (bool active);
+    
     public PriorityButton () {
         Object (
             is_board: false,
@@ -46,11 +47,21 @@ public class Widgets.PriorityButton : Adw.Bin {
     }
 
     construct {
+        priority_picker = build_popover ();
+
         if (is_board) {
             build_card_ui ();
         } else {
             build_ui ();
         }
+
+        priority_picker.closed.connect (() => {
+			picker_opened (false);
+		});
+
+		priority_picker.show.connect (() => {
+			picker_opened (true);
+		});
     }
 
     private void build_ui () {
@@ -61,7 +72,7 @@ public class Widgets.PriorityButton : Adw.Bin {
             valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
             child = priority_image,
-            popover = build_popover (),
+            popover = priority_picker
         };
 
         child = button;
@@ -95,21 +106,14 @@ public class Widgets.PriorityButton : Adw.Bin {
         card_grid.attach (title_label, 1, 0, 1, 1);
         card_grid.attach (priority_label, 1, 1, 1, 1);
 
-        var priority_popover = build_popover ();
-        priority_popover.position = Gtk.PositionType.BOTTOM;
-        priority_popover.has_arrow = true;
-        priority_popover.set_parent (card_grid);
+        button = new Gtk.MenuButton () {
+            popover = priority_picker,
+            child = card_grid,
+            css_classes = { "flat", "card", "activatable", "menu-button-no-padding", "transition" },
+            hexpand = true
+        };
 
-        css_classes = { "card" };
-        child = card_grid;
-        hexpand = true;
-        vexpand = true;
-
-        var click_gesture = new Gtk.GestureClick ();
-        card_grid.add_controller (click_gesture);
-        click_gesture.pressed.connect ((n_press, x, y) => {
-            priority_popover.show ();
-        });
+        child = button;
     }
 
     public Gtk.Popover build_popover () {
@@ -131,33 +135,33 @@ public class Widgets.PriorityButton : Adw.Bin {
         menu_box.append (priority_3_item);
         menu_box.append (priority_4_item);
 
-        priority_picker = new Gtk.Popover () {
+        var popover = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
             position = Gtk.PositionType.BOTTOM
         };
 
         priority_1_item.clicked.connect (() => {
-            priority_picker.popdown ();
+            popover.popdown ();
             changed (Constants.PRIORITY_1);
         });
 
         priority_2_item.clicked.connect (() => {
-            priority_picker.popdown ();
+            popover.popdown ();
             changed (Constants.PRIORITY_2);
         });
 
         priority_3_item.clicked.connect (() => {
-            priority_picker.popdown ();
+            popover.popdown ();
             changed (Constants.PRIORITY_3);
         });
 
         priority_4_item.clicked.connect (() => {
-            priority_picker.popdown ();
+            popover.popdown ();
             changed (Constants.PRIORITY_4);
         });
 
-        return priority_picker;
+        return popover;
     }
     
     public void update_from_item (Objects.Item item) {
@@ -194,5 +198,15 @@ public class Widgets.PriorityButton : Adw.Bin {
     
     public void reset () {
         priority_image.icon_name = "flag-outline-thick-symbolic";
+    }
+
+    public void animation () {
+        if (!button.has_css_class ("fancy-turn-animation")) {
+            button.add_css_class ("fancy-turn-animation");
+            Timeout.add (700, () => {
+                button.remove_css_class ("fancy-turn-animation");
+                return GLib.Source.REMOVE;
+            });
+        }
     }
 }

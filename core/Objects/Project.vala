@@ -37,7 +37,8 @@ public class Objects.Project : Objects.BaseObject {
     public bool inbox_section_hidded { get; set; default = false; }
     public string sync_id { get; set; default = ""; }
     public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
-    
+    public bool show_completed { get; set; default = false; }
+
     ProjectViewStyle _view_style = ProjectViewStyle.LIST;
     public ProjectViewStyle view_style {
         get {
@@ -69,18 +70,6 @@ public class Objects.Project : Objects.BaseObject {
         get {
             _color_hex = Util.get_default ().get_color (color);
             return _color_hex;
-        }
-    }
-
-    bool _show_completed = false;
-    public bool show_completed {
-        get {
-            return _show_completed;
-        }
-
-        set {
-            _show_completed = value;
-            show_completed_changed ();
         }
     }
 
@@ -178,6 +167,14 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    Gee.ArrayList<Objects.Item> _items_pinned;
+    public Gee.ArrayList<Objects.Item> items_pinned {
+        get {
+            _items_pinned = Services.Store.instance ().get_items_by_project_pinned (this);
+            return _items_pinned;
+        }
+    }
+
     Gee.ArrayList<Objects.Project> _subprojects;
     public Gee.ArrayList<Objects.Project> subprojects {
         get {
@@ -198,7 +195,6 @@ public class Objects.Project : Objects.BaseObject {
     public signal void subproject_added (Objects.Project project);
     public signal void item_added (Objects.Item item);
     public signal void item_deleted (Objects.Item item);
-    public signal void show_completed_changed ();
     public signal void sort_order_changed ();
     public signal void section_sort_order_changed ();
     public signal void view_style_changed ();
@@ -252,6 +248,10 @@ public class Objects.Project : Objects.BaseObject {
     public signal void show_multi_select_change ();
 
     construct {
+        updated.connect (() => {
+            print ("updated: %s\n".printf (name));
+        });
+
         Services.EventBus.get_default ().checked_toggled.connect ((item) => {
             if (item.project_id == id) {
                 _project_count = update_project_count ();
@@ -272,7 +272,7 @@ public class Objects.Project : Objects.BaseObject {
             project_count_updated ();
         });
 
-        Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, section_id) => {
+        Services.EventBus.get_default ().item_moved.connect ((item, old_project_id) => {
             if (item.project_id == id || old_project_id == id) {
                 _project_count = update_project_count ();
                 _percentage = update_percentage ();

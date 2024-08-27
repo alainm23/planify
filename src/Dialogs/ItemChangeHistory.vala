@@ -36,6 +36,10 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
         );
     }
 
+    ~ItemChangeHistory () {
+        print ("Destroying Dialogs.ItemChangeHistory\n");
+    }
+
     construct {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class ("flat");
@@ -58,6 +62,7 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
             valign = START,
             css_classes = { "listbox-background" }
         };
+        
         listbox.set_header_func (header_completed_function);
         listbox.set_placeholder (new Gtk.Label (_("Your change history will be displayed here once you start making changes.")) {
             css_classes = { "dim-label" },
@@ -112,6 +117,10 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
             start_week = end_week;
             end_week = end_week + 7;
             fetch_data ();
+        });
+
+        closed.connect (() => {
+            listbox.set_header_func (null);
         });
     }
 

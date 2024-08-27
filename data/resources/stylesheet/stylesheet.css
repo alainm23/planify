@@ -35,6 +35,10 @@ check {
     border-radius: 9px;
 }
 
+.br-12 {
+    border-radius: 12px;
+}
+
 .border-radius-50 {
     border-radius: 9px;
 }
@@ -166,8 +170,8 @@ entry.flat:focus-within {
 }
 
 .row {
-    border-radius: 9px;
-    background-color: transparent;
+    border-radius: 6px;
+    background: transparent;
     transition: all 115ms ease-in-out;
 }
 
@@ -374,10 +378,6 @@ entry.flat:focus-within {
     border-radius: 50%;
 }
 
-.quickfind-item {
-    border-radius: 6px;
-}
-
 .item-label-child {
     background-color: alpha(@colorAccent, 0.125);
     border-radius: 6px;
@@ -459,11 +459,8 @@ entry.flat:focus-within {
     padding: 0;
 }
 
-.popover-no-content > contents {
-    padding: 0;
-}
-
-.fancy-turn-animation {
+.fancy-turn-animation,
+.fancy-turn-animation image {
     animation: fancy-turn 0.7s ease-in-out;
 }
 
@@ -646,4 +643,18 @@ checkbutton.theme-selector radio:checked {
 
 .pinboard-color {
     color: #ed333b;
+}
+
+.bg-danger {
+    background: #f66151;
+}
+
+.menu-button-no-padding > .toggle {
+    padding: 0;
+}
+
+.badge {
+    background: #3584e4;
+    border-radius: 3px;
+    padding: 0 3px;
 }

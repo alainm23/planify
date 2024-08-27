@@ -32,6 +32,8 @@ public class Services.EventBus : Object {
     // Shortcuts
     public signal void disconnect_typing_accel ();
     public signal void connect_typing_accel ();
+    public signal void disconnect_all_accels ();
+    public signal void connect_all_accels ();
 
     // General
     public signal void theme_changed ();
@@ -53,13 +55,7 @@ public class Services.EventBus : Object {
     public signal void update_inserted_item_map (Gtk.Widget row, string old_section_id, string old_parent_id);
     public signal void update_section_sort_func (string project_id, string section_id, bool active);
     public signal void day_changed ();
-    public signal void open_labels ();
-    public signal void close_labels ();
-    public signal void paste_action (string project_id, string content);
-    public signal void new_item_deleted (string project_id);
-    public signal void update_labels_position ();
     public signal void section_sort_order_changed (string project_id);
-    public signal void request_escape ();
     public signal void drag_n_drop_active (string project_id, bool active);
     public signal void expand_all (string project_id, bool active);
     public signal void drag_projects_end (string source_id);
@@ -90,8 +86,6 @@ public class Services.EventBus : Object {
     public signal void select_item (Gtk.Widget itemrow);
     public signal void unselect_item (Gtk.Widget itemrow);
     public signal void unselect_all ();
-    public bool ctrl_pressed { get; set; default = false; }
-    public bool alt_pressed { get; set; default = false; }
 
     // Magic Button
     public signal void magic_button_visible (bool active);

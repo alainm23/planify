@@ -20,9 +20,12 @@
 */
 
 public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
-
 	public signal void pop_subpage ();
 	public signal void popup_toast (string message);
+
+    ~Sidebar() {
+        print ("Destroying Dialogs.Preferences.Pages.Sidebar\n");
+    }
 
     construct {
         var settings_header = new Dialogs.Preferences.SettingsHeader (_("Sidebar"));

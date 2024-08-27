@@ -200,4 +200,30 @@ public class Objects.Label : Objects.BaseObject {
 
         return generator.to_data (null);
     }
+
+    public void delete_label (Gtk.Window window) {
+        var dialog = new Adw.AlertDialog (
+            _("Delete Label %s".printf (name)),
+            _("This can not be undone")
+        );
+
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("delete", _("Delete"));
+        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.present (window);
+
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
+                if (source_type == SourceType.TODOIST) {
+                    loading = true;
+                    Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
+                        Services.Todoist.get_default ().delete.end (res);
+                        Services.Store.instance ().delete_label (this);
+                    });
+                } else {
+                    Services.Store.instance ().delete_label (this);
+                }
+            }
+        });
+    }
 }

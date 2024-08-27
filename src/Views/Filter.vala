@@ -172,11 +172,9 @@ public class Views.Filter : Adw.Bin {
             Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
             dialog.set_priority (priority.priority);
         } else if (filter is Objects.Filters.Tomorrow) {
-            dialog.set_due (Utils.Datetime.get_format_date (
+            dialog.set_due (Utils.Datetime.get_date_only (
                 new GLib.DateTime.now_local ().add_days (1)
             ));
-        } else if (filter is Objects.Filters.Pinboard) {
-            dialog.set_pinned (true);
         }
 
         dialog.present (Planify._instance.main_window);
@@ -438,8 +436,9 @@ public class Views.Filter : Adw.Bin {
 
         if (lbbefore != null) {
             var before = (Layouts.ItemRow) lbbefore;
-            var comp_before = Utils.Datetime.get_date_from_string (before.item.completed_at);
-            if (comp_before.compare (Utils.Datetime.get_date_from_string (row.item.completed_at)) == 0) {
+            var comp_before = Utils.Datetime.get_date_only (Utils.Datetime.get_date_from_string (before.item.completed_at));
+            var comp_after = Utils.Datetime.get_date_only (Utils.Datetime.get_date_from_string (row.item.completed_at));
+            if (comp_before.compare (comp_after) == 0) {
                 return;
             }
         }
@@ -447,7 +446,7 @@ public class Views.Filter : Adw.Bin {
         row.set_header (
             get_header_box (
                 Utils.Datetime.get_relative_date_from_date (
-                    Utils.Datetime.get_date_from_string (row.item.completed_at)
+                    Utils.Datetime.get_date_only (Utils.Datetime.get_date_from_string (row.item.completed_at))
                 )
             )
         );
@@ -471,8 +470,12 @@ public class Views.Filter : Adw.Bin {
     }
 
     private int sort_completed_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow? row2) {
-        var completed_a = Utils.Datetime.get_date_from_string (((Layouts.ItemRow) row1).item.completed_at);
-        var completed_b = Utils.Datetime.get_date_from_string (((Layouts.ItemRow) row2).item.completed_at);
+        var completed_a = Utils.Datetime.get_date_only (
+            Utils.Datetime.get_date_from_string (((Widgets.CompletedTaskRow) row1).item.completed_at)
+        );
+        var completed_b = Utils.Datetime.get_date_only (
+            Utils.Datetime.get_date_from_string (((Widgets.CompletedTaskRow) row2).item.completed_at)
+        );
         return completed_b.compare (completed_a);
     }
 

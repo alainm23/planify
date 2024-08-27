@@ -33,7 +33,17 @@ public class Widgets.SectionPicker.SectionPickerRow : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("quickfind-item");
+        add_css_class ("border-radius-6");
+
+        var color_grid = new Gtk.Grid () {
+			width_request = 3,
+			height_request = 16,
+            margin_top = 0,
+			valign = Gtk.Align.CENTER,
+			css_classes = { "event-bar" }
+		};
+
+        Util.get_default ().set_widget_color (Util.get_default ().get_color (section.color), color_grid);
 
         name_label = new Gtk.Label (section.name);
         name_label.valign = Gtk.Align.CENTER;
@@ -69,6 +79,7 @@ public class Widgets.SectionPicker.SectionPickerRow : Gtk.ListBoxRow {
             margin_bottom = 6
         };
 
+        content_box.append (color_grid);
         content_box.append (name_label);
         content_box.append (selected_revealer);
 

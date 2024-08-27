@@ -376,7 +376,9 @@ public class Services.Backups : Object {
 
         builder.end_object ();
 
-        Json.Generator generator = new Json.Generator ();
+        Json.Generator generator = new Json.Generator () {
+            pretty = true
+        };
         Json.Node root = builder.get_root ();
         generator.set_root (root);
 

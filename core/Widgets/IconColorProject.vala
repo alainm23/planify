@@ -13,6 +13,10 @@ public class Widgets.IconColorProject : Adw.Bin {
         );
     }
 
+    ~IconColorProject() {
+        print ("Destroying Widgets.IconColorProject\n");
+    }
+
     construct {
         circular_progress_bar = new Widgets.CircularProgressBar (pixel_size);
         circular_progress_bar.percentage = 100;
@@ -41,8 +45,12 @@ public class Widgets.IconColorProject : Adw.Bin {
 
         child = stack;
 
-        notify["project"].connect (() => {
+        ulong signal_id = notify["project"].connect (() => {
             update_request ();
+        });
+
+        destroy.connect (() => {
+            disconnect (signal_id);
         });
     }
 

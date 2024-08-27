@@ -23,17 +23,33 @@ public class Dialogs.QuickAdd : Adw.Dialog {
     public Objects.Item item { get; construct; }
     private Layouts.QuickAdd quick_add_widget;
 
+    public QuickAdd () {
+        Object (
+            content_width: 450
+        );
+    }
+
+    ~QuickAdd() {
+        print ("Destroying Dialogs.QuickAdd\n");
+    }
+
     construct {
-        Services.EventBus.get_default ().disconnect_typing_accel ();
+        Services.EventBus.get_default ().disconnect_all_accels ();
 
         quick_add_widget = new Layouts.QuickAdd ();
         child = quick_add_widget;
 
         quick_add_widget.hide_destroy.connect (hide_destroy);
         quick_add_widget.add_item_db.connect ((add_item_db));
+        quick_add_widget.parent_can_close.connect ((active) => {
+            Timeout.add (250, () => {
+                can_close = active;
+                return GLib.Source.REMOVE;
+            });
+        });
 
         closed.connect (() => {
-            Services.EventBus.get_default ().connect_typing_accel ();
+            Services.EventBus.get_default ().connect_all_accels ();
         });
     }
 
@@ -81,10 +97,6 @@ public class Dialogs.QuickAdd : Adw.Dialog {
 
     public void set_due (GLib.DateTime date) {
         quick_add_widget.set_due (date);
-    }
-
-    public void set_pinned (bool pinned) {
-        quick_add_widget.set_pinned (pinned);
     }
 
     public void set_priority (int priority) {

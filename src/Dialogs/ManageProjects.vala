@@ -31,6 +31,10 @@ public class Dialogs.ManageProjects : Adw.Dialog {
         );
     }
 
+    ~ManageProjects() {
+        print ("Destroying Dialogs.ManageProjects\n");
+    }
+
     construct {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class ("flat");

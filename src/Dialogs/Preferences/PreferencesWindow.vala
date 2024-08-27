@@ -27,6 +27,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		);
 	}
 
+	~PreferencesWindow() {
+        print ("Destroying Dialogs.Preferences.PreferencesWindow\n");
+    }
+
 	construct {
 		add (get_preferences_home ());
 		Services.EventBus.get_default ().disconnect_typing_accel ();
@@ -279,6 +283,21 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             }
         });
 
+		var mastodon_row = new Adw.ActionRow ();
+		mastodon_row.activatable = true;
+		mastodon_row.add_prefix (generate_icon ("external-link-symbolic"));
+		mastodon_row.add_suffix (generate_icon ("go-next-symbolic"));
+		mastodon_row.title = _("Mastodon");
+		mastodon_row.subtitle = _("Share some love");
+
+		mastodon_row.activated.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri (Constants.MASTODON_URL, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
 		var supporting_us_row = new Adw.ActionRow ();
 		supporting_us_row.activatable = true;
 		supporting_us_row.add_prefix (generate_icon ("heart-outline-thick-symbolic"));
@@ -291,6 +310,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         });
 
 		reach_us_group.add (contact_us_row);
+		reach_us_group.add (mastodon_row);
 		reach_us_group.add (matrix_row);
 		reach_us_group.add (telegram_row);
 		reach_us_group.add (supporting_us_row);
@@ -600,6 +620,20 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		Services.Settings.get_default ().settings.bind ("open-task-sidebar", attention_at_one, "sensitive", GLib.SettingsBindFlags.INVERT_BOOLEAN);
 
 		group.add (attention_at_one);
+
+		var markdown_item = new Adw.SwitchRow ();
+		markdown_item.title = _("Enable Markdown Formatting");
+		markdown_item.subtitle = _("Toggle Markdown support for tasks on or off");
+		Services.Settings.get_default ().settings.bind ("enable-markdown-formatting", markdown_item, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		group.add (markdown_item);
+
+		var always_show_sidebar_item = new Adw.SwitchRow ();
+		always_show_sidebar_item.title = _("Always Show Details Sidebar");
+		always_show_sidebar_item.subtitle = _("Keep the details panel always visible for easier navigation between tasks, avoiding the need to constantly open and close the panel.");
+		Services.Settings.get_default ().settings.bind ("always-show-details-sidebar", always_show_sidebar_item, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		group.add (always_show_sidebar_item);
 
 		var reminders_group = new Adw.PreferencesGroup () {
 			title = _("Reminders")
@@ -1082,6 +1116,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		command_entry.title = quick_add_command;
 		command_entry.add_css_class ("caption");
 		command_entry.add_css_class ("monospace");
+		command_entry.add_css_class ("property");
 
 		var command_group = new Adw.PreferencesGroup () {
 			margin_top = 12

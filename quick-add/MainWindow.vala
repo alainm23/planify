@@ -1,6 +1,7 @@
 public class MainWindow : Adw.ApplicationWindow {
     private Layouts.QuickAdd quick_add_widget;
 
+    public bool can_close { get; set; default = true; }
     public MainWindow (QuickAdd application) {
         Object (
             application: application,
@@ -26,6 +27,12 @@ public class MainWindow : Adw.ApplicationWindow {
         quick_add_widget.hide_destroy.connect (hide_destroy);
         quick_add_widget.send_interface_id.connect (send_interface_id);
         quick_add_widget.add_item_db.connect ((add_item_db));
+        quick_add_widget.parent_can_close.connect ((active) => {
+            Timeout.add (250, () => {
+                can_close = active;
+                return GLib.Source.REMOVE;
+            });
+        });
     }
 
     private void add_item_db (Objects.Item item, Gee.ArrayList<Objects.Reminder> reminders) {
@@ -59,6 +66,10 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     public void hide_destroy () {
+        if (!can_close) {
+            return;
+        }
+
         hide ();
 
         Timeout.add (500, () => {

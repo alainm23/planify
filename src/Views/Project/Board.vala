@@ -29,13 +29,19 @@ public class Views.Board : Adw.Bin {
 
     private Layouts.SectionBoard inbox_board;
     private Gtk.FlowBox flowbox;
+    private Widgets.PinnedItemsFlowBox pinned_items_flowbox;
 
-    public Gee.HashMap <string, Layouts.SectionBoard> sections_map;
+    public Gee.HashMap <string, Layouts.SectionBoard> sections_map = new Gee.HashMap <string, Layouts.SectionBoard> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public Board (Objects.Project project) {
         Object (
             project: project
         );
+    }
+
+    ~Board () {
+        print ("Destroying Views.Board\n");
     }
 
     construct {
@@ -48,10 +54,11 @@ public class Views.Board : Adw.Bin {
 
         due_revealer = build_due_date_widget ();
 
-        var filters = new Widgets.FilterFlowBox (project) {
+        var filters = new Widgets.FilterFlowBox () {
             valign = Gtk.Align.START,
             vexpand = false,
-            vexpand_set = true
+            vexpand_set = true,
+            base_object = project
         };
 
         filters.flowbox.margin_start = 24;
@@ -59,35 +66,14 @@ public class Views.Board : Adw.Bin {
         filters.flowbox.margin_end = 12;
         filters.flowbox.margin_bottom = 3;
 
-        sections_map = new Gee.HashMap <string, Layouts.SectionBoard> ();
-
+        pinned_items_flowbox = new Widgets.PinnedItemsFlowBox (project);
+        
         flowbox = new Gtk.FlowBox () {
             vexpand = true,
             max_children_per_line = 1,
             orientation = Gtk.Orientation.VERTICAL,
             halign = Gtk.Align.START
         };
-
-        flowbox.set_sort_func ((child1, child2) => {
-            Layouts.SectionBoard item1 = ((Layouts.SectionBoard) child1);
-            Layouts.SectionBoard item2 = ((Layouts.SectionBoard) child2);
-
-            if (item1.is_inbox_section) {
-                return 0;
-            }
-
-            return item1.section.section_order - item2.section.section_order;
-        });
-
-        flowbox.set_filter_func ((child) => {
-            Layouts.SectionBoard item = ((Layouts.SectionBoard) child);
-
-            if (item.is_inbox_section) {
-                return !project.inbox_section_hidded;
-            }
-
-            return !item.section.hidded;
-        });
 
         var flowbox_grid = new Adw.Bin () {
             vexpand = true,
@@ -112,31 +98,23 @@ public class Views.Board : Adw.Bin {
         }
 
         content_box.append (filters);
+        content_box.append (pinned_items_flowbox);
 		content_box.append (flowbox_scrolled);
 
         child = content_box;
         update_request ();
         add_sections ();
 
-        project.section_added.connect ((section) => {
+        signals_map[project.section_added.connect ((section) => {
             add_section (section);
+        })] = project;
 
-            if (section.activate_name_editable) {
-                Timeout.add (175, () => {
-                    flowbox_scrolled.hadjustment.set_value (
-                        flowbox_scrolled.hadjustment.get_upper () - flowbox_scrolled.hadjustment.get_page_size ()
-                    );
-                    return GLib.Source.REMOVE;
-                });
-            }
-        });
-
-        project.section_sort_order_changed.connect (() => {
+        signals_map[project.section_sort_order_changed.connect (() => {
             flowbox.invalidate_sort ();
             flowbox.invalidate_filter ();
-        });
+        })] = project;
 
-        Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
+        signals_map[Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
             if (project.id == old_project_id && sections_map.has_key (section.id)) {
                     sections_map [section.id].hide_destroy ();
                     sections_map.unset (section.id);
@@ -146,36 +124,57 @@ public class Views.Board : Adw.Bin {
                 !sections_map.has_key (section.id)) {
                     add_section (section);
             }
-        });
+        })] = Services.Store.instance ();
 
-        Services.Store.instance ().section_deleted.connect ((section) => {
+        signals_map[Services.Store.instance ().section_deleted.connect ((section) => {
             if (sections_map.has_key (section.id)) {
                 sections_map [section.id].hide_destroy ();
                 sections_map.unset (section.id);
             }
-        });
+        })] = Services.Store.instance ();
 
-        project.updated.connect (() => {
+        signals_map[project.updated.connect (() => {
             update_request ();
+        })] = project;
+
+        flowbox.set_sort_func ((child1, child2) => {
+            Layouts.SectionBoard item1 = ((Layouts.SectionBoard) child1);
+            Layouts.SectionBoard item2 = ((Layouts.SectionBoard) child2);
+
+            if (item1.is_inbox_section) {
+                return 0;
+            }
+
+            return item1.section.section_order - item2.section.section_order;
         });
 
-        description_widget.changed.connect (() => {
+        flowbox.set_filter_func ((child) => {
+            Layouts.SectionBoard item = ((Layouts.SectionBoard) child);
+
+            if (item.is_inbox_section) {
+                return !project.inbox_section_hidded;
+            }
+
+            return !item.section.hidded;
+        });
+        
+        signals_map[description_widget.changed.connect (() => {
             project.description = description_widget.text;
             project.update_local ();
-        });
+        })] = description_widget;
 
-        Services.Store.instance ().section_archived.connect ((section) => {
+        signals_map[Services.Store.instance ().section_archived.connect ((section) => {
             if (sections_map.has_key (section.id)) {
                 sections_map [section.id].hide_destroy ();
                 sections_map.unset (section.id);
             }
-        });
+        })] = Services.Store.instance ();
 
-        Services.Store.instance ().section_unarchived.connect ((section) => {
+        signals_map[Services.Store.instance ().section_unarchived.connect ((section) => {
             if (project.id == section.project_id) {
                 add_section (section);
             }
-        });
+        })] = Services.Store.instance ();
     }
     
     public void update_request () {
@@ -296,5 +295,26 @@ public class Views.Board : Adw.Bin {
         });
 
         return due_revealer;
+    }
+
+    public void clean_up () {
+        flowbox.set_sort_func (null);
+        flowbox.set_filter_func (null);
+
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_flowbox_children (flowbox) ) {
+            ((Layouts.SectionBoard) child).hide_destroy ();
+        }
+
+        // Clear Signals
+        foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+        
+        signals_map.clear ();
+    }
+
+    public override void dispose () {
+        clean_up ();
+        base.dispose ();
     }
 }

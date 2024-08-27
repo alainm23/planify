@@ -39,6 +39,7 @@ public class Services.Database : GLib.Object {
 
     public void init_database () {
         db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
+        print ("DB: %s\n".printf (db_path));
         Sqlite.Database.open (db_path, out db);
 
         create_tables ();
@@ -366,6 +367,53 @@ public class Services.Database : GLib.Object {
                     object_type, object_key, object_old_value, object_new_value, parent_project_id)
                 VALUES ("update", NEW.id, "item", "pinned", OLD.pinned,
                     NEW.pinned, NEW.project_id);
+            END;               
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_checked_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.checked != OLD.checked
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "checked", OLD.checked,
+                    NEW.checked, NEW.project_id);
+            END;               
+        """;
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_section_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.section_id != OLD.section_id
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "section", OLD.section_id,
+                    NEW.section_id, NEW.project_id);
+            END;               
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_project_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.project_id != OLD.project_id
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "project", OLD.project_id,
+                    NEW.project_id, NEW.project_id);
             END;               
         """;
 
@@ -869,8 +917,7 @@ public class Services.Database : GLib.Object {
 
         sql = """
             UPDATE Labels SET name=$name, color=$color, item_order=$item_order,
-                is_deleted=$is_deleted, is_favorite=$is_favorite, backend_type=$backend_type,
-                source_id=$source_id
+                is_deleted=$is_deleted, is_favorite=$is_favorite
             WHERE id=$id;
         """;
 
@@ -880,8 +927,6 @@ public class Services.Database : GLib.Object {
         set_parameter_int (stmt, "$item_order", label.item_order);
         set_parameter_bool (stmt, "$is_deleted", label.is_deleted);
         set_parameter_bool (stmt, "$is_favorite", label.is_favorite);
-        set_parameter_str (stmt, "$backend_type", label.backend_type.to_string ());
-        set_parameter_str (stmt, "$source_id", label.source_id);
         set_parameter_str (stmt, "$id", label.id);
 
         if (stmt.step () != Sqlite.DONE) {
@@ -1254,7 +1299,7 @@ public class Services.Database : GLib.Object {
         return stmt.step () == Sqlite.DONE;
     }
 
-    public bool checked_toggled (Objects.Item item, bool old_checked) {
+    public bool complete_item (Objects.Item item, bool old_checked) {
         Sqlite.Statement stmt;
 
         sql = """

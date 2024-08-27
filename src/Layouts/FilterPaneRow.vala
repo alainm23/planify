@@ -29,11 +29,11 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     private Gtk.Image title_image;
     private Gtk.Label title_label;
     private Gtk.Label count_label;
+    private Gtk.Revealer indicator_revealer;
 
     public FilterPaneRow (FilterType filter_type) {
         Object (
-            filter_type: filter_type,
-            can_focus: false
+            filter_type: filter_type
         );
     }
 
@@ -46,13 +46,31 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
         };        
 
         title_label = new Gtk.Label (filter_type.get_name ()) {
-            hexpand = true,
-            halign = Gtk.Align.START,
             margin_start = 3,
             css_classes = { "font-bold" },
             ellipsize = Pango.EllipsizeMode.END
         };
+
+        var indicator_widget = new Adw.Bin () {
+            width_request = 9,
+			height_request = 9,
+			margin_end = 3,
+            margin_top = 3,
+            valign = END,
+			css_classes = { "indicator" , "bg-danger"}
+        };
         
+        indicator_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = indicator_widget,
+            hexpand = true,
+            halign = END
+        };
+
+        var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        title_box.append (title_label);
+        title_box.append (indicator_revealer);
+
         count_label = new Gtk.Label (null) {
             hexpand = true,
             halign = Gtk.Align.END,
@@ -76,7 +94,7 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
 
         main_grid.attach (title_image, 0, 0, 1, 1);
         main_grid.attach (count_revealer, 1, 0, 1, 1);
-        main_grid.attach (title_label, 0, 1, 2, 2);
+        main_grid.attach (title_box, 0, 1, 2, 2);
 
         child = main_grid;
         Util.get_default ().set_widget_color (filter_type.get_color (), this);
@@ -112,8 +130,10 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     public void init () {
         if (filter_type == FilterType.TODAY) {
             update_count_label (Objects.Filters.Today.get_default ().today_count + Objects.Filters.Today.get_default ().overdeue_count);
+            indicator_revealer.reveal_child = Objects.Filters.Today.get_default ().overdeue_count > 0;
             Objects.Filters.Today.get_default ().today_count_updated.connect (() => {
                 update_count_label (Objects.Filters.Today.get_default ().today_count + Objects.Filters.Today.get_default ().overdeue_count);
+                indicator_revealer.reveal_child = Objects.Filters.Today.get_default ().overdeue_count > 0;
             });
         } else if (filter_type == FilterType.INBOX) {
             init_inbox_count ();            

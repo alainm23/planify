@@ -39,6 +39,7 @@ sources = files(
   'Layouts/SectionBoard.vala',
   'Layouts/HeaderBar.vala',
   'Layouts/SidebarSourceRow.vala',
+  'Layouts/ProjectContainerRow.vala',
   
   'Widgets/ColorPickerRow.vala',
   'Widgets/MagicButton.vala',
@@ -49,16 +50,20 @@ sources = files(
   'Widgets/EventsList.vala',
   'Widgets/EventRow.vala',
   'Widgets/SubItems.vala',
-  'Widgets/LabelChild.vala',
   'Widgets/LabelsSummary.vala',
   'Widgets/SectionsOrderPopover.vala',
   'Widgets/ScrolledWindow.vala',
   'Widgets/ReorderChild.vala',
   'Widgets/FilterFlowBox.vala',
+  'Widgets/FilterFlowBoxChild.vala',
   'Widgets/Attachments.vala',
+  'Widgets/AttachmentRow.vala',
   'Widgets/ItemChangeHistoryRow.vala',
   'Widgets/SourceRow.vala',
   'Widgets/ErrorView.vala',
+  'Widgets/CompletedTaskRow.vala',
+  'Widgets/ItemDetailCompleted.vala',
+  'Widgets/PinnedItemsFlowBox.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',
@@ -88,9 +93,9 @@ sources = files(
   'Dialogs/ManageProjects.vala',
   'Dialogs/DatePicker.vala',
   'Dialogs/LabelPicker.vala',
-  'Dialogs/RepeatConfig.vala',
   'Dialogs/ItemChangeHistory.vala',
   'Dialogs/ErrorDialog.vala',
+  'Dialogs/CompletedTasks.vala',
   
   'Dialogs/QuickFind/QuickFind.vala',
   'Dialogs/QuickFind/QuickFindItem.vala',
@@ -100,4 +105,13 @@ sources = files(
   'Dialogs/Preferences/SettingsHeader.vala',
   'Dialogs/Preferences/Pages/Backup.vala',
   'Dialogs/Preferences/Pages/Sidebar.vala'
+)
+
+executable(
+  application_id,
+  sources,
+  asresources,
+  config_file,
+  dependencies: deps,
+  install: true
 )

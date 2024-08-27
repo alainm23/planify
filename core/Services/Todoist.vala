@@ -24,6 +24,7 @@ public class Services.Todoist : GLib.Object {
 	private Json.Parser parser;
 
 	private const string TODOIST_SYNC_URL = "https://api.todoist.com/sync/v9/sync";
+	private const string RESOURCE_TYPES = "[\"user\", \"projects\", \"sections\", \"items\", \"labels\", \"reminders\"]";
 	private const string PROJECTS_COLLECTION = "projects";
 	private const string SECTIONS_COLLECTION = "sections";
 	private const string ITEMS_COLLECTION = "items";
@@ -92,7 +93,7 @@ public class Services.Todoist : GLib.Object {
 	public async void add_todoist_account (string token, HttpResponse response) {
 		string url = TODOIST_SYNC_URL;
 		url = url + "?sync_token=" + "*";
-		url = url + "&resource_types=" + "[\"all\"]";
+		url = url + "&resource_types=" + RESOURCE_TYPES;
 
 		var message = new Soup.Message ("POST", url);
 		message.request_headers.append ("Authorization", "Bearer %s".printf (token));
@@ -215,7 +216,9 @@ public class Services.Todoist : GLib.Object {
 		
 		string url = TODOIST_SYNC_URL;
 		url = url + "?sync_token=" + source.todoist_data.sync_token;
-		url = url + "&resource_types=" + "[\"all\"]";
+		url = url + "&resource_types=" + RESOURCE_TYPES;
+
+		print ("SYNC URL: %s\n".printf (url));
 
 		var message = new Soup.Message ("POST", url);
 		message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
@@ -327,7 +330,7 @@ public class Services.Todoist : GLib.Object {
 							}
 
 							if (old_checked != item.checked) {
-								Services.Store.instance ().checked_toggled (item, old_checked);
+								Services.Store.instance ().complete_item (item, old_checked);
 							}
 						}
 					} else {
@@ -355,13 +358,12 @@ public class Services.Todoist : GLib.Object {
 				}
 
 				yield queue (source);
-
-				source.last_sync = new GLib.DateTime.now_local ().to_string ();
 			}
 		} catch (Error e) {
 			debug (e.message);
 		}
 
+		source.last_sync = new GLib.DateTime.now_local ().to_string ();
 		source.sync_finished ();
 	}
 
@@ -370,9 +372,13 @@ public class Services.Todoist : GLib.Object {
 	 */
 
 	public async void queue (Objects.Source source) {
-		Gee.ArrayList<Objects.Queue?> queue = Services.Database.get_default ().get_all_queue ();
-		string json = get_queue_json (queue);
+		Gee.ArrayList<Objects.Queue?> queue_collection = Services.Database.get_default ().get_all_queue ();
+		if (queue_collection.size <= 0) {
+			return;
+		}
 
+		string json = get_queue_json (queue_collection);
+		
 		var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
 		message.request_headers.append (
 			"Authorization",
@@ -391,7 +397,7 @@ public class Services.Todoist : GLib.Object {
 		    string sync_token = node.get_string_member ("sync_token");
 			source.todoist_data.sync_token = sync_token;
 
-		    foreach (var q in queue) {
+		    foreach (var q in queue_collection) {
 		        var uuid_member = node.get_object_member ("sync_status").get_member (q.uuid);
 		        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
 		            if (q.query == "project_add") {
@@ -413,14 +419,10 @@ public class Services.Todoist : GLib.Object {
 		            }
 
 		            Services.Database.get_default ().remove_queue (q.uuid);
-		        } else {
-		            //var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-		            //var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-		            //project_added_error (http_code, error_message);
 		        }
 		    }
 		} catch (Error e) {
-
+			debug (e.message);
 		}
 	}
 
@@ -1168,7 +1170,7 @@ public class Services.Todoist : GLib.Object {
 	private void print_root (Json.Node root) {
 		Json.Generator generator = new Json.Generator ();
 		generator.set_root (root);
-		debug (generator.to_data (null) + "\n");
+		print (generator.to_data (null) + "\n");
 	}
 
 	public string get_delete_json (string id, string type, string uuid) {

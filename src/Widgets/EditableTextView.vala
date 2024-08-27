@@ -60,11 +60,17 @@ public class Widgets.EditableTextView : Adw.Bin {
 		}
 	}
 
+	private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+
 	public EditableTextView (string placeholder_text = "") {
 		Object (
 			placeholder_text: placeholder_text
 		);
 	}
+
+	~EditableTextView () {
+        print ("Destroying Widgets.EditableTextView\n");
+    }
 
 	construct {
 		label = new Gtk.Label (null) {
@@ -90,7 +96,7 @@ public class Widgets.EditableTextView : Adw.Bin {
 		stack.add_child (textview);
 
 		child = stack;
-		notify["text"].connect (() => {
+		signal_map[notify["text"].connect (() => {
 			label.label = text;
 			label.opacity = 1;
 
@@ -98,20 +104,31 @@ public class Widgets.EditableTextView : Adw.Bin {
 				label.label = placeholder_text;
 				label.opacity = 0.7;
 			}
-		});
+		})] = this;
 
 		var gesture_click = new Gtk.GestureClick ();
 		add_controller (gesture_click);
-		gesture_click.pressed.connect (() => {
+		signal_map[gesture_click.pressed.connect (() => {
 			editing (true);
-		});
+		})] = gesture_click;
 
-		var gesture = new Gtk.EventControllerFocus ();
-		textview.add_controller (gesture);
-		gesture.leave.connect (() => {
+		var gesture_focus = new Gtk.EventControllerFocus ();
+		textview.add_controller (gesture_focus);
+		signal_map[gesture_focus.leave.connect (() => {
 			if (stack.visible_child == textview) {
 				editing (false);
 			}
-		});
+		})] = gesture_focus;
+
+		destroy.connect (() => {
+			print ("Widgets.EditableTextView Destroyed\n");
+
+            // Clear Signals
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+            
+            signal_map.clear ();
+        });
 	}
 }

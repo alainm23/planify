@@ -59,18 +59,21 @@ public class Widgets.SectionPicker.SectionButton : Adw.Bin {
         card_grid.attach (section_label, 1, 1, 1, 1);
 
         picker = new Widgets.SectionPicker.SectionPicker ();
-        picker.set_parent (card_grid);
 
-        css_classes = { "card" };
-        child = card_grid;
-        hexpand = true;
-        vexpand = true;
+        var menu_button = new Gtk.MenuButton () {
+            popover = picker,
+            child = card_grid,
+            css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
+            hexpand = true
+        };
 
-        var click_gesture = new Gtk.GestureClick ();
-        card_grid.add_controller (click_gesture);
-        click_gesture.pressed.connect ((n_press, x, y) => {
-            picker.show ();
-        });
+        child = menu_button;
+
+        //  var click_gesture = new Gtk.GestureClick ();
+        //  card_grid.add_controller (click_gesture);
+        //  click_gesture.pressed.connect ((n_press, x, y) => {
+        //      picker.show ();
+        //  });
         
         picker.selected.connect ((section) => {
             selected (section);

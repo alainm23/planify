@@ -18,13 +18,13 @@
 *
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
-
 public class Widgets.Attachments : Adw.Bin {
     public bool is_board { get; construct; }
     public Objects.Item item { get; set; }
 
     private Widgets.LoadingButton add_button;
     private Gtk.ListBox listbox;
+    private Gtk.Label count_label;
 
     public bool card {
         set {
@@ -38,8 +38,11 @@ public class Widgets.Attachments : Adw.Bin {
         }
     }
 
-    public Gee.HashMap <string, Widgets.AttachmentRow> attachments = new Gee.HashMap <string, Widgets.AttachmentRow> ();
+    public Gee.HashMap <string, Widgets.AttachmentRow> attachments_map = new Gee.HashMap <string, Widgets.AttachmentRow> ();
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
+
+    public signal void update_count (int count);
+    public signal void file_selector_opened (bool active);
 
     public Attachments (bool is_board = false) {
         Object (
@@ -52,6 +55,12 @@ public class Widgets.Attachments : Adw.Bin {
             css_classes = { "heading", "h4" }
         };
 
+        count_label = new Gtk.Label (null) {
+			margin_start = 9,
+			halign = Gtk.Align.CENTER,
+			css_classes = { "dim-label", "caption" }
+		};
+
         add_button = new Widgets.LoadingButton.with_icon ("plus-large-symbolic", 16) {
             css_classes = { "flat" },
             hexpand = true,
@@ -59,10 +68,11 @@ public class Widgets.Attachments : Adw.Bin {
         };
 
         var headerbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = is_board ? 9 : 0,
-            margin_end = is_board ? 9 : 0
+            margin_start = is_board ? 9 : 6,
+            margin_end = is_board ? 9 : 6
         };
         headerbox.append (title);
+        headerbox.append (count_label);
         headerbox.append (add_button);
 
         listbox = new Gtk.ListBox () {
@@ -88,19 +98,13 @@ public class Widgets.Attachments : Adw.Bin {
             margin_start = is_board ? 3 : 0
         };
 
-        if (!is_board) {
-            content.margin_start = 6;
-            content.margin_top = 6;
-            content.margin_end = 6;
-            content.margin_bottom = 6;
-        }
-
         content.append (headerbox);
         content.append (listbox_card);
 
         child = content;
 
         add_button.clicked.connect (() => {
+            file_selector_opened (true);
             show_file_selector ();
         });
 
@@ -152,6 +156,7 @@ public class Widgets.Attachments : Adw.Bin {
 					upload_files.end (res);
 				});
 
+                file_selector_opened (false);
 			} catch (Error e) {
 				// User dismissing the dialog also ends here so don't make it sound like
 				// it's an error
@@ -205,15 +210,17 @@ public class Widgets.Attachments : Adw.Bin {
         })] = item;
 
         signals_map[item.attachment_deleted.connect ((attachment) => {
-            if (attachments.has_key (attachment.id)) {
-                attachments [attachment.id].hide_destroy ();
-                attachments.unset (attachment.id);
+            if (attachments_map.has_key (attachment.id)) {
+                attachments_map [attachment.id].hide_destroy ();
+                attachments_map.unset (attachment.id);
             }
+
+            update_count_label (attachments_map.size);
         })] = item;
     }
 
     public void add_attachments () {
-        attachments.clear ();
+        attachments_map.clear ();
 
         foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
             listbox.remove (child);
@@ -225,14 +232,16 @@ public class Widgets.Attachments : Adw.Bin {
     }
 
     public void add_attachment (Objects.Attachment attachment) {
-        if (!attachments.has_key (item.id)) {
-            attachments[attachment.id] = new Widgets.AttachmentRow (attachment);
-            listbox.append (attachments[attachment.id]);
+        if (!attachments_map.has_key (item.id)) {
+            attachments_map[attachment.id] = new Widgets.AttachmentRow (attachment);
+            listbox.append (attachments_map[attachment.id]);
         }
+
+        update_count_label (attachments_map.size);
     }
 
     private Gtk.Widget get_placeholder () {
-        var message_label = new Gtk.Label (_("Attach File")) {
+        var message_label = new Gtk.Label (_("No attachments found. Add files here.")) {
             wrap = true,
             justify = Gtk.Justification.CENTER,
             hexpand = true,
@@ -264,87 +273,9 @@ public class Widgets.Attachments : Adw.Bin {
 
         signals_map.clear ();
     }
-}
 
-public class Widgets.AttachmentRow : Gtk.ListBoxRow {
-    public Objects.Attachment attachment { get; construct; }
-    
-    private Gtk.Revealer main_revealer;
-
-    public AttachmentRow (Objects.Attachment attachment) {
-        Object (
-            attachment: attachment
-        );
-    }
-
-    construct {
-        add_css_class ("no-selectable");
-        add_css_class ("transition");
-
-		var name_label = new Gtk.Label (attachment.file_name);
-        name_label.valign = Gtk.Align.CENTER;
-        name_label.ellipsize = Pango.EllipsizeMode.END;
-
-		var close_button = new Widgets.LoadingButton.with_icon ("cross-large-circle-filled-symbolic") {
-			valign = CENTER,
-			halign = END,
-			hexpand = true,
-			css_classes = { "flat" },
-			tooltip_text = _("Delete")
-		};
-
-		var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_top = 3,
-            margin_start = 6,
-            margin_bottom = 3,
-            margin_end = 6
-        };
-
-		content_box.append (new Gtk.Image.from_icon_name ("paper-symbolic"));
-        content_box.append (name_label);
-		content_box.append (close_button);
-
-		main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			child = content_box
-        };
-
-		child = main_revealer;
-
-		Timeout.add (main_revealer.transition_duration, () => {
-            main_revealer.reveal_child = true;
-            return GLib.Source.REMOVE;
-        });
-
-        var gesture = new Gtk.GestureClick ();
-		add_controller (gesture);
-		gesture.pressed.connect (() => {
-            close_button.is_loading = true;
-
-            try {         
-                GLib.AppInfo.launch_default_for_uri (attachment.file_path, null);
-                close_button.is_loading = false;
-            } catch (Error e) {
-                close_button.is_loading = false;
-                Services.EventBus.get_default ().send_toast (
-                    Util.get_default ().create_toast (e.message)
-                );
-            }
-        });
-
-        var remove_gesture = new Gtk.GestureClick ();
-		close_button.add_controller (remove_gesture);
-        remove_gesture.pressed.connect (() => {
-            remove_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-            attachment.delete ();
-        });
-    }
-
-    public void hide_destroy () {
-        main_revealer.reveal_child = false;
-        Timeout.add (main_revealer.transition_duration, () => {
-            ((Gtk.ListBox) parent).remove (this);
-            return GLib.Source.REMOVE;
-        });
-    }
+    private void update_count_label (int count) {
+		count_label.label = count <= 0 ? "" : count.to_string ();
+        update_count (count);
+	}
 }

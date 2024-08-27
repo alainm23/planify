@@ -19,66 +19,45 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.LabelChild : Gtk.FlowBoxChild {
-    public Objects.Label label { get; construct; }
-    
-    private Gtk.Label name_label;
+public class Layouts.ProjectContainerRow : Gtk.ListBoxRow {
+    public Objects.Project project { get; construct; }
+    public bool show_subprojects { get; construct; }
+    public bool drag_n_drop { get; construct; }
+
     private Gtk.Revealer main_revealer;
 
-    public signal void delete_request ();
-
-    public LabelChild (Objects.Label label) {
+    public ProjectContainerRow (Objects.Project project, bool show_subprojects = true, bool drag_n_drop = true) {
         Object (
-            label: label,
-            halign: Gtk.Align.START
+            project: project,
+            show_subprojects: show_subprojects,
+            drag_n_drop: drag_n_drop
         );
     }
 
-    public LabelChild.for_all () {
-        var _label = new Objects.Label ();
-        _label.name = _("All");
-
-        Object (
-            label: _label,
-            halign: Gtk.Align.START
-        );
+    ~ProjectContainerRow() {
+        print ("Destroying Layouts.ProjectContainerRow\n");
     }
 
-    construct {     
-        add_css_class ("item-label-child");
-        
-        name_label = new Gtk.Label (null);
-        name_label.valign = Gtk.Align.CENTER;
-        name_label.add_css_class ("caption");
+    construct {
+        css_classes = { "no-selectable", "no-padding" };
 
-        var labelrow_grid = new Gtk.Grid () {
-            column_spacing = 6
+        var listbox = new Gtk.ListBox () {
+            css_classes = { "listbox-background" }
         };
-        labelrow_grid.attach (name_label, 0, 0);
 
+        listbox.append (new Layouts.ProjectRow (project, drag_n_drop));
+        
         main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
-            child = labelrow_grid
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = listbox
         };
 
         child = main_revealer;
-        update_request ();
 
         Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
         });
-
-        label.deleted.connect (() => {
-            delete_request ();
-        });
-
-        label.updated.connect (update_request);
-    }
-
-    public void update_request () {
-        name_label.label = label.name;
-        Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), this);
     }
 
     public void hide_destroy () {

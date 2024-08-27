@@ -448,7 +448,8 @@ public enum CalDAVType {
 public enum FilterItemType {
 	PRIORITY = 0,
 	LABEL = 1,
-	DUE_DATE = 2;
+	DUE_DATE = 2,
+	SECTION = 3;
 
 	public string to_string () {
 		switch (this) {
@@ -460,6 +461,9 @@ public enum FilterItemType {
 			
 			case DUE_DATE:
 				return "due-date";
+			
+			case SECTION:
+				return "section";
 
 			default:
 				assert_not_reached ();
@@ -477,6 +481,9 @@ public enum FilterItemType {
 			case DUE_DATE:
 				return _("Due Date");
 
+			case SECTION:
+				return _("Section");
+
 			default:
 				assert_not_reached ();
 		}
@@ -492,6 +499,9 @@ public enum FilterItemType {
 
 			case DUE_DATE:
 				return "month-symbolic";
+
+			case SECTION:
+				return "arrow3-right-symbolic";
 
 			default:
 				assert_not_reached ();
@@ -598,7 +608,10 @@ public enum ObjectEventKeyType {
 	DUE,
 	PRIORITY,
 	LABELS,
-	PINNED;
+	PINNED,
+	CHECKED,
+	PROJECT,
+	SECTION;
 
 	public static ObjectEventKeyType parse (string value) {
 		switch (value) {
@@ -619,6 +632,15 @@ public enum ObjectEventKeyType {
 
 			case "pinned":
 				return ObjectEventKeyType.PINNED;
+
+			case "checked":
+				return ObjectEventKeyType.CHECKED;
+			
+			case "project":
+				return ObjectEventKeyType.PROJECT;
+
+			case "section":
+				return ObjectEventKeyType.SECTION;
 
 			default:
 				assert_not_reached ();
@@ -652,6 +674,32 @@ public enum ObjectEventKeyType {
 }
 
 public enum LabelPickerType {
-	SELECT,
-	FILTER
+	FILTER_AND_CREATE,
+	FILTER_ONLY
+}
+
+public enum ItemPriority {
+	HIGHT = 4,
+	MEDIUM = 3,
+	LOW = 2,
+	NONE = 1;
+
+	public static ItemPriority parse (string value) {
+		switch (value) {
+			case "p1":
+				return ItemPriority.HIGHT;
+
+			case "p2":
+				return ItemPriority.MEDIUM;
+			
+			case "p3":
+				return ItemPriority.LOW;
+			
+			case "p4":
+				return ItemPriority.NONE;
+
+			default:
+				return ItemPriority.NONE;
+		}
+	}
 }

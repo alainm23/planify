@@ -1,7 +1,7 @@
 project(
   'io.github.alainm23.planify',
   'vala', 'c',
-  version: '4.10.8'
+  version: '4.11.0'
 )
 
 gnome = import('gnome')
@@ -89,15 +89,6 @@ subdir('quick-add')
 subdir('data')
 # subdir('search-provider')
 subdir('po')
-
-executable(
-  application_id,
-  sources,
-  asresources,
-  config_file,
-  dependencies: deps,
-  install: true
-)
 
 summary({
   'Tracing': get_option('tracing'),

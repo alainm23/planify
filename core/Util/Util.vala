@@ -489,6 +489,25 @@ public class Util : GLib.Object {
         return response;
     }
 
+    public List<Gtk.FlowBoxChild> get_flowbox_children (Gtk.FlowBox list) {
+        List<Gtk.FlowBoxChild> response = new List<Gtk.FlowBoxChild> ();
+
+        Gtk.FlowBoxChild item_row = null;
+        var row_index = 0;
+
+        do {
+            item_row = list.get_child_at_index (row_index);
+
+            if (item_row != null) {
+                response.append (item_row);
+            }
+
+            row_index++;
+        } while (item_row != null);
+
+        return response;
+    }
+
     public Adw.Toast create_toast (string title, uint timeout = 2, Adw.ToastPriority priority = Adw.ToastPriority.NORMAL) {
         var toast = new Adw.Toast (title);
         toast.timeout = timeout;
@@ -743,8 +762,24 @@ We hope you’ll enjoy using Planify!""");
         Services.Store.instance ().insert_label (label_05);
     }
 
-    public string markup_accel_tooltip (string description, string accels) {
-        return "%s\n%s".printf (description, """<span weight="600" size="smaller" alpha="75%">%s</span>""".printf (accels));
+    public string markup_accel_tooltip (string description, string accel) {
+        return "%s\n%s".printf (description, """<span weight="600" size="smaller" alpha="75%">%s</span>""".printf (accel));
+    }
+
+    public string markup_accels_tooltip (string description, string[] accels) {
+        string result = "%s\n".printf (description);
+
+        for (int index = 0; index < accels.length; index++) {
+            string accel = """<span weight="600" size="smaller" alpha="75%">%s</span>""".printf (accels[index]);
+
+            if (index < accels.length - 1) {
+                result += accel + ", ";
+            } else {
+                result += accel;
+            }
+        }
+
+        return result;
     }
 
     /*

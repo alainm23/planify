@@ -20,20 +20,43 @@
 */
 
 public class Widgets.FilterFlowBox : Adw.Bin {
-    public Objects.BaseObject base_object { get; construct; }
+    Objects.BaseObject _base_object = null;
+    public Objects.BaseObject base_object {
+        set {
+            _base_object = value;
+
+            signals_map[_base_object.filter_added.connect ((filter) => {
+                add_filter (filter);
+            })] = _base_object;
+    
+            signals_map[_base_object.filter_removed.connect ((filter) => {
+                remove_filter (filter);
+            })] = _base_object;
+    
+            signals_map[_base_object.filter_updated.connect ((filter) => {
+                update_filter (filter);
+            })] = _base_object;
+
+            add_filters ();
+        }
+
+        get {
+            return _base_object;
+        }
+    }
 
     public Gtk.FlowBox flowbox;
-    private Gee.HashMap<string, Widgets.FilterFlowBoxChild> filters_map;
+    private Gtk.Revealer main_revealer;
+    private Gee.HashMap<string, Widgets.FilterFlowBoxChild> filters_map = new Gee.HashMap<string, Widgets.FilterFlowBoxChild> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    public FilterFlowBox (Objects.BaseObject base_object) {
-        Object (
-            base_object: base_object
-        );
+    public signal void filter_removed (Objects.Filters.FilterItem filter);
+
+    public FilterFlowBox () {
+
     }
 
     construct {
-        filters_map = new Gee.HashMap<string, Widgets.FilterFlowBoxChild> ();
-
         flowbox = new Gtk.FlowBox () {
             column_spacing = 12,
             row_spacing = 12,
@@ -42,32 +65,24 @@ public class Widgets.FilterFlowBox : Adw.Bin {
             homogeneous = false
         };
 
-        var revealer = new Gtk.Revealer () {
+        main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             child = flowbox
         };
 
-        child = revealer;
-        add_filters ();
+        child = main_revealer;
 
-        base_object.filter_added.connect ((filter) => {
-			add_filter (filter);
-            revealer.reveal_child = base_object.filters.size > 0;
-		});
-
-		base_object.filter_removed.connect ((filter) => {
-			remove_filter (filter);
-            revealer.reveal_child = base_object.filters.size > 0;
-		});
-
-        base_object.filter_updated.connect ((filter) => {
-			update_filter (filter);
-            revealer.reveal_child = base_object.filters.size > 0;
-		});
+        destroy.connect (() => {
+            foreach (var entry in signals_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+            
+            signals_map.clear ();
+        });
     }
 
     private void add_filters () {
-        foreach (Objects.Filters.FilterItem filter in base_object.filters.values) {
+        foreach (Objects.Filters.FilterItem filter in _base_object.filters.values) {
             add_filter (filter);
 		}
     }
@@ -76,129 +91,43 @@ public class Widgets.FilterFlowBox : Adw.Bin {
         if (!filters_map.has_key (filter.id)) {
             filters_map[filter.id] = new Widgets.FilterFlowBoxChild (filter);
 
-            filters_map[filter.id].remove_filter.connect ((_filter) => {
-                base_object.remove_filter (_filter);
-            });
+            signals_map[filters_map[filter.id].remove_filter.connect ((_filter) => {
+                if (_base_object != null) {
+                    _base_object.remove_filter (_filter);
+                } else {
+                    remove_filter (_filter);
+                }
+            })] = filters_map[filter.id];
 
             flowbox.append (filters_map[filter.id]);
         }
+
+        main_revealer.reveal_child = filters_map.size > 0;
     }
 
-    public void remove_filter (Objects.Filters.FilterItem filter) {
+    public void remove_filter (Objects.Filters.FilterItem filter) {        
         if (filters_map.has_key (filter.id)) {
             filters_map[filter.id].hide_destroy ();
             filters_map.unset (filter.id);
+            filter_removed (filter);
         }
+
+        main_revealer.reveal_child = filters_map.size > 0;
     }
 
     public void update_filter (Objects.Filters.FilterItem filter) {
         if (filters_map.has_key (filter.id)) {
             filters_map[filter.id].update_request ();
         }
-    }
-}
 
-public class Widgets.FilterFlowBoxChild : Gtk.FlowBoxChild {
-    public Objects.Filters.FilterItem filter { get; construct; }
-    
-    private Gtk.Image image;
-    private Gtk.Label title_label;
-    private Gtk.Label value_label;
-    private Gtk.Revealer main_revealer;
-
-    public signal void remove_filter (Objects.Filters.FilterItem filter);
-
-    public FilterFlowBoxChild (Objects.Filters.FilterItem filter) {
-        Object (
-            filter: filter,
-            valign: Gtk.Align.START,
-            halign: Gtk.Align.START
-        );
+        main_revealer.reveal_child = filters_map.size > 0;
     }
 
-    construct {
-        add_css_class ("card");
+    public Objects.Filters.FilterItem? get_filter (string id) {
+        if (filters_map.has_key (id)) {
+            return filters_map.get (id).filter;
+        }
 
-        image = new Gtk.Image ();
-
-        title_label = new Gtk.Label (null) {
-            halign = START,
-            css_classes = { "title-4", "caption" }
-        };
-
-        value_label = new Gtk.Label (null) {
-            xalign = 0,
-            use_markup = true,
-            halign = START,
-            css_classes = { "caption" }
-        };
-
-        var close_button = new Gtk.Button.from_icon_name ("cross-large-circle-filled-symbolic") {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER,
-            css_classes = { "flat"}
-        };
-
-        var close_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
-            child = close_button,
-            reveal_child = true
-        };
-        
-        var card_grid = new Gtk.Grid () {
-            column_spacing = 12,
-            margin_start = 12,
-            margin_top = 3,
-            margin_bottom = 3,
-            vexpand = true,
-            hexpand = true
-        };
-
-        card_grid.attach (image, 0, 0, 1, 2);
-        card_grid.attach (title_label, 1, 0, 1, 1);
-        card_grid.attach (value_label, 1, 1, 1, 1);
-        card_grid.attach (close_revealer, 2, 0, 1, 2);
-
-        main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
-            child = card_grid
-        };
-
-        child = main_revealer;
-        update_request ();
-        
-        Timeout.add (main_revealer.transition_duration, () => {
-            main_revealer.reveal_child = true;
-            return GLib.Source.REMOVE;
-        });
-        
-        var motion_gesture = new Gtk.EventControllerMotion ();
-        add_controller (motion_gesture);
-
-        motion_gesture.enter.connect (() => {
-            //  close_revealer.reveal_child = true;
-        });
-
-        motion_gesture.leave.connect (() => {
-            //  close_revealer.reveal_child = false;
-        });
-
-        close_button.clicked.connect (() => {
-            remove_filter (filter);
-        });
-    }
-
-    public void update_request () {
-        image.icon_name = filter.filter_type.get_icon ();
-        title_label.label = filter.filter_type.get_title ();
-        value_label.label = filter.name;
-    }
-
-    public void hide_destroy () {
-        main_revealer.reveal_child = false;
-        Timeout.add (main_revealer.transition_duration, () => {
-            ((Gtk.FlowBox) parent).remove (this);
-            return GLib.Source.REMOVE;
-        });
+        return null;
     }
 }

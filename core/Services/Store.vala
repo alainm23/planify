@@ -51,6 +51,7 @@ public class Services.Store : GLib.Object {
     public signal void item_updated (Objects.Item item, string update_id);
     public signal void item_archived (Objects.Item item);
     public signal void item_unarchived (Objects.Item item);
+    public signal void item_pin_change (Objects.Item item);
 
     public signal void item_label_added (Objects.Label label);
     public signal void item_label_deleted (Objects.Label label);
@@ -161,6 +162,7 @@ public class Services.Store : GLib.Object {
     */
 
     public void insert_source (Objects.Source source) {
+        source.child_order = sources.size + 1;
         if (Services.Database.get_default ().insert_source (source)) {
             sources.add (source);
             source_added (source);
@@ -540,7 +542,14 @@ public class Services.Store : GLib.Object {
             item_updated (item, update_id);
         }
     }
-    
+
+    public void update_item_pin (Objects.Item item) {
+        if (Services.Database.get_default ().update_item (item)) {
+            item_pin_change (item);
+            item.pin_updated ();
+        }
+    }
+
     public void delete_item (Objects.Item item) {
         if (Services.Database.get_default ().delete_item (item)) {
             foreach (Objects.Item subitem in get_subitems (item)) {
@@ -558,30 +567,42 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public void move_item (Objects.Item item) {
+    public void move_item (Objects.Item item, string old_section_id = "", string old_parent_id = "") {
         if (Services.Database.get_default ().move_item (item)) {
             foreach (Objects.Item subitem in get_subitems (item)) {
                 subitem.project_id = item.project_id;
                 move_item (subitem);
             }
             
+            get_section (item.section_id).update_count ();
+            get_section (old_section_id).update_count ();
+
             item.updated ();
             item_updated (item, "");
         }
     }
 
-    public void checked_toggled (Objects.Item item, bool old_checked) {
-        if (Services.Database.get_default ().checked_toggled (item, old_checked)) {
-            foreach (Objects.Item subitem in get_subitems (item)) {
-                subitem.checked = item.checked;
-                subitem.completed_at = item.completed_at;
-                checked_toggled (subitem, old_checked);
+    public void complete_item (Objects.Item item, bool old_checked, bool complete_subitems = true) {
+        if (Services.Database.get_default ().complete_item (item, old_checked)) {
+            if (complete_subitems) {
+                foreach (Objects.Item subitem in get_subitems (item)) {
+                    subitem.checked = item.checked;
+                    subitem.completed_at = item.completed_at;
+                    complete_item (subitem, old_checked);
+                }
             }
 
             item.updated ();
             item_updated (item, "");
 
             Services.EventBus.get_default ().checked_toggled (item, old_checked);
+
+            if (item.has_parent && !item.checked) {
+                item.parent.checked = item.checked;
+                item.parent.completed_at = item.completed_at;
+
+                complete_item (item.parent, old_checked, false);
+            }
         }
     }
 
@@ -719,11 +740,37 @@ public class Services.Store : GLib.Object {
         return return_value;
     }
 
+    public Gee.ArrayList<Objects.Item> get_subitems_uncomplete (Objects.Item i) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (var item in items) {
+                if (item.parent_id == i.id && !item.checked) {
+                    return_value.add (item);
+                }
+            }
+        }
+
+        return return_value;
+    }
+
     public Gee.ArrayList<Objects.Item> get_items_by_project (Objects.Project project) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
                 if (item.exists_project (project)) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Item> get_items_by_project_pinned (Objects.Project project) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (item.exists_project (project) && item.pinned) {
                     return_value.add (item);
                 }
             }
@@ -906,9 +953,9 @@ public class Services.Store : GLib.Object {
             return false;
         }
 
-        var date = Utils.Datetime.get_format_date (item.due.datetime);
-        var start = Utils.Datetime.get_format_date (start_date);
-        var end = Utils.Datetime.get_format_date (end_date);
+        var date = Utils.Datetime.get_date_only (item.due.datetime);
+        var start = Utils.Datetime.get_date_only (start_date);
+        var end = Utils.Datetime.get_date_only (end_date);
 
         return (item.checked == checked && date.compare (start) >= 0 && date.compare (end) <= 0);
     }

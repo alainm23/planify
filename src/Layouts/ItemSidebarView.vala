@@ -27,7 +27,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Gtk.Revealer spinner_revealer;
     private Widgets.TextView content_textview;
     private Widgets.Markdown.Buffer current_buffer;
-    private Widgets.Markdown.EditView markdown_edit_view;
+    private Widgets.Markdown.EditView markdown_edit_view = null;
+    private Gtk.Revealer markdown_revealer;
     private Widgets.StatusButton status_button;
     private Widgets.ScheduleButton schedule_button;
     private Widgets.PriorityButton priority_button;
@@ -49,11 +50,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
     public bool show_completed {
         get {
-            if (Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks")) {
-                return true;
-            } else {
-                return item.project.show_completed;
-            }
+            return Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks");
         }
     }
 
@@ -119,7 +116,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             top_margin = 12,
             bottom_margin = 12,
             height_request = 64,
-            wrap_mode = Gtk.WrapMode.WORD
+            wrap_mode = Gtk.WrapMode.WORD,
+            accepts_tab = false
         };
 
         content_textview.remove_css_class ("view");
@@ -163,15 +161,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         properties_group.add (properties_grid);
 
         current_buffer = new Widgets.Markdown.Buffer ();
-
-        markdown_edit_view = new Widgets.Markdown.EditView () {
-            card = true,
-            left_margin = 12,
-            right_margin = 12,
-            top_margin = 12,
-            bottom_margin = 12,
-        };
-        markdown_edit_view.buffer = current_buffer;
+    
+        markdown_revealer = new Gtk.Revealer ();
 
         var description_group = new Adw.PreferencesGroup () {
             margin_start = 12,
@@ -179,7 +170,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             margin_top = 12
         };
 		description_group.title = _("Description");
-        description_group.add (markdown_edit_view);
+        description_group.add (markdown_revealer);
 
         subitems = new Widgets.SubItems.for_board () {
             margin_top = 12
@@ -224,8 +215,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             update_content_description ();
         });
 
-        schedule_button.date_changed.connect ((datetime) => {
-            update_due (datetime);
+        schedule_button.duedate_changed.connect (() => {
+            update_due (schedule_button.duedate);
         });
 
         priority_button.changed.connect ((priority) => {
@@ -246,7 +237,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         });
 
         pin_button.changed.connect (() => {
-            update_pinned (!item.pinned);
+            item.update_pin (!item.pinned);
         });
 
         section_button.selected.connect ((section) => {
@@ -302,11 +293,15 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         item = _item;
         update_id = Util.get_default ().generate_id ();
 
+        build_markdown_edit_view ();
+
         label_button.source = item.project.source;
         update_request ();
+        
         subitems.present_item (item);
-        attachments.present_item (item);
         subitems.reveal_child = true;
+
+        attachments.present_item (item);
         
         if (item.has_parent) {
             parent_label.label = item.parent.content;
@@ -321,6 +316,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             }
         }
 
+        content_textview.grab_focus ();
+
         signals_map[Services.EventBus.get_default ().checked_toggled.connect ((_item) => {
             if (item.id == _item.id) {
                 update_request ();
@@ -331,6 +328,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             if (update_id != _update_id) {
                 update_request ();
             }
+        })] = item;
+
+        signals_map[item.pin_updated.connect (() => {
+            pin_button.update_from_item (item);
         })] = item;
 
         signals_map[item.reminder_added.connect ((reminder) => {
@@ -359,6 +360,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         signals_map.clear ();
         subitems.disconnect_all ();
         attachments.disconnect_all ();
+
+        destroy_markdown_edit_view ();
     }
 
     public void update_request () {
@@ -391,8 +394,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         
         reminder_button.set_reminders (item.reminders);
 
-        content_textview.sensitive = !item.completed;
-        markdown_edit_view.sensitive = !item.completed;
+        content_textview.editable = !item.completed;
+        markdown_edit_view.is_editable = !item.completed;
         schedule_button.sensitive = !item.completed;
         priority_button.sensitive = !item.completed;
         label_button.sensitive = !item.completed;
@@ -406,12 +409,12 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         subitems.add_button.sensitive = !item.completed;
     }
 
-    public void update_due (GLib.DateTime? datetime) {
+    public void update_due (Objects.DueDate duedate) {
         if (item == null) {
             return;
         }
 
-        item.update_due (datetime);
+        item.update_due (duedate);
     }
 
     public void update_labels (Gee.HashMap<string, Objects.Label> new_labels) {
@@ -438,19 +441,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         item.update_async ("");
     }
 
-    public void update_pinned (bool pinned) {
-        item.pinned = pinned;
-        
-        if (item.project.source_type == SourceType.CALDAV) {
-            item.update_async ("");
-        } else {
-            item.update_local ();
-        }
-    }
-
     private Gtk.Popover build_context_menu () {
-        var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
-
         var use_note_item = new Widgets.ContextMenu.MenuSwitch (_("Use as a Note"), "paper-symbolic");
         use_note_item.active = item.item_type == ItemType.NOTE;
 
@@ -468,7 +459,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         var popover = new Gtk.Popover () {
             has_arrow = false,
             position = Gtk.PositionType.BOTTOM,
-            width_request = 225
+            width_request = 250
         };
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -480,8 +471,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             menu_box.append (copy_clipboard_item);
             menu_box.append (duplicate_item);
             menu_box.append (move_item);
-            menu_box.append (repeat_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         }
 
         
@@ -489,15 +478,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (more_information_item);
 
-        var menu_stack = new Gtk.Stack () {
-            transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT,
-            vhomogeneous = false
-        };
-
-        menu_stack.add_named (menu_box, "menu");
-        menu_stack.add_named (get_repeat_widget (popover, back_item), "repeat");
-
-        popover.child = menu_stack;
+        popover.child = menu_box;
 
         use_note_item.activate_item.connect (() => {
             item.item_type = use_note_item.active ? ItemType.NOTE : ItemType.TASK;
@@ -538,18 +519,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             });
         });
 
-        repeat_item.clicked.connect (() => {
-            menu_stack.set_visible_child_name ("repeat");
-        });
-
-        popover.closed.connect (() => {
-            menu_stack.set_visible_child_name ("menu");
-        });
-
-        back_item.clicked.connect (() => {
-            menu_stack.set_visible_child_name ("menu");
-        });
-
         delete_item.activate_item.connect (() => {
             popover.popdown ();
             delete_request ();
@@ -562,99 +531,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         });
 
         return popover;
-    }
-
-    private Gtk.Widget get_repeat_widget (Gtk.Popover popover, Widgets.ContextMenu.MenuItem back_item) {
-        var none_item = new Widgets.ContextMenu.MenuItem (_("None"));
-        var daily_item = new Widgets.ContextMenu.MenuItem (_("Daily"));
-        var weekly_item = new Widgets.ContextMenu.MenuItem (_("Weekly"));
-        var monthly_item = new Widgets.ContextMenu.MenuItem (_("Monthly"));
-        var yearly_item = new Widgets.ContextMenu.MenuItem (_("Yearly"));
-        var custom_item = new Widgets.ContextMenu.MenuItem (_("Custom"));
-        
-        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (back_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (daily_item);
-        menu_box.append (weekly_item);
-        menu_box.append (monthly_item);
-        menu_box.append (yearly_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (none_item);
-        menu_box.append (custom_item);
-        
-        daily_item.clicked.connect (() => {
-            popover.popdown ();
-
-            var duedate = new Objects.DueDate ();
-            duedate.is_recurring = true;
-            duedate.recurrency_type = RecurrencyType.EVERY_DAY;
-            duedate.recurrency_interval = 1;
-
-            item.set_recurrency (duedate);
-        });
-
-        weekly_item.clicked.connect (() => {
-            popover.popdown ();
-
-            var duedate = new Objects.DueDate ();
-            duedate.is_recurring = true;
-            duedate.recurrency_type = RecurrencyType.EVERY_WEEK;
-            duedate.recurrency_interval = 1;
-
-            item.set_recurrency (duedate);
-        });
-
-        monthly_item.clicked.connect (() => {
-            popover.popdown ();
-
-            var duedate = new Objects.DueDate ();
-            duedate.is_recurring = true;
-            duedate.recurrency_type = RecurrencyType.EVERY_MONTH;
-            duedate.recurrency_interval = 1;
-
-            item.set_recurrency (duedate);
-        });
-
-        yearly_item.clicked.connect (() => {
-            popover.popdown ();
-
-            var duedate = new Objects.DueDate ();
-            duedate.is_recurring = true;
-            duedate.recurrency_type = RecurrencyType.EVERY_YEAR;
-            duedate.recurrency_interval = 1;
-
-            item.set_recurrency (duedate);
-        });
-
-        none_item.clicked.connect (() => {
-            popover.popdown ();
-
-            var duedate = new Objects.DueDate ();
-            duedate.is_recurring = false;
-            duedate.recurrency_type = RecurrencyType.NONE;
-            duedate.recurrency_interval = 0;
-
-            item.set_recurrency (duedate);
-        });
-
-        custom_item.clicked.connect (() => {
-            popover.popdown ();
-
-            var dialog = new Dialogs.RepeatConfig ();
-            dialog.present (Planify._instance.main_window);
-
-            if (item.has_due) {
-                dialog.duedate = item.due;
-            }
-
-            dialog.change.connect ((duedate) => {
-                item.set_recurrency (duedate);
-            });
-        });
-
-        return menu_box;
     }
 
     public void move (Objects.Project project, string section_id, string parent_id = "") {
@@ -701,9 +577,11 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         if (active) {
             complete_item (old_checked);
         } else {
+            var old_completed_at = item.completed_at;
+
             item.checked = false;
             item.completed_at = "";
-            _complete_item (old_checked);
+            _complete_item.begin (old_checked, old_completed_at);
         }
     }
 
@@ -715,36 +593,27 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         if (item.due.is_recurring && !item.due.is_recurrency_end) {
             update_next_recurrency ();
         } else {
+            var old_completed_at = item.completed_at;
+
             item.checked = true;
-            item.completed_at = Utils.Datetime.get_format_date (
-                new GLib.DateTime.now_local ()
-            ).to_string ();
-            _complete_item (old_checked);
+            item.completed_at = new GLib.DateTime.now_local ().to_string ();
+            _complete_item (old_checked, old_completed_at);
         }
 	}
 
-    private void _complete_item (bool old_checked) {
-        if (item.project.source_type == SourceType.LOCAL) {
-            Services.Store.instance ().checked_toggled (item, old_checked);
-        } else if (item.project.source_type == SourceType.TODOIST) {
-            item.loading = true;
-            Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.Todoist.get_default ().complete_item.end (res).status) {
-                    Services.Store.instance ().checked_toggled (item, old_checked);
-                }
+    private async void _complete_item (bool old_checked, string old_completed_at) {
+        HttpResponse response = yield item.complete_item (old_checked);
 
-                item.loading = false;
-            });
-        } else if (item.project.source_type == SourceType.CALDAV) {
-            item.loading = true;
-            Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {
-                    Services.Store.instance ().checked_toggled (item, old_checked);
-                }
-
-                item.loading = false;
-            });
+        if (!response.status) {
+            _complete_item_error (response, old_checked, old_completed_at);
         }
+    }
+
+    private void _complete_item_error (HttpResponse response, bool old_checked, string old_completed_at) {
+        item.checked = old_checked;
+        item.completed_at = old_completed_at;
+        
+        Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
     }
 
     private void update_next_recurrency () {
@@ -762,4 +631,35 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 		var toast = Util.get_default ().create_toast (title, 3);
 		Services.EventBus.get_default ().send_toast (toast);
 	}
+
+    private void build_markdown_edit_view () {
+        if (markdown_edit_view != null) {
+            return;
+        }
+
+        markdown_edit_view = new Widgets.Markdown.EditView () {
+            card = true,
+            left_margin = 12,
+            right_margin = 12,
+            top_margin = 12,
+            bottom_margin = 12,
+            margin_top = 3,
+            margin_bottom = 3,
+            margin_start = 3,
+            margin_end = 3
+        };
+        markdown_edit_view.buffer = current_buffer;
+
+        markdown_revealer.child = markdown_edit_view;
+        markdown_revealer.reveal_child = true;
+    }
+
+    private void destroy_markdown_edit_view () {
+        markdown_revealer.reveal_child = false;
+        Timeout.add (markdown_revealer.transition_duration, () => {
+            markdown_revealer.child = null;
+            markdown_edit_view = null;
+            return GLib.Source.REMOVE;
+        });
+    }
 }

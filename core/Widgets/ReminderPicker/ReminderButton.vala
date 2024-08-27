@@ -25,10 +25,12 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
 
     private Gtk.Revealer indicator_revealer;
     private Gtk.Label value_label;
-    private Widgets.ReminderPicker._ReminderPicker picker;
+    private Widgets.ReminderPicker.ReminderPicker picker;
+    private Gtk.MenuButton button;
 
     public signal void reminder_added (Objects.Reminder reminder);
-
+    public signal void picker_opened (bool active);
+    
     public ReminderButton (bool is_creating = false) {
         Object (
             is_board: false,
@@ -48,7 +50,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     }
 
     construct {
-        picker = new Widgets.ReminderPicker._ReminderPicker (is_creating);
+        picker = new Widgets.ReminderPicker.ReminderPicker (is_creating);
 
         if (is_board) {
             var title_label = new Gtk.Label (_("Reminders")) {
@@ -77,18 +79,14 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
             card_grid.attach (title_label, 1, 0, 1, 1);
             card_grid.attach (value_label, 1, 1, 1, 1);
 
-            picker.set_parent (card_grid);
-
-            css_classes = { "card" };
-            child = card_grid;
-            hexpand = true;
-            vexpand = true;
+            button = new Gtk.MenuButton () {
+                popover = picker,
+                child = card_grid,
+                css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
+                hexpand = true
+            };
     
-            var click_gesture = new Gtk.GestureClick ();
-            card_grid.add_controller (click_gesture);
-            click_gesture.pressed.connect ((n_press, x, y) => {
-                picker.show ();
-            });
+            child = button;
         } else {
             var indicator_grid = new Gtk.Grid () {
                 width_request = 9,
@@ -106,7 +104,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
                 sensitive = false,
             };
 
-            var button = new Gtk.MenuButton () {
+            button = new Gtk.MenuButton () {
                 icon_name = "alarm-symbolic",
                 popover = picker,
                 css_classes = { "flat" }
@@ -120,12 +118,23 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
         }
 
         picker.reminder_added.connect ((reminder) => {
-            if (!is_creating) {
-                reminder_added (reminder);
-            } else {
+            reminder_added (reminder);
+
+            if (is_creating) {
                 reminder.id = Util.get_default ().generate_id (reminder);
                 add_reminder (reminder, new Gee.ArrayList<Objects.Reminder> ());
             }
+        });
+
+        picker.reminder_deleted.connect (() => {
+            indicator_revealer.reveal_child = picker.has_reminders;
+        });
+
+        picker.show.connect (() => {
+            picker_opened (true);
+        });
+        picker.closed.connect (() => {
+            picker_opened (false);
         });
     }
 
@@ -139,7 +148,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
             build_value_label (reminders);
         }
 
-        indicator_revealer.reveal_child = reminders.size > 0;
+        indicator_revealer.reveal_child = picker.has_reminders;
     }
 
     public void add_reminder (Objects.Reminder reminder, Gee.ArrayList<Objects.Reminder> reminders) {
@@ -149,7 +158,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
             build_value_label (reminders);
         }
 
-        indicator_revealer.reveal_child = reminders.size > 0;
+        indicator_revealer.reveal_child = picker.has_reminders;
     }
 
     public void delete_reminder (Objects.Reminder reminder, Gee.ArrayList<Objects.Reminder> reminders) {
@@ -162,7 +171,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
             build_value_label (reminders);
         }
 
-        indicator_revealer.reveal_child = reminders.size > 0;
+        indicator_revealer.reveal_child = picker.has_reminders;
     }
 
     private void build_value_label (Gee.ArrayList<Objects.Reminder> reminders) {
@@ -182,5 +191,10 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
 
     public Gee.ArrayList<Objects.Reminder> reminders () {
         return picker.reminders ();
+    }
+
+    public void open_picker (bool suggestions_view = false) {
+        picker.suggestions_view = suggestions_view;
+        button.active = true;
     }
 }

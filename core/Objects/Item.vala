@@ -261,6 +261,14 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    Gee.ArrayList<Objects.Item> _items_uncomplete;
+    public Gee.ArrayList<Objects.Item> items_uncomplete {
+        get {
+            _items_uncomplete = Services.Store.instance ().get_subitems_uncomplete (this);
+            return _items_uncomplete;
+        }
+    }
+
     Gee.ArrayList<Objects.Reminder> _reminders;
     public Gee.ArrayList<Objects.Reminder> reminders {
         get {
@@ -272,10 +280,7 @@ public class Objects.Item : Objects.BaseObject {
     Gee.ArrayList<Objects.Attachment> _attachments;
     public Gee.ArrayList<Objects.Attachment> attachments {
         get {
-            if (_attachments == null) {
-                _attachments = Services.Store.instance ().get_attachments_by_item (this);
-            }
-            
+            _attachments = Services.Store.instance ().get_attachments_by_item (this);
             return _attachments;
         }
     }
@@ -289,6 +294,7 @@ public class Objects.Item : Objects.BaseObject {
     public signal void collapsed_change ();
     public signal void attachment_added (Objects.Attachment attachment);
     public signal void attachment_deleted (Objects.Attachment attachment);
+    public signal void pin_updated ();
 
     public Item.from_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
@@ -459,11 +465,11 @@ public class Objects.Item : Objects.BaseObject {
             checked = true;
             string completed = Util.find_string_value ("COMPLETED", data);
             if (completed != "") {
-                completed_at = Utils.Datetime.get_format_date (
+                completed_at = Utils.Datetime.get_date_only (
                     Utils.Datetime.ical_to_date_time_local (new ICal.Time.from_string (completed))
                 ).to_string ();
             } else {
-                completed_at = Utils.Datetime.get_format_date (new GLib.DateTime.now_local ()).to_string ();
+                completed_at = Utils.Datetime.get_date_only (new GLib.DateTime.now_local ()).to_string ();
             }
         } else {
             checked = false;
@@ -542,11 +548,11 @@ public class Objects.Item : Objects.BaseObject {
             checked = true;
             string completed = Util.find_string_value ("COMPLETED", data);
             if (completed != "") {
-                completed_at = Utils.Datetime.get_format_date (
+                completed_at = Utils.Datetime.get_date_only (
                     Utils.Datetime.ical_to_date_time_local (new ICal.Time.from_string (completed))
                 ).to_string ();
             } else {
-                completed_at = Utils.Datetime.get_format_date (new GLib.DateTime.now_local ()).to_string ();
+                completed_at = Utils.Datetime.get_date_only (new GLib.DateTime.now_local ()).to_string ();
             }
         } else {
             checked = false;
@@ -791,6 +797,39 @@ public class Objects.Item : Objects.BaseObject {
                 loading = false;
             });
         } 
+    }
+
+    public void update_pin (bool _pinned) {
+        if (_pinned && project.items_pinned.size + 1 > 3) {
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (
+                    _("Up to 3 tasks can be pinned and they will appear at the top of the project page"),
+                    3
+                )
+            );
+
+            return;
+        }
+
+        pinned = _pinned; 
+        _update_pin ();
+    }
+
+    private void _update_pin () {
+        if (project.source_type == SourceType.CALDAV) {
+            loading = true;
+            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
+                HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+
+                if (response.status) {
+                    Services.Store.instance ().update_item_pin (this);
+                }
+                
+                loading = false;
+            });
+        } else {
+            Services.Store.instance ().update_item_pin (this);
+        }
     }
 
     public Objects.Reminder? add_reminder_if_not_exists (Objects.Reminder reminder, bool insert_db = true) {
@@ -1541,7 +1580,7 @@ public class Objects.Item : Objects.BaseObject {
         this.section_id = _section_id;
         this.parent_id = "";
 
-        Services.Store.instance ().move_item (this);
+        Services.Store.instance ().move_item (this, old_section_id, old_parent_id);
         Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
         Services.EventBus.get_default ().drag_n_drop_active (old_project_id, false);
         Services.EventBus.get_default ().send_toast (
@@ -1579,8 +1618,13 @@ public class Objects.Item : Objects.BaseObject {
         return text;
     }
 
-    public void update_due (GLib.DateTime? datetime) {
+    public void update_date (GLib.DateTime? datetime) {
         due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
+        update_due (due);
+    }
+
+    public void update_due (Objects.DueDate duedate) {
+        due.date = duedate.date;
 
         if (Services.Settings.get_default ().get_boolean ("automatic-reminders-enabled") && has_time) {
             remove_all_relative_reminders ();
@@ -1638,5 +1682,41 @@ public class Objects.Item : Objects.BaseObject {
                 reminder.delete ();
             }
         }
+    }
+
+    public async HttpResponse complete_item (bool old_checked) {
+        HttpResponse response = new HttpResponse ();
+
+        if (project.source_type == SourceType.LOCAL) {
+            Services.Store.instance ().complete_item (this, old_checked);
+            response.status = true;
+
+            return response;
+        }
+
+        loading = true;
+
+        if (project.source_type == SourceType.TODOIST) {
+            response = yield Services.Todoist.get_default ().complete_item (this);
+        } else {
+            response = yield Services.CalDAV.Core.get_default ().complete_item (this);
+        }
+
+        loading = false;
+        
+        if (response.status) {
+            bool complete_subitems = project.source_type != SourceType.CALDAV;
+            Services.Store.instance ().complete_item (this, old_checked, complete_subitems);
+            if (project.source_type == SourceType.CALDAV) {
+                foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (this)) {
+                    subitem.checked = checked;
+                    subitem.completed_at = completed_at;
+
+                    subitem.complete_item (old_checked);
+                }
+            }
+        }
+
+        return response;
     }
 }

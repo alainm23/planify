@@ -163,6 +163,10 @@ public class Layouts.HeaderItem : Adw.Bin {
         );
     }
 
+    ~HeaderItem () {
+        print ("Destroying Layouts.HeaderItem\n");
+    }
+
     construct {
         header_label = new Gtk.Label (null) {
             halign = Gtk.Align.START,

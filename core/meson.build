@@ -53,6 +53,7 @@ core_files = files(
     'Widgets/DateTimePicker/ScheduleButton.vala',
     'Widgets/DateTimePicker/DateTimePicker.vala',
     'Widgets/DateTimePicker/TimePicker.vala',
+    'Widgets/DateTimePicker/RepeatConfig.vala',
 
     'Widgets/LabelPicker/LabelPicker.vala',
     'Widgets/LabelPicker/LabelRow.vala',
@@ -61,6 +62,7 @@ core_files = files(
     'Widgets/ProjectPicker/ProjectPickerPopover.vala',
     'Widgets/ProjectPicker/ProjectPickerRow.vala',
     'Widgets/ProjectPicker/ProjectPickerButton.vala',
+    'Widgets/ProjectPicker/SectionPickerRow.vala',
 
     'Widgets/SectionPicker/SectionButton.vala',
     'Widgets/SectionPicker/SectionPicker.vala',

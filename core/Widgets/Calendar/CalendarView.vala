@@ -62,13 +62,13 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
         var row = 0;
 
         for (int i = 0; i < 42; i++) {
-            var day = new Widgets.Calendar.CalendarDay ();
+            var calendar_day = new Widgets.Calendar.CalendarDay ();
             
-            day.day_selected.connect ((day) => {
-                day_selected_style (day);
+            calendar_day.day_selected.connect (() => {
+                day_selected_style (calendar_day.day);
             });
 
-            days_grid.attach (day, col, row, 1, 1);
+            days_grid.attach (calendar_day, col, row, 1, 1);
             col = col + 1;
 
             if (col != 0 && col % 7 == 0) {
@@ -76,8 +76,8 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
                 col = 0;
             }
 
-            day.visible = false;
-            days_arraylist.add (day);
+            calendar_day.visible = false;
+            days_arraylist.add (calendar_day);
         }
 
         child = days_grid;
@@ -92,8 +92,8 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
             item.sensitive = true;
             item.visible = true;
 
-            item.remove_css_class ("calendar-today");
-            item.remove_css_class ("calendar-day-selected");
+            item.child.remove_css_class ("today");
+            item.child.remove_css_class ("selected");
 
             if (i < start_day || i >= max_day + start_day) {
                 item.visible = false;
@@ -103,11 +103,11 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
                 }
 
                 if (generate_date (day, day_number).compare (current_date) == 0) {
-                    item.add_css_class ("calendar-today");
+                    item.child.add_css_class ("today");
                 }
 
-                if (show_day && Utils.Datetime.get_format_date (day).compare (generate_date (day, day_number)) == 0) {
-                    item.add_css_class ("calendar-day-selected");
+                if (show_day && Utils.Datetime.get_date_only (day).compare (generate_date (day, day_number)) == 0) {
+                    item.child.add_css_class ("selected");
                 }
 
                 item.day = day_number;
@@ -119,7 +119,7 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
     public void clear_style () {
         for (int i = 0; i < 42; i++) {
             var item = days_arraylist [i];
-            item.remove_css_class ("calendar-day-selected");
+            item.child.remove_css_class ("selected");
         }
     }
 
@@ -139,7 +139,7 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
 
         for (int i = 0; i < 42; i++) {
             var day_item = days_arraylist [i];
-            day_item.remove_css_class ("calendar-day-selected");
+            day_item.child.remove_css_class ("selected");
         }
     }
 }

@@ -19,18 +19,18 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.RepeatConfig : Adw.Dialog {
+public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
     private Gtk.SpinButton recurrency_interval;
     private Gtk.DropDown recurrency_combobox;
     private Gtk.Label repeat_label;
 
-    private Gtk.CheckButton mo_button;
-    private Gtk.CheckButton tu_button;
-    private Gtk.CheckButton we_button;
-    private Gtk.CheckButton th_button;
-    private Gtk.CheckButton fr_button;
-    private Gtk.CheckButton sa_button;
-    private Gtk.CheckButton su_button;
+    private Gtk.ToggleButton mo_button;
+    private Gtk.ToggleButton tu_button;
+    private Gtk.ToggleButton we_button;
+    private Gtk.ToggleButton th_button;
+    private Gtk.ToggleButton fr_button;
+    private Gtk.ToggleButton sa_button;
+    private Gtk.ToggleButton su_button;
 
 
     private Gtk.ToggleButton never_button;
@@ -80,29 +80,34 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
         }
     }
 
-    public signal void change (Objects.DueDate duedate);
+    public signal void duedate_change (Objects.DueDate duedate);
+    public signal void back ();
+
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public RepeatConfig () {
         Object (
-            title: _("Repeat"),
-            content_width: 320
+            title: _("Repeat")
         );
     }
 
+    ~RepeatConfig() {
+        print ("Destroying Dialogs.RepeatConfig\n");
+    }
+
     construct {
-        var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class ("flat");
+        var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
 
         repeat_label = new Gtk.Label (null) {
             margin_top = 9,
             margin_bottom = 9,
             margin_start = 9,
-            margin_end = 9
+            margin_end = 9,
+            ellipsize = Pango.EllipsizeMode.END
         };
 
         var repeat_preview_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_start = 12,
-            margin_end = 12
+            margin_top = 6
         };
         repeat_preview_box.append (repeat_label);
         repeat_preview_box.add_css_class ("card");
@@ -120,33 +125,64 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
 
         recurrency_combobox = new Gtk.DropDown.from_strings (items) {
             hexpand = true,
-            selected = 0,
-            valign = CENTER,
+            vexpand = true,
             selected = 2
         };
 
         var repeat_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
-            margin_start = 12,
-            margin_end = 12,
+            margin_top = 6,
             homogeneous = true
         };
         repeat_box.append (recurrency_interval);
         repeat_box.append (recurrency_combobox);
 
-        mo_button = new Gtk.CheckButton.with_label (_("Monday"));        
-        tu_button = new Gtk.CheckButton.with_label (_("Tuesday"));        
-        we_button = new Gtk.CheckButton.with_label (_("Wednesday"));        
-        th_button = new Gtk.CheckButton.with_label (_("Thursday"));        
-        fr_button = new Gtk.CheckButton.with_label (_("Friday"));        
-        sa_button = new Gtk.CheckButton.with_label (_("Saturday"));
-        su_button = new Gtk.CheckButton.with_label (_("Sunday"));
+        mo_button = new Gtk.ToggleButton.with_label (_("Mo")) {
+            css_classes = { "no-padding", "caption" },
+            width_request = 32,
+            height_request = 32
+        };        
+        
+        tu_button = new Gtk.ToggleButton.with_label (_("Tu")) {
+            css_classes = { "no-padding", "caption" },
+            width_request = 32,
+            height_request = 32
+        };  
+        
+        we_button = new Gtk.ToggleButton.with_label (_("We")) {
+            css_classes = { "no-padding", "caption" },
+            width_request = 32,
+            height_request = 32
+        };       
+        
+        th_button = new Gtk.ToggleButton.with_label (_("Th")) {
+            css_classes = { "no-padding", "caption" },
+            width_request = 32,
+            height_request = 32
+        };        
+        
+        fr_button = new Gtk.ToggleButton.with_label (_("Fr")) {
+            css_classes = { "no-padding", "caption" },
+            width_request = 32,
+            height_request = 32
+        };        
+        
+        sa_button = new Gtk.ToggleButton.with_label (_("Sa")) {
+            css_classes = { "no-padding", "caption" },
+            width_request = 32,
+            height_request = 32
+        };
 
-        var weeks_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+        su_button = new Gtk.ToggleButton.with_label (_("Su")) {
+            css_classes = { "no-padding", "caption" },
+            width_request = 32,
+            height_request = 32
+        };
+
+        var weeks_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
             margin_top = 12,
-            margin_start = 12,
-            margin_end = 12,
+            margin_bottom = 6,
             homogeneous = true
         };
         weeks_box.append (mo_button);
@@ -156,9 +192,6 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
         weeks_box.append (fr_button);
         weeks_box.append (sa_button);
         weeks_box.append (su_button);
-
-        weeks_box.add_css_class ("padding-6");
-        weeks_box.add_css_class ("card");
 
         var weeks_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -182,8 +215,7 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
 			css_classes = { "linked" },
 			hexpand = true,
 			homogeneous = true,
-            margin_start = 12,
-            margin_end = 12
+            margin_top = 6
 		};
 
 		ends_grid.append (never_button);
@@ -200,7 +232,7 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
 
         datepicker_button = new Gtk.MenuButton () {
             label = Utils.Datetime.get_default_date_format_from_date (
-                Utils.Datetime.get_format_date (new GLib.DateTime.now_local ().add_days (1))
+                Utils.Datetime.get_date_only (new GLib.DateTime.now_local ().add_days (1))
             ),
             popover = calendar_popover
         };
@@ -215,9 +247,7 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
         ends_stack = new Gtk.Stack () {
 			hexpand = true,
 			transition_type = Gtk.StackTransitionType.CROSSFADE,
-            margin_start = 12,
-            margin_end = 12,
-            margin_top = 12
+            margin_top = 6
 		};
 
         ends_stack.add_named (new Gtk.Label (null), "never");
@@ -225,57 +255,52 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
         ends_stack.add_named (count_interval, "after");
 
         var submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Done")) {
-            margin_top = 12,
-            margin_start = 12,
-            margin_end = 12,
-            margin_bottom = 12,
+            margin_top = 6,
             vexpand = true,
             valign = Gtk.Align.END
         };
         submit_button.add_css_class ("suggested-action");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            width_request = 225
+            margin_start = 6,
+            margin_end = 6
         };
-        
-        content_box.append (headerbar);
+        content_box.append (new Widgets.ContextMenu.MenuSeparator ());
         content_box.append (new Gtk.Label (_("Summary")) {
             css_classes = { "heading", "h4" },
             margin_top = 6,
-            margin_start = 12,
-            margin_bottom = 6,
             halign = Gtk.Align.START
         });
         content_box.append (repeat_preview_box);
         content_box.append (new Gtk.Label (_("Repeat every")) {
             css_classes = { "heading", "h4" },
-            margin_top = 12,
-            margin_start = 12,
-            margin_bottom = 6,
+            margin_top = 6,
             halign = Gtk.Align.START
         });
         content_box.append (repeat_box);
         content_box.append (weeks_revealer);
         content_box.append (new Gtk.Label (_("End")) {
             css_classes = { "heading", "h4" },
-            margin_top = 12,
-            margin_start = 12,
-            margin_bottom = 6,
+            margin_top = 6,
             halign = Gtk.Align.START
         });
         content_box.append (ends_grid);
         content_box.append (ends_stack);
         content_box.append (submit_button);
 
-        child = content_box;
+        var toolbar_view = new Adw.ToolbarView ();
+        toolbar_view.add_top_bar (back_item);
+		toolbar_view.content = content_box;
+
+        child = toolbar_view;
         update_repeat_label ();
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        recurrency_interval.value_changed.connect (() => {
+        signal_map[recurrency_interval.value_changed.connect (() => {
             update_repeat_label ();
-        });
+        })] = recurrency_interval;
 
-        recurrency_combobox.notify["selected-item"].connect (() => {
+        signal_map[recurrency_combobox.notify["selected-item"].connect (() => {
             if ((RecurrencyType) this.recurrency_combobox.selected == RecurrencyType.EVERY_WEEK) {
                 weeks_revealer.reveal_child = true;
             } else {
@@ -283,66 +308,66 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
             }
 
             update_repeat_label ();
-        });
+        })] = recurrency_combobox;
 
-        mo_button.toggled.connect (() => {
+        signal_map[mo_button.toggled.connect (() => {
             update_repeat_label ();
-        });
+        })] = mo_button;
 
-        tu_button.toggled.connect (() => {
+        signal_map[tu_button.toggled.connect (() => {
             update_repeat_label ();
-        });
+        })] = tu_button;
 
-        we_button.toggled.connect (() => {
+        signal_map[we_button.toggled.connect (() => {
             update_repeat_label ();
-        });
+        })] = we_button;
 
-        th_button.toggled.connect (() => {
+        signal_map[th_button.toggled.connect (() => {
             update_repeat_label ();
-        });
+        })] = th_button;
 
-        fr_button.toggled.connect (() => {
+        signal_map[fr_button.toggled.connect (() => {
             update_repeat_label ();
-        });
+        })] = fr_button;
 
-        sa_button.toggled.connect (() => {
+        signal_map[sa_button.toggled.connect (() => {
             update_repeat_label ();
-        });
+        })] = sa_button;
 
-        su_button.toggled.connect (() => {
+        signal_map[su_button.toggled.connect (() => {
             update_repeat_label ();
-        });
+        })] = su_button;
 
         submit_button.clicked.connect (() => {
             set_repeat ();
         });
 
-        never_button.toggled.connect (() => {
+        signal_map[never_button.toggled.connect (() => {
 			ends_stack.visible_child_name = "never";
             update_repeat_label ();
-		});
+		})] = never_button;
 
-        on_button.toggled.connect (() => {
+        signal_map[on_button.toggled.connect (() => {
 			ends_stack.visible_child_name = "on";
             update_repeat_label ();
-		});
+		})] = on_button;
 
-        after_button.toggled.connect (() => {
+        signal_map[after_button.toggled.connect (() => {
 			ends_stack.visible_child_name = "after";
             update_repeat_label ();
-		});
+		})] = after_button;
 
-        calendar.day_selected.connect (() => {
+        signal_map[calendar.day_selected.connect (() => {
             calendar_popover.popdown ();
             update_repeat_label ();
-        });
+        })] = calendar;
 
-        count_interval.value_changed.connect (() => {
+        signal_map[count_interval.value_changed.connect (() => {
             update_repeat_label ();
-        });
+        })] = count_interval;
 
-        closed.connect (() => {
-            Services.EventBus.get_default ().connect_typing_accel ();
+        back_item.clicked.connect (() => {
+            back ();
         });
     }
 
@@ -366,43 +391,42 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
             duedate.recurrency_weeks = "";
         }
 
-        change (duedate);
-        hide_destroy ();
+        duedate_change (duedate);
     }
 
     private string get_recurrency_weeks () {
         string returned = "";
 
-        if (this.mo_button.active) {
+        if (mo_button.active) {
             returned += "1,";
         }
 
-        if (this.tu_button.active) {
+        if (tu_button.active) {
             returned += "2,";
         }
 
 
-        if (this.we_button.active) {
+        if (we_button.active) {
             returned += "3,";
         }
 
 
-        if (this.th_button.active) {
+        if (th_button.active) {
             returned += "4,";
         }
 
 
-        if (this.fr_button.active) {
+        if (fr_button.active) {
             returned += "5,";
         }
 
 
-        if (this.sa_button.active) {
+        if (sa_button.active) {
             returned += "6,";
         }
 
 
-        if (this.su_button.active) {
+        if (su_button.active) {
             returned += "7,";
         }
 
@@ -417,7 +441,7 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
         var end_label = "";
         if (on_button.active) {
             var date_label = Utils.Datetime.get_default_date_format_from_date (
-                Utils.Datetime.get_format_date (calendar.get_date ())
+                Utils.Datetime.get_date_only (calendar.get_date ())
             );
             end_label = _("until") + " " + date_label;
             datepicker_button.label = date_label;
@@ -434,9 +458,5 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
             end_label
         );
         repeat_label.label = label;
-    }
-
-    public void hide_destroy () {
-        close ();
     }
 }

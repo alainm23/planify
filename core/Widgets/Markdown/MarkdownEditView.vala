@@ -74,11 +74,23 @@
 
     private bool is_ctrl = false;
 
-	public bool is_editable { get; set; }
+	public bool is_editable {
+		set {
+			markdown_view.editable = value;
+		}
+
+		get {
+			return markdown_view.editable;
+		}
+	}
 	public signal void enter ();
     public signal void leave ();
 	public signal void changed ();
 	public signal void escape ();
+
+	~EditView () {
+        print ("Destroying Widgets.Markdown.EditView\n");
+    }
 
     construct {
         markdown_view = new Widgets.Markdown.View () {
@@ -87,7 +99,9 @@
             auto_indent = true,
             wrap_mode = Gtk.WrapMode.CHAR,
             show_gutter = false,
-            height_request = 64
+            height_request = 64,
+			text_mode = !Services.Settings.get_default ().settings.get_boolean ("enable-markdown-formatting"),
+			accepts_tab = false
         };
 
         markdown_view.remove_css_class ("view");
@@ -177,11 +191,11 @@
 			on_dark_changed (Services.Settings.get_default ().settings.get_boolean ("dark-mode"));
 		});
 
-		recolor (Color.RGB ());
-
-		notify["is-editable"].connect (() => {
-			markdown_view.sensitive = is_editable;
+		Services.Settings.get_default ().settings.changed["enable-markdown-formatting"].connect (() => {
+			markdown_view.text_mode = !Services.Settings.get_default ().settings.get_boolean ("enable-markdown-formatting");
 		});
+
+		recolor (Color.RGB ());
     }
 
 	private void handle_focus_in () {

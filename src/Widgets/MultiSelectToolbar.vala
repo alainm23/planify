@@ -132,8 +132,8 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             unselect_all ();
         });
 
-        schedule_button.date_changed.connect ((datetime) => {
-            set_datetime (datetime);
+        schedule_button.duedate_changed.connect (() => {
+            set_datetime (schedule_button.duedate);
         });
 
         label_button.labels_changed.connect ((labels) => {
@@ -169,12 +169,12 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         }
     }
 
-    private void set_datetime (DateTime? datetime) {
+    private void set_datetime (Objects.DueDate duedate) {
         Gee.ArrayList<Objects.Item> objects = new Gee.ArrayList<Objects.Item> ();
         foreach (string key in items_selected.keys) {
             var item = items_selected[key].item;
 
-            item.due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
+            item.due.date = duedate.datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (duedate.datetime);
 
             if (item.due.date == "") {
                 item.due.reset ();

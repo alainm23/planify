@@ -20,17 +20,19 @@
 */
 
 public class Widgets.Calendar.CalendarDay : Adw.Bin {
+    int _day;
     public int day {
         set {
-            label.label = value.to_string ();
+            _day = value;
+            button.label = _day.to_string ();
         }
         get {
-            return int.parse (label.label);
+            return _day;
         }
     }
 
-    private Gtk.Label label;
-    public signal void day_selected (int day);
+    private Gtk.Button button;
+    public signal void day_selected ();
 
     public CalendarDay () {
         Object (
@@ -40,33 +42,15 @@ public class Widgets.Calendar.CalendarDay : Adw.Bin {
     }
 
     construct {
-        label = new Gtk.Label (null) {
-            height_request = 16,
-            width_request = 16,
-            margin_top = 3,
-            margin_start = 3,
-            margin_end = 3,
-            margin_bottom = 3
+        button = new Gtk.Button () {
+            css_classes = { "flat", "calendar-day" }
         };
 
-        var image = new Gtk.Image ();
-        image.gicon = new ThemedIcon ("mail-unread-symbolic");
-        image.pixel_size = 6;
+        child = button;
 
-        var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            halign = Gtk.Align.CENTER,
-            valign = Gtk.Align.CENTER
-        };
-
-        main_grid.append (label);
-
-        child = main_grid;
-
-        var gesture = new Gtk.GestureClick ();
-        add_controller (gesture);
-        gesture.pressed.connect (() => {
-            day_selected (int.parse (label.label));
-            add_css_class ("calendar-day-selected");
+        button.clicked.connect (() => {
+            day_selected ();
+            button.add_css_class ("selected");
         });
     }
 }

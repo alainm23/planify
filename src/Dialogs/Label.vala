@@ -51,6 +51,10 @@ public class Dialogs.Label : Adw.Dialog {
         );
     }
 
+    ~Label() {
+        print ("Destroying Dialogs.Label\n");
+    }
+
     construct {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class ("flat");
@@ -142,57 +146,80 @@ public class Dialogs.Label : Adw.Dialog {
 
     private void add_update_label () {
         if (name_entry.text.length <= 0) {
-            hide_destroy ();
+            close ();
             return;
         }
 
         if (is_creating && is_duplicate (name_entry.text)) {
-            hide_destroy ();
+            close ();
             return; 
         }
+
+        string _name = label.name;
+        string _color = label.color;
 
         label.name = name_entry.text;
         label.color = color_picker_row.color;
 
         if (!is_creating) {
-            submit_button.is_loading = true;
-            if (label.source_type == SourceType.LOCAL || label.source_type == SourceType.CALDAV) {
-                Services.Store.instance ().update_label (label);
-                hide_destroy ();
-            } else if (label.source_type == SourceType.TODOIST) { 
-                Services.Todoist.get_default ().update.begin (label, (obj, res) => {
-                    Services.Todoist.get_default ().update.end (res);
-                    Services.Store.instance ().update_label (label);
-                    submit_button.is_loading = false;
-                    hide_destroy ();
-                });
-            }
+            update_label (_name, _color);
         } else {
-            label.item_order = Services.Store.instance ().get_labels_by_source (label.source_id).size;
-
-            if (label.source_type == SourceType.LOCAL || label.source_type == SourceType.CALDAV) {
-                label.id = Util.get_default ().generate_id (label);
-                Services.Store.instance ().insert_label (label);
-                hide_destroy ();
-            } else if (label.source_type == SourceType.TODOIST) {
-                submit_button.is_loading = true;
-                Services.Todoist.get_default ().add.begin (label, (obj, res) => {
-                    HttpResponse response = Services.Todoist.get_default ().add.end (res);
-
-                    if (response.status) {
-                        label.id = response.data;
-                        Services.Store.instance ().insert_label (label);
-                        hide_destroy ();
-                    } else {
-
-                    }
-                });
-
-            }
+            add_label ();
         }
     }
 
-    public void hide_destroy () {
-        close ();
+    private void update_label (string _name, string _color) {
+        if (label.source_type == SourceType.LOCAL || label.source_type == SourceType.CALDAV) {
+            Services.Store.instance ().update_label (label);
+            close ();
+            return;
+        }
+        
+        if (label.source_type == SourceType.TODOIST) {
+            submit_button.is_loading = true;
+            Services.Todoist.get_default ().update.begin (label, (obj, res) => {
+                submit_button.is_loading = false;
+                HttpResponse response = Services.Todoist.get_default ().update.end (res);
+
+                if (response.status) {
+                    Services.Store.instance ().update_label (label);
+                    close ();
+                } else {
+                    label.name = _name;
+                    label.color = _color;
+
+                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+                    close ();
+                }
+            });
+        }
+    }
+
+    private void add_label () {
+        label.item_order = Services.Store.instance ().get_labels_by_source (label.source_id).size;
+
+        if (label.source_type == SourceType.LOCAL || label.source_type == SourceType.CALDAV) {
+            label.id = Util.get_default ().generate_id (label);
+            Services.Store.instance ().insert_label (label);
+            close ();
+            return;
+        }
+        
+        if (label.source_type == SourceType.TODOIST) {
+            submit_button.is_loading = true;
+            Services.Todoist.get_default ().add.begin (label, (obj, res) => {
+                submit_button.is_loading = false;
+                HttpResponse response = Services.Todoist.get_default ().add.end (res);
+                
+                if (response.status) {
+                    label.id = response.data;
+                    Services.Store.instance ().insert_label (label);
+                    close ();
+                } else {
+                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+                    close ();
+                }
+            });
+        }
     }
 }

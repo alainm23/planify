@@ -26,6 +26,8 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
     private Gtk.ListBox archived_listbox;
     private Widgets.ScrolledWindow scrolled_window;
 
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+
     public ManageSectionOrder (Objects.Project project) {
         Object (
             project: project,
@@ -33,6 +35,10 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
             content_width: 320,
             content_height: 450
         );
+    }
+
+    ~ManageSectionOrder() {
+        print ("Destroying Dialogs.ManageSectionOrder\n");
     }
 
     construct {
@@ -108,19 +114,37 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
             return GLib.Source.REMOVE;
         });
 
-        Services.Store.instance ().section_deleted.connect ((section) => {
+        signal_map[Services.Store.instance ().section_deleted.connect ((section) => {
             if (section.project_id == project.id) {
                 archived_revealer.reveal_child = project.sections_archived.size > 0;
             }
-        });
+        })] = Services.Store.instance ();
 
-        Services.Store.instance ().section_unarchived.connect ((section) => {
+        signal_map[Services.Store.instance ().section_unarchived.connect ((section) => {
             if (section.project_id == project.id) {
                 archived_revealer.reveal_child = project.sections_archived.size > 0;
             }
-        });
+        })] = Services.Store.instance ();
 
         closed.connect (() => {
+            listbox.set_sort_func (null);
+
+            // Clear Signals
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+            
+            signal_map.clear ();
+            
+            //Clear Rows
+            foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
+                listbox.remove (child);
+            }
+
+            foreach (unowned Gtk.Widget child in Util.get_default ().get_children (archived_listbox) ) {
+                archived_listbox.remove (child);
+            }
+
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
@@ -173,10 +197,10 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
     }
 
     public void add_section (Dialogs.ProjectPicker.SectionPickerRow row) {
-        row.update_section.connect (() => {
+        signal_map[row.update_section.connect (() => {
             update_section_section_order ();
             project.section_sort_order_changed ();
-        });
+        })] = row;
 
         listbox.append (row);
     }

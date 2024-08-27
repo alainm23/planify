@@ -175,7 +175,7 @@ public class Widgets.ContextMenu.MenuItemPicker : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("no-selectable");
+        add_css_class ("border-radius-6");
         add_css_class ("transition");
 
         radio_button = new Gtk.CheckButton.with_label (title) {
@@ -199,6 +199,11 @@ public class Widgets.ContextMenu.MenuItemPicker : Gtk.ListBoxRow {
         var gesture = new Gtk.GestureClick ();
         radio_button.add_controller (gesture);
         gesture.pressed.connect (() => {
+            radio_button.active = !radio_button.active;
+            selected (get_index ());
+        });
+
+        activate.connect (() => {
             radio_button.active = !radio_button.active;
             selected (get_index ());
         });

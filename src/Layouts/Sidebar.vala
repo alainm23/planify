@@ -74,6 +74,11 @@ public class Layouts.Sidebar : Adw.Bin {
         filters_flow.append (pinboard_filter);
         filters_flow.append (completed_filter);
 
+        filters_flow.child_activated.connect ((child) => {
+            var filter = (Layouts.FilterPaneRow) child;
+            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, filter.filter_type.to_string ());
+        });
+
         favorites_header = new Layouts.HeaderItem (_("Favorites")) {
             margin_top = 12,
             placeholder_message = _("No favorites available. Create one by clicking on the '+' button")
@@ -221,6 +226,10 @@ public class Layouts.Sidebar : Adw.Bin {
             }
 
             favorites_header.reveal = favorites_hashmap.size > 0;
+        });
+
+        Services.Store.instance ().project_added.connect ((project) => {
+            add_row_favorite (project);
         });
         
         inbox_filter.init ();

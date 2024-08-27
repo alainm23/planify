@@ -26,6 +26,7 @@ public class Views.List : Adw.Bin {
     private Gtk.Label due_label;
     private Gtk.Label days_left_label;
     private Gtk.Revealer due_revealer;
+    private Widgets.PinnedItemsFlowBox pinned_items_flowbox;
 
     private Gtk.ListBox listbox;
     private Layouts.SectionRow inbox_section;
@@ -39,11 +40,16 @@ public class Views.List : Adw.Bin {
     }
 
     public Gee.HashMap <string, Layouts.SectionRow> sections_map;
+    private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public List (Objects.Project project) {
         Object (
             project: project
         );
+    }
+
+    ~List () {
+        print ("Destroying Views.List\n");
     }
 
     construct {
@@ -58,16 +64,19 @@ public class Views.List : Adw.Bin {
 
         due_revealer = build_due_date_widget ();
 
-        var filters = new Widgets.FilterFlowBox (project) {
+        var filters = new Widgets.FilterFlowBox () {
             valign = Gtk.Align.START,
             vexpand = false,
-            vexpand_set = true
+            vexpand_set = true,
+            base_object = project
         };
 
         filters.flowbox.margin_start = 24;
         filters.flowbox.margin_top = 12;
         filters.flowbox.margin_end = 12;
         filters.flowbox.margin_bottom = 3;
+
+        pinned_items_flowbox = new Widgets.PinnedItemsFlowBox (project);
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -77,10 +86,11 @@ public class Views.List : Adw.Bin {
             css_classes = { "listbox-background" }
         };
 
-        var listbox_placeholder = new Adw.StatusPage ();
-        listbox_placeholder.icon_name = "check-round-outline-symbolic";
-        listbox_placeholder.title = _("Add Some Tasks");
-        listbox_placeholder.description = _("Press a to create a new task");
+        var listbox_placeholder = new Adw.StatusPage () {
+            icon_name = "check-round-outline-symbolic",
+            title = _("Add Some Tasks"),
+            description = _("Press a to create a new task")
+        };
 
         listbox_placeholder_stack = new Gtk.Stack () {
             vexpand = true,
@@ -102,8 +112,9 @@ public class Views.List : Adw.Bin {
             content_box.append (description_widget);
             content_box.append (due_revealer);
         }
-
+        
         content_box.append (filters);
+        content_box.append (pinned_items_flowbox);
         content_box.append (listbox_placeholder_stack);
 
         var content_clamp = new Adw.Clamp () {
@@ -126,16 +137,16 @@ public class Views.List : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        project.section_added.connect ((section) => {
+        signals_map[project.section_added.connect ((section) => {
             add_section (section);
-        });
+        })] = project;
 
-        project.section_sort_order_changed.connect (() => {
+        signals_map[project.section_sort_order_changed.connect (() => {
             listbox.invalidate_sort ();
             listbox.invalidate_filter ();
-        });
+        })] = project;
 
-        Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
+        signals_map[Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
             if (project.id == old_project_id && sections_map.has_key (section.id)) {
                     sections_map [section.id].hide_destroy ();
                     sections_map.unset (section.id);
@@ -145,40 +156,24 @@ public class Views.List : Adw.Bin {
                 !sections_map.has_key (section.id)) {
                     add_section (section);
             }
-        });
+        })] = Services.Store.instance ();
 
-        Services.Store.instance ().section_deleted.connect ((section) => {
+        signals_map[Services.Store.instance ().section_deleted.connect ((section) => {
             if (sections_map.has_key (section.id)) {
                 sections_map [section.id].hide_destroy ();
                 sections_map.unset (section.id);
             }
 
             check_placeholder ();
-        });
+        })] = Services.Store.instance ();
 
-        Services.EventBus.get_default ().paste_action.connect ((project_id, content) => {
-            if (project.id == project_id) {
-                prepare_new_item (content);
-            }
-        });
-
-        project.updated.connect (() => {
+        signals_map[project.updated.connect (() => {
             update_request ();
-        });
+        })] = project;
 
-        project.project_count_updated.connect (() => {
+        signals_map[project.project_count_updated.connect (() => {
             check_placeholder ();
-        });
-
-        Services.EventBus.get_default ().new_item_deleted.connect ((project_id) => {
-            if (project.id == project_id) {
-                check_placeholder ();
-            }
-        });
-
-        project.show_completed_changed.connect (() => {
-            check_placeholder ();
-        });
+        })] = project;
 
         listbox.set_sort_func ((row1, row2) => {
             Layouts.SectionRow item1 = ((Layouts.SectionRow) row1);
@@ -201,33 +196,42 @@ public class Views.List : Adw.Bin {
             return !item.section.hidded;
         });
 
-        description_widget.changed.connect (() => {
+        signals_map[description_widget.changed.connect (() => {
             project.description = description_widget.text;
             project.update_local ();
-        });
+        })] = description_widget;
 
-        Services.Store.instance ().section_archived.connect ((section) => {
+        signals_map[Services.Store.instance ().section_archived.connect ((section) => {
             if (sections_map.has_key (section.id)) {
                 sections_map [section.id].hide_destroy ();
                 sections_map.unset (section.id);
             }
 
             check_placeholder ();
-        });
+        })] = Services.Store.instance ();
 
-        Services.Store.instance ().section_unarchived.connect ((section) => {
+        signals_map[Services.Store.instance ().section_unarchived.connect ((section) => {
             if (project.id == section.project_id) {
                 add_section (section);
             }
+        })] = Services.Store.instance ();
+
+        destroy.connect (() => {
+            listbox.set_sort_func (null);
+            listbox.set_filter_func (null);
+
+            // Clear Signals
+            foreach (var entry in signals_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+            
+            signals_map.clear ();
         });
     }
 
     private void check_placeholder () {
         int count = project.project_count + sections_map.size;
-        if (project.show_completed) {
-            count = count + project.items_checked.size;
-        }
-
+        
         if (count > 0) {
             listbox_placeholder_stack.visible_child_name = "listbox";
         } else {
@@ -365,5 +369,22 @@ public class Views.List : Adw.Bin {
         });
 
         return due_revealer;
+    }
+
+    public void clean_up () {
+        listbox.set_sort_func (null);
+        listbox.set_filter_func (null);
+
+        // Clear Signals
+        foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+        
+        signals_map.clear ();
+    }
+
+    public override void dispose () {
+        clean_up ();
+        base.dispose ();
     }
 }
