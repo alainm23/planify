@@ -98,7 +98,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 			_edit = value;
 
 			if (value) {
-				add_css_class ("row");
+				add_css_class ("no-selectable");
 				itemrow_box.add_css_class ("card");
 				itemrow_box.add_css_class ("card-selected");
 
@@ -131,7 +131,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 					return GLib.Source.REMOVE;
 				});
 			} else {
-				remove_css_class ("row");
+				add_css_class ("no-selectable");
 				itemrow_box.remove_css_class ("card-selected");
 				itemrow_box.remove_css_class ("card");
 
@@ -199,10 +199,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 	public ItemRow (Objects.Item item, bool is_project_view = false) {
 		Object (
 			item: item,
-			is_project_view: is_project_view,
-			focusable: false,
-			can_focus: true
-			);
+			is_project_view: is_project_view
+		);
 	}
 
 	~ItemRow () {
@@ -210,7 +208,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 	}
 
 	construct {
-		css_classes = { "no-selectable", "no-padding" };
+		css_classes = { "row", "no-padding" };
 
 		project_id = item.project_id;
 		section_id = item.section_id;
@@ -615,6 +613,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 				});
 			}
 		})] = handle_gesture_click;
+
+		activate.connect (() => {
+			if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
+				Services.EventBus.get_default ().open_item (item);
+			} else {
+				if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
+					Services.EventBus.get_default ().item_selected (item.id);
+				} else {
+					edit = true;
+				}
+			}
+		});
 
 		signals_map[Services.EventBus.get_default ().mobile_mode_change.connect (() => {
 			if (Services.EventBus.get_default ().mobile_mode) {

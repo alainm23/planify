@@ -38,11 +38,7 @@ public class Widgets.PinButton : Gtk.Button {
         pinned_image = new Gtk.Image.from_icon_name ("pin-symbolic");
         child = pinned_image;
 
-        var gesture = new Gtk.GestureClick ();
-        add_controller (gesture);
-
-        gesture.pressed.connect ((n_press, x, y) => {
-            gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+        clicked.connect (() => {
             changed ();
         });
     }

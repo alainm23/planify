@@ -146,7 +146,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 		label_button.source = item.project.source;
 
 		reminder_button = new Widgets.ReminderPicker.ReminderButton (true) {
-			tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Reminders"), "Ctrl+R"),
+			tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Reminders"), "!"),
 		};
 
 		var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
