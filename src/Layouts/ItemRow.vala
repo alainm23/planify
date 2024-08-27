@@ -599,31 +599,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 				selected_toggled (select_checkbutton.active);
 			} else {
 				Timeout.add (100, () => {
-					if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
-						Services.EventBus.get_default ().open_item (item);
-					} else {
-						if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
-							Services.EventBus.get_default ().item_selected (item.id);
-						} else {
-							edit = true;
-						}
-					}
-
+					show_details ();
 					return GLib.Source.REMOVE;
 				});
 			}
 		})] = handle_gesture_click;
 
 		activate.connect (() => {
-			if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
-				Services.EventBus.get_default ().open_item (item);
-			} else {
-				if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
-					Services.EventBus.get_default ().item_selected (item.id);
-				} else {
-					edit = true;
-				}
-			}
+			show_details ();
 		});
 
 		signals_map[Services.EventBus.get_default ().mobile_mode_change.connect (() => {
@@ -824,6 +807,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 				attachments_button.popover.popdown ();
 			}
 		})] = attachments;
+	}
+
+	private void show_details () {
+		if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
+			Services.EventBus.get_default ().open_item (item);
+		} else {
+			if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
+				Services.EventBus.get_default ().item_selected (item.id);
+			} else {
+				edit = true;
+			}
+		}
 	}
 
 	public void check_hide_subtask_button () {
