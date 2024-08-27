@@ -269,7 +269,7 @@ public class MainWindow : Adw.ApplicationWindow {
 				item_sidebar_view.add_css_class ("sidebar");
 			} else {
 				views_split_view.collapsed = true;
-				item_sidebar_view.add_css_class ("false");
+				item_sidebar_view.add_css_class ("sidebar");
 			}
 		});
 	}

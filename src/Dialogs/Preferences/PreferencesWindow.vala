@@ -311,6 +311,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
 		reach_us_group.add (contact_us_row);
 		reach_us_group.add (mastodon_row);
+		reach_us_group.add (tweet_us_row);
 		reach_us_group.add (matrix_row);
 		reach_us_group.add (telegram_row);
 		reach_us_group.add (supporting_us_row);

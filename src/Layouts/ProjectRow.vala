@@ -681,13 +681,15 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         if (!project.is_deck && !project.inbox_project) {
             menu_box.append (edit_item);
         }
-        
-        if (project.source_type == SourceType.CALDAV) {
-            menu_box.append (refresh_item);
-        }
 
         menu_box.append (duplicate_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+
+        if (project.source_type == SourceType.CALDAV) {
+            menu_box.append (refresh_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        }
+
         menu_box.append (share_markdown_item);
         menu_box.append (share_email_item);
 

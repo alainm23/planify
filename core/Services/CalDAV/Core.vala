@@ -57,8 +57,7 @@ public class Services.CalDAV.Core : GLib.Object {
 		Services.CalDAV.Providers.Base provider = providers_map.get (caldav_type.to_string ());
 
 		string url = provider.get_server_url (server_url, username, password);
-		print ("URL: %s\n".printf (url));
-
+		
 		if (Services.Store.instance ().source_caldav_exists (url, username)) {
 			response.error_code = 409;
 			response.error = "Source already exists";
@@ -77,9 +76,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
-
-			print_root ("login", (string) stream.get_data ());
-			print ("login status_code: %s\n".printf (message.status_code.to_string ()));
 
 			if (message.get_status () == Soup.Status.MULTI_STATUS) {
 				var source = new Objects.Source ();
@@ -135,7 +131,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
-			print_root ("first_sync", (string) stream.get_data ());
 
 			GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
 			provider.set_user_data (doc, source);
@@ -173,9 +168,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
 
-			print_root ("get_all_tasklist", (string) stream.get_data ());
-			print ("login status_code: %s\n".printf (message.status_code.to_string ()));
-
 			GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
 			Gee.ArrayList<Objects.Project> projects = provider.get_projects_by_doc (doc, source);
 
@@ -197,7 +189,7 @@ public class Services.CalDAV.Core : GLib.Object {
 			project.source.caldav_data.server_url,
 			project.source.caldav_data.username,
 			project.id
-			);
+		);
 
 		var message = new Soup.Message ("REPORT", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
@@ -210,25 +202,8 @@ public class Services.CalDAV.Core : GLib.Object {
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
-			print_root ("get_all_tasks_by_tasklist", (string) stream.get_data ());
-
 			GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
 			GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
-
-			// Categories
-			Gee.HashMap<string, string> labels_map = new Gee.HashMap<string, string> ();
-			foreach (GXml.DomElement element in response) {
-				setup_categories (element, labels_map);
-			}
-
-			foreach (string category in labels_map.values) {
-				var label = new Objects.Label ();
-				label.id = Util.get_default ().generate_id (label);
-				label.name = category;
-				label.color = Util.get_default ().get_random_color ();
-				label.source_id = project.source_id;
-				Services.Store.instance ().insert_label (label);
-			}
 
 			foreach (GXml.DomElement element in response) {
 				add_item_if_not_exists (element, project);
@@ -238,102 +213,8 @@ public class Services.CalDAV.Core : GLib.Object {
 		}
 	}
 
-	private void setup_categories (GXml.DomElement element, Gee.HashMap<string, string> labels_map) {
-		GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-		GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-		string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
-
-		var categories = Util.find_string_value ("CATEGORIES", data);
-		if (categories != "") {
-			string _categories = categories.replace ("\\,", ";");
-			string[] categories_list = _categories.split (",");
-			foreach (unowned string str in categories_list) {
-				string category = str.replace (";", ",");
-
-				if (!labels_map.has_key (category)) {
-					labels_map.set (category, category);
-				}
-			}
-		}
-	}
-
-	public async void update_all_tasks_by_tasklist (Objects.Project project, Gee.HashMap<string, string> labels_map) {
-		var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
-		var message = new Soup.Message ("REPORT", url);
-		message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
-		message.request_headers.append ("Depth", "1");
-		message.set_request_body_from_bytes ("application/xml", new Bytes (Services.CalDAV.Providers.Nextcloud.TASKS_REQUEST.data));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
-
-		try {
-			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-
-			print_root ("update_all_tasks_by_tasklist", (string) stream.get_data ());
-
-			GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
-			GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
-
-			foreach (GXml.DomElement element in response) {
-				setup_categories (element, labels_map);
-			}
-
-			foreach (string category in labels_map.values) {
-				var label = Services.Store.instance ().get_label_by_name (category, true, project.source_id);
-				if (label == null) {
-					label = new Objects.Label ();
-					label.id = Util.get_default ().generate_id (label);
-					label.name = category;
-					label.color = Util.get_default ().get_random_color ();
-					label.source_id = project.source_id;
-					Services.Store.instance ().insert_label (label);
-				}
-			}
-
-			Gee.HashMap <string, Objects.Item> items_map = new Gee.HashMap <string, Objects.Item> ();
-			foreach (GXml.DomElement element in response) {
-				Objects.Item? item = Services.Store.instance ().get_item (
-					Util.get_task_uid (element)
-					);
-
-				if (item != null) {
-					items_map.set (item.id, item);
-
-					string old_project_id = item.project_id;
-					string old_parent_id = item.parent_id;
-					bool old_checked = item.checked;
-
-					item.update_from_caldav_xml (element);
-					item.project_id = project.id;
-					Services.Store.instance ().update_item (item);
-
-					if (old_project_id != item.project_id || old_parent_id != item.parent_id) {
-						Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
-					}
-
-					if (old_checked != item.checked) {
-						Services.Store.instance ().complete_item (item, old_checked);
-					}
-				} else {
-					item = add_item_if_not_exists (element, project);
-					items_map.set (item.id, item);
-				}
-			}
-
-			foreach (Objects.Item item in project.all_items) {
-				if (!items_map.has_key (item.id)) {
-					Services.Store.instance ().delete_item (item);
-				}
-			}
-		} catch (Error e) {
-			debug (e.message);
-		}
-	}
-
 	private Objects.Item add_item_if_not_exists (GXml.DomElement element, Objects.Project project) {
-		Objects.Item return_value = new Objects.Item.from_caldav_xml (element);
-		return_value.project_id = project.id;
+		Objects.Item return_value = new Objects.Item.from_caldav_xml (element, project.id);
 
 		string parent_id = Util.get_related_to_uid (element);
 		if (parent_id != "") {
@@ -370,8 +251,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-
-			print_root ("sync", (string) stream.get_data ());
 
 			GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
 			GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
@@ -426,8 +305,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
-			print_root ("sync_tasklist", (string) stream.get_data ());
-
 			GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
 			GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
 
@@ -446,7 +323,7 @@ public class Services.CalDAV.Core : GLib.Object {
 					}
 
 					string vtodo = yield get_vtodo_by_url (project, ics);
-
+					
 					ICal.Component ical = new ICal.Component.from_string (vtodo);
 					Objects.Item? item = Services.Store.instance ().get_item (ical.get_uid ());
 
@@ -467,13 +344,9 @@ public class Services.CalDAV.Core : GLib.Object {
 							Services.Store.instance ().complete_item (item, old_checked);
 						}
 					} else {
-						var new_item = new Objects.Item.from_vtodo (vtodo, ics);
-						new_item.project_id = project.id;
-
-						string parent_id = Util.find_string_value ("RELATED-TO", vtodo);
-						if (parent_id != "") {
-							Objects.Item? parent_item = Services.Store.instance ().get_item (parent_id);
-
+						var new_item = new Objects.Item.from_vtodo (vtodo, ics, project.id);
+						if (new_item.has_parent) {
+							Objects.Item? parent_item = new_item.parent;
 							if (parent_item != null) {
 								parent_item.add_item_if_not_exists (new_item);
 							} else {
@@ -509,7 +382,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-			print_root ("get_vtodo_by_url", (string) stream.get_data ());
 			return_value = (string) stream.get_data ();
 		} catch (Error e) {
 			debug (e.message);
@@ -661,8 +533,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
-			print_root ("get_tasklist_detail", (string) stream.get_data ());
-
 			GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
 			GXml.DomHTMLCollection response_collection = doc.get_elements_by_tag_name ("d:response");
 
@@ -699,8 +569,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-
-			print_root ("update_sync_token", (string) stream.get_data ());
 
 			GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
 			GXml.DomHTMLCollection sync_token_collection = doc.get_elements_by_tag_name ("d:sync-token");
@@ -759,7 +627,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-			print_root ("delete_task", (string) stream.get_data ());
 
 			if (message.get_status () == Soup.Status.NO_CONTENT) {
 				response.status = true;
@@ -792,7 +659,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-			print_root ("complete_item", (string) stream.get_data ());
 
 			if (message.get_status () == Soup.Status.NO_CONTENT) {
 				response.status = true;
@@ -825,7 +691,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-			print_root ("move_task", (string) stream.get_data ());
 
 			if (message.get_status () == Soup.Status.CREATED || message.get_status () == Soup.Status.NO_CONTENT) {
 				response.status = true;
@@ -877,10 +742,5 @@ public class Services.CalDAV.Core : GLib.Object {
 		GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
 		GXml.DomElement resourcetype = prop.get_elements_by_tag_name ("d:resourcetype").get_element (0);
 		return resourcetype.get_elements_by_tag_name ("x2:deleted-calendar").length > 0;
-	}
-
-	private void print_root (string fuction, string data) {
-		debug (fuction + "\n");
-		debug (data + "\n");
 	}
 }
