@@ -67,6 +67,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 	construct {
 		item = new Objects.Item ();
 		item.project_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
+		item.priority = Util.get_default ().get_default_priority ();
 
 		if (Services.Settings.get_default ().get_new_task_position () == NewTaskPosition.TOP) {
 			item.child_order = 0;
