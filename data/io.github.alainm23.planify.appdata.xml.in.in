@@ -61,6 +61,14 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.10.8" date="2024-08-20">
+      <description translate="no">
+        <ul>
+          <li>Fixed bug on TLS certificate that didn't allow to sync with Nextcloud (#1405, #1306).</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.10.7" date="2024-08-08">
       <description translate="no">
         <ul>
