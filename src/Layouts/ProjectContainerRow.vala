@@ -34,7 +34,7 @@ public class Layouts.ProjectContainerRow : Gtk.ListBoxRow {
         );
     }
 
-    ~ProjectContainerRow() {
+    ~ProjectContainerRow () {
         print ("Destroying Layouts.ProjectContainerRow\n");
     }
 
