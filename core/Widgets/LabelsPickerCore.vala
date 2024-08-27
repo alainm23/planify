@@ -80,7 +80,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         );
     }
 
-    ~LabelsPickerCore() {
+    ~LabelsPickerCore () {
         print ("Destroying Widgets.LabelsPickerCore\n");
     }
 

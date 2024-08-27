@@ -800,7 +800,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 					motion_top_grid.height_request = 32;
 					motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
 				}
-			}  catch (Error e) {
+			} catch (Error e) {
 				debug (e.message);
 			}
 		})] = drop_motion_ctrl;
