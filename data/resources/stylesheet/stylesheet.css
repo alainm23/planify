@@ -555,6 +555,10 @@ checkbutton.theme-selector radio:checked {
     border-radius: 1px;
 }
 
+.icon-color {
+    color: @colorAccent;
+}
+
 .drop-area {
     background-color: alpha(#1e63ec, 0.25);
     border-radius: 6px;

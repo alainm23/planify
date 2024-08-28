@@ -201,7 +201,7 @@ public class Objects.Label : Objects.BaseObject {
         return generator.to_data (null);
     }
 
-    public void delete_label (Gtk.Window window) {
+    public async void delete_label (Gtk.Window window) {
         var dialog = new Adw.AlertDialog (
             _("Delete Label %s".printf (name)),
             _("This can not be undone")
@@ -220,6 +220,18 @@ public class Objects.Label : Objects.BaseObject {
                         Services.Todoist.get_default ().delete.end (res);
                         Services.Store.instance ().delete_label (this);
                     });
+                } else if (source_type == SourceType.CALDAV) {
+                    loading = true;
+                    foreach (Objects.Item item in Services.Store.instance ().get_items_by_label (this, false)) {
+                        item.delete_item_label (id);
+                        Services.CalDAV.Core.get_default ().add_task.begin (item, true, (obj, res) => {
+                            if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
+                                Services.Store.instance ().update_item (item);
+                            }
+                        });
+                    }
+
+                    Services.Store.instance ().delete_label (this);
                 } else {
                     Services.Store.instance ().delete_label (this);
                 }

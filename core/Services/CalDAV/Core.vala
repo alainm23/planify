@@ -288,6 +288,11 @@ public class Services.CalDAV.Core : GLib.Object {
 	}
 
 	public async void sync_tasklist (Objects.Project project) {
+		if (project.is_deck) {
+			return;
+		}
+
+		project.loading = true;
 		yield update_tasklist_detail (project);
 
 		var url = "%s/calendars/%s/%s".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
@@ -367,6 +372,8 @@ public class Services.CalDAV.Core : GLib.Object {
 		} catch (Error e) {
 			debug (e.message);
 		}
+
+		project.loading = false;
 	}
 
 	private async string? get_vtodo_by_url (Objects.Project project, string task_ics) {

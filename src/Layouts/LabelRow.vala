@@ -26,7 +26,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
     private Gtk.Label count_label;
     private Gtk.Revealer count_revealer;
     private Gtk.Revealer main_revealer;
-    private Gtk.Grid widget_color;
+    private Gtk.Image widget_color;
     private Gtk.Box handle_grid;
 
     public LabelRow (Objects.Label label) {
@@ -36,13 +36,11 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
     }
 
     construct {
-        css_classes = { "selectable-item", "transition" };
-
-        widget_color = new Gtk.Grid () {
+        css_classes = { "row", "transition", "no-padding" };
+        
+        widget_color = new Gtk.Image.from_icon_name ("tag-outline-symbolic") {
+            css_classes = { "icon-color" },
             valign = Gtk.Align.CENTER,
-            height_request = 19,
-            width_request = 19,
-            css_classes = { "circle-color" }
         };
 
         name_label = new Gtk.Label (label.name) {
@@ -122,6 +120,10 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         label.loading_change.connect (() => {
 			loading_button.is_loading = label.loading;
 		});
+
+        loading_button.clicked.connect (() => {
+            Services.EventBus.get_default ().pane_selected (PaneType.LABEL, label.id);
+        });
     }
 
     public void update_request () {

@@ -685,7 +685,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_box.append (duplicate_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 
-        if (project.source_type == SourceType.CALDAV) {
+        if (project.source_type == SourceType.CALDAV && !project.is_deck) {
             menu_box.append (refresh_item);
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         }
@@ -728,12 +728,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         refresh_item.clicked.connect (() => {
             menu_popover.popdown ();
-
-            if (project.sync_id == "") {
-                is_loading = true;
-            } else {
-                sync_project ();
-            }
+            sync_project ();
         });
 
         delete_item.clicked.connect (() => {
@@ -763,11 +758,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void sync_project () {
-        is_loading = true;
-        Services.CalDAV.Core.get_default ().sync_tasklist.begin (project, (obj, res) => {
-            Services.CalDAV.Core.get_default ().sync_tasklist.end (res);
-            is_loading = false;
-        });
+        Services.CalDAV.Core.get_default ().sync_tasklist.begin (project);
     }
 
     private void update_listbox_revealer () {
