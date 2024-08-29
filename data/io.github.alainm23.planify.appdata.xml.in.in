@@ -61,6 +61,30 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.11.0" date="2024-08-28">
+      <description translate="no">
+        <ul>
+          <li>Added feature to collapse sections.</li>
+          <li>A task counter per section has been added.</li>
+          <li>Pinned tasks are now displayed at the start of each project.</li>
+          <li>Added an overdue tasks indicator to the today button.</li>
+          <li>New keyboard shortcuts were added to Quick Add, @ to add tags, # to select a project and ! to create a reminder.</li>
+          <li>A new view has been added to see completed tasks, sorted by date and the possibility to filter by Sections.</li>
+          <li>New task history log added, now it is possible to see when the task was completed, moved between projects or sections.</li>
+          <li>Fixed several bugs when doing Drag and Drop.</li>
+          <li>Quick Find now opens the task detail when selected.</li>
+          <li>Added a preference to enable or disable the use of Markdown in task detail.</li>
+          <li>Improved navigation using the keyboard.</li>
+          <li>In Quick Add, it is now possible to create a section if it does not exist.</li>
+          <li>Added a numerical indicator for the number of attachments.</li>
+          <li>Added preference to keep the task detail pane open, making navigation faster.</li>
+          <li>The option to repeat a task has been moved to the date and time selection widget, allowing you to create recurring tasks more quickly.</li>
+          <li>Fixed several bugs with Nextcloud synchronisation.</li>
+          <li>Several design and optimisation improvements, Planify now feels faster and consumes less resources.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.10.8" date="2024-08-20">
       <description translate="no">
         <ul>

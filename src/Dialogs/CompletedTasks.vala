@@ -140,9 +140,71 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         add_items ();
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        listbox.row_activated.connect ((row) => {
+        signals_map[filters_flowbox.filter_removed.connect (() => {
+            filter_section_id = null;
+            clear_items ();
+            add_items ();
+        })] = filters_flowbox;
+
+        signals_map[search_entry.search_changed.connect (() => {
+            if (search_entry.text == "") {
+                clear_items ();
+                add_items ();
+            }
+
+            filter_section_id = null;
+            listbox.invalidate_filter ();
+        })] = search_entry;
+
+        signals_map[remove_all.clicked.connect (() => {
+			var items = Services.Store.instance ().get_items_checked_by_project (project);
+
+			var dialog = new Adw.AlertDialog (
+			    _("Delete All Completed Tasks"),
+				_("This will delete %d completed tasks and their subtasks from project %s".printf (items.size, project.name))
+			);
+
+			dialog.body_use_markup = true;
+			dialog.add_response ("cancel", _("Cancel"));
+			dialog.add_response ("delete", _("Delete"));
+			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+			dialog.present (Planify._instance.main_window);
+
+			dialog.response.connect ((response) => {
+				if (response == "delete") {
+					delete_all_action (items);
+				}
+			});
+        })] = remove_all;
+
+        signals_map[listbox.row_activated.connect ((row) => {
             view_item (((Widgets.CompletedTaskRow) row).item); 
-        });
+        })] = listbox;
+
+        signals_map[Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
+			if (item.project_id != project.id) {
+                return;
+			}
+
+            if (!old_checked) {
+                if (!items_checked.has_key (item.id)) {
+                    items_checked [item.id] = new Widgets.CompletedTaskRow (item);
+                    listbox.insert (items_checked [item.id], 0);
+                }
+            } else {
+                if (items_checked.has_key (item.id)) {
+                    items_checked [item.id].hide_destroy ();
+                    items_checked.unset (item.id);
+                }
+            }
+		})] = Services.EventBus.get_default ();
+
+        signals_map[Services.Store.instance ().item_deleted.connect ((item) => {
+			if (items_checked.has_key (item.id)) {
+				items_checked [item.id].hide_destroy ();
+				items_checked.unset (item.id);
+			}
+		})] = Services.Store.instance ();
 
         closed.connect (() => {
             listbox.set_sort_func (null);

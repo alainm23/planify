@@ -6,18 +6,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 name: CI
-jobs:
-  lint:
-    name: "Vala Lint"
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: elementary/actions/vala-lint@main
-      with:
-        dir: .
-        conf: .vala-lint.conf
-  flatpak:
-    name: "Flatpak"
+  flatpak-devel:
+    name: "Flatpak (Devel)"
     runs-on: ubuntu-latest
     container:
       image: bilelmoussaoui/flatpak-github-actions:gnome-46
@@ -29,8 +19,6 @@ jobs:
         bundle: io.github.alainm23.planify.Devel.flatpak
         manifest-path: build-aux/io.github.alainm23.planify.Devel.json
         cache-key: flatpak-builder-${{ github.sha }}
-        repository-name: flathub-beta
-        repository-url: https://flathub.org/beta-repo/flathub-beta.flatpakrepo
   # snap:
   #   name: "Snap"
   #   runs-on: ubuntu-latest

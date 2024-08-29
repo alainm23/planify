@@ -134,7 +134,10 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
         content.append (content_group);
         content.append (properties_group);
         content.append (description_group);
-        content.append (subitems_group);
+
+        if (item.items.size > 0) {
+            content.append (subitems_group);
+        }
         
         var scrolled_window = new Widgets.ScrolledWindow (content);
 

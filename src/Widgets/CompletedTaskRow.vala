@@ -39,7 +39,8 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("no-selectable");
+        add_css_class ("row");
+        add_css_class ("no-padding");
 
         checked_button = new Gtk.CheckButton () {
 			valign = Gtk.Align.START,
