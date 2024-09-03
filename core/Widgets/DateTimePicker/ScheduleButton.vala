@@ -24,7 +24,6 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     public string label { get; construct; }
 
     private Gtk.Label due_label;
-    
     private Gtk.Box schedule_box;
     private Gtk.Image due_image;
     private Widgets.DateTimePicker.DateTimePicker datetime_picker;
@@ -121,6 +120,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         var clear_button = new Gtk.Button.from_icon_name ("window-close") {
             css_classes = { "flat" }
         };
+        clear_button.set_tooltip_text ("Clear Schedule");
 
         clear_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
@@ -213,6 +213,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
         due_label.label = Utils.Datetime.get_relative_date_from_date (item.due.datetime);
         due_label.tooltip_text = due_label.label;
+        due_image.tooltip_text = due_label.label;
     
         duedate = item.due;
         
@@ -255,10 +256,14 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     }
 
     public void reset () {
-        due_label.label = label;
-        tooltip_text = label;
         due_image.icon_name = "month-symbolic";
-        duedate = new Objects.DueDate ();
+        due_image.tooltip_text = label;
+        due_label.label = label;
+        due_label.tooltip_text = label;
+        tooltip_text = label;
         datetime_picker.reset ();
+        duedate = new Objects.DueDate ();
+        duedate.datetime = null;
+        duedate_changed ();
     }
 }
