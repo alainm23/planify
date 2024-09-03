@@ -26,7 +26,6 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     private Gtk.Label due_label;
     private Gtk.Box schedule_box;
     private Gtk.Image due_image;
-    private Widgets.DateTimePicker.TimePicker time_picker;
     private Widgets.DateTimePicker.DateTimePicker datetime_picker;
     private Gtk.Revealer clear_revealer;
 
@@ -263,7 +262,6 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         due_label.tooltip_text = label;
         tooltip_text = label;
         datetime_picker.reset ();
-        time_picker.has_time = false;
         duedate = new Objects.DueDate ();
         duedate.datetime = null;
         duedate_changed ();
