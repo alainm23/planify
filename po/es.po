@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-27 05:44-0500\n"
-"PO-Revision-Date: 2024-07-29 11:41-0400\n"
+"PO-Revision-Date: 2024-08-29 16:08-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -246,9 +246,8 @@ msgid "Create More"
 msgstr "Crear más"
 
 #: core/QuickAdd.vala:206
-#, fuzzy
 msgid "Select a Project"
-msgstr "Eliminar proyecto"
+msgstr "Seleccionar un proyecto"
 
 #: core/QuickAdd.vala:232
 msgid ""
@@ -773,9 +772,8 @@ msgid "Priority 1: Low"
 msgstr "Prioridad 1: Baja"
 
 #: core/Widgets/StatusButton.vala:33
-#, fuzzy
 msgid "Set The Status"
-msgstr "Establecer prioridad"
+msgstr "Establecer el estado"
 
 #: core/Widgets/StatusButton.vala:40
 msgid "Status"
@@ -915,9 +913,8 @@ msgid "Clear"
 msgstr "Eliminar"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:234
-#, fuzzy
 msgid "Menu"
-msgstr "Menú principal"
+msgstr "Menú"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:238
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:269
@@ -927,9 +924,8 @@ msgid "Back"
 msgstr "Atrás"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:265
-#, fuzzy
 msgid "Calendar"
-msgstr "Eventos del calendario"
+msgstr "Calendario"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:272
 msgid "Daily"
@@ -952,9 +948,8 @@ msgid "Custom"
 msgstr "Personalizado"
 
 #: core/Widgets/DateTimePicker/TimePicker.vala:110
-#, fuzzy
 msgid "Add Time"
-msgstr "Hora"
+msgstr "Añadir tiempo"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:79
 #: core/Widgets/LabelPicker/LabelButton.vala:134
@@ -962,9 +957,8 @@ msgid "Select Labels"
 msgstr "Seleccionar etiquetas"
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:62
-#, fuzzy
 msgid "Your list of section will show up here."
-msgstr "Su lista de filtros aparecerá aquí."
+msgstr "Su lista de secciones aparecerá aquí."
 
 #. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:89
@@ -1004,32 +998,29 @@ msgstr "Añadir recordatorio"
 
 # # c-format
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:208
-#, fuzzy
 msgid "In 5 minutes"
-msgstr "Cada %d minutos"
+msgstr "En 5 minutos"
 
 # # c-format
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:209
-#, fuzzy
 msgid "In 15 minutes"
-msgstr "Cada %d minutos"
+msgstr "En 15 minutos"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:210
-#, fuzzy
 msgid "In 30 minutes"
-msgstr "30 minutos antes"
+msgstr "En 30 minutos"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:211
 msgid "In 1 hour"
-msgstr ""
+msgstr "En 1 hora"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:212
 msgid "In 3 hours"
-msgstr ""
+msgstr "En 3 horas"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:213
 msgid "In 6 hours"
-msgstr ""
+msgstr "En 6 horas"
 
 #: core/Widgets/Markdown/MarkdownEditView.vala:140
 #: core/Widgets/Markdown/MarkdownEditView.vala:152
@@ -1043,6 +1034,8 @@ msgid ""
 "Up to 3 tasks can be pinned and they will appear at the top of the project "
 "page"
 msgstr ""
+"Se pueden fijar hasta 3 tareas, que aparecerán en la parte superior de la "
+"página del proyecto"
 
 #: core/Objects/Item.vala:1360
 msgid "Task copied to clipboard"
@@ -1392,7 +1385,7 @@ msgstr "Agregar archivos adjuntos"
 #: src/Layouts/ItemBoard.vala:124 src/Layouts/ItemBoard.vala:634
 #: src/Layouts/ItemBoard.vala:647
 msgid "Unpin"
-msgstr ""
+msgstr "Soltar"
 
 #: src/Layouts/ItemRow.vala:1034 src/Layouts/ItemBoard.vala:649
 #: src/Views/Project/Project.vala:484 src/Views/Project/Project.vala:620
@@ -1534,7 +1527,7 @@ msgstr "Subtareas"
 
 #: src/Widgets/SubItems.vala:448
 msgid "No subtasks added yet. Get started!"
-msgstr ""
+msgstr "Aún no se han añadido subtareas. ¡Empieza!"
 
 #: src/Widgets/SectionsOrderPopover.vala:39 src/Views/Project/Project.vala:282
 #: src/Dialogs/Section.vala:100
@@ -1552,29 +1545,27 @@ msgstr "Abrir"
 
 #: src/Widgets/Attachments.vala:244
 msgid "No attachments found. Add files here."
-msgstr ""
+msgstr "No se han encontrado archivos adjuntos. Añadir archivos aquí."
 
 #: src/Widgets/ItemChangeHistoryRow.vala:47
-#, fuzzy
 msgid "Task completed"
-msgstr "completado"
+msgstr "Tarea completada"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:47
-#, fuzzy
 msgid "Task uncompleted"
-msgstr "completado"
+msgstr "Tarea no completada"
 
 # # c-format
 #: src/Widgets/ItemChangeHistoryRow.vala:49
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to project: %s"
-msgstr "Tarea movida a %s"
+msgstr "Tarea trasladada al proyecto: %s"
 
 # # c-format
 #: src/Widgets/ItemChangeHistoryRow.vala:58
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to: %s"
-msgstr "Tarea movida a %s"
+msgstr "Tarea trasladada a: %s"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:82
 msgid "Previous"
@@ -1587,12 +1578,12 @@ msgstr "Nuevo"
 #: src/Widgets/ItemChangeHistoryRow.vala:187
 #: src/Widgets/ItemChangeHistoryRow.vala:188
 msgid "Pin: Active"
-msgstr "Pin: Activo"
+msgstr "Fijar: Activo"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:187
 #: src/Widgets/ItemChangeHistoryRow.vala:188
 msgid "Pin: Inactive"
-msgstr "Pin: Inactivo"
+msgstr "Fijar: Inactivo"
 
 #: src/Widgets/SourceRow.vala:65
 msgid "Remove"
@@ -1608,9 +1599,8 @@ msgid "Report Issue"
 msgstr "Informar problema"
 
 #: src/Widgets/ItemDetailCompleted.vala:71
-#, fuzzy
 msgid "Completed At"
-msgstr "Completado"
+msgstr "Completado en"
 
 #: src/Views/Project/Project.vala:63
 msgid "Project Actions"
@@ -1965,24 +1955,20 @@ msgid "Load more history from %d weeks ago…"
 msgstr "Cargar más historial de %d semanas atrás…"
 
 #: src/Dialogs/CompletedTasks.vala:37 src/Dialogs/CompletedTasks.vala:134
-#, fuzzy
 msgid "Completed Tasks"
-msgstr "Completar tarea"
+msgstr "Tareas completadas"
 
 #: src/Dialogs/CompletedTasks.vala:57
-#, fuzzy
 msgid "View Filter Menu"
-msgstr "Ver el menú de opciones"
+msgstr "Ver menú de filtros"
 
 #: src/Dialogs/CompletedTasks.vala:95
-#, fuzzy
 msgid "No completed tasks yet."
-msgstr "Mostrar tareas completadas"
+msgstr "Aún no hay tareas completadas."
 
 #: src/Dialogs/CompletedTasks.vala:173
-#, fuzzy
 msgid "Task Detail"
-msgstr "Detalles instantáneos de la tarea"
+msgstr "Detalle de la tarea"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:63
 msgid "Quick Find"
@@ -2113,7 +2099,7 @@ msgstr "Sala de Matrix"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:290
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:306
 msgid "Want to buy me a drink?"
@@ -2321,22 +2307,24 @@ msgstr "Concentrarse en una"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:626
 msgid "Enable Markdown Formatting"
-msgstr ""
+msgstr "Activar el formato Markdown"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:627
 msgid "Toggle Markdown support for tasks on or off"
-msgstr ""
+msgstr "Activar o desactivar el soporte de Markdown para tareas"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:633
-#, fuzzy
 msgid "Always Show Details Sidebar"
-msgstr "Mostrar en la barra lateral"
+msgstr "Mostrar siempre la barra lateral de detalles"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:634
 msgid ""
 "Keep the details panel always visible for easier navigation between tasks, "
 "avoiding the need to constantly open and close the panel."
 msgstr ""
+"Mantenga el panel de detalles siempre visible para facilitar la navegación "
+"entre tareas, evitando la necesidad de abrir y cerrar el panel "
+"constantemente."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:644
 msgid "Enabled"
