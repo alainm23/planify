@@ -410,7 +410,7 @@ public class Objects.Item : Objects.BaseObject {
 	public void update_from_vtodo (string data, string _ics) {
 		patch_from_vtodo (data, _ics, true);
 	}
-	
+
 	public void patch_from_vtodo (string data, string _ics, bool is_update = false) {
 		print ("%s\n".printf (data));
 
@@ -1638,8 +1638,7 @@ public class Objects.Item : Objects.BaseObject {
 				foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (this)) {
 					subitem.checked = checked;
 					subitem.completed_at = completed_at;
-
-					subitem.complete_item (old_checked);
+					subitem.complete_item.begin (old_checked);
 				}
 			}
 		}

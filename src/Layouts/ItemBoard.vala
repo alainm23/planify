@@ -789,7 +789,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
 				if (value.dup_object () is Layouts.ItemBoard) {
 					var picked_widget = (Layouts.ItemBoard) value;
-					
+
 					if (picked_widget.item.id == item.parent_id) {
 						return;
 					}
@@ -842,20 +842,20 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		signals_map[drop_target.accept.connect ((drop) => {
 			GLib.Value value = Value (typeof (Gtk.Widget));
 
-            try {
-                drop.drag.content.get_value (ref value);
-            } catch (Error e) {
-                debug (e.message);
-            }
+			try {
+				drop.drag.content.get_value (ref value);
+			} catch (Error e) {
+				debug (e.message);
+			}
 
-            if (value.dup_object () is Layouts.ItemBoard) {
-                var picked_widget = (Layouts.ItemBoard) value;
-                if (picked_widget.item.id != item.parent_id) {
-                    return true;
-                }
-            }
+			if (value.dup_object () is Layouts.ItemBoard) {
+				var picked_widget = (Layouts.ItemBoard) value;
+				if (picked_widget.item.id != item.parent_id) {
+					return true;
+				}
+			}
 
-            return false;
+			return false;
 		})] = drop_target;
 
 		signals_map[drop_target.drop.connect ((value, x, y) => {

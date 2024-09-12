@@ -200,7 +200,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		Object (
 			item: item,
 			is_project_view: is_project_view
-		);
+			);
 	}
 
 	~ItemRow () {
