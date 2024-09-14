@@ -127,8 +127,8 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		var breakpoint = new Adw.Breakpoint (Adw.BreakpointCondition.parse ("max-width: 800sp"));
 		breakpoint.add_setter (overlay_split_view, "collapsed", true);
-
 		add_breakpoint (breakpoint);
+		
 		content = overlay_split_view;
 
 		Services.Settings.get_default ().settings.bind ("pane-position", overlay_split_view, "min_sidebar_width", GLib.SettingsBindFlags.DEFAULT);

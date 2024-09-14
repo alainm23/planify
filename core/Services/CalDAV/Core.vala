@@ -305,6 +305,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
 		try {
 			if (project.sync_id == "") {
+				project.loading = false;
 				return;
 			}
 
