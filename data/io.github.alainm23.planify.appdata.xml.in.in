@@ -61,6 +61,17 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.11.2" date="2024-09-13">
+      <description translate="no">
+        <ul>
+          <li>Fixed bug with the schedule button.</li>
+          <li>Fixed bug that opened multiple times Quick Add.</li>
+          <li>Spanish translation update thanks to @haggen88.</li>
+          <li>French translation update thanks to @rene-coty.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.11.0" date="2024-08-28">
       <description translate="no">
         <ul>
