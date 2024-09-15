@@ -66,11 +66,11 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
         });
 
         project.item_deleted.connect ((item) => {
-            update_pinboard(item);
+            update_pinboard (item);
         });
 
         Services.EventBus.get_default ().item_moved.connect ((item) => {
-            update_pinboard(item);
+            update_pinboard (item);
         });
 
         Services.Store.instance ().item_pin_change.connect ((item) => {
@@ -133,7 +133,7 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
         }
     }
 
-    private void update_pinboard(Objects.Item item) {
+    private void update_pinboard (Objects.Item item) {
         if (!items_map.has_key (item.id)) {
             return;
         }
