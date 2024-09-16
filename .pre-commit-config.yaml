@@ -1,5 +1,6 @@
 repos:
-- repo: https://github.com/vala-lang/vala-lint
-  rev: master
-  hooks:
-  - id: vala-lint
+    - repo: https://github.com/vala-lang/vala-lint
+      rev: master
+      hooks:
+          - id: vala-lint
+      files: \.vala$
