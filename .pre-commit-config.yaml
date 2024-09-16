@@ -3,3 +3,7 @@ repos:
       rev: 4ed1443c35a8a84445fb59292d539358365d8263
       hooks:
           - id: vala-lint
+            language: docker_image
+            entry: --entrypoint /usr/bin/io.elementary.vala-lint valalang/lint:latest --fix
+            description: Check Vala code files for code-style errors.
+            files: \.vala$
