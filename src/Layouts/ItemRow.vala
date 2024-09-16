@@ -74,10 +74,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 	private Widgets.Attachments attachments;
 	private Gtk.Label attachments_count;
 	private Gtk.Box action_box;
+	private Gtk.Label show_subtasks_label;
+	private Gtk.Revealer show_subtasks_revealer;
 
 	private Widgets.SubItems subitems;
 	private Gtk.MenuButton menu_button;
 	private Gtk.Button hide_subtask_button;
+	private Gtk.Button show_subtasks_button;
 	private Gtk.Revealer hide_subtask_revealer;
 	private Widgets.ContextMenu.MenuItem no_date_item;
 	private Widgets.ContextMenu.MenuItem pinboard_item;
@@ -112,6 +115,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 				hide_subtask_revealer.reveal_child = false;
 				hide_loading_button.remove_css_class ("no-padding");
 				hide_loading_revealer.reveal_child = true;
+				show_subtasks_revealer.reveal_child = subitems.has_children && edit;
 
 				// Due labels
 				due_box_revealer.reveal_child = false;
@@ -144,6 +148,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 				hide_subtask_revealer.reveal_child = subitems.has_children;
 				hide_loading_button.add_css_class ("no-padding");
 				hide_loading_revealer.reveal_child = false;
+				show_subtasks_revealer.reveal_child = false;
 
 				check_due ();
 				check_description ();
@@ -539,8 +544,30 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		subitems.present_item (item);
 		subitems.reveal_child = item.collapsed;
 
+		show_subtasks_label = new Gtk.Label (null);
+
+		var show_subtasks_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+		show_subtasks_box.append (new Gtk.Image.from_icon_name ("go-next-symbolic") {
+			pixel_size = 12
+		});
+		show_subtasks_box.append (show_subtasks_label);
+
+		show_subtasks_button = new Gtk.Button () {
+			css_classes = { "flat", "small-button", "hidden-button" },
+			child = show_subtasks_box,
+			margin_start = 16,
+			margin_bottom = 3,
+			halign = START
+		};
+
+		show_subtasks_revealer = new Gtk.Revealer () {
+			child = show_subtasks_button,
+			reveal_child = subitems.has_children && edit
+		};
+
 		var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		box.append (itemrow_box);
+		box.append (show_subtasks_revealer);
 		box.append (subitems);
 
 		hide_subtask_button = new Gtk.Button () {
@@ -554,6 +581,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
 		if (item.collapsed) {
 			hide_subtask_button.add_css_class ("opened");
+			show_subtasks_button.add_css_class ("opened");
 		}
 
 		hide_subtask_revealer = new Gtk.Revealer () {
@@ -759,6 +787,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 			item.update_local ();
 		})] = hide_subtask_button;
 
+		signals_map[show_subtasks_button.clicked.connect (() => {
+			item.collapsed = !item.collapsed;
+			item.update_local ();
+		})] = show_subtasks_button;
+
 		signals_map[subitems.children_changes.connect (() => {
 			check_hide_subtask_button ();
 		})] = subitems;
@@ -768,8 +801,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
 			if (item.collapsed) {
 				hide_subtask_button.add_css_class ("opened");
+				show_subtasks_button.add_css_class ("opened");
 			} else {
 				hide_subtask_button.remove_css_class ("opened");
+				show_subtasks_button.remove_css_class ("opened");
 			}
 		})] = item;
 
@@ -915,6 +950,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		priority_button.update_from_item (item);
 		pin_button.update_from_item (item);
 		reminder_button.set_reminders (item.reminders);
+
+		show_subtasks_label.label = item.collapsed ? _("Hide Sub-tasks") : _("Show Sub-tasks");
 
 		check_due ();
 		check_description ();

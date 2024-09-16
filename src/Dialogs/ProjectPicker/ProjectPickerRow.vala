@@ -52,7 +52,7 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         name_label.ellipsize = Pango.EllipsizeMode.END;
 
         var selected_icon = new Gtk.Image () {
-            gicon = new ThemedIcon ("emblem-ok-symbolic"),
+            gicon = new ThemedIcon ("checkmark-small-symbolic"),
             pixel_size = 16,
             hexpand = true,
             valign = Gtk.Align.CENTER,
