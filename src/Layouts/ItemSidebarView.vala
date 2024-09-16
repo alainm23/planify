@@ -290,7 +290,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 	}
 
 	public void present_item (Objects.Item _item) {
-		disconnect_all ();
+		if (Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
+			disconnect_all ();	
+		}
 
 		item = _item;
 		update_id = Util.get_default ().generate_id ();
@@ -363,9 +365,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 		subitems.disconnect_all ();
 		attachments.disconnect_all ();
 
-		if (!Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
-			destroy_markdown_edit_view ();
-		}
+		destroy_markdown_edit_view ();
 	}
 
 	public void update_request () {
@@ -660,10 +660,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
 	private void destroy_markdown_edit_view () {
 		markdown_revealer.reveal_child = false;
-		Timeout.add (markdown_revealer.transition_duration, () => {
-			markdown_revealer.child = null;
-			markdown_edit_view = null;
-			return GLib.Source.REMOVE;
-		});
+		markdown_revealer.child = null;
+		markdown_edit_view = null;
 	}
 }

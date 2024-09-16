@@ -107,7 +107,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			item_sidebar_view.add_css_class ("sidebar");
 		}
 
-		var views_split_view = new Adw.OverlaySplitView  () {
+		var views_split_view = new Adw.OverlaySplitView () {
 			sidebar_position = Gtk.PackType.END,
 			collapsed = !Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar"),
 			max_sidebar_width = 375,
