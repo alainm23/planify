@@ -61,6 +61,16 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.11.4" date="2024-09-19">
+      <description translate="no">
+        <ul>
+          <li>Added a button to view the sub tasks of a main task when in detail view.</li>
+          <li>Bug fixed: do not show task description.</li>
+          <li>Bug fixed: task position pinned when moving between projects thanks to @golamrabbiazad.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.11.2" date="2024-09-13">
       <description translate="no">
         <ul>
