@@ -165,13 +165,11 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 		};
 
 		edit_item.clicked.connect (() => {
-			menu_popover.popdown ();
 			var dialog = new Dialogs.Label (label);
 			dialog.present (Planify._instance.main_window);
 		});
 
 		delete_item.clicked.connect (() => {
-			menu_popover.popdown ();
 			label.delete_label (Planify._instance.main_window);
 		});
 

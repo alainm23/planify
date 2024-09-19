@@ -711,8 +711,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_popover.popup ();
 
         favorite_item.clicked.connect (() => {
-            menu_popover.popdown ();
-
             project.is_favorite = !project.is_favorite;
             Services.Store.instance ().update_project (project);
             Services.EventBus.get_default ().favorite_toggled (project);
@@ -720,39 +718,31 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         });
 
         edit_item.clicked.connect (() => {
-            menu_popover.popdown ();
-
             var dialog = new Dialogs.Project (project);
             dialog.present (Planify._instance.main_window);
         });
 
         refresh_item.clicked.connect (() => {
-            menu_popover.popdown ();
             sync_project ();
         });
 
         delete_item.clicked.connect (() => {
-            menu_popover.popdown ();
             project.delete_project ((Gtk.Window) Planify.instance.main_window);
         });
 
         share_markdown_item.clicked.connect (() => {
-            menu_popover.popdown ();
             project.share_markdown ();
         });
 
         share_email_item.clicked.connect (() => {
-            menu_popover.popdown ();
             project.share_mail ();
         });
 
         duplicate_item.clicked.connect (() => {
-            menu_popover.popdown ();
             Util.get_default ().duplicate_project.begin (project, project.parent_id);
         });
 
         archive_item.clicked.connect (() => {
-            menu_popover.popdown ();
             project.archive_project ((Gtk.Window) Planify.instance.main_window);
         });
     }

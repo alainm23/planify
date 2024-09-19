@@ -139,7 +139,6 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
 		});
 
 		renove_item.clicked.connect (() => {
-			popover.popdown ();
 			source.delete_source (Planify._instance.main_window);
 		});
 

@@ -526,31 +526,24 @@ public class MainWindow : Adw.ApplicationWindow {
 		};
 
 		preferences_item.clicked.connect (() => {
-			popover.popdown ();
-
 			var dialog = new Dialogs.Preferences.PreferencesWindow ();
 			dialog.present (Planify._instance.main_window);
 		});
 
 		whatsnew_item.clicked.connect (() => {
-			popover.popdown ();
-
 			var dialog = new Dialogs.WhatsNew ();
 			dialog.present (Planify._instance.main_window);
 		});
 
 		about_item.clicked.connect (() => {
-			popover.popdown ();
 			about_dialog ();
 		});
 
 		keyboard_shortcuts_item.clicked.connect (() => {
-			popover.popdown ();
 			open_shortcuts_window ();
 		});
 
 		archive_item.clicked.connect (() => {
-			popover.popdown ();
 			var dialog = new Dialogs.ManageProjects ();
 			dialog.present (Planify._instance.main_window);
 		});

@@ -233,8 +233,6 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         };
 
         complete_item.clicked.connect (() => {
-            popover.popdown ();
-
             foreach (string key in items_selected.keys) {
                 items_selected[key].checked_toggled (true, 0);
             }
@@ -243,8 +241,6 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         });
 
         delete_item.clicked.connect (() => {
-            popover.popdown ();
-
             string title = _("Delete To-Do");
             string message = _("Are you sure you want to delete this to-do?");
             if (items_selected.size > 1) {

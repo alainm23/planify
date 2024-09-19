@@ -490,18 +490,14 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 		});
 
 		copy_clipboard_item.clicked.connect (() => {
-			popover.popdown ();
 			item.copy_clipboard ();
 		});
 
 		duplicate_item.clicked.connect (() => {
-			popover.popdown ();
 			Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
 		});
 
 		move_item.clicked.connect (() => {
-			popover.popdown ();
-
 			Dialogs.ProjectPicker.ProjectPicker dialog;
 			if (item.project.is_inbox_project) {
 				dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
@@ -524,12 +520,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 		});
 
 		delete_item.activate_item.connect (() => {
-			popover.popdown ();
 			delete_request ();
 		});
 
 		more_information_item.activate_item.connect (() => {
-			popover.popdown ();
 			var dialog = new Dialogs.ItemChangeHistory (item);
 			dialog.present (Planify._instance.main_window);
 		});

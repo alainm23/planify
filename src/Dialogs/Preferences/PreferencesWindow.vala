@@ -950,12 +950,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		});
 
 		todoist_item.clicked.connect (() => {
-			popover.popdown ();
 			push_subpage (get_oauth_todoist_page ());
 		});
 
 		caldav_item.clicked.connect (() => {
-			popover.popdown ();
 			push_subpage (get_caldav_setup_page ());
 		});
 

@@ -261,8 +261,6 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 		});
 
 		labels_filter.activate_item.connect (() => {
-			popover.popdown ();
-
 			Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
 			foreach (Objects.Filters.FilterItem filter in Objects.Filters.Scheduled.get_default ().filters.values) {
 				if (filter.filter_type == FilterItemType.LABEL) {

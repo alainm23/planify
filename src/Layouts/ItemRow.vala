@@ -1115,8 +1115,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		menu_handle_popover.popup ();
 
 		move_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
-
 			Dialogs.ProjectPicker.ProjectPicker dialog;
 			if (item.project.is_inbox_project) {
 				dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
@@ -1139,51 +1137,41 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		});
 
 		today_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			update_date (Utils.Datetime.get_date_only (new DateTime.now_local ()));
 		});
 
 		tomorrow_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			update_date (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
 		});
 
 		pinboard_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			item.update_pin (!item.pinned);
 		});
 
 		no_date_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			update_date (null);
 		});
 
 		complete_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			checked_button.active = !checked_button.active;
 			checked_toggled (checked_button.active);
 		});
 
 		edit_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			Services.EventBus.get_default ().open_item (item);
 		});
 
 		delete_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			delete_request ();
 		});
 
 		add_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
-
 			var dialog = new Dialogs.QuickAdd ();
 			dialog.for_base_object (item);
 			dialog.present (Planify._instance.main_window);
 		});
 
 		duplicate_item.clicked.connect (() => {
-			menu_handle_popover.popdown ();
 			Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
 		});
 	}
@@ -1232,18 +1220,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		});
 
 		copy_clipboard_item.clicked.connect (() => {
-			popover.popdown ();
 			item.copy_clipboard ();
 		});
 
 		duplicate_item.clicked.connect (() => {
-			popover.popdown ();
 			Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
 		});
 
 		move_item.clicked.connect (() => {
-			popover.popdown ();
-
 			Dialogs.ProjectPicker.ProjectPicker dialog;
 			if (item.project.is_inbox_project) {
 				dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
@@ -1265,12 +1249,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		});
 
 		delete_item.activate_item.connect (() => {
-			popover.popdown ();
 			delete_request ();
 		});
 
 		more_information_item.activate_item.connect (() => {
-			popover.popdown ();
 			var dialog = new Dialogs.ItemChangeHistory (item);
 			dialog.present (Planify._instance.main_window);
 		});

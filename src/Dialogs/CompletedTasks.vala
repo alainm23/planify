@@ -345,8 +345,6 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
 		};
 
         section_item.notify["selected"].connect (() => {
-            popover.popdown ();
-
             Objects.Section section = project.sections[section_item.selected];
             add_update_filter (section);
         });

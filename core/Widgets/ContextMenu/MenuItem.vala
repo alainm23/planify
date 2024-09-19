@@ -105,7 +105,7 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         );
     }
 
-    construct {
+    construct {        
         add_css_class ("flat");
         add_css_class ("no-font-bold");
 
@@ -177,6 +177,11 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
 
         clicked.connect (() => {
             activate_item ();
+            
+            var popover = (Gtk.Popover) get_ancestor (typeof (Gtk.Popover));
+            if (popover != null) {
+                popover.popdown ();
+            }
         });
     }
 }

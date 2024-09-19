@@ -529,8 +529,6 @@ public class Views.Filter : Adw.Bin {
 		};
 
         delete_all_completed.activate_item.connect (() => {
-			popover.popdown ();
-
 			var items = Services.Store.instance ().get_items_checked ();
 
 			var dialog = new Adw.AlertDialog (
