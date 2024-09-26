@@ -149,6 +149,7 @@ public class Widgets.EventsList : Adw.Bin {
                 event_row.destroy ();
                 event_hashmap.unset (event_uid);
             }
+            listbox.remove (event_row);
         }
 
         change ();
