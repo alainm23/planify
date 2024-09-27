@@ -79,14 +79,17 @@ public class MainWindow : Adw.ApplicationWindow {
 			css_classes = { "flat" }
 		};
 
+        var title_label = new Gtk.Label ("Planify");
+        title_label.add_css_class ("title");
+
 		var sidebar_header = new Adw.HeaderBar () {
-			title_widget = new Gtk.Label (null),
+			title_widget = title_label,
 			hexpand = true
 		};
 
 		sidebar_header.add_css_class ("flat");
+        sidebar_header.pack_start (search_button);
 		sidebar_header.pack_end (settings_button);
-		sidebar_header.pack_end (search_button);
 		sidebar_header.pack_end (fake_button);
 
 		sidebar = new Layouts.Sidebar ();
