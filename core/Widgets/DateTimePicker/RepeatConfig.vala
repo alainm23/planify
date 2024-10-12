@@ -97,6 +97,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
 
 	construct {
 		var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
+		back_item.autohide_popover = false;
 
 		repeat_label = new Gtk.Label (null) {
 			margin_top = 9,

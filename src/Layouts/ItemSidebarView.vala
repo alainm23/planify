@@ -42,7 +42,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 	private Widgets.ContextMenu.MenuItem copy_clipboard_item;
 	private Widgets.ContextMenu.MenuItem duplicate_item;
 	private Widgets.ContextMenu.MenuItem move_item;
-	private Widgets.ContextMenu.MenuItem repeat_item;
 
 	private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
 	public string update_id { get; set; default = Util.get_default ().generate_id (); }
@@ -409,7 +408,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 		copy_clipboard_item.sensitive = !item.completed;
 		duplicate_item.sensitive = !item.completed;
 		move_item.sensitive = !item.completed;
-		repeat_item.sensitive = !item.completed;
 		subitems.add_button.sensitive = !item.completed;
 	}
 
@@ -452,8 +450,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 		copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "clipboard-symbolic");
 		duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
 		move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
-		repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "playlist-repeat-symbolic");
-		repeat_item.arrow = true;
 
 		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
 		delete_item.add_css_class ("menu-item-danger");

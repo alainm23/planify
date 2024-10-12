@@ -142,6 +142,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
 
     private Gtk.Widget get_picker () {
         var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
+        back_item.autohide_popover = false;
 
         calendar = new Widgets.Calendar.Calendar () {
             vexpand = true,

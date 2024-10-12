@@ -37,6 +37,17 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         }
     }
 
+    bool _autohide_popover = true;
+    public bool autohide_popover {
+        get {
+            return _autohide_popover;
+        }
+
+        set {
+            _autohide_popover = value;
+        }
+    }
+
     public string icon {
         set {
             if (value != null) {
@@ -178,9 +189,11 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         clicked.connect (() => {
             activate_item ();
             
-            var popover = (Gtk.Popover) get_ancestor (typeof (Gtk.Popover));
-            if (popover != null) {
-                popover.popdown ();
+            if (autohide_popover) {
+                var popover = (Gtk.Popover) get_ancestor (typeof (Gtk.Popover));
+                if (popover != null) {
+                    popover.popdown ();
+                }
             }
         });
     }

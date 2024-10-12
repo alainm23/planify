@@ -117,12 +117,14 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "work-week-symbolic");
         date_item = new Widgets.ContextMenu.MenuItem (_("Choose a date"), "month-symbolic");
         date_item.arrow = true;
+        date_item.autohide_popover = false;
 
         repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "playlist-repeat-symbolic") {
             margin_top = 6,
             margin_bottom = 6
         };
 		repeat_item.arrow = true;
+        repeat_item.autohide_popover = false;
 
         var time_icon = new Gtk.Image.from_icon_name ("clock-symbolic") {
             css_classes = { "dim-label" }
@@ -236,6 +238,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
     private Adw.NavigationPage build_calendar_page () {
         var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
+        back_item.autohide_popover = false;
 
         calendar_view = new Widgets.Calendar.Calendar ();
 
@@ -267,7 +270,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
     private Adw.NavigationPage build_repeat_page () {
         var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
-
+        back_item.autohide_popover = false;
+        
         var none_item = new Widgets.ContextMenu.MenuItem (_("None"));
 		var daily_item = new Widgets.ContextMenu.MenuItem (_("Daily"));
 		var weekly_item = new Widgets.ContextMenu.MenuItem (_("Weekly"));
@@ -275,6 +279,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 		var yearly_item = new Widgets.ContextMenu.MenuItem (_("Yearly"));
 		var custom_item = new Widgets.ContextMenu.MenuItem (_("Custom"));
         custom_item.arrow = true;
+        custom_item.autohide_popover = false;
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
