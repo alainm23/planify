@@ -220,7 +220,7 @@ public class Views.Today : Adw.Bin {
         var listbox_placeholder = new Adw.StatusPage ();
         listbox_placeholder.icon_name = "check-round-outline-symbolic";
         listbox_placeholder.title = _("Add Some Tasks");
-        listbox_placeholder.description = _("Press a to create a new task");
+        listbox_placeholder.description = _("Press 'a' to create a new task");
 
         listbox_placeholder_stack = new Gtk.Stack () {
             vexpand = true,

@@ -89,7 +89,7 @@ public class Views.List : Adw.Bin {
         var listbox_placeholder = new Adw.StatusPage () {
             icon_name = "check-round-outline-symbolic",
             title = _("Add Some Tasks"),
-            description = _("Press a to create a new task")
+            description = _("Press 'a' to create a new task")
         };
 
         listbox_placeholder_stack = new Gtk.Stack () {
