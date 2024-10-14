@@ -24,7 +24,7 @@ public class Views.Project : Adw.Bin {
 	public Objects.Project project { get; construct; }
 
 	private Gtk.Revealer project_view_revealer;
-	private Gtk.Spinner loading_spinner;
+	private Adw.Spinner loading_spinner;
 	private Adw.ViewStack project_stack;
 	private Adw.ToolbarView toolbar_view;
 	private Widgets.ContextMenu.MenuItem expand_all_item;
@@ -107,12 +107,11 @@ public class Views.Project : Adw.Bin {
 			transition_type = Gtk.RevealerTransitionType.CROSSFADE
 		};
 
-		loading_spinner = new Gtk.Spinner () {
+		loading_spinner = new Adw.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
 			height_request = 64,
 			width_request = 64,
-            spinning = true
         };
 
 		project_stack = new Adw.ViewStack () {

@@ -170,10 +170,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         end_box.append (menu_stack);
         end_box.append (arrow_revealer);
 
-        var loading_spinner = new Gtk.Spinner () {
+        var loading_spinner = new Adw.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            spinning = true,
             margin_end = 6
         };
 

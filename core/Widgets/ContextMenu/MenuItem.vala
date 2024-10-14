@@ -160,9 +160,8 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
 
         loading_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
-            child = new Gtk.Spinner () {
-                css_classes = { "submit-spinner" },
-                spinning = true
+            child = new Adw.Spinner () {
+                css_classes = { "submit-spinner" }
             }
         };
 

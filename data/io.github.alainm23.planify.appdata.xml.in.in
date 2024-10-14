@@ -61,6 +61,14 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.11.5" date="2024-10-14">
+      <description translate="no">
+        <ul>
+          <li>Bug fixes and performance improvements.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.11.4" date="2024-09-19">
       <description translate="no">
         <ul>

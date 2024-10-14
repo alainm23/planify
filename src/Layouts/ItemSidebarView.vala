@@ -85,10 +85,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
 		pin_button = new Widgets.PinButton ();
 
-		var spinner = new Gtk.Spinner () {
+		var spinner = new Adw.Spinner () {
 			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER,
-			spinning = true
+			halign = Gtk.Align.CENTER
 		};
 
 		spinner_revealer = new Gtk.Revealer () {

@@ -1197,12 +1197,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
         webview.load_uri (oauth_open_url);
 
-        var sync_image = new Gtk.Spinner () {
+        var sync_image = new Adw.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
 			height_request = 64,
-			width_request = 64,
-            spinning = true
+			width_request = 64
         };
 
         // Loading

@@ -54,9 +54,8 @@ public class Dialogs.GoogleOAuth : Adw.Window {
 
         var info_label = new Gtk.Label (_("Loading"));
 
-        var spinner = new Gtk.Spinner ();
+        var spinner = new Adw.Spinner ();
         spinner.add_css_class ("text-color");
-        spinner.start ();
 
         var container_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         container_grid.valign = Gtk.Align.CENTER;
@@ -130,20 +129,15 @@ public class Dialogs.GoogleOAuth : Adw.Window {
             if (redirect_uri.has_prefix (REDIRECT_URI)) {
                 string authorization_code = extractAuthorizationCode (redirect_uri);
                 get_token (authorization_code);
-                spinner.stop ();
             }
 
             if (load_event == WebKit.LoadEvent.FINISHED) {
                 info_label.label = _("Please enter your credentials");
-                spinner.stop ();
-                spinner.hide ();
                 return;
             }
 
             if (load_event == WebKit.LoadEvent.STARTED) {
                 info_label.label = _("Loading");
-                spinner.start ();
-                spinner.show ();
                 return;
             }
 
