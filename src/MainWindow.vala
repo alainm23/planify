@@ -624,12 +624,13 @@ public class MainWindow : Adw.ApplicationWindow {
 		var status_page = new Adw.StatusPage ();
 		status_page.icon_name = "process-error-symbolic";
 		status_page.title = _("Database Integrity Check Failed");
-		status_page.description = _("We've detected issues with the database structure that may prevent the application from functioning properly. This may be due to missing tables or columns, likely caused by data corruption or an incomplete update. The database will now be reset to restore normal functionality, and any existing data will be removed. After the reset, you’ll be able to restore any backup you’ve created previously. Thank you for your patience");
+		status_page.description = _("We've detected issues with the database structure that may prevent the application from functioning properly. This may be due to missing tables or columns, likely caused by data corruption or an incomplete update.\n\nThe database will now be reset to restore normal functionality, and any existing data will be removed.\n\nAfter the reset, you’ll be able to restore any backup you’ve created previously. Thank you for your patience");
 
 		var reset_button = new Gtk.Button.with_label (_("Reset Database")) {
 			halign = CENTER
 		};
-		reset_button.add_css_class ("suggested-action");
+		reset_button.add_css_class ("destructive-action");
+		reset_button.add_css_class ("pill");
 
 		var box = new Gtk.Box (VERTICAL, 12) {
 			valign = CENTER,

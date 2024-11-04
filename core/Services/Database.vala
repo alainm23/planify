@@ -689,7 +689,6 @@ public class Services.Database : GLib.Object {
 
 		while (stmt.step () == Sqlite.ROW) {
 			if (!columns.contains (stmt.column_text (1))) {
-				print ("Falta: %s: %s\n".printf (table, stmt.column_text (1)));
 				return false;
 			}
 		}
