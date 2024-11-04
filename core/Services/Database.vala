@@ -25,6 +25,8 @@ public class Services.Database : GLib.Object {
 	private string errormsg;
 	private string sql;
 
+	private Gee.HashMap<string, Gee.ArrayList<string>> table_columns = new Gee.HashMap<string, Gee.ArrayList<string>>();
+
 	public signal void opened ();
 	public signal void reset ();
 
@@ -37,9 +39,136 @@ public class Services.Database : GLib.Object {
 		return _instance;
 	}
 
+	construct {
+		table_columns ["Attachments"] = new Gee.ArrayList<string> ();
+		table_columns ["Attachments"].add ("id");
+		table_columns ["Attachments"].add ("item_id");
+		table_columns ["Attachments"].add ("file_type");
+		table_columns ["Attachments"].add ("file_name");
+		table_columns ["Attachments"].add ("file_size");
+		table_columns ["Attachments"].add ("file_path");
+
+		table_columns ["CurTempIds"] = new Gee.ArrayList<string> ();
+		table_columns ["CurTempIds"].add ("id");
+		table_columns ["CurTempIds"].add ("temp_id");
+		table_columns ["CurTempIds"].add ("object");
+
+		table_columns ["Items"] = new Gee.ArrayList<string> ();
+		table_columns ["Items"].add ("id");
+		table_columns ["Items"].add ("content");
+		table_columns ["Items"].add ("description");
+		table_columns ["Items"].add ("due");
+		table_columns ["Items"].add ("added_at");
+		table_columns ["Items"].add ("completed_at");
+		table_columns ["Items"].add ("updated_at");
+		table_columns ["Items"].add ("section_id");
+		table_columns ["Items"].add ("project_id");
+		table_columns ["Items"].add ("parent_id");
+		table_columns ["Items"].add ("priority");
+		table_columns ["Items"].add ("child_order");
+		table_columns ["Items"].add ("checked");
+		table_columns ["Items"].add ("is_deleted");
+		table_columns ["Items"].add ("day_order");
+		table_columns ["Items"].add ("collapsed");
+		table_columns ["Items"].add ("pinned");
+		table_columns ["Items"].add ("labels");
+		table_columns ["Items"].add ("extra_data");
+		table_columns ["Items"].add ("item_type");
+
+		table_columns ["Labels"] = new Gee.ArrayList<string> ();
+		table_columns ["Labels"].add ("id");
+		table_columns ["Labels"].add ("name");
+		table_columns ["Labels"].add ("color");
+		table_columns ["Labels"].add ("item_order");
+		table_columns ["Labels"].add ("is_deleted");
+		table_columns ["Labels"].add ("is_favorite");
+		table_columns ["Labels"].add ("backend_type");
+		table_columns ["Labels"].add ("source_id");
+
+		table_columns ["OEvents"] = new Gee.ArrayList<string> ();
+		table_columns ["OEvents"].add ("id");
+		table_columns ["OEvents"].add ("event_type");
+		table_columns ["OEvents"].add ("event_date");
+		table_columns ["OEvents"].add ("object_id");
+		table_columns ["OEvents"].add ("object_type");
+		table_columns ["OEvents"].add ("object_key");
+		table_columns ["OEvents"].add ("object_old_value");
+		table_columns ["OEvents"].add ("object_new_value");
+		table_columns ["OEvents"].add ("parent_item_id");
+		table_columns ["OEvents"].add ("parent_project_id");
+
+		table_columns ["Projects"] = new Gee.ArrayList<string> ();
+		table_columns ["Projects"].add ("id");
+		table_columns ["Projects"].add ("name");
+		table_columns ["Projects"].add ("color");
+		table_columns ["Projects"].add ("backend_type");
+		table_columns ["Projects"].add ("inbox_project");
+		table_columns ["Projects"].add ("team_inbox");
+		table_columns ["Projects"].add ("child_order");
+		table_columns ["Projects"].add ("is_deleted");
+		table_columns ["Projects"].add ("is_archived");
+		table_columns ["Projects"].add ("is_favorite");
+		table_columns ["Projects"].add ("shared");
+		table_columns ["Projects"].add ("view_style");
+		table_columns ["Projects"].add ("sort_order");
+		table_columns ["Projects"].add ("parent_id");
+		table_columns ["Projects"].add ("collapsed");
+		table_columns ["Projects"].add ("icon_style");
+		table_columns ["Projects"].add ("emoji");
+		table_columns ["Projects"].add ("show_completed");
+		table_columns ["Projects"].add ("description");
+		table_columns ["Projects"].add ("due_date");
+		table_columns ["Projects"].add ("inbox_section_hidded");
+		table_columns ["Projects"].add ("sync_id");
+		table_columns ["Projects"].add ("source_id");
+
+		table_columns ["Queue"] = new Gee.ArrayList<string> ();
+		table_columns ["Queue"].add ("uuid");
+		table_columns ["Queue"].add ("object_id");
+		table_columns ["Queue"].add ("query");
+		table_columns ["Queue"].add ("temp_id");
+		table_columns ["Queue"].add ("args");
+		table_columns ["Queue"].add ("date_added");
+
+		table_columns ["Reminders"] = new Gee.ArrayList<string> ();
+		table_columns ["Reminders"].add ("id");
+		table_columns ["Reminders"].add ("notify_uid");
+		table_columns ["Reminders"].add ("item_id");
+		table_columns ["Reminders"].add ("service");
+		table_columns ["Reminders"].add ("type");
+		table_columns ["Reminders"].add ("due");
+		table_columns ["Reminders"].add ("mm_offset");
+		table_columns ["Reminders"].add ("is_deleted");
+
+		table_columns ["Sections"] = new Gee.ArrayList<string> ();
+		table_columns ["Sections"].add ("id");
+		table_columns ["Sections"].add ("name");
+		table_columns ["Sections"].add ("archived_at");
+		table_columns ["Sections"].add ("added_at");
+		table_columns ["Sections"].add ("project_id");
+		table_columns ["Sections"].add ("section_order");
+		table_columns ["Sections"].add ("collapsed");
+		table_columns ["Sections"].add ("is_deleted");
+		table_columns ["Sections"].add ("is_archived");
+		table_columns ["Sections"].add ("color");
+		table_columns ["Sections"].add ("description");
+		table_columns ["Sections"].add ("hidded");
+
+		table_columns ["Sources"] = new Gee.ArrayList<string> ();
+		table_columns ["Sources"].add ("id");
+		table_columns ["Sources"].add ("source_type");
+		table_columns ["Sources"].add ("display_name");
+		table_columns ["Sources"].add ("added_at");
+		table_columns ["Sources"].add ("updated_at");
+		table_columns ["Sources"].add ("is_visible");
+		table_columns ["Sources"].add ("child_order");
+		table_columns ["Sources"].add ("sync_server");
+		table_columns ["Sources"].add ("last_sync");
+		table_columns ["Sources"].add ("data");
+	}
+
 	public void init_database () {
 		db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
-		print ("DB: %s\n".printf (db_path));
 		Sqlite.Database.open (db_path, out db);
 
 		create_tables ();
@@ -440,7 +569,6 @@ public class Services.Database : GLib.Object {
 		/*
 		 *  Planner 3.10
 		 * - Add description to Projects
-		 * - Add due date to Projects
 		 */
 
 		add_text_column ("Projects", "description", "");
@@ -498,6 +626,75 @@ public class Services.Database : GLib.Object {
 				warning (err.message);
 			}
 		}
+	}
+
+	public bool verify_integrity () {
+		Sqlite.Statement stmt;
+
+		// Verify Data Integrity
+		sql = """
+            PRAGMA integrity_check;
+        """;
+
+		db.prepare_v2 (sql, sql.length, out stmt);
+
+		if (stmt.step () == Sqlite.ROW) {
+			if (stmt.column_text (0) != "ok") {
+				return false;
+			}
+		}
+
+		// Verify Tables Integrity
+		string[] tables = { "Attachments", "CurTempIds", "Items", "Labels",
+			"OEvents", "Projects", "Queue", "Reminders", "Sections", "Sources" };
+		
+		foreach (var table_name in tables) {
+			if (!table_exists (table_name)) {
+				return false;
+			}
+		}
+
+		// Verify Table Columns
+		foreach (var table in table_columns.keys) {
+			if (!table_columns_exists (table, table_columns.get (table))) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private bool table_exists (string table_name) {
+		Sqlite.Statement stmt;
+
+		sql = """
+            SELECT name FROM sqlite_master WHERE type='table' AND name='%s';
+        """.printf (table_name);
+
+		db.prepare_v2 (sql, sql.length, out stmt);
+	
+		return stmt.step () == Sqlite.ROW;
+	}
+
+	private bool table_columns_exists (string table, Gee.ArrayList<string> columns) {
+		Sqlite.Statement stmt;
+
+		sql = """
+            PRAGMA table_info(%s);
+        """.printf (table);
+
+		db.prepare_v2 (sql, sql.length, out stmt);
+
+		stmt.step ();
+
+		while (stmt.step () == Sqlite.ROW) {
+			if (!columns.contains (stmt.column_text (1))) {
+				print ("Falta: %s: %s\n".printf (table, stmt.column_text (1)));
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/*
@@ -1598,7 +1795,6 @@ public class Services.Database : GLib.Object {
 			returned = stmt.column_int (0) > 0;
 		}
 
-
 		return returned;
 	}
 
@@ -1924,7 +2120,6 @@ public class Services.Database : GLib.Object {
 
 	public bool column_exists (string table, string column) {
 		Sqlite.Statement stmt;
-		bool returned = false;
 
 		sql = """
             PRAGMA table_info(%s);
@@ -1936,12 +2131,11 @@ public class Services.Database : GLib.Object {
 
 		while (stmt.step () == Sqlite.ROW) {
 			if (stmt.column_text (1) == column) {
-				returned = true;
+				return true;
 			}
 		}
 
-
-		return returned;
+		return false;
 	}
 
 	public void add_text_column (string table, string column, string default_value) {

@@ -31,6 +31,8 @@ public class MainWindow : Adw.ApplicationWindow {
 	private Widgets.ContextMenu.MenuItem archive_item;
 	private Widgets.ContextMenu.MenuSeparator archive_separator;
 	private Adw.ToastOverlay toast_overlay;
+	private Adw.ViewStack view_stack;
+	private Gtk.Widget error_db_page;
 
 	public Services.ActionManager action_manager;
 
@@ -131,9 +133,15 @@ public class MainWindow : Adw.ApplicationWindow {
 		var breakpoint = new Adw.Breakpoint (Adw.BreakpointCondition.parse ("max-width: 800sp"));
 		breakpoint.add_setter (overlay_split_view, "collapsed", true);
 		add_breakpoint (breakpoint);
-		
-		content = overlay_split_view;
 
+		error_db_page = build_error_db_page ();
+
+		view_stack = new Adw.ViewStack ();
+		view_stack.add (overlay_split_view);
+		view_stack.add (error_db_page);
+		
+		content = view_stack;
+		
 		Services.Settings.get_default ().settings.bind ("pane-position", overlay_split_view, "min_sidebar_width", GLib.SettingsBindFlags.DEFAULT);
 		Services.Settings.get_default ().settings.bind ("slim-mode", overlay_split_view, "show_sidebar", GLib.SettingsBindFlags.DEFAULT);
 		Services.Settings.get_default ().settings.bind ("mobile-mode", overlay_split_view, "collapsed", GLib.SettingsBindFlags.DEFAULT);
@@ -143,6 +151,63 @@ public class MainWindow : Adw.ApplicationWindow {
 			overlay_split_view.show_sidebar = true;
 			fake_button.grab_focus ();
 			return GLib.Source.REMOVE;
+		});
+
+		Services.Database.get_default ().opened.connect (() => {
+			if (!Services.Database.get_default ().verify_integrity ()) {
+				view_stack.visible_child = error_db_page;
+				return;
+			}
+
+			view_stack.visible_child = overlay_split_view;
+
+			if (Services.Store.instance ().is_sources_empty ()) {
+				Util.get_default ().create_local_source ();
+			}
+	
+			if (Services.Store.instance ().is_database_empty ()) {
+				Util.get_default ().create_inbox_project ();
+				Util.get_default ().create_tutorial_project ();
+				Util.get_default ().create_default_labels ();
+			}
+	
+			sidebar.init ();
+	
+			Services.Notification.get_default ();
+			Services.TimeMonitor.get_default ().init_timeout ();
+	
+			go_homepage ();
+	
+			Services.Store.instance ().project_deleted.connect (valid_view_removed);
+			Services.Store.instance ().project_archived.connect (valid_view_removed);
+	
+			check_archived ();
+	
+			Services.DBusServer.get_default ().item_added.connect ((id) => {
+				Objects.Item item = Services.Database.get_default ().get_item_by_id (id);
+				Gee.ArrayList<Objects.Reminder> reminders = Services.Database.get_default ().get_reminders_by_item_id (id);
+	
+				Services.Store.instance ().add_item (item);
+				foreach (Objects.Reminder reminder in reminders) {
+					item.add_reminder_events (reminder);
+				}
+			});
+	
+			Timeout.add (Constants.SYNC_TIMEOUT, () => {
+				foreach (Objects.Source source in Services.Store.instance ().sources) {
+					source.run_server ();
+				}
+	
+				return GLib.Source.REMOVE;
+			});
+	
+			Services.NetworkMonitor.instance ().network_changed.connect (() => {
+				if (Services.NetworkMonitor.instance ().network_available) {
+					foreach (Objects.Source source in Services.Store.instance ().sources) {
+						source.run_server ();
+					}
+				}
+			});
 		});
 
 		var granite_settings = Granite.Settings.get_default ();
@@ -283,54 +348,6 @@ public class MainWindow : Adw.ApplicationWindow {
 
 	private void init_backend () {
 		Services.Database.get_default ().init_database ();
-
-		if (Services.Store.instance ().is_sources_empty ()) {
-			Util.get_default ().create_local_source ();
-		}
-
-		if (Services.Store.instance ().is_database_empty ()) {
-			Util.get_default ().create_inbox_project ();
-			Util.get_default ().create_tutorial_project ();
-			Util.get_default ().create_default_labels ();
-		}
-
-		sidebar.init ();
-
-		Services.Notification.get_default ();
-		Services.TimeMonitor.get_default ().init_timeout ();
-
-		go_homepage ();
-
-		Services.Store.instance ().project_deleted.connect (valid_view_removed);
-		Services.Store.instance ().project_archived.connect (valid_view_removed);
-
-		check_archived ();
-
-		Services.DBusServer.get_default ().item_added.connect ((id) => {
-			Objects.Item item = Services.Database.get_default ().get_item_by_id (id);
-			Gee.ArrayList<Objects.Reminder> reminders = Services.Database.get_default ().get_reminders_by_item_id (id);
-
-			Services.Store.instance ().add_item (item);
-			foreach (Objects.Reminder reminder in reminders) {
-				item.add_reminder_events (reminder);
-			}
-		});
-
-		Timeout.add (Constants.SYNC_TIMEOUT, () => {
-			foreach (Objects.Source source in Services.Store.instance ().sources) {
-				source.run_server ();
-			}
-
-			return GLib.Source.REMOVE;
-		});
-
-		Services.NetworkMonitor.instance ().network_changed.connect (() => {
-			if (Services.NetworkMonitor.instance ().network_available) {
-				foreach (Objects.Source source in Services.Store.instance ().sources) {
-					source.run_server ();
-				}
-			}
-		});
 	}
 
 	private void check_archived () {
@@ -599,5 +616,43 @@ public class MainWindow : Adw.ApplicationWindow {
 		dialog.issue_url = "https://github.com/alainm23/planify/issues";
 
 		dialog.present (Planify._instance.main_window);
+	}
+
+	private Gtk.Widget build_error_db_page () {
+		var headerbar = new Adw.HeaderBar ();
+
+		var status_page = new Adw.StatusPage ();
+		status_page.icon_name = "process-error-symbolic";
+		status_page.title = _("Database Integrity Check Failed");
+		status_page.description = _("We've detected issues with the database structure that may prevent the application from functioning properly. This may be due to missing tables or columns, likely caused by data corruption or an incomplete update. The database will now be reset to restore normal functionality, and any existing data will be removed. After the reset, you’ll be able to restore any backup you’ve created previously. Thank you for your patience");
+
+		var reset_button = new Gtk.Button.with_label (_("Reset Database")) {
+			halign = CENTER
+		};
+		reset_button.add_css_class ("suggested-action");
+
+		var box = new Gtk.Box (VERTICAL, 12) {
+			valign = CENTER,
+			margin_bottom = 32
+		};
+		box.append (status_page);
+		box.append (reset_button);
+
+		var toolbar_view = new Adw.ToolbarView () {
+			content = box
+		};
+		toolbar_view.add_top_bar (headerbar);
+		
+		reset_button.clicked.connect (() => {
+			Services.Database.get_default ().clear_database ();
+			Services.Settings.get_default ().reset_settings ();
+
+			Timeout.add (250, () => {
+				init_backend ();
+				return GLib.Source.REMOVE;
+			});
+		});
+
+		return toolbar_view;
 	}
 }
