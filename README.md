@@ -108,13 +108,4 @@ Planify follows the [GNOME Code of Conduct](https://conduct.gnome.org/).
 ## Support
 If you like Planify and want to support its development, consider supporting via [Patreon](https://www.patreon.com/alainm23), [PayPal](https://www.paypal.me/alainm23) or [Liberapay](https://liberapay.com/Alain)
 
-### Bitcoin
-`
-bc1qt5v3q9hgtv9uvmld53hr6j0sdlmgalnc5y2kf5uqqextp84ke26seqg2dz
-`
-### Bitcoin Lightning 
-`
-foulfridge75@walletofsatoshi.com
-`
-
 Made with 💗 in Perú
