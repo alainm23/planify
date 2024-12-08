@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-04 16:59-0500\n"
-"PO-Revision-Date: 2024-08-29 16:08-0400\n"
+"PO-Revision-Date: 2024-12-07 22:48-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -1249,7 +1249,7 @@ msgstr "Ver más"
 
 #: src/MainWindow.vala:626
 msgid "Database Integrity Check Failed"
-msgstr ""
+msgstr "Error en la comprobación de integridad de la base de datos"
 
 #: src/MainWindow.vala:627
 msgid ""
@@ -1260,11 +1260,17 @@ msgid ""
 "data will be removed. After the reset, you’ll be able to restore any backup "
 "you’ve created previously. Thank you for your patience"
 msgstr ""
+"Hemos detectado problemas con la estructura de la base de datos que pueden "
+"impedir que la aplicación funcione correctamente. Esto puede deberse a la "
+"falta de tablas o columnas, probablemente causada por la corrupción de datos "
+"o una actualización incompleta. La base de datos se restablecerá para "
+"recuperar la funcionalidad normal y se eliminarán todos los datos "
+"existentes. Tras el restablecimiento, podrás restaurar cualquier copia de "
+"seguridad que hayas creado previamente. Gracias por su paciencia"
 
 #: src/MainWindow.vala:629
-#, fuzzy
 msgid "Reset Database"
-msgstr "Seleccionar archivo de base de datos"
+msgstr "Reiniciar base de datos"
 
 #: src/Services/Backups.vala:413
 msgid "Delete Backup"
@@ -1401,14 +1407,12 @@ msgid "Add Attachments"
 msgstr "Agregar archivos adjuntos"
 
 #: src/Layouts/ItemRow.vala:954
-#, fuzzy
 msgid "Hide Sub-tasks"
-msgstr "Subtareas"
+msgstr "Ocultar subtareas"
 
 #: src/Layouts/ItemRow.vala:954
-#, fuzzy
 msgid "Show Sub-tasks"
-msgstr "Subtareas"
+msgstr "Mostrar subtareas"
 
 #: src/Layouts/ItemRow.vala:1056 src/Layouts/ItemRow.vala:1069
 #: src/Layouts/ItemBoard.vala:124 src/Layouts/ItemBoard.vala:634
@@ -1762,9 +1766,8 @@ msgstr "Añadir algunas tareas"
 
 #: src/Views/Project/List.vala:92 src/Views/Today.vala:223
 #: src/Views/Label/Label.vala:70 src/Views/Filter.vala:84
-#, fuzzy
 msgid "Press 'a' to create a new task"
-msgstr "Pulse a para crear una nueva tarea"
+msgstr "Pulse 'a' para crear una nueva tarea"
 
 #: src/Views/Today.vala:115
 msgid "Overdue"
