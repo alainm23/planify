@@ -200,12 +200,10 @@ public class MainWindow : Adw.ApplicationWindow {
 	
 				return GLib.Source.REMOVE;
 			});
-	
+
 			Services.NetworkMonitor.instance ().network_changed.connect (() => {
-				if (Services.NetworkMonitor.instance ().network_available) {
-					foreach (Objects.Source source in Services.Store.instance ().sources) {
-						source.run_server ();
-					}
+				foreach (Objects.Source source in Services.Store.instance ().sources) {
+					source.run_server ();
 				}
 			});
 		});

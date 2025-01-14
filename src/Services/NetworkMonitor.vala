@@ -27,42 +27,12 @@ public class Services.NetworkMonitor : GLib.Object {
         });
     }
 
-    bool? _network_available = null;
-    public bool network_available {
-        get {
-            if (_network_available == null) {
-                _network_available = !is_disconnected ();
-            }
-
-            return _network_available;
-        }
-    }
-
     public signal void network_changed ();
 
     construct {
         var network_monitor = GLib.NetworkMonitor.get_default ();
 		network_monitor.network_changed.connect (() => {
-            _network_available = !is_disconnected ();
             network_changed ();
 		});
-    }
-
-    public bool is_disconnected () {
-        var host = "www.google.com";
-
-        try {
-            var resolver = GLib.Resolver.get_default ();
-            var addresses = resolver.lookup_by_name (host, null);
-            var address = addresses.nth_data (0);
-            if (address == null) {
-                return false;
-            }
-        } catch (Error e) {
-            debug ("%s\n", e.message);
-            return true;
-        }
-
-        return false;
     }
 }

@@ -58,34 +58,27 @@ public class Widgets.SyncButton : Adw.Bin {
         child = main_revealer;
 
         Timeout.add (main_revealer.transition_duration, () => {
-            network_available ();
             return GLib.Source.REMOVE;
         });
 
         sync_button.clicked.connect (() => {
             clicked ();
         });
-
-        Services.NetworkMonitor.instance ().network_changed.connect (() => {
-            network_available ();
-        });
-    }
-
-    private void network_available () {
-        if (Services.NetworkMonitor.instance ().network_available) {
-            stack.visible_child_name = "sync";
-            tooltip_markup = "";
-        } else {
-            stack.visible_child_name = "error";
-            tooltip_markup = "<b>%s</b>\n%s".printf (_("Offline Mode Is On"), _("Looks like you'are not connected to the\ninternet. Changes you make in offline\nmode will be synced when you reconnect")); // vala-lint=line-length
-        }
     }
 
     public void sync_started () {
+        stack.visible_child_name = "sync";
+        tooltip_markup = "";
         sync_button.add_css_class ("is_loading");
     }
     
     public void sync_finished () {
         sync_button.remove_css_class ("is_loading");
+    }
+
+    public void sync_failed () {
+        sync_button.remove_css_class ("is_loading");
+        stack.visible_child_name = "error";
+        tooltip_markup = "<b>%s</b>\n%s".printf (_("Failed to connect to server"), _("It looks like the server is unreachable,\nare you connected to the internet?\nAny changes you make while disconnected\nwill be synchronized when you reconnect.")); // vala-lint=line-length
     }
 }
