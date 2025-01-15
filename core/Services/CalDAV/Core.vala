@@ -283,8 +283,8 @@ public class Services.CalDAV.Core : GLib.Object {
 			source.sync_finished ();
 			source.last_sync = new GLib.DateTime.now_local ().to_string ();
 		} catch (Error e) {
-		    debug ("Failed to sync: "+e.message);
-            source.sync_failed();
+		    debug ("Failed to sync: " + e.message);
+            source.sync_failed ();
 		}
 	}
 
