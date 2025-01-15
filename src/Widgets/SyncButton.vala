@@ -38,9 +38,9 @@ public class Widgets.SyncButton : Adw.Bin {
             css_classes = { "flat", "header-item-button", "dim-label" }
         };
 
-        var error_image = new Gtk.Image () {
-            gicon = new ThemedIcon ("dialog-warning-symbolic"),
-            pixel_size = 13
+        var error_button = new Gtk.Button.from_icon_name ("dialog-warning-symbolic") {
+            valign = Gtk.Align.CENTER,
+            css_classes = { "flat", "header-item-button", "dim-label" }
         };
 
         stack = new Gtk.Stack () {
@@ -48,7 +48,7 @@ public class Widgets.SyncButton : Adw.Bin {
         };
 
         stack.add_named (sync_button, "sync");
-        stack.add_named (error_image, "error");
+        stack.add_named (error_button, "error");
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
@@ -62,6 +62,10 @@ public class Widgets.SyncButton : Adw.Bin {
         });
 
         sync_button.clicked.connect (() => {
+            clicked ();
+        });
+
+        error_button.clicked.connect (() => {
             clicked ();
         });
     }
