@@ -64,6 +64,10 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
 			source.sync_finished.connect (() => {
 				sync_button.sync_finished ();
 			});
+
+            source.sync_failed.connect (() => {
+                sync_button.sync_failed ();
+            });
 		}
 
 		var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {

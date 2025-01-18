@@ -4,21 +4,22 @@
 # bestlinuxgamers <52172848+bestlinuxgamers@users.noreply.github.com>, 2024.
 # BlueFox < bluefox@privacynerd.de>, 2024.
 # alp10711 <93343276+alp10711@users.noreply.github.com>, 2024.
+# byquanton <32410361+byquanton@users.noreply.github.com>, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-04 16:59-0500\n"
-"PO-Revision-Date: 2024-06-03 01:28+0200\n"
-"Last-Translator: alp10711 <93343276+alp10711@users.noreply.github.com>\n"
+"POT-Creation-Date: 2025-01-18 16:37+0100\n"
+"PO-Revision-Date: 2025-01-18 17:21+0100\n"
+"Last-Translator: byquanton <>\n"
 "Language-Team: German\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 46.1\n"
+"X-Generator: Gtranslator 47.1\n"
 
 #: core/Enum.vala:131 core/Util/Util.vala:226 core/Util/Util.vala:602
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:101
@@ -154,7 +155,7 @@ msgstr "Jedes Jahr"
 msgid "Every %d years"
 msgstr "Alle %d Jahre"
 
-#: core/Enum.vala:411 core/Services/Database.vala:2258
+#: core/Enum.vala:411 core/Services/Database.vala:2257
 #: core/Services/CalDAV/Providers/Nextcloud.vala:322
 #: src/Dialogs/Preferences/PreferencesWindow.vala:864
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1342
@@ -163,7 +164,7 @@ msgstr "Nextcloud"
 
 #: core/Enum.vala:414
 msgid "Radicale"
-msgstr ""
+msgstr "Radicale"
 
 #: core/Enum.vala:476 core/Enum.vala:662 core/Widgets/PriorityButton.vala:84
 #: src/Widgets/ItemDetailCompleted.vala:79 src/Views/Project/Project.vala:457
@@ -250,9 +251,8 @@ msgid "Create More"
 msgstr "Weitere erstellen"
 
 #: core/QuickAdd.vala:207
-#, fuzzy
 msgid "Select a Project"
-msgstr "Projekt löschen"
+msgstr "Projekt auswählen"
 
 #: core/QuickAdd.vala:233
 msgid ""
@@ -366,7 +366,7 @@ msgstr "Heute + Posteingang"
 #: core/Util/Util.vala:381 core/Objects/Label.vala:210
 #: core/Objects/Project.vala:806 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:371 core/Objects/Section.vala:397
-#: core/Objects/Source.vala:165 src/Services/Backups.vala:417
+#: core/Objects/Source.vala:166 src/Services/Backups.vala:417
 #: src/Layouts/ItemSidebarView.vala:547 src/Layouts/SectionBoard.vala:540
 #: src/Widgets/MultiSelectToolbar.vala:255 src/Views/Filter.vala:540
 #: src/Dialogs/CompletedTasks.vala:168 src/Dialogs/QuickFind/QuickFind.vala:68
@@ -713,39 +713,39 @@ msgstr "Sa,"
 msgid "Su,"
 msgstr "So,"
 
-#: core/Services/Todoist.vala:1520 src/Widgets/ErrorView.vala:134
+#: core/Services/Todoist.vala:1521 src/Widgets/ErrorView.vala:134
 msgid "The request was incorrect."
 msgstr "Die Anfrage war fehlerhaft."
 
-#: core/Services/Todoist.vala:1521 src/Widgets/ErrorView.vala:135
+#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:135
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 "Authentifizierung ist erforderlich und fehlgeschlagen oder wurde noch nicht "
 "übermittelt."
 
-#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:136
+#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:136
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Die Anfrage war gültig, aber für etwas, das verboten ist."
 
-#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:137
+#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:137
 msgid "The requested resource could not be found."
 msgstr "Die angeforderte Ressource konnte nicht gefunden werden."
 
-#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:138
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
 "Der Nutzer hat zu viele Anfragen in einer bestimmten Zeitspanne gesendet."
 
-#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:139
 msgid "The request failed due to a server error."
 msgstr "Die Anfrage ist aufgrund eines Serverfehlers fehlgeschlagen."
 
-#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1527 src/Widgets/ErrorView.vala:140
 msgid "The server is currently unable to handle the request."
 msgstr "Der Server ist derzeit nicht in der Lage, die Anfrage zu bearbeiten."
 
-#: core/Services/Todoist.vala:1528 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1529 src/Widgets/ErrorView.vala:142
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
@@ -779,9 +779,8 @@ msgid "Priority 1: Low"
 msgstr "Priorität 3: Niedrig"
 
 #: core/Widgets/StatusButton.vala:33
-#, fuzzy
 msgid "Set The Status"
-msgstr "Priorität setzen"
+msgstr "Status setzen"
 
 #: core/Widgets/StatusButton.vala:40
 msgid "Status"
@@ -830,7 +829,7 @@ msgstr "Suchen oder Erstellen"
 #: core/Widgets/Calendar/CalendarHeader.vala:35
 #: core/Widgets/Calendar/CalendarHeader.vala:49
 msgid "%OB"
-msgstr ""
+msgstr "%OB"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:52
@@ -838,30 +837,37 @@ msgid "%Y"
 msgstr "%Y"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:35
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:177
 msgid "Su"
 msgstr "So"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:36
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:141
 msgid "Mo"
 msgstr "Mo"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:37
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:147
 msgid "Tu"
 msgstr "Di"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:38
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:153
 msgid "We"
 msgstr "Mi"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:39
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:159
 msgid "Th"
 msgstr "Do"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:40
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:165
 msgid "Fr"
 msgstr "Fr"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:41
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:171
 msgid "Sa"
 msgstr "Sa"
 
@@ -877,18 +883,22 @@ msgid "Set a Due Date"
 msgstr "Fälligkeitsdatum"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:238
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 msgid "until"
 msgstr "bis"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:241
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:451
 msgid "for"
 msgstr "für"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:241
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:451
 msgid "times"
 msgstr "mal"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:241
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:451
 msgid "time"
 msgstr "mal"
 
@@ -902,6 +912,7 @@ msgstr "Datum auswählen"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:122
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:365
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:90
 msgid "Repeat"
 msgstr "Wiederholen"
 
@@ -912,6 +923,7 @@ msgstr "Zeit"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:152
 #: src/Widgets/MultiSelectToolbar.vala:80 src/Dialogs/DatePicker.vala:106
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:258
 msgid "Done"
 msgstr "Fertig"
 
@@ -920,7 +932,6 @@ msgid "Clear"
 msgstr "Löschen"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:236
-#, fuzzy
 msgid "Menu"
 msgstr "Hauptmenü"
 
@@ -928,13 +939,13 @@ msgstr "Hauptmenü"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:272
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:144
 #: src/Layouts/HeaderBar.vala:81 src/Dialogs/Preferences/SettingsHeader.vala:51
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:99
 msgid "Back"
 msgstr "Zurück"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:268
-#, fuzzy
 msgid "Calendar"
-msgstr "Kalender Ereignisse"
+msgstr "Kalender"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:276
 msgid "Daily"
@@ -957,9 +968,8 @@ msgid "Custom"
 msgstr "Benutzerdefiniert"
 
 #: core/Widgets/DateTimePicker/TimePicker.vala:110
-#, fuzzy
 msgid "Add Time"
-msgstr "Zeit"
+msgstr "Zeit hinzufügen"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:79
 #: core/Widgets/LabelPicker/LabelButton.vala:134
@@ -967,9 +977,8 @@ msgid "Select Labels"
 msgstr "Labels auswählen"
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:62
-#, fuzzy
 msgid "Your list of section will show up here."
-msgstr "Die Liste an Filtern wird hier angezeigt."
+msgstr "Die Liste an Abschnitten wird hier angezeigt."
 
 #. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:89
@@ -1008,32 +1017,29 @@ msgstr "Erinnerung hinzufügen"
 
 # # c-format
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:209
-#, fuzzy
 msgid "In 5 minutes"
-msgstr "Alle %d Minuten"
+msgstr "In 5 Minuten"
 
 # # c-format
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:210
-#, fuzzy
 msgid "In 15 minutes"
-msgstr "Alle %d Minuten"
+msgstr "In 15 Minuten"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:211
-#, fuzzy
 msgid "In 30 minutes"
-msgstr "30 Minuten davor"
+msgstr "in 30 Minuten"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:212
 msgid "In 1 hour"
-msgstr ""
+msgstr "In 1 Stunde"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:213
 msgid "In 3 hours"
-msgstr ""
+msgstr "In 3 Stunden"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:214
 msgid "In 6 hours"
-msgstr ""
+msgstr "In 6 Stunden"
 
 #: core/Widgets/Markdown/MarkdownEditView.vala:140
 #: core/Widgets/Markdown/MarkdownEditView.vala:152
@@ -1046,6 +1052,8 @@ msgid ""
 "Up to 3 tasks can be pinned and they will appear at the top of the project "
 "page"
 msgstr ""
+"Es können bis zu 3 Aufgaben angeheftet werden, die dann oben auf der "
+"Projektseite erscheinen"
 
 #: core/Objects/Item.vala:1287
 msgid "Task copied to clipboard"
@@ -1058,14 +1066,14 @@ msgid "Delete Label %s"
 msgstr "Label %s löschen"
 
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:803
-#: core/Objects/Section.vala:368 core/Objects/Source.vala:162
+#: core/Objects/Section.vala:368 core/Objects/Source.vala:163
 #: src/Services/Backups.vala:414 src/Layouts/ItemSidebarView.vala:544
 #: src/Layouts/SectionBoard.vala:537
 msgid "This can not be undone"
 msgstr "Dies kann nicht rückgängig gemacht werden"
 
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:807
-#: core/Objects/Section.vala:372 core/Objects/Source.vala:166
+#: core/Objects/Section.vala:372 core/Objects/Source.vala:167
 #: src/Services/Backups.vala:418 src/Layouts/ItemSidebarView.vala:548
 #: src/Layouts/SectionBoard.vala:541 src/Widgets/MultiSelectToolbar.vala:220
 #: src/Widgets/MultiSelectToolbar.vala:256 src/Widgets/AttachmentRow.vala:48
@@ -1112,7 +1120,7 @@ msgstr "Abschnitt %s löschen"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/Objects/Source.vala:161
+#: core/Objects/Source.vala:162
 msgid "Delete Source?"
 msgstr "Abschnitt löschen"
 
@@ -1230,39 +1238,39 @@ msgstr "Hauptmenü"
 msgid "Open Quick Find"
 msgstr "Schnelle Suche öffnen"
 
-#: src/MainWindow.vala:517 src/Dialogs/Preferences/PreferencesWindow.vala:53
+#: src/MainWindow.vala:516 src/Dialogs/Preferences/PreferencesWindow.vala:53
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: src/MainWindow.vala:520
+#: src/MainWindow.vala:519
 msgid "Keyboard Shortcuts"
 msgstr "Tastenkombinationen"
 
-#: src/MainWindow.vala:523 src/Dialogs/WhatsNew.vala:150
+#: src/MainWindow.vala:522 src/Dialogs/WhatsNew.vala:150
 msgid "What's New"
 msgstr "Neuigkeiten"
 
-#: src/MainWindow.vala:526
+#: src/MainWindow.vala:525
 msgid "About Planify"
 msgstr "Über Planify"
 
-#: src/MainWindow.vala:528 src/Dialogs/ManageProjects.vala:28
+#: src/MainWindow.vala:527 src/Dialogs/ManageProjects.vala:28
 msgid "Archived Projects"
 msgstr "Projekt hinzufügen"
 
-#: src/MainWindow.vala:587
+#: src/MainWindow.vala:586
 msgid "Oops! Something happened"
 msgstr "Hoppla! Etwas ist passiert"
 
-#: src/MainWindow.vala:590
+#: src/MainWindow.vala:589
 msgid "See More"
 msgstr "Weitere erstellen"
 
-#: src/MainWindow.vala:626
+#: src/MainWindow.vala:625
 msgid "Database Integrity Check Failed"
-msgstr ""
+msgstr "Integritätsprüfung der Datenbank fehlgeschlagen"
 
-#: src/MainWindow.vala:627
+#: src/MainWindow.vala:626
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -1271,11 +1279,18 @@ msgid ""
 "data will be removed. After the reset, you’ll be able to restore any backup "
 "you’ve created previously. Thank you for your patience"
 msgstr ""
+"Es wurden Probleme mit der Datenbankstruktur festgestellt, die das "
+"ordnungsgemäße Funktionieren der Anwendung verhindern könnte. Dies kann auf "
+"fehlende Tabellen oder Spalten zurückzuführen sein, die wahrscheinlich durch "
+"eine Datenbeschädigung oder eine unvollständige Aktualisierung verursacht "
+"wurden. Die Datenbank wird nun zurückgesetzt, um die normale Funktionalität "
+"wiederherzustellen, und alle vorhandenen Daten werden entfernt. Nach dem "
+"Zurücksetzen können Sie alle zuvor erstellten Sicherungen wiederherstellen. "
+"Danke für dein Verständnis."
 
-#: src/MainWindow.vala:629
-#, fuzzy
+#: src/MainWindow.vala:628
 msgid "Reset Database"
-msgstr "Alles zurücksetzen"
+msgstr "Datenbank zurücksetzen"
 
 #: src/Services/Backups.vala:413
 msgid "Delete Backup"
@@ -1415,20 +1430,18 @@ msgid "Add Attachments"
 msgstr "Anhang hinzufügen"
 
 #: src/Layouts/ItemRow.vala:954
-#, fuzzy
 msgid "Hide Sub-tasks"
-msgstr "Unteraufgaben"
+msgstr "Unteraufgaben verbergen"
 
 #: src/Layouts/ItemRow.vala:954
-#, fuzzy
 msgid "Show Sub-tasks"
-msgstr "Unteraufgaben"
+msgstr "Unteraufgaben anzeigen"
 
 #: src/Layouts/ItemRow.vala:1056 src/Layouts/ItemRow.vala:1069
 #: src/Layouts/ItemBoard.vala:124 src/Layouts/ItemBoard.vala:634
 #: src/Layouts/ItemBoard.vala:647
 msgid "Unpin"
-msgstr ""
+msgstr "Lösen"
 
 #: src/Layouts/ItemRow.vala:1071 src/Layouts/ItemBoard.vala:649
 #: src/Views/Project/Project.vala:470 src/Views/Project/Project.vala:600
@@ -1525,20 +1538,6 @@ msgid "No project available. Create one by clicking on the '+' button"
 msgstr ""
 "Kein Projekt vorhanden. Erstelle eins, indem du auf den \"+\" Knopf klickst."
 
-#: src/Widgets/SyncButton.vala:79
-msgid "Offline Mode Is On"
-msgstr "Offline-Modus ist aktiviert"
-
-#: src/Widgets/SyncButton.vala:79
-msgid ""
-"Looks like you'are not connected to the\n"
-"internet. Changes you make in offline\n"
-"mode will be synced when you reconnect"
-msgstr ""
-"Es scheint, als wärst du nicht mit dem\n"
-"Internet verbunden. Änderungen, die du im Offline-\n"
-"Modus vornimmst, werden synchronisiert, wenn du wieder verbunden bist."
-
 # Assumed error "Mask" -> "Mark"
 #: src/Widgets/MultiSelectToolbar.vala:218
 msgid "Mark as Completed"
@@ -1571,7 +1570,7 @@ msgstr "Unteraufgaben"
 
 #: src/Widgets/SubItems.vala:447
 msgid "No subtasks added yet. Get started!"
-msgstr ""
+msgstr "Noch keine Unteraufgaben hinzugefügt."
 
 #: src/Widgets/SectionsOrderPopover.vala:39 src/Views/Project/Project.vala:281
 #: src/Dialogs/Section.vala:100
@@ -1585,29 +1584,27 @@ msgstr "Aufgabe hinzufügen"
 #. translators: Open file
 #: src/Widgets/Attachments.vala:138
 msgid "Open"
-msgstr ""
+msgstr "Öffnen"
 
 #: src/Widgets/Attachments.vala:244
 msgid "No attachments found. Add files here."
-msgstr ""
+msgstr "Keine Anhänge gefunden. Füge Dateien hier hinzu."
 
 #: src/Widgets/ItemChangeHistoryRow.vala:47
-#, fuzzy
 msgid "Task completed"
-msgstr "Abgeschlossen"
+msgstr "Aufgabe erledigt"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:47
-#, fuzzy
 msgid "Task uncompleted"
-msgstr "Abgeschlossen"
+msgstr "Aufgabe unerledigt"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:49
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to project: %s"
-msgstr "Aufgabe verschoben zu %s"
+msgstr "Aufgabe verschoben zum Projekt %s"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:58
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to: %s"
 msgstr "Aufgabe verschoben zu %s"
 
@@ -1622,16 +1619,16 @@ msgstr "Neu"
 #: src/Widgets/ItemChangeHistoryRow.vala:187
 #: src/Widgets/ItemChangeHistoryRow.vala:188
 msgid "Pin: Active"
-msgstr ""
+msgstr "Pin: Aktiv"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:187
 #: src/Widgets/ItemChangeHistoryRow.vala:188
 msgid "Pin: Inactive"
-msgstr ""
+msgstr "Pin: Inaktiv"
 
 #: src/Widgets/SourceRow.vala:65
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 #: src/Widgets/SourceRow.vala:82
 #: src/Dialogs/Preferences/PreferencesWindow.vala:882
@@ -1640,12 +1637,11 @@ msgstr "Quelle"
 
 #: src/Widgets/ErrorView.vala:103
 msgid "Report Issue"
-msgstr ""
+msgstr "Fehler melden"
 
 #: src/Widgets/ItemDetailCompleted.vala:71
-#, fuzzy
 msgid "Completed At"
-msgstr "Abgeschlossen"
+msgstr "Abgeschlossen am"
 
 #: src/Views/Project/Project.vala:63
 msgid "Project Actions"
@@ -1779,7 +1775,6 @@ msgstr "Aufgaben hinzufügen"
 
 #: src/Views/Project/List.vala:92 src/Views/Today.vala:223
 #: src/Views/Label/Label.vala:70 src/Views/Filter.vala:84
-#, fuzzy
 msgid "Press 'a' to create a new task"
 msgstr "Drücke a, um eine neue Aufgabe zu erstellen"
 
@@ -2006,19 +2001,16 @@ msgid "Load more history from %d weeks ago…"
 msgstr "Mehr Verlauf von vor %d Wochen laden…"
 
 #: src/Dialogs/CompletedTasks.vala:37 src/Dialogs/CompletedTasks.vala:134
-#, fuzzy
 msgid "Completed Tasks"
-msgstr "Aufgabe abschließen"
+msgstr "Abgeschlossene Aufgaben"
 
 #: src/Dialogs/CompletedTasks.vala:57
-#, fuzzy
 msgid "View Filter Menu"
-msgstr "Menü Option anzeigen"
+msgstr "Menü Filter anzeigen"
 
 #: src/Dialogs/CompletedTasks.vala:95
-#, fuzzy
 msgid "No completed tasks yet."
-msgstr "Erledigte Aufgaben anzeigen"
+msgstr "Noch keine Aufgaben abgeschlossen."
 
 # # c-format
 #: src/Dialogs/CompletedTasks.vala:164
@@ -2029,9 +2021,8 @@ msgstr ""
 "löschen"
 
 #: src/Dialogs/CompletedTasks.vala:235
-#, fuzzy
 msgid "Task Detail"
-msgstr "Details schließen"
+msgstr "Aufgaben Detail"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:63
 msgid "Quick Find"
@@ -2164,7 +2155,7 @@ msgstr "Matrix-Raum"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:290
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:306
 msgid "Want to buy me a drink?"
@@ -2373,22 +2364,24 @@ msgstr "Aufmerksamkeit auf Eines"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:626
 msgid "Enable Markdown Formatting"
-msgstr ""
+msgstr "Aktivieren der Markdown-Formatierung"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:627
 msgid "Toggle Markdown support for tasks on or off"
-msgstr ""
+msgstr "Markdown-Unterstützung für Aufgaben ein- oder ausschalten"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:633
-#, fuzzy
 msgid "Always Show Details Sidebar"
-msgstr "In der Seitenleiste anzeigen"
+msgstr "Immer Detail Seitenleiste anzeigen"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:634
 msgid ""
 "Keep the details panel always visible for easier navigation between tasks, "
 "avoiding the need to constantly open and close the panel."
 msgstr ""
+"Halte das Detailpanel immer sichtbar, um die Navigation zwischen den "
+"Aufgaben zu erleichtern, damit das Panel nicht ständig öffnen und schließen "
+"müssen."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:644
 msgid "Enabled"
@@ -2793,6 +2786,73 @@ msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "'Pinnwand' öffnen"
 
+#: src/Widgets/SyncButton.vala:86
+msgid "Failed to connect to server"
+msgstr "Verbindung zum Server fehlgeschlagen"
+
+#: src/Widgets/SyncButton.vala:86
+msgid ""
+"It looks like the server is unreachable,\n"
+"are you connected to the internet?\n"
+"Any changes you make while disconnected\n"
+"will be synchronized when you reconnect."
+msgstr ""
+"Eine Verbindung zum Server ist\n"
+"aktuell nicht möglich.\n"
+"Sobald eine Verbindung wiederhergestellt ist,\n"
+"werden die Änderungen synchronisiert."
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:124
+msgid "Minute(s)"
+msgstr "Minute(n)"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:124
+msgid "Hour(s)"
+msgstr "Stunde(n)"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:124
+msgid "Day(s)"
+msgstr "Tag(e)"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:124
+msgid "Week(s)"
+msgstr "Woche(n)"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:124
+msgid "Month(s)"
+msgstr "Monat(e)"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:124
+msgid "Year(s)"
+msgstr "Jahr(e)"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:203
+msgid "Never"
+msgstr "Nie"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:207
+msgid "On Date"
+msgstr "An Datum"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:211
+msgid "After"
+msgstr "Nach"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:270
+msgid "Summary"
+msgstr "Zusmamenfassung"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:276
+msgid "Repeat every"
+msgstr "Wiederholungszyklus"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:283
+msgid "End"
+msgstr "Ende"
+
+#~ msgid "Offline Mode Is On"
+#~ msgstr "Offline-Modus ist aktiviert"
+
 #~ msgid "Pinned"
 #~ msgstr "Angeheftet"
 
@@ -2807,42 +2867,6 @@ msgstr "'Pinnwand' öffnen"
 
 #~ msgid "Hide Completed Tasks"
 #~ msgstr "Erledigte Aufgaben ausblenden"
-
-#~ msgid "Minute(s)"
-#~ msgstr "Minute(n)"
-
-#~ msgid "Hour(s)"
-#~ msgstr "Stunde(n)"
-
-#~ msgid "Day(s)"
-#~ msgstr "Tag(e)"
-
-#~ msgid "Week(s)"
-#~ msgstr "Woche(n)"
-
-#~ msgid "Month(s)"
-#~ msgstr "Monat(e)"
-
-#~ msgid "Year(s)"
-#~ msgstr "Jahr(e)"
-
-#~ msgid "Never"
-#~ msgstr "Nie"
-
-#~ msgid "On Date"
-#~ msgstr "An Datum"
-
-#~ msgid "After"
-#~ msgstr "Nach"
-
-#~ msgid "Summary"
-#~ msgstr "Zusmamenfassung"
-
-#~ msgid "Repeat every"
-#~ msgstr "Wiederholungszyklus"
-
-#~ msgid "End"
-#~ msgstr "Ende"
 
 #~ msgid "CalDAV - "
 #~ msgstr "CalDAV"

@@ -106,6 +106,7 @@ public class Objects.Source : Objects.BaseObject {
 
 	public signal void sync_started ();
 	public signal void sync_finished ();
+    public signal void sync_failed ();
 
 	public Source.from_import_json (Json.Node node) {
 		id = node.get_object ().get_string_member ("id");

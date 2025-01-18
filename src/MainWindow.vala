@@ -200,14 +200,13 @@ public class MainWindow : Adw.ApplicationWindow {
 	
 				return GLib.Source.REMOVE;
 			});
-	
-			Services.NetworkMonitor.instance ().network_changed.connect (() => {
-				if (Services.NetworkMonitor.instance ().network_available) {
-					foreach (Objects.Source source in Services.Store.instance ().sources) {
-						source.run_server ();
-					}
-				}
-			});
+
+	        var network_monitor = GLib.NetworkMonitor.get_default ();
+		    network_monitor.network_changed.connect (() => {
+                foreach (Objects.Source source in Services.Store.instance ().sources) {
+					source.run_server ();
+			    }
+        		});
 		});
 
 		var granite_settings = Granite.Settings.get_default ();

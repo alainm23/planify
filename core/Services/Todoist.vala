@@ -360,7 +360,8 @@ public class Services.Todoist : GLib.Object {
 				yield queue (source);
 			}
 		} catch (Error e) {
-			debug (e.message);
+			debug ("Failed to sync: " + e.message);
+            source.sync_failed ();
 		}
 
 		source.last_sync = new GLib.DateTime.now_local ().to_string ();

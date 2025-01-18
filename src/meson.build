@@ -20,7 +20,6 @@ sources = files(
   'Services/DBusServer.vala',
   'Services/Backups.vala',
   'Services/MigrateFromPlanner.vala',
-  'Services/NetworkMonitor.vala',
 
   'Services/CalendarEvents/CalendarEvents.vala',
   'Services/CalendarEvents/DateIterator.vala',
@@ -115,3 +114,4 @@ executable(
   dependencies: deps,
   install: true
 )
+
