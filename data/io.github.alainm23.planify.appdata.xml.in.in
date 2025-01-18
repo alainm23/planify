@@ -61,7 +61,7 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
-    <release version="4.11.6" date="2024-11-04">
+    <release version="4.11.7" date="2024-11-15">
       <description translate="no">
         <ul>
           <li>Added feature to verify database integrity</li>

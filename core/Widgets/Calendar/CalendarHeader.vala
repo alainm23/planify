@@ -55,12 +55,14 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
         
         left_button = new Gtk.Button.from_icon_name ("pan-start-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { "flat" }
+            css_classes = { "flat" },
+            tooltip_text = _("Back")
         };
 
         right_button = new Gtk.Button.from_icon_name ("pan-end-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { "flat" }
+            css_classes = { "flat" },
+            tooltip_text = _("Forward")
         };
 
         var date_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -69,7 +71,8 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
 
         center_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
-            hexpand = true
+            hexpand = true,
+            tooltip_text = _("Today")
         };
 
         center_button.add_css_class ("flat");

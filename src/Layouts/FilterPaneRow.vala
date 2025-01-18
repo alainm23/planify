@@ -97,8 +97,18 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
 		main_grid.attach (title_box, 0, 1, 2, 2);
 
 		child = main_grid;
-		Util.get_default ().set_widget_color (filter_type.get_color (), this);
 		Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
+
+		var granite_settings = Granite.Settings.get_default ();
+		Util.get_default ().set_widget_color (filter_type.get_color (Services.Settings.get_default ().settings.get_boolean ("dark-mode")), this);
+		Services.EventBus.get_default ().theme_changed.connect (() => {
+			print ("dark: %s\n".printf (
+				(Services.Settings.get_default ().settings.get_boolean ("dark-mode")).to_string ()
+			));
+			Util.get_default ().set_widget_color (filter_type.get_color (
+				Services.Settings.get_default ().settings.get_boolean ("dark-mode")
+			), this);
+		});
 
 		var select_gesture = new Gtk.GestureClick ();
 		add_controller (select_gesture);

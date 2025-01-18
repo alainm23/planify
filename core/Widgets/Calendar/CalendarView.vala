@@ -98,19 +98,22 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
             if (i < start_day || i >= max_day + start_day) {
                 item.visible = false;
             } else {
-                if (block_past_days && generate_date (day, day_number).compare (current_date) <= -1) {
+                var day_datetime = generate_date (day, day_number);
+
+                if (block_past_days && day_datetime.compare (current_date) <= -1) {
                     item.sensitive = false;
                 }
 
-                if (generate_date (day, day_number).compare (current_date) == 0) {
+                if (day_datetime.compare (current_date) == 0) {
                     item.child.add_css_class ("today");
                 }
 
-                if (show_day && Utils.Datetime.get_date_only (day).compare (generate_date (day, day_number)) == 0) {
+                if (show_day && Utils.Datetime.get_date_only (day).compare (day_datetime) == 0) {
                     item.child.add_css_class ("selected");
                 }
 
                 item.day = day_number;
+                item.tooltip_text = Utils.Datetime.get_relative_date_from_date (day_datetime);
                 day_number = day_number + 1;
             }
         }

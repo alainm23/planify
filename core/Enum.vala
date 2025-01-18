@@ -175,25 +175,25 @@ public enum FilterType {
 		}
 	}
 
-	public string get_color () {
+	public string get_color (bool dark = false) {
 		switch (this) {
 		case INBOX:
-			return "#3584e4";
+			return dark ? "#99c1f1" : "#3584e4";
 
 		case TODAY:
 			return "#33d17a";
 
 		case SCHEDULED:
-			return "#9141ac";
+			return dark ? "#dc8add" : "#9141ac";
 
 		case PINBOARD:
-			return "#ed333b";
+			return dark ? "#f66151" : "#ed333b";
 
 		case LABELS:
-			return "#986a44";
+			return dark ? "#cdab8f" : "#986a44";
 
 		case COMPLETED:
-			return "#ff7800";
+			return dark ? "#ffbe6f" : "#ff7800";
 
 		default:
 			assert_not_reached ();

@@ -1205,7 +1205,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         };
 
         // Loading
-
         var sync_label = new Gtk.Label (_("Planify is is syncing your tasks, this may take a few minutes")) {
 			css_classes = { "dim-label" }
 		};
@@ -1250,14 +1249,16 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		});
 
 		webview.load_changed.connect ((load_event) => {
-            var redirect_uri = webview.get_uri ();
-
-            if (("https://github.com/alainm23/planner?code=" in redirect_uri) &&
-                ("&state=%s".printf (state) in redirect_uri)) {
+            var uri = webview.get_uri ();
+			var redirect_uri = "https://github.com/alainm23/planner";
+			print ("url: %s\n".printf (uri));
+			      
+            if ((redirect_uri + "?code=" in uri) &&
+                ("&state=%s".printf (state) in uri)) {
 				settings_header.title = _("Synchronizing…"); // vala-lint=ellipsis
 
 				stack.visible_child_name = "loading";
-				Services.Todoist.get_default ().login.begin (redirect_uri, (obj, res) => {
+				Services.Todoist.get_default ().login.begin (uri, (obj, res) => {
 					HttpResponse response = Services.Todoist.get_default ().login.end (res);
 					pop_subpage ();
 					webview.get_network_session ().get_website_data_manager ().clear.begin (WebKit.WebsiteDataTypes.ALL, 0, null);
@@ -1274,7 +1275,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 				});
             }
 
-            if ("https://github.com/alainm23/planner?error=access_denied" in redirect_uri) {
+            if (redirect_uri + "?error=access_denied" in uri) {
                 debug ("access_denied");
 				webview.get_network_session ().get_website_data_manager ().clear.begin (WebKit.WebsiteDataTypes.ALL, 0, null);
 				pop_subpage ();
