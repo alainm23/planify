@@ -272,14 +272,30 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
         back_item.autohide_popover = false;
         
-        var none_item = new Widgets.ContextMenu.MenuItem (_("None"));
-		var daily_item = new Widgets.ContextMenu.MenuItem (_("Daily"));
-		var weekly_item = new Widgets.ContextMenu.MenuItem (_("Weekly"));
-		var monthly_item = new Widgets.ContextMenu.MenuItem (_("Monthly"));
-		var yearly_item = new Widgets.ContextMenu.MenuItem (_("Yearly"));
-		var custom_item = new Widgets.ContextMenu.MenuItem (_("Custom"));
+        var none_item = new Widgets.ContextMenu.MenuItem (_("None")) {
+            autohide_popover = false
+        };
+        
+		var daily_item = new Widgets.ContextMenu.MenuItem (_("Daily")) {
+            autohide_popover = false
+        };
+		
+        var weekly_item = new Widgets.ContextMenu.MenuItem (_("Weekly")) {
+            autohide_popover = false
+        };
+		
+        var monthly_item = new Widgets.ContextMenu.MenuItem (_("Monthly")) {
+            autohide_popover = false
+        };
+		
+        var yearly_item = new Widgets.ContextMenu.MenuItem (_("Yearly")) {
+            autohide_popover = false
+        };
+		
+        var custom_item = new Widgets.ContextMenu.MenuItem (_("Custom")) {
+            autohide_popover = false
+        };
         custom_item.arrow = true;
-        custom_item.autohide_popover = false;
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
