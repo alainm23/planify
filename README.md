@@ -74,6 +74,13 @@ libportal-gtk4 | 0.7.1
 gxml-0.20 | 0.21.0
 libsecret-1 | 0.21.4
 
+Fedora installation command:
+
+    sudo dnf install vala meson ninja-build gtk4-devel libadwaita-devel libgee-devel granite-devel libsoup3-devel webkitgtk6.0-devel gtksourceview5-devel granite-7-devel libportal-devel libportal-gtk4-devel
+
+Ubuntu/Debian installation command:
+
+    #TODO
 </details>
 
 Run `meson build` to configure the build environment. Change to the build directory and run `ninja` to build
