@@ -1098,18 +1098,18 @@ We hope you’ll enjoy using Planify!""");
         var text = escape_text (_text);
 
         try {
-            Regex mailto_regex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/;
-            Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
+            Regex mailto_regex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/; // vala-lint=space-before-paren
+            Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/; // vala-lint=space-before-paren
             Regex url_markdown = new Regex ("\\[([^\\]]+)\\]\\(([^\\)]+)\\)");
 
-            Regex italic_bold_regex = /\*\*\*(.*?)\*\*\*/;
-            Regex bold_regex = /\*\*(.*?)\*\*/;
-            Regex italic_regex = /\*(.*?)\*/;
-            Regex underline_regex = /_(.*?)_/;
+            Regex italic_bold_regex = /\*\*\*(.*?)\*\*\*/; // vala-lint=space-before-paren
+            Regex bold_regex = /\*\*(.*?)\*\*/; // vala-lint=space-before-paren
+            Regex italic_regex = /\*(.*?)\*/; // vala-lint=space-before-paren
+            Regex underline_regex = /_(.*?)_/; // vala-lint=space-before-paren
 
-            Regex italic_bold_underline_regex = /\*\*\*_([^*]+)_\*\*\*/;
-            Regex bold_underline_regex = /\*\*_([^*]+)_\*\*/;
-            Regex italic_underline_regex = /\*_(.*?)_\*/;
+            Regex italic_bold_underline_regex = /\*\*\*_([^*]+)_\*\*\*/; // vala-lint=space-before-paren
+            Regex bold_underline_regex = /\*\*_([^*]+)_\*\*/; // vala-lint=space-before-paren
+            Regex italic_underline_regex = /\*_(.*?)_\*/; // vala-lint=space-before-paren
 
             MatchInfo info;
 
@@ -1132,6 +1132,7 @@ We hope you’ll enjoy using Planify!""");
             if (url_regex.match (text, 0, out info)) {
                 do {
                     var url = info.fetch_named ("url");
+
                     if (!url_exists (url, markdown_urls)) {
                         urls.append (url);
                     }
@@ -1192,6 +1193,7 @@ We hope you’ll enjoy using Planify!""");
             foreach (RegexMarkdown m in markdown_urls) {
                 string markdown_text = m.text;
                 string markdown_link = m.extra;
+
                 string urlAsLink = @"<a href=\"$markdown_link\">$markdown_text</a>";
                 converted = converted.replace (m.match, urlAsLink);
             }
