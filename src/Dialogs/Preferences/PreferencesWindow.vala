@@ -961,7 +961,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 	}
 
 	private Adw.NavigationPage get_source_view (Objects.Source source) {
-		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Todoist"));
+
+		var settings_header = new Dialogs.Preferences.SettingsHeader (source.subheader_text);
 
 		var avatar = new Adw.Avatar (84, source.user_displayname, true);
 
