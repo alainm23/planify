@@ -80,7 +80,7 @@ Fedora installation command:
 
 Ubuntu/Debian installation command:
 
-    #TODO
+    sudo apt install valac meson ninja-build libgtk-4-dev libadwaita-1-dev libgee-0.8-dev libgranite-7-dev libjson-glib-dev libecal2.0-dev libsoup-3.0-dev libwebkitgtk-6.0-dev libgtksourceview-5-dev libportal-dev libportal-gtk4-dev
 </details>
 
 Run `meson build` to configure the build environment. Change to the build directory and run `ninja` to build
