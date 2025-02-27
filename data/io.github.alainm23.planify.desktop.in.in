@@ -2,6 +2,7 @@
 # Translators: Keep this string as `Planify`
 Name=Planify
 Comment=Never worry about forgetting things again
+Comment[ru]=Решение всех проблем с планированием
 Categories=Utility;Office;ProjectManagement;Calendar;
 Exec=@exec@
 Icon=@icon@
