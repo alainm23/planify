@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-04 16:59-0500\n"
-"PO-Revision-Date: 2024-12-07 22:48-0300\n"
+"POT-Creation-Date: 2025-01-18 16:37+0100\n"
+"PO-Revision-Date: 2025-03-13 18:45-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -151,7 +151,7 @@ msgstr "Cada año"
 msgid "Every %d years"
 msgstr "Cada %d años"
 
-#: core/Enum.vala:411 core/Services/Database.vala:2258
+#: core/Enum.vala:411 core/Services/Database.vala:2257
 #: core/Services/CalDAV/Providers/Nextcloud.vala:322
 #: src/Dialogs/Preferences/PreferencesWindow.vala:864
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1342
@@ -361,7 +361,7 @@ msgstr "Hoy + Bandeja de entrada"
 #: core/Util/Util.vala:381 core/Objects/Label.vala:210
 #: core/Objects/Project.vala:806 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:371 core/Objects/Section.vala:397
-#: core/Objects/Source.vala:165 src/Services/Backups.vala:417
+#: core/Objects/Source.vala:166 src/Services/Backups.vala:417
 #: src/Layouts/ItemSidebarView.vala:547 src/Layouts/SectionBoard.vala:540
 #: src/Widgets/MultiSelectToolbar.vala:255 src/Views/Filter.vala:540
 #: src/Dialogs/CompletedTasks.vala:168 src/Dialogs/QuickFind/QuickFind.vala:68
@@ -709,36 +709,36 @@ msgstr "Sab,"
 msgid "Su,"
 msgstr "Dom,"
 
-#: core/Services/Todoist.vala:1520 src/Widgets/ErrorView.vala:134
+#: core/Services/Todoist.vala:1521 src/Widgets/ErrorView.vala:134
 msgid "The request was incorrect."
 msgstr "La solicitud no era correcta."
 
-#: core/Services/Todoist.vala:1521 src/Widgets/ErrorView.vala:135
+#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:135
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Se requiere autenticación, y ha fallado, o aún no se ha proporcionado."
 
-#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:136
+#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:136
 msgid "The request was valid, but for something that is forbidden."
 msgstr "La petición era válida, pero para algo que está prohibido."
 
-#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:137
+#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:137
 msgid "The requested resource could not be found."
 msgstr "No se ha podido encontrar el recurso solicitado."
 
-#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:138
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "El usuario ha enviado demasiadas solicitudes en un tiempo determinado."
 
-#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:139
 msgid "The request failed due to a server error."
 msgstr "La solicitud ha fallado debido a un error del servidor."
 
-#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1527 src/Widgets/ErrorView.vala:140
 msgid "The server is currently unable to handle the request."
 msgstr "El servidor no puede procesar la solicitud."
 
-#: core/Services/Todoist.vala:1528 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1529 src/Widgets/ErrorView.vala:142
 msgid "Unknown error"
 msgstr "Error desconocido"
 
@@ -830,30 +830,37 @@ msgid "%Y"
 msgstr "%Y"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:35
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:177
 msgid "Su"
 msgstr "Dom"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:36
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:141
 msgid "Mo"
 msgstr "Lun"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:37
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:147
 msgid "Tu"
 msgstr "Mar"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:38
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:153
 msgid "We"
 msgstr "Mie"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:39
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:159
 msgid "Th"
 msgstr "Jue"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:40
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:165
 msgid "Fr"
 msgstr "Vie"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:41
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:171
 msgid "Sa"
 msgstr "Sáb"
 
@@ -869,18 +876,22 @@ msgid "Set a Due Date"
 msgstr "Fijar una fecha de vencimiento"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:238
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 msgid "until"
 msgstr "hasta"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:241
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:451
 msgid "for"
 msgstr "para"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:241
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:451
 msgid "times"
 msgstr "veces"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:241
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:451
 msgid "time"
 msgstr "hora"
 
@@ -894,6 +905,7 @@ msgstr "Elija una fecha"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:122
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:365
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:90
 msgid "Repeat"
 msgstr "Repetir"
 
@@ -904,6 +916,7 @@ msgstr "Hora"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:152
 #: src/Widgets/MultiSelectToolbar.vala:80 src/Dialogs/DatePicker.vala:106
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:258
 msgid "Done"
 msgstr "Listo"
 
@@ -919,6 +932,7 @@ msgstr "Menú"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:272
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:144
 #: src/Layouts/HeaderBar.vala:81 src/Dialogs/Preferences/SettingsHeader.vala:51
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:99
 msgid "Back"
 msgstr "Atrás"
 
@@ -1047,14 +1061,14 @@ msgid "Delete Label %s"
 msgstr "Eliminar Etiqueta %s"
 
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:803
-#: core/Objects/Section.vala:368 core/Objects/Source.vala:162
+#: core/Objects/Section.vala:368 core/Objects/Source.vala:163
 #: src/Services/Backups.vala:414 src/Layouts/ItemSidebarView.vala:544
 #: src/Layouts/SectionBoard.vala:537
 msgid "This can not be undone"
 msgstr "Esto no se puede deshacer"
 
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:807
-#: core/Objects/Section.vala:372 core/Objects/Source.vala:166
+#: core/Objects/Section.vala:372 core/Objects/Source.vala:167
 #: src/Services/Backups.vala:418 src/Layouts/ItemSidebarView.vala:548
 #: src/Layouts/SectionBoard.vala:541 src/Widgets/MultiSelectToolbar.vala:220
 #: src/Widgets/MultiSelectToolbar.vala:256 src/Widgets/AttachmentRow.vala:48
@@ -1101,7 +1115,7 @@ msgstr "Eliminar sección %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/Objects/Source.vala:161
+#: core/Objects/Source.vala:162
 msgid "Delete Source?"
 msgstr "¿Eliminar fuente?"
 
@@ -1219,39 +1233,39 @@ msgstr "Menú principal"
 msgid "Open Quick Find"
 msgstr "Abrir Búsqueda rápida"
 
-#: src/MainWindow.vala:517 src/Dialogs/Preferences/PreferencesWindow.vala:53
+#: src/MainWindow.vala:516 src/Dialogs/Preferences/PreferencesWindow.vala:53
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: src/MainWindow.vala:520
+#: src/MainWindow.vala:519
 msgid "Keyboard Shortcuts"
 msgstr "Atajos de teclado"
 
-#: src/MainWindow.vala:523 src/Dialogs/WhatsNew.vala:150
+#: src/MainWindow.vala:522 src/Dialogs/WhatsNew.vala:150
 msgid "What's New"
 msgstr "Novedades"
 
-#: src/MainWindow.vala:526
+#: src/MainWindow.vala:525
 msgid "About Planify"
 msgstr "Acerca de Planify"
 
-#: src/MainWindow.vala:528 src/Dialogs/ManageProjects.vala:28
+#: src/MainWindow.vala:527 src/Dialogs/ManageProjects.vala:28
 msgid "Archived Projects"
 msgstr "Proyectos archivados"
 
-#: src/MainWindow.vala:587
+#: src/MainWindow.vala:586
 msgid "Oops! Something happened"
 msgstr "¡Ups! Ha pasado algo"
 
-#: src/MainWindow.vala:590
+#: src/MainWindow.vala:589
 msgid "See More"
 msgstr "Ver más"
 
-#: src/MainWindow.vala:626
+#: src/MainWindow.vala:625
 msgid "Database Integrity Check Failed"
 msgstr "Error en la comprobación de integridad de la base de datos"
 
-#: src/MainWindow.vala:627
+#: src/MainWindow.vala:626
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -1268,7 +1282,7 @@ msgstr ""
 "existentes. Tras el restablecimiento, podrás restaurar cualquier copia de "
 "seguridad que hayas creado previamente. Gracias por su paciencia"
 
-#: src/MainWindow.vala:629
+#: src/MainWindow.vala:628
 msgid "Reset Database"
 msgstr "Reiniciar base de datos"
 
@@ -1514,20 +1528,6 @@ msgstr "Abrir/Cerrar la barra lateral"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr ""
 "No hay ningún proyecto disponible. Cree uno haciendo clic en el botón \"+\""
-
-#: src/Widgets/SyncButton.vala:79
-msgid "Offline Mode Is On"
-msgstr "El modo offline está activado"
-
-#: src/Widgets/SyncButton.vala:79
-msgid ""
-"Looks like you'are not connected to the\n"
-"internet. Changes you make in offline\n"
-"mode will be synced when you reconnect"
-msgstr ""
-"Parece que no está conectado a\n"
-"internet. Los cambios que haga en modo offline\n"
-"se sincronizarán cuando vuelva a conectarse"
 
 #: src/Widgets/MultiSelectToolbar.vala:218
 msgid "Mark as Completed"
@@ -2766,6 +2766,73 @@ msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Abrir Importantes"
 
+#: src/Widgets/SyncButton.vala:86
+msgid "Failed to connect to server"
+msgstr "Error al conectar con el servidor"
+
+#: src/Widgets/SyncButton.vala:86
+msgid ""
+"It looks like the server is unreachable,\n"
+"are you connected to the internet?\n"
+"Any changes you make while disconnected\n"
+"will be synchronized when you reconnect."
+msgstr ""
+"Parece que no se puede conectar con el servidor,\n"
+"¿estás conectado a internet?\n"
+"Cualquier cambio que haga mientras esté desconectado\n"
+"se sincronizará cuando te vuelvas a conectar."
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:124
+msgid "Minute(s)"
+msgstr "Minuto(s)"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:124
+msgid "Hour(s)"
+msgstr "Hora(s)"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:124
+msgid "Day(s)"
+msgstr "Día(s)"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:124
+msgid "Week(s)"
+msgstr "Semana(s)"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:124
+msgid "Month(s)"
+msgstr "Mes(es)"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:124
+msgid "Year(s)"
+msgstr "Año(s)"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:203
+msgid "Never"
+msgstr "Nunca"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:207
+msgid "On Date"
+msgstr "A tiempo"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:211
+msgid "After"
+msgstr "Después"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:270
+msgid "Summary"
+msgstr "Resumen"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:276
+msgid "Repeat every"
+msgstr "Repetir cada"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:283
+msgid "End"
+msgstr "Fin"
+
+#~ msgid "Offline Mode Is On"
+#~ msgstr "El modo offline está activado"
+
 #~ msgid "Pinned"
 #~ msgstr "Fijado"
 
@@ -2780,42 +2847,6 @@ msgstr "Abrir Importantes"
 
 #~ msgid "Hide Completed Tasks"
 #~ msgstr "Ocultar tareas completadas"
-
-#~ msgid "Minute(s)"
-#~ msgstr "Minuto(s)"
-
-#~ msgid "Hour(s)"
-#~ msgstr "Hora(s)"
-
-#~ msgid "Day(s)"
-#~ msgstr "Día(s)"
-
-#~ msgid "Week(s)"
-#~ msgstr "Semana(s)"
-
-#~ msgid "Month(s)"
-#~ msgstr "Mes(es)"
-
-#~ msgid "Year(s)"
-#~ msgstr "Año(s)"
-
-#~ msgid "Never"
-#~ msgstr "Nunca"
-
-#~ msgid "On Date"
-#~ msgstr "A tiempo"
-
-#~ msgid "After"
-#~ msgstr "Después"
-
-#~ msgid "Summary"
-#~ msgstr "Resumen"
-
-#~ msgid "Repeat every"
-#~ msgstr "Repetir cada"
-
-#~ msgid "End"
-#~ msgstr "Fin"
 
 #~ msgid "CalDAV - "
 #~ msgstr "CalDAV - "
