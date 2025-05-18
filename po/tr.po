@@ -5,6 +5,7 @@
 # Weblate çevirmenleri, https://hosted.weblate.org/projects/planner/translations/tr/
 # Mücahit Kurtlar, 2022.
 # Sabri Ünal, <libreajans@gmail.com>, 2022, 2023, 2024.
+# Egehan KAHRAMAN VastSea0, <vastseaoffical0@outlook.com>, 2025.
 #
 # Not: Weblate çevirileri ve Mücahit Kurtlar çevirileri birleştirilerek
 # denetlenmiş ve tek çeviri altında toplanmıştır.
@@ -14,8 +15,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-04 16:59-0500\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"PO-Revision-Date: 2025-05-18 12:00+0300\n"
+"Last-Translator: Egehan KAHRAMAN <vastseaoffical0@outlook.com>\n"
 "Language-Team: \n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -1985,7 +1986,7 @@ msgstr ""
 #: src/Dialogs/ItemChangeHistory.vala:133
 #, c-format
 msgid "Load more history from %d weeks ago…"
-msgstr ""
+msgstr "Daha fazla geçmiş yükle %d hafta öncesinden..."
 
 #: src/Dialogs/CompletedTasks.vala:37 src/Dialogs/CompletedTasks.vala:134
 #, fuzzy
@@ -2094,7 +2095,7 @@ msgstr "Yedekler"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:199
 msgid "Backup or migrate from Planner."
-msgstr ""
+msgstr "Planlayıcı'dan yedekleme veya taşıma"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:205
 msgid "Create Tutorial Project"
@@ -2137,11 +2138,11 @@ msgstr "Tartışın ve görüşlerinizi paylaşın"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:275
 msgid "Matrix Room"
-msgstr ""
+msgstr "Matrix Odası"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:290
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:306
 msgid "Want to buy me a drink?"
@@ -2174,7 +2175,7 @@ msgstr "Planify Verilerini Sil"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:357
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
-msgstr ""
+msgstr "Tüm listelerinizi, görevlerinizi ve hatırlatıcılarınızı geri döndürülemez şekilde siler"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:375
 msgid "Home Page"
@@ -2337,11 +2338,11 @@ msgstr "Görevi Tamamla"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:607
 msgid "Play a sound when tasks are completed"
-msgstr ""
+msgstr "Görevler tamamlandığında bir ses çalın"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:613
 msgid "Open Task In Sidebar View"
-msgstr ""
+msgstr "Görevi Kenar Çubuğu Görünümünde Açın"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:619
 msgid "Attention at One"
@@ -2349,11 +2350,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:626
 msgid "Enable Markdown Formatting"
-msgstr ""
+msgstr "Markdown Biçimlendirmeyi Etkinleştir"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:627
 msgid "Toggle Markdown support for tasks on or off"
-msgstr ""
+msgstr "Görevler için Markdown desteğini açma veya kapatma"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:633
 #, fuzzy
@@ -2368,7 +2369,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:644
 msgid "Enabled"
-msgstr ""
+msgstr "Etkin"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:657
 msgid "Automatic reminders"
@@ -2377,7 +2378,7 @@ msgstr "Zamanlı hatırlatıcılar ayarlayın!"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:658
 msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
-msgstr ""
+msgstr "Etkinleştirildiğinde, varsayılan olarak görevin bitiş zamanından önce bir hatırlatıcı eklenecektir."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:735
 msgid "App Theme"
@@ -2409,7 +2410,7 @@ msgstr "Görünümlerinizi sürükleyip bırakarak sıralayabilirsiniz"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1002
 msgid "Display Name"
-msgstr ""
+msgstr "Görünen ad"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1008
 msgid "Sync Server"
@@ -2480,27 +2481,27 @@ msgstr "Lütfen Kimlik Bilgilerinizi Girin"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1330
 msgid "Nextcloud Setup"
-msgstr ""
+msgstr "Nextcloud kurulumu"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1333
 msgid "Server URL"
-msgstr ""
+msgstr "Sunucu URL'si"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1336
 msgid "User Name"
-msgstr ""
+msgstr "Kullanıcı Adı"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1339
 msgid "Password"
-msgstr ""
+msgstr "Parola"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1346
 msgid "Provider"
-msgstr ""
+msgstr "Sağlayıcı"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1383
 msgid "Log In"
-msgstr ""
+msgstr "Giriş Yap"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1563
 msgid "Personal Data"
@@ -2591,11 +2592,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:85
 msgid "Migrate"
-msgstr ""
+msgstr "Geçiş yap"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:87
 msgid "Migrate From Planner"
-msgstr ""
+msgstr "Planlayıcıdan Geçiş Yapın"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:121
 msgid "The Backup was created successfully."
@@ -2607,7 +2608,7 @@ msgstr "Görevler Başarıyla Eşzamanlandı"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:142
 msgid "The database file does not exist."
-msgstr ""
+msgstr "Veritabanı dosyası yok"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:158
 msgid "Import Overview"
