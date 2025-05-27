@@ -506,7 +506,17 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				var date1 = item1.due.datetime;
 				var date2 = item2.due.datetime;
 
-				return date1.compare (date2);
+				if (date1.compare (date2) != 0) {
+                    return date1.compare (date2);
+                }
+
+			    if (item1.priority < item2.priority) {
+				    return 1;
+			    }
+
+			    if (item1.priority > item2.priority) {
+				    return -1;
+			    }
 			}
 
 			if (!item1.has_due && item2.has_due) {
@@ -525,11 +535,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				return 1;
 			}
 
-			if (item1.priority < item2.priority) {
+			if (item1.priority > item2.priority) {
 				return -1;
 			}
 
-			return 0;
+			return item1.added_datetime.compare (item2.added_datetime);
 		}
 
 		return 0;
