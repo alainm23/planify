@@ -99,6 +99,10 @@ To install, use `ninja install`, then execute with `io.github.alainm23.planify`
 - Clone
 - Open in GNOME Builder
 
+# Contributing
+
+Take a look at [ARCHITECTURE.md](ARCHITECTURE.md)
+
 ## Code of conduct
 
 Planify follows the [GNOME Code of Conduct](https://conduct.gnome.org/).
