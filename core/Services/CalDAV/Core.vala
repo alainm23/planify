@@ -687,7 +687,7 @@ public class Services.CalDAV.Core : GLib.Object {
 		string username = item.project.source.caldav_data.username;
 
 		var url = "%s/calendars/%s/%s/%s".printf (item.project.source.caldav_data.server_url, username, item.project.id, item.ics);
-		var destination = "/remote.php/dav/calendars/%s/%s/%s".printf (username, project_id, item.ics);
+		var destination = "%s/calendars/%s/%s/%s".printf (item.project.source.caldav_data.server_url, username, project_id, item.ics);
 
 		var message = new Soup.Message ("MOVE", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (item.project.source.caldav_data.credentials));
