@@ -3,7 +3,7 @@
 Planify uses a Model-View-Controller architecture. At a high level, there are two main components to the application: the frontend and the backend. The frontend implements all of the logic for assembling the UI, displaying data, and listening for user interaction using the GTK GUI library. Hence, the frontend consumes the Model and implements the View portion of the architecture. The backend is responsible for the business logic in handling user input, making necessary changes to models, and saving to the database. The backend implements the Controller by making the correct changes to the Models.
 
 The frontend is stored in the src folder, and there are various Views, which contain Layouts composed of Widgets, which are the actual UI components that the user can interact with. The backend is stored in the core folder, and each of the models used by the application are in core/Objects. These objects are sent to the Views, which uses the data to populate the UI. The Controller is implemented in the core/Services/Store.vala file. Views receive data from the Store by subscribing to certain events. When specific models are updated, it will notify the subscribed views with the new object to refresh the UI. When Views receive user interaction events, they will call methods in the Store to handle the user data. The Store will then handle any logic, and store the updated state of the object.  
-![](docs/image1.png)
+![](docs/image16.png)
 
 # Design Details
 
@@ -12,26 +12,27 @@ Class schema: [https://github.com/alainm23/planify/tree/4e40a7244c1d2b564e97e655
 
 ## Class Diagram
 
-![](docs/image2.png)  
+![](docs/image11.png)  
 	The class structure is highly intertwined between a few key objects: Item, Project, and Section. For each project, there are multiple sections, with each section having a project variable referring to the project it belongs to. And within those sections, there are multiple items, which is synonymous with tasks. Additionally, each project can contain subprojects, and if a given project is a subproject then it has a parent project. Items can contain subitems, which are partitioned into incomplete items and all items. Each item also contains a project and section object, referring to which objects it belongs to, as well as lists of reminders and attachments. ObjectEvents have DueDate objects for the specific due date of the given object.
 
 ## Opening the application
 
 ```mermaid
-title Opening Planify
+sequenceDiagram
+        title Opening Planify
+        
+        participant User
+        participant Application
+        participant Database
+        participant External Data Source
 
-participant User
-participant Application
-participant Database
-participant External Data Source
-
-User->Application:Open application
-Application->Database:Request data
-Database->Application:Return data
-Application->External Data Source:Start Sync
-External Data Source-->Application:Updated events
-
-Application->User:Initialize UI with data
+        User->>Application:Open application
+        Application->>Database:Request data
+        Database->>Application:Return data
+        Application->>External Data Source:Start Sync
+        External Data Source-->>Application:Updated events
+        
+        Application->>User:Initialize UI with data
 ```
  
 When the user opens the application, the App.vala runs MainWindow.vala to initialize the application. First the app starts the Sqlite database and connects to it ([https://github.com/alainm23/planify/blob/master/src/MainWindow.vala\#L156](https://github.com/alainm23/planify/blob/master/src/MainWindow.vala#L156)). The database will return the stored data, including any external data sources that the program should synchronize with. Then, the program will start the synchronization process for all connected external data sources ([https://github.com/alainm23/planify/blob/master/src/MainWindow.vala\#L198](https://github.com/alainm23/planify/blob/master/src/MainWindow.vala#L198)). The data will be fetched asynchronously. Finally, the UI is populated with the loaded data and displayed to the user.
@@ -43,12 +44,23 @@ The Planify app has three main Views. The label list ([https://github.com/alainm
 
 ## Adding a new task
 
-![](docs/image5.png)
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Application
+    participant Database
+
+    Client->>Application: Create new Item
+    Application->>Database: Store item in project
+    Application-->>Client: returns requested information
+    Client->>Client: Displays information
+```
 From Filter.vala, the function create\_new\_task () is called, which calls the function Services.Store.instance ().get\_project (Services.Settings.get\_default ().settings.get\_string ("local-inbox-project-id")); From this command, the backend will update the database, and then return the updated information to the client to be displayed in the user interface.
 
 ## Synchronization
 
-![](docs/image6.png)
+![](docs/image8.png)
 Within MainWindow.vala, it registers a callback that executes a sync every 15 minutes.  
 [src/MainWindow.vala\#L196](https://github.com/alainm23/planify/blob/acca39066b3dd02545c693e5c0614655e352d73c/src/MainWindow.vala#L196)
 
@@ -66,42 +78,42 @@ SyncButton.vala has the ability to manually trigger a sync by broadcasting on it
 
 ## Reminders
 
-![](docs/image7.png)  
+![](docs/image3.png)  
 When a reminder is created in the UI or loaded from the database at startup, it will run reminder\_added() in Notification.vala ([https://github.com/alainm23/planify/blob/master/src/Services/Notification.vala\#L60](https://github.com/alainm23/planify/blob/master/src/Services/Notification.vala#L60)). The code will first check if the time of the notification has already passed, and if it has, it will trigger the notification. If not, it will check whether or not the reminder is due today. If it is due today, it will set a timeout for the remaining time until the notification is due. If it is not due, it will not do anything. However, in TimeMonitor.vala ([https://github.com/alainm23/planify/blob/master/src/Services/TimeMonitor.vala](https://github.com/alainm23/planify/blob/master/src/Services/TimeMonitor.vala)), there is always a timeout set for midnight. At midnight, it will call regresh(), causing Notification.vala to rerun reminder\_added() for all reminders. This in effect causes all reminders to check if they are due again, since it is now a new day. This loop continues until all reminders have been triggered.
 
 # Design Patterns
 
 ## Singleton
 
-![](docs/image8.png)
-![](docs/image9.png)
+![](docs/image6.png)
+![](docs/image7.png)
 The singleton pattern is ubiquitous in Planify. An example of it in use is for the database object. Planify uses SQLite for the database, and only one connection needs to be maintained to the database. Therefore, the database class implements the Singleton pattern: [https://github.com/alainm23/planify/blob/master/core/Services/Database.vala\#L33](https://github.com/alainm23/planify/blob/master/core/Services/Database.vala#L33)
 
 It contains the necessary components of the pattern including a private \`\_instance\` field, and a public \`get\_default\` method returning the instance and creating it if it doesn’t exist.
 
 ## Facade
 
-![](docs/image10.png)
-![](docs/image11.png)
+![](docs/image12.png)
+![](docs/image2.png)
 The database class implements the Facade pattern. The purpose of the Facade pattern is to encapsulate complexity behind a simple API, analogous to how the Tardis encapsulates a larger space inside a smaller one. This is what the database class achieves. For example, consider the \`update\_project\` method: [https://github.com/alainm23/planify/blob/master/core/Services/Database.vala\#L953](https://github.com/alainm23/planify/blob/master/core/Services/Database.vala#L953)
 
 It has a very simple API: \`database.update\_project(project)\`. Under the hood, it constructs an SQL \`UPDATE\` query, fills in the query variables with the information of the project, and executes the query on the database. Every function in the database works like this and encapsulating the complexity behind a facade prevents the complexity from spilling into the rest of the application.
 
 ## Mediator
 
-![](docs/image12.png)  
+![](docs/image10.png)  
 The purpose of this pattern is to reduce code spaghettification by disallowing direct communication between components and forcing them to communicate through a common mediator. The Store ([https://github.com/alainm23/planify/blob/master/core/Services/Store.vala](https://github.com/alainm23/planify/blob/master/core/Services/Store.vala)) singleton mediates communication between UI and backend components through a collection of signals which are Vala’s built-in implementation of events and the Observer pattern. The various UI and backend components, instead of being tied to each other, are tied to the State and then to each other.
 
 Planify appears to fall short of implementing a complete model/view/controller architecture because the UI is not created and updated directly from the state, but is instead updated through event handlers that are triggered at the same time as state updates.
 
 ## Observer
 
-![](docs/image13.png)  
+![](docs/image9.png)  
 The Store singleton also follows the Observer pattern. The Observer pattern is the implementation of a subscriptions system allowing others to listen to messages and to broadcast messages to listeners. This pattern is ubiquitous in UI development and is a language feature built-in to Vala, using the keyword \`signal\`. As mentioned before, the Store singleton contains numerous signals allowing UI and backend components to subscribe to various state changes.
 
 ## Adapter
 
-![](docs/image14.png)  
+![](docs/image1.png)  
 The Adapter pattern allows incompatible APIs to communicate by offering a conversion between them. In Planify, it is necessary to communicate with calendar servers using the CalDAV format. The Planify UI and Backend do not understand the CalDAV protocol, so the protocol is implemented in the CalDAV/Core class ([https://github.com/alainm23/planify/blob/master/core/Services/CalDAV/Core.vala](https://github.com/alainm23/planify/blob/master/core/Services/CalDAV/Core.vala)).
 
 The CalDAV/Core class is architectured fairly strangely, but still follows the fundamental idea of the pattern. Each method in the class takes a \`Source\` object, which represents a calendar source. It will then perform the correct HTTP/S requests using the Source to dictate the server URL and protocol provider. In effect, it adapts the HTTP API of the CalDAV server. 
@@ -119,8 +131,8 @@ The current quick-find popup modal isn’t very cohesive with the rest of the de
 
 ### Chosen solution
 
-![](docs/image16.png)
-![](docs/image17.png)  
+![](docs/image5.png)
+![](docs/image14.png)  
 The maintainer chose to stick with the modal and add labels to categories for “tasks”, “pages”, “projects”, and “labels”. There was consideration of centering these labels, but it was decided against because it didn’t look good.
 
 ### Alternative solution
