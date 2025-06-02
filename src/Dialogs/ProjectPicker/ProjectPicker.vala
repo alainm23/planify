@@ -169,7 +169,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
         })] = submit_button;
 
         var destroy_controller = new Gtk.EventControllerKey ();
-        add_controller (destroy_controller);
+        add_controller ((Gtk.ShortcutController) destroy_controller);
         signal_map[destroy_controller.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 hide_destroy ();
