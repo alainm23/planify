@@ -2,7 +2,7 @@
 
 At a high level, there are two main components to the application: the frontend and the backend. The frontend implements all of the logic for assembling the UI, displaying data, and listening for user interaction using the GTK GUI library. The backend is responsible for the business logic in handling user input, making necessary changes to models, and saving to the database.
 
-The frontend is stored in the src folder, and there are various Views, which contain Layouts composed of Widgets, which are the actual UI components that the user can interact with. The backend is stored in the core folder, and each of the models used by the application are in `core/Objects`. These objects are sent to the Views, which uses the data to populate the UI. The Controller is implemented in the `core/Services/Store.vala` file. Views receive data from the Store by subscribing to certain events. When specific models are updated, it will notify the subscribed views with the new object to refresh the UI. When Views receive user interaction events, they will call methods in the Store to handle the user data. The Store will then handle any logic, and store the updated state of the object.
+The frontend is stored in the `src` folder, and there are various Views, which contain Layouts composed of Widgets, which are the actual UI components that the user can interact with. The backend is stored in the `core` folder, and each of the models used by the application are in `core/Objects`. These objects are sent to the Views, which uses the data to populate the UI. The Controller is implemented in the `core/Services/Store.vala` file. Views receive data from the Store by subscribing to certain events. When specific models are updated, it will notify the subscribed views with the new object to refresh the UI. When Views receive user interaction events, they will call methods in the Store to handle the user data. The Store will then handle any logic, and store the updated state of the object.
 
 ![](docs/image16.png)
 
@@ -37,7 +37,7 @@ sequenceDiagram
         Application->>User:Initialize UI with data
 ```
 
-When the user opens the application, the App.vala runs MainWindow.vala to initialize the application. First the app starts the Sqlite database and connects to it ([src/MainWindow.vala\#L156](https://github.com/alainm23/planify/blob/master/src/MainWindow.vala#L156)). The database will return the stored data, including any external data sources that the program should synchronize with. Then, the program will start the synchronization process for all connected external data sources ([src/MainWindow.vala\#L198](https://github.com/alainm23/planify/blob/master/src/MainWindow.vala#L198)). The data will be fetched asynchronously. Finally, the UI is populated with the loaded data and displayed to the user.
+When the user opens the application, the `App.vala` runs `MainWindow.vala` to initialize the application. First the app starts the SQLite database and connects to it ([src/MainWindow.vala\#L156](https://github.com/alainm23/planify/blob/master/src/MainWindow.vala#L156)). The database will return the stored data, including any external data sources that the program should synchronize with. Then, the program will start the synchronization process for all connected external data sources ([src/MainWindow.vala\#L198](https://github.com/alainm23/planify/blob/master/src/MainWindow.vala#L198)). The data will be fetched asynchronously. Finally, the UI is populated with the loaded data and displayed to the user.
 
 ## Switching pages
 
@@ -65,7 +65,7 @@ From `Filter.vala`, the function `create_new_task()` is called, which calls the 
 
 ![](docs/image8.png)
 
-Within MainWindow.vala, it registers a callback that executes a sync every 15 minutes.
+Within `MainWindow.vala`, it registers a callback that executes a sync every 15 minutes.
 [src/MainWindow.vala\#L196](https://github.com/alainm23/planify/blob/acca39066b3dd02545c693e5c0614655e352d73c/src/MainWindow.vala#L196)
 
 Within `Source.vala`, there is a public `run_server` method, which calls a private `_run_server` method. This then either calls `sync.start` for a CalDAV source or Todoist source, depending on the type.
