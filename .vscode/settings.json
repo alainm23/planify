@@ -1,3 +1,12 @@
 {
-    "mesonbuild.configureOnOpen": false
+    "mesonbuild.configureOnOpen": false,
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/.hg/store/**": true,
+        ".flatpak/**": true,
+        "_build/**": true
+    },
+    "mesonbuild.buildFolder": "_build",
+    "mesonbuild.mesonPath": "${workspaceFolder}/.flatpak/meson.sh"
 }
