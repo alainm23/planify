@@ -1,7 +1,7 @@
 {
     "app-id" : "io.github.alainm23.planify.Devel",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "47",
+    "runtime-version" : "48",
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.alainm23.planify.Devel",
     "tags" : [
@@ -33,19 +33,6 @@
     ],
     "modules" : [
         {
-            "name" : "intltool",
-            "cleanup" : [
-                "*"
-            ],
-            "sources" : [
-                {
-                    "type" : "archive",
-                    "url" : "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
-                    "sha256" : "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
-                }
-            ]
-        },
-        {
             "name" : "granite",
             "buildsystem" : "meson",
             "sources" : [
@@ -75,8 +62,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://github.com/libical/libical/releases/download/v3.0.17/libical-3.0.17.tar.gz",
-                    "sha256" : "bcda9a6db6870240328752854d1ea475af9bbc6356e6771018200e475e5f781b",
+                    "url" : "https://github.com/libical/libical/releases/download/v3.0.20/libical-3.0.20.tar.gz",
+                    "sha256" : "e73de92f5a6ce84c1b00306446b290a2b08cdf0a80988eca0a2c9d5c3510b4c2",
                     "x-checker-data" : {
                         "type" : "anitya",
                         "project-id" : 1637,
@@ -119,8 +106,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://download.gnome.org/sources/evolution-data-server/3.50/evolution-data-server-3.50.2.tar.xz",
-                    "sha256" : "5e66270388d50c14f3b1ae3fa0d2127b9fedce752acd393b5545281b01fc4970",
+                    "url" : "https://download.gnome.org/sources/evolution-data-server/3.56/evolution-data-server-3.56.1.tar.xz",
+                    "sha256" : "646cc0037da3f9f295794c637d95394ad76f8c9bee2268be2c4183e27720c137",
                     "x-checker-data" : {
                         "type" : "gnome",
                         "name" : "evolution-data-server"
@@ -132,7 +119,8 @@
             "name" : "libportal",
             "buildsystem" : "meson",
             "config-opts" : [
-                "-Dbackends=['gtk4']",
+                "-Dbackend-gtk3=disabled",
+                "-Dbackend-gtk4=enabled",
                 "-Ddocs=false",
                 "-Dtests=false"
             ],
@@ -140,7 +128,7 @@
                 {
                     "type" : "git",
                     "url" : "https://github.com/flatpak/libportal.git",
-                    "tag" : "0.6"
+                    "tag" : "0.9.1"
                 }
             ]
         },
@@ -150,7 +138,8 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/gxml.git"
+                    "url" : "https://gitlab.gnome.org/GNOME/gxml.git",
+                    "tag": "0.20.4"
                 }
             ]
         },
