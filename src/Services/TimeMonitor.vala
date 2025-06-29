@@ -30,12 +30,20 @@ public class Services.TimeMonitor : Object {
     }
 
     private DateTime last_registered_date;
+    private uint timeout_id = 0;
 
     public void init_timeout () {
         last_registered_date = new DateTime.now_local ();
-        uint interval = calculate_seconds_until_midnight ();
+        schedule_next_check ();
+    }
 
-        Timeout.add_seconds (interval, on_timeout);
+    private void schedule_next_check () {
+        if (timeout_id != 0) {
+            Source.remove (timeout_id);
+        }
+        
+        uint interval = calculate_seconds_until_midnight ();
+        timeout_id = Timeout.add_seconds (interval, on_timeout);
     }
 
     private bool on_timeout () {
@@ -49,14 +57,9 @@ public class Services.TimeMonitor : Object {
             Services.Notification.get_default ().regresh ();
 
             last_registered_date = now;
-            uint interval = calculate_seconds_until_midnight ();
-
-            Timeout.add_seconds (interval, on_timeout);
-        } else {
-            uint interval = calculate_seconds_until_midnight ();
-            Timeout.add_seconds (interval, on_timeout);
         }
 
+        schedule_next_check ();
         return false;
     }
 
