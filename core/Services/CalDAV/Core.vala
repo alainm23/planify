@@ -70,9 +70,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		var message = new Soup.Message ("PROPFIND", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (base64_credentials));
 		message.set_request_body_from_bytes ("application/xml", new Bytes (provider.LOGIN_REQUEST.data));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
@@ -123,9 +120,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		var message = new Soup.Message ("PROPFIND", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (source.caldav_data.credentials));
 		message.set_request_body_from_bytes ("application/xml", new Bytes (provider.USER_DATA_REQUEST.data));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		first_sync_started ();
 
@@ -161,10 +155,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		var message = new Soup.Message ("PROPFIND", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (source.caldav_data.credentials));
 		message.set_request_body_from_bytes ("application/xml", new Bytes (provider.TASKLIST_REQUEST.data));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
-
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
 
@@ -195,9 +185,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
 		message.request_headers.append ("Depth", "1");
 		message.set_request_body_from_bytes ("application/xml", new Bytes (Services.CalDAV.Providers.Nextcloud.TASKS_REQUEST.data));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -243,9 +230,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		message.request_headers.append ("Authorization", "Basic %s".printf (source.caldav_data.credentials));
 		message.request_headers.append ("Depth", "1");
 		message.set_request_body_from_bytes ("application/xml", new Bytes (provider.TASKLIST_REQUEST.data));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		source.sync_started ();
 
@@ -300,9 +284,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		var message = new Soup.Message ("REPORT", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
 		message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.SYNC_TOKEN_REQUEST.printf (project.sync_id)).data));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		try {
 			if (project.sync_id == "") {
@@ -383,9 +364,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
 		var message = new Soup.Message ("GET", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		string return_value = null;
 
@@ -446,9 +424,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		var message = new Soup.Message ("MKCOL", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
 		message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.CREATE_TASKLIST_REQUEST.printf (project.name, project.color_hex)).data));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		HttpResponse response = new HttpResponse ();
 
@@ -476,9 +451,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		var message = new Soup.Message ("PROPPATCH", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
 		message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.UPDATE_TASKLIST_REQUEST.printf (project.name, project.color_hex)).data));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		HttpResponse response = new HttpResponse ();
 
@@ -505,9 +477,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
 		var message = new Soup.Message ("DELETE", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		HttpResponse response = new HttpResponse ();
 
@@ -535,9 +504,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		var message = new Soup.Message ("PROPFIND", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
 		message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.TASKS_REQUEST_DETAIL).data));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -572,9 +538,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		var message = new Soup.Message ("PROPFIND", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
 		message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.GET_SYNC_TOKEN_REQUEST).data));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -603,9 +566,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		var message = new Soup.Message ("PUT", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (item.project.source.caldav_data.credentials));
 		message.set_request_body_from_bytes ("application/xml", new Bytes (item.to_vtodo ().data));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		HttpResponse response = new HttpResponse ();
 
@@ -628,9 +588,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
 		var message = new Soup.Message ("DELETE", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (item.project.source.caldav_data.credentials));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		HttpResponse response = new HttpResponse ();
 
@@ -660,9 +617,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		var message = new Soup.Message ("PUT", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (item.project.source.caldav_data.credentials));
 		message.set_request_body_from_bytes ("application/xml", new Bytes (body.data));
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		HttpResponse response = new HttpResponse ();
 
@@ -692,9 +646,6 @@ public class Services.CalDAV.Core : GLib.Object {
 		var message = new Soup.Message ("MOVE", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (item.project.source.caldav_data.credentials));
 		message.request_headers.append ("Destination", destination);
-		message.accept_certificate.connect (() => {
-			return true;
-		});
 
 		HttpResponse response = new HttpResponse ();
 
