@@ -557,8 +557,8 @@ public class Services.Store : GLib.Object {
 			}
 
 			item.deleted ();
-			item_deleted (item);
 			_items.remove (item);
+			item_deleted (item);
 
 			item.project.item_deleted (item);
 			if (item.has_section) {
