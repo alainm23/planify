@@ -20,6 +20,11 @@
 */
 
 public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Base {    
+
+    private Soup.Session session;
+	private Json.Parser parser;
+
+
     // vala-lint=naming-convention
     public static string GET_SYNC_TOKEN_REQUEST = """
         <x0:propfind xmlns:x0="DAV:">
@@ -111,6 +116,9 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
     """;
 
     public Nextcloud () {
+		session = new Soup.Session ();
+		parser = new Json.Parser ();
+
         LOGIN_REQUEST = """
             <d:propfind xmlns:d="DAV:">
                 <d:prop>
@@ -272,7 +280,7 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
         """;
     }
 
-    public override string get_server_url (string url, string username, string password) {
+    private string get_real_server_url (string url) {
         string server_url = "";
 
         try {
@@ -292,6 +300,101 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
         } catch (Error e) {
             debug (e.message);
         }
+
+        return server_url;
+    }
+
+
+	public async HttpResponse start_login_flow (string server_url, GLib.Cancellable cancellable) {
+		HttpResponse response = new HttpResponse ();
+
+        string login_url = "%s/index.php/login/v2".printf (get_real_server_url (server_url));
+
+		var message = new Soup.Message ("POST", login_url);
+		message.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT); // The User Agent is used by Nextcloud for the App Name
+		message.set_request_body_from_bytes ("application/json", new Bytes (LOGIN_REQUEST.data));
+
+		try {
+			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
+
+			parser.load_from_data ((string) stream.get_data ());
+
+            var root = parser.get_root ().get_object ();
+
+			var login_link = root.get_string_member ("login");
+
+			var poll = root.get_object_member ("poll");
+			var poll_token = poll.get_string_member ("token");
+			var poll_endpoint = poll.get_string_member ("endpoint");
+
+			AppInfo.launch_default_for_uri (login_link, null);
+
+			int timeout = 20 * 60;
+			int interval = 5;
+
+			while (timeout > 0 && !cancellable.is_cancelled ()) {
+		        var poll_msg = new Soup.Message ("POST", poll_endpoint);
+
+				poll_msg.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);
+				poll_msg.set_request_body_from_bytes ("application/json", new Bytes ("""
+					{ "token": "%s" }
+				""".printf (poll_token).data));
+
+				try {
+					GLib.Bytes poll_response = yield session.send_and_read_async (poll_msg, GLib.Priority.HIGH, cancellable);
+					var poll_str = (string) poll_response.get_data ();
+
+					Json.Parser poll_parser = new Json.Parser ();
+					poll_parser.load_from_data (poll_str);
+					
+					var poll_root = poll_parser.get_root ();
+					
+					if (poll_root.get_node_type () == Json.NodeType.OBJECT) {
+						var poll_object = poll_root.get_object ();
+
+						if (poll_object.has_member ("loginName")) {
+							
+							var server = poll_object.get_string_member ("server"); // From now on we use the provided server url and not the one the user supplied
+							var login_name = poll_object.get_string_member ("loginName");
+							var app_password = poll_object.get_string_member ("appPassword");
+							
+                            var login_response = yield Core.get_default ().login (CalDAVType.NEXTCLOUD, server, login_name, app_password, cancellable);
+
+							return login_response;
+						}
+					}
+					
+				} catch (Error err) {
+					response.error_code = err.code;
+					response.error = "Polling error: %s".printf (err.message);
+					break;
+				}
+
+                // TODO: Rewrite this function with Timeout.add_seconds ?
+				yield nap (interval * 1000);
+
+				timeout -= interval;
+			}
+
+		}catch (Error e) {
+			response.error_code = e.code;
+			response.error = "login error: %s".printf (e.message);
+		}
+
+		return response;
+	}
+
+    private async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
+    GLib.Timeout.add (interval, () => {
+        nap.callback ();
+        return false;
+        }, priority);
+    yield;
+    }
+
+
+    public override string get_server_url (string url, string username, string password) {
+        string server_url = get_real_server_url (url);
 
         return "%s/remote.php/dav".printf (server_url);
     }
