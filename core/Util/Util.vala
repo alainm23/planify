@@ -367,8 +367,9 @@ public class Util : GLib.Object {
     public string get_short_name (string name, int size = Constants.SHORT_NAME_SIZE) {
         string returned = name;
         
-        if (name.length > size) {
-            returned = name.slice (0, size) + "…";
+        int char_count = name.char_count ();
+        if (char_count > size) {
+            returned = name.substring (0, name.index_of_nth_char (size)) + "…";
         }
 
         return returned;
