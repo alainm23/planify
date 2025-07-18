@@ -370,8 +370,7 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
 					break;
 				}
 
-                // TODO: Rewrite this function with Timeout.add_seconds ?
-				yield nap (interval * 1000);
+				yield Util.nap (interval * 1000);
 
 				timeout -= interval;
 			}
@@ -383,15 +382,6 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
 
 		return response;
 	}
-
-    private async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
-    GLib.Timeout.add (interval, () => {
-        nap.callback ();
-        return false;
-        }, priority);
-    yield;
-    }
-
 
     public override string get_server_url (string url, string username, string password) {
         string server_url = get_real_server_url (url);
