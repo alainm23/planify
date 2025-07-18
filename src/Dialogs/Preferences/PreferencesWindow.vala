@@ -861,12 +861,12 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Accounts"));
 
 		var todoist_item = new Widgets.ContextMenu.MenuItem (_("Todoist"));
-		var caldav_item = new Widgets.ContextMenu.MenuItem (_("Nextcloud"));
+		var nextcloud_item = new Widgets.ContextMenu.MenuItem (_("Nextcloud"));
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
 		menu_box.append (todoist_item);
-		menu_box.append (caldav_item);
+		menu_box.append (nextcloud_item);
 
 		var popover = new Gtk.Popover () {
 			has_arrow = true,
@@ -953,8 +953,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 			push_subpage (get_oauth_todoist_page ());
 		});
 
-		caldav_item.clicked.connect (() => {
-			push_subpage (get_caldav_setup_page ());
+		nextcloud_item.clicked.connect (() => {
+			push_subpage (get_nextcloud_setup_page ());
 		});
 
 		return new Adw.NavigationPage (toolbar_view, "account");
@@ -1328,36 +1328,19 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		return page;
 	}
 
-	private Adw.NavigationPage get_caldav_setup_page () {
+	private Adw.NavigationPage get_nextcloud_setup_page () {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Nextcloud Setup"));
 		
 		var server_entry = new Adw.EntryRow ();
         server_entry.title = _("Server URL");
 
-		var username_entry = new Adw.EntryRow ();
-        username_entry.title = _("User Name");
-
-		var password_entry = new Adw.PasswordEntryRow ();
-        password_entry.title = _("Password");
-
-		var providers_model = new Gtk.StringList (null);
-		providers_model.append (_("Nextcloud"));
-		//  providers_model.append (_("Radicale"));
-		
-		var providers_row = new Adw.ComboRow ();
-		providers_row.title = _("Provider");
-		providers_row.model = providers_model;
-
 		var entries_group = new Adw.PreferencesGroup ();
 
 		entries_group.add (server_entry);
-		entries_group.add (username_entry);
-		entries_group.add (password_entry);
-		entries_group.add (providers_row);
 		
 		var message_label = new Gtk.Label ("""Server URL examples:
-  - https://evi.nl.tab.digital/
-  - https://use01.thegood.cloud/""") {
+  - https://cloud.example.com/
+  - https://example.com/nextcloud/""") {
 	wrap = true
   };
 
@@ -1433,35 +1416,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
                 server_entry.remove_css_class ("error");
             }
 
-			if (server_entry.has_css_class ("error") || username_entry.has_css_class ("error") | password_entry.has_css_class ("error")) {
-				login_button.sensitive = false;
-			} else {
-				login_button.sensitive = true;
-			}
-		});
-
-		username_entry.changed.connect (() => {
-			if (username_entry.text != null && username_entry.text != "") {
-				username_entry.remove_css_class ("error");
-			} else {
-				username_entry.add_css_class ("error");
-			}
-
-			if (server_entry.has_css_class ("error") || username_entry.has_css_class ("error") | password_entry.has_css_class ("error")) {
-				login_button.sensitive = false;
-			} else {
-				login_button.sensitive = true;
-			}
-		});
-
-		password_entry.changed.connect (() => {
-			if (password_entry.text != null && password_entry.text != "") {
-				password_entry.remove_css_class ("error");
-			} else {
-				password_entry.add_css_class ("error");
-			}
-
-			if (server_entry.has_css_class ("error") || username_entry.has_css_class ("error") | password_entry.has_css_class ("error")) {
+			if (server_entry.has_css_class ("error")) {
 				login_button.sensitive = false;
 			} else {
 				login_button.sensitive = true;
@@ -1477,12 +1432,16 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 				cancellable.cancel ();
 			});
 
-			Services.CalDAV.Core.get_default ().login.begin (CalDAVType.parse_index (providers_row.selected), server_entry.text, username_entry.text, password_entry.text, cancellable, (obj, res) => {
-				HttpResponse response = Services.CalDAV.Core.get_default ().login.end (res);
+			var core_service = Services.CalDAV.Core.get_default ();
+			var nextcloud_provider = (Services.CalDAV.Providers.Nextcloud) core_service.providers_map.get (CalDAVType.NEXTCLOUD.to_string ());
+
+			nextcloud_provider.start_login_flow.begin (server_entry.text, cancellable, (obj, res) => {
+				HttpResponse response = nextcloud_provider.start_login_flow.end (res);
+
 				if (response.status) {
 					Objects.Source source = (Objects.Source) response.data_object.get_object ();
-					Services.CalDAV.Core.get_default ().add_caldav_account.begin (source, cancellable, (obj, res) => {
-						response = Services.CalDAV.Core.get_default ().add_caldav_account.end (res);
+					core_service.add_caldav_account.begin (source, cancellable, (obj, res) => {
+						response = core_service.add_caldav_account.end (res);
 
 						if (!response.status) {
 							login_button.is_loading = false;

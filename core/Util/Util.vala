@@ -1311,6 +1311,15 @@ We hope you’ll enjoy using Planify!""");
 
         return return_value;
     }
+
+    // https://wiki.gnome.org/Projects/Vala/AsyncSamples#Async_sleep_example
+    public static async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
+    GLib.Timeout.add (interval, () => {
+        nap.callback ();
+        return false;
+        }, priority);
+    yield;
+    }
 }
 
 public class RegexMarkdown {
