@@ -61,6 +61,17 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.14.0" date="2025-07-20">
+      <description translate="no">
+        <ul>
+          <li>Improved task handling in the Today view, including real-time updates and midnight refresh fixes - thanks to @igor-semenov.</li>
+          <li>Nextcloud login flow redesigned for better UX and stability - thanks to @byquanton.</li>
+          <li>Fixed crashes caused by UTF-8 character handling - thanks to @byquanton.</li>
+          <li>Russian translation added — thanks to @Heinrich-XIAO.</li>
+          <li>Refactored utility methods and internal cleanup.</li>
+        </ul>
+      </description>
+    </release>
     <release version="4.13.0" date="2025-07-18">
       <description translate="no">
         <ul>
