@@ -116,7 +116,6 @@ src/Services/TimeMonitor.vala
 src/Services/DBusServer.vala
 src/Services/Backups.vala
 src/Services/MigrateFromPlanner.vala
-src/Services/NetworkMonitor.vala
 
 src/Services/CalendarEvents/CalendarEvents.vala
 src/Services/CalendarEvents/DateIterator.vala
