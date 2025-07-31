@@ -453,12 +453,19 @@ public class MainWindow : Adw.ApplicationWindow {
 		if (project_view != null) {
 			if (views_stack.visible_child == project_view) {
 				go_homepage ();
+				// Use a timeout to ensure the view transition is complete before cleanup
+				GLib.Timeout.add (views_stack.transition_duration, () => {
+					project_view.clean_up ();
+					project_view.destroy ();
+					views_stack.remove (project_view);
+					return GLib.Source.REMOVE;
+				});
+			} else {
+				// If not visible, we can clean up immediately
+				project_view.clean_up ();
+				project_view.destroy ();
+				views_stack.remove (project_view);
 			}
-
-			project_view.clean_up ();
-			project_view.destroy ();
-
-			views_stack.remove (project_view);
 		}
 	}
 
