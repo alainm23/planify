@@ -24,13 +24,14 @@ jobs:
     name: "Gettext"
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-47
+      image: ghcr.io/elementary/flatpak-platform/runtime:8-x86_64
       options: --privileged
 
     steps:
       - name: Install git, python3-git and jq
         run: |
-          dnf -y install git jq python3-git
+          apt-get update
+          apt-get install git jq python3-git -y
 
       - name: Clone repository
         uses: actions/checkout@v4
