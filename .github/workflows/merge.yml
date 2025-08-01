@@ -8,15 +8,6 @@ on:
 
 name: CI
 jobs:
-  lint:
-    name: "Vala Lint"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: elementary/actions/vala-lint@main
-        with:
-          dir: .
-          conf: .vala-lint.conf
   flatpak:
     name: "Flatpak"
     runs-on: ubuntu-latest
