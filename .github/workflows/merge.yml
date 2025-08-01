@@ -1,0 +1,46 @@
+on:
+  push:
+    branches: [master]
+  pull_request:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+name: CI 
+jobs:
+  lint:
+    name: "Vala Lint"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: elementary/actions/vala-lint@main
+        with:
+          dir: .
+          conf: .vala-lint.conf
+  flatpak:
+    name: "Flatpak"
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v4
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: planify.Devel.flatpak
+          manifest-path: build-aux/io.github.alainm23.planify.Devel.json
+          cache-key: flatpak-builder-${{ github.sha }}
+  snap:
+    name: "Snap"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v4
+      - name: Build Snap
+        uses: snapcore/action-build@v1
+        id: snapcraft-build
+        with:
+          snapcraft-args: "--verbosity debug"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: planify_amd64_snap
+          path: ${{ steps.snapcraft-build.outputs.snap }}
