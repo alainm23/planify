@@ -183,7 +183,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 		quick_add_content.append (item_labels);
 		quick_add_content.append (action_box);
 
-		submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add To-Do")) {
+		submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add")) {
 			valign = CENTER,
 			css_classes = { "suggested-action", "border-radius-6" }
 		};

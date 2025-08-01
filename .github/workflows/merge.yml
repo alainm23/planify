@@ -1,4 +1,3 @@
----
 name: Merge
 
 on:
@@ -6,17 +5,7 @@ on:
     branches:
       - master
 
-name: CI
 jobs:
-  lint:
-    name: "Vala Lint"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: elementary/actions/vala-lint@main
-        with:
-          dir: .
-          conf: .vala-lint.conf
   flatpak:
     name: "Flatpak"
     runs-on: ubuntu-latest
@@ -30,36 +19,38 @@ jobs:
           bundle: planify.Devel.flatpak
           manifest-path: build-aux/io.github.alainm23.planify.Devel.json
           cache-key: flatpak-builder-${{ github.sha }}
-    gettext:
-      name: Gettext
-      runs-on: ubuntu-latest
-      container:
-        image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-47
-        options: --privileged
 
-      steps:
-        - name: Install git, python3-git and jq
-          run: |
-            apt-get update
-            apt-get install git jq python3-git -y
+  gettext:
+    name: "Gettext"
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-47
+      options: --privileged
 
-        - name: Clone repository
-          uses: actions/checkout@v4
-          with:
-            token: ${{ secrets.GIT_USER_TOKEN }}
+    steps:
+      - name: Install git, python3-git and jq
+        run: |
+          apt-get update
+          apt-get install git jq python3-git -y
 
-        - name: Install Rust SDK extension
-          run: |
-            flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-            flatpak install -y org.freedesktop.Sdk.Extension.rust-stable//23.08
+      - name: Clone repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GIT_USER_TOKEN }}
 
-        - name: Configure Git
-          run: |
-            git config --global --add safe.directory "$GITHUB_WORKSPACE"
-        - name: Update Translation Files
-          uses: elementary/actions/gettext-flatpak@main
-          with:
-            manifest-path: "io.github.alainm23.planify.json"
-          env:
-            GIT_USER_NAME: "elementaryBot"
-            GIT_USER_EMAIL: "builds@elementary.io"
+      - name: Install Rust SDK extension
+        run: |
+          flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          flatpak install -y org.freedesktop.Sdk.Extension.rust-stable//23.08
+
+      - name: Configure Git
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Update Translation Files
+        uses: elementary/actions/gettext-flatpak@main
+        with:
+          manifest-path: "io.github.alainm23.planify.json"
+        env:
+          GIT_USER_NAME: "elementaryBot"
+          GIT_USER_EMAIL: "builds@elementary.io"
