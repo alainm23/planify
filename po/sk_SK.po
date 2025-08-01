@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-31 17:57-0500\n"
+"POT-Creation-Date: 2025-08-01 16:35-0500\n"
 "PO-Revision-Date: 2025-01-17 20:16+0100\n"
 "Last-Translator: Nostragodus <nostragodus@gmail.com>\n"
 "Language-Team: Slovakia\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:101
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:150
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:139
-#: src/Dialogs/Preferences/PreferencesWindow.vala:368
+#: src/Dialogs/Preferences/PreferencesWindow.vala:371
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:39
 msgid "Inbox"
 msgstr "Prijaté"
@@ -34,20 +34,20 @@ msgstr "Prijaté"
 #: src/Layouts/ItemBoard.vala:641 src/Views/Project/Project.vala:465
 #: src/Views/Project/Project.vala:590 src/Views/Today.vala:53
 #: src/Views/Today.vala:167 src/Dialogs/DatePicker.vala:62
-#: src/Dialogs/Preferences/PreferencesWindow.vala:369
+#: src/Dialogs/Preferences/PreferencesWindow.vala:372
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:40
 msgid "Today"
 msgstr "Dnes"
 
 #: core/Enum.vala:137 core/Enum.vala:659 core/Objects/Filters/Scheduled.vala:50
 #: src/Views/Scheduled/Scheduled.vala:64
-#: src/Dialogs/Preferences/PreferencesWindow.vala:370
+#: src/Dialogs/Preferences/PreferencesWindow.vala:373
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:41
 msgid "Scheduled"
 msgstr "Naplánované"
 
 #: core/Enum.vala:140 core/Objects/Filters/Pinboard.vala:51
-#: src/Views/Filter.vala:204 src/Dialogs/Preferences/PreferencesWindow.vala:372
+#: src/Views/Filter.vala:204 src/Dialogs/Preferences/PreferencesWindow.vala:375
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:42
 msgid "Pinboard"
 msgstr "Nástenka"
@@ -56,7 +56,7 @@ msgstr "Nástenka"
 #: core/Widgets/LabelPicker/LabelButton.vala:74
 #: core/Objects/Filters/Labels.vala:50 src/Views/Label/Labels.vala:30
 #: src/Dialogs/LabelPicker.vala:35
-#: src/Dialogs/Preferences/PreferencesWindow.vala:371
+#: src/Dialogs/Preferences/PreferencesWindow.vala:374
 #: src/Dialogs/Preferences/Pages/Backup.vala:185
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:43
 msgid "Labels"
@@ -67,7 +67,7 @@ msgstr "Štítky"
 msgid "Completed"
 msgstr "Dokončené"
 
-#: core/Enum.vala:278 src/Dialogs/Preferences/PreferencesWindow.vala:403
+#: core/Enum.vala:278 src/Dialogs/Preferences/PreferencesWindow.vala:407
 #: src/Dialogs/Preferences/Pages/Backup.vala:173
 msgid "Projects"
 msgstr "Projekty"
@@ -154,7 +154,6 @@ msgstr "Každých %d rokov"
 
 #: core/Enum.vala:411 core/Services/Database.vala:2257
 #: core/Services/CalDAV/Providers/Nextcloud.vala:415
-#: src/Dialogs/Preferences/PreferencesWindow.vala:864
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
@@ -238,8 +237,8 @@ msgid "Add Reminders"
 msgstr "Pridať pripomienky"
 
 #: core/QuickAdd.vala:186
-msgid "Add To-Do"
-msgstr "Pridať úlohu"
+msgid "Add"
+msgstr ""
 
 #: core/QuickAdd.vala:193
 msgid "Create More"
@@ -350,7 +349,7 @@ msgid "Dark Blue"
 msgstr "Tmavomodrá"
 
 #: core/Util/Util.vala:223 core/Widgets/DateTimePicker/DateTimePicker.vala:275
-#: src/Dialogs/Preferences/PreferencesWindow.vala:567
+#: src/Dialogs/Preferences/PreferencesWindow.vala:573
 msgid "None"
 msgstr "Žiadne"
 
@@ -365,7 +364,6 @@ msgstr "Dnes + Prijaté"
 #: src/Layouts/ItemSidebarView.vala:547 src/Layouts/SectionBoard.vala:540
 #: src/Widgets/MultiSelectToolbar.vala:255 src/Views/Filter.vala:540
 #: src/Dialogs/CompletedTasks.vala:168 src/Dialogs/QuickFind/QuickFind.vala:68
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1374
 #: src/Dialogs/Preferences/Pages/Backup.vala:198
 #: src/Dialogs/Preferences/Pages/Backup.vala:256
 msgid "Cancel"
@@ -380,7 +378,6 @@ msgid "Process completed, you need to start Planify again."
 msgstr "Proces dokončený, musíte znova spustiť Planify."
 
 #: core/Util/Util.vala:399 src/Services/Backups.vala:567
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1306
 msgid "Ok"
 msgstr "Ok"
 
@@ -617,31 +614,31 @@ msgstr "Sekcia duplikovaná"
 msgid "Project duplicated"
 msgstr "Projekt duplikovaný"
 
-#: core/Util/Util.vala:1290 src/Dialogs/Preferences/PreferencesWindow.vala:648
+#: core/Util/Util.vala:1290 src/Dialogs/Preferences/PreferencesWindow.vala:664
 msgid "At due time"
 msgstr "V čase splatnosti"
 
-#: core/Util/Util.vala:1293 src/Dialogs/Preferences/PreferencesWindow.vala:649
+#: core/Util/Util.vala:1293 src/Dialogs/Preferences/PreferencesWindow.vala:665
 msgid "10 minutes before"
 msgstr "10 minút pred"
 
-#: core/Util/Util.vala:1296 src/Dialogs/Preferences/PreferencesWindow.vala:650
+#: core/Util/Util.vala:1296 src/Dialogs/Preferences/PreferencesWindow.vala:666
 msgid "30 minutes before"
 msgstr "30 minút pred"
 
-#: core/Util/Util.vala:1299 src/Dialogs/Preferences/PreferencesWindow.vala:651
+#: core/Util/Util.vala:1299 src/Dialogs/Preferences/PreferencesWindow.vala:667
 msgid "45 minutes before"
 msgstr "45 minút pred"
 
-#: core/Util/Util.vala:1302 src/Dialogs/Preferences/PreferencesWindow.vala:652
+#: core/Util/Util.vala:1302 src/Dialogs/Preferences/PreferencesWindow.vala:668
 msgid "1 hour before"
 msgstr "1 hodina pred"
 
-#: core/Util/Util.vala:1305 src/Dialogs/Preferences/PreferencesWindow.vala:653
+#: core/Util/Util.vala:1305 src/Dialogs/Preferences/PreferencesWindow.vala:669
 msgid "2 hours before"
 msgstr "2 hodiny pred"
 
-#: core/Util/Util.vala:1308 src/Dialogs/Preferences/PreferencesWindow.vala:654
+#: core/Util/Util.vala:1308 src/Dialogs/Preferences/PreferencesWindow.vala:670
 msgid "3 hours before"
 msgstr "3 hodiny pred"
 
@@ -703,41 +700,41 @@ msgstr "So,"
 msgid "Su,"
 msgstr "Ne,"
 
-#: core/Services/Todoist.vala:1521 src/Widgets/ErrorView.vala:134
+#: core/Services/Todoist.vala:1529 src/Widgets/ErrorView.vala:134
 msgid "The request was incorrect."
 msgstr "Žiadosť bola nesprávna."
 
-#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:135
+#: core/Services/Todoist.vala:1530 src/Widgets/ErrorView.vala:135
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 "Je potrebná autentifikácia, ktorá zlyhala alebo ešte nebola poskytnutá."
 
-#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:136
+#: core/Services/Todoist.vala:1531 src/Widgets/ErrorView.vala:136
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Žiadosť bola platná, ale týkala sa niečoho, čo je zakázané."
 
-#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:137
+#: core/Services/Todoist.vala:1532 src/Widgets/ErrorView.vala:137
 msgid "The requested resource could not be found."
 msgstr "Požadovaný zdroj sa nenašiel."
 
-#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1533 src/Widgets/ErrorView.vala:138
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Používateľ poslal príliš veľa požiadaviek v danom časovom období."
 
-#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1534 src/Widgets/ErrorView.vala:139
 msgid "The request failed due to a server error."
 msgstr "Požiadavka zlyhala kvôli chybe servera."
 
-#: core/Services/Todoist.vala:1527 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1535 src/Widgets/ErrorView.vala:140
 msgid "The server is currently unable to handle the request."
 msgstr "Server momentálne nemôže spracovať požiadavku."
 
-#: core/Services/Todoist.vala:1529 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1537 src/Widgets/ErrorView.vala:142
 msgid "Unknown error"
 msgstr "Neznáma chyba"
 
-#: core/Services/CalDAV/Core.vala:53 core/Services/CalDAV/Core.vala:116
+#: core/Services/CalDAV/Core.vala:53 core/Services/CalDAV/Core.vala:113
 msgid "No Provider Available"
 msgstr "Žiadny poskytovateľ nie je k dispozícii"
 
@@ -979,7 +976,7 @@ msgstr "Vybrať sekciu"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:56
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:60
-#: src/Dialogs/Preferences/PreferencesWindow.vala:640
+#: src/Dialogs/Preferences/PreferencesWindow.vala:655
 msgid "Reminders"
 msgstr "Pripomienky"
 
@@ -1086,7 +1083,6 @@ msgid "Delete Section %s"
 msgstr "Odstrániť sekciu %s"
 
 #: core/Objects/Source.vala:59
-#: src/Dialogs/Preferences/PreferencesWindow.vala:863
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -1207,39 +1203,39 @@ msgstr "Hlavné menu"
 msgid "Open Quick Find"
 msgstr "Otvoriť rýchle vyhľadávanie"
 
-#: src/MainWindow.vala:516 src/Dialogs/Preferences/PreferencesWindow.vala:53
+#: src/MainWindow.vala:523 src/Dialogs/Preferences/PreferencesWindow.vala:53
 msgid "Preferences"
 msgstr "Predvoľby"
 
-#: src/MainWindow.vala:519
+#: src/MainWindow.vala:526
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové skratky"
 
-#: src/MainWindow.vala:522 src/Dialogs/WhatsNew.vala:150
+#: src/MainWindow.vala:529 src/Dialogs/WhatsNew.vala:150
 msgid "What's New"
 msgstr "Čo je nové"
 
-#: src/MainWindow.vala:525
+#: src/MainWindow.vala:532
 msgid "About Planify"
 msgstr "O Planify"
 
-#: src/MainWindow.vala:527 src/Dialogs/ManageProjects.vala:28
+#: src/MainWindow.vala:534 src/Dialogs/ManageProjects.vala:28
 msgid "Archived Projects"
 msgstr "Archivované projekty"
 
-#: src/MainWindow.vala:586
+#: src/MainWindow.vala:593
 msgid "Oops! Something happened"
 msgstr "Ups! Niečo sa stalo"
 
-#: src/MainWindow.vala:589
+#: src/MainWindow.vala:596
 msgid "See More"
 msgstr "Zobraziť viac"
 
-#: src/MainWindow.vala:625
+#: src/MainWindow.vala:632
 msgid "Database Integrity Check Failed"
 msgstr "Kontrola integrity databázy zlyhala"
 
-#: src/MainWindow.vala:626
+#: src/MainWindow.vala:633
 #, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
@@ -1259,7 +1255,7 @@ msgstr ""
 "existujúce údaje budú odstránené. Po resetovaní budete môcť obnoviť "
 "akúkoľvek zálohu, ktorú ste vytvorili. Ďakujeme za vašu trpezlivosť"
 
-#: src/MainWindow.vala:628
+#: src/MainWindow.vala:635
 msgid "Reset Database"
 msgstr "Resetovať databázu"
 
@@ -1611,7 +1607,6 @@ msgid "Remove"
 msgstr "Odstrániť"
 
 #: src/Widgets/SourceRow.vala:82
-#: src/Dialogs/Preferences/PreferencesWindow.vala:882
 msgid "Add Source"
 msgstr "Pridať zdroj"
 
@@ -1671,7 +1666,7 @@ msgstr "Vlastný poradok"
 
 #: src/Views/Project/Project.vala:454 src/Views/Today.vala:626
 #: src/Views/Scheduled/Scheduled.vala:189
-#: src/Dialogs/Preferences/PreferencesWindow.vala:385
+#: src/Dialogs/Preferences/PreferencesWindow.vala:388
 msgid "Alphabetically"
 msgstr "Abecedne"
 
@@ -1807,9 +1802,7 @@ msgstr "Zdroj"
 msgid "Update Project"
 msgstr "Aktualizovať projekt"
 
-#: src/Dialogs/Project.vala:357
-#: src/Dialogs/Preferences/PreferencesWindow.vala:886
-#: src/Dialogs/Preferences/Pages/Backup.vala:169
+#: src/Dialogs/Project.vala:357 src/Dialogs/Preferences/Pages/Backup.vala:169
 msgid "Sources"
 msgstr "Zdroje"
 
@@ -1862,8 +1855,6 @@ msgid "Please enter your credentials"
 msgstr "Zadajte svoje prihlasovacie údaje"
 
 #: src/Dialogs/GoogleOAuth.vala:151
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1303
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1305
 msgid "Network Is Not Available"
 msgstr "Sieť nie je dostupná"
 
@@ -2002,11 +1993,11 @@ msgstr ""
 "štítkov"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:62
-#: src/Dialogs/Preferences/PreferencesWindow.vala:305
+#: src/Dialogs/Preferences/PreferencesWindow.vala:308
 msgid "Support Planify"
 msgstr "Podporte Planify"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:67
+#: src/Dialogs/Preferences/PreferencesWindow.vala:69
 msgid ""
 "Planify is being developed with love and passion for open source. However, "
 "if you like Planify and want to support its development, please consider "
@@ -2015,329 +2006,329 @@ msgstr ""
 "Planify je vyvíjaný s láskou a vášňou pre open source. Avšak, ak sa vám "
 "Planify páči a chcete podporiť jeho vývoj, zvážte podporu nás."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:75
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1599
+#: src/Dialogs/Preferences/PreferencesWindow.vala:77
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1117
 msgid "Supporting Us"
 msgstr "Podporovanie nás"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:127
+#: src/Dialogs/Preferences/PreferencesWindow.vala:130
 msgid "Integrations"
 msgstr "Integrácie"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:128
+#: src/Dialogs/Preferences/PreferencesWindow.vala:131
 msgid "Sync your favorite to-do providers"
 msgstr "Synchronizujte svojich obľúbených poskytovateľov úloh"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:144
-#: src/Dialogs/Preferences/PreferencesWindow.vala:365
-#: src/Dialogs/Preferences/PreferencesWindow.vala:380
+#: src/Dialogs/Preferences/PreferencesWindow.vala:147
+#: src/Dialogs/Preferences/PreferencesWindow.vala:368
+#: src/Dialogs/Preferences/PreferencesWindow.vala:383
 msgid "General"
 msgstr "Všeobecné"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:145
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Customize to your liking"
 msgstr "Prispôsobte si podľa svojich predstáv"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:155
+#: src/Dialogs/Preferences/PreferencesWindow.vala:158
 msgid "Task Setting"
 msgstr "Nastavenie úloh"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:165
+#: src/Dialogs/Preferences/PreferencesWindow.vala:168
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:31
 msgid "Sidebar"
 msgstr "Postranný panel"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:166
+#: src/Dialogs/Preferences/PreferencesWindow.vala:169
 msgid "Customize your sidebar"
 msgstr "Prispôsobte si postranný panel"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:176
-#: src/Dialogs/Preferences/PreferencesWindow.vala:732
+#: src/Dialogs/Preferences/PreferencesWindow.vala:179
+#: src/Dialogs/Preferences/PreferencesWindow.vala:755
 msgid "Appearance"
 msgstr "Vzhľad"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:187
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1079
+#: src/Dialogs/Preferences/PreferencesWindow.vala:190
+#: src/Dialogs/Preferences/PreferencesWindow.vala:904
 msgid "Quick Add"
 msgstr "Rýchle pridanie"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:188
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
 msgid "Adding to-do's from anywhere"
 msgstr "Pridávanie úloh z akéhokoľvek miesta"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:198
+#: src/Dialogs/Preferences/PreferencesWindow.vala:201
 #: src/Dialogs/Preferences/Pages/Backup.vala:33
 msgid "Backups"
 msgstr "Zálohy"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:199
+#: src/Dialogs/Preferences/PreferencesWindow.vala:202
 msgid "Backup or migrate from Planner."
 msgstr "Zálohujte alebo migrujte z Planner."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:205
+#: src/Dialogs/Preferences/PreferencesWindow.vala:208
 msgid "Create Tutorial Project"
 msgstr "Vytvoriť tutoriálový projekt"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:206
+#: src/Dialogs/Preferences/PreferencesWindow.vala:209
 msgid "Learn the app step by step with a short tutorial project"
 msgstr "Učte sa aplikáciu krok za krokom s krátkym tutoriálovým projektom"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:222
+#: src/Dialogs/Preferences/PreferencesWindow.vala:225
 msgid "Reach Us"
 msgstr "Kontaktujte nás"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:228
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1549
+#: src/Dialogs/Preferences/PreferencesWindow.vala:231
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1067
 msgid "Contact Us"
 msgstr "Kontaktujte nás"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:229
+#: src/Dialogs/Preferences/PreferencesWindow.vala:232
 msgid "Request a feature or ask us anything"
 msgstr "Požiadajte o funkciu alebo sa nás opýtajte čokoľvek"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:245
+#: src/Dialogs/Preferences/PreferencesWindow.vala:248
 msgid "Tweet Us"
 msgstr "Napíšte nám na Twitteri"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:246
-#: src/Dialogs/Preferences/PreferencesWindow.vala:291
+#: src/Dialogs/Preferences/PreferencesWindow.vala:249
+#: src/Dialogs/Preferences/PreferencesWindow.vala:294
 msgid "Share some love"
 msgstr "Podeľte sa o trochu lásky"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:260
+#: src/Dialogs/Preferences/PreferencesWindow.vala:263
 msgid "Telegram"
 msgstr "Telegram"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:261
-#: src/Dialogs/Preferences/PreferencesWindow.vala:276
+#: src/Dialogs/Preferences/PreferencesWindow.vala:264
+#: src/Dialogs/Preferences/PreferencesWindow.vala:279
 msgid "Discuss and share your feedback"
 msgstr "Diskutujte a zdieľajte svoje názory"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:275
+#: src/Dialogs/Preferences/PreferencesWindow.vala:278
 msgid "Matrix Room"
 msgstr "Matrix miestnosť"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:290
+#: src/Dialogs/Preferences/PreferencesWindow.vala:293
 msgid "Mastodon"
 msgstr "Mastodon"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:306
+#: src/Dialogs/Preferences/PreferencesWindow.vala:309
 msgid "Want to buy me a drink?"
 msgstr "Chcete mi kúpiť drink?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:322
+#: src/Dialogs/Preferences/PreferencesWindow.vala:325
 msgid "Privacy"
 msgstr "Ochrana súkromia"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:328
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1517
+#: src/Dialogs/Preferences/PreferencesWindow.vala:331
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1032
 msgid "Privacy Policy"
 msgstr "Zásady ochrany súkromia"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:329
+#: src/Dialogs/Preferences/PreferencesWindow.vala:332
 msgid "We have nothing on you"
 msgstr "Nemáme o vás nič"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:335
+#: src/Dialogs/Preferences/PreferencesWindow.vala:338
 msgid "Delete App Data"
 msgstr "Vymazať údaje aplikácie"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:344
+#: src/Dialogs/Preferences/PreferencesWindow.vala:347
 msgid "A tutorial project has been created"
 msgstr "Bolo vytvorené tutoriálové projekt"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:356
+#: src/Dialogs/Preferences/PreferencesWindow.vala:359
 msgid "Delete All Data?"
 msgstr "Vymazať všetky údaje?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:357
+#: src/Dialogs/Preferences/PreferencesWindow.vala:360
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "Nezvratne vymaže všetky vaše zoznamy, úlohy a pripomienky"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:375
+#: src/Dialogs/Preferences/PreferencesWindow.vala:378
 msgid "Home Page"
 msgstr "Hlavná stránka"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:384
+#: src/Dialogs/Preferences/PreferencesWindow.vala:387
 msgid "Custom Sort Order"
 msgstr "Vlastný poriadok triedenia"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:388
+#: src/Dialogs/Preferences/PreferencesWindow.vala:391
 msgid "Sort by"
 msgstr "Triediť podľa"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:393
+#: src/Dialogs/Preferences/PreferencesWindow.vala:396
 msgid "Ascending"
 msgstr "Vzostupne"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:394
+#: src/Dialogs/Preferences/PreferencesWindow.vala:397
 msgid "Descending"
 msgstr "Zostupne"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:397
+#: src/Dialogs/Preferences/PreferencesWindow.vala:400
 msgid "Ordered"
 msgstr "Usporiadané"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:408
+#: src/Dialogs/Preferences/PreferencesWindow.vala:412
 msgid "DE Integration"
 msgstr "DE integrácia"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:416
+#: src/Dialogs/Preferences/PreferencesWindow.vala:420
 msgid "Run in Background"
 msgstr "Spustiť na pozadí"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:417
+#: src/Dialogs/Preferences/PreferencesWindow.vala:421
 msgid "Let Planify run in background and send notifications"
 msgstr "Nechajte aplikáciu Planify bežať na pozadí a posielať notifikácie"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:429
+#: src/Dialogs/Preferences/PreferencesWindow.vala:433
 msgid "Run on Startup"
 msgstr "Spustiť pri štarte"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:430
+#: src/Dialogs/Preferences/PreferencesWindow.vala:434
 msgid "Whether Planify should run on startup"
 msgstr "Či by mala aplikácia Planify bežať pri štarte"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:442
+#: src/Dialogs/Preferences/PreferencesWindow.vala:446
 msgid "Calendar Events"
 msgstr "Kalendárové udalosti"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:449
+#: src/Dialogs/Preferences/PreferencesWindow.vala:453
 msgid "Date and Time"
 msgstr "Dátum a čas"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:452
+#: src/Dialogs/Preferences/PreferencesWindow.vala:456
 msgid "24h"
 msgstr "24h"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:453
+#: src/Dialogs/Preferences/PreferencesWindow.vala:457
 msgid "12h"
 msgstr "12h"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:456
+#: src/Dialogs/Preferences/PreferencesWindow.vala:460
 msgid "Clock Format"
 msgstr "Formát hodín"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:463
+#: src/Dialogs/Preferences/PreferencesWindow.vala:467
 msgid "Sunday"
 msgstr "Nedeľa"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:464
+#: src/Dialogs/Preferences/PreferencesWindow.vala:468
 msgid "Monday"
 msgstr "Pondelok"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:465
+#: src/Dialogs/Preferences/PreferencesWindow.vala:469
 msgid "Tuesday"
 msgstr "Utorok"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:466
+#: src/Dialogs/Preferences/PreferencesWindow.vala:470
 msgid "Wednesday"
 msgstr "Streda"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:467
+#: src/Dialogs/Preferences/PreferencesWindow.vala:471
 msgid "Thursday"
 msgstr "Štvrtok"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:468
+#: src/Dialogs/Preferences/PreferencesWindow.vala:472
 msgid "Friday"
 msgstr "Piatok"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:469
+#: src/Dialogs/Preferences/PreferencesWindow.vala:473
 msgid "Saturday"
 msgstr "Sobota"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:472
+#: src/Dialogs/Preferences/PreferencesWindow.vala:476
 msgid "Start of the Week"
 msgstr "Začiatok týždňa"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:547
+#: src/Dialogs/Preferences/PreferencesWindow.vala:553
 msgid "Task Settings"
 msgstr "Nastavenia úloh"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:552
+#: src/Dialogs/Preferences/PreferencesWindow.vala:558
 msgid "Instantly"
 msgstr "Okamžite"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:553
+#: src/Dialogs/Preferences/PreferencesWindow.vala:559
 msgid "Wait 2500 Milliseconds"
 msgstr "Počkať 2500 milisekúnd"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:556
+#: src/Dialogs/Preferences/PreferencesWindow.vala:562
 msgid "Complete Task"
 msgstr "Dokončiť úlohu"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:557
+#: src/Dialogs/Preferences/PreferencesWindow.vala:563
 msgid ""
 "Complete your to-do instantly or wait 2500 milliseconds with the undo option"
 msgstr ""
 "Dokončte svoju úlohu okamžite alebo počkajte 2500 milisekúnd s možnosťou "
 "zrušenia"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:564
+#: src/Dialogs/Preferences/PreferencesWindow.vala:570
 msgid "Priority 1"
 msgstr "Priorita 1"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:565
+#: src/Dialogs/Preferences/PreferencesWindow.vala:571
 msgid "Priority 2"
 msgstr "Priorita 2"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:566
+#: src/Dialogs/Preferences/PreferencesWindow.vala:572
 msgid "Priority 3"
 msgstr "Priorita 3"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:570
+#: src/Dialogs/Preferences/PreferencesWindow.vala:576
 msgid "Default Priority"
 msgstr "Predvolená priorita"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:582
+#: src/Dialogs/Preferences/PreferencesWindow.vala:588
 msgid "Cross Out Completed Tasks"
 msgstr "Prečiarknuť dokončené úlohy"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:589
+#: src/Dialogs/Preferences/PreferencesWindow.vala:595
 msgid "Top"
 msgstr "Hore"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:590
+#: src/Dialogs/Preferences/PreferencesWindow.vala:596
 msgid "Bottom"
 msgstr "Dole"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:593
+#: src/Dialogs/Preferences/PreferencesWindow.vala:599
 msgid "New Task Position"
 msgstr "Pozícia novej úlohy"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:600
+#: src/Dialogs/Preferences/PreferencesWindow.vala:606
 msgid "Always Show Completed Sub-Tasks"
 msgstr "Vždy zobraziť dokončené podúlohy"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:606
+#: src/Dialogs/Preferences/PreferencesWindow.vala:613
 msgid "Task Complete Tone"
 msgstr "Tón pri dokončení úlohy"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:607
+#: src/Dialogs/Preferences/PreferencesWindow.vala:614
 msgid "Play a sound when tasks are completed"
 msgstr "Prehrať zvuk pri dokončení úloh"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:613
+#: src/Dialogs/Preferences/PreferencesWindow.vala:621
 msgid "Open Task In Sidebar View"
 msgstr "Otvoriť úlohu v bočnom paneli"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:619
+#: src/Dialogs/Preferences/PreferencesWindow.vala:628
 msgid "Attention at One"
 msgstr "Pozornosť na jednu"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:626
+#: src/Dialogs/Preferences/PreferencesWindow.vala:637
 msgid "Enable Markdown Formatting"
 msgstr "Povoliť formátovanie v Markdown"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:627
+#: src/Dialogs/Preferences/PreferencesWindow.vala:638
 msgid "Toggle Markdown support for tasks on or off"
 msgstr "Povoliť alebo zakázať podporu Markdown pre úlohy"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:633
+#: src/Dialogs/Preferences/PreferencesWindow.vala:645
 msgid "Always Show Details Sidebar"
 msgstr "Vždy zobraziť bočný panel s detailmi"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:634
+#: src/Dialogs/Preferences/PreferencesWindow.vala:648
 msgid ""
 "Keep the details panel always visible for easier navigation between tasks, "
 "avoiding the need to constantly open and close the panel."
@@ -2345,69 +2336,41 @@ msgstr ""
 "Udržiavajte panel s detailmi vždy viditeľný pre ľahšiu navigáciu medzi "
 "úlohami, čím sa vyhnete potrebe neustále otvárať a zatvárať panel."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:644
+#: src/Dialogs/Preferences/PreferencesWindow.vala:659
 msgid "Enabled"
 msgstr "Povolené"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:657
+#: src/Dialogs/Preferences/PreferencesWindow.vala:673
 msgid "Automatic reminders"
 msgstr "Automatické pripomienky"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:658
+#: src/Dialogs/Preferences/PreferencesWindow.vala:675
 msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr ""
 "Keď je povolené, pred časom splnenia úlohy sa automaticky pridá pripomienka."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:735
+#: src/Dialogs/Preferences/PreferencesWindow.vala:758
 msgid "App Theme"
 msgstr "Téma aplikácie"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:743
+#: src/Dialogs/Preferences/PreferencesWindow.vala:766
 msgid "Use System Settings"
 msgstr "Použiť systémové nastavenia"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:752
+#: src/Dialogs/Preferences/PreferencesWindow.vala:775
 msgid "Light Style"
 msgstr "Svetlý štýl"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:761
+#: src/Dialogs/Preferences/PreferencesWindow.vala:784
 msgid "Dark Style"
 msgstr "Tmavý štýl"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:770
+#: src/Dialogs/Preferences/PreferencesWindow.vala:793
 msgid "Dark Blue Style"
 msgstr "Tmavomodrý štýl"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:861
-msgid "Accounts"
-msgstr "Účty"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:897
-msgid "You can sort your accounts by dragging and dropping"
-msgstr "Účty môžete zoradiť pretiahnutím a pustením"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1003
-msgid "Display Name"
-msgstr "Zobrazené meno"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1009
-msgid "Sync Server"
-msgstr "Server synchronizácie"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1010
-msgid ""
-"Activate this setting so that Planify automatically synchronizes with your "
-"account account every 15 minutes"
-msgstr ""
-"Aktivujte toto nastavenie, aby Planify automaticky synchronizoval váš účet "
-"každých 15 minút"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1023
-msgid "Last Sync"
-msgstr "Posledná synchronizácia"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1087
+#: src/Dialogs/Preferences/PreferencesWindow.vala:914
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
@@ -2416,7 +2379,7 @@ msgstr ""
 "pracovnom stole pomocou niekoľkých stlačení kláves. Nemusíte ani opustiť "
 "aplikáciu, v ktorej sa práve nachádzate."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1098
+#: src/Dialogs/Preferences/PreferencesWindow.vala:926
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
@@ -2424,57 +2387,27 @@ msgstr ""
 "Prejdite do Nastavení systému → Klávesnica → Klávesové skratky → Vlastné, "
 "potom pridajte novú skratku s nasledujúcim:"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1127
+#: src/Dialogs/Preferences/PreferencesWindow.vala:955
 msgid "Settings"
 msgstr "Nastavenia"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1135
+#: src/Dialogs/Preferences/PreferencesWindow.vala:963
 msgid "Save Last Selected Project"
 msgstr "Uložiť posledný vybraný projekt"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1136
+#: src/Dialogs/Preferences/PreferencesWindow.vala:964
 msgid "If unchecked, the default project selected is Inbox"
 msgstr "Ak je nezaškrtnuté, predvolený vybraný projekt je Doručená pošta"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1170
+#: src/Dialogs/Preferences/PreferencesWindow.vala:998
 msgid "The command was copied to the clipboard"
 msgstr "Príkaz bol skopírovaný do schránky"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1185
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1291
-msgid "Loading…"
-msgstr "Načítava sa…"
-
-#. Loading
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1209
-msgid "Planify is is syncing your tasks, this may take a few minutes"
-msgstr "Planify synchronizuje vaše úlohy, môže to chvíľu trvať"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1259
-msgid "Synchronizing…"
-msgstr "Synchronizovanie…"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1286
-msgid "Please Enter Your Credentials"
-msgstr "Zadajte svoje poverenia"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1332
-msgid "Nextcloud Setup"
-msgstr "Nastavenie Nextcloud"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1335
-msgid "Server URL"
-msgstr "URL servera"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1368
-msgid "Log In"
-msgstr "Prihlásiť sa"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1524
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1039
 msgid "Personal Data"
 msgstr "Osobné údaje"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1529
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1045
 msgid ""
 "We collect absolutely nothing and all your data is stored in a database on "
 "your computer."
@@ -2482,7 +2415,7 @@ msgstr ""
 "Nezbierame absolútne nič a všetky vaše údaje sú uložené v databáze na vašom "
 "počítači."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1534
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1051
 msgid ""
 "If you choose to integrate Todoist, which is optional and not selected by "
 "default, your data will be stored on their private servers, we only display "
@@ -2492,11 +2425,11 @@ msgstr ""
 "nie je vybraná, vaše údaje budú uložené na ich súkromných serveroch, my iba "
 "zobrazujeme vaše nakonfigurované úlohy a spravujeme ich za vás."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1539
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1056
 msgid "Do you have any questions?"
 msgstr "Máte nejaké otázky?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1544
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1062
 msgid ""
 "If you have any questions about your data or any other issue, please contact "
 "us. We will be happy to answer you."
@@ -2504,7 +2437,7 @@ msgstr ""
 "Ak máte akékoľvek otázky o vašich údajoch alebo o akomkoľvek inom probléme, "
 "kontaktujte nás. Radi vám odpovieme."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1606
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1125
 msgid ""
 "Our mission is to provide the best open source task management application "
 "for users all over the world. Your donations support this work. Want to "
@@ -2514,19 +2447,19 @@ msgstr ""
 "pre používateľov po celom svete. Vaše dary podporujú túto prácu. Chcete dnes "
 "prispieť?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1614
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1133
 msgid "Patreon"
 msgstr "Patreon"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1627
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1146
 msgid "PayPal"
 msgstr "PayPal"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1640
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1159
 msgid "Liberapay"
 msgstr "Liberapay"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1653
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1172
 msgid "Ko-fi"
 msgstr "Ko-fi"
 
@@ -2728,6 +2661,52 @@ msgstr "Otvoriť štítky"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Otvoriť nástenku"
+
+#~ msgid "Add To-Do"
+#~ msgstr "Pridať úlohu"
+
+#~ msgid "Accounts"
+#~ msgstr "Účty"
+
+#~ msgid "You can sort your accounts by dragging and dropping"
+#~ msgstr "Účty môžete zoradiť pretiahnutím a pustením"
+
+#~ msgid "Display Name"
+#~ msgstr "Zobrazené meno"
+
+#~ msgid "Sync Server"
+#~ msgstr "Server synchronizácie"
+
+#~ msgid ""
+#~ "Activate this setting so that Planify automatically synchronizes with "
+#~ "your account account every 15 minutes"
+#~ msgstr ""
+#~ "Aktivujte toto nastavenie, aby Planify automaticky synchronizoval váš "
+#~ "účet každých 15 minút"
+
+#~ msgid "Last Sync"
+#~ msgstr "Posledná synchronizácia"
+
+#~ msgid "Loading…"
+#~ msgstr "Načítava sa…"
+
+#~ msgid "Planify is is syncing your tasks, this may take a few minutes"
+#~ msgstr "Planify synchronizuje vaše úlohy, môže to chvíľu trvať"
+
+#~ msgid "Synchronizing…"
+#~ msgstr "Synchronizovanie…"
+
+#~ msgid "Please Enter Your Credentials"
+#~ msgstr "Zadajte svoje poverenia"
+
+#~ msgid "Nextcloud Setup"
+#~ msgstr "Nastavenie Nextcloud"
+
+#~ msgid "Server URL"
+#~ msgstr "URL servera"
+
+#~ msgid "Log In"
+#~ msgstr "Prihlásiť sa"
 
 #~ msgid "Offline Mode Is On"
 #~ msgstr "Režim offline je zapnutý"

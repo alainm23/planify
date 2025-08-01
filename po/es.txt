@@ -7,8 +7,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-01 16:35-0500\n"
-"PO-Revision-Date: 2025-03-13 18:45-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -159,6 +157,7 @@ msgstr "Cada %d años"
 
 #: core/Enum.vala:411 core/Services/Database.vala:2257
 #: core/Services/CalDAV/Providers/Nextcloud.vala:415
+#: src/Dialogs/Preferences/Pages/Accounts.vala:37
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
@@ -242,8 +241,8 @@ msgid "Add Reminders"
 msgstr "Añadir Recordatorio"
 
 #: core/QuickAdd.vala:186
-msgid "Add"
-msgstr "Agregar"
+msgid "Add To-Do"
+msgstr "Añadir tarea pendiente"
 
 #: core/QuickAdd.vala:193
 msgid "Create More"
@@ -371,6 +370,7 @@ msgstr "Hoy + Bandeja de entrada"
 #: src/Dialogs/CompletedTasks.vala:168 src/Dialogs/QuickFind/QuickFind.vala:68
 #: src/Dialogs/Preferences/Pages/Backup.vala:198
 #: src/Dialogs/Preferences/Pages/Backup.vala:256
+#: src/Dialogs/Preferences/Pages/Accounts.vala:530
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -383,6 +383,7 @@ msgid "Process completed, you need to start Planify again."
 msgstr "Proceso completado, necesita iniciar Planify de nuevo."
 
 #: core/Util/Util.vala:399 src/Services/Backups.vala:567
+#: src/Dialogs/Preferences/Pages/Accounts.vala:378
 msgid "Ok"
 msgstr "Ok"
 
@@ -1102,7 +1103,7 @@ msgstr "Archivo"
 msgid "Delete Section %s"
 msgstr "Eliminar sección %s"
 
-#: core/Objects/Source.vala:59
+#: core/Objects/Source.vala:59 src/Dialogs/Preferences/Pages/Accounts.vala:36
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -1633,7 +1634,7 @@ msgstr "Fijar: Inactivo"
 msgid "Remove"
 msgstr "Eliminar"
 
-#: src/Widgets/SourceRow.vala:82
+#: src/Widgets/SourceRow.vala:82 src/Dialogs/Preferences/Pages/Accounts.vala:55
 msgid "Add Source"
 msgstr "Añadir fuente"
 
@@ -1831,6 +1832,7 @@ msgid "Update Project"
 msgstr "Actualizar proyecto"
 
 #: src/Dialogs/Project.vala:357 src/Dialogs/Preferences/Pages/Backup.vala:169
+#: src/Dialogs/Preferences/Pages/Accounts.vala:59
 msgid "Sources"
 msgstr "Fuentes"
 
@@ -1883,6 +1885,8 @@ msgid "Please enter your credentials"
 msgstr "Introduzca sus credenciales"
 
 #: src/Dialogs/GoogleOAuth.vala:151
+#: src/Dialogs/Preferences/Pages/Accounts.vala:375
+#: src/Dialogs/Preferences/Pages/Accounts.vala:377
 msgid "Network Is Not Available"
 msgstr "La red no está disponible"
 
@@ -2603,6 +2607,105 @@ msgstr "Anchura de la barra lateral"
 msgid "You can sort your views by dragging and dropping"
 msgstr "Puede ordenar las vistas arrastrando y soltando"
 
+#: src/Dialogs/Preferences/Pages/Accounts.vala:34
+msgid "Accounts"
+msgstr "Cuentas"
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:70
+msgid "You can sort your accounts by dragging and dropping"
+msgstr "Puedes ordenar tus cuentas arrastrando y soltando"
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:175
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:181
+msgid "Sync Server"
+msgstr "Sincronizar servidor"
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:184
+msgid ""
+"Activate this setting so that Planify automatically synchronizes with your "
+"account account every 15 minutes"
+msgstr ""
+"Activa esta opción para que Planify se sincronice automáticamente con tu "
+"cuenta cada 15 minutos"
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:197
+msgid "Last Sync"
+msgstr "Última sincronización"
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:253
+#: src/Dialogs/Preferences/Pages/Accounts.vala:363
+msgid "Loading…"
+msgstr "Cargando…"
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:269
+msgid "Enter token"
+msgstr ""
+
+#. Loading
+#: src/Dialogs/Preferences/Pages/Accounts.vala:284
+msgid "Planify is is syncing your tasks, this may take a few minutes"
+msgstr "Planify está sincronizando sus tareas, esto puede tardar unos minutos"
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:338
+msgid "Synchronizing…"
+msgstr "Sincronizando…"
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:358
+msgid "Please Enter Your Credentials"
+msgstr "Por favor, introduzca sus credenciales"
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:400
+msgid "Token"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:408
+msgid "How to get your token?"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:409
+msgid "1. Go to Todoist → Settings → Integrations → Developer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:410
+msgid "2. Find 'API token' and copy your token"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:411
+msgid "3. Paste it in the field above"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:433
+msgid "Connect with Token"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:488
+msgid "Nextcloud Setup"
+msgstr "Configuración de Nextcloud"
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:491
+msgid "Server URL"
+msgstr "URL del servidor"
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:498
+#, fuzzy
+msgid "Server URL examples:"
+msgstr "URL del servidor"
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:498
+msgid "- https://cloud.example.com/"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:499
+msgid "- https://example.com/nextcloud/"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts.vala:524
+msgid "Log In"
+msgstr "Iniciar sesión"
+
 #: quick-add/MainWindow.vala:9
 msgid "Planify - Quick Add"
 msgstr "Planify - Añadir rápido"
@@ -2701,53 +2804,6 @@ msgstr "Abrir Etiquetas"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Abrir Importantes"
-
-#~ msgid "Add To-Do"
-#~ msgstr "Añadir tarea pendiente"
-
-#~ msgid "Accounts"
-#~ msgstr "Cuentas"
-
-#~ msgid "You can sort your accounts by dragging and dropping"
-#~ msgstr "Puedes ordenar tus cuentas arrastrando y soltando"
-
-#~ msgid "Display Name"
-#~ msgstr "Mostrar nombre"
-
-#~ msgid "Sync Server"
-#~ msgstr "Sincronizar servidor"
-
-#~ msgid ""
-#~ "Activate this setting so that Planify automatically synchronizes with "
-#~ "your account account every 15 minutes"
-#~ msgstr ""
-#~ "Activa esta opción para que Planify se sincronice automáticamente con tu "
-#~ "cuenta cada 15 minutos"
-
-#~ msgid "Last Sync"
-#~ msgstr "Última sincronización"
-
-#~ msgid "Loading…"
-#~ msgstr "Cargando…"
-
-#~ msgid "Planify is is syncing your tasks, this may take a few minutes"
-#~ msgstr ""
-#~ "Planify está sincronizando sus tareas, esto puede tardar unos minutos"
-
-#~ msgid "Synchronizing…"
-#~ msgstr "Sincronizando…"
-
-#~ msgid "Please Enter Your Credentials"
-#~ msgstr "Por favor, introduzca sus credenciales"
-
-#~ msgid "Nextcloud Setup"
-#~ msgstr "Configuración de Nextcloud"
-
-#~ msgid "Server URL"
-#~ msgstr "URL del servidor"
-
-#~ msgid "Log In"
-#~ msgstr "Iniciar sesión"
 
 #~ msgid "User Name"
 #~ msgstr "Nombre de usuario"
@@ -2859,6 +2915,9 @@ msgstr "Abrir Importantes"
 
 #~ msgid "Sign Off"
 #~ msgstr "Cerrar sesión"
+
+#~ msgid "Add"
+#~ msgstr "Agregar"
 
 #~ msgid "CalDAV Setup"
 #~ msgstr "Configuración de CalDAV"
