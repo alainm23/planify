@@ -28,6 +28,40 @@
     ],
     "modules": [
         {
+            "name": "sassc",
+            "cleanup": ["*"],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/sass/sassc.git",
+                    "tag": "3.6.2"
+                },
+                {
+                    "type": "script",
+                    "dest-filename": "autogen.sh",
+                    "commands": ["autoreconf -si"]
+                }
+            ],
+            "modules": [
+                {
+                    "name": "libsass",
+                    "cleanup": ["*"],
+                    "sources": [
+                        {
+                            "type": "git",
+                            "url": "https://github.com/sass/libsass.git",
+                            "tag": "3.6.5"
+                        },
+                        {
+                            "type": "script",
+                            "dest-filename": "autogen.sh",
+                            "commands": ["autoreconf -si"]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "name": "granite-7",
             "buildsystem": "meson",
             "sources": [
