@@ -66,8 +66,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
         var banner_description =
             new Gtk.Label (_(
-                               "Planify is being developed with love and passion for open source. However, if you like Planify and want to support its development, please consider supporting us."))
-        {
+                               "Planify is being developed with love and passion for open source. However, if you like Planify and want to support its development, please consider supporting us.")) {
             halign = START,
             xalign = 0,
             yalign = 0,
@@ -1049,8 +1048,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         });
 
         content_box.append (new Gtk.Label (_(
-                                               "If you choose to integrate Todoist, which is optional and not selected by default, your data will be stored on their private servers, we only display your configured tasks and manage them for you."))
-        {
+                                               "If you choose to integrate Todoist, which is optional and not selected by default, your data will be stored on their private servers, we only display your configured tasks and manage them for you.")) {
             wrap = true,
             xalign = 0
         });
@@ -1061,8 +1059,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         });
 
         content_box.append (new Gtk.Label (_(
-                                               "If you have any questions about your data or any other issue, please contact us. We will be happy to answer you."))
-        {
+                                               "If you have any questions about your data or any other issue, please contact us. We will be happy to answer you.")) {
             wrap = true,
             xalign = 0
         });
@@ -1125,8 +1122,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         };
 
         content_box.append (new Gtk.Label (_(
-                                               "Our mission is to provide the best open source task management application for users all over the world. Your donations support this work. Want to donate today?"))
-        {
+                                               "Our mission is to provide the best open source task management application for users all over the world. Your donations support this work. Want to donate today?")) {
             wrap = true,
             xalign = 0
         });
