@@ -28,13 +28,13 @@
     ],
     "modules": [
         {
-            "name": "granite",
+            "name": "granite-7",
             "buildsystem": "meson",
             "sources": [
                 {
                     "type": "git",
                     "url": "https://github.com/elementary/granite.git",
-                    "tag": "7.6.0"
+                    "tag": "7.2.0"
                 }
             ]
         },
