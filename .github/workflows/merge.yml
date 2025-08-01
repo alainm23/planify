@@ -19,19 +19,3 @@ jobs:
           bundle: planify.Devel.flatpak
           manifest-path: build-aux/io.github.alainm23.planify.Devel.json
           cache-key: flatpak-builder-${{ github.sha }}
-
-  gettext_template:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GIT_USER_TOKEN }}
-
-      - name: Update Translation Files
-        uses: elementary/actions/gettext-template@main
-        env:
-          GIT_USER_TOKEN: ${{ secrets.GIT_USER_TOKEN }}
-          GIT_USER_NAME: "elementaryBot"
-          GIT_USER_EMAIL: "builds@elementary.io"
