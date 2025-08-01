@@ -27,7 +27,6 @@
         "*.a"
     ],
     "modules": [
-        "shared-modules/intltool/intltool-0.51.json",
         {
             "name": "granite",
             "buildsystem": "meson",
