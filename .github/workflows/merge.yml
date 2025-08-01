@@ -30,8 +30,7 @@ jobs:
     steps:
       - name: Install git, python3-git and jq
         run: |
-          apt-get update
-          apt-get install git jq python3-git -y
+          dnf -y install git jq python3-git
 
       - name: Clone repository
         uses: actions/checkout@v4
