@@ -28,17 +28,6 @@
     ],
     "modules": [
         {
-            "name": "granite-7",
-            "buildsystem": "meson",
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://github.com/elementary/granite.git",
-                    "tag": "7.2.0"
-                }
-            ]
-        },
-        {
             "name": "libical",
             "buildsystem": "cmake-ninja",
             "cleanup": ["/lib/cmake"],
