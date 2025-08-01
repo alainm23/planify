@@ -1,4 +1,3 @@
----
 name: CI
 
 on:
@@ -22,12 +21,13 @@ jobs:
           bundle: planify.Devel.flatpak
           manifest-path: build-aux/io.github.alainm23.planify.Devel.json
           cache-key: flatpak-builder-${{ github.sha }}
-    lint:
-      name: "Vala Lint"
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4
-        - uses: elementary/actions/vala-lint@main
-          with:
-            dir: .
-            conf: .vala-lint.conf
+
+  lint:
+    name: "Vala Lint"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: elementary/actions/vala-lint@main
+        with:
+          dir: .
+          conf: .vala-lint.conf
