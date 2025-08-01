@@ -1,11 +1,12 @@
+---
+name: Merge
+
 on:
   push:
-    branches: [master]
-  pull_request:
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-name: CI 
+    branches:
+      - master
+
+name: CI
 jobs:
   lint:
     name: "Vala Lint"
@@ -29,18 +30,36 @@ jobs:
           bundle: planify.Devel.flatpak
           manifest-path: build-aux/io.github.alainm23.planify.Devel.json
           cache-key: flatpak-builder-${{ github.sha }}
-  snap:
-    name: "Snap"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Git repository
-        uses: actions/checkout@v4
-      - name: Build Snap
-        uses: snapcore/action-build@v1
-        id: snapcraft-build
-        with:
-          snapcraft-args: "--verbosity debug"
-      - uses: actions/upload-artifact@v4
-        with:
-          name: planify_amd64_snap
-          path: ${{ steps.snapcraft-build.outputs.snap }}
+    gettext:
+      name: Gettext
+      runs-on: ubuntu-latest
+      container:
+        image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-47
+        options: --privileged
+
+      steps:
+        - name: Install git, python3-git and jq
+          run: |
+            apt-get update
+            apt-get install git jq python3-git -y
+
+        - name: Clone repository
+          uses: actions/checkout@v4
+          with:
+            token: ${{ secrets.GIT_USER_TOKEN }}
+
+        - name: Install Rust SDK extension
+          run: |
+            flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+            flatpak install -y org.freedesktop.Sdk.Extension.rust-stable//23.08
+
+        - name: Configure Git
+          run: |
+            git config --global --add safe.directory "$GITHUB_WORKSPACE"
+        - name: Update Translation Files
+          uses: elementary/actions/gettext-flatpak@main
+          with:
+            manifest-path: "io.github.alainm23.planify.json"
+          env:
+            GIT_USER_NAME: "elementaryBot"
+            GIT_USER_EMAIL: "builds@elementary.io"
