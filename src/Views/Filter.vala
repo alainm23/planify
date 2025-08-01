@@ -81,7 +81,7 @@ public class Views.Filter : Adw.Bin {
         var listbox_placeholder = new Adw.StatusPage ();
         listbox_placeholder.icon_name = "check-round-outline-symbolic";
         listbox_placeholder.title = _("Add Some Tasks");
-        listbox_placeholder.description = _("Press a to create a new task");
+        listbox_placeholder.description = _("Press 'a' to create a new task");
 
         listbox_stack = new Gtk.Stack () {
             hexpand = true,
@@ -529,8 +529,6 @@ public class Views.Filter : Adw.Bin {
 		};
 
         delete_all_completed.activate_item.connect (() => {
-			popover.popdown ();
-
 			var items = Services.Store.instance ().get_items_checked ();
 
 			var dialog = new Adw.AlertDialog (

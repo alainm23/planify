@@ -54,7 +54,7 @@ public class Dialogs.DatePicker : Adw.Dialog {
         );
     }
 
-    ~DatePicker() {
+    ~DatePicker () {
         print ("Destroying Dialogs.DatePicker\n");
     }
 

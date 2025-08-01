@@ -20,9 +20,9 @@
 - 🌙️ Better integration with the dark theme.
 - 🎉️ and much more.
 
-### ☁️ Support for Todoist:
+### ☁️ Support for Todoist & Nextcloud:
 
-- Synchronize your Projects, Tasks, and Sections thanks to Todoist.
+- Synchronize your Projects, Tasks and Sections.
 - Support for Todoist offline: Work without an internet connection; when everything is reconnected, it will be synchronized.
 - Planify is not created by, affiliated with, or supported by Doist
 
@@ -45,14 +45,43 @@
   <img alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg"  loading="lazy" width='240' draggable="false"/>
 </a> -->
 
-## 🛠 Compile
+## 🛠 From Source
 
 You'll need the following dependencies:
 
-* vala
-* meson
-* gtk4
-* libadwaita
+<details>
+<summary>Dependencies</summary>
+
+Package Name | Required Version
+:--- |---:|
+meson | 0.56
+valac | 0.48
+gio-2.0 | 2.80.3
+glib-2.0 | 2.80.3
+gee-0.8 | 0.20.6
+gtk4 | 4.14.4
+libsoup-3.0 | 3.4.4
+sqlite3 | 3.45.1
+libadwaita-1 | 1.5.3
+webkitgtk-6.0 | 2.44.3
+gtksourceview-5 | 5.12.1
+granite-7 | 7.4.0
+json-glib-1.0 | 1.8.0
+libecal-2.0 | 3.52.4
+libedataserver-1.2 | 3.52.4
+libportal | 0.7.1
+libportal-gtk4 | 0.7.1
+gxml-0.20 | 0.21.0
+libsecret-1 | 0.21.4
+
+Fedora installation command:
+
+    sudo dnf install vala meson ninja-build gtk4-devel libadwaita-devel libgee-devel granite-devel libsoup3-devel webkitgtk6.0-devel gtksourceview5-devel granite-7-devel libportal-devel libportal-gtk4-devel
+
+Ubuntu/Debian installation command:
+
+    sudo apt install valac meson ninja-build libgtk-4-dev libadwaita-1-dev libgee-0.8-dev libgranite-7-dev libjson-glib-dev libecal2.0-dev libsoup-3.0-dev libwebkitgtk-6.0-dev libgtksourceview-5-dev libportal-dev libportal-gtk4-dev
+</details>
 
 Run `meson build` to configure the build environment. Change to the build directory and run `ninja` to build
 
@@ -64,6 +93,15 @@ To install, use `ninja install`, then execute with `io.github.alainm23.planify`
 
     sudo ninja install
     io.github.alainm23.planify
+
+### GNOME Builder
+
+- Clone
+- Open in GNOME Builder
+
+# Contributing
+
+Take a look at [ARCHITECTURE.md](ARCHITECTURE.md)
 
 ## Code of conduct
 
@@ -80,14 +118,5 @@ Planify follows the [GNOME Code of Conduct](https://conduct.gnome.org/).
 
 ## Support
 If you like Planify and want to support its development, consider supporting via [Patreon](https://www.patreon.com/alainm23), [PayPal](https://www.paypal.me/alainm23) or [Liberapay](https://liberapay.com/Alain)
-
-### Bitcoin
-`
-bc1qt5v3q9hgtv9uvmld53hr6j0sdlmgalnc5y2kf5uqqextp84ke26seqg2dz
-`
-### Bitcoin Lightning 
-`
-foulfridge75@walletofsatoshi.com
-`
 
 Made with 💗 in Perú

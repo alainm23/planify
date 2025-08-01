@@ -60,13 +60,14 @@ public class Layouts.QuickAdd : Adw.Bin {
 			);
 	}
 
-	~QuickAdd() {
+	~QuickAdd () {
 		print ("Destroying Layouts.QuickAdd\n");
 	}
 
 	construct {
 		item = new Objects.Item ();
 		item.project_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
+		item.priority = Util.get_default ().get_default_priority ();
 
 		if (Services.Settings.get_default ().get_new_task_position () == NewTaskPosition.TOP) {
 			item.child_order = 0;
@@ -146,7 +147,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 		label_button.source = item.project.source;
 
 		reminder_button = new Widgets.ReminderPicker.ReminderButton (true) {
-			tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Reminders"), "Ctrl+R"),
+			tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Reminders"), "!"),
 		};
 
 		var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
@@ -335,7 +336,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 		label_button.labels_changed.connect (set_labels);
 		label_button.picker_opened.connect ((active) => {
 			parent_can_close (!active);
-			
+
 			if (!active) {
 				Timeout.add (250, () => {
 					labels_picker_activate_shortcut = false;
@@ -353,7 +354,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 				remove_entry_char ("!");
 			}
 		});
-		
+
 		reminder_button.picker_opened.connect ((active) => {
 			parent_can_close (!active);
 
@@ -628,7 +629,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
 	private void remove_entry_char (string value) {
 		string current_text = content_entry.get_text ();
-		int at_position = content_entry.text.index_of(value);
+		int at_position = content_entry.text.index_of (value);
 		if (at_position != -1) {
 			string before_at = current_text.substring (0, at_position);
 			string after_at = current_text.substring (at_position + 1);

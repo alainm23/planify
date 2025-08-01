@@ -146,10 +146,6 @@ entry.flat:focus-within {
     animation: add-animation 0.7s ease-in-out;
 }
 
-.magic-button:focus {
-    outline: none;
-}
-
 .header-title {
     font-weight: bold;
     letter-spacing: -0.05em;
@@ -553,6 +549,10 @@ checkbutton.theme-selector radio:checked {
 .event-bar {
     background-color: @colorAccent;
     border-radius: 1px;
+}
+
+.icon-color {
+    color: @colorAccent;
 }
 
 .drop-area {

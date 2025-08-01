@@ -20,7 +20,6 @@ sources = files(
   'Services/DBusServer.vala',
   'Services/Backups.vala',
   'Services/MigrateFromPlanner.vala',
-  'Services/NetworkMonitor.vala',
 
   'Services/CalendarEvents/CalendarEvents.vala',
   'Services/CalendarEvents/DateIterator.vala',
@@ -104,7 +103,8 @@ sources = files(
   'Dialogs/Preferences/PreferencesWindow.vala',
   'Dialogs/Preferences/SettingsHeader.vala',
   'Dialogs/Preferences/Pages/Backup.vala',
-  'Dialogs/Preferences/Pages/Sidebar.vala'
+  'Dialogs/Preferences/Pages/Sidebar.vala',
+  'Dialogs/Preferences/Pages/Accounts.vala'
 )
 
 executable(
@@ -115,3 +115,4 @@ executable(
   dependencies: deps,
   install: true
 )
+

@@ -69,10 +69,9 @@ public class Widgets.LoadingButton : Gtk.Button {
     }
 
     construct {
-        var submit_spinner = new Gtk.Spinner () {
+        var submit_spinner = new Adw.Spinner () {
             valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER,
-            spinning = true
+            halign = Gtk.Align.CENTER
         };
 
         submit_stack = new Gtk.Stack () {

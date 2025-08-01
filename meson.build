@@ -1,7 +1,7 @@
 project(
   'io.github.alainm23.planify',
   'vala', 'c',
-  version: '4.11.0'
+  version: '4.13.0'
 )
 
 gnome = import('gnome')
@@ -17,7 +17,7 @@ gee_dep = dependency('gee-0.8')
 gtk_dep = dependency('gtk4')
 libsoup_dep = dependency('libsoup-3.0')
 sqlite3_dep = dependency('sqlite3')
-libadwaita_dep = dependency('libadwaita-1', version: '>= 1.5.0')
+libadwaita_dep = dependency('libadwaita-1', version: '>= 1.6.0')
 webkitgtk_dep = dependency('webkitgtk-6.0')
 gtksourceview_dep = dependency('gtksourceview-5')
 granite_dep = dependency('granite-7')

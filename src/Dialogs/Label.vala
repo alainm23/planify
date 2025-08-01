@@ -51,7 +51,7 @@ public class Dialogs.Label : Adw.Dialog {
         );
     }
 
-    ~Label() {
+    ~Label () {
         print ("Destroying Dialogs.Label\n");
     }
 

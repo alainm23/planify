@@ -13,7 +13,7 @@ desktop_file = i18n.merge_file(
   ),
   output: '@0@.desktop'.format(application_id),
   type: 'desktop',
-  po_dir: join_paths(meson.source_root(), 'po'),
+  po_dir: join_paths(meson.project_source_root(), 'po'),
   install: true,
   install_dir: get_option('datadir') / 'applications',
 )
@@ -37,7 +37,7 @@ appstream_file = i18n.merge_file(
     configuration: appdata_conf
   ),
   output: '@0@.appdata.xml'.format(application_id),
-  po_dir: join_paths(meson.source_root(), 'po'),
+  po_dir: join_paths(meson.project_source_root(), 'po'),
   install: true,
   install_dir: get_option('datadir') / 'appdata',
 )

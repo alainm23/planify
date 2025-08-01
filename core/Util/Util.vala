@@ -367,8 +367,9 @@ public class Util : GLib.Object {
     public string get_short_name (string name, int size = Constants.SHORT_NAME_SIZE) {
         string returned = name;
         
-        if (name.length > size) {
-            returned = name.slice (0, size) + "…";
+        int char_count = name.char_count ();
+        if (char_count > size) {
+            returned = name.substring (0, name.index_of_nth_char (size)) + "…";
         }
 
         return returned;
@@ -1101,10 +1102,15 @@ We hope you’ll enjoy using Planify!""");
             Regex mailto_regex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/; // vala-lint=space-before-paren
             Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/; // vala-lint=space-before-paren
             Regex url_markdown = new Regex ("\\[([^\\]]+)\\]\\(([^\\)]+)\\)");
-                    
+
             Regex italic_bold_regex = /\*\*\*(.*?)\*\*\*/; // vala-lint=space-before-paren
             Regex bold_regex = /\*\*(.*?)\*\*/; // vala-lint=space-before-paren
             Regex italic_regex = /\*(.*?)\*/; // vala-lint=space-before-paren
+            Regex underline_regex = /_(.*?)_/; // vala-lint=space-before-paren
+
+            Regex italic_bold_underline_regex = /\*\*\*_([^*]+)_\*\*\*/; // vala-lint=space-before-paren
+            Regex bold_underline_regex = /\*\*_([^*]+)_\*\*/; // vala-lint=space-before-paren
+            Regex italic_underline_regex = /\*_(.*?)_\*/; // vala-lint=space-before-paren
 
             MatchInfo info;
 
@@ -1155,6 +1161,34 @@ We hope you’ll enjoy using Planify!""");
                 } while (info.next ());
             }
 
+            Gee.ArrayList<RegexMarkdown> italic_bold_underline = new Gee.ArrayList<RegexMarkdown> ();
+            if (italic_bold_underline_regex.match (text, 0, out info)) {
+                do {
+                    italic_bold_underline.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
+                } while (info.next ());
+            }
+
+            Gee.ArrayList<RegexMarkdown> bold_underline = new Gee.ArrayList<RegexMarkdown> ();
+            if (bold_underline_regex.match (text, 0, out info)) {
+                do {
+                    bold_underline.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
+                } while (info.next ());
+            }
+
+            Gee.ArrayList<RegexMarkdown> italic_underline = new Gee.ArrayList<RegexMarkdown> ();
+            if (italic_underline_regex.match (text, 0, out info)) {
+                do {
+                    italic_underline.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
+                } while (info.next ());
+            }
+
+            Gee.ArrayList<RegexMarkdown> underlines = new Gee.ArrayList<RegexMarkdown> ();
+            if (underline_regex.match (text, 0, out info)) {
+                do {
+                    underlines.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
+                } while (info.next ());
+            }
+
             string converted = text;
 
             foreach (RegexMarkdown m in markdown_urls) {
@@ -1172,6 +1206,22 @@ We hope you’ll enjoy using Planify!""");
             emails.foreach ((email) => {
                 converted = converted.replace (email, @"<a href=\"mailto:$email\">$email</a>");
             });
+
+            foreach (RegexMarkdown m in italic_bold_underline) {
+                converted = converted.replace (m.match, "<i><b><u>" + m.text + "</u></b></i>");
+            }
+
+            foreach (RegexMarkdown m in bold_underline) {
+                converted = converted.replace (m.match, "<b><u>" + m.text + "</u></b>");
+            }
+
+            foreach (RegexMarkdown m in italic_underline) {
+                converted = converted.replace (m.match, "<i><u>" + m.text + "</u></i>");
+            }
+
+            foreach (RegexMarkdown m in underlines) {
+                converted = converted.replace (m.match, "<u>" + m.text + "</u>");
+            }
 
             foreach (RegexMarkdown m in italic_bold) {
                 converted = converted.replace (m.match, "<i><b>" + m.text + "</b></i>");
@@ -1260,6 +1310,15 @@ We hope you’ll enjoy using Planify!""");
         }
 
         return return_value;
+    }
+
+    // https://wiki.gnome.org/Projects/Vala/AsyncSamples#Async_sleep_example
+    public static async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
+    GLib.Timeout.add (interval, () => {
+        nap.callback ();
+        return false;
+        }, priority);
+    yield;
     }
 }
 

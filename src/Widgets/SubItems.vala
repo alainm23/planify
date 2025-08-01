@@ -117,8 +117,7 @@ public class Widgets.SubItems : Adw.Bin {
             selection_mode = Gtk.SelectionMode.SINGLE,
             hexpand = true,
             css_classes = { "listbox-background" },
-            margin_start = 3,
-            margin_end = 6
+            margin_start = 3
         };
 
         checked_revealer = new Gtk.Revealer () {

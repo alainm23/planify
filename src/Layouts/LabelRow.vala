@@ -1,68 +1,65 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Layouts.LabelRow : Gtk.ListBoxRow {
-    public Objects.Label label { get; construct; }
+	public Objects.Label label { get; construct; }
 
-    private Gtk.Label name_label;
-    private Gtk.Label count_label;
-    private Gtk.Revealer count_revealer;
-    private Gtk.Revealer main_revealer;
-    private Gtk.Grid widget_color;
-    private Gtk.Box handle_grid;
+	private Gtk.Label name_label;
+	private Gtk.Label count_label;
+	private Gtk.Revealer count_revealer;
+	private Gtk.Revealer main_revealer;
+	private Gtk.Image widget_color;
+	private Gtk.Box handle_grid;
 
-    public LabelRow (Objects.Label label) {
-        Object (
-            label: label
-        );
-    }
+	public LabelRow (Objects.Label label) {
+		Object (
+			label: label
+			);
+	}
 
-    construct {
-        css_classes = { "selectable-item", "transition" };
+	construct {
+		css_classes = { "row", "transition", "no-padding" };
 
-        widget_color = new Gtk.Grid () {
-            valign = Gtk.Align.CENTER,
-            height_request = 19,
-            width_request = 19,
-            css_classes = { "circle-color" }
-        };
+		widget_color = new Gtk.Image.from_icon_name ("tag-outline-symbolic") {
+			css_classes = { "icon-color" },
+			valign = Gtk.Align.CENTER,
+		};
 
-        name_label = new Gtk.Label (label.name) {
-            valign = Gtk.Align.CENTER,
-            ellipsize = Pango.EllipsizeMode.END
-        };
+		name_label = new Gtk.Label (label.name) {
+			valign = Gtk.Align.CENTER,
+			ellipsize = Pango.EllipsizeMode.END
+		};
 
-        count_label = new Gtk.Label (label.label_count.to_string ()) {
-            hexpand = true,
-            halign = Gtk.Align.END
-        };
+		count_label = new Gtk.Label (label.label_count.to_string ()) {
+			hexpand = true,
+			halign = Gtk.Align.END
+		};
 
-        count_revealer = new Gtk.Revealer () {
-            reveal_child = int.parse (count_label.label) > 0,
-            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-            child = count_label
+		count_revealer = new Gtk.Revealer () {
+			reveal_child = int.parse (count_label.label) > 0,
+			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+			child = count_label
+		};
 
-        };
-
-        var menu_button = new Gtk.MenuButton () {
+		var menu_button = new Gtk.MenuButton () {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			popover = build_context_menu (),
@@ -70,91 +67,95 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 			css_classes = { "flat", "header-item-button", "dim-label" }
 		};
 
-        var loading_button = new Widgets.LoadingButton.with_icon ("go-next-symbolic", 16) {
-            valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "dim-label", "no-padding" }
-        };
+		var loading_button = new Widgets.LoadingButton.with_icon ("go-next-symbolic", 16) {
+			valign = Gtk.Align.CENTER,
+			css_classes = { "flat", "dim-label", "no-padding" }
+		};
 
-        var buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        buttons_box.append (menu_button);
-        buttons_box.append (loading_button);
-        
-        handle_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 6,
-            margin_end = 6,
-            margin_top = 3,
-            margin_bottom = 3
-        };
-        handle_grid.append (widget_color);
-        handle_grid.append (name_label);
-        handle_grid.append (count_revealer);
-        handle_grid.append (buttons_box);
+		var buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+		buttons_box.append (menu_button);
+		buttons_box.append (loading_button);
 
-        var reorder_child = new Widgets.ReorderChild (handle_grid, this);
+		handle_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+			margin_start = 6,
+			margin_end = 6,
+			margin_top = 3,
+			margin_bottom = 3
+		};
+		handle_grid.append (widget_color);
+		handle_grid.append (name_label);
+		handle_grid.append (count_revealer);
+		handle_grid.append (buttons_box);
 
-        main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            child = reorder_child
-        };
+		var reorder_child = new Widgets.ReorderChild (handle_grid, this);
 
-        child = main_revealer;
-        update_request ();
-        reorder_child.build_drag_and_drop ();
-        
-        Timeout.add (main_revealer.transition_duration, () => {
-            main_revealer.reveal_child = true;
-            return GLib.Source.REMOVE;
-        });
+		main_revealer = new Gtk.Revealer () {
+			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+			child = reorder_child
+		};
 
-        label.updated.connect (() => {
-            update_request ();
-        });
+		child = main_revealer;
+		update_request ();
+		reorder_child.build_drag_and_drop ();
 
-        label.label_count_updated.connect (() => {
-            count_label.label = label.label_count.to_string ();
-            count_revealer.reveal_child = int.parse (count_label.label) > 0;
-        });
+		Timeout.add (main_revealer.transition_duration, () => {
+			main_revealer.reveal_child = true;
+			return GLib.Source.REMOVE;
+		});
 
-        reorder_child.on_drop_end.connect ((listbox) => {
-            update_labels_item_order (listbox);
-        });
+		label.updated.connect (() => {
+			update_request ();
+		});
 
-        label.loading_change.connect (() => {
+		label.label_count_updated.connect (() => {
+			count_label.label = label.label_count.to_string ();
+			count_revealer.reveal_child = int.parse (count_label.label) > 0;
+		});
+
+		reorder_child.on_drop_end.connect ((listbox) => {
+			update_labels_item_order (listbox);
+		});
+
+		label.loading_change.connect (() => {
 			loading_button.is_loading = label.loading;
 		});
-    }
 
-    public void update_request () {
-        name_label.label = label.name;
-        Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), widget_color);
-    }
+		loading_button.clicked.connect (() => {
+			Services.EventBus.get_default ().pane_selected (PaneType.LABEL, label.id);
+		});
+	}
 
-    private void update_labels_item_order (Gtk.ListBox listbox) {
-        unowned Layouts.LabelRow? label_row = null;
-        var row_index = 0;
+	public void update_request () {
+		name_label.label = label.name;
+		Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), widget_color);
+	}
 
-        do {
-            label_row = (Layouts.LabelRow) listbox.get_row_at_index (row_index);
+	private void update_labels_item_order (Gtk.ListBox listbox) {
+		unowned Layouts.LabelRow? label_row = null;
+		var row_index = 0;
 
-            if (label_row != null) {
-                label_row.label.item_order = row_index;
-                Services.Store.instance ().update_label (label_row.label);
-            }
+		do {
+			label_row = (Layouts.LabelRow) listbox.get_row_at_index (row_index);
 
-            row_index++;
-        } while (label_row != null);
-    }
+			if (label_row != null) {
+				label_row.label.item_order = row_index;
+				Services.Store.instance ().update_label (label_row.label);
+			}
 
-    private Gtk.Popover build_context_menu () {
+			row_index++;
+		} while (label_row != null);
+	}
+
+	private Gtk.Popover build_context_menu () {
 		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Label"), "edit-symbolic");
 		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Label"), "user-trash-symbolic");
 		delete_item.add_css_class ("menu-item-danger");
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (edit_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (delete_item);
+		menu_box.append (edit_item);
+		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+		menu_box.append (delete_item);
 
 		var menu_popover = new Gtk.Popover () {
 			has_arrow = false,
@@ -164,24 +165,22 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 		};
 
 		edit_item.clicked.connect (() => {
-			menu_popover.popdown ();
-            var dialog = new Dialogs.Label (label);
-            dialog.present (Planify._instance.main_window);
+			var dialog = new Dialogs.Label (label);
+			dialog.present (Planify._instance.main_window);
 		});
 
 		delete_item.clicked.connect (() => {
-			menu_popover.popdown ();
-            label.delete_label (Planify._instance.main_window);
+			label.delete_label (Planify._instance.main_window);
 		});
 
 		return menu_popover;
 	}
 
-    public void hide_destroy () {
-        main_revealer.reveal_child = false;
-        Timeout.add (main_revealer.transition_duration, () => {
-            ((Gtk.ListBox) parent).remove (this);
-            return GLib.Source.REMOVE;
-        });
-    }
+	public void hide_destroy () {
+		main_revealer.reveal_child = false;
+		Timeout.add (main_revealer.transition_duration, () => {
+			((Gtk.ListBox) parent).remove (this);
+			return GLib.Source.REMOVE;
+		});
+	}
 }

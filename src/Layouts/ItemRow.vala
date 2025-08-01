@@ -74,10 +74,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 	private Widgets.Attachments attachments;
 	private Gtk.Label attachments_count;
 	private Gtk.Box action_box;
+	private Gtk.Label show_subtasks_label;
+	private Gtk.Revealer show_subtasks_revealer;
 
 	private Widgets.SubItems subitems;
 	private Gtk.MenuButton menu_button;
 	private Gtk.Button hide_subtask_button;
+	private Gtk.Button show_subtasks_button;
 	private Gtk.Revealer hide_subtask_revealer;
 	private Widgets.ContextMenu.MenuItem no_date_item;
 	private Widgets.ContextMenu.MenuItem pinboard_item;
@@ -98,7 +101,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 			_edit = value;
 
 			if (value) {
-				add_css_class ("row");
+				add_css_class ("no-selectable");
 				itemrow_box.add_css_class ("card");
 				itemrow_box.add_css_class ("card-selected");
 
@@ -112,6 +115,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 				hide_subtask_revealer.reveal_child = false;
 				hide_loading_button.remove_css_class ("no-padding");
 				hide_loading_revealer.reveal_child = true;
+				show_subtasks_revealer.reveal_child = subitems.has_children && edit;
 
 				// Due labels
 				due_box_revealer.reveal_child = false;
@@ -131,7 +135,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 					return GLib.Source.REMOVE;
 				});
 			} else {
-				remove_css_class ("row");
+				add_css_class ("no-selectable");
 				itemrow_box.remove_css_class ("card-selected");
 				itemrow_box.remove_css_class ("card");
 
@@ -144,6 +148,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 				hide_subtask_revealer.reveal_child = subitems.has_children;
 				hide_loading_button.add_css_class ("no-padding");
 				hide_loading_revealer.reveal_child = false;
+				show_subtasks_revealer.reveal_child = false;
 
 				check_due ();
 				check_description ();
@@ -199,9 +204,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 	public ItemRow (Objects.Item item, bool is_project_view = false) {
 		Object (
 			item: item,
-			is_project_view: is_project_view,
-			focusable: false,
-			can_focus: true
+			is_project_view: is_project_view
 			);
 	}
 
@@ -210,7 +213,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 	}
 
 	construct {
-		css_classes = { "no-selectable", "no-padding" };
+		css_classes = { "row", "no-padding" };
 
 		project_id = item.project_id;
 		section_id = item.section_id;
@@ -541,8 +544,30 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		subitems.present_item (item);
 		subitems.reveal_child = item.collapsed;
 
+		show_subtasks_label = new Gtk.Label (null);
+
+		var show_subtasks_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+		show_subtasks_box.append (new Gtk.Image.from_icon_name ("go-next-symbolic") {
+			pixel_size = 12
+		});
+		show_subtasks_box.append (show_subtasks_label);
+
+		show_subtasks_button = new Gtk.Button () {
+			css_classes = { "flat", "small-button", "hidden-button" },
+			child = show_subtasks_box,
+			margin_start = 16,
+			margin_bottom = 3,
+			halign = START
+		};
+
+		show_subtasks_revealer = new Gtk.Revealer () {
+			child = show_subtasks_button,
+			reveal_child = subitems.has_children && edit
+		};
+
 		var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		box.append (itemrow_box);
+		box.append (show_subtasks_revealer);
 		box.append (subitems);
 
 		hide_subtask_button = new Gtk.Button () {
@@ -556,6 +581,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
 		if (item.collapsed) {
 			hide_subtask_button.add_css_class ("opened");
+			show_subtasks_button.add_css_class ("opened");
 		}
 
 		hide_subtask_revealer = new Gtk.Revealer () {
@@ -601,20 +627,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 				selected_toggled (select_checkbutton.active);
 			} else {
 				Timeout.add (100, () => {
-					if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
-						Services.EventBus.get_default ().open_item (item);
-					} else {
-						if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
-							Services.EventBus.get_default ().item_selected (item.id);
-						} else {
-							edit = true;
-						}
-					}
-
+					show_details ();
 					return GLib.Source.REMOVE;
 				});
 			}
 		})] = handle_gesture_click;
+
+		activate.connect (() => {
+			show_details ();
+		});
 
 		signals_map[Services.EventBus.get_default ().mobile_mode_change.connect (() => {
 			if (Services.EventBus.get_default ().mobile_mode) {
@@ -766,6 +787,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 			item.update_local ();
 		})] = hide_subtask_button;
 
+		signals_map[show_subtasks_button.clicked.connect (() => {
+			item.collapsed = !item.collapsed;
+			item.update_local ();
+		})] = show_subtasks_button;
+
 		signals_map[subitems.children_changes.connect (() => {
 			check_hide_subtask_button ();
 		})] = subitems;
@@ -775,8 +801,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
 			if (item.collapsed) {
 				hide_subtask_button.add_css_class ("opened");
+				show_subtasks_button.add_css_class ("opened");
 			} else {
 				hide_subtask_button.remove_css_class ("opened");
+				show_subtasks_button.remove_css_class ("opened");
 			}
 		})] = item;
 
@@ -814,6 +842,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 				attachments_button.popover.popdown ();
 			}
 		})] = attachments;
+	}
+
+	private void show_details () {
+		if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
+			Services.EventBus.get_default ().open_item (item);
+		} else {
+			if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
+				Services.EventBus.get_default ().item_selected (item.id);
+			} else {
+				edit = true;
+			}
+		}
 	}
 
 	public void check_hide_subtask_button () {
@@ -910,6 +950,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		priority_button.update_from_item (item);
 		pin_button.update_from_item (item);
 		reminder_button.set_reminders (item.reminders);
+
+		show_subtasks_label.label = item.collapsed ? _("Hide Sub-tasks") : _("Show Sub-tasks");
 
 		check_due ();
 		check_description ();
@@ -1073,8 +1115,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		menu_handle_popover.popup ();
 
 		move_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
-
 			Dialogs.ProjectPicker.ProjectPicker dialog;
 			if (item.project.is_inbox_project) {
 				dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
@@ -1097,51 +1137,41 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		});
 
 		today_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			update_date (Utils.Datetime.get_date_only (new DateTime.now_local ()));
 		});
 
 		tomorrow_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			update_date (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
 		});
 
 		pinboard_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			item.update_pin (!item.pinned);
 		});
 
 		no_date_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			update_date (null);
 		});
 
 		complete_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			checked_button.active = !checked_button.active;
 			checked_toggled (checked_button.active);
 		});
 
 		edit_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			Services.EventBus.get_default ().open_item (item);
 		});
 
 		delete_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			delete_request ();
 		});
 
 		add_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
-
 			var dialog = new Dialogs.QuickAdd ();
 			dialog.for_base_object (item);
 			dialog.present (Planify._instance.main_window);
 		});
 
 		duplicate_item.clicked.connect (() => {
-			menu_handle_popover.popdown ();
 			Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
 		});
 	}
@@ -1153,8 +1183,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "clipboard-symbolic");
 		var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
 		var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
-		var repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "playlist-repeat-symbolic");
-		repeat_item.arrow = true;
 
 		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
 		delete_item.add_css_class ("menu-item-danger");
@@ -1190,18 +1218,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		});
 
 		copy_clipboard_item.clicked.connect (() => {
-			popover.popdown ();
 			item.copy_clipboard ();
 		});
 
 		duplicate_item.clicked.connect (() => {
-			popover.popdown ();
 			Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
 		});
 
 		move_item.clicked.connect (() => {
-			popover.popdown ();
-
 			Dialogs.ProjectPicker.ProjectPicker dialog;
 			if (item.project.is_inbox_project) {
 				dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
@@ -1223,12 +1247,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 		});
 
 		delete_item.activate_item.connect (() => {
-			popover.popdown ();
 			delete_request ();
 		});
 
 		more_information_item.activate_item.connect (() => {
-			popover.popdown ();
 			var dialog = new Dialogs.ItemChangeHistory (item);
 			dialog.present (Planify._instance.main_window);
 		});

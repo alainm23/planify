@@ -686,8 +686,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		menu_handle_popover.popup ();
 
 		move_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
-
 			Dialogs.ProjectPicker.ProjectPicker dialog;
 			if (item.project.is_inbox_project) {
 				dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
@@ -710,51 +708,41 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		});
 
 		today_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			update_date (Utils.Datetime.get_date_only (new DateTime.now_local ()));
 		});
 
 		tomorrow_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			update_date (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
 		});
 
 		pinboard_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			item.update_pin (!item.pinned);
 		});
 
 		no_date_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			update_date (null);
 		});
 
 		complete_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			checked_button.active = !checked_button.active;
 			checked_toggled (checked_button.active);
 		});
 
 		edit_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			open_detail ();
 		});
 
 		delete_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
 			delete_request ();
 		});
 
 		add_item.activate_item.connect (() => {
-			menu_handle_popover.popdown ();
-
 			var dialog = new Dialogs.QuickAdd ();
 			dialog.for_base_object (item);
 			dialog.present (Planify._instance.main_window);
 		});
 
 		duplicate_item.clicked.connect (() => {
-			menu_handle_popover.popdown ();
 			Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
 		});
 	}
@@ -789,7 +777,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
 				if (value.dup_object () is Layouts.ItemBoard) {
 					var picked_widget = (Layouts.ItemBoard) value;
-					
+
 					if (picked_widget.item.id == item.parent_id) {
 						return;
 					}
@@ -800,7 +788,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 					motion_top_grid.height_request = 32;
 					motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
 				}
-			}  catch (Error e) {
+			} catch (Error e) {
 				debug (e.message);
 			}
 		})] = drop_motion_ctrl;
@@ -842,20 +830,20 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		signals_map[drop_target.accept.connect ((drop) => {
 			GLib.Value value = Value (typeof (Gtk.Widget));
 
-            try {
-                drop.drag.content.get_value (ref value);
-            } catch (Error e) {
-                debug (e.message);
-            }
+			try {
+				drop.drag.content.get_value (ref value);
+			} catch (Error e) {
+				debug (e.message);
+			}
 
-            if (value.dup_object () is Layouts.ItemBoard) {
-                var picked_widget = (Layouts.ItemBoard) value;
-                if (picked_widget.item.id != item.parent_id) {
-                    return true;
-                }
-            }
+			if (value.dup_object () is Layouts.ItemBoard) {
+				var picked_widget = (Layouts.ItemBoard) value;
+				if (picked_widget.item.id != item.parent_id) {
+					return true;
+				}
+			}
 
-            return false;
+			return false;
 		})] = drop_target;
 
 		signals_map[drop_target.drop.connect ((value, x, y) => {

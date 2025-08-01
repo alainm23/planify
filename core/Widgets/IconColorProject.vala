@@ -13,7 +13,7 @@ public class Widgets.IconColorProject : Adw.Bin {
         );
     }
 
-    ~IconColorProject() {
+    ~IconColorProject () {
         print ("Destroying Widgets.IconColorProject\n");
     }
 

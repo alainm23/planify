@@ -90,9 +90,9 @@ public class Widgets.Markdown.View : GtkSource.View {
 		}
 	}
 
-	~View() {
-        print ("Destroying Widgets.Markdown.View\n");
-    }
+	~View () {
+		print ("Destroying Widgets.Markdown.View\n");
+	}
 
 	public uint get_title_level (uint line) {
 		Gtk.TextIter start;
@@ -209,32 +209,32 @@ public class Widgets.Markdown.View : GtkSource.View {
 		Regex affix_regex;
 
 		switch (affix) {
-			case "**":
-				affix_regex = is_bold_0;
-				break;
-			case "__":
-				affix_regex = is_bold_1;
-				break;
-			case "*":
-				affix_regex = is_italic_0;
-				break;
-			case "_":
-				affix_regex = is_italic_0;
-				break;
-			case "~":
-				affix_regex = is_strikethrough_0;
-				break;
-			case "~~":
-				affix_regex = is_strikethrough_1;
-				break;
-			case "==":
-				affix_regex = is_highlight;
-				break;
-			case "`":
-				affix_regex = is_code_span;
-				break;
-			default:
-				return false;
+		case "**":
+			affix_regex = is_bold_0;
+			break;
+		case "__":
+			affix_regex = is_bold_1;
+			break;
+		case "*":
+			affix_regex = is_italic_0;
+			break;
+		case "_":
+			affix_regex = is_italic_0;
+			break;
+		case "~":
+			affix_regex = is_strikethrough_0;
+			break;
+		case "~~":
+			affix_regex = is_strikethrough_1;
+			break;
+		case "==":
+			affix_regex = is_highlight;
+			break;
+		case "`":
+			affix_regex = is_code_span;
+			break;
+		default:
+			return false;
 		}
 
 		Gtk.TextIter buffer_start, buffer_end;
@@ -501,7 +501,8 @@ public class Widgets.Markdown.View : GtkSource.View {
 	private Gtk.TextTag text_tag_invisible;
 
 	private Gtk.TextTag get_or_create_tag (string name) {
-		return buffer.tag_table.lookup (name) ?? buffer.create_tag (name); }
+		return buffer.tag_table.lookup (name) ?? buffer.create_tag (name);
+	}
 
 	private void update_color_scheme () {
 
@@ -1007,7 +1008,7 @@ public class Widgets.Markdown.View : GtkSource.View {
 	void format_horizontal_rule (
 		string buffer_text,
 		out MatchInfo matches
-	) throws RegexError {
+		) throws RegexError {
 		// Check for code blocks
 		if (is_horizontal_rule.match_full (buffer_text, buffer_text.length, 0, 0, out matches)) {
 			do {
@@ -1033,7 +1034,7 @@ public class Widgets.Markdown.View : GtkSource.View {
 	void format_blockquote (
 		string buffer_text,
 		out MatchInfo matches
-	) throws RegexError {
+		) throws RegexError {
 		// Check for code blocks
 		if (is_blockquote.match_full (buffer_text, buffer_text.length, 0, 0, out matches)) {
 			do {
@@ -1067,7 +1068,7 @@ public class Widgets.Markdown.View : GtkSource.View {
 	void format_escape_format (
 		string buffer_text,
 		out MatchInfo matches
-	) throws RegexError {
+		) throws RegexError {
 		// Check for escapes
 		if (is_escape.match_full (buffer_text, buffer_text.length, 0, 0, out matches)) {
 			do {
@@ -1094,7 +1095,7 @@ public class Widgets.Markdown.View : GtkSource.View {
 		string buffer_text,
 		Gtk.TextIter cursor_location,
 		out MatchInfo matches
-	) throws RegexError {
+		) throws RegexError {
 		// Check for escapes
 		if (is_escape.match_full (buffer_text, buffer_text.length, 0, 0, out matches)) {
 			do {
@@ -1128,7 +1129,7 @@ public class Widgets.Markdown.View : GtkSource.View {
 	void format_code_block_format (
 		string buffer_text,
 		out MatchInfo matches
-	) throws RegexError {
+		) throws RegexError {
 		// Check for code blocks
 		if (is_code_block.match_full (buffer_text, buffer_text.length, 0, 0, out matches)) {
 			do {
@@ -1173,7 +1174,7 @@ public class Widgets.Markdown.View : GtkSource.View {
 		string buffer_text,
 		Gtk.TextIter cursor_location,
 		out MatchInfo matches
-	) throws RegexError {
+		) throws RegexError {
 		// Check for code blocks
 		if (is_code_block.match_full (buffer_text, buffer_text.length, 0, 0, out matches)) {
 			do {
@@ -1224,12 +1225,12 @@ public class Widgets.Markdown.View : GtkSource.View {
 		string buffer_text,
 		out MatchInfo matches,
 		bool remove_other_tags = false
-	) throws RegexError {
+		) throws RegexError {
 		if (regex.match_full (buffer_text, buffer_text.length, 0, 0, out matches)) {
 			do {
 				int start_before_pos, end_before_pos;
-				int start_code_pos,   end_code_pos;
-				int start_after_pos,  end_after_pos;
+				int start_code_pos, end_code_pos;
+				int start_after_pos, end_after_pos;
 				bool have_code_start = matches.fetch_pos (1, out start_before_pos, out end_before_pos);
 				bool have_code = matches.fetch_pos (2, out start_code_pos, out end_code_pos);
 				bool have_code_close = matches.fetch_pos (3, out start_after_pos, out end_after_pos);
@@ -1244,8 +1245,8 @@ public class Widgets.Markdown.View : GtkSource.View {
 
 					// Convert the character offsets to TextIter's
 					Gtk.TextIter start_before_iter, end_before_iter;
-					Gtk.TextIter start_code_iter,   end_code_iter;
-					Gtk.TextIter start_after_iter,  end_after_iter;
+					Gtk.TextIter start_code_iter, end_code_iter;
+					Gtk.TextIter start_after_iter, end_after_iter;
 					buffer.get_iter_at_offset (out start_before_iter, start_before_pos);
 					buffer.get_iter_at_offset (out end_before_iter, end_before_pos);
 					buffer.get_iter_at_offset (out start_code_iter, start_code_pos);
@@ -1256,18 +1257,18 @@ public class Widgets.Markdown.View : GtkSource.View {
 					// Check to see if the tag has already been applied, if so, skip it.
 					if (start_code_iter.has_tag (text_tag) &&
 					    end_code_iter.has_tag (text_tag) &&
-						start_before_iter.has_tag (text_tag_around) &&
-						start_after_iter.has_tag (text_tag_around)
-					) {
+					    start_before_iter.has_tag (text_tag_around) &&
+					    start_after_iter.has_tag (text_tag_around)
+					    ) {
 						continue;
 					}
 
 					// Check to see if we're already in a link, in which case skip formatting.
 					if (start_code_iter.has_tag (text_tag_url) &&
 					    end_code_iter.has_tag (text_tag_url) &&
-						start_before_iter.has_tag (text_tag_url) &&
-						start_after_iter.has_tag (text_tag_url)
-					) {
+					    start_before_iter.has_tag (text_tag_url) &&
+					    start_after_iter.has_tag (text_tag_url)
+					    ) {
 						continue;
 					}
 
@@ -1290,7 +1291,7 @@ public class Widgets.Markdown.View : GtkSource.View {
 		Gtk.TextIter cursor_location,
 		out MatchInfo matches,
 		bool remove_other_tags = false
-	) throws RegexError {
+		) throws RegexError {
 		if (regex.match_full (buffer_text, buffer_text.length, 0, 0, out matches)) {
 			do {
 				int start_before_pos, end_before_pos;

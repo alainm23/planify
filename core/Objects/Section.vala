@@ -295,6 +295,8 @@ public class Objects.Section : Objects.BaseObject {
 
     public override string get_move_json (string uuid, string new_project_id) {
         var builder = new Json.Builder ();
+        builder.begin_object ();
+        builder.set_member_name ("commands");
         builder.begin_array ();
         builder.begin_object ();
 
@@ -317,6 +319,7 @@ public class Objects.Section : Objects.BaseObject {
             builder.end_object ();
         builder.end_object ();
         builder.end_array ();
+        builder.end_object ();
 
         Json.Generator generator = new Json.Generator ();
         Json.Node root = builder.get_root ();

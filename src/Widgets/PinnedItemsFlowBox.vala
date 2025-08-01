@@ -66,15 +66,11 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
         });
 
         project.item_deleted.connect ((item) => {
-            if (!items_map.has_key (item.id)) {
-                return;
-            }
+            update_pinboard (item);
+        });
 
-            items_map[item.id].hide_widget ();
-            box_layout.remove (items_map[item.id]);
-            items_map.unset (item.id);
-            
-            check_reveal_child ();
+        Services.EventBus.get_default ().item_moved.connect ((item) => {
+            update_pinboard (item);
         });
 
         Services.Store.instance ().item_pin_change.connect ((item) => {
@@ -135,6 +131,18 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
             box_layout.homogeneous = true;
             box_layout.halign = Gtk.Align.START;
         }
+    }
+
+    private void update_pinboard (Objects.Item item) {
+        if (!items_map.has_key (item.id)) {
+            return;
+        }
+
+        items_map[item.id].hide_widget ();
+        box_layout.remove (items_map[item.id]);
+        items_map.unset (item.id);
+
+        check_reveal_child ();
     }
 
     private void check_reveal_child () {

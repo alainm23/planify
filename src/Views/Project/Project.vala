@@ -24,7 +24,7 @@ public class Views.Project : Adw.Bin {
 	public Objects.Project project { get; construct; }
 
 	private Gtk.Revealer project_view_revealer;
-	private Gtk.Spinner loading_spinner;
+	private Adw.Spinner loading_spinner;
 	private Adw.ViewStack project_stack;
 	private Adw.ToolbarView toolbar_view;
 	private Widgets.ContextMenu.MenuItem expand_all_item;
@@ -107,12 +107,11 @@ public class Views.Project : Adw.Bin {
 			transition_type = Gtk.RevealerTransitionType.CROSSFADE
 		};
 
-		loading_spinner = new Gtk.Spinner () {
+		loading_spinner = new Adw.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
 			height_request = 64,
 			width_request = 64,
-            spinning = true
         };
 
 		project_stack = new Adw.ViewStack () {
@@ -333,15 +332,11 @@ public class Views.Project : Adw.Bin {
 		};
 
 		edit_item.activate_item.connect (() => {
-			popover.popdown ();
-
 			var dialog = new Dialogs.Project (project);
 			dialog.present (Planify._instance.main_window);
 		});
 
 		schedule_item.activate_item.connect (() => {
-			popover.popdown ();
-
 			var dialog = new Dialogs.DatePicker (_("When?"));
 			dialog.clear = project.due_date != "";
 			dialog.present (Planify._instance.main_window);
@@ -362,18 +357,15 @@ public class Views.Project : Adw.Bin {
 		});
 
 		add_section_item.activate_item.connect (() => {
-			popover.popdown ();
 			prepare_new_section ();
 		});
 
 		manage_sections.clicked.connect (() => {
-			popover.popdown ();
 			var dialog = new Dialogs.ManageSectionOrder (project);
 			dialog.present (Planify._instance.main_window);
 		});
 
 		paste_item.clicked.connect (() => {
-			popover.popdown ();
 			Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 
 			clipboard.read_text_async.begin (null, (obj, res) => {
@@ -387,32 +379,26 @@ public class Views.Project : Adw.Bin {
 		});
 
 		expand_all_item.clicked.connect (() => {
-			popover.popdown ();
 			Services.EventBus.get_default ().expand_all (project.id, true);
 		});
 
 		collapse_all_item.clicked.connect (() => {
-			popover.popdown ();
 			Services.EventBus.get_default ().expand_all (project.id, false);
 		});
 
 		select_item.clicked.connect (() => {
-			popover.popdown ();
 			project.show_multi_select = true;
 		});
 
 		delete_item.clicked.connect (() => {
-			popover.popdown ();
 			project.delete_project ((Gtk.Window) Planify.instance.main_window);
 		});
 		
 		duplicate_item.clicked.connect (() => {
-            popover.popdown ();
             Util.get_default ().duplicate_project.begin (project, project.parent_id);
         });
 
 		archive_item.clicked.connect (() => {
-            popover.popdown ();
             project.archive_project ((Gtk.Window) Planify.instance.main_window);
         });
 		
@@ -565,22 +551,16 @@ public class Views.Project : Adw.Bin {
 		});
 
 		show_completed_item.activate_item.connect (() => {
-			popover.popdown ();
-
 			var dialog = new Dialogs.CompletedTasks (project);
 			dialog.present (Planify._instance.main_window);
 		});
 
 		list_button.toggled.connect (() => {
-			popover.popdown ();
-
 			project.view_style = ProjectViewStyle.LIST;
 			project.update_local ();
 		});
 
 		board_button.toggled.connect (() => {
-			popover.popdown ();
-			
 			project.view_style = ProjectViewStyle.BOARD;
 			project.update_local ();
 		});
@@ -639,8 +619,6 @@ public class Views.Project : Adw.Bin {
 		});
 
 		labels_filter.activate_item.connect (() => {
-			popover.popdown ();
-
 			Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
 			foreach (Objects.Filters.FilterItem filter in project.filters.values) {
 				if (filter.filter_type == FilterItemType.LABEL) {

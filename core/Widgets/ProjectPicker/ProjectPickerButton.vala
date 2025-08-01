@@ -330,14 +330,13 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
             css_classes = { "dim-label" }
         };
         
-        var spinner = new Gtk.Spinner () {
+        var spinner = new Adw.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             height_request = 24,
             width_request = 24,
             margin_top = 12,
-            css_classes = { "text-color" },
-            spinning = true
+            css_classes = { "text-color" }
         };
 
         spinner_revealer = new Gtk.Revealer () {

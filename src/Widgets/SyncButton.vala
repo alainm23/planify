@@ -38,9 +38,9 @@ public class Widgets.SyncButton : Adw.Bin {
             css_classes = { "flat", "header-item-button", "dim-label" }
         };
 
-        var error_image = new Gtk.Image () {
-            gicon = new ThemedIcon ("dialog-warning-symbolic"),
-            pixel_size = 13
+        var error_button = new Gtk.Button.from_icon_name ("dialog-warning-symbolic") {
+            valign = Gtk.Align.CENTER,
+            css_classes = { "flat", "header-item-button", "dim-label" }
         };
 
         stack = new Gtk.Stack () {
@@ -48,7 +48,7 @@ public class Widgets.SyncButton : Adw.Bin {
         };
 
         stack.add_named (sync_button, "sync");
-        stack.add_named (error_image, "error");
+        stack.add_named (error_button, "error");
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
@@ -58,7 +58,6 @@ public class Widgets.SyncButton : Adw.Bin {
         child = main_revealer;
 
         Timeout.add (main_revealer.transition_duration, () => {
-            network_available ();
             return GLib.Source.REMOVE;
         });
 
@@ -66,25 +65,24 @@ public class Widgets.SyncButton : Adw.Bin {
             clicked ();
         });
 
-        Services.NetworkMonitor.instance ().network_changed.connect (() => {
-            network_available ();
+        error_button.clicked.connect (() => {
+            clicked ();
         });
     }
 
-    private void network_available () {
-        if (Services.NetworkMonitor.instance ().network_available) {
-            stack.visible_child_name = "sync";
-        } else {
-            stack.visible_child_name = "error";
-            tooltip_markup = "<b>%s</b>\n%s".printf (_("Offline Mode Is On"), _("Looks like you'are not connected to the\ninternet. Changes you make in offline\nmode will be synced when you reconnect")); // vala-lint=line-length
-        }
-    }
-
     public void sync_started () {
+        stack.visible_child_name = "sync";
+        tooltip_markup = "";
         sync_button.add_css_class ("is_loading");
     }
     
     public void sync_finished () {
         sync_button.remove_css_class ("is_loading");
+    }
+
+    public void sync_failed () {
+        sync_button.remove_css_class ("is_loading");
+        stack.visible_child_name = "error";
+        tooltip_markup = "<b>%s</b>\n%s".printf (_("Failed to connect to server"), _("It looks like the server is unreachable,\nare you connected to the internet?\nAny changes you make while disconnected\nwill be synchronized when you reconnect.")); // vala-lint=line-length
     }
 }

@@ -37,7 +37,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
         );
     }
 
-    ~LabelRow() {
+    ~LabelRow () {
         print ("Destroying Widgets.LabelPicker.LabelRow\n");
     }
 

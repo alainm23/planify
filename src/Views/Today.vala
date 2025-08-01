@@ -220,7 +220,7 @@ public class Views.Today : Adw.Bin {
         var listbox_placeholder = new Adw.StatusPage ();
         listbox_placeholder.icon_name = "check-round-outline-symbolic";
         listbox_placeholder.title = _("Add Some Tasks");
-        listbox_placeholder.description = _("Press a to create a new task");
+        listbox_placeholder.description = _("Press 'a' to create a new task");
 
         listbox_placeholder_stack = new Gtk.Stack () {
             vexpand = true,
@@ -338,15 +338,43 @@ public class Views.Today : Adw.Bin {
         Services.Store.instance ().item_unarchived.connect (valid_add_item);
 
         Services.EventBus.get_default ().item_moved.connect ((item) => {
+            // Handle existing items that may no longer belong in Today view
             if (items.has_key (item.id)) {
-                items[item.id].update_request ();
+                if (Services.Store.instance ().valid_item_by_date (item, date, false)) {
+                    items[item.id].update_request ();
+                } else {
+                    // Remove item that no longer belongs in today
+                    items[item.id].hide_destroy ();
+                    items.unset (item.id);
+                }
             }
 
             if (overdue_items.has_key (item.id)) {
-                items[item.id].update_request ();
+                if (Services.Store.instance ().valid_item_by_overdue (item, date, false)) {
+                    overdue_items[item.id].update_request ();
+                } else {
+                    // Remove item that no longer belongs in overdue
+                    overdue_items[item.id].hide_destroy ();
+                    overdue_items.unset (item.id);
+                }
             }
 
+            // Check if item should be added to Today view (wasn't there before but should be now)
+            if (!items.has_key (item.id) && 
+                Services.Store.instance ().valid_item_by_date (item, date, false)) {
+                add_item (item);
+            }
+
+            if (!overdue_items.has_key (item.id) && 
+                Services.Store.instance ().valid_item_by_overdue (item, date, false)) {
+                add_overdue_item (item);
+            }
+
+            // Update UI state
+            update_headers ();
+            check_placeholder ();
             listbox.invalidate_filter ();
+            overdue_listbox.invalidate_filter ();
         });
 
         magic_button.clicked.connect (() => {
@@ -670,8 +698,6 @@ public class Views.Today : Adw.Bin {
 		});
 
 		labels_filter.activate_item.connect (() => {
-			popover.popdown ();
-
 			Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
 			foreach (Objects.Filters.FilterItem filter in Objects.Filters.Today.get_default ().filters.values) {
 				if (filter.filter_type == FilterItemType.LABEL) {

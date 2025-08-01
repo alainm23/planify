@@ -23,7 +23,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
 	public signal void pop_subpage ();
 	public signal void popup_toast (string message);
 
-    ~Sidebar() {
+    ~Sidebar () {
         print ("Destroying Dialogs.Preferences.Pages.Sidebar\n");
     }
 

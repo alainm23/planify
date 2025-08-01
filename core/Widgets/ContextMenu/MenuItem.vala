@@ -37,6 +37,17 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         }
     }
 
+    bool _autohide_popover = true;
+    public bool autohide_popover {
+        get {
+            return _autohide_popover;
+        }
+
+        set {
+            _autohide_popover = value;
+        }
+    }
+
     public string icon {
         set {
             if (value != null) {
@@ -105,7 +116,7 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         );
     }
 
-    construct {
+    construct {        
         add_css_class ("flat");
         add_css_class ("no-font-bold");
 
@@ -149,9 +160,8 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
 
         loading_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
-            child = new Gtk.Spinner () {
-                css_classes = { "submit-spinner" },
-                spinning = true
+            child = new Adw.Spinner () {
+                css_classes = { "submit-spinner" }
             }
         };
 
@@ -177,6 +187,13 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
 
         clicked.connect (() => {
             activate_item ();
+            
+            if (autohide_popover) {
+                var popover = (Gtk.Popover) get_ancestor (typeof (Gtk.Popover));
+                if (popover != null) {
+                    popover.popdown ();
+                }
+            }
         });
     }
 }

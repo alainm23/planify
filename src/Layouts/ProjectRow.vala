@@ -84,7 +84,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         );
     }
 
-    ~ProjectRow() {
+    ~ProjectRow () {
         print ("Destroying Layouts.ProjectRow\n");
     }
 
@@ -170,10 +170,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         end_box.append (menu_stack);
         end_box.append (arrow_revealer);
 
-        var loading_spinner = new Gtk.Spinner () {
+        var loading_spinner = new Adw.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            spinning = true,
             margin_end = 6
         };
 
@@ -681,13 +680,15 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         if (!project.is_deck && !project.inbox_project) {
             menu_box.append (edit_item);
         }
-        
-        if (project.source_type == SourceType.CALDAV) {
-            menu_box.append (refresh_item);
-        }
 
         menu_box.append (duplicate_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+
+        if (project.source_type == SourceType.CALDAV && !project.is_deck) {
+            menu_box.append (refresh_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        }
+
         menu_box.append (share_markdown_item);
         menu_box.append (share_email_item);
 
@@ -709,8 +710,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_popover.popup ();
 
         favorite_item.clicked.connect (() => {
-            menu_popover.popdown ();
-
             project.is_favorite = !project.is_favorite;
             Services.Store.instance ().update_project (project);
             Services.EventBus.get_default ().favorite_toggled (project);
@@ -718,54 +717,37 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         });
 
         edit_item.clicked.connect (() => {
-            menu_popover.popdown ();
-
             var dialog = new Dialogs.Project (project);
             dialog.present (Planify._instance.main_window);
         });
 
         refresh_item.clicked.connect (() => {
-            menu_popover.popdown ();
-
-            if (project.sync_id == "") {
-                is_loading = true;
-            } else {
-                sync_project ();
-            }
+            sync_project ();
         });
 
         delete_item.clicked.connect (() => {
-            menu_popover.popdown ();
             project.delete_project ((Gtk.Window) Planify.instance.main_window);
         });
 
         share_markdown_item.clicked.connect (() => {
-            menu_popover.popdown ();
             project.share_markdown ();
         });
 
         share_email_item.clicked.connect (() => {
-            menu_popover.popdown ();
             project.share_mail ();
         });
 
         duplicate_item.clicked.connect (() => {
-            menu_popover.popdown ();
             Util.get_default ().duplicate_project.begin (project, project.parent_id);
         });
 
         archive_item.clicked.connect (() => {
-            menu_popover.popdown ();
             project.archive_project ((Gtk.Window) Planify.instance.main_window);
         });
     }
 
     private void sync_project () {
-        is_loading = true;
-        Services.CalDAV.Core.get_default ().sync_tasklist.begin (project, (obj, res) => {
-            Services.CalDAV.Core.get_default ().sync_tasklist.end (res);
-            is_loading = false;
-        });
+        Services.CalDAV.Core.get_default ().sync_tasklist.begin (project);
     }
 
     private void update_listbox_revealer () {

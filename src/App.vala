@@ -51,10 +51,10 @@ public class Planify : Adw.Application {
 		Object (
 			application_id: Build.APPLICATION_ID,
 			flags: ApplicationFlags.HANDLES_OPEN
-			);
+		);
 	}
 
-	~Planify() {
+	~Planify () {
 		print ("Destroying Planify\n");
 	}
 

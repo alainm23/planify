@@ -96,6 +96,9 @@
     <file alias="funnel-outline-symbolic.svg">resources/icons/funnel-outline-symbolic.svg</file>
     <file alias="external-link-symbolic.svg">resources/icons/external-link-symbolic.svg</file>
     <file alias="delay-symbolic.svg">resources/icons/delay-symbolic.svg</file>
+    <file alias="go-up-symbolic.svg">resources/icons/go-up-symbolic.svg</file>
+    <file alias="go-next-symbolic.svg">resources/icons/go-next-symbolic.svg</file>
+    <file alias="process-error-symbolic.svg">resources/icons/process-error-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
@@ -166,6 +169,9 @@
     <file alias="funnel-outline-symbolic.svg">resources/icons/funnel-outline-symbolic.svg</file>
     <file alias="external-link-symbolic.svg">resources/icons/external-link-symbolic.svg</file>
     <file alias="delay-symbolic.svg">resources/icons/delay-symbolic.svg</file>
+    <file alias="go-up-symbolic.svg">resources/icons/go-up-symbolic.svg</file>
+    <file alias="go-next-symbolic.svg">resources/icons/go-next-symbolic.svg</file>
+    <file alias="process-error-symbolic.svg">resources/icons/process-error-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
@@ -236,5 +242,8 @@
     <file alias="funnel-outline-symbolic.svg">resources/icons/funnel-outline-symbolic.svg</file>
     <file alias="external-link-symbolic.svg">resources/icons/external-link-symbolic.svg</file>
     <file alias="delay-symbolic.svg">resources/icons/delay-symbolic.svg</file>
+    <file alias="go-up-symbolic.svg">resources/icons/go-up-symbolic.svg</file>
+    <file alias="go-next-symbolic.svg">resources/icons/go-next-symbolic.svg</file>
+    <file alias="process-error-symbolic.svg">resources/icons/process-error-symbolic.svg</file>
   </gresource>
 </gresources>

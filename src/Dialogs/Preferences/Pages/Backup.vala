@@ -25,7 +25,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 	public signal void pop_subpage ();
 	public signal void popup_toast (string message);
 
-	~Backup() {
+	~Backup () {
         print ("Destroying Dialogs.Preferences.Pages.Backup\n");
     }
 

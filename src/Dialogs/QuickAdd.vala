@@ -29,7 +29,7 @@ public class Dialogs.QuickAdd : Adw.Dialog {
         );
     }
 
-    ~QuickAdd() {
+    ~QuickAdd () {
         print ("Destroying Dialogs.QuickAdd\n");
     }
 

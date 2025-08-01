@@ -31,7 +31,7 @@ public class Dialogs.ManageProjects : Adw.Dialog {
         );
     }
 
-    ~ManageProjects() {
+    ~ManageProjects () {
         print ("Destroying Dialogs.ManageProjects\n");
     }
 

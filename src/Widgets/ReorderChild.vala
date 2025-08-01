@@ -52,7 +52,7 @@ public class Widgets.ReorderChild : Adw.Bin {
         );
     }
 
-    ~ReorderChild() {
+    ~ReorderChild () {
         print ("Destroying Widgets.ReorderChild\n");
     }
 

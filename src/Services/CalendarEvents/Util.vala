@@ -91,10 +91,9 @@
      * Say if an event lasts all day.
      */
     public bool is_the_all_day (GLib.DateTime dtstart, GLib.DateTime dtend) {
-        var utc_start = dtstart.to_timezone (new TimeZone.utc ());
         var timespan = dtend.difference (dtstart);
 
-        if (timespan % GLib.TimeSpan.DAY == 0 && utc_start.get_hour () == 0) {
+        if (timespan % GLib.TimeSpan.DAY == 0 && dtstart.get_hour () == 0) {
             return true;
         } else {
             return false;

@@ -6,6 +6,7 @@ core/QuickAdd.vala
 
 core/Util/Util.vala
 core/Util/Datetime.vala
+core/Util/Migrate.vala
 
 core/Services/Settings.vala
 core/Services/EventBus.vala
@@ -61,6 +62,7 @@ core/Widgets/LabelPicker/LabelButton.vala
 core/Widgets/ProjectPicker/ProjectPickerPopover.vala
 core/Widgets/ProjectPicker/ProjectPickerRow.vala
 core/Widgets/ProjectPicker/ProjectPickerButton.vala
+core/Widgets/ProjectPicker/SectionPickerRow.vala
 
 core/Widgets/SectionPicker/SectionButton.vala
 core/Widgets/SectionPicker/SectionPicker.vala
@@ -114,7 +116,6 @@ src/Services/TimeMonitor.vala
 src/Services/DBusServer.vala
 src/Services/Backups.vala
 src/Services/MigrateFromPlanner.vala
-src/Services/NetworkMonitor.vala
 
 src/Services/CalendarEvents/CalendarEvents.vala
 src/Services/CalendarEvents/DateIterator.vala
@@ -133,6 +134,7 @@ src/Layouts/ItemSidebarView.vala
 src/Layouts/SectionBoard.vala
 src/Layouts/HeaderBar.vala
 src/Layouts/SidebarSourceRow.vala
+src/Layouts/ProjectContainerRow.vala
 
 src/Widgets/ColorPickerRow.vala
 src/Widgets/MagicButton.vala
@@ -143,16 +145,20 @@ src/Widgets/MultiSelectToolbar.vala
 src/Widgets/EventsList.vala
 src/Widgets/EventRow.vala
 src/Widgets/SubItems.vala
-src/Widgets/LabelChild.vala
 src/Widgets/LabelsSummary.vala
 src/Widgets/SectionsOrderPopover.vala
 src/Widgets/ScrolledWindow.vala
 src/Widgets/ReorderChild.vala
 src/Widgets/FilterFlowBox.vala
+src/Widgets/FilterFlowBoxChild.vala
 src/Widgets/Attachments.vala
+src/Widgets/AttachmentRow.vala
 src/Widgets/ItemChangeHistoryRow.vala
 src/Widgets/SourceRow.vala
 src/Widgets/ErrorView.vala
+src/Widgets/CompletedTaskRow.vala
+src/Widgets/ItemDetailCompleted.vala
+src/Widgets/PinnedItemsFlowBox.vala
 
 src/Views/Project/Project.vala
 src/Views/Project/List.vala
@@ -181,9 +187,9 @@ src/Dialogs/ProjectPicker/SectionPickerRow.vala
 src/Dialogs/ManageProjects.vala
 src/Dialogs/DatePicker.vala
 src/Dialogs/LabelPicker.vala
-src/Dialogs/RepeatConfig.vala
 src/Dialogs/ItemChangeHistory.vala
 src/Dialogs/ErrorDialog.vala
+src/Dialogs/CompletedTasks.vala
 
 src/Dialogs/QuickFind/QuickFind.vala
 src/Dialogs/QuickFind/QuickFindItem.vala

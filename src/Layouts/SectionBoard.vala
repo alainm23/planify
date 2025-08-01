@@ -502,20 +502,15 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 		};
 
 		add_item.clicked.connect (() => {
-			menu_popover.popdown ();
 			prepare_new_item ();
 		});
 
 		edit_item.clicked.connect (() => {
-			menu_popover.popdown ();
-
 			var dialog = new Dialogs.Section (section);
 			dialog.present (Planify._instance.main_window);
 		});
 
 		move_item.clicked.connect (() => {
-			menu_popover.popdown ();
-
 			var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (section.source);
 			dialog.project = section.project;
 			dialog.present (Planify._instance.main_window);
@@ -528,20 +523,15 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 		});
 
 		manage_item.clicked.connect (() => {
-			menu_popover.popdown ();
-
 			var dialog = new Dialogs.ManageSectionOrder (section.project);
 			dialog.present (Planify._instance.main_window);
 		});
 
 		archive_item.clicked.connect (() => {
-			menu_popover.popdown ();
 			section.archive_section ((Gtk.Window) Planify.instance.main_window);
 		});
 
 		delete_item.clicked.connect (() => {
-			menu_popover.popdown ();
-
 			var dialog = new Adw.AlertDialog (
 				_("Delete Section %s".printf (section.name)),
 				_("This can not be undone")
@@ -569,15 +559,12 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 		});
 
 		show_completed_item.clicked.connect (() => {
-			menu_popover.popdown ();
-
 			var dialog = new Dialogs.CompletedTasks (section.project);
 			dialog.add_update_filter (section);
 			dialog.present (Planify._instance.main_window);
 		});
 
 		duplicate_item.clicked.connect (() => {
-			menu_popover.popdown ();
 			Util.get_default ().duplicate_section.begin (section, section.project_id);
 		});
 

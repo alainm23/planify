@@ -183,9 +183,7 @@ public class Utils.Datetime {
         return new GLib.DateTime.from_iso8601 (date, new GLib.TimeZone.local ());
     }
 
-    public static void recurrence_to_due (string rrules, Objects.DueDate due) {
-        ICal.Recurrence recurrence = new ICal.Recurrence.from_string (rrules);
-        
+    public static void recurrence_to_due (ICal.Recurrence recurrence, Objects.DueDate due) {        
         due.is_recurring = true;
 
         ICal.RecurrenceFrequency freq = recurrence.get_freq ();
