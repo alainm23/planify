@@ -43,6 +43,7 @@ jobs:
           flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
           flatpak install -y org.freedesktop.Sdk.Extension.rust-stable//23.08
           flatpak install -y org.gnome.Sdk/x86_64/47
+          flatpak install -y org.gnome.Platform/x86_64/47
 
       - name: Configure Git
         run: |
