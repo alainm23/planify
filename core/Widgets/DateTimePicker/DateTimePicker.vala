@@ -48,6 +48,10 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         }
         
         get {
+            if (_duedate == null) {
+                _duedate = new Objects.DueDate ();
+            }
+
             if (time_picker.has_time) {
                 if (_duedate.datetime == null) {
                     _duedate.datetime = time_picker.time;
@@ -89,7 +93,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         child = navigation_view;
 
         closed.connect (() => {
-            navigation_view.pop ();
+            navigation_view.pop_to_page (build_page ("main"));
         });
     }
 
@@ -126,9 +130,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 		repeat_item.arrow = true;
         repeat_item.autohide_popover = false;
 
-        var time_icon = new Gtk.Image.from_icon_name ("clock-symbolic") {
-            css_classes = { "dim-label" }
-        };
+        var time_icon = new Gtk.Image.from_icon_name ("clock-symbolic");
 
         var time_label = new Gtk.Label (_("Time")) {
             css_classes = { "font-weight-500" }
@@ -237,25 +239,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     private Adw.NavigationPage build_calendar_page () {
-        var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
-        back_item.autohide_popover = false;
-
         calendar_view = new Widgets.Calendar.Calendar ();
-
-        var calendar_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            hexpand = true
-        };
-
-        calendar_box.append (back_item);
-        calendar_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        calendar_box.append (calendar_view);
-
-        var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.content = calendar_box;
-
-        back_item.clicked.connect (() => {
-            navigation_view.pop ();
-        });
 
         calendar_view.day_selected.connect (() => {
             set_date (calendar_view.date, false, true);
@@ -265,13 +249,10 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             navigation_view.pop ();
         });
         
-        return new Adw.NavigationPage (toolbar_view, _("Calendar"));
+        return new Adw.NavigationPage (build_toolbar_page (calendar_view), _("Calendar"));
     }
 
-    private Adw.NavigationPage build_repeat_page () {
-        var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
-        back_item.autohide_popover = false;
-        
+    private Adw.NavigationPage build_repeat_page () {        
         var none_item = new Widgets.ContextMenu.MenuItem (_("None")) {
             autohide_popover = false
         };
@@ -299,8 +280,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
-		menu_box.append (back_item);
-		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (daily_item);
 		menu_box.append (weekly_item);
 		menu_box.append (monthly_item);
@@ -308,13 +287,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (none_item);
 		menu_box.append (custom_item);
-
-        var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.content = menu_box;
-
-        back_item.clicked.connect (() => {
-            navigation_view.pop ();
-        });
 
         daily_item.clicked.connect (() => {
 			var _duedate = new Objects.DueDate ();
@@ -372,13 +344,9 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                 set_recurrency (_duedate);
                 navigation_view.pop_to_page (build_page ("main"));
             });
-
-            ((Widgets.DateTimePicker.RepeatConfig) build_page ("repeat-config")).back.connect (() => {
-                navigation_view.pop_to_page (build_page ("main"));
-            });
 		});
 
-        return new Adw.NavigationPage (toolbar_view, _("Repeat"));
+        return new Adw.NavigationPage (build_toolbar_page (menu_box), _("Repeat"));
     }
 
     private void set_date (DateTime date, bool hide_popover = true, bool no_signal = false) {
@@ -502,5 +470,18 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                 duedate.recurrency_weeks
             ).down ();
         }
+    }
+
+    private Adw.ToolbarView build_toolbar_page (Gtk.Widget widget) {
+        var toolbar_view = new Adw.ToolbarView () {
+            content = widget
+        };
+
+        toolbar_view.add_top_bar (new Adw.HeaderBar () {
+            show_title = false,
+            show_end_title_buttons = false,
+        });
+
+        return toolbar_view;
     }
 }
