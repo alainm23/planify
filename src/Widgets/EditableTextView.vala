@@ -110,7 +110,9 @@ public class Widgets.EditableTextView : Adw.Bin {
         var gesture_click = new Gtk.GestureClick ();
         add_controller (gesture_click);
         signal_map[gesture_click.pressed.connect (() => {
-            editing (true);
+            if (!is_editing) {
+                editing (true);
+            }
         })] = gesture_click;
 
         var gesture_focus = new Gtk.EventControllerFocus ();
