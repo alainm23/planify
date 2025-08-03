@@ -20,7 +20,7 @@
 */
 
 public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
-    private Gtk.Text time_entry;
+    private Gtk.Entry time_entry;
     private Gtk.Stack time_stack;
     private Gtk.Revealer no_time_revealer;
 
@@ -39,10 +39,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
 
         set {
             _time = value;
-            changing_time = true;
-
             update_text (true);
-            changing_time = false;
         }
     }
 
@@ -63,11 +60,10 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
     }
 
     private string old_string = "";
-    private bool changing_time = false;
 
     public signal void time_changed ();
     public signal void time_added ();
-    public signal void activate ();
+    public signal void activated ();
 
     construct {
         if (format_12 == null) {
@@ -78,9 +74,10 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
             format_24 = Granite.DateTime.get_default_time_format (false);
         }
 
-        time_entry = new Gtk.Text () {
+        time_entry = new Gtk.Entry () {
             max_width_chars = 9,
-            margin_start = 12
+            margin_start = 12,
+            has_frame = false
         };
         
         var no_time_button = new Gtk.Button.from_icon_name ("cross-large-circle-filled-symbolic") {
@@ -112,27 +109,15 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
         };
 
         time_stack = new Gtk.Stack () {
-            transition_type = Gtk.StackTransitionType.CROSSFADE
+            transition_type = Gtk.StackTransitionType.CROSSFADE,
+            margin_start = 3,
+            hexpand = true,
         };
 
         time_stack.add_named (add_time_button, "add-time");
         time_stack.add_named (time_box, "time-box");
-        
 
-        var timepicker_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 3,
-            hexpand = true
-        };
-        
-        timepicker_box.append (time_stack);
-
-        var main_grid = new Gtk.Grid () {
-            hexpand = true
-        };
-
-        main_grid.attach (timepicker_box, 0, 0);
-
-        child = main_grid;
+        child = time_stack;
 
         add_time_button.clicked.connect (() => {
             time_stack.visible_child_name = "time-box";
@@ -169,7 +154,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
 
         time_entry.activate.connect (() => {
             is_unfocused ();
-            activate ();
+            activated ();
         });
 
         no_time_button.clicked.connect (() => {

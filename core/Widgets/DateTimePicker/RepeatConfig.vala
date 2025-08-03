@@ -81,7 +81,6 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
 	}
 
 	public signal void duedate_change (Objects.DueDate duedate);
-	public signal void back ();
 
 	private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
@@ -96,9 +95,6 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
 	}
 
 	construct {
-		var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
-		back_item.autohide_popover = false;
-
 		repeat_label = new Gtk.Label (null) {
 			margin_top = 9,
 			margin_bottom = 9,
@@ -266,7 +262,6 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
 			margin_start = 6,
 			margin_end = 6
 		};
-		content_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		content_box.append (new Gtk.Label (_("Summary")) {
 			css_classes = { "heading", "h4" },
 			margin_top = 6,
@@ -289,9 +284,14 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
 		content_box.append (ends_stack);
 		content_box.append (submit_button);
 
-		var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (back_item);
-		toolbar_view.content = content_box;
+		var toolbar_view = new Adw.ToolbarView () {
+			content = content_box
+		};
+
+		toolbar_view.add_top_bar (new Adw.HeaderBar () {
+            show_title = false,
+            show_end_title_buttons = false,
+        });
 
 		child = toolbar_view;
 		update_repeat_label ();
@@ -366,10 +366,6 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
 		signal_map[count_interval.value_changed.connect (() => {
 			update_repeat_label ();
 		})] = count_interval;
-
-		back_item.clicked.connect (() => {
-			back ();
-		});
 	}
 
 	private void set_repeat () {

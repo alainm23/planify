@@ -54,7 +54,6 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
 
     construct {
         menu_icon = new Gtk.Image () {
-            css_classes = { "dim-label" },
             valign = Gtk.Align.CENTER
         };
 
