@@ -115,7 +115,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 			bottom_margin = 12,
 			height_request = 64,
 			wrap_mode = Gtk.WrapMode.WORD,
-			accepts_tab = false
+			accepts_tab = false,
+			placeholder_text = _("To-do name")
 		};
 
 		content_textview.remove_css_class ("view");
@@ -126,7 +127,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 			margin_end = 12
 		};
 		content_group.title = _("Title");
-		content_group.add (content_textview);
+		content_group.add (content_textview.get_widget ());
 
 		status_button = new Widgets.StatusButton ();
 		section_button = new Widgets.SectionPicker.SectionButton ();

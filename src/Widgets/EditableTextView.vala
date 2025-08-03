@@ -82,7 +82,8 @@ public class Widgets.EditableTextView : Adw.Bin {
 
         textview = new Widgets.TextView () {
             wrap_mode = Gtk.WrapMode.WORD_CHAR,
-            css_classes = {}
+            css_classes = {},
+            placeholder_text = placeholder_text
         };
 
         stack = new Gtk.Stack () {
@@ -93,7 +94,7 @@ public class Widgets.EditableTextView : Adw.Bin {
         };
 
         stack.add_child (label);
-        stack.add_child (textview);
+        stack.add_child (textview.get_widget ());
 
         child = stack;
 
