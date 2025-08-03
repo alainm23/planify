@@ -1,38 +1,38 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.ContextMenu.MenuCheckPicker : Adw.Bin {
     public string title { get; construct; }
-    public string? icon { get; construct; }
+    public string ? icon { get; construct; }
 
     private Gtk.Image menu_icon;
     private Gtk.Revealer menu_icon_revealer;
     private Gtk.Label menu_title;
     private Gtk.ListBox listbox;
 
-    public Gee.HashMap <string, Widgets.ContextMenu.MenuItemCheckPicker> filters_map;
+    public Gee.HashMap<string, Widgets.ContextMenu.MenuItemCheckPicker> filters_map;
 
     public signal void filter_change (Objects.Filters.FilterItem filter, bool active);
 
-    public MenuCheckPicker (string title, string? icon = null) {
+    public MenuCheckPicker (string title, string ? icon = null) {
         Object (
             title: title,
             icon: icon,
@@ -41,7 +41,7 @@ public class Widgets.ContextMenu.MenuCheckPicker : Adw.Bin {
     }
 
     construct {
-        filters_map = new Gee.HashMap <string, Widgets.ContextMenu.MenuItemCheckPicker> ();
+        filters_map = new Gee.HashMap<string, Widgets.ContextMenu.MenuItemCheckPicker> ();
 
         menu_icon = new Gtk.Image () {
             css_classes = { "dim-label" },
@@ -71,7 +71,7 @@ public class Widgets.ContextMenu.MenuCheckPicker : Adw.Bin {
         arrow_icon.add_css_class ("transition");
         arrow_icon.add_css_class ("hidden-button");
         arrow_icon.add_css_class ("dim-label");
-        
+
         var itemselector_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true
         };
@@ -113,11 +113,11 @@ public class Widgets.ContextMenu.MenuCheckPicker : Adw.Bin {
             }
         });
     }
-    
+
     public void set_items (Gee.ArrayList<Objects.Filters.FilterItem> filters) {
         filters_map.clear ();
 
-        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
             listbox.remove (child);
         }
 

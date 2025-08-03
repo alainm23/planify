@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.SectionPicker.SectionPicker : Gtk.Popover {
     private Gtk.SearchEntry search_entry;
@@ -36,7 +36,7 @@ public class Widgets.SectionPicker.SectionPicker : Gtk.Popover {
 
     construct {
         css_classes = { "popover-contents" };
-        
+
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Search"),
             valign = Gtk.Align.CENTER,
@@ -73,8 +73,8 @@ public class Widgets.SectionPicker.SectionPicker : Gtk.Popover {
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (search_entry);
-		toolbar_view.content = listbox_scrolled;
+        toolbar_view.add_top_bar (search_entry);
+        toolbar_view.content = listbox_scrolled;
 
         child = toolbar_view;
 
@@ -86,7 +86,7 @@ public class Widgets.SectionPicker.SectionPicker : Gtk.Popover {
 
         search_entry.search_changed.connect (() => {
             listbox.invalidate_filter ();
-        }); 
+        });
     }
 
     public void set_sections (Gee.ArrayList<Objects.Section> sections) {
@@ -114,7 +114,7 @@ public class Widgets.SectionPicker.SectionPicker : Gtk.Popover {
 
     private bool key_pressed (uint keyval, uint keycode, Gdk.ModifierType state) {
         var key = Gdk.keyval_name (keyval).replace ("KP_", "");
-        
+
         if (key == "Up" || key == "Down") {
         } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
             row_activated (listbox.get_selected_row ());

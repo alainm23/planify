@@ -1,27 +1,27 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
     public Objects.ObjectEvent object_event { get; construct; }
-    
+
     private Gtk.Revealer main_revealer;
 
     public ItemChangeHistoryRow (Objects.ObjectEvent object_event) {
@@ -36,7 +36,7 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
 
     construct {
         add_css_class ("no-selectable");
-        
+
         var object_event_icon = new Gtk.Image.from_icon_name (object_event.icon_name) {
             pixel_size = 16,
             valign = START
@@ -47,7 +47,7 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
             _type_string = object_event.object_new_value == "1" ? _("Task completed") : _("Task uncompleted");
         } else if (object_event.object_key == ObjectEventKeyType.PROJECT) {
             _type_string = _("Task moved to project: %s".printf (
-                Services.Store.instance ().get_project (object_event.object_new_value).name
+                                 Services.Store.instance ().get_project (object_event.object_new_value).name
             ));
         } else if (object_event.object_key == ObjectEventKeyType.SECTION) {
             string section_name = Services.Store.instance ().get_item (object_event.object_id).project.name;
@@ -97,7 +97,7 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
 
         var old_value_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			child = old_value_box
+            child = old_value_box
         };
 
         var new_value_header = new Gtk.Label (_("New") + ": ") {
@@ -113,12 +113,12 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
         var new_value_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             halign = Gtk.Align.START
         };
-        //  new_value_box.append (new_value_header);
+        // new_value_box.append (new_value_header);
         new_value_box.append (new_value_label);
 
         var new_value_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			child = new_value_box
+            child = new_value_box
         };
 
         var detail_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -126,17 +126,17 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
         };
 
         detail_box.append (header_box);
-        //  detail_box.append (old_value_revealer);
+        // detail_box.append (old_value_revealer);
         detail_box.append (new_value_revealer);
 
-		var content_box = new Gtk.Grid () {
+        var content_box = new Gtk.Grid () {
             column_spacing = 9,
             margin_top = 12,
             margin_bottom = 12,
             margin_start = 12,
             margin_end = 12
         };
-        
+
         content_box.attach (object_event_icon, 0, 0, 1, 2);
         content_box.attach (detail_box, 1, 1, 1, 1);
 
@@ -149,12 +149,12 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
             margin_end = 3
         };
 
-		main_revealer = new Gtk.Revealer () {
+        main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			child = card
+            child = card
         };
 
-		child = main_revealer;
+        child = main_revealer;
 
         string _old_value_label = "";
         string _new_value_label = "";
@@ -176,7 +176,7 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
                 if (object_event.object_old_value != "") {
                     _old_value_label = Util.get_default ().get_priority_title (int.parse (object_event.object_old_value));
                 }
-                
+
                 if (object_event.object_new_value != "") {
                     _new_value_label = Util.get_default ().get_priority_title (int.parse (object_event.object_new_value));
                 }
@@ -188,7 +188,7 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
                 _new_value_label = object_event.object_new_value == "1" ? _("Pin: Active") : _("Pin: Inactive");
             }
         }
-        
+
         if (_old_value_label.length > 0) {
             old_value_revealer.reveal_child = true;
             old_value_label.label = _old_value_label;
@@ -199,7 +199,7 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
             new_value_label.label = _new_value_label;
         }
 
-		Timeout.add (main_revealer.transition_duration, () => {
+        Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
         });

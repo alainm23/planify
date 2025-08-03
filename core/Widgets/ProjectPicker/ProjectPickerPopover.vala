@@ -1,33 +1,33 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
     public signal void selected (Objects.Project project);
 
     private Gtk.ListBox listbox;
     private Gtk.Revealer search_entry_revealer;
-    
+
     public bool search_visible {
         set {
-            //  search_entry_revealer.reveal_child = value;
+            // search_entry_revealer.reveal_child = value;
         }
     }
 
@@ -42,7 +42,7 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
 
     construct {
         css_classes = { "popover-contents" };
-        
+
         var search_entry = new Gtk.SearchEntry () {
             margin_top = 9,
             margin_start = 9,
@@ -66,7 +66,7 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
 
         listbox.set_sort_func (sort_source_function);
         listbox.set_header_func (header_project_function);
-        
+
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
@@ -75,8 +75,8 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (search_entry_revealer);
-		toolbar_view.content = scrolled_window;
+        toolbar_view.add_top_bar (search_entry_revealer);
+        toolbar_view.content = scrolled_window;
 
         child = toolbar_view;
         add_projects ();
@@ -100,7 +100,7 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         listbox.add_controller (listbox_controller_key);
         listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             var key = Gdk.keyval_name (keyval).replace ("KP_", "");
-                        
+
             if (key == "Up" || key == "Down") {
             } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
             } else {
@@ -143,13 +143,13 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         return row;
     }
 
-    private int sort_source_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow? row2) {
+    private int sort_source_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow ? row2) {
         var project1 = ((Widgets.ProjectPicker.ProjectPickerRow) row1).project;
         var project2 = ((Widgets.ProjectPicker.ProjectPickerRow) row2).project;
         return project2.source.id.collate (project1.source.id);
     }
 
-    private void header_project_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
+    private void header_project_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow ? lbbefore) {
         if (!(lbrow is Widgets.ProjectPicker.ProjectPickerRow)) {
             return;
         }
@@ -164,8 +164,7 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
             }
         }
 
-        row.set_header (get_header_box (row.project.source.header_text));   
-
+        row.set_header (get_header_box (row.project.source.header_text));
     }
 
     private Gtk.Widget get_header_box (string title) {

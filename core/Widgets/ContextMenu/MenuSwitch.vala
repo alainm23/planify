@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
     public string title {
@@ -54,7 +54,7 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
 
     public signal void activate_item ();
 
-    public MenuSwitch (string title, string? icon = null) {
+    public MenuSwitch (string title, string ? icon = null) {
         Object (
             title: title,
             icon: icon,
@@ -78,17 +78,17 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
             reveal_child = true
         };
-        
+
         menu_icon_revealer.child = menu_icon;
 
         menu_title = new Gtk.Label (null);
         menu_title.use_markup = true;
 
         switch_widget = new Gtk.Switch () {
-			valign = CENTER,
+            valign = CENTER,
             hexpand = true,
             halign = END
-		};
+        };
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true
@@ -103,6 +103,6 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
         clicked.connect (() => {
             switch_widget.active = !switch_widget.active;
             activate_item ();
-        });    
+        });
     }
 }

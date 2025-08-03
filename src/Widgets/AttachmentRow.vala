@@ -1,27 +1,27 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.AttachmentRow : Gtk.ListBoxRow {
     public Objects.Attachment attachment { get; construct; }
-    
+
     private Gtk.Revealer main_revealer;
     private Widgets.LoadingButton close_button;
 
@@ -36,44 +36,44 @@ public class Widgets.AttachmentRow : Gtk.ListBoxRow {
         add_css_class ("transition");
         add_css_class ("no-padding");
 
-		var name_label = new Gtk.Label (attachment.file_name);
+        var name_label = new Gtk.Label (attachment.file_name);
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
 
-		close_button = new Widgets.LoadingButton.with_icon ("cross-large-circle-filled-symbolic") {
-			valign = CENTER,
-			halign = END,
-			hexpand = true,
-			css_classes = { "flat" },
-			tooltip_text = _("Delete")
-		};
+        close_button = new Widgets.LoadingButton.with_icon ("cross-large-circle-filled-symbolic") {
+            valign = CENTER,
+            halign = END,
+            hexpand = true,
+            css_classes = { "flat" },
+            tooltip_text = _("Delete")
+        };
 
-		var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 3,
             margin_start = 6,
             margin_bottom = 3,
             margin_end = 6
         };
 
-		content_box.append (new Gtk.Image.from_icon_name ("paper-symbolic"));
+        content_box.append (new Gtk.Image.from_icon_name ("paper-symbolic"));
         content_box.append (name_label);
-		content_box.append (close_button);
+        content_box.append (close_button);
 
-		main_revealer = new Gtk.Revealer () {
+        main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			child = content_box
+            child = content_box
         };
 
-		child = main_revealer;
+        child = main_revealer;
 
-		Timeout.add (main_revealer.transition_duration, () => {
+        Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
         });
 
         var gesture = new Gtk.GestureClick ();
-		add_controller (gesture);
-		gesture.pressed.connect (() => {
+        add_controller (gesture);
+        gesture.pressed.connect (() => {
             open_file ();
         });
 
@@ -82,7 +82,7 @@ public class Widgets.AttachmentRow : Gtk.ListBoxRow {
         });
 
         var remove_gesture = new Gtk.GestureClick ();
-		close_button.add_controller (remove_gesture);
+        close_button.add_controller (remove_gesture);
         remove_gesture.pressed.connect (() => {
             remove_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             attachment.delete ();
@@ -92,7 +92,7 @@ public class Widgets.AttachmentRow : Gtk.ListBoxRow {
     private void open_file () {
         close_button.is_loading = true;
 
-        try {         
+        try {
             GLib.AppInfo.launch_default_for_uri (attachment.file_path, null);
             close_button.is_loading = false;
         } catch (Error e) {

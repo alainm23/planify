@@ -1,7 +1,7 @@
 quick_find_sources = files(
-    'App.vala',
-    'MainWindow.vala',
-    'Services/DBusClient.vala',
+  'Services/DBusClient.vala',
+  'App.vala',
+  'MainWindow.vala',
 )
 
 executable(
@@ -10,5 +10,5 @@ executable(
   asresources,
   config_file,
   dependencies: deps,
-  install: true
+  install: true,
 )

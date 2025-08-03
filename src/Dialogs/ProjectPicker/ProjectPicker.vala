@@ -1,27 +1,27 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
     public PickerType picker_type { get; construct; }
-    public Objects.Source? source { get; construct; }
+    public Objects.Source ? source { get; construct; }
     public bool all_sources { get; construct; }
 
     private Gtk.SearchEntry search_entry;
@@ -64,7 +64,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
 
     public ProjectPicker.for_project (Objects.Source source) {
         Object (
-            picker_type: PickerType.PROJECTS,
+            picker_type : PickerType.PROJECTS,
             source: source,
             all_sources: false,
             title: _("Move"),
@@ -129,21 +129,21 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
             margin_bottom = 12,
             css_classes = { "suggested-action" }
         };
-        
+
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (headerbar);
-        //  content_box.append (search_entry);
+        // content_box.append (search_entry);
         content_box.append (main_stack);
         content_box.append (submit_button);
 
         child = content_box;
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        //  search_entry.search_changed.connect (() => {
-        //      local_group.invalidate_filter ();
-        //      todoist_group.invalidate_filter ();
-        //      caldav_group.invalidate_filter ();
-        //  });
+        // search_entry.search_changed.connect (() => {
+        // local_group.invalidate_filter ();
+        // todoist_group.invalidate_filter ();
+        // caldav_group.invalidate_filter ();
+        // });
 
         signal_map[Services.EventBus.get_default ().project_picker_changed.connect ((id) => {
             _project = Services.Store.instance ().get_project (id);
@@ -182,7 +182,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
             }
 
             signal_map.clear ();
-            
+
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
@@ -211,7 +211,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
         } else {
             scrolled_box.append (new Dialogs.ProjectPicker.ProjectPickerSourceRow (source));
         }
-        
+
         var scrolled = new Gtk.ScrolledWindow () {
             hexpand = true,
             vexpand = true,
@@ -239,7 +239,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
             margin_start = 12,
             margin_end = 12
         };
-        
+
         sections_listbox_grid.attach (sections_listbox, 0, 0);
         sections_listbox_grid.add_css_class ("card");
 

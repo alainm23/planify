@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
     public Objects.Label label { get; construct; }
@@ -48,15 +48,15 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
             valign = Gtk.Align.CENTER,
             css_classes = { "checkbutton-label" }
         };
-        
+
         var color_grid = new Gtk.Grid () {
-			width_request = 3,
-			height_request = 16,
+            width_request = 3,
+            height_request = 16,
             margin_top = 0,
-			valign = Gtk.Align.CENTER,
-			css_classes = { "event-bar" }
-		};
-        
+            valign = Gtk.Align.CENTER,
+            css_classes = { "event-bar" }
+        };
+
         Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), color_grid);
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);

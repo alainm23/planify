@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Dialogs.ManageSectionOrder : Adw.Dialog {
     public Objects.Project project { get; construct; }
@@ -102,8 +102,8 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
         scrolled_window = new Widgets.ScrolledWindow (content_box);
 
         var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = scrolled_window;
+        toolbar_view.add_top_bar (headerbar);
+        toolbar_view.content = scrolled_window;
 
         child = toolbar_view;
         add_sections ();
@@ -133,22 +133,22 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
             foreach (var entry in signal_map.entries) {
                 entry.value.disconnect (entry.key);
             }
-            
+
             signal_map.clear ();
-            
-            //Clear Rows
-            foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
+
+            // Clear Rows
+            foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
                 listbox.remove (child);
             }
 
-            foreach (unowned Gtk.Widget child in Util.get_default ().get_children (archived_listbox) ) {
+            foreach (unowned Gtk.Widget child in Util.get_default ().get_children (archived_listbox)) {
                 archived_listbox.remove (child);
             }
 
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
-    
+
     private void set_sort_func () {
         listbox.set_sort_func ((row1, row2) => {
             Objects.Section item1 = ((Dialogs.ProjectPicker.SectionPickerRow) row1).section;
@@ -165,7 +165,7 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
     }
 
     private void update_section_section_order () {
-        unowned Dialogs.ProjectPicker.SectionPickerRow? section_row = null;
+        unowned Dialogs.ProjectPicker.SectionPickerRow ? section_row = null;
         var row_index = 0;
 
         do {
@@ -179,7 +179,6 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
             row_index++;
         } while (section_row != null);
     }
-
 
     public void add_sections () {
         var inbox_section = new Objects.Section ();

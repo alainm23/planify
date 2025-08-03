@@ -1,28 +1,28 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.ErrorView : Adw.Bin {
     private Gtk.Label error_label;
     private Gtk.Label error_code_label;
-    private Gtk.TextView error_textview; 
+    private Gtk.TextView error_textview;
     private Gtk.Button issue_button;
 
     public int error_code {
@@ -65,7 +65,7 @@ public class Widgets.ErrorView : Adw.Bin {
             wrap = true,
             justify = Gtk.Justification.CENTER
         };
-        
+
         error_code_label = new Gtk.Label (null) {
             hexpand = true,
             halign = Gtk.Align.CENTER,
@@ -74,31 +74,31 @@ public class Widgets.ErrorView : Adw.Bin {
         };
 
         error_textview = new Gtk.TextView () {
-			left_margin = 12,
-			top_margin = 12,
-			bottom_margin = 12,
-			right_margin = 12,
-			wrap_mode = Gtk.WrapMode.WORD
-		};
-		error_textview.add_css_class ("monospace");
-		error_textview.add_css_class ("error-message");
+            left_margin = 12,
+            top_margin = 12,
+            bottom_margin = 12,
+            right_margin = 12,
+            wrap_mode = Gtk.WrapMode.WORD
+        };
+        error_textview.add_css_class ("monospace");
+        error_textview.add_css_class ("error-message");
         error_textview.remove_css_class ("view");
 
-		var textview_scrolled_window = new Gtk.ScrolledWindow () {
+        var textview_scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
             vexpand = true,
-			child = error_textview,
-			height_request = 275
+            child = error_textview,
+            height_request = 275
         };
 
-		var textview_frame = new Gtk.Frame (null) {
-			child = textview_scrolled_window,
+        var textview_frame = new Gtk.Frame (null) {
+            child = textview_scrolled_window,
             margin_top = 24,
             margin_bottom = 12,
             margin_start = 12,
             margin_end = 12
-		};
+        };
 
         issue_button = new Gtk.Button.with_label (_("Report Issue")) {
             hexpand = true,

@@ -1,44 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
-
-/*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
     private Gtk.SearchEntry search_entry;
@@ -64,7 +43,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
             hexpand = true,
             css_classes = { "border-radius-9" }
         };
-        
+
         var cancel_button = new Gtk.Button.with_label (_("Cancel")) {
             css_classes = { "flat" }
         };
@@ -91,7 +70,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
             vexpand = true,
             css_classes = { "listbox-background" }
         };
-        
+
         listbox.set_placeholder (get_placeholder ());
         listbox.set_header_func (header_function);
 
@@ -103,8 +82,8 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = listbox_scrolled;
+        toolbar_view.add_top_bar (headerbar);
+        toolbar_view.content = listbox_scrolled;
 
         child = toolbar_view;
         default_widget = search_entry;
@@ -133,13 +112,13 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         })] = search_entry_ctrl_key;
 
         var event_controller_key = new Gtk.EventControllerKey ();
-		((Gtk.Widget) this).add_controller (event_controller_key);
+        ((Gtk.Widget) this).add_controller (event_controller_key);
         signal_map[event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-			if (keyval == 65307) {
-				hide_destroy ();
-			}
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
 
-			return false;
+            return false;
         })] = event_controller_key;
 
         signal_map[cancel_button.clicked.connect (() => {
@@ -152,14 +131,14 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
             }
 
             signal_map.clear ();
-            
+
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
 
     private bool key_pressed (uint keyval, uint keycode, Gdk.ModifierType state) {
         var key = Gdk.keyval_name (keyval).replace ("KP_", "");
-        
+
         if (key == "Up" || key == "Down") {
         } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
         } else {
@@ -247,7 +226,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
             margin_end = 6,
             margin_bottom = 6
         };
-        
+
         var placeholder_grid = new Gtk.Grid () {
             hexpand = true,
             vexpand = true,
@@ -269,11 +248,11 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
             Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, base_object.id_string);
         } else if (base_object.object_type == ObjectType.SECTION) {
             Services.EventBus.get_default ().pane_selected (PaneType.PROJECT,
-                ((Objects.Section) base_object).project_id.to_string ()
+                                                            ((Objects.Section) base_object).project_id.to_string ()
             );
         } else if (base_object.object_type == ObjectType.ITEM) {
             Services.EventBus.get_default ().pane_selected (PaneType.PROJECT,
-                ((Objects.Item) base_object).project_id.to_string ()
+                                                            ((Objects.Item) base_object).project_id.to_string ()
             );
 
             Timeout.add (275, () => {
@@ -282,10 +261,10 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
             });
         } else if (base_object.object_type == ObjectType.LABEL) {
             Services.EventBus.get_default ().pane_selected (PaneType.LABEL,
-                ((Objects.Label) base_object).id_string
+                                                            ((Objects.Label) base_object).id_string
             );
         } else if (base_object.object_type == ObjectType.FILTER) {
-            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, base_object.view_id); 
+            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, base_object.view_id);
         }
 
         hide_destroy ();
@@ -304,7 +283,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         items.clear ();
     }
 
-    private void header_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
+    private void header_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow ? lbbefore) {
         var row = (Dialogs.QuickFind.QuickFindItem) lbrow;
 
         if (lbbefore != null) {

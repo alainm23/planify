@@ -15,14 +15,14 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- public class Services.CalendarEvents : Object {
+public class Services.CalendarEvents : Object {
     /* The data_range is the range of dates for which this model is storing
-    * data.
-    *
-    * There is no way to set the ranges publicly. They can only be modified by
-    * changing one of the following properties: month_start, num_weeks, and
-    * week_starts_on.
-    */
+     * data.
+     *
+     * There is no way to set the ranges publicly. They can only be modified by
+     * changing one of the following properties: month_start, num_weeks, and
+     * week_starts_on.
+     */
     public CalendarEventsUtil.DateRange data_range { get; private set; }
 
     /* The first day of the month */
@@ -34,7 +34,7 @@
     /* The start of week, ie. Monday=1 or Sunday=7 */
     public GLib.DateWeekday week_starts_on { get; set; }
 
-    public HashTable<E.Source, Gee.TreeMultiMap<string, ECal.Component>> source_components { get; private set; }
+    public HashTable<E.Source, Gee.TreeMultiMap<string, ECal.Component> > source_components { get; private set; }
 
     /* Notifies when events are added, updated, or removed */
     public signal void components_added (E.Source source, Gee.Collection<ECal.Component> components);
@@ -45,7 +45,7 @@
     private HashTable<string, ECal.Client> source_client;
     private HashTable<string, ECal.ClientView> source_view;
 
-    private static CalendarEvents? _instance;
+    private static CalendarEvents ? _instance;
     public static CalendarEvents get_default () {
         if (_instance == null) {
             _instance = new CalendarEvents (new GLib.DateTime.now_local ());
@@ -56,14 +56,14 @@
 
     public CalendarEvents (GLib.DateTime month_start) {
         Object (
-            month_start: month_start
+            month_start : month_start
         );
     }
 
     construct {
-        source_client = new HashTable<string, ECal.Client> (str_hash, str_equal);
-        source_components = new HashTable<E.Source, Gee.TreeMultiMap<string, ECal.Component> > (CalendarEventsUtil.source_hash_func, CalendarEventsUtil.source_equal_func);
-        source_view = new HashTable<string, ECal.ClientView> (str_hash, str_equal);
+        source_client = new HashTable<string, ECal.Client>(str_hash, str_equal);
+        source_components = new HashTable<E.Source, Gee.TreeMultiMap<string, ECal.Component> >(CalendarEventsUtil.source_hash_func, CalendarEventsUtil.source_equal_func);
+        source_view = new HashTable<string, ECal.ClientView>(str_hash, str_equal);
 
         int week_start = Posix.NLTime.FIRST_WEEKDAY.to_string ().data[0];
         if (week_start >= 1 && week_start <= 7) {
@@ -81,7 +81,7 @@
             registry.source_added.connect ((source) => add_source_async.begin (source));
 
             registry.list_sources (E.SOURCE_EXTENSION_CALENDAR).foreach ((source) => {
-                E.SourceCalendar cal = (E.SourceCalendar)source.get_extension (E.SOURCE_EXTENSION_CALENDAR);
+                E.SourceCalendar cal = (E.SourceCalendar) source.get_extension (E.SOURCE_EXTENSION_CALENDAR);
                 if (cal.selected == true && source.enabled == true) {
                     add_source_async.begin (source);
                 }
@@ -98,7 +98,7 @@
             foreach (var id in source_client.get_keys ()) {
                 var source = registry.ref_source (id);
 
-                E.SourceTaskList list = (E.SourceTaskList)source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+                E.SourceTaskList list = (E.SourceTaskList) source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
 
                 if (list.selected == true && source.enabled == true) {
                     load_source (source);
@@ -139,7 +139,7 @@
         var month_end = month_start.add_full (0, 1, -1);
 
         int dow = month_start.get_day_of_week ();
-        int wso = (int)week_starts_on;
+        int wso = (int) week_starts_on;
         int offset = 0;
 
         if (wso < dow) {
@@ -151,7 +151,7 @@
         var data_range_first = month_start.add_days (-offset);
 
         dow = month_end.get_day_of_week ();
-        wso = (int)(week_starts_on + 6);
+        wso = (int) (week_starts_on + 6);
 
         /* WSO must be between 1 and 7 */
         if (wso > 7) {
@@ -176,14 +176,14 @@
 
     private void load_source (E.Source source) {
         /* create empty source-component map */
-        var components = new Gee.TreeMultiMap<string, ECal.Component> (
-            (GLib.CompareDataFunc<ECal.Component>?) GLib.strcmp,
-            (GLib.CompareDataFunc<ECal.Component>?) CalendarEventsUtil.calcomponent_compare_func
+        var components = new Gee.TreeMultiMap<string, ECal.Component>(
+            (GLib.CompareDataFunc<ECal.Component> ?) GLib.strcmp,
+            (GLib.CompareDataFunc<ECal.Component> ?) CalendarEventsUtil.calcomponent_compare_func
         );
         source_components.set (source, components);
         /* query client view */
-        var iso_first = ECal.isodate_from_time_t ((time_t)data_range.first_dt.to_unix ());
-        var iso_last = ECal.isodate_from_time_t ((time_t)data_range.last_dt.add_days (1).to_unix ());
+        var iso_first = ECal.isodate_from_time_t ((time_t) data_range.first_dt.to_unix ());
+        var iso_last = ECal.isodate_from_time_t ((time_t) data_range.last_dt.add_days (1).to_unix ());
 
         var query = @"(occur-in-time-range? (make-time \"$iso_first\") (make-time \"$iso_last\"))";
 
@@ -254,8 +254,8 @@
     private void on_objects_added (E.Source source, ECal.Client client, SList<ICal.Component> objects) {
         debug (@"Received $(objects.length()) added component(s) for source '%s'", source.dup_display_name ());
         var components = source_components.get (source);
-        var added_components = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) CalendarEventsUtil.calcomponent_equal_func);
-        
+        var added_components = new Gee.ArrayList<ECal.Component>((Gee.EqualDataFunc<ECal.Component> ?) CalendarEventsUtil.calcomponent_equal_func);
+
         objects.foreach ((comp) => {
             unowned string uid = comp.get_uid ();
             client.generate_instances_for_object_sync (comp, (time_t) data_range.first_dt.to_unix (), (time_t) data_range.last_dt.to_unix (), null, (comp, start, end) => {
@@ -272,7 +272,7 @@
 
     private void on_objects_modified (E.Source source, ECal.Client client, SList<ICal.Component> objects) {
         debug (@"Received $(objects.length()) modified component(s) for source '%s'", source.dup_display_name ());
-        var updated_components = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) CalendarEventsUtil.calcomponent_equal_func);
+        var updated_components = new Gee.ArrayList<ECal.Component>((Gee.EqualDataFunc<ECal.Component> ?) CalendarEventsUtil.calcomponent_equal_func);
 
         objects.foreach ((comp) => {
             unowned string uid = comp.get_uid ();
@@ -286,10 +286,10 @@
         components_updated (source, updated_components.read_only_view);
     }
 
-    private void on_objects_removed (E.Source source, ECal.Client client, SList<ECal.ComponentId?> cids) {
+    private void on_objects_removed (E.Source source, ECal.Client client, SList<ECal.ComponentId ?> cids) {
         debug (@"Received $(cids.length()) removed component(s) for source '%s'", source.dup_display_name ());
         var components = source_components.get (source);
-        var removed_components = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) CalendarEventsUtil.calcomponent_equal_func);
+        var removed_components = new Gee.ArrayList<ECal.Component>((Gee.EqualDataFunc<ECal.Component> ?) CalendarEventsUtil.calcomponent_equal_func);
 
         cids.foreach ((cid) => {
             if (cid == null) {

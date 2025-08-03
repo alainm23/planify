@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
     private Objects.Project _project;
@@ -54,16 +54,16 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
     private Gtk.Revealer spinner_revealer;
 
     public signal void project_change (Objects.Project project);
-    public signal void section_change (Objects.Section? section);
+    public signal void section_change (Objects.Section ? section);
     public signal void picker_opened (bool active);
 
-    public Gee.HashMap <string, Widgets.ProjectPicker.SectionRow> sections_map = new Gee.HashMap <string, Widgets.ProjectPicker.SectionRow> ();
+    public Gee.HashMap<string, Widgets.ProjectPicker.SectionRow> sections_map = new Gee.HashMap<string, Widgets.ProjectPicker.SectionRow> ();
 
     private string PLACEHOLDER_MESSAGE = _("Your list of section will show up here."); // vala-lint=naming-convention
     private string PLACEHOLDER_CREATE_MESSAGE = _("Create '%s'"); // vala-lint=naming-convention
 
     construct {
-        //  Project Button
+        // Project Button
         icon_project = new Widgets.IconColorProject (10);
 
         name_label = new Gtk.Label (null) {
@@ -94,7 +94,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
 
         sections_popover = build_sections_popover ();
 
-        var arrow_label = new Gtk.Label ("→"); 
+        var arrow_label = new Gtk.Label ("→");
 
         var section_button = new Gtk.MenuButton () {
             popover = sections_popover,
@@ -107,10 +107,10 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         section_box.append (section_button);
 
         section_box_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
             reveal_child = true,
-			child = section_box
-		};
+            child = section_box
+        };
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         box.append (project_button);
@@ -129,21 +129,21 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         });
 
         project_picker_popover.closed.connect (() => {
-			picker_opened (false);
-		});
+            picker_opened (false);
+        });
 
-		project_picker_popover.show.connect (() => {
+        project_picker_popover.show.connect (() => {
             project_picker_popover.search_visible = true;
-			picker_opened (true);
-		});
+            picker_opened (true);
+        });
 
         sections_popover.closed.connect (() => {
-			picker_opened (false);
-		});
+            picker_opened (false);
+        });
 
-		sections_popover.show.connect (() => {
-			picker_opened (true);
-		});
+        sections_popover.show.connect (() => {
+            picker_opened (true);
+        });
     }
 
     public void update_project_request () {
@@ -180,17 +180,17 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (search_entry);
-		toolbar_view.content = scrolled_window;
+        toolbar_view.add_top_bar (search_entry);
+        toolbar_view.content = scrolled_window;
 
         var popover = new Gtk.Popover () {
-			has_arrow = false,
-			position = Gtk.PositionType.BOTTOM,
-			child = toolbar_view,
+            has_arrow = false,
+            position = Gtk.PositionType.BOTTOM,
+            child = toolbar_view,
             height_request = 225,
             width_request = 255,
             css_classes = { "popover-contents" }
-		};
+        };
 
         sections_listbox.row_activated.connect ((row) => {
             sections_popover.popdown ();
@@ -214,7 +214,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
 
                 return return_value;
             });
-            
+
             add_section_revealer.reveal_child = size <= 0;
             placeholder_message_label.label = size <= 0 ? PLACEHOLDER_CREATE_MESSAGE.printf (search_entry.text) : PLACEHOLDER_MESSAGE;
         });
@@ -241,7 +241,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         sections_listbox.add_controller (listbox_controller_key);
         listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             var key = Gdk.keyval_name (keyval).replace ("KP_", "");
-                        
+
             if (key == "Up" || key == "Down") {
             } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
             } else {
@@ -329,7 +329,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
             justify = Gtk.Justification.CENTER,
             css_classes = { "dim-label" }
         };
-        
+
         var spinner = new Adw.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
@@ -359,9 +359,9 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
 
     public void open_picker () {
         project_button.active = true;
-		Timeout.add (100, () => {
-			project_picker_popover.search_visible = false;
-			return GLib.Source.REMOVE;
-		});
+        Timeout.add (100, () => {
+            project_picker_popover.search_visible = false;
+            return GLib.Source.REMOVE;
+        });
     }
 }

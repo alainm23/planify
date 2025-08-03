@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.MultiSelectToolbar : Adw.Bin {
     public Objects.Project project { get; construct; }
@@ -29,8 +29,8 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     private Gtk.MenuButton menu_button;
     private Widgets.LoadingButton done_button;
 
-    public Gee.HashMap<string, Layouts.ItemBase> items_selected = new Gee.HashMap <string, Layouts.ItemBase> ();
-    public Gee.HashMap<string, Objects.Label> labels = new Gee.HashMap <string, Objects.Label> ();
+    public Gee.HashMap<string, Layouts.ItemBase> items_selected = new Gee.HashMap<string, Layouts.ItemBase> ();
+    public Gee.HashMap<string, Objects.Label> labels = new Gee.HashMap<string, Objects.Label> ();
     public signal void closed ();
 
     public MultiSelectToolbar (Objects.Project project) {
@@ -67,11 +67,11 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             sensitive = false
         };
         priority_button.set_priority (Constants.PRIORITY_4);
-        
+
         menu_button = new Gtk.MenuButton () {
             css_classes = { "flat" },
             valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
             icon_name = "view-more-symbolic",
             popover = build_menu_popover (),
             sensitive = false
@@ -108,7 +108,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
                 items_selected.unset (row.item.id);
                 row.select_row (false);
             } else {
-                items_selected [row.item.id] = row;
+                items_selected[row.item.id] = row;
                 row.select_row (true);
             }
 
@@ -162,7 +162,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
                 foreach (Objects.Item item in objects) {
                     item.update_local ();
                 }
-                
+
                 done_button.is_loading = false;
                 unselect_all ();
             });
@@ -202,7 +202,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         update_items (objects);
     }
 
-    private void set_labels (Gee.HashMap <string, Objects.Label> new_labels) {
+    private void set_labels (Gee.HashMap<string, Objects.Label> new_labels) {
         Gee.ArrayList<Objects.Item> objects = new Gee.ArrayList<Objects.Item> ();
 
         foreach (string key in items_selected.keys) {
@@ -216,7 +216,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
     private Gtk.Popover build_menu_popover () {
         var complete_item = new Widgets.ContextMenu.MenuItem (_("Mark as Completed"), "check-round-outline-symbolic");
-        
+
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
@@ -236,7 +236,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             foreach (string key in items_selected.keys) {
                 items_selected[key].checked_toggled (true, 0);
             }
-    
+
             unselect_all ();
         });
 
@@ -262,7 +262,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
                     foreach (string key in items_selected.keys) {
                         items_selected[key].delete_request (false);
                     }
-            
+
                     unselect_all ();
                 }
             });
@@ -273,9 +273,9 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
     private void unselect_all () {
         foreach (string key in items_selected.keys) {
-            items_selected [key].select_row (false);
+            items_selected[key].select_row (false);
         }
-        
+
         items_selected.clear ();
         labels.clear ();
         size_label.label = null;
@@ -306,7 +306,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
                 }
             }
         }
-        
+
         Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
         foreach (Objects.Label label in labels.values) {
             _labels.add (label);

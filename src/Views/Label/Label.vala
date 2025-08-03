@@ -1,30 +1,30 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Views.Label : Adw.Bin {
     private Layouts.HeaderBar headerbar;
     private Gtk.ListBox listbox;
     private Gtk.Stack listbox_stack;
 
-    public Gee.HashMap <string, Layouts.ItemRow> items;
+    public Gee.HashMap<string, Layouts.ItemRow> items;
 
     private bool has_items {
         get {
@@ -46,7 +46,7 @@ public class Views.Label : Adw.Bin {
     }
 
     construct {
-        items = new Gee.HashMap <string, Layouts.ItemRow> ();
+        items = new Gee.HashMap<string, Layouts.ItemRow> ();
 
         headerbar = new Layouts.HeaderBar ();
         headerbar.back_revealer = true;
@@ -101,8 +101,8 @@ public class Views.Label : Adw.Bin {
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = scrolled_window;
+        toolbar_view.add_top_bar (headerbar);
+        toolbar_view.content = scrolled_window;
 
         child = toolbar_view;
 
@@ -139,7 +139,7 @@ public class Views.Label : Adw.Bin {
     private void valid_add_item (Objects.Item item, bool insert = true) {
         if (!items.has_key (item.id) && item.has_label (label.id)
             && insert) {
-            add_item (item);   
+            add_item (item);
         }
 
         validate_placeholder ();
@@ -163,7 +163,7 @@ public class Views.Label : Adw.Bin {
         valid_add_item (item);
     }
 
-    private void add_items () {        
+    private void add_items () {
         foreach (Layouts.ItemRow row in items.values) {
             listbox.remove (row);
         }
@@ -178,12 +178,12 @@ public class Views.Label : Adw.Bin {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id] = new Layouts.ItemRow (item);
-        items [item.id].disable_drag_and_drop ();
-        listbox.append (items [item.id]);
+        items[item.id] = new Layouts.ItemRow (item);
+        items[item.id].disable_drag_and_drop ();
+        listbox.append (items[item.id]);
     }
 
-    public void update_request () { 
+    public void update_request () {
         headerbar.title = label.name;
     }
 

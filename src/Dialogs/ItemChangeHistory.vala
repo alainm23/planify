@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Dialogs.ItemChangeHistory : Adw.Dialog {
     public Objects.Item item { get; construct; }
@@ -62,7 +62,7 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
             valign = START,
             css_classes = { "listbox-background" }
         };
-        
+
         listbox.set_header_func (header_completed_function);
         listbox.set_placeholder (new Gtk.Label (_("Your change history will be displayed here once you start making changes.")) {
             css_classes = { "dim-label" },
@@ -107,9 +107,9 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (headerbar);
+        toolbar_view.add_top_bar (headerbar);
         toolbar_view.content = listbox_scrolled;
-        
+
         child = toolbar_view;
         fetch_data ();
 
@@ -133,7 +133,7 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
         load_button.label = _("Load more history from %d weeks ago…".printf ((end_week / 7) + 1));
     }
 
-    private void header_completed_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
+    private void header_completed_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow ? lbbefore) {
         var row = (Widgets.ItemChangeHistoryRow) lbrow;
         if (row.object_event.event_date == "") {
             return;

@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.ReorderChild : Adw.Bin {
     public Gtk.Widget widget { get; construct; }
@@ -44,7 +44,7 @@ public class Widgets.ReorderChild : Adw.Bin {
     public signal void on_drag_event (bool active);
 
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
-    
+
     public ReorderChild (Gtk.Widget widget, Gtk.ListBoxRow row) {
         Object (
             widget: widget,
@@ -101,7 +101,7 @@ public class Widgets.ReorderChild : Adw.Bin {
         drop_motion_ctrl = new Gtk.DropControllerMotion ();
         row.add_controller (drop_motion_ctrl);
 
-        signal_map[drop_motion_ctrl.enter .connect ((x, y) => {
+        signal_map[drop_motion_ctrl.enter.connect ((x, y) => {
             motion_top_revealer.reveal_child = true;
         })] = drop_motion_ctrl;
 
@@ -132,7 +132,7 @@ public class Widgets.ReorderChild : Adw.Bin {
             source.set_icon (paintable, 0, 0);
             drag_begin ();
         })] = drag_source;
-        
+
         signal_map[drag_source.drag_end.connect ((source, drag, delete_data) => {
             drag_end ();
         })] = drag_source;
@@ -165,14 +165,14 @@ public class Widgets.ReorderChild : Adw.Bin {
 
         var source_list = (Gtk.ListBox) picked_widget.row.parent;
         var target_list = (Gtk.ListBox) target_widget.row.parent;
-        
+
         source_list.remove (picked_widget.row);
         target_list.insert (picked_widget.row, target_widget.row.get_index ());
 
         on_drop_end (target_list);
         return true;
     }
-    
+
     public void drag_begin () {
         widget.add_css_class ("drop-begin");
         on_drag = true;

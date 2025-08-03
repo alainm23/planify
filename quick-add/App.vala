@@ -10,26 +10,26 @@ public class QuickAdd : Adw.Application {
             return _instance;
         }
     }
-    
+
     construct {
         application_id = "io.github.alainm23.planify.quick-add";
         flags |= ApplicationFlags.FLAGS_NONE;
 
         Intl.setlocale (LocaleCategory.ALL, "");
-		string langpack_dir = Path.build_filename (Build.INSTALL_PREFIX, "share", "locale");
-		Intl.bindtextdomain (Build.GETTEXT_PACKAGE, langpack_dir);
-		Intl.bind_textdomain_codeset (Build.GETTEXT_PACKAGE, "UTF-8");
-		Intl.textdomain (Build.GETTEXT_PACKAGE);
+        string langpack_dir = Path.build_filename (Build.INSTALL_PREFIX, "share", "locale");
+        Intl.bindtextdomain (Build.GETTEXT_PACKAGE, langpack_dir);
+        Intl.bind_textdomain_codeset (Build.GETTEXT_PACKAGE, "UTF-8");
+        Intl.textdomain (Build.GETTEXT_PACKAGE);
     }
 
     protected override void activate () {
         main_window = new MainWindow (this);
         main_window.show ();
-        
+
         var quit_action = new SimpleAction ("quit", null);
 
         add_action (quit_action);
-        set_accels_for_action ("app.quit", {"Escape"});
+        set_accels_for_action ("app.quit", { "Escape" });
 
         quit_action.activate.connect (() => {
             if (main_window != null && main_window.can_close) {
@@ -41,7 +41,7 @@ public class QuickAdd : Adw.Application {
                 });
             }
         });
-        
+
         var provider = new Gtk.CssProvider ();
         provider.load_from_resource ("/io/github/alainm23/planify/index.css");
         Gtk.StyleContext.add_provider_for_display (

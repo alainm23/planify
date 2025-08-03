@@ -10,7 +10,7 @@
 
 using Gtk;
 using Cairo;
- 
+
 public class Widgets.CircularProgressBar : Adw.Bin {
     public int size { get; construct; }
 
@@ -48,7 +48,7 @@ public class Widgets.CircularProgressBar : Adw.Bin {
             margin_start = 2,
             margin_top = 2,
             margin_end = 2,
-            margin_bottom = 2  
+            margin_bottom = 2
         };
 
         child = circularProgressBar;
@@ -60,22 +60,22 @@ public class _CircularProgressBar : Gtk.DrawingArea { // vala-lint=naming-conven
 
     private int _line_width;
     private double _percentage;
-    private string _center_fill_color; 
+    private string _center_fill_color;
     private string _radius_fill_color;
-    private string _progress_fill_color; 
+    private string _progress_fill_color;
 
     [Description (nick = "Center Fill", blurb = "Center Fill toggle")]
-    public bool center_filled {set; get; default = false;}
+    public bool center_filled { set; get; default = false; }
 
     [Description (nick = "Radius Fill", blurb = "Radius Fill toggle")]
-    public bool radius_filled {set; get; default = false;}
+    public bool radius_filled { set; get; default = false; }
 
     [Description (nick = "Font", blurb = "Font description without size, just the font name")]
-    public string font {set; get; default = "URW Gothic";}
+    public string font { set; get; default = "URW Gothic"; }
 
     [Description (nick = "Line Cap", blurb = "Line Cap for stroke as in Cairo.LineCap")]
-    public Cairo.LineCap line_cap {set; get; default = Cairo.LineCap.BUTT;}
-    
+    public Cairo.LineCap line_cap { set; get; default = Cairo.LineCap.BUTT; }
+
     [Description (nick = "Inside circle fill color", blurb = "Center pad fill color (Check Gdk.RGBA parse method)")]
     public string center_fill_color {
         get {
@@ -133,8 +133,8 @@ public class _CircularProgressBar : Gtk.DrawingArea { // vala-lint=naming-conven
 
     [Description (nick = "Percentage/Value", blurb = "The percentage value [0.0 ... 1.0]")]
     public double percentage {
-        get { 
-            return _percentage; 
+        get {
+            return _percentage;
         }
         set {
             if (value > 1.0) {
@@ -150,8 +150,8 @@ public class _CircularProgressBar : Gtk.DrawingArea { // vala-lint=naming-conven
     construct {
         _line_width = 0;
         _percentage = 0;
-        _center_fill_color   = "#adadad"; // vala-lint=double-spaces
-        _radius_fill_color   = "#d3d3d3"; // vala-lint=double-spaces
+        _center_fill_color = "#adadad";   // vala-lint=double-spaces
+        _radius_fill_color = "#d3d3d3";   // vala-lint=double-spaces
         _progress_fill_color = "#4a90d9";
     }
 
@@ -180,7 +180,7 @@ public class _CircularProgressBar : Gtk.DrawingArea { // vala-lint=naming-conven
     public void draw (DrawingArea da, Cairo.Context cr, int width, int height) {
         int delta;
         Gdk.RGBA color;
-        
+
         cr.save ();
 
         color = Gdk.RGBA ();
@@ -195,7 +195,7 @@ public class _CircularProgressBar : Gtk.DrawingArea { // vala-lint=naming-conven
         } else {
             delta = radius - (line_width / 2);
         }
-        
+
         color = Gdk.RGBA ();
         cr.set_line_cap (line_cap);
         cr.set_line_width (line_width);
@@ -227,14 +227,14 @@ public class _CircularProgressBar : Gtk.DrawingArea { // vala-lint=naming-conven
                         center_y,
                         delta + 1,
                         1.5 * Math.PI,
-                        (1.5 + percentage * 2 ) * Math.PI);
+                        (1.5 + percentage * 2) * Math.PI);
                 cr.fill ();
             } else {
                 cr.arc (center_x,
                         center_y,
                         delta,
                         1.5 * Math.PI,
-                        (1.5 + percentage * 2 ) * Math.PI);
+                        (1.5 + percentage * 2) * Math.PI);
                 cr.stroke ();
             }
         }

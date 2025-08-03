@@ -1,33 +1,33 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.Calendar.CalendarView : Adw.Bin {
-    private Gee.ArrayList <Widgets.Calendar.CalendarDay> days_arraylist;
+    private Gee.ArrayList<Widgets.Calendar.CalendarDay> days_arraylist;
     private Gtk.Grid days_grid;
 
     private GLib.DateTime _current_date;
     public GLib.DateTime current_date {
         get {
             var today = new GLib.DateTime.now_local ();
-            
+
             _current_date = new DateTime.local (
                 today.get_year (),
                 today.get_month (),
@@ -40,7 +40,7 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
             return _current_date;
         }
     }
-    
+
     public signal void day_selected (int day);
 
     public CalendarView () {
@@ -63,7 +63,7 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
 
         for (int i = 0; i < 42; i++) {
             var calendar_day = new Widgets.Calendar.CalendarDay ();
-            
+
             calendar_day.day_selected.connect (() => {
                 day_selected_style (calendar_day.day);
             });
@@ -84,11 +84,11 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
     }
 
     public void fill_grid_days (int start_day, int max_day,
-        GLib.DateTime day, bool show_day, bool block_past_days) {
+                                GLib.DateTime day, bool show_day, bool block_past_days) {
         var day_number = 1;
 
         for (int i = 0; i < 42; i++) {
-            var item = days_arraylist [i];
+            var item = days_arraylist[i];
             item.sensitive = true;
             item.visible = true;
 
@@ -121,7 +121,7 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
 
     public void clear_style () {
         for (int i = 0; i < 42; i++) {
-            var item = days_arraylist [i];
+            var item = days_arraylist[i];
             item.child.remove_css_class ("selected");
         }
     }
@@ -141,7 +141,7 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
         day_selected (day);
 
         for (int i = 0; i < 42; i++) {
-            var day_item = days_arraylist [i];
+            var day_item = days_arraylist[i];
             day_item.child.remove_css_class ("selected");
         }
     }

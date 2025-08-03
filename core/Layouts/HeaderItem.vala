@@ -1,25 +1,25 @@
 
 
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Layouts.HeaderItem : Adw.Bin {
     public string _header_title;
@@ -47,7 +47,7 @@ public class Layouts.HeaderItem : Adw.Bin {
             subheader_revealer.reveal_child = value != "";
         }
     }
-    
+
     public string _placeholder_message;
     public string placeholder_message {
         get {
@@ -142,7 +142,7 @@ public class Layouts.HeaderItem : Adw.Bin {
                 listbox.margin_start = 3;
                 listbox.margin_end = 3;
             } else {
-                listbox.css_classes = { };
+                listbox.css_classes = {};
                 listbox.margin_top = 0;
                 listbox.margin_bottom = 0;
                 listbox.margin_start = 0;
@@ -156,8 +156,8 @@ public class Layouts.HeaderItem : Adw.Bin {
             listbox.margin_top = value;
         }
     }
-    
-    public HeaderItem (string? header_title = null) {
+
+    public HeaderItem (string ? header_title = null) {
         Object (
             header_title: header_title
         );
@@ -172,7 +172,7 @@ public class Layouts.HeaderItem : Adw.Bin {
             halign = Gtk.Align.START,
             ellipsize = Pango.EllipsizeMode.END
         };
-        
+
         header_label.add_css_class ("h4");
         header_label.add_css_class ("heading");
 
@@ -196,7 +196,7 @@ public class Layouts.HeaderItem : Adw.Bin {
             hexpand = true,
             margin_top = 6
         };
-        
+
         listbox.set_placeholder (get_placeholder ());
         listbox.add_css_class ("bg-transparent");
 
@@ -255,7 +255,7 @@ public class Layouts.HeaderItem : Adw.Bin {
             wrap = true,
             justify = Gtk.Justification.CENTER
         };
-        
+
         placeholder_label.add_css_class ("dim-label");
         placeholder_label.add_css_class ("caption");
 
@@ -270,7 +270,6 @@ public class Layouts.HeaderItem : Adw.Bin {
         return content_box;
     }
 
-
     public void add_child (Gtk.Widget widget) {
         listbox.append (widget);
     }
@@ -280,7 +279,7 @@ public class Layouts.HeaderItem : Adw.Bin {
     }
 
     public void clear () {
-        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
             listbox.remove (child);
         }
     }
@@ -297,11 +296,11 @@ public class Layouts.HeaderItem : Adw.Bin {
         content_revealer.reveal_child = size > 0;
     }
 
-    public void set_sort_func (owned Gtk.ListBoxSortFunc? sort_func) {
+    public void set_sort_func (owned Gtk.ListBoxSortFunc ? sort_func) {
         listbox.set_sort_func ((owned) sort_func);
     }
 
-    public void set_filter_func (owned Gtk.ListBoxFilterFunc? filter_func) {
+    public void set_filter_func (owned Gtk.ListBoxFilterFunc ? filter_func) {
         listbox.set_filter_func ((owned) filter_func);
     }
 

@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Services.MigrateFromPlanner : GLib.Object {
     static GLib.Once<MigrateFromPlanner> _instance;
@@ -101,7 +101,7 @@ public class Services.MigrateFromPlanner : GLib.Object {
             section.name = stmt.column_text (1);
             section.project_id = stmt.column_text (4);
 
-            Objects.Project? project = Services.Store.instance ().get_project (section.project_id);
+            Objects.Project ? project = Services.Store.instance ().get_project (section.project_id);
             if (project != null) {
                 project.add_section_if_not_exists (section);
             }
@@ -134,18 +134,18 @@ public class Services.MigrateFromPlanner : GLib.Object {
             item.labels = get_labels_by_item (db, item.id);
 
             if (item.parent_id != "") {
-                Objects.Item? parent_item = Services.Store.instance ().get_item (item.parent_id);
+                Objects.Item ? parent_item = Services.Store.instance ().get_item (item.parent_id);
                 if (parent_item != null) {
                     parent_item.add_item_if_not_exists (item);
                 }
             } else {
                 if (item.section_id != "") {
-                    Objects.Section? section = Services.Store.instance ().get_section (item.section_id);
+                    Objects.Section ? section = Services.Store.instance ().get_section (item.section_id);
                     if (section != null) {
                         section.add_item_if_not_exists (item);
                     }
                 } else {
-                    Objects.Project? project = Services.Store.instance ().get_project (item.project_id);
+                    Objects.Project ? project = Services.Store.instance ().get_project (item.project_id);
                     if (project != null) {
                         project.add_item_if_not_exists (item);
                     }
@@ -168,7 +168,7 @@ public class Services.MigrateFromPlanner : GLib.Object {
         set_parameter_str (stmt, "$item_id", id);
 
         while (stmt.step () == Sqlite.ROW) {
-            Objects.Label? label = Services.Store.instance ().get_label (stmt.column_text (2));
+            Objects.Label ? label = Services.Store.instance ().get_label (stmt.column_text (2));
             if (label != null) {
                 return_value.add (label);
             }
@@ -177,7 +177,7 @@ public class Services.MigrateFromPlanner : GLib.Object {
         return return_value;
     }
 
-    private void set_parameter_str (Sqlite.Statement? stmt, string par, string val) {
+    private void set_parameter_str (Sqlite.Statement ? stmt, string par, string val) {
         int par_position = stmt.bind_parameter_index (par);
         stmt.bind_text (par_position, val);
     }

@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Dialogs.Label : Adw.Dialog {
     public Objects.Label label { get; construct; }
@@ -83,7 +83,7 @@ public class Dialogs.Label : Adw.Dialog {
 
         color_group.add_css_class ("card");
         color_group.attach (color_picker_row, 0, 0);
-        
+
         submit_button = new Widgets.LoadingButton.with_label (is_creating ? _("Add Label") : _("Update Label")) {
             vexpand = true,
             hexpand = true,
@@ -98,23 +98,23 @@ public class Dialogs.Label : Adw.Dialog {
         submit_button.add_css_class ("suggested-action");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        
+
         content_box.append (name_group);
         content_box.append (color_group);
         content_box.append (submit_button);
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 600,
-			margin_start = 12,
-			margin_end = 12,
-			margin_bottom = 12
-		};
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12
+        };
 
-		content_clamp.child = content_box;
+        content_clamp.child = content_box;
 
-		var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = content_clamp;
+        var toolbar_view = new Adw.ToolbarView ();
+        toolbar_view.add_top_bar (headerbar);
+        toolbar_view.content = content_clamp;
 
         child = toolbar_view;
         Services.EventBus.get_default ().disconnect_typing_accel ();
@@ -152,7 +152,7 @@ public class Dialogs.Label : Adw.Dialog {
 
         if (is_creating && is_duplicate (name_entry.text)) {
             close ();
-            return; 
+            return;
         }
 
         string _name = label.name;
@@ -174,7 +174,7 @@ public class Dialogs.Label : Adw.Dialog {
             close ();
             return;
         }
-        
+
         if (label.source_type == SourceType.TODOIST) {
             submit_button.is_loading = true;
             Services.Todoist.get_default ().update.begin (label, (obj, res) => {
@@ -204,13 +204,13 @@ public class Dialogs.Label : Adw.Dialog {
             close ();
             return;
         }
-        
+
         if (label.source_type == SourceType.TODOIST) {
             submit_button.is_loading = true;
             Services.Todoist.get_default ().add.begin (label, (obj, res) => {
                 submit_button.is_loading = false;
                 HttpResponse response = Services.Todoist.get_default ().add.end (res);
-                
+
                 if (response.status) {
                     label.id = response.data;
                     Services.Store.instance ().insert_label (label);

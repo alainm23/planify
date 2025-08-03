@@ -1,28 +1,28 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
     public Objects.Section section { get; construct; }
     public string widget_type { get; construct; }
-    
+
     private Gtk.Label name_label;
     private Gtk.Grid handle_grid;
     private Gtk.Revealer main_revealer;
@@ -30,7 +30,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
     public signal void update_section ();
 
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
-    
+
     public SectionPickerRow (Objects.Section section, string widget_type = "picker") {
         Object (
             section: section,
@@ -76,11 +76,11 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
         var menu_button = new Gtk.MenuButton () {
             hexpand = true,
             halign = END,
-			popover = build_context_menu (),
-			icon_name = "view-more-symbolic",
-			css_classes = { "flat" }
-		};
-        
+            popover = build_context_menu (),
+            icon_name = "view-more-symbolic",
+            css_classes = { "flat" }
+        };
+
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 9,
             margin_start = 12,
@@ -120,7 +120,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             child = reorder_child
         };
-        
+
         child = main_revealer;
 
         Timeout.add (main_revealer.transition_duration, () => {
@@ -135,7 +135,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
             signal_map[select_gesture.pressed.connect (() => {
                 Services.EventBus.get_default ().section_picker_changed (section.id);
             })] = select_gesture;
-    
+
             signal_map[Services.EventBus.get_default ().section_picker_changed.connect ((type, id) => {
                 selected_revealer.reveal_child = section.id == id;
             })] = Services.EventBus.get_default ();
@@ -145,7 +145,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
             if (section.id != "") {
                 reorder_child.build_drag_and_drop ();
             }
-            
+
             signal_map[hidded_switch.notify["active"].connect (() => {
                 if (section.id == "") {
                     section.project.inbox_section_hidded = !hidded_switch.active;
@@ -191,33 +191,33 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
     }
 
     private Gtk.Popover build_context_menu () {
-		var unarchive_item = new Widgets.ContextMenu.MenuItem (_("Unarchive"), "shoe-box-symbolic");
-		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "user-trash-symbolic");
-		delete_item.add_css_class ("menu-item-danger");
+        var unarchive_item = new Widgets.ContextMenu.MenuItem (_("Unarchive"), "shoe-box-symbolic");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "user-trash-symbolic");
+        delete_item.add_css_class ("menu-item-danger");
 
-		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-		menu_box.margin_top = menu_box.margin_bottom = 3;
+        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        menu_box.margin_top = menu_box.margin_bottom = 3;
 
         menu_box.append (unarchive_item);
         menu_box.append (delete_item);
 
-		var menu_popover = new Gtk.Popover () {
-			has_arrow = false,
-			child = menu_box,
-			position = Gtk.PositionType.BOTTOM,
-			width_request = 250
-		};
+        var menu_popover = new Gtk.Popover () {
+            has_arrow = false,
+            child = menu_box,
+            position = Gtk.PositionType.BOTTOM,
+            width_request = 250
+        };
 
-		signal_map[delete_item.clicked.connect (() => {
-			menu_popover.popdown ();
-			section.delete_section ((Gtk.Window) Planify.instance.main_window);
-		})] = delete_item;
+        signal_map[delete_item.clicked.connect (() => {
+            menu_popover.popdown ();
+            section.delete_section ((Gtk.Window) Planify.instance.main_window);
+        })] = delete_item;
 
-		signal_map[unarchive_item.clicked.connect (() => {
-			menu_popover.popdown ();
-			section.unarchive_section ();
-		})] = unarchive_item;
+        signal_map[unarchive_item.clicked.connect (() => {
+            menu_popover.popdown ();
+            section.unarchive_section ();
+        })] = unarchive_item;
 
-		return menu_popover;
-	}
+        return menu_popover;
+    }
 }

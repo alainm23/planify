@@ -1,26 +1,26 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Services.Notification : GLib.Object {
-    private static Notification? _instance;
+    private static Notification ? _instance;
     public static Notification get_default () {
         if (_instance == null) {
             _instance = new Notification ();
@@ -66,7 +66,7 @@ public class Services.Notification : GLib.Object {
             uint interval = (uint) time_until_now (reminder.datetime);
             string uid = "%u-%u".printf (interval, GLib.Random.next_int ());
             reminders.set (reminder.id, uid);
-            
+
             Timeout.add_seconds (interval, () => {
                 queue_reminder_notification (reminder, uid);
                 return GLib.Source.REMOVE;
@@ -95,11 +95,11 @@ public class Services.Notification : GLib.Object {
         notification.set_icon (new ThemedIcon ("io.github.alainm23.planify"));
         notification.set_priority (GLib.NotificationPriority.URGENT);
         notification.set_default_action_and_target_value ("show-item", new Variant.string (reminder.item_id));
-        //  notification.add_button (_("Complete"), "complete");
-        //  notification.add_button (_("Snooze for 10 minutes"), "complete");
-        //  notification.add_button (_("Snooze for 30 minutes"), "complete");
-        //  notification.add_button (_("Snooze for 1 hour"), "complete");
-        
+        // notification.add_button (_("Complete"), "complete");
+        // notification.add_button (_("Snooze for 10 minutes"), "complete");
+        // notification.add_button (_("Snooze for 30 minutes"), "complete");
+        // notification.add_button (_("Snooze for 1 hour"), "complete");
+
         return notification;
     }
 }

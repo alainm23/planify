@@ -1,28 +1,28 @@
 /*
-* Copyright © 2024 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2024 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
-public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Base {    
+public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Base {
 
     private Soup.Session session;
-	private Json.Parser parser;
+    private Json.Parser parser;
 
 
     // vala-lint=naming-convention
@@ -52,8 +52,8 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
                 </x0:prop>
             </x0:set>
         </x0:mkcol>
-    """; 
-    
+    """;
+
     // vala-lint=naming-convention
     public static string UPDATE_TASKLIST_REQUEST = """
         <x0:propertyupdate xmlns:x0="DAV:">
@@ -64,7 +64,7 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
                 </x0:prop>
             </x0:set>
         </x0:propertyupdate>
-    """; 
+    """;
 
     // vala-lint=naming-convention
     public static string SYNC_TOKEN_REQUEST = """
@@ -76,8 +76,8 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
                 <d:getcontenttype/>
             </d:prop>
         </d:sync-collection>
-    """; 
-    
+    """;
+
     // vala-lint=naming-convention
     public static string TASKS_REQUEST = """
         <x1:calendar-query xmlns:x1="urn:ietf:params:xml:ns:caldav">
@@ -116,8 +116,8 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
     """;
 
     public Nextcloud () {
-		session = new Soup.Session ();
-		parser = new Json.Parser ();
+        session = new Soup.Session ();
+        parser = new Json.Parser ();
 
         LOGIN_REQUEST = """
             <d:propfind xmlns:d="DAV:">
@@ -304,84 +304,82 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
         return server_url;
     }
 
-
-	public async HttpResponse start_login_flow (string server_url, GLib.Cancellable cancellable) {
-		HttpResponse response = new HttpResponse ();
+    public async HttpResponse start_login_flow (string server_url, GLib.Cancellable cancellable) {
+        HttpResponse response = new HttpResponse ();
 
         string login_url = "%s/index.php/login/v2".printf (get_real_server_url (server_url));
 
-		var message = new Soup.Message ("POST", login_url);
-		message.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT); // The User Agent is used by Nextcloud for the App Name
-		message.set_request_body_from_bytes ("application/json", new Bytes (LOGIN_REQUEST.data));
+        var message = new Soup.Message ("POST", login_url);
+        message.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);         // The User Agent is used by Nextcloud for the App Name
+        message.set_request_body_from_bytes ("application/json", new Bytes (LOGIN_REQUEST.data));
 
-		try {
-			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
+        try {
+            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
 
-			parser.load_from_data ((string) stream.get_data ());
+            parser.load_from_data ((string) stream.get_data ());
 
             var root = parser.get_root ().get_object ();
 
-			var login_link = root.get_string_member ("login");
+            var login_link = root.get_string_member ("login");
 
-			var poll = root.get_object_member ("poll");
-			var poll_token = poll.get_string_member ("token");
-			var poll_endpoint = poll.get_string_member ("endpoint");
+            var poll = root.get_object_member ("poll");
+            var poll_token = poll.get_string_member ("token");
+            var poll_endpoint = poll.get_string_member ("endpoint");
 
-			AppInfo.launch_default_for_uri (login_link, null);
+            AppInfo.launch_default_for_uri (login_link, null);
 
-			int timeout = 20 * 60;
-			int interval = 5;
+            int timeout = 20 * 60;
+            int interval = 5;
 
-			while (timeout > 0 && !cancellable.is_cancelled ()) {
-		        var poll_msg = new Soup.Message ("POST", poll_endpoint);
+            while (timeout > 0 && !cancellable.is_cancelled ()) {
+                var poll_msg = new Soup.Message ("POST", poll_endpoint);
 
-				poll_msg.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);
-				poll_msg.set_request_body_from_bytes ("application/json", new Bytes ("""
+                poll_msg.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);
+                poll_msg.set_request_body_from_bytes ("application/json", new Bytes ("""
 					{ "token": "%s" }
-				""".printf (poll_token).data));
+				"""                .printf (poll_token).data));
 
-				try {
-					GLib.Bytes poll_response = yield session.send_and_read_async (poll_msg, GLib.Priority.HIGH, cancellable);
-					var poll_str = (string) poll_response.get_data ();
+                try {
+                    GLib.Bytes poll_response = yield session.send_and_read_async (poll_msg, GLib.Priority.HIGH, cancellable);
 
-					Json.Parser poll_parser = new Json.Parser ();
-					poll_parser.load_from_data (poll_str);
-					
-					var poll_root = poll_parser.get_root ();
-					
-					if (poll_root.get_node_type () == Json.NodeType.OBJECT) {
-						var poll_object = poll_root.get_object ();
+                    var poll_str = (string) poll_response.get_data ();
 
-						if (poll_object.has_member ("loginName")) {
-							
-							var server = poll_object.get_string_member ("server"); // From now on we use the provided server url and not the one the user supplied
-							var login_name = poll_object.get_string_member ("loginName");
-							var app_password = poll_object.get_string_member ("appPassword");
-							
+                    Json.Parser poll_parser = new Json.Parser ();
+                    poll_parser.load_from_data (poll_str);
+
+                    var poll_root = poll_parser.get_root ();
+
+                    if (poll_root.get_node_type () == Json.NodeType.OBJECT) {
+                        var poll_object = poll_root.get_object ();
+
+                        if (poll_object.has_member ("loginName")) {
+
+                            var server = poll_object.get_string_member ("server");                             // From now on we use the provided server url and not the one the user supplied
+                            var login_name = poll_object.get_string_member ("loginName");
+                            var app_password = poll_object.get_string_member ("appPassword");
+
                             var login_response = yield Core.get_default ().login (CalDAVType.NEXTCLOUD, server, login_name, app_password, cancellable);
 
-							return login_response;
-						}
-					}
-					
-				} catch (Error err) {
-					response.error_code = err.code;
-					response.error = "Polling error: %s".printf (err.message);
-					break;
-				}
+                            return login_response;
+                        }
+                    }
+                } catch (Error err) {
+                    response.error_code = err.code;
+                    response.error = "Polling error: %s".printf (err.message);
+                    break;
+                }
 
-				yield Util.nap (interval * 1000);
+                yield Util.nap (interval * 1000);
 
-				timeout -= interval;
-			}
+                timeout -= interval;
+            }
+        } catch (Error e) {
+            response.error_code = e.code;
+            response.error = "login error: %s".printf (e.message);
+        }
 
-		}catch (Error e) {
-			response.error_code = e.code;
-			response.error = "login error: %s".printf (e.message);
-		}
-
-		return response;
-	}
+        return response;
+    }
 
     public override string get_server_url (string url, string username, string password) {
         string server_url = get_real_server_url (url);
@@ -397,7 +395,7 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
         if (doc.get_elements_by_tag_name ("d:displayname").length > 0) {
             source.caldav_data.user_displayname = doc.get_elements_by_tag_name ("d:displayname").get_element (0).text_content;
         }
-        
+
         if (doc.get_elements_by_tag_name ("s:email-address").length > 0) {
             source.caldav_data.user_email = doc.get_elements_by_tag_name ("s:email-address").get_element (0).text_content;
         }
@@ -406,12 +404,12 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
             source.display_name = source.caldav_data.user_email;
             return;
         }
-        
+
         if (source.caldav_data.user_displayname != null && source.caldav_data.user_displayname != "") {
             source.display_name = source.caldav_data.user_displayname;
             return;
         }
-        
+
         source.display_name = _("Nextcloud");
     }
 
@@ -476,7 +474,7 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
 
         bool is_calendar = resourcetype.get_elements_by_tag_name ("cal:calendar").length > 0;
         bool is_vtodo = false;
-        
+
         if (is_calendar) {
             GXml.DomElement supported_calendar = prop.get_elements_by_tag_name ("cal:supported-calendar-component-set").get_element (0);
             GXml.DomHTMLCollection calendar_comps = supported_calendar.get_elements_by_tag_name ("cal:comp");

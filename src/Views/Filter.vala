@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Views.Filter : Adw.Bin {
     private Layouts.HeaderBar headerbar;
@@ -27,7 +27,7 @@ public class Views.Filter : Adw.Bin {
     private Widgets.MagicButton magic_button;
     private Gtk.Revealer view_setting_revealer;
 
-    private Gee.HashMap <string, Layouts.ItemRow> items = new Gee.HashMap <string, Layouts.ItemRow> ();
+    private Gee.HashMap<string, Layouts.ItemRow> items = new Gee.HashMap<string, Layouts.ItemRow> ();
 
     Objects.BaseObject _filter;
     public Objects.BaseObject filter {
@@ -50,14 +50,14 @@ public class Views.Filter : Adw.Bin {
 
     construct {
         var view_setting_button = new Gtk.MenuButton () {
-			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER,
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
             margin_end = 12,
-			popover = build_view_setting_popover (),
-			icon_name = "view-sort-descending-rtl-symbolic",
-			css_classes = { "flat" },
-			tooltip_text = _("View Option Menu")
-		};
+            popover = build_view_setting_popover (),
+            icon_name = "view-sort-descending-rtl-symbolic",
+            css_classes = { "flat" },
+            tooltip_text = _("View Option Menu")
+        };
 
         view_setting_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
@@ -69,9 +69,9 @@ public class Views.Filter : Adw.Bin {
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
-			selection_mode = Gtk.SelectionMode.NONE,
-			hexpand = true,
-			css_classes = { "listbox-background" }
+            selection_mode = Gtk.SelectionMode.NONE,
+            hexpand = true,
+            css_classes = { "listbox-background" }
         };
 
         listbox_content = new Adw.Bin () {
@@ -119,16 +119,16 @@ public class Views.Filter : Adw.Bin {
         magic_button = new Widgets.MagicButton ();
 
         var content_overlay = new Gtk.Overlay () {
-			hexpand = true,
-			vexpand = true
-		};
+            hexpand = true,
+            vexpand = true
+        };
 
-		content_overlay.child = scrolled_window;
-		content_overlay.add_overlay (magic_button);
+        content_overlay.child = scrolled_window;
+        content_overlay.add_overlay (magic_button);
 
         var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = content_overlay;
+        toolbar_view.add_top_bar (headerbar);
+        toolbar_view.content = content_overlay;
 
         child = toolbar_view;
 
@@ -167,13 +167,13 @@ public class Views.Filter : Adw.Bin {
         var dialog = new Dialogs.QuickAdd ();
         dialog.set_project (inbox_project);
         dialog.update_content (content);
-        
+
         if (filter is Objects.Filters.Priority) {
             Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
             dialog.set_priority (priority.priority);
         } else if (filter is Objects.Filters.Tomorrow) {
             dialog.set_due (Utils.Datetime.get_date_only (
-                new GLib.DateTime.now_local ().add_days (1)
+                                new GLib.DateTime.now_local ().add_days (1)
             ));
         }
 
@@ -235,7 +235,7 @@ public class Views.Filter : Adw.Bin {
         view_setting_revealer.reveal_child = filter is Objects.Filters.Completed;
     }
 
-    private void add_items () {        
+    private void add_items () {
         foreach (Layouts.ItemRow row in items.values) {
             listbox.remove (row);
         }
@@ -279,46 +279,46 @@ public class Views.Filter : Adw.Bin {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id] = new Layouts.ItemRow (item);
-        items [item.id].disable_drag_and_drop ();
-        listbox.append (items [item.id]);
+        items[item.id] = new Layouts.ItemRow (item);
+        items[item.id].disable_drag_and_drop ();
+        listbox.append (items[item.id]);
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {
         if (filter is Objects.Filters.Priority) {
             Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
-            
+
             if (!items.has_key (item.id) && item.priority == priority.priority && insert) {
-                add_item (item);   
+                add_item (item);
             }
         } else if (filter is Objects.Filters.Completed) {
             if (!items.has_key (item.id) && item.checked && insert) {
-                add_item (item);   
+                add_item (item);
             }
         } else if (filter is Objects.Filters.Tomorrow) {
             if (!items.has_key (item.id) && item.has_due &&
                 Utils.Datetime.is_tomorrow (item.due.datetime) && insert) {
-                add_item (item);   
+                add_item (item);
             }
         } else if (filter is Objects.Filters.Pinboard) {
             if (!items.has_key (item.id) && item.pinned && insert) {
-                add_item (item);   
+                add_item (item);
             }
         } else if (filter is Objects.Filters.Anytime) {
             if (!items.has_key (item.id) && !item.has_due && insert) {
-                add_item (item);   
+                add_item (item);
             }
         } else if (filter is Objects.Filters.Repeating) {
             if (!items.has_key (item.id) && item.has_due && item.due.is_recurring && insert) {
-                add_item (item);   
+                add_item (item);
             }
         } else if (filter is Objects.Filters.Unlabeled) {
             if (!items.has_key (item.id) && item.labels.size <= 0 && insert) {
-                add_item (item);   
+                add_item (item);
             }
         } else if (filter is Objects.Filters.AllItems) {
             if (!items.has_key (item.id) && insert) {
-                add_item (item);   
+                add_item (item);
             }
         }
 
@@ -335,7 +335,7 @@ public class Views.Filter : Adw.Bin {
     }
 
     private void valid_update_item (Objects.Item item, string update_id = "") {
-        if (items.has_key (item.id) && items [item.id].update_id != update_id) {
+        if (items.has_key (item.id) && items[item.id].update_id != update_id) {
             items[item.id].update_request ();
         }
 
@@ -351,14 +351,14 @@ public class Views.Filter : Adw.Bin {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
             }
-    
+
             valid_add_item (item);
         } else if (filter is Objects.Filters.Completed) {
             if (items.has_key (item.id) && item.checked) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
             }
-    
+
             valid_add_item (item);
         } else if (filter is Objects.Filters.Tomorrow) {
             if (items.has_key (item.id) && (!item.has_due || !Utils.Datetime.is_tomorrow (item.due.datetime))) {
@@ -372,28 +372,28 @@ public class Views.Filter : Adw.Bin {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
             }
-    
+
             valid_add_item (item);
         } else if (filter is Objects.Filters.Anytime) {
             if (items.has_key (item.id) && item.has_due) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
             }
-    
+
             valid_add_item (item);
         } else if (filter is Objects.Filters.Repeating) {
             if (items.has_key (item.id) && (!item.has_due || !item.due.is_recurring)) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
             }
-    
+
             valid_add_item (item);
         } else if (filter is Objects.Filters.Unlabeled) {
             if (items.has_key (item.id) && item.labels.size > 0) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
             }
-    
+
             valid_add_item (item);
         }
 
@@ -428,7 +428,7 @@ public class Views.Filter : Adw.Bin {
         validate_placeholder ();
     }
 
-    private void header_completed_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
+    private void header_completed_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow ? lbbefore) {
         var row = (Layouts.ItemRow) lbrow;
         if (row.item.completed_at == "") {
             return;
@@ -452,7 +452,7 @@ public class Views.Filter : Adw.Bin {
         );
     }
 
-    private void header_project_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
+    private void header_project_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow ? lbbefore) {
         if (!(lbrow is Layouts.ItemRow)) {
             return;
         }
@@ -469,7 +469,7 @@ public class Views.Filter : Adw.Bin {
         row.set_header (get_header_box (row.item.project.name));
     }
 
-    private int sort_completed_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow? row2) {
+    private int sort_completed_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow ? row2) {
         var completed_a = Utils.Datetime.get_date_only (
             Utils.Datetime.get_date_from_string (((Widgets.CompletedTaskRow) row1).item.completed_at)
         );
@@ -479,13 +479,13 @@ public class Views.Filter : Adw.Bin {
         return completed_b.compare (completed_a);
     }
 
-    private int sort_project_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow? row2) {
+    private int sort_project_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow ? row2) {
         var item1 = ((Layouts.ItemRow) row1).item;
         var item2 = ((Layouts.ItemRow) row2).item;
         return item1.project_id.strip ().collate (item2.project_id.strip ());
     }
 
-    private void validate_placeholder () {        
+    private void validate_placeholder () {
         listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
     }
 
@@ -514,43 +514,43 @@ public class Views.Filter : Adw.Bin {
     }
 
     private Gtk.Popover build_view_setting_popover () {
-		var delete_all_completed = new Widgets.ContextMenu.MenuItem (_("Delete All Completed Tasks") ,"user-trash-symbolic");
-		delete_all_completed.add_css_class ("menu-item-danger");
+        var delete_all_completed = new Widgets.ContextMenu.MenuItem (_("Delete All Completed Tasks"), "user-trash-symbolic");
+        delete_all_completed.add_css_class ("menu-item-danger");
 
-		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-		menu_box.margin_top = menu_box.margin_bottom = 3;
-		menu_box.append (delete_all_completed);
+        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        menu_box.margin_top = menu_box.margin_bottom = 3;
+        menu_box.append (delete_all_completed);
 
-		var popover = new Gtk.Popover () {
-			has_arrow = false,
-			position = Gtk.PositionType.BOTTOM,
-			child = menu_box,
-			width_request = 250
-		};
+        var popover = new Gtk.Popover () {
+            has_arrow = false,
+            position = Gtk.PositionType.BOTTOM,
+            child = menu_box,
+            width_request = 250
+        };
 
         delete_all_completed.activate_item.connect (() => {
-			var items = Services.Store.instance ().get_items_checked ();
+            var items = Services.Store.instance ().get_items_checked ();
 
-			var dialog = new Adw.AlertDialog (
-			    _("Delete All Completed Tasks"),
-				_("This will delete %d completed tasks and their subtasks".printf (items.size))
-			);
+            var dialog = new Adw.AlertDialog (
+                _("Delete All Completed Tasks"),
+                _("This will delete %d completed tasks and their subtasks".printf (items.size))
+            );
 
-			dialog.body_use_markup = true;
-			dialog.add_response ("cancel", _("Cancel"));
-			dialog.add_response ("delete", _("Delete"));
-			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-			dialog.present (Planify._instance.main_window);
+            dialog.body_use_markup = true;
+            dialog.add_response ("cancel", _("Cancel"));
+            dialog.add_response ("delete", _("Delete"));
+            dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+            dialog.present (Planify._instance.main_window);
 
-			dialog.response.connect ((response) => {
-				if (response == "delete") {
-					foreach (Objects.Item item in items) {
+            dialog.response.connect ((response) => {
+                if (response == "delete") {
+                    foreach (Objects.Item item in items) {
                         item.delete_item ();
                     }
-				}
-			});
-		});
+                }
+            });
+        });
 
-		return popover;
-	}
+        return popover;
+    }
 }

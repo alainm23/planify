@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Objects.DueDate : GLib.Object {
     public string date { get; set; default = ""; }
@@ -30,8 +30,8 @@ public class Objects.DueDate : GLib.Object {
     public string recurrency_end { get; set; default = ""; }
     public bool recurrence_supported { get; set; default = false; }
 
-    GLib.DateTime? _datetime = null;
-    public GLib.DateTime? datetime {
+    GLib.DateTime ? _datetime = null;
+    public GLib.DateTime ? datetime {
         get {
             if (_datetime == null) {
                 _datetime = Utils.Datetime.get_todoist_datetime (date);
@@ -100,7 +100,7 @@ public class Objects.DueDate : GLib.Object {
         if (object.has_member ("date")) {
             date = object.get_string_member ("date");
         }
-        
+
         if (object.has_member ("timezone")) {
             timezone = object.get_string_member ("timezone");
         }
@@ -115,7 +115,7 @@ public class Objects.DueDate : GLib.Object {
         if (object.has_member ("date")) {
             date = object.get_string_member ("date");
         }
-        
+
         if (object.has_member ("timezone")) {
             timezone = object.get_string_member ("timezone");
         }
@@ -192,11 +192,11 @@ public class Objects.DueDate : GLib.Object {
 
     public bool is_recurrency_equal (Objects.DueDate duedate) {
         return ((int) recurrency_type == (int) duedate.recurrency_type &&
-        recurrency_interval == duedate.recurrency_interval &&
-        recurrency_weeks == duedate.recurrency_weeks &&
-        recurrency_count == duedate.recurrency_count &&
-        recurrency_end == duedate.recurrency_end &&
-        is_recurring == duedate.is_recurring);
+                recurrency_interval == duedate.recurrency_interval &&
+                recurrency_weeks == duedate.recurrency_weeks &&
+                recurrency_count == duedate.recurrency_count &&
+                recurrency_end == duedate.recurrency_end &&
+                is_recurring == duedate.is_recurring);
     }
 
     public string to_friendly_string () {

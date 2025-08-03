@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Dialogs.GoogleOAuth : Adw.Window {
     private WebKit.WebView webview;
@@ -50,7 +50,7 @@ public class Dialogs.GoogleOAuth : Adw.Window {
                                   "&scope=" + SCOPE +
                                   "&prompt=consent" +
                                   "&access_type=offline" +
-                                  "&response_type=code"; 
+                                  "&response_type=code";
 
         var info_label = new Gtk.Label (_("Loading"));
 
@@ -125,7 +125,7 @@ public class Dialogs.GoogleOAuth : Adw.Window {
 
         webview.load_changed.connect ((load_event) => {
             var redirect_uri = webview.get_uri ();
-            
+
             if (redirect_uri.has_prefix (REDIRECT_URI)) {
                 string authorization_code = extractAuthorizationCode (redirect_uri);
                 get_token (authorization_code);
@@ -145,7 +145,7 @@ public class Dialogs.GoogleOAuth : Adw.Window {
         });
 
         webview.load_failed.connect ((load_event, failing_uri, _error) => {
-            var error = (GLib.Error)_error;
+            var error = (GLib.Error) _error;
             warning ("Loading uri '%s' failed, error : %s", failing_uri, error.message);
             if (GLib.strcmp (failing_uri, authorizationUrl) == 0) {
                 info_label.label = _("Network Is Not Available");
@@ -169,21 +169,21 @@ public class Dialogs.GoogleOAuth : Adw.Window {
     }
 
     // vala-lint=naming-convention
-    private string? extractAuthorizationCode (string uri) {
+    private string ? extractAuthorizationCode (string uri) {
         string[] query = uri.split ("?");
-    
+
         if (query.length >= 2) {
             string[] params = query[1].split ("&");
-            
+
             foreach (string param in params) {
                 string[] keyValue = param.split ("="); // vala-lint=naming-convention
-                
+
                 if (keyValue.length >= 2 && keyValue[0] == "code") {
                     return keyValue[1];
                 }
             }
         }
-        
+
         return null;
     }
 

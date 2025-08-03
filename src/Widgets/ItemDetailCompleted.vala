@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.ItemDetailCompleted : Adw.Bin {
     public Objects.Item item { get; construct; }
@@ -25,7 +25,8 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
     private Gtk.ListBox listbox;
 
     public signal void view_item (Objects.Item item);
-    private Gee.HashMap <string, Widgets.CompletedTaskRow> items_checked = new Gee.HashMap <string, Widgets.CompletedTaskRow> ();
+
+    private Gee.HashMap<string, Widgets.CompletedTaskRow> items_checked = new Gee.HashMap<string, Widgets.CompletedTaskRow> ();
     private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public ItemDetailCompleted (Objects.Item item) {
@@ -59,7 +60,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
             margin_start = 12,
             margin_end = 12
         };
-		content_group.title = _("Title");
+        content_group.title = _("Title");
         content_group.add (content_textview.get_widget ());
 
         var properties_grid = new Gtk.Grid () {
@@ -70,13 +71,13 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
         };
 
         properties_grid.attach (add_property_card ("month-symbolic", _("Completed At"),
-            Utils.Datetime.get_relative_date_from_date (
-                Utils.Datetime.get_date_from_string (item.completed_at)
-            )
-        ), 0, 0);
+                                                   Utils.Datetime.get_relative_date_from_date (
+                                                       Utils.Datetime.get_date_from_string (item.completed_at)
+                                                   )
+                                ), 0, 0);
 
         properties_grid.attach (add_property_card ("arrow3-right-symbolic", _("Section"), item.has_section ? item.section.name : _("No Section")), 1, 0);
-        
+
         properties_grid.attach (add_property_card ("flag-outline-thick-symbolic", _("Priority"), item.priority_text), 0, 1);
 
         var properties_group = new Adw.PreferencesGroup () {
@@ -84,8 +85,8 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
             margin_end = 12,
             margin_top = 12
         };
-        
-		properties_group.title = _("Properties");
+
+        properties_group.title = _("Properties");
         properties_group.add (properties_grid);
 
         var current_buffer = new Widgets.Markdown.Buffer ();
@@ -107,7 +108,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
             margin_end = 12,
             margin_top = 12
         };
-		description_group.title = _("Description");
+        description_group.title = _("Description");
         description_group.add (markdown_edit_view);
 
         listbox = new Gtk.ListBox () {
@@ -121,8 +122,8 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
             margin_end = 12,
             margin_top = 12
         };
-        
-		subitems_group.title = _("Sub-tasks");
+
+        subitems_group.title = _("Sub-tasks");
         subitems_group.add (listbox);
 
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -139,7 +140,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
         if (item.items.size > 0) {
             content.append (subitems_group);
         }
-        
+
         var scrolled_window = new Widgets.ScrolledWindow (content);
 
         child = scrolled_window;
@@ -152,17 +153,17 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
 
             if (!old_checked) {
                 if (!items_checked.has_key (_item.id)) {
-                    items_checked [_item.id] = new Widgets.CompletedTaskRow (_item);
-                    listbox.append (items_checked [_item.id]);
+                    items_checked[_item.id] = new Widgets.CompletedTaskRow (_item);
+                    listbox.append (items_checked[_item.id]);
                 }
             } else {
                 if (items_checked.has_key (_item.id)) {
-                    items_checked [_item.id].hide_destroy ();
+                    items_checked[_item.id].hide_destroy ();
                     items_checked.unset (_item.id);
                 }
             }
-		})] = Services.EventBus.get_default ();
-        
+        })] = Services.EventBus.get_default ();
+
         signals_map[listbox.row_activated.connect ((row) => {
             Objects.Item item = ((Widgets.CompletedTaskRow) row).item;
             view_item (item);
@@ -172,7 +173,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
             foreach (var entry in signals_map.entries) {
                 entry.value.disconnect (entry.key);
             }
-            
+
             signals_map.clear ();
         });
     }
@@ -184,8 +185,8 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
             }
 
             if (!items_checked.has_key (subitem.id)) {
-                items_checked [subitem.id] = new Widgets.CompletedTaskRow (subitem);
-                listbox.append (items_checked [subitem.id]);
+                items_checked[subitem.id] = new Widgets.CompletedTaskRow (subitem);
+                listbox.append (items_checked[subitem.id]);
             }
         }
     }
@@ -206,7 +207,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
             halign = START,
             css_classes = { "title-4", "caption" }
         }, 1, 0, 1, 1);
-        
+
         card_grid.attach (new Gtk.Label (value) {
             xalign = 0,
             use_markup = true,
