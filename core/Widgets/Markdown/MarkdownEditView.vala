@@ -183,6 +183,7 @@
         markdown_view.add_controller (gesture);
         gesture.enter.connect (handle_focus_in);
         gesture.leave.connect (update_on_leave);
+		markdown_view.buffer.changed.connect (handle_focus_in);
 
         child = markdown_view;
 
@@ -199,6 +200,7 @@
     }
 
 	private void handle_focus_in () {
+		print ("Se desactiva todoooooo\n");
         Services.EventBus.get_default ().disconnect_typing_accel ();
         enter ();
     }

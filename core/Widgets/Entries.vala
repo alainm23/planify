@@ -1,31 +1,56 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.Entry : Gtk.Entry {
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+    
     construct {
+        signal_map[realize.connect (() => {
+            if (has_focus) {
+                handle_focus_in ();
+            }
+        })] = this;
+
+        signal_map[notify["has-focus"].connect (() => {
+            if (has_focus) {
+                handle_focus_in ();
+            } else {
+                update_on_leave ();
+            }
+        })] = this;
+
         var gesture = new Gtk.EventControllerFocus ();
         add_controller (gesture);
 
-        gesture.enter.connect (handle_focus_in);
-        gesture.leave.connect (update_on_leave);
+        signal_map[gesture.enter.connect (handle_focus_in)] = gesture;
+        signal_map[gesture.leave.connect (update_on_leave)] = gesture;
+        signal_map[changed.connect (handle_focus_in)] = this;
+
+        destroy.connect (() => {
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signal_map.clear ();
+        });
     }
 
     private void handle_focus_in () {
@@ -38,17 +63,43 @@ public class Widgets.Entry : Gtk.Entry {
 }
 
 public class Widgets.TextView : Gtk.TextView {
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+
+
     public signal void enter ();
     public signal void leave ();
 
     public bool event_focus { get; set; default = true; }
 
     construct {
+        signal_map[realize.connect (() => {
+            if (has_focus) {
+                handle_focus_in ();
+            }
+        })] = this;
+
+        signal_map[notify["has-focus"].connect (() => {
+            if (has_focus) {
+                handle_focus_in ();
+            } else {
+                update_on_leave ();
+            }
+        })] = this;
+
         var gesture = new Gtk.EventControllerFocus ();
         add_controller (gesture);
 
-        gesture.enter.connect (handle_focus_in);
-        gesture.leave.connect (update_on_leave);
+        signal_map[gesture.enter.connect (handle_focus_in)] = gesture;
+        signal_map[gesture.leave.connect (update_on_leave)] = gesture;
+        signal_map[buffer.changed.connect (handle_focus_in)] = buffer;
+
+        destroy.connect (() => {
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signal_map.clear ();
+        });
     }
 
     private void handle_focus_in () {
@@ -63,7 +114,7 @@ public class Widgets.TextView : Gtk.TextView {
         if (event_focus) {
             Services.EventBus.get_default ().connect_typing_accel ();
         }
-        
+
         leave ();
     }
 }
@@ -71,6 +122,7 @@ public class Widgets.TextView : Gtk.TextView {
 public class Widgets.HyperTextView : Granite.HyperTextView {
     public string placeholder_text { get; construct; }
 
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
     private uint changed_timeout_id { get; set; default = 0; }
 
     public signal void changed ();
@@ -90,27 +142,35 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
             placeholder_text: placeholder_text
         );
     }
- 
+
     construct {
-        buffer.changed.connect (changed_timeout);
+        signal_map[buffer.changed.connect (changed_timeout)] = buffer;
 
         var gesture = new Gtk.EventControllerFocus ();
         add_controller (gesture);
 
-        gesture.enter.connect (handle_focus_in);
-        gesture.leave.connect (update_on_leave);
-        
+        signal_map[gesture.enter.connect (handle_focus_in)] = gesture;
+        signal_map[gesture.leave.connect (update_on_leave)] = gesture;
+
         if (buffer_get_text () == "") {
             buffer.text = placeholder_text;
             opacity = 0.7;
         }
+
+        destroy.connect (() => {
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signal_map.clear ();
+        });
     }
 
     private void handle_focus_in () {
         if (event_focus) {
             Services.EventBus.get_default ().disconnect_typing_accel ();
         }
-        
+
         enter ();
 
         if (buffer_get_text () == placeholder_text) {
@@ -123,7 +183,7 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
         if (event_focus) {
             Services.EventBus.get_default ().connect_typing_accel ();
         }
-        
+
         leave ();
 
         if (buffer_get_text () == "") {
@@ -157,8 +217,11 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
     }
 
     private void changed_timeout () {
+        handle_focus_in ();
+
         if (changed_timeout_id != 0) {
             GLib.Source.remove (changed_timeout_id);
+            changed_timeout_id = 0;
         }
 
         changed_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
