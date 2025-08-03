@@ -46,7 +46,8 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
             bottom_margin = 12,
             height_request = 64,
             wrap_mode = Gtk.WrapMode.WORD,
-            event_focus = false
+            event_focus = false,
+            placeholder_text = _("To-do name")
         };
 
         content_textview.remove_css_class ("view");
@@ -59,7 +60,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
             margin_end = 12
         };
 		content_group.title = _("Title");
-        content_group.add (content_textview);
+        content_group.add (content_textview.get_widget ());
 
         var properties_grid = new Gtk.Grid () {
             column_homogeneous = true,

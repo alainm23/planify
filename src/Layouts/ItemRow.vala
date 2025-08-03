@@ -254,7 +254,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
 		content_textview = new Widgets.TextView () {
 			wrap_mode = Gtk.WrapMode.WORD,
-			accepts_tab = false
+			accepts_tab = false,
+			placeholder_text = _("To-do name")
 		};
 		content_textview.remove_css_class ("view");
 		content_textview.add_css_class ("font-bold");
@@ -264,7 +265,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
 			transition_duration = 115,
 			reveal_child = false,
-			child = content_textview
+			child = content_textview.get_widget ()
 		};
 
 		hide_loading_button = new Widgets.LoadingButton.with_icon ("go-up-symbolic", 16) {

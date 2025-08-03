@@ -21,7 +21,7 @@
 
 public class Widgets.Entry : Gtk.Entry {
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
-    
+
     construct {
         signal_map[realize.connect (() => {
             if (has_focus) {
@@ -65,6 +65,18 @@ public class Widgets.Entry : Gtk.Entry {
 public class Widgets.TextView : Gtk.TextView {
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
+    private Gtk.Label placeholder_label;
+    private Gtk.Overlay overlay;
+
+    public string placeholder_text {
+        get {
+            return placeholder_label.label;
+        }
+
+        set {
+            placeholder_label.label = value;
+        }
+    }
 
     public signal void enter ();
     public signal void leave ();
@@ -72,10 +84,20 @@ public class Widgets.TextView : Gtk.TextView {
     public bool event_focus { get; set; default = true; }
 
     construct {
+        overlay = new Gtk.Overlay ();
+        overlay.child = this;
+
+        placeholder_label = new Gtk.Label ("") {
+            halign = Gtk.Align.START,
+            valign = Gtk.Align.START,
+            sensitive = false
+        };
+
+        overlay.add_overlay (placeholder_label);
+
         signal_map[realize.connect (() => {
-            if (has_focus) {
-                handle_focus_in ();
-            }
+            if (has_focus)handle_focus_in ();
+            update_placeholder_visibility ();
         })] = this;
 
         signal_map[notify["has-focus"].connect (() => {
@@ -84,20 +106,32 @@ public class Widgets.TextView : Gtk.TextView {
             } else {
                 update_on_leave ();
             }
+            update_placeholder_visibility ();
         })] = this;
 
         var gesture = new Gtk.EventControllerFocus ();
         add_controller (gesture);
 
         signal_map[gesture.enter.connect (handle_focus_in)] = gesture;
-        signal_map[gesture.leave.connect (update_on_leave)] = gesture;
-        signal_map[buffer.changed.connect (handle_focus_in)] = buffer;
+        signal_map[gesture.leave.connect (() => {
+            update_on_leave ();
+            update_placeholder_visibility ();
+        })] = gesture;
+
+        signal_map[buffer.changed.connect (update_placeholder_visibility)] = buffer;
+
+        signal_map[notify["left-margin"].connect_after (() => {
+            placeholder_label.margin_start = left_margin;
+        })] = this;
+
+        signal_map[notify["top-margin"].connect_after (() => {
+            placeholder_label.margin_top = top_margin;
+        })] = this;
 
         destroy.connect (() => {
             foreach (var entry in signal_map.entries) {
                 entry.value.disconnect (entry.key);
             }
-
             signal_map.clear ();
         });
     }
@@ -117,13 +151,32 @@ public class Widgets.TextView : Gtk.TextView {
 
         leave ();
     }
+
+    private void update_placeholder_visibility () {
+        placeholder_label.visible = buffer.text.strip () == "";
+    }
+
+    public Gtk.Widget get_widget () {
+        return overlay;
+    }
 }
 
 public class Widgets.HyperTextView : Granite.HyperTextView {
-    public string placeholder_text { get; construct; }
+    private Gtk.Label placeholder_label;
+    private Gtk.Overlay overlay;
 
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
     private uint changed_timeout_id { get; set; default = 0; }
+
+    public string placeholder_text {
+        get {
+            return placeholder_label.label;
+        }
+
+        set {
+            placeholder_label.label = value;
+        }
+    }
 
     public signal void changed ();
     public signal void enter ();
@@ -131,39 +184,58 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
 
     public bool is_valid {
         get {
-            return buffer_get_text () != "";
+            return get_text () != "";
         }
     }
 
     public bool event_focus { get; set; default = true; }
 
-    public HyperTextView (string placeholder_text) {
-        Object (
-            placeholder_text: placeholder_text
-        );
-    }
-
     construct {
-        signal_map[buffer.changed.connect (changed_timeout)] = buffer;
+        overlay = new Gtk.Overlay ();
+        overlay.child = this;
+
+        placeholder_label = new Gtk.Label ("") {
+            halign = Gtk.Align.START,
+            valign = Gtk.Align.START,
+            sensitive = false
+        };
+
+        overlay.add_overlay (placeholder_label);
+
+        signal_map[buffer.changed.connect (() => {
+            changed_timeout ();
+            update_placeholder_visibility ();
+        })] = buffer;
 
         var gesture = new Gtk.EventControllerFocus ();
         add_controller (gesture);
 
-        signal_map[gesture.enter.connect (handle_focus_in)] = gesture;
-        signal_map[gesture.leave.connect (update_on_leave)] = gesture;
+        signal_map[gesture.enter.connect (() => {
+            handle_focus_in ();
+            update_placeholder_visibility ();
+        })] = gesture;
 
-        if (buffer_get_text () == "") {
-            buffer.text = placeholder_text;
-            opacity = 0.7;
-        }
+        signal_map[gesture.leave.connect (() => {
+            update_on_leave ();
+            update_placeholder_visibility ();
+        })] = gesture;
+
+        signal_map[notify["left-margin"].connect_after (() => {
+            placeholder_label.margin_start = left_margin;
+        })] = this;
+
+        signal_map[notify["top-margin"].connect_after (() => {
+            placeholder_label.margin_top = top_margin;
+        })] = this;
 
         destroy.connect (() => {
             foreach (var entry in signal_map.entries) {
                 entry.value.disconnect (entry.key);
             }
-
             signal_map.clear ();
         });
+
+        update_placeholder_visibility ();
     }
 
     private void handle_focus_in () {
@@ -172,11 +244,6 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
         }
 
         enter ();
-
-        if (buffer_get_text () == placeholder_text) {
-            buffer.text = "";
-            opacity = 1;
-        }
     }
 
     public void update_on_leave () {
@@ -185,11 +252,6 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
         }
 
         leave ();
-
-        if (buffer_get_text () == "") {
-            buffer.text = placeholder_text;
-            opacity = 0.7;
-        }
     }
 
     private string buffer_get_text () {
@@ -202,18 +264,17 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
         return buffer.get_text (start, end, true);
     }
 
+    private void update_placeholder_visibility () {
+        placeholder_label.visible = buffer_get_text ().strip () == "" && !has_focus;
+    }
+
     public void set_text (string text) {
         buffer.text = text;
-        if (buffer_get_text () == "") {
-            buffer.text = placeholder_text;
-            opacity = 0.7;
-        } else {
-            opacity = 1;
-        }
+        update_placeholder_visibility ();
     }
 
     public string get_text () {
-        return buffer_get_text () == placeholder_text ? "" : buffer_get_text ();
+        return buffer_get_text ().strip ();
     }
 
     private void changed_timeout () {
@@ -230,4 +291,9 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
             return GLib.Source.REMOVE;
         });
     }
+
+    public Gtk.Widget get_widget () {
+        return overlay;
+    }
 }
+

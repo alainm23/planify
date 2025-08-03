@@ -92,7 +92,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         content_entry = new Gtk.Entry () {
             hexpand = true,
             placeholder_text = _("To-do name"),
-            css_classes = { "flat", "font-bold" }
+			has_frame = false
         };
 
         var info_icon = new Gtk.Image.from_icon_name ("info-outline-symbolic") {
@@ -117,14 +117,15 @@ public class Layouts.QuickAdd : Adw.Bin {
         content_box.append (content_entry);
         content_box.append (info_revealer);
 
-        description_textview = new Widgets.HyperTextView (_("Add a description…")) {
+        description_textview = new Widgets.HyperTextView () {
             left_margin = 14,
             right_margin = 6,
             top_margin = 12,
             wrap_mode = Gtk.WrapMode.WORD_CHAR,
             hexpand = true,
             event_focus = false,
-            accepts_tab = false
+            accepts_tab = false,
+			placeholder_text = _("Add a description…")
         };
 
         description_textview.remove_css_class ("view");
@@ -133,7 +134,7 @@ public class Layouts.QuickAdd : Adw.Bin {
             hscrollbar_policy = NEVER,
             height_request = 84,
             propagate_natural_height = true,
-            child = description_textview
+            child = description_textview.get_widget ()
         };
 
         item_labels = new Widgets.ItemLabels (item) {
