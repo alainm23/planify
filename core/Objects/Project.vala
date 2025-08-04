@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Objects.Project : Objects.BaseObject {
     public string parent_id { get; set; default = ""; }
@@ -57,7 +57,7 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    Objects.Source? _source;
+    Objects.Source ? _source;
     public Objects.Source source {
         get {
             _source = Services.Store.instance ().get_source (source_id);
@@ -84,13 +84,13 @@ public class Objects.Project : Objects.BaseObject {
             sort_order_changed ();
         }
     }
-    
+
     public int child_order { get; set; default = 0; }
-    
+
     string _view_id;
     public string view_id {
         get {
-            _view_id ="project-%s".printf (id_string);
+            _view_id = "project-%s".printf (id_string);
             return _view_id;
         }
     }
@@ -140,10 +140,11 @@ public class Objects.Project : Objects.BaseObject {
             _items.sort ((a, b) => {
                 if (a.child_order > b.child_order) {
                     return 1;
-                } if (a.child_order == b.child_order) {
+                }
+                if (a.child_order == b.child_order) {
                     return 0;
                 }
-                
+
                 return -1;
             });
 
@@ -183,7 +184,7 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    Objects.Project? _parent;
+    Objects.Project ? _parent;
     public Objects.Project parent {
         get {
             _parent = Services.Store.instance ().get_project (parent_id);
@@ -199,7 +200,7 @@ public class Objects.Project : Objects.BaseObject {
     public signal void section_sort_order_changed ();
     public signal void view_style_changed ();
 
-    int? _project_count = null;
+    int ? _project_count = null;
     public int project_count {
         get {
             if (_project_count == null) {
@@ -214,17 +215,17 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    double? _percentage = null;
+    double ? _percentage = null;
     public double percentage {
         get {
             if (_percentage == null) {
                 _percentage = update_percentage ();
             }
-            
+
             return _percentage;
         }
     }
-    
+
     private bool _show_multi_select = false;
     public bool show_multi_select {
         set {
@@ -381,23 +382,23 @@ public class Objects.Project : Objects.BaseObject {
         if (!node.get_object ().get_null_member ("color")) {
             color = node.get_object ().get_string_member ("color");
         }
-        
+
         if (!node.get_object ().get_null_member ("is_deleted")) {
             is_deleted = node.get_object ().get_boolean_member ("is_deleted");
         }
-        
+
         if (!node.get_object ().get_null_member ("is_archived")) {
             is_archived = node.get_object ().get_boolean_member ("is_archived");
         }
-        
+
         if (!node.get_object ().get_null_member ("is_favorite")) {
             is_favorite = node.get_object ().get_boolean_member ("is_favorite");
         }
-        
+
         if (!node.get_object ().get_null_member ("child_order")) {
             child_order = (int32) node.get_object ().get_int_member ("child_order");
         }
-        
+
         if (!node.get_object ().get_null_member ("parent_id")) {
             parent_id = node.get_object ().get_string_member ("parent_id");
         } else {
@@ -415,7 +416,7 @@ public class Objects.Project : Objects.BaseObject {
         shared = node.get_object ().get_boolean_member ("shared");
 
         view_style = node.get_object ().get_string_member ("view_style") == "board" ?
-            ProjectViewStyle.BOARD : ProjectViewStyle.LIST;
+                     ProjectViewStyle.BOARD : ProjectViewStyle.LIST;
     }
 
     public void update_from_google_tasklist_json (Json.Node node) {
@@ -467,8 +468,8 @@ public class Objects.Project : Objects.BaseObject {
         });
     }
 
-    public Objects.Project? add_subproject_if_not_exists (Objects.Project new_project) {
-        Objects.Project? return_value = null;
+    public Objects.Project ? add_subproject_if_not_exists (Objects.Project new_project) {
+        Objects.Project ? return_value = null;
         lock (subprojects) {
             return_value = get_subproject (new_project.id);
             if (return_value == null) {
@@ -480,8 +481,8 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    public Objects.Project? get_subproject (string id) {
-        Objects.Project? return_value = null;
+    public Objects.Project ? get_subproject (string id) {
+        Objects.Project ? return_value = null;
         lock (_subprojects) {
             foreach (var project in subprojects) {
                 if (project.id == id) {
@@ -498,7 +499,7 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public Objects.Section add_section_if_not_exists (Objects.Section new_section) {
-        Objects.Section? return_value = null;
+        Objects.Section ? return_value = null;
         lock (_sections) {
             return_value = get_section (new_section.id);
             if (return_value == null) {
@@ -512,8 +513,8 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    public Objects.Section? get_section (string id) {
-        Objects.Section? return_value = null;
+    public Objects.Section ? get_section (string id) {
+        Objects.Section ? return_value = null;
         lock (_sections) {
             foreach (var section in sections) {
                 if (section.id == id) {
@@ -532,8 +533,8 @@ public class Objects.Project : Objects.BaseObject {
         });
     }
 
-    public Objects.Item add_item_if_not_exists (Objects.Item new_item, bool insert=true) {
-        Objects.Item? return_value = null;
+    public Objects.Item add_item_if_not_exists (Objects.Item new_item, bool insert = true) {
+        Objects.Item ? return_value = null;
         lock (_items) {
             return_value = get_item (new_item.id);
             if (return_value == null) {
@@ -551,8 +552,8 @@ public class Objects.Project : Objects.BaseObject {
         item_added (item);
     }
 
-    public Objects.Item? get_item (string id) {
-        Objects.Item? return_value = null;
+    public Objects.Item ? get_item (string id) {
+        Objects.Item ? return_value = null;
         lock (_items) {
             foreach (var item in items) {
                 if (item.id == id) {
@@ -568,56 +569,56 @@ public class Objects.Project : Objects.BaseObject {
         return get_update_json (uuid, temp_id);
     }
 
-    public override string get_update_json (string uuid, string? temp_id = null) {
+    public override string get_update_json (string uuid, string ? temp_id = null) {
         var builder = new Json.Builder ();
         builder.begin_object ();
-            builder.set_member_name ("commands");
-            builder.begin_array ();
-                builder.begin_object ();
+        builder.set_member_name ("commands");
+        builder.begin_array ();
+        builder.begin_object ();
 
-                // Set type
-                builder.set_member_name ("type");
-                builder.add_string_value (temp_id == null ? "project_update" : "project_add");
+        // Set type
+        builder.set_member_name ("type");
+        builder.add_string_value (temp_id == null ? "project_update" : "project_add");
 
-                builder.set_member_name ("uuid");
-                builder.add_string_value (uuid);
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
 
-                if (temp_id != null) {
-                    builder.set_member_name ("temp_id");
-                    builder.add_string_value (temp_id);
-                }
+        if (temp_id != null) {
+            builder.set_member_name ("temp_id");
+            builder.add_string_value (temp_id);
+        }
 
-                builder.set_member_name ("args");
-                    builder.begin_object ();
+        builder.set_member_name ("args");
+        builder.begin_object ();
 
-                    if (temp_id == null) {
-                        builder.set_member_name ("id");
-                        builder.add_string_value (id);
-                    }
+        if (temp_id == null) {
+            builder.set_member_name ("id");
+            builder.add_string_value (id);
+        }
 
-                    builder.set_member_name ("name");
-                    builder.add_string_value (name);
+        builder.set_member_name ("name");
+        builder.add_string_value (name);
 
-                    builder.set_member_name ("color");
-                    builder.add_string_value (color);
+        builder.set_member_name ("color");
+        builder.add_string_value (color);
 
-                    builder.set_member_name ("collapsed");
-                    builder.add_boolean_value (collapsed);
+        builder.set_member_name ("collapsed");
+        builder.add_boolean_value (collapsed);
 
-                    builder.set_member_name ("is_favorite");
-                    builder.add_boolean_value (is_favorite);
+        builder.set_member_name ("is_favorite");
+        builder.add_boolean_value (is_favorite);
 
-                    if (parent_id != "") {
-                        builder.set_member_name ("parent_id");
-                        builder.add_string_value (parent_id);
-                    } else {
-                        builder.set_member_name ("parent_id");
-                        builder.add_null_value ();
-                    }
+        if (parent_id != "") {
+            builder.set_member_name ("parent_id");
+            builder.add_string_value (parent_id);
+        } else {
+            builder.set_member_name ("parent_id");
+            builder.add_null_value ();
+        }
 
-                    builder.end_object ();
-                builder.end_object ();
-            builder.end_array ();
+        builder.end_object ();
+        builder.end_object ();
+        builder.end_array ();
         builder.end_object ();
 
         Json.Generator generator = new Json.Generator ();
@@ -626,11 +627,10 @@ public class Objects.Project : Objects.BaseObject {
         return generator.to_data (null);
     }
 
-
     public override string to_json () {
         var builder = new Json.Builder ();
         builder.begin_object ();
-        
+
         builder.set_member_name ("id");
         builder.add_string_value (id);
 
@@ -668,31 +668,31 @@ public class Objects.Project : Objects.BaseObject {
         builder.add_string_value (uuid);
 
         builder.set_member_name ("args");
-            builder.begin_object ();
-            
-            builder.set_member_name ("id");
-            builder.add_string_value (id);
+        builder.begin_object ();
 
-            if (new_parent_id != "") {
-                builder.set_member_name ("parent_id");
-                builder.add_string_value (new_parent_id);    
-            } else {
-                builder.set_member_name ("parent_id");
-                builder.add_null_value ();
-            }
+        builder.set_member_name ("id");
+        builder.add_string_value (id);
 
-            builder.end_object ();
+        if (new_parent_id != "") {
+            builder.set_member_name ("parent_id");
+            builder.add_string_value (new_parent_id);
+        } else {
+            builder.set_member_name ("parent_id");
+            builder.add_null_value ();
+        }
+
+        builder.end_object ();
         builder.end_object ();
         builder.end_array ();
 
         Json.Generator generator = new Json.Generator ();
         Json.Node root = builder.get_root ();
         generator.set_root (root);
-        
-        return generator.to_data (null); 
+
+        return generator.to_data (null);
     }
 
-    public string to_string () {       
+    public string to_string () {
         return """
         _________________________________
             ID: %s
@@ -745,7 +745,7 @@ public class Objects.Project : Objects.BaseObject {
         }
         return returned;
     }
-    
+
     public double update_percentage () {
         int items_total = 0;
         int items_checked = 0;
@@ -835,7 +835,7 @@ public class Objects.Project : Objects.BaseObject {
                     Services.CalDAV.Core.get_default ().delete_tasklist.begin (this, (obj, res) => {
                         HttpResponse response = Services.CalDAV.Core.get_default ().delete_tasklist.end (res);
                         loading = false;
-                        
+
                         if (response.status) {
                             Services.Store.instance ().delete_project (this);
                         } else {

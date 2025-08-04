@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Views.Board : Adw.Bin {
     public Objects.Project project { get; construct; }
@@ -31,7 +31,7 @@ public class Views.Board : Adw.Bin {
     private Gtk.FlowBox flowbox;
     private Widgets.PinnedItemsFlowBox pinned_items_flowbox;
 
-    public Gee.HashMap <string, Layouts.SectionBoard> sections_map = new Gee.HashMap <string, Layouts.SectionBoard> ();
+    public Gee.HashMap<string, Layouts.SectionBoard> sections_map = new Gee.HashMap<string, Layouts.SectionBoard> ();
     private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public Board (Objects.Project project) {
@@ -67,7 +67,7 @@ public class Views.Board : Adw.Bin {
         filters.flowbox.margin_bottom = 3;
 
         pinned_items_flowbox = new Widgets.PinnedItemsFlowBox (project);
-        
+
         flowbox = new Gtk.FlowBox () {
             vexpand = true,
             max_children_per_line = 1,
@@ -88,9 +88,9 @@ public class Views.Board : Adw.Bin {
         flowbox_scrolled.margin = 100;
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-			hexpand = true,
-			vexpand = true
-		};
+            hexpand = true,
+            vexpand = true
+        };
 
         if (!project.is_inbox_project) {
             content_box.append (description_widget);
@@ -99,7 +99,7 @@ public class Views.Board : Adw.Bin {
 
         content_box.append (filters);
         content_box.append (pinned_items_flowbox);
-		content_box.append (flowbox_scrolled);
+        content_box.append (flowbox_scrolled);
 
         child = content_box;
         update_request ();
@@ -116,19 +116,19 @@ public class Views.Board : Adw.Bin {
 
         signals_map[Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
             if (project.id == old_project_id && sections_map.has_key (section.id)) {
-                    sections_map [section.id].hide_destroy ();
-                    sections_map.unset (section.id);
+                sections_map[section.id].hide_destroy ();
+                sections_map.unset (section.id);
             }
 
             if (project.id == section.project_id &&
                 !sections_map.has_key (section.id)) {
-                    add_section (section);
+                add_section (section);
             }
         })] = Services.Store.instance ();
 
         signals_map[Services.Store.instance ().section_deleted.connect ((section) => {
             if (sections_map.has_key (section.id)) {
-                sections_map [section.id].hide_destroy ();
+                sections_map[section.id].hide_destroy ();
                 sections_map.unset (section.id);
             }
         })] = Services.Store.instance ();
@@ -157,7 +157,7 @@ public class Views.Board : Adw.Bin {
 
             return !item.section.hidded;
         });
-        
+
         signals_map[description_widget.changed.connect (() => {
             project.description = description_widget.text;
             project.update_local ();
@@ -165,7 +165,7 @@ public class Views.Board : Adw.Bin {
 
         signals_map[Services.Store.instance ().section_archived.connect ((section) => {
             if (sections_map.has_key (section.id)) {
-                sections_map [section.id].hide_destroy ();
+                sections_map[section.id].hide_destroy ();
                 sections_map.unset (section.id);
             }
         })] = Services.Store.instance ();
@@ -176,7 +176,7 @@ public class Views.Board : Adw.Bin {
             }
         })] = Services.Store.instance ();
     }
-    
+
     public void update_request () {
         update_duedate ();
     }
@@ -206,13 +206,13 @@ public class Views.Board : Adw.Bin {
 
     private void update_duedate () {
         due_image.icon_name = "month-symbolic";
-        due_image.css_classes = { };
-        due_label.css_classes = { };
+        due_image.css_classes = {};
+        due_label.css_classes = {};
         due_revealer.reveal_child = false;
 
         if (project.due_date != "") {
             var datetime = Utils.Datetime.get_date_from_string (project.due_date);
-            
+
             due_label.label = Utils.Datetime.get_relative_date_from_date (datetime);
             days_left_label.label = Utils.Datetime.days_left (datetime);
 
@@ -226,8 +226,8 @@ public class Views.Board : Adw.Bin {
                 due_label.add_css_class ("overdue-color");
             } else {
                 due_image.icon_name = "month-symbolic";
-                due_image.css_classes = { };
-                due_label.css_classes = { };
+                due_image.css_classes = {};
+                due_label.css_classes = {};
             }
 
             due_revealer.reveal_child = true;
@@ -235,7 +235,7 @@ public class Views.Board : Adw.Bin {
     }
 
     private Gtk.Revealer build_due_date_widget () {
-        due_image = new Gtk.Image.from_icon_name ("month-symbolic");   
+        due_image = new Gtk.Image.from_icon_name ("month-symbolic");
 
         due_label = new Gtk.Label (_("Schedule")) {
             xalign = 0,
@@ -244,7 +244,7 @@ public class Views.Board : Adw.Bin {
 
         days_left_label = new Gtk.Label (null) {
             xalign = 0,
-            //  yalign = 0.7,
+            // yalign = 0.7,
             css_classes = { "dim-label", "caption" }
         };
         days_left_label.yalign = float.parse ("0.7");
@@ -289,7 +289,7 @@ public class Views.Board : Adw.Bin {
                 } else {
                     project.due_date = dialog.datetime.to_string ();
                 }
-                
+
                 project.update_local ();
             });
         });
@@ -301,7 +301,7 @@ public class Views.Board : Adw.Bin {
         flowbox.set_sort_func (null);
         flowbox.set_filter_func (null);
 
-        foreach (unowned Gtk.Widget child in Util.get_default ().get_flowbox_children (flowbox) ) {
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_flowbox_children (flowbox)) {
             ((Layouts.SectionBoard) child).hide_destroy ();
         }
 
@@ -309,7 +309,7 @@ public class Views.Board : Adw.Bin {
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);
         }
-        
+
         signals_map.clear ();
     }
 

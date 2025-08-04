@@ -19,8 +19,8 @@
  * Authored by: Corentin Noël <corentin@elementaryos.org>
  */
 
- namespace CalendarEventsUtil {
-    public GLib.DateTime get_start_of_month (owned GLib.DateTime? date = null) {
+namespace CalendarEventsUtil {
+    public GLib.DateTime get_start_of_month (owned GLib.DateTime ? date = null) {
         if (date == null) {
             date = new GLib.DateTime.now_local ();
         }
@@ -41,7 +41,7 @@
             return new GLib.TimeZone.local ();
         }
 
-        unowned string? tzid = date.get_tzid ();
+        unowned string ? tzid = date.get_tzid ();
         if (tzid == null) {
             // In libical, null tzid means floating time // vala-lint=note
             assert (date.get_timezone () == null);
@@ -68,8 +68,7 @@
             // TZID does not have libical prefix, potentially indicating an Olson
             // standard city name.
             return new GLib.TimeZone.identifier (tzid);
-        }
-        catch (Error e) {
+        } catch (Error e) {
             debug ("Failed to parse Timezone: %s. Using UTC", e.message);
             return new GLib.TimeZone.utc ();
         }
@@ -84,7 +83,7 @@
         date.get_date (out year, out month, out day);
         date.get_time (out hour, out minute, out second);
         return new GLib.DateTime (timezone_from_ical (date), year, month,
-            day, hour, minute, second);
+                                  day, hour, minute, second);
     }
 
     /**
@@ -106,7 +105,7 @@
 
     /* Computes hash value for E.Source */
     public uint source_hash_func (E.Source key) {
-        return key.dup_uid (). hash ();
+        return key.dup_uid ().hash ();
     }
 
     /* Returns true if 'a' and 'b' are the same ECal.Component */
@@ -114,7 +113,7 @@
         return a.get_id ().equal (b.get_id ());
     }
 
-    public int calcomponent_compare_func (ECal.Component? a, ECal.Component? b) {
+    public int calcomponent_compare_func (ECal.Component ? a, ECal.Component ? b) {
         if (a == null && b != null) {
             return 1;
         } else if (b == null && a != null) {
@@ -142,10 +141,10 @@
         var selected_date_unix_next = stripped_time.add_days (1).to_unix ();
 
         /* We want to be relative to the local timezone */
-        unowned ICal.Component? icomp = comp.get_icalcomponent ();
-        ICal.Time? start_time = icomp.get_dtstart ();
-        ICal.Time? due_time = icomp.get_due ();
-        ICal.Time? end_time = icomp.get_dtend ();
+        unowned ICal.Component ? icomp = comp.get_icalcomponent ();
+        ICal.Time ? start_time = icomp.get_dtstart ();
+        ICal.Time ? due_time = icomp.get_due ();
+        ICal.Time ? end_time = icomp.get_dtend ();
 
         if (due_time != null && !due_time.is_null_time ()) {
             // vala-lint=note
@@ -188,10 +187,10 @@
 
     public bool calcomp_is_on_month (ECal.Component comp, GLib.DateTime date) {
         /* We want to be relative to the local timezone */
-        unowned ICal.Component? icomp = comp.get_icalcomponent ();
-        ICal.Time? start_time = icomp.get_dtstart ();
-        ICal.Time? due_time = icomp.get_due ();
-        ICal.Time? end_time = icomp.get_dtend ();
+        unowned ICal.Component ? icomp = comp.get_icalcomponent ();
+        ICal.Time ? start_time = icomp.get_dtstart ();
+        ICal.Time ? due_time = icomp.get_due ();
+        ICal.Time ? end_time = icomp.get_dtend ();
 
         if (due_time != null && !due_time.is_null_time ()) {
             // vala-lint=note
@@ -229,7 +228,7 @@
             }
 
             if (parent_source.has_extension (E.SOURCE_EXTENSION_COLLECTION)) {
-                var collection = (E.SourceCollection)parent_source.get_extension (E.SOURCE_EXTENSION_COLLECTION);
+                var collection = (E.SourceCollection) parent_source.get_extension (E.SOURCE_EXTENSION_COLLECTION);
                 if (collection.identity != null) {
                     return collection.identity;
                 }

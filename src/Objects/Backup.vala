@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Objects.Backup : Object {
     public string version { get; set; default = ""; }
@@ -76,10 +76,10 @@ public class Objects.Backup : Object {
             path = file.get_path ();
 
             var node = parser.get_root ().get_object ();
-            
+
             version = node.get_string_member ("version");
             date = node.get_string_member ("date");
-    
+
             // Set Settings
             var settings = node.get_object_member ("settings");
             local_inbox_project_id = settings.get_string_member ("local-inbox-project-id");
@@ -144,7 +144,7 @@ public class Objects.Backup : Object {
             foreach (unowned Json.Node item in _labels.get_elements ()) {
                 labels.add (new Objects.Label.from_import_json (item));
             }
-                
+
             // Projects
             projects.clear ();
             unowned Json.Array _projects = node.get_array_member ("projects");
@@ -159,14 +159,14 @@ public class Objects.Backup : Object {
                     projects.add (_project);
                 }
             }
-                
+
             // Sections
             sections.clear ();
             unowned Json.Array _sections = node.get_array_member ("sections");
             foreach (unowned Json.Node item in _sections.get_elements ()) {
                 sections.add (new Objects.Section.from_import_json (item));
             }
-                
+
             // Items
             items.clear ();
             unowned Json.Array _items = node.get_array_member ("items");

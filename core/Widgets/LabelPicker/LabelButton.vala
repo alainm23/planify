@@ -20,139 +20,139 @@
  */
 
 public class Widgets.LabelPicker.LabelButton : Adw.Bin {
-	public bool is_board { get; construct; }
+    public bool is_board { get; construct; }
 
-	private Gtk.MenuButton button;
-	private Widgets.LabelPicker.LabelPicker labels_picker;
-	private Gtk.Label labels_label;
+    private Gtk.MenuButton button;
+    private Widgets.LabelPicker.LabelPicker labels_picker;
+    private Gtk.Label labels_label;
 
-	public Gee.ArrayList<Objects.Label> labels {
-		set {
-			labels_picker.labels = value;
-		}
-	}
+    public Gee.ArrayList<Objects.Label> labels {
+        set {
+            labels_picker.labels = value;
+        }
+    }
 
-	Objects.Source _source;
-	public Objects.Source source {
-		set {
-			_source = value;
-			labels_picker.source = _source;
-		}
+    Objects.Source _source;
+    public Objects.Source source {
+        set {
+            _source = value;
+            labels_picker.source = _source;
+        }
 
-		get {
-			return _source;
-		}
-	}
+        get {
+            return _source;
+        }
+    }
 
-	public signal void labels_changed (Gee.HashMap<string, Objects.Label> labels);
-	public signal void picker_opened (bool active);
+    public signal void labels_changed (Gee.HashMap<string, Objects.Label> labels);
+    public signal void picker_opened (bool active);
 
-	public LabelButton () {
-		Object (
-			is_board: false,
-			valign: Gtk.Align.CENTER,
-			halign: Gtk.Align.CENTER,
-			tooltip_text: _("Add Labels")
-			);
-	}
+    public LabelButton () {
+        Object (
+            is_board: false,
+            valign: Gtk.Align.CENTER,
+            halign: Gtk.Align.CENTER,
+            tooltip_text: _("Add Labels")
+        );
+    }
 
-	public LabelButton.for_board () {
-		Object (
-			is_board: true,
-			tooltip_text: _("Add Labels")
-			);
-	}
+    public LabelButton.for_board () {
+        Object (
+            is_board: true,
+            tooltip_text: _("Add Labels")
+        );
+    }
 
-	~LabelButton () {
-		print ("Destroying Widgets.LabelPicker.LabelButton\n");
-	}
+    ~LabelButton () {
+        print ("Destroying Widgets.LabelPicker.LabelButton\n");
+    }
 
-	construct {
-		labels_picker = new Widgets.LabelPicker.LabelPicker ();
+    construct {
+        labels_picker = new Widgets.LabelPicker.LabelPicker ();
 
-		if (is_board) {
-			var title_label = new Gtk.Label (_("Labels")) {
-				halign = START,
-				css_classes = { "title-4", "caption" }
-			};
+        if (is_board) {
+            var title_label = new Gtk.Label (_("Labels")) {
+                halign = START,
+                css_classes = { "title-4", "caption" }
+            };
 
-			labels_label = new Gtk.Label (_("Select Labels")) {
-				xalign = 0,
-				use_markup = true,
-				halign = START,
-				ellipsize = Pango.EllipsizeMode.END,
-				css_classes = { "caption" }
-			};
+            labels_label = new Gtk.Label (_("Select Labels")) {
+                xalign = 0,
+                use_markup = true,
+                halign = START,
+                ellipsize = Pango.EllipsizeMode.END,
+                css_classes = { "caption" }
+            };
 
-			var card_grid = new Gtk.Grid () {
-				column_spacing = 12,
-				margin_start = 12,
-				margin_end = 6,
-				margin_top = 6,
-				margin_bottom = 6,
-				vexpand = true,
-				hexpand = true
-			};
-			card_grid.attach (new Gtk.Image.from_icon_name ("tag-outline-symbolic"), 0, 0, 1, 2);
-			card_grid.attach (title_label, 1, 0, 1, 1);
-			card_grid.attach (labels_label, 1, 1, 1, 1);
+            var card_grid = new Gtk.Grid () {
+                column_spacing = 12,
+                margin_start = 12,
+                margin_end = 6,
+                margin_top = 6,
+                margin_bottom = 6,
+                vexpand = true,
+                hexpand = true
+            };
+            card_grid.attach (new Gtk.Image.from_icon_name ("tag-outline-symbolic"), 0, 0, 1, 2);
+            card_grid.attach (title_label, 1, 0, 1, 1);
+            card_grid.attach (labels_label, 1, 1, 1, 1);
 
-			button = new Gtk.MenuButton () {
-				popover = labels_picker,
-				child = card_grid,
-				css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
-				hexpand = true
-			};
+            button = new Gtk.MenuButton () {
+                popover = labels_picker,
+                child = card_grid,
+                css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
+                hexpand = true
+            };
 
-			child = button;
-		} else {
-			button = new Gtk.MenuButton () {
-				icon_name = "tag-outline-symbolic",
-				popover = labels_picker,
-				css_classes = { "flat" }
-			};
+            child = button;
+        } else {
+            button = new Gtk.MenuButton () {
+                icon_name = "tag-outline-symbolic",
+                popover = labels_picker,
+                css_classes = { "flat" }
+            };
 
-			child = button;
-		}
+            child = button;
+        }
 
-		labels_picker.closed.connect (() => {
-			labels_changed (labels_picker.picked);
-			picker_opened (false);
-		});
+        labels_picker.closed.connect (() => {
+            labels_changed (labels_picker.picked);
+            picker_opened (false);
+        });
 
-		labels_picker.show.connect (() => {
+        labels_picker.show.connect (() => {
             labels_picker.search_visible = true;
-			picker_opened (true);
-		});
-	}
+            picker_opened (true);
+        });
+    }
 
-	public void reset () {
-		labels_picker.reset ();
-	}
+    public void reset () {
+        labels_picker.reset ();
+    }
 
-	public void update_from_item (Objects.Item item) {
-		labels_label.label = _("Select Labels");
-		labels_label.tooltip_text = null;
+    public void update_from_item (Objects.Item item) {
+        labels_label.label = _("Select Labels");
+        labels_label.tooltip_text = null;
 
-		if (item.labels.size > 0) {
-			labels_label.label = "";
-			for (int index = 0; index < item.labels.size; index++) {
-				if (index < item.labels.size - 1) {
-					labels_label.label += item.labels[index].name + ", ";
-				} else {
-					labels_label.label += item.labels[index].name;
-				}
-			}
+        if (item.labels.size > 0) {
+            labels_label.label = "";
+            for (int index = 0; index < item.labels.size; index++) {
+                if (index < item.labels.size - 1) {
+                    labels_label.label += item.labels[index].name + ", ";
+                } else {
+                    labels_label.label += item.labels[index].name;
+                }
+            }
 
-			labels_label.tooltip_text = labels_label.label;
-		}
-	}
+            labels_label.tooltip_text = labels_label.label;
+        }
+    }
 
-	public void open_picker () {
-		button.active = true;
-		Timeout.add (100, () => {
-			labels_picker.search_visible = false;
-			return GLib.Source.REMOVE;
-		});
-	}
+    public void open_picker () {
+        button.active = true;
+        Timeout.add (100, () => {
+            labels_picker.search_visible = false;
+            return GLib.Source.REMOVE;
+        });
+    }
 }

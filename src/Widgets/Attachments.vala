@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 public class Widgets.Attachments : Adw.Bin {
     public bool is_board { get; construct; }
     public Objects.Item item { get; set; }
@@ -38,7 +38,7 @@ public class Widgets.Attachments : Adw.Bin {
         }
     }
 
-    public Gee.HashMap <string, Widgets.AttachmentRow> attachments_map = new Gee.HashMap <string, Widgets.AttachmentRow> ();
+    public Gee.HashMap<string, Widgets.AttachmentRow> attachments_map = new Gee.HashMap<string, Widgets.AttachmentRow> ();
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public signal void update_count (int count);
@@ -56,10 +56,10 @@ public class Widgets.Attachments : Adw.Bin {
         };
 
         count_label = new Gtk.Label (null) {
-			margin_start = 9,
-			halign = Gtk.Align.CENTER,
-			css_classes = { "dim-label", "caption" }
-		};
+            margin_start = 9,
+            halign = Gtk.Align.CENTER,
+            css_classes = { "dim-label", "caption" }
+        };
 
         add_button = new Widgets.LoadingButton.with_icon ("plus-large-symbolic", 16) {
             css_classes = { "flat" },
@@ -114,60 +114,60 @@ public class Widgets.Attachments : Adw.Bin {
     }
 
     private bool on_drag_drop (Value val, double x, double y) {
-		var file_list = val as Gdk.FileList;
-		if (file_list == null) return false;
+        var file_list = val as Gdk.FileList;
+        if (file_list == null)return false;
 
-		var files = file_list.get_files ();
-		if (files.length () == 0) return false;
+        var files = file_list.get_files ();
+        if (files.length () == 0)return false;
 
-		File[] files_to_upload = {};
-		foreach (var file in files) {
-			files_to_upload += file;
-		}
+        File[] files_to_upload = {};
+        foreach (var file in files) {
+            files_to_upload += file;
+        }
 
-		upload_files.begin (files_to_upload, (obj, res) => {
-			upload_files.end (res);
-		});
+        upload_files.begin (files_to_upload, (obj, res) => {
+            upload_files.end (res);
+        });
 
         return true;
     }
-    
+
     void show_file_selector () {
-		var chooser = new Gtk.FileDialog () {
-			// translators: Open file
-			title = _("Open"),
-			modal = true
-		};
+        var chooser = new Gtk.FileDialog () {
+            // translators: Open file
+            title = _("Open"),
+            modal = true
+        };
 
         chooser.open_multiple.begin (Planify._instance.main_window, null, (obj, res) => {
-			try {
-				var files = chooser.open_multiple.end (res);
+            try {
+                var files = chooser.open_multiple.end (res);
 
-				File[] files_to_upload = {};
-				var amount_of_files = files.get_n_items ();
-				for (var i = 0; i < amount_of_files; i++) {
-					var file = files.get_item (i) as File;
+                File[] files_to_upload = {};
+                var amount_of_files = files.get_n_items ();
+                for (var i = 0; i < amount_of_files; i++) {
+                    var file = files.get_item (i) as File;
 
-					if (file != null)
-						files_to_upload += file;
-				}
+                    if (file != null)
+                        files_to_upload += file;
+                }
 
-				upload_files.begin (files_to_upload, (obj, res) => {
-					upload_files.end (res);
-				});
+                upload_files.begin (files_to_upload, (obj, res) => {
+                    upload_files.end (res);
+                });
 
                 file_selector_opened (false);
-			} catch (Error e) {
-				// User dismissing the dialog also ends here so don't make it sound like
-				// it's an error
-				warning (@"Couldn't get the result of FileDialog for AttachmentsPage: $(e.message)");
-			}
-		});
+            } catch (Error e) {
+                // User dismissing the dialog also ends here so don't make it sound like
+                // it's an error
+                warning (@"Couldn't get the result of FileDialog for AttachmentsPage: $(e.message)");
+            }
+        });
     }
 
     private async void upload_files (File[] files) {
         var selected_files_amount = files.length;
-		if (selected_files_amount == 0) return;
+        if (selected_files_amount == 0)return;
 
         Objects.Attachment[] attachments_for_upload = {};
         for (var i = 0; i < selected_files_amount; i++) {
@@ -176,7 +176,7 @@ public class Widgets.Attachments : Adw.Bin {
 
             try {
                 var file_info = file.query_info ("standard::size,standard::content-type", 0);
-				var file_content_type = file_info.get_content_type ();
+                var file_content_type = file_info.get_content_type ();
 
                 if (file_content_type != null) {
                     file_content_type = file_content_type.down ();
@@ -211,7 +211,7 @@ public class Widgets.Attachments : Adw.Bin {
 
         signals_map[item.attachment_deleted.connect ((attachment) => {
             if (attachments_map.has_key (attachment.id)) {
-                attachments_map [attachment.id].hide_destroy ();
+                attachments_map[attachment.id].hide_destroy ();
                 attachments_map.unset (attachment.id);
             }
 
@@ -222,7 +222,7 @@ public class Widgets.Attachments : Adw.Bin {
     public void add_attachments () {
         attachments_map.clear ();
 
-        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
             listbox.remove (child);
         }
 
@@ -251,7 +251,7 @@ public class Widgets.Attachments : Adw.Bin {
             margin_end = 6,
             margin_bottom = 6
         };
-        
+
         var placeholder_grid = new Gtk.Grid () {
             hexpand = true,
             vexpand = true,
@@ -275,7 +275,7 @@ public class Widgets.Attachments : Adw.Bin {
     }
 
     private void update_count_label (int count) {
-		count_label.label = count <= 0 ? "" : count.to_string ();
+        count_label.label = count <= 0 ? "" : count.to_string ();
         update_count (count);
-	}
+    }
 }

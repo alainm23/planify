@@ -19,7 +19,7 @@
  * Authored by: Corentin Noël <corentin@elementaryos.org>
  */
 
- public class CalendarEventsUtil.DateIterator : Object, Gee.Traversable<GLib.DateTime>, Gee.Iterator<GLib.DateTime> {
+public class CalendarEventsUtil.DateIterator : Object, Gee.Traversable<GLib.DateTime>, Gee.Iterator<GLib.DateTime> {
     public GLib.DateTime current { get; construct set; }
     public CalendarEventsUtil.DateRange range { get; construct; }
 

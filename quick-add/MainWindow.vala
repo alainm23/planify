@@ -20,7 +20,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
     construct {
         Services.Database.get_default ().init_database ();
-        
+
         quick_add_widget = new Layouts.QuickAdd (true);
         set_content (quick_add_widget);
 

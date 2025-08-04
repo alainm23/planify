@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
     public Objects.BaseObject base_object { get; construct; }
@@ -120,7 +120,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
                 height_request = 16,
                 width_request = 16
             };
-    
+
             widget_color.add_css_class ("circle-color");
             Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), widget_color);
 
@@ -146,11 +146,11 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
             main_grid.attach (priority_icon, 0, 0);
             main_grid.attach (name_label, 1, 0);
         } else if (base_object is Objects.Filters.Today || base_object is Objects.Filters.Scheduled ||
-            base_object is Objects.Filters.Completed || base_object is Objects.Filters.Tomorrow ||
-            base_object is Objects.Filters.Labels || base_object is Objects.Filters.Scheduled ||
-            base_object is Objects.Filters.Pinboard || base_object is Objects.Filters.Anytime ||
-            base_object is Objects.Filters.Repeating || base_object is Objects.Filters.Unlabeled ||
-            base_object is Objects.Filters.AllItems) {
+                   base_object is Objects.Filters.Completed || base_object is Objects.Filters.Tomorrow ||
+                   base_object is Objects.Filters.Labels || base_object is Objects.Filters.Scheduled ||
+                   base_object is Objects.Filters.Pinboard || base_object is Objects.Filters.Anytime ||
+                   base_object is Objects.Filters.Repeating || base_object is Objects.Filters.Unlabeled ||
+                   base_object is Objects.Filters.AllItems) {
             var filter_icon = new Gtk.Image.from_icon_name (base_object.icon_name) {
                 valign = Gtk.Align.CENTER,
                 pixel_size = 16
@@ -165,7 +165,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
             main_grid.attach (filter_icon, 0, 0);
             main_grid.attach (name_label, 1, 0);
         }
-        
+
         child = main_grid;
     }
 
@@ -187,7 +187,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
             RegexCompileFlags.OPTIMIZE | RegexCompileFlags.CASELESS
         );
 
-        string? highlighted = null;
+        string ? highlighted = null;
         foreach (var matcher in matchers) {
             MatchInfo mi;
             if (matcher.key.match (text, 0, out mi)) {

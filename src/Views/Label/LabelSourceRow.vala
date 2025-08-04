@@ -1,30 +1,30 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Views.LabelSourceRow : Gtk.ListBoxRow {
     public Objects.Source source { get; construct; }
-    
+
     private Layouts.HeaderItem group;
     private Gtk.Revealer main_revealer;
-    public Gee.HashMap <string, Layouts.LabelRow> labels_hashmap = new Gee.HashMap <string, Layouts.LabelRow> ();
+    public Gee.HashMap<string, Layouts.LabelRow> labels_hashmap = new Gee.HashMap<string, Layouts.LabelRow> ();
 
     public LabelSourceRow (Objects.Source source) {
         Object (
@@ -55,10 +55,10 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			child = group
+            child = group
         };
 
-		child = main_revealer;
+        child = main_revealer;
         add_labels ();
 
         Timeout.add (main_revealer.transition_duration, () => {
@@ -100,7 +100,7 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
 
     private void add_label (Objects.Label label) {
         if (label.source_id == source.id && !labels_hashmap.has_key (label.id)) {
-            labels_hashmap[label.id] = new Layouts.LabelRow (label); 
+            labels_hashmap[label.id] = new Layouts.LabelRow (label);
             group.add_child (labels_hashmap[label.id]);
         }
     }

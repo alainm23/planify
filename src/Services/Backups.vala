@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Services.Backups : Object {
     private Json.Generator generator;
@@ -25,7 +25,7 @@ public class Services.Backups : Object {
     private Json.Parser parser;
     private string path;
 
-    private static Backups? _instance;
+    private static Backups ? _instance;
     public static Backups get_default () {
         if (_instance == null) {
             _instance = new Backups ();
@@ -162,7 +162,7 @@ public class Services.Backups : Object {
 
         foreach (Objects.Label label in Services.Database.get_default ().get_labels_collection ()) {
             builder.begin_object ();
-            
+
             builder.set_member_name ("id");
             builder.add_string_value (label.id);
 
@@ -197,7 +197,7 @@ public class Services.Backups : Object {
 
             builder.set_member_name ("id");
             builder.add_string_value (project.id);
-            
+
             builder.set_member_name ("name");
             builder.add_string_value (project.name);
 
@@ -349,7 +349,7 @@ public class Services.Backups : Object {
 
             builder.set_member_name ("is_deleted");
             builder.add_boolean_value (item.is_deleted);
-            
+
             builder.set_member_name ("day_order");
             builder.add_int_value (item.day_order);
 
@@ -368,7 +368,7 @@ public class Services.Backups : Object {
 
             builder.set_member_name ("extra_data");
             builder.add_string_value (item.extra_data);
-        builder.end_object ();
+            builder.end_object ();
 
             builder.end_object ();
         }
@@ -396,7 +396,7 @@ public class Services.Backups : Object {
             var stream = file.create (FileCreateFlags.NONE, null);
             stream.write (export_to_json ().data, null);
             stream.close (null);
-    
+
             var file_path = File.new_for_path (path);
             if (file_path.query_exists ()) {
                 var backup = new Objects.Backup.from_file (file_path);
@@ -461,12 +461,13 @@ public class Services.Backups : Object {
         });
     }
 
-    public async GLib.File? choose_backup_file () {
+    public async GLib.File ? choose_backup_file () {
         var dialog = new Gtk.FileDialog ();
         add_filters (dialog);
 
         try {
             var file = yield dialog.open (Planify._instance.main_window, null);
+
             return file;
         } catch (Error e) {
             debug ("Error during import backup: %s".printf (e.message));
@@ -479,7 +480,7 @@ public class Services.Backups : Object {
         Services.Settings.get_default ().reset_settings ();
 
         Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", backup.local_inbox_project_id);
-        
+
         if (backup.todoist_backend) {
             Services.Settings.get_default ().settings.set_string ("todoist-sync-token", backup.todoist_sync_token);
             Services.Settings.get_default ().settings.set_string ("todoist-access-token", backup.todoist_access_token);
@@ -496,7 +497,7 @@ public class Services.Backups : Object {
         Services.Database.get_default ().clear_database ();
         Services.Database.get_default ().init_database ();
         Util.get_default ().create_local_source ();
-    
+
         // Create Sources
         foreach (Objects.Source source in backup.sources) {
             Services.Store.instance ().insert_source (source);
@@ -510,7 +511,7 @@ public class Services.Backups : Object {
         // Create Projects
         foreach (Objects.Project item in backup.projects) {
             if (item.parent_id != "") {
-                Objects.Project? project = Services.Store.instance ().get_project (item.parent_id);
+                Objects.Project ? project = Services.Store.instance ().get_project (item.parent_id);
                 if (project != null) {
                     project.add_subproject_if_not_exists (item);
                 }
@@ -521,7 +522,7 @@ public class Services.Backups : Object {
 
         // Create Sections
         foreach (Objects.Section item in backup.sections) {
-            Objects.Project? project = Services.Store.instance ().get_project (item.project_id);
+            Objects.Project ? project = Services.Store.instance ().get_project (item.project_id);
             if (project != null) {
                 project.add_section_if_not_exists (item);
             }
@@ -530,18 +531,18 @@ public class Services.Backups : Object {
         // Create Items
         foreach (Objects.Item item in backup.items) {
             if (item.has_parent) {
-                Objects.Item? _item = Services.Store.instance ().get_item (item.parent_id);
+                Objects.Item ? _item = Services.Store.instance ().get_item (item.parent_id);
                 if (_item != null) {
                     _item.add_item_if_not_exists (item);
                 }
             } else {
                 if (item.section_id != "") {
-                    Objects.Section? section = Services.Store.instance ().get_section (item.section_id);
+                    Objects.Section ? section = Services.Store.instance ().get_section (item.section_id);
                     if (section != null) {
                         section.add_item_if_not_exists (item);
                     }
                 } else {
-                    Objects.Project? project = Services.Store.instance ().get_project (item.project_id);
+                    Objects.Project ? project = Services.Store.instance ().get_project (item.project_id);
                     if (project != null) {
                         project.add_item_if_not_exists (item);
                     }
@@ -552,7 +553,7 @@ public class Services.Backups : Object {
         if (backup.todoist_user_avatar != null) {
             Util.get_default ().download_profile_image (
                 "todoist-user", backup.todoist_user_avatar
-                );
+            );
         }
 
         show_message ();

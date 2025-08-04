@@ -92,7 +92,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         content_entry = new Gtk.Entry () {
             hexpand = true,
             placeholder_text = _("To-do name"),
-			has_frame = false
+            has_frame = false
         };
 
         var info_icon = new Gtk.Image.from_icon_name ("info-outline-symbolic") {
@@ -125,7 +125,7 @@ public class Layouts.QuickAdd : Adw.Bin {
             hexpand = true,
             event_focus = false,
             accepts_tab = false,
-			placeholder_text = _("Add a description…")
+            placeholder_text = _("Add a description…")
         };
 
         description_textview.remove_css_class ("view");

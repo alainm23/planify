@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.SectionsOrderPopover : Gtk.Popover {
     public Objects.Project project { get; construct; }
@@ -63,10 +63,10 @@ public class Widgets.SectionsOrderPopover : Gtk.Popover {
         listbox.set_sort_func ((row1, row2) => {
             Objects.Section item1 = ((Widgets.SectionsOrderItem) row1).section;
             Objects.Section item2 = ((Widgets.SectionsOrderItem) row2).section;
-    
+
             return item1.section_order - item2.section_order;
         });
-    
+
         listbox.set_sort_func (null);
     }
 }
@@ -105,11 +105,11 @@ public class Widgets.SectionsOrderItem : Gtk.ListBoxRow {
         name_label.ellipsize = Pango.EllipsizeMode.END;
 
         var visible_switch = new Gtk.Switch () {
-			valign = CENTER,
+            valign = CENTER,
             hexpand = true,
             halign = END,
             margin_start = 6
-		};
+        };
         visible_switch.add_css_class ("switch-min");
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
@@ -133,7 +133,7 @@ public class Widgets.SectionsOrderItem : Gtk.ListBoxRow {
     private void build_drag_and_drop () {
         var drag_source = new Gtk.DragSource ();
         drag_source.set_actions (Gdk.DragAction.MOVE);
-        
+
         drag_source.prepare.connect ((source, x, y) => {
             return new Gdk.ContentProvider.for_value (this);
         });
@@ -143,7 +143,7 @@ public class Widgets.SectionsOrderItem : Gtk.ListBoxRow {
             source.set_icon (paintable, 0, 0);
             drag_begin ();
         });
-        
+
         drag_source.drag_end.connect ((source, drag, delete_data) => {
             drag_end ();
         });
@@ -174,7 +174,7 @@ public class Widgets.SectionsOrderItem : Gtk.ListBoxRow {
             var position = 0;
 
             source_list.remove (picked_widget);
-            
+
             if (target_widget.get_index () == 0) {
                 if (y > (target_widget.get_height () / 2)) {
                     position = target_widget.get_index () + 1;
@@ -193,7 +193,7 @@ public class Widgets.SectionsOrderItem : Gtk.ListBoxRow {
 
     public void drag_begin () {
         handle_grid.add_css_class ("card");
-        opacity = 0.3;        
+        opacity = 0.3;
     }
 
     public void drag_end () {

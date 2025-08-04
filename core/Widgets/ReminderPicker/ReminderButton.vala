@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     public bool is_board { get; construct; }
@@ -30,7 +30,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
 
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void picker_opened (bool active);
-    
+
     public ReminderButton (bool is_creating = false) {
         Object (
             is_board: false,
@@ -85,7 +85,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
                 css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
                 hexpand = true
             };
-    
+
             child = button;
         } else {
             var indicator_grid = new Gtk.Grid () {
@@ -175,7 +175,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     }
 
     private void build_value_label (Gee.ArrayList<Objects.Reminder> reminders) {
-        value_label.label = "";        
+        value_label.label = "";
         for (int index = 0; index < reminders.size; index++) {
             string date = reminders[index].relative_text;
 

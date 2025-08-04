@@ -1,27 +1,27 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.FilterFlowBoxChild : Gtk.FlowBoxChild {
     public Objects.Filters.FilterItem filter { get; construct; }
-    
+
     private Gtk.Image image;
     private Gtk.Label title_label;
     private Gtk.Label value_label;
@@ -57,7 +57,7 @@ public class Widgets.FilterFlowBoxChild : Gtk.FlowBoxChild {
         var close_button = new Gtk.Button.from_icon_name ("cross-large-circle-filled-symbolic") {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            css_classes = { "flat"}
+            css_classes = { "flat" }
         };
 
         var close_revealer = new Gtk.Revealer () {
@@ -65,7 +65,7 @@ public class Widgets.FilterFlowBoxChild : Gtk.FlowBoxChild {
             child = close_button,
             reveal_child = true
         };
-        
+
         var card_grid = new Gtk.Grid () {
             column_spacing = 12,
             margin_start = 12,
@@ -87,12 +87,12 @@ public class Widgets.FilterFlowBoxChild : Gtk.FlowBoxChild {
 
         child = main_revealer;
         update_request ();
-        
+
         Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
         });
-        
+
         close_button.clicked.connect (() => {
             remove_filter (filter);
         });

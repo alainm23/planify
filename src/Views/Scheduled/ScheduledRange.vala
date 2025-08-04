@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
     public GLib.DateTime start_date { get; construct; }
@@ -28,7 +28,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
     private Gtk.Revealer listbox_revealer;
     private Gtk.Revealer event_list_revealer;
 
-    private Gee.HashMap <string, Layouts.ItemRow> items;
+    private Gee.HashMap<string, Layouts.ItemRow> items;
 
     private bool has_items {
         get {
@@ -47,7 +47,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         add_css_class ("no-selectable");
         add_css_class ("transition");
 
-        items = new Gee.HashMap <string, Layouts.ItemRow> ();
+        items = new Gee.HashMap<string, Layouts.ItemRow> ();
 
         var month_label = new Gtk.Label (start_date.format ("%B")) {
             halign = Gtk.Align.START
@@ -82,7 +82,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         };
 
         event_list_revealer.child = event_list;
-        
+
         event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;
         });
@@ -113,13 +113,13 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         };
 
         content.append (title_box);
-        
+
         content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 6,
             margin_bottom = 3,
             margin_start = 24
         });
-        
+
         content.append (event_list_revealer);
         content.append (listbox_revealer);
 
@@ -137,7 +137,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         Services.Store.instance ().item_updated.connect (valid_update_item);
         Services.Store.instance ().item_archived.connect (valid_delete_item);
         Services.Store.instance ().item_unarchived.connect (valid_add_item);
-        
+
         Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id)) {
                 items[item.id].update_request ();
@@ -152,76 +152,76 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
             Objects.Item item1 = ((Layouts.ItemRow) lbrow).item;
             Objects.Item item2 = ((Layouts.ItemRow) lbbefore).item;
             int sort_order = Services.Settings.get_default ().settings.get_int ("scheduled-sort-order");
-    
+
             if (sort_order == 0) {
                 if (item1.has_due && item2.has_due) {
                     var date1 = item1.due.datetime;
                     var date2 = item2.due.datetime;
-    
+
                     return date1.compare (date2);
                 }
-    
+
                 if (!item1.has_due && item2.has_due) {
                     return 1;
                 }
-    
+
                 return 0;
             }
-    
+
             if (sort_order == 1) {
                 return item1.content.strip ().collate (item2.content.strip ());
             }
-    
+
             if (sort_order == 2) {
                 return item1.added_datetime.compare (item2.added_datetime);
             }
-    
+
             if (sort_order == 3) {
                 if (item1.priority < item2.priority) {
                     return 1;
                 }
-    
+
                 if (item1.priority < item2.priority) {
                     return -1;
                 }
-    
+
                 return 0;
             }
-    
+
             return 0;
         });
 
         listbox.set_filter_func ((row) => {
-			var item = ((Layouts.ItemRow) row).item;
-			bool return_value = true;
+            var item = ((Layouts.ItemRow) row).item;
+            bool return_value = true;
 
-			if (Objects.Filters.Scheduled.get_default ().filters.size <= 0) {
-				return true;
-			}
+            if (Objects.Filters.Scheduled.get_default ().filters.size <= 0) {
+                return true;
+            }
 
-			return_value = false;
-			foreach (Objects.Filters.FilterItem filter in Objects.Filters.Scheduled.get_default ().filters.values) {
-				if (filter.filter_type == FilterItemType.PRIORITY) {
-					return_value = return_value || item.priority == int.parse (filter.value);
-				} else if (filter.filter_type == FilterItemType.LABEL) {
-					return_value = return_value || item.has_label (filter.value);
-				}
-			}
+            return_value = false;
+            foreach (Objects.Filters.FilterItem filter in Objects.Filters.Scheduled.get_default ().filters.values) {
+                if (filter.filter_type == FilterItemType.PRIORITY) {
+                    return_value = return_value || item.priority == int.parse (filter.value);
+                } else if (filter.filter_type == FilterItemType.LABEL) {
+                    return_value = return_value || item.has_label (filter.value);
+                }
+            }
 
-			return return_value;
-		});
+            return return_value;
+        });
 
         Objects.Filters.Scheduled.get_default ().filter_added.connect (() => {
-			listbox.invalidate_filter ();
-		});
+            listbox.invalidate_filter ();
+        });
 
-		Objects.Filters.Scheduled.get_default ().filter_removed.connect (() => {
-			listbox.invalidate_filter ();
-		});
+        Objects.Filters.Scheduled.get_default ().filter_removed.connect (() => {
+            listbox.invalidate_filter ();
+        });
 
-	    Objects.Filters.Scheduled.get_default ().filter_updated.connect (() => {
-			listbox.invalidate_filter ();
-		});
+        Objects.Filters.Scheduled.get_default ().filter_updated.connect (() => {
+            listbox.invalidate_filter ();
+        });
     }
 
     private void add_items () {
@@ -231,17 +231,17 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id] = new Layouts.ItemRow (item);
-        items [item.id].disable_drag_and_drop ();
-        listbox.append (items [item.id]);
+        items[item.id] = new Layouts.ItemRow (item);
+        items[item.id].disable_drag_and_drop ();
+        listbox.append (items[item.id]);
     }
 
     private void valid_add_item (Objects.Item item) {
         if (!items.has_key (item.id) &&
             Services.Store.instance ().valid_item_by_date_range (item, start_date, end_date, false)) {
-            items [item.id] = new Layouts.ItemRow (item);
-            items [item.id].disable_drag_and_drop ();
-            listbox.append (items [item.id]);
+            items[item.id] = new Layouts.ItemRow (item);
+            items[item.id].disable_drag_and_drop ();
+            listbox.append (items[item.id]);
         }
 
         listbox_revealer.reveal_child = has_items;

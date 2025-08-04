@@ -171,7 +171,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         var toolbar_view = new Adw.ToolbarView () {
             content = main_box
         };
-        
+
         toolbar_view.add_top_bar (new Adw.HeaderBar () {
             show_title = false,
             show_end_title_buttons = false,

@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Objects.Section : Objects.BaseObject {
     public string project_id { get; set; default = ""; }
@@ -42,7 +42,7 @@ public class Objects.Section : Objects.BaseObject {
         }
     }
 
-    Objects.Project? _project;
+    Objects.Project ? _project;
     public Objects.Project project {
         get {
             _project = Services.Store.instance ().get_project (project_id);
@@ -57,17 +57,18 @@ public class Objects.Section : Objects.BaseObject {
             _items.sort ((a, b) => {
                 if (a.child_order > b.child_order) {
                     return 1;
-                } if (a.child_order == b.child_order) {
+                }
+                if (a.child_order == b.child_order) {
                     return 0;
                 }
-                
+
                 return -1;
             });
             return _items;
         }
     }
 
-    int? _section_count = null;
+    int ? _section_count = null;
     public int section_count {
         get {
             if (_section_count == null) {
@@ -161,8 +162,8 @@ public class Objects.Section : Objects.BaseObject {
         this._project = project;
     }
 
-    public Objects.Item add_item_if_not_exists (Objects.Item new_item, bool insert=true) {
-        Objects.Item? return_value = null;
+    public Objects.Item add_item_if_not_exists (Objects.Item new_item, bool insert = true) {
+        Objects.Item ? return_value = null;
         lock (_items) {
             return_value = get_item (new_item.id);
             if (return_value == null) {
@@ -175,8 +176,8 @@ public class Objects.Section : Objects.BaseObject {
         }
     }
 
-    public Objects.Item? get_item (string id) {
-        Objects.Item? return_value = null;
+    public Objects.Item ? get_item (string id) {
+        Objects.Item ? return_value = null;
         lock (_items) {
             foreach (var item in items) {
                 if (item.id == id) {
@@ -215,45 +216,45 @@ public class Objects.Section : Objects.BaseObject {
         Services.Store.instance ().update_section (this);
     }
 
-    public override string get_update_json (string uuid, string? temp_id = null) {
+    public override string get_update_json (string uuid, string ? temp_id = null) {
         var builder = new Json.Builder ();
         builder.begin_object ();
-            builder.set_member_name ("commands");
-            builder.begin_array ();
-                builder.begin_object ();
+        builder.set_member_name ("commands");
+        builder.begin_array ();
+        builder.begin_object ();
 
-                // Set type
-                builder.set_member_name ("type");
-                builder.add_string_value (temp_id == null ? "section_update" : "section_add");
+        // Set type
+        builder.set_member_name ("type");
+        builder.add_string_value (temp_id == null ? "section_update" : "section_add");
 
-                builder.set_member_name ("uuid");
-                builder.add_string_value (uuid);
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
 
-                if (temp_id != null) {
-                    builder.set_member_name ("temp_id");
-                    builder.add_string_value (temp_id);
-                }
+        if (temp_id != null) {
+            builder.set_member_name ("temp_id");
+            builder.add_string_value (temp_id);
+        }
 
-                builder.set_member_name ("args");
-                    builder.begin_object ();
-                    
-                    if (temp_id == null) {
-                        builder.set_member_name ("id");
-                        builder.add_string_value (id);
-                    }
+        builder.set_member_name ("args");
+        builder.begin_object ();
 
-                    if (temp_id != null) {
-                        builder.set_member_name ("project_id");
-                        builder.add_string_value (project_id);
-                    }
+        if (temp_id == null) {
+            builder.set_member_name ("id");
+            builder.add_string_value (id);
+        }
 
-                    builder.set_member_name ("name");
-                    builder.add_string_value (Util.get_default ().get_encode_text (name));
+        if (temp_id != null) {
+            builder.set_member_name ("project_id");
+            builder.add_string_value (project_id);
+        }
 
-                    builder.end_object ();
+        builder.set_member_name ("name");
+        builder.add_string_value (Util.get_default ().get_encode_text (name));
 
-                builder.end_object ();
-                builder.end_array ();
+        builder.end_object ();
+
+        builder.end_object ();
+        builder.end_array ();
         builder.end_object ();
 
         Json.Generator generator = new Json.Generator ();
@@ -270,7 +271,7 @@ public class Objects.Section : Objects.BaseObject {
     public override string to_json () {
         var builder = new Json.Builder ();
         builder.begin_object ();
-        
+
         builder.set_member_name ("id");
         builder.add_string_value (id);
 
@@ -280,8 +281,8 @@ public class Objects.Section : Objects.BaseObject {
         } else {
             builder.add_string_value (project_id);
         }
-        
-        builder.set_member_name ("name");   
+
+        builder.set_member_name ("name");
         builder.add_string_value (Util.get_default ().get_encode_text (name));
 
         builder.end_object ();
@@ -308,15 +309,15 @@ public class Objects.Section : Objects.BaseObject {
         builder.add_string_value (uuid);
 
         builder.set_member_name ("args");
-            builder.begin_object ();
-            
-            builder.set_member_name ("id");
-            builder.add_string_value (id);
+        builder.begin_object ();
 
-            builder.set_member_name ("project_id");
-            builder.add_string_value (new_project_id);
+        builder.set_member_name ("id");
+        builder.add_string_value (id);
 
-            builder.end_object ();
+        builder.set_member_name ("project_id");
+        builder.add_string_value (new_project_id);
+
+        builder.end_object ();
         builder.end_object ();
         builder.end_array ();
         builder.end_object ();
@@ -325,7 +326,7 @@ public class Objects.Section : Objects.BaseObject {
         Json.Node root = builder.get_root ();
         generator.set_root (root);
 
-        return generator.to_data (null); 
+        return generator.to_data (null);
     }
 
     private int update_section_count () {

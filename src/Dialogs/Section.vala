@@ -1,23 +1,23 @@
 /*
-* Copyright © 2024 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2024 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Dialogs.Section : Adw.Dialog {
     public Objects.Section section { get; construct; }
@@ -72,9 +72,9 @@ public class Dialogs.Section : Adw.Dialog {
         };
 
         name_group.add (name_entry);
-        
+
         color_picker_row = new Widgets.ColorPickerRow ();
-        
+
         var color_group = new Adw.Bin () {
             margin_end = 12,
             margin_start = 12,
@@ -117,16 +117,16 @@ public class Dialogs.Section : Adw.Dialog {
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 600,
-			margin_start = 12,
-			margin_end = 12,
-			margin_bottom = 12
-		};
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12
+        };
 
-		content_clamp.child = content_box;
+        content_clamp.child = content_box;
 
-		var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = content_clamp;
+        var toolbar_view = new Adw.ToolbarView ();
+        toolbar_view.add_top_bar (headerbar);
+        toolbar_view.content = content_clamp;
 
         child = toolbar_view;
         Services.EventBus.get_default ().disconnect_typing_accel ();
@@ -219,7 +219,7 @@ public class Dialogs.Section : Adw.Dialog {
                     hide_destroy ();
                 } else {
                     Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                    close (); 
+                    close ();
                 }
             });
         }

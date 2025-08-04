@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Views.List : Adw.Bin {
     public Objects.Project project { get; construct; }
@@ -32,14 +32,14 @@ public class Views.List : Adw.Bin {
     private Layouts.SectionRow inbox_section;
     private Gtk.Stack listbox_placeholder_stack;
     private Widgets.ScrolledWindow scrolled_window;
-    
+
     public bool has_children {
         get {
             return (Util.get_default ().get_children (listbox).length () - 1) > 0;
         }
     }
 
-    public Gee.HashMap <string, Layouts.SectionRow> sections_map;
+    public Gee.HashMap<string, Layouts.SectionRow> sections_map;
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public List (Objects.Project project) {
@@ -53,7 +53,7 @@ public class Views.List : Adw.Bin {
     }
 
     construct {
-        sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
+        sections_map = new Gee.HashMap<string, Layouts.SectionRow> ();
 
         var description_widget = new Widgets.EditableTextView (_("Note")) {
             text = project.description,
@@ -112,7 +112,7 @@ public class Views.List : Adw.Bin {
             content_box.append (description_widget);
             content_box.append (due_revealer);
         }
-        
+
         content_box.append (filters);
         content_box.append (pinned_items_flowbox);
         content_box.append (listbox_placeholder_stack);
@@ -148,19 +148,19 @@ public class Views.List : Adw.Bin {
 
         signals_map[Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
             if (project.id == old_project_id && sections_map.has_key (section.id)) {
-                    sections_map [section.id].hide_destroy ();
-                    sections_map.unset (section.id);
+                sections_map[section.id].hide_destroy ();
+                sections_map.unset (section.id);
             }
 
             if (project.id == section.project_id &&
                 !sections_map.has_key (section.id)) {
-                    add_section (section);
+                add_section (section);
             }
         })] = Services.Store.instance ();
 
         signals_map[Services.Store.instance ().section_deleted.connect ((section) => {
             if (sections_map.has_key (section.id)) {
-                sections_map [section.id].hide_destroy ();
+                sections_map[section.id].hide_destroy ();
                 sections_map.unset (section.id);
             }
 
@@ -203,7 +203,7 @@ public class Views.List : Adw.Bin {
 
         signals_map[Services.Store.instance ().section_archived.connect ((section) => {
             if (sections_map.has_key (section.id)) {
-                sections_map [section.id].hide_destroy ();
+                sections_map[section.id].hide_destroy ();
                 sections_map.unset (section.id);
             }
 
@@ -224,14 +224,14 @@ public class Views.List : Adw.Bin {
             foreach (var entry in signals_map.entries) {
                 entry.value.disconnect (entry.key);
             }
-            
+
             signals_map.clear ();
         });
     }
 
     private void check_placeholder () {
         int count = project.project_count + sections_map.size;
-        
+
         if (count > 0) {
             listbox_placeholder_stack.visible_child_name = "listbox";
         } else {
@@ -253,8 +253,8 @@ public class Views.List : Adw.Bin {
 
     private void add_section (Objects.Section section) {
         if (!sections_map.has_key (section.id) && !section.was_archived ()) {
-            sections_map [section.id] = new Layouts.SectionRow (section);
-            listbox.append (sections_map [section.id]);
+            sections_map[section.id] = new Layouts.SectionRow (section);
+            listbox.append (sections_map[section.id]);
         }
 
         check_placeholder ();
@@ -283,13 +283,13 @@ public class Views.List : Adw.Bin {
 
     private void update_duedate () {
         due_image.icon_name = "month-symbolic";
-        due_image.css_classes = { };
-        due_label.css_classes = { };
+        due_image.css_classes = {};
+        due_label.css_classes = {};
         due_revealer.reveal_child = false;
 
         if (project.due_date != "") {
             var datetime = Utils.Datetime.get_date_from_string (project.due_date);
-            
+
             due_label.label = Utils.Datetime.get_relative_date_from_date (datetime);
             days_left_label.label = Utils.Datetime.days_left (datetime);
 
@@ -303,8 +303,8 @@ public class Views.List : Adw.Bin {
                 due_label.add_css_class ("overdue-color");
             } else {
                 due_image.icon_name = "month-symbolic";
-                due_image.css_classes = { };
-                due_label.css_classes = { };
+                due_image.css_classes = {};
+                due_label.css_classes = {};
             }
 
             due_revealer.reveal_child = true;
@@ -312,7 +312,7 @@ public class Views.List : Adw.Bin {
     }
 
     private Gtk.Revealer build_due_date_widget () {
-        due_image = new Gtk.Image.from_icon_name ("month-symbolic");   
+        due_image = new Gtk.Image.from_icon_name ("month-symbolic");
 
         due_label = new Gtk.Label (_("Schedule")) {
             xalign = 0
@@ -363,7 +363,7 @@ public class Views.List : Adw.Bin {
                 } else {
                     project.due_date = dialog.datetime.to_string ();
                 }
-                
+
                 project.update_local ();
             });
         });
@@ -379,7 +379,7 @@ public class Views.List : Adw.Bin {
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);
         }
-        
+
         signals_map.clear ();
     }
 

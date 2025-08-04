@@ -1,4 +1,4 @@
-public class Services.Promise<T> : Object {
+public class Services.Promise<T>: Object {
     public signal void resolved (T value);
     public signal void rejected (string error);
 

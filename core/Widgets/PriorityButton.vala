@@ -1,35 +1,35 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.PriorityButton : Adw.Bin {
     public bool is_board { get; construct; }
 
     private Gtk.Image priority_image;
     private Gtk.Label priority_label;
-    private Gtk.MenuButton button; 
+    private Gtk.MenuButton button;
     private Gtk.Popover priority_picker;
 
     public signal void changed (int priority);
     public signal void picker_opened (bool active);
-    
+
     public PriorityButton () {
         Object (
             is_board: false,
@@ -56,12 +56,12 @@ public class Widgets.PriorityButton : Adw.Bin {
         }
 
         priority_picker.closed.connect (() => {
-			picker_opened (false);
-		});
+            picker_opened (false);
+        });
 
-		priority_picker.show.connect (() => {
-			picker_opened (true);
-		});
+        priority_picker.show.connect (() => {
+            picker_opened (true);
+        });
     }
 
     private void build_ui () {
@@ -70,7 +70,7 @@ public class Widgets.PriorityButton : Adw.Bin {
         button = new Gtk.MenuButton () {
             css_classes = { "flat" },
             valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
             child = priority_image,
             popover = priority_picker
         };
@@ -163,7 +163,7 @@ public class Widgets.PriorityButton : Adw.Bin {
 
         return popover;
     }
-    
+
     public void update_from_item (Objects.Item item) {
         set_priority (item.priority);
     }
@@ -188,14 +188,14 @@ public class Widgets.PriorityButton : Adw.Bin {
                 priority_label.label = _("Priority 1: Low");
             }
         } else {
-            priority_image.css_classes = { };
+            priority_image.css_classes = {};
 
             if (is_board) {
                 priority_label.label = _("Priority 4: None");
             }
         }
     }
-    
+
     public void reset () {
         priority_image.icon_name = "flag-outline-thick-symbolic";
     }

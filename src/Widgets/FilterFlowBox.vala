@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.FilterFlowBox : Adw.Bin {
     Objects.BaseObject _base_object = null;
@@ -28,11 +28,11 @@ public class Widgets.FilterFlowBox : Adw.Bin {
             signals_map[_base_object.filter_added.connect ((filter) => {
                 add_filter (filter);
             })] = _base_object;
-    
+
             signals_map[_base_object.filter_removed.connect ((filter) => {
                 remove_filter (filter);
             })] = _base_object;
-    
+
             signals_map[_base_object.filter_updated.connect ((filter) => {
                 update_filter (filter);
             })] = _base_object;
@@ -53,7 +53,6 @@ public class Widgets.FilterFlowBox : Adw.Bin {
     public signal void filter_removed (Objects.Filters.FilterItem filter);
 
     public FilterFlowBox () {
-
     }
 
     construct {
@@ -76,7 +75,7 @@ public class Widgets.FilterFlowBox : Adw.Bin {
             foreach (var entry in signals_map.entries) {
                 entry.value.disconnect (entry.key);
             }
-            
+
             signals_map.clear ();
         });
     }
@@ -84,7 +83,7 @@ public class Widgets.FilterFlowBox : Adw.Bin {
     private void add_filters () {
         foreach (Objects.Filters.FilterItem filter in _base_object.filters.values) {
             add_filter (filter);
-		}
+        }
     }
 
     public void add_filter (Objects.Filters.FilterItem filter) {
@@ -105,7 +104,7 @@ public class Widgets.FilterFlowBox : Adw.Bin {
         main_revealer.reveal_child = filters_map.size > 0;
     }
 
-    public void remove_filter (Objects.Filters.FilterItem filter) {        
+    public void remove_filter (Objects.Filters.FilterItem filter) {
         if (filters_map.has_key (filter.id)) {
             filters_map[filter.id].hide_destroy ();
             filters_map.unset (filter.id);
@@ -123,7 +122,7 @@ public class Widgets.FilterFlowBox : Adw.Bin {
         main_revealer.reveal_child = filters_map.size > 0;
     }
 
-    public Objects.Filters.FilterItem? get_filter (string id) {
+    public Objects.Filters.FilterItem ? get_filter (string id) {
         if (filters_map.has_key (id)) {
             return filters_map.get (id).filter;
         }

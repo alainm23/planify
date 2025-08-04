@@ -1,29 +1,29 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Dialogs.Project : Adw.Dialog {
     public Objects.Project project { get; construct; }
     public bool backend_picker { get; construct; }
     public string header_title { get; construct; }
-    
+
     private Gtk.Stack emoji_color_stack;
     private Widgets.CircularProgressBar progress_bar;
     private Adw.EntryRow name_entry;
@@ -35,7 +35,7 @@ public class Dialogs.Project : Adw.Dialog {
 
     private Adw.NavigationView navigation_view;
     private Adw.NavigationPage sources_page;
-    
+
     public bool is_creating {
         get {
             return project.id == "";
@@ -87,7 +87,7 @@ public class Dialogs.Project : Adw.Dialog {
             }
 
             signal_map.clear ();
-            
+
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
@@ -159,8 +159,8 @@ public class Dialogs.Project : Adw.Dialog {
             tooltip_text = project.source.subheader_text
         };
         var pan_icon = new Gtk.Image.from_icon_name ("go-next-symbolic") {
-			pixel_size = 16
-		};
+            pixel_size = 16
+        };
 
         var source_selected_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         source_selected_box.append (source_selected_label);
@@ -227,18 +227,18 @@ public class Dialogs.Project : Adw.Dialog {
         content_box.append (submit_button);
 
         var content_clamp = new Adw.Clamp () {
-			maximum_size = 600,
-			margin_start = 12,
-			margin_end = 12,
-			margin_bottom = 12,
+            maximum_size = 600,
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12,
             margin_top = 6
-		};
+        };
 
-		content_clamp.child = content_box;
+        content_clamp.child = content_box;
 
-		var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = content_clamp;
+        var toolbar_view = new Adw.ToolbarView ();
+        toolbar_view.add_top_bar (headerbar);
+        toolbar_view.content = content_clamp;
 
         var navigation_page = new Adw.NavigationPage (toolbar_view, header_title);
 
@@ -249,10 +249,10 @@ public class Dialogs.Project : Adw.Dialog {
             if (is_creating) {
                 name_entry.grab_focus ();
             }
-            
+
             return GLib.Source.REMOVE;
         });
-        
+
         signal_map[name_entry.entry_activated.connect (add_update_project)] = name_entry;
         signal_map[submit_button.clicked.connect (add_update_project)] = submit_button;
 
@@ -342,17 +342,17 @@ public class Dialogs.Project : Adw.Dialog {
         }
 
         var content_clamp = new Adw.Clamp () {
-			maximum_size = 600,
-			margin_start = 12,
-			margin_end = 12,
-			margin_bottom = 12,
+            maximum_size = 600,
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12,
             margin_top = 6,
             child = sources_group
-		};
+        };
 
         var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = content_clamp;
+        toolbar_view.add_top_bar (headerbar);
+        toolbar_view.content = content_clamp;
 
         var navigation_page = new Adw.NavigationPage (toolbar_view, _("Sources"));
 
@@ -379,15 +379,14 @@ public class Dialogs.Project : Adw.Dialog {
         }
     }
 
-
     private async void update_project () {
         if (project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().update_project (project);
             hide_destroy ();
             return;
         }
-        
-        HttpResponse? response;
+
+        HttpResponse ? response;
 
         if (project.source_type == SourceType.TODOIST) {
             response = yield Services.Todoist.get_default ().update (project);
@@ -411,7 +410,7 @@ public class Dialogs.Project : Adw.Dialog {
 
     private void add_project () {
         project.child_order = Services.Store.instance ().get_projects_by_source (project.source_id).size;
-        
+
         if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.NONE) {
             project.id = Util.get_default ().generate_id (project);
             Services.Store.instance ().insert_project (project);
@@ -433,7 +432,7 @@ public class Dialogs.Project : Adw.Dialog {
             project.id = Util.get_default ().generate_id (project);
             Services.CalDAV.Core.get_default ().add_tasklist.begin (project, (obj, res) => {
                 HttpResponse response = Services.CalDAV.Core.get_default ().add_tasklist.end (res);
-                
+
                 if (response.status) {
                     Services.Store.instance ().insert_project (project);
                     Services.CalDAV.Core.get_default ().update_sync_token.begin (project);
@@ -450,9 +449,9 @@ public class Dialogs.Project : Adw.Dialog {
         Timeout.add (250, () => {
             Services.EventBus.get_default ().send_toast (
                 Util.get_default ().create_toast (_("Project added successfully!"))
-            );    
+            );
             Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, id);
-            hide_destroy ();   
+            hide_destroy ();
             return GLib.Source.REMOVE;
         });
     }

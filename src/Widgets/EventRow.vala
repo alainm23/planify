@@ -105,7 +105,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         update_color ();
         cal.notify["color"].connect (update_color);
         update_timelabel ();
-		Services.Settings.get_default ().settings.changed["clock-format"].connect (update_timelabel);
+        Services.Settings.get_default ().settings.changed["clock-format"].connect (update_timelabel);
     }
 
     private void update_timelabel () {

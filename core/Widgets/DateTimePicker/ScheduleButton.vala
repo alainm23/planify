@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.ScheduleButton : Gtk.Grid {
     public bool is_board { get; construct; }
@@ -89,12 +89,12 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         }
 
         datetime_picker.closed.connect (() => {
-			picker_opened (false);
-		});
+            picker_opened (false);
+        });
 
-		datetime_picker.show.connect (() => {
-			picker_opened (true);
-		});
+        datetime_picker.show.connect (() => {
+            picker_opened (true);
+        });
     }
 
     private void build_ui () {
@@ -123,12 +123,12 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         clear_button.set_tooltip_text ("Clear Schedule");
 
         clear_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-			child = clear_button
-		};
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = clear_button
+        };
 
         attach (button, 0, 0);
-        attach (clear_revealer, 1, 0);   
+        attach (clear_revealer, 1, 0);
 
         datetime_picker.duedate_changed.connect (() => {
             duedate = datetime_picker.duedate;
@@ -187,7 +187,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
             hexpand = true
         };
-        
+
         attach (model_button, 0, 0);
 
         datetime_picker.duedate_changed.connect (() => {
@@ -214,9 +214,9 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         due_label.label = Utils.Datetime.get_relative_date_from_date (item.due.datetime);
         due_label.tooltip_text = due_label.label;
         due_image.tooltip_text = due_label.label;
-    
+
         duedate = item.due;
-        
+
         if (Utils.Datetime.is_today (item.due.datetime)) {
             due_image.icon_name = "star-outline-thick-symbolic";
         } else if (Utils.Datetime.is_tomorrow (item.due.datetime)) {
@@ -242,7 +242,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             }
 
             due_image.icon_name = "playlist-repeat-symbolic";
-            
+
             string repeat_text = Utils.Datetime.get_recurrency_weeks (
                 item.due.recurrency_type,
                 item.due.recurrency_interval,

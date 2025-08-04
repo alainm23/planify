@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
     public Objects.Item item { get; construct; }
@@ -43,36 +43,36 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
         add_css_class ("no-padding");
 
         checked_button = new Gtk.CheckButton () {
-			valign = Gtk.Align.START,
+            valign = Gtk.Align.START,
             css_classes = { "priority-color" },
             active = item.checked
-		};
+        };
 
-		var content_label = new Gtk.Label (item.content) {
-			wrap = true,
+        var content_label = new Gtk.Label (item.content) {
+            wrap = true,
             hexpand = true,
             wrap_mode = Pango.WrapMode.WORD_CHAR,
-			xalign = 0,
-			yalign = 0
-		};
+            xalign = 0,
+            yalign = 0
+        };
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-			margin_top = 3,
-			margin_start = 3,
-			margin_end = 3
-		};
+            margin_top = 3,
+            margin_start = 3,
+            margin_end = 3
+        };
 
-		content_box.append (checked_button);
-		content_box.append (content_label);
+        content_box.append (checked_button);
+        content_box.append (content_label);
 
         var description_label = new Gtk.Label (null) {
-			xalign = 0,
-			lines = 1,
-			ellipsize = Pango.EllipsizeMode.END,
-			margin_start = 30,
-			margin_end = 6,
-			css_classes = { "dim-label", "caption" }
-		};
+            xalign = 0,
+            lines = 1,
+            ellipsize = Pango.EllipsizeMode.END,
+            margin_start = 30,
+            margin_end = 6,
+            css_classes = { "dim-label", "caption" }
+        };
 
         var section_label = new Gtk.Label (item.has_section ? "● " + item.section.name : "● " + _("No Section")) {
             css_classes = { "dim-label", "caption" }
@@ -100,8 +100,8 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
             hexpand = true
         };
 
-		v_box.append (content_box);
-		v_box.append (bottom_box);
+        v_box.append (content_box);
+        v_box.append (bottom_box);
 
         loading_button = new Widgets.LoadingButton.with_icon ("go-next-symbolic", 16) {
             valign = Gtk.Align.CENTER,
@@ -114,7 +114,7 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
             margin_bottom = 6,
             margin_start = 6
         };
-        
+
         h_box.append (v_box);
         h_box.append (loading_button);
 
@@ -124,20 +124,20 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
         };
 
         main_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			child = card,
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = card,
             reveal_child = true
-		};
+        };
 
-		child = main_revealer;
+        child = main_revealer;
 
         var checked_button_gesture = new Gtk.GestureClick ();
-		checked_button.add_controller (checked_button_gesture);
-		signals_map[checked_button_gesture.pressed.connect (() => {
-			checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-			checked_button.active = !checked_button.active;
+        checked_button.add_controller (checked_button_gesture);
+        signals_map[checked_button_gesture.pressed.connect (() => {
+            checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+            checked_button.active = !checked_button.active;
             checked_toggled (checked_button.active);
-		})] = checked_button_gesture;
+        })] = checked_button_gesture;
 
         signals_map[item.loading_change.connect (() => {
             loading_button.is_loading = item.loading;
@@ -147,21 +147,21 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
             foreach (var entry in signals_map.entries) {
                 entry.value.disconnect (entry.key);
             }
-            
+
             signals_map.clear ();
         });
     }
 
     public void hide_destroy () {
-		main_revealer.reveal_child = false;
-		Timeout.add (main_revealer.transition_duration, () => {
-			((Gtk.ListBox) parent).remove (this);
-			return GLib.Source.REMOVE;
-		});
-	}
+        main_revealer.reveal_child = false;
+        Timeout.add (main_revealer.transition_duration, () => {
+            ((Gtk.ListBox) parent).remove (this);
+            return GLib.Source.REMOVE;
+        });
+    }
 
-    public void checked_toggled (bool active, uint? time = null) {
-		bool old_checked = item.checked;
+    public void checked_toggled (bool active, uint ? time = null) {
+        bool old_checked = item.checked;
 
         if (!active) {
             var old_completed_at = item.completed_at;
@@ -170,25 +170,25 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
             item.completed_at = "";
             _complete_item.begin (old_checked, old_completed_at);
         }
-	}
+    }
 
     private async void _complete_item (bool old_checked, string old_completed_at) {
         checked_button.sensitive = false;
-        
+
         HttpResponse response = yield item.complete_item (old_checked);
 
         if (!response.status) {
-            //  _complete_item_error (response, old_checked, old_completed_at);
+            // _complete_item_error (response, old_checked, old_completed_at);
         }
     }
 
     public override void dispose () {
         print ("Disposing Layouts.ItemBoard\n");
-        
+
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);
         }
-        
+
         signals_map.clear ();
 
         base.dispose ();

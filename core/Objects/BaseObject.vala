@@ -1,30 +1,30 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Objects.BaseObject : GLib.Object {
     public string id { get; set; default = ""; }
     public string name { get; set; default = ""; }
     public string keywords { get; set; default = ""; }
     public string icon_name { get; set; default = ""; }
-    
+
     public signal void deleted ();
     public signal void updated (string update_id = "");
     public signal void archived ();
@@ -32,7 +32,7 @@ public class Objects.BaseObject : GLib.Object {
 
     public uint update_timeout_id { get; set; default = 0; }
 
-    public Gee.HashMap <string, Objects.Filters.FilterItem> filters = new Gee.HashMap <string, Objects.Filters.FilterItem> ();
+    public Gee.HashMap<string, Objects.Filters.FilterItem> filters = new Gee.HashMap<string, Objects.Filters.FilterItem> ();
     public signal void filter_added (Objects.Filters.FilterItem filters);
     public signal void filter_removed (Objects.Filters.FilterItem filters);
     public signal void filter_updated (Objects.Filters.FilterItem filters);
@@ -71,7 +71,7 @@ public class Objects.BaseObject : GLib.Object {
 
     public signal void loading_change ();
     public signal void sensitive_change ();
-    
+
     public string view_id { get; set; default = ""; }
 
     public string type_delete {
@@ -155,7 +155,7 @@ public class Objects.BaseObject : GLib.Object {
             }
         }
     }
-    
+
     public string table_name {
         get {
             if (this is Objects.Item) {
@@ -177,24 +177,24 @@ public class Objects.BaseObject : GLib.Object {
             if (this is Objects.Item) {
                 return "child_order";
             }
-            
+
             if (this is Objects.Section) {
                 return "section_order";
             }
-            
+
             if (this is Objects.Project) {
                 return "child_order";
             }
-            
+
             if (this is Objects.Label) {
                 return "item_order";
-            }  
-            
+            }
+
             return "";
         }
     }
 
-    Objects.Source? _source;
+    Objects.Source ? _source;
     public Objects.Source source {
         get {
             if (this is Objects.Project) {
@@ -221,7 +221,7 @@ public class Objects.BaseObject : GLib.Object {
         }
     }
 
-    public virtual string get_update_json (string uuid, string? temp_id = null) {
+    public virtual string get_update_json (string uuid, string ? temp_id = null) {
         return "";
     }
 
@@ -236,7 +236,7 @@ public class Objects.BaseObject : GLib.Object {
     public virtual string to_json () {
         return "";
     }
-    
+
     public void add_filter (Objects.Filters.FilterItem filter) {
         if (!filters.has_key (filter.id)) {
             filters[filter.id] = filter;
@@ -258,7 +258,7 @@ public class Objects.BaseObject : GLib.Object {
         }
     }
 
-    public Objects.Filters.FilterItem? get_filter (string id) {
+    public Objects.Filters.FilterItem ? get_filter (string id) {
         if (filters.has_key (id)) {
             return filters.get (id);
         }

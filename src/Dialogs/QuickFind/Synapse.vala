@@ -2,29 +2,29 @@ namespace Synapse {
     [Flags]
     public enum QueryFlags {
         /* HowTo create categories (32bit).
-        * Authored by Alberto Aldegheri <albyrock87+dev@gmail.com>
-        * Categories are "stored" in 3 Levels:
-        *  Super-Category
-        *  -> Category
-        *  ----> Sub-Category
-        * ------------------------------------
-        * if (Super-Category does NOT have childs):
-        *    SUPER = 1 << FreeBitPosition
-        * else:
-        *    if (Category does NOT have childs)
-        *      CATEGORY = 1 << FreeBitPosition
-        *    else
-        *      SUB = 1 << FreeBitPosition
-        *      CATEGORY = OR ([subcategories, ...]);
-        *
-        *    SUPER = OR ([categories, ...]);
-        *
-        *
-        * Remember:
-        *   if you add or remove a category,
-        *   change labels in UIInterface.CategoryConfig.init_labels
-        *
-        */
+         * Authored by Alberto Aldegheri <albyrock87+dev@gmail.com>
+         * Categories are "stored" in 3 Levels:
+         *  Super-Category
+         *  -> Category
+         *  ----> Sub-Category
+         * ------------------------------------
+         * if (Super-Category does NOT have childs):
+         *    SUPER = 1 << FreeBitPosition
+         * else:
+         *    if (Category does NOT have childs)
+         *      CATEGORY = 1 << FreeBitPosition
+         *    else
+         *      SUB = 1 << FreeBitPosition
+         *      CATEGORY = OR ([subcategories, ...]);
+         *
+         *    SUPER = OR ([categories, ...]);
+         *
+         *
+         * Remember:
+         *   if you add or remove a category,
+         *   change labels in UIInterface.CategoryConfig.init_labels
+         *
+         */
         INCLUDE_REMOTE = 1 << 0,
         UNCATEGORIZED = 1 << 1,
 
@@ -66,12 +66,10 @@ namespace Synapse {
         uint max_results;
         uint query_id;
 
-        public Query (
-            uint query_id,
-            string query,
-            QueryFlags flags = QueryFlags.LOCAL_CONTENT,
-            uint num_results = 96
-        ) {
+        public Query (uint query_id,
+                      string query,
+                      QueryFlags flags = QueryFlags.LOCAL_CONTENT,
+                      uint num_results = 96) {
             this.query_id = query_id;
             this.query_string = query;
             this.query_string_folded = query.casefold ();
@@ -83,23 +81,21 @@ namespace Synapse {
             return cancellable.is_cancelled ();
         }
 
-        public static Gee.List<Gee.Map.Entry<Regex, int>> get_matchers_for_query (
-            string query,
-            MatcherFlags match_flags = 0,
-            RegexCompileFlags flags = GLib.RegexCompileFlags.OPTIMIZE
-        ) {
+        public static Gee.List<Gee.Map.Entry<Regex, int> > get_matchers_for_query (string query,
+                                                                                   MatcherFlags match_flags = 0,
+                                                                                   RegexCompileFlags flags = GLib.RegexCompileFlags.OPTIMIZE) {
             /* create a couple of regexes and try to help with matching
-            * match with these regular expressions (with descending score):
-            * 1) ^query$
-            * 2) ^query
-            * 3) \bquery
-            * 4) split to words and search \bword1.+\bword2 (if there are 2+ words)
-            * 5) query
-            * 6) split to characters and search \bq.+\bu.+\be.+\br.+\by
-            * 7) split to characters and search \bq.*u.*e.*r.*y
-            *
-            * The set of returned regular expressions depends on MatcherFlags.
-            */
+             * match with these regular expressions (with descending score):
+             * 1) ^query$
+             * 2) ^query
+             * 3) \bquery
+             * 4) split to words and search \bword1.+\bword2 (if there are 2+ words)
+             * 5) query
+             * 6) split to characters and search \bq.+\bu.+\be.+\br.+\by
+             * 7) split to characters and search \bq.*u.*e.*r.*y
+             *
+             * The set of returned regular expressions depends on MatcherFlags.
+             */
 
             var results = new Gee.HashMap<Regex, int> ();
             Regex re;
@@ -107,17 +103,20 @@ namespace Synapse {
             try {
                 re = new Regex ("^(%s)$".printf (Regex.escape_string (query)), flags);
                 results[re] = Match.Score.HIGHEST;
-            } catch (RegexError err) { }
+            } catch (RegexError err) {
+            }
 
             try {
                 re = new Regex ("^(%s)".printf (Regex.escape_string (query)), flags);
                 results[re] = Match.Score.EXCELLENT;
-            } catch (RegexError err) { }
+            } catch (RegexError err) {
+            }
 
             try {
                 re = new Regex ("\\b(%s)".printf (Regex.escape_string (query)), flags);
                 results[re] = Match.Score.VERY_GOOD;
-            } catch (RegexError err) { }
+            } catch (RegexError err) {
+            }
 
             // split to individual chars
             string[] individual_words = Regex.split_simple ("\\s+", query.strip ());
@@ -131,7 +130,8 @@ namespace Synapse {
                 try {
                     re = new Regex (pattern, flags);
                     results[re] = Match.Score.GOOD;
-                } catch (RegexError err) { }
+                } catch (RegexError err) {
+                }
 
                 if (!(MatcherFlags.NO_REVERSED in match_flags)) {
                     if (escaped_words.length == 2) {
@@ -141,7 +141,8 @@ namespace Synapse {
                         try {
                             re = new Regex (reversed, flags);
                             results[re] = Match.Score.GOOD - Match.Score.INCREMENT_MINOR;
-                        } catch (RegexError err) { }
+                        } catch (RegexError err) {
+                        }
                     } else {
                         // not too nice, but is quite fast to compute
                         var orred = "\\b((?:%s))".printf (string.joinv (")|(?:", escaped_words));
@@ -156,7 +157,8 @@ namespace Synapse {
                         try {
                             re = new Regex (any_order, flags);
                             results[re] = Match.Score.AVERAGE + Match.Score.INCREMENT_MINOR;
-                        } catch (RegexError err) { }
+                        } catch (RegexError err) {
+                        }
                     }
                 }
             }
@@ -165,7 +167,8 @@ namespace Synapse {
                 try {
                     re = new Regex ("(%s)".printf (Regex.escape_string (query)), flags);
                     results[re] = Match.Score.BELOW_AVERAGE;
-                } catch (RegexError err) { }
+                } catch (RegexError err) {
+                }
             }
 
             // split to individual characters
@@ -186,7 +189,8 @@ namespace Synapse {
                 try {
                     re = new Regex (pattern, flags);
                     results[re] = Match.Score.ABOVE_AVERAGE;
-                } catch (RegexError err) { }
+                } catch (RegexError err) {
+                }
             }
 
             if (!(MatcherFlags.NO_FUZZY in match_flags) && escaped_chars.length > 0) {
@@ -195,10 +199,11 @@ namespace Synapse {
                 try {
                     re = new Regex (pattern, flags);
                     results[re] = Match.Score.POOR;
-                } catch (RegexError err) { }
+                } catch (RegexError err) {
+                }
             }
 
-            var sorted_results = new Gee.ArrayList<Gee.Map.Entry<Regex, int>> ();
+            var sorted_results = new Gee.ArrayList<Gee.Map.Entry<Regex, int> > ();
             var entries = results.entries;
 
             sorted_results.set_data ("entries-ref", entries);
@@ -224,7 +229,7 @@ public enum Synapse.MatchType {
     CONTACT
 }
 
-public abstract class Synapse.Match: GLib.Object {
+public abstract class Synapse.Match : GLib.Object {
     public enum Score {
         INCREMENT_MINOR = 2000,
         INCREMENT_SMALL = 5000,
@@ -246,16 +251,16 @@ public abstract class Synapse.Match: GLib.Object {
     // properties
     public string title { get; construct set; default = ""; }
     public string description { get; set; default = ""; }
-    public string? icon_name { get; construct set; default = null; }
+    public string ? icon_name { get; construct set; default = null; }
     public bool has_thumbnail { get; construct set; default = false; }
-    public string? thumbnail_path { get; construct set; default = null; }
+    public string ? thumbnail_path { get; construct set; default = null; }
     public Synapse.MatchType match_type { get; construct set; default = Synapse.MatchType.UNKNOWN; }
 
-    public virtual void execute (Synapse.Match? match) {
+    public virtual void execute (Synapse.Match ? match) {
         critical ("execute () is not implemented");
     }
 
-    public virtual void execute_with_target (Synapse.Match? source, Synapse.Match? target = null) {
+    public virtual void execute_with_target (Synapse.Match ? source, Synapse.Match ? target = null) {
         if (target == null) {
             execute (source);
         } else {

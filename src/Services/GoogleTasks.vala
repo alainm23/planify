@@ -1,29 +1,29 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Services.GoogleTasks : GLib.Object {
     private Soup.Session session;
     private Json.Parser parser;
 
-    private static GoogleTasks? _instance;
+    private static GoogleTasks ? _instance;
     public static GoogleTasks get_default () {
         if (_instance == null) {
             _instance = new GoogleTasks ();
@@ -42,7 +42,7 @@ public class Services.GoogleTasks : GLib.Object {
 
     public signal void sync_started ();
     public signal void sync_finished ();
-    
+
     public signal void first_sync_started ();
     public signal void first_sync_finished ();
     public signal void first_sync_progress (double value);
@@ -62,7 +62,7 @@ public class Services.GoogleTasks : GLib.Object {
                              "&client_secret=" + CLIENT_SECRET +
                              "&redirect_uri=" + REDIRECT_URI +
                              "&grant_type=authorization_code"; // vala-lint=naming-convention
-        
+
         var message = new Soup.Message ("POST", TOKEN_ENDPOINT);
 
         message.request_headers.append ("Content-Type", "application/x-www-form-urlencoded");
@@ -70,8 +70,9 @@ public class Services.GoogleTasks : GLib.Object {
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+
             parser.load_from_data ((string) stream.get_data ());
-            
+
             // Debug
             print_root (parser.get_root ());
 
@@ -90,7 +91,6 @@ public class Services.GoogleTasks : GLib.Object {
 
             first_sync_finished ();
         } catch (Error e) {
-
         }
     }
 
@@ -102,6 +102,7 @@ public class Services.GoogleTasks : GLib.Object {
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+
             parser.load_from_data ((string) stream.get_data ());
 
             // Debug
@@ -132,6 +133,7 @@ public class Services.GoogleTasks : GLib.Object {
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+
             parser.load_from_data ((string) stream.get_data ());
 
             // Debug
@@ -139,25 +141,25 @@ public class Services.GoogleTasks : GLib.Object {
 
             unowned Json.Array _taskslist = parser.get_root ().get_object ().get_array_member ("items");
             foreach (unowned Json.Node _node in _taskslist.get_elements ()) {
-                Objects.Project? project = Services.Store.instance ().get_project (_node.get_object ().get_string_member ("id"));
+                Objects.Project ? project = Services.Store.instance ().get_project (_node.get_object ().get_string_member ("id"));
                 if (project != null) {
-                    //  if (_node.get_object ().get_boolean_member ("is_deleted")) {
-                    //      Services.Database.get_default ().delete_project (project);
-                    //  } else {
-                    //      string old_parent_id = project.parent_id;
-                    //      bool old_is_favorite = project.is_favorite;
+                    // if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                    // Services.Database.get_default ().delete_project (project);
+                    // } else {
+                    // string old_parent_id = project.parent_id;
+                    // bool old_is_favorite = project.is_favorite;
 
-                    //      project.update_from_json (_node);
-                    //      Services.Database.get_default ().update_project (project);
+                    // project.update_from_json (_node);
+                    // Services.Database.get_default ().update_project (project);
 
-                    //      if (project.parent_id != old_parent_id) {
-                    //          Services.EventBus.get_default ().project_parent_changed (project, old_parent_id);
-                    //      }
+                    // if (project.parent_id != old_parent_id) {
+                    // Services.EventBus.get_default ().project_parent_changed (project, old_parent_id);
+                    // }
 
-                    //      if (project.is_favorite != old_is_favorite) {
-                    //          Services.EventBus.get_default ().favorite_toggled (project);
-                    //      }
-                    //  }
+                    // if (project.is_favorite != old_is_favorite) {
+                    // Services.EventBus.get_default ().favorite_toggled (project);
+                    // }
+                    // }
                 } else {
                     Services.Store.instance ().insert_project (new Objects.Project.from_google_tasklist_json (_node));
                 }
@@ -173,7 +175,7 @@ public class Services.GoogleTasks : GLib.Object {
 
     public void init () {
         if (invalid_token ()) {
-            var dialog = new Dialogs.GoogleOAuth ();            
+            var dialog = new Dialogs.GoogleOAuth ();
             dialog.show ();
         }
     }

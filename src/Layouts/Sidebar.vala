@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Layouts.Sidebar : Adw.Bin {
     private Gtk.FlowBox filters_flow;
@@ -30,12 +30,12 @@ public class Layouts.Sidebar : Adw.Bin {
     private Layouts.FilterPaneRow completed_filter;
 
     private Gtk.ListBox sources_listbox;
-    
-    private Layouts.HeaderItem favorites_header;
-    public Gee.HashMap <string, Layouts.ProjectRow> favorites_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
-    public Gee.HashMap <string, Layouts.SidebarSourceRow> sources_hashmap = new Gee.HashMap <string, Layouts.SidebarSourceRow> ();
 
-    construct { 
+    private Layouts.HeaderItem favorites_header;
+    public Gee.HashMap<string, Layouts.ProjectRow> favorites_hashmap = new Gee.HashMap<string, Layouts.ProjectRow> ();
+    public Gee.HashMap<string, Layouts.SidebarSourceRow> sources_hashmap = new Gee.HashMap<string, Layouts.SidebarSourceRow> ();
+
+    construct {
         filters_flow = new Gtk.FlowBox () {
             homogeneous = true,
             row_spacing = 9,
@@ -48,15 +48,15 @@ public class Layouts.Sidebar : Adw.Bin {
         inbox_filter = new Layouts.FilterPaneRow (FilterType.INBOX) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Inbox"), "Ctrl+I")
         };
-        
+
         today_filter = new Layouts.FilterPaneRow (FilterType.TODAY) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Today"), "Ctrl+T")
         };
-        
+
         scheduled_filter = new Layouts.FilterPaneRow (FilterType.SCHEDULED) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Scheduled"), "Ctrl+U")
         };
-        
+
         labels_filter = new Layouts.FilterPaneRow (FilterType.LABELS) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Labels"), "Ctrl+L")
         };
@@ -93,7 +93,7 @@ public class Layouts.Sidebar : Adw.Bin {
         var whats_new_icon = new Gtk.Image.from_icon_name ("star-outline-thick-symbolic") {
             css_classes = { "gift-animation" }
         };
-        
+
         var whats_new_label = new Gtk.Label (_("What’s new in Planify")) {
             css_classes = { "underline" }
         };
@@ -149,7 +149,7 @@ public class Layouts.Sidebar : Adw.Bin {
             int item2 = ((Layouts.SidebarSourceRow) child2).source.child_order;
             return item1 - item2;
         });
-        
+
         Services.Settings.get_default ().settings.changed["views-order-visible"].connect (() => {
             filters_flow.invalidate_sort ();
             filters_flow.invalidate_filter ();
@@ -171,8 +171,8 @@ public class Layouts.Sidebar : Adw.Bin {
         whats_new_box.add_controller (whats_new_gesture);
 
         whats_new_gesture.pressed.connect (() => {
-			var dialog = new Dialogs.WhatsNew ();
-			dialog.present (Planify._instance.main_window);
+            var dialog = new Dialogs.WhatsNew ();
+            dialog.present (Planify._instance.main_window);
 
             update_version ();
             whats_new_revealer.reveal_child = verify_new_version ();
@@ -219,7 +219,7 @@ public class Layouts.Sidebar : Adw.Bin {
 
         Services.EventBus.get_default ().favorite_toggled.connect ((project) => {
             if (favorites_hashmap.has_key (project.id)) {
-                favorites_hashmap [project.id].hide_destroy ();
+                favorites_hashmap[project.id].hide_destroy ();
                 favorites_hashmap.unset (project.id);
             } else {
                 add_row_favorite (project);
@@ -231,7 +231,7 @@ public class Layouts.Sidebar : Adw.Bin {
         Services.Store.instance ().project_added.connect ((project) => {
             add_row_favorite (project);
         });
-        
+
         inbox_filter.init ();
         today_filter.init ();
         scheduled_filter.init ();
@@ -242,8 +242,8 @@ public class Layouts.Sidebar : Adw.Bin {
         add_all_favorites ();
 
         foreach (Objects.Source source in Services.Store.instance ().sources) {
-			add_source_row (source);
-		}
+            add_source_row (source);
+        }
     }
 
     private void add_source_row (Objects.Source source) {
@@ -270,7 +270,7 @@ public class Layouts.Sidebar : Adw.Bin {
             return;
         }
 
-        favorites_hashmap [project.id] = new Layouts.ProjectRow (project, false, false);
-        favorites_header.add_child (favorites_hashmap [project.id]);
+        favorites_hashmap[project.id] = new Layouts.ProjectRow (project, false, false);
+        favorites_header.add_child (favorites_hashmap[project.id]);
     }
 }

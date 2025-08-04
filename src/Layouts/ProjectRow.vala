@@ -1,29 +1,29 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Layouts.ProjectRow : Gtk.ListBoxRow {
     public Objects.Project project { get; construct; }
     public bool show_subprojects { get; construct; }
     public bool drag_n_drop { get; construct; }
-    
+
     private Widgets.IconColorProject icon_project;
     private Gtk.Label name_label;
     private Gtk.Label count_label;
@@ -47,7 +47,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Grid motion_top_grid;
     private Gtk.Revealer motion_top_revealer;
 
-    public Gee.HashMap <string, Layouts.ProjectRow> subprojects_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
+    public Gee.HashMap<string, Layouts.ProjectRow> subprojects_hashmap = new Gee.HashMap<string, Layouts.ProjectRow> ();
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     private bool has_subprojects {
@@ -187,7 +187,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             margin_end = 3,
             margin_bottom = 3
         };
-        
+
         projectrow_box.append (icon_project);
         projectrow_box.append (name_label);
         projectrow_box.append (end_box);
@@ -231,7 +231,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         update_request ();
         update_count_label (project.project_count);
         Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
-        
+
         if (drag_n_drop) {
             build_drag_and_drop ();
         }
@@ -239,9 +239,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         if (show_subprojects) {
             add_subprojects ();
         }
-        
+
         Timeout.add (main_revealer.transition_duration, () => {
-            progress_emoji_stack.visible_child_name = project.icon_style == ProjectIconStyle.PROGRESS ? "progress" : "emoji";            
+            progress_emoji_stack.visible_child_name = project.icon_style == ProjectIconStyle.PROGRESS ? "progress" : "emoji";
             main_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
         });
@@ -311,7 +311,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         signal_map[Services.EventBus.get_default ().project_parent_changed.connect ((_project, old_parent_id, collapsed) => {
             if (old_parent_id == project.id) {
                 if (subprojects_hashmap.has_key (_project.id)) {
-                    subprojects_hashmap [_project.id].hide_destroy ();
+                    subprojects_hashmap[_project.id].hide_destroy ();
                     subprojects_hashmap.unset (_project.id);
                 }
             }
@@ -384,14 +384,14 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         motion_top_grid.add_controller (drop_order_target);
         signal_map[drop_order_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ProjectRow) value;
-            var target_widget = this;            
+            var target_widget = this;
 
             // fix #1131
             Services.EventBus.get_default ().drag_projects_end (target_widget.project.source_id);
 
             var picked_project = picked_widget.project;
             var target_project = target_widget.project;
-    
+
             if (picked_widget == target_widget || target_widget == null) {
                 return false;
             }
@@ -403,10 +403,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                     Util.get_default ().create_toast (_("Projects sort changed to 'Custom sort order'"))
                 );
             }
-    
+
             var source_list = (Gtk.ListBox) picked_widget.parent;
             var target_list = (Gtk.ListBox) target_widget.parent;
-            
+
             string old_parent_id = picked_project.parent_id;
 
             if (picked_project.parent_id != target_project.parent_id) {
@@ -473,7 +473,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             source.set_icon (paintable, 0, 0);
             drag_begin ();
         })] = drag_source;
-        
+
         signal_map[drag_source.drag_cancel.connect ((source, drag, reason) => {
             drag_end ();
             return true;
@@ -522,7 +522,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             string old_parent_id = picked_project.parent_id;
             picked_project.parent_id = target_project.id;
-            
+
             if (picked_project.source_type == SourceType.TODOIST) {
                 Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.id, (obj, res) => {
                     if (Services.Todoist.get_default ().move_project_section.end (res).status) {
@@ -598,11 +598,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             if (value.dup_object () is Layouts.ItemBoard) {
                 var picked_widget = (Layouts.ItemBoard) value;
-                
+
                 if (picked_widget.item.project.is_inbox_project) {
                     return true;
                 }
-                
+
                 if (picked_widget.item.project.source_id == project.source_id) {
                     return true;
                 }
@@ -638,7 +638,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void update_projects_child_order (Gtk.ListBox listbox) {
-        unowned Layouts.ProjectRow? project_row = null;
+        unowned Layouts.ProjectRow ? project_row = null;
         var row_index = 0;
 
         do {
@@ -652,7 +652,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             row_index++;
         } while (project_row != null);
     }
-    
+
     private void build_context_menu (double x, double y) {
         if (menu_popover != null) {
             favorite_item.title = project.is_favorite ? _("Remove From Favorites") : _("Add to Favorites");
@@ -660,7 +660,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             menu_popover.popup ();
             return;
         }
-        
+
         favorite_item = new Widgets.ContextMenu.MenuItem (project.is_favorite ? _("Remove From Favorites") : _("Add to Favorites"), "star-outline-thick-symbolic");
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "edit-symbolic");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
@@ -793,8 +793,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
     public void add_subproject (Objects.Project project) {
         if (!subprojects_hashmap.has_key (project.id) && show_subprojects) {
-            subprojects_hashmap [project.id] = new Layouts.ProjectRow (project);
-            listbox.append (subprojects_hashmap [project.id]);
+            subprojects_hashmap[project.id] = new Layouts.ProjectRow (project);
+            listbox.append (subprojects_hashmap[project.id]);
         }
     }
 }

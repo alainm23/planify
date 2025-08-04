@@ -1,63 +1,63 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Utils.Datetime {
-    public static GLib.DateTime? get_todoist_datetime (string date) {
+    public static GLib.DateTime ? get_todoist_datetime (string date) {
         if (date == "") {
             return null;
         }
 
         GLib.DateTime datetime = null;
-        
-        // YYYY-MM-DD 
+
+        // YYYY-MM-DD
         if (date.length == 10) {
             var _date = date.split ("-");
 
             datetime = new GLib.DateTime.local (
-                int.parse (_date [0]),
-                int.parse (_date [1]),
-                int.parse (_date [2]),
+                int.parse (_date[0]),
+                int.parse (_date[1]),
+                int.parse (_date[2]),
                 0,
                 0,
                 0
             );
-        // YYYY-MM-DDTHH:MM:SS
+            // YYYY-MM-DDTHH:MM:SS
         } else {
-            var _date = date.split ("T") [0].split ("-");
-            var _time = date.split ("T") [1].split (":");
+            var _date = date.split ("T")[0].split ("-");
+            var _time = date.split ("T")[1].split (":");
 
             datetime = new GLib.DateTime.local (
-                int.parse (_date [0]),
-                int.parse (_date [1]),
-                int.parse (_date [2]),
-                int.parse (_time [0]),
-                int.parse (_time [1]),
-                int.parse (_time [2])
+                int.parse (_date[0]),
+                int.parse (_date[1]),
+                int.parse (_date[2]),
+                int.parse (_time[0]),
+                int.parse (_time[1]),
+                int.parse (_time[2])
             );
         }
 
         return datetime;
     }
 
-    public static string get_relative_date_from_date (GLib.DateTime? datetime) {
+    public static string get_relative_date_from_date (GLib.DateTime ? datetime) {
         if (datetime == null) {
             return "";
         }
@@ -92,9 +92,9 @@ public class Utils.Datetime {
         if (is_today (datetime)) {
             return_value = show_today ? _("Today") : "";
         } else if (is_overdue (datetime)) {
-            return_value = _("%s %s ago".printf ((days * -1).to_string (), days > 1 ? _("days") : _("day"))); 
+            return_value = _("%s %s ago".printf ((days * -1).to_string (), days > 1 ? _("days") : _("day")));
         } else {
-            return_value = _("%s %s left".printf ((days + 1).to_string (), days > 1 ? _("days") : _("day"))); 
+            return_value = _("%s %s left".printf ((days + 1).to_string (), days > 1 ? _("days") : _("day")));
         }
 
         return return_value;
@@ -147,7 +147,7 @@ public class Utils.Datetime {
         }
 
         bool returned = true;
-        
+
         if (datetime.get_hour () == 0 && datetime.get_minute () == 0 && datetime.get_second () == 0) {
             returned = false;
         }
@@ -175,7 +175,7 @@ public class Utils.Datetime {
         if (date == null) {
             return false;
         }
-        
+
         return is_same_day (date, new GLib.DateTime.now_local ().add_days (7));
     }
 
@@ -183,7 +183,7 @@ public class Utils.Datetime {
         return new GLib.DateTime.from_iso8601 (date, new GLib.TimeZone.local ());
     }
 
-    public static void recurrence_to_due (ICal.Recurrence recurrence, Objects.DueDate due) {        
+    public static void recurrence_to_due (ICal.Recurrence recurrence, Objects.DueDate due) {
         due.is_recurring = true;
 
         ICal.RecurrenceFrequency freq = recurrence.get_freq ();
@@ -211,7 +211,7 @@ public class Utils.Datetime {
         if (!until.is_null_time ()) {
             due.recurrency_end = ical_to_date_time_local (until).to_string ();
         }
-        
+
         if (due.recurrency_type == RecurrencyType.EVERY_WEEK) {
             string recurrency_weeks = "";
             GLib.Array<short> day_array = recurrence.get_by_day_array ();
@@ -219,36 +219,36 @@ public class Utils.Datetime {
             if (check_by_day ("1", day_array)) {
                 recurrency_weeks += "7,";
             }
-    
+
             if (check_by_day ("2", day_array)) {
                 recurrency_weeks += "1,";
             }
-    
-    
+
+
             if (check_by_day ("3", day_array)) {
                 recurrency_weeks += "2,";
             }
-    
-    
+
+
             if (check_by_day ("4", day_array)) {
                 recurrency_weeks += "3,";
             }
-    
-    
+
+
             if (check_by_day ("5", day_array)) {
                 recurrency_weeks += "4,";
             }
-    
-    
+
+
             if (check_by_day ("6", day_array)) {
                 recurrency_weeks += "5,";
             }
-    
-    
+
+
             if (check_by_day ("7", day_array)) {
                 recurrency_weeks += "6,";
             }
-    
+
             if (recurrency_weeks.split (",").length > 0) {
                 recurrency_weeks.slice (0, -1);
             }
@@ -277,7 +277,7 @@ public class Utils.Datetime {
             0
         );
     }
-    
+
     public static bool is_this_week (GLib.DateTime date) {
         var current_date = new GLib.DateTime.now_local ();
 
@@ -338,13 +338,13 @@ public class Utils.Datetime {
         int day_of_week = datetime.get_day_of_week ();
         int index = 0;
 
-        for (int i = 0; i < weeks.length ; i++) {
+        for (int i = 0; i < weeks.length; i++) {
             if (day_of_week <= int.parse (weeks[i])) {
                 index = i;
                 break;
             }
         }
-        
+
         if (index > weeks.length - 1) {
             index = 0;
         }
@@ -360,7 +360,7 @@ public class Utils.Datetime {
         int index = 0;
         int recurrency_interval = 0;
 
-        for (int i = 0; i < weeks.length ; i++) {
+        for (int i = 0; i < weeks.length; i++) {
             if (day_of_week < int.parse (weeks[i])) {
                 index = i;
                 break;
@@ -383,7 +383,7 @@ public class Utils.Datetime {
     }
 
     public static string get_recurrency_weeks (RecurrencyType recurrency_type, int recurrency_interval,
-        string recurrency_weeks, string end = "") {
+                                               string recurrency_weeks, string end = "") {
         string returned = recurrency_type.to_friendly_string (recurrency_interval);
 
         if (recurrency_type == RecurrencyType.EVERY_WEEK &&
@@ -392,31 +392,31 @@ public class Utils.Datetime {
             if (recurrency_weeks.contains ("1")) {
                 weeks += _("Mo,");
             }
-    
+
             if (recurrency_weeks.contains ("2")) {
                 weeks += _("Tu,");
             }
-    
+
             if (recurrency_weeks.contains ("3")) {
                 weeks += _("We,");
             }
-    
+
             if (recurrency_weeks.contains ("4")) {
                 weeks += _("Th,");
             }
-    
+
             if (recurrency_weeks.contains ("5")) {
                 weeks += _("Fr,");
             }
-    
+
             if (recurrency_weeks.contains ("6")) {
                 weeks += _("Sa,");
             }
-    
+
             if (recurrency_weeks.contains ("7")) {
                 weeks += _("Su,");
             }
-    
+
             weeks = weeks.slice (0, -1);
             returned = "%s (%s)".printf (returned, weeks);
         }
@@ -439,15 +439,15 @@ public class Utils.Datetime {
         );
     }
 
-    public static string get_default_date_format_from_date (GLib.DateTime? date) {
+    public static string get_default_date_format_from_date (GLib.DateTime ? date) {
         if (date == null) {
             return "";
         }
 
         var format = date.format (Granite.DateTime.get_default_date_format (
-            false,
-            true,
-            date.get_year () != new GLib.DateTime.now_local ().get_year ()
+                                      false,
+                                      true,
+                                      date.get_year () != new GLib.DateTime.now_local ().get_year ()
         ));
         return format;
     }
@@ -484,7 +484,7 @@ public class Utils.Datetime {
         }
     }
 
-    public static GLib.DateTime get_start_of_month (owned GLib.DateTime? date = null) {
+    public static GLib.DateTime get_start_of_month (owned GLib.DateTime ? date = null) {
         if (date == null) {
             date = new GLib.DateTime.now_local ();
         }
@@ -516,14 +516,14 @@ public class Utils.Datetime {
      * GLib.
      */
 
-     public static DateTime ical_to_date_time_local (ICal.Time date) {
+    public static DateTime ical_to_date_time_local (ICal.Time date) {
         assert (!date.is_null_time ());
         var converted = ical_convert_to_local (date);
         int year, month, day, hour, minute, second;
         converted.get_date (out year, out month, out day);
         converted.get_time (out hour, out minute, out second);
         return new DateTime.local (year, month,
-            day, hour, minute, second);
+                                   day, hour, minute, second);
     }
 
     /** Converts the given ICal.Time to the local (or system) timezone */
@@ -546,9 +546,9 @@ public class Utils.Datetime {
      * timezone. If the argument is not given, it will default to the system
      * timezone.
      */
-     
-     public static ICal.Time datetimes_to_icaltime (GLib.DateTime date, GLib.DateTime? time_local,
-        ICal.Timezone? timezone = ECal.util_get_system_timezone ().copy ()) {
+
+    public static ICal.Time datetimes_to_icaltime (GLib.DateTime date, GLib.DateTime ? time_local,
+                                                   ICal.Timezone ? timezone = ECal.util_get_system_timezone ().copy ()) {
         var result = new ICal.Time.from_day_of_year (date.get_day_of_year (), date.get_year ());
 
         // Check if it's a date. If so, set is_date to true and fix the time to be sure.
@@ -583,7 +583,7 @@ public class Utils.Datetime {
         return " (" + get_relative_date_from_date (item.due.datetime) + ") ";
     }
 
-    public static GLib.DateTime get_datetime_no_seconds (GLib.DateTime date, GLib.DateTime? time = null) {
+    public static GLib.DateTime get_datetime_no_seconds (GLib.DateTime date, GLib.DateTime ? time = null) {
         return new DateTime.local (
             date.get_year (),
             date.get_month (),
