@@ -1309,6 +1309,7 @@ public class Objects.Item : Objects.BaseObject {
         new_item.pinned = pinned;
         new_item.priority = priority;
         new_item.labels = labels;
+        new_item.item_type = item_type;
         return new_item;
     }
 
