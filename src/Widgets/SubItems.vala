@@ -103,8 +103,7 @@ public class Widgets.SubItems : Adw.Bin {
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
             hexpand = true,
-            css_classes = { "listbox-background" },
-            margin_start = 3
+            css_classes = { "listbox-background" }
         };
 
         if (is_board) {
@@ -116,8 +115,7 @@ public class Widgets.SubItems : Adw.Bin {
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
             hexpand = true,
-            css_classes = { "listbox-background" },
-            margin_start = 3
+            css_classes = { "listbox-background" }
         };
 
         checked_revealer = new Gtk.Revealer () {
