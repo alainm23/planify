@@ -39,6 +39,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Widgets.SubItems subitems;
     private Widgets.Attachments attachments;
 
+    private Widgets.ContextMenu.MenuSwitch use_note_item;
     private Widgets.ContextMenu.MenuItem copy_clipboard_item;
     private Widgets.ContextMenu.MenuItem duplicate_item;
     private Widgets.ContextMenu.MenuItem move_item;
@@ -409,6 +410,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         duplicate_item.sensitive = !item.completed;
         move_item.sensitive = !item.completed;
         subitems.add_button.sensitive = !item.completed;
+        use_note_item.active = item.item_type == ItemType.NOTE;
+        status_button.sensitive = item.item_type == ItemType.TASK;
     }
 
     public void update_due (Objects.DueDate duedate) {
@@ -444,8 +447,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     private Gtk.Popover build_context_menu () {
-        var use_note_item = new Widgets.ContextMenu.MenuSwitch (_("Use as a Note"), "paper-symbolic");
-        use_note_item.active = item.item_type == ItemType.NOTE;
+        use_note_item = new Widgets.ContextMenu.MenuSwitch (_("Use as a Note"), "paper-symbolic");
 
         copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "clipboard-symbolic");
         duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");

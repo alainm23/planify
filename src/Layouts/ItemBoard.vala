@@ -24,7 +24,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     private Gtk.Revealer motion_top_revealer;
 
     private Gtk.CheckButton checked_button;
+    private Gtk.Revealer checked_button_revealer;
     private Gtk.Label content_label;
+    private Gtk.Box content_box;
 
     private Widgets.LoadingButton hide_loading_button;
     private Gtk.Revealer hide_loading_revealer;
@@ -46,6 +48,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     public Gtk.Box handle_grid;
     public Adw.Bin card_widget;
+    public Gtk.Box footer_box;
     private Gtk.Popover menu_handle_popover = null;
     private Widgets.ContextMenu.MenuItem no_date_item;
     private Widgets.ContextMenu.MenuItem pinboard_item;
@@ -108,6 +111,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             css_classes = { "priority-color" }
         };
 
+        checked_button_revealer = new Gtk.Revealer () {
+            child = checked_button,
+            transition_type = SLIDE_RIGHT,
+            reveal_child = true
+        };
+
         content_label = new Gtk.Label (item.content) {
             wrap = true,
             hexpand = true,
@@ -121,7 +130,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             halign = Gtk.Align.CENTER,
             margin_top = 7,
             margin_end = 7,
-            tooltip_text = _("Unpin"),
+            tooltip_text = _ ("Unpin"),
             css_classes = { "min-height-0", "view-button" }
         };
 
@@ -144,13 +153,14 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             child = select_checkbutton
         };
 
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+        content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 6,
             margin_start = 6,
             margin_end = 6
         };
 
-        content_box.append (checked_button);
+        content_box.add_css_class ("transition");
+        content_box.append (checked_button_revealer);
         content_box.append (content_label);
         content_box.append (select_revealer);
 
@@ -160,9 +170,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             ellipsize = Pango.EllipsizeMode.END,
             margin_start = 30,
             margin_end = 6,
-            css_classes = { "dim-label", "caption" }
+            css_classes = { "dim-label", "caption", "transition" }
         };
-
+        
         description_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             child = description_label
@@ -243,7 +253,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             child = subtaks_container
         };
 
-        var footer_box = new Gtk.Box (HORIZONTAL, 0) {
+        footer_box = new Gtk.Box (HORIZONTAL, 0) {
             hexpand = true,
             margin_start = 30,
             margin_top = 6,
@@ -529,7 +539,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         checked_button.active = false;
         complete_timeout = 0;
 
-        var title = _("Completed. Next occurrence: %s".printf (Utils.Datetime.get_default_date_format_from_date (next_recurrency)));
+        var title = _ ("Completed. Next occurrence: %s".printf (Utils.Datetime.get_default_date_format_from_date (next_recurrency)));
         var toast = Util.get_default ().create_toast (title, 3);
 
         Services.EventBus.get_default ().send_toast (toast);
@@ -546,11 +556,15 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         // ItemType
         if (item.item_type == ItemType.TASK) {
-            checked_button.sensitive = true;
-            checked_button.opacity = 1;
+            checked_button_revealer.reveal_child = true;
+            description_label.margin_start = 30;
+            footer_box.margin_start = 30;
+            content_box.margin_start = 6;
         } else {
-            checked_button.sensitive = false;
-            checked_button.opacity = 0;
+            checked_button_revealer.reveal_child = false;
+            description_label.margin_start = 9;
+            footer_box.margin_start = 9;
+            content_box.margin_start = 3;
         }
 
         description_label.label = Util.get_default ().line_break_to_space (item.description);
@@ -631,31 +645,31 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 no_date_item.visible = false;
             }
 
-            pinboard_item.title = item.pinned ? _("Unpin") : _("Pin");
+            pinboard_item.title = item.pinned ? _ ("Unpin") : _ ("Pin");
 
             menu_handle_popover.pointing_to = { (int) x, (int) y, 1, 1 };
             menu_handle_popover.popup ();
             return;
         }
 
-        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
+        var today_item = new Widgets.ContextMenu.MenuItem (_ ("Today"), "star-outline-thick-symbolic");
         today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
 
-        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "today-calendar-symbolic");
+        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_ ("Tomorrow"), "today-calendar-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
-        pinboard_item = new Widgets.ContextMenu.MenuItem (item.pinned ? _("Unpin") : _("Pin"), "pin-symbolic");
+        pinboard_item = new Widgets.ContextMenu.MenuItem (item.pinned ? _ ("Unpin") : _ ("Pin"), "pin-symbolic");
 
-        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
+        no_date_item = new Widgets.ContextMenu.MenuItem (_ ("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = item.has_due;
-        var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
+        var move_item = new Widgets.ContextMenu.MenuItem (_ ("Move"), "arrow3-right-symbolic");
 
-        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Subtask"), "plus-large-symbolic");
-        var complete_item = new Widgets.ContextMenu.MenuItem (_("Complete"), "check-round-outline-symbolic");
-        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit"), "edit-symbolic");
-        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
+        var add_item = new Widgets.ContextMenu.MenuItem (_ ("Add Subtask"), "plus-large-symbolic");
+        var complete_item = new Widgets.ContextMenu.MenuItem (_ ("Complete"), "check-round-outline-symbolic");
+        var edit_item = new Widgets.ContextMenu.MenuItem (_ ("Edit"), "edit-symbolic");
+        var duplicate_item = new Widgets.ContextMenu.MenuItem (_ ("Duplicate"), "tabs-stack-symbolic");
 
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_ ("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -940,7 +954,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             if (item.project.sort_order != 0) {
                 item.project.sort_order = 0;
                 Services.EventBus.get_default ().send_toast (
-                    Util.get_default ().create_toast (_("Order changed to 'Custom sort order'"))
+                    Util.get_default ().create_toast (_ ("Order changed to 'Custom sort order'"))
                 );
                 item.project.update_local ();
             }
@@ -1039,8 +1053,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     private void delete_undo () {
-        var toast = new Adw.Toast (_("%s was deleted".printf (Util.get_default ().get_short_name (item.content))));
-        toast.button_label = _("Undo");
+        var toast = new Adw.Toast (_ ("%s was deleted".printf (Util.get_default ().get_short_name (item.content))));
+        toast.button_label = _ ("Undo");
         toast.priority = Adw.ToastPriority.HIGH;
         toast.timeout = 3;
 

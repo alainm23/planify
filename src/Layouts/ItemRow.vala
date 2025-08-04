@@ -30,6 +30,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer motion_top_revealer;
 
     private Gtk.CheckButton checked_button;
+    private Gtk.Revealer checked_button_revealer;
     private Widgets.TextView content_textview;
     private Gtk.Revealer hide_loading_revealer;
     private Gtk.Revealer project_label_revealer;
@@ -41,6 +42,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Label content_label;
     private Gtk.Revealer content_label_revealer;
     private Gtk.Revealer content_entry_revealer;
+    private Gtk.Box content_box;
 
     private Gtk.Label due_label;
     private Gtk.Box due_box;
@@ -237,6 +239,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             sensitive = !item.project.is_deck
         };
 
+        checked_button_revealer = new Gtk.Revealer () {
+            child = checked_button,
+            transition_type = SLIDE_RIGHT,
+            reveal_child = true
+        };
+
         content_label = new Gtk.Label (null) {
             hexpand = true,
             xalign = 0,
@@ -255,7 +263,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_textview = new Widgets.TextView () {
             wrap_mode = Gtk.WrapMode.WORD,
             accepts_tab = false,
-            placeholder_text = _("To-do name")
+            placeholder_text = _ ("To-do name")
         };
         content_textview.remove_css_class ("view");
         content_textview.add_css_class ("font-bold");
@@ -303,7 +311,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             reveal_child = !is_project_view
         };
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+        content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             valign = Gtk.Align.CENTER,
             margin_start = 6,
             hexpand = true
@@ -340,9 +348,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = repeat_box
         };
 
-        due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 6
-        };
+        due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         due_box.append (due_label);
         due_box.append (repeat_revealer);
 
@@ -394,7 +400,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         var content_main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        content_main_box.append (checked_button);
+        content_main_box.append (checked_button_revealer);
         content_main_box.append (due_box_revealer);
         content_main_box.append (content_box);
         content_main_box.append (hide_loading_revealer);
@@ -436,7 +442,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            tooltip_text = _("Add Subtasks"),
+            tooltip_text = _ ("Add Subtasks"),
             css_classes = { "flat" },
             sensitive = !item.completed
         };
@@ -446,7 +452,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         attachments_button = new Gtk.MenuButton () {
             icon_name = "mail-attachment-symbolic",
-            tooltip_text = _("Add Attachments"),
+            tooltip_text = _ ("Add Attachments"),
             popover = new Gtk.Popover () {
                 has_arrow = false,
                 child = attachments,
@@ -913,11 +919,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         // ItemType
         if (item.item_type == ItemType.TASK) {
-            checked_button.sensitive = true;
-            checked_button.opacity = 1;
+            checked_button_revealer.reveal_child = true;
+            action_box.margin_start = 16;
+            content_box.margin_start = 6;
+            due_box.margin_start = 6;
+            due_box.margin_end = 0;
         } else {
-            checked_button.sensitive = false;
-            checked_button.opacity = 0;
+            checked_button_revealer.reveal_child = false;
+            action_box.margin_start = 0;
+            content_box.margin_start = 0;
+            due_box.margin_start = 0;
+            due_box.margin_end = 6;
         }
 
         // Update Description
@@ -951,7 +963,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         pin_button.update_from_item (item);
         reminder_button.set_reminders (item.reminders);
 
-        show_subtasks_label.label = item.collapsed ? _("Hide Sub-tasks") : _("Show Sub-tasks");
+        show_subtasks_label.label = item.collapsed ? _ ("Hide Sub-tasks") : _ ("Show Sub-tasks");
 
         check_due ();
         check_description ();
@@ -1053,32 +1065,32 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 no_date_item.visible = false;
             }
 
-            pinboard_item.title = item.pinned ? _("Unpin") : _("Pin");
+            pinboard_item.title = item.pinned ? _ ("Unpin") : _ ("Pin");
 
             menu_handle_popover.pointing_to = { ((int) x), (int) y, 1, 1 };
             menu_handle_popover.popup ();
             return;
         }
 
-        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
+        var today_item = new Widgets.ContextMenu.MenuItem (_ ("Today"), "star-outline-thick-symbolic");
         today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
 
-        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
+        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_ ("Tomorrow"), "month-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
-        pinboard_item = new Widgets.ContextMenu.MenuItem (item.pinned ? _("Unpin") : _("Pin"), "pin-symbolic");
+        pinboard_item = new Widgets.ContextMenu.MenuItem (item.pinned ? _ ("Unpin") : _ ("Pin"), "pin-symbolic");
 
-        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
+        no_date_item = new Widgets.ContextMenu.MenuItem (_ ("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = item.has_due;
 
-        var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
+        var move_item = new Widgets.ContextMenu.MenuItem (_ ("Move"), "arrow3-right-symbolic");
 
-        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Subtask"), "plus-large-symbolic");
-        var complete_item = new Widgets.ContextMenu.MenuItem (_("Complete"), "check-round-outline-symbolic");
-        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit"), "edit-symbolic");
-        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
+        var add_item = new Widgets.ContextMenu.MenuItem (_ ("Add Subtask"), "plus-large-symbolic");
+        var complete_item = new Widgets.ContextMenu.MenuItem (_ ("Complete"), "check-round-outline-symbolic");
+        var edit_item = new Widgets.ContextMenu.MenuItem (_ ("Edit"), "edit-symbolic");
+        var duplicate_item = new Widgets.ContextMenu.MenuItem (_ ("Duplicate"), "tabs-stack-symbolic");
 
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_ ("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -1177,17 +1189,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private Gtk.Popover build_button_context_menu () {
-        var use_note_item = new Widgets.ContextMenu.MenuSwitch (_("Use as a Note"), "paper-symbolic");
+        var use_note_item = new Widgets.ContextMenu.MenuSwitch (_ ("Use as a Note"), "paper-symbolic");
         use_note_item.active = item.item_type == ItemType.NOTE;
 
-        var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "clipboard-symbolic");
-        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
-        var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
+        var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_ ("Copy to Clipboard"), "clipboard-symbolic");
+        var duplicate_item = new Widgets.ContextMenu.MenuItem (_ ("Duplicate"), "tabs-stack-symbolic");
+        var move_item = new Widgets.ContextMenu.MenuItem (_ ("Move"), "arrow3-right-symbolic");
 
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_ ("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
-        var more_information_item = new Widgets.ContextMenu.MenuItem (_("Change History"), "rotation-edit-symbolic");
+        var more_information_item = new Widgets.ContextMenu.MenuItem (_ ("Change History"), "rotation-edit-symbolic");
 
         var popover = new Gtk.Popover () {
             has_arrow = false,
@@ -1380,8 +1392,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_label.remove_css_class ("dim-label");
         content_label.remove_css_class ("line-through");
 
-        var title = _("Completed. Next occurrence: %s".printf (
-                          Utils.Datetime.get_default_date_format_from_date (next_recurrency)
+        var title = _ ("Completed. Next occurrence: %s".printf (
+                           Utils.Datetime.get_default_date_format_from_date (next_recurrency)
         ));
         var toast = Util.get_default ().create_toast (title, 3);
         Services.EventBus.get_default ().send_toast (toast);
@@ -1422,8 +1434,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void delete_undo () {
-        var toast = new Adw.Toast (_("%s was deleted".printf (Util.get_default ().get_short_name (item.content))));
-        toast.button_label = _("Undo");
+        var toast = new Adw.Toast (_ ("%s was deleted".printf (Util.get_default ().get_short_name (item.content))));
+        toast.button_label = _ ("Undo");
         toast.priority = Adw.ToastPriority.HIGH;
         toast.timeout = 3;
 
@@ -1627,7 +1639,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (item.project.sort_order != 0) {
                 item.project.sort_order = 0;
                 Services.EventBus.get_default ().send_toast (
-                    Util.get_default ().create_toast (_("Order changed to 'Custom sort order'"))
+                    Util.get_default ().create_toast (_ ("Order changed to 'Custom sort order'"))
                 );
                 item.project.update_local ();
             }
@@ -1748,7 +1760,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         markdown_edit_view = new Widgets.Markdown.EditView () {
-            left_margin = 24,
+            left_margin = item.item_type == ItemType.TASK ? 24 : 0,
             right_margin = 6,
             top_margin = 3,
             bottom_margin = 12

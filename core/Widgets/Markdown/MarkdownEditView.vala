@@ -200,7 +200,6 @@ public class Widgets.Markdown.EditView : Adw.Bin {
     }
 
     private void handle_focus_in () {
-        print ("Se desactiva todoooooo\n");
         Services.EventBus.get_default ().disconnect_typing_accel ();
         enter ();
     }
