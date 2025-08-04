@@ -59,7 +59,7 @@ public class Utils.AccountMigrate {
 
         string username = Services.Settings.get_default ().settings.get_string ("caldav-username");
 
-        GLib.HashTable<string, string> attributes = new GLib.HashTable<string, string>(str_hash, str_equal);
+        GLib.HashTable<string, string> attributes = new GLib.HashTable<string, string> (str_hash, str_equal);
         attributes["username"] = username;
         attributes["server_url"] = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
 

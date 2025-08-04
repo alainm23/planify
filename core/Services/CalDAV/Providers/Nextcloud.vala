@@ -335,9 +335,7 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
                 var poll_msg = new Soup.Message ("POST", poll_endpoint);
 
                 poll_msg.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);
-                poll_msg.set_request_body_from_bytes ("application/json", new Bytes ("""
-					{ "token": "%s" }
-				"""                .printf (poll_token).data));
+                poll_msg.set_request_body_from_bytes ("application/json", new Bytes ("""{ "token": "%s" }""".printf (poll_token).data));
 
                 try {
                     GLib.Bytes poll_response = yield session.send_and_read_async (poll_msg, GLib.Priority.HIGH, cancellable);
@@ -410,7 +408,7 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
             return;
         }
 
-        source.display_name = _("Nextcloud");
+        source.display_name = _ ("Nextcloud");
     }
 
     public override string get_all_taskslist_url (string server_url, string username) {

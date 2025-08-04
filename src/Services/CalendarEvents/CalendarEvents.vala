@@ -61,9 +61,9 @@ public class Services.CalendarEvents : Object {
     }
 
     construct {
-        source_client = new HashTable<string, ECal.Client>(str_hash, str_equal);
-        source_components = new HashTable<E.Source, Gee.TreeMultiMap<string, ECal.Component> >(CalendarEventsUtil.source_hash_func, CalendarEventsUtil.source_equal_func);
-        source_view = new HashTable<string, ECal.ClientView>(str_hash, str_equal);
+        source_client = new HashTable<string, ECal.Client> (str_hash, str_equal);
+        source_components = new HashTable<E.Source, Gee.TreeMultiMap<string, ECal.Component>> (CalendarEventsUtil.source_hash_func, CalendarEventsUtil.source_equal_func);
+        source_view = new HashTable<string, ECal.ClientView> (str_hash, str_equal);
 
         int week_start = Posix.NLTime.FIRST_WEEKDAY.to_string ().data[0];
         if (week_start >= 1 && week_start <= 7) {
@@ -254,7 +254,7 @@ public class Services.CalendarEvents : Object {
     private void on_objects_added (E.Source source, ECal.Client client, SList<ICal.Component> objects) {
         debug (@"Received $(objects.length()) added component(s) for source '%s'", source.dup_display_name ());
         var components = source_components.get (source);
-        var added_components = new Gee.ArrayList<ECal.Component>((Gee.EqualDataFunc<ECal.Component> ?) CalendarEventsUtil.calcomponent_equal_func);
+        var added_components = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component> ?) CalendarEventsUtil.calcomponent_equal_func);
 
         objects.foreach ((comp) => {
             unowned string uid = comp.get_uid ();
@@ -272,7 +272,7 @@ public class Services.CalendarEvents : Object {
 
     private void on_objects_modified (E.Source source, ECal.Client client, SList<ICal.Component> objects) {
         debug (@"Received $(objects.length()) modified component(s) for source '%s'", source.dup_display_name ());
-        var updated_components = new Gee.ArrayList<ECal.Component>((Gee.EqualDataFunc<ECal.Component> ?) CalendarEventsUtil.calcomponent_equal_func);
+        var updated_components = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component> ?) CalendarEventsUtil.calcomponent_equal_func);
 
         objects.foreach ((comp) => {
             unowned string uid = comp.get_uid ();
@@ -289,7 +289,7 @@ public class Services.CalendarEvents : Object {
     private void on_objects_removed (E.Source source, ECal.Client client, SList<ECal.ComponentId ?> cids) {
         debug (@"Received $(cids.length()) removed component(s) for source '%s'", source.dup_display_name ());
         var components = source_components.get (source);
-        var removed_components = new Gee.ArrayList<ECal.Component>((Gee.EqualDataFunc<ECal.Component> ?) CalendarEventsUtil.calcomponent_equal_func);
+        var removed_components = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component> ?) CalendarEventsUtil.calcomponent_equal_func);
 
         cids.foreach ((cid) => {
             if (cid == null) {

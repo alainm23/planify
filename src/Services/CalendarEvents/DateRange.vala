@@ -50,7 +50,7 @@ public class CalendarEventsUtil.DateRange : Object, Gee.Traversable<GLib.DateTim
     }
 
     public Gee.List<GLib.DateTime> to_list () {
-        var list = new Gee.ArrayList<GLib.DateTime>((Gee.EqualDataFunc<GLib.DateTime> ?) datetime_equal_func);
+        var list = new Gee.ArrayList<GLib.DateTime> ((Gee.EqualDataFunc<GLib.DateTime> ?) datetime_equal_func);
 
         foreach (var date in this) {
             list.add (date);
