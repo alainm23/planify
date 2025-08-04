@@ -136,7 +136,7 @@ public class Planify : Adw.Application {
 
         string reason = _(
             "Planify will automatically start when this device turns on " + "and run when its window is closed so that it can send to-do notifications.");
-        var command = new GenericArray <unowned string>(2);
+        var command = new GenericArray<unowned string> (2);
         foreach (unowned var arg in DAEMON_COMMAND) {
             command.add (arg);
         }

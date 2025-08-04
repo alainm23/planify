@@ -176,7 +176,7 @@ public class Services.CalendarEvents : Object {
 
     private void load_source (E.Source source) {
         /* create empty source-component map */
-        var components = new Gee.TreeMultiMap<string, ECal.Component>(
+        var components = new Gee.TreeMultiMap<string, ECal.Component> (
             (GLib.CompareDataFunc<ECal.Component> ?) GLib.strcmp,
             (GLib.CompareDataFunc<ECal.Component> ?) CalendarEventsUtil.calcomponent_compare_func
         );
