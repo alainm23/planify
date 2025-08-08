@@ -368,12 +368,12 @@ public class Objects.Section : Objects.BaseObject {
 
     public void delete_section (Gtk.Window window) {
         var dialog = new Adw.AlertDialog (
-            _("Delete Section %s".printf (name)),
-            _("This can not be undone")
+            _ ("Delete Section %s".printf (name)),
+            _ ("This can not be undone")
         );
 
-        dialog.add_response ("cancel", _("Cancel"));
-        dialog.add_response ("delete", _("Delete"));
+        dialog.add_response ("cancel", _ ("Cancel"));
+        dialog.add_response ("delete", _ ("Delete"));
         dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
         dialog.present (window);
 
@@ -394,12 +394,12 @@ public class Objects.Section : Objects.BaseObject {
 
     public void archive_section (Gtk.Window window) {
         var dialog = new Adw.AlertDialog (
-            _("Archive?"),
-            _("This will archive %s and all its tasks.".printf (name))
+            _ ("Archive?"),
+            _ ("This will archive %s and all its tasks.".printf (name))
         );
 
-        dialog.add_response ("cancel", _("Cancel"));
-        dialog.add_response ("archive", _("Archive"));
+        dialog.add_response ("cancel", _ ("Cancel"));
+        dialog.add_response ("archive", _ ("Archive"));
         dialog.close_response = "cancel";
         dialog.set_response_appearance ("archive", Adw.ResponseAppearance.DESTRUCTIVE);
         dialog.present (window);

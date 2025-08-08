@@ -60,7 +60,7 @@ public class Views.Project : Adw.Bin {
             popover = build_context_menu_popover (),
             icon_name = "view-more-symbolic",
             css_classes = { "flat" },
-            tooltip_text = _("Project Actions")
+            tooltip_text = _ ("Project Actions")
         };
 
         var indicator_grid = new Gtk.Grid () {
@@ -85,7 +85,7 @@ public class Views.Project : Adw.Bin {
             popover = build_view_setting_popover (),
             icon_name = "view-sort-descending-rtl-symbolic",
             css_classes = { "flat" },
-            tooltip_text = _("View Option Menu")
+            tooltip_text = _ ("View Option Menu")
         };
 
         var view_setting_overlay = new Gtk.Overlay ();
@@ -275,23 +275,23 @@ public class Views.Project : Adw.Bin {
     }
 
     private Gtk.Popover build_context_menu_popover () {
-        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "edit-symbolic");
-        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
-        var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "month-symbolic");
-        var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "tab-new-symbolic");
+        var edit_item = new Widgets.ContextMenu.MenuItem (_ ("Edit Project"), "edit-symbolic");
+        var duplicate_item = new Widgets.ContextMenu.MenuItem (_ ("Duplicate"), "tabs-stack-symbolic");
+        var schedule_item = new Widgets.ContextMenu.MenuItem (_ ("When?"), "month-symbolic");
+        var add_section_item = new Widgets.ContextMenu.MenuItem (_ ("Add Section"), "tab-new-symbolic");
         add_section_item.secondary_text = "S";
-        var manage_sections = new Widgets.ContextMenu.MenuItem (_("Manage Sections"), "permissions-generic-symbolic");
+        var manage_sections = new Widgets.ContextMenu.MenuItem (_ ("Manage Sections"), "permissions-generic-symbolic");
 
-        var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "list-large-symbolic");
-        var paste_item = new Widgets.ContextMenu.MenuItem (_("Paste"), "tabs-stack-symbolic");
-        expand_all_item = new Widgets.ContextMenu.MenuItem (_("Expand All"), "size-vertically-symbolic") {
+        var select_item = new Widgets.ContextMenu.MenuItem (_ ("Select"), "list-large-symbolic");
+        var paste_item = new Widgets.ContextMenu.MenuItem (_ ("Paste"), "tabs-stack-symbolic");
+        expand_all_item = new Widgets.ContextMenu.MenuItem (_ ("Expand All"), "size-vertically-symbolic") {
             visible = view_style == ProjectViewStyle.LIST
         };
-        collapse_all_item = new Widgets.ContextMenu.MenuItem (_("Collapse All"), "size-vertically-symbolic") {
+        collapse_all_item = new Widgets.ContextMenu.MenuItem (_ ("Collapse All"), "size-vertically-symbolic") {
             visible = view_style == ProjectViewStyle.LIST
         };
-        var archive_item = new Widgets.ContextMenu.MenuItem (_("Archive"), "shoe-box-symbolic");
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "user-trash-symbolic");
+        var archive_item = new Widgets.ContextMenu.MenuItem (_ ("Archive"), "shoe-box-symbolic");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_ ("Delete Project"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -337,7 +337,7 @@ public class Views.Project : Adw.Bin {
         });
 
         schedule_item.activate_item.connect (() => {
-            var dialog = new Dialogs.DatePicker (_("When?"));
+            var dialog = new Dialogs.DatePicker (_ ("When?"));
             dialog.clear = project.due_date != "";
             dialog.present (Planify._instance.main_window);
 
@@ -411,7 +411,7 @@ public class Views.Project : Adw.Bin {
         };
 
         list_box.append (new Gtk.Image.from_icon_name ("list-symbolic"));
-        list_box.append (new Gtk.Label (_("List")) {
+        list_box.append (new Gtk.Label (_ ("List")) {
             css_classes = { "caption" },
             valign = CENTER
         });
@@ -426,7 +426,7 @@ public class Views.Project : Adw.Bin {
         };
 
         board_box.append (new Gtk.Image.from_icon_name ("view-columns-symbolic"));
-        board_box.append (new Gtk.Label (_("Board")) {
+        board_box.append (new Gtk.Label (_ ("Board")) {
             css_classes = { "caption" },
             valign = CENTER
         });
@@ -450,62 +450,75 @@ public class Views.Project : Adw.Bin {
         view_box.append (board_button);
 
         var order_by_model = new Gee.ArrayList<string> ();
-        order_by_model.add (_("Custom sort order"));
-        order_by_model.add (_("Alphabetically"));
-        order_by_model.add (_("Due Date"));
-        order_by_model.add (_("Date Added"));
-        order_by_model.add (_("Priority"));
+        order_by_model.add (_ ("Custom sort order"));
+        order_by_model.add (_ ("Alphabetically"));
+        order_by_model.add (_ ("Due Date"));
+        order_by_model.add (_ ("Date Added"));
+        order_by_model.add (_ ("Priority"));
 
-        var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Sorting"), "vertical-arrows-long-symbolic", order_by_model);
+        var order_by_item = new Widgets.ContextMenu.MenuPicker (_ ("Sorting"), "vertical-arrows-long-symbolic", order_by_model);
         order_by_item.selected = project.sort_order;
 
         // Filters
         var due_date_model = new Gee.ArrayList<string> ();
-        due_date_model.add (_("All (default)"));
-        due_date_model.add (_("Today"));
-        due_date_model.add (_("This Week"));
-        due_date_model.add (_("Next 7 Days"));
-        due_date_model.add (_("This Month"));
-        due_date_model.add (_("Next 30 Days"));
-        due_date_model.add (_("No Date"));
+        due_date_model.add (_ ("All (default)"));
+        due_date_model.add (_ ("Today"));
+        due_date_model.add (_ ("This Week"));
+        due_date_model.add (_ ("Next 7 Days"));
+        due_date_model.add (_ ("This Month"));
+        due_date_model.add (_ ("Next 30 Days"));
+        due_date_model.add (_ ("No Date"));
 
-        due_date_item = new Widgets.ContextMenu.MenuPicker (_("Duedate"), "month-symbolic", due_date_model);
+        due_date_item = new Widgets.ContextMenu.MenuPicker (_ ("Duedate"), "month-symbolic", due_date_model);
         due_date_item.selected = 0;
 
         var priority_items = new Gee.ArrayList<Objects.Filters.FilterItem> ();
 
         priority_items.add (new Objects.Filters.FilterItem () {
             filter_type = FilterItemType.PRIORITY,
-            name = _("P1"),
+            name = _ ("P1"),
             value = Constants.PRIORITY_1.to_string ()
         });
 
         priority_items.add (new Objects.Filters.FilterItem () {
             filter_type = FilterItemType.PRIORITY,
-            name = _("P2"),
+            name = _ ("P2"),
             value = Constants.PRIORITY_2.to_string ()
         });
 
         priority_items.add (new Objects.Filters.FilterItem () {
             filter_type = FilterItemType.PRIORITY,
-            name = _("P3"),
+            name = _ ("P3"),
             value = Constants.PRIORITY_3.to_string ()
         });
 
         priority_items.add (new Objects.Filters.FilterItem () {
             filter_type = FilterItemType.PRIORITY,
-            name = _("P4"),
+            name = _ ("P4"),
             value = Constants.PRIORITY_4.to_string ()
         });
 
-        priority_filter = new Widgets.ContextMenu.MenuCheckPicker (_("Priority"), "flag-outline-thick-symbolic");
+        priority_filter = new Widgets.ContextMenu.MenuCheckPicker (_ ("Priority"), "flag-outline-thick-symbolic");
         priority_filter.set_items (priority_items);
 
-        var labels_filter = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "tag-outline-symbolic") {
+        var labels_filter = new Widgets.ContextMenu.MenuItem (_ ("Filter by Labels"), "tag-outline-symbolic") {
             arrow = true
         };
 
-        var show_completed_item = new Widgets.ContextMenu.MenuItem (_("Show Completed Tasks"), "check-round-outline-symbolic");
+        var show_completed_item = new Widgets.ContextMenu.MenuSwitch (_ ("Show Completed Tasks"), "check-round-outline-symbolic");
+        show_completed_item.active = project.show_completed;
+
+        var show_completed_item_button = new Gtk.Button.from_icon_name ("edit-find-symbolic") {
+            valign = CENTER,
+            tooltip_text = _("Search completed tasks")
+        };
+        show_completed_item_button.add_css_class ("flat");
+
+        var show_completed_box = new Gtk.Box (HORIZONTAL, 6) {
+            valign = CENTER
+        };
+        show_completed_box.append (show_completed_item);
+        show_completed_box.append (show_completed_item_button);
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
@@ -515,7 +528,7 @@ public class Views.Project : Adw.Bin {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         }
 
-        menu_box.append (new Gtk.Label (_("Sort By")) {
+        menu_box.append (new Gtk.Label (_ ("Sort By")) {
             css_classes = { "heading", "h4" },
             margin_start = 6,
             margin_top = 6,
@@ -524,7 +537,7 @@ public class Views.Project : Adw.Bin {
         });
         menu_box.append (order_by_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (new Gtk.Label (_("Filter By")) {
+        menu_box.append (new Gtk.Label (_ ("Filter By")) {
             css_classes = { "heading", "h4" },
             margin_start = 6,
             margin_top = 6,
@@ -535,7 +548,7 @@ public class Views.Project : Adw.Bin {
         menu_box.append (priority_filter);
         menu_box.append (labels_filter);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (show_completed_item);
+        menu_box.append (show_completed_box);
 
         var popover = new Gtk.Popover () {
             has_arrow = false,
@@ -551,6 +564,14 @@ public class Views.Project : Adw.Bin {
         });
 
         show_completed_item.activate_item.connect (() => {
+            project.show_completed = !project.show_completed;
+            project.update_local ();
+            check_default_filters ();
+        });
+
+        show_completed_item_button.clicked.connect (() => {
+            popover.popdown ();
+
             var dialog = new Dialogs.CompletedTasks (project);
             dialog.present (Planify._instance.main_window);
         });
@@ -587,17 +608,17 @@ public class Views.Project : Adw.Bin {
                 }
 
                 if (due_date_item.selected == 1) {
-                    filter.name = _("Today");
+                    filter.name = _ ("Today");
                 } else if (due_date_item.selected == 2) {
-                    filter.name = _("This Week");
+                    filter.name = _ ("This Week");
                 } else if (due_date_item.selected == 3) {
-                    filter.name = _("Next 7 Days");
+                    filter.name = _ ("Next 7 Days");
                 } else if (due_date_item.selected == 4) {
-                    filter.name = _("This Month");
+                    filter.name = _ ("This Month");
                 } else if (due_date_item.selected == 5) {
-                    filter.name = _("Next 30 Days");
+                    filter.name = _ ("Next 30 Days");
                 } else if (due_date_item.selected == 6) {
-                    filter.name = _("No Date");
+                    filter.name = _ ("No Date");
                 }
 
                 filter.value = due_date_item.selected.to_string ();

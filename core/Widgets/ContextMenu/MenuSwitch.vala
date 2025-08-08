@@ -89,8 +89,9 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
             hexpand = true,
             halign = END
         };
+        switch_widget.add_css_class ("switch-min");
 
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             hexpand = true
         };
 

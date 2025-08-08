@@ -37,7 +37,18 @@ public class Objects.Project : Objects.BaseObject {
     public bool inbox_section_hidded { get; set; default = false; }
     public string sync_id { get; set; default = ""; }
     public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
-    public bool show_completed { get; set; default = false; }
+
+    bool _show_completed = false;
+    public bool show_completed {
+        get {
+            return _show_completed;
+        }
+
+        set {
+            _show_completed = value;
+            show_completed_changed ();
+        }
+    }
 
     ProjectViewStyle _view_style = ProjectViewStyle.LIST;
     public ProjectViewStyle view_style {
@@ -196,6 +207,7 @@ public class Objects.Project : Objects.BaseObject {
     public signal void subproject_added (Objects.Project project);
     public signal void item_added (Objects.Item item);
     public signal void item_deleted (Objects.Item item);
+    public signal void show_completed_changed ();
     public signal void sort_order_changed ();
     public signal void section_sort_order_changed ();
     public signal void view_style_changed ();

@@ -28,6 +28,8 @@ public class Widgets.SubItems : Adw.Bin {
     private Gtk.Revealer sub_tasks_header_revealer;
     private Gtk.ListBox listbox;
     private Gtk.ListBox checked_listbox;
+    private Gtk.Button load_more_button;
+    private Gtk.Revealer load_more_button_revealer;
     private Gtk.Revealer checked_revealer;
     private Gtk.Revealer main_revealer;
     public Widgets.LoadingButton add_button;
@@ -36,6 +38,10 @@ public class Widgets.SubItems : Adw.Bin {
     public Gee.HashMap<string, Layouts.ItemBase> items_map = new Gee.HashMap<string, Layouts.ItemBase> ();
     public Gee.HashMap<string, Layouts.ItemBase> items_checked = new Gee.HashMap<string, Layouts.ItemBase> ();
 
+    private Gee.ArrayList<Objects.Item> completed_items_list;
+    private int completed_page_index = 0;
+    private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
+    
     public bool has_children {
         get {
             return items_map.size > 0 || (items_checked.size > 0 && show_completed);
@@ -44,7 +50,11 @@ public class Widgets.SubItems : Adw.Bin {
 
     public bool show_completed {
         get {
-            return Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks");
+            if (Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks")) {
+                return true;
+            } else {
+                return item_parent.project.show_completed;
+            }
         }
     }
 
@@ -75,7 +85,7 @@ public class Widgets.SubItems : Adw.Bin {
     }
 
     construct {
-        var sub_tasks_title = new Gtk.Label (_("Sub-tasks")) {
+        var sub_tasks_title = new Gtk.Label (_ ("Sub-tasks")) {
             css_classes = { "heading", "h4" }
         };
 
@@ -103,7 +113,9 @@ public class Widgets.SubItems : Adw.Bin {
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
             hexpand = true,
-            css_classes = { "listbox-background" }
+            css_classes = { "listbox-background" },
+            margin_start = is_board ? 6 : 0,
+            margin_end = is_board ? 12 : 0,
         };
 
         if (is_board) {
@@ -115,12 +127,30 @@ public class Widgets.SubItems : Adw.Bin {
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
             hexpand = true,
-            css_classes = { "listbox-background" }
+            css_classes = { "listbox-background" },
+            margin_start = is_board ? 6 : 0,
+            margin_end = is_board ? 12 : 0,
         };
+
+        load_more_button = new Gtk.Button.with_label ("Cargar más") {
+            halign = START,
+            margin_start = 9
+        };
+        load_more_button.add_css_class ("flat");
+
+        load_more_button_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = false,
+            child = load_more_button
+        };
+
+        var checked_listbox_container = new Gtk.Box (VERTICAL, 6);
+        checked_listbox_container.append (checked_listbox);
+        checked_listbox_container.append (load_more_button_revealer);
 
         checked_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            child = checked_listbox
+            child = checked_listbox_container
         };
 
         var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -288,6 +318,26 @@ public class Widgets.SubItems : Adw.Bin {
                 }
             }
         })] = Services.Settings.get_default ();
+
+        signals_map[item_parent.project.show_completed_changed.connect (() => {
+            if (!Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks")) {
+                checked_revealer.reveal_child = show_completed;
+
+                if (show_completed) {
+                    add_completed_items ();
+                } else {
+                    items_checked.clear ();
+
+                    foreach (unowned Gtk.Widget child in Util.get_default ().get_children (checked_listbox)) {
+                        checked_listbox.remove (child);
+                    }
+                }
+            }
+        })] = item_parent.project;
+
+        signals_map[load_more_button.clicked.connect (() => {
+            load_next_completed_page ();
+        })] = load_more_button;
     }
 
     public void add_items () {
@@ -308,15 +358,52 @@ public class Widgets.SubItems : Adw.Bin {
         update_sort ();
     }
 
-    public void add_completed_items () {
+    public void add_completed_items () {        
         items_checked.clear ();
 
         foreach (unowned Gtk.Widget child in Util.get_default ().get_children (checked_listbox)) {
             checked_listbox.remove (child);
         }
 
+        completed_items_list = new Gee.ArrayList<Objects.Item> ();
         foreach (Objects.Item item in item_parent.items) {
+            if (item.checked) {
+                completed_items_list.add (item);
+            }
+        }
+
+        completed_items_list.sort ((a, b) => {
+            return b.completed_date.compare (a.completed_date);
+        });
+
+        completed_page_index = 0;
+        load_next_completed_page ();
+    }
+
+    private void load_next_completed_page () {
+        int start = completed_page_index * PAGE_SIZE;
+        int end = (start + PAGE_SIZE < completed_items_list.size) ? (start + PAGE_SIZE) : completed_items_list.size;
+
+        for (int i = start; i < end; i++) {
+            Objects.Item item = completed_items_list[i];
             add_complete_item (item);
+        }
+
+        completed_page_index++;
+        update_load_more_button_label ();
+    }
+
+     private void update_load_more_button_label () {
+        int loaded = completed_page_index * PAGE_SIZE;
+        int remaining = completed_items_list.size - loaded;
+
+        if (remaining > 0) {
+            int to_show = remaining < PAGE_SIZE ? remaining : PAGE_SIZE;
+            load_more_button.label = "+%d %s".printf (to_show, _ ("completed tasks"));
+            load_more_button_revealer.reveal_child = true;
+        } else {
+            load_more_button.set_label ("No more tasks");
+            load_more_button_revealer.reveal_child = false;
         }
     }
 
@@ -442,7 +529,7 @@ public class Widgets.SubItems : Adw.Bin {
     }
 
     private Gtk.Widget get_placeholder () {
-        var message_label = new Gtk.Label (_("No subtasks added yet. Get started!")) {
+        var message_label = new Gtk.Label (_ ("No subtasks added yet. Get started!")) {
             wrap = true,
             justify = Gtk.Justification.CENTER,
             hexpand = true,

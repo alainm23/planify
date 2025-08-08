@@ -44,7 +44,6 @@ public class Widgets.ContextMenu.MenuCheckPicker : Adw.Bin {
         filters_map = new Gee.HashMap<string, Widgets.ContextMenu.MenuItemCheckPicker> ();
 
         menu_icon = new Gtk.Image () {
-            css_classes = { "dim-label" },
             valign = Gtk.Align.CENTER
         };
 

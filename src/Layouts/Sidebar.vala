@@ -34,7 +34,7 @@ public class Layouts.Sidebar : Adw.Bin {
     private Layouts.HeaderItem favorites_header;
     public Gee.HashMap<string, Layouts.ProjectRow> favorites_hashmap = new Gee.HashMap<string, Layouts.ProjectRow> ();
     public Gee.HashMap<string, Layouts.SidebarSourceRow> sources_hashmap = new Gee.HashMap<string, Layouts.SidebarSourceRow> ();
-
+    
     construct {
         filters_flow = new Gtk.FlowBox () {
             homogeneous = true,

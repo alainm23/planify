@@ -33,7 +33,7 @@ public class Widgets.EditableTextView : Adw.Bin {
 
     public bool is_editing {
         get {
-            return stack.visible_child == textview;
+            return stack.visible_child_name == "textview";
         }
     }
 
@@ -42,7 +42,7 @@ public class Widgets.EditableTextView : Adw.Bin {
 
         if (value) {
             textview.buffer.text = text;
-            stack.set_visible_child (textview);
+            stack.visible_child_name = "textview";
             textview.grab_focus ();
         } else {
             if (text != textview.buffer.text) {
@@ -50,7 +50,7 @@ public class Widgets.EditableTextView : Adw.Bin {
                 changed ();
             }
 
-            stack.set_visible_child (label);
+            stack.visible_child_name = "label";
         }
     }
 
@@ -93,8 +93,8 @@ public class Widgets.EditableTextView : Adw.Bin {
             vhomogeneous = false
         };
 
-        stack.add_child (label);
-        stack.add_child (textview.get_widget ());
+        stack.add_named (label, "label");
+        stack.add_named (textview.get_widget (), "textview");
 
         child = stack;
 
@@ -119,7 +119,7 @@ public class Widgets.EditableTextView : Adw.Bin {
         var gesture_focus = new Gtk.EventControllerFocus ();
         textview.add_controller (gesture_focus);
         signal_map[gesture_focus.leave.connect (() => {
-            if (stack.visible_child == textview) {
+            if (stack.visible_child_name == "textview") {
                 editing (false);
             }
         })] = gesture_focus;

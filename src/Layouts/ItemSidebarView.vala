@@ -639,10 +639,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             right_margin = 12,
             top_margin = 12,
             bottom_margin = 12,
-            margin_top = 3,
-            margin_bottom = 3,
-            margin_start = 3,
-            margin_end = 3
+            margin_top = 1,
+            margin_bottom = 1,
+            margin_start = 1,
+            margin_end = 1
         };
         markdown_edit_view.buffer = current_buffer;
 
