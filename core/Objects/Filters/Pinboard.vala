@@ -44,7 +44,12 @@ public class Objects.Filters.Pinboard : Objects.BaseObject {
         }
     }
 
-    public signal void pinboard_count_updated ();
+    public signal void pinboard_count_updated (); // This is used in FilterPaneRow.vala:157 for updating the count label
+
+    private void update_pinboard_count () {
+        _pinboard_count = Services.Store.instance ().get_items_pinned (false).size;
+        pinboard_count_updated ();
+    }
 
     construct {
         name = ("Pinboard");
@@ -53,28 +58,27 @@ public class Objects.Filters.Pinboard : Objects.BaseObject {
         view_id = FilterType.PINBOARD.to_string ();
 
         Services.Store.instance ().item_added.connect (() => {
-            _pinboard_count = Services.Store.instance ().get_items_pinned (false).size;
-            pinboard_count_updated ();
+            update_pinboard_count ();
         });
 
         Services.Store.instance ().item_deleted.connect (() => {
-            _pinboard_count = Services.Store.instance ().get_items_pinned (false).size;
-            pinboard_count_updated ();
+            update_pinboard_count ();
         });
 
         Services.Store.instance ().item_updated.connect (() => {
-            _pinboard_count = Services.Store.instance ().get_items_pinned (false).size;
-            pinboard_count_updated ();
+            update_pinboard_count ();
         });
 
         Services.Store.instance ().item_archived.connect (() => {
-            _pinboard_count = Services.Store.instance ().get_items_pinned (false).size;
-            pinboard_count_updated ();
+            update_pinboard_count ();
         });
 
         Services.Store.instance ().item_unarchived.connect (() => {
-            _pinboard_count = Services.Store.instance ().get_items_pinned (false).size;
-            pinboard_count_updated ();
+            update_pinboard_count ();
+        });
+
+        Services.Store.instance ().item_pin_change.connect (() => {
+            update_pinboard_count ();
         });
     }
 }

@@ -546,6 +546,9 @@ public class Services.Store : GLib.Object {
         if (Services.Database.get_default ().update_item (item)) {
             item_pin_change (item);
             item.pin_updated ();
+
+            item.updated ();
+            item_updated (item, "");
         }
     }
 
