@@ -256,31 +256,16 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             }
         });
 
-        var telegram_row = new Adw.ActionRow ();
-        telegram_row.activatable = true;
-        telegram_row.add_prefix (generate_icon ("navigate-symbolic"));
-        telegram_row.add_suffix (generate_icon ("go-next-symbolic"));
-        telegram_row.title = _("Telegram");
-        telegram_row.subtitle = _("Discuss and share your feedback");
+        var discord_row = new Adw.ActionRow ();
+        discord_row.activatable = true;
+        discord_row.add_prefix (generate_icon ("navigate-symbolic"));
+        discord_row.add_suffix (generate_icon ("go-next-symbolic"));
+        discord_row.title = _("Discord");
+        discord_row.subtitle = _("Discuss and share your feedback");
 
-        telegram_row.activated.connect (() => {
+        discord_row.activated.connect (() => {
             try {
-                AppInfo.launch_default_for_uri (Constants.TELEGRAM_GROUP, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
-        });
-
-        var matrix_row = new Adw.ActionRow ();
-        matrix_row.activatable = true;
-        matrix_row.add_prefix (generate_icon ("chat-bubble-text-symbolic"));
-        matrix_row.add_suffix (generate_icon ("go-next-symbolic"));
-        matrix_row.title = _("Matrix Room");
-        matrix_row.subtitle = _("Discuss and share your feedback");
-
-        matrix_row.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.MATRIX_URL, null);
+                AppInfo.launch_default_for_uri (Constants.DISCORD_URL, null);
             } catch (Error e) {
                 warning ("%s\n", e.message);
             }
@@ -315,8 +300,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         reach_us_group.add (contact_us_row);
         reach_us_group.add (mastodon_row);
         reach_us_group.add (tweet_us_row);
-        reach_us_group.add (matrix_row);
-        reach_us_group.add (telegram_row);
+        reach_us_group.add (discord_row);
         reach_us_group.add (supporting_us_row);
 
         page.add (reach_us_group);
