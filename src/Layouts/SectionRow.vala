@@ -781,7 +781,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         var add_item = new Widgets.ContextMenu.MenuItem (_ ("Add Task"), "plus-large-symbolic");
         var edit_item = new Widgets.ContextMenu.MenuItem (_ ("Edit Section"), "edit-symbolic");
         var move_item = new Widgets.ContextMenu.MenuItem (_ ("Move Section"), "arrow3-right-symbolic");
-        var manage_item = new Widgets.ContextMenu.MenuItem (_ ("Manage Section Order"), "view-list-ordered-symbolic");
+        var manage_item = new Widgets.ContextMenu.MenuItem (_ ("Manage Sections"), "view-list-ordered-symbolic");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_ ("Duplicate"), "tabs-stack-symbolic");
         var show_completed_item = new Widgets.ContextMenu.MenuItem (_ ("Show Completed Tasks"), "check-round-outline-symbolic");
 

@@ -203,6 +203,7 @@ public class Dialogs.Section : Adw.Dialog {
         if (section.project.source_type == SourceType.LOCAL) {
             section.id = Util.get_default ().generate_id (section);
             section.project.add_section_if_not_exists (section);
+            send_toast (_("Section added"));
             hide_destroy ();
             return;
         }
@@ -216,6 +217,7 @@ public class Dialogs.Section : Adw.Dialog {
                 if (response.status) {
                     section.id = response.data;
                     section.project.add_section_if_not_exists (section);
+                    send_toast (_("Section added"));
                     hide_destroy ();
                 } else {
                     Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
@@ -223,6 +225,11 @@ public class Dialogs.Section : Adw.Dialog {
                 }
             });
         }
+    }
+
+    private void send_toast (string message) {
+        var toast = new Adw.Toast (message);
+        Services.EventBus.get_default ().send_toast (toast);
     }
 
     public void hide_destroy () {

@@ -68,7 +68,8 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         listbox = new Gtk.ListBox () {
             hexpand = true,
             vexpand = true,
-            css_classes = { "listbox-background" }
+            css_classes = { "listbox-background" },
+            margin_bottom = 6
         };
 
         listbox.set_placeholder (get_placeholder ());
@@ -294,7 +295,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         }
 
         var header_label = new Gtk.Label (row.base_object.object_type.get_header ()) {
-            css_classes = { "heading", "h4" },
+            css_classes = { "caption", "font-bold" },
             halign = Gtk.Align.START,
             margin_start = 12,
             margin_bottom = 6,
