@@ -588,6 +588,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
         var show_completed_subtasks = new Adw.SwitchRow ();
         show_completed_subtasks.title = _("Always Show Completed Sub-Tasks");
+        show_completed_subtasks.subtitle = _("Keep all completed subtasks visible without collapsing them");
         Services.Settings.get_default ().settings.bind ("always-show-completed-subtasks", show_completed_subtasks,
                                                         "active", GLib.SettingsBindFlags.DEFAULT);
 
@@ -602,14 +603,16 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         group.add (task_complete_tone);
 
         var open_task_sidebar = new Adw.SwitchRow ();
-        open_task_sidebar.title = _("Open Task In Sidebar View");
+        open_task_sidebar.title = _("Open Tasks in Sidebar View");
+        open_task_sidebar.subtitle = _("Always display task details in the sidebar instead of expanding in list view.");
         Services.Settings.get_default ().settings.bind ("open-task-sidebar", open_task_sidebar, "active",
                                                         GLib.SettingsBindFlags.DEFAULT);
 
         group.add (open_task_sidebar);
 
         var attention_at_one = new Adw.SwitchRow ();
-        attention_at_one.title = _("Attention at One");
+        attention_at_one.title = _("Single Task Focus Mode");
+        attention_at_one.subtitle = _("Allow only one task to be expanded at a time in list view");
         Services.Settings.get_default ().settings.bind ("attention-at-one", attention_at_one, "active",
                                                         GLib.SettingsBindFlags.DEFAULT);
         Services.Settings.get_default ().settings.bind ("open-task-sidebar", attention_at_one, "sensitive",
@@ -627,9 +630,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
         var always_show_sidebar_item = new Adw.SwitchRow ();
         always_show_sidebar_item.title = _("Always Show Details Sidebar");
-        always_show_sidebar_item.subtitle =
-            _(
-                "Keep the details panel always visible for easier navigation between tasks, avoiding the need to constantly open and close the panel.");
+        always_show_sidebar_item.subtitle = _("Keep the details sidebar always visible for faster task navigation, without repeatedly opening and closing it");
         Services.Settings.get_default ().settings.bind ("always-show-details-sidebar", always_show_sidebar_item,
                                                         "active", GLib.SettingsBindFlags.DEFAULT);
 

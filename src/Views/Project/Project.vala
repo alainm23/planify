@@ -278,7 +278,7 @@ public class Views.Project : Adw.Bin {
         var edit_item = new Widgets.ContextMenu.MenuItem (_ ("Edit Project"), "edit-symbolic");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_ ("Duplicate"), "tabs-stack-symbolic");
         var schedule_item = new Widgets.ContextMenu.MenuItem (_ ("When?"), "month-symbolic");
-        var add_section_item = new Widgets.ContextMenu.MenuItem (_ ("Add Section"), "tab-new-symbolic");
+        var add_section_item = new Widgets.ContextMenu.MenuItem (_ ("New Section"), "tab-new-symbolic");
         add_section_item.secondary_text = "S";
         var manage_sections = new Widgets.ContextMenu.MenuItem (_ ("Manage Sections"), "permissions-generic-symbolic");
 
@@ -505,7 +505,7 @@ public class Views.Project : Adw.Bin {
             arrow = true
         };
 
-        var show_completed_item = new Widgets.ContextMenu.MenuSwitch (_ ("Show Completed Tasks"), "check-round-outline-symbolic");
+        var show_completed_item = new Widgets.ContextMenu.MenuSwitch (_ ("Completed Tasks"), "check-round-outline-symbolic");
         show_completed_item.active = project.show_completed;
 
         var show_completed_item_button = new Gtk.Button.from_icon_name ("edit-find-symbolic") {
@@ -525,20 +525,18 @@ public class Views.Project : Adw.Bin {
 
         if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
             menu_box.append (view_box);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         }
 
         menu_box.append (new Gtk.Label (_ ("Sort By")) {
-            css_classes = { "heading", "h4" },
+            css_classes = { "caption", "font-bold" },
             margin_start = 6,
-            margin_top = 6,
             margin_bottom = 6,
             halign = Gtk.Align.START
         });
         menu_box.append (order_by_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (new Gtk.Label (_ ("Filter By")) {
-            css_classes = { "heading", "h4" },
+            css_classes = { "caption", "font-bold" },
             margin_start = 6,
             margin_top = 6,
             margin_bottom = 6,

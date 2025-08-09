@@ -51,11 +51,23 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
             css_classes = { "listbox-background" }
         };
 
+        var label = new Gtk.Label (_("You can sort your sections by dragging and dropping")) {
+            css_classes = { "caption", "dim-label" },
+            halign = START,
+            margin_start = 16,
+            margin_end = 16,
+            margin_top = 3,
+            wrap = true,
+            wrap_mode = CHAR,
+            natural_wrap_mode = NONE,
+            xalign = 0
+        };
+
         var listbox_card = new Adw.Bin () {
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 6,
-            margin_top = 3,
+            margin_top = 1,
             css_classes = { "card" },
             child = listbox,
             valign = START
@@ -95,8 +107,11 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
             reveal_child = project.sections_archived.size > 0
         };
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_bottom = 6,
+        };
         content_box.append (listbox_card);
+        content_box.append (label);
         content_box.append (archived_revealer);
 
         scrolled_window = new Widgets.ScrolledWindow (content_box);

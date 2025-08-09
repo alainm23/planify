@@ -108,6 +108,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
         if (widget_type == "menu") {
             content_box.margin_top = 3;
             content_box.margin_bottom = 3;
+            content_box.margin_end = 3;
             content_box.append (menu_button);
         }
 
