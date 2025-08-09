@@ -61,6 +61,30 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.13.2" date="2025-08-09">
+      <description translate="no">
+        <ul>
+          <li>Fixed all-day events detection to use local time instead of UTC. Fixes #1449</li>
+          <li>Updated Bulgarian translation.</li>
+          <li>Fixed project view destruction timing during transitions.</li>
+          <li>Only allow valid SSL certificates.</li>
+          <li>Added option to manually enter Todoist token. Fixes #1481 #1445</li>
+          <li>Disabled keyboard shortcuts when Entry regains focus after closing a dialog. Fixes #1543 #1539</li>
+          <li>Avoided resetting TextView content when clicking while editing. Fixes #1541</li>
+          <li>Limited description text area height and enabled scroll. Fixes #1473</li>
+          <li>Fixed placeholder behavior in TextView.</li>
+          <li>Simplified time label formatting logic. Fixes #1447</li>
+          <li>Added natural sort comparison for strings with numbers. Fixes #1080</li>
+          <li>Fixed duplication turning notes into tasks. Fixes #1472</li>
+          <li>Improved layout alignment for note-type tasks.</li>
+          <li>Fixed Pinboard not updating correctly.</li>
+          <li>Added Discord link.</li>
+          <li>Show completed tasks below pending tasks with pagination. Fixes #1614 #1565 #1415 #1417</li>
+        </ul>
+      </description>
+
+    </release>
+
     <release version="4.13.0" date="2025-07-18">
       <description translate="no">
         <ul>
