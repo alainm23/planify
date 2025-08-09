@@ -120,7 +120,11 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
 
         var card = new Adw.Bin () {
             child = h_box,
-            css_classes = { "card", "activatable", "border-radius-9" }
+            css_classes = { "card", "activatable", "border-radius-9" },
+            margin_start = 1,
+            margin_end = 1,
+            margin_top = 1,
+            margin_bottom = 1
         };
 
         main_revealer = new Gtk.Revealer () {
