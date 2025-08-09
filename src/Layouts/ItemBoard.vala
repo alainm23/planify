@@ -318,7 +318,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         update_request ();
 
-        if (!item.pinned) {
+        if (!item.pinned && !item.checked) {
             build_drag_and_drop ();
         }
 

@@ -26,6 +26,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     private Gtk.Label name_label;
     private Gtk.Label count_label;
     private Gtk.ListBox listbox;
+    private Gtk.ListBox checked_listbox;
+    private Gtk.Button load_more_button;
+    private Gtk.Revealer load_more_button_revealer;
+    private Gtk.Revealer checked_revealer;
     private Gtk.Revealer content_revealer;
     private Gtk.Grid drop_inbox_widget;
     private Gtk.Revealer drop_inbox_revealer;
@@ -42,7 +46,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
     public bool has_children {
         get {
-            return items_map.size > 0;
+            return items_map.size > 0 ||
+                   checked_items_map.size > 0;
         }
     }
 
@@ -59,6 +64,12 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     }
 
     public Gee.HashMap<string, Layouts.ItemRow> items_map = new Gee.HashMap<string, Layouts.ItemRow> ();
+    public Gee.HashMap<string, Layouts.ItemRow> checked_items_map = new Gee.HashMap<string, Layouts.ItemRow> ();
+
+    private Gee.ArrayList<Objects.Item> completed_items_list;
+    private int completed_page_index = 0;
+    private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
+
     private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public signal void children_size_changed ();
@@ -75,7 +86,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         var section = new Objects.Section ();
         section.id = "";
         section.project_id = project.id;
-        section.name = _("(No Section)");
+        section.name = _ ("(No Section)");
 
         Object (
             section: section,
@@ -189,17 +200,46 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             css_classes = { "listbox-background" }
         };
 
-        var bottom_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+        checked_listbox = new Gtk.ListBox () {
+            valign = Gtk.Align.START,
+            hexpand = true,
+            css_classes = { "listbox-background" }
+        };
+
+        load_more_button = new Gtk.Button.with_label ("Cargar más") {
+            margin_start = 9,
+            halign = START,
+        };
+        load_more_button.add_css_class ("flat");
+
+        load_more_button_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = false,
+            child = load_more_button
+        };
+
+        var checked_listbox_container = new Gtk.Box (VERTICAL, 6);
+        checked_listbox_container.append (checked_listbox);
+        checked_listbox_container.append (load_more_button_revealer);
+
+        checked_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = true,
+            child = checked_listbox_container
+        };
+
+        var bottom_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             margin_end = 12
         };
 
-        bottom_grid.append (listbox);
+        bottom_box.append (listbox);
+        bottom_box.append (checked_revealer);
 
         bottom_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             reveal_child = section.collapsed,
-            child = bottom_grid
+            child = bottom_box
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -218,6 +258,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         child = content_revealer;
 
         add_items ();
+        show_completed_changed ();
         build_drag_and_drop ();
         update_count_label (section.section_count);
         update_collapsed_button ();
@@ -259,7 +300,17 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
                         items_map[item.id].hide_destroy ();
                         items_map.unset (item.id);
                     }
+
+                    if (!checked_items_map.has_key (item.id)) {
+                        checked_items_map[item.id] = new Layouts.ItemRow (item, true);
+                        checked_listbox.insert (checked_items_map[item.id], 0);
+                    }
                 } else {
+                    if (checked_items_map.has_key (item.id)) {
+                        checked_items_map[item.id].hide_destroy ();
+                        checked_items_map.unset (item.id);
+                    }
+
                     if (!items_map.has_key (item.id)) {
                         items_map[item.id] = new Layouts.ItemRow (item, true);
                         listbox.append (items_map[item.id]);
@@ -269,16 +320,18 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         })] = Services.EventBus.get_default ();
 
         signals_map[Services.Store.instance ().item_updated.connect ((item, update_id) => {
-            if (!items_map.has_key (item.id)) {
-                return;
-            }
+            if (items_map.has_key (item.id)) {
+                if (items_map[item.id].update_id != update_id) {
+                    items_map[item.id].update_request ();
+                    update_sort ();
 
-            if (items_map[item.id].update_id != update_id) {
-                items_map[item.id].update_request ();
-                update_sort ();
-            }
+                    listbox.invalidate_filter ();
+                }
 
-            listbox.invalidate_filter ();
+                if (checked_items_map.has_key (item.id)) {
+                    checked_items_map[item.id].update_request ();
+                }
+            }
         })] = Services.Store.instance ();
 
         signals_map[Services.Store.instance ().item_pin_change.connect ((item) => {
@@ -300,6 +353,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
                 items_map[item.id].hide_destroy ();
                 items_map.unset (item.id);
             }
+
+            if (checked_items_map.has_key (item.id)) {
+                checked_items_map[item.id].hide_destroy ();
+                checked_items_map.unset (item.id);
+            }
         })] = Services.Store.instance ();
 
         signals_map[Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
@@ -308,6 +366,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
                 if (items_map.has_key (item.id)) {
                     items_map[item.id].hide_destroy ();
                     items_map.unset (item.id);
+                }
+
+                if (checked_items_map.has_key (item.id)) {
+                    checked_items_map[item.id].hide_destroy ();
+                    checked_items_map.unset (item.id);
                 }
             }
 
@@ -338,6 +401,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
                 }
             }
         })] = Services.EventBus.get_default ();
+
+        signals_map[section.project.show_completed_changed.connect (show_completed_changed)] = section.project;
 
         signals_map[section.project.sort_order_changed.connect (() => {
             update_sort ();
@@ -433,6 +498,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             section.collapsed = !section.collapsed;
             section.update_local ();
         })] = hide_subtask_button;
+
+        signals_map[load_more_button.clicked.connect (() => {
+            load_next_completed_page ();
+        })] = load_more_button;
     }
 
     private void update_count_label (int count) {
@@ -484,6 +553,86 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         } else {
             listbox.append (items_map[item.id]);
         }
+    }
+
+    private void show_completed_changed () {
+        if (section.project.show_completed) {
+            add_completed_items ();
+        } else {
+            foreach (Layouts.ItemRow row in checked_items_map.values) {
+                row.hide_destroy ();
+            }
+
+            checked_items_map.clear ();
+        }
+
+        checked_revealer.reveal_child = section.project.show_completed;
+    }
+
+    public void add_completed_items () {
+        foreach (Layouts.ItemRow row in checked_items_map.values) {
+            row.hide_destroy ();
+        }
+
+        checked_items_map.clear ();
+
+        completed_items_list = new Gee.ArrayList<Objects.Item> ();
+        foreach (Objects.Item item in is_inbox_section ? section.project.items : section.items) {
+            if (item.checked) {
+                completed_items_list.add (item);
+            }
+        }
+
+        completed_items_list.sort ((a, b) => {
+            return b.completed_date.compare (a.completed_date);
+        });
+
+        completed_page_index = 0;
+        load_next_completed_page ();
+    }
+
+    private void load_next_completed_page () {
+        int start = completed_page_index * PAGE_SIZE;
+        int end = (start + PAGE_SIZE < completed_items_list.size) ? (start + PAGE_SIZE) : completed_items_list.size;
+
+        for (int i = start; i < end; i++) {
+            Objects.Item item = completed_items_list[i];
+            add_complete_item (item);
+        }
+
+        completed_page_index++;
+        update_load_more_button_label ();
+    }
+
+    private void update_load_more_button_label () {
+        int loaded = completed_page_index * PAGE_SIZE;
+        int remaining = completed_items_list.size - loaded;
+
+        if (remaining > 0) {
+            int to_show = remaining < PAGE_SIZE ? remaining : PAGE_SIZE;
+            load_more_button.label = "+%d %s".printf (to_show, _ ("completed tasks"));
+            load_more_button_revealer.reveal_child = true;
+        } else {
+            load_more_button.set_label ("No more tasks");
+            load_more_button_revealer.reveal_child = false;
+        }
+    }
+
+    public void add_complete_item (Objects.Item item) {
+        if (!section.project.show_completed) {
+            return;
+        }
+
+        if (!item.checked) {
+            return;
+        }
+
+        if (checked_items_map.has_key (item.id_string)) {
+            return;
+        }
+
+        checked_items_map[item.id_string] = new Layouts.ItemRow (item);
+        checked_listbox.append (checked_items_map[item.id_string]);
     }
 
     public void prepare_new_item (string content = "") {
@@ -629,15 +778,15 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     }
 
     private Gtk.Popover build_context_menu () {
-        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Task"), "plus-large-symbolic");
-        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Section"), "edit-symbolic");
-        var move_item = new Widgets.ContextMenu.MenuItem (_("Move Section"), "arrow3-right-symbolic");
-        var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "view-list-ordered-symbolic");
-        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
-        var show_completed_item = new Widgets.ContextMenu.MenuItem (_("Show Completed Tasks"), "check-round-outline-symbolic");
+        var add_item = new Widgets.ContextMenu.MenuItem (_ ("Add Task"), "plus-large-symbolic");
+        var edit_item = new Widgets.ContextMenu.MenuItem (_ ("Edit Section"), "edit-symbolic");
+        var move_item = new Widgets.ContextMenu.MenuItem (_ ("Move Section"), "arrow3-right-symbolic");
+        var manage_item = new Widgets.ContextMenu.MenuItem (_ ("Manage Section Order"), "view-list-ordered-symbolic");
+        var duplicate_item = new Widgets.ContextMenu.MenuItem (_ ("Duplicate"), "tabs-stack-symbolic");
+        var show_completed_item = new Widgets.ContextMenu.MenuItem (_ ("Show Completed Tasks"), "check-round-outline-symbolic");
 
-        var archive_item = new Widgets.ContextMenu.MenuItem (_("Archive"), "shoe-box-symbolic");
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "user-trash-symbolic");
+        var archive_item = new Widgets.ContextMenu.MenuItem (_ ("Archive"), "shoe-box-symbolic");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_ ("Delete Section"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

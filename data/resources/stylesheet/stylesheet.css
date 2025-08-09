@@ -69,7 +69,7 @@ entry.flat:focus-within {
 .color-radio radio:checked {
     background: transparent;
     color: #fff;
-    -gtk-icon-source: -gtk-icontheme("emblem-ok-symbolic");
+    -gtk-icon-source: -gtk-icontheme("checkmark-small-symbolic");
     -gtk-icon-shadow: 0 1px 1px shade(#fff, 0.85);
 }
 

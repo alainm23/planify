@@ -44,4 +44,5 @@ namespace Constants {
     public const string DISCORD_URL = "https://discord.com/invite/dxxyumrTJW";
     public const bool SHOW_WHATSNEW = false;
     public const bool BLOCK_PAST_DAYS = false;
+    public const int COMPLETED_PAGE_SIZE = 15;
 }

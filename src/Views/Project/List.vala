@@ -55,7 +55,7 @@ public class Views.List : Adw.Bin {
     construct {
         sections_map = new Gee.HashMap<string, Layouts.SectionRow> ();
 
-        var description_widget = new Widgets.EditableTextView (_("Note")) {
+        var description_widget = new Widgets.EditableTextView (_ ("Note")) {
             text = project.description,
             margin_top = 6,
             margin_start = 27,
@@ -88,8 +88,8 @@ public class Views.List : Adw.Bin {
 
         var listbox_placeholder = new Adw.StatusPage () {
             icon_name = "check-round-outline-symbolic",
-            title = _("Add Some Tasks"),
-            description = _("Press 'a' to create a new task")
+            title = _ ("Add Some Tasks"),
+            description = _ ("Press 'a' to create a new task")
         };
 
         listbox_placeholder_stack = new Gtk.Stack () {
@@ -216,6 +216,10 @@ public class Views.List : Adw.Bin {
             }
         })] = Services.Store.instance ();
 
+        signals_map[project.show_completed_changed.connect (() => {
+            check_placeholder ();
+        })] = project;
+
         destroy.connect (() => {
             listbox.set_sort_func (null);
             listbox.set_filter_func (null);
@@ -232,11 +236,11 @@ public class Views.List : Adw.Bin {
     private void check_placeholder () {
         int count = project.project_count + sections_map.size;
 
-        if (count > 0) {
-            listbox_placeholder_stack.visible_child_name = "listbox";
-        } else {
-            listbox_placeholder_stack.visible_child_name = "placeholder";
+        if (project.show_completed) {
+            count = count + project.items_checked.size;
         }
+
+        listbox_placeholder_stack.visible_child_name = count > 0 ? "listbox" : "placeholder";
     }
 
     private void add_sections () {
@@ -314,7 +318,7 @@ public class Views.List : Adw.Bin {
     private Gtk.Revealer build_due_date_widget () {
         due_image = new Gtk.Image.from_icon_name ("month-symbolic");
 
-        due_label = new Gtk.Label (_("Schedule")) {
+        due_label = new Gtk.Label (_ ("Schedule")) {
             xalign = 0
         };
 
@@ -348,7 +352,7 @@ public class Views.List : Adw.Bin {
         var gesture = new Gtk.GestureClick ();
         due_box.add_controller (gesture);
         gesture.pressed.connect ((n_press, x, y) => {
-            var dialog = new Dialogs.DatePicker (_("When?"));
+            var dialog = new Dialogs.DatePicker (_ ("When?"));
 
             if (project.due_date != "") {
                 dialog.datetime = Utils.Datetime.get_date_from_string (project.due_date);

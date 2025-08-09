@@ -28,7 +28,11 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
     private Gtk.Label description_label;
     private Gtk.Revealer description_revealer;
     private Gtk.ListBox listbox;
-    private Adw.Bin listbox_target;
+    private Gtk.Box listbox_target;
+    private Gtk.ListBox checked_listbox;
+    private Gtk.Button load_more_button;
+    private Gtk.Revealer load_more_button_revealer;
+    private Gtk.Revealer checked_revealer;
     private Widgets.LoadingButton add_button;
     private Gtk.Box content_box;
 
@@ -51,7 +55,12 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
     }
 
     public Gee.HashMap<string, Layouts.ItemBoard> items_map = new Gee.HashMap<string, Layouts.ItemBoard> ();
+    public Gee.HashMap<string, Layouts.ItemBoard> checked_items_map = new Gee.HashMap<string, Layouts.ItemBoard> ();
     private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
+    private Gee.ArrayList<Objects.Item> completed_items_list;
+    private int completed_page_index = 0;
+    private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
 
     public SectionBoard (Objects.Section section) {
         Object (
@@ -66,7 +75,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         var section = new Objects.Section ();
         section.id = "";
         section.project_id = project.id;
-        section.name = _("(No Section)");
+        section.name = _ ("(No Section)");
 
         Object (
             section: section,
@@ -146,12 +155,41 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             css_classes = { "listbox-background", "drop-target-list" }
         };
 
-        listbox_target = new Adw.Bin () {
+        checked_listbox = new Gtk.ListBox () {
+            valign = Gtk.Align.START,
+            selection_mode = Gtk.SelectionMode.NONE,
+            hexpand = true,
+            css_classes = { "listbox-background", "listbox-separator-3" }
+        };
+
+        load_more_button = new Gtk.Button.with_label ("Cargar más") {
+            halign = START,
+        };
+        load_more_button.add_css_class ("flat");
+
+        load_more_button_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = false,
+            child = load_more_button
+        };
+
+        var checked_listbox_container = new Gtk.Box (VERTICAL, 6);
+        checked_listbox_container.append (checked_listbox);
+        checked_listbox_container.append (load_more_button_revealer);
+
+        checked_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = checked_listbox_container
+        };
+
+        listbox_target = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             vexpand = true,
             margin_end = 6,
-            margin_bottom = 12,
-            child = listbox
+            margin_bottom = 12
         };
+
+        listbox_target.append (listbox);
+        listbox_target.append (checked_revealer);
 
         var items_scrolled = new Widgets.ScrolledWindow (listbox_target);
 
@@ -167,6 +205,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         child = content_box;
         update_request ();
         add_items ();
+        show_completed_changed ();
         build_drag_and_drop ();
         update_count_label (section_count);
 
@@ -230,7 +269,17 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                         items_map[item.id].hide_destroy ();
                         items_map.unset (item.id);
                     }
+
+                    if (!checked_items_map.has_key (item.id)) {
+                        checked_items_map[item.id] = new Layouts.ItemBoard (item);
+                        checked_listbox.insert (checked_items_map[item.id], 0);
+                    }
                 } else {
+                    if (checked_items_map.has_key (item.id)) {
+                        checked_items_map[item.id].hide_destroy ();
+                        checked_items_map.unset (item.id);
+                    }
+
                     if (!items_map.has_key (item.id)) {
                         items_map[item.id] = new Layouts.ItemBoard (item);
                         listbox.append (items_map[item.id]);
@@ -240,13 +289,13 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         })] = Services.EventBus.get_default ();
 
         signals_map[Services.Store.instance ().item_updated.connect ((item, update_id) => {
-            if (!items_map.has_key (item.id)) {
-                return;
-            }
-
-            if (items_map[item.id].update_id != update_id) {
+            if (items_map.has_key (item.id)) {
                 items_map[item.id].update_request ();
                 update_sort ();
+            }
+
+            if (checked_items_map.has_key (item.id_string)) {
+                checked_items_map[item.id_string].update_request ();
             }
 
             listbox.invalidate_filter ();
@@ -280,6 +329,11 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                 if (items_map.has_key (item.id)) {
                     items_map[item.id].hide_destroy ();
                     items_map.unset (item.id);
+                }
+
+                if (checked_items_map.has_key (item.id_string)) {
+                    checked_items_map[item.id_string].hide_destroy ();
+                    checked_items_map.unset (item.id_string);
                 }
             }
 
@@ -361,6 +415,12 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                 dialog.present (Planify._instance.main_window);
             }
         })] = edit_gesture;
+
+        signals_map[section.project.show_completed_changed.connect (show_completed_changed)] = section.project;
+
+        signals_map[load_more_button.clicked.connect (() => {
+            load_next_completed_page ();
+        })] = load_more_button;
     }
 
     private void update_request () {
@@ -460,16 +520,88 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         update_count_label (section_count);
     }
 
-    private Gtk.Popover build_context_menu () {
-        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Task"), "plus-large-symbolic");
-        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Section"), "edit-symbolic");
-        var move_item = new Widgets.ContextMenu.MenuItem (_("Move Section"), "arrow3-right-symbolic");
-        var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "view-list-ordered-symbolic");
-        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
-        var show_completed_item = new Widgets.ContextMenu.MenuItem (_("Show Completed Tasks"), "check-round-outline-symbolic");
+    private void show_completed_changed () {
+        if (section.project.show_completed) {
+            add_completed_items ();
+        } else {
+            foreach (Layouts.ItemBoard row in checked_items_map.values) {
+                row.hide_destroy ();
+            }
 
-        var archive_item = new Widgets.ContextMenu.MenuItem (_("Archive"), "shoe-box-symbolic");
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "user-trash-symbolic");
+            checked_items_map.clear ();
+        }
+
+        checked_revealer.reveal_child = section.project.show_completed;
+    }
+
+    public void add_completed_items () {
+        foreach (Layouts.ItemBoard row in checked_items_map.values) {
+            row.hide_destroy ();
+        }
+
+        checked_items_map.clear ();
+
+        completed_items_list = new Gee.ArrayList<Objects.Item> ();
+        foreach (Objects.Item item in is_inbox_section ? section.project.items : section.items) {
+            if (item.checked) {
+                completed_items_list.add (item);
+            }
+        }
+
+        completed_items_list.sort ((a, b) => {
+            return b.completed_date.compare (a.completed_date);
+        });
+
+        completed_page_index = 0;
+        load_next_completed_page ();
+    }
+
+    private void load_next_completed_page () {
+        int start = completed_page_index * PAGE_SIZE;
+        int end = (start + PAGE_SIZE < completed_items_list.size) ? (start + PAGE_SIZE) : completed_items_list.size;
+
+        for (int i = start; i < end; i++) {
+            Objects.Item item = completed_items_list[i];
+            add_complete_item (item);
+        }
+
+        completed_page_index++;
+        update_load_more_button_label ();
+    }
+
+    private void update_load_more_button_label () {
+        int loaded = completed_page_index * PAGE_SIZE;
+        int remaining = completed_items_list.size - loaded;
+
+        if (remaining > 0) {
+            int to_show = remaining < PAGE_SIZE ? remaining : PAGE_SIZE;
+            load_more_button.label = "+%d %s".printf (to_show, _ ("completed tasks"));
+            load_more_button_revealer.reveal_child = true;
+        } else {
+            load_more_button.set_label ("No more tasks");
+            load_more_button_revealer.reveal_child = false;
+        }
+    }
+
+    public void add_complete_item (Objects.Item item) {
+        if (section.project.show_completed && item.checked) {
+            if (!checked_items_map.has_key (item.id_string)) {
+                checked_items_map[item.id_string] = new Layouts.ItemBoard (item);
+                checked_listbox.append (checked_items_map[item.id_string]);
+            }
+        }
+    }
+
+    private Gtk.Popover build_context_menu () {
+        var add_item = new Widgets.ContextMenu.MenuItem (_ ("Add Task"), "plus-large-symbolic");
+        var edit_item = new Widgets.ContextMenu.MenuItem (_ ("Edit Section"), "edit-symbolic");
+        var move_item = new Widgets.ContextMenu.MenuItem (_ ("Move Section"), "arrow3-right-symbolic");
+        var manage_item = new Widgets.ContextMenu.MenuItem (_ ("Manage Section Order"), "view-list-ordered-symbolic");
+        var duplicate_item = new Widgets.ContextMenu.MenuItem (_ ("Duplicate"), "tabs-stack-symbolic");
+        var show_completed_item = new Widgets.ContextMenu.MenuItem (_ ("Show Completed Tasks"), "check-round-outline-symbolic");
+
+        var archive_item = new Widgets.ContextMenu.MenuItem (_ ("Archive"), "shoe-box-symbolic");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_ ("Delete Section"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -533,12 +665,12 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
         delete_item.clicked.connect (() => {
             var dialog = new Adw.AlertDialog (
-                _("Delete Section %s".printf (section.name)),
-                _("This can not be undone")
+                _ ("Delete Section %s".printf (section.name)),
+                _ ("This can not be undone")
             );
 
-            dialog.add_response ("cancel", _("Cancel"));
-            dialog.add_response ("delete", _("Delete"));
+            dialog.add_response ("cancel", _ ("Cancel"));
+            dialog.add_response ("delete", _ ("Delete"));
             dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
             dialog.present (Planify._instance.main_window);
 

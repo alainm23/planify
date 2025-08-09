@@ -28,6 +28,8 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     private Widgets.PriorityButton priority_button;
     private Gtk.MenuButton menu_button;
     private Widgets.LoadingButton done_button;
+    private Widgets.ContextMenu.MenuItem complete_item;
+    private Widgets.ContextMenu.MenuItem delete_item;
 
     public Gee.HashMap<string, Layouts.ItemBase> items_selected = new Gee.HashMap<string, Layouts.ItemBase> ();
     public Gee.HashMap<string, Objects.Label> labels = new Gee.HashMap<string, Objects.Label> ();
@@ -44,7 +46,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     construct {
         css_classes = { "sidebar" };
 
-        size_label = new Gtk.Label (null) {
+        size_label = new Gtk.Label ("0") {
             css_classes = { "font-bold", "card" },
             width_request = 32,
             height_request = 24,
@@ -59,13 +61,14 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         };
 
         label_button = new Widgets.LabelPicker.LabelButton () {
-            sensitive = false
+            sensitive = false,
+            source = project.source
         };
-        label_button.source = project.source;
 
         priority_button = new Widgets.PriorityButton () {
             sensitive = false
         };
+
         priority_button.set_priority (Constants.PRIORITY_4);
 
         menu_button = new Gtk.MenuButton () {
@@ -73,11 +76,10 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             icon_name = "view-more-symbolic",
-            popover = build_menu_popover (),
-            sensitive = false
+            popover = build_menu_popover ()
         };
 
-        done_button = new Widgets.LoadingButton.with_label (_("Done")) {
+        done_button = new Widgets.LoadingButton.with_label (_ ("Done")) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             margin_start = 12,
@@ -215,9 +217,9 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     }
 
     private Gtk.Popover build_menu_popover () {
-        var complete_item = new Widgets.ContextMenu.MenuItem (_("Mark as Completed"), "check-round-outline-symbolic");
+        complete_item = new Widgets.ContextMenu.MenuItem (_ ("Mark as Completed"), "check-round-outline-symbolic");
 
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete"), "user-trash-symbolic");
+        delete_item = new Widgets.ContextMenu.MenuItem (_ ("Delete"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -241,19 +243,19 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         });
 
         delete_item.clicked.connect (() => {
-            string title = _("Delete To-Do");
-            string message = _("Are you sure you want to delete this to-do?");
+            string title = _ ("Delete To-Do");
+            string message = _ ("Are you sure you want to delete this to-do?");
             if (items_selected.size > 1) {
-                title = _("Delete %d To-Dos".printf (items_selected.size));
-                message = _("Are you sure you want to delete these %d to-dos?".printf (items_selected.size));
+                title = _ ("Delete %d To-Dos".printf (items_selected.size));
+                message = _ ("Are you sure you want to delete these %d to-dos?".printf (items_selected.size));
             }
 
 
             var dialog = new Adw.AlertDialog (title, message);
 
             dialog.body_use_markup = true;
-            dialog.add_response ("cancel", _("Cancel"));
-            dialog.add_response ("delete", _("Delete"));
+            dialog.add_response ("cancel", _ ("Cancel"));
+            dialog.add_response ("delete", _ ("Delete"));
             dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
             dialog.present (Planify._instance.main_window);
 
@@ -284,12 +286,18 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
     private void check_select_bar () {
         bool active = items_selected.size > 0;
+        foreach (Layouts.ItemBase item_base in items_selected.values) {
+            if (item_base.item.checked) {
+                active = false;
+                break;
+            }
+        }
 
-        size_label.label = active ? items_selected.size.to_string () : "";
+        size_label.label = items_selected.size.to_string ();
         schedule_button.sensitive = active;
         priority_button.sensitive = active;
         label_button.sensitive = active;
-        menu_button.sensitive = active;
+        complete_item.sensitive = active;
     }
 
     private void check_labels (Objects.Item item, bool active) {

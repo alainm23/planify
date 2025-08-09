@@ -26,6 +26,8 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
     private Gtk.ListBox listbox;
     private Gtk.SearchEntry search_entry;
     private Widgets.FilterFlowBox filters_flowbox;
+    private Gtk.Button remove_all;
+
     private string ? filter_section_id = null;
 
     public Gee.HashMap<string, Widgets.CompletedTaskRow> items_checked = new Gee.HashMap<string, Widgets.CompletedTaskRow> ();
@@ -34,7 +36,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
     public CompletedTasks (Objects.Project project) {
         Object (
             project: project,
-            title: _("Completed Tasks"),
+            title: _ ("Completed Tasks"),
             content_width: 450,
             content_height: 500
         );
@@ -54,18 +56,19 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
             popover = build_view_setting_popover (),
             icon_name = "funnel-outline-symbolic",
             css_classes = { "flat" },
-            tooltip_text = _("View Filter Menu")
+            tooltip_text = _ ("View Filter Menu")
         };
 
         search_entry = new Gtk.SearchEntry () {
-            placeholder_text = _("Search"),
+            placeholder_text = _ ("Search"),
             hexpand = true,
             css_classes = { "border-radius-9" }
         };
 
         var search_entry_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 16,
-            margin_end = 16
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12
         };
         search_entry_box.append (search_entry);
         search_entry_box.append (filter_button);
@@ -73,26 +76,23 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         filters_flowbox = new Widgets.FilterFlowBox () {
             valign = Gtk.Align.START,
             vexpand = false,
-            vexpand_set = true
+            vexpand_set = true,
         };
-
         filters_flowbox.flowbox.margin_start = 12;
-        filters_flowbox.flowbox.margin_top = 24;
-        filters_flowbox.flowbox.margin_end = 12;
+        filters_flowbox.flowbox.margin_bottom = 12;
 
         listbox = new Gtk.ListBox () {
             hexpand = true,
             valign = START,
             css_classes = { "listbox-background", "listbox-separator-6" },
             margin_start = 12,
-            margin_end = 12,
-            margin_top = 12
+            margin_end = 12
         };
 
         listbox.set_sort_func (sort_completed_function);
         listbox.set_header_func (header_completed_function);
         listbox.set_filter_func (filter_function);
-        listbox.set_placeholder (new Gtk.Label (_("No completed tasks yet.")) {
+        listbox.set_placeholder (new Gtk.Label (_ ("No completed tasks yet.")) {
             css_classes = { "dim-label" },
             margin_top = 48,
             margin_start = 24,
@@ -119,7 +119,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
             child = content_box
         };
 
-        var remove_all = new Gtk.Button.with_label (_("Delete All Completed Tasks")) {
+        remove_all = new Gtk.Button.with_label (_ ("Delete All Completed Tasks")) {
             css_classes = { "flat" },
             margin_start = 12,
             margin_end = 12,
@@ -131,7 +131,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         toolbar_view.add_bottom_bar (remove_all);
         toolbar_view.content = content_clamp;
 
-        var main_page = new Adw.NavigationPage (toolbar_view, _("Completed Tasks"));
+        var main_page = new Adw.NavigationPage (toolbar_view, _ ("Completed Tasks"));
 
         navigation_view = new Adw.NavigationView ();
         navigation_view.add (main_page);
@@ -160,13 +160,13 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
             var items = Services.Store.instance ().get_items_checked_by_project (project);
 
             var dialog = new Adw.AlertDialog (
-                _("Delete All Completed Tasks"),
-                _("This will delete %d completed tasks and their subtasks from project %s".printf (items.size, project.name))
+                _ ("Delete All Completed Tasks"),
+                _ ("This will delete %d completed tasks and their subtasks from project %s".printf (items.size, project.name))
             );
 
             dialog.body_use_markup = true;
-            dialog.add_response ("cancel", _("Cancel"));
-            dialog.add_response ("delete", _("Delete"));
+            dialog.add_response ("cancel", _ ("Cancel"));
+            dialog.add_response ("delete", _ ("Delete"));
             dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
             dialog.present (Planify._instance.main_window);
 
@@ -232,7 +232,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         toolbar_view.add_top_bar (headerbar);
         toolbar_view.content = item_detail;
 
-        var item_page = new Adw.NavigationPage (toolbar_view, _("Task Detail"));
+        var item_page = new Adw.NavigationPage (toolbar_view, _ ("Task Detail"));
         navigation_view.push (item_page);
     }
 
@@ -247,6 +247,8 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
                 listbox.append (items_checked[item.id]);
             }
         }
+
+        remove_all.sensitive = items_checked.size > 0;
     }
 
     private void header_completed_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow ? lbbefore) {
@@ -295,13 +297,12 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
 
     private Gtk.Widget get_header_box (string title) {
         var header_label = new Gtk.Label (title) {
-            css_classes = { "heading" },
+            css_classes = { "caption", "font-bold" },
             halign = START
         };
 
         var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            margin_start = 6,
-            margin_top = 12,
+            margin_start = 3,
             margin_bottom = 6
         };
 
@@ -324,12 +325,12 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
             section_model.add (section.name);
         }
 
-        var section_item = new Widgets.ContextMenu.MenuPicker (_("Section"), "arrow3-right-symbolic", section_model);
+        var section_item = new Widgets.ContextMenu.MenuPicker (_ ("Section"), "arrow3-right-symbolic", section_model);
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (new Gtk.Label (_("Filter By")) {
-            css_classes = { "heading", "h4" },
+        menu_box.append (new Gtk.Label (_ ("Filter By")) {
+            css_classes = { "caption", "font-bold" },
             margin_start = 6,
             margin_top = 6,
             margin_bottom = 6,
