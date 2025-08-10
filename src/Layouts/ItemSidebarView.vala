@@ -412,6 +412,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         subitems.add_button.sensitive = !item.completed;
         use_note_item.active = item.item_type == ItemType.NOTE;
         status_button.sensitive = item.item_type == ItemType.TASK;
+        parent_back_button.visible = item.has_parent;
     }
 
     public void update_due (Objects.DueDate duedate) {
