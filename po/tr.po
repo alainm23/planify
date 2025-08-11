@@ -101,24 +101,24 @@ msgstr "Tekrarlama"
 #: core/Enum.vala:325 core/Enum.vala:327
 #, c-format
 msgid "Every minute"
-msgstr "Her ay"
+msgstr "Her dakika"
 
 # c-format
 #: core/Enum.vala:327
 #, c-format
 msgid "Every %d minutes"
-msgstr "Her %d ayda bir"
+msgstr "Her %d dakikada bir"
 
 #: core/Enum.vala:331 core/Enum.vala:333
 #, c-format
 msgid "Every hour"
-msgstr "Her yıl"
+msgstr "Her saat"
 
 # c-format
 #: core/Enum.vala:333
 #, c-format
 msgid "Every %d hours"
-msgstr "Her %d yılda bir"
+msgstr "Her %d saatte bir"
 
 #: core/Enum.vala:337 core/Enum.vala:339
 #, c-format
@@ -167,11 +167,11 @@ msgstr "Her %d yılda bir"
 #: core/Enum.vala:411 core/Services/Database.vala:2237
 #: core/Services/CalDAV/Providers/Nextcloud.vala:411
 msgid "Nextcloud"
-msgstr ""
+msgstr "Nextcloud"
 
 #: core/Enum.vala:414
 msgid "Radicale"
-msgstr ""
+msgstr "Radicale"
 
 #: core/Enum.vala:476 core/Enum.vala:662 core/Widgets/PriorityButton.vala:84
 #: src/Widgets/ItemDetailCompleted.vala:81 src/Views/Project/Project.vala:457
@@ -197,15 +197,15 @@ msgstr "Bölümler"
 
 #: core/Enum.vala:594
 msgid "Task Created"
-msgstr "Çoğalt"
+msgstr "Görev oluşturuldu"
 
 #: core/Enum.vala:597
 msgid "Task Updated"
-msgstr "Çoğalt"
+msgstr "Görev güncellendi"
 
 #: core/Enum.vala:653
 msgid "Content"
-msgstr ""
+msgstr "İçerik"
 
 #: core/Enum.vala:656 src/Layouts/ItemSidebarView.vala:172
 #: src/Widgets/ItemDetailCompleted.vala:111 src/Dialogs/Section.vala:89
@@ -225,7 +225,7 @@ msgstr "Yapılacak adı"
 
 #: core/QuickAdd.vala:100
 msgid "This field is required"
-msgstr ""
+msgstr "Bu alan gerekli"
 
 #: core/QuickAdd.vala:128
 msgid "Add a description…"
@@ -251,7 +251,7 @@ msgstr "Hatırlatıcı Ekle"
 
 #: core/QuickAdd.vala:192
 msgid "Add"
-msgstr ""
+msgstr "Ekle"
 
 #: core/QuickAdd.vala:199
 msgid "Create More"
@@ -260,7 +260,7 @@ msgstr "Proje oluştur"
 #: core/QuickAdd.vala:213
 #, fuzzy
 msgid "Select a Project"
-msgstr "Projeyi Sil"
+msgstr "Bir proje seç"
 
 #: core/QuickAdd.vala:236
 msgid ""
@@ -385,7 +385,7 @@ msgstr "İptal"
 
 #: core/Util/Util.vala:383
 msgid "Delete All"
-msgstr "Etiketi sil"
+msgstr "Hepsini sil"
 
 #: core/Util/Util.vala:397
 msgid "Process completed, you need to start Planify again."
@@ -619,7 +619,7 @@ msgstr "Görev panoya kopyalandı"
 
 #: core/Util/Util.vala:1005
 msgid "Task duplicated"
-msgstr "Çoğalt"
+msgstr "Görev kopyalandı"
 
 #: core/Util/Util.vala:1041
 msgid "Section duplicated"
@@ -635,27 +635,27 @@ msgstr ""
 
 #: core/Util/Util.vala:1293 src/Dialogs/Preferences/PreferencesWindow.vala:650
 msgid "10 minutes before"
-msgstr ""
+msgstr "10 dakika önce"
 
 #: core/Util/Util.vala:1296 src/Dialogs/Preferences/PreferencesWindow.vala:651
 msgid "30 minutes before"
-msgstr ""
+msgstr "30 dakika önce"
 
 #: core/Util/Util.vala:1299 src/Dialogs/Preferences/PreferencesWindow.vala:652
 msgid "45 minutes before"
-msgstr ""
+msgstr "45 dakika önce"
 
 #: core/Util/Util.vala:1302 src/Dialogs/Preferences/PreferencesWindow.vala:653
 msgid "1 hour before"
-msgstr ""
+msgstr "1 saat önce"
 
 #: core/Util/Util.vala:1305 src/Dialogs/Preferences/PreferencesWindow.vala:654
 msgid "2 hours before"
-msgstr ""
+msgstr "2 saat önce"
 
 #: core/Util/Util.vala:1308 src/Dialogs/Preferences/PreferencesWindow.vala:655
 msgid "3 hours before"
-msgstr ""
+msgstr "3 saat önce"
 
 #: core/Util/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:120
@@ -671,7 +671,7 @@ msgstr "Dün"
 
 #: core/Util/Datetime.vala:95 core/Util/Datetime.vala:97
 msgid "days"
-msgstr ""
+msgstr "günler"
 
 #: core/Util/Datetime.vala:95 core/Util/Datetime.vala:97
 msgid "day"
@@ -681,13 +681,13 @@ msgstr "Bugün"
 #: core/Util/Datetime.vala:95
 #, c-format
 msgid "%s %s ago"
-msgstr ""
+msgstr "%s %s önce"
 
 # # c-format
 #: core/Util/Datetime.vala:97
 #, c-format
 msgid "%s %s left"
-msgstr ""
+msgstr "%s %s kaldı"
 
 #: core/Util/Datetime.vala:393
 msgid "Mo,"
@@ -782,16 +782,16 @@ msgstr "Öncelik 3: düşük"
 #: core/Widgets/StatusButton.vala:33
 #, fuzzy
 msgid "Set The Status"
-msgstr "Önceliğe göre sırala"
+msgstr "Durumu belirle"
 
 #: core/Widgets/StatusButton.vala:40
 msgid "Status"
-msgstr ""
+msgstr "Durum"
 
 #: core/Widgets/StatusButton.vala:45 core/Widgets/StatusButton.vala:77
 #: core/Widgets/StatusButton.vala:115
 msgid "To Do"
-msgstr ""
+msgstr "Yapılacak"
 
 #: core/Widgets/StatusButton.vala:78 core/Widgets/StatusButton.vala:112
 #: src/Layouts/ItemRow.vala:1089 src/Layouts/ItemBoard.vala:668
@@ -847,7 +847,7 @@ msgstr "Yedekler"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:65
 msgid "Forward"
-msgstr ""
+msgstr "İlet"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:35
 msgid "Su"
@@ -890,7 +890,7 @@ msgstr "Bitiş tarihi"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:238
 msgid "until"
-msgstr ""
+msgstr "şu zamana kadar"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:241
 msgid "for"
@@ -902,7 +902,7 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:241
 msgid "time"
-msgstr ""
+msgstr "zaman"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:121
 msgid "Next week"
@@ -929,11 +929,11 @@ msgstr "Tamamlandı"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:158
 msgid "Clear"
-msgstr ""
+msgstr "Temizle"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:238
 msgid "Menu"
-msgstr ""
+msgstr "Menü"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:252
 #, fuzzy
