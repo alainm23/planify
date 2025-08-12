@@ -107,7 +107,7 @@ public class Views.Scheduled.ScheduledMonth : Gtk.ListBoxRow {
         content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 6,
             margin_bottom = 3,
-            margin_start = 24
+            margin_start = 27
         });
         content.append (event_list_revealer);
         content.append (listbox_revealer);

@@ -75,13 +75,13 @@ public class Widgets.EditableTextView : Adw.Bin {
     construct {
         label = new Gtk.Label (null) {
             wrap = true,
-            wrap_mode = Pango.WrapMode.WORD_CHAR,
+            wrap_mode = Pango.WrapMode.CHAR,
             xalign = 0,
             yalign = 0
         };
 
         textview = new Widgets.TextView () {
-            wrap_mode = Gtk.WrapMode.WORD_CHAR,
+            wrap_mode = Gtk.WrapMode.CHAR,
             css_classes = {},
             placeholder_text = placeholder_text
         };

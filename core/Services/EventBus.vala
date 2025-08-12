@@ -42,7 +42,6 @@ public class Services.EventBus : Object {
     public signal void item_selected (string ? id);
     public signal void task_selected (string ? uid);
     public signal void avatar_downloaded ();
-    public signal void view_header (bool view);
     public signal void magic_button_activated (bool activated);
     public signal void project_picker_changed (string id);
     public signal void section_picker_changed (string id);

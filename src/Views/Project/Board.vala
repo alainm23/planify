@@ -22,6 +22,8 @@
 public class Views.Board : Adw.Bin {
     public Objects.Project project { get; construct; }
 
+    private Widgets.IconColorProject icon_project;
+    private Gtk.Label title_label;
     private Gtk.Image due_image;
     private Gtk.Label due_label;
     private Gtk.Label days_left_label;
@@ -45,10 +47,34 @@ public class Views.Board : Adw.Bin {
     }
 
     construct {
+        icon_project = new Widgets.IconColorProject (10) {
+            project = project
+        };
+        icon_project.add_css_class ("title-2");
+        icon_project.inbox_icon.add_css_class ("view-icon");
+        Util.get_default ().set_widget_color (FilterType.INBOX.get_color (), icon_project.inbox_icon);
+        Services.EventBus.get_default ().theme_changed.connect (() => {
+            Util.get_default ().set_widget_color (FilterType.INBOX.get_color (), icon_project.inbox_icon);
+        });
+
+        title_label = new Gtk.Label (null) {
+            css_classes = { "font-bold", "title-2" },
+            ellipsize = Pango.EllipsizeMode.END,
+            halign = START
+        };
+
+        var title_box = new Gtk.Box (HORIZONTAL, 6) {
+            valign = CENTER,
+            margin_start = 24,
+        };
+
+        title_box.append (icon_project);
+        title_box.append (title_label);
+
         var description_widget = new Widgets.EditableTextView (_("Note")) {
             text = project.description,
-            margin_top = 6,
-            margin_start = 27,
+            margin_top = 12,
+            margin_start = 24,
             margin_end = 12
         };
 
@@ -91,6 +117,8 @@ public class Views.Board : Adw.Bin {
             hexpand = true,
             vexpand = true
         };
+
+        content_box.append (title_box);
 
         if (!project.is_inbox_project) {
             content_box.append (description_widget);
@@ -175,9 +203,15 @@ public class Views.Board : Adw.Bin {
                 add_section (section);
             }
         })] = Services.Store.instance ();
+
+        signals_map[project.project_count_updated.connect (() => {
+            icon_project.update_request ();
+        })] = project;
     }
 
     public void update_request () {
+        icon_project.update_request ();
+        title_label.label = project.is_inbox_project ? _("Inbox") : project.name;
         update_duedate ();
     }
 

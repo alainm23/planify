@@ -263,55 +263,47 @@ public class Objects.Project : Objects.BaseObject {
     construct {
         Services.EventBus.get_default ().checked_toggled.connect ((item) => {
             if (item.project_id == id) {
-                _project_count = update_project_count ();
-                _percentage = update_percentage ();
-                project_count_updated ();
+                project_count_update ();
             }
         });
 
         item_deleted.connect (() => {
-            _project_count = update_project_count ();
-            _percentage = update_percentage ();
-            project_count_updated ();
+            project_count_update ();
         });
 
         item_added.connect (() => {
-            _project_count = update_project_count ();
-            _percentage = update_percentage ();
-            project_count_updated ();
+            project_count_update ();
         });
 
         Services.EventBus.get_default ().item_moved.connect ((item, old_project_id) => {
             if (item.project_id == id || old_project_id == id) {
-                _project_count = update_project_count ();
-                _percentage = update_percentage ();
-                project_count_updated ();
+                project_count_update ();
             }
         });
 
         Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
             if (section.project_id == id || old_project_id == id) {
-                _project_count = update_project_count ();
-                _percentage = update_percentage ();
-                project_count_updated ();
+                project_count_update ();
             }
         });
 
         Services.Store.instance ().item_archived.connect ((item) => {
             if (item.project_id == id) {
-                _project_count = update_project_count ();
-                _percentage = update_percentage ();
-                project_count_updated ();
+                project_count_update ();
             }
         });
 
         Services.Store.instance ().item_unarchived.connect ((item) => {
             if (item.project_id == id) {
-                _project_count = update_project_count ();
-                _percentage = update_percentage ();
-                project_count_updated ();
+                project_count_update ();
             }
         });
+    }
+
+    private void project_count_update () {
+        _project_count = update_project_count ();
+        _percentage = update_percentage ();
+        project_count_updated ();
     }
 
     public Project.from_json (Json.Node node) {
@@ -384,8 +376,6 @@ public class Objects.Project : Objects.BaseObject {
         if (node.get_object ().has_member ("source_id")) {
             source_id = node.get_object ().get_string_member ("source_id");
         }
-
-        print ("%s\n".printf (to_string ()));
     }
 
     public void update_from_json (Json.Node node) {
@@ -749,26 +739,35 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     private int update_project_count () {
-        int returned = 0;
-        foreach (Objects.Item item in Services.Store.instance ().get_items_by_project (this)) {
+        int pending_tasks = 0;
+        var items = Services.Store.instance ().get_items_by_project (this);
+        foreach (Objects.Item item in items) {
             if (!item.checked && !item.was_archived ()) {
-                returned++;
+                pending_tasks++;
             }
         }
-        return returned;
+
+        return pending_tasks;
     }
 
     public double update_percentage () {
         int items_total = 0;
         int items_checked = 0;
+
         foreach (Objects.Item item in Services.Store.instance ().get_items_by_project (this)) {
-            items_total++;
-            if (!item.checked && !item.was_archived ()) {
-                items_checked++;
+            if (!item.was_archived ()) {
+                items_total++;
+                if (item.checked) {
+                    items_checked++;
+                }
             }
         }
 
-        return ((double) items_checked / (double) items_total);
+        if (items_total == 0) {
+            return 0.0;
+        }
+
+        return (double) items_checked / (double) items_total;
     }
 
     public void share_markdown () {

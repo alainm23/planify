@@ -23,6 +23,7 @@
 public class Views.Project : Adw.Bin {
     public Objects.Project project { get; construct; }
 
+    private Layouts.HeaderBar headerbar;
     private Gtk.Revealer project_view_revealer;
     private Adw.Spinner loading_spinner;
     private Adw.ViewStack project_stack;
@@ -92,8 +93,9 @@ public class Views.Project : Adw.Bin {
         view_setting_overlay.child = view_setting_button;
         view_setting_overlay.add_overlay (indicator_revealer);
 
-        var headerbar = new Layouts.HeaderBar ();
-        headerbar.title = project.name;
+        headerbar = new Layouts.HeaderBar () {
+            title = project.is_inbox_project ? _("Inbox") : project.name
+        };
 
         if (!project.is_deck) {
             headerbar.pack_end (menu_button);
@@ -155,7 +157,7 @@ public class Views.Project : Adw.Bin {
         })] = magic_button;
 
         signals_map[project.updated.connect (() => {
-            headerbar.title = project.name;
+            headerbar.title = project.is_inbox_project ? _("Inbox") : project.name;
         })] = project;
 
         signals_map[multiselect_toolbar.closed.connect (() => {
@@ -201,6 +203,10 @@ public class Views.Project : Adw.Bin {
             expand_all_item.visible = view_style == ProjectViewStyle.LIST;
             collapse_all_item.visible = view_style == ProjectViewStyle.LIST;
         })] = project;
+
+        project.handle_scroll_visibility_change.connect ((visible) => {
+            headerbar.update_title_box_visibility (visible);
+        });
     }
 
     private void check_default_filters () {
@@ -227,6 +233,7 @@ public class Views.Project : Adw.Bin {
             if (view_style == ProjectViewStyle.LIST) {
                 project_view_revealer.child = new Views.List (project);
             } else if (view_style == ProjectViewStyle.BOARD) {
+                headerbar.update_title_box_visibility (false);
                 project_view_revealer.child = new Views.Board (project);
             }
 
@@ -688,8 +695,6 @@ public class Views.Project : Adw.Bin {
     }
 
     public void clean_up () {
-        print ("Clean Up: %s\n".printf (project.name));
-
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);
         }

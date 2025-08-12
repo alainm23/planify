@@ -41,7 +41,7 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
             subheader_title = source.subheader_text
         };
         group.placeholder_message = _("No labels available. Create one by clicking on the '+' button");
-        group.margin_top = 12;
+        group.margin_bottom = 12;
         group.show_separator = true;
         group.set_sort_func (sort_func);
 
