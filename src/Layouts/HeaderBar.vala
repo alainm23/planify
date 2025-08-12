@@ -22,9 +22,10 @@
 public class Layouts.HeaderBar : Adw.Bin {
     private Adw.HeaderBar headerbar;
     private Gtk.Label title_label;
-    private Gtk.Label title2_label;
+    private Gtk.Label subtitle_label;
+    private Gtk.Revealer subtitle_revealer;
+    private Gtk.Revealer title_box_revealer;
     private Gtk.Revealer back_button_revealer;
-    private Gtk.Box start_box;
     private Gtk.Button back_button;
     private Gtk.Button sidebar_button;
 
@@ -40,11 +41,12 @@ public class Layouts.HeaderBar : Adw.Bin {
         }
     }
 
-    private string _title2;
-    public string title2 {
+    private string _subtitle;
+    public string subtitle {
         set {
-            _title2 = value;
-            title2_label.label = _title2;
+            _subtitle = value;
+            subtitle_label.label = _subtitle;
+            subtitle_revealer.reveal_child = _subtitle.length > 0;
         }
 
         get {
@@ -73,10 +75,14 @@ public class Layouts.HeaderBar : Adw.Bin {
 
         update_sidebar_icon ();
 
+        var sidebar_button_revealer = new Gtk.Revealer () {
+            transition_type = SLIDE_LEFT,
+            child = sidebar_button
+        };
+
         // Back Button
         back_button = new Gtk.Button.from_icon_name ("go-previous-symbolic") {
             valign = Gtk.Align.CENTER,
-            margin_end = 6,
             css_classes = { "flat" },
             tooltip_text = _("Back")
         };
@@ -90,28 +96,39 @@ public class Layouts.HeaderBar : Adw.Bin {
         // Title
         title_label = new Gtk.Label (null) {
             css_classes = { "font-bold" },
-            ellipsize = Pango.EllipsizeMode.END
+            ellipsize = END
         };
 
-        title2_label = new Gtk.Label (null) {
-            css_classes = { "font-bold", "caption" },
-            ellipsize = Pango.EllipsizeMode.END,
-            margin_start = 6,
-            margin_top = 3
+        subtitle_label = new Gtk.Label (null) {
+            css_classes = { "caption", "dim-label" },
+            ellipsize = END
         };
 
-        start_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
-        start_box.append (sidebar_button);
-        start_box.append (back_button_revealer);
-        start_box.append (title_label);
-        start_box.append (title2_label);
+        subtitle_revealer = new Gtk.Revealer () {
+            transition_type = SLIDE_DOWN,
+            child = subtitle_label
+        };
+
+        var title_box = new Gtk.Box (VERTICAL, 0) {
+            valign = CENTER,
+            halign = CENTER
+        };
+
+        title_box.append (title_label);
+        title_box.append (subtitle_revealer);
+
+        title_box_revealer = new Gtk.Revealer () {
+            transition_type = CROSSFADE,
+            child = title_box
+        };
 
         headerbar = new Adw.HeaderBar () {
             hexpand = true,
-            show_title = false
+            title_widget = title_box_revealer,
         };
 
-        headerbar.pack_start (start_box);
+        headerbar.pack_start (sidebar_button_revealer);
+        headerbar.pack_start (back_button_revealer);
 
         child = headerbar;
 
@@ -125,6 +142,7 @@ public class Layouts.HeaderBar : Adw.Bin {
         });
 
         Services.Settings.get_default ().settings.changed["slim-mode"].connect (() => {
+            sidebar_button_revealer.reveal_child = !Services.Settings.get_default ().settings.get_boolean ("slim-mode");
             update_sidebar_icon ();
         });
     }
@@ -139,5 +157,13 @@ public class Layouts.HeaderBar : Adw.Bin {
 
     public void pack_end (Gtk.Widget widget) {
         headerbar.pack_end (widget);
+    }
+
+    public void revealer_title_box (bool reveal) {
+        title_box_revealer.reveal_child = reveal;
+    }
+
+    public void update_title_box_visibility (bool visible) {
+        title_box_revealer.reveal_child = visible;
     }
 }

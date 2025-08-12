@@ -21,6 +21,8 @@
 
 public class Views.Filter : Adw.Bin {
     private Layouts.HeaderBar headerbar;
+    private Gtk.Image title_icon;
+    private Gtk.Label title_label;
     private Gtk.ListBox listbox;
     private Adw.Bin listbox_content;
     private Gtk.Stack listbox_stack;
@@ -49,6 +51,26 @@ public class Views.Filter : Adw.Bin {
     }
 
     construct {
+        title_icon = new Gtk.Image () {
+            pixel_size = 16,
+            valign = CENTER,
+            halign = CENTER,
+            css_classes = { "view-icon" }
+        };
+        
+        title_label = new Gtk.Label (null) {
+            css_classes = { "font-bold", "title-2" },
+            ellipsize = END,
+            halign = START
+        };
+
+        var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 26
+        };
+
+        title_box.append (title_icon);
+        title_box.append (title_label);
+
         var view_setting_button = new Gtk.MenuButton () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
@@ -71,7 +93,8 @@ public class Views.Filter : Adw.Bin {
             valign = Gtk.Align.START,
             selection_mode = Gtk.SelectionMode.NONE,
             hexpand = true,
-            css_classes = { "listbox-background" }
+            css_classes = { "listbox-background" },
+            margin_start = 3
         };
 
         listbox_content = new Adw.Bin () {
@@ -97,6 +120,7 @@ public class Views.Filter : Adw.Bin {
             vexpand = true
         };
 
+        content.append (title_box);
         content.append (listbox_stack);
 
         var content_clamp = new Adw.Clamp () {
@@ -157,6 +181,14 @@ public class Views.Filter : Adw.Bin {
         magic_button.clicked.connect (() => {
             prepare_new_item ();
         });
+
+        Services.EventBus.get_default ().theme_changed.connect (() => {
+            update_request ();
+        });
+
+        scrolled_window.vadjustment.value_changed.connect (() => {
+            headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
+        });
     }
 
     public void prepare_new_item (string content = "") {
@@ -183,55 +215,82 @@ public class Views.Filter : Adw.Bin {
     private void update_request () {
         if (filter is Objects.Filters.Priority) {
             Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
-            headerbar.title = priority.name;
+
+            title_icon.icon_name = priority.icon;
+            Util.get_default ().set_widget_color (priority.color, title_icon);
+            
+            title_label.label = priority.name;
             listbox.set_sort_func (null);
             listbox.set_header_func (null);
             listbox_content.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Completed) {
-            headerbar.title = _("Completed");
+            title_icon.icon_name = FilterType.COMPLETED.get_icon ();
+            Util.get_default ().set_widget_color (FilterType.COMPLETED.get_color (), title_icon);
+
+            title_label.label = FilterType.COMPLETED.get_name ();
             listbox.set_sort_func (sort_completed_function);
             listbox.set_header_func (header_completed_function);
             listbox_content.margin_top = 0;
             magic_button.visible = false;
         } else if (filter is Objects.Filters.Tomorrow) {
-            headerbar.title = _("Tomorrow");
+            title_icon.icon_name = FilterType.SCHEDULED.get_icon ();
+            Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
+
+            title_label.label = _("Tomorrow");
             listbox.set_sort_func (null);
             listbox.set_header_func (null);
             listbox_content.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Pinboard) {
-            headerbar.title = _("Pinboard");
+            title_icon.icon_name = FilterType.PINBOARD.get_icon ();
+            Util.get_default ().set_widget_color (FilterType.PINBOARD.get_color (), title_icon);
+
+            title_label.label = FilterType.PINBOARD.get_name ();
             listbox.set_sort_func (null);
             listbox.set_header_func (null);
             listbox_content.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Anytime) {
-            headerbar.title = _("Anytime");
+            title_icon.icon_name = FilterType.SCHEDULED.get_icon ();
+            Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
+
+            title_label.label = _("Anytime");
             listbox.set_sort_func (sort_project_function);
             listbox.set_header_func (header_project_function);
             listbox_content.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Repeating) {
-            headerbar.title = _("Repeating");
+            title_icon.icon_name = "arrow-circular-top-right-symbolic";
+            Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
+
+            title_label.label = _("Repeating");
             listbox.set_sort_func (sort_project_function);
             listbox.set_header_func (header_project_function);
             listbox_content.margin_top = 12;
             magic_button.visible = false;
         } else if (filter is Objects.Filters.Unlabeled) {
-            headerbar.title = _("Unlabeled");
+            title_icon.icon_name = "tag-outline-symbolic";
+            Util.get_default ().set_widget_color (FilterType.LABELS.get_color (), title_icon);
+
+            title_label.label = _("Unlabeled");
             listbox.set_sort_func (sort_project_function);
             listbox.set_header_func (header_project_function);
             listbox_content.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.AllItems) {
-            headerbar.title = _("All Tasks");
+            title_icon.icon_name = "grid-large-symbolic";
+            Util.get_default ().set_widget_color (FilterType.INBOX.get_color (), title_icon);
+
+            title_label.label = _("All Tasks");
             listbox.set_sort_func (sort_project_function);
             listbox.set_header_func (header_project_function);
             listbox_content.margin_top = 12;
             magic_button.visible = true;
         }
 
+        headerbar.title = title_label.label;
+        
         view_setting_revealer.reveal_child = filter is Objects.Filters.Completed;
     }
 
@@ -504,7 +563,7 @@ public class Views.Filter : Adw.Bin {
 
         var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
             margin_top = 12,
-            margin_start = 19
+            margin_start = 20
         };
 
         header_box.append (header_label);

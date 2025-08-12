@@ -52,6 +52,26 @@ public class Objects.Filters.Priority : Objects.BaseObject {
         }
     }
 
+    public string icon {
+        get {
+            return "flag-outline-thick-symbolic";
+        }
+    }
+
+    public string color {
+        get {
+            if (priority == Constants.PRIORITY_1) {
+                return "#ff7066";
+            } else if (priority == Constants.PRIORITY_2) {
+                return "#ff9914";
+            } else if (priority == Constants.PRIORITY_3) {
+                return "#5297ff";
+            } else {
+                return "@text_color";
+            }
+        }
+    }
+
     public signal void count_updated ();
 
     construct {

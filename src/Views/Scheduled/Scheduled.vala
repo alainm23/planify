@@ -60,9 +60,9 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         view_setting_overlay.child = view_setting_button;
         view_setting_overlay.add_overlay (indicator_revealer);
 
-        var headerbar = new Layouts.HeaderBar ();
-        headerbar.title = _("Scheduled");
-
+        var headerbar = new Layouts.HeaderBar () {
+            title = FilterType.SCHEDULED.get_name ()
+        };
         headerbar.pack_end (view_setting_overlay);
 
         listbox = new Gtk.ListBox () {
@@ -79,6 +79,32 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             child = listbox
         };
 
+        var title_icon = new Gtk.Image.from_icon_name (FilterType.SCHEDULED.get_icon ()) {
+            pixel_size = 16,
+            valign = CENTER,
+            halign = CENTER,
+            css_classes = { "view-icon" }
+        };
+
+        Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
+        Services.EventBus.get_default ().theme_changed.connect (() => {
+            Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
+        });
+
+        var title_label = new Gtk.Label (FilterType.SCHEDULED.get_name ()) {
+            css_classes = { "font-bold", "title-2" },
+            ellipsize = END,
+            halign = START
+        };
+
+        var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 27,
+            margin_bottom = 6
+        };
+
+        title_box.append (title_icon);
+        title_box.append (title_label);
+
         var filters = new Widgets.FilterFlowBox () {
             valign = Gtk.Align.START,
             vexpand = false,
@@ -86,7 +112,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             base_object = Objects.Filters.Scheduled.get_default ()
         };
 
-        filters.flowbox.margin_start = 24;
+        filters.flowbox.margin_start = 27;
         filters.flowbox.margin_top = 12;
         filters.flowbox.margin_end = 12;
         filters.flowbox.margin_bottom = 3;
@@ -96,6 +122,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             vexpand = true
         };
 
+        content.append (title_box);
         content.append (filters);
         content.append (listbox_content);
 
@@ -105,9 +132,8 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 64,
+            child = content
         };
-
-        content_clamp.child = content;
 
         scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
@@ -136,6 +162,10 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
         magic_button.clicked.connect (() => {
             prepare_new_item ();
+        });
+
+        scrolled_window.vadjustment.value_changed.connect (() => {
+            headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
         });
     }
 
@@ -232,7 +262,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         menu_box.append (order_by_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (new Gtk.Label (_("Filter By")) {
-            css_classes = { "heading", "h4" },
+            css_classes = { "caption", "font-bold" },
             margin_start = 6,
             margin_top = 6,
             margin_bottom = 6,

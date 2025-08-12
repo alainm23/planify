@@ -21,6 +21,8 @@
 
 public class Views.Label : Adw.Bin {
     private Layouts.HeaderBar headerbar;
+    private Gtk.Image title_icon;
+    private Gtk.Label title_label;
     private Gtk.ListBox listbox;
     private Gtk.Stack listbox_stack;
 
@@ -50,6 +52,26 @@ public class Views.Label : Adw.Bin {
 
         headerbar = new Layouts.HeaderBar ();
         headerbar.back_revealer = true;
+    
+        title_icon = new Gtk.Image.from_icon_name (FilterType.LABELS.get_icon ()) {
+            pixel_size = 16,
+            valign = CENTER,
+            halign = CENTER,
+            css_classes = { "view-icon" }
+        };
+
+        title_label = new Gtk.Label (null) {
+            css_classes = { "font-bold", "title-2" },
+            ellipsize = END,
+            halign = START
+        };
+
+        var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 24
+        };
+
+        title_box.append (title_icon);
+        title_box.append (title_label);
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -78,11 +100,13 @@ public class Views.Label : Adw.Bin {
         listbox_stack.add_named (listbox_content, "listbox");
         listbox_stack.add_named (listbox_placeholder, "placeholder");
 
-        var content = new Adw.Bin () {
+        var content_box = new Gtk.Box (VERTICAL, 0) {
             hexpand = true,
-            vexpand = true,
-            child = listbox_stack
+            vexpand = true
         };
+
+        content_box.append (title_box);
+        content_box.append (listbox_stack);
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 1024,
@@ -90,7 +114,7 @@ public class Views.Label : Adw.Bin {
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 64,
-            child = content
+            child = content_box
         };
 
         var scrolled_window = new Gtk.ScrolledWindow () {
@@ -119,16 +143,12 @@ public class Views.Label : Adw.Bin {
             valid_add_item (item);
         });
 
-        scrolled_window.vadjustment.value_changed.connect (() => {
-            if (scrolled_window.vadjustment.value > 50) {
-                Services.EventBus.get_default ().view_header (true);
-            } else {
-                Services.EventBus.get_default ().view_header (false);
-            }
-        });
-
         headerbar.back_activated.connect (() => {
             Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.LABELS.to_string ());
+        });
+        
+        scrolled_window.vadjustment.value_changed.connect (() => {
+            headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
         });
     }
 
@@ -184,7 +204,9 @@ public class Views.Label : Adw.Bin {
     }
 
     public void update_request () {
+        title_label.label = label.name;
         headerbar.title = label.name;
+        Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), title_icon);
     }
 
     public void prepare_new_item (string content = "") {

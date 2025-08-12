@@ -45,4 +45,5 @@ namespace Constants {
     public const bool SHOW_WHATSNEW = false;
     public const bool BLOCK_PAST_DAYS = false;
     public const int COMPLETED_PAGE_SIZE = 15;
+    public const int HEADERBAR_TITLE_SCROLL_THRESHOLD = 24;
 }

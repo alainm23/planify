@@ -37,6 +37,8 @@ public class Objects.BaseObject : GLib.Object {
     public signal void filter_removed (Objects.Filters.FilterItem filters);
     public signal void filter_updated (Objects.Filters.FilterItem filters);
 
+    public signal void handle_scroll_visibility_change (bool visible);
+
     string _id_string;
     public string id_string {
         get {

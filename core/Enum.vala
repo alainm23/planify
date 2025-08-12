@@ -175,7 +175,7 @@ public enum FilterType {
         }
     }
 
-    public string get_color (bool dark = false) {
+    public string get_color (bool dark = Services.Settings.get_default ().settings.get_boolean ("dark-mode")) {
         switch (this) {
             case INBOX:
                 return dark ? "#99c1f1" : "#3584e4";

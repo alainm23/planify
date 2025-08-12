@@ -62,7 +62,7 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
-            margin_start = 24
+            margin_start = 27
         };
 
         title_box.append (day_label);
@@ -72,7 +72,7 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
             hexpand = true,
             valign = Gtk.Align.START,
             margin_top = 6,
-            margin_start = 24
+            margin_start = 27
         };
 
         event_list_revealer = new Gtk.Revealer () {
@@ -115,7 +115,7 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
         content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 6,
             margin_bottom = 3,
-            margin_start = 24
+            margin_start = 27
         });
 
         content.append (event_list_revealer);

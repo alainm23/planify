@@ -658,3 +658,11 @@ checkbutton.theme-selector radio:checked {
     border-radius: 3px;
     padding: 0 3px;
 }
+
+.view-icon {
+    padding: 3px;
+    border-radius: 6px;
+    transition: all 225ms ease-in-out;
+    background-color: alpha(@colorAccent, 0.15);
+    color: @colorAccent;
+}

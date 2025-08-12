@@ -22,6 +22,8 @@
 public class Views.List : Adw.Bin {
     public Objects.Project project { get; construct; }
 
+    private Widgets.IconColorProject icon_project;
+    private Gtk.Label title_label;
     private Gtk.Image due_image;
     private Gtk.Label due_label;
     private Gtk.Label days_left_label;
@@ -55,9 +57,33 @@ public class Views.List : Adw.Bin {
     construct {
         sections_map = new Gee.HashMap<string, Layouts.SectionRow> ();
 
+        icon_project = new Widgets.IconColorProject (10) {
+            project = project
+        };
+        icon_project.add_css_class ("title-2");
+        icon_project.inbox_icon.add_css_class ("view-icon");
+        Util.get_default ().set_widget_color (FilterType.INBOX.get_color (), icon_project.inbox_icon);
+        Services.EventBus.get_default ().theme_changed.connect (() => {
+            Util.get_default ().set_widget_color (FilterType.INBOX.get_color (), icon_project.inbox_icon);
+        });
+
+        title_label = new Gtk.Label (null) {
+            css_classes = { "font-bold", "title-2" },
+            ellipsize = Pango.EllipsizeMode.END,
+            halign = START
+        };
+
+        var title_box = new Gtk.Box (HORIZONTAL, 6) {
+            valign = CENTER,
+            margin_start = 27,
+        };
+
+        title_box.append (icon_project);
+        title_box.append (title_label);
+
         var description_widget = new Widgets.EditableTextView (_ ("Note")) {
             text = project.description,
-            margin_top = 6,
+            margin_top = 12,
             margin_start = 27,
             margin_end = 12
         };
@@ -107,6 +133,8 @@ public class Views.List : Adw.Bin {
             valign = Gtk.Align.BASELINE,
             margin_bottom = 24
         };
+
+        content_box.append (title_box);
 
         if (!project.is_inbox_project) {
             content_box.append (description_widget);
@@ -173,6 +201,7 @@ public class Views.List : Adw.Bin {
 
         signals_map[project.project_count_updated.connect (() => {
             check_placeholder ();
+            icon_project.update_request ();
         })] = project;
 
         listbox.set_sort_func ((row1, row2) => {
@@ -219,6 +248,10 @@ public class Views.List : Adw.Bin {
         signals_map[project.show_completed_changed.connect (() => {
             check_placeholder ();
         })] = project;
+
+        signals_map[scrolled_window.vadjustment.value_changed.connect (() => {
+            project.handle_scroll_visibility_change (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);
+        })] = scrolled_window.vadjustment;
 
         destroy.connect (() => {
             listbox.set_sort_func (null);
@@ -282,6 +315,8 @@ public class Views.List : Adw.Bin {
     }
 
     public void update_request () {
+        icon_project.update_request ();
+        title_label.label = project.is_inbox_project ? _("Inbox") : project.name;
         update_duedate ();
     }
 
