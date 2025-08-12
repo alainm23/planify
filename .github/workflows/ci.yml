@@ -15,7 +15,7 @@ jobs:
       image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
       options: --privileged
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: planify.Devel.flatpak
@@ -26,7 +26,7 @@ jobs:
     name: "Vala Lint"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: elementary/actions/vala-lint@main
         with:
           dir: .
