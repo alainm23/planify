@@ -1,0 +1,21 @@
+{
+    "name": "planify-backend",
+    "version": "1.0.0",
+    "description": "Backend mínimo para generar PDFs en Planify",
+    "main": "server.js",
+    "scripts": {
+        "dev": "ts-node src/server.ts",
+        "build": "tsc",
+        "start": "node dist/server.js"
+    },
+    "dependencies": {
+        "express": "^4.19.2",
+        "pdfkit": "^0.15.0"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.3",
+        "@types/node": "^24.2.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.2"
+    }
+}
