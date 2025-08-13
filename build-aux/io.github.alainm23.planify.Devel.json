@@ -171,6 +171,7 @@
         }
     ],
     "build-options": {
-        "append-path": "/app/bin"
+        "append-path": "/app/bin",
+        "build-packages": ["nodejs", "npm", "python3", "make", "gcc", "g++"]
     }
 }
