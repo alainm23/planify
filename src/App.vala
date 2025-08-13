@@ -91,6 +91,8 @@ public class Planify : Adw.Application {
             }
         }
 
+        start_backend ();
+
         if (main_window != null) {
             main_window.present ();
             return;
@@ -136,7 +138,7 @@ public class Planify : Adw.Application {
 
         string reason = _(
             "Planify will automatically start when this device turns on " + "and run when its window is closed so that it can send to-do notifications.");
-        var command = new GenericArray<unowned string> (2);
+        var command = new GenericArray<unowned string>(2);
         foreach (unowned var arg in DAEMON_COMMAND) {
             command.add (arg);
         }
@@ -167,6 +169,24 @@ public class Planify : Adw.Application {
         });
 
         add_action (show_item);
+    }
+
+    private void start_backend () {
+        string backend_dir = Path.build_filename (Build.INSTALL_PREFIX, "libexec", "planify-backend");
+        string backend_path = Path.build_filename (backend_dir, "dist", "server.js");
+
+        try {
+            // string ls_output;
+            // int status;
+            // Process.spawn_command_line_sync ("ls " + backend_dir, out ls_output, null, out status);
+            // print ("Contenido de %s:\n%s\n", backend_dir, ls_output);
+
+            //// Iniciar el backend desde la raíz del proyecto para que Node encuentre node_modules
+            Process.spawn_command_line_async ("sh -c 'cd \"" + backend_dir + "\" && node dist/server.js'");
+            print ("Backend iniciado: %s\n", backend_path);
+        } catch (Error e) {
+            warning ("No se pudo iniciar el backend: %s", e.message);
+        }
     }
 
     public static int main (string[] args) {
