@@ -89,7 +89,8 @@
     <file alias="arrow-turn-down-right-symbolic.svg">resources/icons/arrow-turn-down-right-symbolic.svg</file>
     <file alias="shoe-box-symbolic.svg">resources/icons/shoe-box-symbolic.svg</file>
     <file alias="eye-open-negative-filled-symbolic.svg">resources/icons/eye-open-negative-filled-symbolic.svg</file>
-    <file alias="size-vertically-symbolic.svg">resources/icons/size-vertically-symbolic.svg</file>
+    <file alias="expand-vertically-symbolic.svg">resources/icons/expand-vertically-symbolic.svg</file>
+    <file alias="collapse-vertically-symbolic.svg">resources/icons/collapse-vertically-symbolic.svg</file>
     <file alias="info-outline-symbolic.svg">resources/icons/info-outline-symbolic.svg</file>
     <file alias="rotation-edit-symbolic.svg">resources/icons/rotation-edit-symbolic.svg</file>
     <file alias="cross-large-circle-outline-symbolic.svg">resources/icons/cross-large-circle-outline-symbolic.svg</file>
@@ -162,7 +163,8 @@
     <file alias="arrow-turn-down-right-symbolic.svg">resources/icons/arrow-turn-down-right-symbolic.svg</file>
     <file alias="shoe-box-symbolic.svg">resources/icons/shoe-box-symbolic.svg</file>
     <file alias="eye-open-negative-filled-symbolic.svg">resources/icons/eye-open-negative-filled-symbolic.svg</file>
-    <file alias="size-vertically-symbolic.svg">resources/icons/size-vertically-symbolic.svg</file>
+    <file alias="expand-vertically-symbolic.svg">resources/icons/expand-vertically-symbolic.svg</file>
+    <file alias="collapse-vertically-symbolic.svg">resources/icons/collapse-vertically-symbolic.svg</file>
     <file alias="info-outline-symbolic.svg">resources/icons/info-outline-symbolic.svg</file>
     <file alias="rotation-edit-symbolic.svg">resources/icons/rotation-edit-symbolic.svg</file>
     <file alias="cross-large-circle-outline-symbolic.svg">resources/icons/cross-large-circle-outline-symbolic.svg</file>
@@ -235,7 +237,8 @@
     <file alias="arrow-turn-down-right-symbolic.svg">resources/icons/arrow-turn-down-right-symbolic.svg</file>
     <file alias="shoe-box-symbolic.svg">resources/icons/shoe-box-symbolic.svg</file>
     <file alias="eye-open-negative-filled-symbolic.svg">resources/icons/eye-open-negative-filled-symbolic.svg</file>
-    <file alias="size-vertically-symbolic.svg">resources/icons/size-vertically-symbolic.svg</file>
+    <file alias="expand-vertically-symbolic.svg">resources/icons/expand-vertically-symbolic.svg</file>
+    <file alias="collapse-vertically-symbolic.svg">resources/icons/collapse-vertically-symbolic.svg</file>
     <file alias="info-outline-symbolic.svg">resources/icons/info-outline-symbolic.svg</file>
     <file alias="rotation-edit-symbolic.svg">resources/icons/rotation-edit-symbolic.svg</file>
     <file alias="cross-large-circle-outline-symbolic.svg">resources/icons/cross-large-circle-outline-symbolic.svg</file>

@@ -48,14 +48,20 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         }
     }
 
+    string _icon;
     public string icon {
         set {
             if (value != null) {
                 menu_icon_revealer.reveal_child = true;
-                menu_icon.gicon = new ThemedIcon (value);
+                _icon = value;
+                menu_icon.icon_name = _icon;
             } else {
                 menu_icon_revealer.reveal_child = false;
             }
+        }
+
+        get {
+            return _icon;
         }
     }
 

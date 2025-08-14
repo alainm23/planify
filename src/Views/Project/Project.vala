@@ -29,7 +29,6 @@ public class Views.Project : Adw.Bin {
     private Adw.ViewStack project_stack;
     private Adw.ToolbarView toolbar_view;
     private Widgets.ContextMenu.MenuItem expand_all_item;
-    private Widgets.ContextMenu.MenuItem collapse_all_item;
     private Widgets.ContextMenu.MenuCheckPicker priority_filter;
     private Widgets.ContextMenu.MenuPicker due_date_item;
     private Widgets.MultiSelectToolbar multiselect_toolbar;
@@ -201,7 +200,6 @@ public class Views.Project : Adw.Bin {
         signals_map[project.view_style_changed.connect (() => {
             update_project_view ();
             expand_all_item.visible = view_style == ProjectViewStyle.LIST;
-            collapse_all_item.visible = view_style == ProjectViewStyle.LIST;
         })] = project;
 
         project.handle_scroll_visibility_change.connect ((visible) => {
@@ -291,10 +289,7 @@ public class Views.Project : Adw.Bin {
 
         var select_item = new Widgets.ContextMenu.MenuItem (_ ("Select"), "list-large-symbolic");
         var paste_item = new Widgets.ContextMenu.MenuItem (_ ("Paste"), "tabs-stack-symbolic");
-        expand_all_item = new Widgets.ContextMenu.MenuItem (_ ("Expand All"), "size-vertically-symbolic") {
-            visible = view_style == ProjectViewStyle.LIST
-        };
-        collapse_all_item = new Widgets.ContextMenu.MenuItem (_ ("Collapse All"), "size-vertically-symbolic") {
+        expand_all_item = new Widgets.ContextMenu.MenuItem (_ ("Expand All"), "expand-vertically-symbolic") {
             visible = view_style == ProjectViewStyle.LIST
         };
         var archive_item = new Widgets.ContextMenu.MenuItem (_ ("Archive"), "shoe-box-symbolic");
@@ -323,7 +318,6 @@ public class Views.Project : Adw.Bin {
         menu_box.append (select_item);
         menu_box.append (paste_item);
         menu_box.append (expand_all_item);
-        menu_box.append (collapse_all_item);
 
         if (!project.is_deck && !project.inbox_project) {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -386,11 +380,15 @@ public class Views.Project : Adw.Bin {
         });
 
         expand_all_item.clicked.connect (() => {
-            Services.EventBus.get_default ().expand_all (project.id, true);
-        });
-
-        collapse_all_item.clicked.connect (() => {
-            Services.EventBus.get_default ().expand_all (project.id, false);
+            if (expand_all_item.icon == "collapse-vertically-symbolic") {
+                expand_all_item.title = _ ("Expand All");
+                expand_all_item.icon = "expand-vertically-symbolic";
+                Services.EventBus.get_default ().expand_all (project.id, false);
+            } else {
+                expand_all_item.title = _ ("Collapse All");
+                expand_all_item.icon = "collapse-vertically-symbolic";
+                Services.EventBus.get_default ().expand_all (project.id, true);
+            }
         });
 
         select_item.clicked.connect (() => {
