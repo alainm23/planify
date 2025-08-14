@@ -59,7 +59,6 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         var sources_group = new Layouts.HeaderItem (_("Sources")) {
             card = true,
             reveal = true,
-            margin_top = 12,
             listbox_margin_top = 6
         };
 
@@ -76,8 +75,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         var content_clamp = new Adw.Clamp () {
             maximum_size = 600,
             margin_start = 24,
-            margin_end = 24,
-            margin_top = 12
+            margin_end = 24
         };
 
         content_clamp.child = content_box;
@@ -93,11 +91,6 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         foreach (Objects.Source source in Services.Store.instance ().sources) {
             if (!sources_hashmap.has_key (source.id)) {
                 sources_hashmap[source.id] = new Widgets.SourceRow (source);
-
-                sources_hashmap[source.id].view_detail.connect (() => {
-                    push_subpage (get_source_view (source));
-                });
-
                 sources_group.add_child (sources_hashmap[source.id]);
             }
         }
@@ -105,11 +98,6 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         Services.Store.instance ().source_added.connect ((source) => {
             if (!sources_hashmap.has_key (source.id)) {
                 sources_hashmap[source.id] = new Widgets.SourceRow (source);
-
-                sources_hashmap[source.id].view_detail.connect (() => {
-                    push_subpage (get_source_view (source));
-                });
-
                 sources_group.add_child (sources_hashmap[source.id]);
             }
         });
@@ -131,6 +119,11 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
 
         nextcloud_item.clicked.connect (() => {
             push_subpage (get_nextcloud_setup_page ());
+        });
+
+        sources_group.row_activated.connect ((row) => {
+            var source = ((Widgets.SourceRow) row).source;
+            push_subpage (get_source_view (source));
         });
     }
 
@@ -202,27 +195,47 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         };
 
         default_group.add (display_entry);
-        default_group.add (sync_server_row);
-        default_group.add (last_sync_row);
 
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 600,
-            margin_start = 24,
-            margin_end = 24,
-            child = default_group
+        if (source.source_type != SourceType.LOCAL) {
+            default_group.add (sync_server_row);
+            default_group.add (last_sync_row);
+        }
+
+        var delete_button = new Adw.ButtonRow () {
+            title = _("Delete Source")
         };
+        delete_button.add_css_class ("destructive-action");
+
+        var delete_group = new Adw.PreferencesGroup () {
+            margin_top = 24
+        };
+        delete_group.add (delete_button);
 
         var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             vexpand = true,
             hexpand = true
         };
 
-        main_content.append (user_box);
-        main_content.append (content_clamp);
+        if (source.source_type != SourceType.LOCAL) {
+            main_content.append (user_box);
+        }
+        
+        main_content.append (default_group);
+
+        if (source.source_type != SourceType.LOCAL) {
+            main_content.append (delete_group);
+        }
+
+        var content_clamp = new Adw.Clamp () {
+            maximum_size = 600,
+            margin_start = 24,
+            margin_end = 24,
+            child = main_content
+        };
 
         var toolbar_view = new Adw.ToolbarView ();
         toolbar_view.add_top_bar (settings_header);
-        toolbar_view.content = main_content;
+        toolbar_view.content = content_clamp;
 
         var page = new Adw.NavigationPage (toolbar_view, "source_view");
 
@@ -244,6 +257,10 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         display_entry.apply.connect (() => {
             source.display_name = display_entry.text;
             source.save ();
+        });
+
+        delete_button.activated.connect (() => {
+            source.delete_source (Planify._instance.main_window);
         });
 
         return page;
