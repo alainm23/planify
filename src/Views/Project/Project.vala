@@ -413,48 +413,25 @@ public class Views.Project : Adw.Bin {
     }
 
     private Gtk.Popover build_view_setting_popover () {
-        var list_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            halign = CENTER
+        var list_toggle = new Adw.Toggle () {
+            name = ProjectViewStyle.LIST.to_string (),
+            label = _ ("List"),
+            icon_name = "list-symbolic"
         };
 
-        list_box.append (new Gtk.Image.from_icon_name ("list-symbolic"));
-        list_box.append (new Gtk.Label (_ ("List")) {
-            css_classes = { "caption" },
-            valign = CENTER
-        });
-
-        var list_button = new Gtk.ToggleButton () {
-            child = list_box,
-            active = view_style == ProjectViewStyle.LIST
+        var board_toggle = new Adw.Toggle () {
+            name = ProjectViewStyle.BOARD.to_string (),
+            label = _ ("Board"),
+            icon_name = "view-columns-symbolic"
         };
 
-        var board_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            halign = CENTER
-        };
-
-        board_box.append (new Gtk.Image.from_icon_name ("view-columns-symbolic"));
-        board_box.append (new Gtk.Label (_ ("Board")) {
-            css_classes = { "caption" },
-            valign = CENTER
-        });
-
-        var board_button = new Gtk.ToggleButton () {
-            group = list_button,
-            child = board_box,
-            active = view_style == ProjectViewStyle.BOARD
-        };
-
-        var view_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            css_classes = { "linked" },
-            hexpand = true,
-            homogeneous = true,
-            margin_start = 3,
-            margin_end = 3,
+        var view_group = new Adw.ToggleGroup () {
             margin_bottom = 12
         };
 
-        view_box.append (list_button);
-        view_box.append (board_button);
+        view_group.add (list_toggle);
+        view_group.add (board_toggle);
+        view_group.active_name = project.view_style.to_string ();
 
         var order_by_model = new Gee.ArrayList<string> ();
         order_by_model.add (_ ("Custom sort order"));
@@ -531,7 +508,7 @@ public class Views.Project : Adw.Bin {
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
         if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
-            menu_box.append (view_box);
+            menu_box.append (view_group);
         }
 
         menu_box.append (new Gtk.Label (_ ("Sort By")) {
@@ -581,15 +558,16 @@ public class Views.Project : Adw.Bin {
             dialog.present (Planify._instance.main_window);
         });
 
-        list_button.toggled.connect (() => {
-            project.view_style = ProjectViewStyle.LIST;
+        view_group.notify["active-name"].connect (() => {
+            if (view_group.active_name == ProjectViewStyle.LIST.to_string ()) {
+                project.view_style = ProjectViewStyle.LIST;
+            } else {
+                project.view_style = ProjectViewStyle.BOARD;
+            }
+
             project.update_local ();
         });
 
-        board_button.toggled.connect (() => {
-            project.view_style = ProjectViewStyle.BOARD;
-            project.update_local ();
-        });
 
         project.sort_order_changed.connect (() => {
             order_by_item.update_selected (project.sort_order);
