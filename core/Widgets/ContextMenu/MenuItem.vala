@@ -141,7 +141,6 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         arrow_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
             child = new Gtk.Image.from_icon_name ("go-next-symbolic") {
-                css_classes = { "dim-label" },
                 margin_start = 6
             }
         };

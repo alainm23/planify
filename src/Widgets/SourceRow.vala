@@ -24,8 +24,6 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
 
     private Gtk.Revealer main_revealer;
 
-    public signal void view_detail ();
-
     public SourceRow (Objects.Source source) {
         Object (
             source: source
@@ -55,42 +53,6 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
         header_label_box.append (header_label);
         header_label_box.append (subheader_label);
 
-        var setting_button = new Gtk.Button.from_icon_name ("settings-symbolic") {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER,
-            css_classes = { "flat" },
-            visible = source.source_type != SourceType.LOCAL
-        };
-
-        var renove_item = new Widgets.ContextMenu.MenuItem (_("Remove"), "user-trash-symbolic");
-
-        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (renove_item);
-
-        var popover = new Gtk.Popover () {
-            has_arrow = true,
-            child = menu_box,
-            width_request = 250,
-            position = Gtk.PositionType.BOTTOM
-        };
-
-        var menu_button = new Gtk.MenuButton () {
-            valign = Gtk.Align.CENTER,
-            icon_name = "view-more-symbolic",
-            css_classes = { "flat", "dim-label" },
-            tooltip_markup = _("Add Source"),
-            popover = popover,
-            visible = source.source_type != SourceType.LOCAL
-        };
-
-        var end_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            hexpand = true,
-            halign = END
-        };
-        end_box.append (setting_button);
-        end_box.append (menu_button);
-
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 6,
             margin_bottom = 6,
@@ -100,7 +62,11 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
 
         content_box.append (visible_checkbutton);
         content_box.append (header_label_box);
-        content_box.append (end_box);
+        content_box.append (new Gtk.Image.from_icon_name ("go-next-symbolic") {
+            pixel_size = 16,
+            hexpand = true,
+            halign = END
+        });
 
         var card = new Adw.Bin () {
             child = content_box,
@@ -132,14 +98,6 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
         visible_checkbutton.toggled.connect (() => {
             source.is_visible = visible_checkbutton.active;
             source.save ();
-        });
-
-        setting_button.clicked.connect (() => {
-            view_detail ();
-        });
-
-        renove_item.clicked.connect (() => {
-            source.delete_source (Planify._instance.main_window);
         });
 
         reorder.on_drop_end.connect ((listbox) => {

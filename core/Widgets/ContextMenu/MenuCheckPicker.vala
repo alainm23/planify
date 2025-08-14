@@ -69,7 +69,6 @@ public class Widgets.ContextMenu.MenuCheckPicker : Adw.Bin {
         };
         arrow_icon.add_css_class ("transition");
         arrow_icon.add_css_class ("hidden-button");
-        arrow_icon.add_css_class ("dim-label");
 
         var itemselector_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true
