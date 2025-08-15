@@ -149,9 +149,9 @@ public class Layouts.HeaderBar : Adw.Bin {
 
     private void update_sidebar_icon () {
         if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
-            sidebar_button.icon_name = "dock-left-symbolic";
-        } else {
             sidebar_button.icon_name = "dock-right-symbolic";
+        } else {
+            sidebar_button.icon_name = "dock-left-symbolic";
         }
     }
 
