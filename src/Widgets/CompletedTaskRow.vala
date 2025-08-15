@@ -71,15 +71,15 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
             ellipsize = Pango.EllipsizeMode.END,
             margin_start = 30,
             margin_end = 6,
-            css_classes = { "dim-label", "caption" }
+            css_classes = { "dimmed", "caption" }
         };
 
         var section_label = new Gtk.Label (item.has_section ? "● " + item.section.name : "● " + _("No Section")) {
-            css_classes = { "dim-label", "caption" }
+            css_classes = { "dimmed", "caption" }
         };
 
         var subitems_label = new Gtk.Label (null) {
-            css_classes = { "dim-label", "caption" }
+            css_classes = { "dimmed", "caption" }
         };
 
         var bottom_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
@@ -89,7 +89,7 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
 
         if (item.items.size > 0) {
             bottom_box.append (new Gtk.Label ("|") {
-                css_classes = { "dim-label", "caption" }
+                css_classes = { "dimmed", "caption" }
             });
 
             subitems_label.label = "%s %s".printf (item.items.size < 10 ? "0" + item.items.size.to_string () : item.items.size.to_string (), _("Sub-tasks"));
@@ -105,7 +105,7 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
 
         loading_button = new Widgets.LoadingButton.with_icon ("go-next-symbolic", 16) {
             valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "dim-label", "no-padding" }
+            css_classes = { "flat", "dimmed", "no-padding" }
         };
 
         var h_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {

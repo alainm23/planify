@@ -72,7 +72,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
         content_box.append (count_group);
         content_box.append (views_group);
         content_box.append (new Gtk.Label (_("You can sort your views by dragging and dropping")) {
-            css_classes = { "caption", "dim-label" },
+            css_classes = { "caption", "dimmed" },
             halign = START,
             margin_start = 12,
             margin_top = 3

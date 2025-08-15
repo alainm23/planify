@@ -178,7 +178,7 @@ public class Layouts.HeaderItem : Adw.Bin {
 
         subheader_label = new Gtk.Label (null) {
             halign = Gtk.Align.START,
-            css_classes = { "caption", "dim-label" }
+            css_classes = { "caption", "dimmed" }
         };
 
         subheader_revealer = new Gtk.Revealer () {
@@ -256,7 +256,7 @@ public class Layouts.HeaderItem : Adw.Bin {
             justify = Gtk.Justification.CENTER
         };
 
-        placeholder_label.add_css_class ("dim-label");
+        placeholder_label.add_css_class ("dimmed");
         placeholder_label.add_css_class ("caption");
 
         var content_box = new Adw.Bin () {

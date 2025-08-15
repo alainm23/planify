@@ -52,7 +52,7 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
         };
 
         var label = new Gtk.Label (_("You can sort your sections by dragging and dropping")) {
-            css_classes = { "caption", "dim-label" },
+            css_classes = { "caption", "dimmed" },
             halign = START,
             margin_start = 16,
             margin_end = 16,

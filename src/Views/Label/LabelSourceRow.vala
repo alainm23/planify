@@ -47,7 +47,7 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
 
         var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "header-item-button", "dim-label" },
+            css_classes = { "flat", "header-item-button", "dimmed" },
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Project"), "P")
         };
 

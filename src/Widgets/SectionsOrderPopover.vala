@@ -87,7 +87,7 @@ public class Widgets.SectionsOrderItem : Gtk.ListBoxRow {
         add_css_class ("transition");
 
         var order_icon = new Gtk.Image.from_icon_name ("list-drag-handle-symbolic") {
-            css_classes = { "dim-label" }
+            css_classes = { "dimmed" }
         };
 
         var widget_color = new Gtk.Grid () {

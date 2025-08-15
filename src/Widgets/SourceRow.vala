@@ -39,7 +39,7 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
 
         var subtitle_label = new Gtk.Label (source.subheader_text) {
             halign = Gtk.Align.START,
-            css_classes = { "caption", "dim-label" }
+            css_classes = { "caption", "dimmed" }
         };
 
         var subtitle_revealer = new Gtk.Revealer () {
@@ -74,7 +74,7 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
         };
 
         content_box.append (new Gtk.Image.from_icon_name ("list-drag-handle-symbolic") {
-            css_classes = { "dim-label" },
+            css_classes = { "dimmed" },
         });
         content_box.append (title_box);
         content_box.append (end_box);

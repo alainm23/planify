@@ -93,7 +93,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         listbox.set_header_func (header_completed_function);
         listbox.set_filter_func (filter_function);
         listbox.set_placeholder (new Gtk.Label (_ ("No completed tasks yet.")) {
-            css_classes = { "dim-label" },
+            css_classes = { "dimmed" },
             margin_top = 48,
             margin_start = 24,
             margin_end = 24,

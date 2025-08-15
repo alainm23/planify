@@ -105,7 +105,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         hide_subtask_button = new Gtk.Button () {
             valign = Gtk.Align.START,
             margin_top = 3,
-            css_classes = { "flat", "dim-label", "no-padding", "hidden-button" },
+            css_classes = { "flat", "dimmed", "no-padding", "hidden-button" },
             child = new Gtk.Image.from_icon_name ("go-next-symbolic") {
                 pixel_size = 12
             }
@@ -120,7 +120,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         count_label = new Gtk.Label (null) {
             margin_start = 9,
             halign = Gtk.Align.CENTER,
-            css_classes = { "dim-label", "caption" }
+            css_classes = { "dimmed", "caption" }
         };
 
         add_button = new Widgets.LoadingButton.with_icon ("plus-large-symbolic") {

@@ -58,7 +58,7 @@ public class Widgets.Attachments : Adw.Bin {
         count_label = new Gtk.Label (null) {
             margin_start = 9,
             halign = Gtk.Align.CENTER,
-            css_classes = { "dim-label", "caption" }
+            css_classes = { "dimmed", "caption" }
         };
 
         add_button = new Widgets.LoadingButton.with_icon ("plus-large-symbolic", 16) {

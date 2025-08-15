@@ -105,7 +105,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.END,
             tooltip_text = _("Add Time"),
-            css_classes = { "flat", "dim-label" }
+            css_classes = { "flat", "dimmed" }
         };
 
         time_stack = new Gtk.Stack () {

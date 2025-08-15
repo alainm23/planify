@@ -100,7 +100,7 @@ public class Layouts.HeaderBar : Adw.Bin {
         };
 
         subtitle_label = new Gtk.Label (null) {
-            css_classes = { "caption", "dim-label" },
+            css_classes = { "caption", "dimmed" },
             ellipsize = END
         };
 

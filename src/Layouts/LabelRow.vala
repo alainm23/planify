@@ -64,12 +64,12 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
             halign = Gtk.Align.CENTER,
             popover = build_context_menu (),
             icon_name = "view-more-symbolic",
-            css_classes = { "flat", "header-item-button", "dim-label" }
+            css_classes = { "flat", "header-item-button", "dimmed" }
         };
 
         var loading_button = new Widgets.LoadingButton.with_icon ("go-next-symbolic", 16) {
             valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "dim-label", "no-padding" }
+            css_classes = { "flat", "dimmed", "no-padding" }
         };
 
         var buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);

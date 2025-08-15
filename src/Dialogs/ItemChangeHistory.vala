@@ -65,7 +65,7 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
 
         listbox.set_header_func (header_completed_function);
         listbox.set_placeholder (new Gtk.Label (_("Your change history will be displayed here once you start making changes.")) {
-            css_classes = { "dim-label" },
+            css_classes = { "dimmed" },
             margin_top = 24,
             margin_start = 24,
             margin_end = 24,

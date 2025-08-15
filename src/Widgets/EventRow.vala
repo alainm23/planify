@@ -75,7 +75,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         time_label = new Gtk.Label (null) {
             xalign = 0,
             valign = Gtk.Align.CENTER,
-            css_classes = { "dim-label", "caption" }
+            css_classes = { "dimmed", "caption" }
         };
 
         var name_label = new Gtk.Label (component.get_summary ()) {

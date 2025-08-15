@@ -35,12 +35,12 @@ public class Widgets.SyncButton : Adw.Bin {
     construct {
         sync_button = new Gtk.Button.from_icon_name ("update-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "header-item-button", "dim-label" }
+            css_classes = { "flat", "header-item-button", "dimmed" }
         };
 
         var error_button = new Gtk.Button.from_icon_name ("dialog-warning-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "header-item-button", "dim-label" }
+            css_classes = { "flat", "header-item-button", "dimmed" }
         };
 
         stack = new Gtk.Stack () {

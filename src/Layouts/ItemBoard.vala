@@ -170,7 +170,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             ellipsize = Pango.EllipsizeMode.END,
             margin_start = 30,
             margin_end = 6,
-            css_classes = { "dim-label", "caption", "transition" }
+            css_classes = { "dimmed", "caption", "transition" }
         };
         
         description_revealer = new Gtk.Revealer () {
@@ -462,7 +462,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 GLib.Source.remove (complete_timeout);
                 complete_timeout = 0;
                 card_widget.remove_css_class ("complete-animation");
-                content_label.remove_css_class ("dim-label");
+                content_label.remove_css_class ("dimmed");
                 content_label.remove_css_class ("line-through");
             } else {
                 var old_completed_at = item.completed_at;
@@ -488,7 +488,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             timeout = time;
         }
 
-        content_label.add_css_class ("dim-label");
+        content_label.add_css_class ("dimmed");
         card_widget.add_css_class ("complete-animation");
         if (Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
             content_label.add_css_class ("line-through");
@@ -529,7 +529,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         checked_button.active = false;
 
         card_widget.remove_css_class ("complete-animation");
-        content_label.remove_css_class ("dim-label");
+        content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
 
         Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);

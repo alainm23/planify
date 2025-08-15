@@ -155,7 +155,7 @@ public class Dialogs.Project : Adw.Dialog {
         name_group.add (emoji_switch_row);
 
         source_selected_label = new Gtk.Label (project.source.display_name) {
-            css_classes = { "dim-label" },
+            css_classes = { "dimmed" },
             tooltip_text = project.source.subheader_text
         };
         var pan_icon = new Gtk.Image.from_icon_name ("go-next-symbolic") {
