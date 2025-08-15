@@ -737,134 +737,13 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
     }
 
     private Adw.NavigationPage get_appearance_page () {
-        var settings_header = new Dialogs.Preferences.SettingsHeader (_("Appearance"));
+        var page = new Dialogs.Preferences.Pages.Appearance ();
 
-        var appearance_group = new Adw.PreferencesGroup ();
-        appearance_group.title = _("App Theme");
-
-        var system_appearance_switch = new Gtk.Switch () {
-            valign = Gtk.Align.CENTER,
-            active = Services.Settings.get_default ().settings.get_boolean ("system-appearance")
-        };
-
-        var system_appearance_row = new Adw.ActionRow ();
-        system_appearance_row.title = _("Use System Settings");
-        system_appearance_row.set_activatable_widget (system_appearance_switch);
-        system_appearance_row.add_suffix (system_appearance_switch);
-
-        appearance_group.add (system_appearance_row);
-
-        var light_check = new Gtk.CheckButton () {
-            halign = Gtk.Align.CENTER,
-            focus_on_click = false,
-            tooltip_text = _("Light Style"),
-            visible = is_light_visible ()
-        };
-        light_check.add_css_class ("theme-selector");
-        light_check.add_css_class ("light");
-
-        var dark_check = new Gtk.CheckButton () {
-            halign = Gtk.Align.CENTER,
-            focus_on_click = false,
-            tooltip_text = _("Dark Style"),
-            group = light_check
-        };
-        dark_check.add_css_class ("theme-selector");
-        dark_check.add_css_class ("dark");
-
-        var dark_blue_check = new Gtk.CheckButton () {
-            halign = Gtk.Align.CENTER,
-            focus_on_click = false,
-            tooltip_text = _("Dark Blue Style"),
-            group = light_check
-        };
-        dark_blue_check.add_css_class ("theme-selector");
-        dark_blue_check.add_css_class ("dark-blue");
-
-        var dark_modes_group = new Adw.PreferencesGroup () {
-            visible = is_dark_modes_visible ()
-        };
-
-        var dark_modes_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
-            halign = CENTER
-        };
-        dark_modes_box.append (light_check);
-        dark_modes_box.append (dark_check);
-        dark_modes_box.append (dark_blue_check);
-
-        var dark_modes_row = new Adw.ActionRow ();
-        dark_modes_row.set_child (dark_modes_box);
-
-        dark_modes_group.add (dark_modes_row);
-
-        appearance_group.add (system_appearance_row);
-
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-        content_box.append (appearance_group);
-        content_box.append (dark_modes_group);
-
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 600,
-            margin_start = 24,
-            margin_end = 24
-        };
-
-        content_clamp.child = content_box;
-
-        var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            vexpand = true,
-            hexpand = true
-        };
-
-        main_content.append (settings_header);
-        main_content.append (content_clamp);
-
-        var page = new Adw.NavigationPage (main_content, "appearance");
-
-        int appearance = Services.Settings.get_default ().settings.get_enum ("appearance");
-        if (appearance == 0) {
-            light_check.active = true;
-        } else if (appearance == 1) {
-            dark_check.active = true;
-        } else if (appearance == 2) {
-            dark_blue_check.active = true;
-        }
-
-        system_appearance_switch.notify["active"].connect (() => {
-            Services.Settings.get_default ().settings.set_boolean ("system-appearance",
-                                                                   system_appearance_switch.active);
-        });
-
-        light_check.toggled.connect (() => {
-            Services.Settings.get_default ().settings.set_boolean ("dark-mode", false);
-            Services.Settings.get_default ().settings.set_enum ("appearance", 0);
-        });
-
-        dark_check.toggled.connect (() => {
-            Services.Settings.get_default ().settings.set_boolean ("dark-mode", true);
-            Services.Settings.get_default ().settings.set_enum ("appearance", 1);
-        });
-
-        dark_blue_check.toggled.connect (() => {
-            Services.Settings.get_default ().settings.set_boolean ("dark-mode", true);
-            Services.Settings.get_default ().settings.set_enum ("appearance", 2);
-        });
-
-        Services.Settings.get_default ().settings.changed.connect ((key) => {
-            if (key == "system-appearance" || key == "dark-mode") {
-                system_appearance_switch.active =
-                    Services.Settings.get_default ().settings.get_boolean ("system-appearance");
-                light_check.visible = is_light_visible ();
-                dark_modes_group.visible = is_dark_modes_visible ();
-            }
-        });
-
-        settings_header.back_activated.connect (() => {
+        page.pop_subpage.connect (() => {
             pop_subpage ();
         });
 
-        return page;
+        return new Adw.NavigationPage (page, "appearance");
     }
 
     private Adw.NavigationPage get_accounts_page () {
@@ -1202,36 +1081,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         });
 
         return page;
-    }
-
-    public bool is_dark_theme () {
-        var dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
-
-        if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
-            dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
-        }
-
-        return dark_mode;
-    }
-
-    public bool is_light_visible () {
-        bool system_appearance = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
-
-        if (system_appearance) {
-            return !is_dark_theme ();
-        }
-
-        return true;
-    }
-
-    public bool is_dark_modes_visible () {
-        bool system_appearance = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
-
-        if (system_appearance) {
-            return is_dark_theme ();
-        }
-
-        return true;
     }
 
     private Gtk.Widget generate_icon (string icon_name, int size = 16) {
