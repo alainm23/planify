@@ -33,40 +33,51 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
     construct {
         add_css_class ("no-selectable");
 
-        var visible_checkbutton = new Gtk.CheckButton () {
-            active = source.is_visible
-        };
-
-        var header_label = new Gtk.Label (source.display_name) {
+        var title_label = new Gtk.Label (source.display_name) {
             halign = Gtk.Align.START
         };
 
-        var subheader_label = new Gtk.Label (source.subheader_text) {
+        var subtitle_label = new Gtk.Label (source.subheader_text) {
             halign = Gtk.Align.START,
-            css_classes = { "caption", "dim-label" },
-            visible = source.source_type != SourceType.LOCAL
+            css_classes = { "caption", "dim-label" }
         };
 
-        var header_label_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+        var subtitle_revealer = new Gtk.Revealer () {
+            child = subtitle_label,
+            reveal_child = source.source_type != SourceType.LOCAL
+        };
+
+        var title_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             valign = Gtk.Align.CENTER
         };
-        header_label_box.append (header_label);
-        header_label_box.append (subheader_label);
+        title_box.append (title_label);
+        title_box.append (subtitle_revealer);
+
+        var visible_checkbutton = new Gtk.Switch () {
+            active = source.is_visible,
+            valign = CENTER
+        };
+
+        var end_box = new Gtk.Box (HORIZONTAL, 12) {
+            hexpand = true,
+            halign = END
+        };
+        end_box.append (visible_checkbutton);
+        end_box.append (new Gtk.Image.from_icon_name ("go-next-symbolic"));
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 6,
             margin_bottom = 6,
             margin_start = 6,
-            margin_end = 6
+            margin_end = 6,
+            height_request = 32
         };
 
-        content_box.append (visible_checkbutton);
-        content_box.append (header_label_box);
-        content_box.append (new Gtk.Image.from_icon_name ("go-next-symbolic") {
-            pixel_size = 16,
-            hexpand = true,
-            halign = END
+        content_box.append (new Gtk.Image.from_icon_name ("list-drag-handle-symbolic") {
+            css_classes = { "dim-label" },
         });
+        content_box.append (title_box);
+        content_box.append (end_box);
 
         var card = new Adw.Bin () {
             child = content_box,
@@ -92,10 +103,10 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
         });
 
         source.updated.connect (() => {
-            header_label.label = source.display_name;
+            title_label.label = source.display_name;
         });
 
-        visible_checkbutton.toggled.connect (() => {
+        visible_checkbutton.notify["active"].connect (() => {
             source.is_visible = visible_checkbutton.active;
             source.save ();
         });
