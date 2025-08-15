@@ -60,7 +60,7 @@ public class Dialogs.Preferences.Pages.Appearance : Adw.Bin {
             valign = CENTER
         };
 
-        var light_row = new Adw.ActionRow () {
+        light_row = new Adw.ActionRow () {
             title = _("Light Style"),
             subtitle = _("Clean light theme"),
             activatable_widget = light_radio
@@ -77,7 +77,7 @@ public class Dialogs.Preferences.Pages.Appearance : Adw.Bin {
             valign = CENTER
         };
 
-        var dark_row = new Adw.ActionRow () {
+        dark_row = new Adw.ActionRow () {
             title = _("Dark Style"),
             subtitle = _("Elegant dark theme"),
             activatable_widget = dark_radio
@@ -141,7 +141,7 @@ public class Dialogs.Preferences.Pages.Appearance : Adw.Bin {
         toolbar_view.add_top_bar (settings_header);
 
         child = toolbar_view;
-        verify ();
+        verify_theme ();
 
         system_appearance_switch.notify["active"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("system-appearance",
@@ -163,32 +163,29 @@ public class Dialogs.Preferences.Pages.Appearance : Adw.Bin {
             Services.Settings.get_default ().settings.set_enum ("appearance", 2);
         });
 
-        Services.Settings.get_default ().settings.changed.connect ((key) => {
-            if (key == "system-appearance" || key == "dark-mode") {
-                system_appearance_switch.active =
-                    Services.Settings.get_default ().settings.get_boolean ("system-appearance");
-                light_row.visible = is_light_visible ();
-                theme_group.visible = is_dark_modes_visible ();
-                placeholder_revealer.reveal_child = !is_dark_modes_visible ();
-            }
-        });
+        Services.Settings.get_default ().settings.changed["system-appearance"].connect (verify_theme);
+        Services.Settings.get_default ().settings.changed["dark-mode"].connect (verify_theme);
 
         settings_header.back_activated.connect (() => {
             pop_subpage ();
         });
     }
 
-    private void verify () {
+    private void verify_theme () {
         system_appearance_switch.active =
             Services.Settings.get_default ().settings.get_boolean ("system-appearance");
         light_row.visible = is_light_visible ();
         theme_group.visible = is_dark_modes_visible ();
         placeholder_revealer.reveal_child = !is_dark_modes_visible ();
 
-        int appearance = Services.Settings.get_default ().settings.get_enum ("appearance");
-        if (appearance == 0) {
+
+        if (!Services.Settings.get_default ().settings.get_boolean ("dark-mode")) {
             light_radio.active = true;
-        } else if (appearance == 1) {
+            return;
+        }
+
+        int appearance = Services.Settings.get_default ().settings.get_enum ("appearance");
+        if (appearance == 1) {
             dark_radio.active = true;
         } else if (appearance == 2) {
             blue_radio.active = true;
@@ -199,7 +196,7 @@ public class Dialogs.Preferences.Pages.Appearance : Adw.Bin {
         var dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
 
         if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
-            dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+            dark_mode = ColorSchemeSettings.Settings.get_default ().prefers_color_scheme == ColorSchemeSettings.Settings.ColorScheme.DARK;
         }
 
         return dark_mode;
