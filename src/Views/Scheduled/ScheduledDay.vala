@@ -58,7 +58,7 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
             halign = Gtk.Align.START
         };
 
-        date_format_label.add_css_class ("dim-label");
+        date_format_label.add_css_class ("dimmed");
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,

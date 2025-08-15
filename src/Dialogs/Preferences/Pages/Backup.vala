@@ -161,7 +161,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
         };
         var subtitle = new Gtk.Label (backup.title) {
             halign = CENTER,
-            css_classes = { "dim-label" },
+            css_classes = { "dimmed" },
             margin_top = 3
         };
 

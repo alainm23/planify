@@ -110,7 +110,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         count_label = new Gtk.Label (null) {
             margin_start = 9,
             halign = Gtk.Align.CENTER,
-            css_classes = { "dim-label", "caption" }
+            css_classes = { "dimmed", "caption" }
         };
 
         var menu_button = new Gtk.MenuButton () {
@@ -139,7 +139,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             wrap = true,
             selectable = true,
             halign = START,
-            css_classes = { "dim-label" },
+            css_classes = { "dimmed" },
             margin_start = 6,
             margin_top = 6,
             margin_bottom = 6

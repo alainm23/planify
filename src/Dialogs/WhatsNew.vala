@@ -53,7 +53,7 @@ public class Dialogs.WhatsNew : Adw.Dialog {
         var version_label = new Gtk.Label (Build.VERSION) {
             hexpand = true,
             halign = CENTER,
-            css_classes = { "dim-label" }
+            css_classes = { "dimmed" }
         };
 
         feature_group = new Adw.PreferencesGroup () {

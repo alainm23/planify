@@ -92,7 +92,7 @@ public class Widgets.EditableLabel : Gtk.Grid {
         };
 
         var edit_icon = new Gtk.Image.from_icon_name ("edit-symbolic") {
-            css_classes = { "dim-label" },
+            css_classes = { "dimmed" },
             pixel_size = 16
         };
 

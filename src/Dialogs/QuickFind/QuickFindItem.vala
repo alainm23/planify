@@ -77,7 +77,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
             var project_label = new Gtk.Label (section.project.name) {
                 ellipsize = Pango.EllipsizeMode.END,
                 xalign = 0,
-                css_classes = { "dim-label", "caption" }
+                css_classes = { "dimmed", "caption" }
             };
 
             main_grid.attach (section_icon, 0, 0, 1, 2);
@@ -102,7 +102,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
             var project_label = new Gtk.Label (item.project.name) {
                 ellipsize = Pango.EllipsizeMode.END,
                 xalign = 0,
-                css_classes = { "dim-label", "caption" }
+                css_classes = { "dimmed", "caption" }
             };
 
             if (item.has_section) {

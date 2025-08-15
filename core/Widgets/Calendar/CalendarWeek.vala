@@ -42,7 +42,7 @@ public class Widgets.Calendar.CalendarWeek : Gtk.Box {
         };
 
         foreach (var label in day_labels) {
-            label.add_css_class ("dim-label");
+            label.add_css_class ("dimmed");
             append (label);
         }
 

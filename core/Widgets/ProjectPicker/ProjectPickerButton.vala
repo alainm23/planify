@@ -327,7 +327,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         placeholder_message_label = new Gtk.Label (null) {
             wrap = true,
             justify = Gtk.Justification.CENTER,
-            css_classes = { "dim-label" }
+            css_classes = { "dimmed" }
         };
 
         var spinner = new Adw.Spinner () {

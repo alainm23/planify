@@ -73,7 +73,7 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
         };
 
         var datetime_string = new Gtk.Label (object_event.time) {
-            css_classes = { "dim-label", "caption" },
+            css_classes = { "dimmed", "caption" },
             halign = Gtk.Align.END,
             hexpand = true
         };
@@ -89,7 +89,7 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
         };
 
         var old_value_label = new Gtk.Label (null) {
-            css_classes = { "dim-label" },
+            css_classes = { "dimmed" },
             selectable = true,
             ellipsize = Pango.EllipsizeMode.END
         };
@@ -110,7 +110,7 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
         };
 
         var new_value_label = new Gtk.Label (null) {
-            css_classes = { "dim-label", "caption" },
+            css_classes = { "dimmed", "caption" },
             selectable = true,
             wrap = true
         };

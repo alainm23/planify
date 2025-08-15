@@ -69,7 +69,7 @@ public class Widgets.ErrorView : Adw.Bin {
         error_code_label = new Gtk.Label (null) {
             hexpand = true,
             halign = Gtk.Align.CENTER,
-            css_classes = { "dim-label", "caption" },
+            css_classes = { "dimmed", "caption" },
             margin_top = 3
         };
 

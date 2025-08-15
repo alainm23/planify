@@ -72,7 +72,7 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
 
         var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "header-item-button", "dim-label" }
+            css_classes = { "flat", "header-item-button", "dimmed" }
         };
 
         group.add_widget_end (add_button);

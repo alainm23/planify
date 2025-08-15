@@ -127,7 +127,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
                 if (complete_timeout != 0) {
                     itemrow_box.remove_css_class ("complete-animation");
-                    content_label.remove_css_class ("dim-label");
+                    content_label.remove_css_class ("dimmed");
                 }
 
                 _disable_drag_and_drop ();
@@ -278,7 +278,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         hide_loading_button = new Widgets.LoadingButton.with_icon ("go-up-symbolic", 16) {
             valign = Gtk.Align.START,
-            css_classes = { "flat", "dim-label", "no-padding" }
+            css_classes = { "flat", "dimmed", "no-padding" }
         };
 
         hide_loading_revealer = new Gtk.Revealer () {
@@ -299,7 +299,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         project_label = new Gtk.Label (null) {
-            css_classes = { "caption", "dim-label" },
+            css_classes = { "caption", "dimmed" },
             margin_start = 6,
             ellipsize = Pango.EllipsizeMode.END,
             max_width_chars = 16
@@ -363,7 +363,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = new Gtk.Image.from_icon_name ("text-justify-left-symbolic") {
                 valign = Gtk.Align.CENTER,
                 margin_start = 6,
-                css_classes = { "dim-label" }
+                css_classes = { "dimmed" }
             }
         };
 
@@ -373,7 +373,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = new Gtk.Image.from_icon_name ("pin-symbolic") {
                 valign = Gtk.Align.CENTER,
                 margin_start = 6,
-                css_classes = { "dim-label" },
+                css_classes = { "dimmed" },
                 pixel_size = 13
             }
         };
@@ -388,7 +388,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
             valign = Gtk.Align.CENTER,
             margin_start = 6,
-            css_classes = { "dim-label" },
+            css_classes = { "dimmed" },
         };
 
         reminder_box.append (reminder_icon);
@@ -580,7 +580,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         hide_subtask_button = new Gtk.Button () {
             valign = Gtk.Align.START,
             margin_top = 3,
-            css_classes = { "flat", "dim-label", "no-padding", "hidden-button" },
+            css_classes = { "flat", "dimmed", "no-padding", "hidden-button" },
             child = new Gtk.Image.from_icon_name ("go-next-symbolic") {
                 pixel_size = 12
             }
@@ -1280,7 +1280,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 GLib.Source.remove (complete_timeout);
                 complete_timeout = 0;
                 itemrow_box.remove_css_class ("complete-animation");
-                content_label.remove_css_class ("dim-label");
+                content_label.remove_css_class ("dimmed");
                 content_label.remove_css_class ("line-through");
             } else {
                 var old_completed_at = item.completed_at;
@@ -1307,7 +1307,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         if (!edit) {
-            content_label.add_css_class ("dim-label");
+            content_label.add_css_class ("dimmed");
             itemrow_box.add_css_class ("complete-animation");
             if (Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
                 content_label.add_css_class ("line-through");
@@ -1352,7 +1352,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         subitems.sensitive = true;
 
         itemrow_box.remove_css_class ("complete-animation");
-        content_label.remove_css_class ("dim-label");
+        content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
 
         Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
@@ -1389,7 +1389,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         checked_button.active = false;
         complete_timeout = 0;
         itemrow_box.remove_css_class ("complete-animation");
-        content_label.remove_css_class ("dim-label");
+        content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
 
         var title = _ ("Completed. Next occurrence: %s".printf (

@@ -122,7 +122,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             hexpand = true,
             margin_end = 6,
             halign = Gtk.Align.CENTER,
-            css_classes = { "caption", "dim-label" }
+            css_classes = { "caption", "dimmed" }
         };
 
         count_revealer = new Gtk.Revealer () {
@@ -133,7 +133,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         arrow_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            css_classes = { "flat", "transparent", "hidden-button", "no-padding", "dim-label" },
+            css_classes = { "flat", "transparent", "hidden-button", "no-padding", "dimmed" },
             margin_start = 6,
             child = new Gtk.Image.from_icon_name ("go-next-symbolic") {
                 pixel_size = 12

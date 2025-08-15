@@ -51,7 +51,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         var add_source_button = new Gtk.MenuButton () {
             valign = Gtk.Align.CENTER,
             icon_name = "plus-large-symbolic",
-            css_classes = { "flat", "dim-label" },
+            css_classes = { "flat", "dimmed" },
             tooltip_markup = _("Add Source"),
             popover = popover
         };
@@ -67,7 +67,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 3);
         content_box.append (sources_group);
         content_box.append (new Gtk.Label (_("You can sort your accounts by dragging and dropping")) {
-            css_classes = { "caption", "dim-label" },
+            css_classes = { "caption", "dimmed" },
             halign = START,
             margin_start = 12
         });
@@ -146,7 +146,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         };
 
         var email_label = new Gtk.Label (source.user_email) {
-            css_classes = { "dim-label" },
+            css_classes = { "dimmed" },
             margin_top = 6
         };
 
@@ -159,7 +159,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
 
         if (source.source_type == SourceType.CALDAV) {
             var url_label = new Gtk.Label (source.caldav_data.server_url) {
-                css_classes = { "dim-label" }
+                css_classes = { "dimmed" }
             };
             user_box.append (url_label);
         }
@@ -299,7 +299,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
 
         // Loading
         var sync_label = new Gtk.Label (_("Planify is is syncing your tasks, this may take a few minutes")) {
-            css_classes = { "dim-label" }
+            css_classes = { "dimmed" }
         };
         sync_label.wrap = true;
         sync_label.justify = Gtk.Justification.CENTER;
@@ -429,7 +429,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
                             ) {
             use_markup = true,
             wrap = true,
-            css_classes = { "dim-label", "caption" }
+            css_classes = { "dimmed", "caption" }
         };
 
         var message_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
@@ -515,7 +515,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
                                             .printf (_("Server URL examples:"), _("- https://cloud.example.com/"),
                                                      _("- https://example.com/nextcloud/"))) {
             wrap = true,
-            css_classes = { "dim-label", "caption" }
+            css_classes = { "dimmed", "caption" }
         };
 
         var message_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {

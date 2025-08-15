@@ -359,7 +359,7 @@ public class Views.List : Adw.Bin {
 
         days_left_label = new Gtk.Label (null) {
             xalign = 0,
-            css_classes = { "dim-label", "caption" }
+            css_classes = { "dimmed", "caption" }
         };
         days_left_label.yalign = float.parse ("0.7");
 
