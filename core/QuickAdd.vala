@@ -74,8 +74,7 @@ public class Layouts.QuickAdd : Adw.Bin {
             item.custom_order = true;
         }
 
-        if (is_window_quick_add &&
-            Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
+        if (Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
             var project = Services.Store.instance ().get_project (Services.Settings.get_default ().settings.get_string ("quick-add-project-selected"));
 
             if (project != null) {

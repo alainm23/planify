@@ -202,13 +202,8 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
     }
 
     public void prepare_new_item (string content = "") {
-        var inbox_project = Services.Store.instance ().get_project (
-            Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
-        );
-
         var dialog = new Dialogs.QuickAdd ();
         dialog.update_content (content);
-        dialog.set_project (inbox_project);
         dialog.set_due (Utils.Datetime.get_date_only (new GLib.DateTime.now_local ().add_days (1)));
         dialog.present (Planify._instance.main_window);
     }
