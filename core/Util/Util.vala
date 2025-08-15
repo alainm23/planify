@@ -251,10 +251,10 @@ public class Util : GLib.Object {
         bool dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
         bool system_appearance = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
 
-        var granite_settings = Granite.Settings.get_default ();
+        var color_scheme_settings = ColorSchemeSettings.Settings.get_default ();
 
         if (system_appearance) {
-            dark_mode = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+            dark_mode = color_scheme_settings.prefers_color_scheme == ColorSchemeSettings.Settings.ColorScheme.DARK;
         }
 
         var provider = new Gtk.CssProvider ();

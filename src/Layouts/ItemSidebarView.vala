@@ -128,7 +128,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             margin_end = 12
         };
         content_group.title = _("Title");
-        content_group.add (content_textview.get_widget ());
+        content_group.add (content_textview);
 
         status_button = new Widgets.StatusButton ();
         section_button = new Widgets.SectionPicker.SectionButton ();
@@ -410,6 +410,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         duplicate_item.sensitive = !item.completed;
         move_item.sensitive = !item.completed;
         subitems.add_button.sensitive = !item.completed;
+        attachments.add_button.sensitive = !item.completed;
         use_note_item.active = item.item_type == ItemType.NOTE;
         status_button.sensitive = item.item_type == ItemType.TASK;
         parent_back_button.visible = item.has_parent;

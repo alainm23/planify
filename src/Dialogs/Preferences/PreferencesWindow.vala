@@ -1208,7 +1208,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         var dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
 
         if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
-            dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+            dark_mode = ColorSchemeSettings.Settings.get_default ().prefers_color_scheme == ColorSchemeSettings.Settings.ColorScheme.DARK;
         }
 
         return dark_mode;

@@ -209,12 +209,12 @@ public class MainWindow : Adw.ApplicationWindow {
             });
         });
 
-        var granite_settings = Granite.Settings.get_default ();
-        granite_settings.notify["prefers-color-scheme"].connect (() => {
+        var color_scheme_settings = ColorSchemeSettings.Settings.get_default ();
+        color_scheme_settings.notify["prefers-color-scheme"].connect (() => {
             if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
                 Services.Settings.get_default ().settings.set_boolean (
                     "dark-mode",
-                    granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+                    color_scheme_settings.prefers_color_scheme == ColorSchemeSettings.Settings.ColorScheme.DARK
                 );
                 Util.get_default ().update_theme ();
             }
@@ -223,7 +223,7 @@ public class MainWindow : Adw.ApplicationWindow {
         Services.Settings.get_default ().settings.changed["system-appearance"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean (
                 "dark-mode",
-                granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+                color_scheme_settings.prefers_color_scheme == ColorSchemeSettings.Settings.ColorScheme.DARK
             );
             Util.get_default ().update_theme ();
         });

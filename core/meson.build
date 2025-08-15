@@ -12,6 +12,7 @@ core_files = files(
     'Services/Database.vala',
     'Services/Store.vala',
     'Services/Todoist.vala',
+    'Services/ColorSchemeSettings.vala',
 
     'Services/CalDAV/Core.vala',
     'Services/CalDAV/Providers/ProviderBase.vala',
@@ -111,7 +112,6 @@ core_deps = [
   gtk_dep,
   sqlite3_dep,
   libadwaita_dep,
-  granite_dep,
   json_dep,
   libsoup_dep,
   gtksourceview_dep,

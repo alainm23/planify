@@ -273,7 +273,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             transition_duration = 115,
             reveal_child = false,
-            child = content_textview.get_widget ()
+            child = content_textview
         };
 
         hide_loading_button = new Widgets.LoadingButton.with_icon ("go-up-symbolic", 16) {
@@ -1763,7 +1763,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             left_margin = item.item_type == ItemType.TASK ? 24 : 0,
             right_margin = 6,
             top_margin = 3,
-            bottom_margin = 12
+            bottom_margin = 12,
+            is_editable = !item.completed && !item.project.is_deck
         };
 
         markdown_edit_view.buffer = current_buffer;
