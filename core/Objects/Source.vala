@@ -157,26 +157,7 @@ public class Objects.Source : Objects.BaseObject {
         Services.Store.instance ().update_source (this);
     }
 
-    public void delete_source (Gtk.Window window) {
-        var dialog = new Adw.AlertDialog (
-            _("Delete Source?"),
-            _("This can not be undone")
-        );
-
-        dialog.add_response ("cancel", _("Cancel"));
-        dialog.add_response ("delete", _("Delete"));
-        dialog.close_response = "cancel";
-        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-        dialog.present (window);
-
-        dialog.response.connect ((response) => {
-            if (response == "delete") {
-                _delete_source ();
-            }
-        });
-    }
-
-    private void _delete_source () {
+    public void delete_source () {
         // Remove server_timeout
         remove_sync_server ();
 

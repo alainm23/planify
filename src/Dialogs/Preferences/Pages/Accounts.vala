@@ -51,12 +51,12 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         var add_source_button = new Gtk.MenuButton () {
             valign = Gtk.Align.CENTER,
             icon_name = "plus-large-symbolic",
-            css_classes = { "flat", "dimmed" },
+            css_classes = { "flat" },
             tooltip_markup = _("Add Source"),
             popover = popover
         };
 
-        var sources_group = new Layouts.HeaderItem (_("Sources")) {
+        var sources_group = new Layouts.HeaderItem (_("Accounts")) {
             card = true,
             reveal = true,
             listbox_margin_top = 6
@@ -122,8 +122,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         });
 
         sources_group.row_activated.connect ((row) => {
-            var source = ((Widgets.SourceRow) row).source;
-            push_subpage (get_source_view (source));
+            push_subpage (get_source_view (((Widgets.SourceRow) row).source));
         });
     }
 
@@ -147,7 +146,8 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
 
         var email_label = new Gtk.Label (source.user_email) {
             css_classes = { "dimmed" },
-            margin_top = 6
+            margin_top = 6,
+            visible = source.user_email != null && source.user_email != ""
         };
 
         var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -260,7 +260,26 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         });
 
         delete_button.activated.connect (() => {
-            source.delete_source (Planify._instance.main_window);
+            var dialog = new Adw.AlertDialog (
+                _("Delete Source?"),
+                _("This can not be undone")
+            );
+
+            dialog.add_response ("cancel", _("Cancel"));
+            dialog.add_response ("delete", _("Delete"));
+            dialog.close_response = "cancel";
+            dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+            dialog.present (Planify._instance.main_window);
+
+            dialog.response.connect ((response) => {
+                if (response == "delete") {
+                    source.delete_source ();
+                }
+            });
+        });
+
+        source.deleted.connect (() => {
+            pop_subpage ();
         });
 
         return page;
@@ -290,30 +309,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         webview_box.append (banner);
         webview_box.append (webview);
 
-        var sync_image = new Adw.Spinner () {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER,
-            height_request = 64,
-            width_request = 64
-        };
-
-        // Loading
-        var sync_label = new Gtk.Label (_("Planify is is syncing your tasks, this may take a few minutes")) {
-            css_classes = { "dimmed" }
-        };
-        sync_label.wrap = true;
-        sync_label.justify = Gtk.Justification.CENTER;
-        sync_label.margin_top = 12;
-        sync_label.margin_start = 12;
-        sync_label.margin_end = 12;
-
-        var sync_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 128,
-            margin_start = 64,
-            margin_end = 64
-        };
-        sync_box.append (sync_image);
-        sync_box.append (sync_label);
+        var sync_box = build_sync_page ();
 
         todoist_stack = new Gtk.Stack () {
             vexpand = true,
@@ -487,25 +483,12 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         return content_clamp;
     }
 
-    private void verify_response (HttpResponse response) {
-        if (response.status) {
-            return;
-        }
-
-        if (response.error_code != 409) {
-            show_message_error (response.error_code, response.error.strip ());
-        } else {
-            var toast = new Adw.Toast (response.error.strip ());
-            toast.timeout = 3;
-            add_toast (toast);
-        }
-    }
-
     private Adw.NavigationPage get_nextcloud_setup_page () {
         var settings_header = new Dialogs.Preferences.SettingsHeader (_("Nextcloud Setup"));
 
-        var server_entry = new Adw.EntryRow ();
-        server_entry.title = _("Server URL");
+        var server_entry = new Adw.EntryRow () {
+            title = _("Server URL")
+        };
 
         var entries_group = new Adw.PreferencesGroup ();
 
@@ -559,12 +542,23 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         content_box.append (login_button);
         content_box.append (cancel_button);
 
+        var sync_box = build_sync_page ();
+
+        var main_stack = new Gtk.Stack () {
+            vexpand = true,
+            hexpand = true,
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
+
+        main_stack.add_named (content_box, "main");
+        main_stack.add_named (sync_box, "loading");
+
         var content_clamp = new Adw.Clamp () {
             maximum_size = 400,
             margin_start = 24,
             margin_end = 24,
             margin_top = 12,
-            child = content_box
+            child = main_stack
         };
 
         var toolbar_view = new Adw.ToolbarView ();
@@ -600,6 +594,8 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
             GLib.Cancellable cancellable = new GLib.Cancellable ();
             login_button.is_loading = true;
             cancel_button.visible = true;
+            server_entry.sensitive = false;
+            login_button.sensitive = false;
 
             cancel_button.clicked.connect (() => {
                 cancellable.cancel ();
@@ -621,12 +617,17 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
                         if (!response.status) {
                             login_button.is_loading = false;
                             cancel_button.visible = false;
+                            server_entry.sensitive = true;
+                            login_button.sensitive = true;
+
                             show_message_error (response.error_code, response.error.strip ());
                         }
                     });
                 } else {
                     login_button.is_loading = false;
                     cancel_button.visible = false;
+                    server_entry.sensitive = true;
+                    login_button.sensitive = true;
 
                     if (response.error_code == 409) {
                         var toast = new Adw.Toast (response.error.strip ());
@@ -640,7 +641,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         });
 
         Services.CalDAV.Core.get_default ().first_sync_started.connect (() => {
-            login_button.is_loading = true;
+            main_stack.visible_child_name = "loading";
         });
 
         Services.CalDAV.Core.get_default ().first_sync_finished.connect (() => {
@@ -648,6 +649,20 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         });
 
         return page;
+    }
+
+    private void verify_response (HttpResponse response) {
+        if (response.status) {
+            return;
+        }
+
+        if (response.error_code != 409) {
+            show_message_error (response.error_code, response.error.strip ());
+        } else {
+            var toast = new Adw.Toast (response.error.strip ());
+            toast.timeout = 3;
+            add_toast (toast);
+        }
     }
 
     private bool is_valid_url (string uri) {
@@ -669,5 +684,34 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         var page = new Adw.NavigationPage (error_view, "");
 
         push_subpage (page);
+    }
+
+    private Gtk.Widget build_sync_page () {
+        var image = new Adw.Spinner () {
+            valign = CENTER,
+            halign = CENTER,
+            height_request = 64,
+            width_request = 64
+        };
+
+        var label = new Gtk.Label (_("Planify is is syncing your tasks, this may take a few minutes")) {
+            css_classes = { "dimmed" },
+            wrap = true,
+            halign = CENTER,
+            justify = CENTER,
+            margin_start = 12,
+            margin_end = 12,
+        };
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 24) {
+            margin_top = 128,
+            margin_start = 64,
+            margin_end = 64
+        };
+
+        box.append (image);
+        box.append (label);
+
+        return box;
     }
 }
