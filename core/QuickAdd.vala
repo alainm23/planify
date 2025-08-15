@@ -25,7 +25,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     private Gtk.Entry content_entry;
     private Widgets.LoadingButton submit_button;
-    private Widgets.HyperTextView description_textview;
+    private Widgets.TextView description_textview;
     private Widgets.ItemLabels item_labels;
     private Widgets.ProjectPicker.ProjectPickerButton project_picker_button;
     private Widgets.ScheduleButton schedule_button;
@@ -117,12 +117,11 @@ public class Layouts.QuickAdd : Adw.Bin {
         content_box.append (content_entry);
         content_box.append (info_revealer);
 
-        description_textview = new Widgets.HyperTextView () {
+        description_textview = new Widgets.TextView () {
             left_margin = 14,
             right_margin = 6,
             top_margin = 12,
             wrap_mode = Gtk.WrapMode.WORD_CHAR,
-            hexpand = true,
             event_focus = false,
             accepts_tab = false,
             placeholder_text = _("Add a description…")
@@ -132,9 +131,9 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         var description_scrolled = new Gtk.ScrolledWindow () {
             hscrollbar_policy = NEVER,
-            height_request = 84,
-            propagate_natural_height = true,
-            child = description_textview.get_widget ()
+            max_content_height = 200,
+            propagate_natural_height = false,
+            child = description_textview
         };
 
         item_labels = new Widgets.ItemLabels (item) {
@@ -246,11 +245,6 @@ public class Layouts.QuickAdd : Adw.Bin {
         warning_box.append (warning_image);
         warning_box.append (warning_label);
 
-        main_stack = new Gtk.Stack () {
-            hexpand = true,
-            transition_type = Gtk.StackTransitionType.CROSSFADE
-        };
-
         added_image = new Gtk.Image.from_icon_name ("check-round-outline-symbolic") {
             pixel_size = 64
         };
@@ -259,7 +253,10 @@ public class Layouts.QuickAdd : Adw.Bin {
         added_box.halign = Gtk.Align.CENTER;
         added_box.valign = Gtk.Align.CENTER;
         added_box.append (added_image);
-
+        
+        main_stack = new Gtk.Stack () {
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
         main_stack.add_named (main_content, "main");
         main_stack.add_named (warning_box, "warning");
         main_stack.add_named (added_box, "added");

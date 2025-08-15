@@ -78,12 +78,7 @@ public class Objects.ObjectEvent : GLib.Object {
     string _time;
     public string time {
         get {
-            if (Utils.Datetime.is_clock_format_12h ()) {
-                _time = datetime.format (Granite.DateTime.get_default_time_format (true));
-            } else {
-                _time = datetime.format (Granite.DateTime.get_default_time_format (false));
-            }
-
+            _time = datetime.format (Utils.Datetime.get_default_time_format ());
             return _time;
         }
     }

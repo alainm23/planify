@@ -22,7 +22,7 @@ public class Widgets.Attachments : Adw.Bin {
     public bool is_board { get; construct; }
     public Objects.Item item { get; set; }
 
-    private Widgets.LoadingButton add_button;
+    public Widgets.LoadingButton add_button;
     private Gtk.ListBox listbox;
     private Gtk.Label count_label;
 
