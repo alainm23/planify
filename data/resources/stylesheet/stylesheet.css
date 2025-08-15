@@ -666,3 +666,8 @@ checkbutton.theme-selector radio:checked {
     background-color: alpha(@colorAccent, 0.15);
     color: @colorAccent;
 }
+
+.theme-mode-image avatar {
+    border-radius: 6px;
+    border: 1px solid @shade_color;
+}

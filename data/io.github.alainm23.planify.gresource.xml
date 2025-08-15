@@ -26,6 +26,11 @@
     <!-- Icons -->
     <file alias="todoist.svg">resources/icons/todoist.svg</file>
     <file alias="cloud.svg">resources/icons/cloud.svg</file>
+
+    <!-- Images -->
+    <file alias="light-mode.svg">resources/images/light-mode.svg</file>
+    <file alias="dark-mode.svg">resources/images/dark-mode.svg</file>
+    <file alias="blue-mode.svg">resources/images/blue-mode.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/icons/scalable/actions">
@@ -100,6 +105,7 @@
     <file alias="go-up-symbolic.svg">resources/icons/go-up-symbolic.svg</file>
     <file alias="go-next-symbolic.svg">resources/icons/go-next-symbolic.svg</file>
     <file alias="process-error-symbolic.svg">resources/icons/process-error-symbolic.svg</file>
+    <file alias="computer-symbolic.svg">resources/icons/computer-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
@@ -174,6 +180,7 @@
     <file alias="go-up-symbolic.svg">resources/icons/go-up-symbolic.svg</file>
     <file alias="go-next-symbolic.svg">resources/icons/go-next-symbolic.svg</file>
     <file alias="process-error-symbolic.svg">resources/icons/process-error-symbolic.svg</file>
+    <file alias="computer-symbolic.svg">resources/icons/computer-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
@@ -248,5 +255,6 @@
     <file alias="go-up-symbolic.svg">resources/icons/go-up-symbolic.svg</file>
     <file alias="go-next-symbolic.svg">resources/icons/go-next-symbolic.svg</file>
     <file alias="process-error-symbolic.svg">resources/icons/process-error-symbolic.svg</file>
+    <file alias="computer-symbolic.svg">resources/icons/computer-symbolic.svg</file>
   </gresource>
 </gresources>

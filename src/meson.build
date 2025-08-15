@@ -104,7 +104,8 @@ sources = files(
   'Dialogs/Preferences/SettingsHeader.vala',
   'Dialogs/Preferences/Pages/Backup.vala',
   'Dialogs/Preferences/Pages/Sidebar.vala',
-  'Dialogs/Preferences/Pages/Accounts.vala'
+  'Dialogs/Preferences/Pages/Accounts.vala',
+  'Dialogs/Preferences/Pages/Appearance.vala'
 )
 
 executable(
