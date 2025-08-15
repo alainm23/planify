@@ -61,7 +61,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
             margin_end = 12
         };
         content_group.title = _("Title");
-        content_group.add (content_textview.get_widget ());
+        content_group.add (content_textview);
 
         var properties_grid = new Gtk.Grid () {
             column_homogeneous = true,

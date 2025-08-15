@@ -94,7 +94,7 @@ public class Widgets.EditableTextView : Adw.Bin {
         };
 
         stack.add_named (label, "label");
-        stack.add_named (textview.get_widget (), "textview");
+        stack.add_named (textview, "textview");
 
         child = stack;
 

@@ -65,7 +65,6 @@ sqlite3 | 3.45.1
 libadwaita-1 | 1.5.3
 webkitgtk-6.0 | 2.44.3
 gtksourceview-5 | 5.12.1
-granite-7 | 7.4.0
 json-glib-1.0 | 1.8.0
 libecal-2.0 | 3.52.4
 libedataserver-1.2 | 3.52.4
@@ -76,11 +75,11 @@ libsecret-1 | 0.21.4
 
 Fedora installation command:
 
-    sudo dnf install vala meson ninja-build gtk4-devel libadwaita-devel libgee-devel granite-devel libsoup3-devel webkitgtk6.0-devel gtksourceview5-devel granite-7-devel libportal-devel libportal-gtk4-devel
+    sudo dnf install vala meson ninja-build gtk4-devel libadwaita-devel libgee-devel libsoup3-devel webkitgtk6.0-devel gtksourceview5-devel libportal-devel libportal-gtk4-devel
 
 Ubuntu/Debian installation command:
 
-    sudo apt install valac meson ninja-build libgtk-4-dev libadwaita-1-dev libgee-0.8-dev libgranite-7-dev libjson-glib-dev libecal2.0-dev libsoup-3.0-dev libwebkitgtk-6.0-dev libgtksourceview-5-dev libportal-dev libportal-gtk4-dev
+    sudo apt install valac meson ninja-build libgtk-4-dev libadwaita-1-dev libgee-0.8-dev libjson-glib-dev libecal2.0-dev libsoup-3.0-dev libwebkitgtk-6.0-dev libgtksourceview-5-dev libportal-dev libportal-gtk4-dev
 </details>
 
 Run `meson build` to configure the build environment. Change to the build directory and run `ninja` to build

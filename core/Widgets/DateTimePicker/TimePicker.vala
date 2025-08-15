@@ -67,11 +67,11 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
 
     construct {
         if (format_12 == null) {
-            format_12 = Granite.DateTime.get_default_time_format (true);
+            format_12 = Utils.Datetime.get_default_time_format (true);
         }
 
         if (format_24 == null) {
-            format_24 = Granite.DateTime.get_default_time_format (false);
+            format_24 = Utils.Datetime.get_default_time_format (false);
         }
 
         time_entry = new Gtk.Entry () {

@@ -604,7 +604,7 @@ public class Views.Today : Adw.Bin {
     public void update_today_label () {
         var date_format = "%s %s".printf (
             new GLib.DateTime.now_local ().format ("%a"),
-            date.format (Granite.DateTime.get_default_date_format (false, true, false))
+            date.format (Utils.Datetime.get_default_date_format (false, true, false))
         );
 
         date_label.label = date_format;

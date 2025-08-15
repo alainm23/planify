@@ -99,7 +99,6 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
         child = main_grid;
         Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
 
-        var granite_settings = Granite.Settings.get_default ();
         Util.get_default ().set_widget_color (filter_type.get_color (), this);
         Services.EventBus.get_default ().theme_changed.connect (() => {
             Util.get_default ().set_widget_color (filter_type.get_color (), this);

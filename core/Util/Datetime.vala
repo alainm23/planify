@@ -80,11 +80,7 @@ public class Utils.Datetime {
 
         return returned;
     }
-
-    public static string get_relative_datetime (GLib.DateTime datetime) {
-        return Granite.DateTime.get_relative_datetime (datetime);
-    }
-
+    
     public static string days_left (GLib.DateTime datetime, bool show_today = false) {
         string return_value = "";
         var days = datetime.difference (new GLib.DateTime.now_local ()) / TimeSpan.DAY;
@@ -100,10 +96,24 @@ public class Utils.Datetime {
         return return_value;
     }
 
-    public static string get_default_time_format () {
-        return Granite.DateTime.get_default_time_format (
-            is_clock_format_12h (), false
-        );
+    public static string get_default_time_format (bool is_12h = is_clock_format_12h (), bool with_second = false) {
+        if (is_12h == true) {
+            if (with_second == true) {
+                /// TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
+                return _("%-l:%M:%S %p");
+            } else {
+                /// TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
+                return _("%-l:%M %p");
+            }
+        } else {
+            if (with_second == true) {
+                /// TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
+                return _("%H:%M:%S");
+            } else {
+                /// TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
+                return _("%H:%M");
+            }
+        }
     }
 
     public static bool is_clock_format_12h () {
@@ -444,7 +454,7 @@ public class Utils.Datetime {
             return "";
         }
 
-        var format = date.format (Granite.DateTime.get_default_date_format (
+        var format = date.format (get_default_date_format (
                                       false,
                                       true,
                                       date.get_year () != new GLib.DateTime.now_local ().get_year ()
@@ -592,5 +602,35 @@ public class Utils.Datetime {
             time == null ? date.get_minute () : time.get_minute (),
             0
         );
+    }
+
+    public static string get_default_date_format (bool with_weekday = false, bool with_day = true, bool with_year = false) {
+        if (with_weekday == true && with_day == true && with_year == true) {
+            /// TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
+            return _("%a, %b %e, %Y");
+        } else if (with_weekday == false && with_day == true && with_year == true) {
+            /// TRANSLATORS: a GLib.DateTime format showing the date and year
+            return _("%b %e %Y");
+        } else if (with_weekday == false && with_day == false && with_year == true) {
+            /// TRANSLATORS: a GLib.DateTime format showing the year
+            return _("%Y");
+        } else if (with_weekday == false && with_day == true && with_year == false) {
+            /// TRANSLATORS: a GLib.DateTime format showing the date
+            return _("%b %e");
+        } else if (with_weekday == true && with_day == false && with_year == true) {
+            /// TRANSLATORS: a GLib.DateTime format showing the weekday and year.
+            return _("%a %Y");
+        } else if (with_weekday == true && with_day == false && with_year == false) {
+            /// TRANSLATORS: a GLib.DateTime format showing the weekday
+            return _("%a");
+        } else if (with_weekday == true && with_day == true && with_year == false) {
+            /// TRANSLATORS: a GLib.DateTime format showing the weekday and date
+            return _("%a, %b %e");
+        } else if (with_weekday == false && with_day == false && with_year == false) {
+            /// TRANSLATORS: a GLib.DateTime format showing the month.
+            return _("%b");
+        }
+
+        return "";
     }
 }
