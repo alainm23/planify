@@ -127,18 +127,24 @@ public class Objects.Source : Objects.BaseObject {
     }
 
     public void run_server () {
+        if (source_type == SourceType.LOCAL) {
+            return;
+        }
+
         _run_server ();
 
         server_timeout = Timeout.add_seconds (15 * 60, () => {
             if (sync_server) {
                 _run_server ();
+                return true;
             }
 
-            return true;
+            return false; // Don't repeat timeout if sync server isn't active
         });
     }
 
     private void _run_server () {
+        print ("Syncing %s\n", display_name);
         if (source_type == SourceType.TODOIST) {
             Services.Todoist.get_default ().sync.begin (this);
         } else if (source_type == SourceType.CALDAV) {

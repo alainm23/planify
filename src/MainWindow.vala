@@ -193,16 +193,26 @@ public class MainWindow : Adw.ApplicationWindow {
                 }
             });
 
-            Timeout.add (Constants.SYNC_TIMEOUT, () => {
+            var did_startup_sync = false; // Remove hack when upstream issue is resolved
+
+            Timeout.add (Constants.STARTUP_SYNC_TIMEOUT, () => {
+                print ("Starting startup sync\n");
                 foreach (Objects.Source source in Services.Store.instance ().sources) {
                     source.run_server ();
                 }
+                did_startup_sync = true;
 
                 return GLib.Source.REMOVE;
             });
 
+            // TODO: network_changed is sometimes called very rapidly, so we should debounce it ...
             var network_monitor = GLib.NetworkMonitor.get_default ();
             network_monitor.network_changed.connect (() => {
+                if (did_startup_sync == false) {
+                    print ("Ignoring early network change due to bug 1690");
+                    return;
+                }
+                print ("Network has changed, starting sync\n");
                 foreach (Objects.Source source in Services.Store.instance ().sources) {
                     source.run_server ();
                 }
