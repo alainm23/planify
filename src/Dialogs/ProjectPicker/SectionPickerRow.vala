@@ -27,6 +27,12 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
     private Gtk.Grid handle_grid;
     private Gtk.Revealer main_revealer;
 
+    public bool is_inbox_section {
+        get {
+            return section.id == "";
+        }
+    }
+
     public signal void update_section ();
 
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
@@ -68,10 +74,15 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
 
         var hidded_switch = new Gtk.Switch () {
             css_classes = { "active-switch" },
-            active = section.id == "" ? !section.project.inbox_section_hidded : !section.hidded
+            active = is_inbox_section ? !section.project.inbox_section_hidded : !section.hidded,
+            halign = Gtk.Align.END,
+            hexpand = true
         };
 
-        var order_icon = new Gtk.Image.from_icon_name ("list-drag-handle-symbolic");
+        var order_icon = new Gtk.Image.from_icon_name ("list-drag-handle-symbolic") {
+            css_classes = { "dimmed" },
+            pixel_size = 12
+        };
 
         var menu_button = new Gtk.MenuButton () {
             hexpand = true,
@@ -88,17 +99,12 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
             margin_bottom = 9
         };
 
-        content_box.append (name_label);
-
         if (widget_type == "order") {
-            var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
-                hexpand = true,
-                halign = Gtk.Align.END
-            };
-            box.append (hidded_switch);
-            box.append (order_icon);
-
-            content_box.append (box);
+            if (!is_inbox_section) {
+                content_box.append (order_icon);
+            }
+            content_box.append (name_label);
+            content_box.append (hidded_switch);
         }
 
         if (widget_type == "picker") {
@@ -143,7 +149,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
         }
 
         if (widget_type == "order") {
-            if (section.id != "") {
+            if (!is_inbox_section) {
                 reorder_child.build_drag_and_drop ();
             }
 
@@ -162,6 +168,10 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
             signal_map[reorder_child.on_drop_end.connect (() => {
                 update_section ();
             })] = reorder_child;
+
+            main_revealer.notify["child-revealed"].connect (() => {
+                reorder_child.draw_motion_widgets ();
+            });
         }
 
         if (widget_type == "menu") {

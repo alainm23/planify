@@ -70,7 +70,10 @@ public class Widgets.SectionPicker.SectionPickerRow : Gtk.ListBoxRow {
             active = section.id == "" ? !section.project.inbox_section_hidded : !section.hidded
         };
 
-        var order_icon = new Gtk.Image.from_icon_name ("list-drag-handle-symbolic");
+        var order_icon = new Gtk.Image.from_icon_name ("list-drag-handle-symbolic") {
+            css_classes = { "dimmed" },
+            pixel_size = 12
+        };
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 6,

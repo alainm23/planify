@@ -202,10 +202,10 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
 
         add_section (new Dialogs.ProjectPicker.SectionPickerRow (inbox_section, "order"));
         foreach (Objects.Section section in project.sections) {
-            if (!section.was_archived ()) {
-                add_section (new Dialogs.ProjectPicker.SectionPickerRow (section, "order"));
-            } else {
+            if (section.was_archived ()) {
                 archived_listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (section, "menu"));
+            } else {
+                add_section (new Dialogs.ProjectPicker.SectionPickerRow (section, "order"));
             }
         }
     }
