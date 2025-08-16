@@ -128,8 +128,7 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
     public string icon { get; construct; }
     public string title { get; construct; }
 
-    private Gtk.Box handle_grid;
-    private Gtk.CheckButton check_button;
+    private Gtk.Switch check_button;
 
     public bool active {
         get {
@@ -153,7 +152,7 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
 
-        check_button = new Gtk.CheckButton () {
+        check_button = new Gtk.Switch () {
             valign = CENTER,
             halign = END,
             hexpand = true,
@@ -161,18 +160,21 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
             active = check_active ()
         };
 
-        handle_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 9) {
+        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 9) {
             margin_top = 12,
-            margin_start = 12,
             margin_end = 12,
-            margin_bottom = 12
+            margin_bottom = 12,
+            margin_start = 12
+        };
+        content_box.append (new Gtk.Image.from_icon_name (icon));
+        content_box.append (name_label);
+        content_box.append (check_button);
+
+        var handle = new Adw.Bin () {
+            child = content_box
         };
 
-        handle_grid.append (new Gtk.Image.from_icon_name (icon));
-        handle_grid.append (name_label);
-        handle_grid.append (check_button);
-
-        var reorder = new Widgets.ReorderChild (handle_grid, this);
+        var reorder = new Widgets.ReorderChild (handle, this);
 
         var main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -187,7 +189,7 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
             return GLib.Source.REMOVE;
         });
 
-        check_button.toggled.connect (() => {
+        check_button.notify["active"].connect (() => {
             updateView (
                 get_views_array (),
                 filter_type.to_string (),
@@ -197,6 +199,10 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
 
         reorder.on_drop_end.connect ((listbox) => {
             update_views_order (listbox);
+        });
+
+        main_revealer.notify["child-revealed"].connect (() => {
+            reorder.draw_motion_widgets ();
         });
     }
 

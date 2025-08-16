@@ -556,8 +556,18 @@ checkbutton.theme-selector radio:checked {
 }
 
 .drop-area {
-    background-color: alpha(#1e63ec, 0.25);
+    background-color: alpha(#1e63ec, 0.35);
     border-radius: 6px;
+}
+
+.drop-area-active {
+    border-radius: 6px;
+    border: 1px solid #1e63ec;
+}
+
+.drop-area-outline-active {
+    border-radius: 6px;
+    outline: 1px solid #1e63ec;
 }
 
 .drop-target:drop(active) {
@@ -587,16 +597,6 @@ checkbutton.theme-selector radio:checked {
 .indicator {
     background: #1e63ec;
     border-radius: 50%;
-}
-
-.drop-area-active {
-    border-radius: 6px;
-    border: 1px solid #1e63ec;
-}
-
-.drop-area-outline-active {
-    border-radius: 6px;
-    outline: 1px solid #1e63ec;
 }
 
 .view-button {

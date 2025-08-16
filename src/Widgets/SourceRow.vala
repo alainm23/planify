@@ -75,6 +75,7 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
 
         content_box.append (new Gtk.Image.from_icon_name ("list-drag-handle-symbolic") {
             css_classes = { "dimmed" },
+            pixel_size = 12
         });
         content_box.append (title_box);
         content_box.append (end_box);
@@ -113,6 +114,10 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
 
         reorder.on_drop_end.connect ((listbox) => {
             update_views_order (listbox);
+        });
+
+        main_revealer.notify["child-revealed"].connect (() => {
+            reorder.draw_motion_widgets ();
         });
     }
 
