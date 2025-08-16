@@ -66,17 +66,20 @@ public class Services.CalDAV.Providers.Radicale : Services.CalDAV.Providers.Base
     }
 
     public override string get_server_url (string url, string username, string password) {
+        int server_port = 80;
         string server_url = "";
         string scheme = "";
+
         try {
             var _uri = GLib.Uri.parse (url, GLib.UriFlags.NONE);
+            server_port = _uri.get_port ();
             server_url = _uri.get_host ();
             scheme = _uri.get_scheme ();
         } catch (Error e) {
             debug (e.message);
         }
 
-        return "%s://%s:%s@%s".printf (scheme, username, Uri.escape_string (password), server_url);
+        return "%s://%s:%s@%s:%i".printf (scheme, username, Uri.escape_string (password), server_url, server_port);
     }
 
     public override string get_account_url (string server_url, string username) {
