@@ -35,11 +35,13 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
 
         var todoist_item = new Widgets.ContextMenu.MenuItem (_("Todoist"));
         var nextcloud_item = new Widgets.ContextMenu.MenuItem (_("Nextcloud"));
+        var caldav_item = new Widgets.ContextMenu.MenuItem (_("CalDAV"));
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (todoist_item);
         menu_box.append (nextcloud_item);
+        menu_box.append (caldav_item);
 
         var popover = new Gtk.Popover () {
             has_arrow = true,
@@ -118,7 +120,11 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         });
 
         nextcloud_item.clicked.connect (() => {
-            push_subpage (get_nextcloud_setup_page ());
+            push_subpage (new NextcloudSetup (this));
+        });
+
+        caldav_item.clicked.connect (() => {
+            push_subpage (new CalDAVSetup (this));
         });
 
         sources_group.row_activated.connect ((row) => {
@@ -483,174 +489,6 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         return content_clamp;
     }
 
-    private Adw.NavigationPage get_nextcloud_setup_page () {
-        var settings_header = new Dialogs.Preferences.SettingsHeader (_("Nextcloud Setup"));
-
-        var server_entry = new Adw.EntryRow () {
-            title = _("Server URL")
-        };
-
-        var entries_group = new Adw.PreferencesGroup ();
-
-        entries_group.add (server_entry);
-
-        var message_label = new Gtk.Label ("%s\n\n%s\n%s"
-                                            .printf (_("Server URL examples:"), _("- https://cloud.example.com/"),
-                                                     _("- https://example.com/nextcloud/"))) {
-            wrap = true,
-            css_classes = { "dimmed", "caption" }
-        };
-
-        var message_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_top = 12,
-            margin_bottom = 12,
-            margin_start = 12,
-            margin_end = 12,
-        };
-
-        message_box.append (message_label);
-
-        var message_card = new Adw.Bin () {
-            css_classes = { "card" },
-            child = message_box
-        };
-
-        var message_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = true,
-            child = message_card
-        };
-
-        var login_button = new Widgets.LoadingButton.with_label (_("Log In")) {
-            margin_top = 12,
-            sensitive = false,
-            css_classes = { "suggested-action" }
-        };
-
-        var cancel_button = new Gtk.Button.with_label (_("Cancel")) {
-            css_classes = { "flat" },
-            visible = false
-        };
-
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
-            vexpand = true,
-            hexpand = true
-        };
-
-        content_box.append (entries_group);
-        content_box.append (message_revealer);
-        content_box.append (login_button);
-        content_box.append (cancel_button);
-
-        var sync_box = build_sync_page ();
-
-        var main_stack = new Gtk.Stack () {
-            vexpand = true,
-            hexpand = true,
-            transition_type = Gtk.StackTransitionType.CROSSFADE
-        };
-
-        main_stack.add_named (content_box, "main");
-        main_stack.add_named (sync_box, "loading");
-
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 400,
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12,
-            child = main_stack
-        };
-
-        var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (settings_header);
-        toolbar_view.content = content_clamp;
-
-        var page = new Adw.NavigationPage (toolbar_view, "oauth-todoist");
-
-        settings_header.back_activated.connect (() => {
-            pop_subpage ();
-        });
-
-        server_entry.changed.connect (() => {
-            if (server_entry.text != null && server_entry.text != "") {
-                var is_valid_url = is_valid_url (server_entry.text);
-                if (!is_valid_url) {
-                    server_entry.add_css_class ("error");
-                } else {
-                    server_entry.remove_css_class ("error");
-                }
-            } else {
-                server_entry.remove_css_class ("error");
-            }
-
-            if (server_entry.has_css_class ("error")) {
-                login_button.sensitive = false;
-            } else {
-                login_button.sensitive = true;
-            }
-        });
-
-        login_button.clicked.connect (() => {
-            GLib.Cancellable cancellable = new GLib.Cancellable ();
-            login_button.is_loading = true;
-            cancel_button.visible = true;
-            server_entry.sensitive = false;
-            login_button.sensitive = false;
-
-            cancel_button.clicked.connect (() => {
-                cancellable.cancel ();
-            });
-
-            var core_service = Services.CalDAV.Core.get_default ();
-            var nextcloud_provider =
-                (Services.CalDAV.Providers.Nextcloud) core_service.providers_map.get (
-                    CalDAVType.NEXTCLOUD.to_string ());
-
-            nextcloud_provider.start_login_flow.begin (server_entry.text, cancellable, (obj, res) => {
-                HttpResponse response = nextcloud_provider.start_login_flow.end (res);
-
-                if (response.status) {
-                    Objects.Source source = (Objects.Source) response.data_object.get_object ();
-                    core_service.add_caldav_account.begin (source, cancellable, (obj, res) => {
-                        response = core_service.add_caldav_account.end (res);
-
-                        if (!response.status) {
-                            login_button.is_loading = false;
-                            cancel_button.visible = false;
-                            server_entry.sensitive = true;
-                            login_button.sensitive = true;
-
-                            show_message_error (response.error_code, response.error.strip ());
-                        }
-                    });
-                } else {
-                    login_button.is_loading = false;
-                    cancel_button.visible = false;
-                    server_entry.sensitive = true;
-                    login_button.sensitive = true;
-
-                    if (response.error_code == 409) {
-                        var toast = new Adw.Toast (response.error.strip ());
-                        toast.timeout = 3;
-                        add_toast (toast);
-                    } else {
-                        show_message_error (response.error_code, response.error.strip ());
-                    }
-                }
-            });
-        });
-
-        Services.CalDAV.Core.get_default ().first_sync_started.connect (() => {
-            main_stack.visible_child_name = "loading";
-        });
-
-        Services.CalDAV.Core.get_default ().first_sync_finished.connect (() => {
-            pop_subpage ();
-        });
-
-        return page;
-    }
-
     private void verify_response (HttpResponse response) {
         if (response.status) {
             return;
@@ -665,16 +503,8 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         }
     }
 
-    private bool is_valid_url (string uri) {
-        var scheme = Uri.parse_scheme (uri);
-        if (scheme == null) {
-            return false;
-        }
 
-        return scheme.has_prefix ("http");
-    }
-
-    private void show_message_error (int error_code, string error_message, bool visible_issue_button = true) {
+    public void show_message_error (int error_code, string error_message, bool visible_issue_button = true) {
         var error_view = new Widgets.ErrorView () {
             error_code = error_code,
             error_message = error_message,
