@@ -63,6 +63,7 @@ public class Widgets.ReorderChild : Adw.Bin {
 
         motion_top_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
+            transition_duration = 150,
             child = motion_top_grid
         };
 
@@ -72,6 +73,7 @@ public class Widgets.ReorderChild : Adw.Bin {
 
         motion_bottom_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            transition_duration = 150,
             child = motion_bottom_grid
         };
 
@@ -140,8 +142,11 @@ public class Widgets.ReorderChild : Adw.Bin {
             var row_height = row.get_height ();
             bool is_top_half = (y < row_height / 2);
 
-            motion_top_revealer.reveal_child = is_top_half;
-            motion_bottom_revealer.reveal_child = !is_top_half;
+            if (motion_top_revealer.reveal_child != is_top_half)
+                motion_top_revealer.reveal_child = is_top_half;
+
+            if (motion_bottom_revealer.reveal_child != !is_top_half)
+                motion_bottom_revealer.reveal_child = !is_top_half;
         })] = drop_motion_ctrl;
 
         signal_map[drop_motion_ctrl.leave.connect (() => {
