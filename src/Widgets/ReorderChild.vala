@@ -133,10 +133,6 @@ public class Widgets.ReorderChild : Adw.Bin {
         row.add_controller (drop_motion_ctrl);
 
         signal_map[drop_motion_ctrl.motion.connect ((x, y) => {
-            var listbox_parent = row.parent as Gtk.ListBox;
-            if (listbox_parent == null)
-                return;
-
             var row_height = row.get_height ();
             bool is_top_half = (y < row_height / 2);
 
@@ -150,7 +146,7 @@ public class Widgets.ReorderChild : Adw.Bin {
         })] = drop_motion_ctrl;
     }
 
-    private bool on_drop (GLib.Value value, double x, double y, bool last = false) {
+    private bool on_drop (GLib.Value value, double x, double y, bool bottom = false) {
         var picked_widget = (Widgets.ReorderChild) value;
         var target_widget = this;
 
@@ -167,7 +163,7 @@ public class Widgets.ReorderChild : Adw.Bin {
         var target_list = (Gtk.ListBox) target_widget.row.parent;
 
         source_list.remove (picked_widget.row);
-        target_list.insert (picked_widget.row, target_widget.row.get_index () + (last ? 1 : 0));
+        target_list.insert (picked_widget.row, target_widget.row.get_index () + (bottom ? 1 : 0));
 
         on_drop_end (target_list);
         return true;

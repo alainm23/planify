@@ -46,6 +46,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
     private Gtk.Grid motion_top_grid;
     private Gtk.Revealer motion_top_revealer;
+    private Gtk.Grid motion_bottom_grid;
+    private Gtk.Revealer motion_bottom_revealer;
 
     public Gee.HashMap<string, Layouts.ProjectRow> subprojects_hashmap = new Gee.HashMap<string, Layouts.ProjectRow> ();
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
@@ -98,8 +100,21 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         };
 
         motion_top_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            transition_type = SLIDE_UP,
+            transition_duration = 150,
             child = motion_top_grid
+        };
+
+        motion_bottom_grid = new Gtk.Grid () {
+            height_request = 27,
+            css_classes = { "drop-area", "drop-target" },
+            margin_bottom = 3
+        };
+
+        motion_bottom_revealer = new Gtk.Revealer () {
+            transition_type = SLIDE_DOWN,
+            transition_duration = 150,
+            child = motion_bottom_grid
         };
 
         icon_project = new Widgets.IconColorProject (12) {
@@ -221,6 +236,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.append (motion_top_revealer);
         box.append (main_content);
+        box.append (motion_bottom_revealer);
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -383,60 +399,70 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         var drop_order_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_target);
         signal_map[drop_order_target.drop.connect ((value, x, y) => {
-            var picked_widget = (Layouts.ProjectRow) value;
-            var target_widget = this;
-
-            // fix #1131
-            Services.EventBus.get_default ().drag_projects_end (target_widget.project.source_id);
-
-            var picked_project = picked_widget.project;
-            var target_project = target_widget.project;
-
-            if (picked_widget == target_widget || target_widget == null) {
-                return false;
-            }
-
-            var projects_sort = Services.Settings.get_default ().settings.get_enum ("projects-sort-by");
-            if (projects_sort != 0) {
-                Services.Settings.get_default ().settings.set_enum ("projects-sort-by", 0);
-                Services.EventBus.get_default ().send_toast (
-                    Util.get_default ().create_toast (_("Projects sort changed to 'Custom sort order'"))
-                );
-            }
-
-            var source_list = (Gtk.ListBox) picked_widget.parent;
-            var target_list = (Gtk.ListBox) target_widget.parent;
-
-            string old_parent_id = picked_project.parent_id;
-
-            if (picked_project.parent_id != target_project.parent_id) {
-                picked_project.parent_id = target_project.parent_id;
-
-                if (picked_project.source_type == SourceType.TODOIST) {
-                    Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.parent_id, (obj, res) => {
-                        if (Services.Todoist.get_default ().move_project_section.end (res).status) {
-                            Services.Store.instance ().update_project (picked_project);
-                            Services.EventBus.get_default ().update_inserted_project_map (picked_widget, old_parent_id);
-                        }
-                    });
-                } else {
-                    Services.Store.instance ().update_project (picked_project);
-                    Services.EventBus.get_default ().update_inserted_project_map (picked_widget, old_parent_id);
-                }
-            }
-
-            source_list.remove (picked_widget);
-            target_list.insert (picked_widget, target_widget.get_index ());
-            update_projects_child_order (target_list);
-
-            return true;
+            return on_order_drop (value, x, y, false);
         })] = drop_order_target;
+
+        var drop_order_bottom_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
+        motion_bottom_grid.add_controller (drop_order_bottom_target);
+        signal_map[drop_order_bottom_target.drop.connect ((value, x, y) => {
+            return on_order_drop (value, x, y, true);
+        })] = drop_order_bottom_target;
+    }
+
+    private bool on_order_drop (GLib.Value value, double x, double y, bool bottom = false) {
+        var picked_widget = (Layouts.ProjectRow) value;
+        var target_widget = this;
+
+        // fix #1131
+        Services.EventBus.get_default ().drag_projects_end (target_widget.project.source_id);
+
+        var picked_project = picked_widget.project;
+        var target_project = target_widget.project;
+
+        if (picked_widget == target_widget || target_widget == null) {
+            return false;
+        }
+
+        var projects_sort = Services.Settings.get_default ().settings.get_enum ("projects-sort-by");
+        if (projects_sort != 0) {
+            Services.Settings.get_default ().settings.set_enum ("projects-sort-by", 0);
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (_("Projects sort changed to 'Custom sort order'"))
+            );
+        }
+
+        var source_list = (Gtk.ListBox) picked_widget.parent;
+        var target_list = (Gtk.ListBox) target_widget.parent;
+
+        string old_parent_id = picked_project.parent_id;
+
+        if (picked_project.parent_id != target_project.parent_id) {
+            picked_project.parent_id = target_project.parent_id;
+
+            if (picked_project.source_type == SourceType.TODOIST) {
+                Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.parent_id, (obj, res) => {
+                    if (Services.Todoist.get_default ().move_project_section.end (res).status) {
+                        Services.Store.instance ().update_project (picked_project);
+                        Services.EventBus.get_default ().update_inserted_project_map (picked_widget, old_parent_id);
+                    }
+                });
+            } else {
+                Services.Store.instance ().update_project (picked_project);
+                Services.EventBus.get_default ().update_inserted_project_map (picked_widget, old_parent_id);
+            }
+        }
+
+        source_list.remove (picked_widget);
+        target_list.insert (picked_widget, target_widget.get_index () + (bottom ? 1 : 0));
+        update_projects_child_order (target_list);
+
+        return true;
     }
 
     private void build_drop_motion () {
         var drop_motion_ctrl = new Gtk.DropControllerMotion ();
         add_controller (drop_motion_ctrl);
-        signal_map[drop_motion_ctrl.enter.connect ((x, y) => {
+        signal_map[drop_motion_ctrl.motion.connect ((x, y) => {
             var drop = drop_motion_ctrl.get_drop ();
             GLib.Value value = Value (typeof (Gtk.Widget));
 
@@ -446,7 +472,14 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                 if (value.dup_object () is Layouts.ProjectRow) {
                     var picked_widget = (Layouts.ProjectRow) value;
                     if (picked_widget.project.source_id == project.source_id) {
-                        motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+                        var row_height = get_height ();
+                        bool is_top_half = (y < row_height / 2);
+
+                        if (motion_top_revealer.reveal_child != is_top_half)
+                            motion_top_revealer.reveal_child = is_top_half;
+
+                        if (motion_bottom_revealer.reveal_child != !is_top_half)
+                            motion_bottom_revealer.reveal_child = !is_top_half;
                     }
                 }
             } catch (Error e) {
@@ -456,6 +489,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         signal_map[drop_motion_ctrl.leave.connect (() => {
             motion_top_revealer.reveal_child = false;
+            motion_bottom_revealer.reveal_child = false;
         })] = drop_motion_ctrl;
     }
 
