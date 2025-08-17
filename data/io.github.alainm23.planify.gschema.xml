@@ -40,7 +40,7 @@
 
     <enum id="io.github.alainm23.planify.caldav-type">
         <value nick="Nextcloud" value="0" />
-        <value nick="Radicale" value="1" />
+        <value nick="Generic" value="1" />
     </enum>
 
     <enum id="io.github.alainm23.planify.new-tasks-position">

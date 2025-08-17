@@ -295,6 +295,7 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
     public string credentials { get; set; default = ""; }
     public string user_displayname { get; set; default = ""; }
     public string user_email { get; set; default = ""; }
+    public string calendar_home_url { get; set; default = ""; }
     public CalDAVType caldav_type { get; set; default = CalDAVType.NEXTCLOUD; }
 
     public SourceCalDAVData.from_json (string json) {
@@ -322,6 +323,10 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
 
             if (object.has_member ("user_email")) {
                 user_email = object.get_string_member ("user_email");
+            }
+
+            if (object.has_member ("calendar_home_url")) {
+                calendar_home_url = object.get_string_member ("calendar_home_url");
             }
 
             if (object.has_member ("caldav_type")) {
@@ -354,6 +359,9 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
 
         builder.set_member_name ("user_email");
         builder.add_string_value (user_email);
+
+        builder.set_member_name ("calendar_home_url");
+        builder.add_string_value (calendar_home_url);
 
         builder.end_object ();
 

@@ -119,23 +119,6 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
         session = new Soup.Session ();
         parser = new Json.Parser ();
 
-        LOGIN_REQUEST = """
-            <d:propfind xmlns:d="DAV:">
-                <d:prop>
-                    <d:current-user-principal />
-                </d:prop>
-            </d:propfind>
-        """;
-
-        USER_DATA_REQUEST = """
-            <x0:propfind xmlns:x0="DAV:">
-                <x0:prop>
-                    <x0:displayname/>
-                    <x2:email-address xmlns:x2="http://sabredav.org/ns"/>
-                </x0:prop>
-            </x0:propfind>
-        """;
-
         TASKLIST_REQUEST = """
             <x0:propfind xmlns:x0="DAV:">
             <x0:prop>
@@ -270,17 +253,12 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
                 <x0:resourcetype/>
                 <x0:sync-token/>
                 <x0:current-user-privilege-set/>
-                <x0:displayname/>
-                <x0:owner/>
-                <x0:resourcetype/>
-                <x0:sync-token/>
-                <x0:current-user-privilege-set/>
             </x0:prop>
         </x0:propfind>
         """;
     }
 
-    private string get_real_server_url (string url) {
+    private string validate_server_url (string url) {
         string server_url = "";
 
         try {
@@ -307,11 +285,10 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
     public async HttpResponse start_login_flow (string server_url, GLib.Cancellable cancellable) {
         HttpResponse response = new HttpResponse ();
 
-        string login_url = "%s/index.php/login/v2".printf (get_real_server_url (server_url));
+        string login_url = "%s/index.php/login/v2".printf (validate_server_url (server_url));
 
         var message = new Soup.Message ("POST", login_url);
         message.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);         // The User Agent is used by Nextcloud for the App Name
-        message.set_request_body_from_bytes ("application/json", new Bytes (LOGIN_REQUEST.data));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
@@ -352,11 +329,16 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
 
                         if (poll_object.has_member ("loginName")) {
 
-                            var server = poll_object.get_string_member ("server");                             // From now on we use the provided server url and not the one the user supplied
+                            var server = poll_object.get_string_member ("server");
                             var login_name = poll_object.get_string_member ("loginName");
                             var app_password = poll_object.get_string_member ("appPassword");
 
-                            var login_response = yield Core.get_default ().login (CalDAVType.NEXTCLOUD, server, login_name, app_password, cancellable);
+                            var dav_endpoint = yield Core.get_default ().resolve_well_known_caldav (session, server);
+                            print ("Using DAV Endpoint: %s\n", dav_endpoint);
+
+                            var calendar_home = yield Core.get_default ().resolve_calendar_home (CalDAVType.NEXTCLOUD, dav_endpoint, login_name, app_password, cancellable);
+                            print ("Calendar Home: %s\n", calendar_home);
+                            var login_response = yield Core.get_default ().login (CalDAVType.NEXTCLOUD, dav_endpoint, login_name, app_password, calendar_home, cancellable);
 
                             return login_response;
                         }
@@ -379,37 +361,14 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
         return response;
     }
 
-    public override string get_server_url (string url, string username, string password) {
-        string server_url = get_real_server_url (url);
-
-        return "%s/remote.php/dav".printf (server_url);
+    private string get_dav_url (string server_url) {
+        return "%s/remote.php/dav".printf (validate_server_url (server_url));
     }
 
-    public override string get_account_url (string server_url, string username) {
-        return "%s/principals/users/%s/".printf (server_url, username);
+    private string get_principal_url (string dav_url, string username) {
+        return "%s/principals/users/%s/".printf (dav_url, username);
     }
 
-    public override void set_user_data (GXml.DomDocument doc, Objects.Source source) {
-        if (doc.get_elements_by_tag_name ("d:displayname").length > 0) {
-            source.caldav_data.user_displayname = doc.get_elements_by_tag_name ("d:displayname").get_element (0).text_content;
-        }
-
-        if (doc.get_elements_by_tag_name ("s:email-address").length > 0) {
-            source.caldav_data.user_email = doc.get_elements_by_tag_name ("s:email-address").get_element (0).text_content;
-        }
-
-        if (source.caldav_data.user_email != null && source.caldav_data.user_email != "") {
-            source.display_name = source.caldav_data.user_email;
-            return;
-        }
-
-        if (source.caldav_data.user_displayname != null && source.caldav_data.user_displayname != "") {
-            source.display_name = source.caldav_data.user_displayname;
-            return;
-        }
-
-        source.display_name = _ ("Nextcloud");
-    }
 
     public override string get_all_taskslist_url (string server_url, string username) {
         return "%s/calendars/%s/".printf (server_url, username);

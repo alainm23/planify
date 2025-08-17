@@ -19,25 +19,8 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Services.CalDAV.Providers.Radicale : Services.CalDAV.Providers.Base {
-    public Radicale () {
-        LOGIN_REQUEST = """
-            <d:propfind xmlns:d="DAV:">
-                <d:prop>
-                    <d:current-user-principal />
-                </d:prop>
-            </d:propfind>
-        """;
-
-        USER_DATA_REQUEST = """
-            <x0:propfind xmlns:x0="DAV:">
-                <x0:prop>
-                    <x0:displayname/>
-                    <x2:email-address xmlns:x2="http://sabredav.org/ns"/>
-                </x0:prop>
-            </x0:propfind>
-        """;
-
+public class Services.CalDAV.Providers.Generic : Services.CalDAV.Providers.Base {
+    public Generic () {
         TASKLIST_REQUEST = """
             <?xml version="1.0" encoding="utf-8" ?>
             <propfind
@@ -65,31 +48,6 @@ public class Services.CalDAV.Providers.Radicale : Services.CalDAV.Providers.Base
         """;
     }
 
-    public override string get_server_url (string url, string username, string password) {
-        int server_port = 80;
-        string server_url = "";
-        string scheme = "";
-
-        try {
-            var _uri = GLib.Uri.parse (url, GLib.UriFlags.NONE);
-            server_port = _uri.get_port ();
-            server_url = _uri.get_host ();
-            scheme = _uri.get_scheme ();
-        } catch (Error e) {
-            debug (e.message);
-        }
-
-        return "%s://%s:%s@%s:%i".printf (scheme, username, Uri.escape_string (password), server_url, server_port);
-    }
-
-    public override string get_account_url (string server_url, string username) {
-        return "%s/%s/".printf (server_url, username);
-    }
-
-    public override void set_user_data (GXml.DomDocument doc, Objects.Source source) {
-        source.caldav_data.user_displayname = source.caldav_data.username;
-        source.caldav_data.user_email = "";
-    }
 
     public override string get_all_taskslist_url (string server_url, string username) {
         return "%s/%s/".printf (server_url, username);

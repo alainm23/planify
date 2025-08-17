@@ -42,11 +42,70 @@ public class Services.CalDAV.Core : GLib.Object {
         parser = new Json.Parser ();
 
         providers_map.set (CalDAVType.NEXTCLOUD.to_string (), new Services.CalDAV.Providers.Nextcloud ());
-        providers_map.set (CalDAVType.RADICALE.to_string (), new Services.CalDAV.Providers.Radicale ());
+        providers_map.set (CalDAVType.GENERIC.to_string (), new Services.CalDAV.Providers.Generic ());
     }
 
-    public async HttpResponse login (CalDAVType caldav_type, string server_url, string username, string password, GLib.Cancellable cancellable) {
-        HttpResponse response = new HttpResponse ();
+    private string make_absolute_url (string base_url, string href) {
+        string abs_url = null;
+        try {
+            abs_url = GLib.Uri.resolve_relative (base_url, href, GLib.UriFlags.NONE).to_string ();
+        } catch (Error e) {
+            critical ("Failed to resolve relative url: %s", e.message);
+        }
+        return abs_url;
+    }
+
+    public async string resolve_well_known_caldav (Soup.Session session, string base_url) {
+        var well_known_url = make_absolute_url (base_url, "/.well-known/caldav");
+        var msg = new Soup.Message ("GET", well_known_url);
+        msg.set_flags (Soup.MessageFlags.NO_REDIRECT);
+
+        try {
+            GLib.Bytes stream = yield session.send_and_read_async (msg, Priority.DEFAULT, null);
+            // These are all the redirect status codes.
+            // https://www.rfc-editor.org/rfc/rfc6764#section-5
+            // https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+            if (msg.status_code == 301 || msg.status_code == 302 || msg.status_code == 307 || msg.status_code == 308 ) {
+                string? location = msg.response_headers.get_one ("Location");
+                if (location != null) {
+                    if (location.has_prefix ("/")) {
+                        location = make_absolute_url (base_url, location);
+                    }
+
+                    return location;
+                }
+            }
+            return base_url;
+        } catch (Error e) {
+            warning ("Failed to check .well-known/caldav: %s", e.message);
+            return base_url;
+        }
+    }
+
+
+
+    public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable) {
+        var caldav_client = new Services.CalDAV.CalDAVClient.with_credentials (session, dav_url, username, password);
+
+        try {
+            string? principal_url = yield caldav_client.get_principal_url ();
+
+            if (principal_url == null) {
+                critical ("No principal url received");
+                return null;
+            }
+
+            var calendar_home = yield caldav_client.get_calendar_home (principal_url);
+
+            return calendar_home;
+        } catch (Error e) {
+            print ("login error: %s".printf (e.message));
+            return null;
+        }
+    }
+
+    public async HttpResponse login (CalDAVType caldav_type, string dav_url, string username, string password, string calendar_home, GLib.Cancellable cancellable) {
+        HttpResponse response = new HttpResponse (); // TODO: This isn't always an HTTP Response, find a better name
 
         if (!providers_map.has_key (caldav_type.to_string ())) {
             response.error_code = 409;
@@ -54,49 +113,44 @@ public class Services.CalDAV.Core : GLib.Object {
             return response;
         }
 
-        Services.CalDAV.Providers.Base provider = providers_map.get (caldav_type.to_string ());
-
-        string url = provider.get_server_url (server_url, username, password);
-
-        if (Services.Store.instance ().source_caldav_exists (url, username)) {
+        if (Services.Store.instance ().source_caldav_exists (dav_url, username)) {
             response.error_code = 409;
-            response.error = "Source already exists";
+            response.error = _("Source already exists");
             return response;
         }
 
-        string credentials = "%s:%s".printf (username, password);
-        string base64_credentials = Base64.encode (credentials.data);
-
-        var message = new Soup.Message ("PROPFIND", url);
-        message.request_headers.append ("Authorization", "Basic %s".printf (base64_credentials));
-        message.set_request_body_from_bytes ("application/xml", new Bytes (provider.LOGIN_REQUEST.data));
+        var base64_credentials = Base64.encode ("%s:%s".printf (username, password).data);
+        var caldav_client = new Services.CalDAV.CalDAVClient.with_credentials (session, dav_url, username, password);
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
+            string? principal_url = yield caldav_client.get_principal_url ();
 
-            if (message.get_status () == Soup.Status.MULTI_STATUS) {
-                var source = new Objects.Source ();
-                source.id = Util.get_default ().generate_id ();
-                source.source_type = SourceType.CALDAV;
-                source.last_sync = new GLib.DateTime.now_local ().to_string ();
-                Objects.SourceCalDAVData caldav_data = new Objects.SourceCalDAVData ();
-
-                caldav_data.server_url = url;
-                caldav_data.username = username;
-                caldav_data.caldav_type = caldav_type;
-                caldav_data.credentials = base64_credentials;
-
-                source.data = caldav_data;
-
-                GLib.Value _data_object = Value (typeof (Objects.Source));
-                _data_object.set_object (source);
-
-                response.data_object = _data_object;
-                response.status = true;
-            } else {
-                response.error_code = (int) message.status_code;
-                response.error = (string) stream.get_data ();
+            if (principal_url == null) {
+                response.error_code = 409;
+                response.error = _("No principal url received");
+                return response;
             }
+
+            var source = new Objects.Source ();
+            source.id = Util.get_default ().generate_id ();
+            source.source_type = SourceType.CALDAV;
+            source.last_sync = new GLib.DateTime.now_local ().to_string ();
+
+            Objects.SourceCalDAVData caldav_data = new Objects.SourceCalDAVData ();
+            caldav_data.server_url = dav_url;
+            caldav_data.calendar_home_url = calendar_home;
+            caldav_data.username = username;
+            caldav_data.caldav_type = caldav_type;
+            caldav_data.credentials = base64_credentials;
+
+            source.data = caldav_data;
+
+            GLib.Value _data_object = Value (typeof (Objects.Source));
+            _data_object.set_object (source);
+
+            response.data_object = _data_object;
+            response.status = true;
+
         } catch (Error e) {
             print ("login error: %s".printf (e.message));
             response.error_code = e.code;
@@ -107,7 +161,7 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     public async HttpResponse add_caldav_account (Objects.Source source, GLib.Cancellable cancellable) {
-        HttpResponse response = new HttpResponse ();
+        HttpResponse response = new HttpResponse (); // TODO: This isn't always an HTTP Response, find a better name
 
         if (!providers_map.has_key (source.caldav_data.caldav_type.to_string ())) {
             response.error = _("No Provider Available");
@@ -115,21 +169,23 @@ public class Services.CalDAV.Core : GLib.Object {
         }
 
         Services.CalDAV.Providers.Base provider = providers_map.get (source.caldav_data.caldav_type.to_string ());
+        var caldav_client = new Services.CalDAV.CalDAVClient (session, source.caldav_data.server_url, source.caldav_data.credentials);
 
-        var url = provider.get_account_url (source.caldav_data.server_url, source.caldav_data.username);
-        var message = new Soup.Message ("PROPFIND", url);
-        message.request_headers.append ("Authorization", "Basic %s".printf (source.caldav_data.credentials));
-        message.set_request_body_from_bytes ("application/xml", new Bytes (provider.USER_DATA_REQUEST.data));
+        string? principal_url = yield caldav_client.get_principal_url ();
+
+        if (principal_url == null) {
+            critical ("No principal url received");
+            return null;
+        }
 
         first_sync_started ();
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
-
-            GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
-            provider.set_user_data (doc, source);
+            yield caldav_client.update_userdata (principal_url, source);
 
             Services.Store.instance ().insert_source (source);
+
+            yield caldav_client.fetch_all_tasklists (source.caldav_data.calendar_home_url, source);
 
             yield get_all_tasklist (source, response, cancellable);
 
@@ -300,7 +356,7 @@ public class Services.CalDAV.Core : GLib.Object {
                 GXml.DomHTMLCollection status = element.get_elements_by_tag_name ("d:status");
                 string ics = get_task_ics_from_url (element);
 
-                if (status.length > 0 && status.get_element (0).text_content == "HTTP/1.1 404 Not Found") {
+                if (status.length > 0 && status.get_element (0).text_content == "HTTP/1.1 404 Not Found") { // TODO: Use the soup parser -> See WebDAVClient.vala
                     Objects.Item ? item = Services.Store.instance ().get_item_by_ics (ics);
                     if (item != null) {
                         Services.Store.instance ().delete_item (item);
