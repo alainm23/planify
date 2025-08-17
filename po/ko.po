@@ -164,7 +164,7 @@ msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: core/Enum.vala:414
-msgid "Radicale"
+msgid "Generic"
 msgstr ""
 
 #: core/Enum.vala:476 core/Enum.vala:662 core/Widgets/PriorityButton.vala:84
