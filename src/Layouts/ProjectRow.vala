@@ -759,7 +759,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
     private void check_due_date () {
         bool has_due_date = project.due_date != "";
-
         menu_stack.visible_child_name = has_due_date ? "due_label" : "count_revealer";
 
         if (!has_due_date) {
