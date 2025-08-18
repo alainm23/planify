@@ -54,7 +54,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
     private bool has_subprojects {
         get {
-            return Util.get_default ().get_children (listbox).length () > 0;
+            return project.subprojects.size > 0;
         }
     }
 
@@ -145,7 +145,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         arrow_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
-            child = arrow_button
+            child = arrow_button,
+            reveal_child = has_subprojects
         };
 
         if (project.collapsed) {
@@ -280,21 +281,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             build_context_menu (x, y);
         })] = menu_gesture;
 
-        var motion_gesture = new Gtk.EventControllerMotion ();
-        handle_grid.add_controller (motion_gesture);
-        signal_map[motion_gesture.enter.connect (() => {
-            arrow_revealer.reveal_child = has_subprojects;
-            
-        })] = motion_gesture;
-
-        signal_map[motion_gesture.leave.connect (() => {
-            if (project.due_date == "") {
-                menu_stack.visible_child_name = "count_revealer";
-            } else {
-                menu_stack.visible_child_name = "due_label";
-            }
-        })] = motion_gesture;
-
         var arrow_gesture = new Gtk.GestureClick ();
         arrow_button.add_controller (arrow_gesture);
         signal_map[arrow_gesture.pressed.connect (() => {
@@ -341,6 +327,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                     arrow_button.add_css_class ("opened");
                 }
             }
+
+            arrow_revealer.reveal_child = has_subprojects;
         })] = Services.EventBus.get_default ();
 
         signal_map[Services.EventBus.get_default ().update_inserted_project_map.connect ((_row, old_parent_id) => {
@@ -351,6 +339,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                     subprojects_hashmap.unset (row.project.id);
                 }
             }
+
+            arrow_revealer.reveal_child = has_subprojects;
         })] = Services.EventBus.get_default ();
 
         signal_map[project.loading_change.connect (() => {
@@ -819,14 +809,15 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void check_due_date () {
-        if (project.due_date != "") {
-            var datetime = Utils.Datetime.get_date_from_string (project.due_date);
-            due_label.label = Utils.Datetime.days_left (datetime, true);
+        bool has_due_date = project.due_date != "";
+        menu_stack.visible_child_name = has_due_date ? "due_label" : "count_revealer";
+
+        if (!has_due_date) {
+            return;
         }
 
-        // Workaround to fix small bug when collapsing/expanding project - this causes save and would
-        // hide currently hovered arrow
-        menu_stack.visible_child_name = project.due_date == "" ? "count_revealer" : "due_label";
+        var datetime = Utils.Datetime.get_date_from_string (project.due_date);
+        due_label.label = Utils.Datetime.days_left (datetime, true);
     }
 
     private void add_subprojects () {
