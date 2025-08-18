@@ -62,7 +62,7 @@ public class Widgets.ReorderChild : Adw.Bin {
         };
 
         motion_top_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
+            transition_type = SLIDE_UP,
             transition_duration = 150,
             child = motion_top_grid
         };
@@ -72,7 +72,7 @@ public class Widgets.ReorderChild : Adw.Bin {
         };
 
         motion_bottom_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            transition_type = SLIDE_DOWN,
             transition_duration = 150,
             child = motion_bottom_grid
         };
@@ -83,7 +83,7 @@ public class Widgets.ReorderChild : Adw.Bin {
         main_box.append (motion_bottom_revealer);
 
         main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            transition_type = SLIDE_DOWN,
             child = main_box,
             reveal_child = true
         };

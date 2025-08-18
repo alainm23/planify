@@ -80,11 +80,13 @@ public class Layouts.HeaderItem : Adw.Bin {
     private Gtk.Label subheader_label;
     private Gtk.Revealer subheader_revealer;
     private Gtk.Label placeholder_label;
-    private Gtk.ListBox listbox;
-    private Adw.Bin content_grid;
+    public Gtk.ListBox listbox;
     private Gtk.Box action_box;
     private Gtk.Revealer content_revealer;
     private Gtk.Revealer separator_revealer;
+    public Gtk.Grid drop_target_end;
+    public Gtk.Revealer drop_target_end_revealer;
+
     public signal void add_activated ();
     public signal void row_activated (Gtk.Widget widget);
 
@@ -200,10 +202,6 @@ public class Layouts.HeaderItem : Adw.Bin {
         listbox.set_placeholder (get_placeholder ());
         listbox.add_css_class ("bg-transparent");
 
-        content_grid = new Adw.Bin () {
-            child = listbox
-        };
-
         action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
             halign = END
@@ -229,6 +227,18 @@ public class Layouts.HeaderItem : Adw.Bin {
             child = separator
         };
 
+        drop_target_end = new Gtk.Grid () {
+            height_request = 27,
+            css_classes = { "drop-target" },
+            margin_top = 3
+        };
+
+        drop_target_end_revealer = new Gtk.Revealer () {
+            transition_type = SLIDE_UP,
+            transition_duration = 150,
+            child = drop_target_end
+        };
+
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             margin_top = 3
@@ -236,7 +246,8 @@ public class Layouts.HeaderItem : Adw.Bin {
 
         content_box.append (header_box);
         content_box.append (separator_revealer);
-        content_box.append (content_grid);
+        content_box.append (listbox);
+        content_box.append (drop_target_end_revealer);
 
         content_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,

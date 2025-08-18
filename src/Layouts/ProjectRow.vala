@@ -46,8 +46,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
     private Gtk.Grid motion_top_grid;
     private Gtk.Revealer motion_top_revealer;
-    private Gtk.Grid motion_bottom_grid;
-    private Gtk.Revealer motion_bottom_revealer;
+    public Gtk.Grid drop_target_end;
+    public Gtk.Revealer drop_target_end_revealer;
 
     public Gee.HashMap<string, Layouts.ProjectRow> subprojects_hashmap = new Gee.HashMap<string, Layouts.ProjectRow> ();
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
@@ -105,19 +105,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             child = motion_top_grid
         };
 
-        motion_bottom_grid = new Gtk.Grid () {
-            height_request = 27,
-            css_classes = { "drop-area", "drop-target" },
-            margin_bottom = 3
-        };
-
-        motion_bottom_revealer = new Gtk.Revealer () {
-            transition_type = SLIDE_DOWN,
-            transition_duration = 150,
-            child = motion_bottom_grid
-        };
-
-        icon_project = new Widgets.IconColorProject (12) {
+        icon_project = new Widgets.IconColorProject (10) {
             margin_top = 3,
             margin_bottom = 3,
             margin_start = 3,
@@ -135,7 +123,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         count_label = new Gtk.Label (null) {
             hexpand = true,
-            margin_end = 6,
+            margin_end = 3,
             halign = Gtk.Align.CENTER,
             css_classes = { "caption", "dimmed" }
         };
@@ -229,14 +217,26 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             child = listbox_grid
         };
 
+        drop_target_end = new Gtk.Grid () {
+            height_request = 27,
+            css_classes = { "drop-target" },
+            margin_top = 3
+        };
+
+        drop_target_end_revealer = new Gtk.Revealer () {
+            transition_type = SLIDE_UP,
+            transition_duration = 150,
+            child = drop_target_end
+        };
+
         main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_content.append (handle_grid);
         main_content.append (listbox_revealer);
+        main_content.append (drop_target_end_revealer);
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.append (motion_top_revealer);
         box.append (main_content);
-        box.append (motion_bottom_revealer);
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -284,6 +284,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         handle_grid.add_controller (motion_gesture);
         signal_map[motion_gesture.enter.connect (() => {
             arrow_revealer.reveal_child = has_subprojects;
+            
         })] = motion_gesture;
 
         signal_map[motion_gesture.leave.connect (() => {
@@ -356,7 +357,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             is_loading = project.loading;
         })] = project;
 
-        signal_map[Services.EventBus.get_default ().drag_projects_end.connect ((source_id) => {
+        signal_map[Services.EventBus.get_default ().projects_drag_end.connect ((source_id) => {
             if (project.source_id == source_id) {
                 motion_top_revealer.reveal_child = false;
             }
@@ -368,6 +369,28 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             }
 
             signal_map.clear ();
+        });
+
+        Services.EventBus.get_default ().projects_drag_begin.connect ((source_id) => {
+            if (source_id == project.source.id) {
+                var listbox_parent = parent as Gtk.ListBox;
+                if (listbox_parent == null) {
+                    return;
+                }
+
+                var children_count = (int) Util.get_default ().get_children (listbox_parent).length ();
+                bool is_last = (get_index () == children_count - 1);
+
+                if (is_last && project.parent_id != "") {
+                    drop_target_end_revealer.reveal_child = true;
+                }
+            }
+        });
+
+        Services.EventBus.get_default ().projects_drag_end.connect ((source_id) => {
+            if (source_id == project.source.id) {
+                drop_target_end_revealer.reveal_child = false;
+            }
         });
     }
 
@@ -402,11 +425,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             return on_order_drop (value, x, y, false);
         })] = drop_order_target;
 
-        var drop_order_bottom_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
-        motion_bottom_grid.add_controller (drop_order_bottom_target);
-        signal_map[drop_order_bottom_target.drop.connect ((value, x, y) => {
+        var drop_order_end_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
+        drop_target_end.add_controller (drop_order_end_target);
+        signal_map[drop_order_end_target.drop.connect ((value, x, y) => {
             return on_order_drop (value, x, y, true);
-        })] = drop_order_bottom_target;
+        })] = drop_order_end_target;
     }
 
     private bool on_order_drop (GLib.Value value, double x, double y, bool bottom = false) {
@@ -414,7 +437,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         var target_widget = this;
 
         // fix #1131
-        Services.EventBus.get_default ().drag_projects_end (target_widget.project.source_id);
+        Services.EventBus.get_default ().projects_drag_end (target_widget.project.source_id);
 
         var picked_project = picked_widget.project;
         var target_project = target_widget.project;
@@ -453,6 +476,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         }
 
         source_list.remove (picked_widget);
+
         target_list.insert (picked_widget, target_widget.get_index () + (bottom ? 1 : 0));
         update_projects_child_order (target_list);
 
@@ -472,14 +496,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                 if (value.dup_object () is Layouts.ProjectRow) {
                     var picked_widget = (Layouts.ProjectRow) value;
                     if (picked_widget.project.source_id == project.source_id) {
-                        var row_height = get_height ();
-                        bool is_top_half = (y < row_height / 2);
-
-                        if (motion_top_revealer.reveal_child != is_top_half)
-                            motion_top_revealer.reveal_child = is_top_half;
-
-                        if (motion_bottom_revealer.reveal_child != !is_top_half)
-                            motion_bottom_revealer.reveal_child = !is_top_half;
+                        motion_top_revealer.reveal_child = true;
                     }
                 }
             } catch (Error e) {
@@ -489,7 +506,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         signal_map[drop_motion_ctrl.leave.connect (() => {
             motion_top_revealer.reveal_child = false;
-            motion_bottom_revealer.reveal_child = false;
         })] = drop_motion_ctrl;
     }
 
@@ -545,7 +561,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             var target_widget = this;
 
             // fix #1131
-            Services.EventBus.get_default ().drag_projects_end (target_widget.project.source_id);
+            Services.EventBus.get_default ().projects_drag_end (target_widget.project.source_id);
 
             var picked_project = picked_widget.project;
             var target_project = target_widget.project;
@@ -663,12 +679,14 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         handle_grid.add_css_class ("drop-begin");
         main_revealer.reveal_child = false;
         listbox_revealer.reveal_child = false;
+        Services.EventBus.get_default ().projects_drag_begin (project.source_id);
     }
 
     public void drag_end () {
         handle_grid.remove_css_class ("drop-begin");
         main_revealer.reveal_child = true;
         listbox_revealer.reveal_child = project.collapsed;
+        Services.EventBus.get_default ().projects_drag_end (project.source_id);
     }
 
     private void update_projects_child_order (Gtk.ListBox listbox) {
