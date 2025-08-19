@@ -413,8 +413,6 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void patch_from_vtodo (string data, string _ics, bool is_update = false) {
-        print ("%s\n".printf (data));
-
         ICal.Component ical = ICal.Parser.parse_string (data);
         ICal.Component ? ical_vtodo = ical.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
         ECal.Component ecal = new ECal.Component.from_icalcomponent (ical_vtodo);
