@@ -420,7 +420,7 @@ entry.flat:focus-within {
     border-radius: 6px;
     padding: 3px 6px;
     color: @upcoming_fg_color;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .icon-animation-dropshadow,

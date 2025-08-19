@@ -50,7 +50,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     public Gtk.Revealer drop_target_end_revealer;
 
     public Gee.HashMap<string, Layouts.ProjectRow> subprojects_hashmap = new Gee.HashMap<string, Layouts.ProjectRow> ();
-    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+    private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     private bool has_subprojects {
         get {
@@ -95,7 +95,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         motion_top_grid = new Gtk.Grid () {
             height_request = 27,
-            css_classes = { "drop-area", "drop-target" },
+            css_classes = { "drop-target" },
             margin_bottom = 3
         };
 
@@ -265,11 +265,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         var select_gesture = new Gtk.GestureClick ();
         handle_grid.add_controller (select_gesture);
-        signal_map[select_gesture.released.connect (() => {
+        signals_map[select_gesture.released.connect (() => {
             Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id);
         })] = select_gesture;
 
-        signal_map[activate.connect (() => {
+        signals_map[activate.connect (() => {
             Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id);
         })] = this;
 
@@ -277,20 +277,20 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             button = 3
         };
         handle_grid.add_controller (menu_gesture);
-        signal_map[menu_gesture.pressed.connect ((n_press, x, y) => {
+        signals_map[menu_gesture.pressed.connect ((n_press, x, y) => {
             build_context_menu (x, y);
         })] = menu_gesture;
 
         var arrow_gesture = new Gtk.GestureClick ();
         arrow_button.add_controller (arrow_gesture);
-        signal_map[arrow_gesture.pressed.connect (() => {
+        signals_map[arrow_gesture.pressed.connect (() => {
             arrow_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             listbox_revealer.reveal_child = !listbox_revealer.reveal_child;
             update_listbox_revealer ();
             project.update_local ();
         })] = arrow_gesture;
 
-        signal_map[Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
+        signals_map[Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.PROJECT && project.id == id) {
                 handle_grid.add_css_class ("selected");
             } else {
@@ -298,20 +298,20 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             }
         })] = Services.EventBus.get_default ();
 
-        signal_map[project.updated.connect (update_request)] = project;
-        signal_map[project.deleted.connect (hide_destroy)] = project;
-        signal_map[project.archived.connect (hide_destroy)] = project;
+        signals_map[project.updated.connect (update_request)] = project;
+        signals_map[project.deleted.connect (hide_destroy)] = project;
+        signals_map[project.archived.connect (hide_destroy)] = project;
 
-        signal_map[project.project_count_updated.connect (() => {
+        signals_map[project.project_count_updated.connect (() => {
             update_count_label (project.project_count);
             icon_project.update_request ();
         })] = project;
 
-        signal_map[project.subproject_added.connect ((subproject) => {
+        signals_map[project.subproject_added.connect ((subproject) => {
             add_subproject (subproject);
         })] = project;
 
-        signal_map[Services.EventBus.get_default ().project_parent_changed.connect ((_project, old_parent_id, collapsed) => {
+        signals_map[Services.EventBus.get_default ().project_parent_changed.connect ((_project, old_parent_id, collapsed) => {
             if (old_parent_id == project.id) {
                 if (subprojects_hashmap.has_key (_project.id)) {
                     subprojects_hashmap[_project.id].hide_destroy ();
@@ -331,7 +331,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             arrow_revealer.reveal_child = has_subprojects;
         })] = Services.EventBus.get_default ();
 
-        signal_map[Services.EventBus.get_default ().update_inserted_project_map.connect ((_row, old_parent_id) => {
+        signals_map[Services.EventBus.get_default ().update_inserted_project_map.connect ((_row, old_parent_id) => {
             var row = (Layouts.ProjectRow) _row;
 
             if (old_parent_id == project.id) {
@@ -343,22 +343,22 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             arrow_revealer.reveal_child = has_subprojects;
         })] = Services.EventBus.get_default ();
 
-        signal_map[project.loading_change.connect (() => {
+        signals_map[project.loading_change.connect (() => {
             is_loading = project.loading;
         })] = project;
 
-        signal_map[Services.EventBus.get_default ().projects_drag_end.connect ((source_id) => {
+        signals_map[Services.EventBus.get_default ().projects_drag_end.connect ((source_id) => {
             if (project.source_id == source_id) {
                 motion_top_revealer.reveal_child = false;
             }
         })] = Services.EventBus.get_default ();
 
         destroy.connect (() => {
-            foreach (var entry in signal_map.entries) {
+            foreach (var entry in signals_map.entries) {
                 entry.value.disconnect (entry.key);
             }
 
-            signal_map.clear ();
+            signals_map.clear ();
         });
 
         Services.EventBus.get_default ().projects_drag_begin.connect ((source_id) => {
@@ -398,7 +398,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         // Magic Button
         var drop_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
         handle_grid.add_controller (drop_magic_button_target);
-        signal_map[drop_magic_button_target.drop.connect ((value, x, y) => {
+        signals_map[drop_magic_button_target.drop.connect ((value, x, y) => {
             var dialog = new Dialogs.Project.new (project.source_id, false, project.id);
             dialog.present (Planify._instance.main_window);
             return true;
@@ -411,13 +411,13 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         // Drop Order
         var drop_order_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_target);
-        signal_map[drop_order_target.drop.connect ((value, x, y) => {
+        signals_map[drop_order_target.drop.connect ((value, x, y) => {
             return on_order_drop (value, x, y, false);
         })] = drop_order_target;
 
         var drop_order_end_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
         drop_target_end.add_controller (drop_order_end_target);
-        signal_map[drop_order_end_target.drop.connect ((value, x, y) => {
+        signals_map[drop_order_end_target.drop.connect ((value, x, y) => {
             return on_order_drop (value, x, y, true);
         })] = drop_order_end_target;
     }
@@ -476,17 +476,17 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     private void build_drop_motion () {
         var drop_motion_ctrl = new Gtk.DropControllerMotion ();
         add_controller (drop_motion_ctrl);
-        signal_map[drop_motion_ctrl.motion.connect ((x, y) => {
+        signals_map[drop_motion_ctrl.motion.connect ((x, y) => {
             var drop = drop_motion_ctrl.get_drop ();
-            GLib.Value value = Value (typeof (Gtk.Widget));
 
             try {
+                GLib.Value value = Value (typeof (Gtk.Widget));
                 drop.drag.content.get_value (ref value);
 
                 if (value.dup_object () is Layouts.ProjectRow) {
                     var picked_widget = (Layouts.ProjectRow) value;
                     if (picked_widget.project.source_id == project.source_id) {
-                        motion_top_revealer.reveal_child = true;
+                        motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
                     }
                 }
             } catch (Error e) {
@@ -494,7 +494,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             }
         })] = drop_motion_ctrl;
 
-        signal_map[drop_motion_ctrl.leave.connect (() => {
+        signals_map[drop_motion_ctrl.leave.connect (() => {
             motion_top_revealer.reveal_child = false;
         })] = drop_motion_ctrl;
     }
@@ -504,22 +504,22 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         drag_source.set_actions (Gdk.DragAction.MOVE);
         handle_grid.add_controller (drag_source);
 
-        signal_map[drag_source.prepare.connect ((source, x, y) => {
+        signals_map[drag_source.prepare.connect ((source, x, y) => {
             return new Gdk.ContentProvider.for_value (this);
         })] = drag_source;
 
-        signal_map[drag_source.drag_begin.connect ((source, drag) => {
+        signals_map[drag_source.drag_begin.connect ((source, drag) => {
             var paintable = new Gtk.WidgetPaintable (handle_grid);
             source.set_icon (paintable, 0, 0);
             drag_begin ();
         })] = drag_source;
 
-        signal_map[drag_source.drag_cancel.connect ((source, drag, reason) => {
+        signals_map[drag_source.drag_cancel.connect ((source, drag, reason) => {
             drag_end ();
             return true;
         })] = drag_source;
 
-        signal_map[drag_source.drag_end.connect ((source, drag, delete_data) => {
+        signals_map[drag_source.drag_end.connect ((source, drag, delete_data) => {
             drag_end ();
         })] = drag_source;
     }
@@ -527,7 +527,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     private void build_drop_project_target () {
         var drop_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
         handle_grid.add_controller (drop_target);
-        signal_map[drop_target.accept.connect ((drop) => {
+        signals_map[drop_target.accept.connect ((drop) => {
             GLib.Value value = Value (typeof (Gtk.Widget));
 
             try {
@@ -546,7 +546,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             return false;
         })] = drop_target;
 
-        signal_map[drop_target.drop.connect ((value, x, y) => {
+        signals_map[drop_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ProjectRow) value;
             var target_widget = this;
 
@@ -582,7 +582,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     private void build_drop_item_target () {
         var drop_row_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
         handle_grid.add_controller (drop_row_target);
-        signal_map[drop_row_target.accept.connect ((drop) => {
+        signals_map[drop_row_target.accept.connect ((drop) => {
             var target_widget = this;
 
             if (target_widget.project.is_deck) {
@@ -612,7 +612,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             return false;
         })] = drop_row_target;
 
-        signal_map[drop_row_target.drop.connect ((value, x, y) => {
+        signals_map[drop_row_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
 
@@ -627,7 +627,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         var drop_board_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);
         handle_grid.add_controller (drop_board_target);
-        signal_map[drop_board_target.accept.connect ((drop) => {
+        signals_map[drop_board_target.accept.connect ((drop) => {
             GLib.Value value = Value (typeof (Gtk.Widget));
 
             try {
@@ -651,7 +651,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             return false;
         })] = drop_board_target;
 
-        signal_map[drop_board_target.drop.connect ((value, x, y) => {
+        signals_map[drop_board_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
 
