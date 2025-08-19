@@ -1485,24 +1485,29 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         drop_motion_ctrl = new Gtk.DropControllerMotion ();
         add_controller (drop_motion_ctrl);
 
-        dnd_handlerses[drop_motion_ctrl.motion.connect ((x, y) => {
+        dnd_handlerses[drop_motion_ctrl.enter.connect ((x, y) => {
             var drop = drop_motion_ctrl.get_drop ();
             GLib.Value value = Value (typeof (Gtk.Widget));
 
             try {
                 drop.drag.content.get_value (ref value);
+
+                if (value.dup_object () is Layouts.ItemRow) {
+                    var picked_widget = (Layouts.ItemBoard) value;
+
+                    if (picked_widget.item.id == item.parent_id) {
+                        return;
+                    }
+
+                    motion_top_grid.height_request = picked_widget.handle_grid.get_height ();
+                    motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+                } else if (value.dup_object () is Widgets.MagicButton) {
+                    motion_top_grid.height_request = 32;
+                    motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+                }
             } catch (Error e) {
                 debug (e.message);
             }
-
-            if (value.dup_object () is Layouts.ItemBoard) {
-                var picked_widget = (Layouts.ItemBoard) value;
-                motion_top_grid.height_request = picked_widget.handle_grid.get_height ();
-            } else {
-                motion_top_grid.height_request = 32;
-            }
-
-            motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
         })] = drop_motion_ctrl;
 
         dnd_handlerses[drop_motion_ctrl.leave.connect (() => {

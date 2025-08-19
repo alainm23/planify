@@ -72,7 +72,7 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
 
         var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "header-item-button", "dimmed" }
+            css_classes = { "flat", "header-item-button" }
         };
 
         group.add_widget_end (add_button);
@@ -83,6 +83,7 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
         };
 
         child = main_revealer;
+        build_last_drag_and_drop ();
 
         Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = source.is_visible;
@@ -151,6 +152,18 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
 
         Services.Settings.get_default ().settings.changed["projects-sort-by"].connect (update_projects_sort);
         Services.Settings.get_default ().settings.changed["projects-ordered"].connect (update_projects_sort);
+
+        Services.EventBus.get_default ().projects_drag_begin.connect ((source_id) => {
+            if (source_id == source.id) {
+                group.drop_target_end_revealer.reveal_child = true;
+            }
+        });
+
+        Services.EventBus.get_default ().projects_drag_end.connect ((source_id) => {
+            if (source_id == source.id) {
+                group.drop_target_end_revealer.reveal_child = false;
+            }
+        });
     }
 
     public void hide_destroy () {
@@ -194,5 +207,68 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
         Objects.Project project2 = ((Layouts.ProjectRow) lbbefore).project;
         int ordered = Services.Settings.get_default ().settings.get_enum ("projects-ordered");
         return ordered == 0 ? project2.name.collate (project1.name) : project1.name.collate (project2.name);
+    }
+
+    private void build_last_drag_and_drop () {
+        var drop_order_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
+        group.drop_target_end.add_controller (drop_order_target);
+
+        drop_order_target.drop.connect ((value, x, y) => {
+            var picked_widget = (Layouts.ProjectRow) value;
+            var picked_project = picked_widget.project;
+
+            var projects_sort = Services.Settings.get_default ().settings.get_enum ("projects-sort-by");
+            if (projects_sort != 0) {
+                Services.Settings.get_default ().settings.set_enum ("projects-sort-by", 0);
+                Services.EventBus.get_default ().send_toast (
+                    Util.get_default ().create_toast (_("Projects sort changed to 'Custom sort order'"))
+                );
+            }
+
+            var source_list = (Gtk.ListBox) picked_widget.parent;
+            var target_list = (Gtk.ListBox) group.listbox;
+
+            string old_parent_id = picked_project.parent_id;
+
+            if (picked_project.parent_id != "") {
+                picked_project.parent_id = "";
+                if (picked_project.source_type == SourceType.TODOIST) {
+                    Services.Todoist.get_default ().move_project_section.begin (picked_project, "", (obj, res) => {
+                        if (Services.Todoist.get_default ().move_project_section.end (res).status) {
+                            Services.Store.instance ().update_project (picked_project);
+                            Services.EventBus.get_default ().update_inserted_project_map (picked_widget, old_parent_id);
+                        }
+                    });
+                } else {
+                    Services.Store.instance ().update_project (picked_project);
+                    Services.EventBus.get_default ().update_inserted_project_map (picked_widget, old_parent_id);
+                }
+            }
+
+
+            source_list.remove (picked_widget);
+
+            var children_count = (int) Util.get_default ().get_children (target_list).length ();
+            target_list.insert (picked_widget, children_count);
+            update_projects_child_order (target_list);
+
+            return true;
+        });
+    }
+
+    private void update_projects_child_order (Gtk.ListBox listbox) {
+        unowned Layouts.ProjectRow ? project_row = null;
+        var row_index = 0;
+
+        do {
+            project_row = (Layouts.ProjectRow) listbox.get_row_at_index (row_index);
+
+            if (project_row != null) {
+                project_row.project.child_order = row_index;
+                Services.Store.instance ().update_project (project_row.project);
+            }
+
+            row_index++;
+        } while (project_row != null);
     }
 }

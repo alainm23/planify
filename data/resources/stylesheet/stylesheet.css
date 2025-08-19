@@ -420,7 +420,7 @@ entry.flat:focus-within {
     border-radius: 6px;
     padding: 3px 6px;
     color: @upcoming_fg_color;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .icon-animation-dropshadow,
@@ -589,7 +589,7 @@ checkbutton.theme-selector radio:checked {
 
 .drop-begin {
     padding: 3px;
-    background: @popover_bg_color;
+    background: @selected_color;
     border-radius: 9px;
     border: 1px solid @item_border_color;
 }

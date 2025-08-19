@@ -774,7 +774,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         // Drop Magic Button
         build_drop_magic_button_target ();
 
-        //// Drop Order
+        // Drop Order
         build_drop_order_target ();
     }
 

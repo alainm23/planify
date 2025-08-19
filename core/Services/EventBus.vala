@@ -57,7 +57,8 @@ public class Services.EventBus : Object {
     public signal void section_sort_order_changed (string project_id);
     public signal void drag_n_drop_active (string project_id, bool active);
     public signal void expand_all (string project_id, bool active);
-    public signal void drag_projects_end (string source_id);
+    public signal void projects_drag_begin (string source_id);
+    public signal void projects_drag_end (string source_id);
     public signal void drag_items_end (string project_id);
     public signal void update_sources_position ();
 
