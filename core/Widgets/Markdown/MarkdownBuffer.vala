@@ -9,7 +9,7 @@ public class Widgets.Markdown.Buffer : GtkSource.Buffer {
     public Buffer (string ? text = null) {
         Object ();
         if (text != null) {
-            this.set_text (text, -1);
+            set_text (text, -1);
         }
     }
 
@@ -20,6 +20,6 @@ public class Widgets.Markdown.Buffer : GtkSource.Buffer {
         get_start_iter (out start);
         get_end_iter (out end);
 
-        return this.get_text (start, end, true);
+        return get_text (start, end, true);
     }
 }
