@@ -397,10 +397,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         section_button.update_from_item (item);
 
         reminder_button.set_reminders (item.reminders);
-
-        if (item == null) {
-            return;
-        }
         
         content_textview.editable = !item.completed;
         markdown_edit_view.is_editable = !item.completed;
