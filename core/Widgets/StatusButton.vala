@@ -24,7 +24,6 @@ public class Widgets.StatusButton : Adw.Bin {
 
     private Gtk.Image status_image;
     private Gtk.Label value_label;
-    private Gtk.Popover popover_picker = null;
 
     public signal void changed (bool status);
 

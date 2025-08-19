@@ -397,7 +397,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         section_button.update_from_item (item);
 
         reminder_button.set_reminders (item.reminders);
-
+        
         content_textview.editable = !item.completed;
         markdown_edit_view.is_editable = !item.completed;
         schedule_button.sensitive = !item.completed;
@@ -469,15 +469,11 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
-        if (!item.completed) {
-            menu_box.append (use_note_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-            menu_box.append (copy_clipboard_item);
-            menu_box.append (duplicate_item);
-            menu_box.append (move_item);
-        }
-
-
+        menu_box.append (use_note_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (copy_clipboard_item);
+        menu_box.append (duplicate_item);
+        menu_box.append (move_item);
         menu_box.append (delete_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (more_information_item);
