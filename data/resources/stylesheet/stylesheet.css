@@ -618,6 +618,7 @@ checkbutton.theme-selector radio:checked {
         hsla(242, 58%, 73%, 1) 0%,
         hsla(157, 72%, 82%, 1) 100%
     );
+    padding: 12px;
 }
 
 .banner-text {

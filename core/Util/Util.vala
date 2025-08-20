@@ -319,20 +319,17 @@ public class Util : GLib.Object {
 
     public void update_font_scale () {
         string _css = """
+            popover,
             window {
-                font-size: %s;
-            }
-
-            popover {
-                font-size: %s;
+                font-size: %s%;
             }
         """;
 
         var provider = new Gtk.CssProvider ();
 
         try {
-            string scale = (100 * Services.Settings.get_default ().get_double ("font-scale")).to_string () + "%";
-            var css = _css.printf (scale, scale);
+            string scale = (100 * Services.Settings.get_default ().get_double ("font-scale")).to_string ();
+            var css = _css.printf (scale);
 
             provider.load_from_string (css);
             Gtk.StyleContext.add_provider_for_display (

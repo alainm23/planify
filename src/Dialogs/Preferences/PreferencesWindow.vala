@@ -54,11 +54,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         page.name = "preferences";
         page.icon_name = "applications-system-symbolic";
 
-        var banner_image = new Adw.Bin () {
-            css_classes = { "banner", "card" },
-            height_request = 140
-        };
-
         var banner_title = new Gtk.Label (_("Support Planify")) {
             halign = START,
             css_classes = { "font-bold", "banner-text" }
@@ -82,28 +77,23 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
         var close_button = new Gtk.Button.from_icon_name ("window-close-symbolic") {
             css_classes = { "border-radius-50", "banner-text" },
-            margin_top = 6,
-            margin_end = 6,
             valign = START,
             halign = END
         };
 
         var banner_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
             valign = START,
-            halign = START,
-            margin_top = 12,
-            margin_start = 12,
-            margin_end = 12,
-            margin_bottom = 12
+            halign = START
         };
 
         banner_box.append (banner_title);
         banner_box.append (banner_description);
         banner_box.append (banner_button);
 
-        var banner_overlay = new Gtk.Overlay ();
-        banner_overlay.child = banner_image;
-        banner_overlay.add_overlay (banner_box);
+        var banner_overlay = new Gtk.Overlay () {
+            css_classes = { "banner", "card" },
+        };
+        banner_overlay.child = banner_box;
         banner_overlay.add_overlay (close_button);
 
         var banner_group = new Adw.PreferencesGroup ();

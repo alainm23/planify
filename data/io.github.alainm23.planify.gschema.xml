@@ -457,12 +457,6 @@
             <description>Automatic Reminders</description>
         </key>
 
-        <key name="font-scale-automatic" type="b">
-            <default>true</default>
-            <summary>Automatic Font Scale</summary>
-            <description>Enable or disable automatic font scaling based on system settings.</description>
-        </key>
-        
         <key name="font-scale" type="d">
             <default>1</default>
             <summary>Font scale</summary>
