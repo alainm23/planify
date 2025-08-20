@@ -47,13 +47,16 @@ public class Dialogs.Preferences.Pages.Appearance : Adw.Bin {
         var system_appearance_row = new Adw.ActionRow () {
             title = _("Use System Settings")
         };
+
         system_appearance_row.add_prefix (new Gtk.Image.from_icon_name ("computer-symbolic") {
             pixel_size = 16
         });
         system_appearance_row.set_activatable_widget (system_appearance_switch);
         system_appearance_row.add_suffix (system_appearance_switch);
 
-        var system_appearance_group = new Adw.PreferencesGroup ();
+        var system_appearance_group = new Adw.PreferencesGroup () {
+            title = _("Select theme")
+        };
         system_appearance_group.add (system_appearance_row);
 
         light_radio = new Gtk.CheckButton () {
@@ -106,6 +109,11 @@ public class Dialogs.Preferences.Pages.Appearance : Adw.Bin {
         });
         blue_row.add_suffix (blue_radio);
 
+        theme_group = new Adw.PreferencesGroup ();
+        theme_group.add (light_row);
+        theme_group.add (dark_row);
+        theme_group.add (blue_row);
+
         placeholder_revealer = new Gtk.Revealer () {
             child = new Gtk.Label (_("Custom themes are not available when using the system light theme")) {
                 wrap = true,
@@ -115,17 +123,54 @@ public class Dialogs.Preferences.Pages.Appearance : Adw.Bin {
             }
         };
 
-        theme_group = new Adw.PreferencesGroup () {
-            title = _("Select theme")
+        var font_size_automatic_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER,
+            active = Services.Settings.get_default ().get_boolean ("font-scale-automatic")
         };
-        theme_group.add (light_row);
-        theme_group.add (dark_row);
-        theme_group.add (blue_row);
+
+        var font_size_automatic_row = new Adw.ActionRow () {
+            title = _("Automatic"),
+        };
+
+        font_size_automatic_row.add_prefix (new Gtk.Image.from_icon_name ("text-bold-symbolic") {
+            pixel_size = 16
+        });
+        font_size_automatic_row.set_activatable_widget (font_size_automatic_switch);
+        font_size_automatic_row.add_suffix (font_size_automatic_switch);
+
+        var font_size_automatic_group = new Adw.PreferencesGroup () {
+            title = _("Font Size"),
+        };
+
+        font_size_automatic_group.add (font_size_automatic_row);
+
+        var font_size_scale = new Gtk.Scale.with_range (HORIZONTAL, 0.5, 2, 0.1) {
+            hexpand = true,
+            draw_value = false,
+            margin_top = 9,
+            margin_bottom = 6
+        };
+        font_size_scale.set_value (Services.Settings.get_default ().get_double ("font-scale"));
+        font_size_scale.add_mark (1, Gtk.PositionType.LEFT, null);
+
+        var font_size_row = new Adw.ActionRow () {
+            title = _("Font Size"),
+            activatable_widget = font_size_scale,
+            child = font_size_scale
+        };
+
+        var font_size_group = new Adw.PreferencesGroup () {
+            sensitive = !Services.Settings.get_default ().settings.get_boolean ("font-scale-automatic")
+        };
+        font_size_group.add (font_size_automatic_row);
+        font_size_group.add (font_size_row);
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
         content_box.append (system_appearance_group);
         content_box.append (theme_group);
         content_box.append (placeholder_revealer);
+        content_box.append (font_size_automatic_group);
+        content_box.append (font_size_group);
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 600,
@@ -163,8 +208,32 @@ public class Dialogs.Preferences.Pages.Appearance : Adw.Bin {
             Services.Settings.get_default ().settings.set_enum ("appearance", 2);
         });
 
+        Services.Settings.get_default ().settings.bind ("font-scale-automatic", font_size_automatic_switch, "active",
+                                                        GLib.SettingsBindFlags.DEFAULT);
+
+        uint update_timeout_id = 0;
+        font_size_scale.value_changed.connect (() => {
+            if (update_timeout_id != 0) {
+                GLib.Source.remove (update_timeout_id);
+            }
+
+            update_timeout_id = Timeout.add (300, () => {
+                update_timeout_id = 0;
+                Services.Settings.get_default ().settings.set_double ("font-scale", font_size_scale.get_value ());
+                return GLib.Source.REMOVE;
+            });
+        });
+
         Services.Settings.get_default ().settings.changed["system-appearance"].connect (verify_theme);
         Services.Settings.get_default ().settings.changed["dark-mode"].connect (verify_theme);
+        Services.Settings.get_default ().settings.changed["font-scale-automatic"].connect (() => {
+            if (Services.Settings.get_default ().settings.get_boolean ("font-scale-automatic")) {
+                font_size_group.sensitive = false;
+                font_size_scale.set_value (1);
+            } else {
+                font_size_group.sensitive = true;
+            }
+        });
 
         settings_header.back_activated.connect (() => {
             pop_subpage ();

@@ -52,4 +52,8 @@ public class Services.Settings : GLib.Object {
     public bool get_boolean (string key) {
         return settings.get_boolean (key);
     }
+
+    public double get_double (string key) {
+        return settings.get_double (key);
+    }
 }
