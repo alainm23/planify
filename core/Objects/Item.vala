@@ -1552,6 +1552,13 @@ public class Objects.Item : Objects.BaseObject {
 
     public void update_due (Objects.DueDate duedate) {
         due.date = duedate.date;
+        due.is_recurring = duedate.is_recurring;
+        due.recurrency_type = duedate.recurrency_type;
+        due.recurrency_interval = duedate.recurrency_interval;
+        due.recurrency_weeks = duedate.recurrency_weeks;
+        due.recurrency_count = duedate.recurrency_count;
+        due.recurrency_end = duedate.recurrency_end;
+
 
         if (Services.Settings.get_default ().get_boolean ("automatic-reminders-enabled") && has_time) {
             remove_all_relative_reminders ();

@@ -1161,7 +1161,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         });
 
         no_date_item.activate_item.connect (() => {
-            update_date (null);
+            schedule_button.reset ();
         });
 
         complete_item.activate_item.connect (() => {
