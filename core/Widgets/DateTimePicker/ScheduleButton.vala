@@ -118,9 +118,9 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         };
 
         var clear_button = new Gtk.Button.from_icon_name ("window-close") {
-            css_classes = { "flat" }
+            css_classes = { "flat" },
+            tooltip_text = _("Clear Schedule")
         };
-        clear_button.set_tooltip_text ("Clear Schedule");
 
         clear_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,

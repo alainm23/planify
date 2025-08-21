@@ -68,6 +68,7 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
     public string secondary_text {
         set {
             secondary_label.label = value;
+            secondary_label.tooltip_text = value;
             secondary_label_revealer.reveal_child = value.length > 0;
         }
     }
@@ -153,7 +154,8 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
 
         secondary_label = new Gtk.Label (null) {
             css_classes = { "dimmed", "no-font-bold" },
-            ellipsize = Pango.EllipsizeMode.END
+            ellipsize = MIDDLE,
+            max_width_chars = 12
         };
 
         secondary_label_revealer = new Gtk.Revealer () {
