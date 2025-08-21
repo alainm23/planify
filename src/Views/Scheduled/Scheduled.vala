@@ -165,7 +165,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         });
 
         scrolled_window.vadjustment.value_changed.connect (() => {
-            headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
+            headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);
         });
     }
 
@@ -179,10 +179,12 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             days_to_iterate += remaining_days;
         }
 
+        var row = new Views.Scheduled.ScheduledDay (date);
+        listbox.append (row);
+
         for (int i = 0; i < days_to_iterate; i++) {
             date = date.add_days (1);
-
-            var row = new Views.Scheduled.ScheduledDay (date);
+            row = new Views.Scheduled.ScheduledDay (date);
             listbox.append (row);
         }
 
@@ -190,14 +192,12 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         remaining_days = month_days - date.get_day_of_month ();
 
         if (remaining_days > 3) {
-            var row = new Views.Scheduled.ScheduledRange (date.add_days (1), date.add_days (remaining_days));
-            listbox.append (row);
+            listbox.append (new Views.Scheduled.ScheduledRange (date.add_days (1), date.add_days (remaining_days)));
         }
 
         for (int i = 0; i < 4; i++) {
             date = date.add_months (1);
-            var row = new Views.Scheduled.ScheduledMonth (date);
-            listbox.append (row);
+            listbox.append (new Views.Scheduled.ScheduledMonth (date));
         }
     }
 
