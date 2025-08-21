@@ -119,6 +119,7 @@ public class Planify : Adw.Application {
         );
 
         Util.get_default ().update_theme ();
+        Util.get_default ().update_font_scale ();
 
         if (Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION) {
             Services.Settings.get_default ().settings.set_boolean ("show-support-banner", true);

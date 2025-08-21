@@ -259,6 +259,8 @@ public class MainWindow : Adw.ApplicationWindow {
             Services.EventBus.get_default ().mobile_mode = Services.Settings.get_default ().settings.get_boolean ("mobile-mode");
         });
 
+        Services.Settings.get_default ().settings.changed["font-scale"].connect (Util.get_default ().update_font_scale);
+
         Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.PROJECT) {
                 add_project_view (Services.Store.instance ().get_project (id));

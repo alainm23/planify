@@ -309,13 +309,36 @@ public class Util : GLib.Object {
         );
 
         provider.load_from_string (css);
-        
         Gtk.StyleContext.add_provider_for_display (
             Gdk.Display.get_default (), provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );
 
         Services.EventBus.get_default ().theme_changed ();
+    }
+
+    public void update_font_scale () {
+        string _css = """
+            popover,
+            window {
+                font-size: %s%;
+            }
+        """;
+
+        var provider = new Gtk.CssProvider ();
+
+        try {
+            string scale = (100 * Services.Settings.get_default ().get_double ("font-scale")).to_string ();
+            var css = _css.printf (scale);
+
+            provider.load_from_string (css);
+            Gtk.StyleContext.add_provider_for_display (
+                Gdk.Display.get_default (), provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
+        } catch (GLib.Error e) {
+            debug (e.message);
+        }
     }
 
     /**

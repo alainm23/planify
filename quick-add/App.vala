@@ -49,6 +49,7 @@ public class QuickAdd : Adw.Application {
         );
 
         Util.get_default ().update_theme ();
+        Util.get_default ().update_font_scale ();
     }
 
     public static int main (string[] args) {
