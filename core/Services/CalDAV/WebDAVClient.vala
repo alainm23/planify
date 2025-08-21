@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Alain M. (https://github.com/alainm23/planify)
+ * Copyright © 2025 Alain M. (https://github.com/alainm23/planify)
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -46,7 +46,7 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         return abs_url;
     }
 
-    public async WebDAVMultiStatus propfind (string url, string xml, string depth) throws GLib.Error {
+    public async WebDAVMultiStatus propfind (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
         string abs_url = get_absolute_url (url);
 
         if (abs_url == null)
@@ -57,7 +57,7 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         msg.request_headers.append ("Depth", depth);
         msg.set_request_body_from_bytes ("application/xml", new Bytes (xml.data));
 
-        GLib.Bytes stream = yield session.send_and_read_async (msg, Priority.DEFAULT, null);
+        GLib.Bytes stream = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
 
         if (msg.status_code != Soup.Status.MULTI_STATUS)
             throw new GLib.IOError.FAILED ("PROPFIND failed with status %u".printf (msg.status_code));

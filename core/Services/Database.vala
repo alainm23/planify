@@ -121,6 +121,7 @@ public class Services.Database : GLib.Object {
         table_columns["Projects"].add ("inbox_section_hidded");
         table_columns["Projects"].add ("sync_id");
         table_columns["Projects"].add ("source_id");
+        table_columns["Projects"].add ("calendar_url");
 
         table_columns["Queue"] = new Gee.ArrayList<string> ();
         table_columns["Queue"].add ("uuid");
@@ -220,7 +221,8 @@ public class Services.Database : GLib.Object {
                 due_date                TEXT,
                 inbox_section_hidded    INTEGER,
                 sync_id                 TEXT,
-                source_id               TEXT
+                source_id               TEXT,
+                calendar_url            TEXT
             );
         """;
 
@@ -602,7 +604,7 @@ public class Services.Database : GLib.Object {
 
         /*
          * Planify 4.8
-         * - Add sync_id column to Projects
+         * - Add item_type column to Items
          */
 
         add_text_column ("Items", "item_type", ItemType.TASK.to_string ());
@@ -613,6 +615,14 @@ public class Services.Database : GLib.Object {
          */
 
         add_project_labels_source_id ();
+
+
+        /*
+         * Planify 4.xx
+         * - Add calendar_url column to Projects
+         */
+
+        add_text_column ("Projects", "calendar_url", "");
     }
 
     public void clear_database () {
@@ -866,6 +876,7 @@ public class Services.Database : GLib.Object {
         return_value.inbox_section_hidded = get_parameter_bool (stmt, 20);
         return_value.sync_id = stmt.column_text (21);
         return_value.source_id = stmt.column_text (22);
+        return_value.calendar_url = stmt.column_text (23);
         return return_value;
     }
 
@@ -876,11 +887,11 @@ public class Services.Database : GLib.Object {
             INSERT OR IGNORE INTO Projects (id, name, color, backend_type, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
                 sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description, due_date,
-                inbox_section_hidded, sync_id, source_id)
+                inbox_section_hidded, sync_id, source_id, calendar_url)
             VALUES ($id, $name, $color, $backend_type, $inbox_project, $team_inbox,
                 $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
                 $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description, $due_date,
-                $inbox_section_hidded, $sync_id, $source_id);
+                $inbox_section_hidded, $sync_id, $source_id, $calendar_url);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -907,6 +918,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$inbox_section_hidded", project.inbox_section_hidded);
         set_parameter_str (stmt, "$sync_id", project.sync_id);
         set_parameter_str (stmt, "$source_id", project.source_id);
+        set_parameter_str (stmt, "$calendar_url", project.calendar_url);
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -976,7 +988,8 @@ public class Services.Database : GLib.Object {
                 due_date=$due_date,
                 inbox_section_hidded=$inbox_section_hidded,
                 sync_id=$sync_id,
-                source_id=$source_id
+                source_id=$source_id,
+                calendar_url=$calendar_url
             WHERE id=$id;
         """;
 
@@ -1003,6 +1016,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$inbox_section_hidded", project.inbox_section_hidded);
         set_parameter_str (stmt, "$sync_id", project.sync_id);
         set_parameter_str (stmt, "$source_id", project.source_id);
+        set_parameter_str (stmt, "$calendar_url", project.calendar_url);
         set_parameter_str (stmt, "$id", project.id);
 
         if (stmt.step () != Sqlite.DONE) {

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Alain M. (https://github.com/alainm23/planify)
+ * Copyright © 2025 Alain M. (https://github.com/alainm23/planify)
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -21,55 +21,7 @@
 
 public class Services.CalDAV.Providers.Generic : Services.CalDAV.Providers.Base {
     public Generic () {
-        TASKLIST_REQUEST = """
-            <?xml version="1.0" encoding="utf-8" ?>
-            <propfind
-                xmlns="DAV:"
-                xmlns:C="urn:ietf:params:xml:ns:caldav"
-                xmlns:CR="urn:ietf:params:xml:ns:carddav"
-                xmlns:CS="http://calendarserver.org/ns/"
-                xmlns:I="http://apple.com/ns/ical/"
-                xmlns:INF="http://inf-it.com/ns/ab/"
-                xmlns:RADICALE="http://radicale.org/ns/">
-                <prop>
-                    <resourcetype />
-                    <RADICALE:displayname />
-                    <I:calendar-color />
-                    <INF:addressbook-color />
-                    <C:calendar-description />
-                    <C:supported-calendar-component-set />
-                    <CR:addressbook-description />
-                    <CS:source />
-                    <sync-token />
-                    <RADICALE:getcontentcount />
-                    <getcontentlength />
-                </prop>
-            </propfind>
-        """;
-    }
 
-
-    public override string get_all_taskslist_url (string server_url, string username) {
-        return "%s/%s/".printf (server_url, username);
-    }
-
-    public override Gee.ArrayList<Objects.Project> get_projects_by_doc (GXml.DomDocument doc, Objects.Source source) {
-        Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
-
-        GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("response");
-        foreach (GXml.DomElement element in response) {
-            if (is_vtodo_calendar (element)) {
-                var project = new Objects.Project ();
-                project.id = get_id_from_url (element);
-                project.name = get_prop_value (element, "RADICALE:displayname");
-                project.color = get_prop_value (element, "ICAL:calendar-color");
-                project.sync_id = get_prop_value (element, "sync-token");
-
-                return_value.add (project);
-            }
-        }
-
-        return return_value;
     }
 
     public string get_id_from_url (GXml.DomElement element) {

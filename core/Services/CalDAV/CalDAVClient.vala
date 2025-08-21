@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Alain M. (https://github.com/alainm23/planify)
+ * Copyright © 2025 Alain M. (https://github.com/alainm23/planify)
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -30,7 +30,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         this (session, base_url, Base64.encode ("%s:%s".printf (username, password).data));
     }
 
-    public async string? get_principal_url () throws GLib.Error {
+    public async string? get_principal_url (GLib.Cancellable cancellable) throws GLib.Error {
         var xml = """<?xml version="1.0" encoding="utf-8"?>
                         <propfind xmlns="DAV:">
                             <prop>
@@ -39,7 +39,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                         </propfind>
         """;
 
-        var multi_status = yield propfind ("", xml, "0");
+        var multi_status = yield propfind ("", xml, "0", cancellable);
 
         foreach (var response in multi_status.responses ()) {
             foreach (var propstat in response.propstats ()) {
@@ -56,7 +56,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         return null;
     }
 
-    public async string? get_calendar_home (string principal_url) throws GLib.Error {
+    public async string? get_calendar_home (string principal_url, GLib.Cancellable cancellable) throws GLib.Error {
         var xml = """<?xml version="1.0" encoding="utf-8"?>
                         <propfind xmlns="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
                             <prop>
@@ -66,7 +66,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         """;
 
 
-        var multi_status = yield propfind (principal_url, xml, "0");
+        var multi_status = yield propfind (principal_url, xml, "0", cancellable);
 
         foreach (var response in multi_status.responses ()) {
             foreach (var propstat in response.propstats ()) {
@@ -83,7 +83,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
 
-    public async void update_userdata (string principal_url, Objects.Source source) throws GLib.Error {
+    public async void update_userdata (string principal_url, Objects.Source source, GLib.Cancellable cancellable) throws GLib.Error {
         var xml = """<?xml version="1.0" encoding="utf-8"?>
                     <x0:propfind xmlns:x0="DAV:" xmlns:x1="http://sabredav.org/ns">
                         <x0:prop>
@@ -93,7 +93,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                     </x0:propfind>
         """;
 
-        var multi_status = yield propfind (principal_url, xml, "0");
+        var multi_status = yield propfind (principal_url, xml, "0", cancellable);
 
         foreach (var response in multi_status.responses ()) {
             foreach (var propstat in response.propstats ()) {
@@ -124,10 +124,11 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         source.display_name = _ ("CalDAV");
     }
 
-    public async void fetch_all_tasklists (string calendar_home_path, Objects.Source source) throws GLib.Error {
+    public async Gee.ArrayList<Objects.Project> fetch_project_list (string calendar_home_path, Objects.Source source, GLib.Cancellable cancellable) throws GLib.Error {
         var xml = """<?xml version='1.0' encoding='utf-8'?>
                     <d:propfind xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:cal="urn:ietf:params:xml:ns:caldav">
                         <d:prop>
+                            <d:resourcetype />
                             <d:displayname />
                             <d:sync-token />
                             <ical:calendar-color />
@@ -137,7 +138,9 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         """;
 
 
-        var multi_status = yield propfind (calendar_home_path, xml, "1");
+        var multi_status = yield propfind (calendar_home_path, xml, "1", cancellable);
+
+        Gee.ArrayList<Objects.Project> projects = new Gee.ArrayList<Objects.Project> ();
 
         foreach (var response in multi_status.responses ()) {
             string? href = response.href;
@@ -165,16 +168,64 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 }
 
                 if (is_vtodo) {
-                    var displayname = propstat.get_first_prop_with_tagname ("displayname");
+                    var resource_id = propstat.get_first_prop_with_tagname ("resource-id");
+                    var name = propstat.get_first_prop_with_tagname ("displayname");
+                    var color = propstat.get_first_prop_with_tagname ("calendar-color");
+                    var sync_id = propstat.get_first_prop_with_tagname ("sync-token");
 
-                    if (href != null && displayname != null) {
-                        print ("Found VTODO Calendar %s (%s)", displayname.text_content.strip (), get_absolute_url (href));
+                    if (href != null && name != null) {
+                        print ("Found VTODO Calendar %s (%s)\n", name.text_content.strip (), get_absolute_url (href));
+
+                        var project = new Objects.Project ();
+                        project.id = Util.get_default ().generate_id (project); // THIS ID is INTERNAL and no longer used for requests
+                        project.calendar_url = get_absolute_url (href);
+                        project.name = name.text_content;
+                        project.color = color.text_content;
+                        project.sync_id = sync_id.text_content;
+                        project.source_id = source.id;
+                        projects.add (project);
                     }
                 }
             }
         }
 
-        return;
+        return projects;
+    }
+
+
+    public async void update_tasks_for_project (Objects.Project project, GLib.Cancellable cancellable) {
+        var xml = """<?xml version="1.0" encoding="utf-8"?>
+        <x1:calendar-query xmlns:x0="DAV:" xmlns:x1="urn:ietf:params:xml:ns:caldav">
+            <x0:prop>
+                <x0:getetag/>
+                <x0:displayname/>
+                <x0:owner/>
+                <x0:sync-token/>
+                <x0:current-user-privilege-set/>
+                <x0:getcontenttype/>
+                <x0:resourcetype/>
+                <x1:calendar-data/>
+            </x0:prop>
+            <x1:filter>
+                <x1:comp-filter name="VCALENDAR">
+                    <x1:comp-filter name="VTODO">
+                    </x1:comp-filter>
+                </x1:comp-filter>
+            </x1:filter>
+        </x1:calendar-query>
+        """;
+
+        var multi_status = yield caldav_client.propfind (project.calendar_url, xml, 1, cancellable);
+
+        foreach (var response in multi_status.responses ()) {
+            string? href = response.href;
+
+            foreach (var propstat in response.propstats ()) {
+                if (propstat.status != Soup.Status.OK) continue;
+
+
+            }
+        }
     }
 
 }
