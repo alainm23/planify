@@ -261,9 +261,12 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         due_label.label = label;
         due_label.tooltip_text = label;
         tooltip_text = label;
+
         datetime_picker.reset ();
+        
         duedate = new Objects.DueDate ();
         duedate.datetime = null;
+
         duedate_changed ();
     }
 }
