@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Alain M. (https://github.com/alainm23/planify)
+ * Copyright © 2025 Alain M. (https://github.com/alainm23/planify)
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -80,18 +80,15 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
 
     // vala-lint=naming-convention
     public static string TASKS_REQUEST = """
+        <?xml version="1.0" encoding="utf-8"?>
         <x1:calendar-query xmlns:x1="urn:ietf:params:xml:ns:caldav">
             <x0:prop xmlns:x0="DAV:">
-                <x0:getcontenttype/>
                 <x0:getetag/>
-                <x0:resourcetype/>
                 <x0:displayname/>
                 <x0:owner/>
-                <x0:resourcetype/>
                 <x0:sync-token/>
                 <x0:current-user-privilege-set/>
                 <x0:getcontenttype/>
-                <x0:getetag/>
                 <x0:resourcetype/>
                 <x1:calendar-data/>
             </x0:prop>
@@ -118,144 +115,6 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
     public Nextcloud () {
         session = new Soup.Session ();
         parser = new Json.Parser ();
-
-        TASKLIST_REQUEST = """
-            <x0:propfind xmlns:x0="DAV:">
-            <x0:prop>
-                <x0:getcontenttype/>
-                <x0:getetag/>
-                <x0:resourcetype/>
-                <x0:displayname/>
-                <x0:owner/>
-                <x0:resourcetype/>
-                <x0:sync-token/>
-                <x0:current-user-privilege-set/>
-                <x0:displayname/>
-                <x0:owner/>
-                <x0:resourcetype/>
-                <x0:sync-token/>
-                <x0:current-user-privilege-set/>
-                <x4:invite xmlns:x4="http://owncloud.org/ns"/>
-                <x5:allowed-sharing-modes xmlns:x5="http://calendarserver.org/ns/"/>
-                <x5:publish-url xmlns:x5="http://calendarserver.org/ns/"/>
-                <x6:calendar-order xmlns:x6="http://apple.com/ns/ical/"/>
-                <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/"/>
-                <x5:getctag xmlns:x5="http://calendarserver.org/ns/"/>
-                <x1:calendar-description xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:calendar-timezone xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:supported-calendar-component-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:supported-calendar-data xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-resource-size xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:min-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-instances xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-attendees-per-instance xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:supported-collation-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:calendar-free-busy-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:schedule-calendar-transp xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:schedule-default-calendar-URL xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x4:calendar-enabled xmlns:x4="http://owncloud.org/ns"/>
-                <x3:owner-displayname xmlns:x3="http://nextcloud.com/ns"/>
-                <x3:trash-bin-retention-duration xmlns:x3="http://nextcloud.com/ns"/>
-                <x3:deleted-at xmlns:x3="http://nextcloud.com/ns"/>
-                <x0:displayname/>
-                <x0:owner/>
-                <x0:resourcetype/>
-                <x0:sync-token/>
-                <x0:current-user-privilege-set/>
-                <x4:invite xmlns:x4="http://owncloud.org/ns"/>
-                <x5:allowed-sharing-modes xmlns:x5="http://calendarserver.org/ns/"/>
-                <x5:publish-url xmlns:x5="http://calendarserver.org/ns/"/>
-                <x6:calendar-order xmlns:x6="http://apple.com/ns/ical/"/>
-                <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/"/>
-                <x5:getctag xmlns:x5="http://calendarserver.org/ns/"/>
-                <x1:calendar-description xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:calendar-timezone xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:supported-calendar-component-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:supported-calendar-data xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-resource-size xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:min-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-instances xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-attendees-per-instance xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:supported-collation-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:calendar-free-busy-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:schedule-calendar-transp xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:schedule-default-calendar-URL xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x4:calendar-enabled xmlns:x4="http://owncloud.org/ns"/>
-                <x3:owner-displayname xmlns:x3="http://nextcloud.com/ns"/>
-                <x3:trash-bin-retention-duration xmlns:x3="http://nextcloud.com/ns"/>
-                <x3:deleted-at xmlns:x3="http://nextcloud.com/ns"/>
-                <x0:displayname/>
-                <x0:owner/>
-                <x0:resourcetype/>
-                <x0:sync-token/>
-                <x0:current-user-privilege-set/>
-                <x4:invite xmlns:x4="http://owncloud.org/ns"/>
-                <x5:allowed-sharing-modes xmlns:x5="http://calendarserver.org/ns/"/>
-                <x5:publish-url xmlns:x5="http://calendarserver.org/ns/"/>
-                <x6:calendar-order xmlns:x6="http://apple.com/ns/ical/"/>
-                <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/"/>
-                <x5:getctag xmlns:x5="http://calendarserver.org/ns/"/>
-                <x1:calendar-description xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:calendar-timezone xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:supported-calendar-component-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:supported-calendar-data xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-resource-size xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:min-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-instances xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-attendees-per-instance xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:supported-collation-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:calendar-free-busy-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:schedule-calendar-transp xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:schedule-default-calendar-URL xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x4:calendar-enabled xmlns:x4="http://owncloud.org/ns"/>
-                <x3:owner-displayname xmlns:x3="http://nextcloud.com/ns"/>
-                <x3:trash-bin-retention-duration xmlns:x3="http://nextcloud.com/ns"/>
-                <x3:deleted-at xmlns:x3="http://nextcloud.com/ns"/>
-                <x5:source xmlns:x5="http://calendarserver.org/ns/"/>
-                <x6:refreshrate xmlns:x6="http://apple.com/ns/ical/"/>
-                <x5:subscribed-strip-todos xmlns:x5="http://calendarserver.org/ns/"/>
-                <x5:subscribed-strip-alarms xmlns:x5="http://calendarserver.org/ns/"/>
-                <x5:subscribed-strip-attachments xmlns:x5="http://calendarserver.org/ns/"/>
-                <x0:displayname/>
-                <x0:owner/>
-                <x0:resourcetype/>
-                <x0:sync-token/>
-                <x0:current-user-privilege-set/>
-                <x4:invite xmlns:x4="http://owncloud.org/ns"/>
-                <x5:allowed-sharing-modes xmlns:x5="http://calendarserver.org/ns/"/>
-                <x5:publish-url xmlns:x5="http://calendarserver.org/ns/"/>
-                <x6:calendar-order xmlns:x6="http://apple.com/ns/ical/"/>
-                <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/"/>
-                <x5:getctag xmlns:x5="http://calendarserver.org/ns/"/>
-                <x1:calendar-description xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:calendar-timezone xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:supported-calendar-component-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:supported-calendar-data xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-resource-size xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:min-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-instances xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:max-attendees-per-instance xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:supported-collation-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:calendar-free-busy-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:schedule-calendar-transp xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x1:schedule-default-calendar-URL xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x4:calendar-enabled xmlns:x4="http://owncloud.org/ns"/>
-                <x3:owner-displayname xmlns:x3="http://nextcloud.com/ns"/>
-                <x3:trash-bin-retention-duration xmlns:x3="http://nextcloud.com/ns"/>
-                <x3:deleted-at xmlns:x3="http://nextcloud.com/ns"/>
-                <x1:calendar-availability xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                <x0:displayname/>
-                <x0:owner/>
-                <x0:resourcetype/>
-                <x0:sync-token/>
-                <x0:current-user-privilege-set/>
-            </x0:prop>
-        </x0:propfind>
-        """;
     }
 
     private string validate_server_url (string url) {
@@ -359,38 +218,6 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
         }
 
         return response;
-    }
-
-    private string get_dav_url (string server_url) {
-        return "%s/remote.php/dav".printf (validate_server_url (server_url));
-    }
-
-    private string get_principal_url (string dav_url, string username) {
-        return "%s/principals/users/%s/".printf (dav_url, username);
-    }
-
-
-    public override string get_all_taskslist_url (string server_url, string username) {
-        return "%s/calendars/%s/".printf (server_url, username);
-    }
-
-    public override Gee.ArrayList<Objects.Project> get_projects_by_doc (GXml.DomDocument doc, Objects.Source source) {
-        Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
-
-        GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
-        foreach (GXml.DomElement element in response) {
-            if (is_vtodo_calendar (element)) {
-                var project = new Objects.Project ();
-                project.id = get_id_from_url (element);
-                project.name = get_prop_value (element, "d:displayname");
-                project.color = get_prop_value (element, "x1:calendar-color");
-                project.sync_id = get_prop_value (element, "d:sync-token");
-                project.source_id = source.id;
-                return_value.add (project);
-            }
-        }
-
-        return return_value;
     }
 
     public string get_id_from_url (GXml.DomElement element) {

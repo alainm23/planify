@@ -1484,7 +1484,7 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
-            Services.CalDAV.Core.get_default ().move_task.begin (this, project.id, (obj, res) => {
+            Services.CalDAV.Core.get_default ().move_task.begin (this, project, (obj, res) => {
                 var response = Services.CalDAV.Core.get_default ().move_task.end (res);
                 loading = false;
                 show_item = true;
