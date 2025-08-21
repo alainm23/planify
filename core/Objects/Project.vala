@@ -37,6 +37,7 @@ public class Objects.Project : Objects.BaseObject {
     public bool inbox_section_hidded { get; set; default = false; }
     public string sync_id { get; set; default = ""; }
     public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
+    public string calendar_url { get; set; default = ""; }
 
     bool _show_completed = false;
     public bool show_completed {
@@ -250,6 +251,7 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    // TODO: ID is deprecated, not valid for every caldav implementation
     public bool is_deck {
         get {
             return id.contains ("deck--board");
@@ -320,6 +322,9 @@ public class Objects.Project : Objects.BaseObject {
 
     public Project.from_caldav_xml (GXml.DomElement element) {
         id = get_id_from_url (element);
+        if (element.get_elements_by_tag_name ("d:href").length > 0) {
+            calendar_url = element.get_elements_by_tag_name ("d:href").get_element (0).text_content;
+        } // TODO: IT SHOULD NEVER HAVE A MISSING HREF
         update_from_xml (element);
         backend_type = SourceType.CALDAV;
     }
@@ -341,6 +346,10 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public string get_id_from_url (GXml.DomElement element) {
+        if (element.get_elements_by_tag_name ("d:href").length <= 0) {
+            return "";
+        }
+
         GXml.DomElement href = element.get_elements_by_tag_name ("d:href").get_element (0);
         string[] parts = href.text_content.split ("/");
         return parts[parts.length - 2];
@@ -371,10 +380,13 @@ public class Objects.Project : Objects.BaseObject {
         show_completed = node.get_object ().get_boolean_member ("show_completed");
         description = node.get_object ().get_string_member ("description");
         due_date = node.get_object ().get_string_member ("due_date");
-        source_id = node.get_object ().get_string_member ("backend_type");
 
         if (node.get_object ().has_member ("source_id")) {
             source_id = node.get_object ().get_string_member ("source_id");
+        }
+
+        if (node.get_object ().has_member ("calendar_url")) {
+            calendar_url = node.get_object ().get_string_member ("calendar_url");
         }
     }
 
@@ -715,6 +727,7 @@ public class Objects.Project : Objects.BaseObject {
             COLLAPSED: %s
             PARENT ID: %s
             SOURCE ID: %s
+            Calendar URL: %s
         ---------------------------------
         """.printf (
             id,
@@ -734,7 +747,8 @@ public class Objects.Project : Objects.BaseObject {
             sort_order,
             collapsed.to_string (),
             parent_id.to_string (),
-            source_id
+            source_id,
+            calendar_url
         );
     }
 
