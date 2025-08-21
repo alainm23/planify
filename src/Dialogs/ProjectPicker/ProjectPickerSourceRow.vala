@@ -43,7 +43,6 @@ public class Dialogs.ProjectPicker.ProjectPickerSourceRow : Gtk.ListBoxRow {
         };
 
         child = group;
-
         add_projects ();
     }
 
@@ -55,5 +54,21 @@ public class Dialogs.ProjectPicker.ProjectPickerSourceRow : Gtk.ListBoxRow {
 
             group.add_child (new Dialogs.ProjectPicker.ProjectPickerRow (project));
         }
+    }
+
+    public void filter (string search) {
+        int size = 0;
+        group.set_filter_func ((row) => {
+            var project = ((Dialogs.ProjectPicker.ProjectPickerRow) row).project;
+            var return_value = search.down () in project.name.down ();
+
+            if (return_value) {
+                size++;
+            }
+
+            return return_value;
+        });
+
+        group.reveal_child = size > 0;
     }
 }

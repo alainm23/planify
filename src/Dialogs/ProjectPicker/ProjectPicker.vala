@@ -61,6 +61,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
     public signal void changed (string type, string id);
 
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+    private Gee.HashMap<string, Dialogs.ProjectPicker.ProjectPickerSourceRow> sources_hashmap = new Gee.HashMap<string, Dialogs.ProjectPicker.ProjectPickerSourceRow> ();
 
     public ProjectPicker.for_project (Objects.Source source) {
         Object (
@@ -132,18 +133,18 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (headerbar);
-        // content_box.append (search_entry);
+        content_box.append (search_entry);
         content_box.append (main_stack);
         content_box.append (submit_button);
 
         child = content_box;
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        // search_entry.search_changed.connect (() => {
-        // local_group.invalidate_filter ();
-        // todoist_group.invalidate_filter ();
-        // caldav_group.invalidate_filter ();
-        // });
+        search_entry.search_changed.connect (() => {
+            sources_hashmap.keys.foreach ((key) => {
+                sources_hashmap[key].filter (search_entry.text);
+            });
+        });
 
         signal_map[Services.EventBus.get_default ().project_picker_changed.connect ((id) => {
             _project = Services.Store.instance ().get_project (id);
@@ -189,7 +190,6 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
 
     private Gtk.Widget build_projects_view () {
         inbox_group = new Layouts.HeaderItem (null) {
-            margin_top = 12,
             card = true,
             reveal = true
         };
@@ -206,10 +206,12 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
 
         if (all_sources) {
             foreach (Objects.Source source in Services.Store.instance ().sources) {
-                scrolled_box.append (new Dialogs.ProjectPicker.ProjectPickerSourceRow (source));
+                sources_hashmap[source.id] = new Dialogs.ProjectPicker.ProjectPickerSourceRow (source);
+                scrolled_box.append (sources_hashmap[source.id]);
             }
         } else {
-            scrolled_box.append (new Dialogs.ProjectPicker.ProjectPickerSourceRow (source));
+            sources_hashmap[source.id] = new Dialogs.ProjectPicker.ProjectPickerSourceRow (source);
+            scrolled_box.append (sources_hashmap[source.id]);
         }
 
         var scrolled = new Gtk.ScrolledWindow () {
