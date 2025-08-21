@@ -20,33 +20,51 @@
  */
 
 public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
-    // Constants
-    private const int WIDGET_WIDTH = 275;
-    private const string[] QUICK_DATE_PAGES = { "main", "calendar", "repeat", "repeat-config" };
-
-    // Navigation
     private Adw.NavigationView navigation_view;
-    private Gee.HashMap<string, Adw.NavigationPage> pages_map;
 
-    // Main page widgets
-    private DateQuickItems quick_items;
+    private Widgets.ContextMenu.MenuItem today_item;
+    private Widgets.ContextMenu.MenuItem tomorrow_item;
+    private Widgets.ContextMenu.MenuItem date_item;
+    private Widgets.ContextMenu.MenuItem next_week_item;
     private Widgets.DateTimePicker.TimePicker time_picker;
     private Widgets.Calendar.Calendar calendar_view;
     private Widgets.ContextMenu.MenuItem repeat_item;
     private Gtk.Revealer action_revealer;
 
-    // State
-    private Objects.DueDate _duedate;
-
-    // Properties
+    Objects.DueDate _duedate;
     public Objects.DueDate duedate {
-        get {
-            _duedate = get_current_duedate ();
-            return _duedate;
+        set {
+            _duedate = value;
+            if (_duedate.datetime != null) {
+                calendar_view.date = _duedate.datetime;
+            }
+
+            check_items (_duedate);
+
+            if (Utils.Datetime.has_time (_duedate.datetime)) {
+                time_picker.time = _duedate.datetime;
+                time_picker.has_time = true;
+            }
         }
 
-        set {
-            set_current_duedate (value);
+        get {
+            if (_duedate == null) {
+                _duedate = new Objects.DueDate ();
+            }
+
+            if (time_picker.has_time) {
+                if (_duedate.datetime == null) {
+                    _duedate.datetime = time_picker.time;
+                } else {
+                    _duedate.datetime = add_date_time (_duedate.datetime, time_picker.time);
+                }
+            } else {
+                if (_duedate != null) {
+                    _duedate.datetime = Utils.Datetime.get_date_only (_duedate.datetime);
+                }
+            }
+
+            return _duedate;
         }
     }
 
@@ -56,163 +74,64 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         }
     }
 
-    // Signals
     public signal void duedate_changed ();
+
+    private Gee.HashMap<string, Adw.NavigationPage> pages_map = new Gee.HashMap<string, Adw.NavigationPage> ();
 
     public DateTimePicker () {
         Object (
             has_arrow: false,
             position: Gtk.PositionType.RIGHT,
-            width_request: WIDGET_WIDTH
+            width_request: 275
         );
     }
 
     construct {
-        pages_map = new Gee.HashMap<string, Adw.NavigationPage> ();
-        quick_items = new DateQuickItems ();
-
-        setup_navigation ();
-        connect_signals ();
-    }
-
-    private void setup_navigation () {
         navigation_view = new Adw.NavigationView ();
-        navigation_view.add (get_or_create_page ("main"));
+        navigation_view.add (build_page ("main"));
+
         child = navigation_view;
 
         closed.connect (() => {
-            navigation_view.pop_to_page (get_or_create_page ("main"));
+            navigation_view.pop_to_page (build_page ("main"));
         });
     }
 
-    private void connect_signals () {
-        quick_items.date_selected.connect (on_quick_date_selected);
-        quick_items.calendar_requested.connect (() => {
-            navigation_view.push (get_or_create_page ("calendar"));
-        });
-        quick_items.repeat_requested.connect (() => {
-            navigation_view.push (get_or_create_page ("repeat"));
-        });
-    }
-
-    private Adw.NavigationPage get_or_create_page (string page_id) {
-        if (!pages_map.has_key (page_id)) {
-            pages_map[page_id] = create_page (page_id);
+    private Adw.NavigationPage build_page (string page) {
+        if (pages_map.has_key (page)) {
+            return pages_map[page];
         }
-        return pages_map[page_id];
-    }
 
-    private Adw.NavigationPage create_page (string page_id) {
-        switch (page_id) {
-            case "main":
-                return build_main_page ();
-            case "calendar":
-                return build_calendar_page ();
-            case "repeat":
-                return build_repeat_page ();
-            case "repeat-config":
-                return new Widgets.DateTimePicker.RepeatConfig ();
-            default:
-                assert_not_reached ();
+        if (page == "main") {
+            pages_map[page] = build_main_page ();
+        } else if (page == "calendar") {
+            pages_map[page] = build_calendar_page ();
+        } else if (page == "repeat") {
+            pages_map[page] = build_repeat_page ();
+        } else if (page == "repeat-config") {
+            pages_map[page] = new Widgets.DateTimePicker.RepeatConfig ();
         }
+
+        return pages_map[page];
     }
 
     private Adw.NavigationPage build_main_page () {
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
+        tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "today-calendar-symbolic");
+        next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "work-week-symbolic");
+        date_item = new Widgets.ContextMenu.MenuItem (_("Choose a date"), "month-symbolic");
+        date_item.arrow = true;
+        date_item.autohide_popover = false;
 
-        // Quick date items
-        content_box.append (quick_items);
-
-        // Separator
-        content_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_top = 6
-        });
-
-        // Repeat item
-        repeat_item = create_repeat_item ();
-        content_box.append (repeat_item);
-
-        // Separator
-        content_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_bottom = 6
-        });
-
-        // Time picker
-        var time_box = create_time_section ();
-        content_box.append (time_box);
-
-        // Action buttons
-        action_revealer = create_action_section ();
-        content_box.append (action_revealer);
-
-        var toolbar_view = new Adw.ToolbarView () {
-            content = content_box
-        };
-
-        return new Adw.NavigationPage (toolbar_view, _("Menu"));
-    }
-
-    private Adw.NavigationPage build_calendar_page () {
-        calendar_view = new Widgets.Calendar.Calendar ();
-
-        calendar_view.day_selected.connect (() => {
-            set_date (calendar_view.date, false, true);
-            visible_no_date = true;
-            update_ui_state ();
-            navigation_view.pop ();
-        });
-
-        return new Adw.NavigationPage (
-            build_toolbar_page (calendar_view),
-            _("Calendar")
-        );
-    }
-
-    private Adw.NavigationPage build_repeat_page () {
-        var menu_box = new RecurrencyMenu ();
-
-        menu_box.recurrency_selected.connect ((recurrency_config) => {
-            set_recurrency (recurrency_config);
-            navigation_view.pop ();
-        });
-
-        menu_box.custom_requested.connect (() => {
-            var repeat_config = (Widgets.DateTimePicker.RepeatConfig) get_or_create_page ("repeat-config");
-            navigation_view.push (repeat_config);
-
-            if (duedate != null) {
-                repeat_config.duedate = duedate;
-            }
-
-            repeat_config.duedate_change.connect ((custom_duedate) => {
-                set_recurrency (custom_duedate);
-                navigation_view.pop_to_page (get_or_create_page ("main"));
-            });
-        });
-
-        return new Adw.NavigationPage (
-            build_toolbar_page (menu_box),
-            _("Repeat")
-        );
-    }
-
-    private Widgets.ContextMenu.MenuItem create_repeat_item () {
-        var item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "playlist-repeat-symbolic") {
+        repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "playlist-repeat-symbolic") {
             margin_top = 6,
-            margin_bottom = 6,
-            arrow = true,
-            autohide_popover = false
+            margin_bottom = 6
         };
+        repeat_item.arrow = true;
+        repeat_item.autohide_popover = false;
 
-        item.clicked.connect (() => {
-            navigation_view.push (get_or_create_page ("repeat"));
-        });
-
-        return item;
-    }
-
-    private Gtk.Box create_time_section () {
         var time_icon = new Gtk.Image.from_icon_name ("clock-symbolic");
+
         var time_label = new Gtk.Label (_("Time")) {
             css_classes = { "font-weight-500" }
         };
@@ -232,23 +151,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         time_box.append (time_label);
         time_box.append (time_picker);
 
-        // Connect time picker signals
-        time_picker.time_changed.connect (() => {
-            duedate.datetime = Utils.Datetime.get_date_only (duedate.datetime);
-        });
-
-        time_picker.time_added.connect (() => {
-            visible_no_date = true;
-            if (duedate.datetime == null) {
-                duedate.datetime = time_picker.time;
-                update_ui_state ();
-            }
-        });
-
-        return time_box;
-    }
-
-    private Gtk.Revealer create_action_section () {
         var submit_button = new Widgets.LoadingButton.with_label (_("Done")) {
             css_classes = { "suggested-action" }
         };
@@ -261,86 +163,220 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             margin_top = 12,
             homogeneous = true
         };
-
         action_box.append (clear_button);
         action_box.append (submit_button);
 
-        var revealer = new Gtk.Revealer () {
+        action_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             child = action_box
         };
 
-        // Connect button signals
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        content_box.append (today_item);
+        content_box.append (tomorrow_item);
+        content_box.append (next_week_item);
+        content_box.append (date_item);
+        content_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_top = 6
+        });
+        content_box.append (repeat_item);
+        content_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_bottom = 6
+        });
+        content_box.append (time_box);
+        content_box.append (action_revealer);
+
+        var toolbar_view = new Adw.ToolbarView ();
+        toolbar_view.content = content_box;
+
+        today_item.activate_item.connect (() => {
+            set_date (new DateTime.now_local ());
+        });
+
+        tomorrow_item.activate_item.connect (() => {
+            set_date (new DateTime.now_local ().add_days (1));
+        });
+
+        next_week_item.activate_item.connect (() => {
+            set_date (new DateTime.now_local ().add_days (7));
+        });
+
+        time_picker.time_changed.connect (() => {
+            duedate.datetime = Utils.Datetime.get_date_only (duedate.datetime);
+        });
+
+        time_picker.time_added.connect (() => {
+            visible_no_date = true;
+
+            if (duedate.datetime == null) {
+                duedate.datetime = time_picker.time;
+                check_items (duedate);
+            }
+        });
+
         submit_button.clicked.connect (() => {
             duedate_changed ();
             popdown ();
         });
 
         clear_button.clicked.connect (() => {
-            clear_date_and_recurrency ();
+            time_picker.has_time = false;
+            duedate.datetime = null;
+            popdown ();
+            duedate_changed ();
+            check_items (null);
         });
 
-        return revealer;
+        date_item.clicked.connect (() => {
+            navigation_view.push (build_page ("calendar"));
+        });
+
+        repeat_item.clicked.connect (() => {
+            navigation_view.push (build_page ("repeat"));
+        });
+
+        return new Adw.NavigationPage (toolbar_view, _("Menu"));
     }
 
-    private Adw.ToolbarView build_toolbar_page (Gtk.Widget widget) {
-        var toolbar_view = new Adw.ToolbarView () {
-            content = widget
+    private Adw.NavigationPage build_calendar_page () {
+        calendar_view = new Widgets.Calendar.Calendar ();
+
+        calendar_view.day_selected.connect (() => {
+            set_date (calendar_view.date, false, true);
+            visible_no_date = true;
+            check_items (duedate);
+
+            navigation_view.pop ();
+        });
+
+        return new Adw.NavigationPage (build_toolbar_page (calendar_view), _("Calendar"));
+    }
+
+    private Adw.NavigationPage build_repeat_page () {
+        var none_item = new Widgets.ContextMenu.MenuItem (_("None")) {
+            autohide_popover = false
         };
 
-        toolbar_view.add_top_bar (new Adw.HeaderBar () {
-            show_title = false,
-            show_end_title_buttons = false,
+        var daily_item = new Widgets.ContextMenu.MenuItem (_("Daily")) {
+            autohide_popover = false
+        };
+
+        var weekdays_item = new Widgets.ContextMenu.MenuItem (_("Weekdays")) {
+            autohide_popover = false
+        };
+
+        var weekends_item = new Widgets.ContextMenu.MenuItem (_("Weekends")) {
+            autohide_popover = false
+        };
+
+        var weekly_item = new Widgets.ContextMenu.MenuItem (_("Weekly")) {
+            autohide_popover = false
+        };
+
+        var monthly_item = new Widgets.ContextMenu.MenuItem (_("Monthly")) {
+            autohide_popover = false
+        };
+
+        var yearly_item = new Widgets.ContextMenu.MenuItem (_("Yearly")) {
+            autohide_popover = false
+        };
+
+        var custom_item = new Widgets.ContextMenu.MenuItem (_("Custom")) {
+            autohide_popover = false
+        };
+        custom_item.arrow = true;
+
+        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        menu_box.margin_top = menu_box.margin_bottom = 3;
+        menu_box.append (daily_item);
+        menu_box.append (weekdays_item);
+        menu_box.append (weekends_item);
+        menu_box.append (weekly_item);
+        menu_box.append (monthly_item);
+        menu_box.append (yearly_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (none_item);
+        menu_box.append (custom_item);
+
+        daily_item.clicked.connect (() => {
+            var _duedate = new Objects.DueDate ();
+            _duedate.is_recurring = true;
+            _duedate.recurrency_type = RecurrencyType.EVERY_DAY;
+            _duedate.recurrency_interval = 1;
+            set_recurrency (_duedate);
+            navigation_view.pop ();
         });
 
-        return toolbar_view;
-    }
+        weekdays_item.clicked.connect (() => {
+            var _duedate = new Objects.DueDate ();
+            _duedate.is_recurring = true;
+            _duedate.recurrency_type = RecurrencyType.EVERY_WEEK;
+            _duedate.recurrency_weeks = "1,2,3,4,5";
+            _duedate.recurrency_interval = 1;
+            set_recurrency (_duedate);
+            navigation_view.pop ();
+        });
 
-    private void on_quick_date_selected (DateTime date) {
-        set_date (date);
-    }
+        weekends_item.clicked.connect (() => {
+            var _duedate = new Objects.DueDate ();
+            _duedate.is_recurring = true;
+            _duedate.recurrency_type = RecurrencyType.EVERY_WEEK;
+            _duedate.recurrency_weeks = "6,7";
+            _duedate.recurrency_interval = 1;
+            set_recurrency (_duedate);
+            navigation_view.pop ();
+        });
 
-    private void clear_date_and_recurrency () {
-        time_picker.has_time = false;
-        duedate.datetime = null;
-        duedate.is_recurring = false;
-        duedate.recurrency_type = RecurrencyType.NONE;
-        duedate.recurrency_interval = 0;
+        weekly_item.clicked.connect (() => {
+            var _duedate = new Objects.DueDate ();
+            _duedate.is_recurring = true;
+            _duedate.recurrency_type = RecurrencyType.EVERY_WEEK;
+            _duedate.recurrency_interval = 1;
+            set_recurrency (_duedate);
+            navigation_view.pop ();
+        });
 
-        popdown ();
-        duedate_changed ();
-        update_ui_state ();
-    }
+        monthly_item.clicked.connect (() => {
+            var _duedate = new Objects.DueDate ();
+            _duedate.is_recurring = true;
+            _duedate.recurrency_type = RecurrencyType.EVERY_MONTH;
+            _duedate.recurrency_interval = 1;
+            set_recurrency (_duedate);
+            navigation_view.pop ();
+        });
 
-    private Objects.DueDate get_current_duedate () {
-        if (_duedate == null) {
-            _duedate = new Objects.DueDate ();
-        }
+        yearly_item.clicked.connect (() => {
+            var _duedate = new Objects.DueDate ();
+            _duedate.is_recurring = true;
+            _duedate.recurrency_type = RecurrencyType.EVERY_YEAR;
+            _duedate.recurrency_interval = 1;
+            set_recurrency (_duedate);
+            navigation_view.pop ();
+        });
 
-        if (time_picker ? .has_time == true) {
-            _duedate.datetime = (_duedate.datetime == null)
-                ? time_picker.time
-                : DateTimeHelper.combine_date_and_time (_duedate.datetime, time_picker.time);
-        } else if (_duedate != null) {
-            _duedate.datetime = Utils.Datetime.get_date_only (_duedate.datetime);
-        }
+        none_item.clicked.connect (() => {
+            var _duedate = new Objects.DueDate ();
+            _duedate.is_recurring = false;
+            _duedate.recurrency_type = RecurrencyType.NONE;
+            _duedate.recurrency_interval = 0;
+            set_recurrency (_duedate);
+            navigation_view.pop ();
+        });
 
-        return _duedate;
-    }
+        custom_item.clicked.connect (() => {
+            navigation_view.push (build_page ("repeat-config"));
 
-    private void set_current_duedate (Objects.DueDate value) {
-        _duedate = value;
+            if (duedate != null) {
+                ((Widgets.DateTimePicker.RepeatConfig) build_page ("repeat-config")).duedate = duedate;
+            }
 
-        if (_duedate ? .datetime != null && calendar_view != null) {
-            calendar_view.date = _duedate.datetime;
-        }
+            ((Widgets.DateTimePicker.RepeatConfig) build_page ("repeat-config")).duedate_change.connect ((_duedate) => {
+                set_recurrency (_duedate);
+                navigation_view.pop_to_page (build_page ("main"));
+            });
+        });
 
-        update_ui_state ();
-
-        if (Utils.Datetime.has_time (_duedate ? .datetime) && time_picker != null) {
-            time_picker.time = _duedate.datetime;
-            time_picker.has_time = true;
-        }
+        return new Adw.NavigationPage (build_toolbar_page (menu_box), _("Repeat"));
     }
 
     private void set_date (DateTime date, bool hide_popover = true, bool no_signal = false) {
@@ -356,112 +392,92 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         }
     }
 
-    public void set_recurrency (Objects.DueDate recurrency_config) {
+    private GLib.DateTime add_date_time (GLib.DateTime date, GLib.DateTime time) {
+        return new GLib.DateTime.local (
+            date.get_year (),
+            date.get_month (),
+            date.get_day_of_month (),
+            time.get_hour (),
+            time.get_minute (),
+            time.get_second ()
+        );
+    }
+
+    public void set_recurrency (Objects.DueDate _duedate) {
         if (duedate == null) {
             duedate = new Objects.DueDate ();
         }
 
-        var today = Utils.Datetime.get_today_format_date ();
+        if (_duedate.recurrency_type == RecurrencyType.MINUTELY ||
+            _duedate.recurrency_type == RecurrencyType.HOURLY) {
+            if (duedate.datetime == null) {
+                duedate.date = Utils.Datetime.get_todoist_datetime_format (
+                    new DateTime.now_local ()
+                );
+            }
+        } else if (_duedate.recurrency_type == RecurrencyType.EVERY_DAY ||
+                   _duedate.recurrency_type == RecurrencyType.EVERY_MONTH ||
+                   _duedate.recurrency_type == RecurrencyType.EVERY_YEAR) {
+            if (duedate.datetime == null) {
+                duedate.date = Utils.Datetime.get_todoist_datetime_format (
+                    Utils.Datetime.get_today_format_date ()
+                );
+            }
+        } else if (_duedate.recurrency_type == RecurrencyType.EVERY_WEEK) {
+            if (_duedate.has_weeks) {
+                GLib.DateTime due_selected = Utils.Datetime.get_today_format_date ();
+                if (duedate.datetime != null) {
+                    due_selected = duedate.datetime;
+                }
 
-        // Apply recurrency-specific date logic
-        RecurrencyHelper.apply_recurrency_date (duedate, recurrency_config, today);
+                int day_of_week = due_selected.get_day_of_week ();
+                int next_day = Utils.Datetime.get_next_day_of_week_from_recurrency_week (due_selected, _duedate);
+                GLib.DateTime due_date = null;
 
-        // Copy recurrency properties
-        RecurrencyHelper.copy_properties (duedate, recurrency_config);
+                if (day_of_week == next_day) {
+                    due_date = due_selected;
+                } else {
+                    due_date = Utils.Datetime.next_recurrency_week (due_selected, _duedate);
+                }
+
+                duedate.date = Utils.Datetime.get_todoist_datetime_format (due_date);
+            } else {
+                if (duedate.datetime == null) {
+                    duedate.date = Utils.Datetime.get_todoist_datetime_format (
+                        Utils.Datetime.get_today_format_date ()
+                    );
+                }
+            }
+        }
+
+        duedate.is_recurring = _duedate.is_recurring;
+        duedate.recurrency_type = _duedate.recurrency_type;
+        duedate.recurrency_interval = _duedate.recurrency_interval;
+        duedate.recurrency_weeks = _duedate.recurrency_weeks;
+        duedate.recurrency_count = _duedate.recurrency_count;
+        duedate.recurrency_end = _duedate.recurrency_end;
 
         visible_no_date = true;
-        update_ui_state ();
-    }
-
-    private void update_ui_state () {
-        if (quick_items != null) {
-            quick_items.update_selection (duedate);
-        }
-
-        if (repeat_item != null) {
-            update_repeat_item_display ();
-        }
-    }
-
-    private void update_repeat_item_display () {
-        repeat_item.secondary_text = duedate ? .is_recurring == true
-            ? Utils.Datetime.get_recurrency_weeks (duedate.recurrency_type,
-                                                   duedate.recurrency_interval,
-                                                   duedate.recurrency_weeks).down ()
-            : "";
+        check_items (duedate);
     }
 
     public void reset () {
-        time_picker ?.reset ();
-
+        time_picker.reset ();
         visible_no_date = false;
-        calendar_view ?.reset ();
-
-        quick_items ?.reset ();
-
-        update_ui_state ();
-    }
-}
-
-private class DateQuickItems : Gtk.Box {
-    private Widgets.ContextMenu.MenuItem today_item;
-    private Widgets.ContextMenu.MenuItem tomorrow_item;
-    private Widgets.ContextMenu.MenuItem next_week_item;
-    private Widgets.ContextMenu.MenuItem date_item;
-
-    public signal void date_selected (DateTime date);
-    public signal void calendar_requested ();
-    public signal void repeat_requested ();
-
-    public DateQuickItems () {
-        Object (
-            orientation : Gtk.Orientation.VERTICAL,
-            spacing : 0
-        );
+        calendar_view.reset ();
+        check_items (null);
     }
 
-    construct {
-        create_items ();
-        connect_signals ();
-    }
+    private void check_items (Objects.DueDate ? duedate) {
+        today_item.selected = false;
+        tomorrow_item.selected = false;
+        next_week_item.selected = false;
+        date_item.selected = false;
+        date_item.secondary_text = "";
+        repeat_item.selected = false;
+        repeat_item.secondary_text = "";
 
-    private void create_items () {
-        today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
-        tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "today-calendar-symbolic");
-        next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "work-week-symbolic");
-        date_item = new Widgets.ContextMenu.MenuItem (_("Choose a date"), "month-symbolic") {
-            arrow = true,
-            autohide_popover = false
-        };
-
-        append (today_item);
-        append (tomorrow_item);
-        append (next_week_item);
-        append (date_item);
-    }
-
-    private void connect_signals () {
-        today_item.activate_item.connect (() => {
-            date_selected (new DateTime.now_local ());
-        });
-
-        tomorrow_item.activate_item.connect (() => {
-            date_selected (new DateTime.now_local ().add_days (1));
-        });
-
-        next_week_item.activate_item.connect (() => {
-            date_selected (new DateTime.now_local ().add_days (7));
-        });
-
-        date_item.clicked.connect (() => {
-            calendar_requested ();
-        });
-    }
-
-    public void update_selection (Objects.DueDate ? duedate) {
-        reset_selection ();
-
-        if (duedate ? .datetime == null) {
+        if (duedate == null || duedate.datetime == null) {
             return;
         }
 
@@ -476,203 +492,26 @@ private class DateQuickItems : Gtk.Box {
                 Utils.Datetime.get_date_only (duedate.datetime)
             );
         }
-    }
 
-    public void reset () {
-        reset_selection ();
-    }
-
-    private void reset_selection () {
-        today_item.selected = false;
-        tomorrow_item.selected = false;
-        next_week_item.selected = false;
-        date_item.selected = false;
-        date_item.secondary_text = "";
-    }
-}
-
-private class RecurrencyMenu : Gtk.Box {
-    public signal void recurrency_selected (Objects.DueDate recurrency_config);
-    public signal void custom_requested ();
-
-    public RecurrencyMenu () {
-        Object (orientation : Gtk.Orientation.VERTICAL, spacing : 0);
-        setup_menu_items ();
-    }
-
-    private void setup_menu_items () {
-        margin_top = margin_bottom = 3;
-
-        var daily_item = create_menu_item (_("Daily"), RecurrencyType.EVERY_DAY);
-        var weekdays_item = create_weekdays_item ();
-        var weekends_item = create_weekends_item ();
-        var weekly_item = create_menu_item (_("Weekly"), RecurrencyType.EVERY_WEEK);
-        var monthly_item = create_menu_item (_("Monthly"), RecurrencyType.EVERY_MONTH);
-        var yearly_item = create_menu_item (_("Yearly"), RecurrencyType.EVERY_YEAR);
-        var none_item = create_none_item ();
-        var custom_item = create_custom_item ();
-
-        append (daily_item);
-        append (weekdays_item);
-        append (weekends_item);
-        append (weekly_item);
-        append (monthly_item);
-        append (yearly_item);
-        append (new Widgets.ContextMenu.MenuSeparator ());
-        append (none_item);
-        append (custom_item);
-    }
-
-    private Widgets.ContextMenu.MenuItem create_menu_item (string label, RecurrencyType type) {
-        var item = new Widgets.ContextMenu.MenuItem (label) {
-            autohide_popover = false
-        };
-
-        item.clicked.connect (() => {
-            var config = new Objects.DueDate ();
-            config.is_recurring = true;
-            config.recurrency_type = type;
-            config.recurrency_interval = 1;
-            recurrency_selected (config);
-        });
-
-        return item;
-    }
-
-    private Widgets.ContextMenu.MenuItem create_weekdays_item () {
-        var item = new Widgets.ContextMenu.MenuItem (_("Weekdays")) {
-            autohide_popover = false
-        };
-
-        item.clicked.connect (() => {
-            var config = new Objects.DueDate ();
-            config.is_recurring = true;
-            config.recurrency_type = RecurrencyType.EVERY_WEEK;
-            config.recurrency_weeks = "1,2,3,4,5";
-            config.recurrency_interval = 1;
-            recurrency_selected (config);
-        });
-
-        return item;
-    }
-
-    private Widgets.ContextMenu.MenuItem create_weekends_item () {
-        var item = new Widgets.ContextMenu.MenuItem (_("Weekends")) {
-            autohide_popover = false
-        };
-
-        item.clicked.connect (() => {
-            var config = new Objects.DueDate ();
-            config.is_recurring = true;
-            config.recurrency_type = RecurrencyType.EVERY_WEEK;
-            config.recurrency_weeks = "6,7";
-            config.recurrency_interval = 1;
-            recurrency_selected (config);
-        });
-
-        return item;
-    }
-
-    private Widgets.ContextMenu.MenuItem create_none_item () {
-        var item = new Widgets.ContextMenu.MenuItem (_("None")) {
-            autohide_popover = false
-        };
-
-        item.clicked.connect (() => {
-            var config = new Objects.DueDate ();
-            config.is_recurring = false;
-            config.recurrency_type = RecurrencyType.NONE;
-            config.recurrency_interval = 0;
-            recurrency_selected (config);
-        });
-
-        return item;
-    }
-
-    private Widgets.ContextMenu.MenuItem create_custom_item () {
-        var item = new Widgets.ContextMenu.MenuItem (_("Custom")) {
-            autohide_popover = false,
-            arrow = true
-        };
-
-        item.clicked.connect (() => {
-            custom_requested ();
-        });
-
-        return item;
-    }
-}
-
-private class DateTimeHelper {
-    public static GLib.DateTime combine_date_and_time (GLib.DateTime date, GLib.DateTime time) {
-        return new GLib.DateTime.local (
-            date.get_year (),
-            date.get_month (),
-            date.get_day_of_month (),
-            time.get_hour (),
-            time.get_minute (),
-            time.get_second ()
-        );
-    }
-}
-
-private class RecurrencyHelper {
-    public static void apply_recurrency_date (Objects.DueDate target, Objects.DueDate source, DateTime today) {
-        switch (source.recurrency_type) {
-            case RecurrencyType.MINUTELY :
-            case RecurrencyType.HOURLY :
-                set_date_if_null (target,
-                                  Utils.Datetime.get_todoist_datetime_format (new DateTime.now_local ())
-                );
-                break;
-
-            case RecurrencyType.EVERY_DAY :
-            case RecurrencyType.EVERY_MONTH :
-            case RecurrencyType.EVERY_YEAR:
-                set_date_if_null (target,
-                                  Utils.Datetime.get_todoist_datetime_format (today)
-                );
-                break;
-
-            case RecurrencyType.EVERY_WEEK:
-                apply_weekly_recurrency (target, source, today);
-                break;
-
-            case RecurrencyType.NONE:
-                break;
+        if (duedate.is_recurring) {
+            repeat_item.secondary_text = Utils.Datetime.get_recurrency_weeks (
+                duedate.recurrency_type,
+                duedate.recurrency_interval,
+                duedate.recurrency_weeks
+            ).down ();
         }
     }
 
-    private static void set_date_if_null (Objects.DueDate duedate, string datetime) {
-        if (duedate.datetime == null) {
-            duedate.date = datetime;
-        }
-    }
+    private Adw.ToolbarView build_toolbar_page (Gtk.Widget widget) {
+        var toolbar_view = new Adw.ToolbarView () {
+            content = widget
+        };
 
-    private static void apply_weekly_recurrency (Objects.DueDate target, Objects.DueDate source, DateTime today) {
-        if (source.has_weeks) {
-            var due_selected = target.datetime ?? today;
-            var day_of_week = due_selected.get_day_of_week ();
-            var next_day = Utils.Datetime.get_next_day_of_week_from_recurrency_week (
-                due_selected, source
-            );
+        toolbar_view.add_top_bar (new Adw.HeaderBar () {
+            show_title = false,
+            show_end_title_buttons = false,
+        });
 
-            var due_date = (day_of_week == next_day)
-                ? due_selected
-                : Utils.Datetime.next_recurrency_week (due_selected, source);
-
-            target.date = Utils.Datetime.get_todoist_datetime_format (due_date);
-        } else {
-            set_date_if_null (target, Utils.Datetime.get_todoist_datetime_format (today));
-        }
-    }
-
-    public static void copy_properties (Objects.DueDate target, Objects.DueDate source) {
-        target.is_recurring = source.is_recurring;
-        target.recurrency_type = source.recurrency_type;
-        target.recurrency_interval = source.recurrency_interval;
-        target.recurrency_weeks = source.recurrency_weeks;
-        target.recurrency_count = source.recurrency_count;
-        target.recurrency_end = source.recurrency_end;
+        return toolbar_view;
     }
 }
