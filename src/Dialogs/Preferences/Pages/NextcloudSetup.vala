@@ -164,9 +164,7 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Adw.NavigationPage {
         });
 
         var core_service = Services.CalDAV.Core.get_default ();
-        var nextcloud_provider =
-            (Services.CalDAV.Providers.Nextcloud) core_service.providers_map.get (
-                CalDAVType.NEXTCLOUD.to_string ());
+        var nextcloud_provider = new Services.CalDAV.Providers.Nextcloud ();
 
         nextcloud_provider.start_login_flow.begin (server_entry.text, cancellable, (obj, res) => {
             HttpResponse response = nextcloud_provider.start_login_flow.end (res);

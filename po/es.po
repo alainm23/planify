@@ -157,8 +157,8 @@ msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: core/Enum.vala:414
-msgid "Generic"
-msgstr "Generic"
+msgid "CalDAV"
+msgstr "CalDAV"
 
 #: core/Enum.vala:476 core/Enum.vala:662 core/Widgets/PriorityButton.vala:84
 #: src/Widgets/ItemDetailCompleted.vala:81 src/Views/Project/Project.vala:439
