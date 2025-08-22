@@ -35,14 +35,10 @@ public class Services.CalDAV.Core : GLib.Object {
     public signal void first_sync_started ();
     public signal void first_sync_finished ();
 
-    public Gee.HashMap<string, Services.CalDAV.Providers.Base> providers_map = new Gee.HashMap<string, Services.CalDAV.Providers.Base> (); // TODO: Drop Services.CalDAV.Providers.*
 
     public Core () {
         session = new Soup.Session ();
         parser = new Json.Parser ();
-
-        providers_map.set (CalDAVType.NEXTCLOUD.to_string (), new Services.CalDAV.Providers.Nextcloud ());
-        providers_map.set (CalDAVType.GENERIC.to_string (), new Services.CalDAV.Providers.Generic ());
     }
 
     private string make_absolute_url (string base_url, string href) {
@@ -106,12 +102,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
     public async HttpResponse login (CalDAVType caldav_type, string dav_url, string username, string password, string calendar_home, GLib.Cancellable cancellable) {
         HttpResponse response = new HttpResponse (); // TODO: This isn't always an HTTP Response, find a better name
-
-        if (!providers_map.has_key (caldav_type.to_string ())) {
-            response.error_code = 409;
-            response.error = _("No Provider Available");
-            return response;
-        }
 
         if (Services.Store.instance ().source_caldav_exists (dav_url, username)) {
             response.error_code = 409;
@@ -220,6 +210,18 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     public async void sync_tasklist (Objects.Project project) {
+        var xml = """
+        <d:sync-collection xmlns:d="DAV:">
+            <d:sync-token>%s</d:sync-token>
+            <d:sync-level>1</d:sync-level>
+            <d:prop>
+                <d:getetag/>
+                <d:getcontenttype/>
+            </d:prop>
+        </d:sync-collection>
+        """;
+
+
         if (project.is_deck) {
             return;
         }
@@ -229,7 +231,8 @@ public class Services.CalDAV.Core : GLib.Object {
 
         var message = new Soup.Message ("REPORT", project.calendar_url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
-        message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.SYNC_TOKEN_REQUEST.printf (project.sync_id)).data));
+
+        message.set_request_body_from_bytes ("application/xml", new Bytes ((xml.printf (project.sync_id)).data));
 
         try {
             if (project.sync_id == "") {
@@ -365,7 +368,7 @@ public class Services.CalDAV.Core : GLib.Object {
      */
 
     public async HttpResponse add_tasklist (Objects.Project project) {
-        var url = project.calendar_url;
+        var url = "%s/%s".printf (project.source.caldav_data.calendar_home_url, project.id);
         var message = new Soup.Message ("MKCOL", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
         message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.CREATE_TASKLIST_REQUEST.printf (project.name, project.color_hex)).data));

@@ -155,6 +155,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                     print ("Found VTODO Calendar (%s)\n", get_absolute_url (href));
 
                     var project = new Objects.Project.from_propstat (propstat, get_absolute_url (href));
+                    project.source_id = source.id;
+
                     projects.add (project);
                 }
             }

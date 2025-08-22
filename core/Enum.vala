@@ -411,7 +411,7 @@ public enum CalDAVType {
                 return _("Nextcloud");
 
             case GENERIC:
-                return _("Generic");
+                return _("CalDAV"); // TODO: Maybe rename Generic to CalDAV?
 
             default:
                 assert_not_reached ();

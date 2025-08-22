@@ -19,11 +19,10 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Base {
+public class Services.CalDAV.Providers.Nextcloud : Object {
 
     private Soup.Session session;
     private Json.Parser parser;
-
 
     // vala-lint=naming-convention
     public static string GET_SYNC_TOKEN_REQUEST = """
@@ -64,18 +63,6 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
                 </x0:prop>
             </x0:set>
         </x0:propertyupdate>
-    """;
-
-    // vala-lint=naming-convention
-    public static string SYNC_TOKEN_REQUEST = """
-        <d:sync-collection xmlns:d="DAV:">
-            <d:sync-token>%s</d:sync-token>
-            <d:sync-level>1</d:sync-level>
-            <d:prop>
-                <d:getetag/>
-                <d:getcontenttype/>
-            </d:prop>
-        </d:sync-collection>
     """;
 
     // vala-lint=naming-convention
@@ -195,57 +182,5 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
         }
 
         return response;
-    }
-
-    public string get_id_from_url (GXml.DomElement element) {
-        if (element.get_elements_by_tag_name ("d:href").length <= 0) {
-            return "";
-        }
-
-        GXml.DomElement href = element.get_elements_by_tag_name ("d:href").get_element (0);
-
-        string[] parts = href.text_content.split ("/");
-        return parts[parts.length - 2];
-    }
-
-    public string get_prop_value (GXml.DomElement element, string key) {
-        if (element.get_elements_by_tag_name ("d:propstat").length <= 0) {
-            return "";
-        }
-
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-
-        if (propstat.get_elements_by_tag_name ("d:prop").length <= 0) {
-            return "";
-        }
-
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-
-        if (prop.get_elements_by_tag_name (key).length <= 0) {
-            return "";
-        }
-
-        return prop.get_elements_by_tag_name (key).get_element (0).text_content;
-    }
-
-    public override bool is_vtodo_calendar (GXml.DomElement element) {
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        GXml.DomElement resourcetype = prop.get_elements_by_tag_name ("d:resourcetype").get_element (0);
-
-        bool is_calendar = resourcetype.get_elements_by_tag_name ("cal:calendar").length > 0;
-        bool is_vtodo = false;
-
-        if (is_calendar) {
-            GXml.DomElement supported_calendar = prop.get_elements_by_tag_name ("cal:supported-calendar-component-set").get_element (0);
-            GXml.DomHTMLCollection calendar_comps = supported_calendar.get_elements_by_tag_name ("cal:comp");
-            foreach (GXml.DomElement calendar_comp in calendar_comps) {
-                if (calendar_comp.get_attribute ("name") == "VTODO") {
-                    is_vtodo = true;
-                }
-            }
-        }
-
-        return is_vtodo;
     }
 }
