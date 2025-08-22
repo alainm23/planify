@@ -702,4 +702,23 @@ public enum ItemPriority {
                 return ItemPriority.NONE;
         }
     }
+
+    public string get_color () {
+        switch (this) {
+            case HIGHT:
+                return "#ff7066";
+
+            case MEDIUM:
+                return "#ff9914";
+
+            case LOW:
+                return "#5297ff";
+
+            case NONE:
+                return Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#fafafa" : "#333333";
+
+            default:
+                assert_not_reached ();
+        }
+    }
 }

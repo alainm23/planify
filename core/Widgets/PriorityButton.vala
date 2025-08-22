@@ -194,6 +194,8 @@ public class Widgets.PriorityButton : Adw.Bin {
                 priority_label.label = _("Priority 4: None");
             }
         }
+
+        Util.get_default ().set_widget_color (((ItemPriority) priority).get_color (), button);
     }
 
     public void reset () {
@@ -201,12 +203,15 @@ public class Widgets.PriorityButton : Adw.Bin {
     }
 
     public void animation () {
-        if (!button.has_css_class ("fancy-turn-animation")) {
-            button.add_css_class ("fancy-turn-animation");
+        button.remove_css_class ("priority-pulse-animation");
+
+        Idle.add (() => {
+            button.add_css_class ("priority-pulse-animation");
             Timeout.add (700, () => {
-                button.remove_css_class ("fancy-turn-animation");
+                button.remove_css_class ("priority-pulse-animation");
                 return GLib.Source.REMOVE;
             });
-        }
+            return GLib.Source.REMOVE;
+        });
     }
 }
