@@ -124,7 +124,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         source.display_name = _ ("CalDAV");
     }
 
-    public async Gee.ArrayList<Objects.Project> fetch_project_list (string calendar_home_path, Objects.Source source, GLib.Cancellable cancellable) throws GLib.Error {
+    public async Gee.ArrayList<Objects.Project> fetch_project_list (Objects.Source source, GLib.Cancellable cancellable) throws GLib.Error {
         var xml = """<?xml version='1.0' encoding='utf-8'?>
                     <d:propfind xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:cal="urn:ietf:params:xml:ns:caldav">
                         <d:prop>
@@ -138,7 +138,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         """;
 
 
-        var multi_status = yield propfind (calendar_home_path, xml, "1", cancellable);
+        var multi_status = yield propfind (source.caldav_data.calendar_home_url, xml, "1", cancellable);
 
         Gee.ArrayList<Objects.Project> projects = new Gee.ArrayList<Objects.Project> ();
 
@@ -149,42 +149,13 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 if (propstat.status != Soup.Status.OK) continue;
 
                 var resourcetype = propstat.get_first_prop_with_tagname ("resourcetype");
+                var supported_calendar = propstat.get_first_prop_with_tagname ("supported-calendar-component-set");
 
-                if (resourcetype == null) continue;
+                if (is_vtodo_calendar (resourcetype, supported_calendar)) {
+                    print ("Found VTODO Calendar (%s)\n", get_absolute_url (href));
 
-                bool is_calendar = resourcetype.get_elements_by_tag_name ("calendar").length > 0;
-                bool is_vtodo = false;
-
-                if (is_calendar) {
-                    var supported_calendar = propstat.get_first_prop_with_tagname ("supported-calendar-component-set");
-                    if (supported_calendar != null) {
-                        var calendar_comps = supported_calendar.get_elements_by_tag_name ("comp");
-                        foreach (GXml.DomElement calendar_comp in calendar_comps) {
-                            if (calendar_comp.get_attribute ("name") == "VTODO") {
-                                is_vtodo = true;
-                            }
-                        }
-                    }
-                }
-
-                if (is_vtodo) {
-                    var resource_id = propstat.get_first_prop_with_tagname ("resource-id");
-                    var name = propstat.get_first_prop_with_tagname ("displayname");
-                    var color = propstat.get_first_prop_with_tagname ("calendar-color");
-                    var sync_id = propstat.get_first_prop_with_tagname ("sync-token");
-
-                    if (href != null && name != null) {
-                        print ("Found VTODO Calendar %s (%s)\n", name.text_content.strip (), get_absolute_url (href));
-
-                        var project = new Objects.Project ();
-                        project.id = Util.get_default ().generate_id (project); // THIS ID is INTERNAL and no longer used for requests
-                        project.calendar_url = get_absolute_url (href);
-                        project.name = name.text_content;
-                        project.color = color.text_content;
-                        project.sync_id = sync_id.text_content;
-                        project.source_id = source.id;
-                        projects.add (project);
-                    }
+                    var project = new Objects.Project.from_propstat (propstat, get_absolute_url (href));
+                    projects.add (project);
                 }
             }
         }
@@ -193,7 +164,57 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
 
-    public async void update_tasks_for_project (Objects.Project project, GLib.Cancellable cancellable) {
+    public async void sync (Objects.Source source, GLib.Cancellable cancellable) throws GLib.Error {
+        var xml = """<?xml version='1.0' encoding='utf-8'?>
+                    <d:propfind xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:cal="urn:ietf:params:xml:ns:caldav">
+                        <d:prop>
+                            <d:resourcetype />
+                            <d:displayname />
+                            <d:sync-token />
+                            <ical:calendar-color />
+                            <cal:supported-calendar-component-set />
+                        </d:prop>
+                    </d:propfind>
+        """;
+
+        var multi_status = yield propfind (source.caldav_data.calendar_home_url, xml, "1", cancellable);
+
+        foreach (var response in multi_status.responses ()) {
+            string? href = response.href;
+
+            foreach (var propstat in response.propstats ()) {
+                if (propstat.status != Soup.Status.OK) continue;
+
+                var resourcetype = propstat.get_first_prop_with_tagname ("resourcetype");
+                var supported_calendar = propstat.get_first_prop_with_tagname ("supported-calendar-component-set");
+
+                if (is_vtodo_calendar (resourcetype, supported_calendar)) {
+                    var resource_id = propstat.get_first_prop_with_tagname ("resource-id");
+                    var name = propstat.get_first_prop_with_tagname ("displayname");
+                    var color = propstat.get_first_prop_with_tagname ("calendar-color");
+                    var sync_id = propstat.get_first_prop_with_tagname ("sync-token");
+
+                    if (href != null && name != null) {
+                        Objects.Project ? project = Services.Store.instance ().get_project_via_url (get_absolute_url (href));
+
+                        if (project == null) {
+                            project = new Objects.Project.from_propstat (propstat, get_absolute_url (href));
+                            project.source_id = source.id;
+
+                            Services.Store.instance ().insert_project (project);
+                            yield update_items_for_project (project, cancellable);
+                        } else {
+                            project.update_from_propstat (propstat, false);
+                            Services.Store.instance ().update_project (project);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public async void update_items_for_project (Objects.Project project, GLib.Cancellable cancellable) {
         var xml = """<?xml version="1.0" encoding="utf-8"?>
         <x1:calendar-query xmlns:x0="DAV:" xmlns:x1="urn:ietf:params:xml:ns:caldav">
             <x0:prop>
@@ -215,7 +236,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         </x1:calendar-query>
         """;
 
-        var multi_status = yield caldav_client.propfind (project.calendar_url, xml, 1, cancellable);
+        var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
 
         foreach (var response in multi_status.responses ()) {
             string? href = response.href;
@@ -223,9 +244,45 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             foreach (var propstat in response.propstats ()) {
                 if (propstat.status != Soup.Status.OK) continue;
 
+                var calendar_data = propstat.get_first_prop_with_tagname ("calendar-data");
+                string? parent_id = Util.find_string_value ("RELATED-TO", calendar_data.text_content);
 
+                Objects.Item item = new Objects.Item.from_vtodo (calendar_data.text_content, get_absolute_url (href), project.id);
+
+                if (parent_id != "") {
+                    Objects.Item ? parent_item = Services.Store.instance ().get_item (parent_id);
+                    if (parent_item != null) {
+                        parent_item.add_item_if_not_exists (item);
+                    } else {
+                        project.add_item_if_not_exists (item);
+                    }
+                } else {
+                    project.add_item_if_not_exists (item);
+                }
             }
         }
     }
 
+
+    private bool is_vtodo_calendar (GXml.DomElement? resourcetype, GXml.DomElement? supported_calendar) {
+        if (resourcetype == null) {
+            return false;
+        }
+
+        bool is_calendar = resourcetype.get_elements_by_tag_name ("calendar").length > 0;
+        if (!is_calendar) {
+            return false;
+        }
+
+        if (supported_calendar != null) {
+            var calendar_comps = supported_calendar.get_elements_by_tag_name ("comp");
+            foreach (GXml.DomElement calendar_comp in calendar_comps) {
+                if (calendar_comp.get_attribute ("name") == "VTODO") {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }

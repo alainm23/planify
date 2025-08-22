@@ -255,6 +255,7 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     // TODO: ID is deprecated, not valid for every caldav implementation
+    // TODO: Also check why is_deck is needed
     public bool is_deck {
         get {
             return id.contains ("deck--board");
@@ -327,28 +328,24 @@ public class Objects.Project : Objects.BaseObject {
         backend_type = SourceType.GOOGLE_TASKS;
     }
 
-    public Project.from_caldav_xml (GXml.DomElement element) {
-        id = get_id_from_url (element);
-        if (element.get_elements_by_tag_name ("d:href").length > 0) {
-            calendar_url = element.get_elements_by_tag_name ("d:href").get_element (0).text_content;
-        } // TODO: IT SHOULD NEVER HAVE A MISSING HREF
-        update_from_xml (element);
+    public Project.from_propstat (Services.CalDAV.WebDAVPropStat propstat, string url) {
+        var resource_id = propstat.get_first_prop_with_tagname ("resource-id").text_content;
+        print ("Project Resource ID is: %s", resource_id); // TODO: Debugging check if this gives us an alternative id, instead of having to generate one ourself
+
+        id = Util.get_default ().generate_id (this); // THIS ID is INTERNAL and no longer used for requests
+        calendar_url = url;
+        update_from_propstat (propstat);
         backend_type = SourceType.CALDAV;
     }
 
-    public void update_from_xml (GXml.DomElement element, bool update_sync_token = true) {
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        name = get_content (prop.get_elements_by_tag_name ("d:displayname").get_element (0));
-
-        GXml.DomHTMLCollection colorElements = prop.get_elements_by_tag_name ("x1:calendar-color");
-        if (colorElements.length > 0) {
-            color = get_content (colorElements.get_element (0));
+    // TODO: add extra null checks
+    public void update_from_propstat (Services.CalDAV.WebDAVPropStat propstat, bool update_sync_token = true) {
+        name = propstat.get_first_prop_with_tagname ("displayname").text_content;
+        if (propstat.get_first_prop_with_tagname ("calendar-color") != null) {
+            color = propstat.get_first_prop_with_tagname ("calendar-color").text_content;
         }
-
-        GXml.DomHTMLCollection sync_token_collection = prop.get_elements_by_tag_name ("d:sync-token");
-        if (update_sync_token && sync_token_collection.length > 0) {
-            sync_id = get_content (sync_token_collection.get_element (0));
+        if (update_sync_token) {
+            sync_id = propstat.get_first_prop_with_tagname ("sync-token").text_content;
         }
     }
 
