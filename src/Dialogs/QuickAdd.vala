@@ -25,7 +25,7 @@ public class Dialogs.QuickAdd : Adw.Dialog {
 
     public QuickAdd () {
         Object (
-            content_width: 450
+            content_width: 550
         );
     }
 

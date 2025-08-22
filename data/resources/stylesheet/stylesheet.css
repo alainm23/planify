@@ -11,6 +11,10 @@ check {
     font-weight: bold;
 }
 
+.fw-600 {
+    font-weight: 600;
+}
+
 .no-padding {
     padding: 0;
 }
@@ -694,4 +698,16 @@ checkbutton.theme-selector radio:checked {
     transform: scale(1.3);
     opacity: 0;
     transition: all 150ms ease-out;
+}
+
+.shortcut-widget {
+    background: @upcoming_bg_color;
+    color: @colorAccent;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+.keep-adding-button:checked {
+    background: alpha(#3584e4, 0.15);
+    color: #3584e4;
 }

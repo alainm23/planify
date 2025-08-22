@@ -90,11 +90,19 @@ public class Layouts.QuickAdd : Adw.Bin {
             }
         }
 
+        var info_button = new Gtk.MenuButton () {
+            popover = build_tip_popover (),
+            child = new Gtk.Image.from_icon_name ("dialog-information-symbolic")
+        };
+        info_button.add_css_class ("flat");
+
         var headerbar = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
             hexpand = true,
             css_classes = { "flat" }
         };
+
+        headerbar.pack_end (info_button);
 
         content_entry = new Gtk.Entry () {
             hexpand = true,
@@ -201,8 +209,8 @@ public class Layouts.QuickAdd : Adw.Bin {
         };
 
         create_more_button = new Gtk.ToggleButton () {
-            css_classes = { "flat" },
-            tooltip_text = _("Create More"),
+            css_classes = { "flat", "keep-adding-button" },
+            tooltip_text = _("Keep adding"),
             icon_name = "arrow-turn-down-right-symbolic",
             active = Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more")
         };
@@ -827,5 +835,99 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     private double lerp (double start, double end, double progress) {
         return start + (end - start) * progress;
+    }
+
+    private Gtk.Popover build_tip_popover () {
+        var title_label = new Gtk.Label (_("Keyboard Shortcuts")) {
+            halign = START,
+            valign = END
+        };
+        title_label.add_css_class ("font-bold");
+
+        var subtitle_label = new Gtk.Label (_("Speed up task creation with these shortcuts")) {
+            halign = START,
+            valign = START
+        };
+        subtitle_label.add_css_class ("dimmed");
+        subtitle_label.add_css_class ("caption");
+
+        var title_box = new Gtk.Box (VERTICAL, 3);
+        title_box.append (title_label);
+        title_box.append (subtitle_label);
+
+        var shortcut_box = new Gtk.Box (VERTICAL, 12) {
+            margin_top = 12
+        };
+        shortcut_box.append (build_shortcut_widget ("p1…p4", "#1e63ec", _("Set priority"), _("p1 = highest, p4 = lowest")));
+        shortcut_box.append (build_shortcut_widget ("@", "#16af54", _("Add labels"), _("Opens label selector")));
+        shortcut_box.append (build_shortcut_widget ("#", "#9141ac", _("Assign project"), _("Opens project selector")));
+        shortcut_box.append (build_shortcut_widget ("!", "#fa1955", _("Set reminder"), _("Opens reminder options")));
+
+        var popover_box = new Gtk.Box (VERTICAL, 0) {
+            margin_top = 6,
+            margin_start = 6,
+            margin_end = 6,
+            margin_bottom = 6
+        };
+
+        popover_box.append (title_box);
+        popover_box.append (shortcut_box);
+        popover_box.append (new Widgets.ContextMenu.MenuSeparator () {
+            margin_top = 3,
+            margin_bottom = 3
+        });
+        popover_box.append (build_shortcut_widget ("⮑", "#1e63ec", _("Keep adding"), _("Stay open after creating task")));
+        popover_box.append (new Widgets.ContextMenu.MenuSeparator () {
+            margin_top = 3,
+            margin_bottom = 3
+        });
+
+        popover_box.append (new Gtk.Label ("<b>%s</b>: %s".printf (_("Tip"), _("Combine shortcuts in the title field for faster creation"))) {
+            wrap = true,
+            halign = START,
+            css_classes = { "dimmed", "caption" },
+            use_markup = true
+        });
+
+        var popover = new Gtk.Popover () {
+            has_arrow = false,
+            position = BOTTOM,
+            child = popover_box
+        };
+
+        return popover;
+    }
+
+    private Gtk.Widget build_shortcut_widget (string shortcut_key, string color, string title, string subtitle) {
+        var shortcut_label = new Gtk.Label (shortcut_key) {
+            width_chars = 5,
+            valign = CENTER
+        };
+        shortcut_label.add_css_class ("caption");
+        shortcut_label.add_css_class ("shortcut-widget");
+        Util.get_default ().set_widget_color (color, shortcut_label);
+
+        var title_label = new Gtk.Label (title) {
+            halign = START,
+            valign = END
+        };
+        title_label.add_css_class ("caption");
+        title_label.add_css_class ("fw-600");
+
+        var subtitle_label = new Gtk.Label (subtitle) {
+            halign = START,
+            valign = START
+        };
+        subtitle_label.add_css_class ("dimmed");
+        subtitle_label.add_css_class ("caption");
+
+        var grid = new Gtk.Grid () {
+            column_spacing = 12
+        };
+        grid.attach (shortcut_label, 0, 0, 1, 2);
+        grid.attach (title_label, 1, 0, 1, 1);
+        grid.attach (subtitle_label, 1, 1, 1, 1);
+
+        return grid;
     }
 }
