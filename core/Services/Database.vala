@@ -2235,7 +2235,10 @@ public class Services.Database : GLib.Object {
             Services.Store.instance ().insert_source (todoist_source);
         }
 
-        if (Services.CalDAV.Core.get_default ().is_logged_in ()) {
+        var caldav_server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
+        var caldav_username = Services.Settings.get_default ().settings.get_string ("caldav-username");
+
+        if (caldav_server_url != "" && caldav_username != "") {
             var caldav_source = new Objects.Source ();
             caldav_source.id = SourceType.CALDAV.to_string ();
             caldav_source.source_type = SourceType.CALDAV;
