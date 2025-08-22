@@ -50,6 +50,12 @@ public class Layouts.QuickAdd : Adw.Bin {
     public bool project_picker_activate_shortcut { get; set; default = false; }
     public bool reminder_picker_activate_shortcut { get; set; default = false; }
 
+    public const string SHORTCUTS_KEY_LABELS = "@";
+    public const string SHORTCUTS_KEY_PROJECTS = "#";
+    public const string SHORTCUTS_KEY_REMINDERS = "!";
+
+    private Gee.HashMap<string, GLib.Regex> shortcuts_regex_map = new Gee.HashMap<string, GLib.Regex> ();
+
     public bool is_loading {
         set {
             submit_button.is_loading = value;
@@ -295,10 +301,6 @@ public class Layouts.QuickAdd : Adw.Bin {
             if (Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
                 Services.Settings.get_default ().settings.set_string ("quick-add-project-selected", project.id);
             }
-
-            if (project_change && project_picker_activate_shortcut) {
-                remove_entry_char ("#");
-            }
         });
 
         project_picker_button.section_change.connect ((section) => {
@@ -314,13 +316,13 @@ public class Layouts.QuickAdd : Adw.Bin {
 
             if (!active) {
                 Timeout.add (250, () => {
+                    if (project_picker_activate_shortcut) {
+                        entry_focus ();
+                    }
+
                     project_picker_activate_shortcut = false;
                     return GLib.Source.REMOVE;
                 });
-
-                if (project_picker_activate_shortcut) {
-                    entry_focus ();
-                }
             }
         });
 
@@ -341,24 +343,19 @@ public class Layouts.QuickAdd : Adw.Bin {
         });
 
         label_button.labels_changed.connect (set_labels);
+
         label_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
 
             if (!active) {
                 Timeout.add (250, () => {
+                    if (labels_picker_activate_shortcut) {
+                        entry_focus ();
+                    }
+
                     labels_picker_activate_shortcut = false;
                     return GLib.Source.REMOVE;
                 });
-
-                if (labels_picker_activate_shortcut) {
-                    entry_focus ();
-                }
-            }
-        });
-
-        reminder_button.reminder_added.connect (() => {
-            if (reminder_picker_activate_shortcut) {
-                remove_entry_char ("!");
             }
         });
 
@@ -367,13 +364,13 @@ public class Layouts.QuickAdd : Adw.Bin {
 
             if (!active) {
                 Timeout.add (250, () => {
+                    if (reminder_picker_activate_shortcut) {
+                        entry_focus ();
+                    }
+
                     reminder_picker_activate_shortcut = false;
                     return GLib.Source.REMOVE;
                 });
-
-                if (reminder_picker_activate_shortcut) {
-                    entry_focus ();
-                }
             }
         });
 
@@ -392,7 +389,10 @@ public class Layouts.QuickAdd : Adw.Bin {
         content_entry.changed.connect (() => {
             info_revealer.reveal_child = false;
             content_entry.remove_css_class ("error");
-            check_priority_regex (content_entry.get_text ());
+            handle_priority_shortcut (content_entry.get_text ());
+            handle_text_trigger (SHORTCUTS_KEY_LABELS, content_entry.get_text ());
+            handle_text_trigger (SHORTCUTS_KEY_PROJECTS, content_entry.get_text ());
+            handle_text_trigger (SHORTCUTS_KEY_REMINDERS, content_entry.get_text ());
         });
 
         var content_controller_key = new Gtk.EventControllerKey ();
@@ -403,23 +403,6 @@ public class Layouts.QuickAdd : Adw.Bin {
             }
 
             return false;
-        });
-
-        content_controller_key.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == Gdk.Key.at) {
-                labels_picker_activate_shortcut = true;
-                label_button.open_picker ();
-            }
-
-            if (keyval == 35) {
-                project_picker_activate_shortcut = true;
-                project_picker_button.open_picker ();
-            }
-
-            if (keyval == 33) {
-                reminder_picker_activate_shortcut = true;
-                reminder_button.open_picker (true);
-            }
         });
 
         var description_controller_key = new Gtk.EventControllerKey ();
@@ -684,19 +667,18 @@ public class Layouts.QuickAdd : Adw.Bin {
         item.custom_order = true;
     }
 
-    private GLib.Regex priority_regex = null;
-    private void check_priority_regex (string text) {
+    private void handle_priority_shortcut (string text) {
         GLib.MatchInfo match;
 
-        if (priority_regex == null) {
+        if (!shortcuts_regex_map.has_key ("priority")) {
             try {
-                priority_regex = new GLib.Regex ("(?:^|\\s)(p[1-4])(?:$|\\s)", RegexCompileFlags.MULTILINE);
+                shortcuts_regex_map["priority"] = new GLib.Regex ("(?:^|\\s)(p[1-4])(?:$|\\s)", RegexCompileFlags.MULTILINE);
             } catch (Error e) {
                 critical (e.message);
             }
         }
 
-        if (priority_regex.match (text, 0, out match)) {
+        if (shortcuts_regex_map["priority"].match (text, 0, out match)) {
             string result = match.fetch (1);
 
             animate_priority_to_button_single (result);
@@ -704,6 +686,36 @@ public class Layouts.QuickAdd : Adw.Bin {
             string new_text = text.replace (result, "");
             content_entry.text = new_text;
             entry_focus ();
+        }
+    }
+
+    private void handle_text_trigger (string key, string text) {
+        GLib.MatchInfo match;
+
+        if (!shortcuts_regex_map.has_key (key)) {
+            try {
+                shortcuts_regex_map[key] = new GLib.Regex ("(?:^|\\s)(%s)(?:$|\\s)".printf (key), RegexCompileFlags.MULTILINE);
+            } catch (Error e) {
+                critical (e.message);
+            }
+        }
+
+        if (shortcuts_regex_map[key].match (text, 0, out match)) {
+            string result = match.fetch (1);
+
+            string new_text = text.replace (result, "");
+            content_entry.text = new_text;
+
+            if (key == SHORTCUTS_KEY_LABELS) {
+                labels_picker_activate_shortcut = true;
+                label_button.open_picker ();
+            } else if (key == SHORTCUTS_KEY_PROJECTS) {
+                project_picker_activate_shortcut = true;
+                project_picker_button.open_picker ();
+            } else if (key == SHORTCUTS_KEY_REMINDERS) {
+                reminder_picker_activate_shortcut = true;
+                reminder_button.open_picker (true);
+            }
         }
     }
 
