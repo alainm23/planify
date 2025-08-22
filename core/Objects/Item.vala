@@ -177,11 +177,17 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    string _ics = "";
-    public string ics {
+    string _ical_url = "";
+    public string ical_url {
         get {
-            _ics = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "ics");
-            return _ics;
+            var old_ics_value = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "ics");
+            if (old_ics_value != null) {
+                _ical_url = "%s/%s".printf (project.calendar_url, old_ics_value);
+                // TODO: Add proper migration
+            }else {
+                _ical_url = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "ical_url");
+            }
+            return _ical_url;
         }
     }
 
@@ -394,25 +400,26 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    // TODO: Deprecate Method
     public Item.from_caldav_xml (GXml.DomElement element, string _project_id) {
         GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
         string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
 
         project_id = _project_id;
-        patch_from_vtodo (data, Util.get_task_id_from_url (element));
+        // patch_from_vtodo (data, Util.get_task_id_from_url (element)); // TODO: Make this use the full link
     }
 
-    public Item.from_vtodo (string data, string _ics, string _project_id) {
+    public Item.from_vtodo (string data, string _ical_url, string _project_id) {
         project_id = _project_id;
-        patch_from_vtodo (data, _ics);
+        patch_from_vtodo (data, _ical_url);
     }
 
-    public void update_from_vtodo (string data, string _ics) {
-        patch_from_vtodo (data, _ics, true);
+    public void update_from_vtodo (string data, string _ical_url) {
+        patch_from_vtodo (data, _ical_url, true);
     }
 
-    public void patch_from_vtodo (string data, string _ics, bool is_update = false) {
+    public void patch_from_vtodo (string data, string _ical_url, bool is_update = false) {
         ICal.Component ical = ICal.Parser.parse_string (data);
         ICal.Component ? ical_vtodo = ical.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
         ECal.Component ecal = new ECal.Component.from_icalcomponent (ical_vtodo);
@@ -483,7 +490,7 @@ public class Objects.Item : Objects.BaseObject {
             pinned = false;
         }
 
-        extra_data = Util.generate_extra_data (_ics, "", ical.as_ical_string ());
+        extra_data = Util.generate_extra_data (_ical_url, "", ical.as_ical_string ());
 
         if (is_update) {
             check_labels (get_labels_maps_from_caldav (ecal.get_categories_list ()));

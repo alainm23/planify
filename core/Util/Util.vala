@@ -886,12 +886,12 @@ We hope you’ll enjoy using Planify!""");
         return bool.parse (match.fetch_all () [1]);
     }
 
-    public static string generate_extra_data (string ics, string etag, string data) {
+    public static string generate_extra_data (string ical_url, string etag, string data) {
         var builder = new Json.Builder ();
         builder.begin_object ();
 
-        builder.set_member_name ("ics");
-        builder.add_string_value (ics);
+        builder.set_member_name ("ical_url");
+        builder.add_string_value (ical_url);
 
         builder.set_member_name ("etag");
         builder.add_string_value (etag);

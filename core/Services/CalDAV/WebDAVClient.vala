@@ -64,6 +64,25 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
 
         return new WebDAVMultiStatus.from_string ((string) stream.get_data ());
     }
+
+    public async WebDAVMultiStatus report (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
+        string abs_url = get_absolute_url (url);
+
+        if (abs_url == null)
+            throw new GLib.IOError.FAILED ("Invalid URL: %s".printf (url));
+
+        var msg = new Soup.Message ("REPORT", abs_url);
+        apply_auth_headers (msg);
+        msg.request_headers.append ("Depth", depth);
+        msg.set_request_body_from_bytes ("application/xml", new Bytes (xml.data));
+
+        GLib.Bytes stream = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
+
+        if (msg.status_code != Soup.Status.MULTI_STATUS)
+            throw new GLib.IOError.FAILED ("REPORT failed with status %u".printf (msg.status_code));
+
+        return new WebDAVMultiStatus.from_string ((string) stream.get_data ());
+    }
 }
 
 

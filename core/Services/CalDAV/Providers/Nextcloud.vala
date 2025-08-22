@@ -79,29 +79,6 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
     """;
 
     // vala-lint=naming-convention
-    public static string TASKS_REQUEST = """
-        <?xml version="1.0" encoding="utf-8"?>
-        <x1:calendar-query xmlns:x1="urn:ietf:params:xml:ns:caldav">
-            <x0:prop xmlns:x0="DAV:">
-                <x0:getetag/>
-                <x0:displayname/>
-                <x0:owner/>
-                <x0:sync-token/>
-                <x0:current-user-privilege-set/>
-                <x0:getcontenttype/>
-                <x0:resourcetype/>
-                <x1:calendar-data/>
-            </x0:prop>
-            <x1:filter>
-                <x1:comp-filter name="VCALENDAR">
-                    <x1:comp-filter name="VTODO">
-                    </x1:comp-filter>
-                </x1:comp-filter>
-            </x1:filter>
-        </x1:calendar-query>
-    """;
-
-    // vala-lint=naming-convention
     public static string TASKS_REQUEST_DETAIL = """
         <x0:propfind xmlns:x0="DAV:">
             <x0:prop>
