@@ -595,6 +595,18 @@ public class Util : GLib.Object {
         }
     }
 
+    public string get_priority_color (int priority) {
+        if (priority == Constants.PRIORITY_1) {
+            return "#ff7066";
+        } else if (priority == Constants.PRIORITY_2) {
+            return "#ff9914";
+        } else if (priority == Constants.PRIORITY_3) {
+            return "#5297ff";
+        } else {
+            return "@text_color";
+        }
+    }
+
     private Gee.HashMap<string, Objects.Filters.Priority> priority_views;
     public Objects.Filters.Priority get_priority_filter (string view_id) {
         if (priority_views == null) {

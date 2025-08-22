@@ -1,35 +1,86 @@
 @keyframes spin-loading {
-    from {-gtk-icon-transform: rotate(0deg);}
-    to {-gtk-icon-transform: rotate(360deg);}
+    from {
+        -gtk-icon-transform: rotate(0deg);
+    }
+    to {
+        -gtk-icon-transform: rotate(360deg);
+    }
 }
 
 @keyframes fancy-turn {
-    0%   { -gtk-icon-transform: rotate(0deg);   }
-    25%  { -gtk-icon-transform: rotate(-30deg); }
-    50%  { -gtk-icon-transform: rotate(0deg);   }
-    75%  { -gtk-icon-transform: rotate(30deg);  }
-    100% { -gtk-icon-transform: rotate(0deg);   }
+    0% {
+        -gtk-icon-transform: rotate(0deg);
+    }
+    25% {
+        -gtk-icon-transform: rotate(-30deg);
+    }
+    50% {
+        -gtk-icon-transform: rotate(0deg);
+    }
+    75% {
+        -gtk-icon-transform: rotate(30deg);
+    }
+    100% {
+        -gtk-icon-transform: rotate(0deg);
+    }
 }
 
 @keyframes add-animation {
-    0% { -gtk-icon-transform: rotate(0deg); }
-    100% { -gtk-icon-transform: rotate(180deg); }
+    0% {
+        -gtk-icon-transform: rotate(0deg);
+    }
+    100% {
+        -gtk-icon-transform: rotate(180deg);
+    }
 }
 
 @keyframes breathing {
     0% {
-      -gtk-icon-transform: scale(0.9);
+        -gtk-icon-transform: scale(0.9);
     }
-  
+
     25% {
-      -gtk-icon-transform: scale(1);
+        -gtk-icon-transform: scale(1);
     }
-  
+
     60% {
-      -gtk-icon-transform: scale(0.9);
+        -gtk-icon-transform: scale(0.9);
     }
-  
+
     100% {
-      -gtk-icon-transform: scale(0.9);
+        -gtk-icon-transform: scale(0.9);
     }
-  }
+}
+
+@keyframes fancy-bounce-turn {
+    0% {
+        -gtk-icon-transform: rotate(0deg) scale(1);
+    }
+    20% {
+        -gtk-icon-transform: rotate(-30deg) scale(1.5);
+    }
+    50% {
+        -gtk-icon-transform: rotate(0deg) scale(1);
+    }
+    80% {
+        -gtk-icon-transform: rotate(30deg) scale(1.5);
+    }
+    100% {
+        -gtk-icon-transform: rotate(0deg) scale(1);
+    }
+}
+
+@keyframes priority-pulse {
+    0% {
+        -gtk-icon-transform: scale(1);
+        box-shadow: 0 0 0 0 alpha(@accent_color, 0.4);
+    }
+    50% {
+        -gtk-icon-transform: scale(1.05);
+        box-shadow: 0 0 0 8px alpha(@accent_color, 0);
+    }
+    100% {
+        -gtk-icon-transform: scale(1);
+        box-shadow: 0 0 0 0 alpha(@accent_color, 0);
+    }
+}

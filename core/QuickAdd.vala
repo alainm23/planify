@@ -36,6 +36,8 @@ public class Layouts.QuickAdd : Adw.Bin {
     private Gtk.Stack main_stack;
     private Gtk.ToggleButton create_more_button;
     private Gtk.Revealer info_revealer;
+    private Gtk.Overlay animation_overlay;
+    private Gtk.Fixed animation_container;
 
     public signal void hide_destroy ();
     public signal void send_interface_id (string id);
@@ -252,7 +254,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         added_box.halign = Gtk.Align.CENTER;
         added_box.valign = Gtk.Align.CENTER;
         added_box.append (added_image);
-        
+
         main_stack = new Gtk.Stack () {
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
@@ -260,8 +262,15 @@ public class Layouts.QuickAdd : Adw.Bin {
         main_stack.add_named (warning_box, "warning");
         main_stack.add_named (added_box, "added");
 
+        animation_container = new Gtk.Fixed () {
+            can_target = false
+        };
+        animation_overlay = new Gtk.Overlay ();
+
         var window = new Gtk.WindowHandle ();
-        window.set_child (main_stack);
+        animation_overlay.set_child (main_stack);
+        animation_overlay.add_overlay (animation_container);
+        window.set_child (animation_overlay);
 
         child = window;
 
@@ -681,7 +690,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         if (priority_regex == null) {
             try {
-                priority_regex = new GLib.Regex (".*(p[1-4])", RegexCompileFlags.MULTILINE);
+                priority_regex = new GLib.Regex ("(?:^|\\s)(p[1-4])(?:$|\\s)", RegexCompileFlags.MULTILINE);
             } catch (Error e) {
                 critical (e.message);
             }
@@ -689,12 +698,121 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         if (priority_regex.match (text, 0, out match)) {
             string result = match.fetch (1);
-            set_priority (ItemPriority.parse (result));
-            priority_button.animation ();
+
+            animate_priority_to_button_single (result);
 
             string new_text = text.replace (result, "");
             content_entry.text = new_text;
             entry_focus ();
         }
+    }
+
+    private void animate_priority_to_button_single (string priority_text) {
+        double entry_x, entry_y;
+        double button_x, button_y;
+
+        Graphene.Point entry_point;
+        if (!content_entry.compute_point (animation_overlay, Graphene.Point (), out entry_point)) {
+            return;
+        }
+        entry_x = entry_point.x;
+        entry_y = entry_point.y;
+
+        Graphene.Point button_point;
+        if (!priority_button.compute_point (animation_overlay, Graphene.Point (), out button_point)) {
+            return;
+        }
+        button_x = button_point.x;
+        button_y = button_point.y;
+
+        var cursor_x_offset = get_cursor_position_in_entry ();
+
+        var start_x = entry_x + cursor_x_offset;
+        var start_y = entry_y + content_entry.get_height () / 2;
+        var end_x = button_x + priority_button.get_width () / 2;
+        var end_y = button_y + priority_button.get_height () / 2;
+
+        var flying_label = new Gtk.Label (priority_text) {
+            css_classes = { "priority-flying-label" }
+        };
+
+        var priority = ItemPriority.parse (priority_text);
+
+        animation_container.put (flying_label, (int) start_x, (int) start_y);
+        Util.get_default ().set_widget_color (
+            priority.get_color (),
+            flying_label
+        );
+
+        var target = new Adw.CallbackAnimationTarget ((progress) => {
+            var current_x = (int) lerp (start_x, end_x, progress);
+            var current_y = (int) lerp (start_y, end_y, progress);
+
+            animation_container.move (flying_label, current_x, current_y);
+
+            flying_label.opacity = 1.0 - (progress * 0.3);
+        });
+
+        var animation = new Adw.TimedAnimation (
+            flying_label,
+            0.0,
+            1.0,
+            600,
+            target
+        );
+
+        animation.easing = Adw.Easing.EASE_OUT_CUBIC;
+
+        animation.done.connect (() => {
+            flying_label.add_css_class ("priority-label-impact");
+            animation_container.remove (flying_label);
+            priority_button.animation ();
+            set_priority (priority);
+        });
+
+        animation.play ();
+    }
+
+    private double get_cursor_position_in_entry () {
+        var text = content_entry.get_text ();
+        var cursor_pos = content_entry.get_position ();
+
+        var pango_layout = content_entry.create_pango_layout ("");
+        pango_layout.set_text (text.substring (0, cursor_pos), -1);
+        pango_layout.set_font_description (content_entry.get_pango_context ().get_font_description ());
+
+        int text_width, text_height;
+        pango_layout.get_pixel_size (out text_width, out text_height);
+
+        var style_context = content_entry.get_style_context ();
+        var padding = style_context.get_padding ();
+
+        return padding.left + text_width;
+    }
+
+    private double get_precise_cursor_position () {
+        var text = content_entry.get_text ();
+        var cursor_pos = content_entry.get_position ();
+
+        var pango_context = content_entry.get_pango_context ();
+        var font_desc = pango_context.get_font_description ();
+
+        var layout = new Pango.Layout (pango_context);
+        layout.set_font_description (font_desc);
+        layout.set_text (text.substring (0, cursor_pos), -1);
+
+        int width, height;
+        layout.get_pixel_size (out width, out height);
+
+        // Agregar el padding interno del Entry
+        var style_context = content_entry.get_style_context ();
+        var padding = style_context.get_padding ();
+        var margin = style_context.get_margin ();
+
+        return margin.left + padding.left + width;
+    }
+
+    private double lerp (double start, double end, double progress) {
+        return start + (end - start) * progress;
     }
 }
