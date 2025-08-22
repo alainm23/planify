@@ -179,11 +179,11 @@ public class Services.CalDAV.Core : GLib.Object {
 
             Services.Store.instance ().insert_source (source);
 
-            Gee.ArrayList<Objects.Project> projects = yield caldav_client.fetch_project_list (source.caldav_data.calendar_home_url, source, cancellable);
+            Gee.ArrayList<Objects.Project> projects = yield caldav_client.fetch_project_list (source, cancellable);
 
             foreach (Objects.Project project in projects) {
                 Services.Store.instance ().insert_project (project);
-                yield get_all_tasks_by_tasklist (project);
+                yield caldav_client.update_items_for_project (project, cancellable);
             }
 
             first_sync_finished ();
@@ -198,87 +198,14 @@ public class Services.CalDAV.Core : GLib.Object {
         return response;
     }
 
-    public async void get_all_tasks_by_tasklist (Objects.Project project) {
-        var caldav_client = new Services.CalDAV.CalDAVClient (session, project.source.caldav_data.server_url, project.source.caldav_data.credentials);
-
-        var message = new Soup.Message ("REPORT", project.calendar_url);
-        message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
-        message.request_headers.append ("Depth", "1");
-        message.set_request_body_from_bytes ("application/xml", new Bytes (Services.CalDAV.Providers.Nextcloud.TASKS_REQUEST.data));
-
-        try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-
-            GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
-            GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
-
-            foreach (GXml.DomElement element in response) {
-                add_item_if_not_exists (element, project);
-            }
-        } catch (Error e) {
-            debug (e.message);
-        }
-    }
-
-    private Objects.Item add_item_if_not_exists (GXml.DomElement element, Objects.Project project) {
-        Objects.Item return_value = new Objects.Item.from_caldav_xml (element, project.id);
-
-        string parent_id = Util.get_related_to_uid (element);
-        if (parent_id != "") {
-            Objects.Item ? parent_item = Services.Store.instance ().get_item (parent_id);
-            if (parent_item != null) {
-                parent_item.add_item_if_not_exists (return_value);
-            } else {
-                project.add_item_if_not_exists (return_value);
-            }
-        } else {
-            project.add_item_if_not_exists (return_value);
-        }
-
-        return return_value;
-    }
 
     public async void sync (Objects.Source source) {
-        if (!providers_map.has_key (source.caldav_data.caldav_type.to_string ())) {
-            return;
-        }
-
-        Services.CalDAV.Providers.Base provider = providers_map.get (source.caldav_data.caldav_type.to_string ());
-
-        var url = "%s/calendars/%s/".printf (source.caldav_data.server_url, source.caldav_data.username);
-        var message = new Soup.Message ("PROPFIND", url);
-        message.request_headers.append ("Authorization", "Basic %s".printf (source.caldav_data.credentials));
-        message.request_headers.append ("Depth", "1");
-        message.set_request_body_from_bytes ("application/xml", new Bytes (provider.TASKLIST_REQUEST.data));
+        var caldav_client = new Services.CalDAV.CalDAVClient (session, source.caldav_data.server_url, source.caldav_data.credentials);
 
         source.sync_started ();
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-
-            GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
-            GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
-
-            foreach (GXml.DomElement element in response) {
-                if (is_vtodo_calendar (element)) {
-                    Objects.Project ? project = Services.Store.instance ().get_project (get_tasklist_id_from_url (element));
-                    if (project == null) {
-                        project = new Objects.Project.from_caldav_xml (element); // TODO: HERE IS BAD ID STUFF, drop method if possible
-                        project.source_id = source.id;
-
-                        Services.Store.instance ().insert_project (project);
-                        yield get_all_tasks_by_tasklist (project);
-                    } else {
-                        project.update_from_xml (element, false);
-                        Services.Store.instance ().update_project (project);
-                    }
-                } else if (is_deleted_calendar (element)) {
-                    Objects.Project ? project = Services.Store.instance ().get_project (get_tasklist_id_from_url (element));
-                    if (project != null) {
-                        Services.Store.instance ().delete_project (project);
-                    }
-                }
-            }
+            yield caldav_client.sync (source, new GLib.Cancellable ());
 
             foreach (Objects.Project project in Services.Store.instance ().get_projects_by_source (source.id)) {
                 yield sync_tasklist (project);
@@ -300,8 +227,7 @@ public class Services.CalDAV.Core : GLib.Object {
         project.loading = true;
         yield update_tasklist_detail (project);
 
-        var url = "%s/calendars/%s/%s".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
-        var message = new Soup.Message ("REPORT", url);
+        var message = new Soup.Message ("REPORT", project.calendar_url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
         message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.SYNC_TOKEN_REQUEST.printf (project.sync_id)).data));
 
@@ -318,10 +244,11 @@ public class Services.CalDAV.Core : GLib.Object {
 
             foreach (GXml.DomElement element in response) {
                 GXml.DomHTMLCollection status = element.get_elements_by_tag_name ("d:status");
-                string ics = get_task_ics_from_url (element);
+
+                string ical_url = make_absolute_url (project.source.caldav_data.server_url, get_href_from_element (element));
 
                 if (status.length > 0 && status.get_element (0).text_content == "HTTP/1.1 404 Not Found") { // TODO: Use the soup parser -> See WebDAVClient.vala
-                    Objects.Item ? item = Services.Store.instance ().get_item_by_ics (ics);
+                    Objects.Item ? item = Services.Store.instance ().get_item_by_ical_url (ical_url);
                     if (item != null) {
                         Services.Store.instance ().delete_item (item);
                     }
@@ -330,7 +257,7 @@ public class Services.CalDAV.Core : GLib.Object {
                         continue;
                     }
 
-                    string vtodo = yield get_vtodo_by_url (project, ics);
+                    string vtodo = yield get_vtodo_by_url (project, ical_url);
 
                     ICal.Component ical = new ICal.Component.from_string (vtodo);
                     Objects.Item ? item = Services.Store.instance ().get_item (ical.get_uid ());
@@ -340,7 +267,7 @@ public class Services.CalDAV.Core : GLib.Object {
                         string old_parent_id = item.parent_id;
                         bool old_checked = item.checked;
 
-                        item.update_from_vtodo (vtodo, ics);
+                        item.update_from_vtodo (vtodo, ical_url);
                         item.project_id = project.id;
                         Services.Store.instance ().update_item (item);
 
@@ -352,7 +279,7 @@ public class Services.CalDAV.Core : GLib.Object {
                             Services.Store.instance ().complete_item (item, old_checked);
                         }
                     } else {
-                        var new_item = new Objects.Item.from_vtodo (vtodo, ics, project.id);
+                        var new_item = new Objects.Item.from_vtodo (vtodo, ical_url, project.id);
                         if (new_item.has_parent) {
                             Objects.Item ? parent_item = new_item.parent;
                             if (parent_item != null) {
@@ -379,9 +306,7 @@ public class Services.CalDAV.Core : GLib.Object {
         project.loading = false;
     }
 
-    private async string ? get_vtodo_by_url (Objects.Project project, string task_ics) {
-        var url = "%s/%s".printf (project.calendar_url, task_ics);
-
+    private async string ? get_vtodo_by_url (Objects.Project project, string url) {
         var message = new Soup.Message ("GET", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
 
@@ -404,10 +329,9 @@ public class Services.CalDAV.Core : GLib.Object {
         return parts[parts.length - 2];
     }
 
-    public string get_task_ics_from_url (GXml.DomElement element) {
+    public string get_href_from_element (GXml.DomElement element) {
         GXml.DomElement href = element.get_elements_by_tag_name ("d:href").get_element (0);
-        string[] parts = href.text_content.split ("/");
-        return parts[parts.length - 1];
+        return href.text_content;
     }
 
     public bool is_vtodo (GXml.DomElement element) {
@@ -580,9 +504,7 @@ public class Services.CalDAV.Core : GLib.Object {
      */
 
     public async HttpResponse add_task (Objects.Item item, bool update = false) {
-        var ics = update ? item.ics : "%s.ics".printf (item.id);
-
-        var url = "%s/%s".printf (item.project.calendar_url, ics);
+        var url = update ? item.ical_url : "%s/%s".printf (item.project.calendar_url, "%s.ics".printf (item.id));
 
         var message = new Soup.Message ("PUT", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (item.project.source.caldav_data.credentials));
@@ -595,7 +517,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
             if (update ? message.get_status () == Soup.Status.NO_CONTENT : message.get_status () == Soup.Status.CREATED) {
                 response.status = true;
-                item.extra_data = Util.generate_extra_data (ics, "", item.to_vtodo ());
+                item.extra_data = Util.generate_extra_data (url, "", item.to_vtodo ());
             }
         } catch (Error e) {
             debug (e.message);
@@ -605,9 +527,7 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     public async HttpResponse delete_task (Objects.Item item) {
-        var url = "%s/%s".printf (item.project.calendar_url, item.ics);
-
-        var message = new Soup.Message ("DELETE", url);
+        var message = new Soup.Message ("DELETE", item.ical_url);
         message.request_headers.append ("Authorization", "Basic %s".printf (item.project.source.caldav_data.credentials));
 
         HttpResponse response = new HttpResponse ();
@@ -632,9 +552,7 @@ public class Services.CalDAV.Core : GLib.Object {
     public async HttpResponse complete_item (Objects.Item item) {
         var body = item.to_vtodo ();
 
-        var url = "%s/%s".printf (item.project.calendar_url, item.ics);
-
-        var message = new Soup.Message ("PUT", url);
+        var message = new Soup.Message ("PUT", item.ical_url);
         message.request_headers.append ("Authorization", "Basic %s".printf (item.project.source.caldav_data.credentials));
         message.set_request_body_from_bytes ("application/xml", new Bytes (body.data));
 
@@ -645,7 +563,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
             if (message.get_status () == Soup.Status.NO_CONTENT) {
                 response.status = true;
-                item.extra_data = Util.generate_extra_data (item.ics, "", body);
+                item.extra_data = Util.generate_extra_data (item.ical_url, "", body);
             } else {
                 response.error_code = (int) message.status_code;
                 response.error = (string) stream.get_data ();
@@ -658,9 +576,8 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     public async HttpResponse move_task (Objects.Item item, Objects.Project destination_project) {
-        // TODO: THIS NEEDS TO HAVE destination project url and not project_id
-        var url = "%s/%s".printf (item.project.calendar_url, item.ics);
-        var destination = "%s/%s".printf (destination_project.calendar_url, item.ics);
+        var url = item.ical_url;
+        var destination = "%s/%s".printf (destination_project.calendar_url, "%s.ics".printf (item.id));
 
         var message = new Soup.Message ("MOVE", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (item.project.source.caldav_data.credentials));
@@ -695,28 +612,7 @@ public class Services.CalDAV.Core : GLib.Object {
         return server_url != "" && username != "";
     }
 
-    public bool is_vtodo_calendar (GXml.DomElement element) {
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        GXml.DomElement resourcetype = prop.get_elements_by_tag_name ("d:resourcetype").get_element (0);
-
-        bool is_calendar = resourcetype.get_elements_by_tag_name ("cal:calendar").length > 0;
-        bool is_vtodo = false;
-
-        if (is_calendar) {
-            GXml.DomElement supported_calendar = prop.get_elements_by_tag_name ("cal:supported-calendar-component-set").get_element (0);
-            GXml.DomHTMLCollection calendar_comps = supported_calendar.get_elements_by_tag_name ("cal:comp");
-            foreach (GXml.DomElement calendar_comp in calendar_comps) {
-                if (calendar_comp.get_attribute ("name") == "VTODO") {
-                    is_vtodo = true;
-                }
-            }
-        }
-
-        return is_vtodo;
-    }
-
-    public bool is_deleted_calendar (GXml.DomElement element) {
+    public bool is_deleted_calendar (GXml.DomElement element) { // TODO: Implement this in new sync
         GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
         GXml.DomElement resourcetype = prop.get_elements_by_tag_name ("d:resourcetype").get_element (0);
