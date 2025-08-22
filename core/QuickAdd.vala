@@ -377,7 +377,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         var destroy_controller = new Gtk.EventControllerKey ();
         add_controller (destroy_controller);
         destroy_controller.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
+            if (keyval == Gdk.Key.Escape) {
                 hide_destroy ();
             }
         });
@@ -398,7 +398,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         var content_controller_key = new Gtk.EventControllerKey ();
         content_entry.add_controller (content_controller_key);
         content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-            if (keyval == 65293 && ctrl_pressed) {
+            if (keyval == Gdk.Key.Return && ctrl_pressed) {
                 add_item ();
             }
 
@@ -408,7 +408,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         var description_controller_key = new Gtk.EventControllerKey ();
         description_textview.add_controller (description_controller_key);
         description_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-            if (ctrl_pressed && keyval == 65293) {
+            if (ctrl_pressed && keyval == Gdk.Key.Return) {
                 add_item ();
             }
 
@@ -418,7 +418,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         var event_controller_key = new Gtk.EventControllerKey ();
         ((Gtk.Widget) this).add_controller (event_controller_key);
         event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-            if (keyval == 65507) {
+            if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
                 ctrl_pressed = true;
                 create_more_button.active = ctrl_pressed;
             }
@@ -427,7 +427,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         });
 
         event_controller_key.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == 65507) {
+            if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
                 ctrl_pressed = false;
                 create_more_button.active = ctrl_pressed;
             }
@@ -526,9 +526,10 @@ public class Layouts.QuickAdd : Adw.Bin {
     public void added_successfully () {
         main_stack.visible_child_name = "added";
         added_image.add_css_class ("fancy-turn-animation");
+        bool create_more = create_more_button.active;
 
         Timeout.add (750, () => {
-            if (create_more_button.active) {
+            if (create_more) {
                 main_stack.visible_child_name = "main";
                 added_image.remove_css_class ("fancy-turn-animation");
 
