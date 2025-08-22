@@ -606,12 +606,6 @@ public class Services.CalDAV.Core : GLib.Object {
      *  Utils
      */
 
-    public bool is_logged_in () {
-        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
-        return server_url != "" && username != "";
-    }
-
     public bool is_deleted_calendar (GXml.DomElement element) { // TODO: Implement this in new sync
         GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
