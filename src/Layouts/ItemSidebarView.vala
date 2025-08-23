@@ -281,9 +281,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     private void update_content_description () {
-        if (item.content != content_textview.buffer.text ||
+        if (item.content != content_textview.get_text () ||
             item.description != current_buffer.get_all_text ().chomp ()) {
-            item.content = content_textview.buffer.text;
+            item.content = content_textview.get_text ();
             item.description = current_buffer.get_all_text ().chomp ();
             item.update_async_timeout (update_id);
         }
@@ -369,7 +369,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     public void update_request () {
-        content_textview.buffer.text = item.content;
+        content_textview.set_text (item.content);
 
         if (description_handler_change_id != 0) {
             current_buffer.disconnect (description_handler_change_id);

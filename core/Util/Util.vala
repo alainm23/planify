@@ -365,11 +365,6 @@ public class Util : GLib.Object {
         return str;
     }
 
-
-    public string escape_text (string text) {
-        return GLib.Markup.escape_text (text, text.length);
-    }
-
     private Gtk.MediaFile soud_medida = null;
     public void play_audio () {
         if (soud_medida == null) {
@@ -1130,162 +1125,6 @@ We hope you’ll enjoy using Planify!""");
         }
     }
 
-    public string markup_string (string _text) {
-        var text = escape_text (_text);
-
-        try {
-            Regex mailto_regex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/; // vala-lint=space-before-paren
-            Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/; // vala-lint=space-before-paren
-            Regex url_markdown = new Regex ("\\[([^\\]]+)\\]\\(([^\\)]+)\\)");
-
-            Regex italic_bold_regex = /\*\*\*(.*?)\*\*\*/; // vala-lint=space-before-paren
-            Regex bold_regex = /\*\*(.*?)\*\*/; // vala-lint=space-before-paren
-            Regex italic_regex = /\*(.*?)\*/; // vala-lint=space-before-paren
-            Regex underline_regex = /_(.*?)_/; // vala-lint=space-before-paren
-
-            Regex italic_bold_underline_regex = /\*\*\*_([^*]+)_\*\*\*/; // vala-lint=space-before-paren
-            Regex bold_underline_regex = /\*\*_([^*]+)_\*\*/; // vala-lint=space-before-paren
-            Regex italic_underline_regex = /\*_(.*?)_\*/; // vala-lint=space-before-paren
-
-            MatchInfo info;
-
-            List<string> emails = new List<string> ();
-            if (mailto_regex.match (text, 0, out info)) {
-                do {
-                    var email = info.fetch_named ("mailto");
-                    emails.append (email);
-                } while (info.next ());
-            }
-
-            Gee.ArrayList<RegexMarkdown> markdown_urls = new Gee.ArrayList<RegexMarkdown> ();
-            if (url_markdown.match (text, 0, out info)) {
-                do {
-                    markdown_urls.add (new RegexMarkdown (info.fetch (0), info.fetch (1), info.fetch (2)));
-                } while (info.next ());
-            }
-
-            List<string> urls = new List<string> ();
-            if (url_regex.match (text, 0, out info)) {
-                do {
-                    var url = info.fetch_named ("url");
-
-                    if (!url_exists (url, markdown_urls)) {
-                        urls.append (url);
-                    }
-                } while (info.next ());
-            }
-
-            Gee.ArrayList<RegexMarkdown> bolds_01 = new Gee.ArrayList<RegexMarkdown> ();
-            if (bold_regex.match (text, 0, out info)) {
-                do {
-                    bolds_01.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
-                } while (info.next ());
-            }
-
-            Gee.ArrayList<RegexMarkdown> italics_01 = new Gee.ArrayList<RegexMarkdown> ();
-            if (italic_regex.match (text, 0, out info)) {
-                do {
-                    italics_01.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
-                } while (info.next ());
-            }
-
-            Gee.ArrayList<RegexMarkdown> italic_bold = new Gee.ArrayList<RegexMarkdown> ();
-            if (italic_bold_regex.match (text, 0, out info)) {
-                do {
-                    italic_bold.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
-                } while (info.next ());
-            }
-
-            Gee.ArrayList<RegexMarkdown> italic_bold_underline = new Gee.ArrayList<RegexMarkdown> ();
-            if (italic_bold_underline_regex.match (text, 0, out info)) {
-                do {
-                    italic_bold_underline.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
-                } while (info.next ());
-            }
-
-            Gee.ArrayList<RegexMarkdown> bold_underline = new Gee.ArrayList<RegexMarkdown> ();
-            if (bold_underline_regex.match (text, 0, out info)) {
-                do {
-                    bold_underline.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
-                } while (info.next ());
-            }
-
-            Gee.ArrayList<RegexMarkdown> italic_underline = new Gee.ArrayList<RegexMarkdown> ();
-            if (italic_underline_regex.match (text, 0, out info)) {
-                do {
-                    italic_underline.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
-                } while (info.next ());
-            }
-
-            Gee.ArrayList<RegexMarkdown> underlines = new Gee.ArrayList<RegexMarkdown> ();
-            if (underline_regex.match (text, 0, out info)) {
-                do {
-                    underlines.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
-                } while (info.next ());
-            }
-
-            string converted = text;
-
-            foreach (RegexMarkdown m in markdown_urls) {
-                string markdown_text = m.text;
-                string markdown_link = m.extra;
-
-                string urlAsLink = @"<a href=\"$markdown_link\">$markdown_text</a>";
-                converted = converted.replace (m.match, urlAsLink);
-            }
-
-            urls.foreach ((url) => {
-                converted = converted.replace (url, @"<a href=\"$url\">$url</a>");
-            });
-
-            emails.foreach ((email) => {
-                converted = converted.replace (email, @"<a href=\"mailto:$email\">$email</a>");
-            });
-
-            foreach (RegexMarkdown m in italic_bold_underline) {
-                converted = converted.replace (m.match, "<i><b><u>" + m.text + "</u></b></i>");
-            }
-
-            foreach (RegexMarkdown m in bold_underline) {
-                converted = converted.replace (m.match, "<b><u>" + m.text + "</u></b>");
-            }
-
-            foreach (RegexMarkdown m in italic_underline) {
-                converted = converted.replace (m.match, "<i><u>" + m.text + "</u></i>");
-            }
-
-            foreach (RegexMarkdown m in underlines) {
-                converted = converted.replace (m.match, "<u>" + m.text + "</u>");
-            }
-
-            foreach (RegexMarkdown m in italic_bold) {
-                converted = converted.replace (m.match, "<i><b>" + m.text + "</b></i>");
-            }
-
-            foreach (RegexMarkdown m in bolds_01) {
-                converted = converted.replace (m.match, "<b>" + m.text + "</b>");
-            }
-
-            foreach (RegexMarkdown m in italics_01) {
-                converted = converted.replace (m.match, "<i>" + m.text + "</i>");
-            }
-
-            return converted;
-        } catch (GLib.RegexError ex) {
-            return text;
-        }
-    }
-
-    private bool url_exists (string url, Gee.ArrayList<RegexMarkdown> urls) {
-        foreach (RegexMarkdown m in urls) {
-            if (url == m.extra) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public static int get_reminders_mm_offset () {
         int value = Services.Settings.get_default ().settings.get_enum ("automatic-reminders");
         int return_value = 0;
@@ -1354,16 +1193,5 @@ We hope you’ll enjoy using Planify!""");
         return false;
         }, priority);
     yield;
-    }
-}
-
-public class RegexMarkdown {
-    public string match { get; set; }
-    public string text { get; set; }
-    public string extra { get; set; }
-    public RegexMarkdown (string match, string text, string extra = "") {
-        this.match = match;
-        this.text = text;
-        this.extra = extra;
     }
 }
