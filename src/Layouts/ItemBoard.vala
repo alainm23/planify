@@ -122,7 +122,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             hexpand = true,
             wrap_mode = Pango.WrapMode.WORD_CHAR,
             xalign = 0,
-            yalign = 0
+            yalign = 0,
+            use_markup = true
         };
 
         hide_loading_button = new Widgets.LoadingButton.with_icon ("window-close", 16) {
@@ -551,7 +552,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             checked_button.active = item.completed;
         }
 
-        content_label.label = item.content;
+        content_label.label = MarkdownProcessor.get_default ().markup_string (item.content);
         content_label.tooltip_text = item.content.strip ();
 
         // ItemType

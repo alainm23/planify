@@ -888,8 +888,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private void update_content_description () {
         if (item.content != content_textview.buffer.text) {
             item.content = content_textview.buffer.text;
-            content_label.label = Util.get_default ().markup_string (item.content);
-            content_label.tooltip_text = item.content;
+            content_label.label = MarkdownProcessor.get_default ().markup_string (item.content);
+            content_label.tooltip_text = item.content.strip ();
             item.update_async_timeout (update_id);
             return;
         }
@@ -913,9 +913,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
         }
 
-        content_label.label = Util.get_default ().markup_string (item.content);
+        content_label.label = MarkdownProcessor.get_default ().markup_string (item.content);
         content_label.tooltip_text = item.content;
-        content_textview.buffer.text = item.content;
+        content_textview.set_text (item.content);
 
         // ItemType
         if (item.item_type == ItemType.TASK) {

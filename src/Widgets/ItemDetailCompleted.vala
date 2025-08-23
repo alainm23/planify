@@ -53,7 +53,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
 
         content_textview.remove_css_class ("view");
         content_textview.add_css_class ("card");
-        content_textview.buffer.text = item.content;
+        content_textview.set_text (item.content);
         content_textview.editable = false;
 
         var content_group = new Adw.PreferencesGroup () {

@@ -41,12 +41,12 @@ public class Widgets.EditableTextView : Adw.Bin {
         focus_changed (value);
 
         if (value) {
-            textview.buffer.text = text;
+            textview.set_text (text);
             stack.visible_child_name = "textview";
             textview.grab_focus ();
         } else {
-            if (text != textview.buffer.text) {
-                text = textview.buffer.text;
+            if (text != textview.get_text ()) {
+                text = textview.get_text ();
                 changed ();
             }
 
