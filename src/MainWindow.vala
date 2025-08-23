@@ -498,9 +498,10 @@ public class MainWindow : Adw.ApplicationWindow {
                 scheduled_view.prepare_new_item (content);
             }
         } else if (views_stack.visible_child_name.has_prefix ("labels-view")) {
-            var dialog = new Dialogs.QuickAdd ();
-            dialog.update_content (content);
-            dialog.present (Planify._instance.main_window);
+            Views.Labels ? labels_view = (Views.Labels) views_stack.visible_child;
+            if (labels_view != null) {
+                labels_view.prepare_new_item (content);
+            }
         } else if (views_stack.visible_child_name.has_prefix ("label-view")) {
             Views.Label ? label_view = (Views.Label) views_stack.visible_child;
             if (label_view != null) {
