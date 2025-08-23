@@ -400,16 +400,6 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    // TODO: Deprecate Method
-    public Item.from_caldav_xml (GXml.DomElement element, string _project_id) {
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
-
-        project_id = _project_id;
-        // patch_from_vtodo (data, Util.get_task_id_from_url (element)); // TODO: Make this use the full link
-    }
-
     public Item.from_vtodo (string data, string _ical_url, string _project_id) {
         project_id = _project_id;
         patch_from_vtodo (data, _ical_url);
