@@ -86,9 +86,19 @@ public class Views.Labels : Adw.Bin {
             child = content_clamp
         };
 
+        var magic_button = new Widgets.MagicButton ();
+
+        var content_overlay = new Gtk.Overlay () {
+            hexpand = true,
+            vexpand = true,
+            child = scrolled_window
+        };
+
+        content_overlay.add_overlay (magic_button);
+
         var toolbar_view = new Adw.ToolbarView ();
         toolbar_view.add_top_bar (headerbar);
-        toolbar_view.content = scrolled_window;
+        toolbar_view.content = content_overlay;
 
         child = toolbar_view;
 
@@ -107,6 +117,10 @@ public class Views.Labels : Adw.Bin {
         scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
         });
+
+        magic_button.clicked.connect (() => {
+            prepare_new_item ();
+        });
     }
 
     private void add_source_row (Objects.Source source) {
@@ -114,5 +128,11 @@ public class Views.Labels : Adw.Bin {
             sources_hashmap[source.id] = new Views.LabelSourceRow (source);
             sources_listbox.append (sources_hashmap[source.id]);
         }
+    }
+
+    public void prepare_new_item (string content = "") {
+        var dialog = new Dialogs.QuickAdd ();
+        dialog.update_content (content);
+        dialog.present (Planify._instance.main_window);
     }
 }

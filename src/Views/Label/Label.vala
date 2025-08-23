@@ -124,9 +124,19 @@ public class Views.Label : Adw.Bin {
             child = content_clamp
         };
 
+        var magic_button = new Widgets.MagicButton ();
+
+        var content_overlay = new Gtk.Overlay () {
+            hexpand = true,
+            vexpand = true,
+            child = scrolled_window
+        };
+
+        content_overlay.add_overlay (magic_button);
+
         var toolbar_view = new Adw.ToolbarView ();
         toolbar_view.add_top_bar (headerbar);
-        toolbar_view.content = scrolled_window;
+        toolbar_view.content = content_overlay;
 
         child = toolbar_view;
 
@@ -149,6 +159,10 @@ public class Views.Label : Adw.Bin {
         
         scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
+        });
+
+        magic_button.clicked.connect (() => {
+            prepare_new_item ();
         });
     }
 
@@ -212,6 +226,11 @@ public class Views.Label : Adw.Bin {
     public void prepare_new_item (string content = "") {
         var dialog = new Dialogs.QuickAdd ();
         dialog.update_content (content);
+        
+        var labels_map = new Gee.HashMap<string, Objects.Label> ();
+        labels_map.set (label.id, label);
+        dialog.set_labels (labels_map);
+
         dialog.present (Planify._instance.main_window);
     }
 }
