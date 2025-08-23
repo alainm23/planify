@@ -22,13 +22,10 @@
 
 public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
-    public CalDAVClient (Soup.Session session, string base_url, string base64_credentials) {
-        base (session, base_url, base64_credentials);
+    public CalDAVClient (Soup.Session session, string base_url, string username, string password) {
+        base (session, base_url, username, password);
     }
 
-    public CalDAVClient.with_credentials (Soup.Session session, string base_url, string username, string password) {
-        this (session, base_url, Base64.encode ("%s:%s".printf (username, password).data));
-    }
 
     public async string? get_principal_url (GLib.Cancellable cancellable) throws GLib.Error {
         var xml = """<?xml version="1.0" encoding="utf-8"?>
@@ -180,6 +177,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         """;
 
         var multi_status = yield propfind (source.caldav_data.calendar_home_url, xml, "1", cancellable);
+
+        // TODO: Implement check for deleted calendars
 
         foreach (var response in multi_status.responses ()) {
             string? href = response.href;

@@ -81,7 +81,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
 
     public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable) {
-        var caldav_client = new Services.CalDAV.CalDAVClient.with_credentials (session, dav_url, username, password);
+        var caldav_client = new Services.CalDAV.CalDAVClient (session, dav_url, username, password);
 
         try {
             string? principal_url = yield caldav_client.get_principal_url (cancellable);
@@ -109,8 +109,7 @@ public class Services.CalDAV.Core : GLib.Object {
             return response;
         }
 
-        var base64_credentials = Base64.encode ("%s:%s".printf (username, password).data);
-        var caldav_client = new Services.CalDAV.CalDAVClient.with_credentials (session, dav_url, username, password);
+        var caldav_client = new Services.CalDAV.CalDAVClient (session, dav_url, username, password);
 
         try {
             string? principal_url = yield caldav_client.get_principal_url (cancellable);
@@ -130,8 +129,8 @@ public class Services.CalDAV.Core : GLib.Object {
             caldav_data.server_url = dav_url;
             caldav_data.calendar_home_url = calendar_home;
             caldav_data.username = username;
+            caldav_data.password = password;
             caldav_data.caldav_type = caldav_type;
-            caldav_data.credentials = base64_credentials;
 
             source.data = caldav_data;
 
@@ -153,7 +152,7 @@ public class Services.CalDAV.Core : GLib.Object {
     public async HttpResponse add_caldav_account (Objects.Source source, GLib.Cancellable cancellable) {
         HttpResponse response = new HttpResponse (); // TODO: This isn't always an HTTP Response, find a better name
 
-        var caldav_client = new Services.CalDAV.CalDAVClient (session, source.caldav_data.server_url, source.caldav_data.credentials);
+        var caldav_client = new Services.CalDAV.CalDAVClient (session, source.caldav_data.server_url, source.caldav_data.username, source.caldav_data.password);
 
         string? principal_url = yield caldav_client.get_principal_url (cancellable);
 
@@ -190,7 +189,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
 
     public async void sync (Objects.Source source) {
-        var caldav_client = new Services.CalDAV.CalDAVClient (session, source.caldav_data.server_url, source.caldav_data.credentials);
+        var caldav_client = new Services.CalDAV.CalDAVClient (session, source.caldav_data.server_url, source.caldav_data.username, source.caldav_data.password);
 
         source.sync_started ();
 
@@ -209,6 +208,7 @@ public class Services.CalDAV.Core : GLib.Object {
         }
     }
 
+    // TODO: Migrate this method
     public async void sync_tasklist (Objects.Project project) {
         var xml = """
         <d:sync-collection xmlns:d="DAV:">
@@ -309,6 +309,7 @@ public class Services.CalDAV.Core : GLib.Object {
         project.loading = false;
     }
 
+    // TODO: Migrate this method
     private async string ? get_vtodo_by_url (Objects.Project project, string url) {
         var message = new Soup.Message ("GET", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
@@ -324,12 +325,6 @@ public class Services.CalDAV.Core : GLib.Object {
         }
 
         return return_value;
-    }
-
-    public string get_tasklist_id_from_url (GXml.DomElement element) {
-        GXml.DomElement href = element.get_elements_by_tag_name ("d:href").get_element (0);
-        string[] parts = href.text_content.split ("/");
-        return parts[parts.length - 2];
     }
 
     public string get_href_from_element (GXml.DomElement element) {
@@ -367,6 +362,7 @@ public class Services.CalDAV.Core : GLib.Object {
      * Tasklist
      */
 
+    // TODO: Migrate this method
     public async HttpResponse add_tasklist (Objects.Project project) {
         var url = "%s/%s".printf (project.source.caldav_data.calendar_home_url, project.id);
         var message = new Soup.Message ("MKCOL", url);
@@ -393,6 +389,7 @@ public class Services.CalDAV.Core : GLib.Object {
         return response;
     }
 
+    // TODO: Migrate this method
     public async HttpResponse update_tasklist (Objects.Project project) {
         var url = project.calendar_url;
 
@@ -420,6 +417,7 @@ public class Services.CalDAV.Core : GLib.Object {
         return response;
     }
 
+    // TODO: Migrate this method
     public async HttpResponse delete_tasklist (Objects.Project project) {
         var url = project.calendar_url;
 
@@ -446,6 +444,7 @@ public class Services.CalDAV.Core : GLib.Object {
         return response;
     }
 
+    // TODO: Migrate this method
     private async void update_tasklist_detail (Objects.Project project) {
         var url = project.calendar_url;
 
@@ -480,6 +479,7 @@ public class Services.CalDAV.Core : GLib.Object {
         }
     }
 
+    // TODO: Migrate this method
     public async void update_sync_token (Objects.Project project) {
         var url = project.calendar_url;
 
@@ -506,6 +506,7 @@ public class Services.CalDAV.Core : GLib.Object {
      * Task
      */
 
+    // TODO: Migrate this method
     public async HttpResponse add_task (Objects.Item item, bool update = false) {
         var url = update ? item.ical_url : "%s/%s".printf (item.project.calendar_url, "%s.ics".printf (item.id));
 
@@ -529,6 +530,7 @@ public class Services.CalDAV.Core : GLib.Object {
         return response;
     }
 
+    // TODO: Migrate this method
     public async HttpResponse delete_task (Objects.Item item) {
         var message = new Soup.Message ("DELETE", item.ical_url);
         message.request_headers.append ("Authorization", "Basic %s".printf (item.project.source.caldav_data.credentials));
@@ -552,6 +554,7 @@ public class Services.CalDAV.Core : GLib.Object {
         return response;
     }
 
+    // TODO: Migrate this method
     public async HttpResponse complete_item (Objects.Item item) {
         var body = item.to_vtodo ();
 
@@ -578,6 +581,7 @@ public class Services.CalDAV.Core : GLib.Object {
         return response;
     }
 
+    // TODO: Migrate this method
     public async HttpResponse move_task (Objects.Item item, Objects.Project destination_project) {
         var url = item.ical_url;
         var destination = "%s/%s".printf (destination_project.calendar_url, "%s.ics".printf (item.id));
@@ -609,7 +613,8 @@ public class Services.CalDAV.Core : GLib.Object {
      *  Utils
      */
 
-    public bool is_deleted_calendar (GXml.DomElement element) { // TODO: Implement this in new sync
+    // TODO: Migrate this method
+    public bool is_deleted_calendar (GXml.DomElement element) {
         GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
         GXml.DomElement resourcetype = prop.get_elements_by_tag_name ("d:resourcetype").get_element (0);
