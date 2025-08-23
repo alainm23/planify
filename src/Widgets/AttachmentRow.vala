@@ -93,12 +93,36 @@ public class Widgets.AttachmentRow : Gtk.ListBoxRow {
         close_button.is_loading = true;
 
         try {
-            GLib.AppInfo.launch_default_for_uri (attachment.file_path, null);
+            if (attachment.file_path == null || attachment.file_path.strip () == "") {
+                throw new GLib.IOError.INVALID_ARGUMENT ("File path is empty");
+            }
+
+            var file = GLib.File.new_for_uri (attachment.file_path);
+            if (!file.query_exists ()) {
+                throw new GLib.IOError.NOT_FOUND ("File no longer exists");
+            }
+
+            var app_info = GLib.AppInfo.get_default_for_uri_scheme ("file");
+            if (app_info == null) {
+                var file_info = file.query_info (GLib.FileAttribute.STANDARD_CONTENT_TYPE,
+                                                 GLib.FileQueryInfoFlags.NONE);
+                var content_type = file_info.get_content_type ();
+                app_info = GLib.AppInfo.get_default_for_type (content_type, false);
+            }
+
+            if (app_info != null) {
+                var file_list = new GLib.List<GLib.File> ();
+                file_list.append (file);
+                app_info.launch (file_list, null);
+            } else {
+                GLib.AppInfo.launch_default_for_uri (attachment.file_path, null);
+            }
+
             close_button.is_loading = false;
         } catch (Error e) {
             close_button.is_loading = false;
             Services.EventBus.get_default ().send_toast (
-                Util.get_default ().create_toast (e.message)
+                Util.get_default ().create_toast ("Error opening file: " + e.message)
             );
         }
     }
