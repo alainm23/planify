@@ -22,18 +22,18 @@
 public class Services.CalDAV.WebDAVClient : GLib.Object {
 
     protected Soup.Session session;
-    protected string base64_credentials;
+
+    protected string username;
+    protected string password;
+
     protected string base_url;
 
 
-    public WebDAVClient (Soup.Session session, string base_url, string base64_credentials) {
+    public WebDAVClient (Soup.Session session, string base_url, string username, string password) {
         this.session = session;
         this.base_url = base_url;
-        this.base64_credentials = base64_credentials;
-    }
-
-    protected void apply_auth_headers (Soup.Message msg) {
-        msg.request_headers.append ("Authorization", "Basic %s".printf (base64_credentials));
+        this.username = username;
+        this.password = password;
     }
 
     public string get_absolute_url (string href) {
@@ -47,41 +47,43 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
     }
 
     public async WebDAVMultiStatus propfind (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
-        string abs_url = get_absolute_url (url);
-
-        if (abs_url == null)
-            throw new GLib.IOError.FAILED ("Invalid URL: %s".printf (url));
-
-        var msg = new Soup.Message ("PROPFIND", abs_url);
-        apply_auth_headers (msg);
-        msg.request_headers.append ("Depth", depth);
-        msg.set_request_body_from_bytes ("application/xml", new Bytes (xml.data));
-
-        GLib.Bytes stream = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
-
-        if (msg.status_code != Soup.Status.MULTI_STATUS)
-            throw new GLib.IOError.FAILED ("PROPFIND failed with status %u".printf (msg.status_code));
-
-        return new WebDAVMultiStatus.from_string ((string) stream.get_data ());
+        return new WebDAVMultiStatus.from_string (yield send_xml_request ("PROPFIND", url, xml, depth, cancellable));
     }
 
     public async WebDAVMultiStatus report (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
-        string abs_url = get_absolute_url (url);
+        return new WebDAVMultiStatus.from_string (yield send_xml_request ("REPORT", url, xml, depth, cancellable));
+    }
+
+    protected async string send_xml_request (string method, string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
+        var abs_url = get_absolute_url (url);
 
         if (abs_url == null)
             throw new GLib.IOError.FAILED ("Invalid URL: %s".printf (url));
 
-        var msg = new Soup.Message ("REPORT", abs_url);
-        apply_auth_headers (msg);
-        msg.request_headers.append ("Depth", depth);
-        msg.set_request_body_from_bytes ("application/xml", new Bytes (xml.data));
+        var msg = new Soup.Message (method, abs_url);
 
-        GLib.Bytes stream = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
 
-        if (msg.status_code != Soup.Status.MULTI_STATUS)
-            throw new GLib.IOError.FAILED ("REPORT failed with status %u".printf (msg.status_code));
+        msg.authenticate.connect ((auth, retrying) => {
+            if (auth.scheme_name == "Digest" || auth.scheme_name == "Basic") {
+                auth.authenticate (this.username, this.password);
+                return true;
+            }
+        });
 
-        return new WebDAVMultiStatus.from_string ((string) stream.get_data ());
+        msg.request_headers.replace ("Depth", depth);
+        msg.set_request_body_from_bytes ("application/xml", new GLib.Bytes (xml.data));
+
+        GLib.Bytes body = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
+
+        if (msg.status_code != Soup.Status.MULTI_STATUS) {
+            var response_text = (string) body.get_data ();
+            throw new GLib.IOError.FAILED (
+                "%s %s failed: HTTP %u %s\n%s".printf (
+                    method, abs_url, msg.status_code, msg.reason_phrase ?? "", response_text ?? "")
+            );
+        }
+
+        return (string) body.get_data ();
     }
 }
 
