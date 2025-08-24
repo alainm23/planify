@@ -137,6 +137,14 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
         password_entry.changed.connect (() => validate_entries ());
 
         login_button.clicked.connect (() => on_login_button_clicked ());
+
+        Services.CalDAV.Core.get_default ().first_sync_started.connect (() => {
+            login_button.is_loading = true;
+        });
+
+        Services.CalDAV.Core.get_default ().first_sync_finished.connect (() => {
+            accounts_page.pop_subpage ();
+        });
     }
 
     private void validate_entries () {
