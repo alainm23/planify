@@ -139,8 +139,10 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     }
 
     public void set_reminders (Gee.ArrayList<Objects.Reminder> reminders) {
-        value_label.label = _("Add Reminders");
-        value_label.tooltip_text = null;
+        if (is_board) {
+            value_label.label = _("Add Reminders");
+            value_label.tooltip_text = null;
+        }
 
         picker.set_reminders (reminders);
 
@@ -154,7 +156,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     public void add_reminder (Objects.Reminder reminder, Gee.ArrayList<Objects.Reminder> reminders) {
         picker.add_reminder (reminder);
 
-        if (reminders.size > 0) {
+        if (reminders.size > 0 && is_board) {
             build_value_label (reminders);
         }
 
@@ -164,11 +166,13 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     public void delete_reminder (Objects.Reminder reminder, Gee.ArrayList<Objects.Reminder> reminders) {
         picker.delete_reminder (reminder);
 
-        value_label.label = _("Add Reminders");
-        value_label.tooltip_text = null;
+        if (is_board) {
+            value_label.label = _("Add Reminders");
+            value_label.tooltip_text = null;
 
-        if (reminders.size > 0) {
-            build_value_label (reminders);
+            if (reminders.size > 0) {
+                build_value_label (reminders);
+            }
         }
 
         indicator_revealer.reveal_child = picker.has_reminders;

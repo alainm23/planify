@@ -340,7 +340,9 @@ public class Objects.Project : Objects.BaseObject {
 
     // TODO: add extra null checks
     public void update_from_propstat (Services.CalDAV.WebDAVPropStat propstat, bool update_sync_token = true) {
-        name = propstat.get_first_prop_with_tagname ("displayname").text_content;
+        if (propstat.get_first_prop_with_tagname ("displayname") != null) {
+            name = propstat.get_first_prop_with_tagname ("displayname").text_content;
+        }
         if (propstat.get_first_prop_with_tagname ("calendar-color") != null) {
             color = propstat.get_first_prop_with_tagname ("calendar-color").text_content;
         }

@@ -258,7 +258,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         }
 
         Timeout.add (main_revealer.transition_duration, () => {
-            progress_emoji_stack.visible_child_name = project.icon_style == ProjectIconStyle.PROGRESS ? "progress" : "emoji";
+            if (progress_emoji_stack != null) { // TODO: progress_emoji_stack seems to be used nowhere?
+                progress_emoji_stack.visible_child_name = project.icon_style == ProjectIconStyle.PROGRESS ? "progress" : "emoji";
+            }
             main_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
         });
