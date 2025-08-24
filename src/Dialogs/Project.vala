@@ -391,7 +391,8 @@ public class Dialogs.Project : Adw.Dialog {
         if (project.source_type == SourceType.TODOIST) {
             response = yield Services.Todoist.get_default ().update (project);
         } else {
-            response = yield Services.CalDAV.Core.get_default ().update_tasklist (project);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            response = yield caldav_client.update_project (project);
         }
 
         if (response == null) {
@@ -430,12 +431,13 @@ public class Dialogs.Project : Adw.Dialog {
             });
         } else if (project.source_type == SourceType.CALDAV) {
             project.id = Util.get_default ().generate_id (project);
-            Services.CalDAV.Core.get_default ().add_tasklist.begin (project, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().add_tasklist.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.create_project.begin (project, (obj, res) => {
+                HttpResponse response = caldav_client.create_project.end (res);
 
                 if (response.status) {
                     Services.Store.instance ().insert_project (project);
-                    Services.CalDAV.Core.get_default ().update_sync_token.begin (project);
+                    caldav_client.update_sync_token.begin (project, new GLib.Cancellable ());
                     go_project (project.id);
                 } else {
                     Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
