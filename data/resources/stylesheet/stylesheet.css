@@ -691,7 +691,6 @@ checkbutton.theme-selector radio:checked {
     font-weight: bold;
     color: @colorAccent;
     transition: all 150ms ease-out;
-    pointer-events: none;
 }
 
 .priority-label-impact {
