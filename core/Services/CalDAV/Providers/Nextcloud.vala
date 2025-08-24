@@ -24,58 +24,6 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
     private Soup.Session session;
     private Json.Parser parser;
 
-    // vala-lint=naming-convention
-    public static string GET_SYNC_TOKEN_REQUEST = """
-        <x0:propfind xmlns:x0="DAV:">
-            <x0:prop>
-                <x0:sync-token/>
-            </x0:prop>
-        </x0:propfind>
-    """;
-
-    // vala-lint=naming-convention
-    public static string CREATE_TASKLIST_REQUEST = """
-        <x0:mkcol xmlns:x0="DAV:">
-            <x0:set>
-                <x0:prop>
-                    <x0:resourcetype>
-                        <x0:collection/>
-                        <x1:calendar xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                    </x0:resourcetype>0
-                    <x0:displayname>%s</x0:displayname>
-                    <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/">%s</x6:calendar-color>
-                    <x4:calendar-enabled xmlns:x4="http://owncloud.org/ns">1</x4:calendar-enabled>
-                    <x1:supported-calendar-component-set xmlns:x1="urn:ietf:params:xml:ns:caldav">
-                        <x1:comp name="VTODO"/>
-                    </x1:supported-calendar-component-set>
-                </x0:prop>
-            </x0:set>
-        </x0:mkcol>
-    """;
-
-    // vala-lint=naming-convention
-    public static string UPDATE_TASKLIST_REQUEST = """
-        <x0:propertyupdate xmlns:x0="DAV:">
-            <x0:set>
-                <x0:prop>
-                    <x0:displayname>%s</x0:displayname>
-                    <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/">%s</x6:calendar-color>
-                </x0:prop>
-            </x0:set>
-        </x0:propertyupdate>
-    """;
-
-    // vala-lint=naming-convention
-    public static string TASKS_REQUEST_DETAIL = """
-        <x0:propfind xmlns:x0="DAV:">
-            <x0:prop>
-                <x0:resourcetype/>
-                <x0:displayname/>
-                <x0:sync-token/>
-            </x0:prop>
-        </x0:propfind>
-    """;
-
     public Nextcloud () {
         session = new Soup.Session ();
         parser = new Json.Parser ();

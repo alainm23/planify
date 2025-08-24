@@ -650,8 +650,9 @@ public class Objects.Item : Objects.BaseObject {
                     Services.Store.instance ().update_item (this, update_id);
                 });
             } else if (project.source_type == SourceType.CALDAV) {
-                Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                    HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                caldav_client.add_item.begin (this, true, (obj, res) => {
+                    HttpResponse response = caldav_client.add_item.end (res);
 
                     if (response.status) {
                         Services.Store.instance ().update_item (this, update_id);
@@ -682,8 +683,9 @@ public class Objects.Item : Objects.BaseObject {
                     loading = false;
                 });
             } else if (project.source_type == SourceType.CALDAV) {
-                Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                    HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                caldav_client.add_item.begin (this, true, (obj, res) => {
+                    HttpResponse response = caldav_client.add_item.end (res);
 
                     if (response.status) {
                         Services.Store.instance ().update_item (this, update_id);
@@ -710,8 +712,9 @@ public class Objects.Item : Objects.BaseObject {
                 loading = false;
             });
         } else if (project.source_type == SourceType.CALDAV) {
-            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.add_item.begin (this, true, (obj, res) => {
+                HttpResponse response = caldav_client.add_item.end (res);
 
                 if (response.status) {
                     Services.Store.instance ().update_item (this, update_id);
@@ -741,8 +744,9 @@ public class Objects.Item : Objects.BaseObject {
     private void _update_pin () {
         if (project.source_type == SourceType.CALDAV) {
             loading = true;
-            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.add_item.begin (this, true, (obj, res) => {
+                HttpResponse response = caldav_client.add_item.end (res);
 
                 if (response.status) {
                     Services.Store.instance ().update_item_pin (this);
@@ -1333,8 +1337,9 @@ public class Objects.Item : Objects.BaseObject {
             });
         } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
-            Services.CalDAV.Core.get_default ().delete_task.begin (this, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().delete_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.delete_item.begin (this, (obj, res) => {
+                HttpResponse response = caldav_client.delete_item.end (res);
                 loading = false;
 
                 if (response.status) {
@@ -1443,8 +1448,9 @@ public class Objects.Item : Objects.BaseObject {
             });
         } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
-            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                var response = Services.CalDAV.Core.get_default ().add_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.add_item.begin (this, true, (obj, res) => {
+                var response = caldav_client.add_item.end (res);
                 loading = false;
 
                 if (response.status) {
@@ -1481,8 +1487,9 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
-            Services.CalDAV.Core.get_default ().move_task.begin (this, project, (obj, res) => {
-                var response = Services.CalDAV.Core.get_default ().move_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.move_item.begin (this, project, (obj, res) => {
+                var response = caldav_client.move_item.end (res);
                 loading = false;
                 show_item = true;
 
@@ -1630,7 +1637,8 @@ public class Objects.Item : Objects.BaseObject {
         if (project.source_type == SourceType.TODOIST) {
             response = yield Services.Todoist.get_default ().complete_item (this);
         } else {
-            response = yield Services.CalDAV.Core.get_default ().complete_item (this);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            response = yield caldav_client.complete_item (this);
         }
 
         loading = false;

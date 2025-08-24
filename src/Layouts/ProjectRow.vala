@@ -789,7 +789,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void sync_project () {
-        Services.CalDAV.Core.get_default ().sync_tasklist.begin (project);
+        var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+        caldav_client.sync_tasklist.begin (project, new GLib.Cancellable ());
     }
 
     private void update_listbox_revealer () {
