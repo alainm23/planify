@@ -88,7 +88,7 @@ public class Services.CalDAV.Core : GLib.Object {
         msg.set_flags (Soup.MessageFlags.NO_REDIRECT);
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (msg, Priority.DEFAULT, null);
+            yield session.send_and_read_async (msg, Priority.DEFAULT, null);
             // These are all the redirect status codes.
             // https://www.rfc-editor.org/rfc/rfc6764#section-5
             // https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
@@ -110,7 +110,6 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
 
-    // TODO: Move this logic to CalDAVClient
     public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable) {
         var caldav_client = new Services.CalDAV.CalDAVClient (session, dav_url, username, password);
 
@@ -132,7 +131,7 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     public async HttpResponse login (CalDAVType caldav_type, string dav_url, string username, string password, string calendar_home, GLib.Cancellable cancellable) {
-        HttpResponse response = new HttpResponse (); // TODO: This isn't always an HTTP Response, find a better name
+        HttpResponse response = new HttpResponse ();
 
         if (Services.Store.instance ().source_caldav_exists (dav_url, username)) {
             response.error_code = 409;
@@ -147,7 +146,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
             if (principal_url == null) {
                 response.error_code = 409;
-                response.error = _("No principal url received");
+                response.error = _("Failed to resolve principal url");
                 return response;
             }
 
@@ -183,20 +182,21 @@ public class Services.CalDAV.Core : GLib.Object {
 
     // TODO: why is this a seperate method, can this be merged with login?
     public async HttpResponse add_caldav_account (Objects.Source source, GLib.Cancellable cancellable) {
-        HttpResponse response = new HttpResponse (); // TODO: This isn't always an HTTP Response, find a better name
-
+        HttpResponse response = new HttpResponse ();
         var caldav_client = get_client (source);
-
-        string? principal_url = yield caldav_client.get_principal_url (cancellable);
-
-        if (principal_url == null) {
-            critical ("No principal url received");
-            return null;
-        }
 
         first_sync_started ();
 
         try {
+            string? principal_url = yield caldav_client.get_principal_url (cancellable);
+
+            if (principal_url == null) {
+                response.error_code = 409;
+                response.error = _("Failed to resolve principal url");
+                return response;
+            }
+
+
             yield caldav_client.update_userdata (principal_url, source, cancellable);
 
             Services.Store.instance ().insert_source (source);
@@ -237,7 +237,7 @@ public class Services.CalDAV.Core : GLib.Object {
             source.sync_finished ();
             source.last_sync = new GLib.DateTime.now_local ().to_string ();
         } catch (Error e) {
-            debug ("Failed to sync: " + e.message);
+            warning ("Failed to sync: %s", e.message);
             source.sync_failed ();
         }
     }
