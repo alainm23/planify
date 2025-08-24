@@ -62,6 +62,11 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         var msg = new Soup.Message (method, abs_url);
 
         msg.authenticate.connect ((auth, retrying) => {
+            if (retrying) {
+                warning ("Authentication failed\n");
+                return false;
+            }
+
             if (auth.scheme_name == "Digest" || auth.scheme_name == "Basic") {
                 auth.authenticate (this.username, this.password);
                 return true;
@@ -70,8 +75,15 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
             return false;
         });
 
-        if (depth != null)
+        // After authentication, the body of the message needs to be set again when the message is resent.
+        // https://gitlab.gnome.org/GNOME/libsoup/-/issues/358
+        msg.restarted.connect (() => {
+            msg.set_request_body_from_bytes ("application/xml", new GLib.Bytes (xml.data));
+        });
+
+        if (depth != null) {
             msg.request_headers.replace ("Depth", depth);
+        }
 
         if (extra_headers != null) {
             foreach (var key in extra_headers.get_keys ())
