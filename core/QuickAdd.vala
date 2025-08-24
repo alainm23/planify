@@ -508,8 +508,9 @@ public class Layouts.QuickAdd : Adw.Bin {
         if (item.project.source_type == SourceType.CALDAV) {
             is_loading = true;
             item.id = Util.get_default ().generate_id ();
-            Services.CalDAV.Core.get_default ().add_task.begin (item, false, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (item.project.source);
+            caldav_client.add_item.begin (item, false, (obj, res) => {
+                HttpResponse response = caldav_client.add_item.end (res);
                 is_loading = false;
 
                 if (response.status) {

@@ -47,35 +47,51 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
     }
 
     public async WebDAVMultiStatus propfind (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
-        return new WebDAVMultiStatus.from_string (yield send_xml_request ("PROPFIND", url, xml, depth, cancellable));
+        return new WebDAVMultiStatus.from_string (yield send_request ("PROPFIND", url, xml, depth, cancellable, { Soup.Status.MULTI_STATUS }));
     }
 
     public async WebDAVMultiStatus report (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
-        return new WebDAVMultiStatus.from_string (yield send_xml_request ("REPORT", url, xml, depth, cancellable));
+        return new WebDAVMultiStatus.from_string (yield send_request ("REPORT", url, xml, depth, cancellable, { Soup.Status.MULTI_STATUS }));
     }
 
-    protected async string send_xml_request (string method, string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
+    protected async string send_request (string method, string url, string? xml, string? depth, GLib.Cancellable? cancellable, Soup.Status[] expected_statuses, HashTable<string,string>? extra_headers = null) throws GLib.Error {
         var abs_url = get_absolute_url (url);
-
         if (abs_url == null)
             throw new GLib.IOError.FAILED ("Invalid URL: %s".printf (url));
 
         var msg = new Soup.Message (method, abs_url);
-
 
         msg.authenticate.connect ((auth, retrying) => {
             if (auth.scheme_name == "Digest" || auth.scheme_name == "Basic") {
                 auth.authenticate (this.username, this.password);
                 return true;
             }
+            warning ("Unsupported auth schema: %s", auth.scheme_name);
+            return false;
         });
 
-        msg.request_headers.replace ("Depth", depth);
-        msg.set_request_body_from_bytes ("application/xml", new GLib.Bytes (xml.data));
+        if (depth != null)
+            msg.request_headers.replace ("Depth", depth);
+
+        if (extra_headers != null) {
+            foreach (var key in extra_headers.get_keys ())
+                msg.request_headers.replace (key, extra_headers.lookup (key));
+        }
+
+        if (xml != null)
+            msg.set_request_body_from_bytes ("application/xml", new GLib.Bytes (xml.data));
 
         GLib.Bytes body = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
 
-        if (msg.status_code != Soup.Status.MULTI_STATUS) {
+        bool ok = false;
+        foreach (var code in expected_statuses) {
+            if (msg.status_code == code) {
+                ok = true;
+                break;
+            }
+        }
+
+        if (!ok) {
             var response_text = (string) body.get_data ();
             throw new GLib.IOError.FAILED (
                 "%s %s failed: HTTP %u %s\n%s".printf (
@@ -85,6 +101,7 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
 
         return (string) body.get_data ();
     }
+
 }
 
 

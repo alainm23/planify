@@ -203,7 +203,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                             project.source_id = source.id;
 
                             Services.Store.instance ().insert_project (project);
-                            yield update_items_for_project (project, cancellable);
+                            yield fetch_items_for_project (project, cancellable);
                         } else {
                             project.update_from_propstat (propstat, false);
                             Services.Store.instance ().update_project (project);
@@ -214,8 +214,34 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         }
     }
 
+    public async void fetch_project_details (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
+        var xml = """<?xml version='1.0' encoding='utf-8'?>
+                    <d:propfind xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:cal="urn:ietf:params:xml:ns:caldav">
+                        <d:prop>
+                            <d:resourcetype />
+                            <d:displayname />
+                            <d:sync-token />
+                            <ical:calendar-color />
+                            <cal:supported-calendar-component-set />
+                        </d:prop>
+                    </d:propfind>
+        """;
 
-    public async void update_items_for_project (Objects.Project project, GLib.Cancellable cancellable) {
+        var multi_status = yield propfind (project.calendar_url, xml, "1", cancellable);
+
+        foreach (var response in multi_status.responses ()) {
+            string? href = response.href;
+
+            foreach (var propstat in response.propstats ()) {
+                if (propstat.status != Soup.Status.OK) continue;
+
+                project.update_from_propstat (propstat, false);
+                Services.Store.instance ().update_project (project);
+            }
+        }
+    }
+
+    public async void fetch_items_for_project (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
         var xml = """<?xml version="1.0" encoding="utf-8"?>
         <x1:calendar-query xmlns:x0="DAV:" xmlns:x1="urn:ietf:params:xml:ns:caldav">
             <x0:prop>
@@ -263,6 +289,296 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             }
         }
     }
+
+
+    public async void sync_tasklist (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
+        var xml = """
+        <d:sync-collection xmlns:d="DAV:">
+            <d:sync-token>%s</d:sync-token>
+            <d:sync-level>1</d:sync-level>
+            <d:prop>
+                <d:getetag/>
+                <d:getcontenttype/>
+            </d:prop>
+        </d:sync-collection>
+        """.printf (project.sync_id);
+
+
+        if (project.is_deck) {
+            return;
+        }
+
+        project.loading = true;
+
+        yield fetch_project_details (project, cancellable);
+
+        if (project.sync_id == "") {
+            project.loading = false;
+            return;
+        }
+
+        var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
+
+        foreach (var response in multi_status.responses ()) {
+            string? href = response.href;
+
+            foreach (var propstat in response.propstats ()) {
+                if (propstat.status == Soup.Status.NOT_FOUND) {
+                    Objects.Item ? item = Services.Store.instance ().get_item_by_ical_url (get_absolute_url (href));
+                    if (item != null) {
+                        Services.Store.instance ().delete_item (item);
+                    }
+                }else {
+                    bool is_vtodo = false;
+
+                    var getcontenttype = propstat.get_first_prop_with_tagname ("getcontenttype");
+                    if (getcontenttype != null) {
+                        if (getcontenttype.text_content.index_of ("vtodo") > -1) {
+                            is_vtodo = true;
+                        }
+                    }
+
+                    if (is_vtodo) {
+                        string vtodo = yield get_vtodo_by_url (project, get_absolute_url (href), cancellable);
+
+                        ICal.Component ical = new ICal.Component.from_string (vtodo);
+                        Objects.Item ? item = Services.Store.instance ().get_item (ical.get_uid ());
+
+                        if (item != null) {
+                            string old_project_id = item.project_id;
+                            string old_parent_id = item.parent_id;
+                            bool old_checked = item.checked;
+
+                            item.update_from_vtodo (vtodo, get_absolute_url (href));
+                            item.project_id = project.id;
+                            Services.Store.instance ().update_item (item);
+
+                            if (old_project_id != item.project_id || old_parent_id != item.parent_id) {
+                                Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
+                            }
+
+                            if (old_checked != item.checked) {
+                                Services.Store.instance ().complete_item (item, old_checked);
+                            }
+                        } else {
+                            var new_item = new Objects.Item.from_vtodo (vtodo, get_absolute_url (href), project.id);
+                            if (new_item.has_parent) {
+                                Objects.Item ? parent_item = new_item.parent;
+                                if (parent_item != null) {
+                                    parent_item.add_item_if_not_exists (new_item);
+                                } else {
+                                    project.add_item_if_not_exists (new_item);
+                                }
+                            } else {
+                                project.add_item_if_not_exists (new_item);
+                            }
+                        }
+                    }
+
+                    var sync_token = propstat.get_first_prop_with_tagname ("sync-token");
+                    if (sync_token != null) {
+                        project.sync_id = sync_token.text_content;
+                        project.update_local ();
+                    }
+                }
+            }
+        }
+
+        project.loading = false;
+    }
+
+
+    private async string? get_vtodo_by_url (Objects.Project project, string url, GLib.Cancellable cancellable) throws GLib.Error {
+        return yield send_request ("GET", url, null, null, cancellable,
+                                   { Soup.Status.OK });
+    }
+
+    public async void update_sync_token (Objects.Project project, GLib.Cancellable cancellable) {
+        var xml = """<?xml version="1.0" encoding="utf-8"?>
+        <x0:propfind xmlns:x0="DAV:">
+            <x0:prop>
+                <x0:sync-token/>
+            </x0:prop>
+        </x0:propfind>
+        """;
+
+        var multi_status = yield propfind (project.calendar_url, xml, "1", cancellable);
+
+        foreach (var response in multi_status.responses ()) {
+            string? href = response.href;
+
+            foreach (var propstat in response.propstats ()) {
+                if (propstat.status != Soup.Status.OK) continue;
+
+                var sync_token = propstat.get_first_prop_with_tagname ("sync-token");
+                if (sync_token != null) {
+                    project.sync_id = sync_token.text_content;
+                    project.update_local ();
+                }
+            }
+        }
+    }
+
+    public async HttpResponse create_project (Objects.Project project) {
+        var xml = """<?xml version="1.0" encoding="utf-8"?>
+            <x0:mkcol xmlns:x0="DAV:">
+            <x0:set>
+                <x0:prop>
+                    <x0:resourcetype>
+                        <x0:collection/>
+                        <x1:calendar xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
+                    </x0:resourcetype>0
+                    <x0:displayname>%s</x0:displayname>
+                    <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/">%s</x6:calendar-color>
+                    <x4:calendar-enabled xmlns:x4="http://owncloud.org/ns">1</x4:calendar-enabled>
+                    <x1:supported-calendar-component-set xmlns:x1="urn:ietf:params:xml:ns:caldav">
+                        <x1:comp name="VTODO"/>
+                    </x1:supported-calendar-component-set>
+                </x0:prop>
+            </x0:set>
+        </x0:mkcol>
+        """.printf (project.name, project.color_hex);
+
+        var url = "%s/%s".printf (project.source.caldav_data.calendar_home_url, project.id);
+
+
+        HttpResponse response = new HttpResponse ();
+
+        try {
+            yield send_request ("MKCOL", url, xml, null, null,
+                                { Soup.Status.CREATED });
+
+            response.status = true;
+        } catch (Error e) {
+            response.error_code = e.code;
+            response.error = e.message;
+        }
+
+        return response;
+    }
+
+    public async HttpResponse update_project (Objects.Project project) {
+        var xml = """<?xml version="1.0" encoding="utf-8"?>
+        <x0:propertyupdate xmlns:x0="DAV:">
+            <x0:set>
+                <x0:prop>
+                    <x0:displayname>%s</x0:displayname>
+                    <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/">%s</x6:calendar-color>
+                </x0:prop>
+            </x0:set>
+        </x0:propertyupdate>
+        """.printf (project.name, project.color_hex);
+
+        HttpResponse response = new HttpResponse ();
+
+        try {
+            yield send_request ("PROPPATCH", project.calendar_url, xml, null, null,
+                                    { Soup.Status.MULTI_STATUS });
+
+            response.status = true;
+        } catch (Error e) {
+            response.error_code = e.code;
+            response.error = e.message;
+        }
+
+        return response;
+    }
+
+    public async HttpResponse delete_project (Objects.Project project) {
+        HttpResponse response = new HttpResponse ();
+
+        try {
+            yield send_request ("DELETE", project.calendar_url, null, null, null,
+                                { Soup.Status.NO_CONTENT });
+            response.status = true;
+        } catch (Error e) {
+            response.error_code = e.code;
+            response.error = e.message;
+        }
+
+        return response;
+    }
+
+    public async HttpResponse add_item (Objects.Item item, bool update = false) {
+        var url = update ? item.ical_url : "%s/%s".printf (item.project.calendar_url, "%s.ics".printf (item.id));
+        var body = item.to_vtodo ();
+
+        var expected = update ? new Soup.Status[]{ Soup.Status.NO_CONTENT }
+                              : new Soup.Status[]{ Soup.Status.CREATED };
+
+
+        HttpResponse response = new HttpResponse ();
+
+        try {
+            yield send_request ("PUT", url, body, null, null, expected);
+            item.extra_data = Util.generate_extra_data (url, "", body);
+
+            response.status = true;
+        } catch (Error e) {
+            response.error_code = e.code;
+            response.error = e.message;
+        }
+
+        return response;
+    }
+
+    public async HttpResponse complete_item (Objects.Item item) {
+        var body = item.to_vtodo ();
+
+        HttpResponse response = new HttpResponse ();
+
+        try {
+            yield send_request ("PUT", item.ical_url, body, null, null, { Soup.Status.NO_CONTENT });
+            item.extra_data = Util.generate_extra_data (item.ical_url, "", body);
+
+            response.status = true;
+        } catch (Error e) {
+            response.error_code = e.code;
+            response.error = e.message;
+        }
+
+        return response;
+    }
+
+
+    public async HttpResponse move_item (Objects.Item item, Objects.Project destination_project) {
+        var destination = "%s/%s".printf (destination_project.calendar_url, "%s.ics".printf (item.id));
+
+        var headers = new HashTable<string,string> (str_hash, str_equal);
+        headers.insert ("Destination", destination);
+
+        HttpResponse response = new HttpResponse ();
+
+
+        try {
+            yield send_request ("MOVE", item.ical_url, null, null, null, {Soup.Status.NO_CONTENT, Soup.Status.CREATED }, headers);
+
+            response.status = true;
+        } catch (Error e) {
+            response.error_code = e.code;
+            response.error = e.message;
+        }
+
+        return response;
+    }
+
+
+    public async HttpResponse delete_item (Objects.Item item) {
+        HttpResponse response = new HttpResponse ();
+
+        try {
+            yield send_request ("DELETE", item.ical_url, null, null, null, { Soup.Status.NO_CONTENT });
+
+            response.status = true;
+        } catch (Error e) {
+            response.error_code = e.code;
+            response.error = e.message;
+        }
+
+
+        return response;
+    }
+
 
 
     private bool is_vtodo_calendar (GXml.DomElement? resourcetype, GXml.DomElement? supported_calendar) {

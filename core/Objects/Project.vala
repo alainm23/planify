@@ -474,9 +474,9 @@ public class Objects.Project : Objects.BaseObject {
                 if (show_loading) {
                     loading = true;
                 }
-
-                Services.CalDAV.Core.get_default ().update_tasklist.begin (this, (obj, res) => {
-                    Services.CalDAV.Core.get_default ().update_tasklist.end (res);
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
+                caldav_client.update_project.begin (this, (obj, res) => {
+                    caldav_client.update_project.end (res);
                     Services.Store.instance ().update_project (this);
                     loading = false;
                 });
@@ -861,8 +861,9 @@ public class Objects.Project : Objects.BaseObject {
                     dialog.set_response_enabled ("cancel", false);
                     dialog.set_response_enabled ("delete", false);
 
-                    Services.CalDAV.Core.get_default ().delete_tasklist.begin (this, (obj, res) => {
-                        HttpResponse response = Services.CalDAV.Core.get_default ().delete_tasklist.end (res);
+                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
+                    caldav_client.delete_project.begin (this, (obj, res) => {
+                        HttpResponse response = caldav_client.delete_project.end (res);
                         loading = false;
 
                         if (response.status) {
