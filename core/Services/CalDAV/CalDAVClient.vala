@@ -82,12 +82,12 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
     public async void update_userdata (string principal_url, Objects.Source source, GLib.Cancellable cancellable) throws GLib.Error {
         var xml = """<?xml version="1.0" encoding="utf-8"?>
-                    <x0:propfind xmlns:x0="DAV:" xmlns:x1="http://sabredav.org/ns">
-                        <x0:prop>
-                            <x0:displayname/>
-                            <x1:email-address/>
-                        </x0:prop>
-                    </x0:propfind>
+                    <d:propfind xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns">
+                        <d:prop>
+                            <d:displayname/>
+                            <s:email-address/>
+                        </d:prop>
+                    </d:propfind>
         """;
 
         var multi_status = yield propfind (principal_url, xml, "0", cancellable);
@@ -190,10 +190,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 var supported_calendar = propstat.get_first_prop_with_tagname ("supported-calendar-component-set");
 
                 if (is_vtodo_calendar (resourcetype, supported_calendar)) {
-                    var resource_id = propstat.get_first_prop_with_tagname ("resource-id");
                     var name = propstat.get_first_prop_with_tagname ("displayname");
-                    var color = propstat.get_first_prop_with_tagname ("calendar-color");
-                    var sync_id = propstat.get_first_prop_with_tagname ("sync-token");
 
                     if (href != null && name != null) {
                         Objects.Project ? project = Services.Store.instance ().get_project_via_url (get_absolute_url (href));
@@ -230,7 +227,6 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var multi_status = yield propfind (project.calendar_url, xml, "1", cancellable);
 
         foreach (var response in multi_status.responses ()) {
-            string? href = response.href;
 
             foreach (var propstat in response.propstats ()) {
                 if (propstat.status != Soup.Status.OK) continue;
@@ -243,24 +239,24 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
     public async void fetch_items_for_project (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
         var xml = """<?xml version="1.0" encoding="utf-8"?>
-        <x1:calendar-query xmlns:x0="DAV:" xmlns:x1="urn:ietf:params:xml:ns:caldav">
-            <x0:prop>
-                <x0:getetag/>
-                <x0:displayname/>
-                <x0:owner/>
-                <x0:sync-token/>
-                <x0:current-user-privilege-set/>
-                <x0:getcontenttype/>
-                <x0:resourcetype/>
-                <x1:calendar-data/>
-            </x0:prop>
-            <x1:filter>
-                <x1:comp-filter name="VCALENDAR">
-                    <x1:comp-filter name="VTODO">
-                    </x1:comp-filter>
-                </x1:comp-filter>
-            </x1:filter>
-        </x1:calendar-query>
+        <cal:calendar-query xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
+            <d:prop>
+                <d:getetag/>
+                <d:displayname/>
+                <d:owner/>
+                <d:sync-token/>
+                <d:current-user-privilege-set/>
+                <d:getcontenttype/>
+                <d:resourcetype/>
+                <cal:calendar-data/>
+            </d:prop>
+            <cal:filter>
+                <cal:comp-filter name="VCALENDAR">
+                    <cal:comp-filter name="VTODO">
+                    </cal:comp-filter>
+                </cal:comp-filter>
+            </cal:filter>
+        </cal:calendar-query>
         """;
 
         var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
@@ -276,7 +272,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
                 Objects.Item item = new Objects.Item.from_vtodo (calendar_data.text_content, get_absolute_url (href), project.id);
 
-                if (parent_id != "") {
+                if (parent_id != null && parent_id != "") {
                     Objects.Item ? parent_item = Services.Store.instance ().get_item (parent_id);
                     if (parent_item != null) {
                         parent_item.add_item_if_not_exists (item);
@@ -393,20 +389,18 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                                    { Soup.Status.OK });
     }
 
-    public async void update_sync_token (Objects.Project project, GLib.Cancellable cancellable) {
+    public async void update_sync_token (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
         var xml = """<?xml version="1.0" encoding="utf-8"?>
-        <x0:propfind xmlns:x0="DAV:">
-            <x0:prop>
-                <x0:sync-token/>
-            </x0:prop>
-        </x0:propfind>
+        <d:propfind xmlns:d="DAV:">
+            <d:prop>
+                <d:sync-token/>
+            </d:prop>
+        </d:propfind>
         """;
 
         var multi_status = yield propfind (project.calendar_url, xml, "1", cancellable);
 
         foreach (var response in multi_status.responses ()) {
-            string? href = response.href;
-
             foreach (var propstat in response.propstats ()) {
                 if (propstat.status != Soup.Status.OK) continue;
 
@@ -421,26 +415,25 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
     public async HttpResponse create_project (Objects.Project project) {
         var xml = """<?xml version="1.0" encoding="utf-8"?>
-            <x0:mkcol xmlns:x0="DAV:">
-            <x0:set>
-                <x0:prop>
-                    <x0:resourcetype>
-                        <x0:collection/>
-                        <x1:calendar xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                    </x0:resourcetype>0
-                    <x0:displayname>%s</x0:displayname>
-                    <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/">%s</x6:calendar-color>
-                    <x4:calendar-enabled xmlns:x4="http://owncloud.org/ns">1</x4:calendar-enabled>
-                    <x1:supported-calendar-component-set xmlns:x1="urn:ietf:params:xml:ns:caldav">
-                        <x1:comp name="VTODO"/>
-                    </x1:supported-calendar-component-set>
-                </x0:prop>
-            </x0:set>
-        </x0:mkcol>
+            <d:mkcol xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:oc="http://owncloud.org/ns" xmlns:cal="urn:ietf:params:xml:ns:caldav">
+            <d:set>
+                <d:prop>
+                    <d:resourcetype>
+                        <d:collection/>
+                        <cal:calendar/>
+                    </d:resourcetype>
+                    <d:displayname>%s</d:displayname>
+                    <ical:calendar-color>%s</ical:calendar-color>
+                    <oc:calendar-enabled>1</oc:calendar-enabled>
+                    <cal:supported-calendar-component-set >
+                        <cal:comp name="VTODO"/>
+                    </cal:supported-calendar-component-set>
+                </d:prop>
+            </d:set>
+        </d:mkcol>
         """.printf (project.name, project.color_hex);
 
         var url = "%s/%s".printf (project.source.caldav_data.calendar_home_url, project.id);
-
 
         HttpResponse response = new HttpResponse ();
 
@@ -459,14 +452,14 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
     public async HttpResponse update_project (Objects.Project project) {
         var xml = """<?xml version="1.0" encoding="utf-8"?>
-        <x0:propertyupdate xmlns:x0="DAV:">
-            <x0:set>
-                <x0:prop>
-                    <x0:displayname>%s</x0:displayname>
-                    <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/">%s</x6:calendar-color>
-                </x0:prop>
-            </x0:set>
-        </x0:propertyupdate>
+        <d:propertyupdate xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/">
+            <d:set>
+                <d:prop>
+                    <d:displayname>%s</d:displayname>
+                    <ical:calendar-color>%s</ical:calendar-color>
+                </d:prop>
+            </d:set>
+        </d:propertyupdate>
         """.printf (project.name, project.color_hex);
 
         HttpResponse response = new HttpResponse ();

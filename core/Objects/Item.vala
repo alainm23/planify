@@ -180,10 +180,10 @@ public class Objects.Item : Objects.BaseObject {
     string _ical_url = "";
     public string ical_url {
         get {
-            var old_ics_value = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "ics");
-            if (old_ics_value != null) {
-                _ical_url = "%s/%s".printf (project.calendar_url, old_ics_value);
-                // TODO: Add proper migration
+            var json_object = Services.Todoist.get_default ().get_object_by_string (extra_data);
+
+            if (json_object.has_member ("ics")) {
+                _ical_url = "%s/%s".printf (project.calendar_url, json_object.get_string_member ("ics")); // TODO: Should the stored data be migrated?
             }else {
                 _ical_url = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "ical_url");
             }

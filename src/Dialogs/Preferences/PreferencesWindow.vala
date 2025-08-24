@@ -36,7 +36,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
         var destroy_controller = new Gtk.EventControllerKey ();
-        add_controller ((Gtk.ShortcutController) destroy_controller);
+        add_controller ((Gtk.ShortcutController) destroy_controller);  // This cast causes a GCritical Error
         destroy_controller.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 close ();
