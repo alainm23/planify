@@ -179,6 +179,10 @@ public class Objects.Item : Objects.BaseObject {
 
     string _ical_url = "";
     public string ical_url {
+        set {
+            _ical_url = value;
+        }
+
         get {
             var json_object = Services.Todoist.get_default ().get_object_by_string (extra_data);
 
@@ -416,6 +420,7 @@ public class Objects.Item : Objects.BaseObject {
 
         id = ical.get_uid ();
         content = ical.get_summary ();
+        ical_url = _ical_url;
 
         if (ical.get_description () != null) {
             description = ical.get_description ();
