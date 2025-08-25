@@ -254,7 +254,7 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    // TODO: ID is deprecated, not valid for every caldav implementation
+    // TODO: ID is randomly generated, so this no longer works
     // TODO: Also check why is_deck is needed
     public bool is_deck {
         get {
@@ -329,9 +329,6 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public Project.from_propstat (Services.CalDAV.WebDAVPropStat propstat, string url) {
-        var resource_id = propstat.get_first_prop_with_tagname ("resource-id").text_content;
-        print ("Project Resource ID is: %s", resource_id); // TODO: Debugging check if this gives us an alternative id, instead of having to generate one ourself
-
         id = Util.get_default ().generate_id (this); // THIS ID is INTERNAL and no longer used for requests
         calendar_url = url;
         update_from_propstat (propstat);
