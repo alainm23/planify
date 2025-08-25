@@ -304,7 +304,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
             margin_start = 3,
             margin_bottom = 6,
-            margin_top = 6
+            margin_top = 12
         };
 
         header_box.append (header_label);

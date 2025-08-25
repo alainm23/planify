@@ -47,7 +47,7 @@ public class Views.Labels : Adw.Bin {
         };
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 15
+            margin_start = 12
         };
 
         title_box.append (title_icon);

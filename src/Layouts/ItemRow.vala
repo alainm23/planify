@@ -932,6 +932,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             due_box.margin_end = 6;
         }
 
+        if (markdown_edit_view != null) {
+            markdown_edit_view.left_margin = item.item_type == ItemType.TASK ? 24 : 3;
+        }
+
         // Update Description
         if (description_handler_change_id != 0) {
             current_buffer.disconnect (description_handler_change_id);
@@ -1765,7 +1769,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         markdown_edit_view = new Widgets.Markdown.EditView () {
-            left_margin = item.item_type == ItemType.TASK ? 24 : 0,
+            left_margin = item.item_type == ItemType.TASK ? 24 : 3,
             right_margin = 6,
             top_margin = 3,
             bottom_margin = 12,
