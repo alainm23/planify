@@ -385,7 +385,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
 
     private async string? get_vtodo_by_url (Objects.Project project, string url, GLib.Cancellable cancellable) throws GLib.Error {
-        return yield send_request ("GET", url, null, null, cancellable,
+        return yield send_request ("GET", url, "", null, null, cancellable,
                                    { Soup.Status.OK });
     }
 
@@ -438,7 +438,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield send_request ("MKCOL", url, xml, null, null,
+            yield send_request ("MKCOL", url, "application/xml", xml, null, null,
                                 { Soup.Status.CREATED });
 
             response.status = true;
@@ -465,7 +465,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield send_request ("PROPPATCH", project.calendar_url, xml, null, null,
+            yield send_request ("PROPPATCH", project.calendar_url, "application/xml", xml, null, null,
                                     { Soup.Status.MULTI_STATUS });
 
             response.status = true;
@@ -481,7 +481,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield send_request ("DELETE", project.calendar_url, null, null, null,
+            yield send_request ("DELETE", project.calendar_url, "text/calendar", null, null, null,
                                 { Soup.Status.NO_CONTENT });
             response.status = true;
         } catch (Error e) {
@@ -503,7 +503,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield send_request ("PUT", url, body, null, null, expected);
+            yield send_request ("PUT", url, "text/calendar", body, null, null, expected);
             item.extra_data = Util.generate_extra_data (url, "", body);
 
             response.status = true;
@@ -521,7 +521,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield send_request ("PUT", item.ical_url, body, null, null, { Soup.Status.NO_CONTENT });
+            yield send_request ("PUT", item.ical_url, "", body, null, null, { Soup.Status.NO_CONTENT });
             item.extra_data = Util.generate_extra_data (item.ical_url, "", body);
 
             response.status = true;
@@ -544,7 +544,12 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
 
         try {
-            yield send_request ("MOVE", item.ical_url, null, null, null, {Soup.Status.NO_CONTENT, Soup.Status.CREATED }, headers);
+            yield send_request ("MOVE", item.ical_url, "", null, null, null, {Soup.Status.NO_CONTENT, Soup.Status.CREATED }, headers);
+
+            // TODO: Fix Updating the ical url when item got moved -v- this code doesn't work
+            item.ical_url = destination;
+            item.extra_data = Util.generate_extra_data (item.ical_url, "", item.calendar_data);
+            item.update_local ();
 
             response.status = true;
         } catch (Error e) {
@@ -560,7 +565,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield send_request ("DELETE", item.ical_url, null, null, null, { Soup.Status.NO_CONTENT });
+            yield send_request ("DELETE", item.ical_url, "", null, null, null, { Soup.Status.NO_CONTENT, Soup.Status.OK });
 
             response.status = true;
         } catch (Error e) {
