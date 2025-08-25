@@ -47,14 +47,14 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
     }
 
     public async WebDAVMultiStatus propfind (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
-        return new WebDAVMultiStatus.from_string (yield send_request ("PROPFIND", url, xml, depth, cancellable, { Soup.Status.MULTI_STATUS }));
+        return new WebDAVMultiStatus.from_string (yield send_request ("PROPFIND", url, "application/xml", xml, depth, cancellable, { Soup.Status.MULTI_STATUS }));
     }
 
     public async WebDAVMultiStatus report (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
-        return new WebDAVMultiStatus.from_string (yield send_request ("REPORT", url, xml, depth, cancellable, { Soup.Status.MULTI_STATUS }));
+        return new WebDAVMultiStatus.from_string (yield send_request ("REPORT", url, "application/xml", xml, depth, cancellable, { Soup.Status.MULTI_STATUS }));
     }
 
-    protected async string send_request (string method, string url, string? xml, string? depth, GLib.Cancellable? cancellable, Soup.Status[] expected_statuses, HashTable<string,string>? extra_headers = null) throws GLib.Error {
+    protected async string send_request (string method, string url, string content_type, string? body, string? depth, GLib.Cancellable? cancellable, Soup.Status[] expected_statuses, HashTable<string,string>? extra_headers = null) throws GLib.Error {
         var abs_url = get_absolute_url (url);
         if (abs_url == null)
             throw new GLib.IOError.FAILED ("Invalid URL: %s".printf (url));
@@ -78,7 +78,9 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         // After authentication, the body of the message needs to be set again when the message is resent.
         // https://gitlab.gnome.org/GNOME/libsoup/-/issues/358
         msg.restarted.connect (() => {
-            msg.set_request_body_from_bytes ("application/xml", new GLib.Bytes (xml.data));
+            if (body != null) {
+                msg.set_request_body_from_bytes (content_type, new GLib.Bytes (body.data));
+            }
         });
 
         if (depth != null) {
@@ -90,10 +92,11 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
                 msg.request_headers.replace (key, extra_headers.lookup (key));
         }
 
-        if (xml != null)
-            msg.set_request_body_from_bytes ("application/xml", new GLib.Bytes (xml.data));
+        if (body != null) {
+            msg.set_request_body_from_bytes (content_type, new GLib.Bytes (body.data));
+        }
 
-        GLib.Bytes body = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
+        GLib.Bytes response = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
 
         bool ok = false;
         foreach (var code in expected_statuses) {
@@ -104,14 +107,14 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         }
 
         if (!ok) {
-            var response_text = (string) body.get_data ();
+            var response_text = (string) response.get_data ();
             throw new GLib.IOError.FAILED (
                 "%s %s failed: HTTP %u %s\n%s".printf (
                     method, abs_url, msg.status_code, msg.reason_phrase ?? "", response_text ?? "")
             );
         }
 
-        return (string) body.get_data ();
+        return (string) response.get_data ();
     }
 
 }
