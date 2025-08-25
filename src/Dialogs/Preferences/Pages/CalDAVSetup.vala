@@ -169,52 +169,64 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
 
         cancel_button.clicked.connect (() => cancellable.cancel ());
 
-        if (calendar_home_entry.text != null && calendar_home_entry.text != "") {
-            do_login (calendar_home_entry.text, cancellable);
-        } else {
-             Services.CalDAV.Core.get_default ().resolve_calendar_home.begin (CalDAVType.GENERIC, server_entry.text, username_entry.text, password_entry.text, cancellable, (obj, res) => {
-                string? calendar_home = Services.CalDAV.Core.get_default ().resolve_calendar_home.end (res);
-                if (calendar_home == null) {
-                    login_button.is_loading = false;
-                    cancel_button.visible = false;
-                    accounts_page.show_message_error (0, "Failed to resolve calendar home");
-                } else {
-                    calendar_home_entry.text = calendar_home;
-                    do_login (calendar_home, cancellable);
-                }
-            });
-        }
+        do_login.begin (cancellable);
     }
 
 
-    private void do_login (string calendar_home, GLib.Cancellable cancellable) {
-        Services.CalDAV.Core.get_default ().login.begin (CalDAVType.GENERIC, server_entry.text, username_entry.text, password_entry.text, calendar_home, cancellable, (obj, res) => {
-            HttpResponse response = Services.CalDAV.Core.get_default ().login.end (res);
+    private async void do_login (GLib.Cancellable cancellable) {
+        if (server_entry.text == null || server_entry.text == "") {
+            login_button.is_loading = false;
+            cancel_button.visible = false;
+            accounts_page.show_message_error (0, "Invalid Server URL");
+            return;
+        }
 
-            if (response.status) {
-                Objects.Source source = (Objects.Source) response.data_object.get_object ();
-                Services.CalDAV.Core.get_default ().add_caldav_account.begin (source, cancellable, (obj, res) => {
-                    response = Services.CalDAV.Core.get_default ().add_caldav_account.end (res);
+        var dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (new Soup.Session (), server_entry.text);
 
-                    if (!response.status) {
-                        login_button.is_loading = false;
-                        cancel_button.visible = false;
-                        accounts_page.show_message_error (response.error_code, response.error.strip ());
-                    }
-                });
-            } else {
+        print ("Using DAV Endpoint: %s\n", dav_endpoint);
+
+        var calendar_home = "";
+
+        if (calendar_home_entry.text != null && calendar_home_entry.text != "") {
+            calendar_home = calendar_home_entry.text;
+        }else {
+            calendar_home = yield Services.CalDAV.Core.get_default ().resolve_calendar_home (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, cancellable);
+        }
+
+        if (calendar_home == null) {
+            login_button.is_loading = false;
+            cancel_button.visible = false;
+            accounts_page.show_message_error (0, "Failed to resolve calendar home");
+            return;
+        } else {
+            calendar_home_entry.text = calendar_home;
+        }
+
+        print ("Calendar Home: %s\n", calendar_home);
+
+        HttpResponse response = yield Services.CalDAV.Core.get_default ().login (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, calendar_home, cancellable);
+
+        if (response.status) {
+            Objects.Source source = (Objects.Source) response.data_object.get_object ();
+            response = yield Services.CalDAV.Core.get_default ().add_caldav_account (source, cancellable);
+
+            if (!response.status) {
                 login_button.is_loading = false;
                 cancel_button.visible = false;
-
-                if (response.error_code == 409) {
-                    var toast = new Adw.Toast (response.error.strip ());
-                    toast.timeout = 3;
-                    accounts_page.add_toast (toast);
-                } else {
-                    accounts_page.show_message_error (response.error_code, response.error.strip ());
-                }
+                accounts_page.show_message_error (response.error_code, response.error.strip ());
             }
-        });
+        } else {
+            login_button.is_loading = false;
+            cancel_button.visible = false;
+
+            if (response.error_code == 409) {
+                var toast = new Adw.Toast (response.error.strip ());
+                toast.timeout = 3;
+                accounts_page.add_toast (toast);
+            } else {
+                accounts_page.show_message_error (response.error_code, response.error.strip ());
+            }
+        }
     }
 
     private bool is_valid_url (string uri) {
