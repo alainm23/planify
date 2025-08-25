@@ -10,3 +10,4 @@ subprojects/gxml**/
 *.snap
 planify*txt
 .flatpak
+.buildconfig

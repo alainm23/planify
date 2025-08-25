@@ -292,9 +292,10 @@ public class Objects.SourceTodoistData : Objects.SourceData {
 public class Objects.SourceCalDAVData : Objects.SourceData {
     public string server_url { get; set; default = ""; }
     public string username { get; set; default = ""; }
-    public string credentials { get; set; default = ""; }
+    public string password { get; set; default = ""; }
     public string user_displayname { get; set; default = ""; }
     public string user_email { get; set; default = ""; }
+    public string calendar_home_url { get; set; default = ""; }
     public CalDAVType caldav_type { get; set; default = CalDAVType.NEXTCLOUD; }
 
     public SourceCalDAVData.from_json (string json) {
@@ -312,8 +313,8 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
                 username = object.get_string_member ("username");
             }
 
-            if (object.has_member ("credentials")) {
-                credentials = object.get_string_member ("credentials");
+            if (object.has_member ("password")) {
+                password = object.get_string_member ("password");
             }
 
             if (object.has_member ("user_displayname")) {
@@ -324,8 +325,21 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
                 user_email = object.get_string_member ("user_email");
             }
 
+            if (object.has_member ("calendar_home_url")) {
+                calendar_home_url = object.get_string_member ("calendar_home_url");
+            }
+
             if (object.has_member ("caldav_type")) {
                 caldav_type = CalDAVType.parse (object.get_string_member ("caldav_type"));
+            }
+
+            if (object.has_member ("credentials")) {
+                var decoded = (string) Base64.decode (object.get_string_member ("credentials"));
+
+                var parts = decoded.split (":", 2);
+                if (parts.length == 2) {
+                    password = parts[1];
+                }
             }
         } catch (Error e) {
             debug (e.message);
@@ -343,8 +357,8 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
         builder.set_member_name ("username");
         builder.add_string_value (username);
 
-        builder.set_member_name ("credentials");
-        builder.add_string_value (credentials);
+        builder.set_member_name ("password");
+        builder.add_string_value (password);
 
         builder.set_member_name ("caldav_type");
         builder.add_string_value (caldav_type.to_string ());
@@ -354,6 +368,9 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
 
         builder.set_member_name ("user_email");
         builder.add_string_value (user_email);
+
+        builder.set_member_name ("calendar_home_url");
+        builder.add_string_value (calendar_home_url);
 
         builder.end_object ();
 

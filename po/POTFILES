@@ -17,7 +17,7 @@ core/Services/Todoist.vala
 core/Services/CalDAV/Core.vala
 core/Services/CalDAV/Providers/ProviderBase.vala
 core/Services/CalDAV/Providers/Nextcloud.vala
-core/Services/CalDAV/Providers/Radicale.vala
+core/Services/CalDAV/Providers/Generic.vala
 
 core/Services/Chrono/Chrono.vala
 core/Services/Chrono/Enum.vala

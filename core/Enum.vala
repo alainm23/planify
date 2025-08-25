@@ -390,15 +390,15 @@ public enum NewTaskPosition {
 
 public enum CalDAVType {
     NEXTCLOUD = 0,
-    RADICALE = 1;
+    GENERIC = 1;
 
     public string to_string () {
         switch (this) {
             case NEXTCLOUD:
                 return "nextcloud";
 
-            case RADICALE:
-                return "radicale";
+            case GENERIC:
+                return "generic";
 
             default:
                 assert_not_reached ();
@@ -410,8 +410,8 @@ public enum CalDAVType {
             case NEXTCLOUD:
                 return _("Nextcloud");
 
-            case RADICALE:
-                return _("Radicale");
+            case GENERIC:
+                return _("CalDAV"); // TODO: Maybe rename Generic to CalDAV?
 
             default:
                 assert_not_reached ();
@@ -424,7 +424,7 @@ public enum CalDAVType {
                 return CalDAVType.NEXTCLOUD;
 
             case 1:
-                return CalDAVType.RADICALE;
+                return CalDAVType.GENERIC;
 
             default:
                 return CalDAVType.NEXTCLOUD;
@@ -436,8 +436,8 @@ public enum CalDAVType {
             case "nextcloud":
                 return CalDAVType.NEXTCLOUD;
 
-            case "radicale":
-                return CalDAVType.RADICALE;
+            case "generic":
+                return CalDAVType.GENERIC;
 
             default:
                 return CalDAVType.NEXTCLOUD;
