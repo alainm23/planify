@@ -1559,6 +1559,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             var target_item = target_widget.item;
 
             Services.EventBus.get_default ().drag_items_end (item.project_id);
+            Services.EventBus.get_default ().drag_n_drop_active (item.project_id, false);
 
             if (picked_widget == target_widget || target_widget == null) {
                 return false;
