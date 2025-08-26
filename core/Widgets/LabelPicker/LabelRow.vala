@@ -56,16 +56,17 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
             valign = Gtk.Align.CENTER,
             css_classes = { "event-bar" }
         };
-
         Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), color_grid);
+
+        var name_label = new Gtk.Label (label.name) {
+            valign = Gtk.Align.CENTER,
+        };
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 
         content_box.append (checked_button);
         content_box.append (color_grid);
-        content_box.append (new Gtk.Label (label.name) {
-            valign = Gtk.Align.CENTER,
-        });
+        content_box.append (name_label);
 
         child = content_box;
 
@@ -82,6 +83,11 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
 
         activate.connect (() => {
             update_checked_toggled ();
+        });
+
+        label.updated.connect (() => {
+            Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), color_grid);
+            name_label.label = label.name;
         });
     }
 
