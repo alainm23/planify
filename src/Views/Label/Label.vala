@@ -83,6 +83,7 @@ public class Views.Label : Adw.Bin {
 
         var listbox_content = new Adw.Bin () {
             margin_top = 20,
+            margin_end = 24,
             child = listbox
         };
 
@@ -109,10 +110,7 @@ public class Views.Label : Adw.Bin {
         content_box.append (listbox_stack);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 1024,
-            tightening_threshold = 800,
-            margin_start = 12,
-            margin_end = 12,
+            maximum_size = 864,
             margin_bottom = 64,
             child = content_box
         };

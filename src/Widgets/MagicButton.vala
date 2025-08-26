@@ -29,10 +29,10 @@ public class Widgets.MagicButton : Adw.Bin {
 
     public MagicButton () {
         Object (
-            margin_top: 32,
-            margin_start: 32,
-            margin_end: 32,
-            margin_bottom: 32,
+            margin_top: 24,
+            margin_start: 24,
+            margin_end: 24,
+            margin_bottom: 24,
             valign: Gtk.Align.END,
             halign: Gtk.Align.END
         );

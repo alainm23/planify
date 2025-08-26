@@ -44,6 +44,7 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
     construct {
         add_css_class ("no-selectable");
         add_css_class ("transition");
+        add_css_class ("no-padding");
 
         items = new Gee.HashMap<string, Layouts.ItemRow> ();
 
@@ -61,8 +62,7 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
         date_format_label.add_css_class ("dimmed");
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            hexpand = true,
-            margin_start = 27
+            hexpand = true
         };
 
         title_box.append (day_label);
@@ -71,8 +71,7 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
         event_list = new Widgets.EventsList.for_day (date) {
             hexpand = true,
             valign = Gtk.Align.START,
-            margin_top = 6,
-            margin_start = 27
+            margin_top = 6
         };
 
         event_list_revealer = new Gtk.Revealer () {
@@ -81,9 +80,19 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
             child = event_list
         };
 
-        event_list.change.connect (() => {
-            event_list_revealer.reveal_child = event_list.has_items;
+        var header_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            hexpand = true,
+            valign = Gtk.Align.START,
+            margin_start = 24,
+            margin_end = 24
+        };
+
+        header_content.append (title_box);
+        header_content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_top = 6,
+            margin_bottom = 3
         });
+        header_content.append (event_list_revealer);
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -94,7 +103,8 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
         };
 
         var listbox_grid = new Gtk.Grid () {
-            margin_top = 6
+            margin_top = 6,
+            margin_end = 24
         };
         listbox_grid.attach (listbox, 0, 0);
 
@@ -108,17 +118,10 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             valign = Gtk.Align.START,
-            margin_bottom = 32
+            margin_bottom = 32,
         };
 
-        content.append (title_box);
-        content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_top = 6,
-            margin_bottom = 3,
-            margin_start = 27
-        });
-
-        content.append (event_list_revealer);
+        content.append (header_content);
         content.append (listbox_revealer);
 
         child = content;
@@ -221,6 +224,10 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
 
         Objects.Filters.Scheduled.get_default ().filter_updated.connect (() => {
             listbox.invalidate_filter ();
+        });
+
+        event_list.change.connect (() => {
+            event_list_revealer.reveal_child = event_list.has_items;
         });
     }
 

@@ -113,7 +113,7 @@ public class Views.Today : Adw.Bin {
         };
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 27,
+            margin_start = 24,
         };
 
         title_box.append (today_icon);
@@ -122,7 +122,8 @@ public class Views.Today : Adw.Bin {
 
         event_list = new Widgets.EventsList.for_day (date) {
             margin_top = 12,
-            margin_start = 24
+            margin_start = 24,
+            margin_end = 24
         };
 
         event_list_revealer = new Gtk.Revealer () {
@@ -157,7 +158,8 @@ public class Views.Today : Adw.Bin {
         };
 
         var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 26,
+            margin_start = 24,
+            margin_end = 24
         };
         overdue_header_box.append (overdue_label);
         overdue_header_box.append (reschedule_button);
@@ -167,7 +169,8 @@ public class Views.Today : Adw.Bin {
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
             hexpand = true,
-            css_classes = { "listbox-background" }
+            css_classes = { "listbox-background" },
+            margin_end = 24
         };
         overdue_listbox.set_sort_func (set_sort_func);
 
@@ -177,17 +180,11 @@ public class Views.Today : Adw.Bin {
 
         overdue_listbox_grid.attach (overdue_listbox, 0, 0);
 
-        var overdue_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_top = 6,
-            margin_start = 24
-        };
-
         var overdue_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_top = 12
         };
 
         overdue_box.append (overdue_header_box);
-        overdue_box.append (overdue_separator);
         overdue_box.append (overdue_listbox_grid);
 
         overdue_revealer = new Gtk.Revealer () {
@@ -204,24 +201,20 @@ public class Views.Today : Adw.Bin {
         today_label.add_css_class ("font-bold");
 
         var today_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 26
+            margin_start = 24,
+            margin_end = 24
         };
         today_header_box.append (today_label);
-
-        var today_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_start = 24
-        };
 
         var today_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
             margin_top = 12
         };
         today_box.append (today_header_box);
-        today_box.append (today_separator);
 
         today_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+            transition_type = SLIDE_DOWN,
+            child = today_box
         };
-        today_revealer.child = today_box;
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -234,7 +227,8 @@ public class Views.Today : Adw.Bin {
 
         listbox_grid = new Gtk.Grid () {
             margin_top = 6,
-            margin_start = 3
+            margin_start = 3,
+            margin_end = 24
         };
 
         listbox_grid.attach (listbox, 0, 0);
@@ -256,7 +250,9 @@ public class Views.Today : Adw.Bin {
         listbox_placeholder_stack = new Gtk.Stack () {
             vexpand = true,
             hexpand = true,
-            transition_type = Gtk.StackTransitionType.CROSSFADE
+            transition_type = CROSSFADE,
+            vhomogeneous = false,
+            hhomogeneous = false
         };
 
         listbox_placeholder_stack.add_named (content, "listbox");
@@ -273,10 +269,7 @@ public class Views.Today : Adw.Bin {
         content_box.append (listbox_placeholder_stack);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 1024,
-            tightening_threshold = 800,
-            margin_start = 12,
-            margin_end = 12,
+            maximum_size = 864,
             margin_bottom = 64,
             child = content_box
         };
@@ -292,15 +285,15 @@ public class Views.Today : Adw.Bin {
 
         var content_overlay = new Gtk.Overlay () {
             hexpand = true,
-            vexpand = true
+            vexpand = true,
+            child = scrolled_window
         };
-
-        content_overlay.child = scrolled_window;
         content_overlay.add_overlay (magic_button);
 
-        var toolbar_view = new Adw.ToolbarView ();
+        var toolbar_view = new Adw.ToolbarView () {
+            content = content_overlay
+        };
         toolbar_view.add_top_bar (headerbar);
-        toolbar_view.content = content_overlay;
 
         child = toolbar_view;
         update_today_label ();

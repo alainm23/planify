@@ -222,7 +222,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         parent_id = item.parent_id;
 
         motion_top_grid = new Gtk.Grid () {
-            height_request = 27,
+            height_request = 30,
             css_classes = { "drop-area", "drop-target" },
             margin_bottom = 3,
             margin_start = 21
@@ -348,7 +348,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = repeat_box
         };
 
-        due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            valign = CENTER
+        };
         due_box.append (due_label);
         due_box.append (repeat_revealer);
 
@@ -532,8 +534,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var _itemrow_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin_top = 3,
             margin_bottom = 3,
-            margin_start = 3,
-            margin_end = 3
+            margin_end = 3,
+            margin_start = 3
         };
         _itemrow_box.append (handle_grid);
         _itemrow_box.append (pin_image_revealer);
@@ -549,7 +551,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         subitems = new Widgets.SubItems (is_project_view);
         subitems.present_item (item);
-        subitems.reveal_child = item.collapsed;
+        subitems.reveal_child = item.items.size > 0 && item.collapsed;
 
         show_subtasks_label = new Gtk.Label (null);
 
@@ -579,6 +581,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         hide_subtask_button = new Gtk.Button () {
             valign = Gtk.Align.START,
+            margin_start = 6,
             margin_top = 3,
             css_classes = { "flat", "dimmed", "no-padding", "hidden-button" },
             child = new Gtk.Image.from_icon_name ("go-next-symbolic") {
@@ -597,7 +600,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = hide_subtask_button
         };
 
-        var h_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        var h_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         h_box.append (hide_subtask_revealer);
         h_box.append (box);
 
@@ -930,6 +933,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             content_box.margin_start = 0;
             due_box.margin_start = 0;
             due_box.margin_end = 6;
+        }
+
+        if (markdown_edit_view != null) {
+            markdown_edit_view.left_margin = item.item_type == ItemType.TASK ? 24 : 3;
         }
 
         // Update Description
@@ -1502,7 +1509,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     motion_top_grid.height_request = picked_widget.handle_grid.get_height ();
                     motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
                 } else if (value.dup_object () is Widgets.MagicButton) {
-                    motion_top_grid.height_request = 32;
+                    motion_top_grid.height_request = 30;
                     motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
                 }
             } catch (Error e) {
@@ -1765,7 +1772,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         markdown_edit_view = new Widgets.Markdown.EditView () {
-            left_margin = item.item_type == ItemType.TASK ? 24 : 0,
+            left_margin = item.item_type == ItemType.TASK ? 24 : 3,
             right_margin = 6,
             top_margin = 3,
             bottom_margin = 12,

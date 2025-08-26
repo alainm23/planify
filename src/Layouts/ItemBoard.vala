@@ -209,7 +209,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         };
 
         due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_end = 6
+            margin_end = 6,
+            valign = CENTER
         };
         due_box.append (due_label);
         due_box.append (repeat_revealer);

@@ -37,12 +37,10 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
 
         group = new Layouts.HeaderItem (source.display_name) {
             reveal = true,
-            show_separator = true,
             subheader_title = source.subheader_text
         };
         group.placeholder_message = _("No labels available. Create one by clicking on the '+' button");
         group.margin_bottom = 12;
-        group.show_separator = true;
         group.set_sort_func (sort_func);
 
         var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {

@@ -46,35 +46,28 @@ public class Views.Labels : Adw.Bin {
             halign = START
         };
 
-        var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 15
-        };
-
+        var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         title_box.append (title_icon);
         title_box.append (title_label);
 
         sources_listbox = new Gtk.ListBox () {
             hexpand = true,
             valign = Gtk.Align.START,
-            css_classes = { "listbox-background" },
-            margin_start = 9
+            css_classes = { "listbox-background" }
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             hexpand = true,
             vexpand = true,
-            margin_start = 12,
-            margin_end = 12
+            margin_start = 24,
+            margin_end = 24
         };
 
         content_box.append (title_box);
         content_box.append (sources_listbox);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 1024,
-            tightening_threshold = 800,
-            margin_start = 12,
-            margin_end = 12,
+            maximum_size = 864,
             margin_bottom = 64,
             child = content_box
         };
@@ -96,9 +89,10 @@ public class Views.Labels : Adw.Bin {
 
         content_overlay.add_overlay (magic_button);
 
-        var toolbar_view = new Adw.ToolbarView ();
+        var toolbar_view = new Adw.ToolbarView () {
+            content = content_overlay
+        };
         toolbar_view.add_top_bar (headerbar);
-        toolbar_view.content = content_overlay;
 
         child = toolbar_view;
 

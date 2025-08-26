@@ -65,7 +65,7 @@ public class Views.Filter : Adw.Bin {
         };
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 26
+            margin_start = 24
         };
 
         title_box.append (title_icon);
@@ -93,12 +93,13 @@ public class Views.Filter : Adw.Bin {
             valign = Gtk.Align.START,
             selection_mode = Gtk.SelectionMode.NONE,
             hexpand = true,
-            css_classes = { "listbox-background" },
-            margin_start = 3
+            css_classes = { "listbox-background" }
         };
 
         listbox_content = new Adw.Bin () {
-            child = listbox
+            child = listbox,
+            margin_end = 24,
+            margin_top = 12
         };
 
         var listbox_placeholder = new Adw.StatusPage ();
@@ -123,15 +124,11 @@ public class Views.Filter : Adw.Bin {
         content.append (title_box);
         content.append (listbox_stack);
 
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 1024,
-            tightening_threshold = 800,
-            margin_start = 12,
-            margin_end = 12,
-            margin_bottom = 64
+        var content_clamp = new Adw.ClampScrollable () {
+            maximum_size = 864,
+            margin_bottom = 64,
+            child = content
         };
-
-        content_clamp.child = content;
 
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
@@ -144,15 +141,15 @@ public class Views.Filter : Adw.Bin {
 
         var content_overlay = new Gtk.Overlay () {
             hexpand = true,
-            vexpand = true
+            vexpand = true,
+            child = scrolled_window
         };
-
-        content_overlay.child = scrolled_window;
         content_overlay.add_overlay (magic_button);
 
-        var toolbar_view = new Adw.ToolbarView ();
+        var toolbar_view = new Adw.ToolbarView () {
+            content = content_overlay
+        };
         toolbar_view.add_top_bar (headerbar);
-        toolbar_view.content = content_overlay;
 
         child = toolbar_view;
 
@@ -222,7 +219,6 @@ public class Views.Filter : Adw.Bin {
             title_label.label = priority.name;
             listbox.set_sort_func (null);
             listbox.set_header_func (null);
-            listbox_content.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Completed) {
             title_icon.icon_name = FilterType.COMPLETED.get_icon ();
@@ -231,7 +227,6 @@ public class Views.Filter : Adw.Bin {
             title_label.label = FilterType.COMPLETED.get_name ();
             listbox.set_sort_func (sort_completed_function);
             listbox.set_header_func (header_completed_function);
-            listbox_content.margin_top = 0;
             magic_button.visible = false;
         } else if (filter is Objects.Filters.Tomorrow) {
             title_icon.icon_name = FilterType.SCHEDULED.get_icon ();
@@ -240,7 +235,6 @@ public class Views.Filter : Adw.Bin {
             title_label.label = _("Tomorrow");
             listbox.set_sort_func (null);
             listbox.set_header_func (null);
-            listbox_content.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Pinboard) {
             title_icon.icon_name = FilterType.PINBOARD.get_icon ();
@@ -249,7 +243,6 @@ public class Views.Filter : Adw.Bin {
             title_label.label = FilterType.PINBOARD.get_name ();
             listbox.set_sort_func (null);
             listbox.set_header_func (null);
-            listbox_content.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Anytime) {
             title_icon.icon_name = FilterType.SCHEDULED.get_icon ();
@@ -258,7 +251,6 @@ public class Views.Filter : Adw.Bin {
             title_label.label = _("Anytime");
             listbox.set_sort_func (sort_project_function);
             listbox.set_header_func (header_project_function);
-            listbox_content.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Repeating) {
             title_icon.icon_name = "arrow-circular-top-right-symbolic";
@@ -267,7 +259,6 @@ public class Views.Filter : Adw.Bin {
             title_label.label = _("Repeating");
             listbox.set_sort_func (sort_project_function);
             listbox.set_header_func (header_project_function);
-            listbox_content.margin_top = 12;
             magic_button.visible = false;
         } else if (filter is Objects.Filters.Unlabeled) {
             title_icon.icon_name = "tag-outline-symbolic";
@@ -276,7 +267,6 @@ public class Views.Filter : Adw.Bin {
             title_label.label = _("Unlabeled");
             listbox.set_sort_func (sort_project_function);
             listbox.set_header_func (header_project_function);
-            listbox_content.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.AllItems) {
             title_icon.icon_name = "grid-large-symbolic";
@@ -285,7 +275,6 @@ public class Views.Filter : Adw.Bin {
             title_label.label = _("All Tasks");
             listbox.set_sort_func (sort_project_function);
             listbox.set_header_func (header_project_function);
-            listbox_content.margin_top = 12;
             magic_button.visible = true;
         }
 
@@ -550,24 +539,17 @@ public class Views.Filter : Adw.Bin {
 
     private Gtk.Widget get_header_box (string title) {
         var header_label = new Gtk.Label (title) {
-            css_classes = { "heading" },
-            halign = START,
-            margin_start = 3
-        };
-
-        var header_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            hexpand = true,
-            margin_bottom = 6,
-            margin_start = 3
+            css_classes = { "font-bold" },
+            halign = START
         };
 
         var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            margin_top = 12,
-            margin_start = 20
+            margin_top = 6,
+            margin_start = 24,
+            margin_bottom = 6
         };
 
         header_box.append (header_label);
-        header_box.append (header_separator);
 
         return header_box;
     }

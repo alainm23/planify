@@ -150,7 +150,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         name_label.label = project.is_inbox_project ? _("Inbox") : project.name;
         icon_project.project = project;
         icon_project.update_request ();
-        section_box_revealer.reveal_child = project.source_type != SourceType.CALDAV;
+        section_box_revealer.reveal_child = project.sections.size > 0 && project.source_type != SourceType.CALDAV;
     }
 
     private Gtk.Popover build_sections_popover () {
