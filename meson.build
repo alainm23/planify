@@ -90,6 +90,9 @@ subdir('data')
 # subdir('search-provider')
 subdir('po')
 
+# Testing
+subdir('test')
+
 summary({
   'Tracing': get_option('tracing'),
   'Profile': get_option('profile'),
