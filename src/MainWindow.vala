@@ -131,13 +131,16 @@ public class MainWindow : Adw.ApplicationWindow {
             sidebar = sidebar_view
         };
 
-        var breakpoint = new Adw.Breakpoint (Adw.BreakpointCondition.parse ("max-width: 800sp"));
+        var breakpoint = new Adw.Breakpoint (Adw.BreakpointCondition.parse ("max-width: 500sp"));
         breakpoint.add_setter (overlay_split_view, "collapsed", true);
         add_breakpoint (breakpoint);
 
         error_db_page = build_error_db_page ();
 
-        view_stack = new Adw.ViewStack ();
+        view_stack = new Adw.ViewStack () {
+            hhomogeneous = false,
+            vhomogeneous = false
+        };
         view_stack.add (overlay_split_view);
         view_stack.add (error_db_page);
 

@@ -75,7 +75,7 @@ public class Views.List : Adw.Bin {
 
         var title_box = new Gtk.Box (HORIZONTAL, 6) {
             valign = CENTER,
-            margin_start = 27,
+            margin_start = 24,
         };
 
         title_box.append (icon_project);
@@ -84,7 +84,7 @@ public class Views.List : Adw.Bin {
         var description_widget = new Widgets.EditableTextView (_ ("Note")) {
             text = project.description,
             margin_top = 12,
-            margin_start = 27,
+            margin_start = 24,
             margin_end = 12
         };
 
@@ -146,10 +146,7 @@ public class Views.List : Adw.Bin {
         content_box.append (listbox_placeholder_stack);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 1024,
-            tightening_threshold = 800,
-            margin_start = 12,
-            margin_end = 12,
+            maximum_size = 864,
             margin_bottom = 64,
             child = content_box
         };

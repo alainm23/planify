@@ -98,7 +98,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         };
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 27,
+            margin_start = 24,
             margin_bottom = 6
         };
 
@@ -112,7 +112,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             base_object = Objects.Filters.Scheduled.get_default ()
         };
 
-        filters.flowbox.margin_start = 27;
+        filters.flowbox.margin_start = 24;
         filters.flowbox.margin_top = 12;
         filters.flowbox.margin_end = 12;
         filters.flowbox.margin_bottom = 3;
@@ -127,10 +127,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         content.append (listbox_content);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 1024,
-            tightening_threshold = 800,
-            margin_start = 12,
-            margin_end = 12,
+            maximum_size = 864,
             margin_bottom = 64,
             child = content
         };
@@ -147,15 +144,16 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
         var content_overlay = new Gtk.Overlay () {
             hexpand = true,
-            vexpand = true
+            vexpand = true,
+            child = scrolled_window
         };
 
-        content_overlay.child = scrolled_window;
         content_overlay.add_overlay (magic_button);
 
-        var toolbar_view = new Adw.ToolbarView ();
+        var toolbar_view = new Adw.ToolbarView () {
+            content = content_overlay
+        };
         toolbar_view.add_top_bar (headerbar);
-        toolbar_view.content = content_overlay;
 
         child = toolbar_view;
         add_days ();
