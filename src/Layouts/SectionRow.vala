@@ -177,7 +177,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             css_classes = { "transition", "drop-target" },
             height_request = 30,
             margin_start = 21,
-            margin_end = 24
+            margin_end = 24,
+            margin_bottom = 12
         };
 
         drop_inbox_revealer = new Gtk.Revealer () {
@@ -921,7 +922,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             var source_list = (Gtk.ListBox) picked_widget.parent;
             source_list.remove (picked_widget);
 
-            listbox.insert (picked_widget, 0);
+            listbox.append (picked_widget);
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
             update_items_item_order (listbox);
 
