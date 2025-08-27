@@ -8,7 +8,7 @@ on:
 
 jobs:
   update-po:
-    runs-on: ubuntu-latest
+    runs-on: debian:trixie-slim
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
