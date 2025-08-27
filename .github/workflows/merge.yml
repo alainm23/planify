@@ -35,14 +35,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            valac meson ninja-build gettext desktop-file-utils git \
-            libglib2.0-dev libgee-0.8-dev libgtk-4-dev libadwaita-1-dev \
-            libsoup-3.0-dev libsqlite3-dev libwebkitgtk-6.0-dev \
-            libgtksourceview-5-dev libjson-glib-dev libecal2.0-dev \
-            libedataserver1.2-dev libical-dev libportal-dev libportal-gtk4-dev \
-            libgxml-0.20-dev libsecret-1-dev
+          sudo dnf update
+          sudo dnf install vala meson ninja-build gtk4-devel libadwaita-devel libgee-devel libsoup3-devel webkitgtk6.0-devel gtksourceview5-devel libportal-devel libportal-gtk4-devel evolution-data-server-devel evolution-devel
 
       - name: Configure and build
         run: |
