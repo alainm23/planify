@@ -4,6 +4,7 @@ deps = [
   webkitgtk_dep,
   libedataserver_dep,
   libportal_dep,
+  libportal_gtk4_dep,
   m_dep
 ]
 
