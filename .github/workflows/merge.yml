@@ -22,7 +22,7 @@ jobs:
 
   gettext:
     name: Gettext
-    runs-on: ubuntu-latest
+    runs-on: fedora:latest
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
       options: --privileged
