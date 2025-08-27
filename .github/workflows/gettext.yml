@@ -25,7 +25,7 @@ jobs:
             libsoup-3.0-dev libsqlite3-dev libwebkitgtk-6.0-dev \
             libgtksourceview-5-dev libjson-glib-dev libecal2.0-dev \
             libedataserver1.2-dev libical-dev libportal-dev libportal-gtk4-dev \
-            libgxml-0.20-dev libsecret-1-dev
+            libsecret-1-dev
 
       - name: Configure and build
         run: |
