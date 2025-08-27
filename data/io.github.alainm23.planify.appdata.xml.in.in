@@ -61,6 +61,38 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.13.4" date="2025-08-27">
+      <description translate="no">
+        <ul>
+          <li>Fixed back button in right sidebar to hide when no parent task exists. Fixes #1590</li>
+          <li>Corrected Turkish translations, added missing entries, and improved consistency.</li>
+          <li>Show project title in HeaderBar once main title scrolls out of view. Fixes #1589</li>
+          <li>Refined Sources view and removed redundant popover button for improved clarity.</li>
+          <li>Replaced Gtk.ToggleButton with Adw.ToggleGroup for modernized view switching.</li>
+          <li>Simplified "Expand All" and "Collapse All" into a single toggle button.</li>
+          <li>Added "reminder" and "reminders" keywords to desktop file for easier app search.</li>
+          <li>Quick Add now retains the last used project for faster task creation.</li>
+          <li>Redesigned Appearance page and fixed related issues.</li>
+          <li>Improved drag-and-drop animations in Widgets.ReorderChild and fixed last-item reorder bug.</li>
+          <li>Fixed duplicate sync at startup by adjusting network monitor behavior.</li>
+          <li>Fixed drag-and-drop at the end of list by adding dedicated bottom drop area. Fixes #1522</li>
+          <li>Added font size selector for improved accessibility. Fixes #1403</li>
+          <li>Added weekday/weekend options for recurring tasks and refactored DateTimePicker. Fixes #1671</li>
+          <li>Added search entry to project selection dialog when moving tasks.</li>
+          <li>Introduced a "Today" section in the Scheduled view for better planning. Fixes #1550</li>
+          <li>Improved day change detection with periodic 5-minute checks for reliability.</li>
+          <li>Added fly-to-target animation for priority shortcuts in QuickAdd.</li>
+          <li>Improved handling of literal shortcut characters (@, !, p1–p4) in task titles. Fixes #1535</li>
+          <li>Improved Control key detection to reliably trigger "Create More". Fixes #1452</li>
+          <li>Added keyboard shortcuts help popover to task dialog.</li>
+          <li>Introduced MarkdownProcessor class for enhanced markdown rendering in task titles. Fixes #1547 #1556</li>
+          <li>Default label now auto-fills when creating tasks inside a label window. Fixes #1525</li>
+          <li>Fixed attachment opening issues with improved validation and error handling. Fixes #1485</li>
+          <li>Partial support for adaptive windows with small screen improvements.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.13.2" date="2025-08-09">
       <description translate="no">
         <ul>
@@ -82,7 +114,6 @@
           <li>Show completed tasks below pending tasks with pagination. Fixes #1614 #1565 #1415 #1417</li>
         </ul>
       </description>
-
     </release>
 
     <release version="4.13.0" date="2025-07-18">
