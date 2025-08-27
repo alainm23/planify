@@ -24,34 +24,59 @@ jobs:
     name: Gettext
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/elementary/flatpak-platform/runtime:8.2-x86_64
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
       options: --privileged
 
     steps:
-      - name: Install git, python3-git and jq
-        run: |
-          apt-get update
-          apt-get install git jq python3-git -y
-
-      - name: Clone repository
-        uses: actions/checkout@v5
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GIT_USER_TOKEN }}
+          persist-credentials: false
+          fetch-depth: 0
 
-      - name: Install Rust SDK extension
+      - name: Ver qué gestor de paquetes hay
         run: |
-          flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          flatpak install -y org.freedesktop.Sdk.Extension.rust-stable//24.08
-          flatpak install -y org.gnome.Sdk/x86_64/48
-          flatpak install -y org.gnome.Platform/x86_64/48
+          cat /etc/os-release
+          which apt-get || echo "apt-get no existe"
+          which apt || echo "apt no existe"
+          which dnf || echo "dnf no existe"
+          which yum || echo "yum no existe"
+          which apk || echo "apk no existe"
 
-      - name: Configure Git
+      - name: Install dependencies
         run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-      - name: Update Translation Files
-        uses: elementary/actions/gettext-flatpak@main
+          sudo apt-get update
+          sudo apt-get install -y \
+            valac meson ninja-build gettext desktop-file-utils git \
+            libglib2.0-dev libgee-0.8-dev libgtk-4-dev libadwaita-1-dev \
+            libsoup-3.0-dev libsqlite3-dev libwebkitgtk-6.0-dev \
+            libgtksourceview-5-dev libjson-glib-dev libecal2.0-dev \
+            libedataserver1.2-dev libical-dev libportal-dev libportal-gtk4-dev \
+            libgxml-0.20-dev libsecret-1-dev
+
+      - name: Configure and build
+        run: |
+          meson setup build --prefix=/usr || meson setup build --reconfigure --prefix=/usr
+          ninja -C build
+
+      - name: Update translation files
+        run: |
+          ninja -C build io.github.alainm23.planify-update-po
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain po/)" ]; then
+            git add po/
+            git commit -m "chore(i18n): update translation files"
+          else
+            echo "No translation updates found"
+          fi
+
+      - name: Push changes
+        if: success()
+        uses: ad-m/github-push-action@v0.8.0
         with:
-          manifest-path: "io.github.alainm23.planify.json"
-        env:
-          GIT_USER_NAME: "planifyBot"
-          GIT_USER_EMAIL: "builds@useplanify.com"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main

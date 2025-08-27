@@ -104,7 +104,6 @@
                 "-Dbackend-gtk4=enabled",
                 "-Dbackend-qt5=disabled",
                 "-Dintrospection=true",
-                "-Dvapi=true",
                 "-Ddocs=false"
             ],
             "sources": [
