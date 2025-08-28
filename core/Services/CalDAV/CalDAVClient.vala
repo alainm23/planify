@@ -546,10 +546,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         try {
             yield send_request ("MOVE", item.ical_url, "", null, null, null, {Soup.Status.NO_CONTENT, Soup.Status.CREATED }, headers);
 
-            // TODO: Fix Updating the ical url when item got moved -v- this code doesn't work
-            item.ical_url = destination;
-            item.extra_data = Util.generate_extra_data (item.ical_url, "", item.calendar_data);
-            item.update_local ();
+            item.extra_data = Util.generate_extra_data (destination, "", item.calendar_data);
 
             response.status = true;
         } catch (Error e) {

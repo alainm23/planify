@@ -1491,7 +1491,8 @@ public class Services.Database : GLib.Object {
             UPDATE Items SET
                 section_id=$section_id,
                 project_id=$project_id,
-                parent_id=$parent_id
+                parent_id=$parent_id,
+                extra_data=$extra_data
             WHERE id=$id;
         """;
 
@@ -1499,6 +1500,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$section_id", item.section_id);
         set_parameter_str (stmt, "$project_id", item.project_id);
         set_parameter_str (stmt, "$parent_id", item.parent_id);
+        set_parameter_str (stmt, "$extra_data", item.extra_data);
         set_parameter_str (stmt, "$id", item.id);
 
         if (stmt.step () != Sqlite.DONE) {
