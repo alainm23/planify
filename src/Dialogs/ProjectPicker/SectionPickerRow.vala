@@ -103,11 +103,13 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
             if (!is_inbox_section) {
                 content_box.append (order_icon);
             }
+
             content_box.append (name_label);
             content_box.append (hidded_switch);
         }
 
         if (widget_type == "picker") {
+            content_box.append (name_label);
             content_box.append (selected_revealer);
         }
 
@@ -115,6 +117,8 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
             content_box.margin_top = 3;
             content_box.margin_bottom = 3;
             content_box.margin_end = 3;
+
+            content_box.append (name_label);
             content_box.append (menu_button);
         }
 

@@ -654,7 +654,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     public void for_section (Objects.Section section) {
         item.section_id = section.id;
-        item.project_id = section.project.id;
+        item.project_id = section.project_id;
 
         project_picker_button.project = section.project;
         project_picker_button.section = section;

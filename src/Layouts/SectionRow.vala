@@ -841,7 +841,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             var picked_widget = (Layouts.ItemRow) value;
 
             picked_widget.drag_end ();
-
+            
+            string old_project_id = picked_widget.item.project_id;
             string old_section_id = picked_widget.item.section_id;
             string old_parent_id = picked_widget.item.parent_id;
 
@@ -860,11 +861,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
                 Services.Todoist.get_default ().move_item.begin (picked_widget.item, type, id, (obj, res) => {
                     if (Services.Todoist.get_default ().move_item.end (res).status) {
-                        Services.Store.instance ().move_item (picked_widget.item, old_section_id, old_parent_id);
+                        Services.Store.instance ().move_item (picked_widget.item, old_project_id, old_section_id, old_parent_id);
                     }
                 });
             } else if (picked_widget.item.project.source_type == SourceType.LOCAL) {
-                Services.Store.instance ().move_item (picked_widget.item, old_section_id, old_parent_id);
+                Services.Store.instance ().move_item (picked_widget.item, old_project_id, old_section_id, old_parent_id);
             }
 
             var source_list = (Gtk.ListBox) picked_widget.parent;
@@ -958,7 +959,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     }
 
     private void move_section (string project_id) {
-        string old_section_id = section.project_id;
+        string old_project_id = section.project_id;
         section.project_id = project_id;
 
         is_loading = true;
@@ -966,13 +967,13 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         if (section.project.source_type == SourceType.TODOIST) {
             Services.Todoist.get_default ().move_project_section.begin (section, project_id, (obj, res) => {
                 if (Services.Todoist.get_default ().move_project_section.end (res).status) {
-                    Services.Store.instance ().move_section (section, old_section_id);
+                    Services.Store.instance ().move_section (section, old_project_id);
                 }
 
                 is_loading = false;
             });
         } else if (section.project.source_type == SourceType.LOCAL) {
-            Services.Store.instance ().move_section (section, project_id);
+            Services.Store.instance ().move_section (section, old_project_id);
             is_loading = false;
         }
     }
