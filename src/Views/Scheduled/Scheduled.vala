@@ -26,6 +26,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
     private Gtk.ScrolledWindow scrolled_window;
 
     public Gee.HashMap<string, Layouts.ItemRow> items;
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     construct {
         items = new Gee.HashMap<string, Layouts.ItemRow> ();
@@ -87,9 +88,6 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         };
 
         Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
-        Services.EventBus.get_default ().theme_changed.connect (() => {
-            Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
-        });
 
         var title_label = new Gtk.Label (FilterType.SCHEDULED.get_name ()) {
             css_classes = { "font-bold", "title-2" },
@@ -158,13 +156,17 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         child = toolbar_view;
         add_days ();
 
-        magic_button.clicked.connect (() => {
+        signals_map[magic_button.clicked.connect (() => {
             prepare_new_item ();
-        });
+        })] = magic_button;
 
-        scrolled_window.vadjustment.value_changed.connect (() => {
+        signals_map[scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);
-        });
+        })] = scrolled_window.vadjustment;
+
+        signals_map[Services.EventBus.get_default ().theme_changed.connect (() => {
+            Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
+        })] = Services.EventBus.get_default ();
     }
 
     private void add_days () {
@@ -322,5 +324,13 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         });
 
         return popover;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signals_map.clear ();
     }
 }

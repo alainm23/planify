@@ -359,7 +359,7 @@ public class MainWindow : Adw.ApplicationWindow {
             }
         });
 
-        // Cleanup automático cada 2 minutos
+        // Cleanup every 2 minutes
         Timeout.add_seconds (120, () => {
             cleanup_unused_views ();
             return Source.CONTINUE;
@@ -739,14 +739,14 @@ public class MainWindow : Adw.ApplicationWindow {
 
     private int64 get_timeout_for_view (string view_id) {
         if (view_id.has_prefix ("project-")) {
-            return 600000000;
+            return 600000000; // 10 min
         }
 
         if (view_id == "today-view") {
-            return 180000000;
+            return 180000000; // 3 min
         }
 
-        return VIEW_TIMEOUT;
+        return VIEW_TIMEOUT; // 5 min
     }
 
     private void cleanup_view (Gtk.Widget view) {
@@ -755,11 +755,11 @@ public class MainWindow : Adw.ApplicationWindow {
         } else if (view is Views.Today) {
             ((Views.Today) view).clean_up ();
         } else if (view is Views.Scheduled.Scheduled) {
-            // ((Views.Scheduled.Scheduled) view).clean_up ();
+            ((Views.Scheduled.Scheduled) view).clean_up ();
         } else if (view is Views.Filter) {
-            // ((Views.Filter) view).clean_up ();
+            ((Views.Filter) view).clean_up ();
         } else if (view is Views.Label) {
-            // ((Views.Label) view).clean_up ();
+            ((Views.Label) view).clean_up ();
         }
     }
 

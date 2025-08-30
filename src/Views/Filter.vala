@@ -30,6 +30,7 @@ public class Views.Filter : Adw.Bin {
     private Gtk.Revealer view_setting_revealer;
 
     private Gee.HashMap<string, Layouts.ItemRow> items = new Gee.HashMap<string, Layouts.ItemRow> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     Objects.BaseObject _filter;
     public Objects.BaseObject filter {
@@ -158,34 +159,34 @@ public class Views.Filter : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        Services.Store.instance ().item_added.connect (valid_add_item);
-        Services.Store.instance ().item_deleted.connect (valid_delete_item);
-        Services.Store.instance ().item_updated.connect (valid_update_item);
-        Services.EventBus.get_default ().checked_toggled.connect (valid_checked_item);
-        Services.Store.instance ().item_archived.connect (valid_delete_item);
-        Services.Store.instance ().item_unarchived.connect ((item) => {
+        signals_map[Services.Store.instance ().item_added.connect (valid_add_item)] = Services.Store.instance ();
+        signals_map[Services.Store.instance ().item_deleted.connect (valid_delete_item)] = Services.Store.instance ();
+        signals_map[Services.Store.instance ().item_updated.connect (valid_update_item)] = Services.Store.instance ();
+        signals_map[Services.EventBus.get_default ().checked_toggled.connect (valid_checked_item)] = Services.EventBus.get_default ();
+        signals_map[Services.Store.instance ().item_archived.connect (valid_delete_item)] = Services.Store.instance ();
+        signals_map[Services.Store.instance ().item_unarchived.connect ((item) => {
             valid_add_item (item);
-        });
+        })] = Services.Store.instance ();
 
-        Services.EventBus.get_default ().item_moved.connect ((item) => {
+        signals_map[Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id)) {
                 items[item.id].update_request ();
             }
 
             listbox.invalidate_sort ();
-        });
+        })] = Services.EventBus.get_default ();
 
-        magic_button.clicked.connect (() => {
+        signals_map[magic_button.clicked.connect (() => {
             prepare_new_item ();
-        });
+        })] = magic_button;
 
-        Services.EventBus.get_default ().theme_changed.connect (() => {
+        signals_map[Services.EventBus.get_default ().theme_changed.connect (() => {
             update_request ();
-        });
+        })] = Services.EventBus.get_default ();
 
-        scrolled_window.vadjustment.value_changed.connect (() => {
+        signals_map[scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
-        });
+        })] = scrolled_window.vadjustment;
     }
 
     public void prepare_new_item (string content = "") {
@@ -593,5 +594,13 @@ public class Views.Filter : Adw.Bin {
         });
 
         return popover;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signals_map.clear ();
     }
 }
