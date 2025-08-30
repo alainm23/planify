@@ -216,7 +216,7 @@ public class MainWindow : Adw.ApplicationWindow {
             var network_monitor = GLib.NetworkMonitor.get_default ();
             network_monitor.network_changed.connect (() => {
                 if (did_startup_sync == false) {
-                    print ("Ignoring early network change due to bug 1690");
+                    print ("Ignoring early network change due to bug 1690\n");
                     return;
                 }
                 print ("Network has changed, starting sync\n");

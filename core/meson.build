@@ -16,9 +16,9 @@ core_files = files(
     'Services/ColorSchemeSettings.vala',
 
     'Services/CalDAV/Core.vala',
-    'Services/CalDAV/Providers/ProviderBase.vala',
+    'Services/CalDAV/CalDAVClient.vala',
+    'Services/CalDAV/WebDAVClient.vala',
     'Services/CalDAV/Providers/Nextcloud.vala',
-    'Services/CalDAV/Providers/Radicale.vala',
 
     'Services/Chrono/Chrono.vala',
     'Services/Chrono/Enum.vala',
