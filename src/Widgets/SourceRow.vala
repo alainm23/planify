@@ -62,7 +62,7 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
         Gtk.Label ? warning_label = null;
         if (source.source_type == SourceType.CALDAV && source.caldav_data.ignore_ssl) {
             // TODO: Perhaps it could look like the sync button if it fails? Any other design ideas would be appreciated.
-            warning_label = new Gtk.Label (_("SSL verification is disabled")) {
+            warning_label = new Gtk.Label (_ ("SSL verification is disabled")) {
                 halign = Gtk.Align.START,
                 css_classes = { "caption", "dimmed", "italic" }
             };
