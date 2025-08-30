@@ -606,8 +606,7 @@ public class MainWindow : Adw.ApplicationWindow {
         };
 
         preferences_item.clicked.connect (() => {
-            var dialog = new Dialogs.Preferences.PreferencesWindow ();
-            dialog.present (Planify._instance.main_window);
+            open_preferences_window ();
         });
 
         whatsnew_item.clicked.connect (() => {
@@ -633,14 +632,24 @@ public class MainWindow : Adw.ApplicationWindow {
 
     public void open_shortcuts_window () {
         try {
-            var build = new Gtk.Builder ();
-            build.add_from_resource ("/io/github/alainm23/planify/shortcuts.ui");
-            var window = (Gtk.ShortcutsWindow) build.get_object ("shortcuts-planify");
-            window.set_transient_for (this);
-            window.show ();
+            var shortcuts_builder = new Gtk.Builder ();
+            shortcuts_builder.add_from_resource ("/io/github/alainm23/planify/shortcuts.ui");
+            
+            var shortcuts_window = (Gtk.ShortcutsWindow) shortcuts_builder.get_object ("shortcuts-planify");
+            shortcuts_window.set_transient_for (this);
+            shortcuts_window.show ();
         } catch (Error e) {
             warning ("Failed to open shortcuts window: %s\n", e.message);
         }
+    }
+
+    private Dialogs.Preferences.PreferencesWindow? preferences_dialog = null;
+    public void open_preferences_window () {
+        if (preferences_dialog == null) {
+            preferences_dialog = new Dialogs.Preferences.PreferencesWindow ();
+        }
+        
+        preferences_dialog.present (Planify._instance.main_window);
     }
 
     public void send_toast_error (int error_code, string error_message) {
