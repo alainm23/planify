@@ -108,6 +108,21 @@ public class Services.CalDAV.Core : GLib.Object {
                         location = make_absolute_url (base_url, location);
                     }
 
+                    // Prevent https → http downgrade
+                    // See https://github.com/alainm23/planify/issues/1149#issuecomment-3236718109
+                    var base_scheme = GLib.Uri.parse_scheme (base_url);
+                    var location_scheme = GLib.Uri.parse_scheme (location);
+
+                    if (base_scheme == "https" && location_scheme == "http") {
+                        if (location.has_prefix ("http://")) {
+                            warning ("Resolving .well-known/caldav caused a redirect from https to http. Preventing downgrade.");
+                            location = "https" + location.substring (4); // removes http and puts https infront
+                        } else {
+                            warning ("Redirect location has http scheme but unexpected format: %s", location);
+                            return base_url;
+                        }
+                    }
+
                     return location;
                 }
             }
