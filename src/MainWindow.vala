@@ -721,7 +721,7 @@ public class MainWindow : Adw.ApplicationWindow {
         var current_time = GLib.get_monotonic_time ();
         var current_view = views_stack.visible_child_name;
 
-        var to_remove = new Gee.ArrayList<ViewCacheItem>();
+        var to_remove = new Gee.ArrayList<ViewCacheItem> ();
 
         foreach (var item in view_cache) {
             if (item.view_id != current_view &&
