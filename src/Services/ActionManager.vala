@@ -163,8 +163,7 @@ public class Services.ActionManager : Object {
     }
 
     private void action_preferences () {
-        var dialog = new Dialogs.Preferences.PreferencesWindow ();
-        dialog.present (Planify._instance.main_window);
+        window.open_preferences_window ();
     }
 
     private void action_open_search () {
