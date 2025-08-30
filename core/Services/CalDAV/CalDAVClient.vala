@@ -22,8 +22,8 @@
 
 public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
-    public CalDAVClient (Soup.Session session, string base_url, string username, string password) {
-        base (session, base_url, username, password);
+    public CalDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false) {
+        base (session, base_url, username, password, ignore_ssl);
     }
 
 

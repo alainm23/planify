@@ -32,6 +32,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
 
     // Advanced Options
     private Adw.EntryRow calendar_home_entry;
+    private Widgets.IgnoreSSLSwitchRow ignore_ssl_row;
 
     public CalDAVSetup (Accounts accounts_page) {
         Object (accounts_page: accounts_page);
@@ -70,6 +71,8 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
         calendar_home_entry = new Adw.EntryRow ();
         calendar_home_entry.title = _("Calendar Home URL");
 
+        ignore_ssl_row = new Widgets.IgnoreSSLSwitchRow ();
+
         var advanced_options_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             reveal_child = false,
@@ -78,9 +81,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
 
 
         var advanced_button = new Gtk.Button.with_label (_("Advanced Options")) {
-            css_classes = { "flat" },
-            margin_top = 6,
-            margin_bottom = 6
+            css_classes = { "flat" }
         };
 
         advanced_button.clicked.connect (() => {
@@ -88,7 +89,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
         });
 
         advanced_entries_group.add (calendar_home_entry);
-
+        advanced_entries_group.add (ignore_ssl_row);
 
         login_button = new Widgets.LoadingButton.with_label (_("Log In")) {
             margin_top = 12,
@@ -105,14 +106,15 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
         entries_group.add (server_entry);
         entries_group.add (username_entry);
         entries_group.add (password_entry);
-        entries_group.add (advanced_button);
-        entries_group.add (advanced_options_revealer);
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             vexpand = true,
             hexpand = true
         };
         content_box.append (entries_group);
+        content_box.append (advanced_button);
+        content_box.append (advanced_options_revealer);
+
         content_box.append (login_button);
         content_box.append (cancel_button);
 
@@ -181,7 +183,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
             return;
         }
 
-        var dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (new Soup.Session (), server_entry.text);
+        var dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (new Soup.Session (), server_entry.text, ignore_ssl_row.active);
 
         print ("Using DAV Endpoint: %s\n", dav_endpoint);
 
@@ -190,7 +192,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
         if (calendar_home_entry.text != null && calendar_home_entry.text != "") {
             calendar_home = calendar_home_entry.text;
         }else {
-            calendar_home = yield Services.CalDAV.Core.get_default ().resolve_calendar_home (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, cancellable);
+            calendar_home = yield Services.CalDAV.Core.get_default ().resolve_calendar_home (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, cancellable, ignore_ssl_row.active);
         }
 
         if (calendar_home == null) {
@@ -204,7 +206,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
 
         print ("Calendar Home: %s\n", calendar_home);
 
-        HttpResponse response = yield Services.CalDAV.Core.get_default ().login (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, calendar_home, cancellable);
+        HttpResponse response = yield Services.CalDAV.Core.get_default ().login (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, calendar_home, cancellable, ignore_ssl_row.active);
 
         if (response.status) {
             Objects.Source source = (Objects.Source) response.data_object.get_object ();
