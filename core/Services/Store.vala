@@ -699,9 +699,11 @@ public class Services.Store : GLib.Object {
         Objects.Item ? return_value = null;
         lock (_items) {
             foreach (var item in items) {
-                if (item.ical_url == ical_url) {
-                    return_value = item;
-                    break;
+                if (item.source.source_type == SourceType.CALDAV) {
+                    if (item.ical_url == ical_url) {
+                        return_value = item;
+                        break;
+                    }
                 }
             }
 
