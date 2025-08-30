@@ -53,13 +53,19 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
         return server_url;
     }
 
-    public async HttpResponse start_login_flow (string server_url, GLib.Cancellable cancellable) {
+    public async HttpResponse start_login_flow (string server_url, GLib.Cancellable cancellable, bool ignore_ssl = false) {
         HttpResponse response = new HttpResponse ();
 
         string login_url = "%s/index.php/login/v2".printf (validate_server_url (server_url));
 
         var message = new Soup.Message ("POST", login_url);
         message.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);         // The User Agent is used by Nextcloud for the App Name
+
+        if (ignore_ssl) {
+            message.accept_certificate.connect (() => {
+                return true;
+            });
+        }
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
@@ -107,9 +113,9 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
                             var dav_endpoint = yield Core.get_default ().resolve_well_known_caldav (session, server);
                             print ("Using DAV Endpoint: %s\n", dav_endpoint);
 
-                            var calendar_home = yield Core.get_default ().resolve_calendar_home (CalDAVType.NEXTCLOUD, dav_endpoint, login_name, app_password, cancellable);
+                            var calendar_home = yield Core.get_default ().resolve_calendar_home (CalDAVType.NEXTCLOUD, dav_endpoint, login_name, app_password, cancellable, ignore_ssl);
                             print ("Calendar Home: %s\n", calendar_home);
-                            var login_response = yield Core.get_default ().login (CalDAVType.NEXTCLOUD, dav_endpoint, login_name, app_password, calendar_home, cancellable);
+                            var login_response = yield Core.get_default ().login (CalDAVType.NEXTCLOUD, dav_endpoint, login_name, app_password, calendar_home, cancellable, ignore_ssl);
 
                             return login_response;
                         }

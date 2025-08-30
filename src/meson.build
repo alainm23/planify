@@ -56,6 +56,7 @@ sources = files(
   'Widgets/ReorderChild.vala',
   'Widgets/FilterFlowBox.vala',
   'Widgets/FilterFlowBoxChild.vala',
+  'Widgets/IgnoreSSLSwitchRow.vala',
   'Widgets/Attachments.vala',
   'Widgets/AttachmentRow.vala',
   'Widgets/ItemChangeHistoryRow.vala',

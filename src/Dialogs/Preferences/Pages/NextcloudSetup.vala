@@ -29,6 +29,9 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Adw.NavigationPage {
     private Widgets.LoadingButton login_button;
     private Gtk.Button cancel_button;
 
+    // Advanced Options
+    private Widgets.IgnoreSSLSwitchRow ignore_ssl_row;
+
     public NextcloudSetup (Accounts accounts_page) {
         Object (accounts_page: accounts_page);
     }
@@ -80,6 +83,28 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Adw.NavigationPage {
             child = message_card
         };
 
+        // Advanced options
+
+        var advanced_entries_group = new Adw.PreferencesGroup ();
+
+        ignore_ssl_row = new Widgets.IgnoreSSLSwitchRow ();
+
+        var advanced_options_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = false,
+            child = advanced_entries_group
+        };
+
+        var advanced_button = new Gtk.Button.with_label (_("Advanced Options")) {
+            css_classes = { "flat" }
+        };
+
+        advanced_button.clicked.connect (() => {
+            advanced_options_revealer.reveal_child = !advanced_options_revealer.reveal_child;
+        });
+        advanced_entries_group.add (ignore_ssl_row);
+
+
         login_button = new Widgets.LoadingButton.with_label (_("Log In")) {
             margin_top = 12,
             sensitive = false,
@@ -98,6 +123,8 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Adw.NavigationPage {
 
         content_box.append (entries_group);
         content_box.append (message_revealer);
+        content_box.append (advanced_button);
+        content_box.append (advanced_options_revealer);
         content_box.append (login_button);
         content_box.append (cancel_button);
 
@@ -166,7 +193,7 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Adw.NavigationPage {
         var core_service = Services.CalDAV.Core.get_default ();
         var nextcloud_provider = new Services.CalDAV.Providers.Nextcloud ();
 
-        nextcloud_provider.start_login_flow.begin (server_entry.text, cancellable, (obj, res) => {
+        nextcloud_provider.start_login_flow.begin (server_entry.text, cancellable, ignore_ssl_row.active, (obj, res) => {
             HttpResponse response = nextcloud_provider.start_login_flow.end (res);
 
             if (response.status) {

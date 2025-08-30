@@ -390,12 +390,10 @@ public class Dialogs.Project : Adw.Dialog {
 
         if (project.source_type == SourceType.TODOIST) {
             response = yield Services.Todoist.get_default ().update (project);
-        } else {
+        } else if (project.source_type == SourceType.CALDAV) {
             var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
             response = yield caldav_client.update_project (project);
-        }
-
-        if (response == null) {
+        } else {
             hide_destroy ();
             return;
         }

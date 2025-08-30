@@ -49,7 +49,8 @@ public class Services.CalDAV.Core : GLib.Object {
                 new Soup.Session (),
                 source.caldav_data.server_url,
                 source.caldav_data.username,
-                source.caldav_data.password
+                source.caldav_data.password,
+                source.caldav_data.ignore_ssl
             );
             clients[source.id] = client;
         }
@@ -82,10 +83,18 @@ public class Services.CalDAV.Core : GLib.Object {
         return abs_url;
     }
 
-    public async string resolve_well_known_caldav (Soup.Session session, string base_url) {
+    public async string resolve_well_known_caldav (Soup.Session session, string base_url, bool ignore_ssl = false) {
         var well_known_url = make_absolute_url (base_url, "/.well-known/caldav");
         var msg = new Soup.Message ("GET", well_known_url);
+        msg.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);
+
         msg.set_flags (Soup.MessageFlags.NO_REDIRECT);
+
+        if (ignore_ssl) {
+            msg.accept_certificate.connect (() => {
+                return true;
+            });
+        }
 
         try {
             yield session.send_and_read_async (msg, Priority.DEFAULT, null);
@@ -110,8 +119,8 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
 
-    public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable) {
-        var caldav_client = new Services.CalDAV.CalDAVClient (session, dav_url, username, password);
+    public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable, bool ignore_ssl = false) {
+        var caldav_client = new Services.CalDAV.CalDAVClient (session, dav_url, username, password, ignore_ssl);
 
         try {
             string? principal_url = yield caldav_client.get_principal_url (cancellable);
@@ -130,7 +139,7 @@ public class Services.CalDAV.Core : GLib.Object {
         }
     }
 
-    public async HttpResponse login (CalDAVType caldav_type, string dav_url, string username, string password, string calendar_home, GLib.Cancellable cancellable) {
+    public async HttpResponse login (CalDAVType caldav_type, string dav_url, string username, string password, string calendar_home, GLib.Cancellable cancellable, bool ignore_ssl = false) {
         HttpResponse response = new HttpResponse ();
 
         if (Services.Store.instance ().source_caldav_exists (dav_url, username)) {
@@ -139,7 +148,7 @@ public class Services.CalDAV.Core : GLib.Object {
             return response;
         }
 
-        var caldav_client = new Services.CalDAV.CalDAVClient (new Soup.Session (), dav_url, username, password);
+        var caldav_client = new Services.CalDAV.CalDAVClient (new Soup.Session (), dav_url, username, password, ignore_ssl);
 
         try {
             string? principal_url = yield caldav_client.get_principal_url (cancellable);
@@ -161,6 +170,7 @@ public class Services.CalDAV.Core : GLib.Object {
             caldav_data.username = username;
             caldav_data.password = password;
             caldav_data.caldav_type = caldav_type;
+            caldav_data.ignore_ssl = ignore_ssl;
 
             source.data = caldav_data;
 

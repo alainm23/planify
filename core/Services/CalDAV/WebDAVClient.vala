@@ -25,15 +25,16 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
 
     protected string username;
     protected string password;
-
     protected string base_url;
+    protected bool ignore_ssl;
 
 
-    public WebDAVClient (Soup.Session session, string base_url, string username, string password) {
+    public WebDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false) {
         this.session = session;
         this.base_url = base_url;
         this.username = username;
         this.password = password;
+        this.ignore_ssl = ignore_ssl;
     }
 
     public string get_absolute_url (string href) {
@@ -60,6 +61,7 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
             throw new GLib.IOError.FAILED ("Invalid URL: %s".printf (url));
 
         var msg = new Soup.Message (method, abs_url);
+        msg.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);
 
         msg.authenticate.connect ((auth, retrying) => {
             if (retrying) {
@@ -82,6 +84,12 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
                 msg.set_request_body_from_bytes (content_type, new GLib.Bytes (body.data));
             }
         });
+
+        if (ignore_ssl) {
+            msg.accept_certificate.connect (() => {
+                return true;
+            });
+        }
 
         if (depth != null) {
             msg.request_headers.replace ("Depth", depth);
