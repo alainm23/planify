@@ -378,18 +378,6 @@ public class Services.Database : GLib.Object {
             warning (errormsg);
         }
 
-        sql = """
-            CREATE INDEX IF NOT EXISTS idx_items_project_section ON Items (project_id, section_id, parent_id);
-            CREATE INDEX IF NOT EXISTS idx_items_due_checked ON Items (due, checked, is_deleted);
-            CREATE INDEX IF NOT EXISTS idx_items_priority ON Items (priority, checked, is_deleted);
-            CREATE INDEX IF NOT EXISTS idx_sections_project_order ON Sections (project_id, section_order, is_deleted);
-            CREATE INDEX IF NOT EXISTS idx_labels_source ON Labels (source_id, is_deleted);
-        """;
-
-        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
-            warning (errormsg);
-        }
-
         sql = """PRAGMA foreign_keys = ON;""";
 
         if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
