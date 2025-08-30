@@ -128,10 +128,13 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    Gee.ArrayList<Objects.Section> _sections;
+    Gee.ArrayList<Objects.Section> _sections = null;
     public Gee.ArrayList<Objects.Section> sections {
         get {
-            _sections = Services.Store.instance ().get_sections_by_project (this);
+            if (_sections == null) {
+                _sections = Services.Store.instance ().get_sections_by_project (this);
+            }
+
             return _sections;
         }
     }
@@ -267,12 +270,16 @@ public class Objects.Project : Objects.BaseObject {
             }
         });
 
-        item_deleted.connect (() => {
-            project_count_update ();
+        Services.Store.instance ().item_deleted.connect ((item) => {
+            if (item.project_id == id) {
+                project_count_update ();
+            }
         });
 
-        item_added.connect (() => {
-            project_count_update ();
+        Services.Store.instance ().item_added.connect ((item) => {
+            if (item.project_id == id) {
+                project_count_update ();
+            }
         });
 
         Services.EventBus.get_default ().item_moved.connect ((item, old_project_id) => {

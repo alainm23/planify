@@ -1637,6 +1637,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         dnd_handlerses[drop_order_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemRow) value;
             var target_widget = this;
+            var old_project_id = "";
             var old_section_id = "";
             var old_parent_id = "";
 
@@ -1657,6 +1658,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 item.project.update_local ();
             }
 
+            old_project_id = picked_widget.item.project_id;
             old_section_id = picked_widget.item.section_id;
             old_parent_id = picked_widget.item.parent_id;
 
@@ -1677,7 +1679,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 }
 
                 if (picked_widget.item.project.source_type == SourceType.LOCAL) {
-                    Services.Store.instance ().move_item (picked_widget.item, old_section_id, old_parent_id);
+                    Services.Store.instance ().move_item (picked_widget.item, old_project_id, old_section_id, old_parent_id);
                 } else if (picked_widget.item.project.source_type == SourceType.TODOIST) {
                     string move_id = picked_widget.item.project_id;
                     string move_type = "project_id";
@@ -1694,13 +1696,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
                     Services.Todoist.get_default ().move_item.begin (picked_widget.item, move_type, move_id, (obj, res) => {
                         if (Services.Todoist.get_default ().move_item.end (res).status) {
-                            Services.Store.instance ().move_item (picked_widget.item, old_section_id, old_parent_id);
+                            Services.Store.instance ().move_item (picked_widget.item, old_project_id, old_section_id, old_parent_id);
                         }
                     });
                 } else if (picked_widget.item.project.source_type == SourceType.CALDAV) {
                     Services.CalDAV.Core.get_default ().add_task.begin (picked_widget.item, true, (obj, res) => {
                         if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
-                            Services.Store.instance ().move_item (picked_widget.item, old_section_id, old_parent_id);
+                            Services.Store.instance ().move_item (picked_widget.item, old_project_id, old_section_id, old_parent_id);
                         }
                     });
                 }
