@@ -36,6 +36,9 @@ public class MainWindow : Adw.ApplicationWindow {
 
     public Services.ActionManager action_manager;
 
+    private const int64 VIEW_TIMEOUT = 300000000;
+    private Gee.ArrayList<ViewCacheItem> view_cache = new Gee.ArrayList<ViewCacheItem> ();
+
     public MainWindow (Planify application) {
         Object (
             application: application,
@@ -355,6 +358,12 @@ public class MainWindow : Adw.ApplicationWindow {
                 item_sidebar_view.add_css_class ("sidebar");
             }
         });
+
+        // Cleanup automático cada 2 minutos
+        Timeout.add_seconds (120, () => {
+            cleanup_unused_views ();
+            return Source.CONTINUE;
+        });
     }
 
     public void show_hide_sidebar () {
@@ -383,6 +392,9 @@ public class MainWindow : Adw.ApplicationWindow {
         if (project_view == null) {
             project_view = new Views.Project (project);
             views_stack.add_named (project_view, project.view_id);
+            add_view_to_cache (project.view_id, project_view);
+        } else {
+            update_view_access (project.view_id);
         }
 
         views_stack.set_visible_child_name (project.view_id);
@@ -394,6 +406,9 @@ public class MainWindow : Adw.ApplicationWindow {
         if (today_view == null) {
             today_view = new Views.Today ();
             views_stack.add_named (today_view, "today-view");
+            add_view_to_cache ("today-view", today_view);
+        } else {
+            update_view_access ("today-view");
         }
 
         views_stack.set_visible_child_name ("today-view");
@@ -404,6 +419,9 @@ public class MainWindow : Adw.ApplicationWindow {
         if (scheduled_view == null) {
             scheduled_view = new Views.Scheduled.Scheduled ();
             views_stack.add_named (scheduled_view, "scheduled-view");
+            add_view_to_cache ("scheduled-view", scheduled_view);
+        } else {
+            update_view_access ("scheduled-view");
         }
 
         views_stack.set_visible_child_name ("scheduled-view");
@@ -414,6 +432,9 @@ public class MainWindow : Adw.ApplicationWindow {
         if (labels_view == null) {
             labels_view = new Views.Labels ();
             views_stack.add_named (labels_view, "labels-view");
+            add_view_to_cache ("labels-view", labels_view);
+        } else {
+            update_view_access ("labels-view");
         }
 
         views_stack.set_visible_child_name ("labels-view");
@@ -424,6 +445,9 @@ public class MainWindow : Adw.ApplicationWindow {
         if (label_view == null) {
             label_view = new Views.Label ();
             views_stack.add_named (label_view, "label-view");
+            add_view_to_cache ("label-view", label_view);
+        } else {
+            update_view_access ("label-view");
         }
 
         label_view.label = Services.Store.instance ().get_label (id);
@@ -435,6 +459,9 @@ public class MainWindow : Adw.ApplicationWindow {
         if (filter_view == null) {
             filter_view = new Views.Filter ();
             views_stack.add_named (filter_view, view_id);
+            add_view_to_cache (view_id, filter_view);
+        } else {
+            update_view_access (view_id);
         }
 
         filter_view.filter = Util.get_default ().get_priority_filter (view_id);
@@ -447,6 +474,9 @@ public class MainWindow : Adw.ApplicationWindow {
             filter_view = new Views.Filter ();
             filter_view.filter = base_object;
             views_stack.add_named (filter_view, base_object.view_id);
+            add_view_to_cache (base_object.view_id, filter_view);
+        } else {
+            update_view_access (base_object.view_id);
         }
 
         views_stack.set_visible_child_name (base_object.view_id);
@@ -467,6 +497,13 @@ public class MainWindow : Adw.ApplicationWindow {
     public void valid_view_removed (Objects.Project project) {
         Views.Project ? project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
         if (project_view != null) {
+            foreach (var item in view_cache) {
+                if (item.view_id == project.view_id) {
+                    view_cache.remove (item);
+                    break;
+                }
+            }
+
             if (views_stack.visible_child == project_view) {
                 go_homepage ();
                 // Use a timeout to ensure the view transition is complete before cleanup
@@ -678,5 +715,80 @@ public class MainWindow : Adw.ApplicationWindow {
         });
 
         return toolbar_view;
+    }
+
+    private void cleanup_unused_views () {
+        var current_time = GLib.get_monotonic_time ();
+        var current_view = views_stack.visible_child_name;
+
+        var to_remove = new Gee.ArrayList<ViewCacheItem>();
+
+        foreach (var item in view_cache) {
+            if (item.view_id != current_view &&
+                current_time - item.last_access > get_timeout_for_view (item.view_id)) {
+                to_remove.add (item);
+            }
+        }
+
+        foreach (var item in to_remove) {
+            cleanup_view (item.view);
+            views_stack.remove (item.view);
+            view_cache.remove (item);
+        }
+    }
+
+    private int64 get_timeout_for_view (string view_id) {
+        if (view_id.has_prefix ("project-")) {
+            return 600000000;
+        }
+
+        if (view_id == "today-view") {
+            return 180000000;
+        }
+
+        return VIEW_TIMEOUT;
+    }
+
+    private void cleanup_view (Gtk.Widget view) {
+        if (view is Views.Project) {
+            ((Views.Project) view).clean_up ();
+        } else if (view is Views.Today) {
+            ((Views.Today) view).clean_up ();
+        } else if (view is Views.Scheduled.Scheduled) {
+            // ((Views.Scheduled.Scheduled) view).clean_up ();
+        } else if (view is Views.Filter) {
+            // ((Views.Filter) view).clean_up ();
+        } else if (view is Views.Label) {
+            // ((Views.Label) view).clean_up ();
+        }
+    }
+
+    private void update_view_access (string view_id) {
+        foreach (var item in view_cache) {
+            if (item.view_id == view_id) {
+                item.update_access ();
+                break;
+            }
+        }
+    }
+
+    private void add_view_to_cache (string view_id, Gtk.Widget view) {
+        view_cache.add (new ViewCacheItem (view_id, view));
+    }
+
+    private class ViewCacheItem {
+        public string view_id;
+        public Gtk.Widget view;
+        public int64 last_access;
+
+        public ViewCacheItem (string id, Gtk.Widget widget) {
+            view_id = id;
+            view = widget;
+            last_access = GLib.get_monotonic_time ();
+        }
+
+        public void update_access () {
+            last_access = GLib.get_monotonic_time ();
+        }
     }
 }
