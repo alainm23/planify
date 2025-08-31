@@ -514,7 +514,7 @@ public class Widgets.SubItems : Adw.Bin {
         dialog.present (Planify._instance.main_window);
     }
 
-    public void disconnect_all () {
+    public void clean_up () {
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);
         }

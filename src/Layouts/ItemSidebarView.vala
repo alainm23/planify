@@ -362,7 +362,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         }
 
         signals_map.clear ();
-        subitems.disconnect_all ();
+        subitems.clean_up ();
         attachments.disconnect_all ();
 
         destroy_markdown_edit_view ();
