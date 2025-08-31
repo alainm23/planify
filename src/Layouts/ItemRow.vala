@@ -1792,13 +1792,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     public void clean_up () {
-        // Limpiar popover explícitamente
         if (menu_handle_popover != null) {
             menu_handle_popover.unparent ();
             menu_handle_popover = null;
         }
 
-        // Desconectar TODAS las señales
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);
         }
@@ -1809,16 +1807,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
         dnd_handlerses.clear ();
 
-        // Limpiar buffer de descripción
         if (description_handler_change_id != 0) {
             current_buffer.disconnect (description_handler_change_id);
             description_handler_change_id = 0;
         }
 
-        // Limpiar widgets hijos
         // subitems.clean_up ();
         
-        // Nullificar referencias
         current_buffer = null;
         markdown_edit_view = null;
     }
