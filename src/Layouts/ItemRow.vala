@@ -1812,7 +1812,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             description_handler_change_id = 0;
         }
 
-        // subitems.clean_up ();
+        subitems.clean_up ();
         
         current_buffer = null;
         markdown_edit_view = null;
