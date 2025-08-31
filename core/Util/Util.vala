@@ -72,6 +72,11 @@ public class Util : GLib.Object {
             return get_colors ().get (key).hexadecimal;
         }
 
+        if (new Gdk.RGBA ().parse (key)) {
+            return key;
+        }
+
+
         return "#1e63ec";
     }
 
