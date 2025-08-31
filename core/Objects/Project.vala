@@ -254,11 +254,11 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    // TODO: ID is randomly generated, so this no longer works
-    // TODO: Also check why is_deck is needed
+    // The old implementation checked for "deck--board" in the id, this no longer works.
+    // TODO: Find found why there was seperation for deck projects, maybe find another way to detect it.
     public bool is_deck {
         get {
-            return id.contains ("deck--board");
+            return false;
         }
     }
 

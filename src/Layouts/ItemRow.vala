@@ -1820,3 +1820,4 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         markdown_edit_view = null;
     }
 }
+
