@@ -33,7 +33,6 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
     private Gtk.Button load_more_button;
     private Gtk.Revealer load_more_button_revealer;
     private Gtk.Revealer checked_revealer;
-    private Widgets.LoadingButton add_button;
     private Gtk.Box content_box;
 
     public bool is_inbox_section {
@@ -44,7 +43,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
     public bool is_loading {
         set {
-            add_button.is_loading = value;
+            // add_button.is_loading = value;
         }
     }
 
@@ -91,14 +90,13 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
     construct {
         add_css_class ("no-selectable");
+        add_css_class ("no-padding");
 
         widget_color = new Gtk.Grid () {
             valign = Gtk.Align.CENTER,
             height_request = 16,
-            width_request = 16,
-            margin_end = 6,
-            margin_bottom = 2,
-            css_classes = { "circle-color" }
+            width_request = 3,
+            css_classes = { "event-bar" }
         };
 
         name_label = new Gtk.Label (section.name) {
@@ -114,15 +112,11 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         };
 
         var menu_button = new Gtk.MenuButton () {
+            hexpand = true,
+            halign = END,
             icon_name = "view-more-symbolic",
             popover = build_context_menu (),
             css_classes = { "flat" }
-        };
-
-        add_button = new Widgets.LoadingButton.with_icon ("plus-large-symbolic", 16) {
-            css_classes = { "flat" },
-            hexpand = true,
-            halign = END
         };
 
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
@@ -132,7 +126,6 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         header_box.append (widget_color);
         header_box.append (name_label);
         header_box.append (count_label);
-        header_box.append (add_button);
         header_box.append (menu_button);
 
         description_label = new Gtk.Label (section.description.strip ()) {
@@ -154,6 +147,23 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             selection_mode = Gtk.SelectionMode.SINGLE,
             css_classes = { "listbox-background", "drop-target-list" }
         };
+
+        var add_button_box = new Gtk.Box (HORIZONTAL, 6) {
+            valign = CENTER
+        };
+        add_button_box.append (new Gtk.Image.from_icon_name ("plus-large-symbolic") {
+            css_classes = { "color-primary" }
+        });
+        add_button_box.append (new Gtk.Label (_("Add taks")));
+
+        var add_button = new Gtk.Button () {
+            child = add_button_box,
+            margin_top = 6,
+            margin_bottom = 6,
+            halign = START
+        };
+        add_button.add_css_class ("flat");
+        add_button.add_css_class ("add-button");
 
         checked_listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -189,6 +199,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         };
 
         listbox_target.append (listbox);
+        listbox_target.append (add_button);
         listbox_target.append (checked_revealer);
 
         var items_scrolled = new Widgets.ScrolledWindow (listbox_target);
@@ -363,10 +374,6 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             // count_revealer.reveal_child = int.parse (count_label.label) > 0;
         })] = section;
 
-        signals_map[add_button.clicked.connect (() => {
-            prepare_new_item ();
-        })] = add_button;
-
         signals_map[Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id) => {
             if (_row is Layouts.ItemBoard) {
                 var row = (Layouts.ItemBoard) _row;
@@ -421,6 +428,10 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         signals_map[load_more_button.clicked.connect (() => {
             load_next_completed_page ();
         })] = load_more_button;
+
+        signals_map[add_button.clicked.connect (() => {
+            prepare_new_item ();
+        })] = add_button;
     }
 
     private void update_request () {

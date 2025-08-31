@@ -33,8 +33,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer checked_button_revealer;
     private Widgets.TextView content_textview;
     private Gtk.Revealer hide_loading_revealer;
-    private Gtk.Revealer project_label_revealer;
-    private Gtk.Label project_label;
+    private Gtk.Label project_name_label;
+    private Gtk.Revealer project_name_label_revealer;
 
     private Gtk.CheckButton select_checkbutton;
     private Gtk.Revealer select_revealer;
@@ -50,7 +50,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer repeat_revealer;
     private Gtk.Revealer due_box_revealer;
     private Gtk.Revealer description_image_revealer;
-    private Gtk.Revealer pin_image_revealer;
     private Gtk.Revealer reminder_revelaer;
     private Gtk.Label reminder_count;
     private Gtk.Box action_box_right;
@@ -112,7 +111,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 detail_revealer.reveal_child = true;
                 content_label_revealer.reveal_child = false;
                 content_entry_revealer.reveal_child = true;
-                project_label_revealer.reveal_child = false;
+                project_name_label_revealer.reveal_child = false;
                 labels_summary.reveal_child = false;
                 hide_subtask_revealer.reveal_child = false;
                 hide_loading_button.remove_css_class ("no-padding");
@@ -122,7 +121,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 // Due labels
                 due_box_revealer.reveal_child = false;
                 description_image_revealer.reveal_child = false;
-                pin_image_revealer.reveal_child = false;
                 reminder_revelaer.reveal_child = false;
 
                 if (complete_timeout != 0) {
@@ -146,7 +144,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 detail_revealer.reveal_child = false;
                 content_label_revealer.reveal_child = true;
                 content_entry_revealer.reveal_child = false;
-                project_label_revealer.reveal_child = !is_project_view;
+                project_name_label_revealer.reveal_child = !is_project_view;
                 hide_subtask_revealer.reveal_child = subitems.has_children;
                 hide_loading_button.add_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = false;
@@ -154,7 +152,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
                 check_due ();
                 check_description ();
-                check_pinboard ();
                 check_reminders ();
                 labels_summary.check_revealer ();
 
@@ -211,7 +208,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     ~ItemRow () {
-        print ("Destroying Layouts.ItemRow\n");
+        print ("Destroying - Layouts.ItemRow - %s\n".printf (item.content));
     }
 
     construct {
@@ -222,10 +219,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         parent_id = item.parent_id;
 
         motion_top_grid = new Gtk.Grid () {
-            height_request = 30,
+            height_request = 32,
             css_classes = { "drop-area", "drop-target" },
             margin_bottom = 3,
-            margin_start = 21
+            margin_start = 19
         };
 
         motion_top_revealer = new Gtk.Revealer () {
@@ -245,25 +242,106 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             reveal_child = true
         };
 
+        // Due Label
+        due_label = new Gtk.Label (null) {
+            valign = CENTER,
+            css_classes = { "caption" }
+        };
+
+        var repeat_image = new Gtk.Image.from_icon_name ("playlist-repeat-symbolic") {
+            pixel_size = 12,
+            margin_top = 3
+        };
+
+        repeat_label = new Gtk.Label (null) {
+            valign = CENTER,
+            ellipsize = END,
+            css_classes = { "caption" },
+        };
+
+        var repeat_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 6
+        };
+
+        repeat_box.append (repeat_image);
+        repeat_box.append (repeat_label);
+
+        repeat_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = repeat_box
+        };
+
+        due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            valign = CENTER,
+            margin_end = 6
+        };
+        due_box.append (due_label);
+        due_box.append (repeat_revealer);
+
+        due_box_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = due_box
+        };
+
         content_label = new Gtk.Label (null) {
-            hexpand = true,
             xalign = 0,
             wrap = false,
-            ellipsize = Pango.EllipsizeMode.END,
+            ellipsize = END,
             use_markup = true
         };
+
+        // Description Icon
+        description_image_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = new Gtk.Image.from_icon_name ("paper-symbolic") {
+                valign = Gtk.Align.CENTER,
+                margin_start = 6,
+                css_classes = { "dimmed" },
+                pixel_size = 12
+            }
+        };
+
+        // Reminder Icon
+        var reminder_icon = new Gtk.Image.from_icon_name ("alarm-symbolic") {
+            pixel_size = 12
+        };
+
+        reminder_count = new Gtk.Label (item.reminders.size.to_string ());
+        reminder_count.add_css_class ("caption");
+
+        var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
+            valign = Gtk.Align.CENTER,
+            margin_start = 6,
+            css_classes = { "dimmed" },
+        };
+
+        reminder_box.append (reminder_icon);
+        reminder_box.append (reminder_count);
+
+        reminder_revelaer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = reminder_box
+        };
+
+        var content_label_box = new Gtk.Box (HORIZONTAL, 0);
+        content_label_box.append (due_box_revealer);
+        content_label_box.append (content_label);
+        content_label_box.append (description_image_revealer);
+        content_label_box.append (reminder_revelaer);
 
         content_label_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
             transition_duration = 115,
             reveal_child = true,
-            child = content_label
+            child = content_label_box
         };
 
         content_textview = new Widgets.TextView () {
-            wrap_mode = Gtk.WrapMode.WORD,
+            wrap_mode = WORD,
             accepts_tab = false,
-            placeholder_text = _ ("To-do name")
+            placeholder_text = _ ("To-do name"),
+            hexpand = true,
+            valign = CENTER
         };
         content_textview.remove_css_class ("view");
         content_textview.add_css_class ("font-bold");
@@ -298,113 +376,31 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = select_checkbutton
         };
 
-        project_label = new Gtk.Label (null) {
+        project_name_label = new Gtk.Label (null) {
             css_classes = { "caption", "dimmed" },
             margin_start = 6,
             ellipsize = Pango.EllipsizeMode.END,
             max_width_chars = 16
         };
 
-        project_label_revealer = new Gtk.Revealer () {
+        project_name_label_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = project_label,
+            child = project_name_label,
             reveal_child = !is_project_view
         };
 
         content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            valign = Gtk.Align.CENTER,
-            margin_start = 6,
-            hexpand = true
+            valign = CENTER,
+            margin_start = 6
         };
         content_box.append (content_label_revealer);
         content_box.append (content_entry_revealer);
 
-        // Due Label
-        due_label = new Gtk.Label (null) {
-            valign = Gtk.Align.CENTER,
-            css_classes = { "caption" }
-        };
-
-        var repeat_image = new Gtk.Image.from_icon_name ("playlist-repeat-symbolic") {
-            pixel_size = 12,
-            margin_top = 3
-        };
-
-        repeat_label = new Gtk.Label (null) {
-            valign = Gtk.Align.CENTER,
-            css_classes = { "caption" },
-            ellipsize = Pango.EllipsizeMode.END
-        };
-
-        var repeat_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 6
-        };
-
-        repeat_box.append (repeat_image);
-        repeat_box.append (repeat_label);
-
-        repeat_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = repeat_box
-        };
-
-        due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            valign = CENTER
-        };
-        due_box.append (due_label);
-        due_box.append (repeat_revealer);
-
-        due_box_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = due_box
-        };
-
-        // Description Icon
-        description_image_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = new Gtk.Image.from_icon_name ("text-justify-left-symbolic") {
-                valign = Gtk.Align.CENTER,
-                margin_start = 6,
-                css_classes = { "dimmed" }
-            }
-        };
-
-        // Pin Icon
-        pin_image_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = new Gtk.Image.from_icon_name ("pin-symbolic") {
-                valign = Gtk.Align.CENTER,
-                margin_start = 6,
-                css_classes = { "dimmed" },
-                pixel_size = 13
-            }
-        };
-
-        // Reminder Icon
-        var reminder_icon = new Gtk.Image.from_icon_name ("alarm-symbolic") {
-            pixel_size = 13
-        };
-
-        reminder_count = new Gtk.Label (item.reminders.size.to_string ());
-
-        var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
-            valign = Gtk.Align.CENTER,
-            margin_start = 6,
-            css_classes = { "dimmed" },
-        };
-
-        reminder_box.append (reminder_icon);
-        reminder_box.append (reminder_count);
-
-        reminder_revelaer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = reminder_box
-        };
 
         var content_main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         content_main_box.append (checked_button_revealer);
-        content_main_box.append (due_box_revealer);
         content_main_box.append (content_box);
+        content_main_box.append (project_name_label_revealer);
         content_main_box.append (hide_loading_revealer);
 
         labels_summary = new Widgets.LabelsSummary (item) {
@@ -535,14 +531,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             margin_top = 3,
             margin_bottom = 3,
             margin_end = 3,
-            margin_start = 3
+            margin_start = 6
         };
         _itemrow_box.append (handle_grid);
-        _itemrow_box.append (pin_image_revealer);
-        _itemrow_box.append (reminder_revelaer);
-        _itemrow_box.append (description_image_revealer);
         _itemrow_box.append (select_revealer);
-        _itemrow_box.append (project_label_revealer);
 
         itemrow_box = new Adw.Bin () {
             css_classes = { "transition", "drop-target" },
@@ -581,7 +573,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         hide_subtask_button = new Gtk.Button () {
             valign = Gtk.Align.START,
-            margin_start = 6,
+            margin_start = 3,
             margin_top = 3,
             css_classes = { "flat", "dimmed", "no-padding", "hidden-button" },
             child = new Gtk.Image.from_icon_name ("go-next-symbolic") {
@@ -925,14 +917,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             checked_button_revealer.reveal_child = true;
             action_box.margin_start = 16;
             content_box.margin_start = 6;
-            due_box.margin_start = 6;
-            due_box.margin_end = 0;
         } else {
             checked_button_revealer.reveal_child = false;
             action_box.margin_start = 0;
             content_box.margin_start = 0;
-            due_box.margin_start = 0;
-            due_box.margin_end = 6;
         }
 
         if (markdown_edit_view != null) {
@@ -953,15 +941,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             });
         }
 
-        project_label.label = item.project.name;
+        project_name_label.label = item.project.name;
         if (item.has_parent) {
             if (item.parent.has_parent) {
-                project_label.label += " /…/ " + item.parent.content;
+                project_name_label.label += " /…/ " + item.parent.content;
             } else {
-                project_label.label += " / " + item.parent.content;
+                project_name_label.label += " / " + item.parent.content;
             }
         }
-        project_label.tooltip_text = project_label.label;
+        project_name_label.tooltip_text = project_name_label.label;
 
         labels_summary.update_request ();
         label_button.labels = item._get_labels ();
@@ -974,7 +962,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         check_due ();
         check_description ();
-        check_pinboard ();
         check_reminders ();
 
         if (!edit) {
@@ -998,10 +985,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     private void check_description () {
         description_image_revealer.reveal_child = !edit && Util.get_default ().line_break_to_space (item.description).length > 0;
-    }
-
-    private void check_pinboard () {
-        pin_image_revealer.reveal_child = !edit && item.pinned;
     }
 
     private void check_reminders () {
@@ -1809,19 +1792,34 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     public void clean_up () {
-        menu_handle_popover.unparent ();
+        // Limpiar popover explícitamente
+        if (menu_handle_popover != null) {
+            menu_handle_popover.unparent ();
+            menu_handle_popover = null;
+        }
 
-        // Clear Signals
+        // Desconectar TODAS las señales
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);
         }
-
         signals_map.clear ();
 
         foreach (var entry in dnd_handlerses.entries) {
             entry.value.disconnect (entry.key);
         }
-
         dnd_handlerses.clear ();
+
+        // Limpiar buffer de descripción
+        if (description_handler_change_id != 0) {
+            current_buffer.disconnect (description_handler_change_id);
+            description_handler_change_id = 0;
+        }
+
+        // Limpiar widgets hijos
+        // subitems.clean_up ();
+        
+        // Nullificar referencias
+        current_buffer = null;
+        markdown_edit_view = null;
     }
 }

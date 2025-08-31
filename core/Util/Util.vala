@@ -72,7 +72,7 @@ public class Util : GLib.Object {
             return get_colors ().get (key).hexadecimal;
         }
 
-        return key;
+        return "#1e63ec";
     }
 
     public string get_random_color () {

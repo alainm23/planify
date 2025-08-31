@@ -104,8 +104,8 @@ public class Views.Board : Adw.Bin {
         var flowbox_grid = new Adw.Bin () {
             vexpand = true,
             margin_top = 12,
-            margin_start = 16,
-            margin_end = 16,
+            margin_start = 19,
+            margin_end = 19,
             halign = Gtk.Align.START,
             child = flowbox
         };
