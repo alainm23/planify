@@ -618,11 +618,11 @@ public class Services.Database : GLib.Object {
 
 
         /*
-         * Planify 4.xx
+         * Planify 4.14
          * - Add calendar_url column to Projects
          */
 
-        add_text_column ("Projects", "calendar_url", "");
+        add_calendar_url_to_project ();
     }
 
     public void clear_database () {
@@ -2257,6 +2257,45 @@ public class Services.Database : GLib.Object {
             }
 
             Services.Store.instance ().insert_source (caldav_source);
+        }
+    }
+
+    public void add_calendar_url_to_project () {
+        if (column_exists ("Projects", "calendar_url")) {
+            return;
+        }
+
+        add_text_column ("Projects", "calendar_url", "");
+
+        Gee.ArrayList<Objects.Project> projects = get_projects_collection ();
+
+        foreach (var project in projects) {
+            if (project.source.source_type != SourceType.CALDAV) {
+                continue;
+            }
+
+            var url = "%s/calendars/%s/%s/".printf (
+                project.source.caldav_data.server_url,
+                project.source.caldav_data.username,
+                project.id
+            );
+
+            print ("Migration: Adding calendar_url for Project (%s)", project.name);
+
+            Sqlite.Statement stmt;
+
+            sql = """
+                UPDATE Projects SET calendar_url = $calendar_url WHERE id = $id;
+            """;
+
+            db.prepare_v2 (sql, sql.length, out stmt);
+
+            set_parameter_str (stmt, "$calendar_url", url);
+            set_parameter_str (stmt, "$id", project.id);
+
+            if (stmt.step () != Sqlite.DONE) {
+                warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            }
         }
     }
 }
