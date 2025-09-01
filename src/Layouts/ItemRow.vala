@@ -845,10 +845,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 attachments_button.popover.popdown ();
             }
         })] = attachments;
-
-        destroy.connect (() => {
-            print ("Se elimino");
-        });
     }
 
     private void show_details () {
@@ -1221,10 +1217,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         popover.child = menu_box;
 
-        use_note_item.activate_item.connect (() => {
+        signals_map[use_note_item.activate_item.connect (() => {
             item.item_type = use_note_item.active ? ItemType.NOTE : ItemType.TASK;
             item.update_local ();
-        });
+        })] = use_note_item;
 
         copy_clipboard_item.clicked.connect (() => {
             item.copy_clipboard ();
