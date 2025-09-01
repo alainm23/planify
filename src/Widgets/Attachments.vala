@@ -51,7 +51,7 @@ public class Widgets.Attachments : Adw.Bin {
     }
 
     ~Attachments () {
-        print ("Destroying - Widgets.Attachments\n");
+        print ("Destroying - Widgets.Attachments - %s\n".printf (item.content));
     }
 
     construct {

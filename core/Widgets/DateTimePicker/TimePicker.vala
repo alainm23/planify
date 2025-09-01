@@ -65,6 +65,10 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
     public signal void time_added ();
     public signal void activated ();
 
+    ~TimePicker () {
+        print ("Destroying - Widgets.DateTimePicker.TimePicker\n");
+    }
+
     construct {
         if (format_12 == null) {
             format_12 = Utils.Datetime.get_default_time_format (true);

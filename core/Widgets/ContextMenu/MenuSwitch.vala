@@ -65,7 +65,7 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
     }
 
     ~MenuSwitch () {
-        print ("Destroying Widgets.ContextMenu.MenuSwitch\n");
+        print ("Destroying - Widgets.ContextMenu.MenuSwitch\n");
     }
 
     construct {

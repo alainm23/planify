@@ -13,7 +13,7 @@ public class Widgets.Markdown.Buffer : GtkSource.Buffer {
     }
 
     ~Buffer () {
-        print ("Destroying Widgets.Markdown.Buffer\n");
+        print ("Destroying - Widgets.Markdown.Buffer\n");
     }
 
     public string get_all_text () {

@@ -41,6 +41,10 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
         );
     }
 
+    ~ReminderRow () {
+        print ("Destroying - Widgets.Widgets.ReminderPicker.ReminderRow\n");
+    }
+
     construct {
         add_css_class ("row");
 

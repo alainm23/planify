@@ -32,6 +32,8 @@ public class Widgets.Calendar.CalendarDay : Adw.Bin {
     }
 
     private Gtk.Button button;
+    private ulong button_clicked_id = 0;
+
     public signal void day_selected ();
 
     public CalendarDay () {
@@ -48,9 +50,16 @@ public class Widgets.Calendar.CalendarDay : Adw.Bin {
 
         child = button;
 
-        button.clicked.connect (() => {
+        button_clicked_id = button.clicked.connect (() => {
             day_selected ();
             button.add_css_class ("selected");
         });
+    }
+
+    public void clean_up () {
+        if (button_clicked_id != 0) {
+            button.disconnect (button_clicked_id);
+            button_clicked_id = 0;
+        }
     }
 }

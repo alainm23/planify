@@ -49,6 +49,10 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
         );
     }
 
+    ~ReminderButton () {
+        print ("Destroying - Widgets.ReminderPicker.ReminderButton\n");
+    }
+
     construct {
         picker = new Widgets.ReminderPicker.ReminderPicker (is_creating);
 

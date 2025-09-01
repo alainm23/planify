@@ -40,6 +40,10 @@ public class Widgets.ContextMenu.MenuCheckPicker : Adw.Bin {
         );
     }
 
+    ~MenuCheckPicker () {
+        print ("Destroying - Widgets.ContextMenu.MenuCheckPicker\n");
+    }
+
     construct {
         filters_map = new Gee.HashMap<string, Widgets.ContextMenu.MenuItemCheckPicker> ();
 

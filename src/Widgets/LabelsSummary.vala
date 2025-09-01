@@ -50,7 +50,7 @@ public class Widgets.LabelsSummary : Adw.Bin {
     }
 
     ~LabelsSummary () {
-        print ("Destroying Widgets.LabelsSummary\n");
+        print ("Destroying - Widgets.LabelsSummary - %s\n".printf (item.content));
     }
 
     construct {

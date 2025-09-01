@@ -20,6 +20,10 @@
  */
 
 public class Widgets.ContextMenu.MenuSeparator : Adw.Bin {
+    ~MenuSeparator () {
+        print ("Destroying - Widgets.ContextMenu.MenuSeparator\n");
+    }
+    
     construct {
         child = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 6,

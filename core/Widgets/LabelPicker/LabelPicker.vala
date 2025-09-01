@@ -40,13 +40,6 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         }
     }
 
-
-    public bool search_visible {
-        set {
-            picker.search_visible = value;
-        }
-    }
-
     public LabelPicker () {
         Object (
             has_arrow: false,
@@ -57,7 +50,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     }
 
     ~LabelPicker () {
-        print ("Destroying Widgets.LabelPicker.LabelPicker\n");
+        print ("Destroying - Widgets.LabelPicker.LabelPicker\n");
     }
 
     construct {
@@ -71,6 +64,10 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
 
         picker.close.connect (() => {
             popdown ();
+        });
+
+        destroy.connect (() => {
+            picker.clean_up ();
         });
     }
 

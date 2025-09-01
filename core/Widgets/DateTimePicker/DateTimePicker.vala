@@ -86,6 +86,10 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         );
     }
 
+    ~DateTimePicker () {
+        print ("Destroying - Widgets.DateTimePicker.DateTimePicker\n");
+    }
+
     construct {
         navigation_view = new Adw.NavigationView ();
         navigation_view.add (build_page ("main"));

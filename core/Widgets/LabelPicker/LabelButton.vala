@@ -64,7 +64,7 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
     }
 
     ~LabelButton () {
-        print ("Destroying Widgets.LabelPicker.LabelButton\n");
+        print ("Destroying - Widgets.LabelPicker.LabelButton\n");
     }
 
     construct {
@@ -121,7 +121,6 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
         });
 
         labels_picker.show.connect (() => {
-            labels_picker.search_visible = true;
             picker_opened (true);
         });
     }
@@ -151,7 +150,6 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
     public void open_picker () {
         button.active = true;
         Timeout.add (100, () => {
-            labels_picker.search_visible = false;
             return GLib.Source.REMOVE;
         });
     }

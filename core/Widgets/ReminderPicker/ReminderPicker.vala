@@ -59,6 +59,10 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         );
     }
 
+    ~ReminderPicker () {
+        print ("Destroying - Widgets.ReminderPicker.ReminderPicker\n");
+    }
+
     construct {
         calendar = new Widgets.Calendar.Calendar () {
             vexpand = true,

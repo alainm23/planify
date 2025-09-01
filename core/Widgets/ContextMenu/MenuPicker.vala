@@ -52,6 +52,10 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
         );
     }
 
+    ~MenuPicker () {
+        print ("Destroying - Widgets.ContextMenu.MenuPicker\n");
+    }
+
     construct {
         menu_icon = new Gtk.Image () {
             valign = Gtk.Align.CENTER
