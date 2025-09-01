@@ -177,11 +177,17 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    string _ics = "";
-    public string ics {
+    string _ical_url = "";
+    public string ical_url {
         get {
-            _ics = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "ics");
-            return _ics;
+            var json_object = Services.Todoist.get_default ().get_object_by_string (extra_data);
+
+            if (json_object.has_member ("ics")) {
+                _ical_url = "%s/%s".printf (project.calendar_url, json_object.get_string_member ("ics")); // TODO: Should the stored data be migrated?
+            }else {
+                _ical_url = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "ical_url");
+            }
+            return _ical_url;
         }
     }
 
@@ -394,25 +400,16 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    public Item.from_caldav_xml (GXml.DomElement element, string _project_id) {
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
-
+    public Item.from_vtodo (string data, string _ical_url, string _project_id) {
         project_id = _project_id;
-        patch_from_vtodo (data, Util.get_task_id_from_url (element));
+        patch_from_vtodo (data, _ical_url);
     }
 
-    public Item.from_vtodo (string data, string _ics, string _project_id) {
-        project_id = _project_id;
-        patch_from_vtodo (data, _ics);
+    public void update_from_vtodo (string data, string _ical_url) {
+        patch_from_vtodo (data, _ical_url, true);
     }
 
-    public void update_from_vtodo (string data, string _ics) {
-        patch_from_vtodo (data, _ics, true);
-    }
-
-    public void patch_from_vtodo (string data, string _ics, bool is_update = false) {
+    public void patch_from_vtodo (string data, string _ical_url, bool is_update = false) {
         ICal.Component ical = ICal.Parser.parse_string (data);
         ICal.Component ? ical_vtodo = ical.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
         ECal.Component ecal = new ECal.Component.from_icalcomponent (ical_vtodo);
@@ -483,7 +480,7 @@ public class Objects.Item : Objects.BaseObject {
             pinned = false;
         }
 
-        extra_data = Util.generate_extra_data (_ics, "", ical.as_ical_string ());
+        extra_data = Util.generate_extra_data (_ical_url, "", ical.as_ical_string ());
 
         if (is_update) {
             check_labels (get_labels_maps_from_caldav (ecal.get_categories_list ()));
@@ -653,8 +650,9 @@ public class Objects.Item : Objects.BaseObject {
                     Services.Store.instance ().update_item (this, update_id);
                 });
             } else if (project.source_type == SourceType.CALDAV) {
-                Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                    HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                caldav_client.add_item.begin (this, true, (obj, res) => {
+                    HttpResponse response = caldav_client.add_item.end (res);
 
                     if (response.status) {
                         Services.Store.instance ().update_item (this, update_id);
@@ -685,8 +683,9 @@ public class Objects.Item : Objects.BaseObject {
                     loading = false;
                 });
             } else if (project.source_type == SourceType.CALDAV) {
-                Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                    HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                caldav_client.add_item.begin (this, true, (obj, res) => {
+                    HttpResponse response = caldav_client.add_item.end (res);
 
                     if (response.status) {
                         Services.Store.instance ().update_item (this, update_id);
@@ -713,8 +712,9 @@ public class Objects.Item : Objects.BaseObject {
                 loading = false;
             });
         } else if (project.source_type == SourceType.CALDAV) {
-            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.add_item.begin (this, true, (obj, res) => {
+                HttpResponse response = caldav_client.add_item.end (res);
 
                 if (response.status) {
                     Services.Store.instance ().update_item (this, update_id);
@@ -744,8 +744,9 @@ public class Objects.Item : Objects.BaseObject {
     private void _update_pin () {
         if (project.source_type == SourceType.CALDAV) {
             loading = true;
-            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.add_item.begin (this, true, (obj, res) => {
+                HttpResponse response = caldav_client.add_item.end (res);
 
                 if (response.status) {
                     Services.Store.instance ().update_item_pin (this);
@@ -1217,7 +1218,9 @@ public class Objects.Item : Objects.BaseObject {
         if (checked) {
             ical.set_status (ICal.PropertyStatus.COMPLETED);
             ical.add_property (new ICal.Property.percentcomplete (100));
-            ical.add_property (new ICal.Property.completed (new ICal.Time.today ()));
+            // RFC requires Date-Time (https://datatracker.ietf.org/doc/html/rfc5545#section-3.8.2.1)
+            // Nextcloud also accepted .today () which didn't include the Timezone, but Radicale and probably other CalDAV implementations want Date-Time
+            ical.add_property (new ICal.Property.completed (new ICal.Time.current_with_zone (null)));
         } else {
             ical.set_status (ICal.PropertyStatus.NEEDSACTION);
         }
@@ -1336,8 +1339,9 @@ public class Objects.Item : Objects.BaseObject {
             });
         } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
-            Services.CalDAV.Core.get_default ().delete_task.begin (this, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().delete_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.delete_item.begin (this, (obj, res) => {
+                HttpResponse response = caldav_client.delete_item.end (res);
                 loading = false;
 
                 if (response.status) {
@@ -1446,8 +1450,9 @@ public class Objects.Item : Objects.BaseObject {
             });
         } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
-            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                var response = Services.CalDAV.Core.get_default ().add_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.add_item.begin (this, true, (obj, res) => {
+                var response = caldav_client.add_item.end (res);
                 loading = false;
 
                 if (response.status) {
@@ -1484,8 +1489,9 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
-            Services.CalDAV.Core.get_default ().move_task.begin (this, project.id, (obj, res) => {
-                var response = Services.CalDAV.Core.get_default ().move_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.move_item.begin (this, project, (obj, res) => {
+                var response = caldav_client.move_item.end (res);
                 loading = false;
                 show_item = true;
 
@@ -1633,7 +1639,8 @@ public class Objects.Item : Objects.BaseObject {
         if (project.source_type == SourceType.TODOIST) {
             response = yield Services.Todoist.get_default ().complete_item (this);
         } else {
-            response = yield Services.CalDAV.Core.get_default ().complete_item (this);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            response = yield caldav_client.complete_item (this);
         }
 
         loading = false;

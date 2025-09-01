@@ -893,8 +893,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                     }
                 });
             } else if (picked_item.project.source_type == SourceType.CALDAV) {
-                Services.CalDAV.Core.get_default ().add_task.begin (picked_item, true, (obj, res) => {
-                    if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_item.project.source);
+                caldav_client.add_item.begin (picked_item, true, (obj, res) => {
+                    if (caldav_client.add_item.end (res).status) {
                         Services.Store.instance ().update_item (picked_widget.item);
                         Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
                     }

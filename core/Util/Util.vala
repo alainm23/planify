@@ -822,27 +822,6 @@ We hope you’ll enjoy using Planify!""");
     *   XML adn CakDAV Util
     */
 
-    public static string get_task_id_from_url (GXml.DomElement element) {
-        GXml.DomElement href = element.get_elements_by_tag_name ("d:href").get_element (0);
-        string[] parts = href.text_content.split ("/");
-        return parts[parts.length - 1];
-    }
-
-    public static string get_task_uid (GXml.DomElement element) {
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
-
-        ICal.Component ical = new ICal.Component.from_string (data);
-        return ical.get_uid ();
-    }
-
-    public static string get_related_to_uid (GXml.DomElement element) {
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
-        return Util.find_string_value ("RELATED-TO", data);
-    }
 
     public static string find_string_value (string key, string data) {
         GLib.Regex? regex = null;
@@ -886,12 +865,12 @@ We hope you’ll enjoy using Planify!""");
         return bool.parse (match.fetch_all () [1]);
     }
 
-    public static string generate_extra_data (string ics, string etag, string data) {
+    public static string generate_extra_data (string ical_url, string etag, string data) {
         var builder = new Json.Builder ();
         builder.begin_object ();
 
-        builder.set_member_name ("ics");
-        builder.add_string_value (ics);
+        builder.set_member_name ("ical_url");
+        builder.add_string_value (ical_url);
 
         builder.set_member_name ("etag");
         builder.add_string_value (etag);
@@ -928,7 +907,9 @@ We hope you’ll enjoy using Planify!""");
             }
         } else if (target_project.source_type == SourceType.CALDAV) {
             new_item.id = Util.get_default ().generate_id (new_item);
-            HttpResponse response = yield Services.CalDAV.Core.get_default ().add_task (new_item);
+
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (new_item.project.source);
+            HttpResponse response = yield caldav_client.add_item (new_item);
             item.loading = false;
 
             if (response.status) {
@@ -993,7 +974,8 @@ We hope you’ll enjoy using Planify!""");
             }
         } else if (item.project.source_type == SourceType.CALDAV) {
             new_item.id = Util.get_default ().generate_id (new_item);
-            HttpResponse response = yield Services.CalDAV.Core.get_default ().add_task (new_item);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (new_item.project.source);
+            HttpResponse response = yield caldav_client.add_item (new_item);
             
             item.loading = false;
             item.sensitive = true;
@@ -1112,7 +1094,8 @@ We hope you’ll enjoy using Planify!""");
         } else if (project.source_type == SourceType.CALDAV) {
             new_project.id = Util.get_default ().generate_id (new_project);
             
-            HttpResponse response = yield Services.CalDAV.Core.get_default ().add_tasklist (new_project);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (new_project.source);
+            HttpResponse response = yield caldav_client.create_project (new_project);
 
             if (response.status) {
                 Services.Store.instance ().insert_project (new_project);
