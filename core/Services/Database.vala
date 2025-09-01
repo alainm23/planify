@@ -121,6 +121,7 @@ public class Services.Database : GLib.Object {
         table_columns["Projects"].add ("inbox_section_hidded");
         table_columns["Projects"].add ("sync_id");
         table_columns["Projects"].add ("source_id");
+        table_columns["Projects"].add ("calendar_url");
 
         table_columns["Queue"] = new Gee.ArrayList<string> ();
         table_columns["Queue"].add ("uuid");
@@ -220,7 +221,8 @@ public class Services.Database : GLib.Object {
                 due_date                TEXT,
                 inbox_section_hidded    INTEGER,
                 sync_id                 TEXT,
-                source_id               TEXT
+                source_id               TEXT,
+                calendar_url            TEXT
             );
         """;
 
@@ -602,7 +604,7 @@ public class Services.Database : GLib.Object {
 
         /*
          * Planify 4.8
-         * - Add sync_id column to Projects
+         * - Add item_type column to Items
          */
 
         add_text_column ("Items", "item_type", ItemType.TASK.to_string ());
@@ -613,6 +615,14 @@ public class Services.Database : GLib.Object {
          */
 
         add_project_labels_source_id ();
+
+
+        /*
+         * Planify 4.14
+         * - Add calendar_url column to Projects
+         */
+
+        add_calendar_url_to_project ();
     }
 
     public void clear_database () {
@@ -866,6 +876,7 @@ public class Services.Database : GLib.Object {
         return_value.inbox_section_hidded = get_parameter_bool (stmt, 20);
         return_value.sync_id = stmt.column_text (21);
         return_value.source_id = stmt.column_text (22);
+        return_value.calendar_url = stmt.column_text (23);
         return return_value;
     }
 
@@ -876,11 +887,11 @@ public class Services.Database : GLib.Object {
             INSERT OR IGNORE INTO Projects (id, name, color, backend_type, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
                 sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description, due_date,
-                inbox_section_hidded, sync_id, source_id)
+                inbox_section_hidded, sync_id, source_id, calendar_url)
             VALUES ($id, $name, $color, $backend_type, $inbox_project, $team_inbox,
                 $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
                 $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description, $due_date,
-                $inbox_section_hidded, $sync_id, $source_id);
+                $inbox_section_hidded, $sync_id, $source_id, $calendar_url);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -907,6 +918,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$inbox_section_hidded", project.inbox_section_hidded);
         set_parameter_str (stmt, "$sync_id", project.sync_id);
         set_parameter_str (stmt, "$source_id", project.source_id);
+        set_parameter_str (stmt, "$calendar_url", project.calendar_url);
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -976,7 +988,8 @@ public class Services.Database : GLib.Object {
                 due_date=$due_date,
                 inbox_section_hidded=$inbox_section_hidded,
                 sync_id=$sync_id,
-                source_id=$source_id
+                source_id=$source_id,
+                calendar_url=$calendar_url
             WHERE id=$id;
         """;
 
@@ -1003,6 +1016,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$inbox_section_hidded", project.inbox_section_hidded);
         set_parameter_str (stmt, "$sync_id", project.sync_id);
         set_parameter_str (stmt, "$source_id", project.source_id);
+        set_parameter_str (stmt, "$calendar_url", project.calendar_url);
         set_parameter_str (stmt, "$id", project.id);
 
         if (stmt.step () != Sqlite.DONE) {
@@ -1477,7 +1491,8 @@ public class Services.Database : GLib.Object {
             UPDATE Items SET
                 section_id=$section_id,
                 project_id=$project_id,
-                parent_id=$parent_id
+                parent_id=$parent_id,
+                extra_data=$extra_data
             WHERE id=$id;
         """;
 
@@ -1485,6 +1500,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$section_id", item.section_id);
         set_parameter_str (stmt, "$project_id", item.project_id);
         set_parameter_str (stmt, "$parent_id", item.parent_id);
+        set_parameter_str (stmt, "$extra_data", item.extra_data);
         set_parameter_str (stmt, "$id", item.id);
 
         if (stmt.step () != Sqlite.DONE) {
@@ -2221,7 +2237,10 @@ public class Services.Database : GLib.Object {
             Services.Store.instance ().insert_source (todoist_source);
         }
 
-        if (Services.CalDAV.Core.get_default ().is_logged_in ()) {
+        var caldav_server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
+        var caldav_username = Services.Settings.get_default ().settings.get_string ("caldav-username");
+
+        if (caldav_server_url != "" && caldav_username != "") {
             var caldav_source = new Objects.Source ();
             caldav_source.id = SourceType.CALDAV.to_string ();
             caldav_source.source_type = SourceType.CALDAV;
@@ -2238,6 +2257,45 @@ public class Services.Database : GLib.Object {
             }
 
             Services.Store.instance ().insert_source (caldav_source);
+        }
+    }
+
+    public void add_calendar_url_to_project () {
+        if (column_exists ("Projects", "calendar_url")) {
+            return;
+        }
+
+        add_text_column ("Projects", "calendar_url", "");
+
+        Gee.ArrayList<Objects.Project> projects = get_projects_collection ();
+
+        foreach (var project in projects) {
+            if (project.source.source_type != SourceType.CALDAV) {
+                continue;
+            }
+
+            var url = "%s/calendars/%s/%s/".printf (
+                project.source.caldav_data.server_url,
+                project.source.caldav_data.username,
+                project.id
+            );
+
+            print ("Migration: Adding calendar_url for Project (%s)\n", project.name);
+
+            Sqlite.Statement stmt;
+
+            sql = """
+                UPDATE Projects SET calendar_url = $calendar_url WHERE id = $id;
+            """;
+
+            db.prepare_v2 (sql, sql.length, out stmt);
+
+            set_parameter_str (stmt, "$calendar_url", url);
+            set_parameter_str (stmt, "$id", project.id);
+
+            if (stmt.step () != Sqlite.DONE) {
+                warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            }
         }
     }
 }

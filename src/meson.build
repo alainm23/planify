@@ -55,6 +55,7 @@ sources = files(
   'Widgets/ReorderChild.vala',
   'Widgets/FilterFlowBox.vala',
   'Widgets/FilterFlowBoxChild.vala',
+  'Widgets/IgnoreSSLSwitchRow.vala',
   'Widgets/Attachments.vala',
   'Widgets/AttachmentRow.vala',
   'Widgets/ItemChangeHistoryRow.vala',
@@ -105,7 +106,9 @@ sources = files(
   'Dialogs/Preferences/Pages/Backup.vala',
   'Dialogs/Preferences/Pages/Sidebar.vala',
   'Dialogs/Preferences/Pages/Accounts.vala',
-  'Dialogs/Preferences/Pages/Appearance.vala'
+  'Dialogs/Preferences/Pages/Appearance.vala',
+  'Dialogs/Preferences/Pages/NextcloudSetup.vala',
+  'Dialogs/Preferences/Pages/CalDAVSetup.vala',
 )
 
 executable(

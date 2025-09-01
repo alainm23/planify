@@ -37,6 +37,7 @@ public class Objects.Project : Objects.BaseObject {
     public bool inbox_section_hidded { get; set; default = false; }
     public string sync_id { get; set; default = ""; }
     public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
+    public string calendar_url { get; set; default = ""; }
 
     bool _show_completed = false;
     public bool show_completed {
@@ -253,9 +254,11 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    // The old implementation checked for "deck--board" in the id, this no longer works.
+    // TODO: Find found why there was seperation for deck projects, maybe find another way to detect it.
     public bool is_deck {
         get {
-            return id.contains ("deck--board");
+            return false;
         }
     }
 
@@ -325,29 +328,31 @@ public class Objects.Project : Objects.BaseObject {
         backend_type = SourceType.GOOGLE_TASKS;
     }
 
-    public Project.from_caldav_xml (GXml.DomElement element) {
-        id = get_id_from_url (element);
-        update_from_xml (element);
+    public Project.from_propstat (Services.CalDAV.WebDAVPropStat propstat, string url) {
+        id = Util.get_default ().generate_id (this); // THIS ID is INTERNAL and no longer used for requests
+        calendar_url = url;
+        update_from_propstat (propstat);
         backend_type = SourceType.CALDAV;
     }
 
-    public void update_from_xml (GXml.DomElement element, bool update_sync_token = true) {
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        name = get_content (prop.get_elements_by_tag_name ("d:displayname").get_element (0));
-
-        GXml.DomHTMLCollection colorElements = prop.get_elements_by_tag_name ("x1:calendar-color");
-        if (colorElements.length > 0) {
-            color = get_content (colorElements.get_element (0));
+    // TODO: add extra null checks
+    public void update_from_propstat (Services.CalDAV.WebDAVPropStat propstat, bool update_sync_token = true) {
+        if (propstat.get_first_prop_with_tagname ("displayname") != null) {
+            name = propstat.get_first_prop_with_tagname ("displayname").text_content;
         }
-
-        GXml.DomHTMLCollection sync_token_collection = prop.get_elements_by_tag_name ("d:sync-token");
-        if (update_sync_token && sync_token_collection.length > 0) {
-            sync_id = get_content (sync_token_collection.get_element (0));
+        if (propstat.get_first_prop_with_tagname ("calendar-color") != null) {
+            color = propstat.get_first_prop_with_tagname ("calendar-color").text_content;
+        }
+        if (update_sync_token) {
+            sync_id = propstat.get_first_prop_with_tagname ("sync-token").text_content;
         }
     }
 
     public string get_id_from_url (GXml.DomElement element) {
+        if (element.get_elements_by_tag_name ("d:href").length <= 0) {
+            return "";
+        }
+
         GXml.DomElement href = element.get_elements_by_tag_name ("d:href").get_element (0);
         string[] parts = href.text_content.split ("/");
         return parts[parts.length - 2];
@@ -378,10 +383,13 @@ public class Objects.Project : Objects.BaseObject {
         show_completed = node.get_object ().get_boolean_member ("show_completed");
         description = node.get_object ().get_string_member ("description");
         due_date = node.get_object ().get_string_member ("due_date");
-        source_id = node.get_object ().get_string_member ("backend_type");
 
         if (node.get_object ().has_member ("source_id")) {
             source_id = node.get_object ().get_string_member ("source_id");
+        }
+
+        if (node.get_object ().has_member ("calendar_url")) {
+            calendar_url = node.get_object ().get_string_member ("calendar_url");
         }
     }
 
@@ -465,9 +473,9 @@ public class Objects.Project : Objects.BaseObject {
                 if (show_loading) {
                     loading = true;
                 }
-
-                Services.CalDAV.Core.get_default ().update_tasklist.begin (this, (obj, res) => {
-                    Services.CalDAV.Core.get_default ().update_tasklist.end (res);
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
+                caldav_client.update_project.begin (this, (obj, res) => {
+                    caldav_client.update_project.end (res);
                     Services.Store.instance ().update_project (this);
                     loading = false;
                 });
@@ -722,6 +730,7 @@ public class Objects.Project : Objects.BaseObject {
             COLLAPSED: %s
             PARENT ID: %s
             SOURCE ID: %s
+            Calendar URL: %s
         ---------------------------------
         """.printf (
             id,
@@ -741,7 +750,8 @@ public class Objects.Project : Objects.BaseObject {
             sort_order,
             collapsed.to_string (),
             parent_id.to_string (),
-            source_id
+            source_id,
+            calendar_url
         );
     }
 
@@ -850,8 +860,9 @@ public class Objects.Project : Objects.BaseObject {
                     dialog.set_response_enabled ("cancel", false);
                     dialog.set_response_enabled ("delete", false);
 
-                    Services.CalDAV.Core.get_default ().delete_tasklist.begin (this, (obj, res) => {
-                        HttpResponse response = Services.CalDAV.Core.get_default ().delete_tasklist.end (res);
+                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
+                    caldav_client.delete_project.begin (this, (obj, res) => {
+                        HttpResponse response = caldav_client.delete_project.end (res);
                         loading = false;
 
                         if (response.status) {

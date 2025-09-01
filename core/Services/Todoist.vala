@@ -1545,6 +1545,7 @@ public class Services.Todoist : GLib.Object {
         messages.set (500, _("The request failed due to a server error."));
         messages.set (503, _("The server is currently unable to handle the request."));
 
+        // TODO: use soup messages as fallback?
         return messages.has_key (code) ? messages.get (code) : _("Unknown error");
     }
 }

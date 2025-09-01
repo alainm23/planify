@@ -366,6 +366,20 @@ public class Services.Store : GLib.Object {
         }
     }
 
+    public Objects.Project get_project_via_url (string calendar_url) {
+        Objects.Project ? return_value = null;
+        lock (_projects) {
+            foreach (var project in projects) {
+                if (project.calendar_url == calendar_url) {
+                    return_value = project;
+                    break;
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public Gee.ArrayList<Objects.Project> get_subprojects (Objects.Project _project) {
         Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
         lock (_projects) {
@@ -681,13 +695,15 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public Objects.Item get_item_by_ics (string ics) {
+    public Objects.Item get_item_by_ical_url (string ical_url) {
         Objects.Item ? return_value = null;
         lock (_items) {
             foreach (var item in items) {
-                if (item.ics == ics) {
-                    return_value = item;
-                    break;
+                if (item.source.source_type == SourceType.CALDAV) {
+                    if (item.ical_url == ical_url) {
+                        return_value = item;
+                        break;
+                    }
                 }
             }
 
