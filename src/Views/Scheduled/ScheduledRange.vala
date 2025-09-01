@@ -43,6 +43,10 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         );
     }
 
+    ~ScheduledRange () {
+        print ("Destroying Views.Scheduled.ScheduledRange\n");
+    }
+
     construct {
         add_css_class ("no-selectable");
         add_css_class ("transition");

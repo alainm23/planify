@@ -41,6 +41,10 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
         );
     }
 
+    ~ScheduledDay () {
+        print ("Destroying Views.Scheduled.ScheduledDay\n");
+    }
+
     construct {
         add_css_class ("no-selectable");
         add_css_class ("transition");

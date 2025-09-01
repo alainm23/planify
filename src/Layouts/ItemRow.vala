@@ -92,7 +92,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.DropTarget drop_order_target;
     private Gtk.DropTarget drop_magic_button_target;
     private Gtk.DropTarget drop_order_magic_button_target;
-    private Gee.HashMap<ulong, GLib.Object> dnd_handlerses = new Gee.HashMap<ulong, GLib.Object> ();
+    
+    private Gee.HashMap<ulong, weak GLib.Object> dnd_handlerses = new Gee.HashMap<ulong, weak GLib.Object> ();
     private ulong description_handler_change_id = 0;
     private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
@@ -844,6 +845,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 attachments_button.popover.popdown ();
             }
         })] = attachments;
+
+        destroy.connect (() => {
+            print ("Se elimino");
+        });
     }
 
     private void show_details () {
@@ -1042,10 +1047,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         main_revealer.reveal_child = false;
         clean_up ();
         Timeout.add (main_revealer.transition_duration, () => {
-            ((Gtk.ListBox) parent).remove (this);
+            var list_parent = (Gtk.ListBox) parent;
+            list_parent.remove (this);
             return GLib.Source.REMOVE;
         });
     }
+
 
     private void build_handle_context_menu (double x, double y) {
         if (menu_handle_popover != null) {
@@ -1798,13 +1805,19 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         foreach (var entry in signals_map.entries) {
-            entry.value.disconnect (entry.key);
+            if (SignalHandler.is_connected (entry.value, entry.key)) {
+                entry.value.disconnect (entry.key);
+            }
         }
+
         signals_map.clear ();
 
         foreach (var entry in dnd_handlerses.entries) {
-            entry.value.disconnect (entry.key);
+            if (SignalHandler.is_connected (entry.value, entry.key)) {
+                entry.value.disconnect (entry.key);
+            }
         }
+        
         dnd_handlerses.clear ();
 
         if (description_handler_change_id != 0) {
@@ -1813,6 +1826,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         subitems.clean_up ();
+        attachments.clean_up ();
         
         current_buffer = null;
         markdown_edit_view = null;

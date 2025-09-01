@@ -32,6 +32,10 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
         );
     }
 
+    ~ColorPickerRow () {
+        print ("Destroying - Widgets.ColorPickerRow\n");
+    }
+
     construct {
         colors_hashmap = new Gee.HashMap<string, Gtk.CheckButton> ();
 

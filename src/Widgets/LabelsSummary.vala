@@ -49,6 +49,10 @@ public class Widgets.LabelsSummary : Adw.Bin {
         );
     }
 
+    ~LabelsSummary () {
+        print ("Destroying Widgets.LabelsSummary\n");
+    }
+
     construct {
         labels_flowbox = new Gtk.FlowBox () {
             column_spacing = 6,

@@ -32,6 +32,10 @@ public class Widgets.SyncButton : Adw.Bin {
         }
     }
 
+    ~SyncButton () {
+        print ("Destroying Widgets.SyncButton\n");
+    }
+
     construct {
         sync_button = new Gtk.Button.from_icon_name ("update-symbolic") {
             valign = Gtk.Align.CENTER,

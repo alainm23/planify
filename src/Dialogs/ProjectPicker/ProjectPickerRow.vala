@@ -127,7 +127,7 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
             hide_destroy ();
         })] = project;
 
-        destroy.connect (() => {
+        destroy.connect (() => {            
             foreach (var entry in signal_map.entries) {
                 entry.value.disconnect (entry.key);
             }

@@ -30,6 +30,10 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
         );
     }
 
+    ~SourceRow () {
+        print ("Destroying Widgets.SourceRow\n");
+    }
+
     construct {
         add_css_class ("no-selectable");
 

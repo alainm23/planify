@@ -31,6 +31,10 @@ public class Widgets.AttachmentRow : Gtk.ListBoxRow {
         );
     }
 
+    ~AttachmentRow () {
+        print ("Destroying - Widgets.AttachmentRow\n");
+    }
+
     construct {
         add_css_class ("row");
         add_css_class ("transition");

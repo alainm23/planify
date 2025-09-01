@@ -23,6 +23,10 @@ public class Views.Labels : Adw.Bin {
     private Gtk.ListBox sources_listbox;
     public Gee.HashMap<string, Views.LabelSourceRow> sources_hashmap = new Gee.HashMap<string, Views.LabelSourceRow> ();
 
+    ~Labels () {
+        print ("Destroying Views.Labels\n");
+    }
+
     construct {
         var headerbar = new Layouts.HeaderBar () {
             title = FilterType.LABELS.get_name ()

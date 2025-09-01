@@ -48,6 +48,10 @@ public class Widgets.ScrolledWindow : Adw.Bin {
         );
     }
 
+    ~ScrolledWindow () {
+        print ("Destroying Widgets.ScrolledWindow\n");
+    }
+
     construct {
         scrolled_window = new Gtk.ScrolledWindow () {
             hexpand = true,

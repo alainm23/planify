@@ -259,6 +259,12 @@ public class Layouts.HeaderItem : Adw.Bin {
         listbox.row_activated.connect ((row) => {
             row_activated (row);
         });
+
+        destroy.connect (() => {
+            listbox.set_filter_func (null);
+            listbox.set_sort_func (null);
+            clear ();
+        });
     }
 
     private Gtk.Widget get_placeholder () {

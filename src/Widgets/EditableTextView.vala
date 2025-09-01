@@ -37,6 +37,10 @@ public class Widgets.EditableTextView : Adw.Bin {
         }
     }
 
+    ~EditableTextView () {
+        print ("Destroying Widgets.EditableTextView\n");
+    }
+
     public void editing (bool value) {
         focus_changed (value);
 

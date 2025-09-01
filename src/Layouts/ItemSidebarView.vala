@@ -363,7 +363,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         signals_map.clear ();
         subitems.clean_up ();
-        attachments.disconnect_all ();
+        attachments.clean_up ();
 
         destroy_markdown_edit_view ();
     }

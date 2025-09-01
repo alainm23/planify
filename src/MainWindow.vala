@@ -643,12 +643,8 @@ public class MainWindow : Adw.ApplicationWindow {
         }
     }
 
-    private Dialogs.Preferences.PreferencesWindow? preferences_dialog = null;
     public void open_preferences_window () {
-        if (preferences_dialog == null) {
-            preferences_dialog = new Dialogs.Preferences.PreferencesWindow ();
-        }
-        
+        var preferences_dialog = new Dialogs.Preferences.PreferencesWindow ();
         preferences_dialog.present (Planify._instance.main_window);
     }
 

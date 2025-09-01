@@ -38,6 +38,10 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         );
     }
 
+    ~EventRow () {
+        print ("Destroying Widgets.EventRow\n");
+    }
+
     construct {
         add_css_class ("no-selectable");
         add_css_class ("transition");
