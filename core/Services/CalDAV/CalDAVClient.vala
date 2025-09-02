@@ -370,14 +370,14 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                             }
                         }
                     }
-
-                    var sync_token = propstat.get_first_prop_with_tagname ("sync-token");
-                    if (sync_token != null) {
-                        project.sync_id = sync_token.text_content;
-                        project.update_local ();
-                    }
                 }
             }
+        }
+
+        var sync_token = multi_status.get_first_text_content_by_tag_name ("sync-token");
+        if (sync_token != null && sync_token != project.sync_id) {
+            project.sync_id = sync_token;
+            project.update_local ();
         }
 
         project.loading = false;
