@@ -165,14 +165,14 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
     public async void sync (Objects.Source source, GLib.Cancellable cancellable) throws GLib.Error {
         var xml = """<?xml version='1.0' encoding='utf-8'?>
-                    <d:propfind xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:cal="urn:ietf:params:xml:ns:caldav">
+                    <d:propfind xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:cal="urn:ietf:params:xml:ns:caldav" xmlns:nc="http://nextcloud.com/ns">
                         <d:prop>
                             <d:resourcetype />
                             <d:displayname />
                             <d:sync-token />
                             <ical:calendar-color />
                             <cal:supported-calendar-component-set />
-                            <x3:deleted-at xmlns:x3="http://nextcloud.com/ns"/>
+                            <nc:deleted-at/>
                         </d:prop>
                     </d:propfind>
         """;
