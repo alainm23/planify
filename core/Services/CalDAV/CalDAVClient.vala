@@ -440,7 +440,6 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         try {
             yield send_request ("MKCOL", url, "application/xml", xml, null, null,
                                 { Soup.Status.CREATED });
-
             response.status = true;
         } catch (Error e) {
             response.error_code = e.code;
