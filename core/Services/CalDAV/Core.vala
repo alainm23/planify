@@ -266,16 +266,4 @@ public class Services.CalDAV.Core : GLib.Object {
             source.sync_failed ();
         }
     }
-
-    /*
-     *  Utils
-     */
-
-    // TODO: Migrate this method
-    public bool is_deleted_calendar (GXml.DomElement element) {
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        GXml.DomElement resourcetype = prop.get_elements_by_tag_name ("d:resourcetype").get_element (0);
-        return resourcetype.get_elements_by_tag_name ("x2:deleted-calendar").length > 0;
-    }
 }

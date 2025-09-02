@@ -165,29 +165,55 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
     public async void sync (Objects.Source source, GLib.Cancellable cancellable) throws GLib.Error {
         var xml = """<?xml version='1.0' encoding='utf-8'?>
-                    <d:propfind xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:cal="urn:ietf:params:xml:ns:caldav">
+                    <d:propfind xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:cal="urn:ietf:params:xml:ns:caldav" xmlns:nc="http://nextcloud.com/ns">
                         <d:prop>
                             <d:resourcetype />
                             <d:displayname />
                             <d:sync-token />
                             <ical:calendar-color />
                             <cal:supported-calendar-component-set />
+                            <nc:deleted-at/>
                         </d:prop>
                     </d:propfind>
         """;
 
         var multi_status = yield propfind (source.caldav_data.calendar_home_url, xml, "1", cancellable);
 
-        // TODO: Implement check for deleted calendars
+
+        // Delete CalDAV Generic
+        var server_urls = new Gee.HashSet<string> ();
+        foreach (var response in multi_status.responses ()) {
+            if (response.href != null) {
+                server_urls.add (get_absolute_url (response.href));
+            }
+        }
+
+        var local_projects = Services.Store.instance ().get_projects_by_source (source.id);
+        foreach (var local_project in local_projects) {
+            if (!server_urls.contains (local_project.calendar_url)) {
+                Services.Store.instance ().delete_project (local_project);
+            }
+        }
 
         foreach (var response in multi_status.responses ()) {
             string? href = response.href;
 
             foreach (var propstat in response.propstats ()) {
-                if (propstat.status != Soup.Status.OK) continue;
+                if (propstat.status != Soup.Status.OK) {
+                    continue;
+                }
 
                 var resourcetype = propstat.get_first_prop_with_tagname ("resourcetype");
                 var supported_calendar = propstat.get_first_prop_with_tagname ("supported-calendar-component-set");
+
+                if (is_deleted_calendar (resourcetype)) {
+                    Objects.Project ? project = Services.Store.instance ().get_project_via_url (get_absolute_url (href));
+                    if (project != null) {
+                        Services.Store.instance ().delete_project (project);
+                    }
+
+                    continue;
+                }
 
                 if (is_vtodo_calendar (resourcetype, supported_calendar)) {
                     var name = propstat.get_first_prop_with_tagname ("displayname");
@@ -596,5 +622,13 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         }
 
         return false;
+    }
+
+    public bool is_deleted_calendar (GXml.DomElement? resourcetype) {
+        if (resourcetype == null) {
+            return false;
+        }
+
+        return resourcetype.get_elements_by_tag_name ("deleted-calendar").length > 0;
     }
 }

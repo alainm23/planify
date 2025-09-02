@@ -254,11 +254,9 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    // The old implementation checked for "deck--board" in the id, this no longer works.
-    // TODO: Find found why there was seperation for deck projects, maybe find another way to detect it.
     public bool is_deck {
         get {
-            return false;
+            return "deck--board" in calendar_url.down ();
         }
     }
 

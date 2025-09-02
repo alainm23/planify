@@ -229,4 +229,3 @@ public class Services.CalDAV.WebDAVPropStat : Object {
     }
 
 }
-
