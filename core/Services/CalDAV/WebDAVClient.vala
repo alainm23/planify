@@ -143,6 +143,17 @@ public class Services.CalDAV.WebDAVMultiStatus : Object {
         }
         return list;
     }
+
+    public string ? get_first_text_content_by_tag_name (string tag_name) {
+        foreach (var h in root.get_elements_by_tag_name (tag_name)) {
+            var text = h.text_content.strip ();
+            if (text != null && text.length > 0) {
+                return text;
+            }
+        }
+
+        return null;
+    }
 }
 
 
