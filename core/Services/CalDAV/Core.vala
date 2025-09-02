@@ -19,61 +19,25 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Services.CalDAV.Core : GLib.Object {
+public class Services.CalDAV.WebDAVClient : GLib.Object {
 
-    private Soup.Session session;
-    private Gee.HashMap<string, Services.CalDAV.CalDAVClient> clients;
+    protected Soup.Session session;
 
-    private static Core ? _instance;
-    public static Core get_default () {
-        if (_instance == null) {
-            _instance = new Core ();
-        }
+    protected string username;
+    protected string password;
+    protected string base_url;
+    protected bool ignore_ssl;
 
-        return _instance;
+
+    public WebDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false) {
+        this.session = session;
+        this.base_url = base_url;
+        this.username = username;
+        this.password = password;
+        this.ignore_ssl = ignore_ssl;
     }
 
-    public signal void first_sync_started ();
-    public signal void first_sync_finished ();
-
-
-    public Core () {
-        session = new Soup.Session ();
-        clients = new Gee.HashMap<string, Services.CalDAV.CalDAVClient> ();
-    }
-
-
-    public Services.CalDAV.CalDAVClient get_client (Objects.Source source) {
-        if (!clients.has_key (source.id)) {
-            var client = new Services.CalDAV.CalDAVClient (
-                new Soup.Session (),
-                source.caldav_data.server_url,
-                source.caldav_data.username,
-                source.caldav_data.password,
-                source.caldav_data.ignore_ssl
-            );
-            clients[source.id] = client;
-        }
-        return clients[source.id];
-    }
-
-    public Services.CalDAV.CalDAVClient? get_client_by_id (string source_id) {
-        if (clients.has_key (source_id)) {
-            return clients[source_id];
-        }
-        return null;
-    }
-
-    public void remove_client (string source_id) {
-        clients.unset (source_id);
-    }
-
-    public void clear () {
-        clients.clear ();
-    }
-
-
-    private string make_absolute_url (string base_url, string href) {
+    public string get_absolute_url (string href) {
         string abs_url = null;
         try {
             abs_url = GLib.Uri.resolve_relative (base_url, href, GLib.UriFlags.NONE).to_string ();
@@ -83,12 +47,43 @@ public class Services.CalDAV.Core : GLib.Object {
         return abs_url;
     }
 
-    public async string resolve_well_known_caldav (Soup.Session session, string base_url, bool ignore_ssl = false) {
-        var well_known_url = make_absolute_url (base_url, "/.well-known/caldav");
-        var msg = new Soup.Message ("GET", well_known_url);
+    public async WebDAVMultiStatus propfind (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
+        return new WebDAVMultiStatus.from_string (yield send_request ("PROPFIND", url, "application/xml", xml, depth, cancellable, { Soup.Status.MULTI_STATUS }));
+    }
+
+    public async WebDAVMultiStatus report (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
+        return new WebDAVMultiStatus.from_string (yield send_request ("REPORT", url, "application/xml", xml, depth, cancellable, { Soup.Status.MULTI_STATUS }));
+    }
+
+    protected async string send_request (string method, string url, string content_type, string? body, string? depth, GLib.Cancellable? cancellable, Soup.Status[] expected_statuses, HashTable<string,string>? extra_headers = null) throws GLib.Error {
+        var abs_url = get_absolute_url (url);
+        if (abs_url == null)
+            throw new GLib.IOError.FAILED ("Invalid URL: %s".printf (url));
+
+        var msg = new Soup.Message (method, abs_url);
         msg.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);
 
-        msg.set_flags (Soup.MessageFlags.NO_REDIRECT);
+        msg.authenticate.connect ((auth, retrying) => {
+            if (retrying) {
+                warning ("Authentication failed\n");
+                return false;
+            }
+
+            if (auth.scheme_name == "Digest" || auth.scheme_name == "Basic") {
+                auth.authenticate (this.username, this.password);
+                return true;
+            }
+            warning ("Unsupported auth schema: %s", auth.scheme_name);
+            return false;
+        });
+
+        // After authentication, the body of the message needs to be set again when the message is resent.
+        // https://gitlab.gnome.org/GNOME/libsoup/-/issues/358
+        msg.restarted.connect (() => {
+            if (body != null) {
+                msg.set_request_body_from_bytes (content_type, new GLib.Bytes (body.data));
+            }
+        });
 
         if (ignore_ssl) {
             msg.accept_certificate.connect (() => {
@@ -96,186 +91,142 @@ public class Services.CalDAV.Core : GLib.Object {
             });
         }
 
-        try {
-            yield session.send_and_read_async (msg, Priority.DEFAULT, null);
-            // These are all the redirect status codes.
-            // https://www.rfc-editor.org/rfc/rfc6764#section-5
-            // https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-            if (msg.status_code == 301 || msg.status_code == 302 || msg.status_code == 307 || msg.status_code == 308 ) {
-                string? location = msg.response_headers.get_one ("Location");
-                if (location != null) {
-                    if (location.has_prefix ("/")) {
-                        location = make_absolute_url (base_url, location);
-                    }
+        if (depth != null) {
+            msg.request_headers.replace ("Depth", depth);
+        }
 
-                    // Prevent https → http downgrade
-                    // See https://github.com/alainm23/planify/issues/1149#issuecomment-3236718109
-                    var base_scheme = GLib.Uri.parse_scheme (base_url);
-                    var location_scheme = GLib.Uri.parse_scheme (location);
+        if (extra_headers != null) {
+            foreach (var key in extra_headers.get_keys ())
+                msg.request_headers.replace (key, extra_headers.lookup (key));
+        }
 
-                    if (base_scheme == "https" && location_scheme == "http") {
-                        if (location.has_prefix ("http://")) {
-                            warning ("Resolving .well-known/caldav caused a redirect from https to http. Preventing downgrade.");
-                            location = "https" + location.substring (4); // removes http and puts https infront
-                        } else {
-                            warning ("Redirect location has http scheme but unexpected format: %s", location);
-                            return base_url;
-                        }
-                    }
+        if (body != null) {
+            msg.set_request_body_from_bytes (content_type, new GLib.Bytes (body.data));
+        }
 
-                    return location;
-                }
+        GLib.Bytes response = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
+
+        bool ok = false;
+        foreach (var code in expected_statuses) {
+            if (msg.status_code == code) {
+                ok = true;
+                break;
             }
-            return base_url;
-        } catch (Error e) {
-            warning ("Failed to check .well-known/caldav: %s", e.message);
-            return base_url;
+        }
+
+        if (!ok) {
+            var response_text = (string) response.get_data ();
+            throw new GLib.IOError.FAILED (
+                "%s %s failed: HTTP %u %s\n%s".printf (
+                    method, abs_url, msg.status_code, msg.reason_phrase ?? "", response_text ?? "")
+            );
+        }
+
+        return (string) response.get_data ();
+    }
+
+}
+
+
+public class Services.CalDAV.WebDAVMultiStatus : Object {
+    private GXml.DomElement root;
+
+    public WebDAVMultiStatus.from_string (string xml) throws GLib.Error {
+        print (xml + "\n");
+        var doc = new GXml.XDocument.from_string (xml);
+        this.root = doc.document_element;
+    }
+
+    public Gee.ArrayList<WebDAVResponse> responses () {
+        var list = new Gee.ArrayList<WebDAVResponse> ();
+        foreach (var resp in root.get_elements_by_tag_name ("response")) {
+            list.add (new WebDAVResponse (resp));
+        }
+        return list;
+    }
+
+    public string ? get_first_text_content_by_tag_name (string tag_name) {
+        foreach (var h in root.get_elements_by_tag_name (tag_name)) {
+            var text = h.text_content.strip ();
+            if (text != null && text.length > 0) {
+                return text;
+            }
+        }
+
+        return null;
+    }
+}
+
+
+public class Services.CalDAV.WebDAVResponse : Object {
+    public string? href { get; private set; }
+    private GXml.DomElement element;
+
+    public WebDAVResponse (GXml.DomElement element) {
+        this.element = element;
+        parse_href ();
+    }
+
+    private void parse_href () {
+        foreach (var h in element.get_elements_by_tag_name ("href")) {
+            var text = h.text_content.strip ();
+            if (text != null && text.length > 0) {
+                href = text;
+                break;
+            }
         }
     }
 
+    public Gee.ArrayList<WebDAVPropStat> propstats () {
+        var results = new Gee.ArrayList<WebDAVPropStat> ();
+        foreach (var ps in element.get_elements_by_tag_name ("propstat")) {
+            results.add (new WebDAVPropStat (ps));
+        }
+        return results;
+    }
+}
 
-    public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable, bool ignore_ssl = false) {
-        var caldav_client = new Services.CalDAV.CalDAVClient (session, dav_url, username, password, ignore_ssl);
 
-        try {
-            string? principal_url = yield caldav_client.get_principal_url (cancellable);
+public class Services.CalDAV.WebDAVPropStat : Object {
+    public Soup.Status status { get; private set; }
+    public GXml.DomElement prop { get; private set; }
 
-            if (principal_url == null) {
-                critical ("No principal url received");
-                return null;
-            }
+    public WebDAVPropStat (GXml.DomElement element) {
+        var status_list = element.get_elements_by_tag_name ("status");
+        if (status_list.length == 1) {
+            var text = status_list[0].text_content.strip ();
+            if (text != null && text.length > 0)
+                status = parse_status (text);
+        }
 
-            var calendar_home = yield caldav_client.get_calendar_home (principal_url, cancellable);
+        var prop_list = element.get_elements_by_tag_name ("prop");
+        if (prop_list.length == 1) {
+            prop = prop_list[0];
+        }
+    }
 
-            return calendar_home;
-        } catch (Error e) {
-            print ("login error: %s".printf (e.message));
+    private Soup.Status parse_status (string status_line) {
+        Soup.HTTPVersion ver;
+        uint code;
+        string reason;
+
+        if (Soup.headers_parse_status_line (status_line, out ver, out code, out reason)) {
+            return (Soup.Status) code;
+        }
+
+        return Soup.Status.NONE;
+    }
+
+    public GXml.DomElement? get_first_prop_with_tagname (string tagname) {
+        if (prop == null) {
             return null;
         }
-    }
 
-    public async HttpResponse login (CalDAVType caldav_type, string dav_url, string username, string password, string calendar_home, GLib.Cancellable cancellable, bool ignore_ssl = false) {
-        HttpResponse response = new HttpResponse ();
-
-        if (Services.Store.instance ().source_caldav_exists (dav_url, username)) {
-            response.error_code = 409;
-            response.error = _("Source already exists");
-            return response;
+        foreach (var e in prop.get_elements_by_tag_name (tagname)) {
+            return e;
         }
 
-        var caldav_client = new Services.CalDAV.CalDAVClient (new Soup.Session (), dav_url, username, password, ignore_ssl);
-
-        try {
-            string? principal_url = yield caldav_client.get_principal_url (cancellable);
-
-            if (principal_url == null) {
-                response.error_code = 409;
-                response.error = _("Failed to resolve principal url");
-                return response;
-            }
-
-            var source = new Objects.Source ();
-            source.id = Util.get_default ().generate_id ();
-            source.source_type = SourceType.CALDAV;
-            source.last_sync = new GLib.DateTime.now_local ().to_string ();
-
-            Objects.SourceCalDAVData caldav_data = new Objects.SourceCalDAVData ();
-            caldav_data.server_url = dav_url;
-            caldav_data.calendar_home_url = calendar_home;
-            caldav_data.username = username;
-            caldav_data.password = password;
-            caldav_data.caldav_type = caldav_type;
-            caldav_data.ignore_ssl = ignore_ssl;
-
-            source.data = caldav_data;
-
-            GLib.Value _data_object = Value (typeof (Objects.Source));
-            _data_object.set_object (source);
-
-            response.data_object = _data_object;
-            response.status = true;
-
-            clients[source.id] = caldav_client;
-        } catch (Error e) {
-            print ("login error: %s".printf (e.message));
-            response.error_code = e.code;
-            response.error = e.message;
-        }
-
-        return response;
+        return null;
     }
 
-    // TODO: why is this a seperate method, can this be merged with login?
-    public async HttpResponse add_caldav_account (Objects.Source source, GLib.Cancellable cancellable) {
-        HttpResponse response = new HttpResponse ();
-        var caldav_client = get_client (source);
-
-        first_sync_started ();
-
-        try {
-            string? principal_url = yield caldav_client.get_principal_url (cancellable);
-
-            if (principal_url == null) {
-                response.error_code = 409;
-                response.error = _("Failed to resolve principal url");
-                return response;
-            }
-
-
-            yield caldav_client.update_userdata (principal_url, source, cancellable);
-
-            Services.Store.instance ().insert_source (source);
-
-            Gee.ArrayList<Objects.Project> projects = yield caldav_client.fetch_project_list (source, cancellable);
-
-            foreach (Objects.Project project in projects) {
-                Services.Store.instance ().insert_project (project);
-                yield caldav_client.fetch_items_for_project (project, cancellable);
-            }
-
-            first_sync_finished ();
-
-            response.status = true;
-        } catch (Error e) {
-            response.error_code = e.code;
-            response.error = e.message;
-            debug (e.message);
-        }
-
-        return response;
-    }
-
-
-    public async void sync (Objects.Source source) {
-        var caldav_client = get_client (source);
-
-        source.sync_started ();
-
-        try {
-            var cancellable = new GLib.Cancellable ();
-            yield caldav_client.sync (source, cancellable);
-
-            foreach (Objects.Project project in Services.Store.instance ().get_projects_by_source (source.id)) {
-                yield caldav_client.sync_tasklist (project, cancellable);
-            }
-
-            source.sync_finished ();
-            source.last_sync = new GLib.DateTime.now_local ().to_string ();
-        } catch (Error e) {
-            warning ("Failed to sync: %s", e.message);
-            source.sync_failed ();
-        }
-    }
-
-    /*
-     *  Utils
-     */
-
-    // TODO: Migrate this method
-    public bool is_deleted_calendar (GXml.DomElement element) {
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        GXml.DomElement resourcetype = prop.get_elements_by_tag_name ("d:resourcetype").get_element (0);
-        return resourcetype.get_elements_by_tag_name ("x2:deleted-calendar").length > 0;
-    }
 }
