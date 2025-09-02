@@ -33,6 +33,8 @@ public class Dialogs.Preferences.SettingsHeader : Adw.Bin {
     public signal void done_activated ();
     public signal void back_activated ();
 
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public SettingsHeader (string title, bool show_back_button = true) {
         Object (
             title: title,
@@ -69,8 +71,18 @@ public class Dialogs.Preferences.SettingsHeader : Adw.Bin {
 
         child = headerbar;
 
-        back_button.clicked.connect (() => {
+        signals_map[back_button.clicked.connect (() => {
             back_activated ();
+        })] = back_button;
+
+        destroy.connect (() => {
+            foreach (var entry in signals_map.entries) {
+                if (SignalHandler.is_connected (entry.value, entry.key)) {
+                    entry.value.disconnect (entry.key);
+                }
+            }
+
+            signals_map.clear ();
         });
     }
 }

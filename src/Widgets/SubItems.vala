@@ -84,6 +84,10 @@ public class Widgets.SubItems : Adw.Bin {
         );
     }
 
+    ~SubItems () {
+        print ("Destroying Widgets.SubItems\n");
+    }
+
     construct {
         var sub_tasks_title = new Gtk.Label (_ ("Sub-tasks")) {
             css_classes = { "heading", "h4" }
@@ -515,6 +519,8 @@ public class Widgets.SubItems : Adw.Bin {
     }
 
     public void clean_up () {
+        listbox.set_sort_func (null);
+
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);
         }

@@ -32,6 +32,10 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
         );
     }
 
+    ~PinnedItemsFlowBox () {
+        print ("Destroying Widgets.PinnedItemsFlowBox\n");
+    }
+
     construct {
         box_layout = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_start = 20,

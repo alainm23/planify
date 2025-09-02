@@ -36,7 +36,7 @@ public class Widgets.EditableTextView : Adw.Bin {
             return stack.visible_child_name == "textview";
         }
     }
-
+    
     public void editing (bool value) {
         focus_changed (value);
 

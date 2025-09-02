@@ -48,6 +48,10 @@ public class Views.Label : Adw.Bin {
         }
     }
 
+    ~Label () {
+        print ("Destroying Views.Label\n");
+    }
+
     construct {
         items = new Gee.HashMap<string, Layouts.ItemRow> ();
 

@@ -51,6 +51,10 @@ public class Views.Filter : Adw.Bin {
         }
     }
 
+    ~Filter () {
+        print ("Destroying Views.Filter\n");
+    }
+
     construct {
         title_icon = new Gtk.Image () {
             pixel_size = 16,

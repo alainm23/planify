@@ -43,7 +43,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             }
         });
 
-        closed.connect (() => {
+        destroy.connect (() => {
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }

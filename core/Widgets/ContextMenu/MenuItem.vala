@@ -115,12 +115,18 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         }
     }
 
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public MenuItem (string title, string ? icon = null) {
         Object (
             title: title,
             icon: icon,
             hexpand: true
         );
+    }
+
+    ~MenuItem () {
+        print ("Destroying - Widgets.ContextMenu.MenuItem\n");
     }
 
     construct {
@@ -190,7 +196,7 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
 
         child = content_box;
 
-        clicked.connect (() => {
+        signals_map[clicked.connect (() => {
             activate_item ();
 
             if (autohide_popover) {
@@ -199,6 +205,16 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
                     popover.popdown ();
                 }
             }
+        })] = this;
+
+        destroy.connect (() => {
+            foreach (var entry in signals_map.entries) {
+                if (SignalHandler.is_connected (entry.value, entry.key)) {
+                    entry.value.disconnect (entry.key);
+                }
+            }
+
+            signals_map.clear ();
         });
     }
 }

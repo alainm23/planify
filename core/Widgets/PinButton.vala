@@ -32,6 +32,10 @@ public class Widgets.PinButton : Gtk.Button {
         );
     }
 
+    ~PinButton () {
+        print ("Destroying - Widgets.PinButton\n");
+    }
+
     construct {
         add_css_class ("flat");
 

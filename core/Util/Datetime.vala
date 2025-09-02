@@ -20,8 +20,8 @@
  */
 
 public class Utils.Datetime {
-    public static GLib.DateTime ? get_todoist_datetime (string date) {
-        if (date == "") {
+    public static GLib.DateTime ? get_todoist_datetime (string? date) {
+        if (date == "" || date == null) {
             return null;
         }
 

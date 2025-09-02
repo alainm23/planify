@@ -262,7 +262,6 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
         no_section.id = "";
 
         sections_listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (no_section));
-
         foreach (Objects.Section section in sections) {
             sections_listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (section));
         }

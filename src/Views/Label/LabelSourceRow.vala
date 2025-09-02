@@ -32,6 +32,10 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
         );
     }
 
+    ~LabelSourceRow () {
+        print ("Destroying Views.LabelSourceRow\n");
+    }
+
     construct {
         css_classes = { "no-selectable", "no-padding" };
 

@@ -25,6 +25,10 @@ public class Widgets.ErrorView : Adw.Bin {
     private Gtk.TextView error_textview;
     private Gtk.Button issue_button;
 
+    ~ErrorView () {
+        print ("Destroying Widgets.ErrorView\n");
+    }
+
     public int error_code {
         set {
             error_label.label = get_http_error (value);

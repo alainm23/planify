@@ -28,6 +28,10 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
     public Gee.HashMap<string, Layouts.ItemRow> items;
     private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
+    ~Scheduled () {
+        print ("Destroying Views.Scheduled.Scheduled\n");
+    }
+
     construct {
         items = new Gee.HashMap<string, Layouts.ItemRow> ();
 

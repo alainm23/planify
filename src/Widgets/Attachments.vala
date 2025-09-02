@@ -50,6 +50,10 @@ public class Widgets.Attachments : Adw.Bin {
         );
     }
 
+    ~Attachments () {
+        print ("Destroying - Widgets.Attachments - %s\n".printf (item.content));
+    }
+
     construct {
         var title = new Gtk.Label (_("Attachments")) {
             css_classes = { "heading", "h4" }
@@ -266,7 +270,7 @@ public class Widgets.Attachments : Adw.Bin {
         return placeholder_grid;
     }
 
-    public void disconnect_all () {
+    public void clean_up () {
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);
         }

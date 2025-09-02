@@ -71,6 +71,10 @@ public class Widgets.EventsList : Adw.Bin {
         );
     }
 
+    ~EventsList () {
+        print ("Destroying Widgets.EventsList\n");
+    }
+
     construct {
         event_model = new Services.CalendarEvents (start_date);
         event_hashmap = new Gee.HashMap<string, Widgets.EventRow> ();

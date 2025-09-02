@@ -79,6 +79,10 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         );
     }
 
+    ~ScheduleButton () {
+        print ("Destroying - Widgets.DateTimePicker.ScheduleButton\n");
+    }
+
     construct {
         datetime_picker = new Widgets.DateTimePicker.DateTimePicker ();
 

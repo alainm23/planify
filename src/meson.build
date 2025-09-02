@@ -43,7 +43,6 @@ sources = files(
   
   'Widgets/ColorPickerRow.vala',
   'Widgets/MagicButton.vala',
-  'Widgets/EditableLabel.vala',
   'Widgets/EditableTextView.vala',
   'Widgets/SyncButton.vala',
   'Widgets/MultiSelectToolbar.vala',
