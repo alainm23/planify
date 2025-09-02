@@ -459,13 +459,17 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         </d:mkcol>
         """.printf (project.name, project.color_hex);
 
-        var url = "%s/%s".printf (project.source.caldav_data.calendar_home_url, project.id);
+        var calendar_url = GLib.Uri.resolve_relative (project.source.caldav_data.calendar_home_url, project.id, GLib.UriFlags.NONE);
+        if (!calendar_url.has_suffix ("/")) {
+            calendar_url += "/";
+        }
 
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield send_request ("MKCOL", url, "application/xml", xml, null, null,
+            yield send_request ("MKCOL", calendar_url, "application/xml", xml, null, null,
                                 { Soup.Status.CREATED });
+            project.calendar_url = calendar_url;
             response.status = true;
         } catch (Error e) {
             response.error_code = e.code;

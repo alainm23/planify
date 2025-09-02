@@ -436,7 +436,6 @@ public class Dialogs.Project : Adw.Dialog {
                 if (response.status) {
                     Services.Store.instance ().insert_project (project);
                     caldav_client.update_sync_token.begin (project, new GLib.Cancellable ());
-                    print ("%s\n".printf (project.to_string ()));
                     go_project (project.id);
                 } else {
                     Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
