@@ -1211,6 +1211,40 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             menu_box.append (copy_clipboard_item);
             menu_box.append (duplicate_item);
             menu_box.append (move_item);
+
+            signals_map[use_note_item.activate_item.connect (() => {
+                item.item_type = use_note_item.active ? ItemType.NOTE : ItemType.TASK;
+                item.update_local ();
+            })] = use_note_item;
+
+            signals_map[copy_clipboard_item.clicked.connect (() => {
+                item.copy_clipboard ();
+            })] = copy_clipboard_item;
+
+            signals_map[duplicate_item.clicked.connect (() => {
+                Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
+            })] = duplicate_item;
+
+            signals_map[move_item.clicked.connect (() => {
+                Dialogs.ProjectPicker.ProjectPicker dialog;
+                if (item.project.is_inbox_project) {
+                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
+                } else {
+                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
+                }
+
+                dialog.project = item.project;
+                dialog.section = item.section;
+                dialog.present (Planify._instance.main_window);
+
+                dialog.changed.connect ((type, id) => {
+                    if (type == "project") {
+                        move (Services.Store.instance ().get_project (id), "");
+                    } else {
+                        move (item.project, id);
+                    }
+                });
+            })] = move_item;
         }
 
         menu_box.append (delete_item);
@@ -1219,41 +1253,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         popover.child = menu_box;
 
-        signals_map[use_note_item.activate_item.connect (() => {
-            item.item_type = use_note_item.active ? ItemType.NOTE : ItemType.TASK;
-            item.update_local ();
-        })] = use_note_item;
-
-        signals_map[copy_clipboard_item.clicked.connect (() => {
-            item.copy_clipboard ();
-        })] = copy_clipboard_item;
-
-        signals_map[duplicate_item.clicked.connect (() => {
-            Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
-        })] = duplicate_item;
-
-        signals_map[move_item.clicked.connect (() => {
-            Dialogs.ProjectPicker.ProjectPicker dialog;
-            if (item.project.is_inbox_project) {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-            } else {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
-            }
-
-            dialog.project = item.project;
-            dialog.section = item.section;
-            dialog.present (Planify._instance.main_window);
-
-            dialog.changed.connect ((type, id) => {
-                if (type == "project") {
-                    move (Services.Store.instance ().get_project (id), "");
-                } else {
-                    move (item.project, id);
-                }
-            });
-        })] = move_item;
-
-        signals_map[delete_item.activate_item.connect (() => {
+         signals_map[delete_item.activate_item.connect (() => {
             delete_request ();
         })] = delete_item;
 
