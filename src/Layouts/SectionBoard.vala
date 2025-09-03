@@ -560,7 +560,15 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         }
 
         completed_items_list.sort ((a, b) => {
-            return b.completed_date.compare (a.completed_date);
+            var completed_a = Utils.Datetime.get_date_only (
+                Utils.Datetime.get_date_from_string (a.completed_at)
+            );
+
+            var completed_b = Utils.Datetime.get_date_only (
+                Utils.Datetime.get_date_from_string (b.completed_at)
+            );
+            
+            return completed_b.compare (completed_a);
         });
 
         completed_page_index = 0;
