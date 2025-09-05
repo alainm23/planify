@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-    <enum id="io.github.alainm23.planify.badge-count">
-        <value nick="None" value="0" />
-        <value nick="Inbox" value="1" />
-        <value nick="Today" value="2" />
-        <value nick="Today + Inbox" value="3" />
-    </enum>
-
-    <enum id="io.github.alainm23.planify.pane-view">
-        <value nick="Inbox" value="0" />
-        <value nick="Today" value="1" />
-        <value nick="Scheduled" value="2" />
-        <value nick="Labels" value="3" />
-        <value nick="Pinboard" value="4" />
-        <value nick="Completed" value="5" />
-    </enum>
-
     <enum id="io.github.alainm23.planify.appearance">
         <value nick="Dark" value="1" />
         <value nick="Dark Blue" value="2" />
@@ -74,12 +58,6 @@
     </enum>
 
     <schema path="/io/github/alainm23/planify/" id="io.github.alainm23.planify" gettext-domain="io.github.alainm23.planify">        
-        <key name="badge-count" enum="io.github.alainm23.planify.badge-count">
-            <default>"None"</default>
-            <summary>Choose which items should be counted for the badge on the application icon</summary>
-            <description>Choose which items should be counted for the badge on the application icon</description>
-        </key>
-
         <key name="new-tasks-position" enum="io.github.alainm23.planify.new-tasks-position">
             <default>"Bottom"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
@@ -223,11 +201,11 @@
             <summary>Run in background</summary>
             <description>Let Planify run in background and send notifications</description>
         </key>
-        
-        <key name="homepage-item" enum="io.github.alainm23.planify.pane-view">
-            <default>"Inbox"</default>
-            <summary>homepage-item</summary>
-            <description>homepage-item</description>
+
+        <key name="home-view" type="s">
+            <default>'inbox'</default>
+            <summary>Home Page</summary>
+            <description>Set the page shown at first launch.</description>
         </key>
 
         <key name="show-today-completed" type="b">

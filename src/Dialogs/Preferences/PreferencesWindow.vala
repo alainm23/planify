@@ -20,6 +20,8 @@
  */
 
 public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
+    private Gee.HashMap<string, Adw.NavigationPage> page_map = new Gee.HashMap<string, Adw.NavigationPage> ();
+
     public PreferencesWindow () {
         Object (
             content_width: 450,
@@ -130,6 +132,18 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         page.add (accounts_group);
 
         // Personalization
+        var home_page_row = new Adw.ActionRow () {
+            activatable = true,
+            title = _("Home View"),
+            subtitle = _("Set the view shown at first launch")
+        };
+        home_page_row.add_prefix (generate_icon ("go-home-symbolic"));
+        home_page_row.add_suffix (generate_icon ("go-next-symbolic"));
+        
+        home_page_row.activated.connect (() => {
+            push_subpage (build_page ("home-view"));
+        });
+
         var general_row = new Adw.ActionRow ();
         general_row.activatable = true;
         general_row.add_prefix (generate_icon ("settings-symbolic"));
@@ -199,6 +213,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         tutorial_row.subtitle = _("Learn the app step by step with a short tutorial project");
 
         var personalization_group = new Adw.PreferencesGroup ();
+        personalization_group.add (home_page_row);
         personalization_group.add (general_row);
         personalization_group.add (task_setting_row);
         personalization_group.add (sidebar_row);
@@ -341,22 +356,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
     private Adw.NavigationPage get_general_page () {
         var settings_header = new Dialogs.Preferences.SettingsHeader (_("General"));
 
-        var home_page_model = new Gtk.StringList (null);
-        home_page_model.append (_("Inbox"));
-        home_page_model.append (_("Today"));
-        home_page_model.append (_("Scheduled"));
-        home_page_model.append (_("Labels"));
-        home_page_model.append (_("Pinboard"));
-
-        var home_page_row = new Adw.ComboRow ();
-        home_page_row.title = _("Home Page");
-        home_page_row.model = home_page_model;
-        home_page_row.selected = Services.Settings.get_default ().settings.get_enum ("homepage-item");
-
-        var general_group = new Adw.PreferencesGroup ();
-        general_group.title = _("General");
-        general_group.add (home_page_row);
-
         var sort_projects_model = new Gtk.StringList (null);
         sort_projects_model.append (_("Custom Sort Order"));
         sort_projects_model.append (_("Alphabetically"));
@@ -454,7 +453,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         datetime_group.add (start_week_row);
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-        content_box.append (general_group);
         content_box.append (sort_setting_group);
         content_box.append (de_group);
         content_box.append (datetime_group);
@@ -480,10 +478,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         toolbar_view.content = scrolled_window;
 
         var page = new Adw.NavigationPage (toolbar_view, "general");
-
-        home_page_row.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_enum ("homepage-item", (int) home_page_row.selected);
-        });
 
         sort_projects_row.notify["selected"].connect (() => {
             Services.Settings.get_default ().settings.set_enum ("projects-sort-by", (int) sort_projects_row.selected);
@@ -1077,6 +1071,18 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         return new Gtk.Image.from_icon_name (icon_name) {
                    pixel_size = size
         };
+    }
+
+    private Adw.NavigationPage build_page (string page) {
+        if (page_map.has_key (page)) {
+            return page_map[page];
+        }
+
+        if (page == "home-view") {
+            page_map[page] = new Dialogs.Preferences.Pages.HomeView (this);
+        }
+
+        return page_map[page];
     }
 }
 

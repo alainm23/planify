@@ -427,22 +427,7 @@ public class Util : GLib.Object {
         });
     }
 
-    public Objects.BaseObject get_filter () {
-        switch (Services.Settings.get_default ().settings.get_enum ("homepage-item")) {
-            case 0:
-                return Objects.Filters.Inbox.get_default ();
-            case 1:
-                return Objects.Filters.Today.get_default ();
-            case 2:
-                return Objects.Filters.Scheduled.get_default ();
-            case 3:
-                return Objects.Filters.Labels.get_default ();
-            case 4:
-                return Objects.Filters.Pinboard.get_default ();
-            default:
-                assert_not_reached ();
-        }
-    }
+
 
     public int get_default_priority () {
         int default_priority = Services.Settings.get_default ().settings.get_enum ("default-priority");
