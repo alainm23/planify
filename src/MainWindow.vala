@@ -270,7 +270,12 @@ public class MainWindow : Adw.ApplicationWindow {
 
         Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {            
             if (pane_type == PaneType.PROJECT) {
-                add_project_view (Services.Store.instance ().get_project (id));
+                var project = Services.Store.instance ().get_project (id);
+                if (project != null) {
+                    add_project_view (project);
+                } else {
+                    add_inbox_view ();
+                }
             } else if (pane_type == PaneType.FILTER) {
                 if (id == Objects.Filters.Inbox.get_default ().view_id) {
                    add_inbox_view ();
@@ -299,6 +304,8 @@ public class MainWindow : Adw.ApplicationWindow {
                 }
             } else if (pane_type == PaneType.LABEL) {
                 add_label_view (id);
+            } else {
+                add_inbox_view ();
             }
 
             if (overlay_split_view.collapsed) {
@@ -483,10 +490,16 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     public void go_homepage () {
-        Services.EventBus.get_default ().pane_selected (
-            PaneType.FILTER,
-            Util.get_default ().get_filter ().view_id
-        );
+        string home_page_id = Services.Settings.get_default ().get_string ("home-view");
+
+        if (home_page_id.has_prefix ("project-")) {
+            var project_id = home_page_id.substring (8);
+            if (project_id != null && project_id.length > 0) {
+                Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project_id);
+            }
+        } else {
+            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, home_page_id);
+        }
     }
 
     public void view_item (string id) {

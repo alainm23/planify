@@ -110,6 +110,7 @@ sources = files(
   'Dialogs/Preferences/Pages/Appearance.vala',
   'Dialogs/Preferences/Pages/NextcloudSetup.vala',
   'Dialogs/Preferences/Pages/CalDAVSetup.vala',
+  'Dialogs/Preferences/Pages/HomeView.vala',
 )
 
 executable(

@@ -165,6 +165,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
 
     private void search () {
         Objects.BaseObject[] filters = {
+            Objects.Filters.Inbox.get_default (),
             Objects.Filters.Today.get_default (),
             Objects.Filters.Scheduled.get_default (),
             Objects.Filters.Pinboard.get_default (),
