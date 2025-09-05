@@ -245,12 +245,15 @@ public class Views.Filter : Adw.Bin {
             
             title_label.label = priority.name;
             listbox.set_header_func (header_project_function);
+            magic_button.visible = true;
         } else {
             title_icon.icon_name = filter.icon_name;
             Util.get_default ().set_widget_color (filter.theme_color (), title_icon);
             title_label.label = filter.name;
+            magic_button.visible = true;
 
             if (filter is Objects.Filters.Completed) {
+                magic_button.visible = false;
                 listbox.set_header_func (header_completed_function);
             } else {
                 listbox.set_header_func (header_project_function);
