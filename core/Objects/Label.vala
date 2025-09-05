@@ -20,7 +20,6 @@
  */
 
 public class Objects.Label : Objects.BaseObject {
-    public string color { get; set; default = ""; }
     public int item_order { get; set; default = 0; }
     public bool is_deleted { get; set; default = false; }
     public bool is_favorite { get; set; default = false; }

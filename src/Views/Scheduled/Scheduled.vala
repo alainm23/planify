@@ -66,7 +66,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         view_setting_overlay.add_overlay (indicator_revealer);
 
         var headerbar = new Layouts.HeaderBar () {
-            title = FilterType.SCHEDULED.get_name ()
+            title = Objects.Filters.Scheduled.get_default ().name
         };
         headerbar.pack_end (view_setting_overlay);
 
@@ -84,16 +84,16 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             child = listbox
         };
 
-        var title_icon = new Gtk.Image.from_icon_name (FilterType.SCHEDULED.get_icon ()) {
+        var title_icon = new Gtk.Image.from_icon_name (Objects.Filters.Scheduled.get_default ().icon_name) {
             pixel_size = 16,
             valign = CENTER,
             halign = CENTER,
             css_classes = { "view-icon" }
         };
 
-        Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
+        Util.get_default ().set_widget_color (Objects.Filters.Scheduled.get_default ().theme_color (), title_icon);
 
-        var title_label = new Gtk.Label (FilterType.SCHEDULED.get_name ()) {
+        var title_label = new Gtk.Label (Objects.Filters.Scheduled.get_default ().theme_color ()) {
             css_classes = { "font-bold", "title-2" },
             ellipsize = END,
             halign = START
@@ -169,7 +169,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         })] = scrolled_window.vadjustment;
 
         signals_map[Services.EventBus.get_default ().theme_changed.connect (() => {
-            Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
+            Util.get_default ().set_widget_color (Objects.Filters.Scheduled.get_default ().theme_color (), title_icon);
         })] = Services.EventBus.get_default ();
     }
 

@@ -238,67 +238,26 @@ public class Views.Filter : Adw.Bin {
 
     private void update_request () {
         if (filter is Objects.Filters.Priority) {
-            Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
+            Objects.Filters.Priority priority = (Objects.Filters.Priority) filter;
 
             title_icon.icon_name = priority.icon;
             Util.get_default ().set_widget_color (priority.color, title_icon);
             
             title_label.label = priority.name;
             listbox.set_header_func (header_project_function);
-            magic_button.visible = true;
-        } else if (filter is Objects.Filters.Completed) {
-            title_icon.icon_name = FilterType.COMPLETED.get_icon ();
-            Util.get_default ().set_widget_color (FilterType.COMPLETED.get_color (), title_icon);
+        } else {
+            title_icon.icon_name = filter.icon_name;
+            Util.get_default ().set_widget_color (filter.theme_color (), title_icon);
+            title_label.label = filter.name;
 
-            title_label.label = FilterType.COMPLETED.get_name ();
-            listbox.set_header_func (header_completed_function);
-            magic_button.visible = false;
-        } else if (filter is Objects.Filters.Tomorrow) {
-            title_icon.icon_name = FilterType.SCHEDULED.get_icon ();
-            Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
-
-            title_label.label = _("Tomorrow");
-            listbox.set_header_func (header_project_function);
-            magic_button.visible = true;
-        } else if (filter is Objects.Filters.Pinboard) {
-            title_icon.icon_name = FilterType.PINBOARD.get_icon ();
-            Util.get_default ().set_widget_color (FilterType.PINBOARD.get_color (), title_icon);
-
-            title_label.label = FilterType.PINBOARD.get_name ();
-            listbox.set_header_func (header_project_function);
-            magic_button.visible = true;
-        } else if (filter is Objects.Filters.Anytime) {
-            title_icon.icon_name = FilterType.SCHEDULED.get_icon ();
-            Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
-
-            title_label.label = _("Anytime");
-            listbox.set_header_func (header_project_function);
-            magic_button.visible = true;
-        } else if (filter is Objects.Filters.Repeating) {
-            title_icon.icon_name = "arrow-circular-top-right-symbolic";
-            Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
-
-            title_label.label = _("Repeating");
-            listbox.set_header_func (header_project_function);
-            magic_button.visible = false;
-        } else if (filter is Objects.Filters.Unlabeled) {
-            title_icon.icon_name = "tag-outline-symbolic";
-            Util.get_default ().set_widget_color (FilterType.LABELS.get_color (), title_icon);
-
-            title_label.label = _("Unlabeled");
-            listbox.set_header_func (header_project_function);
-            magic_button.visible = true;
-        } else if (filter is Objects.Filters.AllItems) {
-            title_icon.icon_name = "grid-large-symbolic";
-            Util.get_default ().set_widget_color (FilterType.INBOX.get_color (), title_icon);
-
-            title_label.label = _("All Tasks");
-            listbox.set_header_func (header_project_function);
-            magic_button.visible = true;
-        }
+            if (filter is Objects.Filters.Completed) {
+                listbox.set_header_func (header_completed_function);
+            } else {
+                listbox.set_header_func (header_project_function);
+            }
+        } 
 
         headerbar.title = title_label.label;
-        
         view_setting_revealer.reveal_child = filter is Objects.Filters.Completed;
     }
 

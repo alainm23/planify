@@ -1,4 +1,4 @@
-.filter-pane-row {
+.filter-pane-child {
     box-shadow: none;
     padding: 6px;
     border-radius: 9px;
@@ -7,13 +7,17 @@
     color: @colorAccent;
 }
 
-.filter-pane-row.animation image {
+.filter-pane-child.animation image {
     animation: fancy-turn 0.7s ease-in-out;
 }
 
-.filter-pane-row:hover,
-.filter-pane-row.selected {
+.filter-pane-child:hover,
+.filter-pane-child.selected {
     box-shadow: 0px 0px 3px 1px @colorAccent;
+}
+
+.filter-pane-row.animation image {
+    animation: fancy-turn 0.7s ease-in-out;
 }
 
 .sidebar-row {
@@ -40,12 +44,12 @@
 }
 
 .selectable-item:hover {
-    background-color: alpha(@shade_color, 0.65);
+    background-color: alpha(@selected_color, 0.65);
     outline: none;
 }
 
 .selectable-item.selected {
-    background-color: @shade_color;
+    background-color: @selected_color;
     border-radius: 9px;
 }
 

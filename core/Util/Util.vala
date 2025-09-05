@@ -280,7 +280,7 @@ public class Util : GLib.Object {
                 item_border_color = "#333333";
                 upcoming_bg_color = "#313234";
                 upcoming_fg_color = "#ededef";
-                selected_color = "@popover_bg_color";
+                selected_color = "#2d2d2d";
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
             } else if (appearance_mode == 2) {
                 window_bg_color = "#0B0B11";
@@ -289,7 +289,7 @@ public class Util : GLib.Object {
                 item_border_color = "shade(#333333, 1.35)";
                 upcoming_bg_color = "#313234";
                 upcoming_fg_color = "#ededef";
-                selected_color = "@popover_bg_color";
+                selected_color = "#1f2937";
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
             }
         } else {
@@ -299,7 +299,7 @@ public class Util : GLib.Object {
             item_border_color = "@borders";
             upcoming_bg_color = "#ededef";
             upcoming_fg_color = "shade(#ededef, 0)";
-            selected_color = "alpha(@shade_color, 0.65)";
+            selected_color = "#e5e7eb";
             Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_LIGHT;
         }
 
@@ -427,18 +427,18 @@ public class Util : GLib.Object {
         });
     }
 
-    public FilterType get_filter () {
+    public Objects.BaseObject get_filter () {
         switch (Services.Settings.get_default ().settings.get_enum ("homepage-item")) {
             case 0:
-                return FilterType.INBOX;
+                return Objects.Filters.Inbox.get_default ();
             case 1:
-                return FilterType.TODAY;
+                return Objects.Filters.Today.get_default ();
             case 2:
-                return FilterType.SCHEDULED;
+                return Objects.Filters.Scheduled.get_default ();
             case 3:
-                return FilterType.LABELS;
+                return Objects.Filters.Labels.get_default ();
             case 4:
-                return FilterType.PINBOARD;
+                return Objects.Filters.Pinboard.get_default ();
             default:
                 assert_not_reached ();
         }

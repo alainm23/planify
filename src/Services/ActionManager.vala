@@ -187,23 +187,23 @@ public class Services.ActionManager : Object {
     }
 
     private void action_view_inbox () {
-        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.INBOX.to_string ());
+        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, Objects.Filters.Inbox.get_default ().view_id);
     }
 
     private void action_view_today () {
-        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.TODAY.to_string ());
+        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, Objects.Filters.Today.get_default ().view_id);
     }
 
     private void action_view_scheduled () {
-        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.SCHEDULED.to_string ());
+        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, Objects.Filters.Scheduled.get_default ().view_id);
     }
 
     private void action_view_labels () {
-        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.LABELS.to_string ());
+        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, Objects.Filters.Labels.get_default ().view_id);
     }
 
     private void action_view_pinboard () {
-        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.PINBOARD.to_string ());
+        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, Objects.Filters.Pinboard.get_default ().view_id);
     }
 
     private void action_show_hide_sidebar () {

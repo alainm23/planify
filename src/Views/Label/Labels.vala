@@ -29,22 +29,22 @@ public class Views.Labels : Adw.Bin {
 
     construct {
         var headerbar = new Layouts.HeaderBar () {
-            title = FilterType.LABELS.get_name ()
+            title = Objects.Filters.Labels.get_default ().name
         };
 
-        var title_icon = new Gtk.Image.from_icon_name (FilterType.LABELS.get_icon ()) {
+        var title_icon = new Gtk.Image.from_icon_name (Objects.Filters.Labels.get_default ().icon_name) {
             pixel_size = 16,
             valign = CENTER,
             halign = CENTER,
             css_classes = { "view-icon" }
         };
 
-        Util.get_default ().set_widget_color (FilterType.LABELS.get_color (), title_icon);
+        Util.get_default ().set_widget_color (Objects.Filters.Labels.get_default ().theme_color (), title_icon);
         Services.EventBus.get_default ().theme_changed.connect (() => {
-            Util.get_default ().set_widget_color (FilterType.LABELS.get_color (), title_icon);
+            Util.get_default ().set_widget_color (Objects.Filters.Labels.get_default ().theme_color (), title_icon);
         });
 
-        var title_label = new Gtk.Label (FilterType.LABELS.get_name ()) {
+        var title_label = new Gtk.Label (Objects.Filters.Labels.get_default ().name) {
             css_classes = { "font-bold", "title-2" },
             ellipsize = END,
             halign = START

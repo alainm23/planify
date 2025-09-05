@@ -268,33 +268,33 @@ public class MainWindow : Adw.ApplicationWindow {
 
         Services.Settings.get_default ().settings.changed["font-scale"].connect (Util.get_default ().update_font_scale);
 
-        Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
+        Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {            
             if (pane_type == PaneType.PROJECT) {
                 add_project_view (Services.Store.instance ().get_project (id));
             } else if (pane_type == PaneType.FILTER) {
-                if (id == FilterType.INBOX.to_string ()) {
-                    add_inbox_view ();
-                } else if (id == FilterType.TODAY.to_string ()) {
+                if (id == Objects.Filters.Inbox.get_default ().view_id) {
+                   add_inbox_view ();
+                } else if (id == Objects.Filters.Today.get_default ().view_id) {
                     add_today_view ();
-                } else if (id == FilterType.SCHEDULED.to_string ()) {
+                } else if (id == Objects.Filters.Scheduled.get_default ().view_id) {
                     add_scheduled_view ();
-                } else if (id == FilterType.PINBOARD.to_string ()) {
+                } else if (id == Objects.Filters.Pinboard.get_default ().view_id) {
                     add_filter_view (Objects.Filters.Pinboard.get_default ());
-                } else if (id == FilterType.LABELS.to_string ()) {
+                } else if (id == Objects.Filters.Labels.get_default ().view_id) {
                     add_labels_view ();
                 } else if (id.has_prefix ("priority")) {
                     add_priority_view (id);
-                } else if (id == FilterType.COMPLETED.to_string ()) {
+                } else if (id == Objects.Filters.Completed.get_default ().view_id) {
                     add_filter_view (Objects.Filters.Completed.get_default ());
-                } else if (id == "tomorrow-view") {
+                } else if (id == Objects.Filters.Tomorrow.get_default ().view_id) {
                     add_filter_view (Objects.Filters.Tomorrow.get_default ());
-                } else if (id == "anytime-view") {
+                } else if (id == Objects.Filters.Anytime.get_default ().view_id) {
                     add_filter_view (Objects.Filters.Anytime.get_default ());
-                } else if (id == "repeating-view") {
+                } else if (id == Objects.Filters.Repeating.get_default ().view_id) {
                     add_filter_view (Objects.Filters.Repeating.get_default ());
-                } else if (id == "unlabeled-view") {
+                } else if (id == Objects.Filters.Unlabeled.get_default ().view_id) {
                     add_filter_view (Objects.Filters.Unlabeled.get_default ());
-                } else if (id == "all-items-view") {
+                } else if (id == Objects.Filters.AllItems.get_default ().view_id) {
                     add_filter_view (Objects.Filters.AllItems.get_default ());
                 }
             } else if (pane_type == PaneType.LABEL) {
@@ -485,7 +485,7 @@ public class MainWindow : Adw.ApplicationWindow {
     public void go_homepage () {
         Services.EventBus.get_default ().pane_selected (
             PaneType.FILTER,
-            Util.get_default ().get_filter ().to_string ()
+            Util.get_default ().get_filter ().view_id
         );
     }
 

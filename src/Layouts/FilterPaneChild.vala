@@ -20,33 +20,30 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
+public class Layouts.FilterPaneChild : Gtk.FlowBoxChild {
     public Objects.BaseObject filter_type { get; construct; }
 
     private Gtk.Label count_label;
     private Gtk.Revealer indicator_revealer;
     private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    public FilterPaneRow (Objects.BaseObject filter_type) {
+    public FilterPaneChild (Objects.BaseObject filter_type) {
         Object (
             filter_type: filter_type
         );
     }
 
-    ~FilterPaneRow () {
-        print ("Destroying Layouts.FilterPaneRow\n");
+    ~FilterPaneChild () {
+        print ("Destroying Layouts.FilterPaneChild\n");
     }
 
     construct {
-        css_classes = { "row", "transition", "no-padding", "filter-pane-row" };
+        add_css_class ("card");
+        add_css_class ("filter-pane-child");
 
         var title_image = new Gtk.Image.from_icon_name (filter_type.icon_name) {
-            pixel_size = 16,
-            valign = CENTER,
-            halign = CENTER,
-            css_classes = { "view-icon" }
+            margin_start = 3
         };
-        title_image.add_css_class ("view-icon");
 
         var title_label = new Gtk.Label (filter_type.name) {
             margin_start = 3,
@@ -69,11 +66,15 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
             halign = END
         };
 
+        var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        title_box.append (title_label);
+        title_box.append (indicator_revealer);
+
         count_label = new Gtk.Label (null) {
             hexpand = true,
-            margin_end = 12,
-            halign = Gtk.Align.CENTER,
-            css_classes = { "caption", "dimmed" }
+            halign = Gtk.Align.END,
+            margin_end = 3,
+            css_classes = { "font-bold" }
         };
 
         var count_revealer = new Gtk.Revealer () {
@@ -81,38 +82,28 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
             child = count_label
         };
 
-        var end_box = new Gtk.Box (VERTICAL, 0) {
-            hexpand = true,
-            halign = END,
-            valign = CENTER
-        };
-
-        end_box.append (count_revealer);
-
-        var main_box = new Gtk.Box (HORIZONTAL, 6) {
+        var main_grid = new Gtk.Grid () {
+            column_spacing = 6,
+            row_spacing = 6,
             margin_start = 3,
             margin_end = 3,
             margin_top = 3,
-            margin_bottom = 3
+            margin_bottom = 3,
+            width_request = 100
         };
 
-        main_box.append (title_image);
-        main_box.append (title_label);
-        main_box.append (end_box);
+        main_grid.attach (title_image, 0, 0, 1, 1);
+        main_grid.attach (count_revealer, 1, 0, 1, 1);
+        main_grid.attach (title_box, 0, 1, 2, 2);
 
-        var handle_grid = new Adw.Bin () {
-            css_classes = { "transition", "selectable-item" },
-            child = main_box
-        };
-
-        child = handle_grid;
+        child = main_grid;
         Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
 
-        Util.get_default ().set_widget_color (filter_type.theme_color (), title_image);
+        Util.get_default ().set_widget_color (filter_type.theme_color (), this);
         signals_map[Services.EventBus.get_default ().theme_changed.connect (() => {
-            Util.get_default ().set_widget_color (filter_type.theme_color (), title_image);
+            Util.get_default ().set_widget_color (filter_type.theme_color (), this);
         })] = Services.EventBus.get_default ();
-        
+
         var select_gesture = new Gtk.GestureClick ();
         add_controller (select_gesture);
         signals_map[select_gesture.pressed.connect (() => {
@@ -121,7 +112,7 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
 
         signals_map[Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.FILTER && filter_type.view_id == id) {
-                handle_grid.add_css_class ("selected");
+                add_css_class ("selected");
 
                 if (!has_css_class ("animation")) {
                     add_css_class ("animation");
@@ -131,7 +122,7 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
                     });
                 }
             } else {
-                handle_grid.remove_css_class ("selected");
+                remove_css_class ("selected");
             }
         })] = Services.EventBus.get_default ();
 
@@ -161,9 +152,9 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
                 })] = Objects.Filters.Today.get_default ();
         } else {
             update_count_label (filter_type.item_count);
-            filter_type.count_updated.connect (() => {
+            signals_map[filter_type.count_updated.connect (() => {
                 update_count_label (filter_type.item_count);
-            });
+            })] = filter_type;
         }
     }
 

@@ -22,7 +22,6 @@
 public class Objects.Project : Objects.BaseObject {
     public string parent_id { get; set; default = ""; }
     public string due_date { get; set; default = ""; }
-    public string color { get; set; default = ""; }
     public string emoji { get; set; default = ""; }
     public string description { get; set; default = ""; }
     public ProjectIconStyle icon_style { get; set; default = ProjectIconStyle.PROGRESS; }
@@ -106,7 +105,7 @@ public class Objects.Project : Objects.BaseObject {
             return _view_id;
         }
     }
-
+    
     string _parent_id_string;
     public string parent_id_string {
         get {
@@ -216,32 +215,6 @@ public class Objects.Project : Objects.BaseObject {
     public signal void section_sort_order_changed ();
     public signal void view_style_changed ();
 
-    int ? _project_count = null;
-    public int project_count {
-        get {
-            if (_project_count == null) {
-                _project_count = update_project_count ();
-            }
-
-            return _project_count;
-        }
-
-        set {
-            _project_count = value;
-        }
-    }
-
-    double ? _percentage = null;
-    public double percentage {
-        get {
-            if (_percentage == null) {
-                _percentage = update_percentage ();
-            }
-
-            return _percentage;
-        }
-    }
-
     private bool _show_multi_select = false;
     public bool show_multi_select {
         set {
@@ -261,57 +234,50 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public signal void loading_changed (bool value);
-    public signal void project_count_updated ();
     public signal void show_multi_select_change ();
 
     construct {
         Services.EventBus.get_default ().checked_toggled.connect ((item) => {
             if (item.project_id == id) {
-                project_count_update ();
+                count_update ();
             }
         });
 
         Services.Store.instance ().item_deleted.connect ((item) => {
             if (item.project_id == id) {
-                project_count_update ();
+                count_update ();
             }
         });
 
         Services.Store.instance ().item_added.connect ((item) => {
             if (item.project_id == id) {
-                project_count_update ();
+                count_update ();
             }
         });
 
         Services.EventBus.get_default ().item_moved.connect ((item, old_project_id) => {
             if (item.project_id == id || old_project_id == id) {
-                project_count_update ();
+                count_update ();
             }
         });
 
         Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
             if (section.project_id == id || old_project_id == id) {
-                project_count_update ();
+                count_update ();
             }
         });
 
         Services.Store.instance ().item_archived.connect ((item) => {
             if (item.project_id == id) {
-                project_count_update ();
+                count_update ();
             }
         });
 
         Services.Store.instance ().item_unarchived.connect ((item) => {
             if (item.project_id == id) {
-                project_count_update ();
+                count_update ();
             }
         });
-    }
-
-    private void project_count_update () {
-        _project_count = update_project_count ();
-        _percentage = update_percentage ();
-        project_count_updated ();
     }
 
     public Project.from_json (Json.Node node) {
@@ -729,6 +695,7 @@ public class Objects.Project : Objects.BaseObject {
             PARENT ID: %s
             SOURCE ID: %s
             Calendar URL: %s
+            VIEW_ID: %s
         ---------------------------------
         """.printf (
             id,
@@ -749,11 +716,12 @@ public class Objects.Project : Objects.BaseObject {
             collapsed.to_string (),
             parent_id.to_string (),
             source_id,
-            calendar_url
+            calendar_url,
+            view_id
         );
     }
 
-    private int update_project_count () {
+    public override int update_count () {
         int pending_tasks = 0;
         var items = Services.Store.instance ().get_items_by_project (this);
         foreach (Objects.Item item in items) {
@@ -765,7 +733,7 @@ public class Objects.Project : Objects.BaseObject {
         return pending_tasks;
     }
 
-    public double update_percentage () {
+    public override double update_percentage () {
         int items_total = 0;
         int items_checked = 0;
 
@@ -783,6 +751,12 @@ public class Objects.Project : Objects.BaseObject {
         }
 
         return (double) items_checked / (double) items_total;
+    }
+
+    public override void count_update () {
+        _item_count = update_count ();
+        _percentage = update_percentage ();
+        count_updated ();
     }
 
     public void share_markdown () {

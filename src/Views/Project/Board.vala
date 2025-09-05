@@ -52,9 +52,9 @@ public class Views.Board : Adw.Bin {
         };
         icon_project.add_css_class ("title-2");
         icon_project.inbox_icon.add_css_class ("view-icon");
-        Util.get_default ().set_widget_color (FilterType.INBOX.get_color (), icon_project.inbox_icon);
+        Util.get_default ().set_widget_color (Objects.Filters.Inbox.get_default ().color, icon_project.inbox_icon);
         Services.EventBus.get_default ().theme_changed.connect (() => {
-            Util.get_default ().set_widget_color (FilterType.INBOX.get_color (), icon_project.inbox_icon);
+            Util.get_default ().set_widget_color (Objects.Filters.Inbox.get_default ().color, icon_project.inbox_icon);
         });
 
         title_label = new Gtk.Label (null) {
@@ -204,7 +204,7 @@ public class Views.Board : Adw.Bin {
             }
         })] = Services.Store.instance ();
 
-        signals_map[project.project_count_updated.connect (() => {
+        signals_map[project.count_updated.connect (() => {
             icon_project.update_request ();
         })] = project;
     }

@@ -29,52 +29,44 @@ public class Objects.Filters.Completed : Objects.BaseObject {
         return _instance;
     }
 
-    int ? _count = null;
-    public int count {
-        get {
-            if (_count == null) {
-                _count = Services.Store.instance ().get_items_completed ().size;
-            }
-
-            return _count;
-        }
-
-        set {
-            _count = value;
-        }
-    }
-
-    public signal void count_updated ();
-
     construct {
         name = _("Completed");
         keywords = "%s;%s;%s".printf (_("completed"), _("filters"), _("logbook"));
         icon_name = "check-round-outline-symbolic";
-        view_id = FilterType.COMPLETED.to_string ();
+        view_id = "completed";
+        color = Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#ffbe6f" : "#ff7800";
 
         Services.Store.instance ().item_added.connect (() => {
-            _count = Services.Store.instance ().get_items_completed ().size;
-            count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_deleted.connect (() => {
-            _count = Services.Store.instance ().get_items_completed ().size;
-            count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_updated.connect (() => {
-            _count = Services.Store.instance ().get_items_completed ().size;
-            count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_archived.connect (() => {
-            _count = Services.Store.instance ().get_items_completed ().size;
-            count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_unarchived.connect (() => {
-            _count = Services.Store.instance ().get_items_completed ().size;
-            count_updated ();
+            count_update ();
         });
+    }
+
+    public override int update_count () {
+        return Services.Store.instance ().get_items_completed ().size;
+    }
+
+    public override void count_update () {
+        _item_count = update_count ();
+        count_updated ();
+    }
+
+    public override string theme_color () {
+        return Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#ffbe6f" : "#ff7800";
     }
 }

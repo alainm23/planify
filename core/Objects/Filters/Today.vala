@@ -29,22 +29,6 @@ public class Objects.Filters.Today : Objects.BaseObject {
         return _instance;
     }
 
-    int ? _today_count = null;
-    public int today_count {
-        get {
-            if (_today_count == null) {
-                _today_count = Services.Store.instance ().get_items_by_date (
-                    new GLib.DateTime.now_local (), false).size;
-            }
-
-            return _today_count;
-        }
-
-        set {
-            _today_count = value;
-        }
-    }
-
     int ? _overdeue_count = null;
     public int overdeue_count {
         get {
@@ -60,47 +44,45 @@ public class Objects.Filters.Today : Objects.BaseObject {
         }
     }
 
-    public signal void today_count_updated ();
 
     construct {
         name = _("Today");
         keywords = _("today") + ";" + _("filters");
         icon_name = "star-outline-thick-symbolic";
-        view_id = FilterType.TODAY.to_string ();
+        view_id = "today";
+        color = "#33d17a";
 
         Services.Store.instance ().item_added.connect (() => {
-            _today_count = Services.Store.instance ().get_items_by_date (
-                new GLib.DateTime.now_local (), false).size;
-            _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
-            today_count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_deleted.connect (() => {
-            _today_count = Services.Store.instance ().get_items_by_date (
-                new GLib.DateTime.now_local (), false).size;
-            _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
-            today_count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_archived.connect (() => {
-            _today_count = Services.Store.instance ().get_items_by_date (
-                new GLib.DateTime.now_local (), false).size;
-            _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
-            today_count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_unarchived.connect (() => {
-            _today_count = Services.Store.instance ().get_items_by_date (
-                new GLib.DateTime.now_local (), false).size;
-            _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
-            today_count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_updated.connect (() => {
-            _today_count = Services.Store.instance ().get_items_by_date (
-                new GLib.DateTime.now_local (), false).size;
-            _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
-            today_count_updated ();
+            count_update ();
         });
+    }
+
+    public override int update_count () {
+        return Services.Store.instance ().get_items_by_date (
+            new GLib.DateTime.now_local (), false
+        ).size;
+    }
+
+    public override void count_update () {
+        _item_count = update_count ();
+        _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
+        
+        count_updated ();
     }
 }

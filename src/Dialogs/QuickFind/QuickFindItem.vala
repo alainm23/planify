@@ -137,7 +137,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
 
             var priority_icon = Util.get_default ().get_priority_icon (priority.priority);
 
-            var name_label = new Gtk.Label (markup_string_with_search (priority.name, pattern)) {
+            var name_label = new Gtk.Label (markup_string_with_search (priority.title, pattern)) {
                 ellipsize = Pango.EllipsizeMode.END,
                 xalign = 0,
                 use_markup = true

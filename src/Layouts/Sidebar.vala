@@ -20,15 +20,7 @@
  */
 
 public class Layouts.Sidebar : Adw.Bin {
-    private Gtk.FlowBox filters_flow;
-
-    private Layouts.FilterPaneRow inbox_filter;
-    private Layouts.FilterPaneRow today_filter;
-    private Layouts.FilterPaneRow scheduled_filter;
-    private Layouts.FilterPaneRow labels_filter;
-    private Layouts.FilterPaneRow pinboard_filter;
-    private Layouts.FilterPaneRow completed_filter;
-
+    private Gtk.Revealer filters_revealer;
     private Gtk.ListBox sources_listbox;
 
     private Layouts.HeaderItem favorites_header;
@@ -36,51 +28,14 @@ public class Layouts.Sidebar : Adw.Bin {
     public Gee.HashMap<string, Layouts.SidebarSourceRow> sources_hashmap = new Gee.HashMap<string, Layouts.SidebarSourceRow> ();
     
     construct {
-        filters_flow = new Gtk.FlowBox () {
-            homogeneous = true,
-            row_spacing = 9,
-            column_spacing = 9,
-            margin_start = 3,
-            margin_end = 3,
-            min_children_per_line = 2
+        filters_revealer = new Gtk.Revealer () {
+            hexpand = true,
+            vexpand = true,
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE
         };
-
-        inbox_filter = new Layouts.FilterPaneRow (FilterType.INBOX) {
-            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Inbox"), "Ctrl+I")
-        };
-
-        today_filter = new Layouts.FilterPaneRow (FilterType.TODAY) {
-            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Today"), "Ctrl+T")
-        };
-
-        scheduled_filter = new Layouts.FilterPaneRow (FilterType.SCHEDULED) {
-            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Scheduled"), "Ctrl+U")
-        };
-
-        labels_filter = new Layouts.FilterPaneRow (FilterType.LABELS) {
-            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Labels"), "Ctrl+L")
-        };
-
-        pinboard_filter = new Layouts.FilterPaneRow (FilterType.PINBOARD) {
-            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Pinboard"), "Ctrl+P")
-        };
-
-        completed_filter = new Layouts.FilterPaneRow (FilterType.COMPLETED);
-
-        filters_flow.append (inbox_filter);
-        filters_flow.append (today_filter);
-        filters_flow.append (scheduled_filter);
-        filters_flow.append (labels_filter);
-        filters_flow.append (pinboard_filter);
-        filters_flow.append (completed_filter);
-
-        filters_flow.child_activated.connect ((child) => {
-            var filter = (Layouts.FilterPaneRow) child;
-            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, filter.filter_type.to_string ());
-        });
 
         favorites_header = new Layouts.HeaderItem (_("Favorites")) {
-            margin_top = 12,
+            margin_top = 6,
             placeholder_message = _("No favorites available. Create one by clicking on the '+' button")
         };
 
@@ -128,11 +83,12 @@ public class Layouts.Sidebar : Adw.Bin {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,
             margin_end = 12,
-            margin_bottom = 12,
-            margin_top = 6
+            margin_bottom = 6,
+            margin_top = 6,
+            valign = START
         };
 
-        content_box.append (filters_flow);
+        content_box.append (filters_revealer);
         content_box.append (favorites_header);
         content_box.append (sources_listbox);
 
@@ -143,6 +99,7 @@ public class Layouts.Sidebar : Adw.Bin {
         var scrolled_window = new Widgets.ScrolledWindow (content_box);
 
         child = scrolled_window;
+        update_filter_view ();
 
         sources_listbox.set_sort_func ((child1, child2) => {
             int item1 = ((Layouts.SidebarSourceRow) child1).source.child_order;
@@ -151,20 +108,13 @@ public class Layouts.Sidebar : Adw.Bin {
         });
 
         Services.Settings.get_default ().settings.changed["views-order-visible"].connect (() => {
-            filters_flow.invalidate_sort ();
-            filters_flow.invalidate_filter ();
-        });
-
-        filters_flow.set_sort_func ((child1, child2) => {
-            int item1 = ((Layouts.FilterPaneRow) child1).item_order ();
-            int item2 = ((Layouts.FilterPaneRow) child2).item_order ();
-
-            return item1 - item2;
-        });
-
-        filters_flow.set_filter_func ((child) => {
-            var row = ((Layouts.FilterPaneRow) child);
-            return row.active ();
+            if (filters_revealer.child is Gtk.FlowBox) {
+                (filters_revealer.child as Gtk.FlowBox).invalidate_sort ();
+                (filters_revealer.child as Gtk.FlowBox).invalidate_filter ();
+            } else if (filters_revealer.child is Gtk.ListBox) {
+                (filters_revealer.child as Gtk.ListBox).invalidate_sort ();
+                (filters_revealer.child as Gtk.ListBox).invalidate_filter ();
+            }
         });
 
         var whats_new_gesture = new Gtk.GestureClick ();
@@ -190,6 +140,8 @@ public class Layouts.Sidebar : Adw.Bin {
         Services.EventBus.get_default ().update_sources_position.connect (() => {
             sources_listbox.invalidate_sort ();
         });
+
+        Services.Settings.get_default ().settings.changed["filters-list-view"].connect (update_filter_view);
     }
 
     public void update_version () {
@@ -202,10 +154,6 @@ public class Layouts.Sidebar : Adw.Bin {
 
     public void select_project (Objects.Project project) {
         Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id);
-    }
-
-    public void select_filter (FilterType filter_type) {
-        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, filter_type.to_string ());
     }
 
     public void init () {
@@ -231,13 +179,6 @@ public class Layouts.Sidebar : Adw.Bin {
         Services.Store.instance ().project_added.connect ((project) => {
             add_row_favorite (project);
         });
-
-        inbox_filter.init ();
-        today_filter.init ();
-        scheduled_filter.init ();
-        labels_filter.init ();
-        pinboard_filter.init ();
-        completed_filter.init ();
 
         add_all_favorites ();
 
@@ -272,5 +213,148 @@ public class Layouts.Sidebar : Adw.Bin {
 
         favorites_hashmap[project.id] = new Layouts.ProjectRow (project, false, false);
         favorites_header.add_child (favorites_hashmap[project.id]);
+    }
+
+    private void update_filter_view () {
+        filters_revealer.reveal_child = false;
+
+        Timeout.add (filters_revealer.transition_duration, () => {
+            destroy_current_filter_view ();
+
+            if (Services.Settings.get_default ().settings.get_boolean ("filters-list-view")) {
+                filters_revealer.child = build_filters_listbox ();
+            } else {
+                filters_revealer.child = build_filters_flowbox ();
+            }
+
+            filters_revealer.reveal_child = true;
+            return GLib.Source.REMOVE;
+        });
+    }
+
+    private void destroy_current_filter_view () {
+        if (filters_revealer.child is Gtk.FlowBox) {
+            Gtk.FlowBox ? filters_flowbox = (Gtk.FlowBox) filters_revealer.child;
+            if (filters_flowbox != null) {
+                // filters_flowbox.clean_up ();
+            }
+        } else if (filters_revealer.child is Gtk.ListBox) {
+            Gtk.ListBox ? filters_listbox = (Gtk.ListBox) filters_revealer.child;
+            if (filters_listbox != null) {
+                foreach (Gtk.ListBoxRow row in Util.get_default ().get_children (filters_listbox)) {
+                    ((Layouts.FilterPaneRow) row).clean_up ();
+                }
+            }
+        }
+
+        filters_revealer.child = null;
+    }
+
+    private Gtk.Widget build_filters_flowbox () {
+        var flowbox = new Gtk.FlowBox () {
+            homogeneous = true,
+            row_spacing = 9,
+            column_spacing = 9,
+            margin_start = 3,
+            margin_end = 3,
+            margin_top = 3,
+            margin_bottom = 3,
+            min_children_per_line = 2
+        };
+
+        flowbox.append (new Layouts.FilterPaneChild (Objects.Filters.Inbox.get_default ()));
+
+        flowbox.append (new Layouts.FilterPaneChild (Objects.Filters.Today.get_default ()) {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Today"), "Ctrl+T")
+        });
+
+        flowbox.append (new Layouts.FilterPaneChild (Objects.Filters.Scheduled.get_default ()) {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Scheduled"), "Ctrl+U")
+        });
+        
+        flowbox.append (new Layouts.FilterPaneChild (Objects.Filters.Labels.get_default ()) {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Labels"), "Ctrl+L")
+        });
+        
+        flowbox.append (new Layouts.FilterPaneChild (Objects.Filters.Pinboard.get_default ()) {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Pinboard"), "Ctrl+P")
+        });
+        
+        flowbox.append (new Layouts.FilterPaneChild (Objects.Filters.Completed.get_default ()));
+        flowbox.append (new Layouts.FilterPaneChild (Objects.Filters.Tomorrow.get_default ()));
+        flowbox.append (new Layouts.FilterPaneChild (Objects.Filters.Anytime.get_default ()));
+        flowbox.append (new Layouts.FilterPaneChild (Objects.Filters.Repeating.get_default ()));
+        flowbox.append (new Layouts.FilterPaneChild (Objects.Filters.Unlabeled.get_default ()));
+        flowbox.append (new Layouts.FilterPaneChild (Objects.Filters.AllItems.get_default ()));
+
+        flowbox.child_activated.connect ((child) => {
+            var filter = (Layouts.FilterPaneChild) child;
+            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, filter.filter_type.view_id);
+        });
+
+        flowbox.set_sort_func ((child1, child2) => {
+            int item1 = ((Layouts.FilterPaneChild) child1).item_order ();
+            int item2 = ((Layouts.FilterPaneChild) child2).item_order ();
+
+            return item1 - item2;
+        });
+
+        flowbox.set_filter_func ((child) => {
+            return ((Layouts.FilterPaneChild) child).active ();
+        });
+
+        return flowbox;
+    }
+
+    private Gtk.Widget build_filters_listbox () {
+        var listbox = new Gtk.ListBox () {
+            margin_top = 3,
+            margin_bottom = 3
+        };
+        listbox.add_css_class ("bg-transparent");
+        listbox.add_css_class ("listbox-separator-3");
+
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Inbox.get_default ()));
+
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Today.get_default ()) {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Today"), "Ctrl+T")
+        });
+
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Scheduled.get_default ()) {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Scheduled"), "Ctrl+U")
+        });
+        
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Labels.get_default ()) {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Labels"), "Ctrl+L")
+        });
+        
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Pinboard.get_default ()) {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Pinboard"), "Ctrl+P")
+        });
+        
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Completed.get_default ()));
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Tomorrow.get_default ()));
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Anytime.get_default ()));
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Repeating.get_default ()));
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Unlabeled.get_default ()));
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.AllItems.get_default ()));
+
+        listbox.row_activated.connect ((row) => {
+            var filter = (Layouts.FilterPaneRow) row;
+            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, filter.filter_type.view_id);
+        });
+
+        listbox.set_sort_func ((row1, row2) => {
+            int item1 = ((Layouts.FilterPaneRow) row1).item_order ();
+            int item2 = ((Layouts.FilterPaneRow) row2).item_order ();
+
+            return item1 - item2;
+        });
+
+        listbox.set_filter_func ((row) => {
+            return ((Layouts.FilterPaneRow) row).active ();
+        });
+
+        return listbox;
     }
 }

@@ -28,6 +28,7 @@ sources = files(
   'Services/CalendarEvents/Util.vala',
   
   'Layouts/Sidebar.vala',
+  'Layouts/FilterPaneChild.vala',
   'Layouts/FilterPaneRow.vala',
   'Layouts/ProjectRow.vala',
   'Layouts/SectionRow.vala',

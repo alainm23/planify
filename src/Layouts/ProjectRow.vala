@@ -246,7 +246,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         child = main_revealer;
         update_request ();
-        update_count_label (project.project_count);
+        update_count_label (project.item_count);
         Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
 
         if (drag_n_drop) {
@@ -304,8 +304,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         signals_map[project.deleted.connect (hide_destroy)] = project;
         signals_map[project.archived.connect (hide_destroy)] = project;
 
-        signals_map[project.project_count_updated.connect (() => {
-            update_count_label (project.project_count);
+        signals_map[project.count_updated.connect (() => {
+            update_count_label (project.item_count);
             icon_project.update_request ();
         })] = project;
 

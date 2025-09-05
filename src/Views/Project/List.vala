@@ -62,9 +62,9 @@ public class Views.List : Adw.Bin {
         };
         icon_project.add_css_class ("title-2");
         icon_project.inbox_icon.add_css_class ("view-icon");
-        Util.get_default ().set_widget_color (FilterType.INBOX.get_color (), icon_project.inbox_icon);
+        Util.get_default ().set_widget_color (Objects.Filters.Inbox.get_default ().color, icon_project.inbox_icon);
         Services.EventBus.get_default ().theme_changed.connect (() => {
-            Util.get_default ().set_widget_color (FilterType.INBOX.get_color (), icon_project.inbox_icon);
+            Util.get_default ().set_widget_color (Objects.Filters.Inbox.get_default ().color, icon_project.inbox_icon);
         });
 
         title_label = new Gtk.Label (null) {
@@ -196,7 +196,7 @@ public class Views.List : Adw.Bin {
             update_request ();
         })] = project;
 
-        signals_map[project.project_count_updated.connect (() => {
+        signals_map[project.count_updated.connect (() => {
             check_placeholder ();
             icon_project.update_request ();
         })] = project;
@@ -264,7 +264,7 @@ public class Views.List : Adw.Bin {
     }
 
     private void check_placeholder () {
-        int count = project.project_count + sections_map.size;
+        int count = project.item_count + sections_map.size;
 
         if (project.show_completed) {
             count = count + project.items_checked.size;

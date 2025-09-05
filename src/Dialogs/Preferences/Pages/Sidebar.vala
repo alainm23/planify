@@ -36,27 +36,31 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
             margin_top = 12
         };
 
-        var inbox_row = new Widgets.SidebarRow (FilterType.INBOX, _("Inbox"), "mailbox-symbolic");
-        var today_row = new Widgets.SidebarRow (FilterType.TODAY, _("Today"), "star-outline-thick-symbolic");
-        var scheduled_row = new Widgets.SidebarRow (FilterType.SCHEDULED, _("Scheduled"), "month-symbolic");
-        var pinboard_row = new Widgets.SidebarRow (FilterType.PINBOARD, _("Pinboard"), "pin-symbolic");
-        var labels_row = new Widgets.SidebarRow (FilterType.LABELS, _("Labels"), "tag-outline-symbolic");
-        var completed_row = new Widgets.SidebarRow (FilterType.COMPLETED, _("Completed"), "check-round-outline-symbolic");
+        views_group.add_child (new Widgets.SidebarRow (Objects.Filters.Inbox.get_default ()));
+        views_group.add_child (new Widgets.SidebarRow (Objects.Filters.Today.get_default ()));
+        views_group.add_child (new Widgets.SidebarRow (Objects.Filters.Scheduled.get_default ()));
+        views_group.add_child (new Widgets.SidebarRow (Objects.Filters.Pinboard.get_default ()));
+        views_group.add_child (new Widgets.SidebarRow (Objects.Filters.Labels.get_default ()));
+        views_group.add_child (new Widgets.SidebarRow (Objects.Filters.Completed.get_default ()));
+        views_group.add_child (new Widgets.SidebarRow (Objects.Filters.Tomorrow.get_default ()));
+        views_group.add_child (new Widgets.SidebarRow (Objects.Filters.Anytime.get_default ()));
+        views_group.add_child (new Widgets.SidebarRow (Objects.Filters.Repeating.get_default ()));
+        views_group.add_child (new Widgets.SidebarRow (Objects.Filters.Unlabeled.get_default ()));
+        views_group.add_child (new Widgets.SidebarRow (Objects.Filters.AllItems.get_default ()));
 
-        views_group.add_child (inbox_row);
-        views_group.add_child (today_row);
-        views_group.add_child (scheduled_row);
-        views_group.add_child (pinboard_row);
-        views_group.add_child (labels_row);
-        views_group.add_child (completed_row);
-
-        var show_count_row = new Adw.SwitchRow ();
-        show_count_row.title = _("Show Task Count");
+        var show_count_row = new Adw.SwitchRow () {
+            title = _("Show Task Count")
+        };
 
         var sidebar_width_row = new Adw.SpinRow.with_range (300, 400, 1) {
             valign = Gtk.Align.CENTER,
             title = _("Sidebar Width"),
             value = Services.Settings.get_default ().settings.get_int ("pane-position")
+        };
+
+        var list_view_filters_row = new Adw.SwitchRow () {
+            title = _("List View for Filters"),
+            subtitle = _("Show filters in a simple list instead of a grid")
         };
 
         var count_group = new Adw.PreferencesGroup () {
@@ -67,6 +71,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
 
         count_group.add (show_count_row);
         count_group.add (sidebar_width_row);
+        count_group.add (list_view_filters_row);
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (count_group);
@@ -100,6 +105,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
 
         child = toolbar_view;
         Services.Settings.get_default ().settings.bind ("show-tasks-count", show_count_row, "active", GLib.SettingsBindFlags.DEFAULT);
+        Services.Settings.get_default ().settings.bind ("filters-list-view", list_view_filters_row, "active", GLib.SettingsBindFlags.DEFAULT);
 
         views_group.set_sort_func ((child1, child2) => {
             Widgets.SidebarRow item1 = ((Widgets.SidebarRow) child1);
@@ -124,7 +130,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
 }
 
 public class Widgets.SidebarRow : Gtk.ListBoxRow {
-    public FilterType filter_type { get; construct; }
+    public Objects.BaseObject base_object { get; construct; }
     public string icon { get; construct; }
     public string title { get; construct; }
 
@@ -136,21 +142,16 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
         }
     }
 
-    public SidebarRow (FilterType filter_type, string title, string icon) {
+    public SidebarRow (Objects.BaseObject base_object) {
         Object (
-            filter_type: filter_type,
-            title: title,
-            icon: icon
+            base_object: base_object
         );
     }
 
     construct {
         add_css_class ("sidebar-row");
         add_css_class ("transition");
-
-        var name_label = new Gtk.Label (title);
-        name_label.valign = Gtk.Align.CENTER;
-        name_label.ellipsize = Pango.EllipsizeMode.END;
+        add_css_class ("no-padding");
 
         check_button = new Gtk.Switch () {
             valign = CENTER,
@@ -160,21 +161,14 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
             active = check_active ()
         };
 
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 9) {
-            margin_top = 12,
-            margin_end = 12,
-            margin_bottom = 12,
-            margin_start = 12
+        var action_row = new Adw.ActionRow () {
+            title = base_object.name,
+            activatable = true
         };
-        content_box.append (new Gtk.Image.from_icon_name (icon));
-        content_box.append (name_label);
-        content_box.append (check_button);
+        action_row.add_prefix (new Gtk.Image.from_icon_name (base_object.icon_name));
+        action_row.add_suffix (check_button);
 
-        var handle = new Adw.Bin () {
-            child = content_box
-        };
-
-        var reorder = new Widgets.ReorderChild (handle, this);
+        var reorder = new Widgets.ReorderChild (action_row, this);
 
         var main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -192,7 +186,7 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
         check_button.notify["active"].connect (() => {
             updateView (
                 get_views_array (),
-                filter_type.to_string (),
+                base_object.view_id,
                 check_button.active
             );
         });
@@ -203,6 +197,12 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
 
         main_revealer.notify["child-revealed"].connect (() => {
             reorder.draw_motion_widgets ();
+        });
+
+        var select_gesture = new Gtk.GestureClick ();
+        action_row.add_controller (select_gesture);
+        select_gesture.released.connect (() => {
+            check_button.active = !check_button.active;
         });
     }
 
@@ -242,7 +242,7 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
             row = (Widgets.SidebarRow) listbox.get_row_at_index (row_index);
 
             if (row != null && row.active) {
-                list.append_val (row.filter_type.to_string ());
+                list.append_val (row.base_object.view_id);
             }
 
             row_index++;
@@ -253,7 +253,7 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
 
     public int item_order () {
         var views_order = Services.Settings.get_default ().settings.get_strv ("views-order-visible");
-        return find_index (views_order, filter_type.to_string ());
+        return find_index (views_order, base_object.view_id);
     }
 
     int find_index (string[] array, string elemento) {
@@ -268,7 +268,7 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
 
     private bool check_active () {
         var views_order = Services.Settings.get_default ().settings.get_strv ("views-order-visible");
-        return find_view (views_order, filter_type.to_string ());
+        return find_view (views_order, base_object.view_id);
     }
 
     private bool find_view (string[] array, string elemento) {
