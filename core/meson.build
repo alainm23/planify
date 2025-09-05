@@ -93,6 +93,7 @@ core_files = files(
     'Objects/ObjectEvent.vala',
     'Objects/Source.vala',
     
+    'Objects/Filters/Inbox.vala',
     'Objects/Filters/Pinboard.vala',
     'Objects/Filters/Scheduled.vala',
     'Objects/Filters/Today.vala',

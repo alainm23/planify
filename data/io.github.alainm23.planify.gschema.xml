@@ -451,5 +451,11 @@
             <summary>Font scale</summary>
             <description> Adjusts the scaling factor for the application’s font size.  A value of 1 means the default font size, values greater than 1 increase the size, and values less than 1 make the text smaller.</description>
         </key>
+
+        <key name="filters-list-view" type="b">
+            <default>false</default>
+            <summary>List View for Filters</summary>
+            <description>Show filters in a simple list instead of a grid.</description>
+        </key>
     </schema>
 </schemalist>

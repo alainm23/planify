@@ -34,5 +34,40 @@ public class Objects.Filters.Anytime : Objects.BaseObject {
         keywords = "%s;%s;%s".printf (_("anytime"), _("filters"), _("no date"));
         icon_name = "grid-large-symbolic";
         view_id = "anytime-view";
+        color = Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#dc8add" : "#9141ac";
+
+        Services.Store.instance ().item_added.connect (() => {
+            count_update ();
+        });
+
+        Services.Store.instance ().item_deleted.connect (() => {
+            count_update ();
+        });
+
+        Services.Store.instance ().item_archived.connect (() => {
+            count_update ();
+        });
+
+        Services.Store.instance ().item_unarchived.connect (() => {
+            count_update ();
+        });
+
+        Services.Store.instance ().item_updated.connect (() => {
+            count_update ();
+        });
+    }
+
+    public override int update_count () {
+        return Services.Store.instance ().get_items_no_date (false).size;
+    }
+
+    public override void count_update () {
+        _item_count = update_count ();
+                
+        count_updated ();
+    }
+
+    public override string theme_color () {
+        return Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#dc8add" : "#9141ac";
     }
 }

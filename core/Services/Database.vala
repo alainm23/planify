@@ -27,6 +27,7 @@ public class Services.Database : GLib.Object {
 
     private Gee.HashMap<string, Gee.ArrayList<string> > table_columns = new Gee.HashMap<string, Gee.ArrayList<string> > ();
 
+    public bool is_opened { get; set; default = false; }
     public signal void opened ();
     public signal void reset ();
 
@@ -176,6 +177,7 @@ public class Services.Database : GLib.Object {
         create_triggers ();
         patch_database ();
         opened ();
+        is_opened = true;
     }
 
     private void create_tables () {

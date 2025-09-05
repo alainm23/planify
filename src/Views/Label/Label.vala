@@ -58,7 +58,7 @@ public class Views.Label : Adw.Bin {
         headerbar = new Layouts.HeaderBar ();
         headerbar.back_revealer = true;
     
-        title_icon = new Gtk.Image.from_icon_name (FilterType.LABELS.get_icon ()) {
+        title_icon = new Gtk.Image.from_icon_name (Objects.Filters.Labels.get_default ().icon_name) {
             pixel_size = 16,
             valign = CENTER,
             halign = CENTER,
@@ -157,7 +157,7 @@ public class Views.Label : Adw.Bin {
         })] = Services.Store.instance ();
 
         signals_map[headerbar.back_activated.connect (() => {
-            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.LABELS.to_string ());
+            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, Objects.Filters.Labels.get_default ().view_id);
         })] = headerbar;
         
         signals_map[scrolled_window.vadjustment.value_changed.connect (() => {

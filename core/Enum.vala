@@ -92,115 +92,6 @@ public enum ProjectIconStyle {
     }
 }
 
-public enum FilterType {
-    INBOX = 0,
-    TODAY = 1,
-    SCHEDULED = 2,
-    PINBOARD = 3,
-    LABELS = 4,
-    COMPLETED = 5;
-
-    public string to_string () {
-        switch (this) {
-            case INBOX:
-                return "inbox";
-
-            case TODAY:
-                return "today";
-
-            case SCHEDULED:
-                return "scheduled";
-
-            case PINBOARD:
-                return "pinboard";
-
-            case LABELS:
-                return "labels";
-
-            case COMPLETED:
-                return "completed";
-
-            default:
-                assert_not_reached ();
-        }
-    }
-
-    public string get_name () {
-        switch (this) {
-            case INBOX:
-                return _("Inbox");
-
-            case TODAY:
-                return _("Today");
-
-            case SCHEDULED:
-                return _("Scheduled");
-
-            case PINBOARD:
-                return _("Pinboard");
-
-            case LABELS:
-                return _("Labels");
-
-            case COMPLETED:
-                return _("Completed");
-
-            default:
-                assert_not_reached ();
-        }
-    }
-
-    public string get_icon () {
-        switch (this) {
-            case INBOX:
-                return "mailbox-symbolic";
-
-            case TODAY:
-                return "star-outline-thick-symbolic";
-
-            case SCHEDULED:
-                return "month-symbolic";
-
-            case PINBOARD:
-                return "pin-symbolic";
-
-            case LABELS:
-                return "tag-outline-symbolic";
-
-            case COMPLETED:
-                return "check-round-outline-symbolic";
-
-            default:
-                assert_not_reached ();
-        }
-    }
-
-    public string get_color (bool dark = Services.Settings.get_default ().settings.get_boolean ("dark-mode")) {
-        switch (this) {
-            case INBOX:
-                return dark ? "#99c1f1" : "#3584e4";
-
-            case TODAY:
-                return "#33d17a";
-
-            case SCHEDULED:
-                return dark ? "#dc8add" : "#9141ac";
-
-            case PINBOARD:
-                return dark ? "#f66151" : "#ed333b";
-
-            case LABELS:
-                return dark ? "#cdab8f" : "#986a44";
-
-            case COMPLETED:
-                return dark ? "#ffbe6f" : "#ff7800";
-
-            default:
-                assert_not_reached ();
-        }
-    }
-}
-
 public enum SourceType {
     NONE,
     LOCAL,
@@ -254,8 +145,7 @@ public enum PaneType {
     FILTER,
     FAVORITE,
     PROJECT,
-    LABEL,
-    TASKLIST
+    LABEL
 }
 
 public enum LoadingButtonType {

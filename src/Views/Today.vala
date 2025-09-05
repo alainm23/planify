@@ -93,20 +93,20 @@ public class Views.Today : Adw.Bin {
         view_setting_overlay.add_overlay (indicator_revealer);
 
         headerbar = new Layouts.HeaderBar () {
-            title = FilterType.TODAY.get_name ()
+            title = Objects.Filters.Today.get_default ().name
         };
         headerbar.pack_end (view_setting_overlay);
 
-        var today_icon = new Gtk.Image.from_icon_name (FilterType.TODAY.get_icon ()) {
+        var today_icon = new Gtk.Image.from_icon_name (Objects.Filters.Today.get_default ().icon_name) {
             pixel_size = 16,
             valign = CENTER,
             halign = CENTER,
             css_classes = { "view-icon" }
         };
 
-        Util.get_default ().set_widget_color (FilterType.TODAY.get_color (), today_icon);
+        Util.get_default ().set_widget_color (Objects.Filters.Today.get_default ().theme_color (), today_icon);
 
-        title_label = new Gtk.Label (FilterType.TODAY.get_name ()) {
+        title_label = new Gtk.Label (Objects.Filters.Today.get_default ().name) {
             css_classes = { "font-bold", "title-2" },
             ellipsize = END,
             halign = START,

@@ -27,7 +27,6 @@ public class Objects.Section : Objects.BaseObject {
     public bool collapsed { get; set; default = true; }
     public bool is_deleted { get; set; default = false; }
     public bool is_archived { get; set; default = false; }
-    public string color { get; set; default = ""; }
     public string description { get; set; default = ""; }
     public bool hidded { get; set; default = false; }
 

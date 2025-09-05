@@ -44,37 +44,44 @@ public class Objects.Filters.Scheduled : Objects.BaseObject {
         }
     }
 
-    public signal void scheduled_count_updated ();
-
     construct {
         name = _("Scheduled");
         keywords = "%s;%s;%s".printf (_("scheduled"), _("upcoming"), _("filters"));
         icon_name = "month-symbolic";
-        view_id = FilterType.SCHEDULED.to_string ();
+        view_id = "scheduled";
+        color = Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#dc8add" : "#9141ac";
 
         Services.Store.instance ().item_added.connect (() => {
-            _scheduled_count = Services.Store.instance ().get_items_by_scheduled (false).size;
-            scheduled_count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_deleted.connect (() => {
-            _scheduled_count = Services.Store.instance ().get_items_by_scheduled (false).size;
-            scheduled_count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_updated.connect (() => {
-            _scheduled_count = Services.Store.instance ().get_items_by_scheduled (false).size;
-            scheduled_count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_archived.connect (() => {
-            _scheduled_count = Services.Store.instance ().get_items_by_scheduled (false).size;
-            scheduled_count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_unarchived.connect (() => {
-            _scheduled_count = Services.Store.instance ().get_items_by_scheduled (false).size;
-            scheduled_count_updated ();
+            count_update ();
         });
+    }
+
+    public override int update_count () {
+        return Services.Store.instance ().get_items_by_scheduled (false).size;
+    }
+
+    public override void count_update () {
+        _item_count = update_count ();
+        count_updated ();
+    }
+
+    public override string theme_color () {
+        return Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#dc8add" : "#9141ac";
     }
 }
