@@ -1,0 +1,157 @@
+{
+    "app-id" : "io.github.alainm23.planify.Devel",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "48",
+    "sdk" : "org.gnome.Sdk",
+    "command" : "io.github.alainm23.planify.Devel",
+    "tags" : [
+        "devel"
+    ],
+    "finish-args" : [
+        "--device=dri",
+        "--share=ipc",
+        "--share=network",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--talk-name=org.gnome.evolution.dataserver.Calendar8",
+        "--talk-name=org.gnome.evolution.dataserver.Sources5",
+        "--talk-name=io.github.alainm23.planify",
+        "--talk-name=io.github.alainm23.planify.quick-add",
+        "--own-name=io.github.alainm23.planify.quick-add",
+        "--own-name=io.github.alainm23.planify"
+    ],
+    "cleanup" : [
+        "/include",
+        "/lib/pkgconfig",
+        "/man",
+        "/share/doc",
+        "/share/gtk-doc",
+        "/share/man",
+        "/share/pkgconfig",
+        "*.la",
+        "*.a"
+    ],
+    "modules" : [
+        {
+            "name" : "libical",
+            "buildsystem" : "cmake-ninja",
+            "cleanup" : [
+                "/lib/cmake"
+            ],
+            "config-opts" : [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_INSTALL_LIBDIR=/app/lib",
+                "-DBUILD_SHARED_LIBS=ON",
+                "-DGOBJECT_INTROSPECTION=true",
+                "-DICAL_GLIB_VAPI=true",
+                "-DICAL_GLIB=true",
+                "-DICAL_BUILD_DOCS=false",
+                "-DWITH_CXX_BINDINGS=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://github.com/libical/libical/releases/download/v3.0.20/libical-3.0.20.tar.gz",
+                    "sha256" : "e73de92f5a6ce84c1b00306446b290a2b08cdf0a80988eca0a2c9d5c3510b4c2",
+                    "x-checker-data" : {
+                        "type" : "anitya",
+                        "project-id" : 1637,
+                        "url-template" : "https://github.com/libical/libical/releases/download/v$version/libical-$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name" : "evolution-data-server",
+            "buildsystem" : "cmake-ninja",
+            "cleanup" : [
+                "/lib/evolution-data-server/*-backends",
+                "/libexec",
+                "/share/dbus-1/services"
+            ],
+            "config-opts" : [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DENABLE_FILE_LOCKING=fcntl",
+                "-DENABLE_DOT_LOCKING=OFF",
+                "-DENABLE_OAUTH2=ON",
+                "-DENABLE_CANBERRA=OFF",
+                "-DENABLE_GTK=ON",
+                "-DENABLE_UOA=OFF",
+                "-DENABLE_GOA=OFF",
+                "-DENABLE_GOOGLE=OFF",
+                "-DENABLE_EXAMPLES=OFF",
+                "-DENABLE_INTROSPECTION=ON",
+                "-DENABLE_VALA_BINDINGS=ON",
+                "-DENABLE_INSTALLED_TESTS=OFF",
+                "-DENABLE_GTK_DOC=OFF",
+                "-DWITH_PRIVATE_DOCS=OFF",
+                "-DWITH_PHONENUMBER=OFF",
+                "-DWITH_SYSTEMDUSERUNITDIR=OFF",
+                "-DWITH_LIBDB=OFF",
+                "-DWITH_OPENLDAP=OFF",
+                "-DENABLE_WEATHER=OFF",
+                "-DENABLE_OAUTH2_WEBKITGTK4=OFF"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://download.gnome.org/sources/evolution-data-server/3.56/evolution-data-server-3.56.1.tar.xz",
+                    "sha256" : "646cc0037da3f9f295794c637d95394ad76f8c9bee2268be2c4183e27720c137",
+                    "x-checker-data" : {
+                        "type" : "gnome",
+                        "name" : "evolution-data-server"
+                    }
+                }
+            ]
+        },
+        {
+            "name" : "libportal",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dbackend-gtk3=disabled",
+                "-Dbackend-gtk4=enabled",
+                "-Ddocs=false",
+                "-Dtests=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/flatpak/libportal.git",
+                    "tag" : "0.9.1"
+                }
+            ]
+        },
+        {
+            "name" : "gxml",
+            "buildsystem" : "meson",
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/gxml.git",
+                    "tag": "0.20.4"
+                }
+            ]
+        },
+        {
+            "name" : "planify",
+            "builddir" : true,
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dtracing=true",
+                "-Dprofile=development",
+                "-Dwebkit=false",
+                "--libdir=lib"
+            ],
+            "sources" : [
+                {
+                    "type" : "dir",
+                    "path" : "../"
+                }
+            ]
+        }
+    ],
+    "build-options" : {
+        "env" : {        }
+    }
+}
+

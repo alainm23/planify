@@ -18,7 +18,6 @@ gtk_dep = dependency('gtk4')
 libsoup_dep = dependency('libsoup-3.0')
 sqlite3_dep = dependency('sqlite3')
 libadwaita_dep = dependency('libadwaita-1', version: '>= 1.7.0')
-webkitgtk_dep = dependency('webkitgtk-6.0')
 gtksourceview_dep = dependency('gtksourceview-5')
 json_dep = dependency('json-glib-1.0')
 libecal_dep = dependency('libecal-2.0', version: '>= 3.45.1')
@@ -29,6 +28,15 @@ libportal_gtk4_dep = dependency('libportal-gtk4', required: true)
 libgxml_dep = dependency('gxml-0.20')
 libsecret_dep = dependency('libsecret-1')
 m_dep = meson.get_compiler('c').find_library('m', required : false)
+
+
+if get_option('webkit')
+    webkitgtk_dep = dependency('webkitgtk-6.0')
+    add_project_arguments('-D', 'USE_WEBKITGTK', language: 'vala')
+    if not webkitgtk_dep.found()
+        error('webkitgtk-6.0 requested but not found')
+    endif
+endif
 
 ############
 # Resources #
