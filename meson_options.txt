@@ -1,2 +1,3 @@
 option('tracing', type: 'boolean', value: false, description: 'add extra debugging information')
 option('profile', type: 'combo', choices: ['default', 'development'], value: 'default')
+option('webkit', type : 'boolean', description: 'build with webkit gtk for in app auth for Todoist')

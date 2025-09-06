@@ -1,12 +1,17 @@
 deps = [
   core_dep,
   gee_dep,
-  webkitgtk_dep,
   libedataserver_dep,
   libportal_dep,
   libportal_gtk4_dep,
   m_dep
 ]
+
+if get_option('webkit')
+    if webkitgtk_dep.found()
+        deps += webkitgtk_dep
+    endif
+endif
 
 sources = files(
   'App.vala',
@@ -14,7 +19,7 @@ sources = files(
 
   'Objects/Backup.vala',
 
-  'Services/GoogleTasks.vala',
+  # 'Services/GoogleTasks.vala', No longer used?
   'Services/ActionManager.vala',
   'Services/Notification.vala',
   'Services/TimeMonitor.vala',
@@ -83,7 +88,7 @@ sources = files(
   'Dialogs/Project.vala',
   'Dialogs/Section.vala',
   'Dialogs/Label.vala',
-  'Dialogs/GoogleOAuth.vala',
+  #'Dialogs/GoogleOAuth.vala', No longer used?
   'Dialogs/WhatsNew.vala',
   'Dialogs/QuickAdd.vala',
   'Dialogs/ManageSectionOrder.vala',
@@ -111,6 +116,7 @@ sources = files(
   'Dialogs/Preferences/Pages/NextcloudSetup.vala',
   'Dialogs/Preferences/Pages/CalDAVSetup.vala',
   'Dialogs/Preferences/Pages/HomeView.vala',
+  'Dialogs/Preferences/Pages/TodoistSetup.vala',
 )
 
 executable(
@@ -121,4 +127,5 @@ executable(
   dependencies: deps,
   install: true
 )
+
 
