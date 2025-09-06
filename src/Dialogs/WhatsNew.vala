@@ -147,7 +147,7 @@ public class Dialogs.WhatsNew : Adw.Dialog {
     }
 
     private Adw.NavigationPage create_video_page (string description, string video_url) {
-        var headerbar = new Dialogs.Preferences.SettingsHeader (_("What's New"));
+        var headerbar = new Adw.HeaderBar ();
 
         var description_label = new Gtk.Label (description) {
             justify = Gtk.Justification.FILL,
@@ -186,10 +186,6 @@ public class Dialogs.WhatsNew : Adw.Dialog {
         toolbar_view.content = content_clamp;
 
         var page = new Adw.NavigationPage (toolbar_view, "dnd");
-
-        headerbar.back_activated.connect (() => {
-            navigation_view.pop ();
-        });
 
         return page;
     }

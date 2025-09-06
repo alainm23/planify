@@ -50,9 +50,6 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
     }
 
     private void setup_ui () {
-        var header = new Dialogs.Preferences.SettingsHeader (_("CalDAV Setup"));
-        header.back_activated.connect (() => accounts_page.pop_subpage ());
-
         server_entry = new Adw.EntryRow ();
         server_entry.title = _("Server URL");
 
@@ -127,7 +124,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (header);
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
         toolbar_view.content = content_clamp;
 
         child = toolbar_view;

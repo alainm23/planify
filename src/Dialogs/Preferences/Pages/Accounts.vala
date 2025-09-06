@@ -25,14 +25,12 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
     public signal void pop_subpage ();
     public signal void push_subpage (Adw.NavigationPage page);
     public signal void add_toast (Adw.Toast toast);
-
+    
     ~Accounts () {
-        print ("Destroying Dialogs.Preferences.Pages.Accounts\n");
+        print ("Destroying - Dialogs.Preferences.Pages.Accounts\n");
     }
 
     construct {
-        var settings_header = new Dialogs.Preferences.SettingsHeader (_("Accounts"));
-
         var todoist_item = new Widgets.ContextMenu.MenuItem (_("Todoist"));
         var nextcloud_item = new Widgets.ContextMenu.MenuItem (_("Nextcloud"));
         var caldav_item = new Widgets.ContextMenu.MenuItem (_("CalDAV"));
@@ -85,7 +83,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         var toolbar_view = new Adw.ToolbarView () {
             content = content_clamp
         };
-        toolbar_view.add_top_bar (settings_header);
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
 
         child = toolbar_view;
 
@@ -111,10 +109,6 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
             }
         });
 
-        settings_header.back_activated.connect (() => {
-            pop_subpage ();
-        });
-
         todoist_item.clicked.connect (() => {
             push_subpage (get_oauth_todoist_page ());
         });
@@ -133,7 +127,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
     }
 
     private Adw.NavigationPage get_source_view (Objects.Source source) {
-        var settings_header = new Dialogs.Preferences.SettingsHeader (source.subheader_text);
+        var settings_header = new Adw.HeaderBar ();
 
         var avatar = new Adw.Avatar (84, source.user_displayname, true);
 
@@ -240,14 +234,10 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (settings_header);
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
         toolbar_view.content = content_clamp;
 
         var page = new Adw.NavigationPage (toolbar_view, "source_view");
-
-        settings_header.back_activated.connect (() => {
-            pop_subpage ();
-        });
 
         sync_server_row.activated.connect (() => {
             source.sync_server = !source.sync_server;
@@ -292,8 +282,6 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
     }
 
     private Adw.NavigationPage get_oauth_todoist_page () {
-        var settings_header = new Dialogs.Preferences.SettingsHeader (_("Loading…"));
-
         string oauth_open_url = "https://todoist.com/oauth/authorize?client_id=%s&scope=%s&state=%s";
         string state = Util.get_default ().generate_string ();
         oauth_open_url = oauth_open_url.printf (Constants.TODOIST_CLIENT_ID, Constants.TODOIST_SCOPE, state);
@@ -336,16 +324,12 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (settings_header);
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
         toolbar_view.content = scrolled_window;
 
         var page = new Adw.NavigationPage (toolbar_view, "oauth-todoist");
 
         webview.load_uri (oauth_open_url);
-
-        settings_header.back_activated.connect (() => {
-            pop_subpage ();
-        });
 
         webview.load_changed.connect ((load_event) => {
             var uri = webview.get_uri ();
@@ -354,7 +338,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
 
             if ((redirect_uri + "?code=" in uri) &&
                 ("&state=%s".printf (state) in uri)) {
-                settings_header.title = _("Synchronizing…");                 // vala-lint=ellipsis
+                // settings_header.title = _("Synchronizing…");                 // vala-lint=ellipsis
 
                 todoist_stack.visible_child_name = "loading";
                 Services.Todoist.get_default ().login.begin (uri, (obj, res) => {
@@ -374,12 +358,12 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
             }
 
             if (load_event == WebKit.LoadEvent.FINISHED) {
-                settings_header.title = _("Please Enter Your Credentials");
+                // settings_header.title = _("Please Enter Your Credentials");
                 return;
             }
 
             if (load_event == WebKit.LoadEvent.STARTED) {
-                settings_header.title = _("Loading…");
+                // settings_header.title = _("Loading…");
                 return;
             }
 
@@ -391,7 +375,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
             warning ("Loading uri '%s' failed, error : %s", failing_uri, error.message);
 
             if (GLib.strcmp (failing_uri, oauth_open_url) == 0) {
-                settings_header.title = _("Network Is Not Available");
+                // settings_header.title = _("Network Is Not Available");
 
                 var toast = new Adw.Toast (_("Network Is Not Available"));
                 toast.button_label = _("Ok");

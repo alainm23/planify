@@ -24,7 +24,6 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Adw.NavigationPage {
 
     public Accounts accounts_page { get; construct; }
 
-    private Dialogs.Preferences.SettingsHeader settings_header;
     private Adw.EntryRow server_entry;
     private Widgets.LoadingButton login_button;
     private Gtk.Button cancel_button;
@@ -33,11 +32,14 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Adw.NavigationPage {
     private Widgets.IgnoreSSLSwitchRow ignore_ssl_row;
 
     public NextcloudSetup (Accounts accounts_page) {
-        Object (accounts_page: accounts_page);
+        Object (
+            accounts_page: accounts_page,
+            title: _("Nextcloud Setup")
+        );
     }
 
     ~NextcloudSetup () {
-        print ("Destroying Dialogs.Preferences.Pages.NextcloudSetup\n");
+        print ("Destroying - Dialogs.Preferences.Pages.NextcloudSetup\n");
     }
 
     construct {
@@ -48,8 +50,6 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Adw.NavigationPage {
     }
 
     private void setup_ui () {
-        settings_header = new Dialogs.Preferences.SettingsHeader (_("Nextcloud Setup"));
-
         server_entry = new Adw.EntryRow ();
         server_entry.title = _("Server URL");
 
@@ -137,17 +137,13 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Adw.NavigationPage {
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (settings_header);
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
         toolbar_view.content = content_clamp;
 
         child = toolbar_view;
     }
 
     private void connect_signals () {
-        settings_header.back_activated.connect (() => {
-            accounts_page.pop_subpage ();
-        });
-
         server_entry.changed.connect (() => {
             if (server_entry.text != null && server_entry.text != "") {
                 var is_valid_url = is_valid_url (server_entry.text);

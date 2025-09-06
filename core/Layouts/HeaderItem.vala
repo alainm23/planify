@@ -166,7 +166,7 @@ public class Layouts.HeaderItem : Adw.Bin {
     }
 
     ~HeaderItem () {
-        print ("Destroying Layouts.HeaderItem\n");
+        print ("Destroying - Layouts.HeaderItem\n");
     }
 
     construct {
@@ -299,6 +299,10 @@ public class Layouts.HeaderItem : Adw.Bin {
         foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
             listbox.remove (child);
         }
+    }
+
+    public List<Gtk.ListBoxRow> get_children () {
+        return Util.get_default ().get_children (listbox);
     }
 
     public void add_widget_end (Gtk.Widget widget) {

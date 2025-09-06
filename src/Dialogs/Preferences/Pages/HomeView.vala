@@ -19,24 +19,19 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Dialogs.Preferences.Pages.HomeView : Adw.NavigationPage {
-    public Adw.PreferencesDialog preferences_dialog { get; construct; }
-
-    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
-
+public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.BasePage {
     public HomeView (Adw.PreferencesDialog preferences_dialog) {
         Object (
-            preferences_dialog: preferences_dialog
+            preferences_dialog: preferences_dialog,
+            title: _("Home View")
         );
     }
 
     ~HomeView () {
-        print ("Destroying Dialogs.Preferences.Pages.HomeView\n");
+        print ("Destroying - Dialogs.Preferences.Pages.HomeView\n");
     }
 
     construct {
-        var headerbar = new Dialogs.Preferences.SettingsHeader (_("Home View"));
-
         var filters_group = new Layouts.HeaderItem (_("Filters")) {
             card = true,
             reveal = true
@@ -61,7 +56,7 @@ public class Dialogs.Preferences.Pages.HomeView : Adw.NavigationPage {
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (headerbar);
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
         toolbar_view.content = scrolled_window;
 
         child = toolbar_view;
@@ -110,10 +105,12 @@ public class Dialogs.Preferences.Pages.HomeView : Adw.NavigationPage {
             group_box.append (source_group);
         }
 
-        signal_map[headerbar.back_activated.connect (() => preferences_dialog.pop_subpage ())] = headerbar;
+        destroy.connect (() => {
+            clean_up ();
+        });
     }
 
-    public void clean_up () {
+    public override void clean_up () {
         foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }
@@ -151,7 +148,7 @@ public class Dialogs.Preferences.Pages.HomeView : Adw.NavigationPage {
         }
 
         ~HomeViewRow () {
-            print ("Destroying - HomeViewRow - %s\n".printf (base_object.view_id));
+            print ("Destroying - HomeViewRown\n");
         }
 
         construct {
