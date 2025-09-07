@@ -65,7 +65,6 @@ sources = files(
   'Widgets/Attachments.vala',
   'Widgets/AttachmentRow.vala',
   'Widgets/ItemChangeHistoryRow.vala',
-  'Widgets/SourceRow.vala',
   'Widgets/ErrorView.vala',
   'Widgets/CompletedTaskRow.vala',
   'Widgets/ItemDetailCompleted.vala',
