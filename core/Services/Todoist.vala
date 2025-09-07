@@ -45,18 +45,6 @@ public class Services.Todoist : GLib.Object {
         parser = new Json.Parser ();
     }
 
-    public bool invalid_token () {
-        if (Services.Settings.get_default ().has_key ("todoist-access-token") == false) {
-            return true;
-        }
-        
-        return Services.Settings.get_default ().settings.get_string ("todoist-access-token").strip () == "";
-    }
-
-    public bool is_logged_in () {
-        return !invalid_token ();
-    }
-
     public async HttpResponse login (string _url) {
         string code = _url.split ("=")[1];
         code = code.split ("&")[0];

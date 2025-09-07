@@ -5,7 +5,6 @@ core_files = files(
 
     'Util/Util.vala',
     'Util/Datetime.vala',
-    'Util/Migrate.vala',
     'Util/MarkdownProcessor.vala',
 
     'Services/Settings.vala',
