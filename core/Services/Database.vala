@@ -2239,26 +2239,28 @@ public class Services.Database : GLib.Object {
             Services.Store.instance ().insert_source (todoist_source);
         }
 
-        var caldav_server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var caldav_username = Services.Settings.get_default ().settings.get_string ("caldav-username");
+        if (Services.Settings.get_default ().has_key ("caldav-server-url") && Services.Settings.get_default ().has_key ("caldav-username")) {
+            var caldav_server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
+            var caldav_username = Services.Settings.get_default ().settings.get_string ("caldav-username");
 
-        if (caldav_server_url != "" && caldav_username != "") {
-            var caldav_source = new Objects.Source ();
-            caldav_source.id = SourceType.CALDAV.to_string ();
-            caldav_source.source_type = SourceType.CALDAV;
-            caldav_source.data = Utils.AccountMigrate.get_data_from_caldav ();
-            caldav_source.last_sync = Services.Settings.get_default ().settings.get_string ("caldav-last-sync");
-            caldav_source.sync_server = Services.Settings.get_default ().settings.get_boolean ("caldav-sync-server");
+            if (caldav_server_url != "" && caldav_username != "") {
+                var caldav_source = new Objects.Source ();
+                caldav_source.id = SourceType.CALDAV.to_string ();
+                caldav_source.source_type = SourceType.CALDAV;
+                caldav_source.data = Utils.AccountMigrate.get_data_from_caldav ();
+                caldav_source.last_sync = Services.Settings.get_default ().settings.get_string ("caldav-last-sync");
+                caldav_source.sync_server = Services.Settings.get_default ().settings.get_boolean ("caldav-sync-server");
 
-            if (caldav_source.caldav_data.user_email != "") {
-                caldav_source.display_name = caldav_source.caldav_data.user_email;
-            } else if (caldav_source.caldav_data.user_displayname != "") {
-                caldav_source.display_name = caldav_source.caldav_data.user_displayname;
-            } else {
-                caldav_source.display_name = _("Nextcloud");
+                if (caldav_source.caldav_data.user_email != "") {
+                    caldav_source.display_name = caldav_source.caldav_data.user_email;
+                } else if (caldav_source.caldav_data.user_displayname != "") {
+                    caldav_source.display_name = caldav_source.caldav_data.user_displayname;
+                } else {
+                    caldav_source.display_name = _("Nextcloud");
+                }
+
+                Services.Store.instance ().insert_source (caldav_source);
             }
-
-            Services.Store.instance ().insert_source (caldav_source);
         }
     }
 

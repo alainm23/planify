@@ -23,15 +23,7 @@ public class Objects.Backup : Object {
     public string version { get; set; default = ""; }
     public string date { get; set; default = new GLib.DateTime.now_local ().to_string (); }
 
-    public int default_inbox { get; set; default = 0; }
     public string local_inbox_project_id { get; set; default = ""; }
-    public string todoist_access_token { get; set; default = ""; }
-    public string todoist_sync_token { get; set; default = ""; }
-    public string todoist_user_name { get; set; default = ""; }
-    public string todoist_user_email { get; set; default = ""; }
-    public string todoist_user_image_id { get; set; default = ""; }
-    public string todoist_user_avatar { get; set; default = ""; }
-    public bool todoist_user_is_premium { get; set; default = false; }
 
     public Gee.ArrayList<Objects.Project> projects { get; set; default = new Gee.ArrayList<Objects.Project> (); }
     public Gee.ArrayList<Objects.Section> sections { get; set; default = new Gee.ArrayList<Objects.Section> (); }
@@ -58,14 +50,6 @@ public class Objects.Backup : Object {
         }
     }
 
-    private bool _todoist_backend;
-    public bool todoist_backend {
-        get {
-            _todoist_backend = todoist_access_token.strip () != "";
-            return _todoist_backend;
-        }
-    }
-
     public signal void deleted ();
 
     public Backup.from_file (File file) {
@@ -84,58 +68,11 @@ public class Objects.Backup : Object {
             var settings = node.get_object_member ("settings");
             local_inbox_project_id = settings.get_string_member ("local-inbox-project-id");
 
-            if (settings.has_member ("todoist-access-token")) {
-                todoist_access_token = settings.get_string_member ("todoist-access-token");
-            }
-
-            if (settings.has_member ("todoist-sync-token")) {
-                todoist_sync_token = settings.get_string_member ("todoist-sync-token");
-            }
-
-            if (settings.has_member ("todoist-user-name")) {
-                todoist_user_name = settings.get_string_member ("todoist-user-name");
-            }
-
-            if (settings.has_member ("todoist-user-email")) {
-                todoist_user_email = settings.get_string_member ("todoist-user-name");
-            }
-
-            if (settings.has_member ("todoist-user-image-id")) {
-                todoist_user_image_id = settings.get_string_member ("todoist-user-image-id");
-            }
-
-            if (settings.has_member ("todoist-user-avatar")) {
-                todoist_user_avatar = settings.get_string_member ("todoist-user-avatar");
-            }
-
-            if (settings.has_member ("todoist-user-is-premium")) {
-                todoist_user_is_premium = settings.get_boolean_member ("todoist-user-is-premium");
-            }
-
             // Sources
             sources.clear ();
             unowned Json.Array _sources = node.get_array_member ("sources");
             foreach (unowned Json.Node item in _sources.get_elements ()) {
                 sources.add (new Objects.Source.from_import_json (item));
-            }
-
-            if (version == "1.0" && todoist_access_token.strip () != "") {
-                var todoist_source = new Objects.Source ();
-                todoist_source.id = SourceType.TODOIST.to_string ();
-                todoist_source.source_type = SourceType.TODOIST;
-                todoist_source.display_name = todoist_user_email;
-
-                Objects.SourceTodoistData todoist_data = new Objects.SourceTodoistData ();
-                todoist_data.sync_token = todoist_sync_token;
-                todoist_data.access_token = todoist_access_token;
-                todoist_data.user_email = todoist_user_email;
-                todoist_data.user_name = todoist_user_email;
-                todoist_data.user_avatar = todoist_user_avatar;
-                todoist_data.user_image_id = todoist_user_image_id;
-                todoist_data.user_is_premium = todoist_user_is_premium;
-                todoist_source.data = todoist_data;
-
-                sources.add (todoist_source);
             }
 
             // Labels

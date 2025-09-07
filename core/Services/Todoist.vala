@@ -46,6 +46,10 @@ public class Services.Todoist : GLib.Object {
     }
 
     public bool invalid_token () {
+        if (Services.Settings.get_default ().has_key ("todoist-access-token") == false) {
+            return true;
+        }
+        
         return Services.Settings.get_default ().settings.get_string ("todoist-access-token").strip () == "";
     }
 
@@ -931,10 +935,23 @@ public class Services.Todoist : GLib.Object {
     public async void update_items (Gee.ArrayList<Objects.Item> objects) {
         string json = get_update_items_json (objects);
 
+        Objects.Source ? source = null;
+        foreach (Objects.Item item in objects) {
+            if (item.source != null) {
+                source = item.source;
+                break;
+            }
+        }
+
+        if (source == null) {
+            warning ("No valid source found in items");
+            return;
+        }
+
         var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
         message.request_headers.append (
             "Authorization",
-            "Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
+            "Bearer %s".printf (source.todoist_data.access_token)
         );
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
@@ -952,10 +969,9 @@ public class Services.Todoist : GLib.Object {
                     get_todoist_error (message.status_code)
                 );
             } else {
-                Services.Settings.get_default ().settings.set_string (
-                    "todoist-sync-token",
-                    parser.get_root ().get_object ().get_string_member ("sync_token")
-                );
+                source.todoist_data.sync_token = parser.get_root ().get_object ().get_string_member ("sync_token");
+                source.last_sync = new GLib.DateTime.now_local ().to_string ();
+                source.save ();
             }
         } catch (Error e) {
             error (e.message);
