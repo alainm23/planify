@@ -2226,42 +2226,6 @@ public class Services.Database : GLib.Object {
         }
 
         Util.get_default ().create_local_source ();
-
-        if (Services.Todoist.get_default ().is_logged_in ()) {
-            var todoist_source = new Objects.Source ();
-            todoist_source.id = SourceType.TODOIST.to_string ();
-            todoist_source.source_type = SourceType.TODOIST;
-            todoist_source.display_name = Services.Settings.get_default ().settings.get_string ("todoist-user-email");
-            todoist_source.data = Utils.AccountMigrate.get_data_from_todoist ();
-            todoist_source.last_sync = Services.Settings.get_default ().settings.get_string ("todoist-last-sync");
-            todoist_source.sync_server = Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server");
-
-            Services.Store.instance ().insert_source (todoist_source);
-        }
-
-        if (Services.Settings.get_default ().has_key ("caldav-server-url") && Services.Settings.get_default ().has_key ("caldav-username")) {
-            var caldav_server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-            var caldav_username = Services.Settings.get_default ().settings.get_string ("caldav-username");
-
-            if (caldav_server_url != "" && caldav_username != "") {
-                var caldav_source = new Objects.Source ();
-                caldav_source.id = SourceType.CALDAV.to_string ();
-                caldav_source.source_type = SourceType.CALDAV;
-                caldav_source.data = Utils.AccountMigrate.get_data_from_caldav ();
-                caldav_source.last_sync = Services.Settings.get_default ().settings.get_string ("caldav-last-sync");
-                caldav_source.sync_server = Services.Settings.get_default ().settings.get_boolean ("caldav-sync-server");
-
-                if (caldav_source.caldav_data.user_email != "") {
-                    caldav_source.display_name = caldav_source.caldav_data.user_email;
-                } else if (caldav_source.caldav_data.user_displayname != "") {
-                    caldav_source.display_name = caldav_source.caldav_data.user_displayname;
-                } else {
-                    caldav_source.display_name = _("Nextcloud");
-                }
-
-                Services.Store.instance ().insert_source (caldav_source);
-            }
-        }
     }
 
     public void add_calendar_url_to_project () {
