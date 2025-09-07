@@ -812,7 +812,7 @@ public class Services.Database : GLib.Object {
                 data=$data
             WHERE id=$id;
         """;
-
+        
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$source_type", source.source_type.to_string ());
         set_parameter_str (stmt, "$display_name", source.display_name);

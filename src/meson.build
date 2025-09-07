@@ -120,7 +120,8 @@ sources = files(
   'Dialogs/Preferences/Pages/Accounts/Accounts.vala',
   'Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala',
   'Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala',
-  'Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala'
+  'Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala',
+  'Dialogs/Preferences/Pages/Accounts/SourceView.vala'
 )
 
 executable(
