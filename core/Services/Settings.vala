@@ -21,6 +21,7 @@
 
 public class Services.Settings : GLib.Object {
     public GLib.Settings settings;
+    public SettingsSchema settings_schema;
 
     private static Settings ? _instance;
     public static Settings get_default () {
@@ -31,17 +32,27 @@ public class Services.Settings : GLib.Object {
         return _instance;
     }
 
+    public const string ID = "io.github.alainm23.planify";
+
     public Settings () {
-        settings = new GLib.Settings ("io.github.alainm23.planify");
+        settings = new GLib.Settings (ID);
+        settings_schema = GLib.SettingsSchemaSource.get_default ().lookup (ID, true);
     }
 
     public void reset_settings () {
-        var schema_source = GLib.SettingsSchemaSource.get_default ();
-        SettingsSchema schema = schema_source.lookup ("io.github.alainm23.planify", true);
-
-        foreach (string key in schema.list_keys ()) {
+        foreach (string key in settings_schema.list_keys ()) {
             Services.Settings.get_default ().settings.reset (key);
         }
+    }
+
+    public bool has_key (string key) {
+        foreach (string schema_key in settings_schema.list_keys ()) {
+            if (schema_key == key) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public NewTaskPosition get_new_task_position () {

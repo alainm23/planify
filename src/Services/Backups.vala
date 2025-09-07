@@ -120,7 +120,6 @@ public class Services.Backups : Object {
         builder.end_object ();
 
         // Sources
-
         builder.set_member_name ("sources");
         builder.begin_array ();
 
@@ -260,6 +259,9 @@ public class Services.Backups : Object {
 
             builder.set_member_name ("source_id");
             builder.add_string_value (project.source_id);
+
+            builder.set_member_name ("calendar_url");
+            builder.add_string_value (project.calendar_url);
 
             builder.end_object ();
         }
@@ -481,18 +483,6 @@ public class Services.Backups : Object {
 
         Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", backup.local_inbox_project_id);
 
-        if (backup.todoist_backend) {
-            Services.Settings.get_default ().settings.set_string ("todoist-sync-token", backup.todoist_sync_token);
-            Services.Settings.get_default ().settings.set_string ("todoist-access-token", backup.todoist_access_token);
-            Services.Settings.get_default ().settings.set_string ("todoist-user-image-id", backup.todoist_user_image_id);
-            Services.Settings.get_default ().settings.set_string ("todoist-user-avatar", backup.todoist_user_avatar);
-            Services.Settings.get_default ().settings.set_string ("todoist-user-name", backup.todoist_user_name);
-            Services.Settings.get_default ().settings.set_string ("todoist-user-email", backup.todoist_user_email);
-            Services.Settings.get_default ().settings.set_string ("todoist-last-sync", new GLib.DateTime.now_local ().to_string ());
-            Services.Settings.get_default ().settings.set_boolean ("todoist-user-is-premium", backup.todoist_user_is_premium);
-            Services.Settings.get_default ().settings.set_boolean ("todoist-sync-server", true);
-        }
-
         // Clear Database
         Services.Database.get_default ().clear_database ();
         Services.Database.get_default ().init_database ();
@@ -548,12 +538,6 @@ public class Services.Backups : Object {
                     }
                 }
             }
-        }
-
-        if (backup.todoist_user_avatar != null) {
-            Util.get_default ().download_profile_image (
-                "todoist-user", backup.todoist_user_avatar
-            );
         }
 
         show_message ();

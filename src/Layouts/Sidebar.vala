@@ -83,7 +83,7 @@ public class Layouts.Sidebar : Adw.Bin {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,
             margin_end = 12,
-            margin_bottom = 6,
+            margin_bottom = 12,
             margin_top = 6,
             valign = START
         };
