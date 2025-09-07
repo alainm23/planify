@@ -65,7 +65,6 @@ sources = files(
   'Widgets/Attachments.vala',
   'Widgets/AttachmentRow.vala',
   'Widgets/ItemChangeHistoryRow.vala',
-  'Widgets/SourceRow.vala',
   'Widgets/ErrorView.vala',
   'Widgets/CompletedTaskRow.vala',
   'Widgets/ItemDetailCompleted.vala',
@@ -120,7 +119,8 @@ sources = files(
   'Dialogs/Preferences/Pages/Accounts/Accounts.vala',
   'Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala',
   'Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala',
-  'Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala'
+  'Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala',
+  'Dialogs/Preferences/Pages/Accounts/SourceView.vala'
 )
 
 executable(

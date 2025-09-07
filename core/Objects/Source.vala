@@ -178,12 +178,22 @@ public class Objects.Source : Objects.BaseObject {
             DATA: %s
             TYPE: %s
             SYNC_SERVER: %s
+            DISPLAY_NAME: %s
+            UPDATED_AT: %s
+            IS_VISIBLE: %s
+            CHILD_ORDER: %d
+            LAST_SYNC: %s
         ---------------------------------
         """.printf (
             id,
             data.to_json (),
             source_type.to_string (),
-            sync_server.to_string ()
+            sync_server.to_string (),
+            display_name,
+            updated_at,
+            is_visible.to_string (),
+            child_order,
+            last_sync
         );
     }
 }

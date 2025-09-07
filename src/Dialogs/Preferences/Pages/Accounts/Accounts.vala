@@ -90,17 +90,17 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
 
         child = toolbar_view;
 
-        Gee.HashMap<string, Widgets.SourceRow> sources_hashmap = new Gee.HashMap<string, Widgets.SourceRow> ();
+        Gee.HashMap<string, SourceRow> sources_hashmap = new Gee.HashMap<string, SourceRow> ();
         foreach (Objects.Source source in Services.Store.instance ().sources) {
             if (!sources_hashmap.has_key (source.id)) {
-                sources_hashmap[source.id] = new Widgets.SourceRow (source);
+                sources_hashmap[source.id] = new SourceRow (source);
                 sources_group.add_child (sources_hashmap[source.id]);
             }
         }
 
         signal_map[Services.Store.instance ().source_added.connect ((source) => {
             if (!sources_hashmap.has_key (source.id)) {
-                sources_hashmap[source.id] = new Widgets.SourceRow (source);
+                sources_hashmap[source.id] = new SourceRow (source);
                 sources_group.add_child (sources_hashmap[source.id]);
             }
         })] = Services.Store.instance ();
@@ -129,167 +129,13 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         })] = caldav_item;
 
         signal_map[sources_group.row_activated.connect ((row) => {
-            preferences_dialog.push_subpage (get_source_view (((Widgets.SourceRow) row).source));
+            var source = ((SourceRow) row).source;
+            preferences_dialog.push_subpage (new Dialogs.Preferences.Pages.SourceView (preferences_dialog, source));
         })] = sources_group;
 
         destroy.connect (() => {
             clean_up ();
         });
-    }
-
-    private Adw.NavigationPage get_source_view (Objects.Source source) {
-        var settings_header = new Adw.HeaderBar ();
-
-        var avatar = new Adw.Avatar (84, source.user_displayname, true);
-
-        if (source.source_type == SourceType.TODOIST) {
-            var file = File.new_for_path (Util.get_default ().get_avatar_path (source.avatar_path));
-            if (file.query_exists ()) {
-                var image = new Gtk.Image.from_file (file.get_path ());
-                avatar.custom_image = image.get_paintable ();
-            }
-        }
-
-        var user_label = new Gtk.Label (source.user_displayname) {
-            margin_top = 12,
-            css_classes = { "title-1" }
-        };
-
-        var email_label = new Gtk.Label (source.user_email) {
-            css_classes = { "dimmed" },
-            margin_top = 6,
-            visible = source.user_email != null && source.user_email != ""
-        };
-
-        var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 24
-        };
-        user_box.append (avatar);
-        user_box.append (user_label);
-        user_box.append (email_label);
-
-        if (source.source_type == SourceType.CALDAV) {
-            var url_label = new Gtk.Label (source.caldav_data.server_url) {
-                css_classes = { "dimmed" }
-            };
-            user_box.append (url_label);
-        }
-
-        var display_entry = new Adw.EntryRow () {
-            title = _("Display Name"),
-            text = source.display_name,
-            show_apply_button = true
-        };
-
-        var sync_server_row = new Adw.SwitchRow ();
-        sync_server_row.title = _("Sync Server");
-        sync_server_row.subtitle =
-            _(
-                "Activate this setting so that Planify automatically synchronizes with your account account every 15 minutes");
-        sync_server_row.active = source.sync_server;
-
-        var last_sync_label = new Gtk.Label (
-            Utils.Datetime.get_relative_date_from_date (
-                new GLib.DateTime.from_iso8601 (
-                    source.last_sync, new GLib.TimeZone.local ()
-                )
-            )
-        );
-
-        var last_sync_row = new Adw.ActionRow ();
-        last_sync_row.activatable = false;
-        last_sync_row.title = _("Last Sync");
-        last_sync_row.add_suffix (last_sync_label);
-
-        var default_group = new Adw.PreferencesGroup () {
-            margin_top = 24
-        };
-
-        default_group.add (display_entry);
-
-        if (source.source_type != SourceType.LOCAL) {
-            default_group.add (sync_server_row);
-            default_group.add (last_sync_row);
-        }
-
-        var delete_button = new Adw.ButtonRow () {
-            title = _("Delete Source")
-        };
-        delete_button.add_css_class ("destructive-action");
-
-        var delete_group = new Adw.PreferencesGroup () {
-            margin_top = 24
-        };
-        delete_group.add (delete_button);
-
-        var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            vexpand = true,
-            hexpand = true
-        };
-
-        if (source.source_type != SourceType.LOCAL) {
-            main_content.append (user_box);
-        }
-        
-        main_content.append (default_group);
-
-        if (source.source_type != SourceType.LOCAL) {
-            main_content.append (delete_group);
-        }
-
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 600,
-            margin_start = 24,
-            margin_end = 24,
-            child = main_content
-        };
-
-        var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (new Adw.HeaderBar ());
-        toolbar_view.content = content_clamp;
-
-        var page = new Adw.NavigationPage (toolbar_view, "source_view");
-
-        signal_map[sync_server_row.activated.connect (() => {
-            source.sync_server = !source.sync_server;
-            source.save ();
-
-            if (source.sync_server) {
-                source.run_server ();
-            } else {
-                source.remove_sync_server ();
-            }
-        })] = sync_server_row;
-
-        signal_map[display_entry.apply.connect (() => {
-            source.display_name = display_entry.text;
-            source.save ();
-        })] = display_entry;
-
-        signal_map[delete_button.activated.connect (() => {
-            var dialog = new Adw.AlertDialog (
-                _("Delete Source?"),
-                _("This can not be undone")
-            );
-
-            dialog.add_response ("cancel", _("Cancel"));
-            dialog.add_response ("delete", _("Delete"));
-            dialog.close_response = "cancel";
-            dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-            dialog.present (Planify._instance.main_window);
-
-            dialog.response.connect ((response) => {
-                if (response == "delete") {
-                    source.delete_source ();
-                }
-            });
-        })] = delete_button;
-
-        signal_map[source.deleted.connect (() => {
-            preferences_dialog.pop_subpage ();
-        })] = source;
-
-        return page;
     }
 
     public void show_message_error (int error_code, string error_message, bool visible_issue_button = true) {
@@ -307,7 +153,7 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
     public override void clean_up () {
         sources_group.set_sort_func (null);
         foreach (var row in sources_group.get_children ()) {
-            ((Widgets.SourceRow) row).clean_up ();
+            ((SourceRow) row).clean_up ();
         }
 
         foreach (var entry in signal_map.entries) {
@@ -315,5 +161,166 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         }
 
         signal_map.clear ();
+    }
+
+    public class SourceRow : Gtk.ListBoxRow {
+        public Objects.Source source { get; construct; }
+
+        private Widgets.ReorderChild reorder;
+        private Gtk.Revealer main_revealer;
+        private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
+        public SourceRow (Objects.Source source) {
+            Object (
+                source: source
+            );
+        }
+
+        ~SourceRow () {
+            print ("Destroying - SourceRow\n");
+        }
+
+        construct {
+            add_css_class ("no-selectable");
+
+            var title_label = new Gtk.Label (source.display_name) {
+                halign = Gtk.Align.START
+            };
+
+            var subtitle_label = new Gtk.Label (source.subheader_text) {
+                halign = Gtk.Align.START,
+                css_classes = { "caption", "dimmed" }
+            };
+
+            var subtitle_revealer = new Gtk.Revealer () {
+                child = subtitle_label,
+                reveal_child = source.source_type != SourceType.LOCAL
+            };
+
+            var title_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+                valign = Gtk.Align.CENTER
+            };
+            title_box.append (title_label);
+            title_box.append (subtitle_revealer);
+
+            var visible_checkbutton = new Gtk.Switch () {
+                active = source.is_visible,
+                valign = CENTER
+            };
+
+
+            Gtk.Image ? warning_image = null;
+            if (source.source_type == SourceType.CALDAV && source.caldav_data.ignore_ssl) {
+                warning_image = new Gtk.Image.from_icon_name ("dialog-warning-symbolic");
+                warning_image.set_tooltip_text ("SSL verification is disabled");
+            }
+
+            var end_box = new Gtk.Box (HORIZONTAL, 12) {
+                hexpand = true,
+                halign = END
+            };
+            if (warning_image != null) {
+                end_box.append (warning_image);
+            }
+            end_box.append (visible_checkbutton);
+            end_box.append (new Gtk.Image.from_icon_name ("go-next-symbolic"));
+
+            var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+                margin_top = 6,
+                margin_bottom = 6,
+                margin_start = 6,
+                margin_end = 6,
+                height_request = 32
+            };
+
+            content_box.append (new Gtk.Image.from_icon_name ("list-drag-handle-symbolic") {
+                css_classes = { "dimmed" },
+                pixel_size = 12
+            });
+            content_box.append (title_box);
+            content_box.append (end_box);
+
+            var card = new Adw.Bin () {
+                child = content_box,
+                margin_top = 3,
+                margin_bottom = 3,
+                margin_start = 3,
+                margin_end = 3
+            };
+
+            reorder = new Widgets.ReorderChild (card, this);
+
+            main_revealer = new Gtk.Revealer () {
+                transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+                child = reorder
+            };
+
+            child = main_revealer;
+            reorder.build_drag_and_drop ();
+
+            Timeout.add (main_revealer.transition_duration, () => {
+                main_revealer.reveal_child = true;
+                return GLib.Source.REMOVE;
+            });
+
+            signal_map[source.updated.connect (() => {
+                title_label.label = source.display_name;
+            })] = source;
+
+            signal_map[visible_checkbutton.notify["active"].connect (() => {
+                source.is_visible = visible_checkbutton.active;
+                source.save ();
+            })] = visible_checkbutton;
+
+            signal_map[reorder.on_drop_end.connect ((listbox) => {
+                update_views_order (listbox);
+            })] = reorder;
+
+            signal_map[main_revealer.notify["child-revealed"].connect (() => {
+                reorder.draw_motion_widgets ();
+            })] = main_revealer;
+        }
+
+        private void update_views_order (Gtk.ListBox listbox) {
+            unowned SourceRow ? row = null;
+            var row_index = 0;
+
+            do {
+                row = (SourceRow) listbox.get_row_at_index (row_index);
+
+                if (row != null) {
+                    row.source.child_order = row_index;
+                    row.source.save ();
+                }
+
+                row_index++;
+            } while (row != null);
+
+            Services.EventBus.get_default ().update_sources_position ();
+        }
+
+        public void hide_destroy () {
+            main_revealer.reveal_child = false;
+            clean_up ();
+            Timeout.add (main_revealer.transition_duration, () => {
+                ((Gtk.ListBox) parent).remove (this);
+                return GLib.Source.REMOVE;
+            });
+        }
+
+        public void clean_up () {
+            if (reorder != null) {
+                reorder.clean_up ();
+                reorder = null;
+            }
+
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signal_map.clear ();
+            
+            main_revealer = null;
+        }
     }
 }
