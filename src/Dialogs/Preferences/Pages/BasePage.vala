@@ -23,7 +23,13 @@ public class Dialogs.Preferences.Pages.BasePage : Adw.NavigationPage {
     public Adw.PreferencesDialog preferences_dialog { get; construct; }
     public Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    public virtual void clean_up () {}
+    public virtual void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+    }
 
     public void popup_toast (string message) {
         var toast = new Adw.Toast (message);

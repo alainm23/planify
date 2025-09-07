@@ -105,11 +105,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         accounts_row.activatable = true;
         accounts_row.add_prefix (generate_icon ("cloud-outline-thick-symbolic"));
         accounts_row.add_suffix (generate_icon ("go-next-symbolic"));
-        accounts_row.title = _("Integrations");
+        accounts_row.title = _("Accounts");
         accounts_row.subtitle = _("Sync your favorite to-do providers");
 
         signal_map[accounts_row.activated.connect (() => {
-            push_subpage (get_accounts_page ());
+            push_subpage (build_page ("accounts"));
         })] = accounts_row;
 
         var accounts_group = new Adw.PreferencesGroup ();
@@ -353,24 +353,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         });
     }
 
-    private Adw.NavigationPage get_accounts_page () {
-        var accounts_page = new Dialogs.Preferences.Pages.Accounts ();
-
-        signal_map[accounts_page.push_subpage.connect ((page) => {
-            push_subpage (page);
-        })] = accounts_page;
-
-        signal_map[accounts_page.pop_subpage.connect (() => {
-            pop_subpage ();
-        })] = accounts_page;
-
-        signal_map[accounts_page.add_toast.connect ((toast) => {
-            add_toast (toast);
-        })] = accounts_page;
-
-        return new Adw.NavigationPage (accounts_page, "account");
-    }
-
     private Adw.NavigationPage get_privacy_policy_page () {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             vexpand = true,
@@ -462,8 +444,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         if (page_map.has_key (page)) {
             return page_map[page];
         }
-
+        
         switch (page) {
+            case "accounts":
+                page_map[page] = new Dialogs.Preferences.Pages.Accounts (this);
+                break;
             case "home-view":
                 page_map[page] = new Dialogs.Preferences.Pages.HomeView (this);
                 break;

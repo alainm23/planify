@@ -109,6 +109,7 @@ core_files = files(
 )
 
 core_deps = [
+  gio_dep,
   glib_dep,
   gee_dep,
   gtk_dep,

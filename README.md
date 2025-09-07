@@ -75,7 +75,7 @@ libsecret-1 | 0.21.4
 
 Fedora installation command:
 
-    sudo dnf install vala meson ninja-build gtk4-devel libadwaita-devel libgee-devel libsoup3-devel webkitgtk6.0-devel gtksourceview5-devel libportal-devel libportal-gtk4-devel
+    sudo dnf install vala meson ninja-build gtk4-devel libadwaita-devel libgee-devel libsoup3-devel webkitgtk6.0-devel gtksourceview5-devel libportal-devel libportal-gtk4-devel evolution-devel
 
 Ubuntu/Debian installation command:
 

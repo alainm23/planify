@@ -22,7 +22,9 @@
 public class Widgets.SourceRow : Gtk.ListBoxRow {
     public Objects.Source source { get; construct; }
 
+    private Widgets.ReorderChild reorder;
     private Gtk.Revealer main_revealer;
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public SourceRow (Objects.Source source) {
         Object (
@@ -31,7 +33,7 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
     }
 
     ~SourceRow () {
-        print ("Destroying Widgets.SourceRow\n");
+        print ("Destroying - Widgets.SourceRow\n");
     }
 
     construct {
@@ -102,7 +104,7 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
             margin_end = 3
         };
 
-        var reorder = new Widgets.ReorderChild (card, this);
+        reorder = new Widgets.ReorderChild (card, this);
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -117,22 +119,22 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
             return GLib.Source.REMOVE;
         });
 
-        source.updated.connect (() => {
+        signal_map[source.updated.connect (() => {
             title_label.label = source.display_name;
-        });
+        })] = source;
 
-        visible_checkbutton.notify["active"].connect (() => {
+        signal_map[visible_checkbutton.notify["active"].connect (() => {
             source.is_visible = visible_checkbutton.active;
             source.save ();
-        });
+        })] = visible_checkbutton;
 
-        reorder.on_drop_end.connect ((listbox) => {
+        signal_map[reorder.on_drop_end.connect ((listbox) => {
             update_views_order (listbox);
-        });
+        })] = reorder;
 
-        main_revealer.notify["child-revealed"].connect (() => {
+        signal_map[main_revealer.notify["child-revealed"].connect (() => {
             reorder.draw_motion_widgets ();
-        });
+        })] = main_revealer;
     }
 
     private void update_views_order (Gtk.ListBox listbox) {
@@ -155,9 +157,25 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
 
     public void hide_destroy () {
         main_revealer.reveal_child = false;
+        clean_up ();
         Timeout.add (main_revealer.transition_duration, () => {
             ((Gtk.ListBox) parent).remove (this);
             return GLib.Source.REMOVE;
         });
+    }
+
+    public void clean_up () {
+        if (reorder != null) {
+            reorder.clean_up ();
+            reorder = null;
+        }
+
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+        
+        main_revealer = null;
     }
 }
