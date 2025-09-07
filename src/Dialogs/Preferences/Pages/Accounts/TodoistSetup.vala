@@ -19,40 +19,39 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Dialogs.Preferences.Pages.TodoistSetup : Adw.NavigationPage {
-
+public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.BasePage {
     public Accounts accounts_page { get; construct; }
     public bool use_webkit { get; construct; }
 
-    private Gtk.Stack todoist_stack;
+    private Gtk.Stack stack;
     private Adw.EntryRow token_entry;
     private Widgets.LoadingButton login_button;
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    public TodoistSetup (Accounts accounts_page) {
-        Object (accounts_page: accounts_page, use_webkit: false);
+    public TodoistSetup (Adw.PreferencesDialog preferences_dialog, Accounts accounts_page) {
+        Object (
+            preferences_dialog: preferences_dialog,
+            accounts_page: accounts_page,
+            use_webkit: false,
+            title: _("Todoist")
+        );
     }
 
-#if USE_WEBKITGTK
-    public TodoistSetup.with_webkit (Accounts accounts_page) {
-        Object (accounts_page: accounts_page, use_webkit: true);
-    }
-#endif
-
-    construct {
-        title = "Todoist Setup";
-        setup_ui ();
-        connect_signals ();
+    public TodoistSetup.with_webkit (Adw.PreferencesDialog preferences_dialog, Accounts accounts_page) {
+        Object (
+            preferences_dialog: preferences_dialog,
+            accounts_page: accounts_page,
+            use_webkit: true,
+            title: _("Todoist")
+        );
     }
 
     ~TodoistSetup () {
-        print ("Destroying Dialogs.Preferences.Pages.TodoistSetup\n");
+        print ("Destroying - Dialogs.Preferences.Pages.TodoistSetup\n");
     }
 
-    private void setup_ui () {
-        var header = new Dialogs.Preferences.SettingsHeader (_("Todoist Setup"));
-        header.back_activated.connect (() => accounts_page.pop_subpage ());
-
-        todoist_stack = new Gtk.Stack () {
+    construct {
+        stack = new Gtk.Stack () {
             vexpand = true,
             hexpand = true,
             transition_type = Gtk.StackTransitionType.CROSSFADE
@@ -61,19 +60,19 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Adw.NavigationPage {
         var token_page = build_token_page ();
         var sync_page = build_sync_page ();
 
-        todoist_stack.add_named (token_page, "token");
-        todoist_stack.add_named (sync_page, "loading");
+        stack.add_named (token_page, "token");
+        stack.add_named (sync_page, "loading");
 
 #if USE_WEBKITGTK
         if (use_webkit) {
-            var webview_page = build_webview_page (header);
-            todoist_stack.add_named (webview_page, "web_view");
-            todoist_stack.visible_child_name = "web_view";
+            var webview_page = build_webview_page ();
+            stack.add_named (webview_page, "web_view");
+            stack.visible_child_name = "web_view";
         } else {
-            todoist_stack.visible_child_name = "token";
+            stack.visible_child_name = "token";
         }
 #else
-        todoist_stack.visible_child_name = "token";
+        stack.visible_child_name = "token";
 #endif
 
         var scrolled_window = new Gtk.ScrolledWindow () {
@@ -81,24 +80,18 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Adw.NavigationPage {
             vexpand = true,
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             vscrollbar_policy = Gtk.PolicyType.AUTOMATIC,
-            child = todoist_stack
+            child = stack
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (header);
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
         toolbar_view.content = scrolled_window;
 
         child = toolbar_view;
-    }
 
-    private void connect_signals () {
-        if (token_entry != null) {
-            token_entry.changed.connect (() => {
-                login_button.sensitive = token_entry.text != null && token_entry.text != "";
-            });
-
-            login_button.clicked.connect (() => on_token_login_clicked ());
-        }
+        destroy.connect (() => {
+            clean_up ();
+        });
     }
 
     private Gtk.Widget build_token_page () {
@@ -153,11 +146,20 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Adw.NavigationPage {
             child = content_box
         };
 
+        signal_map[token_entry.changed.connect (() => {
+            login_button.sensitive = token_entry.text != null && token_entry.text != "";
+        })] = token_entry;
+
+        signal_map[login_button.clicked.connect (() => {
+            on_token_login_clicked ();
+        })] = login_button;
+        
+
         return content_clamp;
     }
 
 #if USE_WEBKITGTK
-    private Gtk.Widget build_webview_page (Dialogs.Preferences.SettingsHeader header) {
+    private Gtk.Widget build_webview_page () {
         string oauth_open_url = "https://todoist.com/oauth/authorize?client_id=%s&scope=%s&state=%s";
         string state = Util.get_default ().generate_string ();
         oauth_open_url = oauth_open_url.printf (Constants.TODOIST_CLIENT_ID, Constants.TODOIST_SCOPE, state);
@@ -178,9 +180,9 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Adw.NavigationPage {
         webview_box.append (banner);
         webview_box.append (webview);
 
-        banner.button_clicked.connect (() => {
-            todoist_stack.visible_child_name = "token";
-        });
+        signal_map[banner.button_clicked.connect (() => {
+            stack.visible_child_name = "token";
+        })] = banner;
 
         webview.load_uri (oauth_open_url);
 
@@ -189,12 +191,12 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Adw.NavigationPage {
             var redirect_uri = "https://github.com/alainm23/planner";
 
             if ((redirect_uri + "?code=" in uri) && ("&state=%s".printf (state) in uri)) {
-                header.title = _("Synchronizing…");
-                todoist_stack.visible_child_name = "loading";
+                title = _("Synchronizing…");
+                stack.visible_child_name = "loading";
 
                 Services.Todoist.get_default ().login.begin (uri, (obj, res) => {
                     HttpResponse response = Services.Todoist.get_default ().login.end (res);
-                    accounts_page.pop_subpage ();
+                    preferences_dialog.pop_subpage ();
                     webview.get_network_session ().get_website_data_manager ().clear.begin (WebKit.WebsiteDataTypes.ALL, 0, null);
                     verify_response (response);
                 });
@@ -203,13 +205,13 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Adw.NavigationPage {
             if (redirect_uri + "?error=access_denied" in uri) {
                 debug ("access_denied");
                 webview.get_network_session ().get_website_data_manager ().clear.begin (WebKit.WebsiteDataTypes.ALL, 0, null);
-                accounts_page.pop_subpage ();
+                preferences_dialog.pop_subpage ();
             }
 
             if (load_event == WebKit.LoadEvent.FINISHED) {
-                header.title = _("Please Enter Your Credentials");
+                title = _("Please Enter Your Credentials");
             } else if (load_event == WebKit.LoadEvent.STARTED) {
-                header.title = _("Loading…");
+                title = _("Loading…");
             }
         });
 
@@ -218,14 +220,14 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Adw.NavigationPage {
             warning ("Loading uri '%s' failed, error : %s", failing_uri, error.message);
 
             if (GLib.strcmp (failing_uri, oauth_open_url) == 0) {
-                header.title = _("Network Is Not Available");
+                title = _("Network Is Not Available");
 
                 var toast = new Adw.Toast (_("Network Is Not Available"));
                 toast.button_label = _("Ok");
                 toast.timeout = 0;
 
-                toast.button_clicked.connect (() => accounts_page.pop_subpage ());
-                accounts_page.add_toast (toast);
+                toast.button_clicked.connect (() => preferences_dialog.pop_subpage ());
+                preferences_dialog.add_toast (toast);
             }
 
             return true;
@@ -264,11 +266,11 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Adw.NavigationPage {
     }
 
     private void on_token_login_clicked () {
-        todoist_stack.visible_child_name = "loading";
+        stack.visible_child_name = "loading";
 
         Services.Todoist.get_default ().login_token.begin (token_entry.text, (obj, res) => {
             HttpResponse response = Services.Todoist.get_default ().login_token.end (res);
-            accounts_page.pop_subpage ();
+            preferences_dialog.pop_subpage ();
             verify_response (response);
         });
     }
@@ -281,7 +283,7 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Adw.NavigationPage {
         } else {
             var toast = new Adw.Toast (response.error.strip ());
             toast.timeout = 3;
-            accounts_page.add_toast (toast);
+            preferences_dialog.add_toast (toast);
         }
     }
 }

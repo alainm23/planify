@@ -19,20 +19,21 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
-    private Gtk.Stack todoist_stack;
+public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.BasePage {
+    private Layouts.HeaderItem sources_group;
 
-    public signal void pop_subpage ();
-    public signal void push_subpage (Adw.NavigationPage page);
-    public signal void add_toast (Adw.Toast toast);
-
+    public Accounts (Adw.PreferencesDialog preferences_dialog) {
+        Object (
+            preferences_dialog: preferences_dialog,
+            title: _("Accounts")
+        );
+    }
+    
     ~Accounts () {
-        print ("Destroying Dialogs.Preferences.Pages.Accounts\n");
+        print ("Destroying - Dialogs.Preferences.Pages.Accounts\n");
     }
 
     construct {
-        var settings_header = new Dialogs.Preferences.SettingsHeader (_("Accounts"));
-
         var todoist_item = new Widgets.ContextMenu.MenuItem (_("Todoist"));
         var nextcloud_item = new Widgets.ContextMenu.MenuItem (_("Nextcloud"));
         var caldav_item = new Widgets.ContextMenu.MenuItem (_("CalDAV"));
@@ -58,7 +59,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
             popover = popover
         };
 
-        var sources_group = new Layouts.HeaderItem (_("Accounts")) {
+        sources_group = new Layouts.HeaderItem (_("Accounts")) {
             card = true,
             reveal = true,
             listbox_margin_top = 6
@@ -85,7 +86,7 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         var toolbar_view = new Adw.ToolbarView () {
             content = content_clamp
         };
-        toolbar_view.add_top_bar (settings_header);
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
 
         child = toolbar_view;
 
@@ -97,47 +98,47 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
             }
         }
 
-        Services.Store.instance ().source_added.connect ((source) => {
+        signal_map[Services.Store.instance ().source_added.connect ((source) => {
             if (!sources_hashmap.has_key (source.id)) {
                 sources_hashmap[source.id] = new Widgets.SourceRow (source);
                 sources_group.add_child (sources_hashmap[source.id]);
             }
-        });
+        })] = Services.Store.instance ();
 
-        Services.Store.instance ().source_deleted.connect ((source) => {
+        signal_map[Services.Store.instance ().source_deleted.connect ((source) => {
             if (sources_hashmap.has_key (source.id)) {
                 sources_hashmap[source.id].hide_destroy ();
                 sources_hashmap.unset (source.id);
             }
-        });
+        })] = Services.Store.instance ();
 
-        settings_header.back_activated.connect (() => {
-            pop_subpage ();
-        });
-
-        todoist_item.clicked.connect (() => {
+        signal_map[todoist_item.clicked.connect (() => {
             #if USE_WEBKITGTK
-            push_subpage (new TodoistSetup.with_webkit (this));
+            preferences_dialog.push_subpage (new TodoistSetup.with_webkit (preferences_dialog, this));
             #else
-            push_subpage (new TodoistSetup (this));
+            preferences_dialog.push_subpage (new TodoistSetup (preferences_dialog, this));
             #endif
-        });
+        })] = todoist_item;
 
-        nextcloud_item.clicked.connect (() => {
-            push_subpage (new NextcloudSetup (this));
-        });
+        signal_map[nextcloud_item.clicked.connect (() => {
+            preferences_dialog.push_subpage (new NextcloudSetup (preferences_dialog, this));
+        })] = nextcloud_item;
 
-        caldav_item.clicked.connect (() => {
-            push_subpage (new CalDAVSetup (this));
-        });
+        signal_map[caldav_item.clicked.connect (() => {
+            preferences_dialog.push_subpage (new CalDAVSetup (preferences_dialog, this));
+        })] = caldav_item;
 
-        sources_group.row_activated.connect ((row) => {
-            push_subpage (get_source_view (((Widgets.SourceRow) row).source));
+        signal_map[sources_group.row_activated.connect ((row) => {
+            preferences_dialog.push_subpage (get_source_view (((Widgets.SourceRow) row).source));
+        })] = sources_group;
+
+        destroy.connect (() => {
+            clean_up ();
         });
     }
 
     private Adw.NavigationPage get_source_view (Objects.Source source) {
-        var settings_header = new Dialogs.Preferences.SettingsHeader (source.subheader_text);
+        var settings_header = new Adw.HeaderBar ();
 
         var avatar = new Adw.Avatar (84, source.user_displayname, true);
 
@@ -244,16 +245,12 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (settings_header);
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
         toolbar_view.content = content_clamp;
 
         var page = new Adw.NavigationPage (toolbar_view, "source_view");
 
-        settings_header.back_activated.connect (() => {
-            pop_subpage ();
-        });
-
-        sync_server_row.activated.connect (() => {
+        signal_map[sync_server_row.activated.connect (() => {
             source.sync_server = !source.sync_server;
             source.save ();
 
@@ -262,14 +259,14 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
             } else {
                 source.remove_sync_server ();
             }
-        });
+        })] = sync_server_row;
 
-        display_entry.apply.connect (() => {
+        signal_map[display_entry.apply.connect (() => {
             source.display_name = display_entry.text;
             source.save ();
-        });
+        })] = display_entry;
 
-        delete_button.activated.connect (() => {
+        signal_map[delete_button.activated.connect (() => {
             var dialog = new Adw.AlertDialog (
                 _("Delete Source?"),
                 _("This can not be undone")
@@ -286,11 +283,11 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
                     source.delete_source ();
                 }
             });
-        });
+        })] = delete_button;
 
-        source.deleted.connect (() => {
-            pop_subpage ();
-        });
+        signal_map[source.deleted.connect (() => {
+            preferences_dialog.pop_subpage ();
+        })] = source;
 
         return page;
     }
@@ -304,7 +301,19 @@ public class Dialogs.Preferences.Pages.Accounts : Adw.Bin {
 
         var page = new Adw.NavigationPage (error_view, "");
 
-        push_subpage (page);
+        preferences_dialog.push_subpage (page);
     }
 
+    public override void clean_up () {
+        sources_group.set_sort_func (null);
+        foreach (var row in sources_group.get_children ()) {
+            ((Widgets.SourceRow) row).clean_up ();
+        }
+
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+    }
 }

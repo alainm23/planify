@@ -29,7 +29,6 @@ libgxml_dep = dependency('gxml-0.20')
 libsecret_dep = dependency('libsecret-1')
 m_dep = meson.get_compiler('c').find_library('m', required : false)
 
-
 if get_option('webkit')
     webkitgtk_dep = dependency('webkitgtk-6.0')
     add_project_arguments('-D', 'USE_WEBKITGTK', language: 'vala')

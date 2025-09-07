@@ -20,7 +20,10 @@
  */
 
 public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
-    private Gee.HashMap<string, Adw.NavigationPage> page_map = new Gee.HashMap<string, Adw.NavigationPage> ();
+    public Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+    private Gee.HashMap<string, Dialogs.Preferences.Pages.BasePage> page_map = new Gee.HashMap<string, Dialogs.Preferences.Pages.BasePage> ();
+    private Adw.PreferencesGroup banner_group;
+    private Gtk.ShortcutController shortcut_controller;
 
     public PreferencesWindow () {
         Object (
@@ -30,27 +33,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
     }
 
     ~PreferencesWindow () {
-        print ("Destroying Dialogs.Preferences.PreferencesWindow\n");
+        print ("Destroying - Dialogs.Preferences.PreferencesWindow\n");
     }
 
     construct {
-        add (get_preferences_home ());
-        Services.EventBus.get_default ().disconnect_typing_accel ();
-
-        var destroy_controller = new Gtk.EventControllerKey ();
-        add_controller ((Gtk.ShortcutController) destroy_controller);  // This cast causes a GCritical Error
-        destroy_controller.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
-                close ();
-            }
-        });
-
-        destroy.connect (() => {
-            Services.EventBus.get_default ().connect_typing_accel ();
-        });
-    }
-
-    private Adw.PreferencesPage get_preferences_home () {
         var page = new Adw.PreferencesPage ();
         page.title = _("Preferences");
         page.name = "preferences";
@@ -98,19 +84,19 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         banner_overlay.child = banner_box;
         banner_overlay.add_overlay (close_button);
 
-        var banner_group = new Adw.PreferencesGroup ();
+        banner_group = new Adw.PreferencesGroup ();
         banner_group.add (banner_overlay);
 
         Services.Settings.get_default ().settings.bind ("show-support-banner", banner_group, "visible",
                                                         GLib.SettingsBindFlags.DEFAULT);
 
-        banner_button.clicked.connect (() => {
-            push_subpage (get_support_page ());
-        });
+        signal_map[banner_button.clicked.connect (() => {
+            push_subpage (build_page ("support"));
+        })] = banner_button;
 
-        close_button.clicked.connect (() => {
+        signal_map[close_button.clicked.connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("show-support-banner", false);
-        });
+        })] = close_button;
 
         page.add (banner_group);
 
@@ -119,12 +105,12 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         accounts_row.activatable = true;
         accounts_row.add_prefix (generate_icon ("cloud-outline-thick-symbolic"));
         accounts_row.add_suffix (generate_icon ("go-next-symbolic"));
-        accounts_row.title = _("Integrations");
+        accounts_row.title = _("Accounts");
         accounts_row.subtitle = _("Sync your favorite to-do providers");
 
-        accounts_row.activated.connect (() => {
-            push_subpage (get_accounts_page ());
-        });
+        signal_map[accounts_row.activated.connect (() => {
+            push_subpage (build_page ("accounts"));
+        })] = accounts_row;
 
         var accounts_group = new Adw.PreferencesGroup ();
         accounts_group.add (accounts_row);
@@ -140,9 +126,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         home_page_row.add_prefix (generate_icon ("go-home-symbolic"));
         home_page_row.add_suffix (generate_icon ("go-next-symbolic"));
         
-        home_page_row.activated.connect (() => {
+        signal_map[home_page_row.activated.connect (() => {
             push_subpage (build_page ("home-view"));
-        });
+        })] = home_page_row;
 
         var general_row = new Adw.ActionRow ();
         general_row.activatable = true;
@@ -151,9 +137,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         general_row.title = _("General");
         general_row.subtitle = _("Customize to your liking");
 
-        general_row.activated.connect (() => {
-            push_subpage (get_general_page ());
-        });
+        signal_map[general_row.activated.connect (() => {
+            push_subpage (build_page ("general-page"));
+        })] = general_row;
 
         var task_setting_row = new Adw.ActionRow ();
         task_setting_row.activatable = true;
@@ -161,9 +147,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         task_setting_row.add_suffix (generate_icon ("go-next-symbolic"));
         task_setting_row.title = _("Task Setting");
 
-        task_setting_row.activated.connect (() => {
-            push_subpage (get_task_setting_page ());
-        });
+        signal_map[task_setting_row.activated.connect (() => {
+            push_subpage (build_page ("task-setting"));
+        })] = task_setting_row;
 
         var sidebar_row = new Adw.ActionRow ();
         sidebar_row.activatable = true;
@@ -172,9 +158,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         sidebar_row.title = _("Sidebar");
         sidebar_row.subtitle = _("Customize your sidebar");
 
-        sidebar_row.activated.connect (() => {
-            push_subpage (get_sidebar_page ());
-        });
+        signal_map[sidebar_row.activated.connect (() => {
+            push_subpage (build_page ("sidebar-page"));
+        })] = sidebar_row;
 
         var appearance_row = new Adw.ActionRow ();
         appearance_row.activatable = true;
@@ -183,9 +169,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         appearance_row.title = _("Appearance");
         appearance_row.subtitle = Util.get_default ().get_theme_name ();
 
-        appearance_row.activated.connect (() => {
-            push_subpage (get_appearance_page ());
-        });
+        signal_map[appearance_row.activated.connect (() => {
+            push_subpage (build_page ("appearance"));
+        })] = appearance_row;
 
         var quick_add_row = new Adw.ActionRow ();
         quick_add_row.activatable = true;
@@ -194,9 +180,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         quick_add_row.title = _("Quick Add");
         quick_add_row.subtitle = _("Adding to-do's from anywhere");
 
-        quick_add_row.activated.connect (() => {
-            push_subpage (get_quick_add_page ());
-        });
+        signal_map[quick_add_row.activated.connect (() => {
+            push_subpage (build_page ("quick-add"));
+        })] = quick_add_row;
 
         var backups_row = new Adw.ActionRow ();
         backups_row.activatable = true;
@@ -236,7 +222,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         contact_us_row.title = _("Contact Us");
         contact_us_row.subtitle = _("Request a feature or ask us anything");
 
-        contact_us_row.activated.connect (() => {
+        signal_map[contact_us_row.activated.connect (() => {
             string uri = "mailto:%s".printf (Constants.CONTACT_US);
 
             try {
@@ -244,7 +230,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             } catch (Error e) {
                 warning ("%s\n", e.message);
             }
-        });
+        })] = contact_us_row;
 
         var tweet_us_row = new Adw.ActionRow ();
         tweet_us_row.activatable = true;
@@ -253,13 +239,13 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         tweet_us_row.title = _("Tweet Us");
         tweet_us_row.subtitle = _("Share some love");
 
-        tweet_us_row.activated.connect (() => {
+        signal_map[tweet_us_row.activated.connect (() => {
             try {
                 AppInfo.launch_default_for_uri (Constants.TWITTER_URL, null);
             } catch (Error e) {
                 warning ("%s\n", e.message);
             }
-        });
+        })] = tweet_us_row;
 
         var discord_row = new Adw.ActionRow ();
         discord_row.activatable = true;
@@ -268,13 +254,13 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         discord_row.title = _("Discord");
         discord_row.subtitle = _("Discuss and share your feedback");
 
-        discord_row.activated.connect (() => {
+        signal_map[discord_row.activated.connect (() => {
             try {
                 AppInfo.launch_default_for_uri (Constants.DISCORD_URL, null);
             } catch (Error e) {
                 warning ("%s\n", e.message);
             }
-        });
+        })] = discord_row;
 
         var mastodon_row = new Adw.ActionRow ();
         mastodon_row.activatable = true;
@@ -283,13 +269,13 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         mastodon_row.title = _("Mastodon");
         mastodon_row.subtitle = _("Share some love");
 
-        mastodon_row.activated.connect (() => {
+        signal_map[mastodon_row.activated.connect (() => {
             try {
                 AppInfo.launch_default_for_uri (Constants.MASTODON_URL, null);
             } catch (Error e) {
                 warning ("%s\n", e.message);
             }
-        });
+        })] = mastodon_row;
 
         var supporting_us_row = new Adw.ActionRow ();
         supporting_us_row.activatable = true;
@@ -298,9 +284,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         supporting_us_row.title = _("Support Planify");
         supporting_us_row.subtitle = _("Want to buy me a drink?");
 
-        supporting_us_row.activated.connect (() => {
-            push_subpage (get_support_page ());
-        });
+        signal_map[supporting_us_row.activated.connect (() => {
+            push_subpage (build_page ("support"));
+        })] = supporting_us_row;
 
         reach_us_group.add (contact_us_row);
         reach_us_group.add (mastodon_row);
@@ -331,554 +317,43 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
         page.add (privacy_group);
 
-        tutorial_row.activated.connect (() => {
+        signal_map[tutorial_row.activated.connect (() => {
             Util.get_default ().create_tutorial_project ();
             add_toast (Util.get_default ().create_toast (_("A tutorial project has been created")));
-        });
+        })] = tutorial_row;
 
-        backups_row.activated.connect (() => {
-            push_subpage (get_backups_page ());
-        });
+        signal_map[backups_row.activated.connect (() => {
+            push_subpage (build_page ("backups-page"));
+        })] = backups_row;
 
-        privacy_policy_row.activated.connect (() => {
+        signal_map[privacy_policy_row.activated.connect (() => {
             push_subpage (get_privacy_policy_page ());
-        });
+        })] = privacy_policy_row;
 
-        delete_row.activated.connect (() => {
+        signal_map[delete_row.activated.connect (() => {
             Util.get_default ().clear_database (_("Delete All Data?"),
                                                 _("Deletes all your lists, tasks, and reminders irreversibly"),
                                                 Planify.instance.main_window);
+        })] = delete_row;
+
+        add (page);
+        Services.EventBus.get_default ().disconnect_typing_accel ();
+
+        shortcut_controller = new Gtk.ShortcutController ();
+        var shortcut = new Gtk.Shortcut (new Gtk.KeyvalTrigger (Gdk.Key.Escape, 0), new Gtk.CallbackAction ((widget, args) => {
+            close ();
+            return true;
+        }));
+        shortcut_controller.add_shortcut (shortcut);
+        add_controller (shortcut_controller);
+
+        closed.connect (() => {
+            clean_up ();
+            Services.EventBus.get_default ().connect_typing_accel ();
         });
-
-        return page;
-    }
-
-    private Adw.NavigationPage get_general_page () {
-        var settings_header = new Dialogs.Preferences.SettingsHeader (_("General"));
-
-        var sort_projects_model = new Gtk.StringList (null);
-        sort_projects_model.append (_("Custom Sort Order"));
-        sort_projects_model.append (_("Alphabetically"));
-
-        var sort_projects_row = new Adw.ComboRow ();
-        sort_projects_row.title = _("Sort by");
-        sort_projects_row.model = sort_projects_model;
-        sort_projects_row.selected = Services.Settings.get_default ().settings.get_enum ("projects-sort-by");
-
-        var sort_order_projects_model = new Gtk.StringList (null);
-        sort_order_projects_model.append (_("Ascending"));
-        sort_order_projects_model.append (_("Descending"));
-
-        var sort_order_projects_row = new Adw.ComboRow ();
-        sort_order_projects_row.title = _("Ordered");
-        sort_order_projects_row.model = sort_order_projects_model;
-        sort_order_projects_row.selected = Services.Settings.get_default ().settings.get_enum ("projects-ordered");
-        sort_order_projects_row.sensitive = Services.Settings.get_default ().settings.get_enum ("projects-sort-by") ==
-                                            1;
-
-        var sort_setting_group = new Adw.PreferencesGroup ();
-        sort_setting_group.title = _("Projects");
-        sort_setting_group.add (sort_projects_row);
-        sort_setting_group.add (sort_order_projects_row);
-
-        var de_group = new Adw.PreferencesGroup ();
-        de_group.title = _("DE Integration");
-
-        var run_background_switch = new Gtk.Switch () {
-            valign = Gtk.Align.CENTER,
-            active = Services.Settings.get_default ().settings.get_boolean ("run-in-background")
-        };
-
-        var run_background_row = new Adw.ActionRow ();
-        run_background_row.title = _("Run in Background");
-        run_background_row.subtitle = _("Let Planify run in background and send notifications");
-        run_background_row.set_activatable_widget (run_background_switch);
-        run_background_row.add_suffix (run_background_switch);
-
-        // de_group.add (run_background_row);
-
-        var run_on_startup_switch = new Gtk.Switch () {
-            valign = Gtk.Align.CENTER,
-            active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup")
-        };
-
-        var run_on_startup_row = new Adw.ActionRow ();
-        run_on_startup_row.title = _("Run on Startup");
-        run_on_startup_row.subtitle = _("Whether Planify should run on startup");
-        run_on_startup_row.set_activatable_widget (run_on_startup_switch);
-        run_on_startup_row.add_suffix (run_on_startup_switch);
-
-        de_group.add (run_on_startup_row);
-
-        var calendar_events_switch = new Gtk.Switch () {
-            valign = Gtk.Align.CENTER,
-            active = Services.Settings.get_default ().settings.get_boolean ("calendar-enabled")
-        };
-
-        var calendar_events_row = new Adw.ActionRow ();
-        calendar_events_row.title = _("Calendar Events");
-        calendar_events_row.set_activatable_widget (calendar_events_switch);
-        calendar_events_row.add_suffix (calendar_events_switch);
-
-        de_group.add (calendar_events_row);
-
-        var datetime_group = new Adw.PreferencesGroup ();
-        datetime_group.title = _("Date and Time");
-
-        var clock_format_model = new Gtk.StringList (null);
-        clock_format_model.append (_("24h"));
-        clock_format_model.append (_("12h"));
-
-        var clock_format_row = new Adw.ComboRow ();
-        clock_format_row.title = _("Clock Format");
-        clock_format_row.model = clock_format_model;
-        clock_format_row.selected = Services.Settings.get_default ().settings.get_enum ("clock-format");
-
-        datetime_group.add (clock_format_row);
-
-        var start_week_model = new Gtk.StringList (null);
-        start_week_model.append (_("Sunday"));
-        start_week_model.append (_("Monday"));
-        start_week_model.append (_("Tuesday"));
-        start_week_model.append (_("Wednesday"));
-        start_week_model.append (_("Thursday"));
-        start_week_model.append (_("Friday"));
-        start_week_model.append (_("Saturday"));
-
-        var start_week_row = new Adw.ComboRow ();
-        start_week_row.title = _("Start of the Week");
-        start_week_row.model = start_week_model;
-        start_week_row.selected = Services.Settings.get_default ().settings.get_enum ("start-week");
-
-        datetime_group.add (start_week_row);
-
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-        content_box.append (sort_setting_group);
-        content_box.append (de_group);
-        content_box.append (datetime_group);
-
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 600,
-            margin_start = 24,
-            margin_end = 24,
-            margin_bottom = 24
-        };
-
-        content_clamp.child = content_box;
-
-        var scrolled_window = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            hexpand = true,
-            vexpand = true
-        };
-        scrolled_window.child = content_clamp;
-
-        var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (settings_header);
-        toolbar_view.content = scrolled_window;
-
-        var page = new Adw.NavigationPage (toolbar_view, "general");
-
-        sort_projects_row.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_enum ("projects-sort-by", (int) sort_projects_row.selected);
-            sort_order_projects_row.sensitive =
-                Services.Settings.get_default ().settings.get_enum ("projects-sort-by") == 1;
-        });
-
-        sort_order_projects_row.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_enum ("projects-ordered",
-                                                                (int) sort_order_projects_row.selected);
-        });
-
-        run_background_switch.notify["active"].connect (() => {
-            Services.Settings.get_default ().settings.set_boolean ("run-in-background", run_background_switch.active);
-        });
-
-        run_on_startup_switch.notify["active"].connect (() => {
-            Services.Settings.get_default ().settings.set_boolean ("run-on-startup", run_on_startup_switch.active);
-        });
-
-        calendar_events_switch.notify["active"].connect (() => {
-            Services.Settings.get_default ().settings.set_boolean ("calendar-enabled", calendar_events_switch.active);
-        });
-
-        clock_format_row.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_enum ("clock-format", (int) clock_format_row.selected);
-        });
-
-        start_week_row.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_enum ("start-week", (int) start_week_row.selected);
-        });
-
-        settings_header.back_activated.connect (() => {
-            pop_subpage ();
-        });
-
-        return page;
-    }
-
-    private Adw.NavigationPage get_task_setting_page () {
-        var settings_header = new Dialogs.Preferences.SettingsHeader (_("Task Settings"));
-
-        var group = new Adw.PreferencesGroup ();
-
-        var complete_tasks_model = new Gtk.StringList (null);
-        complete_tasks_model.append (_("Instantly"));
-        complete_tasks_model.append (_("Wait 2500 Milliseconds"));
-
-        var complete_tasks_row = new Adw.ComboRow ();
-        complete_tasks_row.title = _("Complete Task");
-        complete_tasks_row.subtitle = _("Complete your to-do instantly or wait 2500 milliseconds with the undo option");
-        complete_tasks_row.model = complete_tasks_model;
-        complete_tasks_row.selected = Services.Settings.get_default ().settings.get_enum ("complete-task");
-
-        group.add (complete_tasks_row);
-
-        var default_priority_model = new Gtk.StringList (null);
-        default_priority_model.append (_("Priority 1"));
-        default_priority_model.append (_("Priority 2"));
-        default_priority_model.append (_("Priority 3"));
-        default_priority_model.append (_("None"));
-
-        var default_priority_row = new Adw.ComboRow ();
-        default_priority_row.title = _("Default Priority");
-        default_priority_row.model = default_priority_model;
-        default_priority_row.selected = Services.Settings.get_default ().settings.get_enum ("default-priority");
-
-        group.add (default_priority_row);
-
-        var underline_completed_switch = new Gtk.Switch () {
-            valign = Gtk.Align.CENTER,
-            active = Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")
-        };
-
-        var underline_completed_row = new Adw.ActionRow ();
-        underline_completed_row.title = _("Cross Out Completed Tasks");
-        underline_completed_row.set_activatable_widget (underline_completed_switch);
-        underline_completed_row.add_suffix (underline_completed_switch);
-
-        group.add (underline_completed_row);
-
-        var tasks_position_model = new Gtk.StringList (null);
-        tasks_position_model.append (_("Top"));
-        tasks_position_model.append (_("Bottom"));
-
-        var tasks_position_row = new Adw.ComboRow ();
-        tasks_position_row.title = _("New Task Position");
-        tasks_position_row.model = tasks_position_model;
-        tasks_position_row.selected = Services.Settings.get_default ().settings.get_enum ("new-tasks-position");
-
-        group.add (tasks_position_row);
-
-        var show_completed_subtasks = new Adw.SwitchRow ();
-        show_completed_subtasks.title = _("Always Show Completed Sub-Tasks");
-        show_completed_subtasks.subtitle = _("Keep all completed subtasks visible without collapsing them");
-        Services.Settings.get_default ().settings.bind ("always-show-completed-subtasks", show_completed_subtasks,
-                                                        "active", GLib.SettingsBindFlags.DEFAULT);
-
-        group.add (show_completed_subtasks);
-
-        var task_complete_tone = new Adw.SwitchRow ();
-        task_complete_tone.title = _("Task Complete Tone");
-        task_complete_tone.subtitle = _("Play a sound when tasks are completed");
-        Services.Settings.get_default ().settings.bind ("task-complete-tone", task_complete_tone, "active",
-                                                        GLib.SettingsBindFlags.DEFAULT);
-
-        group.add (task_complete_tone);
-
-        var open_task_sidebar = new Adw.SwitchRow ();
-        open_task_sidebar.title = _("Open Tasks in Sidebar View");
-        open_task_sidebar.subtitle = _("Always display task details in the sidebar instead of expanding in list view.");
-        Services.Settings.get_default ().settings.bind ("open-task-sidebar", open_task_sidebar, "active",
-                                                        GLib.SettingsBindFlags.DEFAULT);
-
-        group.add (open_task_sidebar);
-
-        var attention_at_one = new Adw.SwitchRow ();
-        attention_at_one.title = _("Single Task Focus Mode");
-        attention_at_one.subtitle = _("Allow only one task to be expanded at a time in list view");
-        Services.Settings.get_default ().settings.bind ("attention-at-one", attention_at_one, "active",
-                                                        GLib.SettingsBindFlags.DEFAULT);
-        Services.Settings.get_default ().settings.bind ("open-task-sidebar", attention_at_one, "sensitive",
-                                                        GLib.SettingsBindFlags.INVERT_BOOLEAN);
-
-        group.add (attention_at_one);
-
-        var markdown_item = new Adw.SwitchRow ();
-        markdown_item.title = _("Enable Markdown Formatting");
-        markdown_item.subtitle = _("Toggle Markdown support for tasks on or off");
-        Services.Settings.get_default ().settings.bind ("enable-markdown-formatting", markdown_item, "active",
-                                                        GLib.SettingsBindFlags.DEFAULT);
-
-        group.add (markdown_item);
-
-        var always_show_sidebar_item = new Adw.SwitchRow ();
-        always_show_sidebar_item.title = _("Always Show Details Sidebar");
-        always_show_sidebar_item.subtitle = _("Keep the details sidebar always visible for faster task navigation, without repeatedly opening and closing it");
-        Services.Settings.get_default ().settings.bind ("always-show-details-sidebar", always_show_sidebar_item,
-                                                        "active", GLib.SettingsBindFlags.DEFAULT);
-
-        group.add (always_show_sidebar_item);
-
-        var reminders_group = new Adw.PreferencesGroup () {
-            title = _("Reminders")
-        };
-
-        var automatic_reminders = new Adw.SwitchRow ();
-        automatic_reminders.title = _("Enabled");
-        Services.Settings.get_default ().settings.bind ("automatic-reminders-enabled", automatic_reminders, "active",
-                                                        GLib.SettingsBindFlags.DEFAULT);
-
-        var reminders_model = new Gtk.StringList (null);
-        reminders_model.append (_("At due time"));
-        reminders_model.append (_("10 minutes before"));
-        reminders_model.append (_("30 minutes before"));
-        reminders_model.append (_("45 minutes before"));
-        reminders_model.append (_("1 hour before"));
-        reminders_model.append (_("2 hours before"));
-        reminders_model.append (_("3 hours before"));
-
-        var reminders_comborow = new Adw.ComboRow ();
-        reminders_comborow.title = _("Automatic reminders");
-        reminders_comborow.subtitle =
-            _("When enabled, a reminder before the task’s due time will be added by default.");
-        reminders_comborow.model = reminders_model;
-        reminders_comborow.selected = Services.Settings.get_default ().settings.get_enum ("automatic-reminders");
-        Services.Settings.get_default ().settings.bind ("automatic-reminders-enabled", reminders_comborow, "sensitive",
-                                                        GLib.SettingsBindFlags.DEFAULT);
-
-        reminders_group.add (automatic_reminders);
-        reminders_group.add (reminders_comborow);
-
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-        content_box.append (group);
-        content_box.append (reminders_group);
-
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 600,
-            margin_start = 24,
-            margin_end = 24,
-            margin_bottom = 24,
-            margin_top = 24
-        };
-
-        content_clamp.child = content_box;
-
-        var scrolled_window = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            hexpand = true,
-            vexpand = true
-        };
-        scrolled_window.child = content_clamp;
-
-        var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (settings_header);
-        toolbar_view.content = scrolled_window;
-
-        var page = new Adw.NavigationPage (toolbar_view, "general");
-
-        complete_tasks_row.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_enum ("complete-task", (int) complete_tasks_row.selected);
-        });
-
-        default_priority_row.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_enum ("default-priority",
-                                                                (int) default_priority_row.selected);
-        });
-
-        tasks_position_row.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_enum ("new-tasks-position",
-                                                                (int) tasks_position_row.selected);
-        });
-
-        underline_completed_switch.notify["active"].connect (() => {
-            Services.Settings.get_default ().settings.set_boolean ("underline-completed-tasks",
-                                                                   underline_completed_switch.active);
-        });
-
-        reminders_comborow.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_enum ("automatic-reminders",
-                                                                (int) reminders_comborow.selected);
-        });
-
-        settings_header.back_activated.connect (() => {
-            pop_subpage ();
-        });
-
-        return page;
-    }
-
-    private Adw.NavigationPage get_sidebar_page () {
-        var sidebar_page = new Dialogs.Preferences.Pages.Sidebar ();
-
-        var page = new Adw.NavigationPage (sidebar_page, "sidebar");
-
-        sidebar_page.pop_subpage.connect (() => {
-            pop_subpage ();
-        });
-
-        return page;
-    }
-
-    private Adw.NavigationPage get_appearance_page () {
-        var page = new Dialogs.Preferences.Pages.Appearance ();
-
-        page.pop_subpage.connect (() => {
-            pop_subpage ();
-        });
-
-        return new Adw.NavigationPage (page, "appearance");
-    }
-
-    private Adw.NavigationPage get_accounts_page () {
-        var accounts_page = new Dialogs.Preferences.Pages.Accounts ();
-
-        accounts_page.push_subpage.connect ((page) => {
-            push_subpage (page);
-        });
-
-        accounts_page.pop_subpage.connect (() => {
-            pop_subpage ();
-        });
-
-        accounts_page.add_toast.connect ((toast) => {
-            add_toast (toast);
-        });
-
-        return new Adw.NavigationPage (accounts_page, "account");
-    }
-
-    private Adw.NavigationPage get_quick_add_page () {
-        var settings_header = new Dialogs.Preferences.SettingsHeader (_("Quick Add"));
-
-        string quick_add_command =
-            "flatpak run --command=io.github.alainm23.planify.quick-add %s".printf (Build.APPLICATION_ID);
-        if (GLib.Environment.get_variable ("SNAP") != null) {
-            quick_add_command = "planify.quick-add";
-        }
-
-        var description_label = new Gtk.Label (
-            _(
-                "Use Quick Add to create to-dos from anywhere on your desktop with just a few keystrokes. You don’t even have to leave the app you’re currently in.")
-            // vala-lint=line-length
-                                ) {
-            justify = Gtk.Justification.FILL,
-            use_markup = true,
-            wrap = true,
-            xalign = 0,
-            margin_end = 6,
-            margin_start = 6
-        };
-
-        var description2_label = new Gtk.Label (
-            _("Head to System Settings → Keyboard → Shortcuts → Custom, then add a new shortcut with the following:")             // vala-lint=line-length
-                                 ) {
-            justify = Gtk.Justification.FILL,
-            use_markup = true,
-            wrap = true,
-            xalign = 0,
-            margin_top = 6,
-            margin_end = 6,
-            margin_start = 6
-        };
-
-        var copy_button = new Gtk.Button.from_icon_name ("edit-copy-symbolic") {
-            valign = CENTER
-        };
-        copy_button.add_css_class ("flat");
-
-        var command_entry = new Adw.ActionRow ();
-        command_entry.add_suffix (copy_button);
-        command_entry.title = quick_add_command;
-        command_entry.add_css_class ("caption");
-        command_entry.add_css_class ("monospace");
-        command_entry.add_css_class ("property");
-
-        var command_group = new Adw.PreferencesGroup () {
-            margin_top = 12
-        };
-        command_group.add (command_entry);
-
-        var settings_group = new Adw.PreferencesGroup ();
-        settings_group.title = _("Settings");
-
-        var save_last_switch = new Gtk.Switch () {
-            valign = Gtk.Align.CENTER,
-            active = Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")
-        };
-
-        var save_last_row = new Adw.ActionRow ();
-        save_last_row.title = _("Save Last Selected Project");
-        save_last_row.subtitle = _("If unchecked, the default project selected is Inbox");
-        save_last_row.set_activatable_widget (save_last_switch);
-        save_last_row.add_suffix (save_last_switch);
-
-        settings_group.add (save_last_row);
-
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
-            vexpand = true,
-            hexpand = true
-        };
-
-        content_box.append (description_label);
-        content_box.append (description2_label);
-        content_box.append (command_group);
-        content_box.append (settings_group);
-
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 400,
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12
-        };
-
-        content_clamp.child = content_box;
-
-        var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (settings_header);
-        toolbar_view.content = content_clamp;
-
-        var page = new Adw.NavigationPage (toolbar_view, "quick-add");
-
-        copy_button.clicked.connect (() => {
-            Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
-            clipboard.set_text (quick_add_command);
-            add_toast (Util.get_default ().create_toast (_("The command was copied to the clipboard")));
-        });
-
-        settings_header.back_activated.connect (() => {
-            pop_subpage ();
-        });
-
-        save_last_switch.notify["active"].connect (() => {
-            Services.Settings.get_default ().settings.set_boolean ("quick-add-save-last-project",
-                                                                   save_last_switch.active);
-        });
-
-        return page;
-    }
-
-    private Adw.NavigationPage get_backups_page () {
-        var backup_page = new Dialogs.Preferences.Pages.Backup ();
-
-        var page = new Adw.NavigationPage (backup_page, "backups-page");
-
-        backup_page.pop_subpage.connect (() => {
-            pop_subpage ();
-        });
-
-        backup_page.popup_toast.connect ((msg) => {
-            var toast = new Adw.Toast (msg);
-            toast.timeout = 3;
-            add_toast (toast);
-        });
-
-        return page;
     }
 
     private Adw.NavigationPage get_privacy_policy_page () {
-        var settings_header = new Dialogs.Preferences.SettingsHeader (_("Privacy Policy"));
-
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             vexpand = true,
             hexpand = true
@@ -939,16 +414,14 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (settings_header);
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
         toolbar_view.content = scrolled_window;
 
-        var page = new Adw.NavigationPage (toolbar_view, "oauth-todoist");
-
-        settings_header.back_activated.connect (() => {
-            pop_subpage ();
-        });
-
-        contact_us_button.clicked.connect (() => {
+        var page = new Adw.NavigationPage (toolbar_view, "oauth-todoist") {
+            title = _("Privacy Policy")
+        };
+        
+        signal_map[contact_us_button.clicked.connect (() => {
             string uri = "mailto:%s".printf (Constants.CONTACT_US);
 
             try {
@@ -956,113 +429,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             } catch (Error e) {
                 warning ("%s\n", e.message);
             }
-        });
-
-        return page;
-    }
-
-    private Adw.NavigationPage get_support_page () {
-        var settings_header = new Dialogs.Preferences.SettingsHeader (_("Supporting Us"));
-
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
-            vexpand = true,
-            hexpand = true
-        };
-
-        content_box.append (new Gtk.Label (_(
-                                               "Our mission is to provide the best open source task management application for users all over the world. Your donations support this work. Want to donate today?")) {
-            wrap = true,
-            xalign = 0
-        });
-
-        var patreon_row = new Adw.ActionRow ();
-        patreon_row.activatable = true;
-        patreon_row.add_suffix (generate_icon ("go-next-symbolic", 16));
-        patreon_row.title = _("Patreon");
-
-        patreon_row.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.PATREON_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
-        });
-
-        var paypal_row = new Adw.ActionRow ();
-        paypal_row.activatable = true;
-        paypal_row.add_suffix (generate_icon ("go-next-symbolic", 16));
-        paypal_row.title = _("PayPal");
-
-        paypal_row.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.PAYPAL_ME_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
-        });
-
-        var liberapay_row = new Adw.ActionRow ();
-        liberapay_row.activatable = true;
-        liberapay_row.add_suffix (generate_icon ("go-next-symbolic", 16));
-        liberapay_row.title = _("Liberapay");
-
-        liberapay_row.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.LIBERAPAY_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
-        });
-
-        var kofi_row = new Adw.ActionRow ();
-        kofi_row.activatable = true;
-        kofi_row.add_suffix (generate_icon ("go-next-symbolic", 16));
-        kofi_row.title = _("Ko-fi");
-
-        kofi_row.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.KOFI_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
-        });
-
-        var group = new Adw.PreferencesGroup () {
-            margin_top = 12
-        };
-        group.add (patreon_row);
-        group.add (paypal_row);
-        group.add (liberapay_row);
-        group.add (kofi_row);
-
-        content_box.append (group);
-
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 400,
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12
-        };
-
-        content_clamp.child = content_box;
-
-        var scrolled_window = new Gtk.ScrolledWindow () {
-            hexpand = true,
-            vexpand = true,
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            child = content_clamp
-        };
-
-        var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (settings_header);
-        toolbar_view.content = scrolled_window;
-
-        var page = new Adw.NavigationPage (toolbar_view, "oauth-todoist");
-
-        settings_header.back_activated.connect (() => {
-            pop_subpage ();
-        });
+        })] = contact_us_button;
 
         return page;
     }
@@ -1077,43 +444,59 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         if (page_map.has_key (page)) {
             return page_map[page];
         }
-
-        if (page == "home-view") {
-            page_map[page] = new Dialogs.Preferences.Pages.HomeView (this);
+        
+        switch (page) {
+            case "accounts":
+                page_map[page] = new Dialogs.Preferences.Pages.Accounts (this);
+                break;
+            case "home-view":
+                page_map[page] = new Dialogs.Preferences.Pages.HomeView (this);
+                break;
+            case "appearance":
+                page_map[page] = new Dialogs.Preferences.Pages.Appearance (this);
+                break;
+            case "backups-page":
+                page_map[page] = new Dialogs.Preferences.Pages.Backup (this);
+                break;
+            case "sidebar-page":
+                page_map[page] = new Dialogs.Preferences.Pages.Sidebar (this);
+                break;
+            case "general-page":
+                page_map[page] = new Dialogs.Preferences.Pages.General (this);
+                break;
+            case "task-setting":
+                page_map[page] = new Dialogs.Preferences.Pages.TaskSetting (this);
+                break;
+            case "quick-add":
+                page_map[page] = new Dialogs.Preferences.Pages.QuickAdd (this);
+                break;
+            case "support":
+                page_map[page] = new Dialogs.Preferences.Pages.Support (this);
+                break;
+            default:
+                warning ("The page %s does not exist\n", page);
+                return null;
         }
 
         return page_map[page];
     }
-}
 
-private class ValidationMessage : Gtk.Box {
-    public Gtk.Label label_widget { get; construct; }
-    public string label { get; construct set; }
-    public bool reveal_child { get; set; }
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
 
-    public ValidationMessage (string label) {
-        Object (label: label);
-    }
+        signal_map.clear ();
 
-    construct {
-        label_widget = new Gtk.Label (label) {
-            halign = Gtk.Align.END,
-            justify = Gtk.Justification.RIGHT,
-            max_width_chars = 55,
-            wrap = true,
-            xalign = 1
-        };
-        label_widget.add_css_class ("caption");
+        if (shortcut_controller != null) {
+            remove_controller (shortcut_controller);
+            shortcut_controller = null;
+        }
 
-        var revealer = new Gtk.Revealer () {
-            child = label_widget,
-            transition_type = CROSSFADE
-        };
+        foreach (Dialogs.Preferences.Pages.BasePage page in page_map.values) {
+            page.clean_up ();
+        }
 
-        append (revealer);
-
-        bind_property ("reveal-child", revealer, "reveal-child", BIDIRECTIONAL | SYNC_CREATE);
-
-        bind_property ("label", label_widget, "label");
+        page_map.clear ();
     }
 }

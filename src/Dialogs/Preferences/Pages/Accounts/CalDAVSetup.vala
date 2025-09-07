@@ -19,8 +19,7 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
-
+public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.BasePage {
     public Accounts accounts_page { get; construct; }
 
     private Adw.EntryRow server_entry;
@@ -34,25 +33,21 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
     private Adw.EntryRow calendar_home_entry;
     private Widgets.IgnoreSSLSwitchRow ignore_ssl_row;
 
-    public CalDAVSetup (Accounts accounts_page) {
-        Object (accounts_page: accounts_page);
-    }
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    construct {
-        title = "CalDAV Setup";
-
-        setup_ui ();
-        connect_signals ();
+    public CalDAVSetup (Adw.PreferencesDialog preferences_dialog, Accounts accounts_page) {
+        Object (
+            preferences_dialog: preferences_dialog,
+            accounts_page: accounts_page,
+            title: _("CalDAV")
+        );
     }
 
     ~CalDAVSetup () {
         print ("Destroying Dialogs.Preferences.Pages.CalDAVSetup\n");
     }
 
-    private void setup_ui () {
-        var header = new Dialogs.Preferences.SettingsHeader (_("CalDAV Setup"));
-        header.back_activated.connect (() => accounts_page.pop_subpage ());
-
+    construct {
         server_entry = new Adw.EntryRow ();
         server_entry.title = _("Server URL");
 
@@ -84,9 +79,9 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
             css_classes = { "flat" }
         };
 
-        advanced_button.clicked.connect (() => {
+        signal_map[advanced_button.clicked.connect (() => {
             advanced_options_revealer.reveal_child = !advanced_options_revealer.reveal_child;
-        });
+        })] = advanced_button;
 
         advanced_entries_group.add (calendar_home_entry);
         advanced_entries_group.add (ignore_ssl_row);
@@ -127,25 +122,27 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
         };
 
         var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (header);
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
         toolbar_view.content = content_clamp;
 
         child = toolbar_view;
-    }
 
-    private void connect_signals () {
-        server_entry.changed.connect (() => validate_entries ());
-        username_entry.changed.connect (() => validate_entries ());
-        password_entry.changed.connect (() => validate_entries ());
+        signal_map[server_entry.changed.connect (() => validate_entries ())] = server_entry;
+        signal_map[username_entry.changed.connect (() => validate_entries ())] = username_entry;
+        signal_map[password_entry.changed.connect (() => validate_entries ())] = password_entry;
 
-        login_button.clicked.connect (() => on_login_button_clicked ());
+        signal_map[login_button.clicked.connect (() => on_login_button_clicked ())] = login_button;
 
-        Services.CalDAV.Core.get_default ().first_sync_started.connect (() => {
+        signal_map[Services.CalDAV.Core.get_default ().first_sync_started.connect (() => {
             login_button.is_loading = true;
-        });
+        })] = Services.CalDAV.Core.get_default ();
 
-        Services.CalDAV.Core.get_default ().first_sync_finished.connect (() => {
-            accounts_page.pop_subpage ();
+        signal_map[Services.CalDAV.Core.get_default ().first_sync_finished.connect (() => {
+            preferences_dialog.pop_subpage ();
+        })] = Services.CalDAV.Core.get_default ();
+
+        destroy.connect (() => {
+            clean_up ();
         });
     }
 
@@ -169,7 +166,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
         login_button.is_loading = true;
         cancel_button.visible = true;
 
-        cancel_button.clicked.connect (() => cancellable.cancel ());
+        signal_map[cancel_button.clicked.connect (() => cancellable.cancel ())] = cancel_button;
 
         do_login.begin (cancellable);
     }
@@ -224,7 +221,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Adw.NavigationPage {
             if (response.error_code == 409) {
                 var toast = new Adw.Toast (response.error.strip ());
                 toast.timeout = 3;
-                accounts_page.add_toast (toast);
+                preferences_dialog.add_toast (toast);
             } else {
                 accounts_page.show_message_error (response.error_code, response.error.strip ());
             }
