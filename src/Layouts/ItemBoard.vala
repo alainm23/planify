@@ -63,20 +63,37 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     public bool is_loading {
         set {
             _is_loading = value;
-
-            if (_is_loading) {
-                hide_loading_revealer.reveal_child = _is_loading;
-                hide_loading_button.is_loading = _is_loading;
-            } else {
-                hide_loading_button.is_loading = _is_loading;
-                hide_loading_revealer.reveal_child = false;
-            }
+            
+            hide_loading_button.is_loading = _is_loading;
+            set_loading_state (_is_loading);
         }
 
         get {
             return _is_loading;
         }
     }
+
+    private bool _pin_mode = false;
+    public bool pin_mode {
+        get {
+            return _pin_mode;
+        }
+        set {
+            _pin_mode = value;
+
+            if (_pin_mode) {
+                hide_loading_revealer.reveal_child = true;
+                card_widget.margin_end = 6;
+                card_widget.margin_top = 6;
+                handle_grid.width_request = 200;
+            } else {
+                card_widget.margin_end = 0;
+                card_widget.margin_top = 0;
+                handle_grid.width_request = -1;
+            }
+        }
+}
+
 
     public bool on_drag = false;
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
@@ -129,8 +146,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         hide_loading_button = new Widgets.LoadingButton.with_icon ("window-close", 16) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            margin_top = 7,
-            margin_end = 7,
             tooltip_text = _ ("Unpin"),
             css_classes = { "min-height-0", "view-button" }
         };
@@ -1119,12 +1134,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         main_revealer.reveal_child = false;
     }
 
-    public void activate_pin_view () {
-        hide_loading_revealer.reveal_child = true;
-        handle_grid.margin_top = 3;
-        handle_grid.margin_start = 3;
-        handle_grid.margin_end = 6;
-        handle_grid.width_request = 200;
+    private void set_loading_state (bool loading) {
+        if (pin_mode) {
+            hide_loading_revealer.reveal_child = true;
+        } else {
+            hide_loading_revealer.reveal_child = loading;
+        }
     }
 
     public void clean_up () {
