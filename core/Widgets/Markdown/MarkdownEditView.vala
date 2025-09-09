@@ -97,7 +97,7 @@ public class Widgets.Markdown.EditView : Adw.Bin {
             hexpand = true,
             tab_width = 4,
             auto_indent = true,
-            wrap_mode = Gtk.WrapMode.CHAR,
+            wrap_mode = Gtk.WrapMode.WORD,
             show_gutter = false,
             height_request = 64,
             text_mode = !Services.Settings.get_default ().settings.get_boolean ("enable-markdown-formatting"),
