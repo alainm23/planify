@@ -533,7 +533,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             margin_top = 3,
             margin_bottom = 3,
             margin_end = 3,
-            margin_start = 6
+            margin_start = 3
         };
         _itemrow_box.append (handle_grid);
         _itemrow_box.append (select_revealer);
@@ -922,7 +922,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         } else {
             checked_button_revealer.reveal_child = false;
             action_box.margin_start = 0;
-            content_box.margin_start = 0;
+            content_box.margin_start = 3;
         }
 
         if (markdown_edit_view != null) {
