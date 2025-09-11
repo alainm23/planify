@@ -1213,7 +1213,7 @@ We hope you’ll enjoy using Planify!""");
         if (sorted_by == SortedByType.MANUAL) {
             result = item1.child_order - item2.child_order;
         } else if (sorted_by == SortedByType.NAME) {
-            result = Util.get_default ().natural_compare (item1.content.strip (), item2.content.strip ());
+            result = natural_compare (item1.content.strip (), item2.content.strip ());
         } else if (sorted_by == SortedByType.DUE_DATE) {
             if (item1.has_due && item2.has_due) {
                 var date1 = item1.due.datetime;

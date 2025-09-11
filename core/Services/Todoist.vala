@@ -852,7 +852,6 @@ public class Services.Todoist : GLib.Object {
     public async HttpResponse update (Objects.BaseObject object) {
         string uuid = Util.get_default ().generate_string ();
         string json = object.get_update_json (uuid);
-        print ("UPDATED\n" + json + "\n");
 
         Objects.Source source = object.source;
 
