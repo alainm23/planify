@@ -222,36 +222,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
         listbox.set_filter_func ((row) => {
             var item = ((Layouts.ItemBoard) row).item;
-            bool return_value = true;
-
-            if (section.project.filters.size <= 0) {
-                return true;
-            }
-
-            return_value = false;
-            foreach (Objects.Filters.FilterItem filter in section.project.filters.values) {
-                if (filter.filter_type == FilterItemType.PRIORITY) {
-                    return_value = return_value || item.priority == int.parse (filter.value);
-                } else if (filter.filter_type == FilterItemType.LABEL) {
-                    return_value = return_value || item.has_label (filter.value);
-                } else if (filter.filter_type == FilterItemType.DUE_DATE) {
-                    if (filter.value == "1") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_today (item.due.datetime));
-                    } else if (filter.value == "2") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_this_week (item.due.datetime));
-                    } else if (filter.value == "3") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_next_x_week (item.due.datetime, 7));
-                    } else if (filter.value == "4") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_this_month (item.due.datetime));
-                    } else if (filter.value == "5") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_next_x_week (item.due.datetime, 30));
-                    } else if (filter.value == "6") {
-                        return_value = return_value || !item.has_due;
-                    }
-                }
-            }
-
-            return return_value;
+            return Utils.TaskUtils.items_filter_func (item, section.project.filters);
         });
 
         signals_map[listbox.row_selected.connect ((row) => {

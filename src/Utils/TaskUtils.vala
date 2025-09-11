@@ -66,4 +66,36 @@ public class Utils.TaskUtils {
             row.item.update_async ();
         }
     }
+
+    public static bool items_filter_func (Objects.Item item, Gee.HashMap<string, Objects.Filters.FilterItem> filters) {
+        if (filters.size <= 0) {
+            return true;
+        }
+
+        bool return_value = false;
+
+        foreach (Objects.Filters.FilterItem filter in filters.values) {
+            if (filter.filter_type == FilterItemType.PRIORITY) {
+                return_value = return_value || item.priority == int.parse (filter.value);
+            } else if (filter.filter_type == FilterItemType.LABEL) {
+                return_value = return_value || item.has_label (filter.value);
+            } else if (filter.filter_type == FilterItemType.DUE_DATE) {
+                if (filter.value == "1") {
+                    return_value = return_value || (item.has_due && Utils.Datetime.is_today (item.due.datetime));
+                } else if (filter.value == "2") {
+                    return_value = return_value || (item.has_due && Utils.Datetime.is_this_week (item.due.datetime));
+                } else if (filter.value == "3") {
+                    return_value = return_value || (item.has_due && Utils.Datetime.is_next_x_week (item.due.datetime, 7));
+                } else if (filter.value == "4") {
+                    return_value = return_value || (item.has_due && Utils.Datetime.is_this_month (item.due.datetime));
+                } else if (filter.value == "5") {
+                    return_value = return_value || (item.has_due && Utils.Datetime.is_next_x_week (item.due.datetime, 30));
+                } else if (filter.value == "6") {
+                    return_value = return_value || !item.has_due;
+                }
+            }
+        }
+
+        return return_value;
+    }
 }
