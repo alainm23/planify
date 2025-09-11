@@ -123,6 +123,7 @@ public class Services.Database : GLib.Object {
         table_columns["Projects"].add ("sync_id");
         table_columns["Projects"].add ("source_id");
         table_columns["Projects"].add ("calendar_url");
+        table_columns["Projects"].add ("sorted_by");
 
         table_columns["Queue"] = new Gee.ArrayList<string> ();
         table_columns["Queue"].add ("uuid");
@@ -224,7 +225,8 @@ public class Services.Database : GLib.Object {
                 inbox_section_hidded    INTEGER,
                 sync_id                 TEXT,
                 source_id               TEXT,
-                calendar_url            TEXT
+                calendar_url            TEXT,
+                sorted_by               TEXT
             );
         """;
 
@@ -625,6 +627,7 @@ public class Services.Database : GLib.Object {
          */
 
         add_calendar_url_to_project ();
+        add_text_column ("Projects", "sorted_by", SortedByType.MANUAL.to_string ());
     }
 
     public void clear_database () {
@@ -867,7 +870,7 @@ public class Services.Database : GLib.Object {
         return_value.is_favorite = get_parameter_bool (stmt, 9);
         return_value.shared = get_parameter_bool (stmt, 10);
         return_value.view_style = ProjectViewStyle.parse (stmt.column_text (11));
-        return_value.sort_order = stmt.column_int (12);
+        return_value.sort_order = SortOrderType.parse (stmt.column_text (12));
         return_value.parent_id = stmt.column_text (13);
         return_value.collapsed = get_parameter_bool (stmt, 14);
         return_value.icon_style = ProjectIconStyle.parse (stmt.column_text (15));
@@ -879,6 +882,7 @@ public class Services.Database : GLib.Object {
         return_value.sync_id = stmt.column_text (21);
         return_value.source_id = stmt.column_text (22);
         return_value.calendar_url = stmt.column_text (23);
+        return_value.sorted_by = SortedByType.parse (stmt.column_text (24));
         return return_value;
     }
 
@@ -889,11 +893,11 @@ public class Services.Database : GLib.Object {
             INSERT OR IGNORE INTO Projects (id, name, color, backend_type, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
                 sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description, due_date,
-                inbox_section_hidded, sync_id, source_id, calendar_url)
+                inbox_section_hidded, sync_id, source_id, calendar_url, sorted_by)
             VALUES ($id, $name, $color, $backend_type, $inbox_project, $team_inbox,
                 $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
                 $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description, $due_date,
-                $inbox_section_hidded, $sync_id, $source_id, $calendar_url);
+                $inbox_section_hidded, $sync_id, $source_id, $calendar_url, $sorted_by);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -909,7 +913,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$is_favorite", project.is_favorite);
         set_parameter_bool (stmt, "$shared", project.shared);
         set_parameter_str (stmt, "$view_style", project.view_style.to_string ());
-        set_parameter_int (stmt, "$sort_order", project.sort_order);
+        set_parameter_str (stmt, "$sort_order", project.sort_order.to_string ());
         set_parameter_str (stmt, "$parent_id", project.parent_id);
         set_parameter_bool (stmt, "$collapsed", project.collapsed);
         set_parameter_str (stmt, "$icon_style", project.icon_style.to_string ());
@@ -921,6 +925,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$sync_id", project.sync_id);
         set_parameter_str (stmt, "$source_id", project.source_id);
         set_parameter_str (stmt, "$calendar_url", project.calendar_url);
+        set_parameter_str (stmt, "$sorted_by", project.sorted_by.to_string ());
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -991,7 +996,8 @@ public class Services.Database : GLib.Object {
                 inbox_section_hidded=$inbox_section_hidded,
                 sync_id=$sync_id,
                 source_id=$source_id,
-                calendar_url=$calendar_url
+                calendar_url=$calendar_url,
+                sorted_by=$sorted_by
             WHERE id=$id;
         """;
 
@@ -1007,7 +1013,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$is_favorite", project.is_favorite);
         set_parameter_bool (stmt, "$shared", project.shared);
         set_parameter_str (stmt, "$view_style", project.view_style.to_string ());
-        set_parameter_int (stmt, "$sort_order", project.sort_order);
+        set_parameter_str (stmt, "$sort_order", project.sort_order.to_string ());
         set_parameter_str (stmt, "$parent_id", project.parent_id);
         set_parameter_bool (stmt, "$collapsed", project.collapsed);
         set_parameter_str (stmt, "$icon_style", project.icon_style.to_string ());
@@ -1019,6 +1025,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$sync_id", project.sync_id);
         set_parameter_str (stmt, "$source_id", project.source_id);
         set_parameter_str (stmt, "$calendar_url", project.calendar_url);
+        set_parameter_str (stmt, "$sorted_by", project.sorted_by.to_string ());
         set_parameter_str (stmt, "$id", project.id);
 
         if (stmt.step () != Sqlite.DONE) {

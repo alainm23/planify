@@ -27,6 +27,8 @@ sources = files(
   'Services/Backups.vala',
   'Services/MigrateFromPlanner.vala',
 
+  'Utils/TaskUtils.vala',
+
   'Services/CalendarEvents/CalendarEvents.vala',
   'Services/CalendarEvents/DateIterator.vala',
   'Services/CalendarEvents/DateRange.vala',

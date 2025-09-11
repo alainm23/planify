@@ -62,6 +62,30 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    SortedByType _sorted_by = SortedByType.MANUAL;
+    public SortedByType sorted_by {
+        get {
+            return _sorted_by;
+        }
+
+        set {
+            _sorted_by = value;
+            sorted_by_changed ();
+        }
+    }
+
+    SortOrderType _sort_order = SortOrderType.ASC;
+    public SortOrderType sort_order {
+        get {
+            return _sort_order;
+        }
+
+        set {
+            _sort_order = value;
+            sort_order_changed ();
+        }
+    }
+
     public SourceType source_type {
         get {
             return source.source_type;
@@ -81,18 +105,6 @@ public class Objects.Project : Objects.BaseObject {
         get {
             _color_hex = Util.get_default ().get_color (color);
             return _color_hex;
-        }
-    }
-
-    int _sort_order = 0;
-    public int sort_order {
-        get {
-            return _sort_order;
-        }
-
-        set {
-            _sort_order = value;
-            sort_order_changed ();
         }
     }
 
@@ -150,16 +162,10 @@ public class Objects.Project : Objects.BaseObject {
     Gee.ArrayList<Objects.Item> _items;
     public Gee.ArrayList<Objects.Item> items {
         get {
-            _items = Services.Store.instance ().get_item_by_baseobject (this);
+            _items = Services.Store.instance ().get_items_by_baseobject (this);
             _items.sort ((a, b) => {
-                if (a.child_order > b.child_order) {
-                    return 1;
-                }
-                if (a.child_order == b.child_order) {
-                    return 0;
-                }
-
-                return -1;
+                int comparison = a.child_order - b.child_order;
+                return sort_order == SortOrderType.ASC ? comparison : -comparison;
             });
 
             return _items;
@@ -212,6 +218,7 @@ public class Objects.Project : Objects.BaseObject {
     public signal void item_deleted (Objects.Item item);
     public signal void show_completed_changed ();
     public signal void sort_order_changed ();
+    public signal void sorted_by_changed ();
     public signal void section_sort_order_changed ();
     public signal void view_style_changed ();
 

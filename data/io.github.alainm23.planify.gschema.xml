@@ -166,14 +166,14 @@
             <description>Stores the position of the sidebar pane divider in pixels to maintain the preferred layout</description>
         </key>
 
-        <key name="today-sort-order" type="i">
-            <default>0</default>
+        <key name="today-sort-order" type="s">
+            <default>"name"</default>
             <summary>Today view sort order</summary>
             <description>Controls how tasks are sorted in the Today view</description>
         </key>
 
-        <key name="scheduled-sort-order" type="i">
-            <default>0</default>
+        <key name="scheduled-sort-order" type="s">
+            <default>"name"</default>
             <summary>Scheduled view sort order</summary>
             <description>Controls how tasks are sorted in the Scheduled view</description>
         </key>

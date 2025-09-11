@@ -274,8 +274,8 @@ public enum PickerType {
 }
 
 public enum NewTaskPosition {
-    TOP = 0,
-    BOTTOM = 1,
+    START = 0,
+    END = 1,
 }
 
 public enum CalDAVType {
@@ -609,6 +609,89 @@ public enum ItemPriority {
 
             default:
                 assert_not_reached ();
+        }
+    }
+}
+
+public enum SortOrderType {
+    ASC,
+    DESC;
+
+    public string to_string () {
+        switch (this) {
+            case ASC:
+                return "asc";
+
+            case DESC:
+                return "desc";
+
+            default:
+                return "asc";
+        }
+    }
+
+    public static SortOrderType parse (string value) {
+        switch (value) {
+            case "asc":
+                return SortOrderType.ASC;
+
+            case "desc":
+                return SortOrderType.DESC;
+
+            default:
+                return SortOrderType.ASC;
+        }
+    }
+}
+
+public enum SortedByType {
+    MANUAL,
+    NAME,
+    DUE_DATE,
+    ADDED_DATE,
+    PRIORITY;
+
+    public string to_string () {
+        switch (this) {
+            case MANUAL:
+                return "manual";
+
+            case NAME:
+                return "name";
+
+            case DUE_DATE:
+                return "due-date";
+
+            case ADDED_DATE:
+                return "added-date";
+
+            case PRIORITY:
+                return "priority";
+
+            default:
+                return "manual";
+        }
+    }
+
+    public static SortedByType parse (string value) {
+        switch (value) {
+            case "manual":
+                return SortedByType.MANUAL;
+
+            case "name":
+                return SortedByType.NAME;
+
+            case "due-date":
+                return SortedByType.DUE_DATE;
+
+            case "added-date":
+                return SortedByType.ADDED_DATE;
+
+            case "priority":
+                return SortedByType.PRIORITY;
+
+            default:
+                return SortedByType.MANUAL;
         }
     }
 }

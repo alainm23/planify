@@ -606,15 +606,14 @@ public class Views.Today : Adw.Bin {
     }
 
     private Gtk.Popover build_view_setting_popover () {
-        var order_by_model = new Gee.ArrayList<string> ();
-        order_by_model.add (_("Due Date"));
-        order_by_model.add (_("Alphabetically"));
-        order_by_model.add (_("Date Added"));
-        order_by_model.add (_("Priority"));
-
-        var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "view-list-ordered-symbolic", order_by_model);
-        order_by_item.selected = Services.Settings.get_default ().settings.get_int ("today-sort-order");
-
+        var sorted_by_item = new Widgets.ContextMenu.MenuPicker (_ ("Sorting"), "vertical-arrows-long-symbolic") {
+            selected = Services.Settings.get_default ().settings.get_string ("today-sort-order")
+        };
+        sorted_by_item.add_item (_("Alphabetically"), SortedByType.NAME.to_string ());
+        sorted_by_item.add_item (_("Due Date"), SortedByType.DUE_DATE.to_string ());
+        sorted_by_item.add_item (_("Date Added"), SortedByType.ADDED_DATE.to_string ());
+        sorted_by_item.add_item (_("Priority"), SortedByType.PRIORITY.to_string ());
+        
         // Filters
         var priority_items = new Gee.ArrayList<Objects.Filters.FilterItem> ();
 
@@ -651,7 +650,7 @@ public class Views.Today : Adw.Bin {
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (order_by_item);
+        menu_box.append (sorted_by_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (new Gtk.Label (_("Filter By")) {
             css_classes = { "heading", "h4" },
@@ -670,8 +669,8 @@ public class Views.Today : Adw.Bin {
             width_request = 250
         };
 
-        order_by_item.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_int ("today-sort-order", order_by_item.selected);
+        sorted_by_item.notify["selected"].connect (() => {
+            Services.Settings.get_default ().settings.set_string ("today-sort-order", sorted_by_item.selected);
         });
 
         priority_filter.filter_change.connect ((filter, active) => {
@@ -737,44 +736,15 @@ public class Views.Today : Adw.Bin {
     private int set_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
         Objects.Item item1 = ((Layouts.ItemRow) lbrow).item;
         Objects.Item item2 = ((Layouts.ItemRow) lbbefore).item;
-        int sort_order = Services.Settings.get_default ().settings.get_int ("today-sort-order");
 
-        if (sort_order == 0) {
-            if (item1.has_due && item2.has_due) {
-                var date1 = item1.due.datetime;
-                var date2 = item2.due.datetime;
+        SortedByType sorted_by = SortedByType.parse (Services.Settings.get_default ().settings.get_string ("today-sort-order"));
 
-                return date1.compare (date2);
-            }
-
-            if (!item1.has_due && item2.has_due) {
-                return 1;
-            }
-
-            return 0;
-        }
-
-        if (sort_order == 1) {
-            return item1.content.strip ().collate (item2.content.strip ());
-        }
-
-        if (sort_order == 2) {
-            return item1.added_datetime.compare (item2.added_datetime);
-        }
-
-        if (sort_order == 3) {
-            if (item1.priority < item2.priority) {
-                return 1;
-            }
-
-            if (item1.priority < item2.priority) {
-                return -1;
-            }
-
-            return 0;
-        }
-
-        return 0;
+        return Util.get_default ().set_item_sort_func (
+            item1,
+            item2,
+            sorted_by,
+            SortOrderType.ASC
+        );
     }
 
     private void check_default_view () {

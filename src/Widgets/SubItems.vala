@@ -452,21 +452,14 @@ public class Widgets.SubItems : Adw.Bin {
             items_map[item.id] = new Layouts.ItemRow (item, is_project_view);
         }
 
-        if (item.custom_order) {
-            listbox.insert (items_map[item.id], item.child_order);
-        } else {
-            listbox.append (items_map[item.id]);
-        }
-
+        listbox.append (items_map[item.id]);
+        
         children_changes ();
     }
 
     private void update_sort () {
-        if (item_parent.project.sort_order == 0) {
-            listbox.set_sort_func (null);
-        } else {
-            listbox.set_sort_func (set_sort_func);
-        }
+        listbox.set_sort_func (set_sort_func);
+        listbox.set_sort_func (null);
     }
 
     private int set_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
@@ -479,6 +472,10 @@ public class Widgets.SubItems : Adw.Bin {
         } else {
             item1 = ((Layouts.ItemRow) lbrow).item;
             item2 = ((Layouts.ItemRow) lbbefore).item;
+        }
+
+        if (item_parent.project.sort_order == 0) {
+            return item2.child_order - item1.child_order;
         }
 
         if (item_parent.project.sort_order == 1) {

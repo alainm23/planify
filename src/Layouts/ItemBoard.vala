@@ -815,7 +815,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
                     motion_top_grid.height_request = picked_widget.card_widget.get_height ();
                     motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
-                } else if (value.dup_object () is Widgets.MagicButton) {
+                } else if (value.dup_object () is Widgets.MagicButton && item.project.sorted_by == SortedByType.MANUAL) {
                     motion_top_grid.height_request = 32;
                     motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
                 }
@@ -936,8 +936,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         var drop_order_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_magic_button_target);
         signals_map[drop_order_magic_button_target.drop.connect ((value, x, y) => {
-            var dialog = new Dialogs.QuickAdd ();
-            dialog.set_index (get_index ());
+            var dialog = new Dialogs.QuickAdd () {
+                position = get_index ()
+            };
 
             if (item.section_id != "") {
                 dialog.for_base_object (item.section);
@@ -957,8 +958,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         signals_map[drop_order_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
-            var old_section_id = "";
-            var old_parent_id = "";
 
             picked_widget.drag_end ();
             target_widget.drag_end ();
@@ -977,8 +976,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 item.project.update_local ();
             }
 
-            old_section_id = picked_widget.item.section_id;
-            old_parent_id = picked_widget.item.parent_id;
+            string old_section_id = picked_widget.item.section_id;
+            string old_parent_id = picked_widget.item.parent_id;
 
             if (picked_widget.item.project_id != target_widget.item.project_id ||
                 picked_widget.item.section_id != target_widget.item.section_id ||
@@ -1023,10 +1022,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             var source_list = (Gtk.ListBox) picked_widget.parent;
             var target_list = (Gtk.ListBox) target_widget.parent;
 
+            int new_index = target_widget.get_index ();
+
             source_list.remove (picked_widget);
-            target_list.insert (picked_widget, target_widget.get_index ());
+            target_list.insert (picked_widget, new_index);
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
-            update_items_item_order (target_list);
+
+            Utils.TaskUtils.update_single_item_order (target_list, picked_widget, new_index);
 
             return true;
         })] = drop_order_target;
@@ -1042,22 +1044,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         card_widget.remove_css_class ("drop-begin");
         on_drag = false;
         main_revealer.reveal_child = item.show_item;
-    }
-
-    private void update_items_item_order (Gtk.ListBox listbox) {
-        unowned Layouts.ItemBoard ? item_row = null;
-        var row_index = 0;
-
-        do {
-            item_row = (Layouts.ItemBoard) listbox.get_row_at_index (row_index);
-
-            if (item_row != null) {
-                item_row.item.child_order = row_index;
-                Services.Store.instance ().update_item (item_row.item);
-            }
-
-            row_index++;
-        } while (item_row != null);
     }
 
     public override void delete_request (bool undo = true) {

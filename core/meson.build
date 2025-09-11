@@ -3,9 +3,9 @@ core_files = files(
     'Constants.vala',
     'QuickAdd.vala',
 
-    'Util/Util.vala',
-    'Util/Datetime.vala',
-    'Util/MarkdownProcessor.vala',
+    'Utils/Util.vala',
+    'Utils/Datetime.vala',
+    'Utils/MarkdownProcessor.vala',
 
     'Services/Settings.vala',
     'Services/EventBus.vala',

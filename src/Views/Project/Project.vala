@@ -191,7 +191,7 @@ public class Views.Project : Adw.Bin {
             priority_filter.unchecked (filter);
 
             if (filter.filter_type == FilterItemType.DUE_DATE) {
-                due_date_item.selected = 0;
+                due_date_item.selected = "0";
             }
 
             check_default_filters ();
@@ -210,7 +210,11 @@ public class Views.Project : Adw.Bin {
     private void check_default_filters () {
         bool defaults = true;
 
-        if (project.sort_order != 0) {
+        if (project.sorted_by != SortedByType.MANUAL) {
+            defaults = false;
+        }
+
+        if (project.sort_order != SortOrderType.ASC) {
             defaults = false;
         }
 
@@ -431,28 +435,31 @@ public class Views.Project : Adw.Bin {
         view_group.add (board_toggle);
         view_group.active_name = project.view_style.to_string ();
 
-        var order_by_model = new Gee.ArrayList<string> ();
-        order_by_model.add (_ ("Custom sort order"));
-        order_by_model.add (_ ("Alphabetically"));
-        order_by_model.add (_ ("Due Date"));
-        order_by_model.add (_ ("Date Added"));
-        order_by_model.add (_ ("Priority"));
+        var sorted_by_item = new Widgets.ContextMenu.MenuPicker (_ ("Sorting"), "vertical-arrows-long-symbolic") {
+            selected = project.sorted_by.to_string ()
+        };
+        sorted_by_item.add_item (_("Custom sort order"), SortedByType.MANUAL.to_string ());
+        sorted_by_item.add_item (_("Alphabetically"), SortedByType.NAME.to_string ());
+        sorted_by_item.add_item (_("Due Date"), SortedByType.DUE_DATE.to_string ());
+        sorted_by_item.add_item (_("Date Added"), SortedByType.ADDED_DATE.to_string ());
+        sorted_by_item.add_item (_("Priority"), SortedByType.PRIORITY.to_string ());
 
-        var order_by_item = new Widgets.ContextMenu.MenuPicker (_ ("Sorting"), "vertical-arrows-long-symbolic", order_by_model);
-        order_by_item.selected = project.sort_order;
+        var sort_order_item = new Widgets.ContextMenu.MenuSwitch (_ ("Ascending Order"), "view-sort-ascending-rtl-symbolic") {
+            active = project.sort_order == SortOrderType.ASC,
+            visible = project.sorted_by != SortedByType.MANUAL
+        };
 
         // Filters
-        var due_date_model = new Gee.ArrayList<string> ();
-        due_date_model.add (_ ("All (default)"));
-        due_date_model.add (_ ("Today"));
-        due_date_model.add (_ ("This Week"));
-        due_date_model.add (_ ("Next 7 Days"));
-        due_date_model.add (_ ("This Month"));
-        due_date_model.add (_ ("Next 30 Days"));
-        due_date_model.add (_ ("No Date"));
-
-        due_date_item = new Widgets.ContextMenu.MenuPicker (_ ("Duedate"), "month-symbolic", due_date_model);
-        due_date_item.selected = 0;
+        due_date_item = new Widgets.ContextMenu.MenuPicker (_ ("Duedate"), "month-symbolic") {
+            selected = "0"
+        };
+        due_date_item.add_item (_ ("All (default)"), "0");
+        due_date_item.add_item (_ ("Today"), "1");
+        due_date_item.add_item (_ ("This Week"), "2");
+        due_date_item.add_item (_ ("Next 7 Days"), "3");
+        due_date_item.add_item (_ ("This Month"), "4");
+        due_date_item.add_item (_ ("Next 30 Days"), "5");
+        due_date_item.add_item (_ ("No Date"), "6");
 
         var priority_items = new Gee.ArrayList<Objects.Filters.FilterItem> ();
 
@@ -515,7 +522,8 @@ public class Views.Project : Adw.Bin {
             margin_bottom = 6,
             halign = Gtk.Align.START
         });
-        menu_box.append (order_by_item);
+        menu_box.append (sorted_by_item);
+        menu_box.append (sort_order_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (new Gtk.Label (_ ("Filter By")) {
             css_classes = { "caption", "font-bold" },
@@ -537,8 +545,18 @@ public class Views.Project : Adw.Bin {
             width_request = 250
         };
 
-        order_by_item.notify["selected"].connect (() => {
-            project.sort_order = order_by_item.selected;
+        sorted_by_item.notify["selected"].connect (() => {
+            project.sorted_by = SortedByType.parse (sorted_by_item.selected);
+            if (project.sorted_by == SortedByType.MANUAL) {
+                project.sort_order = SortOrderType.ASC;
+            }
+
+            project.update_local ();
+            check_default_filters ();
+        });
+
+        sort_order_item.activate_item.connect (() => {
+            project.sort_order = sort_order_item.active ? SortOrderType.ASC : SortOrderType.DESC;
             project.update_local ();
             check_default_filters ();
         });
@@ -566,14 +584,21 @@ public class Views.Project : Adw.Bin {
             project.update_local ();
         });
 
+        project.sorted_by_changed.connect (() => {
+            sorted_by_item.update_selected (project.sorted_by.to_string ());
+            sort_order_item.visible = project.sorted_by != SortedByType.MANUAL;
 
-        project.sort_order_changed.connect (() => {
-            order_by_item.update_selected (project.sort_order);
             check_default_filters ();
         });
 
+        project.sort_order_changed.connect (() => {
+            sort_order_item.active = project.sort_order == SortOrderType.ASC;
+        });
+
         due_date_item.notify["selected"].connect (() => {
-            if (due_date_item.selected <= 0) {
+            int selected = int.parse (due_date_item.selected);
+
+            if (selected <= 0) {
                 Objects.Filters.FilterItem filter = project.get_filter (FilterItemType.DUE_DATE.to_string ());
                 if (filter != null) {
                     project.remove_filter (filter);
@@ -588,21 +613,21 @@ public class Views.Project : Adw.Bin {
                     insert = true;
                 }
 
-                if (due_date_item.selected == 1) {
+                if (selected == 1) {
                     filter.name = _ ("Today");
-                } else if (due_date_item.selected == 2) {
+                } else if (selected == 2) {
                     filter.name = _ ("This Week");
-                } else if (due_date_item.selected == 3) {
+                } else if (selected == 3) {
                     filter.name = _ ("Next 7 Days");
-                } else if (due_date_item.selected == 4) {
+                } else if (selected == 4) {
                     filter.name = _ ("This Month");
-                } else if (due_date_item.selected == 5) {
+                } else if (selected == 5) {
                     filter.name = _ ("Next 30 Days");
-                } else if (due_date_item.selected == 6) {
+                } else if (selected == 6) {
                     filter.name = _ ("No Date");
                 }
 
-                filter.value = due_date_item.selected.to_string ();
+                filter.value = selected.to_string ();
 
                 if (insert) {
                     project.add_filter (filter);
