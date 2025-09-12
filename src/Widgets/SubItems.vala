@@ -34,7 +34,7 @@ public class Widgets.SubItems : Adw.Bin {
     private Gtk.Revealer main_revealer;
     public Widgets.LoadingButton add_button;
 
-    private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
     public Gee.HashMap<string, Layouts.ItemBase> items_map = new Gee.HashMap<string, Layouts.ItemBase> ();
     public Gee.HashMap<string, Layouts.ItemBase> items_checked = new Gee.HashMap<string, Layouts.ItemBase> ();
 
@@ -85,7 +85,7 @@ public class Widgets.SubItems : Adw.Bin {
     }
 
     ~SubItems () {
-        print ("Destroying Widgets.SubItems\n");
+        print ("Destroying - Widgets.SubItems\n");
     }
 
     construct {
@@ -180,9 +180,9 @@ public class Widgets.SubItems : Adw.Bin {
         add_items ();
         checked_revealer.reveal_child = show_completed;
 
-        signals_map[item_parent.item_added.connect (add_item)] = item_parent;
+        signal_map[item_parent.item_added.connect (add_item)] = item_parent;
 
-        signals_map[Services.Store.instance ().item_updated.connect ((item, update_id) => {
+        signal_map[Services.Store.instance ().item_updated.connect ((item, update_id) => {
             if (items_map.has_key (item.id)) {
                 if (items_map[item.id].update_id != update_id) {
                     items_map[item.id].update_request ();
@@ -195,7 +195,7 @@ public class Widgets.SubItems : Adw.Bin {
             }
         })] = Services.Store.instance ();
 
-        signals_map[Services.Store.instance ().item_pin_change.connect ((item) => {
+        signal_map[Services.Store.instance ().item_pin_change.connect ((item) => {
             // vala-lint=no-space
             if (!item.pinned && item.parent_id == item_parent.id &&
                 !items_map.has_key (item.id)) {
@@ -208,7 +208,7 @@ public class Widgets.SubItems : Adw.Bin {
             }
         })] = Services.Store.instance ();
 
-        signals_map[Services.Store.instance ().item_deleted.connect ((item) => {
+        signal_map[Services.Store.instance ().item_deleted.connect ((item) => {
             if (items_map.has_key (item.id)) {
                 items_map[item.id].hide_destroy ();
                 items_map.unset (item.id);
@@ -222,7 +222,7 @@ public class Widgets.SubItems : Adw.Bin {
             children_changes ();
         })] = Services.Store.instance ();
 
-        signals_map[Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
+        signal_map[Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
             if (old_parent_id == item_parent.id) {
                 if (items_map.has_key (item.id)) {
                     items_map[item.id].hide_destroy ();
@@ -243,7 +243,7 @@ public class Widgets.SubItems : Adw.Bin {
             children_changes ();
         })] = Services.EventBus.get_default ();
 
-        signals_map[Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
+        signal_map[Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
             if (item.parent_id == item_parent.id) {
                 if (!old_checked) {
                     if (items_map.has_key (item.id)) {
@@ -282,7 +282,7 @@ public class Widgets.SubItems : Adw.Bin {
             }
         })] = Services.EventBus.get_default ();
 
-        signals_map[Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id, old_parent_id) => {
+        signal_map[Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id, old_parent_id) => {
             if (!is_board) {
                 var row = (Layouts.ItemRow) _row;
 
@@ -300,26 +300,26 @@ public class Widgets.SubItems : Adw.Bin {
             }
         })] = Services.EventBus.get_default ();
 
-        signals_map[add_button.clicked.connect (() => {
+        signal_map[add_button.clicked.connect (() => {
             prepare_new_item ();
         })] = add_button;
 
-        signals_map[item_parent.project.sort_order_changed.connect (() => {
+        signal_map[item_parent.project.sort_order_changed.connect (() => {
             update_sort ();
         })] = item_parent.project;
 
-        signals_map[item_parent.project.sorted_by_changed.connect (() => {
+        signal_map[item_parent.project.sorted_by_changed.connect (() => {
             update_sort ();
         })] = item_parent.project;
 
-        signals_map[Services.Settings.get_default ().settings.changed["always-show-completed-subtasks"].connect (() => {
+        signal_map[Services.Settings.get_default ().settings.changed["always-show-completed-subtasks"].connect (() => {
             checked_revealer.reveal_child = show_completed;
             if (show_completed) {
                 add_completed_items ();
             }
         })] = Services.Settings.get_default ().settings;
 
-        signals_map[Services.EventBus.get_default ().expand_all.connect ((project_id, value) => {
+        signal_map[Services.EventBus.get_default ().expand_all.connect ((project_id, value) => {
             if (item_parent.project_id == project_id) {
                 foreach (Layouts.ItemBase row_base in items_map.values) {
                     if (row_base is Layouts.ItemRow) {
@@ -329,7 +329,7 @@ public class Widgets.SubItems : Adw.Bin {
             }
         })] = Services.Settings.get_default ();
 
-        signals_map[item_parent.project.show_completed_changed.connect (() => {
+        signal_map[item_parent.project.show_completed_changed.connect (() => {
             if (!Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks")) {
                 checked_revealer.reveal_child = show_completed;
 
@@ -345,7 +345,7 @@ public class Widgets.SubItems : Adw.Bin {
             }
         })] = item_parent.project;
 
-        signals_map[load_more_button.clicked.connect (() => {
+        signal_map[load_more_button.clicked.connect (() => {
             load_next_completed_page ();
         })] = load_more_button;
     }
@@ -498,11 +498,19 @@ public class Widgets.SubItems : Adw.Bin {
     public void clean_up () {
         listbox.set_sort_func (null);
 
-        foreach (var entry in signals_map.entries) {
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            (row as Layouts.ItemBase).clean_up ();  
+        }
+
+        foreach (var row in Util.get_default ().get_children (checked_listbox)) {
+            (row as Layouts.ItemBase).clean_up ();  
+        }
+
+        foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
-        signals_map.clear ();
+        signal_map.clear ();
     }
 
     public void disable_drag_and_drop () {

@@ -32,6 +32,7 @@ public class Widgets.ItemLabels : Adw.Bin {
     private Gtk.Revealer main_revealer;
 
     private Gee.HashMap<string, Widgets.ItemLabelChild> item_labels_map = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public ItemLabels (Objects.Item item) {
         Object (
@@ -43,6 +44,10 @@ public class Widgets.ItemLabels : Adw.Bin {
         set {
             flowbox.margin_top = value;
         }
+    }
+
+    ~ItemLabels () {
+        print ("Destroying - Widgets.ItemLabels\n");
     }
 
     construct {
@@ -64,13 +69,13 @@ public class Widgets.ItemLabels : Adw.Bin {
         child = main_revealer;
         add_labels ();
 
-        item.item_label_deleted.connect ((label) => {
+        signal_map[item.item_label_deleted.connect ((label) => {
             remove_item_label (label);
-        });
+        })] = item;
 
-        item.item_label_added.connect ((label) => {
+        signal_map[item.item_label_added.connect ((label) => {
             add_item_label (label);
-        });
+        })] = item;
     }
 
     public void add_labels () {
@@ -110,5 +115,17 @@ public class Widgets.ItemLabels : Adw.Bin {
         }
 
         item_labels_map.clear ();
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        foreach (Widgets.ItemLabelChild item_label_row in item_labels_map.values) {
+            item_label_row.clean_up ();
+        }
     }
 }

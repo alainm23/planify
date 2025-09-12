@@ -96,7 +96,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
 
     public bool on_drag = false;
-    private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public ItemBoard (Objects.Item item) {
         Object (
@@ -450,9 +449,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             item.update_pin (false);
         })] = hide_loading_button;
 
-        activate.connect (() => {
+        signals_map[activate.connect (() => {
             open_detail ();
-        });
+        })] = this;
     }
 
     private void update_next_recurrency () {
@@ -1128,14 +1127,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         }
     }
 
-    public void clean_up () {
-        // Clear Signals
+    public override void clean_up () {
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
         signals_map.clear ();
 
-        menu_handle_popover.unparent ();
+        labels_summary.clean_up ();
     }
 }

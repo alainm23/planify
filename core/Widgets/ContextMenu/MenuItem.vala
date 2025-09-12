@@ -125,10 +125,6 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         );
     }
 
-    ~MenuItem () {
-        print ("Destroying - Widgets.ContextMenu.MenuItem\n");
-    }
-
     construct {
         add_css_class ("flat");
         add_css_class ("no-font-bold");
