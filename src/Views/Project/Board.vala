@@ -315,8 +315,7 @@ public class Views.Board : Adw.Bin {
                 dialog.clear = true;
             }
 
-            dialog.present (Planify._instance.main_window);
-
+            // TODO: fix signal leak
             dialog.date_changed.connect (() => {
                 if (dialog.datetime == null) {
                     project.due_date = "";
@@ -326,6 +325,8 @@ public class Views.Board : Adw.Bin {
 
                 project.update_local ();
             });
+
+            dialog.present (Planify._instance.main_window);
         });
 
         return due_revealer;

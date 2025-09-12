@@ -55,6 +55,13 @@ public class Layouts.QuickAdd : Adw.Bin {
     public const string SHORTCUTS_KEY_REMINDERS = "!";
 
     private Gee.HashMap<string, GLib.Regex> shortcuts_regex_map = new Gee.HashMap<string, GLib.Regex> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+    
+    private Gtk.EventControllerKey destroy_controller;
+    private Gtk.EventControllerKey content_controller_key;
+    private Gtk.EventControllerKey description_controller_key;
+    private Gtk.EventControllerKey event_controller_key;
+    private Gtk.ShortcutController shortcut_controller;
 
     public int position { get; set; default = -1; }
     public NewTaskPosition new_task_position { get; set; default = Services.Settings.get_default ().get_new_task_position (); }
@@ -72,7 +79,7 @@ public class Layouts.QuickAdd : Adw.Bin {
     }
 
     ~QuickAdd () {
-        print ("Destroying Layouts.QuickAdd\n");
+        print ("Destroying - Layouts.QuickAdd\n");
     }
 
     construct {
@@ -155,6 +162,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         };
 
         schedule_button = new Widgets.ScheduleButton ();
+
         priority_button = new Widgets.PriorityButton () {
             tooltip_markup = Util.get_default ().markup_accels_tooltip (_("Set The Priority"), { "p1", "p2", "p3", "p4" }),
         };
@@ -297,9 +305,9 @@ public class Layouts.QuickAdd : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        submit_button.clicked.connect (add_item);
+        signal_map[submit_button.clicked.connect (add_item)] = submit_button;
 
-        project_picker_button.project_change.connect ((project) => {
+        signal_map[project_picker_button.project_change.connect ((project) => {
             bool project_change = item.project_id != project.id;
             item.project_id = project.id;
             label_button.source = project.source;
@@ -307,17 +315,17 @@ public class Layouts.QuickAdd : Adw.Bin {
             if (Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
                 Services.Settings.get_default ().settings.set_string ("quick-add-project-selected", project.id);
             }
-        });
+        })] = project_picker_button;
 
-        project_picker_button.section_change.connect ((section) => {
+        signal_map[project_picker_button.section_change.connect ((section) => {
             if (section == null) {
                 item.section_id = "";
             } else {
                 item.section_id = section.id;
             }
-        });
+        })] = project_picker_button;
 
-        project_picker_button.picker_opened.connect ((active) => {
+       signal_map[project_picker_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
 
             if (!active) {
@@ -330,27 +338,27 @@ public class Layouts.QuickAdd : Adw.Bin {
                     return GLib.Source.REMOVE;
                 });
             }
-        });
+        })] = project_picker_button;
 
-        schedule_button.duedate_changed.connect (() => {
+        signal_map[schedule_button.duedate_changed.connect (() => {
             set_duedate (schedule_button.duedate);
-        });
+        })] = schedule_button;
 
-        schedule_button.picker_opened.connect ((active) => {
+        signal_map[schedule_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
-        });
+        })] = schedule_button;
 
-        priority_button.changed.connect ((priority) => {
+        signal_map[priority_button.changed.connect ((priority) => {
             set_priority (priority);
-        });
+        })] = priority_button;
 
-        priority_button.picker_opened.connect ((active) => {
+        signal_map[priority_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
-        });
+        })] = priority_button;
 
-        label_button.labels_changed.connect (set_labels);
+        signal_map[label_button.labels_changed.connect (set_labels)] = label_button;
 
-        label_button.picker_opened.connect ((active) => {
+        signal_map[label_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
 
             if (!active) {
@@ -363,9 +371,9 @@ public class Layouts.QuickAdd : Adw.Bin {
                     return GLib.Source.REMOVE;
                 });
             }
-        });
+        })] = label_button;
 
-        reminder_button.picker_opened.connect ((active) => {
+        signal_map[reminder_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
 
             if (!active) {
@@ -378,84 +386,85 @@ public class Layouts.QuickAdd : Adw.Bin {
                     return GLib.Source.REMOVE;
                 });
             }
-        });
+        })] = reminder_button;
 
-        var destroy_controller = new Gtk.EventControllerKey ();
-        add_controller (destroy_controller);
-        destroy_controller.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == Gdk.Key.Escape) {
-                hide_destroy ();
-            }
-        });
-
-        content_entry.activate.connect (() => {
+        signal_map[content_entry.activate.connect (() => {
             add_item ();
-        });
+        })] = content_entry;
 
-        content_entry.changed.connect (() => {
+        signal_map[content_entry.changed.connect (() => {
             info_revealer.reveal_child = false;
             content_entry.remove_css_class ("error");
             handle_priority_shortcut (content_entry.get_text ());
             handle_text_trigger (SHORTCUTS_KEY_LABELS, content_entry.get_text ());
             handle_text_trigger (SHORTCUTS_KEY_PROJECTS, content_entry.get_text ());
             handle_text_trigger (SHORTCUTS_KEY_REMINDERS, content_entry.get_text ());
-        });
+        })] = content_entry;
 
-        var content_controller_key = new Gtk.EventControllerKey ();
+        content_controller_key = new Gtk.EventControllerKey ();
         content_entry.add_controller (content_controller_key);
-        content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == Gdk.Key.Return && ctrl_pressed) {
                 add_item ();
             }
 
             return false;
-        });
+        })] = content_controller_key;
 
-        var description_controller_key = new Gtk.EventControllerKey ();
+        description_controller_key = new Gtk.EventControllerKey ();
         description_textview.add_controller (description_controller_key);
-        description_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[description_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             if (ctrl_pressed && keyval == Gdk.Key.Return) {
                 add_item ();
             }
 
             return false;
-        });
+        })] = description_controller_key;
 
-        var event_controller_key = new Gtk.EventControllerKey ();
+        event_controller_key = new Gtk.EventControllerKey ();
         ((Gtk.Widget) this).add_controller (event_controller_key);
-        event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
                 ctrl_pressed = true;
                 create_more_button.active = ctrl_pressed;
             }
 
             return false;
-        });
+        })] = event_controller_key;
 
-        event_controller_key.key_released.connect ((keyval, keycode, state) => {
+        signal_map[event_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
                 ctrl_pressed = false;
                 create_more_button.active = ctrl_pressed;
             }
-        });
+        })] = event_controller_key;
 
-        create_more_button.activate.connect (() => {
+        signal_map[create_more_button.activate.connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("quick-add-create-more", create_more_button.active);
-        });
+        })] = create_more_button;
 
         var open_label_shortcut = new Gtk.Shortcut (Gtk.ShortcutTrigger.parse_string ("<Control>l"), new Gtk.CallbackAction (() => {
             label_button.open_picker ();
+            return true;
         }));
 
         var open_reminder_shortcut = new Gtk.Shortcut (Gtk.ShortcutTrigger.parse_string ("<Control>r"), new Gtk.CallbackAction (() => {
             reminder_button.open_picker ();
+            return true;
         }));
 
-        var shortcutController = new Gtk.ShortcutController ();
-        shortcutController.add_shortcut (open_label_shortcut);
-        shortcutController.add_shortcut (open_reminder_shortcut);
+        shortcut_controller = new Gtk.ShortcutController ();
+        shortcut_controller.add_shortcut (open_label_shortcut);
+        shortcut_controller.add_shortcut (open_reminder_shortcut);
+        add_controller (shortcut_controller);
 
-        add_controller (shortcutController);
+        destroy_controller = new Gtk.EventControllerKey ();
+        add_controller (destroy_controller);
+        signal_map[destroy_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == Gdk.Key.Escape) {
+                hide_destroy ();
+            }
+        })] = destroy_controller;
     }
 
     private void add_item () {
@@ -995,5 +1004,54 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     private int set_sort_func (Objects.Item item1, Objects.Item item2) {
         return item1.child_order - item2.child_order;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+        
+        if (destroy_controller != null) {
+            remove_controller (destroy_controller);
+        }
+        
+        if (content_controller_key != null) {
+            content_entry.remove_controller (content_controller_key);
+        }
+        
+        if (description_controller_key != null) {
+            description_textview.remove_controller (description_controller_key);
+        }
+        
+        if (event_controller_key != null) {
+            remove_controller (event_controller_key);
+        }
+
+        if (shortcut_controller != null) {
+            remove_controller (shortcut_controller);
+            shortcut_controller = null;
+        }
+
+        if (project_picker_button != null) {
+            project_picker_button.clean_up ();
+        }
+
+        if (schedule_button != null) {
+            schedule_button.clean_up ();
+        }
+
+        if (priority_button != null) {
+            priority_button.clean_up ();
+        }
+
+        if (reminder_button != null) {
+            reminder_button.clean_up ();
+        }
+
+        if (label_button != null) {
+            label_button.clean_up ();
+        }
     }
 }

@@ -22,6 +22,7 @@
 public class Dialogs.ManageProjects : Adw.Dialog {
     private Gtk.ListBox listbox;
     private Widgets.ScrolledWindow scrolled_window;
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public ManageProjects () {
         Object (
@@ -32,7 +33,7 @@ public class Dialogs.ManageProjects : Adw.Dialog {
     }
 
     ~ManageProjects () {
-        print ("Destroying Dialogs.ManageProjects\n");
+        print ("Destroying - Dialogs.ManageProjects\n");
     }
 
     construct {
@@ -73,18 +74,27 @@ public class Dialogs.ManageProjects : Adw.Dialog {
             }
         }
 
-        Services.Store.instance ().project_unarchived.connect (() => {
+        signal_map[Services.Store.instance ().project_unarchived.connect (() => {
             if (Services.Store.instance ().get_all_projects_archived ().size <= 0) {
-                hide_destroy ();
+                close ();
             }
-        });
+        })] = Services.Store.instance ();
 
         closed.connect (() => {
+            clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
 
-    private void hide_destroy () {
-        close ();
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
+            ((Dialogs.ProjectPicker.ProjectPickerRow) child).clean_up ();
+        }
     }
 }

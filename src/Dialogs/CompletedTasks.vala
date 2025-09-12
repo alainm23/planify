@@ -43,7 +43,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
     }
 
     ~CompletedTasks () {
-        print ("Destroying Dialogs.CompletedTasks\n");
+        print ("Destroying - Dialogs.CompletedTasks\n");
     }
 
     construct {
@@ -207,16 +207,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         })] = Services.Store.instance ();
 
         closed.connect (() => {
-            listbox.set_sort_func (null);
-            listbox.set_header_func (null);
-            listbox.set_filter_func (null);
-
-            foreach (var entry in signals_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signals_map.clear ();
-
+            clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
@@ -378,6 +369,22 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
     public void delete_all_action (Gee.ArrayList<Objects.Item> items) {
         foreach (Objects.Item item in items) {
             item.delete_item ();
+        }
+    }
+
+    public void clean_up () {
+        listbox.set_sort_func (null);
+        listbox.set_header_func (null);
+        listbox.set_filter_func (null);
+
+        foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signals_map.clear ();
+
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
+            ((Widgets.CompletedTaskRow) child).clean_up ();
         }
     }
 }

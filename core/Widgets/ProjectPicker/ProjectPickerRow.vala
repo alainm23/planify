@@ -28,10 +28,16 @@ public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
 
     public signal void selected ();
 
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public ProjectPickerRow (Objects.Project project) {
         Object (
             project: project
         );
+    }
+
+    ~ProjectPickerRow () {
+        print ("Destroying - Widgets.ProjectPicker.ProjectPickerRow\n");
     }
 
     construct {
@@ -88,17 +94,29 @@ public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
 
         var select_gesture = new Gtk.GestureClick ();
         add_controller (select_gesture);
-        select_gesture.pressed.connect (() => {
+        signal_map[select_gesture.pressed.connect (() => {
             selected ();
-        });
+        })] =select_gesture ;
 
-        activate.connect (() => {
+        signal_map[activate.connect (() => {
             selected ();
-        });
+        })] = this;
     }
 
     public void update_request () {
         name_label.label = project.inbox_project ? _("Inbox") : project.name;
         icon_project.update_request ();
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        if (icon_project != null) {
+            icon_project.clean_up ();
+        }
     }
 }

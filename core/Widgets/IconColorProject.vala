@@ -8,6 +8,8 @@ public class Widgets.IconColorProject : Adw.Bin {
     private Gtk.Stack color_emoji_stack;
     private Gtk.Stack stack;
 
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public IconColorProject (int pixel_size) {
         Object (
             pixel_size: pixel_size
@@ -15,7 +17,7 @@ public class Widgets.IconColorProject : Adw.Bin {
     }
 
     ~IconColorProject () {
-        print ("Destroying Widgets.IconColorProject\n");
+        print ("Destroying - Widgets.IconColorProject\n");
     }
 
     construct {
@@ -49,13 +51,9 @@ public class Widgets.IconColorProject : Adw.Bin {
 
         child = stack;
 
-        ulong signal_id = notify["project"].connect (() => {
+        signal_map[notify["project"].connect (() => {
             update_request ();
-        });
-
-        destroy.connect (() => {
-            disconnect (signal_id);
-        });
+        })] = this;
     }
 
     public void update_request () {
@@ -64,5 +62,13 @@ public class Widgets.IconColorProject : Adw.Bin {
         circular_progress_bar.color = project.color;
         circular_progress_bar.percentage = project.percentage;
         emoji_label.label = project.emoji;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

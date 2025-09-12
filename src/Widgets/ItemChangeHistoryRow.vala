@@ -31,7 +31,7 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
     }
 
     ~ItemChangeHistoryRow () {
-        print ("Destroying Widgets.ItemChangeHistoryRow\n");
+        print ("Destroying - Widgets.ItemChangeHistoryRow\n");
     }
 
     construct {

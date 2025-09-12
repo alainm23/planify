@@ -62,6 +62,8 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     public signal void duedate_changed ();
     public signal void picker_opened (bool active);
 
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public ScheduleButton (string label = _("Schedule")) {
         Object (
             is_board: false,
@@ -92,13 +94,13 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             build_ui ();
         }
 
-        datetime_picker.closed.connect (() => {
+        signal_map[datetime_picker.closed.connect (() => {
             picker_opened (false);
-        });
+        })] = datetime_picker;
 
-        datetime_picker.show.connect (() => {
+        signal_map[datetime_picker.show.connect (() => {
             picker_opened (true);
-        });
+        })] = datetime_picker;
     }
 
     private void build_ui () {
@@ -143,17 +145,17 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         var motion_gesture = new Gtk.EventControllerMotion ();
         add_controller (motion_gesture);
 
-        motion_gesture.enter.connect (() => {
+        signal_map[motion_gesture.enter.connect (() => {
             clear_revealer.reveal_child = duedate.datetime != null;
-        });
+        })] = motion_gesture;
 
-        motion_gesture.leave.connect (() => {
+        signal_map[motion_gesture.leave.connect (() => {
             clear_revealer.reveal_child = false;
-        });
+        })] = motion_gesture;
 
-        clear_button.clicked.connect (() => {
+        signal_map[clear_button.clicked.connect (() => {
             reset ();
-        });
+        })] = clear_button;
     }
 
     private void build_card_ui () {
@@ -194,10 +196,10 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
         attach (model_button, 0, 0);
 
-        datetime_picker.duedate_changed.connect (() => {
+        signal_map[datetime_picker.duedate_changed.connect (() => {
             duedate = datetime_picker.duedate;
             duedate_changed ();
-        });
+        })] = datetime_picker;
     }
 
     public void update_from_item (Objects.Item item) {
@@ -272,5 +274,17 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         duedate.datetime = null;
 
         duedate_changed ();
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        if (datetime_picker != null) {
+            datetime_picker.clean_up ();
+        }
     }
 }

@@ -49,7 +49,7 @@ public class Widgets.ScrolledWindow : Adw.Bin {
     }
 
     ~ScrolledWindow () {
-        print ("Destroying Widgets.ScrolledWindow\n");
+        print ("Destroying - Widgets.ScrolledWindow\n");
     }
 
     construct {

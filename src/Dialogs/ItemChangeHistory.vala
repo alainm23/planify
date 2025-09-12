@@ -27,6 +27,8 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
     private int start_week = 0;
     private int end_week = 7;
 
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+
     public ItemChangeHistory (Objects.Item item) {
         Object (
             item: item,
@@ -37,7 +39,7 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
     }
 
     ~ItemChangeHistory () {
-        print ("Destroying Dialogs.ItemChangeHistory\n");
+        print ("Destroying - Dialogs.ItemChangeHistory\n");
     }
 
     construct {
@@ -113,14 +115,14 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
         child = toolbar_view;
         fetch_data ();
 
-        load_button.clicked.connect (() => {
+        signal_map[load_button.clicked.connect (() => {
             start_week = end_week;
             end_week = end_week + 7;
             fetch_data ();
-        });
+        })] = load_button;
 
         closed.connect (() => {
-            listbox.set_header_func (null);
+            clean_up ();
         });
     }
 
@@ -201,5 +203,15 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
         };
 
         return card;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        listbox.set_header_func (null);
     }
 }

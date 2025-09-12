@@ -344,9 +344,9 @@ public class Views.Project : Adw.Bin {
         schedule_item.activate_item.connect (() => {
             var dialog = new Dialogs.DatePicker (_ ("When?"));
             dialog.clear = project.due_date != "";
-            dialog.present (Planify._instance.main_window);
 
-            ulong signal_datepicker_id = dialog.date_changed.connect (() => {
+            // TODO: fix signal leak
+            dialog.date_changed.connect (() => {
                 if (dialog.datetime == null) {
                     project.due_date = "";
                 } else {
@@ -356,10 +356,9 @@ public class Views.Project : Adw.Bin {
                 project.update_local ();
             });
 
-            dialog.closed.connect (() => {
-                dialog.disconnect (signal_datepicker_id);
-            });
+            dialog.present (Planify._instance.main_window);
         });
+
 
         add_section_item.activate_item.connect (() => {
             prepare_new_section ();

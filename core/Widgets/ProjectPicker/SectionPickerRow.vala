@@ -37,6 +37,10 @@ public class Widgets.ProjectPicker.SectionRow : Gtk.ListBoxRow {
         );
     }
 
+    ~SectionRow () {
+        print ("Destroying - Widgets.ProjectPicker.SectionRow\n");
+    }
+
     construct {
         css_classes = { "row" };
 
