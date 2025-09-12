@@ -95,7 +95,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     
     private Gee.HashMap<ulong, weak GLib.Object> dnd_handlerses = new Gee.HashMap<ulong, weak GLib.Object> ();
     private ulong description_handler_change_id = 0;
-    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     bool _edit = false;
     public bool edit {
@@ -1776,26 +1775,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         });
     }
 
-    public void clean_up () {
-        if (menu_handle_popover != null) {
-            menu_handle_popover.unparent ();
-            menu_handle_popover = null;
-        }
-
+    public override void clean_up () {
         foreach (var entry in signals_map.entries) {
-            if (SignalHandler.is_connected (entry.value, entry.key)) {
-                entry.value.disconnect (entry.key);
-            }
+            entry.value.disconnect (entry.key);
         }
 
         signals_map.clear ();
 
         foreach (var entry in dnd_handlerses.entries) {
-            if (SignalHandler.is_connected (entry.value, entry.key)) {
-                entry.value.disconnect (entry.key);
-            }
+            entry.value.disconnect (entry.key);
         }
-        
+
         dnd_handlerses.clear ();
 
         if (description_handler_change_id != 0) {
@@ -1805,6 +1795,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         subitems.clean_up ();
         attachments.clean_up ();
+        item_labels.clean_up ();
+        schedule_button.clean_up ();
+        priority_button.clean_up ();
+        label_button.clean_up ();
+        reminder_button.clean_up ();
         
         current_buffer = null;
         markdown_edit_view = null;

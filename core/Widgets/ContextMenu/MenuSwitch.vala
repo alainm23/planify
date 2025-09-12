@@ -63,11 +63,7 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
             hexpand: true
         );
     }
-
-    ~MenuSwitch () {
-        print ("Destroying - Widgets.ContextMenu.MenuSwitch\n");
-    }
-
+    
     construct {
         add_css_class ("flat");
         add_css_class ("no-font-bold");

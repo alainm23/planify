@@ -25,11 +25,17 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
     private Gtk.Label name_label;
     private Gtk.Revealer main_revealer;
 
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+
     public ItemLabelChild (Objects.Label label) {
         Object (
             label: label,
             halign: Gtk.Align.START
         );
+    }
+
+    ~ItemLabelChild () {
+        print ("Destroying - Widgets.ItemLabelChild\n");
     }
 
     construct {
@@ -56,11 +62,15 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
             return GLib.Source.REMOVE;
         });
 
-        label.deleted.connect (() => {
+        signal_map[label.deleted.connect (() => {
             hide_destroy ();
-        });
+        })] = label;
 
-        label.updated.connect (update_request);
+        signal_map[label.updated.connect (update_request)] = label;
+
+        destroy.connect (() => {
+            clean_up ();
+        });
     }
 
     public void update_request () {
@@ -74,5 +84,13 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
             ((Gtk.FlowBox) parent).remove (this);
             return GLib.Source.REMOVE;
         });
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

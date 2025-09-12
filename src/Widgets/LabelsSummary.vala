@@ -50,7 +50,7 @@ public class Widgets.LabelsSummary : Adw.Bin {
     }
 
     ~LabelsSummary () {
-        print ("Destroying - Widgets.LabelsSummary - %s\n".printf (item.content));
+        print ("Destroying - Widgets.LabelsSummary\n");
     }
 
     construct {
@@ -145,5 +145,9 @@ public class Widgets.LabelsSummary : Adw.Bin {
 
     public void check_revealer () {
         revealer.reveal_child = labels.size > 0;
+    }
+
+    public void clean_up () {
+
     }
 }
