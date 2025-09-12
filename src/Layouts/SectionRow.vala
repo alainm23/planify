@@ -803,6 +803,14 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         listbox.set_sort_func (null);
         listbox.set_filter_func (null);
 
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            (row as Layouts.ItemRow).clean_up ();
+        }
+
+        foreach (var row in Util.get_default ().get_children (checked_listbox)) {
+            (row as Layouts.ItemRow).clean_up ();
+        }
+
         // Clear Signals
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);

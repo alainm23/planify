@@ -33,7 +33,7 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
     }
 
     ~PinnedItemsFlowBox () {
-        print ("Destroying Widgets.PinnedItemsFlowBox\n");
+        print ("Destroying - Widgets.PinnedItemsFlowBox\n");
     }
 
     construct {

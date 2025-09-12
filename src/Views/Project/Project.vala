@@ -40,7 +40,7 @@ public class Views.Project : Adw.Bin {
         }
     }
 
-    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public Project (Objects.Project project) {
         Object (
@@ -49,7 +49,7 @@ public class Views.Project : Adw.Bin {
     }
 
     ~Project () {
-        print ("Destroying Views.Project\n");
+        print ("Destroying - Views.Project\n");
     }
 
     construct {
@@ -151,19 +151,19 @@ public class Views.Project : Adw.Bin {
         update_project_view ();
         check_default_filters ();
 
-        signals_map[magic_button.clicked.connect (() => {
+        signal_map[magic_button.clicked.connect (() => {
             prepare_new_item ();
         })] = magic_button;
 
-        signals_map[project.updated.connect (() => {
+        signal_map[project.updated.connect (() => {
             headerbar.title = project.is_inbox_project ? _("Inbox") : project.name;
         })] = project;
 
-        signals_map[multiselect_toolbar.closed.connect (() => {
+        signal_map[multiselect_toolbar.closed.connect (() => {
             project.show_multi_select = false;
         })] = multiselect_toolbar;
 
-        signals_map[project.show_multi_select_change.connect (() => {
+        signal_map[project.show_multi_select_change.connect (() => {
             toolbar_view.reveal_bottom_bars = project.show_multi_select;
 
             if (project.show_multi_select) {
@@ -179,15 +179,15 @@ public class Views.Project : Adw.Bin {
             }
         })] = project;
 
-        signals_map[project.filter_added.connect (() => {
+        signal_map[project.filter_added.connect (() => {
             check_default_filters ();
         })] = project;
 
-        signals_map[project.filter_updated.connect (() => {
+        signal_map[project.filter_updated.connect (() => {
             check_default_filters ();
         })] = project;
 
-        signals_map[project.filter_removed.connect ((filter) => {
+        signal_map[project.filter_removed.connect ((filter) => {
             priority_filter.unchecked (filter);
 
             if (filter.filter_type == FilterItemType.DUE_DATE) {
@@ -197,14 +197,14 @@ public class Views.Project : Adw.Bin {
             check_default_filters ();
         })] = project;
 
-        signals_map[project.view_style_changed.connect (() => {
+        signal_map[project.view_style_changed.connect (() => {
             update_project_view ();
             expand_all_item.visible = view_style == ProjectViewStyle.LIST;
         })] = project;
 
-        project.handle_scroll_visibility_change.connect ((visible) => {
+        signal_map[project.handle_scroll_visibility_change.connect ((visible) => {
             headerbar.update_title_box_visibility (visible);
-        });
+        })] = project;
     }
 
     private void check_default_filters () {
@@ -336,17 +336,16 @@ public class Views.Project : Adw.Bin {
             width_request = 250
         };
 
-        edit_item.activate_item.connect (() => {
+        signal_map[edit_item.activate_item.connect (() => {
             var dialog = new Dialogs.Project (project);
             dialog.present (Planify._instance.main_window);
-        });
+        })] = edit_item;
 
-        schedule_item.activate_item.connect (() => {
+        signal_map[schedule_item.activate_item.connect (() => {
             var dialog = new Dialogs.DatePicker (_ ("When?"));
             dialog.clear = project.due_date != "";
 
-            // TODO: fix signal leak
-            dialog.date_changed.connect (() => {
+            signal_map[dialog.date_changed.connect (() => {
                 if (dialog.datetime == null) {
                     project.due_date = "";
                 } else {
@@ -354,22 +353,22 @@ public class Views.Project : Adw.Bin {
                 }
 
                 project.update_local ();
-            });
+            })] = dialog;
 
             dialog.present (Planify._instance.main_window);
-        });
+        })] = schedule_item;
 
 
-        add_section_item.activate_item.connect (() => {
+        signal_map[add_section_item.activate_item.connect (() => {
             prepare_new_section ();
-        });
+        })] = add_section_item;
 
-        manage_sections.clicked.connect (() => {
+        signal_map[manage_sections.clicked.connect (() => {
             var dialog = new Dialogs.ManageSectionOrder (project);
             dialog.present (Planify._instance.main_window);
-        });
+        })] = manage_sections;
 
-        paste_item.clicked.connect (() => {
+        signal_map[paste_item.clicked.connect (() => {
             Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 
             clipboard.read_text_async.begin (null, (obj, res) => {
@@ -380,9 +379,9 @@ public class Views.Project : Adw.Bin {
                     debug (error.message);
                 }
             });
-        });
+        })] = paste_item;
 
-        expand_all_item.clicked.connect (() => {
+        signal_map[expand_all_item.clicked.connect (() => {
             if (expand_all_item.icon == "collapse-vertically-symbolic") {
                 expand_all_item.title = _ ("Expand All");
                 expand_all_item.icon = "expand-vertically-symbolic";
@@ -392,23 +391,23 @@ public class Views.Project : Adw.Bin {
                 expand_all_item.icon = "collapse-vertically-symbolic";
                 Services.EventBus.get_default ().expand_all (project.id, true);
             }
-        });
+        })] = expand_all_item;
 
-        select_item.clicked.connect (() => {
+        signal_map[select_item.clicked.connect (() => {
             project.show_multi_select = true;
-        });
+        })] = select_item;
 
-        delete_item.clicked.connect (() => {
+        signal_map[delete_item.clicked.connect (() => {
             project.delete_project ((Gtk.Window) Planify.instance.main_window);
-        });
+        })] = delete_item;
 
-        duplicate_item.clicked.connect (() => {
+        signal_map[duplicate_item.clicked.connect (() => {
             Util.get_default ().duplicate_project.begin (project, project.parent_id);
-        });
+        })] = duplicate_item;
 
-        archive_item.clicked.connect (() => {
+        signal_map[archive_item.clicked.connect (() => {
             project.archive_project ((Gtk.Window) Planify.instance.main_window);
-        });
+        })] = archive_item;
 
         return popover;
     }
@@ -544,7 +543,7 @@ public class Views.Project : Adw.Bin {
             width_request = 250
         };
 
-        sorted_by_item.notify["selected"].connect (() => {
+        signal_map[sorted_by_item.notify["selected"].connect (() => {
             project.sorted_by = SortedByType.parse (sorted_by_item.selected);
             if (project.sorted_by == SortedByType.MANUAL) {
                 project.sort_order = SortOrderType.ASC;
@@ -552,28 +551,28 @@ public class Views.Project : Adw.Bin {
 
             project.update_local ();
             check_default_filters ();
-        });
+        })] = sorted_by_item;
 
-        sort_order_item.activate_item.connect (() => {
+        signal_map[sort_order_item.activate_item.connect (() => {
             project.sort_order = sort_order_item.active ? SortOrderType.ASC : SortOrderType.DESC;
             project.update_local ();
             check_default_filters ();
-        });
+        })] = sort_order_item;
 
-        show_completed_item.activate_item.connect (() => {
+        signal_map[show_completed_item.activate_item.connect (() => {
             project.show_completed = !project.show_completed;
             project.update_local ();
             check_default_filters ();
-        });
+        })] = show_completed_item;
 
-        show_completed_item_button.clicked.connect (() => {
+        signal_map[show_completed_item_button.clicked.connect (() => {
             popover.popdown ();
 
             var dialog = new Dialogs.CompletedTasks (project);
             dialog.present (Planify._instance.main_window);
-        });
+        })] = show_completed_item_button;
 
-        view_group.notify["active-name"].connect (() => {
+        signal_map[view_group.notify["active-name"].connect (() => {
             if (view_group.active_name == ProjectViewStyle.LIST.to_string ()) {
                 project.view_style = ProjectViewStyle.LIST;
             } else {
@@ -581,20 +580,20 @@ public class Views.Project : Adw.Bin {
             }
 
             project.update_local ();
-        });
+        })] = view_group;
 
-        project.sorted_by_changed.connect (() => {
+        signal_map[project.sorted_by_changed.connect (() => {
             sorted_by_item.update_selected (project.sorted_by.to_string ());
             sort_order_item.visible = project.sorted_by != SortedByType.MANUAL;
 
             check_default_filters ();
-        });
+        })] = project;
 
-        project.sort_order_changed.connect (() => {
+        signal_map[project.sort_order_changed.connect (() => {
             sort_order_item.active = project.sort_order == SortOrderType.ASC;
-        });
+        })] = project;
 
-        due_date_item.notify["selected"].connect (() => {
+        signal_map[due_date_item.notify["selected"].connect (() => {
             int selected = int.parse (due_date_item.selected);
 
             if (selected <= 0) {
@@ -634,17 +633,17 @@ public class Views.Project : Adw.Bin {
                     project.update_filter (filter);
                 }
             }
-        });
+        })] = due_date_item;
 
-        priority_filter.filter_change.connect ((filter, active) => {
+        signal_map[priority_filter.filter_change.connect ((filter, active) => {
             if (active) {
                 project.add_filter (filter);
             } else {
                 project.remove_filter (filter);
             }
-        });
+        })] = priority_filter;
 
-        labels_filter.activate_item.connect (() => {
+        signal_map[labels_filter.activate_item.connect (() => {
             Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
             foreach (Objects.Filters.FilterItem filter in project.filters.values) {
                 if (filter.filter_type == FilterItemType.LABEL) {
@@ -680,7 +679,7 @@ public class Views.Project : Adw.Bin {
                     project.remove_filter (filter);
                 }
             });
-        });
+        })] = labels_filter;
 
         return popover;
     }
@@ -695,11 +694,11 @@ public class Views.Project : Adw.Bin {
     }
 
     public void clean_up () {
-        foreach (var entry in signals_map.entries) {
+        foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
-        signals_map.clear ();
+        signal_map.clear ();
 
         destroy_current_view ();
     }

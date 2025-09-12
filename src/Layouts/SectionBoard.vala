@@ -746,9 +746,12 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         listbox.set_sort_func (null);
         listbox.set_filter_func (null);
 
-        // Remove Items
-        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
-            ((Layouts.ItemBoard) child).hide_destroy ();
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            (row as Layouts.ItemBoard).clean_up ();
+        }
+
+        foreach (var row in Util.get_default ().get_children (checked_listbox)) {
+            (row as Layouts.ItemBoard).clean_up ();
         }
 
         // Clean Signals

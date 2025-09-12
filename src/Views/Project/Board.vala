@@ -34,7 +34,7 @@ public class Views.Board : Adw.Bin {
     private Widgets.PinnedItemsFlowBox pinned_items_flowbox;
 
     public Gee.HashMap<string, Layouts.SectionBoard> sections_map = new Gee.HashMap<string, Layouts.SectionBoard> ();
-    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public Board (Objects.Project project) {
         Object (
@@ -43,7 +43,7 @@ public class Views.Board : Adw.Bin {
     }
 
     ~Board () {
-        print ("Destroying Views.Board\n");
+        print ("Destroying - Views.Board\n");
     }
 
     construct {
@@ -53,9 +53,9 @@ public class Views.Board : Adw.Bin {
         icon_project.add_css_class ("title-2");
         icon_project.inbox_icon.add_css_class ("view-icon");
         Util.get_default ().set_widget_color (Objects.Filters.Inbox.get_default ().color, icon_project.inbox_icon);
-        Services.EventBus.get_default ().theme_changed.connect (() => {
+        signal_map[Services.EventBus.get_default ().theme_changed.connect (() => {
             Util.get_default ().set_widget_color (Objects.Filters.Inbox.get_default ().color, icon_project.inbox_icon);
-        });
+        })] = Services.EventBus.get_default ();
 
         title_label = new Gtk.Label (null) {
             css_classes = { "font-bold", "title-2" },
@@ -133,16 +133,16 @@ public class Views.Board : Adw.Bin {
         update_request ();
         add_sections ();
 
-        signals_map[project.section_added.connect ((section) => {
+        signal_map[project.section_added.connect ((section) => {
             add_section (section);
         })] = project;
 
-        signals_map[project.section_sort_order_changed.connect (() => {
+        signal_map[project.section_sort_order_changed.connect (() => {
             flowbox.invalidate_sort ();
             flowbox.invalidate_filter ();
         })] = project;
 
-        signals_map[Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
+        signal_map[Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
             if (project.id == old_project_id && sections_map.has_key (section.id)) {
                 sections_map[section.id].hide_destroy ();
                 sections_map.unset (section.id);
@@ -154,14 +154,14 @@ public class Views.Board : Adw.Bin {
             }
         })] = Services.Store.instance ();
 
-        signals_map[Services.Store.instance ().section_deleted.connect ((section) => {
+        signal_map[Services.Store.instance ().section_deleted.connect ((section) => {
             if (sections_map.has_key (section.id)) {
                 sections_map[section.id].hide_destroy ();
                 sections_map.unset (section.id);
             }
         })] = Services.Store.instance ();
 
-        signals_map[project.updated.connect (() => {
+        signal_map[project.updated.connect (() => {
             update_request ();
         })] = project;
 
@@ -186,25 +186,25 @@ public class Views.Board : Adw.Bin {
             return !item.section.hidded;
         });
 
-        signals_map[description_widget.changed.connect (() => {
+        signal_map[description_widget.changed.connect (() => {
             project.description = description_widget.text;
             project.update_local ();
         })] = description_widget;
 
-        signals_map[Services.Store.instance ().section_archived.connect ((section) => {
+        signal_map[Services.Store.instance ().section_archived.connect ((section) => {
             if (sections_map.has_key (section.id)) {
                 sections_map[section.id].hide_destroy ();
                 sections_map.unset (section.id);
             }
         })] = Services.Store.instance ();
 
-        signals_map[Services.Store.instance ().section_unarchived.connect ((section) => {
+        signal_map[Services.Store.instance ().section_unarchived.connect ((section) => {
             if (project.id == section.project_id) {
                 add_section (section);
             }
         })] = Services.Store.instance ();
 
-        signals_map[project.count_updated.connect (() => {
+        signal_map[project.count_updated.connect (() => {
             icon_project.update_request ();
         })] = project;
     }
@@ -307,7 +307,7 @@ public class Views.Board : Adw.Bin {
 
         var gesture = new Gtk.GestureClick ();
         due_box.add_controller (gesture);
-        gesture.pressed.connect ((n_press, x, y) => {
+        signal_map[gesture.pressed.connect ((n_press, x, y) => {
             var dialog = new Dialogs.DatePicker (_("When?"));
 
             if (project.due_date != "") {
@@ -315,8 +315,7 @@ public class Views.Board : Adw.Bin {
                 dialog.clear = true;
             }
 
-            // TODO: fix signal leak
-            dialog.date_changed.connect (() => {
+            signal_map[dialog.date_changed.connect (() => {
                 if (dialog.datetime == null) {
                     project.due_date = "";
                 } else {
@@ -324,10 +323,10 @@ public class Views.Board : Adw.Bin {
                 }
 
                 project.update_local ();
-            });
+            })] = dialog;
 
             dialog.present (Planify._instance.main_window);
-        });
+        })] = gesture;
 
         return due_revealer;
     }
@@ -337,15 +336,18 @@ public class Views.Board : Adw.Bin {
         flowbox.set_filter_func (null);
 
         foreach (unowned Gtk.Widget child in Util.get_default ().get_flowbox_children (flowbox)) {
-            ((Layouts.SectionBoard) child).hide_destroy ();
+            ((Layouts.SectionBoard) child).clean_up ();
         }
 
-        // Clear Signals
-        foreach (var entry in signals_map.entries) {
+        if (inbox_board != null) {
+            inbox_board.clean_up ();
+        }
+
+        foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
-        signals_map.clear ();
+        signal_map.clear ();
     }
 
     public override void dispose () {
