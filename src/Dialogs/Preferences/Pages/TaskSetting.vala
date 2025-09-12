@@ -72,8 +72,8 @@ public class Dialogs.Preferences.Pages.TaskSetting : Dialogs.Preferences.Pages.B
         group.add (underline_completed_row);
 
         var tasks_position_model = new Gtk.StringList (null);
-        tasks_position_model.append (_("Top"));
-        tasks_position_model.append (_("Bottom"));
+        tasks_position_model.append (_("Start"));
+        tasks_position_model.append (_("End"));
 
         var tasks_position_row = new Adw.ComboRow ();
         tasks_position_row.title = _("New Task Position");
