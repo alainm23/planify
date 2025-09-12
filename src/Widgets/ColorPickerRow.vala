@@ -25,6 +25,7 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
     public signal void color_changed (string color);
 
     private Gee.HashMap<string, Gtk.CheckButton> colors_hashmap;
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public ColorPickerRow () {
         Object (
@@ -72,23 +73,31 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
             colors_hashmap[entry.key] = color_radio;
             colors_flowbox.append (colors_hashmap[entry.key]);
 
-            color_radio.toggled.connect (() => {
+            signal_map[color_radio.toggled.connect (() => {
                 color = entry.key;
                 color_changed (color);
-            });
+            })] = color_radio;
         }
 
         attach (colors_flowbox, 0, 0);
 
-        notify["color"].connect (() => {
+        signal_map[notify["color"].connect (() => {
             if (colors_hashmap.has_key (color)) {
                 colors_hashmap[color].active = true;
             }
-        });
+        })] = this;
 
-        colors_flowbox.child_activated.connect ((child) => {
+        signal_map[colors_flowbox.child_activated.connect ((child) => {
             color = child.child.name;
             color_changed (color);
-        });
+        })] = colors_flowbox;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

@@ -38,7 +38,7 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
     }
 
     ~ManageSectionOrder () {
-        print ("Destroying Dialogs.ManageSectionOrder\n");
+        print ("Destroying - Dialogs.ManageSectionOrder\n");
     }
 
     construct {
@@ -142,24 +142,7 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
         })] = Services.Store.instance ();
 
         closed.connect (() => {
-            listbox.set_sort_func (null);
-
-            // Clear Signals
-            foreach (var entry in signal_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signal_map.clear ();
-
-            // Clear Rows
-            foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
-                listbox.remove (child);
-            }
-
-            foreach (unowned Gtk.Widget child in Util.get_default ().get_children (archived_listbox)) {
-                archived_listbox.remove (child);
-            }
-
+            clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
@@ -219,7 +202,21 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
         listbox.append (row);
     }
 
-    public void hide_destroy () {
-        close ();
+    public void clean_up () {
+        listbox.set_sort_func (null);
+
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
+            ((Dialogs.ProjectPicker.SectionPickerRow) child).clean_up ();
+        }
+
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (archived_listbox)) {
+            ((Dialogs.ProjectPicker.SectionPickerRow) child).clean_up ();
+        }
     }
 }

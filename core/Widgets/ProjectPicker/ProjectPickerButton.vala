@@ -58,9 +58,14 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
     public signal void picker_opened (bool active);
 
     public Gee.HashMap<string, Widgets.ProjectPicker.SectionRow> sections_map = new Gee.HashMap<string, Widgets.ProjectPicker.SectionRow> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     private string PLACEHOLDER_MESSAGE = _("Your list of section will show up here."); // vala-lint=naming-convention
     private string PLACEHOLDER_CREATE_MESSAGE = _("Create '%s'"); // vala-lint=naming-convention
+
+    ~ProjectPickerButton () {
+        print ("Destroying - Widgets.ProjectPicker.ProjectPickerButton\n");
+    }
 
     construct {
         // Project Button
@@ -118,7 +123,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
 
         child = box;
 
-        project_picker_popover.selected.connect ((_project) => {
+        signal_map[project_picker_popover.selected.connect ((_project) => {
             project = _project;
             update_project_request ();
             add_sections (_project);
@@ -126,24 +131,24 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
 
             section_label.label = _("No Section");
             section_change (null);
-        });
+        })] = project_picker_popover;
 
-        project_picker_popover.closed.connect (() => {
+        signal_map[project_picker_popover.closed.connect (() => {
             picker_opened (false);
-        });
+        })] = project_picker_popover;
 
-        project_picker_popover.show.connect (() => {
+        signal_map[project_picker_popover.show.connect (() => {
             project_picker_popover.search_visible = true;
             picker_opened (true);
-        });
+        })] = project_picker_popover;
 
-        sections_popover.closed.connect (() => {
+        signal_map[sections_popover.closed.connect (() => {
             picker_opened (false);
-        });
+        })] = sections_popover;
 
-        sections_popover.show.connect (() => {
+        signal_map[sections_popover.show.connect (() => {
             picker_opened (true);
-        });
+        })] = sections_popover;
     }
 
     public void update_project_request () {
@@ -192,16 +197,16 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
             css_classes = { "popover-contents" }
         };
 
-        sections_listbox.row_activated.connect ((row) => {
+        signal_map[sections_listbox.row_activated.connect ((row) => {
             sections_popover.popdown ();
 
             Objects.Section section = ((Widgets.ProjectPicker.SectionRow) row).section;
 
             section_label.label = section.name;
             section_change (section.id == "" ? null : section);
-        });
+        })] = sections_listbox;
 
-        search_entry.search_changed.connect (() => {
+        signal_map[search_entry.search_changed.connect (() => {
             int size = 0;
 
             sections_listbox.set_filter_func ((row) => {
@@ -217,29 +222,29 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
 
             add_section_revealer.reveal_child = size <= 0;
             placeholder_message_label.label = size <= 0 ? PLACEHOLDER_CREATE_MESSAGE.printf (search_entry.text) : PLACEHOLDER_MESSAGE;
-        });
+        })] = search_entry;
 
         var search_entry_ctrl_key = new Gtk.EventControllerKey ();
         search_entry.add_controller (search_entry_ctrl_key);
-        search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 popover.popdown ();
             }
 
             return false;
-        });
+        })] = search_entry_ctrl_key;
 
-        search_entry.activate.connect (() => {
+        signal_map[search_entry.activate.connect (() => {
             if (search_entry.text.length <= 0) {
                 return;
             }
 
             add_assign_section (search_entry.text);
-        });
+        })] = search_entry;
 
         var listbox_controller_key = new Gtk.EventControllerKey ();
         sections_listbox.add_controller (listbox_controller_key);
-        listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             var key = Gdk.keyval_name (keyval).replace ("KP_", "");
 
             if (key == "Up" || key == "Down") {
@@ -254,7 +259,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
             }
 
             return false;
-        });
+        })] = listbox_controller_key;
 
         return popover;
     }
@@ -363,5 +368,17 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
             project_picker_popover.search_visible = false;
             return GLib.Source.REMOVE;
         });
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        if (project_picker_popover != null) {
+            project_picker_popover.clean_up ();
+        }
     }
 }

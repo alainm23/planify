@@ -20,15 +20,16 @@
  */
 
 public class Dialogs.LabelPicker : Adw.Dialog {
-    private Widgets.LabelsPickerCore picker;
+    private Widgets.LabelsPickerCore labels_picker_core;
 
     public Gee.ArrayList<Objects.Label> labels {
         set {
-            picker.labels = value;
+            labels_picker_core.labels = value;
         }
     }
 
     public signal void labels_changed (Gee.HashMap<string, Objects.Label> labels);
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public LabelPicker () {
         Object (
@@ -39,14 +40,14 @@ public class Dialogs.LabelPicker : Adw.Dialog {
     }
 
     ~LabelPicker () {
-        print ("Destroying Dialogs.LabelPicker\n");
+        print ("Destroying - Dialogs.LabelPicker\n");
     }
 
     construct {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class ("flat");
 
-        picker = new Widgets.LabelsPickerCore (LabelPickerType.FILTER_ONLY);
+        labels_picker_core = new Widgets.LabelsPickerCore (LabelPickerType.FILTER_ONLY);
 
         var button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Filter")) {
             margin_top = 12,
@@ -59,43 +60,44 @@ public class Dialogs.LabelPicker : Adw.Dialog {
         var toolbar_view = new Adw.ToolbarView ();
         toolbar_view.add_top_bar (headerbar);
         toolbar_view.add_bottom_bar (button);
-        toolbar_view.content = picker;
+        toolbar_view.content = labels_picker_core;
 
         child = toolbar_view;
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        button.clicked.connect (() => {
-            labels_changed (picker.picked);
-            hide_destroy ();
-        });
+        signal_map[button.clicked.connect (() => {
+            labels_changed (labels_picker_core.picked);
+            close ();
+        })] = button;
 
-        picker.close.connect (() => {
-            labels_changed (picker.picked);
-            hide_destroy ();
-        });
-
-        var destroy_controller = new Gtk.EventControllerKey ();
-        add_controller ((Gtk.ShortcutController) destroy_controller);
-        destroy_controller.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
-                hide_destroy ();
-            }
-        });
+        signal_map[labels_picker_core.close.connect (() => {
+            labels_changed (labels_picker_core.picked);
+            close ();
+        })] = labels_picker_core;
 
         closed.connect (() => {
+            clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
 
     public void add_labels (Objects.Source source) {
-        picker.source = source;
+        labels_picker_core.source = source;
     }
 
     public void add_labels_list (Gee.ArrayList<Objects.Label> labels_list) {
-        picker.add_labels_list (labels_list);
+        labels_picker_core.add_labels_list (labels_list);
     }
 
-    public void hide_destroy () {
-        close ();
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        if (labels_picker_core != null) {
+            labels_picker_core.clean_up ();
+        }
     }
 }

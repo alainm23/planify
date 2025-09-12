@@ -100,7 +100,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
         });
 
         destroy.connect (() => {
-            calendar_view.clean_up ();
+            clean_up ();
         });
     }
 
@@ -163,5 +163,9 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
 
     public void reset () {
         calendar_view.clear_style ();
+    }
+
+    public void clean_up () {
+        calendar_view.clean_up ();
     }
 }

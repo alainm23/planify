@@ -30,6 +30,8 @@ public class Widgets.PriorityButton : Adw.Bin {
     public signal void changed (int priority);
     public signal void picker_opened (bool active);
 
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public PriorityButton () {
         Object (
             is_board: false,
@@ -46,6 +48,10 @@ public class Widgets.PriorityButton : Adw.Bin {
         );
     }
 
+    ~PriorityButton () {
+        print ("Destroying - Widgets.PriorityButton\n");
+    }
+
     construct {
         priority_picker = build_popover ();
 
@@ -55,13 +61,13 @@ public class Widgets.PriorityButton : Adw.Bin {
             build_ui ();
         }
 
-        priority_picker.closed.connect (() => {
+        signal_map[priority_picker.closed.connect (() => {
             picker_opened (false);
-        });
+        })] = priority_picker;
 
-        priority_picker.show.connect (() => {
+        signal_map[priority_picker.show.connect (() => {
             picker_opened (true);
-        });
+        })] = priority_picker;
     }
 
     private void build_ui () {
@@ -141,25 +147,25 @@ public class Widgets.PriorityButton : Adw.Bin {
             position = Gtk.PositionType.BOTTOM
         };
 
-        priority_1_item.clicked.connect (() => {
+        signal_map[priority_1_item.clicked.connect (() => {
             popover.popdown ();
             changed (Constants.PRIORITY_1);
-        });
+        })] = priority_1_item;
 
-        priority_2_item.clicked.connect (() => {
+        signal_map[priority_2_item.clicked.connect (() => {
             popover.popdown ();
             changed (Constants.PRIORITY_2);
-        });
+        })] = priority_2_item;
 
-        priority_3_item.clicked.connect (() => {
+        signal_map[priority_3_item.clicked.connect (() => {
             popover.popdown ();
             changed (Constants.PRIORITY_3);
-        });
+        })] = priority_3_item;
 
-        priority_4_item.clicked.connect (() => {
+        signal_map[priority_4_item.clicked.connect (() => {
             popover.popdown ();
             changed (Constants.PRIORITY_4);
-        });
+        })] =priority_4_item;
 
         return popover;
     }
@@ -213,5 +219,13 @@ public class Widgets.PriorityButton : Adw.Bin {
             });
             return GLib.Source.REMOVE;
         });
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

@@ -25,6 +25,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
 
     private Gtk.Label name_label;
     private Gtk.Grid handle_grid;
+    private Widgets.ReorderChild reorder_child;
     private Gtk.Revealer main_revealer;
 
     public bool is_inbox_section {
@@ -45,7 +46,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
     }
 
     ~SectionPickerRow () {
-        print ("Destroying Dialogs.ProjectPicker.SectionPickerRow\n");
+        print ("Destroying - Dialogs.ProjectPicker.SectionPickerRow\n");
     }
 
     construct {
@@ -125,7 +126,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
         handle_grid = new Gtk.Grid ();
         handle_grid.attach (content_box, 0, 0);
 
-        var reorder_child = new Widgets.ReorderChild (handle_grid, this);
+        reorder_child = new Widgets.ReorderChild (handle_grid, this);
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -189,11 +190,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
         });
 
         destroy.connect (() => {
-            foreach (var entry in signal_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signal_map.clear ();
+            clean_up ();
         });
     }
 
@@ -234,5 +231,18 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
         })] = unarchive_item;
 
         return menu_popover;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+        
+        if (reorder_child != null) {
+            reorder_child.clean_up ();
+            reorder_child = null;
+        }
     }
 }

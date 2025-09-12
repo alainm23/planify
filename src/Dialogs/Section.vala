@@ -33,6 +33,8 @@ public class Dialogs.Section : Adw.Dialog {
         }
     }
 
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+
     public Section.new (Objects.Project project) {
         var section = new Objects.Section ();
         section.project_id = project.id;
@@ -53,7 +55,7 @@ public class Dialogs.Section : Adw.Dialog {
     }
 
     ~Section () {
-        print ("Destroying Dialogs.Section\n");
+        print ("Destroying - Dialogs.Section\n");
     }
 
     construct {
@@ -141,17 +143,18 @@ public class Dialogs.Section : Adw.Dialog {
             return GLib.Source.REMOVE;
         });
 
-        name_entry.entry_activated.connect (add_update_section);
-        submit_button.clicked.connect (add_update_section);
+        signal_map[name_entry.entry_activated.connect (add_update_section)] = name_entry;
+        signal_map[submit_button.clicked.connect (add_update_section)] = submit_button;
 
         closed.connect (() => {
+            clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
 
     private void add_update_section () {
         if (name_entry.text.length <= 0) {
-            hide_destroy ();
+            close ();
             return;
         }
 
@@ -173,7 +176,7 @@ public class Dialogs.Section : Adw.Dialog {
     private void update_section (string _name, string _description, string _color) {
         if (section.project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().update_section (section);
-            hide_destroy ();
+            close ();
             return;
         }
 
@@ -186,7 +189,7 @@ public class Dialogs.Section : Adw.Dialog {
 
                 if (response.status) {
                     Services.Store.instance ().update_section (section);
-                    hide_destroy ();
+                    close ();
                 } else {
                     section.name = _name;
                     section.description = _description;
@@ -204,7 +207,7 @@ public class Dialogs.Section : Adw.Dialog {
             section.id = Util.get_default ().generate_id (section);
             section.project.add_section_if_not_exists (section);
             send_toast (_("Section added"));
-            hide_destroy ();
+            close ();
             return;
         }
 
@@ -218,7 +221,7 @@ public class Dialogs.Section : Adw.Dialog {
                     section.id = response.data;
                     section.project.add_section_if_not_exists (section);
                     send_toast (_("Section added"));
-                    hide_destroy ();
+                    close ();
                 } else {
                     Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
                     close ();
@@ -232,7 +235,15 @@ public class Dialogs.Section : Adw.Dialog {
         Services.EventBus.get_default ().send_toast (toast);
     }
 
-    public void hide_destroy () {
-        close ();
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        if (color_picker_row != null) {
+            color_picker_row.clean_up ();
+        }
     }
 }

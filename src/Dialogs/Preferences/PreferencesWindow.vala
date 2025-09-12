@@ -339,11 +339,12 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         add (page);
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        shortcut_controller = new Gtk.ShortcutController ();
         var shortcut = new Gtk.Shortcut (new Gtk.KeyvalTrigger (Gdk.Key.Escape, 0), new Gtk.CallbackAction ((widget, args) => {
             close ();
             return true;
         }));
+
+        shortcut_controller = new Gtk.ShortcutController ();
         shortcut_controller.add_shortcut (shortcut);
         add_controller (shortcut_controller);
 

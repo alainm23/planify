@@ -47,6 +47,8 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
     public signal void labels_changed (Gee.HashMap<string, Objects.Label> labels);
     public signal void picker_opened (bool active);
 
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public LabelButton () {
         Object (
             is_board: false,
@@ -115,14 +117,14 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
             child = button;
         }
 
-        labels_picker.closed.connect (() => {
+        signal_map[labels_picker.closed.connect (() => {
             labels_changed (labels_picker.picked);
             picker_opened (false);
-        });
+        })] = labels_picker;
 
-        labels_picker.show.connect (() => {
+        signal_map[labels_picker.show.connect (() => {
             picker_opened (true);
-        });
+        })] = labels_picker;
     }
 
     public void reset () {
@@ -152,5 +154,15 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
         Timeout.add (100, () => {
             return GLib.Source.REMOVE;
         });
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        labels_picker.clean_up ();
     }
 }

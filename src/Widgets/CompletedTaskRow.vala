@@ -35,7 +35,7 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
     }
 
     ~CompletedTaskRow () {
-        print ("Destroying Widgets.CompletedTaskRow\n");
+        print ("Destroying - Widgets.CompletedTaskRow\n");
     }
 
     construct {
@@ -186,15 +186,11 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
         }
     }
 
-    public override void dispose () {
-        print ("Disposing Layouts.ItemBoard\n");
-
+    public void clean_up () {
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
         signals_map.clear ();
-
-        base.dispose ();
     }
 }

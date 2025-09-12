@@ -456,4 +456,12 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         );
         repeat_label.label = label;
     }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+    }
 }

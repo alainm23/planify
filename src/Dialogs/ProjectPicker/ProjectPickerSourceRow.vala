@@ -44,6 +44,14 @@ public class Dialogs.ProjectPicker.ProjectPickerSourceRow : Gtk.ListBoxRow {
 
         child = group;
         add_projects ();
+
+        destroy.connect (() => {
+            foreach (Gtk.ListBoxRow row in group.get_children ()) {
+                (row as Dialogs.ProjectPicker.ProjectPickerRow).clean_up ();
+            }
+
+            group.clear ();
+        }); 
     }
 
     private void add_projects () {

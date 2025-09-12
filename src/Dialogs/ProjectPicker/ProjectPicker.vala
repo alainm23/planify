@@ -184,6 +184,14 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
 
             signal_map.clear ();
 
+            if (inbox_group != null) {
+                foreach (Gtk.ListBoxRow row in inbox_group.get_children ()) {
+                    (row as Dialogs.ProjectPicker.ProjectPickerRow).clean_up ();
+                }
+
+                inbox_group.clear ();
+            }
+
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }

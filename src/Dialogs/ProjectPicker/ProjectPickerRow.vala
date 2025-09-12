@@ -37,7 +37,7 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
     }
 
     ~ProjectPickerRow () {
-        print ("Destroying Dialogs.ProjectPicker.ProjectPickerRow\n");
+        print ("Destroying - Dialogs.ProjectPicker.ProjectPickerRow\n");
     }
 
     construct {
@@ -143,6 +143,7 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
 
     public void hide_destroy () {
         main_revealer.reveal_child = false;
+        clean_up ();
         Timeout.add (main_revealer.transition_duration, () => {
             ((Gtk.ListBox) parent).remove (this);
             return GLib.Source.REMOVE;
@@ -178,5 +179,13 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         })] = unarchive_item;
 
         return menu_popover;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }
