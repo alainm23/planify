@@ -60,7 +60,7 @@ public class Utils.TaskUtils {
         int spacing = 1000;
         int order = spacing;
 
-        foreach (var row in rows) {
+        foreach (Layouts.ItemBase row in rows) {
             row.item.child_order = order;
             order += spacing;
             row.item.update_async ();

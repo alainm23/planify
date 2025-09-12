@@ -726,7 +726,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             listbox.append (picked_widget);
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
             
-            int new_index = Util.get_default ().get_children (listbox).index (picked_widget);
+            int new_index = (int32) Util.get_default ().get_children (listbox).length ();
             Utils.TaskUtils.update_single_item_order (listbox, picked_widget, new_index);
 
             return true;

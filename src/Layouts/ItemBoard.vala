@@ -814,10 +814,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                     }
 
                     motion_top_grid.height_request = picked_widget.card_widget.get_height ();
-                    motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
-                } else if (value.dup_object () is Widgets.MagicButton && item.project.sorted_by == SortedByType.MANUAL) {
+                    motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer && item.project.sorted_by == SortedByType.MANUAL;
+                } else if (value.dup_object () is Widgets.MagicButton) {
                     motion_top_grid.height_request = 32;
-                    motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+                    motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer && item.project.sorted_by == SortedByType.MANUAL;
                 }
             } catch (Error e) {
                 debug (e.message);
