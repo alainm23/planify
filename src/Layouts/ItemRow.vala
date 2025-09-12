@@ -1797,10 +1797,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         attachments.clean_up ();
         item_labels.clean_up ();
         schedule_button.clean_up ();
-        // labels_summary.clean_up ();
         priority_button.clean_up ();
         label_button.clean_up ();
-        // pin_button.clean_up ();
         reminder_button.clean_up ();
         
         current_buffer = null;
