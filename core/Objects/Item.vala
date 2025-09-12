@@ -99,7 +99,6 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public int child_order { get; set; default = 0; }
-    public bool custom_order { get; set; default = false; }
     public int day_order { get; set; default = 0; }
     public bool checked { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
@@ -313,6 +312,7 @@ public class Objects.Item : Objects.BaseObject {
         is_deleted = node.get_object ().get_boolean_member ("is_deleted");
         added_at = node.get_object ().get_string_member ("added_at");
         labels = get_labels_from_json (node);
+        child_order = (int32) node.get_object ().get_int_member ("child_order");
 
         if (!node.get_object ().get_null_member ("section_id")) {
             section_id = node.get_object ().get_string_member ("section_id");
@@ -348,6 +348,7 @@ public class Objects.Item : Objects.BaseObject {
         is_deleted = node.get_object ().get_boolean_member ("is_deleted");
         added_at = node.get_object ().get_string_member ("added_at");
         check_labels (get_labels_maps_from_json (node));
+        child_order = (int32) node.get_object ().get_int_member ("child_order");
 
         if (!node.get_object ().get_null_member ("section_id")) {
             section_id = node.get_object ().get_string_member ("section_id");
@@ -997,6 +998,9 @@ public class Objects.Item : Objects.BaseObject {
         builder.set_member_name ("description");
         builder.add_string_value (description);
 
+        builder.set_member_name ("child_order");
+        builder.add_int_value (child_order);
+
         builder.set_member_name ("priority");
         if (priority == 0) {
             builder.add_int_value (Constants.PRIORITY_4);
@@ -1243,6 +1247,11 @@ public class Objects.Item : Objects.BaseObject {
         if (labels.size > 0) {
             ical.add_property (new ICal.Property.categories (get_labels_names (labels)));
         }
+
+        var child_order_property = new ICal.Property (ICal.PropertyKind.X_PROPERTY);
+        child_order_property.set_x_name ("X-APPLE-SORT-ORDER");
+        child_order_property.set_x (child_order.to_string ());
+        ical.add_property (child_order_property);
 
         return "%s%s%s".printf (
             "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Planify App (https://github.com/alainm23/planify)\n",

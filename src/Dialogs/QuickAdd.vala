@@ -21,7 +21,18 @@
 
 public class Dialogs.QuickAdd : Adw.Dialog {
     public Objects.Item item { get; construct; }
+
     private Layouts.QuickAdd quick_add_widget;
+
+    public int position {
+        set {
+            quick_add_widget.position = value;
+        }
+
+        get {
+            return quick_add_widget.position;
+        }
+    }
 
     public QuickAdd () {
         Object (
@@ -113,11 +124,11 @@ public class Dialogs.QuickAdd : Adw.Dialog {
         }
     }
 
-    public void set_index (int index) {
-        quick_add_widget.set_index (index);
-    }
-
     public void set_labels (Gee.HashMap<string, Objects.Label> new_labels) {
         quick_add_widget.set_labels (new_labels);
+    }
+
+    public void set_new_task_position (NewTaskPosition value) {
+        quick_add_widget.new_task_position = value;
     }
 }

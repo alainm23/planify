@@ -551,8 +551,6 @@ public class Services.Store : GLib.Object {
                 }
             }
         }
-
-        Services.EventBus.get_default ().update_items_position (item.project_id, item.section_id);
     }
 
     public void update_item (Objects.Item item, string update_id = "") {
@@ -711,7 +709,7 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public Gee.ArrayList<Objects.Item> get_item_by_baseobject (Objects.BaseObject object) {
+    public Gee.ArrayList<Objects.Item> get_items_by_baseobject (Objects.BaseObject object) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (var item in items) {
@@ -723,6 +721,12 @@ public class Services.Store : GLib.Object {
 
                 if (object is Objects.Section) {
                     if (item.section_id == object.id && !item.has_parent) {
+                        return_value.add (item);
+                    }
+                }
+
+                if (object is Objects.Item) {
+                    if (item.parent_id == object.id) {
                         return_value.add (item);
                     }
                 }

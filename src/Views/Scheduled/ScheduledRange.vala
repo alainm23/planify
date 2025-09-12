@@ -157,44 +157,15 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         listbox.set_sort_func ((lbrow, lbbefore) => {
             Objects.Item item1 = ((Layouts.ItemRow) lbrow).item;
             Objects.Item item2 = ((Layouts.ItemRow) lbbefore).item;
-            int sort_order = Services.Settings.get_default ().settings.get_int ("scheduled-sort-order");
+            
+            SortedByType sorted_by = SortedByType.parse (Services.Settings.get_default ().settings.get_string ("scheduled-sort-order"));
 
-            if (sort_order == 0) {
-                if (item1.has_due && item2.has_due) {
-                    var date1 = item1.due.datetime;
-                    var date2 = item2.due.datetime;
-
-                    return date1.compare (date2);
-                }
-
-                if (!item1.has_due && item2.has_due) {
-                    return 1;
-                }
-
-                return 0;
-            }
-
-            if (sort_order == 1) {
-                return item1.content.strip ().collate (item2.content.strip ());
-            }
-
-            if (sort_order == 2) {
-                return item1.added_datetime.compare (item2.added_datetime);
-            }
-
-            if (sort_order == 3) {
-                if (item1.priority < item2.priority) {
-                    return 1;
-                }
-
-                if (item1.priority < item2.priority) {
-                    return -1;
-                }
-
-                return 0;
-            }
-
-            return 0;
+            return Util.get_default ().set_item_sort_func (
+                item1,
+                item2,
+                sorted_by,
+                SortOrderType.ASC
+            );
         });
 
         listbox.set_filter_func ((row) => {

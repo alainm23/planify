@@ -528,7 +528,6 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var expected = update ? new Soup.Status[]{ Soup.Status.NO_CONTENT }
                               : new Soup.Status[]{ Soup.Status.CREATED };
 
-
         HttpResponse response = new HttpResponse ();
 
         try {
@@ -573,7 +572,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
 
         try {
-            yield send_request ("MOVE", item.ical_url, "", null, null, null, {Soup.Status.NO_CONTENT, Soup.Status.CREATED }, headers);
+            yield send_request ("MOVE", item.ical_url, "", null, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED }, headers);
 
             item.extra_data = Util.generate_extra_data (destination, "", item.calendar_data);
 

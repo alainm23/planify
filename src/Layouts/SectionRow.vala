@@ -114,7 +114,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         name_label = new Gtk.Label (section.name) {
             halign = START,
             css_classes = { "font-bold" },
-            margin_start = 6
+            margin_start = 9
         };
 
         count_label = new Gtk.Label (null) {
@@ -170,7 +170,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             height_request = 30,
             margin_start = 24,
             margin_end = 24,
-            margin_top = 5
+            margin_top = 6,
+            margin_bottom = 6
         };
 
         drop_inbox_revealer = new Gtk.Revealer () {
@@ -227,7 +228,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         var add_button = new Gtk.Button () {
             child = add_button_box,
-            margin_start = 13,
+            margin_start = 16,
             margin_bottom = 6,
             halign = START
         };
@@ -326,8 +327,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
                 if (items_map[item.id].update_id != update_id) {
                     items_map[item.id].update_request ();
                     update_sort ();
-
-                    listbox.invalidate_filter ();
                 }
 
                 if (checked_items_map.has_key (item.id)) {
@@ -381,7 +380,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
                 add_item (item);
             }
 
-            listbox.invalidate_filter ();
+            update_sort ();
         })] = Services.EventBus.get_default ();
 
         signals_map[Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id) => {
@@ -410,13 +409,13 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             update_sort ();
         })] = section.project;
 
+        signals_map[section.project.sorted_by_changed.connect (() => {
+            update_sort ();
+        })] = section.project;
+
         signals_map[Services.EventBus.get_default ().update_section_sort_func.connect ((project_id, section_id, value) => {
             if (section.project_id == project_id && section.id == section_id) {
-                if (value) {
-                    update_sort ();
-                } else {
-                    listbox.set_sort_func (null);
-                }
+                update_sort ();
             }
         })] = Services.EventBus.get_default ();
 
@@ -432,48 +431,19 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         listbox.set_filter_func ((row) => {
             var item = ((Layouts.ItemRow) row).item;
-            bool return_value = true;
-
-            if (section.project.filters.size <= 0) {
-                return true;
-            }
-
-            return_value = false;
-            foreach (Objects.Filters.FilterItem filter in section.project.filters.values) {
-                if (filter.filter_type == FilterItemType.PRIORITY) {
-                    return_value = return_value || item.priority == int.parse (filter.value);
-                } else if (filter.filter_type == FilterItemType.LABEL) {
-                    return_value = return_value || item.has_label (filter.value);
-                } else if (filter.filter_type == FilterItemType.DUE_DATE) {
-                    if (filter.value == "1") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_today (item.due.datetime));
-                    } else if (filter.value == "2") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_this_week (item.due.datetime));
-                    } else if (filter.value == "3") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_next_x_week (item.due.datetime, 7));
-                    } else if (filter.value == "4") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_this_month (item.due.datetime));
-                    } else if (filter.value == "5") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_next_x_week (item.due.datetime, 30));
-                    } else if (filter.value == "6") {
-                        return_value = return_value || !item.has_due;
-                    }
-                }
-            }
-
-            return return_value;
+            return Utils.TaskUtils.items_filter_func (item, section.project.filters);
         });
 
         signals_map[section.project.filter_added.connect (() => {
-            listbox.invalidate_filter ();
+            update_sort ();
         })] = section.project;
 
         signals_map[section.project.filter_removed.connect (() => {
-            listbox.invalidate_filter ();
+            update_sort ();
         })] = section.project;
 
         signals_map[section.project.filter_updated.connect (() => {
-            listbox.invalidate_filter ();
+            update_sort ();
         })] = section.project;
 
         signals_map[section.sensitive_change.connect (() => {
@@ -502,8 +472,12 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         })] = load_more_button;
 
         signals_map[add_button.clicked.connect (() => {
-            prepare_new_item ();
+            prepare_new_item ("", NewTaskPosition.END);
         })] = add_button;
+
+        signals_map[section.project.source.sync_finished.connect (() => {
+            update_sort ();
+        })] = section.project.source;
     }
 
     private void update_count_label (int count) {
@@ -511,13 +485,21 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     }
 
     private void update_sort () {
-        if (section.project.sort_order == 0) {
-            listbox.set_sort_func (null);
-        } else {
-            listbox.set_sort_func (set_sort_func);
-        }
-
+        listbox.set_sort_func (set_sort_func);
+        listbox.set_sort_func (null);
         listbox.invalidate_filter ();
+    }
+
+    private int set_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
+        Objects.Item item1 = ((Layouts.ItemRow) lbrow).item;
+        Objects.Item item2 = ((Layouts.ItemRow) lbbefore).item;
+
+        return Util.get_default ().set_item_sort_func (
+            item1,
+            item2,
+            section.project.sorted_by,
+            section.project.sort_order
+        );
     }
 
     public void add_items () {
@@ -549,12 +531,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         }
 
         items_map[item.id] = new Layouts.ItemRow (item, true);
-
-        if (item.custom_order) {
-            listbox.insert (items_map[item.id], item.child_order);
-        } else {
-            listbox.append (items_map[item.id]);
-        }
+        listbox.append (items_map[item.id]);
     }
 
     private void show_completed_changed () {
@@ -645,101 +622,12 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         checked_listbox.append (checked_items_map[item.id_string]);
     }
 
-    public void prepare_new_item (string content = "") {
+    public void prepare_new_item (string content = "", NewTaskPosition new_task_position = Services.Settings.get_default ().get_new_task_position ()) {
         var dialog = new Dialogs.QuickAdd ();
         dialog.for_base_object (section);
         dialog.update_content (content);
+        dialog.set_new_task_position (new_task_position);
         dialog.present (Planify._instance.main_window);
-    }
-
-    private int set_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
-        Objects.Item item1 = ((Layouts.ItemRow) lbrow).item;
-        Objects.Item item2 = ((Layouts.ItemRow) lbbefore).item;
-
-        if (section.project.sort_order == 1) {
-            return natural_compare (item1.content.strip (), item2.content.strip ());
-        }
-
-        if (section.project.sort_order == 2) {
-            if (item1.has_due && item2.has_due) {
-                var date1 = item1.due.datetime;
-                var date2 = item2.due.datetime;
-
-                if (date1.compare (date2) != 0) {
-                    return date1.compare (date2);
-                }
-
-                if (item1.priority < item2.priority) {
-                    return 1;
-                }
-
-                if (item1.priority > item2.priority) {
-                    return -1;
-                }
-            }
-
-            if (!item1.has_due && item2.has_due) {
-                return 1;
-            }
-
-            return 0;
-        }
-
-        if (section.project.sort_order == 3) {
-            return item1.added_datetime.compare (item2.added_datetime);
-        }
-
-        if (section.project.sort_order == 4) {
-            if (item1.priority < item2.priority) {
-                return 1;
-            }
-
-            if (item1.priority > item2.priority) {
-                return -1;
-            }
-
-            return item1.added_datetime.compare (item2.added_datetime);
-        }
-
-        return 0;
-    }
-
-    private int natural_compare (string a, string b) {
-        Regex regex;
-
-        try {
-            regex = new Regex ("(\\d+)|(\\D+)");
-
-            MatchInfo ma = null;
-            MatchInfo mb = null;
-
-            if (!regex.match_full (a, a.length, 0, 0, out ma) || !regex.match_full (b, b.length, 0, 0, out mb)) {
-                return a.collate (b);
-            }
-
-            while (ma.matches () && mb.matches ()) {
-                string part_a = ma.fetch (0);
-                string part_b = mb.fetch (0);
-
-                if (Regex.match_simple ("^\\d+$", part_a, 0, 0) && Regex.match_simple ("^\\d+$", part_b, 0, 0)) {
-                    int na = int.parse (part_a);
-                    int nb = int.parse (part_b);
-                    if (na != nb)
-                        return na - nb;
-                } else {
-                    int result = part_a.collate (part_b);
-                    if (result != 0)
-                        return result;
-                }
-
-                if (!ma.next () || !mb.next ())
-                    break;
-            }
-
-            return a.collate (b);
-        } catch (RegexError e) {
-            return a.collate (b);
-        }
     }
 
     public void hide_destroy () {
@@ -843,7 +731,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         drop_inbox_widget.add_controller (drop_inbox_target);
         signals_map[drop_inbox_target.drop.connect ((target, value, x, y) => {
             var picked_widget = (Layouts.ItemRow) value;
-
             picked_widget.drag_end ();
 
             string old_section_id = picked_widget.item.section_id;
@@ -876,26 +763,12 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
             listbox.append (picked_widget);
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
-            update_items_item_order (listbox);
+
+            int new_index = (int32) Util.get_default ().get_children (listbox).length ();
+            Utils.TaskUtils.update_single_item_order (listbox, picked_widget, new_index);
 
             return true;
         })] = drop_inbox_target;
-    }
-
-    private void update_items_item_order (Gtk.ListBox listbox) {
-        unowned Layouts.ItemRow ? item_row = null;
-        var row_index = 0;
-
-        do {
-            item_row = (Layouts.ItemRow) listbox.get_row_at_index (row_index);
-
-            if (item_row != null) {
-                item_row.item.child_order = row_index;
-                Services.Store.instance ().update_item (item_row.item);
-            }
-
-            row_index++;
-        } while (item_row != null);
     }
 
     private void move_section (string project_id) {

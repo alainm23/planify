@@ -56,6 +56,9 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     private Gee.HashMap<string, GLib.Regex> shortcuts_regex_map = new Gee.HashMap<string, GLib.Regex> ();
 
+    public int position { get; set; default = -1; }
+    public NewTaskPosition new_task_position { get; set; default = Services.Settings.get_default ().get_new_task_position (); }
+
     public bool is_loading {
         set {
             submit_button.is_loading = value;
@@ -76,11 +79,6 @@ public class Layouts.QuickAdd : Adw.Bin {
         item = new Objects.Item ();
         item.project_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
         item.priority = Util.get_default ().get_default_priority ();
-
-        if (Services.Settings.get_default ().get_new_task_position () == NewTaskPosition.TOP) {
-            item.child_order = 0;
-            item.custom_order = true;
-        }
 
         if (Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
             var project = Services.Store.instance ().get_project (Services.Settings.get_default ().settings.get_string ("quick-add-project-selected"));
@@ -481,6 +479,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         item.content = content_entry.get_text ();
         item.description = description_textview.get_text ();
+        item.child_order = generate_child_order ();
 
         if (item.project.source_type == SourceType.LOCAL) {
             item.id = Util.get_default ().generate_id ();
@@ -670,11 +669,6 @@ public class Layouts.QuickAdd : Adw.Bin {
         project_picker_button.project = _item.project;
         label_button.source = _item.project.source;
         project_picker_button.sensitive = false;
-    }
-
-    public void set_index (int index) {
-        item.child_order = index;
-        item.custom_order = true;
     }
 
     private void handle_priority_shortcut (string text) {
@@ -930,5 +924,76 @@ public class Layouts.QuickAdd : Adw.Bin {
         grid.attach (subtitle_label, 1, 1, 1, 1);
 
         return grid;
+    }
+    
+    private int generate_child_order () {
+        Objects.BaseObject? base_object = null;
+
+        if (item.parent_id != "") {
+            base_object = item;
+        } else {
+            if (item.section_id != "") {
+                base_object = item.section;
+            } else {
+                base_object = item.project;
+            }
+        }
+
+        if (base_object == null) {
+            return 0;
+        }
+
+        Gee.ArrayList<Objects.Item> items = Services.Store.instance ().get_items_by_baseobject (base_object);
+        items.sort (set_sort_func);
+
+        if (items.size == 0) {
+            return 1000;
+        }
+
+        int new_order = 1000;
+
+        if (position == -1) {
+            if (new_task_position == NewTaskPosition.START) {
+                new_order = items[0].child_order / 2;
+            } else {
+                new_order = items[items.size - 1].child_order + 1000;
+            }
+        } else if (position == 0) {
+            var first = items[0];
+            new_order = first.child_order / 2;
+
+            if (new_order == first.child_order) {
+                normalize_orders (items);
+                return generate_child_order ();
+            }
+        } else if (position > 0 && position < items.size) {
+            var prev = items[position - 1];
+            var next = items[position];
+            new_order = (prev.child_order + next.child_order) / 2;
+
+            if (new_order == prev.child_order || new_order == next.child_order) {
+                normalize_orders (items);
+                return generate_child_order ();
+            }
+        } else if (position >= items.size) {
+            new_order = items[items.size - 1].child_order + 1000;
+        }
+
+        return new_order;
+    }
+
+    private void normalize_orders (Gee.ArrayList<Objects.Item> items) {
+        int spacing = 1000;
+        int order = spacing;
+
+        foreach (Objects.Item item in items) {
+            item.child_order = order;
+            order += spacing;
+            item.update_async ();
+        }
+    }
+
+    private int set_sort_func (Objects.Item item1, Objects.Item item2) {
+        return item1.child_order - item2.child_order;
     }
 }

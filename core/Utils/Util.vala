@@ -1161,10 +1161,82 @@ We hope you’ll enjoy using Planify!""");
 
     // https://wiki.gnome.org/Projects/Vala/AsyncSamples#Async_sleep_example
     public static async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
-    GLib.Timeout.add (interval, () => {
-        nap.callback ();
-        return false;
+        GLib.Timeout.add (interval, () => {
+            nap.callback ();
+            return false;
         }, priority);
-    yield;
+
+        yield;
+    }
+
+    public int natural_compare (string a, string b) {
+        Regex regex;
+
+        try {
+            regex = new Regex ("(\\d+)|(\\D+)");
+
+            MatchInfo ma = null;
+            MatchInfo mb = null;
+
+            if (!regex.match_full (a, a.length, 0, 0, out ma) || !regex.match_full (b, b.length, 0, 0, out mb)) {
+                return a.collate (b);
+            }
+
+            while (ma.matches () && mb.matches ()) {
+                string part_a = ma.fetch (0);
+                string part_b = mb.fetch (0);
+
+                if (Regex.match_simple ("^\\d+$", part_a, 0, 0) && Regex.match_simple ("^\\d+$", part_b, 0, 0)) {
+                    int na = int.parse (part_a);
+                    int nb = int.parse (part_b);
+                    if (na != nb)
+                        return na - nb;
+                } else {
+                    int result = part_a.collate (part_b);
+                    if (result != 0)
+                        return result;
+                }
+
+                if (!ma.next () || !mb.next ())
+                    break;
+            }
+
+            return a.collate (b);
+        } catch (RegexError e) {
+            return a.collate (b);
+        }
+    }
+
+    public int set_item_sort_func (Objects.Item item1, Objects.Item item2, SortedByType sorted_by, SortOrderType sort_order) {
+        int result = 0;
+        
+        if (sorted_by == SortedByType.MANUAL) {
+            result = item1.child_order - item2.child_order;
+        } else if (sorted_by == SortedByType.NAME) {
+            result = natural_compare (item1.content.strip (), item2.content.strip ());
+        } else if (sorted_by == SortedByType.DUE_DATE) {
+            if (item1.has_due && item2.has_due) {
+                var date1 = item1.due.datetime;
+                var date2 = item2.due.datetime;
+
+                result = date1.compare (date2);
+                if (result == 0) {
+                    result = item2.priority - item1.priority;
+                }
+            } else if (!item1.has_due && item2.has_due) {
+                result = 1;
+            } else if (item1.has_due && !item2.has_due) {
+                result = -1;
+            }
+        } else if (sorted_by == SortedByType.ADDED_DATE) {
+            result = item1.added_datetime.compare (item2.added_datetime);
+        } else if (sorted_by == SortedByType.PRIORITY) {
+            result = item2.priority - item1.priority;
+            if (result == 0) {
+                result = item1.added_datetime.compare (item2.added_datetime);
+            }
+        }
+
+        return sort_order == SortOrderType.ASC ? result : -result;
     }
 }

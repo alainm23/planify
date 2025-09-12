@@ -186,6 +186,7 @@ public class Widgets.SubItems : Adw.Bin {
             if (items_map.has_key (item.id)) {
                 if (items_map[item.id].update_id != update_id) {
                     items_map[item.id].update_request ();
+                    update_sort ();
                 }
             }
 
@@ -238,6 +239,7 @@ public class Widgets.SubItems : Adw.Bin {
                 add_item (item);
             }
 
+            update_sort ();
             children_changes ();
         })] = Services.EventBus.get_default ();
 
@@ -303,6 +305,10 @@ public class Widgets.SubItems : Adw.Bin {
         })] = add_button;
 
         signals_map[item_parent.project.sort_order_changed.connect (() => {
+            update_sort ();
+        })] = item_parent.project;
+
+        signals_map[item_parent.project.sorted_by_changed.connect (() => {
             update_sort ();
         })] = item_parent.project;
 
@@ -452,21 +458,14 @@ public class Widgets.SubItems : Adw.Bin {
             items_map[item.id] = new Layouts.ItemRow (item, is_project_view);
         }
 
-        if (item.custom_order) {
-            listbox.insert (items_map[item.id], item.child_order);
-        } else {
-            listbox.append (items_map[item.id]);
-        }
-
+        listbox.append (items_map[item.id]);
+        
         children_changes ();
     }
 
     private void update_sort () {
-        if (item_parent.project.sort_order == 0) {
-            listbox.set_sort_func (null);
-        } else {
-            listbox.set_sort_func (set_sort_func);
-        }
+        listbox.set_sort_func (set_sort_func);
+        listbox.set_sort_func (null);
     }
 
     private int set_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
@@ -481,42 +480,12 @@ public class Widgets.SubItems : Adw.Bin {
             item2 = ((Layouts.ItemRow) lbbefore).item;
         }
 
-        if (item_parent.project.sort_order == 1) {
-            return item1.content.strip ().collate (item2.content.strip ());
-        }
-
-        if (item_parent.project.sort_order == 2) {
-            if (item1.has_due && item2.has_due) {
-                var date1 = item1.due.datetime;
-                var date2 = item2.due.datetime;
-
-                return date1.compare (date2);
-            }
-
-            if (!item1.has_due && item2.has_due) {
-                return 1;
-            }
-
-            return 0;
-        }
-
-        if (item_parent.project.sort_order == 3) {
-            return item1.added_datetime.compare (item2.added_datetime);
-        }
-
-        if (item_parent.project.sort_order == 4) {
-            if (item1.priority < item2.priority) {
-                return 1;
-            }
-
-            if (item1.priority < item2.priority) {
-                return -1;
-            }
-
-            return 0;
-        }
-
-        return 0;
+        return Util.get_default ().set_item_sort_func (
+            item1,
+            item2,
+            item_parent.project.sorted_by,
+            item_parent.project.sort_order
+        );
     }
 
     public void prepare_new_item (string content = "") {

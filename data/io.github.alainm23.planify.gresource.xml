@@ -47,6 +47,7 @@
     <file alias="dock-left-symbolic.svg">resources/icons/dock-left-symbolic.svg</file>
     <file alias="dock-right-symbolic.svg">resources/icons/dock-right-symbolic.svg</file>
     <file alias="view-sort-descending-rtl-symbolic.svg">resources/icons/view-sort-descending-rtl-symbolic.svg</file>
+    <file alias="view-sort-ascending-rtl-symbolic.svg">resources/icons/view-sort-ascending-rtl-symbolic.svg</file>
     <file alias="list-symbolic.svg">resources/icons/list-symbolic.svg</file>
     <file alias="view-columns-symbolic.svg">resources/icons/view-columns-symbolic.svg</file>
     <file alias="view-list-ordered-symbolic.svg">resources/icons/view-list-ordered-symbolic.svg</file>
@@ -125,6 +126,7 @@
     <file alias="dock-left-symbolic.svg">resources/icons/dock-left-symbolic.svg</file>
     <file alias="dock-right-symbolic.svg">resources/icons/dock-right-symbolic.svg</file>
     <file alias="view-sort-descending-rtl-symbolic.svg">resources/icons/view-sort-descending-rtl-symbolic.svg</file>
+    <file alias="view-sort-ascending-rtl-symbolic.svg">resources/icons/view-sort-ascending-rtl-symbolic.svg</file>
     <file alias="list-symbolic.svg">resources/icons/list-symbolic.svg</file>
     <file alias="view-columns-symbolic.svg">resources/icons/view-columns-symbolic.svg</file>
     <file alias="view-list-ordered-symbolic.svg">resources/icons/view-list-ordered-symbolic.svg</file>
@@ -203,6 +205,7 @@
     <file alias="dock-left-symbolic.svg">resources/icons/dock-left-symbolic.svg</file>
     <file alias="dock-right-symbolic.svg">resources/icons/dock-right-symbolic.svg</file>
     <file alias="view-sort-descending-rtl-symbolic.svg">resources/icons/view-sort-descending-rtl-symbolic.svg</file>
+    <file alias="view-sort-ascending-rtl-symbolic.svg">resources/icons/view-sort-ascending-rtl-symbolic.svg</file>
     <file alias="list-symbolic.svg">resources/icons/list-symbolic.svg</file>
     <file alias="view-columns-symbolic.svg">resources/icons/view-columns-symbolic.svg</file>
     <file alias="view-list-ordered-symbolic.svg">resources/icons/view-list-ordered-symbolic.svg</file>

@@ -533,7 +533,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             margin_top = 3,
             margin_bottom = 3,
             margin_end = 3,
-            margin_start = 3
+            margin_start = 6
         };
         _itemrow_box.append (handle_grid);
         _itemrow_box.append (select_revealer);
@@ -706,13 +706,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         signals_map[priority_button.changed.connect ((priority) => {
             if (item.priority != priority) {
                 item.priority = priority;
-
-                if (item.project.source_type == SourceType.TODOIST ||
-                    item.project.source_type == SourceType.CALDAV) {
-                    item.update_async ("");
-                } else {
-                    item.update_local ();
-                }
+                item.update_async ();
             }
         })] = priority_button;
 
@@ -1359,7 +1353,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     public void update_priority (int priority) {
         item.priority = priority;
-        item.update_async ("");
+        item.update_async ();
     }
 
     public void update_due (Objects.DueDate duedate) {
@@ -1415,7 +1409,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             return;
         }
 
-        item.update_async ("");
+        item.update_async ();
     }
 
     public override void delete_request (bool undo = true) {
@@ -1479,7 +1473,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private void build_drop_motion () {
         drop_motion_ctrl = new Gtk.DropControllerMotion ();
         add_controller (drop_motion_ctrl);
-
         dnd_handlerses[drop_motion_ctrl.enter.connect ((x, y) => {
             var drop = drop_motion_ctrl.get_drop ();
             GLib.Value value = Value (typeof (Gtk.Widget));
@@ -1495,10 +1488,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     }
 
                     motion_top_grid.height_request = picked_widget.handle_grid.get_height ();
-                    motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+                    motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer && item.project.sorted_by == SortedByType.MANUAL;
                 } else if (value.dup_object () is Widgets.MagicButton) {
                     motion_top_grid.height_request = 30;
-                    motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+                    motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer && item.project.sorted_by == SortedByType.MANUAL;
                 }
             } catch (Error e) {
                 debug (e.message);
@@ -1602,8 +1595,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         drop_order_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_magic_button_target);
         dnd_handlerses[drop_order_magic_button_target.drop.connect ((value, x, y) => {
-            var dialog = new Dialogs.QuickAdd ();
-            dialog.set_index (get_index ());
+            var dialog = new Dialogs.QuickAdd () {
+                position = get_index ()
+            };
 
             if (item.has_parent) {
                 dialog.for_base_object (item.parent);
@@ -1626,9 +1620,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         dnd_handlerses[drop_order_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemRow) value;
             var target_widget = this;
-            var old_project_id = "";
-            var old_section_id = "";
-            var old_parent_id = "";
 
             picked_widget.drag_end ();
             target_widget.drag_end ();
@@ -1639,17 +1630,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 return false;
             }
 
-            if (item.project.sort_order != 0) {
-                item.project.sort_order = 0;
+            if (item.project.sorted_by != SortedByType.MANUAL) {
+                item.project.sorted_by = SortedByType.MANUAL;
                 Services.EventBus.get_default ().send_toast (
                     Util.get_default ().create_toast (_ ("Order changed to 'Custom sort order'"))
                 );
                 item.project.update_local ();
             }
 
-            old_project_id = picked_widget.item.project_id;
-            old_section_id = picked_widget.item.section_id;
-            old_parent_id = picked_widget.item.parent_id;
+            string old_project_id = picked_widget.item.project_id;
+            string old_section_id = picked_widget.item.section_id;
+            string old_parent_id = picked_widget.item.parent_id;
 
             if (picked_widget.item.project_id != target_widget.item.project_id ||
                 picked_widget.item.section_id != target_widget.item.section_id ||
@@ -1701,10 +1692,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             var source_list = (Gtk.ListBox) picked_widget.parent;
             var target_list = (Gtk.ListBox) target_widget.parent;
 
+            int new_index = target_widget.get_index ();
+
             source_list.remove (picked_widget);
-            target_list.insert (picked_widget, target_widget.get_index ());
+            target_list.insert (picked_widget, new_index);
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
-            update_items_item_order (target_list);
+
+            Utils.TaskUtils.update_single_item_order (target_list, picked_widget, new_index);
 
             return true;
         })] = drop_order_target;
@@ -1741,22 +1735,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         itemrow_box.remove_css_class ("drop-begin");
         main_revealer.reveal_child = item.show_item;
         Services.EventBus.get_default ().drag_n_drop_active (item.project_id, false);
-    }
-
-    private void update_items_item_order (Gtk.ListBox listbox) {
-        unowned Layouts.ItemRow ? item_row = null;
-        var row_index = 0;
-
-        do {
-            item_row = (Layouts.ItemRow) listbox.get_row_at_index (row_index);
-
-            if (item_row != null) {
-                item_row.item.child_order = row_index;
-                Services.Store.instance ().update_item (item_row.item);
-            }
-
-            row_index++;
-        } while (item_row != null);
     }
 
     private void build_markdown_edit_view () {
