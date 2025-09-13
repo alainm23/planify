@@ -1022,7 +1022,9 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$description", project.description);
         set_parameter_str (stmt, "$due_date", project.due_date);
         set_parameter_bool (stmt, "$inbox_section_hidded", project.inbox_section_hidded);
-        set_parameter_str (stmt, "$sync_id", project.sync_id);
+        if (project.sync_id != null) {
+            set_parameter_str (stmt, "$sync_id", project.sync_id);
+        }
         set_parameter_str (stmt, "$source_id", project.source_id);
         set_parameter_str (stmt, "$calendar_url", project.calendar_url);
         set_parameter_str (stmt, "$sorted_by", project.sorted_by.to_string ());
