@@ -175,23 +175,26 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                     </d:propfind>
         """;
 
+        print ("calendar_home_url: %s\n", source.caldav_data.calendar_home_url);
         var multi_status = yield propfind (source.caldav_data.calendar_home_url, xml, "1", cancellable);
 
 
         // Delete CalDAV Generic
-        //  var server_urls = new Gee.HashSet<string> ();
-        //  foreach (var response in multi_status.responses ()) {
-        //      if (response.href != null) {
-        //          server_urls.add (get_absolute_url (response.href));
-        //      }
-        //  }
+        var server_urls = new Gee.HashSet<string> ();
+        foreach (var response in multi_status.responses ()) {
+            if (response.href != null) {
+                print ("href: %s\n", get_absolute_url (response.href));
+                server_urls.add (get_absolute_url (response.href));
+            }
+        }
 
-        //  var local_projects = Services.Store.instance ().get_projects_by_source (source.id);
-        //  foreach (var local_project in local_projects) {
-        //      if (!server_urls.contains (local_project.calendar_url)) {
-        //          Services.Store.instance ().delete_project (local_project);
-        //      }
-        //  }
+        var local_projects = Services.Store.instance ().get_projects_by_source (source.id);
+        foreach (Objects.Project local_project in local_projects) {
+            if (!server_urls.contains (local_project.calendar_url)) {
+                // Services.Store.instance ().delete_project (local_project);
+                print ("delete: %s\n", local_project.calendar_url);
+            }
+        }
 
         foreach (var response in multi_status.responses ()) {
             string? href = response.href;

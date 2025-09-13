@@ -2249,11 +2249,14 @@ public class Services.Database : GLib.Object {
                 continue;
             }
 
-            var url = "%s/calendars/%s/%s/".printf (
+            var url = Path.build_filename (
                 project.source.caldav_data.server_url,
+                "calendars", 
                 project.source.caldav_data.username,
-                project.id
+                project.id,
+                ""
             );
+
 
             print ("Migration: Adding calendar_url for Project (%s) (%s)\n", project.name, url);
 
