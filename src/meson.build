@@ -1,9 +1,6 @@
 deps = [
   core_dep,
   gee_dep,
-  libedataserver_dep,
-  libportal_dep,
-  libportal_gtk4_dep,
   m_dep
 ]
 
@@ -12,6 +9,14 @@ if get_option('webkit')
         deps += webkitgtk_dep
     endif
 endif
+
+
+if get_option('evolution')
+    if libedataserver_dep.found()
+        deps += libedataserver_dep
+    endif
+endif
+
 
 sources = files(
   'App.vala',

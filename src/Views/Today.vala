@@ -23,12 +23,14 @@ public class Views.Today : Adw.Bin {
     private Layouts.HeaderBar headerbar;
     private Gtk.Label title_label;
     private Gtk.Label date_label;
+    #if WITH_EVOLUTION
     private Widgets.EventsList event_list;
+    private Gtk.Revealer event_list_revealer;
+    #endif
     private Gtk.ListBox listbox;
     private Gtk.Revealer today_revealer;
     private Gtk.ListBox overdue_listbox;
     private Gtk.Revealer overdue_revealer;
-    private Gtk.Revealer event_list_revealer;
     private Gtk.Grid listbox_grid;
     private Gtk.ScrolledWindow scrolled_window;
     private Gtk.Stack listbox_placeholder_stack;
@@ -123,6 +125,7 @@ public class Views.Today : Adw.Bin {
         title_box.append (title_label);
         title_box.append (date_label);
 
+        #if WITH_EVOLUTION
         event_list = new Widgets.EventsList.for_day (date) {
             margin_top = 12,
             margin_start = 24,
@@ -134,6 +137,7 @@ public class Views.Today : Adw.Bin {
             reveal_child = event_list.has_items,
             child = event_list
         };
+        #endif
 
         var filters = new Widgets.FilterFlowBox () {
             valign = Gtk.Align.START,
@@ -267,7 +271,9 @@ public class Views.Today : Adw.Bin {
         };
 
         content_box.append (title_box);
+        #if WITH_EVOLUTION
         content_box.append (event_list_revealer);
+        #endif
         content_box.append (filters);
         content_box.append (listbox_placeholder_stack);
 
@@ -364,9 +370,11 @@ public class Views.Today : Adw.Bin {
             prepare_new_item ();
         })] = magic_button;
 
+        #if WITH_EVOLUTION
         signal_map[event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;
         })] = event_list;
+        #endif
 
         signal_map[Services.Settings.get_default ().settings.changed["today-sort-order"].connect (() => {
             listbox.invalidate_sort ();
@@ -777,6 +785,8 @@ public class Views.Today : Adw.Bin {
 
         signal_map.clear ();
 
+        #if WITH_EVOLUTION
         event_list.clean_up ();
+        #endif
     }
 }
