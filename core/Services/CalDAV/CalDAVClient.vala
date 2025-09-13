@@ -187,7 +187,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         }
 
         var local_projects = Services.Store.instance ().get_projects_by_source (source.id);
-        foreach (var local_project in local_projects) {
+        foreach (Objects.Project local_project in local_projects) {
             if (!server_urls.contains (local_project.calendar_url)) {
                 Services.Store.instance ().delete_project (local_project);
             }

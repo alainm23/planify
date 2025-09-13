@@ -299,12 +299,43 @@ public class Objects.SourceTodoistData : Objects.SourceData {
 }
 
 public class Objects.SourceCalDAVData : Objects.SourceData {
-    public string server_url { get; set; default = ""; }
+    string _server_url;
+    public string server_url {
+        set {
+            _server_url = value;
+        }
+
+        get {
+            if (!_server_url.has_suffix ("/")) {
+                _server_url += "/";
+            }
+
+            return _server_url;
+        }
+    }
     public string username { get; set; default = ""; }
     public string password { get; set; default = ""; }
     public string user_displayname { get; set; default = ""; }
     public string user_email { get; set; default = ""; }
-    public string calendar_home_url { get; set; default = ""; }
+
+    string _calendar_home_url;
+    public string calendar_home_url {
+        set {
+            _calendar_home_url = value;
+        }
+
+        get {
+            if (_calendar_home_url == null || _calendar_home_url == "") {
+                _calendar_home_url = Path.build_filename (server_url, "calendars", username);
+                if (!_calendar_home_url.has_suffix ("/")) {
+                    _calendar_home_url += "/";
+                }
+            }
+
+            return _calendar_home_url;
+        }
+    }
+    
     public CalDAVType caldav_type { get; set; default = CalDAVType.GENERIC; }
     public bool ignore_ssl { get; set; default = false; }
 
