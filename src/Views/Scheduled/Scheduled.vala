@@ -26,10 +26,10 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
     private Gtk.ScrolledWindow scrolled_window;
 
     public Gee.HashMap<string, Layouts.ItemRow> items;
-    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     ~Scheduled () {
-        print ("Destroying Views.Scheduled.Scheduled\n");
+        print ("Destroying - Views.Scheduled.Scheduled\n");
     }
 
     construct {
@@ -160,15 +160,15 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         child = toolbar_view;
         add_days ();
 
-        signals_map[magic_button.clicked.connect (() => {
+        signal_map[magic_button.clicked.connect (() => {
             prepare_new_item ();
         })] = magic_button;
 
-        signals_map[scrolled_window.vadjustment.value_changed.connect (() => {
+        signal_map[scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);
         })] = scrolled_window.vadjustment;
 
-        signals_map[Services.EventBus.get_default ().theme_changed.connect (() => {
+        signal_map[Services.EventBus.get_default ().theme_changed.connect (() => {
             Util.get_default ().set_widget_color (Objects.Filters.Scheduled.get_default ().theme_color (), title_icon);
         })] = Services.EventBus.get_default ();
     }
@@ -276,19 +276,19 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             width_request = 250
         };
 
-        sorted_by_item.notify["selected"].connect (() => {
+        signal_map[sorted_by_item.notify["selected"].connect (() => {
             Services.Settings.get_default ().settings.set_string ("scheduled-sort-order", sorted_by_item.selected);
-        });
+        })] = sorted_by_item;
 
-        priority_filter.filter_change.connect ((filter, active) => {
+        signal_map[priority_filter.filter_change.connect ((filter, active) => {
             if (active) {
                 Objects.Filters.Scheduled.get_default ().add_filter (filter);
             } else {
                 Objects.Filters.Scheduled.get_default ().remove_filter (filter);
             }
-        });
+        })] = signal_map;
 
-        labels_filter.activate_item.connect (() => {
+        signal_map[labels_filter.activate_item.connect (() => {
             Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
             foreach (Objects.Filters.FilterItem filter in Objects.Filters.Scheduled.get_default ().filters.values) {
                 if (filter.filter_type == FilterItemType.LABEL) {
@@ -297,11 +297,9 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             }
 
             var dialog = new Dialogs.LabelPicker ();
-            // TODO: dialog.add_labels (SourceType.ALL);
             dialog.labels = _labels;
-            dialog.present (Planify._instance.main_window);
 
-            dialog.labels_changed.connect ((labels) => {
+            signal_map[dialog.labels_changed.connect ((labels) => {
                 foreach (Objects.Label label in labels.values) {
                     var filter = new Objects.Filters.FilterItem ();
                     filter.filter_type = FilterItemType.LABEL;
@@ -323,17 +321,29 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
                 foreach (Objects.Filters.FilterItem filter in to_remove) {
                     Objects.Filters.Scheduled.get_default ().remove_filter (filter);
                 }
-            });
-        });
+            })] = dialog;
+            
+            dialog.present (Planify._instance.main_window);
+        })] = labels_filter;
 
         return popover;
     }
 
     public void clean_up () {
-        foreach (var entry in signals_map.entries) {
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            if (row is Views.Scheduled.ScheduledDay) {
+                (row as Views.Scheduled.ScheduledDay).clean_up ();
+            } else if (row is Views.Scheduled.ScheduledMonth) {
+                (row as Views.Scheduled.ScheduledMonth).clean_up ();
+            } else if (row is Views.Scheduled.ScheduledRange) {
+                (row as Views.Scheduled.ScheduledRange).clean_up ();
+            }
+        }
+
+        foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
-        signals_map.clear ();
+        signal_map.clear ();
     }
 }

@@ -20,15 +20,18 @@
  */
 
 public class Views.Labels : Adw.Bin {
+    private Layouts.HeaderBar headerbar;
     private Gtk.ListBox sources_listbox;
+
     public Gee.HashMap<string, Views.LabelSourceRow> sources_hashmap = new Gee.HashMap<string, Views.LabelSourceRow> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     ~Labels () {
-        print ("Destroying Views.Labels\n");
+        print ("Destroying - Views.Labels\n");
     }
 
     construct {
-        var headerbar = new Layouts.HeaderBar () {
+        headerbar = new Layouts.HeaderBar () {
             title = Objects.Filters.Labels.get_default ().name
         };
 
@@ -40,9 +43,9 @@ public class Views.Labels : Adw.Bin {
         };
 
         Util.get_default ().set_widget_color (Objects.Filters.Labels.get_default ().theme_color (), title_icon);
-        Services.EventBus.get_default ().theme_changed.connect (() => {
+        signal_map[Services.EventBus.get_default ().theme_changed.connect (() => {
             Util.get_default ().set_widget_color (Objects.Filters.Labels.get_default ().theme_color (), title_icon);
-        });
+        })] = Services.EventBus.get_default ();
 
         var title_label = new Gtk.Label (Objects.Filters.Labels.get_default ().name) {
             css_classes = { "font-bold", "title-2" },
@@ -104,21 +107,21 @@ public class Views.Labels : Adw.Bin {
             add_source_row (source);
         }
 
-        Services.Store.instance ().source_deleted.connect ((source) => {
+        signal_map[Services.Store.instance ().source_deleted.connect ((source) => {
             if (sources_hashmap.has_key (source.id)) {
                 sources_hashmap.get (source.id).hide_destroy ();
             }
-        });
+        })] = Services.Store.instance ();
 
-        Services.Store.instance ().source_added.connect (add_source_row);
+        signal_map[Services.Store.instance ().source_added.connect (add_source_row)] = Services.Store.instance ();
 
-        scrolled_window.vadjustment.value_changed.connect (() => {
+        signal_map[scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
-        });
+        })] = scrolled_window.vadjustment;
 
-        magic_button.clicked.connect (() => {
+        signal_map[magic_button.clicked.connect (() => {
             prepare_new_item ();
-        });
+        })] = magic_button;
     }
 
     private void add_source_row (Objects.Source source) {
@@ -132,5 +135,19 @@ public class Views.Labels : Adw.Bin {
         var dialog = new Dialogs.QuickAdd ();
         dialog.update_content (content);
         dialog.present (Planify._instance.main_window);
+    }
+
+    public void clean_up () {
+        foreach (var row in Util.get_default ().get_children (sources_listbox)) {
+            (row as Views.LabelSourceRow).clean_up ();
+        }
+
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        headerbar.clean_up ();
     }
 }

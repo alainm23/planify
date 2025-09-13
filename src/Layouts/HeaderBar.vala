@@ -66,6 +66,12 @@ public class Layouts.HeaderBar : Adw.Bin {
 
     public signal void back_activated ();
 
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
+    ~HeaderBar () {
+        print ("Destroying - Layouts.HeaderBar\n");
+    }
+
     construct {
         sidebar_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
@@ -132,19 +138,19 @@ public class Layouts.HeaderBar : Adw.Bin {
 
         child = headerbar;
 
-        sidebar_button.clicked.connect (() => {
+        signal_map[sidebar_button.clicked.connect (() => {
             bool slim_mode = Services.Settings.get_default ().settings.get_boolean ("slim-mode");
             Services.Settings.get_default ().settings.set_boolean ("slim-mode", !slim_mode);
-        });
+        })] = sidebar_button;
 
-        back_button.clicked.connect (() => {
+        signal_map[back_button.clicked.connect (() => {
             back_activated ();
-        });
+        })] = back_button;
 
-        Services.Settings.get_default ().settings.changed["slim-mode"].connect (() => {
+        signal_map[Services.Settings.get_default ().settings.changed["slim-mode"].connect (() => {
             sidebar_button_revealer.reveal_child = !Services.Settings.get_default ().settings.get_boolean ("slim-mode");
             update_sidebar_icon ();
-        });
+        })] = Services.Settings.get_default ();
     }
 
     private void update_sidebar_icon () {
@@ -165,5 +171,13 @@ public class Layouts.HeaderBar : Adw.Bin {
 
     public void update_title_box_visibility (bool visible) {
         title_box_revealer.reveal_child = visible;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

@@ -27,7 +27,7 @@ public class Views.Label : Adw.Bin {
     private Gtk.Stack listbox_stack;
 
     public Gee.HashMap<string, Layouts.ItemRow> items;
-    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     private bool has_items {
         get {
@@ -49,7 +49,7 @@ public class Views.Label : Adw.Bin {
     }
 
     ~Label () {
-        print ("Destroying Views.Label\n");
+        print ("Destroying - Views.Label\n");
     }
 
     construct {
@@ -148,23 +148,23 @@ public class Views.Label : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        signals_map[Services.Store.instance ().item_added.connect (valid_add_item)] = Services.Store.instance ();
-        signals_map[Services.Store.instance ().item_deleted.connect (valid_delete_item)] = Services.Store.instance ();
-        signals_map[Services.Store.instance ().item_updated.connect (valid_update_item)] = Services.Store.instance ();
-        signals_map[Services.Store.instance ().item_archived.connect (valid_delete_item)] = Services.Store.instance ();
-        signals_map[Services.Store.instance ().item_unarchived.connect ((item) => {
+        signal_map[Services.Store.instance ().item_added.connect (valid_add_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_deleted.connect (valid_delete_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_updated.connect (valid_update_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_archived.connect (valid_delete_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_unarchived.connect ((item) => {
             valid_add_item (item);
         })] = Services.Store.instance ();
 
-        signals_map[headerbar.back_activated.connect (() => {
+        signal_map[headerbar.back_activated.connect (() => {
             Services.EventBus.get_default ().pane_selected (PaneType.FILTER, Objects.Filters.Labels.get_default ().view_id);
         })] = headerbar;
         
-        signals_map[scrolled_window.vadjustment.value_changed.connect (() => {
+        signal_map[scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
         })] = scrolled_window.vadjustment;
 
-        signals_map[magic_button.clicked.connect (() => {
+        signal_map[magic_button.clicked.connect (() => {
             prepare_new_item ();
         })] = magic_button;
     }
@@ -238,10 +238,14 @@ public class Views.Label : Adw.Bin {
     }
 
     public void clean_up () {
-        foreach (var entry in signals_map.entries) {
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            (row as Layouts.ItemRow).clean_up ();
+        }
+
+        foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
-        signals_map.clear ();
+        signal_map.clear ();
     }
 }
