@@ -111,10 +111,9 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
                             var app_password = poll_object.get_string_member ("appPassword");
 
                             var dav_endpoint = yield Core.get_default ().resolve_well_known_caldav (session, server);
-                            print ("Using DAV Endpoint: %s\n", dav_endpoint);
 
                             var calendar_home = yield Core.get_default ().resolve_calendar_home (CalDAVType.NEXTCLOUD, dav_endpoint, login_name, app_password, cancellable, ignore_ssl);
-                            print ("Calendar Home: %s\n", calendar_home);
+                            
                             var login_response = yield Core.get_default ().login (CalDAVType.NEXTCLOUD, dav_endpoint, login_name, app_password, calendar_home, cancellable, ignore_ssl);
 
                             return login_response;
