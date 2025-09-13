@@ -154,7 +154,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         add_button_box.append (new Gtk.Image.from_icon_name ("plus-large-symbolic") {
             css_classes = { "color-primary" }
         });
-        add_button_box.append (new Gtk.Label (_("Add taks")));
+        add_button_box.append (new Gtk.Label (_("Add tasks")));
 
         var add_button = new Gtk.Button () {
             child = add_button_box,
@@ -172,7 +172,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             css_classes = { "listbox-background", "listbox-separator-3" }
         };
 
-        load_more_button = new Gtk.Button.with_label ("Cargar más") {
+        load_more_button = new Gtk.Button.with_label (_("Load more")) {
             halign = START,
         };
         load_more_button.add_css_class ("flat");
