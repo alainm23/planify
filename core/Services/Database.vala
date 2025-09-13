@@ -2260,7 +2260,7 @@ public class Services.Database : GLib.Object {
                 url += "/";
             }
 
-            print ("Migration: Adding calendar_url for Project (%s) (%s)\n", project.name, url);
+            debug ("Migration: Adding calendar_url for Project (%s) (%s)\n", project.name, url);
 
             Sqlite.Statement stmt;
 
