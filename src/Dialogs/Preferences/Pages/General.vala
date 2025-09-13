@@ -73,6 +73,7 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
 
         // de_group.add (run_background_row);
 
+        #if WITH_LIBPORTAL
         var run_on_startup_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
             active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup")
@@ -85,6 +86,7 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
         run_on_startup_row.add_suffix (run_on_startup_switch);
 
         de_group.add (run_on_startup_row);
+        #endif
 
         var calendar_events_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
@@ -170,9 +172,11 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
             Services.Settings.get_default ().settings.set_boolean ("run-in-background", run_background_switch.active);
         })] = run_background_switch;
 
+        #if WITH_LIBPORTAL
         signal_map[run_on_startup_switch.notify["active"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("run-on-startup", run_on_startup_switch.active);
         })] = run_on_startup_switch;
+        #endif
 
         signal_map[calendar_events_switch.notify["active"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("calendar-enabled", calendar_events_switch.active);
