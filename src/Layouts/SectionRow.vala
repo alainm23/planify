@@ -224,7 +224,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         add_button_box.append (new Gtk.Image.from_icon_name ("plus-large-symbolic") {
             css_classes = { "color-primary" }
         });
-        add_button_box.append (new Gtk.Label (_("Add taks")));
+        add_button_box.append (new Gtk.Label (_("Add tasks")));
 
         var add_button = new Gtk.Button () {
             child = add_button_box,
