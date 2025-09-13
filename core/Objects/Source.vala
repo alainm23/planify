@@ -325,7 +325,7 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
         }
 
         get {
-            if (_calendar_home_url == null) {
+            if (_calendar_home_url == null || _calendar_home_url == "") {
                 _calendar_home_url = Path.build_filename (server_url, "calendars", username);
                 if (!_calendar_home_url.has_suffix ("/")) {
                     _calendar_home_url += "/";
