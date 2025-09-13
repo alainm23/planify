@@ -11,6 +11,16 @@ if get_option('webkit')
 endif
 
 
+if get_option('portal')
+    if libportal_dep.found()
+        deps += libportal_dep
+    endif
+    if libportal_gtk4_dep.found()
+        deps += libportal_gtk4_dep
+    endif
+endif
+
+
 if get_option('evolution')
     if libedataserver_dep.found()
         deps += libedataserver_dep
