@@ -2253,10 +2253,12 @@ public class Services.Database : GLib.Object {
                 project.source.caldav_data.server_url,
                 "calendars", 
                 project.source.caldav_data.username,
-                project.id,
-                ""
+                project.id
             );
 
+            if (!url.has_suffix ("/")) {
+                url += "/";
+            }
 
             print ("Migration: Adding calendar_url for Project (%s) (%s)\n", project.name, url);
 

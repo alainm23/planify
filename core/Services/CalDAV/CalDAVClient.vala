@@ -191,7 +191,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var local_projects = Services.Store.instance ().get_projects_by_source (source.id);
         foreach (Objects.Project local_project in local_projects) {
             if (!server_urls.contains (local_project.calendar_url)) {
-                // Services.Store.instance ().delete_project (local_project);
+                Services.Store.instance ().delete_project (local_project);
                 print ("delete: %s\n", local_project.calendar_url);
             }
         }
@@ -207,14 +207,14 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 var resourcetype = propstat.get_first_prop_with_tagname ("resourcetype");
                 var supported_calendar = propstat.get_first_prop_with_tagname ("supported-calendar-component-set");
 
-                //  if (is_deleted_calendar (resourcetype)) {
-                //      Objects.Project ? project = Services.Store.instance ().get_project_via_url (get_absolute_url (href));
-                //      if (project != null) {
-                //          Services.Store.instance ().delete_project (project);
-                //      }
+                if (is_deleted_calendar (resourcetype)) {
+                    Objects.Project ? project = Services.Store.instance ().get_project_via_url (get_absolute_url (href));
+                    if (project != null) {
+                        Services.Store.instance ().delete_project (project);
+                    }
 
-                //      continue;
-                //  }
+                    continue;
+                }
 
                 if (is_vtodo_calendar (resourcetype, supported_calendar)) {
                     var name = propstat.get_first_prop_with_tagname ("displayname");
