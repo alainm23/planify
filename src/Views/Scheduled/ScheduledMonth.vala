@@ -22,10 +22,13 @@
 public class Views.Scheduled.ScheduledMonth : Gtk.ListBoxRow {
     public GLib.DateTime date { get; construct; }
 
-    private Widgets.EventsList event_list;
     private Gtk.ListBox listbox;
     private Gtk.Revealer listbox_revealer;
+
+    #if WITH_EVOLUTION
+    private Widgets.EventsList event_list;
     private Gtk.Revealer event_list_revealer;
+    #endif
 
     private Gee.HashMap<string, Layouts.ItemRow> items;
 
@@ -66,6 +69,7 @@ public class Views.Scheduled.ScheduledMonth : Gtk.ListBoxRow {
 
         title_box.append (month_label);
 
+        #if WITH_EVOLUTION
         event_list = new Widgets.EventsList.for_month (date) {
             hexpand = true,
             valign = Gtk.Align.START,
@@ -77,6 +81,7 @@ public class Views.Scheduled.ScheduledMonth : Gtk.ListBoxRow {
             reveal_child = event_list.has_items,
             child = event_list
         };
+        #endif
 
         var header_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
@@ -90,7 +95,9 @@ public class Views.Scheduled.ScheduledMonth : Gtk.ListBoxRow {
             margin_top = 6,
             margin_bottom = 3
         });
+        #if WITH_EVOLUTION
         header_content.append (event_list_revealer);
+        #endif
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -191,9 +198,11 @@ public class Views.Scheduled.ScheduledMonth : Gtk.ListBoxRow {
             listbox.invalidate_filter ();
         })] = Objects.Filters.Scheduled.get_default ();
 
+        #if WITH_EVOLUTION
         signal_map[event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;
         })] = event_list;
+        #endif
     }
 
     private void add_items () {
@@ -267,6 +276,8 @@ public class Views.Scheduled.ScheduledMonth : Gtk.ListBoxRow {
 
         signal_map.clear ();
 
+        #if WITH_EVOLUTION
         event_list.clean_up ();
+        #endif
     }
 }

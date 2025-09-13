@@ -413,7 +413,6 @@ public class Objects.Item : Objects.BaseObject {
     public void patch_from_vtodo (string data, string _ical_url, bool is_update = false) {
         ICal.Component ical = ICal.Parser.parse_string (data);
         ICal.Component ? ical_vtodo = ical.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
-        ECal.Component ecal = new ECal.Component.from_icalcomponent (ical_vtodo);
 
         id = ical.get_uid ();
         content = ical.get_summary ();
@@ -483,11 +482,16 @@ public class Objects.Item : Objects.BaseObject {
 
         extra_data = Util.generate_extra_data (_ical_url, "", ical.as_ical_string ());
 
+        #if WITH_EVOLUTION
+        ECal.Component ecal = new ECal.Component.from_icalcomponent (ical_vtodo);
+
         if (is_update) {
             check_labels (get_labels_maps_from_caldav (ecal.get_categories_list ()));
         } else {
             labels = get_caldav_categories (ecal.get_categories_list ());
         }
+        #endif
+        // TODO: Reimplement without ECAL
     }
 
     private Gee.ArrayList<Objects.Label> get_caldav_categories (GLib.SList<string> categories_list) {
