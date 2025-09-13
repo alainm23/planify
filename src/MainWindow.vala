@@ -51,7 +51,7 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     ~MainWindow () {
-        print ("Destroy ing MainWindow\n");
+        print ("Destroying MainWindow\n");
     }
 
     static construct {
@@ -778,6 +778,8 @@ public class MainWindow : Adw.ApplicationWindow {
             ((Views.Filter) view).clean_up ();
         } else if (view is Views.Label) {
             ((Views.Label) view).clean_up ();
+        } else if (view is Views.Labels) {
+            ((Views.Labels) view).clean_up ();
         }
     }
 

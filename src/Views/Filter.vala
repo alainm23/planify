@@ -31,7 +31,7 @@ public class Views.Filter : Adw.Bin {
     private Gtk.Revealer load_more_button_revealer;
 
     private Gee.HashMap<string, Layouts.ItemRow> items = new Gee.HashMap<string, Layouts.ItemRow> ();
-    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     Objects.BaseObject _filter;
     public Objects.BaseObject filter {
@@ -57,7 +57,7 @@ public class Views.Filter : Adw.Bin {
     private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
 
     ~Filter () {
-        print ("Destroying Views.Filter\n");
+        print ("Destroying - Views.Filter\n");
     }
 
     construct {
@@ -181,16 +181,16 @@ public class Views.Filter : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        signals_map[Services.Store.instance ().item_added.connect (valid_add_item)] = Services.Store.instance ();
-        signals_map[Services.Store.instance ().item_deleted.connect (valid_delete_item)] = Services.Store.instance ();
-        signals_map[Services.Store.instance ().item_updated.connect (valid_update_item)] = Services.Store.instance ();
-        signals_map[Services.EventBus.get_default ().checked_toggled.connect (valid_checked_item)] = Services.EventBus.get_default ();
-        signals_map[Services.Store.instance ().item_archived.connect (valid_delete_item)] = Services.Store.instance ();
-        signals_map[Services.Store.instance ().item_unarchived.connect ((item) => {
+        signal_map[Services.Store.instance ().item_added.connect (valid_add_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_deleted.connect (valid_delete_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_updated.connect (valid_update_item)] = Services.Store.instance ();
+        signal_map[Services.EventBus.get_default ().checked_toggled.connect (valid_checked_item)] = Services.EventBus.get_default ();
+        signal_map[Services.Store.instance ().item_archived.connect (valid_delete_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_unarchived.connect ((item) => {
             valid_add_item (item);
         })] = Services.Store.instance ();
 
-        signals_map[Services.EventBus.get_default ().item_moved.connect ((item) => {
+        signal_map[Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id)) {
                 items[item.id].update_request ();
             }
@@ -198,19 +198,19 @@ public class Views.Filter : Adw.Bin {
             listbox.invalidate_sort ();
         })] = Services.EventBus.get_default ();
 
-        signals_map[magic_button.clicked.connect (() => {
+        signal_map[magic_button.clicked.connect (() => {
             prepare_new_item ();
         })] = magic_button;
 
-        signals_map[Services.EventBus.get_default ().theme_changed.connect (() => {
+        signal_map[Services.EventBus.get_default ().theme_changed.connect (() => {
             update_request ();
         })] = Services.EventBus.get_default ();
 
-        signals_map[scrolled_window.vadjustment.value_changed.connect (() => {
+        signal_map[scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
         })] = scrolled_window.vadjustment;
 
-        signals_map[load_more_button.clicked.connect (() => {
+        signal_map[load_more_button.clicked.connect (() => {
             load_next_page ();
         })] = load_more_button;
     }
@@ -266,6 +266,7 @@ public class Views.Filter : Adw.Bin {
 
     private void add_items () {
         foreach (Layouts.ItemRow row in items.values) {
+            row.clean_up ();
             listbox.remove (row);
         }
 
@@ -618,10 +619,14 @@ public class Views.Filter : Adw.Bin {
         listbox.set_sort_func (null);
         listbox.set_header_func (null);
 
-        foreach (var entry in signals_map.entries) {
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            (row as Layouts.ItemRow).clean_up ();
+        }
+        
+        foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
-        signals_map.clear ();
+        signal_map.clear ();
     }
 }

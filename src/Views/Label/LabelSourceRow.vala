@@ -24,7 +24,9 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
 
     private Layouts.HeaderItem group;
     private Gtk.Revealer main_revealer;
-    public Gee.HashMap<string, Layouts.LabelRow> labels_hashmap = new Gee.HashMap<string, Layouts.LabelRow> ();
+
+    private Gee.HashMap<string, Layouts.LabelRow> labels_hashmap = new Gee.HashMap<string, Layouts.LabelRow> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public LabelSourceRow (Objects.Source source) {
         Object (
@@ -33,7 +35,7 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
     }
 
     ~LabelSourceRow () {
-        print ("Destroying Views.LabelSourceRow\n");
+        print ("Destroying - Views.LabelSourceRow\n");
     }
 
     construct {
@@ -69,29 +71,29 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
             return GLib.Source.REMOVE;
         });
 
-        source.updated.connect (() => {
+        signal_map[source.updated.connect (() => {
             group.header_title = source.display_name;
-        });
+        })] = source;
 
-        add_button.clicked.connect (() => {
+        signal_map[add_button.clicked.connect (() => {
             var dialog = new Dialogs.Label.new (source);
             dialog.present (Planify._instance.main_window);
-        });
+        })] = add_button;
 
-        group.row_activated.connect ((row) => {
+        signal_map[group.row_activated.connect ((row) => {
             Services.EventBus.get_default ().pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id);
-        });
+        })] = group;
 
-        Services.Store.instance ().label_added.connect ((label) => {
+        signal_map[Services.Store.instance ().label_added.connect ((label) => {
             add_label (label);
-        });
+        })] = Services.Store.instance ();
 
-        Services.Store.instance ().label_deleted.connect ((label) => {
+        signal_map[Services.Store.instance ().label_deleted.connect ((label) => {
             if (labels_hashmap.has_key (label.id)) {
                 labels_hashmap[label.id].hide_destroy ();
                 labels_hashmap.unset (label.id);
             }
-        });
+        })] = Services.Store.instance ();
     }
 
     private void add_labels () {
@@ -115,9 +117,24 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
 
     public void hide_destroy () {
         main_revealer.reveal_child = false;
+        clean_up ();
         Timeout.add (main_revealer.transition_duration, () => {
             ((Gtk.ListBox) parent).remove (this);
             return GLib.Source.REMOVE;
         });
+    }
+
+    public void clean_up () {
+        foreach (var row in group.get_children ()) {
+            (row as Layouts.LabelRow).clean_up ();
+        }
+
+        group.clean_up ();
+
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

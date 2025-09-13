@@ -261,9 +261,7 @@ public class Layouts.HeaderItem : Adw.Bin {
         });
 
         destroy.connect (() => {
-            listbox.set_filter_func (null);
-            listbox.set_sort_func (null);
-            clear ();
+            clean_up ();
         });
     }
 
@@ -327,5 +325,11 @@ public class Layouts.HeaderItem : Adw.Bin {
 
     public void invalidate_filter () {
         listbox.invalidate_filter ();
+    }
+
+    public void clean_up () {
+        listbox.set_filter_func (null);
+        listbox.set_sort_func (null);
+        clear ();
     }
 }

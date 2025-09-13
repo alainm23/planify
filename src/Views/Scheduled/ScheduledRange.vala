@@ -36,6 +36,8 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         }
     }
 
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public ScheduledRange (GLib.DateTime start_date, GLib.DateTime end_date) {
         Object (
             start_date: start_date,
@@ -44,7 +46,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
     }
 
     ~ScheduledRange () {
-        print ("Destroying Views.Scheduled.ScheduledRange\n");
+        print ("Destroying - Views.Scheduled.ScheduledRange\n");
     }
 
     construct {
@@ -138,21 +140,21 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
             return GLib.Source.REMOVE;
         });
 
-        Services.Store.instance ().item_added.connect (valid_add_item);
-        Services.Store.instance ().item_deleted.connect (valid_delete_item);
-        Services.Store.instance ().item_updated.connect (valid_update_item);
-        Services.Store.instance ().item_archived.connect (valid_delete_item);
-        Services.Store.instance ().item_unarchived.connect (valid_add_item);
+        signal_map[Services.Store.instance ().item_added.connect (valid_add_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_deleted.connect (valid_delete_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_updated.connect (valid_update_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_archived.connect (valid_delete_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_unarchived.connect (valid_add_item)] = Services.Store.instance ();
 
-        Services.EventBus.get_default ().item_moved.connect ((item) => {
+        signal_map[Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id)) {
                 items[item.id].update_request ();
             }
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.Settings.get_default ().settings.changed["scheduled-sort-order"].connect (() => {
+        signal_map[Services.Settings.get_default ().settings.changed["scheduled-sort-order"].connect (() => {
             listbox.invalidate_sort ();
-        });
+        })] = Services.Settings.get_default ();
 
         listbox.set_sort_func ((lbrow, lbbefore) => {
             Objects.Item item1 = ((Layouts.ItemRow) lbrow).item;
@@ -188,21 +190,21 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
             return return_value;
         });
 
-        Objects.Filters.Scheduled.get_default ().filter_added.connect (() => {
+        signal_map[Objects.Filters.Scheduled.get_default ().filter_added.connect (() => {
             listbox.invalidate_filter ();
-        });
+        })] = Objects.Filters.Scheduled.get_default ();
 
-        Objects.Filters.Scheduled.get_default ().filter_removed.connect (() => {
+        signal_map[Objects.Filters.Scheduled.get_default ().filter_removed.connect (() => {
             listbox.invalidate_filter ();
-        });
+        })] = Objects.Filters.Scheduled.get_default ();
 
-        Objects.Filters.Scheduled.get_default ().filter_updated.connect (() => {
+        signal_map[Objects.Filters.Scheduled.get_default ().filter_updated.connect (() => {
             listbox.invalidate_filter ();
-        });
+        })] = Objects.Filters.Scheduled.get_default ();
 
-        event_list.change.connect (() => {
+        signal_map[event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;
-        });
+        })] = event_list;
     }
 
     private void add_items () {
@@ -260,5 +262,22 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         }
 
         listbox_revealer.reveal_child = has_items;
+    }
+
+    public void clean_up () {
+        listbox.set_filter_func (null);
+        listbox.set_sort_func (null);
+
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            (row as Layouts.ItemRow).clean_up ();
+        }
+        
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        event_list.clean_up ();
     }
 }
