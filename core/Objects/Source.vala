@@ -144,7 +144,6 @@ public class Objects.Source : Objects.BaseObject {
     }
 
     private void _run_server () {
-        print ("Syncing %s\n", display_name);
         if (source_type == SourceType.TODOIST) {
             Services.Todoist.get_default ().sync.begin (this);
         } else if (source_type == SourceType.CALDAV) {

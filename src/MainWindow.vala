@@ -51,7 +51,7 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     ~MainWindow () {
-        print ("Destroying MainWindow\n");
+        print ("Destroying - MainWindow\n");
     }
 
     static construct {
@@ -203,7 +203,7 @@ public class MainWindow : Adw.ApplicationWindow {
             var did_startup_sync = false; // Remove hack when upstream issue is resolved
 
             Timeout.add (Constants.STARTUP_SYNC_TIMEOUT, () => {
-                print ("Starting startup sync\n");
+                debug ("Starting startup sync\n");
                 foreach (Objects.Source source in Services.Store.instance ().sources) {
                     source.run_server ();
                 }
@@ -216,10 +216,10 @@ public class MainWindow : Adw.ApplicationWindow {
             var network_monitor = GLib.NetworkMonitor.get_default ();
             network_monitor.network_changed.connect (() => {
                 if (did_startup_sync == false) {
-                    print ("Ignoring early network change due to bug 1690\n");
+                    debug ("Ignoring early network change due to bug 1690\n");
                     return;
                 }
-                print ("Network has changed, starting sync\n");
+                debug ("Network has changed, starting sync\n");
                 foreach (Objects.Source source in Services.Store.instance ().sources) {
                     source.run_server ();
                 }

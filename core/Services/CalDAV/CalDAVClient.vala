@@ -149,8 +149,6 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 var supported_calendar = propstat.get_first_prop_with_tagname ("supported-calendar-component-set");
 
                 if (is_vtodo_calendar (resourcetype, supported_calendar)) {
-                    print ("Found VTODO Calendar (%s)\n", get_absolute_url (href));
-
                     var project = new Objects.Project.from_propstat (propstat, get_absolute_url (href));
                     project.source_id = source.id;
 

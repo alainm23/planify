@@ -61,9 +61,6 @@ public class Services.Todoist : GLib.Object {
 
             parser.load_from_data ((string) stream.get_data ());
 
-            // Debug
-            print_root (parser.get_root ());
-
             var root = parser.get_root ().get_object ();
             var token = root.get_string_member ("access_token");
 
@@ -103,9 +100,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            // Debug
-            print_root (parser.get_root ());
 
             var source = new Objects.Source ();
             source.id = Util.get_default ().generate_id ();
@@ -220,8 +214,6 @@ public class Services.Todoist : GLib.Object {
         url = url + "?sync_token=" + source.todoist_data.sync_token;
         url = url + "&resource_types=" + RESOURCE_TYPES;
 
-        print ("SYNC URL: %s\n".printf (url));
-
         var message = new Soup.Message ("POST", url);
         message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
 
@@ -229,9 +221,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            // Debug
-            print_root (parser.get_root ());
 
             if (!parser.get_root ().get_object ().has_member ("error")) {
                 // Update sync token
@@ -394,9 +383,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            // Debug
-            print_root (parser.get_root ());
 
             var node = parser.get_root ().get_object ();
             string sync_token = node.get_string_member ("sync_token");
@@ -784,9 +770,6 @@ public class Services.Todoist : GLib.Object {
 
             parser.load_from_data ((string) stream.get_data ());
 
-            // Debug
-            print_root (parser.get_root ());
-
             if (is_todoist_error (message.status_code)) {
                 response.from_error_json (parser.get_root ());
 
@@ -869,9 +852,6 @@ public class Services.Todoist : GLib.Object {
 
             parser.load_from_data ((string) stream.get_data ());
 
-            // Debug
-            print_root (parser.get_root ());
-
             if (is_todoist_error (message.status_code)) {
                 response.from_error_json (parser.get_root ());
 
@@ -948,9 +928,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            // Debug
-            print_root (parser.get_root ());
 
             if (is_todoist_error (message.status_code)) {
                 debug_error (
@@ -1051,9 +1028,6 @@ public class Services.Todoist : GLib.Object {
 
             parser.load_from_data ((string) stream.get_data ());
 
-            // Debug
-            print_root (parser.get_root ());
-
             if (is_todoist_error (message.status_code)) {
                 response.from_error_json (parser.get_root ());
 
@@ -1138,9 +1112,6 @@ public class Services.Todoist : GLib.Object {
 
             parser.load_from_data ((string) stream.get_data ());
 
-            // Debug
-            print_root (parser.get_root ());
-
             if (is_todoist_error (message.status_code)) {
                 response.from_error_json (parser.get_root ());
 
@@ -1193,7 +1164,7 @@ public class Services.Todoist : GLib.Object {
     private void print_root (Json.Node root) {
         Json.Generator generator = new Json.Generator ();
         generator.set_root (root);
-        print (generator.to_data (null) + "\n");
+        debug (generator.to_data (null) + "\n");
     }
 
     public string get_delete_json (string id, string type, string uuid) {
@@ -1247,8 +1218,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            print_root (parser.get_root ());
 
             if (is_todoist_error (message.status_code)) {
                 response.from_error_json (parser.get_root ());
@@ -1316,8 +1285,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            print_root (parser.get_root ());
 
             if (is_todoist_error (message.status_code)) {
                 response.from_error_json (parser.get_root ());
@@ -1389,8 +1356,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            print_root (parser.get_root ());
 
             if (is_todoist_error (message.status_code)) {
                 response.from_error_json (parser.get_root ());

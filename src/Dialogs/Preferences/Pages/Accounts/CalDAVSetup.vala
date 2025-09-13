@@ -182,8 +182,6 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
 
         var dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (new Soup.Session (), server_entry.text, ignore_ssl_row.active);
 
-        print ("Using DAV Endpoint: %s\n", dav_endpoint);
-
         var calendar_home = "";
 
         if (calendar_home_entry.text != null && calendar_home_entry.text != "") {
@@ -200,8 +198,6 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         } else {
             calendar_home_entry.text = calendar_home;
         }
-
-        print ("Calendar Home: %s\n", calendar_home);
 
         HttpResponse response = yield Services.CalDAV.Core.get_default ().login (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, calendar_home, cancellable, ignore_ssl_row.active);
 
