@@ -1125,15 +1125,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
-            dialog.present (Planify._instance.main_window);
 
-            dialog.changed.connect ((type, id) => {
+            signals_map[dialog.changed.connect ((type, id) => {
                 if (type == "project") {
                     move (Services.Store.instance ().get_project (id), "");
                 } else {
                     move (item.project, id);
                 }
-            });
+            })] = dialog;
+
+            dialog.present (Planify._instance.main_window);
         })] = move_item;
 
         signals_map[today_item.activate_item.connect (() => {
@@ -1220,23 +1221,24 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             signals_map[move_item.clicked.connect (() => {
                 Dialogs.ProjectPicker.ProjectPicker dialog;
+
                 if (item.project.is_inbox_project) {
                     dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
                 } else {
                     dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
                 }
 
-                dialog.project = item.project;
-                dialog.section = item.section;
-                dialog.present (Planify._instance.main_window);
-
-                dialog.changed.connect ((type, id) => {
+                signals_map[dialog.changed.connect ((type, id) => {
                     if (type == "project") {
                         move (Services.Store.instance ().get_project (id), "");
                     } else {
                         move (item.project, id);
                     }
-                });
+                })] = dialog;
+
+                dialog.project = item.project;
+                dialog.section = item.section;
+                dialog.present (Planify._instance.main_window);
             })] = move_item;
         }
 
