@@ -109,11 +109,11 @@ public class Layouts.Sidebar : Adw.Bin {
 
         Services.Settings.get_default ().settings.changed["views-order-visible"].connect (() => {
             if (filters_revealer.child is Gtk.FlowBox) {
-                (filters_revealer.child as Gtk.FlowBox).invalidate_sort ();
-                (filters_revealer.child as Gtk.FlowBox).invalidate_filter ();
+                ((Gtk.FlowBox) filters_revealer.child).invalidate_sort ();
+                ((Gtk.FlowBox) filters_revealer.child).invalidate_filter ();
             } else if (filters_revealer.child is Gtk.ListBox) {
-                (filters_revealer.child as Gtk.ListBox).invalidate_sort ();
-                (filters_revealer.child as Gtk.ListBox).invalidate_filter ();
+                ((Gtk.ListBox) filters_revealer.child).invalidate_sort ();
+                ((Gtk.ListBox) filters_revealer.child).invalidate_filter ();
             }
         });
 

@@ -34,7 +34,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     private Gtk.Grid drop_inbox_widget;
     private Gtk.Revealer drop_inbox_revealer;
     private Adw.Bin handle_grid;
-    private Gtk.Box sectionrow_box;
     private Widgets.LoadingButton add_button;
     private Gtk.Button hide_subtask_button;
 
@@ -804,11 +803,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         listbox.set_filter_func (null);
 
         foreach (var row in Util.get_default ().get_children (listbox)) {
-            (row as Layouts.ItemRow).clean_up ();
+            ((Layouts.ItemRow) row).clean_up ();
         }
 
         foreach (var row in Util.get_default ().get_children (checked_listbox)) {
-            (row as Layouts.ItemRow).clean_up ();
+            ((Layouts.ItemRow) row).clean_up ();
         }
 
         // Clear Signals

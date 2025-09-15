@@ -177,7 +177,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         })] = edit_item;
 
         signal_map[delete_item.clicked.connect (() => {
-            label.delete_label (Planify._instance.main_window);
+            label.delete_label.begin (Planify._instance.main_window);
         })] = delete_item;
 
         return menu_popover;

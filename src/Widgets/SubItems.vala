@@ -499,11 +499,11 @@ public class Widgets.SubItems : Adw.Bin {
         listbox.set_sort_func (null);
 
         foreach (var row in Util.get_default ().get_children (listbox)) {
-            (row as Layouts.ItemBase).clean_up ();  
+            ((Layouts.ItemBase) row).clean_up ();  
         }
 
         foreach (var row in Util.get_default ().get_children (checked_listbox)) {
-            (row as Layouts.ItemBase).clean_up ();  
+            ((Layouts.ItemBase) row).clean_up ();  
         }
 
         foreach (var entry in signal_map.entries) {

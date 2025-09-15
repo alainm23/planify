@@ -441,7 +441,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         };
     }
 
-    private Adw.NavigationPage build_page (string page) {
+    private Adw.NavigationPage ? build_page (string page) {
         if (page_map.has_key (page)) {
             return page_map[page];
         }

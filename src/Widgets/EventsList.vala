@@ -181,7 +181,7 @@ public class Widgets.EventsList : Adw.Bin {
 
     public void clean_up () {
         foreach (var row in Util.get_default ().get_children (listbox)) {
-            (row as Widgets.EventRow).clean_up ();
+            ((Widgets.EventRow) row).clean_up ();
         }
 
         foreach (var entry in signal_map.entries) {
