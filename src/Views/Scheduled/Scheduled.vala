@@ -331,11 +331,11 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
     public void clean_up () {
         foreach (var row in Util.get_default ().get_children (listbox)) {
-            if (row != null && row is Views.Scheduled.ScheduledDay) {
+            if (row is Views.Scheduled.ScheduledDay) {
                 ((Views.Scheduled.ScheduledDay) row).clean_up ();
-            } else if (row != null && row is Views.Scheduled.ScheduledMonth) {
+            } else if (row is Views.Scheduled.ScheduledMonth) {
                 ((Views.Scheduled.ScheduledMonth) row).clean_up ();
-            } else if (row != null && row is Views.Scheduled.ScheduledRange) {
+            } else if (row is Views.Scheduled.ScheduledRange) {
                 ((Views.Scheduled.ScheduledRange) row).clean_up ();
             }
         }
