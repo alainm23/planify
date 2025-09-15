@@ -1481,7 +1481,7 @@ public class Objects.Item : Objects.BaseObject {
         } else if (project.source_type == SourceType.TODOIST) {
             string move_id = project.id;
             string move_type = "project_id";
-            if (_section_id != "") {
+            if (section_id != "") {
                 move_type = "section_id";
                 move_id = _section_id;
             }
@@ -1498,18 +1498,7 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
-            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-            caldav_client.move_item.begin (this, project, (obj, res) => {
-                var response = caldav_client.move_item.end (res);
-                loading = false;
-                show_item = true;
-
-                if (response.status) {
-                    _move (project.id, _section_id);
-                } else {
-                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                }
-            });
+            move_caldav_recursive.begin (project, _section_id);
         }
     }
 
@@ -1519,7 +1508,6 @@ public class Objects.Item : Objects.BaseObject {
         string old_parent_id = this.parent_id;
 
         this.project_id = _project_id;
-        .
         this.section_id = _section_id;
         this.parent_id = "";
 
@@ -1529,6 +1517,38 @@ public class Objects.Item : Objects.BaseObject {
         Services.EventBus.get_default ().send_toast (
             Util.get_default ().create_toast (_("Task moved to %s".printf (project.name)))
         );
+    }
+
+    private async void move_caldav_recursive (Objects.Project project, string _section_id) {
+        var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+        
+        try {
+            var response = yield caldav_client.move_item (this, project);
+            
+            if (!response.status) {
+                throw new IOError.FAILED (response.error);
+            }
+            
+            yield move_all_subitems_caldav (this, project, caldav_client);
+            
+            _move (project.id, _section_id);
+        } catch (Error e) {
+            Services.EventBus.get_default ().send_error_toast (0, e.message);
+        }
+        
+        loading = false;
+        show_item = true;
+    }
+
+    private async void move_all_subitems_caldav (Objects.Item item, Objects.Project project, Services.CalDAV.CalDAVClient caldav_client) throws Error {
+        foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
+            var response = yield caldav_client.move_item (subitem, project);
+            if (!response.status) {
+                throw new IOError.FAILED (response.error);
+            }
+            
+            yield move_all_subitems_caldav (subitem, project, caldav_client);
+        }
     }
 
     public bool was_archived () {
