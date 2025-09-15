@@ -20,9 +20,6 @@
  */
 
 public class Dialogs.Preferences.Pages.QuickAdd : Dialogs.Preferences.Pages.BasePage {
-    private Gtk.Stack stack;
-    private Layouts.HeaderItem backups_group;
-
     public QuickAdd (Adw.PreferencesDialog preferences_dialog) {
         Object (
             preferences_dialog: preferences_dialog,

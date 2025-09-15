@@ -33,8 +33,6 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
     private Adw.EntryRow calendar_home_entry;
     private Widgets.IgnoreSSLSwitchRow ignore_ssl_row;
 
-    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
-
     public CalDAVSetup (Adw.PreferencesDialog preferences_dialog, Accounts accounts_page) {
         Object (
             preferences_dialog: preferences_dialog,

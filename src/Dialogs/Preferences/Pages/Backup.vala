@@ -20,7 +20,6 @@
  */
 
 public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePage {
-    private Gtk.Stack stack;
     private Layouts.HeaderItem backups_group;
 
     public Backup (Adw.PreferencesDialog preferences_dialog) {
@@ -169,7 +168,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
     public override void clean_up () {
         backups_group.set_sort_func (null);
         foreach (Gtk.ListBoxRow row in backups_group.get_children ()) {
-            (row as BackupRow).clean_up ();
+            ((BackupRow) row).clean_up ();
         }
 
         foreach (var entry in signal_map.entries) {

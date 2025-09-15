@@ -402,7 +402,7 @@ public class Views.List : Adw.Bin {
         listbox.set_filter_func (null);
 
         foreach (var row in Util.get_default ().get_children (listbox)) {
-            (row as Layouts.SectionRow).clean_up ();
+            ((Layouts.SectionRow) row).clean_up ();
         }
 
         if (inbox_section != null) {

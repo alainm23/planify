@@ -47,7 +47,7 @@ public class Dialogs.ProjectPicker.ProjectPickerSourceRow : Gtk.ListBoxRow {
 
         destroy.connect (() => {
             foreach (Gtk.ListBoxRow row in group.get_children ()) {
-                (row as Dialogs.ProjectPicker.ProjectPickerRow).clean_up ();
+                ((Dialogs.ProjectPicker.ProjectPickerRow) row).clean_up ();
             }
 
             group.clear ();

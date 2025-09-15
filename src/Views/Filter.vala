@@ -620,7 +620,7 @@ public class Views.Filter : Adw.Bin {
         listbox.set_header_func (null);
 
         foreach (var row in Util.get_default ().get_children (listbox)) {
-            (row as Layouts.ItemRow).clean_up ();
+            ((Layouts.ItemRow) row).clean_up ();
         }
         
         foreach (var entry in signal_map.entries) {

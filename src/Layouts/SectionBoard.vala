@@ -747,11 +747,11 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         listbox.set_filter_func (null);
 
         foreach (var row in Util.get_default ().get_children (listbox)) {
-            (row as Layouts.ItemBoard).clean_up ();
+            ((Layouts.ItemBoard) row).clean_up ();
         }
 
         foreach (var row in Util.get_default ().get_children (checked_listbox)) {
-            (row as Layouts.ItemBoard).clean_up ();
+            ((Layouts.ItemBoard) row).clean_up ();
         }
 
         // Clean Signals

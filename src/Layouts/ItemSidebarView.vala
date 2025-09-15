@@ -46,8 +46,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
     private Gee.HashMap<ulong, weak GLib.Object> markdown_handlerses = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    public string update_id { get; set; default = Util.get_default ().generate_id (); }
-    private ulong description_handler_change_id = 0;
+    public string update_id { get; set; }
 
     public bool show_completed {
         get {
@@ -59,9 +58,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         var previous_icon = new Gtk.Image.from_icon_name ("go-previous-symbolic");
 
         parent_label = new Gtk.Label (null) {
-            css_classes = { "font-bold" },
             ellipsize = Pango.EllipsizeMode.END
         };
+        parent_label.add_css_class ("font-bold");
 
         var parent_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         parent_box.append (previous_icon);
@@ -69,9 +68,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         parent_back_button = new Gtk.Button () {
             child = parent_box,
-            css_classes = { "flat" },
             valign = Gtk.Align.CENTER
         };
+        parent_back_button.add_css_class ("flat");
 
         var close_button = new Gtk.Button.from_icon_name ("step-out-symbolic") {
             tooltip_text = _("Close Detail")
@@ -80,10 +79,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         var menu_button = new Gtk.MenuButton () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            popover = build_context_menu (),
-            icon_name = "view-more-symbolic",
-            css_classes = { "flat" }
+            icon_name = "view-more-symbolic"
         };
+        menu_button.popover = build_context_menu ();
+        menu_button.add_css_class ("flat");
 
         pin_button = new Widgets.PinButton ();
 
@@ -100,8 +99,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         var headerbar = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
             hexpand = true,
-            decoration_layout = ":",
-            css_classes = { "flat" }
+            decoration_layout = ":"
         };
 
         headerbar.pack_start (parent_back_button);
@@ -580,7 +578,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
             item.checked = true;
             item.completed_at = new GLib.DateTime.now_local ().to_string ();
-            _complete_item (old_checked, old_completed_at);
+            _complete_item.begin (old_checked, old_completed_at);
         }
     }
 
