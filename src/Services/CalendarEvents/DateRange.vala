@@ -21,7 +21,6 @@
 
 /* Represents date range from 'first' to 'last' inclusive */
 
-#if WITH_EVOLUTION
 public class CalendarEventsUtil.DateRange : Object, Gee.Traversable<GLib.DateTime>, Gee.Iterable<GLib.DateTime> {
     public GLib.DateTime first_dt { get; construct; }
     public GLib.DateTime last_dt { get; construct; }
@@ -66,7 +65,4 @@ public class CalendarEventsUtil.DateRange : Object, Gee.Traversable<GLib.DateTim
     private bool datetime_equal_func (GLib.DateTime a, GLib.DateTime b) {
         return a.equal (b);
     }
-#else
-public class CalendarEventsUtil.DateRange : Object {
-#endif
 }

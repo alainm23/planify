@@ -16,7 +16,6 @@
  */
 
 public class Services.CalendarEvents : Object {
-#if WITH_EVOLUTION
     /* The data_range is the range of dates for which this model is storing
      * data.
      *
@@ -316,5 +315,4 @@ public class Services.CalendarEvents : Object {
 
         return sources;
     }
-#endif
 }

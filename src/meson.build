@@ -44,11 +44,6 @@ sources = files(
 
   'Utils/TaskUtils.vala',
 
-  'Services/CalendarEvents/CalendarEvents.vala',
-  'Services/CalendarEvents/DateIterator.vala',
-  'Services/CalendarEvents/DateRange.vala',
-  'Services/CalendarEvents/Util.vala',
-  
   'Layouts/Sidebar.vala',
   'Layouts/FilterPaneChild.vala',
   'Layouts/FilterPaneRow.vala',
@@ -69,8 +64,6 @@ sources = files(
   'Widgets/EditableTextView.vala',
   'Widgets/SyncButton.vala',
   'Widgets/MultiSelectToolbar.vala',
-  'Widgets/EventsList.vala',
-  'Widgets/EventRow.vala',
   'Widgets/SubItems.vala',
   'Widgets/LabelsSummary.vala',
   'Widgets/SectionsOrderPopover.vala',
@@ -140,6 +133,15 @@ sources = files(
   'Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala',
   'Dialogs/Preferences/Pages/Accounts/SourceView.vala'
 )
+
+if get_option('evolution')
+    sources += 'Widgets/EventRow.vala'
+    sources += 'Widgets/EventsList.vala'
+    sources += 'Services/CalendarEvents/CalendarEvents.vala'
+    sources += 'Services/CalendarEvents/DateIterator.vala'
+    sources += 'Services/CalendarEvents/DateRange.vala'
+    sources += 'Services/CalendarEvents/Util.vala'
+endif
 
 executable(
   application_id,
