@@ -30,7 +30,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
     }
 
     ~Sidebar () {
-        print ("Destroying - Dialogs.Preferences.Pages.Sidebar\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.Sidebar\n");
     }
 
     construct {
@@ -171,7 +171,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
         }
 
         ~SidebarRow () {
-            print ("Destroying SidebarRow\n");
+            debug ("Destroying SidebarRow\n");
         }
 
         construct {

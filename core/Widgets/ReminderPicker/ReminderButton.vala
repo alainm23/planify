@@ -52,7 +52,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     }
 
     ~ReminderButton () {
-        print ("Destroying - Widgets.ReminderPicker.ReminderButton\n");
+        debug ("Destroying - Widgets.ReminderPicker.ReminderButton\n");
     }
 
     construct {

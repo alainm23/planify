@@ -27,7 +27,7 @@ public class Views.Labels : Adw.Bin {
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     ~Labels () {
-        print ("Destroying - Views.Labels\n");
+        debug ("Destroying - Views.Labels\n");
     }
 
     construct {

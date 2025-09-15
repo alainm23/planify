@@ -32,7 +32,7 @@ public class Widgets.AttachmentRow : Gtk.ListBoxRow {
     }
 
     ~AttachmentRow () {
-        print ("Destroying - Widgets.AttachmentRow\n");
+        debug ("Destroying - Widgets.AttachmentRow\n");
     }
 
     construct {

@@ -85,7 +85,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
     }
 
     ~SectionBoard () {
-        print ("Destroying - Layouts.SectionBoard\n");
+        debug ("Destroying - Layouts.SectionBoard\n");
     }
 
     construct {

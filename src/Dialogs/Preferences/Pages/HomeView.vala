@@ -28,7 +28,7 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
     }
 
     ~HomeView () {
-        print ("Destroying - Dialogs.Preferences.Pages.HomeView\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.HomeView\n");
     }
 
     construct {
@@ -148,7 +148,7 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
         }
 
         ~HomeViewRow () {
-            print ("Destroying - HomeViewRown\n");
+            debug ("Destroying - HomeViewRown\n");
         }
 
         construct {

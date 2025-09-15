@@ -31,7 +31,7 @@ public class Dialogs.ProjectPicker.ProjectPickerSourceRow : Gtk.ListBoxRow {
     }
 
     ~ProjectPickerSourceRow () {
-        print ("Destroying Dialogs.ProjectPicker.ProjectPickerSourceRow\n");
+        debug ("Destroying Dialogs.ProjectPicker.ProjectPickerSourceRow\n");
     }
 
     construct {

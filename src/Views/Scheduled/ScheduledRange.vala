@@ -46,7 +46,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
     }
 
     ~ScheduledRange () {
-        print ("Destroying - Views.Scheduled.ScheduledRange\n");
+        debug ("Destroying - Views.Scheduled.ScheduledRange\n");
     }
 
     construct {

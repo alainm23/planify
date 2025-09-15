@@ -43,7 +43,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
     }
 
     ~CompletedTasks () {
-        print ("Destroying - Dialogs.CompletedTasks\n");
+        debug ("Destroying - Dialogs.CompletedTasks\n");
     }
 
     construct {

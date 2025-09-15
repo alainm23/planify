@@ -55,7 +55,7 @@ public class Views.Today : Adw.Bin {
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     ~Today () {
-        print ("Destroying - Today View\n");
+        debug ("Destroying - Today View\n");
     }
 
     construct {

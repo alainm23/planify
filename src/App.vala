@@ -55,7 +55,7 @@ public class Planify : Adw.Application {
     }
 
     ~Planify () {
-        print ("Destroying Planify\n");
+        debug ("Destroying Planify\n");
     }
 
     construct {

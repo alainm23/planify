@@ -26,7 +26,7 @@ public class Widgets.ErrorView : Adw.Bin {
     private Gtk.Button issue_button;
 
     ~ErrorView () {
-        print ("Destroying Widgets.ErrorView\n");
+        debug ("Destroying Widgets.ErrorView\n");
     }
 
     public int error_code {

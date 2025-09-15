@@ -75,7 +75,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
     }
 
     ~LabelsPickerCore () {
-        print ("Destroying - Widgets.LabelsPickerCore\n");
+        debug ("Destroying - Widgets.LabelsPickerCore\n");
     }
 
     construct {

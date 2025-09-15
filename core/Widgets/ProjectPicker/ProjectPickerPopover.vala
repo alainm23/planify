@@ -43,7 +43,7 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
     }
 
     ~ProjectPickerPopover () {
-        print ("Destroying - Widgets.ProjectPicker.ProjectPickerPopover\n");
+        debug ("Destroying - Widgets.ProjectPicker.ProjectPickerPopover\n");
     }
 
     construct {

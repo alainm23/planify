@@ -17,7 +17,7 @@ public class Widgets.IconColorProject : Adw.Bin {
     }
 
     ~IconColorProject () {
-        print ("Destroying - Widgets.IconColorProject\n");
+        debug ("Destroying - Widgets.IconColorProject\n");
     }
 
     construct {

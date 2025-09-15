@@ -93,7 +93,7 @@ public class Widgets.Markdown.View : GtkSource.View {
     }
 
     ~View () {
-        print ("Destroying - Widgets.Markdown.View\n");
+        debug ("Destroying - Widgets.Markdown.View\n");
     }
 
     public uint get_title_level (uint line) {

@@ -40,7 +40,7 @@ public class Dialogs.LabelPicker : Adw.Dialog {
     }
 
     ~LabelPicker () {
-        print ("Destroying - Dialogs.LabelPicker\n");
+        debug ("Destroying - Dialogs.LabelPicker\n");
     }
 
     construct {

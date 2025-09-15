@@ -104,7 +104,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     ~ItemBoard () {
-        print ("Destroying - Layouts.ItemBoard - %s\n".printf (item.content));
+        debug ("Destroying - Layouts.ItemBoard - %s\n".printf (item.content));
     }
 
     construct {

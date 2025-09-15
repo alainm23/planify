@@ -55,7 +55,7 @@ public class Dialogs.Section : Adw.Dialog {
     }
 
     ~Section () {
-        print ("Destroying - Dialogs.Section\n");
+        debug ("Destroying - Dialogs.Section\n");
     }
 
     construct {

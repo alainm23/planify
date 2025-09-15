@@ -49,7 +49,7 @@ public class Views.Label : Adw.Bin {
     }
 
     ~Label () {
-        print ("Destroying - Views.Label\n");
+        debug ("Destroying - Views.Label\n");
     }
 
     construct {

@@ -53,7 +53,7 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
     }
 
     ~MenuPicker () {
-        print ("Destroying - Widgets.ContextMenu.MenuPicker\n");
+        debug ("Destroying - Widgets.ContextMenu.MenuPicker\n");
     }
 
     construct {

@@ -46,7 +46,7 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
     }
 
     ~TodoistSetup () {
-        print ("Destroying - Dialogs.Preferences.Pages.TodoistSetup\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.TodoistSetup\n");
     }
 
     construct {

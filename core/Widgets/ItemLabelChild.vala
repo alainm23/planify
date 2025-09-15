@@ -35,7 +35,7 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
     }
 
     ~ItemLabelChild () {
-        print ("Destroying - Widgets.ItemLabelChild\n");
+        debug ("Destroying - Widgets.ItemLabelChild\n");
     }
 
     construct {

@@ -38,7 +38,7 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
     }
     
     ~Appearance () {
-        print ("Destroying - Dialogs.Preferences.Pages.Appearance\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.Appearance\n");
     }
 
     construct {

@@ -28,7 +28,7 @@ public class Dialogs.Preferences.Pages.TaskSetting : Dialogs.Preferences.Pages.B
     }
 
     ~TaskSetting () {
-        print ("Destroying - Dialogs.Preferences.Pages.TaskSetting\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.TaskSetting\n");
     }
 
     construct {

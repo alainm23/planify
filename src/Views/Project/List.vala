@@ -51,7 +51,7 @@ public class Views.List : Adw.Bin {
     }
 
     ~List () {
-        print ("Destroying - Views.List\n");
+        debug ("Destroying - Views.List\n");
     }
 
     construct {

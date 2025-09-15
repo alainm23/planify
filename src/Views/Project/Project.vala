@@ -49,7 +49,7 @@ public class Views.Project : Adw.Bin {
     }
 
     ~Project () {
-        print ("Destroying - Views.Project\n");
+        debug ("Destroying - Views.Project\n");
     }
 
     construct {

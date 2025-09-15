@@ -44,7 +44,7 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
     }
 
     ~ReminderRow () {
-        print ("Destroying - Widgets.Widgets.ReminderPicker.ReminderRow\n");
+        debug ("Destroying - Widgets.Widgets.ReminderPicker.ReminderRow\n");
     }
 
     construct {

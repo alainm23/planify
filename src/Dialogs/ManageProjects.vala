@@ -33,7 +33,7 @@ public class Dialogs.ManageProjects : Adw.Dialog {
     }
 
     ~ManageProjects () {
-        print ("Destroying - Dialogs.ManageProjects\n");
+        debug ("Destroying - Dialogs.ManageProjects\n");
     }
 
     construct {

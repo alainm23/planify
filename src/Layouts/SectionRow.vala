@@ -95,7 +95,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     }
 
     ~SectionRow () {
-        print ("Destroying - Layouts.SectionRow\n");
+        debug ("Destroying - Layouts.SectionRow\n");
     }
 
     construct {

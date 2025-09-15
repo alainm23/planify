@@ -89,7 +89,7 @@ public class Widgets.Markdown.EditView : Adw.Bin {
     public signal void escape ();
 
     ~EditView () {
-        print ("Destroying - Widgets.Markdown.EditView\n");
+        debug ("Destroying - Widgets.Markdown.EditView\n");
     }
 
     construct {

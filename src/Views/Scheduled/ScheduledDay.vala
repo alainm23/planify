@@ -44,7 +44,7 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
     }
 
     ~ScheduledDay () {
-        print ("Destroying - Views.Scheduled.ScheduledDay\n");
+        debug ("Destroying - Views.Scheduled.ScheduledDay\n");
     }
 
     construct {

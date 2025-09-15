@@ -39,7 +39,7 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
     }
 
     ~ItemChangeHistory () {
-        print ("Destroying - Dialogs.ItemChangeHistory\n");
+        debug ("Destroying - Dialogs.ItemChangeHistory\n");
     }
 
     construct {

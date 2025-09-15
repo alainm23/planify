@@ -33,7 +33,7 @@ public class Dialogs.ErrorDialog : Adw.Dialog {
     }
 
     ~ErrorDialog () {
-        print ("Destroying - Dialogs.ErrorDialog\n");
+        debug ("Destroying - Dialogs.ErrorDialog\n");
     }
 
     construct {

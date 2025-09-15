@@ -55,7 +55,7 @@ public class Dialogs.DatePicker : Adw.Dialog {
     }
 
     ~DatePicker () {
-        print ("Destroying - Dialogs.DatePicker\n");
+        debug ("Destroying - Dialogs.DatePicker\n");
     }
 
     construct {

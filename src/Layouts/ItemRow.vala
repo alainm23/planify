@@ -207,7 +207,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     ~ItemRow () {
-        print ("Destroying - Layouts.ItemRow - %s\n".printf (item.content));
+        debug ("Destroying - Layouts.ItemRow - %s\n".printf (item.content));
     }
 
     construct {

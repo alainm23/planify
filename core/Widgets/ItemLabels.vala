@@ -47,7 +47,7 @@ public class Widgets.ItemLabels : Adw.Bin {
     }
 
     ~ItemLabels () {
-        print ("Destroying - Widgets.ItemLabels\n");
+        debug ("Destroying - Widgets.ItemLabels\n");
     }
 
     construct {

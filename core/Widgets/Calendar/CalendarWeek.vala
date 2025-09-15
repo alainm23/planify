@@ -23,7 +23,7 @@ public class Widgets.Calendar.CalendarWeek : Gtk.Box {
     private Gtk.Label[] day_labels;
 
     ~CalendarWeek () {
-        print ("Destroying - Widgets.Calendar.CalendarWeek\n");
+        debug ("Destroying - Widgets.Calendar.CalendarWeek\n");
     }
 
     construct {

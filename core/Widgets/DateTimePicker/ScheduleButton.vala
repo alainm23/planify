@@ -82,7 +82,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     }
 
     ~ScheduleButton () {
-        print ("Destroying - Widgets.DateTimePicker.ScheduleButton\n");
+        debug ("Destroying - Widgets.DateTimePicker.ScheduleButton\n");
     }
 
     construct {

@@ -41,7 +41,7 @@ public class Widgets.ContextMenu.MenuCheckPicker : Adw.Bin {
     }
 
     ~MenuCheckPicker () {
-        print ("Destroying - Widgets.ContextMenu.MenuCheckPicker\n");
+        debug ("Destroying - Widgets.ContextMenu.MenuCheckPicker\n");
     }
 
     construct {

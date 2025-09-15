@@ -35,7 +35,7 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
     }
 
     ~LabelSourceRow () {
-        print ("Destroying - Views.LabelSourceRow\n");
+        debug ("Destroying - Views.LabelSourceRow\n");
     }
 
     construct {
