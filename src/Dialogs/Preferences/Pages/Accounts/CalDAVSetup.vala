@@ -32,6 +32,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
     // Advanced Options
     private Adw.EntryRow calendar_home_entry;
     private Widgets.IgnoreSSLSwitchRow ignore_ssl_row;
+    private Widgets.BypassResolveSwitchRow bypass_resolve_row;
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
@@ -67,6 +68,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         calendar_home_entry.title = _("Calendar Home URL");
 
         ignore_ssl_row = new Widgets.IgnoreSSLSwitchRow ();
+        bypass_resolve_row = new Widgets.BypassResolveSwitchRow ();
 
         var advanced_options_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -85,6 +87,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
 
         advanced_entries_group.add (calendar_home_entry);
         advanced_entries_group.add (ignore_ssl_row);
+        advanced_entries_group.add (bypass_resolve_row);
 
         login_button = new Widgets.LoadingButton.with_label (_("Log In")) {
             margin_top = 12,
@@ -180,7 +183,18 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
             return;
         }
 
-        var dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (new Soup.Session (), server_entry.text, ignore_ssl_row.active);
+        /*
+         * The `resolve_well_known_caldav ()` function can fail on misconfigured CalDAV servers where
+         * the `Location` header doesn't contain the configured port.
+         * This option allows us to bypass the call.
+         */
+        var dav_endpoint = "";
+        var bypass_resolve = bypass_resolve_row.active;
+        if (bypass_resolve) {
+            dav_endpoint = server_entry.text;
+        } else {
+            dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (new Soup.Session (), server_entry.text, ignore_ssl_row.active);
+        }
 
         var calendar_home = "";
 
