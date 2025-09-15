@@ -72,14 +72,15 @@ libportal | 0.7.1
 libportal-gtk4 | 0.7.1
 gxml-0.20 | 0.21.0
 libsecret-1 | 0.21.4
+libspelling-dev
 
 Fedora installation command:
 
-    sudo dnf install vala meson ninja-build gtk4-devel libadwaita-devel libgee-devel libsoup3-devel webkitgtk6.0-devel gtksourceview5-devel libportal-devel libportal-gtk4-devel evolution-devel
+    sudo dnf install vala meson ninja-build gtk4-devel libadwaita-devel libgee-devel libsoup3-devel webkitgtk6.0-devel gtksourceview5-devel libportal-devel libportal-gtk4-devel evolution-devel libspelling-devel
 
 Ubuntu/Debian installation command:
 
-    sudo apt install valac meson ninja-build libgtk-4-dev libadwaita-1-dev libgee-0.8-dev libjson-glib-dev libecal2.0-dev libsoup-3.0-dev libwebkitgtk-6.0-dev libgtksourceview-5-dev libportal-dev libportal-gtk4-dev
+    sudo apt install valac meson ninja-build libgtk-4-dev libadwaita-1-dev libgee-0.8-dev libjson-glib-dev libecal2.0-dev libsoup-3.0-dev libwebkitgtk-6.0-dev libgtksourceview-5-dev libportal-dev libportal-gtk4-dev libspelling-1-dev
 </details>
 
 Run `meson build` to configure the build environment. Change to the build directory and run `ninja` to build

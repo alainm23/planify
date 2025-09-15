@@ -348,7 +348,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
         views_split_view.notify["show-sidebar"].connect (() => {
             if (!views_split_view.show_sidebar) {
-                item_sidebar_view.disconnect_all ();
+                item_sidebar_view.clean_up ();
                 fake_button.grab_focus ();
             }
         });

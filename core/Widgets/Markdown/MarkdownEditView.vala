@@ -101,10 +101,19 @@ public class Widgets.Markdown.EditView : Adw.Bin {
             show_gutter = false,
             height_request = 64,
             text_mode = !Services.Settings.get_default ().settings.get_boolean ("enable-markdown-formatting"),
-            accepts_tab = false
+            accepts_tab = false,
+            buffer = new Widgets.Markdown.Buffer ()
         };
 
         markdown_view.remove_css_class ("view");
+
+        #if LIBSPELLING
+			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) markdown_view.buffer, Spelling.Checker.get_default ());
+
+			markdown_view.extra_menu = adapter.get_menu_model ();
+			markdown_view.insert_action_group ("spelling", adapter);
+			adapter.enabled = true;
+		#endif
 
         var click_controller = new Gtk.GestureClick ();
         markdown_view.add_controller (click_controller);
@@ -442,5 +451,15 @@ public class Widgets.Markdown.EditView : Adw.Bin {
 
     public void view_focus () {
         markdown_view.grab_focus ();
+    }
+
+    public string get_all_text () {
+        Gtk.TextIter start;
+        Gtk.TextIter end;
+
+        (markdown_view.buffer as Widgets.Markdown.Buffer).get_start_iter (out start);
+        (markdown_view.buffer as Widgets.Markdown.Buffer).get_end_iter (out end);
+
+        return (markdown_view.buffer as Widgets.Markdown.Buffer).get_text (start, end, true);
     }
 }

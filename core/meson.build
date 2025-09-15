@@ -120,7 +120,8 @@ core_deps = [
   libical_dep,
   libecal_dep,
   libgxml_dep,
-  libsecret_dep
+  libsecret_dep,
+  libspelling
 ]
 
 core_lib = shared_library(
