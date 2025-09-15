@@ -133,6 +133,20 @@
             ]
         },
         {
+            "name" : "libspelling",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Ddocs=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/chergert/libspelling.git",
+                    "branch" : "main"
+                }
+            ]
+        },
+        {
             "name" : "planify",
             "builddir" : true,
             "buildsystem" : "meson",

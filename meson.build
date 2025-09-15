@@ -27,6 +27,7 @@ libportal_dep = dependency('libportal', required: true)
 libportal_gtk4_dep = dependency('libportal-gtk4', required: true)
 libgxml_dep = dependency('gxml-0.20')
 libsecret_dep = dependency('libsecret-1')
+libspelling = dependency('libspelling-1', required: get_option('spelling'))
 m_dep = meson.get_compiler('c').find_library('m', required : false)
 
 if get_option('webkit')
@@ -35,6 +36,10 @@ if get_option('webkit')
     if not webkitgtk_dep.found()
         error('webkitgtk-6.0 requested but not found')
     endif
+endif
+
+if libspelling.found ()
+  add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
 endif
 
 ############
