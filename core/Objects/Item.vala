@@ -1481,7 +1481,7 @@ public class Objects.Item : Objects.BaseObject {
         } else if (project.source_type == SourceType.TODOIST) {
             string move_id = project.id;
             string move_type = "project_id";
-            if (section_id != "") {
+            if (_section_id != "") {
                 move_type = "section_id";
                 move_id = _section_id;
             }
