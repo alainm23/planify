@@ -1519,6 +1519,7 @@ public class Objects.Item : Objects.BaseObject {
         string old_parent_id = this.parent_id;
 
         this.project_id = _project_id;
+        .
         this.section_id = _section_id;
         this.parent_id = "";
 
