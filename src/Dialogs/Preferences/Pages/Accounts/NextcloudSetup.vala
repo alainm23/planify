@@ -39,7 +39,7 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
     }
 
     ~NextcloudSetup () {
-        print ("Destroying - Dialogs.Preferences.Pages.NextcloudSetup\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.NextcloudSetup\n");
     }
 
     construct {

@@ -39,7 +39,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
     }
 
     ~LabelRow () {
-        print ("Destroying - Layouts.LabelRow\n");
+        debug ("Destroying - Layouts.LabelRow\n");
     }
 
     construct {

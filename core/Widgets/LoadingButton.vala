@@ -69,7 +69,7 @@ public class Widgets.LoadingButton : Gtk.Button {
     }
 
     ~LoadingButton () {
-        print ("Destroying - Widgets.LoadingButton\n");
+        debug ("Destroying - Widgets.LoadingButton\n");
     }
 
     construct {

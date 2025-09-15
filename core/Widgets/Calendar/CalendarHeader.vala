@@ -46,7 +46,7 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
     }
 
     ~CalendarHeader () {
-        print ("Destroying - Widgets.Calendar.CalendarHeader\n");
+        debug ("Destroying - Widgets.Calendar.CalendarHeader\n");
     }
 
     construct {

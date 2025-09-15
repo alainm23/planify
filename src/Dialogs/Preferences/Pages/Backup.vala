@@ -30,7 +30,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
     }
 
     ~Backup () {
-        print ("Destroying - Dialogs.Preferences.Pages.Backup\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.Backup\n");
     }
 
     construct {
@@ -192,7 +192,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         }
 
         ~BackupRow () {
-            print ("Destroying - BackupRow\n");
+            debug ("Destroying - BackupRow\n");
         }
 
         construct {
@@ -322,7 +322,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         }
 
         ~ImportView () {
-            print ("Destroying Dialogs.Preferences.Pages.ImportView\n");
+            debug ("Destroying Dialogs.Preferences.Pages.ImportView\n");
         }
 
         construct {

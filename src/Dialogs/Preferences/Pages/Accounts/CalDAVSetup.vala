@@ -42,7 +42,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
     }
 
     ~CalDAVSetup () {
-        print ("Destroying Dialogs.Preferences.Pages.CalDAVSetup\n");
+        debug ("Destroying Dialogs.Preferences.Pages.CalDAVSetup\n");
     }
 
     construct {

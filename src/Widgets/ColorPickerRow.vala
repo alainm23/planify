@@ -34,7 +34,7 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
     }
 
     ~ColorPickerRow () {
-        print ("Destroying - Widgets.ColorPickerRow\n");
+        debug ("Destroying - Widgets.ColorPickerRow\n");
     }
 
     construct {

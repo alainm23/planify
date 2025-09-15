@@ -79,7 +79,7 @@ public class Layouts.QuickAdd : Adw.Bin {
     }
 
     ~QuickAdd () {
-        print ("Destroying - Layouts.QuickAdd\n");
+        debug ("Destroying - Layouts.QuickAdd\n");
     }
 
     construct {

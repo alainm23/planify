@@ -69,7 +69,7 @@ public class Widgets.EditableTextView : Adw.Bin {
     }
 
     ~EditableTextView () {
-        print ("Destroying Widgets.EditableTextView\n");
+        debug ("Destroying Widgets.EditableTextView\n");
     }
 
     construct {

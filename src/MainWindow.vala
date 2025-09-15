@@ -51,7 +51,7 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     ~MainWindow () {
-        print ("Destroying - MainWindow\n");
+        debug ("Destroying - MainWindow\n");
     }
 
     static construct {

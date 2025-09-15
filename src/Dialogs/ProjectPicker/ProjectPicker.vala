@@ -97,7 +97,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
     }
 
     ~ProjectPicker () {
-        print ("Destroying Dialogs.ProjectPicker.ProjectPicker\n");
+        debug ("Destroying Dialogs.ProjectPicker.ProjectPicker\n");
     }
 
     construct {

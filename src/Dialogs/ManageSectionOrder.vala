@@ -38,7 +38,7 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
     }
 
     ~ManageSectionOrder () {
-        print ("Destroying - Dialogs.ManageSectionOrder\n");
+        debug ("Destroying - Dialogs.ManageSectionOrder\n");
     }
 
     construct {

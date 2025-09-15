@@ -43,7 +43,7 @@ public class Views.Board : Adw.Bin {
     }
 
     ~Board () {
-        print ("Destroying - Views.Board\n");
+        debug ("Destroying - Views.Board\n");
     }
 
     construct {

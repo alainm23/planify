@@ -166,7 +166,7 @@ public class Layouts.HeaderItem : Adw.Bin {
     }
 
     ~HeaderItem () {
-        print ("Destroying - Layouts.HeaderItem\n");
+        debug ("Destroying - Layouts.HeaderItem\n");
     }
 
     construct {

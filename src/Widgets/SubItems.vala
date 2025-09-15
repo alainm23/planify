@@ -85,7 +85,7 @@ public class Widgets.SubItems : Adw.Bin {
     }
 
     ~SubItems () {
-        print ("Destroying - Widgets.SubItems\n");
+        debug ("Destroying - Widgets.SubItems\n");
     }
 
     construct {

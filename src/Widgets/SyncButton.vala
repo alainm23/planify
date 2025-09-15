@@ -33,7 +33,7 @@ public class Widgets.SyncButton : Adw.Bin {
     }
 
     ~SyncButton () {
-        print ("Destroying Widgets.SyncButton\n");
+        debug ("Destroying Widgets.SyncButton\n");
     }
 
     construct {

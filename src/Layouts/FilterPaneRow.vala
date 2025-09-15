@@ -34,7 +34,7 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
     }
 
     ~FilterPaneRow () {
-        print ("Destroying Layouts.FilterPaneRow\n");
+        debug ("Destroying Layouts.FilterPaneRow\n");
     }
 
     construct {

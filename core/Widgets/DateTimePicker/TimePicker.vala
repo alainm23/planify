@@ -68,7 +68,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
     
     ~TimePicker () {
-        print ("Destroying - Widgets.DateTimePicker.TimePicker\n");
+        debug ("Destroying - Widgets.DateTimePicker.TimePicker\n");
     }
 
     construct {

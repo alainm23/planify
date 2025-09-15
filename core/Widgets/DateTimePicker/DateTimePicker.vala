@@ -88,7 +88,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     ~DateTimePicker () {
-        print ("Destroying - Widgets.DateTimePicker.DateTimePicker\n");
+        debug ("Destroying - Widgets.DateTimePicker.DateTimePicker\n");
     }
 
     construct {

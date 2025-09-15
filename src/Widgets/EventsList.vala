@@ -74,7 +74,7 @@ public class Widgets.EventsList : Adw.Bin {
     }
 
     ~EventsList () {
-        print ("Destroying Widgets.EventsList\n");
+        debug ("Destroying Widgets.EventsList\n");
     }
 
     construct {

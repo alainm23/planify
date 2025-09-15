@@ -62,7 +62,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
     }
 
     ~Calendar () {
-        print ("Destroying - Widgets.Calendar.Calendar\n");
+        debug ("Destroying - Widgets.Calendar.Calendar\n");
     }
 
     construct {

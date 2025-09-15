@@ -50,7 +50,7 @@ public class Widgets.LabelsSummary : Adw.Bin {
     }
 
     ~LabelsSummary () {
-        print ("Destroying - Widgets.LabelsSummary\n");
+        debug ("Destroying - Widgets.LabelsSummary\n");
     }
 
     construct {

@@ -28,7 +28,7 @@ public class Dialogs.Preferences.Pages.Support : Dialogs.Preferences.Pages.BaseP
     }
 
     ~Support () {
-        print ("Destroying - Dialogs.Preferences.Pages.Support\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.Support\n");
     }
 
     construct {

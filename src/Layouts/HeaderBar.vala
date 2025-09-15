@@ -69,7 +69,7 @@ public class Layouts.HeaderBar : Adw.Bin {
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     ~HeaderBar () {
-        print ("Destroying - Layouts.HeaderBar\n");
+        debug ("Destroying - Layouts.HeaderBar\n");
     }
 
     construct {

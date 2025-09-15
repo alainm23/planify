@@ -34,7 +34,7 @@ public class Dialogs.WhatsNew : Adw.Dialog {
     }
 
     ~WhatsNew () {
-        print ("Destroying -Dialogs.WhatsNew\n");
+        debug ("Destroying -Dialogs.WhatsNew\n");
     }
 
     construct {

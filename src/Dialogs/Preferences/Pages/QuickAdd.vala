@@ -28,7 +28,7 @@ public class Dialogs.Preferences.Pages.QuickAdd : Dialogs.Preferences.Pages.Base
     }
 
     ~QuickAdd () {
-        print ("Destroying - Dialogs.Preferences.Pages.QuickAdd\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.QuickAdd\n");
     }
 
     construct {

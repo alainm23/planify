@@ -31,7 +31,7 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
     }
 
     ~SourceView () {
-        print ("Destroying Dialogs.Preferences.Pages.SourceView\n");
+        debug ("Destroying Dialogs.Preferences.Pages.SourceView\n");
     }
 
     construct {

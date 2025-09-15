@@ -33,7 +33,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
     }
 
     ~PreferencesWindow () {
-        print ("Destroying - Dialogs.Preferences.PreferencesWindow\n");
+        debug ("Destroying - Dialogs.Preferences.PreferencesWindow\n");
     }
 
     construct {

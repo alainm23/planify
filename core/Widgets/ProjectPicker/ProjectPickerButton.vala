@@ -64,7 +64,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
     private string PLACEHOLDER_CREATE_MESSAGE = _("Create '%s'"); // vala-lint=naming-convention
 
     ~ProjectPickerButton () {
-        print ("Destroying - Widgets.ProjectPicker.ProjectPickerButton\n");
+        debug ("Destroying - Widgets.ProjectPicker.ProjectPickerButton\n");
     }
 
     construct {

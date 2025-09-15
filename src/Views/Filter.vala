@@ -57,7 +57,7 @@ public class Views.Filter : Adw.Bin {
     private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
 
     ~Filter () {
-        print ("Destroying - Views.Filter\n");
+        debug ("Destroying - Views.Filter\n");
     }
 
     construct {

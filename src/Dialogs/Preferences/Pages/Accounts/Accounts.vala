@@ -30,7 +30,7 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
     }
     
     ~Accounts () {
-        print ("Destroying - Dialogs.Preferences.Pages.Accounts\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.Accounts\n");
     }
 
     construct {
@@ -177,7 +177,7 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         }
 
         ~SourceRow () {
-            print ("Destroying - SourceRow\n");
+            debug ("Destroying - SourceRow\n");
         }
 
         construct {
