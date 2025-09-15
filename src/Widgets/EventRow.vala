@@ -20,7 +20,6 @@
  */
 
 public class Widgets.EventRow : Gtk.ListBoxRow {
-#if WITH_EVOLUTION
     public unowned ICal.Component component { get; construct; }
     public unowned E.SourceCalendar cal { get; construct; }
     public E.Source source { get; set; }
@@ -132,5 +131,4 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 
         signal_map.clear ();
     }
-#endif
 }

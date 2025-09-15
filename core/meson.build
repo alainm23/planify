@@ -125,7 +125,7 @@ core_deps = [
 
 if get_option('evolution')
     if libecal_dep.found()
-        deps += libecal_dep
+        core_deps += libecal_dep
     endif
 endif
 

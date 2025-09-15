@@ -19,7 +19,6 @@
  * Authored by: Corentin Noël <corentin@elementaryos.org>
  */
 
-#if WITH_EVOLUTION
 public class CalendarEventsUtil.DateIterator : Object, Gee.Traversable<GLib.DateTime>, Gee.Iterator<GLib.DateTime> {
     public GLib.DateTime current { get; construct set; }
     public CalendarEventsUtil.DateRange range { get; construct; }
@@ -80,7 +79,4 @@ public class CalendarEventsUtil.DateIterator : Object, Gee.Traversable<GLib.Date
     public void remove () {
         assert_not_reached ();
     }
-#else
-public class CalendarEventsUtil.DateIterator : Object {
-#endif
 }

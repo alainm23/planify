@@ -20,7 +20,6 @@
  */
 
 public class Widgets.EventsList : Adw.Bin {
-#if WITH_EVOLUTION
     public GLib.DateTime start_date { get; construct; }
     public GLib.DateTime end_date { get; construct; }
 
@@ -191,5 +190,4 @@ public class Widgets.EventsList : Adw.Bin {
 
         signal_map.clear ();
     }
-#endif
 }
