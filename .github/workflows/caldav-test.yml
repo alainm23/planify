@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update
-          apt-get install -y sudo pipx git apache2-utils valac meson ninja-build gettext desktop-file-utils libgtk-4-dev libadwaita-1-dev libgee-0.8-dev libgranite-7-dev libjson-glib-dev libecal2.0-dev libsoup-3.0-dev libwebkitgtk-6.0-dev libgtksourceview-5-dev libportal-dev libportal-gtk4-dev
+          apt-get install -y sudo pipx git apache2-utils valac meson ninja-build gettext desktop-file-utils libgtk-4-dev libadwaita-1-dev libgee-0.8-dev libgranite-7-dev libjson-glib-dev libecal2.0-dev libsoup-3.0-dev libwebkitgtk-6.0-dev libgtksourceview-5-dev libportal-dev libportal-gtk4-dev libspelling-dev
 
       - name: Install Radicale with pipx
         run: |
