@@ -86,10 +86,14 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 card_widget.margin_end = 6;
                 card_widget.margin_top = 6;
                 handle_grid.width_request = 200;
+                hide_loading_button.margin_end = 0;
+                hide_loading_button.margin_top = 0;
             } else {
                 card_widget.margin_end = 0;
                 card_widget.margin_top = 0;
                 handle_grid.width_request = -1;
+                hide_loading_button.margin_end = 6;
+                hide_loading_button.margin_top = 6;
             }
         }
 }
@@ -146,7 +150,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             tooltip_text = _ ("Unpin"),
-            css_classes = { "min-height-0", "view-button" }
+            css_classes = { "min-height-0", "view-button" },
+            margin_end = 6,
+            margin_top = 6
         };
 
         hide_loading_revealer = new Gtk.Revealer () {
