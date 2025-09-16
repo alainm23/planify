@@ -223,7 +223,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         };
 
         due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_end = 6,
             valign = CENTER
         };
         due_box.append (due_label);
@@ -234,16 +233,20 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             child = due_box
         };
 
-        labels_summary = new Widgets.LabelsSummary (item, 1);
-        labels_summary.content_box.margin_top = 0;
+        labels_summary = new Widgets.LabelsSummary (item, 1) {
+            start_margin = 6
+        };
 
-        var reminder_icon = new Gtk.Image.from_icon_name ("alarm-symbolic");
+        var reminder_icon = new Gtk.Image.from_icon_name ("alarm-symbolic") {
+            pixel_size = 12
+        };
 
         reminder_count = new Gtk.Label (item.reminders.size.to_string ());
+        reminder_count.add_css_class ("caption");
 
         var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
             valign = Gtk.Align.CENTER,
-            margin_end = 6,
+            margin_start = 6,
             css_classes = { "upcoming-grid" },
         };
 
@@ -261,7 +264,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         var subtaks_container = new Adw.Bin () {
             child = subtaks_label,
-            css_classes = { "upcoming-grid" }
+            css_classes = { "upcoming-grid" },
+            margin_start = 6
         };
 
         subtaks_revealer = new Gtk.Revealer () {
@@ -1134,6 +1138,5 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         signals_map.clear ();
 
-        labels_summary.clean_up ();
     }
 }
