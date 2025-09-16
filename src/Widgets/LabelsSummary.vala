@@ -41,8 +41,14 @@ public class Widgets.LabelsSummary : Adw.Bin {
             return revealer.reveal_child;
         }
     }
+    
+    public int start_margin {
+        set {
+            labels_flowbox.margin_start = value;
+        }
+    }
 
-    public LabelsSummary (Objects.Item item, int max_items = 3) {
+    public LabelsSummary (Objects.Item item, int max_items = 2) {
         Object (
             item: item,
             max_items: max_items
@@ -59,12 +65,11 @@ public class Widgets.LabelsSummary : Adw.Bin {
             row_spacing = 6,
             homogeneous = false,
             hexpand = false,
-            orientation = Gtk.Orientation.VERTICAL,
+            orientation = VERTICAL,
             halign = Gtk.Align.START,
             valign = Gtk.Align.START,
             min_children_per_line = 1,
-            max_children_per_line = 20,
-            margin_end = 6,
+            max_children_per_line = 20
         };
 
         more_label = new Gtk.Label (null) {
@@ -72,27 +77,26 @@ public class Widgets.LabelsSummary : Adw.Bin {
         };
 
         more_label_grid = new Adw.Bin () {
-            margin_end = 6,
-            valign = Gtk.Align.START,
+            valign = CENTER,
             css_classes = { "item-label-child" },
-            child = more_label
+            child = more_label,
+            margin_start = 6
         };
 
         more_label_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            transition_type = SLIDE_LEFT,
             child = more_label_grid
         };
 
-        content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            valign = Gtk.Align.START,
-            margin_top = 3
+        content_box = new Gtk.Box (HORIZONTAL, 0) {
+            valign = Gtk.Align.CENTER
         };
 
         content_box.append (labels_flowbox);
         content_box.append (more_label_revealer);
 
         revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
+            transition_type = SLIDE_UP,
             child = content_box
         };
 
@@ -145,9 +149,5 @@ public class Widgets.LabelsSummary : Adw.Bin {
 
     public void check_revealer () {
         revealer.reveal_child = labels.size > 0;
-    }
-
-    public void clean_up () {
-
     }
 }

@@ -111,7 +111,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 content_label_revealer.reveal_child = false;
                 content_entry_revealer.reveal_child = true;
                 project_name_label_revealer.reveal_child = false;
-                labels_summary.reveal_child = false;
                 hide_subtask_revealer.reveal_child = false;
                 hide_loading_button.remove_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = true;
@@ -152,7 +151,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 check_due ();
                 check_description ();
                 check_reminders ();
-                labels_summary.check_revealer ();
 
                 if (drag_enabled) {
                     build_drag_and_drop ();
@@ -323,11 +321,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = reminder_box
         };
 
+        labels_summary = new Widgets.LabelsSummary (item) {
+            reveal_child = true
+        };
+
         var content_label_box = new Gtk.Box (HORIZONTAL, 0);
         content_label_box.append (due_box_revealer);
         content_label_box.append (content_label);
         content_label_box.append (description_image_revealer);
         content_label_box.append (reminder_revelaer);
+        content_label_box.append (labels_summary);
 
         content_label_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
@@ -396,16 +399,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_box.append (content_label_revealer);
         content_box.append (content_entry_revealer);
 
-
         var content_main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         content_main_box.append (checked_button_revealer);
         content_main_box.append (content_box);
         content_main_box.append (project_name_label_revealer);
         content_main_box.append (hide_loading_revealer);
-
-        labels_summary = new Widgets.LabelsSummary (item) {
-            margin_start = 24
-        };
 
         markdown_revealer = new Gtk.Revealer ();
 
@@ -522,7 +520,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             css_classes = { "transition", "drop-target" }
         };
         handle_grid.append (content_main_box);
-        handle_grid.append (labels_summary);
         handle_grid.append (detail_revealer);
 
         var _itemrow_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
@@ -743,15 +740,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (active) {
                 select_revealer.reveal_child = true;
                 checked_button.sensitive = false;
-                labels_summary.reveal_child = false;
                 disable_drag_and_drop ();
             } else {
                 select_revealer.reveal_child = false;
                 checked_button.sensitive = true;
-
-                if (!edit) {
-                    labels_summary.check_revealer ();
-                }
 
                 if (drag_enabled) {
                     build_drag_and_drop ();
@@ -950,10 +942,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         check_due ();
         check_description ();
         check_reminders ();
-
-        if (!edit) {
-            labels_summary.check_revealer ();
-        }
 
         if (edit) {
             content_textview.editable = !item.completed && !item.project.is_deck;

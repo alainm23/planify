@@ -1134,6 +1134,5 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         signals_map.clear ();
 
-        labels_summary.clean_up ();
     }
 }
