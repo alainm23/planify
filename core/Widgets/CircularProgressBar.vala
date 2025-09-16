@@ -42,7 +42,7 @@ public class Widgets.CircularProgressBar : Adw.Bin {
     }
 
     ~CircularProgressBar () {
-        print ("Destroying - Widgets.CircularProgressBar\n");
+        debug ("Destroying - Widgets.CircularProgressBar\n");
     }
 
     construct {

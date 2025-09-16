@@ -28,7 +28,7 @@ public class Widgets.ItemLabels : Adw.Bin {
         }
     }
 
-    private Gtk.FlowBox flowbox;
+    private Adw.WrapBox box_layout;
     private Gtk.Revealer main_revealer;
 
     private Gee.HashMap<string, Widgets.ItemLabelChild> item_labels_map = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
@@ -42,28 +42,24 @@ public class Widgets.ItemLabels : Adw.Bin {
 
     public int top_margin {
         set {
-            flowbox.margin_top = value;
+            box_layout.margin_top = value;
         }
     }
 
     ~ItemLabels () {
-        print ("Destroying - Widgets.ItemLabels\n");
+        debug ("Destroying - Widgets.ItemLabels\n");
     }
 
     construct {
-        flowbox = new Gtk.FlowBox () {
-            column_spacing = 6,
-            row_spacing = 6,
-            homogeneous = false,
-            hexpand = true,
-            halign = Gtk.Align.START,
-            min_children_per_line = 3,
-            max_children_per_line = 20
+        box_layout = new Adw.WrapBox () {
+            child_spacing = 6,
+            line_spacing = 6,
+            halign = START
         };
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            child = flowbox
+            child = box_layout
         };
 
         child = main_revealer;
@@ -89,7 +85,7 @@ public class Widgets.ItemLabels : Adw.Bin {
     public void add_item_label (Objects.Label label) {
         if (!item_labels_map.has_key (label.id)) {
             item_labels_map[label.id] = new Widgets.ItemLabelChild (label);
-            flowbox.append (item_labels_map[label.id]);
+            box_layout.append (item_labels_map[label.id]);
         }
 
         main_revealer.reveal_child = has_items;
@@ -111,7 +107,7 @@ public class Widgets.ItemLabels : Adw.Bin {
 
     public void reset () {
         foreach (Widgets.ItemLabelChild item_label_row in item_labels_map.values) {
-            flowbox.remove (item_label_row);
+            box_layout.remove (item_label_row);
         }
 
         item_labels_map.clear ();

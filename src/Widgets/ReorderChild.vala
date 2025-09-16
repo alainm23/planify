@@ -58,7 +58,7 @@ public class Widgets.ReorderChild : Adw.Bin {
     }
 
     ~ReorderChild () {
-        print ("Destroying - Widgets.ReorderChild\n");
+        debug ("Destroying - Widgets.ReorderChild\n");
     }
 
     construct {

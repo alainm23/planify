@@ -39,7 +39,7 @@ public class Widgets.MagicButton : Adw.Bin {
     }
 
     ~MagicButton () {
-        print ("Destroying - Widgets.MagicButton\n");
+        debug ("Destroying - Widgets.MagicButton\n");
     }
 
     construct {

@@ -33,7 +33,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
     }
 
     ~QuickFindItem () {
-        print ("Destroying Dialogs.QuickFind.QuickFindItem\n");
+        debug ("Destroying Dialogs.QuickFind.QuickFindItem\n");
     }
 
     construct {

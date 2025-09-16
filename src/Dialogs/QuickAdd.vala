@@ -43,7 +43,7 @@ public class Dialogs.QuickAdd : Adw.Dialog {
     }
 
     ~QuickAdd () {
-        print ("Destroying - Dialogs.QuickAdd\n");
+        debug ("Destroying - Dialogs.QuickAdd\n");
     }
 
     construct {

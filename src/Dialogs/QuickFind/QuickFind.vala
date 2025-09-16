@@ -34,7 +34,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
     }
 
     ~QuickFind () {
-        print ("Destroying Dialogs.QuickFind.QuickFind\n");
+        debug ("Destroying Dialogs.QuickFind.QuickFind\n");
     }
 
     construct {

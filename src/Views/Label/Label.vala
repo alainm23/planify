@@ -49,7 +49,7 @@ public class Views.Label : Adw.Bin {
     }
 
     ~Label () {
-        print ("Destroying - Views.Label\n");
+        debug ("Destroying - Views.Label\n");
     }
 
     construct {
@@ -239,7 +239,7 @@ public class Views.Label : Adw.Bin {
 
     public void clean_up () {
         foreach (var row in Util.get_default ().get_children (listbox)) {
-            (row as Layouts.ItemRow).clean_up ();
+            ((Layouts.ItemRow) row).clean_up ();
         }
 
         foreach (var entry in signal_map.entries) {

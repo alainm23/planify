@@ -35,7 +35,7 @@ public class Widgets.CompletedTaskRow : Gtk.ListBoxRow {
     }
 
     ~CompletedTaskRow () {
-        print ("Destroying - Widgets.CompletedTaskRow\n");
+        debug ("Destroying - Widgets.CompletedTaskRow\n");
     }
 
     construct {

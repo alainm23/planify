@@ -20,7 +20,6 @@
  */
 
 public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePage {
-    private Gtk.Stack stack;
     private Layouts.HeaderItem backups_group;
 
     public Backup (Adw.PreferencesDialog preferences_dialog) {
@@ -31,7 +30,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
     }
 
     ~Backup () {
-        print ("Destroying - Dialogs.Preferences.Pages.Backup\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.Backup\n");
     }
 
     construct {
@@ -169,7 +168,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
     public override void clean_up () {
         backups_group.set_sort_func (null);
         foreach (Gtk.ListBoxRow row in backups_group.get_children ()) {
-            (row as BackupRow).clean_up ();
+            ((BackupRow) row).clean_up ();
         }
 
         foreach (var entry in signal_map.entries) {
@@ -193,7 +192,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         }
 
         ~BackupRow () {
-            print ("Destroying - BackupRow\n");
+            debug ("Destroying - BackupRow\n");
         }
 
         construct {
@@ -323,7 +322,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         }
 
         ~ImportView () {
-            print ("Destroying Dialogs.Preferences.Pages.ImportView\n");
+            debug ("Destroying Dialogs.Preferences.Pages.ImportView\n");
         }
 
         construct {

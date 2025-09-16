@@ -26,7 +26,6 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
     private Gtk.Stack stack;
     private Adw.EntryRow token_entry;
     private Widgets.LoadingButton login_button;
-    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public TodoistSetup (Adw.PreferencesDialog preferences_dialog, Accounts accounts_page) {
         Object (
@@ -47,7 +46,7 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
     }
 
     ~TodoistSetup () {
-        print ("Destroying - Dialogs.Preferences.Pages.TodoistSetup\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.TodoistSetup\n");
     }
 
     construct {
@@ -246,13 +245,13 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
         };
 
         var label = new Gtk.Label (_("Planify is syncing your tasks, this may take a few minutes")) {
-            css_classes = { "dimmed" },
             wrap = true,
             halign = Gtk.Align.CENTER,
             justify = Gtk.Justification.CENTER,
             margin_start = 12,
             margin_end = 12,
         };
+        label.add_css_class ("dimmed");
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 24) {
             margin_top = 128,

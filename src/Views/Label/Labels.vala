@@ -27,7 +27,7 @@ public class Views.Labels : Adw.Bin {
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     ~Labels () {
-        print ("Destroying - Views.Labels\n");
+        debug ("Destroying - Views.Labels\n");
     }
 
     construct {
@@ -139,7 +139,7 @@ public class Views.Labels : Adw.Bin {
 
     public void clean_up () {
         foreach (var row in Util.get_default ().get_children (sources_listbox)) {
-            (row as Views.LabelSourceRow).clean_up ();
+            ((Views.LabelSourceRow) row).clean_up ();   
         }
 
         foreach (var entry in signal_map.entries) {

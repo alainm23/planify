@@ -34,8 +34,6 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
     private Widgets.IgnoreSSLSwitchRow ignore_ssl_row;
     private Widgets.BypassResolveSwitchRow bypass_resolve_row;
 
-    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
-
     public CalDAVSetup (Adw.PreferencesDialog preferences_dialog, Accounts accounts_page) {
         Object (
             preferences_dialog: preferences_dialog,
@@ -45,7 +43,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
     }
 
     ~CalDAVSetup () {
-        print ("Destroying Dialogs.Preferences.Pages.CalDAVSetup\n");
+        debug ("Destroying Dialogs.Preferences.Pages.CalDAVSetup\n");
     }
 
     construct {

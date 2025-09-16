@@ -57,11 +57,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer detail_revealer;
     private Gtk.Revealer main_revealer;
     public Adw.Bin itemrow_box;
-    private Gtk.Popover menu_handle_popover = null;
+    private Gtk.Popover menu_handle_popover;
 
     private Widgets.LoadingButton hide_loading_button;
-    private Widgets.Markdown.Buffer current_buffer;
-    private Widgets.Markdown.EditView markdown_edit_view = null;
+    private Widgets.Markdown.EditView markdown_edit_view;
     private Gtk.Revealer markdown_revealer;
     private Widgets.ItemLabels item_labels;
     private Widgets.ScheduleButton schedule_button;
@@ -94,7 +93,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.DropTarget drop_order_magic_button_target;
     
     private Gee.HashMap<ulong, weak GLib.Object> dnd_handlerses = new Gee.HashMap<ulong, weak GLib.Object> ();
-    private ulong description_handler_change_id = 0;
+    private Gee.HashMap<ulong, weak GLib.Object> markdown_handlerses = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     bool _edit = false;
     public bool edit {
@@ -112,7 +111,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 content_label_revealer.reveal_child = false;
                 content_entry_revealer.reveal_child = true;
                 project_name_label_revealer.reveal_child = false;
-                labels_summary.reveal_child = false;
                 hide_subtask_revealer.reveal_child = false;
                 hide_loading_button.remove_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = true;
@@ -153,7 +151,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 check_due ();
                 check_description ();
                 check_reminders ();
-                labels_summary.check_revealer ();
 
                 if (drag_enabled) {
                     build_drag_and_drop ();
@@ -208,7 +205,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     ~ItemRow () {
-        print ("Destroying - Layouts.ItemRow - %s\n".printf (item.content));
+        debug ("Destroying - Layouts.ItemRow - %s\n".printf (item.content));
     }
 
     construct {
@@ -324,11 +321,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = reminder_box
         };
 
+        labels_summary = new Widgets.LabelsSummary (item) {
+            reveal_child = true,
+            start_margin = 6
+        };
+
         var content_label_box = new Gtk.Box (HORIZONTAL, 0);
         content_label_box.append (due_box_revealer);
         content_label_box.append (content_label);
         content_label_box.append (description_image_revealer);
         content_label_box.append (reminder_revelaer);
+        content_label_box.append (labels_summary);
 
         content_label_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
@@ -397,18 +400,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_box.append (content_label_revealer);
         content_box.append (content_entry_revealer);
 
-
         var content_main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         content_main_box.append (checked_button_revealer);
         content_main_box.append (content_box);
         content_main_box.append (project_name_label_revealer);
         content_main_box.append (hide_loading_revealer);
-
-        labels_summary = new Widgets.LabelsSummary (item) {
-            margin_start = 24
-        };
-
-        current_buffer = new Widgets.Markdown.Buffer ();
 
         markdown_revealer = new Gtk.Revealer ();
 
@@ -525,7 +521,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             css_classes = { "transition", "drop-target" }
         };
         handle_grid.append (content_main_box);
-        handle_grid.append (labels_summary);
         handle_grid.append (detail_revealer);
 
         var _itemrow_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
@@ -746,15 +741,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (active) {
                 select_revealer.reveal_child = true;
                 checked_button.sensitive = false;
-                labels_summary.reveal_child = false;
                 disable_drag_and_drop ();
             } else {
                 select_revealer.reveal_child = false;
                 checked_button.sensitive = true;
-
-                if (!edit) {
-                    labels_summary.check_revealer ();
-                }
 
                 if (drag_enabled) {
                     build_drag_and_drop ();
@@ -884,8 +874,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             return;
         }
 
-        if (item.description != current_buffer.get_all_text ().chomp ()) {
-            item.description = current_buffer.get_all_text ().chomp ();
+        if (item.description != markdown_edit_view.get_all_text ().chomp ()) {
+            item.description = markdown_edit_view.get_all_text ().chomp ();
             item.update_async_timeout (update_id);
             return;
         }
@@ -923,18 +913,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         // Update Description
-        if (description_handler_change_id != 0) {
-            current_buffer.disconnect (description_handler_change_id);
-            description_handler_change_id = 0;
+        destroy_markdown_signals ();
+
+        if (markdown_edit_view != null) {
+            markdown_edit_view.buffer.text = item.description;
         }
 
-        current_buffer.text = item.description;
-
-        if (description_handler_change_id == 0) {
-            description_handler_change_id = current_buffer.changed.connect (() => {
-                update_content_description ();
-            });
-        }
+        build_markdown_signals ();
 
         project_name_label.label = item.project.name;
         if (item.has_parent) {
@@ -958,10 +943,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         check_due ();
         check_description ();
         check_reminders ();
-
-        if (!edit) {
-            labels_summary.check_revealer ();
-        }
 
         if (edit) {
             content_textview.editable = !item.completed && !item.project.is_deck;
@@ -1125,15 +1106,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
-            dialog.present (Planify._instance.main_window);
 
-            dialog.changed.connect ((type, id) => {
+            signals_map[dialog.changed.connect ((type, id) => {
                 if (type == "project") {
                     move (Services.Store.instance ().get_project (id), "");
                 } else {
                     move (item.project, id);
                 }
-            });
+            })] = dialog;
+
+            dialog.present (Planify._instance.main_window);
         })] = move_item;
 
         signals_map[today_item.activate_item.connect (() => {
@@ -1220,23 +1202,24 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             signals_map[move_item.clicked.connect (() => {
                 Dialogs.ProjectPicker.ProjectPicker dialog;
+
                 if (item.project.is_inbox_project) {
                     dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
                 } else {
                     dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
                 }
 
-                dialog.project = item.project;
-                dialog.section = item.section;
-                dialog.present (Planify._instance.main_window);
-
-                dialog.changed.connect ((type, id) => {
+                signals_map[dialog.changed.connect ((type, id) => {
                     if (type == "project") {
                         move (Services.Store.instance ().get_project (id), "");
                     } else {
                         move (item.project, id);
                     }
-                });
+                })] = dialog;
+
+                dialog.project = item.project;
+                dialog.section = item.section;
+                dialog.present (Planify._instance.main_window);
             })] = move_item;
         }
 
@@ -1749,30 +1732,47 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             is_editable = !item.completed && !item.project.is_deck
         };
 
-        markdown_edit_view.buffer = current_buffer;
-
+        markdown_edit_view.buffer.text = item.description;
         markdown_revealer.child = markdown_edit_view;
         markdown_revealer.reveal_child = true;
 
+        build_markdown_signals ();
+    }
+
+    private void build_markdown_signals () {
         var description_gesture_click = new Gtk.GestureClick ();
         markdown_edit_view.add_controller (description_gesture_click);
-        signals_map[description_gesture_click.released.connect ((n_press, x, y) => {
+
+        markdown_handlerses[description_gesture_click.released.connect ((n_press, x, y) => {
             description_gesture_click.set_state (Gtk.EventSequenceState.CLAIMED);
             markdown_edit_view.view_focus ();
         })] = description_gesture_click;
 
-        signals_map[markdown_edit_view.escape.connect (() => {
+        markdown_handlerses[markdown_edit_view.escape.connect (() => {
             edit = false;
         })] = markdown_edit_view;
+
+        markdown_handlerses[markdown_edit_view.buffer.changed.connect (() => {
+            update_content_description ();
+        })] = markdown_edit_view.buffer;
     }
 
     private void destroy_markdown_edit_view () {
+        destroy_markdown_signals ();
         markdown_revealer.reveal_child = false;
         Timeout.add (markdown_revealer.transition_duration, () => {
             markdown_revealer.child = null;
             markdown_edit_view = null;
             return GLib.Source.REMOVE;
         });
+    }
+
+    private void destroy_markdown_signals () {
+        foreach (var entry in markdown_handlerses.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        markdown_handlerses.clear ();
     }
 
     public override void clean_up () {
@@ -1787,11 +1787,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         dnd_handlerses.clear ();
-
-        if (description_handler_change_id != 0) {
-            current_buffer.disconnect (description_handler_change_id);
-            description_handler_change_id = 0;
-        }
+        
+        destroy_markdown_signals ();
 
         subitems.clean_up ();
         attachments.clean_up ();
@@ -1801,7 +1798,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         label_button.clean_up ();
         reminder_button.clean_up ();
         
-        current_buffer = null;
         markdown_edit_view = null;
     }
 }

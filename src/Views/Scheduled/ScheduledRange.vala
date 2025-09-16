@@ -46,7 +46,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
     }
 
     ~ScheduledRange () {
-        print ("Destroying - Views.Scheduled.ScheduledRange\n");
+        debug ("Destroying - Views.Scheduled.ScheduledRange\n");
     }
 
     construct {
@@ -269,7 +269,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         listbox.set_sort_func (null);
 
         foreach (var row in Util.get_default ().get_children (listbox)) {
-            (row as Layouts.ItemRow).clean_up ();
+            ((Layouts.ItemRow) row).clean_up ();
         }
         
         foreach (var entry in signal_map.entries) {

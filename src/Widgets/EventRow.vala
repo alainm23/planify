@@ -41,7 +41,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
     }
 
     ~EventRow () {
-        print ("Destroying - Widgets.EventRow\n");
+        debug ("Destroying - Widgets.EventRow\n");
     }
 
     construct {

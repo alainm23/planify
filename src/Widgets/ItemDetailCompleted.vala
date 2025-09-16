@@ -36,7 +36,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
     }
 
     ~ItemDetailCompleted () {
-        print ("Destroying - Widgets.ItemDetailCompleted\n");
+        debug ("Destroying - Widgets.ItemDetailCompleted\n");
     }
 
     construct {

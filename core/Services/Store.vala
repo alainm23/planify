@@ -1113,7 +1113,7 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public Objects.Label ? get_label_by_name (string name, bool lowercase = false, string source_id) {
+    public Objects.Label ? get_label_by_name (string name, bool lowercase = false, string source_id = "") {
         lock (_labels) {
             string compare_name = lowercase ? name.down () : name;
 

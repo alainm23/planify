@@ -44,7 +44,7 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
     }
 
     ~ScheduledDay () {
-        print ("Destroying - Views.Scheduled.ScheduledDay\n");
+        debug ("Destroying - Views.Scheduled.ScheduledDay\n");
     }
 
     construct {
@@ -274,7 +274,7 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
         listbox.set_sort_func (null);
 
         foreach (var row in Util.get_default ().get_children (listbox)) {
-            (row as Layouts.ItemRow).clean_up ();
+            ((Layouts.ItemRow) row).clean_up ();
         }
         
         foreach (var entry in signal_map.entries) {

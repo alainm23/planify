@@ -34,7 +34,7 @@ public class Layouts.FilterPaneChild : Gtk.FlowBoxChild {
     }
 
     ~FilterPaneChild () {
-        print ("Destroying Layouts.FilterPaneChild\n");
+        debug ("Destroying Layouts.FilterPaneChild\n");
     }
 
     construct {

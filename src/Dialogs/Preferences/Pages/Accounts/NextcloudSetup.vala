@@ -30,8 +30,6 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
     // Advanced Options
     private Widgets.IgnoreSSLSwitchRow ignore_ssl_row;
 
-    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
-
     public NextcloudSetup (Adw.PreferencesDialog preferences_dialog, Accounts accounts_page) {
         Object (
             preferences_dialog: preferences_dialog,
@@ -41,7 +39,7 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
     }
 
     ~NextcloudSetup () {
-        print ("Destroying - Dialogs.Preferences.Pages.NextcloudSetup\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.NextcloudSetup\n");
     }
 
     construct {

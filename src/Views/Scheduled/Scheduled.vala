@@ -29,7 +29,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     ~Scheduled () {
-        print ("Destroying - Views.Scheduled.Scheduled\n");
+        debug ("Destroying - Views.Scheduled.Scheduled\n");
     }
 
     construct {
@@ -93,7 +93,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
         Util.get_default ().set_widget_color (Objects.Filters.Scheduled.get_default ().theme_color (), title_icon);
 
-        var title_label = new Gtk.Label (Objects.Filters.Scheduled.get_default ().theme_color ()) {
+        var title_label = new Gtk.Label (Objects.Filters.Scheduled.get_default ().name) {
             css_classes = { "font-bold", "title-2" },
             ellipsize = END,
             halign = START
@@ -332,11 +332,11 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
     public void clean_up () {
         foreach (var row in Util.get_default ().get_children (listbox)) {
             if (row is Views.Scheduled.ScheduledDay) {
-                (row as Views.Scheduled.ScheduledDay).clean_up ();
+                ((Views.Scheduled.ScheduledDay) row).clean_up ();
             } else if (row is Views.Scheduled.ScheduledMonth) {
-                (row as Views.Scheduled.ScheduledMonth).clean_up ();
+                ((Views.Scheduled.ScheduledMonth) row).clean_up ();
             } else if (row is Views.Scheduled.ScheduledRange) {
-                (row as Views.Scheduled.ScheduledRange).clean_up ();
+                ((Views.Scheduled.ScheduledRange) row).clean_up ();
             }
         }
 

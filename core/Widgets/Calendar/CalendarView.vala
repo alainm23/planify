@@ -52,7 +52,7 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
     }
 
     ~CalendarView () {
-        print ("Destroying - Widgets.Calendar.CalendarView\n");
+        debug ("Destroying - Widgets.Calendar.CalendarView\n");
     }
 
     construct {

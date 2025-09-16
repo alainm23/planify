@@ -50,7 +50,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     }
 
     ~LabelPicker () {
-        print ("Destroying - Widgets.LabelPicker.LabelPicker\n");
+        debug ("Destroying - Widgets.LabelPicker.LabelPicker\n");
     }
 
     construct {

@@ -20,8 +20,6 @@
  */
 
 public class Dialogs.Preferences.Pages.Support : Dialogs.Preferences.Pages.BasePage {
-    private Layouts.HeaderItem views_group;
-
     public Support (Adw.PreferencesDialog preferences_dialog) {
         Object (
             preferences_dialog: preferences_dialog,
@@ -30,7 +28,7 @@ public class Dialogs.Preferences.Pages.Support : Dialogs.Preferences.Pages.BaseP
     }
 
     ~Support () {
-        print ("Destroying - Dialogs.Preferences.Pages.Support\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.Support\n");
     }
 
     construct {

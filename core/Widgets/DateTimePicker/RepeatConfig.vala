@@ -91,7 +91,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
     }
 
     ~RepeatConfig () {
-        print ("Destroying - Widgets.DateTimePicker.RepeatConfig\n");
+        debug ("Destroying - Widgets.DateTimePicker.RepeatConfig\n");
     }
 
     construct {

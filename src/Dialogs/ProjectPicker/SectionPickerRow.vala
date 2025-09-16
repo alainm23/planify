@@ -46,7 +46,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
     }
 
     ~SectionPickerRow () {
-        print ("Destroying - Dialogs.ProjectPicker.SectionPickerRow\n");
+        debug ("Destroying - Dialogs.ProjectPicker.SectionPickerRow\n");
     }
 
     construct {

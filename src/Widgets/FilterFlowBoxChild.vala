@@ -38,7 +38,7 @@ public class Widgets.FilterFlowBoxChild : Gtk.FlowBoxChild {
     }
 
     ~FilterFlowBoxChild () {
-        print ("Destroying - Widgets.FilterFlowBoxChild\n");
+        debug ("Destroying - Widgets.FilterFlowBoxChild\n");
     }
 
     construct {

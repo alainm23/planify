@@ -35,7 +35,7 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
     }
 
     ~LabelSourceRow () {
-        print ("Destroying - Views.LabelSourceRow\n");
+        debug ("Destroying - Views.LabelSourceRow\n");
     }
 
     construct {
@@ -126,7 +126,7 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
 
     public void clean_up () {
         foreach (var row in group.get_children ()) {
-            (row as Layouts.LabelRow).clean_up ();
+            ((Layouts.LabelRow) row).clean_up ();
         }
 
         group.clean_up ();

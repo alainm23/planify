@@ -28,7 +28,7 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
     }
 
     ~General () {
-        print ("Destroying - Dialogs.Preferences.Pages.General\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.General\n");
     }
 
     construct {

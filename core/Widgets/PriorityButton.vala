@@ -49,7 +49,7 @@ public class Widgets.PriorityButton : Adw.Bin {
     }
 
     ~PriorityButton () {
-        print ("Destroying - Widgets.PriorityButton\n");
+        debug ("Destroying - Widgets.PriorityButton\n");
     }
 
     construct {

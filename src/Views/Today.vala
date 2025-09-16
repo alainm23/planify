@@ -55,7 +55,7 @@ public class Views.Today : Adw.Bin {
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     ~Today () {
-        print ("Destroying - Today View\n");
+        debug ("Destroying - Today View\n");
     }
 
     construct {
@@ -761,14 +761,14 @@ public class Views.Today : Adw.Bin {
         listbox.set_sort_func (null);
 
         foreach (var row in Util.get_default ().get_children (listbox)) {
-            (row as Layouts.ItemRow).clean_up ();
+            ((Layouts.ItemRow) row).clean_up ();
         }
 
         overdue_listbox.set_filter_func (null);
         overdue_listbox.set_sort_func (null);
 
         foreach (var row in Util.get_default ().get_children (overdue_listbox)) {
-            (row as Layouts.ItemRow).clean_up ();
+            ((Layouts.ItemRow) row).clean_up ();
         }
 
         foreach (var entry in signal_map.entries) {

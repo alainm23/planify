@@ -97,7 +97,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
     }
 
     ~ProjectPicker () {
-        print ("Destroying Dialogs.ProjectPicker.ProjectPicker\n");
+        debug ("Destroying Dialogs.ProjectPicker.ProjectPicker\n");
     }
 
     construct {
@@ -186,7 +186,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
 
             if (inbox_group != null) {
                 foreach (Gtk.ListBoxRow row in inbox_group.get_children ()) {
-                    (row as Dialogs.ProjectPicker.ProjectPickerRow).clean_up ();
+                    ((Dialogs.ProjectPicker.ProjectPickerRow) row).clean_up ();
                 }
 
                 inbox_group.clear ();
