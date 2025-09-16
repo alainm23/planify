@@ -322,7 +322,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         labels_summary = new Widgets.LabelsSummary (item) {
-            reveal_child = true
+            reveal_child = true,
+            start_margin = 6
         };
 
         var content_label_box = new Gtk.Box (HORIZONTAL, 0);

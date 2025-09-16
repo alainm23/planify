@@ -23,7 +23,7 @@ public class Widgets.LabelsSummary : Adw.Bin {
     public Objects.Item item { get; construct; }
     public int max_items { get; construct; }
 
-    private Gtk.FlowBox labels_flowbox;
+    private Gtk.Box box_layout;
     private Gtk.Revealer revealer;
     public Gtk.Box content_box;
     private Gtk.Label more_label;
@@ -44,7 +44,7 @@ public class Widgets.LabelsSummary : Adw.Bin {
     
     public int start_margin {
         set {
-            labels_flowbox.margin_start = value;
+            box_layout.margin_start = value;
         }
     }
 
@@ -60,16 +60,8 @@ public class Widgets.LabelsSummary : Adw.Bin {
     }
 
     construct {
-        labels_flowbox = new Gtk.FlowBox () {
-            column_spacing = 6,
-            row_spacing = 6,
-            homogeneous = false,
-            hexpand = false,
-            orientation = VERTICAL,
-            halign = Gtk.Align.START,
-            valign = Gtk.Align.START,
-            min_children_per_line = 1,
-            max_children_per_line = 20
+        box_layout = new Gtk.Box (HORIZONTAL, 6) {
+            halign = START
         };
 
         more_label = new Gtk.Label (null) {
@@ -92,7 +84,7 @@ public class Widgets.LabelsSummary : Adw.Bin {
             valign = Gtk.Align.CENTER
         };
 
-        content_box.append (labels_flowbox);
+        content_box.append (box_layout);
         content_box.append (more_label_revealer);
 
         revealer = new Gtk.Revealer () {
@@ -109,35 +101,44 @@ public class Widgets.LabelsSummary : Adw.Bin {
     }
 
     public void update_request () {
-        int more = 0;
-        int count = 0;
-        string tooltip_text = "";
         more_label_revealer.reveal_child = false;
-
-        foreach (Objects.Label label in item._get_labels ()) {
+        
+        var item_labels = item._get_labels ();
+        var overflow_labels = new Gee.ArrayList<Objects.Label> ();
+        int current_visible = labels.size;
+        
+        foreach (Objects.Label label in item_labels) {
             if (!labels.has_key (label.id)) {
-                if (labels.size >= max_items) {
-                    more++;
-                    more_label.label = "+%d".printf (more);
-                    tooltip_text += "- %s%s".printf (
-                        label.name,
-                        more + 1 >= item._get_labels ().size ? "" : "\n"
-                    );
-                    more_label_grid.tooltip_text = tooltip_text;
-                    more_label_revealer.reveal_child = true;
+                if (current_visible >= max_items) {
+                    overflow_labels.add (label);
                 } else {
-                    Util.get_default ().set_widget_color (
-                        Util.get_default ().get_color (label.color),
-                        more_label_grid
-                    );
-
                     labels[label.id] = new Widgets.ItemLabelChild (label);
-                    labels_flowbox.append (labels[label.id]);
+                    box_layout.append (labels[label.id]);
+                    current_visible++;
                 }
-
-                count++;
             }
         }
+        
+        if (overflow_labels.size > 0) {
+            more_label.label = "+%d".printf (overflow_labels.size);
+            more_label_grid.tooltip_text = create_overflow_tooltip (overflow_labels);
+            
+            Util.get_default ().set_widget_color (
+                Util.get_default ().get_color (overflow_labels[0].color),
+                more_label_grid
+            );
+            
+            more_label_revealer.reveal_child = true;
+        }
+    }
+
+
+    private string create_overflow_tooltip (Gee.ArrayList<Objects.Label> overflow_labels) {
+        var tooltip_parts = new Gee.ArrayList<string> ();
+        foreach (Objects.Label label in overflow_labels) {
+            tooltip_parts.add ("- %s".printf (label.name));
+        }
+        return string.joinv ("\n", tooltip_parts.to_array ());
     }
 
     public void remove_item_label (Objects.Label label) {

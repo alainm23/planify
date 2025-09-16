@@ -19,7 +19,7 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
+public class Widgets.ItemLabelChild : Adw.Bin {
     public Objects.Label label { get; construct; }
 
     private Gtk.Label name_label;
@@ -42,7 +42,7 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
         add_css_class ("item-label-child");
 
         name_label = new Gtk.Label (null);
-        name_label.valign = Gtk.Align.CENTER;
+        name_label.valign = CENTER;
         name_label.add_css_class ("caption");
 
         var labelrow_grid = new Adw.Bin () {
@@ -50,7 +50,7 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
         };
 
         main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            transition_type = SLIDE_RIGHT,
             child = labelrow_grid
         };
 
@@ -81,7 +81,12 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
     public void hide_destroy () {
         main_revealer.reveal_child = false;
         Timeout.add (main_revealer.transition_duration, () => {
-            ((Gtk.FlowBox) parent).remove (this);
+            if (parent is Gtk.Box) {
+                ((Gtk.Box) parent).remove (this);
+            } else if (parent is Adw.WrapBox) {
+                ((Adw.WrapBox) parent).remove (this);
+            }
+
             return GLib.Source.REMOVE;
         });
     }
