@@ -274,32 +274,32 @@ public class Util : GLib.Object {
 
         if (dark_mode) {
             if (appearance_mode == 1) {
-                window_bg_color = "#151515";
-                popover_bg_color = "shade(#151515, 1.4)";
-                sidebar_bg_color = "#1e1e1e";
-                item_border_color = "#333333";
-                upcoming_bg_color = "#313234";
-                upcoming_fg_color = "#ededef";
-                selected_color = "#2d2d2d";
+                window_bg_color = "#181818";
+                popover_bg_color = "#202020";
+                sidebar_bg_color = "#1f1f1f";
+                item_border_color = "#3a3a3a";
+                upcoming_bg_color = "#2a2b2d";
+                upcoming_fg_color = "#e0e0e0";
+                selected_color = "#2e3a46";
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
             } else if (appearance_mode == 2) {
-                window_bg_color = "#0B0B11";
-                popover_bg_color = "#15151B";
-                sidebar_bg_color = "#15161b";
-                item_border_color = "shade(#333333, 1.35)";
-                upcoming_bg_color = "#313234";
-                upcoming_fg_color = "#ededef";
-                selected_color = "#1f2937";
+                window_bg_color = "#0C0D12";
+                popover_bg_color = "#16171D";
+                sidebar_bg_color = "#14151a";
+                item_border_color = "#2d2f35";
+                upcoming_bg_color = "#24262b";
+                upcoming_fg_color = "#e0e1e5";
+                selected_color = "#2a303a";
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
             }
         } else {
-            window_bg_color = "#fafafa";
+            window_bg_color = "#f9f9f9";
             popover_bg_color = "#ffffff";
-            sidebar_bg_color = "#f2f2f2";
-            item_border_color = "@borders";
-            upcoming_bg_color = "#ededef";
-            upcoming_fg_color = "shade(#ededef, 0)";
-            selected_color = "#e5e7eb";
+            sidebar_bg_color = "#f3f4f6";
+            item_border_color = "#dcdfe3";
+            upcoming_bg_color = "#f0f1f3";
+            upcoming_fg_color = "#2d2e32";
+            selected_color = "#dbeafe";
             Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_LIGHT;
         }
 
