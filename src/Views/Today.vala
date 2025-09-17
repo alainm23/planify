@@ -307,7 +307,6 @@ public class Views.Today : Adw.Bin {
         child = toolbar_view;
         update_today_label ();
         add_today_items ();
-        check_default_view ();
 
         Timeout.add (listbox_placeholder_stack.transition_duration, () => {
             check_placeholder ();
@@ -379,7 +378,6 @@ public class Views.Today : Adw.Bin {
         signal_map[Services.Settings.get_default ().settings.changed["today-sort-order"].connect (() => {
             listbox.invalidate_sort ();
             overdue_listbox.invalidate_sort ();
-            check_default_view ();
         })] = Services.Settings.get_default ().settings;
 
         listbox.set_filter_func ((row) => {
@@ -457,7 +455,6 @@ public class Views.Today : Adw.Bin {
 
         listbox.invalidate_sort ();
         overdue_listbox.invalidate_sort ();
-        check_default_view ();
     }
 
     private void add_today_items () {
@@ -751,17 +748,6 @@ public class Views.Today : Adw.Bin {
             sorted_by,
             SortOrderType.ASC
         );
-    }
-
-    private void check_default_view () {
-        bool defaults = true;
-        int sort_order = Services.Settings.get_default ().settings.get_int ("today-sort-order");
-
-        if (sort_order != 0) {
-            defaults = false;
-        }
-
-        indicator_revealer.reveal_child = !defaults;
     }
 
     public void clean_up () {
