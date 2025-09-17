@@ -242,27 +242,14 @@ public class Util : GLib.Object {
     }
 
     public void update_theme () {
-        string _css = """
-            @define-color window_bg_color %s;
-            @define-color popover_bg_color %s;
-            @define-color sidebar_bg_color %s;
-            @define-color item_border_color %s;
-            @define-color upcoming_bg_color %s;
-            @define-color upcoming_fg_color %s;
-            @define-color selected_color %s;
-        """;
-
-        int appearance_mode = Services.Settings.get_default ().settings.get_enum ("appearance");
+        Appearance appearance_mode = Appearance.parse (Services.Settings.get_default ().settings.get_enum ("appearance"));
         bool dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
         bool system_appearance = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
-
         var color_scheme_settings = ColorSchemeSettings.Settings.get_default ();
 
         if (system_appearance) {
             dark_mode = color_scheme_settings.prefers_color_scheme == ColorSchemeSettings.Settings.ColorScheme.DARK;
         }
-
-        var provider = new Gtk.CssProvider ();
 
         string window_bg_color = "";
         string popover_bg_color = "";
@@ -273,7 +260,7 @@ public class Util : GLib.Object {
         string selected_color = "";
 
         if (dark_mode) {
-            if (appearance_mode == 1) {
+            if (appearance_mode == Appearance.DARK) {
                 window_bg_color = "#181818";
                 popover_bg_color = "#202020";
                 sidebar_bg_color = "#1f1f1f";
@@ -282,7 +269,7 @@ public class Util : GLib.Object {
                 upcoming_fg_color = "#e0e0e0";
                 selected_color = "#2e3a46";
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
-            } else if (appearance_mode == 2) {
+            } else if (appearance_mode == Appearance.DARK_BLUE) {
                 window_bg_color = "#0C0D12";
                 popover_bg_color = "#16171D";
                 sidebar_bg_color = "#14151a";
@@ -303,7 +290,15 @@ public class Util : GLib.Object {
             Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_LIGHT;
         }
 
-        var css = _css.printf (
+        string css = """
+            @define-color window_bg_color %s;
+            @define-color popover_bg_color %s;
+            @define-color sidebar_bg_color %s;
+            @define-color item_border_color %s;
+            @define-color upcoming_bg_color %s;
+            @define-color upcoming_fg_color %s;
+            @define-color selected_color %s;
+        """.printf (
             window_bg_color,
             popover_bg_color,
             sidebar_bg_color,
@@ -313,7 +308,9 @@ public class Util : GLib.Object {
             selected_color
         );
 
+        var provider = new Gtk.CssProvider ();
         provider.load_from_string (css);
+        
         Gtk.StyleContext.add_provider_for_display (
             Gdk.Display.get_default (), provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
