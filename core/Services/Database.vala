@@ -2080,7 +2080,7 @@ public class Services.Database : GLib.Object {
     private void set_parameter_int (Sqlite.Statement ? stmt, string par, int val) {
         int par_position = stmt.bind_parameter_index (par);
         if (par_position == 0) {
-            warning("bind parameter not found: %s", par);
+            warning ("bind parameter not found: %s", par);
             return;
         }
         stmt.bind_int (par_position, val);
@@ -2089,7 +2089,7 @@ public class Services.Database : GLib.Object {
     private void set_parameter_int64 (Sqlite.Statement ? stmt, string par, int64 val) {
         int par_position = stmt.bind_parameter_index (par);
         if (par_position == 0) {
-            warning("bind parameter not found: %s", par);
+            warning ("bind parameter not found: %s", par);
             return;
         }
         stmt.bind_int64 (par_position, val);
@@ -2098,7 +2098,7 @@ public class Services.Database : GLib.Object {
     private void set_parameter_str (Sqlite.Statement ? stmt, string par, string val) {
         int par_position = stmt.bind_parameter_index (par);
         if (par_position == 0) {
-            warning("bind parameter not found: %s", par);
+            warning ("bind parameter not found: %s", par);
             return;
         }
         stmt.bind_text (par_position, val);
@@ -2107,7 +2107,7 @@ public class Services.Database : GLib.Object {
     private void set_parameter_bool (Sqlite.Statement ? stmt, string par, bool val) {
         int par_position = stmt.bind_parameter_index (par);
         if (par_position == 0) {
-            warning("bind parameter not found: %s", par);
+            warning ("bind parameter not found: %s", par);
             return;
         }
         stmt.bind_int (par_position, val ? 1 : 0);
