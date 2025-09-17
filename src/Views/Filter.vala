@@ -255,6 +255,9 @@ public class Views.Filter : Adw.Bin {
             if (filter is Objects.Filters.Completed) {
                 magic_button.visible = false;
                 listbox.set_header_func (header_completed_function);
+                listbox.set_sort_func ((row1, row2) => {
+                    return sort_completed_function (((Layouts.ItemRow) row1).item, ((Layouts.ItemRow) row2).item);
+                });
             } else {
                 listbox.set_header_func (header_project_function);
             }
@@ -315,15 +318,7 @@ public class Views.Filter : Adw.Bin {
 
         if (filter is Objects.Filters.Completed) {
             items_list.sort ((a, b) => {
-                var completed_a = Utils.Datetime.get_date_only (
-                    Utils.Datetime.get_date_from_string (a.completed_at)
-                );
-
-                var completed_b = Utils.Datetime.get_date_only (
-                    Utils.Datetime.get_date_from_string (b.completed_at)
-                );
-                
-                return completed_b.compare (completed_a);
+                return sort_completed_function (a, b);
             });
         } else {
             items_list.sort ((a, b) => {
@@ -555,6 +550,7 @@ public class Views.Filter : Adw.Bin {
 
     private void validate_placeholder () {
         listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
+        invalidate_listbox ();
     }
 
     private Gtk.Widget get_header_box (string title) {
@@ -564,9 +560,9 @@ public class Views.Filter : Adw.Bin {
         };
 
         var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            margin_top = 6,
+            margin_top = 12,
             margin_start = 24,
-            margin_bottom = 6
+            margin_bottom = 12
         };
 
         header_box.append (header_label);
@@ -613,6 +609,23 @@ public class Views.Filter : Adw.Bin {
         });
 
         return popover;
+    }
+
+    private void invalidate_listbox () {
+        listbox.invalidate_sort ();
+        listbox.invalidate_headers ();
+    }
+
+    private int sort_completed_function (Objects.Item a, Objects.Item b) {
+        var completed_a = Utils.Datetime.get_date_only (
+            Utils.Datetime.get_date_from_string (a.completed_at)
+        );
+
+        var completed_b = Utils.Datetime.get_date_only (
+            Utils.Datetime.get_date_from_string (b.completed_at)
+        );
+        
+        return completed_b.compare (completed_a);
     }
 
     public void clean_up () {

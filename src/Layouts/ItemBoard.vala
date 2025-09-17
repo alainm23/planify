@@ -539,9 +539,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     private async void _complete_item (bool old_checked, string old_completed_at) {
         checked_button.sensitive = false;
+        
         HttpResponse response = yield item.complete_item (old_checked);
 
-        if (!response.status) {
+        if (response.status) {
+            _show_task_completed_toast ();
+        } else {
             _complete_item_error (response, old_checked, old_completed_at);
         }
     }

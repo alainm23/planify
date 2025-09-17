@@ -179,7 +179,7 @@
         </key>
 
         <key name="underline-completed-tasks" type="b">
-            <default>false</default>
+            <default>true</default>
             <summary>Underline completed tasks</summary>
             <description>Add an underline decoration to completed tasks to make them visually distinct from pending tasks</description>
         </key>
