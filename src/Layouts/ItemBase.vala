@@ -32,4 +32,12 @@ public abstract class Layouts.ItemBase : Gtk.ListBoxRow {
     public abstract void select_row (bool active);
     public abstract void checked_toggled (bool active, uint ? time = null);
     public abstract void clean_up ();
+
+    public void _show_task_completed_toast () {
+        if (item.project.show_completed) {
+            return;
+        }
+
+        Services.EventBus.get_default ().send_task_completed_toast (item.project_id);
+    }
 }

@@ -319,6 +319,8 @@ public class MainWindow : Adw.ApplicationWindow {
 
         Services.EventBus.get_default ().send_error_toast.connect (send_toast_error);
 
+        Services.EventBus.get_default ().send_task_completed_toast.connect (show_task_completed_toast);
+
         search_button.clicked.connect (() => {
             (new Dialogs.QuickFind.QuickFind ()).present (Planify._instance.main_window);
         });
@@ -669,6 +671,25 @@ public class MainWindow : Adw.ApplicationWindow {
 
         toast.button_clicked.connect (() => {
             (new Dialogs.ErrorDialog (error_code, error_message)).present (this);
+        });
+
+        toast_overlay.add_toast (toast);
+    }
+
+    public void show_task_completed_toast (string project_id) {
+        var project = Services.Store.instance ().get_project (project_id);
+
+        if (project == null) {
+            return;
+        }
+
+        var toast = new Adw.Toast (_("Task completed"));
+        toast.button_label = _("View");
+        toast.timeout = 3;
+
+        toast.button_clicked.connect (() => {
+            project.show_completed = true;
+            project.update_local ();
         });
 
         toast_overlay.add_toast (toast);

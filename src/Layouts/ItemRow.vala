@@ -359,7 +359,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         hide_loading_button = new Widgets.LoadingButton.with_icon ("go-up-symbolic", 16) {
-            valign = Gtk.Align.START,
             css_classes = { "flat", "dimmed", "no-padding" }
         };
 
@@ -382,7 +381,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         project_name_label = new Gtk.Label (null) {
             css_classes = { "caption", "dimmed" },
-            margin_start = 6,
+            margin_end = 6,
             ellipsize = Pango.EllipsizeMode.END,
             max_width_chars = 16
         };
@@ -1307,8 +1306,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         subitems.sensitive = false;
 
         HttpResponse response = yield item.complete_item (old_checked);
-
-        if (!response.status) {
+        
+        if (response.status) {
+            _show_task_completed_toast ();
+        } else {
             _complete_item_error (response, old_checked, old_completed_at);
         }
     }
@@ -1363,7 +1364,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
 
-        var title = _ ("Completed. Next occurrence: %s".printf (
+        var title = _("Completed. Next occurrence: %s".printf (
                            Utils.Datetime.get_default_date_format_from_date (next_recurrency)
         ));
         var toast = Util.get_default ().create_toast (title, 3);
@@ -1405,9 +1406,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void delete_undo () {
-        var toast = new Adw.Toast (_ ("%s was deleted".printf (Util.get_default ().get_short_name (item.content))));
-        toast.button_label = _ ("Undo");
-        toast.priority = Adw.ToastPriority.HIGH;
+        var toast = new Adw.Toast (_("%s was deleted".printf (Util.get_default ().get_short_name (item.content))));
+        toast.button_label = _("Undo");
+        toast.priority = HIGH;
         toast.timeout = 3;
 
         Services.EventBus.get_default ().send_toast (toast);

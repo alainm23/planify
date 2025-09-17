@@ -229,6 +229,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             child = add_button_box,
             margin_start = 16,
             margin_bottom = 6,
+            margin_top = 3,
             halign = START
         };
         add_button.add_css_class ("flat");

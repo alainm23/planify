@@ -78,6 +78,7 @@ public class Services.EventBus : Object {
     // Notifications
     public signal void send_toast (Adw.Toast toast);
     public signal void send_error_toast (int error_code, string error_message);
+    public signal void send_task_completed_toast (string project_id);
 
     // Multi Select
     public bool multi_select_enabled = false;
