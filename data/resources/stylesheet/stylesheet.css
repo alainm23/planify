@@ -186,24 +186,8 @@ entry.flat:focus-within {
     background-color: transparent;
 }
 
-.mb-12 {
-    margin-bottom: 12px;
-}
-
-.mb-24 {
-    margin-bottom: 24px;
-}
-
 .font-weight-500 {
     font-weight: 500;
-}
-
-.mt-12 {
-    margin-top: 24px;
-}
-
-.mt-24 {
-    margin-top: 24px;
 }
 
 .card-selected {
@@ -245,18 +229,6 @@ entry.flat:focus-within {
 .complete-animation {
     background-color: @selected_color;
     border-radius: 9px;
-}
-
-.action-button {
-    padding: 3px 9px;
-}
-
-.toolbar-button {
-    padding: 3px 9px 3px 6px;
-}
-
-.p3 {
-    padding: 3px;
 }
 
 .priority-1-color check {
@@ -388,20 +360,6 @@ entry.flat:focus-within {
     font-weight: bold;
 }
 
-.button-outline {
-    background: alpha(@item_border_color, 0.25);
-    padding: 0px 12px;
-    margin: 0px;
-    border-radius: 6px;
-}
-
-.button-labels-box {
-    background: alpha(@item_border_color, 0.25);
-    padding: 0px 17px 0px 6px;
-    margin: 0;
-    border-radius: 12px;
-}
-
 .description-box {
     background: alpha(@item_border_color, 0.25);
     padding: 0px 6px;
@@ -483,10 +441,6 @@ entry.flat:focus-within {
 .switch-min slider {
     min-height: 16px;
     min-width: 16px;
-}
-
-.task-view {
-    background: @popover_bg_color;
 }
 
 .close-button {
@@ -574,16 +528,6 @@ checkbutton.theme-selector radio:checked {
 .drop-area {
     background-color: alpha(#1e63ec, 0.35);
     border-radius: 6px;
-}
-
-.drop-area-active {
-    border-radius: 6px;
-    border: 1px solid #1e63ec;
-}
-
-.drop-area-outline-active {
-    border-radius: 6px;
-    outline: 1px solid #1e63ec;
 }
 
 .drop-target:drop(active) {
