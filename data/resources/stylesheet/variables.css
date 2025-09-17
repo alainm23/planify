@@ -1,7 +1,8 @@
-@define-color window_bg_color #fafafa;
+@define-color window_bg_color #f9f9f9;
 @define-color popover_bg_color #ffffff;
-@define-color sidebar_bg_color #f2f2f2;
-@define-color item_border_color @borders;
-@define-color upcoming_bg_color #ededef;
-@define-color upcoming_fg_color shade(#ededef, 0);
-@define-color selected_color alpha(@shade_color, 0.65);
+@define-color sidebar_bg_color #f3f4f6;
+@define-color item_border_color #dcdfe3;
+@define-color upcoming_bg_color #f0f1f3;
+@define-color upcoming_fg_color #2d2e32;
+@define-color selected_color #dbeafe;
+@define-color card_bg_color #ffffff;

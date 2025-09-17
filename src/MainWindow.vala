@@ -368,6 +368,18 @@ public class MainWindow : Adw.ApplicationWindow {
             }
         });
 
+        Services.EventBus.get_default ().theme_changed.connect (() => {
+            Appearance appearance_mode = Appearance.get_default ();
+            remove_css_class ("theme-dark");
+            remove_css_class ("theme-dark-blue");
+
+            if (appearance_mode == Appearance.DARK) {
+                add_css_class ("theme-dark");
+            } else if (appearance_mode == Appearance.DARK_BLUE) {
+                add_css_class ("theme-dark-blue");
+            }
+        });
+
         // Cleanup every 2 minutes
         Timeout.add_seconds (120, () => {
             cleanup_unused_views ();

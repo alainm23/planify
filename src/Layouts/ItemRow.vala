@@ -901,14 +901,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             checked_button_revealer.reveal_child = true;
             action_box.margin_start = 16;
             content_box.margin_start = 6;
+            item_labels.margin_start = 24;
         } else {
             checked_button_revealer.reveal_child = false;
             action_box.margin_start = 0;
-            content_box.margin_start = 3;
+            content_box.margin_start = 6;
+            item_labels.margin_start = 6;
         }
 
         if (markdown_edit_view != null) {
-            markdown_edit_view.left_margin = item.item_type == ItemType.TASK ? 24 : 3;
+            markdown_edit_view.left_margin = item.item_type == ItemType.TASK ? 24 : 6;
         }
 
         // Update Description
@@ -1726,7 +1728,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         markdown_edit_view = new Widgets.Markdown.EditView () {
-            left_margin = item.item_type == ItemType.TASK ? 24 : 3,
+            left_margin = item.item_type == ItemType.TASK ? 24 : 6,
             right_margin = 6,
             top_margin = 3,
             bottom_margin = 12,

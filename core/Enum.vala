@@ -695,3 +695,57 @@ public enum SortedByType {
         }
     }
 }
+
+public enum Appearance {
+    LIGHT,
+    DARK,
+    DARK_BLUE;
+
+    public string to_string () {
+        switch (this) {
+            case LIGHT:
+                return "light";
+
+            case DARK:
+                return "dark";
+
+            case DARK_BLUE:
+                return "dark-blue";
+
+            default:
+                return "light";
+        }
+    }
+
+    public static Appearance parse (int value) {
+        switch (value) {
+            case 0:
+                return Appearance.LIGHT;
+
+            case 1:
+                return Appearance.DARK;
+
+            case 2:
+                return Appearance.DARK_BLUE;
+
+            default:
+                return Appearance.LIGHT;
+        }
+    }
+
+    public static Appearance get_default () {
+        switch (Services.Settings.get_default ().settings.get_enum ("appearance")) {
+            case 0:
+                return Appearance.LIGHT;
+
+            case 1:
+                return Appearance.DARK;
+
+            case 2:
+                return Appearance.DARK_BLUE;
+
+            default:
+                return Appearance.LIGHT;
+        }
+    }
+}
