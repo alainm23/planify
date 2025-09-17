@@ -258,6 +258,7 @@ public class Util : GLib.Object {
         string upcoming_bg_color = "";
         string upcoming_fg_color = ""; 
         string selected_color = "";
+        string card_bg_color = "";
 
         if (dark_mode) {
             if (appearance_mode == Appearance.DARK) {
@@ -268,6 +269,7 @@ public class Util : GLib.Object {
                 upcoming_bg_color = "#2a2b2d";
                 upcoming_fg_color = "#e0e0e0";
                 selected_color = "#2e3a46";
+                card_bg_color = "#222222";
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
             } else if (appearance_mode == Appearance.DARK_BLUE) {
                 window_bg_color = "#0C0D12";
@@ -277,6 +279,7 @@ public class Util : GLib.Object {
                 upcoming_bg_color = "#24262b";
                 upcoming_fg_color = "#e0e1e5";
                 selected_color = "#2a303a";
+                card_bg_color = "#1E2026";
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
             }
         } else {
@@ -287,6 +290,7 @@ public class Util : GLib.Object {
             upcoming_bg_color = "#f0f1f3";
             upcoming_fg_color = "#2d2e32";
             selected_color = "#dbeafe";
+            card_bg_color = "#ffffff";
             Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_LIGHT;
         }
 
@@ -298,6 +302,7 @@ public class Util : GLib.Object {
             @define-color upcoming_bg_color %s;
             @define-color upcoming_fg_color %s;
             @define-color selected_color %s;
+            @define-color card_bg_color %s;
         """.printf (
             window_bg_color,
             popover_bg_color,
@@ -305,7 +310,8 @@ public class Util : GLib.Object {
             item_border_color,
             upcoming_bg_color,
             upcoming_fg_color,
-            selected_color
+            selected_color,
+            card_bg_color
         );
 
         var provider = new Gtk.CssProvider ();
