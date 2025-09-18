@@ -311,6 +311,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         card_widget.add_css_class ("border-radius-9");
         card_widget.add_css_class ("pb-6");
         card_widget.add_css_class ("activatable");
+        card_widget.add_css_class ("task-item");
 
         var overlay = new Gtk.Overlay ();
         overlay.child = card_widget;
@@ -486,7 +487,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             if (complete_timeout != 0) {
                 GLib.Source.remove (complete_timeout);
                 complete_timeout = 0;
-                card_widget.remove_css_class ("complete-animation");
+                card_widget.remove_css_class ("complete");
                 content_label.remove_css_class ("dimmed");
                 content_label.remove_css_class ("line-through");
             } else {
@@ -504,7 +505,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             Util.get_default ().play_audio ();
         }
 
-        uint timeout = 2500;
+        uint timeout = 3000;
         if (Services.Settings.get_default ().settings.get_enum ("complete-task") == 0) {
             timeout = 0;
         }
@@ -514,7 +515,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         }
 
         content_label.add_css_class ("dimmed");
-        card_widget.add_css_class ("complete-animation");
+        card_widget.add_css_class ("complete");
         if (Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
             content_label.add_css_class ("line-through");
         }
@@ -556,7 +557,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         checked_button.sensitive = true;
         checked_button.active = false;
 
-        card_widget.remove_css_class ("complete-animation");
+        card_widget.remove_css_class ("complete");
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
 
@@ -1116,9 +1117,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     public override void select_row (bool active) {
         if (active) {
-            card_widget.add_css_class ("complete-animation");
+            card_widget.add_css_class ("complete");
         } else {
-            card_widget.remove_css_class ("complete-animation");
+            card_widget.remove_css_class ("complete");
         }
     }
 
