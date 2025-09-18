@@ -1086,10 +1086,72 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             menu_box.append (add_item);
             menu_box.append (duplicate_item);
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+
+            signals_map[today_item.activate_item.connect (() => {
+                update_date (Utils.Datetime.get_date_only (new DateTime.now_local ()));
+            })] = today_item;
+
+            signals_map[tomorrow_item.activate_item.connect (() => {
+                update_date (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
+            })] = tomorrow_item;
+
+            signals_map[pinboard_item.activate_item.connect (() => {
+                item.update_pin (!item.pinned);
+            })] = pinboard_item;
+
+            signals_map[no_date_item.activate_item.connect (() => {
+                schedule_button.reset ();
+            })] = no_date_item;
+
+            signals_map[move_item.activate_item.connect (() => {
+                Dialogs.ProjectPicker.ProjectPicker dialog;
+                if (item.project.is_inbox_project) {
+                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
+                } else {
+                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
+                }
+
+                dialog.add_sections (item.project.sections);
+                dialog.project = item.project;
+                dialog.section = item.section;
+
+                signals_map[dialog.changed.connect ((type, id) => {
+                    if (type == "project") {
+                        move (Services.Store.instance ().get_project (id), "");
+                    } else {
+                        move (item.project, id);
+                    }
+                })] = dialog;
+
+                dialog.present (Planify._instance.main_window);
+            })] = move_item;
+
+            signals_map[complete_item.activate_item.connect (() => {
+                checked_button.active = !checked_button.active;
+                checked_toggled (checked_button.active);
+            })] = complete_item;
+
+            signals_map[edit_item.activate_item.connect (() => {
+                Services.EventBus.get_default ().open_item (item);
+            })] = edit_item;
+
+            signals_map[add_item.activate_item.connect (() => {
+                var dialog = new Dialogs.QuickAdd ();
+                dialog.for_base_object (item);
+                dialog.present (Planify._instance.main_window);
+            })] = add_item;
+
+            signals_map[duplicate_item.clicked.connect (() => {
+                Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
+            })] = duplicate_item;
         }
 
         if (!item.project.is_deck) {
             menu_box.append (delete_item);
+
+            signals_map[delete_item.activate_item.connect (() => {
+                delete_request ();
+            })] = delete_item;
         }
 
         menu_handle_popover = new Gtk.Popover () {
@@ -1102,68 +1164,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_handle_popover.set_parent (this);
         menu_handle_popover.pointing_to = { ((int) x), (int) y, 1, 1 };
         menu_handle_popover.popup ();
-
-        signals_map[move_item.activate_item.connect (() => {
-            Dialogs.ProjectPicker.ProjectPicker dialog;
-            if (item.project.is_inbox_project) {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-            } else {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
-            }
-
-            dialog.add_sections (item.project.sections);
-            dialog.project = item.project;
-            dialog.section = item.section;
-
-            signals_map[dialog.changed.connect ((type, id) => {
-                if (type == "project") {
-                    move (Services.Store.instance ().get_project (id), "");
-                } else {
-                    move (item.project, id);
-                }
-            })] = dialog;
-
-            dialog.present (Planify._instance.main_window);
-        })] = move_item;
-
-        signals_map[today_item.activate_item.connect (() => {
-            update_date (Utils.Datetime.get_date_only (new DateTime.now_local ()));
-        })] = today_item;
-
-        signals_map[tomorrow_item.activate_item.connect (() => {
-            update_date (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
-        })] = tomorrow_item;
-
-        signals_map[pinboard_item.activate_item.connect (() => {
-            item.update_pin (!item.pinned);
-        })] = pinboard_item;
-
-        signals_map[no_date_item.activate_item.connect (() => {
-            schedule_button.reset ();
-        })] = no_date_item;
-
-        signals_map[complete_item.activate_item.connect (() => {
-            checked_button.active = !checked_button.active;
-            checked_toggled (checked_button.active);
-        })] = complete_item;
-
-        signals_map[edit_item.activate_item.connect (() => {
-            Services.EventBus.get_default ().open_item (item);
-        })] = edit_item;
-
-        signals_map[delete_item.activate_item.connect (() => {
-            delete_request ();
-        })] = delete_item;
-
-        signals_map[add_item.activate_item.connect (() => {
-            var dialog = new Dialogs.QuickAdd ();
-            dialog.for_base_object (item);
-            dialog.present (Planify._instance.main_window);
-        })] = add_item;
-
-        signals_map[duplicate_item.clicked.connect (() => {
-            Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
-        })] = duplicate_item;
     }
 
     private Gtk.Popover build_button_context_menu () {
