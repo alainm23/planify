@@ -35,12 +35,12 @@ public class Dialogs.Preferences.Pages.TaskSetting : Dialogs.Preferences.Pages.B
         var group = new Adw.PreferencesGroup ();
 
         var complete_tasks_model = new Gtk.StringList (null);
-        complete_tasks_model.append (_("Instantly"));
-        complete_tasks_model.append (_("Wait 2500 Milliseconds"));
+        complete_tasks_model.append (_("Complete Instantly"));
+        complete_tasks_model.append (_("Complete with Undo"));
 
         var complete_tasks_row = new Adw.ComboRow ();
-        complete_tasks_row.title = _("Complete Task");
-        complete_tasks_row.subtitle = _("Complete your to-do instantly or wait 2500 milliseconds with the undo option");
+        complete_tasks_row.title = _("Task Completion");
+        complete_tasks_row.subtitle = _("Choose how tasks behave when marked as complete");
         complete_tasks_row.model = complete_tasks_model;
         complete_tasks_row.selected = Services.Settings.get_default ().settings.get_enum ("complete-task");
 

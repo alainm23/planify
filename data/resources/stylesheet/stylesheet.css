@@ -220,6 +220,11 @@ entry.flat:focus-within {
 
 .line-through {
     text-decoration: line-through;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 400ms cubic-bezier(0.4, 0.0, 0.2, 1),
+                color 300ms ease-out;
+    animation: animate-strikethrough 500ms cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+    animation-delay: 100ms;
 }
 
 .underline {
@@ -679,4 +684,17 @@ checkbutton.theme-selector radio:checked {
 .add-button:hover image,
 .magic-button:hover image {
     transform: rotate(90deg);
+}
+
+.task-item {
+    transition: all 250ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    transform: scale(1);
+    opacity: 1;
+    transform-origin: center center;
+    border-radius: 9px;
+}
+
+.task-item.complete {
+    background-color: @selected_color;
+    animation: complete-pulse 500ms cubic-bezier(0.4, 0.0, 0.2, 1);
 }

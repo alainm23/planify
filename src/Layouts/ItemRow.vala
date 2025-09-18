@@ -122,7 +122,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 reminder_revelaer.reveal_child = false;
 
                 if (complete_timeout != 0) {
-                    itemrow_box.remove_css_class ("complete-animation");
+                    itemrow_box.remove_css_class ("complete");
                     content_label.remove_css_class ("dimmed");
                 }
 
@@ -535,7 +535,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         _itemrow_box.append (select_revealer);
 
         itemrow_box = new Adw.Bin () {
-            css_classes = { "transition", "drop-target" },
+            css_classes = { "task-item", "drop-target" },
             child = _itemrow_box
         };
 
@@ -861,9 +861,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     public override void select_row (bool active) {
         if (active) {
-            itemrow_box.add_css_class ("complete-animation");
+            itemrow_box.add_css_class ("complete");
         } else {
-            itemrow_box.remove_css_class ("complete-animation");
+            itemrow_box.remove_css_class ("complete");
         }
     }
 
@@ -1258,7 +1258,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (complete_timeout != 0) {
                 GLib.Source.remove (complete_timeout);
                 complete_timeout = 0;
-                itemrow_box.remove_css_class ("complete-animation");
+                itemrow_box.remove_css_class ("complete");
                 content_label.remove_css_class ("dimmed");
                 content_label.remove_css_class ("line-through");
             } else {
@@ -1276,7 +1276,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             Util.get_default ().play_audio ();
         }
 
-        uint timeout = 2500;
+        uint timeout = 3000;
         if (Services.Settings.get_default ().settings.get_enum ("complete-task") == 0) {
             timeout = 0;
         }
@@ -1287,7 +1287,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         if (!edit) {
             content_label.add_css_class ("dimmed");
-            itemrow_box.add_css_class ("complete-animation");
+            itemrow_box.add_css_class ("complete");
             if (Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
                 content_label.add_css_class ("line-through");
             }
@@ -1332,7 +1332,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         checked_button.active = false;
         subitems.sensitive = true;
 
-        itemrow_box.remove_css_class ("complete-animation");
+        itemrow_box.remove_css_class ("complete");
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
 
@@ -1369,7 +1369,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
         checked_button.active = false;
         complete_timeout = 0;
-        itemrow_box.remove_css_class ("complete-animation");
+        itemrow_box.remove_css_class ("complete");
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
 

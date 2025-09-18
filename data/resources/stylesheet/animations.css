@@ -84,3 +84,28 @@
         box-shadow: 0 0 0 0 alpha(@accent_color, 0);
     }
 }
+
+
+@keyframes complete-pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(var(--selected-color-rgb, 76, 175, 80), 0.4);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 0 8px rgba(var(--selected-color-rgb, 76, 175, 80), 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(var(--selected-color-rgb, 76, 175, 80), 0);
+    }
+}
+
+@keyframes animate-strikethrough {
+    0% {
+        text-decoration-color: transparent;
+    }
+    100% {
+        text-decoration-color: currentColor;
+    }
+}
