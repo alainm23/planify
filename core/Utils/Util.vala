@@ -266,8 +266,8 @@ public class Util : GLib.Object {
                 popover_bg_color = "#202020";
                 sidebar_bg_color = "#1f1f1f";
                 item_border_color = "#3a3a3a";
-                upcoming_bg_color = "#2a2b2d";
-                upcoming_fg_color = "#e0e0e0";
+                upcoming_bg_color = "#2d2d2d";
+                upcoming_fg_color = "#f0f0f0";
                 selected_color = "#2e3a46";
                 card_bg_color = "#222222";
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
@@ -276,8 +276,8 @@ public class Util : GLib.Object {
                 popover_bg_color = "#16171D";
                 sidebar_bg_color = "#14151a";
                 item_border_color = "#2d2f35";
-                upcoming_bg_color = "#24262b";
-                upcoming_fg_color = "#e0e1e5";
+                upcoming_bg_color = "#2a2d34";
+                upcoming_fg_color = "#e6e9ef";
                 selected_color = "#2a303a";
                 card_bg_color = "#1E2026";
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;

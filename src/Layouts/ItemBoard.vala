@@ -229,7 +229,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         };
 
         due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            valign = CENTER
+            valign = CENTER,
+            margin_end = 6
         };
         due_box.append (due_label);
         due_box.append (repeat_revealer);
@@ -239,8 +240,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             child = due_box
         };
 
-        labels_summary = new Widgets.LabelsSummary (item, 1) {
-            start_margin = 6
+        labels_summary = new Widgets.LabelsSummary (item, 1, true) {
+            end_margin = 6
         };
 
         var reminder_icon = new Gtk.Image.from_icon_name ("alarm-symbolic") {
@@ -252,37 +253,35 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
             valign = Gtk.Align.CENTER,
-            margin_start = 6,
-            css_classes = { "upcoming-grid" },
+            margin_end = 6
         };
+        reminder_box.add_css_class ("upcoming-grid");
 
         reminder_box.append (reminder_icon);
         reminder_box.append (reminder_count);
 
         reminder_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            transition_type = SLIDE_RIGHT,
             child = reminder_box
         };
 
-        subtaks_label = new Gtk.Label (null) {
-            css_classes = { "caption" }
-        };
+        subtaks_label = new Gtk.Label (null);
+        subtaks_label.add_css_class ("caption");
 
         var subtaks_container = new Adw.Bin () {
-            child = subtaks_label,
-            css_classes = { "upcoming-grid" },
-            margin_start = 6
+            child = subtaks_label
         };
+        subtaks_container.add_css_class ("upcoming-grid");
 
         subtaks_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            transition_type = SLIDE_RIGHT,
             child = subtaks_container
         };
 
         footer_box = new Gtk.Box (HORIZONTAL, 0) {
             hexpand = true,
             margin_start = 30,
-            margin_top = 6,
+            margin_top = 3,
             margin_end = 6
         };
 
@@ -292,7 +291,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         footer_box.append (subtaks_revealer);
 
         footer_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            transition_type = SLIDE_DOWN,
             child = footer_box
         };
 
@@ -584,17 +583,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         content_label.tooltip_text = item.content.strip ();
 
         // ItemType
-        if (item.item_type == ItemType.TASK) {
-            checked_button_revealer.reveal_child = true;
-            description_label.margin_start = 30;
-            footer_box.margin_start = 30;
-            content_box.margin_start = 6;
-        } else {
-            checked_button_revealer.reveal_child = false;
-            description_label.margin_start = 9;
-            footer_box.margin_start = 9;
-            content_box.margin_start = 3;
-        }
+        verify_item_type ();
 
         description_label.label = Util.get_default ().line_break_to_space (item.description);
         description_label.tooltip_text = item.description.strip ();
@@ -608,6 +597,20 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         update_subtasks ();
         footer_revealer.reveal_child = due_box_revealer.reveal_child || labels_summary.reveal_child ||
                                        reminder_revealer.reveal_child || subtaks_revealer.reveal_child;
+    }
+
+    private void verify_item_type () {
+        if (item.item_type == ItemType.TASK) {
+            checked_button_revealer.reveal_child = true;
+            description_label.margin_start = 30;
+            footer_box.margin_start = 30;
+            content_box.margin_start = 6;
+        } else {
+            checked_button_revealer.reveal_child = false;
+            description_label.margin_start = 9;
+            footer_box.margin_start = 9;
+            content_box.margin_start = 3;
+        }
     }
 
     public void update_due_label () {
