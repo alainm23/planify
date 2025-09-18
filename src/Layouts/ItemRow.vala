@@ -127,6 +127,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 }
 
                 _disable_drag_and_drop ();
+                verify_item_type ();
 
                 Timeout.add (250, () => {
                     content_textview.grab_focus ();
@@ -155,6 +156,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 if (drag_enabled) {
                     build_drag_and_drop ();
                 }
+
+                verify_item_type ();
             }
         }
         get {
@@ -897,21 +900,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_textview.set_text (item.content);
 
         // ItemType
-        if (item.item_type == ItemType.TASK) {
-            checked_button_revealer.reveal_child = true;
-            action_box.margin_start = 16;
-            content_box.margin_start = 6;
-            item_labels.margin_start = 24;
-        } else {
-            checked_button_revealer.reveal_child = false;
-            action_box.margin_start = 0;
-            content_box.margin_start = 6;
-            item_labels.margin_start = 6;
-        }
-
-        if (markdown_edit_view != null) {
-            markdown_edit_view.left_margin = item.item_type == ItemType.TASK ? 24 : 6;
-        }
+        verify_item_type ();
 
         // Update Description
         destroy_markdown_signals ();
@@ -957,6 +946,24 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             reminder_button.sensitive = !item.completed;
             add_button.sensitive = !item.completed;
             attachments_button.sensitive = !item.completed;
+        }
+    }
+
+    private void verify_item_type () {
+        if (item.item_type == ItemType.TASK) {
+            checked_button_revealer.reveal_child = true;
+            action_box.margin_start = 16;
+            content_box.margin_start = 6;
+            item_labels.margin_start = 24;
+        } else {
+            checked_button_revealer.reveal_child = false;
+            action_box.margin_start = 0;
+            content_box.margin_start = edit ? 6 : 0;
+            item_labels.margin_start = 6;
+        }
+
+        if (markdown_edit_view != null) {
+            markdown_edit_view.left_margin = item.item_type == ItemType.TASK ? 24 : 6;
         }
     }
 
@@ -1696,12 +1703,29 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void _disable_drag_and_drop () {
-        remove_controller (drop_motion_ctrl);
-        itemrow_box.remove_controller (drag_source);
-        itemrow_box.remove_controller (drop_target);
-        itemrow_box.remove_controller (drop_magic_button_target);
-        motion_top_grid.remove_controller (drop_order_target);
-        motion_top_grid.remove_controller (drop_order_magic_button_target);
+        if (drop_motion_ctrl != null) {
+            remove_controller (drop_motion_ctrl);
+        }
+
+        if (drag_source != null) {
+            itemrow_box.remove_controller (drag_source);
+        }
+        
+        if (drop_target != null) {
+            itemrow_box.remove_controller (drop_target);
+        }
+        
+        if (drop_magic_button_target != null) {
+            itemrow_box.remove_controller (drop_magic_button_target);
+        }
+        
+        if (drop_order_target != null) {
+            motion_top_grid.remove_controller (drop_order_target);
+        }
+        
+        if (drop_order_magic_button_target != null) {
+            motion_top_grid.remove_controller (drop_order_magic_button_target);
+        }
 
         foreach (var entry in dnd_handlerses.entries) {
             entry.value.disconnect (entry.key);
@@ -1709,6 +1733,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         dnd_handlerses.clear ();
     }
+
 
     public void drag_begin () {
         itemrow_box.add_css_class ("drop-begin");
