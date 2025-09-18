@@ -22,6 +22,7 @@
 public class Widgets.LabelsSummary : Adw.Bin {
     public Objects.Item item { get; construct; }
     public int max_items { get; construct; }
+    public bool is_board { get; construct; }
 
     private Gtk.Box box_layout;
     private Gtk.Revealer revealer;
@@ -48,10 +49,17 @@ public class Widgets.LabelsSummary : Adw.Bin {
         }
     }
 
-    public LabelsSummary (Objects.Item item, int max_items = 2) {
+    public int end_margin {
+        set {
+            box_layout.margin_end = value;
+        }
+    }
+
+    public LabelsSummary (Objects.Item item, int max_items = 2, bool is_board = false) {
         Object (
             item: item,
-            max_items: max_items
+            max_items: max_items,
+            is_board: is_board
         );
     }
 
@@ -88,7 +96,7 @@ public class Widgets.LabelsSummary : Adw.Bin {
         content_box.append (more_label_revealer);
 
         revealer = new Gtk.Revealer () {
-            transition_type = SLIDE_UP,
+            transition_type = is_board ? Gtk.RevealerTransitionType.SLIDE_LEFT : Gtk.RevealerTransitionType.SLIDE_UP,
             child = content_box
         };
 

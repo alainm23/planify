@@ -230,7 +230,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             margin_start = 16,
             margin_bottom = 6,
             margin_top = 3,
-            halign = START
+            halign = START,
+            visible = !section.project.is_deck
         };
         add_button.add_css_class ("flat");
         add_button.add_css_class ("add-button");
