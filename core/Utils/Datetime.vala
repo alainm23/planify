@@ -538,7 +538,7 @@ public class Utils.Datetime {
 
     /** Converts the given ICal.Time to the local (or system) timezone */
     public static ICal.Time ical_convert_to_local (ICal.Time time) {
-        var system_tz = ECal.util_get_system_timezone ();
+        var system_tz = get_system_timezone ();
         return time.convert_to_zone (system_tz);
     }
 
@@ -558,7 +558,7 @@ public class Utils.Datetime {
      */
 
     public static ICal.Time datetimes_to_icaltime (GLib.DateTime date, GLib.DateTime ? time_local,
-                                                   ICal.Timezone ? timezone = ECal.util_get_system_timezone ().copy ()) {
+                                                   ICal.Timezone ? timezone = get_system_timezone ().copy ()) {
         var result = new ICal.Time.from_day_of_year (date.get_day_of_year (), date.get_year ());
 
         // Check if it's a date. If so, set is_date to true and fix the time to be sure.
@@ -584,6 +584,16 @@ public class Utils.Datetime {
 
         return result;
     }
+
+    public static ICal.Timezone ? get_system_timezone () {
+        #if WITH_EVOLUTION
+        return ECal.util_get_system_timezone ();
+        #else    
+        string tzid = new GLib.TimeZone.local ().get_identifier ();
+        return ICal.Timezone.get_builtin_timezone (tzid);
+        #endif
+    }
+
 
     public static string get_markdown_format_date (Objects.Item item) {
         if (!item.has_due) {

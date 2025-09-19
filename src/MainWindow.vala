@@ -248,6 +248,7 @@ public class MainWindow : Adw.ApplicationWindow {
         Services.Settings.get_default ().settings.changed["appearance"].connect (Util.get_default ().update_theme);
         Services.Settings.get_default ().settings.changed["dark-mode"].connect (Util.get_default ().update_theme);
 
+        #if WITH_LIBPORTAL
         Services.Settings.get_default ().settings.changed["run-on-startup"].connect (() => {
             bool active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
 
@@ -261,6 +262,7 @@ public class MainWindow : Adw.ApplicationWindow {
                 });
             }
         });
+        #endif
 
         Services.Settings.get_default ().settings.changed["mobile-mode"].connect (() => {
             Services.EventBus.get_default ().mobile_mode = Services.Settings.get_default ().settings.get_boolean ("mobile-mode");

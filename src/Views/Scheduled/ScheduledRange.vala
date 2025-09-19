@@ -23,10 +23,13 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
     public GLib.DateTime start_date { get; construct; }
     public GLib.DateTime end_date { get; construct; }
 
-    private Widgets.EventsList event_list;
     private Gtk.ListBox listbox;
     private Gtk.Revealer listbox_revealer;
+
+    #if WITH_EVOLUTION
+    private Widgets.EventsList event_list;
     private Gtk.Revealer event_list_revealer;
+    #endif
 
     private Gee.HashMap<string, Layouts.ItemRow> items;
 
@@ -75,6 +78,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         title_box.append (month_label);
         title_box.append (date_range_label);
 
+        #if WITH_EVOLUTION
         event_list = new Widgets.EventsList.for_range (start_date, end_date) {
             hexpand = true,
             valign = Gtk.Align.START,
@@ -87,6 +91,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         };
 
         event_list_revealer.child = event_list;
+        #endif
 
         var header_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
@@ -100,7 +105,9 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
             margin_top = 6,
             margin_bottom = 3
         });
+        #if WITH_EVOLUTION
         header_content.append (event_list_revealer);
+        #endif
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -202,9 +209,11 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
             listbox.invalidate_filter ();
         })] = Objects.Filters.Scheduled.get_default ();
 
+        #if WITH_EVOLUTION
         signal_map[event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;
         })] = event_list;
+        #endif
     }
 
     private void add_items () {
@@ -278,6 +287,8 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
 
         signal_map.clear ();
 
+        #if WITH_EVOLUTION
         event_list.clean_up ();
+        #endif
     }
 }

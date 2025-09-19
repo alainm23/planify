@@ -37,7 +37,10 @@ public class Planify : Adw.Application {
     private static bool clear_database = false;
     private static string lang = "";
 
+    
+    #if WITH_LIBPORTAL
     private Xdp.Portal ? portal = null;
+    #endif
 
     private const OptionEntry[] OPTIONS = {
         { "version", 'v', 0, OptionArg.NONE, ref n_version, "Display version number", null },
@@ -129,6 +132,7 @@ public class Planify : Adw.Application {
         build_shortcuts ();
     }
 
+    #if WITH_LIBPORTAL
     public async bool ask_for_background (Xdp.BackgroundFlags flags = Xdp.BackgroundFlags.AUTOSTART) {
         const string[] DAEMON_COMMAND = { "io.github.alainm23.planify", "--background" };
         if (portal == null) {
@@ -151,6 +155,7 @@ public class Planify : Adw.Application {
             return e is IOError.FAILED;
         }
     }
+    #endif
 
     public void create_dir_with_parents (string dir) {
         string path = Environment.get_user_data_dir () + dir;
