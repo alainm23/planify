@@ -4,27 +4,27 @@ core/Enum.vala
 core/Constants.vala
 core/QuickAdd.vala
 
-core/Util/Util.vala
-core/Util/Datetime.vala
-core/Util/Migrate.vala
+core/Utils/Util.vala
+core/Utils/Datetime.vala
+core/Utils/MarkdownProcessor.vala
 
 core/Services/Settings.vala
 core/Services/EventBus.vala
 core/Services/Database.vala
 core/Services/Store.vala
 core/Services/Todoist.vala
+core/Services/ColorSchemeSettings.vala
 
 core/Services/CalDAV/Core.vala
-core/Services/CalDAV/Providers/ProviderBase.vala
+core/Services/CalDAV/CalDAVClient.vala
+core/Services/CalDAV/WebDAVClient.vala
 core/Services/CalDAV/Providers/Nextcloud.vala
-core/Services/CalDAV/Providers/Generic.vala
 
 core/Services/Chrono/Chrono.vala
 core/Services/Chrono/Enum.vala
 core/Services/Chrono/Types.vala
 core/Services/Chrono/Locales/En/En.vala
 core/Services/Chrono/Locales/En/Constants.vala
-core/Services/Chrono/Locales/En/Parsers/ENCasualDateParser.vala
 
 core/Layouts/HeaderItem.vala
 
@@ -54,6 +54,7 @@ core/Widgets/ContextMenu/MenuSwitch.vala
 core/Widgets/DateTimePicker/ScheduleButton.vala
 core/Widgets/DateTimePicker/DateTimePicker.vala
 core/Widgets/DateTimePicker/TimePicker.vala
+core/Widgets/DateTimePicker/RepeatConfig.vala
 
 core/Widgets/LabelPicker/LabelPicker.vala
 core/Widgets/LabelPicker/LabelRow.vala
@@ -103,6 +104,7 @@ core/Objects/Filters/Repeating.vala
 core/Objects/Filters/Unlabeled.vala
 core/Objects/Filters/FilterItem.vala
 core/Objects/Filters/AllItems.vala
+core/Objects/Filters/Inbox.vala
 
 src/App.vala
 src/MainWindow.vala
@@ -122,8 +124,11 @@ src/Services/CalendarEvents/DateIterator.vala
 src/Services/CalendarEvents/DateRange.vala
 src/Services/CalendarEvents/Util.vala
 
+src/Utils/TaskUtils.vala
+
 src/Layouts/Sidebar.vala
 src/Layouts/FilterPaneRow.vala
+src/Layouts/FilterPaneChild.vala
 src/Layouts/ProjectRow.vala
 src/Layouts/SectionRow.vala
 src/Layouts/ItemBase.vala
@@ -138,7 +143,6 @@ src/Layouts/ProjectContainerRow.vala
 
 src/Widgets/ColorPickerRow.vala
 src/Widgets/MagicButton.vala
-src/Widgets/EditableLabel.vala
 src/Widgets/EditableTextView.vala
 src/Widgets/SyncButton.vala
 src/Widgets/MultiSelectToolbar.vala
@@ -154,11 +158,12 @@ src/Widgets/FilterFlowBoxChild.vala
 src/Widgets/Attachments.vala
 src/Widgets/AttachmentRow.vala
 src/Widgets/ItemChangeHistoryRow.vala
-src/Widgets/SourceRow.vala
 src/Widgets/ErrorView.vala
 src/Widgets/CompletedTaskRow.vala
 src/Widgets/ItemDetailCompleted.vala
 src/Widgets/PinnedItemsFlowBox.vala
+src/Widgets/BypassResolveSwitchRow.vala
+src/Widgets/IgnoreSSLSwitchRow.vala
 
 src/Views/Project/Project.vala
 src/Views/Project/List.vala
@@ -183,6 +188,7 @@ src/Dialogs/QuickAdd.vala
 src/Dialogs/ManageSectionOrder.vala
 src/Dialogs/ProjectPicker/ProjectPicker.vala
 src/Dialogs/ProjectPicker/ProjectPickerRow.vala
+src/Dialogs/ProjectPicker/ProjectPickerSourceRow.vala
 src/Dialogs/ProjectPicker/SectionPickerRow.vala
 src/Dialogs/ManageProjects.vala
 src/Dialogs/DatePicker.vala
@@ -196,9 +202,20 @@ src/Dialogs/QuickFind/QuickFindItem.vala
 src/Dialogs/QuickFind/Synapse.vala
 
 src/Dialogs/Preferences/PreferencesWindow.vala
-src/Dialogs/Preferences/SettingsHeader.vala
 src/Dialogs/Preferences/Pages/Backup.vala
 src/Dialogs/Preferences/Pages/Sidebar.vala
+src/Dialogs/Preferences/Pages/Appearance.vala
+src/Dialogs/Preferences/Pages/BasePage.vala
+src/Dialogs/Preferences/Pages/General.vala
+src/Dialogs/Preferences/Pages/HomeView.vala
+src/Dialogs/Preferences/Pages/QuickAdd.vala
+src/Dialogs/Preferences/Pages/Support.vala
+src/Dialogs/Preferences/Pages/TaskSetting.vala
+src/Dialogs/Preferences/Pages/Accounts/Accounts.vala
+src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala
+src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala
+src/Dialogs/Preferences/Pages/Accounts/SourceView.vala
+src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala
 
 quick-add/App.vala
 quick-add/MainWindow.vala
