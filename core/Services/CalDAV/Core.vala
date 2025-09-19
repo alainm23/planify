@@ -33,10 +33,6 @@ public class Services.CalDAV.Core : GLib.Object {
         return _instance;
     }
 
-    public signal void first_sync_started ();
-    public signal void first_sync_finished ();
-
-
     public Core () {
         session = new Soup.Session ();
         clients = new Gee.HashMap<string, Services.CalDAV.CalDAVClient> ();
@@ -210,8 +206,6 @@ public class Services.CalDAV.Core : GLib.Object {
         HttpResponse response = new HttpResponse ();
         var caldav_client = get_client (source);
 
-        first_sync_started ();
-
         try {
             string? principal_url = yield caldav_client.get_principal_url (cancellable);
 
@@ -232,8 +226,6 @@ public class Services.CalDAV.Core : GLib.Object {
                 Services.Store.instance ().insert_project (project);
                 yield caldav_client.fetch_items_for_project (project, cancellable);
             }
-
-            first_sync_finished ();
 
             response.status = true;
         } catch (Error e) {
