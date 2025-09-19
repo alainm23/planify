@@ -1502,23 +1502,6 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    private void _move (string _project_id, string _section_id) {
-        string old_project_id = this.project_id;
-        string old_section_id = this.section_id;
-        string old_parent_id = this.parent_id;
-
-        this.project_id = _project_id;
-        this.section_id = _section_id;
-        this.parent_id = "";
-
-        Services.Store.instance ().move_item (this, old_project_id, old_section_id, old_parent_id);
-        Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
-        Services.EventBus.get_default ().drag_n_drop_active (old_project_id, false);
-        Services.EventBus.get_default ().send_toast (
-            Util.get_default ().create_toast (_("Task moved to %s".printf (project.name)))
-        );
-    }
-
     private async void move_caldav_recursive (Objects.Project project, string _section_id) {
         var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
         
@@ -1527,6 +1510,18 @@ public class Objects.Item : Objects.BaseObject {
             
             if (!response.status) {
                 throw new IOError.FAILED (response.error);
+            }
+
+            string old_parent_id = this.parent_id;
+            if (old_parent_id != "") {
+                parent_id = "";
+                response = yield caldav_client.add_item (this, true);
+                
+                if (!response.status) {
+                    throw new IOError.FAILED (response.error);
+                }
+
+                Services.EventBus.get_default ().item_moved (this, project_id, section_id, old_parent_id);
             }
             
             yield move_all_subitems_caldav (this, project, caldav_client);
@@ -1543,12 +1538,30 @@ public class Objects.Item : Objects.BaseObject {
     private async void move_all_subitems_caldav (Objects.Item item, Objects.Project project, Services.CalDAV.CalDAVClient caldav_client) throws Error {
         foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
             var response = yield caldav_client.move_item (subitem, project);
+
             if (!response.status) {
                 throw new IOError.FAILED (response.error);
             }
             
             yield move_all_subitems_caldav (subitem, project, caldav_client);
         }
+    }
+
+    private void _move (string _project_id, string _section_id) {
+        string old_project_id = this.project_id;
+        string old_section_id = this.section_id;
+        string old_parent_id = this.parent_id;
+
+        this.project_id = _project_id;
+        this.section_id = _section_id;
+        this.parent_id = "";
+
+        Services.Store.instance ().move_item (this, old_project_id, old_section_id, old_parent_id);
+        Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
+        Services.EventBus.get_default ().drag_n_drop_active (old_project_id, false);
+        Services.EventBus.get_default ().send_toast (
+            Util.get_default ().create_toast (_("Task moved to %s".printf (project.name)))
+        );
     }
 
     public bool was_archived () {

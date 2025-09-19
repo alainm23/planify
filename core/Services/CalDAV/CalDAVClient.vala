@@ -289,7 +289,9 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             string? href = response.href;
 
             foreach (var propstat in response.propstats ()) {
-                if (propstat.status != Soup.Status.OK) continue;
+                if (propstat.status != Soup.Status.OK) {
+                    continue;
+                }
 
                 var calendar_data = propstat.get_first_prop_with_tagname ("calendar-data");
                 string? parent_id = Util.find_string_value ("RELATED-TO", calendar_data.text_content);
@@ -323,7 +325,6 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         </d:sync-collection>
         """.printf (project.sync_id);
 
-
         if (project.is_deck) {
             return;
         }
@@ -339,16 +340,25 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
 
-        foreach (var response in multi_status.responses ()) {
+        foreach (WebDAVResponse response in multi_status.responses ()) {
             string? href = response.href;
 
-            foreach (var propstat in response.propstats ()) {
+            if (response.status == Soup.Status.NOT_FOUND) {
+                Objects.Item ? item = Services.Store.instance ().get_item_by_ical_url (get_absolute_url (href));
+                if (item != null) {
+                    Services.Store.instance ().delete_item (item);
+                }
+
+                continue;
+            }
+
+            foreach (WebDAVPropStat propstat in response.propstats ()) {
                 if (propstat.status == Soup.Status.NOT_FOUND) {
                     Objects.Item ? item = Services.Store.instance ().get_item_by_ical_url (get_absolute_url (href));
                     if (item != null) {
                         Services.Store.instance ().delete_item (item);
                     }
-                }else {
+                } else {
                     bool is_vtodo = false;
 
                     var getcontenttype = propstat.get_first_prop_with_tagname ("getcontenttype");
@@ -531,7 +541,6 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         try {
             yield send_request ("PUT", url, "text/calendar", body, null, null, expected);
             item.extra_data = Util.generate_extra_data (url, "", body);
-
             response.status = true;
         } catch (Error e) {
             response.error_code = e.code;
@@ -567,7 +576,6 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         headers.insert ("Destination", destination);
 
         HttpResponse response = new HttpResponse ();
-
 
         try {
             yield send_request ("MOVE", item.ical_url, "", null, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED }, headers);
