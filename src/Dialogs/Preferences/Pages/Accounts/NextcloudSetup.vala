@@ -169,14 +169,6 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
             on_login_button_clicked ();
         })] = login_button;
 
-        //  signal_map[Services.CalDAV.Core.get_default ().first_sync_started.connect (() => {
-        //      main_stack.visible_child_name = "loading-page";
-        //  })] = Services.CalDAV.Core.get_default ();
-
-        //  signal_map[Services.CalDAV.Core.get_default ().first_sync_finished.connect (() => {
-        //      preferences_dialog.pop_subpage ();
-        //  })] = Services.CalDAV.Core.get_default ();
-
         destroy.connect (() => {
             clean_up ();
         });
