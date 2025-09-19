@@ -87,7 +87,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     ~ProjectRow () {
-        print ("Destroying Layouts.ProjectRow\n");
+        debug ("Destroying Layouts.ProjectRow\n");
     }
 
     construct {
@@ -246,7 +246,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         child = main_revealer;
         update_request ();
-        update_count_label (project.project_count);
+        update_count_label (project.item_count);
         Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
 
         if (drag_n_drop) {
@@ -258,7 +258,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         }
 
         Timeout.add (main_revealer.transition_duration, () => {
-            progress_emoji_stack.visible_child_name = project.icon_style == ProjectIconStyle.PROGRESS ? "progress" : "emoji";
+            if (progress_emoji_stack != null) { // TODO: progress_emoji_stack seems to be used nowhere?
+                progress_emoji_stack.visible_child_name = project.icon_style == ProjectIconStyle.PROGRESS ? "progress" : "emoji";
+            }
             main_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
         });
@@ -302,8 +304,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         signals_map[project.deleted.connect (hide_destroy)] = project;
         signals_map[project.archived.connect (hide_destroy)] = project;
 
-        signals_map[project.project_count_updated.connect (() => {
-            update_count_label (project.project_count);
+        signals_map[project.count_updated.connect (() => {
+            update_count_label (project.item_count);
             icon_project.update_request ();
         })] = project;
 
@@ -789,7 +791,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void sync_project () {
-        Services.CalDAV.Core.get_default ().sync_tasklist.begin (project);
+        var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+        caldav_client.sync_tasklist.begin (project, new GLib.Cancellable ());
     }
 
     private void update_listbox_revealer () {

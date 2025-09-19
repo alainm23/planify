@@ -166,7 +166,7 @@ public class Layouts.HeaderItem : Adw.Bin {
     }
 
     ~HeaderItem () {
-        print ("Destroying Layouts.HeaderItem\n");
+        debug ("Destroying - Layouts.HeaderItem\n");
     }
 
     construct {
@@ -259,6 +259,10 @@ public class Layouts.HeaderItem : Adw.Bin {
         listbox.row_activated.connect ((row) => {
             row_activated (row);
         });
+
+        destroy.connect (() => {
+            clean_up ();
+        });
     }
 
     private Gtk.Widget get_placeholder () {
@@ -295,6 +299,10 @@ public class Layouts.HeaderItem : Adw.Bin {
         }
     }
 
+    public List<Gtk.ListBoxRow> get_children () {
+        return Util.get_default ().get_children (listbox);
+    }
+
     public void add_widget_end (Gtk.Widget widget) {
         action_box.append (widget);
     }
@@ -317,5 +325,11 @@ public class Layouts.HeaderItem : Adw.Bin {
 
     public void invalidate_filter () {
         listbox.invalidate_filter ();
+    }
+
+    public void clean_up () {
+        listbox.set_filter_func (null);
+        listbox.set_sort_func (null);
+        clear ();
     }
 }

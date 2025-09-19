@@ -50,7 +50,6 @@ public class Services.EventBus : Object {
     public signal void checked_toggled (Objects.Item item, bool old_checked);
     public signal void favorite_toggled (Objects.Project project);
     public signal void item_moved (Objects.Item item, string old_project_id, string old_section_id, string old_parent_id = "");
-    public signal void update_items_position (string project_id, string section_id);
     public signal void update_inserted_item_map (Gtk.Widget row, string old_section_id, string old_parent_id);
     public signal void update_section_sort_func (string project_id, string section_id, bool active);
     public signal void day_changed ();
@@ -79,6 +78,7 @@ public class Services.EventBus : Object {
     // Notifications
     public signal void send_toast (Adw.Toast toast);
     public signal void send_error_toast (int error_code, string error_message);
+    public signal void send_task_completed_toast (string project_id);
 
     // Multi Select
     public bool multi_select_enabled = false;

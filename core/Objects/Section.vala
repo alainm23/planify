@@ -27,7 +27,6 @@ public class Objects.Section : Objects.BaseObject {
     public bool collapsed { get; set; default = true; }
     public bool is_deleted { get; set; default = false; }
     public bool is_archived { get; set; default = false; }
-    public string color { get; set; default = ""; }
     public string description { get; set; default = ""; }
     public bool hidded { get; set; default = false; }
 
@@ -53,7 +52,7 @@ public class Objects.Section : Objects.BaseObject {
     Gee.ArrayList<Objects.Item> _items;
     public Gee.ArrayList<Objects.Item> items {
         get {
-            _items = Services.Store.instance ().get_item_by_baseobject (this);
+            _items = Services.Store.instance ().get_items_by_baseobject (this);
             _items.sort ((a, b) => {
                 if (a.child_order > b.child_order) {
                     return 1;
@@ -331,7 +330,7 @@ public class Objects.Section : Objects.BaseObject {
 
     private int update_section_count () {
         int returned = 0;
-        foreach (Objects.Item item in Services.Store.instance ().get_item_by_baseobject (this)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_items_by_baseobject (this)) {
             if (!item.checked) {
                 returned++;
             }

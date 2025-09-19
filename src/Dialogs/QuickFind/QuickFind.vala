@@ -34,7 +34,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
     }
 
     ~QuickFind () {
-        print ("Destroying Dialogs.QuickFind.QuickFind\n");
+        debug ("Destroying Dialogs.QuickFind.QuickFind\n");
     }
 
     construct {
@@ -165,13 +165,14 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
 
     private void search () {
         Objects.BaseObject[] filters = {
+            Objects.Filters.Inbox.get_default (),
             Objects.Filters.Today.get_default (),
             Objects.Filters.Scheduled.get_default (),
             Objects.Filters.Pinboard.get_default (),
-            new Objects.Filters.Priority (Constants.PRIORITY_1),
-            new Objects.Filters.Priority (Constants.PRIORITY_2),
-            new Objects.Filters.Priority (Constants.PRIORITY_3),
-            new Objects.Filters.Priority (Constants.PRIORITY_4),
+            Objects.Filters.Priority.high (),
+            Objects.Filters.Priority.medium (),
+            Objects.Filters.Priority.low (),
+            Objects.Filters.Priority.none (),
             Objects.Filters.Labels.get_default (),
             Objects.Filters.Completed.get_default (),
             Objects.Filters.Tomorrow.get_default (),

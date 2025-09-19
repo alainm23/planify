@@ -68,6 +68,10 @@ public class Widgets.LoadingButton : Gtk.Button {
         );
     }
 
+    ~LoadingButton () {
+        debug ("Destroying - Widgets.LoadingButton\n");
+    }
+
     construct {
         var submit_spinner = new Adw.Spinner () {
             valign = Gtk.Align.CENTER,

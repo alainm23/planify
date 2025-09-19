@@ -41,8 +41,8 @@ public class Views.List : Adw.Bin {
         }
     }
 
-    public Gee.HashMap<string, Layouts.SectionRow> sections_map;
-    private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
+    public Gee.HashMap<string, Layouts.SectionRow> sections_map = new Gee.HashMap<string, Layouts.SectionRow> ();
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public List (Objects.Project project) {
         Object (
@@ -51,21 +51,19 @@ public class Views.List : Adw.Bin {
     }
 
     ~List () {
-        print ("Destroying Views.List\n");
+        debug ("Destroying - Views.List\n");
     }
 
     construct {
-        sections_map = new Gee.HashMap<string, Layouts.SectionRow> ();
-
         icon_project = new Widgets.IconColorProject (10) {
             project = project
         };
         icon_project.add_css_class ("title-2");
         icon_project.inbox_icon.add_css_class ("view-icon");
-        Util.get_default ().set_widget_color (FilterType.INBOX.get_color (), icon_project.inbox_icon);
-        Services.EventBus.get_default ().theme_changed.connect (() => {
-            Util.get_default ().set_widget_color (FilterType.INBOX.get_color (), icon_project.inbox_icon);
-        });
+        Util.get_default ().set_widget_color (Objects.Filters.Inbox.get_default ().color, icon_project.inbox_icon);
+        signal_map[Services.EventBus.get_default ().theme_changed.connect (() => {
+            Util.get_default ().set_widget_color (Objects.Filters.Inbox.get_default ().color, icon_project.inbox_icon);
+        })] = Services.EventBus.get_default ();
 
         title_label = new Gtk.Label (null) {
             css_classes = { "font-bold", "title-2" },
@@ -162,16 +160,16 @@ public class Views.List : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        signals_map[project.section_added.connect ((section) => {
+        signal_map[project.section_added.connect ((section) => {
             add_section (section);
         })] = project;
 
-        signals_map[project.section_sort_order_changed.connect (() => {
+        signal_map[project.section_sort_order_changed.connect (() => {
             listbox.invalidate_sort ();
             listbox.invalidate_filter ();
         })] = project;
 
-        signals_map[Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
+        signal_map[Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
             if (project.id == old_project_id && sections_map.has_key (section.id)) {
                 sections_map[section.id].hide_destroy ();
                 sections_map.unset (section.id);
@@ -183,7 +181,7 @@ public class Views.List : Adw.Bin {
             }
         })] = Services.Store.instance ();
 
-        signals_map[Services.Store.instance ().section_deleted.connect ((section) => {
+        signal_map[Services.Store.instance ().section_deleted.connect ((section) => {
             if (sections_map.has_key (section.id)) {
                 sections_map[section.id].hide_destroy ();
                 sections_map.unset (section.id);
@@ -192,11 +190,11 @@ public class Views.List : Adw.Bin {
             check_placeholder ();
         })] = Services.Store.instance ();
 
-        signals_map[project.updated.connect (() => {
+        signal_map[project.updated.connect (() => {
             update_request ();
         })] = project;
 
-        signals_map[project.project_count_updated.connect (() => {
+        signal_map[project.count_updated.connect (() => {
             check_placeholder ();
             icon_project.update_request ();
         })] = project;
@@ -222,12 +220,12 @@ public class Views.List : Adw.Bin {
             return !item.section.hidded;
         });
 
-        signals_map[description_widget.changed.connect (() => {
+        signal_map[description_widget.changed.connect (() => {
             project.description = description_widget.text;
             project.update_local ();
         })] = description_widget;
 
-        signals_map[Services.Store.instance ().section_archived.connect ((section) => {
+        signal_map[Services.Store.instance ().section_archived.connect ((section) => {
             if (sections_map.has_key (section.id)) {
                 sections_map[section.id].hide_destroy ();
                 sections_map.unset (section.id);
@@ -236,35 +234,27 @@ public class Views.List : Adw.Bin {
             check_placeholder ();
         })] = Services.Store.instance ();
 
-        signals_map[Services.Store.instance ().section_unarchived.connect ((section) => {
+        signal_map[Services.Store.instance ().section_unarchived.connect ((section) => {
             if (project.id == section.project_id) {
                 add_section (section);
             }
         })] = Services.Store.instance ();
 
-        signals_map[project.show_completed_changed.connect (() => {
+        signal_map[project.show_completed_changed.connect (() => {
             check_placeholder ();
         })] = project;
 
-        signals_map[scrolled_window.vadjustment.value_changed.connect (() => {
+        signal_map[scrolled_window.vadjustment.value_changed.connect (() => {
             project.handle_scroll_visibility_change (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);
         })] = scrolled_window.vadjustment;
 
         destroy.connect (() => {
-            listbox.set_sort_func (null);
-            listbox.set_filter_func (null);
-
-            // Clear Signals
-            foreach (var entry in signals_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signals_map.clear ();
+            clean_up ();
         });
     }
 
     private void check_placeholder () {
-        int count = project.project_count + sections_map.size;
+        int count = project.item_count + sections_map.size;
 
         if (project.show_completed) {
             count = count + project.items_checked.size;
@@ -383,7 +373,7 @@ public class Views.List : Adw.Bin {
 
         var gesture = new Gtk.GestureClick ();
         due_box.add_controller (gesture);
-        gesture.pressed.connect ((n_press, x, y) => {
+        signal_map[gesture.pressed.connect ((n_press, x, y) => {
             var dialog = new Dialogs.DatePicker (_ ("When?"));
 
             if (project.due_date != "") {
@@ -391,9 +381,7 @@ public class Views.List : Adw.Bin {
                 dialog.clear = true;
             }
 
-            dialog.present (Planify._instance.main_window);
-
-            dialog.date_changed.connect (() => {
+            signal_map[dialog.date_changed.connect (() => {
                 if (dialog.datetime == null) {
                     project.due_date = "";
                 } else {
@@ -401,8 +389,10 @@ public class Views.List : Adw.Bin {
                 }
 
                 project.update_local ();
-            });
-        });
+            })] = dialog;
+
+            dialog.present (Planify._instance.main_window);
+        })] = gesture;
 
         return due_revealer;
     }
@@ -411,16 +401,18 @@ public class Views.List : Adw.Bin {
         listbox.set_sort_func (null);
         listbox.set_filter_func (null);
 
-        // Clear Signals
-        foreach (var entry in signals_map.entries) {
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            ((Layouts.SectionRow) row).clean_up ();
+        }
+
+        if (inbox_section != null) {
+            inbox_section.clean_up ();
+        }
+
+        foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
-        signals_map.clear ();
-    }
-
-    public override void dispose () {
-        clean_up ();
-        base.dispose ();
+        signal_map.clear ();
     }
 }

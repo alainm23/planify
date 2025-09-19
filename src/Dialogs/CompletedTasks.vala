@@ -43,7 +43,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
     }
 
     ~CompletedTasks () {
-        print ("Destroying Dialogs.CompletedTasks\n");
+        debug ("Destroying - Dialogs.CompletedTasks\n");
     }
 
     construct {
@@ -207,16 +207,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         })] = Services.Store.instance ();
 
         closed.connect (() => {
-            listbox.set_sort_func (null);
-            listbox.set_header_func (null);
-            listbox.set_filter_func (null);
-
-            foreach (var entry in signals_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signals_map.clear ();
-
+            clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
@@ -321,12 +312,10 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
     }
 
     private Gtk.Popover build_view_setting_popover () {
-        var section_model = new Gee.ArrayList<string> ();
+        var section_item = new Widgets.ContextMenu.MenuPicker (_ ("Section"), "arrow3-right-symbolic");
         foreach (Objects.Section section in project.sections) {
-            section_model.add (section.name);
+            section_item.add_item (section.name, section.id);
         }
-
-        var section_item = new Widgets.ContextMenu.MenuPicker (_ ("Section"), "arrow3-right-symbolic", section_model);
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
@@ -347,8 +336,8 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
         };
 
         section_item.notify["selected"].connect (() => {
-            Objects.Section section = project.sections[section_item.selected];
-            add_update_filter (section);
+            //  Objects.Section section = project.sections[section_item.selected];
+            //  add_update_filter (section);
         });
 
         return popover;
@@ -380,6 +369,22 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
     public void delete_all_action (Gee.ArrayList<Objects.Item> items) {
         foreach (Objects.Item item in items) {
             item.delete_item ();
+        }
+    }
+
+    public void clean_up () {
+        listbox.set_sort_func (null);
+        listbox.set_header_func (null);
+        listbox.set_filter_func (null);
+
+        foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signals_map.clear ();
+
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
+            ((Widgets.CompletedTaskRow) child).clean_up ();
         }
     }
 }

@@ -26,6 +26,8 @@ public class Dialogs.Label : Adw.Dialog {
     private Widgets.ColorPickerRow color_picker_row;
     private Widgets.LoadingButton submit_button;
 
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+
     public bool is_creating {
         get {
             return label.id == "";
@@ -52,7 +54,7 @@ public class Dialogs.Label : Adw.Dialog {
     }
 
     ~Label () {
-        print ("Destroying Dialogs.Label\n");
+        debug ("Destroying - Dialogs.Label\n");
     }
 
     construct {
@@ -125,16 +127,18 @@ public class Dialogs.Label : Adw.Dialog {
             return GLib.Source.REMOVE;
         });
 
-        name_entry.entry_activated.connect (add_update_label);
-        submit_button.clicked.connect (add_update_label);
+        signal_map[name_entry.entry_activated.connect (add_update_label)] = name_entry;
+        
+        signal_map[submit_button.clicked.connect (add_update_label)] = submit_button;
 
-        name_entry.changed.connect (() => {
+        signal_map[name_entry.changed.connect (() => {
             if (is_creating) {
                 submit_button.sensitive = !is_duplicate (name_entry.text);
             }
-        });
+        })] = name_entry;
 
         closed.connect (() => {
+            clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
@@ -220,6 +224,18 @@ public class Dialogs.Label : Adw.Dialog {
                     close ();
                 }
             });
+        }
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        if (color_picker_row != null) {
+            color_picker_row.clean_up ();
         }
     }
 }

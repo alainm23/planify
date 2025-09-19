@@ -27,6 +27,8 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
     public signal void activated ();
     public signal void deleted ();
 
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public ReminderRow (Objects.Reminder reminder) {
         Object (
             reminder: reminder
@@ -39,6 +41,10 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
         Object (
             reminder: reminder
         );
+    }
+
+    ~ReminderRow () {
+        debug ("Destroying - Widgets.Widgets.ReminderPicker.ReminderRow\n");
     }
 
     construct {
@@ -77,20 +83,29 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
             return GLib.Source.REMOVE;
         });
 
-        remove_button.clicked.connect (() => {
+        signal_map[remove_button.clicked.connect (() => {
             deleted ();
-        });
+        })] = remove_button;
 
-        reminder.loading_change.connect (() => {
+        signal_map[reminder.loading_change.connect (() => {
             remove_button.is_loading = reminder.loading;
-        });
+        })] = reminder;
     }
 
     public void hide_destroy () {
         main_revealer.reveal_child = false;
+        clean_up ();
         Timeout.add (main_revealer.transition_duration, () => {
             ((Gtk.ListBox) parent).remove (this);
             return GLib.Source.REMOVE;
         });
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

@@ -34,7 +34,7 @@ public class Dialogs.WhatsNew : Adw.Dialog {
     }
 
     ~WhatsNew () {
-        print ("Destroying Dialogs.WhatsNew\n");
+        debug ("Destroying -Dialogs.WhatsNew\n");
     }
 
     construct {
@@ -146,53 +146,49 @@ public class Dialogs.WhatsNew : Adw.Dialog {
         close ();
     }
 
-    private Adw.NavigationPage create_video_page (string description, string video_url) {
-        var headerbar = new Dialogs.Preferences.SettingsHeader (_("What's New"));
+    //  private Adw.NavigationPage create_video_page (string description, string video_url) {
+    //      var headerbar = new Adw.HeaderBar ();
 
-        var description_label = new Gtk.Label (description) {
-            justify = Gtk.Justification.FILL,
-            use_markup = true,
-            wrap = true,
-            xalign = 0
-        };
+    //      var description_label = new Gtk.Label (description) {
+    //          justify = Gtk.Justification.FILL,
+    //          use_markup = true,
+    //          wrap = true,
+    //          xalign = 0
+    //      };
 
-        var video = new Gtk.Video.for_resource (video_url) {
-            autoplay = true,
-            loop = true,
-            css_classes = { "video-content" }
-        };
+    //      var video = new Gtk.Video.for_resource (video_url) {
+    //          autoplay = true,
+    //          loop = true,
+    //          css_classes = { "video-content" }
+    //      };
 
-        var _video = new Adw.Bin () {
-            css_classes = { "card", "video-content" },
-            child = video,
-            margin_top = 12
-        };
+    //      var _video = new Adw.Bin () {
+    //          css_classes = { "card", "video-content" },
+    //          child = video,
+    //          margin_top = 12
+    //      };
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-        content_box.append (description_label);
-        content_box.append (_video);
+    //      var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+    //      content_box.append (description_label);
+    //      content_box.append (_video);
 
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 600,
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12
-        };
+    //      var content_clamp = new Adw.Clamp () {
+    //          maximum_size = 600,
+    //          margin_start = 24,
+    //          margin_end = 24,
+    //          margin_top = 12
+    //      };
 
-        content_clamp.child = content_box;
+    //      content_clamp.child = content_box;
 
-        var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (headerbar);
-        toolbar_view.content = content_clamp;
+    //      var toolbar_view = new Adw.ToolbarView ();
+    //      toolbar_view.add_top_bar (headerbar);
+    //      toolbar_view.content = content_clamp;
 
-        var page = new Adw.NavigationPage (toolbar_view, "dnd");
+    //      var page = new Adw.NavigationPage (toolbar_view, "dnd");
 
-        headerbar.back_activated.connect (() => {
-            navigation_view.pop ();
-        });
-
-        return page;
-    }
+    //      return page;
+    //  }
 
     private Gtk.Widget generate_icon (string icon_name, int pixel_size = 32) {
         return new Gtk.Image.from_icon_name (icon_name) {

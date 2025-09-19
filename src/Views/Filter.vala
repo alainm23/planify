@@ -24,12 +24,14 @@ public class Views.Filter : Adw.Bin {
     private Gtk.Image title_icon;
     private Gtk.Label title_label;
     private Gtk.ListBox listbox;
-    private Adw.Bin listbox_content;
     private Gtk.Stack listbox_stack;
     private Widgets.MagicButton magic_button;
     private Gtk.Revealer view_setting_revealer;
+    private Gtk.Button load_more_button;
+    private Gtk.Revealer load_more_button_revealer;
 
     private Gee.HashMap<string, Layouts.ItemRow> items = new Gee.HashMap<string, Layouts.ItemRow> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     Objects.BaseObject _filter;
     public Objects.BaseObject filter {
@@ -48,6 +50,14 @@ public class Views.Filter : Adw.Bin {
         get {
             return items.size > 0;
         }
+    }
+
+    private Gee.ArrayList<Objects.Item> items_list;
+    private int page_index = 0;
+    private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
+
+    ~Filter () {
+        debug ("Destroying - Views.Filter\n");
     }
 
     construct {
@@ -96,11 +106,24 @@ public class Views.Filter : Adw.Bin {
             css_classes = { "listbox-background" }
         };
 
-        listbox_content = new Adw.Bin () {
-            child = listbox,
+        load_more_button = new Gtk.Button.with_label ("Cargar más") {
+            margin_start = 9,
+            halign = START,
+        };
+        load_more_button.add_css_class ("flat");
+
+        load_more_button_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = false,
+            child = load_more_button
+        };
+
+        var listbox_box = new Gtk.Box (VERTICAL, 12) {
             margin_end = 24,
             margin_top = 12
         };
+        listbox_box.append (listbox);
+        listbox_box.append (load_more_button_revealer);
 
         var listbox_placeholder = new Adw.StatusPage ();
         listbox_placeholder.icon_name = "check-round-outline-symbolic";
@@ -113,7 +136,7 @@ public class Views.Filter : Adw.Bin {
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
-        listbox_stack.add_named (listbox_content, "listbox");
+        listbox_stack.add_named (listbox_box, "listbox");
         listbox_stack.add_named (listbox_placeholder, "placeholder");
 
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -124,7 +147,7 @@ public class Views.Filter : Adw.Bin {
         content.append (title_box);
         content.append (listbox_stack);
 
-        var content_clamp = new Adw.ClampScrollable () {
+        var content_clamp = new Adw.Clamp () {
             maximum_size = 864,
             margin_bottom = 64,
             child = content
@@ -158,34 +181,38 @@ public class Views.Filter : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        Services.Store.instance ().item_added.connect (valid_add_item);
-        Services.Store.instance ().item_deleted.connect (valid_delete_item);
-        Services.Store.instance ().item_updated.connect (valid_update_item);
-        Services.EventBus.get_default ().checked_toggled.connect (valid_checked_item);
-        Services.Store.instance ().item_archived.connect (valid_delete_item);
-        Services.Store.instance ().item_unarchived.connect ((item) => {
+        signal_map[Services.Store.instance ().item_added.connect (valid_add_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_deleted.connect (valid_delete_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_updated.connect (valid_update_item)] = Services.Store.instance ();
+        signal_map[Services.EventBus.get_default ().checked_toggled.connect (valid_checked_item)] = Services.EventBus.get_default ();
+        signal_map[Services.Store.instance ().item_archived.connect (valid_delete_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_unarchived.connect ((item) => {
             valid_add_item (item);
-        });
+        })] = Services.Store.instance ();
 
-        Services.EventBus.get_default ().item_moved.connect ((item) => {
+        signal_map[Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id)) {
                 items[item.id].update_request ();
             }
 
             listbox.invalidate_sort ();
-        });
+        })] = Services.EventBus.get_default ();
 
-        magic_button.clicked.connect (() => {
+        signal_map[magic_button.clicked.connect (() => {
             prepare_new_item ();
-        });
+        })] = magic_button;
 
-        Services.EventBus.get_default ().theme_changed.connect (() => {
+        signal_map[Services.EventBus.get_default ().theme_changed.connect (() => {
             update_request ();
-        });
+        })] = Services.EventBus.get_default ();
 
-        scrolled_window.vadjustment.value_changed.connect (() => {
+        signal_map[scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
-        });
+        })] = scrolled_window.vadjustment;
+
+        signal_map[load_more_button.clicked.connect (() => {
+            load_next_page ();
+        })] = load_more_button;
     }
 
     public void prepare_new_item (string content = "") {
@@ -211,118 +238,122 @@ public class Views.Filter : Adw.Bin {
 
     private void update_request () {
         if (filter is Objects.Filters.Priority) {
-            Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
+            Objects.Filters.Priority priority = (Objects.Filters.Priority) filter;
 
             title_icon.icon_name = priority.icon;
             Util.get_default ().set_widget_color (priority.color, title_icon);
             
             title_label.label = priority.name;
-            listbox.set_sort_func (null);
-            listbox.set_header_func (null);
-            magic_button.visible = true;
-        } else if (filter is Objects.Filters.Completed) {
-            title_icon.icon_name = FilterType.COMPLETED.get_icon ();
-            Util.get_default ().set_widget_color (FilterType.COMPLETED.get_color (), title_icon);
-
-            title_label.label = FilterType.COMPLETED.get_name ();
-            listbox.set_sort_func (sort_completed_function);
-            listbox.set_header_func (header_completed_function);
-            magic_button.visible = false;
-        } else if (filter is Objects.Filters.Tomorrow) {
-            title_icon.icon_name = FilterType.SCHEDULED.get_icon ();
-            Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
-
-            title_label.label = _("Tomorrow");
-            listbox.set_sort_func (null);
-            listbox.set_header_func (null);
-            magic_button.visible = true;
-        } else if (filter is Objects.Filters.Pinboard) {
-            title_icon.icon_name = FilterType.PINBOARD.get_icon ();
-            Util.get_default ().set_widget_color (FilterType.PINBOARD.get_color (), title_icon);
-
-            title_label.label = FilterType.PINBOARD.get_name ();
-            listbox.set_sort_func (null);
-            listbox.set_header_func (null);
-            magic_button.visible = true;
-        } else if (filter is Objects.Filters.Anytime) {
-            title_icon.icon_name = FilterType.SCHEDULED.get_icon ();
-            Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
-
-            title_label.label = _("Anytime");
-            listbox.set_sort_func (sort_project_function);
             listbox.set_header_func (header_project_function);
             magic_button.visible = true;
-        } else if (filter is Objects.Filters.Repeating) {
-            title_icon.icon_name = "arrow-circular-top-right-symbolic";
-            Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
-
-            title_label.label = _("Repeating");
-            listbox.set_sort_func (sort_project_function);
-            listbox.set_header_func (header_project_function);
-            magic_button.visible = false;
-        } else if (filter is Objects.Filters.Unlabeled) {
-            title_icon.icon_name = "tag-outline-symbolic";
-            Util.get_default ().set_widget_color (FilterType.LABELS.get_color (), title_icon);
-
-            title_label.label = _("Unlabeled");
-            listbox.set_sort_func (sort_project_function);
-            listbox.set_header_func (header_project_function);
+        } else {
+            title_icon.icon_name = filter.icon_name;
+            Util.get_default ().set_widget_color (filter.theme_color (), title_icon);
+            title_label.label = filter.name;
             magic_button.visible = true;
-        } else if (filter is Objects.Filters.AllItems) {
-            title_icon.icon_name = "grid-large-symbolic";
-            Util.get_default ().set_widget_color (FilterType.INBOX.get_color (), title_icon);
 
-            title_label.label = _("All Tasks");
-            listbox.set_sort_func (sort_project_function);
-            listbox.set_header_func (header_project_function);
-            magic_button.visible = true;
-        }
+            if (filter is Objects.Filters.Completed) {
+                magic_button.visible = false;
+                listbox.set_header_func (header_completed_function);
+                listbox.set_sort_func ((row1, row2) => {
+                    return sort_completed_function (((Layouts.ItemRow) row1).item, ((Layouts.ItemRow) row2).item);
+                });
+            } else {
+                listbox.set_header_func (header_project_function);
+            }
+        } 
 
         headerbar.title = title_label.label;
-        
         view_setting_revealer.reveal_child = filter is Objects.Filters.Completed;
     }
 
     private void add_items () {
         foreach (Layouts.ItemRow row in items.values) {
+            row.clean_up ();
             listbox.remove (row);
         }
 
         items.clear ();
 
+        if (items_list == null) {
+            items_list = new Gee.ArrayList<Objects.Item> ();
+        } else {
+            items_list.clear ();
+        }
+
         if (filter is Objects.Filters.Priority) {
             Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
             foreach (Objects.Item item in Services.Store.instance ().get_items_by_priority (priority.priority, false)) {
-                add_item (item);
+                items_list.add (item);
             }
         } else if (filter is Objects.Filters.Completed) {
             foreach (Objects.Item item in Services.Store.instance ().get_items_completed ()) {
-                add_item (item);
+                items_list.add (item);
             }
         } else if (filter is Objects.Filters.Tomorrow) {
             foreach (Objects.Item item in Services.Store.instance ().get_items_by_date (new GLib.DateTime.now_local ().add_days (1), false)) {
-                add_item (item);
+                items_list.add (item);
             }
         } else if (filter is Objects.Filters.Pinboard) {
             foreach (Objects.Item item in Services.Store.instance ().get_items_pinned (false)) {
-                add_item (item);
+                items_list.add (item);
             }
         } else if (filter is Objects.Filters.Anytime) {
             foreach (Objects.Item item in Services.Store.instance ().get_items_no_date (false)) {
-                add_item (item);
+                items_list.add (item);
             }
         } else if (filter is Objects.Filters.Repeating) {
             foreach (Objects.Item item in Services.Store.instance ().get_items_repeating (false)) {
-                add_item (item);
+                items_list.add (item);
             }
         } else if (filter is Objects.Filters.Unlabeled) {
             foreach (Objects.Item item in Services.Store.instance ().get_items_unlabeled (false)) {
-                add_item (item);
+                items_list.add (item);
             }
         } else if (filter is Objects.Filters.AllItems) {
             foreach (Objects.Item item in Services.Store.instance ().get_items_no_parent (false)) {
-                add_item (item);
+                items_list.add (item);
             }
+        }
+
+        if (filter is Objects.Filters.Completed) {
+            items_list.sort ((a, b) => {
+                return sort_completed_function (a, b);
+            });
+        } else {
+            items_list.sort ((a, b) => {
+                return a.project_id.strip ().collate (b.project_id.strip ());
+            });
+        }
+
+        page_index = 0;
+        load_next_page ();
+    }
+
+    private void load_next_page () {
+        int start = page_index * PAGE_SIZE;
+        int end = (start + PAGE_SIZE < items_list.size) ? (start + PAGE_SIZE) : items_list.size;
+
+        for (int i = start; i < end; i++) {
+            Objects.Item item = items_list[i];
+            add_item (item);
+        }
+
+        page_index++;
+        update_load_more_button_label ();
+    }
+
+    private void update_load_more_button_label () {
+        int loaded = page_index * PAGE_SIZE;
+        int remaining = items_list.size - loaded;
+
+        if (remaining > 0) {
+            int to_show = remaining < PAGE_SIZE ? remaining : PAGE_SIZE;
+            load_more_button.label = "+%d %s".printf (to_show, _ ("completed tasks"));
+            load_more_button_revealer.reveal_child = true;
+        } else {
+            load_more_button.set_label ("No more tasks");
+            load_more_button_revealer.reveal_child = false;
         }
     }
 
@@ -517,24 +548,9 @@ public class Views.Filter : Adw.Bin {
         row.set_header (get_header_box (row.item.project.name));
     }
 
-    private int sort_completed_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow ? row2) {
-        var completed_a = Utils.Datetime.get_date_only (
-            Utils.Datetime.get_date_from_string (((Widgets.CompletedTaskRow) row1).item.completed_at)
-        );
-        var completed_b = Utils.Datetime.get_date_only (
-            Utils.Datetime.get_date_from_string (((Widgets.CompletedTaskRow) row2).item.completed_at)
-        );
-        return completed_b.compare (completed_a);
-    }
-
-    private int sort_project_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow ? row2) {
-        var item1 = ((Layouts.ItemRow) row1).item;
-        var item2 = ((Layouts.ItemRow) row2).item;
-        return item1.project_id.strip ().collate (item2.project_id.strip ());
-    }
-
     private void validate_placeholder () {
         listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
+        invalidate_listbox ();
     }
 
     private Gtk.Widget get_header_box (string title) {
@@ -544,9 +560,9 @@ public class Views.Filter : Adw.Bin {
         };
 
         var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            margin_top = 6,
+            margin_top = 12,
             margin_start = 24,
-            margin_bottom = 6
+            margin_bottom = 12
         };
 
         header_box.append (header_label);
@@ -593,5 +609,37 @@ public class Views.Filter : Adw.Bin {
         });
 
         return popover;
+    }
+
+    private void invalidate_listbox () {
+        listbox.invalidate_sort ();
+        listbox.invalidate_headers ();
+    }
+
+    private int sort_completed_function (Objects.Item a, Objects.Item b) {
+        var completed_a = Utils.Datetime.get_date_only (
+            Utils.Datetime.get_date_from_string (a.completed_at)
+        );
+
+        var completed_b = Utils.Datetime.get_date_only (
+            Utils.Datetime.get_date_from_string (b.completed_at)
+        );
+        
+        return completed_b.compare (completed_a);
+    }
+
+    public void clean_up () {
+        listbox.set_sort_func (null);
+        listbox.set_header_func (null);
+
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            ((Layouts.ItemRow) row).clean_up ();
+        }
+        
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

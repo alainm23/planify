@@ -3,10 +3,9 @@ core_files = files(
     'Constants.vala',
     'QuickAdd.vala',
 
-    'Util/Util.vala',
-    'Util/Datetime.vala',
-    'Util/Migrate.vala',
-    'Util/MarkdownProcessor.vala',
+    'Utils/Util.vala',
+    'Utils/Datetime.vala',
+    'Utils/MarkdownProcessor.vala',
 
     'Services/Settings.vala',
     'Services/EventBus.vala',
@@ -16,9 +15,9 @@ core_files = files(
     'Services/ColorSchemeSettings.vala',
 
     'Services/CalDAV/Core.vala',
-    'Services/CalDAV/Providers/ProviderBase.vala',
+    'Services/CalDAV/CalDAVClient.vala',
+    'Services/CalDAV/WebDAVClient.vala',
     'Services/CalDAV/Providers/Nextcloud.vala',
-    'Services/CalDAV/Providers/Radicale.vala',
 
     'Services/Chrono/Chrono.vala',
     'Services/Chrono/Enum.vala',
@@ -93,6 +92,7 @@ core_files = files(
     'Objects/ObjectEvent.vala',
     'Objects/Source.vala',
     
+    'Objects/Filters/Inbox.vala',
     'Objects/Filters/Pinboard.vala',
     'Objects/Filters/Scheduled.vala',
     'Objects/Filters/Today.vala',
@@ -108,6 +108,7 @@ core_files = files(
 )
 
 core_deps = [
+  gio_dep,
   glib_dep,
   gee_dep,
   gtk_dep,
@@ -119,7 +120,8 @@ core_deps = [
   libical_dep,
   libecal_dep,
   libgxml_dep,
-  libsecret_dep
+  libsecret_dep,
+  libspelling
 ]
 
 core_lib = shared_library(

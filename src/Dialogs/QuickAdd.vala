@@ -21,7 +21,20 @@
 
 public class Dialogs.QuickAdd : Adw.Dialog {
     public Objects.Item item { get; construct; }
+
     private Layouts.QuickAdd quick_add_widget;
+
+    public int position {
+        set {
+            quick_add_widget.position = value;
+        }
+
+        get {
+            return quick_add_widget.position;
+        }
+    }
+
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public QuickAdd () {
         Object (
@@ -30,7 +43,7 @@ public class Dialogs.QuickAdd : Adw.Dialog {
     }
 
     ~QuickAdd () {
-        print ("Destroying Dialogs.QuickAdd\n");
+        debug ("Destroying - Dialogs.QuickAdd\n");
     }
 
     construct {
@@ -39,16 +52,19 @@ public class Dialogs.QuickAdd : Adw.Dialog {
         quick_add_widget = new Layouts.QuickAdd ();
         child = quick_add_widget;
 
-        quick_add_widget.hide_destroy.connect (hide_destroy);
-        quick_add_widget.add_item_db.connect ((add_item_db));
-        quick_add_widget.parent_can_close.connect ((active) => {
+        signal_map[quick_add_widget.hide_destroy.connect (() => {
+            close ();
+        })] = quick_add_widget;
+        signal_map[quick_add_widget.add_item_db.connect ((add_item_db))] = quick_add_widget;
+        signal_map[quick_add_widget.parent_can_close.connect ((active) => {
             Timeout.add (250, () => {
                 can_close = active;
                 return GLib.Source.REMOVE;
             });
-        });
+        })] = quick_add_widget;
 
         closed.connect (() => {
+            clean_up ();
             Services.EventBus.get_default ().connect_all_accels ();
         });
     }
@@ -83,10 +99,6 @@ public class Dialogs.QuickAdd : Adw.Dialog {
         quick_add_widget.added_successfully ();
     }
 
-    public void hide_destroy () {
-        close ();
-    }
-
     public void update_content (string content = "") {
         quick_add_widget.update_content (content);
     }
@@ -113,11 +125,23 @@ public class Dialogs.QuickAdd : Adw.Dialog {
         }
     }
 
-    public void set_index (int index) {
-        quick_add_widget.set_index (index);
-    }
-
     public void set_labels (Gee.HashMap<string, Objects.Label> new_labels) {
         quick_add_widget.set_labels (new_labels);
+    }
+
+    public void set_new_task_position (NewTaskPosition value) {
+        quick_add_widget.new_task_position = value;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        if (quick_add_widget != null) {
+            quick_add_widget.clean_up ();
+        }
     }
 }

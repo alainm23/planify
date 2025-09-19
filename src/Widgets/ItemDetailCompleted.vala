@@ -36,7 +36,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
     }
 
     ~ItemDetailCompleted () {
-        print ("Destroying Widgets.ItemDetailCompleted\n");
+        debug ("Destroying - Widgets.ItemDetailCompleted\n");
     }
 
     construct {
@@ -170,11 +170,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
         })] = listbox;
 
         destroy.connect (() => {
-            foreach (var entry in signals_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signals_map.clear ();
+            clean_up ();
         });
     }
 
@@ -222,5 +218,13 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
         };
 
         return card;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signals_map.clear ();
     }
 }

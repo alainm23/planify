@@ -28,11 +28,18 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
     private Gtk.Revealer main_revealer;
     private Gtk.Image widget_color;
     private Gtk.Box handle_grid;
+    private Widgets.ReorderChild reorder_child;
+
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public LabelRow (Objects.Label label) {
         Object (
             label: label
         );
+    }
+
+    ~LabelRow () {
+        debug ("Destroying - Layouts.LabelRow\n");
     }
 
     construct {
@@ -87,7 +94,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         handle_grid.append (count_revealer);
         handle_grid.append (buttons_box);
 
-        var reorder_child = new Widgets.ReorderChild (handle_grid, this);
+        reorder_child = new Widgets.ReorderChild (handle_grid, this);
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -103,26 +110,26 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
             return GLib.Source.REMOVE;
         });
 
-        label.updated.connect (() => {
+        signal_map[label.updated.connect (() => {
             update_request ();
-        });
+        })] = label;
 
-        label.label_count_updated.connect (() => {
+        signal_map[label.label_count_updated.connect (() => {
             count_label.label = label.label_count.to_string ();
             count_revealer.reveal_child = int.parse (count_label.label) > 0;
-        });
+        })] = label;
 
-        reorder_child.on_drop_end.connect ((listbox) => {
+        signal_map[reorder_child.on_drop_end.connect ((listbox) => {
             update_labels_item_order (listbox);
-        });
+        })] = reorder_child;
 
-        label.loading_change.connect (() => {
+        signal_map[label.loading_change.connect (() => {
             loading_button.is_loading = label.loading;
-        });
+        })] = label;
 
-        loading_button.clicked.connect (() => {
+        signal_map[loading_button.clicked.connect (() => {
             Services.EventBus.get_default ().pane_selected (PaneType.LABEL, label.id);
-        });
+        })] = loading_button;
     }
 
     public void update_request () {
@@ -164,23 +171,37 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
             width_request = 250
         };
 
-        edit_item.clicked.connect (() => {
+        signal_map[edit_item.clicked.connect (() => {
             var dialog = new Dialogs.Label (label);
             dialog.present (Planify._instance.main_window);
-        });
+        })] = edit_item;
 
-        delete_item.clicked.connect (() => {
-            label.delete_label (Planify._instance.main_window);
-        });
+        signal_map[delete_item.clicked.connect (() => {
+            label.delete_label.begin (Planify._instance.main_window);
+        })] = delete_item;
 
         return menu_popover;
     }
 
     public void hide_destroy () {
         main_revealer.reveal_child = false;
+        clean_up ();
         Timeout.add (main_revealer.transition_duration, () => {
             ((Gtk.ListBox) parent).remove (this);
             return GLib.Source.REMOVE;
         });
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        if (reorder_child != null) {
+            reorder_child.clean_up ();
+            reorder_child = null;
+        }
     }
 }

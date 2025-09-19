@@ -29,67 +29,56 @@ public class Objects.Filters.Labels : Objects.BaseObject {
         return _instance;
     }
 
-    int ? _count = null;
-    public int count {
-        get {
-            if (_count == null) {
-                _count = Services.Store.instance ().get_items_has_labels ().size;
-            }
-
-            return _count;
-        }
-
-        set {
-            _count = value;
-        }
-    }
-
-    public signal void count_updated ();
-
     construct {
         name = _("Labels");
         keywords = "%s;%s".printf (_("labels"), _("filters"));
         icon_name = "tag-outline-symbolic";
-        view_id = FilterType.LABELS.to_string ();
+        view_id = "labels";
+        color = Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#cdab8f" : "#986a44";
 
         Services.Store.instance ().label_added.connect (() => {
-            _count = Services.Store.instance ().get_items_has_labels ().size;
-            count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().label_deleted.connect (() => {
-            _count = Services.Store.instance ().get_items_has_labels ().size;
-            count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().label_updated.connect (() => {
-            _count = Services.Store.instance ().get_items_has_labels ().size;
-            count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_added.connect (() => {
-            _count = Services.Store.instance ().get_items_has_labels ().size;
-            count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_deleted.connect (() => {
-            _count = Services.Store.instance ().get_items_has_labels ().size;
-            count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_archived.connect (() => {
-            _count = Services.Store.instance ().get_items_has_labels ().size;
-            count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_unarchived.connect ((item) => {
-            _count = Services.Store.instance ().get_items_has_labels ().size;
-            count_updated ();
+            count_update ();
         });
 
         Services.Store.instance ().item_updated.connect (() => {
-            _count = Services.Store.instance ().get_items_has_labels ().size;
-            count_updated ();
+            count_update ();
         });
+    }
+
+    public override int update_count () {
+        return Services.Store.instance ().get_items_has_labels ().size;
+    }
+
+    public override void count_update () {
+        _item_count = update_count ();
+        count_updated ();
+    }
+
+    public override string theme_color () {
+        return Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#cdab8f" : "#986a44";
     }
 }

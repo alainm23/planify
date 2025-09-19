@@ -65,6 +65,12 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
     public signal void time_added ();
     public signal void activated ();
 
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+    
+    ~TimePicker () {
+        debug ("Destroying - Widgets.DateTimePicker.TimePicker\n");
+    }
+
     construct {
         if (format_12 == null) {
             format_12 = Utils.Datetime.get_default_time_format (true);
@@ -119,12 +125,12 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
 
         child = time_stack;
 
-        add_time_button.clicked.connect (() => {
+        signal_map[add_time_button.clicked.connect (() => {
             time_stack.visible_child_name = "time-box";
             update_text ();
             time_added ();
             time_entry.grab_focus ();
-        });
+        })] = add_time_button;
 
         // Connecting to events allowing manual changes
         var focus_controller = new Gtk.EventControllerFocus ();
@@ -136,11 +142,11 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
         time_entry.add_controller (focus_controller);
         time_entry.add_controller (scroll_controller);
 
-        focus_controller.leave.connect (() => {
+        signal_map[focus_controller.leave.connect (() => {
             is_unfocused ();
-        });
+        })] = focus_controller;
 
-        scroll_controller.scroll.connect ((dx, dy) => {
+        signal_map[scroll_controller.scroll.connect ((dx, dy) => {
             double largest = dx.abs () > dy.abs () ? dx : dy;
             if (largest < 0) {
                 _time = _time.add_minutes (1);
@@ -150,16 +156,16 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
 
             update_text ();
             return false;
-        });
+        })] = scroll_controller;
 
-        time_entry.activate.connect (() => {
+        signal_map[time_entry.activate.connect (() => {
             is_unfocused ();
             activated ();
-        });
+        })] = time_entry;
 
-        no_time_button.clicked.connect (() => {
+        signal_map[no_time_button.clicked.connect (() => {
             reset ();
-        });
+        })] = no_time_button;
     }
 
     private void is_unfocused () {
@@ -272,5 +278,13 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
         time_stack.visible_child_name = "add-time";
         _time = null;
         update_text ();
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

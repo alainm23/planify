@@ -42,12 +42,17 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
     }
 
     public signal void day_selected (int day);
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public CalendarView () {
         Object (
             margin_start: 6,
             margin_end: 6
         );
+    }
+
+    ~CalendarView () {
+        debug ("Destroying - Widgets.Calendar.CalendarView\n");
     }
 
     construct {
@@ -64,9 +69,9 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
         for (int i = 0; i < 42; i++) {
             var calendar_day = new Widgets.Calendar.CalendarDay ();
 
-            calendar_day.day_selected.connect (() => {
+            signals_map[calendar_day.day_selected.connect (() => {
                 day_selected_style (calendar_day.day);
-            });
+            })] = calendar_day;
 
             days_grid.attach (calendar_day, col, row, 1, 1);
             col = col + 1;
@@ -144,5 +149,20 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
             var day_item = days_arraylist[i];
             day_item.child.remove_css_class ("selected");
         }
+    }
+
+    public void clean_up () {
+        for (int i = 0; i < 42; i++) {
+            var item = days_arraylist[i];
+            item.clean_up ();
+        }
+
+        foreach (var entry in signals_map.entries) {
+            if (SignalHandler.is_connected (entry.value, entry.key)) {
+                entry.value.disconnect (entry.key);
+            }
+        }
+
+        signals_map.clear ();
     }
 }

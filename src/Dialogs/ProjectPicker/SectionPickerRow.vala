@@ -25,6 +25,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
 
     private Gtk.Label name_label;
     private Gtk.Grid handle_grid;
+    private Widgets.ReorderChild reorder_child;
     private Gtk.Revealer main_revealer;
 
     public bool is_inbox_section {
@@ -45,7 +46,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
     }
 
     ~SectionPickerRow () {
-        print ("Destroying Dialogs.ProjectPicker.SectionPickerRow\n");
+        debug ("Destroying - Dialogs.ProjectPicker.SectionPickerRow\n");
     }
 
     construct {
@@ -103,11 +104,13 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
             if (!is_inbox_section) {
                 content_box.append (order_icon);
             }
+
             content_box.append (name_label);
             content_box.append (hidded_switch);
         }
 
         if (widget_type == "picker") {
+            content_box.append (name_label);
             content_box.append (selected_revealer);
         }
 
@@ -115,13 +118,15 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
             content_box.margin_top = 3;
             content_box.margin_bottom = 3;
             content_box.margin_end = 3;
+
+            content_box.append (name_label);
             content_box.append (menu_button);
         }
 
         handle_grid = new Gtk.Grid ();
         handle_grid.attach (content_box, 0, 0);
 
-        var reorder_child = new Widgets.ReorderChild (handle_grid, this);
+        reorder_child = new Widgets.ReorderChild (handle_grid, this);
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -185,11 +190,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
         });
 
         destroy.connect (() => {
-            foreach (var entry in signal_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signal_map.clear ();
+            clean_up ();
         });
     }
 
@@ -230,5 +231,18 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
         })] = unarchive_item;
 
         return menu_popover;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+        
+        if (reorder_child != null) {
+            reorder_child.clean_up ();
+            reorder_child = null;
+        }
     }
 }

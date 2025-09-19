@@ -63,14 +63,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     public bool is_loading {
         set {
             _is_loading = value;
-
-            if (_is_loading) {
-                hide_loading_revealer.reveal_child = _is_loading;
-                hide_loading_button.is_loading = _is_loading;
-            } else {
-                hide_loading_button.is_loading = _is_loading;
-                hide_loading_revealer.reveal_child = false;
-            }
+            
+            hide_loading_button.is_loading = _is_loading;
+            set_loading_state (_is_loading);
         }
 
         get {
@@ -78,8 +73,33 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         }
     }
 
+    private bool _pin_mode = false;
+    public bool pin_mode {
+        get {
+            return _pin_mode;
+        }
+        set {
+            _pin_mode = value;
+
+            if (_pin_mode) {
+                hide_loading_revealer.reveal_child = true;
+                card_widget.margin_end = 6;
+                card_widget.margin_top = 6;
+                handle_grid.width_request = 200;
+                hide_loading_button.margin_end = 0;
+                hide_loading_button.margin_top = 0;
+            } else {
+                card_widget.margin_end = 0;
+                card_widget.margin_top = 0;
+                handle_grid.width_request = -1;
+                hide_loading_button.margin_end = 6;
+                hide_loading_button.margin_top = 6;
+            }
+        }
+}
+
+
     public bool on_drag = false;
-    private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public ItemBoard (Objects.Item item) {
         Object (
@@ -88,7 +108,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     ~ItemBoard () {
-        print ("Destroying - Layouts.ItemBoard - %s\n".printf (item.content));
+        debug ("Destroying - Layouts.ItemBoard - %s\n".printf (item.content));
     }
 
     construct {
@@ -129,10 +149,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         hide_loading_button = new Widgets.LoadingButton.with_icon ("window-close", 16) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            margin_top = 7,
-            margin_end = 7,
             tooltip_text = _ ("Unpin"),
-            css_classes = { "min-height-0", "view-button" }
+            css_classes = { "min-height-0", "view-button" },
+            margin_end = 6,
+            margin_top = 6
         };
 
         hide_loading_revealer = new Gtk.Revealer () {
@@ -209,8 +229,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         };
 
         due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_end = 6,
-            valign = CENTER
+            valign = CENTER,
+            margin_end = 6
         };
         due_box.append (due_label);
         due_box.append (repeat_revealer);
@@ -220,45 +240,48 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             child = due_box
         };
 
-        labels_summary = new Widgets.LabelsSummary (item, 1);
-        labels_summary.content_box.margin_top = 0;
+        labels_summary = new Widgets.LabelsSummary (item, 1, true) {
+            end_margin = 6
+        };
 
-        var reminder_icon = new Gtk.Image.from_icon_name ("alarm-symbolic");
+        var reminder_icon = new Gtk.Image.from_icon_name ("alarm-symbolic") {
+            pixel_size = 12
+        };
 
         reminder_count = new Gtk.Label (item.reminders.size.to_string ());
+        reminder_count.add_css_class ("caption");
 
         var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
             valign = Gtk.Align.CENTER,
-            margin_end = 6,
-            css_classes = { "upcoming-grid" },
+            margin_end = 6
         };
+        reminder_box.add_css_class ("upcoming-grid");
 
         reminder_box.append (reminder_icon);
         reminder_box.append (reminder_count);
 
         reminder_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            transition_type = SLIDE_RIGHT,
             child = reminder_box
         };
 
-        subtaks_label = new Gtk.Label (null) {
-            css_classes = { "caption" }
-        };
+        subtaks_label = new Gtk.Label (null);
+        subtaks_label.add_css_class ("caption");
 
         var subtaks_container = new Adw.Bin () {
-            child = subtaks_label,
-            css_classes = { "upcoming-grid" }
+            child = subtaks_label
         };
+        subtaks_container.add_css_class ("upcoming-grid");
 
         subtaks_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            transition_type = SLIDE_RIGHT,
             child = subtaks_container
         };
 
         footer_box = new Gtk.Box (HORIZONTAL, 0) {
             hexpand = true,
             margin_start = 30,
-            margin_top = 6,
+            margin_top = 3,
             margin_end = 6
         };
 
@@ -268,7 +291,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         footer_box.append (subtaks_revealer);
 
         footer_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            transition_type = SLIDE_DOWN,
             child = footer_box
         };
 
@@ -288,6 +311,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         card_widget.add_css_class ("border-radius-9");
         card_widget.add_css_class ("pb-6");
         card_widget.add_css_class ("activatable");
+        card_widget.add_css_class ("task-item");
 
         var overlay = new Gtk.Overlay ();
         overlay.child = card_widget;
@@ -435,9 +459,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             item.update_pin (false);
         })] = hide_loading_button;
 
-        activate.connect (() => {
+        signals_map[activate.connect (() => {
             open_detail ();
-        });
+        })] = this;
     }
 
     private void update_next_recurrency () {
@@ -463,7 +487,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             if (complete_timeout != 0) {
                 GLib.Source.remove (complete_timeout);
                 complete_timeout = 0;
-                card_widget.remove_css_class ("complete-animation");
+                card_widget.remove_css_class ("complete");
                 content_label.remove_css_class ("dimmed");
                 content_label.remove_css_class ("line-through");
             } else {
@@ -481,7 +505,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             Util.get_default ().play_audio ();
         }
 
-        uint timeout = 2500;
+        uint timeout = 3000;
         if (Services.Settings.get_default ().settings.get_enum ("complete-task") == 0) {
             timeout = 0;
         }
@@ -491,7 +515,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         }
 
         content_label.add_css_class ("dimmed");
-        card_widget.add_css_class ("complete-animation");
+        card_widget.add_css_class ("complete");
         if (Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
             content_label.add_css_class ("line-through");
         }
@@ -515,9 +539,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     private async void _complete_item (bool old_checked, string old_completed_at) {
         checked_button.sensitive = false;
+        
         HttpResponse response = yield item.complete_item (old_checked);
 
-        if (!response.status) {
+        if (response.status) {
+            _show_task_completed_toast ();
+        } else {
             _complete_item_error (response, old_checked, old_completed_at);
         }
     }
@@ -530,7 +557,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         checked_button.sensitive = true;
         checked_button.active = false;
 
-        card_widget.remove_css_class ("complete-animation");
+        card_widget.remove_css_class ("complete");
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
 
@@ -557,17 +584,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         content_label.tooltip_text = item.content.strip ();
 
         // ItemType
-        if (item.item_type == ItemType.TASK) {
-            checked_button_revealer.reveal_child = true;
-            description_label.margin_start = 30;
-            footer_box.margin_start = 30;
-            content_box.margin_start = 6;
-        } else {
-            checked_button_revealer.reveal_child = false;
-            description_label.margin_start = 9;
-            footer_box.margin_start = 9;
-            content_box.margin_start = 3;
-        }
+        verify_item_type ();
 
         description_label.label = Util.get_default ().line_break_to_space (item.description);
         description_label.tooltip_text = item.description.strip ();
@@ -581,6 +598,20 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         update_subtasks ();
         footer_revealer.reveal_child = due_box_revealer.reveal_child || labels_summary.reveal_child ||
                                        reminder_revealer.reveal_child || subtaks_revealer.reveal_child;
+    }
+
+    private void verify_item_type () {
+        if (item.item_type == ItemType.TASK) {
+            checked_button_revealer.reveal_child = true;
+            description_label.margin_start = 30;
+            footer_box.margin_start = 30;
+            content_box.margin_start = 6;
+        } else {
+            checked_button_revealer.reveal_child = false;
+            description_label.margin_start = 9;
+            footer_box.margin_start = 9;
+            content_box.margin_start = 3;
+        }
     }
 
     public void update_due_label () {
@@ -799,10 +830,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                     }
 
                     motion_top_grid.height_request = picked_widget.card_widget.get_height ();
-                    motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+                    motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer && item.project.sorted_by == SortedByType.MANUAL;
                 } else if (value.dup_object () is Widgets.MagicButton) {
                     motion_top_grid.height_request = 32;
-                    motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+                    motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer && item.project.sorted_by == SortedByType.MANUAL;
                 }
             } catch (Error e) {
                 debug (e.message);
@@ -893,8 +924,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                     }
                 });
             } else if (picked_item.project.source_type == SourceType.CALDAV) {
-                Services.CalDAV.Core.get_default ().add_task.begin (picked_item, true, (obj, res) => {
-                    if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_item.project.source);
+                caldav_client.add_item.begin (picked_item, true, (obj, res) => {
+                    if (caldav_client.add_item.end (res).status) {
                         Services.Store.instance ().update_item (picked_widget.item);
                         Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
                     }
@@ -920,8 +952,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         var drop_order_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_magic_button_target);
         signals_map[drop_order_magic_button_target.drop.connect ((value, x, y) => {
-            var dialog = new Dialogs.QuickAdd ();
-            dialog.set_index (get_index ());
+            var dialog = new Dialogs.QuickAdd () {
+                position = get_index ()
+            };
 
             if (item.section_id != "") {
                 dialog.for_base_object (item.section);
@@ -941,8 +974,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         signals_map[drop_order_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
-            var old_section_id = "";
-            var old_parent_id = "";
 
             picked_widget.drag_end ();
             target_widget.drag_end ();
@@ -961,8 +992,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 item.project.update_local ();
             }
 
-            old_section_id = picked_widget.item.section_id;
-            old_parent_id = picked_widget.item.parent_id;
+            string old_section_id = picked_widget.item.section_id;
+            string old_parent_id = picked_widget.item.parent_id;
 
             if (picked_widget.item.project_id != target_widget.item.project_id ||
                 picked_widget.item.section_id != target_widget.item.section_id ||
@@ -1007,10 +1038,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             var source_list = (Gtk.ListBox) picked_widget.parent;
             var target_list = (Gtk.ListBox) target_widget.parent;
 
+            int new_index = target_widget.get_index ();
+
             source_list.remove (picked_widget);
-            target_list.insert (picked_widget, target_widget.get_index ());
+            target_list.insert (picked_widget, new_index);
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
-            update_items_item_order (target_list);
+
+            Utils.TaskUtils.update_single_item_order (target_list, picked_widget, new_index);
 
             return true;
         })] = drop_order_target;
@@ -1026,22 +1060,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         card_widget.remove_css_class ("drop-begin");
         on_drag = false;
         main_revealer.reveal_child = item.show_item;
-    }
-
-    private void update_items_item_order (Gtk.ListBox listbox) {
-        unowned Layouts.ItemBoard ? item_row = null;
-        var row_index = 0;
-
-        do {
-            item_row = (Layouts.ItemBoard) listbox.get_row_at_index (row_index);
-
-            if (item_row != null) {
-                item_row.item.child_order = row_index;
-                Services.Store.instance ().update_item (item_row.item);
-            }
-
-            row_index++;
-        } while (item_row != null);
     }
 
     public override void delete_request (bool undo = true) {
@@ -1099,9 +1117,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     public override void select_row (bool active) {
         if (active) {
-            card_widget.add_css_class ("complete-animation");
+            card_widget.add_css_class ("complete");
         } else {
-            card_widget.remove_css_class ("complete-animation");
+            card_widget.remove_css_class ("complete");
         }
     }
 
@@ -1118,22 +1136,20 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         main_revealer.reveal_child = false;
     }
 
-    public void activate_pin_view () {
-        hide_loading_revealer.reveal_child = true;
-        handle_grid.margin_top = 3;
-        handle_grid.margin_start = 3;
-        handle_grid.margin_end = 6;
-        handle_grid.width_request = 200;
+    private void set_loading_state (bool loading) {
+        if (pin_mode) {
+            hide_loading_revealer.reveal_child = true;
+        } else {
+            hide_loading_revealer.reveal_child = loading;
+        }
     }
 
-    public void clean_up () {
-        // Clear Signals
+    public override void clean_up () {
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
         signals_map.clear ();
 
-        menu_handle_popover.unparent ();
     }
 }

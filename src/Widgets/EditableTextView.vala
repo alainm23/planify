@@ -36,7 +36,7 @@ public class Widgets.EditableTextView : Adw.Bin {
             return stack.visible_child_name == "textview";
         }
     }
-
+    
     public void editing (bool value) {
         focus_changed (value);
 
@@ -69,7 +69,7 @@ public class Widgets.EditableTextView : Adw.Bin {
     }
 
     ~EditableTextView () {
-        print ("Destroying Widgets.EditableTextView\n");
+        debug ("Destroying Widgets.EditableTextView\n");
     }
 
     construct {

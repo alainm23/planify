@@ -55,6 +55,16 @@ public class Layouts.QuickAdd : Adw.Bin {
     public const string SHORTCUTS_KEY_REMINDERS = "!";
 
     private Gee.HashMap<string, GLib.Regex> shortcuts_regex_map = new Gee.HashMap<string, GLib.Regex> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+    
+    private Gtk.EventControllerKey destroy_controller;
+    private Gtk.EventControllerKey content_controller_key;
+    private Gtk.EventControllerKey description_controller_key;
+    private Gtk.EventControllerKey event_controller_key;
+    private Gtk.ShortcutController shortcut_controller;
+
+    public int position { get; set; default = -1; }
+    public NewTaskPosition new_task_position { get; set; default = Services.Settings.get_default ().get_new_task_position (); }
 
     public bool is_loading {
         set {
@@ -69,18 +79,13 @@ public class Layouts.QuickAdd : Adw.Bin {
     }
 
     ~QuickAdd () {
-        print ("Destroying Layouts.QuickAdd\n");
+        debug ("Destroying - Layouts.QuickAdd\n");
     }
 
     construct {
         item = new Objects.Item ();
         item.project_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
         item.priority = Util.get_default ().get_default_priority ();
-
-        if (Services.Settings.get_default ().get_new_task_position () == NewTaskPosition.TOP) {
-            item.child_order = 0;
-            item.custom_order = true;
-        }
 
         if (Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
             var project = Services.Store.instance ().get_project (Services.Settings.get_default ().settings.get_string ("quick-add-project-selected"));
@@ -157,6 +162,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         };
 
         schedule_button = new Widgets.ScheduleButton ();
+
         priority_button = new Widgets.PriorityButton () {
             tooltip_markup = Util.get_default ().markup_accels_tooltip (_("Set The Priority"), { "p1", "p2", "p3", "p4" }),
         };
@@ -299,9 +305,9 @@ public class Layouts.QuickAdd : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        submit_button.clicked.connect (add_item);
+        signal_map[submit_button.clicked.connect (add_item)] = submit_button;
 
-        project_picker_button.project_change.connect ((project) => {
+        signal_map[project_picker_button.project_change.connect ((project) => {
             bool project_change = item.project_id != project.id;
             item.project_id = project.id;
             label_button.source = project.source;
@@ -309,17 +315,17 @@ public class Layouts.QuickAdd : Adw.Bin {
             if (Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
                 Services.Settings.get_default ().settings.set_string ("quick-add-project-selected", project.id);
             }
-        });
+        })] = project_picker_button;
 
-        project_picker_button.section_change.connect ((section) => {
+        signal_map[project_picker_button.section_change.connect ((section) => {
             if (section == null) {
                 item.section_id = "";
             } else {
                 item.section_id = section.id;
             }
-        });
+        })] = project_picker_button;
 
-        project_picker_button.picker_opened.connect ((active) => {
+       signal_map[project_picker_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
 
             if (!active) {
@@ -332,27 +338,27 @@ public class Layouts.QuickAdd : Adw.Bin {
                     return GLib.Source.REMOVE;
                 });
             }
-        });
+        })] = project_picker_button;
 
-        schedule_button.duedate_changed.connect (() => {
+        signal_map[schedule_button.duedate_changed.connect (() => {
             set_duedate (schedule_button.duedate);
-        });
+        })] = schedule_button;
 
-        schedule_button.picker_opened.connect ((active) => {
+        signal_map[schedule_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
-        });
+        })] = schedule_button;
 
-        priority_button.changed.connect ((priority) => {
+        signal_map[priority_button.changed.connect ((priority) => {
             set_priority (priority);
-        });
+        })] = priority_button;
 
-        priority_button.picker_opened.connect ((active) => {
+        signal_map[priority_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
-        });
+        })] = priority_button;
 
-        label_button.labels_changed.connect (set_labels);
+        signal_map[label_button.labels_changed.connect (set_labels)] = label_button;
 
-        label_button.picker_opened.connect ((active) => {
+        signal_map[label_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
 
             if (!active) {
@@ -365,9 +371,9 @@ public class Layouts.QuickAdd : Adw.Bin {
                     return GLib.Source.REMOVE;
                 });
             }
-        });
+        })] = label_button;
 
-        reminder_button.picker_opened.connect ((active) => {
+        signal_map[reminder_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
 
             if (!active) {
@@ -380,84 +386,85 @@ public class Layouts.QuickAdd : Adw.Bin {
                     return GLib.Source.REMOVE;
                 });
             }
-        });
+        })] = reminder_button;
 
-        var destroy_controller = new Gtk.EventControllerKey ();
-        add_controller (destroy_controller);
-        destroy_controller.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == Gdk.Key.Escape) {
-                hide_destroy ();
-            }
-        });
-
-        content_entry.activate.connect (() => {
+        signal_map[content_entry.activate.connect (() => {
             add_item ();
-        });
+        })] = content_entry;
 
-        content_entry.changed.connect (() => {
+        signal_map[content_entry.changed.connect (() => {
             info_revealer.reveal_child = false;
             content_entry.remove_css_class ("error");
             handle_priority_shortcut (content_entry.get_text ());
             handle_text_trigger (SHORTCUTS_KEY_LABELS, content_entry.get_text ());
             handle_text_trigger (SHORTCUTS_KEY_PROJECTS, content_entry.get_text ());
             handle_text_trigger (SHORTCUTS_KEY_REMINDERS, content_entry.get_text ());
-        });
+        })] = content_entry;
 
-        var content_controller_key = new Gtk.EventControllerKey ();
+        content_controller_key = new Gtk.EventControllerKey ();
         content_entry.add_controller (content_controller_key);
-        content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == Gdk.Key.Return && ctrl_pressed) {
                 add_item ();
             }
 
             return false;
-        });
+        })] = content_controller_key;
 
-        var description_controller_key = new Gtk.EventControllerKey ();
+        description_controller_key = new Gtk.EventControllerKey ();
         description_textview.add_controller (description_controller_key);
-        description_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[description_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             if (ctrl_pressed && keyval == Gdk.Key.Return) {
                 add_item ();
             }
 
             return false;
-        });
+        })] = description_controller_key;
 
-        var event_controller_key = new Gtk.EventControllerKey ();
+        event_controller_key = new Gtk.EventControllerKey ();
         ((Gtk.Widget) this).add_controller (event_controller_key);
-        event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
                 ctrl_pressed = true;
                 create_more_button.active = ctrl_pressed;
             }
 
             return false;
-        });
+        })] = event_controller_key;
 
-        event_controller_key.key_released.connect ((keyval, keycode, state) => {
+        signal_map[event_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
                 ctrl_pressed = false;
                 create_more_button.active = ctrl_pressed;
             }
-        });
+        })] = event_controller_key;
 
-        create_more_button.activate.connect (() => {
+        signal_map[create_more_button.activate.connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("quick-add-create-more", create_more_button.active);
-        });
+        })] = create_more_button;
 
         var open_label_shortcut = new Gtk.Shortcut (Gtk.ShortcutTrigger.parse_string ("<Control>l"), new Gtk.CallbackAction (() => {
             label_button.open_picker ();
+            return true;
         }));
 
         var open_reminder_shortcut = new Gtk.Shortcut (Gtk.ShortcutTrigger.parse_string ("<Control>r"), new Gtk.CallbackAction (() => {
             reminder_button.open_picker ();
+            return true;
         }));
 
-        var shortcutController = new Gtk.ShortcutController ();
-        shortcutController.add_shortcut (open_label_shortcut);
-        shortcutController.add_shortcut (open_reminder_shortcut);
+        shortcut_controller = new Gtk.ShortcutController ();
+        shortcut_controller.add_shortcut (open_label_shortcut);
+        shortcut_controller.add_shortcut (open_reminder_shortcut);
+        add_controller (shortcut_controller);
 
-        add_controller (shortcutController);
+        destroy_controller = new Gtk.EventControllerKey ();
+        add_controller (destroy_controller);
+        signal_map[destroy_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == Gdk.Key.Escape) {
+                hide_destroy ();
+            }
+        })] = destroy_controller;
     }
 
     private void add_item () {
@@ -481,6 +488,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         item.content = content_entry.get_text ();
         item.description = description_textview.get_text ();
+        item.child_order = generate_child_order ();
 
         if (item.project.source_type == SourceType.LOCAL) {
             item.id = Util.get_default ().generate_id ();
@@ -508,8 +516,9 @@ public class Layouts.QuickAdd : Adw.Bin {
         if (item.project.source_type == SourceType.CALDAV) {
             is_loading = true;
             item.id = Util.get_default ().generate_id ();
-            Services.CalDAV.Core.get_default ().add_task.begin (item, false, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (item.project.source);
+            caldav_client.add_item.begin (item, false, (obj, res) => {
+                HttpResponse response = caldav_client.add_item.end (res);
                 is_loading = false;
 
                 if (response.status) {
@@ -654,7 +663,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     public void for_section (Objects.Section section) {
         item.section_id = section.id;
-        item.project_id = section.project.id;
+        item.project_id = section.project_id;
 
         project_picker_button.project = section.project;
         project_picker_button.section = section;
@@ -669,11 +678,6 @@ public class Layouts.QuickAdd : Adw.Bin {
         project_picker_button.project = _item.project;
         label_button.source = _item.project.source;
         project_picker_button.sensitive = false;
-    }
-
-    public void set_index (int index) {
-        item.child_order = index;
-        item.custom_order = true;
     }
 
     private void handle_priority_shortcut (string text) {
@@ -929,5 +933,125 @@ public class Layouts.QuickAdd : Adw.Bin {
         grid.attach (subtitle_label, 1, 1, 1, 1);
 
         return grid;
+    }
+    
+    private int generate_child_order () {
+        Objects.BaseObject? base_object = null;
+
+        if (item.parent_id != "") {
+            base_object = item;
+        } else {
+            if (item.section_id != "") {
+                base_object = item.section;
+            } else {
+                base_object = item.project;
+            }
+        }
+
+        if (base_object == null) {
+            return 0;
+        }
+
+        Gee.ArrayList<Objects.Item> items = Services.Store.instance ().get_items_by_baseobject (base_object);
+        items.sort (set_sort_func);
+
+        if (items.size == 0) {
+            return 1000;
+        }
+
+        int new_order = 1000;
+
+        if (position == -1) {
+            if (new_task_position == NewTaskPosition.START) {
+                new_order = items[0].child_order / 2;
+            } else {
+                new_order = items[items.size - 1].child_order + 1000;
+            }
+        } else if (position == 0) {
+            var first = items[0];
+            new_order = first.child_order / 2;
+
+            if (new_order == first.child_order) {
+                normalize_orders (items);
+                return generate_child_order ();
+            }
+        } else if (position > 0 && position < items.size) {
+            var prev = items[position - 1];
+            var next = items[position];
+            new_order = (prev.child_order + next.child_order) / 2;
+
+            if (new_order == prev.child_order || new_order == next.child_order) {
+                normalize_orders (items);
+                return generate_child_order ();
+            }
+        } else if (position >= items.size) {
+            new_order = items[items.size - 1].child_order + 1000;
+        }
+
+        return new_order;
+    }
+
+    private void normalize_orders (Gee.ArrayList<Objects.Item> items) {
+        int spacing = 1000;
+        int order = spacing;
+
+        foreach (Objects.Item item in items) {
+            item.child_order = order;
+            order += spacing;
+            item.update_async ();
+        }
+    }
+
+    private int set_sort_func (Objects.Item item1, Objects.Item item2) {
+        return item1.child_order - item2.child_order;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+        
+        if (destroy_controller != null) {
+            remove_controller (destroy_controller);
+        }
+        
+        if (content_controller_key != null) {
+            content_entry.remove_controller (content_controller_key);
+        }
+        
+        if (description_controller_key != null) {
+            description_textview.remove_controller (description_controller_key);
+        }
+        
+        if (event_controller_key != null) {
+            remove_controller (event_controller_key);
+        }
+
+        if (shortcut_controller != null) {
+            remove_controller (shortcut_controller);
+            shortcut_controller = null;
+        }
+
+        if (project_picker_button != null) {
+            project_picker_button.clean_up ();
+        }
+
+        if (schedule_button != null) {
+            schedule_button.clean_up ();
+        }
+
+        if (priority_button != null) {
+            priority_button.clean_up ();
+        }
+
+        if (reminder_button != null) {
+            reminder_button.clean_up ();
+        }
+
+        if (label_button != null) {
+            label_button.clean_up ();
+        }
     }
 }

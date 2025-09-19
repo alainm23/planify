@@ -21,13 +21,18 @@
 
 public class Widgets.ReorderChild : Adw.Bin {
     public Gtk.Widget widget { get; construct; }
-    public Gtk.ListBoxRow row { get; construct; }
+    public weak Gtk.ListBoxRow row { get; construct; }
 
     private Adw.Bin motion_top_grid;
     private Gtk.Revealer motion_top_revealer;
     private Adw.Bin motion_bottom_grid;
     private Gtk.Revealer motion_bottom_revealer;
     private Gtk.Revealer main_revealer;
+    
+    private Gtk.DragSource drag_source;
+    private Gtk.DropTarget drop_order_top_target;
+    private Gtk.DropTarget drop_order_bottom_target;
+    private Gtk.DropControllerMotion drop_motion_ctrl;
 
     public bool reveal_child {
         set {
@@ -53,7 +58,7 @@ public class Widgets.ReorderChild : Adw.Bin {
     }
 
     ~ReorderChild () {
-        print ("Destroying Widgets.ReorderChild\n");
+        debug ("Destroying - Widgets.ReorderChild\n");
     }
 
     construct {
@@ -91,16 +96,12 @@ public class Widgets.ReorderChild : Adw.Bin {
         child = main_revealer;
 
         destroy.connect (() => {
-            foreach (var entry in signal_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signal_map.clear ();
+            clean_up ();
         });
     }
 
     public void build_drag_and_drop () {
-        var drag_source = new Gtk.DragSource ();
+        drag_source = new Gtk.DragSource ();
         drag_source.set_actions (Gdk.DragAction.MOVE);
         row.add_controller (drag_source);
 
@@ -123,15 +124,15 @@ public class Widgets.ReorderChild : Adw.Bin {
             return false;
         })] = drag_source;
 
-        var drop_order_top_target = new Gtk.DropTarget (typeof (Widgets.ReorderChild), Gdk.DragAction.MOVE);
+        drop_order_top_target = new Gtk.DropTarget (typeof (Widgets.ReorderChild), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_top_target);
         signal_map[drop_order_top_target.drop.connect ((value, x, y) => on_drop (value, x, y, false))] = drop_order_top_target;
 
-        var drop_order_bottom_target = new Gtk.DropTarget (typeof (Widgets.ReorderChild), Gdk.DragAction.MOVE);
+        drop_order_bottom_target = new Gtk.DropTarget (typeof (Widgets.ReorderChild), Gdk.DragAction.MOVE);
         motion_bottom_grid.add_controller (drop_order_bottom_target);
         signal_map[drop_order_bottom_target.drop.connect ((value, x, y) => on_drop (value, x, y, true))] = drop_order_bottom_target;
 
-        var drop_motion_ctrl = new Gtk.DropControllerMotion ();
+        drop_motion_ctrl = new Gtk.DropControllerMotion ();
         row.add_controller (drop_motion_ctrl);
 
         signal_map[drop_motion_ctrl.motion.connect ((x, y) => {
@@ -191,5 +192,50 @@ public class Widgets.ReorderChild : Adw.Bin {
     public void draw_motion_widgets () {
         motion_top_grid.height_request = row.get_height ();
         motion_bottom_grid.height_request = row.get_height ();
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+        signal_map.clear ();
+
+        if (drag_source != null && row != null) {
+            row.remove_controller (drag_source);
+            drag_source = null;
+        }
+
+        if (drop_order_top_target != null && motion_top_grid != null) {
+            motion_top_grid.remove_controller (drop_order_top_target);
+            drop_order_top_target = null;
+        }
+
+        if (drop_order_bottom_target != null && motion_bottom_grid != null) {
+            motion_bottom_grid.remove_controller (drop_order_bottom_target);
+            drop_order_bottom_target = null;
+        }
+
+        if (drop_motion_ctrl != null && row != null) {
+            row.remove_controller (drop_motion_ctrl);
+            drop_motion_ctrl = null;
+        }
+
+        if (main_revealer != null) {
+            main_revealer.child = null;
+        }
+        if (motion_top_revealer != null) {
+            motion_top_revealer.child = null;
+        }
+        if (motion_bottom_revealer != null) {
+            motion_bottom_revealer.child = null;
+        }
+        
+        child = null;
+        
+        motion_top_grid = null;
+        motion_top_revealer = null;
+        motion_bottom_grid = null;
+        motion_bottom_revealer = null;
+        main_revealer = null;
     }
 }

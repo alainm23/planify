@@ -34,5 +34,40 @@ public class Objects.Filters.Unlabeled : Objects.BaseObject {
         keywords = "%s;%s;%s".printf (_("no label"), _("unlabeled"), _("filters"));
         icon_name = "tag-outline-remove-symbolic";
         view_id = "unlabeled-view";
+        color = Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#cdab8f" : "#986a44";
+
+        Services.Store.instance ().item_added.connect (() => {
+            count_update ();
+        });
+
+        Services.Store.instance ().item_deleted.connect (() => {
+            count_update ();
+        });
+
+        Services.Store.instance ().item_archived.connect (() => {
+            count_update ();
+        });
+
+        Services.Store.instance ().item_unarchived.connect (() => {
+            count_update ();
+        });
+
+        Services.Store.instance ().item_updated.connect (() => {
+            count_update ();
+        });
+    }
+
+    public override int update_count () {
+        return Services.Store.instance ().get_items_unlabeled (false).size;
+    }
+
+    public override void count_update () {
+        _item_count = update_count ();
+                
+        count_updated ();
+    }
+
+    public override string theme_color () {
+        return Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#cdab8f" : "#986a44";
     }
 }

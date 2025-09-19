@@ -45,14 +45,6 @@ public class Services.Todoist : GLib.Object {
         parser = new Json.Parser ();
     }
 
-    public bool invalid_token () {
-        return Services.Settings.get_default ().settings.get_string ("todoist-access-token").strip () == "";
-    }
-
-    public bool is_logged_in () {
-        return !invalid_token ();
-    }
-
     public async HttpResponse login (string _url) {
         string code = _url.split ("=")[1];
         code = code.split ("&")[0];
@@ -68,9 +60,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            // Debug
-            print_root (parser.get_root ());
 
             var root = parser.get_root ().get_object ();
             var token = root.get_string_member ("access_token");
@@ -111,9 +100,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            // Debug
-            print_root (parser.get_root ());
 
             var source = new Objects.Source ();
             source.id = Util.get_default ().generate_id ();
@@ -228,8 +214,6 @@ public class Services.Todoist : GLib.Object {
         url = url + "?sync_token=" + source.todoist_data.sync_token;
         url = url + "&resource_types=" + RESOURCE_TYPES;
 
-        print ("SYNC URL: %s\n".printf (url));
-
         var message = new Soup.Message ("POST", url);
         message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
 
@@ -237,9 +221,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            // Debug
-            print_root (parser.get_root ());
 
             if (!parser.get_root ().get_object ().has_member ("error")) {
                 // Update sync token
@@ -402,9 +383,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            // Debug
-            print_root (parser.get_root ());
 
             var node = parser.get_root ().get_object ();
             string sync_token = node.get_string_member ("sync_token");
@@ -792,9 +770,6 @@ public class Services.Todoist : GLib.Object {
 
             parser.load_from_data ((string) stream.get_data ());
 
-            // Debug
-            print_root (parser.get_root ());
-
             if (is_todoist_error (message.status_code)) {
                 response.from_error_json (parser.get_root ());
 
@@ -860,6 +835,7 @@ public class Services.Todoist : GLib.Object {
     public async HttpResponse update (Objects.BaseObject object) {
         string uuid = Util.get_default ().generate_string ();
         string json = object.get_update_json (uuid);
+
         Objects.Source source = object.source;
 
         var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
@@ -875,9 +851,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            // Debug
-            print_root (parser.get_root ());
 
             if (is_todoist_error (message.status_code)) {
                 response.from_error_json (parser.get_root ());
@@ -931,10 +904,23 @@ public class Services.Todoist : GLib.Object {
     public async void update_items (Gee.ArrayList<Objects.Item> objects) {
         string json = get_update_items_json (objects);
 
+        Objects.Source ? source = null;
+        foreach (Objects.Item item in objects) {
+            if (item.source != null) {
+                source = item.source;
+                break;
+            }
+        }
+
+        if (source == null) {
+            warning ("No valid source found in items");
+            return;
+        }
+
         var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
         message.request_headers.append (
             "Authorization",
-            "Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
+            "Bearer %s".printf (source.todoist_data.access_token)
         );
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
@@ -943,19 +929,15 @@ public class Services.Todoist : GLib.Object {
 
             parser.load_from_data ((string) stream.get_data ());
 
-            // Debug
-            print_root (parser.get_root ());
-
             if (is_todoist_error (message.status_code)) {
                 debug_error (
                     message.status_code,
                     get_todoist_error (message.status_code)
                 );
             } else {
-                Services.Settings.get_default ().settings.set_string (
-                    "todoist-sync-token",
-                    parser.get_root ().get_object ().get_string_member ("sync_token")
-                );
+                source.todoist_data.sync_token = parser.get_root ().get_object ().get_string_member ("sync_token");
+                source.last_sync = new GLib.DateTime.now_local ().to_string ();
+                source.save ();
             }
         } catch (Error e) {
             error (e.message);
@@ -1046,9 +1028,6 @@ public class Services.Todoist : GLib.Object {
 
             parser.load_from_data ((string) stream.get_data ());
 
-            // Debug
-            print_root (parser.get_root ());
-
             if (is_todoist_error (message.status_code)) {
                 response.from_error_json (parser.get_root ());
 
@@ -1133,9 +1112,6 @@ public class Services.Todoist : GLib.Object {
 
             parser.load_from_data ((string) stream.get_data ());
 
-            // Debug
-            print_root (parser.get_root ());
-
             if (is_todoist_error (message.status_code)) {
                 response.from_error_json (parser.get_root ());
 
@@ -1188,7 +1164,7 @@ public class Services.Todoist : GLib.Object {
     private void print_root (Json.Node root) {
         Json.Generator generator = new Json.Generator ();
         generator.set_root (root);
-        print (generator.to_data (null) + "\n");
+        debug (generator.to_data (null) + "\n");
     }
 
     public string get_delete_json (string id, string type, string uuid) {
@@ -1242,8 +1218,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            print_root (parser.get_root ());
 
             if (is_todoist_error (message.status_code)) {
                 response.from_error_json (parser.get_root ());
@@ -1311,8 +1285,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            print_root (parser.get_root ());
 
             if (is_todoist_error (message.status_code)) {
                 response.from_error_json (parser.get_root ());
@@ -1384,8 +1356,6 @@ public class Services.Todoist : GLib.Object {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             parser.load_from_data ((string) stream.get_data ());
-
-            print_root (parser.get_root ());
 
             if (is_todoist_error (message.status_code)) {
                 response.from_error_json (parser.get_root ());
@@ -1545,6 +1515,7 @@ public class Services.Todoist : GLib.Object {
         messages.set (500, _("The request failed due to a server error."));
         messages.set (503, _("The server is currently unable to handle the request."));
 
+        // TODO: use soup messages as fallback?
         return messages.has_key (code) ? messages.get (code) : _("Unknown error");
     }
 }

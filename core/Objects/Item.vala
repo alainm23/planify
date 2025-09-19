@@ -99,7 +99,6 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public int child_order { get; set; default = 0; }
-    public bool custom_order { get; set; default = false; }
     public int day_order { get; set; default = 0; }
     public bool checked { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
@@ -177,11 +176,17 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    string _ics = "";
-    public string ics {
+    string _ical_url = "";
+    public string ical_url {
         get {
-            _ics = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "ics");
-            return _ics;
+            var json_object = Services.Todoist.get_default ().get_object_by_string (extra_data);
+
+            if (json_object.has_member ("ics")) {
+                _ical_url = "%s/%s".printf (project.calendar_url, json_object.get_string_member ("ics")); // TODO: Should the stored data be migrated?
+            }else {
+                _ical_url = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "ical_url");
+            }
+            return _ical_url;
         }
     }
 
@@ -307,6 +312,7 @@ public class Objects.Item : Objects.BaseObject {
         is_deleted = node.get_object ().get_boolean_member ("is_deleted");
         added_at = node.get_object ().get_string_member ("added_at");
         labels = get_labels_from_json (node);
+        child_order = (int32) node.get_object ().get_int_member ("child_order");
 
         if (!node.get_object ().get_null_member ("section_id")) {
             section_id = node.get_object ().get_string_member ("section_id");
@@ -342,6 +348,7 @@ public class Objects.Item : Objects.BaseObject {
         is_deleted = node.get_object ().get_boolean_member ("is_deleted");
         added_at = node.get_object ().get_string_member ("added_at");
         check_labels (get_labels_maps_from_json (node));
+        child_order = (int32) node.get_object ().get_int_member ("child_order");
 
         if (!node.get_object ().get_null_member ("section_id")) {
             section_id = node.get_object ().get_string_member ("section_id");
@@ -394,25 +401,16 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    public Item.from_caldav_xml (GXml.DomElement element, string _project_id) {
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
-
+    public Item.from_vtodo (string data, string _ical_url, string _project_id) {
         project_id = _project_id;
-        patch_from_vtodo (data, Util.get_task_id_from_url (element));
+        patch_from_vtodo (data, _ical_url);
     }
 
-    public Item.from_vtodo (string data, string _ics, string _project_id) {
-        project_id = _project_id;
-        patch_from_vtodo (data, _ics);
+    public void update_from_vtodo (string data, string _ical_url) {
+        patch_from_vtodo (data, _ical_url, true);
     }
 
-    public void update_from_vtodo (string data, string _ics) {
-        patch_from_vtodo (data, _ics, true);
-    }
-
-    public void patch_from_vtodo (string data, string _ics, bool is_update = false) {
+    public void patch_from_vtodo (string data, string _ical_url, bool is_update = false) {
         ICal.Component ical = ICal.Parser.parse_string (data);
         ICal.Component ? ical_vtodo = ical.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
         ECal.Component ecal = new ECal.Component.from_icalcomponent (ical_vtodo);
@@ -483,7 +481,7 @@ public class Objects.Item : Objects.BaseObject {
             pinned = false;
         }
 
-        extra_data = Util.generate_extra_data (_ics, "", ical.as_ical_string ());
+        extra_data = Util.generate_extra_data (_ical_url, "", ical.as_ical_string ());
 
         if (is_update) {
             check_labels (get_labels_maps_from_caldav (ecal.get_categories_list ()));
@@ -653,8 +651,9 @@ public class Objects.Item : Objects.BaseObject {
                     Services.Store.instance ().update_item (this, update_id);
                 });
             } else if (project.source_type == SourceType.CALDAV) {
-                Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                    HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                caldav_client.add_item.begin (this, true, (obj, res) => {
+                    HttpResponse response = caldav_client.add_item.end (res);
 
                     if (response.status) {
                         Services.Store.instance ().update_item (this, update_id);
@@ -685,8 +684,9 @@ public class Objects.Item : Objects.BaseObject {
                     loading = false;
                 });
             } else if (project.source_type == SourceType.CALDAV) {
-                Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                    HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                caldav_client.add_item.begin (this, true, (obj, res) => {
+                    HttpResponse response = caldav_client.add_item.end (res);
 
                     if (response.status) {
                         Services.Store.instance ().update_item (this, update_id);
@@ -713,8 +713,9 @@ public class Objects.Item : Objects.BaseObject {
                 loading = false;
             });
         } else if (project.source_type == SourceType.CALDAV) {
-            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.add_item.begin (this, true, (obj, res) => {
+                HttpResponse response = caldav_client.add_item.end (res);
 
                 if (response.status) {
                     Services.Store.instance ().update_item (this, update_id);
@@ -744,8 +745,9 @@ public class Objects.Item : Objects.BaseObject {
     private void _update_pin () {
         if (project.source_type == SourceType.CALDAV) {
             loading = true;
-            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.add_item.begin (this, true, (obj, res) => {
+                HttpResponse response = caldav_client.add_item.end (res);
 
                 if (response.status) {
                     Services.Store.instance ().update_item_pin (this);
@@ -996,6 +998,9 @@ public class Objects.Item : Objects.BaseObject {
         builder.set_member_name ("description");
         builder.add_string_value (description);
 
+        builder.set_member_name ("child_order");
+        builder.add_int_value (child_order);
+
         builder.set_member_name ("priority");
         if (priority == 0) {
             builder.add_int_value (Constants.PRIORITY_4);
@@ -1217,7 +1222,9 @@ public class Objects.Item : Objects.BaseObject {
         if (checked) {
             ical.set_status (ICal.PropertyStatus.COMPLETED);
             ical.add_property (new ICal.Property.percentcomplete (100));
-            ical.add_property (new ICal.Property.completed (new ICal.Time.today ()));
+            // RFC requires Date-Time (https://datatracker.ietf.org/doc/html/rfc5545#section-3.8.2.1)
+            // Nextcloud also accepted .today () which didn't include the Timezone, but Radicale and probably other CalDAV implementations want Date-Time
+            ical.add_property (new ICal.Property.completed (new ICal.Time.current_with_zone (null)));
         } else {
             ical.set_status (ICal.PropertyStatus.NEEDSACTION);
         }
@@ -1240,6 +1247,11 @@ public class Objects.Item : Objects.BaseObject {
         if (labels.size > 0) {
             ical.add_property (new ICal.Property.categories (get_labels_names (labels)));
         }
+
+        var child_order_property = new ICal.Property (ICal.PropertyKind.X_PROPERTY);
+        child_order_property.set_x_name ("X-APPLE-SORT-ORDER");
+        child_order_property.set_x (child_order.to_string ());
+        ical.add_property (child_order_property);
 
         return "%s%s%s".printf (
             "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Planify App (https://github.com/alainm23/planify)\n",
@@ -1336,8 +1348,9 @@ public class Objects.Item : Objects.BaseObject {
             });
         } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
-            Services.CalDAV.Core.get_default ().delete_task.begin (this, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().delete_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.delete_item.begin (this, (obj, res) => {
+                HttpResponse response = caldav_client.delete_item.end (res);
                 loading = false;
 
                 if (response.status) {
@@ -1446,8 +1459,9 @@ public class Objects.Item : Objects.BaseObject {
             });
         } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
-            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
-                var response = Services.CalDAV.Core.get_default ().add_task.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.add_item.begin (this, true, (obj, res) => {
+                var response = caldav_client.add_item.end (res);
                 loading = false;
 
                 if (response.status) {
@@ -1484,17 +1498,52 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
-            Services.CalDAV.Core.get_default ().move_task.begin (this, project.id, (obj, res) => {
-                var response = Services.CalDAV.Core.get_default ().move_task.end (res);
-                loading = false;
-                show_item = true;
+            move_caldav_recursive.begin (project, _section_id);
+        }
+    }
 
-                if (response.status) {
-                    _move (project.id, _section_id);
-                } else {
-                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+    private async void move_caldav_recursive (Objects.Project project, string _section_id) {
+        var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+        
+        try {
+            var response = yield caldav_client.move_item (this, project);
+            
+            if (!response.status) {
+                throw new IOError.FAILED (response.error);
+            }
+
+            string old_parent_id = this.parent_id;
+            if (old_parent_id != "") {
+                parent_id = "";
+                response = yield caldav_client.add_item (this, true);
+                
+                if (!response.status) {
+                    throw new IOError.FAILED (response.error);
                 }
-            });
+
+                Services.EventBus.get_default ().item_moved (this, project_id, section_id, old_parent_id);
+            }
+            
+            yield move_all_subitems_caldav (this, project, caldav_client);
+            
+            _move (project.id, _section_id);
+        } catch (Error e) {
+            Services.EventBus.get_default ().send_error_toast (0, e.message);
+        }
+        
+        loading = false;
+        show_item = true;
+    }
+
+    private async void move_all_subitems_caldav (Objects.Item item, Objects.Project project, Services.CalDAV.CalDAVClient caldav_client) throws Error {
+        foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
+            var response = yield caldav_client.move_item (subitem, project);
+
+            if (!response.status) {
+                throw new IOError.FAILED (response.error);
+            }
+            
+            yield move_all_subitems_caldav (subitem, project, caldav_client);
         }
     }
 
@@ -1507,7 +1556,7 @@ public class Objects.Item : Objects.BaseObject {
         this.section_id = _section_id;
         this.parent_id = "";
 
-        Services.Store.instance ().move_item (this, old_section_id, old_parent_id);
+        Services.Store.instance ().move_item (this, old_project_id, old_section_id, old_parent_id);
         Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
         Services.EventBus.get_default ().drag_n_drop_active (old_project_id, false);
         Services.EventBus.get_default ().send_toast (
@@ -1633,7 +1682,8 @@ public class Objects.Item : Objects.BaseObject {
         if (project.source_type == SourceType.TODOIST) {
             response = yield Services.Todoist.get_default ().complete_item (this);
         } else {
-            response = yield Services.CalDAV.Core.get_default ().complete_item (this);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            response = yield caldav_client.complete_item (this);
         }
 
         loading = false;

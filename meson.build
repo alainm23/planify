@@ -1,7 +1,7 @@
 project(
   'io.github.alainm23.planify',
   'vala', 'c',
-  version: '4.13.2'
+  version: '4.13.4'
 )
 
 gnome = import('gnome')
@@ -17,17 +17,30 @@ gee_dep = dependency('gee-0.8')
 gtk_dep = dependency('gtk4')
 libsoup_dep = dependency('libsoup-3.0')
 sqlite3_dep = dependency('sqlite3')
-libadwaita_dep = dependency('libadwaita-1', version: '>= 1.6.0')
-webkitgtk_dep = dependency('webkitgtk-6.0')
+libadwaita_dep = dependency('libadwaita-1', version: '>= 1.7.0')
 gtksourceview_dep = dependency('gtksourceview-5')
 json_dep = dependency('json-glib-1.0')
 libecal_dep = dependency('libecal-2.0', version: '>= 3.45.1')
 libedataserver_dep = dependency('libedataserver-1.2', version: '>= 3.45.1')
 libical_dep = dependency('libical-glib')
-libportal_dep = [ dependency('libportal'), dependency('libportal-gtk4') ]
+libportal_dep = dependency('libportal', required: true)
+libportal_gtk4_dep = dependency('libportal-gtk4', required: true)
 libgxml_dep = dependency('gxml-0.20')
 libsecret_dep = dependency('libsecret-1')
+libspelling = dependency('libspelling-1', required: get_option('spelling'))
 m_dep = meson.get_compiler('c').find_library('m', required : false)
+
+if get_option('webkit')
+    webkitgtk_dep = dependency('webkitgtk-6.0')
+    add_project_arguments('-D', 'USE_WEBKITGTK', language: 'vala')
+    if not webkitgtk_dep.found()
+        error('webkitgtk-6.0 requested but not found')
+    endif
+endif
+
+if libspelling.found ()
+  add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
+endif
 
 ############
 # Resources #
@@ -88,6 +101,9 @@ subdir('quick-add')
 subdir('data')
 # subdir('search-provider')
 subdir('po')
+
+# Testing
+subdir('test')
 
 summary({
   'Tracing': get_option('tracing'),

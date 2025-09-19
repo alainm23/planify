@@ -24,9 +24,20 @@ public abstract class Layouts.ItemBase : Gtk.ListBoxRow {
 
     public string update_id { get; set; default = Util.get_default ().generate_id (); }
 
+    public Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
+
     public abstract void update_request ();
     public abstract void hide_destroy ();
     public abstract void delete_request (bool undo = true);
     public abstract void select_row (bool active);
     public abstract void checked_toggled (bool active, uint ? time = null);
+    public abstract void clean_up ();
+
+    public void _show_task_completed_toast () {
+        if (item.project.show_completed) {
+            return;
+        }
+
+        Services.EventBus.get_default ().send_task_completed_toast (item.project_id);
+    }
 }

@@ -72,7 +72,12 @@ public class Util : GLib.Object {
             return get_colors ().get (key).hexadecimal;
         }
 
-        return key;
+        if (new Gdk.RGBA ().parse (key)) {
+            return key;
+        }
+
+
+        return "#1e63ec";
     }
 
     public string get_random_color () {
@@ -237,27 +242,14 @@ public class Util : GLib.Object {
     }
 
     public void update_theme () {
-        string _css = """
-            @define-color window_bg_color %s;
-            @define-color popover_bg_color %s;
-            @define-color sidebar_bg_color %s;
-            @define-color item_border_color %s;
-            @define-color upcoming_bg_color %s;
-            @define-color upcoming_fg_color %s;
-            @define-color selected_color %s;
-        """;
-
-        int appearance_mode = Services.Settings.get_default ().settings.get_enum ("appearance");
+        Appearance appearance_mode = Appearance.parse (Services.Settings.get_default ().settings.get_enum ("appearance"));
         bool dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
         bool system_appearance = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
-
         var color_scheme_settings = ColorSchemeSettings.Settings.get_default ();
 
         if (system_appearance) {
             dark_mode = color_scheme_settings.prefers_color_scheme == ColorSchemeSettings.Settings.ColorScheme.DARK;
         }
-
-        var provider = new Gtk.CssProvider ();
 
         string window_bg_color = "";
         string popover_bg_color = "";
@@ -266,49 +258,65 @@ public class Util : GLib.Object {
         string upcoming_bg_color = "";
         string upcoming_fg_color = ""; 
         string selected_color = "";
+        string card_bg_color = "";
 
         if (dark_mode) {
-            if (appearance_mode == 1) {
-                window_bg_color = "#151515";
-                popover_bg_color = "shade(#151515, 1.4)";
-                sidebar_bg_color = "#1e1e1e";
-                item_border_color = "#333333";
-                upcoming_bg_color = "#313234";
-                upcoming_fg_color = "#ededef";
-                selected_color = "@popover_bg_color";
+            if (appearance_mode == Appearance.DARK) {
+                window_bg_color = "#181818";
+                popover_bg_color = "#202020";
+                sidebar_bg_color = "#1f1f1f";
+                item_border_color = "#3a3a3a";
+                upcoming_bg_color = "#2d2d2d";
+                upcoming_fg_color = "#f0f0f0";
+                selected_color = "#2e3a46";
+                card_bg_color = "#222222";
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
-            } else if (appearance_mode == 2) {
-                window_bg_color = "#0B0B11";
-                popover_bg_color = "#15151B";
-                sidebar_bg_color = "#15161b";
-                item_border_color = "shade(#333333, 1.35)";
-                upcoming_bg_color = "#313234";
-                upcoming_fg_color = "#ededef";
-                selected_color = "@popover_bg_color";
+            } else if (appearance_mode == Appearance.DARK_BLUE) {
+                window_bg_color = "#0C0D12";
+                popover_bg_color = "#16171D";
+                sidebar_bg_color = "#14151a";
+                item_border_color = "#2d2f35";
+                upcoming_bg_color = "#2a2d34";
+                upcoming_fg_color = "#e6e9ef";
+                selected_color = "#2a303a";
+                card_bg_color = "#1E2026";
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
             }
         } else {
-            window_bg_color = "#fafafa";
+            window_bg_color = "#f9f9f9";
             popover_bg_color = "#ffffff";
-            sidebar_bg_color = "#f2f2f2";
-            item_border_color = "@borders";
-            upcoming_bg_color = "#ededef";
-            upcoming_fg_color = "shade(#ededef, 0)";
-            selected_color = "alpha(@shade_color, 0.65)";
+            sidebar_bg_color = "#f3f4f6";
+            item_border_color = "#dcdfe3";
+            upcoming_bg_color = "#f0f1f3";
+            upcoming_fg_color = "#2d2e32";
+            selected_color = "#dbeafe";
+            card_bg_color = "#ffffff";
             Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_LIGHT;
         }
 
-        var css = _css.printf (
+        string css = """
+            @define-color window_bg_color %s;
+            @define-color popover_bg_color %s;
+            @define-color sidebar_bg_color %s;
+            @define-color item_border_color %s;
+            @define-color upcoming_bg_color %s;
+            @define-color upcoming_fg_color %s;
+            @define-color selected_color %s;
+            @define-color card_bg_color %s;
+        """.printf (
             window_bg_color,
             popover_bg_color,
             sidebar_bg_color,
             item_border_color,
             upcoming_bg_color,
             upcoming_fg_color,
-            selected_color
+            selected_color,
+            card_bg_color
         );
 
+        var provider = new Gtk.CssProvider ();
         provider.load_from_string (css);
+        
         Gtk.StyleContext.add_provider_for_display (
             Gdk.Display.get_default (), provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
@@ -422,22 +430,7 @@ public class Util : GLib.Object {
         });
     }
 
-    public FilterType get_filter () {
-        switch (Services.Settings.get_default ().settings.get_enum ("homepage-item")) {
-            case 0:
-                return FilterType.INBOX;
-            case 1:
-                return FilterType.TODAY;
-            case 2:
-                return FilterType.SCHEDULED;
-            case 3:
-                return FilterType.LABELS;
-            case 4:
-                return FilterType.PINBOARD;
-            default:
-                assert_not_reached ();
-        }
-    }
+
 
     public int get_default_priority () {
         int default_priority = Services.Settings.get_default ().settings.get_enum ("default-priority");
@@ -817,27 +810,6 @@ We hope you’ll enjoy using Planify!""");
     *   XML adn CakDAV Util
     */
 
-    public static string get_task_id_from_url (GXml.DomElement element) {
-        GXml.DomElement href = element.get_elements_by_tag_name ("d:href").get_element (0);
-        string[] parts = href.text_content.split ("/");
-        return parts[parts.length - 1];
-    }
-
-    public static string get_task_uid (GXml.DomElement element) {
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
-
-        ICal.Component ical = new ICal.Component.from_string (data);
-        return ical.get_uid ();
-    }
-
-    public static string get_related_to_uid (GXml.DomElement element) {
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
-        return Util.find_string_value ("RELATED-TO", data);
-    }
 
     public static string find_string_value (string key, string data) {
         GLib.Regex? regex = null;
@@ -881,12 +853,12 @@ We hope you’ll enjoy using Planify!""");
         return bool.parse (match.fetch_all () [1]);
     }
 
-    public static string generate_extra_data (string ics, string etag, string data) {
+    public static string generate_extra_data (string ical_url, string etag, string data) {
         var builder = new Json.Builder ();
         builder.begin_object ();
 
-        builder.set_member_name ("ics");
-        builder.add_string_value (ics);
+        builder.set_member_name ("ical_url");
+        builder.add_string_value (ical_url);
 
         builder.set_member_name ("etag");
         builder.add_string_value (etag);
@@ -923,7 +895,9 @@ We hope you’ll enjoy using Planify!""");
             }
         } else if (target_project.source_type == SourceType.CALDAV) {
             new_item.id = Util.get_default ().generate_id (new_item);
-            HttpResponse response = yield Services.CalDAV.Core.get_default ().add_task (new_item);
+
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (new_item.project.source);
+            HttpResponse response = yield caldav_client.add_item (new_item);
             item.loading = false;
 
             if (response.status) {
@@ -988,7 +962,8 @@ We hope you’ll enjoy using Planify!""");
             }
         } else if (item.project.source_type == SourceType.CALDAV) {
             new_item.id = Util.get_default ().generate_id (new_item);
-            HttpResponse response = yield Services.CalDAV.Core.get_default ().add_task (new_item);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (new_item.project.source);
+            HttpResponse response = yield caldav_client.add_item (new_item);
             
             item.loading = false;
             item.sensitive = true;
@@ -1107,7 +1082,8 @@ We hope you’ll enjoy using Planify!""");
         } else if (project.source_type == SourceType.CALDAV) {
             new_project.id = Util.get_default ().generate_id (new_project);
             
-            HttpResponse response = yield Services.CalDAV.Core.get_default ().add_tasklist (new_project);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (new_project.source);
+            HttpResponse response = yield caldav_client.create_project (new_project);
 
             if (response.status) {
                 Services.Store.instance ().insert_project (new_project);
@@ -1188,10 +1164,82 @@ We hope you’ll enjoy using Planify!""");
 
     // https://wiki.gnome.org/Projects/Vala/AsyncSamples#Async_sleep_example
     public static async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
-    GLib.Timeout.add (interval, () => {
-        nap.callback ();
-        return false;
+        GLib.Timeout.add (interval, () => {
+            nap.callback ();
+            return false;
         }, priority);
-    yield;
+
+        yield;
+    }
+
+    public int natural_compare (string a, string b) {
+        Regex regex;
+
+        try {
+            regex = new Regex ("(\\d+)|(\\D+)");
+
+            MatchInfo ma = null;
+            MatchInfo mb = null;
+
+            if (!regex.match_full (a, a.length, 0, 0, out ma) || !regex.match_full (b, b.length, 0, 0, out mb)) {
+                return a.collate (b);
+            }
+
+            while (ma.matches () && mb.matches ()) {
+                string part_a = ma.fetch (0);
+                string part_b = mb.fetch (0);
+
+                if (Regex.match_simple ("^\\d+$", part_a, 0, 0) && Regex.match_simple ("^\\d+$", part_b, 0, 0)) {
+                    int na = int.parse (part_a);
+                    int nb = int.parse (part_b);
+                    if (na != nb)
+                        return na - nb;
+                } else {
+                    int result = part_a.collate (part_b);
+                    if (result != 0)
+                        return result;
+                }
+
+                if (!ma.next () || !mb.next ())
+                    break;
+            }
+
+            return a.collate (b);
+        } catch (RegexError e) {
+            return a.collate (b);
+        }
+    }
+
+    public int set_item_sort_func (Objects.Item item1, Objects.Item item2, SortedByType sorted_by, SortOrderType sort_order) {
+        int result = 0;
+        
+        if (sorted_by == SortedByType.MANUAL) {
+            result = item1.child_order - item2.child_order;
+        } else if (sorted_by == SortedByType.NAME) {
+            result = natural_compare (item1.content.strip (), item2.content.strip ());
+        } else if (sorted_by == SortedByType.DUE_DATE) {
+            if (item1.has_due && item2.has_due) {
+                var date1 = item1.due.datetime;
+                var date2 = item2.due.datetime;
+
+                result = date1.compare (date2);
+                if (result == 0) {
+                    result = item2.priority - item1.priority;
+                }
+            } else if (!item1.has_due && item2.has_due) {
+                result = 1;
+            } else if (item1.has_due && !item2.has_due) {
+                result = -1;
+            }
+        } else if (sorted_by == SortedByType.ADDED_DATE) {
+            result = item1.added_datetime.compare (item2.added_datetime);
+        } else if (sorted_by == SortedByType.PRIORITY) {
+            result = item2.priority - item1.priority;
+            if (result == 0) {
+                result = item1.added_datetime.compare (item2.added_datetime);
+            }
+        }
+
+        return sort_order == SortOrderType.ASC ? result : -result;
     }
 }

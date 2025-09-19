@@ -24,6 +24,7 @@ public class Objects.BaseObject : GLib.Object {
     public string name { get; set; default = ""; }
     public string keywords { get; set; default = ""; }
     public string icon_name { get; set; default = ""; }
+    public string color { get; set; default = ""; }
 
     public signal void deleted ();
     public signal void updated (string update_id = "");
@@ -73,6 +74,7 @@ public class Objects.BaseObject : GLib.Object {
 
     public signal void loading_change ();
     public signal void sensitive_change ();
+    public signal void count_updated ();
 
     public string view_id { get; set; default = ""; }
 
@@ -223,6 +225,32 @@ public class Objects.BaseObject : GLib.Object {
         }
     }
 
+    public int ? _item_count = null;
+    public int item_count {
+        get {
+            if (_item_count == null) {
+                _item_count = update_count ();
+            }
+
+            return _item_count;
+        }
+
+        set {
+            _item_count = value;
+        }
+    }
+
+    public double ? _percentage = null;
+    public double percentage {
+        get {
+            if (_percentage == null) {
+                _percentage = update_percentage ();
+            }
+
+            return _percentage;
+        }
+    }
+
     public virtual string get_update_json (string uuid, string ? temp_id = null) {
         return "";
     }
@@ -266,5 +294,19 @@ public class Objects.BaseObject : GLib.Object {
         }
 
         return null;
+    }
+
+    public virtual int update_count () {
+        return 0;
+    }
+
+    public virtual double update_percentage () {
+        return 0.0;
+    }
+
+    public virtual void count_update () { }
+
+    public virtual string theme_color () {
+        return color;
     }
 }

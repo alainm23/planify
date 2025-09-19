@@ -58,12 +58,6 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         }
     }
 
-    public bool search_visible {
-        set {
-            // search_entry_revealer.reveal_child = value;
-        }
-    }
-
     public Gee.HashMap<string, Widgets.LabelPicker.LabelRow> labels_widgets_map = new Gee.HashMap<string, Widgets.LabelPicker.LabelRow> ();
     public Gee.HashMap<string, Objects.Label> picked = new Gee.HashMap<string, Objects.Label> ();
 
@@ -72,7 +66,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
     public signal void close ();
 
-    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public LabelsPickerCore (LabelPickerType picker_type) {
         Object (
@@ -81,7 +75,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
     }
 
     ~LabelsPickerCore () {
-        print ("Destroying Widgets.LabelsPickerCore\n");
+        debug ("Destroying - Widgets.LabelsPickerCore\n");
     }
 
     construct {
@@ -143,7 +137,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
         var listbox_controller_key = new Gtk.EventControllerKey ();
         listbox.add_controller (listbox_controller_key);
-        signal_map[listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        signals_map[listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             var key = Gdk.keyval_name (keyval).replace ("KP_", "");
 
             if (key == "Up" || key == "Down") {
@@ -160,7 +154,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             return false;
         })] = listbox_controller_key;
 
-        signal_map[search_entry.search_changed.connect (() => {
+        signals_map[search_entry.search_changed.connect (() => {
             int size = 0;
             listbox.set_filter_func ((row) => {
                 var label = ((Widgets.LabelPicker.LabelRow) row).label;
@@ -179,7 +173,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             }
         })] = search_entry;
 
-        signal_map[search_entry.activate.connect (() => {
+        signals_map[search_entry.activate.connect (() => {
             if (source != null && search_entry.text.length > 0) {
                 Objects.Label label = Services.Store.instance ().get_label_by_name (search_entry.text, true, source.id);
                 if (label != null) {
@@ -194,7 +188,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
         var search_entry_ctrl_key = new Gtk.EventControllerKey ();
         search_entry.add_controller (search_entry_ctrl_key);
-        signal_map[search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
+        signals_map[search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 close ();
             }
@@ -202,20 +196,9 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             return false;
         })] = search_entry_ctrl_key;
 
-        signal_map[Services.Store.instance ().label_added.connect ((label) => {
+        signals_map[Services.Store.instance ().label_added.connect ((label) => {
             add_label (label);
         })] = Services.Store.instance ();
-
-        destroy.connect (() => {
-            listbox.set_sort_func (null);
-            listbox.set_filter_func (null);
-
-            foreach (var entry in signal_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signal_map.clear ();
-        });
     }
 
     private void add_assign_label () {
@@ -263,7 +246,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
     private void add_label (Objects.Label label) {
         labels_widgets_map[label.id] = new Widgets.LabelPicker.LabelRow (label);
-        labels_widgets_map[label.id].checked_toggled.connect (checked_toggled);
+        signals_map[labels_widgets_map[label.id].checked_toggled.connect (checked_toggled)] = labels_widgets_map[label.id];
         listbox.append (labels_widgets_map[label.id]);
     }
 
@@ -341,5 +324,20 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         foreach (Objects.Label label in labels_list) {
             add_label (label);
         }
+    }
+
+    public void clean_up () {
+        listbox.set_sort_func (null);
+        listbox.set_filter_func (null);
+
+        foreach (var entry in labels_widgets_map.entries) {
+            labels_widgets_map[entry.key].clean_up ();
+        }
+
+        foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signals_map.clear ();
     }
 }

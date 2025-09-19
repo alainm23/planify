@@ -61,6 +61,10 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
         );
     }
 
+    ~Calendar () {
+        debug ("Destroying - Widgets.Calendar.Calendar\n");
+    }
+
     construct {
         calendar_header = new Widgets.Calendar.CalendarHeader ();
         calendar_week = new Widgets.Calendar.CalendarWeek ();
@@ -96,7 +100,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
         });
 
         destroy.connect (() => {
-            print ("Before Destroying Widgets.Calendar.Calendar\n");
+            clean_up ();
         });
     }
 
@@ -159,5 +163,9 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
 
     public void reset () {
         calendar_view.clear_style ();
+    }
+
+    public void clean_up () {
+        calendar_view.clean_up ();
     }
 }

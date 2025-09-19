@@ -36,6 +36,9 @@ public class MainWindow : Adw.ApplicationWindow {
 
     public Services.ActionManager action_manager;
 
+    private const int64 VIEW_TIMEOUT = 300000000;
+    private Gee.ArrayList<ViewCacheItem> view_cache = new Gee.ArrayList<ViewCacheItem> ();
+
     public MainWindow (Planify application) {
         Object (
             application: application,
@@ -48,7 +51,7 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     ~MainWindow () {
-        print ("Destroy ing MainWindow\n");
+        debug ("Destroying - MainWindow\n");
     }
 
     static construct {
@@ -200,7 +203,7 @@ public class MainWindow : Adw.ApplicationWindow {
             var did_startup_sync = false; // Remove hack when upstream issue is resolved
 
             Timeout.add (Constants.STARTUP_SYNC_TIMEOUT, () => {
-                print ("Starting startup sync\n");
+                debug ("Starting startup sync\n");
                 foreach (Objects.Source source in Services.Store.instance ().sources) {
                     source.run_server ();
                 }
@@ -213,10 +216,10 @@ public class MainWindow : Adw.ApplicationWindow {
             var network_monitor = GLib.NetworkMonitor.get_default ();
             network_monitor.network_changed.connect (() => {
                 if (did_startup_sync == false) {
-                    print ("Ignoring early network change due to bug 1690");
+                    debug ("Ignoring early network change due to bug 1690\n");
                     return;
                 }
-                print ("Network has changed, starting sync\n");
+                debug ("Network has changed, starting sync\n");
                 foreach (Objects.Source source in Services.Store.instance ().sources) {
                     source.run_server ();
                 }
@@ -265,37 +268,44 @@ public class MainWindow : Adw.ApplicationWindow {
 
         Services.Settings.get_default ().settings.changed["font-scale"].connect (Util.get_default ().update_font_scale);
 
-        Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
+        Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {            
             if (pane_type == PaneType.PROJECT) {
-                add_project_view (Services.Store.instance ().get_project (id));
-            } else if (pane_type == PaneType.FILTER) {
-                if (id == FilterType.INBOX.to_string ()) {
+                var project = Services.Store.instance ().get_project (id);
+                if (project != null) {
+                    add_project_view (project);
+                } else {
                     add_inbox_view ();
-                } else if (id == FilterType.TODAY.to_string ()) {
+                }
+            } else if (pane_type == PaneType.FILTER) {
+                if (id == Objects.Filters.Inbox.get_default ().view_id) {
+                   add_inbox_view ();
+                } else if (id == Objects.Filters.Today.get_default ().view_id) {
                     add_today_view ();
-                } else if (id == FilterType.SCHEDULED.to_string ()) {
+                } else if (id == Objects.Filters.Scheduled.get_default ().view_id) {
                     add_scheduled_view ();
-                } else if (id == FilterType.PINBOARD.to_string ()) {
+                } else if (id == Objects.Filters.Pinboard.get_default ().view_id) {
                     add_filter_view (Objects.Filters.Pinboard.get_default ());
-                } else if (id == FilterType.LABELS.to_string ()) {
+                } else if (id == Objects.Filters.Labels.get_default ().view_id) {
                     add_labels_view ();
                 } else if (id.has_prefix ("priority")) {
                     add_priority_view (id);
-                } else if (id == FilterType.COMPLETED.to_string ()) {
+                } else if (id == Objects.Filters.Completed.get_default ().view_id) {
                     add_filter_view (Objects.Filters.Completed.get_default ());
-                } else if (id == "tomorrow-view") {
+                } else if (id == Objects.Filters.Tomorrow.get_default ().view_id) {
                     add_filter_view (Objects.Filters.Tomorrow.get_default ());
-                } else if (id == "anytime-view") {
+                } else if (id == Objects.Filters.Anytime.get_default ().view_id) {
                     add_filter_view (Objects.Filters.Anytime.get_default ());
-                } else if (id == "repeating-view") {
+                } else if (id == Objects.Filters.Repeating.get_default ().view_id) {
                     add_filter_view (Objects.Filters.Repeating.get_default ());
-                } else if (id == "unlabeled-view") {
+                } else if (id == Objects.Filters.Unlabeled.get_default ().view_id) {
                     add_filter_view (Objects.Filters.Unlabeled.get_default ());
-                } else if (id == "all-items-view") {
+                } else if (id == Objects.Filters.AllItems.get_default ().view_id) {
                     add_filter_view (Objects.Filters.AllItems.get_default ());
                 }
             } else if (pane_type == PaneType.LABEL) {
                 add_label_view (id);
+            } else {
+                add_inbox_view ();
             }
 
             if (overlay_split_view.collapsed) {
@@ -308,6 +318,8 @@ public class MainWindow : Adw.ApplicationWindow {
         });
 
         Services.EventBus.get_default ().send_error_toast.connect (send_toast_error);
+
+        Services.EventBus.get_default ().send_task_completed_toast.connect (show_task_completed_toast);
 
         search_button.clicked.connect (() => {
             (new Dialogs.QuickFind.QuickFind ()).present (Planify._instance.main_window);
@@ -338,7 +350,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
         views_split_view.notify["show-sidebar"].connect (() => {
             if (!views_split_view.show_sidebar) {
-                item_sidebar_view.disconnect_all ();
+                item_sidebar_view.clean_up ();
                 fake_button.grab_focus ();
             }
         });
@@ -354,6 +366,24 @@ public class MainWindow : Adw.ApplicationWindow {
                 views_split_view.collapsed = true;
                 item_sidebar_view.add_css_class ("sidebar");
             }
+        });
+
+        Services.EventBus.get_default ().theme_changed.connect (() => {
+            Appearance appearance_mode = Appearance.get_default ();
+            remove_css_class ("theme-dark");
+            remove_css_class ("theme-dark-blue");
+
+            if (appearance_mode == Appearance.DARK) {
+                add_css_class ("theme-dark");
+            } else if (appearance_mode == Appearance.DARK_BLUE) {
+                add_css_class ("theme-dark-blue");
+            }
+        });
+
+        // Cleanup every 2 minutes
+        Timeout.add_seconds (120, () => {
+            cleanup_unused_views ();
+            return Source.CONTINUE;
         });
     }
 
@@ -383,6 +413,9 @@ public class MainWindow : Adw.ApplicationWindow {
         if (project_view == null) {
             project_view = new Views.Project (project);
             views_stack.add_named (project_view, project.view_id);
+            add_view_to_cache (project.view_id, project_view);
+        } else {
+            update_view_access (project.view_id);
         }
 
         views_stack.set_visible_child_name (project.view_id);
@@ -394,6 +427,9 @@ public class MainWindow : Adw.ApplicationWindow {
         if (today_view == null) {
             today_view = new Views.Today ();
             views_stack.add_named (today_view, "today-view");
+            add_view_to_cache ("today-view", today_view);
+        } else {
+            update_view_access ("today-view");
         }
 
         views_stack.set_visible_child_name ("today-view");
@@ -404,6 +440,9 @@ public class MainWindow : Adw.ApplicationWindow {
         if (scheduled_view == null) {
             scheduled_view = new Views.Scheduled.Scheduled ();
             views_stack.add_named (scheduled_view, "scheduled-view");
+            add_view_to_cache ("scheduled-view", scheduled_view);
+        } else {
+            update_view_access ("scheduled-view");
         }
 
         views_stack.set_visible_child_name ("scheduled-view");
@@ -414,6 +453,9 @@ public class MainWindow : Adw.ApplicationWindow {
         if (labels_view == null) {
             labels_view = new Views.Labels ();
             views_stack.add_named (labels_view, "labels-view");
+            add_view_to_cache ("labels-view", labels_view);
+        } else {
+            update_view_access ("labels-view");
         }
 
         views_stack.set_visible_child_name ("labels-view");
@@ -424,6 +466,9 @@ public class MainWindow : Adw.ApplicationWindow {
         if (label_view == null) {
             label_view = new Views.Label ();
             views_stack.add_named (label_view, "label-view");
+            add_view_to_cache ("label-view", label_view);
+        } else {
+            update_view_access ("label-view");
         }
 
         label_view.label = Services.Store.instance ().get_label (id);
@@ -435,6 +480,9 @@ public class MainWindow : Adw.ApplicationWindow {
         if (filter_view == null) {
             filter_view = new Views.Filter ();
             views_stack.add_named (filter_view, view_id);
+            add_view_to_cache (view_id, filter_view);
+        } else {
+            update_view_access (view_id);
         }
 
         filter_view.filter = Util.get_default ().get_priority_filter (view_id);
@@ -447,16 +495,25 @@ public class MainWindow : Adw.ApplicationWindow {
             filter_view = new Views.Filter ();
             filter_view.filter = base_object;
             views_stack.add_named (filter_view, base_object.view_id);
+            add_view_to_cache (base_object.view_id, filter_view);
+        } else {
+            update_view_access (base_object.view_id);
         }
 
         views_stack.set_visible_child_name (base_object.view_id);
     }
 
     public void go_homepage () {
-        Services.EventBus.get_default ().pane_selected (
-            PaneType.FILTER,
-            Util.get_default ().get_filter ().to_string ()
-        );
+        string home_page_id = Services.Settings.get_default ().get_string ("home-view");
+
+        if (home_page_id.has_prefix ("project-")) {
+            var project_id = home_page_id.substring (8);
+            if (project_id != null && project_id.length > 0) {
+                Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project_id);
+            }
+        } else {
+            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, home_page_id);
+        }
     }
 
     public void view_item (string id) {
@@ -467,6 +524,13 @@ public class MainWindow : Adw.ApplicationWindow {
     public void valid_view_removed (Objects.Project project) {
         Views.Project ? project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
         if (project_view != null) {
+            foreach (var item in view_cache) {
+                if (item.view_id == project.view_id) {
+                    view_cache.remove (item);
+                    break;
+                }
+            }
+
             if (views_stack.visible_child == project_view) {
                 go_homepage ();
                 // Use a timeout to ensure the view transition is complete before cleanup
@@ -569,8 +633,7 @@ public class MainWindow : Adw.ApplicationWindow {
         };
 
         preferences_item.clicked.connect (() => {
-            var dialog = new Dialogs.Preferences.PreferencesWindow ();
-            dialog.present (Planify._instance.main_window);
+            open_preferences_window ();
         });
 
         whatsnew_item.clicked.connect (() => {
@@ -596,14 +659,20 @@ public class MainWindow : Adw.ApplicationWindow {
 
     public void open_shortcuts_window () {
         try {
-            var build = new Gtk.Builder ();
-            build.add_from_resource ("/io/github/alainm23/planify/shortcuts.ui");
-            var window = (Gtk.ShortcutsWindow) build.get_object ("shortcuts-planify");
-            window.set_transient_for (this);
-            window.show ();
+            var shortcuts_builder = new Gtk.Builder ();
+            shortcuts_builder.add_from_resource ("/io/github/alainm23/planify/shortcuts.ui");
+            
+            var shortcuts_window = (Gtk.ShortcutsWindow) shortcuts_builder.get_object ("shortcuts-planify");
+            shortcuts_window.set_transient_for (this);
+            shortcuts_window.show ();
         } catch (Error e) {
             warning ("Failed to open shortcuts window: %s\n", e.message);
         }
+    }
+
+    public void open_preferences_window () {
+        var preferences_dialog = new Dialogs.Preferences.PreferencesWindow ();
+        preferences_dialog.present (Planify._instance.main_window);
     }
 
     public void send_toast_error (int error_code, string error_message) {
@@ -614,6 +683,25 @@ public class MainWindow : Adw.ApplicationWindow {
 
         toast.button_clicked.connect (() => {
             (new Dialogs.ErrorDialog (error_code, error_message)).present (this);
+        });
+
+        toast_overlay.add_toast (toast);
+    }
+
+    public void show_task_completed_toast (string project_id) {
+        var project = Services.Store.instance ().get_project (project_id);
+
+        if (project == null) {
+            return;
+        }
+
+        var toast = new Adw.Toast (_("Task completed"));
+        toast.button_label = _("View");
+        toast.timeout = 3;
+
+        toast.button_clicked.connect (() => {
+            project.show_completed = true;
+            project.update_local ();
         });
 
         toast_overlay.add_toast (toast);
@@ -678,5 +766,82 @@ public class MainWindow : Adw.ApplicationWindow {
         });
 
         return toolbar_view;
+    }
+
+    private void cleanup_unused_views () {
+        var current_time = GLib.get_monotonic_time ();
+        var current_view = views_stack.visible_child_name;
+
+        var to_remove = new Gee.ArrayList<ViewCacheItem> ();
+
+        foreach (var item in view_cache) {
+            if (item.view_id != current_view &&
+                current_time - item.last_access > get_timeout_for_view (item.view_id)) {
+                to_remove.add (item);
+            }
+        }
+
+        foreach (var item in to_remove) {
+            cleanup_view (item.view);
+            views_stack.remove (item.view);
+            view_cache.remove (item);
+        }
+    }
+
+    private int64 get_timeout_for_view (string view_id) {
+        if (view_id.has_prefix ("project-")) {
+            return 600000000; // 10 min
+        }
+
+        if (view_id == "today-view") {
+            return 180000000; // 3 min
+        }
+
+        return VIEW_TIMEOUT; // 5 min
+    }
+
+    private void cleanup_view (Gtk.Widget view) {
+        if (view is Views.Project) {
+            ((Views.Project) view).clean_up ();
+        } else if (view is Views.Today) {
+            ((Views.Today) view).clean_up ();
+        } else if (view is Views.Scheduled.Scheduled) {
+            ((Views.Scheduled.Scheduled) view).clean_up ();
+        } else if (view is Views.Filter) {
+            ((Views.Filter) view).clean_up ();
+        } else if (view is Views.Label) {
+            ((Views.Label) view).clean_up ();
+        } else if (view is Views.Labels) {
+            ((Views.Labels) view).clean_up ();
+        }
+    }
+
+    private void update_view_access (string view_id) {
+        foreach (var item in view_cache) {
+            if (item.view_id == view_id) {
+                item.update_access ();
+                break;
+            }
+        }
+    }
+
+    private void add_view_to_cache (string view_id, Gtk.Widget view) {
+        view_cache.add (new ViewCacheItem (view_id, view));
+    }
+
+    private class ViewCacheItem {
+        public string view_id;
+        public Gtk.Widget view;
+        public int64 last_access;
+
+        public ViewCacheItem (string id, Gtk.Widget widget) {
+            view_id = id;
+            view = widget;
+            last_access = GLib.get_monotonic_time ();
+        }
+
+        public void update_access () {
+            last_access = GLib.get_monotonic_time ();
+        }
     }
 }

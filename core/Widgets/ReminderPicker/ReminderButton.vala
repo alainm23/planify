@@ -25,11 +25,13 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
 
     private Gtk.Revealer indicator_revealer;
     private Gtk.Label value_label;
-    private Widgets.ReminderPicker.ReminderPicker picker;
+    private Widgets.ReminderPicker.ReminderPicker reminder_picker;
     private Gtk.MenuButton button;
 
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void picker_opened (bool active);
+
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public ReminderButton (bool is_creating = false) {
         Object (
@@ -49,8 +51,12 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
         );
     }
 
+    ~ReminderButton () {
+        debug ("Destroying - Widgets.ReminderPicker.ReminderButton\n");
+    }
+
     construct {
-        picker = new Widgets.ReminderPicker.ReminderPicker (is_creating);
+        reminder_picker = new Widgets.ReminderPicker.ReminderPicker (is_creating);
 
         if (is_board) {
             var title_label = new Gtk.Label (_("Reminders")) {
@@ -80,7 +86,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
             card_grid.attach (value_label, 1, 1, 1, 1);
 
             button = new Gtk.MenuButton () {
-                popover = picker,
+                popover = reminder_picker,
                 child = card_grid,
                 css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
                 hexpand = true
@@ -106,7 +112,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
 
             button = new Gtk.MenuButton () {
                 icon_name = "alarm-symbolic",
-                popover = picker,
+                popover = reminder_picker,
                 css_classes = { "flat" }
             };
 
@@ -117,61 +123,66 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
             child = overlay;
         }
 
-        picker.reminder_added.connect ((reminder) => {
+        signal_map[reminder_picker.reminder_added.connect ((reminder) => {
             reminder_added (reminder);
 
             if (is_creating) {
                 reminder.id = Util.get_default ().generate_id (reminder);
                 add_reminder (reminder, new Gee.ArrayList<Objects.Reminder> ());
             }
-        });
+        })] = reminder_picker;
 
-        picker.reminder_deleted.connect (() => {
-            indicator_revealer.reveal_child = picker.has_reminders;
-        });
+        signal_map[reminder_picker.reminder_deleted.connect (() => {
+            indicator_revealer.reveal_child = reminder_picker.has_reminders;
+        })] = reminder_picker;
 
-        picker.show.connect (() => {
+        signal_map[reminder_picker.show.connect (() => {
             picker_opened (true);
-        });
-        picker.closed.connect (() => {
+        })] = reminder_picker;
+
+        signal_map[reminder_picker.closed.connect (() => {
             picker_opened (false);
-        });
+        })] = reminder_picker;
     }
 
     public void set_reminders (Gee.ArrayList<Objects.Reminder> reminders) {
-        value_label.label = _("Add Reminders");
-        value_label.tooltip_text = null;
+        if (is_board) {
+            value_label.label = _("Add Reminders");
+            value_label.tooltip_text = null;
+        }
 
-        picker.set_reminders (reminders);
+        reminder_picker.set_reminders (reminders);
 
         if (reminders.size > 0) {
             build_value_label (reminders);
         }
 
-        indicator_revealer.reveal_child = picker.has_reminders;
+        indicator_revealer.reveal_child = reminder_picker.has_reminders;
     }
 
     public void add_reminder (Objects.Reminder reminder, Gee.ArrayList<Objects.Reminder> reminders) {
-        picker.add_reminder (reminder);
+        reminder_picker.add_reminder (reminder);
 
-        if (reminders.size > 0) {
+        if (reminders.size > 0 && is_board) {
             build_value_label (reminders);
         }
 
-        indicator_revealer.reveal_child = picker.has_reminders;
+        indicator_revealer.reveal_child = reminder_picker.has_reminders;
     }
 
     public void delete_reminder (Objects.Reminder reminder, Gee.ArrayList<Objects.Reminder> reminders) {
-        picker.delete_reminder (reminder);
+        reminder_picker.delete_reminder (reminder);
 
-        value_label.label = _("Add Reminders");
-        value_label.tooltip_text = null;
+        if (is_board) {
+            value_label.label = _("Add Reminders");
+            value_label.tooltip_text = null;
 
-        if (reminders.size > 0) {
-            build_value_label (reminders);
+            if (reminders.size > 0) {
+                build_value_label (reminders);
+            }
         }
 
-        indicator_revealer.reveal_child = picker.has_reminders;
+        indicator_revealer.reveal_child = reminder_picker.has_reminders;
     }
 
     private void build_value_label (Gee.ArrayList<Objects.Reminder> reminders) {
@@ -190,11 +201,23 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     }
 
     public Gee.ArrayList<Objects.Reminder> reminders () {
-        return picker.reminders ();
+        return reminder_picker.reminders ();
     }
 
     public void open_picker (bool suggestions_view = false) {
-        picker.suggestions_view = suggestions_view;
+        reminder_picker.suggestions_view = suggestions_view;
         button.active = true;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        if (reminder_picker != null) {
+            reminder_picker.clean_up ();
+        }
     }
 }

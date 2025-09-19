@@ -20,7 +20,6 @@
  */
 
 public class Objects.Label : Objects.BaseObject {
-    public string color { get; set; default = ""; }
     public int item_order { get; set; default = 0; }
     public bool is_deleted { get; set; default = false; }
     public bool is_favorite { get; set; default = false; }
@@ -225,8 +224,9 @@ public class Objects.Label : Objects.BaseObject {
                     loading = true;
                     foreach (Objects.Item item in Services.Store.instance ().get_items_by_label (this, false)) {
                         item.delete_item_label (id);
-                        Services.CalDAV.Core.get_default ().add_task.begin (item, true, (obj, res) => {
-                            if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
+                        var caldav_client = Services.CalDAV.Core.get_default ().get_client (item.project.source);
+                        caldav_client.add_item.begin (item, true, (obj, res) => {
+                            if (caldav_client.add_item.end (res).status) {
                                 Services.Store.instance ().update_item (item);
                             }
                         });

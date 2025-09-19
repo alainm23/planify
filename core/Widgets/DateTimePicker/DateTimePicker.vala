@@ -77,6 +77,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     public signal void duedate_changed ();
 
     private Gee.HashMap<string, Adw.NavigationPage> pages_map = new Gee.HashMap<string, Adw.NavigationPage> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public DateTimePicker () {
         Object (
@@ -84,6 +85,10 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             position: Gtk.PositionType.RIGHT,
             width_request: 275
         );
+    }
+
+    ~DateTimePicker () {
+        debug ("Destroying - Widgets.DateTimePicker.DateTimePicker\n");
     }
 
     construct {
@@ -189,51 +194,51 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         var toolbar_view = new Adw.ToolbarView ();
         toolbar_view.content = content_box;
 
-        today_item.activate_item.connect (() => {
+        signal_map[today_item.activate_item.connect (() => {
             set_date (new DateTime.now_local ());
-        });
+        })] = today_item;
 
-        tomorrow_item.activate_item.connect (() => {
+        signal_map[tomorrow_item.activate_item.connect (() => {
             set_date (new DateTime.now_local ().add_days (1));
-        });
+        })] = tomorrow_item;
 
-        next_week_item.activate_item.connect (() => {
+        signal_map[next_week_item.activate_item.connect (() => {
             set_date (new DateTime.now_local ().add_days (7));
-        });
+        })] = next_week_item;
 
-        time_picker.time_changed.connect (() => {
+        signal_map[time_picker.time_changed.connect (() => {
             duedate.datetime = Utils.Datetime.get_date_only (duedate.datetime);
-        });
+        })] = time_picker;
 
-        time_picker.time_added.connect (() => {
+        signal_map[time_picker.time_added.connect (() => {
             visible_no_date = true;
 
             if (duedate.datetime == null) {
                 duedate.datetime = time_picker.time;
                 check_items (duedate);
             }
-        });
+        })] = time_picker;
 
-        submit_button.clicked.connect (() => {
+        signal_map[submit_button.clicked.connect (() => {
             duedate_changed ();
             popdown ();
-        });
+        })] = submit_button;
 
-        clear_button.clicked.connect (() => {
+        signal_map[clear_button.clicked.connect (() => {
             time_picker.has_time = false;
             duedate.datetime = null;
             popdown ();
             duedate_changed ();
             check_items (null);
-        });
+        })] = clear_button;
 
-        date_item.clicked.connect (() => {
+        signal_map[date_item.clicked.connect (() => {
             navigation_view.push (build_page ("calendar"));
-        });
+        })] = date_item;
 
-        repeat_item.clicked.connect (() => {
+        signal_map[repeat_item.clicked.connect (() => {
             navigation_view.push (build_page ("repeat"));
-        });
+        })] = repeat_item;
 
         return new Adw.NavigationPage (toolbar_view, _("Menu"));
     }
@@ -241,13 +246,13 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     private Adw.NavigationPage build_calendar_page () {
         calendar_view = new Widgets.Calendar.Calendar ();
 
-        calendar_view.day_selected.connect (() => {
+        signal_map[calendar_view.day_selected.connect (() => {
             set_date (calendar_view.date, false, true);
             visible_no_date = true;
             check_items (duedate);
 
             navigation_view.pop ();
-        });
+        })] = calendar_view;
 
         return new Adw.NavigationPage (build_toolbar_page (calendar_view), _("Calendar"));
     }
@@ -298,16 +303,16 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         menu_box.append (none_item);
         menu_box.append (custom_item);
 
-        daily_item.clicked.connect (() => {
+        signal_map[daily_item.clicked.connect (() => {
             var _duedate = new Objects.DueDate ();
             _duedate.is_recurring = true;
             _duedate.recurrency_type = RecurrencyType.EVERY_DAY;
             _duedate.recurrency_interval = 1;
             set_recurrency (_duedate);
             navigation_view.pop ();
-        });
+        })] = daily_item;
 
-        weekdays_item.clicked.connect (() => {
+        signal_map[weekdays_item.clicked.connect (() => {
             var _duedate = new Objects.DueDate ();
             _duedate.is_recurring = true;
             _duedate.recurrency_type = RecurrencyType.EVERY_WEEK;
@@ -315,9 +320,9 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             _duedate.recurrency_interval = 1;
             set_recurrency (_duedate);
             navigation_view.pop ();
-        });
+        })] = weekdays_item;
 
-        weekends_item.clicked.connect (() => {
+        signal_map[weekends_item.clicked.connect (() => {
             var _duedate = new Objects.DueDate ();
             _duedate.is_recurring = true;
             _duedate.recurrency_type = RecurrencyType.EVERY_WEEK;
@@ -325,45 +330,45 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             _duedate.recurrency_interval = 1;
             set_recurrency (_duedate);
             navigation_view.pop ();
-        });
+        })] = weekends_item;
 
-        weekly_item.clicked.connect (() => {
+        signal_map[weekly_item.clicked.connect (() => {
             var _duedate = new Objects.DueDate ();
             _duedate.is_recurring = true;
             _duedate.recurrency_type = RecurrencyType.EVERY_WEEK;
             _duedate.recurrency_interval = 1;
             set_recurrency (_duedate);
             navigation_view.pop ();
-        });
+        })] = weekly_item;
 
-        monthly_item.clicked.connect (() => {
+        signal_map[monthly_item.clicked.connect (() => {
             var _duedate = new Objects.DueDate ();
             _duedate.is_recurring = true;
             _duedate.recurrency_type = RecurrencyType.EVERY_MONTH;
             _duedate.recurrency_interval = 1;
             set_recurrency (_duedate);
             navigation_view.pop ();
-        });
+        })] = monthly_item;
 
-        yearly_item.clicked.connect (() => {
+        signal_map[yearly_item.clicked.connect (() => {
             var _duedate = new Objects.DueDate ();
             _duedate.is_recurring = true;
             _duedate.recurrency_type = RecurrencyType.EVERY_YEAR;
             _duedate.recurrency_interval = 1;
             set_recurrency (_duedate);
             navigation_view.pop ();
-        });
+        })] = yearly_item;
 
-        none_item.clicked.connect (() => {
+        signal_map[none_item.clicked.connect (() => {
             var _duedate = new Objects.DueDate ();
             _duedate.is_recurring = false;
             _duedate.recurrency_type = RecurrencyType.NONE;
             _duedate.recurrency_interval = 0;
             set_recurrency (_duedate);
             navigation_view.pop ();
-        });
+        })] = none_item;
 
-        custom_item.clicked.connect (() => {
+        signal_map[custom_item.clicked.connect (() => {
             navigation_view.push (build_page ("repeat-config"));
 
             if (duedate != null) {
@@ -374,7 +379,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                 set_recurrency (_duedate);
                 navigation_view.pop_to_page (build_page ("main"));
             });
-        });
+        })] = custom_item;
 
         return new Adw.NavigationPage (build_toolbar_page (menu_box), _("Repeat"));
     }
@@ -513,5 +518,13 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         });
 
         return toolbar_view;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

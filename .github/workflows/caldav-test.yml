@@ -1,0 +1,62 @@
+name: CalDAV Integration Test
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  caldav-integration:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:13
+      options: --privileged
+    env:
+      CALDAV_URL: http://localhost:5232/
+      CALDAV_USER: testuser
+      CALDAV_PASS: testpass
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y sudo pipx git apache2-utils valac meson ninja-build gettext desktop-file-utils libgtk-4-dev libadwaita-1-dev libgee-0.8-dev libgranite-7-dev libjson-glib-dev libecal2.0-dev libsoup-3.0-dev libwebkitgtk-6.0-dev libgtksourceview-5-dev libportal-dev libportal-gtk4-dev libspelling-1-dev
+
+      - name: Install Radicale with pipx
+        run: |
+          pipx install radicale[bcrypt]
+
+      - name: Prepare Radicale config and users
+        run: |
+          mkdir -p /tmp/radicale/collections/testuser/
+          htpasswd -nbB testuser testpass > /tmp/radicale/users
+          cat <<EOF > /tmp/radicale/config
+          [auth]
+          type = htpasswd
+          htpasswd_filename = /tmp/radicale/users
+          htpasswd_encryption = autodetect
+          [storage]
+          filesystem_folder = /tmp/radicale/collections
+          EOF
+      - name: Start Radicale server
+        run: |
+          nohup /github/home/.local/bin/radicale --config /tmp/radicale/config &
+
+      - name: Configure and build
+        run: |
+          meson setup build || meson setup build --reconfigure
+          ninja -C build
+
+      - name: Run CalDAV integration test
+        run: |
+          meson test -C build --suite=caldav-integration --print-errorlogs
+
+      - name: Upload Meson test log
+        uses: actions/upload-artifact@v4
+        with:
+          name: meson-test-log
+          path: build/meson-logs/testlog.txt

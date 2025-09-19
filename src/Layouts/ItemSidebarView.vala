@@ -26,8 +26,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Gtk.Label parent_label;
     private Gtk.Revealer spinner_revealer;
     private Widgets.TextView content_textview;
-    private Widgets.Markdown.Buffer current_buffer;
-    private Widgets.Markdown.EditView markdown_edit_view = null;
+    private Widgets.Markdown.EditView markdown_edit_view;
     private Gtk.Revealer markdown_revealer;
     private Widgets.StatusButton status_button;
     private Widgets.ScheduleButton schedule_button;
@@ -45,8 +44,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Widgets.ContextMenu.MenuItem move_item;
 
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
-    public string update_id { get; set; default = Util.get_default ().generate_id (); }
-    private ulong description_handler_change_id = 0;
+    private Gee.HashMap<ulong, weak GLib.Object> markdown_handlerses = new Gee.HashMap<ulong, weak GLib.Object> ();
+
+    public string update_id { get; set; }
 
     public bool show_completed {
         get {
@@ -58,9 +58,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         var previous_icon = new Gtk.Image.from_icon_name ("go-previous-symbolic");
 
         parent_label = new Gtk.Label (null) {
-            css_classes = { "font-bold" },
             ellipsize = Pango.EllipsizeMode.END
         };
+        parent_label.add_css_class ("font-bold");
 
         var parent_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         parent_box.append (previous_icon);
@@ -68,9 +68,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         parent_back_button = new Gtk.Button () {
             child = parent_box,
-            css_classes = { "flat" },
             valign = Gtk.Align.CENTER
         };
+        parent_back_button.add_css_class ("flat");
 
         var close_button = new Gtk.Button.from_icon_name ("step-out-symbolic") {
             tooltip_text = _("Close Detail")
@@ -79,10 +79,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         var menu_button = new Gtk.MenuButton () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            popover = build_context_menu (),
-            icon_name = "view-more-symbolic",
-            css_classes = { "flat" }
+            icon_name = "view-more-symbolic"
         };
+        menu_button.popover = build_context_menu ();
+        menu_button.add_css_class ("flat");
 
         pin_button = new Widgets.PinButton ();
 
@@ -99,8 +99,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         var headerbar = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
             hexpand = true,
-            decoration_layout = ":",
-            css_classes = { "flat" }
+            decoration_layout = ":"
         };
 
         headerbar.pack_start (parent_back_button);
@@ -159,8 +158,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         properties_group.title = _("Properties");
         properties_group.add (properties_grid);
-
-        current_buffer = new Widgets.Markdown.Buffer ();
 
         markdown_revealer = new Gtk.Revealer ();
 
@@ -282,16 +279,16 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
     private void update_content_description () {
         if (item.content != content_textview.get_text () ||
-            item.description != current_buffer.get_all_text ().chomp ()) {
+            item.description != markdown_edit_view.get_all_text ().chomp ()) {
             item.content = content_textview.get_text ();
-            item.description = current_buffer.get_all_text ().chomp ();
+            item.description = markdown_edit_view.get_all_text ().chomp ();
             item.update_async_timeout (update_id);
         }
     }
 
     public void present_item (Objects.Item _item) {
         if (Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
-            disconnect_all ();
+            clean_up ();
         }
 
         item = _item;
@@ -351,19 +348,14 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         })] = item;
     }
 
-    public void disconnect_all () {
+    public void clean_up () {
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
-        if (description_handler_change_id != 0) {
-            current_buffer.disconnect (description_handler_change_id);
-            description_handler_change_id = 0;
-        }
-
         signals_map.clear ();
-        subitems.disconnect_all ();
-        attachments.disconnect_all ();
+        subitems.clean_up ();
+        attachments.clean_up ();
 
         destroy_markdown_edit_view ();
     }
@@ -371,18 +363,13 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     public void update_request () {
         content_textview.set_text (item.content);
 
-        if (description_handler_change_id != 0) {
-            current_buffer.disconnect (description_handler_change_id);
-            description_handler_change_id = 0;
+        destroy_markdown_signals ();
+
+        if (markdown_edit_view != null) {
+            markdown_edit_view.buffer.text = item.description;
         }
 
-        current_buffer.text = item.description;
-
-        if (description_handler_change_id == 0) {
-            description_handler_change_id = current_buffer.changed.connect (() => {
-                update_content_description ();
-            });
-        }
+        build_markdown_signals ();        
 
         schedule_button.update_from_item (item);
         priority_button.update_from_item (item);
@@ -591,7 +578,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
             item.checked = true;
             item.completed_at = new GLib.DateTime.now_local ().to_string ();
-            _complete_item (old_checked, old_completed_at);
+            _complete_item.begin (old_checked, old_completed_at);
         }
     }
 
@@ -642,15 +629,36 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             margin_start = 1,
             margin_end = 1
         };
-        markdown_edit_view.buffer = current_buffer;
 
+        markdown_edit_view.buffer.text = item.description;
         markdown_revealer.child = markdown_edit_view;
         markdown_revealer.reveal_child = true;
+
+        build_markdown_signals ();
+    }
+
+    private void build_markdown_signals () {
+        markdown_handlerses[markdown_edit_view.buffer.changed.connect (() => {
+            update_content_description ();
+        })] = markdown_edit_view.buffer;
     }
 
     private void destroy_markdown_edit_view () {
+        destroy_markdown_signals ();
         markdown_revealer.reveal_child = false;
-        markdown_revealer.child = null;
-        markdown_edit_view = null;
+
+        Timeout.add (markdown_revealer.transition_duration, () => {
+            markdown_revealer.child = null;
+            markdown_edit_view = null;
+            return GLib.Source.REMOVE;
+        });
+    }
+
+    private void destroy_markdown_signals () {
+        foreach (var entry in markdown_handlerses.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        markdown_handlerses.clear ();
     }
 }

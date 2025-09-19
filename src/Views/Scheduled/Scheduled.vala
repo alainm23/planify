@@ -26,6 +26,11 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
     private Gtk.ScrolledWindow scrolled_window;
 
     public Gee.HashMap<string, Layouts.ItemRow> items;
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
+    ~Scheduled () {
+        debug ("Destroying - Views.Scheduled.Scheduled\n");
+    }
 
     construct {
         items = new Gee.HashMap<string, Layouts.ItemRow> ();
@@ -61,7 +66,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         view_setting_overlay.add_overlay (indicator_revealer);
 
         var headerbar = new Layouts.HeaderBar () {
-            title = FilterType.SCHEDULED.get_name ()
+            title = Objects.Filters.Scheduled.get_default ().name
         };
         headerbar.pack_end (view_setting_overlay);
 
@@ -79,19 +84,16 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             child = listbox
         };
 
-        var title_icon = new Gtk.Image.from_icon_name (FilterType.SCHEDULED.get_icon ()) {
+        var title_icon = new Gtk.Image.from_icon_name (Objects.Filters.Scheduled.get_default ().icon_name) {
             pixel_size = 16,
             valign = CENTER,
             halign = CENTER,
             css_classes = { "view-icon" }
         };
 
-        Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
-        Services.EventBus.get_default ().theme_changed.connect (() => {
-            Util.get_default ().set_widget_color (FilterType.SCHEDULED.get_color (), title_icon);
-        });
+        Util.get_default ().set_widget_color (Objects.Filters.Scheduled.get_default ().theme_color (), title_icon);
 
-        var title_label = new Gtk.Label (FilterType.SCHEDULED.get_name ()) {
+        var title_label = new Gtk.Label (Objects.Filters.Scheduled.get_default ().name) {
             css_classes = { "font-bold", "title-2" },
             ellipsize = END,
             halign = START
@@ -158,13 +160,17 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         child = toolbar_view;
         add_days ();
 
-        magic_button.clicked.connect (() => {
+        signal_map[magic_button.clicked.connect (() => {
             prepare_new_item ();
-        });
+        })] = magic_button;
 
-        scrolled_window.vadjustment.value_changed.connect (() => {
+        signal_map[scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);
-        });
+        })] = scrolled_window.vadjustment;
+
+        signal_map[Services.EventBus.get_default ().theme_changed.connect (() => {
+            Util.get_default ().set_widget_color (Objects.Filters.Scheduled.get_default ().theme_color (), title_icon);
+        })] = Services.EventBus.get_default ();
     }
 
     private void add_days () {
@@ -207,14 +213,13 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
     }
 
     private Gtk.Popover build_view_setting_popover () {
-        var order_by_model = new Gee.ArrayList<string> ();
-        order_by_model.add (_("Due Date"));
-        order_by_model.add (_("Alphabetically"));
-        order_by_model.add (_("Date Added"));
-        order_by_model.add (_("Priority"));
-
-        var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "view-list-ordered-symbolic", order_by_model);
-        order_by_item.selected = Services.Settings.get_default ().settings.get_int ("scheduled-sort-order");
+        var sorted_by_item = new Widgets.ContextMenu.MenuPicker (_ ("Sorting"), "vertical-arrows-long-symbolic") {
+            selected = Services.Settings.get_default ().settings.get_string ("scheduled-sort-order")
+        };
+        sorted_by_item.add_item (_("Alphabetically"), SortedByType.NAME.to_string ());
+        sorted_by_item.add_item (_("Due Date"), SortedByType.DUE_DATE.to_string ());
+        sorted_by_item.add_item (_("Date Added"), SortedByType.ADDED_DATE.to_string ());
+        sorted_by_item.add_item (_("Priority"), SortedByType.PRIORITY.to_string ());
 
         // Filters
         var priority_items = new Gee.ArrayList<Objects.Filters.FilterItem> ();
@@ -252,7 +257,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (order_by_item);
+        menu_box.append (sorted_by_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (new Gtk.Label (_("Filter By")) {
             css_classes = { "caption", "font-bold" },
@@ -271,19 +276,19 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             width_request = 250
         };
 
-        order_by_item.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_int ("scheduled-sort-order", order_by_item.selected);
-        });
+        signal_map[sorted_by_item.notify["selected"].connect (() => {
+            Services.Settings.get_default ().settings.set_string ("scheduled-sort-order", sorted_by_item.selected);
+        })] = sorted_by_item;
 
-        priority_filter.filter_change.connect ((filter, active) => {
+        signal_map[priority_filter.filter_change.connect ((filter, active) => {
             if (active) {
                 Objects.Filters.Scheduled.get_default ().add_filter (filter);
             } else {
                 Objects.Filters.Scheduled.get_default ().remove_filter (filter);
             }
-        });
+        })] = signal_map;
 
-        labels_filter.activate_item.connect (() => {
+        signal_map[labels_filter.activate_item.connect (() => {
             Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
             foreach (Objects.Filters.FilterItem filter in Objects.Filters.Scheduled.get_default ().filters.values) {
                 if (filter.filter_type == FilterItemType.LABEL) {
@@ -292,11 +297,9 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             }
 
             var dialog = new Dialogs.LabelPicker ();
-            // TODO: dialog.add_labels (SourceType.ALL);
             dialog.labels = _labels;
-            dialog.present (Planify._instance.main_window);
 
-            dialog.labels_changed.connect ((labels) => {
+            signal_map[dialog.labels_changed.connect ((labels) => {
                 foreach (Objects.Label label in labels.values) {
                     var filter = new Objects.Filters.FilterItem ();
                     filter.filter_type = FilterItemType.LABEL;
@@ -318,9 +321,29 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
                 foreach (Objects.Filters.FilterItem filter in to_remove) {
                     Objects.Filters.Scheduled.get_default ().remove_filter (filter);
                 }
-            });
-        });
+            })] = dialog;
+            
+            dialog.present (Planify._instance.main_window);
+        })] = labels_filter;
 
         return popover;
+    }
+
+    public void clean_up () {
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            if (row is Views.Scheduled.ScheduledDay) {
+                ((Views.Scheduled.ScheduledDay) row).clean_up ();
+            } else if (row is Views.Scheduled.ScheduledMonth) {
+                ((Views.Scheduled.ScheduledMonth) row).clean_up ();
+            } else if (row is Views.Scheduled.ScheduledRange) {
+                ((Views.Scheduled.ScheduledRange) row).clean_up ();
+            }
+        }
+
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

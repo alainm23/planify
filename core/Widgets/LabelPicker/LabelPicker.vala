@@ -20,30 +20,23 @@
  */
 
 public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
-    private Widgets.LabelsPickerCore picker;
+    private Widgets.LabelsPickerCore labels_picker_core;
 
     public Gee.ArrayList<Objects.Label> labels {
         set {
-            picker.labels = value;
+            labels_picker_core.labels = value;
         }
     }
 
     public Objects.Source source {
         set {
-            picker.source = value;
+            labels_picker_core.source = value;
         }
     }
 
     public Gee.HashMap<string, Objects.Label> picked {
         get {
-            return picker.picked;
-        }
-    }
-
-
-    public bool search_visible {
-        set {
-            picker.search_visible = value;
+            return labels_picker_core.picked;
         }
     }
 
@@ -57,24 +50,32 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     }
 
     ~LabelPicker () {
-        print ("Destroying Widgets.LabelPicker.LabelPicker\n");
+        debug ("Destroying - Widgets.LabelPicker.LabelPicker\n");
     }
 
     construct {
         css_classes = { "popover-contents" };
 
-        picker = new Widgets.LabelsPickerCore (LabelPickerType.FILTER_AND_CREATE) {
+        labels_picker_core = new Widgets.LabelsPickerCore (LabelPickerType.FILTER_AND_CREATE) {
             margin_top = 12
         };
 
-        child = picker;
+        child = labels_picker_core;
 
-        picker.close.connect (() => {
+        labels_picker_core.close.connect (() => {
             popdown ();
+        });
+
+        destroy.connect (() => {
+            labels_picker_core.clean_up ();
         });
     }
 
     public void reset () {
-        picker.reset ();
+        labels_picker_core.reset ();
+    }
+
+    public void clean_up () {
+        labels_picker_core.clean_up ();
     }
 }

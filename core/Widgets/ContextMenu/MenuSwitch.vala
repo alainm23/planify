@@ -54,6 +54,8 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
 
     public signal void activate_item ();
 
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public MenuSwitch (string title, string ? icon = null) {
         Object (
             title: title,
@@ -61,11 +63,7 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
             hexpand: true
         );
     }
-
-    ~MenuSwitch () {
-        print ("Destroying Widgets.ContextMenu.MenuSwitch\n");
-    }
-
+    
     construct {
         add_css_class ("flat");
         add_css_class ("no-font-bold");
@@ -101,9 +99,19 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
 
         child = content_box;
 
-        clicked.connect (() => {
+        signals_map[clicked.connect (() => {
             switch_widget.active = !switch_widget.active;
             activate_item ();
+        })] = this;
+
+        destroy.connect (() => {
+            foreach (var entry in signals_map.entries) {
+                if (SignalHandler.is_connected (entry.value, entry.key)) {
+                    entry.value.disconnect (entry.key);
+                }
+            }
+
+            signals_map.clear ();
         });
     }
 }

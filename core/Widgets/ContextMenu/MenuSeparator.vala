@@ -19,7 +19,7 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Widgets.ContextMenu.MenuSeparator : Adw.Bin {
+public class Widgets.ContextMenu.MenuSeparator : Adw.Bin {    
     construct {
         child = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 6,

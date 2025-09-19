@@ -41,6 +41,10 @@ public class Widgets.CircularProgressBar : Adw.Bin {
         );
     }
 
+    ~CircularProgressBar () {
+        debug ("Destroying - Widgets.CircularProgressBar\n");
+    }
+
     construct {
         add_css_class ("circular-progress-bar");
 

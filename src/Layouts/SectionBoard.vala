@@ -33,7 +33,6 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
     private Gtk.Button load_more_button;
     private Gtk.Revealer load_more_button_revealer;
     private Gtk.Revealer checked_revealer;
-    private Widgets.LoadingButton add_button;
     private Gtk.Box content_box;
 
     public bool is_inbox_section {
@@ -44,7 +43,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
     public bool is_loading {
         set {
-            add_button.is_loading = value;
+            // add_button.is_loading = value;
         }
     }
 
@@ -86,19 +85,18 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
     }
 
     ~SectionBoard () {
-        print ("Destroying Layouts.SectionBoard\n");
+        debug ("Destroying - Layouts.SectionBoard\n");
     }
 
     construct {
         add_css_class ("no-selectable");
+        add_css_class ("no-padding");
 
         widget_color = new Gtk.Grid () {
             valign = Gtk.Align.CENTER,
             height_request = 16,
-            width_request = 16,
-            margin_end = 6,
-            margin_bottom = 2,
-            css_classes = { "circle-color" }
+            width_request = 3,
+            css_classes = { "event-bar" }
         };
 
         name_label = new Gtk.Label (section.name) {
@@ -114,15 +112,11 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         };
 
         var menu_button = new Gtk.MenuButton () {
+            hexpand = true,
+            halign = END,
             icon_name = "view-more-symbolic",
             popover = build_context_menu (),
             css_classes = { "flat" }
-        };
-
-        add_button = new Widgets.LoadingButton.with_icon ("plus-large-symbolic", 16) {
-            css_classes = { "flat" },
-            hexpand = true,
-            halign = END
         };
 
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
@@ -132,7 +126,6 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         header_box.append (widget_color);
         header_box.append (name_label);
         header_box.append (count_label);
-        header_box.append (add_button);
         header_box.append (menu_button);
 
         description_label = new Gtk.Label (section.description.strip ()) {
@@ -155,6 +148,23 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             css_classes = { "listbox-background", "drop-target-list" }
         };
 
+        var add_button_box = new Gtk.Box (HORIZONTAL, 6) {
+            valign = CENTER
+        };
+        add_button_box.append (new Gtk.Image.from_icon_name ("plus-large-symbolic") {
+            css_classes = { "color-primary" }
+        });
+        add_button_box.append (new Gtk.Label (_("Add tasks")));
+
+        var add_button = new Gtk.Button () {
+            child = add_button_box,
+            margin_top = 6,
+            margin_bottom = 6,
+            halign = START
+        };
+        add_button.add_css_class ("flat");
+        add_button.add_css_class ("add-button");
+
         checked_listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
             selection_mode = Gtk.SelectionMode.NONE,
@@ -162,7 +172,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             css_classes = { "listbox-background", "listbox-separator-3" }
         };
 
-        load_more_button = new Gtk.Button.with_label ("Cargar más") {
+        load_more_button = new Gtk.Button.with_label (_("Load more")) {
             halign = START,
         };
         load_more_button.add_css_class ("flat");
@@ -189,6 +199,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         };
 
         listbox_target.append (listbox);
+        listbox_target.append (add_button);
         listbox_target.append (checked_revealer);
 
         var items_scrolled = new Widgets.ScrolledWindow (listbox_target);
@@ -211,36 +222,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
         listbox.set_filter_func ((row) => {
             var item = ((Layouts.ItemBoard) row).item;
-            bool return_value = true;
-
-            if (section.project.filters.size <= 0) {
-                return true;
-            }
-
-            return_value = false;
-            foreach (Objects.Filters.FilterItem filter in section.project.filters.values) {
-                if (filter.filter_type == FilterItemType.PRIORITY) {
-                    return_value = return_value || item.priority == int.parse (filter.value);
-                } else if (filter.filter_type == FilterItemType.LABEL) {
-                    return_value = return_value || item.has_label (filter.value);
-                } else if (filter.filter_type == FilterItemType.DUE_DATE) {
-                    if (filter.value == "1") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_today (item.due.datetime));
-                    } else if (filter.value == "2") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_this_week (item.due.datetime));
-                    } else if (filter.value == "3") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_next_x_week (item.due.datetime, 7));
-                    } else if (filter.value == "4") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_this_month (item.due.datetime));
-                    } else if (filter.value == "5") {
-                        return_value = return_value || (item.has_due && Utils.Datetime.is_next_x_week (item.due.datetime, 30));
-                    } else if (filter.value == "6") {
-                        return_value = return_value || !item.has_due;
-                    }
-                }
-            }
-
-            return return_value;
+            return Utils.TaskUtils.items_filter_func (item, section.project.filters);
         });
 
         signals_map[listbox.row_selected.connect ((row) => {
@@ -296,9 +278,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
             if (checked_items_map.has_key (item.id_string)) {
                 checked_items_map[item.id_string].update_request ();
-            }
-
-            listbox.invalidate_filter ();
+            }     
         })] = Services.Store.instance ();
 
         signals_map[Services.Store.instance ().item_pin_change.connect ((item) => {
@@ -341,8 +321,12 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                 add_item (item);
             }
 
-            listbox.invalidate_filter ();
+            update_sort ();
         })] = Services.EventBus.get_default ();
+
+        signals_map[section.project.sorted_by_changed.connect (() => {
+            update_sort ();
+        })] = section.project;
 
         signals_map[section.project.sort_order_changed.connect (() => {
             update_sort ();
@@ -350,11 +334,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
         signals_map[Services.EventBus.get_default ().update_section_sort_func.connect ((project_id, section_id, value) => {
             if (section.project_id == project_id && section.id == section_id) {
-                if (value) {
-                    update_sort ();
-                } else {
-                    listbox.set_sort_func (null);
-                }
+               update_sort ();
             }
         })] = Services.EventBus.get_default ();
 
@@ -362,10 +342,6 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             // count_label.label = section.section_count.to_string ();
             // count_revealer.reveal_child = int.parse (count_label.label) > 0;
         })] = section;
-
-        signals_map[add_button.clicked.connect (() => {
-            prepare_new_item ();
-        })] = add_button;
 
         signals_map[Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id) => {
             if (_row is Layouts.ItemBoard) {
@@ -388,15 +364,15 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         })] = Services.EventBus.get_default ();
 
         signals_map[section.project.filter_added.connect (() => {
-            listbox.invalidate_filter ();
+            update_sort ();
         })] = section.project;
 
         signals_map[section.project.filter_removed.connect (() => {
-            listbox.invalidate_filter ();
+            update_sort ();
         })] = section.project;
 
         signals_map[section.project.filter_updated.connect (() => {
-            listbox.invalidate_filter ();
+            update_sort ();
         })] = section.project;
 
         signals_map[section.sensitive_change.connect (() => {
@@ -421,6 +397,14 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         signals_map[load_more_button.clicked.connect (() => {
             load_next_completed_page ();
         })] = load_more_button;
+
+        signals_map[add_button.clicked.connect (() => {
+            prepare_new_item ("", NewTaskPosition.END);
+        })] = add_button;
+
+        signals_map[section.project.source.sync_finished.connect (() => {
+            update_sort ();
+        })] = section.project.source;
     }
 
     private void update_request () {
@@ -445,12 +429,8 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
     }
 
     private void update_sort () {
-        if (section.project.sort_order == 0) {
-            listbox.set_sort_func (null);
-        } else {
-            listbox.set_sort_func (set_sort_func);
-        }
-
+        listbox.set_sort_func (set_sort_func);
+        listbox.set_sort_func (null);
         listbox.invalidate_filter ();
     }
 
@@ -458,42 +438,12 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         Objects.Item item1 = ((Layouts.ItemBoard) lbrow).item;
         Objects.Item item2 = ((Layouts.ItemBoard) lbbefore).item;
 
-        if (section.project.sort_order == 1) {
-            return item1.content.collate (item2.content);
-        }
-
-        if (section.project.sort_order == 2) {
-            if (item1.has_due && item2.has_due) {
-                var date1 = item1.due.datetime;
-                var date2 = item2.due.datetime;
-
-                return date1.compare (date2);
-            }
-
-            if (!item1.has_due && item2.has_due) {
-                return 1;
-            }
-
-            return 0;
-        }
-
-        if (section.project.sort_order == 3) {
-            return item1.added_datetime.compare (item2.added_datetime);
-        }
-
-        if (section.project.sort_order == 4) {
-            if (item1.priority < item2.priority) {
-                return 1;
-            }
-
-            if (item1.priority < item2.priority) {
-                return -1;
-            }
-
-            return 0;
-        }
-
-        return 0;
+        return Util.get_default ().set_item_sort_func (
+            item1,
+            item2,
+            section.project.sorted_by,
+            section.project.sort_order
+        );
     }
 
     public void add_item (Objects.Item item, int position = -1) {
@@ -510,12 +460,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         }
 
         items_map[item.id] = new Layouts.ItemBoard (item);
-
-        if (item.custom_order) {
-            listbox.insert (items_map[item.id], item.child_order);
-        } else {
-            listbox.append (items_map[item.id]);
-        }
+        listbox.append (items_map[item.id]);
 
         update_count_label (section_count);
     }
@@ -549,7 +494,15 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         }
 
         completed_items_list.sort ((a, b) => {
-            return b.completed_date.compare (a.completed_date);
+            var completed_a = Utils.Datetime.get_date_only (
+                Utils.Datetime.get_date_from_string (a.completed_at)
+            );
+
+            var completed_b = Utils.Datetime.get_date_only (
+                Utils.Datetime.get_date_from_string (b.completed_at)
+            );
+            
+            return completed_b.compare (completed_a);
         });
 
         completed_page_index = 0;
@@ -703,10 +656,11 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         return menu_popover;
     }
 
-    public void prepare_new_item (string content = "") {
+    public void prepare_new_item (string content = "", NewTaskPosition new_task_position = Services.Settings.get_default ().get_new_task_position ()) {
         var dialog = new Dialogs.QuickAdd ();
         dialog.for_base_object (section);
         dialog.update_content (content);
+        dialog.set_new_task_position (new_task_position);
         dialog.present (Planify._instance.main_window);
     }
 
@@ -739,7 +693,6 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         content_box.add_controller (drop_target);
         signals_map[drop_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
-
             picked_widget.drag_end ();
 
             string old_section_id = picked_widget.item.section_id;
@@ -772,26 +725,12 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
             listbox.append (picked_widget);
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
-            update_items_item_order (listbox);
+            
+            int new_index = (int32) Util.get_default ().get_children (listbox).length ();
+            Utils.TaskUtils.update_single_item_order (listbox, picked_widget, new_index);
 
             return true;
         })] = drop_target;
-    }
-
-    private void update_items_item_order (Gtk.ListBox listbox) {
-        unowned Layouts.ItemBoard ? item_row = null;
-        var row_index = 0;
-
-        do {
-            item_row = (Layouts.ItemBoard) listbox.get_row_at_index (row_index);
-
-            if (item_row != null) {
-                item_row.item.child_order = row_index;
-                Services.Store.instance ().update_item (item_row.item);
-            }
-
-            row_index++;
-        } while (item_row != null);
     }
 
     public void hide_destroy () {
@@ -807,9 +746,12 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         listbox.set_sort_func (null);
         listbox.set_filter_func (null);
 
-        // Remove Items
-        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
-            ((Layouts.ItemBoard) child).hide_destroy ();
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            ((Layouts.ItemBoard) row).clean_up ();
+        }
+
+        foreach (var row in Util.get_default ().get_children (checked_listbox)) {
+            ((Layouts.ItemBoard) row).clean_up ();
         }
 
         // Clean Signals

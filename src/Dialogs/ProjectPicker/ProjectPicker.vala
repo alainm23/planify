@@ -97,7 +97,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
     }
 
     ~ProjectPicker () {
-        print ("Destroying Dialogs.ProjectPicker.ProjectPicker\n");
+        debug ("Destroying Dialogs.ProjectPicker.ProjectPicker\n");
     }
 
     construct {
@@ -184,6 +184,14 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
 
             signal_map.clear ();
 
+            if (inbox_group != null) {
+                foreach (Gtk.ListBoxRow row in inbox_group.get_children ()) {
+                    ((Dialogs.ProjectPicker.ProjectPickerRow) row).clean_up ();
+                }
+
+                inbox_group.clear ();
+            }
+
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
@@ -262,7 +270,6 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
         no_section.id = "";
 
         sections_listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (no_section));
-
         foreach (Objects.Section section in sections) {
             sections_listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (section));
         }

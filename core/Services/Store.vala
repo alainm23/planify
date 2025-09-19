@@ -61,6 +61,8 @@ public class Services.Store : GLib.Object {
 
     public signal void attachment_deleted (Objects.Attachment attachment);
 
+    private Gee.HashMap<string, Gee.ArrayList<Objects.Item> > _items_by_project_cache = new Gee.HashMap<string, Gee.ArrayList<Objects.Item> > ();
+
     Gee.ArrayList<Objects.Source> _sources = null;
     public Gee.ArrayList<Objects.Source> sources {
         get {
@@ -364,6 +366,20 @@ public class Services.Store : GLib.Object {
         }
     }
 
+    public Objects.Project get_project_via_url (string calendar_url) {
+        Objects.Project ? return_value = null;
+        lock (_projects) {
+            foreach (var project in projects) {
+                if (project.calendar_url == calendar_url) {
+                    return_value = project;
+                    break;
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public Gee.ArrayList<Objects.Project> get_subprojects (Objects.Project _project) {
         Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
         lock (_projects) {
@@ -422,6 +438,9 @@ public class Services.Store : GLib.Object {
 
     public void move_section (Objects.Section section, string old_project_id) {
         if (Services.Database.get_default ().move_section (section, old_project_id)) {
+            _items_by_project_cache.unset (old_project_id);
+            _items_by_project_cache.unset (section.project_id);
+
             if (Services.Database.get_default ().move_section_items (section)) {
                 foreach (Objects.Item item in section.items) {
                     item.project_id = section.project_id;
@@ -512,6 +531,7 @@ public class Services.Store : GLib.Object {
 
     public void insert_item (Objects.Item item, bool insert = true) {
         if (Services.Database.get_default ().insert_item (item, insert)) {
+            _items_by_project_cache.unset (item.project_id);
             add_item (item, insert);
         }
     }
@@ -531,8 +551,6 @@ public class Services.Store : GLib.Object {
                 }
             }
         }
-
-        Services.EventBus.get_default ().update_items_position (item.project_id, item.section_id);
     }
 
     public void update_item (Objects.Item item, string update_id = "") {
@@ -554,6 +572,8 @@ public class Services.Store : GLib.Object {
 
     public void delete_item (Objects.Item item) {
         if (Services.Database.get_default ().delete_item (item)) {
+            _items_by_project_cache.unset (item.project_id);
+
             foreach (Objects.Item subitem in get_subitems (item)) {
                 delete_item (subitem);
             }
@@ -569,8 +589,11 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public void move_item (Objects.Item item, string old_section_id = "", string old_parent_id = "") {
+    public void move_item (Objects.Item item, string old_project_id = "", string old_section_id = "", string old_parent_id = "") {
         if (Services.Database.get_default ().move_item (item)) {
+            _items_by_project_cache.unset (old_project_id);
+            _items_by_project_cache.unset (item.project_id);
+
             foreach (Objects.Item subitem in get_subitems (item)) {
                 subitem.project_id = item.project_id;
                 move_item (subitem);
@@ -586,6 +609,8 @@ public class Services.Store : GLib.Object {
 
     public void complete_item (Objects.Item item, bool old_checked, bool complete_subitems = true) {
         if (Services.Database.get_default ().complete_item (item, old_checked)) {
+            _items_by_project_cache.unset (item.project_id);
+
             if (complete_subitems) {
                 foreach (Objects.Item subitem in get_subitems (item)) {
                     subitem.checked = item.checked;
@@ -668,13 +693,15 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public Objects.Item get_item_by_ics (string ics) {
+    public Objects.Item get_item_by_ical_url (string ical_url) {
         Objects.Item ? return_value = null;
         lock (_items) {
             foreach (var item in items) {
-                if (item.ics == ics) {
-                    return_value = item;
-                    break;
+                if (item.source.source_type == SourceType.CALDAV) {
+                    if (item.ical_url == ical_url) {
+                        return_value = item;
+                        break;
+                    }
                 }
             }
 
@@ -682,7 +709,7 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public Gee.ArrayList<Objects.Item> get_item_by_baseobject (Objects.BaseObject object) {
+    public Gee.ArrayList<Objects.Item> get_items_by_baseobject (Objects.BaseObject object) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (var item in items) {
@@ -694,6 +721,12 @@ public class Services.Store : GLib.Object {
 
                 if (object is Objects.Section) {
                     if (item.section_id == object.id && !item.has_parent) {
+                        return_value.add (item);
+                    }
+                }
+
+                if (object is Objects.Item) {
+                    if (item.parent_id == object.id) {
                         return_value.add (item);
                     }
                 }
@@ -756,16 +789,17 @@ public class Services.Store : GLib.Object {
     }
 
     public Gee.ArrayList<Objects.Item> get_items_by_project (Objects.Project project) {
-        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
-        lock (_items) {
-            foreach (Objects.Item item in items) {
-                if (item.exists_project (project)) {
-                    return_value.add (item);
+        if (!_items_by_project_cache.has_key (project.id)) {
+            var filtered_items = new Gee.ArrayList<Objects.Item> ();
+            foreach (var item in items) {
+                if (item.project_id == project.id) {
+                    filtered_items.add (item);
                 }
             }
-
-            return return_value;
+            _items_by_project_cache[project.id] = filtered_items;
         }
+
+        return _items_by_project_cache[project.id];
     }
 
     public Gee.ArrayList<Objects.Item> get_items_by_project_pinned (Objects.Project project) {
@@ -1079,7 +1113,7 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public Objects.Label ? get_label_by_name (string name, bool lowercase = false, string source_id) {
+    public Objects.Label ? get_label_by_name (string name, bool lowercase = false, string source_id = "") {
         lock (_labels) {
             string compare_name = lowercase ? name.down () : name;
 

@@ -144,7 +144,6 @@ public class Objects.Source : Objects.BaseObject {
     }
 
     private void _run_server () {
-        print ("Syncing %s\n", display_name);
         if (source_type == SourceType.TODOIST) {
             Services.Todoist.get_default ().sync.begin (this);
         } else if (source_type == SourceType.CALDAV) {
@@ -178,12 +177,22 @@ public class Objects.Source : Objects.BaseObject {
             DATA: %s
             TYPE: %s
             SYNC_SERVER: %s
+            DISPLAY_NAME: %s
+            UPDATED_AT: %s
+            IS_VISIBLE: %s
+            CHILD_ORDER: %d
+            LAST_SYNC: %s
         ---------------------------------
         """.printf (
             id,
             data.to_json (),
             source_type.to_string (),
-            sync_server.to_string ()
+            sync_server.to_string (),
+            display_name,
+            updated_at,
+            is_visible.to_string (),
+            child_order,
+            last_sync
         );
     }
 }
@@ -290,12 +299,45 @@ public class Objects.SourceTodoistData : Objects.SourceData {
 }
 
 public class Objects.SourceCalDAVData : Objects.SourceData {
-    public string server_url { get; set; default = ""; }
+    string _server_url;
+    public string server_url {
+        set {
+            _server_url = value;
+        }
+
+        get {
+            if (!_server_url.has_suffix ("/")) {
+                _server_url += "/";
+            }
+
+            return _server_url;
+        }
+    }
     public string username { get; set; default = ""; }
-    public string credentials { get; set; default = ""; }
+    public string password { get; set; default = ""; }
     public string user_displayname { get; set; default = ""; }
     public string user_email { get; set; default = ""; }
-    public CalDAVType caldav_type { get; set; default = CalDAVType.NEXTCLOUD; }
+
+    string _calendar_home_url;
+    public string calendar_home_url {
+        set {
+            _calendar_home_url = value;
+        }
+
+        get {
+            if (_calendar_home_url == null || _calendar_home_url == "") {
+                _calendar_home_url = Path.build_filename (server_url, "calendars", username);
+                if (!_calendar_home_url.has_suffix ("/")) {
+                    _calendar_home_url += "/";
+                }
+            }
+
+            return _calendar_home_url;
+        }
+    }
+    
+    public CalDAVType caldav_type { get; set; default = CalDAVType.GENERIC; }
+    public bool ignore_ssl { get; set; default = false; }
 
     public SourceCalDAVData.from_json (string json) {
         Json.Parser parser = new Json.Parser ();
@@ -312,8 +354,8 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
                 username = object.get_string_member ("username");
             }
 
-            if (object.has_member ("credentials")) {
-                credentials = object.get_string_member ("credentials");
+            if (object.has_member ("password")) {
+                password = object.get_string_member ("password");
             }
 
             if (object.has_member ("user_displayname")) {
@@ -324,8 +366,25 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
                 user_email = object.get_string_member ("user_email");
             }
 
+            if (object.has_member ("calendar_home_url")) {
+                calendar_home_url = object.get_string_member ("calendar_home_url");
+            }
+
             if (object.has_member ("caldav_type")) {
                 caldav_type = CalDAVType.parse (object.get_string_member ("caldav_type"));
+            }
+
+            if (object.has_member ("ignore_ssl")) {
+                ignore_ssl = object.get_boolean_member ("ignore_ssl");
+            }
+
+            if (object.has_member ("credentials")) {
+                var decoded = (string) Base64.decode (object.get_string_member ("credentials"));
+
+                var parts = decoded.split (":", 2);
+                if (parts.length == 2) {
+                    password = parts[1];
+                }
             }
         } catch (Error e) {
             debug (e.message);
@@ -343,8 +402,8 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
         builder.set_member_name ("username");
         builder.add_string_value (username);
 
-        builder.set_member_name ("credentials");
-        builder.add_string_value (credentials);
+        builder.set_member_name ("password");
+        builder.add_string_value (password);
 
         builder.set_member_name ("caldav_type");
         builder.add_string_value (caldav_type.to_string ());
@@ -354,6 +413,12 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
 
         builder.set_member_name ("user_email");
         builder.add_string_value (user_email);
+
+        builder.set_member_name ("calendar_home_url");
+        builder.add_string_value (calendar_home_url);
+
+        builder.set_member_name ("ignore_ssl");
+        builder.add_boolean_value (ignore_ssl);
 
         builder.end_object ();
 

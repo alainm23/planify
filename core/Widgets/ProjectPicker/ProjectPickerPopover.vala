@@ -31,6 +31,8 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         }
     }
 
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public ProjectPickerPopover () {
         Object (
             height_request: 300,
@@ -38,6 +40,10 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
             has_arrow: false,
             position: Gtk.PositionType.BOTTOM
         );
+    }
+
+    ~ProjectPickerPopover () {
+        debug ("Destroying - Widgets.ProjectPicker.ProjectPickerPopover\n");
     }
 
     construct {
@@ -66,7 +72,11 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
 
         listbox.set_sort_func (sort_source_function);
         listbox.set_header_func (header_project_function);
-
+        listbox.set_filter_func ((row) => {
+            var project = ((Widgets.ProjectPicker.ProjectPickerRow) row).project;
+            return search_entry.text.down () in project.name.down ();
+        });
+        
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
@@ -81,24 +91,19 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         child = toolbar_view;
         add_projects ();
 
-        search_entry.search_changed.connect (() => {
+        signal_map[search_entry.search_changed.connect (() => {
             scrolled_window.vadjustment.value = 0;
             listbox.invalidate_filter ();
-        });
+        })] = search_entry;
 
-        listbox.set_filter_func ((row) => {
-            var project = ((Widgets.ProjectPicker.ProjectPickerRow) row).project;
-            return search_entry.text.down () in project.name.down ();
-        });
-
-        listbox.row_activated.connect ((row) => {
+        signal_map[listbox.row_activated.connect ((row) => {
             selected (((Widgets.ProjectPicker.ProjectPickerRow) row).project);
             popdown ();
-        });
+        })] = listbox;
 
         var listbox_controller_key = new Gtk.EventControllerKey ();
         listbox.add_controller (listbox_controller_key);
-        listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             var key = Gdk.keyval_name (keyval).replace ("KP_", "");
 
             if (key == "Up" || key == "Down") {
@@ -113,17 +118,17 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
             }
 
             return false;
-        });
+        })] = listbox_controller_key;
 
         var search_entry_ctrl_key = new Gtk.EventControllerKey ();
         search_entry.add_controller (search_entry_ctrl_key);
-        search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
+        signal_map[search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 popdown ();
             }
 
             return false;
-        });
+        })] = search_entry_ctrl_key;
     }
 
     private void add_projects () {
@@ -135,10 +140,10 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
     private Gtk.Widget build_project_row (Objects.Project project) {
         var row = new Widgets.ProjectPicker.ProjectPickerRow (project);
 
-        row.selected.connect (() => {
+        signal_map[row.selected.connect (() => {
             selected (row.project);
             popdown ();
-        });
+        })] = row;
 
         return row;
     }
@@ -189,5 +194,21 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         header_box.append (header_separator);
 
         return header_box;
+    }
+
+    public void clean_up () {
+        listbox.set_sort_func (null);
+        listbox.set_header_func (null);
+        listbox.set_filter_func (null);
+
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
+            ((Widgets.ProjectPicker.ProjectPickerRow) child).clean_up ();
+        }
     }
 }

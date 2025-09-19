@@ -19,7 +19,7 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Dialogs.Preferences.Pages.Appearance : Adw.Bin {
+public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.BasePage {
     private Gtk.Switch system_appearance_switch;
     private Adw.ActionRow light_row;
     private Adw.ActionRow dark_row;
@@ -29,16 +29,19 @@ public class Dialogs.Preferences.Pages.Appearance : Adw.Bin {
     private Gtk.CheckButton blue_radio;
     private Adw.PreferencesGroup theme_group;
     private Gtk.Revealer placeholder_revealer;
-
-    public signal void pop_subpage ();
-
+    
+    public Appearance (Adw.PreferencesDialog preferences_dialog) {
+        Object (
+            preferences_dialog: preferences_dialog,
+            title: _("Appearance")
+        );
+    }
+    
     ~Appearance () {
-        print ("Destroying Dialogs.Preferences.Pages.Appearance\n");
+        debug ("Destroying - Dialogs.Preferences.Pages.Appearance\n");
     }
 
     construct {
-        var settings_header = new Dialogs.Preferences.SettingsHeader (_("Appearance"));
-
         system_appearance_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
             active = Services.Settings.get_default ().settings.get_boolean ("system-appearance")
@@ -174,33 +177,33 @@ public class Dialogs.Preferences.Pages.Appearance : Adw.Bin {
         var toolbar_view = new Adw.ToolbarView () {
             content = content_clamp
         };
-        toolbar_view.add_top_bar (settings_header);
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
 
         child = toolbar_view;
         verify_theme ();
 
-        system_appearance_switch.notify["active"].connect (() => {
+        signal_map[system_appearance_switch.notify["active"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("system-appearance",
                                                                    system_appearance_switch.active);
-        });
+        })] = system_appearance_switch;
 
-        light_radio.activate.connect (() => {
+        signal_map[light_radio.activate.connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("dark-mode", false);
             Services.Settings.get_default ().settings.set_enum ("appearance", 0);
-        });
+        })] = light_radio;
 
-        dark_radio.activate.connect (() => {
+        signal_map[dark_radio.activate.connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("dark-mode", true);
             Services.Settings.get_default ().settings.set_enum ("appearance", 1);
-        });
+        })] = dark_radio;
 
-        blue_radio.activate.connect (() => {
+        signal_map[blue_radio.activate.connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("dark-mode", true);
             Services.Settings.get_default ().settings.set_enum ("appearance", 2);
-        });
+        })] = blue_radio;
         
         uint update_timeout_id = 0;
-        font_size_scale.value_changed.connect (() => {
+        signal_map[font_size_scale.value_changed.connect (() => {
             if (update_timeout_id != 0) {
                 GLib.Source.remove (update_timeout_id);
             }
@@ -210,13 +213,13 @@ public class Dialogs.Preferences.Pages.Appearance : Adw.Bin {
                 Services.Settings.get_default ().settings.set_double ("font-scale", font_size_scale.get_value ());
                 return GLib.Source.REMOVE;
             });
-        });
+        })] = font_size_scale;
 
-        Services.Settings.get_default ().settings.changed["system-appearance"].connect (verify_theme);
-        Services.Settings.get_default ().settings.changed["dark-mode"].connect (verify_theme);
+        signal_map[Services.Settings.get_default ().settings.changed["system-appearance"].connect (verify_theme)] = Services.Settings.get_default ();
+        signal_map[Services.Settings.get_default ().settings.changed["dark-mode"].connect (verify_theme)] = Services.Settings.get_default ();
 
-        settings_header.back_activated.connect (() => {
-            pop_subpage ();
+        destroy.connect (() => {
+            clean_up ();
         });
     }
 
@@ -269,5 +272,13 @@ public class Dialogs.Preferences.Pages.Appearance : Adw.Bin {
         }
 
         return true;
+    }
+
+    public override void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

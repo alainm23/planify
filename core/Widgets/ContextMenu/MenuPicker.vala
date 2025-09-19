@@ -22,34 +22,38 @@
 public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
     public string title { get; construct; }
     public string ? icon { get; construct; }
-    public Gee.ArrayList<string> items_list { get; construct; }
 
     private Gtk.Image menu_icon;
     private Gtk.Revealer menu_icon_revealer;
     private Gtk.Label menu_title;
+    private Gtk.Label value_label;
     private Gtk.ListBox listbox;
+    private Gtk.CheckButton group_radio = new Gtk.CheckButton ();
 
-    public Gee.HashMap<int, Widgets.ContextMenu.MenuItemPicker> items_map = new Gee.HashMap<int, Widgets.ContextMenu.MenuItemPicker> ();
-
-    public int _selected;
-    public int selected {
+    public string _selected;
+    public string selected {
         get {
             return _selected;
         }
 
         set {
             _selected = value;
-            items_map[_selected].active = true;
+            update_selected (_selected);
         }
     }
 
-    public MenuPicker (string title, string ? icon = null, Gee.ArrayList<string> items_list) {
+    private Gee.HashMap<string, MenuItemPicker> item_map = new Gee.HashMap<string, MenuItemPicker> ();
+
+    public MenuPicker (string title, string ? icon = null) {
         Object (
             title: title,
             icon: icon,
-            items_list: items_list,
             hexpand: true
         );
+    }
+
+    ~MenuPicker () {
+        debug ("Destroying - Widgets.ContextMenu.MenuPicker\n");
     }
 
     construct {
@@ -71,6 +75,12 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
         menu_title = new Gtk.Label (title);
         menu_title.use_markup = true;
 
+        value_label = new Gtk.Label (null) {
+            ellipsize = END
+        };
+        value_label.add_css_class ("dimmed");
+        value_label.add_css_class ("caption");
+
         var arrow_icon = new Gtk.Image () {
             gicon = new ThemedIcon ("go-next-symbolic"),
             pixel_size = 16,
@@ -80,13 +90,20 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
         arrow_icon.add_css_class ("transition");
         arrow_icon.add_css_class ("hidden-button");
 
+        var end_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            hexpand = true,
+            halign = END
+        };
+        end_box.append (value_label);
+        end_box.append (arrow_icon);
+
         var itemselector_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true
         };
 
         itemselector_grid.append (menu_icon_revealer);
         itemselector_grid.append (menu_title);
-        itemselector_grid.append (arrow_icon);
+        itemselector_grid.append (end_box);
 
         var button = new Gtk.Button ();
         button.child = itemselector_grid;
@@ -111,7 +128,6 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
         main_grid.append (listbox_revealer);
 
         child = main_grid;
-        _build_list ();
 
         button.clicked.connect (() => {
             listbox_revealer.reveal_child = !listbox_revealer.reveal_child;
@@ -123,87 +139,98 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
         });
     }
 
-    public void update_selected (int index) {
-        items_map[index].active = true;
+    public void update_selected (string value) {
+        if (item_map.has_key (value)) {
+            item_map[value].active = true;
+            value_label.label = item_map[value].title;
+        }
     }
 
-    private void _build_list () {
-        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
-            listbox.remove (child);
+    public void add_item (string title, string value) {
+        if (item_map.has_key (value)) {
+            return;
         }
 
-        var group = new Gtk.CheckButton ();
-        var index = 0;
-        foreach (string item in items_list) {
-            items_map[index] = new Widgets.ContextMenu.MenuItemPicker (item, group);
+        var row = new MenuItemPicker (title, value) {
+            group = group_radio
+        };
 
-            items_map[index].selected.connect ((i) => {
-                selected = i;
+        if (value == selected) {
+            row.active = true;
+            value_label.label = title;
+        }
+
+        row.selected.connect ((value) => {
+            selected = value;
+        });
+
+        item_map[value] = row;
+        listbox.append (item_map[value]);
+    }
+
+    public class MenuItemPicker : Gtk.ListBoxRow {
+        public string title { get; construct; }
+        public string value { get; construct; }
+
+        private Gtk.CheckButton radio_button;
+
+        public bool active {
+            set {
+                radio_button.active = value;
+            }
+
+            get {
+                return radio_button.active;
+            }
+        }
+
+        public Gtk.CheckButton group {
+            set {
+                radio_button.group = value;
+            }
+        }
+
+        public signal void selected (string value);
+
+        public MenuItemPicker (string title, string value) {
+            Object (
+                title: title,
+                value: value
+            );
+        }
+
+        construct {
+            add_css_class ("border-radius-6");
+            add_css_class ("transition");
+
+            radio_button = new Gtk.CheckButton.with_label (title) {
+                hexpand = true,
+                focus_on_click = false
+            };
+
+            radio_button.add_css_class ("checkbutton-label");
+
+            var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+                margin_top = 3,
+                margin_start = 3,
+                margin_end = 3,
+                margin_bottom = 3
+            };
+
+            content_box.append (radio_button);
+            child = content_box;
+
+            var gesture = new Gtk.GestureClick ();
+            radio_button.add_controller (gesture);
+            gesture.pressed.connect (() => {
+                radio_button.active = !radio_button.active;
+                selected (value);
             });
 
-            listbox.append (items_map[index]);
-            index++;
+            activate.connect (() => {
+                radio_button.active = !radio_button.active;
+                selected (value);
+            });
         }
-    }
-}
-
-public class Widgets.ContextMenu.MenuItemPicker : Gtk.ListBoxRow {
-    public string title { get; construct; }
-    public Gtk.CheckButton group { get; construct; }
-
-    private Gtk.CheckButton radio_button;
-
-    public bool active {
-        set {
-            radio_button.active = value;
-        }
-
-        get {
-            return radio_button.active;
-        }
-    }
-
-    public signal void selected (int index);
-
-    public MenuItemPicker (string title, Gtk.CheckButton group) {
-        Object (
-            title: title,
-            group: group
-        );
-    }
-
-    construct {
-        add_css_class ("border-radius-6");
-        add_css_class ("transition");
-
-        radio_button = new Gtk.CheckButton.with_label (title) {
-            hexpand = true,
-            focus_on_click = false,
-            group = group
-        };
-
-        radio_button.add_css_class ("checkbutton-label");
-
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_top = 3,
-            margin_start = 3,
-            margin_end = 3,
-            margin_bottom = 3
-        };
-
-        content_box.append (radio_button);
-        child = content_box;
-
-        var gesture = new Gtk.GestureClick ();
-        radio_button.add_controller (gesture);
-        gesture.pressed.connect (() => {
-            radio_button.active = !radio_button.active;
-            selected (get_index ());
-        });
-
-        activate.connect (() => {
-            radio_button.active = !radio_button.active;
-            selected (get_index ());
-        });
     }
 }

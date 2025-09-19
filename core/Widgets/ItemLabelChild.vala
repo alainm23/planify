@@ -19,11 +19,13 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
+public class Widgets.ItemLabelChild : Adw.Bin {
     public Objects.Label label { get; construct; }
 
     private Gtk.Label name_label;
     private Gtk.Revealer main_revealer;
+
+    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
     public ItemLabelChild (Objects.Label label) {
         Object (
@@ -32,11 +34,15 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
         );
     }
 
+    ~ItemLabelChild () {
+        debug ("Destroying - Widgets.ItemLabelChild\n");
+    }
+
     construct {
         add_css_class ("item-label-child");
 
         name_label = new Gtk.Label (null);
-        name_label.valign = Gtk.Align.CENTER;
+        name_label.valign = CENTER;
         name_label.add_css_class ("caption");
 
         var labelrow_grid = new Adw.Bin () {
@@ -44,7 +50,7 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
         };
 
         main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            transition_type = SLIDE_RIGHT,
             child = labelrow_grid
         };
 
@@ -56,11 +62,15 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
             return GLib.Source.REMOVE;
         });
 
-        label.deleted.connect (() => {
+        signal_map[label.deleted.connect (() => {
             hide_destroy ();
-        });
+        })] = label;
 
-        label.updated.connect (update_request);
+        signal_map[label.updated.connect (update_request)] = label;
+
+        destroy.connect (() => {
+            clean_up ();
+        });
     }
 
     public void update_request () {
@@ -71,8 +81,21 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
     public void hide_destroy () {
         main_revealer.reveal_child = false;
         Timeout.add (main_revealer.transition_duration, () => {
-            ((Gtk.FlowBox) parent).remove (this);
+            if (parent is Gtk.Box) {
+                ((Gtk.Box) parent).remove (this);
+            } else if (parent is Adw.WrapBox) {
+                ((Adw.WrapBox) parent).remove (this);
+            }
+
             return GLib.Source.REMOVE;
         });
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

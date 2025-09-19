@@ -35,8 +35,8 @@ public class Views.Today : Adw.Bin {
     private Gtk.Revealer indicator_revealer;
     private Widgets.ContextMenu.MenuCheckPicker priority_filter;
 
-    public Gee.HashMap<string, Layouts.ItemRow> overdue_items;
-    public Gee.HashMap<string, Layouts.ItemRow> items;
+    public Gee.HashMap<string, Layouts.ItemRow> overdue_items = new Gee.HashMap<string, Layouts.ItemRow> ();
+    public Gee.HashMap<string, Layouts.ItemRow> items = new Gee.HashMap<string, Layouts.ItemRow> ();
 
     public GLib.DateTime date { get; set; default = new GLib.DateTime.now_local (); }
 
@@ -52,10 +52,13 @@ public class Views.Today : Adw.Bin {
         }
     }
 
-    construct {
-        overdue_items = new Gee.HashMap<string, Layouts.ItemRow> ();
-        items = new Gee.HashMap<string, Layouts.ItemRow> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
+    ~Today () {
+        debug ("Destroying - Today View\n");
+    }
+
+    construct {
         var indicator_grid = new Gtk.Grid () {
             width_request = 9,
             height_request = 9,
@@ -87,20 +90,20 @@ public class Views.Today : Adw.Bin {
         view_setting_overlay.add_overlay (indicator_revealer);
 
         headerbar = new Layouts.HeaderBar () {
-            title = FilterType.TODAY.get_name ()
+            title = Objects.Filters.Today.get_default ().name
         };
         headerbar.pack_end (view_setting_overlay);
 
-        var today_icon = new Gtk.Image.from_icon_name (FilterType.TODAY.get_icon ()) {
+        var today_icon = new Gtk.Image.from_icon_name (Objects.Filters.Today.get_default ().icon_name) {
             pixel_size = 16,
             valign = CENTER,
             halign = CENTER,
             css_classes = { "view-icon" }
         };
 
-        Util.get_default ().set_widget_color (FilterType.TODAY.get_color (), today_icon);
+        Util.get_default ().set_widget_color (Objects.Filters.Today.get_default ().theme_color (), today_icon);
 
-        title_label = new Gtk.Label (FilterType.TODAY.get_name ()) {
+        title_label = new Gtk.Label (Objects.Filters.Today.get_default ().name) {
             css_classes = { "font-bold", "title-2" },
             ellipsize = END,
             halign = START,
@@ -305,19 +308,19 @@ public class Views.Today : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        Services.EventBus.get_default ().day_changed.connect (() => {
+        signal_map[Services.EventBus.get_default ().day_changed.connect (() => {
             date = new GLib.DateTime.now_local ();
             update_today_label ();
             add_today_items ();
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.Store.instance ().item_added.connect (valid_add_item);
-        Services.Store.instance ().item_deleted.connect (valid_delete_item);
-        Services.Store.instance ().item_updated.connect (valid_update_item);
-        Services.Store.instance ().item_archived.connect (valid_delete_item);
-        Services.Store.instance ().item_unarchived.connect (valid_add_item);
+        signal_map[Services.Store.instance ().item_added.connect (valid_add_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_deleted.connect (valid_delete_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_updated.connect (valid_update_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_archived.connect (valid_delete_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_unarchived.connect (valid_add_item)] = Services.Store.instance ();
 
-        Services.EventBus.get_default ().item_moved.connect ((item) => {
+        signal_map[Services.EventBus.get_default ().item_moved.connect ((item) => {
             // Handle existing items that may no longer belong in Today view
             if (items.has_key (item.id)) {
                 if (Services.Store.instance ().valid_item_by_date (item, date, false)) {
@@ -355,21 +358,21 @@ public class Views.Today : Adw.Bin {
             check_placeholder ();
             listbox.invalidate_filter ();
             overdue_listbox.invalidate_filter ();
-        });
+        })] = Services.EventBus.get_default ();
 
-        magic_button.clicked.connect (() => {
+        signal_map[magic_button.clicked.connect (() => {
             prepare_new_item ();
-        });
+        })] = magic_button;
 
-        event_list.change.connect (() => {
+        signal_map[event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;
-        });
+        })] = event_list;
 
-        Services.Settings.get_default ().settings.changed["today-sort-order"].connect (() => {
+        signal_map[Services.Settings.get_default ().settings.changed["today-sort-order"].connect (() => {
             listbox.invalidate_sort ();
             overdue_listbox.invalidate_sort ();
             check_default_view ();
-        });
+        })] = Services.Settings.get_default ().settings;
 
         listbox.set_filter_func ((row) => {
             var item = ((Layouts.ItemRow) row).item;
@@ -411,30 +414,30 @@ public class Views.Today : Adw.Bin {
             return return_value;
         });
 
-        Objects.Filters.Today.get_default ().filter_added.connect (() => {
+        signal_map[Objects.Filters.Today.get_default ().filter_added.connect (() => {
             listbox.invalidate_filter ();
             overdue_listbox.invalidate_filter ();
-        });
+        })] = Objects.Filters.Today.get_default ();
 
-        Objects.Filters.Today.get_default ().filter_removed.connect (() => {
+        signal_map[Objects.Filters.Today.get_default ().filter_removed.connect (() => {
             listbox.invalidate_filter ();
             overdue_listbox.invalidate_filter ();
-        });
+        })] = Objects.Filters.Today.get_default ();
 
-        Objects.Filters.Today.get_default ().filter_updated.connect (() => {
+        signal_map[Objects.Filters.Today.get_default ().filter_updated.connect (() => {
             listbox.invalidate_filter ();
             overdue_listbox.invalidate_filter ();
-        });
+        })] = Objects.Filters.Today.get_default ();
 
-        reschedule_button.duedate_changed.connect (() => {
+        signal_map[reschedule_button.duedate_changed.connect (() => {
             foreach (unowned Gtk.Widget child in Util.get_default ().get_children (overdue_listbox)) {
                 ((Layouts.ItemRow) child).update_due (reschedule_button.duedate);
             }
-        });
+        })] = reschedule_button;
 
-        scrolled_window.vadjustment.value_changed.connect (() => {
+        signal_map[scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
-        });
+        })] = scrolled_window.vadjustment;
     }
 
     private void check_placeholder () {
@@ -600,15 +603,14 @@ public class Views.Today : Adw.Bin {
     }
 
     private Gtk.Popover build_view_setting_popover () {
-        var order_by_model = new Gee.ArrayList<string> ();
-        order_by_model.add (_("Due Date"));
-        order_by_model.add (_("Alphabetically"));
-        order_by_model.add (_("Date Added"));
-        order_by_model.add (_("Priority"));
-
-        var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "view-list-ordered-symbolic", order_by_model);
-        order_by_item.selected = Services.Settings.get_default ().settings.get_int ("today-sort-order");
-
+        var sorted_by_item = new Widgets.ContextMenu.MenuPicker (_ ("Sorting"), "vertical-arrows-long-symbolic") {
+            selected = Services.Settings.get_default ().settings.get_string ("today-sort-order")
+        };
+        sorted_by_item.add_item (_("Alphabetically"), SortedByType.NAME.to_string ());
+        sorted_by_item.add_item (_("Due Date"), SortedByType.DUE_DATE.to_string ());
+        sorted_by_item.add_item (_("Date Added"), SortedByType.ADDED_DATE.to_string ());
+        sorted_by_item.add_item (_("Priority"), SortedByType.PRIORITY.to_string ());
+        
         // Filters
         var priority_items = new Gee.ArrayList<Objects.Filters.FilterItem> ();
 
@@ -645,7 +647,7 @@ public class Views.Today : Adw.Bin {
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (order_by_item);
+        menu_box.append (sorted_by_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (new Gtk.Label (_("Filter By")) {
             css_classes = { "heading", "h4" },
@@ -664,19 +666,19 @@ public class Views.Today : Adw.Bin {
             width_request = 250
         };
 
-        order_by_item.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_int ("today-sort-order", order_by_item.selected);
-        });
+        signal_map[sorted_by_item.notify["selected"].connect (() => {
+            Services.Settings.get_default ().settings.set_string ("today-sort-order", sorted_by_item.selected);
+        })] = sorted_by_item;
 
-        priority_filter.filter_change.connect ((filter, active) => {
+        signal_map[priority_filter.filter_change.connect ((filter, active) => {
             if (active) {
                 Objects.Filters.Today.get_default ().add_filter (filter);
             } else {
                 Objects.Filters.Today.get_default ().remove_filter (filter);
             }
-        });
+        })] = priority_filter;
 
-        labels_filter.activate_item.connect (() => {
+        signal_map[labels_filter.activate_item.connect (() => {
             Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
             foreach (Objects.Filters.FilterItem filter in Objects.Filters.Today.get_default ().filters.values) {
                 if (filter.filter_type == FilterItemType.LABEL) {
@@ -698,9 +700,8 @@ public class Views.Today : Adw.Bin {
             var dialog = new Dialogs.LabelPicker ();
             dialog.add_labels_list (labels_list);
             dialog.labels = _labels;
-            dialog.present (Planify._instance.main_window);
 
-            dialog.labels_changed.connect ((labels) => {
+            signal_map[dialog.labels_changed.connect ((labels) => {
                 foreach (Objects.Label label in labels.values) {
                     var filter = new Objects.Filters.FilterItem ();
                     filter.filter_type = FilterItemType.LABEL;
@@ -722,8 +723,10 @@ public class Views.Today : Adw.Bin {
                 foreach (Objects.Filters.FilterItem filter in to_remove) {
                     Objects.Filters.Today.get_default ().remove_filter (filter);
                 }
-            });
-        });
+            })] = dialog;
+            
+            dialog.present (Planify._instance.main_window);
+        })] = labels_filter;
 
         return popover;
     }
@@ -731,44 +734,15 @@ public class Views.Today : Adw.Bin {
     private int set_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
         Objects.Item item1 = ((Layouts.ItemRow) lbrow).item;
         Objects.Item item2 = ((Layouts.ItemRow) lbbefore).item;
-        int sort_order = Services.Settings.get_default ().settings.get_int ("today-sort-order");
 
-        if (sort_order == 0) {
-            if (item1.has_due && item2.has_due) {
-                var date1 = item1.due.datetime;
-                var date2 = item2.due.datetime;
+        SortedByType sorted_by = SortedByType.parse (Services.Settings.get_default ().settings.get_string ("today-sort-order"));
 
-                return date1.compare (date2);
-            }
-
-            if (!item1.has_due && item2.has_due) {
-                return 1;
-            }
-
-            return 0;
-        }
-
-        if (sort_order == 1) {
-            return item1.content.strip ().collate (item2.content.strip ());
-        }
-
-        if (sort_order == 2) {
-            return item1.added_datetime.compare (item2.added_datetime);
-        }
-
-        if (sort_order == 3) {
-            if (item1.priority < item2.priority) {
-                return 1;
-            }
-
-            if (item1.priority < item2.priority) {
-                return -1;
-            }
-
-            return 0;
-        }
-
-        return 0;
+        return Util.get_default ().set_item_sort_func (
+            item1,
+            item2,
+            sorted_by,
+            SortOrderType.ASC
+        );
     }
 
     private void check_default_view () {
@@ -780,5 +754,29 @@ public class Views.Today : Adw.Bin {
         }
 
         indicator_revealer.reveal_child = !defaults;
+    }
+
+    public void clean_up () {
+        listbox.set_filter_func (null);
+        listbox.set_sort_func (null);
+
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            ((Layouts.ItemRow) row).clean_up ();
+        }
+
+        overdue_listbox.set_filter_func (null);
+        overdue_listbox.set_sort_func (null);
+
+        foreach (var row in Util.get_default ().get_children (overdue_listbox)) {
+            ((Layouts.ItemRow) row).clean_up ();
+        }
+
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        event_list.clean_up ();
     }
 }

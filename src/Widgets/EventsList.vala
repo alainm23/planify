@@ -41,6 +41,8 @@ public class Widgets.EventsList : Adw.Bin {
         }
     }
 
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public EventsList.for_day (GLib.DateTime start_date) {
         Object (
             start_date: start_date,
@@ -69,6 +71,10 @@ public class Widgets.EventsList : Adw.Bin {
             is_range: false,
             is_month: true
         );
+    }
+
+    ~EventsList () {
+        debug ("Destroying Widgets.EventsList\n");
     }
 
     construct {
@@ -105,14 +111,14 @@ public class Widgets.EventsList : Adw.Bin {
         child = main_revealer;
         add_events ();
 
-        Services.Settings.get_default ().settings.changed["calendar-enabled"].connect (() => {
+        signal_map[Services.Settings.get_default ().settings.changed["calendar-enabled"].connect (() => {
             main_revealer.reveal_child = Services.Settings.get_default ().settings.get_boolean ("calendar-enabled");
-        });
+        })] = Services.Settings.get_default ();
     }
 
     private void add_events () {
-        event_model.components_added.connect (add_event_model);
-        event_model.components_removed.connect (remove_event_model);
+        signal_map[event_model.components_added.connect (add_event_model)] = event_model;
+        signal_map[event_model.components_removed.connect (remove_event_model)] = event_model;
     }
 
     private void add_event_model (E.Source source, Gee.Collection<ECal.Component> components) {
@@ -171,5 +177,17 @@ public class Widgets.EventsList : Adw.Bin {
         }
 
         return 0;
+    }
+
+    public void clean_up () {
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            ((Widgets.EventRow) row).clean_up ();
+        }
+
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

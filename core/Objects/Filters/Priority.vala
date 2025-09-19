@@ -22,13 +22,62 @@
 public class Objects.Filters.Priority : Objects.BaseObject {
     public int priority { get; construct; }
 
-    private static Priority ? _instance;
+    public const int HIGH = 4;
+    public const int MEDIUM = 3;
+    public const int LOW = 2;
+    public const int NONE = 1;
+
+    private static Gee.HashMap<int, Priority> _instances;
+
+    private static Priority ? _high_instance;
+    private static Priority ? _medium_instance;
+    private static Priority ? _low_instance;
+    private static Priority ? _none_instance;
+
+    public static Priority high () {
+        if (_high_instance == null) {
+            _high_instance = new Priority (HIGH);
+        }
+        
+        return _high_instance;
+    }
+
+    public static Priority medium () {
+        if (_medium_instance == null) {
+            _medium_instance = new Priority (MEDIUM);
+        }
+        return _medium_instance;
+    }
+
+    public static Priority low () {
+        if (_low_instance == null) {
+            _low_instance = new Priority (LOW);
+        }
+        return _low_instance;
+    }
+
+    public static Priority none () {
+        if (_none_instance == null) {
+            _none_instance = new Priority (NONE);
+        }
+        return _none_instance;
+    }
+
     public static Priority get_default (int priority) {
-        if (_instance == null) {
-            _instance = new Priority (priority);
+        if (_instances == null) {
+            _instances = new Gee.HashMap<int, Priority> ();
         }
 
-        return _instance;
+        if (priority < 1 || priority > 4) {
+            warning ("Prioridad inválida: %d. Debe estar entre 1 y 4", priority);
+            priority = NONE;
+        }
+
+        if (!_instances.has_key (priority)) {
+            _instances[priority] = new Priority (priority);
+        }
+
+        return _instances[priority];
     }
 
     public Priority (int priority) {
@@ -60,23 +109,34 @@ public class Objects.Filters.Priority : Objects.BaseObject {
 
     public string color {
         get {
-            if (priority == Constants.PRIORITY_1) {
+            if (priority == HIGH) {
                 return "#ff7066";
-            } else if (priority == Constants.PRIORITY_2) {
+            } else if (priority == MEDIUM) {
                 return "#ff9914";
-            } else if (priority == Constants.PRIORITY_3) {
+            } else if (priority == LOW) {
                 return "#5297ff";
             } else {
-                return "@text_color";
+                return Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#fafafa" : "#333333";
             }
         }
     }
 
-    public signal void count_updated ();
-
+    public string title {
+        get {
+            if (priority == HIGH) {
+                return _("Priority 1: high");
+            } else if (priority == MEDIUM) {
+                return _("Priority 2: medium");
+            } else if (priority == LOW) {
+                return _("Priority 3: low");
+            } else {
+                return _("Priority 4: none");
+            }
+        }
+    }
+    
     construct {
-        name = Util.get_default ().get_priority_title (priority);
-        keywords = Util.get_default ().get_priority_keywords (priority) + ";" + _("filters");
+        keywords = get_keywords () + ";" + _("filters");
         view_id = "priority-%d".printf (priority);
 
         Services.Store.instance ().item_added.connect (() => {
@@ -103,5 +163,17 @@ public class Objects.Filters.Priority : Objects.BaseObject {
             _count = Services.Store.instance ().get_items_by_priority (priority, false).size;
             count_updated ();
         });
+    }
+
+    private string get_keywords () {
+        if (priority == HIGH) {
+            return "%s;%s".printf ("p1", _("high"));
+        } else if (priority == MEDIUM) {
+            return "%s;%s".printf ("p2", _("medium"));
+        } else if (priority == LOW) {
+            return "%s;%s".printf ("p3", _("low"));
+        } else {
+            return "%s;%s".printf ("p4", _("none"));
+        }
     }
 }

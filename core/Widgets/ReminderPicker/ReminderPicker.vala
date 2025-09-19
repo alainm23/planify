@@ -30,6 +30,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
 
     private Gee.HashMap<string, Widgets.ReminderPicker.ReminderRow> reminders_map = new Gee.HashMap<string, Widgets.ReminderPicker.ReminderRow> ();
     private Gee.HashMap<string, Adw.NavigationPage> pages_map = new Gee.HashMap<string, Adw.NavigationPage> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
@@ -59,6 +60,10 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         );
     }
 
+    ~ReminderPicker () {
+        debug ("Destroying - Widgets.ReminderPicker.ReminderPicker\n");
+    }
+
     construct {
         calendar = new Widgets.Calendar.Calendar () {
             vexpand = true,
@@ -76,10 +81,10 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
 
         child = navigation_view;
 
-        closed.connect (() => {
+        signal_map[closed.connect (() => {
             navigation_view.pop ();
             submit_button.is_loading = false;
-        });
+        })] = this;
     }
 
     private Adw.NavigationPage build_page (string page) {
@@ -119,7 +124,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
             child = reminders_view
         };
 
-        add_button.clicked.connect (() => {
+        signal_map[add_button.clicked.connect (() => {
             calendar.date = new GLib.DateTime.now_local ();
 
             time_picker.has_time = true;
@@ -127,7 +132,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
             time_picker.time = new GLib.DateTime.now_local ().add_hours (1);
 
             navigation_view.push (build_page ("picker"));
-        });
+        })] = add_button;
 
         return new Adw.NavigationPage (scrolled_window, "listbox");
     }
@@ -177,8 +182,8 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
             show_end_title_buttons = false,
         });
 
-        submit_button.clicked.connect (insert_reminder);
-        time_picker.activated.connect (insert_reminder);
+        signal_map[submit_button.clicked.connect (insert_reminder)] = submit_button;
+        signal_map[time_picker.activated.connect (insert_reminder)] = time_picker;
 
         return new Adw.NavigationPage (toolbar_view, "picker");
     }
@@ -200,42 +205,43 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         menu_box.append (3_h_item);
         menu_box.append (6_h_item);
 
-        5_m_item.clicked.connect (() => {
+        signal_map[5_m_item.clicked.connect (() => {
             var datetime = new GLib.DateTime.now_local ().add_minutes (5);
             _insert_reminder (datetime, datetime, true);
-        });
+        })] = 5_m_item;
 
-        15_m_item.clicked.connect (() => {
+        signal_map[15_m_item.clicked.connect (() => {
             var datetime = new GLib.DateTime.now_local ().add_minutes (15);
             _insert_reminder (datetime, datetime, true);
-        });
+        })] = 15_m_item;
 
-        30_m_item.clicked.connect (() => {
+        signal_map[30_m_item.clicked.connect (() => {
             var datetime = new GLib.DateTime.now_local ().add_minutes (30);
             _insert_reminder (datetime, datetime, true);
-        });
+        })] = 30_m_item;
 
-        1_h_item.clicked.connect (() => {
+        signal_map[1_h_item.clicked.connect (() => {
             var datetime = new GLib.DateTime.now_local ().add_hours (1);
             _insert_reminder (datetime, datetime, true);
-        });
+        })] = 1_h_item;
 
-        3_h_item.clicked.connect (() => {
+        signal_map[3_h_item.clicked.connect (() => {
             var datetime = new GLib.DateTime.now_local ().add_hours (3);
             _insert_reminder (datetime, datetime, true);
-        });
+        })] = 3_h_item;
 
-        6_h_item.clicked.connect (() => {
+        signal_map[6_h_item.clicked.connect (() => {
             var datetime = new GLib.DateTime.now_local ().add_hours (6);
             _insert_reminder (datetime, datetime, true);
-        });
+        })] = 6_h_item;
 
         return new Adw.NavigationPage (menu_box, "suggestions");
     }
 
     private void insert_reminder () {
-        if (calendar.date == null || time_picker.time == null)
+        if (calendar.date == null || time_picker.time == null) {
             return;
+        }
 
         _insert_reminder (calendar.date, time_picker.time);
     }
@@ -274,7 +280,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         if (!reminders_map.has_key (reminder.id)) {
             reminders_map[reminder.id] = new Widgets.ReminderPicker.ReminderRow (reminder);
 
-            reminders_map[reminder.id].deleted.connect (() => {
+            signal_map[reminders_map[reminder.id].deleted.connect (() => {
                 if (!is_creating) {
                     reminder.delete ();
                 } else {
@@ -282,7 +288,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
                 }
 
                 reminder_deleted (reminder);
-            });
+            })] = reminders_map[reminder.id];
 
             reminders_view.add_child (reminders_map[reminder.id]);
         }
@@ -303,5 +309,25 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         }
 
         return return_value;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        if (calendar != null) {
+            calendar.clean_up ();
+        }
+
+        if (time_picker != null) {
+            time_picker.clean_up ();
+        }
+
+        foreach (Gtk.ListBoxRow row in reminders_view.get_children ()) {
+            (row as Widgets.ReminderPicker.ReminderRow).clean_up ();
+        }
     }
 }

@@ -22,7 +22,7 @@
 public class Widgets.PinnedItemsFlowBox : Adw.Bin {
     public Objects.Project project { get; construct; }
 
-    private Gtk.Box box_layout;
+    private Adw.WrapBox box_layout;
     private Gtk.Revealer main_revealer;
     public Gee.HashMap<string, Layouts.ItemBoard> items_map = new Gee.HashMap<string, Layouts.ItemBoard> ();
 
@@ -32,20 +32,18 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
         );
     }
 
+    ~PinnedItemsFlowBox () {
+        debug ("Destroying - Widgets.PinnedItemsFlowBox\n");
+    }
+
     construct {
-        box_layout = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+        box_layout = new Adw.WrapBox () {
             margin_start = 20,
             margin_end = 24,
             margin_top = 12,
-            homogeneous = true,
-            halign = Gtk.Align.START
+            child_spacing = 12,
+            halign = START
         };
-
-        if (Services.EventBus.get_default ().mobile_mode) {
-            box_layout.orientation = Gtk.Orientation.VERTICAL;
-        } else {
-            box_layout.orientation = Gtk.Orientation.HORIZONTAL;
-        }
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -55,11 +53,6 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
 
         child = main_revealer;
         add_items ();
-        update_box_layout ();
-
-        Services.EventBus.get_default ().mobile_mode_change.connect (() => {
-            update_box_layout ();
-        });
 
         project.item_added.connect ((item) => {
             add_item (item);
@@ -112,25 +105,12 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
         }
 
         items_map[item.id] = new Layouts.ItemBoard (item) {
-            hexpand = true
+            hexpand = true,
+            pin_mode = true
         };
-
-        items_map[item.id].activate_pin_view ();
 
         box_layout.append (items_map[item.id]);
         check_reveal_child ();
-    }
-
-    private void update_box_layout () {
-        if (Services.EventBus.get_default ().mobile_mode) {
-            box_layout.orientation = Gtk.Orientation.VERTICAL;
-            box_layout.homogeneous = false;
-            box_layout.halign = Gtk.Align.FILL;
-        } else {
-            box_layout.orientation = Gtk.Orientation.HORIZONTAL;
-            box_layout.homogeneous = true;
-            box_layout.halign = Gtk.Align.START;
-        }
     }
 
     private void update_pinboard (Objects.Item item) {

@@ -30,6 +30,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
 
     private Gtk.CheckButton checked_button;
     public signal void checked_toggled (Objects.Label label, bool active);
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public LabelRow (Objects.Label label) {
         Object (
@@ -38,7 +39,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
     }
 
     ~LabelRow () {
-        print ("Destroying Widgets.LabelPicker.LabelRow\n");
+        debug ("Destroying - Widgets.LabelPicker.LabelRow\n");
     }
 
     construct {
@@ -72,27 +73,31 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
 
         var checked_button_gesture = new Gtk.GestureClick ();
         content_box.add_controller (checked_button_gesture);
-        ulong signal_id = checked_button_gesture.pressed.connect (() => {
+        signals_map[checked_button_gesture.pressed.connect (() => {
             checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             update_checked_toggled ();
-        });
+        })] = checked_button_gesture;
 
-        destroy.connect (() => {
-            checked_button_gesture.disconnect (signal_id);
-        });
-
-        activate.connect (() => {
+        signals_map[activate.connect (() => {
             update_checked_toggled ();
-        });
+        })] = this;
 
-        label.updated.connect (() => {
+        signals_map[label.updated.connect (() => {
             Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), color_grid);
             name_label.label = label.name;
-        });
+        })] = label;
     }
 
     public void update_checked_toggled () {
         checked_button.active = !checked_button.active;
         checked_toggled (label, checked_button.active);
+    }
+
+    public void clean_up () {
+        foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signals_map.clear ();
     }
 }

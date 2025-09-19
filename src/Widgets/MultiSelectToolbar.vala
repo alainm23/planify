@@ -150,12 +150,10 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     }
 
     private void update_items (Gee.ArrayList<Objects.Item> objects) {
-        if (project.source_type == SourceType.LOCAL) {
+        if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.CALDAV) {
             foreach (Objects.Item item in objects) {
                 item.update_async ("");
-            }
-
-            unselect_all ();
+            }            
         } else if (project.source_type == SourceType.TODOIST) {
             done_button.is_loading = true;
             Services.Todoist.get_default ().update_items.begin (objects, (obj, res) => {
@@ -166,22 +164,17 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
                 }
 
                 done_button.is_loading = false;
-                unselect_all ();
             });
         }
+
+        unselect_all ();
     }
 
     private void set_datetime (Objects.DueDate duedate) {
         Gee.ArrayList<Objects.Item> objects = new Gee.ArrayList<Objects.Item> ();
         foreach (string key in items_selected.keys) {
             var item = items_selected[key].item;
-
-            item.due.date = duedate.datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (duedate.datetime);
-
-            if (item.due.date == "") {
-                item.due.reset ();
-            }
-
+            item.update_due (duedate);
             objects.add (item);
         }
 

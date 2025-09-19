@@ -22,7 +22,6 @@
 public class Objects.Project : Objects.BaseObject {
     public string parent_id { get; set; default = ""; }
     public string due_date { get; set; default = ""; }
-    public string color { get; set; default = ""; }
     public string emoji { get; set; default = ""; }
     public string description { get; set; default = ""; }
     public ProjectIconStyle icon_style { get; set; default = ProjectIconStyle.PROGRESS; }
@@ -37,6 +36,7 @@ public class Objects.Project : Objects.BaseObject {
     public bool inbox_section_hidded { get; set; default = false; }
     public string sync_id { get; set; default = ""; }
     public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
+    public string calendar_url { get; set; default = ""; }
 
     bool _show_completed = false;
     public bool show_completed {
@@ -62,6 +62,30 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    SortedByType _sorted_by = SortedByType.MANUAL;
+    public SortedByType sorted_by {
+        get {
+            return _sorted_by;
+        }
+
+        set {
+            _sorted_by = value;
+            sorted_by_changed ();
+        }
+    }
+
+    SortOrderType _sort_order = SortOrderType.ASC;
+    public SortOrderType sort_order {
+        get {
+            return _sort_order;
+        }
+
+        set {
+            _sort_order = value;
+            sort_order_changed ();
+        }
+    }
+
     public SourceType source_type {
         get {
             return source.source_type;
@@ -84,18 +108,6 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    int _sort_order = 0;
-    public int sort_order {
-        get {
-            return _sort_order;
-        }
-
-        set {
-            _sort_order = value;
-            sort_order_changed ();
-        }
-    }
-
     public int child_order { get; set; default = 0; }
 
     string _view_id;
@@ -105,7 +117,7 @@ public class Objects.Project : Objects.BaseObject {
             return _view_id;
         }
     }
-
+    
     string _parent_id_string;
     public string parent_id_string {
         get {
@@ -128,10 +140,13 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    Gee.ArrayList<Objects.Section> _sections;
+    Gee.ArrayList<Objects.Section> _sections = null;
     public Gee.ArrayList<Objects.Section> sections {
         get {
-            _sections = Services.Store.instance ().get_sections_by_project (this);
+            if (_sections == null) {
+                _sections = Services.Store.instance ().get_sections_by_project (this);
+            }
+
             return _sections;
         }
     }
@@ -147,16 +162,10 @@ public class Objects.Project : Objects.BaseObject {
     Gee.ArrayList<Objects.Item> _items;
     public Gee.ArrayList<Objects.Item> items {
         get {
-            _items = Services.Store.instance ().get_item_by_baseobject (this);
+            _items = Services.Store.instance ().get_items_by_baseobject (this);
             _items.sort ((a, b) => {
-                if (a.child_order > b.child_order) {
-                    return 1;
-                }
-                if (a.child_order == b.child_order) {
-                    return 0;
-                }
-
-                return -1;
+                int comparison = a.child_order - b.child_order;
+                return sort_order == SortOrderType.ASC ? comparison : -comparison;
             });
 
             return _items;
@@ -209,34 +218,9 @@ public class Objects.Project : Objects.BaseObject {
     public signal void item_deleted (Objects.Item item);
     public signal void show_completed_changed ();
     public signal void sort_order_changed ();
+    public signal void sorted_by_changed ();
     public signal void section_sort_order_changed ();
     public signal void view_style_changed ();
-
-    int ? _project_count = null;
-    public int project_count {
-        get {
-            if (_project_count == null) {
-                _project_count = update_project_count ();
-            }
-
-            return _project_count;
-        }
-
-        set {
-            _project_count = value;
-        }
-    }
-
-    double ? _percentage = null;
-    public double percentage {
-        get {
-            if (_percentage == null) {
-                _percentage = update_percentage ();
-            }
-
-            return _percentage;
-        }
-    }
 
     private bool _show_multi_select = false;
     public bool show_multi_select {
@@ -252,58 +236,55 @@ public class Objects.Project : Objects.BaseObject {
 
     public bool is_deck {
         get {
-            return id.contains ("deck--board");
+            return "deck--board" in calendar_url.down ();
         }
     }
 
     public signal void loading_changed (bool value);
-    public signal void project_count_updated ();
     public signal void show_multi_select_change ();
 
     construct {
         Services.EventBus.get_default ().checked_toggled.connect ((item) => {
             if (item.project_id == id) {
-                project_count_update ();
+                count_update ();
             }
         });
 
-        item_deleted.connect (() => {
-            project_count_update ();
+        Services.Store.instance ().item_deleted.connect ((item) => {
+            if (item.project_id == id) {
+                count_update ();
+            }
         });
 
-        item_added.connect (() => {
-            project_count_update ();
+        Services.Store.instance ().item_added.connect ((item) => {
+            if (item.project_id == id) {
+                count_update ();
+            }
         });
 
         Services.EventBus.get_default ().item_moved.connect ((item, old_project_id) => {
             if (item.project_id == id || old_project_id == id) {
-                project_count_update ();
+                count_update ();
             }
         });
 
         Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
             if (section.project_id == id || old_project_id == id) {
-                project_count_update ();
+                count_update ();
             }
         });
 
         Services.Store.instance ().item_archived.connect ((item) => {
             if (item.project_id == id) {
-                project_count_update ();
+                count_update ();
             }
         });
 
         Services.Store.instance ().item_unarchived.connect ((item) => {
             if (item.project_id == id) {
-                project_count_update ();
+                count_update ();
             }
         });
-    }
-
-    private void project_count_update () {
-        _project_count = update_project_count ();
-        _percentage = update_percentage ();
-        project_count_updated ();
     }
 
     public Project.from_json (Json.Node node) {
@@ -318,29 +299,31 @@ public class Objects.Project : Objects.BaseObject {
         backend_type = SourceType.GOOGLE_TASKS;
     }
 
-    public Project.from_caldav_xml (GXml.DomElement element) {
-        id = get_id_from_url (element);
-        update_from_xml (element);
+    public Project.from_propstat (Services.CalDAV.WebDAVPropStat propstat, string url) {
+        id = Util.get_default ().generate_id (this); // THIS ID is INTERNAL and no longer used for requests
+        calendar_url = url;
+        update_from_propstat (propstat);
         backend_type = SourceType.CALDAV;
     }
 
-    public void update_from_xml (GXml.DomElement element, bool update_sync_token = true) {
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        name = get_content (prop.get_elements_by_tag_name ("d:displayname").get_element (0));
-
-        GXml.DomHTMLCollection colorElements = prop.get_elements_by_tag_name ("x1:calendar-color");
-        if (colorElements.length > 0) {
-            color = get_content (colorElements.get_element (0));
+    // TODO: add extra null checks
+    public void update_from_propstat (Services.CalDAV.WebDAVPropStat propstat, bool update_sync_token = true) {
+        if (propstat.get_first_prop_with_tagname ("displayname") != null) {
+            name = propstat.get_first_prop_with_tagname ("displayname").text_content;
         }
-
-        GXml.DomHTMLCollection sync_token_collection = prop.get_elements_by_tag_name ("d:sync-token");
-        if (update_sync_token && sync_token_collection.length > 0) {
-            sync_id = get_content (sync_token_collection.get_element (0));
+        if (propstat.get_first_prop_with_tagname ("calendar-color") != null) {
+            color = propstat.get_first_prop_with_tagname ("calendar-color").text_content;
+        }
+        if (update_sync_token) {
+            sync_id = propstat.get_first_prop_with_tagname ("sync-token").text_content;
         }
     }
 
     public string get_id_from_url (GXml.DomElement element) {
+        if (element.get_elements_by_tag_name ("d:href").length <= 0) {
+            return "";
+        }
+
         GXml.DomElement href = element.get_elements_by_tag_name ("d:href").get_element (0);
         string[] parts = href.text_content.split ("/");
         return parts[parts.length - 2];
@@ -371,10 +354,13 @@ public class Objects.Project : Objects.BaseObject {
         show_completed = node.get_object ().get_boolean_member ("show_completed");
         description = node.get_object ().get_string_member ("description");
         due_date = node.get_object ().get_string_member ("due_date");
-        source_id = node.get_object ().get_string_member ("backend_type");
 
         if (node.get_object ().has_member ("source_id")) {
             source_id = node.get_object ().get_string_member ("source_id");
+        }
+
+        if (node.get_object ().has_member ("calendar_url")) {
+            calendar_url = node.get_object ().get_string_member ("calendar_url");
         }
     }
 
@@ -458,9 +444,9 @@ public class Objects.Project : Objects.BaseObject {
                 if (show_loading) {
                     loading = true;
                 }
-
-                Services.CalDAV.Core.get_default ().update_tasklist.begin (this, (obj, res) => {
-                    Services.CalDAV.Core.get_default ().update_tasklist.end (res);
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
+                caldav_client.update_project.begin (this, (obj, res) => {
+                    caldav_client.update_project.end (res);
                     Services.Store.instance ().update_project (this);
                     loading = false;
                 });
@@ -715,6 +701,8 @@ public class Objects.Project : Objects.BaseObject {
             COLLAPSED: %s
             PARENT ID: %s
             SOURCE ID: %s
+            Calendar URL: %s
+            VIEW_ID: %s
         ---------------------------------
         """.printf (
             id,
@@ -734,11 +722,13 @@ public class Objects.Project : Objects.BaseObject {
             sort_order,
             collapsed.to_string (),
             parent_id.to_string (),
-            source_id
+            source_id,
+            calendar_url,
+            view_id
         );
     }
 
-    private int update_project_count () {
+    public override int update_count () {
         int pending_tasks = 0;
         var items = Services.Store.instance ().get_items_by_project (this);
         foreach (Objects.Item item in items) {
@@ -750,7 +740,7 @@ public class Objects.Project : Objects.BaseObject {
         return pending_tasks;
     }
 
-    public double update_percentage () {
+    public override double update_percentage () {
         int items_total = 0;
         int items_checked = 0;
 
@@ -768,6 +758,12 @@ public class Objects.Project : Objects.BaseObject {
         }
 
         return (double) items_checked / (double) items_total;
+    }
+
+    public override void count_update () {
+        _item_count = update_count ();
+        _percentage = update_percentage ();
+        count_updated ();
     }
 
     public void share_markdown () {
@@ -843,8 +839,9 @@ public class Objects.Project : Objects.BaseObject {
                     dialog.set_response_enabled ("cancel", false);
                     dialog.set_response_enabled ("delete", false);
 
-                    Services.CalDAV.Core.get_default ().delete_tasklist.begin (this, (obj, res) => {
-                        HttpResponse response = Services.CalDAV.Core.get_default ().delete_tasklist.end (res);
+                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
+                    caldav_client.delete_project.begin (this, (obj, res) => {
+                        HttpResponse response = caldav_client.delete_project.end (res);
                         loading = false;
 
                         if (response.status) {

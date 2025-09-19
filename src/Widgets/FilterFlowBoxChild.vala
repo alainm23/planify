@@ -37,6 +37,10 @@ public class Widgets.FilterFlowBoxChild : Gtk.FlowBoxChild {
         );
     }
 
+    ~FilterFlowBoxChild () {
+        debug ("Destroying - Widgets.FilterFlowBoxChild\n");
+    }
+
     construct {
         add_css_class ("card");
 

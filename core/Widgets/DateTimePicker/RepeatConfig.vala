@@ -91,7 +91,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
     }
 
     ~RepeatConfig () {
-        print ("Destroying Dialogs.RepeatConfig\n");
+        debug ("Destroying - Widgets.DateTimePicker.RepeatConfig\n");
     }
 
     construct {
@@ -455,5 +455,13 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
             end_label
         );
         repeat_label.label = label;
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

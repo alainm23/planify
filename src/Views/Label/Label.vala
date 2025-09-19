@@ -27,6 +27,7 @@ public class Views.Label : Adw.Bin {
     private Gtk.Stack listbox_stack;
 
     public Gee.HashMap<string, Layouts.ItemRow> items;
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     private bool has_items {
         get {
@@ -47,13 +48,17 @@ public class Views.Label : Adw.Bin {
         }
     }
 
+    ~Label () {
+        debug ("Destroying - Views.Label\n");
+    }
+
     construct {
         items = new Gee.HashMap<string, Layouts.ItemRow> ();
 
         headerbar = new Layouts.HeaderBar ();
         headerbar.back_revealer = true;
     
-        title_icon = new Gtk.Image.from_icon_name (FilterType.LABELS.get_icon ()) {
+        title_icon = new Gtk.Image.from_icon_name (Objects.Filters.Labels.get_default ().icon_name) {
             pixel_size = 16,
             valign = CENTER,
             halign = CENTER,
@@ -143,25 +148,25 @@ public class Views.Label : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        Services.Store.instance ().item_added.connect (valid_add_item);
-        Services.Store.instance ().item_deleted.connect (valid_delete_item);
-        Services.Store.instance ().item_updated.connect (valid_update_item);
-        Services.Store.instance ().item_archived.connect (valid_delete_item);
-        Services.Store.instance ().item_unarchived.connect ((item) => {
+        signal_map[Services.Store.instance ().item_added.connect (valid_add_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_deleted.connect (valid_delete_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_updated.connect (valid_update_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_archived.connect (valid_delete_item)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().item_unarchived.connect ((item) => {
             valid_add_item (item);
-        });
+        })] = Services.Store.instance ();
 
-        headerbar.back_activated.connect (() => {
-            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.LABELS.to_string ());
-        });
+        signal_map[headerbar.back_activated.connect (() => {
+            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, Objects.Filters.Labels.get_default ().view_id);
+        })] = headerbar;
         
-        scrolled_window.vadjustment.value_changed.connect (() => {
+        signal_map[scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
-        });
+        })] = scrolled_window.vadjustment;
 
-        magic_button.clicked.connect (() => {
+        signal_map[magic_button.clicked.connect (() => {
             prepare_new_item ();
-        });
+        })] = magic_button;
     }
 
     private void validate_placeholder () {
@@ -230,5 +235,17 @@ public class Views.Label : Adw.Bin {
         dialog.set_labels (labels_map);
 
         dialog.present (Planify._instance.main_window);
+    }
+
+    public void clean_up () {
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            ((Layouts.ItemRow) row).clean_up ();
+        }
+
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

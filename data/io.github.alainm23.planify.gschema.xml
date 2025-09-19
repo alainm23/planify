@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-    <enum id="io.github.alainm23.planify.badge-count">
-        <value nick="None" value="0" />
-        <value nick="Inbox" value="1" />
-        <value nick="Today" value="2" />
-        <value nick="Today + Inbox" value="3" />
-    </enum>
-
-    <enum id="io.github.alainm23.planify.pane-view">
-        <value nick="Inbox" value="0" />
-        <value nick="Today" value="1" />
-        <value nick="Scheduled" value="2" />
-        <value nick="Labels" value="3" />
-        <value nick="Pinboard" value="4" />
-        <value nick="Completed" value="5" />
-    </enum>
-
     <enum id="io.github.alainm23.planify.appearance">
         <value nick="Dark" value="1" />
         <value nick="Dark Blue" value="2" />
@@ -36,11 +20,6 @@
         <value nick="Thursday" value="4" />
         <value nick="Friday" value="5" />
         <value nick="Saturday" value="6" />
-    </enum>
-
-    <enum id="io.github.alainm23.planify.caldav-type">
-        <value nick="Nextcloud" value="0" />
-        <value nick="Radicale" value="1" />
     </enum>
 
     <enum id="io.github.alainm23.planify.new-tasks-position">
@@ -79,12 +58,6 @@
     </enum>
 
     <schema path="/io/github/alainm23/planify/" id="io.github.alainm23.planify" gettext-domain="io.github.alainm23.planify">        
-        <key name="badge-count" enum="io.github.alainm23.planify.badge-count">
-            <default>"None"</default>
-            <summary>Choose which items should be counted for the badge on the application icon</summary>
-            <description>Choose which items should be counted for the badge on the application icon</description>
-        </key>
-
         <key name="new-tasks-position" enum="io.github.alainm23.planify.new-tasks-position">
             <default>"Bottom"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
@@ -111,14 +84,14 @@
 
         <key name="complete-task" enum="io.github.alainm23.planify.complete-task">
             <default>"Instantly"</default>
-            <summary></summary>
-            <description></description>
+            <summary>Task completion behavior</summary>
+            <description>Controls when tasks are marked as completed - instantly or with confirmation</description>
         </key>
 
         <key name="appearance" enum="io.github.alainm23.planify.appearance">
             <default>"Dark"</default>
-            <summary></summary>
-            <description></description>
+            <summary>Application appearance theme</summary>
+            <description>Sets the visual theme of the application (Light, Dark, or System)</description>
         </key>
 
         <key name="dark-mode" type="b">
@@ -129,182 +102,128 @@
 
         <key name="system-appearance" type="b">
             <default>true</default>
-            <summary>Dark Mode.</summary>
-            <description>Dark Mode.</description>
+            <summary>Follow system appearance</summary>
+            <description>Automatically switch between light and dark themes based on system settings</description>
         </key>
 
         <key name="default-priority" enum="io.github.alainm23.planify.default-priority">
             <default>"None"</default>
-            <summary>Order the buttons on the title bar</summary>
-            <description>Order the buttons on the title bar</description>
+            <summary>Default task priority</summary>
+            <description>Sets the default priority level for new tasks</description>
         </key>
 
         <key name="start-week" enum="io.github.alainm23.planify.start-week">
             <default>"Monday"</default>
-            <summary>Order the buttons on the title bar</summary>
-            <description>Order the buttons on the title bar</description>
+            <summary>First day of the week</summary>
+            <description>Sets which day should be considered the first day of the week in calendar views</description>
         </key>
 
         <key name="window-maximized" type="b">
             <default>false</default>
             <summary>Whether the window was maximized on last run</summary>
-            <description>Whether the window was maximized on last run</description>
+            <description>Stores the maximized state of the main window to restore it when the application is reopened</description>
         </key>
 
         <key name="quick-add-project-selected" type="s">
             <default>""</default>
-            <summary></summary>
-            <description></description>
+            <summary>Last selected project in quick add</summary>
+            <description>Remembers the last project selected when using the quick add feature</description>
         </key>
 
         <key name="quick-add-save-last-project" type="b">
             <default>false</default>
-            <summary></summary>
-            <description></description>
+            <summary>Remember last project in quick add</summary>
+            <description>Automatically select the last used project when opening quick add dialog</description>
         </key>
 
         <key name="quick-add-close-loses-focus" type="b">
             <default>true</default>
-            <summary></summary>
-            <description></description>
+            <summary>Close quick add when losing focus</summary>
+            <description>Automatically close the quick add dialog when it loses focus</description>
         </key>
 
         <key name="quick-add-create-more" type="b">
             <default>false</default>
-            <summary></summary>
-            <description></description>
+            <summary>Keep quick add open after creating task</summary>
+            <description>Keep the quick add dialog open to create multiple tasks in succession</description>
         </key>
 
         <key name="window-height" type="i">
             <default>660</default>
             <summary>Most recent window height</summary>
-            <description>Most recent window height</description>
+            <description>Stores the last window height in pixels to restore the window size when reopening the application</description>
         </key>
         
         <key name="window-width" type="i">
             <default>1024</default>
             <summary>Most recent window width</summary>
-            <description>Most recent window width</description>
+            <description>Stores the last window width in pixels to restore the window size when reopening the application</description>
         </key>
 
         <key name="pane-position" type="i">
             <default>225</default>
             <summary>Most recent pane position</summary>
-            <description>Most recent pane position</description>
+            <description>Stores the position of the sidebar pane divider in pixels to maintain the preferred layout</description>
         </key>
 
-        <key name="today-sort-order" type="i">
-            <default>0</default>
-            <summary></summary>
-            <description></description>
+        <key name="today-sort-order" type="s">
+            <default>"name"</default>
+            <summary>Today view sort order</summary>
+            <description>Controls how tasks are sorted in the Today view</description>
         </key>
 
-        <key name="scheduled-sort-order" type="i">
-            <default>0</default>
-            <summary></summary>
-            <description></description>
+        <key name="scheduled-sort-order" type="s">
+            <default>"name"</default>
+            <summary>Scheduled view sort order</summary>
+            <description>Controls how tasks are sorted in the Scheduled view</description>
         </key>
 
         <key name="underline-completed-tasks" type="b">
-            <default>false</default>
-            <summary>Underline completed tasks.</summary>
-            <description>Underline completed tasks.</description>
+            <default>true</default>
+            <summary>Underline completed tasks</summary>
+            <description>Add an underline decoration to completed tasks to make them visually distinct from pending tasks</description>
         </key>
 
         <key name="local-inbox-project-id" type="s">
             <default>""</default>
             <summary>Inbox Project ID</summary>
-            <description>Inbox Project ID</description>
+            <description>Stores the unique identifier of the local inbox project used for collecting unorganized tasks</description>
         </key>
 
         <key name="run-on-startup" type="b">
             <default>false</default>
             <summary>Run Planify on startup</summary>
-            <description>Whether Planify should run on startup</description>
+            <description>Automatically launch Planify when the system starts up to ensure tasks and reminders are always available</description>
         </key>
 
         <key name="run-in-background" type="b">
             <default>false</default>
             <summary>Run in background</summary>
-            <description>Let Planify run in background and send notifications</description>
+            <description>Allow Planify to continue running in the background when the window is closed, enabling notifications and reminders</description>
         </key>
-        
-        <key name="homepage-item" enum="io.github.alainm23.planify.pane-view">
-            <default>"Inbox"</default>
-            <summary>homepage-item</summary>
-            <description>homepage-item</description>
+
+        <key name="home-view" type="s">
+            <default>'inbox'</default>
+            <summary>Home Page</summary>
+            <description>Determines which view (inbox, today, scheduled, etc.) is displayed when the application starts</description>
         </key>
 
         <key name="show-today-completed" type="b">
             <default>false</default>
-            <summary>show-today-completed</summary>
-            <description>show-today-completed</description>
-        </key>
-
-        <key name="todoist-sync-server" type="b">
-            <default>true</default>
-            <summary>todoist-sync-server</summary>
-            <description>todoist-sync-server</description>
-        </key>
-
-        <key name="todoist-access-token" type="s">
-            <default>""</default>
-            <summary>Todoist access token</summary>
-            <description>Todoist access token</description>
-        </key>
-
-        <key name="todoist-sync-token" type="s">
-            <default>""</default>
-            <summary>Todoist sync token</summary>
-            <description>Todoist sync token</description>
-        </key>
-
-        <key name="todoist-last-sync" type="s">
-            <default>""</default>
-            <summary>Todoist last sync</summary>
-            <description>Todoist last sync</description>
-        </key>
-
-        <key name="todoist-user-image-id" type="s">
-            <default>""</default>
-            <summary>Todoist sync token</summary>
-            <description>Todoist sync token</description>
-        </key>
-
-        <key name="todoist-user-email" type="s">
-            <default>""</default>
-            <summary>Todoist email account</summary>
-            <description>Todoist email account</description>
-        </key>
-
-        <key name="todoist-user-name" type="s">
-            <default>""</default>
-            <summary>Todoist email account</summary>
-            <description>Todoist email account</description>
-        </key>
-
-        <key name="todoist-user-avatar" type="s">
-            <default>""</default>
-            <summary>Todoist user avatar</summary>
-            <description>Todoist user avatar</description>
-        </key>
-
-        <key name="todoist-user-is-premium" type="b">
-            <default>false</default>
-            <summary>Todoist user is premium</summary>
-            <description>Todoist user is premium</description>
+            <summary>Show completed tasks in Today view</summary>
+            <description>Display completed tasks in the Today view alongside pending ones</description>
         </key>
 
         <key name="slim-mode" type="b">
             <default>true</default>
             <summary>Slim Mode</summary>
-            <description>Slim Mode</description>
+            <description>Enable a more compact interface layout with reduced spacing and smaller elements to fit more content on screen</description>
         </key>
 
         <key name="description-preview" type="b">
             <default>true</default>
-            <summary>description-preview</summary>
-            <description>description-preview</description>
+            <summary>Show task description preview</summary>
+            <description>Display a preview of task descriptions in the task list</description>
         </key>
         
         <key name="version" type="s">
@@ -316,85 +235,61 @@
         <key name="calendar-enabled" type="b">
             <default>true</default>
             <summary>Calendar enabled</summary>
-            <description>Calendar enabled</description>
-        </key>
-
-        <key name="google-access-token" type="s">
-            <default>""</default>
-            <summary>Google User Access Token</summary>
-            <description>Google User Access Token</description>
-        </key>
-
-        <key name="google-refresh-token" type="s">
-            <default>""</default>
-            <summary>Google User Refresh Token</summary>
-            <description>Google User Refresh Token</description>
-        </key>
-
-        <key name="google-user-name" type="s">
-            <default>""</default>
-            <summary>Google User Name</summary>
-            <description>Google User Name</description>
-        </key>
-
-        <key name="google-user-email" type="s">
-            <default>""</default>
-            <summary>Google User Email</summary>
-            <description>Google User Email</description>
+            <description>Enable calendar integration to display tasks with due dates in calendar views and sync with system calendar</description>
         </key>
 
         <key name="views-order-visible" type="as">
             <default>['inbox', 'today', 'scheduled', 'labels']</default>
-            <summary></summary>
-            <description></description>
+            <summary>Visible views and their order</summary>
+            <description>Controls which views are visible in the sidebar and their display order</description>
         </key>
 
         <key name="show-tasks-count" type="b">
             <default>true</default>
-            <summary>Show Taks Count</summary>
-            <description>Show Taks Count</description>
+            <summary>Show Tasks Count</summary>
+            <description>Display the number of pending tasks next to each project and view in the sidebar for quick overview</description>
         </key>
 
         <key name="show-support-banner" type="b">
             <default>true</default>
-            <summary>Show Taks Count</summary>
-            <description>Show Taks Count</description>
+            <summary>Show support banner</summary>
+            <description>Display the support banner encouraging donations or contributions</description>
         </key>
 
         <key name="always-show-completed-subtasks" type="b">
             <default>false</default>
             <summary>Always Show Completed Sub-Tasks</summary>
-            <description>Always Show Completed Sub-Tasks</description>
+            <description>Keep completed subtasks visible in the task list instead of hiding them, providing a complete view of task progress</description>
         </key>
 
         <key name="task-complete-tone" type="b">
             <default>true</default>
             <summary>Play a sound when tasks are completed</summary>
-            <description>Play a sound when tasks are completed</description>
+            <description>Play an audio notification sound when marking tasks as completed to provide satisfying feedback</description>
         </key>
 
         <key name="open-task-sidebar" type="b">
             <default>false</default>
             <summary>Open Task In Sidebar View</summary>
-            <description>Open Task In Sidebar View</description>
+            <description>Open task details in a sidebar panel instead of a separate dialog for easier multitasking and navigation</description>
         </key>
 
         <key name="mobile-mode" type="b">
             <default>false</default>
             <summary>Mobile Mode</summary>
-            <description>Mobile Mode</description>
+            <description>Optimize the interface for touch devices with larger buttons, simplified navigation, and mobile-friendly layouts</description>
         </key>
 
         <key name="attention-at-one" type="b">
             <default>false</default>
-            <summary>Mobile Mode</summary>
-            <description>Mobile Mode</description>
+            <summary>Request attention when one task remains</summary>
+            <description>Show notification or highlight when only one task remains in a project</description>
         </key>
 
         <key name="enable-markdown-formatting" type="b">
             <default>true</default>
             <summary>Enable Markdown Formatting</summary>
-            <description>Enable Markdown Formatting</description>
+            <description>Allow markdown syntax in task descriptions and notes for rich text formatting like bold, italic, and links</description>
         </key>
 
         <key name="always-show-details-sidebar" type="b">
@@ -403,64 +298,28 @@
             <description>Keep the details panel always visible for easier navigation between tasks, avoiding the need to constantly open and close the panel.</description>
         </key>
 
-        <key name="caldav-server-url" type="s">
-            <default>""</default>
-            <summary>CalDAV Server URL</summary>
-            <description>CalDAV Server URL</description>
-        </key>
-
-        <key name="caldav-sync-server" type="b">
-            <default>true</default>
-            <summary>CalDAV Sync Server</summary>
-            <description>CalDAV Sync Server</description>
-        </key>
-
-        <key name="caldav-username" type="s">
-            <default>""</default>
-            <summary>CalDAV Username</summary>
-            <description>CalDAV Username</description>
-        </key>
-
-        <key name="caldav-user-email" type="s">
-            <default>""</default>
-            <summary>CalDAV User Email</summary>
-            <description>CalDAV User Email</description>
-        </key>
-
-        <key name="caldav-user-displayname" type="s">
-            <default>""</default>
-            <summary>CalDAV User Displayname</summary>
-            <description>CalDAV User Displayname</description>
-        </key>
-
-        <key name="caldav-last-sync" type="s">
-            <default>""</default>
-            <summary>CalDAV last sync</summary>
-            <description>CalDAV last sync</description>
-        </key>
-
-        <key name="caldav-type" enum="io.github.alainm23.planify.caldav-type">
-            <default>"Nextcloud"</default>
-            <summary>CalDAV backend type</summary>
-            <description>CalDAV backend type</description>
-        </key>
-
         <key name="automatic-reminders-enabled" type="b">
             <default>true</default>
-            <summary>Automatic Reminders Enabled.</summary>
-            <description>Automatic Reminders Enabled.</description>
+            <summary>Automatic Reminders Enabled</summary>
+            <description>Enable automatic reminder notifications for tasks with due dates to help stay on track with deadlines</description>
         </key>
 
         <key name="automatic-reminders" enum="io.github.alainm23.planify.automatic-reminders">
             <default>"At due time"</default>
             <summary>Automatic Reminders</summary>
-            <description>Automatic Reminders</description>
+            <description>Configure when automatic reminders are triggered - at due time, before due time, or custom intervals</description>
         </key>
 
         <key name="font-scale" type="d">
             <default>1</default>
             <summary>Font scale</summary>
             <description> Adjusts the scaling factor for the application’s font size.  A value of 1 means the default font size, values greater than 1 increase the size, and values less than 1 make the text smaller.</description>
+        </key>
+
+        <key name="filters-list-view" type="b">
+            <default>false</default>
+            <summary>List View for Filters</summary>
+            <description>Show filters in a simple list instead of a grid.</description>
         </key>
     </schema>
 </schemalist>

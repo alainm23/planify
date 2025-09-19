@@ -5,10 +5,14 @@
 
 .calendar-day.selected {
     background-color: #3584e4;
-    color: #fafafa;
+    color: #ffffff;
 }
 
 .calendar-day.today {
     color: #33d17a;
     font-weight: bold;
+}
+
+.calendar-day.today.selected {
+    color: #ffffff;
 }

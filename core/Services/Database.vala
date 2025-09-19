@@ -27,6 +27,7 @@ public class Services.Database : GLib.Object {
 
     private Gee.HashMap<string, Gee.ArrayList<string> > table_columns = new Gee.HashMap<string, Gee.ArrayList<string> > ();
 
+    public bool is_opened { get; set; default = false; }
     public signal void opened ();
     public signal void reset ();
 
@@ -121,6 +122,8 @@ public class Services.Database : GLib.Object {
         table_columns["Projects"].add ("inbox_section_hidded");
         table_columns["Projects"].add ("sync_id");
         table_columns["Projects"].add ("source_id");
+        table_columns["Projects"].add ("calendar_url");
+        table_columns["Projects"].add ("sorted_by");
 
         table_columns["Queue"] = new Gee.ArrayList<string> ();
         table_columns["Queue"].add ("uuid");
@@ -175,6 +178,7 @@ public class Services.Database : GLib.Object {
         create_triggers ();
         patch_database ();
         opened ();
+        is_opened = true;
     }
 
     private void create_tables () {
@@ -220,7 +224,9 @@ public class Services.Database : GLib.Object {
                 due_date                TEXT,
                 inbox_section_hidded    INTEGER,
                 sync_id                 TEXT,
-                source_id               TEXT
+                source_id               TEXT,
+                calendar_url            TEXT,
+                sorted_by               TEXT
             );
         """;
 
@@ -602,7 +608,7 @@ public class Services.Database : GLib.Object {
 
         /*
          * Planify 4.8
-         * - Add sync_id column to Projects
+         * - Add item_type column to Items
          */
 
         add_text_column ("Items", "item_type", ItemType.TASK.to_string ());
@@ -613,6 +619,15 @@ public class Services.Database : GLib.Object {
          */
 
         add_project_labels_source_id ();
+
+
+        /*
+         * Planify 4.14
+         * - Add calendar_url column to Projects
+         */
+
+        add_calendar_url_to_project ();
+        add_text_column ("Projects", "sorted_by", SortedByType.MANUAL.to_string ());
     }
 
     public void clear_database () {
@@ -800,7 +815,7 @@ public class Services.Database : GLib.Object {
                 data=$data
             WHERE id=$id;
         """;
-
+        
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$source_type", source.source_type.to_string ());
         set_parameter_str (stmt, "$display_name", source.display_name);
@@ -855,7 +870,7 @@ public class Services.Database : GLib.Object {
         return_value.is_favorite = get_parameter_bool (stmt, 9);
         return_value.shared = get_parameter_bool (stmt, 10);
         return_value.view_style = ProjectViewStyle.parse (stmt.column_text (11));
-        return_value.sort_order = stmt.column_int (12);
+        return_value.sort_order = SortOrderType.parse (stmt.column_text (12));
         return_value.parent_id = stmt.column_text (13);
         return_value.collapsed = get_parameter_bool (stmt, 14);
         return_value.icon_style = ProjectIconStyle.parse (stmt.column_text (15));
@@ -866,6 +881,8 @@ public class Services.Database : GLib.Object {
         return_value.inbox_section_hidded = get_parameter_bool (stmt, 20);
         return_value.sync_id = stmt.column_text (21);
         return_value.source_id = stmt.column_text (22);
+        return_value.calendar_url = stmt.column_text (23);
+        return_value.sorted_by = SortedByType.parse (stmt.column_text (24));
         return return_value;
     }
 
@@ -876,11 +893,11 @@ public class Services.Database : GLib.Object {
             INSERT OR IGNORE INTO Projects (id, name, color, backend_type, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
                 sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description, due_date,
-                inbox_section_hidded, sync_id, source_id)
+                inbox_section_hidded, sync_id, source_id, calendar_url, sorted_by)
             VALUES ($id, $name, $color, $backend_type, $inbox_project, $team_inbox,
                 $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
                 $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description, $due_date,
-                $inbox_section_hidded, $sync_id, $source_id);
+                $inbox_section_hidded, $sync_id, $source_id, $calendar_url, $sorted_by);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -896,7 +913,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$is_favorite", project.is_favorite);
         set_parameter_bool (stmt, "$shared", project.shared);
         set_parameter_str (stmt, "$view_style", project.view_style.to_string ());
-        set_parameter_int (stmt, "$sort_order", project.sort_order);
+        set_parameter_str (stmt, "$sort_order", project.sort_order.to_string ());
         set_parameter_str (stmt, "$parent_id", project.parent_id);
         set_parameter_bool (stmt, "$collapsed", project.collapsed);
         set_parameter_str (stmt, "$icon_style", project.icon_style.to_string ());
@@ -907,6 +924,8 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$inbox_section_hidded", project.inbox_section_hidded);
         set_parameter_str (stmt, "$sync_id", project.sync_id);
         set_parameter_str (stmt, "$source_id", project.source_id);
+        set_parameter_str (stmt, "$calendar_url", project.calendar_url);
+        set_parameter_str (stmt, "$sorted_by", project.sorted_by.to_string ());
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -976,7 +995,9 @@ public class Services.Database : GLib.Object {
                 due_date=$due_date,
                 inbox_section_hidded=$inbox_section_hidded,
                 sync_id=$sync_id,
-                source_id=$source_id
+                source_id=$source_id,
+                calendar_url=$calendar_url,
+                sorted_by=$sorted_by
             WHERE id=$id;
         """;
 
@@ -992,7 +1013,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$is_favorite", project.is_favorite);
         set_parameter_bool (stmt, "$shared", project.shared);
         set_parameter_str (stmt, "$view_style", project.view_style.to_string ());
-        set_parameter_int (stmt, "$sort_order", project.sort_order);
+        set_parameter_str (stmt, "$sort_order", project.sort_order.to_string ());
         set_parameter_str (stmt, "$parent_id", project.parent_id);
         set_parameter_bool (stmt, "$collapsed", project.collapsed);
         set_parameter_str (stmt, "$icon_style", project.icon_style.to_string ());
@@ -1001,8 +1022,12 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$description", project.description);
         set_parameter_str (stmt, "$due_date", project.due_date);
         set_parameter_bool (stmt, "$inbox_section_hidded", project.inbox_section_hidded);
-        set_parameter_str (stmt, "$sync_id", project.sync_id);
+        if (project.sync_id != null) {
+            set_parameter_str (stmt, "$sync_id", project.sync_id);
+        }
         set_parameter_str (stmt, "$source_id", project.source_id);
+        set_parameter_str (stmt, "$calendar_url", project.calendar_url);
+        set_parameter_str (stmt, "$sorted_by", project.sorted_by.to_string ());
         set_parameter_str (stmt, "$id", project.id);
 
         if (stmt.step () != Sqlite.DONE) {
@@ -1477,7 +1502,8 @@ public class Services.Database : GLib.Object {
             UPDATE Items SET
                 section_id=$section_id,
                 project_id=$project_id,
-                parent_id=$parent_id
+                parent_id=$parent_id,
+                extra_data=$extra_data
             WHERE id=$id;
         """;
 
@@ -1485,6 +1511,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$section_id", item.section_id);
         set_parameter_str (stmt, "$project_id", item.project_id);
         set_parameter_str (stmt, "$parent_id", item.parent_id);
+        set_parameter_str (stmt, "$extra_data", item.extra_data);
         set_parameter_str (stmt, "$id", item.id);
 
         if (stmt.step () != Sqlite.DONE) {
@@ -2208,36 +2235,49 @@ public class Services.Database : GLib.Object {
         }
 
         Util.get_default ().create_local_source ();
+    }
 
-        if (Services.Todoist.get_default ().is_logged_in ()) {
-            var todoist_source = new Objects.Source ();
-            todoist_source.id = SourceType.TODOIST.to_string ();
-            todoist_source.source_type = SourceType.TODOIST;
-            todoist_source.display_name = Services.Settings.get_default ().settings.get_string ("todoist-user-email");
-            todoist_source.data = Utils.AccountMigrate.get_data_from_todoist ();
-            todoist_source.last_sync = Services.Settings.get_default ().settings.get_string ("todoist-last-sync");
-            todoist_source.sync_server = Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server");
-
-            Services.Store.instance ().insert_source (todoist_source);
+    public void add_calendar_url_to_project () {
+        if (column_exists ("Projects", "calendar_url")) {
+            return;
         }
 
-        if (Services.CalDAV.Core.get_default ().is_logged_in ()) {
-            var caldav_source = new Objects.Source ();
-            caldav_source.id = SourceType.CALDAV.to_string ();
-            caldav_source.source_type = SourceType.CALDAV;
-            caldav_source.data = Utils.AccountMigrate.get_data_from_caldav ();
-            caldav_source.last_sync = Services.Settings.get_default ().settings.get_string ("caldav-last-sync");
-            caldav_source.sync_server = Services.Settings.get_default ().settings.get_boolean ("caldav-sync-server");
+        add_text_column ("Projects", "calendar_url", "");
 
-            if (caldav_source.caldav_data.user_email != "") {
-                caldav_source.display_name = caldav_source.caldav_data.user_email;
-            } else if (caldav_source.caldav_data.user_displayname != "") {
-                caldav_source.display_name = caldav_source.caldav_data.user_displayname;
-            } else {
-                caldav_source.display_name = _("Nextcloud");
+        Gee.ArrayList<Objects.Project> projects = get_projects_collection ();
+
+        foreach (var project in projects) {
+            if (project.source.source_type != SourceType.CALDAV) {
+                continue;
             }
 
-            Services.Store.instance ().insert_source (caldav_source);
+            var url = Path.build_filename (
+                project.source.caldav_data.server_url,
+                "calendars", 
+                project.source.caldav_data.username,
+                project.id
+            );
+
+            if (!url.has_suffix ("/")) {
+                url += "/";
+            }
+
+            debug ("Migration: Adding calendar_url for Project (%s) (%s)\n", project.name, url);
+
+            Sqlite.Statement stmt;
+
+            sql = """
+                UPDATE Projects SET calendar_url = $calendar_url WHERE id = $id;
+            """;
+
+            db.prepare_v2 (sql, sql.length, out stmt);
+
+            set_parameter_str (stmt, "$calendar_url", url);
+            set_parameter_str (stmt, "$id", project.id);
+
+            if (stmt.step () != Sqlite.DONE) {
+                warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            }
         }
     }
 }

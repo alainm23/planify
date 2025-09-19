@@ -55,7 +55,7 @@ public class Dialogs.DatePicker : Adw.Dialog {
     }
 
     ~DatePicker () {
-        print ("Destroying Dialogs.DatePicker\n");
+        debug ("Destroying - Dialogs.DatePicker\n");
     }
 
     construct {
@@ -166,12 +166,7 @@ public class Dialogs.DatePicker : Adw.Dialog {
         })] = done_button;
 
         closed.connect (() => {
-            foreach (var entry in signal_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signal_map.clear ();
-
+            clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
@@ -180,5 +175,17 @@ public class Dialogs.DatePicker : Adw.Dialog {
         _datetime = Utils.Datetime.get_date_only (date);
         date_changed ();
         close ();
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        if (calendar_view != null) {
+            calendar_view.clean_up ();
+        }
     }
 }

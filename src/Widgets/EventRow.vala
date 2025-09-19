@@ -31,11 +31,17 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
     private Gtk.Grid color_grid;
     private Gtk.Label time_label;
 
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     public EventRow (ICal.Component component, E.Source source) {
         Object (
             component : component,
             cal: (E.SourceCalendar ?) source.get_extension (E.SOURCE_EXTENSION_CALENDAR)
         );
+    }
+
+    ~EventRow () {
+        debug ("Destroying - Widgets.EventRow\n");
     }
 
     construct {
@@ -103,9 +109,10 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         child = grid;
 
         update_color ();
-        cal.notify["color"].connect (update_color);
+        signal_map[cal.notify["color"].connect (update_color)] = cal;
         update_timelabel ();
-        Services.Settings.get_default ().settings.changed["clock-format"].connect (update_timelabel);
+
+        signal_map[Services.Settings.get_default ().settings.changed["clock-format"].connect (update_timelabel)] = Services.Settings.get_default ();
     }
 
     private void update_timelabel () {
@@ -115,5 +122,13 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 
     private void update_color () {
         Util.get_default ().set_widget_color (cal.dup_color (), color_grid);
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
     }
 }

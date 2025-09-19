@@ -28,11 +28,46 @@ public class Objects.Filters.AllItems : Objects.BaseObject {
 
         return _instance;
     }
-
+    
     construct {
         name = _("All Tasks");
         keywords = "%s;%s".printf (_("all tasks"), _("all"));
         icon_name = "check-round-outline-symbolic";
         view_id = "all-items-view";
+        color = Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#99c1f1" : "#3584e4";
+
+        Services.Store.instance ().item_added.connect (() => {
+            count_update ();
+        });
+
+        Services.Store.instance ().item_deleted.connect (() => {
+            count_update ();
+        });
+
+        Services.Store.instance ().item_archived.connect (() => {
+            count_update ();
+        });
+
+        Services.Store.instance ().item_unarchived.connect (() => {
+            count_update ();
+        });
+
+        Services.Store.instance ().item_updated.connect (() => {
+            count_update ();
+        });
+    }
+
+    public override int update_count () {
+        return Services.Store.instance ().get_items_no_parent (false).size;
+    }
+
+    public override void count_update () {
+        _item_count = update_count ();
+                
+        count_updated ();
+    }
+
+    public override string theme_color () {
+        return Services.Settings.get_default ().get_boolean ("dark-mode") ? "#99c1f1" : "#3584e4";
     }
 }

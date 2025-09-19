@@ -68,34 +68,25 @@ public class Dialogs.Project : Adw.Dialog {
     }
 
     ~Project () {
-        print ("Destroying Dialogs.Project\n");
+        debug ("Destroying - Dialogs.Project\n");
     }
 
     construct {
-        Adw.NavigationPage main_page = get_main_page ();
         sources_page = get_sources_page ();
 
         navigation_view = new Adw.NavigationView ();
-        navigation_view.add (main_page);
+        navigation_view.add (get_main_page ());
 
         child = navigation_view;
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
         closed.connect (() => {
-            foreach (var entry in signal_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signal_map.clear ();
-
+            clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
 
     private Adw.NavigationPage get_main_page () {
-        var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class ("flat");
-
         emoji_label = new Gtk.Label (project.emoji);
 
         progress_bar = new Widgets.CircularProgressBar (32);
@@ -237,7 +228,7 @@ public class Dialogs.Project : Adw.Dialog {
         content_clamp.child = content_box;
 
         var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (headerbar);
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
         toolbar_view.content = content_clamp;
 
         var navigation_page = new Adw.NavigationPage (toolbar_view, header_title);
@@ -361,7 +352,7 @@ public class Dialogs.Project : Adw.Dialog {
 
     private void add_update_project () {
         if (name_entry.text.length <= 0) {
-            hide_destroy ();
+            close ();
             return;
         }
 
@@ -382,7 +373,7 @@ public class Dialogs.Project : Adw.Dialog {
     private async void update_project () {
         if (project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().update_project (project);
-            hide_destroy ();
+            close ();
             return;
         }
 
@@ -390,21 +381,20 @@ public class Dialogs.Project : Adw.Dialog {
 
         if (project.source_type == SourceType.TODOIST) {
             response = yield Services.Todoist.get_default ().update (project);
+        } else if (project.source_type == SourceType.CALDAV) {
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            response = yield caldav_client.update_project (project);
         } else {
-            response = yield Services.CalDAV.Core.get_default ().update_tasklist (project);
-        }
-
-        if (response == null) {
-            hide_destroy ();
+            close ();
             return;
         }
 
         if (response.status) {
             Services.Store.instance ().update_project (project);
-            hide_destroy ();
+            close ();
         } else {
             Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-            hide_destroy ();
+            close ();
         }
     }
 
@@ -425,21 +415,22 @@ public class Dialogs.Project : Adw.Dialog {
                     go_project (project.id);
                 } else {
                     Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                    hide_destroy ();
+                    close ();
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
             project.id = Util.get_default ().generate_id (project);
-            Services.CalDAV.Core.get_default ().add_tasklist.begin (project, (obj, res) => {
-                HttpResponse response = Services.CalDAV.Core.get_default ().add_tasklist.end (res);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.create_project.begin (project, (obj, res) => {
+                HttpResponse response = caldav_client.create_project.end (res);
 
                 if (response.status) {
                     Services.Store.instance ().insert_project (project);
-                    Services.CalDAV.Core.get_default ().update_sync_token.begin (project);
+                    caldav_client.update_sync_token.begin (project, new GLib.Cancellable ());
                     go_project (project.id);
                 } else {
                     Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                    hide_destroy ();
+                    close ();
                 }
             });
         }
@@ -451,12 +442,20 @@ public class Dialogs.Project : Adw.Dialog {
                 Util.get_default ().create_toast (_("Project added successfully!"))
             );
             Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, id);
-            hide_destroy ();
+            close ();
             return GLib.Source.REMOVE;
         });
     }
 
-    public void hide_destroy () {
-        close ();
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signal_map.clear ();
+
+        if (color_picker_row != null) {
+            color_picker_row.clean_up ();
+        }
     }
 }

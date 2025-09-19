@@ -28,57 +28,49 @@ public class Objects.Filters.Pinboard : Objects.BaseObject {
 
         return _instance;
     }
-
-    int ? _pinboard_count = null;
-    public int pinboard_count {
-        get {
-            if (_pinboard_count == null) {
-                _pinboard_count = Services.Store.instance ().get_items_pinned (false).size;
-            }
-
-            return _pinboard_count;
-        }
-
-        set {
-            _pinboard_count = value;
-        }
-    }
-
-    public signal void pinboard_count_updated (); // This is used in FilterPaneRow.vala:157 for updating the count label
-
-    private void update_pinboard_count () {
-        _pinboard_count = Services.Store.instance ().get_items_pinned (false).size;
-        pinboard_count_updated ();
-    }
-
+    
     construct {
         name = ("Pinboard");
         keywords = _("Pinboard") + ";" + _("filters");
         icon_name = "pin-symbolic";
-        view_id = FilterType.PINBOARD.to_string ();
-
+        view_id = "pinboard";
+        color = Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#f66151" : "#ed333b";
+        
         Services.Store.instance ().item_added.connect (() => {
-            update_pinboard_count ();
+            count_update ();
         });
 
         Services.Store.instance ().item_deleted.connect (() => {
-            update_pinboard_count ();
+            count_update ();
         });
 
         Services.Store.instance ().item_updated.connect (() => {
-            update_pinboard_count ();
+            count_update ();
         });
 
         Services.Store.instance ().item_archived.connect (() => {
-            update_pinboard_count ();
+            count_update ();
         });
 
         Services.Store.instance ().item_unarchived.connect (() => {
-            update_pinboard_count ();
+            count_update ();
         });
 
         Services.Store.instance ().item_pin_change.connect (() => {
-            update_pinboard_count ();
+            count_update ();
         });
+    }
+
+    public override int update_count () {
+        return Services.Store.instance ().get_items_pinned (false).size;
+    }
+
+    public override void count_update () {
+        _item_count = update_count ();
+        count_updated ();
+    }
+
+    public override string theme_color () {
+        return Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#f66151" : "#ed333b";
     }
 }

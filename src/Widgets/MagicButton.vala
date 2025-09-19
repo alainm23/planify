@@ -38,6 +38,10 @@ public class Widgets.MagicButton : Adw.Bin {
         );
     }
 
+    ~MagicButton () {
+        debug ("Destroying - Widgets.MagicButton\n");
+    }
+
     construct {
         magic_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             height_request = 48,

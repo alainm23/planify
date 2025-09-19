@@ -52,7 +52,8 @@ public class Widgets.FilterFlowBox : Adw.Bin {
 
     public signal void filter_removed (Objects.Filters.FilterItem filter);
 
-    public FilterFlowBox () {
+    ~FilterFlowBox () {
+        debug ("Destroying - Widgets.FilterFlowBox\n");
     }
 
     construct {
