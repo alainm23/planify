@@ -163,6 +163,34 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         signal_map.clear ();
     }
 
+    public Gtk.Widget build_sync_page () {
+        var image = new Adw.Spinner () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
+            height_request = 64,
+            width_request = 64
+        };
+
+        var label = new Gtk.Label (_("Planify is syncing your tasks, this may take a few minutes")) {
+            wrap = true,
+            halign = Gtk.Align.CENTER,
+            justify = Gtk.Justification.CENTER,
+            margin_start = 12,
+            margin_end = 12,
+        };
+        label.add_css_class ("dimmed");
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 24) {
+            margin_top = 128,
+            margin_start = 64,
+            margin_end = 64
+        };
+        box.append (image);
+        box.append (label);
+
+        return box;
+    }
+
     public class SourceRow : Gtk.ListBoxRow {
         public Objects.Source source { get; construct; }
 

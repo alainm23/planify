@@ -56,16 +56,12 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
-        var token_page = build_token_page ();
-        var sync_page = build_sync_page ();
-
-        stack.add_named (token_page, "token");
-        stack.add_named (sync_page, "loading");
+        stack.add_named (build_token_page (), "token");
+        stack.add_named (accounts_page.build_sync_page (), "loading");
 
 #if USE_WEBKITGTK
         if (use_webkit) {
-            var webview_page = build_webview_page ();
-            stack.add_named (webview_page, "web_view");
+            stack.add_named (build_webview_page (), "web_view");
             stack.visible_child_name = "web_view";
         } else {
             stack.visible_child_name = "token";
@@ -235,34 +231,6 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
         return webview_box;
     }
 #endif
-
-    private Gtk.Widget build_sync_page () {
-        var image = new Adw.Spinner () {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER,
-            height_request = 64,
-            width_request = 64
-        };
-
-        var label = new Gtk.Label (_("Planify is syncing your tasks, this may take a few minutes")) {
-            wrap = true,
-            halign = Gtk.Align.CENTER,
-            justify = Gtk.Justification.CENTER,
-            margin_start = 12,
-            margin_end = 12,
-        };
-        label.add_css_class ("dimmed");
-
-        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 24) {
-            margin_top = 128,
-            margin_start = 64,
-            margin_end = 64
-        };
-        box.append (image);
-        box.append (label);
-
-        return box;
-    }
 
     private void on_token_login_clicked () {
         stack.visible_child_name = "loading";
