@@ -159,7 +159,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         };
 
         handle_grid = new Adw.Bin () {
-            margin_top = is_inbox_section ? 12 : 0,
             css_classes = { "transition", "drop-target" },
             child = sectionrow_revealer
         };
@@ -169,7 +168,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             height_request = 30,
             margin_start = 24,
             margin_end = 24,
-            margin_top = 6,
+            margin_top = 3,
             margin_bottom = 6
         };
 

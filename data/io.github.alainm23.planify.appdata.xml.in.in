@@ -62,24 +62,24 @@
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
     <release version="4.14.0" date="2025-09-19">
-    <description translate="no">
-      <ul>
-        <li>Rewritten CalDAV backend with support for Radicale, Baïkal, and other CalDAV servers — thanks to @byquanton.</li>
-        <li>Fixed memory leaks when completing or deleting tasks, and during CalDAV sync — thanks to @markochk.</li>
-        <li>Introduced a new view cache system to automatically free unused memory.</li>
-        <li>Added new customizable sidebar filters: Tomorrow, Someday, Recurring, No label, and All tasks.</li>
-        <li>Improved synchronization: Planify now respects task order from Nextcloud and Todoist, with a new reordering algorithm.</li>
-        <li>Work in progress to make WebKit and Evolution dependencies optional, paving the way for Windows and macOS support — thanks to @byquanton.</li>
-        <li>Spell checker support in task descriptions.</li>
-        <li>Fixed bug when moving tasks with subtasks in Nextcloud/CalDAV projects.</li>
-        <li>Updated themes (Light, Dark, Dark Blue) and refined task design for better readability.</li>
-        <li>Labels and indicators for notes, reminders, and subtasks are now aligned to the right of task titles.</li>
-        <li>Added a quick-add button to every task list.</li>
-        <li>New completion animation and updated sound when finishing tasks.</li>
-        <li>Completion notification added, so users can easily review completed tasks.</li>
-      </ul>
-    </description>
-</release>
+        <description translate="no">
+          <ul>
+            <li>Rewritten CalDAV backend with support for Radicale, Baïkal, and other CalDAV servers — thanks to @byquanton.</li>
+            <li>Fixed memory leaks when completing or deleting tasks, and during CalDAV sync — thanks to @markochk.</li>
+            <li>Introduced a new view cache system to automatically free unused memory.</li>
+            <li>Added new customizable sidebar filters: Tomorrow, Someday, Recurring, No label, and All tasks.</li>
+            <li>Improved synchronization: Planify now respects task order from Nextcloud and Todoist, with a new reordering algorithm.</li>
+            <li>Work in progress to make WebKit and Evolution dependencies optional, paving the way for Windows and macOS support — thanks to @byquanton.</li>
+            <li>Spell checker support in task descriptions.</li>
+            <li>Fixed bug when moving tasks with subtasks in Nextcloud/CalDAV projects.</li>
+            <li>Updated themes (Light, Dark, Dark Blue) and refined task design for better readability.</li>
+            <li>Labels and indicators for notes, reminders, and subtasks are now aligned to the right of task titles.</li>
+            <li>Added a quick-add button to every task list.</li>
+            <li>New completion animation and updated sound when finishing tasks.</li>
+            <li>Completion notification added, so users can easily review completed tasks.</li>
+          </ul>
+        </description>
+    </release>
 
     <release version="4.13.4" date="2025-08-27">
       <description translate="no">
