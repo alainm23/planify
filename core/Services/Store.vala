@@ -585,6 +585,7 @@ public class Services.Store : GLib.Object {
             if (item.project != null) {
                 item.project.item_deleted (item);
             }
+            
             if (item.has_section && item.section != null) {
                 item.section.item_deleted (item);
             }
