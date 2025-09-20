@@ -68,7 +68,7 @@ public class Util : GLib.Object {
         return get_colors ().get (key).name;
     }
 
-    public string get_color (string? key) {
+    public string get_color (string ? key) {
         if (key == null || key == "") {
             return "#1e63ec";
         }
@@ -99,10 +99,8 @@ public class Util : GLib.Object {
 
     // Providers
     private Gee.HashMap<string, Gtk.CssProvider>? providers;
-    public void set_widget_color (string? color, Gtk.Widget? widget) {
+    public void set_widget_color (string ? color, Gtk.Widget ? widget) {
         if (color == null || color == "" || widget == null) {
-            warning ("set_widget_color called with null parameters: color=%s, widget=%s", 
-                    color ?? "null", widget != null ? "valid" : "null");
             return;
         }
         
