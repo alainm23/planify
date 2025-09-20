@@ -25,9 +25,32 @@ public class Objects.Item : Objects.BaseObject {
     public string added_at { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public string completed_at { get; set; default = ""; }
     public string updated_at { get; set; default = ""; }
-    public string section_id { get; set; default = ""; }
-    public string project_id { get; set; default = ""; }
-    public string parent_id { get; set; default = ""; }
+    string _section_id = "";
+    public string section_id {
+        get { return _section_id; }
+        set {
+            _section_id = value;
+            _section = null;
+        }
+    }
+    
+    string _project_id = "";
+    public string project_id {
+        get { return _project_id; }
+        set {
+            _project_id = value;
+            _project = null;
+        }
+    }
+    
+    string _parent_id = "";
+    public string parent_id {
+        get { return _parent_id; }
+        set {
+            _parent_id = value;
+            _parent = null;
+        }
+    }
     public string extra_data { get; set; default = ""; }
     public ItemType item_type { get; set; default = ItemType.TASK; }
 
@@ -154,13 +177,13 @@ public class Objects.Item : Objects.BaseObject {
 
     public bool has_parent {
         get {
-            return Services.Store.instance ().get_item (parent_id) != null;
+            return _parent_id != null && _parent_id != "";
         }
     }
 
     public bool has_section {
         get {
-            return Services.Store.instance ().get_section (section_id) != null;
+            return _section_id != null && _section_id != "";
         }
     }
 
@@ -228,7 +251,9 @@ public class Objects.Item : Objects.BaseObject {
     Objects.Item ? _parent;
     public Objects.Item parent {
         get {
-            _parent = Services.Store.instance ().get_item (parent_id);
+            if (_parent == null && _parent_id != null && _parent_id != "") {
+                _parent = Services.Store.instance ().get_item (_parent_id);
+            }
             return _parent;
         }
     }
@@ -236,7 +261,9 @@ public class Objects.Item : Objects.BaseObject {
     Objects.Project ? _project;
     public Objects.Project project {
         get {
-            _project = Services.Store.instance ().get_project (project_id);
+            if (_project == null && _project_id != null && _project_id != "") {
+                _project = Services.Store.instance ().get_project (_project_id);
+            }
             return _project;
         }
     }
@@ -244,7 +271,9 @@ public class Objects.Item : Objects.BaseObject {
     Objects.Section ? _section;
     public Objects.Section section {
         get {
-            _section = Services.Store.instance ().get_section (section_id);
+            if (_section == null && _section_id != null && _section_id != "") {
+                _section = Services.Store.instance ().get_section (_section_id);
+            }
             return _section;
         }
     }
