@@ -285,6 +285,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         content_label = new Gtk.Label (null) {
             xalign = 0,
+            yalign = 0.8f,
             wrap = false,
             ellipsize = END,
             use_markup = true

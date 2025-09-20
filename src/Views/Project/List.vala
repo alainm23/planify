@@ -107,7 +107,8 @@ public class Views.List : Adw.Bin {
             selection_mode = Gtk.SelectionMode.NONE,
             hexpand = true,
             vexpand = true,
-            css_classes = { "listbox-background" }
+            css_classes = { "listbox-background" },
+            margin_top = 12
         };
 
         var listbox_placeholder = new Adw.StatusPage () {
@@ -346,9 +347,10 @@ public class Views.List : Adw.Bin {
 
         days_left_label = new Gtk.Label (null) {
             xalign = 0,
-            css_classes = { "dimmed", "caption" }
+            yalign = 0.5f
         };
-        days_left_label.yalign = float.parse ("0.7");
+        days_left_label.add_css_class ("dimmed");
+        days_left_label.add_css_class ("caption");
 
         var due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_start = 3
