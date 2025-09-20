@@ -582,8 +582,10 @@ public class Services.Store : GLib.Object {
             _items.remove (item);
             item_deleted (item);
 
-            item.project.item_deleted (item);
-            if (item.has_section) {
+            if (item.project != null) {
+                item.project.item_deleted (item);
+            }
+            if (item.has_section && item.section != null) {
                 item.section.item_deleted (item);
             }
         }
@@ -599,8 +601,15 @@ public class Services.Store : GLib.Object {
                 move_item (subitem);
             }
 
-            get_section (item.section_id).update_count ();
-            get_section (old_section_id).update_count ();
+            var current_section = get_section (item.section_id);
+            if (current_section != null) {
+                current_section.update_count ();
+            }
+            
+            var old_section = get_section (old_section_id);
+            if (old_section != null) {
+                old_section.update_count ();
+            }
 
             item.updated ();
             item_updated (item, "");
@@ -624,7 +633,7 @@ public class Services.Store : GLib.Object {
 
             Services.EventBus.get_default ().checked_toggled (item, old_checked);
 
-            if (item.has_parent && !item.checked) {
+            if (item.has_parent && !item.checked && item.parent != null) {
                 item.parent.checked = item.checked;
                 item.parent.completed_at = item.completed_at;
 
@@ -697,7 +706,7 @@ public class Services.Store : GLib.Object {
         Objects.Item ? return_value = null;
         lock (_items) {
             foreach (var item in items) {
-                if (item.source.source_type == SourceType.CALDAV) {
+                if (item.source != null && item.source.source_type == SourceType.CALDAV) {
                     if (item.ical_url == ical_url) {
                         return_value = item;
                         break;
