@@ -68,15 +68,19 @@ public class Util : GLib.Object {
         return get_colors ().get (key).name;
     }
 
-    public string get_color (string key) {
+    public string get_color (string? key) {
+        if (key == null || key == "") {
+            return "#1e63ec";
+        }
+        
         if (get_colors ().has_key (key)) {
             return get_colors ().get (key).hexadecimal;
         }
 
-        if (new Gdk.RGBA ().parse (key)) {
+        var rgba = new Gdk.RGBA ();
+        if (rgba.parse (key)) {
             return key;
         }
-
 
         return "#1e63ec";
     }
@@ -95,7 +99,13 @@ public class Util : GLib.Object {
 
     // Providers
     private Gee.HashMap<string, Gtk.CssProvider>? providers;
-    public void set_widget_color (string color, Gtk.Widget widget) {
+    public void set_widget_color (string? color, Gtk.Widget? widget) {
+        if (color == null || color == "" || widget == null) {
+            warning ("set_widget_color called with null parameters: color=%s, widget=%s", 
+                    color ?? "null", widget != null ? "valid" : "null");
+            return;
+        }
+        
         if (providers == null) {
             providers = new Gee.HashMap<string, Gtk.CssProvider> ();
         }
@@ -813,6 +823,10 @@ We hope you’ll enjoy using Planify!""");
 
 
     public static string find_string_value (string key, string data) {
+        if (key == null || data == null) {
+            return "";
+        }
+        
         GLib.Regex? regex = null;
         GLib.MatchInfo match;
 
@@ -1217,7 +1231,9 @@ We hope you’ll enjoy using Planify!""");
         if (sorted_by == SortedByType.MANUAL) {
             result = item1.child_order - item2.child_order;
         } else if (sorted_by == SortedByType.NAME) {
-            result = natural_compare (item1.content.strip (), item2.content.strip ());
+            string content1 = item1.content ?? "";
+            string content2 = item2.content ?? "";
+            result = natural_compare (content1.strip (), content2.strip ());
         } else if (sorted_by == SortedByType.DUE_DATE) {
             if (item1.has_due && item2.has_due) {
                 var date1 = item1.due.datetime;

@@ -1594,23 +1594,27 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public bool was_archived () {
-        if (has_parent) {
+        if (has_parent && parent != null) {
             return parent.was_archived ();
         }
 
-        if (has_section) {
+        if (has_section && section != null) {
             return section.was_archived ();
         }
 
-        return project.is_archived;
+        if (project != null) {
+            return project.is_archived;
+        }
+
+        return false;
     }
 
     public bool exists_project (Objects.Project project) {
-        if (has_parent) {
+        if (has_parent && parent != null) {
             return parent.exists_project (project);
         }
 
-        return project_id == project.id;
+        return _project_id == project.id;
     }
 
     public string to_markdown (int level = 0) {
