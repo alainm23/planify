@@ -79,7 +79,7 @@ public class Services.CalDAV.Core : GLib.Object {
         return abs_url;
     }
 
-    public async string resolve_well_known_caldav (Soup.Session session, string base_url, bool ignore_ssl = false) {
+    public async string resolve_well_known_caldav (Soup.Session session, string base_url, bool ignore_ssl = false) throws GLib.Error {
         var well_known_url = make_absolute_url (base_url, "/.well-known/caldav");
         var msg = new Soup.Message ("GET", well_known_url);
         msg.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);
@@ -124,29 +124,33 @@ public class Services.CalDAV.Core : GLib.Object {
             }
             return base_url;
         } catch (Error e) {
+            if (e is GLib.IOError.CANCELLED) {
+                throw e;
+            }
             warning ("Failed to check .well-known/caldav: %s", e.message);
             return base_url;
         }
     }
 
 
-    public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable, bool ignore_ssl = false) {
+    public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable, bool ignore_ssl = false) throws GLib.Error {
         var caldav_client = new Services.CalDAV.CalDAVClient (session, dav_url, username, password, ignore_ssl);
 
         try {
             string? principal_url = yield caldav_client.get_principal_url (cancellable);
 
             if (principal_url == null) {
-                critical ("No principal url received");
-                return null;
+                throw new GLib.IOError.FAILED ("No principal url received");
             }
 
             var calendar_home = yield caldav_client.get_calendar_home (principal_url, cancellable);
 
             return calendar_home;
         } catch (Error e) {
-            print ("login error: %s".printf (e.message));
-            return null;
+            if (e is GLib.IOError.CANCELLED) {
+                throw e;
+            }
+            throw new GLib.IOError.FAILED ("Failed to resolve calendar home: %s".printf (e.message));
         }
     }
 

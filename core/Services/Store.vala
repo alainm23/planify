@@ -855,7 +855,7 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.has_due && item.due.is_recurring && item.checked == checked && !item.was_archived ()) {
+                if (item != null && item.has_due && item.due.is_recurring && item.checked == checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -894,7 +894,7 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.pinned && item.checked == checked && !item.was_archived ()) {
+                if (item != null && item.pinned && item.checked == checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -907,7 +907,7 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.priority == priority && item.checked == checked && !item.was_archived ()) {
+                if (item != null && item.priority == priority && item.checked == checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -920,7 +920,7 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.checked && !item.was_archived ()) {
+                if (item != null && item.checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -933,7 +933,7 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.has_label (label.id) && item.checked == checked && !item.was_archived ()) {
+                if (item != null && item.has_label (label.id) && item.checked == checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -946,7 +946,7 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.labels.size <= 0 && item.checked == checked && !item.was_archived ()) {
+                if (item != null && item.labels.size <= 0 && item.checked == checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -959,7 +959,8 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.has_due &&
+                if (item != null &&
+                    item.has_due &&
                     !item.was_archived () &&
                     item.checked == checked &&
                     item.due.datetime.compare (new GLib.DateTime.now_local ()) > 0) {
@@ -975,7 +976,8 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (!item.was_archived () &&
+                if (item != null &&
+                    !item.was_archived () &&
                     item.checked == checked &&
                     !item.has_parent) {
                     return_value.add (item);
@@ -987,7 +989,7 @@ public class Services.Store : GLib.Object {
     }
 
     public bool valid_item_by_date (Objects.Item item, GLib.DateTime date, bool checked = true) {
-        if (!item.has_due || item.was_archived ()) {
+        if (item == null || !item.has_due || item.was_archived ()) {
             return false;
         }
 
@@ -995,7 +997,7 @@ public class Services.Store : GLib.Object {
     }
 
     public bool valid_item_by_date_range (Objects.Item item, GLib.DateTime start_date, GLib.DateTime end_date, bool checked = true) {
-        if (!item.has_due || item.was_archived ()) {
+        if (item == null || !item.has_due || item.was_archived ()) {
             return false;
         }
 
@@ -1007,7 +1009,7 @@ public class Services.Store : GLib.Object {
     }
 
     public bool valid_item_by_month (Objects.Item item, GLib.DateTime date, bool checked = true) {
-        if (!item.has_due || item.was_archived ()) {
+        if (item == null || !item.has_due || item.was_archived ()) {
             return false;
         }
 
@@ -1020,7 +1022,8 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.has_due &&
+                if (item != null &&
+                    item.has_due &&
                     !item.was_archived () &&
                     item.checked == checked &&
                     item.due.datetime.compare (date_now) < 0 &&
@@ -1034,7 +1037,7 @@ public class Services.Store : GLib.Object {
     }
 
     public bool valid_item_by_overdue (Objects.Item item, GLib.DateTime date, bool checked = true) {
-        if (!item.has_due || item.was_archived ()) {
+        if (item == null || !item.has_due || item.was_archived ()) {
             return false;
         }
 
@@ -1086,7 +1089,7 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.has_labels () && !item.completed && !item.was_archived ()) {
+                if (item != null && item.has_labels () && !item.completed && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }

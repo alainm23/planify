@@ -146,6 +146,8 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
 
         destroy.connect (() => {
             clean_up ();
+            // Ensure cleanup on dialog destruction
+            Services.CalDAV.Core.get_default ().clear ();
         });
     }
 
@@ -169,13 +171,23 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         login_button.is_loading = true;
         cancel_button.visible = true;
 
-        signal_map[cancel_button.clicked.connect (() => cancellable.cancel ())] = cancel_button;
+        signal_map[cancel_button.clicked.connect (() => {
+            cancellable.cancel ();
+            // Clean up any ongoing operations
+            Services.CalDAV.Core.get_default ().clear ();
+        })] = cancel_button;
 
         do_login.begin (cancellable);
     }
 
 
     private async void do_login (GLib.Cancellable cancellable) {
+        if (cancellable.is_cancelled ()) {
+            login_button.is_loading = false;
+            cancel_button.visible = false;
+            return;
+        }
+
         if (server_entry.text == null || server_entry.text == "") {
             login_button.is_loading = false;
             cancel_button.visible = false;
@@ -193,14 +205,50 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         if (bypass_resolve) {
             dav_endpoint = server_entry.text;
         } else {
-            dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (new Soup.Session (), server_entry.text, ignore_ssl_row.active);
+            try {
+                dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (new Soup.Session (), server_entry.text, ignore_ssl_row.active);
+            } catch (Error e) {
+                if (e is GLib.IOError.CANCELLED) {
+                    login_button.is_loading = false;
+                    cancel_button.visible = false;
+                    return;
+                }
+                login_button.is_loading = false;
+                cancel_button.visible = false;
+                accounts_page.show_message_error (0, "Failed to resolve server: %s".printf (e.message));
+                return;
+            }
+        }
+
+        if (cancellable.is_cancelled ()) {
+            login_button.is_loading = false;
+            cancel_button.visible = false;
+            return;
         }
 
         var calendar_home = "";
         if (calendar_home_entry.text != null && calendar_home_entry.text != "") {
             calendar_home = calendar_home_entry.text;
         } else {
-            calendar_home = yield Services.CalDAV.Core.get_default ().resolve_calendar_home (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, cancellable, ignore_ssl_row.active);
+            try {
+                calendar_home = yield Services.CalDAV.Core.get_default ().resolve_calendar_home (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, cancellable, ignore_ssl_row.active);
+            } catch (Error e) {
+                if (e is GLib.IOError.CANCELLED) {
+                    login_button.is_loading = false;
+                    cancel_button.visible = false;
+                    return;
+                }
+                login_button.is_loading = false;
+                cancel_button.visible = false;
+                accounts_page.show_message_error (0, "Failed to resolve calendar home: %s".printf (e.message));
+                return;
+            }
+        }
+
+        if (cancellable.is_cancelled ()) {
+            login_button.is_loading = false;
+            cancel_button.visible = false;
+            return;
         }
 
         if (calendar_home == null) {

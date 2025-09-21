@@ -1594,24 +1594,34 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public bool was_archived () {
-        if (has_parent && parent != null) {
-            return parent.was_archived ();
+        if (has_parent) {
+            var parent_item = parent;
+            if (parent_item != null) {
+                return parent_item.was_archived ();
+            }
         }
 
-        if (has_section && section != null) {
-            return section.was_archived ();
+        if (has_section) {
+            var section_item = section;
+            if (section_item != null) {
+                return section_item.was_archived ();
+            }
         }
 
-        if (project != null) {
-            return project.is_archived;
+        var project_item = project;
+        if (project_item != null) {
+            return project_item.is_archived;
         }
 
         return false;
     }
 
     public bool exists_project (Objects.Project project) {
-        if (has_parent && parent != null) {
-            return parent.exists_project (project);
+        if (has_parent) {
+            var parent_item = parent;
+            if (parent_item != null) {
+                return parent_item.exists_project (project);
+            }
         }
 
         return _project_id == project.id;
