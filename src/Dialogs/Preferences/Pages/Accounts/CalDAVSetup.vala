@@ -197,7 +197,6 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         }
 
         var calendar_home = "";
-
         if (calendar_home_entry.text != null && calendar_home_entry.text != "") {
             calendar_home = calendar_home_entry.text;
         } else {
