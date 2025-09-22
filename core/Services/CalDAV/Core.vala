@@ -24,6 +24,8 @@ public class Services.CalDAV.Core : GLib.Object {
     private Soup.Session session;
     private Gee.HashMap<string, Services.CalDAV.CalDAVClient> clients;
 
+    public signal void sync_progress (int current, int total, string message);
+
     private static Core ? _instance;
     public static Core get_default () {
         if (_instance == null) {
@@ -221,16 +223,34 @@ public class Services.CalDAV.Core : GLib.Object {
 
 
             yield caldav_client.update_userdata (principal_url, source, cancellable);
-
             Services.Store.instance ().insert_source (source);
 
             Gee.ArrayList<Objects.Project> projects = yield caldav_client.fetch_project_list (source, cancellable);
 
-            foreach (Objects.Project project in projects) {
-                Services.Store.instance ().insert_project (project);
-                yield caldav_client.fetch_items_for_project (project, cancellable);
+            sync_progress (0, projects.size, _("Starting sync..."));
+
+            const int BATCH_SIZE = 5;
+            int processed = 0;
+
+            for (int i = 0; i < projects.size; i += BATCH_SIZE) {
+                var batch_end = int.min (i + BATCH_SIZE, projects.size);
+                
+                for (int j = i; j < batch_end; j++) {
+                    Services.Store.instance ().insert_project (projects[j]);
+                }
+                
+                yield Util.nap (10);
+                
+                for (int j = i; j < batch_end; j++) {
+                    sync_progress (processed + 1, projects.size, _("Syncing %s…").printf (projects[j].name));
+                    yield caldav_client.fetch_items_for_project_with_progress (projects[j], cancellable, (current, total, msg) => {
+                        sync_progress (processed, projects.size, msg);
+                    });
+                    processed++;
+                }
             }
 
+            sync_progress (projects.size, projects.size, _("Sync completed"));
             response.status = true;
         } catch (Error e) {
             response.error_code = e.code;

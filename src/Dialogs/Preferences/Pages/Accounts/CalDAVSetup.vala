@@ -115,6 +115,8 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         content_box.append (login_button);
         content_box.append (cancel_button);
 
+        var loading_page = new Dialogs.Preferences.Pages.Accounts.LoadingPage ();
+
         var main_stack = new Gtk.Stack () {
             vexpand = true,
             hexpand = true,
@@ -122,7 +124,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         };
 
         main_stack.add_named (content_box, "main-page");
-        main_stack.add_named (accounts_page.build_sync_page (), "loading-page");
+        main_stack.add_named (loading_page, "loading-page");
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 400,
@@ -143,6 +145,10 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         signal_map[password_entry.changed.connect (() => validate_entries ())] = password_entry;
 
         signal_map[login_button.clicked.connect (() => on_login_button_clicked ())] = login_button;
+
+        signal_map[Services.CalDAV.Core.get_default ().sync_progress.connect ((current, total, message) => {
+            loading_page.sync_label = message;
+        })] = Services.CalDAV.Core.get_default ();
 
         destroy.connect (() => {
             clean_up ();

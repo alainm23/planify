@@ -351,4 +351,52 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
             main_revealer = null;
         }
     }
+
+    public class LoadingPage : Adw.Bin {
+        private Gtk.Label secondary_label;
+
+        public string sync_label {
+            set {
+                secondary_label.label = value;
+            }
+        }
+
+        construct {
+            var image = new Adw.Spinner () {
+                valign = CENTER,
+                halign = CENTER,
+                height_request = 64,
+                width_request = 64
+            };
+
+            secondary_label = new Gtk.Label (null) {
+                wrap = true,
+                halign = CENTER,
+                justify = CENTER
+            };
+            secondary_label.add_css_class ("dimmed");
+            secondary_label.add_css_class ("caption");
+
+            var primary_label = new Gtk.Label (_("Planify is syncing your tasks, this may take a few minutes")) {
+                wrap = true,
+                halign = CENTER,
+                justify = CENTER,
+                margin_start = 12,
+                margin_end = 12,
+            };
+            primary_label.add_css_class ("dimmed");
+
+            var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 24) {
+                margin_top = 128,
+                margin_start = 64,
+                margin_end = 64
+            };
+            
+            content_box.append (image);
+            content_box.append (secondary_label);
+            content_box.append (primary_label);
+
+            child = content_box;
+        }
+    }
 }
