@@ -227,7 +227,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
             Gee.ArrayList<Objects.Project> projects = yield caldav_client.fetch_project_list (source, cancellable);
 
-            sync_progress (0, projects.size, _("Starting sync..."));
+            sync_progress (0, projects.size, _("Starting sync…"));
 
             const int BATCH_SIZE = 5;
             int processed = 0;
