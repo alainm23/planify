@@ -176,7 +176,7 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
         signal_map[run_on_startup_switch.notify["active"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("run-on-startup", run_on_startup_switch.active);
         })] = run_on_startup_switch;
-// #endif (some how vala has issues when endif is here?!?!)
+#endif
 
         signal_map[calendar_events_switch.notify["active"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("calendar-enabled", calendar_events_switch.active);
