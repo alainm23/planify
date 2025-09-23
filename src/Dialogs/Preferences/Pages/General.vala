@@ -173,9 +173,11 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
         })] = run_background_switch;
 
 #if WITH_LIBPORTAL
-        signal_map[run_on_startup_switch.notify["active"].connect (() => {
+        var run_on_startup_handler = run_on_startup_switch.notify["active"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("run-on-startup", run_on_startup_switch.active);
-        })] = run_on_startup_switch;
+        });
+
+        signal_map[run_on_startup_handler] = run_on_startup_switch;
 #endif
 
         signal_map[calendar_events_switch.notify["active"].connect (() => {
@@ -203,3 +205,4 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
         signal_map.clear ();
     }
 }
+
