@@ -170,19 +170,7 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public void delete_source (Objects.Source source) {
-        if (Services.Database.get_default ().delete_source (source)) {
-            foreach (Objects.Project project in get_projects_by_source (source.id)) {
-                delete_project (project);
-            }
-
-            source.deleted ();
-            source_deleted (source);
-            _sources.remove (source);
-        }
-    }
-
-    public async void delete_source_async (Objects.Source source) {
+    public async void delete_source (Objects.Source source) {
         var projects = get_projects_by_source (source.id);
         const int BATCH_SIZE = 5;
         
@@ -190,7 +178,7 @@ public class Services.Store : GLib.Object {
             var batch_end = int.min (i + BATCH_SIZE, projects.size);
             
             for (int j = i; j < batch_end; j++) {
-                yield delete_project_async (projects[j]);
+                yield delete_project (projects[j]);
             }
             
             yield Util.nap (10);
@@ -285,27 +273,7 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public void delete_project (Objects.Project project) {
-        if (Services.Database.get_default ().delete_project (project)) {
-            foreach (Objects.Section section in get_sections_by_project (project)) {
-                delete_section (section);
-            }
-
-            foreach (Objects.Item item in get_items_by_project (project)) {
-                delete_item (item);
-            }
-
-            foreach (Objects.Project subproject in get_subprojects (project)) {
-                delete_project (subproject);
-            }
-
-            project.deleted ();
-            project_deleted (project);
-            _projects.remove (project);
-        }
-    }
-
-    public async void delete_project_async (Objects.Project project) {
+    public async void delete_project (Objects.Project project) {
         var sections = get_sections_by_project (project);
         var items = get_items_by_project (project);
         var subprojects = get_subprojects (project);
@@ -334,7 +302,7 @@ public class Services.Store : GLib.Object {
         }
         
         foreach (Objects.Project subproject in subprojects) {
-            yield delete_project_async (subproject);
+            yield delete_project (subproject);
         }
         
         if (Services.Database.get_default ().delete_project (project)) {

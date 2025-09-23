@@ -162,20 +162,12 @@ public class Objects.Source : Objects.BaseObject {
         Services.Store.instance ().update_source (this);
     }
 
-    public void delete_source () {
+    public async void delete_source () {
         // Remove server_timeout
         remove_sync_server ();
 
         // Remove DB
-        Services.Store.instance ().delete_source (this);
-    }
-
-    public async void delete_source_async () {
-        // Remove server_timeout
-        remove_sync_server ();
-
-        // Remove DB async
-        yield Services.Store.instance ().delete_source_async (this);
+        yield Services.Store.instance ().delete_source (this);
     }
 
     public string to_string () {

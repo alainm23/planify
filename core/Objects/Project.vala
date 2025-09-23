@@ -816,43 +816,49 @@ public class Objects.Project : Objects.BaseObject {
         dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
         dialog.present (window);
 
-        dialog.response.connect ((_response) => {
-            if (_response == "delete") {
-                loading = true;
-                if (source_type == SourceType.LOCAL) {
-                    Services.Store.instance ().delete_project (this);
-                } else if (source_type == SourceType.TODOIST) {
-                    dialog.set_response_enabled ("cancel", false);
-                    dialog.set_response_enabled ("delete", false);
-
-                    Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
-                        HttpResponse response = Services.Todoist.get_default ().delete.end (res);
-                        loading = false;
-
-                        if (response.status) {
-                            Services.Store.instance ().delete_project (this);
-                        } else {
-                            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                        }
-                    });
-                } else if (source_type == SourceType.CALDAV) {
-                    dialog.set_response_enabled ("cancel", false);
-                    dialog.set_response_enabled ("delete", false);
-
-                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
-                    caldav_client.delete_project.begin (this, (obj, res) => {
-                        HttpResponse response = caldav_client.delete_project.end (res);
-                        loading = false;
-
-                        if (response.status) {
-                            Services.Store.instance ().delete_project (this);
-                        } else {
-                            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                        }
-                    });
-                }
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
+                handle_project_deletion ();
             }
         });
+    }
+
+    private void handle_project_deletion () {
+        loading = true;
+        
+        if (source_type == SourceType.LOCAL) {
+            Services.Store.instance ().delete_project.begin (this);
+            return;
+        }
+        
+        if (source_type == SourceType.TODOIST) {
+            delete_from_todoist ();
+        } else if (source_type == SourceType.CALDAV) {
+            delete_from_caldav ();
+        }
+    }
+    
+    private void delete_from_todoist () {
+        Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
+            handle_remote_delete_response (Services.Todoist.get_default ().delete.end (res));
+        });
+    }
+    
+    private void delete_from_caldav () {
+        var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
+        caldav_client.delete_project.begin (this, (obj, res) => {
+            handle_remote_delete_response (caldav_client.delete_project.end (res));
+        });
+    }
+    
+    private void handle_remote_delete_response (HttpResponse response) {
+        loading = false;
+        
+        if (response.status) {
+            Services.Store.instance ().delete_project.begin (this);
+        } else {
+            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+        }
     }
 
     public void archive_project (Gtk.Window window) {

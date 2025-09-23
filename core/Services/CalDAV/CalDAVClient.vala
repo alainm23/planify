@@ -261,70 +261,9 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         }
     }
 
-    public async void fetch_items_for_project (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
-        var xml = """<?xml version="1.0" encoding="utf-8"?>
-        <cal:calendar-query xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
-            <d:prop>
-                <d:getetag/>
-                <d:displayname/>
-                <d:owner/>
-                <d:sync-token/>
-                <d:current-user-privilege-set/>
-                <d:getcontenttype/>
-                <d:resourcetype/>
-                <cal:calendar-data/>
-            </d:prop>
-            <cal:filter>
-                <cal:comp-filter name="VCALENDAR">
-                    <cal:comp-filter name="VTODO">
-                    </cal:comp-filter>
-                </cal:comp-filter>
-            </cal:filter>
-        </cal:calendar-query>
-        """;
-
-        var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
-        var responses = multi_status.responses ();
-        const int PROCESS_BATCH = 20;
-
-        for (int i = 0; i < responses.size; i += PROCESS_BATCH) {
-            var batch_end = int.min (i + PROCESS_BATCH, responses.size);
-            
-            for (int j = i; j < batch_end; j++) {
-                var response = responses[j];
-
-                string? href = response.href;
-
-                foreach (var propstat in response.propstats ()) {
-                    if (propstat.status != Soup.Status.OK) {
-                        continue;
-                    }
-
-                    var calendar_data = propstat.get_first_prop_with_tagname ("calendar-data");
-                    string? parent_id = Util.find_string_value ("RELATED-TO", calendar_data.text_content);
-
-                    Objects.Item item = new Objects.Item.from_vtodo (calendar_data.text_content, get_absolute_url (href), project.id);
-
-                    if (parent_id != null && parent_id != "") {
-                        Objects.Item ? parent_item = Services.Store.instance ().get_item (parent_id);
-                        if (parent_item != null) {
-                            parent_item.add_item_if_not_exists (item);
-                        } else {
-                            project.add_item_if_not_exists (item);
-                        }
-                    } else {
-                        project.add_item_if_not_exists (item);
-                    }
-                }
-            }
-            
-            yield Util.nap (10);
-        }
-    }
-
     public delegate void ProgressCallback (int current, int total, string message);
 
-    public async void fetch_items_for_project_with_progress (Objects.Project project, GLib.Cancellable cancellable, owned ProgressCallback? progress_callback = null) throws GLib.Error {
+    public async void fetch_items_for_project (Objects.Project project, GLib.Cancellable cancellable, owned ProgressCallback? progress_callback = null) throws GLib.Error {
         var xml = """<?xml version="1.0" encoding="utf-8"?>
         <cal:calendar-query xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
             <d:prop>
