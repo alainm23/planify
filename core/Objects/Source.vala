@@ -170,6 +170,14 @@ public class Objects.Source : Objects.BaseObject {
         Services.Store.instance ().delete_source (this);
     }
 
+    public async void delete_source_async () {
+        // Remove server_timeout
+        remove_sync_server ();
+
+        // Remove DB async
+        yield Services.Store.instance ().delete_source_async (this);
+    }
+
     public string to_string () {
         return """
         _________________________________

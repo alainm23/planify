@@ -354,6 +354,9 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
 
     public class LoadingPage : Adw.Bin {
         private Gtk.Label secondary_label;
+        private Gtk.ProgressBar progress_bar;
+        private Adw.Spinner spinner;
+        private bool _show_progress = false;
 
         public string sync_label {
             set {
@@ -361,12 +364,42 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
             }
         }
 
+        public bool show_progress {
+            get { return _show_progress; }
+            set {
+                _show_progress = value;
+                spinner.visible = !value;
+                progress_bar.visible = value;
+            }
+        }
+
+        public double progress {
+            set {
+                progress_bar.fraction = value;
+            }
+        }
+
         construct {
-            var image = new Adw.Spinner () {
+            var title_label = new Gtk.Label (_("Syncing…")) {
+                wrap = true,
+                halign = CENTER,
+                justify = CENTER,
+                margin_bottom = 24
+            };
+            title_label.add_css_class ("title-1");
+        
+            spinner = new Adw.Spinner () {
                 valign = CENTER,
                 halign = CENTER,
                 height_request = 64,
                 width_request = 64
+            };
+
+            progress_bar = new Gtk.ProgressBar () {
+                valign = CENTER,
+                halign = CENTER,
+                width_request = 300,
+                visible = false
             };
 
             secondary_label = new Gtk.Label (null) {
@@ -391,8 +424,10 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
                 margin_start = 64,
                 margin_end = 64
             };
-            
-            content_box.append (image);
+
+            content_box.append (title_label);
+            content_box.append (spinner);
+            content_box.append (progress_bar);
             content_box.append (secondary_label);
             content_box.append (primary_label);
 

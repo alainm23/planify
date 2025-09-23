@@ -244,7 +244,7 @@ public class Services.CalDAV.Core : GLib.Object {
                 for (int j = i; j < batch_end; j++) {
                     sync_progress (processed + 1, projects.size, _("Syncing %s…").printf (projects[j].name));
                     yield caldav_client.fetch_items_for_project_with_progress (projects[j], cancellable, (current, total, msg) => {
-                        sync_progress (processed, projects.size, msg);
+                        sync_progress (current, total, msg);
                     });
                     processed++;
                 }

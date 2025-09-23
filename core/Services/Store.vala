@@ -182,6 +182,27 @@ public class Services.Store : GLib.Object {
         }
     }
 
+    public async void delete_source_async (Objects.Source source) {
+        var projects = get_projects_by_source (source.id);
+        const int BATCH_SIZE = 5;
+        
+        for (int i = 0; i < projects.size; i += BATCH_SIZE) {
+            var batch_end = int.min (i + BATCH_SIZE, projects.size);
+            
+            for (int j = i; j < batch_end; j++) {
+                yield delete_project_async (projects[j]);
+            }
+            
+            yield Util.nap (10);
+        }
+        
+        if (Services.Database.get_default ().delete_source (source)) {
+            source.deleted ();
+            source_deleted (source);
+            _sources.remove (source);
+        }
+    }
+    
     public void update_source (Objects.Source source) {
         if (Services.Database.get_default ().update_source (source)) {
             source.updated ();
@@ -278,6 +299,45 @@ public class Services.Store : GLib.Object {
                 delete_project (subproject);
             }
 
+            project.deleted ();
+            project_deleted (project);
+            _projects.remove (project);
+        }
+    }
+
+    public async void delete_project_async (Objects.Project project) {
+        var sections = get_sections_by_project (project);
+        var items = get_items_by_project (project);
+        var subprojects = get_subprojects (project);
+        
+        const int BATCH_SIZE = 50;
+        
+        for (int i = 0; i < items.size; i += BATCH_SIZE) {
+            var batch_end = int.min (i + BATCH_SIZE, items.size);
+            
+            for (int j = i; j < batch_end; j++) {
+                Services.Database.get_default ().delete_item (items[j]);
+                _items_by_project_cache.unset (items[j].project_id);
+                items[j].deleted ();
+                _items.remove (items[j]);
+                item_deleted (items[j]);
+            }
+            
+            yield Util.nap (5);
+        }
+        
+        foreach (Objects.Section section in sections) {
+            Services.Database.get_default ().delete_section (section);
+            section.deleted ();
+            section_deleted (section);
+            _sections.remove (section);
+        }
+        
+        foreach (Objects.Project subproject in subprojects) {
+            yield delete_project_async (subproject);
+        }
+        
+        if (Services.Database.get_default ().delete_project (project)) {
             project.deleted ();
             project_deleted (project);
             _projects.remove (project);

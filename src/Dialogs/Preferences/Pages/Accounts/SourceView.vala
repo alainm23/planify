@@ -175,7 +175,8 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
 
             dialog.response.connect ((response) => {
                 if (response == "delete") {
-                    source.delete_source ();
+                    delete_button.sensitive = false;
+                    source.delete_source_async.begin ();
                 }
             });
         })] = delete_button;

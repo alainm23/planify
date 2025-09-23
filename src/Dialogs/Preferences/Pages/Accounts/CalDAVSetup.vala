@@ -115,7 +115,9 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         content_box.append (login_button);
         content_box.append (cancel_button);
 
-        var loading_page = new Dialogs.Preferences.Pages.Accounts.LoadingPage ();
+        var loading_page = new Dialogs.Preferences.Pages.Accounts.LoadingPage () {
+            show_progress = true
+        };
 
         var main_stack = new Gtk.Stack () {
             vexpand = true,
@@ -148,6 +150,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
 
         signal_map[Services.CalDAV.Core.get_default ().sync_progress.connect ((current, total, message) => {
             loading_page.sync_label = message;
+            loading_page.progress = total > 0 ? (double) current / (double) total : 0.0;
         })] = Services.CalDAV.Core.get_default ();
 
         destroy.connect (() => {
