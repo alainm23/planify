@@ -20,11 +20,7 @@ sqlite3_dep = dependency('sqlite3')
 libadwaita_dep = dependency('libadwaita-1', version: '>= 1.7.0')
 gtksourceview_dep = dependency('gtksourceview-5')
 json_dep = dependency('json-glib-1.0')
-libecal_dep = dependency('libecal-2.0', version: '>= 3.45.1')
-libedataserver_dep = dependency('libedataserver-1.2', version: '>= 3.45.1')
 libical_dep = dependency('libical-glib')
-libportal_dep = dependency('libportal', required: true)
-libportal_gtk4_dep = dependency('libportal-gtk4', required: true)
 libgxml_dep = dependency('gxml-0.20')
 libsecret_dep = dependency('libsecret-1')
 libspelling = dependency('libspelling-1', required: get_option('spelling'))
@@ -40,6 +36,30 @@ endif
 
 if libspelling.found ()
   add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
+endif
+
+if get_option('portal')
+    libportal_dep = dependency('libportal', required: true)
+    libportal_gtk4_dep = dependency('libportal-gtk4', required: true)
+    add_project_arguments('-D', 'WITH_LIBPORTAL', language: 'vala')
+    if not libportal_dep.found()
+        error('libportal requested but not found')
+    endif
+    if not libportal_gtk4_dep.found()
+        error('libportal-gtk4 requested but not found')
+    endif
+endif
+
+if get_option('evolution')
+    libecal_dep = dependency('libecal-2.0', version: '>= 3.45.1')
+    libedataserver_dep = dependency('libedataserver-1.2', version: '>= 3.45.1')
+    add_project_arguments('-D', 'WITH_EVOLUTION', language: 'vala')
+    if not libecal_dep.found()
+        error('libecal-2.0 requested but not found')
+    endif
+    if not libedataserver_dep.found()
+        error('libedataserver-1.2 requested but not found')
+    endif
 endif
 
 ############
