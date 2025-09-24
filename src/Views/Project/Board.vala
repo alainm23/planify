@@ -207,6 +207,10 @@ public class Views.Board : Adw.Bin {
         signal_map[project.count_updated.connect (() => {
             icon_project.update_request ();
         })] = project;
+
+        signal_map[project.source.sync_finished.connect (() => {
+            flowbox.invalidate_sort ();
+        })] = project.source;
     }
 
     public void update_request () {

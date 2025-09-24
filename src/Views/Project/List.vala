@@ -249,6 +249,10 @@ public class Views.List : Adw.Bin {
             project.handle_scroll_visibility_change (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);
         })] = scrolled_window.vadjustment;
 
+        signal_map[project.source.sync_finished.connect (() => {
+            listbox.invalidate_sort ();
+        })] = project.source;
+
         destroy.connect (() => {
             clean_up ();
         });

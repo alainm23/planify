@@ -69,7 +69,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     private int completed_page_index = 0;
     private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
 
-    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public signal void children_size_changed ();
 
@@ -271,32 +271,32 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             return GLib.Source.REMOVE;
         });
 
-        signals_map[section.updated.connect (() => {
+        signal_map[section.updated.connect (() => {
             name_label.label = section.name;
             bottom_revealer.reveal_child = section.collapsed;
             update_collapsed_button ();
         })] = section;
 
         if (is_inbox_section) {
-            signals_map[section.project.item_added.connect ((item) => {
+            signal_map[section.project.item_added.connect ((item) => {
                 add_item (item);
             })] = section;
         } else {
-            signals_map[section.item_added.connect ((item) => {
+            signal_map[section.item_added.connect ((item) => {
                 add_item (item);
             })] = section;
         }
 
         var edit_gesture = new Gtk.GestureClick ();
         name_label.add_controller (edit_gesture);
-        signals_map[edit_gesture.released.connect ((n_press, x, y) => {
+        signal_map[edit_gesture.released.connect ((n_press, x, y) => {
             if (n_press == 2) {
                 var dialog = new Dialogs.Section (section);
                 dialog.present (Planify._instance.main_window);
             }
         })] = edit_gesture;
 
-        signals_map[Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
+        signal_map[Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
             if (item.project_id == section.project_id && item.section_id == section.id && !item.has_parent) {
                 if (!old_checked) {
                     if (items_map.has_key (item.id)) {
@@ -322,7 +322,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             }
         })] = Services.EventBus.get_default ();
 
-        signals_map[Services.Store.instance ().item_updated.connect ((item, update_id) => {
+        signal_map[Services.Store.instance ().item_updated.connect ((item, update_id) => {
             if (items_map.has_key (item.id)) {
                 if (items_map[item.id].update_id != update_id) {
                     items_map[item.id].update_request ();
@@ -335,7 +335,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             }
         })] = Services.Store.instance ();
 
-        signals_map[Services.Store.instance ().item_pin_change.connect ((item) => {
+        signal_map[Services.Store.instance ().item_pin_change.connect ((item) => {
             // vala-lint=no-space
             if (!item.pinned && item.project_id == section.project_id &&
                 item.section_id == section.id && !item.has_parent &&
@@ -349,7 +349,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             }
         })] = Services.Store.instance ();
 
-        signals_map[Services.Store.instance ().item_deleted.connect ((item) => {
+        signal_map[Services.Store.instance ().item_deleted.connect ((item) => {
             if (items_map.has_key (item.id)) {
                 items_map[item.id].hide_destroy ();
                 items_map.unset (item.id);
@@ -361,7 +361,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             }
         })] = Services.Store.instance ();
 
-        signals_map[Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
+        signal_map[Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
             // vala-lint=no-space
             if (old_project_id == section.project_id && old_section_id == section.id) {
                 if (items_map.has_key (item.id)) {
@@ -383,7 +383,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             update_sort ();
         })] = Services.EventBus.get_default ();
 
-        signals_map[Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id) => {
+        signal_map[Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id) => {
             if (_row is Layouts.ItemRow) {
                 var row = (Layouts.ItemRow) _row;
 
@@ -403,27 +403,27 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             }
         })] = Services.EventBus.get_default ();
 
-        signals_map[section.project.show_completed_changed.connect (show_completed_changed)] = section.project;
+        signal_map[section.project.show_completed_changed.connect (show_completed_changed)] = section.project;
 
-        signals_map[section.project.sort_order_changed.connect (() => {
+        signal_map[section.project.sort_order_changed.connect (() => {
             update_sort ();
         })] = section.project;
 
-        signals_map[section.project.sorted_by_changed.connect (() => {
+        signal_map[section.project.sorted_by_changed.connect (() => {
             update_sort ();
         })] = section.project;
 
-        signals_map[Services.EventBus.get_default ().update_section_sort_func.connect ((project_id, section_id, value) => {
+        signal_map[Services.EventBus.get_default ().update_section_sort_func.connect ((project_id, section_id, value) => {
             if (section.project_id == project_id && section.id == section_id) {
                 update_sort ();
             }
         })] = Services.EventBus.get_default ();
 
-        signals_map[section.section_count_updated.connect (() => {
+        signal_map[section.section_count_updated.connect (() => {
             update_count_label (section.section_count);
         })] = section;
 
-        signals_map[Services.EventBus.get_default ().drag_n_drop_active.connect ((project_id, active) => {
+        signal_map[Services.EventBus.get_default ().drag_n_drop_active.connect ((project_id, active) => {
             if (section.project_id == project_id) {
                 drop_inbox_revealer.reveal_child = active;
             }
@@ -434,27 +434,27 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             return Utils.TaskUtils.items_filter_func (item, section.project.filters);
         });
 
-        signals_map[section.project.filter_added.connect (() => {
+        signal_map[section.project.filter_added.connect (() => {
             update_sort ();
         })] = section.project;
 
-        signals_map[section.project.filter_removed.connect (() => {
+        signal_map[section.project.filter_removed.connect (() => {
             update_sort ();
         })] = section.project;
 
-        signals_map[section.project.filter_updated.connect (() => {
+        signal_map[section.project.filter_updated.connect (() => {
             update_sort ();
         })] = section.project;
 
-        signals_map[section.sensitive_change.connect (() => {
+        signal_map[section.sensitive_change.connect (() => {
             sensitive = section.sensitive;
         })] = section;
 
-        signals_map[section.loading_change.connect (() => {
+        signal_map[section.loading_change.connect (() => {
             is_loading = section.loading;
         })] = section;
 
-        signals_map[Services.EventBus.get_default ().expand_all.connect ((project_id, value) => {
+        signal_map[Services.EventBus.get_default ().expand_all.connect ((project_id, value) => {
             if (section.project_id == project_id) {
                 foreach (Layouts.ItemRow row in items_map.values) {
                     row.edit = value;
@@ -462,20 +462,20 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             }
         })] = Services.EventBus.get_default ();
 
-        signals_map[hide_subtask_button.clicked.connect (() => {
+        signal_map[hide_subtask_button.clicked.connect (() => {
             section.collapsed = !section.collapsed;
             section.update_local ();
         })] = hide_subtask_button;
 
-        signals_map[load_more_button.clicked.connect (() => {
+        signal_map[load_more_button.clicked.connect (() => {
             load_next_completed_page ();
         })] = load_more_button;
 
-        signals_map[add_button.clicked.connect (() => {
+        signal_map[add_button.clicked.connect (() => {
             prepare_new_item ("", NewTaskPosition.END);
         })] = add_button;
 
-        signals_map[section.project.source.sync_finished.connect (() => {
+        signal_map[section.project.source.sync_finished.connect (() => {
             update_sort ();
         })] = section.project.source;
     }
@@ -729,7 +729,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     private void build_drag_and_drop () {
         var drop_inbox_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
         drop_inbox_widget.add_controller (drop_inbox_target);
-        signals_map[drop_inbox_target.drop.connect ((target, value, x, y) => {
+        signal_map[drop_inbox_target.drop.connect ((target, value, x, y) => {
             var picked_widget = (Layouts.ItemRow) value;
             picked_widget.drag_end ();
 
@@ -812,10 +812,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         }
 
         // Clear Signals
-        foreach (var entry in signals_map.entries) {
+        foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
-        signals_map.clear ();
+        signal_map.clear ();
     }
 }
