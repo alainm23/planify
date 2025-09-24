@@ -52,6 +52,7 @@ public class Services.Store : GLib.Object {
     public signal void item_archived (Objects.Item item);
     public signal void item_unarchived (Objects.Item item);
     public signal void item_pin_change (Objects.Item item);
+    public signal void item_moved (Objects.Item item, string old_project_id, string old_section_id, string old_parent_id);
 
     public signal void item_label_added (Objects.Label label);
     public signal void item_label_deleted (Objects.Label label);
@@ -642,6 +643,7 @@ public class Services.Store : GLib.Object {
 
             item.updated ();
             item_updated (item, "");
+            item_moved (item, old_project_id, old_section_id, old_parent_id);
         }
     }
 
