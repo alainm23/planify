@@ -2077,22 +2077,38 @@ public class Services.Database : GLib.Object {
     }
 
     // PARAMETER REGION
-    private void set_parameter_int (Sqlite.Statement ? stmt, string par, int val) {
+    private void set_parameter_int (Sqlite.Statement ? stmt, string par, int ? val) {
+        if (val == null) {
+            return;
+        }
+
         int par_position = stmt.bind_parameter_index (par);
         stmt.bind_int (par_position, val);
     }
 
-    private void set_parameter_int64 (Sqlite.Statement ? stmt, string par, int64 val) {
+    private void set_parameter_int64 (Sqlite.Statement ? stmt, string par, int64 ? val) {
+        if (val == null) {
+            return;
+        }
+
         int par_position = stmt.bind_parameter_index (par);
         stmt.bind_int64 (par_position, val);
     }
 
-    private void set_parameter_str (Sqlite.Statement ? stmt, string par, string val) {
+    private void set_parameter_str (Sqlite.Statement ? stmt, string par, string ? val) {
+        if (val == null) {
+            return;
+        }
+
         int par_position = stmt.bind_parameter_index (par);
         stmt.bind_text (par_position, val);
     }
 
-    private void set_parameter_bool (Sqlite.Statement ? stmt, string par, bool val) {
+    private void set_parameter_bool (Sqlite.Statement ? stmt, string par, bool ? val) {
+        if (val == null) {
+            return;
+        }
+        
         int par_position = stmt.bind_parameter_index (par);
         stmt.bind_int (par_position, val ? 1 : 0);
     }

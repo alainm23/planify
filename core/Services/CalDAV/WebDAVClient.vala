@@ -37,6 +37,12 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         this.ignore_ssl = ignore_ssl;
     }
 
+    public void cleanup () {
+        if (session != null) {
+            session.abort ();
+        }
+    }
+
     public string get_absolute_url (string href) {
         string abs_url = null;
         try {
@@ -104,7 +110,15 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
             msg.set_request_body_from_bytes (content_type, new GLib.Bytes (body.data));
         }
 
-        GLib.Bytes response = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
+        GLib.Bytes response;
+        try {
+            response = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
+        } catch (Error e) {
+            if (e is GLib.IOError.CANCELLED) {
+                throw e;
+            }
+            throw new GLib.IOError.FAILED ("Request failed: %s".printf (e.message));
+        }
 
         bool ok = false;
         foreach (var code in expected_statuses) {
