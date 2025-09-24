@@ -908,10 +908,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         if (markdown_edit_view != null) {
             markdown_edit_view.buffer.text = item.description;
-
             build_markdown_signals ();
         }
-
+        
         project_name_label.label = item.project.name;
         if (item.has_parent) {
             if (item.parent.has_parent) {

@@ -170,18 +170,27 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public void delete_source (Objects.Source source) {
-        if (Services.Database.get_default ().delete_source (source)) {
-            foreach (Objects.Project project in get_projects_by_source (source.id)) {
-                delete_project (project);
+    public async void delete_source (Objects.Source source) {
+        var projects = get_projects_by_source (source.id);
+        const int BATCH_SIZE = 5;
+        
+        for (int i = 0; i < projects.size; i += BATCH_SIZE) {
+            var batch_end = int.min (i + BATCH_SIZE, projects.size);
+            
+            for (int j = i; j < batch_end; j++) {
+                yield delete_project (projects[j]);
             }
-
+            
+            yield Util.nap (10);
+        }
+        
+        if (Services.Database.get_default ().delete_source (source)) {
             source.deleted ();
             source_deleted (source);
             _sources.remove (source);
         }
     }
-
+    
     public void update_source (Objects.Source source) {
         if (Services.Database.get_default ().update_source (source)) {
             source.updated ();
@@ -264,20 +273,39 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public void delete_project (Objects.Project project) {
+    public async void delete_project (Objects.Project project) {
+        var sections = get_sections_by_project (project);
+        var items = get_items_by_project (project);
+        var subprojects = get_subprojects (project);
+        
+        const int BATCH_SIZE = 50;
+        
+        for (int i = 0; i < items.size; i += BATCH_SIZE) {
+            var batch_end = int.min (i + BATCH_SIZE, items.size);
+            
+            for (int j = i; j < batch_end; j++) {
+                Services.Database.get_default ().delete_item (items[j]);
+                _items_by_project_cache.unset (items[j].project_id);
+                items[j].deleted ();
+                _items.remove (items[j]);
+                item_deleted (items[j]);
+            }
+            
+            yield Util.nap (5);
+        }
+        
+        foreach (Objects.Section section in sections) {
+            Services.Database.get_default ().delete_section (section);
+            section.deleted ();
+            section_deleted (section);
+            _sections.remove (section);
+        }
+        
+        foreach (Objects.Project subproject in subprojects) {
+            yield delete_project (subproject);
+        }
+        
         if (Services.Database.get_default ().delete_project (project)) {
-            foreach (Objects.Section section in get_sections_by_project (project)) {
-                delete_section (section);
-            }
-
-            foreach (Objects.Item item in get_items_by_project (project)) {
-                delete_item (item);
-            }
-
-            foreach (Objects.Project subproject in get_subprojects (project)) {
-                delete_project (subproject);
-            }
-
             project.deleted ();
             project_deleted (project);
             _projects.remove (project);
@@ -582,8 +610,11 @@ public class Services.Store : GLib.Object {
             _items.remove (item);
             item_deleted (item);
 
-            item.project.item_deleted (item);
-            if (item.has_section) {
+            if (item.project != null) {
+                item.project.item_deleted (item);
+            }
+            
+            if (item.has_section && item.section != null) {
                 item.section.item_deleted (item);
             }
         }
@@ -599,8 +630,15 @@ public class Services.Store : GLib.Object {
                 move_item (subitem);
             }
 
-            get_section (item.section_id).update_count ();
-            get_section (old_section_id).update_count ();
+            var current_section = get_section (item.section_id);
+            if (current_section != null) {
+                current_section.update_count ();
+            }
+            
+            var old_section = get_section (old_section_id);
+            if (old_section != null) {
+                old_section.update_count ();
+            }
 
             item.updated ();
             item_updated (item, "");
@@ -624,7 +662,7 @@ public class Services.Store : GLib.Object {
 
             Services.EventBus.get_default ().checked_toggled (item, old_checked);
 
-            if (item.has_parent && !item.checked) {
+            if (item.has_parent && !item.checked && item.parent != null) {
                 item.parent.checked = item.checked;
                 item.parent.completed_at = item.completed_at;
 
@@ -697,7 +735,7 @@ public class Services.Store : GLib.Object {
         Objects.Item ? return_value = null;
         lock (_items) {
             foreach (var item in items) {
-                if (item.source.source_type == SourceType.CALDAV) {
+                if (item.source != null && item.source.source_type == SourceType.CALDAV) {
                     if (item.ical_url == ical_url) {
                         return_value = item;
                         break;
@@ -845,7 +883,7 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.has_due && item.due.is_recurring && item.checked == checked && !item.was_archived ()) {
+                if (item != null && item.has_due && item.due.is_recurring && item.checked == checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -884,7 +922,7 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.pinned && item.checked == checked && !item.was_archived ()) {
+                if (item != null && item.pinned && item.checked == checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -897,7 +935,7 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.priority == priority && item.checked == checked && !item.was_archived ()) {
+                if (item != null && item.priority == priority && item.checked == checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -910,7 +948,7 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.checked && !item.was_archived ()) {
+                if (item != null && item.checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -923,7 +961,7 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.has_label (label.id) && item.checked == checked && !item.was_archived ()) {
+                if (item != null && item.has_label (label.id) && item.checked == checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -936,7 +974,7 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.labels.size <= 0 && item.checked == checked && !item.was_archived ()) {
+                if (item != null && item.labels.size <= 0 && item.checked == checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -949,7 +987,8 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.has_due &&
+                if (item != null &&
+                    item.has_due &&
                     !item.was_archived () &&
                     item.checked == checked &&
                     item.due.datetime.compare (new GLib.DateTime.now_local ()) > 0) {
@@ -965,7 +1004,8 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (!item.was_archived () &&
+                if (item != null &&
+                    !item.was_archived () &&
                     item.checked == checked &&
                     !item.has_parent) {
                     return_value.add (item);
@@ -977,7 +1017,7 @@ public class Services.Store : GLib.Object {
     }
 
     public bool valid_item_by_date (Objects.Item item, GLib.DateTime date, bool checked = true) {
-        if (!item.has_due || item.was_archived ()) {
+        if (item == null || !item.has_due || item.was_archived ()) {
             return false;
         }
 
@@ -985,7 +1025,7 @@ public class Services.Store : GLib.Object {
     }
 
     public bool valid_item_by_date_range (Objects.Item item, GLib.DateTime start_date, GLib.DateTime end_date, bool checked = true) {
-        if (!item.has_due || item.was_archived ()) {
+        if (item == null || !item.has_due || item.was_archived ()) {
             return false;
         }
 
@@ -997,7 +1037,7 @@ public class Services.Store : GLib.Object {
     }
 
     public bool valid_item_by_month (Objects.Item item, GLib.DateTime date, bool checked = true) {
-        if (!item.has_due || item.was_archived ()) {
+        if (item == null || !item.has_due || item.was_archived ()) {
             return false;
         }
 
@@ -1010,7 +1050,8 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.has_due &&
+                if (item != null &&
+                    item.has_due &&
                     !item.was_archived () &&
                     item.checked == checked &&
                     item.due.datetime.compare (date_now) < 0 &&
@@ -1024,7 +1065,7 @@ public class Services.Store : GLib.Object {
     }
 
     public bool valid_item_by_overdue (Objects.Item item, GLib.DateTime date, bool checked = true) {
-        if (!item.has_due || item.was_archived ()) {
+        if (item == null || !item.has_due || item.was_archived ()) {
             return false;
         }
 
@@ -1076,7 +1117,7 @@ public class Services.Store : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.has_labels () && !item.completed && !item.was_archived ()) {
+                if (item != null && item.has_labels () && !item.completed && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
