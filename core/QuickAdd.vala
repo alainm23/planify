@@ -439,7 +439,7 @@ public class Layouts.QuickAdd : Adw.Bin {
             }
         })] = event_controller_key;
 
-        signal_map[create_more_button.activate.connect (() => {
+        signal_map[create_more_button.toggled.connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("quick-add-create-more", create_more_button.active);
         })] = create_more_button;
 
