@@ -110,6 +110,7 @@
     <file alias="text-bold-symbolic.svg">resources/icons/text-bold-symbolic.svg</file>
     <file alias="dialog-information-symbolic.svg">resources/icons/dialog-information-symbolic.svg</file>
     <file alias="go-home-symbolic.svg">resources/icons/go-home-symbolic.svg</file>
+    <file alias="paper-plane-symbolic.svg">resources/icons/paper-plane-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
@@ -189,6 +190,7 @@
     <file alias="text-bold-symbolic.svg">resources/icons/text-bold-symbolic.svg</file>
     <file alias="dialog-information-symbolic.svg">resources/icons/dialog-information-symbolic.svg</file>
     <file alias="go-home-symbolic.svg">resources/icons/go-home-symbolic.svg</file>
+    <file alias="paper-plane-symbolic.svg">resources/icons/paper-plane-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
@@ -268,5 +270,6 @@
     <file alias="text-bold-symbolic.svg">resources/icons/text-bold-symbolic.svg</file>
     <file alias="dialog-information-symbolic.svg">resources/icons/dialog-information-symbolic.svg</file>
     <file alias="go-home-symbolic.svg">resources/icons/go-home-symbolic.svg</file>
+    <file alias="paper-plane-symbolic.svg">resources/icons/paper-plane-symbolic.svg</file>
   </gresource>
 </gresources>
