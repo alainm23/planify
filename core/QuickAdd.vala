@@ -226,12 +226,13 @@ public class Layouts.QuickAdd : Adw.Bin {
         submit_button.add_css_class ("padding-4");
 
         create_more_button = new Gtk.ToggleButton () {
-            css_classes = { "keep-adding-button" },
             tooltip_text = _("Keep adding"),
             icon_name = "arrow-turn-down-right-symbolic",
             valign = CENTER,
             active = Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more")
         };
+        create_more_button.add_css_class ("flat");
+        create_more_button.add_css_class ("keep-adding-button");
 
         var submit_cancel_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
