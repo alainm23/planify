@@ -186,6 +186,10 @@ public class Services.Store : GLib.Object {
         }
         
         if (Services.Database.get_default ().delete_source (source)) {
+            foreach (Objects.Label label in get_labels_by_source (source.id)) {
+                delete_label (label);
+            }
+            
             source.deleted ();
             source_deleted (source);
             _sources.remove (source);
