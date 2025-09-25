@@ -19,6 +19,10 @@ check {
     padding: 0;
 }
 
+.padding-4 {
+    padding: 4px;
+}
+
 .padding-6 {
     padding: 6px;
 }

@@ -217,15 +217,19 @@ public class Layouts.QuickAdd : Adw.Bin {
         quick_add_content.append (item_labels);
         quick_add_content.append (action_box);
 
-        submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add")) {
+        submit_button = new Widgets.LoadingButton.with_icon ("paper-plane-symbolic") {
             valign = CENTER,
-            css_classes = { "suggested-action", "border-radius-6" }
+            width_request = 32,
+            tooltip_text = _("Add Task")
         };
+        submit_button.add_css_class ("suggested-action");
+        submit_button.add_css_class ("padding-4");
 
         create_more_button = new Gtk.ToggleButton () {
-            css_classes = { "flat", "keep-adding-button" },
+            css_classes = { "keep-adding-button" },
             tooltip_text = _("Keep adding"),
             icon_name = "arrow-turn-down-right-symbolic",
+            valign = CENTER,
             active = Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more")
         };
 
