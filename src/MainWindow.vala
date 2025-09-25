@@ -480,7 +480,7 @@ public class MainWindow : Adw.ApplicationWindow {
     public void add_priority_view (string view_id) {
         Views.Filter ? filter_view = (Views.Filter) views_stack.get_child_by_name (view_id);
         if (filter_view == null) {
-            filter_view = new Views.Filter (Util.get_default ().get_priority_filter (view_id));
+            filter_view = new Views.Filter (Objects.Filters.Priority.get_default (int.parse (view_id.split ("-")[1])));
             views_stack.add_named (filter_view, view_id);
             add_view_to_cache (view_id, filter_view);
         } else {

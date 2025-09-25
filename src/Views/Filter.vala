@@ -60,8 +60,8 @@ public class Views.Filter : Adw.Bin {
             pixel_size = 16,
             valign = CENTER,
             halign = CENTER,
-            css_classes = { "view-icon" }
         };
+        title_icon.add_css_class ("view-icon");
         
         title_label = new Gtk.Label (null) {
             css_classes = { "font-bold", "title-2" },
@@ -245,7 +245,7 @@ public class Views.Filter : Adw.Bin {
             title_icon.icon_name = priority.icon;
             Util.get_default ().set_widget_color (priority.color, title_icon);
             
-            title_label.label = priority.name;
+            title_label.label = priority.title;
             listbox.set_header_func (header_project_function);
             magic_button.visible = true;
         } else {
