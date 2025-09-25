@@ -480,22 +480,20 @@ public class MainWindow : Adw.ApplicationWindow {
     public void add_priority_view (string view_id) {
         Views.Filter ? filter_view = (Views.Filter) views_stack.get_child_by_name (view_id);
         if (filter_view == null) {
-            filter_view = new Views.Filter ();
+            filter_view = new Views.Filter (Objects.Filters.Priority.get_default (int.parse (view_id.split ("-")[1])));
             views_stack.add_named (filter_view, view_id);
             add_view_to_cache (view_id, filter_view);
         } else {
             update_view_access (view_id);
         }
 
-        filter_view.filter = Util.get_default ().get_priority_filter (view_id);
         views_stack.set_visible_child_name (view_id);
     }
 
     private void add_filter_view (Objects.BaseObject base_object) {
         Views.Filter ? filter_view = (Views.Filter) views_stack.get_child_by_name (base_object.view_id);
         if (filter_view == null) {
-            filter_view = new Views.Filter ();
-            filter_view.filter = base_object;
+            filter_view = new Views.Filter (base_object);
             views_stack.add_named (filter_view, base_object.view_id);
             add_view_to_cache (base_object.view_id, filter_view);
         } else {

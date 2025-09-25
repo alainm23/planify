@@ -135,7 +135,9 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
         } else if (base_object is Objects.Filters.Priority) {
             Objects.Filters.Priority priority = ((Objects.Filters.Priority) base_object);
 
-            var priority_icon = Util.get_default ().get_priority_icon (priority.priority);
+            var priority_icon = new Gtk.Image.from_icon_name (priority.icon);
+            priority_icon.add_css_class ("view-icon");
+            Util.get_default ().set_widget_color (priority.color, priority_icon);
 
             var name_label = new Gtk.Label (markup_string_with_search (priority.title, pattern)) {
                 ellipsize = Pango.EllipsizeMode.END,
