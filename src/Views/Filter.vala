@@ -20,6 +20,8 @@
  */
 
 public class Views.Filter : Adw.Bin {
+    public Objects.BaseObject filter { get; construct; }
+
     private Layouts.HeaderBar headerbar;
     private Gtk.Image title_icon;
     private Gtk.Label title_label;
@@ -33,18 +35,9 @@ public class Views.Filter : Adw.Bin {
     private Gee.HashMap<string, Layouts.ItemRow> items = new Gee.HashMap<string, Layouts.ItemRow> ();
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    Objects.BaseObject _filter;
-    public Objects.BaseObject filter {
-        get {
-            return _filter;
-        }
-
-        set {
-            _filter = value;
-            update_request ();
-            add_items ();
-        }
-    }
+    private Gee.ArrayList<Objects.Item> items_list;
+    private int page_index = 0;
+    private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
 
     private bool has_items {
         get {
@@ -52,9 +45,11 @@ public class Views.Filter : Adw.Bin {
         }
     }
 
-    private Gee.ArrayList<Objects.Item> items_list;
-    private int page_index = 0;
-    private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
+    public Filter (Objects.BaseObject filter) {
+        Object (
+            filter: filter
+        );
+    }
 
     ~Filter () {
         debug ("Destroying - Views.Filter\n");
@@ -129,6 +124,11 @@ public class Views.Filter : Adw.Bin {
         listbox_placeholder.icon_name = "check-round-outline-symbolic";
         listbox_placeholder.title = _("Add Some Tasks");
         listbox_placeholder.description = _("Press 'a' to create a new task");
+        
+        if (filter is Objects.Filters.Completed) {
+            listbox_placeholder.title = _("All tasks completed!");
+            listbox_placeholder.description = _("Great job, nothing left to do 🎉");
+        }
 
         listbox_stack = new Gtk.Stack () {
             hexpand = true,
@@ -175,6 +175,8 @@ public class Views.Filter : Adw.Bin {
         toolbar_view.add_top_bar (headerbar);
 
         child = toolbar_view;
+        update_request ();
+        add_items ();
 
         Timeout.add (listbox_stack.transition_duration, () => {
             validate_placeholder ();
