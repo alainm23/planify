@@ -38,6 +38,8 @@ public class Layouts.QuickAdd : Adw.Bin {
     private Gtk.Revealer info_revealer;
     private Gtk.Overlay animation_overlay;
     private Gtk.Fixed animation_container;
+    private Adw.HeaderBar headerbar;
+    private Gtk.Label success_label;
 
     public signal void hide_destroy ();
     public signal void send_interface_id (string id);
@@ -101,8 +103,14 @@ public class Layouts.QuickAdd : Adw.Bin {
         };
         info_button.add_css_class ("flat");
 
-        var headerbar = new Adw.HeaderBar () {
-            title_widget = new Gtk.Label (null),
+        success_label = new Gtk.Label (_("Task added successfully!")) {
+            visible = false
+        };
+        success_label.add_css_class ("font-bold");
+        success_label.add_css_class ("caption");
+
+        headerbar = new Adw.HeaderBar () {
+            title_widget = success_label,
             hexpand = true,
             css_classes = { "flat" }
         };
@@ -541,31 +549,79 @@ public class Layouts.QuickAdd : Adw.Bin {
     }
 
     public void added_successfully () {
+        if (create_more_button.active) {
+            main_stack.visible_child_name = "main";
+            added_image.remove_css_class ("fancy-turn-animation");
+
+            // Animación de notificación de éxito
+            show_success_notification ();
+
+            reset_item ();
+
+            content_entry.text = "";
+            description_textview.set_text ("");
+            schedule_button.reset ();
+            priority_button.reset ();
+            label_button.reset ();
+            item_labels.reset ();
+
+            content_entry.grab_focus ();
+
+            return;
+        }
+
         main_stack.visible_child_name = "added";
         added_image.add_css_class ("fancy-turn-animation");
         bool create_more = create_more_button.active;
 
         Timeout.add (750, () => {
-            if (create_more) {
-                main_stack.visible_child_name = "main";
-                added_image.remove_css_class ("fancy-turn-animation");
-
-                reset_item ();
-
-                content_entry.text = "";
-                description_textview.set_text ("");
-                schedule_button.reset ();
-                priority_button.reset ();
-                label_button.reset ();
-                item_labels.reset ();
-
-                content_entry.grab_focus ();
-            } else {
-                hide_destroy ();
-            }
-
+            hide_destroy ();
             return GLib.Source.REMOVE;
         });
+    }
+
+    private void show_success_notification () {
+        success_label.visible = true;
+        success_label.opacity = 0.0;
+
+        var fade_in_target = new Adw.CallbackAnimationTarget ((progress) => {
+            success_label.opacity = progress;
+        });
+
+        var fade_in_animation = new Adw.TimedAnimation (
+            success_label,
+            0.0,
+            1.0,
+            300,
+            fade_in_target
+        );
+        fade_in_animation.easing = Adw.Easing.EASE_OUT_CUBIC;
+
+        fade_in_animation.done.connect (() => {
+            Timeout.add (1500, () => {
+                var fade_out_target = new Adw.CallbackAnimationTarget ((progress) => {
+                    success_label.opacity = 1.0 - progress;
+                });
+
+                var fade_out_animation = new Adw.TimedAnimation (
+                    success_label,
+                    0.0,
+                    1.0,
+                    300,
+                    fade_out_target
+                );
+                fade_out_animation.easing = Adw.Easing.EASE_IN_CUBIC;
+
+                fade_out_animation.done.connect (() => {
+                    success_label.visible = false;
+                });
+
+                fade_out_animation.play ();
+                return GLib.Source.REMOVE;
+            });
+        });
+
+        fade_in_animation.play ();
     }
 
     private void reset_item () {
