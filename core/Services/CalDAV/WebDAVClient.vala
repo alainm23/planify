@@ -152,7 +152,9 @@ public class Services.CalDAV.WebDAVMultiStatus : Object {
     }
 
     public void debug_print () {
-        debug ("WebDAV MultiStatus XML:\n%s", xml_content);
+        print ("-------------------------------\n");
+        print ("%s\b", xml_content);
+        print ("-------------------------------\n");
     }
 
     public Gee.ArrayList<WebDAVResponse> responses () {
