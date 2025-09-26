@@ -144,10 +144,15 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
 
 public class Services.CalDAV.WebDAVMultiStatus : Object {
     private GXml.DomElement root;
+    private string xml_content;
 
     public WebDAVMultiStatus.from_string (string xml) throws GLib.Error {
-        var doc = new GXml.XDocument.from_string (xml);
-        this.root = doc.document_element;
+        this.xml_content = xml;
+        this.root = new GXml.XDocument.from_string (xml).document_element;
+    }
+
+    public void debug_print () {
+        debug ("WebDAV MultiStatus XML:\n%s", xml_content);
     }
 
     public Gee.ArrayList<WebDAVResponse> responses () {

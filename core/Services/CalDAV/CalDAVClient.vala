@@ -336,6 +336,10 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async void sync_tasklist (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
+        if (project.is_deck) {
+            return;
+        }
+
         var xml = """
         <d:sync-collection xmlns:d="DAV:">
             <d:sync-token>%s</d:sync-token>
@@ -346,10 +350,6 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             </d:prop>
         </d:sync-collection>
         """.printf (project.sync_id);
-
-        if (project.is_deck) {
-            return;
-        }
 
         project.loading = true;
 
@@ -385,7 +385,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
                     var getcontenttype = propstat.get_first_prop_with_tagname ("getcontenttype");
                     if (getcontenttype != null) {
-                        if (getcontenttype.text_content.index_of ("vtodo") > -1) {
+                        if (getcontenttype.text_content.down ().index_of ("vtodo") > -1) {
                             is_vtodo = true;
                         }
                     }
