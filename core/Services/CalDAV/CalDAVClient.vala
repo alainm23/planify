@@ -253,10 +253,18 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         foreach (var response in multi_status.responses ()) {
 
             foreach (var propstat in response.propstats ()) {
-                if (propstat.status != Soup.Status.OK) continue;
+                if (propstat.status != Soup.Status.OK) {
+                    continue;
+                }
 
-                project.update_from_propstat (propstat, false);
-                Services.Store.instance ().update_project (project);
+                var resourcetype = propstat.get_first_prop_with_tagname ("resourcetype");
+                var supported_calendar = propstat.get_first_prop_with_tagname ("supported-calendar-component-set");
+            
+                if (is_vtodo_calendar (resourcetype, supported_calendar)) {
+                    project.update_from_propstat (propstat, false);
+                    Services.Store.instance ().update_project (project);
+                    return;
+                }
             }
         }
     }
