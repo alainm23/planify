@@ -327,7 +327,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
                 if (items_map[item.id].update_id != update_id) {
                     items_map[item.id].update_request ();
                     if (section.project.sorted_by != SortedByType.MANUAL) {
-                        update_sort ("item_updated");
+                        update_sort ();
                     }
                 }
 
@@ -486,7 +486,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         count_label.label = count <= 0 ? "" : count.to_string ();
     }
 
-    private void update_sort (string key = "") {
+    private void update_sort () {
         listbox.set_sort_func (set_sort_func);
         listbox.set_sort_func (null);
 

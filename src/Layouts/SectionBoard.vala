@@ -274,7 +274,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             if (items_map.has_key (item.id)) {
                 items_map[item.id].update_request ();
                 if (section.project.sorted_by != SortedByType.MANUAL) {
-                    update_sort ("item_updated");
+                    update_sort ();
                 }
             }
 
@@ -442,7 +442,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         update_sort ();
     }
 
-    private void update_sort (string key = "") {
+    private void update_sort () {
         listbox.set_sort_func (set_sort_func);
         listbox.set_sort_func (null);
 
