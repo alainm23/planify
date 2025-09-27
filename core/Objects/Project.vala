@@ -221,6 +221,8 @@ public class Objects.Project : Objects.BaseObject {
     public signal void sorted_by_changed ();
     public signal void section_sort_order_changed ();
     public signal void view_style_changed ();
+    public signal void sync_started ();
+    public signal void sync_finished ();
 
     private bool _show_multi_select = false;
     public bool show_multi_select {

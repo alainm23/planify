@@ -360,6 +360,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         """.printf (project.sync_id);
 
         project.loading = true;
+        project.sync_started ();
 
         yield fetch_project_details (project, cancellable);
 
@@ -399,7 +400,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                     }
 
                     if (is_vtodo) {
-                        string vtodo = yield get_vtodo_by_url (project, get_absolute_url (href), cancellable);
+                        string vtodo = yield get_vtodo_by_url (get_absolute_url (href), cancellable);
 
                         ICal.Component ical = new ICal.Component.from_string (vtodo);
                         Objects.Item ? item = Services.Store.instance ().get_item (ical.get_uid ());
@@ -445,12 +446,12 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         }
 
         project.loading = false;
+        project.sync_finished ();
     }
 
 
-    private async string? get_vtodo_by_url (Objects.Project project, string url, GLib.Cancellable cancellable) throws GLib.Error {
-        return yield send_request ("GET", url, "", null, null, cancellable,
-                                   { Soup.Status.OK });
+    private async string? get_vtodo_by_url (string url, GLib.Cancellable cancellable) throws GLib.Error {
+        return yield send_request ("GET", url, "", null, null, cancellable, { Soup.Status.OK });
     }
 
     public async void update_sync_token (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
