@@ -98,7 +98,8 @@ public class Views.Board : Adw.Bin {
             vexpand = true,
             max_children_per_line = 1,
             orientation = Gtk.Orientation.VERTICAL,
-            halign = Gtk.Align.START
+            halign = Gtk.Align.START,
+            selection_mode = NONE
         };
 
         var flowbox_grid = new Adw.Bin () {
