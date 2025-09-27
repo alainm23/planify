@@ -273,7 +273,9 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         signals_map[Services.Store.instance ().item_updated.connect ((item, update_id) => {
             if (items_map.has_key (item.id)) {
                 items_map[item.id].update_request ();
-                update_sort ();
+                if (section.project.sorted_by != SortedByType.MANUAL) {
+                    update_sort ("item_updated");
+                }
             }
 
             if (checked_items_map.has_key (item.id_string)) {
@@ -318,8 +320,6 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             if (item.project_id == section.project_id && item.section_id == section.id && !item.has_parent) {
                 add_item (item);
             }
-
-            update_sort ();
         })] = Services.EventBus.get_default ();
 
         signals_map[section.project.sorted_by_changed.connect (() => {
@@ -347,7 +347,6 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                 if (row.item.project_id == section.project_id && row.item.section_id == section.id) {
                     if (!items_map.has_key (row.item.id)) {
                         items_map[row.item.id] = row;
-                        update_sort ();
                     }
                 }
 
@@ -402,6 +401,14 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         signals_map[section.project.source.sync_finished.connect (() => {
             update_sort ();
         })] = section.project.source;
+
+        signals_map[Services.EventBus.get_default ().drag_n_drop_active.connect ((project_id, active) => {
+            if (section.project_id == project_id) {
+                if (active) {
+                    listbox.set_sort_func (null);
+                }
+            }
+        })] = Services.EventBus.get_default ();
     }
 
     private void update_request () {
@@ -418,16 +425,27 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
     public void add_items () {
         items_map.clear ();
 
-        foreach (Objects.Item item in is_inbox_section ? section.project.items : section.items) {
+        var items = is_inbox_section ? section.project.items : section.items;
+        items.sort ((item1, item2) => {
+            return Util.get_default ().set_item_sort_func (
+                item1,
+                item2,
+                section.project.sorted_by,
+                section.project.sort_order
+            );
+        });
+
+        foreach (Objects.Item item in items) {
             add_item (item);
         }
 
         update_sort ();
     }
 
-    private void update_sort () {
+    private void update_sort (string key = "") {
         listbox.set_sort_func (set_sort_func);
         listbox.set_sort_func (null);
+
         listbox.invalidate_filter ();
     }
 
@@ -719,11 +737,10 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             source_list.remove (picked_widget);
 
             listbox.append (picked_widget);
+            Utils.TaskUtils.update_single_item_order (listbox, picked_widget, picked_widget.get_index () + 1);
+
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
             
-            int new_index = (int32) Util.get_default ().get_children (listbox).length ();
-            Utils.TaskUtils.update_single_item_order (listbox, picked_widget, new_index);
-
             return true;
         })] = drop_target;
     }
