@@ -760,17 +760,6 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_pin (bool _pinned) {
-        if (_pinned && project.items_pinned.size + 1 > 3) {
-            Services.EventBus.get_default ().send_toast (
-                Util.get_default ().create_toast (
-                    _("Up to 3 tasks can be pinned and they will appear at the top of the project page"),
-                    3
-                )
-            );
-
-            return;
-        }
-
         pinned = _pinned;
         _update_pin ();
     }

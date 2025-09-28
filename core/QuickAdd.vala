@@ -32,6 +32,7 @@ public class Layouts.QuickAdd : Adw.Bin {
     private Widgets.PriorityButton priority_button;
     private Widgets.ReminderPicker.ReminderButton reminder_button;
     private Widgets.LabelPicker.LabelButton label_button;
+    private Widgets.PinButton pin_button;
     private Gtk.Image added_image;
     private Gtk.Stack main_stack;
     private Gtk.ToggleButton create_more_button;
@@ -177,19 +178,22 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         schedule_button = new Widgets.ScheduleButton ();
 
-        priority_button = new Widgets.PriorityButton () {
-            tooltip_markup = Util.get_default ().markup_accels_tooltip (_("Set The Priority"), { "p1", "p2", "p3", "p4" }),
-        };
-        priority_button.update_from_item (item);
-
         label_button = new Widgets.LabelPicker.LabelButton () {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Labels"), "@"),
         };
         label_button.source = item.project.source;
 
+        priority_button = new Widgets.PriorityButton () {
+            tooltip_markup = Util.get_default ().markup_accels_tooltip (_("Set The Priority"), { "p1", "p2", "p3", "p4" }),
+        };
+        priority_button.update_from_item (item);
+
+
         reminder_button = new Widgets.ReminderPicker.ReminderButton (true) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Reminders"), "!"),
         };
+
+        pin_button = new Widgets.PinButton ();
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 6,
@@ -204,8 +208,9 @@ public class Layouts.QuickAdd : Adw.Bin {
         };
 
         action_box_right.append (label_button);
-        action_box_right.append (reminder_button);
         action_box_right.append (priority_button);
+        action_box_right.append (reminder_button);
+        action_box_right.append (pin_button);
 
         action_box.append (schedule_button);
         action_box.append (action_box_right);
@@ -466,6 +471,10 @@ public class Layouts.QuickAdd : Adw.Bin {
             Services.Settings.get_default ().settings.set_boolean ("quick-add-create-more", create_more_button.active);
         })] = create_more_button;
 
+        signal_map[pin_button.changed.connect (() => {
+            set_pinned (!item.pinned);
+        })] = pin_button;
+
         var open_label_shortcut = new Gtk.Shortcut (Gtk.ShortcutTrigger.parse_string ("<Control>l"), new Gtk.CallbackAction (() => {
             label_button.open_picker ();
             return true;
@@ -683,6 +692,11 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         item.priority = priority;
         priority_button.update_from_item (item);
+    }
+
+    public void set_pinned (bool pinned) {
+        item.pinned = pinned;
+        pin_button.update_from_item (item);
     }
 
     public void set_labels (Gee.HashMap<string, Objects.Label> new_labels) {

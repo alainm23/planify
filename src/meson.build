@@ -79,7 +79,7 @@ sources = files(
   'Widgets/ErrorView.vala',
   'Widgets/CompletedTaskRow.vala',
   'Widgets/ItemDetailCompleted.vala',
-  'Widgets/PinnedItemsFlowBox.vala',
+  'Widgets/PinnedItemsBox.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',

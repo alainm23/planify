@@ -19,21 +19,21 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Widgets.PinnedItemsFlowBox : Adw.Bin {
+public class Widgets.PinnedItemsBox : Adw.Bin {
     public Objects.Project project { get; construct; }
 
     private Adw.WrapBox box_layout;
     private Gtk.Revealer main_revealer;
     public Gee.HashMap<string, Layouts.ItemBoard> items_map = new Gee.HashMap<string, Layouts.ItemBoard> ();
 
-    public PinnedItemsFlowBox (Objects.Project project) {
+    public PinnedItemsBox (Objects.Project project) {
         Object (
             project: project
         );
     }
 
-    ~PinnedItemsFlowBox () {
-        debug ("Destroying - Widgets.PinnedItemsFlowBox\n");
+    ~PinnedItemsBox () {
+        debug ("Destroying - Widgets.PinnedItemsBox\n");
     }
 
     construct {
@@ -97,10 +97,6 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
         }
 
         if (!item.pinned) {
-            return;
-        }
-
-        if (items_map.size + 1 > 3) {
             return;
         }
 

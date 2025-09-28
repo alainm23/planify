@@ -115,6 +115,10 @@ public class Dialogs.QuickAdd : Adw.Dialog {
         quick_add_widget.set_priority (priority);
     }
 
+    public void set_pinned (bool pinned) {
+        quick_add_widget.set_pinned (pinned);
+    }
+
     public void for_base_object (Objects.BaseObject base_object) {
         if (base_object is Objects.Project) {
             quick_add_widget.for_project (base_object as Objects.Project);
