@@ -95,6 +95,12 @@ public class Layouts.QuickAdd : Adw.Bin {
             if (project != null) {
                 item.project_id = project.id;
             }
+
+            var section = Services.Store.instance ().get_section (Services.Settings.get_default ().settings.get_string ("quick-add-section-selected"));
+
+            if (section != null) {
+                item.section_id = section.id;
+            }
         }
 
         var info_button = new Gtk.MenuButton () {
@@ -246,6 +252,10 @@ public class Layouts.QuickAdd : Adw.Bin {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Select a Project"), "#"),
         };
         project_picker_button.project = item.project;
+        
+        if (item.section_id != "") {
+            project_picker_button.section = item.section;
+        }
 
         var footer_content = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
@@ -331,12 +341,12 @@ public class Layouts.QuickAdd : Adw.Bin {
         })] = project_picker_button;
 
         signal_map[project_picker_button.section_change.connect ((section) => {
-            if (section == null) {
-                item.section_id = "";
-            } else {
-                item.section_id = section.id;
+            item.section_id = section == null ? "" : section.id;
+
+            if (Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
+                Services.Settings.get_default ().settings.set_string ("quick-add-section-selected", item.section_id);
             }
-        })] = project_picker_button;
+    })] = project_picker_button;
 
        signal_map[project_picker_button.picker_opened.connect ((active) => {
             parent_can_close (!active);

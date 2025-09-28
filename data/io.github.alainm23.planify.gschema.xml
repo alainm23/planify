@@ -130,6 +130,12 @@
             <description>Remembers the last project selected when using the quick add feature</description>
         </key>
 
+        <key name="quick-add-section-selected" type="s">
+            <default>""</default>
+            <summary>Last selected section in quick add</summary>
+            <description>Remembers the last section selected when using the quick add feature</description>
+        </key>
+
         <key name="quick-add-save-last-project" type="b">
             <default>false</default>
             <summary>Remember last project in quick add</summary>
