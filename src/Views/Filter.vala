@@ -233,6 +233,8 @@ public class Views.Filter : Adw.Bin {
             dialog.set_due (Utils.Datetime.get_date_only (
                                 new GLib.DateTime.now_local ().add_days (1)
             ));
+        } else if (filter is Objects.Filters.Pinboard) {
+            dialog.set_pinned (true);
         }
 
         dialog.present (Planify._instance.main_window);
