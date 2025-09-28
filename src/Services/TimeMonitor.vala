@@ -1,23 +1,23 @@
 /*
-* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
+ * Copyright © 2023 Alain M.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 public class Services.TimeMonitor : Object {
     private static TimeMonitor? _instance;
@@ -33,12 +33,14 @@ public class Services.TimeMonitor : Object {
 
     public void init_timeout () {
         last_registered_date = new DateTime.now_local ();
-        uint interval = calculate_seconds_until_midnight ();
 
-        Timeout.add_seconds (interval, on_timeout);
+        Timeout.add_seconds (300, () => {
+            check_day_change ();
+            return true;
+        });
     }
 
-    private bool on_timeout () {
+    private void check_day_change () {
         DateTime now = new DateTime.now_local ();
 
         if (now.get_day_of_month () != last_registered_date.get_day_of_month () ||
@@ -49,23 +51,6 @@ public class Services.TimeMonitor : Object {
             Services.Notification.get_default ().regresh ();
 
             last_registered_date = now;
-            uint interval = calculate_seconds_until_midnight ();
-
-            Timeout.add_seconds (interval, on_timeout);
-        } else {
-            uint interval = calculate_seconds_until_midnight ();
-            Timeout.add_seconds (interval, on_timeout);
         }
-
-        return false;
-    }
-
-    private uint calculate_seconds_until_midnight () {
-        DateTime now = new DateTime.now_local ();
-
-        uint value = (24 * 60 * 60) -
-            (now.get_hour () * 60 * 60 + now.get_minute () * 60 + now.get_second ());
-
-        return value;
     }
 }
