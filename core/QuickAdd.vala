@@ -99,7 +99,6 @@ public class Layouts.QuickAdd : Adw.Bin {
             var section = Services.Store.instance ().get_section (Services.Settings.get_default ().settings.get_string ("quick-add-section-selected"));
 
             if (section != null) {
-                print ("last: %s\n", section.name);
                 item.section_id = section.id;
             }
         }
