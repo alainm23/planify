@@ -28,6 +28,8 @@ public class Widgets.EditableTextView : Adw.Bin {
     private Gtk.Button show_more_button;
     private bool is_expanded = false;
     private bool updating = false;
+    private bool _is_editing = false;
+    private uint timeout_id = 0;
 
     public signal void focus_changed (bool active);
     public signal void changed ();
@@ -36,7 +38,7 @@ public class Widgets.EditableTextView : Adw.Bin {
 
     public bool is_editing {
         get {
-            return textview.has_focus;
+            return _is_editing;
         }
     }
     
@@ -85,7 +87,11 @@ public class Widgets.EditableTextView : Adw.Bin {
 
         child = main_box;
 
-        signal_map[notify["text"].connect (update_display)] = this;
+        signal_map[notify["text"].connect (() => {
+            if (!is_editing) {
+                update_display ();
+            }
+        })] = this;
         signal_map[Services.EventBus.get_default ().mobile_mode_change.connect (update_display)] = Services.EventBus.get_default ();
 
         signal_map[show_more_button.clicked.connect (() => {
@@ -96,21 +102,26 @@ public class Widgets.EditableTextView : Adw.Bin {
         var gesture_focus = new Gtk.EventControllerFocus ();
         textview.add_controller (gesture_focus);
         signal_map[gesture_focus.enter.connect (() => {
+            _is_editing = true;
             focus_changed (true);
             update_display ();
             Services.EventBus.get_default ().disconnect_typing_accel ();
+            start_timeout ();
         })] = gesture_focus;
 
         signal_map[gesture_focus.leave.connect (() => {
+            _is_editing = false;
             focus_changed (false);
             update_display ();
             Services.EventBus.get_default ().connect_typing_accel ();
+            stop_timeout ();
         })] = gesture_focus;
 
         signal_map[textview.buffer.changed.connect (() => {
             if (!updating) {
                 text = textview.get_text ();
                 changed ();
+                reset_timeout ();
             }
         })] = textview.buffer;
 
@@ -140,5 +151,29 @@ public class Widgets.EditableTextView : Adw.Bin {
         }
         
         updating = false;
+    }
+
+    private void start_timeout () {
+        stop_timeout ();
+        timeout_id = GLib.Timeout.add_seconds (6, () => {
+            if (_is_editing) {
+                textview.get_root ().set_focus (null);
+            }
+            timeout_id = 0;
+            return false;
+        });
+    }
+
+    private void stop_timeout () {
+        if (timeout_id > 0) {
+            GLib.Source.remove (timeout_id);
+            timeout_id = 0;
+        }
+    }
+
+    private void reset_timeout () {
+        if (_is_editing) {
+            start_timeout ();
+        }
     }
 }
