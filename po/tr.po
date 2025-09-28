@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:00+0000\n"
+"POT-Creation-Date: 2025-09-28 12:03+0000\n"
 "PO-Revision-Date: 2025-05-18 12:00+0300\n"
 "Last-Translator: Egehan KAHRAMAN <vastseaoffical0@outlook.com>\n"
 "Language-Team: \n"
@@ -2671,6 +2671,10 @@ msgstr "Pano"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Proje bulunamadı. '+' düğmesine tıklayarak bir tane oluşturabilirsiniz"
 
+#: src/MainWindow.vala:47
+msgid "Planify"
+msgstr "Planify"
+
 #: src/MainWindow.vala:78
 msgid "Main Menu"
 msgstr ""
@@ -3348,9 +3352,6 @@ msgstr "Panoyu aç"
 
 #~ msgid "Board View"
 #~ msgstr "Pano Görünümü"
-
-#~ msgid "Planify"
-#~ msgstr "Planify"
 
 #~ msgid "Google Tasks"
 #~ msgstr "Google Görevler"

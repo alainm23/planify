@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:00+0000\n"
+"POT-Creation-Date: 2025-09-28 12:03+0000\n"
 "PO-Revision-Date: 2024-07-15 10:40-0300\n"
 "Last-Translator: Ana Godinho <godinhoana54@gmail.com>\n"
 "Language: pt_PT\n"
@@ -2671,6 +2671,10 @@ msgstr "Ir para o Quadro de anúncios"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Nenhum projeto disponível. Crie um clicando no botão '+'"
 
+#: src/MainWindow.vala:47
+msgid "Planify"
+msgstr "Planify"
+
 #: src/MainWindow.vala:78
 msgid "Main Menu"
 msgstr "Menu Principal"
@@ -3336,9 +3340,6 @@ msgstr "Abrir Quadro de anúncios"
 
 #~ msgid "Support for sub-projects"
 #~ msgstr "Apoiar subprojetos"
-
-#~ msgid "Planify"
-#~ msgstr "Planify"
 
 #~ msgid "Google Tasks"
 #~ msgstr "Google Tasks"

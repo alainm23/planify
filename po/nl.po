@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:00+0000\n"
+"POT-Creation-Date: 2025-09-28 12:03+0000\n"
 "PO-Revision-Date: 2024-11-08 14:56+0100\n"
 "Last-Translator: Gert-dev\n"
 "Language-Team: Dutch <>\n"
@@ -2669,6 +2669,10 @@ msgid "No project available. Create one by clicking on the '+' button"
 msgstr ""
 "Geen project beschikbaar. Maak er één aan door op de '+'-knop te klikken"
 
+#: src/MainWindow.vala:47
+msgid "Planify"
+msgstr "Planify"
+
 #: src/MainWindow.vala:78
 msgid "Main Menu"
 msgstr "Hoofdmenu"
@@ -3390,9 +3394,6 @@ msgstr "Prikbord weergeven"
 #~ msgstr ""
 #~ "Drücke 'a' oder tippe auf den Plus-Knopf, um eine neue Aufgabe zu "
 #~ "erstellen."
-
-#~ msgid "Planify"
-#~ msgstr "Planify"
 
 #~ msgid "Google Tasks"
 #~ msgstr "Google Tasks"

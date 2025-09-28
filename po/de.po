@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:00+0000\n"
+"POT-Creation-Date: 2025-09-28 12:03+0000\n"
 "PO-Revision-Date: 2025-01-18 17:21+0100\n"
 "Last-Translator: byquanton <>\n"
 "Language-Team: German\n"
@@ -2681,6 +2681,10 @@ msgid "No project available. Create one by clicking on the '+' button"
 msgstr ""
 "Kein Projekt vorhanden. Erstelle eins, indem du auf den \"+\" Knopf klickst."
 
+#: src/MainWindow.vala:47
+msgid "Planify"
+msgstr "Planify"
+
 #: src/MainWindow.vala:78
 msgid "Main Menu"
 msgstr "Hauptmenü"
@@ -3380,9 +3384,6 @@ msgstr "'Pinnwand' öffnen"
 #~ msgstr ""
 #~ "Drücke 'a' oder tippe auf den Plus-Knopf, um eine neue Aufgabe zu "
 #~ "erstellen."
-
-#~ msgid "Planify"
-#~ msgstr "Planify"
 
 #~ msgid "Google Tasks"
 #~ msgstr "Google Tasks"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:00+0000\n"
+"POT-Creation-Date: 2025-09-28 12:03+0000\n"
 "PO-Revision-Date: 2024-06-24 02:42+0900\n"
 "Last-Translator: Wonje Jung <myunsyeya@ajou.ac.kr>\n"
 "Language-Team: \n"
@@ -2648,6 +2648,11 @@ msgstr "게시판으로 이동"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr ""
 "사용 가능한 프로젝트가 없습니다. '+' 버튼을 클릭하여 하나 만들어 보세요"
+
+#: src/MainWindow.vala:47
+#, fuzzy
+msgid "Planify"
+msgstr "Planify를 만나보세요"
 
 #: src/MainWindow.vala:78
 msgid "Main Menu"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:00+0000\n"
+"POT-Creation-Date: 2025-09-28 12:03+0000\n"
 "PO-Revision-Date: 2024-08-03 00:05+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -2647,6 +2647,11 @@ msgstr "पिनबोर्ड पर जाएं"
 #: src/Layouts/SidebarSourceRow.vala:43
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "कोई परियोजना उपलब्ध नहीं है। '+' बटन पर क्लिक करके एक बनाएं"
+
+#: src/MainWindow.vala:47
+#, fuzzy
+msgid "Planify"
+msgstr "प्लॅानिफाई से मिलें"
 
 #: src/MainWindow.vala:78
 msgid "Main Menu"

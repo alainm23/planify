@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:00+0000\n"
+"POT-Creation-Date: 2025-09-28 12:03+0000\n"
 "PO-Revision-Date: 2024-08-29 16:03+0200\n"
 "Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
@@ -2678,6 +2678,10 @@ msgstr "Aller aux éléments épinglés"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Pas de projet disponible. Créez-en un en cliquant sur le bouton ’+’"
 
+#: src/MainWindow.vala:47
+msgid "Planify"
+msgstr "Planify"
+
 #: src/MainWindow.vala:78
 msgid "Main Menu"
 msgstr "Menu principal"
@@ -3445,9 +3449,6 @@ msgstr "Ouvrir la section Épinglé"
 #~ msgid "Have an overview of your tasks without losing sight of the details."
 #~ msgstr ""
 #~ "Ayez une vue d’ensemble de vos tâches sans perdre de vue les détails."
-
-#~ msgid "Planify"
-#~ msgstr "Planify"
 
 #~ msgid "Google Tasks"
 #~ msgstr "Google Tasks"
