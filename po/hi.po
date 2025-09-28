@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:03+0000\n"
+"POT-Creation-Date: 2025-09-28 12:06+0000\n"
 "PO-Revision-Date: 2024-08-03 00:05+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -2648,11 +2648,6 @@ msgstr "पिनबोर्ड पर जाएं"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "कोई परियोजना उपलब्ध नहीं है। '+' बटन पर क्लिक करके एक बनाएं"
 
-#: src/MainWindow.vala:47
-#, fuzzy
-msgid "Planify"
-msgstr "प्लॅानिफाई से मिलें"
-
 #: src/MainWindow.vala:78
 msgid "Main Menu"
 msgstr "मुख्य मेनू"
@@ -3136,6 +3131,10 @@ msgstr "लेबल खोलें"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "पिनबोर्ड खोलें"
+
+#, fuzzy
+#~ msgid "Planify"
+#~ msgstr "प्लॅानिफाई से मिलें"
 
 #~ msgid "No Provider Available"
 #~ msgstr "उपलब्ध नहीं"

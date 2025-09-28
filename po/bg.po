@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:03+0000\n"
+"POT-Creation-Date: 2025-09-28 12:06+0000\n"
 "PO-Revision-Date: 2024-04-28 17:39+0200\n"
 "Last-Translator: twlvnn <kraft_werk@tutanota.com>\n"
 "Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
@@ -2671,11 +2671,6 @@ msgstr "Към „Закачени“"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Няма наличен проект. Създайте такъв, като натиснете върху „+“ бутона"
 
-#: src/MainWindow.vala:47
-#, fuzzy
-msgid "Planify"
-msgstr "Запознайте се с „Planify“"
-
 #: src/MainWindow.vala:78
 msgid "Main Menu"
 msgstr "Основно меню"
@@ -3165,6 +3160,10 @@ msgstr "Отваряне на „Етикети“"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Отваряне на „Закачени“"
+
+#, fuzzy
+#~ msgid "Planify"
+#~ msgstr "Запознайте се с „Planify“"
 
 #~ msgid ""
 #~ "Up to 3 tasks can be pinned and they will appear at the top of the "

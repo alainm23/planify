@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:03+0000\n"
+"POT-Creation-Date: 2025-09-28 12:06+0000\n"
 "PO-Revision-Date: 2025-05-25 16:15+0300\n"
 "Last-Translator: Maksym Dilanian <maksym@dilanian.xyz>\n"
 "Language-Team: \n"
@@ -2672,11 +2672,6 @@ msgstr "Перейти до закріпленого"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Немає жодного проєкту. Створіть новий, натиснувши кнопку «+»."
 
-#: src/MainWindow.vala:47
-#, fuzzy
-msgid "Planify"
-msgstr "Знайомтесь, Planify"
-
 #: src/MainWindow.vala:78
 msgid "Main Menu"
 msgstr "Головне меню"
@@ -3168,6 +3163,10 @@ msgstr "Відкрити «Мітки»"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Відкрити «Закріплені»"
+
+#, fuzzy
+#~ msgid "Planify"
+#~ msgstr "Знайомтесь, Planify"
 
 #~ msgid ""
 #~ "Up to 3 tasks can be pinned and they will appear at the top of the "

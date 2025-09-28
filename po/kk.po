@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:03+0000\n"
+"POT-Creation-Date: 2025-09-28 12:06+0000\n"
 "PO-Revision-Date: 2025-05-25 20:44+0500\n"
 "Last-Translator: AnmiTaliDev <anmitali198@gmail.com>\n"
 "Language-Team: \n"
@@ -2642,11 +2642,6 @@ msgstr "Жапсырма тақтасына өту"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Қолжетімді жоба жоқ. '+' түймесін басу арқылы жасаңыз"
 
-#: src/MainWindow.vala:47
-#, fuzzy
-msgid "Planify"
-msgstr "Planify-мен танысу"
-
 #: src/MainWindow.vala:78
 msgid "Main Menu"
 msgstr "Негізгі мәзір"
@@ -3129,6 +3124,10 @@ msgstr "Белгілерді ашу"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Жапсырма тақтасын ашу"
+
+#, fuzzy
+#~ msgid "Planify"
+#~ msgstr "Planify-мен танысу"
 
 #~ msgid ""
 #~ "Up to 3 tasks can be pinned and they will appear at the top of the "

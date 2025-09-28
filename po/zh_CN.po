@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:03+0000\n"
+"POT-Creation-Date: 2025-09-28 12:06+0000\n"
 "PO-Revision-Date: 2024-05-17 20:46+0800\n"
 "Last-Translator: Flysoft <flysoftbeta@outlook.com>\n"
 "Language-Team: \n"
@@ -2625,10 +2625,6 @@ msgstr "置顶"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "尚无可用项目，点击➕加号按钮创建"
 
-#: src/MainWindow.vala:47
-msgid "Planify"
-msgstr "Planify"
-
 #: src/MainWindow.vala:78
 msgid "Main Menu"
 msgstr ""
@@ -3114,6 +3110,9 @@ msgstr "打开标签"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "打开标签"
+
+#~ msgid "Planify"
+#~ msgstr "Planify"
 
 #~ msgid "No Provider Available"
 #~ msgstr "不可用"

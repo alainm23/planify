@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:03+0000\n"
+"POT-Creation-Date: 2025-09-28 12:06+0000\n"
 "PO-Revision-Date: 2025-02-26 17:29+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: \n"
@@ -2572,11 +2572,6 @@ msgstr "დაფაზე გადასვლა"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "პროექტები ხელმისაწვდომი არაა. შექმენით ახალი '+' ღილაკზე დაწკაპუნებით"
 
-#: src/MainWindow.vala:47
-#, fuzzy
-msgid "Planify"
-msgstr "გაიცანით Planify"
-
 #: src/MainWindow.vala:78
 msgid "Main Menu"
 msgstr "მთავარი მენიუ"
@@ -3047,6 +3042,10 @@ msgstr "ჭდეების გახან"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "დაფის გახსნა"
+
+#, fuzzy
+#~ msgid "Planify"
+#~ msgstr "გაიცანით Planify"
 
 #~ msgid ""
 #~ "Up to 3 tasks can be pinned and they will appear at the top of the "

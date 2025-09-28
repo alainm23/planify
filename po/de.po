@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:03+0000\n"
+"POT-Creation-Date: 2025-09-28 12:06+0000\n"
 "PO-Revision-Date: 2025-01-18 17:21+0100\n"
 "Last-Translator: byquanton <>\n"
 "Language-Team: German\n"
@@ -2681,10 +2681,6 @@ msgid "No project available. Create one by clicking on the '+' button"
 msgstr ""
 "Kein Projekt vorhanden. Erstelle eins, indem du auf den \"+\" Knopf klickst."
 
-#: src/MainWindow.vala:47
-msgid "Planify"
-msgstr "Planify"
-
 #: src/MainWindow.vala:78
 msgid "Main Menu"
 msgstr "Hauptmenü"
@@ -3175,6 +3171,9 @@ msgstr "'Labels' öffnen"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "'Pinnwand' öffnen"
+
+#~ msgid "Planify"
+#~ msgstr "Planify"
 
 #~ msgid "Add"
 #~ msgstr "Hinzufügen"

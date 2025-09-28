@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 12:03+0000\n"
+"POT-Creation-Date: 2025-09-28 12:06+0000\n"
 "PO-Revision-Date: 2024-08-29 16:03+0200\n"
 "Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
@@ -2678,10 +2678,6 @@ msgstr "Aller aux éléments épinglés"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Pas de projet disponible. Créez-en un en cliquant sur le bouton ’+’"
 
-#: src/MainWindow.vala:47
-msgid "Planify"
-msgstr "Planify"
-
 #: src/MainWindow.vala:78
 msgid "Main Menu"
 msgstr "Menu principal"
@@ -3165,6 +3161,9 @@ msgstr "Étiquettes"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Ouvrir la section Épinglé"
+
+#~ msgid "Planify"
+#~ msgstr "Planify"
 
 #~ msgid ""
 #~ "Up to 3 tasks can be pinned and they will appear at the top of the "
