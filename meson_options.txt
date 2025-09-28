@@ -2,4 +2,5 @@ option('tracing', type: 'boolean', value: false, description: 'add extra debuggi
 option('profile', type: 'combo', choices: ['default', 'development'], value: 'default')
 option('webkit', type : 'boolean', description: 'build with webkit gtk for in app auth for Todoist')
 option('spelling', type: 'feature')
-
+option('portal', type : 'boolean', description: 'build with xdg-portal support for ')
+option('evolution', type : 'boolean', description: 'build with evolution for integration with evolution calendars')

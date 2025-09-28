@@ -179,11 +179,11 @@ public class Widgets.ItemChangeHistoryRow : Gtk.ListBoxRow {
                 );
             } else if (object_event.object_key == ObjectEventKeyType.PRIORITY) {
                 if (object_event.object_old_value != "") {
-                    _old_value_label = Util.get_default ().get_priority_title (int.parse (object_event.object_old_value));
+                    _old_value_label = Objects.Filters.Priority.get_default (int.parse (object_event.object_old_value)).title;
                 }
 
                 if (object_event.object_new_value != "") {
-                    _new_value_label = Util.get_default ().get_priority_title (int.parse (object_event.object_new_value));
+                    _new_value_label = Objects.Filters.Priority.get_default (int.parse (object_event.object_new_value)).title;
                 }
             } else if (object_event.object_key == ObjectEventKeyType.LABELS) {
                 _old_value_label = object_event.get_labels_value (object_event.object_old_value);

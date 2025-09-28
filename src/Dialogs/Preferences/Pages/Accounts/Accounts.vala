@@ -351,4 +351,87 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
             main_revealer = null;
         }
     }
+
+    public class LoadingPage : Adw.Bin {
+        private Gtk.Label secondary_label;
+        private Gtk.ProgressBar progress_bar;
+        private Adw.Spinner spinner;
+        private bool _show_progress = false;
+
+        public string sync_label {
+            set {
+                secondary_label.label = value;
+            }
+        }
+
+        public bool show_progress {
+            get { return _show_progress; }
+            set {
+                _show_progress = value;
+                spinner.visible = !value;
+                progress_bar.visible = value;
+            }
+        }
+
+        public double progress {
+            set {
+                progress_bar.fraction = value;
+            }
+        }
+
+        construct {
+            var title_label = new Gtk.Label (_("Syncing…")) {
+                wrap = true,
+                halign = CENTER,
+                justify = CENTER,
+                margin_bottom = 24
+            };
+            title_label.add_css_class ("title-1");
+        
+            spinner = new Adw.Spinner () {
+                valign = CENTER,
+                halign = CENTER,
+                height_request = 64,
+                width_request = 64
+            };
+
+            progress_bar = new Gtk.ProgressBar () {
+                valign = CENTER,
+                halign = CENTER,
+                width_request = 300,
+                visible = false
+            };
+
+            secondary_label = new Gtk.Label (null) {
+                wrap = true,
+                halign = CENTER,
+                justify = CENTER
+            };
+            secondary_label.add_css_class ("dimmed");
+            secondary_label.add_css_class ("caption");
+
+            var primary_label = new Gtk.Label (_("Planify is syncing your tasks, this may take a few minutes")) {
+                wrap = true,
+                halign = CENTER,
+                justify = CENTER,
+                margin_start = 12,
+                margin_end = 12,
+            };
+            primary_label.add_css_class ("dimmed");
+
+            var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 24) {
+                margin_top = 128,
+                margin_start = 64,
+                margin_end = 64
+            };
+
+            content_box.append (title_label);
+            content_box.append (spinner);
+            content_box.append (progress_bar);
+            content_box.append (secondary_label);
+            content_box.append (primary_label);
+
+            child = content_box;
+        }
+    }
 }

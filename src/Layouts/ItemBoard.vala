@@ -1036,11 +1036,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             }
 
             var source_list = (Gtk.ListBox) picked_widget.parent;
-            var target_list = (Gtk.ListBox) target_widget.parent;
-
-            int new_index = target_widget.get_index ();
-
             source_list.remove (picked_widget);
+
+            var target_list = (Gtk.ListBox) target_widget.parent;
+            int new_index = target_widget.get_index ();
+            
             target_list.insert (picked_widget, new_index);
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
 

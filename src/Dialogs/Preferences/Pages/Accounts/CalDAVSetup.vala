@@ -115,6 +115,10 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         content_box.append (login_button);
         content_box.append (cancel_button);
 
+        var loading_page = new Dialogs.Preferences.Pages.Accounts.LoadingPage () {
+            show_progress = true
+        };
+
         var main_stack = new Gtk.Stack () {
             vexpand = true,
             hexpand = true,
@@ -122,7 +126,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         };
 
         main_stack.add_named (content_box, "main-page");
-        main_stack.add_named (accounts_page.build_sync_page (), "loading-page");
+        main_stack.add_named (loading_page, "loading-page");
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 400,
@@ -144,8 +148,15 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
 
         signal_map[login_button.clicked.connect (() => on_login_button_clicked ())] = login_button;
 
+        signal_map[Services.CalDAV.Core.get_default ().sync_progress.connect ((current, total, message) => {
+            loading_page.sync_label = message;
+            loading_page.progress = total > 0 ? (double) current / (double) total : 0.0;
+        })] = Services.CalDAV.Core.get_default ();
+
         destroy.connect (() => {
             clean_up ();
+            // Ensure cleanup on dialog destruction
+            Services.CalDAV.Core.get_default ().clear ();
         });
     }
 
@@ -169,13 +180,23 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         login_button.is_loading = true;
         cancel_button.visible = true;
 
-        signal_map[cancel_button.clicked.connect (() => cancellable.cancel ())] = cancel_button;
+        signal_map[cancel_button.clicked.connect (() => {
+            cancellable.cancel ();
+            // Clean up any ongoing operations
+            Services.CalDAV.Core.get_default ().clear ();
+        })] = cancel_button;
 
         do_login.begin (cancellable);
     }
 
 
     private async void do_login (GLib.Cancellable cancellable) {
+        if (cancellable.is_cancelled ()) {
+            login_button.is_loading = false;
+            cancel_button.visible = false;
+            return;
+        }
+
         if (server_entry.text == null || server_entry.text == "") {
             login_button.is_loading = false;
             cancel_button.visible = false;
@@ -193,15 +214,50 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         if (bypass_resolve) {
             dav_endpoint = server_entry.text;
         } else {
-            dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (new Soup.Session (), server_entry.text, ignore_ssl_row.active);
+            try {
+                dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (new Soup.Session (), server_entry.text, ignore_ssl_row.active);
+            } catch (Error e) {
+                if (e is GLib.IOError.CANCELLED) {
+                    login_button.is_loading = false;
+                    cancel_button.visible = false;
+                    return;
+                }
+                login_button.is_loading = false;
+                cancel_button.visible = false;
+                accounts_page.show_message_error (0, "Failed to resolve server: %s".printf (e.message));
+                return;
+            }
+        }
+
+        if (cancellable.is_cancelled ()) {
+            login_button.is_loading = false;
+            cancel_button.visible = false;
+            return;
         }
 
         var calendar_home = "";
-
         if (calendar_home_entry.text != null && calendar_home_entry.text != "") {
             calendar_home = calendar_home_entry.text;
         } else {
-            calendar_home = yield Services.CalDAV.Core.get_default ().resolve_calendar_home (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, cancellable, ignore_ssl_row.active);
+            try {
+                calendar_home = yield Services.CalDAV.Core.get_default ().resolve_calendar_home (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, cancellable, ignore_ssl_row.active);
+            } catch (Error e) {
+                if (e is GLib.IOError.CANCELLED) {
+                    login_button.is_loading = false;
+                    cancel_button.visible = false;
+                    return;
+                }
+                login_button.is_loading = false;
+                cancel_button.visible = false;
+                accounts_page.show_message_error (0, "Failed to resolve calendar home: %s".printf (e.message));
+                return;
+            }
+        }
+
+        if (cancellable.is_cancelled ()) {
+            login_button.is_loading = false;
+            cancel_button.visible = false;
+            return;
         }
 
         if (calendar_home == null) {

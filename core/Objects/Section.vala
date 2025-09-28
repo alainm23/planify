@@ -119,6 +119,12 @@ public class Objects.Section : Objects.BaseObject {
                 update_count ();
             }
         });
+
+        Services.Store.instance ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
+            if (item.project_id == project_id) {
+                update_count ();
+            }
+        });
     }
 
     public void update_count () {
@@ -329,16 +335,16 @@ public class Objects.Section : Objects.BaseObject {
     }
 
     private int update_section_count () {
-        int returned = 0;
-        foreach (Objects.Item item in Services.Store.instance ().get_items_by_baseobject (this)) {
-            if (!item.checked) {
-                returned++;
+        int pending_tasks = 0;
+        var items = id == "" ? Services.Store.instance ().get_items_by_baseobject (project) : Services.Store.instance ().get_items_by_baseobject (this);
+        foreach (Objects.Item item in items) {
+            if (!item.checked && !item.was_archived ()) {
+                pending_tasks++;
+                pending_tasks += get_subitem_size (item);
             }
-
-            returned += get_subitem_size (item);
         }
 
-        return returned;
+        return pending_tasks;
     }
 
     private int get_subitem_size (Objects.Item item) {

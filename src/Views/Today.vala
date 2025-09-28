@@ -23,12 +23,14 @@ public class Views.Today : Adw.Bin {
     private Layouts.HeaderBar headerbar;
     private Gtk.Label title_label;
     private Gtk.Label date_label;
+    #if WITH_EVOLUTION
     private Widgets.EventsList event_list;
+    private Gtk.Revealer event_list_revealer;
+    #endif
     private Gtk.ListBox listbox;
     private Gtk.Revealer today_revealer;
     private Gtk.ListBox overdue_listbox;
     private Gtk.Revealer overdue_revealer;
-    private Gtk.Revealer event_list_revealer;
     private Gtk.Grid listbox_grid;
     private Gtk.ScrolledWindow scrolled_window;
     private Gtk.Stack listbox_placeholder_stack;
@@ -123,6 +125,7 @@ public class Views.Today : Adw.Bin {
         title_box.append (title_label);
         title_box.append (date_label);
 
+        #if WITH_EVOLUTION
         event_list = new Widgets.EventsList.for_day (date) {
             margin_top = 12,
             margin_start = 24,
@@ -134,6 +137,7 @@ public class Views.Today : Adw.Bin {
             reveal_child = event_list.has_items,
             child = event_list
         };
+        #endif
 
         var filters = new Widgets.FilterFlowBox () {
             valign = Gtk.Align.START,
@@ -267,7 +271,9 @@ public class Views.Today : Adw.Bin {
         };
 
         content_box.append (title_box);
+        #if WITH_EVOLUTION
         content_box.append (event_list_revealer);
+        #endif
         content_box.append (filters);
         content_box.append (listbox_placeholder_stack);
 
@@ -301,7 +307,6 @@ public class Views.Today : Adw.Bin {
         child = toolbar_view;
         update_today_label ();
         add_today_items ();
-        check_default_view ();
 
         Timeout.add (listbox_placeholder_stack.transition_duration, () => {
             check_placeholder ();
@@ -364,14 +369,15 @@ public class Views.Today : Adw.Bin {
             prepare_new_item ();
         })] = magic_button;
 
+        #if WITH_EVOLUTION
         signal_map[event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;
         })] = event_list;
+        #endif
 
         signal_map[Services.Settings.get_default ().settings.changed["today-sort-order"].connect (() => {
             listbox.invalidate_sort ();
             overdue_listbox.invalidate_sort ();
-            check_default_view ();
         })] = Services.Settings.get_default ().settings;
 
         listbox.set_filter_func ((row) => {
@@ -449,7 +455,6 @@ public class Views.Today : Adw.Bin {
 
         listbox.invalidate_sort ();
         overdue_listbox.invalidate_sort ();
-        check_default_view ();
     }
 
     private void add_today_items () {
@@ -745,17 +750,6 @@ public class Views.Today : Adw.Bin {
         );
     }
 
-    private void check_default_view () {
-        bool defaults = true;
-        int sort_order = Services.Settings.get_default ().settings.get_int ("today-sort-order");
-
-        if (sort_order != 0) {
-            defaults = false;
-        }
-
-        indicator_revealer.reveal_child = !defaults;
-    }
-
     public void clean_up () {
         listbox.set_filter_func (null);
         listbox.set_sort_func (null);
@@ -777,6 +771,8 @@ public class Views.Today : Adw.Bin {
 
         signal_map.clear ();
 
+        #if WITH_EVOLUTION
         event_list.clean_up ();
+        #endif
     }
 }

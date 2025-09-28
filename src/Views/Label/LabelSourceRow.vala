@@ -43,7 +43,8 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
 
         group = new Layouts.HeaderItem (source.display_name) {
             reveal = true,
-            subheader_title = source.subheader_text
+            subheader_title = source.subheader_text,
+            show_separator = true
         };
         group.placeholder_message = _("No labels available. Create one by clicking on the '+' button");
         group.margin_bottom = 12;

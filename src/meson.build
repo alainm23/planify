@@ -1,9 +1,6 @@
 deps = [
   core_dep,
   gee_dep,
-  libedataserver_dep,
-  libportal_dep,
-  libportal_gtk4_dep,
   m_dep
 ]
 
@@ -12,6 +9,24 @@ if get_option('webkit')
         deps += webkitgtk_dep
     endif
 endif
+
+
+if get_option('portal')
+    if libportal_dep.found()
+        deps += libportal_dep
+    endif
+    if libportal_gtk4_dep.found()
+        deps += libportal_gtk4_dep
+    endif
+endif
+
+
+if get_option('evolution')
+    if libedataserver_dep.found()
+        deps += libedataserver_dep
+    endif
+endif
+
 
 sources = files(
   'App.vala',
@@ -29,11 +44,6 @@ sources = files(
 
   'Utils/TaskUtils.vala',
 
-  'Services/CalendarEvents/CalendarEvents.vala',
-  'Services/CalendarEvents/DateIterator.vala',
-  'Services/CalendarEvents/DateRange.vala',
-  'Services/CalendarEvents/Util.vala',
-  
   'Layouts/Sidebar.vala',
   'Layouts/FilterPaneChild.vala',
   'Layouts/FilterPaneRow.vala',
@@ -54,8 +64,6 @@ sources = files(
   'Widgets/EditableTextView.vala',
   'Widgets/SyncButton.vala',
   'Widgets/MultiSelectToolbar.vala',
-  'Widgets/EventsList.vala',
-  'Widgets/EventRow.vala',
   'Widgets/SubItems.vala',
   'Widgets/LabelsSummary.vala',
   'Widgets/SectionsOrderPopover.vala',
@@ -71,7 +79,7 @@ sources = files(
   'Widgets/ErrorView.vala',
   'Widgets/CompletedTaskRow.vala',
   'Widgets/ItemDetailCompleted.vala',
-  'Widgets/PinnedItemsFlowBox.vala',
+  'Widgets/PinnedItemsBox.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',
@@ -125,6 +133,15 @@ sources = files(
   'Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala',
   'Dialogs/Preferences/Pages/Accounts/SourceView.vala'
 )
+
+if get_option('evolution')
+    sources += 'Widgets/EventRow.vala'
+    sources += 'Widgets/EventsList.vala'
+    sources += 'Services/CalendarEvents/CalendarEvents.vala'
+    sources += 'Services/CalendarEvents/DateIterator.vala'
+    sources += 'Services/CalendarEvents/DateRange.vala'
+    sources += 'Services/CalendarEvents/Util.vala'
+endif
 
 executable(
   application_id,

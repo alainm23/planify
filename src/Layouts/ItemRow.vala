@@ -103,7 +103,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (value) {
                 add_css_class ("no-selectable");
                 itemrow_box.add_css_class ("card");
-                itemrow_box.add_css_class ("card-selected");
+                itemrow_box.add_css_class ("selected");
 
                 build_markdown_edit_view ();
 
@@ -127,17 +127,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 }
 
                 _disable_drag_and_drop ();
-                verify_item_type ();
 
                 Timeout.add (250, () => {
                     content_textview.grab_focus ();
                     return GLib.Source.REMOVE;
                 });
             } else {
-                add_css_class ("no-selectable");
-                itemrow_box.remove_css_class ("card-selected");
+                remove_css_class ("no-selectable");
                 itemrow_box.remove_css_class ("card");
-
+                itemrow_box.remove_css_class ("selected");
+                
                 destroy_markdown_edit_view ();
 
                 detail_revealer.reveal_child = false;
@@ -156,8 +155,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 if (drag_enabled) {
                     build_drag_and_drop ();
                 }
-
-                verify_item_type ();
             }
         }
         get {
@@ -212,7 +209,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     construct {
-        css_classes = { "row", "no-padding" };
+        add_css_class ("row");
+        add_css_class ("no-padding");
 
         project_id = item.project_id;
         section_id = item.section_id;
@@ -285,6 +283,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         content_label = new Gtk.Label (null) {
             xalign = 0,
+            yalign = 0.8f,
             wrap = false,
             ellipsize = END,
             use_markup = true
@@ -535,9 +534,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         _itemrow_box.append (select_revealer);
 
         itemrow_box = new Adw.Bin () {
-            css_classes = { "task-item", "drop-target" },
             child = _itemrow_box
         };
+        itemrow_box.add_css_class ("task-item");
+        itemrow_box.add_css_class ("drop-target");
 
         subitems = new Widgets.SubItems (is_project_view);
         subitems.present_item (item);
@@ -900,17 +900,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_textview.set_text (item.content);
 
         // ItemType
-        verify_item_type ();
+        _verify_item_type ();
 
         // Update Description
         destroy_markdown_signals ();
 
         if (markdown_edit_view != null) {
             markdown_edit_view.buffer.text = item.description;
+            build_markdown_signals ();
         }
-
-        build_markdown_signals ();
-
+        
         project_name_label.label = item.project.name;
         if (item.has_parent) {
             if (item.parent.has_parent) {
@@ -949,7 +948,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
     }
 
-    private void verify_item_type () {
+    private void _verify_item_type () {
         if (item.item_type == ItemType.TASK) {
             checked_button_revealer.reveal_child = true;
             action_box.margin_start = 16;
@@ -958,7 +957,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         } else {
             checked_button_revealer.reveal_child = false;
             action_box.margin_start = 0;
-            content_box.margin_start = edit ? 6 : 0;
+            content_box.margin_start = 0;
             item_labels.margin_start = 6;
         }
 
@@ -1473,13 +1472,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 drop.drag.content.get_value (ref value);
 
                 if (value.dup_object () is Layouts.ItemRow) {
-                    var picked_widget = (Layouts.ItemBoard) value;
+                    var picked_widget = (Layouts.ItemRow) value;
 
                     if (picked_widget.item.id == item.parent_id) {
                         return;
                     }
 
-                    motion_top_grid.height_request = picked_widget.handle_grid.get_height ();
+                    motion_top_grid.height_request = picked_widget.itemrow_box.get_height ();
                     motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer && item.project.sorted_by == SortedByType.MANUAL;
                 } else if (value.dup_object () is Widgets.MagicButton) {
                     motion_top_grid.height_request = 30;
@@ -1682,15 +1681,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
 
             var source_list = (Gtk.ListBox) picked_widget.parent;
-            var target_list = (Gtk.ListBox) target_widget.parent;
+            source_list.remove (picked_widget);
 
+            var target_list = (Gtk.ListBox) target_widget.parent;
             int new_index = target_widget.get_index ();
 
-            source_list.remove (picked_widget);
             target_list.insert (picked_widget, new_index);
-            Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
-
             Utils.TaskUtils.update_single_item_order (target_list, picked_widget, new_index);
+
+            Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
 
             return true;
         })] = drop_order_target;

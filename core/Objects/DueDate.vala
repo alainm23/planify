@@ -21,7 +21,7 @@
 
 public class Objects.DueDate : GLib.Object {
     public string date { get; set; default = ""; }
-    public string timezone { get; set; default = ""; }
+    public string time_zone { get; set; default = ""; }
     public string recurrency_weeks { get; set; default = ""; }
     public bool is_recurring { get; set; default = false; }
     public RecurrencyType recurrency_type { get; set; default = RecurrencyType.NONE; }
@@ -102,7 +102,7 @@ public class Objects.DueDate : GLib.Object {
         }
 
         if (object.has_member ("timezone")) {
-            timezone = object.get_string_member ("timezone");
+            time_zone = object.get_string_member ("timezone");
         }
 
         if (object.has_member ("is_recurring")) {
@@ -117,7 +117,7 @@ public class Objects.DueDate : GLib.Object {
         }
 
         if (object.has_member ("timezone")) {
-            timezone = object.get_string_member ("timezone");
+            time_zone = object.get_string_member ("timezone");
         }
 
         if (object.has_member ("is_recurring")) {
@@ -147,7 +147,7 @@ public class Objects.DueDate : GLib.Object {
 
     public void reset () {
         date = "";
-        timezone = "";
+        time_zone = "";
         recurrency_type = RecurrencyType.NONE;
         recurrency_interval = 0;
         is_recurring = false;
@@ -161,7 +161,7 @@ public class Objects.DueDate : GLib.Object {
         builder.add_string_value (date);
 
         builder.set_member_name ("timezone");
-        builder.add_string_value (timezone);
+        builder.add_string_value (time_zone);
 
         builder.set_member_name ("is_recurring");
         builder.add_boolean_value (is_recurring);
@@ -206,7 +206,7 @@ public class Objects.DueDate : GLib.Object {
     public Objects.DueDate duplicate () {
         var new_due = new Objects.DueDate ();
         new_due.date = date;
-        new_due.timezone = timezone;
+        new_due.time_zone = time_zone;
         new_due.recurrency_weeks = recurrency_weeks;
         new_due.is_recurring = is_recurring;
         new_due.recurrency_type = recurrency_type;

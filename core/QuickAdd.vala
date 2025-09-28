@@ -32,12 +32,15 @@ public class Layouts.QuickAdd : Adw.Bin {
     private Widgets.PriorityButton priority_button;
     private Widgets.ReminderPicker.ReminderButton reminder_button;
     private Widgets.LabelPicker.LabelButton label_button;
+    private Widgets.PinButton pin_button;
     private Gtk.Image added_image;
     private Gtk.Stack main_stack;
     private Gtk.ToggleButton create_more_button;
     private Gtk.Revealer info_revealer;
     private Gtk.Overlay animation_overlay;
     private Gtk.Fixed animation_container;
+    private Adw.HeaderBar headerbar;
+    private Gtk.Label success_label;
 
     public signal void hide_destroy ();
     public signal void send_interface_id (string id);
@@ -93,6 +96,12 @@ public class Layouts.QuickAdd : Adw.Bin {
             if (project != null) {
                 item.project_id = project.id;
             }
+
+            var section = Services.Store.instance ().get_section (Services.Settings.get_default ().settings.get_string ("quick-add-section-selected"));
+
+            if (section != null) {
+                item.section_id = section.id;
+            }
         }
 
         var info_button = new Gtk.MenuButton () {
@@ -101,8 +110,14 @@ public class Layouts.QuickAdd : Adw.Bin {
         };
         info_button.add_css_class ("flat");
 
-        var headerbar = new Adw.HeaderBar () {
-            title_widget = new Gtk.Label (null),
+        success_label = new Gtk.Label (_("Task added successfully!")) {
+            visible = false
+        };
+        success_label.add_css_class ("font-bold");
+        success_label.add_css_class ("caption");
+
+        headerbar = new Adw.HeaderBar () {
+            title_widget = success_label,
             hexpand = true,
             css_classes = { "flat" }
         };
@@ -163,19 +178,22 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         schedule_button = new Widgets.ScheduleButton ();
 
-        priority_button = new Widgets.PriorityButton () {
-            tooltip_markup = Util.get_default ().markup_accels_tooltip (_("Set The Priority"), { "p1", "p2", "p3", "p4" }),
-        };
-        priority_button.update_from_item (item);
-
         label_button = new Widgets.LabelPicker.LabelButton () {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Labels"), "@"),
         };
         label_button.source = item.project.source;
 
+        priority_button = new Widgets.PriorityButton () {
+            tooltip_markup = Util.get_default ().markup_accels_tooltip (_("Set The Priority"), { "p1", "p2", "p3", "p4" }),
+        };
+        priority_button.update_from_item (item);
+
+
         reminder_button = new Widgets.ReminderPicker.ReminderButton (true) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Reminders"), "!"),
         };
+
+        pin_button = new Widgets.PinButton ();
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 6,
@@ -190,8 +208,9 @@ public class Layouts.QuickAdd : Adw.Bin {
         };
 
         action_box_right.append (label_button);
-        action_box_right.append (reminder_button);
         action_box_right.append (priority_button);
+        action_box_right.append (reminder_button);
+        action_box_right.append (pin_button);
 
         action_box.append (schedule_button);
         action_box.append (action_box_right);
@@ -209,17 +228,22 @@ public class Layouts.QuickAdd : Adw.Bin {
         quick_add_content.append (item_labels);
         quick_add_content.append (action_box);
 
-        submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add")) {
+        submit_button = new Widgets.LoadingButton.with_icon ("paper-plane-symbolic") {
             valign = CENTER,
-            css_classes = { "suggested-action", "border-radius-6" }
+            width_request = 32,
+            tooltip_text = _("Add Task")
         };
+        submit_button.add_css_class ("suggested-action");
+        submit_button.add_css_class ("padding-4");
 
         create_more_button = new Gtk.ToggleButton () {
-            css_classes = { "flat", "keep-adding-button" },
             tooltip_text = _("Keep adding"),
             icon_name = "arrow-turn-down-right-symbolic",
+            valign = CENTER,
             active = Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more")
         };
+        create_more_button.add_css_class ("flat");
+        create_more_button.add_css_class ("keep-adding-button");
 
         var submit_cancel_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
@@ -233,6 +257,10 @@ public class Layouts.QuickAdd : Adw.Bin {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Select a Project"), "#"),
         };
         project_picker_button.project = item.project;
+        
+        if (item.section_id != "") {
+            project_picker_button.section = item.section;
+        }
 
         var footer_content = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
@@ -318,12 +346,12 @@ public class Layouts.QuickAdd : Adw.Bin {
         })] = project_picker_button;
 
         signal_map[project_picker_button.section_change.connect ((section) => {
-            if (section == null) {
-                item.section_id = "";
-            } else {
-                item.section_id = section.id;
+            item.section_id = section == null ? "" : section.id;
+
+            if (Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
+                Services.Settings.get_default ().settings.set_string ("quick-add-section-selected", item.section_id);
             }
-        })] = project_picker_button;
+    })] = project_picker_button;
 
        signal_map[project_picker_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
@@ -439,9 +467,13 @@ public class Layouts.QuickAdd : Adw.Bin {
             }
         })] = event_controller_key;
 
-        signal_map[create_more_button.activate.connect (() => {
+        signal_map[create_more_button.toggled.connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("quick-add-create-more", create_more_button.active);
         })] = create_more_button;
+
+        signal_map[pin_button.changed.connect (() => {
+            set_pinned (!item.pinned);
+        })] = pin_button;
 
         var open_label_shortcut = new Gtk.Shortcut (Gtk.ShortcutTrigger.parse_string ("<Control>l"), new Gtk.CallbackAction (() => {
             label_button.open_picker ();
@@ -541,31 +573,79 @@ public class Layouts.QuickAdd : Adw.Bin {
     }
 
     public void added_successfully () {
+        if (create_more_button.active) {
+            main_stack.visible_child_name = "main";
+            added_image.remove_css_class ("fancy-turn-animation");
+
+            // Animación de notificación de éxito
+            show_success_notification ();
+
+            reset_item ();
+
+            content_entry.text = "";
+            description_textview.set_text ("");
+            schedule_button.reset ();
+            priority_button.reset ();
+            label_button.reset ();
+            item_labels.reset ();
+
+            content_entry.grab_focus ();
+
+            return;
+        }
+
         main_stack.visible_child_name = "added";
         added_image.add_css_class ("fancy-turn-animation");
         bool create_more = create_more_button.active;
 
         Timeout.add (750, () => {
-            if (create_more) {
-                main_stack.visible_child_name = "main";
-                added_image.remove_css_class ("fancy-turn-animation");
-
-                reset_item ();
-
-                content_entry.text = "";
-                description_textview.set_text ("");
-                schedule_button.reset ();
-                priority_button.reset ();
-                label_button.reset ();
-                item_labels.reset ();
-
-                content_entry.grab_focus ();
-            } else {
-                hide_destroy ();
-            }
-
+            hide_destroy ();
             return GLib.Source.REMOVE;
         });
+    }
+
+    private void show_success_notification () {
+        success_label.visible = true;
+        success_label.opacity = 0.0;
+
+        var fade_in_target = new Adw.CallbackAnimationTarget ((progress) => {
+            success_label.opacity = progress;
+        });
+
+        var fade_in_animation = new Adw.TimedAnimation (
+            success_label,
+            0.0,
+            1.0,
+            300,
+            fade_in_target
+        );
+        fade_in_animation.easing = Adw.Easing.EASE_OUT_CUBIC;
+
+        fade_in_animation.done.connect (() => {
+            Timeout.add (1500, () => {
+                var fade_out_target = new Adw.CallbackAnimationTarget ((progress) => {
+                    success_label.opacity = 1.0 - progress;
+                });
+
+                var fade_out_animation = new Adw.TimedAnimation (
+                    success_label,
+                    0.0,
+                    1.0,
+                    300,
+                    fade_out_target
+                );
+                fade_out_animation.easing = Adw.Easing.EASE_IN_CUBIC;
+
+                fade_out_animation.done.connect (() => {
+                    success_label.visible = false;
+                });
+
+                fade_out_animation.play ();
+                return GLib.Source.REMOVE;
+            });
+        });
+
+        fade_in_animation.play ();
     }
 
     private void reset_item () {
@@ -612,6 +692,11 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         item.priority = priority;
         priority_button.update_from_item (item);
+    }
+
+    public void set_pinned (bool pinned) {
+        item.pinned = pinned;
+        pin_button.update_from_item (item);
     }
 
     public void set_labels (Gee.HashMap<string, Objects.Label> new_labels) {

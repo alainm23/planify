@@ -104,6 +104,7 @@ namespace CalendarEventsUtil {
      */
 
     /* Computes hash value for E.Source */
+    #if WITH_EVOLUTION
     public uint source_hash_func (E.Source key) {
         return key.dup_uid ().hash ();
     }
@@ -242,4 +243,5 @@ namespace CalendarEventsUtil {
 
         return _("On this computer");
     }
+    #endif
 }

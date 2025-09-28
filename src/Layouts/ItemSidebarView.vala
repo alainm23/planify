@@ -303,6 +303,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         subitems.reveal_child = true;
 
         attachments.present_item (item);
+        spinner_revealer.reveal_child = false;
 
         if (item.has_parent) {
             parent_label.label = item.parent.content;

@@ -28,7 +28,7 @@ public class Views.List : Adw.Bin {
     private Gtk.Label due_label;
     private Gtk.Label days_left_label;
     private Gtk.Revealer due_revealer;
-    private Widgets.PinnedItemsFlowBox pinned_items_flowbox;
+    private Widgets.PinnedItemsBox pinned_items_flowbox;
 
     private Gtk.ListBox listbox;
     private Layouts.SectionRow inbox_section;
@@ -100,14 +100,15 @@ public class Views.List : Adw.Bin {
         filters.flowbox.margin_end = 12;
         filters.flowbox.margin_bottom = 3;
 
-        pinned_items_flowbox = new Widgets.PinnedItemsFlowBox (project);
+        pinned_items_flowbox = new Widgets.PinnedItemsBox (project);
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
             selection_mode = Gtk.SelectionMode.NONE,
             hexpand = true,
             vexpand = true,
-            css_classes = { "listbox-background" }
+            css_classes = { "listbox-background" },
+            margin_top = 12
         };
 
         var listbox_placeholder = new Adw.StatusPage () {
@@ -248,6 +249,10 @@ public class Views.List : Adw.Bin {
             project.handle_scroll_visibility_change (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);
         })] = scrolled_window.vadjustment;
 
+        signal_map[project.source.sync_finished.connect (() => {
+            listbox.invalidate_sort ();
+        })] = project.source;
+
         destroy.connect (() => {
             clean_up ();
         });
@@ -346,9 +351,10 @@ public class Views.List : Adw.Bin {
 
         days_left_label = new Gtk.Label (null) {
             xalign = 0,
-            css_classes = { "dimmed", "caption" }
+            yalign = 0.5f
         };
-        days_left_label.yalign = float.parse ("0.7");
+        days_left_label.add_css_class ("dimmed");
+        days_left_label.add_css_class ("caption");
 
         var due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_start = 3

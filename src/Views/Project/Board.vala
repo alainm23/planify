@@ -31,7 +31,7 @@ public class Views.Board : Adw.Bin {
 
     private Layouts.SectionBoard inbox_board;
     private Gtk.FlowBox flowbox;
-    private Widgets.PinnedItemsFlowBox pinned_items_flowbox;
+    private Widgets.PinnedItemsBox pinned_items_flowbox;
 
     public Gee.HashMap<string, Layouts.SectionBoard> sections_map = new Gee.HashMap<string, Layouts.SectionBoard> ();
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -92,13 +92,14 @@ public class Views.Board : Adw.Bin {
         filters.flowbox.margin_end = 12;
         filters.flowbox.margin_bottom = 3;
 
-        pinned_items_flowbox = new Widgets.PinnedItemsFlowBox (project);
+        pinned_items_flowbox = new Widgets.PinnedItemsBox (project);
 
         flowbox = new Gtk.FlowBox () {
             vexpand = true,
             max_children_per_line = 1,
             orientation = Gtk.Orientation.VERTICAL,
-            halign = Gtk.Align.START
+            halign = Gtk.Align.START,
+            selection_mode = NONE
         };
 
         var flowbox_grid = new Adw.Bin () {
@@ -207,6 +208,10 @@ public class Views.Board : Adw.Bin {
         signal_map[project.count_updated.connect (() => {
             icon_project.update_request ();
         })] = project;
+
+        signal_map[project.source.sync_finished.connect (() => {
+            flowbox.invalidate_sort ();
+        })] = project.source;
     }
 
     public void update_request () {

@@ -253,15 +253,25 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         foreach (var response in multi_status.responses ()) {
 
             foreach (var propstat in response.propstats ()) {
-                if (propstat.status != Soup.Status.OK) continue;
+                if (propstat.status != Soup.Status.OK) {
+                    continue;
+                }
 
-                project.update_from_propstat (propstat, false);
-                Services.Store.instance ().update_project (project);
+                var resourcetype = propstat.get_first_prop_with_tagname ("resourcetype");
+                var supported_calendar = propstat.get_first_prop_with_tagname ("supported-calendar-component-set");
+            
+                if (is_vtodo_calendar (resourcetype, supported_calendar)) {
+                    project.update_from_propstat (propstat, false);
+                    Services.Store.instance ().update_project (project);
+                    return;
+                }
             }
         }
     }
 
-    public async void fetch_items_for_project (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
+    public delegate void ProgressCallback (int current, int total, string message);
+
+    public async void fetch_items_for_project (Objects.Project project, GLib.Cancellable cancellable, owned ProgressCallback? progress_callback = null) throws GLib.Error {
         var xml = """<?xml version="1.0" encoding="utf-8"?>
         <cal:calendar-query xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
             <d:prop>
@@ -282,38 +292,62 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             </cal:filter>
         </cal:calendar-query>
         """;
-
+        
         var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
+        var responses = multi_status.responses ();
+        
+        if (progress_callback != null) {
+            progress_callback (0, responses.size, _("Loading tasks for %s…").printf (project.name));
+        }
+        
+        const int ITEM_BATCH = 50;
+        int processed = 0;
+        
+        for (int i = 0; i < responses.size; i += ITEM_BATCH) {
+            var batch_end = int.min (i + ITEM_BATCH, responses.size);
+            
+            for (int j = i; j < batch_end; j++) {
+                var response = responses[j];
+                string? href = response.href;
 
-        foreach (var response in multi_status.responses ()) {
-            string? href = response.href;
+                foreach (var propstat in response.propstats ()) {
+                    if (propstat.status != Soup.Status.OK) {
+                        continue;
+                    }
 
-            foreach (var propstat in response.propstats ()) {
-                if (propstat.status != Soup.Status.OK) {
-                    continue;
-                }
+                    var calendar_data = propstat.get_first_prop_with_tagname ("calendar-data");
+                    string? parent_id = Util.find_string_value ("RELATED-TO", calendar_data.text_content);
 
-                var calendar_data = propstat.get_first_prop_with_tagname ("calendar-data");
-                string? parent_id = Util.find_string_value ("RELATED-TO", calendar_data.text_content);
+                    Objects.Item item = new Objects.Item.from_vtodo (calendar_data.text_content, get_absolute_url (href), project.id);
 
-                Objects.Item item = new Objects.Item.from_vtodo (calendar_data.text_content, get_absolute_url (href), project.id);
-
-                if (parent_id != null && parent_id != "") {
-                    Objects.Item ? parent_item = Services.Store.instance ().get_item (parent_id);
-                    if (parent_item != null) {
-                        parent_item.add_item_if_not_exists (item);
+                    if (parent_id != null && parent_id != "") {
+                        Objects.Item ? parent_item = Services.Store.instance ().get_item (parent_id);
+                        if (parent_item != null) {
+                            parent_item.add_item_if_not_exists (item);
+                        } else {
+                            project.add_item_if_not_exists (item);
+                        }
                     } else {
                         project.add_item_if_not_exists (item);
                     }
-                } else {
-                    project.add_item_if_not_exists (item);
+                }
+
+                processed++;
+                
+                if (progress_callback != null && processed % 10 == 0) {
+                    progress_callback (processed, responses.size, _("Processing task %d of %d").printf (processed, responses.size));
                 }
             }
+            
+            yield Util.nap (10);
         }
     }
 
-
     public async void sync_tasklist (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
+        if (project.is_deck) {
+            return;
+        }
+
         var xml = """
         <d:sync-collection xmlns:d="DAV:">
             <d:sync-token>%s</d:sync-token>
@@ -325,11 +359,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         </d:sync-collection>
         """.printf (project.sync_id);
 
-        if (project.is_deck) {
-            return;
-        }
-
         project.loading = true;
+        project.sync_started ();
 
         yield fetch_project_details (project, cancellable);
 
@@ -363,13 +394,13 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
                     var getcontenttype = propstat.get_first_prop_with_tagname ("getcontenttype");
                     if (getcontenttype != null) {
-                        if (getcontenttype.text_content.index_of ("vtodo") > -1) {
+                        if (getcontenttype.text_content.down ().index_of ("vtodo") > -1) {
                             is_vtodo = true;
                         }
                     }
 
                     if (is_vtodo) {
-                        string vtodo = yield get_vtodo_by_url (project, get_absolute_url (href), cancellable);
+                        string vtodo = yield get_vtodo_by_url (get_absolute_url (href), cancellable);
 
                         ICal.Component ical = new ICal.Component.from_string (vtodo);
                         Objects.Item ? item = Services.Store.instance ().get_item (ical.get_uid ());
@@ -415,12 +446,12 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         }
 
         project.loading = false;
+        project.sync_finished ();
     }
 
 
-    private async string? get_vtodo_by_url (Objects.Project project, string url, GLib.Cancellable cancellable) throws GLib.Error {
-        return yield send_request ("GET", url, "", null, null, cancellable,
-                                   { Soup.Status.OK });
+    private async string? get_vtodo_by_url (string url, GLib.Cancellable cancellable) throws GLib.Error {
+        return yield send_request ("GET", url, "", null, null, cancellable, { Soup.Status.OK });
     }
 
     public async void update_sync_token (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
