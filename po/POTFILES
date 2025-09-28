@@ -161,7 +161,7 @@ src/Widgets/ItemChangeHistoryRow.vala
 src/Widgets/ErrorView.vala
 src/Widgets/CompletedTaskRow.vala
 src/Widgets/ItemDetailCompleted.vala
-src/Widgets/PinnedItemsFlowBox.vala
+src/Widgets/PinnedItemsBox.vala
 src/Widgets/BypassResolveSwitchRow.vala
 src/Widgets/IgnoreSSLSwitchRow.vala
 
