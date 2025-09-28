@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <component type="desktop">
   <id>@appid@</id>
   <metadata_license>CC0</metadata_license>
@@ -19,14 +19,12 @@
       <li>🌙️ Better integration with the dark theme.</li>
       <li>🎉️ and much more.</li>
     </ul>
-
     <p>☁️ Support for Todoist:</p>
     <ul>
       <li>Synchronize your Projects, Task and Sections thanks to Todoist.</li>
       <li>Support for Todoist offline: Work without an internet connection and when everything is reconnected it will be synchronized.</li>
     </ul>
     <p>* Planify not created by, affiliated with, or supported by Doist</p>
-
     <p>💎️ Other features:</p>
     <ul>
       <li>🔍️ Quick Find</li>
@@ -61,26 +59,42 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
-    <release version="4.14.0" date="2025-09-19">
-        <description translate="no">
-          <ul>
-            <li>Rewritten CalDAV backend with support for Radicale, Baïkal, and other CalDAV servers — thanks to @byquanton.</li>
-            <li>Fixed memory leaks when completing or deleting tasks, and during CalDAV sync — thanks to @markochk.</li>
-            <li>Introduced a new view cache system to automatically free unused memory.</li>
-            <li>Added new customizable sidebar filters: Tomorrow, Someday, Recurring, No label, and All tasks.</li>
-            <li>Improved synchronization: Planify now respects task order from Nextcloud and Todoist, with a new reordering algorithm.</li>
-            <li>Work in progress to make WebKit and Evolution dependencies optional, paving the way for Windows and macOS support — thanks to @byquanton.</li>
-            <li>Spell checker support in task descriptions.</li>
-            <li>Fixed bug when moving tasks with subtasks in Nextcloud/CalDAV projects.</li>
-            <li>Updated themes (Light, Dark, Dark Blue) and refined task design for better readability.</li>
-            <li>Labels and indicators for notes, reminders, and subtasks are now aligned to the right of task titles.</li>
-            <li>Added a quick-add button to every task list.</li>
-            <li>New completion animation and updated sound when finishing tasks.</li>
-            <li>Completion notification added, so users can easily review completed tasks.</li>
-          </ul>
-        </description>
+    <release version="4.14.1" date="2025-09-28">
+      <description translate="no">
+        <ul>
+          <li>Updated project colors for better readability depending on the selected theme.</li>
+          <li>Added support and fixed a crash when syncing accounts with more than 2,000 tasks. A progress counter was also added for large synchronizations.</li>
+          <li>Updated the placeholder for the completed tasks view.</li>
+          <li>Improved task creation flow when "Keep Adding" is enabled by disabling the animation and showing a quick notification instead.</li>
+          <li>Improved task description editing on small screens by adding a "See more" button for long texts. The input field now also loses focus automatically after 6 seconds to allow global keyboard shortcuts to work seamlessly.</li>
+          <li>Quick Add now remembers the last selected section when creating a task.</li>
+          <li>Quick Add now includes the "Pinned" button and removes the limitation of only 3 pinned tasks. Thanks to Adw.WrapBox, pinning is now unlimited.</li>
+          <li>Fixed a bug where tasks were not counted correctly when moved via drag and drop.</li>
+          <li>Fixed an issue where deleting a source did not remove its associated labels.</li>
+          <li>Fixed a bug where tasks did not sync correctly when using Radicale accounts, and another issue where task lists were renamed incorrectly.</li>
+          <li>Fixed a bug where manual task ordering did not always place the task in the correct position.</li>
+        </ul>
+      </description>
     </release>
-
+    <release version="4.14.0" date="2025-09-19">
+      <description translate="no">
+        <ul>
+          <li>Rewritten CalDAV backend with support for Radicale, Baïkal, and other CalDAV servers — thanks to @byquanton.</li>
+          <li>Fixed memory leaks when completing or deleting tasks, and during CalDAV sync — thanks to @markochk.</li>
+          <li>Introduced a new view cache system to automatically free unused memory.</li>
+          <li>Added new customizable sidebar filters: Tomorrow, Someday, Recurring, No label, and All tasks.</li>
+          <li>Improved synchronization: Planify now respects task order from Nextcloud and Todoist, with a new reordering algorithm.</li>
+          <li>Work in progress to make WebKit and Evolution dependencies optional, paving the way for Windows and macOS support — thanks to @byquanton.</li>
+          <li>Spell checker support in task descriptions.</li>
+          <li>Fixed bug when moving tasks with subtasks in Nextcloud/CalDAV projects.</li>
+          <li>Updated themes (Light, Dark, Dark Blue) and refined task design for better readability.</li>
+          <li>Labels and indicators for notes, reminders, and subtasks are now aligned to the right of task titles.</li>
+          <li>Added a quick-add button to every task list.</li>
+          <li>New completion animation and updated sound when finishing tasks.</li>
+          <li>Completion notification added, so users can easily review completed tasks.</li>
+        </ul>
+      </description>
+    </release>
     <release version="4.13.4" date="2025-08-27">
       <description translate="no">
         <ul>
@@ -112,7 +126,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.13.2" date="2025-08-09">
       <description translate="no">
         <ul>
@@ -135,7 +148,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.13.0" date="2025-07-18">
       <description translate="no">
         <ul>
@@ -147,7 +159,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.12.2" date="2025-06-18">
       <description translate="no">
         <ul>
@@ -156,7 +167,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.11.7" date="2024-11-15">
       <description translate="no">
         <ul>
@@ -165,7 +175,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.11.5" date="2024-10-14">
       <description translate="no">
         <ul>
@@ -173,7 +182,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.11.4" date="2024-09-19">
       <description translate="no">
         <ul>
@@ -183,7 +191,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.11.2" date="2024-09-13">
       <description translate="no">
         <ul>
@@ -194,7 +201,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.11.0" date="2024-08-28">
       <description translate="no">
         <ul>
@@ -218,7 +224,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.10.8" date="2024-08-20">
       <description translate="no">
         <ul>
@@ -226,7 +231,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.10.7" date="2024-08-08">
       <description translate="no">
         <ul>
@@ -234,7 +238,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.10.6" date="2024-08-05">
       <description translate="no">
         <ul>
@@ -243,7 +246,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.10.5" date="2024-08-02">
       <description translate="no">
         <ul>
@@ -259,7 +261,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.10.3" date="2024-07-31">
       <description translate="no">
         <ul>
@@ -268,7 +269,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.10.2" date="2024-07-30">
       <description translate="no">
         <ul>
@@ -276,7 +276,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.10.0" date="2024-07-29">
       <description translate="no">
         <ul>
@@ -288,7 +287,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.9.0" date="2024-07-11">
       <description translate="no">
         <ul>
@@ -301,7 +299,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.8.4" date="2024-06-23">
       <description translate="no">
         <ul>
@@ -314,7 +311,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.8.2" date="2024-06-03">
       <description translate="no">
         <ul>
@@ -322,7 +318,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.8" date="2024-05-31">
       <description translate="no">
         <ul>
@@ -337,7 +332,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.7.6" date="2024-05-20">
       <description translate="no">
         <ul>
@@ -347,7 +341,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.7.4" date="2024-05-18">
       <description translate="no">
         <ul>
@@ -357,7 +350,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.7.2" date="2024-05-11">
       <description translate="no">
         <ul>
@@ -371,7 +363,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.7" date="2024-05-01">
       <description translate="no">
         <ul>
@@ -385,7 +376,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.6" date="2024-04-15">
       <description translate="no">
         <ul>
@@ -400,7 +390,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.5.12" date="2024-03-29">
       <description translate="no">
         <ul>
@@ -412,7 +401,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.5.11" date="2024-03-28">
       <description translate="no">
         <ul>
@@ -425,7 +413,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.5.10" date="2024-03-26">
       <description translate="no">
         <ul>
@@ -438,7 +425,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.5.8" date="2024-03-21">
       <description translate="no">
         <ul>
@@ -446,7 +432,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.5.6" date="2024-03-20">
       <description translate="no">
         <ul>
@@ -459,7 +444,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.5.4" date="2024-03-18">
       <description translate="no">
         <ul>
@@ -471,7 +455,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.5.2" date="2024-03-04">
       <description translate="no">
         <ul>
@@ -481,7 +464,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.5.1" date="2024-03-01">
       <description translate="no">
         <ul>
@@ -489,7 +471,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.5" date="2024-02-20">
       <description translate="no">
         <p>Planify 4.5 is here, design improvements and new features available.</p>
@@ -512,7 +493,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.4" date="2024-01-10">
       <description translate="no">
         <p>Planify 4.4 is here, design improvements and new features available.</p>
@@ -540,7 +520,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.3.2" date="2023-12-20">
       <description translate="no">
         <ul>
@@ -548,7 +527,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.3.1" date="2023-12-19">
       <description translate="no">
         <ul>
@@ -557,7 +535,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.3" date="2023-12-18">
       <description translate="no">
         <p>Planify 4.3 is here, design improvements and new features available.</p>
@@ -577,7 +554,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.2.1" date="2023-12-11">
       <description translate="no">
         <ul>
@@ -586,7 +562,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.2" date="2023-12-10">
       <description translate="no">
         <ul>
@@ -601,7 +576,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.1.4" date="2023-12-05">
       <description translate="no">
         <ul>
@@ -612,7 +586,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.1.1" date="2023-06-27">
       <description translate="no">
         <ul>
@@ -623,7 +596,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.1" date="2023-06-23">
       <description translate="no">
         <p>Planify 4.1 here it is!</p>
@@ -638,7 +610,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.0" date="2023-05-26">
       <description translate="no">
         <p>Initial release</p>

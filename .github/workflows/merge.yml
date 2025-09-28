@@ -23,14 +23,14 @@ jobs:
   gettext:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v5
     
     - name: Install gettext
       run: sudo apt-get update && sudo apt-get install -y gettext
     
     - name: Update POTFILES and translations
       run: |
-        # Regenerar POTFILES
+        # Regenerate POTFILES
         cat > po/POTFILES << 'EOF'
         # List of source files containing translatable strings.
         # Please keep this file sorted alphabetically.
@@ -44,7 +44,7 @@ jobs:
         echo >> po/POTFILES
         echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
         
-        # Actualizar traducciones
+        # Update translations
         xgettext --files-from=po/POTFILES --directory=. --output=po/io.github.alainm23.planify.pot --from-code=UTF-8 --keyword=_ --keyword=N_
         
         for lang in $(cat po/LINGUAS); do
