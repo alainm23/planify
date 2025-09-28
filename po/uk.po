@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 06:43-0500\n"
+"POT-Creation-Date: 2025-09-28 06:51-0500\n"
 "PO-Revision-Date: 2025-05-25 16:15+0300\n"
 "Last-Translator: Maksym Dilanian <maksym@dilanian.xyz>\n"
 "Language-Team: \n"
@@ -1442,6 +1442,11 @@ msgstr ""
 "Planify автоматично запускатиметься, коли цей пристрій увімкнеться, і "
 "працюватиме, коли його вікно буде закрито, щоб надсилати сповіщення про "
 "справи."
+
+#: src/MainWindow.vala:47
+#, fuzzy
+msgid "Planify"
+msgstr "Знайомтесь, Planify"
 
 #: src/MainWindow.vala:78
 msgid "Main Menu"

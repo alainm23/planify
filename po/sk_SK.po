@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 06:43-0500\n"
+"POT-Creation-Date: 2025-09-28 06:51-0500\n"
 "PO-Revision-Date: 2025-01-17 20:16+0100\n"
 "Last-Translator: Nostragodus <nostragodus@gmail.com>\n"
 "Language-Team: Slovakia\n"
@@ -1421,6 +1421,11 @@ msgid ""
 msgstr ""
 "Planify sa automaticky spustí pri zapnutí tohto zariadenia a bude bežať, keď "
 "bude jeho okno zatvorené, aby mohol posielať notifikácie o úlohách."
+
+#: src/MainWindow.vala:47
+#, fuzzy
+msgid "Planify"
+msgstr "Zoznámte sa s Planify"
 
 #: src/MainWindow.vala:78
 msgid "Main Menu"

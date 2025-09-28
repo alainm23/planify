@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 06:43-0500\n"
+"POT-Creation-Date: 2025-09-28 06:51-0500\n"
 "PO-Revision-Date: 2024-04-28 17:39+0200\n"
 "Last-Translator: twlvnn <kraft_werk@tutanota.com>\n"
 "Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
@@ -1443,6 +1443,11 @@ msgstr ""
 "„Planify“ ще се стартира автоматично, когато това устройство се включи, и ще "
 "работи във фонов режим, когато прозорецът му бъде затворен, за да може да "
 "изпраща известия за задачи."
+
+#: src/MainWindow.vala:47
+#, fuzzy
+msgid "Planify"
+msgstr "Запознайте се с „Planify“"
 
 #: src/MainWindow.vala:78
 msgid "Main Menu"

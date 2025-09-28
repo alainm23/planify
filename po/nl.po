@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 06:43-0500\n"
+"POT-Creation-Date: 2025-09-28 06:51-0500\n"
 "PO-Revision-Date: 2024-11-08 14:56+0100\n"
 "Last-Translator: Gert-dev\n"
 "Language-Team: Dutch <>\n"
@@ -1435,6 +1435,10 @@ msgid ""
 msgstr ""
 "Planify zal automatisch mee opstarten met uw computer en blijven draaien bij "
 "het sluiten van het venster zodat meldingen verstuurd kunnen worden."
+
+#: src/MainWindow.vala:47
+msgid "Planify"
+msgstr "Planify"
 
 #: src/MainWindow.vala:78
 msgid "Main Menu"
@@ -3413,9 +3417,6 @@ msgstr "Prikbord weergeven"
 #~ msgstr ""
 #~ "Drücke 'a' oder tippe auf den Plus-Knopf, um eine neue Aufgabe zu "
 #~ "erstellen."
-
-#~ msgid "Planify"
-#~ msgstr "Planify"
 
 #~ msgid "Google Tasks"
 #~ msgstr "Google Tasks"

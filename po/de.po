@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 06:43-0500\n"
+"POT-Creation-Date: 2025-09-28 06:51-0500\n"
 "PO-Revision-Date: 2025-01-18 17:21+0100\n"
 "Last-Translator: byquanton <>\n"
 "Language-Team: German\n"
@@ -1440,6 +1440,10 @@ msgstr ""
 "Planify wird automatisch gestartet, wenn das Gerät eingeschaltet wird und "
 "wird ausgeführt, wenn das Fenster geschlossen wird, so dass es "
 "Aufgabenbenachrichtigungen senden kann."
+
+#: src/MainWindow.vala:47
+msgid "Planify"
+msgstr "Planify"
 
 #: src/MainWindow.vala:78
 msgid "Main Menu"
@@ -3403,9 +3407,6 @@ msgstr "'Pinnwand' öffnen"
 #~ msgstr ""
 #~ "Drücke 'a' oder tippe auf den Plus-Knopf, um eine neue Aufgabe zu "
 #~ "erstellen."
-
-#~ msgid "Planify"
-#~ msgstr "Planify"
 
 #~ msgid "Google Tasks"
 #~ msgstr "Google Tasks"

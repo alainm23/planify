@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 06:43-0500\n"
+"POT-Creation-Date: 2025-09-28 06:51-0500\n"
 "PO-Revision-Date: 2024-06-24 02:42+0900\n"
 "Last-Translator: Wonje Jung <myunsyeya@ajou.ac.kr>\n"
 "Language-Team: \n"
@@ -1431,6 +1431,11 @@ msgid ""
 msgstr ""
 "이 기기가 켜지면 Planify가 자동으로 시작되고 창이 닫힌 상태에서도 할 일 알림"
 "을 보낼 수 있도록 실행됩니다."
+
+#: src/MainWindow.vala:47
+#, fuzzy
+msgid "Planify"
+msgstr "Planify를 만나보세요"
 
 #: src/MainWindow.vala:78
 msgid "Main Menu"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 06:43-0500\n"
+"POT-Creation-Date: 2025-09-28 06:51-0500\n"
 "PO-Revision-Date: 2025-03-13 18:45-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1426,6 +1426,11 @@ msgstr ""
 "Planify se iniciará automáticamente cuando se encienda este dispositivo y se "
 "ejecutará cuando se cierre su ventana para poder enviar notificaciones de "
 "tareas."
+
+#: src/MainWindow.vala:47
+#, fuzzy
+msgid "Planify"
+msgstr "Conoce Planify"
 
 #: src/MainWindow.vala:78
 msgid "Main Menu"

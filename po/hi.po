@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 06:43-0500\n"
+"POT-Creation-Date: 2025-09-28 06:51-0500\n"
 "PO-Revision-Date: 2024-08-03 00:05+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -1428,6 +1428,11 @@ msgid ""
 msgstr ""
 "जब यह उपकरण चालू होगा तो प्लॅानिफाई स्वचालित रूप से प्रारंभ हो जाएगा और विंडो बंद होने "
 "पर भी चलेगा ताकि यह कार्य संबंधी अधिसूचनाएं भेज सके।"
+
+#: src/MainWindow.vala:47
+#, fuzzy
+msgid "Planify"
+msgstr "प्लॅानिफाई से मिलें"
 
 #: src/MainWindow.vala:78
 msgid "Main Menu"

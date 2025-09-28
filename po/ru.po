@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-28 06:43-0500\n"
+"POT-Creation-Date: 2025-09-28 06:51-0500\n"
 "PO-Revision-Date: 2025-07-07 12:31+0300\n"
 "Last-Translator: Alevtina <karashokovaaa@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -1434,6 +1434,10 @@ msgid ""
 msgstr ""
 "Planify будет автоматически запускаться при входе в систему и работать в "
 "фоновом режиме при закрытии его окна для отправки уведомлений."
+
+#: src/MainWindow.vala:47
+msgid "Planify"
+msgstr "Planify"
 
 #: src/MainWindow.vala:78
 msgid "Main Menu"
@@ -3427,9 +3431,6 @@ msgstr "Открыть «Закреплённые»"
 #~ msgstr ""
 #~ "Вы можете получить общее представление о своих задачах, не упуская из "
 #~ "виду детали."
-
-#~ msgid "Planify"
-#~ msgstr "Planify"
 
 #~ msgid "Google Tasks"
 #~ msgstr "Google Tasks"
