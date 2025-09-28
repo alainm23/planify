@@ -20,38 +20,41 @@ jobs:
           manifest-path: build-aux/io.github.alainm23.planify.Devel.json
           cache-key: flatpak-builder-${{ github.sha }}
 
-  # gettext:
-  #   name: Gettext
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: ghcr.io/elementary/flatpak-platform/runtime:8.2-x86_64
-  #     options: --privileged
-
-  #   steps:
-  #     - name: Install git, python3-git and jq
-  #       run: |
-  #         apt-get update
-  #         apt-get install git jq python3-git -y libportal-dev libportal-gtk4-dev
-
-  #     - name: Clone repository
-  #       uses: actions/checkout@v5
-  #       with:
-  #         token: ${{ secrets.GIT_USER_TOKEN }}
-
-  #     - name: Install Rust SDK extension
-  #       run: |
-  #         flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-  #         flatpak install -y org.freedesktop.Sdk.Extension.rust-stable//24.08
-  #         flatpak install -y org.gnome.Sdk/x86_64/48
-  #         flatpak install -y org.gnome.Platform/x86_64/48
-
-  #     - name: Configure Git
-  #       run: |
-  #         git config --global --add safe.directory "$GITHUB_WORKSPACE"
-  #     - name: Update Translation Files
-  #       uses: elementary/actions/gettext-flatpak@main
-  #       with:
-  #         manifest-path: "io.github.alainm23.planify.json"
-  #       env:
-  #         GIT_USER_NAME: "planifyBot"
-  #         GIT_USER_EMAIL: "builds@useplanify.com"
+  gettext:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install gettext
+      run: sudo apt-get update && sudo apt-get install -y gettext
+    
+    - name: Update POTFILES and translations
+      run: |
+        # Regenerar POTFILES
+        cat > po/POTFILES << 'EOF'
+        # List of source files containing translatable strings.
+        # Please keep this file sorted alphabetically.
+        EOF
+        
+        find core -name "*.vala" | sort >> po/POTFILES
+        echo >> po/POTFILES
+        find src -name "*.vala" | sort >> po/POTFILES
+        echo >> po/POTFILES
+        find quick-add -name "*.vala" | sort >> po/POTFILES
+        echo >> po/POTFILES
+        echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
+        
+        # Actualizar traducciones
+        xgettext --files-from=po/POTFILES --directory=. --output=po/io.github.alainm23.planify.pot --from-code=UTF-8 --keyword=_ --keyword=N_
+        
+        for lang in $(cat po/LINGUAS); do
+          msgmerge --update po/$lang.po po/io.github.alainm23.planify.pot
+        done
+    
+    - name: Commit changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add po/
+        git diff --staged --quiet || git commit -m "Update translations"
+        git push
