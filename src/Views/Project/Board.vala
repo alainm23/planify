@@ -31,7 +31,7 @@ public class Views.Board : Adw.Bin {
 
     private Layouts.SectionBoard inbox_board;
     private Gtk.FlowBox flowbox;
-    private Widgets.PinnedItemsFlowBox pinned_items_flowbox;
+    private Widgets.PinnedItemsBox pinned_items_flowbox;
 
     public Gee.HashMap<string, Layouts.SectionBoard> sections_map = new Gee.HashMap<string, Layouts.SectionBoard> ();
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -92,7 +92,7 @@ public class Views.Board : Adw.Bin {
         filters.flowbox.margin_end = 12;
         filters.flowbox.margin_bottom = 3;
 
-        pinned_items_flowbox = new Widgets.PinnedItemsFlowBox (project);
+        pinned_items_flowbox = new Widgets.PinnedItemsBox (project);
 
         flowbox = new Gtk.FlowBox () {
             vexpand = true,
