@@ -100,10 +100,6 @@ public class Widgets.PinnedItemsFlowBox : Adw.Bin {
             return;
         }
 
-        if (items_map.size + 1 > 3) {
-            return;
-        }
-
         items_map[item.id] = new Layouts.ItemBoard (item) {
             hexpand = true,
             pin_mode = true
