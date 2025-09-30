@@ -899,10 +899,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         // ItemType
         _verify_item_type ();
 
-        // Update Description
-        destroy_markdown_signals ();
-
         if (markdown_editor != null) {
+            // Update Description
+            destroy_markdown_signals ();
+
             markdown_editor.set_text (item.description);
             build_markdown_signals ();
         }

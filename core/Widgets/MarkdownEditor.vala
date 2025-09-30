@@ -55,6 +55,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     private bool showing_placeholder = false;
     private Gtk.GestureClick gesture_click;
     private bool editing_existing_link = false;
+    private bool updating_programmatically = false;
     
     public string placeholder_text {get; set; default = ""; }
 
@@ -813,7 +814,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     }
     
     private void on_buffer_changed () {
-        if (!showing_placeholder) {
+        if (!showing_placeholder && !updating_programmatically) {
             apply_markdown_formatting ();
             
             Gtk.TextIter start, end;
@@ -1246,9 +1247,12 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     }
     
     public void set_text (string text) {
+        updating_programmatically = true;
         showing_placeholder = false;
         buffer.set_text (text, -1);
         update_placeholder_visibility ();
+        updating_programmatically = false;
+        apply_markdown_formatting ();
     }
     
     public string get_text () {
@@ -1294,7 +1298,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     private void create_link_popover () {
         link_entry = new Gtk.Entry () {
             placeholder_text = "https://example.com",
-            width_request = 250
+            width_request = 320
         };
         
         link_apply_button = new Gtk.Button.from_icon_name ("checkmark-small-symbolic") {
