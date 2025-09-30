@@ -38,6 +38,7 @@ core_files = files(
     'Widgets/CircularProgressBar.vala',
     'Widgets/StatusButton.vala',
     'Widgets/LabelsPickerCore.vala',
+    'Widgets/MarkdownEditor.vala',
 
     'Widgets/Calendar/Calendar.vala',
     'Widgets/Calendar/CalendarDay.vala',
