@@ -694,7 +694,7 @@ checkbutton.theme-selector radio:checked {
     transform: scale(1);
     opacity: 1;
     transform-origin: center center;
-    border-radius: 9px;
+    border-radius: 12px;
 }
 
 .task-item.complete {
