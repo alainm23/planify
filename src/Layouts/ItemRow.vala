@@ -1,5 +1,5 @@
 /*
- * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ * Copyright © 2025 Alain M. (https://github.com/alainm23/planify)
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -1781,9 +1781,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             markdown_editor.view_focus ();
         })] = description_gesture_click;
 
-        //  markdown_handlerses[markdown_editor.escape.connect (() => {
-        //      edit = false;
-        //  })] = markdown_editor;
+        markdown_handlerses[markdown_editor.escape_pressed.connect (() => {
+            edit = false;
+        })] = markdown_editor;
 
         markdown_handlerses[markdown_editor.text_changed.connect (() => {
             update_content_description ();

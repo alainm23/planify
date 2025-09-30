@@ -1,3 +1,24 @@
+/*
+ * Copyright © 2025 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
+
 public class Widgets.MarkdownEditor : Adw.Bin {
     public Gtk.TextView text_view;
     public Gtk.TextBuffer buffer;
@@ -36,7 +57,9 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     private bool editing_existing_link = false;
     
     public string placeholder_text {get; set; default = ""; }
+
     public signal void text_changed (string text);
+    public signal void escape_pressed ();
 
     public bool is_editable {
         set {
@@ -216,7 +239,6 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         unordered_list_button.clicked.connect (on_unordered_list_clicked);
         ordered_list_button.clicked.connect (on_ordered_list_clicked);
 
-        
         create_link_popover ();
 
         format_popover = new Gtk.Popover () {
@@ -237,6 +259,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
                 show_format_popover (start);
             }
         }
+
         return false;
     }
     
@@ -298,6 +321,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
                 show_add_link_popover (start);
             }
         }
+
         format_popover.popdown ();
     }
     
@@ -310,9 +334,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         apply_ordered_list_format ();
         format_popover.popdown ();
     }
-    
 
-    
     public void toggle_bold_format () {
         Gtk.TextIter start, end;
         if (buffer.get_selection_bounds (out start, out end)) {
@@ -587,6 +609,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
             }
             if (!iter.forward_char ()) break;
         }
+
         return false;
     }
     
@@ -598,6 +621,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
             }
             if (!iter.forward_char ()) break;
         }
+
         return false;
     }
     
@@ -609,6 +633,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
             }
             if (!iter.forward_char ()) break;
         }
+
         return false;
     }
     
@@ -665,10 +690,16 @@ public class Widgets.MarkdownEditor : Adw.Bin {
             format_popover.popdown ();
         }
         
+        if (keyval == Gdk.Key.Escape) {
+            escape_pressed ();
+            return true;
+        }
+        
         if (keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter) {
             if (handle_list_enter ()) {
                 return true;
             }
+
             clear_cursor_formatting ();
         }
         
@@ -725,6 +756,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
             } else {
                 buffer.insert_at_cursor ("\n- ", -1);
             }
+
             return true;
         }
         
@@ -743,6 +775,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
                     var next_item = "\n%d. ".printf (number + 1);
                     buffer.insert_at_cursor (next_item, -1);
                 }
+
                 return true;
             }
         } catch (GLib.RegexError e) {
@@ -773,6 +806,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         if (showing_placeholder) {
             return "";
         }
+
         Gtk.TextIter start, end;
         buffer.get_bounds (out start, out end);
         return buffer.get_text (start, end, true);
@@ -1323,6 +1357,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         if (link_box.get_last_child () == link_apply_button) {
             link_box.remove (link_apply_button);
         }
+        
         if (link_box.get_last_child () != link_remove_button) {
             link_box.append (link_remove_button);
         }
