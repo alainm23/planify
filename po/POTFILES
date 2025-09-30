@@ -77,6 +77,7 @@ core/Widgets/Markdown/Color.vala
 core/Widgets/Markdown/MarkdownBuffer.vala
 core/Widgets/Markdown/MarkdownEditView.vala
 core/Widgets/Markdown/MarkdownView.vala
+core/Widgets/MarkdownEditor.vala
 core/Widgets/PinButton.vala
 core/Widgets/PriorityButton.vala
 core/Widgets/ProjectPicker/ProjectPickerButton.vala
