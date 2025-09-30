@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-30 11:08+0000\n"
+"POT-Creation-Date: 2025-09-30 11:20+0000\n"
 "PO-Revision-Date: 2025-06-03 17:24-0300\n"
 "Last-Translator: John peter sa <johnppetersa@gmail.com>\n"
 "Language-Team: \n"
@@ -1290,11 +1290,11 @@ msgid "Couldn't find an app to handle file URIs"
 msgstr ""
 "Não foi possível encontrar um aplicativo para manipular URIs de arquivo"
 
-#: core/Widgets/MarkdownEditor.vala:1301
+#: core/Widgets/MarkdownEditor.vala:1305
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1306
+#: core/Widgets/MarkdownEditor.vala:1310
 #, fuzzy
 msgid "Remove link"
 msgstr "Remover"

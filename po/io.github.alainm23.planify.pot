@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-30 11:08+0000\n"
+"POT-Creation-Date: 2025-09-30 11:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1222,11 +1222,11 @@ msgstr ""
 msgid "Couldn't find an app to handle file URIs"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1301
+#: core/Widgets/MarkdownEditor.vala:1305
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1306
+#: core/Widgets/MarkdownEditor.vala:1310
 msgid "Remove link"
 msgstr ""
 

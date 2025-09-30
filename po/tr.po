@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-30 11:08+0000\n"
+"POT-Creation-Date: 2025-09-30 11:20+0000\n"
 "PO-Revision-Date: 2025-05-18 12:00+0300\n"
 "Last-Translator: Egehan KAHRAMAN <vastseaoffical0@outlook.com>\n"
 "Language-Team: \n"
@@ -1296,11 +1296,11 @@ msgstr "Ara veya Oluştur"
 msgid "Couldn't find an app to handle file URIs"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1301
+#: core/Widgets/MarkdownEditor.vala:1305
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1306
+#: core/Widgets/MarkdownEditor.vala:1310
 msgid "Remove link"
 msgstr ""
 
