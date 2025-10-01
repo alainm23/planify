@@ -64,7 +64,6 @@ core/Widgets/DateTimePicker/DateTimePicker.vala
 core/Widgets/DateTimePicker/RepeatConfig.vala
 core/Widgets/DateTimePicker/ScheduleButton.vala
 core/Widgets/DateTimePicker/TimePicker.vala
-core/Widgets/Entries.vala
 core/Widgets/IconColorProject.vala
 core/Widgets/ItemLabelChild.vala
 core/Widgets/ItemLabels.vala
@@ -87,6 +86,7 @@ core/Widgets/SectionPicker/SectionButton.vala
 core/Widgets/SectionPicker/SectionPicker.vala
 core/Widgets/SectionPicker/SectionPickerRow.vala
 core/Widgets/StatusButton.vala
+core/Widgets/TextView.vala
 
 src/App.vala
 src/Dialogs/CompletedTasks.vala
