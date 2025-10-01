@@ -117,7 +117,6 @@ core_deps = [
   libadwaita_dep,
   json_dep,
   libsoup_dep,
-  gtksourceview_dep,
   libical_dep,
   libgxml_dep,
   libsecret_dep,
