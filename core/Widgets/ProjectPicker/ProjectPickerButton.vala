@@ -69,7 +69,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
 
     construct {
         // Project Button
-        icon_project = new Widgets.IconColorProject (10);
+        icon_project = new Widgets.IconColorProject (18);
 
         name_label = new Gtk.Label (null) {
             valign = Gtk.Align.CENTER,

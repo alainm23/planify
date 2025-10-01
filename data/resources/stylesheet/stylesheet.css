@@ -112,11 +112,6 @@ entry.flat:focus-within {
     border-radius: 50%;
 }
 
-.circular-progress-bar {
-    border: 2px solid @colorAccent;
-    border-radius: 50%;
-}
-
 .listbox-separator-3 row:not(:first-child) {
     margin-top: 3px;
 }
