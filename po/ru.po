@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-30 11:20+0000\n"
+"POT-Creation-Date: 2025-10-01 11:24+0000\n"
 "PO-Revision-Date: 2025-07-07 12:31+0300\n"
 "Last-Translator: Alevtina <karashokovaaa@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -418,35 +418,35 @@ msgstr "Удалить раздел %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAdd.vala:113
+#: core/QuickAdd.vala:112
 #, fuzzy
 msgid "Task added successfully!"
 msgstr "Проект успешно добавлен."
 
-#: core/QuickAdd.vala:129 src/Layouts/ItemRow.vala:345
+#: core/QuickAdd.vala:128 src/Layouts/ItemRow.vala:345
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:51
 msgid "To-do name"
 msgstr "Название задачи"
 
-#: core/QuickAdd.vala:135
+#: core/QuickAdd.vala:134
 msgid "This field is required"
 msgstr "Это поле обязательно для заполнения"
 
-#: core/QuickAdd.vala:162
+#: core/QuickAdd.vala:158
 msgid "Add a description…"
 msgstr "Добавить описание…"
 
-#: core/QuickAdd.vala:182 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAdd.vala:176 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Добавить метки"
 
-#: core/QuickAdd.vala:187 core/Widgets/PriorityButton.vala:40
+#: core/QuickAdd.vala:181 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Установить приоритет"
 
-#: core/QuickAdd.vala:193 core/Widgets/ReminderPicker/ReminderButton.vala:42
+#: core/QuickAdd.vala:187 core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
@@ -454,20 +454,20 @@ msgstr "Установить приоритет"
 msgid "Add Reminders"
 msgstr "Добавить напоминания"
 
-#: core/QuickAdd.vala:234 src/Layouts/SectionBoard.vala:562
+#: core/QuickAdd.vala:228 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:651 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Добавить задачу"
 
-#: core/QuickAdd.vala:240 core/QuickAdd.vala:968
+#: core/QuickAdd.vala:234 core/QuickAdd.vala:960
 msgid "Keep adding"
 msgstr ""
 
-#: core/QuickAdd.vala:257
+#: core/QuickAdd.vala:251
 msgid "Select a Project"
 msgstr "Выберите проект"
 
-#: core/QuickAdd.vala:284
+#: core/QuickAdd.vala:278
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -475,61 +475,61 @@ msgstr ""
 "Функция быстрого добавления не может найти ни одного доступного проекта. "
 "Попробуйте создать проект в Planify."
 
-#: core/QuickAdd.vala:930 src/MainWindow.vala:607
+#: core/QuickAdd.vala:922 src/MainWindow.vala:607
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: core/QuickAdd.vala:936
+#: core/QuickAdd.vala:928
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAdd.vala:950
+#: core/QuickAdd.vala:942
 #, fuzzy
 msgid "Set priority"
 msgstr "Установить приоритет"
 
-#: core/QuickAdd.vala:950
+#: core/QuickAdd.vala:942
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAdd.vala:951
+#: core/QuickAdd.vala:943
 #, fuzzy
 msgid "Add labels"
 msgstr "Добавить метку"
 
-#: core/QuickAdd.vala:951
+#: core/QuickAdd.vala:943
 #, fuzzy
 msgid "Opens label selector"
 msgstr "Открыть «Метки»"
 
-#: core/QuickAdd.vala:952
+#: core/QuickAdd.vala:944
 #, fuzzy
 msgid "Assign project"
 msgstr "Добавить проект"
 
-#: core/QuickAdd.vala:952
+#: core/QuickAdd.vala:944
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAdd.vala:953
+#: core/QuickAdd.vala:945
 #, fuzzy
 msgid "Set reminder"
 msgstr "Устанавливайте своевременные напоминания."
 
-#: core/QuickAdd.vala:953
+#: core/QuickAdd.vala:945
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAdd.vala:968
+#: core/QuickAdd.vala:960
 msgid "Stay open after creating task"
 msgstr ""
 
-#: core/QuickAdd.vala:974
+#: core/QuickAdd.vala:966
 #, fuzzy
 msgid "Tip"
 msgstr "Вверху"
 
-#: core/QuickAdd.vala:974
+#: core/QuickAdd.vala:966
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -1288,11 +1288,11 @@ msgstr "Создать или найти"
 msgid "Couldn't find an app to handle file URIs"
 msgstr "Не удалось найти приложение для обработки URI файлов"
 
-#: core/Widgets/MarkdownEditor.vala:1305
+#: core/Widgets/MarkdownEditor.vala:1307
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1310
+#: core/Widgets/MarkdownEditor.vala:1312
 #, fuzzy
 msgid "Remove link"
 msgstr "Удалить"
