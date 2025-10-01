@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-01 12:03+0000\n"
+"POT-Creation-Date: 2025-10-01 17:38+0000\n"
 "PO-Revision-Date: 2024-04-28 17:39+0200\n"
 "Last-Translator: twlvnn <kraft_werk@tutanota.com>\n"
 "Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
@@ -1287,11 +1287,11 @@ msgstr "Търсене"
 msgid "Search or Create"
 msgstr "Търсене или Създаване"
 
-#: core/Widgets/MarkdownEditor.vala:1311
+#: core/Widgets/MarkdownEditor.vala:1340
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1316
+#: core/Widgets/MarkdownEditor.vala:1345
 #, fuzzy
 msgid "Remove link"
 msgstr "Премахване"

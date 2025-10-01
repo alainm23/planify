@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-01 12:03+0000\n"
+"POT-Creation-Date: 2025-10-01 17:38+0000\n"
 "PO-Revision-Date: 2024-06-24 02:42+0900\n"
 "Last-Translator: Wonje Jung <myunsyeya@ajou.ac.kr>\n"
 "Language-Team: \n"
@@ -1273,11 +1273,11 @@ msgstr "검색"
 msgid "Search or Create"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1311
+#: core/Widgets/MarkdownEditor.vala:1340
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1316
+#: core/Widgets/MarkdownEditor.vala:1345
 msgid "Remove link"
 msgstr ""
 
