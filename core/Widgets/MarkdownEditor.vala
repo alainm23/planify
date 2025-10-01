@@ -61,6 +61,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
 
     public signal void text_changed (string text);
     public signal void escape_pressed ();
+    public signal void return_pressed ();
 
     public bool is_editable {
         set {
@@ -702,6 +703,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
             }
 
             clear_cursor_formatting ();
+            return_pressed ();
         }
         
         if (keyval == Gdk.Key.space) {
