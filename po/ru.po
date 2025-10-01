@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-01 17:38+0000\n"
+"POT-Creation-Date: 2025-10-01 23:49+0000\n"
 "PO-Revision-Date: 2025-07-07 12:31+0300\n"
 "Last-Translator: Alevtina <karashokovaaa@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -218,7 +218,7 @@ msgstr "журнал действий"
 #: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:240
 #: core/Utils/Util.vala:553
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:155
-#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:107
+#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:102
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:140
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:311
 #: src/Views/Project/Project.vala:96 src/Views/Project/Project.vala:156
@@ -400,7 +400,7 @@ msgid "This will archive %s and all its tasks."
 msgstr "Это действие заархивирует %s и все его задачи."
 
 #: core/Objects/Project.vala:873 core/Objects/Section.vala:407
-#: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:569
+#: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:658 src/Views/Project/Project.vala:296
 msgid "Archive"
 msgstr "Архивировать"
@@ -1629,7 +1629,7 @@ msgid "- https://example.com/nextcloud/"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
-#: src/Dialogs/Project.vala:162
+#: src/Dialogs/Project.vala:165
 msgid "Source"
 msgstr "Источник"
 
@@ -1813,7 +1813,7 @@ msgstr "Скачать"
 msgid "Import Overview"
 msgstr "Обзор импорта"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:348
+#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:351
 msgid "Sources"
 msgstr "Источник"
 
@@ -2336,28 +2336,28 @@ msgstr ""
 msgid "New Project"
 msgstr "Новый проект"
 
-#: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:709
+#: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:700
 #: src/Views/Project/Project.vala:284
 msgid "Edit Project"
 msgstr "Изменить проект"
 
-#: src/Dialogs/Project.vala:123
+#: src/Dialogs/Project.vala:126
 msgid "Give your project a name"
 msgstr "Введите название проекта"
 
-#: src/Dialogs/Project.vala:134
+#: src/Dialogs/Project.vala:137
 msgid "Use Emoji"
 msgstr "Использовать Emoji"
 
-#: src/Dialogs/Project.vala:201 src/Views/Label/LabelSourceRow.vala:56
+#: src/Dialogs/Project.vala:204 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
 msgstr "Добавить проект"
 
-#: src/Dialogs/Project.vala:201
+#: src/Dialogs/Project.vala:204
 msgid "Update Project"
 msgstr "Обновить проект"
 
-#: src/Dialogs/Project.vala:442
+#: src/Dialogs/Project.vala:445
 msgid "Project added successfully!"
 msgstr "Проект успешно добавлен."
 
@@ -2380,7 +2380,7 @@ msgid "Unarchive"
 msgstr "Разархивировать"
 
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:155
-#: src/Layouts/ProjectRow.vala:714 src/Views/Project/Project.vala:297
+#: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:297
 msgid "Delete Project"
 msgstr "Удалить проект"
 
@@ -2516,7 +2516,7 @@ msgstr "Изменить"
 
 #: src/Layouts/ItemBoard.vala:703 src/Layouts/ItemRow.vala:1062
 #: src/Layouts/ItemRow.vala:1168 src/Layouts/ItemSidebarView.vala:441
-#: src/Layouts/ProjectRow.vala:710 src/Layouts/SectionBoard.vala:566
+#: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:655 src/Views/Project/Project.vala:285
 msgid "Duplicate"
 msgstr "Дублировать"
@@ -2584,27 +2584,27 @@ msgstr "Удалить?"
 msgid "Delete Label"
 msgstr "Удалить метку"
 
-#: src/Layouts/ProjectRow.vala:445 src/Layouts/SidebarSourceRow.vala:224
+#: src/Layouts/ProjectRow.vala:436 src/Layouts/SidebarSourceRow.vala:224
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "Сортировка проектов изменена на сортировку «Вручную»"
 
-#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 msgid "Remove From Favorites"
 msgstr "Удалить из избранного"
 
-#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 msgid "Add to Favorites"
 msgstr "Добавить в избранное"
 
-#: src/Layouts/ProjectRow.vala:711
+#: src/Layouts/ProjectRow.vala:702
 msgid "Refresh"
 msgstr "Обновить"
 
-#: src/Layouts/ProjectRow.vala:717
+#: src/Layouts/ProjectRow.vala:708
 msgid "Share"
 msgstr "Поделиться"
 
-#: src/Layouts/ProjectRow.vala:718
+#: src/Layouts/ProjectRow.vala:709
 msgid "Send by E-Mail"
 msgstr "Отправить по E-Mail"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-01 17:38+0000\n"
+"POT-Creation-Date: 2025-10-01 23:49+0000\n"
 "PO-Revision-Date: 2024-05-17 20:46+0800\n"
 "Last-Translator: Flysoft <flysoftbeta@outlook.com>\n"
 "Language-Team: \n"
@@ -217,7 +217,7 @@ msgstr "日志"
 #: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:240
 #: core/Utils/Util.vala:553
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:155
-#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:107
+#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:102
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:140
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:311
 #: src/Views/Project/Project.vala:96 src/Views/Project/Project.vala:156
@@ -399,7 +399,7 @@ msgid "This will archive %s and all its tasks."
 msgstr "这将会存档 %s 和它的所有待办项目。"
 
 #: core/Objects/Project.vala:873 core/Objects/Section.vala:407
-#: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:569
+#: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:658 src/Views/Project/Project.vala:296
 msgid "Archive"
 msgstr "存档"
@@ -1621,7 +1621,7 @@ msgid "- https://example.com/nextcloud/"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
-#: src/Dialogs/Project.vala:162
+#: src/Dialogs/Project.vala:165
 msgid "Source"
 msgstr "来源"
 
@@ -1802,7 +1802,7 @@ msgstr "下载"
 msgid "Import Overview"
 msgstr "导入概览"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:348
+#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:351
 msgid "Sources"
 msgstr "来源"
 
@@ -2310,28 +2310,28 @@ msgstr ""
 msgid "New Project"
 msgstr "新项目"
 
-#: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:709
+#: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:700
 #: src/Views/Project/Project.vala:284
 msgid "Edit Project"
 msgstr "编辑项目"
 
-#: src/Dialogs/Project.vala:123
+#: src/Dialogs/Project.vala:126
 msgid "Give your project a name"
 msgstr "给你的项目起个名字"
 
-#: src/Dialogs/Project.vala:134
+#: src/Dialogs/Project.vala:137
 msgid "Use Emoji"
 msgstr "使用 Emoji"
 
-#: src/Dialogs/Project.vala:201 src/Views/Label/LabelSourceRow.vala:56
+#: src/Dialogs/Project.vala:204 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
 msgstr "添加项目"
 
-#: src/Dialogs/Project.vala:201
+#: src/Dialogs/Project.vala:204
 msgid "Update Project"
 msgstr "更新项目"
 
-#: src/Dialogs/Project.vala:442
+#: src/Dialogs/Project.vala:445
 msgid "Project added successfully!"
 msgstr "成功添加项目！"
 
@@ -2354,7 +2354,7 @@ msgid "Unarchive"
 msgstr "取消存档"
 
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:155
-#: src/Layouts/ProjectRow.vala:714 src/Views/Project/Project.vala:297
+#: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:297
 msgid "Delete Project"
 msgstr "删除项目"
 
@@ -2478,7 +2478,7 @@ msgstr "编辑"
 
 #: src/Layouts/ItemBoard.vala:703 src/Layouts/ItemRow.vala:1062
 #: src/Layouts/ItemRow.vala:1168 src/Layouts/ItemSidebarView.vala:441
-#: src/Layouts/ProjectRow.vala:710 src/Layouts/SectionBoard.vala:566
+#: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:655 src/Views/Project/Project.vala:285
 msgid "Duplicate"
 msgstr "创建副本"
@@ -2548,27 +2548,27 @@ msgstr "你确定要删除吗？"
 msgid "Delete Label"
 msgstr "删除标签"
 
-#: src/Layouts/ProjectRow.vala:445 src/Layouts/SidebarSourceRow.vala:224
+#: src/Layouts/ProjectRow.vala:436 src/Layouts/SidebarSourceRow.vala:224
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "项目列表顺序改变至自定义顺序。"
 
-#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 msgid "Remove From Favorites"
 msgstr "取消收藏"
 
-#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 msgid "Add to Favorites"
 msgstr "收藏"
 
-#: src/Layouts/ProjectRow.vala:711
+#: src/Layouts/ProjectRow.vala:702
 msgid "Refresh"
 msgstr "刷新"
 
-#: src/Layouts/ProjectRow.vala:717
+#: src/Layouts/ProjectRow.vala:708
 msgid "Share"
 msgstr "分享"
 
-#: src/Layouts/ProjectRow.vala:718
+#: src/Layouts/ProjectRow.vala:709
 msgid "Send by E-Mail"
 msgstr "通过电子邮件发送"
 
