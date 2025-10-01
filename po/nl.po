@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-01 12:03+0000\n"
+"POT-Creation-Date: 2025-10-01 17:38+0000\n"
 "PO-Revision-Date: 2024-11-08 14:56+0100\n"
 "Last-Translator: Gert-dev\n"
 "Language-Team: Dutch <>\n"
@@ -1282,11 +1282,11 @@ msgstr "Zoeken"
 msgid "Search or Create"
 msgstr "Zoeken of Aanmaken"
 
-#: core/Widgets/MarkdownEditor.vala:1311
+#: core/Widgets/MarkdownEditor.vala:1340
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1316
+#: core/Widgets/MarkdownEditor.vala:1345
 #, fuzzy
 msgid "Remove link"
 msgstr "Verwijderen"
