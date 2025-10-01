@@ -8,5 +8,6 @@
         "_build/**": true
     },
     "mesonbuild.buildFolder": "_build",
-    "mesonbuild.mesonPath": "${workspaceFolder}/.flatpak/meson.sh"
+    "mesonbuild.mesonPath": "${workspaceFolder}/.flatpak/meson.sh",
+    "kiroAgent.configureMCP": "Disabled"
 }

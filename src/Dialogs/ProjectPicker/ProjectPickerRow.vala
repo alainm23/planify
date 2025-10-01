@@ -44,7 +44,7 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         add_css_class ("no-selectable");
         add_css_class ("transition");
 
-        icon_project = new Widgets.IconColorProject (10);
+        icon_project = new Widgets.IconColorProject (18);
         icon_project.project = project;
 
         name_label = new Gtk.Label (null);

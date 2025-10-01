@@ -55,7 +55,7 @@ public class Views.List : Adw.Bin {
     }
 
     construct {
-        icon_project = new Widgets.IconColorProject (10) {
+        icon_project = new Widgets.IconColorProject (24) {
             project = project
         };
         icon_project.add_css_class ("title-2");

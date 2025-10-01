@@ -105,13 +105,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             child = motion_top_grid
         };
 
-        icon_project = new Widgets.IconColorProject (10) {
-            margin_top = 3,
-            margin_bottom = 3,
-            margin_start = 3,
-            margin_end = 3
-        };
-
+        icon_project = new Widgets.IconColorProject (22);
         icon_project.project = project;
 
         name_label = new Gtk.Label (project.name) {
@@ -186,10 +180,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         };
 
         var projectrow_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 3,
-            margin_top = 3,
-            margin_end = 3,
-            margin_bottom = 3
+            margin_end = 3
         };
 
         projectrow_box.append (icon_project);

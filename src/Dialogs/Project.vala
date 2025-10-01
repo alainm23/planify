@@ -89,8 +89,11 @@ public class Dialogs.Project : Adw.Dialog {
     private Adw.NavigationPage get_main_page () {
         emoji_label = new Gtk.Label (project.emoji);
 
-        progress_bar = new Widgets.CircularProgressBar (32);
-        progress_bar.percentage = 0.64;
+        progress_bar = new Widgets.CircularProgressBar (32) {
+            percentage = 0.64,
+            gap = 4,
+            border_width = 4
+        };
 
         emoji_color_stack = new Gtk.Stack () {
             halign = Gtk.Align.CENTER,

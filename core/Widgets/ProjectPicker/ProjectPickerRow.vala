@@ -43,7 +43,7 @@ public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
     construct {
         css_classes = { "row" };
 
-        icon_project = new Widgets.IconColorProject (10);
+        icon_project = new Widgets.IconColorProject (20);
         icon_project.project = project;
 
         name_label = new Gtk.Label (null);
@@ -67,12 +67,7 @@ public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
 
         selected_revealer.child = selected_icon;
 
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_top = 6,
-            margin_start = 6,
-            margin_end = 6,
-            margin_bottom = 6
-        };
+        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         content_box.append (icon_project);
         content_box.append (name_label);
         content_box.append (selected_revealer);
