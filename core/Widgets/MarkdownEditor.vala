@@ -114,6 +114,10 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         text_view.add_controller (focus_controller);
         
         child = text_view;
+
+        destroy.connect (() => {
+            cleanup ();
+        });
     }
     
     private void create_text_tags () {
@@ -1601,8 +1605,6 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         }
 
     }
-    
-
     
     private string normalize_url (string url) {
         var trimmed_url = url.strip ();

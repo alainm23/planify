@@ -23,6 +23,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
     public Objects.Item item { get; construct; }
 
     private Gtk.ListBox listbox;
+    private Widgets.MarkdownEditor markdown_editor;
 
     public signal void view_item (Objects.Item item);
 
@@ -89,19 +90,20 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
         properties_group.title = _("Properties");
         properties_group.add (properties_grid);
 
-        var current_buffer = new Widgets.Markdown.Buffer ();
-        current_buffer.text = item.description;
+        markdown_editor = new Widgets.MarkdownEditor ();
+        markdown_editor.text_view.height_request = 64;
+        markdown_editor.is_editable = false;
+        markdown_editor.margin_start = 12;
+        markdown_editor.margin_end = 12;
+        markdown_editor.margin_top = 12;
+        markdown_editor.margin_bottom = 12;
+        markdown_editor.set_text (item.description);
 
-        var markdown_edit_view = new Widgets.Markdown.EditView () {
-            card = true,
-            left_margin = 12,
-            right_margin = 12,
-            top_margin = 12,
-            bottom_margin = 12
+        var markdown_editor_card = new Adw.Bin () {
+            child = markdown_editor,
+            valign = START
         };
-
-        markdown_edit_view.buffer = current_buffer;
-        markdown_edit_view.is_editable = false;
+        markdown_editor_card.add_css_class ("card");
 
         var description_group = new Adw.PreferencesGroup () {
             margin_start = 12,
@@ -109,7 +111,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
             margin_top = 12
         };
         description_group.title = _("Description");
-        description_group.add (markdown_edit_view);
+        description_group.add (markdown_editor_card);
 
         listbox = new Gtk.ListBox () {
             hexpand = true,
@@ -221,6 +223,10 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
     }
 
     public void clean_up () {
+        if (markdown_editor != null) {
+            markdown_editor.cleanup ();
+        }
+
         foreach (var entry in signals_map.entries) {
             entry.value.disconnect (entry.key);
         }

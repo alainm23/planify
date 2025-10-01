@@ -73,12 +73,7 @@ core_files = files(
     'Widgets/ReminderPicker/ReminderButton.vala',
     'Widgets/ReminderPicker/ReminderPicker.vala',
     'Widgets/ReminderPicker/ReminderRow.vala',
-
-    'Widgets/Markdown/MarkdownEditView.vala',
-    'Widgets/Markdown/MarkdownView.vala',
-    'Widgets/Markdown/Color.vala',
-    'Widgets/Markdown/MarkdownBuffer.vala',
-
+    
     'Objects/BaseObject.vala',
     'Objects/Color.vala',
     'Objects/DueDate.vala',
