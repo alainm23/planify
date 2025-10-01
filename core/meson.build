@@ -29,7 +29,7 @@ core_files = files(
     'Layouts/HeaderItem.vala',
 
     'Widgets/LoadingButton.vala',
-    'Widgets/Entries.vala',
+    'Widgets/TextView.vala',
     'Widgets/IconColorProject.vala',
     'Widgets/PinButton.vala',
     'Widgets/PriorityButton.vala',
