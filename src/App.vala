@@ -84,10 +84,10 @@ public class Planify : Adw.Application {
         }
 
         if (clear_database) {
-            stdout.printf (_("Are you sure you want to reset all? (y/n): "));
+            stdout.printf ("Are you sure you want to reset all? (y/n): ");
             string ? option = stdin.read_line ();
 
-            if (option.down () == _("y") || option.down () == _("yes")) {
+            if (option.down () == "y" || option.down () == "yes") {
                 Services.Database.get_default ().clear_database ();
                 Services.Settings.get_default ().reset_settings ();
                 return;
