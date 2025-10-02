@@ -523,6 +523,12 @@ public class Objects.Project : Objects.BaseObject {
         });
     }
 
+    public void remove_section (Objects.Section section) {
+        if (_sections != null) {
+            _sections.remove (section);
+        }
+    }
+
     public Objects.Item add_item_if_not_exists (Objects.Item new_item, bool insert = true) {
         Objects.Item ? return_value = null;
         lock (_items) {
