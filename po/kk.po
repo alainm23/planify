@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-01 23:49+0000\n"
+"POT-Creation-Date: 2025-10-02 10:05+0000\n"
 "PO-Revision-Date: 2025-05-25 20:44+0500\n"
 "Last-Translator: AnmiTaliDev <anmitali198@gmail.com>\n"
 "Language-Team: \n"
@@ -333,7 +333,7 @@ msgstr "Тапсырма %s дегенге жылжытылды"
 msgid "Delete Label %s"
 msgstr "%s белгісін жою"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:812
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:818
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:531 src/Layouts/SectionBoard.vala:635
@@ -341,8 +341,8 @@ msgstr "%s белгісін жою"
 msgid "This can not be undone"
 msgstr "Бұны қайтаруға болмайды"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:815
-#: core/Objects/Project.vala:872 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:821
+#: core/Objects/Project.vala:878 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:417
 #: src/Dialogs/CompletedTasks.vala:168
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
@@ -358,7 +358,7 @@ msgstr "Бұны қайтаруға болмайды"
 msgid "Cancel"
 msgstr "Болдырмау"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:816
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:822
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:169
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:266
@@ -369,25 +369,25 @@ msgstr "Болдырмау"
 msgid "Delete"
 msgstr "Жою"
 
-#: core/Objects/Project.vala:775
+#: core/Objects/Project.vala:781
 msgid "The project was copied to the Clipboard."
 msgstr "Жоба буферге көшірілді."
 
-#: core/Objects/Project.vala:811
+#: core/Objects/Project.vala:817
 #, c-format
 msgid "Delete Project %s?"
 msgstr "%s жобасын жою керек пе?"
 
-#: core/Objects/Project.vala:868 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:874 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "Мұрағаттау керек пе?"
 
-#: core/Objects/Project.vala:869 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:875 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Бұл %s және оның барлық тапсырмаларын мұрағаттайды."
 
-#: core/Objects/Project.vala:873 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:879 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:658 src/Views/Project/Project.vala:296
 msgid "Archive"
@@ -1378,18 +1378,6 @@ msgstr "Орындауға"
 #: src/Layouts/ItemBoard.vala:701 src/Layouts/ItemRow.vala:1060
 msgid "Complete"
 msgstr "Аяқтау"
-
-#: src/App.vala:87
-msgid "Are you sure you want to reset all? (y/n): "
-msgstr "Барлығын қалпына келтіруді шынымен қалайсыз ба? (y/n): "
-
-#: src/App.vala:90
-msgid "y"
-msgstr "y"
-
-#: src/App.vala:90
-msgid "yes"
-msgstr "иә"
 
 #: src/App.vala:143
 msgid ""
@@ -3127,6 +3115,15 @@ msgstr "Белгілерді ашу"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Жапсырма тақтасын ашу"
+
+#~ msgid "Are you sure you want to reset all? (y/n): "
+#~ msgstr "Барлығын қалпына келтіруді шынымен қалайсыз ба? (y/n): "
+
+#~ msgid "y"
+#~ msgstr "y"
+
+#~ msgid "yes"
+#~ msgstr "иә"
 
 #~ msgid "Couldn't find an app to handle file URIs"
 #~ msgstr "Файл URI-лерін өңдейтін қолданба табылмады"
