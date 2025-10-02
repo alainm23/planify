@@ -463,6 +463,12 @@ public class Services.Store : GLib.Object {
                 delete_item (item);
             }
 
+            // Remove from project's sections collection if it exists
+            var project = get_project (section.project_id);
+            if (project != null) {
+                project.remove_section (section);
+            }
+
             section.deleted ();
             section_deleted (section);
             _sections.remove (section);
