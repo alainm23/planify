@@ -23,39 +23,39 @@ jobs:
   gettext:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
-    
-    - name: Install gettext
-      run: sudo apt-get update && sudo apt-get install -y gettext
-    
-    - name: Update POTFILES and translations
-      run: |
-        # Regenerate POTFILES
-        cat > po/POTFILES << 'EOF'
-        # List of source files containing translatable strings.
-        # Please keep this file sorted alphabetically.
-        EOF
-        
-        find core -name "*.vala" | sort >> po/POTFILES
-        echo >> po/POTFILES
-        find src -name "*.vala" | sort >> po/POTFILES
-        echo >> po/POTFILES
-        find quick-add -name "*.vala" | sort >> po/POTFILES
-        echo >> po/POTFILES
-        echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
-        
-        # Update translations
-        xgettext --files-from=po/POTFILES --directory=. --output=po/io.github.alainm23.planify.pot --from-code=UTF-8 --keyword=_ --keyword=N_
-        
-        for lang in $(cat po/LINGUAS); do
-          msgmerge --update po/$lang.po po/io.github.alainm23.planify.pot
-        done
-    
-    - name: Commit changes
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add po/
-        git diff --staged --quiet || git commit -m "Update translations"
-        git pull --rebase origin master || true
-        git push origin master
+      - uses: actions/checkout@v5
+
+      - name: Install gettext
+        run: sudo apt-get update && sudo apt-get install -y gettext
+
+      - name: Update POTFILES and translations
+        run: |
+          # Regenerate POTFILES
+          cat > po/POTFILES << 'EOF'
+          # List of source files containing translatable strings.
+          # Please keep this file sorted alphabetically.
+          EOF
+
+          find core -name "*.vala" | sort >> po/POTFILES
+          echo >> po/POTFILES
+          find src -name "*.vala" | sort >> po/POTFILES
+          echo >> po/POTFILES
+          find quick-add -name "*.vala" | sort >> po/POTFILES
+          echo >> po/POTFILES
+          echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
+
+          # Update translations
+          xgettext --files-from=po/POTFILES --directory=. --output=po/io.github.alainm23.planify.pot --from-code=UTF-8 --keyword=_ --keyword=N_
+
+          for lang in $(cat po/LINGUAS); do
+            msgmerge --update po/$lang.po po/io.github.alainm23.planify.pot
+          done
+
+      - name: Commit changes
+        run: |
+          git config --local user.name "Planify Bot"
+          git config --local user.email "planify-bot@users.noreply.github.com"
+          git add po/
+          git diff --staged --quiet || git commit -m "Update translations"
+          git pull --rebase origin master || true
+          git push origin master
