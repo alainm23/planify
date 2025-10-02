@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-01 23:49+0000\n"
+"POT-Creation-Date: 2025-10-02 10:05+0000\n"
 "PO-Revision-Date: 2024-08-03 00:05+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -343,7 +343,7 @@ msgstr "कार्य को %s पर भेजा गया"
 msgid "Delete Label %s"
 msgstr "लेबल %s मिटाएं"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:812
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:818
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:531 src/Layouts/SectionBoard.vala:635
@@ -351,8 +351,8 @@ msgstr "लेबल %s मिटाएं"
 msgid "This can not be undone"
 msgstr "इसे पूर्ववत नहीं किया जा सकता"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:815
-#: core/Objects/Project.vala:872 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:821
+#: core/Objects/Project.vala:878 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:417
 #: src/Dialogs/CompletedTasks.vala:168
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
@@ -368,7 +368,7 @@ msgstr "इसे पूर्ववत नहीं किया जा सक�
 msgid "Cancel"
 msgstr "रद्द करें"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:816
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:822
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:169
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:266
@@ -379,27 +379,27 @@ msgstr "रद्द करें"
 msgid "Delete"
 msgstr "मिटाएं"
 
-#: core/Objects/Project.vala:775
+#: core/Objects/Project.vala:781
 msgid "The project was copied to the Clipboard."
 msgstr "परियोजना को क्लिपबोर्ड पर कॉपी किया गया था।"
 
 # # c-format
-#: core/Objects/Project.vala:811
+#: core/Objects/Project.vala:817
 #, c-format
 msgid "Delete Project %s?"
 msgstr "परियोजना %s मिटाएं?"
 
-#: core/Objects/Project.vala:868 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:874 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "संग्रहित करें?"
 
 # # c-format
-#: core/Objects/Project.vala:869 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:875 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "यह %s और उसके सभी कार्यों को संग्रहीत करेगा।"
 
-#: core/Objects/Project.vala:873 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:879 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:658 src/Views/Project/Project.vala:296
 msgid "Archive"
@@ -1390,18 +1390,6 @@ msgstr "लंबित"
 #: src/Layouts/ItemBoard.vala:701 src/Layouts/ItemRow.vala:1060
 msgid "Complete"
 msgstr "पूर्ण"
-
-#: src/App.vala:87
-msgid "Are you sure you want to reset all? (y/n): "
-msgstr "क्या आप सभी को वाकई रीसेट करना चाहते हैं? (y/n): "
-
-#: src/App.vala:90
-msgid "y"
-msgstr "y"
-
-#: src/App.vala:90
-msgid "yes"
-msgstr "हां"
 
 #: src/App.vala:143
 msgid ""
@@ -3134,6 +3122,15 @@ msgstr "लेबल खोलें"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "पिनबोर्ड खोलें"
+
+#~ msgid "Are you sure you want to reset all? (y/n): "
+#~ msgstr "क्या आप सभी को वाकई रीसेट करना चाहते हैं? (y/n): "
+
+#~ msgid "y"
+#~ msgstr "y"
+
+#~ msgid "yes"
+#~ msgstr "हां"
 
 #~ msgid "Couldn't find an app to handle file URIs"
 #~ msgstr "फाइल URI को संभालने के लिए कोई ऐप नहीं मिला"

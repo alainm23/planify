@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-01 23:49+0000\n"
+"POT-Creation-Date: 2025-10-02 10:05+0000\n"
 "PO-Revision-Date: 2025-03-13 18:45-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -336,7 +336,7 @@ msgstr "Tarea movida a %s"
 msgid "Delete Label %s"
 msgstr "Eliminar Etiqueta %s"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:812
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:818
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:531 src/Layouts/SectionBoard.vala:635
@@ -344,8 +344,8 @@ msgstr "Eliminar Etiqueta %s"
 msgid "This can not be undone"
 msgstr "Esto no se puede deshacer"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:815
-#: core/Objects/Project.vala:872 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:821
+#: core/Objects/Project.vala:878 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:417
 #: src/Dialogs/CompletedTasks.vala:168
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
@@ -361,7 +361,7 @@ msgstr "Esto no se puede deshacer"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:816
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:822
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:169
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:266
@@ -372,27 +372,27 @@ msgstr "Cancelar"
 msgid "Delete"
 msgstr "Eliminar"
 
-#: core/Objects/Project.vala:775
+#: core/Objects/Project.vala:781
 msgid "The project was copied to the Clipboard."
 msgstr "El proyecto fue copiado al Portapapeles."
 
 # # c-format
-#: core/Objects/Project.vala:811
+#: core/Objects/Project.vala:817
 #, c-format
 msgid "Delete Project %s?"
 msgstr "¿Eliminar proyecto %s?"
 
-#: core/Objects/Project.vala:868 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:874 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "¿Archivar?"
 
 # # c-format
-#: core/Objects/Project.vala:869 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:875 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Esto archivará %s y todas sus tareas."
 
-#: core/Objects/Project.vala:873 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:879 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:658 src/Views/Project/Project.vala:296
 msgid "Archive"
@@ -1386,18 +1386,6 @@ msgstr "Por hacer"
 #: src/Layouts/ItemBoard.vala:701 src/Layouts/ItemRow.vala:1060
 msgid "Complete"
 msgstr "Completar"
-
-#: src/App.vala:87
-msgid "Are you sure you want to reset all? (y/n): "
-msgstr "¿Está seguro de que quiere reiniciar todo? (s/n): "
-
-#: src/App.vala:90
-msgid "y"
-msgstr "s"
-
-#: src/App.vala:90
-msgid "yes"
-msgstr "sí"
 
 #: src/App.vala:143
 msgid ""
@@ -3145,6 +3133,15 @@ msgstr "Abrir etiquetas"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Abrir Importantes"
+
+#~ msgid "Are you sure you want to reset all? (y/n): "
+#~ msgstr "¿Está seguro de que quiere reiniciar todo? (s/n): "
+
+#~ msgid "y"
+#~ msgstr "s"
+
+#~ msgid "yes"
+#~ msgstr "sí"
 
 #~ msgid "Couldn't find an app to handle file URIs"
 #~ msgstr ""
