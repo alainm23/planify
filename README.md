@@ -109,7 +109,7 @@ meson build --prefix=/usr
 cd build
 ninja
 
-# Install (optional)
+# Install
 sudo ninja install
 
 # Run
@@ -145,11 +145,6 @@ Help make Planify available in your language:
 - **Weblate (Recommended)**: [Join our translation project](https://hosted.weblate.org/engage/planner/)
 - **Manual**: Check our [Translation Guide](po/README.md)
 
-### 📖 Documentation
-- Improve README files
-- Write tutorials and guides
-- Update screenshots and examples
-
 ## 📋 Code of Conduct
 
 Planify follows the [GNOME Code of Conduct](https://conduct.gnome.org/). We are committed to providing a welcoming and inclusive environment for all contributors.
@@ -170,15 +165,10 @@ If you find Planify useful, consider supporting its development:
 
 [![Patreon](https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://www.patreon.com/alainm23)
 [![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.me/alainm23)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/alainm23)
 [![Liberapay](https://img.shields.io/badge/Liberapay-F6C915?style=for-the-badge&logo=liberapay&logoColor=black)](https://liberapay.com/Alain)
 
 </div>
-
-## 📄 License
-
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
-
----
 
 <div align="center">
   <strong>Made with 💗 in Perú</strong>
