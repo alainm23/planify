@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-03 09:48+0000\n"
 "PO-Revision-Date: 2025-10-03 09:55+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Aris <aatiger2007@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/sk/>\n"
 "Language: sk_SK\n"
@@ -562,8 +562,7 @@ msgstr "Žiadosť bola nesprávna."
 #: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
-"Je potrebná autentifikácia, ktorá zlyhala alebo ešte nebola poskytnutá."
+msgstr "Je potrebná autentifikácia, ktorá zlyhala alebo ešte nebola poskytnutá."
 
 #: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
