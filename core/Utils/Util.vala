@@ -228,6 +228,10 @@ public class Util : GLib.Object {
         return returned;
     }
 
+    public static string[] get_current_languages () {
+        return Intl.get_language_names ();
+    }
+
     public string get_badge_name () {
         string returned = "";
         int badge_count = Services.Settings.get_default ().settings.get_enum ("badge-count");

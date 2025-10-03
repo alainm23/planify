@@ -36,6 +36,7 @@ sources = files(
 
   # 'Services/GoogleTasks.vala', No longer used?
   'Services/ActionManager.vala',
+  'Services/Api.vala',
   'Services/Notification.vala',
   'Services/TimeMonitor.vala',
   'Services/DBusServer.vala',
@@ -80,6 +81,7 @@ sources = files(
   'Widgets/CompletedTaskRow.vala',
   'Widgets/ItemDetailCompleted.vala',
   'Widgets/PinnedItemsBox.vala',
+  'Widgets/TranslationRow.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',
