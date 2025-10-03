@@ -83,7 +83,7 @@ public class Views.List : Adw.Bin {
             text = project.description,
             margin_top = 12,
             margin_start = 24,
-            margin_end = 12
+            margin_end = 24
         };
 
         due_revealer = build_due_date_widget ();
