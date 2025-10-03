@@ -102,6 +102,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             if (value) {
                 add_css_class ("no-selectable");
+                add_css_class ("task-editing");
                 itemrow_box.add_css_class ("card");
                 itemrow_box.add_css_class ("selected");
 
@@ -131,6 +132,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 content_textview.grab_focus ();
             } else {
                 remove_css_class ("no-selectable");
+                remove_css_class ("task-editing");
                 itemrow_box.remove_css_class ("card");
                 itemrow_box.remove_css_class ("selected");
                 
@@ -618,11 +620,19 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private void connect_signals () {
         var handle_gesture_click = new Gtk.GestureClick ();
         itemrow_box.add_controller (handle_gesture_click);
-        signals_map[handle_gesture_click.released.connect ((n_press, x, y) => {
+        signals_map[handle_gesture_click.pressed.connect ((n_press, x, y) => {
             if (Services.EventBus.get_default ().multi_select_enabled) {
+                handle_gesture_click.set_state (Gtk.EventSequenceState.CLAIMED);
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);
+            } else if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one") && 
+                       Services.EventBus.get_default ().item_edit_active && !edit) {
+                // Si hay una tarea activa y esta no es la activa, detener propagación
+                handle_gesture_click.set_state (Gtk.EventSequenceState.CLAIMED);
+                Services.EventBus.get_default ().item_edit_active = false;
+                Services.EventBus.get_default ().dim_content (false);
             } else {
+                // Permitir que el evento continúe para abrir esta tarea
                 Timeout.add (100, () => {
                     show_details ();
                     return GLib.Source.REMOVE;
@@ -828,6 +838,31 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 attachments_button.popover.popdown ();
             }
         })] = attachments;
+
+        signals_map[Services.EventBus.get_default ().close_item_edit.connect (() => {
+            if (edit) {
+                edit = false;
+            }
+        })] = Services.EventBus.get_default ();
+
+        signals_map[Services.EventBus.get_default ().dim_content.connect ((active) => {
+            if (!edit) {
+                if (active) {
+                    add_css_class ("task-dimmed");
+                } else {
+                    remove_css_class ("task-dimmed");
+                }
+            } else if (!active && edit) {
+                edit = false;
+            }
+        })] = Services.EventBus.get_default ();
+
+        notify["edit"].connect (() => {
+            if (!edit) {
+                Services.EventBus.get_default ().item_edit_active = false;
+                Services.EventBus.get_default ().dim_content (false);
+            }
+        });
     }
 
     private void show_details () {
@@ -835,9 +870,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             Services.EventBus.get_default ().open_item (item);
         } else {
             if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
-                Services.EventBus.get_default ().item_selected (item.id);
-            } else {
                 edit = true;
+                Services.EventBus.get_default ().item_edit_active = true;
+                Services.EventBus.get_default ().dim_content (true);
+            } else {
+                Services.EventBus.get_default ().item_selected (item.id);
             }
         }
     }
@@ -929,6 +966,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         check_reminders ();
 
         if (edit) {
+            add_css_class ("task-editing");
             content_textview.editable = !item.completed && !item.project.is_deck;
             markdown_editor.is_editable = !item.completed && !item.project.is_deck;
             item_labels.sensitive = !item.completed && !item.project.is_deck;
@@ -940,6 +978,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             reminder_button.sensitive = !item.completed;
             add_button.sensitive = !item.completed;
             attachments_button.sensitive = !item.completed;
+        } else {
+            remove_css_class ("task-editing");
         }
     }
 

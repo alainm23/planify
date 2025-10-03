@@ -94,4 +94,11 @@ public class Services.EventBus : Object {
     public signal void open_item (Objects.Item item);
     public signal void push_item (Objects.Item item);
     public signal void close_item ();
+
+    // Item Edit Backdrop
+    public signal void show_item_backdrop ();
+    public signal void close_item_edit ();
+    public signal void dim_content (bool active);
+    
+    public bool item_edit_active = false;
 }

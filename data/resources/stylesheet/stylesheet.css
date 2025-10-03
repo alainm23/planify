@@ -696,3 +696,12 @@ checkbutton.theme-selector radio:checked {
     background-color: @selected_color;
     animation: complete-pulse 500ms cubic-bezier(0.4, 0.0, 0.2, 1);
 }
+
+.task-editing {
+    background-color: @window_bg_color !important;
+}
+
+.task-dimmed {
+    opacity: 0.4;
+    pointer-events: none;
+}
