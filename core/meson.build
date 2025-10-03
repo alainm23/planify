@@ -87,6 +87,7 @@ core_files = files(
     'Objects/Attachment.vala',
     'Objects/ObjectEvent.vala',
     'Objects/Source.vala',
+    'Objects/TranslationMetric.vala',
     
     'Objects/Filters/Inbox.vala',
     'Objects/Filters/Pinboard.vala',

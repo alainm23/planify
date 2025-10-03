@@ -42,6 +42,8 @@ namespace Constants {
     public const string KOFI_URL = "https://ko-fi.com/alainm23";
     public const string MASTODON_URL = "https://mastodon.social/@planifyapp";
     public const string DISCORD_URL = "https://discord.com/invite/dxxyumrTJW";
+    public const string ISSUE_URL = "https://github.com/alainm23/planify/issues";
+    public const string WEBLATE_URL = "https://hosted.weblate.org/engage/planner/";
     public const bool SHOW_WHATSNEW = false;
     public const bool BLOCK_PAST_DAYS = false;
     public const int COMPLETED_PAGE_SIZE = 15;
