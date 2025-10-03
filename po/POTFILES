@@ -29,6 +29,7 @@ core/Objects/Queue.vala
 core/Objects/Reminder.vala
 core/Objects/Section.vala
 core/Objects/Source.vala
+core/Objects/TranslationMetric.vala
 core/QuickAdd.vala
 core/Services/CalDAV/CalDAVClient.vala
 core/Services/CalDAV/Core.vala
@@ -141,6 +142,7 @@ src/Layouts/SidebarSourceRow.vala
 src/MainWindow.vala
 src/Objects/Backup.vala
 src/Services/ActionManager.vala
+src/Services/Api.vala
 src/Services/Backups.vala
 src/Services/CalendarEvents/CalendarEvents.vala
 src/Services/CalendarEvents/DateIterator.vala
@@ -187,6 +189,7 @@ src/Widgets/ScrolledWindow.vala
 src/Widgets/SectionsOrderPopover.vala
 src/Widgets/SubItems.vala
 src/Widgets/SyncButton.vala
+src/Widgets/TranslationRow.vala
 
 quick-add/App.vala
 quick-add/MainWindow.vala
