@@ -6,12 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-02 10:39+0000\n"
-"PO-Revision-Date: 2025-10-02 10:21+0000\n"
+"PO-Revision-Date: 2025-10-03 09:49+0000\n"
 "Last-Translator: Alain <alainmh23@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
-"translations/es/>\n"
+"io-github-alainm23-planify/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1327,8 +1327,8 @@ msgstr "Recordatorios"
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the '+' button."
 msgstr ""
-"Aquí aparecerá su lista de recordatorios. Añada uno haciendo clic en el "
-"botón '+'"
+"u lista de recordatorios aparecerá aquí. Añade uno haciendo clic en el botón "
+"‘+’."
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:157
 msgid "Add Reminder"
@@ -1592,9 +1592,8 @@ msgid "Log In"
 msgstr "Iniciar sesión"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
-#, fuzzy
 msgid "Server URL examples:"
-msgstr "URL del servidor"
+msgstr "Ejemplos de URL del servidor:"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "- https://cloud.example.com/"
@@ -1630,9 +1629,8 @@ msgid "Last Sync"
 msgstr "Última sincronización"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:111
-#, fuzzy
 msgid "Delete Source"
-msgstr "¿Eliminar fuente?"
+msgstr "Eliminar fuente"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:179
 msgid "Delete Source?"
@@ -1722,7 +1720,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:159
 msgid "Font Size"
-msgstr ""
+msgstr "Tamaño de fuente"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
 #, fuzzy
@@ -2127,14 +2125,12 @@ msgid "Always Show Details Sidebar"
 msgstr "Mostrar siempre la barra lateral de detalles"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:129
-#, fuzzy
 msgid ""
 "Keep the details sidebar always visible for faster task navigation, without "
 "repeatedly opening and closing it"
 msgstr ""
-"Mantenga el panel de detalles siempre visible para facilitar la navegación "
-"entre tareas, evitando la necesidad de abrir y cerrar el panel "
-"constantemente."
+"Mantén siempre visible la barra lateral de detalles para navegar más rápido "
+"entre tareas, sin tener que abrirla y cerrarla a cada rato"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:140
 msgid "Enabled"
@@ -2742,9 +2738,8 @@ msgid "Press 'a' to create a new task"
 msgstr "Presiona 'a' para crear una nueva tarea"
 
 #: src/Views/Filter.vala:129
-#, fuzzy
 msgid "All tasks completed!"
-msgstr "Tarea completada"
+msgstr "¡Todas las tareas completadas!"
 
 #: src/Views/Filter.vala:130
 msgid "Great job, nothing left to do 🎉"
