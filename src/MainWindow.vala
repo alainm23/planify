@@ -388,15 +388,12 @@ public class MainWindow : Adw.ApplicationWindow {
             return Source.CONTINUE;
         });
 
-        // Capturar clicks para cerrar tarea en edición
         var window_gesture = new Gtk.GestureClick ();
         toast_overlay.add_controller (window_gesture);
         window_gesture.pressed.connect ((n_press, x, y) => {
             if (Services.EventBus.get_default ().item_edit_active) {
-                // Obtener el widget en las coordenadas del click
                 var target = toast_overlay.pick (x, y, Gtk.PickFlags.DEFAULT);
                 
-                // Verificar si el click fue en una tarea en edición
                 bool clicked_on_editing_task = false;
                 var widget = target;
                 while (widget != null) {
@@ -407,7 +404,6 @@ public class MainWindow : Adw.ApplicationWindow {
                     widget = widget.get_parent ();
                 }
                 
-                // Si no se hizo click en la tarea en edición, cerrarla
                 if (!clicked_on_editing_task) {
                     Services.EventBus.get_default ().item_edit_active = false;
                     Services.EventBus.get_default ().dim_content (false);

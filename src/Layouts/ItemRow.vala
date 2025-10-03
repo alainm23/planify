@@ -627,12 +627,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);
             } else if (Services.EventBus.get_default ().item_edit_active && !edit) {
-                // Si hay una tarea activa y esta no es la activa, detener propagación
                 handle_gesture_click.set_state (Gtk.EventSequenceState.CLAIMED);
                 Services.EventBus.get_default ().item_edit_active = false;
                 Services.EventBus.get_default ().dim_content (false);
             } else {
-                // Permitir que el evento continúe para abrir esta tarea
                 Timeout.add (100, () => {
                     show_details ();
                     return GLib.Source.REMOVE;
