@@ -1,24 +1,22 @@
 name: Merge
-
-on:
+'on':
   push:
     branches:
       - master
-
 jobs:
   flatpak:
-    name: "flatpak"
+    name: flatpak
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
-      options: --privileged
+      image: 'ghcr.io/flathub-infra/flatpak-github-actions:gnome-48'
+      options: '--privileged'
     steps:
       - uses: actions/checkout@v5
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: planify.Devel.flatpak
           manifest-path: build-aux/io.github.alainm23.planify.Devel.json
-          cache-key: flatpak-builder-${{ github.sha }}
+          cache-key: 'flatpak-builder-${{ github.sha }}'
 
   gettext:
     runs-on: ubuntu-latest
@@ -27,6 +25,13 @@ jobs:
 
       - name: Install gettext
         run: sudo apt-get update && sudo apt-get install -y gettext
+
+      - name: Pull latest changes
+        run: |
+          git config --local user.name "Planify Bot"
+          git config --local user.email "planify-bot@users.noreply.github.com"
+          git fetch origin master
+          git rebase origin/master || true
 
       - name: Update POTFILES and translations
         run: |
@@ -45,17 +50,23 @@ jobs:
           echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
 
           # Update translations
-          xgettext --files-from=po/POTFILES --directory=. --output=po/io.github.alainm23.planify.pot --from-code=UTF-8 --keyword=_ --keyword=N_
+          xgettext --files-from=po/POTFILES --directory=. \
+            --output=po/io.github.alainm23.planify.pot --from-code=UTF-8 \
+            --keyword=_ --keyword=N_
 
           for lang in $(cat po/LINGUAS); do
             msgmerge --update po/$lang.po po/io.github.alainm23.planify.pot
           done
 
-      - name: Commit changes
+      - name: Resolve conflicts if any
         run: |
-          git config --local user.name "Planify Bot"
-          git config --local user.email "planify-bot@users.noreply.github.com"
+          if [ -f po/io.github.alainm23.planify.pot ]; then
+            git add po/io.github.alainm23.planify.pot
+          fi
+          git rebase --continue || true
+
+      - name: Commit and push changes
+        run: |
           git add po/
           git diff --staged --quiet || git commit -m "Update translations"
-          git pull --rebase origin master || true
           git push origin master

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-02 10:05+0000\n"
+"POT-Creation-Date: 2025-10-03 09:48+0000\n"
 "PO-Revision-Date: 2025-02-26 17:29+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: \n"
@@ -208,8 +208,8 @@ msgstr "დასრულებულია"
 msgid "logbook"
 msgstr "ჟურნალი"
 
-#: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:240
-#: core/Utils/Util.vala:553
+#: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:244
+#: core/Utils/Util.vala:557
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:155
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:102
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:140
@@ -280,7 +280,7 @@ msgid "upcoming"
 msgstr "დაგეგმილია"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
-#: core/Utils/Datetime.vala:89 core/Utils/Util.vala:243
+#: core/Utils/Datetime.vala:89 core/Utils/Util.vala:247
 #: core/Widgets/Calendar/CalendarHeader.vala:79
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:124
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:688
@@ -324,7 +324,7 @@ msgstr "ჭდემოხსნილი"
 msgid "Task copied to clipboard"
 msgstr "ამოცანა დაკოპირდა ბუფერში"
 
-#: core/Objects/Item.vala:1585 core/Utils/Util.vala:862
+#: core/Objects/Item.vala:1585 core/Utils/Util.vala:866
 #, c-format
 msgid "Task moved to %s"
 msgstr "ამოცანა გადატანილია %s-ში"
@@ -344,7 +344,7 @@ msgstr "ეს ქმედება შეუქცევადია"
 
 #: core/Objects/Label.vala:210 core/Objects/Project.vala:821
 #: core/Objects/Project.vala:878 core/Objects/Section.vala:380
-#: core/Objects/Section.vala:406 core/Utils/Util.vala:417
+#: core/Objects/Section.vala:406 core/Utils/Util.vala:421
 #: src/Dialogs/CompletedTasks.vala:168
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
@@ -780,79 +780,79 @@ msgstr "მუქი"
 msgid "Dark Blue"
 msgstr "მუქი ლურჯი"
 
-#: core/Utils/Util.vala:237 core/Widgets/DateTimePicker/DateTimePicker.vala:261
+#: core/Utils/Util.vala:241 core/Widgets/DateTimePicker/DateTimePicker.vala:261
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:53
 msgid "None"
 msgstr "არცერთი"
 
-#: core/Utils/Util.vala:246
+#: core/Utils/Util.vala:250
 msgid "Today + Inbox"
 msgstr "დღეს + საფოსტო ყუთი"
 
-#: core/Utils/Util.vala:418
+#: core/Utils/Util.vala:422
 msgid "Delete All"
 msgstr "ყველას წაშლა"
 
-#: core/Utils/Util.vala:432
+#: core/Utils/Util.vala:436
 msgid "Process completed, you need to start Planify again."
 msgstr "პროცესი დასრულდა. საჭიროა, Planify თავიდან გაუშვათ."
 
-#: core/Utils/Util.vala:434
+#: core/Utils/Util.vala:438
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:221
 #: src/Services/Backups.vala:552
 msgid "Ok"
 msgstr "დიახ"
 
-#: core/Utils/Util.vala:544
+#: core/Utils/Util.vala:548
 msgid "On This Computer"
 msgstr "ამ კომპიუტერზე"
 
-#: core/Utils/Util.vala:569
+#: core/Utils/Util.vala:573
 msgid "Meet Planify"
 msgstr "გაიცანით Planify"
 
-#: core/Utils/Util.vala:572
+#: core/Utils/Util.vala:576
 msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around in it – you can always create a new "
 "one from settings."
 msgstr ""
 
-#: core/Utils/Util.vala:579
+#: core/Utils/Util.vala:583
 msgid "Tap this to-do"
 msgstr "დაატყაპუნეთ ამ გეგმაზე"
 
-#: core/Utils/Util.vala:580
+#: core/Utils/Util.vala:584
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 "Completed to-dos are collected at the bottom of your project."
 msgstr ""
 
-#: core/Utils/Util.vala:585
+#: core/Utils/Util.vala:589
 msgid "Create a new to-do"
 msgstr "განრიგის შექმნა"
 
-#: core/Utils/Util.vala:586
+#: core/Utils/Util.vala:590
 msgid ""
 "Now it's your turn, tap the '+' button at the bottom of your project, enter "
 "any pending and tap the blue 'Save' button."
 msgstr ""
 
-#: core/Utils/Util.vala:591
+#: core/Utils/Util.vala:595
 msgid "Plan this to-do by today or later"
 msgstr "დაგეგმეთ ეს დღეისთვის ან მოგვიანებით"
 
-#: core/Utils/Util.vala:592
+#: core/Utils/Util.vala:596
 msgid "Tap the calendar button at the bottom to decide when to do this to-do."
 msgstr ""
 "დაატყაპუნეთ კალენდრის ღილაკზე ქვედა მხარეს, რომ გადაწყვიტოთ, რას აკეთებს ეს "
 "გეგმა."
 
-#: core/Utils/Util.vala:597
+#: core/Utils/Util.vala:601
 msgid "Reorder yours to-dos"
 msgstr "გადაალაგეთ თქვენი გეგმები"
 
-#: core/Utils/Util.vala:598
+#: core/Utils/Util.vala:602
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
@@ -860,21 +860,21 @@ msgstr ""
 "სიის გადასალაგებლად დაატყაპუნეთ და გეჭიროთ გეგმაზე და შემდეგ გადაათრიეთ, "
 "სადაც გნებავთ, ის იყოს."
 
-#: core/Utils/Util.vala:603
+#: core/Utils/Util.vala:607
 msgid "Create a project"
 msgstr "პროექტის შექმნა"
 
-#: core/Utils/Util.vala:604
+#: core/Utils/Util.vala:608
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
 
-#: core/Utils/Util.vala:609
+#: core/Utils/Util.vala:613
 msgid "You’re done!"
 msgstr "მზადაა!"
 
-#: core/Utils/Util.vala:610
+#: core/Utils/Util.vala:614
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -883,121 +883,121 @@ msgid ""
 "We hope you’ll enjoy using Planify!"
 msgstr ""
 
-#: core/Utils/Util.vala:624
+#: core/Utils/Util.vala:628
 msgid "Tune your setup"
 msgstr "მოირგეთ აპლიკაცია"
 
-#: core/Utils/Util.vala:632
+#: core/Utils/Util.vala:636
 msgid "Show your calendar events"
 msgstr "გამოიტანეთ თქვენი კალენდრის მოვლენები"
 
-#: core/Utils/Util.vala:633
+#: core/Utils/Util.vala:637
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
 
-#: core/Utils/Util.vala:639
+#: core/Utils/Util.vala:643
 msgid "Enable synchronization with third-party service."
 msgstr "სინქრონიზაციის ჩართვა მესამე პირების სერვისებთან."
 
-#: core/Utils/Util.vala:640
+#: core/Utils/Util.vala:644
 msgid ""
 "Planify not only creates tasks locally, it can also synchronize your Todoist "
 "account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
 
-#: core/Utils/Util.vala:648
+#: core/Utils/Util.vala:652
 msgid "Boost your productivity"
 msgstr "აამაღლეთ თქვენი წარმადობა"
 
-#: core/Utils/Util.vala:656
+#: core/Utils/Util.vala:660
 msgid "Drag the plus button!"
 msgstr "გადაათრიეთ დამატების ღილაკი!"
 
-#: core/Utils/Util.vala:657
+#: core/Utils/Util.vala:661
 msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
 msgstr ""
 
-#: core/Utils/Util.vala:663
+#: core/Utils/Util.vala:667
 msgid "Tag your to-dos!"
 msgstr "დაადეთ ჭდეები თქვენს გეგმებს!"
 
-#: core/Utils/Util.vala:664
+#: core/Utils/Util.vala:668
 msgid ""
 "Tags allow you to improve your workflow in Planify. To add a Tag click on "
 "the tag button at the bottom."
 msgstr ""
 
-#: core/Utils/Util.vala:670
+#: core/Utils/Util.vala:674
 msgid "Set timely reminders!"
 msgstr "დააყენეთ შეხსენებები!"
 
-#: core/Utils/Util.vala:671
+#: core/Utils/Util.vala:675
 msgid ""
 "You want Planify to send you a notification to remind you of an important "
 "event or something special. Tap the bell button below to add a reminder."
 msgstr ""
 
-#: core/Utils/Util.vala:682
+#: core/Utils/Util.vala:686
 msgid "💼️Work"
 msgstr "💼️სამუშაო"
 
-#: core/Utils/Util.vala:688
+#: core/Utils/Util.vala:692
 msgid "🎒️School"
 msgstr "🎒️სკოლა"
 
-#: core/Utils/Util.vala:694
+#: core/Utils/Util.vala:698
 msgid "👉️Delegated"
 msgstr "👉️დელეგირებულია"
 
-#: core/Utils/Util.vala:700
+#: core/Utils/Util.vala:704
 msgid "🏡️Home"
 msgstr "🏡️სახლი"
 
-#: core/Utils/Util.vala:706
+#: core/Utils/Util.vala:710
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍️️გაგრძელების მოლოდინში"
 
-#: core/Utils/Util.vala:941
+#: core/Utils/Util.vala:945
 msgid "Task duplicated"
 msgstr "ამოცანა დუბლირებულია"
 
-#: core/Utils/Util.vala:977
+#: core/Utils/Util.vala:981
 msgid "Section duplicated"
 msgstr "სექცია დუბლირებულია"
 
-#: core/Utils/Util.vala:1003 core/Utils/Util.vala:1029
+#: core/Utils/Util.vala:1007 core/Utils/Util.vala:1033
 msgid "Project duplicated"
 msgstr "პროექტი დუბლირებულია"
 
-#: core/Utils/Util.vala:1071 src/Dialogs/Preferences/Pages/TaskSetting.vala:145
+#: core/Utils/Util.vala:1075 src/Dialogs/Preferences/Pages/TaskSetting.vala:145
 msgid "At due time"
 msgstr "ზუსტ დროს"
 
-#: core/Utils/Util.vala:1074 src/Dialogs/Preferences/Pages/TaskSetting.vala:146
+#: core/Utils/Util.vala:1078 src/Dialogs/Preferences/Pages/TaskSetting.vala:146
 msgid "10 minutes before"
 msgstr "10 წუთით ადრე"
 
-#: core/Utils/Util.vala:1077 src/Dialogs/Preferences/Pages/TaskSetting.vala:147
+#: core/Utils/Util.vala:1081 src/Dialogs/Preferences/Pages/TaskSetting.vala:147
 msgid "30 minutes before"
 msgstr "30 წუთით ადრე"
 
-#: core/Utils/Util.vala:1080 src/Dialogs/Preferences/Pages/TaskSetting.vala:148
+#: core/Utils/Util.vala:1084 src/Dialogs/Preferences/Pages/TaskSetting.vala:148
 msgid "45 minutes before"
 msgstr "45 წუთით ადრე"
 
-#: core/Utils/Util.vala:1083 src/Dialogs/Preferences/Pages/TaskSetting.vala:149
+#: core/Utils/Util.vala:1087 src/Dialogs/Preferences/Pages/TaskSetting.vala:149
 msgid "1 hour before"
 msgstr "1 საათით ადრე"
 
-#: core/Utils/Util.vala:1086 src/Dialogs/Preferences/Pages/TaskSetting.vala:150
+#: core/Utils/Util.vala:1090 src/Dialogs/Preferences/Pages/TaskSetting.vala:150
 msgid "2 hours before"
 msgstr "2 საათით ადრე"
 
-#: core/Utils/Util.vala:1089 src/Dialogs/Preferences/Pages/TaskSetting.vala:151
+#: core/Utils/Util.vala:1093 src/Dialogs/Preferences/Pages/TaskSetting.vala:151
 msgid "3 hours before"
 msgstr "3 საათით ადრე"
 
@@ -2098,7 +2098,7 @@ msgid "Preferences"
 msgstr "მორგება"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:45
-#: src/Dialogs/Preferences/PreferencesWindow.vala:284
+#: src/Dialogs/Preferences/PreferencesWindow.vala:217
 msgid "Support Planify"
 msgstr "დაუჭირეთ ხმარი Planify-ს"
 
@@ -2149,78 +2149,90 @@ msgstr "სასწავლო პროექტის შექმნა"
 msgid "Learn the app step by step with a short tutorial project"
 msgstr "ისწავლეთ აპი ნაბიჯ-ნაბიჯ მოკლე სასწავლო პროექტით"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:216
-msgid "Reach Us"
-msgstr "დაგვიკავშირდით"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:222
-#: src/Dialogs/Preferences/PreferencesWindow.vala:391
-msgid "Contact Us"
-msgstr "დაგვიკავშირდით"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:223
-msgid "Request a feature or ask us anything"
-msgstr "მოითხოვეთ ფუნქცია, ან გვკითხეთ, რაც გნებავთ"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:239
-msgid "Tweet Us"
-msgstr "დაგვიკავშირდით Twitter-ზე"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:240
-#: src/Dialogs/Preferences/PreferencesWindow.vala:270
-msgid "Share some love"
-msgstr "გაგვიზიარეთ სიყვარული"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:254
-msgid "Discord"
-msgstr ""
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:255
-msgid "Discuss and share your feedback"
-msgstr "გაგვიზიარეთ თქვენი გამოცდილება"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:269
-msgid "Mastodon"
-msgstr "Mastodon"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:285
+#: src/Dialogs/Preferences/PreferencesWindow.vala:218
 msgid "Want to buy me a drink?"
 msgstr "გნებავთ, სასმელი შემიძინოთ?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:300
+#: src/Dialogs/Preferences/PreferencesWindow.vala:228
+msgid "Report Issue or Request Feature"
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:229
+msgid "Share bugs or ideas on GitHub"
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:255
+msgid "Get Involved"
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:265
+msgid "Reach Us"
+msgstr "დაგვიკავშირდით"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:271
+#: src/Dialogs/Preferences/PreferencesWindow.vala:428
+msgid "Contact Us"
+msgstr "დაგვიკავშირდით"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:272
+msgid "Request a feature or ask us anything"
+msgstr "მოითხოვეთ ფუნქცია, ან გვკითხეთ, რაც გნებავთ"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:288
+msgid "Tweet Us"
+msgstr "დაგვიკავშირდით Twitter-ზე"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:289
+#: src/Dialogs/Preferences/PreferencesWindow.vala:319
+msgid "Share some love"
+msgstr "გაგვიზიარეთ სიყვარული"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:303
+msgid "Discord"
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:304
+msgid "Discuss and share your feedback"
+msgstr "გაგვიზიარეთ თქვენი გამოცდილება"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:318
+msgid "Mastodon"
+msgstr "Mastodon"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:337
 msgid "Privacy"
 msgstr "პირადი ინფორმაცია"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:306
-#: src/Dialogs/Preferences/PreferencesWindow.vala:422
+#: src/Dialogs/Preferences/PreferencesWindow.vala:343
+#: src/Dialogs/Preferences/PreferencesWindow.vala:459
 msgid "Privacy Policy"
 msgstr "კონფიდენციალობის პოლიტიკა"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:307
+#: src/Dialogs/Preferences/PreferencesWindow.vala:344
 msgid "We have nothing on you"
 msgstr "თქვენზე არაფერი გვაქვს"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:313
+#: src/Dialogs/Preferences/PreferencesWindow.vala:350
 msgid "Delete App Data"
 msgstr "აპლიკაციის მონაცემების წაშლა"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:322
+#: src/Dialogs/Preferences/PreferencesWindow.vala:359
 msgid "A tutorial project has been created"
 msgstr "სასწავლო პროექტი შექიმნა"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:334
+#: src/Dialogs/Preferences/PreferencesWindow.vala:371
 msgid "Delete All Data?"
 msgstr "წავშალო სრულად მონაცემები?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:335
+#: src/Dialogs/Preferences/PreferencesWindow.vala:372
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "შეუქცევადად წაშლის ყველა თქვენს სიას, ამოცანას და შეხსენებას"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:363
+#: src/Dialogs/Preferences/PreferencesWindow.vala:400
 msgid "Personal Data"
 msgstr "პირადი მონაცემებები"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:369
+#: src/Dialogs/Preferences/PreferencesWindow.vala:406
 msgid ""
 "We collect absolutely nothing and all your data is stored in a database on "
 "your computer."
@@ -2228,18 +2240,18 @@ msgstr ""
 "ჩვენ არაფერს ვაგროვებთ და ყველა თქვენი მონაცემი თქვენს კომპიუტერზე, "
 "მონაცემთა ბაზაში ინახება."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:375
+#: src/Dialogs/Preferences/PreferencesWindow.vala:412
 msgid ""
 "If you choose to integrate Todoist, which is optional and not selected by "
 "default, your data will be stored on their private servers, we only display "
 "your configured tasks and manage them for you."
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:380
+#: src/Dialogs/Preferences/PreferencesWindow.vala:417
 msgid "Do you have any questions?"
 msgstr "კითხვები გაქვთ?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:386
+#: src/Dialogs/Preferences/PreferencesWindow.vala:423
 msgid ""
 "If you have any questions about your data or any other issue, please contact "
 "us. We will be happy to answer you."
@@ -2933,6 +2945,34 @@ msgid ""
 "are you connected to the internet?\n"
 "Any changes you make while disconnected\n"
 "will be synchronized when you reconnect."
+msgstr ""
+
+#: src/Widgets/TranslationRow.vala:95
+#, c-format
+msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
+msgstr ""
+
+#: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
+#: src/Widgets/TranslationRow.vala:156
+msgid "Translations"
+msgstr ""
+
+#: src/Widgets/TranslationRow.vala:131 src/Widgets/TranslationRow.vala:153
+#: src/Widgets/TranslationRow.vala:157
+msgid "Help make Planify available worldwide"
+msgstr ""
+
+#: src/Widgets/TranslationRow.vala:138
+msgid "Help improve translations"
+msgstr ""
+
+#: src/Widgets/TranslationRow.vala:145
+msgid "Start a new translation"
+msgstr ""
+
+#: src/Widgets/TranslationRow.vala:146
+#, c-format
+msgid "<b>%s</b> is not available yet. Be the first to translate it!"
 msgstr ""
 
 #: quick-add/MainWindow.vala:9
