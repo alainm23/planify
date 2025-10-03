@@ -17,6 +17,7 @@ jobs:
           bundle: planify.Devel.flatpak
           manifest-path: build-aux/io.github.alainm23.planify.Devel.json
           cache-key: 'flatpak-builder-${{ github.sha }}'
+          
     gettext:
       runs-on: ubuntu-latest
       steps:
