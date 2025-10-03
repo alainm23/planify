@@ -253,6 +253,20 @@ public class Views.List : Adw.Bin {
             listbox.invalidate_sort ();
         })] = project.source;
 
+        signal_map[Services.EventBus.get_default ().dim_content.connect ((active) => {
+            title_box.sensitive = !active;
+            due_revealer.sensitive = !active;
+            filters.sensitive = !active;
+            pinned_items_flowbox.sensitive = !active;
+
+            description_widget.sensitive = !active;
+            if (active) {
+                description_widget.add_css_class ("dimmed");
+            } else {
+                description_widget.remove_css_class ("dimmed");
+            }
+        })] = Services.EventBus.get_default ();
+
         destroy.connect (() => {
             clean_up ();
         });

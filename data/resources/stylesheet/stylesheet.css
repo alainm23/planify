@@ -700,8 +700,3 @@ checkbutton.theme-selector radio:checked {
 .task-editing {
     background-color: @window_bg_color !important;
 }
-
-.task-dimmed {
-    opacity: 0.4;
-    pointer-events: none;
-}

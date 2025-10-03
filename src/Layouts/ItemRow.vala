@@ -128,9 +128,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     content_label.remove_css_class ("dimmed");
                 }
 
-                _disable_drag_and_drop ();
+                if (drag_source != null) {
+                    itemrow_box.remove_controller (drag_source);
+                    drag_source = null;
+                }
 
-                content_textview.grab_focus ();
+                Idle.add (() => {
+                    if (content_textview != null) {
+                        content_textview.grab_focus ();
+                    }
+                    return Source.REMOVE;
+                });
             } else if (!value) {
                 remove_css_class ("no-selectable");
                 remove_css_class ("task-editing");
@@ -622,20 +630,31 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var handle_gesture_click = new Gtk.GestureClick ();
         itemrow_box.add_controller (handle_gesture_click);
         signals_map[handle_gesture_click.pressed.connect ((n_press, x, y) => {
-            if (Services.EventBus.get_default ().multi_select_enabled) {
+            if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one") && 
+                Services.EventBus.get_default ().item_edit_active && !edit) {
                 handle_gesture_click.set_state (Gtk.EventSequenceState.CLAIMED);
+            }
+        })] = handle_gesture_click;
+        
+        signals_map[handle_gesture_click.released.connect ((n_press, x, y) => {
+            if (Services.EventBus.get_default ().multi_select_enabled) {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);
-            } else if (Services.EventBus.get_default ().item_edit_active && !edit) {
-                handle_gesture_click.set_state (Gtk.EventSequenceState.CLAIMED);
-                Services.EventBus.get_default ().item_edit_active = false;
-                Services.EventBus.get_default ().dim_content (false);
-            } else {
-                Timeout.add (100, () => {
-                    show_details ();
-                    return GLib.Source.REMOVE;
-                });
+                return;
             }
+            
+            if (edit) {
+                return;
+            }
+            
+            if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
+                if (Services.EventBus.get_default ().item_edit_active) {
+                    Services.EventBus.get_default ().close_item_edit ();
+                    return;
+                }
+            }
+            
+            show_details ();
         })] = handle_gesture_click;
 
         signals_map[activate.connect (() => {
@@ -672,7 +691,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (keyval == 65293) {
                 edit = false;
                 return Gdk.EVENT_STOP;
-            } else if (keyval == 65289) {
+            } else if (keyval == 65289 && markdown_editor != null) {
                 markdown_editor.view_focus ();
                 return Gdk.EVENT_STOP;
             }
@@ -697,7 +716,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = checked_button_gesture;
 
         signals_map[hide_loading_button.clicked.connect (() => {
-            Timeout.add (50, () => {
+            Timeout.add (100, () => {
                 edit = false;
                 return GLib.Source.REMOVE;
             });
@@ -849,9 +868,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         signals_map[Services.EventBus.get_default ().dim_content.connect ((active) => {
             if (!edit) {
                 if (active) {
-                    add_css_class ("task-dimmed");
+                    add_css_class ("dimmed");
                 } else {
-                    remove_css_class ("task-dimmed");
+                    remove_css_class ("dimmed");
                 }
             } else if (!active && edit) {
                 edit = false;
