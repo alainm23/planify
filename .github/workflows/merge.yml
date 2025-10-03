@@ -17,65 +17,56 @@ jobs:
           bundle: planify.Devel.flatpak
           manifest-path: build-aux/io.github.alainm23.planify.Devel.json
           cache-key: 'flatpak-builder-${{ github.sha }}'
-          
-    gettext:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v5
-        - name: Install gettext
-          run: sudo apt-get update && sudo apt-get install -y gettext
-        - name: Pull latest changes
-          run: |
-            git config --local user.name "Planify Bot"
-            git config --local user.email "planify-bot@users.noreply.github.com"
-            git fetch origin master
-            git rebase origin/master || true
-        - name: Update POTFILES and translations
-          run: >
-            # Regenerate POTFILES
 
-            cat > po/POTFILES << 'EOF'
+  gettext:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
 
-            # List of source files containing translatable strings.
+      - name: Install gettext
+        run: sudo apt-get update && sudo apt-get install -y gettext
 
-            # Please keep this file sorted alphabetically.
+      - name: Pull latest changes
+        run: |
+          git config --local user.name "Planify Bot"
+          git config --local user.email "planify-bot@users.noreply.github.com"
+          git fetch origin master
+          git rebase origin/master || true
 
-            EOF
+      - name: Update POTFILES and translations
+        run: |
+          # Regenerate POTFILES
+          cat > po/POTFILES << 'EOF'
+          # List of source files containing translatable strings.
+          # Please keep this file sorted alphabetically.
+          EOF
 
+          find core -name "*.vala" | sort >> po/POTFILES
+          echo >> po/POTFILES
+          find src -name "*.vala" | sort >> po/POTFILES
+          echo >> po/POTFILES
+          find quick-add -name "*.vala" | sort >> po/POTFILES
+          echo >> po/POTFILES
+          echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
 
-            find core -name "*.vala" | sort >> po/POTFILES
-
-            echo >> po/POTFILES
-
-            find src -name "*.vala" | sort >> po/POTFILES
-
-            echo >> po/POTFILES
-
-            find quick-add -name "*.vala" | sort >> po/POTFILES
-
-            echo >> po/POTFILES
-
-            echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
-
-
-            # Update translations
-
-            xgettext --files-from=po/POTFILES --directory=.
-            --output=po/io.github.alainm23.planify.pot --from-code=UTF-8
+          # Update translations
+          xgettext --files-from=po/POTFILES --directory=. \
+            --output=po/io.github.alainm23.planify.pot --from-code=UTF-8 \
             --keyword=_ --keyword=N_
 
+          for lang in $(cat po/LINGUAS); do
+            msgmerge --update po/$lang.po po/io.github.alainm23.planify.pot
+          done
 
-            for lang in $(cat po/LINGUAS); do
-              msgmerge --update po/$lang.po po/io.github.alainm23.planify.pot
-            done
-        - name: Resolve conflicts if any
-          run: |
-            if [ -f po/io.github.alainm23.planify.pot ]; then
-              git add po/io.github.alainm23.planify.pot
-            fi
-            git rebase --continue || true
-        - name: Commit and push changes
-          run: |
-            git add po/
-            git diff --staged --quiet || git commit -m "Update translations"
-            git push origin master
+      - name: Resolve conflicts if any
+        run: |
+          if [ -f po/io.github.alainm23.planify.pot ]; then
+            git add po/io.github.alainm23.planify.pot
+          fi
+          git rebase --continue || true
+
+      - name: Commit and push changes
+        run: |
+          git add po/
+          git diff --staged --quiet || git commit -m "Update translations"
+          git push origin master
