@@ -58,9 +58,16 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     private bool updating_programmatically = false;
     
     public string placeholder_text {get; set; default = ""; }
+    
+    public bool text_mode {
+        get {
+            return !Services.Settings.get_default ().settings.get_boolean ("enable-markdown-formatting");
+        }
+    }
 
     public signal void text_changed (string text);
     public signal void escape_pressed ();
+    public signal void return_pressed ();
 
     public bool is_editable {
         set {
@@ -90,6 +97,11 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         update_placeholder_visibility ();
         
         create_format_popover ();
+        update_mode ();
+        
+        Services.Settings.get_default ().settings.changed["enable-markdown-formatting"].connect (() => {
+            update_mode ();
+        });
         
         buffer.changed.connect (on_buffer_changed);
         buffer.notify["has-selection"].connect (on_selection_lost);
@@ -113,6 +125,10 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         text_view.add_controller (focus_controller);
         
         child = text_view;
+
+        destroy.connect (() => {
+            cleanup ();
+        });
     }
     
     private void create_text_tags () {
@@ -250,6 +266,8 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     }
     
     private bool on_event (Gdk.Event event) {
+        if (text_mode) return false;
+        
         if (event.get_event_type () == Gdk.EventType.BUTTON_PRESS) {
             mouse_pressed = true;
         } else if (event.get_event_type () == Gdk.EventType.BUTTON_RELEASE && mouse_pressed) {
@@ -702,6 +720,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
             }
 
             clear_cursor_formatting ();
+            return_pressed ();
         }
         
         if (keyval == Gdk.Key.space) {
@@ -815,11 +834,25 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     
     private void on_buffer_changed () {
         if (!showing_placeholder && !updating_programmatically) {
-            apply_markdown_formatting ();
+            if (!text_mode) {
+                apply_markdown_formatting ();
+            }
             
             Gtk.TextIter start, end;
             buffer.get_bounds (out start, out end);
             text_changed (buffer.get_text (start, end, true));
+        }
+    }
+    
+    private void update_mode () {
+        if (text_mode) {
+            Gtk.TextIter start, end;
+            buffer.get_bounds (out start, out end);
+            buffer.remove_all_tags (start, end);
+            format_popover.set_sensitive (false);
+        } else {
+            format_popover.set_sensitive (true);
+            apply_markdown_formatting ();
         }
     }
     
@@ -1252,7 +1285,9 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         buffer.set_text (text, -1);
         update_placeholder_visibility ();
         updating_programmatically = false;
-        apply_markdown_formatting ();
+        if (!text_mode) {
+            apply_markdown_formatting ();
+        }
     }
     
     public string get_text () {
@@ -1579,6 +1614,8 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     }
     
     private void on_text_clicked (int n_press, double x, double y) {
+        if (text_mode) return;
+        
         int buffer_x, buffer_y;
         text_view.window_to_buffer_coords (Gtk.TextWindowType.TEXT,
                                           (int)x, (int)y,
@@ -1599,8 +1636,6 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         }
 
     }
-    
-
     
     private string normalize_url (string url) {
         var trimmed_url = url.strip ();

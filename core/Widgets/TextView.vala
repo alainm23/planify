@@ -19,49 +19,6 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Widgets.Entry : Gtk.Entry {
-    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
-
-    construct {
-        signal_map[realize.connect (() => {
-            if (has_focus) {
-                handle_focus_in ();
-            }
-        })] = this;
-
-        signal_map[notify["has-focus"].connect (() => {
-            if (has_focus) {
-                handle_focus_in ();
-            } else {
-                update_on_leave ();
-            }
-        })] = this;
-
-        var gesture = new Gtk.EventControllerFocus ();
-        add_controller (gesture);
-
-        signal_map[gesture.enter.connect (handle_focus_in)] = gesture;
-        signal_map[gesture.leave.connect (update_on_leave)] = gesture;
-        signal_map[changed.connect (handle_focus_in)] = this;
-
-        destroy.connect (() => {
-            foreach (var entry in signal_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signal_map.clear ();
-        });
-    }
-
-    private void handle_focus_in () {
-        Services.EventBus.get_default ().disconnect_typing_accel ();
-    }
-
-    public void update_on_leave () {
-        Services.EventBus.get_default ().connect_typing_accel ();
-    }
-}
-
 public class Widgets.TextView : Gtk.TextView {
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 

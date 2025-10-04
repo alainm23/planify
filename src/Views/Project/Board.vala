@@ -47,7 +47,7 @@ public class Views.Board : Adw.Bin {
     }
 
     construct {
-        icon_project = new Widgets.IconColorProject (10) {
+        icon_project = new Widgets.IconColorProject (24) {
             project = project
         };
         icon_project.add_css_class ("title-2");
@@ -75,7 +75,7 @@ public class Views.Board : Adw.Bin {
             text = project.description,
             margin_top = 12,
             margin_start = 24,
-            margin_end = 12
+            margin_end = 24
         };
 
         due_revealer = build_due_date_widget ();

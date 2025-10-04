@@ -116,6 +116,7 @@ public class Views.Label : Adw.Bin {
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 864,
+            tightening_threshold = 600,
             margin_bottom = 64,
             child = content_box
         };
@@ -167,6 +168,10 @@ public class Views.Label : Adw.Bin {
         signal_map[magic_button.clicked.connect (() => {
             prepare_new_item ();
         })] = magic_button;
+
+        signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
+            title_box.sensitive = !active;
+        })] = Services.EventBus.get_default ();
     }
 
     private void validate_placeholder () {

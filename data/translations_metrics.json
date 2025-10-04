@@ -1,0 +1,104 @@
+{
+  "nl": {
+    "language": "Dutch",
+    "total_strings": 671,
+    "translated_strings": 557,
+    "translated_percent": 83.0
+  },
+  "tr": {
+    "language": "Turkish",
+    "total_strings": 671,
+    "translated_strings": 474,
+    "translated_percent": 70.6
+  },
+  "en": {
+    "language": "English",
+    "total_strings": 671,
+    "translated_strings": 671,
+    "translated_percent": 100.0
+  },
+  "bg": {
+    "language": "Bulgarian",
+    "total_strings": 671,
+    "translated_strings": 558,
+    "translated_percent": 83.1
+  },
+  "de": {
+    "language": "German",
+    "total_strings": 671,
+    "translated_strings": 559,
+    "translated_percent": 83.3
+  },
+  "es": {
+    "language": "Spanish",
+    "total_strings": 671,
+    "translated_strings": 586,
+    "translated_percent": 87.3
+  },
+  "fr": {
+    "language": "French",
+    "total_strings": 671,
+    "translated_strings": 552,
+    "translated_percent": 82.2
+  },
+  "hi": {
+    "language": "Hindi",
+    "total_strings": 671,
+    "translated_strings": 526,
+    "translated_percent": 78.3
+  },
+  "ka": {
+    "language": "Georgian",
+    "total_strings": 671,
+    "translated_strings": 531,
+    "translated_percent": 79.1
+  },
+  "kk": {
+    "language": "Kazakh",
+    "total_strings": 671,
+    "translated_strings": 551,
+    "translated_percent": 82.1
+  },
+  "ko": {
+    "language": "Korean",
+    "total_strings": 671,
+    "translated_strings": 501,
+    "translated_percent": 74.6
+  },
+  "pt_BR": {
+    "language": "Portuguese (Brazil)",
+    "total_strings": 671,
+    "translated_strings": 557,
+    "translated_percent": 83.0
+  },
+  "ru": {
+    "language": "Russian",
+    "total_strings": 671,
+    "translated_strings": 557,
+    "translated_percent": 83.0
+  },
+  "sk_SK": {
+    "language": "Slovak",
+    "total_strings": 671,
+    "translated_strings": 546,
+    "translated_percent": 81.3
+  },
+  "uk": {
+    "language": "Ukrainian",
+    "total_strings": 671,
+    "translated_strings": 538,
+    "translated_percent": 80.1
+  },
+  "pt_PT": {
+    "language": "Portuguese (Portugal)",
+    "total_strings": 671,
+    "translated_strings": 516,
+    "translated_percent": 76.9
+  },
+  "zh_CN": {
+    "language": "Chinese (Simplified Han script)",
+    "total_strings": 671,
+    "translated_strings": 485,
+    "translated_percent": 72.2
+  }
+}

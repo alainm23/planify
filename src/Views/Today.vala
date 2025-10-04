@@ -279,6 +279,7 @@ public class Views.Today : Adw.Bin {
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 864,
+            tightening_threshold = 600,
             margin_bottom = 64,
             child = content_box
         };
@@ -444,6 +445,12 @@ public class Views.Today : Adw.Bin {
         signal_map[scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
         })] = scrolled_window.vadjustment;
+
+        signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
+            title_box.sensitive = !active;
+            today_box.sensitive = !active;
+            overdue_box.sensitive = !active;
+        })] = Services.EventBus.get_default ();
     }
 
     private void check_placeholder () {

@@ -112,11 +112,6 @@ entry.flat:focus-within {
     border-radius: 50%;
 }
 
-.circular-progress-bar {
-    border: 2px solid @colorAccent;
-    border-radius: 50%;
-}
-
 .listbox-separator-3 row:not(:first-child) {
     margin-top: 3px;
 }
@@ -197,9 +192,7 @@ entry.flat:focus-within {
 .card.selected {
     margin-bottom: 12px;
     margin-top: 12px;
-    margin-left: 3px;
-    margin-right: 3px;
-    padding-left: 9px;
+    padding-left: 6px;
     padding-top: 3px;
     padding-right: 3px;
     padding-bottom: 6px;
@@ -700,4 +693,8 @@ checkbutton.theme-selector radio:checked {
 .task-item.complete {
     background-color: @selected_color;
     animation: complete-pulse 500ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.task-editing {
+    background-color: @window_bg_color !important;
 }

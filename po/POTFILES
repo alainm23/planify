@@ -29,6 +29,7 @@ core/Objects/Queue.vala
 core/Objects/Reminder.vala
 core/Objects/Section.vala
 core/Objects/Source.vala
+core/Objects/TranslationMetric.vala
 core/QuickAdd.vala
 core/Services/CalDAV/CalDAVClient.vala
 core/Services/CalDAV/Core.vala
@@ -64,7 +65,6 @@ core/Widgets/DateTimePicker/DateTimePicker.vala
 core/Widgets/DateTimePicker/RepeatConfig.vala
 core/Widgets/DateTimePicker/ScheduleButton.vala
 core/Widgets/DateTimePicker/TimePicker.vala
-core/Widgets/Entries.vala
 core/Widgets/IconColorProject.vala
 core/Widgets/ItemLabelChild.vala
 core/Widgets/ItemLabels.vala
@@ -73,10 +73,6 @@ core/Widgets/LabelPicker/LabelPicker.vala
 core/Widgets/LabelPicker/LabelRow.vala
 core/Widgets/LabelsPickerCore.vala
 core/Widgets/LoadingButton.vala
-core/Widgets/Markdown/Color.vala
-core/Widgets/Markdown/MarkdownBuffer.vala
-core/Widgets/Markdown/MarkdownEditView.vala
-core/Widgets/Markdown/MarkdownView.vala
 core/Widgets/MarkdownEditor.vala
 core/Widgets/PinButton.vala
 core/Widgets/PriorityButton.vala
@@ -91,6 +87,7 @@ core/Widgets/SectionPicker/SectionButton.vala
 core/Widgets/SectionPicker/SectionPicker.vala
 core/Widgets/SectionPicker/SectionPickerRow.vala
 core/Widgets/StatusButton.vala
+core/Widgets/TextView.vala
 
 src/App.vala
 src/Dialogs/CompletedTasks.vala
@@ -145,6 +142,7 @@ src/Layouts/SidebarSourceRow.vala
 src/MainWindow.vala
 src/Objects/Backup.vala
 src/Services/ActionManager.vala
+src/Services/Api.vala
 src/Services/Backups.vala
 src/Services/CalendarEvents/CalendarEvents.vala
 src/Services/CalendarEvents/DateIterator.vala
@@ -191,6 +189,7 @@ src/Widgets/ScrolledWindow.vala
 src/Widgets/SectionsOrderPopover.vala
 src/Widgets/SubItems.vala
 src/Widgets/SyncButton.vala
+src/Widgets/TranslationRow.vala
 
 quick-add/App.vala
 quick-add/MainWindow.vala

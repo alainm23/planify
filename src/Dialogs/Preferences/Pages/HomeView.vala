@@ -45,6 +45,7 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
             margin_start = 24,
             margin_end = 24,
             margin_top = 12,
+            margin_bottom = 24,
             child = group_box
         };
 
@@ -164,7 +165,7 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
             };
 
             if (base_object is Objects.Project) {
-                action_row.add_prefix (new Widgets.IconColorProject (10) {
+                action_row.add_prefix (new Widgets.IconColorProject (20) {
                     project = (Objects.Project) base_object
                 });
             } else {

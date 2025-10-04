@@ -209,6 +209,10 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
             listbox.invalidate_filter ();
         })] = Objects.Filters.Scheduled.get_default ();
 
+        signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
+            header_content.sensitive = !active;
+        })] = Services.EventBus.get_default ();
+
         #if WITH_EVOLUTION
         signal_map[event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;

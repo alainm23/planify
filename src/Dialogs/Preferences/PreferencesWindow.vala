@@ -210,8 +210,57 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
         page.add (personalization_group);
 
-        // Reach Us Group
+        var supporting_us_row = new Adw.ActionRow ();
+        supporting_us_row.activatable = true;
+        supporting_us_row.add_prefix (generate_icon ("heart-outline-thick-symbolic"));
+        supporting_us_row.add_suffix (generate_icon ("go-next-symbolic"));
+        supporting_us_row.title = _("Support Planify");
+        supporting_us_row.subtitle = _("Want to buy me a drink?");
 
+        signal_map[supporting_us_row.activated.connect (() => {
+            push_subpage (build_page ("support"));
+        })] = supporting_us_row;
+
+        var issue_row = new Adw.ActionRow ();
+        issue_row.activatable = true;
+        issue_row.add_prefix (generate_icon ("lightbulb-symbolic"));
+        issue_row.add_suffix (generate_icon ("go-next-symbolic"));
+        issue_row.title = _("Report Issue or Request Feature");
+        issue_row.subtitle = _("Share bugs or ideas on GitHub");
+
+        signal_map[issue_row.activated.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri (Constants.ISSUE_URL, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        })] = issue_row;
+
+        var translation_row = new Widgets.TranslationRow ();
+        translation_row.icon_name = "language-symbolic";
+        setup_visibility_detection (translation_row);
+        
+        var click_gesture = new Gtk.GestureClick ();
+        translation_row.add_controller (click_gesture);
+        
+        signal_map[click_gesture.pressed.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri (Constants.WEBLATE_URL, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        })] = click_gesture;
+
+        var collaboration_group = new Adw.PreferencesGroup ();
+        collaboration_group.title = _("Get Involved");
+
+        collaboration_group.add (supporting_us_row);
+        collaboration_group.add (issue_row);
+        collaboration_group.add (translation_row);
+
+        page.add (collaboration_group);
+
+        // Reach Us Group
         var reach_us_group = new Adw.PreferencesGroup ();
         reach_us_group.title = _("Reach Us");
 
@@ -277,22 +326,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             }
         })] = mastodon_row;
 
-        var supporting_us_row = new Adw.ActionRow ();
-        supporting_us_row.activatable = true;
-        supporting_us_row.add_prefix (generate_icon ("heart-outline-thick-symbolic"));
-        supporting_us_row.add_suffix (generate_icon ("go-next-symbolic"));
-        supporting_us_row.title = _("Support Planify");
-        supporting_us_row.subtitle = _("Want to buy me a drink?");
-
-        signal_map[supporting_us_row.activated.connect (() => {
-            push_subpage (build_page ("support"));
-        })] = supporting_us_row;
-
         reach_us_group.add (contact_us_row);
         reach_us_group.add (mastodon_row);
         reach_us_group.add (tweet_us_row);
         reach_us_group.add (discord_row);
-        reach_us_group.add (supporting_us_row);
 
         page.add (reach_us_group);
 
@@ -499,5 +536,16 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         }
 
         page_map.clear ();
+    }
+
+    private void setup_visibility_detection (Widgets.TranslationRow translation_row) {
+        translation_row.load_translation_data.begin ();
+        
+        translation_row.map.connect (() => {
+            Timeout.add (1500, () => {
+                translation_row.trigger_animation ();
+                return false;
+            });
+        });
     }
 }

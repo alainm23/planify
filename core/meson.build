@@ -29,7 +29,7 @@ core_files = files(
     'Layouts/HeaderItem.vala',
 
     'Widgets/LoadingButton.vala',
-    'Widgets/Entries.vala',
+    'Widgets/TextView.vala',
     'Widgets/IconColorProject.vala',
     'Widgets/PinButton.vala',
     'Widgets/PriorityButton.vala',
@@ -73,12 +73,7 @@ core_files = files(
     'Widgets/ReminderPicker/ReminderButton.vala',
     'Widgets/ReminderPicker/ReminderPicker.vala',
     'Widgets/ReminderPicker/ReminderRow.vala',
-
-    'Widgets/Markdown/MarkdownEditView.vala',
-    'Widgets/Markdown/MarkdownView.vala',
-    'Widgets/Markdown/Color.vala',
-    'Widgets/Markdown/MarkdownBuffer.vala',
-
+    
     'Objects/BaseObject.vala',
     'Objects/Color.vala',
     'Objects/DueDate.vala',
@@ -92,6 +87,7 @@ core_files = files(
     'Objects/Attachment.vala',
     'Objects/ObjectEvent.vala',
     'Objects/Source.vala',
+    'Objects/TranslationMetric.vala',
     
     'Objects/Filters/Inbox.vala',
     'Objects/Filters/Pinboard.vala',
@@ -117,7 +113,6 @@ core_deps = [
   libadwaita_dep,
   json_dep,
   libsoup_dep,
-  gtksourceview_dep,
   libical_dep,
   libgxml_dep,
   libsecret_dep,

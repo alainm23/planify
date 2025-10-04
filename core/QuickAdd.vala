@@ -25,7 +25,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     private Gtk.Entry content_entry;
     private Widgets.LoadingButton submit_button;
-    private Widgets.TextView description_textview;
+    private Widgets.MarkdownEditor description_textview;
     private Widgets.ItemLabels item_labels;
     private Widgets.ProjectPicker.ProjectPickerButton project_picker_button;
     private Widgets.ScheduleButton schedule_button;
@@ -62,7 +62,6 @@ public class Layouts.QuickAdd : Adw.Bin {
     
     private Gtk.EventControllerKey destroy_controller;
     private Gtk.EventControllerKey content_controller_key;
-    private Gtk.EventControllerKey description_controller_key;
     private Gtk.EventControllerKey event_controller_key;
     private Gtk.ShortcutController shortcut_controller;
 
@@ -99,7 +98,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
             var section = Services.Store.instance ().get_section (Services.Settings.get_default ().settings.get_string ("quick-add-section-selected"));
 
-            if (section != null) {
+            if (section != null && section.project_id == item.project_id) {
                 item.section_id = section.id;
             }
         }
@@ -152,17 +151,12 @@ public class Layouts.QuickAdd : Adw.Bin {
         content_box.append (content_entry);
         content_box.append (info_revealer);
 
-        description_textview = new Widgets.TextView () {
-            left_margin = 14,
-            right_margin = 6,
-            top_margin = 12,
-            wrap_mode = Gtk.WrapMode.WORD_CHAR,
-            event_focus = false,
-            accepts_tab = false,
+        description_textview = new Widgets.MarkdownEditor () {
+            margin_start = 14,
+            margin_end = 6,
+            margin_top = 12,
             placeholder_text = _("Add a description…")
         };
-
-        description_textview.remove_css_class ("view");
 
         var description_scrolled = new Gtk.ScrolledWindow () {
             hscrollbar_policy = NEVER,
@@ -439,15 +433,11 @@ public class Layouts.QuickAdd : Adw.Bin {
             return false;
         })] = content_controller_key;
 
-        description_controller_key = new Gtk.EventControllerKey ();
-        description_textview.add_controller (description_controller_key);
-        signal_map[description_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-            if (ctrl_pressed && keyval == Gdk.Key.Return) {
+        signal_map[description_textview.return_pressed.connect (() => {
+            if (ctrl_pressed) {
                 add_item ();
             }
-
-            return false;
-        })] = description_controller_key;
+        })] = description_textview;
 
         event_controller_key = new Gtk.EventControllerKey ();
         ((Gtk.Widget) this).add_controller (event_controller_key);
@@ -742,6 +732,8 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     public void for_project (Objects.Project project) {
         item.project_id = project.id;
+        item.section_id = "";
+
         project_picker_button.project = project;
         label_button.source = project.source;
     }
@@ -1104,10 +1096,6 @@ public class Layouts.QuickAdd : Adw.Bin {
         
         if (content_controller_key != null) {
             content_entry.remove_controller (content_controller_key);
-        }
-        
-        if (description_controller_key != null) {
-            description_textview.remove_controller (description_controller_key);
         }
         
         if (event_controller_key != null) {

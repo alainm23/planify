@@ -50,7 +50,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
         if (base_object is Objects.Project) {
             Objects.Project project = ((Objects.Project) base_object);
 
-            var icon_project = new Widgets.IconColorProject (10);
+            var icon_project = new Widgets.IconColorProject (18);
             icon_project.project = project;
 
             var name_label = new Gtk.Label (markup_string_with_search (project.name, pattern)) {
@@ -59,6 +59,11 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
                 use_markup = true
             };
 
+            main_grid.column_spacing = 6;
+            main_grid.margin_start = 0;
+            main_grid.margin_end = 0;
+            main_grid.margin_top = 0;
+            main_grid.margin_bottom = 0;
             main_grid.attach (icon_project, 0, 0);
             main_grid.attach (name_label, 1, 0);
         } else if (base_object is Objects.Section) {
