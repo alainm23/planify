@@ -6,7 +6,7 @@ import os
 OUTPUT_DIR = "data"
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "translations_metrics.json")
 
-COMPONENT_TRANSLATIONS_URL = "https://hosted.weblate.org/api/components/planner/translations/translations/"
+COMPONENT_TRANSLATIONS_URL = "https://hosted.weblate.org/api/components/planner/io-github-alainm23-planify/translations/"
 
 def fetch_translations():
     metrics = {}
