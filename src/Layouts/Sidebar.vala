@@ -45,41 +45,6 @@ public class Layouts.Sidebar : Adw.Bin {
             css_classes = { "listbox-background" }
         };
 
-        var whats_new_icon = new Gtk.Image.from_icon_name ("star-outline-thick-symbolic") {
-            css_classes = { "gift-animation" }
-        };
-
-        var whats_new_label = new Gtk.Label (_("What’s new in Planify")) {
-            css_classes = { "underline" }
-        };
-
-        var close_button = new Gtk.Button.from_icon_name ("window-close") {
-            css_classes = { "flat", "no-padding" },
-            hexpand = true,
-            halign = END,
-            margin_end = 3
-        };
-
-        var whats_new_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            css_classes = { "card", "padding-9" },
-            vexpand = true,
-            valign = END,
-            margin_start = 3,
-            margin_end = 3,
-            margin_top = 9,
-            margin_bottom = 3
-        };
-
-        whats_new_box.append (whats_new_icon);
-        whats_new_box.append (whats_new_label);
-        whats_new_box.append (close_button);
-
-        var whats_new_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SWING_UP,
-            child = whats_new_box,
-            reveal_child = verify_new_version ()
-        };
-
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,
             margin_end = 12,
@@ -91,10 +56,6 @@ public class Layouts.Sidebar : Adw.Bin {
         content_box.append (filters_revealer);
         content_box.append (favorites_header);
         content_box.append (sources_listbox);
-
-        if (Constants.SHOW_WHATSNEW) {
-            content_box.append (whats_new_revealer);
-        }
 
         var scrolled_window = new Widgets.ScrolledWindow (content_box);
 
@@ -115,26 +76,6 @@ public class Layouts.Sidebar : Adw.Bin {
                 ((Gtk.ListBox) filters_revealer.child).invalidate_sort ();
                 ((Gtk.ListBox) filters_revealer.child).invalidate_filter ();
             }
-        });
-
-        var whats_new_gesture = new Gtk.GestureClick ();
-        whats_new_box.add_controller (whats_new_gesture);
-
-        whats_new_gesture.pressed.connect (() => {
-            var dialog = new Dialogs.WhatsNew ();
-            dialog.present (Planify._instance.main_window);
-
-            update_version ();
-            whats_new_revealer.reveal_child = verify_new_version ();
-        });
-
-        var close_gesture = new Gtk.GestureClick ();
-        close_button.add_controller (close_gesture);
-        close_gesture.pressed.connect (() => {
-            close_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-
-            update_version ();
-            whats_new_revealer.reveal_child = verify_new_version ();
         });
 
         Services.EventBus.get_default ().update_sources_position.connect (() => {

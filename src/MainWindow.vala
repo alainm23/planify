@@ -632,9 +632,6 @@ public class MainWindow : Adw.ApplicationWindow {
         var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
         keyboard_shortcuts_item.secondary_text = "F1";
 
-        var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New")) {
-            visible = Constants.SHOW_WHATSNEW
-        };
         var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
 
         archive_item = new Widgets.ContextMenu.MenuItem (_("Archived Projects"));
@@ -643,7 +640,6 @@ public class MainWindow : Adw.ApplicationWindow {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (preferences_item);
-        menu_box.append (whatsnew_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (archive_item);
         menu_box.append (archive_separator);
@@ -659,11 +655,6 @@ public class MainWindow : Adw.ApplicationWindow {
 
         preferences_item.clicked.connect (() => {
             open_preferences_window ();
-        });
-
-        whatsnew_item.clicked.connect (() => {
-            var dialog = new Dialogs.WhatsNew ();
-            dialog.present (Planify._instance.main_window);
         });
 
         about_item.clicked.connect (() => {
