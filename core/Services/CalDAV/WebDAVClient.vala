@@ -153,7 +153,7 @@ public class Services.CalDAV.WebDAVMultiStatus : Object {
 
     public void debug_print () {
         print ("-------------------------------\n");
-        print ("%s\b", xml_content);
+        debug ("%s\b", xml_content);
         print ("-------------------------------\n");
     }
 

@@ -400,39 +400,52 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                     }
 
                     if (is_vtodo) {
-                        string vtodo = yield get_vtodo_by_url (get_absolute_url (href), cancellable);
+                        string vtodo_content = yield get_vtodo_by_url (get_absolute_url (href), cancellable);
 
-                        ICal.Component ical = new ICal.Component.from_string (vtodo);
-                        Objects.Item ? item = Services.Store.instance ().get_item (ical.get_uid ());
+                        try {
+                            ICal.Component vcalendar = new ICal.Component.from_string (vtodo_content);
+                            
+                            ICal.Component vtodo_comp = vcalendar.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
+                            while (vtodo_comp != null) {
+                                string uid = vtodo_comp.get_uid ();
+                                if (uid != null && uid != "") {
+                                    Objects.Item ? item = Services.Store.instance ().get_item (uid);
 
-                        if (item != null) {
-                            string old_project_id = item.project_id;
-                            string old_parent_id = item.parent_id;
-                            bool old_checked = item.checked;
+                                    if (item != null) {
+                                        string old_project_id = item.project_id;
+                                        string old_parent_id = item.parent_id;
+                                        bool old_checked = item.checked;
 
-                            item.update_from_vtodo (vtodo, get_absolute_url (href));
-                            item.project_id = project.id;
-                            Services.Store.instance ().update_item (item);
+                                        item.update_from_vtodo (vtodo_content, get_absolute_url (href));
+                                        item.project_id = project.id;
+                                        Services.Store.instance ().update_item (item);
 
-                            if (old_project_id != item.project_id || old_parent_id != item.parent_id) {
-                                Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
-                            }
+                                        if (old_project_id != item.project_id || old_parent_id != item.parent_id) {
+                                            Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
+                                        }
 
-                            if (old_checked != item.checked) {
-                                Services.Store.instance ().complete_item (item, old_checked);
-                            }
-                        } else {
-                            var new_item = new Objects.Item.from_vtodo (vtodo, get_absolute_url (href), project.id);
-                            if (new_item.has_parent) {
-                                Objects.Item ? parent_item = new_item.parent;
-                                if (parent_item != null) {
-                                    parent_item.add_item_if_not_exists (new_item);
-                                } else {
-                                    project.add_item_if_not_exists (new_item);
+                                        if (old_checked != item.checked) {
+                                            Services.Store.instance ().complete_item (item, old_checked);
+                                        }
+                                    } else {
+                                        var new_item = new Objects.Item.from_vtodo (vtodo_content, get_absolute_url (href), project.id);
+                                        if (new_item.has_parent) {
+                                            Objects.Item ? parent_item = new_item.parent;
+                                            if (parent_item != null) {
+                                                parent_item.add_item_if_not_exists (new_item);
+                                            } else {
+                                                project.add_item_if_not_exists (new_item);
+                                            }
+                                        } else {
+                                            project.add_item_if_not_exists (new_item);
+                                        }
+                                    }
                                 }
-                            } else {
-                                project.add_item_if_not_exists (new_item);
+                                
+                                vtodo_comp = vcalendar.get_next_component (ICal.ComponentKind.VTODO_COMPONENT);
                             }
+                        } catch (Error e) {
+                            warning ("Error parsing VTODO from %s: %s", href, e.message);
                         }
                     }
                 }
