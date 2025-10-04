@@ -57,7 +57,7 @@ public class Widgets.EditableTextView : Adw.Bin {
 
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
-    public EditableTextView (string placeholder_text = "", int max_chars = 150) {
+    public EditableTextView (string placeholder_text = "", int max_chars = 100) {
         Object (
             placeholder_text: placeholder_text,
             max_chars: max_chars
