@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-04 11:08+0000\n"
+"POT-Creation-Date: 2025-10-04 20:37+0000\n"
 "PO-Revision-Date: 2025-05-25 20:44+0500\n"
 "Last-Translator: AnmiTaliDev <anmitali198@gmail.com>\n"
 "Language-Team: \n"
@@ -1505,7 +1505,7 @@ msgstr "Белгіні жаңарту"
 msgid "Filter"
 msgstr "Сүзгі"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:640
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:637
 msgid "Archived Projects"
 msgstr "Мұрағатталған жобалар"
 
@@ -2405,74 +2405,6 @@ msgstr "Бөлімді жаңарту"
 msgid "Section added"
 msgstr "Бөлім атауы"
 
-#: src/Dialogs/WhatsNew.vala:47 src/Layouts/Sidebar.vala:52
-#, fuzzy
-msgid "What’s new in Planify"
-msgstr "Planify-дағы жаңалықтар"
-
-#: src/Dialogs/WhatsNew.vala:114
-msgid "Inbox as Independent Project"
-msgstr "Кіріс жәшігі дербес жоба ретінде"
-
-#: src/Dialogs/WhatsNew.vala:114
-#, fuzzy
-msgid ""
-"The Inbox is the default place to add new tasks, allowing you to quickly get "
-"your ideas out of your head and then plan them when you’re ready."
-msgstr ""
-"Кіріс жәшігі жаңа тапсырмалар қосатын әдепкі орын болып табылады, "
-"идеяларыңызды тез ойыңыздан шығарып, дайын болғанда оларды жоспарлауға "
-"мүмкіндік береді."
-
-#: src/Dialogs/WhatsNew.vala:115
-msgid "Enhanced Task Duplication"
-msgstr "Жақсартылған тапсырма көшіру"
-
-#: src/Dialogs/WhatsNew.vala:115
-msgid ""
-"When you duplicate a task now, all subtasks and labels are automatically "
-"duplicated, saving you time and effort in managing your projects."
-msgstr ""
-"Тапсырманы көшіргенде барлық қосымша тапсырмалар мен белгілер автоматты "
-"түрде көшіріледі, жобаларды басқарудағы уақыт пен күш-жігерді үнемдейді."
-
-#: src/Dialogs/WhatsNew.vala:116
-msgid "Duplication of Sections and Projects"
-msgstr "Бөлімдер мен жобаларды көшіру"
-
-#: src/Dialogs/WhatsNew.vala:116
-msgid ""
-"You can now easily duplicate entire sections and projects, making it easier "
-"to create new projects based on existing structures."
-msgstr ""
-"Енді бүкіл бөлімдер мен жобаларды оңай көшіре аласыз, бұл бар құрылымдар "
-"негізінде жаңа жобалар жасауды жеңілдетеді."
-
-#: src/Dialogs/WhatsNew.vala:117
-msgid "Project Expiry Date"
-msgstr "Жоба мерзімі"
-
-#: src/Dialogs/WhatsNew.vala:117
-#, fuzzy
-msgid ""
-"Your project’s expiry date now clearly shows the remaining days, helping you "
-"keep track of your deadlines more effectively."
-msgstr ""
-"Жобаңыздың мерзімі енді қалған күндерді айқын көрсетеді, мерзімдерді "
-"тиімдірек бақылауға көмектеседі."
-
-#: src/Dialogs/WhatsNew.vala:118
-msgid "Archiving of Projects and Sections"
-msgstr "Жобалар мен бөлімдерді мұрағаттау"
-
-#: src/Dialogs/WhatsNew.vala:118
-msgid ""
-"You can now archive entire projects and sections! This feature helps you "
-"keep your workspace organized and clutter-free."
-msgstr ""
-"Енді бүкіл жобалар мен бөлімдерді мұрағаттай аласыз! Бұл мүмкіндік жұмыс "
-"кеңістігін ұйымдастырып, тәртіпті ұстауға көмектеседі."
-
 #: src/Layouts/HeaderBar.vala:79
 msgid "Open/Close Sidebar"
 msgstr "Бүйір тақтаны ашу/жабу"
@@ -2625,19 +2557,19 @@ msgstr "Таңдаулылар"
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "Таңдаулылар жоқ. '+' түймесін басу арқылы жасаңыз"
 
-#: src/Layouts/Sidebar.vala:268 src/Layouts/Sidebar.vala:320
+#: src/Layouts/Sidebar.vala:209 src/Layouts/Sidebar.vala:261
 msgid "Go to Today"
 msgstr "Бүгінге өту"
 
-#: src/Layouts/Sidebar.vala:272 src/Layouts/Sidebar.vala:324
+#: src/Layouts/Sidebar.vala:213 src/Layouts/Sidebar.vala:265
 msgid "Go to Scheduled"
 msgstr "Жоспарланғанға өту"
 
-#: src/Layouts/Sidebar.vala:276 src/Layouts/Sidebar.vala:328
+#: src/Layouts/Sidebar.vala:217 src/Layouts/Sidebar.vala:269
 msgid "Go to Labels"
 msgstr "Белгілерге өту"
 
-#: src/Layouts/Sidebar.vala:280 src/Layouts/Sidebar.vala:332
+#: src/Layouts/Sidebar.vala:221 src/Layouts/Sidebar.vala:273
 msgid "Go to Pinboard"
 msgstr "Жапсырма тақтасына өту"
 
@@ -2654,34 +2586,30 @@ msgid "Open Quick Find"
 msgstr "Жылдам іздеуді ашу"
 
 #: src/MainWindow.vala:635
-msgid "What's New"
-msgstr "Жаңалықтар"
-
-#: src/MainWindow.vala:638
 msgid "About Planify"
 msgstr "Planify туралы"
 
-#: src/MainWindow.vala:704
+#: src/MainWindow.vala:695
 msgid "Oops! Something happened"
 msgstr "Кешіріңіз! Бірдеңе болды"
 
-#: src/MainWindow.vala:707
+#: src/MainWindow.vala:698
 msgid "See More"
 msgstr "Толығырақ көру"
 
-#: src/MainWindow.vala:723 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:714 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Тапсырма аяқталды"
 
-#: src/MainWindow.vala:724
+#: src/MainWindow.vala:715
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:762
+#: src/MainWindow.vala:753
 msgid "Database Integrity Check Failed"
 msgstr "Дерекқор тұтастығын тексеру сәтсіз болды"
 
-#: src/MainWindow.vala:763
+#: src/MainWindow.vala:754
 #, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
@@ -2702,7 +2630,7 @@ msgstr ""
 "кейін бұрын жасаған кез келген сақтық көшірмені қалпына келтіре аласыз. "
 "Шыдамдылығыңыз үшін рахмет"
 
-#: src/MainWindow.vala:765
+#: src/MainWindow.vala:756
 msgid "Reset Database"
 msgstr "Дерекқорды қалпына келтіру"
 
@@ -3155,6 +3083,66 @@ msgstr "Белгілерді ашу"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Жапсырма тақтасын ашу"
+
+#, fuzzy
+#~ msgid "What’s new in Planify"
+#~ msgstr "Planify-дағы жаңалықтар"
+
+#~ msgid "Inbox as Independent Project"
+#~ msgstr "Кіріс жәшігі дербес жоба ретінде"
+
+#, fuzzy
+#~ msgid ""
+#~ "The Inbox is the default place to add new tasks, allowing you to quickly "
+#~ "get your ideas out of your head and then plan them when you’re ready."
+#~ msgstr ""
+#~ "Кіріс жәшігі жаңа тапсырмалар қосатын әдепкі орын болып табылады, "
+#~ "идеяларыңызды тез ойыңыздан шығарып, дайын болғанда оларды жоспарлауға "
+#~ "мүмкіндік береді."
+
+#~ msgid "Enhanced Task Duplication"
+#~ msgstr "Жақсартылған тапсырма көшіру"
+
+#~ msgid ""
+#~ "When you duplicate a task now, all subtasks and labels are automatically "
+#~ "duplicated, saving you time and effort in managing your projects."
+#~ msgstr ""
+#~ "Тапсырманы көшіргенде барлық қосымша тапсырмалар мен белгілер автоматты "
+#~ "түрде көшіріледі, жобаларды басқарудағы уақыт пен күш-жігерді үнемдейді."
+
+#~ msgid "Duplication of Sections and Projects"
+#~ msgstr "Бөлімдер мен жобаларды көшіру"
+
+#~ msgid ""
+#~ "You can now easily duplicate entire sections and projects, making it "
+#~ "easier to create new projects based on existing structures."
+#~ msgstr ""
+#~ "Енді бүкіл бөлімдер мен жобаларды оңай көшіре аласыз, бұл бар құрылымдар "
+#~ "негізінде жаңа жобалар жасауды жеңілдетеді."
+
+#~ msgid "Project Expiry Date"
+#~ msgstr "Жоба мерзімі"
+
+#, fuzzy
+#~ msgid ""
+#~ "Your project’s expiry date now clearly shows the remaining days, helping "
+#~ "you keep track of your deadlines more effectively."
+#~ msgstr ""
+#~ "Жобаңыздың мерзімі енді қалған күндерді айқын көрсетеді, мерзімдерді "
+#~ "тиімдірек бақылауға көмектеседі."
+
+#~ msgid "Archiving of Projects and Sections"
+#~ msgstr "Жобалар мен бөлімдерді мұрағаттау"
+
+#~ msgid ""
+#~ "You can now archive entire projects and sections! This feature helps you "
+#~ "keep your workspace organized and clutter-free."
+#~ msgstr ""
+#~ "Енді бүкіл жобалар мен бөлімдерді мұрағаттай аласыз! Бұл мүмкіндік жұмыс "
+#~ "кеңістігін ұйымдастырып, тәртіпті ұстауға көмектеседі."
+
+#~ msgid "What's New"
+#~ msgstr "Жаңалықтар"
 
 #~ msgid "Are you sure you want to reset all? (y/n): "
 #~ msgstr "Барлығын қалпына келтіруді шынымен қалайсыз ба? (y/n): "

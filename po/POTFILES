@@ -124,7 +124,6 @@ src/Dialogs/QuickFind/QuickFind.vala
 src/Dialogs/QuickFind/QuickFindItem.vala
 src/Dialogs/QuickFind/Synapse.vala
 src/Dialogs/Section.vala
-src/Dialogs/WhatsNew.vala
 src/Layouts/FilterPaneChild.vala
 src/Layouts/FilterPaneRow.vala
 src/Layouts/HeaderBar.vala

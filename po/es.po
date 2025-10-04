@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-04 11:08+0000\n"
+"POT-Creation-Date: 2025-10-04 20:37+0000\n"
 "PO-Revision-Date: 2025-10-03 10:10+0000\n"
 "Last-Translator: Alain <alainmh23@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/io-"
@@ -1506,7 +1506,7 @@ msgstr "Actualizar etiqueta"
 msgid "Filter"
 msgstr "Filtro"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:640
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:637
 msgid "Archived Projects"
 msgstr "Proyectos archivados"
 
@@ -2410,71 +2410,6 @@ msgstr "Actualizar sección"
 msgid "Section added"
 msgstr "Nombre de la sección"
 
-#: src/Dialogs/WhatsNew.vala:47 src/Layouts/Sidebar.vala:52
-msgid "What’s new in Planify"
-msgstr "Novedades de Planify"
-
-#: src/Dialogs/WhatsNew.vala:114
-msgid "Inbox as Independent Project"
-msgstr "Bandeja de entrada como proyecto independiente"
-
-#: src/Dialogs/WhatsNew.vala:114
-msgid ""
-"The Inbox is the default place to add new tasks, allowing you to quickly get "
-"your ideas out of your head and then plan them when you’re ready."
-msgstr ""
-"La Bandeja de entrada es el lugar predeterminado para añadir nuevas tareas, "
-"lo que te permite sacar rápidamente tus ideas de la cabeza y planificarlas "
-"cuando estés listo."
-
-#: src/Dialogs/WhatsNew.vala:115
-msgid "Enhanced Task Duplication"
-msgstr "Duplicación de tareas mejorada"
-
-#: src/Dialogs/WhatsNew.vala:115
-msgid ""
-"When you duplicate a task now, all subtasks and labels are automatically "
-"duplicated, saving you time and effort in managing your projects."
-msgstr ""
-"Ahora, al duplicar una tarea, todas las subtareas y etiquetas se copian "
-"automáticamente, ahorrándote tiempo y esfuerzo al gestionar tus proyectos."
-
-#: src/Dialogs/WhatsNew.vala:116
-msgid "Duplication of Sections and Projects"
-msgstr "Duplicación de secciones y proyectos"
-
-#: src/Dialogs/WhatsNew.vala:116
-msgid ""
-"You can now easily duplicate entire sections and projects, making it easier "
-"to create new projects based on existing structures."
-msgstr ""
-"Ahora puedes duplicar fácilmente secciones y proyectos completos, lo que "
-"facilita crear nuevos proyectos basados en estructuras ya existentes."
-
-#: src/Dialogs/WhatsNew.vala:117
-msgid "Project Expiry Date"
-msgstr "Fecha de vencimiento del proyecto"
-
-#: src/Dialogs/WhatsNew.vala:117
-msgid ""
-"Your project’s expiry date now clearly shows the remaining days, helping you "
-"keep track of your deadlines more effectively."
-msgstr ""
-"La fecha de vencimiento de tu proyecto ahora muestra claramente los días "
-"restantes, lo que te ayuda a controlar mejor tus plazos."
-
-#: src/Dialogs/WhatsNew.vala:118
-msgid "Archiving of Projects and Sections"
-msgstr "Archivado de proyectos y secciones"
-
-#: src/Dialogs/WhatsNew.vala:118
-msgid ""
-"You can now archive entire projects and sections! This feature helps you "
-"keep your workspace organized and clutter-free."
-msgstr ""
-"¡Ahora puedes archivar proyectos y secciones completas! Esta función te "
-"ayuda a mantener tu espacio de trabajo organizado y libre de desorden."
-
 #: src/Layouts/HeaderBar.vala:79
 msgid "Open/Close Sidebar"
 msgstr "Abrir/Cerrar barra lateral"
@@ -2629,19 +2564,19 @@ msgstr "Favoritos"
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "No hay favoritos disponibles. Cree uno haciendo clic en el botón '+'"
 
-#: src/Layouts/Sidebar.vala:268 src/Layouts/Sidebar.vala:320
+#: src/Layouts/Sidebar.vala:209 src/Layouts/Sidebar.vala:261
 msgid "Go to Today"
 msgstr "Ir a Hoy"
 
-#: src/Layouts/Sidebar.vala:272 src/Layouts/Sidebar.vala:324
+#: src/Layouts/Sidebar.vala:213 src/Layouts/Sidebar.vala:265
 msgid "Go to Scheduled"
 msgstr "Ir a Planificado"
 
-#: src/Layouts/Sidebar.vala:276 src/Layouts/Sidebar.vala:328
+#: src/Layouts/Sidebar.vala:217 src/Layouts/Sidebar.vala:269
 msgid "Go to Labels"
 msgstr "Ir a Etiquetas"
 
-#: src/Layouts/Sidebar.vala:280 src/Layouts/Sidebar.vala:332
+#: src/Layouts/Sidebar.vala:221 src/Layouts/Sidebar.vala:273
 msgid "Go to Pinboard"
 msgstr "Ir a Importantes"
 
@@ -2658,34 +2593,30 @@ msgid "Open Quick Find"
 msgstr "Abrir búsqueda rápida"
 
 #: src/MainWindow.vala:635
-msgid "What's New"
-msgstr "Novedades"
-
-#: src/MainWindow.vala:638
 msgid "About Planify"
 msgstr "Acerca de Planify"
 
-#: src/MainWindow.vala:704
+#: src/MainWindow.vala:695
 msgid "Oops! Something happened"
 msgstr "¡Ups! Algo ha ocurrido"
 
-#: src/MainWindow.vala:707
+#: src/MainWindow.vala:698
 msgid "See More"
 msgstr "Ver más"
 
-#: src/MainWindow.vala:723 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:714 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Tarea completada"
 
-#: src/MainWindow.vala:724
+#: src/MainWindow.vala:715
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:762
+#: src/MainWindow.vala:753
 msgid "Database Integrity Check Failed"
 msgstr "Falló la verificación de integridad de la base de datos"
 
-#: src/MainWindow.vala:763
+#: src/MainWindow.vala:754
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2708,7 +2639,7 @@ msgstr ""
 "Después del reinicio, podrá restaurar cualquier copia de seguridad que haya "
 "creado previamente. Gracias por su paciencia"
 
-#: src/MainWindow.vala:765
+#: src/MainWindow.vala:756
 msgid "Reset Database"
 msgstr "Reiniciar base de datos"
 
@@ -3166,6 +3097,63 @@ msgstr "Abrir etiquetas"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Abrir Importantes"
+
+#~ msgid "What’s new in Planify"
+#~ msgstr "Novedades de Planify"
+
+#~ msgid "Inbox as Independent Project"
+#~ msgstr "Bandeja de entrada como proyecto independiente"
+
+#~ msgid ""
+#~ "The Inbox is the default place to add new tasks, allowing you to quickly "
+#~ "get your ideas out of your head and then plan them when you’re ready."
+#~ msgstr ""
+#~ "La Bandeja de entrada es el lugar predeterminado para añadir nuevas "
+#~ "tareas, lo que te permite sacar rápidamente tus ideas de la cabeza y "
+#~ "planificarlas cuando estés listo."
+
+#~ msgid "Enhanced Task Duplication"
+#~ msgstr "Duplicación de tareas mejorada"
+
+#~ msgid ""
+#~ "When you duplicate a task now, all subtasks and labels are automatically "
+#~ "duplicated, saving you time and effort in managing your projects."
+#~ msgstr ""
+#~ "Ahora, al duplicar una tarea, todas las subtareas y etiquetas se copian "
+#~ "automáticamente, ahorrándote tiempo y esfuerzo al gestionar tus proyectos."
+
+#~ msgid "Duplication of Sections and Projects"
+#~ msgstr "Duplicación de secciones y proyectos"
+
+#~ msgid ""
+#~ "You can now easily duplicate entire sections and projects, making it "
+#~ "easier to create new projects based on existing structures."
+#~ msgstr ""
+#~ "Ahora puedes duplicar fácilmente secciones y proyectos completos, lo que "
+#~ "facilita crear nuevos proyectos basados en estructuras ya existentes."
+
+#~ msgid "Project Expiry Date"
+#~ msgstr "Fecha de vencimiento del proyecto"
+
+#~ msgid ""
+#~ "Your project’s expiry date now clearly shows the remaining days, helping "
+#~ "you keep track of your deadlines more effectively."
+#~ msgstr ""
+#~ "La fecha de vencimiento de tu proyecto ahora muestra claramente los días "
+#~ "restantes, lo que te ayuda a controlar mejor tus plazos."
+
+#~ msgid "Archiving of Projects and Sections"
+#~ msgstr "Archivado de proyectos y secciones"
+
+#~ msgid ""
+#~ "You can now archive entire projects and sections! This feature helps you "
+#~ "keep your workspace organized and clutter-free."
+#~ msgstr ""
+#~ "¡Ahora puedes archivar proyectos y secciones completas! Esta función te "
+#~ "ayuda a mantener tu espacio de trabajo organizado y libre de desorden."
+
+#~ msgid "What's New"
+#~ msgstr "Novedades"
 
 #~ msgid "Are you sure you want to reset all? (y/n): "
 #~ msgstr "¿Está seguro de que quiere reiniciar todo? (s/n): "

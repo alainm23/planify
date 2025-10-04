@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-04 11:08+0000\n"
+"POT-Creation-Date: 2025-10-04 20:37+0000\n"
 "PO-Revision-Date: 2024-08-03 00:05+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -1520,7 +1520,7 @@ msgstr "लेबल अद्यतन"
 msgid "Filter"
 msgstr "फिल्टर"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:640
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:637
 msgid "Archived Projects"
 msgstr "संग्रहीत परियोजनाएं"
 
@@ -2410,71 +2410,6 @@ msgstr "अनुभाग अद्यतन"
 msgid "Section added"
 msgstr "अनुभाग नाम"
 
-#: src/Dialogs/WhatsNew.vala:47 src/Layouts/Sidebar.vala:52
-msgid "What’s new in Planify"
-msgstr "प्लॅानिफाई में नया क्या है"
-
-#: src/Dialogs/WhatsNew.vala:114
-msgid "Inbox as Independent Project"
-msgstr "स्वतंत्र परियोजना के रूप में इनबॉक्स"
-
-#: src/Dialogs/WhatsNew.vala:114
-msgid ""
-"The Inbox is the default place to add new tasks, allowing you to quickly get "
-"your ideas out of your head and then plan them when you’re ready."
-msgstr ""
-"इनबॉक्स नए कार्यों को जोड़ने के लिए तयशुदा स्थान है, जिससे आप अपने विचारों को तुरंत अपने "
-"दिमाग से निकाल सकते हैं और जब आप तैयार हों तो उनकी योजना बना सकते हैं।"
-
-#: src/Dialogs/WhatsNew.vala:115
-msgid "Enhanced Task Duplication"
-msgstr "संवर्धित कार्य प्रतिरूपण"
-
-#: src/Dialogs/WhatsNew.vala:115
-msgid ""
-"When you duplicate a task now, all subtasks and labels are automatically "
-"duplicated, saving you time and effort in managing your projects."
-msgstr ""
-"जब आप अब किसी कार्य को प्रतिरूपित करते हैं, तो सभी उप-कार्य और लेबल स्वचालित रूप से "
-"प्रतिरूपित हो जाते हैं, जिससे आपकी परियोजनाओं को प्रबंधित करने में आपका समय और प्रयास "
-"बचता है।"
-
-#: src/Dialogs/WhatsNew.vala:116
-msgid "Duplication of Sections and Projects"
-msgstr "अनुभागों और परियोजनाओं का प्रतिरूपण"
-
-#: src/Dialogs/WhatsNew.vala:116
-msgid ""
-"You can now easily duplicate entire sections and projects, making it easier "
-"to create new projects based on existing structures."
-msgstr ""
-"अब आप आसानी से संपूर्ण अनुभागों और परियोजनाओं का प्रतिरूप बना सकते हैं, जिससे मौजूदा "
-"संरचनाओं के आधार पर नई परियोजनाएं बनाना आसान हो जाएगा।"
-
-#: src/Dialogs/WhatsNew.vala:117
-msgid "Project Expiry Date"
-msgstr "परियोजना समाप्ति तारीख"
-
-#: src/Dialogs/WhatsNew.vala:117
-msgid ""
-"Your project’s expiry date now clearly shows the remaining days, helping you "
-"keep track of your deadlines more effectively."
-msgstr ""
-"अपनी परियोजना की समाप्ति तारीख अब शेष दिनों को स्पष्ट रूप से दिखाती है, जिससे आपको "
-"अपनी समय-सीमाओं पर अधिक प्रभावी ढंग से नज़र रखने में मदद मिलती है।"
-
-#: src/Dialogs/WhatsNew.vala:118
-msgid "Archiving of Projects and Sections"
-msgstr "परियोजनाओं और अनुभागों का संग्रहण"
-
-#: src/Dialogs/WhatsNew.vala:118
-msgid ""
-"You can now archive entire projects and sections! This feature helps you "
-"keep your workspace organized and clutter-free."
-msgstr ""
-"अब आप संपूर्ण परियोजनाओं और अनुभागों को संग्रहीत कर सकते हैं! यह सुविधा आपके कार्यक्षेत्र को "
-"व्यवस्थित और अव्यवस्था-मुक्त रखने में आपकी सहायता करती है।"
-
 #: src/Layouts/HeaderBar.vala:79
 msgid "Open/Close Sidebar"
 msgstr "पार्श्वपट्टी खोलें/बंद करें"
@@ -2631,19 +2566,19 @@ msgstr "पसंदीदा"
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "कोई पसंदीदा उपलब्ध नहीं है। '+' बटन पर क्लिक करके एक बनाएं"
 
-#: src/Layouts/Sidebar.vala:268 src/Layouts/Sidebar.vala:320
+#: src/Layouts/Sidebar.vala:209 src/Layouts/Sidebar.vala:261
 msgid "Go to Today"
 msgstr "आज पर जाएं"
 
-#: src/Layouts/Sidebar.vala:272 src/Layouts/Sidebar.vala:324
+#: src/Layouts/Sidebar.vala:213 src/Layouts/Sidebar.vala:265
 msgid "Go to Scheduled"
 msgstr "अनुसूचित पर जाएं"
 
-#: src/Layouts/Sidebar.vala:276 src/Layouts/Sidebar.vala:328
+#: src/Layouts/Sidebar.vala:217 src/Layouts/Sidebar.vala:269
 msgid "Go to Labels"
 msgstr "लेबल पर जाएं"
 
-#: src/Layouts/Sidebar.vala:280 src/Layouts/Sidebar.vala:332
+#: src/Layouts/Sidebar.vala:221 src/Layouts/Sidebar.vala:273
 msgid "Go to Pinboard"
 msgstr "पिनबोर्ड पर जाएं"
 
@@ -2660,35 +2595,31 @@ msgid "Open Quick Find"
 msgstr "शीघ्र खोज खोलें"
 
 #: src/MainWindow.vala:635
-msgid "What's New"
-msgstr "नया क्या है"
-
-#: src/MainWindow.vala:638
 msgid "About Planify"
 msgstr "प्लॅानिफाई के बारे में"
 
-#: src/MainWindow.vala:704
+#: src/MainWindow.vala:695
 msgid "Oops! Something happened"
 msgstr "उफ़! कुछ हुआ"
 
-#: src/MainWindow.vala:707
+#: src/MainWindow.vala:698
 msgid "See More"
 msgstr "और बनाएं"
 
-#: src/MainWindow.vala:723 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:714 src/Widgets/ItemChangeHistoryRow.vala:48
 #, fuzzy
 msgid "Task completed"
 msgstr "पूर्ण"
 
-#: src/MainWindow.vala:724
+#: src/MainWindow.vala:715
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:762
+#: src/MainWindow.vala:753
 msgid "Database Integrity Check Failed"
 msgstr ""
 
-#: src/MainWindow.vala:763
+#: src/MainWindow.vala:754
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2701,7 +2632,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:765
+#: src/MainWindow.vala:756
 msgid "Reset Database"
 msgstr ""
 
@@ -3162,6 +3093,63 @@ msgstr "लेबल खोलें"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "पिनबोर्ड खोलें"
+
+#~ msgid "What’s new in Planify"
+#~ msgstr "प्लॅानिफाई में नया क्या है"
+
+#~ msgid "Inbox as Independent Project"
+#~ msgstr "स्वतंत्र परियोजना के रूप में इनबॉक्स"
+
+#~ msgid ""
+#~ "The Inbox is the default place to add new tasks, allowing you to quickly "
+#~ "get your ideas out of your head and then plan them when you’re ready."
+#~ msgstr ""
+#~ "इनबॉक्स नए कार्यों को जोड़ने के लिए तयशुदा स्थान है, जिससे आप अपने विचारों को तुरंत अपने "
+#~ "दिमाग से निकाल सकते हैं और जब आप तैयार हों तो उनकी योजना बना सकते हैं।"
+
+#~ msgid "Enhanced Task Duplication"
+#~ msgstr "संवर्धित कार्य प्रतिरूपण"
+
+#~ msgid ""
+#~ "When you duplicate a task now, all subtasks and labels are automatically "
+#~ "duplicated, saving you time and effort in managing your projects."
+#~ msgstr ""
+#~ "जब आप अब किसी कार्य को प्रतिरूपित करते हैं, तो सभी उप-कार्य और लेबल स्वचालित रूप से "
+#~ "प्रतिरूपित हो जाते हैं, जिससे आपकी परियोजनाओं को प्रबंधित करने में आपका समय और प्रयास "
+#~ "बचता है।"
+
+#~ msgid "Duplication of Sections and Projects"
+#~ msgstr "अनुभागों और परियोजनाओं का प्रतिरूपण"
+
+#~ msgid ""
+#~ "You can now easily duplicate entire sections and projects, making it "
+#~ "easier to create new projects based on existing structures."
+#~ msgstr ""
+#~ "अब आप आसानी से संपूर्ण अनुभागों और परियोजनाओं का प्रतिरूप बना सकते हैं, जिससे मौजूदा "
+#~ "संरचनाओं के आधार पर नई परियोजनाएं बनाना आसान हो जाएगा।"
+
+#~ msgid "Project Expiry Date"
+#~ msgstr "परियोजना समाप्ति तारीख"
+
+#~ msgid ""
+#~ "Your project’s expiry date now clearly shows the remaining days, helping "
+#~ "you keep track of your deadlines more effectively."
+#~ msgstr ""
+#~ "अपनी परियोजना की समाप्ति तारीख अब शेष दिनों को स्पष्ट रूप से दिखाती है, जिससे आपको "
+#~ "अपनी समय-सीमाओं पर अधिक प्रभावी ढंग से नज़र रखने में मदद मिलती है।"
+
+#~ msgid "Archiving of Projects and Sections"
+#~ msgstr "परियोजनाओं और अनुभागों का संग्रहण"
+
+#~ msgid ""
+#~ "You can now archive entire projects and sections! This feature helps you "
+#~ "keep your workspace organized and clutter-free."
+#~ msgstr ""
+#~ "अब आप संपूर्ण परियोजनाओं और अनुभागों को संग्रहीत कर सकते हैं! यह सुविधा आपके कार्यक्षेत्र "
+#~ "को व्यवस्थित और अव्यवस्था-मुक्त रखने में आपकी सहायता करती है।"
+
+#~ msgid "What's New"
+#~ msgstr "नया क्या है"
 
 #~ msgid "Are you sure you want to reset all? (y/n): "
 #~ msgstr "क्या आप सभी को वाकई रीसेट करना चाहते हैं? (y/n): "

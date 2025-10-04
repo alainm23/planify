@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-04 11:08+0000\n"
+"POT-Creation-Date: 2025-10-04 20:37+0000\n"
 "PO-Revision-Date: 2025-02-26 17:29+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: \n"
@@ -1478,7 +1478,7 @@ msgstr "ჭდის განახლება"
 msgid "Filter"
 msgstr "ფილტრი"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:640
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:637
 msgid "Archived Projects"
 msgstr "დაარქივებული პროექტები"
 
@@ -2349,60 +2349,6 @@ msgstr "სექციის განახლება"
 msgid "Section added"
 msgstr "სექციის სახელი"
 
-#: src/Dialogs/WhatsNew.vala:47 src/Layouts/Sidebar.vala:52
-msgid "What’s new in Planify"
-msgstr "რა არის ახალი Planify-ში"
-
-#: src/Dialogs/WhatsNew.vala:114
-msgid "Inbox as Independent Project"
-msgstr "საფოსტო ყუთი დამოუკიდებელი პროექტის სახით"
-
-#: src/Dialogs/WhatsNew.vala:114
-msgid ""
-"The Inbox is the default place to add new tasks, allowing you to quickly get "
-"your ideas out of your head and then plan them when you’re ready."
-msgstr ""
-
-#: src/Dialogs/WhatsNew.vala:115
-msgid "Enhanced Task Duplication"
-msgstr "გაუმჯობესებული ამოცანების დუბლირება"
-
-#: src/Dialogs/WhatsNew.vala:115
-msgid ""
-"When you duplicate a task now, all subtasks and labels are automatically "
-"duplicated, saving you time and effort in managing your projects."
-msgstr ""
-
-#: src/Dialogs/WhatsNew.vala:116
-msgid "Duplication of Sections and Projects"
-msgstr "სექციების და პროექტის დუბლირება"
-
-#: src/Dialogs/WhatsNew.vala:116
-msgid ""
-"You can now easily duplicate entire sections and projects, making it easier "
-"to create new projects based on existing structures."
-msgstr ""
-
-#: src/Dialogs/WhatsNew.vala:117
-msgid "Project Expiry Date"
-msgstr "პროექტის ვადი ამოწურვის თარიღი"
-
-#: src/Dialogs/WhatsNew.vala:117
-msgid ""
-"Your project’s expiry date now clearly shows the remaining days, helping you "
-"keep track of your deadlines more effectively."
-msgstr ""
-
-#: src/Dialogs/WhatsNew.vala:118
-msgid "Archiving of Projects and Sections"
-msgstr "პროექტების და სექციების დაარქივება"
-
-#: src/Dialogs/WhatsNew.vala:118
-msgid ""
-"You can now archive entire projects and sections! This feature helps you "
-"keep your workspace organized and clutter-free."
-msgstr ""
-
 #: src/Layouts/HeaderBar.vala:79
 msgid "Open/Close Sidebar"
 msgstr "გვერდითი პანელის გახსნა/დახურვა"
@@ -2555,19 +2501,19 @@ msgstr "სანიშნეები"
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "სანიშნეები ხელმისაწვდომი არაა. შექმენით ის '+' ღილაკზე დაწკაპუნებით"
 
-#: src/Layouts/Sidebar.vala:268 src/Layouts/Sidebar.vala:320
+#: src/Layouts/Sidebar.vala:209 src/Layouts/Sidebar.vala:261
 msgid "Go to Today"
 msgstr "დღევანდელზე გადასვლა"
 
-#: src/Layouts/Sidebar.vala:272 src/Layouts/Sidebar.vala:324
+#: src/Layouts/Sidebar.vala:213 src/Layouts/Sidebar.vala:265
 msgid "Go to Scheduled"
 msgstr "გეგმებზე გადასვლა"
 
-#: src/Layouts/Sidebar.vala:276 src/Layouts/Sidebar.vala:328
+#: src/Layouts/Sidebar.vala:217 src/Layouts/Sidebar.vala:269
 msgid "Go to Labels"
 msgstr "ჭდეებზე გადასვლა"
 
-#: src/Layouts/Sidebar.vala:280 src/Layouts/Sidebar.vala:332
+#: src/Layouts/Sidebar.vala:221 src/Layouts/Sidebar.vala:273
 msgid "Go to Pinboard"
 msgstr "დაფაზე გადასვლა"
 
@@ -2584,34 +2530,30 @@ msgid "Open Quick Find"
 msgstr "სწრაფი ძებნის გახსნა"
 
 #: src/MainWindow.vala:635
-msgid "What's New"
-msgstr "რა არის ახალი"
-
-#: src/MainWindow.vala:638
 msgid "About Planify"
 msgstr "Planify-ის შესახებ"
 
-#: src/MainWindow.vala:704
+#: src/MainWindow.vala:695
 msgid "Oops! Something happened"
 msgstr "ვაი! რაღაც მოხდა"
 
-#: src/MainWindow.vala:707
+#: src/MainWindow.vala:698
 msgid "See More"
 msgstr "იხილეთ მეტი"
 
-#: src/MainWindow.vala:723 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:714 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "ამოცანა დასრულდა"
 
-#: src/MainWindow.vala:724
+#: src/MainWindow.vala:715
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:762
+#: src/MainWindow.vala:753
 msgid "Database Integrity Check Failed"
 msgstr "მონაცემთა ბაზის მთლიანობის შემოწმება ჩავარდა"
 
-#: src/MainWindow.vala:763
+#: src/MainWindow.vala:754
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2624,7 +2566,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:765
+#: src/MainWindow.vala:756
 msgid "Reset Database"
 msgstr "მონაცემთა ბაზის ჩამოყრა"
 
@@ -3073,6 +3015,27 @@ msgstr "ჭდეების გახან"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "დაფის გახსნა"
+
+#~ msgid "What’s new in Planify"
+#~ msgstr "რა არის ახალი Planify-ში"
+
+#~ msgid "Inbox as Independent Project"
+#~ msgstr "საფოსტო ყუთი დამოუკიდებელი პროექტის სახით"
+
+#~ msgid "Enhanced Task Duplication"
+#~ msgstr "გაუმჯობესებული ამოცანების დუბლირება"
+
+#~ msgid "Duplication of Sections and Projects"
+#~ msgstr "სექციების და პროექტის დუბლირება"
+
+#~ msgid "Project Expiry Date"
+#~ msgstr "პროექტის ვადი ამოწურვის თარიღი"
+
+#~ msgid "Archiving of Projects and Sections"
+#~ msgstr "პროექტების და სექციების დაარქივება"
+
+#~ msgid "What's New"
+#~ msgstr "რა არის ახალი"
 
 #~ msgid "Are you sure you want to reset all? (y/n): "
 #~ msgstr "მართლა გნებავთ ყველაფრის ჩამოყრა? (y/n): "

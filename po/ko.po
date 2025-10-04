@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-04 11:08+0000\n"
+"POT-Creation-Date: 2025-10-04 20:37+0000\n"
 "PO-Revision-Date: 2024-06-24 02:42+0900\n"
 "Last-Translator: Wonje Jung <myunsyeya@ajou.ac.kr>\n"
 "Language-Team: \n"
@@ -1522,7 +1522,7 @@ msgstr "라벨 업데이트"
 msgid "Filter"
 msgstr "필터"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:640
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:637
 msgid "Archived Projects"
 msgstr "보관된 프로젝트"
 
@@ -2410,70 +2410,6 @@ msgstr "섹션 업데이트"
 msgid "Section added"
 msgstr "섹션 이름"
 
-#: src/Dialogs/WhatsNew.vala:47 src/Layouts/Sidebar.vala:52
-msgid "What’s new in Planify"
-msgstr "Planify의 새로운 기능"
-
-#: src/Dialogs/WhatsNew.vala:114
-msgid "Inbox as Independent Project"
-msgstr "독립 프로젝트로서의 수신함"
-
-#: src/Dialogs/WhatsNew.vala:114
-msgid ""
-"The Inbox is the default place to add new tasks, allowing you to quickly get "
-"your ideas out of your head and then plan them when you’re ready."
-msgstr ""
-"수신함은 새 작업을 추가하는 기본 위치로, 빠르게 아이디어를 기록하고 준비가 되"
-"면 계획할 수 있습니다."
-
-#: src/Dialogs/WhatsNew.vala:115
-msgid "Enhanced Task Duplication"
-msgstr "향상된 작업 복제"
-
-#: src/Dialogs/WhatsNew.vala:115
-msgid ""
-"When you duplicate a task now, all subtasks and labels are automatically "
-"duplicated, saving you time and effort in managing your projects."
-msgstr ""
-"이제 작업을 복제할 때 모든 하위 작업과 라벨이 자동으로 복제되어 프로젝트 관"
-"리 시 시간과 노력을 절약할 수 있습니다."
-
-#: src/Dialogs/WhatsNew.vala:116
-msgid "Duplication of Sections and Projects"
-msgstr "섹션 및 프로젝트 복제"
-
-#: src/Dialogs/WhatsNew.vala:116
-msgid ""
-"You can now easily duplicate entire sections and projects, making it easier "
-"to create new projects based on existing structures."
-msgstr ""
-"이제 전체 섹션 및 프로젝트를 쉽게 복제할 수 있어 기존 구조를 기반으로 새 프로"
-"젝트를 만들기 더 쉬워졌습니다."
-
-#: src/Dialogs/WhatsNew.vala:117
-msgid "Project Expiry Date"
-msgstr "프로젝트 만료 날짜"
-
-#: src/Dialogs/WhatsNew.vala:117
-msgid ""
-"Your project’s expiry date now clearly shows the remaining days, helping you "
-"keep track of your deadlines more effectively."
-msgstr ""
-"프로젝트의 만료 날짜가 이제 남은 일수를 명확히 표시하여 기한을 더 효과적으로 "
-"관리할 수 있습니다."
-
-#: src/Dialogs/WhatsNew.vala:118
-msgid "Archiving of Projects and Sections"
-msgstr "프로젝트 및 섹션 보관"
-
-#: src/Dialogs/WhatsNew.vala:118
-msgid ""
-"You can now archive entire projects and sections! This feature helps you "
-"keep your workspace organized and clutter-free."
-msgstr ""
-"이제 전체 프로젝트와 섹션을 보관할 수 있습니다! 이 기능은 작업 공간을 정리되"
-"고 깔끔하게 유지하는 데 도움이 됩니다."
-
 #: src/Layouts/HeaderBar.vala:79
 msgid "Open/Close Sidebar"
 msgstr "사이드바 열기/닫기"
@@ -2630,19 +2566,19 @@ msgstr "즐겨찾기"
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "즐겨찾기가 없습니다. '+' 버튼을 클릭하여 하나 만들어 보세요"
 
-#: src/Layouts/Sidebar.vala:268 src/Layouts/Sidebar.vala:320
+#: src/Layouts/Sidebar.vala:209 src/Layouts/Sidebar.vala:261
 msgid "Go to Today"
 msgstr "오늘로 이동"
 
-#: src/Layouts/Sidebar.vala:272 src/Layouts/Sidebar.vala:324
+#: src/Layouts/Sidebar.vala:213 src/Layouts/Sidebar.vala:265
 msgid "Go to Scheduled"
 msgstr "일정으로 이동"
 
-#: src/Layouts/Sidebar.vala:276 src/Layouts/Sidebar.vala:328
+#: src/Layouts/Sidebar.vala:217 src/Layouts/Sidebar.vala:269
 msgid "Go to Labels"
 msgstr "라벨로 이동"
 
-#: src/Layouts/Sidebar.vala:280 src/Layouts/Sidebar.vala:332
+#: src/Layouts/Sidebar.vala:221 src/Layouts/Sidebar.vala:273
 msgid "Go to Pinboard"
 msgstr "게시판으로 이동"
 
@@ -2660,35 +2596,31 @@ msgid "Open Quick Find"
 msgstr "빠른 검색 열기"
 
 #: src/MainWindow.vala:635
-msgid "What's New"
-msgstr "새로운 기능"
-
-#: src/MainWindow.vala:638
 msgid "About Planify"
 msgstr "Planify 정보"
 
-#: src/MainWindow.vala:704
+#: src/MainWindow.vala:695
 msgid "Oops! Something happened"
 msgstr ""
 
-#: src/MainWindow.vala:707
+#: src/MainWindow.vala:698
 msgid "See More"
 msgstr "추가 생성"
 
-#: src/MainWindow.vala:723 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:714 src/Widgets/ItemChangeHistoryRow.vala:48
 #, fuzzy
 msgid "Task completed"
 msgstr "완료됨"
 
-#: src/MainWindow.vala:724
+#: src/MainWindow.vala:715
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:762
+#: src/MainWindow.vala:753
 msgid "Database Integrity Check Failed"
 msgstr ""
 
-#: src/MainWindow.vala:763
+#: src/MainWindow.vala:754
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2701,7 +2633,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:765
+#: src/MainWindow.vala:756
 msgid "Reset Database"
 msgstr ""
 
@@ -3162,6 +3094,62 @@ msgstr "라벨 열기"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "게시판 열기"
+
+#~ msgid "What’s new in Planify"
+#~ msgstr "Planify의 새로운 기능"
+
+#~ msgid "Inbox as Independent Project"
+#~ msgstr "독립 프로젝트로서의 수신함"
+
+#~ msgid ""
+#~ "The Inbox is the default place to add new tasks, allowing you to quickly "
+#~ "get your ideas out of your head and then plan them when you’re ready."
+#~ msgstr ""
+#~ "수신함은 새 작업을 추가하는 기본 위치로, 빠르게 아이디어를 기록하고 준비"
+#~ "가 되면 계획할 수 있습니다."
+
+#~ msgid "Enhanced Task Duplication"
+#~ msgstr "향상된 작업 복제"
+
+#~ msgid ""
+#~ "When you duplicate a task now, all subtasks and labels are automatically "
+#~ "duplicated, saving you time and effort in managing your projects."
+#~ msgstr ""
+#~ "이제 작업을 복제할 때 모든 하위 작업과 라벨이 자동으로 복제되어 프로젝트 "
+#~ "관리 시 시간과 노력을 절약할 수 있습니다."
+
+#~ msgid "Duplication of Sections and Projects"
+#~ msgstr "섹션 및 프로젝트 복제"
+
+#~ msgid ""
+#~ "You can now easily duplicate entire sections and projects, making it "
+#~ "easier to create new projects based on existing structures."
+#~ msgstr ""
+#~ "이제 전체 섹션 및 프로젝트를 쉽게 복제할 수 있어 기존 구조를 기반으로 새 "
+#~ "프로젝트를 만들기 더 쉬워졌습니다."
+
+#~ msgid "Project Expiry Date"
+#~ msgstr "프로젝트 만료 날짜"
+
+#~ msgid ""
+#~ "Your project’s expiry date now clearly shows the remaining days, helping "
+#~ "you keep track of your deadlines more effectively."
+#~ msgstr ""
+#~ "프로젝트의 만료 날짜가 이제 남은 일수를 명확히 표시하여 기한을 더 효과적으"
+#~ "로 관리할 수 있습니다."
+
+#~ msgid "Archiving of Projects and Sections"
+#~ msgstr "프로젝트 및 섹션 보관"
+
+#~ msgid ""
+#~ "You can now archive entire projects and sections! This feature helps you "
+#~ "keep your workspace organized and clutter-free."
+#~ msgstr ""
+#~ "이제 전체 프로젝트와 섹션을 보관할 수 있습니다! 이 기능은 작업 공간을 정리"
+#~ "되고 깔끔하게 유지하는 데 도움이 됩니다."
+
+#~ msgid "What's New"
+#~ msgstr "새로운 기능"
 
 #~ msgid "Are you sure you want to reset all? (y/n): "
 #~ msgstr "모두 초기화하시겠습니까? (y/n): "
