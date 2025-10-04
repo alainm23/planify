@@ -387,6 +387,31 @@ public class MainWindow : Adw.ApplicationWindow {
             cleanup_unused_views ();
             return Source.CONTINUE;
         });
+
+        var window_gesture = new Gtk.GestureClick ();
+        toast_overlay.add_controller (window_gesture);
+        window_gesture.pressed.connect ((n_press, x, y) => {
+            if (Services.EventBus.get_default ().item_edit_active) {
+                var target = toast_overlay.pick (x, y, Gtk.PickFlags.DEFAULT);
+                
+                bool clicked_on_editing_task = false;
+                var widget = target;
+                while (widget != null) {
+                    if (widget.has_css_class ("task-editing")) {
+                        clicked_on_editing_task = true;
+                        break;
+                    }
+                    widget = widget.get_parent ();
+                }
+                
+                if (!clicked_on_editing_task) {
+                    Services.EventBus.get_default ().item_edit_active = false;
+                    Services.EventBus.get_default ().dim_content (false, "");
+                }
+            }
+        });
+
+
     }
 
     public void show_hide_sidebar () {
