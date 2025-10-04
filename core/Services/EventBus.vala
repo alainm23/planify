@@ -98,7 +98,7 @@ public class Services.EventBus : Object {
     // Item Edit Backdrop
     public signal void show_item_backdrop ();
     public signal void close_item_edit ();
-    public signal void dim_content (bool active);
+    public signal void dim_content (bool active, string focused_item_id = "");
     
     public bool item_edit_active = false;
 }

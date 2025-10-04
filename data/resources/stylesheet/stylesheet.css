@@ -192,9 +192,7 @@ entry.flat:focus-within {
 .card.selected {
     margin-bottom: 12px;
     margin-top: 12px;
-    margin-left: 3px;
-    margin-right: 3px;
-    padding-left: 9px;
+    padding-left: 6px;
     padding-top: 3px;
     padding-right: 3px;
     padding-bottom: 6px;

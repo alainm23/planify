@@ -406,7 +406,7 @@ public class MainWindow : Adw.ApplicationWindow {
                 
                 if (!clicked_on_editing_task) {
                     Services.EventBus.get_default ().item_edit_active = false;
-                    Services.EventBus.get_default ().dim_content (false);
+                    Services.EventBus.get_default ().dim_content (false, "");
                 }
             }
         });

@@ -130,6 +130,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 864,
+            tightening_threshold = 600,
             margin_bottom = 64,
             child = content
         };
@@ -170,6 +171,11 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
         signal_map[Services.EventBus.get_default ().theme_changed.connect (() => {
             Util.get_default ().set_widget_color (Objects.Filters.Scheduled.get_default ().theme_color (), title_icon);
+        })] = Services.EventBus.get_default ();
+
+        signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
+            title_box.sensitive = !active;
+            filters.sensitive = !active;
         })] = Services.EventBus.get_default ();
     }
 

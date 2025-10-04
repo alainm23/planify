@@ -277,7 +277,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             update_collapsed_button ();
         })] = section;
 
-        signal_map[Services.EventBus.get_default ().dim_content.connect ((active) => {
+        signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
             sectionrow_box.sensitive = !active;
             add_button.sensitive = !active;
         })] = Services.EventBus.get_default ();

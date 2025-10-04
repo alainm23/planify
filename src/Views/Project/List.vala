@@ -146,6 +146,7 @@ public class Views.List : Adw.Bin {
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 864,
+            tightening_threshold = 600,
             margin_bottom = 64,
             child = content_box
         };
@@ -253,7 +254,7 @@ public class Views.List : Adw.Bin {
             listbox.invalidate_sort ();
         })] = project.source;
 
-        signal_map[Services.EventBus.get_default ().dim_content.connect ((active) => {
+        signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
             title_box.sensitive = !active;
             due_revealer.sensitive = !active;
             filters.sensitive = !active;
