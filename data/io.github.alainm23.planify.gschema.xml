@@ -287,7 +287,7 @@
         </key>
 
         <key name="attention-at-one" type="b">
-            <default>false</default>
+            <default>true</default>
             <summary>Request attention when one task remains</summary>
             <description>Show notification or highlight when only one task remains in a project</description>
         </key>

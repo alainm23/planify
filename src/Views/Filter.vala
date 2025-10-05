@@ -149,6 +149,7 @@ public class Views.Filter : Adw.Bin {
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 864,
+            tightening_threshold = 600,
             margin_bottom = 64,
             child = content
         };
@@ -215,6 +216,10 @@ public class Views.Filter : Adw.Bin {
         signal_map[load_more_button.clicked.connect (() => {
             load_next_page ();
         })] = load_more_button;
+
+        signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
+            title_box.sensitive = !active;
+        })] = Services.EventBus.get_default ();
     }
 
     public void prepare_new_item (string content = "") {
@@ -570,6 +575,16 @@ public class Views.Filter : Adw.Bin {
         };
 
         header_box.append (header_label);
+
+        if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
+            ulong handler_id = Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
+                header_box.sensitive = !active;
+            });
+            
+            header_box.destroy.connect (() => {
+                Services.EventBus.get_default ().disconnect (handler_id);
+            });
+        }
 
         return header_box;
     }

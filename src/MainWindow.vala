@@ -387,6 +387,31 @@ public class MainWindow : Adw.ApplicationWindow {
             cleanup_unused_views ();
             return Source.CONTINUE;
         });
+
+        var window_gesture = new Gtk.GestureClick ();
+        toast_overlay.add_controller (window_gesture);
+        window_gesture.pressed.connect ((n_press, x, y) => {
+            if (Services.EventBus.get_default ().item_edit_active) {
+                var target = toast_overlay.pick (x, y, Gtk.PickFlags.DEFAULT);
+                
+                bool clicked_on_editing_task = false;
+                var widget = target;
+                while (widget != null) {
+                    if (widget.has_css_class ("task-editing")) {
+                        clicked_on_editing_task = true;
+                        break;
+                    }
+                    widget = widget.get_parent ();
+                }
+                
+                if (!clicked_on_editing_task) {
+                    Services.EventBus.get_default ().item_edit_active = false;
+                    Services.EventBus.get_default ().dim_content (false, "");
+                }
+            }
+        });
+
+
     }
 
     public void show_hide_sidebar () {
@@ -607,9 +632,6 @@ public class MainWindow : Adw.ApplicationWindow {
         var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
         keyboard_shortcuts_item.secondary_text = "F1";
 
-        var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New")) {
-            visible = Constants.SHOW_WHATSNEW
-        };
         var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
 
         archive_item = new Widgets.ContextMenu.MenuItem (_("Archived Projects"));
@@ -618,7 +640,6 @@ public class MainWindow : Adw.ApplicationWindow {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (preferences_item);
-        menu_box.append (whatsnew_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (archive_item);
         menu_box.append (archive_separator);
@@ -634,11 +655,6 @@ public class MainWindow : Adw.ApplicationWindow {
 
         preferences_item.clicked.connect (() => {
             open_preferences_window ();
-        });
-
-        whatsnew_item.clicked.connect (() => {
-            var dialog = new Dialogs.WhatsNew ();
-            dialog.present (Planify._instance.main_window);
         });
 
         about_item.clicked.connect (() => {

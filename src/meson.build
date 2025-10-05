@@ -101,7 +101,6 @@ sources = files(
   'Dialogs/Section.vala',
   'Dialogs/Label.vala',
   #'Dialogs/GoogleOAuth.vala', No longer used?
-  'Dialogs/WhatsNew.vala',
   'Dialogs/QuickAdd.vala',
   'Dialogs/ManageSectionOrder.vala',
   'Dialogs/ProjectPicker/ProjectPicker.vala',

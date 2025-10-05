@@ -83,7 +83,7 @@ public class Views.List : Adw.Bin {
             text = project.description,
             margin_top = 12,
             margin_start = 24,
-            margin_end = 12
+            margin_end = 24
         };
 
         due_revealer = build_due_date_widget ();
@@ -146,6 +146,7 @@ public class Views.List : Adw.Bin {
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 864,
+            tightening_threshold = 600,
             margin_bottom = 64,
             child = content_box
         };
@@ -252,6 +253,20 @@ public class Views.List : Adw.Bin {
         signal_map[project.source.sync_finished.connect (() => {
             listbox.invalidate_sort ();
         })] = project.source;
+
+        signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
+            title_box.sensitive = !active;
+            due_revealer.sensitive = !active;
+            filters.sensitive = !active;
+            pinned_items_flowbox.sensitive = !active;
+
+            description_widget.sensitive = !active;
+            if (active) {
+                description_widget.add_css_class ("dimmed");
+            } else {
+                description_widget.remove_css_class ("dimmed");
+            }
+        })] = Services.EventBus.get_default ();
 
         destroy.connect (() => {
             clean_up ();

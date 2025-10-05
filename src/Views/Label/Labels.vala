@@ -75,6 +75,7 @@ public class Views.Labels : Adw.Bin {
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 864,
+            tightening_threshold = 600,
             margin_bottom = 64,
             child = content_box
         };
