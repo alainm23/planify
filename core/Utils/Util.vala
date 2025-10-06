@@ -573,32 +573,32 @@ public class Util : GLib.Object {
         project.name = _("Meet Planify");
         project.color = "blue";
         project.show_completed = true;
-        project.description = _("This project shows you everything you need to know to hit the ground running. Don’t hesitate to play around in it – you can always create a new one from settings.");
+        project.description = _("This project shows you everything you need to know to hit the ground running. Don’t hesitate to play around with it – you can always recreate it from Preferences.");
 
         Services.Store.instance ().insert_project (project);
 
         var item_01 = new Objects.Item ();
         item_01.id = Util.get_default ().generate_id (item_01);
         item_01.project_id = project.id;
-        item_01.content = _("Tap this to-do");
-        item_01.description = _("You're looking at a to-do! Complete it by tapping the checkbox on the left. Completed to-dos are collected at the bottom of your project.");
+        item_01.content = _("Tap this task");
+        item_01.description = _("You're looking at a to-do! Complete it by tapping the checkbox on the left. ");
 
         var item_02 = new Objects.Item ();
         item_02.id = Util.get_default ().generate_id (item_02);
         item_02.project_id = project.id;
-        item_02.content = _("Create a new to-do");
-        item_02.description = _("Now it's your turn, tap the '+' button at the bottom of your project, enter any pending and tap the blue 'Save' button.");
+        item_02.content = _("Create a new task");
+        item_02.description = _("Now it's your turn! Tap the '+' button at the bottom of your project, enter a task description, and tap the 'Add Task' button.");
 
         var item_03 = new Objects.Item ();
         item_03.id = Util.get_default ().generate_id (item_03);
         item_03.project_id = project.id;
-        item_03.content = _("Plan this to-do by today or later");
-        item_03.description = _("Tap the calendar button at the bottom to decide when to do this to-do.");
+        item_03.content = _("Plan this to-do for today or later");
+        item_03.description = _("Tap the calendar button at the bottom to decide when to complete this to-do.");
 
         var item_04 = new Objects.Item ();
         item_04.id = Util.get_default ().generate_id (item_04);
         item_04.project_id = project.id;
-        item_04.content = _("Reorder yours to-dos");
+        item_04.content = _("Reorder your to-dos");
         item_04.description = _("To reorder your list, tap and hold a to-do, then drag it to where it should go.");
 
         var item_05 = new Objects.Item ();
@@ -612,7 +612,7 @@ public class Util : GLib.Object {
         item_06.project_id = project.id;
         item_06.content = _("You’re done!");
         item_06.description = _("""That’s all you really need to know. Feel free to start adding your own projects and to-dos.
-You can come back to this project later to learn the advanced features below..
+You can come back to this project later to learn the advanced features below.
 We hope you’ll enjoy using Planify!""");
 
         project.add_item_if_not_exists (item_01);
@@ -640,8 +640,8 @@ We hope you’ll enjoy using Planify!""");
         item_02_02.id = Util.get_default ().generate_id (item_02_02);
         item_02_02.project_id = project.id;
         item_02_02.section_id = section_01.id;
-        item_02_02.content = _("Enable synchronization with third-party service.");
-        item_02_02.description = _("Planify not only creates tasks locally, it can also synchronize your Todoist account. Go to 'Preferences' 🡒 'Accounts'.");
+        item_02_02.content = _("Enable synchronization with third-party services");
+        item_02_02.description = _("Planify not only creates tasks locally, but can also synchronize with your Todoist account. Go to 'Preferences' 🡒 'Accounts'.");
 
         section_01.add_item_if_not_exists (item_02_01);
         section_01.add_item_if_not_exists (item_02_02);
@@ -664,15 +664,15 @@ We hope you’ll enjoy using Planify!""");
         item_03_02.id = Util.get_default ().generate_id (item_03_02);
         item_03_02.project_id = project.id;
         item_03_02.section_id = section_02.id;
-        item_03_02.content = _("Tag your to-dos!");
-        item_03_02.description = _("Tags allow you to improve your workflow in Planify. To add a Tag click on the tag button at the bottom.");
+        item_03_02.content = _("Add labels to your tasks!");
+        item_03_02.description = _("Labels help you organize and categorize your tasks. To add a label, click the label button at the bottom.");
 
         var item_03_03 = new Objects.Item ();
         item_03_03.id = Util.get_default ().generate_id (item_03_03);
         item_03_03.project_id = project.id;
         item_03_03.section_id = section_02.id;
         item_03_03.content = _("Set timely reminders!");
-        item_03_03.description = _("You want Planify to send you a notification to remind you of an important event or something special. Tap the bell button below to add a reminder.");
+        item_03_03.description = _("Get notified about important tasks or events. Tap the bell button below to add a reminder.");
         
         section_02.add_item_if_not_exists (item_03_01);
         section_02.add_item_if_not_exists (item_03_02);
