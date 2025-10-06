@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-06 10:52+0000\n"
+"POT-Creation-Date: 2025-10-06 17:18+0000\n"
 "PO-Revision-Date: 2024-05-17 20:46+0800\n"
 "Last-Translator: Flysoft <flysoftbeta@outlook.com>\n"
 "Language-Team: \n"
@@ -824,48 +824,56 @@ msgid "Meet Planify"
 msgstr "认识 Planify"
 
 #: core/Utils/Util.vala:576
+#, fuzzy
 msgid ""
 "This project shows you everything you need to know to hit the ground "
-"running. Don’t hesitate to play around in it – you can always create a new "
-"one from settings."
+"running. Don’t hesitate to play around with it – you can always recreate it "
+"from Preferences."
 msgstr ""
 "该项目将为您提供一切入门所需的信息。请随意在其中进行操作，如果需要，您随时可"
 "以从设置中创建一个新的项目。"
 
 #: core/Utils/Util.vala:583
-msgid "Tap this to-do"
+#, fuzzy
+msgid "Tap this task"
 msgstr "点击此待办事项"
 
 #: core/Utils/Util.vala:584
+#, fuzzy
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-"Completed to-dos are collected at the bottom of your project."
 msgstr ""
 "你正在看一个待办事项！点击左边的复选框来完成它。完成的待办事项会被收集在你的"
 "项目底部。"
 
 #: core/Utils/Util.vala:589
-msgid "Create a new to-do"
-msgstr "创建一个新的待办事项"
+#, fuzzy
+msgid "Create a new task"
+msgstr "创建一个新任务"
 
 #: core/Utils/Util.vala:590
+#, fuzzy
 msgid ""
-"Now it's your turn, tap the '+' button at the bottom of your project, enter "
-"any pending and tap the blue 'Save' button."
+"Now it's your turn! Tap the '+' button at the bottom of your project, enter "
+"a task description, and tap the 'Add Task' button."
 msgstr ""
 "现在轮到你了，点击你的项目顶部的 ‘+’ 键，输入任何待定，然后点击蓝色的 ‘保存’ "
 "按钮。"
 
 #: core/Utils/Util.vala:595
-msgid "Plan this to-do by today or later"
+#, fuzzy
+msgid "Plan this to-do for today or later"
 msgstr "将待办事项计划到今天或之后"
 
 #: core/Utils/Util.vala:596
-msgid "Tap the calendar button at the bottom to decide when to do this to-do."
+#, fuzzy
+msgid ""
+"Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr "点一下底部的日历按钮，决定何时完成这项待办事项。"
 
 #: core/Utils/Util.vala:601
-msgid "Reorder yours to-dos"
+#, fuzzy
+msgid "Reorder your to-dos"
 msgstr "重新排列你的待办事项"
 
 #: core/Utils/Util.vala:602
@@ -891,11 +899,12 @@ msgid "You’re done!"
 msgstr "你完成了！"
 
 #: core/Utils/Util.vala:614
+#, fuzzy
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
 "You can come back to this project later to learn the advanced features "
-"below..\n"
+"below.\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
 "这就是你真正需要知道的一切。请随意开始添加你自己的项目和待办事项。\n"
@@ -921,13 +930,15 @@ msgstr ""
 "开。"
 
 #: core/Utils/Util.vala:643
-msgid "Enable synchronization with third-party service."
+#, fuzzy
+msgid "Enable synchronization with third-party services"
 msgstr "启用与第三方服务的同步。"
 
 #: core/Utils/Util.vala:644
+#, fuzzy
 msgid ""
-"Planify not only creates tasks locally, it can also synchronize your Todoist "
-"account. Go to 'Preferences' 🡒 'Accounts'."
+"Planify not only creates tasks locally, but can also synchronize with your "
+"Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
 "Planify 不仅可以在本地创建任务，它还可以同步你的 Todoist 账户。进入 ‘偏好设"
 "置’ 🡒 ‘账户’ 。"
@@ -949,13 +960,14 @@ msgstr ""
 "地方创建任务。"
 
 #: core/Utils/Util.vala:667
-msgid "Tag your to-dos!"
-msgstr "为你的待办事项打上标签！"
+msgid "Add labels to your tasks!"
+msgstr ""
 
 #: core/Utils/Util.vala:668
+#, fuzzy
 msgid ""
-"Tags allow you to improve your workflow in Planify. To add a Tag click on "
-"the tag button at the bottom."
+"Labels help you organize and categorize your tasks. To add a label, click "
+"the label button at the bottom."
 msgstr "标签可让您改进 Planify 的工作流程。要添加标签，请单击底部的标签按钮。"
 
 #: core/Utils/Util.vala:674
@@ -963,9 +975,10 @@ msgid "Set timely reminders!"
 msgstr "设置及时的提醒！"
 
 #: core/Utils/Util.vala:675
+#, fuzzy
 msgid ""
-"You want Planify to send you a notification to remind you of an important "
-"event or something special. Tap the bell button below to add a reminder."
+"Get notified about important tasks or events. Tap the bell button below to "
+"add a reminder."
 msgstr ""
 "您希望 Planify 向您发送通知，提醒您有重要事件或特别事情。轻按下面的🔔铃铛按钮"
 "添加提醒。"
@@ -3102,6 +3115,12 @@ msgstr "打开标签"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "打开标签"
+
+#~ msgid "Create a new to-do"
+#~ msgstr "创建一个新的待办事项"
+
+#~ msgid "Tag your to-dos!"
+#~ msgstr "为你的待办事项打上标签！"
 
 #~ msgid "What’s new in Planify"
 #~ msgstr "Planify 内的新增内容"

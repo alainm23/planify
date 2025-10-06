@@ -3239,6 +3239,114 @@ msgstr "Actualizada el"
 msgid "Close"
 msgstr ""
 
+#: core/Utils/Util.vala:576
+#, fuzzy
+msgid ""
+"This project shows you everything you need to know to hit the ground "
+"running. Don’t hesitate to play around with it – you can always recreate it "
+"from Preferences."
+msgstr ""
+"Este proyecto te muestra todo lo que necesitas saber para empezar con el pie "
+"derecho. No dudes en explorarlo: siempre puedes crear uno nuevo desde la "
+"configuración."
+
+#: core/Utils/Util.vala:583
+#, fuzzy
+msgid "Tap this task"
+msgstr "Toca esta tarea"
+
+#: core/Utils/Util.vala:584
+#, fuzzy
+msgid ""
+"You're looking at a to-do! Complete it by tapping the checkbox on the left. "
+msgstr ""
+"¡Estás viendo una tarea! Complétala tocando la casilla de la izquierda. Las "
+"tareas completadas se agrupan al final de tu proyecto."
+
+#: core/Utils/Util.vala:589
+#, fuzzy
+msgid "Create a new task"
+msgstr "Crear nueva tarea"
+
+#: core/Utils/Util.vala:590
+#, fuzzy
+msgid ""
+"Now it's your turn! Tap the '+' button at the bottom of your project, enter "
+"a task description, and tap the 'Add Task' button."
+msgstr ""
+"Ahora te toca a ti: toca el botón “+” en la parte inferior del proyecto, "
+"escribe cualquier tarea y toca el botón azul “Guardar”."
+
+#: core/Utils/Util.vala:595
+#, fuzzy
+msgid "Plan this to-do for today or later"
+msgstr "Planifica esta tarea para hoy o más tarde"
+
+#: core/Utils/Util.vala:596
+#, fuzzy
+msgid ""
+"Tap the calendar button at the bottom to decide when to complete this to-do."
+msgstr ""
+"Toca el botón de calendario en la parte inferior para decidir cuándo hacer "
+"esta tarea."
+
+#: core/Utils/Util.vala:601
+#, fuzzy
+msgid "Reorder your to-dos"
+msgstr "Reordena tus tareas"
+
+#: core/Utils/Util.vala:614
+#, fuzzy
+msgid ""
+"That’s all you really need to know. Feel free to start adding your own "
+"projects and to-dos.\n"
+"You can come back to this project later to learn the advanced features "
+"below.\n"
+"We hope you’ll enjoy using Planify!"
+msgstr ""
+"Eso es todo lo que necesitas saber. Puedes comenzar a añadir tus propios "
+"proyectos y tareas cuando quieras.\n"
+"Más adelante puedes volver a este proyecto para aprender funciones "
+"avanzadas.\n"
+"¡Esperamos que disfrutes usando Planify!"
+
+#: core/Utils/Util.vala:643
+#, fuzzy
+msgid "Enable synchronization with third-party services"
+msgstr "Activa la sincronización con servicios de terceros."
+
+#: core/Utils/Util.vala:644
+#, fuzzy
+msgid ""
+"Planify not only creates tasks locally, but can also synchronize with your "
+"Todoist account. Go to 'Preferences' 🡒 'Accounts'."
+msgstr ""
+"Planify no solo crea tareas localmente; también puede sincronizar tu cuenta "
+"de Todoist. Ve a 'Preferencias' 🡒 'Cuentas'."
+
+#: core/Utils/Util.vala:667
+#, fuzzy
+msgid "Add labels to your tasks!"
+msgstr "Adjunte archivos a sus tareas"
+
+#: core/Utils/Util.vala:668
+#, fuzzy
+msgid ""
+"Labels help you organize and categorize your tasks. To add a label, click "
+"the label button at the bottom."
+msgstr ""
+"Las etiquetas te permiten mejorar tu flujo de trabajo en Planify. Para "
+"añadir una, haz clic en el botón de etiqueta en la parte inferior."
+
+#: core/Utils/Util.vala:675
+#, fuzzy
+msgid ""
+"Get notified about important tasks or events. Tap the bell button below to "
+"add a reminder."
+msgstr ""
+"¿Quieres que Planify te recuerde un evento importante o algo especial? Toca "
+"el botón de la campana abajo para añadir un recordatorio."
+
 #~ msgid "Are you sure you want to reset all? (y/n): "
 #~ msgstr "¿Está seguro de que quiere reiniciar todo? (s/n): "
 

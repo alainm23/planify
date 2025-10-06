@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-06 10:52+0000\n"
+"POT-Creation-Date: 2025-10-06 17:18+0000\n"
 "PO-Revision-Date: 2025-10-06 04:59-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -800,40 +800,40 @@ msgstr ""
 #: core/Utils/Util.vala:576
 msgid ""
 "This project shows you everything you need to know to hit the ground "
-"running. Don’t hesitate to play around in it – you can always create a new "
-"one from settings."
+"running. Don’t hesitate to play around with it – you can always recreate it "
+"from Preferences."
 msgstr ""
 
 #: core/Utils/Util.vala:583
-msgid "Tap this to-do"
+msgid "Tap this task"
 msgstr ""
 
 #: core/Utils/Util.vala:584
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-"Completed to-dos are collected at the bottom of your project."
 msgstr ""
 
 #: core/Utils/Util.vala:589
-msgid "Create a new to-do"
+msgid "Create a new task"
 msgstr ""
 
 #: core/Utils/Util.vala:590
 msgid ""
-"Now it's your turn, tap the '+' button at the bottom of your project, enter "
-"any pending and tap the blue 'Save' button."
+"Now it's your turn! Tap the '+' button at the bottom of your project, enter "
+"a task description, and tap the 'Add Task' button."
 msgstr ""
 
 #: core/Utils/Util.vala:595
-msgid "Plan this to-do by today or later"
+msgid "Plan this to-do for today or later"
 msgstr ""
 
 #: core/Utils/Util.vala:596
-msgid "Tap the calendar button at the bottom to decide when to do this to-do."
+msgid ""
+"Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
 
 #: core/Utils/Util.vala:601
-msgid "Reorder yours to-dos"
+msgid "Reorder your to-dos"
 msgstr ""
 
 #: core/Utils/Util.vala:602
@@ -861,7 +861,7 @@ msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
 "You can come back to this project later to learn the advanced features "
-"below..\n"
+"below.\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
 
@@ -880,13 +880,13 @@ msgid ""
 msgstr ""
 
 #: core/Utils/Util.vala:643
-msgid "Enable synchronization with third-party service."
+msgid "Enable synchronization with third-party services"
 msgstr ""
 
 #: core/Utils/Util.vala:644
 msgid ""
-"Planify not only creates tasks locally, it can also synchronize your Todoist "
-"account. Go to 'Preferences' 🡒 'Accounts'."
+"Planify not only creates tasks locally, but can also synchronize with your "
+"Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
 
 #: core/Utils/Util.vala:652
@@ -904,13 +904,13 @@ msgid ""
 msgstr ""
 
 #: core/Utils/Util.vala:667
-msgid "Tag your to-dos!"
+msgid "Add labels to your tasks!"
 msgstr ""
 
 #: core/Utils/Util.vala:668
 msgid ""
-"Tags allow you to improve your workflow in Planify. To add a Tag click on "
-"the tag button at the bottom."
+"Labels help you organize and categorize your tasks. To add a label, click "
+"the label button at the bottom."
 msgstr ""
 
 #: core/Utils/Util.vala:674
@@ -919,8 +919,8 @@ msgstr ""
 
 #: core/Utils/Util.vala:675
 msgid ""
-"You want Planify to send you a notification to remind you of an important "
-"event or something special. Tap the bell button below to add a reminder."
+"Get notified about important tasks or events. Tap the bell button below to "
+"add a reminder."
 msgstr ""
 
 #: core/Utils/Util.vala:686

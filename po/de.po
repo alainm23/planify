@@ -3153,6 +3153,116 @@ msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "'Pinnwand' öffnen"
 
+#: core/Utils/Util.vala:576
+#, fuzzy
+msgid ""
+"This project shows you everything you need to know to hit the ground "
+"running. Don’t hesitate to play around with it – you can always recreate it "
+"from Preferences."
+msgstr ""
+"Dieses Projekt zeigt dir alles, was du wissen musst, um sofort loslegen zu "
+"können. Zögere nicht, hier herumzuspielen - Du kannst jederzeit ein neues in "
+"den Einstellungen erstellen."
+
+#: core/Utils/Util.vala:583
+#, fuzzy
+msgid "Tap this task"
+msgstr "Klicke auf diese Aufgabe"
+
+#: core/Utils/Util.vala:584
+#, fuzzy
+msgid ""
+"You're looking at a to-do! Complete it by tapping the checkbox on the left. "
+msgstr ""
+"Dies ist eine Aufgabe! Erledige sie, indem du auf das Kästchen auf der "
+"linken Seite klickst. Erledigte Aufgaben werden am unteren Ende des Projekts "
+"gesammelt."
+
+#: core/Utils/Util.vala:589
+#, fuzzy
+msgid "Create a new task"
+msgstr "Neue Aufgabe erstellen"
+
+#: core/Utils/Util.vala:590
+#, fuzzy
+msgid ""
+"Now it's your turn! Tap the '+' button at the bottom of your project, enter "
+"a task description, and tap the 'Add Task' button."
+msgstr ""
+"Jetzt bist du an der Reihe: Tippe auf die Schaltfläche \"+\" am unteren Rand "
+"deines Projekts, gib die geforderten Daten ein und tippe auf die blaue "
+"Schaltfläche \"Speichern\"."
+
+#: core/Utils/Util.vala:595
+#, fuzzy
+msgid "Plan this to-do for today or later"
+msgstr "Plane diese Aufgabe für heute oder später"
+
+#: core/Utils/Util.vala:596
+#, fuzzy
+msgid ""
+"Tap the calendar button at the bottom to decide when to complete this to-do."
+msgstr ""
+"Tippe auf die Kalender-Schaltfläche unten, um zu entscheiden, wann du diese "
+"Aufgabe erledigen möchtest."
+
+#: core/Utils/Util.vala:601
+#, fuzzy
+msgid "Reorder your to-dos"
+msgstr "Ordne deine Aufgaben neu an"
+
+#: core/Utils/Util.vala:614
+#, fuzzy
+msgid ""
+"That’s all you really need to know. Feel free to start adding your own "
+"projects and to-dos.\n"
+"You can come back to this project later to learn the advanced features "
+"below.\n"
+"We hope you’ll enjoy using Planify!"
+msgstr ""
+"Das ist alles, was du wissen musst. Jetzt kannst du loslegen und deine "
+"eigenen Projekte und Aufgaben hinzufügen.\n"
+"Später kannst du immer wieder hierher kommen, um die fortgeschritteneren "
+"Features kennenzulernen..\n"
+"Viel Spaß beim Nutzen von Planify!"
+
+#: core/Utils/Util.vala:643
+#, fuzzy
+msgid "Enable synchronization with third-party services"
+msgstr "Aktiviere die Synchronisation mit einem Drittanbieterdienst."
+
+#: core/Utils/Util.vala:644
+#, fuzzy
+msgid ""
+"Planify not only creates tasks locally, but can also synchronize with your "
+"Todoist account. Go to 'Preferences' 🡒 'Accounts'."
+msgstr ""
+"Planify erstellt nicht nur lokal Aufgaben, sondern kann sich auch mit deinem "
+"Todoist-Konto synchronisieren. Gehe zu 'Einstellungen' 🡒 'Konten'."
+
+#: core/Utils/Util.vala:667
+msgid "Add labels to your tasks!"
+msgstr ""
+
+#: core/Utils/Util.vala:668
+#, fuzzy
+msgid ""
+"Labels help you organize and categorize your tasks. To add a label, click "
+"the label button at the bottom."
+msgstr ""
+"Labels ermöglichen dir, deinen Workflow in Planify zu verbessern. Klicke auf "
+"die Label-Schaltfläche unten, um ein Label hinzuzufügen."
+
+#: core/Utils/Util.vala:675
+#, fuzzy
+msgid ""
+"Get notified about important tasks or events. Tap the bell button below to "
+"add a reminder."
+msgstr ""
+"Du möchtest, dass Planify dich an ein wichtiges Ereignis oder etwas "
+"Besonderes erinnert. Tippe auf den Glockenknopf unten, um eine Erinnerung "
+"hinzuzufügen."
+
 #~ msgid "What’s new in Planify"
 #~ msgstr "Neues in Planify"
 

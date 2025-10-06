@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-06 10:52+0000\n"
+"POT-Creation-Date: 2025-10-06 17:18+0000\n"
 "PO-Revision-Date: 2025-01-17 20:16+0100\n"
 "Last-Translator: Nostragodus <nostragodus@gmail.com>\n"
 "Language-Team: Slovakia\n"
@@ -812,52 +812,60 @@ msgid "Meet Planify"
 msgstr "Zoznámte sa s Planify"
 
 #: core/Utils/Util.vala:576
+#, fuzzy
 msgid ""
 "This project shows you everything you need to know to hit the ground "
-"running. Don’t hesitate to play around in it – you can always create a new "
-"one from settings."
+"running. Don’t hesitate to play around with it – you can always recreate it "
+"from Preferences."
 msgstr ""
 "Tento projekt vám ukáže všetko, čo potrebujete vedieť, aby ste začali. "
 "Neváhajte s ním experimentovať – vždy si môžete vytvoriť nový projekt z "
 "nastavení."
 
 #: core/Utils/Util.vala:583
-msgid "Tap this to-do"
+#, fuzzy
+msgid "Tap this task"
 msgstr "Kliknite na túto úlohu"
 
 #: core/Utils/Util.vala:584
+#, fuzzy
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-"Completed to-dos are collected at the bottom of your project."
 msgstr ""
 "Pozeráte sa na úlohu! Dokončíte ju kliknutím na začiarkavacie políčko "
 "naľavo. Dokončené úlohy sú zoskupené na spodnej časti vášho projektu."
 
 #: core/Utils/Util.vala:589
-msgid "Create a new to-do"
-msgstr "Vytvorte novú úlohu"
+#, fuzzy
+msgid "Create a new task"
+msgstr "Vytvoriť novú úlohu"
 
 #: core/Utils/Util.vala:590
+#, fuzzy
 msgid ""
-"Now it's your turn, tap the '+' button at the bottom of your project, enter "
-"any pending and tap the blue 'Save' button."
+"Now it's your turn! Tap the '+' button at the bottom of your project, enter "
+"a task description, and tap the 'Add Task' button."
 msgstr ""
 "Teraz je to na vás, kliknite na tlačidlo '+' na spodnej časti vášho "
 "projektu, zadajte akékoľvek čakajúce úlohy a kliknite na modré tlačidlo "
 "'Uložiť'."
 
 #: core/Utils/Util.vala:595
-msgid "Plan this to-do by today or later"
+#, fuzzy
+msgid "Plan this to-do for today or later"
 msgstr "Naplánujte túto úlohu na dnes alebo neskôr"
 
 #: core/Utils/Util.vala:596
-msgid "Tap the calendar button at the bottom to decide when to do this to-do."
+#, fuzzy
+msgid ""
+"Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
 "Kliknite na tlačidlo kalendára na spodnej strane, aby ste si vybrali, kedy "
 "túto úlohu vykonať."
 
 #: core/Utils/Util.vala:601
-msgid "Reorder yours to-dos"
+#, fuzzy
+msgid "Reorder your to-dos"
 msgstr "Zmeňte poradie svojich úloh"
 
 #: core/Utils/Util.vala:602
@@ -885,11 +893,12 @@ msgid "You’re done!"
 msgstr "Hotovo!"
 
 #: core/Utils/Util.vala:614
+#, fuzzy
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
 "You can come back to this project later to learn the advanced features "
-"below..\n"
+"below.\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
 "To je všetko, čo naozaj potrebujete vedieť. Kľudne začnite pridávať svoje "
@@ -914,13 +923,15 @@ msgstr ""
 "'Nastavenia' 🡒 Všeobecné 🡒 Kalendárové udalosti a zapnite túto možnosť."
 
 #: core/Utils/Util.vala:643
-msgid "Enable synchronization with third-party service."
+#, fuzzy
+msgid "Enable synchronization with third-party services"
 msgstr "Povoliť synchronizáciu s externou službou."
 
 #: core/Utils/Util.vala:644
+#, fuzzy
 msgid ""
-"Planify not only creates tasks locally, it can also synchronize your Todoist "
-"account. Go to 'Preferences' 🡒 'Accounts'."
+"Planify not only creates tasks locally, but can also synchronize with your "
+"Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
 "Planify nielenže vytvára úlohy lokálne, ale môže tiež synchronizovať váš "
 "účet Todoist. Prejdite na 'Nastavenia' 🡒 'Účty'."
@@ -943,13 +954,14 @@ msgstr ""
 "vytvorili úlohu tam, kde chcete."
 
 #: core/Utils/Util.vala:667
-msgid "Tag your to-dos!"
-msgstr "Označte svoje úlohy!"
+msgid "Add labels to your tasks!"
+msgstr ""
 
 #: core/Utils/Util.vala:668
+#, fuzzy
 msgid ""
-"Tags allow you to improve your workflow in Planify. To add a Tag click on "
-"the tag button at the bottom."
+"Labels help you organize and categorize your tasks. To add a label, click "
+"the label button at the bottom."
 msgstr ""
 "Štítky vám umožňujú zlepšiť pracovný tok v Planify. Pre pridanie štítku "
 "kliknite na tlačidlo štítku na spodnej strane."
@@ -959,9 +971,10 @@ msgid "Set timely reminders!"
 msgstr "Nastavte si včasné pripomienky!"
 
 #: core/Utils/Util.vala:675
+#, fuzzy
 msgid ""
-"You want Planify to send you a notification to remind you of an important "
-"event or something special. Tap the bell button below to add a reminder."
+"Get notified about important tasks or events. Tap the bell button below to "
+"add a reminder."
 msgstr ""
 "Chcete, aby vám Planify poslal notifikáciu na pripomenutie dôležitého "
 "udalosti alebo niečoho špeciálneho. Kliknite na tlačidlo zvončeka nižšie a "
@@ -3101,6 +3114,12 @@ msgstr "Otvoriť štítky"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Otvoriť nástenku"
+
+#~ msgid "Create a new to-do"
+#~ msgstr "Vytvorte novú úlohu"
+
+#~ msgid "Tag your to-dos!"
+#~ msgstr "Označte svoje úlohy!"
 
 #~ msgid "What’s new in Planify"
 #~ msgstr "Čo je nové v Planify"
