@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-04 20:37+0000\n"
+"POT-Creation-Date: 2025-10-06 09:50+0000\n"
 "PO-Revision-Date: 2025-07-07 12:31+0300\n"
 "Last-Translator: Alevtina <karashokovaaa@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -2571,27 +2571,27 @@ msgstr "Изменить порядок разделов"
 msgid "Show Completed Tasks"
 msgstr "Показать выполненные задачи"
 
-#: src/Layouts/Sidebar.vala:37
+#: src/Layouts/Sidebar.vala:39
 msgid "Favorites"
 msgstr "Избранное"
 
-#: src/Layouts/Sidebar.vala:39
+#: src/Layouts/Sidebar.vala:41
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "В избранном ничего нет. Создайте, нажав кнопку «+»"
 
-#: src/Layouts/Sidebar.vala:209 src/Layouts/Sidebar.vala:261
+#: src/Layouts/Sidebar.vala:263 src/Layouts/Sidebar.vala:315
 msgid "Go to Today"
 msgstr "Сегодня"
 
-#: src/Layouts/Sidebar.vala:213 src/Layouts/Sidebar.vala:265
+#: src/Layouts/Sidebar.vala:267 src/Layouts/Sidebar.vala:319
 msgid "Go to Scheduled"
 msgstr "Предстоящее"
 
-#: src/Layouts/Sidebar.vala:217 src/Layouts/Sidebar.vala:269
+#: src/Layouts/Sidebar.vala:271 src/Layouts/Sidebar.vala:323
 msgid "Go to Labels"
 msgstr "Метки"
 
-#: src/Layouts/Sidebar.vala:221 src/Layouts/Sidebar.vala:273
+#: src/Layouts/Sidebar.vala:275 src/Layouts/Sidebar.vala:327
 msgid "Go to Pinboard"
 msgstr "Закреплённые"
 
@@ -2963,6 +2963,26 @@ msgstr "Удалить задачи (%d)"
 #, c-format
 msgid "Are you sure you want to delete these %d to-dos?"
 msgstr "Вы уверены, что хотите удалить эти задачи (%d)?"
+
+#: src/Widgets/NewVersionPopup.vala:42
+#, fuzzy
+msgid "New version available!"
+msgstr "Не доступно"
+
+#: src/Widgets/NewVersionPopup.vala:66
+msgid ""
+"Update now to enjoy the latest improvements, bug fixes, and new features "
+"that make Planify even better"
+msgstr ""
+
+#: src/Widgets/NewVersionPopup.vala:73
+#, fuzzy
+msgid "Update Now"
+msgstr "Обновлено"
+
+#: src/Widgets/NewVersionPopup.vala:110
+msgid "Close"
+msgstr ""
 
 #: src/Widgets/SubItems.vala:523
 msgid "No subtasks added yet. Get started!"

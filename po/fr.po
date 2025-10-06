@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-04 20:37+0000\n"
+"POT-Creation-Date: 2025-10-06 09:50+0000\n"
 "PO-Revision-Date: 2024-08-29 16:03+0200\n"
 "Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
@@ -2585,29 +2585,29 @@ msgstr "Gérer l’ordre des sections"
 msgid "Show Completed Tasks"
 msgstr "Afficher les tâches accomplies"
 
-#: src/Layouts/Sidebar.vala:37
+#: src/Layouts/Sidebar.vala:39
 msgid "Favorites"
 msgstr "Favoris"
 
-#: src/Layouts/Sidebar.vala:39
+#: src/Layouts/Sidebar.vala:41
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr ""
 "Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton "
 "« + »"
 
-#: src/Layouts/Sidebar.vala:209 src/Layouts/Sidebar.vala:261
+#: src/Layouts/Sidebar.vala:263 src/Layouts/Sidebar.vala:315
 msgid "Go to Today"
 msgstr "Aller à la vue du jour"
 
-#: src/Layouts/Sidebar.vala:213 src/Layouts/Sidebar.vala:265
+#: src/Layouts/Sidebar.vala:267 src/Layouts/Sidebar.vala:319
 msgid "Go to Scheduled"
 msgstr "Voir les éléments prévus"
 
-#: src/Layouts/Sidebar.vala:217 src/Layouts/Sidebar.vala:269
+#: src/Layouts/Sidebar.vala:271 src/Layouts/Sidebar.vala:323
 msgid "Go to Labels"
 msgstr "Voir les étiquettes"
 
-#: src/Layouts/Sidebar.vala:221 src/Layouts/Sidebar.vala:273
+#: src/Layouts/Sidebar.vala:275 src/Layouts/Sidebar.vala:327
 msgid "Go to Pinboard"
 msgstr "Aller aux éléments épinglés"
 
@@ -2975,6 +2975,26 @@ msgstr "Supprimer %d tâches"
 #, c-format
 msgid "Are you sure you want to delete these %d to-dos?"
 msgstr "Êtes-vous sûr de vouloir supprimer ces %d tâches ?"
+
+#: src/Widgets/NewVersionPopup.vala:42
+#, fuzzy
+msgid "New version available!"
+msgstr "Indisponible"
+
+#: src/Widgets/NewVersionPopup.vala:66
+msgid ""
+"Update now to enjoy the latest improvements, bug fixes, and new features "
+"that make Planify even better"
+msgstr ""
+
+#: src/Widgets/NewVersionPopup.vala:73
+#, fuzzy
+msgid "Update Now"
+msgstr "Mise à jour le"
+
+#: src/Widgets/NewVersionPopup.vala:110
+msgid "Close"
+msgstr ""
 
 #: src/Widgets/SubItems.vala:523
 msgid "No subtasks added yet. Get started!"

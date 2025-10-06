@@ -82,6 +82,7 @@ sources = files(
   'Widgets/ItemDetailCompleted.vala',
   'Widgets/PinnedItemsBox.vala',
   'Widgets/TranslationRow.vala',
+  'Widgets/NewVersionPopup.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',

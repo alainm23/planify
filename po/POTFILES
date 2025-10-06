@@ -26,6 +26,7 @@ core/Objects/ObjectEvent.vala
 core/Objects/Project.vala
 core/Objects/Promise.vala
 core/Objects/Queue.vala
+core/Objects/Release.vala
 core/Objects/Reminder.vala
 core/Objects/Section.vala
 core/Objects/Source.vala
@@ -182,6 +183,7 @@ src/Widgets/ItemDetailCompleted.vala
 src/Widgets/LabelsSummary.vala
 src/Widgets/MagicButton.vala
 src/Widgets/MultiSelectToolbar.vala
+src/Widgets/NewVersionPopup.vala
 src/Widgets/PinnedItemsBox.vala
 src/Widgets/ReorderChild.vala
 src/Widgets/ScrolledWindow.vala

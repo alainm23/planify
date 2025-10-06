@@ -22,6 +22,8 @@
 public class Layouts.Sidebar : Adw.Bin {
     private Gtk.Revealer filters_revealer;
     private Gtk.ListBox sources_listbox;
+    private Widgets.NewVersionPopup update_notification;
+    private Gtk.Revealer update_notification_revealer;
 
     private Layouts.HeaderItem favorites_header;
     public Gee.HashMap<string, Layouts.ProjectRow> favorites_hashmap = new Gee.HashMap<string, Layouts.ProjectRow> ();
@@ -59,8 +61,30 @@ public class Layouts.Sidebar : Adw.Bin {
 
         var scrolled_window = new Widgets.ScrolledWindow (content_box);
 
-        child = scrolled_window;
+        update_notification = new Widgets.NewVersionPopup ();
+
+        update_notification_revealer = new Gtk.Revealer () {
+            child = update_notification,
+            valign = END,
+            transition_type = SLIDE_UP 
+        };
+
+        var overlay = new Gtk.Overlay () {
+            child = scrolled_window
+        };
+        overlay.add_overlay (update_notification_revealer);
+
+        child = overlay;
         update_filter_view ();
+
+        update_notification.dismissed.connect (() => {
+            update_notification_revealer.reveal_child = false;
+            
+            string? current_version = update_notification.version;
+            if (current_version != null) {
+                Services.Settings.get_default ().settings.set_string ("dismissed-update-version", current_version.replace ("v", ""));
+            }
+        });
 
         sources_listbox.set_sort_func ((child1, child2) => {
             int item1 = ((Layouts.SidebarSourceRow) child1).source.child_order;
@@ -97,6 +121,34 @@ public class Layouts.Sidebar : Adw.Bin {
         Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id);
     }
 
+    private async void check_for_updates () {
+        try {
+            Objects.Release? latest_release = yield Services.Api.get_default ().get_latest_release ();
+            
+            if (latest_release != null && latest_release.version != Build.VERSION) {
+                string dismissed_version = Services.Settings.get_default ().settings.get_string ("dismissed-update-version");
+                
+                if (dismissed_version != latest_release.version) {
+                    update_notification.version = latest_release.version;
+                    
+                    string? release_message = latest_release.get_release_message ();
+                    if (release_message != null) {
+                        update_notification.description = release_message;
+                    }
+                    
+                    update_notification_revealer.reveal_child = true;
+                    
+                    Timeout.add (update_notification_revealer.transition_duration, () => {
+                        update_notification.show_with_animation ();
+                        return Source.REMOVE;
+                    });
+                }
+            }
+        } catch (Error e) {
+            warning ("Error fetching latest release: %s", e.message);
+        }
+    }
+
     public void init () {
         Services.Store.instance ().source_added.connect (add_source_row);
 
@@ -126,6 +178,8 @@ public class Layouts.Sidebar : Adw.Bin {
         foreach (Objects.Source source in Services.Store.instance ().sources) {
             add_source_row (source);
         }
+
+        check_for_updates.begin ();
     }
 
     private void add_source_row (Objects.Source source) {
