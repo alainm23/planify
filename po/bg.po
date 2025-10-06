@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-04 20:37+0000\n"
+"POT-Creation-Date: 2025-10-06 09:50+0000\n"
 "PO-Revision-Date: 2024-04-28 17:39+0200\n"
 "Last-Translator: twlvnn <kraft_werk@tutanota.com>\n"
 "Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
@@ -2581,27 +2581,27 @@ msgstr "Управляване на реда на разделите"
 msgid "Show Completed Tasks"
 msgstr "Показване на завършените задачи"
 
-#: src/Layouts/Sidebar.vala:37
+#: src/Layouts/Sidebar.vala:39
 msgid "Favorites"
 msgstr "Любими"
 
-#: src/Layouts/Sidebar.vala:39
+#: src/Layouts/Sidebar.vala:41
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "Няма налични любими. Създайте такъв, като натиснете върху „+“ бутона"
 
-#: src/Layouts/Sidebar.vala:209 src/Layouts/Sidebar.vala:261
+#: src/Layouts/Sidebar.vala:263 src/Layouts/Sidebar.vala:315
 msgid "Go to Today"
 msgstr "Към „Днес“"
 
-#: src/Layouts/Sidebar.vala:213 src/Layouts/Sidebar.vala:265
+#: src/Layouts/Sidebar.vala:267 src/Layouts/Sidebar.vala:319
 msgid "Go to Scheduled"
 msgstr "Към „Насрочени“"
 
-#: src/Layouts/Sidebar.vala:217 src/Layouts/Sidebar.vala:269
+#: src/Layouts/Sidebar.vala:271 src/Layouts/Sidebar.vala:323
 msgid "Go to Labels"
 msgstr "Към „Етикети“"
 
-#: src/Layouts/Sidebar.vala:221 src/Layouts/Sidebar.vala:273
+#: src/Layouts/Sidebar.vala:275 src/Layouts/Sidebar.vala:327
 msgid "Go to Pinboard"
 msgstr "Към „Закачени“"
 
@@ -2975,6 +2975,26 @@ msgstr "Премахване на %d задачи"
 #, c-format
 msgid "Are you sure you want to delete these %d to-dos?"
 msgstr "Сигурни ли сте, че искате да премахнете %d задачи?"
+
+#: src/Widgets/NewVersionPopup.vala:42
+#, fuzzy
+msgid "New version available!"
+msgstr "Не е достъпен"
+
+#: src/Widgets/NewVersionPopup.vala:66
+msgid ""
+"Update now to enjoy the latest improvements, bug fixes, and new features "
+"that make Planify even better"
+msgstr ""
+
+#: src/Widgets/NewVersionPopup.vala:73
+#, fuzzy
+msgid "Update Now"
+msgstr "Обновено в"
+
+#: src/Widgets/NewVersionPopup.vala:110
+msgid "Close"
+msgstr ""
 
 #: src/Widgets/SubItems.vala:523
 msgid "No subtasks added yet. Get started!"

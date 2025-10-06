@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-06 01:27+0000\n"
+"POT-Creation-Date: 2025-10-06 09:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2442,27 +2442,27 @@ msgstr ""
 msgid "Show Completed Tasks"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:37
+#: src/Layouts/Sidebar.vala:39
 msgid "Favorites"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:39
+#: src/Layouts/Sidebar.vala:41
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:209 src/Layouts/Sidebar.vala:261
+#: src/Layouts/Sidebar.vala:263 src/Layouts/Sidebar.vala:315
 msgid "Go to Today"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:213 src/Layouts/Sidebar.vala:265
+#: src/Layouts/Sidebar.vala:267 src/Layouts/Sidebar.vala:319
 msgid "Go to Scheduled"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:217 src/Layouts/Sidebar.vala:269
+#: src/Layouts/Sidebar.vala:271 src/Layouts/Sidebar.vala:323
 msgid "Go to Labels"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:221 src/Layouts/Sidebar.vala:273
+#: src/Layouts/Sidebar.vala:275 src/Layouts/Sidebar.vala:327
 msgid "Go to Pinboard"
 msgstr ""
 
@@ -2814,6 +2814,24 @@ msgstr ""
 #: src/Widgets/MultiSelectToolbar.vala:243
 #, c-format
 msgid "Are you sure you want to delete these %d to-dos?"
+msgstr ""
+
+#: src/Widgets/NewVersionPopup.vala:42
+msgid "New version available!"
+msgstr ""
+
+#: src/Widgets/NewVersionPopup.vala:66
+msgid ""
+"Update now to enjoy the latest improvements, bug fixes, and new features "
+"that make Planify even better"
+msgstr ""
+
+#: src/Widgets/NewVersionPopup.vala:73
+msgid "Update Now"
+msgstr ""
+
+#: src/Widgets/NewVersionPopup.vala:110
+msgid "Close"
 msgstr ""
 
 #: src/Widgets/SubItems.vala:523

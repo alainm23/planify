@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-06 01:27+0000\n"
+"POT-Creation-Date: 2025-10-06 09:50+0000\n"
 "PO-Revision-Date: 2025-10-03 10:10+0000\n"
 "Last-Translator: Alain <alainmh23@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/io-"
@@ -2556,27 +2556,27 @@ msgstr "Gestionar el orden de las secciones"
 msgid "Show Completed Tasks"
 msgstr "Mostrar tareas completadas"
 
-#: src/Layouts/Sidebar.vala:37
+#: src/Layouts/Sidebar.vala:39
 msgid "Favorites"
 msgstr "Favoritos"
 
-#: src/Layouts/Sidebar.vala:39
+#: src/Layouts/Sidebar.vala:41
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "No hay favoritos disponibles. Cree uno haciendo clic en el botón '+'"
 
-#: src/Layouts/Sidebar.vala:209 src/Layouts/Sidebar.vala:261
+#: src/Layouts/Sidebar.vala:263 src/Layouts/Sidebar.vala:315
 msgid "Go to Today"
 msgstr "Ir a Hoy"
 
-#: src/Layouts/Sidebar.vala:213 src/Layouts/Sidebar.vala:265
+#: src/Layouts/Sidebar.vala:267 src/Layouts/Sidebar.vala:319
 msgid "Go to Scheduled"
 msgstr "Ir a Planificado"
 
-#: src/Layouts/Sidebar.vala:217 src/Layouts/Sidebar.vala:269
+#: src/Layouts/Sidebar.vala:271 src/Layouts/Sidebar.vala:323
 msgid "Go to Labels"
 msgstr "Ir a Etiquetas"
 
-#: src/Layouts/Sidebar.vala:221 src/Layouts/Sidebar.vala:273
+#: src/Layouts/Sidebar.vala:275 src/Layouts/Sidebar.vala:327
 msgid "Go to Pinboard"
 msgstr "Ir a Importantes"
 
@@ -2950,6 +2950,26 @@ msgstr "Eliminar %d tareas pendientes"
 #, c-format
 msgid "Are you sure you want to delete these %d to-dos?"
 msgstr "¿Estás seguro de que deseas eliminar estas %d tareas pendientes?"
+
+#: src/Widgets/NewVersionPopup.vala:42
+#, fuzzy
+msgid "New version available!"
+msgstr "No disponible"
+
+#: src/Widgets/NewVersionPopup.vala:66
+msgid ""
+"Update now to enjoy the latest improvements, bug fixes, and new features "
+"that make Planify even better"
+msgstr ""
+
+#: src/Widgets/NewVersionPopup.vala:73
+#, fuzzy
+msgid "Update Now"
+msgstr "Actualizada el"
+
+#: src/Widgets/NewVersionPopup.vala:110
+msgid "Close"
+msgstr ""
 
 #: src/Widgets/SubItems.vala:523
 msgid "No subtasks added yet. Get started!"
