@@ -232,10 +232,10 @@
             <description>Display a preview of task descriptions in the task list</description>
         </key>
         
-        <key name="version" type="s">
-            <default>'3.0'</default>
-            <summary>The currently installed version.</summary>
-            <description>The currently installed version of Planify, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
+        <key name="dismissed-update-version" type="s">
+            <default>''</default>
+            <summary>Dismissed update notification version</summary>
+            <description>Stores the version number of the update notification that was dismissed by the user to prevent showing it again</description>
         </key>
 
         <key name="calendar-enabled" type="b">

@@ -698,3 +698,10 @@ checkbutton.theme-selector radio:checked {
 .task-editing {
     background-color: @window_bg_color !important;
 }
+
+.version-popup {
+    background: @card_bg_color;
+    border: 1px solid @item_border_color;
+    padding: 12px;
+    border-radius: 9px;
+}
