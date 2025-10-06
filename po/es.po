@@ -3096,12 +3096,14 @@ msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
 msgstr ""
 
 #: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
-#: src/Widgets/TranslationRow.vala:156
+#: src/Widgets/TranslationRow.vala:156 src/Widgets/TranslationRow.vala:129
+#: src/Widgets/TranslationRow.vala:151 src/Widgets/TranslationRow.vala:155
 msgid "Translations"
 msgstr ""
 
 #: src/Widgets/TranslationRow.vala:131 src/Widgets/TranslationRow.vala:153
-#: src/Widgets/TranslationRow.vala:157
+#: src/Widgets/TranslationRow.vala:157 src/Widgets/TranslationRow.vala:130
+#: src/Widgets/TranslationRow.vala:152 src/Widgets/TranslationRow.vala:156
 msgid "Help make Planify available worldwide"
 msgstr ""
 
