@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-06 09:50+0000\n"
+"POT-Creation-Date: 2025-10-06 04:59-0500\n"
 "PO-Revision-Date: 2025-07-07 12:31+0300\n"
 "Last-Translator: Alevtina <karashokovaaa@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -50,6 +50,7 @@ msgid "Don't Repeat"
 msgstr "Не повторять"
 
 #: core/Enum.vala:215 core/Enum.vala:217
+#, c-format
 msgid "Every minute"
 msgstr "Каждую минуту"
 
@@ -60,6 +61,7 @@ msgid "Every %d minutes"
 msgstr "Каждые %d мин"
 
 #: core/Enum.vala:221 core/Enum.vala:223
+#, c-format
 msgid "Every hour"
 msgstr "Каждый час"
 
@@ -70,6 +72,7 @@ msgid "Every %d hours"
 msgstr "Каждые %d ч"
 
 #: core/Enum.vala:227 core/Enum.vala:229
+#, c-format
 msgid "Every day"
 msgstr "Каждый день"
 
@@ -80,6 +83,7 @@ msgid "Every %d days"
 msgstr "Каждые %d д."
 
 #: core/Enum.vala:233 core/Enum.vala:235
+#, c-format
 msgid "Every week"
 msgstr "Каждую неделю"
 
@@ -90,6 +94,7 @@ msgid "Every %d weeks"
 msgstr "Каждые %d нед."
 
 #: core/Enum.vala:240 core/Enum.vala:242
+#, c-format
 msgid "Every month"
 msgstr "Каждый месяц"
 
@@ -100,6 +105,7 @@ msgid "Every %d months"
 msgstr "Каждые %d мес."
 
 #: core/Enum.vala:247 core/Enum.vala:249
+#, c-format
 msgid "Every year"
 msgstr "Каждый год"
 
@@ -597,6 +603,7 @@ msgstr "Запрос не был выполнен из-за ошибки сер�
 msgid "The server is currently unable to handle the request."
 msgstr "В настоящее время сервер не может обработать запрос."
 
+#. TODO: use soup messages as fallback?
 #: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
 msgstr "Неизвестная ошибка"
@@ -625,18 +632,22 @@ msgstr "%s %s назад"
 msgid "%s %s left"
 msgstr "%s %s осталось"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
 msgstr ""
@@ -669,37 +680,48 @@ msgstr "Сб,"
 msgid "Su,"
 msgstr "Вс,"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:620
 msgid "%a, %b %e, %Y"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:623
 msgid "%b %e %Y"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:626 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:56
 msgid "%Y"
 msgstr "%Y"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:629
+#, c-format
 msgid "%b %e"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:632
 msgid "%a %Y"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:635
 #, c-format
 msgid "%a"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:638
+#, c-format
 msgid "%a, %b %e"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:641
+#, c-format
 msgid "%b"
 msgstr ""
 
@@ -1262,6 +1284,7 @@ msgstr ""
 "клавишу Enter."
 
 # c-format
+#. vala-lint=naming-convention
 #: core/Widgets/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
@@ -1320,6 +1343,7 @@ msgstr "Приоритет 3: низкий"
 msgid "Your list of section will show up here."
 msgstr "Здесь появится ваш список разделов."
 
+#. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/ProjectPicker/SectionPickerRow.vala:33
@@ -2235,6 +2259,7 @@ msgstr ""
 msgid "Get Involved"
 msgstr ""
 
+#. Reach Us Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
 msgstr "Связаться с нами"
@@ -2766,6 +2791,7 @@ msgstr "По дате добавления"
 msgid "Ascending Order"
 msgstr "По возрастанию"
 
+#. Filters
 #: src/Views/Project/Project.vala:447
 msgid "Duedate"
 msgstr "Срок выполнения"
@@ -2836,6 +2862,7 @@ msgstr "Перенести"
 msgid "Attachments"
 msgstr "Вложения"
 
+#. translators: Open file
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Открыть"
@@ -3009,6 +3036,7 @@ msgstr ""
 msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
 msgstr ""
 
+#. Fallback si solo hay C/POSIX
 #: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
 #: src/Widgets/TranslationRow.vala:156
 msgid "Translations"
@@ -3023,6 +3051,7 @@ msgstr ""
 msgid "Help improve translations"
 msgstr ""
 
+#. Si llegamos aquí, es un idioma válido sin traducción
 #: src/Widgets/TranslationRow.vala:145
 msgid "Start a new translation"
 msgstr ""
