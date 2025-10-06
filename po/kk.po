@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-06 09:50+0000\n"
+"POT-Creation-Date: 2025-10-06 21:25+0000\n"
 "PO-Revision-Date: 2025-05-25 20:44+0500\n"
 "Last-Translator: AnmiTaliDev <anmitali198@gmail.com>\n"
 "Language-Team: \n"
@@ -812,48 +812,55 @@ msgstr "Planify-мен танысу"
 #, fuzzy
 msgid ""
 "This project shows you everything you need to know to hit the ground "
-"running. Don’t hesitate to play around in it – you can always create a new "
-"one from settings."
+"running. Don’t hesitate to play around with it – you can always recreate it "
+"from Preferences."
 msgstr ""
 "Бұл жоба сізге жұмысты бастау үшін білу қажет барлық нәрсені көрсетеді. Онда "
 "тәжірибе жасауға тартынбаңыз – әрқашан параметрлерден жаңасын жасай аласыз."
 
 #: core/Utils/Util.vala:583
-msgid "Tap this to-do"
+#, fuzzy
+msgid "Tap this task"
 msgstr "Осы тапсырманы түртіңіз"
 
 #: core/Utils/Util.vala:584
+#, fuzzy
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-"Completed to-dos are collected at the bottom of your project."
 msgstr ""
 "Сіз тапсырманы қарап тұрсыз! Оны сол жақтағы белгі қорапшасын түрту арқылы "
 "аяқтаңыз. Аяқталған тапсырмалар жобаның төменгі жағында жиналады."
 
 #: core/Utils/Util.vala:589
-msgid "Create a new to-do"
+#, fuzzy
+msgid "Create a new task"
 msgstr "Жаңа тапсырма жасау"
 
 #: core/Utils/Util.vala:590
+#, fuzzy
 msgid ""
-"Now it's your turn, tap the '+' button at the bottom of your project, enter "
-"any pending and tap the blue 'Save' button."
+"Now it's your turn! Tap the '+' button at the bottom of your project, enter "
+"a task description, and tap the 'Add Task' button."
 msgstr ""
 "Енді сіздің кезек, жобаңыздың төменгі жағындағы '+' түймесін түртіп, кез "
 "келген тапсырманы енгізіп, көк 'Сақтау' түймесін түртіңіз."
 
 #: core/Utils/Util.vala:595
-msgid "Plan this to-do by today or later"
+#, fuzzy
+msgid "Plan this to-do for today or later"
 msgstr "Бұл тапсырманы бүгінге немесе кейінге жоспарлау"
 
 #: core/Utils/Util.vala:596
-msgid "Tap the calendar button at the bottom to decide when to do this to-do."
+#, fuzzy
+msgid ""
+"Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
 "Осы тапсырманы қашан орындауды шешу үшін төмендегі күнтізбе түймесін "
 "түртіңіз."
 
 #: core/Utils/Util.vala:601
-msgid "Reorder yours to-dos"
+#, fuzzy
+msgid "Reorder your to-dos"
 msgstr "Тапсырмаларыңызды қайта реттеу"
 
 #: core/Utils/Util.vala:602
@@ -887,7 +894,7 @@ msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
 "You can come back to this project later to learn the advanced features "
-"below..\n"
+"below.\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
 "Міне, білу керек барлық нәрсе. Өз жобаларыңыз бен тапсырмаларыңызды қосуды "
@@ -913,13 +920,15 @@ msgstr ""
 "Жалпы 🡒 Күнтізбе оқиғаларына өтіп қосыңыз."
 
 #: core/Utils/Util.vala:643
-msgid "Enable synchronization with third-party service."
+#, fuzzy
+msgid "Enable synchronization with third-party services"
 msgstr "Үшінші тарап қызметімен синхрондауды қосу."
 
 #: core/Utils/Util.vala:644
+#, fuzzy
 msgid ""
-"Planify not only creates tasks locally, it can also synchronize your Todoist "
-"account. Go to 'Preferences' 🡒 'Accounts'."
+"Planify not only creates tasks locally, but can also synchronize with your "
+"Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
 "Planify тек жергілікті тапсырмалар жасап қана қоймайды, сонымен қатар "
 "Todoist аккаунтыңызды синхрондай алады. 'Параметрлер' 🡒 'Аккаунттар' "
@@ -943,13 +952,14 @@ msgstr ""
 "сүйреңіз."
 
 #: core/Utils/Util.vala:667
-msgid "Tag your to-dos!"
-msgstr "Тапсырмаларыңызға тег қойыңыз!"
+msgid "Add labels to your tasks!"
+msgstr ""
 
 #: core/Utils/Util.vala:668
+#, fuzzy
 msgid ""
-"Tags allow you to improve your workflow in Planify. To add a Tag click on "
-"the tag button at the bottom."
+"Labels help you organize and categorize your tasks. To add a label, click "
+"the label button at the bottom."
 msgstr ""
 "Тегтер Planify-дағы жұмыс ағымын жақсартуға мүмкіндік береді. Тег қосу үшін "
 "төмендегі тег түймесін басыңыз."
@@ -959,9 +969,10 @@ msgid "Set timely reminders!"
 msgstr "Уақтылы еске салғыштар орнатыңыз!"
 
 #: core/Utils/Util.vala:675
+#, fuzzy
 msgid ""
-"You want Planify to send you a notification to remind you of an important "
-"event or something special. Tap the bell button below to add a reminder."
+"Get notified about important tasks or events. Tap the bell button below to "
+"add a reminder."
 msgstr ""
 "Planify маңызды оқиға немесе ерекше нәрсе туралы еске салу хабарламасын "
 "жіберуін қалайсыз. Еске салғыш қосу үшін төмендегі қоңырау түймесін түртіңіз."
@@ -2982,13 +2993,13 @@ msgstr ""
 msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
 msgstr ""
 
-#: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
-#: src/Widgets/TranslationRow.vala:156
+#: src/Widgets/TranslationRow.vala:129 src/Widgets/TranslationRow.vala:151
+#: src/Widgets/TranslationRow.vala:155
 msgid "Translations"
 msgstr ""
 
-#: src/Widgets/TranslationRow.vala:131 src/Widgets/TranslationRow.vala:153
-#: src/Widgets/TranslationRow.vala:157
+#: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
+#: src/Widgets/TranslationRow.vala:156
 msgid "Help make Planify available worldwide"
 msgstr ""
 
@@ -3103,6 +3114,12 @@ msgstr "Белгілерді ашу"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Жапсырма тақтасын ашу"
+
+#~ msgid "Create a new to-do"
+#~ msgstr "Жаңа тапсырма жасау"
+
+#~ msgid "Tag your to-dos!"
+#~ msgstr "Тапсырмаларыңызға тег қойыңыз!"
 
 #, fuzzy
 #~ msgid "What’s new in Planify"
