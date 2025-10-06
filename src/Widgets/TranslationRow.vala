@@ -114,7 +114,6 @@ public class Widgets.TranslationRow : Adw.PreferencesRow {
             string user_lang = "";
             string full_lang = "";
             foreach (string lang in languages) {
-                // Ignorar C y POSIX
                 if (lang == "C" || lang == "POSIX") {
                     continue;
                 }
@@ -135,12 +134,13 @@ public class Widgets.TranslationRow : Adw.PreferencesRow {
                 
                 if (metrics.has_key (user_lang) || metrics.has_key (full_lang)) {
                     var metric = metrics.has_key (full_lang) ? metrics.get (full_lang) : metrics.get (user_lang);
-                    title = _("Help improve translations");
-                    prepare_animation (metric.language, metric.translated_percent);
-                    return;
+                    if (metric.translated_percent > 0.0) {
+                        title = _("Help improve translations");
+                        prepare_animation (metric.language, metric.translated_percent);
+                        return;
+                    }
                 }
                 
-                // Si llegamos aquí, es un idioma válido sin traducción
                 string language_name = get_language_name (full_lang);
                 title = _("Start a new translation");
                 subtitle = _("<b>%s</b> is not available yet. Be the first to translate it!").printf (language_name);
@@ -148,7 +148,6 @@ public class Widgets.TranslationRow : Adw.PreferencesRow {
                 return;
             }
             
-            // Fallback si solo hay C/POSIX
             title = _("Translations");
             subtitle = _("Help make Planify available worldwide");
             hide_level_bar ();
@@ -161,46 +160,99 @@ public class Widgets.TranslationRow : Adw.PreferencesRow {
 
     private string get_language_name (string lang_code) {
         var locale_names = new Gee.HashMap<string, string> ();
-        locale_names.set ("es", "Spanish");
-        locale_names.set ("fr", "French");
-        locale_names.set ("de", "German");
-        locale_names.set ("it", "Italian");
-        locale_names.set ("pt", "Portuguese");
-        locale_names.set ("ru", "Russian");
-        locale_names.set ("zh", "Chinese");
-        locale_names.set ("ja", "Japanese");
-        locale_names.set ("ko", "Korean");
+        locale_names.set ("af", "Afrikaans");
+        locale_names.set ("ak", "Akan");
         locale_names.set ("ar", "Arabic");
-        locale_names.set ("hi", "Hindi");
-        locale_names.set ("eu", "Basque");
-        locale_names.set ("ca", "Catalan");
-        locale_names.set ("nl", "Dutch");
-        locale_names.set ("sv", "Swedish");
-        locale_names.set ("da", "Danish");
-        locale_names.set ("no", "Norwegian");
-        locale_names.set ("fi", "Finnish");
-        locale_names.set ("pl", "Polish");
-        locale_names.set ("cs", "Czech");
-        locale_names.set ("sk", "Slovak");
-        locale_names.set ("hu", "Hungarian");
-        locale_names.set ("ro", "Romanian");
-        locale_names.set ("bg", "Bulgarian");
-        locale_names.set ("hr", "Croatian");
-        locale_names.set ("sr", "Serbian");
-        locale_names.set ("sl", "Slovenian");
-        locale_names.set ("et", "Estonian");
-        locale_names.set ("lv", "Latvian");
-        locale_names.set ("lt", "Lithuanian");
-        locale_names.set ("uk", "Ukrainian");
+        locale_names.set ("az", "Azerbaijani");
         locale_names.set ("be", "Belarusian");
+        locale_names.set ("bg", "Bulgarian");
+        locale_names.set ("bn", "Bengali");
+        locale_names.set ("bs", "Bosnian");
+        locale_names.set ("ca", "Catalan");
+        locale_names.set ("ckb", "Central Kurdish");
+        locale_names.set ("cs", "Czech");
+        locale_names.set ("cv", "Chuvash");
+        locale_names.set ("da", "Danish");
+        locale_names.set ("de", "German");
+        locale_names.set ("el", "Greek");
+        locale_names.set ("eo", "Esperanto");
+        locale_names.set ("es", "Spanish");
+        locale_names.set ("et", "Estonian");
+        locale_names.set ("eu", "Basque");
+        locale_names.set ("fa", "Persian");
+        locale_names.set ("fi", "Finnish");
+        locale_names.set ("fr", "French");
+        locale_names.set ("ga", "Irish");
+        locale_names.set ("gl", "Galician");
+        locale_names.set ("he", "Hebrew");
+        locale_names.set ("hi", "Hindi");
+        locale_names.set ("hr", "Croatian");
+        locale_names.set ("hu", "Hungarian");
+        locale_names.set ("hy", "Armenian");
+        locale_names.set ("id", "Indonesian");
+        locale_names.set ("is", "Icelandic");
+        locale_names.set ("it", "Italian");
+        locale_names.set ("ja", "Japanese");
+        locale_names.set ("jv", "Javanese");
         locale_names.set ("ka", "Georgian");
         locale_names.set ("kk", "Kazakh");
-        locale_names.set ("tr", "Turkish");
-        locale_names.set ("he", "Hebrew");
-        locale_names.set ("th", "Thai");
-        locale_names.set ("vi", "Vietnamese");
-        locale_names.set ("id", "Indonesian");
+        locale_names.set ("kn", "Kannada");
+        locale_names.set ("ko", "Korean");
+        locale_names.set ("ku", "Kurdish");
+        locale_names.set ("lb", "Luxembourgish");
+        locale_names.set ("lg", "Luganda");
+        locale_names.set ("lt", "Lithuanian");
+        locale_names.set ("lv", "Latvian");
+        locale_names.set ("mg", "Malagasy");
+        locale_names.set ("mk", "Macedonian");
+        locale_names.set ("mn", "Mongolian");
+        locale_names.set ("mo", "Moldovan");
+        locale_names.set ("mr", "Marathi");
         locale_names.set ("ms", "Malay");
+        locale_names.set ("my", "Burmese");
+        locale_names.set ("nb", "Norwegian Bokmål");
+        locale_names.set ("nl", "Dutch");
+        locale_names.set ("nn", "Norwegian Nynorsk");
+        locale_names.set ("no", "Norwegian");
+        locale_names.set ("pa", "Punjabi");
+        locale_names.set ("pl", "Polish");
+        locale_names.set ("pt", "Portuguese");
+        locale_names.set ("ro", "Romanian");
+        locale_names.set ("ru", "Russian");
+        locale_names.set ("sa", "Sanskrit");
+        locale_names.set ("si", "Sinhala");
+        locale_names.set ("sk", "Slovak");
+        locale_names.set ("sl", "Slovenian");
+        locale_names.set ("sma", "Southern Sami");
+        locale_names.set ("sq", "Albanian");
+        locale_names.set ("sr", "Serbian");
+        locale_names.set ("sv", "Swedish");
+        locale_names.set ("szl", "Silesian");
+        locale_names.set ("ta", "Tamil");
+        locale_names.set ("te", "Telugu");
+        locale_names.set ("th", "Thai");
+        locale_names.set ("tl", "Tagalog");
+        locale_names.set ("tr", "Turkish");
+        locale_names.set ("ug", "Uyghur");
+        locale_names.set ("uk", "Ukrainian");
+        locale_names.set ("ur", "Urdu");
+        locale_names.set ("uz", "Uzbek");
+        locale_names.set ("vi", "Vietnamese");
+        locale_names.set ("zh", "Chinese");
+        locale_names.set ("zu", "Zulu");
+        locale_names.set ("en_AU", "English (Australia)");
+        locale_names.set ("en_CA", "English (Canada)");
+        locale_names.set ("en_GB", "English (UK)");
+        locale_names.set ("fr_CA", "French (Canada)");
+        locale_names.set ("pt_BR", "Portuguese (Brazil)");
+        locale_names.set ("zh_CN", "Chinese (Simplified)");
+        locale_names.set ("zh_TW", "Chinese (Traditional)");
+        locale_names.set ("tr_TR", "Turkish (Turkey)");
+        locale_names.set ("nb_NO", "Norwegian Bokmål (Norway)");
+
+        if (locale_names.has_key (lang_code)) {
+            return locale_names.get (lang_code);
+        }
         
         string base_lang = lang_code.contains ("_") ? lang_code.split ("_")[0] : lang_code;
         return locale_names.has_key (base_lang) ? locale_names.get (base_lang) : base_lang.up ();

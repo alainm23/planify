@@ -82,6 +82,7 @@ sources = files(
   'Widgets/ItemDetailCompleted.vala',
   'Widgets/PinnedItemsBox.vala',
   'Widgets/TranslationRow.vala',
+  'Widgets/NewVersionPopup.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',
@@ -101,7 +102,6 @@ sources = files(
   'Dialogs/Section.vala',
   'Dialogs/Label.vala',
   #'Dialogs/GoogleOAuth.vala', No longer used?
-  'Dialogs/WhatsNew.vala',
   'Dialogs/QuickAdd.vala',
   'Dialogs/ManageSectionOrder.vala',
   'Dialogs/ProjectPicker/ProjectPicker.vala',
