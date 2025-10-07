@@ -617,16 +617,16 @@ public class Utils.Datetime {
     public static string get_default_date_format (bool with_weekday = false, bool with_day = true, bool with_year = false) {
         if (with_weekday == true && with_day == true && with_year == true) {
             /// TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
-            return _("%a, %b %e, %Y");
+            return _("%a, %b %-e, %Y");
         } else if (with_weekday == false && with_day == true && with_year == true) {
             /// TRANSLATORS: a GLib.DateTime format showing the date and year
-            return _("%b %e %Y");
+            return _("%b %-e %Y");
         } else if (with_weekday == false && with_day == false && with_year == true) {
             /// TRANSLATORS: a GLib.DateTime format showing the year
             return _("%Y");
         } else if (with_weekday == false && with_day == true && with_year == false) {
             /// TRANSLATORS: a GLib.DateTime format showing the date
-            return _("%b %e");
+            return _("%b %-e");
         } else if (with_weekday == true && with_day == false && with_year == true) {
             /// TRANSLATORS: a GLib.DateTime format showing the weekday and year.
             return _("%a %Y");
@@ -635,7 +635,7 @@ public class Utils.Datetime {
             return _("%a");
         } else if (with_weekday == true && with_day == true && with_year == false) {
             /// TRANSLATORS: a GLib.DateTime format showing the weekday and date
-            return _("%a, %b %e");
+            return _("%a, %b %-e");
         } else if (with_weekday == false && with_day == false && with_year == false) {
             /// TRANSLATORS: a GLib.DateTime format showing the month.
             return _("%b");
