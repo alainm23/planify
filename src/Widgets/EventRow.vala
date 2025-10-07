@@ -30,6 +30,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 
     private Gtk.Grid color_grid;
     private Gtk.Label time_label;
+    private Gtk.Label name_label;
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
@@ -48,27 +49,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         add_css_class ("no-selectable");
         add_css_class ("transition");
 
-        var dt_start = component.get_dtstart ();
-        end_time = CalendarEventsUtil.ical_to_date_time (component.get_dtend ());
-
-        if (dt_start.is_date ()) {
-            // Don't convert timezone for date with only day info, leave it at midnight UTC
-            start_time = CalendarEventsUtil.ical_to_date_time (dt_start);
-        } else {
-            start_time = CalendarEventsUtil.ical_to_date_time (dt_start).to_local ();
-        }
-
-        var dt_end = component.get_dtend ();
-        if (dt_end.is_date ()) {
-            // Don't convert timezone for date with only day info, leave it at midnight UTC
-            end_time = CalendarEventsUtil.ical_to_date_time (dt_end);
-        } else {
-            end_time = CalendarEventsUtil.ical_to_date_time (dt_end).to_local ();
-        }
-
-        if (end_time != null && CalendarEventsUtil.is_the_all_day (start_time, end_time)) {
-            is_allday = true;
-        }
+        update_times (component);
 
         color_grid = new Gtk.Grid () {
             width_request = 3,
@@ -84,7 +65,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
             css_classes = { "dimmed", "caption" }
         };
 
-        var name_label = new Gtk.Label (component.get_summary ()) {
+        name_label = new Gtk.Label (component.get_summary ()) {
             valign = Gtk.Align.CENTER,
             ellipsize = Pango.EllipsizeMode.END,
             wrap = true,
@@ -122,6 +103,31 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 
     private void update_color () {
         Util.get_default ().set_widget_color (cal.dup_color (), color_grid);
+    }
+
+    private void update_times (ICal.Component comp) {
+        var dt_start = comp.get_dtstart ();
+        var dt_end = comp.get_dtend ();
+
+        if (dt_start.is_date ()) {
+            start_time = CalendarEventsUtil.ical_to_date_time (dt_start);
+        } else {
+            start_time = CalendarEventsUtil.ical_to_date_time (dt_start).to_local ();
+        }
+
+        if (dt_end.is_date ()) {
+            end_time = CalendarEventsUtil.ical_to_date_time (dt_end);
+        } else {
+            end_time = CalendarEventsUtil.ical_to_date_time (dt_end).to_local ();
+        }
+
+        is_allday = end_time != null && CalendarEventsUtil.is_the_all_day (start_time, end_time);
+    }
+
+    public void update (ICal.Component new_component) {
+        update_times (new_component);
+        name_label.label = new_component.get_summary ();
+        update_timelabel ();
     }
 
     public void clean_up () {
