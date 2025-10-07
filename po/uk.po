@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 09:40+0000\n"
+"POT-Creation-Date: 2025-10-07 10:36+0000\n"
 "PO-Revision-Date: 2025-05-25 16:15+0300\n"
 "Last-Translator: Maksym Dilanian <maksym@dilanian.xyz>\n"
 "Language-Team: \n"
@@ -120,7 +120,7 @@ msgid "CalDAV"
 msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
-#: src/Views/Project/Project.vala:439 src/Views/Project/Project.vala:484
+#: src/Views/Project/Project.vala:445 src/Views/Project/Project.vala:490
 #: src/Views/Scheduled/Scheduled.vala:228
 #: src/Views/Scheduled/Scheduled.vala:257 src/Views/Today.vala:624
 #: src/Views/Today.vala:653 src/Widgets/ItemDetailCompleted.vala:82
@@ -131,7 +131,7 @@ msgstr "Пріоритет"
 msgid "Label"
 msgstr "Мітки"
 
-#: core/Enum.vala:351 src/Views/Project/Project.vala:437
+#: core/Enum.vala:351 src/Views/Project/Project.vala:443
 #: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:622
 msgid "Due Date"
 msgstr "Дата виконання"
@@ -290,8 +290,8 @@ msgstr "майбутні"
 #: core/Widgets/Calendar/CalendarHeader.vala:79
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:124
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:688
-#: src/Layouts/ItemRow.vala:1138 src/Views/Project/Project.vala:451
-#: src/Views/Project/Project.vala:611 src/Views/Today.vala:202
+#: src/Layouts/ItemRow.vala:1138 src/Views/Project/Project.vala:457
+#: src/Views/Project/Project.vala:617 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Сьогодні"
 
@@ -363,7 +363,7 @@ msgstr "Це не можна скасувати"
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:258
+#: src/Widgets/MultiSelectToolbar.vala:265
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -373,8 +373,8 @@ msgstr "Скасувати"
 #: src/Dialogs/Preferences/Pages/Backup.vala:266
 #: src/Layouts/ItemSidebarView.vala:535 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
-#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:215
-#: src/Widgets/MultiSelectToolbar.vala:259
+#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
+#: src/Widgets/MultiSelectToolbar.vala:266
 msgid "Delete"
 msgstr "Видалити"
 
@@ -400,7 +400,7 @@ msgstr "Це призведе до архівування %s і всіх йог�
 
 #: core/Objects/Project.vala:879 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:569
-#: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:296
+#: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:302
 msgid "Archive"
 msgstr "Архівувати"
 
@@ -475,7 +475,7 @@ msgstr ""
 "Вибачте, функція швидкого додавання не може знайти жодного доступного "
 "проєкту. Спробуйте створити проєкт в Planify."
 
-#: core/QuickAdd.vala:922 src/MainWindow.vala:632
+#: core/QuickAdd.vala:922 src/MainWindow.vala:655
 msgid "Keyboard Shortcuts"
 msgstr "Комбінації клавіш"
 
@@ -1427,7 +1427,7 @@ msgstr ""
 "справи."
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
-#: src/Views/Project/Project.vala:491
+#: src/Views/Project/Project.vala:497
 #, fuzzy
 msgid "Completed Tasks"
 msgstr "Виконані завдання"
@@ -1464,7 +1464,7 @@ msgstr "Бууде видалено %d завершених завдань та 
 msgid "Task Detail"
 msgstr "Деталі завдання"
 
-#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:532
+#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:538
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
 msgid "Filter By"
 msgstr "Фільтр"
@@ -1474,8 +1474,8 @@ msgid "Next Week"
 msgstr "Наступного тижня"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:696
-#: src/Layouts/ItemRow.vala:1146 src/Views/Project/Project.vala:456
-#: src/Views/Project/Project.vala:621
+#: src/Layouts/ItemRow.vala:1146 src/Views/Project/Project.vala:462
+#: src/Views/Project/Project.vala:627
 msgid "No Date"
 msgstr "Без дати"
 
@@ -1560,12 +1560,12 @@ msgstr "Оновити мітку"
 msgid "Filter"
 msgstr "Фільтр"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:637
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:660
 msgid "Archived Projects"
 msgstr "Архівні проекти"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:659
-#: src/Views/Project/Project.vala:289
+#: src/Views/Project/Project.vala:295
 msgid "Manage Sections"
 msgstr "Керування розділами"
 
@@ -1874,7 +1874,7 @@ msgid "Custom Sort Order"
 msgstr "Вручну"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
-#: src/Views/Project/Project.vala:436 src/Views/Scheduled/Scheduled.vala:225
+#: src/Views/Project/Project.vala:442 src/Views/Scheduled/Scheduled.vala:225
 #: src/Views/Today.vala:621
 msgid "Alphabetically"
 msgstr "Алфавітом"
@@ -2193,7 +2193,7 @@ msgstr ""
 "Якщо цю функцію ввімкнено, нагадування перед терміном виконання завдання "
 "буде додано за замовчуванням."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:629
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:652
 msgid "Preferences"
 msgstr "Налаштування"
 
@@ -2371,7 +2371,7 @@ msgid "New Project"
 msgstr "Новий проєкт"
 
 #: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:700
-#: src/Views/Project/Project.vala:284
+#: src/Views/Project/Project.vala:290
 msgid "Edit Project"
 msgstr "Редагувати проєкт"
 
@@ -2414,7 +2414,7 @@ msgid "Unarchive"
 msgstr "Розархівувати"
 
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:155
-#: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:297
+#: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:303
 msgid "Delete Project"
 msgstr "Видалити проєкт"
 
@@ -2433,7 +2433,7 @@ msgstr ""
 "Швидко перемикайтесь між проектами та переглядами, шукайте завдання, шукайте "
 "за мітками"
 
-#: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:287
+#: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:293
 msgid "New Section"
 msgstr "Новий розділ"
 
@@ -2487,7 +2487,7 @@ msgstr "Редагувати"
 #: src/Layouts/ItemBoard.vala:703 src/Layouts/ItemRow.vala:1154
 #: src/Layouts/ItemRow.vala:1260 src/Layouts/ItemSidebarView.vala:441
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:566
-#: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:285
+#: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:291
 msgid "Duplicate"
 msgstr "Дублювати"
 
@@ -2643,32 +2643,32 @@ msgstr "Головне меню"
 msgid "Open Quick Find"
 msgstr "Відкрити Швидкий пошук"
 
-#: src/MainWindow.vala:635
+#: src/MainWindow.vala:658
 msgid "About Planify"
 msgstr "Про Planify"
 
-#: src/MainWindow.vala:695
+#: src/MainWindow.vala:718
 msgid "Oops! Something happened"
 msgstr "Ой! Щось трапилося."
 
-#: src/MainWindow.vala:698
+#: src/MainWindow.vala:721
 msgid "See More"
 msgstr "Дивитися більше"
 
-#: src/MainWindow.vala:714 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:737 src/Widgets/ItemChangeHistoryRow.vala:48
 #, fuzzy
 msgid "Task completed"
 msgstr "Завдання виконано"
 
-#: src/MainWindow.vala:715
+#: src/MainWindow.vala:738
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:753
+#: src/MainWindow.vala:776
 msgid "Database Integrity Check Failed"
 msgstr "Перевірка цілісності бази даних не вдалася"
 
-#: src/MainWindow.vala:754
+#: src/MainWindow.vala:777
 #, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
@@ -2688,7 +2688,7 @@ msgstr ""
 "будуть видалені. Після скидання ви зможете відновити будь-яку резервну "
 "копію, яку створили раніше. Дякуємо за ваше терпіння."
 
-#: src/MainWindow.vala:756
+#: src/MainWindow.vala:779
 #, fuzzy
 msgid "Reset Database"
 msgstr "Скинути базу даних"
@@ -2769,7 +2769,7 @@ msgid "Note"
 msgstr "Примітка"
 
 #: src/Views/Project/Board.vala:316 src/Views/Project/List.vala:398
-#: src/Views/Project/Project.vala:286 src/Views/Project/Project.vala:318
+#: src/Views/Project/Project.vala:292 src/Views/Project/Project.vala:324
 msgid "When?"
 msgstr "Коли?"
 
@@ -2777,104 +2777,104 @@ msgstr "Коли?"
 msgid "Project Actions"
 msgstr "Дії з проєктом"
 
-#: src/Views/Project/Project.vala:291
+#: src/Views/Project/Project.vala:297
 msgid "Select"
 msgstr "Вибрати"
 
-#: src/Views/Project/Project.vala:292
+#: src/Views/Project/Project.vala:298
 msgid "Paste"
 msgstr "Вставити"
 
-#: src/Views/Project/Project.vala:293 src/Views/Project/Project.vala:394
+#: src/Views/Project/Project.vala:299 src/Views/Project/Project.vala:400
 msgid "Expand All"
 msgstr "Розгорнуте все"
 
-#: src/Views/Project/Project.vala:398
+#: src/Views/Project/Project.vala:404
 msgid "Collapse All"
 msgstr "Згорнути все"
 
-#: src/Views/Project/Project.vala:414
+#: src/Views/Project/Project.vala:420
 msgid "List"
 msgstr "Список"
 
-#: src/Views/Project/Project.vala:420
+#: src/Views/Project/Project.vala:426
 msgid "Board"
 msgstr "Дошка"
 
-#: src/Views/Project/Project.vala:432 src/Views/Scheduled/Scheduled.vala:222
+#: src/Views/Project/Project.vala:438 src/Views/Scheduled/Scheduled.vala:222
 #: src/Views/Today.vala:618
 msgid "Sorting"
 msgstr "Сортування"
 
-#: src/Views/Project/Project.vala:435
+#: src/Views/Project/Project.vala:441
 msgid "Custom sort order"
 msgstr "Вручну"
 
-#: src/Views/Project/Project.vala:438 src/Views/Scheduled/Scheduled.vala:227
+#: src/Views/Project/Project.vala:444 src/Views/Scheduled/Scheduled.vala:227
 #: src/Views/Today.vala:623
 msgid "Date Added"
 msgstr "Датою додавання"
 
-#: src/Views/Project/Project.vala:441
+#: src/Views/Project/Project.vala:447
 #, fuzzy
 msgid "Ascending Order"
 msgstr "За зростанням"
 
-#: src/Views/Project/Project.vala:447
+#: src/Views/Project/Project.vala:453
 msgid "Duedate"
 msgstr "Дата виконання"
 
-#: src/Views/Project/Project.vala:450
+#: src/Views/Project/Project.vala:456
 msgid "All (default)"
 msgstr "Всі (за замовчуванням)"
 
-#: src/Views/Project/Project.vala:452 src/Views/Project/Project.vala:613
+#: src/Views/Project/Project.vala:458 src/Views/Project/Project.vala:619
 msgid "This Week"
 msgstr "Цього тижня"
 
-#: src/Views/Project/Project.vala:453 src/Views/Project/Project.vala:615
+#: src/Views/Project/Project.vala:459 src/Views/Project/Project.vala:621
 msgid "Next 7 Days"
 msgstr "Наступні 7 днів"
 
-#: src/Views/Project/Project.vala:454 src/Views/Project/Project.vala:617
+#: src/Views/Project/Project.vala:460 src/Views/Project/Project.vala:623
 msgid "This Month"
 msgstr "Цього місяця"
 
-#: src/Views/Project/Project.vala:455 src/Views/Project/Project.vala:619
+#: src/Views/Project/Project.vala:461 src/Views/Project/Project.vala:625
 msgid "Next 30 Days"
 msgstr "Наступні 30 днів"
 
-#: src/Views/Project/Project.vala:462 src/Views/Scheduled/Scheduled.vala:235
+#: src/Views/Project/Project.vala:468 src/Views/Scheduled/Scheduled.vala:235
 #: src/Views/Today.vala:631
 msgid "P1"
 msgstr "П1"
 
-#: src/Views/Project/Project.vala:468 src/Views/Scheduled/Scheduled.vala:241
+#: src/Views/Project/Project.vala:474 src/Views/Scheduled/Scheduled.vala:241
 #: src/Views/Today.vala:637
 msgid "P2"
 msgstr "П2"
 
-#: src/Views/Project/Project.vala:474 src/Views/Scheduled/Scheduled.vala:247
+#: src/Views/Project/Project.vala:480 src/Views/Scheduled/Scheduled.vala:247
 #: src/Views/Today.vala:643
 msgid "P3"
 msgstr "П3"
 
-#: src/Views/Project/Project.vala:480 src/Views/Scheduled/Scheduled.vala:253
+#: src/Views/Project/Project.vala:486 src/Views/Scheduled/Scheduled.vala:253
 #: src/Views/Today.vala:649
 msgid "P4"
 msgstr "П4"
 
-#: src/Views/Project/Project.vala:487 src/Views/Scheduled/Scheduled.vala:260
+#: src/Views/Project/Project.vala:493 src/Views/Scheduled/Scheduled.vala:260
 #: src/Views/Today.vala:656
 msgid "Filter by Labels"
 msgstr "Фільтрувати за мітками"
 
-#: src/Views/Project/Project.vala:496
+#: src/Views/Project/Project.vala:502
 #, fuzzy
 msgid "Search completed tasks"
 msgstr "Показати виконані завдання"
 
-#: src/Views/Project/Project.vala:523
+#: src/Views/Project/Project.vala:529
 msgid "Sort By"
 msgstr "Сортувати за"
 
@@ -2996,37 +2996,37 @@ msgstr "Закріпити: неактивний"
 msgid "Completed At"
 msgstr "Завершено"
 
-#: src/Widgets/MultiSelectToolbar.vala:213
+#: src/Widgets/MultiSelectToolbar.vala:220
 msgid "Mark as Completed"
 msgstr "Позначити як завершене"
 
-#: src/Widgets/MultiSelectToolbar.vala:239
+#: src/Widgets/MultiSelectToolbar.vala:246
 msgid "Delete To-Do"
 msgstr "Видалити завдання"
 
-#: src/Widgets/MultiSelectToolbar.vala:240
+#: src/Widgets/MultiSelectToolbar.vala:247
 msgid "Are you sure you want to delete this to-do?"
 msgstr "Ви впевнені, що хочете видалити це завдання?"
 
 # # c-format
-#: src/Widgets/MultiSelectToolbar.vala:243
+#: src/Widgets/MultiSelectToolbar.vala:250
 #, fuzzy, c-format
 msgid "Delete %d To-Do"
 msgstr "Видалити завдання (%d)"
 
 # # c-format
-#: src/Widgets/MultiSelectToolbar.vala:244
+#: src/Widgets/MultiSelectToolbar.vala:251
 #, c-format
 msgid "Delete %d To-Dos"
 msgstr "Видалити завдання (%d)"
 
-#: src/Widgets/MultiSelectToolbar.vala:249
+#: src/Widgets/MultiSelectToolbar.vala:256
 #, fuzzy, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgstr "Ви впевнені, що хочете видалити це завдання?"
 
 # # c-format
-#: src/Widgets/MultiSelectToolbar.vala:250
+#: src/Widgets/MultiSelectToolbar.vala:257
 #, c-format
 msgid "Are you sure you want to delete these %d to-dos?"
 msgstr "Ви впевнені, що хочете видалити ці завдання (%d)?"
