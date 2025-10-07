@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 02:49+0000\n"
+"POT-Creation-Date: 2025-10-07 09:40+0000\n"
 "PO-Revision-Date: 2024-06-24 02:42+0900\n"
 "Last-Translator: Wonje Jung <myunsyeya@ajou.ac.kr>\n"
 "Language-Team: \n"
@@ -31,7 +31,7 @@ msgstr "섹션"
 msgid "Tasks"
 msgstr "할 일"
 
-#: core/Enum.vala:177 core/Enum.vala:555 core/Objects/Filters/Labels.vala:33
+#: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:36
 #: src/Dialogs/Preferences/Pages/Backup.vala:357
 msgid "Labels"
@@ -45,82 +45,82 @@ msgstr "필터"
 msgid "Lists"
 msgstr "목록"
 
-#: core/Enum.vala:212
+#: core/Enum.vala:218
 msgid "Don't Repeat"
 msgstr "반복 안 함"
 
-#: core/Enum.vala:215 core/Enum.vala:217
+#: core/Enum.vala:220
 msgid "Every minute"
 msgstr "매분"
 
 # # c-format
-#: core/Enum.vala:217
+#: core/Enum.vala:220
 #, c-format
 msgid "Every %d minutes"
 msgstr "%d분마다"
 
-#: core/Enum.vala:221 core/Enum.vala:223
+#: core/Enum.vala:222
 msgid "Every hour"
 msgstr "매시간"
 
 # # c-format
-#: core/Enum.vala:223
+#: core/Enum.vala:222
 #, c-format
 msgid "Every %d hours"
 msgstr "%d시간마다"
 
-#: core/Enum.vala:227 core/Enum.vala:229
+#: core/Enum.vala:224
 msgid "Every day"
 msgstr "매일"
 
 # # c-format
-#: core/Enum.vala:229
+#: core/Enum.vala:224
 #, c-format
 msgid "Every %d days"
 msgstr "%d일마다"
 
-#: core/Enum.vala:233 core/Enum.vala:235
+#: core/Enum.vala:226
 msgid "Every week"
 msgstr "매주"
 
 # # c-format
-#: core/Enum.vala:235
+#: core/Enum.vala:226
 #, c-format
 msgid "Every %d weeks"
 msgstr "%d주마다"
 
-#: core/Enum.vala:240 core/Enum.vala:242
+#: core/Enum.vala:228
 msgid "Every month"
 msgstr "매달"
 
 # # c-format
-#: core/Enum.vala:242
+#: core/Enum.vala:228
 #, c-format
 msgid "Every %d months"
 msgstr "%d달마다"
 
-#: core/Enum.vala:247 core/Enum.vala:249
+#: core/Enum.vala:230
 msgid "Every year"
 msgstr "매년"
 
 # # c-format
-#: core/Enum.vala:249
+#: core/Enum.vala:230
 #, c-format
 msgid "Every %d years"
 msgstr "%d년마다"
 
-#: core/Enum.vala:301 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
+#: core/Enum.vala:280 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
-#: core/Enum.vala:304 core/Services/CalDAV/CalDAVClient.vala:121
+#: core/Enum.vala:283 core/Services/CalDAV/CalDAVClient.vala:121
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
 msgstr ""
 
-#: core/Enum.vala:366 core/Enum.vala:552 core/Widgets/PriorityButton.vala:90
+#: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:439 src/Views/Project/Project.vala:484
 #: src/Views/Scheduled/Scheduled.vala:228
 #: src/Views/Scheduled/Scheduled.vala:257 src/Views/Today.vala:624
@@ -128,43 +128,43 @@ msgstr ""
 msgid "Priority"
 msgstr "우선순위"
 
-#: core/Enum.vala:369
+#: core/Enum.vala:348
 msgid "Label"
 msgstr "라벨"
 
-#: core/Enum.vala:372 src/Views/Project/Project.vala:437
+#: core/Enum.vala:351 src/Views/Project/Project.vala:437
 #: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:622
 msgid "Due Date"
 msgstr "기한"
 
-#: core/Enum.vala:375 core/Widgets/SectionPicker/SectionButton.vala:35
-#: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
+#: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
+#: src/Dialogs/CompletedTasks.vala:319 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
 msgstr "섹션"
 
-#: core/Enum.vala:484
+#: core/Enum.vala:463
 msgid "Task Created"
 msgstr "작업이 복제되었습니다"
 
-#: core/Enum.vala:487
+#: core/Enum.vala:466
 msgid "Task Updated"
 msgstr "작업이 복제되었습니다"
 
-#: core/Enum.vala:543
+#: core/Enum.vala:522
 msgid "Content"
 msgstr ""
 
-#: core/Enum.vala:546 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1856
+#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1856
 #: src/Layouts/ItemSidebarView.vala:169
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "설명"
 
-#: core/Enum.vala:549 core/Objects/Filters/Scheduled.vala:48
+#: core/Enum.vala:528 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
 msgstr "일정"
 
-#: core/Enum.vala:558 core/Widgets/PinButton.vala:31
+#: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:681 src/Layouts/ItemBoard.vala:694
 #: src/Layouts/ItemRow.vala:1131 src/Layouts/ItemRow.vala:1144
 msgid "Pin"
@@ -354,7 +354,7 @@ msgstr "이 작업은 취소할 수 없습니다"
 #: core/Objects/Label.vala:210 core/Objects/Project.vala:821
 #: core/Objects/Project.vala:878 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:421
-#: src/Dialogs/CompletedTasks.vala:168
+#: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
@@ -362,20 +362,20 @@ msgstr "이 작업은 취소할 수 없습니다"
 #: src/Dialogs/Preferences/Pages/Backup.vala:436
 #: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:534
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
-#: src/Views/Filter.vala:616 src/Widgets/BypassResolveSwitchRow.vala:48
+#: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:250
+#: src/Widgets/MultiSelectToolbar.vala:258
 msgid "Cancel"
 msgstr "취소"
 
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:822
-#: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:169
+#: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:266
 #: src/Layouts/ItemSidebarView.vala:535 src/Layouts/SectionBoard.vala:639
-#: src/Services/Backups.vala:420 src/Views/Filter.vala:617
+#: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:215
-#: src/Widgets/MultiSelectToolbar.vala:251
+#: src/Widgets/MultiSelectToolbar.vala:259
 msgid "Delete"
 msgstr "삭제"
 
@@ -1431,22 +1431,28 @@ msgid "No completed tasks yet."
 msgstr "완료된 작업 표시"
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:593 src/Views/Filter.vala:611
+#: src/Views/Filter.vala:593
 msgid "Delete All Completed Tasks"
 msgstr "모든 완료된 작업 삭제"
 
 # # c-format
-#: src/Dialogs/CompletedTasks.vala:164
+#: src/Dialogs/CompletedTasks.vala:165
+#, fuzzy, c-format
+msgid "This will delete %d completed task and its subtasks from project %s"
+msgstr "%d개의 완료된 작업 및 하위 작업을 프로젝트 %s에서 삭제합니다"
+
+# # c-format
+#: src/Dialogs/CompletedTasks.vala:166
 #, c-format
 msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr "%d개의 완료된 작업 및 하위 작업을 프로젝트 %s에서 삭제합니다"
 
-#: src/Dialogs/CompletedTasks.vala:226
+#: src/Dialogs/CompletedTasks.vala:230
 #, fuzzy
 msgid "Task Detail"
 msgstr "세부 사항 닫기"
 
-#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:532
+#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:532
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
 msgid "Filter By"
 msgstr "필터 기준"
@@ -1505,8 +1511,13 @@ msgid ""
 "Your change history will be displayed here once you start making changes."
 msgstr ""
 
+#: src/Dialogs/ItemChangeHistory.vala:138
+#, c-format
+msgid "Load more history from %d week ago…"
+msgstr ""
+
 # # c-format
-#: src/Dialogs/ItemChangeHistory.vala:135
+#: src/Dialogs/ItemChangeHistory.vala:139
 #, c-format
 msgid "Load more history from %d weeks ago…"
 msgstr ""
@@ -2695,8 +2706,24 @@ msgstr "완료됨"
 msgid "Great job, nothing left to do 🎉"
 msgstr ""
 
-# # c-format
 #: src/Views/Filter.vala:612
+#, fuzzy
+msgid "Delete Completed Task"
+msgstr "모든 완료된 작업 삭제"
+
+#: src/Views/Filter.vala:613
+#, fuzzy
+msgid "Delete Completed Tasks"
+msgstr "모든 완료된 작업 삭제"
+
+# # c-format
+#: src/Views/Filter.vala:617
+#, fuzzy, c-format
+msgid "This will delete %d completed task and its subtasks"
+msgstr "이 작업은 %d개의 완료된 작업 및 하위 작업을 삭제합니다"
+
+# # c-format
+#: src/Views/Filter.vala:618
 #, c-format
 msgid "This will delete %d completed tasks and their subtasks"
 msgstr "이 작업은 %d개의 완료된 작업 및 하위 작업을 삭제합니다"
@@ -2950,13 +2977,24 @@ msgid "Are you sure you want to delete this to-do?"
 msgstr "이 할 일을 삭제하시겠습니까?"
 
 # # c-format
-#: src/Widgets/MultiSelectToolbar.vala:242
+#: src/Widgets/MultiSelectToolbar.vala:243
+#, fuzzy, c-format
+msgid "Delete %d To-Do"
+msgstr "%d개의 할 일을 삭제하시겠습니까"
+
+# # c-format
+#: src/Widgets/MultiSelectToolbar.vala:244
 #, c-format
 msgid "Delete %d To-Dos"
 msgstr "%d개의 할 일을 삭제하시겠습니까"
 
+#: src/Widgets/MultiSelectToolbar.vala:249
+#, fuzzy, c-format
+msgid "Are you sure you want to delete this %d to-do?"
+msgstr "이 할 일을 삭제하시겠습니까?"
+
 # # c-format
-#: src/Widgets/MultiSelectToolbar.vala:243
+#: src/Widgets/MultiSelectToolbar.vala:250
 #, c-format
 msgid "Are you sure you want to delete these %d to-dos?"
 msgstr "이 %d개의 할 일을 삭제하시겠습니까?"
