@@ -49,27 +49,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         add_css_class ("no-selectable");
         add_css_class ("transition");
 
-        var dt_start = component.get_dtstart ();
-        end_time = CalendarEventsUtil.ical_to_date_time (component.get_dtend ());
-
-        if (dt_start.is_date ()) {
-            // Don't convert timezone for date with only day info, leave it at midnight UTC
-            start_time = CalendarEventsUtil.ical_to_date_time (dt_start);
-        } else {
-            start_time = CalendarEventsUtil.ical_to_date_time (dt_start).to_local ();
-        }
-
-        var dt_end = component.get_dtend ();
-        if (dt_end.is_date ()) {
-            // Don't convert timezone for date with only day info, leave it at midnight UTC
-            end_time = CalendarEventsUtil.ical_to_date_time (dt_end);
-        } else {
-            end_time = CalendarEventsUtil.ical_to_date_time (dt_end).to_local ();
-        }
-
-        if (end_time != null && CalendarEventsUtil.is_the_all_day (start_time, end_time)) {
-            is_allday = true;
-        }
+        update_times (component);
 
         color_grid = new Gtk.Grid () {
             width_request = 3,
@@ -125,9 +105,9 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         Util.get_default ().set_widget_color (cal.dup_color (), color_grid);
     }
 
-    public void update (ICal.Component new_component) {
-        var dt_start = new_component.get_dtstart ();
-        var dt_end = new_component.get_dtend ();
+    private void update_times (ICal.Component comp) {
+        var dt_start = comp.get_dtstart ();
+        var dt_end = comp.get_dtend ();
 
         if (dt_start.is_date ()) {
             start_time = CalendarEventsUtil.ical_to_date_time (dt_start);
@@ -142,6 +122,10 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         }
 
         is_allday = end_time != null && CalendarEventsUtil.is_the_all_day (start_time, end_time);
+    }
+
+    public void update (ICal.Component new_component) {
+        update_times (new_component);
         name_label.label = new_component.get_summary ();
         update_timelabel ();
     }
