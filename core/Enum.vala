@@ -206,49 +206,28 @@ public enum RecurrencyType {
     EVERY_YEAR,
     NONE;
 
-    public string to_friendly_string (int ? interval = null) {
+    public string to_friendly_string (int? interval = null) {
+        int count = (interval == null || interval == 0) ? 1 : interval;
+
+        string pluralized (string singular, string plural) {
+            return GLib.ngettext (singular, plural, count).printf (count);
+        }
+
         switch (this) {
             case NONE:
                 return _("Don't Repeat");
             case MINUTELY:
-                if (interval == null || interval == 0) {
-                    return _("Every minute");
-                } else {
-                    return GLib.ngettext (_("Every minute"), _("Every %d minutes"), interval).printf (interval);
-                }
+                return pluralized (_("Every minute"), _("Every %d minutes"));
             case HOURLY:
-                if (interval == null || interval == 0) {
-                    return _("Every hour");
-                } else {
-                    return GLib.ngettext (_("Every hour"), _("Every %d hours"), interval).printf (interval);
-                }
+                return pluralized (_("Every hour"), _("Every %d hours"));
             case EVERY_DAY:
-                if (interval == null || interval == 0) {
-                    return _("Every day");
-                } else {
-                    return GLib.ngettext (_("Every day"), _("Every %d days"), interval).printf (interval);
-                }
+                return pluralized (_("Every day"), _("Every %d days"));
             case EVERY_WEEK:
-                if (interval == null || interval == 0) {
-                    return _("Every week");
-                } else {
-                    return GLib.ngettext (_("Every week"), _("Every %d weeks"), interval).printf (interval);
-                }
-
+                return pluralized (_("Every week"), _("Every %d weeks"));
             case EVERY_MONTH:
-                if (interval == null || interval == 0) {
-                    return _("Every month");
-                } else {
-                    return GLib.ngettext (_("Every month"), _("Every %d months"), interval).printf (interval);
-                }
-
+                return pluralized (_("Every month"), _("Every %d months"));
             case EVERY_YEAR:
-                if (interval == null || interval == 0) {
-                    return _("Every year");
-                } else {
-                    return GLib.ngettext (_("Every year"), _("Every %d years"), interval).printf (interval);
-                }
-
+                return pluralized (_("Every year"), _("Every %d years"));
             default:
                 assert_not_reached ();
         }

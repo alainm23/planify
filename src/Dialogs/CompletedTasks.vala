@@ -160,8 +160,12 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
             var items = Services.Store.instance ().get_items_checked_by_project (project);
 
             var dialog = new Adw.AlertDialog (
-                _ ("Delete All Completed Tasks"),
-                _ ("This will delete %d completed tasks and their subtasks from project %s".printf (items.size, project.name))
+                _("Delete All Completed Tasks"),
+                GLib.ngettext (
+                    _("This will delete %d completed task and its subtasks from project %s"),
+                    _("This will delete %d completed tasks and their subtasks from project %s"),
+                    items.size
+                ).printf (items.size, project.name)
             );
 
             dialog.body_use_markup = true;

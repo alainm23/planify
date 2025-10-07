@@ -238,11 +238,19 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         delete_item.clicked.connect (() => {
             string title = _ ("Delete To-Do");
             string message = _ ("Are you sure you want to delete this to-do?");
-            if (items_selected.size > 1) {
-                title = _ ("Delete %d To-Dos".printf (items_selected.size));
-                message = _ ("Are you sure you want to delete these %d to-dos?".printf (items_selected.size));
-            }
+            if (items_selected.size > 0) {
+                title = GLib.ngettext (
+                    _("Delete %d To-Do"),
+                    _("Delete %d To-Dos"),
+                    items_selected.size
+                ).printf (items_selected.size);
 
+                message = GLib.ngettext (
+                    _("Are you sure you want to delete this %d to-do?"),
+                    _("Are you sure you want to delete these %d to-dos?"),
+                    items_selected.size
+                ).printf (items_selected.size);
+            }
 
             var dialog = new Adw.AlertDialog (title, message);
 
