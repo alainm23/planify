@@ -637,6 +637,25 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = handle_gesture_click;
         
         signals_map[handle_gesture_click.released.connect ((n_press, x, y) => {
+            if (Services.EventBus.get_default ().ctrl_key_pressed) {
+                Idle.add (() => {
+                    if (item.project == null) {
+                        return GLib.Source.REMOVE;
+                    }
+                    
+                    if (!Services.EventBus.get_default ().multi_select_enabled) {
+                        item.project.show_multi_select = true;
+                    }
+                    
+                    select_checkbutton.active = !select_checkbutton.active;
+                    selected_toggled (select_checkbutton.active);
+                    
+                    return GLib.Source.REMOVE;
+                });
+                
+                return;
+            }
+            
             if (Services.EventBus.get_default ().multi_select_enabled) {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);
