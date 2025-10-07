@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-06 17:18+0000\n"
+"POT-Creation-Date: 2025-10-07 02:49+0000\n"
 "PO-Revision-Date: 2025-10-06 04:59-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -645,11 +645,13 @@ msgid "Su,"
 msgstr "Su,"
 
 #: core/Utils/Datetime.vala:620
-msgid "%a, %b %e, %Y"
+#, fuzzy
+msgid "%a, %b %-e, %Y"
 msgstr "%a, %b %e, %Y"
 
 #: core/Utils/Datetime.vala:623
-msgid "%b %e %Y"
+#, fuzzy
+msgid "%b %-e %Y"
 msgstr "%b %e %Y"
 
 #: core/Utils/Datetime.vala:626 core/Widgets/Calendar/CalendarHeader.vala:36
@@ -658,7 +660,8 @@ msgid "%Y"
 msgstr "%Y"
 
 #: core/Utils/Datetime.vala:629
-msgid "%b %e"
+#, fuzzy
+msgid "%b %-e"
 msgstr "%b %e"
 
 #: core/Utils/Datetime.vala:632
@@ -671,7 +674,8 @@ msgid "%a"
 msgstr "%a"
 
 #: core/Utils/Datetime.vala:638
-msgid "%a, %b %e"
+#, fuzzy
+msgid "%a, %b %-e"
 msgstr "%a, %b %e"
 
 #: core/Utils/Datetime.vala:641
