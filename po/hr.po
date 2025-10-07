@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 11:39+0000\n"
+"POT-Creation-Date: 2025-10-07 22:58+0000\n"
 "PO-Revision-Date: 2025-10-06 17:21+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
@@ -1235,11 +1235,11 @@ msgstr "Traži"
 msgid "Search or Create"
 msgstr "Traži ili stvori"
 
-#: core/Widgets/MarkdownEditor.vala:1340
+#: core/Widgets/MarkdownEditor.vala:1347
 msgid "Apply"
 msgstr "Primijeni"
 
-#: core/Widgets/MarkdownEditor.vala:1345
+#: core/Widgets/MarkdownEditor.vala:1352
 msgid "Remove link"
 msgstr "Ukloni poveznicu"
 

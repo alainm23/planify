@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 11:39+0000\n"
+"POT-Creation-Date: 2025-10-07 22:58+0000\n"
 "PO-Revision-Date: 2024-08-29 16:03+0200\n"
 "Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
@@ -1300,11 +1300,11 @@ msgstr "Rechercher"
 msgid "Search or Create"
 msgstr "Chercher ou créer"
 
-#: core/Widgets/MarkdownEditor.vala:1340
+#: core/Widgets/MarkdownEditor.vala:1347
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1345
+#: core/Widgets/MarkdownEditor.vala:1352
 #, fuzzy
 msgid "Remove link"
 msgstr "Supprimer"
