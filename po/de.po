@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 10:36+0000\n"
+"POT-Creation-Date: 2025-10-07 11:39+0000\n"
 "PO-Revision-Date: 2025-10-06 17:15+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
@@ -158,7 +158,7 @@ msgstr "Aufgabe aktualisiert"
 msgid "Content"
 msgstr "Inhalt"
 
-#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1856
+#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1875
 #: src/Layouts/ItemSidebarView.vala:169
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
@@ -170,7 +170,7 @@ msgstr "Geplant"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:681 src/Layouts/ItemBoard.vala:694
-#: src/Layouts/ItemRow.vala:1131 src/Layouts/ItemRow.vala:1144
+#: src/Layouts/ItemRow.vala:1150 src/Layouts/ItemRow.vala:1163
 msgid "Pin"
 msgstr "Anheften"
 
@@ -295,7 +295,7 @@ msgstr "Kommende"
 #: core/Widgets/Calendar/CalendarHeader.vala:79
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:124
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:688
-#: src/Layouts/ItemRow.vala:1138 src/Views/Project/Project.vala:457
+#: src/Layouts/ItemRow.vala:1157 src/Views/Project/Project.vala:457
 #: src/Views/Project/Project.vala:617 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Heute"
@@ -307,7 +307,7 @@ msgstr "Heute"
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:691
-#: src/Layouts/ItemRow.vala:1141
+#: src/Layouts/ItemRow.vala:1160
 msgid "Tomorrow"
 msgstr "Morgen"
 
@@ -478,7 +478,7 @@ msgstr ""
 "Es tut uns leid, 'Schnell hinzufügen' kann kein verfügbares Projekt finden. "
 "Versuche ein Projekt in Planify zu erstellen."
 
-#: core/QuickAdd.vala:922 src/MainWindow.vala:655
+#: core/QuickAdd.vala:922 src/MainWindow.vala:672
 msgid "Keyboard Shortcuts"
 msgstr "Tastenkombinationen"
 
@@ -1411,7 +1411,7 @@ msgid "To Do"
 msgstr "Zu tun"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:701 src/Layouts/ItemRow.vala:1152
+#: src/Layouts/ItemBoard.vala:701 src/Layouts/ItemRow.vala:1171
 msgid "Complete"
 msgstr "Erledigt"
 
@@ -1472,7 +1472,7 @@ msgid "Next Week"
 msgstr "Nächste Woche"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:696
-#: src/Layouts/ItemRow.vala:1146 src/Views/Project/Project.vala:462
+#: src/Layouts/ItemRow.vala:1165 src/Views/Project/Project.vala:462
 #: src/Views/Project/Project.vala:627
 msgid "No Date"
 msgstr "Kein Datum"
@@ -1500,7 +1500,7 @@ msgstr "Bitte gib deine Anmeldedaten ein"
 msgid "Network Is Not Available"
 msgstr "Netzwerk ist nicht verfügbar"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1266
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1285
 #: src/Layouts/ItemSidebarView.vala:447
 msgid "Change History"
 msgstr "Änderungsverlauf"
@@ -1558,7 +1558,7 @@ msgstr "Label aktualisieren"
 msgid "Filter"
 msgstr "Filter"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:660
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:677
 msgid "Archived Projects"
 msgstr "Projekt hinzufügen"
 
@@ -2197,7 +2197,7 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr "Wenn aktiv wird eine Erinnerung zur Fälligkeit hinzugefügt."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:652
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:669
 msgid "Preferences"
 msgstr "Einstellungen"
 
@@ -2405,8 +2405,8 @@ msgstr "Projekt erfolgreich hinzugefügt!"
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:82
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:93
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:126
-#: src/Layouts/ItemBoard.vala:698 src/Layouts/ItemRow.vala:1149
-#: src/Layouts/ItemRow.vala:1261 src/Layouts/ItemSidebarView.vala:442
+#: src/Layouts/ItemBoard.vala:698 src/Layouts/ItemRow.vala:1168
+#: src/Layouts/ItemRow.vala:1280 src/Layouts/ItemSidebarView.vala:442
 msgid "Move"
 msgstr "Verschieben"
 
@@ -2470,49 +2470,49 @@ msgid "Open/Close Sidebar"
 msgstr "Seitenleiste umschalten"
 
 #: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:681
-#: src/Layouts/ItemBoard.vala:694 src/Layouts/ItemRow.vala:1131
-#: src/Layouts/ItemRow.vala:1144
+#: src/Layouts/ItemBoard.vala:694 src/Layouts/ItemRow.vala:1150
+#: src/Layouts/ItemRow.vala:1163
 msgid "Unpin"
 msgstr "Lösen"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:571 src/Layouts/ItemRow.vala:1463
+#: src/Layouts/ItemBoard.vala:571 src/Layouts/ItemRow.vala:1482
 #: src/Layouts/ItemSidebarView.vala:610
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Erledigt. Nächstes vorkommen: %s"
 
-#: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemRow.vala:1151
+#: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemRow.vala:1170
 msgid "Add Subtask"
 msgstr "Unteraufgabe hinzufügen"
 
-#: src/Layouts/ItemBoard.vala:702 src/Layouts/ItemRow.vala:1153
+#: src/Layouts/ItemBoard.vala:702 src/Layouts/ItemRow.vala:1172
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: src/Layouts/ItemBoard.vala:703 src/Layouts/ItemRow.vala:1154
-#: src/Layouts/ItemRow.vala:1260 src/Layouts/ItemSidebarView.vala:441
+#: src/Layouts/ItemBoard.vala:703 src/Layouts/ItemRow.vala:1173
+#: src/Layouts/ItemRow.vala:1279 src/Layouts/ItemSidebarView.vala:441
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:291
 msgid "Duplicate"
 msgstr "Duplizieren"
 
-#: src/Layouts/ItemBoard.vala:705 src/Layouts/ItemRow.vala:1156
-#: src/Layouts/ItemRow.vala:1263 src/Layouts/ItemSidebarView.vala:444
+#: src/Layouts/ItemBoard.vala:705 src/Layouts/ItemRow.vala:1175
+#: src/Layouts/ItemRow.vala:1282 src/Layouts/ItemSidebarView.vala:444
 msgid "Delete Task"
 msgstr "Aufgabe löschen"
 
-#: src/Layouts/ItemBoard.vala:990 src/Layouts/ItemRow.vala:1726
+#: src/Layouts/ItemBoard.vala:990 src/Layouts/ItemRow.vala:1745
 msgid "Order changed to 'Custom sort order'"
 msgstr "Sortierung wurde in 'Benutzerdefinierte Sortierreihenfolge' geändert."
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:1076 src/Layouts/ItemRow.vala:1509
+#: src/Layouts/ItemBoard.vala:1076 src/Layouts/ItemRow.vala:1528
 #, c-format
 msgid "%s was deleted"
 msgstr "%s wurde gelöscht"
 
-#: src/Layouts/ItemBoard.vala:1077 src/Layouts/ItemRow.vala:1510
+#: src/Layouts/ItemBoard.vala:1077 src/Layouts/ItemRow.vala:1529
 msgid "Undo"
 msgstr "Rückgängig machen"
 
@@ -2524,19 +2524,19 @@ msgstr "Unteraufgaben hinzufügen"
 msgid "Add Attachments"
 msgstr "Anhang hinzufügen"
 
-#: src/Layouts/ItemRow.vala:1012
+#: src/Layouts/ItemRow.vala:1031
 msgid "Hide Sub-tasks"
 msgstr "Unteraufgaben verbergen"
 
-#: src/Layouts/ItemRow.vala:1012
+#: src/Layouts/ItemRow.vala:1031
 msgid "Show Sub-tasks"
 msgstr "Unteraufgaben anzeigen"
 
-#: src/Layouts/ItemRow.vala:1256 src/Layouts/ItemSidebarView.vala:438
+#: src/Layouts/ItemRow.vala:1275 src/Layouts/ItemSidebarView.vala:438
 msgid "Use as a Note"
 msgstr "Als Notiz verwenden"
 
-#: src/Layouts/ItemRow.vala:1259 src/Layouts/ItemSidebarView.vala:440
+#: src/Layouts/ItemRow.vala:1278 src/Layouts/ItemSidebarView.vala:440
 msgid "Copy to Clipboard"
 msgstr "In die Zwischenablage kopieren"
 
@@ -2651,31 +2651,31 @@ msgstr "Hauptmenü"
 msgid "Open Quick Find"
 msgstr "Schnelle Suche öffnen"
 
-#: src/MainWindow.vala:658
+#: src/MainWindow.vala:675
 msgid "About Planify"
 msgstr "Über Planify"
 
-#: src/MainWindow.vala:718
+#: src/MainWindow.vala:735
 msgid "Oops! Something happened"
 msgstr "Hoppla! Etwas ist passiert"
 
-#: src/MainWindow.vala:721
+#: src/MainWindow.vala:738
 msgid "See More"
 msgstr "Weitere erstellen"
 
-#: src/MainWindow.vala:737 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:754 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Aufgabe erledigt"
 
-#: src/MainWindow.vala:738
+#: src/MainWindow.vala:755
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:776
+#: src/MainWindow.vala:793
 msgid "Database Integrity Check Failed"
 msgstr "Integritätsprüfung der Datenbank fehlgeschlagen"
 
-#: src/MainWindow.vala:777
+#: src/MainWindow.vala:794
 #, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
@@ -2697,7 +2697,7 @@ msgstr ""
 "Zurücksetzen können Sie alle zuvor erstellten Sicherungen wiederherstellen. "
 "Danke für dein Verständnis."
 
-#: src/MainWindow.vala:779
+#: src/MainWindow.vala:796
 msgid "Reset Database"
 msgstr "Datenbank zurücksetzen"
 

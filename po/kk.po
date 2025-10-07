@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 10:36+0000\n"
+"POT-Creation-Date: 2025-10-07 11:39+0000\n"
 "PO-Revision-Date: 2025-05-25 20:44+0500\n"
 "Last-Translator: AnmiTaliDev <anmitali198@gmail.com>\n"
 "Language-Team: \n"
@@ -146,7 +146,7 @@ msgstr "Тапсырма жаңартылды"
 msgid "Content"
 msgstr "Мазмұн"
 
-#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1856
+#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1875
 #: src/Layouts/ItemSidebarView.vala:169
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
@@ -158,7 +158,7 @@ msgstr "Жоспарланған"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:681 src/Layouts/ItemBoard.vala:694
-#: src/Layouts/ItemRow.vala:1131 src/Layouts/ItemRow.vala:1144
+#: src/Layouts/ItemRow.vala:1150 src/Layouts/ItemRow.vala:1163
 msgid "Pin"
 msgstr "Бекіту"
 
@@ -283,7 +283,7 @@ msgstr "алдағы"
 #: core/Widgets/Calendar/CalendarHeader.vala:79
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:124
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:688
-#: src/Layouts/ItemRow.vala:1138 src/Views/Project/Project.vala:457
+#: src/Layouts/ItemRow.vala:1157 src/Views/Project/Project.vala:457
 #: src/Views/Project/Project.vala:617 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Бүгін"
@@ -295,7 +295,7 @@ msgstr "бүгін"
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:691
-#: src/Layouts/ItemRow.vala:1141
+#: src/Layouts/ItemRow.vala:1160
 msgid "Tomorrow"
 msgstr "Ертең"
 
@@ -462,7 +462,7 @@ msgstr ""
 "Кешіріңіз, Жылдам қосу қолжетімді жобаларды таба алмады, Planify арқылы жоба "
 "жасауға тырысыңыз."
 
-#: core/QuickAdd.vala:922 src/MainWindow.vala:655
+#: core/QuickAdd.vala:922 src/MainWindow.vala:672
 msgid "Keyboard Shortcuts"
 msgstr "Пернетақта қысқартулары"
 
@@ -1386,7 +1386,7 @@ msgid "To Do"
 msgstr "Орындауға"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:701 src/Layouts/ItemRow.vala:1152
+#: src/Layouts/ItemBoard.vala:701 src/Layouts/ItemRow.vala:1171
 msgid "Complete"
 msgstr "Аяқтау"
 
@@ -1444,7 +1444,7 @@ msgid "Next Week"
 msgstr "Келесі апта"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:696
-#: src/Layouts/ItemRow.vala:1146 src/Views/Project/Project.vala:462
+#: src/Layouts/ItemRow.vala:1165 src/Views/Project/Project.vala:462
 #: src/Views/Project/Project.vala:627
 msgid "No Date"
 msgstr "Күні жоқ"
@@ -1471,7 +1471,7 @@ msgstr "Тіркелгі деректеріңізді енгізіңіз"
 msgid "Network Is Not Available"
 msgstr "Желі қолжетімді емес"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1266
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1285
 #: src/Layouts/ItemSidebarView.vala:447
 msgid "Change History"
 msgstr "Өзгерістер тарихы"
@@ -1528,7 +1528,7 @@ msgstr "Белгіні жаңарту"
 msgid "Filter"
 msgstr "Сүзгі"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:660
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:677
 msgid "Archived Projects"
 msgstr "Мұрағатталған жобалар"
 
@@ -2163,7 +2163,7 @@ msgstr ""
 "Қосылған кезде тапсырманың мерзімі алдында еске салғыш әдепкі бойынша "
 "қосылады."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:652
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:669
 msgid "Preferences"
 msgstr "Параметрлер"
 
@@ -2368,8 +2368,8 @@ msgstr "Жоба сәтті қосылды!"
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:82
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:93
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:126
-#: src/Layouts/ItemBoard.vala:698 src/Layouts/ItemRow.vala:1149
-#: src/Layouts/ItemRow.vala:1261 src/Layouts/ItemSidebarView.vala:442
+#: src/Layouts/ItemBoard.vala:698 src/Layouts/ItemRow.vala:1168
+#: src/Layouts/ItemRow.vala:1280 src/Layouts/ItemSidebarView.vala:442
 msgid "Move"
 msgstr "Жылжыту"
 
@@ -2433,47 +2433,47 @@ msgid "Open/Close Sidebar"
 msgstr "Бүйір тақтаны ашу/жабу"
 
 #: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:681
-#: src/Layouts/ItemBoard.vala:694 src/Layouts/ItemRow.vala:1131
-#: src/Layouts/ItemRow.vala:1144
+#: src/Layouts/ItemBoard.vala:694 src/Layouts/ItemRow.vala:1150
+#: src/Layouts/ItemRow.vala:1163
 msgid "Unpin"
 msgstr "Бекітуді алып тастау"
 
-#: src/Layouts/ItemBoard.vala:571 src/Layouts/ItemRow.vala:1463
+#: src/Layouts/ItemBoard.vala:571 src/Layouts/ItemRow.vala:1482
 #: src/Layouts/ItemSidebarView.vala:610
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Аяқталды. Келесі кездесу: %s"
 
-#: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemRow.vala:1151
+#: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemRow.vala:1170
 msgid "Add Subtask"
 msgstr "Қосымша тапсырма қосу"
 
-#: src/Layouts/ItemBoard.vala:702 src/Layouts/ItemRow.vala:1153
+#: src/Layouts/ItemBoard.vala:702 src/Layouts/ItemRow.vala:1172
 msgid "Edit"
 msgstr "Өңдеу"
 
-#: src/Layouts/ItemBoard.vala:703 src/Layouts/ItemRow.vala:1154
-#: src/Layouts/ItemRow.vala:1260 src/Layouts/ItemSidebarView.vala:441
+#: src/Layouts/ItemBoard.vala:703 src/Layouts/ItemRow.vala:1173
+#: src/Layouts/ItemRow.vala:1279 src/Layouts/ItemSidebarView.vala:441
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:291
 msgid "Duplicate"
 msgstr "Көшіру"
 
-#: src/Layouts/ItemBoard.vala:705 src/Layouts/ItemRow.vala:1156
-#: src/Layouts/ItemRow.vala:1263 src/Layouts/ItemSidebarView.vala:444
+#: src/Layouts/ItemBoard.vala:705 src/Layouts/ItemRow.vala:1175
+#: src/Layouts/ItemRow.vala:1282 src/Layouts/ItemSidebarView.vala:444
 msgid "Delete Task"
 msgstr "Тапсырманы жою"
 
-#: src/Layouts/ItemBoard.vala:990 src/Layouts/ItemRow.vala:1726
+#: src/Layouts/ItemBoard.vala:990 src/Layouts/ItemRow.vala:1745
 msgid "Order changed to 'Custom sort order'"
 msgstr "Реттеу 'Арнайы реттеу' болып өзгертілді"
 
-#: src/Layouts/ItemBoard.vala:1076 src/Layouts/ItemRow.vala:1509
+#: src/Layouts/ItemBoard.vala:1076 src/Layouts/ItemRow.vala:1528
 #, c-format
 msgid "%s was deleted"
 msgstr "%s жойылды"
 
-#: src/Layouts/ItemBoard.vala:1077 src/Layouts/ItemRow.vala:1510
+#: src/Layouts/ItemBoard.vala:1077 src/Layouts/ItemRow.vala:1529
 msgid "Undo"
 msgstr "Болдырмау"
 
@@ -2485,19 +2485,19 @@ msgstr "Қосымша тапсырмалар қосу"
 msgid "Add Attachments"
 msgstr "Қосымшалар қосу"
 
-#: src/Layouts/ItemRow.vala:1012
+#: src/Layouts/ItemRow.vala:1031
 msgid "Hide Sub-tasks"
 msgstr "Қосымша тапсырмаларды жасыру"
 
-#: src/Layouts/ItemRow.vala:1012
+#: src/Layouts/ItemRow.vala:1031
 msgid "Show Sub-tasks"
 msgstr "Қосымша тапсырмаларды көрсету"
 
-#: src/Layouts/ItemRow.vala:1256 src/Layouts/ItemSidebarView.vala:438
+#: src/Layouts/ItemRow.vala:1275 src/Layouts/ItemSidebarView.vala:438
 msgid "Use as a Note"
 msgstr "Жазба ретінде пайдалану"
 
-#: src/Layouts/ItemRow.vala:1259 src/Layouts/ItemSidebarView.vala:440
+#: src/Layouts/ItemRow.vala:1278 src/Layouts/ItemSidebarView.vala:440
 msgid "Copy to Clipboard"
 msgstr "Буферге көшіру"
 
@@ -2608,31 +2608,31 @@ msgstr "Негізгі мәзір"
 msgid "Open Quick Find"
 msgstr "Жылдам іздеуді ашу"
 
-#: src/MainWindow.vala:658
+#: src/MainWindow.vala:675
 msgid "About Planify"
 msgstr "Planify туралы"
 
-#: src/MainWindow.vala:718
+#: src/MainWindow.vala:735
 msgid "Oops! Something happened"
 msgstr "Кешіріңіз! Бірдеңе болды"
 
-#: src/MainWindow.vala:721
+#: src/MainWindow.vala:738
 msgid "See More"
 msgstr "Толығырақ көру"
 
-#: src/MainWindow.vala:737 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:754 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Тапсырма аяқталды"
 
-#: src/MainWindow.vala:738
+#: src/MainWindow.vala:755
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:776
+#: src/MainWindow.vala:793
 msgid "Database Integrity Check Failed"
 msgstr "Дерекқор тұтастығын тексеру сәтсіз болды"
 
-#: src/MainWindow.vala:777
+#: src/MainWindow.vala:794
 #, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
@@ -2653,7 +2653,7 @@ msgstr ""
 "кейін бұрын жасаған кез келген сақтық көшірмені қалпына келтіре аласыз. "
 "Шыдамдылығыңыз үшін рахмет"
 
-#: src/MainWindow.vala:779
+#: src/MainWindow.vala:796
 msgid "Reset Database"
 msgstr "Дерекқорды қалпына келтіру"
 
