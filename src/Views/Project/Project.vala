@@ -202,6 +202,12 @@ public class Views.Project : Adw.Bin {
         signal_map[project.handle_scroll_visibility_change.connect ((visible) => {
             headerbar.update_title_box_visibility (visible);
         })] = project;
+
+        signal_map[Services.EventBus.get_default ().escape_pressed.connect (() => {
+            if (project.show_multi_select) {
+                project.show_multi_select = false;
+            }
+        })] = Services.EventBus.get_default ();
     }
 
     private void check_default_filters () {
