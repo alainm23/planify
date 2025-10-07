@@ -924,7 +924,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 Services.EventBus.get_default ().item_edit_active = true;
                 Services.EventBus.get_default ().dim_content (true, item.id);
             } else {
-                Services.EventBus.get_default ().item_selected (item.id);
+                edit = true;
             }
         }
     }

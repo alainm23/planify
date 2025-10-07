@@ -34,6 +34,7 @@ public class Services.EventBus : Object {
     public signal void connect_typing_accel ();
     public signal void disconnect_all_accels ();
     public signal void connect_all_accels ();
+    public signal void escape_pressed ();
 
     // General
     public signal void theme_changed ();
