@@ -519,6 +519,13 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         return page_map[page];
     }
 
+    public void show_page (string page_key) {
+        var page = build_page (page_key);
+        if (page != null) {
+            push_subpage (page);
+        }
+    }
+
     public void clean_up () {
         foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
