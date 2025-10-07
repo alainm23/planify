@@ -7,17 +7,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-07 11:39+0000\n"
-"PO-Revision-Date: 2025-06-03 17:24-0300\n"
-"Last-Translator: John peter sa <johnppetersa@gmail.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2025-10-08 14:07+0000\n"
+"Last-Translator: Murilo Leal <murilormleal@outlook.com>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
+"planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.6\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:345
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -119,7 +120,7 @@ msgstr "Nextcloud"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
-msgstr "Radical"
+msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:445 src/Views/Project/Project.vala:490
@@ -131,7 +132,7 @@ msgstr "Prioridade"
 
 #: core/Enum.vala:348
 msgid "Label"
-msgstr "Rótulos"
+msgstr "Rótulo"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:443
 #: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:622
@@ -173,7 +174,7 @@ msgstr "Fixado"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr "Tarefas"
+msgstr "Todas as Tarefas"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
@@ -202,7 +203,7 @@ msgstr "filtros"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr "sem data de vencimento"
+msgstr "sem data"
 
 #: core/Objects/Filters/Completed.vala:33
 msgid "Completed"
@@ -227,7 +228,6 @@ msgid "Inbox"
 msgstr "Caixa de Entrada"
 
 #: core/Objects/Filters/Inbox.vala:36
-#, fuzzy
 msgid "inbox"
 msgstr "Caixa de Entrada"
 
@@ -420,9 +420,8 @@ msgid "Todoist"
 msgstr "Todoist"
 
 #: core/QuickAdd.vala:112
-#, fuzzy
 msgid "Task added successfully!"
-msgstr "Projeto adicionado com sucesso!"
+msgstr "Tarefa adicionada com sucesso!"
 
 #: core/QuickAdd.vala:128 src/Layouts/ItemRow.vala:356
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
@@ -462,7 +461,7 @@ msgstr "Adicionar Tarefa"
 
 #: core/QuickAdd.vala:234 core/QuickAdd.vala:960
 msgid "Keep adding"
-msgstr ""
+msgstr "Continue adicionando"
 
 #: core/QuickAdd.vala:251
 msgid "Select a Project"
@@ -482,17 +481,16 @@ msgstr "Atalhos do Teclado"
 
 #: core/QuickAdd.vala:928
 msgid "Speed up task creation with these shortcuts"
-msgstr ""
+msgstr "Acelere a criação de tarefas com esses atalhos"
 
 # # c-format
 #: core/QuickAdd.vala:942
-#, fuzzy
 msgid "Set priority"
-msgstr "prioridade"
+msgstr "Definir Prioridade"
 
 #: core/QuickAdd.vala:942
 msgid "p1 = highest, p4 = lowest"
-msgstr ""
+msgstr "p1 = mais alto, p4 = mais baixo"
 
 #: core/QuickAdd.vala:943
 #, fuzzy
@@ -500,9 +498,8 @@ msgid "Add labels"
 msgstr "Adicionar rótulo(s)"
 
 #: core/QuickAdd.vala:943
-#, fuzzy
 msgid "Opens label selector"
-msgstr "Abrir Rótulos"
+msgstr "Abrir Seletor de Rótulos"
 
 #: core/QuickAdd.vala:944
 #, fuzzy
@@ -514,17 +511,16 @@ msgid "Opens project selector"
 msgstr ""
 
 #: core/QuickAdd.vala:945
-#, fuzzy
 msgid "Set reminder"
-msgstr "Defina lembretes oportunos!"
+msgstr "Definir lembrete"
 
 #: core/QuickAdd.vala:945
 msgid "Opens reminder options"
-msgstr ""
+msgstr "Abrir opções de lembrete"
 
 #: core/QuickAdd.vala:960
 msgid "Stay open after creating task"
-msgstr ""
+msgstr "Manter aberto após criar tarefa"
 
 #: core/QuickAdd.vala:966
 #, fuzzy
@@ -563,9 +559,8 @@ msgid "Syncing %s…"
 msgstr "Sincronizando…"
 
 #: core/Services/CalDAV/Core.vala:253
-#, fuzzy
 msgid "Sync completed"
-msgstr "concluído"
+msgstr "Sincronização completa"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -826,7 +821,6 @@ msgid "Meet Planify"
 msgstr "Conheça o Planify"
 
 #: core/Utils/Util.vala:576
-#, fuzzy
 msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around with it – you can always recreate it "
@@ -834,12 +828,11 @@ msgid ""
 msgstr ""
 "Este projeto mostra tudo o que você precisa saber para começar a trabalhar. "
 "Não hesite em brincar com ele – você sempre pode criar um novo nas "
-"configurações."
+"Preferências."
 
 #: core/Utils/Util.vala:583
-#, fuzzy
 msgid "Tap this task"
-msgstr "Toque nesta tarefa"
+msgstr "Clique nesta tarefa"
 
 #: core/Utils/Util.vala:584
 #, fuzzy
@@ -848,7 +841,7 @@ msgid ""
 msgstr ""
 "Você está olhando para uma tarefa! Conclua tocando na caixa de seleção à "
 "esquerda. As tarefas concluídas são coletadas na parte inferior do seu "
-"projeto."
+"projeto. "
 
 #: core/Utils/Util.vala:589
 #, fuzzy
@@ -856,26 +849,23 @@ msgid "Create a new task"
 msgstr "Criar uma Nova Tarefa"
 
 #: core/Utils/Util.vala:590
-#, fuzzy
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
 msgstr ""
 "Agora é a sua vez, toque no botão ‘+’ na parte inferior do seu projeto, "
-"insira alguma pendência e toque no botão azul ‘Salvar’."
+"insira alguma pendência e toque no botão azul ‘Adicionar tarefa’."
 
 #: core/Utils/Util.vala:595
-#, fuzzy
 msgid "Plan this to-do for today or later"
 msgstr "Planeje esta tarefa hoje ou mais tarde"
 
 #: core/Utils/Util.vala:596
-#, fuzzy
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
-"Toque no botão de calendário na parte inferior para decidir quando fazer "
-"esta tarefa."
+"Toque no botão de Agendar na parte inferior para decidir quando fazer esta "
+"tarefa."
 
 #: core/Utils/Util.vala:601
 #, fuzzy
@@ -907,7 +897,6 @@ msgid "You’re done!"
 msgstr "Você Terminou!"
 
 #: core/Utils/Util.vala:614
-#, fuzzy
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -940,12 +929,10 @@ msgstr ""
 "'Preferências' 🡒 Eventos do calendário para ativá-lo."
 
 #: core/Utils/Util.vala:643
-#, fuzzy
 msgid "Enable synchronization with third-party services"
 msgstr "Habilite a sincronização com serviço de terceiros."
 
 #: core/Utils/Util.vala:644
-#, fuzzy
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
@@ -1555,7 +1542,7 @@ msgstr "Filtro"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:677
 msgid "Archived Projects"
-msgstr "Adicionar Projeto"
+msgstr "Projetos Arquivados"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:659
 #: src/Views/Project/Project.vala:295
@@ -1584,12 +1571,11 @@ msgstr "Contas"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:58
 msgid "Add Source"
-msgstr "Fonte"
+msgstr "Adicionar Fonte"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:72
-#, fuzzy
 msgid "You can sort your accounts by dragging and dropping"
-msgstr "Você pode classificar suas visualizações arrastando e soltando"
+msgstr "Você pode classificar suas contas arrastando e soltando"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:174
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:413
@@ -1832,11 +1818,11 @@ msgstr "Visão geral da importação"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:351
 msgid "Sources"
-msgstr "Fonte"
+msgstr "Fontes"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:353
 msgid "To-Dos"
-msgstr "Adicionar tarefa"
+msgstr "Tarefas"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:375
 msgid "Confirm"
@@ -3032,15 +3018,16 @@ msgid ""
 "Update now to enjoy the latest improvements, bug fixes, and new features "
 "that make Planify even better"
 msgstr ""
+"Atualize agora para aproveitar as últimas melhorias, correção de bugs, e "
+"novas funções que fazem o Planify ainda melhor"
 
 #: src/Widgets/NewVersionPopup.vala:73
-#, fuzzy
 msgid "Update Now"
-msgstr "Atualizado em"
+msgstr "Atualizar agora"
 
 #: src/Widgets/NewVersionPopup.vala:110
 msgid "Close"
-msgstr ""
+msgstr "Fechar"
 
 #: src/Widgets/SubItems.vala:523
 msgid "No subtasks added yet. Get started!"
@@ -3048,47 +3035,47 @@ msgstr "Nenhuma subtarefa adicionada ainda. Comece já!"
 
 #: src/Widgets/SyncButton.vala:90
 msgid "Failed to connect to server"
-msgstr ""
+msgstr "Falha de conexão com o servidor"
 
 #: src/Widgets/SyncButton.vala:90
-#, fuzzy
 msgid ""
 "It looks like the server is unreachable,\n"
 "are you connected to the internet?\n"
 "Any changes you make while disconnected\n"
 "will be synchronized when you reconnect."
 msgstr ""
-"Parece que você não está conectado a internet.\n"
+"Parece que não é possível se conectar ao servidor,\n"
+"você está conectado na internet?\n"
 "As mudanças que você fez no modo offline\n"
-"serão sincronizadas quando você reconectar"
+"serão sincronizadas quando você reconectar."
 
 #: src/Widgets/TranslationRow.vala:95
 #, c-format
 msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
-msgstr ""
+msgstr "<b>%s</b> está %.0f%% completa. Você pode ajudar a terminar!"
 
 #: src/Widgets/TranslationRow.vala:129 src/Widgets/TranslationRow.vala:151
 #: src/Widgets/TranslationRow.vala:155
 msgid "Translations"
-msgstr ""
+msgstr "Traduções"
 
 #: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
 #: src/Widgets/TranslationRow.vala:156
 msgid "Help make Planify available worldwide"
-msgstr ""
+msgstr "Ajude a fazer o Planify disponível mundialmente."
 
 #: src/Widgets/TranslationRow.vala:138
 msgid "Help improve translations"
-msgstr ""
+msgstr "Ajude a melhorar as traduções"
 
 #: src/Widgets/TranslationRow.vala:145
 msgid "Start a new translation"
-msgstr ""
+msgstr "Começar uma nova tradução"
 
 #: src/Widgets/TranslationRow.vala:146
 #, c-format
 msgid "<b>%s</b> is not available yet. Be the first to translate it!"
-msgstr ""
+msgstr "<b>%s</b> não está disponível ainda. Seja o primeiro a traduzir!"
 
 #: quick-add/MainWindow.vala:9
 msgid "Planify - Quick Add"
@@ -3122,7 +3109,7 @@ msgstr "Crie uma Nova Seção em um Projeto"
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
 msgid "Search"
-msgstr "Search"
+msgstr "Pesquisar"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
