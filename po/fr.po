@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-06 17:18+0000\n"
+"POT-Creation-Date: 2025-10-07 02:49+0000\n"
 "PO-Revision-Date: 2024-08-29 16:03+0200\n"
 "Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
@@ -670,11 +670,11 @@ msgid "Su,"
 msgstr "Di,"
 
 #: core/Utils/Datetime.vala:620
-msgid "%a, %b %e, %Y"
+msgid "%a, %b %-e, %Y"
 msgstr ""
 
 #: core/Utils/Datetime.vala:623
-msgid "%b %e %Y"
+msgid "%b %-e %Y"
 msgstr ""
 
 #: core/Utils/Datetime.vala:626 core/Widgets/Calendar/CalendarHeader.vala:36
@@ -683,7 +683,7 @@ msgid "%Y"
 msgstr "%Y"
 
 #: core/Utils/Datetime.vala:629
-msgid "%b %e"
+msgid "%b %-e"
 msgstr ""
 
 #: core/Utils/Datetime.vala:632
@@ -696,7 +696,7 @@ msgid "%a"
 msgstr ""
 
 #: core/Utils/Datetime.vala:638
-msgid "%a, %b %e"
+msgid "%a, %b %-e"
 msgstr ""
 
 #: core/Utils/Datetime.vala:641
