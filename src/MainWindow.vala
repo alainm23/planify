@@ -313,6 +313,9 @@ public class MainWindow : Adw.ApplicationWindow {
             if (overlay_split_view.collapsed) {
                 overlay_split_view.show_sidebar = false;
             }
+
+            Services.EventBus.get_default ().item_edit_active = false;
+            Services.EventBus.get_default ().dim_content (false, "");
         });
 
         Services.EventBus.get_default ().send_toast.connect ((toast) => {
@@ -415,6 +418,7 @@ public class MainWindow : Adw.ApplicationWindow {
                     return true;
                 }
             }
+            
             return false;
         });
         
