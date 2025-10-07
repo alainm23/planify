@@ -394,6 +394,10 @@ public class MainWindow : Adw.ApplicationWindow {
         var key_controller = new Gtk.EventControllerKey ();
         ((Gtk.Widget) this).add_controller (key_controller);
         key_controller.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
+                Services.EventBus.get_default ().ctrl_key_pressed = true;
+            }
+            
             if (keyval == Gdk.Key.Escape) {
                 Services.EventBus.get_default ().escape_pressed ();
                 
@@ -403,12 +407,25 @@ public class MainWindow : Adw.ApplicationWindow {
                     return true;
                 }
                 
+                if (Services.EventBus.get_default ().multi_select_enabled) {
+                    Services.EventBus.get_default ().multi_select_enabled = false;
+                    Services.EventBus.get_default ().show_multi_select (false);
+                    return true;
+                }
+                
                 if (views_split_view.show_sidebar) {
                     views_split_view.show_sidebar = false;
                     return true;
                 }
             }
+            
             return false;
+        });
+        
+        key_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
+                Services.EventBus.get_default ().ctrl_key_pressed = false;
+            }
         });
 
         var window_gesture = new Gtk.GestureClick ();
