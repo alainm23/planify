@@ -313,6 +313,9 @@ public class MainWindow : Adw.ApplicationWindow {
             if (overlay_split_view.collapsed) {
                 overlay_split_view.show_sidebar = false;
             }
+
+            Services.EventBus.get_default ().item_edit_active = false;
+            Services.EventBus.get_default ().dim_content (false, "");
         });
 
         Services.EventBus.get_default ().send_toast.connect ((toast) => {
@@ -386,6 +389,26 @@ public class MainWindow : Adw.ApplicationWindow {
         Timeout.add_seconds (120, () => {
             cleanup_unused_views ();
             return Source.CONTINUE;
+        });
+
+        var key_controller = new Gtk.EventControllerKey ();
+        ((Gtk.Widget) this).add_controller (key_controller);
+        key_controller.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == Gdk.Key.Escape) {
+                Services.EventBus.get_default ().escape_pressed ();
+                
+                if (Services.EventBus.get_default ().item_edit_active) {
+                    Services.EventBus.get_default ().item_edit_active = false;
+                    Services.EventBus.get_default ().dim_content (false, "");
+                    return true;
+                }
+                
+                if (views_split_view.show_sidebar) {
+                    views_split_view.show_sidebar = false;
+                    return true;
+                }
+            }
+            return false;
         });
 
         var window_gesture = new Gtk.GestureClick ();

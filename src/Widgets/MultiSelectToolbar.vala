@@ -147,6 +147,13 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         priority_button.changed.connect ((priority) => {
             set_priority (priority);
         });
+
+        Services.EventBus.get_default ().escape_pressed.connect (() => {
+            if (Services.EventBus.get_default ().multi_select_enabled) {
+                print ("Se Activo\n");
+                unselect_all ();
+            }
+        });
     }
 
     private void update_items (Gee.ArrayList<Objects.Item> objects) {
@@ -281,7 +288,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
         items_selected.clear ();
         labels.clear ();
-        size_label.label = null;
+        size_label.label = "0";
         closed ();
     }
 
