@@ -132,7 +132,13 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
         }
 
         listbox.invalidate_headers ();
-        load_button.label = _("Load more history from %d weeks ago…".printf ((end_week / 7) + 1));
+
+        int weeks = (end_week / 7) + 1;
+        load_button.label = GLib.ngettext (
+            _("Load more history from %d week ago…"),
+            _("Load more history from %d weeks ago…"),
+            weeks
+        ).printf (weeks);
     }
 
     private void header_completed_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow ? lbbefore) {
