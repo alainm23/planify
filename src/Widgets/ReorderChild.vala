@@ -168,8 +168,9 @@ public class Widgets.ReorderChild : Adw.Bin {
         var source_list = (Gtk.ListBox) picked_widget.row.parent;
         var target_list = (Gtk.ListBox) target_widget.row.parent;
 
-        source_list.remove (picked_widget.row);
-        target_list.insert (picked_widget.row, target_widget.row.get_index () + (bottom ? 1 : 0));
+        var picked_row = picked_widget.row;
+        source_list.remove (picked_row);
+        target_list.insert (picked_row, target_widget.row.get_index () + (bottom ? 1 : 0));
 
         on_drop_end (target_list);
         return true;
