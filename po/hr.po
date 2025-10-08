@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 11:59+0000\n"
+"POT-Creation-Date: 2025-10-08 16:53-0500\n"
 "PO-Revision-Date: 2025-10-06 17:21+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
@@ -576,6 +576,7 @@ msgstr "Zahtjev nije uspio zbog greške servera."
 msgid "The server is currently unable to handle the request."
 msgstr "Server trenutačno ne može obraditi zahtjev."
 
+#. TODO: use soup messages as fallback?
 #: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
 msgstr "Nepoznata greška"
@@ -602,18 +603,22 @@ msgstr "%s %s prije"
 msgid "%s %s left"
 msgstr "%s %s preostalo"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
 msgstr "%-l:%M:%S %p"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
 msgstr "%-l:%M %p"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -646,41 +651,50 @@ msgstr "Su,"
 msgid "Su,"
 msgstr "Ne,"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:620
 #, fuzzy
 msgid "%a, %b %-e, %Y"
 msgstr "%a, %d. %m. %Y."
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:623
 #, fuzzy
 msgid "%b %-e %Y"
 msgstr "%d. %m. %Y."
 
+#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:626 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:56
 msgid "%Y"
 msgstr "%Y."
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:629
-#, fuzzy
+#, fuzzy, c-format
 msgid "%b %-e"
 msgstr "%d. %m."
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:632
 msgid "%a %Y"
 msgstr "%a %Y."
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:635
 #, c-format
 msgid "%a"
 msgstr "%a"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:638
-#, fuzzy
+#, fuzzy, c-format
 msgid "%a, %b %-e"
 msgstr "%a, %d. %m."
 
+#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:641
+#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -1215,6 +1229,7 @@ msgstr ""
 "Tvoj popis filtara će se ovdje prikazati. Stvori filtar unosom imena i "
 "pritiskom tipke Enter."
 
+#. vala-lint=naming-convention
 #: core/Widgets/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
@@ -1272,6 +1287,7 @@ msgstr "Prioritet 1: Niski"
 msgid "Your list of section will show up here."
 msgstr "Tvoj popis odjeljaka će se ovdje prikazati."
 
+#. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/ProjectPicker/SectionPickerRow.vala:33
@@ -2179,6 +2195,7 @@ msgstr "Dijeli greške ili ideje na GitHub-u"
 msgid "Get Involved"
 msgstr "Uključi se"
 
+#. Reach Us Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
 msgstr "Javi nam se"
@@ -2750,6 +2767,7 @@ msgstr "Datum dodavanja"
 msgid "Ascending Order"
 msgstr "Uzlazni redoslijed"
 
+#. Filters
 #: src/Views/Project/Project.vala:496
 msgid "Duedate"
 msgstr "Datum roka"
@@ -2819,6 +2837,7 @@ msgstr "Promijeni termin"
 msgid "Attachments"
 msgstr "Prilozi"
 
+#. translators: Open file
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Otvori"
