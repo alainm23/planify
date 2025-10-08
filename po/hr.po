@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 00:06+0000\n"
+"POT-Creation-Date: 2025-10-08 11:59+0000\n"
 "PO-Revision-Date: 2025-10-06 17:21+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
@@ -1346,6 +1346,7 @@ msgstr "Zadatak"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1172
+#: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "Završi"
 
@@ -2626,6 +2627,21 @@ msgstr "Datoteke sigurnosnih kopija aplikacije Planify"
 #: src/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
 msgstr "Na ovom računalu"
+
+#: src/Services/Notification.vala:99
+#, fuzzy
+msgid "Snooze for 10 minutes"
+msgstr "Za 30 minuta"
+
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "Snooze for 30 minutes"
+msgstr "Za 30 minuta"
+
+#: src/Services/Notification.vala:101
+#, fuzzy
+msgid "Snooze for 1 hour"
+msgstr "Za 1 sat"
 
 #: src/Views/Filter.vala:86 src/Views/Project/Project.vala:89
 #: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:87

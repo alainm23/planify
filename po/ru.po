@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 00:06+0000\n"
+"POT-Creation-Date: 2025-10-08 11:59+0000\n"
 "PO-Revision-Date: 2025-07-07 12:31+0300\n"
 "Last-Translator: Alevtina <karashokovaaa@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -1407,6 +1407,7 @@ msgstr "Задача"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1172
+#: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "Выполнить"
 
@@ -2711,6 +2712,21 @@ msgstr "Резервные копии Planify"
 #: src/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
 msgstr "На этом компьютере"
+
+#: src/Services/Notification.vala:99
+#, fuzzy
+msgid "Snooze for 10 minutes"
+msgstr "Через 30 минут"
+
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "Snooze for 30 minutes"
+msgstr "Через 30 минут"
+
+#: src/Services/Notification.vala:101
+#, fuzzy
+msgid "Snooze for 1 hour"
+msgstr "Через 1 час"
 
 #: src/Views/Filter.vala:86 src/Views/Project/Project.vala:89
 #: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:87
