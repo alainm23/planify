@@ -367,6 +367,25 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         var detail_gesture_click = new Gtk.GestureClick ();
         card_widget.add_controller (detail_gesture_click);
         signals_map[detail_gesture_click.released.connect ((n_press, x, y) => {
+            if (Services.EventBus.get_default ().ctrl_key_pressed) {
+                Idle.add (() => {
+                    if (item.project == null) {
+                        return GLib.Source.REMOVE;
+                    }
+                    
+                    if (!Services.EventBus.get_default ().multi_select_enabled) {
+                        item.project.show_multi_select = true;
+                    }
+                    
+                    select_checkbutton.active = !select_checkbutton.active;
+                    selected_toggled (select_checkbutton.active);
+                    
+                    return GLib.Source.REMOVE;
+                });
+                
+                return;
+            }
+            
             if (Services.EventBus.get_default ().multi_select_enabled) {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);
