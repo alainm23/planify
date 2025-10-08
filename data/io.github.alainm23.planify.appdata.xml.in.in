@@ -10,27 +10,28 @@
     <color type="primary" scheme_preference="dark">#9141ac</color>
   </branding>
   <description>
-    <p>🚀️ Planify is here...</p>
+    <p>Planify is your modern and powerful task manager that helps you keep your life organized. With a clean and intuitive interface, cloud synchronization, and advanced features, you'll never forget what matters again.</p>
+    <p>✨ Core Features:</p>
     <ul>
-      <li>🚀️ Complete redesign of the UI.</li>
-      <li>🤚️ Drag and Order: Sort your tasks wherever you want.</li>
-      <li>💯️ Progress And Emoji indicator for each project.</li>
-      <li>💪️ Be more productive and organize your tasks by 'Sections'.</li>
-      <li>🌙️ Better integration with the dark theme.</li>
-      <li>🎉️ and much more.</li>
+      <li>Modern and clean interface designed with GTK4 and libadwaita</li>
+      <li>Drag and drop to organize tasks and projects effortlessly</li>
+      <li>Visual progress indicators for each project</li>
+      <li>Smart organization with sections and custom labels</li>
+      <li>Calendar integration to visualize your schedule</li>
+      <li>Multiple reminders per task to never miss a deadline</li>
+      <li>Dark mode with seamless system theme integration</li>
+      <li>Quick and powerful search to find anything instantly</li>
+      <li>Recurring tasks with flexible patterns</li>
+      <li>Attachments and links in your tasks</li>
     </ul>
-    <p>☁️ Support for Todoist:</p>
+    <p>☁️ Cloud Synchronization:</p>
     <ul>
-      <li>Synchronize your Projects, Task and Sections thanks to Todoist.</li>
-      <li>Support for Todoist offline: Work without an internet connection and when everything is reconnected it will be synchronized.</li>
+      <li>Full synchronization with Todoist to access your tasks from anywhere</li>
+      <li>Support for Nextcloud and CalDAV servers (Radicale, Baïkal) to keep your data private</li>
+      <li>Offline mode: work without internet and sync when you're back online</li>
+      <li>Cross-platform synchronization to access from any device</li>
     </ul>
-    <p>* Planify not created by, affiliated with, or supported by Doist</p>
-    <p>💎️ Other features:</p>
-    <ul>
-      <li>🔍️ Quick Find</li>
-      <li>🌙️ Night mode</li>
-      <li>⏰️ Reminders</li>
-    </ul>
+    <p>* Planify is not created by, affiliated with, or supported by Doist</p>
   </description>
   <screenshots>
     <screenshot type="default">
