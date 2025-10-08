@@ -1,7 +1,7 @@
 [Desktop Entry]
 # Translators: Keep this string as `Planify`
 Name=Planify
-Comment=Never worry about forgetting things again
+Comment=Forget about forgetting things
 Categories=Utility;Office;ProjectManagement;Calendar;
 Exec=@exec@
 Icon=@icon@
