@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 22:58+0000\n"
+"POT-Creation-Date: 2025-10-08 00:06+0000\n"
 "PO-Revision-Date: 2025-01-17 20:16+0100\n"
 "Last-Translator: Nostragodus <nostragodus@gmail.com>\n"
 "Language-Team: Slovakia\n"
@@ -115,7 +115,7 @@ msgid "CalDAV"
 msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
-#: src/Views/Project/Project.vala:445 src/Views/Project/Project.vala:490
+#: src/Views/Project/Project.vala:488 src/Views/Project/Project.vala:533
 #: src/Views/Scheduled/Scheduled.vala:228
 #: src/Views/Scheduled/Scheduled.vala:257 src/Views/Today.vala:624
 #: src/Views/Today.vala:653 src/Widgets/ItemDetailCompleted.vala:82
@@ -126,7 +126,7 @@ msgstr "Priorita"
 msgid "Label"
 msgstr "Štítok"
 
-#: core/Enum.vala:351 src/Views/Project/Project.vala:443
+#: core/Enum.vala:351 src/Views/Project/Project.vala:486
 #: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:622
 msgid "Due Date"
 msgstr "Termín"
@@ -148,7 +148,7 @@ msgstr "Úloha aktualizovaná"
 msgid "Content"
 msgstr "Obsah"
 
-#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1875
+#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1876
 #: src/Layouts/ItemSidebarView.vala:169
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
@@ -159,8 +159,8 @@ msgid "Scheduled"
 msgstr "Naplánované"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
-#: src/Layouts/ItemBoard.vala:681 src/Layouts/ItemBoard.vala:694
-#: src/Layouts/ItemRow.vala:1150 src/Layouts/ItemRow.vala:1163
+#: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemBoard.vala:713
+#: src/Layouts/ItemRow.vala:1151 src/Layouts/ItemRow.vala:1164
 msgid "Pin"
 msgstr "Pripnúť"
 
@@ -215,7 +215,7 @@ msgstr "denník"
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:102
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:140
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:326
-#: src/Views/Project/Project.vala:96 src/Views/Project/Project.vala:156
+#: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
 msgid "Inbox"
 msgstr "Prijaté"
 
@@ -284,9 +284,9 @@ msgstr "blížiace sa"
 #: core/Utils/Datetime.vala:89 core/Utils/Util.vala:247
 #: core/Widgets/Calendar/CalendarHeader.vala:79
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:124
-#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:688
-#: src/Layouts/ItemRow.vala:1157 src/Views/Project/Project.vala:457
-#: src/Views/Project/Project.vala:617 src/Views/Today.vala:202
+#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:707
+#: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:500
+#: src/Views/Project/Project.vala:660 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Dnes"
 
@@ -296,8 +296,8 @@ msgstr "dnes"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
-#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:691
-#: src/Layouts/ItemRow.vala:1160
+#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:710
+#: src/Layouts/ItemRow.vala:1161
 msgid "Tomorrow"
 msgstr "Zajtra"
 
@@ -391,7 +391,7 @@ msgstr "Toto archivuje %s a všetky jeho úlohy."
 
 #: core/Objects/Project.vala:879 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:569
-#: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:302
+#: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
 msgid "Archive"
 msgstr "Archivovať"
 
@@ -1393,7 +1393,7 @@ msgid "To Do"
 msgstr "Na vykonanie"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:701 src/Layouts/ItemRow.vala:1171
+#: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1172
 msgid "Complete"
 msgstr "Dokončené"
 
@@ -1406,7 +1406,7 @@ msgstr ""
 "bude jeho okno zatvorené, aby mohol posielať notifikácie o úlohách."
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
-#: src/Views/Project/Project.vala:497
+#: src/Views/Project/Project.vala:540
 msgid "Completed Tasks"
 msgstr "Dokončené úlohy"
 
@@ -1437,7 +1437,7 @@ msgstr "Toto vymaže %d dokončených úloh a ich podúlohy z projektu %s"
 msgid "Task Detail"
 msgstr "Detail úlohy"
 
-#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:538
+#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
 msgid "Filter By"
 msgstr "Filtrovať podľa"
@@ -1446,9 +1446,9 @@ msgstr "Filtrovať podľa"
 msgid "Next Week"
 msgstr "Ďalší týždeň"
 
-#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:696
-#: src/Layouts/ItemRow.vala:1165 src/Views/Project/Project.vala:462
-#: src/Views/Project/Project.vala:627
+#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:715
+#: src/Layouts/ItemRow.vala:1166 src/Views/Project/Project.vala:505
+#: src/Views/Project/Project.vala:670
 msgid "No Date"
 msgstr "Žiadny dátum"
 
@@ -1474,7 +1474,7 @@ msgstr "Zadajte svoje prihlasovacie údaje"
 msgid "Network Is Not Available"
 msgstr "Sieť nie je dostupná"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1285
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1286
 #: src/Layouts/ItemSidebarView.vala:447
 msgid "Change History"
 msgstr "História zmien"
@@ -1535,7 +1535,7 @@ msgid "Archived Projects"
 msgstr "Archivované projekty"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:659
-#: src/Views/Project/Project.vala:295
+#: src/Views/Project/Project.vala:338
 msgid "Manage Sections"
 msgstr "Spravovať sekcie"
 
@@ -1844,7 +1844,7 @@ msgid "Custom Sort Order"
 msgstr "Vlastný poriadok triedenia"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
-#: src/Views/Project/Project.vala:442 src/Views/Scheduled/Scheduled.vala:225
+#: src/Views/Project/Project.vala:485 src/Views/Scheduled/Scheduled.vala:225
 #: src/Views/Today.vala:621
 msgid "Alphabetically"
 msgstr "Abecedne"
@@ -2332,12 +2332,12 @@ msgstr ""
 "Ak máte akékoľvek otázky o vašich údajoch alebo o akomkoľvek inom probléme, "
 "kontaktujte nás. Radi vám odpovieme."
 
-#: src/Dialogs/Project.vala:58
+#: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
 msgid "New Project"
 msgstr "Nový projekt"
 
 #: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:700
-#: src/Views/Project/Project.vala:290
+#: src/Views/Project/Project.vala:333
 msgid "Edit Project"
 msgstr "Upraviť projekt"
 
@@ -2365,8 +2365,8 @@ msgstr "Projekt bol úspešne pridaný!"
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:82
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:93
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:126
-#: src/Layouts/ItemBoard.vala:698 src/Layouts/ItemRow.vala:1168
-#: src/Layouts/ItemRow.vala:1280 src/Layouts/ItemSidebarView.vala:442
+#: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1169
+#: src/Layouts/ItemRow.vala:1281 src/Layouts/ItemSidebarView.vala:442
 msgid "Move"
 msgstr "Presunúť"
 
@@ -2380,7 +2380,7 @@ msgid "Unarchive"
 msgstr "Obnoviť z archívu"
 
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:155
-#: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:303
+#: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:346
 msgid "Delete Project"
 msgstr "Odstrániť projekt"
 
@@ -2399,7 +2399,8 @@ msgstr ""
 "Rýchlo prepínajte projekty a zobrazenia, nájdite úlohy, hľadajte podľa "
 "štítkov"
 
-#: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:293
+#: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:223
+#: src/Views/Project/Project.vala:336
 msgid "New Section"
 msgstr "Nová sekcia"
 
@@ -2429,48 +2430,48 @@ msgstr "Názov sekcie"
 msgid "Open/Close Sidebar"
 msgstr "Otvoriť/Zatvoriť bočný panel"
 
-#: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:681
-#: src/Layouts/ItemBoard.vala:694 src/Layouts/ItemRow.vala:1150
-#: src/Layouts/ItemRow.vala:1163
+#: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:700
+#: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1151
+#: src/Layouts/ItemRow.vala:1164
 msgid "Unpin"
 msgstr "Odinštalovať"
 
-#: src/Layouts/ItemBoard.vala:571 src/Layouts/ItemRow.vala:1482
+#: src/Layouts/ItemBoard.vala:590 src/Layouts/ItemRow.vala:1483
 #: src/Layouts/ItemSidebarView.vala:610
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Dokončené. Ďalšie výskyt: %s"
 
-#: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1171
 msgid "Add Subtask"
 msgstr "Pridať podúlohu"
 
-#: src/Layouts/ItemBoard.vala:702 src/Layouts/ItemRow.vala:1172
+#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1173
 msgid "Edit"
 msgstr "Upraviť"
 
-#: src/Layouts/ItemBoard.vala:703 src/Layouts/ItemRow.vala:1173
-#: src/Layouts/ItemRow.vala:1279 src/Layouts/ItemSidebarView.vala:441
+#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1174
+#: src/Layouts/ItemRow.vala:1280 src/Layouts/ItemSidebarView.vala:441
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:566
-#: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:291
+#: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
 msgid "Duplicate"
 msgstr "Duplikovať"
 
-#: src/Layouts/ItemBoard.vala:705 src/Layouts/ItemRow.vala:1175
-#: src/Layouts/ItemRow.vala:1282 src/Layouts/ItemSidebarView.vala:444
+#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1176
+#: src/Layouts/ItemRow.vala:1283 src/Layouts/ItemSidebarView.vala:444
 msgid "Delete Task"
 msgstr "Odstrániť úlohu"
 
-#: src/Layouts/ItemBoard.vala:990 src/Layouts/ItemRow.vala:1745
+#: src/Layouts/ItemBoard.vala:1009 src/Layouts/ItemRow.vala:1746
 msgid "Order changed to 'Custom sort order'"
 msgstr "Poradie bolo zmenené na 'Vlastné zoradenie'"
 
-#: src/Layouts/ItemBoard.vala:1076 src/Layouts/ItemRow.vala:1528
+#: src/Layouts/ItemBoard.vala:1095 src/Layouts/ItemRow.vala:1529
 #, c-format
 msgid "%s was deleted"
 msgstr "%s bol odstránený"
 
-#: src/Layouts/ItemBoard.vala:1077 src/Layouts/ItemRow.vala:1529
+#: src/Layouts/ItemBoard.vala:1096 src/Layouts/ItemRow.vala:1530
 msgid "Undo"
 msgstr "Zrušiť"
 
@@ -2482,19 +2483,19 @@ msgstr "Pridať podúlohy"
 msgid "Add Attachments"
 msgstr "Pridať prílohy"
 
-#: src/Layouts/ItemRow.vala:1031
+#: src/Layouts/ItemRow.vala:1032
 msgid "Hide Sub-tasks"
 msgstr "Skryť podúlohy"
 
-#: src/Layouts/ItemRow.vala:1031
+#: src/Layouts/ItemRow.vala:1032
 msgid "Show Sub-tasks"
 msgstr "Zobraziť podúlohy"
 
-#: src/Layouts/ItemRow.vala:1275 src/Layouts/ItemSidebarView.vala:438
+#: src/Layouts/ItemRow.vala:1276 src/Layouts/ItemSidebarView.vala:438
 msgid "Use as a Note"
 msgstr "Použiť ako poznámku"
 
-#: src/Layouts/ItemRow.vala:1278 src/Layouts/ItemSidebarView.vala:440
+#: src/Layouts/ItemRow.vala:1279 src/Layouts/ItemSidebarView.vala:440
 msgid "Copy to Clipboard"
 msgstr "Kopírovať do schránky"
 
@@ -2569,29 +2570,39 @@ msgstr "Spravovať poradie sekcií"
 msgid "Show Completed Tasks"
 msgstr "Zobraziť dokončené úlohy"
 
-#: src/Layouts/Sidebar.vala:39
+#: src/Layouts/Sidebar.vala:40
 msgid "Favorites"
 msgstr "Obľúbené"
 
-#: src/Layouts/Sidebar.vala:41
+#: src/Layouts/Sidebar.vala:42
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr ""
 "Žiadne obľúbené položky nie sú k dispozícii. Vytvorte si jednu kliknutím na "
 "tlačidlo '+'"
 
-#: src/Layouts/Sidebar.vala:263 src/Layouts/Sidebar.vala:315
+#: src/Layouts/Sidebar.vala:122
+#, fuzzy
+msgid "Add Account"
+msgstr "Účty"
+
+#: src/Layouts/Sidebar.vala:123
+#, fuzzy
+msgid "Customize Sidebar"
+msgstr "Prispôsobte si postranný panel"
+
+#: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
 msgid "Go to Today"
 msgstr "Prejsť na dnes"
 
-#: src/Layouts/Sidebar.vala:267 src/Layouts/Sidebar.vala:319
+#: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
 msgid "Go to Scheduled"
 msgstr "Prejsť na naplánované"
 
-#: src/Layouts/Sidebar.vala:271 src/Layouts/Sidebar.vala:323
+#: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
 msgid "Go to Labels"
 msgstr "Prejsť na štítky"
 
-#: src/Layouts/Sidebar.vala:275 src/Layouts/Sidebar.vala:327
+#: src/Layouts/Sidebar.vala:329 src/Layouts/Sidebar.vala:381
 msgid "Go to Pinboard"
 msgstr "Prejsť na nástenku"
 
@@ -2675,7 +2686,7 @@ msgstr "Zálohovacie súbory Planify"
 msgid "On this computer"
 msgstr "Na tomto počítači"
 
-#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:88
+#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:89
 #: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:87
 msgid "View Option Menu"
 msgstr "Zobraziť ponuku možností"
@@ -2728,112 +2739,117 @@ msgid "Note"
 msgstr "Poznámka"
 
 #: src/Views/Project/Board.vala:316 src/Views/Project/List.vala:398
-#: src/Views/Project/Project.vala:292 src/Views/Project/Project.vala:324
+#: src/Views/Project/Project.vala:335 src/Views/Project/Project.vala:367
 msgid "When?"
 msgstr "Kedy?"
 
-#: src/Views/Project/Project.vala:63
+#: src/Views/Project/Project.vala:64
 msgid "Project Actions"
 msgstr "Akcie projektu"
 
-#: src/Views/Project/Project.vala:297
+#: src/Views/Project/Project.vala:222
+#, fuzzy
+msgid "New Task"
+msgstr "Pozícia novej úlohy"
+
+#: src/Views/Project/Project.vala:340
 msgid "Select"
 msgstr "Vybrať"
 
-#: src/Views/Project/Project.vala:298
+#: src/Views/Project/Project.vala:341
 msgid "Paste"
 msgstr "Prilepiť"
 
-#: src/Views/Project/Project.vala:299 src/Views/Project/Project.vala:400
+#: src/Views/Project/Project.vala:342 src/Views/Project/Project.vala:443
 msgid "Expand All"
 msgstr "Rozbaliť všetko"
 
-#: src/Views/Project/Project.vala:404
+#: src/Views/Project/Project.vala:447
 msgid "Collapse All"
 msgstr "Zbaliť všetko"
 
-#: src/Views/Project/Project.vala:420
+#: src/Views/Project/Project.vala:463
 msgid "List"
 msgstr "Zoznam"
 
-#: src/Views/Project/Project.vala:426
+#: src/Views/Project/Project.vala:469
 msgid "Board"
 msgstr "Tabuľa"
 
-#: src/Views/Project/Project.vala:438 src/Views/Scheduled/Scheduled.vala:222
+#: src/Views/Project/Project.vala:481 src/Views/Scheduled/Scheduled.vala:222
 #: src/Views/Today.vala:618
 msgid "Sorting"
 msgstr "Triedenie"
 
-#: src/Views/Project/Project.vala:441
+#: src/Views/Project/Project.vala:484
 msgid "Custom sort order"
 msgstr "Vlastný poradok"
 
-#: src/Views/Project/Project.vala:444 src/Views/Scheduled/Scheduled.vala:227
+#: src/Views/Project/Project.vala:487 src/Views/Scheduled/Scheduled.vala:227
 #: src/Views/Today.vala:623
 msgid "Date Added"
 msgstr "Dátum pridania"
 
-#: src/Views/Project/Project.vala:447
+#: src/Views/Project/Project.vala:490
 #, fuzzy
 msgid "Ascending Order"
 msgstr "Vzostupne"
 
-#: src/Views/Project/Project.vala:453
+#: src/Views/Project/Project.vala:496
 msgid "Duedate"
 msgstr "Dátum splatnosti"
 
-#: src/Views/Project/Project.vala:456
+#: src/Views/Project/Project.vala:499
 msgid "All (default)"
 msgstr "Všetko (predvolené)"
 
-#: src/Views/Project/Project.vala:458 src/Views/Project/Project.vala:619
+#: src/Views/Project/Project.vala:501 src/Views/Project/Project.vala:662
 msgid "This Week"
 msgstr "Tento týždeň"
 
-#: src/Views/Project/Project.vala:459 src/Views/Project/Project.vala:621
+#: src/Views/Project/Project.vala:502 src/Views/Project/Project.vala:664
 msgid "Next 7 Days"
 msgstr "Nasledujúcich 7 dní"
 
-#: src/Views/Project/Project.vala:460 src/Views/Project/Project.vala:623
+#: src/Views/Project/Project.vala:503 src/Views/Project/Project.vala:666
 msgid "This Month"
 msgstr "Tento mesiac"
 
-#: src/Views/Project/Project.vala:461 src/Views/Project/Project.vala:625
+#: src/Views/Project/Project.vala:504 src/Views/Project/Project.vala:668
 msgid "Next 30 Days"
 msgstr "Nasledujúcich 30 dní"
 
-#: src/Views/Project/Project.vala:468 src/Views/Scheduled/Scheduled.vala:235
+#: src/Views/Project/Project.vala:511 src/Views/Scheduled/Scheduled.vala:235
 #: src/Views/Today.vala:631
 msgid "P1"
 msgstr "P1"
 
-#: src/Views/Project/Project.vala:474 src/Views/Scheduled/Scheduled.vala:241
+#: src/Views/Project/Project.vala:517 src/Views/Scheduled/Scheduled.vala:241
 #: src/Views/Today.vala:637
 msgid "P2"
 msgstr "P2"
 
-#: src/Views/Project/Project.vala:480 src/Views/Scheduled/Scheduled.vala:247
+#: src/Views/Project/Project.vala:523 src/Views/Scheduled/Scheduled.vala:247
 #: src/Views/Today.vala:643
 msgid "P3"
 msgstr "P3"
 
-#: src/Views/Project/Project.vala:486 src/Views/Scheduled/Scheduled.vala:253
+#: src/Views/Project/Project.vala:529 src/Views/Scheduled/Scheduled.vala:253
 #: src/Views/Today.vala:649
 msgid "P4"
 msgstr "P4"
 
-#: src/Views/Project/Project.vala:493 src/Views/Scheduled/Scheduled.vala:260
+#: src/Views/Project/Project.vala:536 src/Views/Scheduled/Scheduled.vala:260
 #: src/Views/Today.vala:656
 msgid "Filter by Labels"
 msgstr "Filtrovať podľa štítkov"
 
-#: src/Views/Project/Project.vala:502
+#: src/Views/Project/Project.vala:545
 #, fuzzy
 msgid "Search completed tasks"
 msgstr "Zobraziť dokončené úlohy"
 
-#: src/Views/Project/Project.vala:529
+#: src/Views/Project/Project.vala:572
 msgid "Sort By"
 msgstr "Triediť podľa"
 
