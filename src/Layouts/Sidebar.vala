@@ -24,6 +24,7 @@ public class Layouts.Sidebar : Adw.Bin {
     private Gtk.ListBox sources_listbox;
     private Widgets.NewVersionPopup update_notification;
     private Gtk.Revealer update_notification_revealer;
+    private Gtk.Popover context_menu;
 
     private Layouts.HeaderItem favorites_header;
     public Gee.HashMap<string, Layouts.ProjectRow> favorites_hashmap = new Gee.HashMap<string, Layouts.ProjectRow> ();
@@ -76,6 +77,13 @@ public class Layouts.Sidebar : Adw.Bin {
 
         child = overlay;
         update_filter_view ();
+        create_context_menu ();
+
+        var right_click = new Gtk.GestureClick () {
+            button = Gdk.BUTTON_SECONDARY
+        };
+        add_controller (right_click);
+        right_click.pressed.connect (on_right_click);
 
         update_notification.dismissed.connect (() => {
             update_notification_revealer.reveal_child = false;
@@ -107,6 +115,52 @@ public class Layouts.Sidebar : Adw.Bin {
         });
 
         Services.Settings.get_default ().settings.changed["filters-list-view"].connect (update_filter_view);
+    }
+    
+    private void create_context_menu () {
+        var add_project_item = new Widgets.ContextMenu.MenuItem (_("New Project"), "plus-large-symbolic");
+        var add_source_item = new Widgets.ContextMenu.MenuItem (_("Add Account"), "cloud-outline-thick-symbolic");
+        var customize_item = new Widgets.ContextMenu.MenuItem (_("Customize Sidebar"), "dock-left-symbolic");
+
+        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        menu_box.margin_top = menu_box.margin_bottom = 3;
+        menu_box.append (add_project_item);
+        menu_box.append (add_source_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (customize_item);
+        
+        context_menu = new Gtk.Popover () {
+            has_arrow = false,
+            child = menu_box,
+            position = Gtk.PositionType.BOTTOM,
+            width_request = 250
+        };
+
+        add_project_item.clicked.connect (() => {
+            var dialog = new Dialogs.Project.new (SourceType.LOCAL.to_string (), true);
+            dialog.present (Planify._instance.main_window);
+            context_menu.popdown ();
+        });
+        
+        add_source_item.clicked.connect (() => {
+            var preferences_dialog = new Dialogs.Preferences.PreferencesWindow ();
+            preferences_dialog.show_page ("accounts");
+            preferences_dialog.present (Planify._instance.main_window);
+        });
+        
+        customize_item.clicked.connect (() => {
+            var preferences_dialog = new Dialogs.Preferences.PreferencesWindow ();
+            preferences_dialog.show_page ("sidebar-page");
+            preferences_dialog.present (Planify._instance.main_window);
+        });
+    }
+    
+    private void on_right_click (int n_press, double x, double y) {
+        Gdk.Rectangle rect = { (int) x, (int) y, 250, 1 };
+        
+        context_menu.set_parent (this);
+        context_menu.set_pointing_to (rect);
+        context_menu.popup ();
     }
 
     public void update_version () {

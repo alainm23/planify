@@ -776,8 +776,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var menu_handle_gesture = new Gtk.GestureClick ();
         menu_handle_gesture.set_button (3);
         itemrow_box.add_controller (menu_handle_gesture);
-        signals_map[menu_handle_gesture.released.connect ((n_press, x, y) => {
+        signals_map[menu_handle_gesture.pressed.connect ((n_press, x, y) => {
             if (!item.project.is_deck) {
+                menu_handle_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
                 build_handle_context_menu (x, y);
             }
         })] = menu_handle_gesture;

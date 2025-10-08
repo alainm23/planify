@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 11:39+0000\n"
+"POT-Creation-Date: 2025-10-08 11:59+0000\n"
 "PO-Revision-Date: 2024-07-15 10:40-0300\n"
 "Last-Translator: Ana Godinho <godinhoana54@gmail.com>\n"
 "Language: pt_PT\n"
@@ -120,7 +120,7 @@ msgid "CalDAV"
 msgstr ""
 
 #: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
-#: src/Views/Project/Project.vala:445 src/Views/Project/Project.vala:490
+#: src/Views/Project/Project.vala:488 src/Views/Project/Project.vala:533
 #: src/Views/Scheduled/Scheduled.vala:228
 #: src/Views/Scheduled/Scheduled.vala:257 src/Views/Today.vala:624
 #: src/Views/Today.vala:653 src/Widgets/ItemDetailCompleted.vala:82
@@ -131,7 +131,7 @@ msgstr "Prioridade"
 msgid "Label"
 msgstr "Etiqueta"
 
-#: core/Enum.vala:351 src/Views/Project/Project.vala:443
+#: core/Enum.vala:351 src/Views/Project/Project.vala:486
 #: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:622
 msgid "Due Date"
 msgstr "Data limite"
@@ -153,7 +153,7 @@ msgstr "Tarefa Atualizada"
 msgid "Content"
 msgstr "Conteúdo"
 
-#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1875
+#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1876
 #: src/Layouts/ItemSidebarView.vala:169
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
@@ -164,8 +164,8 @@ msgid "Scheduled"
 msgstr "Agendado"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
-#: src/Layouts/ItemBoard.vala:681 src/Layouts/ItemBoard.vala:694
-#: src/Layouts/ItemRow.vala:1150 src/Layouts/ItemRow.vala:1163
+#: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemBoard.vala:713
+#: src/Layouts/ItemRow.vala:1151 src/Layouts/ItemRow.vala:1164
 msgid "Pin"
 msgstr "Fixar"
 
@@ -220,7 +220,7 @@ msgstr "Registo de eventos"
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:102
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:140
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:326
-#: src/Views/Project/Project.vala:96 src/Views/Project/Project.vala:156
+#: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
 msgid "Inbox"
 msgstr "Caixa de Entrada"
 
@@ -289,9 +289,9 @@ msgstr "próximo"
 #: core/Utils/Datetime.vala:89 core/Utils/Util.vala:247
 #: core/Widgets/Calendar/CalendarHeader.vala:79
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:124
-#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:688
-#: src/Layouts/ItemRow.vala:1157 src/Views/Project/Project.vala:457
-#: src/Views/Project/Project.vala:617 src/Views/Today.vala:202
+#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:707
+#: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:500
+#: src/Views/Project/Project.vala:660 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Hoje"
 
@@ -301,8 +301,8 @@ msgstr "hoje"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
-#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:691
-#: src/Layouts/ItemRow.vala:1160
+#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:710
+#: src/Layouts/ItemRow.vala:1161
 msgid "Tomorrow"
 msgstr "Amanhã"
 
@@ -400,7 +400,7 @@ msgstr "Isto irá arquivar %s e todas as suas tarefas."
 
 #: core/Objects/Project.vala:879 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:569
-#: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:302
+#: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
 msgid "Archive"
 msgstr "Arquivar"
 
@@ -1293,11 +1293,11 @@ msgstr "Procurar"
 msgid "Search or Create"
 msgstr "Procurar ou Criar"
 
-#: core/Widgets/MarkdownEditor.vala:1340
+#: core/Widgets/MarkdownEditor.vala:1347
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1345
+#: core/Widgets/MarkdownEditor.vala:1352
 msgid "Remove link"
 msgstr ""
 
@@ -1410,7 +1410,8 @@ msgid "To Do"
 msgstr "Tarefa"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:701 src/Layouts/ItemRow.vala:1171
+#: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1172
+#: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "Completar"
 
@@ -1424,7 +1425,7 @@ msgstr ""
 "notificações das tarefas."
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
-#: src/Views/Project/Project.vala:497
+#: src/Views/Project/Project.vala:540
 #, fuzzy
 msgid "Completed Tasks"
 msgstr "Concluir tarefa"
@@ -1463,7 +1464,7 @@ msgstr ""
 msgid "Task Detail"
 msgstr "Fechar Detalhes"
 
-#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:538
+#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
 msgid "Filter By"
 msgstr "Filtrar por"
@@ -1472,9 +1473,9 @@ msgstr "Filtrar por"
 msgid "Next Week"
 msgstr "Próxima semana"
 
-#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:696
-#: src/Layouts/ItemRow.vala:1165 src/Views/Project/Project.vala:462
-#: src/Views/Project/Project.vala:627
+#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:715
+#: src/Layouts/ItemRow.vala:1166 src/Views/Project/Project.vala:505
+#: src/Views/Project/Project.vala:670
 msgid "No Date"
 msgstr "Sem Data"
 
@@ -1501,7 +1502,7 @@ msgstr "Insira os seus dados, por favor"
 msgid "Network Is Not Available"
 msgstr "A Internet Não Está Disponível"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1285
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1286
 #: src/Layouts/ItemSidebarView.vala:447
 msgid "Change History"
 msgstr "Mudar Histórico"
@@ -1565,7 +1566,7 @@ msgid "Archived Projects"
 msgstr "Projetos Arquivados"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:659
-#: src/Views/Project/Project.vala:295
+#: src/Views/Project/Project.vala:338
 msgid "Manage Sections"
 msgstr "Gerir Secções"
 
@@ -1873,7 +1874,7 @@ msgid "Custom Sort Order"
 msgstr "Ordem de classificação personalizada"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
-#: src/Views/Project/Project.vala:442 src/Views/Scheduled/Scheduled.vala:225
+#: src/Views/Project/Project.vala:485 src/Views/Scheduled/Scheduled.vala:225
 #: src/Views/Today.vala:621
 msgid "Alphabetically"
 msgstr "Alfabeticamente"
@@ -2361,12 +2362,12 @@ msgstr ""
 "Se tiver alguma questão em relação ao seus dados ou qualquer outro problema, "
 "por favor contacte-nos. Ficaremos felizes em responder-lhe."
 
-#: src/Dialogs/Project.vala:58
+#: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
 msgid "New Project"
 msgstr "Novo Projeto"
 
 #: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:700
-#: src/Views/Project/Project.vala:290
+#: src/Views/Project/Project.vala:333
 msgid "Edit Project"
 msgstr "Editar Projeto"
 
@@ -2394,8 +2395,8 @@ msgstr "Projeto adicionado com sucesso!"
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:82
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:93
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:126
-#: src/Layouts/ItemBoard.vala:698 src/Layouts/ItemRow.vala:1168
-#: src/Layouts/ItemRow.vala:1280 src/Layouts/ItemSidebarView.vala:442
+#: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1169
+#: src/Layouts/ItemRow.vala:1281 src/Layouts/ItemSidebarView.vala:442
 msgid "Move"
 msgstr "Mover"
 
@@ -2409,7 +2410,7 @@ msgid "Unarchive"
 msgstr "Desarquivar"
 
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:155
-#: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:303
+#: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:346
 msgid "Delete Project"
 msgstr "Eliminar Projeto"
 
@@ -2428,7 +2429,8 @@ msgstr ""
 "Alterne rapidamente projetos e visualizações, encontre tarefas, busque por "
 "etiquetas."
 
-#: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:293
+#: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:223
+#: src/Views/Project/Project.vala:336
 msgid "New Section"
 msgstr "Nova secção"
 
@@ -2458,50 +2460,50 @@ msgstr "Nome de Secção"
 msgid "Open/Close Sidebar"
 msgstr "Abrir/Fechar Barra lateral"
 
-#: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:681
-#: src/Layouts/ItemBoard.vala:694 src/Layouts/ItemRow.vala:1150
-#: src/Layouts/ItemRow.vala:1163
+#: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:700
+#: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1151
+#: src/Layouts/ItemRow.vala:1164
 msgid "Unpin"
 msgstr ""
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:571 src/Layouts/ItemRow.vala:1482
+#: src/Layouts/ItemBoard.vala:590 src/Layouts/ItemRow.vala:1483
 #: src/Layouts/ItemSidebarView.vala:610
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Concluído. Próxima ocorrência: %s"
 
-#: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1171
 msgid "Add Subtask"
 msgstr "Adicionar Subtarefa"
 
-#: src/Layouts/ItemBoard.vala:702 src/Layouts/ItemRow.vala:1172
+#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1173
 msgid "Edit"
 msgstr "Editar"
 
-#: src/Layouts/ItemBoard.vala:703 src/Layouts/ItemRow.vala:1173
-#: src/Layouts/ItemRow.vala:1279 src/Layouts/ItemSidebarView.vala:441
+#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1174
+#: src/Layouts/ItemRow.vala:1280 src/Layouts/ItemSidebarView.vala:441
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:566
-#: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:291
+#: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
 msgid "Duplicate"
 msgstr "Duplicar"
 
-#: src/Layouts/ItemBoard.vala:705 src/Layouts/ItemRow.vala:1175
-#: src/Layouts/ItemRow.vala:1282 src/Layouts/ItemSidebarView.vala:444
+#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1176
+#: src/Layouts/ItemRow.vala:1283 src/Layouts/ItemSidebarView.vala:444
 msgid "Delete Task"
 msgstr "Eliminar Tarefa"
 
-#: src/Layouts/ItemBoard.vala:990 src/Layouts/ItemRow.vala:1745
+#: src/Layouts/ItemBoard.vala:1009 src/Layouts/ItemRow.vala:1746
 msgid "Order changed to 'Custom sort order'"
 msgstr "Ordem alterada para 'Ordem de Classificação Personalizada'"
 
 # c-format
-#: src/Layouts/ItemBoard.vala:1076 src/Layouts/ItemRow.vala:1528
+#: src/Layouts/ItemBoard.vala:1095 src/Layouts/ItemRow.vala:1529
 #, c-format
 msgid "%s was deleted"
 msgstr "%s foi eliminada"
 
-#: src/Layouts/ItemBoard.vala:1077 src/Layouts/ItemRow.vala:1529
+#: src/Layouts/ItemBoard.vala:1096 src/Layouts/ItemRow.vala:1530
 msgid "Undo"
 msgstr "Desfazer"
 
@@ -2513,21 +2515,21 @@ msgstr "Adicionar Subtarefas"
 msgid "Add Attachments"
 msgstr "Adicionar Anexos"
 
-#: src/Layouts/ItemRow.vala:1031
+#: src/Layouts/ItemRow.vala:1032
 #, fuzzy
 msgid "Hide Sub-tasks"
 msgstr "Subtarefas"
 
-#: src/Layouts/ItemRow.vala:1031
+#: src/Layouts/ItemRow.vala:1032
 #, fuzzy
 msgid "Show Sub-tasks"
 msgstr "Subtarefas"
 
-#: src/Layouts/ItemRow.vala:1275 src/Layouts/ItemSidebarView.vala:438
+#: src/Layouts/ItemRow.vala:1276 src/Layouts/ItemSidebarView.vala:438
 msgid "Use as a Note"
 msgstr "Usar como Nota"
 
-#: src/Layouts/ItemRow.vala:1278 src/Layouts/ItemSidebarView.vala:440
+#: src/Layouts/ItemRow.vala:1279 src/Layouts/ItemSidebarView.vala:440
 msgid "Copy to Clipboard"
 msgstr "Copiar para a área de transferência"
 
@@ -2604,27 +2606,37 @@ msgstr "Gerir Ordem de Secção"
 msgid "Show Completed Tasks"
 msgstr "Mostrar Tarefas Concluídas"
 
-#: src/Layouts/Sidebar.vala:39
+#: src/Layouts/Sidebar.vala:40
 msgid "Favorites"
 msgstr "Favoritos"
 
-#: src/Layouts/Sidebar.vala:41
+#: src/Layouts/Sidebar.vala:42
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "Nenhum favorito disponível. Crie um clicando no botão '+'"
 
-#: src/Layouts/Sidebar.vala:263 src/Layouts/Sidebar.vala:315
+#: src/Layouts/Sidebar.vala:122
+#, fuzzy
+msgid "Add Account"
+msgstr "Contas"
+
+#: src/Layouts/Sidebar.vala:123
+#, fuzzy
+msgid "Customize Sidebar"
+msgstr "Customize a sua barra lateral"
+
+#: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
 msgid "Go to Today"
 msgstr "Ir para Hoje"
 
-#: src/Layouts/Sidebar.vala:267 src/Layouts/Sidebar.vala:319
+#: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
 msgid "Go to Scheduled"
 msgstr "Ir para Agendado"
 
-#: src/Layouts/Sidebar.vala:271 src/Layouts/Sidebar.vala:323
+#: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
 msgid "Go to Labels"
 msgstr "Ir para Etiquetas"
 
-#: src/Layouts/Sidebar.vala:275 src/Layouts/Sidebar.vala:327
+#: src/Layouts/Sidebar.vala:329 src/Layouts/Sidebar.vala:381
 msgid "Go to Pinboard"
 msgstr "Ir para o Quadro de anúncios"
 
@@ -2703,7 +2715,21 @@ msgstr "Ficheiros da cópia de segurança do Planify"
 msgid "On this computer"
 msgstr "Neste computador"
 
-#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:88
+#: src/Services/Notification.vala:99
+#, fuzzy
+msgid "Snooze for 10 minutes"
+msgstr "30 minutos antes"
+
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "Snooze for 30 minutes"
+msgstr "30 minutos antes"
+
+#: src/Services/Notification.vala:101
+msgid "Snooze for 1 hour"
+msgstr ""
+
+#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:89
 #: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:87
 msgid "View Option Menu"
 msgstr "Ver Menu de Opções"
@@ -2759,112 +2785,117 @@ msgid "Note"
 msgstr "Nota"
 
 #: src/Views/Project/Board.vala:316 src/Views/Project/List.vala:398
-#: src/Views/Project/Project.vala:292 src/Views/Project/Project.vala:324
+#: src/Views/Project/Project.vala:335 src/Views/Project/Project.vala:367
 msgid "When?"
 msgstr "Quando?"
 
-#: src/Views/Project/Project.vala:63
+#: src/Views/Project/Project.vala:64
 msgid "Project Actions"
 msgstr "Ações do Projeto"
 
-#: src/Views/Project/Project.vala:297
+#: src/Views/Project/Project.vala:222
+#, fuzzy
+msgid "New Task"
+msgstr "Mover tarefas"
+
+#: src/Views/Project/Project.vala:340
 msgid "Select"
 msgstr "Selecionar"
 
-#: src/Views/Project/Project.vala:298
+#: src/Views/Project/Project.vala:341
 msgid "Paste"
 msgstr "Colar"
 
-#: src/Views/Project/Project.vala:299 src/Views/Project/Project.vala:400
+#: src/Views/Project/Project.vala:342 src/Views/Project/Project.vala:443
 msgid "Expand All"
 msgstr "Expandir Todos"
 
-#: src/Views/Project/Project.vala:404
+#: src/Views/Project/Project.vala:447
 msgid "Collapse All"
 msgstr "Colapsar Todos"
 
-#: src/Views/Project/Project.vala:420
+#: src/Views/Project/Project.vala:463
 msgid "List"
 msgstr "Listas"
 
-#: src/Views/Project/Project.vala:426
+#: src/Views/Project/Project.vala:469
 msgid "Board"
 msgstr "Quadro de anúncios"
 
-#: src/Views/Project/Project.vala:438 src/Views/Scheduled/Scheduled.vala:222
+#: src/Views/Project/Project.vala:481 src/Views/Scheduled/Scheduled.vala:222
 #: src/Views/Today.vala:618
 msgid "Sorting"
 msgstr "Ordenar"
 
-#: src/Views/Project/Project.vala:441
+#: src/Views/Project/Project.vala:484
 msgid "Custom sort order"
 msgstr "Ordem de classificação personalizada"
 
-#: src/Views/Project/Project.vala:444 src/Views/Scheduled/Scheduled.vala:227
+#: src/Views/Project/Project.vala:487 src/Views/Scheduled/Scheduled.vala:227
 #: src/Views/Today.vala:623
 msgid "Date Added"
 msgstr "Data Adicionada"
 
-#: src/Views/Project/Project.vala:447
+#: src/Views/Project/Project.vala:490
 #, fuzzy
 msgid "Ascending Order"
 msgstr "Ascendente"
 
-#: src/Views/Project/Project.vala:453
+#: src/Views/Project/Project.vala:496
 msgid "Duedate"
 msgstr "Data"
 
-#: src/Views/Project/Project.vala:456
+#: src/Views/Project/Project.vala:499
 msgid "All (default)"
 msgstr "Todos (padrão)"
 
-#: src/Views/Project/Project.vala:458 src/Views/Project/Project.vala:619
+#: src/Views/Project/Project.vala:501 src/Views/Project/Project.vala:662
 msgid "This Week"
 msgstr "Esta semana"
 
-#: src/Views/Project/Project.vala:459 src/Views/Project/Project.vala:621
+#: src/Views/Project/Project.vala:502 src/Views/Project/Project.vala:664
 msgid "Next 7 Days"
 msgstr "Próximos 7 dias"
 
-#: src/Views/Project/Project.vala:460 src/Views/Project/Project.vala:623
+#: src/Views/Project/Project.vala:503 src/Views/Project/Project.vala:666
 msgid "This Month"
 msgstr "Este mês"
 
-#: src/Views/Project/Project.vala:461 src/Views/Project/Project.vala:625
+#: src/Views/Project/Project.vala:504 src/Views/Project/Project.vala:668
 msgid "Next 30 Days"
 msgstr "Próximos 30 dias"
 
-#: src/Views/Project/Project.vala:468 src/Views/Scheduled/Scheduled.vala:235
+#: src/Views/Project/Project.vala:511 src/Views/Scheduled/Scheduled.vala:235
 #: src/Views/Today.vala:631
 msgid "P1"
 msgstr "P1"
 
-#: src/Views/Project/Project.vala:474 src/Views/Scheduled/Scheduled.vala:241
+#: src/Views/Project/Project.vala:517 src/Views/Scheduled/Scheduled.vala:241
 #: src/Views/Today.vala:637
 msgid "P2"
 msgstr "P2"
 
-#: src/Views/Project/Project.vala:480 src/Views/Scheduled/Scheduled.vala:247
+#: src/Views/Project/Project.vala:523 src/Views/Scheduled/Scheduled.vala:247
 #: src/Views/Today.vala:643
 msgid "P3"
 msgstr "P3"
 
-#: src/Views/Project/Project.vala:486 src/Views/Scheduled/Scheduled.vala:253
+#: src/Views/Project/Project.vala:529 src/Views/Scheduled/Scheduled.vala:253
 #: src/Views/Today.vala:649
 msgid "P4"
 msgstr "P4"
 
-#: src/Views/Project/Project.vala:493 src/Views/Scheduled/Scheduled.vala:260
+#: src/Views/Project/Project.vala:536 src/Views/Scheduled/Scheduled.vala:260
 #: src/Views/Today.vala:656
 msgid "Filter by Labels"
 msgstr "Filtrar por Etiquetas"
 
-#: src/Views/Project/Project.vala:502
+#: src/Views/Project/Project.vala:545
 #, fuzzy
 msgid "Search completed tasks"
 msgstr "Esconder tarefas concluídas"
 
-#: src/Views/Project/Project.vala:529
+#: src/Views/Project/Project.vala:572
 msgid "Sort By"
 msgstr "Ordenar por"
 
@@ -3451,9 +3482,6 @@ msgstr "Abrir Quadro de anúncios"
 
 #~ msgid "Google Tasks"
 #~ msgstr "Google Tasks"
-
-#~ msgid "Move Tasks"
-#~ msgstr "Mover tarefas"
 
 #~ msgid "No to-dos for this filter yet"
 #~ msgstr "Nenhuma tarefa para este filtro."
