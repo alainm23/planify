@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the extra package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: extra\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-08 10:59-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:7
+msgid "Forget about forgetting things"
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:13
+msgid "🚀️ Planify is here..."
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:15
+msgid "🚀️ Complete redesign of the UI."
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:16
+msgid "🤚️ Drag and Order: Sort your tasks wherever you want."
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:17
+msgid "💯️ Progress And Emoji indicator for each project."
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:18
+msgid "💪️ Be more productive and organize your tasks by 'Sections'."
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:19
+msgid "🌙️ Better integration with the dark theme."
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:20
+msgid "🎉️ and much more."
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:22
+msgid "☁️ Support for Todoist:"
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:24
+msgid "Synchronize your Projects, Task and Sections thanks to Todoist."
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:25
+msgid ""
+"Support for Todoist offline: Work without an internet connection and when "
+"everything is reconnected it will be synchronized."
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:27
+msgid "* Planify not created by, affiliated with, or supported by Doist"
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:28
+msgid "💎️ Other features:"
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:30
+msgid "🔍️ Quick Find"
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:31
+msgid "🌙️ Night mode"
+msgstr ""
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:32
+msgid "⏰️ Reminders"
+msgstr ""
+
+#: data/io.github.alainm23.planify.desktop.in.in:3
+msgid "Planify"
+msgstr ""
+
+#: data/io.github.alainm23.planify.desktop.in.in:4
+msgid "Never worry about forgetting things again"
+msgstr ""
+
+#: data/io.github.alainm23.planify.desktop.in.in:14
+msgid "development;task;tasks;project;todo;reminder;reminders;event;events;calendar;todoist;"
+msgstr ""
