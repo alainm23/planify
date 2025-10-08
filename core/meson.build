@@ -117,7 +117,8 @@ core_deps = [
   libical_dep,
   libgxml_dep,
   libsecret_dep,
-  libspelling
+  libspelling,
+  gtksourceview_dep
 ]
 
 if get_option('evolution')

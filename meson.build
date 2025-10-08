@@ -23,6 +23,7 @@ libical_dep = dependency('libical-glib')
 libgxml_dep = dependency('gxml-0.20')
 libsecret_dep = dependency('libsecret-1')
 libspelling = dependency('libspelling-1', required: get_option('spelling'))
+gtksourceview_dep = dependency('gtksourceview-5')
 m_dep = meson.get_compiler('c').find_library('m', required : false)
 
 if get_option('webkit')

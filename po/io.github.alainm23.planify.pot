@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 11:46+0000\n"
+"POT-Creation-Date: 2025-10-07 22:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1216,11 +1216,11 @@ msgstr ""
 msgid "Search or Create"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1340
+#: core/Widgets/MarkdownEditor.vala:1347
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1345
+#: core/Widgets/MarkdownEditor.vala:1352
 msgid "Remove link"
 msgstr ""
 

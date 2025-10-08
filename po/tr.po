@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 11:39+0000\n"
+"POT-Creation-Date: 2025-10-07 22:58+0000\n"
 "PO-Revision-Date: 2025-05-18 12:00+0300\n"
 "Last-Translator: Egehan KAHRAMAN <vastseaoffical0@outlook.com>\n"
 "Language-Team: \n"
@@ -1303,11 +1303,11 @@ msgstr "Ara"
 msgid "Search or Create"
 msgstr "Ara veya Oluştur"
 
-#: core/Widgets/MarkdownEditor.vala:1340
+#: core/Widgets/MarkdownEditor.vala:1347
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1345
+#: core/Widgets/MarkdownEditor.vala:1352
 msgid "Remove link"
 msgstr ""
 

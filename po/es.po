@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 11:39+0000\n"
+"POT-Creation-Date: 2025-10-07 22:58+0000\n"
 "PO-Revision-Date: 2025-10-03 10:10+0000\n"
 "Last-Translator: Alain <alainmh23@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/io-"
@@ -1277,11 +1277,11 @@ msgstr "Buscar"
 msgid "Search or Create"
 msgstr "Buscar o crear"
 
-#: core/Widgets/MarkdownEditor.vala:1340
+#: core/Widgets/MarkdownEditor.vala:1347
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1345
+#: core/Widgets/MarkdownEditor.vala:1352
 #, fuzzy
 msgid "Remove link"
 msgstr "Eliminar"
