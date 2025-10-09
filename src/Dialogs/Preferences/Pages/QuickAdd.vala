@@ -47,8 +47,8 @@ public class Dialogs.Preferences.Pages.QuickAdd : Dialogs.Preferences.Pages.Base
             use_markup = true,
             wrap = true,
             xalign = 0,
-            margin_end = 6,
-            margin_start = 6
+            margin_end = 3,
+            margin_start = 3
         };
 
         var description2_label = new Gtk.Label (
@@ -59,8 +59,8 @@ public class Dialogs.Preferences.Pages.QuickAdd : Dialogs.Preferences.Pages.Base
             wrap = true,
             xalign = 0,
             margin_top = 6,
-            margin_end = 6,
-            margin_start = 6
+            margin_end = 3,
+            margin_start = 3
         };
 
         var copy_button = new Gtk.Button.from_icon_name ("edit-copy-symbolic") {

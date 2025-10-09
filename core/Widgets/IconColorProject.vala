@@ -64,7 +64,7 @@ public class Widgets.IconColorProject : Adw.Bin {
         stack = new Gtk.Stack () {
             transition_type = CROSSFADE,
             vhomogeneous = true,
-            hhomogeneous = true
+            hhomogeneous = false
         };
 
         stack.add_named (color_emoji_stack, "color-emoji");
