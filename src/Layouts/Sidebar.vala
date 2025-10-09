@@ -137,8 +137,11 @@ public class Layouts.Sidebar : Adw.Bin {
         };
 
         add_project_item.clicked.connect (() => {
-            var dialog = new Dialogs.Project.new (SourceType.LOCAL.to_string (), true);
+            var default_source = Services.Store.instance ().get_default_source ();
+            var source_id = default_source != null ? default_source.id : SourceType.LOCAL.to_string ();
+            var dialog = new Dialogs.Project.new (source_id, true);
             dialog.present (Planify._instance.main_window);
+
             context_menu.popdown ();
         });
         
