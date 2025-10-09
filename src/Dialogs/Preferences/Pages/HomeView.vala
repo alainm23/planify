@@ -87,7 +87,7 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
         foreach (Objects.Source source in Services.Store.instance ().sources) {
             var source_group = new Layouts.HeaderItem (source.display_name) {
                 card = true,
-                reveal = true
+                reveal = source.is_visible
             };
 
             foreach (Objects.Project project in Services.Store.instance ().get_projects_by_source (source.id)) {
