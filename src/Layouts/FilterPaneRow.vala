@@ -25,6 +25,8 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
 
     private Gtk.Label count_label;
     private Gtk.Revealer indicator_revealer;
+    private Objects.Project? current_inbox_project = null;
+    private ulong inbox_count_signal_id = 0;
     private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public FilterPaneRow (Objects.BaseObject filter_type) {
@@ -151,6 +153,10 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
     public void init_badge_count () {
         if (filter_type is Objects.Filters.Inbox) {
             init_inbox_count ();
+
+            Services.Settings.get_default ().settings.changed["local-inbox-project-id"].connect (() => {
+                init_inbox_count ();
+            });
         } else if (filter_type is Objects.Filters.Today) {
             var today_filter = filter_type as Objects.Filters.Today;
             update_count_label (today_filter.item_count + today_filter.overdeue_count);
@@ -168,14 +174,18 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
     }
 
     private void init_inbox_count () {
-        Objects.Project inbox_project = Services.Store.instance ().get_project (
+        if (current_inbox_project != null && inbox_count_signal_id > 0) {
+            current_inbox_project.disconnect (inbox_count_signal_id);
+        }
+
+        current_inbox_project = Services.Store.instance ().get_project (
             Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
         );
 
-        update_count_label (inbox_project.item_count);
-        signals_map[inbox_project.count_updated.connect (() => {
-            update_count_label (inbox_project.item_count);
-        })] = inbox_project;
+        update_count_label (current_inbox_project.item_count);
+        inbox_count_signal_id = current_inbox_project.count_updated.connect (() => {
+            update_count_label (current_inbox_project.item_count);
+        });
     }
 
     public int item_order () {
