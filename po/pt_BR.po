@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-09 20:15+0000\n"
+"POT-Creation-Date: 2025-10-09 20:34+0000\n"
 "PO-Revision-Date: 2025-10-08 14:07+0000\n"
 "Last-Translator: Murilo Leal <murilormleal@outlook.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
@@ -111,13 +111,13 @@ msgstr "Todo ano"
 msgid "Every %d years"
 msgstr "A cada %d anos"
 
-#: core/Enum.vala:280 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
+#: core/Enum.vala:280 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: core/Enum.vala:283 core/Services/CalDAV/CalDAVClient.vala:121
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
 msgstr "CalDAV"
@@ -356,6 +356,7 @@ msgstr "Isso não pode ser desfeito"
 #: core/Objects/Project.vala:878 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:421
 #: src/Dialogs/CompletedTasks.vala:172
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:407
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
@@ -413,7 +414,7 @@ msgid "Delete Section %s"
 msgstr "Deletar Seção %s"
 
 #: core/Objects/Source.vala:59
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:37
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:35
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:44
 msgid "Todoist"
@@ -475,7 +476,7 @@ msgstr ""
 "Sinto muito, o Quick Add não consegue encontrar nenhum projeto disponível, "
 "tente criar um projeto no Planify."
 
-#: core/QuickAdd.vala:922 src/MainWindow.vala:672
+#: core/QuickAdd.vala:922 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Atalhos do Teclado"
 
@@ -1541,7 +1542,7 @@ msgstr "Atualizar Rótulo"
 msgid "Filter"
 msgstr "Filtro"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:677
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:712
 msgid "Archived Projects"
 msgstr "Projetos Arquivados"
 
@@ -1564,28 +1565,48 @@ msgstr "Arquivado"
 msgid "(No Section)"
 msgstr "(Sem seção)"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:28
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:62
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
 #: src/Dialogs/Preferences/PreferencesWindow.vala:108
 msgid "Accounts"
 msgstr "Contas"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:58
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
 msgid "Add Source"
 msgstr "Adicionar Fonte"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:72
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
+#, fuzzy
+msgid "Inbox Page"
+msgstr "Caixa de Entrada"
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:102
 msgid "You can sort your accounts by dragging and dropping"
 msgstr "Você pode classificar suas contas arrastando e soltando"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:174
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:464
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:228
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:547
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr ""
 "Planify está sincronizando suas tarefas, isso pode levar alguns minutos"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
+msgid "Cannot Hide This Account"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
+msgid ""
+"This account contains your current Inbox project. Please change your Inbox "
+"project first."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
+#, fuzzy
+msgid "Change Inbox"
+msgstr "Abrir Caixa de Entrada"
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:517
 #, fuzzy
 msgid "Syncing…"
 msgstr "Sincronizando…"
@@ -1618,6 +1639,18 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:103
 msgid "Log In"
 msgstr "Login"
+
+#: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:28
+#, fuzzy
+msgid "Inbox Project"
+msgstr "Caixa de Entrada de Projetos padrão"
+
+#: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:37
+msgid ""
+"Your Inbox is where new tasks land by default. Based on David Allen's "
+"Getting Things Done methodology, it's your capture point for quick ideas and "
+"tasks that you'll organize later"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 #, fuzzy
@@ -2175,7 +2208,7 @@ msgstr ""
 "Quando ativado, um lembrete antes do horário de vencimento da tarefa será "
 "adicionado por padrão."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:669
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:704
 msgid "Preferences"
 msgstr "Preferências"
 
@@ -2627,40 +2660,40 @@ msgstr "Ir para o Quadro de Anúncios"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Nenhum projeto disponível. Crie um clicando no botão '+'"
 
-#: src/MainWindow.vala:78
+#: src/MainWindow.vala:79
 msgid "Main Menu"
 msgstr "Menu principal"
 
-#: src/MainWindow.vala:83
+#: src/MainWindow.vala:84
 msgid "Open Quick Find"
 msgstr "Abra a Busca Rápida"
 
-#: src/MainWindow.vala:675
+#: src/MainWindow.vala:710
 msgid "About Planify"
 msgstr "Sobre o Planify"
 
-#: src/MainWindow.vala:735
+#: src/MainWindow.vala:770
 msgid "Oops! Something happened"
 msgstr "Ops! Aconteceu alguma coisa"
 
-#: src/MainWindow.vala:738
+#: src/MainWindow.vala:773
 msgid "See More"
 msgstr "Crie mais"
 
-#: src/MainWindow.vala:754 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:789 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Tarefa concluída"
 
-#: src/MainWindow.vala:755
+#: src/MainWindow.vala:790
 #, fuzzy
 msgid "View"
 msgstr "Exibição de Lista"
 
-#: src/MainWindow.vala:793
+#: src/MainWindow.vala:828
 msgid "Database Integrity Check Failed"
 msgstr "Falha na verificação de integridade do banco de dados"
 
-#: src/MainWindow.vala:794
+#: src/MainWindow.vala:829
 #, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
@@ -2681,7 +2714,7 @@ msgstr ""
 "redefinição, você poderá restaurar qualquer backup criado anteriormente. "
 "Agradecemos a sua paciência"
 
-#: src/MainWindow.vala:796
+#: src/MainWindow.vala:831
 msgid "Reset Database"
 msgstr "Redefinir banco de dados"
 
@@ -3449,9 +3482,6 @@ msgstr "Abrir Quadro de Anúncios"
 
 #~ msgid "Efficient Management of Completed Tasks"
 #~ msgstr "Sublinhar Tarefas Concluídas"
-
-#~ msgid "Default Inbox Project"
-#~ msgstr "Caixa de Entrada de Projetos padrão"
 
 #~ msgid "New filters available in Quick Add."
 #~ msgstr "Novos filtros disponíveis em Adição Rápida."

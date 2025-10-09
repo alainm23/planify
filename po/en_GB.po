@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-09 20:15+0000\n"
+"POT-Creation-Date: 2025-10-09 20:34+0000\n"
 "PO-Revision-Date: 2025-10-06 04:59-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -102,13 +102,13 @@ msgstr "Every year"
 msgid "Every %d years"
 msgstr "Every %d years"
 
-#: core/Enum.vala:280 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
+#: core/Enum.vala:280 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: core/Enum.vala:283 core/Services/CalDAV/CalDAVClient.vala:121
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
 msgstr "CalDAV"
@@ -345,6 +345,7 @@ msgstr "This can not be undone"
 #: core/Objects/Project.vala:878 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:421
 #: src/Dialogs/CompletedTasks.vala:172
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:407
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
@@ -399,7 +400,7 @@ msgid "Delete Section %s"
 msgstr "Delete Section %s"
 
 #: core/Objects/Source.vala:59
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:37
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:35
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:44
 msgid "Todoist"
@@ -461,7 +462,7 @@ msgstr ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 
-#: core/QuickAdd.vala:922 src/MainWindow.vala:672
+#: core/QuickAdd.vala:922 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Keyboard Shortcuts"
 
@@ -1512,7 +1513,7 @@ msgstr "Update Label"
 msgid "Filter"
 msgstr "Filter"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:677
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:712
 msgid "Archived Projects"
 msgstr "Archived Projects"
 
@@ -1534,26 +1535,46 @@ msgstr "Archived"
 msgid "(No Section)"
 msgstr "(No Section)"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:28
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:62
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
 #: src/Dialogs/Preferences/PreferencesWindow.vala:108
 msgid "Accounts"
 msgstr "Accounts"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:58
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
 msgid "Add Source"
 msgstr "Add Source"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:72
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
+#, fuzzy
+msgid "Inbox Page"
+msgstr "Inbox"
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:102
 msgid "You can sort your accounts by dragging and dropping"
 msgstr "You can sort your accounts by dragging and dropping"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:174
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:464
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:228
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:547
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr "Planify is syncing your tasks, this may take a few minutes"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
+msgid "Cannot Hide This Account"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
+msgid ""
+"This account contains your current Inbox project. Please change your Inbox "
+"project first."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
+#, fuzzy
+msgid "Change Inbox"
+msgstr "Open Inbox"
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:517
 msgid "Syncing…"
 msgstr "Syncing…"
 
@@ -1583,6 +1604,18 @@ msgstr "Advanced Options"
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:103
 msgid "Log In"
 msgstr "Log In"
+
+#: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:28
+#, fuzzy
+msgid "Inbox Project"
+msgstr "New Project"
+
+#: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:37
+msgid ""
+"Your Inbox is where new tasks land by default. Based on David Allen's "
+"Getting Things Done methodology, it's your capture point for quick ideas and "
+"tasks that you'll organize later"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "Server URL examples:"
@@ -2127,7 +2160,7 @@ msgid ""
 msgstr ""
 "When enabled, a reminder before the task’s due time will be added by default."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:669
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:704
 msgid "Preferences"
 msgstr "Preferences"
 
@@ -2570,39 +2603,39 @@ msgstr "Go to Pinboard"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "No project available. Create one by clicking on the '+' button"
 
-#: src/MainWindow.vala:78
+#: src/MainWindow.vala:79
 msgid "Main Menu"
 msgstr "Main Menu"
 
-#: src/MainWindow.vala:83
+#: src/MainWindow.vala:84
 msgid "Open Quick Find"
 msgstr "Open Quick Find"
 
-#: src/MainWindow.vala:675
+#: src/MainWindow.vala:710
 msgid "About Planify"
 msgstr "About Planify"
 
-#: src/MainWindow.vala:735
+#: src/MainWindow.vala:770
 msgid "Oops! Something happened"
 msgstr "Oops! Something happened"
 
-#: src/MainWindow.vala:738
+#: src/MainWindow.vala:773
 msgid "See More"
 msgstr "See More"
 
-#: src/MainWindow.vala:754 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:789 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Task completed"
 
-#: src/MainWindow.vala:755
+#: src/MainWindow.vala:790
 msgid "View"
 msgstr "View"
 
-#: src/MainWindow.vala:793
+#: src/MainWindow.vala:828
 msgid "Database Integrity Check Failed"
 msgstr "Database Integrity Check Failed"
 
-#: src/MainWindow.vala:794
+#: src/MainWindow.vala:829
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2624,7 +2657,7 @@ msgstr ""
 "After the reset, you’ll be able to restore any backup you’ve created "
 "previously. Thank you for your patience"
 
-#: src/MainWindow.vala:796
+#: src/MainWindow.vala:831
 msgid "Reset Database"
 msgstr "Reset Database"
 
