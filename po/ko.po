@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-09 01:26+0000\n"
+"POT-Creation-Date: 2025-10-09 10:32+0000\n"
 "PO-Revision-Date: 2024-06-24 02:42+0900\n"
 "Last-Translator: Wonje Jung <myunsyeya@ajou.ac.kr>\n"
 "Language-Team: \n"
@@ -1586,12 +1586,12 @@ msgid "You can sort your accounts by dragging and dropping"
 msgstr "끌어다 놓기로 보기를 정렬할 수 있습니다"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:174
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:413
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:464
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr "Planify가 작업을 동기화 중입니다. 몇 분 정도 소요될 수 있습니다"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:383
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 #, fuzzy
 msgid "Syncing…"
 msgstr "동기화 중..."
