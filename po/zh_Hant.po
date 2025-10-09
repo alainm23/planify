@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-10-08 22:18+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-09 20:15+0000\n"
 "PO-Revision-Date: 2025-10-09 18:45+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
@@ -459,7 +459,8 @@ msgstr "選擇專案計畫"
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
-msgstr "抱歉，快速添加無法找到任何可用的專案計畫，請從 Planify 中建立一個專案計畫。"
+msgstr ""
+"抱歉，快速添加無法找到任何可用的專案計畫，請從 Planify 中建立一個專案計畫。"
 
 #: core/QuickAdd.vala:922 src/MainWindow.vala:672
 msgid "Keyboard Shortcuts"
@@ -805,7 +806,8 @@ msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
-msgstr "此項專案展示了入門操作所需瞭解的一切。請毫不猶豫盡情玩用 - 隨時都可以從偏好選"
+msgstr ""
+"此項專案展示了入門操作所需瞭解的一切。請毫不猶豫盡情玩用 - 隨時都可以從偏好選"
 "項中重新建立。"
 
 #: core/Utils/Util.vala:583
@@ -825,7 +827,8 @@ msgstr "建立新的任務"
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
-msgstr "現在輪到您啦！點按您的專案計畫底部的 '＋' 按鈕、輸入任務描述，並點按 〔添加任"
+msgstr ""
+"現在輪到您啦！點按您的專案計畫底部的 '＋' 按鈕、輸入任務描述，並點按 〔添加任"
 "務〕 。"
 
 #: core/Utils/Util.vala:595
@@ -855,8 +858,9 @@ msgstr "建立專案計畫"
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
-msgstr "組織您的待辦事項更加好用！前往左側面板，點按〔在此台電腦〕區段中的 '＋' 按鈕"
-"，然後添加您自己的專案計畫。"
+msgstr ""
+"組織您的待辦事項更加好用！前往左側面板，點按〔在此台電腦〕區段中的 '＋' 按"
+"鈕，然後添加您自己的專案計畫。"
 
 #: core/Utils/Util.vala:613
 msgid "You’re done!"
@@ -886,7 +890,8 @@ msgstr "顯示您的日曆事件"
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
-msgstr "您可以在 Planify 中顯示系統的日曆事件。前往 〔偏好選項〕 🡒 通則 🡒 日曆事件 將"
+msgstr ""
+"您可以在 Planify 中顯示系統的日曆事件。前往 〔偏好選項〕 🡒 通則 🡒 日曆事件 將"
 "其開用。"
 
 #: core/Utils/Util.vala:643
@@ -897,8 +902,9 @@ msgstr "啟用同步，使用第三方服務"
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
-msgstr "Planify 不僅可以在本地建立任務，還可以與您的 Todoist 帳戶同步。前往〔偏好選項"
-"〕🡒 〔帳戶〕。"
+msgstr ""
+"Planify 不僅可以在本地建立任務，還可以與您的 Todoist 帳戶同步。前往〔偏好選"
+"項〕🡒 〔帳戶〕。"
 
 #: core/Utils/Util.vala:652
 msgid "Boost your productivity"
@@ -912,7 +918,8 @@ msgstr "拖放加號按鈕！"
 msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
-msgstr "在每個螢幕底部，您所見到的藍色按鈕，比看起來更加厲害：它是用來移動的！ 將它拖"
+msgstr ""
+"在每個螢幕底部，您所見到的藍色按鈕，比看起來更加厲害：它是用來移動的！ 將它拖"
 "放向上，即可在任何想要的位置上建立出任務。"
 
 #: core/Utils/Util.vala:667
@@ -1344,7 +1351,8 @@ msgstr "完成"
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
-msgstr "在裝置開啟之時 Planify 將會自動啟動，而當其視窗關閉時仍會運行，以便可以發送待"
+msgstr ""
+"在裝置開啟之時 Planify 將會自動啟動，而當其視窗關閉時仍會運行，以便可以發送待"
 "辦事項通知。"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
@@ -1509,11 +1517,11 @@ msgid "You can sort your accounts by dragging and dropping"
 msgstr "您可以利用拖放操作來對帳戶進行排序"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:174
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:413
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:464
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr "Planify 正在同步您的任務，要花費數分鐘"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:383
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Syncing…"
 msgstr "同步中…"
 
@@ -1682,7 +1690,8 @@ msgstr "備份"
 msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
-msgstr "永遠不用擔心遺失資料。作用中的專案計畫、任務、評論等，您可以建立其備份，並可"
+msgstr ""
+"永遠不用擔心遺失資料。作用中的專案計畫、任務、評論等，您可以建立其備份，並可"
 "在日後匯入。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:48
@@ -1737,7 +1746,7 @@ msgstr "下載"
 msgid "Import Overview"
 msgstr "匯入概覽"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:351
+#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:353
 msgid "Sources"
 msgstr "來源"
 
@@ -1880,14 +1889,16 @@ msgstr "快速添加"
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
-msgstr "使用〔快速添加〕，只需要點按幾下按鍵，即可在桌面任何位置上建立出待辦事項。您"
+msgstr ""
+"使用〔快速添加〕，只需要點按幾下按鍵，即可在桌面任何位置上建立出待辦事項。您"
 "甚至不必離開當下所在用的應用程式。"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:55
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
-msgstr "前往〔系統設定 → 鍵盤 → 快速鍵 → 自訂〕，然後用以下方式添加新的快速鍵："
+msgstr ""
+"前往〔系統設定 → 鍵盤 → 快速鍵 → 自訂〕，然後用以下方式添加新的快速鍵："
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
 msgid "Settings"
@@ -2261,7 +2272,7 @@ msgstr ""
 msgid "Update Project"
 msgstr ""
 
-#: src/Dialogs/Project.vala:445
+#: src/Dialogs/Project.vala:447
 msgid "Project added successfully!"
 msgstr ""
 
@@ -2297,7 +2308,7 @@ msgstr ""
 msgid "Quick Find"
 msgstr ""
 
-#: src/Dialogs/QuickFind/QuickFind.vala:221
+#: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 
@@ -2485,19 +2496,19 @@ msgstr ""
 msgid "Customize Sidebar"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:329 src/Layouts/Sidebar.vala:381
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr ""
 
