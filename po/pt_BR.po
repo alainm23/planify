@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 22:29+0000\n"
+"POT-Creation-Date: 2025-10-09 01:26+0000\n"
 "PO-Revision-Date: 2025-10-08 14:07+0000\n"
 "Last-Translator: Murilo Leal <murilormleal@outlook.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
@@ -1817,7 +1817,7 @@ msgstr "Download"
 msgid "Import Overview"
 msgstr "Visão geral da importação"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:351
+#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:353
 msgid "Sources"
 msgstr "Fontes"
 
@@ -2372,7 +2372,7 @@ msgstr "Adicionar Projeto"
 msgid "Update Project"
 msgstr "Atualizar Projeto"
 
-#: src/Dialogs/Project.vala:445
+#: src/Dialogs/Project.vala:447
 msgid "Project added successfully!"
 msgstr "Projeto adicionado com sucesso!"
 
@@ -2408,7 +2408,7 @@ msgstr "Deletar Seção"
 msgid "Quick Find"
 msgstr "Busca Rápida"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:221
+#: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 "Alterne rapidamente projetos e visualizações, encontre tarefas, pesquise por "
@@ -2607,19 +2607,19 @@ msgstr "Contas"
 msgid "Customize Sidebar"
 msgstr "Personalize sua barra lateral"
 
-#: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "Ir para Hoje"
 
-#: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "Ir para Agendado"
 
-#: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "Ir para Rótulos"
 
-#: src/Layouts/Sidebar.vala:329 src/Layouts/Sidebar.vala:381
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "Ir para o Quadro de Anúncios"
 

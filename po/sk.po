@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 21:55+0000\n"
+"POT-Creation-Date: 2025-10-09 01:26+0000\n"
 "PO-Revision-Date: 2025-01-17 20:16+0100\n"
 "Last-Translator: Nostragodus <nostragodus@gmail.com>\n"
 "Language-Team: Slovakia\n"
@@ -1807,7 +1807,7 @@ msgstr "Stiahnuť"
 msgid "Import Overview"
 msgstr "Prehľad importu"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:351
+#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:353
 msgid "Sources"
 msgstr "Zdroje"
 
@@ -2358,7 +2358,7 @@ msgstr "Pridať projekt"
 msgid "Update Project"
 msgstr "Aktualizovať projekt"
 
-#: src/Dialogs/Project.vala:445
+#: src/Dialogs/Project.vala:447
 msgid "Project added successfully!"
 msgstr "Projekt bol úspešne pridaný!"
 
@@ -2394,7 +2394,7 @@ msgstr "Odstrániť sekciu"
 msgid "Quick Find"
 msgstr "Rýchle hľadanie"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:221
+#: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 "Rýchlo prepínajte projekty a zobrazenia, nájdite úlohy, hľadajte podľa "
@@ -2591,19 +2591,19 @@ msgstr "Účty"
 msgid "Customize Sidebar"
 msgstr "Prispôsobte si postranný panel"
 
-#: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "Prejsť na dnes"
 
-#: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "Prejsť na naplánované"
 
-#: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "Prejsť na štítky"
 
-#: src/Layouts/Sidebar.vala:329 src/Layouts/Sidebar.vala:381
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "Prejsť na nástenku"
 

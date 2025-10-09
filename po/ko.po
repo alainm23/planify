@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 21:55+0000\n"
+"POT-Creation-Date: 2025-10-09 01:26+0000\n"
 "PO-Revision-Date: 2024-06-24 02:42+0900\n"
 "Last-Translator: Wonje Jung <myunsyeya@ajou.ac.kr>\n"
 "Language-Team: \n"
@@ -1823,7 +1823,7 @@ msgstr "다운로드"
 msgid "Import Overview"
 msgstr "개요 가져오기"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:351
+#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:353
 msgid "Sources"
 msgstr "소스"
 
@@ -2369,7 +2369,7 @@ msgstr "프로젝트 추가"
 msgid "Update Project"
 msgstr "프로젝트 업데이트"
 
-#: src/Dialogs/Project.vala:445
+#: src/Dialogs/Project.vala:447
 msgid "Project added successfully!"
 msgstr "프로젝트가 성공적으로 추가되었습니다!"
 
@@ -2405,7 +2405,7 @@ msgstr "섹션 삭제"
 msgid "Quick Find"
 msgstr "빠른 검색"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:221
+#: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr "빠르게 프로젝트와 보기를 전환하고, 작업을 찾고, 라벨로 검색하세요"
 
@@ -2602,19 +2602,19 @@ msgstr "계정"
 msgid "Customize Sidebar"
 msgstr "사이드바 사용자 정의"
 
-#: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "오늘로 이동"
 
-#: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "일정으로 이동"
 
-#: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "라벨로 이동"
 
-#: src/Layouts/Sidebar.vala:329 src/Layouts/Sidebar.vala:381
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "게시판으로 이동"
 

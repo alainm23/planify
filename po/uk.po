@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 21:55+0000\n"
+"POT-Creation-Date: 2025-10-09 01:26+0000\n"
 "PO-Revision-Date: 2025-05-25 16:15+0300\n"
 "Last-Translator: Maksym Dilanian <maksym@dilanian.xyz>\n"
 "Language-Team: \n"
@@ -1837,7 +1837,7 @@ msgstr "Завантажити"
 msgid "Import Overview"
 msgstr "Огляд імпорту"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:351
+#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:353
 msgid "Sources"
 msgstr "Источник"
 
@@ -2392,7 +2392,7 @@ msgstr "Додати проєкт"
 msgid "Update Project"
 msgstr "Обновить проект"
 
-#: src/Dialogs/Project.vala:445
+#: src/Dialogs/Project.vala:447
 msgid "Project added successfully!"
 msgstr "Проєкт успішно додано!"
 
@@ -2428,7 +2428,7 @@ msgstr "Видалити розділ"
 msgid "Quick Find"
 msgstr "Швидкий пошук"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:221
+#: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 "Швидко перемикайтесь між проектами та переглядами, шукайте завдання, шукайте "
@@ -2627,19 +2627,19 @@ msgstr "Облікові записи"
 msgid "Customize Sidebar"
 msgstr "Налаштуйте бічну панель"
 
-#: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "Перейти до Сьогодні"
 
-#: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "Перейти до запланованих"
 
-#: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "Перейти до міток"
 
-#: src/Layouts/Sidebar.vala:329 src/Layouts/Sidebar.vala:381
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "Перейти до закріпленого"
 

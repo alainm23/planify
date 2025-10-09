@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 22:50+0000\n"
+"POT-Creation-Date: 2025-10-09 01:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1722,7 +1722,7 @@ msgstr ""
 msgid "Import Overview"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:351
+#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:353
 msgid "Sources"
 msgstr ""
 
@@ -2245,7 +2245,7 @@ msgstr ""
 msgid "Update Project"
 msgstr ""
 
-#: src/Dialogs/Project.vala:445
+#: src/Dialogs/Project.vala:447
 msgid "Project added successfully!"
 msgstr ""
 
@@ -2281,7 +2281,7 @@ msgstr ""
 msgid "Quick Find"
 msgstr ""
 
-#: src/Dialogs/QuickFind/QuickFind.vala:221
+#: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 
@@ -2469,19 +2469,19 @@ msgstr ""
 msgid "Customize Sidebar"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:329 src/Layouts/Sidebar.vala:381
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr ""
 
