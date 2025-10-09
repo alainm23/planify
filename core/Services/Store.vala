@@ -217,6 +217,22 @@ public class Services.Store : GLib.Object {
         }
     }
 
+    public Objects.Source? get_default_source () {
+        var visible_sources = new Gee.ArrayList<Objects.Source> ();
+        
+        foreach (var source in sources) {
+            if (source.is_visible) {
+                visible_sources.add (source);
+            }
+        }
+        
+        visible_sources.sort ((a, b) => {
+            return a.child_order - b.child_order;
+        });
+        
+        return visible_sources.size > 0 ? visible_sources[0] : null;
+    }
+
     public bool source_todoist_exists (string email) {
         bool return_value = false;
 

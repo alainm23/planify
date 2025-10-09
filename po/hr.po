@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 21:55+0000\n"
+"POT-Creation-Date: 2025-10-09 10:32+0000\n"
 "PO-Revision-Date: 2025-10-06 17:21+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
@@ -1524,11 +1524,11 @@ msgid "You can sort your accounts by dragging and dropping"
 msgstr "Račune možeš razvrstati povlačenjem i ispuštanjem"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:174
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:413
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:464
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr "Planify sinkronizira tvoje zadatke, to može potrajati par minuta"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:383
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Syncing…"
 msgstr "Sinkronizacija …"
 
@@ -1753,7 +1753,7 @@ msgstr "Preuzimanje"
 msgid "Import Overview"
 msgstr "Pregled uvoza"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:351
+#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:353
 msgid "Sources"
 msgstr "Izvori"
 
@@ -2301,7 +2301,7 @@ msgstr "Dodaj projekt"
 msgid "Update Project"
 msgstr "Aktualiziraj projekt"
 
-#: src/Dialogs/Project.vala:445
+#: src/Dialogs/Project.vala:447
 msgid "Project added successfully!"
 msgstr "Projekt je uspješno dodan!"
 
@@ -2337,7 +2337,7 @@ msgstr "Izbriši odjeljak"
 msgid "Quick Find"
 msgstr "Brzo pronalaženje"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:221
+#: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 "Brzo zamijeni projekte i prikaze, pronađi zadatke, pretraži po etiketama"
@@ -2529,19 +2529,19 @@ msgstr "Računi"
 msgid "Customize Sidebar"
 msgstr "Prilagodi bočnu traku"
 
-#: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "Idi na danas"
 
-#: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "Idi na zakazano"
 
-#: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "Idi na etikete"
 
-#: src/Layouts/Sidebar.vala:329 src/Layouts/Sidebar.vala:381
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "Idi na oglasnu ploču"
 

@@ -39,7 +39,7 @@ public class Dialogs.ProjectPicker.ProjectPickerSourceRow : Gtk.ListBoxRow {
 
         group = new Layouts.HeaderItem (source.display_name) {
             card = true,
-            reveal = true
+            reveal = source.is_visible
         };
 
         child = group;

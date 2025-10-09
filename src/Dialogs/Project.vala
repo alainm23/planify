@@ -300,39 +300,41 @@ public class Dialogs.Project : Adw.Dialog {
         var none_radio = new Gtk.CheckButton ();
 
         foreach (Objects.Source source in Services.Store.instance ().sources) {
-            var radio_button = new Gtk.CheckButton () {
-                group = none_radio,
-                active = project.source_id == source.id
-            };
+            if (source.is_visible) {
+                var radio_button = new Gtk.CheckButton () {
+                    group = none_radio,
+                    active = project.source_id == source.id
+                };
 
-            var source_row = new Adw.ActionRow () {
-                activatable = true,
-                title = source.display_name,
-                subtitle = source.subheader_text
-            };
+                var source_row = new Adw.ActionRow () {
+                    activatable = true,
+                    title = source.display_name,
+                    subtitle = source.subheader_text
+                };
 
-            source_row.add_suffix (radio_button);
-            source_row.set_activatable_widget (radio_button);
+                source_row.add_suffix (radio_button);
+                source_row.set_activatable_widget (radio_button);
 
-            signal_map[source_row.activated.connect (() => {
-                project.source_id = source.id;
+                signal_map[source_row.activated.connect (() => {
+                    project.source_id = source.id;
 
-                source_selected_label.label = source.display_name;
-                source_selected_label.tooltip_text = source.subheader_text;
+                    source_selected_label.label = source.display_name;
+                    source_selected_label.tooltip_text = source.subheader_text;
 
-                navigation_view.pop ();
-            })] = source_row;
+                    navigation_view.pop ();
+                })] = source_row;
 
-            signal_map[radio_button.toggled.connect (() => {
-                project.source_id = source.id;
+                signal_map[radio_button.toggled.connect (() => {
+                    project.source_id = source.id;
 
-                source_selected_label.label = source.display_name;
-                source_selected_label.tooltip_text = source.subheader_text;
+                    source_selected_label.label = source.display_name;
+                    source_selected_label.tooltip_text = source.subheader_text;
 
-                navigation_view.pop ();
-            })] = radio_button;
+                    navigation_view.pop ();
+                })] = radio_button;
 
-            sources_group.add (source_row);
+                sources_group.add (source_row);   
+            }
         }
 
         var content_clamp = new Adw.Clamp () {

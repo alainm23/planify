@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 21:55+0000\n"
+"POT-Creation-Date: 2025-10-09 10:32+0000\n"
 "PO-Revision-Date: 2025-10-06 17:15+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
@@ -1599,13 +1599,13 @@ msgstr "Du kannst diese Kategorien per Drag & Drop sortieren"
 
 # Assumed error "Planner" -> "Planify" and "is sync" -> "is syncing"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:174
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:413
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:464
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr ""
 "Planify synchronisiert deine Aufgaben, das kann ein paar Minuten dauern"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:383
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 #, fuzzy
 msgid "Syncing…"
 msgstr "Synchronisieren..."
@@ -1839,7 +1839,7 @@ msgstr "Herunterladen"
 msgid "Import Overview"
 msgstr "Wiederherstellungsübersicht"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:351
+#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:353
 msgid "Sources"
 msgstr "Quelle"
 
@@ -2398,7 +2398,7 @@ msgstr "Projekt hinzufügen"
 msgid "Update Project"
 msgstr "Projekt aktualisieren"
 
-#: src/Dialogs/Project.vala:445
+#: src/Dialogs/Project.vala:447
 msgid "Project added successfully!"
 msgstr "Projekt erfolgreich hinzugefügt!"
 
@@ -2434,7 +2434,7 @@ msgstr "Abschnitt löschen"
 msgid "Quick Find"
 msgstr "Schnelle Suche"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:221
+#: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 "Wechsle schnell zwischen Projekten und Ansichten, finde Aufgaben, suche nach "
@@ -2634,19 +2634,19 @@ msgstr "Konten"
 msgid "Customize Sidebar"
 msgstr "Passe deine Seitenleiste an"
 
-#: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "Nach 'Heute'"
 
-#: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "Nach 'Geplant'"
 
-#: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "Zu den 'Labels'"
 
-#: src/Layouts/Sidebar.vala:329 src/Layouts/Sidebar.vala:381
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "Zur 'Pinnwand'"
 

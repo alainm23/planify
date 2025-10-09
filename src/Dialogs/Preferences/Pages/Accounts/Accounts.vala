@@ -196,6 +196,7 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
 
         private Widgets.ReorderChild reorder;
         private Gtk.Revealer main_revealer;
+        private Gtk.Switch visible_checkbutton;
         private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
         public SourceRow (Objects.Source source) {
@@ -231,10 +232,12 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
             title_box.append (title_label);
             title_box.append (subtitle_revealer);
 
-            var visible_checkbutton = new Gtk.Switch () {
+            visible_checkbutton = new Gtk.Switch () {
                 active = source.is_visible,
                 valign = CENTER
             };
+
+            update_switch_sensitivity ();
 
 
             Gtk.Image ? warning_image = null;
@@ -296,9 +299,32 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
             })] = source;
 
             signal_map[visible_checkbutton.notify["active"].connect (() => {
+                if (!visible_checkbutton.active) {
+                    int visible_count = 0;
+                    foreach (Objects.Source s in Services.Store.instance ().sources) {
+                        if (s.is_visible) {
+                            visible_count++;
+                        }
+                    }
+                    
+                    if (visible_count <= 1) {
+                        visible_checkbutton.active = true;
+                        return;
+                    }
+                }
+                
                 source.is_visible = visible_checkbutton.active;
                 source.save ();
+                update_all_switches ();
             })] = visible_checkbutton;
+
+            signal_map[Services.Store.instance ().source_added.connect (() => {
+                update_switch_sensitivity ();
+            })] = Services.Store.instance ();
+
+            signal_map[Services.Store.instance ().source_deleted.connect (() => {
+                update_switch_sensitivity ();
+            })] = Services.Store.instance ();
 
             signal_map[reorder.on_drop_end.connect ((listbox) => {
                 update_views_order (listbox);
@@ -325,6 +351,31 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
             } while (row != null);
 
             Services.EventBus.get_default ().update_sources_position ();
+        }
+
+        private void update_switch_sensitivity () {
+            int visible_count = 0;
+            foreach (Objects.Source s in Services.Store.instance ().sources) {
+                if (s.is_visible) {
+                    visible_count++;
+                }
+            }
+            visible_checkbutton.sensitive = visible_count > 1 || !source.is_visible;
+        }
+
+        private void update_all_switches () {
+            var listbox = (Gtk.ListBox) parent;
+            if (listbox == null) return;
+            
+            unowned SourceRow ? row = null;
+            var row_index = 0;
+            do {
+                row = (SourceRow) listbox.get_row_at_index (row_index);
+                if (row != null) {
+                    row.update_switch_sensitivity ();
+                }
+                row_index++;
+            } while (row != null);
         }
 
         public void hide_destroy () {

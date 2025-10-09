@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 21:55+0000\n"
+"POT-Creation-Date: 2025-10-09 10:32+0000\n"
 "PO-Revision-Date: 2024-08-03 00:05+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -1585,12 +1585,12 @@ msgid "You can sort your accounts by dragging and dropping"
 msgstr "आप अपने विचारों को खींचकर और छोड़ कर छांट सकते हैं"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:174
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:413
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:464
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr "प्लॅानिफाई आपके कार्यों को समन्वयित कर रहा है, इसमें कुछ मिनट लग सकते हैं"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:383
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 #, fuzzy
 msgid "Syncing…"
 msgstr "समन्वयन..."
@@ -1822,7 +1822,7 @@ msgstr "डाउनलोड"
 msgid "Import Overview"
 msgstr "आयात अवलोकन"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:351
+#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:353
 msgid "Sources"
 msgstr "स्रोत"
 
@@ -2370,7 +2370,7 @@ msgstr "परियोजना जोड़ें"
 msgid "Update Project"
 msgstr "परियोजना अद्यतन"
 
-#: src/Dialogs/Project.vala:445
+#: src/Dialogs/Project.vala:447
 msgid "Project added successfully!"
 msgstr "परियोजना सफलतापूर्वक जोड़ी गई!"
 
@@ -2406,7 +2406,7 @@ msgstr "अनुभाग मिटाएं"
 msgid "Quick Find"
 msgstr "शीघ्र खोज"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:221
+#: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr "परियोजनाओं और दृश्यों को शीघ्र रूप से बदलें, कार्य खोजें, लेबल द्वारा खोजें"
 
@@ -2603,19 +2603,19 @@ msgstr "खाते"
 msgid "Customize Sidebar"
 msgstr "पार्श्वपट्टी अनुकूलित करें"
 
-#: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "आज पर जाएं"
 
-#: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "अनुसूचित पर जाएं"
 
-#: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "लेबल पर जाएं"
 
-#: src/Layouts/Sidebar.vala:329 src/Layouts/Sidebar.vala:381
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "पिनबोर्ड पर जाएं"
 

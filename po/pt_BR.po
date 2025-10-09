@@ -1593,12 +1593,14 @@ msgstr "Você pode classificar suas contas arrastando e soltando"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:174
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:413
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:464
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr ""
 "Planify está sincronizando suas tarefas, isso pode levar alguns minutos"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:383
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 #, fuzzy
 msgid "Syncing…"
 msgstr "Sincronizando…"
@@ -1831,6 +1833,7 @@ msgid "Import Overview"
 msgstr "Visão geral da importação"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:351
+#: src/Dialogs/Project.vala:353
 msgid "Sources"
 msgstr "Fontes"
 
@@ -2385,7 +2388,7 @@ msgstr "Adicionar Projeto"
 msgid "Update Project"
 msgstr "Atualizar Projeto"
 
-#: src/Dialogs/Project.vala:445
+#: src/Dialogs/Project.vala:445 src/Dialogs/Project.vala:447
 msgid "Project added successfully!"
 msgstr "Projeto adicionado com sucesso!"
 
@@ -2425,6 +2428,7 @@ msgid "Quick Find"
 msgstr "Busca Rápida"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:221
+#: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 "Alterne rapidamente projetos e visualizações, encontre tarefas, pesquise por "
@@ -2629,21 +2633,25 @@ msgstr "Nenhum favorito disponível. Crie um clicando no botão '+'"
 
 #: src/Layouts/Sidebar.vala:263 src/Layouts/Sidebar.vala:315
 #: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "Ir para Hoje"
 
 #: src/Layouts/Sidebar.vala:267 src/Layouts/Sidebar.vala:319
 #: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "Ir para Agendado"
 
 #: src/Layouts/Sidebar.vala:271 src/Layouts/Sidebar.vala:323
 #: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "Ir para Rótulos"
 
 #: src/Layouts/Sidebar.vala:275 src/Layouts/Sidebar.vala:327
 #: src/Layouts/Sidebar.vala:329 src/Layouts/Sidebar.vala:381
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "Ir para o Quadro de Anúncios"
 
