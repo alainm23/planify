@@ -37,8 +37,9 @@ public class Dialogs.Preferences.Pages.InboxPage : Dialogs.Preferences.Pages.Bas
         var description_label = new Gtk.Label (_("Your Inbox is where new tasks land by default. Based on David Allen's Getting Things Done methodology, it's your capture point for quick ideas and tasks that you'll organize later")) {
             wrap = true,
             xalign = 0,
-            css_classes = { "dim-label", "body" },
-            margin_bottom = 12
+            margin_bottom = 6,
+            margin_start = 3,
+            margin_end = 3
         };
 
         group_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
