@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  create-release:
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'Release')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version from meson.build
+        id: version
+        run: |
+          VERSION=$(grep -Po "version:\s*'\K[0-9.]+(?=')" meson.build)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Extract changelog from appdata
+        id: changelog
+        run: |
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          xmlstarlet sel -t -m "/component/releases/release[@version='${{ steps.version.outputs.version }}']/description" -c . data/io.github.alainm23.planify.appdata.xml.in.in | sed 's/<[^>]*>//g' >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Planify ${{ steps.version.outputs.version }}
+          body: |
+            ${{ steps.changelog.outputs.changelog }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
