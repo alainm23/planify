@@ -48,13 +48,6 @@ public class Widgets.IconColorProject : Adw.Bin {
             halign = CENTER
         };
 
-        color_emoji_stack = new Gtk.Stack () {
-            transition_type = CROSSFADE
-        };
-
-        color_emoji_stack.add_named (circular_progress_bar, "color");
-        color_emoji_stack.add_named (emoji_label, "emoji");
-
         inbox_icon = new Gtk.Image.from_icon_name ("mailbox-symbolic") {
             pixel_size = 16,
             valign = CENTER,
@@ -62,12 +55,11 @@ public class Widgets.IconColorProject : Adw.Bin {
         };
 
         stack = new Gtk.Stack () {
-            transition_type = CROSSFADE,
-            vhomogeneous = true,
-            hhomogeneous = false
+            transition_type = CROSSFADE
         };
 
-        stack.add_named (color_emoji_stack, "color-emoji");
+        stack.add_named (circular_progress_bar, "color");
+        stack.add_named (emoji_label, "emoji");
         stack.add_named (inbox_icon, "inbox");
 
         child = stack;
@@ -78,11 +70,16 @@ public class Widgets.IconColorProject : Adw.Bin {
     }
 
     public void update_request () {
-        stack.visible_child_name = project.is_inbox_project ? "inbox" : "color-emoji";
-        color_emoji_stack.visible_child_name = project.icon_style == ProjectIconStyle.PROGRESS ? "color" : "emoji";
         circular_progress_bar.color = project.color;
         circular_progress_bar.percentage = project.percentage;
         emoji_label.label = project.emoji;
+
+        if (project.is_inbox_project) {
+            stack.visible_child_name = "inbox";
+            return;
+        }
+
+        stack.visible_child_name = project.icon_style == ProjectIconStyle.PROGRESS ? "color" : "emoji";        
     }
 
     public void clean_up () {
