@@ -102,6 +102,7 @@ src/Dialogs/ManageProjects.vala
 src/Dialogs/ManageSectionOrder.vala
 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala
 src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala
+src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala
 src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala
 src/Dialogs/Preferences/Pages/Accounts/SourceView.vala
 src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala

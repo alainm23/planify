@@ -33,6 +33,7 @@ public class MainWindow : Adw.ApplicationWindow {
     private Adw.ToastOverlay toast_overlay;
     private Adw.ViewStack view_stack;
     private Gtk.Widget error_db_page;
+    private string previous_inbox_project_id = "";
 
     public Services.ActionManager action_manager;
 
@@ -451,7 +452,9 @@ public class MainWindow : Adw.ApplicationWindow {
             }
         });
 
-
+        Services.Settings.get_default ().settings.changed["local-inbox-project-id"].connect (() => {
+            handle_inbox_project_change ();
+        });
     }
 
     public void show_hide_sidebar () {
@@ -468,11 +471,43 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     private void add_inbox_view () {
-        add_project_view (
-            Services.Store.instance ().get_project (
-                Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
-            )
-        );
+        var inbox_project = Services.Store.instance ().get_project (Services.Settings.get_default ().settings.get_string ("local-inbox-project-id"));
+        
+        if (inbox_project != null) {
+            add_project_view (inbox_project);
+            previous_inbox_project_id = inbox_project.id;
+        }
+    }
+
+    private void handle_inbox_project_change () {
+        if (previous_inbox_project_id == "") {
+            return;
+        }
+
+        var old_project = Services.Store.instance ().get_project (previous_inbox_project_id);
+        if (old_project == null) {
+            return;
+        }
+
+        string old_view_id = old_project.view_id;
+        string current_visible = views_stack.visible_child_name;
+
+        if (current_visible == old_view_id) {
+            var old_view = views_stack.get_child_by_name (old_view_id);
+            if (old_view != null) {
+                foreach (var item in view_cache) {
+                    if (item.view_id == old_view_id) {
+                        view_cache.remove (item);
+                        break;
+                    }
+                }
+
+                cleanup_view (old_view);
+                views_stack.remove (old_view);
+            }
+            
+            add_inbox_view ();
+        }
     }
 
     public Views.Project add_project_view (Objects.Project project) {
