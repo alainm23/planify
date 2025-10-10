@@ -24,12 +24,7 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
 
     private Gtk.ListBox listbox;
     private Gtk.Revealer search_entry_revealer;
-
-    public bool search_visible {
-        set {
-            // search_entry_revealer.reveal_child = value;
-        }
-    }
+    private Objects.Project _selected_project;
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
@@ -97,7 +92,8 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         })] = search_entry;
 
         signal_map[listbox.row_activated.connect ((row) => {
-            selected (((Widgets.ProjectPicker.ProjectPickerRow) row).project);
+            update_selected_project (((Widgets.ProjectPicker.ProjectPickerRow) row).project);
+            selected (_selected_project);
             popdown ();
         })] = listbox;
 
@@ -187,7 +183,8 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         var row = new Widgets.ProjectPicker.ProjectPickerRow (project);
 
         signal_map[row.selected.connect (() => {
-            selected (row.project);
+            update_selected_project (row.project);
+            selected (_selected_project);
             popdown ();
         })] = row;
 
@@ -197,6 +194,14 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
     private int sort_source_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow ? row2) {
         var project1 = ((Widgets.ProjectPicker.ProjectPickerRow) row1).project;
         var project2 = ((Widgets.ProjectPicker.ProjectPickerRow) row2).project;
+        
+        if (project1.is_inbox_project && !project2.is_inbox_project) {
+            return -1;
+        }
+        if (!project1.is_inbox_project && project2.is_inbox_project) {
+            return 1;
+        }
+        
         return project2.source.id.collate (project1.source.id);
     }
 
@@ -206,6 +211,14 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         }
 
         var row = (Widgets.ProjectPicker.ProjectPickerRow) lbrow;
+        
+        if (row.project.is_inbox_project) {
+            row.margin_top = 6;
+            row.margin_bottom = 6;
+            row.set_header (null);
+            return;
+        }
+        
         if (lbbefore != null && lbbefore is Widgets.ProjectPicker.ProjectPickerRow) {
             var before = (Widgets.ProjectPicker.ProjectPickerRow) lbbefore;
 
@@ -226,14 +239,27 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         };
 
         var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            margin_top = 6,
+            margin_top = 12,
             margin_start = 3,
-            margin_bottom = 3
+            margin_bottom = 6
         };
 
         header_box.append (header_label);
 
         return header_box;
+    }
+
+    private void update_selected_project (Objects.Project project) {
+        _selected_project = project;
+        
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
+            var row = (Widgets.ProjectPicker.ProjectPickerRow) child;
+            row.is_selected = row.project.id == project.id;
+        }
+    }
+
+    public void set_selected_project (Objects.Project project) {
+        update_selected_project (project);
     }
 
     public void clean_up () {
