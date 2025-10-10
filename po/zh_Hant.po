@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-08 22:18+0000\n"
-"PO-Revision-Date: 2025-10-09 18:45+0000\n"
+"PO-Revision-Date: 2025-10-10 09:08+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -26,7 +26,7 @@ msgstr "專案計畫"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:349
 msgid "Sections"
-msgstr "章節"
+msgstr "區段"
 
 #: core/Enum.vala:174 core/Enum.vala:183
 msgid "Tasks"
@@ -1903,367 +1903,370 @@ msgstr "若無勾選，預設所選的專案計畫是收件箱"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:127
 msgid "The command was copied to the clipboard"
-msgstr ""
+msgstr "該指令已經複製到剪貼簿"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
 #: src/Dialogs/Preferences/PreferencesWindow.vala:158
 msgid "Sidebar"
-msgstr ""
+msgstr "側邊列"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:37
 msgid "Show in Sidebar"
-msgstr ""
+msgstr "顯示於側邊列"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:56
 msgid "Show Task Count"
-msgstr ""
+msgstr "顯示任務計數"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:61
 msgid "Sidebar Width"
-msgstr ""
+msgstr "側邊列寬度"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:66
 msgid "List View for Filters"
-msgstr ""
+msgstr "清單檢視用於篩選"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:67
 msgid "Show filters in a simple list instead of a grid"
-msgstr ""
+msgstr "顯示篩選，以簡單清單替代網格"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:83
 msgid "You can sort your views by dragging and dropping"
-msgstr ""
+msgstr "您可以排序檢視，利用拖放操作"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:60
 msgid "Supporting Us"
-msgstr ""
+msgstr "支援我們"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:41
 msgid ""
 "Our mission is to provide the best open source task management application "
 "for users all over the world. Your donations support this work. Want to "
 "donate today?"
-msgstr ""
+msgstr "我們的使命是為世界各地的用戶提供最好的開源的任務管理應用程式。您的捐款將支援"
+"這項工作，今天想捐款嗎？"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:49
 msgid "Patreon"
-msgstr ""
+msgstr "Patreon (贊助募資平台)"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:62
 msgid "PayPal"
-msgstr ""
+msgstr "PayPal"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:75
 msgid "Liberapay"
-msgstr ""
+msgstr "Liberapay"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:88
 msgid "Ko-fi"
-msgstr ""
+msgstr "Ko-fi"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
 msgid "Task Settings"
-msgstr ""
+msgstr "任務設定"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:38
 msgid "Complete Instantly"
-msgstr ""
+msgstr "即刻完成"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:39
 msgid "Complete with Undo"
-msgstr ""
+msgstr "完成 使用取消動作"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:42
 msgid "Task Completion"
-msgstr ""
+msgstr "任務完成"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:43
 msgid "Choose how tasks behave when marked as complete"
-msgstr ""
+msgstr "選擇任務的行為方式，當其標記為完成時"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:50
 msgid "Priority 1"
-msgstr ""
+msgstr "優先等級 1"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:51
 msgid "Priority 2"
-msgstr ""
+msgstr "優先等級 2"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:52
 msgid "Priority 3"
-msgstr ""
+msgstr "優先等級 3"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:56
 msgid "Default Priority"
-msgstr ""
+msgstr "預設優先等級"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:68
 msgid "Cross Out Completed Tasks"
-msgstr ""
+msgstr "劃掉已經完成的任務"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:75
 msgid "Start"
-msgstr ""
+msgstr "啟動"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:79
 msgid "New Task Position"
-msgstr ""
+msgstr "新建任務位置"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:86
 msgid "Always Show Completed Sub-Tasks"
-msgstr ""
+msgstr "總是顯示已經完成的子任務"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:87
 msgid "Keep all completed subtasks visible without collapsing them"
-msgstr ""
+msgstr "保持全部已經完成的子任務顯示可見，不用縮合它們"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:94
 msgid "Task Complete Tone"
-msgstr ""
+msgstr "任務完成提示音"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:95
 msgid "Play a sound when tasks are completed"
-msgstr ""
+msgstr "當任務完成時播放聲音"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:102
 msgid "Open Tasks in Sidebar View"
-msgstr ""
+msgstr "開啟任務於側邊列檢視"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:103
 msgid ""
 "Always display task details in the sidebar instead of expanding in list view."
-msgstr ""
+msgstr "總是在側邊列中顯示任務詳情，而非在清單檢視中展開。"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:110
 msgid "Single Task Focus Mode"
-msgstr ""
+msgstr "單一任務專注模式"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:111
 msgid "Allow only one task to be expanded at a time in list view"
-msgstr ""
+msgstr "在清單檢視中一次僅允許展開一項任務"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:120
 msgid "Enable Markdown Formatting"
-msgstr ""
+msgstr "啟用 Markdown 格式"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:121
 msgid "Toggle Markdown support for tasks on or off"
-msgstr ""
+msgstr "切換 Markdown 支援，用於任務開或關"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:128
 msgid "Always Show Details Sidebar"
-msgstr ""
+msgstr "總是顯示詳情側邊列"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:129
 msgid ""
 "Keep the details sidebar always visible for faster task navigation, without "
 "repeatedly opening and closing it"
-msgstr ""
+msgstr "保持詳情側邊列欄總是顯示可見，以利更快地導航任務，而無需重複地開開關關"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:140
 msgid "Enabled"
-msgstr ""
+msgstr "已經啟用"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:154
 msgid "Automatic reminders"
-msgstr ""
+msgstr "自動提醒"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
-msgstr ""
+msgstr "當已經啟用，依照預設在任務到期時間之前會添加提醒。"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:669
 msgid "Preferences"
-msgstr ""
+msgstr "偏好選項"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:45
 #: src/Dialogs/Preferences/PreferencesWindow.vala:217
 msgid "Support Planify"
-msgstr ""
+msgstr "支援 Planify"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:52
 msgid ""
 "Planify is being developed with love and passion for open source. However, "
 "if you like Planify and want to support its development, please consider "
 "supporting us."
-msgstr ""
+msgstr "Planify 的開發是對於開源充滿了熱愛與熱情。然而，若您喜歡 Planify 並希望支援其"
+"發展，請酌量支援我們。"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Sync your favorite to-do providers"
-msgstr ""
+msgstr "同步您最愛的待辦事項提供者"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:124
 msgid "Set the view shown at first launch"
-msgstr ""
+msgstr "在首次啟動時，設定檢視顯示"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:138
 msgid "Customize to your liking"
-msgstr ""
+msgstr "依您的喜好來自訂"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Setting"
-msgstr ""
+msgstr "任務設定"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
-msgstr ""
+msgstr "自訂您的側邊列"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
-msgstr ""
+msgstr "從任何位置添加待辦事項"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:191
 msgid "Backups"
-msgstr ""
+msgstr "備份"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
-msgstr ""
+msgstr "備份或移轉來自 Planner。"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:198
 msgid "Create Tutorial Project"
-msgstr ""
+msgstr "建立教程專案"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:199
 msgid "Learn the app step by step with a short tutorial project"
-msgstr ""
+msgstr "經由精短的教程專案來逐步學習該應用程式"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:218
 msgid "Want to buy me a drink?"
-msgstr ""
+msgstr "想請我喝一杯嗎？"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:228
 msgid "Report Issue or Request Feature"
-msgstr ""
+msgstr "報告問題或請求功能"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:229
 msgid "Share bugs or ideas on GitHub"
-msgstr ""
+msgstr "分享錯誤問題或點子想法於 GitHub 網站"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:255
 msgid "Get Involved"
-msgstr ""
+msgstr "取得參與"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
-msgstr ""
+msgstr "聯絡我們"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:271
 #: src/Dialogs/Preferences/PreferencesWindow.vala:428
 msgid "Contact Us"
-msgstr ""
+msgstr "聯絡我們"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:272
 msgid "Request a feature or ask us anything"
-msgstr ""
+msgstr "請求功能或任何提問"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:288
 msgid "Tweet Us"
-msgstr ""
+msgstr "Tweet 通訊"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:289
 #: src/Dialogs/Preferences/PreferencesWindow.vala:319
 msgid "Share some love"
-msgstr ""
+msgstr "分享一些愛"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:303
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:304
 msgid "Discuss and share your feedback"
-msgstr ""
+msgstr "討論分享您的意見"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:318
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon 社群"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:337
 msgid "Privacy"
-msgstr ""
+msgstr "隱私"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:343
 #: src/Dialogs/Preferences/PreferencesWindow.vala:459
 msgid "Privacy Policy"
-msgstr ""
+msgstr "隱私政策"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:344
 msgid "We have nothing on you"
-msgstr ""
+msgstr "我們對於您一無所悉"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:350
 msgid "Delete App Data"
-msgstr ""
+msgstr "刪除應用程式資料"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:359
 msgid "A tutorial project has been created"
-msgstr ""
+msgstr "教程專案已經建立"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:371
 msgid "Delete All Data?"
-msgstr ""
+msgstr "刪除全部資料？"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:372
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
-msgstr ""
+msgstr "刪除全部您的清單、任務和提醒，無法救回"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:400
 msgid "Personal Data"
-msgstr ""
+msgstr "個人資料"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:406
 msgid ""
 "We collect absolutely nothing and all your data is stored in a database on "
 "your computer."
-msgstr ""
+msgstr "我們絕對不收集任何資訊，全部您的資料都儲存於資料庫在您的電腦中。"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:412
 msgid ""
 "If you choose to integrate Todoist, which is optional and not selected by "
 "default, your data will be stored on their private servers, we only display "
 "your configured tasks and manage them for you."
-msgstr ""
+msgstr "如果您選擇整合 Todoist (其為選項而非預設選用)，您的資料將會儲存在其私有服務器"
+"上。我們僅顯示您所設置的任務，並為您管理。"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:417
 msgid "Do you have any questions?"
-msgstr ""
+msgstr "您還有任何疑問嗎？"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:423
 msgid ""
 "If you have any questions about your data or any other issue, please contact "
 "us. We will be happy to answer you."
-msgstr ""
+msgstr "如果您對於自己的資料有任何疑問或其他問題，敬請聯絡我們，樂意為您解答。"
 
 #: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
 msgid "New Project"
-msgstr ""
+msgstr "新建專案計畫"
 
 #: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:700
 #: src/Views/Project/Project.vala:333
 msgid "Edit Project"
-msgstr ""
+msgstr "編輯專案計畫"
 
 #: src/Dialogs/Project.vala:126
 msgid "Give your project a name"
-msgstr ""
+msgstr "賦予專案計畫名稱"
 
 #: src/Dialogs/Project.vala:137
 msgid "Use Emoji"
-msgstr ""
+msgstr "使用 Emoji"
 
 #: src/Dialogs/Project.vala:204 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
-msgstr ""
+msgstr "添加專案計畫"
 
 #: src/Dialogs/Project.vala:204
 msgid "Update Project"
-msgstr ""
+msgstr "更新專案計畫"
 
 #: src/Dialogs/Project.vala:445
 msgid "Project added successfully!"
-msgstr ""
+msgstr "專案計畫已經添加成功！"
 
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:71
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:82
@@ -2272,64 +2275,64 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1169
 #: src/Layouts/ItemRow.vala:1281 src/Layouts/ItemSidebarView.vala:442
 msgid "Move"
-msgstr ""
+msgstr "移動"
 
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:108
 msgid "Type a search"
-msgstr ""
+msgstr "輸入搜尋"
 
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:154
 #: src/Dialogs/ProjectPicker/SectionPickerRow.vala:206
 msgid "Unarchive"
-msgstr ""
+msgstr "尚未封存"
 
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:155
 #: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:346
 msgid "Delete Project"
-msgstr ""
+msgstr "刪除專案計畫"
 
 #: src/Dialogs/ProjectPicker/SectionPickerRow.vala:207
 #: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:664
 msgid "Delete Section"
-msgstr ""
+msgstr "刪除區段"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:42
 msgid "Quick Find"
-msgstr ""
+msgstr "快速尋找"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:221
 msgid "Quickly switch projects and views, find tasks, search by labels"
-msgstr ""
+msgstr "快速切換專案計畫及檢視、尋找任務、依照標籤搜尋"
 
 #: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:223
 #: src/Views/Project/Project.vala:336
 msgid "New Section"
-msgstr ""
+msgstr "新建區段"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:563
 #: src/Layouts/SectionRow.vala:657
 msgid "Edit Section"
-msgstr ""
+msgstr "編輯區段"
 
 #: src/Dialogs/Section.vala:67
 msgid "Section Name"
-msgstr ""
+msgstr "區段名稱"
 
 #: src/Dialogs/Section.vala:102 src/Widgets/SectionsOrderPopover.vala:39
 msgid "Add Section"
-msgstr ""
+msgstr "添加區段"
 
 #: src/Dialogs/Section.vala:102
 msgid "Update Section"
-msgstr ""
+msgstr "更新區段"
 
 #: src/Dialogs/Section.vala:209 src/Dialogs/Section.vala:223
 msgid "Section added"
-msgstr ""
+msgstr "區段已經添加"
 
 #: src/Layouts/HeaderBar.vala:79
 msgid "Open/Close Sidebar"
-msgstr ""
+msgstr "開啟/關閉 側邊列"
 
 #: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:700
 #: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1151
@@ -2345,80 +2348,80 @@ msgstr ""
 
 #: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1171
 msgid "Add Subtask"
-msgstr ""
+msgstr "添加子任務"
 
 #: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1173
 msgid "Edit"
-msgstr ""
+msgstr "編輯"
 
 #: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1174
 #: src/Layouts/ItemRow.vala:1280 src/Layouts/ItemSidebarView.vala:441
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
 msgid "Duplicate"
-msgstr ""
+msgstr "抄製"
 
 #: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1176
 #: src/Layouts/ItemRow.vala:1283 src/Layouts/ItemSidebarView.vala:444
 msgid "Delete Task"
-msgstr ""
+msgstr "刪除任務"
 
 #: src/Layouts/ItemBoard.vala:1009 src/Layouts/ItemRow.vala:1746
 msgid "Order changed to 'Custom sort order'"
-msgstr ""
+msgstr "順序變更為〔自訂排列順序〕"
 
 #: src/Layouts/ItemBoard.vala:1095 src/Layouts/ItemRow.vala:1529
 #, c-format
 msgid "%s was deleted"
-msgstr ""
+msgstr "%s 已經刪除"
 
 #: src/Layouts/ItemBoard.vala:1096 src/Layouts/ItemRow.vala:1530
 msgid "Undo"
-msgstr ""
+msgstr "取消動作"
 
 #: src/Layouts/ItemRow.vala:449
 msgid "Add Subtasks"
-msgstr ""
+msgstr "添加子任務"
 
 #: src/Layouts/ItemRow.vala:459
 msgid "Add Attachments"
-msgstr ""
+msgstr "添加附件"
 
 #: src/Layouts/ItemRow.vala:1032
 msgid "Hide Sub-tasks"
-msgstr ""
+msgstr "隱藏子任務"
 
 #: src/Layouts/ItemRow.vala:1032
 msgid "Show Sub-tasks"
-msgstr ""
+msgstr "顯示子任務"
 
 #: src/Layouts/ItemRow.vala:1276 src/Layouts/ItemSidebarView.vala:438
 msgid "Use as a Note"
-msgstr ""
+msgstr "用作為記事"
 
 #: src/Layouts/ItemRow.vala:1279 src/Layouts/ItemSidebarView.vala:440
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "複製至剪貼簿"
 
 #: src/Layouts/ItemSidebarView.vala:76
 msgid "Close Detail"
-msgstr ""
+msgstr "關閉詳情"
 
 #: src/Layouts/ItemSidebarView.vala:129 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
-msgstr ""
+msgstr "標題"
 
 #: src/Layouts/ItemSidebarView.vala:159 src/Widgets/ItemDetailCompleted.vala:90
 msgid "Properties"
-msgstr ""
+msgstr "屬性"
 
 #: src/Layouts/ItemSidebarView.vala:530
 msgid "Are you sure you want to delete?"
-msgstr ""
+msgstr "您確定要刪除嗎？"
 
 #: src/Layouts/LabelRow.vala:158
 msgid "Delete Label"
-msgstr ""
+msgstr "刪除標籤"
 
 #: src/Layouts/ProjectRow.vala:436 src/Layouts/SidebarSourceRow.vala:224
 msgid "Projects sort changed to 'Custom sort order'"
