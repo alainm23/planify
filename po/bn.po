@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-11 00:45+0000\n"
+"POT-Creation-Date: 2025-10-11 12:36+0000\n"
 "PO-Revision-Date: 2025-10-06 04:59-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2494,19 +2494,19 @@ msgstr ""
 msgid "Customize Sidebar"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
+#: src/Layouts/Sidebar.vala:312 src/Layouts/Sidebar.vala:364
 msgid "Go to Today"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
+#: src/Layouts/Sidebar.vala:316 src/Layouts/Sidebar.vala:368
 msgid "Go to Scheduled"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Labels"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Pinboard"
 msgstr ""
 

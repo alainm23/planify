@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-11 00:45+0000\n"
+"POT-Creation-Date: 2025-10-11 12:36+0000\n"
 "PO-Revision-Date: 2025-05-18 12:00+0300\n"
 "Last-Translator: Egehan KAHRAMAN <vastseaoffical0@outlook.com>\n"
 "Language-Team: \n"
@@ -2663,19 +2663,19 @@ msgstr "Hesaplar"
 msgid "Customize Sidebar"
 msgstr "Kenar çubuğunuzu özelleştirin"
 
-#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
+#: src/Layouts/Sidebar.vala:312 src/Layouts/Sidebar.vala:364
 msgid "Go to Today"
 msgstr "Bugün"
 
-#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
+#: src/Layouts/Sidebar.vala:316 src/Layouts/Sidebar.vala:368
 msgid "Go to Scheduled"
 msgstr "Zamanlanmış"
 
-#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Labels"
 msgstr "Etiketler"
 
-#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Pinboard"
 msgstr "Pano"
 

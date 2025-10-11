@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-11 00:45+0000\n"
+"POT-Creation-Date: 2025-10-11 12:36+0000\n"
 "PO-Revision-Date: 2025-10-06 17:21+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
@@ -2558,19 +2558,19 @@ msgstr "Računi"
 msgid "Customize Sidebar"
 msgstr "Prilagodi bočnu traku"
 
-#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
+#: src/Layouts/Sidebar.vala:312 src/Layouts/Sidebar.vala:364
 msgid "Go to Today"
 msgstr "Idi na danas"
 
-#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
+#: src/Layouts/Sidebar.vala:316 src/Layouts/Sidebar.vala:368
 msgid "Go to Scheduled"
 msgstr "Idi na zakazano"
 
-#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Labels"
 msgstr "Idi na etikete"
 
-#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Pinboard"
 msgstr "Idi na oglasnu ploču"
 
