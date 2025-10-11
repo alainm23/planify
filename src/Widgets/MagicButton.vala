@@ -47,8 +47,7 @@ public class Widgets.MagicButton : Adw.Bin {
             height_request = 48,
             width_request = 48,
             css_classes = { "suggested-action", "magic-button" },
-            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Task"), "A"),
-            focusable = false
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Task"), "A")
         };
 
         main_revealer = new Gtk.Revealer () {

@@ -296,6 +296,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             ellipsize = END,
             use_markup = true
         };
+        content_label.update_property (Gtk.AccessibleProperty.LABEL, "", -1);
 
         // Description Icon
         description_image_revealer = new Gtk.Revealer () {
@@ -955,6 +956,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             item.content = content_textview.buffer.text;
             content_label.label = MarkdownProcessor.get_default ().markup_string (item.content);
             content_label.tooltip_text = item.content.strip ();
+            content_label.update_property (Gtk.AccessibleProperty.LABEL, item.content, -1);
             item.update_async_timeout (update_id);
             return;
         }
@@ -980,6 +982,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         content_label.label = MarkdownProcessor.get_default ().markup_string (item.content);
         content_label.tooltip_text = item.content;
+        content_label.update_property (Gtk.AccessibleProperty.LABEL, item.content, -1);
         content_textview.set_text (item.content);
 
         // ItemType
@@ -1863,6 +1866,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         markdown_editor.is_editable = !item.completed && !item.project.is_deck;
 
         markdown_editor.set_text (item.description);
+        markdown_editor.text_view.update_property (Gtk.AccessibleProperty.LABEL, item.description, -1);
         markdown_revealer.child = markdown_editor;
         markdown_revealer.reveal_child = true;
 

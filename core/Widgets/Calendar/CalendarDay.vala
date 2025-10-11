@@ -25,6 +25,7 @@ public class Widgets.Calendar.CalendarDay : Adw.Bin {
         set {
             _day = value;
             button.label = _day.to_string ();
+            update_accessible_label ();
         }
         get {
             return _day;
@@ -68,9 +69,9 @@ public class Widgets.Calendar.CalendarDay : Adw.Bin {
     }
 
     private void update_accessible_label () {
-        if (_date != null) {
-            button.update_property (Gtk.AccessibleProperty.LABEL, 
-                _date.format (_("%A, %B %e, %Y")), -1);
+        if (_date != null && _day > 0) {
+            var accessible_text = _date.format (_("%A, %B %e, %Y"));
+            button.update_property (Gtk.AccessibleProperty.LABEL, accessible_text, -1);
         }
     }
 
