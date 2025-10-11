@@ -55,8 +55,20 @@ jobs:
             --keyword=_ --keyword=N_
 
           for lang in $(cat po/LINGUAS); do
-            msgmerge --update po/$lang.po po/io.github.alainm23.planify.pot
+            msgmerge --update --no-fuzzy-matching --backup=none po/$lang.po po/io.github.alainm23.planify.pot
           done
+
+      - name: Check for real changes
+        id: check_changes
+        run: |
+          # Exclude date-only changes (POT-Creation-Date and PO-Revision-Date)
+          if git diff --ignore-matching-lines='^"POT-Creation-Date:' \
+                      --ignore-matching-lines='^"PO-Revision-Date:' \
+                      --quiet po/; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: Resolve conflicts if any
         run: |
@@ -66,6 +78,7 @@ jobs:
           git rebase --continue || true
 
       - name: Commit and push changes
+        if: steps.check_changes.outputs.has_changes == 'true'
         run: |
           git add po/
           git diff --staged --quiet || git commit -m "Update translations"
