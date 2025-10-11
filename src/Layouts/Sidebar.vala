@@ -166,14 +166,6 @@ public class Layouts.Sidebar : Adw.Bin {
         context_menu.popup ();
     }
 
-    public void update_version () {
-        Services.Settings.get_default ().settings.set_string ("version", Build.VERSION);
-    }
-
-    public bool verify_new_version () {
-        return Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION;
-    }
-
     public void select_project (Objects.Project project) {
         Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id);
     }
