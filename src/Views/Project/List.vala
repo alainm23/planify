@@ -114,8 +114,11 @@ public class Views.List : Adw.Bin {
         var listbox_placeholder = new Adw.StatusPage () {
             icon_name = "check-round-outline-symbolic",
             title = _ ("Add Some Tasks"),
-            description = _ ("Press 'a' to create a new task")
+            description = _ ("Press 'a' to create a new task"),
+            can_focus = true
         };
+        listbox_placeholder.update_property (Gtk.AccessibleProperty.LABEL, 
+            _ ("Add Some Tasks. Press 'a' to create a new task"), -1);
 
         listbox_placeholder_stack = new Gtk.Stack () {
             vexpand = true,
@@ -281,6 +284,7 @@ public class Views.List : Adw.Bin {
         }
 
         listbox_placeholder_stack.visible_child_name = count > 0 ? "listbox" : "placeholder";
+        scrolled_window.can_focus = count > 0;
     }
 
     private void add_sections () {
