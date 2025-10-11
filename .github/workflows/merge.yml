@@ -81,5 +81,5 @@ jobs:
         if: steps.check_changes.outputs.has_changes == 'true'
         run: |
           git add po/
-          git commit -m "Update translations"
+          git diff --staged --quiet || git commit -m "Update translations"
           git push origin master
