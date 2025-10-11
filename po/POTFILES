@@ -80,7 +80,6 @@ core/Widgets/PriorityButton.vala
 core/Widgets/ProjectPicker/ProjectPickerButton.vala
 core/Widgets/ProjectPicker/ProjectPickerPopover.vala
 core/Widgets/ProjectPicker/ProjectPickerRow.vala
-core/Widgets/ProjectPicker/SectionPickerRow.vala
 core/Widgets/ReminderPicker/ReminderButton.vala
 core/Widgets/ReminderPicker/ReminderPicker.vala
 core/Widgets/ReminderPicker/ReminderRow.vala

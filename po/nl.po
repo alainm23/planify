@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-09 20:34+0000\n"
+"POT-Creation-Date: 2025-10-11 12:36+0000\n"
 "PO-Revision-Date: 2024-11-08 14:56+0100\n"
 "Last-Translator: Gert-dev\n"
 "Language-Team: Dutch <>\n"
@@ -138,7 +138,7 @@ msgid "Due Date"
 msgstr "Deadline"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
-#: src/Dialogs/CompletedTasks.vala:319 src/Widgets/ItemDetailCompleted.vala:80
+#: src/Dialogs/CompletedTasks.vala:318 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
 msgstr "Onderverdeling"
 
@@ -154,7 +154,7 @@ msgstr "Taak bijgewerkt"
 msgid "Content"
 msgstr "Inhoud"
 
-#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1876
+#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1855
 #: src/Layouts/ItemSidebarView.vala:169
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
@@ -166,7 +166,7 @@ msgstr "Gepland"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemBoard.vala:713
-#: src/Layouts/ItemRow.vala:1151 src/Layouts/ItemRow.vala:1164
+#: src/Layouts/ItemRow.vala:1130 src/Layouts/ItemRow.vala:1143
 msgid "Pin"
 msgstr "Vastgeprikt"
 
@@ -217,8 +217,8 @@ msgstr "logboek"
 
 #: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:244
 #: core/Utils/Util.vala:557
-#: core/Widgets/ProjectPicker/ProjectPickerButton.vala:155
-#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:102
+#: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
+#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:140
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:326
 #: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
@@ -291,7 +291,7 @@ msgstr "aankomend"
 #: core/Widgets/Calendar/CalendarHeader.vala:79
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:124
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:707
-#: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:500
+#: src/Layouts/ItemRow.vala:1137 src/Views/Project/Project.vala:500
 #: src/Views/Project/Project.vala:660 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Vandaag"
@@ -303,7 +303,7 @@ msgstr "vandaag"
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:710
-#: src/Layouts/ItemRow.vala:1161
+#: src/Layouts/ItemRow.vala:1140
 msgid "Tomorrow"
 msgstr "Morgen"
 
@@ -401,7 +401,7 @@ msgid "This will archive %s and all its tasks."
 msgstr "Dit zal %s en alle bijhorende taken archiveren."
 
 #: core/Objects/Project.vala:879 core/Objects/Section.vala:407
-#: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:569
+#: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
 msgid "Archive"
 msgstr "Archiveren"
@@ -1296,11 +1296,11 @@ msgstr "Zoeken"
 msgid "Search or Create"
 msgstr "Zoeken of Aanmaken"
 
-#: core/Widgets/MarkdownEditor.vala:1347
+#: core/Widgets/MarkdownEditor.vala:1353
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1352
+#: core/Widgets/MarkdownEditor.vala:1358
 #, fuzzy
 msgid "Remove link"
 msgstr "Verwijderen"
@@ -1336,9 +1336,9 @@ msgstr "Je secties zullen hier getoond worden."
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
-#: core/Widgets/ProjectPicker/SectionPickerRow.vala:33
 #: core/Widgets/SectionPicker/SectionButton.vala:88
 #: core/Widgets/SectionPicker/SectionPicker.vala:98
+#: core/Widgets/SectionPicker/SectionPickerRow.vala:38
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:269
 #: src/Widgets/CompletedTaskRow.vala:77 src/Widgets/ItemDetailCompleted.vala:80
 msgid "No Section"
@@ -1408,7 +1408,7 @@ msgid "To Do"
 msgstr "Open"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1172
+#: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1151
 #: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "Afgerond"
@@ -1455,11 +1455,7 @@ msgstr ""
 "Dit zal %d afgeronde taken en alle onderliggende subtaken uit project %s "
 "verwijderen"
 
-#: src/Dialogs/CompletedTasks.vala:230
-msgid "Task Detail"
-msgstr "Details taak"
-
-#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:581
+#: src/Dialogs/CompletedTasks.vala:325 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
 msgid "Filter By"
 msgstr "Filteren op"
@@ -1469,7 +1465,7 @@ msgid "Next Week"
 msgstr "Volgende week"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:715
-#: src/Layouts/ItemRow.vala:1166 src/Views/Project/Project.vala:505
+#: src/Layouts/ItemRow.vala:1145 src/Views/Project/Project.vala:505
 #: src/Views/Project/Project.vala:670
 msgid "No Date"
 msgstr "Geen datum"
@@ -1497,7 +1493,7 @@ msgstr "Gelieve je aanmeldgegevens in te geven"
 msgid "Network Is Not Available"
 msgstr "Netwerk is niet beschikbaar"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1286
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1265
 #: src/Layouts/ItemSidebarView.vala:447
 msgid "Change History"
 msgstr "Geschiedenis wijzigen"
@@ -2402,7 +2398,7 @@ msgstr ""
 msgid "New Project"
 msgstr "Project aanmaken"
 
-#: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:700
+#: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:704
 #: src/Views/Project/Project.vala:333
 msgid "Edit Project"
 msgstr "Project bewerken"
@@ -2431,8 +2427,8 @@ msgstr "Project met succes toegevoegd!"
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:82
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:93
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:126
-#: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1169
-#: src/Layouts/ItemRow.vala:1281 src/Layouts/ItemSidebarView.vala:442
+#: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1148
+#: src/Layouts/ItemRow.vala:1260 src/Layouts/ItemSidebarView.vala:442
 msgid "Move"
 msgstr "Verplaatsen"
 
@@ -2446,7 +2442,7 @@ msgid "Unarchive"
 msgstr "Dearchiveren"
 
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:155
-#: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:346
+#: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:346
 msgid "Delete Project"
 msgstr "Project verwijderen"
 
@@ -2497,49 +2493,49 @@ msgid "Open/Close Sidebar"
 msgstr "Zijbalk tonen/verbergen"
 
 #: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:700
-#: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1151
-#: src/Layouts/ItemRow.vala:1164
+#: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1130
+#: src/Layouts/ItemRow.vala:1143
 msgid "Unpin"
 msgstr "Losmaken"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:590 src/Layouts/ItemRow.vala:1483
+#: src/Layouts/ItemBoard.vala:590 src/Layouts/ItemRow.vala:1462
 #: src/Layouts/ItemSidebarView.vala:610
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Afgewerkt. Volgende datum: %s"
 
-#: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1171
+#: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1150
 msgid "Add Subtask"
 msgstr "Subtaak toevoegen"
 
-#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1173
+#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1152
 msgid "Edit"
 msgstr "Bewerken"
 
-#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1174
-#: src/Layouts/ItemRow.vala:1280 src/Layouts/ItemSidebarView.vala:441
-#: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:566
+#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1153
+#: src/Layouts/ItemRow.vala:1259 src/Layouts/ItemSidebarView.vala:441
+#: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
 msgid "Duplicate"
 msgstr "Dupliceren"
 
-#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1176
-#: src/Layouts/ItemRow.vala:1283 src/Layouts/ItemSidebarView.vala:444
+#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1155
+#: src/Layouts/ItemRow.vala:1262 src/Layouts/ItemSidebarView.vala:444
 msgid "Delete Task"
 msgstr "Taak verwijderen"
 
-#: src/Layouts/ItemBoard.vala:1009 src/Layouts/ItemRow.vala:1746
+#: src/Layouts/ItemBoard.vala:1009 src/Layouts/ItemRow.vala:1725
 msgid "Order changed to 'Custom sort order'"
 msgstr "Volgorde aangepast naar 'Aangepaste volgorde'"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:1095 src/Layouts/ItemRow.vala:1529
+#: src/Layouts/ItemBoard.vala:1095 src/Layouts/ItemRow.vala:1508
 #, c-format
 msgid "%s was deleted"
 msgstr "%s werd verwijderd"
 
-#: src/Layouts/ItemBoard.vala:1096 src/Layouts/ItemRow.vala:1530
+#: src/Layouts/ItemBoard.vala:1096 src/Layouts/ItemRow.vala:1509
 msgid "Undo"
 msgstr "Ongedaan maken"
 
@@ -2551,19 +2547,19 @@ msgstr "Subtaken toevoegen"
 msgid "Add Attachments"
 msgstr "Bijlagen toevoegen"
 
-#: src/Layouts/ItemRow.vala:1032
+#: src/Layouts/ItemRow.vala:1011
 msgid "Hide Sub-tasks"
 msgstr "Subtaken verbergen"
 
-#: src/Layouts/ItemRow.vala:1032
+#: src/Layouts/ItemRow.vala:1011
 msgid "Show Sub-tasks"
 msgstr "Subtaken tonen"
 
-#: src/Layouts/ItemRow.vala:1276 src/Layouts/ItemSidebarView.vala:438
+#: src/Layouts/ItemRow.vala:1255 src/Layouts/ItemSidebarView.vala:438
 msgid "Use as a Note"
 msgstr "Als opmerking gebruiken"
 
-#: src/Layouts/ItemRow.vala:1279 src/Layouts/ItemSidebarView.vala:440
+#: src/Layouts/ItemRow.vala:1258 src/Layouts/ItemSidebarView.vala:440
 msgid "Copy to Clipboard"
 msgstr "Naar klembord kopiëren"
 
@@ -2587,27 +2583,27 @@ msgstr "Ben je zeker dat je wilt verwijderen?"
 msgid "Delete Label"
 msgstr "Label verwijderen"
 
-#: src/Layouts/ProjectRow.vala:436 src/Layouts/SidebarSourceRow.vala:224
+#: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:224
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "Sortering van projecten aangepast naar 'Aangepaste volgorde'"
 
-#: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
+#: src/Layouts/ProjectRow.vala:697 src/Layouts/ProjectRow.vala:703
 msgid "Remove From Favorites"
 msgstr "Uit favorieten verwijderen"
 
-#: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
+#: src/Layouts/ProjectRow.vala:697 src/Layouts/ProjectRow.vala:703
 msgid "Add to Favorites"
 msgstr "Aan favorieten toevoegen"
 
-#: src/Layouts/ProjectRow.vala:702
+#: src/Layouts/ProjectRow.vala:706
 msgid "Refresh"
 msgstr "Herladen"
 
-#: src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:712
 msgid "Share"
 msgstr "Delen"
 
-#: src/Layouts/ProjectRow.vala:709
+#: src/Layouts/ProjectRow.vala:713
 msgid "Send by E-Mail"
 msgstr "Per e-mail verzenden"
 
@@ -2657,19 +2653,19 @@ msgstr "Accounts"
 msgid "Customize Sidebar"
 msgstr "Pas de zijbalk aan"
 
-#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
+#: src/Layouts/Sidebar.vala:312 src/Layouts/Sidebar.vala:364
 msgid "Go to Today"
 msgstr "Naar Vandaag navigeren"
 
-#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
+#: src/Layouts/Sidebar.vala:316 src/Layouts/Sidebar.vala:368
 msgid "Go to Scheduled"
 msgstr "Naar Gepland navigeren"
 
-#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Labels"
 msgstr "Naar Labels navigeren"
 
-#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Pinboard"
 msgstr "Naar Prikbord navigeren"
 
@@ -3256,6 +3252,9 @@ msgstr "Labels weergeven"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Prikbord weergeven"
+
+#~ msgid "Task Detail"
+#~ msgstr "Details taak"
 
 #~ msgid "Create a new to-do"
 #~ msgstr "Creëer een nieuwe taak"

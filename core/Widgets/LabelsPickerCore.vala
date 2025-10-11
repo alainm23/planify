@@ -291,7 +291,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
     private Gtk.Widget get_placeholder () {
         var add_tag_icon = new Gtk.Image.from_icon_name ("tag-outline-add-symbolic") {
-            pixel_size = 24,
+            pixel_size = 32,
             margin_bottom = 12
         };
 

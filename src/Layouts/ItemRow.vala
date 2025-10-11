@@ -369,7 +369,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         hide_loading_button = new Widgets.LoadingButton.with_icon ("go-up-symbolic", 16) {
-            css_classes = { "flat", "dimmed", "no-padding" }
+            css_classes = { "flat", "no-padding" }
         };
 
         hide_loading_revealer = new Gtk.Revealer () {
@@ -893,12 +893,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         signals_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
             if (!edit) {
                 if (active) {
-                    bool is_ancestor_of_focused = is_ancestor_of (focused_item_id);
-                    if (!is_ancestor_of_focused) {
-                        add_css_class ("dimmed");
+                    if (item.id != focused_item_id) {
+                        itemrow_box.add_css_class ("dimmed");
                     }
                 } else {
-                    remove_css_class ("dimmed");
+                    itemrow_box.remove_css_class ("dimmed");
                 }
             } else if (!active && edit) {
                 edit = false;
@@ -914,27 +913,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
         })] = this;
     }
-
-    private bool is_ancestor_of (string focused_item_id) {
-        if (subitems.items_map.has_key (focused_item_id) || subitems.items_checked.has_key (focused_item_id)) {
-            return true;
-        }
-        
-        foreach (var row in subitems.items_map.values) {
-            if (((Layouts.ItemRow) row).is_ancestor_of (focused_item_id)) {
-                return true;
-            }
-        }
-        
-        foreach (var row in subitems.items_checked.values) {
-            if (((Layouts.ItemRow) row).is_ancestor_of (focused_item_id)) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
-
+    
     private void show_details () {
         if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
             Services.EventBus.get_default ().open_item (item);

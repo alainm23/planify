@@ -134,6 +134,7 @@ msgstr "到期日"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:319 src/Widgets/ItemDetailCompleted.vala:80
+#: src/Dialogs/CompletedTasks.vala:318
 msgid "Section"
 msgstr "區段"
 
@@ -151,7 +152,7 @@ msgstr "目錄"
 
 #: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1876
 #: src/Layouts/ItemSidebarView.vala:169
-#: src/Widgets/ItemDetailCompleted.vala:113
+#: src/Widgets/ItemDetailCompleted.vala:113 src/Layouts/ItemRow.vala:1855
 msgid "Description"
 msgstr "描述"
 
@@ -162,6 +163,7 @@ msgstr "已排行程"
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemBoard.vala:713
 #: src/Layouts/ItemRow.vala:1151 src/Layouts/ItemRow.vala:1164
+#: src/Layouts/ItemRow.vala:1130 src/Layouts/ItemRow.vala:1143
 msgid "Pin"
 msgstr "釘上"
 
@@ -217,6 +219,8 @@ msgstr "日誌記冊"
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:140
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:326
 #: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
+#: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
+#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
 msgid "Inbox"
 msgstr "索引"
 
@@ -287,6 +291,7 @@ msgstr "即將來到"
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:707
 #: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:500
 #: src/Views/Project/Project.vala:660 src/Views/Today.vala:202
+#: src/Layouts/ItemRow.vala:1137
 msgid "Today"
 msgstr "今日"
 
@@ -297,7 +302,7 @@ msgstr "今日"
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:710
-#: src/Layouts/ItemRow.vala:1161
+#: src/Layouts/ItemRow.vala:1161 src/Layouts/ItemRow.vala:1140
 msgid "Tomorrow"
 msgstr "明日"
 
@@ -393,6 +398,7 @@ msgstr "此將封存 %s 及其全部任務。"
 #: core/Objects/Project.vala:879 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
+#: src/Layouts/ProjectRow.vala:708
 msgid "Archive"
 msgstr "封存檔庫"
 
@@ -1235,11 +1241,11 @@ msgstr "搜尋"
 msgid "Search or Create"
 msgstr "搜尋或建立"
 
-#: core/Widgets/MarkdownEditor.vala:1347
+#: core/Widgets/MarkdownEditor.vala:1347 core/Widgets/MarkdownEditor.vala:1353
 msgid "Apply"
 msgstr "套用"
 
-#: core/Widgets/MarkdownEditor.vala:1352
+#: core/Widgets/MarkdownEditor.vala:1352 core/Widgets/MarkdownEditor.vala:1358
 msgid "Remove link"
 msgstr "移除連結"
 
@@ -1279,6 +1285,7 @@ msgstr "您的區段清單將會在此顯示。"
 #: core/Widgets/SectionPicker/SectionPicker.vala:98
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:269
 #: src/Widgets/CompletedTaskRow.vala:77 src/Widgets/ItemDetailCompleted.vala:80
+#: core/Widgets/SectionPicker/SectionPickerRow.vala:38
 msgid "No Section"
 msgstr "無區段"
 
@@ -1344,7 +1351,7 @@ msgstr "待辦事項"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1172
-#: src/Services/Notification.vala:98
+#: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1151
 msgid "Complete"
 msgstr "完成"
 
@@ -1390,6 +1397,7 @@ msgstr "任務詳情"
 
 #: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
+#: src/Dialogs/CompletedTasks.vala:325
 msgid "Filter By"
 msgstr "篩選依照"
 
@@ -1399,7 +1407,7 @@ msgstr "下週"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:715
 #: src/Layouts/ItemRow.vala:1166 src/Views/Project/Project.vala:505
-#: src/Views/Project/Project.vala:670
+#: src/Views/Project/Project.vala:670 src/Layouts/ItemRow.vala:1145
 msgid "No Date"
 msgstr "無日期"
 
@@ -1426,7 +1434,7 @@ msgid "Network Is Not Available"
 msgstr "網路無法作用"
 
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1286
-#: src/Layouts/ItemSidebarView.vala:447
+#: src/Layouts/ItemSidebarView.vala:447 src/Layouts/ItemRow.vala:1265
 msgid "Change History"
 msgstr "變更歷史記錄"
 
@@ -1988,7 +1996,8 @@ msgid ""
 "Our mission is to provide the best open source task management application "
 "for users all over the world. Your donations support this work. Want to "
 "donate today?"
-msgstr "我們的使命是為世界各地的用戶提供最好的開源的任務管理應用程式。您的捐款將支援"
+msgstr ""
+"我們的使命是為世界各地的用戶提供最好的開源的任務管理應用程式。您的捐款將支援"
 "這項工作，今天要捐款嗎？"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:49
@@ -2133,7 +2142,8 @@ msgid ""
 "Planify is being developed with love and passion for open source. However, "
 "if you like Planify and want to support its development, please consider "
 "supporting us."
-msgstr "Planify 的開發是對於開源充滿了衷愛與熱情。然而，若您喜歡 Planify 並希望支持其"
+msgstr ""
+"Planify 的開發是對於開源充滿了衷愛與熱情。然而，若您喜歡 Planify 並希望支持其"
 "發展，請酌量支持我們。"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
@@ -2270,7 +2280,8 @@ msgid ""
 "If you choose to integrate Todoist, which is optional and not selected by "
 "default, your data will be stored on their private servers, we only display "
 "your configured tasks and manage them for you."
-msgstr "如果您選擇整合 Todoist (其為選項而非預設選用)，您的資料將會儲存在其私有服務器"
+msgstr ""
+"如果您選擇整合 Todoist (其為選項而非預設選用)，您的資料將會儲存在其私有服務器"
 "上。我們僅顯示您所設置的任務，並為您管理。"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:417

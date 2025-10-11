@@ -19,7 +19,7 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Widgets.ItemDetailCompleted : Adw.Bin {
+public class Widgets.ItemDetailCompleted : Adw.NavigationPage {
     public Objects.Item item { get; construct; }
 
     private Gtk.ListBox listbox;
@@ -28,7 +28,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
     public signal void view_item (Objects.Item item);
 
     private Gee.HashMap<string, Widgets.CompletedTaskRow> items_checked = new Gee.HashMap<string, Widgets.CompletedTaskRow> ();
-    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public ItemDetailCompleted (Objects.Item item) {
         Object (
@@ -145,10 +145,15 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
 
         var scrolled_window = new Widgets.ScrolledWindow (content);
 
-        child = scrolled_window;
+        var toolbar_view = new Adw.ToolbarView ();
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
+        toolbar_view.content = scrolled_window;
+
+        child = toolbar_view;
+
         add_items ();
 
-        signals_map[Services.EventBus.get_default ().checked_toggled.connect ((_item, old_checked) => {
+        signal_map[Services.EventBus.get_default ().checked_toggled.connect ((_item, old_checked) => {
             if (_item.parent_id != item.id) {
                 return;
             }
@@ -166,7 +171,7 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
             }
         })] = Services.EventBus.get_default ();
 
-        signals_map[listbox.row_activated.connect ((row) => {
+        signal_map[listbox.row_activated.connect ((row) => {
             Objects.Item item = ((Widgets.CompletedTaskRow) row).item;
             view_item (item);
         })] = listbox;
@@ -223,14 +228,10 @@ public class Widgets.ItemDetailCompleted : Adw.Bin {
     }
 
     public void clean_up () {
-        if (markdown_editor != null) {
-            markdown_editor.cleanup ();
-        }
-
-        foreach (var entry in signals_map.entries) {
+        foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
-        signals_map.clear ();
+        signal_map.clear ();
     }
 }

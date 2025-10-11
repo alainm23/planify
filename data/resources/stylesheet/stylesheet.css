@@ -664,7 +664,6 @@ checkbutton.theme-selector radio:checked {
 .task-item {
     transition: all 125ms ease-in-out;
     transform: scale(1);
-    opacity: 1;
     transform-origin: center center;
     border-radius: 12px;
 }

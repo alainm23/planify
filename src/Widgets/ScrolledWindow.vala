@@ -22,12 +22,13 @@
 public class Widgets.ScrolledWindow : Adw.Bin {
     public Gtk.Widget widget { get; construct; }
     public Gtk.Orientation orientation { get; construct; }
-    public int margin { get; set; default = 24; }
+    public int margin { get; set; default = 64; }
 
     private Gtk.ScrolledWindow scrolled_window;
     private Gtk.DropControllerMotion drop_motion_ctrl;
 
-    private bool scrolling = false;
+    private uint scroll_timeout_id = 0;
+    private double scroll_speed = 0;
 
     public Gtk.Adjustment vadjustment {
         get {
@@ -67,48 +68,76 @@ public class Widgets.ScrolledWindow : Adw.Bin {
         scrolled_window.add_controller (drop_motion_ctrl);
 
         drop_motion_ctrl.motion.connect ((x, y) => {
+            double distance_from_edge = 0;
+            bool should_scroll = false;
+            bool scroll_up = false;
+
             if (orientation == Gtk.Orientation.VERTICAL) {
                 int height = scrolled_window.get_height ();
 
                 if (y < margin) {
-                    scrolling = true;
-                    GLib.Timeout.add (100, () => _auto_scroll (true));
+                    distance_from_edge = margin - y;
+                    should_scroll = true;
+                    scroll_up = true;
                 } else if (y > (height - margin)) {
-                    scrolling = true;
-                    GLib.Timeout.add (100, () => _auto_scroll (false));
-                } else {
-                    scrolling = false;
+                    distance_from_edge = y - (height - margin);
+                    should_scroll = true;
+                    scroll_up = false;
                 }
             } else {
                 int width = scrolled_window.get_width ();
 
                 if (x < margin) {
-                    scrolling = true;
-                    GLib.Timeout.add (100, () => _auto_scroll (true));
+                    distance_from_edge = margin - x;
+                    should_scroll = true;
+                    scroll_up = true;
                 } else if (x > (width - margin)) {
-                    scrolling = true;
-                    GLib.Timeout.add (100, () => _auto_scroll (false));
-                } else {
-                    scrolling = false;
+                    distance_from_edge = x - (width - margin);
+                    should_scroll = true;
+                    scroll_up = false;
                 }
             }
+
+            if (should_scroll) {
+                scroll_speed = (distance_from_edge / margin) * (scroll_up ? -1 : 1);
+                start_auto_scroll ();
+            } else {
+                stop_auto_scroll ();
+            }
+        });
+
+        drop_motion_ctrl.leave.connect (() => {
+            stop_auto_scroll ();
         });
 
         child = scrolled_window;
     }
 
-    private bool _auto_scroll (bool scroll_up) {
-        if (!scrolling || !drop_motion_ctrl.contains_pointer) {
-            return false;
+    private void start_auto_scroll () {
+        if (scroll_timeout_id > 0) {
+            return;
         }
 
-        var adj = orientation == Gtk.Orientation.VERTICAL ? scrolled_window.get_vadjustment () : scrolled_window.get_hadjustment ();
-        if (scroll_up) {
-            adj.set_value (adj.get_value () - Constants.SCROLL_STEPS);
-        } else {
-            adj.set_value (adj.get_value () + Constants.SCROLL_STEPS);
-        }
+        scroll_timeout_id = GLib.Timeout.add (16, () => {
+            if (!drop_motion_ctrl.contains_pointer) {
+                stop_auto_scroll ();
+                return false;
+            }
 
-        return true;
+            var adj = orientation == Gtk.Orientation.VERTICAL ? scrolled_window.get_vadjustment () : scrolled_window.get_hadjustment ();
+            double new_value = adj.get_value () + (scroll_speed * 10);
+            new_value = double.max (adj.get_lower (), double.min (new_value, adj.get_upper () - adj.get_page_size ()));
+            adj.set_value (new_value);
+
+            return true;
+        });
+    }
+
+    private void stop_auto_scroll () {
+        if (scroll_timeout_id > 0) {
+            GLib.Source.remove (scroll_timeout_id);
+            scroll_timeout_id = 0;
+        }
+        scroll_speed = 0;
     }
 }

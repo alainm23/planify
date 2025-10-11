@@ -179,7 +179,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         };
 
         var projectrow_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_end = 3
+            margin_end = 3,
+            margin_start = 3,
+            margin_top = 3,
+            margin_bottom = 3
         };
 
         projectrow_box.append (icon_project);
@@ -365,6 +368,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         });
 
         Services.Settings.get_default ().settings.changed["local-inbox-project-id"].connect (() => {
+            update_request ();
             main_revealer.reveal_child = !project.is_inbox_project;
         });
 
