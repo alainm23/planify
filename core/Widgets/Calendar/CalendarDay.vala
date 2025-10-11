@@ -31,6 +31,17 @@ public class Widgets.Calendar.CalendarDay : Adw.Bin {
         }
     }
 
+    private GLib.DateTime _date;
+    public GLib.DateTime date {
+        set {
+            _date = value;
+            update_accessible_label ();
+        }
+        get {
+            return _date;
+        }
+    }
+
     private Gtk.Button button;
     private ulong button_clicked_id = 0;
 
@@ -54,6 +65,13 @@ public class Widgets.Calendar.CalendarDay : Adw.Bin {
             day_selected ();
             button.add_css_class ("selected");
         });
+    }
+
+    private void update_accessible_label () {
+        if (_date != null) {
+            button.update_property (Gtk.AccessibleProperty.LABEL, 
+                _date.format (_("%A, %B %e, %Y")), -1);
+        }
     }
 
     public void clean_up () {

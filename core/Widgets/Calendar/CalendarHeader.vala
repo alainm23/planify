@@ -34,6 +34,7 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
         set {
             month_label.label = value.format (_("%OB"));
             year_label.label = value.format (_("%Y"));
+            update_button_labels (value);
         }
     }
 
@@ -62,12 +63,14 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
             css_classes = { "flat" },
             tooltip_text = _("Back")
         };
+        left_button.update_property (Gtk.AccessibleProperty.LABEL, _("Previous month"), -1);
 
         right_button = new Gtk.Button.from_icon_name ("pan-end-symbolic") {
             valign = Gtk.Align.CENTER,
             css_classes = { "flat" },
             tooltip_text = _("Forward")
         };
+        right_button.update_property (Gtk.AccessibleProperty.LABEL, _("Next month"), -1);
 
         var date_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         date_grid.append (month_label);
@@ -98,5 +101,14 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
         center_button.clicked.connect (() => {
             center_clicked ();
         });
+    }
+
+    private void update_button_labels (GLib.DateTime date) {
+        var prev_month = date.add_months (-1);
+        var next_month = date.add_months (1);
+        left_button.update_property (Gtk.AccessibleProperty.LABEL, 
+            _("Previous month, %s").printf (prev_month.format (_("%B %Y"))), -1);
+        right_button.update_property (Gtk.AccessibleProperty.LABEL, 
+            _("Next month, %s").printf (next_month.format (_("%B %Y"))), -1);
     }
 }
