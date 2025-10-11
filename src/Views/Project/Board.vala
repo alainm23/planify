@@ -47,7 +47,7 @@ public class Views.Board : Adw.Bin {
     }
 
     construct {
-        icon_project = new Widgets.IconColorProject (24) {
+        icon_project = new Widgets.IconColorProject (22) {
             project = project
         };
         icon_project.add_css_class ("title-2");
@@ -65,7 +65,7 @@ public class Views.Board : Adw.Bin {
 
         var title_box = new Gtk.Box (HORIZONTAL, 6) {
             valign = CENTER,
-            margin_start = 24,
+            margin_start = 22,
         };
 
         title_box.append (icon_project);

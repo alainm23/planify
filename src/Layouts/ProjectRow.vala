@@ -33,7 +33,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     private Gtk.ListBox listbox;
     private Adw.Bin handle_grid;
     private Gtk.Revealer listbox_revealer;
-    private Gtk.Stack progress_emoji_stack;
     private Gtk.Label due_label;
     private Gtk.Stack menu_stack;
     private Gtk.Revealer loading_revealer;
@@ -180,7 +179,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         };
 
         var projectrow_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_end = 3
+            margin_end = 3,
+            margin_start = 3,
+            margin_top = 3,
+            margin_bottom = 3
         };
 
         projectrow_box.append (icon_project);
@@ -248,11 +250,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             add_subprojects ();
         }
 
-        Timeout.add (main_revealer.transition_duration, () => {
-            if (progress_emoji_stack != null) { // TODO: progress_emoji_stack seems to be used nowhere?
-                progress_emoji_stack.visible_child_name = project.icon_style == ProjectIconStyle.PROGRESS ? "progress" : "emoji";
-            }
-            main_revealer.reveal_child = true;
+        Timeout.add (main_revealer.transition_duration, () => {            
+            main_revealer.reveal_child = !project.is_inbox_project;
             return GLib.Source.REMOVE;
         });
 
@@ -346,14 +345,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             }
         })] = Services.EventBus.get_default ();
 
-        destroy.connect (() => {
-            foreach (var entry in signals_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signals_map.clear ();
-        });
-
         Services.EventBus.get_default ().projects_drag_begin.connect ((source_id) => {
             if (source_id == project.source.id) {
                 var listbox_parent = parent as Gtk.ListBox;
@@ -374,6 +365,19 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             if (source_id == project.source.id) {
                 drop_target_end_revealer.reveal_child = false;
             }
+        });
+
+        Services.Settings.get_default ().settings.changed["local-inbox-project-id"].connect (() => {
+            update_request ();
+            main_revealer.reveal_child = !project.is_inbox_project;
+        });
+
+        destroy.connect (() => {
+            foreach (var entry in signals_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+
+            signals_map.clear ();
         });
     }
 

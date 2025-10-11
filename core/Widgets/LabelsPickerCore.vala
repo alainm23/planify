@@ -140,13 +140,47 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         signals_map[listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             var key = Gdk.keyval_name (keyval).replace ("KP_", "");
 
-            if (key == "Up" || key == "Down") {
+            if (key == "Up") {
+                var selected_row = listbox.get_selected_row ();
+                
+                if (selected_row != null) {
+                    Gtk.ListBoxRow first_visible_row = null;
+                    int index = 0;
+                    while (true) {
+                        var row = listbox.get_row_at_index (index);
+                        if (row == null) break;
+                        if (row.get_child_visible ()) {
+                            first_visible_row = row;
+                            break;
+                        }
+                        index++;
+                    }
+                    
+                    if (first_visible_row != null && selected_row == first_visible_row) {
+                        search_entry.grab_focus ();
+                        search_entry.set_position (search_entry.text.length);
+                        return true;
+                    }
+                }
+            } else if (key == "Down") {
             } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
+            } else if (key == "BackSpace") {
+                if (!search_entry.has_focus && search_entry.text.length > 0) {
+                    search_entry.grab_focus ();
+                    int pos = search_entry.text.length;
+                    search_entry.delete_text (pos - 1, pos);
+                    search_entry.set_position (pos - 1);
+                    return true;
+                }
             } else {
                 if (!search_entry.has_focus) {
-                    search_entry.grab_focus ();
-                    if (search_entry.cursor_position < search_entry.text.length) {
-                        search_entry.set_position (search_entry.text.length);
+                    unichar c = Gdk.keyval_to_unicode (keyval);
+                    if (c.isprint ()) {
+                        search_entry.grab_focus ();
+                        int pos = search_entry.text.length;
+                        search_entry.insert_text (c.to_string (), -1, ref pos);
+                        search_entry.set_position (pos);
+                        return true;
                     }
                 }
             }
@@ -189,8 +223,13 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         var search_entry_ctrl_key = new Gtk.EventControllerKey ();
         search_entry.add_controller (search_entry_ctrl_key);
         signals_map[search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
+            var key = Gdk.keyval_name (keyval).replace ("KP_", "");
+            
             if (keyval == 65307) {
                 close ();
+            } else if (key == "Down") {
+                listbox.get_row_at_index (0).grab_focus ();
+                return true;
             }
 
             return false;
@@ -252,7 +291,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
     private Gtk.Widget get_placeholder () {
         var add_tag_icon = new Gtk.Image.from_icon_name ("tag-outline-add-symbolic") {
-            pixel_size = 24,
+            pixel_size = 32,
             margin_bottom = 12
         };
 

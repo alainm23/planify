@@ -41,8 +41,8 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
             use_markup = true,
             wrap = true,
             xalign = 0,
-            margin_end = 6,
-            margin_start = 6
+            margin_end = 3,
+            margin_start = 3
         };
 
         var add_button = new Gtk.Button.with_label (_("Create Backup")) {

@@ -36,8 +36,7 @@ public class Widgets.CircularProgressBar : Gtk.DrawingArea {
     private double animation_target_value;
     private int64 animation_start_time;
     private uint success_animation_id = 0;
-    private double success_scale = 1.0;
-    private double success_glow = 0.0;
+    private double success_squeeze = 0.0;
     private int64 success_start_time;
 
     [Description (nick = "Center Fill", blurb = "Center Fill toggle")]
@@ -189,8 +188,8 @@ public class Widgets.CircularProgressBar : Gtk.DrawingArea {
     public CircularProgressBar (int size = 16) {
         Object (
             size: size,
-            height_request: (int)(size * 1.4),
-            width_request: (int)(size * 1.4),
+            height_request: size,
+            width_request: size,
             halign: Gtk.Align.CENTER,
             valign: Gtk.Align.CENTER
         );
@@ -250,23 +249,25 @@ public class Widgets.CircularProgressBar : Gtk.DrawingArea {
         
         success_animation_id = Timeout.add (16, () => {
             var elapsed = (get_monotonic_time () - success_start_time) / 1000.0;
-            var duration = 600.0;
+            var duration = 350.0;
             
             if (elapsed >= duration) {
-                success_scale = 1.0;
-                success_glow = 0.0;
+                success_squeeze = 0.0;
                 queue_draw ();
                 success_animation_id = 0;
                 return false;
             }
             
             var progress = elapsed / duration;
-            var bounce_freq = 3.0;
-            var bounce = Math.sin (progress * Math.PI * bounce_freq);
-            var decay = 1.0 - progress;
+            var t = progress;
             
-            success_scale = 1.0 + bounce * decay * 0.3;
-            success_glow = Math.sin (progress * Math.PI) * 0.8;
+            if (t < 0.5) {
+                success_squeeze = t * 2.0;
+            } else {
+                var bounce_t = (t - 0.5) * 2.0;
+                var bounce = Math.pow (2, -10 * bounce_t) * Math.sin ((bounce_t - 0.075) * (2 * Math.PI) / 0.3) + 1;
+                success_squeeze = 1.0 - (bounce_t * bounce);
+            }
             
             queue_draw ();
             return true;
@@ -292,29 +293,14 @@ public class Widgets.CircularProgressBar : Gtk.DrawingArea {
         var center_x = get_width () / 2;
         var center_y = get_height () / 2;
         var radius = calculate_radius ();
-        
-        if (_animated_percentage >= 1.0 && success_scale != 1.0) {
-            cr.translate (center_x, center_y);
-            cr.scale (success_scale, success_scale);
-            cr.translate (-center_x, -center_y);
-        }
-        
-        if (_animated_percentage >= 1.0 && success_glow > 0) {
-            var glow_radius = radius + success_glow * 8;
-            var gradient = new Cairo.Pattern.radial (center_x, center_y, radius, center_x, center_y, glow_radius);
-            var glow_color = Gdk.RGBA ();
-            glow_color.parse (_progress_fill_color);
-            glow_color.alpha = (float)(success_glow * 0.3);
-            gradient.add_color_stop_rgba (0, glow_color.red, glow_color.green, glow_color.blue, glow_color.alpha);
-            gradient.add_color_stop_rgba (1, glow_color.red, glow_color.green, glow_color.blue, 0);
-            cr.set_source (gradient);
-            cr.arc (center_x, center_y, glow_radius, 0, 2 * Math.PI);
-            cr.fill ();
-        }
 
         if (thick_style) {
             var ring_width = radius * 0.3;
             var ring_radius = radius - ring_width / 2;
+            
+            if (_animated_percentage >= 1.0 && success_squeeze > 0) {
+                ring_radius = ring_radius * (1.0 - success_squeeze * 0.3);
+            }
             
             cr.set_line_width (ring_width);
             cr.set_line_cap (Cairo.LineCap.ROUND);
@@ -331,7 +317,12 @@ public class Widgets.CircularProgressBar : Gtk.DrawingArea {
                 cr.stroke ();
             }
         } else {
-            cr.arc (center_x, center_y, radius + _gap + _border_width / 2, 0, 2 * Math.PI);
+            double border_radius = radius + _gap + _border_width / 2;
+            if (_animated_percentage >= 1.0 && success_squeeze > 0) {
+                border_radius = border_radius * (1.0 - success_squeeze * 0.25);
+            }
+            
+            cr.arc (center_x, center_y, border_radius, 0, 2 * Math.PI);
             color.parse (_border_color);
             Gdk.cairo_set_source_rgba (cr, color);
             cr.set_line_width (_border_width);

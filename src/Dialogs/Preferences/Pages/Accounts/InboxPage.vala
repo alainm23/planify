@@ -19,26 +19,31 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.BasePage {
-    public HomeView (Adw.PreferencesDialog preferences_dialog) {
+public class Dialogs.Preferences.Pages.InboxPage : Dialogs.Preferences.Pages.BasePage {
+    private Gtk.Box group_box;
+
+    public InboxPage (Adw.PreferencesDialog preferences_dialog) {
         Object (
             preferences_dialog: preferences_dialog,
-            title: _("Home View")
+            title: _("Inbox Project")
         );
     }
 
-    ~HomeView () {
-        debug ("Destroying - Dialogs.Preferences.Pages.HomeView\n");
+    ~InboxPage () {
+        debug ("Destroying Dialogs.Preferences.Pages.InboxPage\n");
     }
 
     construct {
-        var filters_group = new Layouts.HeaderItem (_("Filters")) {
-            card = true,
-            reveal = true
+        var description_label = new Gtk.Label (_("Your Inbox is where new tasks land by default. Based on David Allen's Getting Things Done methodology, it's your capture point for quick ideas and tasks that you'll organize later")) {
+            wrap = true,
+            xalign = 0,
+            margin_bottom = 6,
+            margin_start = 3,
+            margin_end = 3
         };
 
-        var group_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-        group_box.append (filters_group);
+        group_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+        group_box.append (description_label);
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 400,
@@ -56,33 +61,17 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
             child = content_clamp
         };
 
-        var toolbar_view = new Adw.ToolbarView ();
+        var toolbar_view = new Adw.ToolbarView () {
+            content = scrolled_window
+        };
         toolbar_view.add_top_bar (new Adw.HeaderBar ());
-        toolbar_view.content = scrolled_window;
 
         child = toolbar_view;
+        add_projects ();
+    }
 
+    private void add_projects () {
         var fake_radio = new Gtk.CheckButton ();
-
-        Objects.BaseObject[] filters = {
-            Objects.Filters.Inbox.get_default (),
-            Objects.Filters.Today.get_default (),
-            Objects.Filters.Scheduled.get_default (),
-            Objects.Filters.Pinboard.get_default ()
-        };
-
-        foreach (Objects.BaseObject object in filters) {
-            var row = new HomeViewRow (object) {
-                active = Services.Settings.get_default ().get_string ("home-view") == object.view_id,
-                group = fake_radio
-            };
-
-            signal_map[row.toggled.connect (() => {
-                Services.Settings.get_default ().settings.set_string ("home-view", object.view_id);
-            })] = row;
-
-            filters_group.add_child (row);
-        }
 
         foreach (Objects.Source source in Services.Store.instance ().sources) {
             var source_group = new Layouts.HeaderItem (source.display_name) {
@@ -91,13 +80,15 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
             };
 
             foreach (Objects.Project project in Services.Store.instance ().get_projects_by_source (source.id)) {
-                var row = new HomeViewRow (project) {
-                    active = Services.Settings.get_default ().get_string ("home-view") == project.view_id,
+                var row = new ProjectRow (project) {
+                    active = project.is_inbox_project,
                     group = fake_radio
                 };
 
                 signal_map[row.toggled.connect (() => {
-                    Services.Settings.get_default ().settings.set_string ("home-view", project.view_id);
+                    if (row.active) {
+                        Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", project.id);
+                    }
                 })] = row;
 
                 source_group.add_child (row);
@@ -105,22 +96,28 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
 
             group_box.append (source_group);
         }
-
-        destroy.connect (() => {
-            clean_up ();
-        });
     }
 
-    public override void clean_up () {
-        foreach (var entry in signal_map.entries) {
-            entry.value.disconnect (entry.key);
-        }
+    private Gtk.Widget get_header_box (string title) {
+        var header_label = new Gtk.Label (title) {
+            css_classes = { "heading" },
+            halign = START,
+            margin_start = 3
+        };
 
-        signal_map.clear ();
+        var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            margin_top = 6,
+            margin_start = 3,
+            margin_bottom = 3
+        };
+
+        header_box.append (header_label);
+
+        return header_box;
     }
 
-    public class HomeViewRow : Gtk.ListBoxRow {
-        public Objects.BaseObject base_object { get; construct; }
+    public class ProjectRow : Gtk.ListBoxRow {
+        public Objects.Project project { get; construct; }
 
         public Gtk.CheckButton radio_button; 
 
@@ -142,14 +139,14 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
 
         public signal void toggled ();
 
-        public HomeViewRow (Objects.BaseObject base_object) {
+        public ProjectRow (Objects.Project project) {
             Object (
-                base_object: base_object
+                project: project
             );
         }
 
-        ~HomeViewRow () {
-            debug ("Destroying - HomeViewRown\n");
+        ~ProjectRow () {
+            debug ("Destroying - ProjectRow\n");
         }
 
         construct {
@@ -160,17 +157,13 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
             radio_button = new Gtk.CheckButton ();
 
             var action_row = new Adw.ActionRow () {
-                title = base_object.name,
+                title = project.name,
                 activatable = true
             };
 
-            if (base_object is Objects.Project) {
-                action_row.add_prefix (new Widgets.IconColorProject (20) {
-                    project = (Objects.Project) base_object
-                });
-            } else {
-                action_row.add_prefix (new Gtk.Image.from_icon_name (base_object.icon_name));
-            }
+            action_row.add_prefix (new Widgets.IconColorProject (20) {
+                project = project
+            });
 
             action_row.add_suffix (radio_button);
 

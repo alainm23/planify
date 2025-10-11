@@ -399,7 +399,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         var menu_handle_gesture = new Gtk.GestureClick ();
         menu_handle_gesture.set_button (3);
         card_widget.add_controller (menu_handle_gesture);
-        signals_map[menu_handle_gesture.released.connect ((n_press, x, y) => {
+        signals_map[menu_handle_gesture.pressed.connect ((n_press, x, y) => {
             if (!item.completed) {
                 build_handle_context_menu (x, y);
             }

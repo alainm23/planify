@@ -80,7 +80,6 @@ core/Widgets/PriorityButton.vala
 core/Widgets/ProjectPicker/ProjectPickerButton.vala
 core/Widgets/ProjectPicker/ProjectPickerPopover.vala
 core/Widgets/ProjectPicker/ProjectPickerRow.vala
-core/Widgets/ProjectPicker/SectionPickerRow.vala
 core/Widgets/ReminderPicker/ReminderButton.vala
 core/Widgets/ReminderPicker/ReminderPicker.vala
 core/Widgets/ReminderPicker/ReminderRow.vala
@@ -102,6 +101,7 @@ src/Dialogs/ManageProjects.vala
 src/Dialogs/ManageSectionOrder.vala
 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala
 src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala
+src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala
 src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala
 src/Dialogs/Preferences/Pages/Accounts/SourceView.vala
 src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala

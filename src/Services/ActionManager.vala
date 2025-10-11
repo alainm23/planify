@@ -178,7 +178,9 @@ public class Services.ActionManager : Object {
     }
 
     private void action_new_project () {
-        var dialog = new Dialogs.Project.new (SourceType.LOCAL.to_string (), true);
+        var default_source = Services.Store.instance ().get_default_source ();
+        var source_id = default_source != null ? default_source.id : SourceType.LOCAL.to_string ();
+        var dialog = new Dialogs.Project.new (source_id, true);
         dialog.present (Planify._instance.main_window);
     }
 

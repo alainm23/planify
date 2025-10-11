@@ -21,9 +21,11 @@
 
 public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
     public Objects.Project project { get; construct; }
+    public bool is_selected { get; set; default = false; }
 
     private Gtk.Label name_label;
     private Gtk.Revealer main_revealer;
+    private Gtk.Revealer selected_revealer;
     private Widgets.IconColorProject icon_project;
 
     public signal void selected ();
@@ -50,36 +52,37 @@ public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
 
-        var selected_icon = new Gtk.Image () {
-            gicon = new ThemedIcon ("emblem-ok-symbolic"),
+        var selected_icon = new Gtk.Image.from_icon_name ("checkmark-small-symbolic") {
             pixel_size = 16,
             hexpand = true,
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.END,
             margin_end = 3
         };
-
         selected_icon.add_css_class ("color-primary");
 
-        var selected_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.CROSSFADE
+        selected_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = selected_icon,
+            reveal_child = false
         };
 
-        selected_revealer.child = selected_icon;
-
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 3,
+            margin_end = 3,
+            margin_top = 3,
+            margin_bottom = 3
+        };
         content_box.append (icon_project);
         content_box.append (name_label);
         content_box.append (selected_revealer);
 
         main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = content_box
         };
 
-        main_revealer.child = content_box;
-
         child = main_revealer;
-
         update_request ();
 
         Timeout.add (main_revealer.transition_duration, () => {
@@ -96,6 +99,10 @@ public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         signal_map[activate.connect (() => {
             selected ();
         })] = this;
+
+        notify["is-selected"].connect (() => {
+            selected_revealer.reveal_child = is_selected;
+        });
     }
 
     public void update_request () {

@@ -67,7 +67,7 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
         add_labels ();
 
         Timeout.add (main_revealer.transition_duration, () => {
-            main_revealer.reveal_child = true;
+            main_revealer.reveal_child = source.is_visible;
             group.set_sort_func (null);
             return GLib.Source.REMOVE;
         });
@@ -95,6 +95,10 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
                 labels_hashmap.unset (label.id);
             }
         })] = Services.Store.instance ();
+
+        source.updated.connect (() => {
+            main_revealer.reveal_child = source.is_visible;
+        });
     }
 
     private void add_labels () {

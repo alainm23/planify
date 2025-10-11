@@ -137,8 +137,11 @@ public class Layouts.Sidebar : Adw.Bin {
         };
 
         add_project_item.clicked.connect (() => {
-            var dialog = new Dialogs.Project.new (SourceType.LOCAL.to_string (), true);
+            var default_source = Services.Store.instance ().get_default_source ();
+            var source_id = default_source != null ? default_source.id : SourceType.LOCAL.to_string ();
+            var dialog = new Dialogs.Project.new (source_id, true);
             dialog.present (Planify._instance.main_window);
+
             context_menu.popdown ();
         });
         
@@ -161,14 +164,6 @@ public class Layouts.Sidebar : Adw.Bin {
         context_menu.set_parent (this);
         context_menu.set_pointing_to (rect);
         context_menu.popup ();
-    }
-
-    public void update_version () {
-        Services.Settings.get_default ().settings.set_string ("version", Build.VERSION);
-    }
-
-    public bool verify_new_version () {
-        return Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION;
     }
 
     public void select_project (Objects.Project project) {
