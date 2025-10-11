@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-10 23:40+0000\n"
+"POT-Creation-Date: 2025-10-11 00:45+0000\n"
 "PO-Revision-Date: 2024-08-03 00:05+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -138,7 +138,7 @@ msgid "Due Date"
 msgstr "देय तारीख"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
-#: src/Dialogs/CompletedTasks.vala:319 src/Widgets/ItemDetailCompleted.vala:80
+#: src/Dialogs/CompletedTasks.vala:318 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
 msgstr "अनुभाग"
 
@@ -1285,11 +1285,11 @@ msgstr "खोजें"
 msgid "Search or Create"
 msgstr "खोजें या बनाएं"
 
-#: core/Widgets/MarkdownEditor.vala:1347
+#: core/Widgets/MarkdownEditor.vala:1353
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1352
+#: core/Widgets/MarkdownEditor.vala:1358
 #, fuzzy
 msgid "Remove link"
 msgstr "हटाएं"
@@ -1447,12 +1447,7 @@ msgstr "यह परियोजना %2$s से %1$d पूर्ण कि�
 msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr "यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
 
-#: src/Dialogs/CompletedTasks.vala:230
-#, fuzzy
-msgid "Task Detail"
-msgstr "विवरण बंद करें"
-
-#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:581
+#: src/Dialogs/CompletedTasks.vala:325 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
 msgid "Filter By"
 msgstr "ऐसे फिल्टर करें"
@@ -3229,6 +3224,10 @@ msgstr "लेबल खोलें"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "पिनबोर्ड खोलें"
+
+#, fuzzy
+#~ msgid "Task Detail"
+#~ msgstr "विवरण बंद करें"
 
 #~ msgid "Create a new to-do"
 #~ msgstr "नया कार्य बनाएं"

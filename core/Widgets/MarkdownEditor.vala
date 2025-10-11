@@ -1327,12 +1327,18 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     
     public void cleanup () {
         if (format_popover != null) {
-            format_popover.unparent ();
+            if (format_popover.get_parent () != null) {
+                format_popover.popdown ();
+                format_popover.unparent ();
+            }
             format_popover = null;
         }
         
         if (link_popover != null) {
-            link_popover.unparent ();
+            if (link_popover.get_parent () != null) {
+                link_popover.popdown ();
+                link_popover.unparent ();
+            }
             link_popover = null;
         }
     }

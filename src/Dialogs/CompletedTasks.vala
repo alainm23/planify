@@ -210,6 +210,9 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
             }
         })] = Services.Store.instance ();
 
+        // No necesitamos llamar clean_up manualmente aquí
+        // El signal destroy lo hará automáticamente
+
         closed.connect (() => {
             clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
@@ -217,18 +220,14 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
     }
 
     private void view_item (Objects.Item item) {
-        var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class ("flat");
-
-        Widgets.ItemDetailCompleted item_detail = new Widgets.ItemDetailCompleted (item);
-        signals_map[item_detail.view_item.connect (view_item)] = item_detail;
-
-        var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (headerbar);
-        toolbar_view.content = item_detail;
-
-        var item_page = new Adw.NavigationPage (toolbar_view, _ ("Task Detail"));
-        navigation_view.push (item_page);
+        Widgets.ItemDetailCompleted item_detail_page = new Widgets.ItemDetailCompleted (item);
+        var signal_id = item_detail_page.view_item.connect (view_item);
+        
+        item_detail_page.destroy.connect (() => {
+            item_detail_page.disconnect (signal_id);
+        });
+        
+        navigation_view.push (item_detail_page);
     }
 
     private void add_items () {
