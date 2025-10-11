@@ -147,6 +147,13 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         priority_button.changed.connect ((priority) => {
             set_priority (priority);
         });
+
+        Services.EventBus.get_default ().escape_pressed.connect (() => {
+            if (Services.EventBus.get_default ().multi_select_enabled) {
+                print ("Se Activo\n");
+                unselect_all ();
+            }
+        });
     }
 
     private void update_items (Gee.ArrayList<Objects.Item> objects) {
@@ -238,11 +245,19 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         delete_item.clicked.connect (() => {
             string title = _ ("Delete To-Do");
             string message = _ ("Are you sure you want to delete this to-do?");
-            if (items_selected.size > 1) {
-                title = _ ("Delete %d To-Dos".printf (items_selected.size));
-                message = _ ("Are you sure you want to delete these %d to-dos?".printf (items_selected.size));
-            }
+            if (items_selected.size > 0) {
+                title = GLib.ngettext (
+                    _("Delete %d To-Do"),
+                    _("Delete %d To-Dos"),
+                    items_selected.size
+                ).printf (items_selected.size);
 
+                message = GLib.ngettext (
+                    _("Are you sure you want to delete this %d to-do?"),
+                    _("Are you sure you want to delete these %d to-dos?"),
+                    items_selected.size
+                ).printf (items_selected.size);
+            }
 
             var dialog = new Adw.AlertDialog (title, message);
 
@@ -273,7 +288,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
         items_selected.clear ();
         labels.clear ();
-        size_label.label = null;
+        size_label.label = "0";
         closed ();
     }
 

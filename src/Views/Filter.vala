@@ -608,8 +608,16 @@ public class Views.Filter : Adw.Bin {
             var items = Services.Store.instance ().get_items_checked ();
 
             var dialog = new Adw.AlertDialog (
-                _("Delete All Completed Tasks"),
-                _("This will delete %d completed tasks and their subtasks".printf (items.size))
+                GLib.ngettext (
+                    _("Delete Completed Task"),
+                    _("Delete Completed Tasks"),
+                    items.size
+                ),
+                GLib.ngettext (
+                    _("This will delete %d completed task and its subtasks"),
+                    _("This will delete %d completed tasks and their subtasks"),
+                    items.size
+                ).printf (items.size)
             );
 
             dialog.body_use_markup = true;

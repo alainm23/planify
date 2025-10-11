@@ -317,16 +317,15 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
                 reorder = null;
             }
 
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+            signal_map.clear ();
+
             if (select_gesture != null && action_row != null) {
                 action_row.remove_controller (select_gesture);
                 select_gesture = null;
             }
-
-            foreach (var entry in signal_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signal_map.clear ();
             
             check_button = null;
             main_revealer = null;

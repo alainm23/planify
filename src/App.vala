@@ -124,7 +124,7 @@ public class Planify : Adw.Application {
         Util.get_default ().update_theme ();
         Util.get_default ().update_font_scale ();
 
-        if (Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION) {
+        if (Services.Settings.get_default ().settings.get_string ("dismissed-update-version") != Build.VERSION) {
             Services.Settings.get_default ().settings.set_boolean ("show-support-banner", true);
         }
 
@@ -165,6 +165,18 @@ public class Planify : Adw.Application {
         }
     }
 
+    private void snooze_item (string item_id, int minutes) {
+        var item = Services.Store.instance ().get_item (item_id);
+        if (item != null) {
+            var datetime = new GLib.DateTime.now_local ().add_minutes (minutes);
+            var reminder = new Objects.Reminder ();
+            reminder.due.date = Utils.Datetime.get_todoist_datetime_format (
+                Utils.Datetime.get_datetime_no_seconds (datetime, datetime)
+            );
+            item.add_reminder (reminder);
+        }
+    }
+
     private void build_shortcuts () {
         var show_item = new SimpleAction ("show-item", VariantType.STRING);
         show_item.activate.connect ((parameter) => {
@@ -172,7 +184,30 @@ public class Planify : Adw.Application {
             activate ();
         });
 
+        var complete = new SimpleAction ("complete", VariantType.STRING);
+        complete.activate.connect ((parameter) => {
+            var item = Services.Store.instance ().get_item (parameter.get_string ());
+            if (item != null) {
+                item.checked = true;
+                item.completed_at = new GLib.DateTime.now_local ().to_string ();
+                Services.Store.instance ().complete_item (item, false);
+            }
+        });
+
+        var snooze_10 = new SimpleAction ("snooze-10", VariantType.STRING);
+        snooze_10.activate.connect ((parameter) => snooze_item (parameter.get_string (), 10));
+
+        var snooze_30 = new SimpleAction ("snooze-30", VariantType.STRING);
+        snooze_30.activate.connect ((parameter) => snooze_item (parameter.get_string (), 30));
+
+        var snooze_60 = new SimpleAction ("snooze-60", VariantType.STRING);
+        snooze_60.activate.connect ((parameter) => snooze_item (parameter.get_string (), 60));
+
         add_action (show_item);
+        add_action (complete);
+        add_action (snooze_10);
+        add_action (snooze_30);
+        add_action (snooze_60);
     }
 
     public static int main (string[] args) {

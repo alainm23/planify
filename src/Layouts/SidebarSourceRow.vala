@@ -186,7 +186,7 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
     }
 
     private void add_row_project (Objects.Project project) {
-        if (project.source_id == source.id && !project.is_inbox_project && project.parent_id == "" && !project.is_archived) {
+        if (project.source_id == source.id && project.parent_id == "" && !project.is_archived) {
             if (!projects_hashmap.has_key (project.id)) {
                 projects_hashmap[project.id] = new Layouts.ProjectRow (project);
                 group.add_child (projects_hashmap[project.id]);

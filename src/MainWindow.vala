@@ -33,6 +33,7 @@ public class MainWindow : Adw.ApplicationWindow {
     private Adw.ToastOverlay toast_overlay;
     private Adw.ViewStack view_stack;
     private Gtk.Widget error_db_page;
+    private string previous_inbox_project_id = "";
 
     public Services.ActionManager action_manager;
 
@@ -313,6 +314,9 @@ public class MainWindow : Adw.ApplicationWindow {
             if (overlay_split_view.collapsed) {
                 overlay_split_view.show_sidebar = false;
             }
+
+            Services.EventBus.get_default ().item_edit_active = false;
+            Services.EventBus.get_default ().dim_content (false, "");
         });
 
         Services.EventBus.get_default ().send_toast.connect ((toast) => {
@@ -388,6 +392,43 @@ public class MainWindow : Adw.ApplicationWindow {
             return Source.CONTINUE;
         });
 
+        var key_controller = new Gtk.EventControllerKey ();
+        ((Gtk.Widget) this).add_controller (key_controller);
+        key_controller.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
+                Services.EventBus.get_default ().ctrl_key_pressed = true;
+            }
+            
+            if (keyval == Gdk.Key.Escape) {
+                Services.EventBus.get_default ().escape_pressed ();
+                
+                if (Services.EventBus.get_default ().item_edit_active) {
+                    Services.EventBus.get_default ().item_edit_active = false;
+                    Services.EventBus.get_default ().dim_content (false, "");
+                    return true;
+                }
+                
+                if (Services.EventBus.get_default ().multi_select_enabled) {
+                    Services.EventBus.get_default ().multi_select_enabled = false;
+                    Services.EventBus.get_default ().show_multi_select (false);
+                    return true;
+                }
+                
+                if (views_split_view.show_sidebar) {
+                    views_split_view.show_sidebar = false;
+                    return true;
+                }
+            }
+            
+            return false;
+        });
+        
+        key_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
+                Services.EventBus.get_default ().ctrl_key_pressed = false;
+            }
+        });
+
         var window_gesture = new Gtk.GestureClick ();
         toast_overlay.add_controller (window_gesture);
         window_gesture.pressed.connect ((n_press, x, y) => {
@@ -411,7 +452,9 @@ public class MainWindow : Adw.ApplicationWindow {
             }
         });
 
-
+        Services.Settings.get_default ().settings.changed["local-inbox-project-id"].connect (() => {
+            handle_inbox_project_change ();
+        });
     }
 
     public void show_hide_sidebar () {
@@ -428,11 +471,43 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     private void add_inbox_view () {
-        add_project_view (
-            Services.Store.instance ().get_project (
-                Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
-            )
-        );
+        var inbox_project = Services.Store.instance ().get_project (Services.Settings.get_default ().settings.get_string ("local-inbox-project-id"));
+        
+        if (inbox_project != null) {
+            add_project_view (inbox_project);
+            previous_inbox_project_id = inbox_project.id;
+        }
+    }
+
+    private void handle_inbox_project_change () {
+        if (previous_inbox_project_id == "") {
+            return;
+        }
+
+        var old_project = Services.Store.instance ().get_project (previous_inbox_project_id);
+        if (old_project == null) {
+            return;
+        }
+
+        string old_view_id = old_project.view_id;
+        string current_visible = views_stack.visible_child_name;
+
+        if (current_visible == old_view_id) {
+            var old_view = views_stack.get_child_by_name (old_view_id);
+            if (old_view != null) {
+                foreach (var item in view_cache) {
+                    if (item.view_id == old_view_id) {
+                        view_cache.remove (item);
+                        break;
+                    }
+                }
+
+                cleanup_view (old_view);
+                views_stack.remove (old_view);
+            }
+            
+            add_inbox_view ();
+        }
     }
 
     public Views.Project add_project_view (Objects.Project project) {

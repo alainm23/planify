@@ -64,7 +64,6 @@ core_files = files(
     'Widgets/ProjectPicker/ProjectPickerPopover.vala',
     'Widgets/ProjectPicker/ProjectPickerRow.vala',
     'Widgets/ProjectPicker/ProjectPickerButton.vala',
-    'Widgets/ProjectPicker/SectionPickerRow.vala',
 
     'Widgets/SectionPicker/SectionButton.vala',
     'Widgets/SectionPicker/SectionPicker.vala',
@@ -117,7 +116,8 @@ core_deps = [
   libical_dep,
   libgxml_dep,
   libsecret_dep,
-  libspelling
+  libspelling,
+  gtksourceview_dep
 ]
 
 if get_option('evolution')

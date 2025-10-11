@@ -21,7 +21,7 @@
 
 public class Widgets.MarkdownEditor : Adw.Bin {
     public Gtk.TextView text_view;
-    public Gtk.TextBuffer buffer;
+    public GtkSource.Buffer buffer;
 
     private Gtk.Popover format_popover;
     private Gtk.Button bold_button;
@@ -84,12 +84,12 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     }
     
     construct {
-        text_view = new Gtk.TextView () {
+        buffer = new GtkSource.Buffer (null);
+        
+        text_view = new Gtk.TextView.with_buffer (buffer) {
             wrap_mode = Gtk.WrapMode.WORD
         };
         text_view.remove_css_class ("view");
-        
-        buffer = text_view.get_buffer ();
         
         create_text_tags ();
         
@@ -98,6 +98,13 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         
         create_format_popover ();
         update_mode ();
+
+#if LIBSPELLING
+        var adapter = new Spelling.TextBufferAdapter (buffer, Spelling.Checker.get_default ());
+        text_view.extra_menu = adapter.get_menu_model ();
+        text_view.insert_action_group ("spelling", adapter);
+        adapter.enabled = true;
+#endif
         
         Services.Settings.get_default ().settings.changed["enable-markdown-formatting"].connect (() => {
             update_mode ();
@@ -1320,12 +1327,18 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     
     public void cleanup () {
         if (format_popover != null) {
-            format_popover.unparent ();
+            if (format_popover.get_parent () != null) {
+                format_popover.popdown ();
+                format_popover.unparent ();
+            }
             format_popover = null;
         }
         
         if (link_popover != null) {
-            link_popover.unparent ();
+            if (link_popover.get_parent () != null) {
+                link_popover.popdown ();
+                link_popover.unparent ();
+            }
             link_popover = null;
         }
     }

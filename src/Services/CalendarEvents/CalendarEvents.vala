@@ -272,15 +272,19 @@ public class Services.CalendarEvents : Object {
 
     private void on_objects_modified (E.Source source, ECal.Client client, SList<ICal.Component> objects) {
         debug (@"Received $(objects.length()) modified component(s) for source '%s'", source.dup_display_name ());
+        var components = source_components.get (source);
         var updated_components = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component> ?) CalendarEventsUtil.calcomponent_equal_func);
 
         objects.foreach ((comp) => {
             unowned string uid = comp.get_uid ();
-            var components = source_components.get (source).get (uid);
-            updated_components.add_all (components);
-            foreach (var component in components) {
+            components.remove_all (uid);
+            client.generate_instances_for_object_sync (comp, (time_t) data_range.first_dt.to_unix (), (time_t) data_range.last_dt.to_unix (), null, (comp, start, end) => {
+                var component = new ECal.Component.from_icalcomponent (comp);
                 debug_component (source, component);
-            }
+                components.set (uid, component);
+                updated_components.add (component);
+                return true;
+            });
         });
 
         components_updated (source, updated_components.read_only_view);

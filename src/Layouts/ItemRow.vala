@@ -296,6 +296,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             ellipsize = END,
             use_markup = true
         };
+        content_label.update_property (Gtk.AccessibleProperty.LABEL, "", -1);
 
         // Description Icon
         description_image_revealer = new Gtk.Revealer () {
@@ -369,7 +370,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         hide_loading_button = new Widgets.LoadingButton.with_icon ("go-up-symbolic", 16) {
-            css_classes = { "flat", "dimmed", "no-padding" }
+            css_classes = { "flat", "no-padding" }
         };
 
         hide_loading_revealer = new Gtk.Revealer () {
@@ -637,6 +638,25 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = handle_gesture_click;
         
         signals_map[handle_gesture_click.released.connect ((n_press, x, y) => {
+            if (Services.EventBus.get_default ().ctrl_key_pressed) {
+                Idle.add (() => {
+                    if (item.project == null) {
+                        return GLib.Source.REMOVE;
+                    }
+                    
+                    if (!Services.EventBus.get_default ().multi_select_enabled) {
+                        item.project.show_multi_select = true;
+                    }
+                    
+                    select_checkbutton.active = !select_checkbutton.active;
+                    selected_toggled (select_checkbutton.active);
+                    
+                    return GLib.Source.REMOVE;
+                });
+                
+                return;
+            }
+            
             if (Services.EventBus.get_default ().multi_select_enabled) {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);
@@ -757,8 +777,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var menu_handle_gesture = new Gtk.GestureClick ();
         menu_handle_gesture.set_button (3);
         itemrow_box.add_controller (menu_handle_gesture);
-        signals_map[menu_handle_gesture.released.connect ((n_press, x, y) => {
+        signals_map[menu_handle_gesture.pressed.connect ((n_press, x, y) => {
             if (!item.project.is_deck) {
+                menu_handle_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
                 build_handle_context_menu (x, y);
             }
         })] = menu_handle_gesture;
@@ -873,12 +894,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         signals_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
             if (!edit) {
                 if (active) {
-                    bool is_ancestor_of_focused = is_ancestor_of (focused_item_id);
-                    if (!is_ancestor_of_focused) {
-                        add_css_class ("dimmed");
+                    if (item.id != focused_item_id) {
+                        itemrow_box.add_css_class ("dimmed");
                     }
                 } else {
-                    remove_css_class ("dimmed");
+                    itemrow_box.remove_css_class ("dimmed");
                 }
             } else if (!active && edit) {
                 edit = false;
@@ -894,27 +914,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
         })] = this;
     }
-
-    private bool is_ancestor_of (string focused_item_id) {
-        if (subitems.items_map.has_key (focused_item_id) || subitems.items_checked.has_key (focused_item_id)) {
-            return true;
-        }
-        
-        foreach (var row in subitems.items_map.values) {
-            if (((Layouts.ItemRow) row).is_ancestor_of (focused_item_id)) {
-                return true;
-            }
-        }
-        
-        foreach (var row in subitems.items_checked.values) {
-            if (((Layouts.ItemRow) row).is_ancestor_of (focused_item_id)) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
-
+    
     private void show_details () {
         if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
             Services.EventBus.get_default ().open_item (item);
@@ -924,7 +924,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 Services.EventBus.get_default ().item_edit_active = true;
                 Services.EventBus.get_default ().dim_content (true, item.id);
             } else {
-                Services.EventBus.get_default ().item_selected (item.id);
+                edit = true;
             }
         }
     }
@@ -956,6 +956,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             item.content = content_textview.buffer.text;
             content_label.label = MarkdownProcessor.get_default ().markup_string (item.content);
             content_label.tooltip_text = item.content.strip ();
+            content_label.update_property (Gtk.AccessibleProperty.LABEL, item.content, -1);
             item.update_async_timeout (update_id);
             return;
         }
@@ -981,6 +982,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         content_label.label = MarkdownProcessor.get_default ().markup_string (item.content);
         content_label.tooltip_text = item.content;
+        content_label.update_property (Gtk.AccessibleProperty.LABEL, item.content, -1);
         content_textview.set_text (item.content);
 
         // ItemType
@@ -1864,6 +1866,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         markdown_editor.is_editable = !item.completed && !item.project.is_deck;
 
         markdown_editor.set_text (item.description);
+        markdown_editor.text_view.update_property (Gtk.AccessibleProperty.LABEL, item.description, -1);
         markdown_revealer.child = markdown_editor;
         markdown_revealer.reveal_child = true;
 
