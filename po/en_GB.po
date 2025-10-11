@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-10 23:40+0000\n"
+"POT-Creation-Date: 2025-10-11 00:45+0000\n"
 "PO-Revision-Date: 2025-10-06 04:59-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -131,7 +131,7 @@ msgid "Due Date"
 msgstr "Due Date"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
-#: src/Dialogs/CompletedTasks.vala:319 src/Widgets/ItemDetailCompleted.vala:80
+#: src/Dialogs/CompletedTasks.vala:318 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
 msgstr "Section"
 
@@ -1265,11 +1265,11 @@ msgstr "Search"
 msgid "Search or Create"
 msgstr "Search or Create"
 
-#: core/Widgets/MarkdownEditor.vala:1347
+#: core/Widgets/MarkdownEditor.vala:1353
 msgid "Apply"
 msgstr "Apply"
 
-#: core/Widgets/MarkdownEditor.vala:1352
+#: core/Widgets/MarkdownEditor.vala:1358
 msgid "Remove link"
 msgstr "Remove link"
 
@@ -1415,11 +1415,7 @@ msgstr "This will delete %d completed tasks and their subtasks from project %s"
 msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr "This will delete %d completed tasks and their subtasks from project %s"
 
-#: src/Dialogs/CompletedTasks.vala:230
-msgid "Task Detail"
-msgstr "Task Detail"
-
-#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:581
+#: src/Dialogs/CompletedTasks.vala:325 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
 msgid "Filter By"
 msgstr "Filter By"
@@ -3175,6 +3171,9 @@ msgstr "Open Labels"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Open Pinboard"
+
+#~ msgid "Task Detail"
+#~ msgstr "Task Detail"
 
 #~ msgid "Create a new to-do"
 #~ msgstr "Create a new to-do"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-10 23:40+0000\n"
+"POT-Creation-Date: 2025-10-11 00:45+0000\n"
 "PO-Revision-Date: 2024-06-24 02:42+0900\n"
 "Last-Translator: Wonje Jung <myunsyeya@ajou.ac.kr>\n"
 "Language-Team: \n"
@@ -138,7 +138,7 @@ msgid "Due Date"
 msgstr "기한"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
-#: src/Dialogs/CompletedTasks.vala:319 src/Widgets/ItemDetailCompleted.vala:80
+#: src/Dialogs/CompletedTasks.vala:318 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
 msgstr "섹션"
 
@@ -1287,11 +1287,11 @@ msgstr "검색"
 msgid "Search or Create"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1347
+#: core/Widgets/MarkdownEditor.vala:1353
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1352
+#: core/Widgets/MarkdownEditor.vala:1358
 msgid "Remove link"
 msgstr ""
 
@@ -1449,12 +1449,7 @@ msgstr "%d개의 완료된 작업 및 하위 작업을 프로젝트 %s에서 삭
 msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr "%d개의 완료된 작업 및 하위 작업을 프로젝트 %s에서 삭제합니다"
 
-#: src/Dialogs/CompletedTasks.vala:230
-#, fuzzy
-msgid "Task Detail"
-msgstr "세부 사항 닫기"
-
-#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:581
+#: src/Dialogs/CompletedTasks.vala:325 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
 msgid "Filter By"
 msgstr "필터 기준"
@@ -3231,6 +3226,10 @@ msgstr "라벨 열기"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "게시판 열기"
+
+#, fuzzy
+#~ msgid "Task Detail"
+#~ msgstr "세부 사항 닫기"
 
 #~ msgid "Create a new to-do"
 #~ msgstr "새로운 할 일을 생성하세요"

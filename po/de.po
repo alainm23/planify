@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-10 23:40+0000\n"
+"POT-Creation-Date: 2025-10-11 00:45+0000\n"
 "PO-Revision-Date: 2025-10-06 17:15+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
@@ -142,7 +142,7 @@ msgid "Due Date"
 msgstr "Fälligkeitsdatum"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
-#: src/Dialogs/CompletedTasks.vala:319 src/Widgets/ItemDetailCompleted.vala:80
+#: src/Dialogs/CompletedTasks.vala:318 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
 msgstr "Abschnitte"
 
@@ -1300,11 +1300,11 @@ msgstr "Suchen"
 msgid "Search or Create"
 msgstr "Suchen oder Erstellen"
 
-#: core/Widgets/MarkdownEditor.vala:1347
+#: core/Widgets/MarkdownEditor.vala:1353
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1352
+#: core/Widgets/MarkdownEditor.vala:1358
 #, fuzzy
 msgid "Remove link"
 msgstr "Entfernen"
@@ -1460,11 +1460,7 @@ msgstr ""
 "Dies wird %d vollendete Aufgaben und deren Unteraufgaben aus dem Projekt %s "
 "löschen"
 
-#: src/Dialogs/CompletedTasks.vala:230
-msgid "Task Detail"
-msgstr "Aufgaben Detail"
-
-#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:581
+#: src/Dialogs/CompletedTasks.vala:325 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
 msgid "Filter By"
 msgstr "Filtern nach"
@@ -3269,6 +3265,9 @@ msgstr "'Labels' öffnen"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "'Pinnwand' öffnen"
+
+#~ msgid "Task Detail"
+#~ msgstr "Aufgaben Detail"
 
 #~ msgid ""
 #~ "This project shows you everything you need to know to hit the ground "

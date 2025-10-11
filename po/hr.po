@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-10 23:40+0000\n"
+"POT-Creation-Date: 2025-10-11 00:45+0000\n"
 "PO-Revision-Date: 2025-10-06 17:21+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
@@ -134,7 +134,7 @@ msgid "Due Date"
 msgstr "Datum roka"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
-#: src/Dialogs/CompletedTasks.vala:319 src/Widgets/ItemDetailCompleted.vala:80
+#: src/Dialogs/CompletedTasks.vala:318 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
 msgstr "Odjeljak"
 
@@ -1236,11 +1236,11 @@ msgstr "Traži"
 msgid "Search or Create"
 msgstr "Traži ili stvori"
 
-#: core/Widgets/MarkdownEditor.vala:1347
+#: core/Widgets/MarkdownEditor.vala:1353
 msgid "Apply"
 msgstr "Primijeni"
 
-#: core/Widgets/MarkdownEditor.vala:1352
+#: core/Widgets/MarkdownEditor.vala:1358
 msgid "Remove link"
 msgstr "Ukloni poveznicu"
 
@@ -1390,11 +1390,7 @@ msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr ""
 "Ovo će izbrisati %d završena zadatka i njihove podzadatke iz projekta %s"
 
-#: src/Dialogs/CompletedTasks.vala:230
-msgid "Task Detail"
-msgstr "Detalji zadatka"
-
-#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:581
+#: src/Dialogs/CompletedTasks.vala:325 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
 msgid "Filter By"
 msgstr "Filtriraj po"
@@ -3155,6 +3151,9 @@ msgstr "Otvori etikete"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Otvori oglasnu ploču"
+
+#~ msgid "Task Detail"
+#~ msgstr "Detalji zadatka"
 
 #~ msgid ""
 #~ "This project shows you everything you need to know to hit the ground "

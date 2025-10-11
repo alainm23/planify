@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-10 23:40+0000\n"
+"POT-Creation-Date: 2025-10-11 00:45+0000\n"
 "PO-Revision-Date: 2025-02-26 17:29+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: \n"
@@ -131,7 +131,7 @@ msgid "Due Date"
 msgstr "თარიღამდე"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
-#: src/Dialogs/CompletedTasks.vala:319 src/Widgets/ItemDetailCompleted.vala:80
+#: src/Dialogs/CompletedTasks.vala:318 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
 msgstr "განყოფილება"
 
@@ -1245,11 +1245,11 @@ msgstr "ძებნა"
 msgid "Search or Create"
 msgstr "ძებნა ან შექმნა"
 
-#: core/Widgets/MarkdownEditor.vala:1347
+#: core/Widgets/MarkdownEditor.vala:1353
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1352
+#: core/Widgets/MarkdownEditor.vala:1358
 #, fuzzy
 msgid "Remove link"
 msgstr "წაშლა"
@@ -1395,11 +1395,7 @@ msgstr "ეს წაშლის %d დასრულებულ ამოც
 msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr "ეს წაშლის %d დასრულებულ ამოცანას და მათ ქვეამოცანებს პროექტიდან %s"
 
-#: src/Dialogs/CompletedTasks.vala:230
-msgid "Task Detail"
-msgstr "ამოცანის დეტალები"
-
-#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:581
+#: src/Dialogs/CompletedTasks.vala:325 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
 msgid "Filter By"
 msgstr "ფილტრი"
@@ -3141,6 +3137,9 @@ msgstr "ჭდეების გახან"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "დაფის გახსნა"
+
+#~ msgid "Task Detail"
+#~ msgstr "ამოცანის დეტალები"
 
 #~ msgid "Create a new to-do"
 #~ msgstr "განრიგის შექმნა"
