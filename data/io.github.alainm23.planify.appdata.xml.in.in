@@ -60,6 +60,33 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.15.1" date="2025-10-11">
+      <description translate="no">
+        <p>✨ Planify 4.15.1 is here! Enjoy a new Markdown editor, smoother animations, Focus Mode, and smarter ways to organize your tasks.</p>
+        <ul>
+          <li>Added a new lightweight Markdown editor, optimized for Planify. It features a cleaner design and a contextual popover for formatting when selecting text.</li>
+          <li>Added animations to circular progress bars for tasks and projects. Project completion now includes a smooth, satisfying animation.</li>
+          <li>Planify now uses Weblate to manage translations. You can help make Planify available in more languages by contributing directly through Weblate. A new translation progress bar and link were added in Preferences.</li>
+          <li>Introduced Focus Mode — simply click anywhere outside the focused task to close it. This long-requested feature improves the UX when working with focused tasks and is enabled by default for new installations.</li>
+          <li>Improved ESC key behavior. It now closes a focused task or exits multi-selection mode, making it more intuitive to navigate with the keyboard.</li>
+          <li>Improved keyboard navigation when selecting projects or labels in Quick Add, making the flow more intuitive and seamless.</li>
+          <li>Added multi-selection shortcut: hold Ctrl and click on tasks to perform batch operations such as completing, setting due dates, or priorities more easily.</li>
+          <li>Added new context menus in the sidebar and project views. You can now quickly create tasks, projects, or sections with a right-click.</li>
+          <li>Added the ability to select your default Inbox project — one of the most requested features. Planify now ensures that at least one source remains visible and prevents hiding the source linked to the default Inbox project.</li>
+          <li>Improved the behavior and validation of hidden sources across the app, ensuring consistency in Quick Add, Labels, and Project Picker views.</li>
+          <li>Enhanced smoothness and responsiveness when dragging tasks to the end of long project lists. The scroll speed now dynamically adjusts based on cursor position.</li>
+        </ul>
+        <p>🐞 Fixes:</p>
+        <ul>
+          <li>Fixed a crash that occurred when reordering views in the sidebar.</li>
+          <li>Fixed an issue where Planify didn’t correctly read multiple CalDAV tasks.</li>
+          <li>Fixed a bug where labels from a source were not removed after deleting that source.</li>
+          <li>Fixed an issue with sidebar filters when using spaces in their names.</li>
+          <li>Fixed an issue where Planify didn’t update event data correctly when changes occurred.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.14.1" date="2025-09-28">
       <description translate="no">
         <ul>

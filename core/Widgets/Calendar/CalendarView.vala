@@ -118,6 +118,7 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
                 }
 
                 item.day = day_number;
+                item.date = day_datetime;
                 item.tooltip_text = Utils.Datetime.get_relative_date_from_date (day_datetime);
                 day_number = day_number + 1;
             }
