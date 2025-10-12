@@ -9,12 +9,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-11 20:05+0000\n"
-"PO-Revision-Date: 2025-10-06 17:15+0000\n"
-"Last-Translator: Milo Ivir <mail@milotype.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
-"alainm23-planify/de/>\n"
+"PO-Revision-Date: 2025-10-12 15:11+0000\n"
+"Last-Translator: Sebastian Hagn <sebastian@hagn.me>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -230,9 +230,8 @@ msgid "Inbox"
 msgstr "Posteingang"
 
 #: core/Objects/Filters/Inbox.vala:36
-#, fuzzy
 msgid "inbox"
-msgstr "Posteingang"
+msgstr "Inbox"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
@@ -423,9 +422,8 @@ msgid "Todoist"
 msgstr "Todoist"
 
 #: core/QuickAdd.vala:112
-#, fuzzy
 msgid "Task added successfully!"
-msgstr "Projekt erfolgreich hinzugefügt!"
+msgstr "Aufgabe erfolgreich hinzugefügt!"
 
 #: core/QuickAdd.vala:128 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
@@ -465,7 +463,7 @@ msgstr "Aufgabe hinzufügen"
 
 #: core/QuickAdd.vala:234 core/QuickAdd.vala:960
 msgid "Keep adding"
-msgstr ""
+msgstr "Weitere hinzufügen"
 
 #: core/QuickAdd.vala:251
 msgid "Select a Project"
@@ -488,41 +486,36 @@ msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
 #: core/QuickAdd.vala:942
-#, fuzzy
 msgid "Set priority"
 msgstr "Priorität setzen"
 
 #: core/QuickAdd.vala:942
 msgid "p1 = highest, p4 = lowest"
-msgstr ""
+msgstr "p1 = höchste, p4 = niedrigste"
 
 #: core/QuickAdd.vala:943
-#, fuzzy
 msgid "Add labels"
 msgstr "Label(s) hinzufügen"
 
 #: core/QuickAdd.vala:943
-#, fuzzy
 msgid "Opens label selector"
-msgstr "'Labels' öffnen"
+msgstr "Labels öffnen"
 
 #: core/QuickAdd.vala:944
-#, fuzzy
 msgid "Assign project"
-msgstr "Projekt hinzufügen"
+msgstr "Projekt zuweisen"
 
 #: core/QuickAdd.vala:944
 msgid "Opens project selector"
 msgstr ""
 
 #: core/QuickAdd.vala:945
-#, fuzzy
 msgid "Set reminder"
-msgstr "Lege zeitliche Erinnerungen fest!"
+msgstr "Erinnerungen einstellen"
 
 #: core/QuickAdd.vala:945
 msgid "Opens reminder options"
-msgstr ""
+msgstr "Erinnerungseinstellungen öffnen"
 
 #: core/QuickAdd.vala:960
 msgid "Stay open after creating task"
@@ -538,14 +531,14 @@ msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
-#, fuzzy, c-format
+#, c-format
 msgid "Loading tasks for %s…"
-msgstr "Laden…"
+msgstr "Lade Aufgabe für %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Processing task %d of %d"
-msgstr ""
+msgstr "Verarbeite Aufgabe %d von %d"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
@@ -557,7 +550,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "Starte Synchronisation…"
 
 #: core/Services/CalDAV/Core.vala:245
 #, c-format
@@ -2091,9 +2084,8 @@ msgid "Sidebar Width"
 msgstr "Breite der Seitenleiste"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:66
-#, fuzzy
 msgid "List View for Filters"
-msgstr "Filter"
+msgstr "Listenansicht für Filter"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:67
 msgid "Show filters in a simple list instead of a grid"
@@ -2325,7 +2317,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:229
 msgid "Share bugs or ideas on GitHub"
-msgstr ""
+msgstr "Teile Bugs oder Ideen auf GitHub"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:255
 msgid "Get Involved"
@@ -2644,9 +2636,8 @@ msgid "Send by E-Mail"
 msgstr "Per E-Mail senden"
 
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:225
-#, fuzzy
 msgid "Add tasks"
-msgstr "Aufgabe hinzufügen"
+msgstr "Füge Aufgaben hinzu"
 
 #: src/Layouts/SectionBoard.vala:175
 msgid "Load more"
@@ -3187,7 +3178,7 @@ msgstr ""
 
 #: src/Widgets/TranslationRow.vala:138
 msgid "Help improve translations"
-msgstr ""
+msgstr "Hilf die Übersetzung zu verbessern"
 
 #: src/Widgets/TranslationRow.vala:145
 msgid "Start a new translation"
