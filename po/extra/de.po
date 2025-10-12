@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
 "PO-Revision-Date: 2025-10-12 15:11+0000\n"
-"Last-Translator: No Realname <matthiasbonline+ub@posteo.de>\n"
+"Last-Translator: Radek <Radekstein@proton.me>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/"
 "planify-extra/de/>\n"
 "Language: de\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: data/io.github.alainm23.planify.appdata.xml.in.in:7
 #: data/io.github.alainm23.planify.desktop.in.in:4
 msgid "Forget about forgetting things"
-msgstr ""
+msgstr "Vergiss es, Dinge zu vergessen"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:13
 msgid ""
@@ -30,10 +30,14 @@ msgid ""
 "life organized. With a clean and intuitive interface, cloud synchronization, "
 "and advanced features, you'll never forget what matters again."
 msgstr ""
+"Planify ist Ihr moderner und leistungsstarker Aufgabenmanager, der Ihnen "
+"hilft, Ihr Leben zu organisieren. Mit einer übersichtlichen und intuitiven "
+"Benutzeroberfläche, Cloud-Synchronisierung und erweiterten Funktionen "
+"vergessen Sie nie wieder, was wichtig ist."
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:14
 msgid "✨ Core Features:"
-msgstr "✨ Hauptfunktionen:"
+msgstr "✨ Kernfunktionen:"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:16
 msgid "Modern and clean interface designed with GTK4 and libadwaita"
