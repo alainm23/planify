@@ -904,8 +904,9 @@ msgstr "顯示您的行事曆事件"
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
-msgstr "您可以在 Planify 中顯示系統的行事曆事件。前往 〔偏好選項 🡒 通則 🡒 行事曆事件"
-"〕 將其開用。"
+msgstr ""
+"您可以在 Planify 中顯示系統的行事曆事件。前往 〔偏好選項 🡒 通則 🡒 行事曆事"
+"件〕 將其開用。"
 
 #: core/Utils/Util.vala:643
 msgid "Enable synchronization with third-party services"
