@@ -1,7 +1,7 @@
 {
     "app-id" : "io.github.alainm23.planify.Devel",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "48",
+    "runtime-version" : "49",
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.alainm23.planify.Devel",
     "tags" : [
