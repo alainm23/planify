@@ -135,7 +135,12 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
 
         if (!ok) {
             var response_text = (string) response.get_data ();
-            warning ("[CalDAV] Unexpected status %u, expected one of: %s", msg.status_code, string.joinv(", ", expected_statuses));
+            var expected_codes = new StringBuilder ();
+            foreach (var code in expected_statuses) {
+                if (expected_codes.len > 0) expected_codes.append (", ");
+                expected_codes.append_printf ("%u", code);
+            }
+            warning ("[CalDAV] Unexpected status %u, expected: %s", msg.status_code, expected_codes.str);
             warning ("[CalDAV] Response (first 500 chars): %s", response_text != null ? response_text.substring(0, int.min(500, response_text.length)) : "(null)");
             
             if (msg.status_code == Soup.Status.UNAUTHORIZED) {
