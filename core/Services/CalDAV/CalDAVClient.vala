@@ -344,7 +344,10 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async void sync_tasklist (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
+        debug ("[CalDAV] sync_tasklist called for: %s", project.name);
+        
         if (project.is_deck || project.is_archived) {
+            debug ("[CalDAV] Skipping project (is_deck: %s, is_archived: %s)", project.is_deck.to_string(), project.is_archived.to_string());
             return;
         }
 
@@ -362,14 +365,18 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         project.loading = true;
         project.sync_started ();
 
+        debug ("[CalDAV] Fetching project details");
         yield fetch_project_details (project, cancellable);
 
         if (project.sync_id == "") {
+            debug ("[CalDAV] Project has no sync_id, skipping sync");
             project.loading = false;
             return;
         }
 
+        debug ("[CalDAV] Sending sync-collection report");
         var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
+        debug ("[CalDAV] Received %d responses", multi_status.responses().size);
 
         foreach (WebDAVResponse response in multi_status.responses ()) {
             string? href = response.href;

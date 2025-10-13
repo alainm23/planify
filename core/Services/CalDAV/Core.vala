@@ -263,22 +263,33 @@ public class Services.CalDAV.Core : GLib.Object {
 
 
     public async void sync (Objects.Source source) {
+        debug ("[CalDAV] Starting sync for source: %s (type: %s)", source.display_name, source.source_type.to_string());
+        debug ("[CalDAV] Server URL: %s", source.caldav_data.server_url);
+        debug ("[CalDAV] Username: %s", source.caldav_data.username);
+        debug ("[CalDAV] Password length: %d", source.caldav_data.password != null ? source.caldav_data.password.length : 0);
+        
         var caldav_client = get_client (source);
 
         source.sync_started ();
 
         try {
             var cancellable = new GLib.Cancellable ();
+            debug ("[CalDAV] Syncing source metadata");
             yield caldav_client.sync (source, cancellable);
 
-            foreach (Objects.Project project in Services.Store.instance ().get_projects_by_source (source.id)) {
+            var projects = Services.Store.instance ().get_projects_by_source (source.id);
+            debug ("[CalDAV] Found %d projects to sync", projects.size);
+            
+            foreach (Objects.Project project in projects) {
+                debug ("[CalDAV] Syncing project: %s (url: %s, sync_id: %s)", project.name, project.calendar_url, project.sync_id);
                 yield caldav_client.sync_tasklist (project, cancellable);
             }
 
             source.sync_finished ();
             source.last_sync = new GLib.DateTime.now_local ().to_string ();
+            debug ("[CalDAV] Sync completed successfully");
         } catch (Error e) {
-            warning ("Failed to sync: %s", e.message);
+            warning ("[CalDAV] Sync failed: %s (code: %d)", e.message, e.code);
             source.sync_failed ();
         }
     }

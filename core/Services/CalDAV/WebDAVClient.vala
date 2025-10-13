@@ -66,20 +66,22 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         if (abs_url == null)
             throw new GLib.IOError.FAILED ("Invalid URL: %s".printf (url));
 
+        debug ("[CalDAV] %s request to: %s", method, abs_url);
         var msg = new Soup.Message (method, abs_url);
         msg.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);
 
         msg.authenticate.connect ((auth, retrying) => {
             if (retrying) {
-                warning ("Authentication failed\n");
+                warning ("[CalDAV] Authentication retry failed for user: %s", this.username);
                 return false;
             }
 
             if (auth.scheme_name == "Digest" || auth.scheme_name == "Basic") {
+                debug ("[CalDAV] Authenticating with scheme: %s, username: %s, password length: %d", auth.scheme_name, this.username, this.password.length);
                 auth.authenticate (this.username, this.password);
                 return true;
             }
-            warning ("Unsupported auth schema: %s", auth.scheme_name);
+            warning ("[CalDAV] Unsupported auth schema: %s", auth.scheme_name);
             return false;
         });
 
@@ -113,10 +115,13 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         GLib.Bytes response;
         try {
             response = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
+            debug ("[CalDAV] Response status: %u %s", msg.status_code, msg.reason_phrase ?? "");
         } catch (Error e) {
             if (e is GLib.IOError.CANCELLED) {
+                debug ("[CalDAV] Request cancelled");
                 throw e;
             }
+            warning ("[CalDAV] Request failed: %s", e.message);
             throw new GLib.IOError.FAILED ("Request failed: %s".printf (e.message));
         }
 
@@ -130,13 +135,23 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
 
         if (!ok) {
             var response_text = (string) response.get_data ();
+            warning ("[CalDAV] Unexpected status %u, expected one of: %s", msg.status_code, string.joinv(", ", expected_statuses));
+            warning ("[CalDAV] Response (first 500 chars): %s", response_text != null ? response_text.substring(0, int.min(500, response_text.length)) : "(null)");
+            
+            if (msg.status_code == Soup.Status.UNAUTHORIZED) {
+                warning ("[CalDAV] Auth failed for user: %s", this.username);
+                throw new GLib.IOError.PERMISSION_DENIED ("Authentication failed. Token may be expired or revoked.");
+            }
+            
             throw new GLib.IOError.FAILED (
                 "%s %s failed: HTTP %u %s\n%s".printf (
                     method, abs_url, msg.status_code, msg.reason_phrase ?? "", response_text ?? "")
             );
         }
 
-        return (string) response.get_data ();
+        var response_data = (string) response.get_data ();
+        debug ("[CalDAV] Response length: %d bytes", response_data != null ? response_data.length : 0);
+        return response_data;
     }
 
 }
@@ -148,7 +163,20 @@ public class Services.CalDAV.WebDAVMultiStatus : Object {
 
     public WebDAVMultiStatus.from_string (string xml) throws GLib.Error {
         this.xml_content = xml;
-        this.root = new GXml.XDocument.from_string (xml).document_element;
+        debug ("[CalDAV] Parsing XML response, length: %d", xml != null ? xml.length : 0);
+        
+        if (xml == null || xml.strip () == "") {
+            warning ("[CalDAV] Empty XML response");
+            xml = "<?xml version=\"1.0\"?><multistatus xmlns=\"DAV:\"/>";
+        }
+        
+        try {
+            this.root = new GXml.XDocument.from_string (xml).document_element;
+        } catch (Error e) {
+            warning ("[CalDAV] XML parse error: %s", e.message);
+            warning ("[CalDAV] XML content (first 1000 chars): %s", xml.substring(0, int.min(1000, xml.length)));
+            throw e;
+        }
     }
 
     public void debug_print () {
