@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-09 20:34+0000\n"
-"PO-Revision-Date: 2025-10-12 15:11+0000\n"
+"PO-Revision-Date: 2025-10-14 16:07+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -26,7 +26,7 @@ msgstr "專案計畫"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:349
 msgid "Sections"
-msgstr "區段"
+msgstr "階層區段"
 
 #: core/Enum.vala:174 core/Enum.vala:183
 msgid "Tasks"
@@ -136,7 +136,7 @@ msgstr "到期日"
 #: src/Dialogs/CompletedTasks.vala:319 src/Widgets/ItemDetailCompleted.vala:80
 #: src/Dialogs/CompletedTasks.vala:318
 msgid "Section"
-msgstr "區段"
+msgstr "階層區段"
 
 #: core/Enum.vala:463
 msgid "Task Created"
@@ -159,7 +159,7 @@ msgstr "描述"
 
 #: core/Enum.vala:528 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr "已排行程"
+msgstr "行程"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemBoard.vala:713
@@ -281,7 +281,7 @@ msgstr "重複"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr "已排行程"
+msgstr "行程"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
@@ -410,7 +410,7 @@ msgstr "封存檔庫"
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
 msgid "Delete Section %s"
-msgstr "刪除區段 %s"
+msgstr "刪除階層區段 %s"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
@@ -872,9 +872,8 @@ msgstr "建立專案計畫"
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
-msgstr ""
-"組織您的待辦事項更加好用！前往左側面板，點按〔在此台電腦〕區段中的 '＋' 按"
-"鈕，然後添加您自己的專案計畫。"
+msgstr "組織您的待辦事項更加好用！前往左側面板，點按〔在此台電腦〕階層區段中的 '＋' "
+"按鈕，然後添加您自己的專案計畫。"
 
 #: core/Utils/Util.vala:613
 msgid "You’re done!"
@@ -982,7 +981,7 @@ msgstr "任務重複"
 
 #: core/Utils/Util.vala:981
 msgid "Section duplicated"
-msgstr "區段重複"
+msgstr "階層區段重複"
 
 #: core/Utils/Util.vala:1007 core/Utils/Util.vala:1033
 msgid "Project duplicated"
@@ -1287,7 +1286,7 @@ msgstr "優先等級 1： 低"
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:63
 msgid "Your list of section will show up here."
-msgstr "您的區段清單將會在此顯示。"
+msgstr "您的階層區段清單將會在此顯示。"
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
@@ -1298,7 +1297,7 @@ msgstr "您的區段清單將會在此顯示。"
 #: src/Widgets/CompletedTaskRow.vala:77 src/Widgets/ItemDetailCompleted.vala:80
 #: core/Widgets/SectionPicker/SectionPickerRow.vala:38
 msgid "No Section"
-msgstr "無區段"
+msgstr "無階層區段"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
@@ -1341,11 +1340,11 @@ msgstr "於 6 小時"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
-msgstr "設定區段"
+msgstr "設定階層區段"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:40
 msgid "Select Section"
-msgstr "選擇區段"
+msgstr "選擇階層區段"
 
 #: core/Widgets/StatusButton.vala:32
 msgid "Set The Status"
@@ -1510,11 +1509,11 @@ msgstr "封存的專案計畫"
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:659
 #: src/Views/Project/Project.vala:338
 msgid "Manage Sections"
-msgstr "管理區段"
+msgstr "管理階層區段"
 
 #: src/Dialogs/ManageSectionOrder.vala:54
 msgid "You can sort your sections by dragging and dropping"
-msgstr "您可以利用拖放操作來對區段進行排序"
+msgstr "您可以利用拖放操作來對階層區段進行排序"
 
 #: src/Dialogs/ManageSectionOrder.vala:76
 msgid "Archived"
@@ -1523,7 +1522,7 @@ msgstr "已經封存"
 #: src/Dialogs/ManageSectionOrder.vala:184 src/Layouts/SectionBoard.vala:77
 #: src/Layouts/SectionRow.vala:88
 msgid "(No Section)"
-msgstr "(無區段)"
+msgstr "(無階層區段)"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
@@ -2365,7 +2364,7 @@ msgstr "刪除專案計畫"
 #: src/Dialogs/ProjectPicker/SectionPickerRow.vala:207
 #: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:664
 msgid "Delete Section"
-msgstr "刪除區段"
+msgstr "刪除階層區段"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:42
 msgid "Quick Find"
@@ -2378,28 +2377,28 @@ msgstr "快速切換專案計畫及檢視、尋找任務、依照標籤搜尋"
 #: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:223
 #: src/Views/Project/Project.vala:336
 msgid "New Section"
-msgstr "新建區段"
+msgstr "新建階層區段"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:563
 #: src/Layouts/SectionRow.vala:657
 msgid "Edit Section"
-msgstr "編輯區段"
+msgstr "編輯階層區段"
 
 #: src/Dialogs/Section.vala:67
 msgid "Section Name"
-msgstr "區段名稱"
+msgstr "階層區段名稱"
 
 #: src/Dialogs/Section.vala:102 src/Widgets/SectionsOrderPopover.vala:39
 msgid "Add Section"
-msgstr "添加區段"
+msgstr "添加階層區段"
 
 #: src/Dialogs/Section.vala:102
 msgid "Update Section"
-msgstr "更新區段"
+msgstr "更新階層區段"
 
 #: src/Dialogs/Section.vala:209 src/Dialogs/Section.vala:223
 msgid "Section added"
-msgstr "區段已經添加"
+msgstr "階層區段已經添加"
 
 #: src/Layouts/HeaderBar.vala:79
 msgid "Open/Close Sidebar"
@@ -2547,11 +2546,11 @@ msgstr "已經完成任務"
 
 #: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:658
 msgid "Move Section"
-msgstr "移動區段"
+msgstr "移動階層區段"
 
 #: src/Layouts/SectionBoard.vala:565
 msgid "Manage Section Order"
-msgstr "管理區段順序"
+msgstr "管理階層區段順序"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
 msgid "Show Completed Tasks"
@@ -2581,7 +2580,7 @@ msgstr "前往今日"
 #: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 #: src/Layouts/Sidebar.vala:316 src/Layouts/Sidebar.vala:368
 msgid "Go to Scheduled"
-msgstr "前往已排行程"
+msgstr "前往行程"
 
 #: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 #: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
@@ -3086,7 +3085,7 @@ msgstr "建立新的專案計畫"
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Create a New Section in a Project"
-msgstr "建立新的區段於專案計畫中"
+msgstr "建立新的階層區段於專案計畫中"
 
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
@@ -3146,7 +3145,7 @@ msgstr "開啟今日"
 #: data/resources/ui/shortcuts.ui:115
 msgctxt "shortcut window"
 msgid "Open Scheduled"
-msgstr "開啟已排行程"
+msgstr "開啟行程"
 
 #: data/resources/ui/shortcuts.ui:122
 msgctxt "shortcut window"
