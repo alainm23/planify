@@ -872,7 +872,8 @@ msgstr "建立專案計畫"
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
-msgstr "組織您的待辦事項更加好用！前往左側面板，點按〔在此台電腦〕階層區段中的 '＋' "
+msgstr ""
+"組織您的待辦事項更加好用！前往左側面板，點按〔在此台電腦〕階層區段中的 '＋' "
 "按鈕，然後添加您自己的專案計畫。"
 
 #: core/Utils/Util.vala:613
