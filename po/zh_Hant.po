@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-11 20:32+0000\n"
-"PO-Revision-Date: 2025-10-11 15:07+0000\n"
+"POT-Creation-Date: 2025-10-12 15:18+0000\n"
+"PO-Revision-Date: 2025-10-12 15:11+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -113,7 +113,7 @@ msgstr "Nextcloud 私有雲端"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
-msgstr "CalDAV 日曆協議"
+msgstr "CalDAV 行事曆協議"
 
 #: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:488 src/Views/Project/Project.vala:533
@@ -839,7 +839,7 @@ msgstr "計畫待辦事項用於今日或稍後"
 #: core/Utils/Util.vala:596
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
-msgstr "點按底部的日曆按鈕，來決定何時要完成此待辦事項。"
+msgstr "點按底部的行事曆按鈕，來決定何時要完成此待辦事項。"
 
 #: core/Utils/Util.vala:601
 msgid "Reorder your to-dos"
@@ -885,15 +885,15 @@ msgstr "調整自己的設定"
 
 #: core/Utils/Util.vala:636
 msgid "Show your calendar events"
-msgstr "顯示您的日曆事件"
+msgstr "顯示您的行事曆事件"
 
 #: core/Utils/Util.vala:637
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
-"您可以在 Planify 中顯示系統的日曆事件。前往 〔偏好選項〕 🡒 通則 🡒 日曆事件 將"
-"其開用。"
+"您可以在 Planify 中顯示系統的行事曆事件。前往 〔偏好選項 🡒 通則 🡒 行事曆事"
+"件〕 將其開用。"
 
 #: core/Utils/Util.vala:643
 msgid "Enable synchronization with third-party services"
@@ -977,7 +977,7 @@ msgstr "專案計畫重複"
 
 #: core/Utils/Util.vala:1075 src/Dialogs/Preferences/Pages/TaskSetting.vala:145
 msgid "At due time"
-msgstr "位於到期"
+msgstr "處於到期"
 
 #: core/Utils/Util.vala:1078 src/Dialogs/Preferences/Pages/TaskSetting.vala:146
 msgid "10 minutes before"
@@ -1005,7 +1005,7 @@ msgstr "3 小時之前"
 
 #: core/Widgets/Calendar/CalendarDay.vala:73
 msgid "%A, %B %e, %Y"
-msgstr ""
+msgstr "%A, %B %e, %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:35
 #: core/Widgets/Calendar/CalendarHeader.vala:54
@@ -1018,7 +1018,7 @@ msgstr "返回"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:66
 msgid "Previous month"
-msgstr ""
+msgstr "前個月份"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
@@ -1026,22 +1026,22 @@ msgstr "前進"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
-msgstr ""
+msgstr "次個月份"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #, c-format
 msgid "Previous month, %s"
-msgstr ""
+msgstr "前個月份，%s"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 msgid "%B %Y"
-msgstr ""
+msgstr "%B %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 #, c-format
 msgid "Next month, %s"
-msgstr ""
+msgstr "次個月份， %s"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:39
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
@@ -1113,7 +1113,7 @@ msgstr "選單"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:257
 msgid "Calendar"
-msgstr "日曆"
+msgstr "行事曆"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:265
 msgid "Daily"
@@ -1881,7 +1881,7 @@ msgstr "是否 Planify 應於啟動時執行"
 
 #: src/Dialogs/Preferences/Pages/General.vala:97
 msgid "Calendar Events"
-msgstr "日曆事件"
+msgstr "行事曆事件"
 
 #: src/Dialogs/Preferences/Pages/General.vala:104
 msgid "Date and Time"
@@ -2721,7 +2721,7 @@ msgstr "何時？"
 
 #: src/Views/Project/List.vala:121
 msgid "Add Some Tasks. Press 'a' to create a new task"
-msgstr ""
+msgstr "添加一些任務。請按 'a' 來建立新的任務"
 
 #: src/Views/Project/Project.vala:64
 msgid "Project Actions"
