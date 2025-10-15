@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-12 15:18+0000\n"
-"PO-Revision-Date: 2025-10-12 15:11+0000\n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
+"POT-Creation-Date: 2025-10-09 20:34+0000\n"
+"PO-Revision-Date: 2025-10-14 16:07+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -26,7 +26,7 @@ msgstr "專案計畫"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:349
 msgid "Sections"
-msgstr "區段"
+msgstr "階層區段"
 
 #: core/Enum.vala:174 core/Enum.vala:183
 msgid "Tasks"
@@ -133,9 +133,10 @@ msgid "Due Date"
 msgstr "到期日"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
-#: src/Dialogs/CompletedTasks.vala:318 src/Widgets/ItemDetailCompleted.vala:80
+#: src/Dialogs/CompletedTasks.vala:319 src/Widgets/ItemDetailCompleted.vala:80
+#: src/Dialogs/CompletedTasks.vala:318
 msgid "Section"
-msgstr "區段"
+msgstr "階層區段"
 
 #: core/Enum.vala:463
 msgid "Task Created"
@@ -149,18 +150,21 @@ msgstr "任務已經更新"
 msgid "Content"
 msgstr "目錄"
 
-#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1858
+#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1876
 #: src/Layouts/ItemSidebarView.vala:169
-#: src/Widgets/ItemDetailCompleted.vala:113
+#: src/Widgets/ItemDetailCompleted.vala:113 src/Layouts/ItemRow.vala:1855
+#: src/Layouts/ItemRow.vala:1858
 msgid "Description"
 msgstr "描述"
 
 #: core/Enum.vala:528 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr "已排行程"
+msgstr "行程"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemBoard.vala:713
+#: src/Layouts/ItemRow.vala:1151 src/Layouts/ItemRow.vala:1164
+#: src/Layouts/ItemRow.vala:1130 src/Layouts/ItemRow.vala:1143
 #: src/Layouts/ItemRow.vala:1133 src/Layouts/ItemRow.vala:1146
 msgid "Pin"
 msgstr "釘上"
@@ -212,11 +216,14 @@ msgstr "日誌記冊"
 
 #: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:244
 #: core/Utils/Util.vala:557
+#: core/Widgets/ProjectPicker/ProjectPickerButton.vala:155
+#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:102
+#: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:140
+#: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:326
+#: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
-#: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:140
-#: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:330
-#: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
+#: src/Views/Project/List.vala:330
 msgid "Inbox"
 msgstr "索引"
 
@@ -274,7 +281,7 @@ msgstr "重複"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr "已排行程"
+msgstr "行程"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
@@ -282,11 +289,13 @@ msgstr "即將來到"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Util.vala:247
-#: core/Widgets/Calendar/CalendarHeader.vala:82
+#: core/Widgets/Calendar/CalendarHeader.vala:79
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:124
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:707
-#: src/Layouts/ItemRow.vala:1140 src/Views/Project/Project.vala:500
+#: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:500
 #: src/Views/Project/Project.vala:660 src/Views/Today.vala:202
+#: src/Layouts/ItemRow.vala:1137 core/Widgets/Calendar/CalendarHeader.vala:82
+#: src/Layouts/ItemRow.vala:1140
 msgid "Today"
 msgstr "今日"
 
@@ -297,6 +306,7 @@ msgstr "今日"
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:710
+#: src/Layouts/ItemRow.vala:1161 src/Layouts/ItemRow.vala:1140
 #: src/Layouts/ItemRow.vala:1143
 msgid "Tomorrow"
 msgstr "明日"
@@ -391,15 +401,16 @@ msgid "This will archive %s and all its tasks."
 msgstr "此將封存 %s 及其全部任務。"
 
 #: core/Objects/Project.vala:879 core/Objects/Section.vala:407
-#: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
+#: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
+#: src/Layouts/ProjectRow.vala:708
 msgid "Archive"
 msgstr "封存檔庫"
 
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
 msgid "Delete Section %s"
-msgstr "刪除區段 %s"
+msgstr "刪除階層區段 %s"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
@@ -412,8 +423,9 @@ msgstr "待辦事項清單"
 msgid "Task added successfully!"
 msgstr "任務已經加入成功！"
 
-#: core/QuickAdd.vala:128 src/Layouts/ItemRow.vala:357
+#: core/QuickAdd.vala:128 src/Layouts/ItemRow.vala:356
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
+#: src/Layouts/ItemRow.vala:357
 msgid "To-do name"
 msgstr "待辦事項名稱"
 
@@ -654,6 +666,7 @@ msgid "%b %-e %Y"
 msgstr "%b %-e %Y"
 
 #: core/Utils/Datetime.vala:626 core/Widgets/Calendar/CalendarHeader.vala:36
+#: core/Widgets/Calendar/CalendarHeader.vala:56
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
@@ -860,8 +873,8 @@ msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
-"組織您的待辦事項更加好用！前往左側面板，點按〔在此台電腦〕區段中的 '＋' 按"
-"鈕，然後添加您自己的專案計畫。"
+"組織您的待辦事項更加好用！前往左側面板，點按〔在此台電腦〕階層區段中的 '＋' "
+"按鈕，然後添加您自己的專案計畫。"
 
 #: core/Utils/Util.vala:613
 msgid "You’re done!"
@@ -969,7 +982,7 @@ msgstr "任務重複"
 
 #: core/Utils/Util.vala:981
 msgid "Section duplicated"
-msgstr "區段重複"
+msgstr "階層區段重複"
 
 #: core/Utils/Util.vala:1007 core/Utils/Util.vala:1033
 msgid "Project duplicated"
@@ -1003,45 +1016,21 @@ msgstr "2 小時之前"
 msgid "3 hours before"
 msgstr "3 小時之前"
 
-#: core/Widgets/Calendar/CalendarDay.vala:73
-msgid "%A, %B %e, %Y"
-msgstr "%A, %B %e, %Y"
-
 #: core/Widgets/Calendar/CalendarHeader.vala:35
+#: core/Widgets/Calendar/CalendarHeader.vala:53
 #: core/Widgets/Calendar/CalendarHeader.vala:54
 msgid "%OB"
 msgstr "%OB"
 
-#: core/Widgets/Calendar/CalendarHeader.vala:64 src/Layouts/HeaderBar.vala:93
+#: core/Widgets/Calendar/CalendarHeader.vala:63 src/Layouts/HeaderBar.vala:93
+#: core/Widgets/Calendar/CalendarHeader.vala:64
 msgid "Back"
 msgstr "返回"
 
-#: core/Widgets/Calendar/CalendarHeader.vala:66
-msgid "Previous month"
-msgstr "前個月份"
-
+#: core/Widgets/Calendar/CalendarHeader.vala:69
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
 msgstr "前進"
-
-#: core/Widgets/Calendar/CalendarHeader.vala:73
-msgid "Next month"
-msgstr "次個月份"
-
-#: core/Widgets/Calendar/CalendarHeader.vala:110
-#, c-format
-msgid "Previous month, %s"
-msgstr "前個月份，%s"
-
-#: core/Widgets/Calendar/CalendarHeader.vala:110
-#: core/Widgets/Calendar/CalendarHeader.vala:112
-msgid "%B %Y"
-msgstr "%B %Y"
-
-#: core/Widgets/Calendar/CalendarHeader.vala:112
-#, c-format
-msgid "Next month, %s"
-msgstr "次個月份， %s"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:39
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
@@ -1214,7 +1203,8 @@ msgstr "次"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:67
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:76
-#: src/Views/Project/Board.vala:279 src/Views/Project/List.vala:367
+#: src/Views/Project/Board.vala:279 src/Views/Project/List.vala:363
+#: src/Views/Project/List.vala:367
 msgid "Schedule"
 msgstr "行程"
 
@@ -1262,11 +1252,11 @@ msgstr "搜尋"
 msgid "Search or Create"
 msgstr "搜尋或建立"
 
-#: core/Widgets/MarkdownEditor.vala:1353
+#: core/Widgets/MarkdownEditor.vala:1347 core/Widgets/MarkdownEditor.vala:1353
 msgid "Apply"
 msgstr "套用"
 
-#: core/Widgets/MarkdownEditor.vala:1358
+#: core/Widgets/MarkdownEditor.vala:1352 core/Widgets/MarkdownEditor.vala:1358
 msgid "Remove link"
 msgstr "移除連結"
 
@@ -1297,17 +1287,18 @@ msgstr "優先等級 1： 低"
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:63
 msgid "Your list of section will show up here."
-msgstr "您的區段清單將會在此顯示。"
+msgstr "您的階層區段清單將會在此顯示。"
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
+#: core/Widgets/ProjectPicker/SectionPickerRow.vala:33
 #: core/Widgets/SectionPicker/SectionButton.vala:88
 #: core/Widgets/SectionPicker/SectionPicker.vala:98
-#: core/Widgets/SectionPicker/SectionPickerRow.vala:38
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:269
 #: src/Widgets/CompletedTaskRow.vala:77 src/Widgets/ItemDetailCompleted.vala:80
+#: core/Widgets/SectionPicker/SectionPickerRow.vala:38
 msgid "No Section"
-msgstr "無區段"
+msgstr "無階層區段"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
@@ -1350,11 +1341,11 @@ msgstr "於 6 小時"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
-msgstr "設定區段"
+msgstr "設定階層區段"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:40
 msgid "Select Section"
-msgstr "選擇區段"
+msgstr "選擇階層區段"
 
 #: core/Widgets/StatusButton.vala:32
 msgid "Set The Status"
@@ -1370,8 +1361,9 @@ msgid "To Do"
 msgstr "待辦事項"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1154
-#: src/Services/Notification.vala:98
+#: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1172
+#: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1151
+#: src/Layouts/ItemRow.vala:1154
 msgid "Complete"
 msgstr "完成"
 
@@ -1411,8 +1403,13 @@ msgstr "這將刪除 %d 個已經完成的任務及其子任務，從專案計�
 msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr "這將刪除 %d 個已經完成的任務及其子任務，從專案計畫 %s"
 
-#: src/Dialogs/CompletedTasks.vala:325 src/Views/Project/Project.vala:581
+#: src/Dialogs/CompletedTasks.vala:230
+msgid "Task Detail"
+msgstr "任務詳情"
+
+#: src/Dialogs/CompletedTasks.vala:326 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
+#: src/Dialogs/CompletedTasks.vala:325
 msgid "Filter By"
 msgstr "篩選依照"
 
@@ -1421,8 +1418,9 @@ msgid "Next Week"
 msgstr "下週"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:715
-#: src/Layouts/ItemRow.vala:1148 src/Views/Project/Project.vala:505
-#: src/Views/Project/Project.vala:670
+#: src/Layouts/ItemRow.vala:1166 src/Views/Project/Project.vala:505
+#: src/Views/Project/Project.vala:670 src/Layouts/ItemRow.vala:1145
+#: src/Layouts/ItemRow.vala:1148
 msgid "No Date"
 msgstr "無日期"
 
@@ -1448,8 +1446,9 @@ msgstr "請輸入您的身份驗證"
 msgid "Network Is Not Available"
 msgstr "網路無法作用"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1268
-#: src/Layouts/ItemSidebarView.vala:447
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1286
+#: src/Layouts/ItemSidebarView.vala:447 src/Layouts/ItemRow.vala:1265
+#: src/Layouts/ItemRow.vala:1268
 msgid "Change History"
 msgstr "變更歷史記錄"
 
@@ -1511,11 +1510,11 @@ msgstr "封存的專案計畫"
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:659
 #: src/Views/Project/Project.vala:338
 msgid "Manage Sections"
-msgstr "管理區段"
+msgstr "管理階層區段"
 
 #: src/Dialogs/ManageSectionOrder.vala:54
 msgid "You can sort your sections by dragging and dropping"
-msgstr "您可以利用拖放操作來對區段進行排序"
+msgstr "您可以利用拖放操作來對階層區段進行排序"
 
 #: src/Dialogs/ManageSectionOrder.vala:76
 msgid "Archived"
@@ -1524,7 +1523,7 @@ msgstr "已經封存"
 #: src/Dialogs/ManageSectionOrder.vala:184 src/Layouts/SectionBoard.vala:77
 #: src/Layouts/SectionRow.vala:88
 msgid "(No Section)"
-msgstr "(無區段)"
+msgstr "(無階層區段)"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
@@ -2313,8 +2312,8 @@ msgstr "如果您對於自己的資料有任何疑問或其他問題，請聯絡
 msgid "New Project"
 msgstr "新建專案計畫"
 
-#: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:704
-#: src/Views/Project/Project.vala:333
+#: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:700
+#: src/Views/Project/Project.vala:333 src/Layouts/ProjectRow.vala:704
 msgid "Edit Project"
 msgstr "編輯專案計畫"
 
@@ -2342,8 +2341,9 @@ msgstr "專案計畫已經添加成功！"
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:82
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:93
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:126
-#: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1151
-#: src/Layouts/ItemRow.vala:1263 src/Layouts/ItemSidebarView.vala:442
+#: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1169
+#: src/Layouts/ItemRow.vala:1281 src/Layouts/ItemSidebarView.vala:442
+#: src/Layouts/ItemRow.vala:1151 src/Layouts/ItemRow.vala:1263
 msgid "Move"
 msgstr "移動"
 
@@ -2357,14 +2357,15 @@ msgid "Unarchive"
 msgstr "尚未封存"
 
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:155
-#: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:346
+#: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:346
+#: src/Layouts/ProjectRow.vala:709
 msgid "Delete Project"
 msgstr "刪除專案計畫"
 
 #: src/Dialogs/ProjectPicker/SectionPickerRow.vala:207
 #: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:664
 msgid "Delete Section"
-msgstr "刪除區段"
+msgstr "刪除階層區段"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:42
 msgid "Quick Find"
@@ -2377,99 +2378,110 @@ msgstr "快速切換專案計畫及檢視、尋找任務、依照標籤搜尋"
 #: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:223
 #: src/Views/Project/Project.vala:336
 msgid "New Section"
-msgstr "新建區段"
+msgstr "新建階層區段"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:563
 #: src/Layouts/SectionRow.vala:657
 msgid "Edit Section"
-msgstr "編輯區段"
+msgstr "編輯階層區段"
 
 #: src/Dialogs/Section.vala:67
 msgid "Section Name"
-msgstr "區段名稱"
+msgstr "階層區段名稱"
 
 #: src/Dialogs/Section.vala:102 src/Widgets/SectionsOrderPopover.vala:39
 msgid "Add Section"
-msgstr "添加區段"
+msgstr "添加階層區段"
 
 #: src/Dialogs/Section.vala:102
 msgid "Update Section"
-msgstr "更新區段"
+msgstr "更新階層區段"
 
 #: src/Dialogs/Section.vala:209 src/Dialogs/Section.vala:223
 msgid "Section added"
-msgstr "區段已經添加"
+msgstr "階層區段已經添加"
 
 #: src/Layouts/HeaderBar.vala:79
 msgid "Open/Close Sidebar"
 msgstr "開啟/關閉 側邊列"
 
 #: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:700
-#: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1133
+#: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1151
+#: src/Layouts/ItemRow.vala:1164 src/Layouts/ItemRow.vala:1133
 #: src/Layouts/ItemRow.vala:1146
 msgid "Unpin"
 msgstr "解除釘上"
 
-#: src/Layouts/ItemBoard.vala:590 src/Layouts/ItemRow.vala:1465
-#: src/Layouts/ItemSidebarView.vala:610
+#: src/Layouts/ItemBoard.vala:590 src/Layouts/ItemRow.vala:1483
+#: src/Layouts/ItemSidebarView.vala:610 src/Layouts/ItemRow.vala:1465
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "已經完成。下次發生：%s"
 
-#: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1153
+#: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1171
+#: src/Layouts/ItemRow.vala:1153
 msgid "Add Subtask"
 msgstr "添加子任務"
 
-#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1155
+#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1173
+#: src/Layouts/ItemRow.vala:1155
 msgid "Edit"
 msgstr "編輯"
 
-#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1156
-#: src/Layouts/ItemRow.vala:1262 src/Layouts/ItemSidebarView.vala:441
-#: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
+#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1174
+#: src/Layouts/ItemRow.vala:1280 src/Layouts/ItemSidebarView.vala:441
+#: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
+#: src/Layouts/ItemRow.vala:1156 src/Layouts/ItemRow.vala:1262
+#: src/Layouts/ProjectRow.vala:705
 msgid "Duplicate"
 msgstr "抄製"
 
-#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1158
-#: src/Layouts/ItemRow.vala:1265 src/Layouts/ItemSidebarView.vala:444
+#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1176
+#: src/Layouts/ItemRow.vala:1283 src/Layouts/ItemSidebarView.vala:444
+#: src/Layouts/ItemRow.vala:1158 src/Layouts/ItemRow.vala:1265
 msgid "Delete Task"
 msgstr "刪除任務"
 
-#: src/Layouts/ItemBoard.vala:1009 src/Layouts/ItemRow.vala:1728
+#: src/Layouts/ItemBoard.vala:1009 src/Layouts/ItemRow.vala:1746
+#: src/Layouts/ItemRow.vala:1728
 msgid "Order changed to 'Custom sort order'"
 msgstr "順序變更為〔自訂排列順序〕"
 
-#: src/Layouts/ItemBoard.vala:1095 src/Layouts/ItemRow.vala:1511
+#: src/Layouts/ItemBoard.vala:1095 src/Layouts/ItemRow.vala:1529
+#: src/Layouts/ItemRow.vala:1511
 #, c-format
 msgid "%s was deleted"
 msgstr "%s 已經刪除"
 
-#: src/Layouts/ItemBoard.vala:1096 src/Layouts/ItemRow.vala:1512
+#: src/Layouts/ItemBoard.vala:1096 src/Layouts/ItemRow.vala:1530
+#: src/Layouts/ItemRow.vala:1512
 msgid "Undo"
 msgstr "取消動作"
 
-#: src/Layouts/ItemRow.vala:450
+#: src/Layouts/ItemRow.vala:449 src/Layouts/ItemRow.vala:450
 msgid "Add Subtasks"
 msgstr "添加子任務"
 
-#: src/Layouts/ItemRow.vala:460
+#: src/Layouts/ItemRow.vala:459 src/Layouts/ItemRow.vala:460
 msgid "Add Attachments"
 msgstr "添加附件"
 
-#: src/Layouts/ItemRow.vala:1014
+#: src/Layouts/ItemRow.vala:1032 src/Layouts/ItemRow.vala:1014
 msgid "Hide Sub-tasks"
 msgstr "隱藏子任務"
 
-#: src/Layouts/ItemRow.vala:1014
+#: src/Layouts/ItemRow.vala:1032 src/Layouts/ItemRow.vala:1014
 msgid "Show Sub-tasks"
 msgstr "顯示子任務"
 
-#: src/Layouts/ItemRow.vala:1258 src/Layouts/ItemSidebarView.vala:438
+#: src/Layouts/ItemRow.vala:1276 src/Layouts/ItemSidebarView.vala:438
+#: src/Layouts/ItemRow.vala:1258
 msgid "Use as a Note"
 msgstr "用作為記事"
 
-#: src/Layouts/ItemRow.vala:1261 src/Layouts/ItemSidebarView.vala:440
+#: src/Layouts/ItemRow.vala:1279 src/Layouts/ItemSidebarView.vala:440
+#: src/Layouts/ItemRow.vala:1261
 msgid "Copy to Clipboard"
 msgstr "複製至剪貼簿"
 
@@ -2493,27 +2505,30 @@ msgstr "您確定要刪除嗎？"
 msgid "Delete Label"
 msgstr "刪除標籤"
 
-#: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:224
+#: src/Layouts/ProjectRow.vala:436 src/Layouts/SidebarSourceRow.vala:224
+#: src/Layouts/ProjectRow.vala:440
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "專案計畫排序變更至〔自訂排列順序〕"
 
+#: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 #: src/Layouts/ProjectRow.vala:697 src/Layouts/ProjectRow.vala:703
 msgid "Remove From Favorites"
 msgstr "從最愛項目中移除"
 
+#: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 #: src/Layouts/ProjectRow.vala:697 src/Layouts/ProjectRow.vala:703
 msgid "Add to Favorites"
 msgstr "添加至最愛項目"
 
-#: src/Layouts/ProjectRow.vala:706
+#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:706
 msgid "Refresh"
 msgstr "重新整理"
 
-#: src/Layouts/ProjectRow.vala:712
+#: src/Layouts/ProjectRow.vala:708 src/Layouts/ProjectRow.vala:712
 msgid "Share"
 msgstr "分享"
 
-#: src/Layouts/ProjectRow.vala:713
+#: src/Layouts/ProjectRow.vala:709 src/Layouts/ProjectRow.vala:713
 msgid "Send by E-Mail"
 msgstr "寄出電子郵件"
 
@@ -2532,11 +2547,11 @@ msgstr "已經完成任務"
 
 #: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:658
 msgid "Move Section"
-msgstr "移動區段"
+msgstr "移動階層區段"
 
 #: src/Layouts/SectionBoard.vala:565
 msgid "Manage Section Order"
-msgstr "管理區段順序"
+msgstr "管理階層區段順序"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
 msgid "Show Completed Tasks"
@@ -2558,18 +2573,22 @@ msgstr "添加帳戶"
 msgid "Customize Sidebar"
 msgstr "自訂側邊列"
 
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 #: src/Layouts/Sidebar.vala:312 src/Layouts/Sidebar.vala:364
 msgid "Go to Today"
 msgstr "前往今日"
 
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 #: src/Layouts/Sidebar.vala:316 src/Layouts/Sidebar.vala:368
 msgid "Go to Scheduled"
-msgstr "前往已排行程"
+msgstr "前往行程"
 
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 #: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Labels"
 msgstr "前往標籤"
 
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 #: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Pinboard"
 msgstr "前往釘板"
@@ -2714,14 +2733,11 @@ msgstr "尚無標籤可用。點按 '＋' 鈕來進行建立"
 msgid "Note"
 msgstr "記事"
 
-#: src/Views/Project/Board.vala:316 src/Views/Project/List.vala:402
+#: src/Views/Project/Board.vala:316 src/Views/Project/List.vala:398
 #: src/Views/Project/Project.vala:335 src/Views/Project/Project.vala:367
+#: src/Views/Project/List.vala:402
 msgid "When?"
 msgstr "何時？"
-
-#: src/Views/Project/List.vala:121
-msgid "Add Some Tasks. Press 'a' to create a new task"
-msgstr "添加一些任務。請按 'a' 來建立新的任務"
 
 #: src/Views/Project/Project.vala:64
 msgid "Project Actions"
@@ -3070,7 +3086,7 @@ msgstr "建立新的專案計畫"
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Create a New Section in a Project"
-msgstr "建立新的區段於專案計畫中"
+msgstr "建立新的階層區段於專案計畫中"
 
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
@@ -3130,7 +3146,7 @@ msgstr "開啟今日"
 #: data/resources/ui/shortcuts.ui:115
 msgctxt "shortcut window"
 msgid "Open Scheduled"
-msgstr "開啟已排行程"
+msgstr "開啟行程"
 
 #: data/resources/ui/shortcuts.ui:122
 msgctxt "shortcut window"
@@ -3142,5 +3158,33 @@ msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "開啟釘板"
 
-#~ msgid "Task Detail"
-#~ msgstr "任務詳情"
+#: core/Widgets/Calendar/CalendarDay.vala:73
+msgid "%A, %B %e, %Y"
+msgstr "%A, %B %e, %Y"
+
+#: core/Widgets/Calendar/CalendarHeader.vala:66
+msgid "Previous month"
+msgstr "前個月份"
+
+#: core/Widgets/Calendar/CalendarHeader.vala:73
+msgid "Next month"
+msgstr "次個月份"
+
+#: core/Widgets/Calendar/CalendarHeader.vala:110
+#, c-format
+msgid "Previous month, %s"
+msgstr "前個月份，%s"
+
+#: core/Widgets/Calendar/CalendarHeader.vala:110
+#: core/Widgets/Calendar/CalendarHeader.vala:112
+msgid "%B %Y"
+msgstr "%B %Y"
+
+#: core/Widgets/Calendar/CalendarHeader.vala:112
+#, c-format
+msgid "Next month, %s"
+msgstr "次個月份， %s"
+
+#: src/Views/Project/List.vala:121
+msgid "Add Some Tasks. Press 'a' to create a new task"
+msgstr "添加一些任務。請按 'a' 來建立新的任務"
