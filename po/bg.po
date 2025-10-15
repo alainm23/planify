@@ -7,17 +7,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-11 20:05+0000\n"
-"PO-Revision-Date: 2024-04-28 17:39+0200\n"
-"Last-Translator: twlvnn <kraft_werk@tutanota.com>\n"
-"Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
+"PO-Revision-Date: 2025-10-16 19:07+0000\n"
+"Last-Translator: Fraxinus Acer <yasson2008@ya.ru>\n"
+"Language-Team: Bulgarian <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/bg/>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 48.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:345
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -846,12 +847,11 @@ msgid "Tap this task"
 msgstr "Натиснете тази задача"
 
 #: core/Utils/Util.vala:584
-#, fuzzy
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
 "Гледате към една задача! Завършете я, като натиснете полето за избор вляво. "
-"Завършените задачи се събират най-отдоло на вашия проект."
+"Завършените задачи се събират най-отдоло на вашия проект. "
 
 #: core/Utils/Util.vala:589
 #, fuzzy
