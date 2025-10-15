@@ -5,17 +5,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-11 20:05+0000\n"
-"PO-Revision-Date: 2025-05-25 16:15+0300\n"
-"Last-Translator: Maksym Dilanian <maksym@dilanian.xyz>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2025-10-16 19:07+0000\n"
+"Last-Translator: Fraxinus Acer <yasson2008@ya.ru>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:345
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -557,9 +558,9 @@ msgid "Starting sync…"
 msgstr ""
 
 #: core/Services/CalDAV/Core.vala:245
-#, fuzzy, c-format
+#, c-format
 msgid "Syncing %s…"
-msgstr "Синхронізація..."
+msgstr "Синхронізація %s…"
 
 #: core/Services/CalDAV/Core.vala:253
 #, fuzzy
@@ -842,12 +843,11 @@ msgid "Tap this task"
 msgstr "Натисніть на це завдання"
 
 #: core/Utils/Util.vala:584
-#, fuzzy
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
 "Ви переглядаєте завдання! Завершіть його, натиснувши прапорець ліворуч. "
-"Виконані завдання зібрані внизу вашого проєкту."
+"Виконані завдання зібрані внизу вашого проєкту. "
 
 #: core/Utils/Util.vala:589
 #, fuzzy
@@ -886,7 +886,7 @@ msgid ""
 "go."
 msgstr ""
 "Щоб змінити порядок у списку, натисніть і утримуйте справу, а потім "
-"перетягніть її в потрібне місце"
+"перетягніть її в потрібне місце."
 
 #: core/Utils/Util.vala:607
 msgid "Create a project"
@@ -905,7 +905,6 @@ msgid "You’re done!"
 msgstr "Готово!"
 
 #: core/Utils/Util.vala:614
-#, fuzzy
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -917,7 +916,7 @@ msgstr ""
 "власні проєкти та завдання.\n"
 "Ви можете повернутися до цього проєкту пізніше, щоб вивчити розширені "
 "функції, вказані нижче.\n"
-"Сподіваємося, що вам сподобається користуватися Planify!."
+"Сподіваємося, що вам сподобається користуватися Planify!"
 
 #: core/Utils/Util.vala:628
 msgid "Tune your setup"
@@ -932,13 +931,12 @@ msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
-"Ви можете відображати події календаря вашої системи в Planify.  Перейдіть до "
+"Ви можете відображати події календаря вашої системи в Planify. Перейдіть до "
 "«Налаштування» 🡒 Загальні 🡒 Події календаря, щоб увімкнути цю функцію."
 
 #: core/Utils/Util.vala:643
-#, fuzzy
 msgid "Enable synchronization with third-party services"
-msgstr "Увімкнути синхронізацію зі стороннім сервісом."
+msgstr "Увімкнути синхронізацію зі стороннім сервісом"
 
 #: core/Utils/Util.vala:644
 #, fuzzy
@@ -1649,9 +1647,8 @@ msgid "Change Inbox"
 msgstr "Відкрити «Вхідні»"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:517
-#, fuzzy
 msgid "Syncing…"
-msgstr "Синхронізація..."
+msgstr "Синхронізація…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:52
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:48
@@ -1697,7 +1694,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 #, fuzzy
 msgid "Server URL examples:"
-msgstr "URL-адреса сервера"
+msgstr "URL-адреса сервера:"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "- https://cloud.example.com/"
@@ -1735,7 +1732,7 @@ msgstr "Остання синхронізація"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:111
 #, fuzzy
 msgid "Delete Source"
-msgstr "Видалити джерело?"
+msgstr "Видалити джерело"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:179
 msgid "Delete Source?"
@@ -1771,7 +1768,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:189
 msgid "Synchronizing…"
-msgstr "Синхронізація..."
+msgstr "Синхронізація…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:207
 msgid "Please Enter Your Credentials"
@@ -2061,7 +2058,7 @@ msgstr "Зберігати останній вибраний проєкт"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
-msgstr "Якщо позначку не знято, проєктом за замовчуванням буде «Вхідні»."
+msgstr "Якщо позначку не знято, проєктом за замовчуванням буде «Вхідні»"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:127
 msgid "The command was copied to the clipboard"
@@ -2226,13 +2223,12 @@ msgid "Always Show Details Sidebar"
 msgstr "Завжди показувати бічну панель з деталями"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:129
-#, fuzzy
 msgid ""
 "Keep the details sidebar always visible for faster task navigation, without "
 "repeatedly opening and closing it"
 msgstr ""
 "Завжди тримайте панель деталей видимою для легшої навігації між завданнями, "
-"уникаючи необхідності постійно відкривати та закривати панель."
+"уникаючи необхідності постійно відкривати та закривати панель"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:140
 msgid "Enabled"
@@ -2700,7 +2696,7 @@ msgstr "Перейти до закріпленого"
 
 #: src/Layouts/SidebarSourceRow.vala:43
 msgid "No project available. Create one by clicking on the '+' button"
-msgstr "Немає жодного проєкту. Створіть новий, натиснувши кнопку «+»."
+msgstr "Немає жодного проєкту. Створіть новий, натиснувши кнопку «+»"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -2716,7 +2712,7 @@ msgstr "Про Planify"
 
 #: src/MainWindow.vala:770
 msgid "Oops! Something happened"
-msgstr "Ой! Щось трапилося."
+msgstr "Ой! Щось трапилося"
 
 #: src/MainWindow.vala:773
 msgid "See More"
@@ -2736,7 +2732,6 @@ msgid "Database Integrity Check Failed"
 msgstr "Перевірка цілісності бази даних не вдалася"
 
 #: src/MainWindow.vala:829
-#, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2753,7 +2748,7 @@ msgstr ""
 "стовпцями, ймовірно, через пошкодження або неповне оновлення. База даних "
 "буде скинута для відновлення нормальної функціональності, а всі існуючі дані "
 "будуть видалені. Після скидання ви зможете відновити будь-яку резервну "
-"копію, яку створили раніше. Дякуємо за ваше терпіння."
+"копію, яку створили раніше. Дякуємо за ваше терпіння"
 
 #: src/MainWindow.vala:831
 #, fuzzy
@@ -2844,7 +2839,7 @@ msgstr "Будуть видалені завершені завдання (%d) �
 
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
-msgstr "Немає доступних міток. Створіть їх, натиснувши кнопку «+»."
+msgstr "Немає доступних міток. Створіть їх, натиснувши кнопку «+»"
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
