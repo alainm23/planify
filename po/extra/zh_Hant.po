@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2025-10-12 15:11+0000\n"
+"PO-Revision-Date: 2025-10-14 16:07+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/planify-extra/zh_Hant/>\n"
@@ -31,7 +31,7 @@ msgid ""
 "and advanced features, you'll never forget what matters again."
 msgstr ""
 "Planify 是現代化且功能強大的任務管理利器，可幫助您讓生活有條有序。其簡潔直觀"
-"的操作介面、雲端同步和進階功能，您將永遠不再會忘記了重要大事。"
+"的操作介面、雲端同步和進階功能，您將永遠不會再忘記重要大事。"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:14
 msgid "✨ Core Features:"
@@ -51,7 +51,7 @@ msgstr "視覺化進度指標用於每個專案計畫"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:19
 msgid "Smart organization with sections and custom labels"
-msgstr "聰明進行組織架構，利用區段及自訂標籤"
+msgstr "聰明進行組織架構，利用階層區段及自訂標籤"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:20
 msgid "Calendar integration to visualize your schedule"
@@ -59,11 +59,11 @@ msgstr "行事曆整合功能，使您的行程安排加以視覺化"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:21
 msgid "Multiple reminders per task to never miss a deadline"
-msgstr "每個任務可設有多重提醒，以避免錯過最後期限"
+msgstr "每個任務可設定多重提醒，避免錯過最後期限"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:22
 msgid "Dark mode with seamless system theme integration"
-msgstr "暗色模式可以無縫整合搭配系統主題"
+msgstr "暗色模式可以無縫整合地搭配系統主題"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:23
 msgid "Quick and powerful search to find anything instantly"
@@ -71,11 +71,11 @@ msgstr "快速強大的搜尋功能，可以即刻找到任何內容"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:24
 msgid "Recurring tasks with flexible patterns"
-msgstr "具有靈活模式來進行重複性任務"
+msgstr "具有靈活模式來進行處理重複性任務"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:25
 msgid "Attachments and links in your tasks"
-msgstr "在你的任務中的附件和連結"
+msgstr "各式附件和連結均可放置於您的任務之中"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:27
 msgid "☁️ Cloud Synchronization:"
@@ -97,7 +97,7 @@ msgstr "離線模式：在無網路情況下即可工作，並在重新連網後
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:32
 msgid "Cross-platform synchronization to access from any device"
-msgstr "跨平台同步作業，以利可以從任何設備來進行存取"
+msgstr "跨平台同步資料，以利於可以從任何設備來進行存取"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:34
 msgid "* Planify is not created by, affiliated with, or supported by Doist"
@@ -113,4 +113,4 @@ msgid ""
 "todoist;"
 msgstr ""
 "development;task;tasks;project;todo;reminder;reminders;event;events;calendar;"
-"todoist; 開發;任務;專案計畫;待辦事項;提醒;事件;行事曆;待辦事項清單;"
+"todoist;開發;任務;專案計畫;待辦事項;提醒;事件;行事曆;待辦事項清單;"
