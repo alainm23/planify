@@ -6,15 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-11 20:05+0000\n"
-"PO-Revision-Date: 2025-10-06 04:59-0500\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-10-16 19:07+0000\n"
+"Last-Translator: Ali Basheer <kaon2004a@gmail.com>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:345
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -23,94 +27,94 @@ msgstr ""
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:349
 msgid "Sections"
-msgstr ""
+msgstr "أقسام"
 
 #: core/Enum.vala:174 core/Enum.vala:183
 msgid "Tasks"
-msgstr ""
+msgstr "مهام"
 
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:36
 #: src/Dialogs/Preferences/Pages/Backup.vala:357
 msgid "Labels"
-msgstr ""
+msgstr "ملصقات"
 
 #: core/Enum.vala:180 src/Dialogs/Preferences/Pages/HomeView.vala:35
 msgid "Filters"
-msgstr ""
+msgstr "فلاتر"
 
 #: core/Enum.vala:186
 msgid "Lists"
-msgstr ""
+msgstr "قوائم"
 
 #: core/Enum.vala:218
 msgid "Don't Repeat"
-msgstr ""
+msgstr "لا تكرر"
 
 #: core/Enum.vala:220
 msgid "Every minute"
-msgstr ""
+msgstr "كل دقيقة"
 
 #: core/Enum.vala:220
 #, c-format
 msgid "Every %d minutes"
-msgstr ""
+msgstr "كل %d دقائق"
 
 #: core/Enum.vala:222
 msgid "Every hour"
-msgstr ""
+msgstr "كل ساعة"
 
 #: core/Enum.vala:222
 #, c-format
 msgid "Every %d hours"
-msgstr ""
+msgstr "كل%d ساعات"
 
 #: core/Enum.vala:224
 msgid "Every day"
-msgstr ""
+msgstr "كل يوم"
 
 #: core/Enum.vala:224
 #, c-format
 msgid "Every %d days"
-msgstr ""
+msgstr "كل%d أيام"
 
 #: core/Enum.vala:226
 msgid "Every week"
-msgstr ""
+msgstr "كل أسبوع"
 
 #: core/Enum.vala:226
 #, c-format
 msgid "Every %d weeks"
-msgstr ""
+msgstr "كل%d أسابيع"
 
 #: core/Enum.vala:228
 msgid "Every month"
-msgstr ""
+msgstr "كل شهر"
 
 #: core/Enum.vala:228
 #, c-format
 msgid "Every %d months"
-msgstr ""
+msgstr "كل%d أشهر"
 
 #: core/Enum.vala:230
 msgid "Every year"
-msgstr ""
+msgstr "كل سنة"
 
 #: core/Enum.vala:230
 #, c-format
 msgid "Every %d years"
-msgstr ""
+msgstr "كل%d سنين"
 
 #: core/Enum.vala:280 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
 msgid "Nextcloud"
-msgstr ""
+msgstr "Nextcloud"
 
 #: core/Enum.vala:283 core/Services/CalDAV/CalDAVClient.vala:121
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
-msgstr ""
+msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:488 src/Views/Project/Project.vala:533
@@ -118,69 +122,69 @@ msgstr ""
 #: src/Views/Scheduled/Scheduled.vala:257 src/Views/Today.vala:624
 #: src/Views/Today.vala:653 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
-msgstr ""
+msgstr "الأولوية"
 
 #: core/Enum.vala:348
 msgid "Label"
-msgstr ""
+msgstr "ملصق"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:486
 #: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:622
 msgid "Due Date"
-msgstr ""
+msgstr "تاريخ الاستحقاق"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:318 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
-msgstr ""
+msgstr "قسم"
 
 #: core/Enum.vala:463
 msgid "Task Created"
-msgstr ""
+msgstr "تم انشاء المهمة"
 
 #: core/Enum.vala:466
 msgid "Task Updated"
-msgstr ""
+msgstr "تم تحديث المهمة"
 
 #: core/Enum.vala:522
 msgid "Content"
-msgstr ""
+msgstr "المحتوى"
 
 #: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1858
 #: src/Layouts/ItemSidebarView.vala:169
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
-msgstr ""
+msgstr "الوصف"
 
 #: core/Enum.vala:528 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr ""
+msgstr "مجدول"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemBoard.vala:713
 #: src/Layouts/ItemRow.vala:1133 src/Layouts/ItemRow.vala:1146
 msgid "Pin"
-msgstr ""
+msgstr "تثبيت"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr ""
+msgstr "كل المهام"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
-msgstr ""
+msgstr "كل المهام"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all"
-msgstr ""
+msgstr "كل"
 
 #: core/Objects/Filters/Anytime.vala:33
 msgid "Anytime"
-msgstr ""
+msgstr "أي وقت"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "anytime"
-msgstr ""
+msgstr "أي وقت"
 
 #: core/Objects/Filters/Anytime.vala:34 core/Objects/Filters/Completed.vala:34
 #: core/Objects/Filters/Inbox.vala:36 core/Objects/Filters/Labels.vala:34
@@ -189,23 +193,23 @@ msgstr ""
 #: core/Objects/Filters/Scheduled.vala:49 core/Objects/Filters/Today.vala:50
 #: core/Objects/Filters/Tomorrow.vala:34 core/Objects/Filters/Unlabeled.vala:34
 msgid "filters"
-msgstr ""
+msgstr "فلاتر"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr ""
+msgstr "لا تاريخ"
 
 #: core/Objects/Filters/Completed.vala:33
 msgid "Completed"
-msgstr ""
+msgstr "مكتمل"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "completed"
-msgstr ""
+msgstr "مكتمل"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "logbook"
-msgstr ""
+msgstr "سجل"
 
 #: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:244
 #: core/Utils/Util.vala:557
@@ -215,67 +219,67 @@ msgstr ""
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:330
 #: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
 msgid "Inbox"
-msgstr ""
+msgstr "البريد الوارد"
 
 #: core/Objects/Filters/Inbox.vala:36
 msgid "inbox"
-msgstr ""
+msgstr "البريد الوارد"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
-msgstr ""
+msgstr "ملصقات"
 
 #: core/Objects/Filters/Pinboard.vala:34
 msgid "Pinboard"
-msgstr ""
+msgstr "لوحة إعلانات"
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:113
 msgid "Priority 1: high"
-msgstr ""
+msgstr "الأولوية 1: مرتفعة"
 
 #: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:115
 msgid "Priority 2: medium"
-msgstr ""
+msgstr "الأولوية 2: متوسطة"
 
 #: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:117
 msgid "Priority 3: low"
-msgstr ""
+msgstr "الأولوية 3: منخفضة"
 
 #: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:119
 msgid "Priority 4: none"
-msgstr ""
+msgstr "الأولوية 4: لا شيء"
 
 #: core/Objects/Filters/Priority.vala:170
 msgid "high"
-msgstr ""
+msgstr "مرتفع"
 
 #: core/Objects/Filters/Priority.vala:172
 msgid "medium"
-msgstr ""
+msgstr "متوسط"
 
 #: core/Objects/Filters/Priority.vala:174
 msgid "low"
-msgstr ""
+msgstr "منخفض"
 
 #: core/Objects/Filters/Priority.vala:176
 msgid "none"
-msgstr ""
+msgstr "لا شيء"
 
 #: core/Objects/Filters/Repeating.vala:33
 msgid "Repeating"
-msgstr ""
+msgstr "تكرار"
 
 #: core/Objects/Filters/Repeating.vala:34
 msgid "repeating"
-msgstr ""
+msgstr "تكرار"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr ""
+msgstr "مجدول"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
-msgstr ""
+msgstr "قادم"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Util.vala:247
@@ -285,52 +289,52 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1140 src/Views/Project/Project.vala:500
 #: src/Views/Project/Project.vala:660 src/Views/Today.vala:202
 msgid "Today"
-msgstr ""
+msgstr "اليوم"
 
 #: core/Objects/Filters/Today.vala:50
 msgid "today"
-msgstr ""
+msgstr "اليوم"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:710
 #: src/Layouts/ItemRow.vala:1143
 msgid "Tomorrow"
-msgstr ""
+msgstr "غداً"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "tomorrow"
-msgstr ""
+msgstr "غداً"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "date"
-msgstr ""
+msgstr "تاريخ"
 
 #: core/Objects/Filters/Unlabeled.vala:33
 msgid "Unlabeled"
-msgstr ""
+msgstr "غير مسمى"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "no label"
-msgstr ""
+msgstr "لا اسم"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "unlabeled"
-msgstr ""
+msgstr "غير مسمى"
 
 #: core/Objects/Item.vala:1320
 msgid "Task copied to clipboard"
-msgstr ""
+msgstr "تم نسخ المهمة الى الحافظة"
 
 #: core/Objects/Item.vala:1585 core/Utils/Util.vala:866
 #, c-format
 msgid "Task moved to %s"
-msgstr ""
+msgstr "تم نسخ المهمة الى%s"
 
 #: core/Objects/Label.vala:206
 #, c-format
 msgid "Delete Label %s"
-msgstr ""
+msgstr "حذف الاسم %s"
 
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:818
 #: core/Objects/Section.vala:377
@@ -338,7 +342,7 @@ msgstr ""
 #: src/Layouts/ItemSidebarView.vala:531 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
-msgstr ""
+msgstr "هذا لا يمكن الرجوع عنه"
 
 #: core/Objects/Label.vala:210 core/Objects/Project.vala:821
 #: core/Objects/Project.vala:878 core/Objects/Section.vala:380
@@ -356,7 +360,7 @@ msgstr ""
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:265
 msgid "Cancel"
-msgstr ""
+msgstr "الغاء"
 
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:822
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
@@ -367,70 +371,70 @@ msgstr ""
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
 #: src/Widgets/MultiSelectToolbar.vala:266
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: core/Objects/Project.vala:781
 msgid "The project was copied to the Clipboard."
-msgstr ""
+msgstr "تم نسخ المشروع للحافظة."
 
 #: core/Objects/Project.vala:817
 #, c-format
 msgid "Delete Project %s?"
-msgstr ""
+msgstr "حذف المشروع %s؟"
 
 #: core/Objects/Project.vala:874 core/Objects/Section.vala:402
 msgid "Archive?"
-msgstr ""
+msgstr "أرشفة؟"
 
 #: core/Objects/Project.vala:875 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "هذا سيأرشف %s وكل مهامه."
 
 #: core/Objects/Project.vala:879 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
 msgid "Archive"
-msgstr ""
+msgstr "أرشيف"
 
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
 msgid "Delete Section %s"
-msgstr ""
+msgstr "حذف القسم %s"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:35
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:44
 msgid "Todoist"
-msgstr ""
+msgstr "Todoist"
 
 #: core/QuickAdd.vala:112
 msgid "Task added successfully!"
-msgstr ""
+msgstr "تم اضافة المهمة بنجاح!"
 
 #: core/QuickAdd.vala:128 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
-msgstr ""
+msgstr "اسم العمل"
 
 #: core/QuickAdd.vala:134
 msgid "This field is required"
-msgstr ""
+msgstr "هذا الحقل مطلوب"
 
 #: core/QuickAdd.vala:158
 msgid "Add a description…"
-msgstr ""
+msgstr "أضف وصفاً…"
 
 #: core/QuickAdd.vala:176 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
-msgstr ""
+msgstr "أضف أسماء"
 
 #: core/QuickAdd.vala:181 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
-msgstr ""
+msgstr "حدد الأولوية"
 
 #: core/QuickAdd.vala:187 core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
@@ -438,46 +442,48 @@ msgstr ""
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
 #: core/Widgets/ReminderPicker/ReminderButton.vala:177
 msgid "Add Reminders"
-msgstr ""
+msgstr "أضف التذكيرات"
 
 #: core/QuickAdd.vala:228 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
-msgstr ""
+msgstr "أضف مهمة"
 
 #: core/QuickAdd.vala:234 core/QuickAdd.vala:960
 msgid "Keep adding"
-msgstr ""
+msgstr "واصل الإضافة"
 
 #: core/QuickAdd.vala:251
 msgid "Select a Project"
-msgstr ""
+msgstr "اختر مشروعاً"
 
 #: core/QuickAdd.vala:278
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
+"عذراً, لم تتمكن الإضافة السريعة من العثور على أي مشروع متاح, حاول إنشاء مشروع "
+"من Planify."
 
 #: core/QuickAdd.vala:922 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "اختصارات لوحة المفاتيح"
 
 #: core/QuickAdd.vala:928
 msgid "Speed up task creation with these shortcuts"
-msgstr ""
+msgstr "سرّع من عملية إنشاء المهام من خلال هذه الإختصارات"
 
 #: core/QuickAdd.vala:942
 msgid "Set priority"
-msgstr ""
+msgstr "حدد أولوية"
 
 #: core/QuickAdd.vala:942
 msgid "p1 = highest, p4 = lowest"
-msgstr ""
+msgstr "p1 = الأعلى, p4 = الأخفض"
 
 #: core/QuickAdd.vala:943
 msgid "Add labels"
-msgstr ""
+msgstr "أضف أسماء"
 
 #: core/QuickAdd.vala:943
 msgid "Opens label selector"
@@ -485,7 +491,7 @@ msgstr ""
 
 #: core/QuickAdd.vala:944
 msgid "Assign project"
-msgstr ""
+msgstr "عيّن المشروع"
 
 #: core/QuickAdd.vala:944
 msgid "Opens project selector"
@@ -493,7 +499,7 @@ msgstr ""
 
 #: core/QuickAdd.vala:945
 msgid "Set reminder"
-msgstr ""
+msgstr "حدد تذكير"
 
 #: core/QuickAdd.vala:945
 msgid "Opens reminder options"
@@ -501,101 +507,101 @@ msgstr ""
 
 #: core/QuickAdd.vala:960
 msgid "Stay open after creating task"
-msgstr ""
+msgstr "ابق مفتوح بعد إنشاء المهمة"
 
 #: core/QuickAdd.vala:966
 msgid "Tip"
-msgstr ""
+msgstr "نصيحة"
 
 #: core/QuickAdd.vala:966
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "اجمع الاختصارات في العنوان لإنشاء أسرع"
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr ""
+msgstr "جاري تحميل المهام ل %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Processing task %d of %d"
-msgstr ""
+msgstr "جاري معالجة المهمة %d ل %d"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
-msgstr ""
+msgstr "المصدر موجود بالفعل"
 
 #: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
 msgid "Failed to resolve principal url"
-msgstr ""
+msgstr "فشل في حل عنوان URL الرئيسي"
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "جاري تفعيل المزامنة…"
 
 #: core/Services/CalDAV/Core.vala:245
 #, c-format
 msgid "Syncing %s…"
-msgstr ""
+msgstr "جاري مزامنة %s…"
 
 #: core/Services/CalDAV/Core.vala:253
 msgid "Sync completed"
-msgstr ""
+msgstr "تمت المزامنة"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
-msgstr ""
+msgstr "الطلب غير صحيح."
 
 #: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "التصديق مطلوب, و فشل, أو لم يتم تقديمه حتى الآن."
 
 #: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "الطلب صالح, لكن لشيء محظور."
 
 #: core/Services/Todoist.vala:1513 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "المورد المطلوب غير موجود."
 
 #: core/Services/Todoist.vala:1514 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "لقد أرسل المستخدم طلبات في وقت محدد أكثر مما يجب."
 
 #: core/Services/Todoist.vala:1515 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "فشل الطلب بسبب خطأ في المخدم."
 
 #: core/Services/Todoist.vala:1516 src/Widgets/ErrorView.vala:144
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "المخدم غير قادر حالياً على معالجة الطلب."
 
 #: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
-msgstr ""
+msgstr "خطأ غير معروف"
 
 #: core/Utils/Datetime.vala:72
 msgid "Yesterday"
-msgstr ""
+msgstr "البارحة"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "days"
-msgstr ""
+msgstr "أيام"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "day"
-msgstr ""
+msgstr "يوم"
 
 #: core/Utils/Datetime.vala:91
 #, c-format
 msgid "%s %s ago"
-msgstr ""
+msgstr "منذ %s %s"
 
 #: core/Utils/Datetime.vala:93
 #, c-format
 msgid "%s %s left"
-msgstr ""
+msgstr "%s %s باقي"
 
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
