@@ -68,8 +68,6 @@ core_files = files(
     'Widgets/DateTimePicker/TimePicker.vala',
     'Widgets/DateTimePicker/RepeatConfig.vala',
     
-    'Widgets/WhenSelector/WhenSelector.vala',
-
     'Widgets/LabelPicker/LabelPicker.vala',
     'Widgets/LabelPicker/LabelRow.vala',
     'Widgets/LabelPicker/LabelButton.vala',

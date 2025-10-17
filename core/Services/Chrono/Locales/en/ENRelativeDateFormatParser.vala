@@ -68,6 +68,7 @@ namespace Chrono {
         }
         
         private DateTime add_time_unit (DateTime date, TimeUnit unit, int amount) {
+            DateTime result;
             switch (unit) {
                 case TimeUnit.SECOND:
                     return date.add_seconds (amount);
@@ -76,15 +77,20 @@ namespace Chrono {
                 case TimeUnit.HOUR:
                     return date.add_hours (amount);
                 case TimeUnit.DAY:
-                    return date.add_days (amount);
+                    result = date.add_days (amount);
+                    return new DateTime.local (result.get_year (), result.get_month (), result.get_day_of_month (), 0, 0, 0);
                 case TimeUnit.WEEK:
-                    return date.add_weeks (amount);
+                    result = date.add_weeks (amount);
+                    return new DateTime.local (result.get_year (), result.get_month (), result.get_day_of_month (), 0, 0, 0);
                 case TimeUnit.MONTH:
-                    return date.add_months (amount);
+                    result = date.add_months (amount);
+                    return new DateTime.local (result.get_year (), result.get_month (), result.get_day_of_month (), 0, 0, 0);
                 case TimeUnit.QUARTER:
-                    return date.add_months (amount * 3);
+                    result = date.add_months (amount * 3);
+                    return new DateTime.local (result.get_year (), result.get_month (), result.get_day_of_month (), 0, 0, 0);
                 case TimeUnit.YEAR:
-                    return date.add_years (amount);
+                    result = date.add_years (amount);
+                    return new DateTime.local (result.get_year (), result.get_month (), result.get_day_of_month (), 0, 0, 0);
                 default:
                     return date;
             }

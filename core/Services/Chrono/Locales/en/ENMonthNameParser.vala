@@ -97,6 +97,11 @@ namespace Chrono {
                     }
                 }
                 
+                // Validate year - must be 4 digits or 2 digits (will be converted to 20xx)
+                if (year < 1000 && year >= 100) {
+                    return null;
+                }
+                
                 var result = new ParseResult ();
                 result.date = new DateTime.local (year, month, day, 0, 0, 0);
                 

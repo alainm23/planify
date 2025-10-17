@@ -1172,7 +1172,7 @@ public class Objects.Item : Objects.BaseObject {
                     Array<short> values = new Array<short> ();
                     short val;
 
-                    if (due.recurrency_weeks.split (",").length > 0) {
+                    if (due.recurrency_weeks != null && due.recurrency_weeks.split (",").length > 0) {
                         if (due.recurrency_weeks.contains ("1")) {
                             val = (short) 2;
                             values.append_val (val);

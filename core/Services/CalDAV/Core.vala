@@ -278,11 +278,7 @@ public class Services.CalDAV.Core : GLib.Object {
             source.sync_finished ();
             source.last_sync = new GLib.DateTime.now_local ().to_string ();
         } catch (Error e) {
-            var error_msg = e.message ?? "Unknown error";
-            if (error_msg.strip () == "" || error_msg == ".") {
-                error_msg = "Connection timeout or server closed connection";
-            }
-            warning ("Failed to sync: %s", error_msg);
+            warning ("Failed to sync: %s", e.message);
             source.sync_failed ();
         }
     }

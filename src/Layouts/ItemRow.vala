@@ -513,8 +513,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         action_box_right.append (pin_button);
         action_box_right.append (menu_button);
 
-        // action_box.append (schedule_button);
-        action_box.append (new Widgets.WhenSelector ());
+        action_box.append (schedule_button);
         action_box.append (action_box_right);
 
         var details_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

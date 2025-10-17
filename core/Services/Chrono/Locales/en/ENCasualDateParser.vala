@@ -31,8 +31,15 @@ namespace Chrono {
                 
                 switch (keyword) {
                     case "now":
-                    case "today":
                         date = now;
+                        break;
+                    case "today":
+                        date = new DateTime.local (
+                            now.get_year (),
+                            now.get_month (),
+                            now.get_day_of_month (),
+                            0, 0, 0
+                        );
                         break;
                     case "tonight":
                         date = new DateTime.local (
@@ -45,13 +52,31 @@ namespace Chrono {
                     case "tomorrow":
                     case "tmr":
                     case "tmrw":
-                        date = now.add_days (1);
+                        var tomorrow = now.add_days (1);
+                        date = new DateTime.local (
+                            tomorrow.get_year (),
+                            tomorrow.get_month (),
+                            tomorrow.get_day_of_month (),
+                            0, 0, 0
+                        );
                         break;
                     case "overmorrow":
-                        date = now.add_days (2);
+                        var overmorrow = now.add_days (2);
+                        date = new DateTime.local (
+                            overmorrow.get_year (),
+                            overmorrow.get_month (),
+                            overmorrow.get_day_of_month (),
+                            0, 0, 0
+                        );
                         break;
                     case "yesterday":
-                        date = now.add_days (-1);
+                        var yesterday = now.add_days (-1);
+                        date = new DateTime.local (
+                            yesterday.get_year (),
+                            yesterday.get_month (),
+                            yesterday.get_day_of_month (),
+                            0, 0, 0
+                        );
                         break;
                     case "lastnight":
                         date = new DateTime.local (
