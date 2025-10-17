@@ -839,13 +839,12 @@ msgid "Tap this task"
 msgstr "Klicke auf diese Aufgabe"
 
 #: core/Utils/Util.vala:584
-#, fuzzy
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
 "Dies ist eine Aufgabe! Erledige sie, indem du auf das Kästchen auf der "
 "linken Seite klickst. Erledigte Aufgaben werden am unteren Ende des Projekts "
-"gesammelt."
+"gesammelt. "
 
 #: core/Utils/Util.vala:589
 #, fuzzy
