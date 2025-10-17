@@ -13,8 +13,8 @@
   },
   "en": {
     "language": "English",
-    "total_strings": 689,
-    "translated_strings": 689,
+    "total_strings": 688,
+    "translated_strings": 688,
     "translated_percent": 100.0
   },
   "bg": {
@@ -487,8 +487,8 @@
   },
   "zh_Hant": {
     "language": "Chinese (Traditional Han script)",
-    "total_strings": 689,
-    "translated_strings": 689,
+    "total_strings": 688,
+    "translated_strings": 688,
     "translated_percent": 100.0
   }
 }
