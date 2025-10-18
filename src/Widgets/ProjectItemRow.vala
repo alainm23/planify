@@ -19,7 +19,7 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
+public class Widgets.ProjectItemRow : Gtk.ListBoxRow {
     public string widget_type { get; construct; }
     public Objects.Project project { get; construct; }
 
@@ -29,15 +29,15 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    public ProjectPickerRow (Objects.Project project, string widget_type = "picker") {
+    public ProjectItemRow (Objects.Project project, string widget_type = "picker") {
         Object (
             project: project,
             widget_type: widget_type
         );
     }
 
-    ~ProjectPickerRow () {
-        debug ("Destroying - Dialogs.ProjectPicker.ProjectPickerRow\n");
+    ~ProjectItemRow () {
+        debug ("Destroying - Widgets.ProjectItemRow\n");
     }
 
     construct {
@@ -46,13 +46,13 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
 
         icon_project = new Widgets.IconColorProject (18);
         icon_project.project = project;
-
+        icon_project.update_request ();
+        
         name_label = new Gtk.Label (null);
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
 
-        var selected_icon = new Gtk.Image () {
-            gicon = new ThemedIcon ("checkmark-small-symbolic"),
+        var selected_icon = new Gtk.Image.from_icon_name ("checkmark-small-symbolic") {
             pixel_size = 16,
             hexpand = true,
             valign = Gtk.Align.CENTER,
@@ -63,10 +63,9 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         selected_icon.add_css_class ("color-primary");
 
         var selected_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.CROSSFADE
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = selected_icon
         };
-
-        selected_revealer.child = selected_icon;
 
         var menu_button = new Gtk.MenuButton () {
             hexpand = true,

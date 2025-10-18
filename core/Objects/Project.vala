@@ -753,11 +753,13 @@ public class Objects.Project : Objects.BaseObject {
         int items_checked = 0;
 
         foreach (Objects.Item item in Services.Store.instance ().get_items_by_project (this)) {
-            if (!item.was_archived ()) {
-                items_total++;
-                if (item.checked) {
-                    items_checked++;
-                }
+            if (!is_archived && item.was_archived ()) {
+                continue;
+            }
+
+            items_total++;
+            if (item.checked) {
+                items_checked++;
             }
         }
 

@@ -149,8 +149,8 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
 
     private void set_sort_func () {
         listbox.set_sort_func ((row1, row2) => {
-            Objects.Section item1 = ((Dialogs.ProjectPicker.SectionPickerRow) row1).section;
-            Objects.Section item2 = ((Dialogs.ProjectPicker.SectionPickerRow) row2).section;
+            Objects.Section item1 = ((Widgets.SectionItemRow) row1).section;
+            Objects.Section item2 = ((Widgets.SectionItemRow) row2).section;
 
             if (item1.id == "") {
                 return 0;
@@ -163,11 +163,11 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
     }
 
     private void update_section_section_order () {
-        unowned Dialogs.ProjectPicker.SectionPickerRow ? section_row = null;
+        unowned Widgets.SectionItemRow ? section_row = null;
         var row_index = 0;
 
         do {
-            section_row = (Dialogs.ProjectPicker.SectionPickerRow) listbox.get_row_at_index (row_index);
+            section_row = (Widgets.SectionItemRow) listbox.get_row_at_index (row_index);
 
             if (section_row != null) {
                 section_row.section.section_order = row_index;
@@ -183,17 +183,17 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
         inbox_section.project_id = project.id;
         inbox_section.name = _("(No Section)");
 
-        add_section (new Dialogs.ProjectPicker.SectionPickerRow (inbox_section, "order"));
+        add_section (new Widgets.SectionItemRow (inbox_section, "order"));
         foreach (Objects.Section section in project.sections) {
             if (section.was_archived ()) {
-                archived_listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (section, "menu"));
+                archived_listbox.append (new Widgets.SectionItemRow (section, "menu"));
             } else {
-                add_section (new Dialogs.ProjectPicker.SectionPickerRow (section, "order"));
+                add_section (new Widgets.SectionItemRow (section, "order"));
             }
         }
     }
 
-    public void add_section (Dialogs.ProjectPicker.SectionPickerRow row) {
+    public void add_section (Widgets.SectionItemRow row) {
         signal_map[row.update_section.connect (() => {
             update_section_section_order ();
             project.section_sort_order_changed ();
@@ -212,11 +212,11 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
         signal_map.clear ();
 
         foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
-            ((Dialogs.ProjectPicker.SectionPickerRow) child).clean_up ();
+            ((Widgets.SectionItemRow) child).clean_up ();
         }
 
         foreach (unowned Gtk.Widget child in Util.get_default ().get_children (archived_listbox)) {
-            ((Dialogs.ProjectPicker.SectionPickerRow) child).clean_up ();
+            ((Widgets.SectionItemRow) child).clean_up ();
         }
     }
 }
