@@ -24,7 +24,6 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
 
     private Widgets.ProjectPickerCore project_picker_core;
 
-    Objects.Project _project;
     public Objects.Project project {
         set {
             project_picker_core.set_selected_project (value);

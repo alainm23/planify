@@ -70,7 +70,7 @@ public class Dialogs.ManageProjects : Adw.Dialog {
 
         foreach (Objects.Project project in Services.Store.instance ().get_all_projects_archived ()) {
             if (project.is_archived) {
-                listbox.append (new Dialogs.ProjectPicker.ProjectPickerRow (project, "menu"));
+                listbox.append (new Widgets.ProjectItemRow (project, "menu"));
             }
         }
 
@@ -94,7 +94,7 @@ public class Dialogs.ManageProjects : Adw.Dialog {
         signal_map.clear ();
 
         foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
-            ((Dialogs.ProjectPicker.ProjectPickerRow) child).clean_up ();
+            ((Widgets.ProjectItemRow) child).clean_up ();
         }
     }
 }
