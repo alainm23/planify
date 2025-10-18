@@ -118,8 +118,6 @@ src/Dialogs/Preferences/Pages/TaskSetting.vala
 src/Dialogs/Preferences/PreferencesWindow.vala
 src/Dialogs/Project.vala
 src/Dialogs/ProjectPicker.vala
-src/Dialogs/ProjectPicker/ProjectPickerRow.vala
-src/Dialogs/ProjectPicker/SectionPickerRow.vala
 src/Dialogs/QuickAdd.vala
 src/Dialogs/QuickFind/QuickFind.vala
 src/Dialogs/QuickFind/QuickFindItem.vala
@@ -185,8 +183,10 @@ src/Widgets/MagicButton.vala
 src/Widgets/MultiSelectToolbar.vala
 src/Widgets/NewVersionPopup.vala
 src/Widgets/PinnedItemsBox.vala
+src/Widgets/ProjectItemRow.vala
 src/Widgets/ReorderChild.vala
 src/Widgets/ScrolledWindow.vala
+src/Widgets/SectionItemRow.vala
 src/Widgets/SectionsOrderPopover.vala
 src/Widgets/SubItems.vala
 src/Widgets/SyncButton.vala

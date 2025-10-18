@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-18 16:06+0000\n"
+"POT-Creation-Date: 2025-10-18 17:33+0000\n"
 "PO-Revision-Date: 2025-10-12 15:11+0000\n"
 "Last-Translator: xxfogs <o.vitins@resultium.io>\n"
 "Language-Team: Latvian <https://hosted.weblate.org/projects/planner/io-"
@@ -133,7 +133,7 @@ msgid "Due Date"
 msgstr "Termiņš"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
-#: src/Dialogs/CompletedTasks.vala:318 src/Widgets/ItemDetailCompleted.vala:80
+#: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
 msgstr "Sadaļa"
 
@@ -214,9 +214,9 @@ msgstr "Uzskaites žurnāls"
 #: core/Utils/Util.vala:557
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
-#: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:140
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:330
 #: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
+#: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
 msgstr "Iesūtne"
 
@@ -335,7 +335,7 @@ msgstr "Uzdevums pārvietots uz %s"
 msgid "Delete Label %s"
 msgstr "Birka %s izdzēsta"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:818
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:820
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:529 src/Layouts/SectionBoard.vala:635
@@ -343,8 +343,8 @@ msgstr "Birka %s izdzēsta"
 msgid "This can not be undone"
 msgstr "Šī darbība ir neatgriezeniska"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:821
-#: core/Objects/Project.vala:878 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:823
+#: core/Objects/Project.vala:880 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:421
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:407
@@ -361,7 +361,7 @@ msgstr "Šī darbība ir neatgriezeniska"
 msgid "Cancel"
 msgstr "Atcelt"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:822
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:824
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:266
@@ -372,25 +372,25 @@ msgstr "Atcelt"
 msgid "Delete"
 msgstr "Dzēst"
 
-#: core/Objects/Project.vala:781
+#: core/Objects/Project.vala:783
 msgid "The project was copied to the Clipboard."
 msgstr "Projekts kopēts starpliktuvē."
 
-#: core/Objects/Project.vala:817
+#: core/Objects/Project.vala:819
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Dzēst projektu %s?"
 
-#: core/Objects/Project.vala:874 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:876 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "Arhivēt?"
 
-#: core/Objects/Project.vala:875 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:877 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Šī darbība arhivēs projektu %s un visus tā uzdevumus."
 
-#: core/Objects/Project.vala:879 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:881 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
 msgid "Archive"
@@ -1433,7 +1433,7 @@ msgstr ""
 msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr "Šis dzēsīs %d paveiktos uzdevumus un to apakšuzdevumus no projekta %s"
 
-#: src/Dialogs/CompletedTasks.vala:325 src/Views/Project/Project.vala:581
+#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
 msgid "Filter By"
 msgstr "Atlasīt pēc"
@@ -2381,26 +2381,11 @@ msgstr "Rediģēt projektu"
 msgid "Project added successfully!"
 msgstr "Projekts izveidots!"
 
-#: src/Dialogs/ProjectPicker.vala:39 src/Dialogs/ProjectPicker.vala:48
+#: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1151
 #: src/Layouts/ItemRow.vala:1261 src/Layouts/ItemSidebarView.vala:442
 msgid "Move"
 msgstr "Pārvietot"
-
-#: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:154
-#: src/Dialogs/ProjectPicker/SectionPickerRow.vala:206
-msgid "Unarchive"
-msgstr "Atarhivēt"
-
-#: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:155
-#: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:346
-msgid "Delete Project"
-msgstr "Dzēst projektu"
-
-#: src/Dialogs/ProjectPicker/SectionPickerRow.vala:207
-#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:664
-msgid "Delete Section"
-msgstr "Dzēst sadaļu"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:42
 msgid "Quick Find"
@@ -2547,6 +2532,11 @@ msgstr "Pievienot pie favorītiem"
 msgid "Refresh"
 msgstr "Pārlādēt"
 
+#: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:346
+#: src/Widgets/ProjectItemRow.vala:154
+msgid "Delete Project"
+msgstr "Dzēst projektu"
+
 #: src/Layouts/ProjectRow.vala:712
 msgid "Share"
 msgstr "Dalīties"
@@ -2579,6 +2569,11 @@ msgstr "Pārvaldīt sadaļu sakārtojumu"
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
 msgid "Show Completed Tasks"
 msgstr "Rādīt paveiktos uzdevumus"
+
+#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:664
+#: src/Widgets/SectionItemRow.vala:207
+msgid "Delete Section"
+msgstr "Dzēst sadaļu"
 
 #: src/Layouts/Sidebar.vala:40
 msgid "Favorites"
@@ -3041,6 +3036,10 @@ msgstr "Atjaunināt tagad"
 #: src/Widgets/NewVersionPopup.vala:110
 msgid "Close"
 msgstr "Aizvērt"
+
+#: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
+msgid "Unarchive"
+msgstr "Atarhivēt"
 
 #: src/Widgets/SubItems.vala:523
 msgid "No subtasks added yet. Get started!"

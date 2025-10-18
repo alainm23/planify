@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-18 16:06+0000\n"
+"POT-Creation-Date: 2025-10-18 17:33+0000\n"
 "PO-Revision-Date: 2025-10-12 15:11+0000\n"
 "Last-Translator: Sebastian Hagn <sebastian@hagn.me>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
@@ -142,7 +142,7 @@ msgid "Due Date"
 msgstr "Fälligkeitsdatum"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
-#: src/Dialogs/CompletedTasks.vala:318 src/Widgets/ItemDetailCompleted.vala:80
+#: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
 msgstr "Abschnitte"
 
@@ -223,9 +223,9 @@ msgstr "Logbuch"
 #: core/Utils/Util.vala:557
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
-#: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:140
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:330
 #: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
+#: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
 msgstr "Posteingang"
 
@@ -345,7 +345,7 @@ msgstr "Aufgabe verschoben zu %s"
 msgid "Delete Label %s"
 msgstr "Label %s löschen"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:818
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:820
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:529 src/Layouts/SectionBoard.vala:635
@@ -353,8 +353,8 @@ msgstr "Label %s löschen"
 msgid "This can not be undone"
 msgstr "Dies kann nicht rückgängig gemacht werden"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:821
-#: core/Objects/Project.vala:878 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:823
+#: core/Objects/Project.vala:880 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:421
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:407
@@ -371,7 +371,7 @@ msgstr "Dies kann nicht rückgängig gemacht werden"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:822
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:824
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:266
@@ -382,27 +382,27 @@ msgstr "Abbrechen"
 msgid "Delete"
 msgstr "Löschen"
 
-#: core/Objects/Project.vala:781
+#: core/Objects/Project.vala:783
 msgid "The project was copied to the Clipboard."
 msgstr "Das Projekt wurde in die Zwischenablage kopiert."
 
 # # c-format
-#: core/Objects/Project.vala:817
+#: core/Objects/Project.vala:819
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Projekt %s löschen?"
 
-#: core/Objects/Project.vala:874 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:876 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "Archivieren?"
 
 # # c-format
-#: core/Objects/Project.vala:875 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:877 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Dies wird %s und alle seine Aufgaben archivieren."
 
-#: core/Objects/Project.vala:879 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:881 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
 msgid "Archive"
@@ -1482,7 +1482,7 @@ msgstr ""
 "Dies wird %d vollendete Aufgaben und deren Unteraufgaben aus dem Projekt %s "
 "löschen"
 
-#: src/Dialogs/CompletedTasks.vala:325 src/Views/Project/Project.vala:581
+#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
 msgid "Filter By"
 msgstr "Filtern nach"
@@ -2452,26 +2452,11 @@ msgstr "Projekt aktualisieren"
 msgid "Project added successfully!"
 msgstr "Projekt erfolgreich hinzugefügt!"
 
-#: src/Dialogs/ProjectPicker.vala:39 src/Dialogs/ProjectPicker.vala:48
+#: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1151
 #: src/Layouts/ItemRow.vala:1261 src/Layouts/ItemSidebarView.vala:442
 msgid "Move"
 msgstr "Verschieben"
-
-#: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:154
-#: src/Dialogs/ProjectPicker/SectionPickerRow.vala:206
-msgid "Unarchive"
-msgstr "Entarchivieren"
-
-#: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:155
-#: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:346
-msgid "Delete Project"
-msgstr "Projekt löschen"
-
-#: src/Dialogs/ProjectPicker/SectionPickerRow.vala:207
-#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:664
-msgid "Delete Section"
-msgstr "Abschnitt löschen"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:42
 msgid "Quick Find"
@@ -2622,6 +2607,11 @@ msgstr "Zu Favoriten hinzufügen"
 msgid "Refresh"
 msgstr "Neu laden"
 
+#: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:346
+#: src/Widgets/ProjectItemRow.vala:154
+msgid "Delete Project"
+msgstr "Projekt löschen"
+
 #: src/Layouts/ProjectRow.vala:712
 msgid "Share"
 msgstr "Teilen"
@@ -2655,6 +2645,11 @@ msgstr "Reihenfolge der Abschnitte verändern"
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
 msgid "Show Completed Tasks"
 msgstr "Erledigte Aufgaben anzeigen"
+
+#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:664
+#: src/Widgets/SectionItemRow.vala:207
+msgid "Delete Section"
+msgstr "Abschnitt löschen"
 
 #: src/Layouts/Sidebar.vala:40
 msgid "Favorites"
@@ -3135,6 +3130,10 @@ msgstr "Aktualisiert am"
 #: src/Widgets/NewVersionPopup.vala:110
 msgid "Close"
 msgstr ""
+
+#: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
+msgid "Unarchive"
+msgstr "Entarchivieren"
 
 #: src/Widgets/SubItems.vala:523
 msgid "No subtasks added yet. Get started!"
