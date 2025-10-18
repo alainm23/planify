@@ -104,10 +104,9 @@ sources = files(
   #'Dialogs/GoogleOAuth.vala', No longer used?
   'Dialogs/QuickAdd.vala',
   'Dialogs/ManageSectionOrder.vala',
-  'Dialogs/ProjectPicker/ProjectPicker.vala',
+  'Dialogs/ProjectPicker.vala',
   'Dialogs/ProjectPicker/ProjectPickerRow.vala',
   'Dialogs/ProjectPicker/SectionPickerRow.vala',
-  'Dialogs/ProjectPicker/ProjectPickerSourceRow.vala',
   'Dialogs/ManageProjects.vala',
   'Dialogs/DatePicker.vala',
   'Dialogs/LabelPicker.vala',

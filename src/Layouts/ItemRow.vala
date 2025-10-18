@@ -1199,9 +1199,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
                 }
 
-                dialog.add_sections (item.project.sections);
                 dialog.project = item.project;
-                dialog.section = item.section;
 
                 signals_map[dialog.changed.connect ((type, id) => {
                     if (type == "project") {
@@ -1314,7 +1312,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 })] = dialog;
 
                 dialog.project = item.project;
-                dialog.section = item.section;
                 dialog.present (Planify._instance.main_window);
             })] = move_item;
         }
