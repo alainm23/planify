@@ -61,6 +61,7 @@ core_files = files(
     'Widgets/LabelPicker/LabelRow.vala',
     'Widgets/LabelPicker/LabelButton.vala',
 
+    'Widgets/ProjectPicker/ProjectPickerCore.vala',
     'Widgets/ProjectPicker/ProjectPickerPopover.vala',
     'Widgets/ProjectPicker/ProjectPickerRow.vala',
     'Widgets/ProjectPicker/ProjectPickerButton.vala',

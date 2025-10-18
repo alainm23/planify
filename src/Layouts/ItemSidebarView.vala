@@ -487,9 +487,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
                 dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
             }
 
-            dialog.add_sections (item.project.sections);
             dialog.project = item.project;
-            dialog.section = item.section;
             dialog.present (Planify._instance.main_window);
 
             dialog.changed.connect ((type, id) => {

@@ -43,7 +43,7 @@ public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
     }
 
     construct {
-        css_classes = { "row" };
+        css_classes = { "row", "no-padding" };
 
         icon_project = new Widgets.IconColorProject (20);
         icon_project.project = project;
@@ -70,8 +70,8 @@ public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_start = 3,
             margin_end = 3,
-            margin_top = 3,
-            margin_bottom = 3
+            margin_top = 6,
+            margin_bottom = 6
         };
         content_box.append (icon_project);
         content_box.append (name_label);

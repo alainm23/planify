@@ -91,6 +91,10 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
             };
 
             foreach (Objects.Project project in Services.Store.instance ().get_projects_by_source (source.id)) {
+                if (project.is_archived) {
+                    continue;
+                }
+                
                 var row = new HomeViewRow (project) {
                     active = Services.Settings.get_default ().get_string ("home-view") == project.view_id,
                     group = fake_radio
