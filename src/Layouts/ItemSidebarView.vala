@@ -122,6 +122,16 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         content_textview.remove_css_class ("view");
         content_textview.add_css_class ("card");
 
+#if LIBSPELLING
+        var source_buffer = new GtkSource.Buffer (null);
+        content_textview.buffer = source_buffer;
+        
+        var adapter = new Spelling.TextBufferAdapter (source_buffer, Spelling.Checker.get_default ());
+        content_textview.extra_menu = adapter.get_menu_model ();
+        content_textview.insert_action_group ("spelling", adapter);
+        adapter.enabled = true;
+#endif
+
         var content_group = new Adw.PreferencesGroup () {
             margin_start = 12,
             margin_end = 12
