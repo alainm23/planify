@@ -80,6 +80,10 @@ public class Dialogs.Preferences.Pages.InboxPage : Dialogs.Preferences.Pages.Bas
             };
 
             foreach (Objects.Project project in Services.Store.instance ().get_projects_by_source (source.id)) {
+                if (project.is_archived) {
+                    continue;
+                }
+
                 var row = new ProjectRow (project) {
                     active = project.is_inbox_project,
                     group = fake_radio

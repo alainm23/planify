@@ -209,10 +209,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
                 items_checked.unset (item.id);
             }
         })] = Services.Store.instance ();
-
-        // No necesitamos llamar clean_up manualmente aquí
-        // El signal destroy lo hará automáticamente
-
+        
         closed.connect (() => {
             clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
