@@ -277,12 +277,16 @@ public class Widgets.TranslationRow : Adw.PreferencesRow {
         };
 
         _title_label = new Gtk.Label (null) {
-            halign = Gtk.Align.START,
+            hexpand = true,
+            xalign = 0,
+            wrap = true
         };
 
         _subtitle_label = new Gtk.Label (null) {
-            halign = Gtk.Align.START,
-            use_markup = true
+            xalign = 0,
+            hexpand = true,
+            use_markup = true,
+            wrap = true
         };
         _subtitle_label.add_css_class ("dimmed");
         _subtitle_label.add_css_class ("caption");
