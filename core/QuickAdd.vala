@@ -52,6 +52,8 @@ public class Layouts.QuickAdd : Adw.Bin {
     public bool labels_picker_activate_shortcut { get; set; default = false; }
     public bool project_picker_activate_shortcut { get; set; default = false; }
     public bool reminder_picker_activate_shortcut { get; set; default = false; }
+    
+    private Objects.DueDate? preserved_duedate = null;
 
     public const string SHORTCUTS_KEY_LABELS = "@";
     public const string SHORTCUTS_KEY_PROJECTS = "#";
@@ -316,7 +318,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         child = window;
 
-        Timeout.add (225, () => {
+        Timeout.add (main_stack.transition_duration, () => {
             if (Services.Store.instance ().is_database_empty ()) {
                 main_stack.visible_child_name = "warning";
             } else {
@@ -345,9 +347,9 @@ public class Layouts.QuickAdd : Adw.Bin {
             if (Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
                 Services.Settings.get_default ().settings.set_string ("quick-add-section-selected", item.section_id);
             }
-    })] = project_picker_button;
+        })] = project_picker_button;
 
-       signal_map[project_picker_button.picker_opened.connect ((active) => {
+        signal_map[project_picker_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
 
             if (!active) {
@@ -567,14 +569,20 @@ public class Layouts.QuickAdd : Adw.Bin {
             main_stack.visible_child_name = "main";
             added_image.remove_css_class ("fancy-turn-animation");
 
-            // Animación de notificación de éxito
             show_success_notification ();
 
             reset_item ();
 
             content_entry.text = "";
             description_textview.set_text ("");
-            schedule_button.reset ();
+            
+            if (preserved_duedate != null) {
+                item.due = preserved_duedate.duplicate ();
+                schedule_button.update_from_item (item);
+            } else {
+                schedule_button.reset ();
+            }
+            
             priority_button.reset ();
             label_button.reset ();
             item_labels.reset ();
@@ -586,7 +594,6 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         main_stack.visible_child_name = "added";
         added_image.add_css_class ("fancy-turn-animation");
-        bool create_more = create_more_button.active;
 
         Timeout.add (750, () => {
             hide_destroy ();
@@ -660,6 +667,9 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         if (item.due.date == "") {
             item.due.reset ();
+            preserved_duedate = null;
+        } else {
+            preserved_duedate = item.due.duplicate ();
         }
 
         schedule_button.update_from_item (item);
