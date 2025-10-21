@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-19 21:02+0000\n"
+"POT-Creation-Date: 2025-10-21 10:40+0000\n"
 "PO-Revision-Date: 2025-01-17 20:16+0100\n"
 "Last-Translator: Nostragodus <nostragodus@gmail.com>\n"
 "Language-Team: Slovakia\n"
@@ -408,35 +408,35 @@ msgstr "Odstrániť sekciu %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAdd.vala:112
+#: core/QuickAdd.vala:114
 #, fuzzy
 msgid "Task added successfully!"
 msgstr "Projekt bol úspešne pridaný!"
 
-#: core/QuickAdd.vala:128 src/Layouts/ItemRow.vala:357
+#: core/QuickAdd.vala:130 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Názov úlohy"
 
-#: core/QuickAdd.vala:134
+#: core/QuickAdd.vala:136
 msgid "This field is required"
 msgstr "Toto pole je povinné"
 
-#: core/QuickAdd.vala:158
+#: core/QuickAdd.vala:160
 msgid "Add a description…"
 msgstr "Pridať popis…"
 
-#: core/QuickAdd.vala:176 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAdd.vala:178 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Pridať štítky"
 
-#: core/QuickAdd.vala:181 core/Widgets/PriorityButton.vala:40
+#: core/QuickAdd.vala:183 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Nastaviť prioritu"
 
-#: core/QuickAdd.vala:187 core/Widgets/ReminderPicker/ReminderButton.vala:42
+#: core/QuickAdd.vala:189 core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
@@ -444,20 +444,20 @@ msgstr "Nastaviť prioritu"
 msgid "Add Reminders"
 msgstr "Pridať pripomienky"
 
-#: core/QuickAdd.vala:228 src/Layouts/SectionBoard.vala:562
+#: core/QuickAdd.vala:230 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Pridať úlohu"
 
-#: core/QuickAdd.vala:234 core/QuickAdd.vala:960
+#: core/QuickAdd.vala:236 core/QuickAdd.vala:970
 msgid "Keep adding"
 msgstr ""
 
-#: core/QuickAdd.vala:251
+#: core/QuickAdd.vala:253
 msgid "Select a Project"
 msgstr "Vybrať projekt"
 
-#: core/QuickAdd.vala:278
+#: core/QuickAdd.vala:280
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -465,61 +465,61 @@ msgstr ""
 "Ľutujeme, Quick Add nemôže nájsť žiadny dostupný projekt, skúste vytvoriť "
 "projekt z Planify."
 
-#: core/QuickAdd.vala:922 src/MainWindow.vala:707
+#: core/QuickAdd.vala:932 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové skratky"
 
-#: core/QuickAdd.vala:928
+#: core/QuickAdd.vala:938
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAdd.vala:942
+#: core/QuickAdd.vala:952
 #, fuzzy
 msgid "Set priority"
 msgstr "Nastaviť prioritu"
 
-#: core/QuickAdd.vala:942
+#: core/QuickAdd.vala:952
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAdd.vala:943
+#: core/QuickAdd.vala:953
 #, fuzzy
 msgid "Add labels"
 msgstr "Pridať štítky"
 
-#: core/QuickAdd.vala:943
+#: core/QuickAdd.vala:953
 #, fuzzy
 msgid "Opens label selector"
 msgstr "Otvoriť štítky"
 
-#: core/QuickAdd.vala:944
+#: core/QuickAdd.vala:954
 #, fuzzy
 msgid "Assign project"
 msgstr "Pridať projekt"
 
-#: core/QuickAdd.vala:944
+#: core/QuickAdd.vala:954
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAdd.vala:945
+#: core/QuickAdd.vala:955
 #, fuzzy
 msgid "Set reminder"
 msgstr "Nastavte si včasné pripomienky!"
 
-#: core/QuickAdd.vala:945
+#: core/QuickAdd.vala:955
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAdd.vala:960
+#: core/QuickAdd.vala:970
 msgid "Stay open after creating task"
 msgstr ""
 
-#: core/QuickAdd.vala:966
+#: core/QuickAdd.vala:976
 #, fuzzy
 msgid "Tip"
 msgstr "Hore"
 
-#: core/QuickAdd.vala:966
+#: core/QuickAdd.vala:976
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
