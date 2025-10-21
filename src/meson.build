@@ -85,6 +85,7 @@ sources = files(
   'Widgets/NewVersionPopup.vala',
   'Widgets/ProjectItemRow.vala',
   'Widgets/SectionItemRow.vala',
+  'Widgets/ComboWrapRow.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',

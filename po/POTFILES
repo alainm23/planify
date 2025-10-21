@@ -168,6 +168,7 @@ src/Widgets/AttachmentRow.vala
 src/Widgets/Attachments.vala
 src/Widgets/BypassResolveSwitchRow.vala
 src/Widgets/ColorPickerRow.vala
+src/Widgets/ComboWrapRow.vala
 src/Widgets/CompletedTaskRow.vala
 src/Widgets/EditableTextView.vala
 src/Widgets/ErrorView.vala
