@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-19 21:02+0000\n"
-"PO-Revision-Date: 2025-10-22 22:21+0000\n"
+"PO-Revision-Date: 2025-10-22 22:26+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/et/>\n"
@@ -166,7 +166,7 @@ msgstr "Ajastatud"
 #: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemBoard.vala:713
 #: src/Layouts/ItemRow.vala:1143 src/Layouts/ItemRow.vala:1156
 msgid "Pin"
-msgstr "PIN-kood"
+msgstr "Tõsta esile"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -233,7 +233,7 @@ msgstr "sildid"
 
 #: core/Objects/Filters/Pinboard.vala:34
 msgid "Pinboard"
-msgstr ""
+msgstr "Teatetahvel"
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:113
 msgid "Priority 1: high"
@@ -2378,7 +2378,7 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1143
 #: src/Layouts/ItemRow.vala:1156
 msgid "Unpin"
-msgstr ""
+msgstr "Lõpeta esiletõstmine"
 
 #: src/Layouts/ItemBoard.vala:590 src/Layouts/ItemRow.vala:1472
 #: src/Layouts/ItemSidebarView.vala:618
@@ -2552,7 +2552,7 @@ msgstr ""
 
 #: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Pinboard"
-msgstr ""
+msgstr "Vaata teadetetahvlit"
 
 #: src/Layouts/SidebarSourceRow.vala:43
 msgid "No project available. Create one by clicking on the '+' button"
@@ -2904,12 +2904,12 @@ msgstr ""
 #: src/Widgets/ItemChangeHistoryRow.vala:192
 #: src/Widgets/ItemChangeHistoryRow.vala:193
 msgid "Pin: Active"
-msgstr ""
+msgstr "Esiletõstmine: aktiivne"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:192
 #: src/Widgets/ItemChangeHistoryRow.vala:193
 msgid "Pin: Inactive"
-msgstr ""
+msgstr "Esiletõstmine: pole aktiivne"
 
 #: src/Widgets/ItemDetailCompleted.vala:74
 msgid "Completed At"
@@ -3110,7 +3110,7 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:129
 msgctxt "shortcut window"
 msgid "Open Pinboard"
-msgstr ""
+msgstr "Ava teadetetahvel"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
 #, c-format
