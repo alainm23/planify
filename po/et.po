@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-19 21:02+0000\n"
-"PO-Revision-Date: 2025-10-22 21:59+0000\n"
+"PO-Revision-Date: 2025-10-22 22:09+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/et/>\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/General.vala:56
 #: src/Dialogs/Preferences/Pages/Backup.vala:358
 msgid "Projects"
-msgstr "Projektid"
+msgstr "Ettevõtmised"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:349
 #: src/Dialogs/Preferences/Pages/Backup.vala:362
@@ -377,12 +377,12 @@ msgstr "Kustuta"
 
 #: core/Objects/Project.vala:783
 msgid "The project was copied to the Clipboard."
-msgstr "See projekt on kopeeritud lõikelauale."
+msgstr "See ettevõtmine/projekt on kopeeritud lõikelauale."
 
 #: core/Objects/Project.vala:819
 #, c-format
 msgid "Delete Project %s?"
-msgstr ""
+msgstr "Kas kustutad ettevõtmise: %s?"
 
 #: core/Objects/Project.vala:876 core/Objects/Section.vala:402
 msgid "Archive?"
@@ -461,7 +461,7 @@ msgstr "Jätka lisamist"
 
 #: core/QuickAdd.vala:251 core/QuickAddCore.vala:263
 msgid "Select a Project"
-msgstr ""
+msgstr "Vali ettevõtmine/projekt"
 
 #: core/QuickAdd.vala:278 core/QuickAddCore.vala:290
 msgid ""
@@ -788,11 +788,11 @@ msgstr ""
 
 #: core/Utils/Util.vala:422
 msgid "Delete All"
-msgstr ""
+msgstr "Kustuta kõik"
 
 #: core/Utils/Util.vala:436
 msgid "Process completed, you need to start Planify again."
-msgstr ""
+msgstr "Tegevus on lõppenud. Palun käivita Planify uuesti."
 
 #: core/Utils/Util.vala:438
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:221
@@ -855,7 +855,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:607
 msgid "Create a project"
-msgstr ""
+msgstr "Lisa ettevõtmine"
 
 #: core/Utils/Util.vala:608
 msgid ""
@@ -964,7 +964,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:1007 core/Utils/Util.vala:1033
 msgid "Project duplicated"
-msgstr ""
+msgstr "Ettevõtmise koopia on tehtud"
 
 #: core/Utils/Util.vala:1075 src/Dialogs/Preferences/Pages/TaskSetting.vala:145
 msgid "At due time"
@@ -1498,7 +1498,7 @@ msgstr ""
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:712
 msgid "Archived Projects"
-msgstr ""
+msgstr "Arhiveeritud ettevõtmised"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:659
 #: src/Views/Project/Project.vala:338
@@ -1683,39 +1683,39 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Appearance.vala:36
 #: src/Dialogs/Preferences/PreferencesWindow.vala:169
 msgid "Appearance"
-msgstr ""
+msgstr "Välimus"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:51
 msgid "Use System Settings"
-msgstr ""
+msgstr "Järgi süsteemi välimust"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:61
 msgid "Select theme"
-msgstr ""
+msgstr "Vali rakenduse kujundus"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:70
 msgid "Light Style"
-msgstr ""
+msgstr "Hele kujundus"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:71
 msgid "Clean light theme"
-msgstr ""
+msgstr "Hele ja puhas kujundus"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:87
 msgid "Dark Style"
-msgstr ""
+msgstr "Tume kujundus"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:88
 msgid "Elegant dark theme"
-msgstr ""
+msgstr "Elegantne tume kujundus"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:104
 msgid "Dark Blue Style"
-msgstr ""
+msgstr "Tumesinine kujundus"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:105
 msgid "Professional blue theme"
-msgstr ""
+msgstr "Range ja töine sinine kujundus"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:121
 msgid "Custom themes are not available when using the system light theme"
@@ -2303,28 +2303,28 @@ msgstr ""
 
 #: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
 msgid "New Project"
-msgstr ""
+msgstr "Uus ettevõtmine"
 
 #: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:704
 #: src/Views/Project/Project.vala:333
 msgid "Edit Project"
-msgstr ""
+msgstr "Muuda ettevõtmist"
 
 #: src/Dialogs/Project.vala:126
 msgid "Give your project a name"
-msgstr ""
+msgstr "Lisa oma ettevõtmisele või projektile nimi"
 
 #: src/Dialogs/Project.vala:137
 msgid "Use Emoji"
-msgstr ""
+msgstr "Kasuta emojit"
 
 #: src/Dialogs/Project.vala:204 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
-msgstr "Lisa projekt"
+msgstr "Lisa ettevõtmine"
 
 #: src/Dialogs/Project.vala:204
 msgid "Update Project"
-msgstr ""
+msgstr "Uuenda ettevõtmist"
 
 #: src/Dialogs/Project.vala:447
 msgid "Project added successfully!"
@@ -2482,7 +2482,7 @@ msgstr ""
 #: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:346
 #: src/Widgets/ProjectItemRow.vala:154
 msgid "Delete Project"
-msgstr ""
+msgstr "Kustuta ettevõtmine"
 
 #: src/Layouts/ProjectRow.vala:712
 msgid "Share"
@@ -3035,7 +3035,7 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:30
 msgctxt "shortcut window"
 msgid "Create a New Project"
-msgstr ""
+msgstr "Lisa uus ettevõtmine"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
