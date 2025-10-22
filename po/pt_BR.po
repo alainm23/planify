@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-22 10:16+0000\n"
+"POT-Creation-Date: 2025-10-22 10:54+0000\n"
 "PO-Revision-Date: 2025-10-08 14:07+0000\n"
 "Last-Translator: Murilo Leal <murilormleal@outlook.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
@@ -420,34 +420,34 @@ msgstr "Deletar Seção %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:117
+#: core/QuickAddCore.vala:124
 msgid "Task added successfully!"
 msgstr "Tarefa adicionada com sucesso!"
 
-#: core/QuickAddCore.vala:133 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:140 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Nome da tarefa"
 
-#: core/QuickAddCore.vala:139
+#: core/QuickAddCore.vala:146
 msgid "This field is required"
 msgstr "Este campo é obrigatório"
 
-#: core/QuickAddCore.vala:163
+#: core/QuickAddCore.vala:170
 msgid "Add a description…"
 msgstr "Adicionar uma descrição…"
 
-#: core/QuickAddCore.vala:181 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:188 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Adicionar Rótulos"
 
-#: core/QuickAddCore.vala:186 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:193 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Defina a Prioridade"
 
-#: core/QuickAddCore.vala:192
+#: core/QuickAddCore.vala:199
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -456,20 +456,20 @@ msgstr "Defina a Prioridade"
 msgid "Add Reminders"
 msgstr "Adicionar Lembretes"
 
-#: core/QuickAddCore.vala:233 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:240 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Adicionar Tarefa"
 
-#: core/QuickAddCore.vala:239 core/QuickAddCore.vala:995
+#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1046
 msgid "Keep adding"
 msgstr "Continue adicionando"
 
-#: core/QuickAddCore.vala:256
+#: core/QuickAddCore.vala:263
 msgid "Select a Project"
 msgstr "Selecione um Projeto"
 
-#: core/QuickAddCore.vala:283
+#: core/QuickAddCore.vala:290
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -477,59 +477,59 @@ msgstr ""
 "Sinto muito, o Quick Add não consegue encontrar nenhum projeto disponível, "
 "tente criar um projeto no Planify."
 
-#: core/QuickAddCore.vala:957 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1008 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Atalhos do Teclado"
 
-#: core/QuickAddCore.vala:963
+#: core/QuickAddCore.vala:1014
 msgid "Speed up task creation with these shortcuts"
 msgstr "Acelere a criação de tarefas com esses atalhos"
 
 # # c-format
-#: core/QuickAddCore.vala:977
+#: core/QuickAddCore.vala:1028
 msgid "Set priority"
 msgstr "Definir Prioridade"
 
-#: core/QuickAddCore.vala:977
+#: core/QuickAddCore.vala:1028
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = mais alto, p4 = mais baixo"
 
-#: core/QuickAddCore.vala:978
+#: core/QuickAddCore.vala:1029
 #, fuzzy
 msgid "Add labels"
 msgstr "Adicionar rótulo(s)"
 
-#: core/QuickAddCore.vala:978
+#: core/QuickAddCore.vala:1029
 msgid "Opens label selector"
 msgstr "Abrir Seletor de Rótulos"
 
-#: core/QuickAddCore.vala:979
+#: core/QuickAddCore.vala:1030
 #, fuzzy
 msgid "Assign project"
 msgstr "Adicionar projeto"
 
-#: core/QuickAddCore.vala:979
+#: core/QuickAddCore.vala:1030
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:980
+#: core/QuickAddCore.vala:1031
 msgid "Set reminder"
 msgstr "Definir lembrete"
 
-#: core/QuickAddCore.vala:980
+#: core/QuickAddCore.vala:1031
 msgid "Opens reminder options"
 msgstr "Abrir opções de lembrete"
 
-#: core/QuickAddCore.vala:995
+#: core/QuickAddCore.vala:1046
 msgid "Stay open after creating task"
 msgstr "Manter aberto após criar tarefa"
 
-#: core/QuickAddCore.vala:1001
+#: core/QuickAddCore.vala:1052
 #, fuzzy
 msgid "Tip"
 msgstr "Superior"
 
-#: core/QuickAddCore.vala:1001
+#: core/QuickAddCore.vala:1052
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -1311,11 +1311,11 @@ msgstr "Search"
 msgid "Search or Create"
 msgstr "Procure ou Crie"
 
-#: core/Widgets/MarkdownEditor.vala:1353
+#: core/Widgets/MarkdownEditor.vala:1357
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1358
+#: core/Widgets/MarkdownEditor.vala:1362
 #, fuzzy
 msgid "Remove link"
 msgstr "Remover"
