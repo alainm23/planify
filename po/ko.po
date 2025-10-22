@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-21 10:40+0000\n"
+"POT-Creation-Date: 2025-10-22 10:09+0000\n"
 "PO-Revision-Date: 2024-06-24 02:42+0900\n"
 "Last-Translator: Wonje Jung <myunsyeya@ajou.ac.kr>\n"
 "Language-Team: \n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.4.4\n"
 
-#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:345
+#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
 msgid "Projects"
 msgstr "프로젝트"
 
-#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:349
+#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:362
 msgid "Sections"
 msgstr "섹션"
 
@@ -33,7 +33,7 @@ msgstr "할 일"
 
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:36
-#: src/Dialogs/Preferences/Pages/Backup.vala:357
+#: src/Dialogs/Preferences/Pages/Backup.vala:370
 msgid "Labels"
 msgstr "라벨"
 
@@ -359,8 +359,8 @@ msgstr "이 작업은 취소할 수 없습니다"
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
-#: src/Dialogs/Preferences/Pages/Backup.vala:370
-#: src/Dialogs/Preferences/Pages/Backup.vala:436
+#: src/Dialogs/Preferences/Pages/Backup.vala:383
+#: src/Dialogs/Preferences/Pages/Backup.vala:449
 #: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:542
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
@@ -372,7 +372,7 @@ msgstr "취소"
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:824
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
-#: src/Dialogs/Preferences/Pages/Backup.vala:266
+#: src/Dialogs/Preferences/Pages/Backup.vala:279
 #: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
@@ -813,7 +813,6 @@ msgstr "처리 완료, Planify를 재시작해야 합니다."
 
 #: core/Utils/Util.vala:438
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:221
-#: src/Services/Backups.vala:552
 msgid "Ok"
 msgstr "확인"
 
@@ -1841,70 +1840,75 @@ msgstr "백업 가져오기"
 msgid "Backup Files"
 msgstr "백업 파일"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:58
+#: src/Dialogs/Preferences/Pages/Backup.vala:57
 msgid "No backups found, create one clicking the button above."
 msgstr "사용 가능한 계정이 없습니다. '+' 버튼을 클릭하여 동기화하세요"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:63
+#: src/Dialogs/Preferences/Pages/Backup.vala:62
+#, c-format
+msgid "Backup files are stored in: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:76
 msgid "Migrate"
 msgstr "마이그레이션"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:65
+#: src/Dialogs/Preferences/Pages/Backup.vala:78
 msgid "Migrate From Planner"
 msgstr "플래너에서 마이그래이션"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:105
+#: src/Dialogs/Preferences/Pages/Backup.vala:118
 msgid "The Backup was created successfully."
 msgstr "작업이 성공적으로 마이그레이션되었습니다"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:122
+#: src/Dialogs/Preferences/Pages/Backup.vala:135
 msgid "Tasks Migrate Successfully"
 msgstr "작업이 성공적으로 마이그레이션되었습니다"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:126
+#: src/Dialogs/Preferences/Pages/Backup.vala:139
 msgid "The database file does not exist."
 msgstr "데이터베이스 파일이 존재하지 않습니다."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:164
+#: src/Dialogs/Preferences/Pages/Backup.vala:177
 msgid "Selected file is invalid"
 msgstr "선택한 파일이 유효하지 않습니다"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:209
+#: src/Dialogs/Preferences/Pages/Backup.vala:222
 msgid "View Backup"
 msgstr "백업 보기"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:265
+#: src/Dialogs/Preferences/Pages/Backup.vala:278
 msgid "Download"
 msgstr "다운로드"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:329
+#: src/Dialogs/Preferences/Pages/Backup.vala:342
 msgid "Import Overview"
 msgstr "개요 가져오기"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:353
+#: src/Dialogs/Preferences/Pages/Backup.vala:354 src/Dialogs/Project.vala:353
 msgid "Sources"
 msgstr "소스"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:353
+#: src/Dialogs/Preferences/Pages/Backup.vala:366
 msgid "To-Dos"
 msgstr "할 일"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:375
+#: src/Dialogs/Preferences/Pages/Backup.vala:388
 msgid "Confirm"
 msgstr "확인"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:431
+#: src/Dialogs/Preferences/Pages/Backup.vala:444
 msgid "Restore backup"
 msgstr "백업 복원"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:432
+#: src/Dialogs/Preferences/Pages/Backup.vala:445
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
 msgstr ""
 "계속하시겠습니까? 이 작업은 현재 데이터를 삭제하고 백업 데이터로 교체합니다."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:437
+#: src/Dialogs/Preferences/Pages/Backup.vala:450
 msgid "Restore Backup"
 msgstr "백업 복원"
 
@@ -2723,15 +2727,19 @@ msgstr ""
 msgid "Delete Backup"
 msgstr "백업 삭제"
 
-#: src/Services/Backups.vala:548
+#: src/Services/Backups.vala:547
 msgid "Backup Successfully Imported"
 msgstr "백업이 성공적으로 가져와졌습니다"
 
-#: src/Services/Backups.vala:549
-msgid "Process completed, you need to start Planify again"
-msgstr "처리 완료, Planify를 재시작해야 합니다"
+#: src/Services/Backups.vala:548
+msgid "Planify will restart to apply the changes"
+msgstr ""
 
-#: src/Services/Backups.vala:563
+#: src/Services/Backups.vala:551
+msgid "Restart Now"
+msgstr ""
+
+#: src/Services/Backups.vala:566
 msgid "Planify Backup Files"
 msgstr "Planify 백업 파일"
 
@@ -3252,6 +3260,9 @@ msgstr "라벨 열기"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "게시판 열기"
+
+#~ msgid "Process completed, you need to start Planify again"
+#~ msgstr "처리 완료, Planify를 재시작해야 합니다"
 
 #, fuzzy
 #~ msgid "Task Detail"
