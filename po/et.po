@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-19 21:02+0000\n"
-"PO-Revision-Date: 2025-10-22 22:26+0000\n"
+"PO-Revision-Date: 2025-10-22 22:29+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/et/>\n"
@@ -160,7 +160,7 @@ msgstr "Kirjeldus"
 
 #: core/Enum.vala:528 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr "Ajastatud"
+msgstr "Ajakava"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemBoard.vala:713
@@ -1207,11 +1207,11 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:76
 #: src/Views/Project/Board.vala:279 src/Views/Project/List.vala:367
 msgid "Schedule"
-msgstr ""
+msgstr "Ajasta"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:128
 msgid "Clear Schedule"
-msgstr ""
+msgstr "Kustuta ajastamine"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:169
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:207
@@ -2544,7 +2544,7 @@ msgstr "Vaata tänast päeva"
 
 #: src/Layouts/Sidebar.vala:316 src/Layouts/Sidebar.vala:368
 msgid "Go to Scheduled"
-msgstr ""
+msgstr "Vaata ajakava"
 
 #: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Labels"
@@ -2810,7 +2810,7 @@ msgstr ""
 
 #: src/Views/Today.vala:162
 msgid "Reschedule"
-msgstr ""
+msgstr "Muuda ajastust"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
@@ -3100,7 +3100,7 @@ msgstr "Ava tänased tegemised"
 #: data/resources/ui/shortcuts.ui:115
 msgctxt "shortcut window"
 msgid "Open Scheduled"
-msgstr ""
+msgstr "Ava ajakava"
 
 #: data/resources/ui/shortcuts.ui:122
 msgctxt "shortcut window"
