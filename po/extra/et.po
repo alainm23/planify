@@ -8,19 +8,21 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2025-10-08 17:08-0500\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-10-23 10:02+0000\n"
+"Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Estonian <https://hosted.weblate.org/projects/planner/"
+"planify-extra/et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:7
 #: data/io.github.alainm23.planify.desktop.in.in:4
 msgid "Forget about forgetting things"
-msgstr ""
+msgstr "Unusta asjade unustamine"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:13
 msgid ""
@@ -28,14 +30,17 @@ msgid ""
 "life organized. With a clean and intuitive interface, cloud synchronization, "
 "and advanced features, you'll never forget what matters again."
 msgstr ""
+"Planify on võimas ja moodne tegemiste ja ülesannete haldur sinu jaoks. Selge "
+"ja intuitiivse kasutajaliidese, pilve sünkroonimise ja lisavõimaluste abil "
+"sa enam ei unusta olulisi asju."
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:14
 msgid "✨ Core Features:"
-msgstr ""
+msgstr "✨ Põhifunktsionaalsus:"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:16
 msgid "Modern and clean interface designed with GTK4 and libadwaita"
-msgstr ""
+msgstr "Moodne ja selge kasutajaliides, mis põhineb GTK4 ja libadwaita teekidel"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:17
 msgid "Drag and drop to organize tasks and projects effortlessly"
@@ -101,8 +106,10 @@ msgstr ""
 
 #: data/io.github.alainm23.planify.desktop.in.in:3
 msgid "Planify"
-msgstr ""
+msgstr "Planify"
 
 #: data/io.github.alainm23.planify.desktop.in.in:14
 msgid "development;task;tasks;project;todo;reminder;reminders;event;events;calendar;todoist;"
 msgstr ""
+"development;task;tasks;project;todo;reminder;reminders;event;events;calendar;todoist;ülesanne;ülesanded;tegemine;tegemised;tähtaeg;meeldetuletus;kalender;sündmused;sündmus;"
+""
