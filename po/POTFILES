@@ -31,7 +31,7 @@ core/Objects/Reminder.vala
 core/Objects/Section.vala
 core/Objects/Source.vala
 core/Objects/TranslationMetric.vala
-core/QuickAdd.vala
+core/QuickAddCore.vala
 core/Services/CalDAV/CalDAVClient.vala
 core/Services/CalDAV/Core.vala
 core/Services/CalDAV/Providers/Nextcloud.vala

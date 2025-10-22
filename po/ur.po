@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-22 10:09+0000\n"
+"POT-Creation-Date: 2025-10-22 10:16+0000\n"
 "PO-Revision-Date: 2025-10-06 04:59-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -405,34 +405,35 @@ msgstr ""
 msgid "Todoist"
 msgstr ""
 
-#: core/QuickAdd.vala:114
+#: core/QuickAddCore.vala:117
 msgid "Task added successfully!"
 msgstr ""
 
-#: core/QuickAdd.vala:130 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:133 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr ""
 
-#: core/QuickAdd.vala:136
+#: core/QuickAddCore.vala:139
 msgid "This field is required"
 msgstr ""
 
-#: core/QuickAdd.vala:160
+#: core/QuickAddCore.vala:163
 msgid "Add a description…"
 msgstr ""
 
-#: core/QuickAdd.vala:178 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:181 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr ""
 
-#: core/QuickAdd.vala:183 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:186 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr ""
 
-#: core/QuickAdd.vala:189 core/Widgets/ReminderPicker/ReminderButton.vala:42
+#: core/QuickAddCore.vala:192
+#: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
@@ -440,74 +441,74 @@ msgstr ""
 msgid "Add Reminders"
 msgstr ""
 
-#: core/QuickAdd.vala:230 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:233 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr ""
 
-#: core/QuickAdd.vala:236 core/QuickAdd.vala:970
+#: core/QuickAddCore.vala:239 core/QuickAddCore.vala:995
 msgid "Keep adding"
 msgstr ""
 
-#: core/QuickAdd.vala:253
+#: core/QuickAddCore.vala:256
 msgid "Select a Project"
 msgstr ""
 
-#: core/QuickAdd.vala:280
+#: core/QuickAddCore.vala:283
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
 
-#: core/QuickAdd.vala:932 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:957 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: core/QuickAdd.vala:938
+#: core/QuickAddCore.vala:963
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAdd.vala:952
+#: core/QuickAddCore.vala:977
 msgid "Set priority"
 msgstr ""
 
-#: core/QuickAdd.vala:952
+#: core/QuickAddCore.vala:977
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAdd.vala:953
+#: core/QuickAddCore.vala:978
 msgid "Add labels"
 msgstr ""
 
-#: core/QuickAdd.vala:953
+#: core/QuickAddCore.vala:978
 msgid "Opens label selector"
 msgstr ""
 
-#: core/QuickAdd.vala:954
+#: core/QuickAddCore.vala:979
 msgid "Assign project"
 msgstr ""
 
-#: core/QuickAdd.vala:954
+#: core/QuickAddCore.vala:979
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAdd.vala:955
+#: core/QuickAddCore.vala:980
 msgid "Set reminder"
 msgstr ""
 
-#: core/QuickAdd.vala:955
+#: core/QuickAddCore.vala:980
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAdd.vala:970
+#: core/QuickAddCore.vala:995
 msgid "Stay open after creating task"
 msgstr ""
 
-#: core/QuickAdd.vala:976
+#: core/QuickAddCore.vala:1001
 msgid "Tip"
 msgstr ""
 
-#: core/QuickAdd.vala:976
+#: core/QuickAddCore.vala:1001
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
