@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-19 21:02+0000\n"
-"PO-Revision-Date: 2025-10-22 21:30+0000\n"
+"PO-Revision-Date: 2025-10-22 21:44+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
-"Language-Team: Estonian <https://hosted.weblate.org/projects/planner/io-"
-"github-alainm23-planify/et/>\n"
+"Language-Team: Estonian <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -229,7 +229,7 @@ msgstr ""
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
-msgstr ""
+msgstr "sildid"
 
 #: core/Objects/Filters/Pinboard.vala:34
 msgid "Pinboard"
@@ -237,51 +237,51 @@ msgstr ""
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:113
 msgid "Priority 1: high"
-msgstr ""
+msgstr "1. olulisus: kõrge"
 
 #: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:115
 msgid "Priority 2: medium"
-msgstr ""
+msgstr "2. olulisus: keskmine"
 
 #: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:117
 msgid "Priority 3: low"
-msgstr ""
+msgstr "3. olulisus: madal"
 
 #: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:119
 msgid "Priority 4: none"
-msgstr ""
+msgstr "4. olulisus: puudub"
 
 #: core/Objects/Filters/Priority.vala:170
 msgid "high"
-msgstr ""
+msgstr "kõrge"
 
 #: core/Objects/Filters/Priority.vala:172
 msgid "medium"
-msgstr ""
+msgstr "keskmine"
 
 #: core/Objects/Filters/Priority.vala:174
 msgid "low"
-msgstr ""
+msgstr "madal"
 
 #: core/Objects/Filters/Priority.vala:176
 msgid "none"
-msgstr ""
+msgstr "puudub"
 
 #: core/Objects/Filters/Repeating.vala:33
 msgid "Repeating"
-msgstr ""
+msgstr "Korduv"
 
 #: core/Objects/Filters/Repeating.vala:34
 msgid "repeating"
-msgstr ""
+msgstr "korduv"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr ""
+msgstr "ajastatud"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
-msgstr ""
+msgstr "tegemiseks järgmisena"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Util.vala:247
@@ -291,42 +291,42 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1150 src/Views/Project/Project.vala:500
 #: src/Views/Project/Project.vala:660 src/Views/Today.vala:202
 msgid "Today"
-msgstr ""
+msgstr "Täna"
 
 #: core/Objects/Filters/Today.vala:50
 msgid "today"
-msgstr ""
+msgstr "täna"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:710
 #: src/Layouts/ItemRow.vala:1153
 msgid "Tomorrow"
-msgstr ""
+msgstr "Homme"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "tomorrow"
-msgstr ""
+msgstr "homme"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "date"
-msgstr ""
+msgstr "kuupäev"
 
 #: core/Objects/Filters/Unlabeled.vala:33
 msgid "Unlabeled"
-msgstr ""
+msgstr "Ilma sildita"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "no label"
-msgstr ""
+msgstr "silt puudub"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "unlabeled"
-msgstr ""
+msgstr "ilma sildita"
 
 #: core/Objects/Item.vala:1320
 msgid "Task copied to clipboard"
-msgstr ""
+msgstr "Ülesanne on kopeeritud lõikelauale"
 
 #: core/Objects/Item.vala:1585 core/Utils/Util.vala:866
 #, c-format
@@ -413,7 +413,7 @@ msgstr ""
 
 #: core/QuickAdd.vala:112 core/QuickAddCore.vala:124
 msgid "Task added successfully!"
-msgstr ""
+msgstr "Ülesande lisamine õnnestus!"
 
 #: core/QuickAdd.vala:128 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
@@ -427,12 +427,12 @@ msgstr ""
 
 #: core/QuickAdd.vala:158 core/QuickAddCore.vala:170
 msgid "Add a description…"
-msgstr ""
+msgstr "Lisa kirjeldus…"
 
 #: core/QuickAdd.vala:176 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64 core/QuickAddCore.vala:188
 msgid "Add Labels"
-msgstr ""
+msgstr "Lisa silte"
 
 #: core/QuickAdd.vala:181 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47 core/QuickAddCore.vala:193
@@ -446,18 +446,18 @@ msgstr ""
 #: core/Widgets/ReminderPicker/ReminderButton.vala:177
 #: core/QuickAddCore.vala:199
 msgid "Add Reminders"
-msgstr ""
+msgstr "Lisa meeldetuletusi"
 
 #: core/QuickAdd.vala:228 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 #: core/QuickAddCore.vala:240
 msgid "Add Task"
-msgstr ""
+msgstr "Lisa ülesanne"
 
 #: core/QuickAdd.vala:234 core/QuickAdd.vala:960 core/QuickAddCore.vala:246
 #: core/QuickAddCore.vala:1046
 msgid "Keep adding"
-msgstr ""
+msgstr "Jätka lisamist"
 
 #: core/QuickAdd.vala:251 core/QuickAddCore.vala:263
 msgid "Select a Project"
@@ -471,7 +471,7 @@ msgstr ""
 
 #: core/QuickAdd.vala:922 src/MainWindow.vala:707 core/QuickAddCore.vala:1008
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Klaviatuuri kiirklahvid"
 
 #: core/QuickAdd.vala:928 core/QuickAddCore.vala:1014
 msgid "Speed up task creation with these shortcuts"
@@ -487,7 +487,7 @@ msgstr ""
 
 #: core/QuickAdd.vala:943 core/QuickAddCore.vala:1029
 msgid "Add labels"
-msgstr ""
+msgstr "Lisa silte"
 
 #: core/QuickAdd.vala:943 core/QuickAddCore.vala:1029
 msgid "Opens label selector"
@@ -836,7 +836,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:595
 msgid "Plan this to-do for today or later"
-msgstr ""
+msgstr "Ajasta see ülesanne tänaseks või hilisemaks"
 
 #: core/Utils/Util.vala:596
 msgid ""
@@ -916,7 +916,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:667
 msgid "Add labels to your tasks!"
-msgstr ""
+msgstr "Lisa oma ülesannetele silte!"
 
 #: core/Utils/Util.vala:668
 msgid ""
@@ -1220,7 +1220,7 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/TimePicker.vala:113
 msgid "Add Time"
-msgstr ""
+msgstr "Lisa aeg"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1316,7 +1316,7 @@ msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:157
 msgid "Add Reminder"
-msgstr ""
+msgstr "Lisa meeldetuletus"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:192
 msgid "In 5 minutes"
@@ -1447,7 +1447,7 @@ msgstr ""
 
 #: src/Dialogs/ItemChangeHistory.vala:54
 msgid "Added at"
-msgstr ""
+msgstr "Lisamise aeg"
 
 #: src/Dialogs/ItemChangeHistory.vala:56
 msgid "Not available"
@@ -1486,7 +1486,7 @@ msgstr ""
 
 #: src/Dialogs/Label.vala:89
 msgid "Add Label"
-msgstr ""
+msgstr "Lisa silt"
 
 #: src/Dialogs/Label.vala:89
 msgid "Update Label"
@@ -1526,7 +1526,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
 msgid "Add Source"
-msgstr ""
+msgstr "Lisa allikas"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
 msgid "Inbox Page"
@@ -1940,7 +1940,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:180
 msgid "Quick Add"
-msgstr ""
+msgstr "Kiirlisamine"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:43
 msgid ""
@@ -2177,7 +2177,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
-msgstr ""
+msgstr "Ülesannet lisamine kust iganes"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:191
 msgid "Backups"
@@ -2320,7 +2320,7 @@ msgstr ""
 
 #: src/Dialogs/Project.vala:204 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
-msgstr ""
+msgstr "Lisa projekt"
 
 #: src/Dialogs/Project.vala:204
 msgid "Update Project"
@@ -2328,7 +2328,7 @@ msgstr ""
 
 #: src/Dialogs/Project.vala:447
 msgid "Project added successfully!"
-msgstr ""
+msgstr "Projekti lisamine õnnestus!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1161
@@ -2388,7 +2388,7 @@ msgstr ""
 
 #: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1163
 msgid "Add Subtask"
-msgstr ""
+msgstr "Lisa alamülesanne"
 
 #: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1165
 msgid "Edit"
@@ -2421,11 +2421,11 @@ msgstr ""
 
 #: src/Layouts/ItemRow.vala:460
 msgid "Add Subtasks"
-msgstr ""
+msgstr "Lisa alamülesandeid"
 
 #: src/Layouts/ItemRow.vala:470
 msgid "Add Attachments"
-msgstr ""
+msgstr "Lisa manuseid"
 
 #: src/Layouts/ItemRow.vala:1024
 msgid "Hide Sub-tasks"
@@ -2473,7 +2473,7 @@ msgstr ""
 
 #: src/Layouts/ProjectRow.vala:697 src/Layouts/ProjectRow.vala:703
 msgid "Add to Favorites"
-msgstr ""
+msgstr "Lisa lemmikuks"
 
 #: src/Layouts/ProjectRow.vala:706
 msgid "Refresh"
@@ -2494,7 +2494,7 @@ msgstr ""
 
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:225
 msgid "Add tasks"
-msgstr ""
+msgstr "Lisa ülesandeid"
 
 #: src/Layouts/SectionBoard.vala:175
 msgid "Load more"
@@ -2532,7 +2532,7 @@ msgstr ""
 
 #: src/Layouts/Sidebar.vala:122
 msgid "Add Account"
-msgstr ""
+msgstr "Lisa kasutajakonto"
 
 #: src/Layouts/Sidebar.vala:123
 msgid "Customize Sidebar"
@@ -2540,7 +2540,7 @@ msgstr ""
 
 #: src/Layouts/Sidebar.vala:312 src/Layouts/Sidebar.vala:364
 msgid "Go to Today"
-msgstr ""
+msgstr "Vaata tänast päeva"
 
 #: src/Layouts/Sidebar.vala:316 src/Layouts/Sidebar.vala:368
 msgid "Go to Scheduled"
@@ -2647,7 +2647,7 @@ msgstr ""
 #: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
 #: src/Views/Project/List.vala:116 src/Views/Today.vala:254
 msgid "Add Some Tasks"
-msgstr ""
+msgstr "Lisa mõni ülesanne"
 
 #: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
 #: src/Views/Project/List.vala:117 src/Views/Today.vala:255
@@ -2703,27 +2703,27 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:222
 msgid "New Task"
-msgstr ""
+msgstr "Uus ülesanne"
 
 #: src/Views/Project/Project.vala:340
 msgid "Select"
-msgstr ""
+msgstr "Vali"
 
 #: src/Views/Project/Project.vala:341
 msgid "Paste"
-msgstr ""
+msgstr "Aseta"
 
 #: src/Views/Project/Project.vala:342 src/Views/Project/Project.vala:443
 msgid "Expand All"
-msgstr ""
+msgstr "Laienda kõik"
 
 #: src/Views/Project/Project.vala:447
 msgid "Collapse All"
-msgstr ""
+msgstr "Ahenda kõik"
 
 #: src/Views/Project/Project.vala:463
 msgid "List"
-msgstr ""
+msgstr "Loend"
 
 #: src/Views/Project/Project.vala:469
 msgid "Board"
@@ -2741,7 +2741,7 @@ msgstr ""
 #: src/Views/Project/Project.vala:487 src/Views/Scheduled/Scheduled.vala:227
 #: src/Views/Today.vala:623
 msgid "Date Added"
-msgstr ""
+msgstr "Lisamise kuupäev"
 
 #: src/Views/Project/Project.vala:490
 msgid "Ascending Order"
@@ -2822,7 +2822,7 @@ msgstr ""
 
 #: src/Widgets/Attachments.vala:248
 msgid "No attachments found. Add files here."
-msgstr ""
+msgstr "Ühtegi manust ei leidu. Lisa siit mõni fail."
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
 msgid "Bypass Location Resolve"
@@ -3015,7 +3015,7 @@ msgstr ""
 
 #: quick-add/MainWindow.vala:9
 msgid "Planify - Quick Add"
-msgstr ""
+msgstr "Planify - Kiirlisamine"
 
 #: data/resources/ui/shortcuts.ui:12
 msgctxt "shortcut window"
@@ -3095,7 +3095,7 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:108
 msgctxt "shortcut window"
 msgid "Open Today"
-msgstr ""
+msgstr "Ava tänased tegemised"
 
 #: data/resources/ui/shortcuts.ui:115
 msgctxt "shortcut window"
