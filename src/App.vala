@@ -165,6 +165,15 @@ public class Planify : Adw.Application {
         }
     }
 
+    public void recreate_main_window () {
+        if (main_window != null) {
+            main_window.destroy ();
+            main_window = null;
+        }
+        
+        activate ();
+    }
+
     private void snooze_item (string item_id, int minutes) {
         var item = Services.Store.instance ().get_item (item_id);
         if (item != null) {
