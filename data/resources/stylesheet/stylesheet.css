@@ -359,6 +359,11 @@ entry.flat:focus-within {
     padding: 0px 12px;
 }
 
+.tiny-button {
+    padding: 0 6px;
+    font-weight: 600;
+}
+
 .pane-due-button {
     background-color: @upcoming_bg_color;
     border-radius: 6px;

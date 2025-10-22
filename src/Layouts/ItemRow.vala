@@ -361,6 +361,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_textview.remove_css_class ("view");
         content_textview.add_css_class ("font-bold");
 
+#if LIBSPELLING
+        var source_buffer = new GtkSource.Buffer (null);
+        content_textview.buffer = source_buffer;
+        
+        var adapter = new Spelling.TextBufferAdapter (source_buffer, Spelling.Checker.get_default ());
+        content_textview.extra_menu = adapter.get_menu_model ();
+        content_textview.insert_action_group ("spelling", adapter);
+        adapter.enabled = true;
+#endif
+
         content_entry_revealer = new Gtk.Revealer () {
             valign = Gtk.Align.CENTER,
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -1199,9 +1209,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
                 }
 
-                dialog.add_sections (item.project.sections);
                 dialog.project = item.project;
-                dialog.section = item.section;
 
                 signals_map[dialog.changed.connect ((type, id) => {
                     if (type == "project") {
@@ -1314,7 +1322,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 })] = dialog;
 
                 dialog.project = item.project;
-                dialog.section = item.section;
                 dialog.present (Planify._instance.main_window);
             })] = move_item;
         }

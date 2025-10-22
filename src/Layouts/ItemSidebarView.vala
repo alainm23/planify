@@ -122,6 +122,16 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         content_textview.remove_css_class ("view");
         content_textview.add_css_class ("card");
 
+#if LIBSPELLING
+        var source_buffer = new GtkSource.Buffer (null);
+        content_textview.buffer = source_buffer;
+        
+        var adapter = new Spelling.TextBufferAdapter (source_buffer, Spelling.Checker.get_default ());
+        content_textview.extra_menu = adapter.get_menu_model ();
+        content_textview.insert_action_group ("spelling", adapter);
+        adapter.enabled = true;
+#endif
+
         var content_group = new Adw.PreferencesGroup () {
             margin_start = 12,
             margin_end = 12
@@ -487,9 +497,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
                 dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
             }
 
-            dialog.add_sections (item.project.sections);
             dialog.project = item.project;
-            dialog.section = item.section;
             dialog.present (Planify._instance.main_window);
 
             dialog.changed.connect ((type, id) => {
