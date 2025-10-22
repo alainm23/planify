@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-19 21:02+0000\n"
+"POT-Creation-Date: 2025-10-22 10:54+0000\n"
 "PO-Revision-Date: 2025-05-25 20:44+0500\n"
 "Last-Translator: AnmiTaliDev <anmitali198@gmail.com>\n"
 "Language-Team: \n"
@@ -16,12 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:345
+#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
 msgid "Projects"
 msgstr "Жобалар"
 
-#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:349
+#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:362
 msgid "Sections"
 msgstr "Бөлімдер"
 
@@ -31,7 +31,7 @@ msgstr "Тапсырмалар"
 
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:36
-#: src/Dialogs/Preferences/Pages/Backup.vala:357
+#: src/Dialogs/Preferences/Pages/Backup.vala:370
 msgid "Labels"
 msgstr "Белгілер"
 
@@ -349,8 +349,8 @@ msgstr "Бұны қайтаруға болмайды"
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
-#: src/Dialogs/Preferences/Pages/Backup.vala:370
-#: src/Dialogs/Preferences/Pages/Backup.vala:436
+#: src/Dialogs/Preferences/Pages/Backup.vala:383
+#: src/Dialogs/Preferences/Pages/Backup.vala:449
 #: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:542
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
@@ -362,7 +362,7 @@ msgstr "Болдырмау"
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:824
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
-#: src/Dialogs/Preferences/Pages/Backup.vala:266
+#: src/Dialogs/Preferences/Pages/Backup.vala:279
 #: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
@@ -406,35 +406,36 @@ msgstr "%s бөлімін жою"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAdd.vala:112
+#: core/QuickAddCore.vala:124
 #, fuzzy
 msgid "Task added successfully!"
 msgstr "Жоба сәтті қосылды!"
 
-#: core/QuickAdd.vala:128 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:140 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Тапсырма атауы"
 
-#: core/QuickAdd.vala:134
+#: core/QuickAddCore.vala:146
 msgid "This field is required"
 msgstr "Бұл өріс міндетті"
 
-#: core/QuickAdd.vala:158
+#: core/QuickAddCore.vala:170
 msgid "Add a description…"
 msgstr "Сипаттама қосу…"
 
-#: core/QuickAdd.vala:176 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:188 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Белгілер қосу"
 
-#: core/QuickAdd.vala:181 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:193 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Басымдылықты орнату"
 
-#: core/QuickAdd.vala:187 core/Widgets/ReminderPicker/ReminderButton.vala:42
+#: core/QuickAddCore.vala:199
+#: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
@@ -442,20 +443,20 @@ msgstr "Басымдылықты орнату"
 msgid "Add Reminders"
 msgstr "Еске салғыштар қосу"
 
-#: core/QuickAdd.vala:228 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:240 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Тапсырма қосу"
 
-#: core/QuickAdd.vala:234 core/QuickAdd.vala:960
+#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1046
 msgid "Keep adding"
 msgstr ""
 
-#: core/QuickAdd.vala:251
+#: core/QuickAddCore.vala:263
 msgid "Select a Project"
 msgstr "Жобаны таңдау"
 
-#: core/QuickAdd.vala:278
+#: core/QuickAddCore.vala:290
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -463,61 +464,61 @@ msgstr ""
 "Кешіріңіз, Жылдам қосу қолжетімді жобаларды таба алмады, Planify арқылы жоба "
 "жасауға тырысыңыз."
 
-#: core/QuickAdd.vala:922 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1008 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Пернетақта қысқартулары"
 
-#: core/QuickAdd.vala:928
+#: core/QuickAddCore.vala:1014
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAdd.vala:942
+#: core/QuickAddCore.vala:1028
 #, fuzzy
 msgid "Set priority"
 msgstr "Басымдылықты орнату"
 
-#: core/QuickAdd.vala:942
+#: core/QuickAddCore.vala:1028
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAdd.vala:943
+#: core/QuickAddCore.vala:1029
 #, fuzzy
 msgid "Add labels"
 msgstr "Белгілер қосу"
 
-#: core/QuickAdd.vala:943
+#: core/QuickAddCore.vala:1029
 #, fuzzy
 msgid "Opens label selector"
 msgstr "Белгілерді ашу"
 
-#: core/QuickAdd.vala:944
+#: core/QuickAddCore.vala:1030
 #, fuzzy
 msgid "Assign project"
 msgstr "Жоба қосу"
 
-#: core/QuickAdd.vala:944
+#: core/QuickAddCore.vala:1030
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAdd.vala:945
+#: core/QuickAddCore.vala:1031
 #, fuzzy
 msgid "Set reminder"
 msgstr "Уақтылы еске салғыштар орнатыңыз!"
 
-#: core/QuickAdd.vala:945
+#: core/QuickAddCore.vala:1031
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAdd.vala:960
+#: core/QuickAddCore.vala:1046
 msgid "Stay open after creating task"
 msgstr ""
 
-#: core/QuickAdd.vala:966
+#: core/QuickAddCore.vala:1052
 #, fuzzy
 msgid "Tip"
 msgstr "Жоғары"
 
-#: core/QuickAdd.vala:966
+#: core/QuickAddCore.vala:1052
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -797,7 +798,6 @@ msgstr "Процесс аяқталды, Planify қайта қосу керек.
 
 #: core/Utils/Util.vala:438
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:221
-#: src/Services/Backups.vala:552
 msgid "Ok"
 msgstr "Жарайды"
 
@@ -1303,11 +1303,11 @@ msgstr "Іздеу"
 msgid "Search or Create"
 msgstr "Іздеу немесе жасау"
 
-#: core/Widgets/MarkdownEditor.vala:1353
+#: core/Widgets/MarkdownEditor.vala:1357
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1358
+#: core/Widgets/MarkdownEditor.vala:1362
 #, fuzzy
 msgid "Remove link"
 msgstr "Алып тастау"
@@ -1825,63 +1825,68 @@ msgstr "Сақтық көшірмені импорттау"
 msgid "Backup Files"
 msgstr "Сақтық көшірме файлдары"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:58
+#: src/Dialogs/Preferences/Pages/Backup.vala:57
 msgid "No backups found, create one clicking the button above."
 msgstr "Сақтық көшірмелер табылмады, жоғарыдағы түймені басып жаңасын жасаңыз."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:63
+#: src/Dialogs/Preferences/Pages/Backup.vala:62
+#, c-format
+msgid "Backup files are stored in: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:76
 msgid "Migrate"
 msgstr "Көшіру"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:65
+#: src/Dialogs/Preferences/Pages/Backup.vala:78
 msgid "Migrate From Planner"
 msgstr "Planner-ден көшіру"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:105
+#: src/Dialogs/Preferences/Pages/Backup.vala:118
 msgid "The Backup was created successfully."
 msgstr "Сақтық көшірме сәтті жасалды."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:122
+#: src/Dialogs/Preferences/Pages/Backup.vala:135
 msgid "Tasks Migrate Successfully"
 msgstr "Тапсырмалар сәтті көшірілді"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:126
+#: src/Dialogs/Preferences/Pages/Backup.vala:139
 msgid "The database file does not exist."
 msgstr "Дерекқор файлы жоқ."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:164
+#: src/Dialogs/Preferences/Pages/Backup.vala:177
 msgid "Selected file is invalid"
 msgstr "Таңдалған файл жарамсыз"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:209
+#: src/Dialogs/Preferences/Pages/Backup.vala:222
 msgid "View Backup"
 msgstr "Сақтық көшірмені көру"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:265
+#: src/Dialogs/Preferences/Pages/Backup.vala:278
 msgid "Download"
 msgstr "Жүктеп алу"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:329
+#: src/Dialogs/Preferences/Pages/Backup.vala:342
 msgid "Import Overview"
 msgstr "Импорттау шолуы"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:353
+#: src/Dialogs/Preferences/Pages/Backup.vala:354 src/Dialogs/Project.vala:353
 msgid "Sources"
 msgstr "Көздер"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:353
+#: src/Dialogs/Preferences/Pages/Backup.vala:366
 msgid "To-Dos"
 msgstr "Тапсырмалар"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:375
+#: src/Dialogs/Preferences/Pages/Backup.vala:388
 msgid "Confirm"
 msgstr "Растау"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:431
+#: src/Dialogs/Preferences/Pages/Backup.vala:444
 msgid "Restore backup"
 msgstr "Сақтық көшірмені қалпына келтіру"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:432
+#: src/Dialogs/Preferences/Pages/Backup.vala:445
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
@@ -1889,7 +1894,7 @@ msgstr ""
 "Жалғастыруды шынымен қалайсыз ба? Бұл операция ағымдағы деректеріңізді "
 "жойып, оларды сақтық көшірме деректерімен ауыстырады."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:437
+#: src/Dialogs/Preferences/Pages/Backup.vala:450
 msgid "Restore Backup"
 msgstr "Сақтық көшірмені қалпына келтіру"
 
@@ -2720,15 +2725,19 @@ msgstr "Дерекқорды қалпына келтіру"
 msgid "Delete Backup"
 msgstr "Сақтық көшірмені жою"
 
-#: src/Services/Backups.vala:548
+#: src/Services/Backups.vala:547
 msgid "Backup Successfully Imported"
 msgstr "Сақтық көшірме сәтті импортталды"
 
-#: src/Services/Backups.vala:549
-msgid "Process completed, you need to start Planify again"
-msgstr "Процесс аяқталды, Planify қайта қосу керек"
+#: src/Services/Backups.vala:548
+msgid "Planify will restart to apply the changes"
+msgstr ""
 
-#: src/Services/Backups.vala:563
+#: src/Services/Backups.vala:551
+msgid "Restart Now"
+msgstr ""
+
+#: src/Services/Backups.vala:566
 msgid "Planify Backup Files"
 msgstr "Planify сақтық көшірме файлдары"
 
@@ -3238,6 +3247,9 @@ msgstr "Белгілерді ашу"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Жапсырма тақтасын ашу"
+
+#~ msgid "Process completed, you need to start Planify again"
+#~ msgstr "Процесс аяқталды, Planify қайта қосу керек"
 
 #~ msgid "Task Detail"
 #~ msgstr "Тапсырма толық ақпараты"

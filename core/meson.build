@@ -1,7 +1,7 @@
 core_files = files(
     'Enum.vala',
     'Constants.vala',
-    'QuickAdd.vala',
+    'QuickAddCore.vala',
 
     'Utils/Util.vala',
     'Utils/Datetime.vala',

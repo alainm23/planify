@@ -68,6 +68,8 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     public signal void text_changed (string text);
     public signal void escape_pressed ();
     public signal void return_pressed ();
+    public signal void focus_in ();
+    public signal void focus_out ();
 
     public bool is_editable {
         set {
@@ -704,11 +706,13 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         }
         
         text_view.grab_focus ();
+        focus_in ();
     }
     
     private void handle_focus_out () {
         Services.EventBus.get_default ().connect_typing_accel ();
         update_placeholder_visibility ();
+        focus_out ();
     }
     
     private bool on_key_pressed (uint keyval, uint keycode, Gdk.ModifierType state) {

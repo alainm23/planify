@@ -21,10 +21,12 @@ msgstr ""
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:345
 #: src/Dialogs/Preferences/Pages/General.vala:56
+#: src/Dialogs/Preferences/Pages/Backup.vala:358
 msgid "Projects"
 msgstr "專案"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:349
+#: src/Dialogs/Preferences/Pages/Backup.vala:362
 msgid "Sections"
 msgstr "階段"
 
@@ -35,6 +37,7 @@ msgstr "任務"
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:36
 #: src/Dialogs/Preferences/Pages/Backup.vala:357
+#: src/Dialogs/Preferences/Pages/Backup.vala:370
 msgid "Labels"
 msgstr "標籤"
 
@@ -365,6 +368,8 @@ msgstr "此項無法取消動作"
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:265 core/Objects/Project.vala:823
 #: core/Objects/Project.vala:880 src/Layouts/ItemSidebarView.vala:542
+#: src/Dialogs/Preferences/Pages/Backup.vala:383
+#: src/Dialogs/Preferences/Pages/Backup.vala:449
 msgid "Cancel"
 msgstr "取消"
 
@@ -377,6 +382,7 @@ msgstr "取消"
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
 #: src/Widgets/MultiSelectToolbar.vala:266 core/Objects/Project.vala:824
 #: src/Layouts/ItemSidebarView.vala:543
+#: src/Dialogs/Preferences/Pages/Backup.vala:279
 msgid "Delete"
 msgstr "刪除"
 
@@ -419,30 +425,31 @@ msgstr "刪除階段 %s"
 msgid "Todoist"
 msgstr "待辦事項清單"
 
-#: core/QuickAdd.vala:112
+#: core/QuickAdd.vala:112 core/QuickAddCore.vala:124
 msgid "Task added successfully!"
 msgstr "任務已經加入成功！"
 
 #: core/QuickAdd.vala:128 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
+#: core/QuickAddCore.vala:140
 msgid "To-do name"
 msgstr "待辦事項名稱"
 
-#: core/QuickAdd.vala:134
+#: core/QuickAdd.vala:134 core/QuickAddCore.vala:146
 msgid "This field is required"
 msgstr "此欄必填"
 
-#: core/QuickAdd.vala:158
+#: core/QuickAdd.vala:158 core/QuickAddCore.vala:170
 msgid "Add a description…"
 msgstr "加上描述…"
 
 #: core/QuickAdd.vala:176 core/Widgets/LabelPicker/LabelButton.vala:57
-#: core/Widgets/LabelPicker/LabelButton.vala:64
+#: core/Widgets/LabelPicker/LabelButton.vala:64 core/QuickAddCore.vala:188
 msgid "Add Labels"
 msgstr "添加標籤"
 
 #: core/QuickAdd.vala:181 core/Widgets/PriorityButton.vala:40
-#: core/Widgets/PriorityButton.vala:47
+#: core/Widgets/PriorityButton.vala:47 core/QuickAddCore.vala:193
 msgid "Set The Priority"
 msgstr "設定優先等級"
 
@@ -451,77 +458,80 @@ msgstr "設定優先等級"
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
 #: core/Widgets/ReminderPicker/ReminderButton.vala:177
+#: core/QuickAddCore.vala:199
 msgid "Add Reminders"
 msgstr "添加提醒"
 
 #: core/QuickAdd.vala:228 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
+#: core/QuickAddCore.vala:240
 msgid "Add Task"
 msgstr "添加任務"
 
-#: core/QuickAdd.vala:234 core/QuickAdd.vala:960
+#: core/QuickAdd.vala:234 core/QuickAdd.vala:960 core/QuickAddCore.vala:246
+#: core/QuickAddCore.vala:1046
 msgid "Keep adding"
 msgstr "保持添加"
 
-#: core/QuickAdd.vala:251
+#: core/QuickAdd.vala:251 core/QuickAddCore.vala:263
 msgid "Select a Project"
 msgstr "選擇專案"
 
-#: core/QuickAdd.vala:278
+#: core/QuickAdd.vala:278 core/QuickAddCore.vala:290
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr "抱歉，快速添加無法找到任何可用的專案，請從 Planify 中建立一個專案。"
 
-#: core/QuickAdd.vala:922 src/MainWindow.vala:707
+#: core/QuickAdd.vala:922 src/MainWindow.vala:707 core/QuickAddCore.vala:1008
 msgid "Keyboard Shortcuts"
 msgstr "鍵盤快速鍵"
 
-#: core/QuickAdd.vala:928
+#: core/QuickAdd.vala:928 core/QuickAddCore.vala:1014
 msgid "Speed up task creation with these shortcuts"
 msgstr "利用這些快速鍵來加快任務建立"
 
-#: core/QuickAdd.vala:942
+#: core/QuickAdd.vala:942 core/QuickAddCore.vala:1028
 msgid "Set priority"
 msgstr "設定優先等級"
 
-#: core/QuickAdd.vala:942
+#: core/QuickAdd.vala:942 core/QuickAddCore.vala:1028
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = 最高 、 p4 = 最低"
 
-#: core/QuickAdd.vala:943
+#: core/QuickAdd.vala:943 core/QuickAddCore.vala:1029
 msgid "Add labels"
 msgstr "添加標籤"
 
-#: core/QuickAdd.vala:943
+#: core/QuickAdd.vala:943 core/QuickAddCore.vala:1029
 msgid "Opens label selector"
 msgstr "開啟標籤選取"
 
-#: core/QuickAdd.vala:944
+#: core/QuickAdd.vala:944 core/QuickAddCore.vala:1030
 msgid "Assign project"
 msgstr "指派專案"
 
-#: core/QuickAdd.vala:944
+#: core/QuickAdd.vala:944 core/QuickAddCore.vala:1030
 msgid "Opens project selector"
 msgstr "開啟專案選擇"
 
-#: core/QuickAdd.vala:945
+#: core/QuickAdd.vala:945 core/QuickAddCore.vala:1031
 msgid "Set reminder"
 msgstr "設定提醒"
 
-#: core/QuickAdd.vala:945
+#: core/QuickAdd.vala:945 core/QuickAddCore.vala:1031
 msgid "Opens reminder options"
 msgstr "開啟提醒選項"
 
-#: core/QuickAdd.vala:960
+#: core/QuickAdd.vala:960 core/QuickAddCore.vala:1046
 msgid "Stay open after creating task"
 msgstr "建立任務之後保持開啟"
 
-#: core/QuickAdd.vala:966
+#: core/QuickAdd.vala:966 core/QuickAddCore.vala:1052
 msgid "Tip"
 msgstr "技巧"
 
-#: core/QuickAdd.vala:966
+#: core/QuickAdd.vala:966 core/QuickAddCore.vala:1052
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "在標題欄位中組合快速鍵操作，以利更快建立"
 
@@ -1272,11 +1282,11 @@ msgstr "搜尋"
 msgid "Search or Create"
 msgstr "搜尋或建立"
 
-#: core/Widgets/MarkdownEditor.vala:1353
+#: core/Widgets/MarkdownEditor.vala:1353 core/Widgets/MarkdownEditor.vala:1357
 msgid "Apply"
 msgstr "套用"
 
-#: core/Widgets/MarkdownEditor.vala:1358
+#: core/Widgets/MarkdownEditor.vala:1358 core/Widgets/MarkdownEditor.vala:1362
 msgid "Remove link"
 msgstr "移除連結"
 
@@ -1775,68 +1785,84 @@ msgid "Backup Files"
 msgstr "備份檔案"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:58
+#: src/Dialogs/Preferences/Pages/Backup.vala:57
 msgid "No backups found, create one clicking the button above."
 msgstr "找無備份，請點按上方的按鈕來建立一個。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:63
+#: src/Dialogs/Preferences/Pages/Backup.vala:76
 msgid "Migrate"
 msgstr "移轉"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:65
+#: src/Dialogs/Preferences/Pages/Backup.vala:78
 msgid "Migrate From Planner"
 msgstr "移轉來自 Planner"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:105
+#: src/Dialogs/Preferences/Pages/Backup.vala:118
 msgid "The Backup was created successfully."
 msgstr "備份已經成功地建立了。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:122
+#: src/Dialogs/Preferences/Pages/Backup.vala:135
 msgid "Tasks Migrate Successfully"
 msgstr "任務移轉成功"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:126
+#: src/Dialogs/Preferences/Pages/Backup.vala:139
 msgid "The database file does not exist."
 msgstr "資料庫檔案不存在。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:164
+#: src/Dialogs/Preferences/Pages/Backup.vala:177
 msgid "Selected file is invalid"
 msgstr "所選檔案無效"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:209
+#: src/Dialogs/Preferences/Pages/Backup.vala:222
 msgid "View Backup"
 msgstr "檢視備份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:265
+#: src/Dialogs/Preferences/Pages/Backup.vala:278
 msgid "Download"
 msgstr "下載"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:329
+#: src/Dialogs/Preferences/Pages/Backup.vala:342
 msgid "Import Overview"
 msgstr "匯入概覽"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:353
+#: src/Dialogs/Preferences/Pages/Backup.vala:354
 msgid "Sources"
 msgstr "來源"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:353
+#: src/Dialogs/Preferences/Pages/Backup.vala:366
 msgid "To-Dos"
 msgstr "待辦事項"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:375
+#: src/Dialogs/Preferences/Pages/Backup.vala:388
 msgid "Confirm"
 msgstr "確認"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:431
+#: src/Dialogs/Preferences/Pages/Backup.vala:444
 msgid "Restore backup"
 msgstr "還原備份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:432
+#: src/Dialogs/Preferences/Pages/Backup.vala:445
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
 msgstr "確定要繼續嗎？此操作將刪除您目前的資料，並用備份資料來取代。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:437
+#: src/Dialogs/Preferences/Pages/Backup.vala:450
 msgid "Restore Backup"
 msgstr "還原備份"
 
@@ -2671,7 +2697,7 @@ msgstr "重設資料庫"
 msgid "Delete Backup"
 msgstr "刪除備份"
 
-#: src/Services/Backups.vala:548
+#: src/Services/Backups.vala:548 src/Services/Backups.vala:547
 msgid "Backup Successfully Imported"
 msgstr "備份已經成功匯入"
 
@@ -2679,7 +2705,7 @@ msgstr "備份已經成功匯入"
 msgid "Process completed, you need to start Planify again"
 msgstr "處理已經完成，您需要再次啟動 Planify"
 
-#: src/Services/Backups.vala:563
+#: src/Services/Backups.vala:563 src/Services/Backups.vala:566
 msgid "Planify Backup Files"
 msgstr "Planify 備份檔案"
 
@@ -3175,3 +3201,16 @@ msgstr "開啟標籤"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "開啟釘貼看板"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:62
+#, c-format
+msgid "Backup files are stored in: %s"
+msgstr ""
+
+#: src/Services/Backups.vala:548
+msgid "Planify will restart to apply the changes"
+msgstr ""
+
+#: src/Services/Backups.vala:551
+msgid "Restart Now"
+msgstr ""
