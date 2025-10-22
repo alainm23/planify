@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-19 21:02+0000\n"
-"PO-Revision-Date: 2025-10-22 22:09+0000\n"
+"PO-Revision-Date: 2025-10-22 22:11+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/et/>\n"
@@ -2141,7 +2141,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:704
 msgid "Preferences"
-msgstr ""
+msgstr "Eelistused"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:45
 #: src/Dialogs/Preferences/PreferencesWindow.vala:217
