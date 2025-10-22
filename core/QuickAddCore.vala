@@ -53,6 +53,13 @@ public class Layouts.QuickAddCore : Adw.Bin {
     public bool project_picker_activate_shortcut { get; set; default = false; }
     public bool reminder_picker_activate_shortcut { get; set; default = false; }
     
+    public enum FocusedWidget {
+        CONTENT_ENTRY,
+        DESCRIPTION_TEXTVIEW
+    }
+    
+    public FocusedWidget current_focus { get; private set; default = FocusedWidget.CONTENT_ENTRY; }
+    
     private Objects.DueDate? preserved_duedate = null;
     private bool preserved_pinned = false;
     private Gee.HashMap<string, Objects.Label>? preserved_labels = null;
@@ -359,6 +366,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
                 Timeout.add (250, () => {
                     if (project_picker_activate_shortcut) {
                         entry_focus ();
+                    } else {
+                        restore_focus ();
                     }
 
                     project_picker_activate_shortcut = false;
@@ -373,6 +382,13 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
         signal_map[schedule_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
+
+            if (!active) {
+                Timeout.add (250, () => {
+                    restore_focus ();
+                    return GLib.Source.REMOVE;
+                });
+            }
         })] = schedule_button;
 
         signal_map[priority_button.changed.connect ((priority) => {
@@ -381,6 +397,13 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
         signal_map[priority_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
+
+            if (!active) {
+                Timeout.add (250, () => {
+                    restore_focus ();
+                    return GLib.Source.REMOVE;
+                });
+            }
         })] = priority_button;
 
         signal_map[label_button.labels_changed.connect (set_labels)] = label_button;
@@ -392,6 +415,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
                 Timeout.add (250, () => {
                     if (labels_picker_activate_shortcut) {
                         entry_focus ();
+                    } else {
+                        restore_focus ();
                     }
 
                     labels_picker_activate_shortcut = false;
@@ -407,6 +432,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
                 Timeout.add (250, () => {
                     if (reminder_picker_activate_shortcut) {
                         entry_focus ();
+                    } else {
+                        restore_focus ();
                     }
 
                     reminder_picker_activate_shortcut = false;
@@ -444,6 +471,17 @@ public class Layouts.QuickAddCore : Adw.Bin {
             }
         })] = description_textview;
 
+        // Focus tracking
+        var content_focus_controller = new Gtk.EventControllerFocus ();
+        content_entry.add_controller (content_focus_controller);
+        signal_map[content_focus_controller.enter.connect (() => {
+            current_focus = FocusedWidget.CONTENT_ENTRY;
+        })] = content_focus_controller;
+
+        signal_map[description_textview.focus_in.connect (() => {
+            current_focus = FocusedWidget.DESCRIPTION_TEXTVIEW;
+        })] = description_textview;
+
         event_controller_key = new Gtk.EventControllerKey ();
         ((Gtk.Widget) this).add_controller (event_controller_key);
         signal_map[event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
@@ -464,6 +502,11 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
         signal_map[create_more_button.toggled.connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("quick-add-create-more", create_more_button.active);
+
+            Timeout.add (250, () => {
+                restore_focus ();
+                return GLib.Source.REMOVE;
+            });
         })] = create_more_button;
 
         signal_map[pin_button.changed.connect (() => {
@@ -765,6 +808,14 @@ public class Layouts.QuickAddCore : Adw.Bin {
         }
     }
 
+    private void restore_focus () {
+        if (current_focus == FocusedWidget.CONTENT_ENTRY) {
+            entry_focus ();
+        } else {
+            description_textview.focus ();
+        }
+    }
+
     public void for_project (Objects.Project project) {
         item.project_id = project.id;
         item.section_id = "";
@@ -1010,6 +1061,13 @@ public class Layouts.QuickAddCore : Adw.Bin {
             position = BOTTOM,
             child = popover_box
         };
+
+        popover.closed.connect (() => {
+            Timeout.add (250, () => {
+                restore_focus ();
+                return GLib.Source.REMOVE;
+            });
+        });
 
         return popover;
     }
