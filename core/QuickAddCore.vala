@@ -19,7 +19,7 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Layouts.QuickAdd : Adw.Bin {
+public class Layouts.QuickAddCore : Adw.Bin {
     public bool is_window_quick_add { get; construct; }
     public Objects.Item item { get; set; }
 
@@ -54,6 +54,9 @@ public class Layouts.QuickAdd : Adw.Bin {
     public bool reminder_picker_activate_shortcut { get; set; default = false; }
     
     private Objects.DueDate? preserved_duedate = null;
+    private bool preserved_pinned = false;
+    private Gee.HashMap<string, Objects.Label>? preserved_labels = null;
+    private bool restoring_labels = false;
 
     public const string SHORTCUTS_KEY_LABELS = "@";
     public const string SHORTCUTS_KEY_PROJECTS = "#";
@@ -76,14 +79,14 @@ public class Layouts.QuickAdd : Adw.Bin {
         }
     }
 
-    public QuickAdd (bool is_window_quick_add = false) {
+    public QuickAddCore (bool is_window_quick_add = false) {
         Object (
             is_window_quick_add: is_window_quick_add
         );
     }
 
-    ~QuickAdd () {
-        debug ("Destroying - Layouts.QuickAdd\n");
+    ~QuickAddCore () {
+        debug ("Destroying - Layouts.QuickAddCore\n");
     }
 
     construct {
@@ -583,9 +586,23 @@ public class Layouts.QuickAdd : Adw.Bin {
                 schedule_button.reset ();
             }
             
+            if (preserved_pinned) {
+                item.pinned = preserved_pinned;
+                pin_button.update_from_item (item);
+            } else {
+                pin_button.reset ();
+            }
+            
+            if (preserved_labels != null && preserved_labels.size > 0) {
+                restoring_labels = true;
+                set_labels (preserved_labels);
+                restoring_labels = false;
+            } else {
+                label_button.reset ();
+                item_labels.reset ();
+            }
+            
             priority_button.reset ();
-            label_button.reset ();
-            item_labels.reset ();
 
             content_entry.grab_focus ();
 
@@ -696,6 +713,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     public void set_pinned (bool pinned) {
         item.pinned = pinned;
+        preserved_pinned = pinned;
         pin_button.update_from_item (item);
     }
 
@@ -712,6 +730,13 @@ public class Layouts.QuickAdd : Adw.Bin {
             if (!new_labels.has_key (label.id)) {
                 item.delete_item_label (label.id);
                 labels_change = true;
+            }
+        }
+
+        if (!restoring_labels) {
+            preserved_labels = new Gee.HashMap<string, Objects.Label> ();
+            foreach (var entry in new_labels.entries) {
+                preserved_labels[entry.key] = entry.value;
             }
         }
 
