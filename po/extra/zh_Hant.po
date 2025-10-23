@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2025-10-23 10:02+0000\n"
+"PO-Revision-Date: 2025-10-24 15:02+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/planify-extra/zh_Hant/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: data/io.github.alainm23.planify.appdata.xml.in.in:7
 #: data/io.github.alainm23.planify.desktop.in.in:4
 msgid "Forget about forgetting things"
-msgstr "忘記關於所遺忘的事情"
+msgstr "忘記事情的囧況就此忘了吧"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:13
 msgid ""
@@ -30,8 +30,8 @@ msgid ""
 "life organized. With a clean and intuitive interface, cloud synchronization, "
 "and advanced features, you'll never forget what matters again."
 msgstr ""
-"Planify 是現代化且功能強大的任務管理利器，可幫助您讓生活有條有序。其簡潔直觀"
-"的操作介面、雲端同步和進階功能，您將永遠不會再忘記重要大事。"
+"Planify 是現代化設計又功能強大的任務管理利器，可以幫助您促使人生生活有條有序"
+"。其簡潔直觀的操作介面、雲端同步和進階功能，讓您將永遠不會再忘記重要大事。"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:14
 msgid "✨ Core Features:"
@@ -39,15 +39,15 @@ msgstr "✨ 核心功能："
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:16
 msgid "Modern and clean interface designed with GTK4 and libadwaita"
-msgstr "現代簡潔的操作介面，使用 GTK4 和 libadwaita 精緻設計"
+msgstr "現代簡潔的介面，運用 GTK4 和 libadwaita 設計"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:17
 msgid "Drag and drop to organize tasks and projects effortlessly"
-msgstr "拖放操作即可輕鬆組織排列任務和專案計畫"
+msgstr "拖放操作即可輕鬆地組織排列任務和專案計畫"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:18
 msgid "Visual progress indicators for each project"
-msgstr "視覺化顯示進度指標可套用於每個專案計畫"
+msgstr "視覺化顯示進度指標可以套用於每個專案計畫"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:19
 msgid "Smart organization with sections and custom labels"
@@ -101,7 +101,7 @@ msgstr "跨平台同步資料，以利於可以從任何設備來進行存取"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:34
 msgid "* Planify is not created by, affiliated with, or supported by Doist"
-msgstr "* Planify 並非由 Doist 創立、既無關聯且非受其提供支援"
+msgstr "* Planify 並非由 Doist 創立、既無關聯且非由其提供支援"
 
 #: data/io.github.alainm23.planify.desktop.in.in:3
 msgid "Planify"
