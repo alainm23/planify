@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-22 10:54+0000\n"
+"POT-Creation-Date: 2025-10-23 09:28+0000\n"
 "PO-Revision-Date: 2024-06-24 02:42+0900\n"
 "Last-Translator: Wonje Jung <myunsyeya@ajou.ac.kr>\n"
 "Language-Team: \n"
@@ -461,7 +461,7 @@ msgstr "리마인더 추가"
 msgid "Add Task"
 msgstr "작업 추가"
 
-#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1046
+#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1051
 msgid "Keep adding"
 msgstr ""
 
@@ -478,61 +478,61 @@ msgstr ""
 "죄송합니다, 빠른 추가 기능으로 가능한 프로젝트를 찾을 수 없습니다. Planify의 "
 "기본 프로젝트를 생성해 보세요."
 
-#: core/QuickAddCore.vala:1008 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1013 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "키보드 단축키"
 
-#: core/QuickAddCore.vala:1014
+#: core/QuickAddCore.vala:1019
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1028
+#: core/QuickAddCore.vala:1033
 #, fuzzy
 msgid "Set priority"
 msgstr "우선순위를 설정하세요"
 
-#: core/QuickAddCore.vala:1028
+#: core/QuickAddCore.vala:1033
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1029
+#: core/QuickAddCore.vala:1034
 #, fuzzy
 msgid "Add labels"
 msgstr "라벨 추가"
 
-#: core/QuickAddCore.vala:1029
+#: core/QuickAddCore.vala:1034
 #, fuzzy
 msgid "Opens label selector"
 msgstr "라벨 열기"
 
-#: core/QuickAddCore.vala:1030
+#: core/QuickAddCore.vala:1035
 #, fuzzy
 msgid "Assign project"
 msgstr "프로젝트 추가"
 
-#: core/QuickAddCore.vala:1030
+#: core/QuickAddCore.vala:1035
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1031
+#: core/QuickAddCore.vala:1036
 #, fuzzy
 msgid "Set reminder"
 msgstr "시기적절한 리마인더를 설정하세요!"
 
-#: core/QuickAddCore.vala:1031
+#: core/QuickAddCore.vala:1036
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1046
+#: core/QuickAddCore.vala:1051
 msgid "Stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1052
+#: core/QuickAddCore.vala:1057
 #, fuzzy
 msgid "Tip"
 msgstr "상단"
 
-#: core/QuickAddCore.vala:1052
+#: core/QuickAddCore.vala:1057
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 

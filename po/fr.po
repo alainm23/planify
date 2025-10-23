@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-22 23:41+0000\n"
+"POT-Creation-Date: 2025-10-23 09:28+0000\n"
 "PO-Revision-Date: 2025-10-22 21:30+0000\n"
 "Last-Translator: Jonathan Merlet <okistanpro@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
@@ -461,7 +461,7 @@ msgstr "Ajouter des rappels"
 msgid "Add Task"
 msgstr "Ajouter la tâche"
 
-#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1046
+#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1051
 msgid "Keep adding"
 msgstr "Continuer d'ajouter"
 
@@ -477,56 +477,56 @@ msgstr ""
 "Désolé, l’Ajout rapide ne peut trouver aucun projet disponible, essayez de "
 "créer un projet depuis Planify."
 
-#: core/QuickAddCore.vala:1008 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1013 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Raccourcis clavier"
 
-#: core/QuickAddCore.vala:1014
+#: core/QuickAddCore.vala:1019
 msgid "Speed up task creation with these shortcuts"
 msgstr "Accélérer la création de tâches avec ces raccourcis"
 
 # # c-format
-#: core/QuickAddCore.vala:1028
+#: core/QuickAddCore.vala:1033
 msgid "Set priority"
 msgstr "Priorité"
 
-#: core/QuickAddCore.vala:1028
+#: core/QuickAddCore.vala:1033
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = le plus haut, p4 = le plus bas"
 
-#: core/QuickAddCore.vala:1029
+#: core/QuickAddCore.vala:1034
 msgid "Add labels"
 msgstr "Ajouter des étiquettes"
 
-#: core/QuickAddCore.vala:1029
+#: core/QuickAddCore.vala:1034
 msgid "Opens label selector"
 msgstr "Ouvre le sélecteur d'étiquette"
 
-#: core/QuickAddCore.vala:1030
+#: core/QuickAddCore.vala:1035
 msgid "Assign project"
 msgstr "Ajouter à un projet"
 
-#: core/QuickAddCore.vala:1030
+#: core/QuickAddCore.vala:1035
 msgid "Opens project selector"
 msgstr "Ouvre le sélecteur de projet"
 
-#: core/QuickAddCore.vala:1031
+#: core/QuickAddCore.vala:1036
 msgid "Set reminder"
 msgstr "Programmer un rappel"
 
-#: core/QuickAddCore.vala:1031
+#: core/QuickAddCore.vala:1036
 msgid "Opens reminder options"
 msgstr "Ouvre les options de rappel"
 
-#: core/QuickAddCore.vala:1046
+#: core/QuickAddCore.vala:1051
 msgid "Stay open after creating task"
 msgstr "Rester ouvert après avoir créé la tâche"
 
-#: core/QuickAddCore.vala:1052
+#: core/QuickAddCore.vala:1057
 msgid "Tip"
 msgstr "Astuce"
 
-#: core/QuickAddCore.vala:1052
+#: core/QuickAddCore.vala:1057
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 "Combinez les raccourcis dans le champ du titre pour une création plus rapide"

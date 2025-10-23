@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-22 23:41+0000\n"
+"POT-Creation-Date: 2025-10-23 09:28+0000\n"
 "PO-Revision-Date: 2025-10-20 04:50+0000\n"
 "Last-Translator: xxfogs <o.vitins@resultium.io>\n"
 "Language-Team: Latvian <https://hosted.weblate.org/projects/planner/io-"
@@ -449,7 +449,7 @@ msgstr "Noteikt atgādinājumus"
 msgid "Add Task"
 msgstr "Pievienot uzdevumu"
 
-#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1046
+#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1051
 msgid "Keep adding"
 msgstr "Turpināt pievienot"
 
@@ -465,55 +465,55 @@ msgstr ""
 "Baidos, ka ātrās pievienošanas logs nevar atrast nevienu pieejamu projektu, "
 "pamēģiniet izveidot jaunu projektu."
 
-#: core/QuickAddCore.vala:1008 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1013 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Tastatūras īsceļi"
 
-#: core/QuickAddCore.vala:1014
+#: core/QuickAddCore.vala:1019
 msgid "Speed up task creation with these shortcuts"
 msgstr "Paātriniet uzdevumu izveidi ar šiem īsceļiem"
 
-#: core/QuickAddCore.vala:1028
+#: core/QuickAddCore.vala:1033
 msgid "Set priority"
 msgstr "Noteikt prioritāti"
 
-#: core/QuickAddCore.vala:1028
+#: core/QuickAddCore.vala:1033
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = augstākā, p4 = zemākā"
 
-#: core/QuickAddCore.vala:1029
+#: core/QuickAddCore.vala:1034
 msgid "Add labels"
 msgstr "Pievienot birkas"
 
-#: core/QuickAddCore.vala:1029
+#: core/QuickAddCore.vala:1034
 msgid "Opens label selector"
 msgstr "Atver birku izvēlni"
 
-#: core/QuickAddCore.vala:1030
+#: core/QuickAddCore.vala:1035
 msgid "Assign project"
 msgstr "Iecelt projektu"
 
-#: core/QuickAddCore.vala:1030
+#: core/QuickAddCore.vala:1035
 msgid "Opens project selector"
 msgstr "Atver projektu izvēlni"
 
-#: core/QuickAddCore.vala:1031
+#: core/QuickAddCore.vala:1036
 msgid "Set reminder"
 msgstr "Noteikt atgādinājumu"
 
-#: core/QuickAddCore.vala:1031
+#: core/QuickAddCore.vala:1036
 msgid "Opens reminder options"
 msgstr "Atver atgādinājumu iestatījumus"
 
-#: core/QuickAddCore.vala:1046
+#: core/QuickAddCore.vala:1051
 msgid "Stay open after creating task"
 msgstr "Paturēt atvērtu pēc uzdevuma izveides"
 
-#: core/QuickAddCore.vala:1052
+#: core/QuickAddCore.vala:1057
 msgid "Tip"
 msgstr "Ieteikums"
 
-#: core/QuickAddCore.vala:1052
+#: core/QuickAddCore.vala:1057
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Kombinējiet īsceļus nosaukuma ailē ātrākai uzdevumu izveidei"
 
