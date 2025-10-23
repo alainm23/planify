@@ -6,19 +6,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-22 10:54+0000\n"
-"PO-Revision-Date: 2025-10-06 17:21+0000\n"
+"PO-Revision-Date: 2025-10-23 22:25+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
-"Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
-"github-alainm23-planify/hr/>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14-dev\n"
+"Plural-Forms: nplurals=3; plural="
+"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -275,7 +276,7 @@ msgstr "ponavljajući"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr "zakazano"
+msgstr "zakazani"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
@@ -649,12 +650,10 @@ msgid "Su,"
 msgstr "Ne,"
 
 #: core/Utils/Datetime.vala:620
-#, fuzzy
 msgid "%a, %b %-e, %Y"
 msgstr "%a, %d. %m. %Y."
 
 #: core/Utils/Datetime.vala:623
-#, fuzzy
 msgid "%b %-e %Y"
 msgstr "%d. %m. %Y."
 
@@ -664,13 +663,12 @@ msgid "%Y"
 msgstr "%Y."
 
 #: core/Utils/Datetime.vala:629
-#, fuzzy
 msgid "%b %-e"
 msgstr "%d. %m."
 
 #: core/Utils/Datetime.vala:632
 msgid "%a %Y"
-msgstr "%a %Y."
+msgstr "%a, %Y."
 
 #: core/Utils/Datetime.vala:635
 #, c-format
@@ -678,7 +676,6 @@ msgid "%a"
 msgstr "%a"
 
 #: core/Utils/Datetime.vala:638
-#, fuzzy
 msgid "%a, %b %-e"
 msgstr "%a, %d. %m."
 
@@ -814,38 +811,44 @@ msgid ""
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
+"Ovaj projekt prikazuje sve što trebaš znati za trenutno korištenje. Ne "
+"ustručavaj se eksperimentirati s projektom – uvijek ga možeš ponovo stvoriti "
+"iz postavki."
 
 #: core/Utils/Util.vala:583
 msgid "Tap this task"
-msgstr ""
+msgstr "Dodirni ovaj zadatak"
 
 #: core/Utils/Util.vala:584
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-msgstr ""
+msgstr "Gledaš zadatak! Završi ga dodirom kvadratića na lijevoj strani. "
 
 #: core/Utils/Util.vala:589
 msgid "Create a new task"
-msgstr ""
+msgstr "Stvori novi zadatak"
 
 #: core/Utils/Util.vala:590
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
 msgstr ""
+"Sada si ti na redu! Dodirni gumb „+” pri dnu projekta, unesi opis zadatka i "
+"dodirni gumb „Dodaj zadatak”."
 
 #: core/Utils/Util.vala:595
 msgid "Plan this to-do for today or later"
-msgstr ""
+msgstr "Planiraj ovaj zadatak za danas ili kasnije"
 
 #: core/Utils/Util.vala:596
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
+"Dodirni gumb kalendara pri dnu i odluči kada želiš završiti ovaj zadatak."
 
 #: core/Utils/Util.vala:601
 msgid "Reorder your to-dos"
-msgstr ""
+msgstr "Promijeni redoslijed tvojih zadataka"
 
 #: core/Utils/Util.vala:602
 msgid ""
@@ -879,6 +882,10 @@ msgid ""
 "below.\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
+"To je sve što zaista trebaš znati. Slobodno počni dodavati vlastite projekte "
+"i zadatke.\n"
+"Ovom projektu se možeš vratiti kasnije za upoznavanje naprednih funkcija.\n"
+"Nadamo se da ćeš uživati koristiti Planify!"
 
 #: core/Utils/Util.vala:628
 msgid "Tune your setup"
@@ -898,13 +905,15 @@ msgstr ""
 
 #: core/Utils/Util.vala:643
 msgid "Enable synchronization with third-party services"
-msgstr ""
+msgstr "Aktiviraj sinkronizaciju s uslugama trećih strana"
 
 #: core/Utils/Util.vala:644
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
+"Planify ne stvara zadatke samo lokalno, već se može i sinkronizirati s "
+"tvojim Todoist računom. Idi na „Postavke” 🡒 „Računi”."
 
 #: core/Utils/Util.vala:652
 msgid "Boost your productivity"
@@ -924,13 +933,15 @@ msgstr ""
 
 #: core/Utils/Util.vala:667
 msgid "Add labels to your tasks!"
-msgstr ""
+msgstr "Dodaj etikete svojim zadacima!"
 
 #: core/Utils/Util.vala:668
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
+"Etikete pomažu organizirati i kategorizirati zadatke. Za dodavanje etikete, "
+"klikni gumb etiketa dolje."
 
 #: core/Utils/Util.vala:674
 msgid "Set timely reminders!"
@@ -941,6 +952,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
 "add a reminder."
 msgstr ""
+"Primaj obavijesti o važnim zadacima ili događajima. Dodirni gumb zvona za "
+"dodavanje podsjetnika."
 
 #: core/Utils/Util.vala:686
 msgid "💼️Work"
@@ -1648,8 +1661,8 @@ msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
 msgstr ""
-"Aktivirajte ovu postavku kako bi se Planify automatski sinkronizirao s "
-"računom tvog računa svakih 15 minuta"
+"Aktiviraj ovu postavku kako bi se Planify automatski sinkronizirao s računom "
+"tvog računa svakih 15 minuta"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:96
 msgid "Last Sync"
@@ -3007,9 +3020,9 @@ msgid "Delete %d To-Dos"
 msgstr "Izbriši %d zadatka"
 
 #: src/Widgets/MultiSelectToolbar.vala:256
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete this %d to-do?"
-msgstr "Stvarno želiš izbrisati ovaj zadatak?"
+msgstr "Stvarno želiš izbrisati ovaj %d zadatak?"
 
 #: src/Widgets/MultiSelectToolbar.vala:257
 #, c-format
