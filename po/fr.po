@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-19 21:02+0000\n"
-"PO-Revision-Date: 2025-10-22 21:30+0000\n"
+"PO-Revision-Date: 2025-10-23 22:25+0000\n"
 "Last-Translator: Jonathan Merlet <okistanpro@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
-"alainm23-planify/fr/>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:345
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -546,9 +546,9 @@ msgid "Loading tasks for %s…"
 msgstr "Chargement des tâches pour %s.."
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
-#, c-format
+#, c-format, fuzzy
 msgid "Processing task %d of %d"
-msgstr ""
+msgstr "Traitement de la tâche %d sur %d"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
@@ -630,12 +630,14 @@ msgid "%s %s left"
 msgstr "%s %s restant"
 
 #: core/Utils/Datetime.vala:103
+#, fuzzy
 msgid "%-l:%M:%S %p"
-msgstr ""
+msgstr "%-l:%M:%S %p"
 
 #: core/Utils/Datetime.vala:106
+#, fuzzy
 msgid "%-l:%M %p"
-msgstr ""
+msgstr "%-l:%M %p"
 
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
@@ -674,12 +676,14 @@ msgid "Su,"
 msgstr "Di,"
 
 #: core/Utils/Datetime.vala:620
+#, fuzzy
 msgid "%a, %b %-e, %Y"
-msgstr ""
+msgstr "%a, %b %-e, %Y"
 
 #: core/Utils/Datetime.vala:623
+#, fuzzy
 msgid "%b %-e %Y"
-msgstr ""
+msgstr "%b %-e %Y"
 
 #: core/Utils/Datetime.vala:626 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
@@ -687,25 +691,29 @@ msgid "%Y"
 msgstr "%Y"
 
 #: core/Utils/Datetime.vala:629
+#, fuzzy
 msgid "%b %-e"
-msgstr ""
+msgstr "%b %-e"
 
 #: core/Utils/Datetime.vala:632
+#, fuzzy
 msgid "%a %Y"
-msgstr ""
+msgstr "%a %Y"
 
 #: core/Utils/Datetime.vala:635
-#, c-format
+#, c-format, fuzzy
 msgid "%a"
-msgstr ""
+msgstr "%a"
 
 #: core/Utils/Datetime.vala:638
+#, fuzzy
 msgid "%a, %b %-e"
-msgstr ""
+msgstr "%a, %b %-e"
 
 #: core/Utils/Datetime.vala:641
+#, fuzzy
 msgid "%b"
-msgstr ""
+msgstr "%b"
 
 #: core/Utils/Util.vala:41
 msgid "Berry Red"
@@ -831,7 +839,6 @@ msgid "Meet Planify"
 msgstr "Découvrir Planify"
 
 #: core/Utils/Util.vala:576
-#, fuzzy
 msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around with it – you can always recreate it "
@@ -842,7 +849,6 @@ msgstr ""
 "créer un nouveau depuis les paramètres."
 
 #: core/Utils/Util.vala:583
-#, fuzzy
 msgid "Tap this task"
 msgstr "Cliquez sur cette tâche"
 
@@ -854,7 +860,6 @@ msgstr ""
 "cliquant sur la case à cocher sur la gauche. "
 
 #: core/Utils/Util.vala:589
-#, fuzzy
 msgid "Create a new task"
 msgstr "Créer une nouvelle tâche"
 
@@ -867,12 +872,10 @@ msgstr ""
 "saisissez un contenu et cliquez sur le bouton bleu « Ajouter la tâche »."
 
 #: core/Utils/Util.vala:595
-#, fuzzy
 msgid "Plan this to-do for today or later"
 msgstr "Planifier cette tâche pour aujourd’hui ou plus tard"
 
 #: core/Utils/Util.vala:596
-#, fuzzy
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
@@ -880,7 +883,6 @@ msgstr ""
 "date d’échéance."
 
 #: core/Utils/Util.vala:601
-#, fuzzy
 msgid "Reorder your to-dos"
 msgstr "Réorganiser vos tâches"
 
@@ -942,9 +944,8 @@ msgstr ""
 "activer cette option."
 
 #: core/Utils/Util.vala:643
-#, fuzzy
 msgid "Enable synchronization with third-party services"
-msgstr "Activez la synchronisation avec des services tiers."
+msgstr "Activez la synchronisation avec des services tiers"
 
 #: core/Utils/Util.vala:644
 msgid ""
@@ -1058,8 +1059,9 @@ msgid "3 hours before"
 msgstr "3 heures avant"
 
 #: core/Widgets/Calendar/CalendarDay.vala:73
+#, fuzzy
 msgid "%A, %B %e, %Y"
-msgstr ""
+msgstr "%A, %B %e, %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:35
 #: core/Widgets/Calendar/CalendarHeader.vala:54
@@ -1072,30 +1074,31 @@ msgstr "Retour"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:66
 msgid "Previous month"
-msgstr ""
+msgstr "Mois précédent"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
-msgstr ""
+msgstr "Suivant"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
-msgstr ""
+msgstr "Mois prochain"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #, c-format
 msgid "Previous month, %s"
-msgstr ""
+msgstr "Mois précédent, %s"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
+#, fuzzy
 msgid "%B %Y"
-msgstr ""
+msgstr "%B %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 #, c-format
 msgid "Next month, %s"
-msgstr ""
+msgstr "Mois prochain, %s"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:39
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
@@ -1176,12 +1179,12 @@ msgstr "Quotidiennement"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:269
 #, fuzzy
 msgid "Weekdays"
-msgstr "Hebdomadairement"
+msgstr "Aux jours ouvrés (Lun. au Ven.)"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:273
 #, fuzzy
 msgid "Weekends"
-msgstr "Semaine(s)"
+msgstr "Aux jours de weekend (Sam. et Dim.)"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:277
 msgid "Weekly"
@@ -1276,9 +1279,8 @@ msgid "Schedule"
 msgstr "Programmer"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:128
-#, fuzzy
 msgid "Clear Schedule"
-msgstr "Programmer"
+msgstr "Déprogrammer"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:169
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:207
@@ -1327,12 +1329,11 @@ msgstr "Chercher ou créer"
 
 #: core/Widgets/MarkdownEditor.vala:1353 core/Widgets/MarkdownEditor.vala:1357
 msgid "Apply"
-msgstr ""
+msgstr "Appliquer"
 
 #: core/Widgets/MarkdownEditor.vala:1358 core/Widgets/MarkdownEditor.vala:1362
-#, fuzzy
 msgid "Remove link"
-msgstr "Supprimer"
+msgstr "Supprimer le lien"
 
 #: core/Widgets/PriorityButton.vala:95 core/Widgets/PriorityButton.vala:135
 #: core/Widgets/PriorityButton.vala:200
@@ -1475,10 +1476,10 @@ msgstr "Supprimer les tâches accomplies"
 
 # # c-format
 #: src/Dialogs/CompletedTasks.vala:165
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgstr ""
-"%d tâches accomplies et leurs sous-tâches seront supprimées du projet %s"
+"Cette action va supprimer %d tâches accomplis et ces sous-tâches du projet %s"
 
 # # c-format
 #: src/Dialogs/CompletedTasks.vala:166
@@ -1594,9 +1595,8 @@ msgid "Manage Sections"
 msgstr "Gérer les sections"
 
 #: src/Dialogs/ManageSectionOrder.vala:54
-#, fuzzy
 msgid "You can sort your sections by dragging and dropping"
-msgstr "Vous pouvez trier vos aperçus par glisser-déposer"
+msgstr "Vous pouvez trier vos sections par glisser-déposer"
 
 #: src/Dialogs/ManageSectionOrder.vala:76
 msgid "Archived"
@@ -1623,33 +1623,31 @@ msgid "Inbox Page"
 msgstr "Boîte de réception"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:102
-#, fuzzy
 msgid "You can sort your accounts by dragging and dropping"
-msgstr "Vous pouvez trier vos aperçus par glisser-déposer"
+msgstr "Vous pouvez trier vos comptes par glisser-déposer"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:228
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:547
-#, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr "Planify synchronise vos tâches, cela peut prendre quelques minutes"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
+#, fuzzy
 msgid "Cannot Hide This Account"
-msgstr ""
+msgstr "Vous ne pouvez pas cacher ce compte"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
+#, fuzzy
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
-msgstr ""
+msgstr "Ce compte contient votre projet principal. Veuillez d'abord le changer."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
-#, fuzzy
 msgid "Change Inbox"
-msgstr "Ouvrir la Boîte de réception"
+msgstr "Changer la Boîte de réception"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:517
-#, fuzzy
 msgid "Syncing…"
 msgstr "Synchronisation…"
 
@@ -1659,7 +1657,6 @@ msgid "Server URL"
 msgstr "URL du serveur"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:55
-#, fuzzy
 msgid "Username"
 msgstr "Nom d’utilisateur"
 
