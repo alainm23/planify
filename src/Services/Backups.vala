@@ -480,7 +480,6 @@ public class Services.Backups : Object {
 
     public void patch_backup (Objects.Backup backup) {
         Services.Settings.get_default ().reset_settings ();
-
         Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", backup.local_inbox_project_id);
 
         // Clear Database
@@ -546,15 +545,19 @@ public class Services.Backups : Object {
     private void show_message () {
         var dialog = new Adw.AlertDialog (
             _("Backup Successfully Imported"),
-            _("Process completed, you need to start Planify again")
+            _("Planify will restart to apply the changes")
         );
 
-        dialog.add_response ("ok", _("Ok"));
+        dialog.add_response ("ok", _("Restart Now"));
         dialog.present (Planify._instance.main_window);
 
         dialog.response.connect ((response) => {
-            Planify._instance.main_window.destroy ();
+            restart_application ();
         });
+    }
+
+    private void restart_application () {
+        Planify._instance.recreate_main_window ();
     }
 
     private void add_filters (Gtk.FileDialog file_dialog) {
