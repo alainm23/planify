@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2025-10-23 10:02+0000\n"
+"PO-Revision-Date: 2025-10-24 15:02+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/planner/"
 "planify-extra/et/>\n"
@@ -45,64 +45,74 @@ msgstr "Moodne ja selge kasutajaliides, mis põhineb GTK4 ja libadwaita teekidel
 #: data/io.github.alainm23.planify.appdata.xml.in.in:17
 msgid "Drag and drop to organize tasks and projects effortlessly"
 msgstr ""
+"Objekte lohistades saad kiiresti ülesandeid ja ettevõtmisi/projekte ümber "
+"korraldada"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:18
 msgid "Visual progress indicators for each project"
-msgstr ""
+msgstr "Igal ettevõtmisel/projektil on mugav edenemise näidik"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:19
 msgid "Smart organization with sections and custom labels"
-msgstr ""
+msgstr "Nutikas andmehaldus alajaostuste ja siltide abil"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:20
 msgid "Calendar integration to visualize your schedule"
-msgstr ""
+msgstr "Kalendrilõimingud sinu ajakava kuvamiseks"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:21
 msgid "Multiple reminders per task to never miss a deadline"
 msgstr ""
+"Ülesandele saad lisada mitu meeldetuletust ja nii ei jää ükski tähtaeg "
+"märkamata"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:22
 msgid "Dark mode with seamless system theme integration"
-msgstr ""
+msgstr "Tume kujundus sujuva süsteemi kujunduse kasutamisega"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:23
 msgid "Quick and powerful search to find anything instantly"
-msgstr ""
+msgstr "Kiire ja võima otsing andmete koheseks leidmiseks"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:24
 msgid "Recurring tasks with flexible patterns"
-msgstr ""
+msgstr "Paindliku mustri alusel koostatud korduvad ülesanded"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:25
 msgid "Attachments and links in your tasks"
-msgstr ""
+msgstr "Manused ja lingid sinu ülesannetes"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:27
 msgid "☁️ Cloud Synchronization:"
-msgstr ""
+msgstr "☁️ Andmete sünkroonimine pilve:"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:29
 msgid "Full synchronization with Todoist to access your tasks from anywhere"
 msgstr ""
+"Täismahus sünkroonimine Todoisti teenusega võimaldab kõikjalt ligipääsu oma "
+"ülesannetele"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:30
 msgid ""
 "Support for Nextcloud and CalDAV servers (Radicale, Baïkal) to keep your "
 "data private"
 msgstr ""
+"Nextcloudi ja CalDAV-i serverite (Radicale, Baïkal) tugi, mis võimaldab sinu "
+"andmeid hoida privaatselt"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:31
 msgid "Offline mode: work without internet and sync when you're back online"
 msgstr ""
+"Töö vallasrežiimis: jätka tegutsemist ilma võrguühenduseta ja sünkroonimine "
+"toimub ühenduse taastumisel"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:32
 msgid "Cross-platform synchronization to access from any device"
-msgstr ""
+msgstr "Platvormiülene sünkroonimine võimaldab ligipääsu andmete igast seadmest"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:34
 msgid "* Planify is not created by, affiliated with, or supported by Doist"
-msgstr ""
+msgstr "* Planify pole loodud, heaks kiidetud ega toetatud Doisti poolt"
 
 #: data/io.github.alainm23.planify.desktop.in.in:3
 msgid "Planify"
