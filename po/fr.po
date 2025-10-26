@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 09:28+0000\n"
+"POT-Creation-Date: 2025-10-26 10:46+0000\n"
 "PO-Revision-Date: 2025-10-22 21:30+0000\n"
 "Last-Translator: Jonathan Merlet <okistanpro@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
@@ -20,14 +20,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 5.14.1-dev\n"
 
-#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:345
+#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
-#: src/Dialogs/Preferences/Pages/Backup.vala:358
 msgid "Projects"
 msgstr "Projets"
 
-#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:349
-#: src/Dialogs/Preferences/Pages/Backup.vala:362
+#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:362
 msgid "Sections"
 msgstr "Sections"
 
@@ -37,7 +35,6 @@ msgstr "Tâches"
 
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:36
-#: src/Dialogs/Preferences/Pages/Backup.vala:357
 #: src/Dialogs/Preferences/Pages/Backup.vala:370
 msgid "Labels"
 msgstr "Étiquettes"
@@ -363,27 +360,24 @@ msgstr "Cette action est irréversible"
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
-#: src/Dialogs/Preferences/Pages/Backup.vala:370
-#: src/Dialogs/Preferences/Pages/Backup.vala:436
+#: src/Dialogs/Preferences/Pages/Backup.vala:383
+#: src/Dialogs/Preferences/Pages/Backup.vala:449
 #: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:542
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:265
-#: src/Dialogs/Preferences/Pages/Backup.vala:383
-#: src/Dialogs/Preferences/Pages/Backup.vala:449
 msgid "Cancel"
 msgstr "Annuler"
 
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:824
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
-#: src/Dialogs/Preferences/Pages/Backup.vala:266
+#: src/Dialogs/Preferences/Pages/Backup.vala:279
 #: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
 #: src/Widgets/MultiSelectToolbar.vala:266
-#: src/Dialogs/Preferences/Pages/Backup.vala:279
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -430,42 +424,40 @@ msgstr "Todoist"
 msgid "Task added successfully!"
 msgstr "Projet ajouté avec succès !"
 
-#: core/QuickAdd.vala:128 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:140 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
-#: core/QuickAddCore.vala:140
 msgid "To-do name"
 msgstr "Nom de la tâche"
 
-#: core/QuickAdd.vala:134 core/QuickAddCore.vala:146
+#: core/QuickAddCore.vala:146
 msgid "This field is required"
 msgstr "Ce champ est requis"
 
-#: core/QuickAdd.vala:158 core/QuickAddCore.vala:170
+#: core/QuickAddCore.vala:170
 msgid "Add a description…"
 msgstr "Ajouter une description…"
 
-#: core/QuickAdd.vala:176 core/Widgets/LabelPicker/LabelButton.vala:57
-#: core/Widgets/LabelPicker/LabelButton.vala:64 core/QuickAddCore.vala:188
+#: core/QuickAddCore.vala:188 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Ajouter des étiquettes"
 
-#: core/QuickAdd.vala:181 core/Widgets/PriorityButton.vala:40
-#: core/Widgets/PriorityButton.vala:47 core/QuickAddCore.vala:193
+#: core/QuickAddCore.vala:193 core/Widgets/PriorityButton.vala:40
+#: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Définir la priorité"
 
-#: core/QuickAdd.vala:187 core/Widgets/ReminderPicker/ReminderButton.vala:42
+#: core/QuickAddCore.vala:199
+#: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
 #: core/Widgets/ReminderPicker/ReminderButton.vala:177
-#: core/QuickAddCore.vala:199
 msgid "Add Reminders"
 msgstr "Ajouter des rappels"
 
-#: core/QuickAdd.vala:228 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:240 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
-#: core/QuickAddCore.vala:240
 msgid "Add Task"
 msgstr "Ajouter la tâche"
 
@@ -473,11 +465,11 @@ msgstr "Ajouter la tâche"
 msgid "Keep adding"
 msgstr "Continuer d'ajouter"
 
-#: core/QuickAdd.vala:251 core/QuickAddCore.vala:263
+#: core/QuickAddCore.vala:263
 msgid "Select a Project"
 msgstr "Sélectionner un projet"
 
-#: core/QuickAdd.vala:278 core/QuickAddCore.vala:290
+#: core/QuickAddCore.vala:290
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -545,7 +537,7 @@ msgid "Loading tasks for %s…"
 msgstr "Chargement des tâches pour %s.."
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "Processing task %d of %d"
 msgstr "Traitement de la tâche %d sur %d"
 
@@ -700,7 +692,7 @@ msgid "%a %Y"
 msgstr "%a %Y"
 
 #: core/Utils/Datetime.vala:635
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "%a"
 msgstr "%a"
 
@@ -825,7 +817,6 @@ msgstr "Processus achevé, vous devez redémarrer Planify."
 
 #: core/Utils/Util.vala:438
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:221
-#: src/Services/Backups.vala:552
 msgid "Ok"
 msgstr "OK"
 
@@ -1326,11 +1317,11 @@ msgstr "Rechercher"
 msgid "Search or Create"
 msgstr "Chercher ou créer"
 
-#: core/Widgets/MarkdownEditor.vala:1353 core/Widgets/MarkdownEditor.vala:1357
+#: core/Widgets/MarkdownEditor.vala:1357
 msgid "Apply"
 msgstr "Appliquer"
 
-#: core/Widgets/MarkdownEditor.vala:1358 core/Widgets/MarkdownEditor.vala:1362
+#: core/Widgets/MarkdownEditor.vala:1362
 msgid "Remove link"
 msgstr "Supprimer le lien"
 
@@ -1640,7 +1631,8 @@ msgstr "Vous ne pouvez pas cacher ce compte"
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
-msgstr "Ce compte contient votre projet principal. Veuillez d'abord le changer."
+msgstr ""
+"Ce compte contient votre projet principal. Veuillez d'abord le changer."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
 msgid "Change Inbox"
@@ -1848,78 +1840,68 @@ msgstr "Importer une sauvegarde"
 msgid "Backup Files"
 msgstr "Fichiers de sauvegarde"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:58
 #: src/Dialogs/Preferences/Pages/Backup.vala:57
 msgid "No backups found, create one clicking the button above."
 msgstr ""
 "Aucune sauvegarde trouvée, créez-en une en cliquant sur le bouton ci-dessus."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:63
+#: src/Dialogs/Preferences/Pages/Backup.vala:62
+#, c-format
+msgid "Backup files are stored in: %s"
+msgstr ""
+
 #: src/Dialogs/Preferences/Pages/Backup.vala:76
 msgid "Migrate"
 msgstr "Migrer"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:65
 #: src/Dialogs/Preferences/Pages/Backup.vala:78
 msgid "Migrate From Planner"
 msgstr "Migrer depuis Planner"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:105
 #: src/Dialogs/Preferences/Pages/Backup.vala:118
 msgid "The Backup was created successfully."
 msgstr "Sauvegarde créée avec succès."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:122
 #: src/Dialogs/Preferences/Pages/Backup.vala:135
 msgid "Tasks Migrate Successfully"
 msgstr "Tâches migrées avec succès"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:126
 #: src/Dialogs/Preferences/Pages/Backup.vala:139
 msgid "The database file does not exist."
 msgstr "Le fichier de la base de données n’existe pas."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:164
 #: src/Dialogs/Preferences/Pages/Backup.vala:177
 msgid "Selected file is invalid"
 msgstr "Fichier sélectionné invalide"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:209
 #: src/Dialogs/Preferences/Pages/Backup.vala:222
 msgid "View Backup"
 msgstr "Visualiser la sauvegarde"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:265
 #: src/Dialogs/Preferences/Pages/Backup.vala:278
 msgid "Download"
 msgstr "Télécharger"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:329
 #: src/Dialogs/Preferences/Pages/Backup.vala:342
 msgid "Import Overview"
 msgstr "Aperçu d’importation"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:353
-#: src/Dialogs/Preferences/Pages/Backup.vala:354
+#: src/Dialogs/Preferences/Pages/Backup.vala:354 src/Dialogs/Project.vala:353
 msgid "Sources"
 msgstr "Source"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:353
 #: src/Dialogs/Preferences/Pages/Backup.vala:366
 msgid "To-Dos"
 msgstr "Tâches"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:375
 #: src/Dialogs/Preferences/Pages/Backup.vala:388
 msgid "Confirm"
 msgstr "Confirmer"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:431
 #: src/Dialogs/Preferences/Pages/Backup.vala:444
 msgid "Restore backup"
 msgstr "Restaurer la sauvegarde"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:432
 #: src/Dialogs/Preferences/Pages/Backup.vala:445
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
@@ -1928,7 +1910,6 @@ msgstr ""
 "Êtes-vous sûr de vouloir continuer ? Cette action supprimera vos données "
 "actuelles et les remplacera par celles de la sauvegarde."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:437
 #: src/Dialogs/Preferences/Pages/Backup.vala:450
 msgid "Restore Backup"
 msgstr "Restaurer la sauvegarde"
@@ -2763,15 +2744,19 @@ msgstr "Sélectionnez une base de données"
 msgid "Delete Backup"
 msgstr "Supprimer la sauvegarde"
 
-#: src/Services/Backups.vala:548 src/Services/Backups.vala:547
+#: src/Services/Backups.vala:547
 msgid "Backup Successfully Imported"
 msgstr "Sauvegarde importée avec succès"
 
-#: src/Services/Backups.vala:549
-msgid "Process completed, you need to start Planify again"
-msgstr "Processus achevé, vous devez redémarrer Planify"
+#: src/Services/Backups.vala:548
+msgid "Planify will restart to apply the changes"
+msgstr ""
 
-#: src/Services/Backups.vala:563 src/Services/Backups.vala:566
+#: src/Services/Backups.vala:551
+msgid "Restart Now"
+msgstr ""
+
+#: src/Services/Backups.vala:566
 msgid "Planify Backup Files"
 msgstr "Fichiers de sauvegarde Planify"
 
@@ -3294,18 +3279,8 @@ msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Ouvrir la section Épinglé"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:62
-#, c-format
-msgid "Backup files are stored in: %s"
-msgstr ""
-
-#: src/Services/Backups.vala:548
-msgid "Planify will restart to apply the changes"
-msgstr ""
-
-#: src/Services/Backups.vala:551
-msgid "Restart Now"
-msgstr ""
+#~ msgid "Process completed, you need to start Planify again"
+#~ msgstr "Processus achevé, vous devez redémarrer Planify"
 
 #~ msgid "Task Detail"
 #~ msgstr "Détails de la tâche"
