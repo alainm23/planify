@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2025-10-12 15:11+0000\n"
-"Last-Translator: Matrew File <elfile4138@elfile4138.moe>\n"
+"PO-Revision-Date: 2025-10-25 18:32+0000\n"
+"Last-Translator: zzqayy <zzqayy@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/planner/planify-extra/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,13 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:7
 #: data/io.github.alainm23.planify.desktop.in.in:4
 #, fuzzy
 msgid "Forget about forgetting things"
-msgstr "让忘记本身成为最后被忘记的"
+msgstr "往事不必再提"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:13
 #, fuzzy
@@ -110,5 +110,6 @@ msgid "Planify"
 msgstr "Planify"
 
 #: data/io.github.alainm23.planify.desktop.in.in:14
+#, fuzzy
 msgid "development;task;tasks;project;todo;reminder;reminders;event;events;calendar;todoist;"
-msgstr ""
+msgstr "开发;任务;多任务;项目;待办;提醒;多提醒;事件;多事件;日历;todoist;"
