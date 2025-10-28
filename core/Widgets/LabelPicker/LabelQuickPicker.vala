@@ -212,7 +212,7 @@ public class Widgets.LabelPicker.LabelQuickPicker : Gtk.Popover {
         
         int margin_top = 6;
         int margin_bottom = 6;
-        int padding = 4;
+        int padding = 3;
         
         double row_top = allocation.y + margin_top;
         double row_bottom = allocation.y + allocation.height + margin_top;
