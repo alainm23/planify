@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-22 10:54+0000\n"
+"POT-Creation-Date: 2025-10-23 09:28+0000\n"
 "PO-Revision-Date: 2025-10-16 19:07+0000\n"
 "Last-Translator: Fraxinus Acer <yasson2008@ya.ru>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/planner/io-"
@@ -465,7 +465,7 @@ msgstr "Добавяне на напомняния"
 msgid "Add Task"
 msgstr "Добавяне на задача"
 
-#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1046
+#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1051
 msgid "Keep adding"
 msgstr ""
 
@@ -481,61 +481,61 @@ msgstr ""
 "„Бързо добавяне“ не може да намери наличен проект, опитайте да създадете "
 "проект от „Planify“."
 
-#: core/QuickAddCore.vala:1008 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1013 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Клавишни комбинации"
 
-#: core/QuickAddCore.vala:1014
+#: core/QuickAddCore.vala:1019
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1028
+#: core/QuickAddCore.vala:1033
 #, fuzzy
 msgid "Set priority"
 msgstr "Задаване на приоритета"
 
-#: core/QuickAddCore.vala:1028
+#: core/QuickAddCore.vala:1033
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1029
+#: core/QuickAddCore.vala:1034
 #, fuzzy
 msgid "Add labels"
 msgstr "Добавяне на етикети"
 
-#: core/QuickAddCore.vala:1029
+#: core/QuickAddCore.vala:1034
 #, fuzzy
 msgid "Opens label selector"
 msgstr "Отваряне на „Етикети“"
 
-#: core/QuickAddCore.vala:1030
+#: core/QuickAddCore.vala:1035
 #, fuzzy
 msgid "Assign project"
 msgstr "Добавяне на проект"
 
-#: core/QuickAddCore.vala:1030
+#: core/QuickAddCore.vala:1035
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1031
+#: core/QuickAddCore.vala:1036
 #, fuzzy
 msgid "Set reminder"
 msgstr "Задавайте напомняния!"
 
-#: core/QuickAddCore.vala:1031
+#: core/QuickAddCore.vala:1036
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1046
+#: core/QuickAddCore.vala:1051
 msgid "Stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1052
+#: core/QuickAddCore.vala:1057
 #, fuzzy
 msgid "Tip"
 msgstr "Горе"
 
-#: core/QuickAddCore.vala:1052
+#: core/QuickAddCore.vala:1057
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
