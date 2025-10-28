@@ -7,12 +7,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-10-19 21:02+0000\n"
-"PO-Revision-Date: 2025-10-23 22:25+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-26 10:46+0000\n"
+"PO-Revision-Date: 2025-10-22 21:30+0000\n"
 "Last-Translator: Jonathan Merlet <okistanpro@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/planner/"
-"io-github-alainm23-planify/fr/>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
+"alainm23-planify/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -426,7 +426,7 @@ msgstr "Supprimer la section %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAdd.vala:112
+#: core/QuickAddCore.vala:124
 msgid "Task added successfully!"
 msgstr "Projet ajouté avec succès !"
 
@@ -469,8 +469,7 @@ msgstr "Ajouter des rappels"
 msgid "Add Task"
 msgstr "Ajouter la tâche"
 
-#: core/QuickAdd.vala:234 core/QuickAdd.vala:960 core/QuickAddCore.vala:246
-#: core/QuickAddCore.vala:1046
+#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1051
 msgid "Keep adding"
 msgstr "Continuer d'ajouter"
 
@@ -486,56 +485,56 @@ msgstr ""
 "Désolé, l’Ajout rapide ne peut trouver aucun projet disponible, essayez de "
 "créer un projet depuis Planify."
 
-#: core/QuickAdd.vala:922 src/MainWindow.vala:707 core/QuickAddCore.vala:1008
+#: core/QuickAddCore.vala:1013 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Raccourcis clavier"
 
-#: core/QuickAdd.vala:928 core/QuickAddCore.vala:1014
+#: core/QuickAddCore.vala:1019
 msgid "Speed up task creation with these shortcuts"
 msgstr "Accélérer la création de tâches avec ces raccourcis"
 
 # # c-format
-#: core/QuickAdd.vala:942 core/QuickAddCore.vala:1028
+#: core/QuickAddCore.vala:1033
 msgid "Set priority"
 msgstr "Priorité"
 
-#: core/QuickAdd.vala:942 core/QuickAddCore.vala:1028
+#: core/QuickAddCore.vala:1033
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = le plus haut, p4 = le plus bas"
 
-#: core/QuickAdd.vala:943 core/QuickAddCore.vala:1029
+#: core/QuickAddCore.vala:1034
 msgid "Add labels"
 msgstr "Ajouter des étiquettes"
 
-#: core/QuickAdd.vala:943 core/QuickAddCore.vala:1029
+#: core/QuickAddCore.vala:1034
 msgid "Opens label selector"
 msgstr "Ouvre le sélecteur d'étiquette"
 
-#: core/QuickAdd.vala:944 core/QuickAddCore.vala:1030
+#: core/QuickAddCore.vala:1035
 msgid "Assign project"
 msgstr "Ajouter à un projet"
 
-#: core/QuickAdd.vala:944 core/QuickAddCore.vala:1030
+#: core/QuickAddCore.vala:1035
 msgid "Opens project selector"
 msgstr "Ouvre le sélecteur de projet"
 
-#: core/QuickAdd.vala:945 core/QuickAddCore.vala:1031
+#: core/QuickAddCore.vala:1036
 msgid "Set reminder"
 msgstr "Programmer un rappel"
 
-#: core/QuickAdd.vala:945 core/QuickAddCore.vala:1031
+#: core/QuickAddCore.vala:1036
 msgid "Opens reminder options"
 msgstr "Ouvre les options de rappel"
 
-#: core/QuickAdd.vala:960 core/QuickAddCore.vala:1046
+#: core/QuickAddCore.vala:1051
 msgid "Stay open after creating task"
 msgstr "Rester ouvert après avoir créé la tâche"
 
-#: core/QuickAdd.vala:966 core/QuickAddCore.vala:1052
+#: core/QuickAddCore.vala:1057
 msgid "Tip"
 msgstr "Astuce"
 
-#: core/QuickAdd.vala:966 core/QuickAddCore.vala:1052
+#: core/QuickAddCore.vala:1057
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 "Combinez les raccourcis dans le champ du titre pour une création plus rapide"
@@ -546,7 +545,7 @@ msgid "Loading tasks for %s…"
 msgstr "Chargement des tâches pour %s.."
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "Processing task %d of %d"
 msgstr "Traitement de la tâche %d sur %d"
 
@@ -701,7 +700,7 @@ msgid "%a %Y"
 msgstr "%a %Y"
 
 #: core/Utils/Datetime.vala:635
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "%a"
 msgstr "%a"
 
@@ -1331,7 +1330,7 @@ msgstr "Chercher ou créer"
 msgid "Apply"
 msgstr "Appliquer"
 
-#: core/Widgets/MarkdownEditor.vala:1358 core/Widgets/MarkdownEditor.vala:1362
+#: core/Widgets/MarkdownEditor.vala:1362
 msgid "Remove link"
 msgstr "Supprimer le lien"
 
@@ -1641,7 +1640,8 @@ msgstr "Vous ne pouvez pas cacher ce compte"
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
-msgstr "Ce compte contient votre projet principal. Veuillez d'abord le changer."
+msgstr ""
+"Ce compte contient votre projet principal. Veuillez d'abord le changer."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
 msgid "Change Inbox"

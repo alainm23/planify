@@ -511,6 +511,11 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
         signal_map[pin_button.changed.connect (() => {
             set_pinned (!item.pinned);
+
+            Timeout.add (250, () => {
+                restore_focus ();
+                return GLib.Source.REMOVE;
+            });
         })] = pin_button;
 
         var open_label_shortcut = new Gtk.Shortcut (Gtk.ShortcutTrigger.parse_string ("<Control>l"), new Gtk.CallbackAction (() => {
