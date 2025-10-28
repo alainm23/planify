@@ -19,8 +19,18 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Widgets.ItemLabelChild : Adw.Bin {
+public class Widgets.ItemLabelChild : Gtk.Button {
     public Objects.Label label { get; construct; }
+    
+    private bool _clickable = true;
+    public bool clickable {
+        get { return _clickable; }
+        set {
+            _clickable = value;
+            can_focus = value;
+            can_target = value;
+        }
+    }
 
     private Gtk.Label name_label;
     private Gtk.Revealer main_revealer;
@@ -39,22 +49,23 @@ public class Widgets.ItemLabelChild : Adw.Bin {
     }
 
     construct {
-        add_css_class ("item-label-child");
-
-        name_label = new Gtk.Label (null);
-        name_label.valign = CENTER;
+        name_label = new Gtk.Label (null) {
+            valign = CENTER
+        };
         name_label.add_css_class ("caption");
 
-        var labelrow_grid = new Adw.Bin () {
+        var label_container = new Adw.Bin () {
             child = name_label
         };
 
         main_revealer = new Gtk.Revealer () {
             transition_type = SLIDE_RIGHT,
-            child = labelrow_grid
+            child = label_container
         };
 
         child = main_revealer;
+        add_css_class ("item-label-child");
+        
         update_request ();
 
         Timeout.add (main_revealer.transition_duration, () => {

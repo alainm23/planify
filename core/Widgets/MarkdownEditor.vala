@@ -89,7 +89,8 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         buffer = new GtkSource.Buffer (null);
         
         text_view = new Gtk.TextView.with_buffer (buffer) {
-            wrap_mode = Gtk.WrapMode.WORD
+            wrap_mode = Gtk.WrapMode.WORD,
+            accepts_tab = false
         };
         text_view.remove_css_class ("view");
         
@@ -237,8 +238,6 @@ public class Widgets.MarkdownEditor : Adw.Bin {
             halign = CENTER
         };
         ordered_list_button.add_css_class ("flat");
-        
-
                 
         var format_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         format_box.append (h1_button);
