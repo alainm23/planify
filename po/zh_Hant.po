@@ -3215,15 +3215,4 @@ msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "開啟釘貼看板"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:62
-#, c-format
-msgid "Backup files are stored in: %s"
-msgstr "備份檔案儲存於： %s"
 
-#: src/Services/Backups.vala:548
-msgid "Planify will restart to apply the changes"
-msgstr "Planify 將會重新啟動以套用變更"
-
-#: src/Services/Backups.vala:551
-msgid "Restart Now"
-msgstr "立即重新啟動"
