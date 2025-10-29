@@ -6,18 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-29 10:19+0000\n"
-"PO-Revision-Date: 2025-10-06 17:21+0000\n"
+"PO-Revision-Date: 2025-10-29 14:32+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
-"Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
-"github-alainm23-planify/hr/>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural="
+"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
 "X-Generator: Weblate 5.14.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
@@ -1016,7 +1017,7 @@ msgstr "3 sata prije"
 
 #: core/Widgets/Calendar/CalendarDay.vala:73
 msgid "%A, %B %e, %Y"
-msgstr ""
+msgstr "%A, %e. %d. %Y."
 
 #: core/Widgets/Calendar/CalendarHeader.vala:35
 #: core/Widgets/Calendar/CalendarHeader.vala:54
@@ -1029,7 +1030,7 @@ msgstr "Natrag"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:66
 msgid "Previous month"
-msgstr ""
+msgstr "Prethodni mjesec"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
@@ -1037,22 +1038,22 @@ msgstr "Proslijedi"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
-msgstr ""
+msgstr "Sljedeći mjesec"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #, c-format
 msgid "Previous month, %s"
-msgstr ""
+msgstr "Prethodni mjesec, %s"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 msgid "%B %Y"
-msgstr ""
+msgstr "%B %Y."
 
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 #, c-format
 msgid "Next month, %s"
-msgstr ""
+msgstr "Sljedeći mjesec, %s"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:39
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
@@ -1426,7 +1427,7 @@ msgid "Delete All Completed Tasks"
 msgstr "Izbriši sve završene zadatke"
 
 #: src/Dialogs/CompletedTasks.vala:165
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgstr ""
 "Ovo će izbrisati %d završena zadatka i njihove podzadatke iz projekta %s"
@@ -1498,9 +1499,9 @@ msgstr ""
 "Povijest promjena će se ovdje prikazati nakon što počneš raditi promjene."
 
 #: src/Dialogs/ItemChangeHistory.vala:138
-#, fuzzy, c-format
+#, c-format
 msgid "Load more history from %d week ago…"
-msgstr "Učitaj više povijesti od prije %d tjedna …"
+msgstr "Učitaj više povijesti od prije %d tjedan …"
 
 #: src/Dialogs/ItemChangeHistory.vala:139
 #, c-format
@@ -1564,9 +1565,8 @@ msgid "Add Source"
 msgstr "Dodaj izvor"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
-#, fuzzy
 msgid "Inbox Page"
-msgstr "Ulazni sandučić"
+msgstr "Stranica ulaznog sandučića"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:102
 msgid "You can sort your accounts by dragging and dropping"
@@ -1579,18 +1579,19 @@ msgstr "Planify sinkronizira tvoje zadatke, to može potrajati par minuta"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
 msgid "Cannot Hide This Account"
-msgstr ""
+msgstr "Ovaj se račun ne može sakriti"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Ovaj račun sadrži tvoj trenutačni projekt ulaznog sadučića. Najprije "
+"promijeni svoj projekt ulaznog sadučića."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
-#, fuzzy
 msgid "Change Inbox"
-msgstr "Otvori ulazni sandučić"
+msgstr "Promijeni ulazni sandučić"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:517
 msgid "Syncing…"
@@ -1624,9 +1625,8 @@ msgid "Log In"
 msgstr "Prijava"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:28
-#, fuzzy
 msgid "Inbox Project"
-msgstr "Novi projekt"
+msgstr "Projekt ulaznog sadučića"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:37
 msgid ""
@@ -1634,6 +1634,9 @@ msgid ""
 "Getting Things Done methodology, it's your capture point for quick ideas and "
 "tasks that you'll organize later"
 msgstr ""
+"Ulazni sandučić je mjesto gdje stižu novi zadaci. Na temelju David Allenove "
+"metode \"Getting Things Done\", to je tvoja točka prikupljanja brzih ideja i "
+"zadataka koje ćeš kasnije organizirati"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "Server URL examples:"
@@ -1796,7 +1799,7 @@ msgstr "Nema sigurnosnih kopija. Stvori jednu klikom na gornji gumb."
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
 #, c-format
 msgid "Backup files are stored in: %s"
-msgstr ""
+msgstr "Datoteke sigurnosnih kopija se spremaju u: %s"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:76
 msgid "Migrate"
@@ -2589,12 +2592,10 @@ msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "Nema dostupnih favorita. Stvori favorit klikom na gumb '+'"
 
 #: src/Layouts/Sidebar.vala:122
-#, fuzzy
 msgid "Add Account"
-msgstr "Računi"
+msgstr "Dodaj račun"
 
 #: src/Layouts/Sidebar.vala:123
-#, fuzzy
 msgid "Customize Sidebar"
 msgstr "Prilagodi bočnu traku"
 
@@ -2687,11 +2688,11 @@ msgstr "Sigurnosna kopija je uspješno uvezena"
 
 #: src/Services/Backups.vala:548
 msgid "Planify will restart to apply the changes"
-msgstr ""
+msgstr "Planify će se ponovo pokrenuti kako bi se primijenile promjene"
 
 #: src/Services/Backups.vala:551
 msgid "Restart Now"
-msgstr ""
+msgstr "Ponovo pokreni sada"
 
 #: src/Services/Backups.vala:566
 msgid "Planify Backup Files"
@@ -2702,19 +2703,16 @@ msgid "On this computer"
 msgstr "Na ovom računalu"
 
 #: src/Services/Notification.vala:99
-#, fuzzy
 msgid "Snooze for 10 minutes"
-msgstr "Za 30 minuta"
+msgstr "Ponovi alarm za 10 minuta"
 
 #: src/Services/Notification.vala:100
-#, fuzzy
 msgid "Snooze for 30 minutes"
-msgstr "Za 30 minuta"
+msgstr "Ponovi alarm za 30 minuta"
 
 #: src/Services/Notification.vala:101
-#, fuzzy
 msgid "Snooze for 1 hour"
-msgstr "Za 1 sat"
+msgstr "Ponovi alarm za 1 sat"
 
 #: src/Views/Filter.vala:86 src/Views/Project/Project.vala:89
 #: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:87
@@ -2740,17 +2738,15 @@ msgid "Great job, nothing left to do 🎉"
 msgstr "Odličan posao, nema ničega za obaviti 🎉"
 
 #: src/Views/Filter.vala:612
-#, fuzzy
 msgid "Delete Completed Task"
-msgstr "Izbriši sve završene zadatke"
+msgstr "Izbriši završeni zadatak"
 
 #: src/Views/Filter.vala:613
-#, fuzzy
 msgid "Delete Completed Tasks"
-msgstr "Izbriši sve završene zadatke"
+msgstr "Izbriši završene zadatke"
 
 #: src/Views/Filter.vala:617
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgstr "Ovo će izbrisati %d dovršena zadatka i njihove podzadatke"
 
@@ -2774,16 +2770,15 @@ msgstr "Kada?"
 
 #: src/Views/Project/List.vala:121
 msgid "Add Some Tasks. Press 'a' to create a new task"
-msgstr ""
+msgstr "Dodaj neke zadatke. Pritisni 'a' za stvaranje novog zadatka"
 
 #: src/Views/Project/Project.vala:64
 msgid "Project Actions"
 msgstr "Radnje projekta"
 
 #: src/Views/Project/Project.vala:222
-#, fuzzy
 msgid "New Task"
-msgstr "Pozicija novog zadatka"
+msgstr "Novi zadatak"
 
 #: src/Views/Project/Project.vala:340
 msgid "Select"
@@ -3014,9 +3009,9 @@ msgid "Are you sure you want to delete this to-do?"
 msgstr "Stvarno želiš izbrisati ovaj zadatak?"
 
 #: src/Widgets/MultiSelectToolbar.vala:250
-#, fuzzy, c-format
+#, c-format
 msgid "Delete %d To-Do"
-msgstr "Izbriši %d zadatka"
+msgstr "Izbriši %d zadatak"
 
 #: src/Widgets/MultiSelectToolbar.vala:251
 #, c-format
