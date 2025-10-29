@@ -79,8 +79,6 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
     }
 
     construct {
-        css_classes = { "popover-contents" };
-
         if (picker_type == LabelPickerType.FILTER_ONLY) {
             PLACEHOLDER_MESSAGE = _("Your list of filters will show up here.");
         }

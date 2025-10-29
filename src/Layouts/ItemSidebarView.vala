@@ -385,7 +385,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         status_button.update_from_item (item);
 
         label_button.labels = item._get_labels ();
-        label_button.update_from_item (item);
+        label_button.update_tooltip_from_item (item);
 
         pin_button.update_from_item (item);
 

@@ -43,7 +43,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     public LabelPicker () {
         Object (
             has_arrow: false,
-            position: Gtk.PositionType.TOP,
+            position: Gtk.PositionType.BOTTOM,
             width_request: 275,
             height_request: 300
         );
@@ -54,14 +54,13 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     }
 
     construct {
-        css_classes = { "popover-contents" };
-
         labels_picker_core = new Widgets.LabelsPickerCore (LabelPickerType.FILTER_AND_CREATE) {
             margin_top = 12
         };
 
         child = labels_picker_core;
-
+        add_css_class ("popover-contents");
+        
         labels_picker_core.close.connect (() => {
             popdown ();
         });

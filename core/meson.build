@@ -37,7 +37,6 @@ core_files = files(
     'Widgets/ItemLabelChild.vala',
     'Widgets/CircularProgressBar.vala',
     'Widgets/StatusButton.vala',
-    'Widgets/LabelsPickerCore.vala',
     'Widgets/MarkdownEditor.vala',
 
     'Widgets/Calendar/Calendar.vala',
@@ -60,6 +59,9 @@ core_files = files(
     'Widgets/LabelPicker/LabelPicker.vala',
     'Widgets/LabelPicker/LabelRow.vala',
     'Widgets/LabelPicker/LabelButton.vala',
+    'Widgets/LabelPicker/LabelsPickerCore.vala',
+    'Widgets/LabelPicker/LabelQuickPicker.vala',
+
 
     'Widgets/ProjectPicker/ProjectPickerCore.vala',
     'Widgets/ProjectPicker/ProjectPickerPopover.vala',
