@@ -71,8 +71,9 @@ core/Widgets/ItemLabelChild.vala
 core/Widgets/ItemLabels.vala
 core/Widgets/LabelPicker/LabelButton.vala
 core/Widgets/LabelPicker/LabelPicker.vala
+core/Widgets/LabelPicker/LabelQuickPicker.vala
 core/Widgets/LabelPicker/LabelRow.vala
-core/Widgets/LabelsPickerCore.vala
+core/Widgets/LabelPicker/LabelsPickerCore.vala
 core/Widgets/LoadingButton.vala
 core/Widgets/MarkdownEditor.vala
 core/Widgets/PinButton.vala

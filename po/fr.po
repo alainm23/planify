@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-26 10:46+0000\n"
+"POT-Creation-Date: 2025-10-29 10:19+0000\n"
 "PO-Revision-Date: 2025-10-22 21:30+0000\n"
 "Last-Translator: Jonathan Merlet <okistanpro@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
@@ -426,35 +426,36 @@ msgstr "Supprimer la section %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:124
+#: core/QuickAddCore.vala:126
 msgid "Task added successfully!"
 msgstr "Projet ajouté avec succès !"
 
-#: core/QuickAdd.vala:128 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:142 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 #: core/QuickAddCore.vala:140
 msgid "To-do name"
 msgstr "Nom de la tâche"
 
-#: core/QuickAdd.vala:134 core/QuickAddCore.vala:146
+#: core/QuickAddCore.vala:172
 msgid "This field is required"
 msgstr "Ce champ est requis"
 
-#: core/QuickAdd.vala:158 core/QuickAddCore.vala:170
+#: core/QuickAddCore.vala:196
 msgid "Add a description…"
 msgstr "Ajouter une description…"
 
-#: core/QuickAdd.vala:176 core/Widgets/LabelPicker/LabelButton.vala:57
-#: core/Widgets/LabelPicker/LabelButton.vala:64 core/QuickAddCore.vala:188
+#: core/QuickAddCore.vala:214 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Ajouter des étiquettes"
 
-#: core/QuickAdd.vala:181 core/Widgets/PriorityButton.vala:40
-#: core/Widgets/PriorityButton.vala:47 core/QuickAddCore.vala:193
+#: core/QuickAddCore.vala:219 core/Widgets/PriorityButton.vala:40
+#: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Définir la priorité"
 
-#: core/QuickAdd.vala:187 core/Widgets/ReminderPicker/ReminderButton.vala:42
+#: core/QuickAddCore.vala:224
+#: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
@@ -463,21 +464,21 @@ msgstr "Définir la priorité"
 msgid "Add Reminders"
 msgstr "Ajouter des rappels"
 
-#: core/QuickAdd.vala:228 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:265 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 #: core/QuickAddCore.vala:240
 msgid "Add Task"
 msgstr "Ajouter la tâche"
 
-#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1051
+#: core/QuickAddCore.vala:271 core/QuickAddCore.vala:1250
 msgid "Keep adding"
 msgstr "Continuer d'ajouter"
 
-#: core/QuickAdd.vala:251 core/QuickAddCore.vala:263
+#: core/QuickAddCore.vala:288
 msgid "Select a Project"
 msgstr "Sélectionner un projet"
 
-#: core/QuickAdd.vala:278 core/QuickAddCore.vala:290
+#: core/QuickAddCore.vala:315
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -485,56 +486,56 @@ msgstr ""
 "Désolé, l’Ajout rapide ne peut trouver aucun projet disponible, essayez de "
 "créer un projet depuis Planify."
 
-#: core/QuickAddCore.vala:1013 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1212 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Raccourcis clavier"
 
-#: core/QuickAddCore.vala:1019
+#: core/QuickAddCore.vala:1218
 msgid "Speed up task creation with these shortcuts"
 msgstr "Accélérer la création de tâches avec ces raccourcis"
 
 # # c-format
-#: core/QuickAddCore.vala:1033
+#: core/QuickAddCore.vala:1232
 msgid "Set priority"
 msgstr "Priorité"
 
-#: core/QuickAddCore.vala:1033
+#: core/QuickAddCore.vala:1232
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = le plus haut, p4 = le plus bas"
 
-#: core/QuickAddCore.vala:1034
+#: core/QuickAddCore.vala:1233
 msgid "Add labels"
 msgstr "Ajouter des étiquettes"
 
-#: core/QuickAddCore.vala:1034
+#: core/QuickAddCore.vala:1233
 msgid "Opens label selector"
 msgstr "Ouvre le sélecteur d'étiquette"
 
-#: core/QuickAddCore.vala:1035
+#: core/QuickAddCore.vala:1234
 msgid "Assign project"
 msgstr "Ajouter à un projet"
 
-#: core/QuickAddCore.vala:1035
+#: core/QuickAddCore.vala:1234
 msgid "Opens project selector"
 msgstr "Ouvre le sélecteur de projet"
 
-#: core/QuickAddCore.vala:1036
+#: core/QuickAddCore.vala:1235
 msgid "Set reminder"
 msgstr "Programmer un rappel"
 
-#: core/QuickAddCore.vala:1036
+#: core/QuickAddCore.vala:1235
 msgid "Opens reminder options"
 msgstr "Ouvre les options de rappel"
 
-#: core/QuickAddCore.vala:1051
+#: core/QuickAddCore.vala:1250
 msgid "Stay open after creating task"
 msgstr "Rester ouvert après avoir créé la tâche"
 
-#: core/QuickAddCore.vala:1057
+#: core/QuickAddCore.vala:1256
 msgid "Tip"
 msgstr "Astuce"
 
-#: core/QuickAddCore.vala:1057
+#: core/QuickAddCore.vala:1256
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 "Combinez les raccourcis dans le champ du titre pour une création plus rapide"
@@ -1295,7 +1296,12 @@ msgstr "Ajouter une heure"
 msgid "Select Labels"
 msgstr "Sélectionner des étiquettes"
 
-#: core/Widgets/LabelsPickerCore.vala:64
+#: core/Widgets/LabelPicker/LabelQuickPicker.vala:190
+#, c-format
+msgid "Label not found: Create '%s'"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
@@ -1304,33 +1310,33 @@ msgstr ""
 "en pressant la touche Entrée."
 
 # # c-format
-#: core/Widgets/LabelsPickerCore.vala:65
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr "Créer « %s »"
 
-#: core/Widgets/LabelsPickerCore.vala:85
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
 msgid "Your list of filters will show up here."
 msgstr ""
 "Votre liste de rappels apparaîtra ici. Ajoutez-en une en cliquant sur le "
 "bouton '+'."
 
-#: core/Widgets/LabelsPickerCore.vala:89
-#: core/Widgets/SectionPicker/SectionPicker.vala:41
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "Rechercher"
 
-#: core/Widgets/LabelsPickerCore.vala:89
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Search or Create"
 msgstr "Chercher ou créer"
 
-#: core/Widgets/MarkdownEditor.vala:1353 core/Widgets/MarkdownEditor.vala:1357
+#: core/Widgets/MarkdownEditor.vala:1356
 msgid "Apply"
 msgstr "Appliquer"
 
-#: core/Widgets/MarkdownEditor.vala:1362
+#: core/Widgets/MarkdownEditor.vala:1361
 msgid "Remove link"
 msgstr "Supprimer le lien"
 
@@ -1366,7 +1372,7 @@ msgstr "Votre liste de sections apparaîtra ici."
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
-#: core/Widgets/SectionPicker/SectionPicker.vala:98
+#: core/Widgets/SectionPicker/SectionPicker.vala:96
 #: core/Widgets/SectionPicker/SectionPickerRow.vala:38
 #: src/Widgets/CompletedTaskRow.vala:77 src/Widgets/ItemDetailCompleted.vala:80
 msgid "No Section"
