@@ -19,12 +19,14 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
 "X-Generator: Weblate 5.14-dev\n"
 
-#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
+#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:345
 #: src/Dialogs/Preferences/Pages/General.vala:56
+#: src/Dialogs/Preferences/Pages/Backup.vala:358
 msgid "Projects"
 msgstr "Projekti"
 
-#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:362
+#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:349
+#: src/Dialogs/Preferences/Pages/Backup.vala:362
 msgid "Sections"
 msgstr "Sadaļas"
 
@@ -34,6 +36,7 @@ msgstr "Uzdevumi"
 
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:36
+#: src/Dialogs/Preferences/Pages/Backup.vala:357
 #: src/Dialogs/Preferences/Pages/Backup.vala:370
 msgid "Labels"
 msgstr "Birkas"
@@ -133,7 +136,8 @@ msgid "Due Date"
 msgstr "Termiņš"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
-#: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
+#: src/Dialogs/CompletedTasks.vala:318 src/Widgets/ItemDetailCompleted.vala:80
+#: src/Dialogs/CompletedTasks.vala:315
 msgid "Section"
 msgstr "Sadaļa"
 
@@ -149,9 +153,10 @@ msgstr "Uzdevums mainīts"
 msgid "Content"
 msgstr "Saturs"
 
-#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1865
+#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1858
+#: src/Layouts/ItemSidebarView.vala:169
+#: src/Widgets/ItemDetailCompleted.vala:113 src/Layouts/ItemRow.vala:1865
 #: src/Layouts/ItemSidebarView.vala:179
-#: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Apraksts"
 
@@ -161,6 +166,7 @@ msgstr "Ieplānots"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemBoard.vala:713
+#: src/Layouts/ItemRow.vala:1133 src/Layouts/ItemRow.vala:1146
 #: src/Layouts/ItemRow.vala:1143 src/Layouts/ItemRow.vala:1156
 msgid "Pin"
 msgstr "Piespraust"
@@ -214,6 +220,7 @@ msgstr "Uzskaites žurnāls"
 #: core/Utils/Util.vala:557
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
+#: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:140
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:330
 #: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
 #: src/Widgets/ProjectItemRow.vala:139
@@ -285,8 +292,9 @@ msgstr "Tuvojas"
 #: core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:124
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:707
-#: src/Layouts/ItemRow.vala:1150 src/Views/Project/Project.vala:500
+#: src/Layouts/ItemRow.vala:1140 src/Views/Project/Project.vala:500
 #: src/Views/Project/Project.vala:660 src/Views/Today.vala:202
+#: src/Layouts/ItemRow.vala:1150
 msgid "Today"
 msgstr "Šodien"
 
@@ -297,7 +305,7 @@ msgstr "šodien"
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:710
-#: src/Layouts/ItemRow.vala:1153
+#: src/Layouts/ItemRow.vala:1143 src/Layouts/ItemRow.vala:1153
 msgid "Tomorrow"
 msgstr "Rītdien"
 
@@ -335,64 +343,73 @@ msgstr "Uzdevums pārvietots uz %s"
 msgid "Delete Label %s"
 msgstr "Birka %s izdzēsta"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:820
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:818
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
-#: src/Layouts/ItemSidebarView.vala:539 src/Layouts/SectionBoard.vala:635
-#: src/Services/Backups.vala:416
+#: src/Layouts/ItemSidebarView.vala:531 src/Layouts/SectionBoard.vala:635
+#: src/Services/Backups.vala:416 core/Objects/Project.vala:820
+#: src/Layouts/ItemSidebarView.vala:539
 msgid "This can not be undone"
 msgstr "Šī darbība ir neatgriezeniska"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:823
-#: core/Objects/Project.vala:880 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:821
+#: core/Objects/Project.vala:878 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:421
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:407
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
-#: src/Dialogs/Preferences/Pages/Backup.vala:383
-#: src/Dialogs/Preferences/Pages/Backup.vala:449
-#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:542
+#: src/Dialogs/Preferences/Pages/Backup.vala:370
+#: src/Dialogs/Preferences/Pages/Backup.vala:436
+#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:534
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:265
+#: src/Widgets/MultiSelectToolbar.vala:265 core/Objects/Project.vala:823
+#: core/Objects/Project.vala:880 src/Layouts/ItemSidebarView.vala:542
+#: src/Dialogs/Preferences/Pages/Backup.vala:383
+#: src/Dialogs/Preferences/Pages/Backup.vala:449
 msgid "Cancel"
 msgstr "Atcelt"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:824
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:822
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
-#: src/Dialogs/Preferences/Pages/Backup.vala:279
-#: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:639
+#: src/Dialogs/Preferences/Pages/Backup.vala:266
+#: src/Layouts/ItemSidebarView.vala:535 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
-#: src/Widgets/MultiSelectToolbar.vala:266
+#: src/Widgets/MultiSelectToolbar.vala:266 core/Objects/Project.vala:824
+#: src/Layouts/ItemSidebarView.vala:543
+#: src/Dialogs/Preferences/Pages/Backup.vala:279
 msgid "Delete"
 msgstr "Dzēst"
 
-#: core/Objects/Project.vala:783
+#: core/Objects/Project.vala:781 core/Objects/Project.vala:783
 msgid "The project was copied to the Clipboard."
 msgstr "Projekts kopēts starpliktuvē."
 
-#: core/Objects/Project.vala:819
+#: core/Objects/Project.vala:817 core/Objects/Project.vala:819
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Dzēst projektu %s?"
 
-#: core/Objects/Project.vala:876 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:874 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:876
 msgid "Archive?"
 msgstr "Arhivēt?"
 
-#: core/Objects/Project.vala:877 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:875 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:877
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Šī darbība arhivēs projektu %s un visus tā uzdevumus."
 
-#: core/Objects/Project.vala:881 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:879 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
+#: core/Objects/Project.vala:881
 msgid "Archive"
 msgstr "Arhivēt"
 
@@ -414,6 +431,7 @@ msgstr "Uzdevums pievienots!"
 
 #: core/QuickAddCore.vala:142 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
+#: core/QuickAddCore.vala:140
 msgid "To-do name"
 msgstr "Uzdevuma nosaukums"
 
@@ -441,11 +459,13 @@ msgstr "Noteikt prioritāti"
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
 #: core/Widgets/ReminderPicker/ReminderButton.vala:177
+#: core/QuickAddCore.vala:199
 msgid "Add Reminders"
 msgstr "Noteikt atgādinājumus"
 
 #: core/QuickAddCore.vala:265 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
+#: core/QuickAddCore.vala:240
 msgid "Add Task"
 msgstr "Pievienot uzdevumu"
 
@@ -794,6 +814,7 @@ msgstr "Process pabeigts, Jums ir jārestartē Planify."
 
 #: core/Utils/Util.vala:438
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:221
+#: src/Services/Backups.vala:552
 msgid "Ok"
 msgstr "Labi"
 
@@ -1325,13 +1346,10 @@ msgstr "Jūsu sadaļu uzskaite uzrādīsies šeit."
 #: core/Widgets/SectionPicker/SectionButton.vala:88
 #: core/Widgets/SectionPicker/SectionPicker.vala:96
 #: core/Widgets/SectionPicker/SectionPickerRow.vala:38
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:269
 #: src/Widgets/CompletedTaskRow.vala:77 src/Widgets/ItemDetailCompleted.vala:80
 msgid "No Section"
 msgstr "Nav sadaļas"
-
-#: core/Widgets/ProjectPicker/ProjectPickerCore.vala:46
-msgid "Type a search"
-msgstr "Ievadiet atslēgvārdus"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
@@ -1396,8 +1414,8 @@ msgid "To Do"
 msgstr "Paveikt"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1164
-#: src/Services/Notification.vala:98
+#: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1154
+#: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1164
 msgid "Complete"
 msgstr "Izpildīts"
 
@@ -1438,8 +1456,9 @@ msgstr ""
 msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr "Šis dzēsīs %d paveiktos uzdevumus un to apakšuzdevumus no projekta %s"
 
-#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:581
+#: src/Dialogs/CompletedTasks.vala:325 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
+#: src/Dialogs/CompletedTasks.vala:322
 msgid "Filter By"
 msgstr "Atlasīt pēc"
 
@@ -1448,8 +1467,8 @@ msgid "Next Week"
 msgstr "Nākamā nedēļa"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:715
-#: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:505
-#: src/Views/Project/Project.vala:670
+#: src/Layouts/ItemRow.vala:1148 src/Views/Project/Project.vala:505
+#: src/Views/Project/Project.vala:670 src/Layouts/ItemRow.vala:1158
 msgid "No Date"
 msgstr "Nav termiņa"
 
@@ -1475,7 +1494,8 @@ msgstr "Lūdzu ievadiet savus pieslēgšanās datus"
 msgid "Network Is Not Available"
 msgstr "Tīklājs nav pieejams"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1276
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1268
+#: src/Layouts/ItemSidebarView.vala:447 src/Layouts/ItemRow.vala:1276
 #: src/Layouts/ItemSidebarView.vala:457
 msgid "Change History"
 msgstr "Mainīt vēsturi"
@@ -1793,69 +1813,79 @@ msgstr "Importēt dublējumkopiju"
 msgid "Backup Files"
 msgstr "Dublējumkopijas datnes"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:58
 #: src/Dialogs/Preferences/Pages/Backup.vala:57
 msgid "No backups found, create one clicking the button above."
 msgstr ""
 "Neviena dublējumkopija netika atrasta, izveidojiet pirmo, spiežot pogu "
 "augstāk."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:62
-#, c-format
-msgid "Backup files are stored in: %s"
-msgstr ""
-
+#: src/Dialogs/Preferences/Pages/Backup.vala:63
 #: src/Dialogs/Preferences/Pages/Backup.vala:76
 msgid "Migrate"
 msgstr "Migrēt"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:65
 #: src/Dialogs/Preferences/Pages/Backup.vala:78
 msgid "Migrate From Planner"
 msgstr "Migrēt no Planner"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:105
 #: src/Dialogs/Preferences/Pages/Backup.vala:118
 msgid "The Backup was created successfully."
 msgstr "Dublējumkopija tika izveidota."
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:122
 #: src/Dialogs/Preferences/Pages/Backup.vala:135
 msgid "Tasks Migrate Successfully"
 msgstr "Uzdevumi migrēti"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:126
 #: src/Dialogs/Preferences/Pages/Backup.vala:139
 msgid "The database file does not exist."
 msgstr "Datubāzes datne nepastāv."
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:164
 #: src/Dialogs/Preferences/Pages/Backup.vala:177
 msgid "Selected file is invalid"
 msgstr "Izvēlētā datne ir nederīga"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:209
 #: src/Dialogs/Preferences/Pages/Backup.vala:222
 msgid "View Backup"
 msgstr "Skatīt dublējumkopiju"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:265
 #: src/Dialogs/Preferences/Pages/Backup.vala:278
 msgid "Download"
 msgstr "Lejuplādēt"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:329
 #: src/Dialogs/Preferences/Pages/Backup.vala:342
 msgid "Import Overview"
 msgstr "Importēt pārskatu"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:354 src/Dialogs/Project.vala:353
+#: src/Dialogs/Preferences/Pages/Backup.vala:341 src/Dialogs/Project.vala:353
+#: src/Dialogs/Preferences/Pages/Backup.vala:354
 msgid "Sources"
 msgstr "Avoti"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:353
 #: src/Dialogs/Preferences/Pages/Backup.vala:366
 msgid "To-Dos"
 msgstr "Uzdevumi"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:375
 #: src/Dialogs/Preferences/Pages/Backup.vala:388
 msgid "Confirm"
 msgstr "Apstiprināt"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:431
 #: src/Dialogs/Preferences/Pages/Backup.vala:444
 msgid "Restore backup"
 msgstr "Atjaunot dublējumkopiju"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:432
 #: src/Dialogs/Preferences/Pages/Backup.vala:445
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
@@ -1864,6 +1894,7 @@ msgstr ""
 "Vai Jūs esat pārliecināti, ka vēlaties turpināt? Šī darbība dzēsīs Jūsu "
 "pašreizējos datus un aizvietos tos ar dublējumkopijas datiem."
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:437
 #: src/Dialogs/Preferences/Pages/Backup.vala:450
 msgid "Restore Backup"
 msgstr "Atjaunot dublējumkopiju"
@@ -2391,11 +2422,40 @@ msgstr "Rediģēt projektu"
 msgid "Project added successfully!"
 msgstr "Projekts izveidots!"
 
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:71
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:82
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:93
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:126
+#: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1151
+#: src/Layouts/ItemRow.vala:1263 src/Layouts/ItemSidebarView.vala:442
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1161
-#: src/Layouts/ItemRow.vala:1271 src/Layouts/ItemSidebarView.vala:452
+#: src/Layouts/ItemRow.vala:1161 src/Layouts/ItemRow.vala:1271
+#: src/Layouts/ItemSidebarView.vala:452
 msgid "Move"
 msgstr "Pārvietot"
+
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:108
+#: core/Widgets/ProjectPicker/ProjectPickerCore.vala:46
+msgid "Type a search"
+msgstr "Ievadiet atslēgvārdus"
+
+#: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:154
+#: src/Dialogs/ProjectPicker/SectionPickerRow.vala:206
+#: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
+msgid "Unarchive"
+msgstr "Atarhivēt"
+
+#: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:155
+#: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:346
+#: src/Widgets/ProjectItemRow.vala:154
+msgid "Delete Project"
+msgstr "Dzēst projektu"
+
+#: src/Dialogs/ProjectPicker/SectionPickerRow.vala:207
+#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:664
+#: src/Widgets/SectionItemRow.vala:207
+msgid "Delete Section"
+msgstr "Dzēst sadaļu"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:42
 msgid "Quick Find"
@@ -2438,70 +2498,83 @@ msgid "Open/Close Sidebar"
 msgstr "Atvērt/aizvērt sānjoslu"
 
 #: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:700
-#: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1143
+#: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1133
+#: src/Layouts/ItemRow.vala:1146 src/Layouts/ItemRow.vala:1143
 #: src/Layouts/ItemRow.vala:1156
 msgid "Unpin"
 msgstr "Atspraust"
 
-#: src/Layouts/ItemBoard.vala:590 src/Layouts/ItemRow.vala:1472
+#: src/Layouts/ItemBoard.vala:590 src/Layouts/ItemRow.vala:1465
+#: src/Layouts/ItemSidebarView.vala:610 src/Layouts/ItemRow.vala:1472
 #: src/Layouts/ItemSidebarView.vala:618
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Paveikts. Nākamā reize: %s"
 
-#: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1163
+#: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1153
+#: src/Layouts/ItemRow.vala:1163
 msgid "Add Subtask"
 msgstr "Pievienot apakšuzdevumu"
 
-#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1165
+#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1155
+#: src/Layouts/ItemRow.vala:1165
 msgid "Edit"
 msgstr "Rediģēt"
 
-#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1166
-#: src/Layouts/ItemRow.vala:1270 src/Layouts/ItemSidebarView.vala:451
+#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1156
+#: src/Layouts/ItemRow.vala:1262 src/Layouts/ItemSidebarView.vala:441
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
+#: src/Layouts/ItemRow.vala:1166 src/Layouts/ItemRow.vala:1270
+#: src/Layouts/ItemSidebarView.vala:451
 msgid "Duplicate"
 msgstr "Dublēt"
 
-#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1168
-#: src/Layouts/ItemRow.vala:1273 src/Layouts/ItemSidebarView.vala:454
+#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1158
+#: src/Layouts/ItemRow.vala:1265 src/Layouts/ItemSidebarView.vala:444
+#: src/Layouts/ItemRow.vala:1168 src/Layouts/ItemRow.vala:1273
+#: src/Layouts/ItemSidebarView.vala:454
 msgid "Delete Task"
 msgstr "Dzēst uzdevumu"
 
+#: src/Layouts/ItemBoard.vala:1009 src/Layouts/ItemRow.vala:1728
 #: src/Layouts/ItemBoard.vala:1007 src/Layouts/ItemRow.vala:1735
 msgid "Order changed to 'Custom sort order'"
 msgstr "Kārtojums nomainīts uz 'Pielāgoto secību'"
 
+#: src/Layouts/ItemBoard.vala:1095 src/Layouts/ItemRow.vala:1511
 #: src/Layouts/ItemBoard.vala:1093 src/Layouts/ItemRow.vala:1518
 #, c-format
 msgid "%s was deleted"
 msgstr "%s tika dzēsts"
 
+#: src/Layouts/ItemBoard.vala:1096 src/Layouts/ItemRow.vala:1512
 #: src/Layouts/ItemBoard.vala:1094 src/Layouts/ItemRow.vala:1519
 msgid "Undo"
 msgstr "Atsaukt"
 
-#: src/Layouts/ItemRow.vala:460
+#: src/Layouts/ItemRow.vala:450 src/Layouts/ItemRow.vala:460
 msgid "Add Subtasks"
 msgstr "Pievienot apakšuzdevumus"
 
-#: src/Layouts/ItemRow.vala:470
+#: src/Layouts/ItemRow.vala:460 src/Layouts/ItemRow.vala:470
 msgid "Add Attachments"
 msgstr "Pievienot pielikumus"
 
-#: src/Layouts/ItemRow.vala:1024
+#: src/Layouts/ItemRow.vala:1014 src/Layouts/ItemRow.vala:1024
 msgid "Hide Sub-tasks"
 msgstr "Slēpt apakšuzdevumus"
 
-#: src/Layouts/ItemRow.vala:1024
+#: src/Layouts/ItemRow.vala:1014 src/Layouts/ItemRow.vala:1024
 msgid "Show Sub-tasks"
 msgstr "Rādīt apakšuzdevumus"
 
+#: src/Layouts/ItemRow.vala:1258 src/Layouts/ItemSidebarView.vala:438
 #: src/Layouts/ItemRow.vala:1266 src/Layouts/ItemSidebarView.vala:448
 msgid "Use as a Note"
 msgstr "Lietot kā piezīmi"
 
+#: src/Layouts/ItemRow.vala:1261 src/Layouts/ItemSidebarView.vala:440
 #: src/Layouts/ItemRow.vala:1269 src/Layouts/ItemSidebarView.vala:450
 msgid "Copy to Clipboard"
 msgstr "Kopēt starpliktuvē"
@@ -2510,15 +2583,17 @@ msgstr "Kopēt starpliktuvē"
 msgid "Close Detail"
 msgstr "Aizvērt paplašināto skatu"
 
-#: src/Layouts/ItemSidebarView.vala:139 src/Widgets/ItemDetailCompleted.vala:64
+#: src/Layouts/ItemSidebarView.vala:129 src/Widgets/ItemDetailCompleted.vala:64
+#: src/Layouts/ItemSidebarView.vala:139
 msgid "Title"
 msgstr "Nosaukums"
 
-#: src/Layouts/ItemSidebarView.vala:169 src/Widgets/ItemDetailCompleted.vala:90
+#: src/Layouts/ItemSidebarView.vala:159 src/Widgets/ItemDetailCompleted.vala:90
+#: src/Layouts/ItemSidebarView.vala:169
 msgid "Properties"
 msgstr "Īpašības"
 
-#: src/Layouts/ItemSidebarView.vala:538
+#: src/Layouts/ItemSidebarView.vala:530 src/Layouts/ItemSidebarView.vala:538
 msgid "Are you sure you want to delete?"
 msgstr "Vai Jūs esat pārliecināti, ka vēlaties dzēst?"
 
@@ -2541,11 +2616,6 @@ msgstr "Pievienot pie favorītiem"
 #: src/Layouts/ProjectRow.vala:706
 msgid "Refresh"
 msgstr "Pārlādēt"
-
-#: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:346
-#: src/Widgets/ProjectItemRow.vala:154
-msgid "Delete Project"
-msgstr "Dzēst projektu"
 
 #: src/Layouts/ProjectRow.vala:712
 msgid "Share"
@@ -2579,11 +2649,6 @@ msgstr "Pārvaldīt sadaļu sakārtojumu"
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
 msgid "Show Completed Tasks"
 msgstr "Rādīt paveiktos uzdevumus"
-
-#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:664
-#: src/Widgets/SectionItemRow.vala:207
-msgid "Delete Section"
-msgstr "Dzēst sadaļu"
 
 #: src/Layouts/Sidebar.vala:40
 msgid "Favorites"
@@ -2683,19 +2748,15 @@ msgstr "Atiestatīt datubāzi"
 msgid "Delete Backup"
 msgstr "Dzēst dublējumkopiju"
 
-#: src/Services/Backups.vala:547
+#: src/Services/Backups.vala:548 src/Services/Backups.vala:547
 msgid "Backup Successfully Imported"
 msgstr "Dublējumkopija veiksmīgi importēta"
 
-#: src/Services/Backups.vala:548
-msgid "Planify will restart to apply the changes"
-msgstr ""
+#: src/Services/Backups.vala:549
+msgid "Process completed, you need to start Planify again"
+msgstr "Process pabeigts, Jums jārestartē Planify"
 
-#: src/Services/Backups.vala:551
-msgid "Restart Now"
-msgstr ""
-
-#: src/Services/Backups.vala:566
+#: src/Services/Backups.vala:563 src/Services/Backups.vala:566
 msgid "Planify Backup Files"
 msgstr "Planify dublējumkopijas datnes"
 
@@ -3051,10 +3112,6 @@ msgstr "Atjaunināt tagad"
 msgid "Close"
 msgstr "Aizvērt"
 
-#: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
-msgid "Unarchive"
-msgstr "Atarhivēt"
-
 #: src/Widgets/SubItems.vala:523
 msgid "No subtasks added yet. Get started!"
 msgstr "Vēl nav neviena apakšuzdevuma. Variet sākt!"
@@ -3203,5 +3260,15 @@ msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Rāda piespraustos"
 
-#~ msgid "Process completed, you need to start Planify again"
-#~ msgstr "Process pabeigts, Jums jārestartē Planify"
+#: src/Dialogs/Preferences/Pages/Backup.vala:62
+#, c-format
+msgid "Backup files are stored in: %s"
+msgstr ""
+
+#: src/Services/Backups.vala:548
+msgid "Planify will restart to apply the changes"
+msgstr ""
+
+#: src/Services/Backups.vala:551
+msgid "Restart Now"
+msgstr ""
