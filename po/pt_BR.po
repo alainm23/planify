@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-29 10:19+0000\n"
-"PO-Revision-Date: 2025-10-08 14:07+0000\n"
-"Last-Translator: Murilo Leal <murilormleal@outlook.com>\n"
+"PO-Revision-Date: 2025-10-29 14:14+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -890,8 +890,8 @@ msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
-"Organize melhor suas tarefas! Vá para o painel esquerdo e clique no botão "
-"'+' na seção ‘Neste computador’ e adicione seu próprio projeto."
+"Organize melhor suas tarefas! Vá para o painel esquerdo e clique no botão '+"
+"' na seção ‘Neste computador’ e adicione seu próprio projeto."
 
 #: core/Utils/Util.vala:613
 msgid "You’re done!"
@@ -1619,8 +1619,7 @@ msgstr "Você pode classificar suas contas arrastando e soltando"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:547
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
-msgstr ""
-"Planify está sincronizando suas tarefas, isso pode levar alguns minutos"
+msgstr "Planify está sincronizando suas tarefas, isso pode levar alguns minutos"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
 msgid "Cannot Hide This Account"
