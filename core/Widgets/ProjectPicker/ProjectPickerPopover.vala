@@ -38,11 +38,10 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
     }
 
     construct {
-        css_classes = { "popover-contents" };
-
         project_picker_core = new Widgets.ProjectPickerCore ();
 
         child = project_picker_core;
+        add_css_class ("popover-contents");
 
         project_picker_core.selected.connect ((project) => {
             selected (project);

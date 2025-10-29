@@ -335,9 +335,12 @@ entry.flat:focus-within {
 .item-label-child {
     background-color: alpha(@colorAccent, 0.125);
     border-radius: 6px;
-    padding: 3px 6px;
+    padding: 0 6px;
     color: @colorAccent;
-    font-weight: bold;
+}
+
+.item-label-child label {
+    font-weight: 600;
 }
 
 .description-box {
