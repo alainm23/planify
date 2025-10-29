@@ -23,6 +23,7 @@ public class Widgets.LabelPicker.LabelQuickPicker : Gtk.Popover {
     private Gtk.ListBox listbox;
     private Gtk.ScrolledWindow listbox_scrolled;
     private Gtk.EventControllerKey key_controller;
+    private Widgets.LabelPicker.LabelRow create_label_row;
     
     public signal void label_selected (Objects.Label label);
 
@@ -77,7 +78,12 @@ public class Widgets.LabelPicker.LabelQuickPicker : Gtk.Popover {
         
         listbox.row_activated.connect ((row) => {
             var label_row = (Widgets.LabelPicker.LabelRow) row;
-            label_selected (label_row.label);
+            
+            if (label_row == create_label_row) {
+                create_new_label (_filter_text);
+            } else {
+                label_selected (label_row.label);
+            }
         });
 
         var listbox_content = new Adw.Bin () {
@@ -93,8 +99,7 @@ public class Widgets.LabelPicker.LabelQuickPicker : Gtk.Popover {
             hexpand = true,
             vexpand = true,
             child = listbox_content,
-            max_content_height = 175,
-            propagate_natural_height = true
+            height_request = 175
         };
 
         child = listbox_scrolled;
@@ -113,6 +118,7 @@ public class Widgets.LabelPicker.LabelQuickPicker : Gtk.Popover {
         notify["visible"].connect (() => {
             if (visible) {
                 setup_focus_monitoring ();
+                reset_filter ();
             }
         });
     }
@@ -153,24 +159,91 @@ public class Widgets.LabelPicker.LabelQuickPicker : Gtk.Popover {
     }
 
     private void apply_filter () {
+        if (create_label_row != null) {
+            listbox.remove (create_label_row);
+            create_label_row = null;
+        }
+        
+        int visible_count = 0;
         listbox.set_filter_func ((row) => {
             var label_row = (Widgets.LabelPicker.LabelRow) row;
             if (_filter_text == "") {
                 return true;
             }
             
-            return label_row.label.name.down ().contains (_filter_text.down ());
+            bool matches = label_row.label.name.down ().contains (_filter_text.down ());
+            if (matches) {
+                visible_count++;
+            }
+            return matches;
         });
+        
+        if (visible_count == 0 && _filter_text.length > 0) {
+            add_create_label_row ();
+        } else {
+            select_first_item ();
+        }
+    }
+    
+    private void add_create_label_row () {
+        var create_label = new Objects.Label ();
+        create_label.name = _("Label not found: Create '%s'").printf (_filter_text);
+        create_label.color = "#a0a0a0";
+        create_label.id = "create_new_label";
+        
+        create_label_row = new Widgets.LabelPicker.LabelRow (create_label) {
+            hide_check_button = true
+        };
+        
+        listbox.append (create_label_row);
+        listbox.select_row (create_label_row);
+    }
+    
+    private void create_new_label (string label_name) {
+        if (create_label_row != null) {
+            create_label_row.show_loading (true);
+        }
+        
+        var label = new Objects.Label ();
+        label.color = Util.get_default ().get_random_color ();
+        label.name = label_name;
+        label.source_id = _source.id;
+        
+        if (_source.source_type == SourceType.LOCAL || _source.source_type == SourceType.CALDAV) {
+            label.id = Util.get_default ().generate_id (label);
+            Services.Store.instance ().insert_label (label);
+            label_selected (label);
+        } else if (_source.source_type == SourceType.TODOIST) {
+            Services.Todoist.get_default ().add.begin (label, (obj, res) => {
+                HttpResponse response = Services.Todoist.get_default ().add.end (res);
+                
+                if (response.status) {
+                    label.id = response.data;
+                    Services.Store.instance ().insert_label (label);
+                    label_selected (label);
+                }
+                
+                if (create_label_row != null) {
+                    create_label_row.show_loading (false);
+                }
+            });
+        }
     }
     
     public void navigate_listbox (bool down) {
         var selected_row = listbox.get_selected_row ();
         
         if (selected_row == null) {
-            var first_row = listbox.get_row_at_index (0);
-            if (first_row != null && first_row.visible) {
-                listbox.select_row (first_row);
-                scroll_to_selected ();
+            int index = 0;
+            while (true) {
+                var row = listbox.get_row_at_index (index);
+                if (row == null) break;
+                if (row.get_child_visible ()) {
+                    listbox.select_row (row);
+                    scroll_to_selected ();
+                    break;
+                }
+                index++;
             }
             return;
         }
@@ -178,10 +251,15 @@ public class Widgets.LabelPicker.LabelQuickPicker : Gtk.Popover {
         int current_index = selected_row.get_index ();
         int new_index = down ? current_index + 1 : current_index - 1;
         
-        var new_row = listbox.get_row_at_index (new_index);
-        if (new_row != null && new_row.visible) {
-            listbox.select_row (new_row);
-            scroll_to_selected ();
+        while (new_index >= 0) {
+            var new_row = listbox.get_row_at_index (new_index);
+            if (new_row == null) break;
+            if (new_row.get_child_visible ()) {
+                listbox.select_row (new_row);
+                scroll_to_selected ();
+                break;
+            }
+            new_index = down ? new_index + 1 : new_index - 1;
         }
     }
     
@@ -189,16 +267,51 @@ public class Widgets.LabelPicker.LabelQuickPicker : Gtk.Popover {
         var selected_row = listbox.get_selected_row ();
         if (selected_row != null) {
             var label_row = (Widgets.LabelPicker.LabelRow) selected_row;
-            label_selected (label_row.label);
+            
+            if (label_row == create_label_row) {
+                create_new_label (_filter_text);
+            } else {
+                label_selected (label_row.label);
+            }
         }
     }
     
     public void select_first_item () {
-        var first_row = listbox.get_row_at_index (0);
-        if (first_row != null && first_row.visible) {
-            listbox.select_row (first_row);
-            scroll_to_selected ();
+        int index = 0;
+        while (true) {
+            var row = listbox.get_row_at_index (index);
+            if (row == null) break;
+            if (row.get_child_visible ()) {
+                listbox.select_row (row);
+                scroll_to_selected ();
+                break;
+            }
+            index++;
         }
+    }
+    
+    public void reset_filter () {
+        if (create_label_row != null) {
+            listbox.remove (create_label_row);
+            create_label_row = null;
+        }
+        
+        listbox.set_filter_func (null);
+        listbox.unselect_all ();
+    }
+    
+    private int count_visible_children () {
+        int count = 0;
+        int index = 0;
+        while (true) {
+            var row = listbox.get_row_at_index (index);
+            if (row == null) break;
+            if (row.get_child_visible ()) {
+                count++;
+            }
+            index++;
+        }
+        return count;
     }
     
     private void scroll_to_selected () {
@@ -208,22 +321,16 @@ public class Widgets.LabelPicker.LabelQuickPicker : Gtk.Popover {
         Gtk.Allocation allocation;
         selected_row.get_allocation (out allocation);
         
-        var vadjustment = listbox_scrolled.get_vadjustment ();
+        var adjustment = listbox_scrolled.vadjustment;
+        double row_start = allocation.y;
+        double row_end = allocation.y + allocation.height;
+        double visible_start = adjustment.value;
+        double visible_end = adjustment.value + adjustment.page_size;
         
-        int margin_top = 6;
-        int margin_bottom = 6;
-        int padding = 3;
-        
-        double row_top = allocation.y + margin_top;
-        double row_bottom = allocation.y + allocation.height + margin_top;
-        double visible_top = vadjustment.get_value ();
-        double visible_bottom = visible_top + vadjustment.get_page_size ();
-        
-        if (row_top < visible_top + padding) {
-            vadjustment.set_value (Math.fmax (0, row_top - padding));
-        } else if (row_bottom > visible_bottom - padding) {
-            double new_value = row_bottom - vadjustment.get_page_size () + margin_bottom + padding;
-            vadjustment.set_value (Math.fmin (new_value, vadjustment.get_upper () - vadjustment.get_page_size ()));
+        if (row_start < visible_start) {
+            adjustment.value = row_start - 10;
+        } else if (row_end > visible_end) {
+            adjustment.value = row_end - adjustment.page_size + 10;
         }
     }
 }

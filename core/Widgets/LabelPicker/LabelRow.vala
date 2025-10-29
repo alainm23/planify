@@ -38,6 +38,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
     }
 
     private Gtk.CheckButton checked_button;
+    private Gtk.Revealer loading_revealer;
     public signal void checked_toggled (Objects.Label label, bool active);
     private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
@@ -71,6 +72,12 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
             valign = Gtk.Align.CENTER,
         };
 
+        loading_revealer = new Gtk.Revealer () {
+            child = new Adw.Spinner (),
+            hexpand = true,
+            halign = END
+        };
+
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 3,
             margin_bottom = 3,
@@ -81,6 +88,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
         content_box.append (checked_button);
         content_box.append (color_grid);
         content_box.append (name_label);
+        content_box.append (loading_revealer);
 
         child = content_box;
 
@@ -104,6 +112,10 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
     public void update_checked_toggled () {
         checked_button.active = !checked_button.active;
         checked_toggled (label, checked_button.active);
+    }
+
+    public void show_loading (bool show) {
+        loading_revealer.reveal_child = show;
     }
 
     public void clean_up () {
