@@ -6,18 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-29 10:19+0000\n"
-"PO-Revision-Date: 2025-10-16 19:07+0000\n"
-"Last-Translator: Fraxinus Acer <yasson2008@ya.ru>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/planner/io-"
-"github-alainm23-planify/ru/>\n"
+"PO-Revision-Date: 2025-10-29 14:18+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -2015,8 +2015,8 @@ msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
 msgstr ""
-"Откройте «Системные настройки» → «Клавиатура» → «Комбинации клавиш» → "
-"«Пользовательская комбинация клавиш», затем добавьте новую комбинацию клавиш "
+"Откройте «Системные настройки» → «Клавиатура» → «Комбинации клавиш» → «"
+"Пользовательская комбинация клавиш», затем добавьте новую комбинацию клавиш "
 "со следующим текстом:"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
@@ -2029,8 +2029,7 @@ msgstr "Сохранить в последний выбранный проект
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
-msgstr ""
-"Если эта опция не включена, по умолчанию будет выбран проект «Входящие»"
+msgstr "Если эта опция не включена, по умолчанию будет выбран проект «Входящие»"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:127
 msgid "The command was copied to the clipboard"
