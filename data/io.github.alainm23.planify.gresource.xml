@@ -118,6 +118,7 @@
     <file alias="code-symbolic.svg">resources/icons/code-symbolic.svg</file>
     <file alias="lightbulb-symbolic.svg">resources/icons/lightbulb-symbolic.svg</file>
     <file alias="language-symbolic.svg">resources/icons/language-symbolic.svg</file>
+    <file alias="down-small-symbolic.svg">resources/icons/down-small-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
@@ -205,6 +206,7 @@
     <file alias="code-symbolic.svg">resources/icons/code-symbolic.svg</file>
     <file alias="lightbulb-symbolic.svg">resources/icons/lightbulb-symbolic.svg</file>
     <file alias="language-symbolic.svg">resources/icons/language-symbolic.svg</file>
+    <file alias="down-small-symbolic.svg">resources/icons/down-small-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
@@ -292,5 +294,6 @@
     <file alias="code-symbolic.svg">resources/icons/code-symbolic.svg</file>
     <file alias="lightbulb-symbolic.svg">resources/icons/lightbulb-symbolic.svg</file>
     <file alias="language-symbolic.svg">resources/icons/language-symbolic.svg</file>
+    <file alias="down-small-symbolic.svg">resources/icons/down-small-symbolic.svg</file>
   </gresource>
 </gresources>

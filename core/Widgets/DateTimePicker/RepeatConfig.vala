@@ -427,7 +427,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
             returned += "7,";
         }
 
-        if (returned.split (",").length > 0) {
+        if (returned != null && returned.split (",").length > 0) {
             return returned.slice (0, -1);
         }
 
