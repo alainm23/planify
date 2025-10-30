@@ -9,18 +9,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-29 10:40+0000\n"
-"PO-Revision-Date: 2025-10-20 04:50+0000\n"
-"Last-Translator: Sebastian Hagn <sebastian@hagn.me>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
-"alainm23-planify/de/>\n"
+"PO-Revision-Date: 2025-10-29 13:42+0000\n"
+"Last-Translator: Salomon May <sollymay@gmail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -1629,8 +1629,7 @@ msgstr "Du kannst deine Konten per Drag & Drop sortieren"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:547
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
-msgstr ""
-"Planify synchronisiert deine Aufgaben, das kann ein paar Minuten dauern"
+msgstr "Planify synchronisiert deine Aufgaben, das kann ein paar Minuten dauern"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
 msgid "Cannot Hide This Account"
