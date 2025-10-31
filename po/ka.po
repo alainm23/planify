@@ -7,15 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 09:28+0000\n"
-"PO-Revision-Date: 2025-02-26 17:29+0100\n"
-"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2025-10-30 12:39+0000\n"
+"PO-Revision-Date: 2025-10-29 14:04+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Georgian <https://hosted.weblate.org/projects/planner/io-"
+"github-alainm23-planify/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.5\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -407,35 +409,35 @@ msgstr "%s სექციის წაშლა"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:124
+#: core/QuickAddCore.vala:126
 #, fuzzy
 msgid "Task added successfully!"
 msgstr "პროექტი წარმატებით დაემატა!"
 
-#: core/QuickAddCore.vala:140 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:142 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "გეგმის სახელი"
 
-#: core/QuickAddCore.vala:146
+#: core/QuickAddCore.vala:172
 msgid "This field is required"
 msgstr "ამ ველის შევსება აუცილებელია"
 
-#: core/QuickAddCore.vala:170
+#: core/QuickAddCore.vala:196
 msgid "Add a description…"
 msgstr "აღწერის დამატება…"
 
-#: core/QuickAddCore.vala:188 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:214 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "ჭდეების დამატება"
 
-#: core/QuickAddCore.vala:193 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:219 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "პრიორიტეტის დაყენება"
 
-#: core/QuickAddCore.vala:199
+#: core/QuickAddCore.vala:224
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -444,20 +446,20 @@ msgstr "პრიორიტეტის დაყენება"
 msgid "Add Reminders"
 msgstr "შემხსნებლების დამატება"
 
-#: core/QuickAddCore.vala:240 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:265 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "ამოცანის დამატება"
 
-#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1051
+#: core/QuickAddCore.vala:271 core/QuickAddCore.vala:1250
 msgid "Keep adding"
 msgstr ""
 
-#: core/QuickAddCore.vala:263
+#: core/QuickAddCore.vala:288
 msgid "Select a Project"
 msgstr "აირჩიეთ პროექტი"
 
-#: core/QuickAddCore.vala:290
+#: core/QuickAddCore.vala:315
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -465,61 +467,61 @@ msgstr ""
 "უკაცრავად, მაგრამ სწრაფმა დამატებამ ხელმისაწვდომი პროექტი ვერ იპოვა. სცადეთ, "
 "ჯერ შექმნათ პროექტი Planify-დან."
 
-#: core/QuickAddCore.vala:1013 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1212 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "კლავიატურის მალსახმობები"
 
-#: core/QuickAddCore.vala:1019
+#: core/QuickAddCore.vala:1218
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1033
+#: core/QuickAddCore.vala:1232
 #, fuzzy
 msgid "Set priority"
 msgstr "პრიორიტეტის დაყენება"
 
-#: core/QuickAddCore.vala:1033
+#: core/QuickAddCore.vala:1232
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1034
+#: core/QuickAddCore.vala:1233
 #, fuzzy
 msgid "Add labels"
 msgstr "ჭდეების დამატება"
 
-#: core/QuickAddCore.vala:1034
+#: core/QuickAddCore.vala:1233
 #, fuzzy
 msgid "Opens label selector"
 msgstr "ჭდეების გახან"
 
-#: core/QuickAddCore.vala:1035
+#: core/QuickAddCore.vala:1234
 #, fuzzy
 msgid "Assign project"
 msgstr "პროექტის დამატება"
 
-#: core/QuickAddCore.vala:1035
+#: core/QuickAddCore.vala:1234
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1036
+#: core/QuickAddCore.vala:1235
 #, fuzzy
 msgid "Set reminder"
 msgstr "დააყენეთ შეხსენებები!"
 
-#: core/QuickAddCore.vala:1036
+#: core/QuickAddCore.vala:1235
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1051
+#: core/QuickAddCore.vala:1250
 msgid "Stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1057
+#: core/QuickAddCore.vala:1256
 #, fuzzy
 msgid "Tip"
 msgstr "ზემოთ"
 
-#: core/QuickAddCore.vala:1057
+#: core/QuickAddCore.vala:1256
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -1246,37 +1248,42 @@ msgstr "დროის დამატება"
 msgid "Select Labels"
 msgstr "აირჩიეთ ჭდეები"
 
-#: core/Widgets/LabelsPickerCore.vala:64
+#: core/Widgets/LabelPicker/LabelQuickPicker.vala:190
+#, c-format
+msgid "Label not found: Create '%s'"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
 msgstr ""
 
-#: core/Widgets/LabelsPickerCore.vala:65
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr "'%s'-ის შექმნა"
 
-#: core/Widgets/LabelsPickerCore.vala:85
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
 msgid "Your list of filters will show up here."
 msgstr "თქვენი ფილტრების სია აქ გამოჩნდება."
 
-#: core/Widgets/LabelsPickerCore.vala:89
-#: core/Widgets/SectionPicker/SectionPicker.vala:41
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "ძებნა"
 
-#: core/Widgets/LabelsPickerCore.vala:89
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Search or Create"
 msgstr "ძებნა ან შექმნა"
 
-#: core/Widgets/MarkdownEditor.vala:1357
+#: core/Widgets/MarkdownEditor.vala:1356
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1362
+#: core/Widgets/MarkdownEditor.vala:1361
 #, fuzzy
 msgid "Remove link"
 msgstr "წაშლა"
@@ -1313,7 +1320,7 @@ msgstr "თქვენი სექციების სია აქ გა�
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
-#: core/Widgets/SectionPicker/SectionPicker.vala:98
+#: core/Widgets/SectionPicker/SectionPicker.vala:96
 #: core/Widgets/SectionPicker/SectionPickerRow.vala:38
 #: src/Widgets/CompletedTaskRow.vala:77 src/Widgets/ItemDetailCompleted.vala:80
 msgid "No Section"

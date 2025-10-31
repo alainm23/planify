@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 09:28+0000\n"
-"PO-Revision-Date: 2025-10-20 04:50+0000\n"
-"Last-Translator: xxfogs <o.vitins@resultium.io>\n"
+"POT-Creation-Date: 2025-10-30 12:39+0000\n"
+"PO-Revision-Date: 2025-10-29 14:48+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Latvian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/lv/>\n"
 "Language: lv\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -408,34 +408,34 @@ msgstr "Dzēst sadaļu %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:124
+#: core/QuickAddCore.vala:126
 msgid "Task added successfully!"
 msgstr "Uzdevums pievienots!"
 
-#: core/QuickAddCore.vala:140 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:142 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Uzdevuma nosaukums"
 
-#: core/QuickAddCore.vala:146
+#: core/QuickAddCore.vala:172
 msgid "This field is required"
 msgstr "Šī aile ir obligāta"
 
-#: core/QuickAddCore.vala:170
+#: core/QuickAddCore.vala:196
 msgid "Add a description…"
 msgstr "Pievienot aprakstu…"
 
-#: core/QuickAddCore.vala:188 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:214 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Pievienot birkas"
 
-#: core/QuickAddCore.vala:193 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:219 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Noteikt prioritāti"
 
-#: core/QuickAddCore.vala:199
+#: core/QuickAddCore.vala:224
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -444,20 +444,20 @@ msgstr "Noteikt prioritāti"
 msgid "Add Reminders"
 msgstr "Noteikt atgādinājumus"
 
-#: core/QuickAddCore.vala:240 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:265 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Pievienot uzdevumu"
 
-#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1051
+#: core/QuickAddCore.vala:271 core/QuickAddCore.vala:1250
 msgid "Keep adding"
 msgstr "Turpināt pievienot"
 
-#: core/QuickAddCore.vala:263
+#: core/QuickAddCore.vala:288
 msgid "Select a Project"
 msgstr "Izvēlēties projektu"
 
-#: core/QuickAddCore.vala:290
+#: core/QuickAddCore.vala:315
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -465,55 +465,55 @@ msgstr ""
 "Baidos, ka ātrās pievienošanas logs nevar atrast nevienu pieejamu projektu, "
 "pamēģiniet izveidot jaunu projektu."
 
-#: core/QuickAddCore.vala:1013 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1212 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Tastatūras īsceļi"
 
-#: core/QuickAddCore.vala:1019
+#: core/QuickAddCore.vala:1218
 msgid "Speed up task creation with these shortcuts"
 msgstr "Paātriniet uzdevumu izveidi ar šiem īsceļiem"
 
-#: core/QuickAddCore.vala:1033
+#: core/QuickAddCore.vala:1232
 msgid "Set priority"
 msgstr "Noteikt prioritāti"
 
-#: core/QuickAddCore.vala:1033
+#: core/QuickAddCore.vala:1232
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = augstākā, p4 = zemākā"
 
-#: core/QuickAddCore.vala:1034
+#: core/QuickAddCore.vala:1233
 msgid "Add labels"
 msgstr "Pievienot birkas"
 
-#: core/QuickAddCore.vala:1034
+#: core/QuickAddCore.vala:1233
 msgid "Opens label selector"
 msgstr "Atver birku izvēlni"
 
-#: core/QuickAddCore.vala:1035
+#: core/QuickAddCore.vala:1234
 msgid "Assign project"
 msgstr "Iecelt projektu"
 
-#: core/QuickAddCore.vala:1035
+#: core/QuickAddCore.vala:1234
 msgid "Opens project selector"
 msgstr "Atver projektu izvēlni"
 
-#: core/QuickAddCore.vala:1036
+#: core/QuickAddCore.vala:1235
 msgid "Set reminder"
 msgstr "Noteikt atgādinājumu"
 
-#: core/QuickAddCore.vala:1036
+#: core/QuickAddCore.vala:1235
 msgid "Opens reminder options"
 msgstr "Atver atgādinājumu iestatījumus"
 
-#: core/QuickAddCore.vala:1051
+#: core/QuickAddCore.vala:1250
 msgid "Stay open after creating task"
 msgstr "Paturēt atvērtu pēc uzdevuma izveides"
 
-#: core/QuickAddCore.vala:1057
+#: core/QuickAddCore.vala:1256
 msgid "Tip"
 msgstr "Ieteikums"
 
-#: core/QuickAddCore.vala:1057
+#: core/QuickAddCore.vala:1256
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Kombinējiet īsceļus nosaukuma ailē ātrākai uzdevumu izveidei"
 
@@ -1250,7 +1250,12 @@ msgstr "Pievienot laiku"
 msgid "Select Labels"
 msgstr "Izvēlēties birkas"
 
-#: core/Widgets/LabelsPickerCore.vala:64
+#: core/Widgets/LabelPicker/LabelQuickPicker.vala:190
+#, c-format
+msgid "Label not found: Create '%s'"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
@@ -1258,31 +1263,31 @@ msgstr ""
 "Jūsu saraksts ar atlasēm uzrādīsies šeit. Izveidojiet jaunu, ievadot "
 "nosaukumu un spiežot taustiņu Enter."
 
-#: core/Widgets/LabelsPickerCore.vala:65
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr "Izveidot '%s'"
 
-#: core/Widgets/LabelsPickerCore.vala:85
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
 msgid "Your list of filters will show up here."
 msgstr "Jūsu atlašu saraksts uzrādīsies šeit."
 
-#: core/Widgets/LabelsPickerCore.vala:89
-#: core/Widgets/SectionPicker/SectionPicker.vala:41
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "Meklēt"
 
-#: core/Widgets/LabelsPickerCore.vala:89
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Search or Create"
 msgstr "Meklēt vai izveidot"
 
-#: core/Widgets/MarkdownEditor.vala:1357
+#: core/Widgets/MarkdownEditor.vala:1356
 msgid "Apply"
 msgstr "Piemērot"
 
-#: core/Widgets/MarkdownEditor.vala:1362
+#: core/Widgets/MarkdownEditor.vala:1361
 msgid "Remove link"
 msgstr "Noņemt saiti"
 
@@ -1318,7 +1323,7 @@ msgstr "Jūsu sadaļu uzskaite uzrādīsies šeit."
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
-#: core/Widgets/SectionPicker/SectionPicker.vala:98
+#: core/Widgets/SectionPicker/SectionPicker.vala:96
 #: core/Widgets/SectionPicker/SectionPickerRow.vala:38
 #: src/Widgets/CompletedTaskRow.vala:77 src/Widgets/ItemDetailCompleted.vala:80
 msgid "No Section"

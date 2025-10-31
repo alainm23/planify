@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 09:28+0000\n"
-"PO-Revision-Date: 2025-10-22 22:29+0000\n"
+"POT-Creation-Date: 2025-10-30 12:39+0000\n"
+"PO-Revision-Date: 2025-10-29 14:39+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -408,34 +408,34 @@ msgstr "Kustuta alajaotus: %s"
 msgid "Todoist"
 msgstr ""
 
-#: core/QuickAddCore.vala:124
+#: core/QuickAddCore.vala:126
 msgid "Task added successfully!"
 msgstr "Ülesande lisamine õnnestus!"
 
-#: core/QuickAddCore.vala:140 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:142 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Ülesande nimi"
 
-#: core/QuickAddCore.vala:146
+#: core/QuickAddCore.vala:172
 msgid "This field is required"
 msgstr ""
 
-#: core/QuickAddCore.vala:170
+#: core/QuickAddCore.vala:196
 msgid "Add a description…"
 msgstr "Lisa kirjeldus…"
 
-#: core/QuickAddCore.vala:188 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:214 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Lisa silte"
 
-#: core/QuickAddCore.vala:193 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:219 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr ""
 
-#: core/QuickAddCore.vala:199
+#: core/QuickAddCore.vala:224
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -444,74 +444,74 @@ msgstr ""
 msgid "Add Reminders"
 msgstr "Lisa meeldetuletusi"
 
-#: core/QuickAddCore.vala:240 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:265 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Lisa ülesanne"
 
-#: core/QuickAddCore.vala:246 core/QuickAddCore.vala:1051
+#: core/QuickAddCore.vala:271 core/QuickAddCore.vala:1250
 msgid "Keep adding"
 msgstr "Jätka lisamist"
 
-#: core/QuickAddCore.vala:263
+#: core/QuickAddCore.vala:288
 msgid "Select a Project"
 msgstr "Vali ettevõtmine/projekt"
 
-#: core/QuickAddCore.vala:290
+#: core/QuickAddCore.vala:315
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
 
-#: core/QuickAddCore.vala:1013 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1212 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Klaviatuuri kiirklahvid"
 
-#: core/QuickAddCore.vala:1019
+#: core/QuickAddCore.vala:1218
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1033
+#: core/QuickAddCore.vala:1232
 msgid "Set priority"
 msgstr ""
 
-#: core/QuickAddCore.vala:1033
+#: core/QuickAddCore.vala:1232
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1034
+#: core/QuickAddCore.vala:1233
 msgid "Add labels"
 msgstr "Lisa silte"
 
-#: core/QuickAddCore.vala:1034
+#: core/QuickAddCore.vala:1233
 msgid "Opens label selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1035
+#: core/QuickAddCore.vala:1234
 msgid "Assign project"
 msgstr ""
 
-#: core/QuickAddCore.vala:1035
+#: core/QuickAddCore.vala:1234
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1036
+#: core/QuickAddCore.vala:1235
 msgid "Set reminder"
 msgstr ""
 
-#: core/QuickAddCore.vala:1036
+#: core/QuickAddCore.vala:1235
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1051
+#: core/QuickAddCore.vala:1250
 msgid "Stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1057
+#: core/QuickAddCore.vala:1256
 msgid "Tip"
 msgstr ""
 
-#: core/QuickAddCore.vala:1057
+#: core/QuickAddCore.vala:1256
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -1220,37 +1220,42 @@ msgstr "Lisa aeg"
 msgid "Select Labels"
 msgstr ""
 
-#: core/Widgets/LabelsPickerCore.vala:64
+#: core/Widgets/LabelPicker/LabelQuickPicker.vala:190
+#, c-format
+msgid "Label not found: Create '%s'"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
 msgstr ""
 
-#: core/Widgets/LabelsPickerCore.vala:65
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr ""
 
-#: core/Widgets/LabelsPickerCore.vala:85
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
 msgid "Your list of filters will show up here."
 msgstr ""
 
-#: core/Widgets/LabelsPickerCore.vala:89
-#: core/Widgets/SectionPicker/SectionPicker.vala:41
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr ""
 
-#: core/Widgets/LabelsPickerCore.vala:89
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Search or Create"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1357
+#: core/Widgets/MarkdownEditor.vala:1356
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1362
+#: core/Widgets/MarkdownEditor.vala:1361
 msgid "Remove link"
 msgstr ""
 
@@ -1286,7 +1291,7 @@ msgstr "Sinu alajaotuste loend saab olema siin nähtav."
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
-#: core/Widgets/SectionPicker/SectionPicker.vala:98
+#: core/Widgets/SectionPicker/SectionPicker.vala:96
 #: core/Widgets/SectionPicker/SectionPickerRow.vala:38
 #: src/Widgets/CompletedTaskRow.vala:77 src/Widgets/ItemDetailCompleted.vala:80
 msgid "No Section"
@@ -1403,25 +1408,25 @@ msgstr ""
 
 #: src/Dialogs/DatePicker.vala:69
 msgid "Next Week"
-msgstr ""
+msgstr "Järgmisel nädalal"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:715
 #: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:505
 #: src/Views/Project/Project.vala:670
 msgid "No Date"
-msgstr ""
+msgstr "Kuupäeva pole"
 
 #: src/Dialogs/GoogleOAuth.vala:40
 msgid "Todoist Sync"
-msgstr ""
+msgstr "Sünkroonimine Todoistiga"
 
 #: src/Dialogs/GoogleOAuth.vala:55 src/Dialogs/GoogleOAuth.vala:140
 msgid "Loading"
-msgstr ""
+msgstr "Laadin"
 
 #: src/Dialogs/GoogleOAuth.vala:83
 msgid "Planner is sync your tasks, this may take a few minutes"
-msgstr ""
+msgstr "Planeerija sünkroonib sinu andmeid, selleks võib kuluda mõni minut"
 
 #: src/Dialogs/GoogleOAuth.vala:135
 msgid "Please enter your credentials"
@@ -1864,60 +1869,60 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:97
 msgid "Calendar Events"
-msgstr ""
+msgstr "Kalendrisündmused"
 
 #: src/Dialogs/Preferences/Pages/General.vala:104
 msgid "Date and Time"
-msgstr ""
+msgstr "Kuupäev ja kellaaeg"
 
 #: src/Dialogs/Preferences/Pages/General.vala:107
 msgid "24h"
-msgstr ""
+msgstr "24t"
 
 #: src/Dialogs/Preferences/Pages/General.vala:108
 msgid "12h"
-msgstr ""
+msgstr "12t"
 
 #: src/Dialogs/Preferences/Pages/General.vala:111
 msgid "Clock Format"
-msgstr ""
+msgstr "Kellaaja vorming"
 
 #: src/Dialogs/Preferences/Pages/General.vala:118
 msgid "Sunday"
-msgstr ""
+msgstr "Pühapäev"
 
 #: src/Dialogs/Preferences/Pages/General.vala:119
 msgid "Monday"
-msgstr ""
+msgstr "Esmaspäev"
 
 #: src/Dialogs/Preferences/Pages/General.vala:120
 msgid "Tuesday"
-msgstr ""
+msgstr "Teisipäev"
 
 #: src/Dialogs/Preferences/Pages/General.vala:121
 msgid "Wednesday"
-msgstr ""
+msgstr "Kolmapäev"
 
 #: src/Dialogs/Preferences/Pages/General.vala:122
 msgid "Thursday"
-msgstr ""
+msgstr "Neljapäev"
 
 #: src/Dialogs/Preferences/Pages/General.vala:123
 msgid "Friday"
-msgstr ""
+msgstr "Reede"
 
 #: src/Dialogs/Preferences/Pages/General.vala:124
 msgid "Saturday"
-msgstr ""
+msgstr "Laupäev"
 
 #: src/Dialogs/Preferences/Pages/General.vala:127
 msgid "Start of the Week"
-msgstr ""
+msgstr "Nädala algus"
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
 msgid "Home View"
-msgstr ""
+msgstr "Avalehe vaade"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:180
@@ -2159,11 +2164,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
-msgstr "Ülesannet lisamine kust iganes"
+msgstr "Ülesannete lisamine igast seadmest"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:191
 msgid "Backups"
-msgstr ""
+msgstr "Varukoopiad"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
@@ -2191,80 +2196,83 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:255
 msgid "Get Involved"
-msgstr ""
+msgstr "Osale"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
-msgstr ""
+msgstr "Suhtle meiega"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:271
 #: src/Dialogs/Preferences/PreferencesWindow.vala:428
 msgid "Contact Us"
-msgstr ""
+msgstr "Kirjuta meile"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:272
 msgid "Request a feature or ask us anything"
-msgstr ""
+msgstr "Paku välja mõni huvitav idee või küsi teavet"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:288
 msgid "Tweet Us"
-msgstr ""
+msgstr "Koosta üks säuts"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:289
 #: src/Dialogs/Preferences/PreferencesWindow.vala:319
 msgid "Share some love"
-msgstr ""
+msgstr "Jälgi viimaseid uudiseid"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:303
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:304
 msgid "Discuss and share your feedback"
-msgstr ""
+msgstr "Osale arutelus või jaga tagasisidet"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:318
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:337
 msgid "Privacy"
-msgstr ""
+msgstr "Privaatsus"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:343
 #: src/Dialogs/Preferences/PreferencesWindow.vala:459
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Andmekaitse - ja privaatsusreeglid"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:344
 msgid "We have nothing on you"
-msgstr ""
+msgstr "Me ei tea sinu kohta mitte midagi"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:350
 msgid "Delete App Data"
-msgstr ""
+msgstr "Kustuta rakenduse andmed"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:359
 msgid "A tutorial project has been created"
-msgstr ""
+msgstr "Sissejuhatav ettevõtmine/projekt on loodud"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:371
 msgid "Delete All Data?"
-msgstr ""
+msgstr "Kas kustutame kõik andmed?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:372
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr ""
+"Järgnevaga kustutad jäädavalt kõik oma loendid, ülesanded ja meeldetuletused"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:400
 msgid "Personal Data"
-msgstr ""
+msgstr "Isiklikud andmed"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:406
 msgid ""
 "We collect absolutely nothing and all your data is stored in a database on "
 "your computer."
 msgstr ""
+"Me ei kogu sinu kohta mitte mingeid andmed ja kõik andmed on salvestatud "
+"sinu arvutis olevas andmebaasis."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:412
 msgid ""
@@ -2316,15 +2324,16 @@ msgstr "Projekti lisamine õnnestus!"
 #: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1161
 #: src/Layouts/ItemRow.vala:1271 src/Layouts/ItemSidebarView.vala:452
 msgid "Move"
-msgstr ""
+msgstr "Teisalda"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:42
 msgid "Quick Find"
-msgstr ""
+msgstr "Kiirotsing"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
+"Vaheta kiiresti projekte/ettevõtmisi ja vaateid, otsi ülesandeid ja silte"
 
 #: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:223
 #: src/Views/Project/Project.vala:336
@@ -2354,7 +2363,7 @@ msgstr "Alajaotus on lisatud"
 
 #: src/Layouts/HeaderBar.vala:79
 msgid "Open/Close Sidebar"
-msgstr ""
+msgstr "Ava/sulge külgriba"
 
 #: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:700
 #: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1143
@@ -2374,19 +2383,19 @@ msgstr "Lisa alamülesanne"
 
 #: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1165
 msgid "Edit"
-msgstr ""
+msgstr "Muuda"
 
 #: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1166
 #: src/Layouts/ItemRow.vala:1270 src/Layouts/ItemSidebarView.vala:451
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
 msgid "Duplicate"
-msgstr ""
+msgstr "Tee koopia"
 
 #: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1168
 #: src/Layouts/ItemRow.vala:1273 src/Layouts/ItemSidebarView.vala:454
 msgid "Delete Task"
-msgstr ""
+msgstr "Kustuta ülesanne"
 
 #: src/Layouts/ItemBoard.vala:1007 src/Layouts/ItemRow.vala:1735
 msgid "Order changed to 'Custom sort order'"
@@ -2395,11 +2404,11 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:1093 src/Layouts/ItemRow.vala:1518
 #, c-format
 msgid "%s was deleted"
-msgstr ""
+msgstr "%s on kustutatud"
 
 #: src/Layouts/ItemBoard.vala:1094 src/Layouts/ItemRow.vala:1519
 msgid "Undo"
-msgstr ""
+msgstr "Võta tegevus tagasi"
 
 #: src/Layouts/ItemRow.vala:460
 msgid "Add Subtasks"
@@ -2411,23 +2420,23 @@ msgstr "Lisa manuseid"
 
 #: src/Layouts/ItemRow.vala:1024
 msgid "Hide Sub-tasks"
-msgstr ""
+msgstr "Peida alamülesanded"
 
 #: src/Layouts/ItemRow.vala:1024
 msgid "Show Sub-tasks"
-msgstr ""
+msgstr "Näita alamülesandeid"
 
 #: src/Layouts/ItemRow.vala:1266 src/Layouts/ItemSidebarView.vala:448
 msgid "Use as a Note"
-msgstr ""
+msgstr "Kasuta märkmena"
 
 #: src/Layouts/ItemRow.vala:1269 src/Layouts/ItemSidebarView.vala:450
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Kopeeri lõikelauale"
 
 #: src/Layouts/ItemSidebarView.vala:76
 msgid "Close Detail"
-msgstr ""
+msgstr "Sulge üksikasjaline vaade"
 
 #: src/Layouts/ItemSidebarView.vala:139 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
@@ -2468,11 +2477,11 @@ msgstr "Kustuta ettevõtmine"
 
 #: src/Layouts/ProjectRow.vala:712
 msgid "Share"
-msgstr ""
+msgstr "Jaga"
 
 #: src/Layouts/ProjectRow.vala:713
 msgid "Send by E-Mail"
-msgstr ""
+msgstr "Saada e-postiga"
 
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:225
 msgid "Add tasks"
@@ -2480,12 +2489,12 @@ msgstr "Lisa ülesandeid"
 
 #: src/Layouts/SectionBoard.vala:175
 msgid "Load more"
-msgstr ""
+msgstr "Laadi veel"
 
 #: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:613
 #: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
 msgid "completed tasks"
-msgstr ""
+msgstr "täidetud ülesanded"
 
 #: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:658
 msgid "Move Section"
@@ -2497,7 +2506,7 @@ msgstr "Halda alajaotuste järjestust"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
 msgid "Show Completed Tasks"
-msgstr ""
+msgstr "Näita täidetud ülesandeid"
 
 #: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:664
 #: src/Widgets/SectionItemRow.vala:207
@@ -2506,11 +2515,11 @@ msgstr "Kustuta alajaotus"
 
 #: src/Layouts/Sidebar.vala:40
 msgid "Favorites"
-msgstr ""
+msgstr "Lemmikud"
 
 #: src/Layouts/Sidebar.vala:42
 msgid "No favorites available. Create one by clicking on the '+' button"
-msgstr ""
+msgstr "Lemmikuid pole. Klõpsides „+“ nuppu lisa mõni"
 
 #: src/Layouts/Sidebar.vala:122
 msgid "Add Account"
@@ -2518,7 +2527,7 @@ msgstr "Lisa kasutajakonto"
 
 #: src/Layouts/Sidebar.vala:123
 msgid "Customize Sidebar"
-msgstr ""
+msgstr "Kohenda külgriba"
 
 #: src/Layouts/Sidebar.vala:312 src/Layouts/Sidebar.vala:364
 msgid "Go to Today"
@@ -2530,7 +2539,7 @@ msgstr "Vaata ajakava"
 
 #: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Labels"
-msgstr ""
+msgstr "Vaata silte"
 
 #: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Pinboard"
@@ -2542,11 +2551,11 @@ msgstr ""
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
-msgstr ""
+msgstr "Põhimenüü"
 
 #: src/MainWindow.vala:84
 msgid "Open Quick Find"
-msgstr ""
+msgstr "Ava kiirotsing"
 
 #: src/MainWindow.vala:710
 msgid "About Planify"
