@@ -7,12 +7,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-10-30 12:39+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-02 15:14+0000\n"
 "PO-Revision-Date: 2025-11-02 14:24+0000\n"
 "Last-Translator: Fraxinus Acer <yasson2008@ya.ru>\n"
-"Language-Team: Bulgarian <https://hosted.weblate.org/projects/planner/"
-"io-github-alainm23-planify/bg/>\n"
+"Language-Team: Bulgarian <https://hosted.weblate.org/projects/planner/io-"
+"github-alainm23-planify/bg/>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1519,7 +1519,8 @@ msgstr "Зареждане"
 
 #: src/Dialogs/GoogleOAuth.vala:83
 msgid "Planner is sync your tasks, this may take a few minutes"
-msgstr "„Planner“ синхронизира задачите ви, което може да отнеме няколко минути"
+msgstr ""
+"„Planner“ синхронизира задачите ви, което може да отнеме няколко минути"
 
 #: src/Dialogs/GoogleOAuth.vala:135
 msgid "Please enter your credentials"
@@ -1845,8 +1846,8 @@ msgid ""
 "projects, tasks and comments and import them later."
 msgstr ""
 "Никога не се притеснявайте, че ще загубите данните си. Може да създавате "
-"резервни копия на текущите си проекти, задачи и коментари и да ги внесете "
-"по-късно."
+"резервни копия на текущите си проекти, задачи и коментари и да ги внесете по-"
+"късно."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:48
 msgid "Create Backup"
@@ -2075,7 +2076,8 @@ msgstr "Запазване на последно избрания проект"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
-msgstr "Ако е премахната отметката, по подразбиране се избира проекта „Входящи“"
+msgstr ""
+"Ако е премахната отметката, по подразбиране се избира проекта „Входящи“"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:127
 msgid "The command was copied to the clipboard"
