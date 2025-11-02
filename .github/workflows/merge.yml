@@ -87,5 +87,7 @@ jobs:
       - name: Notify Weblate of changes
         if: steps.check_changes.outputs.has_changes == 'true'
         run: |
-          curl -X POST "https://hosted.weblate.org/hooks/update/planner/io-github-alainm23-planify/" \
-            -H "Authorization: Bearer ${{ secrets.WEBLATE_TOKEN }}"
+          curl -X POST "https://hosted.weblate.org/api/components/planner/io-github-alainm23-planify/repository/" \
+            -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"operation": "pull"}'
