@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2025-10-12 15:11+0000\n"
-"Last-Translator: Radek <Radekstein@proton.me>\n"
+"PO-Revision-Date: 2025-11-03 20:51+0000\n"
+"Last-Translator: Constantin Scholz <scholzconstantin2008@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/"
 "planify-extra/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:7
 #: data/io.github.alainm23.planify.desktop.in.in:4
@@ -56,7 +56,6 @@ msgid "Smart organization with sections and custom labels"
 msgstr "Intelligente Organisation mit Abschnitten und individuellen Labels"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:20
-#, fuzzy
 msgid "Calendar integration to visualize your schedule"
 msgstr "Kalenderintegration zur Visualisierung des Terminplans"
 
@@ -74,7 +73,6 @@ msgid "Quick and powerful search to find anything instantly"
 msgstr "Schnelle und leistungsstarke Suche, um alles auf Anhieb zu finden"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:24
-#, fuzzy
 msgid "Recurring tasks with flexible patterns"
 msgstr "Wiederkehrende Aufgaben mit flexiblen Strukturen"
 
@@ -123,5 +121,8 @@ msgid "Planify"
 msgstr "Planify"
 
 #: data/io.github.alainm23.planify.desktop.in.in:14
+#, fuzzy
 msgid "development;task;tasks;project;todo;reminder;reminders;event;events;calendar;todoist;"
 msgstr ""
+"Entwicklung;Aufgabe;Aufgaben;Projekt;Aufgabe;Erinnerung;Erinnerungen;Event;Events;Kalendar;Todoist;"
+""
