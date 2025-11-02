@@ -83,3 +83,11 @@ jobs:
           git add po/
           git diff --staged --quiet || git commit -m "Update translations"
           git push origin master
+
+      - name: Notify Weblate of changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          curl -X POST "https://hosted.weblate.org/api/components/planner/io-github-alainm23-planify/repository/" \
+            -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"operation": "pull"}'
