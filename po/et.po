@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-10-30 12:39+0000\n"
 "PO-Revision-Date: 2025-11-02 14:35+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/et/>\n"
 "Language: et\n"
@@ -218,11 +218,11 @@ msgstr "logiraamat"
 #: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr ""
+msgstr "Sisendkaust"
 
 #: core/Objects/Filters/Inbox.vala:36
 msgid "inbox"
-msgstr ""
+msgstr "sisendkaust"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
@@ -328,12 +328,12 @@ msgstr "Ülesanne on kopeeritud lõikelauale"
 #: core/Objects/Item.vala:1585 core/Utils/Util.vala:866
 #, c-format
 msgid "Task moved to %s"
-msgstr ""
+msgstr "Ülesanne asub nüüd uues kohas: %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
 msgid "Delete Label %s"
-msgstr ""
+msgstr "Kustuta silt: %s"
 
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:820
 #: core/Objects/Section.vala:377
@@ -383,18 +383,18 @@ msgstr "Kas kustutad ettevõtmise: %s?"
 
 #: core/Objects/Project.vala:876 core/Objects/Section.vala:402
 msgid "Archive?"
-msgstr ""
+msgstr "Kas arhiveerime?"
 
 #: core/Objects/Project.vala:877 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "Järgnevaga arhiveerime „%s“ ja kõik tema ülesanded."
 
 #: core/Objects/Project.vala:881 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
 msgid "Archive"
-msgstr ""
+msgstr "Arhiveeri"
 
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
@@ -406,7 +406,7 @@ msgstr "Kustuta alajaotus: %s"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:35
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:44
 msgid "Todoist"
-msgstr ""
+msgstr "Todoist"
 
 #: core/QuickAddCore.vala:126
 msgid "Task added successfully!"
@@ -419,7 +419,7 @@ msgstr "Ülesande nimi"
 
 #: core/QuickAddCore.vala:172
 msgid "This field is required"
-msgstr ""
+msgstr "See väli on kohustuslik"
 
 #: core/QuickAddCore.vala:196
 msgid "Add a description…"
@@ -433,7 +433,7 @@ msgstr "Lisa silte"
 #: core/QuickAddCore.vala:219 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
-msgstr ""
+msgstr "Määra olulisus"
 
 #: core/QuickAddCore.vala:224
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
@@ -462,6 +462,8 @@ msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
+"Vabandust, kiirlisamine ei suuda ühtegi projekti/ettevõtmist leida. Proovi "
+"mõni Planify's lisada."
 
 #: core/QuickAddCore.vala:1212 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
@@ -469,15 +471,15 @@ msgstr "Klaviatuuri kiirklahvid"
 
 #: core/QuickAddCore.vala:1218
 msgid "Speed up task creation with these shortcuts"
-msgstr ""
+msgstr "Ülesannete koostamist saad kiirendada nende kiirklahvidega"
 
 #: core/QuickAddCore.vala:1232
 msgid "Set priority"
-msgstr ""
+msgstr "Määra olulisus"
 
 #: core/QuickAddCore.vala:1232
 msgid "p1 = highest, p4 = lowest"
-msgstr ""
+msgstr "p1 = olulisim, p4 = ebaoluline"
 
 #: core/QuickAddCore.vala:1233
 msgid "Add labels"
@@ -485,7 +487,7 @@ msgstr "Lisa silte"
 
 #: core/QuickAddCore.vala:1233
 msgid "Opens label selector"
-msgstr ""
+msgstr "Avab sildivalija"
 
 #: core/QuickAddCore.vala:1234
 msgid "Assign project"
@@ -2375,7 +2377,7 @@ msgstr "Lõpeta esiletõstmine"
 #: src/Layouts/ItemSidebarView.vala:618
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr ""
+msgstr "Tehtud. Järgmine kord on: %s"
 
 #: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1163
 msgid "Add Subtask"
@@ -2440,19 +2442,19 @@ msgstr "Sulge üksikasjaline vaade"
 
 #: src/Layouts/ItemSidebarView.vala:139 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
-msgstr ""
+msgstr "Pealkiri"
 
 #: src/Layouts/ItemSidebarView.vala:169 src/Widgets/ItemDetailCompleted.vala:90
 msgid "Properties"
-msgstr ""
+msgstr "Omadused"
 
 #: src/Layouts/ItemSidebarView.vala:538
 msgid "Are you sure you want to delete?"
-msgstr ""
+msgstr "Kas oled kindel, et soovid kustutada?"
 
 #: src/Layouts/LabelRow.vala:158
 msgid "Delete Label"
-msgstr ""
+msgstr "Kustuta silt"
 
 #: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:224
 msgid "Projects sort changed to 'Custom sort order'"
@@ -2460,7 +2462,7 @@ msgstr ""
 
 #: src/Layouts/ProjectRow.vala:697 src/Layouts/ProjectRow.vala:703
 msgid "Remove From Favorites"
-msgstr ""
+msgstr "Eemalda lemmikute hulgast"
 
 #: src/Layouts/ProjectRow.vala:697 src/Layouts/ProjectRow.vala:703
 msgid "Add to Favorites"
@@ -2468,7 +2470,7 @@ msgstr "Lisa lemmikuks"
 
 #: src/Layouts/ProjectRow.vala:706
 msgid "Refresh"
-msgstr ""
+msgstr "Värskenda andmeid"
 
 #: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:346
 #: src/Widgets/ProjectItemRow.vala:154
@@ -2563,19 +2565,19 @@ msgstr "Rakenduse teave: Planify"
 
 #: src/MainWindow.vala:770
 msgid "Oops! Something happened"
-msgstr ""
+msgstr "Vaat, kus lops! Nüüd küll juhtus midagi"
 
 #: src/MainWindow.vala:773
 msgid "See More"
-msgstr ""
+msgstr "Vaata veel"
 
 #: src/MainWindow.vala:789 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
-msgstr ""
+msgstr "Ülesanne on lõpetatud"
 
 #: src/MainWindow.vala:790
 msgid "View"
-msgstr ""
+msgstr "Vaata"
 
 #: src/MainWindow.vala:828
 msgid "Database Integrity Check Failed"
@@ -2616,7 +2618,7 @@ msgstr "Taaskäivita kohe"
 
 #: src/Services/Backups.vala:566
 msgid "Planify Backup Files"
-msgstr ""
+msgstr "Planify varukoopiad"
 
 #: src/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
@@ -2659,21 +2661,21 @@ msgstr ""
 
 #: src/Views/Filter.vala:612
 msgid "Delete Completed Task"
-msgstr ""
+msgstr "Kustuta lõpetatud ülesanded"
 
 #: src/Views/Filter.vala:613
 msgid "Delete Completed Tasks"
-msgstr ""
+msgstr "Kustuta lõpetatud ülesanded"
 
 #: src/Views/Filter.vala:617
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
-msgstr ""
+msgstr "Järgnevad kustutad %d lõpetatud ülesande koos oma alamülesannetega"
 
 #: src/Views/Filter.vala:618
 #, c-format
 msgid "This will delete %d completed tasks and their subtasks"
-msgstr ""
+msgstr "Järgnevad kustutad %d lõpetatud ülesannet koos oma alamülesannetega"
 
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
@@ -2681,12 +2683,12 @@ msgstr ""
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
-msgstr ""
+msgstr "Märge"
 
 #: src/Views/Project/Board.vala:316 src/Views/Project/List.vala:402
 #: src/Views/Project/Project.vala:335 src/Views/Project/Project.vala:367
 msgid "When?"
-msgstr ""
+msgstr "Millal?"
 
 #: src/Views/Project/List.vala:121
 msgid "Add Some Tasks. Press 'a' to create a new task"
@@ -2801,7 +2803,7 @@ msgstr ""
 
 #: src/Views/Today.vala:154
 msgid "Overdue"
-msgstr ""
+msgstr "Üle tähtaja"
 
 #: src/Views/Today.vala:162
 msgid "Reschedule"
@@ -2809,11 +2811,11 @@ msgstr "Muuda ajastust"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
-msgstr ""
+msgstr "Manused"
 
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
-msgstr ""
+msgstr "Ava"
 
 #: src/Widgets/Attachments.vala:248
 msgid "No attachments found. Add files here."
@@ -2852,19 +2854,19 @@ msgstr ""
 
 #: src/Widgets/EditableTextView.vala:78 src/Widgets/EditableTextView.vala:145
 msgid "Show more"
-msgstr ""
+msgstr "Näita rohkem"
 
 #: src/Widgets/EditableTextView.vala:149
 msgid "Show less"
-msgstr ""
+msgstr "Näita vähem"
 
 #: src/Widgets/ErrorView.vala:107
 msgid "Report Issue"
-msgstr ""
+msgstr "Teata veast või problemist"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:31
 msgid "Disable SSL certificate validation"
-msgstr ""
+msgstr "Lülita SSL-sertifikaadi õigsuse kontrollimine välja"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:32
 msgid "Not recommended – exposes you to security risks"
@@ -2912,7 +2914,7 @@ msgstr ""
 
 #: src/Widgets/MultiSelectToolbar.vala:220
 msgid "Mark as Completed"
-msgstr ""
+msgstr "Märgi lõpetatuks"
 
 #: src/Widgets/MultiSelectToolbar.vala:246
 msgid "Delete To-Do"
@@ -3020,7 +3022,7 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:16
 msgctxt "shortcut window"
 msgid "Create a New Task"
-msgstr ""
+msgstr "Koosta uus ülesanne"
 
 #: data/resources/ui/shortcuts.ui:23
 msgctxt "shortcut window"
