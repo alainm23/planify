@@ -9,12 +9,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-02 16:13+0000\n"
-"Last-Translator: Salomon May <sollymay@gmail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
-"alainm23-planify/de/>\n"
+"PO-Revision-Date: 2025-11-03 20:51+0000\n"
+"Last-Translator: Constantin Scholz <scholzconstantin2008@gmail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -829,8 +829,8 @@ msgid ""
 "from Preferences."
 msgstr ""
 "Dieses Projekt zeigt dir alles, was du wissen musst, um sofort loslegen zu "
-"können. Zögere nicht, hier herumzuspielen - Du kannst jederzeit ein neues in "
-"den Einstellungen erstellen."
+"können. Zögere nicht, es zu probieren - Du kannst es jederzeit wieder "
+"zurücksetzen."
 
 #: core/Utils/Util.vala:583
 #, fuzzy
@@ -851,13 +851,12 @@ msgid "Create a new task"
 msgstr "Neue Aufgabe erstellen"
 
 #: core/Utils/Util.vala:590
-#, fuzzy
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
 msgstr ""
 "Jetzt bist du an der Reihe: Tippe auf die Schaltfläche \"+\" am unteren Rand "
-"deines Projekts, gib die geforderten Daten ein und tippe auf die blaue "
+"deines Projekts, gib eine Beschreibung ein und tippe auf die blaue "
 "Schaltfläche \"Speichern\"."
 
 #: core/Utils/Util.vala:595
@@ -866,7 +865,6 @@ msgid "Plan this to-do for today or later"
 msgstr "Plane diese Aufgabe für heute oder später"
 
 #: core/Utils/Util.vala:596
-#, fuzzy
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
@@ -874,7 +872,6 @@ msgstr ""
 "Aufgabe erledigen möchtest."
 
 #: core/Utils/Util.vala:601
-#, fuzzy
 msgid "Reorder your to-dos"
 msgstr "Ordne deine Aufgaben neu an"
 
@@ -904,7 +901,6 @@ msgid "You’re done!"
 msgstr "Du bist fertig!"
 
 #: core/Utils/Util.vala:614
-#, fuzzy
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -939,7 +935,6 @@ msgid "Enable synchronization with third-party services"
 msgstr "Aktiviere die Synchronisation mit einem Drittanbieterdienst"
 
 #: core/Utils/Util.vala:644
-#, fuzzy
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
@@ -966,29 +961,27 @@ msgstr ""
 
 #: core/Utils/Util.vala:667
 msgid "Add labels to your tasks!"
-msgstr ""
+msgstr "Füge Labels zu deinen Aufgaben hinzu!"
 
 #: core/Utils/Util.vala:668
-#, fuzzy
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
-"Labels ermöglichen dir, deinen Workflow in Planify zu verbessern. Klicke auf "
-"die Label-Schaltfläche unten, um ein Label hinzuzufügen."
+"Labels ermöglichen es dir, deine Aufgaben zu kategorisieren. Klicke auf die "
+"Label-Schaltfläche unten, um ein Label hinzuzufügen."
 
 #: core/Utils/Util.vala:674
 msgid "Set timely reminders!"
 msgstr "Lege zeitliche Erinnerungen fest!"
 
 #: core/Utils/Util.vala:675
-#, fuzzy
 msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
 "add a reminder."
 msgstr ""
 "Du möchtest, dass Planify dich an ein wichtiges Ereignis oder etwas "
-"Besonderes erinnert. Tippe auf den Glockenknopf unten, um eine Erinnerung "
+"Besonderes erinnert? Tippe auf den Glockenknopf unten, um eine Erinnerung "
 "hinzuzufügen."
 
 #: core/Utils/Util.vala:686
@@ -1065,7 +1058,6 @@ msgid "Back"
 msgstr "Zurück"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:66
-#, fuzzy
 msgid "Previous month"
 msgstr "Vorheriger Monat"
 
@@ -1171,12 +1163,11 @@ msgstr "Täglich"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:269
 #, fuzzy
 msgid "Weekdays"
-msgstr "Wöchentlich"
+msgstr "Wochentags"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:273
-#, fuzzy
 msgid "Weekends"
-msgstr "Woche(n)"
+msgstr "Wochenenden"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:277
 msgid "Weekly"
@@ -1207,9 +1198,8 @@ msgid "Day(s)"
 msgstr "Tag(e)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
-#, fuzzy
 msgid "Week(s)"
-msgstr "Wöchentlich"
+msgstr "Woche(n)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Month(s)"
