@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-02 16:18+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"POT-Creation-Date: 2025-11-03 21:18+0000\n"
+"PO-Revision-Date: 2025-11-03 20:51+0000\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/hr/>\n"
 "Language: hr\n"
@@ -606,11 +606,11 @@ msgstr "%s %s preostalo"
 
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
-msgstr "%-l:%M:%S %p"
+msgstr "%-H:%M:%S"
 
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
-msgstr "%-l:%M %p"
+msgstr "%-H:%M"
 
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
@@ -859,7 +859,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:607
 msgid "Create a project"
-msgstr "Stvori novi projekt"
+msgstr "Stvori projekt"
 
 #: core/Utils/Util.vala:608
 msgid ""
@@ -1250,7 +1250,7 @@ msgstr "Odaberi etikete"
 #: core/Widgets/LabelPicker/LabelQuickPicker.vala:190
 #, c-format
 msgid "Label not found: Create '%s'"
-msgstr ""
+msgstr "Etiketa nije pronađena: Stvori „%s”"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
 msgid ""
@@ -1633,9 +1633,9 @@ msgid ""
 "Getting Things Done methodology, it's your capture point for quick ideas and "
 "tasks that you'll organize later"
 msgstr ""
-"Ulazni sandučić je mjesto gdje stižu novi zadaci. Na temelju David Allenove "
-"metode \"Getting Things Done\", to je tvoja točka prikupljanja brzih ideja i "
-"zadataka koje ćeš kasnije organizirati"
+"Tvoj ulazni sandučić je standardno mjesto gdje stižu novi zadaci. Na temelju "
+"David Allenove metode „Getting Things Done” (Obavljanje stvari), to je tvoja "
+"točka prikupljanja brzih ideja i zadataka koje ćeš kasnije organizirati"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "Server URL examples:"
@@ -2004,7 +2004,7 @@ msgstr "Spremi zadnji odabrani projekt"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
-msgstr "Ako nije označeno, odabrani zadani projekt je „Ulazni sandučić“"
+msgstr "Ako nije označeno, standardni odabrani projekt je „Ulazni sandučić“"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:127
 msgid "The command was copied to the clipboard"
@@ -2104,7 +2104,7 @@ msgstr "Prioritet 3"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:56
 msgid "Default Priority"
-msgstr "Zadani prioritet"
+msgstr "Standardni prioritet"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:68
 msgid "Cross Out Completed Tasks"
@@ -2827,7 +2827,7 @@ msgstr "Datum roka"
 
 #: src/Views/Project/Project.vala:499
 msgid "All (default)"
-msgstr "Sve (zadano)"
+msgstr "Sve (standardno)"
 
 #: src/Views/Project/Project.vala:501 src/Views/Project/Project.vala:662
 msgid "This Week"
@@ -2907,8 +2907,8 @@ msgid ""
 "Workaround for CalDAV connection issues with connections using non-default "
 "ports"
 msgstr ""
-"Zaobilazno rješenje za probleme s CalDAV vezom s vezama koje koriste "
-"nezadane priključke"
+"Zaobilazno rješenje za probleme s CalDAV vezom s vezama koje koriste ne-"
+"standardne priključke"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:45
 #: src/Widgets/IgnoreSSLSwitchRow.vala:45
@@ -3146,7 +3146,7 @@ msgstr "Upravljanje prozorima"
 #: data/resources/ui/shortcuts.ui:61
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Zatvori"
+msgstr "Zatvori aplikaciju"
 
 #: data/resources/ui/shortcuts.ui:68
 msgctxt "shortcut window"
