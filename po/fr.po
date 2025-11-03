@@ -7,12 +7,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-02 16:14+0000\n"
-"Last-Translator: Simon Arys <arys.simon@outlook.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
-"alainm23-planify/fr/>\n"
+"PO-Revision-Date: 2025-11-03 20:51+0000\n"
+"Last-Translator: Matteo GACHON <matteo.gachon@gmail.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -985,7 +985,7 @@ msgid ""
 "add a reminder."
 msgstr ""
 "Vous souhaitez que Planify vous envoie une notification pour vous rappeler "
-"un événement important ou quelque chose de spécial ? Cliquez sur le bouton "
+"un événement important ou quelque chose de spécial ? Cliquez sur le bouton "
 "en forme de cloche ci-dessous pour ajouter un rappel."
 
 #: core/Utils/Util.vala:686
@@ -1289,7 +1289,7 @@ msgstr "Sélectionner des étiquettes"
 #: core/Widgets/LabelPicker/LabelQuickPicker.vala:190
 #, c-format
 msgid "Label not found: Create '%s'"
-msgstr ""
+msgstr "Label non enregistré: Créer '%s'"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
 msgid ""
@@ -1546,9 +1546,9 @@ msgstr ""
 
 # # c-format
 #: src/Dialogs/ItemChangeHistory.vala:138
-#, fuzzy, c-format
+#, c-format
 msgid "Load more history from %d week ago…"
-msgstr "Charger l’historique d’il y a %d semaines…"
+msgstr "Charger l’historique des %d dernières semaines…"
 
 # # c-format
 #: src/Dialogs/ItemChangeHistory.vala:139
@@ -1661,9 +1661,8 @@ msgid "Password"
 msgstr "Mot de passe"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:67
-#, fuzzy
 msgid "Calendar Home URL"
-msgstr "Calendrier"
+msgstr "URL du calendrier d'accueil"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:79
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:92
@@ -1784,9 +1783,8 @@ msgid "Use System Settings"
 msgstr "Utiliser les paramètres système"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:61
-#, fuzzy
 msgid "Select theme"
-msgstr "Sélectionner"
+msgstr "Sélectionner un thème"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:70
 msgid "Light Style"
@@ -1794,7 +1792,7 @@ msgstr "Style clair"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:71
 msgid "Clean light theme"
-msgstr ""
+msgstr "Thème clair et épuré"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:87
 msgid "Dark Style"
@@ -1802,7 +1800,7 @@ msgstr "Style sombre"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:88
 msgid "Elegant dark theme"
-msgstr ""
+msgstr "Thème sombre et élégant"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:104
 msgid "Dark Blue Style"
@@ -1810,15 +1808,17 @@ msgstr "Style bleu sombre"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:105
 msgid "Professional blue theme"
-msgstr ""
+msgstr "Thème bleu professionnel"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:121
 msgid "Custom themes are not available when using the system light theme"
 msgstr ""
+"Les thèmes personnalisés ne sont pas disponibles lorsque vous utilisez le "
+"thème système clair"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:159
 msgid "Font Size"
-msgstr ""
+msgstr "Taille de la police"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
 #, fuzzy
@@ -1853,7 +1853,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
 #, c-format
 msgid "Backup files are stored in: %s"
-msgstr ""
+msgstr "Sauvegardes enregistrées dans: %s"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:76
 msgid "Migrate"
@@ -2087,13 +2087,12 @@ msgid "Sidebar Width"
 msgstr "Largeur du volet latéral"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:66
-#, fuzzy
 msgid "List View for Filters"
-msgstr "Filtres"
+msgstr "Liste des filtres"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:67
 msgid "Show filters in a simple list instead of a grid"
-msgstr ""
+msgstr "Afficher les filtres dans une liste plutôt qu'un tableau"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:83
 msgid "You can sort your views by dragging and dropping"
@@ -2151,7 +2150,7 @@ msgstr "Son de notification des tâches accomplies"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:43
 msgid "Choose how tasks behave when marked as complete"
-msgstr ""
+msgstr "Choisir ce que devient une tâche après son achèvement"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:50
 msgid "Priority 1"
@@ -2175,7 +2174,7 @@ msgstr "Barrer les tâches accomplies"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:75
 msgid "Start"
-msgstr ""
+msgstr "Débuter"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:79
 msgid "New Task Position"
@@ -2187,7 +2186,7 @@ msgstr "Toujours afficher les sous-tâches accomplies"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:87
 msgid "Keep all completed subtasks visible without collapsing them"
-msgstr ""
+msgstr "Toujours afficher les sous-tâches"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:94
 msgid "Task Complete Tone"
@@ -2206,14 +2205,16 @@ msgstr "Ouvrir la tâche dans la vue latérale"
 msgid ""
 "Always display task details in the sidebar instead of expanding in list view."
 msgstr ""
+"Toujours afficher les détails d’une tâche dans le panneau latéral, sans les "
+"ouvrir directement."
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:110
 msgid "Single Task Focus Mode"
-msgstr ""
+msgstr "Une tâche à la foi (Mode concentration)"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:111
 msgid "Allow only one task to be expanded at a time in list view"
-msgstr ""
+msgstr "Afficher le détail d'une tâche à la fois."
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:120
 msgid "Enable Markdown Formatting"
