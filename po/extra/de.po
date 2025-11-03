@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
 "PO-Revision-Date: 2025-11-03 20:51+0000\n"
-"Last-Translator: Constantin Scholz <scholzconstantin2008@gmail.com>\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/"
 "planify-extra/de/>\n"
 "Language: de\n"
@@ -64,9 +64,8 @@ msgid "Multiple reminders per task to never miss a deadline"
 msgstr "Mehrere Erinnerungen per Task, um keine Deadlines zu verpassen"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:22
-#, fuzzy
 msgid "Dark mode with seamless system theme integration"
-msgstr "Dark Mode mit nahtloser Systemintegration"
+msgstr "Dunkler Modus mit nahtloser Integration mit dem Systemdesign"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:23
 msgid "Quick and powerful search to find anything instantly"
@@ -110,19 +109,17 @@ msgstr ""
 "Plattformübergreifende Synchronisierung für den Zugriff von jedem Gerät aus"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:34
-#, fuzzy
 msgid "* Planify is not created by, affiliated with, or supported by Doist"
 msgstr ""
-"* Planify wurde nicht von Doist entwickelt, ist nicht mit Doist verbunden "
-"und wird nicht von Doist unterstützt"
+"* Planify wurde nicht von Doist entwickelt und ist weder mit Doist verbunden "
+"noch von Doist unterstützt"
 
 #: data/io.github.alainm23.planify.desktop.in.in:3
 msgid "Planify"
 msgstr "Planify"
 
 #: data/io.github.alainm23.planify.desktop.in.in:14
-#, fuzzy
 msgid "development;task;tasks;project;todo;reminder;reminders;event;events;calendar;todoist;"
 msgstr ""
-"Entwicklung;Aufgabe;Aufgaben;Projekt;Aufgabe;Erinnerung;Erinnerungen;Event;Events;Kalendar;Todoist;"
+"Entwicklung;Aufgabe;Aufgaben;Projekt;Aufgabe;Erinnerung;Erinnerungen;Ereignis;Ereignisse;Kalendar;Todoist;"
 ""
