@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
 "PO-Revision-Date: 2025-11-05 00:51+0000\n"
-"Last-Translator: Fraxinus Acer <yasson2008@ya.ru>\n"
+"Last-Translator: ziferkin <usrc@duck.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "planify-extra/ru/>\n"
 "Language: ru\n"
@@ -90,6 +90,8 @@ msgstr "☁️ Облачная синхронизация:"
 #: data/io.github.alainm23.planify.appdata.xml.in.in:29
 msgid "Full synchronization with Todoist to access your tasks from anywhere"
 msgstr ""
+"Полная синхронизация с Todoist позволяет получать доступ к вашим задачам из "
+"любой точки мира"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:30
 msgid ""
