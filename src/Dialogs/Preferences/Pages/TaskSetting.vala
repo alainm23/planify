@@ -132,6 +132,14 @@ public class Dialogs.Preferences.Pages.TaskSetting : Dialogs.Preferences.Pages.B
 
         group.add (always_show_sidebar_item);
 
+        var spell_checking_item = new Adw.SwitchRow ();
+        spell_checking_item.title = _("Enable Spell Checking");
+        spell_checking_item.subtitle = _("Check spelling in task descriptions and notes");
+        Services.Settings.get_default ().settings.bind ("spell-checking-enabled", spell_checking_item,
+                                                        "active", GLib.SettingsBindFlags.DEFAULT);
+
+        group.add (spell_checking_item);
+
         var reminders_group = new Adw.PreferencesGroup () {
             title = _("Reminders")
         };
