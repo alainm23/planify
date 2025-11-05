@@ -155,8 +155,8 @@ msgstr "Taak bijgewerkt"
 msgid "Content"
 msgstr "Inhoud"
 
-#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1865
-#: src/Layouts/ItemSidebarView.vala:179
+#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
+#: src/Layouts/ItemSidebarView.vala:183
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Beschrijving"
@@ -167,7 +167,7 @@ msgstr "Gepland"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemBoard.vala:713
-#: src/Layouts/ItemRow.vala:1143 src/Layouts/ItemRow.vala:1156
+#: src/Layouts/ItemRow.vala:1147 src/Layouts/ItemRow.vala:1160
 msgid "Pin"
 msgstr "Vastgeprikt"
 
@@ -292,7 +292,7 @@ msgstr "aankomend"
 #: core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:124
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:707
-#: src/Layouts/ItemRow.vala:1150 src/Views/Project/Project.vala:500
+#: src/Layouts/ItemRow.vala:1154 src/Views/Project/Project.vala:500
 #: src/Views/Project/Project.vala:660 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Vandaag"
@@ -304,7 +304,7 @@ msgstr "vandaag"
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:710
-#: src/Layouts/ItemRow.vala:1153
+#: src/Layouts/ItemRow.vala:1157
 msgid "Tomorrow"
 msgstr "Morgen"
 
@@ -347,7 +347,7 @@ msgstr "Label %s verwijderen"
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:820
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
-#: src/Layouts/ItemSidebarView.vala:539 src/Layouts/SectionBoard.vala:635
+#: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
 msgstr "Dit kan niet ongedaan gemaakt worden"
@@ -362,7 +362,7 @@ msgstr "Dit kan niet ongedaan gemaakt worden"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
 #: src/Dialogs/Preferences/Pages/Backup.vala:383
 #: src/Dialogs/Preferences/Pages/Backup.vala:449
-#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:542
+#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:546
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -374,7 +374,7 @@ msgstr "Annuleren"
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:279
-#: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:639
+#: src/Layouts/ItemSidebarView.vala:547 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
 #: src/Widgets/MultiSelectToolbar.vala:266
@@ -1030,31 +1030,31 @@ msgstr "Onderverdeling gedupliceerd"
 msgid "Project duplicated"
 msgstr "Project gedupliceerd"
 
-#: core/Utils/Util.vala:1075 src/Dialogs/Preferences/Pages/TaskSetting.vala:145
+#: core/Utils/Util.vala:1075 src/Dialogs/Preferences/Pages/TaskSetting.vala:153
 msgid "At due time"
 msgstr "Met deadline"
 
-#: core/Utils/Util.vala:1078 src/Dialogs/Preferences/Pages/TaskSetting.vala:146
+#: core/Utils/Util.vala:1078 src/Dialogs/Preferences/Pages/TaskSetting.vala:154
 msgid "10 minutes before"
 msgstr "10 minuten ervoor"
 
-#: core/Utils/Util.vala:1081 src/Dialogs/Preferences/Pages/TaskSetting.vala:147
+#: core/Utils/Util.vala:1081 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "30 minutes before"
 msgstr "30 minuten ervoor"
 
-#: core/Utils/Util.vala:1084 src/Dialogs/Preferences/Pages/TaskSetting.vala:148
+#: core/Utils/Util.vala:1084 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "45 minutes before"
 msgstr "45 minuten ervoor"
 
-#: core/Utils/Util.vala:1087 src/Dialogs/Preferences/Pages/TaskSetting.vala:149
+#: core/Utils/Util.vala:1087 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "1 hour before"
 msgstr "1 uur ervoor"
 
-#: core/Utils/Util.vala:1090 src/Dialogs/Preferences/Pages/TaskSetting.vala:150
+#: core/Utils/Util.vala:1090 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "2 hours before"
 msgstr "2 uren ervoor"
 
-#: core/Utils/Util.vala:1093 src/Dialogs/Preferences/Pages/TaskSetting.vala:151
+#: core/Utils/Util.vala:1093 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "3 hours before"
 msgstr "3 uren ervoor"
 
@@ -1329,11 +1329,11 @@ msgstr "Zoeken"
 msgid "Search or Create"
 msgstr "Zoeken of Aanmaken"
 
-#: core/Widgets/MarkdownEditor.vala:1356
+#: core/Widgets/MarkdownEditor.vala:1360
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1361
+#: core/Widgets/MarkdownEditor.vala:1365
 #, fuzzy
 msgid "Remove link"
 msgstr "Verwijderen"
@@ -1382,7 +1382,7 @@ msgstr "Zoekterm ingeven"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:136
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:144
 msgid "Reminders"
 msgstr "Herinneringen"
 
@@ -1444,7 +1444,7 @@ msgid "To Do"
 msgstr "Open"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1164
+#: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1168
 #: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "Afgerond"
@@ -1501,7 +1501,7 @@ msgid "Next Week"
 msgstr "Volgende week"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:715
-#: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:505
+#: src/Layouts/ItemRow.vala:1162 src/Views/Project/Project.vala:505
 #: src/Views/Project/Project.vala:670
 msgid "No Date"
 msgstr "Geen datum"
@@ -1529,8 +1529,8 @@ msgstr "Gelieve je aanmeldgegevens in te geven"
 msgid "Network Is Not Available"
 msgstr "Netwerk is niet beschikbaar"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1276
-#: src/Layouts/ItemSidebarView.vala:457
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1280
+#: src/Layouts/ItemSidebarView.vala:461
 msgid "Change History"
 msgstr "Geschiedenis wijzigen"
 
@@ -2249,15 +2249,23 @@ msgstr ""
 "Zorg dat het paneel met details altijd zichtbaar blijft om eenvoudiger "
 "tussen taken te wisselen, zodat je deze niet continu opnieuw moet openen."
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:140
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:136
+msgid "Enable Spell Checking"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:137
+msgid "Check spelling in task descriptions and notes"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:148
 msgid "Enabled"
 msgstr "Ingeschakeld"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:154
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:162
 msgid "Automatic reminders"
 msgstr "Automatische herinneringen"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:164
 msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr ""
@@ -2465,8 +2473,8 @@ msgid "Project added successfully!"
 msgstr "Project met succes toegevoegd!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1161
-#: src/Layouts/ItemRow.vala:1271 src/Layouts/ItemSidebarView.vala:452
+#: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1165
+#: src/Layouts/ItemRow.vala:1275 src/Layouts/ItemSidebarView.vala:456
 msgid "Move"
 msgstr "Verplaatsen"
 
@@ -2512,73 +2520,73 @@ msgid "Open/Close Sidebar"
 msgstr "Zijbalk tonen/verbergen"
 
 #: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:700
-#: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1143
-#: src/Layouts/ItemRow.vala:1156
+#: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1147
+#: src/Layouts/ItemRow.vala:1160
 msgid "Unpin"
 msgstr "Losmaken"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:590 src/Layouts/ItemRow.vala:1472
-#: src/Layouts/ItemSidebarView.vala:618
+#: src/Layouts/ItemBoard.vala:590 src/Layouts/ItemRow.vala:1476
+#: src/Layouts/ItemSidebarView.vala:622
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Afgewerkt. Volgende datum: %s"
 
-#: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1163
+#: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1167
 msgid "Add Subtask"
 msgstr "Subtaak toevoegen"
 
-#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1165
+#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1169
 msgid "Edit"
 msgstr "Bewerken"
 
-#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1166
-#: src/Layouts/ItemRow.vala:1270 src/Layouts/ItemSidebarView.vala:451
+#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemRow.vala:1274 src/Layouts/ItemSidebarView.vala:455
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
 msgid "Duplicate"
 msgstr "Dupliceren"
 
-#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1168
-#: src/Layouts/ItemRow.vala:1273 src/Layouts/ItemSidebarView.vala:454
+#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1172
+#: src/Layouts/ItemRow.vala:1277 src/Layouts/ItemSidebarView.vala:458
 msgid "Delete Task"
 msgstr "Taak verwijderen"
 
-#: src/Layouts/ItemBoard.vala:1007 src/Layouts/ItemRow.vala:1735
+#: src/Layouts/ItemBoard.vala:1007 src/Layouts/ItemRow.vala:1739
 msgid "Order changed to 'Custom sort order'"
 msgstr "Volgorde aangepast naar 'Aangepaste volgorde'"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:1093 src/Layouts/ItemRow.vala:1518
+#: src/Layouts/ItemBoard.vala:1093 src/Layouts/ItemRow.vala:1522
 #, c-format
 msgid "%s was deleted"
 msgstr "%s werd verwijderd"
 
-#: src/Layouts/ItemBoard.vala:1094 src/Layouts/ItemRow.vala:1519
+#: src/Layouts/ItemBoard.vala:1094 src/Layouts/ItemRow.vala:1523
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-#: src/Layouts/ItemRow.vala:460
+#: src/Layouts/ItemRow.vala:464
 msgid "Add Subtasks"
 msgstr "Subtaken toevoegen"
 
-#: src/Layouts/ItemRow.vala:470
+#: src/Layouts/ItemRow.vala:474
 msgid "Add Attachments"
 msgstr "Bijlagen toevoegen"
 
-#: src/Layouts/ItemRow.vala:1024
+#: src/Layouts/ItemRow.vala:1028
 msgid "Hide Sub-tasks"
 msgstr "Subtaken verbergen"
 
-#: src/Layouts/ItemRow.vala:1024
+#: src/Layouts/ItemRow.vala:1028
 msgid "Show Sub-tasks"
 msgstr "Subtaken tonen"
 
-#: src/Layouts/ItemRow.vala:1266 src/Layouts/ItemSidebarView.vala:448
+#: src/Layouts/ItemRow.vala:1270 src/Layouts/ItemSidebarView.vala:452
 msgid "Use as a Note"
 msgstr "Als opmerking gebruiken"
 
-#: src/Layouts/ItemRow.vala:1269 src/Layouts/ItemSidebarView.vala:450
+#: src/Layouts/ItemRow.vala:1273 src/Layouts/ItemSidebarView.vala:454
 msgid "Copy to Clipboard"
 msgstr "Naar klembord kopiëren"
 
@@ -2586,15 +2594,15 @@ msgstr "Naar klembord kopiëren"
 msgid "Close Detail"
 msgstr "Details verbergen"
 
-#: src/Layouts/ItemSidebarView.vala:139 src/Widgets/ItemDetailCompleted.vala:64
+#: src/Layouts/ItemSidebarView.vala:143 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
 msgstr "Titel"
 
-#: src/Layouts/ItemSidebarView.vala:169 src/Widgets/ItemDetailCompleted.vala:90
+#: src/Layouts/ItemSidebarView.vala:173 src/Widgets/ItemDetailCompleted.vala:90
 msgid "Properties"
 msgstr "Eigenschappen"
 
-#: src/Layouts/ItemSidebarView.vala:538
+#: src/Layouts/ItemSidebarView.vala:542
 msgid "Are you sure you want to delete?"
 msgstr "Ben je zeker dat je wilt verwijderen?"
 

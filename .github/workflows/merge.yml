@@ -49,17 +49,17 @@ jobs:
           echo >> po/POTFILES
           echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
 
-          # Update only POT template (let Weblate handle .po files)
-          xgettext --files-from=po/POTFILES --directory=. \
-            --output=po/io.github.alainm23.planify.pot --from-code=UTF-8 \
-            --keyword=_ --keyword=N_
+          # Update translations preserving metadata
+          python3 scripts/update_translations.py
 
       - name: Check for real changes
         id: check_changes
         run: |
-          # Check only POT and POTFILES changes
+          # Exclude metadata-only changes
           if git diff --ignore-matching-lines='^"POT-Creation-Date:' \
-                      --quiet po/POTFILES po/io.github.alainm23.planify.pot; then
+                      --ignore-matching-lines='^"PO-Revision-Date:' \
+                      --ignore-matching-lines='^"Report-Msgid-Bugs-To:' \
+                      --quiet po/; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
@@ -75,8 +75,8 @@ jobs:
       - name: Commit and push changes
         if: steps.check_changes.outputs.has_changes == 'true'
         run: |
-          git add po/POTFILES po/io.github.alainm23.planify.pot
-          git diff --staged --quiet || git commit -m "Update translation template"
+          git add po/
+          git diff --staged --quiet || git commit -m "Update translations"
           git push origin master
 
       - name: Notify Weblate of changes
