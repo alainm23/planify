@@ -201,7 +201,7 @@ public class Widgets.ReorderChild : Adw.Bin {
             drag_source = null;
         }
 
-        if (drop_order_target != null && widget != null){
+        if (drop_order_target != null && widget != null) {
             widget.remove_controller (drop_order_target);
             drop_order_target = null;
         }
