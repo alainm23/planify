@@ -6,12 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-02 16:14+0000\n"
-"Last-Translator: Sebastian Hagn <sebastian@hagn.me>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/planner/io-"
-"github-alainm23-planify/es/>\n"
+"PO-Revision-Date: 2025-11-05 11:31+0000\n"
+"Last-Translator: Alain <alainmh23@gmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2226,11 +2226,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:136
 msgid "Enable Spell Checking"
-msgstr ""
+msgstr "Habilitar la corrección ortográfica"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:137
 msgid "Check spelling in task descriptions and notes"
-msgstr ""
+msgstr "Revisa la ortografía en las descripciones de las tareas y las notas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:148
 msgid "Enabled"
