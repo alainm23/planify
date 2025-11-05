@@ -7,27 +7,33 @@ import re
 from pathlib import Path
 
 def get_pot_date(po_file):
-    """Extract POT-Creation-Date line from PO file."""
+    """Extract POT-Creation-Date value from PO file."""
     with open(po_file, 'r', encoding='utf-8') as f:
         for line in f:
             if 'POT-Creation-Date:' in line:
-                return line.rstrip('\n')
+                # Extract just the date value
+                match = re.search(r'POT-Creation-Date: ([^\\]+)', line)
+                if match:
+                    return match.group(1)
     return None
 
 def restore_pot_date(po_file, old_date):
-    """Restore POT-Creation-Date in PO file."""
+    """Restore POT-Creation-Date value in PO file."""
     if not old_date:
         return
     
     with open(po_file, 'r', encoding='utf-8') as f:
-        lines = f.readlines()
+        content = f.read()
+    
+    # Replace only the date value, keeping the line format
+    content = re.sub(
+        r'("POT-Creation-Date: )[^\\]+(\\n")',
+        r'\g<1>' + old_date + r'\g<2>',
+        content
+    )
     
     with open(po_file, 'w', encoding='utf-8') as f:
-        for line in lines:
-            if 'POT-Creation-Date:' in line:
-                f.write(old_date + '\n')
-            else:
-                f.write(line)
+        f.write(content)
 
 def main():
     po_dir = Path('po')
