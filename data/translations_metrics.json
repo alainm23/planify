@@ -26,8 +26,8 @@
   "de": {
     "language": "German",
     "total_strings": 691,
-    "translated_strings": 629,
-    "translated_percent": 91.0
+    "translated_strings": 691,
+    "translated_percent": 100.0
   },
   "es": {
     "language": "Spanish",
@@ -38,8 +38,8 @@
   "fr": {
     "language": "French",
     "total_strings": 691,
-    "translated_strings": 574,
-    "translated_percent": 83.0
+    "translated_strings": 592,
+    "translated_percent": 85.6
   },
   "hi": {
     "language": "Hindi",
@@ -74,8 +74,8 @@
   "ru": {
     "language": "Russian",
     "total_strings": 691,
-    "translated_strings": 687,
-    "translated_percent": 99.4
+    "translated_strings": 691,
+    "translated_percent": 100.0
   },
   "sk": {
     "language": "Slovak",
