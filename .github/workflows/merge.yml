@@ -49,51 +49,8 @@ jobs:
           echo >> po/POTFILES
           echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
 
-          # Generate temporary POT file
-          xgettext --files-from=po/POTFILES --directory=. \
-            --output=po/io.github.alainm23.planify.pot.tmp --from-code=UTF-8 \
-            --keyword=_ --keyword=N_ \
-            --package-name=io.github.alainm23.planify \
-            --no-location
-
-          # Preserve existing metadata from old POT file
-          if [ -f po/io.github.alainm23.planify.pot ]; then
-            # Extract metadata from existing file
-            POT_DATE=$(grep '^"POT-Creation-Date:' po/io.github.alainm23.planify.pot || echo '')
-            BUGS_TO=$(grep '^"Report-Msgid-Bugs-To:' po/io.github.alainm23.planify.pot || echo '')
-            
-            # Replace metadata in new file with old values
-            if [ -n "$POT_DATE" ]; then
-              sed -i "s/^\"POT-Creation-Date:.*/$POT_DATE/" po/io.github.alainm23.planify.pot.tmp
-            fi
-            if [ -n "$BUGS_TO" ]; then
-              sed -i "s/^\"Report-Msgid-Bugs-To:.*/$BUGS_TO/" po/io.github.alainm23.planify.pot.tmp
-            fi
-          fi
-          
-          mv po/io.github.alainm23.planify.pot.tmp po/io.github.alainm23.planify.pot
-
-          # Update PO files preserving their metadata
-          for lang in $(cat po/LINGUAS); do
-            # Save existing metadata
-            PO_DATE=$(grep '^"PO-Revision-Date:' po/$lang.po || echo '')
-            POT_DATE=$(grep '^"POT-Creation-Date:' po/$lang.po || echo '')
-            BUGS_TO=$(grep '^"Report-Msgid-Bugs-To:' po/$lang.po || echo '')
-            
-            msgmerge --update --no-fuzzy-matching --backup=none \
-              --no-location po/$lang.po po/io.github.alainm23.planify.pot
-            
-            # Restore original metadata
-            if [ -n "$PO_DATE" ]; then
-              sed -i "s/^\"PO-Revision-Date:.*/$PO_DATE/" po/$lang.po
-            fi
-            if [ -n "$POT_DATE" ]; then
-              sed -i "s/^\"POT-Creation-Date:.*/$POT_DATE/" po/$lang.po
-            fi
-            if [ -n "$BUGS_TO" ]; then
-              sed -i "s/^\"Report-Msgid-Bugs-To:.*/$BUGS_TO/" po/$lang.po
-            fi
-          done
+          # Update translations preserving metadata
+          python3 scripts/update_translations.py
 
       - name: Check for real changes
         id: check_changes
