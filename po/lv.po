@@ -408,34 +408,34 @@ msgstr "Dzēst sadaļu %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:126
+#: core/QuickAddCore.vala:127
 msgid "Task added successfully!"
 msgstr "Uzdevums pievienots!"
 
-#: core/QuickAddCore.vala:142 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:143 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Uzdevuma nosaukums"
 
-#: core/QuickAddCore.vala:172
+#: core/QuickAddCore.vala:173
 msgid "This field is required"
 msgstr "Šī aile ir obligāta"
 
-#: core/QuickAddCore.vala:196
+#: core/QuickAddCore.vala:197
 msgid "Add a description…"
 msgstr "Pievienot aprakstu…"
 
-#: core/QuickAddCore.vala:214 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:239 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Pievienot birkas"
 
-#: core/QuickAddCore.vala:219 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:244 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Noteikt prioritāti"
 
-#: core/QuickAddCore.vala:224
+#: core/QuickAddCore.vala:249
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -444,20 +444,20 @@ msgstr "Noteikt prioritāti"
 msgid "Add Reminders"
 msgstr "Noteikt atgādinājumus"
 
-#: core/QuickAddCore.vala:265 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:290 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Pievienot uzdevumu"
 
-#: core/QuickAddCore.vala:271 core/QuickAddCore.vala:1250
+#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1275
 msgid "Keep adding"
 msgstr "Turpināt pievienot"
 
-#: core/QuickAddCore.vala:288
+#: core/QuickAddCore.vala:313
 msgid "Select a Project"
 msgstr "Izvēlēties projektu"
 
-#: core/QuickAddCore.vala:315
+#: core/QuickAddCore.vala:340
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -465,55 +465,55 @@ msgstr ""
 "Baidos, ka ātrās pievienošanas logs nevar atrast nevienu pieejamu projektu, "
 "pamēģiniet izveidot jaunu projektu."
 
-#: core/QuickAddCore.vala:1212 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1237 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Tastatūras īsceļi"
 
-#: core/QuickAddCore.vala:1218
+#: core/QuickAddCore.vala:1243
 msgid "Speed up task creation with these shortcuts"
 msgstr "Paātriniet uzdevumu izveidi ar šiem īsceļiem"
 
-#: core/QuickAddCore.vala:1232
+#: core/QuickAddCore.vala:1257
 msgid "Set priority"
 msgstr "Noteikt prioritāti"
 
-#: core/QuickAddCore.vala:1232
+#: core/QuickAddCore.vala:1257
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = augstākā, p4 = zemākā"
 
-#: core/QuickAddCore.vala:1233
+#: core/QuickAddCore.vala:1258
 msgid "Add labels"
 msgstr "Pievienot birkas"
 
-#: core/QuickAddCore.vala:1233
+#: core/QuickAddCore.vala:1258
 msgid "Opens label selector"
 msgstr "Atver birku izvēlni"
 
-#: core/QuickAddCore.vala:1234
+#: core/QuickAddCore.vala:1259
 msgid "Assign project"
 msgstr "Iecelt projektu"
 
-#: core/QuickAddCore.vala:1234
+#: core/QuickAddCore.vala:1259
 msgid "Opens project selector"
 msgstr "Atver projektu izvēlni"
 
-#: core/QuickAddCore.vala:1235
+#: core/QuickAddCore.vala:1260
 msgid "Set reminder"
 msgstr "Noteikt atgādinājumu"
 
-#: core/QuickAddCore.vala:1235
+#: core/QuickAddCore.vala:1260
 msgid "Opens reminder options"
 msgstr "Atver atgādinājumu iestatījumus"
 
-#: core/QuickAddCore.vala:1250
+#: core/QuickAddCore.vala:1275
 msgid "Stay open after creating task"
 msgstr "Paturēt atvērtu pēc uzdevuma izveides"
 
-#: core/QuickAddCore.vala:1256
+#: core/QuickAddCore.vala:1281
 msgid "Tip"
 msgstr "Ieteikums"
 
-#: core/QuickAddCore.vala:1256
+#: core/QuickAddCore.vala:1281
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Kombinējiet īsceļus nosaukuma ailē ātrākai uzdevumu izveidei"
 
