@@ -30,8 +30,7 @@ public class Widgets.ReorderChild : Adw.Bin {
     private Gtk.Revealer main_revealer;
     
     private Gtk.DragSource drag_source;
-    private Gtk.DropTarget drop_order_top_target;
-    private Gtk.DropTarget drop_order_bottom_target;
+    private Gtk.DropTarget drop_order_target;
     private Gtk.DropControllerMotion drop_motion_ctrl;
 
     public bool reveal_child {
@@ -124,13 +123,9 @@ public class Widgets.ReorderChild : Adw.Bin {
             return false;
         })] = drag_source;
 
-        drop_order_top_target = new Gtk.DropTarget (typeof (Widgets.ReorderChild), Gdk.DragAction.MOVE);
-        motion_top_grid.add_controller (drop_order_top_target);
-        signal_map[drop_order_top_target.drop.connect ((value, x, y) => on_drop (value, x, y, false))] = drop_order_top_target;
-
-        drop_order_bottom_target = new Gtk.DropTarget (typeof (Widgets.ReorderChild), Gdk.DragAction.MOVE);
-        motion_bottom_grid.add_controller (drop_order_bottom_target);
-        signal_map[drop_order_bottom_target.drop.connect ((value, x, y) => on_drop (value, x, y, true))] = drop_order_bottom_target;
+        drop_order_target = new Gtk.DropTarget (typeof (Widgets.ReorderChild), Gdk.DragAction.MOVE);
+        widget.add_controller (drop_order_target);
+        signal_map[drop_order_target.drop.connect ((value, x, y) => on_drop (value, x, y))] = drop_order_target;
 
         drop_motion_ctrl = new Gtk.DropControllerMotion ();
         row.add_controller (drop_motion_ctrl);
@@ -152,7 +147,7 @@ public class Widgets.ReorderChild : Adw.Bin {
         })] = drop_motion_ctrl;
     }
 
-    private bool on_drop (GLib.Value value, double x, double y, bool bottom = false) {
+    private bool on_drop (GLib.Value value, double x, double y) {
         var picked_widget = (Widgets.ReorderChild) value;
         var target_widget = this;
 
@@ -170,7 +165,7 @@ public class Widgets.ReorderChild : Adw.Bin {
 
         var picked_row = picked_widget.row;
         source_list.remove (picked_row);
-        target_list.insert (picked_row, target_widget.row.get_index () + (bottom ? 1 : 0));
+        target_list.insert (picked_row, target_widget.row.get_index ());
 
         on_drop_end (target_list);
         return true;
@@ -206,14 +201,9 @@ public class Widgets.ReorderChild : Adw.Bin {
             drag_source = null;
         }
 
-        if (drop_order_top_target != null && motion_top_grid != null) {
-            motion_top_grid.remove_controller (drop_order_top_target);
-            drop_order_top_target = null;
-        }
-
-        if (drop_order_bottom_target != null && motion_bottom_grid != null) {
-            motion_bottom_grid.remove_controller (drop_order_bottom_target);
-            drop_order_bottom_target = null;
+        if (drop_order_target != null && widget != null){
+            widget.remove_controller (drop_order_target);
+            drop_order_target = null;
         }
 
         if (drop_motion_ctrl != null && row != null) {
