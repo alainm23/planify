@@ -327,5 +327,11 @@
             <summary>List View for Filters</summary>
             <description>Show filters in a simple list instead of a grid.</description>
         </key>
+
+        <key name="spell-checking-enabled" type="b">
+            <default>true</default>
+            <summary>Enable Spell Checking</summary>
+            <description>Enable spell checking in task descriptions and notes to help catch spelling errors</description>
+        </key>
     </schema>
 </schemalist>
