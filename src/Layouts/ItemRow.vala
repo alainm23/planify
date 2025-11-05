@@ -361,14 +361,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_textview.remove_css_class ("view");
         content_textview.add_css_class ("font-bold");
 
-#if LIBSPELLING
+#if WITH_LIBSPELLING
         var source_buffer = new GtkSource.Buffer (null);
         content_textview.buffer = source_buffer;
         
         var adapter = new Spelling.TextBufferAdapter (source_buffer, Spelling.Checker.get_default ());
         content_textview.extra_menu = adapter.get_menu_model ();
         content_textview.insert_action_group ("spelling", adapter);
-        adapter.enabled = true;
+        adapter.enabled = Services.Settings.get_default ().settings.get_boolean ("spell-checking-enabled");
+        
+        Services.Settings.get_default ().settings.changed["spell-checking-enabled"].connect (() => {
+            adapter.enabled = Services.Settings.get_default ().settings.get_boolean ("spell-checking-enabled");
+        });
 #endif
 
         content_entry_revealer = new Gtk.Revealer () {
