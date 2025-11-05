@@ -38,7 +38,7 @@ def main():
         'xgettext', '--files-from=po/POTFILES', '--directory=.',
         '--output=po/io.github.alainm23.planify.pot',
         '--from-code=UTF-8', '--keyword=_', '--keyword=N_',
-        '--package-name=io.github.alainm23.planify', '--no-location'
+        '--package-name=io.github.alainm23.planify'
     ], check=True)
     
     # Update PO files
@@ -56,7 +56,7 @@ def main():
         # Update PO file
         subprocess.run([
             'msgmerge', '--update', '--no-fuzzy-matching',
-            '--backup=none', '--no-location',
+            '--backup=none',
             str(po_file), str(pot_file)
         ], check=True)
         
