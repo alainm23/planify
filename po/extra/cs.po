@@ -8,19 +8,21 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2025-10-08 17:08-0500\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-11-06 01:51+0000\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
+"planify-extra/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:7
 #: data/io.github.alainm23.planify.desktop.in.in:4
 msgid "Forget about forgetting things"
-msgstr ""
+msgstr "Zapomeňte na zapomínání věcí"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:13
 msgid ""
