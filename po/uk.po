@@ -1462,7 +1462,6 @@ msgstr ""
 "справи."
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
-#: src/Views/Project/Project.vala:540
 #, fuzzy
 msgid "Completed Tasks"
 msgstr "Виконані завдання"
@@ -2661,6 +2660,7 @@ msgid "Manage Section Order"
 msgstr "Керування порядком розділів"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
+#: src/Views/Project/Project.vala:540
 msgid "Show Completed Tasks"
 msgstr "Показати виконані завдання"
 

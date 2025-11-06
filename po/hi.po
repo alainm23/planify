@@ -1451,7 +1451,6 @@ msgstr ""
 "पर भी चलेगा ताकि यह कार्य संबंधी अधिसूचनाएं भेज सके।"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
-#: src/Views/Project/Project.vala:540
 #, fuzzy
 msgid "Completed Tasks"
 msgstr "कार्य पूर्ण करें"
@@ -2642,6 +2641,7 @@ msgid "Manage Section Order"
 msgstr "अनुभाग क्रम प्रबंधित करें"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
+#: src/Views/Project/Project.vala:540
 msgid "Show Completed Tasks"
 msgstr "पूर्ण कार्य दिखाएं"
 
