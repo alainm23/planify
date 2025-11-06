@@ -6,7 +6,7 @@ import subprocess
 from pathlib import Path
 
 def extract_full_header(po_file):
-    """Extract complete header including license comments from PO file."""
+    """Extract complete header from PO file."""
     if not po_file.exists():
         return None
     
@@ -16,11 +16,8 @@ def extract_full_header(po_file):
     
     with open(po_file, 'r', encoding='utf-8') as f:
         for line in f:
-            # Include initial comments (license, copyright, etc.)
-            if line.startswith('#') and not in_header:
-                header_lines.append(line)
             # Detect start of header (first msgid "")
-            elif line.strip() == 'msgid ""' and not in_header:
+            if line.strip() == 'msgid ""' and not in_header:
                 in_header = True
                 header_lines.append(line)
             # Inside header
