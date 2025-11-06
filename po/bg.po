@@ -336,7 +336,7 @@ msgstr "Задачата е копирана в буфера за обмен"
 
 # c-format
 # c-format
-#: core/Objects/Item.vala:1585 core/Utils/Util.vala:866
+#: core/Objects/Item.vala:1609 core/Utils/Util.vala:866
 #, c-format
 msgid "Task moved to %s"
 msgstr "Задачата е преместена в %s"

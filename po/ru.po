@@ -332,7 +332,7 @@ msgid "Task copied to clipboard"
 msgstr "Задача скопирована в буфер обмена"
 
 # c-format
-#: core/Objects/Item.vala:1585 core/Utils/Util.vala:866
+#: core/Objects/Item.vala:1609 core/Utils/Util.vala:866
 #, c-format
 msgid "Task moved to %s"
 msgstr "Задача перемещена в %s"
