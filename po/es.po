@@ -1441,7 +1441,6 @@ msgstr ""
 "tareas."
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
-#: src/Views/Project/Project.vala:540
 msgid "Completed Tasks"
 msgstr "Tareas completadas"
 
@@ -2644,6 +2643,7 @@ msgid "Manage Section Order"
 msgstr "Gestionar el orden de las secciones"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
+#: src/Views/Project/Project.vala:540
 msgid "Show Completed Tasks"
 msgstr "Mostrar tareas completadas"
 

@@ -1425,7 +1425,6 @@ msgstr ""
 "фоновом режиме при закрытии его окна для отправки уведомлений заданий."
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
-#: src/Views/Project/Project.vala:540
 msgid "Completed Tasks"
 msgstr "Выполненные задачи"
 
@@ -2609,6 +2608,7 @@ msgid "Manage Section Order"
 msgstr "Изменить порядок разделов"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
+#: src/Views/Project/Project.vala:540
 msgid "Show Completed Tasks"
 msgstr "Показать выполненные задачи"
 

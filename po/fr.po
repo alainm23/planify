@@ -1452,7 +1452,6 @@ msgstr ""
 "à s’exécuter à la fermeture de sa fenêtre pour envoyer des notifications."
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
-#: src/Views/Project/Project.vala:540
 msgid "Completed Tasks"
 msgstr "Tâches terminées"
 
@@ -2656,6 +2655,7 @@ msgid "Manage Section Order"
 msgstr "Gérer l’ordre des sections"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
+#: src/Views/Project/Project.vala:540
 msgid "Show Completed Tasks"
 msgstr "Afficher les tâches accomplies"
 

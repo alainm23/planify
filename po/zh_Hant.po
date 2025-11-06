@@ -1391,7 +1391,6 @@ msgstr ""
 "辦事項通知。"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
-#: src/Views/Project/Project.vala:540
 msgid "Completed Tasks"
 msgstr "已經完成任務"
 
@@ -2542,6 +2541,7 @@ msgid "Manage Section Order"
 msgstr "管理階段順序"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
+#: src/Views/Project/Project.vala:540
 msgid "Show Completed Tasks"
 msgstr "顯示已經完成任務"
 

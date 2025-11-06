@@ -1465,7 +1465,6 @@ msgstr ""
 "изпраща известия за задачи."
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
-#: src/Views/Project/Project.vala:540
 msgid "Completed Tasks"
 msgstr "Завършени задачи"
 
@@ -2665,6 +2664,7 @@ msgid "Manage Section Order"
 msgstr "Управляване на реда на разделите"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
+#: src/Views/Project/Project.vala:540
 msgid "Show Completed Tasks"
 msgstr "Показване на завършените задачи"
 

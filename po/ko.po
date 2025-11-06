@@ -1454,7 +1454,6 @@ msgstr ""
 "을 보낼 수 있도록 실행됩니다."
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
-#: src/Views/Project/Project.vala:540
 #, fuzzy
 msgid "Completed Tasks"
 msgstr "작업 완료"
@@ -2642,6 +2641,7 @@ msgid "Manage Section Order"
 msgstr "섹션 순서 관리"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
+#: src/Views/Project/Project.vala:540
 msgid "Show Completed Tasks"
 msgstr "완료된 작업 표시"
 

@@ -1475,7 +1475,6 @@ msgstr ""
 "bildirimleri gönderebilmek için penceresi kapatıldığında çalışacak."
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
-#: src/Views/Project/Project.vala:540
 #, fuzzy
 msgid "Completed Tasks"
 msgstr "Görevi Tamamla"
@@ -2674,6 +2673,7 @@ msgid "Manage Section Order"
 msgstr "Bölüm Sıralamasını Yönet"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
+#: src/Views/Project/Project.vala:540
 msgid "Show Completed Tasks"
 msgstr "Tamamlanan Görevleri Göster"
 
