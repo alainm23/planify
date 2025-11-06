@@ -478,6 +478,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             item.update_pin (false);
         })] = hide_loading_button;
 
+        signals_map[Services.EventBus.get_default ().day_changed.connect (() => {
+            update_due_label ();
+        })] = Services.EventBus.get_default ();
+
         signals_map[activate.connect (() => {
             open_detail ();
         })] = this;
