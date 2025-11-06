@@ -151,7 +151,7 @@ msgstr "Zadatak je aktualiziran"
 msgid "Content"
 msgstr "Sadržaj"
 
-#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
+#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1873
 #: src/Layouts/ItemSidebarView.vala:183
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
@@ -162,8 +162,8 @@ msgid "Scheduled"
 msgstr "Zakazano"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
-#: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemBoard.vala:713
-#: src/Layouts/ItemRow.vala:1147 src/Layouts/ItemRow.vala:1160
+#: src/Layouts/ItemBoard.vala:704 src/Layouts/ItemBoard.vala:717
+#: src/Layouts/ItemRow.vala:1151 src/Layouts/ItemRow.vala:1164
 msgid "Pin"
 msgstr "Prikvači"
 
@@ -286,8 +286,8 @@ msgstr "predstojeći"
 #: core/Utils/Datetime.vala:89 core/Utils/Util.vala:247
 #: core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:124
-#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:707
-#: src/Layouts/ItemRow.vala:1154 src/Views/Project/Project.vala:500
+#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:711
+#: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:500
 #: src/Views/Project/Project.vala:660 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Danas"
@@ -298,8 +298,8 @@ msgstr "danas"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
-#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:710
-#: src/Layouts/ItemRow.vala:1157
+#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:714
+#: src/Layouts/ItemRow.vala:1161
 msgid "Tomorrow"
 msgstr "Sutra"
 
@@ -1394,7 +1394,7 @@ msgid "To Do"
 msgstr "Zadatak"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1168
+#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1172
 #: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "Završi"
@@ -1447,8 +1447,8 @@ msgstr "Filtriraj po"
 msgid "Next Week"
 msgstr "Sljedeći tjedan"
 
-#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:715
-#: src/Layouts/ItemRow.vala:1162 src/Views/Project/Project.vala:505
+#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:719
+#: src/Layouts/ItemRow.vala:1166 src/Views/Project/Project.vala:505
 #: src/Views/Project/Project.vala:670
 msgid "No Date"
 msgstr "Nema datuma"
@@ -1475,7 +1475,7 @@ msgstr "Upiši svoje podatke za prijavu"
 msgid "Network Is Not Available"
 msgstr "Mreža nije dostupna"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1280
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1284
 #: src/Layouts/ItemSidebarView.vala:461
 msgid "Change History"
 msgstr "Povijest promjena"
@@ -2398,8 +2398,8 @@ msgid "Project added successfully!"
 msgstr "Projekt je uspješno dodan!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1165
-#: src/Layouts/ItemRow.vala:1275 src/Layouts/ItemSidebarView.vala:456
+#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1169
+#: src/Layouts/ItemRow.vala:1279 src/Layouts/ItemSidebarView.vala:456
 msgid "Move"
 msgstr "Premjesti"
 
@@ -2442,48 +2442,48 @@ msgstr "Odjeljak je dodan"
 msgid "Open/Close Sidebar"
 msgstr "Otvori/zatvori bočnu traku"
 
-#: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:700
-#: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1147
-#: src/Layouts/ItemRow.vala:1160
+#: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:704
+#: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1151
+#: src/Layouts/ItemRow.vala:1164
 msgid "Unpin"
 msgstr "Otkvači"
 
-#: src/Layouts/ItemBoard.vala:590 src/Layouts/ItemRow.vala:1476
+#: src/Layouts/ItemBoard.vala:594 src/Layouts/ItemRow.vala:1480
 #: src/Layouts/ItemSidebarView.vala:622
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Završeno. Sljedeće pojavljivanje: %s"
 
-#: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1167
+#: src/Layouts/ItemBoard.vala:723 src/Layouts/ItemRow.vala:1171
 msgid "Add Subtask"
 msgstr "Dodaj podzadatak"
 
-#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1169
+#: src/Layouts/ItemBoard.vala:725 src/Layouts/ItemRow.vala:1173
 msgid "Edit"
 msgstr "Uredi"
 
-#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1170
-#: src/Layouts/ItemRow.vala:1274 src/Layouts/ItemSidebarView.vala:455
+#: src/Layouts/ItemBoard.vala:726 src/Layouts/ItemRow.vala:1174
+#: src/Layouts/ItemRow.vala:1278 src/Layouts/ItemSidebarView.vala:455
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
 msgid "Duplicate"
 msgstr "Dupliciraj"
 
-#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1172
-#: src/Layouts/ItemRow.vala:1277 src/Layouts/ItemSidebarView.vala:458
+#: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1176
+#: src/Layouts/ItemRow.vala:1281 src/Layouts/ItemSidebarView.vala:458
 msgid "Delete Task"
 msgstr "Izbriši zadatak"
 
-#: src/Layouts/ItemBoard.vala:1007 src/Layouts/ItemRow.vala:1739
+#: src/Layouts/ItemBoard.vala:1011 src/Layouts/ItemRow.vala:1743
 msgid "Order changed to 'Custom sort order'"
 msgstr "Redoslijed je promijenjen u „Prilagođeni redoslijed razvrstavanja“"
 
-#: src/Layouts/ItemBoard.vala:1093 src/Layouts/ItemRow.vala:1522
+#: src/Layouts/ItemBoard.vala:1097 src/Layouts/ItemRow.vala:1526
 #, c-format
 msgid "%s was deleted"
 msgstr "%s je izbrisan"
 
-#: src/Layouts/ItemBoard.vala:1094 src/Layouts/ItemRow.vala:1523
+#: src/Layouts/ItemBoard.vala:1098 src/Layouts/ItemRow.vala:1527
 msgid "Undo"
 msgstr "Poništi"
 
@@ -2495,19 +2495,19 @@ msgstr "Dodaj podzadatke"
 msgid "Add Attachments"
 msgstr "Dodaj priloge"
 
-#: src/Layouts/ItemRow.vala:1028
+#: src/Layouts/ItemRow.vala:1032
 msgid "Hide Sub-tasks"
 msgstr "Sakrij podzadatke"
 
-#: src/Layouts/ItemRow.vala:1028
+#: src/Layouts/ItemRow.vala:1032
 msgid "Show Sub-tasks"
 msgstr "Prikaži podzadatke"
 
-#: src/Layouts/ItemRow.vala:1270 src/Layouts/ItemSidebarView.vala:452
+#: src/Layouts/ItemRow.vala:1274 src/Layouts/ItemSidebarView.vala:452
 msgid "Use as a Note"
 msgstr "Koristi kao bilješku"
 
-#: src/Layouts/ItemRow.vala:1273 src/Layouts/ItemSidebarView.vala:454
+#: src/Layouts/ItemRow.vala:1277 src/Layouts/ItemSidebarView.vala:454
 msgid "Copy to Clipboard"
 msgstr "Kopiraj u međuspremnik"
 

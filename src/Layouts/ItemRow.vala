@@ -919,6 +919,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
         })] = Services.EventBus.get_default ();
 
+        signals_map[Services.EventBus.get_default ().day_changed.connect (() => {
+            schedule_button.update_from_item (item);
+        })] = Services.EventBus.get_default ();
+
         signals_map[notify["edit"].connect (() => {
             if (!edit) {
                 if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
