@@ -325,7 +325,7 @@ msgstr "尚無標籤"
 msgid "Task copied to clipboard"
 msgstr "任務已經複製至剪貼簿"
 
-#: core/Objects/Item.vala:1585 core/Utils/Util.vala:866
+#: core/Objects/Item.vala:1609 core/Utils/Util.vala:866
 #, c-format
 msgid "Task moved to %s"
 msgstr "任務已經移至 %s"

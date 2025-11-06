@@ -333,7 +333,7 @@ msgid "Task copied to clipboard"
 msgstr "कार्य को क्लिपबोर्ड पर कॉपी किया गया"
 
 # # c-format
-#: core/Objects/Item.vala:1585 core/Utils/Util.vala:866
+#: core/Objects/Item.vala:1609 core/Utils/Util.vala:866
 #, c-format
 msgid "Task moved to %s"
 msgstr "कार्य को %s पर भेजा गया"
