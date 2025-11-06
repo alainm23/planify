@@ -8,20 +8,22 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2025-10-08 17:08-0500\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-11-06 01:51+0000\n"
+"Last-Translator: true caller <true333caller@gmail.com>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/planner/"
+"planify-extra/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural="
+"(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:7
 #: data/io.github.alainm23.planify.desktop.in.in:4
 msgid "Forget about forgetting things"
-msgstr ""
+msgstr "Zapomnij o zapominaniu różnych rzeczy"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:13
 msgid ""
@@ -29,42 +31,45 @@ msgid ""
 "life organized. With a clean and intuitive interface, cloud synchronization, "
 "and advanced features, you'll never forget what matters again."
 msgstr ""
+"Planify to nowoczesny i wydajny menedżer zadań, który ułatwia życie. Dzięki "
+"przejrzystemu i intuicyjnemu interfejsowi, synchronizacji z chmurą i "
+"zaawansowanym funkcjom już nigdy nie zapomnisz o tym, co ważne."
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:14
 msgid "✨ Core Features:"
-msgstr ""
+msgstr "✨ Podstawowe funkcje:"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:16
 msgid "Modern and clean interface designed with GTK4 and libadwaita"
-msgstr ""
+msgstr "Nowoczesny i przejrzysty interfejs zaprojektowany z GTK4 i libadwaita"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:17
 msgid "Drag and drop to organize tasks and projects effortlessly"
-msgstr ""
+msgstr "Przeciągaj i upuszcaj, aby bez wysiłku organizować zadania i projekty"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:18
 msgid "Visual progress indicators for each project"
-msgstr ""
+msgstr "Wizualne wskaźniki postępu dla każdego projektu"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:19
 msgid "Smart organization with sections and custom labels"
-msgstr ""
+msgstr "Inteligentna organizacja z sekcjami i niestandardowymi etykietami"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:20
 msgid "Calendar integration to visualize your schedule"
-msgstr ""
+msgstr "Integracja z kalendarzem w celu wizualizacji harmonogramu"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:21
 msgid "Multiple reminders per task to never miss a deadline"
-msgstr ""
+msgstr "Wiele przypomnień na każde zadanie, aby nigdy nie przegapić terminu"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:22
 msgid "Dark mode with seamless system theme integration"
-msgstr ""
+msgstr "Tryb ciemny z płynną integracją motywów systemowych"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:23
 msgid "Quick and powerful search to find anything instantly"
-msgstr ""
+msgstr "Szybkie i wydajne wyszukiwanie, natychmiastowe wyniki"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:24
 msgid "Recurring tasks with flexible patterns"
