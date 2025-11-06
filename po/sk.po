@@ -149,8 +149,8 @@ msgstr "Úloha aktualizovaná"
 msgid "Content"
 msgstr "Obsah"
 
-#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1865
-#: src/Layouts/ItemSidebarView.vala:179
+#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
+#: src/Layouts/ItemSidebarView.vala:183
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Popis"
@@ -161,7 +161,7 @@ msgstr "Naplánované"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:700 src/Layouts/ItemBoard.vala:713
-#: src/Layouts/ItemRow.vala:1143 src/Layouts/ItemRow.vala:1156
+#: src/Layouts/ItemRow.vala:1147 src/Layouts/ItemRow.vala:1160
 msgid "Pin"
 msgstr "Pripnúť"
 
@@ -286,7 +286,7 @@ msgstr "blížiace sa"
 #: core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:124
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:707
-#: src/Layouts/ItemRow.vala:1150 src/Views/Project/Project.vala:500
+#: src/Layouts/ItemRow.vala:1154 src/Views/Project/Project.vala:500
 #: src/Views/Project/Project.vala:660 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Dnes"
@@ -298,7 +298,7 @@ msgstr "dnes"
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:710
-#: src/Layouts/ItemRow.vala:1153
+#: src/Layouts/ItemRow.vala:1157
 msgid "Tomorrow"
 msgstr "Zajtra"
 
@@ -339,7 +339,7 @@ msgstr "Odstrániť štítok %s"
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:820
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
-#: src/Layouts/ItemSidebarView.vala:539 src/Layouts/SectionBoard.vala:635
+#: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
 msgstr "Toto nie je možné zrušiť"
@@ -354,7 +354,7 @@ msgstr "Toto nie je možné zrušiť"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
 #: src/Dialogs/Preferences/Pages/Backup.vala:383
 #: src/Dialogs/Preferences/Pages/Backup.vala:449
-#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:542
+#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:546
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -366,7 +366,7 @@ msgstr "Zrušiť"
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:279
-#: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:639
+#: src/Layouts/ItemSidebarView.vala:547 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
 #: src/Widgets/MultiSelectToolbar.vala:266
@@ -409,35 +409,35 @@ msgstr "Odstrániť sekciu %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:126
+#: core/QuickAddCore.vala:127
 #, fuzzy
 msgid "Task added successfully!"
 msgstr "Projekt bol úspešne pridaný!"
 
-#: core/QuickAddCore.vala:142 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:143 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Názov úlohy"
 
-#: core/QuickAddCore.vala:172
+#: core/QuickAddCore.vala:173
 msgid "This field is required"
 msgstr "Toto pole je povinné"
 
-#: core/QuickAddCore.vala:196
+#: core/QuickAddCore.vala:197
 msgid "Add a description…"
 msgstr "Pridať popis…"
 
-#: core/QuickAddCore.vala:214 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:239 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Pridať štítky"
 
-#: core/QuickAddCore.vala:219 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:244 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Nastaviť prioritu"
 
-#: core/QuickAddCore.vala:224
+#: core/QuickAddCore.vala:249
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -446,20 +446,20 @@ msgstr "Nastaviť prioritu"
 msgid "Add Reminders"
 msgstr "Pridať pripomienky"
 
-#: core/QuickAddCore.vala:265 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:290 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Pridať úlohu"
 
-#: core/QuickAddCore.vala:271 core/QuickAddCore.vala:1250
+#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1275
 msgid "Keep adding"
 msgstr ""
 
-#: core/QuickAddCore.vala:288
+#: core/QuickAddCore.vala:313
 msgid "Select a Project"
 msgstr "Vybrať projekt"
 
-#: core/QuickAddCore.vala:315
+#: core/QuickAddCore.vala:340
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -467,61 +467,61 @@ msgstr ""
 "Ľutujeme, Quick Add nemôže nájsť žiadny dostupný projekt, skúste vytvoriť "
 "projekt z Planify."
 
-#: core/QuickAddCore.vala:1212 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1237 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové skratky"
 
-#: core/QuickAddCore.vala:1218
+#: core/QuickAddCore.vala:1243
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1232
+#: core/QuickAddCore.vala:1257
 #, fuzzy
 msgid "Set priority"
 msgstr "Nastaviť prioritu"
 
-#: core/QuickAddCore.vala:1232
+#: core/QuickAddCore.vala:1257
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1233
+#: core/QuickAddCore.vala:1258
 #, fuzzy
 msgid "Add labels"
 msgstr "Pridať štítky"
 
-#: core/QuickAddCore.vala:1233
+#: core/QuickAddCore.vala:1258
 #, fuzzy
 msgid "Opens label selector"
 msgstr "Otvoriť štítky"
 
-#: core/QuickAddCore.vala:1234
+#: core/QuickAddCore.vala:1259
 #, fuzzy
 msgid "Assign project"
 msgstr "Pridať projekt"
 
-#: core/QuickAddCore.vala:1234
+#: core/QuickAddCore.vala:1259
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1235
+#: core/QuickAddCore.vala:1260
 #, fuzzy
 msgid "Set reminder"
 msgstr "Nastavte si včasné pripomienky!"
 
-#: core/QuickAddCore.vala:1235
+#: core/QuickAddCore.vala:1260
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1250
+#: core/QuickAddCore.vala:1275
 msgid "Stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1256
+#: core/QuickAddCore.vala:1281
 #, fuzzy
 msgid "Tip"
 msgstr "Hore"
 
-#: core/QuickAddCore.vala:1256
+#: core/QuickAddCore.vala:1281
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -1014,31 +1014,31 @@ msgstr "Sekcia duplikovaná"
 msgid "Project duplicated"
 msgstr "Projekt duplikovaný"
 
-#: core/Utils/Util.vala:1075 src/Dialogs/Preferences/Pages/TaskSetting.vala:145
+#: core/Utils/Util.vala:1075 src/Dialogs/Preferences/Pages/TaskSetting.vala:153
 msgid "At due time"
 msgstr "V čase splatnosti"
 
-#: core/Utils/Util.vala:1078 src/Dialogs/Preferences/Pages/TaskSetting.vala:146
+#: core/Utils/Util.vala:1078 src/Dialogs/Preferences/Pages/TaskSetting.vala:154
 msgid "10 minutes before"
 msgstr "10 minút pred"
 
-#: core/Utils/Util.vala:1081 src/Dialogs/Preferences/Pages/TaskSetting.vala:147
+#: core/Utils/Util.vala:1081 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "30 minutes before"
 msgstr "30 minút pred"
 
-#: core/Utils/Util.vala:1084 src/Dialogs/Preferences/Pages/TaskSetting.vala:148
+#: core/Utils/Util.vala:1084 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "45 minutes before"
 msgstr "45 minút pred"
 
-#: core/Utils/Util.vala:1087 src/Dialogs/Preferences/Pages/TaskSetting.vala:149
+#: core/Utils/Util.vala:1087 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "1 hour before"
 msgstr "1 hodina pred"
 
-#: core/Utils/Util.vala:1090 src/Dialogs/Preferences/Pages/TaskSetting.vala:150
+#: core/Utils/Util.vala:1090 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "2 hours before"
 msgstr "2 hodiny pred"
 
-#: core/Utils/Util.vala:1093 src/Dialogs/Preferences/Pages/TaskSetting.vala:151
+#: core/Utils/Util.vala:1093 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "3 hours before"
 msgstr "3 hodiny pred"
 
@@ -1316,11 +1316,11 @@ msgstr "Hľadať"
 msgid "Search or Create"
 msgstr "Hľadať alebo vytvoriť"
 
-#: core/Widgets/MarkdownEditor.vala:1356
+#: core/Widgets/MarkdownEditor.vala:1360
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1361
+#: core/Widgets/MarkdownEditor.vala:1365
 #, fuzzy
 msgid "Remove link"
 msgstr "Odstrániť"
@@ -1369,7 +1369,7 @@ msgstr "Zadajte hľadanie"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:136
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:144
 msgid "Reminders"
 msgstr "Pripomienky"
 
@@ -1430,7 +1430,7 @@ msgid "To Do"
 msgstr "Na vykonanie"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1164
+#: src/Layouts/ItemBoard.vala:720 src/Layouts/ItemRow.vala:1168
 #: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "Dokončené"
@@ -1481,7 +1481,7 @@ msgid "Next Week"
 msgstr "Ďalší týždeň"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:715
-#: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:505
+#: src/Layouts/ItemRow.vala:1162 src/Views/Project/Project.vala:505
 #: src/Views/Project/Project.vala:670
 msgid "No Date"
 msgstr "Žiadny dátum"
@@ -1508,8 +1508,8 @@ msgstr "Zadajte svoje prihlasovacie údaje"
 msgid "Network Is Not Available"
 msgstr "Sieť nie je dostupná"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1276
-#: src/Layouts/ItemSidebarView.vala:457
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1280
+#: src/Layouts/ItemSidebarView.vala:461
 msgid "Change History"
 msgstr "História zmien"
 
@@ -2218,15 +2218,23 @@ msgstr ""
 "Udržiavajte panel s detailmi vždy viditeľný pre ľahšiu navigáciu medzi "
 "úlohami, čím sa vyhnete potrebe neustále otvárať a zatvárať panel."
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:140
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:136
+msgid "Enable Spell Checking"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:137
+msgid "Check spelling in task descriptions and notes"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:148
 msgid "Enabled"
 msgstr "Povolené"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:154
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:162
 msgid "Automatic reminders"
 msgstr "Automatické pripomienky"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:164
 msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr ""
@@ -2433,8 +2441,8 @@ msgid "Project added successfully!"
 msgstr "Projekt bol úspešne pridaný!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1161
-#: src/Layouts/ItemRow.vala:1271 src/Layouts/ItemSidebarView.vala:452
+#: src/Layouts/ItemBoard.vala:717 src/Layouts/ItemRow.vala:1165
+#: src/Layouts/ItemRow.vala:1275 src/Layouts/ItemSidebarView.vala:456
 msgid "Move"
 msgstr "Presunúť"
 
@@ -2480,71 +2488,71 @@ msgid "Open/Close Sidebar"
 msgstr "Otvoriť/Zatvoriť bočný panel"
 
 #: src/Layouts/ItemBoard.vala:152 src/Layouts/ItemBoard.vala:700
-#: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1143
-#: src/Layouts/ItemRow.vala:1156
+#: src/Layouts/ItemBoard.vala:713 src/Layouts/ItemRow.vala:1147
+#: src/Layouts/ItemRow.vala:1160
 msgid "Unpin"
 msgstr "Odinštalovať"
 
-#: src/Layouts/ItemBoard.vala:590 src/Layouts/ItemRow.vala:1472
-#: src/Layouts/ItemSidebarView.vala:618
+#: src/Layouts/ItemBoard.vala:590 src/Layouts/ItemRow.vala:1476
+#: src/Layouts/ItemSidebarView.vala:622
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Dokončené. Ďalšie výskyt: %s"
 
-#: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1163
+#: src/Layouts/ItemBoard.vala:719 src/Layouts/ItemRow.vala:1167
 msgid "Add Subtask"
 msgstr "Pridať podúlohu"
 
-#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1165
+#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1169
 msgid "Edit"
 msgstr "Upraviť"
 
-#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1166
-#: src/Layouts/ItemRow.vala:1270 src/Layouts/ItemSidebarView.vala:451
+#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemRow.vala:1274 src/Layouts/ItemSidebarView.vala:455
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
 msgid "Duplicate"
 msgstr "Duplikovať"
 
-#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1168
-#: src/Layouts/ItemRow.vala:1273 src/Layouts/ItemSidebarView.vala:454
+#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1172
+#: src/Layouts/ItemRow.vala:1277 src/Layouts/ItemSidebarView.vala:458
 msgid "Delete Task"
 msgstr "Odstrániť úlohu"
 
-#: src/Layouts/ItemBoard.vala:1007 src/Layouts/ItemRow.vala:1735
+#: src/Layouts/ItemBoard.vala:1007 src/Layouts/ItemRow.vala:1739
 msgid "Order changed to 'Custom sort order'"
 msgstr "Poradie bolo zmenené na 'Vlastné zoradenie'"
 
-#: src/Layouts/ItemBoard.vala:1093 src/Layouts/ItemRow.vala:1518
+#: src/Layouts/ItemBoard.vala:1093 src/Layouts/ItemRow.vala:1522
 #, c-format
 msgid "%s was deleted"
 msgstr "%s bol odstránený"
 
-#: src/Layouts/ItemBoard.vala:1094 src/Layouts/ItemRow.vala:1519
+#: src/Layouts/ItemBoard.vala:1094 src/Layouts/ItemRow.vala:1523
 msgid "Undo"
 msgstr "Zrušiť"
 
-#: src/Layouts/ItemRow.vala:460
+#: src/Layouts/ItemRow.vala:464
 msgid "Add Subtasks"
 msgstr "Pridať podúlohy"
 
-#: src/Layouts/ItemRow.vala:470
+#: src/Layouts/ItemRow.vala:474
 msgid "Add Attachments"
 msgstr "Pridať prílohy"
 
-#: src/Layouts/ItemRow.vala:1024
+#: src/Layouts/ItemRow.vala:1028
 msgid "Hide Sub-tasks"
 msgstr "Skryť podúlohy"
 
-#: src/Layouts/ItemRow.vala:1024
+#: src/Layouts/ItemRow.vala:1028
 msgid "Show Sub-tasks"
 msgstr "Zobraziť podúlohy"
 
-#: src/Layouts/ItemRow.vala:1266 src/Layouts/ItemSidebarView.vala:448
+#: src/Layouts/ItemRow.vala:1270 src/Layouts/ItemSidebarView.vala:452
 msgid "Use as a Note"
 msgstr "Použiť ako poznámku"
 
-#: src/Layouts/ItemRow.vala:1269 src/Layouts/ItemSidebarView.vala:450
+#: src/Layouts/ItemRow.vala:1273 src/Layouts/ItemSidebarView.vala:454
 msgid "Copy to Clipboard"
 msgstr "Kopírovať do schránky"
 
@@ -2552,15 +2560,15 @@ msgstr "Kopírovať do schránky"
 msgid "Close Detail"
 msgstr "Zatvoriť detaily"
 
-#: src/Layouts/ItemSidebarView.vala:139 src/Widgets/ItemDetailCompleted.vala:64
+#: src/Layouts/ItemSidebarView.vala:143 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
 msgstr "Názov"
 
-#: src/Layouts/ItemSidebarView.vala:169 src/Widgets/ItemDetailCompleted.vala:90
+#: src/Layouts/ItemSidebarView.vala:173 src/Widgets/ItemDetailCompleted.vala:90
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: src/Layouts/ItemSidebarView.vala:538
+#: src/Layouts/ItemSidebarView.vala:542
 msgid "Are you sure you want to delete?"
 msgstr "Ste si istí, že chcete odstrániť?"
 

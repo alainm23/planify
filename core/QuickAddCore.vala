@@ -26,6 +26,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
     private Gtk.Entry content_entry;
     private Widgets.LoadingButton submit_button;
     private Widgets.MarkdownEditor description_textview;
+    private Gtk.ScrolledWindow description_scrolled;
     private Widgets.ItemLabels item_labels;
     private Widgets.ProjectPicker.ProjectPickerButton project_picker_button;
     private Widgets.ScheduleButton schedule_button;
@@ -196,12 +197,36 @@ public class Layouts.QuickAddCore : Adw.Bin {
             placeholder_text = _("Add a description…")
         };
 
-        var description_scrolled = new Gtk.ScrolledWindow () {
+        description_scrolled = new Gtk.ScrolledWindow () {
             hscrollbar_policy = NEVER,
-            max_content_height = 200,
+            min_content_height = 100,
             propagate_natural_height = false,
             child = description_textview
         };
+
+        signal_map[description_textview.buffer.notify["cursor-position"].connect (() => {
+            Idle.add (() => {
+                var cursor = description_textview.buffer.get_insert ();
+                Gtk.TextIter iter;
+                description_textview.buffer.get_iter_at_mark (out iter, cursor);
+                
+                Gdk.Rectangle rect;
+                description_textview.text_view.get_iter_location (iter, out rect);
+                
+                var vadj = description_scrolled.vadjustment;
+                var cursor_y = rect.y + rect.height;
+                var visible_height = vadj.page_size;
+                var margin = 20;
+                
+                if (cursor_y > vadj.value + visible_height - margin) {
+                    vadj.value = cursor_y - visible_height + margin;
+                } else if (rect.y < vadj.value + margin) {
+                    vadj.value = rect.y - margin;
+                }
+                
+                return Source.REMOVE;
+            });
+        })] = description_textview.buffer;
 
         item_labels = new Widgets.ItemLabels (item) {
             margin_start = 12,
