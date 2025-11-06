@@ -1474,7 +1474,7 @@ msgstr ""
 msgid "New Label"
 msgstr ""
 
-#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:157
+#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:161
 msgid "Edit Label"
 msgstr ""
 
@@ -2454,7 +2454,7 @@ msgstr ""
 msgid "Are you sure you want to delete?"
 msgstr ""
 
-#: src/Layouts/LabelRow.vala:158
+#: src/Layouts/LabelRow.vala:162
 msgid "Delete Label"
 msgstr ""
 

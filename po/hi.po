@@ -1558,7 +1558,7 @@ msgstr "%d सप्ताह पहले का और इतिहास ल�
 msgid "New Label"
 msgstr "नया लेबल"
 
-#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:157
+#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:161
 msgid "Edit Label"
 msgstr "लेबल संपादन"
 
@@ -2585,7 +2585,7 @@ msgstr "गुण"
 msgid "Are you sure you want to delete?"
 msgstr "क्या आप वाकई मिटाना चाहते हैं?"
 
-#: src/Layouts/LabelRow.vala:158
+#: src/Layouts/LabelRow.vala:162
 msgid "Delete Label"
 msgstr "लेबल मिटाएं"
 

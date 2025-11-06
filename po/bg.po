@@ -1572,7 +1572,7 @@ msgstr "Зареждане на още история от преди %d сед�
 msgid "New Label"
 msgstr "Нов етикет"
 
-#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:157
+#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:161
 msgid "Edit Label"
 msgstr "Редактиране на етикета"
 
@@ -2608,7 +2608,7 @@ msgstr "Свойства"
 msgid "Are you sure you want to delete?"
 msgstr "Сигурни ли сте, че искате да премахнете?"
 
-#: src/Layouts/LabelRow.vala:158
+#: src/Layouts/LabelRow.vala:162
 msgid "Delete Label"
 msgstr "Премахване на етикета"
 
