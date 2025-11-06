@@ -340,7 +340,7 @@ msgid "Task copied to clipboard"
 msgstr "Görev panoya kopyalandı"
 
 # c-format
-#: core/Objects/Item.vala:1585 core/Utils/Util.vala:866
+#: core/Objects/Item.vala:1609 core/Utils/Util.vala:866
 #, fuzzy, c-format
 msgid "Task moved to %s"
 msgstr "Görev panoya kopyalandı"
