@@ -1,39 +1,65 @@
 #!/usr/bin/env python3
 """
-Update translation files preserving POT-Creation-Date.
+Update translation files preserving complete header metadata.
 """
 import subprocess
-import re
 from pathlib import Path
 
-def get_pot_date(po_file):
-    """Extract POT-Creation-Date value from PO file."""
+def extract_full_header(po_file):
+    """Extract complete header from PO file."""
+    if not po_file.exists():
+        return None
+    
+    header_lines = []
+    in_header = False
+    found_msgstr = False
+    
     with open(po_file, 'r', encoding='utf-8') as f:
         for line in f:
-            if 'POT-Creation-Date:' in line:
-                # Extract just the date value
-                match = re.search(r'POT-Creation-Date: ([^\\]+)', line)
-                if match:
-                    return match.group(1)
-    return None
+            # Detect start of header (first msgid "")
+            if line.strip() == 'msgid ""' and not in_header:
+                in_header = True
+                header_lines.append(line)
+            # Inside header
+            elif in_header:
+                header_lines.append(line)
+                # Detect msgstr of header
+                if line.strip() == 'msgstr ""':
+                    found_msgstr = True
+                # Detect end of header (empty line after msgstr)
+                elif found_msgstr and line.strip() == '':
+                    break
+    
+    return ''.join(header_lines) if header_lines else None
 
-def restore_pot_date(po_file, old_date):
-    """Restore POT-Creation-Date value in PO file."""
-    if not old_date:
+def restore_full_header(po_file, old_header):
+    """Restore complete header in PO file."""
+    if not old_header:
         return
     
     with open(po_file, 'r', encoding='utf-8') as f:
-        content = f.read()
+        lines = f.readlines()
     
-    # Replace only the date value, keeping the line format
-    content = re.sub(
-        r'("POT-Creation-Date: )[^\\]+(\\n")',
-        r'\g<1>' + old_date + r'\g<2>',
-        content
-    )
+    # Find where header ends in current file
+    in_header = False
+    found_msgstr = False
+    header_end_idx = 0
     
-    with open(po_file, 'w', encoding='utf-8') as f:
-        f.write(content)
+    for idx, line in enumerate(lines):
+        if line.strip() == 'msgid ""' and not in_header:
+            in_header = True
+        elif in_header:
+            if line.strip() == 'msgstr ""':
+                found_msgstr = True
+            elif found_msgstr and line.strip() == '':
+                header_end_idx = idx + 1
+                break
+    
+    # Replace header with old one
+    if header_end_idx > 0:
+        new_content = old_header + ''.join(lines[header_end_idx:])
+        with open(po_file, 'w', encoding='utf-8') as f:
+            f.write(new_content)
 
 def main():
     po_dir = Path('po')
@@ -56,8 +82,8 @@ def main():
         if not po_file.exists():
             continue
         
-        # Save old POT-Creation-Date
-        old_pot_date = get_pot_date(po_file)
+        # Save old header
+        old_header = extract_full_header(po_file)
         
         # Update PO file
         subprocess.run([
@@ -66,8 +92,8 @@ def main():
             str(po_file), str(pot_file)
         ], check=True)
         
-        # Restore old POT-Creation-Date
-        restore_pot_date(po_file, old_pot_date)
+        # Restore old header
+        restore_full_header(po_file, old_header)
 
 if __name__ == '__main__':
     main()

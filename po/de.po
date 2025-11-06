@@ -1,11 +1,3 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the io.github.alainm23.planify package.
-# bestlinuxgamers <52172848+bestlinuxgamers@users.noreply.github.com>, 2024.
-# BlueFox < bluefox@privacynerd.de>, 2024.
-# alp10711 <93343276+alp10711@users.noreply.github.com>, 2024.
-# byquanton <32410361+byquanton@users.noreply.github.com>, 2025.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"

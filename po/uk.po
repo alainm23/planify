@@ -1,7 +1,3 @@
-# Ukrainian translations for planify.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.alainm23.planner package.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"

@@ -1,9 +1,3 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.alainm23.planner package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# Irénée THIRION <irenee.thirion@e.email>, 2023.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
