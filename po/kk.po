@@ -1544,7 +1544,7 @@ msgstr "%d апта бұрынғы тарихты көбірек жүктеу…
 msgid "New Label"
 msgstr "Жаңа белгі"
 
-#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:157
+#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:161
 msgid "Edit Label"
 msgstr "Белгіні өңдеу"
 
@@ -2577,7 +2577,7 @@ msgstr "Қасиеттер"
 msgid "Are you sure you want to delete?"
 msgstr "Жоюды шынымен қалайсыз ба?"
 
-#: src/Layouts/LabelRow.vala:158
+#: src/Layouts/LabelRow.vala:162
 msgid "Delete Label"
 msgstr "Белгіні жою"
 

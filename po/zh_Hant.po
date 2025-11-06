@@ -1491,7 +1491,7 @@ msgstr "載入更多歷史記錄自 %d 週之前…"
 msgid "New Label"
 msgstr "新建標籤"
 
-#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:157
+#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:161
 msgid "Edit Label"
 msgstr "編輯標籤"
 
@@ -2487,7 +2487,7 @@ msgstr "屬性"
 msgid "Are you sure you want to delete?"
 msgstr "您確定要刪除嗎？"
 
-#: src/Layouts/LabelRow.vala:158
+#: src/Layouts/LabelRow.vala:162
 msgid "Delete Label"
 msgstr "刪除標籤"
 

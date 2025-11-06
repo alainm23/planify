@@ -1509,7 +1509,7 @@ msgstr "მეტი ისტორიის ჩატვირთვა %d კ
 msgid "New Label"
 msgstr "ახალი ჭდე"
 
-#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:157
+#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:161
 msgid "Edit Label"
 msgstr "ჭდის ჩასწორება"
 
@@ -2513,7 +2513,7 @@ msgstr "თვისებები"
 msgid "Are you sure you want to delete?"
 msgstr "მართლა გნებავთ წაშლა?"
 
-#: src/Layouts/LabelRow.vala:158
+#: src/Layouts/LabelRow.vala:162
 msgid "Delete Label"
 msgstr "ჭდის წაშლა"
 

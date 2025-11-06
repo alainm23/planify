@@ -1560,7 +1560,7 @@ msgstr ""
 msgid "New Label"
 msgstr "새 라벨"
 
-#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:157
+#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:161
 msgid "Edit Label"
 msgstr "라벨 편집"
 
@@ -2585,7 +2585,7 @@ msgstr "속성"
 msgid "Are you sure you want to delete?"
 msgstr "삭제하시겠습니까?"
 
-#: src/Layouts/LabelRow.vala:158
+#: src/Layouts/LabelRow.vala:162
 msgid "Delete Label"
 msgstr "라벨 삭제"
 

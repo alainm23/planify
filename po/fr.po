@@ -1560,7 +1560,7 @@ msgstr "Charger l’historique d’il y a %d semaines…"
 msgid "New Label"
 msgstr "Nouvelle étiquette"
 
-#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:157
+#: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:161
 msgid "Edit Label"
 msgstr "Modifier l’étiquette"
 
@@ -2599,7 +2599,7 @@ msgstr "Propriétés"
 msgid "Are you sure you want to delete?"
 msgstr "Êtes-vous sûr de vouloir supprimer ?"
 
-#: src/Layouts/LabelRow.vala:158
+#: src/Layouts/LabelRow.vala:162
 msgid "Delete Label"
 msgstr "Supprimer l’étiquette"
 
