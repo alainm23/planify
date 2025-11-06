@@ -111,7 +111,7 @@ public class Widgets.ReorderChild : Adw.Bin {
 
         signal_map[drag_source.drag_begin.connect ((source, drag) => {
             var paintable = new Gtk.WidgetPaintable (widget);
-            source.set_icon (paintable, row.get_width () / 3, row.get_height () / 2);
+            source.set_icon (paintable, 0, 0);
             drag_begin ();
         })] = drag_source;
 
@@ -191,8 +191,13 @@ public class Widgets.ReorderChild : Adw.Bin {
     }
 
     public void draw_motion_widgets () {
-        motion_top_grid.height_request = row.get_height ();
-        motion_bottom_grid.height_request = row.get_height ();
+        var height = row.get_height ();
+        if (height == 0) {
+            height = 32;
+        }
+        
+        motion_top_grid.height_request = height;
+        motion_bottom_grid.height_request = height;
     }
 
     public void clean_up () {
