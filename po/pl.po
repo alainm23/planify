@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
 "PO-Revision-Date: 2025-11-05 10:05+0000\n"
 "Last-Translator: true caller <true333caller@gmail.com>\n"
