@@ -620,6 +620,10 @@ public class Views.Project : Adw.Bin {
             check_default_filters ();
         })] = show_completed_item;
 
+        signal_map[project.show_completed_changed.connect (() => {
+            show_completed_item.active = project.show_completed;
+        })] = project;
+
         signal_map[show_completed_item_button.clicked.connect (() => {
             popover.popdown ();
 
