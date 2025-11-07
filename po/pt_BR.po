@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
 "PO-Revision-Date: 2025-11-07 23:51+0000\n"
-"Last-Translator: 𝙑 <nerdgamer876@protonmail.com>\n"
+"Last-Translator: José Victor dos Santos Neto <ssvictorsant0z@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -519,9 +519,8 @@ msgid "Stay open after creating task"
 msgstr "Manter aberto após criar tarefa"
 
 #: core/QuickAddCore.vala:1281
-#, fuzzy
 msgid "Tip"
-msgstr "Superior"
+msgstr "Dica"
 
 #: core/QuickAddCore.vala:1281
 msgid "Combine shortcuts in the title field for faster creation"
