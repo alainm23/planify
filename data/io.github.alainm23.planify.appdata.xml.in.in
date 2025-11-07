@@ -60,6 +60,25 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.15.2" date="2025-11-07">
+      <description translate="no">
+        <p>✨ Planify 4.15.2 brings improved keyboard flows, smarter Quick Add, spell-check options, and a smoother backup experience.</p>
+        <ul>
+          <li>Enhanced keyboard shortcut flow for project selection in both Quick Add and the Project Picker when moving tasks between projects.</li>
+          <li>Fixed project completion percentage for archived projects — now correctly includes all items instead of showing 0% when all tasks are archived.</li>
+          <li>Added spell-check support for task titles, improving writing accuracy and user experience.</li>
+          <li>Introduced new selection widgets for the Task Completion Mode and Automatic Reminders preferences, replacing the old Adw.ComboRow for better clarity and usability.</li>
+          <li>Improved backup handling — Planify now shows the location of your generated backup files and automatically restarts itself after a restore, eliminating the need for manual restarts.</li>
+          <li>Quick Add: Keeps task attributes (due date, pinned state, and labels) when using "Keep adding" mode, streamlining consecutive task creation.</li>
+          <li>Improved focus restoration — Planify now restores the focus to the previously active input (title or description) after closing popups or clicking buttons in Quick Add.</li>
+          <li>Added in-line label selection in Quick Add using the @ symbol.</li>
+          <li>Added optional spell-check setting for task descriptions and notes — now configurable in Preferences.</li>
+          <li>Fixed auto-scroll issue in Quick Add’s description field, ensuring the cursor remains visible when typing long text.</li>
+          <li>General design and usability improvements, plus several bug fixes reported by users.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.15.1" date="2025-10-11">
       <description translate="no">
         <p>✨ Planify 4.15.1 is here! Enjoy a new Markdown editor, smoother animations, Focus Mode, and smarter ways to organize your tasks.</p>
