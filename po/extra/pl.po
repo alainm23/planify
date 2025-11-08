@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2025-11-06 01:51+0000\n"
-"Last-Translator: true caller <true333caller@gmail.com>\n"
+"PO-Revision-Date: 2025-11-08 23:51+0000\n"
+"Last-Translator: Maciej Górecki <maciej.gorecki21@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/planner/"
 "planify-extra/pl/>\n"
 "Language: pl\n"
@@ -73,15 +73,15 @@ msgstr "Szybkie i wydajne wyszukiwanie, natychmiastowe wyniki"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:24
 msgid "Recurring tasks with flexible patterns"
-msgstr ""
+msgstr "Powtarzające się zadania z elastycznymi wzorcami"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:25
 msgid "Attachments and links in your tasks"
-msgstr ""
+msgstr "Załącznik i linki w twoich zadaniach"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:27
 msgid "☁️ Cloud Synchronization:"
-msgstr ""
+msgstr "Synchronizacja w Chmurze"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:29
 msgid "Full synchronization with Todoist to access your tasks from anywhere"
