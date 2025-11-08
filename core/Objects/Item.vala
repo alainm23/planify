@@ -1369,18 +1369,42 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
-            loading = true;
-            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-            caldav_client.delete_item.begin (this, (obj, res) => {
-                HttpResponse response = caldav_client.delete_item.end (res);
-                loading = false;
+            delete_caldav.begin ();
+        }
+    }
 
-                if (response.status) {
-                    Services.Store.instance ().delete_item (this);
-                } else {
-                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                }
-            });
+    private async void delete_caldav () {
+        loading = true;
+        var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+        
+        try {
+            yield delete_subitems_caldav (this, caldav_client);
+            
+            var response = yield caldav_client.delete_item (this);
+            
+            if (!response.status) {
+                throw new IOError.FAILED (response.error);
+            }
+            
+            Services.Store.instance ().delete_item (this);
+        } catch (Error e) {
+            Services.EventBus.get_default ().send_error_toast (0, e.message);
+        }
+        
+        loading = false;
+    }
+
+    private async void delete_subitems_caldav (Objects.Item item, Services.CalDAV.CalDAVClient caldav_client) throws Error {
+        foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
+            yield delete_subitems_caldav (subitem, caldav_client);
+            
+            var response = yield caldav_client.delete_item (subitem);
+
+            if (!response.status) {
+                throw new IOError.FAILED (response.error);
+            }
+            
+            Services.Store.instance ().delete_item (subitem);
         }
     }
 
