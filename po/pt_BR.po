@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-02 16:16+0000\n"
-"Last-Translator: Rodrigo Vilas Boas <rodrigo@reverberar.com>\n"
+"PO-Revision-Date: 2025-11-07 23:51+0000\n"
+"Last-Translator: José Victor dos Santos Neto <ssvictorsant0z@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -504,7 +504,7 @@ msgstr "Adicionar projeto"
 
 #: core/QuickAddCore.vala:1259
 msgid "Opens project selector"
-msgstr ""
+msgstr "Abre o seletor de projeto"
 
 #: core/QuickAddCore.vala:1260
 msgid "Set reminder"
@@ -519,13 +519,12 @@ msgid "Stay open after creating task"
 msgstr "Manter aberto após criar tarefa"
 
 #: core/QuickAddCore.vala:1281
-#, fuzzy
 msgid "Tip"
-msgstr "Superior"
+msgstr "Dica"
 
 #: core/QuickAddCore.vala:1281
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "Combine atalhos no campo de título para uma criação rápida"
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
 #, fuzzy, c-format
@@ -539,7 +538,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
-msgstr ""
+msgstr "O arquivo de origem já existe"
 
 #: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
 msgid "Failed to resolve principal url"
@@ -547,7 +546,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "Inicializando a sincronização…"
 
 #: core/Services/CalDAV/Core.vala:245
 #, fuzzy, c-format
