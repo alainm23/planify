@@ -2,8 +2,8 @@
   "nl": {
     "language": "Dutch",
     "total_strings": 693,
-    "translated_strings": 529,
-    "translated_percent": 76.3
+    "translated_strings": 533,
+    "translated_percent": 76.9
   },
   "tr": {
     "language": "Turkish",
@@ -374,8 +374,8 @@
   "pl": {
     "language": "Polish",
     "total_strings": 693,
-    "translated_strings": 12,
-    "translated_percent": 1.7
+    "translated_strings": 15,
+    "translated_percent": 2.1
   },
   "ro": {
     "language": "Romanian",
