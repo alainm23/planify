@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2025-11-08 23:51+0000\n"
-"Last-Translator: Giorgio <gsabbatini@gmail.com>\n"
+"PO-Revision-Date: 2025-11-10 21:51+0000\n"
+"Last-Translator: Paolo Asperti <paolo@asperti.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
 "planify-extra/it/>\n"
 "Language: it\n"
@@ -107,11 +107,11 @@ msgstr ""
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:34
 msgid "* Planify is not created by, affiliated with, or supported by Doist"
-msgstr ""
+msgstr "* Planify non è creato, affiliato o supportato da Doist"
 
 #: data/io.github.alainm23.planify.desktop.in.in:3
 msgid "Planify"
-msgstr ""
+msgstr "Planify"
 
 #: data/io.github.alainm23.planify.desktop.in.in:14
 msgid "development;task;tasks;project;todo;reminder;reminders;event;events;calendar;todoist;"
