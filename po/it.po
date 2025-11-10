@@ -1,136 +1,136 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-02 16:28+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/planner/io-"
-"github-alainm23-planify/it/>\n"
+"PO-Revision-Date: 2025-11-10 10:40+0000\n"
+"Last-Translator: Paolo Asperti <paolo@asperti.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
 msgid "Projects"
-msgstr ""
+msgstr "Progetti"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:362
 msgid "Sections"
-msgstr ""
+msgstr "Sezioni"
 
 #: core/Enum.vala:174 core/Enum.vala:183
 msgid "Tasks"
-msgstr ""
+msgstr "Compiti"
 
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:36
 #: src/Dialogs/Preferences/Pages/Backup.vala:370
 msgid "Labels"
-msgstr ""
+msgstr "Etichette"
 
 #: core/Enum.vala:180 src/Dialogs/Preferences/Pages/HomeView.vala:35
 msgid "Filters"
-msgstr ""
+msgstr "Filtri"
 
 #: core/Enum.vala:186
 msgid "Lists"
-msgstr ""
+msgstr "Liste"
 
 #: core/Enum.vala:218
 msgid "Don't Repeat"
-msgstr ""
+msgstr "Non ripetere"
 
 #: core/Enum.vala:220
 msgid "Every minute"
-msgstr ""
+msgstr "Ogni minuto"
 
 #: core/Enum.vala:220
 #, c-format
 msgid "Every %d minutes"
-msgstr ""
+msgstr "Ogni %d minuti"
 
 #: core/Enum.vala:222
 msgid "Every hour"
-msgstr ""
+msgstr "Ogni ora"
 
 #: core/Enum.vala:222
 #, c-format
 msgid "Every %d hours"
-msgstr ""
+msgstr "Ogni %d ore"
 
 #: core/Enum.vala:224
 msgid "Every day"
-msgstr ""
+msgstr "Ogni giorno"
 
 #: core/Enum.vala:224
 #, c-format
 msgid "Every %d days"
-msgstr ""
+msgstr "Ogni %d giorni"
 
 #: core/Enum.vala:226
 msgid "Every week"
-msgstr ""
+msgstr "Ogni settimana"
 
 #: core/Enum.vala:226
 #, c-format
 msgid "Every %d weeks"
-msgstr ""
+msgstr "Ogni %d settimane"
 
 #: core/Enum.vala:228
 msgid "Every month"
-msgstr ""
+msgstr "Ogni mese"
 
 #: core/Enum.vala:228
 #, c-format
 msgid "Every %d months"
-msgstr ""
+msgstr "Ogni %d mesi"
 
 #: core/Enum.vala:230
 msgid "Every year"
-msgstr ""
+msgstr "Ogni anno"
 
 #: core/Enum.vala:230
 #, c-format
 msgid "Every %d years"
-msgstr ""
+msgstr "Ogni %d anni"
 
 #: core/Enum.vala:280 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
 msgid "Nextcloud"
-msgstr ""
+msgstr "Nextcloud"
 
 #: core/Enum.vala:283 core/Services/CalDAV/CalDAVClient.vala:121
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
-msgstr ""
+msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:488 src/Views/Project/Project.vala:533
 #: src/Views/Scheduled/Scheduled.vala:228
-#: src/Views/Scheduled/Scheduled.vala:257 src/Views/Today.vala:624
-#: src/Views/Today.vala:653 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Scheduled/Scheduled.vala:257 src/Views/Today.vala:615
+#: src/Views/Today.vala:644 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
-msgstr ""
+msgstr "Priorità"
 
 #: core/Enum.vala:348
 msgid "Label"
-msgstr ""
+msgstr "Etichetta"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:486
-#: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:622
+#: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:613
 msgid "Due Date"
 msgstr ""
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
-msgstr ""
+msgstr "Sezione"
 
 #: core/Enum.vala:463
 msgid "Task Created"
@@ -283,22 +283,22 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:500
 #: src/Views/Project/Project.vala:664 src/Views/Today.vala:202
 msgid "Today"
-msgstr ""
+msgstr "Oggi"
 
 #: core/Objects/Filters/Today.vala:50
 msgid "today"
-msgstr ""
+msgstr "oggi"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:714
 #: src/Layouts/ItemRow.vala:1161
 msgid "Tomorrow"
-msgstr ""
+msgstr "Domani"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "tomorrow"
-msgstr ""
+msgstr "domani"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "date"
@@ -354,7 +354,7 @@ msgstr ""
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:265
 msgid "Cancel"
-msgstr ""
+msgstr "Annulla"
 
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:824
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
@@ -365,7 +365,7 @@ msgstr ""
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
 #: src/Widgets/MultiSelectToolbar.vala:266
 msgid "Delete"
-msgstr ""
+msgstr "Elimina"
 
 #: core/Objects/Project.vala:783
 msgid "The project was copied to the Clipboard."
@@ -423,7 +423,7 @@ msgstr ""
 #: core/QuickAddCore.vala:239 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
-msgstr ""
+msgstr "Aggiungi etichetta"
 
 #: core/QuickAddCore.vala:244 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
@@ -530,16 +530,16 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "Inizio sincronizzazione…"
 
 #: core/Services/CalDAV/Core.vala:245
 #, c-format
 msgid "Syncing %s…"
-msgstr ""
+msgstr "Sincronizzazione %s…"
 
 #: core/Services/CalDAV/Core.vala:253
 msgid "Sync completed"
-msgstr ""
+msgstr "Sincronizzazione completata"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -572,15 +572,15 @@ msgstr ""
 
 #: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
-msgstr ""
+msgstr "Errore sconosciuto"
 
 #: core/Utils/Datetime.vala:72
 msgid "Yesterday"
-msgstr ""
+msgstr "Ieri"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "days"
-msgstr ""
+msgstr "giorni"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "day"
@@ -614,31 +614,31 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:403
 msgid "Mo,"
-msgstr ""
+msgstr "Lu,"
 
 #: core/Utils/Datetime.vala:407
 msgid "Tu,"
-msgstr ""
+msgstr "Ma,"
 
 #: core/Utils/Datetime.vala:411
 msgid "We,"
-msgstr ""
+msgstr "Me,"
 
 #: core/Utils/Datetime.vala:415
 msgid "Th,"
-msgstr ""
+msgstr "Gi,"
 
 #: core/Utils/Datetime.vala:419
 msgid "Fr,"
-msgstr ""
+msgstr "Ve,"
 
 #: core/Utils/Datetime.vala:423
 msgid "Sa,"
-msgstr ""
+msgstr "Sa,"
 
 #: core/Utils/Datetime.vala:427
 msgid "Su,"
-msgstr ""
+msgstr "Do,"
 
 #: core/Utils/Datetime.vala:620
 msgid "%a, %b %-e, %Y"
@@ -790,7 +790,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:548
 msgid "On This Computer"
-msgstr ""
+msgstr "Su Questo Computer"
 
 #: core/Utils/Util.vala:573
 msgid "Meet Planify"
@@ -1025,37 +1025,37 @@ msgstr ""
 #: core/Widgets/Calendar/CalendarWeek.vala:39
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
 msgid "Su"
-msgstr ""
+msgstr "Do"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:40
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:137
 msgid "Mo"
-msgstr ""
+msgstr "Lu"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:41
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Tu"
-msgstr ""
+msgstr "Ma"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:42
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:149
 msgid "We"
-msgstr ""
+msgstr "Me"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:43
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:155
 msgid "Th"
-msgstr ""
+msgstr "Gi"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:44
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:161
 msgid "Fr"
-msgstr ""
+msgstr "Ve"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:45
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:167
 msgid "Sa"
-msgstr ""
+msgstr "Sa"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:126
 msgid "Next week"
@@ -1396,7 +1396,7 @@ msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr ""
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:581
-#: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
+#: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:655
 msgid "Filter By"
 msgstr ""
 
@@ -1499,7 +1499,7 @@ msgstr ""
 
 #: src/Dialogs/ManageSectionOrder.vala:54
 msgid "You can sort your sections by dragging and dropping"
-msgstr ""
+msgstr "Puoi riordinare le sezioni trascinandole"
 
 #: src/Dialogs/ManageSectionOrder.vala:76
 msgid "Archived"
@@ -1526,7 +1526,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:102
 msgid "You can sort your accounts by dragging and dropping"
-msgstr ""
+msgstr "Puoi riordinare gli account trascinandoli"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:228
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:547
@@ -1554,15 +1554,15 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:52
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:48
 msgid "Server URL"
-msgstr ""
+msgstr "URL Server"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:55
 msgid "Username"
-msgstr ""
+msgstr "Utente"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:58
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:67
 msgid "Calendar Home URL"
@@ -1571,7 +1571,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:79
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:92
 msgid "Advanced Options"
-msgstr ""
+msgstr "Opzioni Avanzate"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:91
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:103
@@ -1591,15 +1591,15 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "Server URL examples:"
-msgstr ""
+msgstr "Esempi di URL server:"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "- https://cloud.example.com/"
-msgstr ""
+msgstr "- https://cloud.esempio.it/"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:55
 msgid "- https://example.com/nextcloud/"
-msgstr ""
+msgstr "- https://esempio.it/nextcloud/"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:165
@@ -1608,7 +1608,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:74
 msgid "Display Name"
-msgstr ""
+msgstr "Nome Visualizzato"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:80
 msgid "Sync Server"
@@ -1634,7 +1634,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
 msgid "Token"
-msgstr ""
+msgstr "Token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:100
 msgid "How to get your token?"
@@ -1675,7 +1675,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Appearance.vala:36
 #: src/Dialogs/Preferences/PreferencesWindow.vala:169
 msgid "Appearance"
-msgstr ""
+msgstr "Aspetto"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:51
 msgid "Use System Settings"
@@ -1729,11 +1729,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:48
 msgid "Create Backup"
-msgstr ""
+msgstr "Crea Backup"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:52
 msgid "Import Backup"
-msgstr ""
+msgstr "Importa Backup"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:54
 msgid "Backup Files"
@@ -1750,7 +1750,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:76
 msgid "Migrate"
-msgstr ""
+msgstr "Migra"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:78
 msgid "Migrate From Planner"
@@ -1758,7 +1758,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:118
 msgid "The Backup was created successfully."
-msgstr ""
+msgstr "Il Backup è stato creato con successo."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:135
 msgid "Tasks Migrate Successfully"
@@ -1821,7 +1821,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:485 src/Views/Scheduled/Scheduled.vala:225
-#: src/Views/Today.vala:621
+#: src/Views/Today.vala:612
 msgid "Alphabetically"
 msgstr ""
 
@@ -1855,7 +1855,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:83
 msgid "Run on Startup"
-msgstr ""
+msgstr "Esegui all'avvio"
 
 #: src/Dialogs/Preferences/Pages/General.vala:84
 msgid "Whether Planify should run on startup"
@@ -1867,7 +1867,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:104
 msgid "Date and Time"
-msgstr ""
+msgstr "Data e Ora"
 
 #: src/Dialogs/Preferences/Pages/General.vala:107
 msgid "24h"
@@ -1883,31 +1883,31 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:118
 msgid "Sunday"
-msgstr ""
+msgstr "Domenica"
 
 #: src/Dialogs/Preferences/Pages/General.vala:119
 msgid "Monday"
-msgstr ""
+msgstr "Lunedì"
 
 #: src/Dialogs/Preferences/Pages/General.vala:120
 msgid "Tuesday"
-msgstr ""
+msgstr "Martedì"
 
 #: src/Dialogs/Preferences/Pages/General.vala:121
 msgid "Wednesday"
-msgstr ""
+msgstr "Mercoledì"
 
 #: src/Dialogs/Preferences/Pages/General.vala:122
 msgid "Thursday"
-msgstr ""
+msgstr "Giovedì"
 
 #: src/Dialogs/Preferences/Pages/General.vala:123
 msgid "Friday"
-msgstr ""
+msgstr "Venerdì"
 
 #: src/Dialogs/Preferences/Pages/General.vala:124
 msgid "Saturday"
-msgstr ""
+msgstr "Sabato"
 
 #: src/Dialogs/Preferences/Pages/General.vala:127
 msgid "Start of the Week"
@@ -2438,7 +2438,7 @@ msgstr ""
 
 #: src/Layouts/ItemSidebarView.vala:143 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
-msgstr ""
+msgstr "Titolo"
 
 #: src/Layouts/ItemSidebarView.vala:173 src/Widgets/ItemDetailCompleted.vala:90
 msgid "Properties"
@@ -2466,7 +2466,7 @@ msgstr ""
 
 #: src/Layouts/ProjectRow.vala:706
 msgid "Refresh"
-msgstr ""
+msgstr "Aggiorna"
 
 #: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:346
 #: src/Widgets/ProjectItemRow.vala:154
@@ -2724,7 +2724,7 @@ msgid "Board"
 msgstr ""
 
 #: src/Views/Project/Project.vala:481 src/Views/Scheduled/Scheduled.vala:222
-#: src/Views/Today.vala:618
+#: src/Views/Today.vala:609
 msgid "Sorting"
 msgstr ""
 
@@ -2733,7 +2733,7 @@ msgid "Custom sort order"
 msgstr ""
 
 #: src/Views/Project/Project.vala:487 src/Views/Scheduled/Scheduled.vala:227
-#: src/Views/Today.vala:623
+#: src/Views/Today.vala:614
 msgid "Date Added"
 msgstr ""
 
@@ -2766,27 +2766,27 @@ msgid "Next 30 Days"
 msgstr ""
 
 #: src/Views/Project/Project.vala:511 src/Views/Scheduled/Scheduled.vala:235
-#: src/Views/Today.vala:631
+#: src/Views/Today.vala:622
 msgid "P1"
 msgstr ""
 
 #: src/Views/Project/Project.vala:517 src/Views/Scheduled/Scheduled.vala:241
-#: src/Views/Today.vala:637
+#: src/Views/Today.vala:628
 msgid "P2"
 msgstr ""
 
 #: src/Views/Project/Project.vala:523 src/Views/Scheduled/Scheduled.vala:247
-#: src/Views/Today.vala:643
+#: src/Views/Today.vala:634
 msgid "P3"
 msgstr ""
 
 #: src/Views/Project/Project.vala:529 src/Views/Scheduled/Scheduled.vala:253
-#: src/Views/Today.vala:649
+#: src/Views/Today.vala:640
 msgid "P4"
 msgstr ""
 
 #: src/Views/Project/Project.vala:536 src/Views/Scheduled/Scheduled.vala:260
-#: src/Views/Today.vala:656
+#: src/Views/Today.vala:647
 msgid "Filter by Labels"
 msgstr ""
 

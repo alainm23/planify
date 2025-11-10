@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-02 16:18+0000\n"
-"Last-Translator: WhiredPlanck <whiredplanck@outlook.com>\n"
+"PO-Revision-Date: 2025-11-07 23:51+0000\n"
+"Last-Translator: wildgooseL <antipasli@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hans/>\n"
 "Language: zh\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -114,8 +114,8 @@ msgstr "CalDAV"
 #: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:488 src/Views/Project/Project.vala:533
 #: src/Views/Scheduled/Scheduled.vala:228
-#: src/Views/Scheduled/Scheduled.vala:257 src/Views/Today.vala:624
-#: src/Views/Today.vala:653 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Scheduled/Scheduled.vala:257 src/Views/Today.vala:615
+#: src/Views/Today.vala:644 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "优先级"
 
@@ -124,7 +124,7 @@ msgid "Label"
 msgstr "标签"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:486
-#: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:622
+#: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:613
 msgid "Due Date"
 msgstr ""
 
@@ -159,27 +159,27 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:704 src/Layouts/ItemBoard.vala:717
 #: src/Layouts/ItemRow.vala:1151 src/Layouts/ItemRow.vala:1164
 msgid "Pin"
-msgstr ""
+msgstr "置顶"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr ""
+msgstr "所有任务"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
-msgstr ""
+msgstr "所有任务"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all"
-msgstr ""
+msgstr "全部"
 
 #: core/Objects/Filters/Anytime.vala:33
 msgid "Anytime"
-msgstr ""
+msgstr "任何时间"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "anytime"
-msgstr ""
+msgstr "任何时间"
 
 #: core/Objects/Filters/Anytime.vala:34 core/Objects/Filters/Completed.vala:34
 #: core/Objects/Filters/Inbox.vala:36 core/Objects/Filters/Labels.vala:34
@@ -192,15 +192,15 @@ msgstr "过滤器"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr ""
+msgstr "没有日期"
 
 #: core/Objects/Filters/Completed.vala:33
 msgid "Completed"
-msgstr ""
+msgstr "已完成"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "completed"
-msgstr ""
+msgstr "已完成"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "logbook"
@@ -218,63 +218,63 @@ msgstr ""
 
 #: core/Objects/Filters/Inbox.vala:36
 msgid "inbox"
-msgstr ""
+msgstr "收集箱"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
-msgstr ""
+msgstr "标签"
 
 #: core/Objects/Filters/Pinboard.vala:34
 msgid "Pinboard"
-msgstr ""
+msgstr "置顶任务"
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:113
 msgid "Priority 1: high"
-msgstr ""
+msgstr "优先级 1：高"
 
 #: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:115
 msgid "Priority 2: medium"
-msgstr ""
+msgstr "优先级 2 ：中"
 
 #: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:117
 msgid "Priority 3: low"
-msgstr ""
+msgstr "优先级 3 ：低"
 
 #: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:119
 msgid "Priority 4: none"
-msgstr ""
+msgstr "优先级 4 ：无"
 
 #: core/Objects/Filters/Priority.vala:170
 msgid "high"
-msgstr ""
+msgstr "高"
 
 #: core/Objects/Filters/Priority.vala:172
 msgid "medium"
-msgstr ""
+msgstr "中"
 
 #: core/Objects/Filters/Priority.vala:174
 msgid "low"
-msgstr ""
+msgstr "低"
 
 #: core/Objects/Filters/Priority.vala:176
 msgid "none"
-msgstr ""
+msgstr "无"
 
 #: core/Objects/Filters/Repeating.vala:33
 msgid "Repeating"
-msgstr ""
+msgstr "重复"
 
 #: core/Objects/Filters/Repeating.vala:34
 msgid "repeating"
-msgstr ""
+msgstr "重复"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr ""
+msgstr "日程"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
-msgstr ""
+msgstr "近期"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Util.vala:247
@@ -284,34 +284,35 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:500
 #: src/Views/Project/Project.vala:664 src/Views/Today.vala:202
 msgid "Today"
-msgstr ""
+msgstr "今天"
 
 #: core/Objects/Filters/Today.vala:50
 msgid "today"
-msgstr ""
+msgstr "今天"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:125
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:714
 #: src/Layouts/ItemRow.vala:1161
 msgid "Tomorrow"
-msgstr ""
+msgstr "明天"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "tomorrow"
-msgstr ""
+msgstr "明天"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "date"
-msgstr ""
+msgstr "日期"
 
 #: core/Objects/Filters/Unlabeled.vala:33
+#, fuzzy
 msgid "Unlabeled"
-msgstr ""
+msgstr "无标签"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "no label"
-msgstr ""
+msgstr "无标签"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "unlabeled"
@@ -319,17 +320,17 @@ msgstr ""
 
 #: core/Objects/Item.vala:1320
 msgid "Task copied to clipboard"
-msgstr ""
+msgstr "任务已复制到剪贴板"
 
 #: core/Objects/Item.vala:1609 core/Utils/Util.vala:866
 #, c-format
 msgid "Task moved to %s"
-msgstr ""
+msgstr "任务已移动到%s"
 
 #: core/Objects/Label.vala:206
 #, c-format
 msgid "Delete Label %s"
-msgstr ""
+msgstr "已删除标签%s"
 
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:820
 #: core/Objects/Section.vala:377
@@ -337,7 +338,7 @@ msgstr ""
 #: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
-msgstr ""
+msgstr "无法撤销"
 
 #: core/Objects/Label.vala:210 core/Objects/Project.vala:823
 #: core/Objects/Project.vala:880 core/Objects/Section.vala:380
@@ -355,7 +356,7 @@ msgstr ""
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:265
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:824
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
@@ -366,31 +367,31 @@ msgstr ""
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
 #: src/Widgets/MultiSelectToolbar.vala:266
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: core/Objects/Project.vala:783
 msgid "The project was copied to the Clipboard."
-msgstr ""
+msgstr "该项目已复制到剪贴板。"
 
 #: core/Objects/Project.vala:819
 #, c-format
 msgid "Delete Project %s?"
-msgstr ""
+msgstr "删除项目%s？"
 
 #: core/Objects/Project.vala:876 core/Objects/Section.vala:402
 msgid "Archive?"
-msgstr ""
+msgstr "归档？"
 
 #: core/Objects/Project.vala:877 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "将会归档%s及其所有任务。"
 
 #: core/Objects/Project.vala:881 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
 msgid "Archive"
-msgstr ""
+msgstr "归档"
 
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
@@ -402,11 +403,11 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:35
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:44
 msgid "Todoist"
-msgstr ""
+msgstr "Todoist"
 
 #: core/QuickAddCore.vala:127
 msgid "Task added successfully!"
-msgstr ""
+msgstr "任务添加成功！"
 
 #: core/QuickAddCore.vala:143 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
@@ -415,21 +416,21 @@ msgstr ""
 
 #: core/QuickAddCore.vala:173
 msgid "This field is required"
-msgstr ""
+msgstr "必填"
 
 #: core/QuickAddCore.vala:197
 msgid "Add a description…"
-msgstr ""
+msgstr "添加说明……"
 
 #: core/QuickAddCore.vala:239 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
-msgstr ""
+msgstr "添加标签"
 
 #: core/QuickAddCore.vala:244 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
-msgstr ""
+msgstr "设置优先级"
 
 #: core/QuickAddCore.vala:249
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
@@ -438,66 +439,67 @@ msgstr ""
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
 #: core/Widgets/ReminderPicker/ReminderButton.vala:177
 msgid "Add Reminders"
-msgstr ""
+msgstr "添加提醒"
 
 #: core/QuickAddCore.vala:290 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
-msgstr ""
+msgstr "创建任务"
 
 #: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1275
 msgid "Keep adding"
-msgstr ""
+msgstr "继续添加"
 
 #: core/QuickAddCore.vala:313
 msgid "Select a Project"
-msgstr ""
+msgstr "选择项目"
 
 #: core/QuickAddCore.vala:340
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
+"抱歉，快速添加功能找不到任何可用的项目，请先在 Planify 中创建一个项目。"
 
 #: core/QuickAddCore.vala:1237 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "快捷键"
 
 #: core/QuickAddCore.vala:1243
 msgid "Speed up task creation with these shortcuts"
-msgstr ""
+msgstr "用这些快捷键快速创建任务"
 
 #: core/QuickAddCore.vala:1257
 msgid "Set priority"
-msgstr ""
+msgstr "设置优先级"
 
 #: core/QuickAddCore.vala:1257
 msgid "p1 = highest, p4 = lowest"
-msgstr ""
+msgstr "p1 = 最高，p4 = 最低"
 
 #: core/QuickAddCore.vala:1258
 msgid "Add labels"
-msgstr ""
+msgstr "添加标签"
 
 #: core/QuickAddCore.vala:1258
 msgid "Opens label selector"
-msgstr ""
+msgstr "打开标签选择器"
 
 #: core/QuickAddCore.vala:1259
 msgid "Assign project"
-msgstr ""
+msgstr "分配到项目"
 
 #: core/QuickAddCore.vala:1259
 msgid "Opens project selector"
-msgstr ""
+msgstr "打开项目选择器"
 
 #: core/QuickAddCore.vala:1260
 msgid "Set reminder"
-msgstr ""
+msgstr "设置提醒"
 
 #: core/QuickAddCore.vala:1260
 msgid "Opens reminder options"
-msgstr ""
+msgstr "打开提醒选项"
 
 #: core/QuickAddCore.vala:1275
 msgid "Stay open after creating task"
@@ -1397,7 +1399,7 @@ msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr ""
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:581
-#: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
+#: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:655
 msgid "Filter By"
 msgstr ""
 
@@ -1822,7 +1824,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:485 src/Views/Scheduled/Scheduled.vala:225
-#: src/Views/Today.vala:621
+#: src/Views/Today.vala:612
 msgid "Alphabetically"
 msgstr ""
 
@@ -2725,7 +2727,7 @@ msgid "Board"
 msgstr ""
 
 #: src/Views/Project/Project.vala:481 src/Views/Scheduled/Scheduled.vala:222
-#: src/Views/Today.vala:618
+#: src/Views/Today.vala:609
 msgid "Sorting"
 msgstr ""
 
@@ -2734,7 +2736,7 @@ msgid "Custom sort order"
 msgstr ""
 
 #: src/Views/Project/Project.vala:487 src/Views/Scheduled/Scheduled.vala:227
-#: src/Views/Today.vala:623
+#: src/Views/Today.vala:614
 msgid "Date Added"
 msgstr ""
 
@@ -2767,27 +2769,27 @@ msgid "Next 30 Days"
 msgstr ""
 
 #: src/Views/Project/Project.vala:511 src/Views/Scheduled/Scheduled.vala:235
-#: src/Views/Today.vala:631
+#: src/Views/Today.vala:622
 msgid "P1"
 msgstr ""
 
 #: src/Views/Project/Project.vala:517 src/Views/Scheduled/Scheduled.vala:241
-#: src/Views/Today.vala:637
+#: src/Views/Today.vala:628
 msgid "P2"
 msgstr ""
 
 #: src/Views/Project/Project.vala:523 src/Views/Scheduled/Scheduled.vala:247
-#: src/Views/Today.vala:643
+#: src/Views/Today.vala:634
 msgid "P3"
 msgstr ""
 
 #: src/Views/Project/Project.vala:529 src/Views/Scheduled/Scheduled.vala:253
-#: src/Views/Today.vala:649
+#: src/Views/Today.vala:640
 msgid "P4"
 msgstr ""
 
 #: src/Views/Project/Project.vala:536 src/Views/Scheduled/Scheduled.vala:260
-#: src/Views/Today.vala:656
+#: src/Views/Today.vala:647
 msgid "Filter by Labels"
 msgstr ""
 

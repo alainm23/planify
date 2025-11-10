@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-02 16:16+0000\n"
-"Last-Translator: Rodrigo Vilas Boas <rodrigo@reverberar.com>\n"
+"PO-Revision-Date: 2025-11-07 23:51+0000\n"
+"Last-Translator: José Victor dos Santos Neto <ssvictorsant0z@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -119,8 +119,8 @@ msgstr "CalDAV"
 #: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:488 src/Views/Project/Project.vala:533
 #: src/Views/Scheduled/Scheduled.vala:228
-#: src/Views/Scheduled/Scheduled.vala:257 src/Views/Today.vala:624
-#: src/Views/Today.vala:653 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Scheduled/Scheduled.vala:257 src/Views/Today.vala:615
+#: src/Views/Today.vala:644 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "Prioridade"
 
@@ -129,7 +129,7 @@ msgid "Label"
 msgstr "Rótulo"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:486
-#: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:622
+#: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:613
 msgid "Due Date"
 msgstr "Data de vencimento"
 
@@ -504,7 +504,7 @@ msgstr "Adicionar projeto"
 
 #: core/QuickAddCore.vala:1259
 msgid "Opens project selector"
-msgstr ""
+msgstr "Abre o seletor de projeto"
 
 #: core/QuickAddCore.vala:1260
 msgid "Set reminder"
@@ -519,13 +519,12 @@ msgid "Stay open after creating task"
 msgstr "Manter aberto após criar tarefa"
 
 #: core/QuickAddCore.vala:1281
-#, fuzzy
 msgid "Tip"
-msgstr "Superior"
+msgstr "Dica"
 
 #: core/QuickAddCore.vala:1281
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "Combine atalhos no campo de título para uma criação rápida"
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
 #, fuzzy, c-format
@@ -539,7 +538,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
-msgstr ""
+msgstr "O arquivo de origem já existe"
 
 #: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
 msgid "Failed to resolve principal url"
@@ -547,7 +546,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "Inicializando a sincronização…"
 
 #: core/Services/CalDAV/Core.vala:245
 #, fuzzy, c-format
@@ -1470,7 +1469,7 @@ msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr "Isto irá deletar %d tarefas concluídas e suas subtarefas do projeto %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:581
-#: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:664
+#: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:655
 msgid "Filter By"
 msgstr "Filtrar por"
 
@@ -1918,7 +1917,7 @@ msgstr "Ordem de Classificação Personalizada"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:485 src/Views/Scheduled/Scheduled.vala:225
-#: src/Views/Today.vala:621
+#: src/Views/Today.vala:612
 msgid "Alphabetically"
 msgstr "Alfabeticamente"
 
@@ -2882,7 +2881,7 @@ msgid "Board"
 msgstr "Quadro"
 
 #: src/Views/Project/Project.vala:481 src/Views/Scheduled/Scheduled.vala:222
-#: src/Views/Today.vala:618
+#: src/Views/Today.vala:609
 msgid "Sorting"
 msgstr "Nos Apoiando"
 
@@ -2891,7 +2890,7 @@ msgid "Custom sort order"
 msgstr "Ordem de classificação personalizada"
 
 #: src/Views/Project/Project.vala:487 src/Views/Scheduled/Scheduled.vala:227
-#: src/Views/Today.vala:623
+#: src/Views/Today.vala:614
 msgid "Date Added"
 msgstr "Dados adicionados"
 
@@ -2925,27 +2924,27 @@ msgid "Next 30 Days"
 msgstr "Próximos 30 dias"
 
 #: src/Views/Project/Project.vala:511 src/Views/Scheduled/Scheduled.vala:235
-#: src/Views/Today.vala:631
+#: src/Views/Today.vala:622
 msgid "P1"
 msgstr "P1"
 
 #: src/Views/Project/Project.vala:517 src/Views/Scheduled/Scheduled.vala:241
-#: src/Views/Today.vala:637
+#: src/Views/Today.vala:628
 msgid "P2"
 msgstr "P2"
 
 #: src/Views/Project/Project.vala:523 src/Views/Scheduled/Scheduled.vala:247
-#: src/Views/Today.vala:643
+#: src/Views/Today.vala:634
 msgid "P3"
 msgstr "P3"
 
 #: src/Views/Project/Project.vala:529 src/Views/Scheduled/Scheduled.vala:253
-#: src/Views/Today.vala:649
+#: src/Views/Today.vala:640
 msgid "P4"
 msgstr "P4"
 
 #: src/Views/Project/Project.vala:536 src/Views/Scheduled/Scheduled.vala:260
-#: src/Views/Today.vala:656
+#: src/Views/Today.vala:647
 msgid "Filter by Labels"
 msgstr "Filtrar por Rótulos"
 
