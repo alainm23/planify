@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
 "PO-Revision-Date: 2025-11-11 14:51+0000\n"
-"Last-Translator: Giorgio <gsabbatini@gmail.com>\n"
+"Last-Translator: Paolo Asperti <paolo@asperti.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/it/>\n"
 "Language: it\n"
@@ -369,12 +369,12 @@ msgstr "Elimina"
 
 #: core/Objects/Project.vala:783
 msgid "The project was copied to the Clipboard."
-msgstr ""
+msgstr "Il Progetto è stato copiato negli Appunti."
 
 #: core/Objects/Project.vala:819
 #, c-format
 msgid "Delete Project %s?"
-msgstr ""
+msgstr "Eliminare il Progetto %s?"
 
 #: core/Objects/Project.vala:876 core/Objects/Section.vala:402
 msgid "Archive?"
@@ -428,7 +428,7 @@ msgstr "Aggiungi etichetta"
 #: core/QuickAddCore.vala:244 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
-msgstr ""
+msgstr "Imposta la Priorità"
 
 #: core/QuickAddCore.vala:249
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
@@ -450,7 +450,7 @@ msgstr ""
 
 #: core/QuickAddCore.vala:313
 msgid "Select a Project"
-msgstr ""
+msgstr "Scegli un Progetto"
 
 #: core/QuickAddCore.vala:340
 msgid ""
@@ -468,7 +468,7 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1257
 msgid "Set priority"
-msgstr ""
+msgstr "Imposta Priorità"
 
 #: core/QuickAddCore.vala:1257
 msgid "p1 = highest, p4 = lowest"
@@ -484,7 +484,7 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1259
 msgid "Assign project"
-msgstr ""
+msgstr "Assegna Progetto"
 
 #: core/QuickAddCore.vala:1259
 msgid "Opens project selector"
@@ -1257,27 +1257,27 @@ msgstr ""
 #: core/Widgets/PriorityButton.vala:95 core/Widgets/PriorityButton.vala:135
 #: core/Widgets/PriorityButton.vala:200
 msgid "Priority 4: None"
-msgstr ""
+msgstr "Priorità 4: Nessuna"
 
 #: core/Widgets/PriorityButton.vala:126 core/Widgets/PriorityButton.vala:182
 msgid "Priority 1: High"
-msgstr ""
+msgstr "Priorità 1: Alta"
 
 #: core/Widgets/PriorityButton.vala:129
 msgid "Priority 2: Medium"
-msgstr ""
+msgstr "Priorità 2: Media"
 
 #: core/Widgets/PriorityButton.vala:132
 msgid "Priority 3: Low"
-msgstr ""
+msgstr "Priorità 3: Bassa"
 
 #: core/Widgets/PriorityButton.vala:188
 msgid "Priority 1: Medium"
-msgstr ""
+msgstr "Priorità 1: Media"
 
 #: core/Widgets/PriorityButton.vala:194
 msgid "Priority 1: Low"
-msgstr ""
+msgstr "Priorità 1: Bassa"
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:63
 msgid "Your list of section will show up here."
@@ -2030,19 +2030,19 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:50
 msgid "Priority 1"
-msgstr ""
+msgstr "Priorità 1"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:51
 msgid "Priority 2"
-msgstr ""
+msgstr "Priorità 2"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:52
 msgid "Priority 3"
-msgstr ""
+msgstr "Priorità 3"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:56
 msgid "Default Priority"
-msgstr ""
+msgstr "Priorità di default"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:68
 msgid "Cross Out Completed Tasks"
