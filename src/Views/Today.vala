@@ -326,29 +326,21 @@ public class Views.Today : Adw.Bin {
         signal_map[Services.Store.instance ().item_archived.connect (valid_delete_item)] = Services.Store.instance ();
         signal_map[Services.Store.instance ().item_unarchived.connect (valid_add_item)] = Services.Store.instance ();
 
-        signal_map[Services.EventBus.get_default ().item_moved.connect ((item) => {
-            // Handle existing items that may no longer belong in Today view
+        signal_map[Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
             if (items.has_key (item.id)) {
-                if (Services.Store.instance ().valid_item_by_date (item, date, false)) {
-                    items[item.id].update_request ();
-                } else {
-                    // Remove item that no longer belongs in today
+                if (!Services.Store.instance ().valid_item_by_date (item, date, false)) {
                     items[item.id].hide_destroy ();
                     items.unset (item.id);
                 }
             }
 
             if (overdue_items.has_key (item.id)) {
-                if (Services.Store.instance ().valid_item_by_overdue (item, date, false)) {
-                    overdue_items[item.id].update_request ();
-                } else {
-                    // Remove item that no longer belongs in overdue
+                if (!Services.Store.instance ().valid_item_by_overdue (item, date, false)) {
                     overdue_items[item.id].hide_destroy ();
                     overdue_items.unset (item.id);
                 }
             }
 
-            // Check if item should be added to Today view (wasn't there before but should be now)
             if (!items.has_key (item.id) &&
                 Services.Store.instance ().valid_item_by_date (item, date, false)) {
                 add_item (item);
@@ -359,7 +351,6 @@ public class Views.Today : Adw.Bin {
                 add_overdue_item (item);
             }
 
-            // Update UI state
             update_headers ();
             check_placeholder ();
             listbox.invalidate_filter ();
@@ -542,7 +533,7 @@ public class Views.Today : Adw.Bin {
         overdue_listbox.invalidate_filter ();
     }
 
-    private void valid_update_item (Objects.Item item) {
+    private void valid_update_item (Objects.Item item, string update_id) {
         if (items.has_key (item.id)) {
             items[item.id].update_request ();
         }
