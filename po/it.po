@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-10 10:40+0000\n"
-"Last-Translator: Paolo Asperti <paolo@asperti.com>\n"
+"PO-Revision-Date: 2025-11-11 14:51+0000\n"
+"Last-Translator: Giorgio <gsabbatini@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/it/>\n"
 "Language: it\n"
@@ -125,7 +125,7 @@ msgstr "Etichetta"
 #: core/Enum.vala:351 src/Views/Project/Project.vala:486
 #: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:613
 msgid "Due Date"
-msgstr ""
+msgstr "Scadenza"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
@@ -134,51 +134,51 @@ msgstr "Sezione"
 
 #: core/Enum.vala:463
 msgid "Task Created"
-msgstr ""
+msgstr "Attività creata"
 
 #: core/Enum.vala:466
 msgid "Task Updated"
-msgstr ""
+msgstr "Attività aggiornata"
 
 #: core/Enum.vala:522
 msgid "Content"
-msgstr ""
+msgstr "Contenuto"
 
 #: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1873
 #: src/Layouts/ItemSidebarView.vala:183
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #: core/Enum.vala:528 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr ""
+msgstr "Programmata"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:704 src/Layouts/ItemBoard.vala:717
 #: src/Layouts/ItemRow.vala:1151 src/Layouts/ItemRow.vala:1164
 msgid "Pin"
-msgstr ""
+msgstr "Pin"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr ""
+msgstr "Tutti i compiti"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
-msgstr ""
+msgstr "tutti i compiti"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all"
-msgstr ""
+msgstr "tutti"
 
 #: core/Objects/Filters/Anytime.vala:33
 msgid "Anytime"
-msgstr ""
+msgstr "In qualsiasi momento"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "anytime"
-msgstr ""
+msgstr "in qualsiasi momento"
 
 #: core/Objects/Filters/Anytime.vala:34 core/Objects/Filters/Completed.vala:34
 #: core/Objects/Filters/Inbox.vala:36 core/Objects/Filters/Labels.vala:34
@@ -187,23 +187,23 @@ msgstr ""
 #: core/Objects/Filters/Scheduled.vala:49 core/Objects/Filters/Today.vala:50
 #: core/Objects/Filters/Tomorrow.vala:34 core/Objects/Filters/Unlabeled.vala:34
 msgid "filters"
-msgstr ""
+msgstr "filtri"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr ""
+msgstr "nessuna data"
 
 #: core/Objects/Filters/Completed.vala:33
 msgid "Completed"
-msgstr ""
+msgstr "Completo"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "completed"
-msgstr ""
+msgstr "completato"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "logbook"
-msgstr ""
+msgstr "registro"
 
 #: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:244
 #: core/Utils/Util.vala:557
@@ -213,67 +213,67 @@ msgstr ""
 #: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr ""
+msgstr "Inbox"
 
 #: core/Objects/Filters/Inbox.vala:36
 msgid "inbox"
-msgstr ""
+msgstr "posta in arrivo"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
-msgstr ""
+msgstr "etichette"
 
 #: core/Objects/Filters/Pinboard.vala:34
 msgid "Pinboard"
-msgstr ""
+msgstr "Bacheca"
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:113
 msgid "Priority 1: high"
-msgstr ""
+msgstr "Priorità 1: alta"
 
 #: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:115
 msgid "Priority 2: medium"
-msgstr ""
+msgstr "Priorità 2: media"
 
 #: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:117
 msgid "Priority 3: low"
-msgstr ""
+msgstr "Priorità 3: bassa"
 
 #: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:119
 msgid "Priority 4: none"
-msgstr ""
+msgstr "Priorità 4: nessuna"
 
 #: core/Objects/Filters/Priority.vala:170
 msgid "high"
-msgstr ""
+msgstr "alta"
 
 #: core/Objects/Filters/Priority.vala:172
 msgid "medium"
-msgstr ""
+msgstr "media"
 
 #: core/Objects/Filters/Priority.vala:174
 msgid "low"
-msgstr ""
+msgstr "bassa"
 
 #: core/Objects/Filters/Priority.vala:176
 msgid "none"
-msgstr ""
+msgstr "niente"
 
 #: core/Objects/Filters/Repeating.vala:33
 msgid "Repeating"
-msgstr ""
+msgstr "Ripetendo"
 
 #: core/Objects/Filters/Repeating.vala:34
 msgid "repeating"
-msgstr ""
+msgstr "ripetendo"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr ""
+msgstr "programmato"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
-msgstr ""
+msgstr "imminente"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Util.vala:247
@@ -302,23 +302,23 @@ msgstr "domani"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "date"
-msgstr ""
+msgstr "data"
 
 #: core/Objects/Filters/Unlabeled.vala:33
 msgid "Unlabeled"
-msgstr ""
+msgstr "Senza etichetta"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "no label"
-msgstr ""
+msgstr "nessuna etichetta"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "unlabeled"
-msgstr ""
+msgstr "senza etichetta"
 
 #: core/Objects/Item.vala:1320
 msgid "Task copied to clipboard"
-msgstr ""
+msgstr "Attività copiata negli appunti"
 
 #: core/Objects/Item.vala:1609 core/Utils/Util.vala:866
 #, c-format
@@ -1499,7 +1499,7 @@ msgstr ""
 
 #: src/Dialogs/ManageSectionOrder.vala:54
 msgid "You can sort your sections by dragging and dropping"
-msgstr "Puoi riordinare le sezioni trascinandole"
+msgstr "Puoi ordinare le tue sezioni trascinandole e rilasciandole"
 
 #: src/Dialogs/ManageSectionOrder.vala:76
 msgid "Archived"
