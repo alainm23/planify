@@ -74,8 +74,8 @@
   "ru": {
     "language": "Russian",
     "total_strings": 693,
-    "translated_strings": 693,
-    "translated_percent": 100.0
+    "translated_strings": 692,
+    "translated_percent": 99.8
   },
   "sk": {
     "language": "Slovak",
@@ -260,8 +260,8 @@
   "it": {
     "language": "Italian",
     "total_strings": 693,
-    "translated_strings": 18,
-    "translated_percent": 2.5
+    "translated_strings": 79,
+    "translated_percent": 11.3
   },
   "ja": {
     "language": "Japanese",
