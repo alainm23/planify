@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
 "PO-Revision-Date: 2025-11-10 21:51+0000\n"
-"Last-Translator: Paolo Asperti <paolo@asperti.com>\n"
+"Last-Translator: Giorgio <gsabbatini@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
 "planify-extra/it/>\n"
 "Language: it\n"
@@ -103,7 +103,7 @@ msgstr ""
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:32
 msgid "Cross-platform synchronization to access from any device"
-msgstr ""
+msgstr "Sincronizzazione multipiattaforma per accedere da qualsiasi dispositivo"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:34
 msgid "* Planify is not created by, affiliated with, or supported by Doist"
