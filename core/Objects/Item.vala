@@ -1519,12 +1519,11 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void move (Objects.Project project, string _section_id) {
-        loading = true;
-        show_item = false;
-
         if (project.source_type == SourceType.LOCAL) {
             _move (project.id, _section_id);
         } else if (project.source_type == SourceType.TODOIST) {
+            loading = true;
+            
             string move_id = project.id;
             string move_type = "project_id";
             if (_section_id != "") {
@@ -1535,7 +1534,6 @@ public class Objects.Item : Objects.BaseObject {
             Services.Todoist.get_default ().move_item.begin (this, move_type, move_id, (obj, res) => {
                 var response = Services.Todoist.get_default ().move_item.end (res);
                 loading = false;
-                show_item = true;
 
                 if (response.status) {
                     _move (project.id, _section_id);
@@ -1544,6 +1542,8 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
+            loading = true;
+
             move_caldav_recursive.begin (project, _section_id);
         }
     }
