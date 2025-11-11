@@ -574,7 +574,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async HttpResponse add_item (Objects.Item item, bool update = false) {
-        var url = update ? item.ical_url : GLib.Path.build_path("/", item.project.calendar_url, "%s.ics".printf (item.id));
+        var url = update ? item.ical_url : GLib.Path.build_path ("/", item.project.calendar_url, "%s.ics".printf (item.id));
         var body = item.to_vtodo ();
 
         var expected = update ? new Soup.Status[]{ Soup.Status.NO_CONTENT }
@@ -614,7 +614,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
 
     public async HttpResponse move_item (Objects.Item item, Objects.Project destination_project) {
-        var destination = GLib.Path.build_path("/", destination_project.calendar_url, "%s.ics".printf (item.id));
+        var destination = GLib.Path.build_path ("/", destination_project.calendar_url, "%s.ics".printf (item.id));
 
         var headers = new HashTable<string,string> (str_hash, str_equal);
         headers.insert ("Destination", destination);
