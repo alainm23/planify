@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-11 14:51+0000\n"
+"PO-Revision-Date: 2025-11-10 10:40+0000\n"
 "Last-Translator: Paolo Asperti <paolo@asperti.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/it/>\n"
@@ -1499,7 +1499,7 @@ msgstr ""
 
 #: src/Dialogs/ManageSectionOrder.vala:54
 msgid "You can sort your sections by dragging and dropping"
-msgstr "Puoi ordinare le tue sezioni trascinandole e rilasciandole"
+msgstr "Puoi riordinare le sezioni trascinandole"
 
 #: src/Dialogs/ManageSectionOrder.vala:76
 msgid "Archived"
