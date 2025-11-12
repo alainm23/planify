@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-09 00:51+0000\n"
-"Last-Translator: Thomas Brugman <thomas.brugman.teb3@gmail.com>\n"
+"PO-Revision-Date: 2025-11-13 13:51+0000\n"
+"Last-Translator: succesvollezakenvrouw <joris.briet@kolkmannen.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/nl/>\n"
 "Language: nl\n"
@@ -416,9 +416,8 @@ msgid "Todoist"
 msgstr "Todoist"
 
 #: core/QuickAddCore.vala:127
-#, fuzzy
 msgid "Task added successfully!"
-msgstr "Project met succes toegevoegd!"
+msgstr "Taak succesvol toegevoegd!"
 
 #: core/QuickAddCore.vala:143 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
@@ -491,9 +490,8 @@ msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = hoogste, p4 = laagste"
 
 #: core/QuickAddCore.vala:1258
-#, fuzzy
 msgid "Add labels"
-msgstr "Label(s) toewijzen"
+msgstr "Label(s) toevoegen"
 
 #: core/QuickAddCore.vala:1258
 #, fuzzy
@@ -510,17 +508,16 @@ msgid "Opens project selector"
 msgstr "Opent projectselector"
 
 #: core/QuickAddCore.vala:1260
-#, fuzzy
 msgid "Set reminder"
-msgstr "Stel herinneringen op tijd in!"
+msgstr "herinnering instellen"
 
 #: core/QuickAddCore.vala:1260
 msgid "Opens reminder options"
-msgstr ""
+msgstr "Opent herinneringsopties"
 
 #: core/QuickAddCore.vala:1275
 msgid "Stay open after creating task"
-msgstr ""
+msgstr "Blijf open na het toevoegen van taak"
 
 #: core/QuickAddCore.vala:1281
 #, fuzzy
@@ -528,40 +525,40 @@ msgid "Tip"
 msgstr "Bovenaan"
 
 #: core/QuickAddCore.vala:1281
+#, fuzzy
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "Combineer sneltoetsen in titelvak om sneller te bouwen"
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
-#, fuzzy, c-format
+#, c-format
 msgid "Loading tasks for %s…"
-msgstr "Aan het laden…"
+msgstr "Taken van %s worden geladen…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Processing task %d of %d"
-msgstr ""
+msgstr "Taak %d van %d wordt verwerkt"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
-msgstr ""
+msgstr "Bron bestaat al"
 
 #: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
 msgid "Failed to resolve principal url"
-msgstr ""
+msgstr "Mislukt om primaire URL op te lossen"
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "Sync wordt gestart…"
 
 #: core/Services/CalDAV/Core.vala:245
-#, fuzzy, c-format
+#, c-format
 msgid "Syncing %s…"
-msgstr "Synchroniseren…"
+msgstr "%s Synchroniseren…"
 
 #: core/Services/CalDAV/Core.vala:253
-#, fuzzy
 msgid "Sync completed"
-msgstr "afgewerkt"
+msgstr "Synchronisatie voltooid"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -630,11 +627,11 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%U:%M:%S"
 
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
-msgstr ""
+msgstr "%U:%M"
 
 #: core/Utils/Datetime.vala:403
 msgid "Mo,"
@@ -822,15 +819,14 @@ msgid "Meet Planify"
 msgstr "Planify leren kennen"
 
 #: core/Utils/Util.vala:576
-#, fuzzy
 msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
-"Dit project leert je alles dat je moet weten om van start te gaan. "
-"Experimenteer naar hartenlust – je kan altijd het altijd opnieuw aanmaken "
-"via de instellingen."
+"Dit project toont alles was je moet weten om snel aan de slag te kunnen. "
+"Voel je vrij om ermee te klooien - je kan het altijd herstellen in "
+"Voorkeuren."
 
 #: core/Utils/Util.vala:583
 #, fuzzy
@@ -838,12 +834,11 @@ msgid "Tap this task"
 msgstr "Klik op deze taak"
 
 #: core/Utils/Util.vala:584
-#, fuzzy
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
-"Dit is dus een taak! Rond de taak af door op de checkbox aan de linkerkant "
-"te klikken. Afgeronde taken worden onderaan je project bijgehouden."
+"Dit is dus een taak! Markeer als afgerond door het linker vakje aan te "
+"vinken. "
 
 #: core/Utils/Util.vala:589
 #, fuzzy
@@ -851,13 +846,12 @@ msgid "Create a new task"
 msgstr "Nieuwe taak aanmaken"
 
 #: core/Utils/Util.vala:590
-#, fuzzy
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
 msgstr ""
-"Nu is het aan jou. Klik op de '+'-knop onderaan je project, geef iets in en "
-"druk op de blauwe knop om op te slaan."
+"Nu is het aan jou. Klik op de '+'-knop onderaan je project, voer een "
+"beschrijving in en druk op de 'Taak Toevoegen'-knop om op te slaan."
 
 #: core/Utils/Util.vala:595
 #, fuzzy
