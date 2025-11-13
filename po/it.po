@@ -323,12 +323,12 @@ msgstr "Attività copiata negli appunti"
 #: core/Objects/Item.vala:1609 core/Utils/Util.vala:866
 #, c-format
 msgid "Task moved to %s"
-msgstr ""
+msgstr "Task spostato in %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
 msgid "Delete Label %s"
-msgstr ""
+msgstr "Cancella Etichetta %s"
 
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:820
 #: core/Objects/Section.vala:377
@@ -336,7 +336,7 @@ msgstr ""
 #: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
-msgstr ""
+msgstr "Questo non può essere annullato"
 
 #: core/Objects/Label.vala:210 core/Objects/Project.vala:823
 #: core/Objects/Project.vala:880 core/Objects/Section.vala:380
@@ -378,23 +378,23 @@ msgstr "Eliminare il Progetto %s?"
 
 #: core/Objects/Project.vala:876 core/Objects/Section.vala:402
 msgid "Archive?"
-msgstr ""
+msgstr "Archivio?"
 
 #: core/Objects/Project.vala:877 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "Questo archivio %s e tutti i suoi task."
 
 #: core/Objects/Project.vala:881 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
 msgid "Archive"
-msgstr ""
+msgstr "Archivio"
 
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
 msgid "Delete Section %s"
-msgstr ""
+msgstr "Cancella Selezione %s"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
@@ -405,20 +405,20 @@ msgstr ""
 
 #: core/QuickAddCore.vala:127
 msgid "Task added successfully!"
-msgstr ""
+msgstr "Task aggiunto con successo!"
 
 #: core/QuickAddCore.vala:143 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
-msgstr ""
+msgstr "Nome to-do"
 
 #: core/QuickAddCore.vala:173
 msgid "This field is required"
-msgstr ""
+msgstr "Questo campo è obbligatorio"
 
 #: core/QuickAddCore.vala:197
 msgid "Add a description…"
-msgstr ""
+msgstr "Aggiungi una descrizione…"
 
 #: core/QuickAddCore.vala:239 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
@@ -437,16 +437,16 @@ msgstr "Imposta la Priorità"
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
 #: core/Widgets/ReminderPicker/ReminderButton.vala:177
 msgid "Add Reminders"
-msgstr ""
+msgstr "Aggiungi promemoria"
 
 #: core/QuickAddCore.vala:290 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
-msgstr ""
+msgstr "Aggiungi Task"
 
 #: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1275
 msgid "Keep adding"
-msgstr ""
+msgstr "Continua ad aggiungere"
 
 #: core/QuickAddCore.vala:313
 msgid "Select a Project"
@@ -457,14 +457,16 @@ msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
+"Mi dispiace, Quick Add non riesce a trovare alcun progetto disponibile. "
+"Prova a creare un progetto da Planify."
 
 #: core/QuickAddCore.vala:1237 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Scorciatoie da tastiera"
 
 #: core/QuickAddCore.vala:1243
 msgid "Speed up task creation with these shortcuts"
-msgstr ""
+msgstr "Velocizza la creazione di task con queste scorciatoie"
 
 #: core/QuickAddCore.vala:1257
 msgid "Set priority"
@@ -472,11 +474,11 @@ msgstr "Imposta Priorità"
 
 #: core/QuickAddCore.vala:1257
 msgid "p1 = highest, p4 = lowest"
-msgstr ""
+msgstr "p1 = più alta, p4 = più bassa"
 
 #: core/QuickAddCore.vala:1258
 msgid "Add labels"
-msgstr ""
+msgstr "Aggiungi etichette"
 
 #: core/QuickAddCore.vala:1258
 msgid "Opens label selector"
@@ -492,7 +494,7 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1260
 msgid "Set reminder"
-msgstr ""
+msgstr "Imposta promemoria"
 
 #: core/QuickAddCore.vala:1260
 msgid "Opens reminder options"
@@ -500,33 +502,33 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1275
 msgid "Stay open after creating task"
-msgstr ""
+msgstr "Rimani aperto dopo aver creato una task"
 
 #: core/QuickAddCore.vala:1281
 msgid "Tip"
-msgstr ""
+msgstr "Suggerimento"
 
 #: core/QuickAddCore.vala:1281
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "Combina scorciatoie nel campo del titolo per una creazione più veloce"
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr ""
+msgstr "Caricamento task per %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Processing task %d of %d"
-msgstr ""
+msgstr "Elaborazione task %d di %d"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
-msgstr ""
+msgstr "La fonte esiste già"
 
 #: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
 msgid "Failed to resolve principal url"
-msgstr ""
+msgstr "Impossibile risolvere l'URL principale"
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
@@ -543,32 +545,34 @@ msgstr "Sincronizzazione completata"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
-msgstr ""
+msgstr "La richiesta era errata."
 
 #: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
+"L'autenticazione è richiesta, ma non è riuscita oppure non è ancora stata "
+"fornita."
 
 #: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "La richiesta era valida, ma per qualcosa che è proibito."
 
 #: core/Services/Todoist.vala:1513 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "La risorsa richiesta non è stata trovata."
 
 #: core/Services/Todoist.vala:1514 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "L'utente ha inviato troppe richieste in un dato lasso di tempo."
 
 #: core/Services/Todoist.vala:1515 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "La richiesta non è riuscita a causa di un errore del server."
 
 #: core/Services/Todoist.vala:1516 src/Widgets/ErrorView.vala:144
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "Al momento il server non è in grado di gestire la richiesta."
 
 #: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
@@ -584,12 +588,12 @@ msgstr "giorni"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "day"
-msgstr ""
+msgstr "giorno"
 
 #: core/Utils/Datetime.vala:91
 #, c-format
 msgid "%s %s ago"
-msgstr ""
+msgstr "%s %s fa"
 
 #: core/Utils/Datetime.vala:93
 #, c-format
@@ -769,7 +773,7 @@ msgstr ""
 #: core/Utils/Util.vala:241 core/Widgets/DateTimePicker/DateTimePicker.vala:261
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:53
 msgid "None"
-msgstr ""
+msgstr "Nessuno"
 
 #: core/Utils/Util.vala:250
 msgid "Today + Inbox"
@@ -781,7 +785,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:436
 msgid "Process completed, you need to start Planify again."
-msgstr ""
+msgstr "Processo completato , è necessario riavviare Planify."
 
 #: core/Utils/Util.vala:438
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:221
@@ -802,34 +806,42 @@ msgid ""
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
+"Questo progetto ti mostra tutto ciò che devi sapere per iniziare subito. Non "
+"esitare a sperimentarlo: puoi sempre ricrearlo dalle Preferenze."
 
 #: core/Utils/Util.vala:583
 msgid "Tap this task"
-msgstr ""
+msgstr "Tocca questa attività"
 
 #: core/Utils/Util.vala:584
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
+"Stai guardando una to-do! Completala toccando la casella di controllo a "
+"sinistra. "
 
 #: core/Utils/Util.vala:589
 msgid "Create a new task"
-msgstr ""
+msgstr "Crea un nuovo task"
 
 #: core/Utils/Util.vala:590
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
 msgstr ""
+"Ora tocca a te! Tocca il pulsante \"+\" in fondo al progetto, inserisci una "
+"descrizione del task e tocca il pulsante \"Aggiungi task\"."
 
 #: core/Utils/Util.vala:595
 msgid "Plan this to-do for today or later"
-msgstr ""
+msgstr "Pianifica to-do da fare per oggi o più tardi"
 
 #: core/Utils/Util.vala:596
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
+"Tocca il pulsante del calendario in basso per decidere quando completare "
+"questa to-do."
 
 #: core/Utils/Util.vala:601
 msgid "Reorder your to-dos"
