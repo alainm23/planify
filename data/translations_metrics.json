@@ -2,8 +2,8 @@
   "nl": {
     "language": "Dutch",
     "total_strings": 693,
-    "translated_strings": 533,
-    "translated_percent": 76.9
+    "translated_strings": 550,
+    "translated_percent": 79.3
   },
   "tr": {
     "language": "Turkish",
@@ -158,8 +158,8 @@
   "cs": {
     "language": "Czech",
     "total_strings": 693,
-    "translated_strings": 2,
-    "translated_percent": 0.2
+    "translated_strings": 8,
+    "translated_percent": 1.1
   },
   "cv": {
     "language": "Chuvash",
@@ -260,8 +260,8 @@
   "it": {
     "language": "Italian",
     "total_strings": 693,
-    "translated_strings": 79,
-    "translated_percent": 11.3
+    "translated_strings": 178,
+    "translated_percent": 25.6
   },
   "ja": {
     "language": "Japanese",
