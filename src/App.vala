@@ -74,8 +74,6 @@ public class Planify : Adw.Application {
     }
 
     protected override void activate () {
-        print ("Activating Planify\n");
-
         if (lang != "") {
             GLib.Environment.set_variable ("LANGUAGE", lang, true);
         }
