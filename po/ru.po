@@ -2009,8 +2009,8 @@ msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
 msgstr ""
-"Откройте «Системные настройки» → «Клавиатура» → «Комбинации клавиш» → «"
-"Пользовательская комбинация клавиш», затем добавьте новую комбинацию клавиш "
+"Откройте «Системные настройки» → «Клавиатура» → «Комбинации клавиш» → "
+"«Пользовательская комбинация клавиш», затем добавьте новую комбинацию клавиш "
 "со следующим текстом:"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
@@ -2023,7 +2023,8 @@ msgstr "Сохранить в последний выбранный проект
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
-msgstr "Если эта опция не включена, по умолчанию будет выбран проект «Входящие»"
+msgstr ""
+"Если эта опция не включена, по умолчанию будет выбран проект «Входящие»"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:127
 msgid "The command was copied to the clipboard"
