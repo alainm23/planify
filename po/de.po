@@ -326,7 +326,7 @@ msgstr "nicht gelabelt"
 msgid "Task copied to clipboard"
 msgstr "Aufgabe in die Zwischenablage kopiert"
 
-#: core/Objects/Item.vala:1609 core/Utils/Util.vala:866
+#: core/Objects/Item.vala:1611 core/Utils/Util.vala:871
 #, c-format
 msgid "Task moved to %s"
 msgstr "Aufgabe verschoben zu %s"
@@ -991,43 +991,43 @@ msgstr "🏡️Zuhause"
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️Nochmal aufgreifen"
 
-#: core/Utils/Util.vala:945
+#: core/Utils/Util.vala:951
 msgid "Task duplicated"
 msgstr "Dupliziert"
 
-#: core/Utils/Util.vala:981
+#: core/Utils/Util.vala:987
 msgid "Section duplicated"
 msgstr "Abschnitt dupliziert"
 
-#: core/Utils/Util.vala:1007 core/Utils/Util.vala:1033
+#: core/Utils/Util.vala:1013 core/Utils/Util.vala:1039
 msgid "Project duplicated"
 msgstr "Projekt dupliziert"
 
-#: core/Utils/Util.vala:1075 src/Dialogs/Preferences/Pages/TaskSetting.vala:153
+#: core/Utils/Util.vala:1081 src/Dialogs/Preferences/Pages/TaskSetting.vala:153
 msgid "At due time"
 msgstr "Wenn fällig"
 
-#: core/Utils/Util.vala:1078 src/Dialogs/Preferences/Pages/TaskSetting.vala:154
+#: core/Utils/Util.vala:1084 src/Dialogs/Preferences/Pages/TaskSetting.vala:154
 msgid "10 minutes before"
 msgstr "10 Minuten davor"
 
-#: core/Utils/Util.vala:1081 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1087 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "30 minutes before"
 msgstr "30 Minuten davor"
 
-#: core/Utils/Util.vala:1084 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1090 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "45 minutes before"
 msgstr "45 Minuten davor"
 
-#: core/Utils/Util.vala:1087 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1093 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "1 hour before"
 msgstr "1 Stunde davor"
 
-#: core/Utils/Util.vala:1090 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1096 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "2 hours before"
 msgstr "2 Stunden davor"
 
-#: core/Utils/Util.vala:1093 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1099 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "3 hours before"
 msgstr "3 Stunden davor"
 
