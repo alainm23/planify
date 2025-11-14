@@ -1512,7 +1512,8 @@ msgstr "Зареждане"
 
 #: src/Dialogs/GoogleOAuth.vala:83
 msgid "Planner is sync your tasks, this may take a few minutes"
-msgstr "„Planner“ синхронизира задачите ви, което може да отнеме няколко минути"
+msgstr ""
+"„Planner“ синхронизира задачите ви, което може да отнеме няколко минути"
 
 #: src/Dialogs/GoogleOAuth.vala:135
 msgid "Please enter your credentials"
@@ -1838,8 +1839,8 @@ msgid ""
 "projects, tasks and comments and import them later."
 msgstr ""
 "Никога не се притеснявайте, че ще загубите данните си. Може да създавате "
-"резервни копия на текущите си проекти, задачи и коментари и да ги внесете "
-"по-късно."
+"резервни копия на текущите си проекти, задачи и коментари и да ги внесете по-"
+"късно."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:48
 msgid "Create Backup"
@@ -2068,7 +2069,8 @@ msgstr "Запазване на последно избрания проект"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
-msgstr "Ако е премахната отметката, по подразбиране се избира проекта „Входящи“"
+msgstr ""
+"Ако е премахната отметката, по подразбиране се избира проекта „Входящи“"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:127
 msgid "The command was copied to the clipboard"
