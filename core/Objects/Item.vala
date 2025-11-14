@@ -1523,6 +1523,7 @@ public class Objects.Item : Objects.BaseObject {
             _move (project.id, _section_id);
         } else if (project.source_type == SourceType.TODOIST) {
             loading = true;
+            sensitive = false;
             
             string move_id = project.id;
             string move_type = "project_id";
@@ -1543,7 +1544,8 @@ public class Objects.Item : Objects.BaseObject {
             });
         } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
-
+            sensitive = false;
+            
             move_caldav_recursive.begin (project, _section_id);
         }
     }
@@ -1761,5 +1763,30 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         return response;
+    }
+
+    public void to_string () {
+        print ("_________________________________\n");
+        print ("ID: %s\n", id);
+        print ("Content: %s\n", content);
+        print ("Description: %s\n", description);
+        print ("Project ID: %s\n", project_id);
+        print ("Section ID: %s\n", section_id);
+        print ("Parent ID: %s\n", parent_id);
+        print ("Priority: %d (%s)\n", priority, priority_text);
+        print ("Checked: %s\n", checked ? "true" : "false");
+        print ("Pinned: %s\n", pinned ? "true" : "false");
+        print ("Has Due: %s\n", has_due ? "true" : "false");
+        if (has_due) {
+            print ("Due Date: %s\n", due.date);
+        }
+        print ("Child Order: %d\n", child_order);
+        print ("Added At: %s\n", added_at);
+        print ("Completed At: %s\n", completed_at);
+        print ("Labels: %d\n", labels.size);
+        foreach (var label in labels) {
+            print ("  - %s\n", label.name);
+        }
+        print ("---------------------------------\n");
     }
 }
