@@ -1,18 +1,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-02 16:13+0000\n"
-"Last-Translator: Fraxinus Acer <yasson2008@ya.ru>\n"
-"Language-Team: Bulgarian <https://hosted.weblate.org/projects/planner/io-"
-"github-alainm23-planify/bg/>\n"
+"PO-Revision-Date: 2025-11-14 10:13+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Bulgarian <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/bg/>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
@@ -1512,8 +1512,7 @@ msgstr "Зареждане"
 
 #: src/Dialogs/GoogleOAuth.vala:83
 msgid "Planner is sync your tasks, this may take a few minutes"
-msgstr ""
-"„Planner“ синхронизира задачите ви, което може да отнеме няколко минути"
+msgstr "„Planner“ синхронизира задачите ви, което може да отнеме няколко минути"
 
 #: src/Dialogs/GoogleOAuth.vala:135
 msgid "Please enter your credentials"
@@ -1839,8 +1838,8 @@ msgid ""
 "projects, tasks and comments and import them later."
 msgstr ""
 "Никога не се притеснявайте, че ще загубите данните си. Може да създавате "
-"резервни копия на текущите си проекти, задачи и коментари и да ги внесете по-"
-"късно."
+"резервни копия на текущите си проекти, задачи и коментари и да ги внесете "
+"по-късно."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:48
 msgid "Create Backup"
@@ -2069,8 +2068,7 @@ msgstr "Запазване на последно избрания проект"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
-msgstr ""
-"Ако е премахната отметката, по подразбиране се избира проекта „Входящи“"
+msgstr "Ако е премахната отметката, по подразбиране се избира проекта „Входящи“"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:127
 msgid "The command was copied to the clipboard"
