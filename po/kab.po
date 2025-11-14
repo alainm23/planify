@@ -1,49 +1,52 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the io.github.alainm23.planify package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-14 06:31+0000\n"
-"Last-Translator: Klára Holubová <witt087@users.noreply.hosted.weblate.org>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
-"io-github-alainm23-planify/cs/>\n"
-"Language: cs\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-10 10:40+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: kab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15-dev\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:56
 msgid "Projects"
-msgstr "Projekty"
+msgstr ""
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:362
 msgid "Sections"
-msgstr "Sekce"
+msgstr ""
 
 #: core/Enum.vala:174 core/Enum.vala:183
 msgid "Tasks"
-msgstr "Úkoly"
+msgstr ""
 
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:36
 #: src/Dialogs/Preferences/Pages/Backup.vala:370
 msgid "Labels"
-msgstr "Značky"
+msgstr ""
 
 #: core/Enum.vala:180 src/Dialogs/Preferences/Pages/HomeView.vala:35
 msgid "Filters"
-msgstr "Filtry"
+msgstr ""
 
 #: core/Enum.vala:186
 msgid "Lists"
-msgstr "Seznamy"
+msgstr ""
 
 #: core/Enum.vala:218
 msgid "Don't Repeat"
-msgstr "Neopakovat"
+msgstr ""
 
 #: core/Enum.vala:220
 msgid "Every minute"
@@ -52,7 +55,7 @@ msgstr ""
 #: core/Enum.vala:220
 #, c-format
 msgid "Every %d minutes"
-msgstr "Každých %d minut"
+msgstr ""
 
 #: core/Enum.vala:222
 msgid "Every hour"
