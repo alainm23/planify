@@ -575,7 +575,6 @@ public class Layouts.QuickAddCore : Adw.Bin {
         signal_map[event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
                 ctrl_pressed = true;
-                create_more_button.active = ctrl_pressed;
             }
 
             return false;
@@ -584,7 +583,6 @@ public class Layouts.QuickAddCore : Adw.Bin {
         signal_map[event_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
                 ctrl_pressed = false;
-                create_more_button.active = ctrl_pressed;
             }
         })] = event_controller_key;
 
@@ -632,9 +630,15 @@ public class Layouts.QuickAddCore : Adw.Bin {
             return true;
         }));
 
+        var toggle_keep_adding_shortcut = new Gtk.Shortcut (Gtk.ShortcutTrigger.parse_string ("<Control>k"), new Gtk.CallbackAction (() => {
+            create_more_button.active = !create_more_button.active;
+            return true;
+        }));
+
         shortcut_controller = new Gtk.ShortcutController ();
         shortcut_controller.add_shortcut (open_label_shortcut);
         shortcut_controller.add_shortcut (open_reminder_shortcut);
+        shortcut_controller.add_shortcut (toggle_keep_adding_shortcut);
         add_controller (shortcut_controller);
 
         destroy_controller = new Gtk.EventControllerKey ();
@@ -1272,7 +1276,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
             margin_top = 3,
             margin_bottom = 3
         });
-        popover_box.append (build_shortcut_widget ("⮑", "#1e63ec", _("Keep adding"), _("Stay open after creating task")));
+        popover_box.append (build_shortcut_widget ("Ctrl+K", "#1e63ec", _("Keep adding"), _("Toggle stay open after creating task")));
         popover_box.append (new Widgets.ContextMenu.MenuSeparator () {
             margin_top = 3,
             margin_bottom = 3
@@ -1303,7 +1307,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
     private Gtk.Widget build_shortcut_widget (string shortcut_key, string color, string title, string subtitle) {
         var shortcut_label = new Gtk.Label (shortcut_key) {
-            width_chars = 5,
+            width_chars = 6,
             valign = CENTER
         };
         shortcut_label.add_css_class ("caption");
