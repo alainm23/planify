@@ -446,7 +446,7 @@ msgstr "Еске салғыштар қосу"
 msgid "Add Task"
 msgstr "Тапсырма қосу"
 
-#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1275
+#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1279
 msgid "Keep adding"
 msgstr ""
 
@@ -462,61 +462,61 @@ msgstr ""
 "Кешіріңіз, Жылдам қосу қолжетімді жобаларды таба алмады, Planify арқылы жоба "
 "жасауға тырысыңыз."
 
-#: core/QuickAddCore.vala:1237 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1241 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Пернетақта қысқартулары"
 
-#: core/QuickAddCore.vala:1243
+#: core/QuickAddCore.vala:1247
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 #, fuzzy
 msgid "Set priority"
 msgstr "Басымдылықты орнату"
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 #, fuzzy
 msgid "Add labels"
 msgstr "Белгілер қосу"
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 #, fuzzy
 msgid "Opens label selector"
 msgstr "Белгілерді ашу"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 #, fuzzy
 msgid "Assign project"
 msgstr "Жоба қосу"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 #, fuzzy
 msgid "Set reminder"
 msgstr "Уақтылы еске салғыштар орнатыңыз!"
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1275
-msgid "Stay open after creating task"
+#: core/QuickAddCore.vala:1279
+msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 #, fuzzy
 msgid "Tip"
 msgstr "Жоғары"
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 

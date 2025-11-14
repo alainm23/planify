@@ -444,7 +444,7 @@ msgstr "Noteikt atgādinājumus"
 msgid "Add Task"
 msgstr "Pievienot uzdevumu"
 
-#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1275
+#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1279
 msgid "Keep adding"
 msgstr "Turpināt pievienot"
 
@@ -460,55 +460,55 @@ msgstr ""
 "Baidos, ka ātrās pievienošanas logs nevar atrast nevienu pieejamu projektu, "
 "pamēģiniet izveidot jaunu projektu."
 
-#: core/QuickAddCore.vala:1237 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1241 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Tastatūras īsceļi"
 
-#: core/QuickAddCore.vala:1243
+#: core/QuickAddCore.vala:1247
 msgid "Speed up task creation with these shortcuts"
 msgstr "Paātriniet uzdevumu izveidi ar šiem īsceļiem"
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 msgid "Set priority"
 msgstr "Noteikt prioritāti"
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = augstākā, p4 = zemākā"
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 msgid "Add labels"
 msgstr "Pievienot birkas"
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 msgid "Opens label selector"
 msgstr "Atver birku izvēlni"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 msgid "Assign project"
 msgstr "Iecelt projektu"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 msgid "Opens project selector"
 msgstr "Atver projektu izvēlni"
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 msgid "Set reminder"
 msgstr "Noteikt atgādinājumu"
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 msgid "Opens reminder options"
 msgstr "Atver atgādinājumu iestatījumus"
 
-#: core/QuickAddCore.vala:1275
-msgid "Stay open after creating task"
-msgstr "Paturēt atvērtu pēc uzdevuma izveides"
+#: core/QuickAddCore.vala:1279
+msgid "Toggle stay open after creating task"
+msgstr ""
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 msgid "Tip"
 msgstr "Ieteikums"
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Kombinējiet īsceļus nosaukuma ailē ātrākai uzdevumu izveidei"
 
@@ -3205,6 +3205,9 @@ msgstr "Rāda birkas"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Rāda piespraustos"
+
+#~ msgid "Stay open after creating task"
+#~ msgstr "Paturēt atvērtu pēc uzdevuma izveides"
 
 #~ msgid "Process completed, you need to start Planify again"
 #~ msgstr "Process pabeigts, Jums jārestartē Planify"

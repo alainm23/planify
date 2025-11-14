@@ -456,7 +456,7 @@ msgstr "Herinneringen toevoegen"
 msgid "Add Task"
 msgstr "Taak toevoegen"
 
-#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1275
+#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1279
 msgid "Keep adding"
 msgstr "Blijf toevoegen"
 
@@ -472,59 +472,59 @@ msgstr ""
 "Sorry, snel toevoegen lukt niet zonder een project, probeer eerst een "
 "project aan te maken."
 
-#: core/QuickAddCore.vala:1237 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1241 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
-#: core/QuickAddCore.vala:1243
+#: core/QuickAddCore.vala:1247
 msgid "Speed up task creation with these shortcuts"
 msgstr "Versnel het maken van taken met deze snelkoppelingen"
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 #, fuzzy
 msgid "Set priority"
 msgstr "Prioriteit instellen"
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = hoogste, p4 = laagste"
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 msgid "Add labels"
 msgstr "Label(s) toevoegen"
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 #, fuzzy
 msgid "Opens label selector"
 msgstr "Labels weergeven"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 #, fuzzy
 msgid "Assign project"
 msgstr "Project toevoegen"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 msgid "Opens project selector"
 msgstr "Opent projectselector"
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 msgid "Set reminder"
 msgstr "herinnering instellen"
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 msgid "Opens reminder options"
 msgstr "Opent herinneringsopties"
 
-#: core/QuickAddCore.vala:1275
-msgid "Stay open after creating task"
-msgstr "Blijf open na het toevoegen van taak"
+#: core/QuickAddCore.vala:1279
+msgid "Toggle stay open after creating task"
+msgstr ""
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 #, fuzzy
 msgid "Tip"
 msgstr "Bovenaan"
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 #, fuzzy
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combineer sneltoetsen in titelvak om sneller te bouwen"
@@ -3290,6 +3290,9 @@ msgstr "Labels weergeven"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Prikbord weergeven"
+
+#~ msgid "Stay open after creating task"
+#~ msgstr "Blijf open na het toevoegen van taak"
 
 #~ msgid "Process completed, you need to start Planify again"
 #~ msgstr "Proces afgerond, gelieve Planify opnieuw op te starten"

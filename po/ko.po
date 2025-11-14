@@ -457,7 +457,7 @@ msgstr "리마인더 추가"
 msgid "Add Task"
 msgstr "작업 추가"
 
-#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1275
+#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1279
 msgid "Keep adding"
 msgstr ""
 
@@ -474,61 +474,61 @@ msgstr ""
 "죄송합니다, 빠른 추가 기능으로 가능한 프로젝트를 찾을 수 없습니다. Planify의 "
 "기본 프로젝트를 생성해 보세요."
 
-#: core/QuickAddCore.vala:1237 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1241 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "키보드 단축키"
 
-#: core/QuickAddCore.vala:1243
+#: core/QuickAddCore.vala:1247
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 #, fuzzy
 msgid "Set priority"
 msgstr "우선순위를 설정하세요"
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 #, fuzzy
 msgid "Add labels"
 msgstr "라벨 추가"
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 #, fuzzy
 msgid "Opens label selector"
 msgstr "라벨 열기"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 #, fuzzy
 msgid "Assign project"
 msgstr "프로젝트 추가"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 #, fuzzy
 msgid "Set reminder"
 msgstr "시기적절한 리마인더를 설정하세요!"
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1275
-msgid "Stay open after creating task"
+#: core/QuickAddCore.vala:1279
+msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 #, fuzzy
 msgid "Tip"
 msgstr "상단"
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 

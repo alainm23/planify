@@ -457,7 +457,7 @@ msgstr "रिमाइंडर जोड़ें"
 msgid "Add Task"
 msgstr "कार्य जोड़ें"
 
-#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1275
+#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1279
 msgid "Keep adding"
 msgstr ""
 
@@ -474,61 +474,61 @@ msgstr ""
 "मुझे खेद है, शीघ्र जोड़ने हेतु कोई भी परियोजना उपलब्ध नहीं है। प्लॅानिफाई से एक परियोजना "
 "बनाने का प्रयास करें।"
 
-#: core/QuickAddCore.vala:1237 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1241 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "कीबोर्ड शॉर्टकट"
 
-#: core/QuickAddCore.vala:1243
+#: core/QuickAddCore.vala:1247
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 #, fuzzy
 msgid "Set priority"
 msgstr "वरीयता तय करें"
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 #, fuzzy
 msgid "Add labels"
 msgstr "लेबल जोड़ें"
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 #, fuzzy
 msgid "Opens label selector"
 msgstr "लेबल खोलें"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 #, fuzzy
 msgid "Assign project"
 msgstr "परियोजना जोड़ें"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 #, fuzzy
 msgid "Set reminder"
 msgstr "समयानुकूल रिमाइंडर लगाएं!"
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1275
-msgid "Stay open after creating task"
+#: core/QuickAddCore.vala:1279
+msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 #, fuzzy
 msgid "Tip"
 msgstr "ऊपर"
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 

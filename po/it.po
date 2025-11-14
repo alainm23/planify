@@ -444,7 +444,7 @@ msgstr "Aggiungi promemoria"
 msgid "Add Task"
 msgstr "Aggiungi Task"
 
-#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1275
+#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1279
 msgid "Keep adding"
 msgstr "Continua ad aggiungere"
 
@@ -460,55 +460,55 @@ msgstr ""
 "Mi dispiace, Quick Add non riesce a trovare alcun progetto disponibile. "
 "Prova a creare un progetto da Planify."
 
-#: core/QuickAddCore.vala:1237 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1241 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Scorciatoie da tastiera"
 
-#: core/QuickAddCore.vala:1243
+#: core/QuickAddCore.vala:1247
 msgid "Speed up task creation with these shortcuts"
 msgstr "Velocizza la creazione di task con queste scorciatoie"
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 msgid "Set priority"
 msgstr "Imposta Priorità"
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = più alta, p4 = più bassa"
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 msgid "Add labels"
 msgstr "Aggiungi etichette"
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 msgid "Opens label selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 msgid "Assign project"
 msgstr "Assegna Progetto"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 msgid "Set reminder"
 msgstr "Imposta promemoria"
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1275
-msgid "Stay open after creating task"
-msgstr "Rimani aperto dopo aver creato una task"
+#: core/QuickAddCore.vala:1279
+msgid "Toggle stay open after creating task"
+msgstr ""
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 msgid "Tip"
 msgstr "Suggerimento"
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combina scorciatoie nel campo del titolo per una creazione più veloce"
 
@@ -3117,3 +3117,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr ""
+
+#~ msgid "Stay open after creating task"
+#~ msgstr "Rimani aperto dopo aver creato una task"

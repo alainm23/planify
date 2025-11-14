@@ -459,7 +459,7 @@ msgstr "Добавяне на напомняния"
 msgid "Add Task"
 msgstr "Добавяне на задача"
 
-#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1275
+#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1279
 msgid "Keep adding"
 msgstr ""
 
@@ -475,61 +475,61 @@ msgstr ""
 "„Бързо добавяне“ не може да намери наличен проект, опитайте да създадете "
 "проект от „Planify“."
 
-#: core/QuickAddCore.vala:1237 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1241 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Клавишни комбинации"
 
-#: core/QuickAddCore.vala:1243
+#: core/QuickAddCore.vala:1247
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 #, fuzzy
 msgid "Set priority"
 msgstr "Задаване на приоритета"
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 #, fuzzy
 msgid "Add labels"
 msgstr "Добавяне на етикети"
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 #, fuzzy
 msgid "Opens label selector"
 msgstr "Отваряне на „Етикети“"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 #, fuzzy
 msgid "Assign project"
 msgstr "Добавяне на проект"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 #, fuzzy
 msgid "Set reminder"
 msgstr "Задавайте напомняния!"
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1275
-msgid "Stay open after creating task"
+#: core/QuickAddCore.vala:1279
+msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 #, fuzzy
 msgid "Tip"
 msgstr "Горе"
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 

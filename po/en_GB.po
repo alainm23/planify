@@ -444,7 +444,7 @@ msgstr "Add Reminders"
 msgid "Add Task"
 msgstr "Add Task"
 
-#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1275
+#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1279
 msgid "Keep adding"
 msgstr "Keep adding"
 
@@ -460,55 +460,55 @@ msgstr ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 
-#: core/QuickAddCore.vala:1237 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1241 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Keyboard Shortcuts"
 
-#: core/QuickAddCore.vala:1243
+#: core/QuickAddCore.vala:1247
 msgid "Speed up task creation with these shortcuts"
 msgstr "Speed up task creation with these shortcuts"
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 msgid "Set priority"
 msgstr "Set priority"
 
-#: core/QuickAddCore.vala:1257
+#: core/QuickAddCore.vala:1261
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = highest, p4 = lowest"
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 msgid "Add labels"
 msgstr "Add labels"
 
-#: core/QuickAddCore.vala:1258
+#: core/QuickAddCore.vala:1262
 msgid "Opens label selector"
 msgstr "Opens label selector"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 msgid "Assign project"
 msgstr "Assign project"
 
-#: core/QuickAddCore.vala:1259
+#: core/QuickAddCore.vala:1263
 msgid "Opens project selector"
 msgstr "Opens project selector"
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 msgid "Set reminder"
 msgstr "Set reminder"
 
-#: core/QuickAddCore.vala:1260
+#: core/QuickAddCore.vala:1264
 msgid "Opens reminder options"
 msgstr "Opens reminder options"
 
-#: core/QuickAddCore.vala:1275
-msgid "Stay open after creating task"
-msgstr "Stay open after creating task"
+#: core/QuickAddCore.vala:1279
+msgid "Toggle stay open after creating task"
+msgstr ""
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 msgid "Tip"
 msgstr "Tip"
 
-#: core/QuickAddCore.vala:1281
+#: core/QuickAddCore.vala:1285
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combine shortcuts in the title field for faster creation"
 
@@ -3214,6 +3214,9 @@ msgstr "Open Labels"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Open Pinboard"
+
+#~ msgid "Stay open after creating task"
+#~ msgstr "Stay open after creating task"
 
 #~ msgid "Process completed, you need to start Planify again"
 #~ msgstr "Process completed, you need to start Planify again"
