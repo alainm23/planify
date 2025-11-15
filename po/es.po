@@ -896,8 +896,8 @@ msgid ""
 msgstr ""
 "Eso es todo lo que necesitas saber. Puedes comenzar a añadir tus propios "
 "proyectos y tareas cuando quieras.\n"
-"Más adelante puedes volver a este proyecto para aprender funciones "
-"avanzadas.\n"
+"Más adelante puedes volver a este proyecto para aprender funciones avanzadas."
+"\n"
 "¡Esperamos que disfrutes usando Planify!"
 
 #: core/Utils/Util.vala:628
@@ -2097,8 +2097,8 @@ msgid ""
 "donate today?"
 msgstr ""
 "Nuestra misión es ofrecer la mejor aplicación de gestión de tareas de código "
-"abierto para usuarios de todo el mundo. Sus donaciones apoyan este trabajo. "
-"¿Le gustaría donar hoy?"
+"abierto para usuarios de todo el mundo. Sus donaciones apoyan este trabajo. ¿"
+"Le gustaría donar hoy?"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:49
 msgid "Patreon"
