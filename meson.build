@@ -1,7 +1,7 @@
 project(
   'io.github.alainm23.planify',
   'vala', 'c',
-  version: '4.15.1'
+  version: '4.15.2'
 )
 
 gnome = import('gnome')
@@ -35,7 +35,7 @@ if get_option('webkit')
 endif
 
 if libspelling.found ()
-  add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
+  add_project_arguments(['--define=WITH_LIBSPELLING'], language: 'vala')
 endif
 
 if get_option('portal')

@@ -478,6 +478,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             item.update_pin (false);
         })] = hide_loading_button;
 
+        signals_map[Services.EventBus.get_default ().day_changed.connect (() => {
+            update_due_label ();
+        })] = Services.EventBus.get_default ();
+
         signals_map[activate.connect (() => {
             open_detail ();
         })] = this;
@@ -759,9 +763,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
             }
 
-            dialog.add_sections (item.project.sections);
             dialog.project = item.project;
-            dialog.section = item.section;
             dialog.present (Planify._instance.main_window);
 
             dialog.changed.connect ((type, id) => {

@@ -120,7 +120,9 @@ public class Widgets.LabelsSummary : Adw.Bin {
                 if (current_visible >= max_items) {
                     overflow_labels.add (label);
                 } else {
-                    labels[label.id] = new Widgets.ItemLabelChild (label);
+                    labels[label.id] = new Widgets.ItemLabelChild (label) {
+                        clickable = false
+                    };
                     box_layout.append (labels[label.id]);
                     current_visible++;
                 }

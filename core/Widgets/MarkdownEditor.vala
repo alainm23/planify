@@ -68,6 +68,8 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     public signal void text_changed (string text);
     public signal void escape_pressed ();
     public signal void return_pressed ();
+    public signal void focus_in ();
+    public signal void focus_out ();
 
     public bool is_editable {
         set {
@@ -87,7 +89,8 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         buffer = new GtkSource.Buffer (null);
         
         text_view = new Gtk.TextView.with_buffer (buffer) {
-            wrap_mode = Gtk.WrapMode.WORD
+            wrap_mode = Gtk.WrapMode.WORD,
+            accepts_tab = false
         };
         text_view.remove_css_class ("view");
         
@@ -99,11 +102,15 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         create_format_popover ();
         update_mode ();
 
-#if LIBSPELLING
+#if WITH_LIBSPELLING
         var adapter = new Spelling.TextBufferAdapter (buffer, Spelling.Checker.get_default ());
         text_view.extra_menu = adapter.get_menu_model ();
         text_view.insert_action_group ("spelling", adapter);
-        adapter.enabled = true;
+        adapter.enabled = Services.Settings.get_default ().settings.get_boolean ("spell-checking-enabled");
+        
+        Services.Settings.get_default ().settings.changed["spell-checking-enabled"].connect (() => {
+            adapter.enabled = Services.Settings.get_default ().settings.get_boolean ("spell-checking-enabled");
+        });
 #endif
         
         Services.Settings.get_default ().settings.changed["enable-markdown-formatting"].connect (() => {
@@ -235,8 +242,6 @@ public class Widgets.MarkdownEditor : Adw.Bin {
             halign = CENTER
         };
         ordered_list_button.add_css_class ("flat");
-        
-
                 
         var format_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         format_box.append (h1_button);
@@ -704,11 +709,13 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         }
         
         text_view.grab_focus ();
+        focus_in ();
     }
     
     private void handle_focus_out () {
         Services.EventBus.get_default ().connect_typing_accel ();
         update_placeholder_visibility ();
+        focus_out ();
     }
     
     private bool on_key_pressed (uint keyval, uint keycode, Gdk.ModifierType state) {

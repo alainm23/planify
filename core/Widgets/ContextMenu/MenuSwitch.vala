@@ -79,8 +79,11 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
 
         menu_icon_revealer.child = menu_icon;
 
-        menu_title = new Gtk.Label (null);
-        menu_title.use_markup = true;
+        menu_title = new Gtk.Label (null) {
+            ellipsize = END,
+            max_width_chars = 16,
+            use_markup = true
+        };
 
         switch_widget = new Gtk.Switch () {
             valign = CENTER,

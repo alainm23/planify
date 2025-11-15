@@ -335,9 +335,12 @@ entry.flat:focus-within {
 .item-label-child {
     background-color: alpha(@colorAccent, 0.125);
     border-radius: 6px;
-    padding: 3px 6px;
+    padding: 0 6px;
     color: @colorAccent;
-    font-weight: bold;
+}
+
+.item-label-child label {
+    font-weight: 600;
 }
 
 .description-box {
@@ -357,6 +360,11 @@ entry.flat:focus-within {
 .small-button {
     font-size: 0.85em;
     padding: 0px 12px;
+}
+
+.tiny-button {
+    padding: 0 6px;
+    font-weight: 600;
 }
 
 .pane-due-button {

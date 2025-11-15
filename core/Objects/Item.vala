@@ -1369,18 +1369,42 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
-            loading = true;
-            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-            caldav_client.delete_item.begin (this, (obj, res) => {
-                HttpResponse response = caldav_client.delete_item.end (res);
-                loading = false;
+            delete_caldav.begin ();
+        }
+    }
 
-                if (response.status) {
-                    Services.Store.instance ().delete_item (this);
-                } else {
-                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                }
-            });
+    private async void delete_caldav () {
+        loading = true;
+        var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+        
+        try {
+            yield delete_subitems_caldav (this, caldav_client);
+            
+            var response = yield caldav_client.delete_item (this);
+            
+            if (!response.status) {
+                throw new IOError.FAILED (response.error);
+            }
+            
+            Services.Store.instance ().delete_item (this);
+        } catch (Error e) {
+            Services.EventBus.get_default ().send_error_toast (0, e.message);
+        }
+        
+        loading = false;
+    }
+
+    private async void delete_subitems_caldav (Objects.Item item, Services.CalDAV.CalDAVClient caldav_client) throws Error {
+        foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
+            yield delete_subitems_caldav (subitem, caldav_client);
+            
+            var response = yield caldav_client.delete_item (subitem);
+
+            if (!response.status) {
+                throw new IOError.FAILED (response.error);
+            }
+            
+            Services.Store.instance ().delete_item (subitem);
         }
     }
 
@@ -1495,12 +1519,12 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void move (Objects.Project project, string _section_id) {
-        loading = true;
-        show_item = false;
-
         if (project.source_type == SourceType.LOCAL) {
             _move (project.id, _section_id);
         } else if (project.source_type == SourceType.TODOIST) {
+            loading = true;
+            sensitive = false;
+            
             string move_id = project.id;
             string move_type = "project_id";
             if (_section_id != "") {
@@ -1511,7 +1535,6 @@ public class Objects.Item : Objects.BaseObject {
             Services.Todoist.get_default ().move_item.begin (this, move_type, move_id, (obj, res) => {
                 var response = Services.Todoist.get_default ().move_item.end (res);
                 loading = false;
-                show_item = true;
 
                 if (response.status) {
                     _move (project.id, _section_id);
@@ -1520,6 +1543,9 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
+            loading = true;
+            sensitive = false;
+            
             move_caldav_recursive.begin (project, _section_id);
         }
     }
@@ -1737,5 +1763,30 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         return response;
+    }
+
+    public void to_string () {
+        print ("_________________________________\n");
+        print ("ID: %s\n", id);
+        print ("Content: %s\n", content);
+        print ("Description: %s\n", description);
+        print ("Project ID: %s\n", project_id);
+        print ("Section ID: %s\n", section_id);
+        print ("Parent ID: %s\n", parent_id);
+        print ("Priority: %d (%s)\n", priority, priority_text);
+        print ("Checked: %s\n", checked ? "true" : "false");
+        print ("Pinned: %s\n", pinned ? "true" : "false");
+        print ("Has Due: %s\n", has_due ? "true" : "false");
+        if (has_due) {
+            print ("Due Date: %s\n", due.date);
+        }
+        print ("Child Order: %d\n", child_order);
+        print ("Added At: %s\n", added_at);
+        print ("Completed At: %s\n", completed_at);
+        print ("Labels: %d\n", labels.size);
+        foreach (var label in labels) {
+            print ("  - %s\n", label.name);
+        }
+        print ("---------------------------------\n");
     }
 }

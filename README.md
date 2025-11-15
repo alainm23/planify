@@ -1,7 +1,7 @@
 [![Please do not theme this app](https://stopthemingmy.app/badge.svg)](https://stopthemingmy.app)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 <a href="https://hosted.weblate.org/engage/planner/">
-<img src="https://hosted.weblate.org/widget/planner/translations/svg-badge.svg" alt="Translation status" />
+<img src="https://hosted.weblate.org/widget/planner/io-github-alainm23-planify/svg-badge.svg" alt="Estado de la traducción" />
 </a>
 
 <div align="center">

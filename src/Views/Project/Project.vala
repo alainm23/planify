@@ -537,7 +537,7 @@ public class Views.Project : Adw.Bin {
             arrow = true
         };
 
-        var show_completed_item = new Widgets.ContextMenu.MenuSwitch (_ ("Completed Tasks"), "check-round-outline-symbolic");
+        var show_completed_item = new Widgets.ContextMenu.MenuSwitch (_ ("Show Completed Tasks"), "check-round-outline-symbolic");
         show_completed_item.active = project.show_completed;
 
         var show_completed_item_button = new Gtk.Button.from_icon_name ("edit-find-symbolic") {
@@ -619,6 +619,10 @@ public class Views.Project : Adw.Bin {
             project.update_local ();
             check_default_filters ();
         })] = show_completed_item;
+
+        signal_map[project.show_completed_changed.connect (() => {
+            show_completed_item.active = project.show_completed;
+        })] = project;
 
         signal_map[show_completed_item_button.clicked.connect (() => {
             popover.popdown ();

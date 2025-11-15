@@ -49,21 +49,16 @@ jobs:
           echo >> po/POTFILES
           echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
 
-          # Update translations
-          xgettext --files-from=po/POTFILES --directory=. \
-            --output=po/io.github.alainm23.planify.pot --from-code=UTF-8 \
-            --keyword=_ --keyword=N_
-
-          for lang in $(cat po/LINGUAS); do
-            msgmerge --update --no-fuzzy-matching --backup=none po/$lang.po po/io.github.alainm23.planify.pot
-          done
+          # Update translations preserving metadata
+          python3 scripts/update_translations.py
 
       - name: Check for real changes
         id: check_changes
         run: |
-          # Exclude date-only changes (POT-Creation-Date and PO-Revision-Date)
+          # Exclude metadata-only changes
           if git diff --ignore-matching-lines='^"POT-Creation-Date:' \
                       --ignore-matching-lines='^"PO-Revision-Date:' \
+                      --ignore-matching-lines='^"Report-Msgid-Bugs-To:' \
                       --quiet po/; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
@@ -83,3 +78,11 @@ jobs:
           git add po/
           git diff --staged --quiet || git commit -m "Update translations"
           git push origin master
+
+      - name: Notify Weblate of changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          curl -X POST "https://hosted.weblate.org/api/components/planner/io-github-alainm23-planify/repository/" \
+            -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"operation": "pull"}'

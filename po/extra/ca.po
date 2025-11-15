@@ -8,19 +8,22 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2025-10-08 17:08-0500\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-10-31 18:55+0000\n"
+"Last-Translator: Josep Cunquero Orts <corts.josep@proton.me>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/planner/"
+"planify-extra/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:7
 #: data/io.github.alainm23.planify.desktop.in.in:4
+#, fuzzy
 msgid "Forget about forgetting things"
-msgstr ""
+msgstr "Oblida't d'oblidar coses"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:13
 msgid ""
@@ -67,15 +70,15 @@ msgstr ""
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:24
 msgid "Recurring tasks with flexible patterns"
-msgstr ""
+msgstr "Tasques recurrents amb patrons flexibles"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:25
 msgid "Attachments and links in your tasks"
-msgstr ""
+msgstr "Adjuncions i enllaços a les teves tasques"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:27
 msgid "☁️ Cloud Synchronization:"
-msgstr ""
+msgstr "☁️ Sincronització al núvol:"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:29
 msgid "Full synchronization with Todoist to access your tasks from anywhere"

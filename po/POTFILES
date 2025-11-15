@@ -31,7 +31,7 @@ core/Objects/Reminder.vala
 core/Objects/Section.vala
 core/Objects/Source.vala
 core/Objects/TranslationMetric.vala
-core/QuickAdd.vala
+core/QuickAddCore.vala
 core/Services/CalDAV/CalDAVClient.vala
 core/Services/CalDAV/Core.vala
 core/Services/CalDAV/Providers/Nextcloud.vala
@@ -71,13 +71,15 @@ core/Widgets/ItemLabelChild.vala
 core/Widgets/ItemLabels.vala
 core/Widgets/LabelPicker/LabelButton.vala
 core/Widgets/LabelPicker/LabelPicker.vala
+core/Widgets/LabelPicker/LabelQuickPicker.vala
 core/Widgets/LabelPicker/LabelRow.vala
-core/Widgets/LabelsPickerCore.vala
+core/Widgets/LabelPicker/LabelsPickerCore.vala
 core/Widgets/LoadingButton.vala
 core/Widgets/MarkdownEditor.vala
 core/Widgets/PinButton.vala
 core/Widgets/PriorityButton.vala
 core/Widgets/ProjectPicker/ProjectPickerButton.vala
+core/Widgets/ProjectPicker/ProjectPickerCore.vala
 core/Widgets/ProjectPicker/ProjectPickerPopover.vala
 core/Widgets/ProjectPicker/ProjectPickerRow.vala
 core/Widgets/ReminderPicker/ReminderButton.vala
@@ -116,10 +118,7 @@ src/Dialogs/Preferences/Pages/Support.vala
 src/Dialogs/Preferences/Pages/TaskSetting.vala
 src/Dialogs/Preferences/PreferencesWindow.vala
 src/Dialogs/Project.vala
-src/Dialogs/ProjectPicker/ProjectPicker.vala
-src/Dialogs/ProjectPicker/ProjectPickerRow.vala
-src/Dialogs/ProjectPicker/ProjectPickerSourceRow.vala
-src/Dialogs/ProjectPicker/SectionPickerRow.vala
+src/Dialogs/ProjectPicker.vala
 src/Dialogs/QuickAdd.vala
 src/Dialogs/QuickFind/QuickFind.vala
 src/Dialogs/QuickFind/QuickFindItem.vala
@@ -170,6 +169,7 @@ src/Widgets/AttachmentRow.vala
 src/Widgets/Attachments.vala
 src/Widgets/BypassResolveSwitchRow.vala
 src/Widgets/ColorPickerRow.vala
+src/Widgets/ComboWrapRow.vala
 src/Widgets/CompletedTaskRow.vala
 src/Widgets/EditableTextView.vala
 src/Widgets/ErrorView.vala
@@ -185,8 +185,10 @@ src/Widgets/MagicButton.vala
 src/Widgets/MultiSelectToolbar.vala
 src/Widgets/NewVersionPopup.vala
 src/Widgets/PinnedItemsBox.vala
+src/Widgets/ProjectItemRow.vala
 src/Widgets/ReorderChild.vala
 src/Widgets/ScrolledWindow.vala
+src/Widgets/SectionItemRow.vala
 src/Widgets/SectionsOrderPopover.vala
 src/Widgets/SubItems.vala
 src/Widgets/SyncButton.vala

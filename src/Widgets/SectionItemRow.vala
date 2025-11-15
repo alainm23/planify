@@ -19,7 +19,7 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
+public class Widgets.SectionItemRow : Gtk.ListBoxRow {
     public Objects.Section section { get; construct; }
     public string widget_type { get; construct; }
 
@@ -38,27 +38,27 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
 
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
-    public SectionPickerRow (Objects.Section section, string widget_type = "picker") {
+    public SectionItemRow (Objects.Section section, string widget_type = "picker") {
         Object (
             section: section,
             widget_type: widget_type
         );
     }
 
-    ~SectionPickerRow () {
-        debug ("Destroying - Dialogs.ProjectPicker.SectionPickerRow\n");
+    ~SectionItemRow () {
+        debug ("Destroying - Widgets.SectionItemRow\n");
     }
 
     construct {
         add_css_class ("no-selectable");
         add_css_class ("transition");
 
-        name_label = new Gtk.Label (section.name);
-        name_label.valign = Gtk.Align.CENTER;
-        name_label.ellipsize = Pango.EllipsizeMode.END;
+        name_label = new Gtk.Label (section.name) {
+            valign = CENTER,
+            ellipsize = END
+        };
 
-        var selected_icon = new Gtk.Image () {
-            gicon = new ThemedIcon ("emblem-ok-symbolic"),
+        var selected_icon = new Gtk.Image.from_icon_name ("checkmark-small-symbolic") {
             pixel_size = 16,
             hexpand = true,
             valign = Gtk.Align.CENTER,

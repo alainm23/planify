@@ -131,7 +131,7 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
         labels_picker.reset ();
     }
 
-    public void update_from_item (Objects.Item item) {
+    public void update_tooltip_from_item (Objects.Item item) {
         labels_label.label = _("Select Labels");
         labels_label.tooltip_text = null;
 

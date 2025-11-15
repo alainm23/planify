@@ -38,7 +38,7 @@ public class Dialogs.Preferences.Pages.TaskSetting : Dialogs.Preferences.Pages.B
         complete_tasks_model.append (_("Complete Instantly"));
         complete_tasks_model.append (_("Complete with Undo"));
 
-        var complete_tasks_row = new Adw.ComboRow ();
+        var complete_tasks_row = new Widgets.ComboWrapRow ();
         complete_tasks_row.title = _("Task Completion");
         complete_tasks_row.subtitle = _("Choose how tasks behave when marked as complete");
         complete_tasks_row.model = complete_tasks_model;
@@ -132,6 +132,14 @@ public class Dialogs.Preferences.Pages.TaskSetting : Dialogs.Preferences.Pages.B
 
         group.add (always_show_sidebar_item);
 
+        var spell_checking_item = new Adw.SwitchRow ();
+        spell_checking_item.title = _("Enable Spell Checking");
+        spell_checking_item.subtitle = _("Check spelling in task descriptions and notes");
+        Services.Settings.get_default ().settings.bind ("spell-checking-enabled", spell_checking_item,
+                                                        "active", GLib.SettingsBindFlags.DEFAULT);
+
+        group.add (spell_checking_item);
+
         var reminders_group = new Adw.PreferencesGroup () {
             title = _("Reminders")
         };
@@ -150,7 +158,7 @@ public class Dialogs.Preferences.Pages.TaskSetting : Dialogs.Preferences.Pages.B
         reminders_model.append (_("2 hours before"));
         reminders_model.append (_("3 hours before"));
 
-        var reminders_comborow = new Adw.ComboRow ();
+        var reminders_comborow = new Widgets.ComboWrapRow ();
         reminders_comborow.title = _("Automatic reminders");
         reminders_comborow.subtitle =
             _("When enabled, a reminder before the task’s due time will be added by default.");
@@ -162,35 +170,31 @@ public class Dialogs.Preferences.Pages.TaskSetting : Dialogs.Preferences.Pages.B
         reminders_group.add (automatic_reminders);
         reminders_group.add (reminders_comborow);
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-        content_box.append (group);
-        content_box.append (reminders_group);
-
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 600,
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             margin_start = 24,
             margin_end = 24,
             margin_bottom = 24,
             margin_top = 24
         };
-
-        content_clamp.child = content_box;
+        content_box.append (group);
+        content_box.append (reminders_group);
 
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
-            vexpand = true
+            vexpand = true,
+            child = content_box
         };
-        scrolled_window.child = content_clamp;
 
-        var toolbar_view = new Adw.ToolbarView ();
+        var toolbar_view = new Adw.ToolbarView () {
+            content = scrolled_window
+        };
         toolbar_view.add_top_bar (new Adw.HeaderBar ());
-        toolbar_view.content = scrolled_window;
 
         child = toolbar_view;
 
         signal_map[complete_tasks_row.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_enum ("complete-task", (int) complete_tasks_row.selected);
+            Services.Settings.get_default ().settings.set_enum ("complete-task", complete_tasks_row.selected);
         })] = complete_tasks_row;
 
         signal_map[default_priority_row.notify["selected"].connect (() => {
@@ -209,8 +213,7 @@ public class Dialogs.Preferences.Pages.TaskSetting : Dialogs.Preferences.Pages.B
         })] = underline_completed_switch;
 
         signal_map[reminders_comborow.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_enum ("automatic-reminders",
-                                                                (int) reminders_comborow.selected);
+            Services.Settings.get_default ().settings.set_enum ("automatic-reminders", reminders_comborow.selected);
         })] = reminders_comborow;
 
         destroy.connect (() => {
