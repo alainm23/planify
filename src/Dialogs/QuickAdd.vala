@@ -22,7 +22,7 @@
 public class Dialogs.QuickAdd : Adw.Dialog {
     public Objects.Item item { get; construct; }
 
-    private Layouts.QuickAdd quick_add_widget;
+    private Layouts.QuickAddCore quick_add_widget;
 
     public int position {
         set {
@@ -49,7 +49,7 @@ public class Dialogs.QuickAdd : Adw.Dialog {
     construct {
         Services.EventBus.get_default ().disconnect_all_accels ();
 
-        quick_add_widget = new Layouts.QuickAdd ();
+        quick_add_widget = new Layouts.QuickAddCore ();
         child = quick_add_widget;
 
         signal_map[quick_add_widget.hide_destroy.connect (() => {
@@ -113,6 +113,10 @@ public class Dialogs.QuickAdd : Adw.Dialog {
 
     public void set_priority (int priority) {
         quick_add_widget.set_priority (priority);
+    }
+
+    public void set_pinned (bool pinned) {
+        quick_add_widget.set_pinned (pinned);
     }
 
     public void for_base_object (Objects.BaseObject base_object) {

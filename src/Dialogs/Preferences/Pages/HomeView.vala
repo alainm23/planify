@@ -45,6 +45,7 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
             margin_start = 24,
             margin_end = 24,
             margin_top = 12,
+            margin_bottom = 24,
             child = group_box
         };
 
@@ -86,10 +87,14 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
         foreach (Objects.Source source in Services.Store.instance ().sources) {
             var source_group = new Layouts.HeaderItem (source.display_name) {
                 card = true,
-                reveal = true
+                reveal = source.is_visible
             };
 
             foreach (Objects.Project project in Services.Store.instance ().get_projects_by_source (source.id)) {
+                if (project.is_archived) {
+                    continue;
+                }
+                
                 var row = new HomeViewRow (project) {
                     active = Services.Settings.get_default ().get_string ("home-view") == project.view_id,
                     group = fake_radio
@@ -164,7 +169,7 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
             };
 
             if (base_object is Objects.Project) {
-                action_row.add_prefix (new Widgets.IconColorProject (10) {
+                action_row.add_prefix (new Widgets.IconColorProject (20) {
                     project = (Objects.Project) base_object
                 });
             } else {

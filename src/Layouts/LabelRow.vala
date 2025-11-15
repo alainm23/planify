@@ -28,7 +28,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
     private Gtk.Revealer main_revealer;
     private Gtk.Image widget_color;
     private Gtk.Box handle_grid;
-    private Widgets.ReorderChild reorder_child;
+    private Widgets.ReorderChild reorder;
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
@@ -94,16 +94,16 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         handle_grid.append (count_revealer);
         handle_grid.append (buttons_box);
 
-        reorder_child = new Widgets.ReorderChild (handle_grid, this);
+        reorder = new Widgets.ReorderChild (handle_grid, this);
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            child = reorder_child
+            child = reorder
         };
 
         child = main_revealer;
+        reorder.build_drag_and_drop ();
         update_request ();
-        reorder_child.build_drag_and_drop ();
 
         Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
@@ -119,9 +119,9 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
             count_revealer.reveal_child = int.parse (count_label.label) > 0;
         })] = label;
 
-        signal_map[reorder_child.on_drop_end.connect ((listbox) => {
+        signal_map[reorder.on_drop_end.connect ((listbox) => {
             update_labels_item_order (listbox);
-        })] = reorder_child;
+        })] = reorder;
 
         signal_map[label.loading_change.connect (() => {
             loading_button.is_loading = label.loading;
@@ -130,6 +130,10 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         signal_map[loading_button.clicked.connect (() => {
             Services.EventBus.get_default ().pane_selected (PaneType.LABEL, label.id);
         })] = loading_button;
+
+        signal_map[main_revealer.notify["child-revealed"].connect (() => {
+            reorder.draw_motion_widgets ();
+        })] = main_revealer;
     }
 
     public void update_request () {
@@ -199,9 +203,9 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 
         signal_map.clear ();
 
-        if (reorder_child != null) {
-            reorder_child.clean_up ();
-            reorder_child = null;
+        if (reorder != null) {
+            reorder.clean_up ();
+            reorder = null;
         }
     }
 }

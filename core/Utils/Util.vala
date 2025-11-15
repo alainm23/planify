@@ -38,26 +38,27 @@ public class Util : GLib.Object {
         if (colors == null) {
             colors = new Gee.HashMap<string, Objects.Color> ();
 
-            colors.set ("berry_red", new Objects.Color (30, _("Berry Red"), "#b8256f"));
-            colors.set ("red", new Objects.Color (31, _("Red"), "#db4035"));
-            colors.set ("orange", new Objects.Color (32, _("Orange"), "#ff9933"));
-            colors.set ("yellow", new Objects.Color (33, _("Olive Green"), "#fad000"));
-            colors.set ("olive_green", new Objects.Color (34, _("Yellow"), "#afb83b"));
-            colors.set ("lime_green", new Objects.Color (35, _("Lime Green"), "#7ecc49"));
-            colors.set ("green", new Objects.Color (36, _("Green"), "#299438"));
-            colors.set ("mint_green", new Objects.Color (37, _("Mint Green"), "#6accbc"));
-            colors.set ("teal", new Objects.Color (38, _("Teal"), "#158fad"));
-            colors.set ("sky_blue", new Objects.Color (39, _("Sky Blue"), "#14aaf5"));
-            colors.set ("light_blue", new Objects.Color (40, _("Light Blue"), "#96c3eb"));
-            colors.set ("blue", new Objects.Color (41, _("Blue"), "#4073ff"));
-            colors.set ("grape", new Objects.Color (42, _("Grape"), "#884dff"));
-            colors.set ("violet", new Objects.Color (43, _("Violet"), "#af38eb"));
-            colors.set ("lavender", new Objects.Color (44, _("Lavender"), "#eb96eb"));
-            colors.set ("magenta", new Objects.Color (45, _("Magenta"), "#e05194"));
-            colors.set ("salmon", new Objects.Color (46, _("Salmon"), "#ff8d85"));
-            colors.set ("charcoal", new Objects.Color (47, _("Charcoal"), "#808080"));
-            colors.set ("grey", new Objects.Color (48, _("Grey"), "#b8b8b8"));
-            colors.set ("taupe", new Objects.Color (49, _("Taupe"), "#ccac93"));
+            colors.set ("berry_red", new Objects.Color (30, _("Berry Red"), "#c42d78"));
+            colors.set ("red", new Objects.Color (31, _("Red"), "#e23d3d"));
+            colors.set ("orange", new Objects.Color (32, _("Orange"), "#ff8a2a"));
+            colors.set ("yellow", new Objects.Color (33, _("Yellow"), "#f5c400"));
+            colors.set ("olive_green", new Objects.Color (34, _("Olive Green"), "#9cab3a"));
+            colors.set ("lime_green", new Objects.Color (35, _("Lime Green"), "#70c741"));
+            colors.set ("green", new Objects.Color (36, _("Green"), "#27983a"));
+            colors.set ("mint_green", new Objects.Color (37, _("Mint Green"), "#55cbb0"));
+            colors.set ("teal", new Objects.Color (38, _("Teal"), "#1492b2"));
+            colors.set ("sky_blue", new Objects.Color (39, _("Sky Blue"), "#139ef7"));
+            colors.set ("light_blue", new Objects.Color (40, _("Light Blue"), "#7fb9e8"));
+            colors.set ("blue", new Objects.Color (41, _("Blue"), "#3c6dff"));
+            colors.set ("grape", new Objects.Color (42, _("Grape"), "#7b44e6"));
+            colors.set ("violet", new Objects.Color (43, _("Violet"), "#a02adb"));
+            colors.set ("lavender", new Objects.Color (44, _("Lavender"), "#d89ae8"));
+            colors.set ("magenta", new Objects.Color (45, _("Magenta"), "#d6458d"));
+            colors.set ("salmon", new Objects.Color (46, _("Salmon"), "#f77c70"));
+            colors.set ("charcoal", new Objects.Color (47, _("Charcoal"), "#666666"));
+            colors.set ("grey", new Objects.Color (48, _("Grey"), "#a0a0a0"));
+            colors.set ("taupe", new Objects.Color (49, _("Taupe"), "#b99780"));
+
         }
 
         return colors;
@@ -67,15 +68,19 @@ public class Util : GLib.Object {
         return get_colors ().get (key).name;
     }
 
-    public string get_color (string key) {
+    public string get_color (string ? key) {
+        if (key == null || key == "") {
+            return "#1e63ec";
+        }
+        
         if (get_colors ().has_key (key)) {
             return get_colors ().get (key).hexadecimal;
         }
 
-        if (new Gdk.RGBA ().parse (key)) {
+        var rgba = new Gdk.RGBA ();
+        if (rgba.parse (key)) {
             return key;
         }
-
 
         return "#1e63ec";
     }
@@ -94,7 +99,11 @@ public class Util : GLib.Object {
 
     // Providers
     private Gee.HashMap<string, Gtk.CssProvider>? providers;
-    public void set_widget_color (string color, Gtk.Widget widget) {
+    public void set_widget_color (string ? color, Gtk.Widget ? widget) {
+        if (color == null || color == "" || widget == null) {
+            return;
+        }
+        
         if (providers == null) {
             providers = new Gee.HashMap<string, Gtk.CssProvider> ();
         }
@@ -219,6 +228,10 @@ public class Util : GLib.Object {
         return returned;
     }
 
+    public static string[] get_current_languages () {
+        return Intl.get_language_names ();
+    }
+
     public string get_badge_name () {
         string returned = "";
         int badge_count = Services.Settings.get_default ().settings.get_enum ("badge-count");
@@ -266,8 +279,8 @@ public class Util : GLib.Object {
                 popover_bg_color = "#202020";
                 sidebar_bg_color = "#1f1f1f";
                 item_border_color = "#3a3a3a";
-                upcoming_bg_color = "#2a2b2d";
-                upcoming_fg_color = "#e0e0e0";
+                upcoming_bg_color = "#2d2d2d";
+                upcoming_fg_color = "#f0f0f0";
                 selected_color = "#2e3a46";
                 card_bg_color = "#222222";
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
@@ -276,8 +289,8 @@ public class Util : GLib.Object {
                 popover_bg_color = "#16171D";
                 sidebar_bg_color = "#14151a";
                 item_border_color = "#2d2f35";
-                upcoming_bg_color = "#24262b";
-                upcoming_fg_color = "#e0e1e5";
+                upcoming_bg_color = "#2a2d34";
+                upcoming_fg_color = "#e6e9ef";
                 selected_color = "#2a303a";
                 card_bg_color = "#1E2026";
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
@@ -528,88 +541,6 @@ public class Util : GLib.Object {
         return toast;
     }
 
-    public string get_priority_title (int priority) {
-        if (priority == Constants.PRIORITY_1) {
-            return _("Priority 1: high");
-        } else if (priority == Constants.PRIORITY_2) {
-            return _("Priority 2: medium");
-        } else if (priority == Constants.PRIORITY_3) {
-            return _("Priority 3: low");
-        } else if (priority == Constants.PRIORITY_4) {
-            return _("Priority 4: none");
-        } else {
-            return _("Priority 4: none");
-        }
-    }
-
-    public string get_priority_keywords (int priority) {
-        if (priority == Constants.PRIORITY_1) {
-            return "%s;%s".printf ("p1", _("high"));
-        } else if (priority == Constants.PRIORITY_2) {
-            return "%s;%s".printf ("p2", _("medium"));
-        } else if (priority == Constants.PRIORITY_3) {
-            return "%s;%s".printf ("p3", _("low"));
-        } else if (priority == Constants.PRIORITY_4) {
-            return "%s;%s".printf ("p4", _("none"));
-        } else {
-            return "";
-        }
-    }
-
-    public Gtk.Image get_priority_icon (int priority) {
-        if (priority == Constants.PRIORITY_1) {
-            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                css_classes = { "priority-1-icon" },
-                pixel_size = 16
-            };
-        } else if (priority == Constants.PRIORITY_2) {
-            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                css_classes = { "priority-2-icon" },
-                pixel_size = 16
-            };
-        } else if (priority == Constants.PRIORITY_3) {
-            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                css_classes = { "priority-3-icon" },
-                pixel_size = 16
-            };
-        } else if (priority == Constants.PRIORITY_4) {
-            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                pixel_size = 16
-            };
-        } else {
-            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                pixel_size = 16
-            };
-        }
-    }
-
-    public string get_priority_color (int priority) {
-        if (priority == Constants.PRIORITY_1) {
-            return "#ff7066";
-        } else if (priority == Constants.PRIORITY_2) {
-            return "#ff9914";
-        } else if (priority == Constants.PRIORITY_3) {
-            return "#5297ff";
-        } else {
-            return "@text_color";
-        }
-    }
-
-    private Gee.HashMap<string, Objects.Filters.Priority> priority_views;
-    public Objects.Filters.Priority get_priority_filter (string view_id) {
-        if (priority_views == null) {
-            priority_views = new Gee.HashMap<string, Objects.Filters.Priority> ();
-        }
-
-        if (priority_views.has_key (view_id)) {
-            return priority_views[view_id];
-        } else {
-            int priority = int.parse (view_id.split ("-")[1]);
-            priority_views[view_id] = new Objects.Filters.Priority (priority);
-            return priority_views[view_id];
-        }
-    }
-
     public Objects.Source create_local_source () {
         Objects.Source local_source = new Objects.Source ();
         local_source.id = SourceType.LOCAL.to_string ();
@@ -642,32 +573,32 @@ public class Util : GLib.Object {
         project.name = _("Meet Planify");
         project.color = "blue";
         project.show_completed = true;
-        project.description = _("This project shows you everything you need to know to hit the ground running. Don’t hesitate to play around in it – you can always create a new one from settings.");
+        project.description = _("This project shows you everything you need to know to hit the ground running. Don’t hesitate to play around with it – you can always recreate it from Preferences.");
 
         Services.Store.instance ().insert_project (project);
 
         var item_01 = new Objects.Item ();
         item_01.id = Util.get_default ().generate_id (item_01);
         item_01.project_id = project.id;
-        item_01.content = _("Tap this to-do");
-        item_01.description = _("You're looking at a to-do! Complete it by tapping the checkbox on the left. Completed to-dos are collected at the bottom of your project.");
+        item_01.content = _("Tap this task");
+        item_01.description = _("You're looking at a to-do! Complete it by tapping the checkbox on the left. ");
 
         var item_02 = new Objects.Item ();
         item_02.id = Util.get_default ().generate_id (item_02);
         item_02.project_id = project.id;
-        item_02.content = _("Create a new to-do");
-        item_02.description = _("Now it's your turn, tap the '+' button at the bottom of your project, enter any pending and tap the blue 'Save' button.");
+        item_02.content = _("Create a new task");
+        item_02.description = _("Now it's your turn! Tap the '+' button at the bottom of your project, enter a task description, and tap the 'Add Task' button.");
 
         var item_03 = new Objects.Item ();
         item_03.id = Util.get_default ().generate_id (item_03);
         item_03.project_id = project.id;
-        item_03.content = _("Plan this to-do by today or later");
-        item_03.description = _("Tap the calendar button at the bottom to decide when to do this to-do.");
+        item_03.content = _("Plan this to-do for today or later");
+        item_03.description = _("Tap the calendar button at the bottom to decide when to complete this to-do.");
 
         var item_04 = new Objects.Item ();
         item_04.id = Util.get_default ().generate_id (item_04);
         item_04.project_id = project.id;
-        item_04.content = _("Reorder yours to-dos");
+        item_04.content = _("Reorder your to-dos");
         item_04.description = _("To reorder your list, tap and hold a to-do, then drag it to where it should go.");
 
         var item_05 = new Objects.Item ();
@@ -681,7 +612,7 @@ public class Util : GLib.Object {
         item_06.project_id = project.id;
         item_06.content = _("You’re done!");
         item_06.description = _("""That’s all you really need to know. Feel free to start adding your own projects and to-dos.
-You can come back to this project later to learn the advanced features below..
+You can come back to this project later to learn the advanced features below.
 We hope you’ll enjoy using Planify!""");
 
         project.add_item_if_not_exists (item_01);
@@ -709,8 +640,8 @@ We hope you’ll enjoy using Planify!""");
         item_02_02.id = Util.get_default ().generate_id (item_02_02);
         item_02_02.project_id = project.id;
         item_02_02.section_id = section_01.id;
-        item_02_02.content = _("Enable synchronization with third-party service.");
-        item_02_02.description = _("Planify not only creates tasks locally, it can also synchronize your Todoist account. Go to 'Preferences' 🡒 'Accounts'.");
+        item_02_02.content = _("Enable synchronization with third-party services");
+        item_02_02.description = _("Planify not only creates tasks locally, but can also synchronize with your Todoist account. Go to 'Preferences' 🡒 'Accounts'.");
 
         section_01.add_item_if_not_exists (item_02_01);
         section_01.add_item_if_not_exists (item_02_02);
@@ -733,15 +664,15 @@ We hope you’ll enjoy using Planify!""");
         item_03_02.id = Util.get_default ().generate_id (item_03_02);
         item_03_02.project_id = project.id;
         item_03_02.section_id = section_02.id;
-        item_03_02.content = _("Tag your to-dos!");
-        item_03_02.description = _("Tags allow you to improve your workflow in Planify. To add a Tag click on the tag button at the bottom.");
+        item_03_02.content = _("Add labels to your tasks!");
+        item_03_02.description = _("Labels help you organize and categorize your tasks. To add a label, click the label button at the bottom.");
 
         var item_03_03 = new Objects.Item ();
         item_03_03.id = Util.get_default ().generate_id (item_03_03);
         item_03_03.project_id = project.id;
         item_03_03.section_id = section_02.id;
         item_03_03.content = _("Set timely reminders!");
-        item_03_03.description = _("You want Planify to send you a notification to remind you of an important event or something special. Tap the bell button below to add a reminder.");
+        item_03_03.description = _("Get notified about important tasks or events. Tap the bell button below to add a reminder.");
         
         section_02.add_item_if_not_exists (item_03_01);
         section_02.add_item_if_not_exists (item_03_02);
@@ -812,6 +743,10 @@ We hope you’ll enjoy using Planify!""");
 
 
     public static string find_string_value (string key, string data) {
+        if (key == null || data == null) {
+            return "";
+        }
+        
         GLib.Regex? regex = null;
         GLib.MatchInfo match;
 
@@ -874,7 +809,7 @@ We hope you’ll enjoy using Planify!""");
         return generator.to_data (null);
     }
 
-    public async void move_backend_type_item (Objects.Item item, Objects.Project target_project, string parent_id = "") {
+    public async void move_backend_type_item (Objects.Item item, Objects.Project target_project, string parent_id = "", bool notify = true) {
         var new_item = item.duplicate ();
         new_item.project_id = target_project.id;
         new_item.parent_id = parent_id;
@@ -884,14 +819,14 @@ We hope you’ll enjoy using Planify!""");
 
         if (target_project.source_type == SourceType.LOCAL) {
             new_item.id = Util.get_default ().generate_id (new_item);
-            yield add_final_duplicate_item (new_item, item);
+            yield add_final_duplicate_item (new_item, item, notify);
         } else if (target_project.source_type == SourceType.TODOIST) {
             HttpResponse response = yield Services.Todoist.get_default ().add (new_item);
             item.loading = false;
 
             if (response.status) {
                 new_item.id = response.data;
-                yield add_final_duplicate_item (new_item, item);
+                yield add_final_duplicate_item (new_item, item, notify);
             }
         } else if (target_project.source_type == SourceType.CALDAV) {
             new_item.id = Util.get_default ().generate_id (new_item);
@@ -901,13 +836,17 @@ We hope you’ll enjoy using Planify!""");
             item.loading = false;
 
             if (response.status) {
-                yield add_final_duplicate_item (new_item, item);
+                yield add_final_duplicate_item (new_item, item, notify);
             }
         }
     }
 
-    public async void add_final_duplicate_item (Objects.Item new_item, Objects.Item item) {
-        new_item.project.add_item_if_not_exists (new_item);
+    public async void add_final_duplicate_item (Objects.Item new_item, Objects.Item item, bool notify = true) {
+        if (new_item.has_parent) {
+            new_item.parent.add_item_if_not_exists (new_item);
+        } else {
+            new_item.project.add_item_if_not_exists (new_item);
+        }
 
         foreach (Objects.Reminder reminder in item.reminders) {
             var _reminder = reminder.duplicate ();
@@ -924,12 +863,14 @@ We hope you’ll enjoy using Planify!""");
         }
 
         foreach (Objects.Item subitem in item.items) {
-            yield move_backend_type_item (subitem, new_item.project, new_item.id);
+            yield move_backend_type_item (subitem, new_item.project, new_item.id, false);
         }
 
-        Services.EventBus.get_default ().send_toast (
-            create_toast (_("Task moved to %s".printf (new_item.project.name)))
-        );
+        if (notify) {
+            Services.EventBus.get_default ().send_toast (
+                create_toast (_("Task moved to %s".printf (new_item.project.name)))
+            );
+        }
 
         item.delete_item ();
     }
@@ -1216,7 +1157,9 @@ We hope you’ll enjoy using Planify!""");
         if (sorted_by == SortedByType.MANUAL) {
             result = item1.child_order - item2.child_order;
         } else if (sorted_by == SortedByType.NAME) {
-            result = natural_compare (item1.content.strip (), item2.content.strip ());
+            string content1 = item1.content ?? "";
+            string content2 = item2.content ?? "";
+            result = natural_compare (content1.strip (), content2.strip ());
         } else if (sorted_by == SortedByType.DUE_DATE) {
             if (item1.has_due && item2.has_due) {
                 var date1 = item1.due.datetime;

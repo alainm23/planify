@@ -1,9 +1,6 @@
 deps = [
   core_dep,
   gee_dep,
-  libedataserver_dep,
-  libportal_dep,
-  libportal_gtk4_dep,
   m_dep
 ]
 
@@ -13,6 +10,24 @@ if get_option('webkit')
     endif
 endif
 
+
+if get_option('portal')
+    if libportal_dep.found()
+        deps += libportal_dep
+    endif
+    if libportal_gtk4_dep.found()
+        deps += libportal_gtk4_dep
+    endif
+endif
+
+
+if get_option('evolution')
+    if libedataserver_dep.found()
+        deps += libedataserver_dep
+    endif
+endif
+
+
 sources = files(
   'App.vala',
   'MainWindow.vala',
@@ -21,6 +36,7 @@ sources = files(
 
   # 'Services/GoogleTasks.vala', No longer used?
   'Services/ActionManager.vala',
+  'Services/Api.vala',
   'Services/Notification.vala',
   'Services/TimeMonitor.vala',
   'Services/DBusServer.vala',
@@ -29,11 +45,6 @@ sources = files(
 
   'Utils/TaskUtils.vala',
 
-  'Services/CalendarEvents/CalendarEvents.vala',
-  'Services/CalendarEvents/DateIterator.vala',
-  'Services/CalendarEvents/DateRange.vala',
-  'Services/CalendarEvents/Util.vala',
-  
   'Layouts/Sidebar.vala',
   'Layouts/FilterPaneChild.vala',
   'Layouts/FilterPaneRow.vala',
@@ -54,8 +65,6 @@ sources = files(
   'Widgets/EditableTextView.vala',
   'Widgets/SyncButton.vala',
   'Widgets/MultiSelectToolbar.vala',
-  'Widgets/EventsList.vala',
-  'Widgets/EventRow.vala',
   'Widgets/SubItems.vala',
   'Widgets/LabelsSummary.vala',
   'Widgets/SectionsOrderPopover.vala',
@@ -71,7 +80,12 @@ sources = files(
   'Widgets/ErrorView.vala',
   'Widgets/CompletedTaskRow.vala',
   'Widgets/ItemDetailCompleted.vala',
-  'Widgets/PinnedItemsFlowBox.vala',
+  'Widgets/PinnedItemsBox.vala',
+  'Widgets/TranslationRow.vala',
+  'Widgets/NewVersionPopup.vala',
+  'Widgets/ProjectItemRow.vala',
+  'Widgets/SectionItemRow.vala',
+  'Widgets/ComboWrapRow.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',
@@ -91,13 +105,9 @@ sources = files(
   'Dialogs/Section.vala',
   'Dialogs/Label.vala',
   #'Dialogs/GoogleOAuth.vala', No longer used?
-  'Dialogs/WhatsNew.vala',
   'Dialogs/QuickAdd.vala',
   'Dialogs/ManageSectionOrder.vala',
-  'Dialogs/ProjectPicker/ProjectPicker.vala',
-  'Dialogs/ProjectPicker/ProjectPickerRow.vala',
-  'Dialogs/ProjectPicker/SectionPickerRow.vala',
-  'Dialogs/ProjectPicker/ProjectPickerSourceRow.vala',
+  'Dialogs/ProjectPicker.vala',
   'Dialogs/ManageProjects.vala',
   'Dialogs/DatePicker.vala',
   'Dialogs/LabelPicker.vala',
@@ -123,8 +133,18 @@ sources = files(
   'Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala',
   'Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala',
   'Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala',
-  'Dialogs/Preferences/Pages/Accounts/SourceView.vala'
+  'Dialogs/Preferences/Pages/Accounts/SourceView.vala',
+  'Dialogs/Preferences/Pages/Accounts/InboxPage.vala'
 )
+
+if get_option('evolution')
+    sources += 'Widgets/EventRow.vala'
+    sources += 'Widgets/EventsList.vala'
+    sources += 'Services/CalendarEvents/CalendarEvents.vala'
+    sources += 'Services/CalendarEvents/DateIterator.vala'
+    sources += 'Services/CalendarEvents/DateRange.vala'
+    sources += 'Services/CalendarEvents/Util.vala'
+endif
 
 executable(
   application_id,

@@ -112,11 +112,23 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
         };
         delete_button.add_css_class ("destructive-action");
 
-        var delete_group = new Adw.PreferencesGroup () {
-            margin_top = 24
-        };
+        var delete_group = new Adw.PreferencesGroup ();
         delete_group.add (delete_button);
 
+        var delete_spinner = new Adw.Spinner () {
+            valign = CENTER,
+            halign = CENTER,
+            height_request = 32,
+            width_request = 32
+        };
+
+        var delete_stack = new Gtk.Stack () {
+            margin_top = 24
+        };
+        
+        delete_stack.add_child (delete_group);
+        delete_stack.add_child (delete_spinner);
+        
         var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             vexpand = true,
             hexpand = true
@@ -129,7 +141,7 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
         main_content.append (default_group);
 
         if (source.source_type != SourceType.LOCAL) {
-            main_content.append (delete_group);
+            main_content.append (delete_stack);
         }
 
         var content_clamp = new Adw.Clamp () {
@@ -139,9 +151,10 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             child = main_content
         };
 
-        var toolbar_view = new Adw.ToolbarView ();
+        var toolbar_view = new Adw.ToolbarView () {
+            content = content_clamp
+        };
         toolbar_view.add_top_bar (new Adw.HeaderBar ());
-        toolbar_view.content = content_clamp;
 
         child = toolbar_view;
 
@@ -175,7 +188,8 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
 
             dialog.response.connect ((response) => {
                 if (response == "delete") {
-                    source.delete_source ();
+                    delete_stack.visible_child = delete_spinner;
+                    source.delete_source.begin ();
                 }
             });
         })] = delete_button;

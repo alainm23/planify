@@ -229,7 +229,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         };
 
         due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            valign = CENTER
+            valign = CENTER,
+            margin_end = 6
         };
         due_box.append (due_label);
         due_box.append (repeat_revealer);
@@ -239,8 +240,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             child = due_box
         };
 
-        labels_summary = new Widgets.LabelsSummary (item, 1) {
-            start_margin = 6
+        labels_summary = new Widgets.LabelsSummary (item, 1, true) {
+            end_margin = 6
         };
 
         var reminder_icon = new Gtk.Image.from_icon_name ("alarm-symbolic") {
@@ -252,37 +253,35 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
             valign = Gtk.Align.CENTER,
-            margin_start = 6,
-            css_classes = { "upcoming-grid" },
+            margin_end = 6
         };
+        reminder_box.add_css_class ("upcoming-grid");
 
         reminder_box.append (reminder_icon);
         reminder_box.append (reminder_count);
 
         reminder_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            transition_type = SLIDE_RIGHT,
             child = reminder_box
         };
 
-        subtaks_label = new Gtk.Label (null) {
-            css_classes = { "caption" }
-        };
+        subtaks_label = new Gtk.Label (null);
+        subtaks_label.add_css_class ("caption");
 
         var subtaks_container = new Adw.Bin () {
-            child = subtaks_label,
-            css_classes = { "upcoming-grid" },
-            margin_start = 6
+            child = subtaks_label
         };
+        subtaks_container.add_css_class ("upcoming-grid");
 
         subtaks_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            transition_type = SLIDE_RIGHT,
             child = subtaks_container
         };
 
         footer_box = new Gtk.Box (HORIZONTAL, 0) {
             hexpand = true,
             margin_start = 30,
-            margin_top = 6,
+            margin_top = 3,
             margin_end = 6
         };
 
@@ -292,7 +291,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         footer_box.append (subtaks_revealer);
 
         footer_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            transition_type = SLIDE_DOWN,
             child = footer_box
         };
 
@@ -312,6 +311,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         card_widget.add_css_class ("border-radius-9");
         card_widget.add_css_class ("pb-6");
         card_widget.add_css_class ("activatable");
+        card_widget.add_css_class ("task-item");
 
         var overlay = new Gtk.Overlay ();
         overlay.child = card_widget;
@@ -367,6 +367,25 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         var detail_gesture_click = new Gtk.GestureClick ();
         card_widget.add_controller (detail_gesture_click);
         signals_map[detail_gesture_click.released.connect ((n_press, x, y) => {
+            if (Services.EventBus.get_default ().ctrl_key_pressed) {
+                Idle.add (() => {
+                    if (item.project == null) {
+                        return GLib.Source.REMOVE;
+                    }
+                    
+                    if (!Services.EventBus.get_default ().multi_select_enabled) {
+                        item.project.show_multi_select = true;
+                    }
+                    
+                    select_checkbutton.active = !select_checkbutton.active;
+                    selected_toggled (select_checkbutton.active);
+                    
+                    return GLib.Source.REMOVE;
+                });
+                
+                return;
+            }
+            
             if (Services.EventBus.get_default ().multi_select_enabled) {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);
@@ -380,7 +399,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         var menu_handle_gesture = new Gtk.GestureClick ();
         menu_handle_gesture.set_button (3);
         card_widget.add_controller (menu_handle_gesture);
-        signals_map[menu_handle_gesture.released.connect ((n_press, x, y) => {
+        signals_map[menu_handle_gesture.pressed.connect ((n_press, x, y) => {
             if (!item.completed) {
                 build_handle_context_menu (x, y);
             }
@@ -459,6 +478,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             item.update_pin (false);
         })] = hide_loading_button;
 
+        signals_map[Services.EventBus.get_default ().day_changed.connect (() => {
+            update_due_label ();
+        })] = Services.EventBus.get_default ();
+
         signals_map[activate.connect (() => {
             open_detail ();
         })] = this;
@@ -487,7 +510,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             if (complete_timeout != 0) {
                 GLib.Source.remove (complete_timeout);
                 complete_timeout = 0;
-                card_widget.remove_css_class ("complete-animation");
+                card_widget.remove_css_class ("complete");
                 content_label.remove_css_class ("dimmed");
                 content_label.remove_css_class ("line-through");
             } else {
@@ -505,7 +528,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             Util.get_default ().play_audio ();
         }
 
-        uint timeout = 2500;
+        uint timeout = 3000;
         if (Services.Settings.get_default ().settings.get_enum ("complete-task") == 0) {
             timeout = 0;
         }
@@ -515,7 +538,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         }
 
         content_label.add_css_class ("dimmed");
-        card_widget.add_css_class ("complete-animation");
+        card_widget.add_css_class ("complete");
         if (Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
             content_label.add_css_class ("line-through");
         }
@@ -557,7 +580,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         checked_button.sensitive = true;
         checked_button.active = false;
 
-        card_widget.remove_css_class ("complete-animation");
+        card_widget.remove_css_class ("complete");
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
 
@@ -584,17 +607,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         content_label.tooltip_text = item.content.strip ();
 
         // ItemType
-        if (item.item_type == ItemType.TASK) {
-            checked_button_revealer.reveal_child = true;
-            description_label.margin_start = 30;
-            footer_box.margin_start = 30;
-            content_box.margin_start = 6;
-        } else {
-            checked_button_revealer.reveal_child = false;
-            description_label.margin_start = 9;
-            footer_box.margin_start = 9;
-            content_box.margin_start = 3;
-        }
+        verify_item_type ();
 
         description_label.label = Util.get_default ().line_break_to_space (item.description);
         description_label.tooltip_text = item.description.strip ();
@@ -608,6 +621,20 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         update_subtasks ();
         footer_revealer.reveal_child = due_box_revealer.reveal_child || labels_summary.reveal_child ||
                                        reminder_revealer.reveal_child || subtaks_revealer.reveal_child;
+    }
+
+    private void verify_item_type () {
+        if (item.item_type == ItemType.TASK) {
+            checked_button_revealer.reveal_child = true;
+            description_label.margin_start = 30;
+            footer_box.margin_start = 30;
+            content_box.margin_start = 6;
+        } else {
+            checked_button_revealer.reveal_child = false;
+            description_label.margin_start = 9;
+            footer_box.margin_start = 9;
+            content_box.margin_start = 3;
+        }
     }
 
     public void update_due_label () {
@@ -736,9 +763,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
             }
 
-            dialog.add_sections (item.project.sections);
             dialog.project = item.project;
-            dialog.section = item.section;
             dialog.present (Planify._instance.main_window);
 
             dialog.changed.connect ((type, id) => {
@@ -1032,11 +1057,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             }
 
             var source_list = (Gtk.ListBox) picked_widget.parent;
-            var target_list = (Gtk.ListBox) target_widget.parent;
-
-            int new_index = target_widget.get_index ();
-
             source_list.remove (picked_widget);
+
+            var target_list = (Gtk.ListBox) target_widget.parent;
+            int new_index = target_widget.get_index ();
+            
             target_list.insert (picked_widget, new_index);
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
 
@@ -1113,9 +1138,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     public override void select_row (bool active) {
         if (active) {
-            card_widget.add_css_class ("complete-animation");
+            card_widget.add_css_class ("complete");
         } else {
-            card_widget.remove_css_class ("complete-animation");
+            card_widget.remove_css_class ("complete");
         }
     }
 

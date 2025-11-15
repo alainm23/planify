@@ -110,6 +110,14 @@
     <file alias="text-bold-symbolic.svg">resources/icons/text-bold-symbolic.svg</file>
     <file alias="dialog-information-symbolic.svg">resources/icons/dialog-information-symbolic.svg</file>
     <file alias="go-home-symbolic.svg">resources/icons/go-home-symbolic.svg</file>
+    <file alias="paper-plane-symbolic.svg">resources/icons/paper-plane-symbolic.svg</file>
+    <file alias="text-italic-symbolic.svg">resources/icons/text-italic-symbolic.svg</file>
+    <file alias="text-strikethrough-symbolic.svg">resources/icons/text-strikethrough-symbolic.svg</file>
+    <file alias="chain-link-loose-symbolic.svg">resources/icons/chain-link-loose-symbolic.svg</file>
+    <file alias="view-list-symbolic.svg">resources/icons/view-list-symbolic.svg</file>
+    <file alias="code-symbolic.svg">resources/icons/code-symbolic.svg</file>
+    <file alias="lightbulb-symbolic.svg">resources/icons/lightbulb-symbolic.svg</file>
+    <file alias="language-symbolic.svg">resources/icons/language-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
@@ -189,6 +197,14 @@
     <file alias="text-bold-symbolic.svg">resources/icons/text-bold-symbolic.svg</file>
     <file alias="dialog-information-symbolic.svg">resources/icons/dialog-information-symbolic.svg</file>
     <file alias="go-home-symbolic.svg">resources/icons/go-home-symbolic.svg</file>
+    <file alias="paper-plane-symbolic.svg">resources/icons/paper-plane-symbolic.svg</file>
+    <file alias="text-italic-symbolic.svg">resources/icons/text-italic-symbolic.svg</file>
+    <file alias="text-strikethrough-symbolic.svg">resources/icons/text-strikethrough-symbolic.svg</file>
+    <file alias="chain-link-loose-symbolic.svg">resources/icons/chain-link-loose-symbolic.svg</file>
+    <file alias="view-list-symbolic.svg">resources/icons/view-list-symbolic.svg</file>
+    <file alias="code-symbolic.svg">resources/icons/code-symbolic.svg</file>
+    <file alias="lightbulb-symbolic.svg">resources/icons/lightbulb-symbolic.svg</file>
+    <file alias="language-symbolic.svg">resources/icons/language-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
@@ -268,5 +284,13 @@
     <file alias="text-bold-symbolic.svg">resources/icons/text-bold-symbolic.svg</file>
     <file alias="dialog-information-symbolic.svg">resources/icons/dialog-information-symbolic.svg</file>
     <file alias="go-home-symbolic.svg">resources/icons/go-home-symbolic.svg</file>
+    <file alias="paper-plane-symbolic.svg">resources/icons/paper-plane-symbolic.svg</file>
+    <file alias="text-italic-symbolic.svg">resources/icons/text-italic-symbolic.svg</file>
+    <file alias="text-strikethrough-symbolic.svg">resources/icons/text-strikethrough-symbolic.svg</file>
+    <file alias="chain-link-loose-symbolic.svg">resources/icons/chain-link-loose-symbolic.svg</file>
+    <file alias="view-list-symbolic.svg">resources/icons/view-list-symbolic.svg</file>
+    <file alias="code-symbolic.svg">resources/icons/code-symbolic.svg</file>
+    <file alias="lightbulb-symbolic.svg">resources/icons/lightbulb-symbolic.svg</file>
+    <file alias="language-symbolic.svg">resources/icons/language-symbolic.svg</file>
   </gresource>
 </gresources>

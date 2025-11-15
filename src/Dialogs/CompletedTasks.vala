@@ -160,8 +160,12 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
             var items = Services.Store.instance ().get_items_checked_by_project (project);
 
             var dialog = new Adw.AlertDialog (
-                _ ("Delete All Completed Tasks"),
-                _ ("This will delete %d completed tasks and their subtasks from project %s".printf (items.size, project.name))
+                _("Delete All Completed Tasks"),
+                GLib.ngettext (
+                    _("This will delete %d completed task and its subtasks from project %s"),
+                    _("This will delete %d completed tasks and their subtasks from project %s"),
+                    items.size
+                ).printf (items.size, project.name)
             );
 
             dialog.body_use_markup = true;
@@ -205,7 +209,7 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
                 items_checked.unset (item.id);
             }
         })] = Services.Store.instance ();
-
+        
         closed.connect (() => {
             clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
@@ -213,18 +217,14 @@ public class Dialogs.CompletedTasks : Adw.Dialog {
     }
 
     private void view_item (Objects.Item item) {
-        var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class ("flat");
-
-        Widgets.ItemDetailCompleted item_detail = new Widgets.ItemDetailCompleted (item);
-        signals_map[item_detail.view_item.connect (view_item)] = item_detail;
-
-        var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (headerbar);
-        toolbar_view.content = item_detail;
-
-        var item_page = new Adw.NavigationPage (toolbar_view, _ ("Task Detail"));
-        navigation_view.push (item_page);
+        Widgets.ItemDetailCompleted item_detail_page = new Widgets.ItemDetailCompleted (item);
+        var signal_id = item_detail_page.view_item.connect (view_item);
+        
+        item_detail_page.destroy.connect (() => {
+            item_detail_page.disconnect (signal_id);
+        });
+        
+        navigation_view.push (item_detail_page);
     }
 
     private void add_items () {

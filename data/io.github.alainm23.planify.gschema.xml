@@ -130,6 +130,12 @@
             <description>Remembers the last project selected when using the quick add feature</description>
         </key>
 
+        <key name="quick-add-section-selected" type="s">
+            <default>""</default>
+            <summary>Last selected section in quick add</summary>
+            <description>Remembers the last section selected when using the quick add feature</description>
+        </key>
+
         <key name="quick-add-save-last-project" type="b">
             <default>false</default>
             <summary>Remember last project in quick add</summary>
@@ -226,10 +232,10 @@
             <description>Display a preview of task descriptions in the task list</description>
         </key>
         
-        <key name="version" type="s">
-            <default>'3.0'</default>
-            <summary>The currently installed version.</summary>
-            <description>The currently installed version of Planify, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
+        <key name="dismissed-update-version" type="s">
+            <default>''</default>
+            <summary>Dismissed update notification version</summary>
+            <description>Stores the version number of the update notification that was dismissed by the user to prevent showing it again</description>
         </key>
 
         <key name="calendar-enabled" type="b">
@@ -281,7 +287,7 @@
         </key>
 
         <key name="attention-at-one" type="b">
-            <default>false</default>
+            <default>true</default>
             <summary>Request attention when one task remains</summary>
             <description>Show notification or highlight when only one task remains in a project</description>
         </key>
@@ -320,6 +326,12 @@
             <default>false</default>
             <summary>List View for Filters</summary>
             <description>Show filters in a simple list instead of a grid.</description>
+        </key>
+
+        <key name="spell-checking-enabled" type="b">
+            <default>true</default>
+            <summary>Enable Spell Checking</summary>
+            <description>Enable spell checking in task descriptions and notes to help catch spelling errors</description>
         </key>
     </schema>
 </schemalist>

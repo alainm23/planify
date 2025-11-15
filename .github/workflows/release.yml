@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  create-release:
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'Release')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Get version from meson.build
+        id: version
+        run: |
+          VERSION=$(grep -Po "version:\s*'\K[0-9.]+(?=')" meson.build)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Extract changelog from appdata
+        id: changelog
+        run: |
+          python3 << 'PYTHON_SCRIPT' >> $GITHUB_OUTPUT
+          import xml.etree.ElementTree as ET
+          tree = ET.parse('data/io.github.alainm23.planify.appdata.xml.in.in')
+          root = tree.getroot()
+          version = '${{ steps.version.outputs.version }}'
+          print('changelog<<EOF')
+          desc = root.find('.//release[@version="' + version + '"]/description')
+          if desc is not None:
+              for elem in desc:
+                  if elem.tag == 'p' and elem.text:
+                      print(elem.text.strip())
+                      print()
+                  elif elem.tag == 'ul':
+                      for li in elem.findall('li'):
+                          print(f"- {li.text.strip()}")
+                      print()
+          print('EOF')
+          PYTHON_SCRIPT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Planify ${{ steps.version.outputs.version }}
+          body: |
+            ${{ steps.changelog.outputs.changelog }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

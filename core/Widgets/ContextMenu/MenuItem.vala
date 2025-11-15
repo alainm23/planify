@@ -193,14 +193,14 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         child = content_box;
 
         signals_map[clicked.connect (() => {
-            activate_item ();
-
             if (autohide_popover) {
                 var popover = (Gtk.Popover) get_ancestor (typeof (Gtk.Popover));
                 if (popover != null) {
                     popover.popdown ();
                 }
             }
+
+            activate_item ();
         })] = this;
 
         destroy.connect (() => {

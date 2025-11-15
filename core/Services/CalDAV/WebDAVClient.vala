@@ -37,6 +37,12 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         this.ignore_ssl = ignore_ssl;
     }
 
+    public void cleanup () {
+        if (session != null) {
+            session.abort ();
+        }
+    }
+
     public string get_absolute_url (string href) {
         string abs_url = null;
         try {
@@ -104,7 +110,15 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
             msg.set_request_body_from_bytes (content_type, new GLib.Bytes (body.data));
         }
 
-        GLib.Bytes response = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
+        GLib.Bytes response;
+        try {
+            response = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
+        } catch (Error e) {
+            if (e is GLib.IOError.CANCELLED) {
+                throw e;
+            }
+            throw new GLib.IOError.FAILED ("Request failed: %s".printf (e.message));
+        }
 
         bool ok = false;
         foreach (var code in expected_statuses) {
@@ -130,10 +144,17 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
 
 public class Services.CalDAV.WebDAVMultiStatus : Object {
     private GXml.DomElement root;
+    private string xml_content;
 
     public WebDAVMultiStatus.from_string (string xml) throws GLib.Error {
-        var doc = new GXml.XDocument.from_string (xml);
-        this.root = doc.document_element;
+        this.xml_content = xml;
+        this.root = new GXml.XDocument.from_string (xml).document_element;
+    }
+
+    public void debug_print () {
+        print ("-------------------------------\n");
+        debug ("%s\b", xml_content);
+        print ("-------------------------------\n");
     }
 
     public Gee.ArrayList<WebDAVResponse> responses () {
@@ -159,11 +180,13 @@ public class Services.CalDAV.WebDAVMultiStatus : Object {
 
 public class Services.CalDAV.WebDAVResponse : Object {
     public string? href { get; private set; }
+    public Soup.Status status { get; private set; default = Soup.Status.NONE; }
     private GXml.DomElement element;
 
     public WebDAVResponse (GXml.DomElement element) {
         this.element = element;
         parse_href ();
+        parse_status ();
     }
 
     private void parse_href () {
@@ -174,6 +197,28 @@ public class Services.CalDAV.WebDAVResponse : Object {
                 break;
             }
         }
+    }
+
+    private void parse_status () {
+        foreach (var s in element.get_elements_by_tag_name ("status")) {
+            var text = s.text_content.strip ();
+            if (text != null && text.length > 0) {
+                status = parse_status_line (text);
+                break;
+            }
+        }
+    }
+
+    private Soup.Status parse_status_line (string status_line) {
+        Soup.HTTPVersion ver;
+        uint code;
+        string reason;
+
+        if (Soup.headers_parse_status_line (status_line, out ver, out code, out reason)) {
+            return (Soup.Status) code;
+        }
+
+        return Soup.Status.NONE;
     }
 
     public Gee.ArrayList<WebDAVPropStat> propstats () {
@@ -195,7 +240,7 @@ public class Services.CalDAV.WebDAVPropStat : Object {
         if (status_list.length == 1) {
             var text = status_list[0].text_content.strip ();
             if (text != null && text.length > 0)
-                status = parse_status (text);
+                status = parse_status_line (text);
         }
 
         var prop_list = element.get_elements_by_tag_name ("prop");
@@ -204,7 +249,7 @@ public class Services.CalDAV.WebDAVPropStat : Object {
         }
     }
 
-    private Soup.Status parse_status (string status_line) {
+    private Soup.Status parse_status_line (string status_line) {
         Soup.HTTPVersion ver;
         uint code;
         string reason;

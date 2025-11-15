@@ -32,6 +32,16 @@ public class Widgets.SectionPicker.SectionPickerRow : Gtk.ListBoxRow {
         );
     }
 
+    public SectionPickerRow.for_no_section () {
+        var no_section = new Objects.Section ();
+        no_section.id = "";
+        no_section.name = _("No Section");
+        
+        Object (
+            section: no_section
+        );
+    }
+
     construct {
         add_css_class ("border-radius-6");
 
@@ -49,8 +59,7 @@ public class Widgets.SectionPicker.SectionPickerRow : Gtk.ListBoxRow {
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
 
-        var selected_icon = new Gtk.Image () {
-            gicon = new ThemedIcon ("emblem-ok-symbolic"),
+        var selected_icon = new Gtk.Image.from_icon_name ("checkmark-small-symbolic") {
             pixel_size = 16,
             hexpand = true,
             valign = Gtk.Align.CENTER,

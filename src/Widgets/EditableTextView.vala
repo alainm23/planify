@@ -21,10 +21,15 @@
 
 public class Widgets.EditableTextView : Adw.Bin {
     public string placeholder_text { get; construct; }
+    public int max_chars { get; construct; default = 150; }
 
-    private Gtk.Label label;
+    private Gtk.Box main_box;
     private Widgets.TextView textview;
-    private Gtk.Stack stack;
+    private Gtk.Button show_more_button;
+    private bool is_expanded = false;
+    private bool updating = false;
+    private bool _is_editing = false;
+    private uint timeout_id = 0;
 
     public signal void focus_changed (bool active);
     public signal void changed ();
@@ -33,24 +38,14 @@ public class Widgets.EditableTextView : Adw.Bin {
 
     public bool is_editing {
         get {
-            return stack.visible_child_name == "textview";
+            return _is_editing;
         }
     }
     
     public void editing (bool value) {
         focus_changed (value);
-
         if (value) {
-            textview.set_text (text);
-            stack.visible_child_name = "textview";
             textview.grab_focus ();
-        } else {
-            if (text != textview.get_text ()) {
-                text = textview.get_text ();
-                changed ();
-            }
-
-            stack.visible_child_name = "label";
         }
     }
 
@@ -62,9 +57,10 @@ public class Widgets.EditableTextView : Adw.Bin {
 
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
-    public EditableTextView (string placeholder_text = "") {
+    public EditableTextView (string placeholder_text = "", int max_chars = 100) {
         Object (
-            placeholder_text: placeholder_text
+            placeholder_text: placeholder_text,
+            max_chars: max_chars
         );
     }
 
@@ -73,76 +69,111 @@ public class Widgets.EditableTextView : Adw.Bin {
     }
 
     construct {
-        label = new Gtk.Label (null) {
-            wrap = true,
-            wrap_mode = Pango.WrapMode.CHAR,
-            xalign = 0,
-            yalign = 0
-        };
-
         textview = new Widgets.TextView () {
-            wrap_mode = Gtk.WrapMode.CHAR,
-            css_classes = {},
+            wrap_mode = Gtk.WrapMode.WORD_CHAR,
+            css_classes = { "flat" },
             placeholder_text = placeholder_text
         };
 
-        stack = new Gtk.Stack () {
-            transition_type = Gtk.StackTransitionType.CROSSFADE,
-            hexpand = true,
-            hhomogeneous = false,
-            vhomogeneous = false
+        show_more_button = new Gtk.Button.with_label (_("Show more")) {
+            css_classes = { "flat", "caption" },
+            halign = Gtk.Align.CENTER,
+            visible = false
         };
 
-        stack.add_named (label, "label");
-        stack.add_named (textview, "textview");
+        main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+        main_box.append (textview);
+        main_box.append (show_more_button);
 
-        child = stack;
+        child = main_box;
 
         signal_map[notify["text"].connect (() => {
-            label.label = text;
-            label.opacity = 1;
-
-            if (label.label.length <= 0) {
-                label.label = placeholder_text;
-                label.opacity = 0.7;
+            if (!is_editing) {
+                update_display ();
             }
         })] = this;
+        signal_map[Services.EventBus.get_default ().mobile_mode_change.connect (update_display)] = Services.EventBus.get_default ();
 
-        var gesture_click = new Gtk.GestureClick ();
-        add_controller (gesture_click);
-        signal_map[gesture_click.pressed.connect (() => {
-            if (!is_editing) {
-                editing (true);
-            }
-        })] = gesture_click;
+        signal_map[show_more_button.clicked.connect (() => {
+            is_expanded = !is_expanded;
+            update_display ();
+        })] = show_more_button;
 
         var gesture_focus = new Gtk.EventControllerFocus ();
         textview.add_controller (gesture_focus);
+        signal_map[gesture_focus.enter.connect (() => {
+            _is_editing = true;
+            focus_changed (true);
+            update_display ();
+            Services.EventBus.get_default ().disconnect_typing_accel ();
+            start_timeout ();
+        })] = gesture_focus;
+
         signal_map[gesture_focus.leave.connect (() => {
-            if (stack.visible_child_name == "textview") {
-                editing (false);
-            }
+            _is_editing = false;
+            focus_changed (false);
+            update_display ();
+            Services.EventBus.get_default ().connect_typing_accel ();
+            stop_timeout ();
         })] = gesture_focus;
 
         signal_map[textview.buffer.changed.connect (() => {
-            Services.EventBus.get_default ().disconnect_typing_accel ();
+            if (!updating) {
+                text = textview.get_text ();
+                changed ();
+                reset_timeout ();
+            }
         })] = textview.buffer;
 
-        signal_map[gesture_focus.enter.connect (() => {
-            Services.EventBus.get_default ().disconnect_typing_accel ();
-        })] = gesture_focus;
-
-        signal_map[gesture_focus.leave.connect (() => {
-            Services.EventBus.get_default ().connect_typing_accel ();
-        })] = gesture_focus;
-
         destroy.connect (() => {
-            // Clear Signals
             foreach (var entry in signal_map.entries) {
                 entry.value.disconnect (entry.key);
             }
-
             signal_map.clear ();
         });
+    }
+
+    private void update_display () {
+        updating = true;
+        
+        if (is_editing || !Services.EventBus.get_default ().mobile_mode || text.length <= max_chars) {
+            textview.set_text (text);
+            show_more_button.visible = false;
+        } else if (!is_expanded) {
+            var truncated = text.substring (0, max_chars).strip () + "…";
+            textview.set_text (truncated);
+            show_more_button.label = _("Show more");
+            show_more_button.visible = true;
+        } else {
+            textview.set_text (text);
+            show_more_button.label = _("Show less");
+            show_more_button.visible = true;
+        }
+        
+        updating = false;
+    }
+
+    private void start_timeout () {
+        stop_timeout ();
+        timeout_id = GLib.Timeout.add_seconds (6, () => {
+            if (_is_editing) {
+                textview.get_root ().set_focus (null);
+            }
+            timeout_id = 0;
+            return false;
+        });
+    }
+
+    private void stop_timeout () {
+        if (timeout_id > 0) {
+            GLib.Source.remove (timeout_id);
+            timeout_id = 0;
+        }
+    }
+
+    private void reset_timeout () {
+        if (_is_editing) {
+            start_timeout ();
+        }
     }
 }

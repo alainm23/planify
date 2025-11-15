@@ -33,6 +33,7 @@ public class Views.Project : Adw.Bin {
     private Widgets.ContextMenu.MenuPicker due_date_item;
     private Widgets.MultiSelectToolbar multiselect_toolbar;
     private Gtk.Revealer indicator_revealer;
+    private Gtk.Popover context_menu;
 
     public ProjectViewStyle view_style {
         get {
@@ -96,10 +97,7 @@ public class Views.Project : Adw.Bin {
             title = project.is_inbox_project ? _("Inbox") : project.name
         };
 
-        if (!project.is_deck) {
-            headerbar.pack_end (menu_button);
-        }
-
+        headerbar.pack_end (menu_button);
         headerbar.pack_end (view_setting_overlay);
 
         project_view_revealer = new Gtk.Revealer () {
@@ -135,6 +133,10 @@ public class Views.Project : Adw.Bin {
 
         if (!project.is_deck) {
             content_overlay.add_overlay (magic_button);
+
+            signal_map[magic_button.clicked.connect (() => {
+                prepare_new_item ();
+            })] = magic_button;
         }
 
         multiselect_toolbar = new Widgets.MultiSelectToolbar (project);
@@ -150,11 +152,14 @@ public class Views.Project : Adw.Bin {
         child = toolbar_view;
         update_project_view ();
         check_default_filters ();
+        create_context_menu ();
 
-        signal_map[magic_button.clicked.connect (() => {
-            prepare_new_item ();
-        })] = magic_button;
-
+        var right_click = new Gtk.GestureClick () {
+            button = Gdk.BUTTON_SECONDARY
+        };
+        right_click.pressed.connect (on_right_click);
+        add_controller (right_click);
+        
         signal_map[project.updated.connect (() => {
             headerbar.title = project.is_inbox_project ? _("Inbox") : project.name;
         })] = project;
@@ -165,7 +170,7 @@ public class Views.Project : Adw.Bin {
 
         signal_map[project.show_multi_select_change.connect (() => {
             toolbar_view.reveal_bottom_bars = project.show_multi_select;
-
+            
             if (project.show_multi_select) {
                 Services.EventBus.get_default ().multi_select_enabled = true;
                 Services.EventBus.get_default ().show_multi_select (true);
@@ -205,6 +210,47 @@ public class Views.Project : Adw.Bin {
         signal_map[project.handle_scroll_visibility_change.connect ((visible) => {
             headerbar.update_title_box_visibility (visible);
         })] = project;
+
+        signal_map[Services.EventBus.get_default ().escape_pressed.connect (() => {
+            if (project.show_multi_select) {
+                project.show_multi_select = false;
+            }
+        })] = Services.EventBus.get_default ();
+    }
+
+    private void create_context_menu () {
+        var add_task_item = new Widgets.ContextMenu.MenuItem (_("New Task"), "plus-large-symbolic");
+        var add_section_item = new Widgets.ContextMenu.MenuItem (_("New Section"), "tab-new-symbolic");
+
+        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        menu_box.margin_top = menu_box.margin_bottom = 3;
+        menu_box.append (add_task_item);
+        menu_box.append (add_section_item);
+        
+        context_menu = new Gtk.Popover () {
+            has_arrow = false,
+            child = menu_box,
+            position = Gtk.PositionType.BOTTOM,
+            width_request = 250
+        };
+
+        add_task_item.clicked.connect (() => {
+            prepare_new_item ();
+            context_menu.popdown ();
+        });
+        
+        add_section_item.clicked.connect (() => {
+            prepare_new_section ();
+            context_menu.popdown ();
+        });
+    }
+    
+    private void on_right_click (int n_press, double x, double y) {
+        Gdk.Rectangle rect = { (int) x, (int) y, 250, 1 };
+        
+        context_menu.set_parent (this);
+        context_menu.set_pointing_to (rect);
+        context_menu.popup ();
     }
 
     private void check_default_filters () {
@@ -305,18 +351,53 @@ public class Views.Project : Adw.Bin {
 
         if (!project.is_deck && !project.inbox_project) {
             menu_box.append (edit_item);
+
+            signal_map[edit_item.activate_item.connect (() => {
+                var dialog = new Dialogs.Project (project);
+                dialog.present (Planify._instance.main_window);
+            })] = edit_item;
         }
 
         if (!project.is_inbox_project) {
             menu_box.append (schedule_item);
             menu_box.append (duplicate_item);
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+
+            signal_map[schedule_item.activate_item.connect (() => {
+                var dialog = new Dialogs.DatePicker (_ ("When?"));
+                dialog.clear = project.due_date != "";
+
+                signal_map[dialog.date_changed.connect (() => {
+                    if (dialog.datetime == null) {
+                        project.due_date = "";
+                    } else {
+                        project.due_date = dialog.datetime.to_string ();
+                    }
+
+                    project.update_local ();
+                })] = dialog;
+
+                dialog.present (Planify._instance.main_window);
+            })] = schedule_item;
+
+            signal_map[duplicate_item.clicked.connect (() => {
+                Util.get_default ().duplicate_project.begin (project, project.parent_id);
+            })] = duplicate_item;
         }
 
         if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
             menu_box.append (add_section_item);
             menu_box.append (manage_sections);
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            
+            signal_map[add_section_item.activate_item.connect (() => {
+                prepare_new_section ();
+            })] = add_section_item;
+
+            signal_map[manage_sections.clicked.connect (() => {
+                var dialog = new Dialogs.ManageSectionOrder (project);
+                dialog.present (Planify._instance.main_window);
+            })] = manage_sections;
         }
 
         menu_box.append (select_item);
@@ -327,6 +408,14 @@ public class Views.Project : Adw.Bin {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (archive_item);
             menu_box.append (delete_item);
+
+            signal_map[archive_item.clicked.connect (() => {
+                project.archive_project ((Gtk.Window) Planify.instance.main_window);
+            })] = archive_item;
+
+            signal_map[delete_item.clicked.connect (() => {
+                project.delete_project ((Gtk.Window) Planify.instance.main_window);
+            })] = delete_item;
         }
 
         var popover = new Gtk.Popover () {
@@ -335,39 +424,7 @@ public class Views.Project : Adw.Bin {
             child = menu_box,
             width_request = 250
         };
-
-        signal_map[edit_item.activate_item.connect (() => {
-            var dialog = new Dialogs.Project (project);
-            dialog.present (Planify._instance.main_window);
-        })] = edit_item;
-
-        signal_map[schedule_item.activate_item.connect (() => {
-            var dialog = new Dialogs.DatePicker (_ ("When?"));
-            dialog.clear = project.due_date != "";
-
-            signal_map[dialog.date_changed.connect (() => {
-                if (dialog.datetime == null) {
-                    project.due_date = "";
-                } else {
-                    project.due_date = dialog.datetime.to_string ();
-                }
-
-                project.update_local ();
-            })] = dialog;
-
-            dialog.present (Planify._instance.main_window);
-        })] = schedule_item;
-
-
-        signal_map[add_section_item.activate_item.connect (() => {
-            prepare_new_section ();
-        })] = add_section_item;
-
-        signal_map[manage_sections.clicked.connect (() => {
-            var dialog = new Dialogs.ManageSectionOrder (project);
-            dialog.present (Planify._instance.main_window);
-        })] = manage_sections;
-
+        
         signal_map[paste_item.clicked.connect (() => {
             Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 
@@ -396,18 +453,6 @@ public class Views.Project : Adw.Bin {
         signal_map[select_item.clicked.connect (() => {
             project.show_multi_select = true;
         })] = select_item;
-
-        signal_map[delete_item.clicked.connect (() => {
-            project.delete_project ((Gtk.Window) Planify.instance.main_window);
-        })] = delete_item;
-
-        signal_map[duplicate_item.clicked.connect (() => {
-            Util.get_default ().duplicate_project.begin (project, project.parent_id);
-        })] = duplicate_item;
-
-        signal_map[archive_item.clicked.connect (() => {
-            project.archive_project ((Gtk.Window) Planify.instance.main_window);
-        })] = archive_item;
 
         return popover;
     }
@@ -492,7 +537,7 @@ public class Views.Project : Adw.Bin {
             arrow = true
         };
 
-        var show_completed_item = new Widgets.ContextMenu.MenuSwitch (_ ("Completed Tasks"), "check-round-outline-symbolic");
+        var show_completed_item = new Widgets.ContextMenu.MenuSwitch (_ ("Show Completed Tasks"), "check-round-outline-symbolic");
         show_completed_item.active = project.show_completed;
 
         var show_completed_item_button = new Gtk.Button.from_icon_name ("edit-find-symbolic") {
@@ -512,6 +557,16 @@ public class Views.Project : Adw.Bin {
 
         if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
             menu_box.append (view_group);
+
+            signal_map[view_group.notify["active-name"].connect (() => {
+                if (view_group.active_name == ProjectViewStyle.LIST.to_string ()) {
+                    project.view_style = ProjectViewStyle.LIST;
+                } else {
+                    project.view_style = ProjectViewStyle.BOARD;
+                }
+
+                project.update_local ();
+            })] = view_group;
         }
 
         menu_box.append (new Gtk.Label (_ ("Sort By")) {
@@ -565,22 +620,16 @@ public class Views.Project : Adw.Bin {
             check_default_filters ();
         })] = show_completed_item;
 
+        signal_map[project.show_completed_changed.connect (() => {
+            show_completed_item.active = project.show_completed;
+        })] = project;
+
         signal_map[show_completed_item_button.clicked.connect (() => {
             popover.popdown ();
 
             var dialog = new Dialogs.CompletedTasks (project);
             dialog.present (Planify._instance.main_window);
         })] = show_completed_item_button;
-
-        signal_map[view_group.notify["active-name"].connect (() => {
-            if (view_group.active_name == ProjectViewStyle.LIST.to_string ()) {
-                project.view_style = ProjectViewStyle.LIST;
-            } else {
-                project.view_style = ProjectViewStyle.BOARD;
-            }
-
-            project.update_local ();
-        })] = view_group;
 
         signal_map[project.sorted_by_changed.connect (() => {
             sorted_by_item.update_selected (project.sorted_by.to_string ());

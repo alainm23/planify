@@ -28,7 +28,7 @@ public class Views.List : Adw.Bin {
     private Gtk.Label due_label;
     private Gtk.Label days_left_label;
     private Gtk.Revealer due_revealer;
-    private Widgets.PinnedItemsFlowBox pinned_items_flowbox;
+    private Widgets.PinnedItemsBox pinned_items_flowbox;
 
     private Gtk.ListBox listbox;
     private Layouts.SectionRow inbox_section;
@@ -55,7 +55,7 @@ public class Views.List : Adw.Bin {
     }
 
     construct {
-        icon_project = new Widgets.IconColorProject (10) {
+        icon_project = new Widgets.IconColorProject (22) {
             project = project
         };
         icon_project.add_css_class ("title-2");
@@ -73,7 +73,7 @@ public class Views.List : Adw.Bin {
 
         var title_box = new Gtk.Box (HORIZONTAL, 6) {
             valign = CENTER,
-            margin_start = 24,
+            margin_start = 22,
         };
 
         title_box.append (icon_project);
@@ -83,7 +83,7 @@ public class Views.List : Adw.Bin {
             text = project.description,
             margin_top = 12,
             margin_start = 24,
-            margin_end = 12
+            margin_end = 24
         };
 
         due_revealer = build_due_date_widget ();
@@ -100,21 +100,25 @@ public class Views.List : Adw.Bin {
         filters.flowbox.margin_end = 12;
         filters.flowbox.margin_bottom = 3;
 
-        pinned_items_flowbox = new Widgets.PinnedItemsFlowBox (project);
+        pinned_items_flowbox = new Widgets.PinnedItemsBox (project);
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
             selection_mode = Gtk.SelectionMode.NONE,
             hexpand = true,
             vexpand = true,
-            css_classes = { "listbox-background" }
+            css_classes = { "listbox-background" },
+            margin_top = 12
         };
 
         var listbox_placeholder = new Adw.StatusPage () {
             icon_name = "check-round-outline-symbolic",
             title = _ ("Add Some Tasks"),
-            description = _ ("Press 'a' to create a new task")
+            description = _ ("Press 'a' to create a new task"),
+            can_focus = true
         };
+        listbox_placeholder.update_property (Gtk.AccessibleProperty.LABEL, 
+            _ ("Add Some Tasks. Press 'a' to create a new task"), -1);
 
         listbox_placeholder_stack = new Gtk.Stack () {
             vexpand = true,
@@ -145,6 +149,7 @@ public class Views.List : Adw.Bin {
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 864,
+            tightening_threshold = 600,
             margin_bottom = 64,
             child = content_box
         };
@@ -248,6 +253,24 @@ public class Views.List : Adw.Bin {
             project.handle_scroll_visibility_change (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);
         })] = scrolled_window.vadjustment;
 
+        signal_map[project.source.sync_finished.connect (() => {
+            listbox.invalidate_sort ();
+        })] = project.source;
+
+        signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
+            title_box.sensitive = !active;
+            due_revealer.sensitive = !active;
+            filters.sensitive = !active;
+            pinned_items_flowbox.sensitive = !active;
+
+            description_widget.sensitive = !active;
+            if (active) {
+                description_widget.add_css_class ("dimmed");
+            } else {
+                description_widget.remove_css_class ("dimmed");
+            }
+        })] = Services.EventBus.get_default ();
+
         destroy.connect (() => {
             clean_up ();
         });
@@ -261,6 +284,7 @@ public class Views.List : Adw.Bin {
         }
 
         listbox_placeholder_stack.visible_child_name = count > 0 ? "listbox" : "placeholder";
+        scrolled_window.can_focus = count > 0;
     }
 
     private void add_sections () {
@@ -346,9 +370,10 @@ public class Views.List : Adw.Bin {
 
         days_left_label = new Gtk.Label (null) {
             xalign = 0,
-            css_classes = { "dimmed", "caption" }
+            yalign = 0.5f
         };
-        days_left_label.yalign = float.parse ("0.7");
+        days_left_label.add_css_class ("dimmed");
+        days_left_label.add_css_class ("caption");
 
         var due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_start = 3

@@ -398,7 +398,7 @@ public class Services.Database : GLib.Object {
             BEGIN
                 INSERT OR IGNORE INTO OEvents (event_type, object_id,
                     object_type, object_key, object_old_value, object_new_value, parent_project_id)
-                VALUES ("insert", NEW.id, "item", "content", NEW.content,
+                VALUES ('insert', NEW.id, 'item', 'content', NEW.content,
                     NEW.content, NEW.project_id);
             END;
         """;
@@ -415,7 +415,7 @@ public class Services.Database : GLib.Object {
             BEGIN
                 INSERT OR IGNORE INTO OEvents (event_type, object_id,
                     object_type, object_key, object_old_value, object_new_value, parent_project_id)
-                VALUES ("update", NEW.id, "item", "content", OLD.content,
+                VALUES ('update', NEW.id, 'item', 'content', OLD.content,
                     NEW.content, NEW.project_id);
             END;
         """;
@@ -432,7 +432,7 @@ public class Services.Database : GLib.Object {
             BEGIN
                 INSERT OR IGNORE INTO OEvents (event_type, object_id,
                     object_type, object_key, object_old_value, object_new_value, parent_project_id)
-                VALUES ("update", NEW.id, "item", "description", OLD.description,
+                VALUES ('update', NEW.id, 'item', 'description', OLD.description,
                     NEW.description, NEW.project_id);
             END;
         """;
@@ -449,7 +449,7 @@ public class Services.Database : GLib.Object {
             BEGIN
                 INSERT OR IGNORE INTO OEvents (event_type, object_id,
                     object_type, object_key, object_old_value, object_new_value, parent_project_id)
-                VALUES ("update", NEW.id, "item", "due", OLD.due,
+                VALUES ('update', NEW.id, 'item', 'due', OLD.due,
                     NEW.due, NEW.project_id);
             END;
         """;
@@ -466,7 +466,7 @@ public class Services.Database : GLib.Object {
             BEGIN
                 INSERT OR IGNORE INTO OEvents (event_type, object_id,
                     object_type, object_key, object_old_value, object_new_value, parent_project_id)
-                VALUES ("update", NEW.id, "item", "priority", OLD.priority,
+                VALUES ('update', NEW.id, 'item', 'priority', OLD.priority,
                     NEW.priority, NEW.project_id);
             END;
         """;
@@ -483,7 +483,7 @@ public class Services.Database : GLib.Object {
             BEGIN
                 INSERT OR IGNORE INTO OEvents (event_type, object_id,
                     object_type, object_key, object_old_value, object_new_value, parent_project_id)
-                VALUES ("update", NEW.id, "item", "labels", OLD.labels,
+                VALUES ('update', NEW.id, 'item', 'labels', OLD.labels,
                     NEW.labels, NEW.project_id);
             END;
         """;
@@ -500,7 +500,7 @@ public class Services.Database : GLib.Object {
             BEGIN
                 INSERT OR IGNORE INTO OEvents (event_type, object_id,
                     object_type, object_key, object_old_value, object_new_value, parent_project_id)
-                VALUES ("update", NEW.id, "item", "pinned", OLD.pinned,
+                VALUES ('update', NEW.id, 'item', 'pinned', OLD.pinned,
                     NEW.pinned, NEW.project_id);
             END;
         """;
@@ -517,7 +517,7 @@ public class Services.Database : GLib.Object {
             BEGIN
                 INSERT OR IGNORE INTO OEvents (event_type, object_id,
                     object_type, object_key, object_old_value, object_new_value, parent_project_id)
-                VALUES ("update", NEW.id, "item", "checked", OLD.checked,
+                VALUES ('update', NEW.id, 'item', 'checked', OLD.checked,
                     NEW.checked, NEW.project_id);
             END;
         """;
@@ -530,7 +530,7 @@ public class Services.Database : GLib.Object {
             BEGIN
                 INSERT OR IGNORE INTO OEvents (event_type, object_id,
                     object_type, object_key, object_old_value, object_new_value, parent_project_id)
-                VALUES ("update", NEW.id, "item", "section", OLD.section_id,
+                VALUES ('update', NEW.id, 'item', 'section', OLD.section_id,
                     NEW.section_id, NEW.project_id);
             END;
         """;
@@ -547,7 +547,7 @@ public class Services.Database : GLib.Object {
             BEGIN
                 INSERT OR IGNORE INTO OEvents (event_type, object_id,
                     object_type, object_key, object_old_value, object_new_value, parent_project_id)
-                VALUES ("update", NEW.id, "item", "project", OLD.project_id,
+                VALUES ('update', NEW.id, 'item', 'project', OLD.project_id,
                     NEW.project_id, NEW.project_id);
             END;
         """;
@@ -2077,23 +2077,55 @@ public class Services.Database : GLib.Object {
     }
 
     // PARAMETER REGION
-    private void set_parameter_int (Sqlite.Statement ? stmt, string par, int val) {
+    private void set_parameter_int (Sqlite.Statement ? stmt, string par, int ? val) {
+        if (val == null) {
+            return;
+        }
+
         int par_position = stmt.bind_parameter_index (par);
+        if (par_position == 0) {
+            warning ("bind parameter not found: %s", par);
+            return;
+        }
         stmt.bind_int (par_position, val);
     }
 
-    private void set_parameter_int64 (Sqlite.Statement ? stmt, string par, int64 val) {
+    private void set_parameter_int64 (Sqlite.Statement ? stmt, string par, int64 ? val) {
+        if (val == null) {
+            return;
+        }
+
         int par_position = stmt.bind_parameter_index (par);
+        if (par_position == 0) {
+            warning ("bind parameter not found: %s", par);
+            return;
+        }
         stmt.bind_int64 (par_position, val);
     }
 
-    private void set_parameter_str (Sqlite.Statement ? stmt, string par, string val) {
+    private void set_parameter_str (Sqlite.Statement ? stmt, string par, string ? val) {
+        if (val == null) {
+            return;
+        }
+
         int par_position = stmt.bind_parameter_index (par);
+        if (par_position == 0) {
+            warning ("bind parameter not found: %s", par);
+            return;
+        }
         stmt.bind_text (par_position, val);
     }
 
-    private void set_parameter_bool (Sqlite.Statement ? stmt, string par, bool val) {
+    private void set_parameter_bool (Sqlite.Statement ? stmt, string par, bool ? val) {
+        if (val == null) {
+            return;
+        }
+        
         int par_position = stmt.bind_parameter_index (par);
+        if (par_position == 0) {
+            warning ("bind parameter not found: %s", par);
+            return;
+        }
         stmt.bind_int (par_position, val ? 1 : 0);
     }
 

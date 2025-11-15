@@ -1,0 +1,126 @@
+# Russian translations for extra package.
+# Copyright (C) 2025 THE extra'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the extra package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: extra\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-08 17:08-0500\n"
+"PO-Revision-Date: 2025-11-05 00:51+0000\n"
+"Last-Translator: ziferkin <usrc@duck.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
+"planify-extra/ru/>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural="
+"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Generator: Weblate 5.14.1-dev\n"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:7
+#: data/io.github.alainm23.planify.desktop.in.in:4
+msgid "Forget about forgetting things"
+msgstr "Забудьте о забывании чего либо"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:13
+msgid ""
+"Planify is your modern and powerful task manager that helps you keep your "
+"life organized. With a clean and intuitive interface, cloud synchronization, "
+"and advanced features, you'll never forget what matters again."
+msgstr ""
+"Planify — это современный и мощный менеджер задач, который поможет вам "
+"организовать свою жизнь. Благодаря понятному и интуитивно понятному "
+"интерфейсу, облачной синхронизации и расширенным функциям вы больше никогда "
+"не забудете о самом важном."
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:14
+msgid "✨ Core Features:"
+msgstr "✨ Основные особенности:"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:16
+msgid "Modern and clean interface designed with GTK4 and libadwaita"
+msgstr ""
+"Современный и лаконичный интерфейс, разработанный с использованием GTK4 и "
+"libadwaita"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:17
+msgid "Drag and drop to organize tasks and projects effortlessly"
+msgstr "Перетаскивайте элементы, чтобы легко упорядочивать задачи и проекты"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:18
+msgid "Visual progress indicators for each project"
+msgstr "Визуальные индикаторы прогресса для каждого проекта"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:19
+msgid "Smart organization with sections and custom labels"
+msgstr "Элегантная организация с помощью разделов и пользовательских меток"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:20
+msgid "Calendar integration to visualize your schedule"
+msgstr "Интеграция с календарем для визуализации вашего расписания"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:21
+msgid "Multiple reminders per task to never miss a deadline"
+msgstr "Несколько напоминаний о каждой задаче, чтобы не пропустить дедлайн"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:22
+msgid "Dark mode with seamless system theme integration"
+msgstr "Тёмный режим с бесшовной интеграцией с темой системы"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:23
+msgid "Quick and powerful search to find anything instantly"
+msgstr "Быстрый и эффективный поиск для мгновенного нахождения чего угодно"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:24
+msgid "Recurring tasks with flexible patterns"
+msgstr "Повторяющиеся задачи с гибкими шаблонами"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:25
+msgid "Attachments and links in your tasks"
+msgstr "Вложения и ссылки в ваших задачах"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:27
+msgid "☁️ Cloud Synchronization:"
+msgstr "☁️ Облачная синхронизация:"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:29
+msgid "Full synchronization with Todoist to access your tasks from anywhere"
+msgstr ""
+"Полная синхронизация с Todoist позволяет получать доступ к вашим задачам из "
+"любой точки мира"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:30
+msgid ""
+"Support for Nextcloud and CalDAV servers (Radicale, Baïkal) to keep your "
+"data private"
+msgstr ""
+"Поддержка серверов Nextcloud и CalDAV (Radicale, Baïkal) для обеспечения "
+"конфиденциальности ваших данных"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:31
+msgid "Offline mode: work without internet and sync when you're back online"
+msgstr ""
+"Автономный режим: работа без подключения к интернету и синхронизация при "
+"повторном подключении"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:32
+msgid "Cross-platform synchronization to access from any device"
+msgstr "Кроссплатформенная синхронизация для доступа с любого устройства"
+
+#: data/io.github.alainm23.planify.appdata.xml.in.in:34
+msgid "* Planify is not created by, affiliated with, or supported by Doist"
+msgstr "* Planify не создан, не связан и не поддерживается компанией Doist"
+
+#: data/io.github.alainm23.planify.desktop.in.in:3
+msgid "Planify"
+msgstr "Planify"
+
+#: data/io.github.alainm23.planify.desktop.in.in:14
+msgid "development;task;tasks;project;todo;reminder;reminders;event;events;calendar;todoist;"
+msgstr ""
+"разработка; задача; задачи; проект; дела; напоминание; напоминания; событие; "
+"события; календарь; todoist;"

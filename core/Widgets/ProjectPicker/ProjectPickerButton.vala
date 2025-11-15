@@ -57,7 +57,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
     public signal void section_change (Objects.Section ? section);
     public signal void picker_opened (bool active);
 
-    public Gee.HashMap<string, Widgets.ProjectPicker.SectionRow> sections_map = new Gee.HashMap<string, Widgets.ProjectPicker.SectionRow> ();
+    public Gee.HashMap<string, Widgets.SectionPicker.SectionPickerRow> sections_map = new Gee.HashMap<string, Widgets.SectionPicker.SectionPickerRow> ();
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     private string PLACEHOLDER_MESSAGE = _("Your list of section will show up here."); // vala-lint=naming-convention
@@ -69,7 +69,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
 
     construct {
         // Project Button
-        icon_project = new Widgets.IconColorProject (10);
+        icon_project = new Widgets.IconColorProject (18);
 
         name_label = new Gtk.Label (null) {
             valign = Gtk.Align.CENTER,
@@ -138,8 +138,10 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         })] = project_picker_popover;
 
         signal_map[project_picker_popover.show.connect (() => {
-            project_picker_popover.search_visible = true;
             picker_opened (true);
+            if (_project != null) {
+                project_picker_popover.set_selected_project (_project);
+            }
         })] = project_picker_popover;
 
         signal_map[sections_popover.closed.connect (() => {
@@ -200,7 +202,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         signal_map[sections_listbox.row_activated.connect ((row) => {
             sections_popover.popdown ();
 
-            Objects.Section section = ((Widgets.ProjectPicker.SectionRow) row).section;
+            Objects.Section section = ((Widgets.SectionPicker.SectionPickerRow) row).section;
 
             section_label.label = section.name;
             section_change (section.id == "" ? null : section);
@@ -210,7 +212,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
             int size = 0;
 
             sections_listbox.set_filter_func ((row) => {
-                Objects.Section section = ((Widgets.ProjectPicker.SectionRow) row).section;
+                Objects.Section section = ((Widgets.SectionPicker.SectionPickerRow) row).section;
                 var return_value = search_entry.text.down () in section.name.down ();
 
                 if (return_value) {
@@ -297,23 +299,23 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         section_label.label = section.name;
         section_change (section);
 
-        sections_map[section.id] = new Widgets.ProjectPicker.SectionRow (section);
+        sections_map[section.id] = new Widgets.SectionPicker.SectionPickerRow (section);
         sections_listbox.append (sections_map[section.id]);
 
         sections_popover.popdown ();
     }
 
     private void add_sections (Objects.Project project) {
-        foreach (Widgets.ProjectPicker.SectionRow row in sections_map.values) {
+        foreach (Widgets.SectionPicker.SectionPickerRow row in sections_map.values) {
             sections_listbox.remove (row);
         }
 
         sections_map.clear ();
 
-        sections_map["no-section"] = new Widgets.ProjectPicker.SectionRow.for_no_section ();
+        sections_map["no-section"] = new Widgets.SectionPicker.SectionPickerRow.for_no_section ();
         sections_listbox.append (sections_map["no-section"]);
         foreach (Objects.Section section in project.sections) {
-            sections_map[section.id] = new Widgets.ProjectPicker.SectionRow (section);
+            sections_map[section.id] = new Widgets.SectionPicker.SectionPickerRow (section);
             sections_listbox.append (sections_map[section.id]);
         }
     }
@@ -364,10 +366,6 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
 
     public void open_picker () {
         project_button.active = true;
-        Timeout.add (100, () => {
-            project_picker_popover.search_visible = false;
-            return GLib.Source.REMOVE;
-        });
     }
 
     public void clean_up () {

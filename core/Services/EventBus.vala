@@ -34,6 +34,7 @@ public class Services.EventBus : Object {
     public signal void connect_typing_accel ();
     public signal void disconnect_all_accels ();
     public signal void connect_all_accels ();
+    public signal void escape_pressed ();
 
     // General
     public signal void theme_changed ();
@@ -82,6 +83,7 @@ public class Services.EventBus : Object {
 
     // Multi Select
     public bool multi_select_enabled = false;
+    public bool ctrl_key_pressed = false;
     public signal void show_multi_select (bool enabled);
     public signal void select_item (Gtk.Widget itemrow);
     public signal void unselect_item (Gtk.Widget itemrow);
@@ -94,4 +96,11 @@ public class Services.EventBus : Object {
     public signal void open_item (Objects.Item item);
     public signal void push_item (Objects.Item item);
     public signal void close_item ();
+
+    // Item Edit Backdrop
+    public signal void show_item_backdrop ();
+    public signal void close_item_edit ();
+    public signal void dim_content (bool active, string focused_item_id = "");
+    
+    public bool item_edit_active = false;
 }

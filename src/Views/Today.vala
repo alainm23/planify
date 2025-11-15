@@ -23,12 +23,14 @@ public class Views.Today : Adw.Bin {
     private Layouts.HeaderBar headerbar;
     private Gtk.Label title_label;
     private Gtk.Label date_label;
+    #if WITH_EVOLUTION
     private Widgets.EventsList event_list;
+    private Gtk.Revealer event_list_revealer;
+    #endif
     private Gtk.ListBox listbox;
     private Gtk.Revealer today_revealer;
     private Gtk.ListBox overdue_listbox;
     private Gtk.Revealer overdue_revealer;
-    private Gtk.Revealer event_list_revealer;
     private Gtk.Grid listbox_grid;
     private Gtk.ScrolledWindow scrolled_window;
     private Gtk.Stack listbox_placeholder_stack;
@@ -123,6 +125,7 @@ public class Views.Today : Adw.Bin {
         title_box.append (title_label);
         title_box.append (date_label);
 
+        #if WITH_EVOLUTION
         event_list = new Widgets.EventsList.for_day (date) {
             margin_top = 12,
             margin_start = 24,
@@ -134,6 +137,7 @@ public class Views.Today : Adw.Bin {
             reveal_child = event_list.has_items,
             child = event_list
         };
+        #endif
 
         var filters = new Widgets.FilterFlowBox () {
             valign = Gtk.Align.START,
@@ -267,12 +271,15 @@ public class Views.Today : Adw.Bin {
         };
 
         content_box.append (title_box);
+        #if WITH_EVOLUTION
         content_box.append (event_list_revealer);
+        #endif
         content_box.append (filters);
         content_box.append (listbox_placeholder_stack);
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 864,
+            tightening_threshold = 600,
             margin_bottom = 64,
             child = content_box
         };
@@ -301,7 +308,6 @@ public class Views.Today : Adw.Bin {
         child = toolbar_view;
         update_today_label ();
         add_today_items ();
-        check_default_view ();
 
         Timeout.add (listbox_placeholder_stack.transition_duration, () => {
             check_placeholder ();
@@ -320,29 +326,21 @@ public class Views.Today : Adw.Bin {
         signal_map[Services.Store.instance ().item_archived.connect (valid_delete_item)] = Services.Store.instance ();
         signal_map[Services.Store.instance ().item_unarchived.connect (valid_add_item)] = Services.Store.instance ();
 
-        signal_map[Services.EventBus.get_default ().item_moved.connect ((item) => {
-            // Handle existing items that may no longer belong in Today view
+        signal_map[Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
             if (items.has_key (item.id)) {
-                if (Services.Store.instance ().valid_item_by_date (item, date, false)) {
-                    items[item.id].update_request ();
-                } else {
-                    // Remove item that no longer belongs in today
+                if (!Services.Store.instance ().valid_item_by_date (item, date, false)) {
                     items[item.id].hide_destroy ();
                     items.unset (item.id);
                 }
             }
 
             if (overdue_items.has_key (item.id)) {
-                if (Services.Store.instance ().valid_item_by_overdue (item, date, false)) {
-                    overdue_items[item.id].update_request ();
-                } else {
-                    // Remove item that no longer belongs in overdue
+                if (!Services.Store.instance ().valid_item_by_overdue (item, date, false)) {
                     overdue_items[item.id].hide_destroy ();
                     overdue_items.unset (item.id);
                 }
             }
 
-            // Check if item should be added to Today view (wasn't there before but should be now)
             if (!items.has_key (item.id) &&
                 Services.Store.instance ().valid_item_by_date (item, date, false)) {
                 add_item (item);
@@ -353,7 +351,6 @@ public class Views.Today : Adw.Bin {
                 add_overdue_item (item);
             }
 
-            // Update UI state
             update_headers ();
             check_placeholder ();
             listbox.invalidate_filter ();
@@ -364,14 +361,15 @@ public class Views.Today : Adw.Bin {
             prepare_new_item ();
         })] = magic_button;
 
+        #if WITH_EVOLUTION
         signal_map[event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;
         })] = event_list;
+        #endif
 
         signal_map[Services.Settings.get_default ().settings.changed["today-sort-order"].connect (() => {
             listbox.invalidate_sort ();
             overdue_listbox.invalidate_sort ();
-            check_default_view ();
         })] = Services.Settings.get_default ().settings;
 
         listbox.set_filter_func ((row) => {
@@ -438,6 +436,12 @@ public class Views.Today : Adw.Bin {
         signal_map[scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
         })] = scrolled_window.vadjustment;
+
+        signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
+            title_box.sensitive = !active;
+            today_box.sensitive = !active;
+            overdue_box.sensitive = !active;
+        })] = Services.EventBus.get_default ();
     }
 
     private void check_placeholder () {
@@ -449,7 +453,6 @@ public class Views.Today : Adw.Bin {
 
         listbox.invalidate_sort ();
         overdue_listbox.invalidate_sort ();
-        check_default_view ();
     }
 
     private void add_today_items () {
@@ -530,7 +533,7 @@ public class Views.Today : Adw.Bin {
         overdue_listbox.invalidate_filter ();
     }
 
-    private void valid_update_item (Objects.Item item) {
+    private void valid_update_item (Objects.Item item, string update_id) {
         if (items.has_key (item.id)) {
             items[item.id].update_request ();
         }
@@ -745,17 +748,6 @@ public class Views.Today : Adw.Bin {
         );
     }
 
-    private void check_default_view () {
-        bool defaults = true;
-        int sort_order = Services.Settings.get_default ().settings.get_int ("today-sort-order");
-
-        if (sort_order != 0) {
-            defaults = false;
-        }
-
-        indicator_revealer.reveal_child = !defaults;
-    }
-
     public void clean_up () {
         listbox.set_filter_func (null);
         listbox.set_sort_func (null);
@@ -777,6 +769,8 @@ public class Views.Today : Adw.Bin {
 
         signal_map.clear ();
 
+        #if WITH_EVOLUTION
         event_list.clean_up ();
+        #endif
     }
 }

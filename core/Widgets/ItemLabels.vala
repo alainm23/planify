@@ -22,6 +22,8 @@
 public class Widgets.ItemLabels : Adw.Bin {
     public Objects.Item item { get; construct; }
 
+    public signal void label_clicked (Objects.Label label);
+
     private bool has_items {
         get {
             return item_labels_map.size > 0;
@@ -85,6 +87,10 @@ public class Widgets.ItemLabels : Adw.Bin {
     public void add_item_label (Objects.Label label) {
         if (!item_labels_map.has_key (label.id)) {
             item_labels_map[label.id] = new Widgets.ItemLabelChild (label);
+            item_labels_map[label.id].clicked.connect (() => {
+                print ("ItemLabelChild clicked: %s\n", label.name);
+                label_clicked (label);
+            });
             box_layout.append (item_labels_map[label.id]);
         }
 

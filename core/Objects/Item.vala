@@ -25,9 +25,32 @@ public class Objects.Item : Objects.BaseObject {
     public string added_at { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public string completed_at { get; set; default = ""; }
     public string updated_at { get; set; default = ""; }
-    public string section_id { get; set; default = ""; }
-    public string project_id { get; set; default = ""; }
-    public string parent_id { get; set; default = ""; }
+    string _section_id = "";
+    public string section_id {
+        get { return _section_id; }
+        set {
+            _section_id = value;
+            _section = null;
+        }
+    }
+    
+    string _project_id = "";
+    public string project_id {
+        get { return _project_id; }
+        set {
+            _project_id = value;
+            _project = null;
+        }
+    }
+    
+    string _parent_id = "";
+    public string parent_id {
+        get { return _parent_id; }
+        set {
+            _parent_id = value;
+            _parent = null;
+        }
+    }
     public string extra_data { get; set; default = ""; }
     public ItemType item_type { get; set; default = ItemType.TASK; }
 
@@ -154,13 +177,13 @@ public class Objects.Item : Objects.BaseObject {
 
     public bool has_parent {
         get {
-            return Services.Store.instance ().get_item (parent_id) != null;
+            return _parent_id != null && _parent_id != "";
         }
     }
 
     public bool has_section {
         get {
-            return Services.Store.instance ().get_section (section_id) != null;
+            return _section_id != null && _section_id != "";
         }
     }
 
@@ -228,7 +251,9 @@ public class Objects.Item : Objects.BaseObject {
     Objects.Item ? _parent;
     public Objects.Item parent {
         get {
-            _parent = Services.Store.instance ().get_item (parent_id);
+            if (_parent == null && _parent_id != null && _parent_id != "") {
+                _parent = Services.Store.instance ().get_item (_parent_id);
+            }
             return _parent;
         }
     }
@@ -236,7 +261,9 @@ public class Objects.Item : Objects.BaseObject {
     Objects.Project ? _project;
     public Objects.Project project {
         get {
-            _project = Services.Store.instance ().get_project (project_id);
+            if (_project == null && _project_id != null && _project_id != "") {
+                _project = Services.Store.instance ().get_project (_project_id);
+            }
             return _project;
         }
     }
@@ -244,7 +271,9 @@ public class Objects.Item : Objects.BaseObject {
     Objects.Section ? _section;
     public Objects.Section section {
         get {
-            _section = Services.Store.instance ().get_section (section_id);
+            if (_section == null && _section_id != null && _section_id != "") {
+                _section = Services.Store.instance ().get_section (_section_id);
+            }
             return _section;
         }
     }
@@ -413,7 +442,6 @@ public class Objects.Item : Objects.BaseObject {
     public void patch_from_vtodo (string data, string _ical_url, bool is_update = false) {
         ICal.Component ical = ICal.Parser.parse_string (data);
         ICal.Component ? ical_vtodo = ical.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
-        ECal.Component ecal = new ECal.Component.from_icalcomponent (ical_vtodo);
 
         id = ical.get_uid ();
         content = ical.get_summary ();
@@ -483,11 +511,16 @@ public class Objects.Item : Objects.BaseObject {
 
         extra_data = Util.generate_extra_data (_ical_url, "", ical.as_ical_string ());
 
+        #if WITH_EVOLUTION
+        ECal.Component ecal = new ECal.Component.from_icalcomponent (ical_vtodo);
+
         if (is_update) {
             check_labels (get_labels_maps_from_caldav (ecal.get_categories_list ()));
         } else {
             labels = get_caldav_categories (ecal.get_categories_list ());
         }
+        #endif
+        // TODO: Reimplement without ECAL
     }
 
     private Gee.ArrayList<Objects.Label> get_caldav_categories (GLib.SList<string> categories_list) {
@@ -727,17 +760,6 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_pin (bool _pinned) {
-        if (_pinned && project.items_pinned.size + 1 > 3) {
-            Services.EventBus.get_default ().send_toast (
-                Util.get_default ().create_toast (
-                    _("Up to 3 tasks can be pinned and they will appear at the top of the project page"),
-                    3
-                )
-            );
-
-            return;
-        }
-
         pinned = _pinned;
         _update_pin ();
     }
@@ -1347,18 +1369,42 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
-            loading = true;
-            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-            caldav_client.delete_item.begin (this, (obj, res) => {
-                HttpResponse response = caldav_client.delete_item.end (res);
-                loading = false;
+            delete_caldav.begin ();
+        }
+    }
 
-                if (response.status) {
-                    Services.Store.instance ().delete_item (this);
-                } else {
-                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                }
-            });
+    private async void delete_caldav () {
+        loading = true;
+        var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+        
+        try {
+            yield delete_subitems_caldav (this, caldav_client);
+            
+            var response = yield caldav_client.delete_item (this);
+            
+            if (!response.status) {
+                throw new IOError.FAILED (response.error);
+            }
+            
+            Services.Store.instance ().delete_item (this);
+        } catch (Error e) {
+            Services.EventBus.get_default ().send_error_toast (0, e.message);
+        }
+        
+        loading = false;
+    }
+
+    private async void delete_subitems_caldav (Objects.Item item, Services.CalDAV.CalDAVClient caldav_client) throws Error {
+        foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
+            yield delete_subitems_caldav (subitem, caldav_client);
+            
+            var response = yield caldav_client.delete_item (subitem);
+
+            if (!response.status) {
+                throw new IOError.FAILED (response.error);
+            }
+            
+            Services.Store.instance ().delete_item (subitem);
         }
     }
 
@@ -1473,12 +1519,12 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void move (Objects.Project project, string _section_id) {
-        loading = true;
-        show_item = false;
-
         if (project.source_type == SourceType.LOCAL) {
             _move (project.id, _section_id);
         } else if (project.source_type == SourceType.TODOIST) {
+            loading = true;
+            sensitive = false;
+            
             string move_id = project.id;
             string move_type = "project_id";
             if (_section_id != "") {
@@ -1489,7 +1535,6 @@ public class Objects.Item : Objects.BaseObject {
             Services.Todoist.get_default ().move_item.begin (this, move_type, move_id, (obj, res) => {
                 var response = Services.Todoist.get_default ().move_item.end (res);
                 loading = false;
-                show_item = true;
 
                 if (response.status) {
                     _move (project.id, _section_id);
@@ -1498,7 +1543,55 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
+            loading = true;
+            sensitive = false;
+            
             move_caldav_recursive.begin (project, _section_id);
+        }
+    }
+
+    private async void move_caldav_recursive (Objects.Project project, string _section_id) {
+        var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+        
+        try {
+            var response = yield caldav_client.move_item (this, project);
+            
+            if (!response.status) {
+                throw new IOError.FAILED (response.error);
+            }
+
+            string old_parent_id = this.parent_id;
+            if (old_parent_id != "") {
+                parent_id = "";
+                response = yield caldav_client.add_item (this, true);
+                
+                if (!response.status) {
+                    throw new IOError.FAILED (response.error);
+                }
+
+                Services.EventBus.get_default ().item_moved (this, project_id, section_id, old_parent_id);
+            }
+            
+            yield move_all_subitems_caldav (this, project, caldav_client);
+            
+            _move (project.id, _section_id);
+        } catch (Error e) {
+            Services.EventBus.get_default ().send_error_toast (0, e.message);
+        }
+        
+        loading = false;
+        show_item = true;
+    }
+
+    private async void move_all_subitems_caldav (Objects.Item item, Objects.Project project, Services.CalDAV.CalDAVClient caldav_client) throws Error {
+        foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
+            var response = yield caldav_client.move_item (subitem, project);
+
+            if (!response.status) {
+                throw new IOError.FAILED (response.error);
+            }
+            
+            yield move_all_subitems_caldav (subitem, project, caldav_client);
         }
     }
 
@@ -1519,56 +1612,38 @@ public class Objects.Item : Objects.BaseObject {
         );
     }
 
-    private async void move_caldav_recursive (Objects.Project project, string _section_id) {
-        var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-        
-        try {
-            var response = yield caldav_client.move_item (this, project);
-            
-            if (!response.status) {
-                throw new IOError.FAILED (response.error);
-            }
-            
-            yield move_all_subitems_caldav (this, project, caldav_client);
-            
-            _move (project.id, _section_id);
-        } catch (Error e) {
-            Services.EventBus.get_default ().send_error_toast (0, e.message);
-        }
-        
-        loading = false;
-        show_item = true;
-    }
-
-    private async void move_all_subitems_caldav (Objects.Item item, Objects.Project project, Services.CalDAV.CalDAVClient caldav_client) throws Error {
-        foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
-            var response = yield caldav_client.move_item (subitem, project);
-            if (!response.status) {
-                throw new IOError.FAILED (response.error);
-            }
-            
-            yield move_all_subitems_caldav (subitem, project, caldav_client);
-        }
-    }
-
     public bool was_archived () {
         if (has_parent) {
-            return parent.was_archived ();
+            var parent_item = parent;
+            if (parent_item != null) {
+                return parent_item.was_archived ();
+            }
         }
 
         if (has_section) {
-            return section.was_archived ();
+            var section_item = section;
+            if (section_item != null) {
+                return section_item.was_archived ();
+            }
         }
 
-        return project.is_archived;
+        var project_item = project;
+        if (project_item != null) {
+            return project_item.is_archived;
+        }
+
+        return false;
     }
 
     public bool exists_project (Objects.Project project) {
         if (has_parent) {
-            return parent.exists_project (project);
+            var parent_item = parent;
+            if (parent_item != null) {
+                return parent_item.exists_project (project);
+            }
         }
 
-        return project_id == project.id;
+        return _project_id == project.id;
     }
 
     public string to_markdown (int level = 0) {
@@ -1688,5 +1763,30 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         return response;
+    }
+
+    public void to_string () {
+        print ("_________________________________\n");
+        print ("ID: %s\n", id);
+        print ("Content: %s\n", content);
+        print ("Description: %s\n", description);
+        print ("Project ID: %s\n", project_id);
+        print ("Section ID: %s\n", section_id);
+        print ("Parent ID: %s\n", parent_id);
+        print ("Priority: %d (%s)\n", priority, priority_text);
+        print ("Checked: %s\n", checked ? "true" : "false");
+        print ("Pinned: %s\n", pinned ? "true" : "false");
+        print ("Has Due: %s\n", has_due ? "true" : "false");
+        if (has_due) {
+            print ("Due Date: %s\n", due.date);
+        }
+        print ("Child Order: %d\n", child_order);
+        print ("Added At: %s\n", added_at);
+        print ("Completed At: %s\n", completed_at);
+        print ("Labels: %d\n", labels.size);
+        foreach (var label in labels) {
+            print ("  - %s\n", label.name);
+        }
+        print ("---------------------------------\n");
     }
 }

@@ -26,6 +26,7 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
     private Adw.EntryRow server_entry;
     private Widgets.LoadingButton login_button;
     private Gtk.Button cancel_button;
+    private Gtk.Stack main_stack;
 
     // Advanced Options
     private Widgets.IgnoreSSLSwitchRow ignore_ssl_row;
@@ -95,6 +96,7 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
         signal_map[advanced_button.clicked.connect (() => {
             advanced_options_revealer.reveal_child = !advanced_options_revealer.reveal_child;
         })] = advanced_button;
+        
         advanced_entries_group.add (ignore_ssl_row);
 
 
@@ -121,12 +123,25 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
         content_box.append (login_button);
         content_box.append (cancel_button);
 
+        var loading_page = new Dialogs.Preferences.Pages.Accounts.LoadingPage () {
+            show_progress = true
+        };
+
+        main_stack = new Gtk.Stack () {
+            vexpand = true,
+            hexpand = true,
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
+
+        main_stack.add_named (content_box, "main-page");
+        main_stack.add_named (loading_page, "loading-page");
+
         var content_clamp = new Adw.Clamp () {
             maximum_size = 400,
             margin_start = 24,
             margin_end = 24,
             margin_top = 12,
-            child = content_box
+            child = main_stack
         };
 
         var toolbar_view = new Adw.ToolbarView ();
@@ -158,12 +173,9 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
             on_login_button_clicked ();
         })] = login_button;
 
-        signal_map[Services.CalDAV.Core.get_default ().first_sync_started.connect (() => {
-            login_button.is_loading = true;
-        })] = Services.CalDAV.Core.get_default ();
-
-        signal_map[Services.CalDAV.Core.get_default ().first_sync_finished.connect (() => {
-            preferences_dialog.pop_subpage ();
+        signal_map[Services.CalDAV.Core.get_default ().sync_progress.connect ((current, total, message) => {
+            loading_page.sync_label = message;
+            loading_page.progress = total > 0 ? (double) current / (double) total : 0.0;
         })] = Services.CalDAV.Core.get_default ();
 
         destroy.connect (() => {
@@ -188,10 +200,15 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
 
             if (response.status) {
                 Objects.Source source = (Objects.Source) response.data_object.get_object ();
+                main_stack.visible_child_name = "loading-page";
+
                 core_service.add_caldav_account.begin (source, cancellable, (obj, res) => {
                     response = core_service.add_caldav_account.end (res);
 
-                    if (!response.status) {
+                    if (response.status) {
+                        preferences_dialog.pop_subpage ();
+                    } else {
+                        main_stack.visible_child_name = "main-page";
                         login_button.is_loading = false;
                         cancel_button.visible = false;
                         accounts_page.show_message_error (response.error_code, response.error.strip ());

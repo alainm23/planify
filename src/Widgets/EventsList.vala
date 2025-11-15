@@ -119,6 +119,7 @@ public class Widgets.EventsList : Adw.Bin {
     private void add_events () {
         signal_map[event_model.components_added.connect (add_event_model)] = event_model;
         signal_map[event_model.components_removed.connect (remove_event_model)] = event_model;
+        signal_map[event_model.components_updated.connect (update_event_model)] = event_model;
     }
 
     private void add_event_model (E.Source source, Gee.Collection<ECal.Component> components) {
@@ -141,6 +142,34 @@ public class Widgets.EventsList : Adw.Bin {
         if (!event_hashmap.has_key (event_uid)) {
             event_hashmap[event_uid] = new Widgets.EventRow (ical, source);
             listbox.append (event_hashmap[event_uid]);
+        }
+
+        change ();
+    }
+
+    private void update_event_model (E.Source source, Gee.Collection<ECal.Component> components) {
+        foreach (var component in components) {
+            unowned ICal.Component ical = component.get_icalcomponent ();
+            var event_uid = ical.get_uid ();
+            bool in_range = false;
+
+            if (is_day) {
+                in_range = CalendarEventsUtil.calcomp_is_on_day (component, start_date);
+            } else if (is_month) {
+                in_range = CalendarEventsUtil.calcomp_is_on_month (component, start_date);
+            }
+
+            if (event_hashmap.has_key (event_uid)) {
+                if (in_range) {
+                    event_hashmap[event_uid].update (ical);
+                } else {
+                    event_hashmap[event_uid].destroy ();
+                    listbox.remove (event_hashmap[event_uid]);
+                    event_hashmap.unset (event_uid);
+                }
+            } else if (in_range) {
+                add_row_event (component, source);
+            }
         }
 
         change ();

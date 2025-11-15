@@ -221,6 +221,8 @@ public class Objects.Project : Objects.BaseObject {
     public signal void sorted_by_changed ();
     public signal void section_sort_order_changed ();
     public signal void view_style_changed ();
+    public signal void sync_started ();
+    public signal void sync_finished ();
 
     private bool _show_multi_select = false;
     public bool show_multi_select {
@@ -521,6 +523,12 @@ public class Objects.Project : Objects.BaseObject {
         });
     }
 
+    public void remove_section (Objects.Section section) {
+        if (_sections != null) {
+            _sections.remove (section);
+        }
+    }
+
     public Objects.Item add_item_if_not_exists (Objects.Item new_item, bool insert = true) {
         Objects.Item ? return_value = null;
         lock (_items) {
@@ -745,11 +753,13 @@ public class Objects.Project : Objects.BaseObject {
         int items_checked = 0;
 
         foreach (Objects.Item item in Services.Store.instance ().get_items_by_project (this)) {
-            if (!item.was_archived ()) {
-                items_total++;
-                if (item.checked) {
-                    items_checked++;
-                }
+            if (!is_archived && item.was_archived ()) {
+                continue;
+            }
+
+            items_total++;
+            if (item.checked) {
+                items_checked++;
             }
         }
 
@@ -816,43 +826,49 @@ public class Objects.Project : Objects.BaseObject {
         dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
         dialog.present (window);
 
-        dialog.response.connect ((_response) => {
-            if (_response == "delete") {
-                loading = true;
-                if (source_type == SourceType.LOCAL) {
-                    Services.Store.instance ().delete_project (this);
-                } else if (source_type == SourceType.TODOIST) {
-                    dialog.set_response_enabled ("cancel", false);
-                    dialog.set_response_enabled ("delete", false);
-
-                    Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
-                        HttpResponse response = Services.Todoist.get_default ().delete.end (res);
-                        loading = false;
-
-                        if (response.status) {
-                            Services.Store.instance ().delete_project (this);
-                        } else {
-                            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                        }
-                    });
-                } else if (source_type == SourceType.CALDAV) {
-                    dialog.set_response_enabled ("cancel", false);
-                    dialog.set_response_enabled ("delete", false);
-
-                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
-                    caldav_client.delete_project.begin (this, (obj, res) => {
-                        HttpResponse response = caldav_client.delete_project.end (res);
-                        loading = false;
-
-                        if (response.status) {
-                            Services.Store.instance ().delete_project (this);
-                        } else {
-                            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                        }
-                    });
-                }
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
+                handle_project_deletion ();
             }
         });
+    }
+
+    private void handle_project_deletion () {
+        loading = true;
+        
+        if (source_type == SourceType.LOCAL) {
+            Services.Store.instance ().delete_project.begin (this);
+            return;
+        }
+        
+        if (source_type == SourceType.TODOIST) {
+            delete_from_todoist ();
+        } else if (source_type == SourceType.CALDAV) {
+            delete_from_caldav ();
+        }
+    }
+    
+    private void delete_from_todoist () {
+        Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
+            handle_remote_delete_response (Services.Todoist.get_default ().delete.end (res));
+        });
+    }
+    
+    private void delete_from_caldav () {
+        var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
+        caldav_client.delete_project.begin (this, (obj, res) => {
+            handle_remote_delete_response (caldav_client.delete_project.end (res));
+        });
+    }
+    
+    private void handle_remote_delete_response (HttpResponse response) {
+        loading = false;
+        
+        if (response.status) {
+            Services.Store.instance ().delete_project.begin (this);
+        } else {
+            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+        }
     }
 
     public void archive_project (Gtk.Window window) {

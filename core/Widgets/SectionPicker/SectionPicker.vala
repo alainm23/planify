@@ -35,8 +35,6 @@ public class Widgets.SectionPicker.SectionPicker : Gtk.Popover {
     }
 
     construct {
-        css_classes = { "popover-contents" };
-
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Search"),
             valign = Gtk.Align.CENTER,

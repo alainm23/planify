@@ -22,6 +22,9 @@
 public class Layouts.Sidebar : Adw.Bin {
     private Gtk.Revealer filters_revealer;
     private Gtk.ListBox sources_listbox;
+    private Widgets.NewVersionPopup update_notification;
+    private Gtk.Revealer update_notification_revealer;
+    private Gtk.Popover context_menu;
 
     private Layouts.HeaderItem favorites_header;
     public Gee.HashMap<string, Layouts.ProjectRow> favorites_hashmap = new Gee.HashMap<string, Layouts.ProjectRow> ();
@@ -45,41 +48,6 @@ public class Layouts.Sidebar : Adw.Bin {
             css_classes = { "listbox-background" }
         };
 
-        var whats_new_icon = new Gtk.Image.from_icon_name ("star-outline-thick-symbolic") {
-            css_classes = { "gift-animation" }
-        };
-
-        var whats_new_label = new Gtk.Label (_("What’s new in Planify")) {
-            css_classes = { "underline" }
-        };
-
-        var close_button = new Gtk.Button.from_icon_name ("window-close") {
-            css_classes = { "flat", "no-padding" },
-            hexpand = true,
-            halign = END,
-            margin_end = 3
-        };
-
-        var whats_new_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            css_classes = { "card", "padding-9" },
-            vexpand = true,
-            valign = END,
-            margin_start = 3,
-            margin_end = 3,
-            margin_top = 9,
-            margin_bottom = 3
-        };
-
-        whats_new_box.append (whats_new_icon);
-        whats_new_box.append (whats_new_label);
-        whats_new_box.append (close_button);
-
-        var whats_new_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SWING_UP,
-            child = whats_new_box,
-            reveal_child = verify_new_version ()
-        };
-
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,
             margin_end = 12,
@@ -92,14 +60,39 @@ public class Layouts.Sidebar : Adw.Bin {
         content_box.append (favorites_header);
         content_box.append (sources_listbox);
 
-        if (Constants.SHOW_WHATSNEW) {
-            content_box.append (whats_new_revealer);
-        }
-
         var scrolled_window = new Widgets.ScrolledWindow (content_box);
 
-        child = scrolled_window;
+        update_notification = new Widgets.NewVersionPopup ();
+
+        update_notification_revealer = new Gtk.Revealer () {
+            child = update_notification,
+            valign = END,
+            transition_type = SLIDE_UP 
+        };
+
+        var overlay = new Gtk.Overlay () {
+            child = scrolled_window
+        };
+        overlay.add_overlay (update_notification_revealer);
+
+        child = overlay;
         update_filter_view ();
+        create_context_menu ();
+
+        var right_click = new Gtk.GestureClick () {
+            button = Gdk.BUTTON_SECONDARY
+        };
+        add_controller (right_click);
+        right_click.pressed.connect (on_right_click);
+
+        update_notification.dismissed.connect (() => {
+            update_notification_revealer.reveal_child = false;
+            
+            string? current_version = update_notification.version;
+            if (current_version != null) {
+                Services.Settings.get_default ().settings.set_string ("dismissed-update-version", current_version.replace ("v", ""));
+            }
+        });
 
         sources_listbox.set_sort_func ((child1, child2) => {
             int item1 = ((Layouts.SidebarSourceRow) child1).source.child_order;
@@ -117,43 +110,92 @@ public class Layouts.Sidebar : Adw.Bin {
             }
         });
 
-        var whats_new_gesture = new Gtk.GestureClick ();
-        whats_new_box.add_controller (whats_new_gesture);
-
-        whats_new_gesture.pressed.connect (() => {
-            var dialog = new Dialogs.WhatsNew ();
-            dialog.present (Planify._instance.main_window);
-
-            update_version ();
-            whats_new_revealer.reveal_child = verify_new_version ();
-        });
-
-        var close_gesture = new Gtk.GestureClick ();
-        close_button.add_controller (close_gesture);
-        close_gesture.pressed.connect (() => {
-            close_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-
-            update_version ();
-            whats_new_revealer.reveal_child = verify_new_version ();
-        });
-
         Services.EventBus.get_default ().update_sources_position.connect (() => {
             sources_listbox.invalidate_sort ();
         });
 
         Services.Settings.get_default ().settings.changed["filters-list-view"].connect (update_filter_view);
     }
+    
+    private void create_context_menu () {
+        var add_project_item = new Widgets.ContextMenu.MenuItem (_("New Project"), "plus-large-symbolic");
+        var add_source_item = new Widgets.ContextMenu.MenuItem (_("Add Account"), "cloud-outline-thick-symbolic");
+        var customize_item = new Widgets.ContextMenu.MenuItem (_("Customize Sidebar"), "dock-left-symbolic");
 
-    public void update_version () {
-        Services.Settings.get_default ().settings.set_string ("version", Build.VERSION);
+        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        menu_box.margin_top = menu_box.margin_bottom = 3;
+        menu_box.append (add_project_item);
+        menu_box.append (add_source_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (customize_item);
+        
+        context_menu = new Gtk.Popover () {
+            has_arrow = false,
+            child = menu_box,
+            position = Gtk.PositionType.BOTTOM,
+            width_request = 250
+        };
+
+        add_project_item.clicked.connect (() => {
+            var default_source = Services.Store.instance ().get_default_source ();
+            var source_id = default_source != null ? default_source.id : SourceType.LOCAL.to_string ();
+            var dialog = new Dialogs.Project.new (source_id, true);
+            dialog.present (Planify._instance.main_window);
+
+            context_menu.popdown ();
+        });
+        
+        add_source_item.clicked.connect (() => {
+            var preferences_dialog = new Dialogs.Preferences.PreferencesWindow ();
+            preferences_dialog.show_page ("accounts");
+            preferences_dialog.present (Planify._instance.main_window);
+        });
+        
+        customize_item.clicked.connect (() => {
+            var preferences_dialog = new Dialogs.Preferences.PreferencesWindow ();
+            preferences_dialog.show_page ("sidebar-page");
+            preferences_dialog.present (Planify._instance.main_window);
+        });
     }
-
-    public bool verify_new_version () {
-        return Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION;
+    
+    private void on_right_click (int n_press, double x, double y) {
+        Gdk.Rectangle rect = { (int) x, (int) y, 250, 1 };
+        
+        context_menu.set_parent (this);
+        context_menu.set_pointing_to (rect);
+        context_menu.popup ();
     }
 
     public void select_project (Objects.Project project) {
         Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id);
+    }
+
+    private async void check_for_updates () {
+        try {
+            Objects.Release? latest_release = yield Services.Api.get_default ().get_latest_release ();
+            
+            if (latest_release != null && latest_release.version != Build.VERSION) {
+                string dismissed_version = Services.Settings.get_default ().settings.get_string ("dismissed-update-version");
+                
+                if (dismissed_version != latest_release.version) {
+                    update_notification.version = latest_release.version;
+                    
+                    string? release_message = latest_release.get_release_message ();
+                    if (release_message != null) {
+                        update_notification.description = release_message;
+                    }
+                    
+                    update_notification_revealer.reveal_child = true;
+                    
+                    Timeout.add (update_notification_revealer.transition_duration, () => {
+                        update_notification.show_with_animation ();
+                        return Source.REMOVE;
+                    });
+                }
+            }
+        } catch (Error e) {
+            warning ("Error fetching latest release: %s", e.message);
+        }
     }
 
     public void init () {
@@ -185,6 +227,8 @@ public class Layouts.Sidebar : Adw.Bin {
         foreach (Objects.Source source in Services.Store.instance ().sources) {
             add_source_row (source);
         }
+
+        check_for_updates.begin ();
     }
 
     private void add_source_row (Objects.Source source) {

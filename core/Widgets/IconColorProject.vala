@@ -1,3 +1,24 @@
+/*
+ * Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
+ 
 public class Widgets.IconColorProject : Adw.Bin {
     public Objects.Project project { get; set; }
     public int pixel_size { get; construct; }
@@ -27,13 +48,6 @@ public class Widgets.IconColorProject : Adw.Bin {
             halign = CENTER
         };
 
-        color_emoji_stack = new Gtk.Stack () {
-            transition_type = CROSSFADE
-        };
-
-        color_emoji_stack.add_named (circular_progress_bar, "color");
-        color_emoji_stack.add_named (emoji_label, "emoji");
-
         inbox_icon = new Gtk.Image.from_icon_name ("mailbox-symbolic") {
             pixel_size = 16,
             valign = CENTER,
@@ -41,12 +55,11 @@ public class Widgets.IconColorProject : Adw.Bin {
         };
 
         stack = new Gtk.Stack () {
-            transition_type = CROSSFADE,
-            vhomogeneous = false,
-            hhomogeneous = false
+            transition_type = CROSSFADE
         };
 
-        stack.add_named (color_emoji_stack, "color-emoji");
+        stack.add_named (circular_progress_bar, "color");
+        stack.add_named (emoji_label, "emoji");
         stack.add_named (inbox_icon, "inbox");
 
         child = stack;
@@ -57,11 +70,16 @@ public class Widgets.IconColorProject : Adw.Bin {
     }
 
     public void update_request () {
-        stack.visible_child_name = project.is_inbox_project ? "inbox" : "color-emoji";
-        color_emoji_stack.visible_child_name = project.icon_style == ProjectIconStyle.PROGRESS ? "color" : "emoji";
         circular_progress_bar.color = project.color;
         circular_progress_bar.percentage = project.percentage;
         emoji_label.label = project.emoji;
+
+        if (project.is_inbox_project) {
+            stack.visible_child_name = "inbox";
+            return;
+        }
+
+        stack.visible_child_name = project.icon_style == ProjectIconStyle.PROGRESS ? "color" : "emoji";        
     }
 
     public void clean_up () {

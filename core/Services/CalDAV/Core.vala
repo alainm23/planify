@@ -24,6 +24,8 @@ public class Services.CalDAV.Core : GLib.Object {
     private Soup.Session session;
     private Gee.HashMap<string, Services.CalDAV.CalDAVClient> clients;
 
+    public signal void sync_progress (int current, int total, string message);
+
     private static Core ? _instance;
     public static Core get_default () {
         if (_instance == null) {
@@ -32,10 +34,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
         return _instance;
     }
-
-    public signal void first_sync_started ();
-    public signal void first_sync_finished ();
-
 
     public Core () {
         session = new Soup.Session ();
@@ -83,7 +81,7 @@ public class Services.CalDAV.Core : GLib.Object {
         return abs_url;
     }
 
-    public async string resolve_well_known_caldav (Soup.Session session, string base_url, bool ignore_ssl = false) {
+    public async string resolve_well_known_caldav (Soup.Session session, string base_url, bool ignore_ssl = false) throws GLib.Error {
         var well_known_url = make_absolute_url (base_url, "/.well-known/caldav");
         var msg = new Soup.Message ("GET", well_known_url);
         msg.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);
@@ -128,29 +126,33 @@ public class Services.CalDAV.Core : GLib.Object {
             }
             return base_url;
         } catch (Error e) {
+            if (e is GLib.IOError.CANCELLED) {
+                throw e;
+            }
             warning ("Failed to check .well-known/caldav: %s", e.message);
             return base_url;
         }
     }
 
 
-    public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable, bool ignore_ssl = false) {
+    public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable, bool ignore_ssl = false) throws GLib.Error {
         var caldav_client = new Services.CalDAV.CalDAVClient (session, dav_url, username, password, ignore_ssl);
 
         try {
             string? principal_url = yield caldav_client.get_principal_url (cancellable);
 
             if (principal_url == null) {
-                critical ("No principal url received");
-                return null;
+                throw new GLib.IOError.FAILED ("No principal url received");
             }
 
             var calendar_home = yield caldav_client.get_calendar_home (principal_url, cancellable);
 
             return calendar_home;
         } catch (Error e) {
-            print ("login error: %s".printf (e.message));
-            return null;
+            if (e is GLib.IOError.CANCELLED) {
+                throw e;
+            }
+            throw new GLib.IOError.FAILED ("Failed to resolve calendar home: %s".printf (e.message));
         }
     }
 
@@ -210,8 +212,6 @@ public class Services.CalDAV.Core : GLib.Object {
         HttpResponse response = new HttpResponse ();
         var caldav_client = get_client (source);
 
-        first_sync_started ();
-
         try {
             string? principal_url = yield caldav_client.get_principal_url (cancellable);
 
@@ -223,18 +223,34 @@ public class Services.CalDAV.Core : GLib.Object {
 
 
             yield caldav_client.update_userdata (principal_url, source, cancellable);
-
             Services.Store.instance ().insert_source (source);
 
             Gee.ArrayList<Objects.Project> projects = yield caldav_client.fetch_project_list (source, cancellable);
 
-            foreach (Objects.Project project in projects) {
-                Services.Store.instance ().insert_project (project);
-                yield caldav_client.fetch_items_for_project (project, cancellable);
+            sync_progress (0, projects.size, _("Starting sync…"));
+
+            const int BATCH_SIZE = 5;
+            int processed = 0;
+
+            for (int i = 0; i < projects.size; i += BATCH_SIZE) {
+                var batch_end = int.min (i + BATCH_SIZE, projects.size);
+                
+                for (int j = i; j < batch_end; j++) {
+                    Services.Store.instance ().insert_project (projects[j]);
+                }
+                
+                yield Util.nap (10);
+                
+                for (int j = i; j < batch_end; j++) {
+                    sync_progress (processed + 1, projects.size, _("Syncing %s…").printf (projects[j].name));
+                    yield caldav_client.fetch_items_for_project (projects[j], cancellable, (current, total, msg) => {
+                        sync_progress (current, total, msg);
+                    });
+                    processed++;
+                }
             }
 
-            first_sync_finished ();
-
+            sync_progress (projects.size, projects.size, _("Sync completed"));
             response.status = true;
         } catch (Error e) {
             response.error_code = e.code;

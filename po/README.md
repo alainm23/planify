@@ -1,9 +1,70 @@
-# Create a new translation
+# Translation Guide
 
-To start translating, duplicate any of the `.po` files and start translating it, 
-rename it to match your country code and add your contry code.
+Help make Planify available in your language! This guide will walk you through creating a new translation.
 
- Be sure to add your country code to the [LINGUAS](https://github.com/alainm23/planify/blob/master/po/LINGUAS) file too.
+## Getting Started
+
+### Prerequisites
+- A text editor or translation tool (recommended: [Poedit](https://poedit.net/))
+- Basic understanding of your target language
+- Familiarity with Git (for contributing back)
+
+### Step 1: Choose Your Language Code
+Find your language code from the table below. Use the format `language_COUNTRY` (e.g., `es_ES` for Spanish from Spain, `pt_BR` for Portuguese from Brazil).
+
+### Step 2: Create Your Translation File
+1. Copy an existing `.po` file (e.g., `es.po`) as a template
+2. Rename it to your language code (e.g., `fr.po` for French)
+3. Open the file in your preferred editor
+
+### Step 3: Update File Headers
+Modify the header information in your `.po` file:
+```
+"Language: YOUR_LANGUAGE_CODE\n"
+"Language-Team: YOUR_LANGUAGE_NAME\n"
+"Last-Translator: Your Name <your.email@example.com>\n"
+```
+
+### Step 4: Translate Strings
+Translate each `msgstr` entry:
+```
+msgid "Hello"
+msgstr "Hola"  # Replace with your translation
+```
+
+**Translation Tips:**
+- Keep UI elements concise
+- Maintain consistent terminology
+- Test special characters and accents
+- Consider context (buttons vs. descriptions)
+- Preserve placeholders like `%s`, `%d`
+
+### Step 5: Add to LINGUAS File
+Add your language code to the [LINGUAS](https://github.com/alainm23/planify/blob/master/po/LINGUAS) file.
+
+### Step 6: Test Your Translation
+1. Build Planify with your translation
+2. Check for text overflow or layout issues
+3. Verify all strings are translated
+
+### Step 7: Submit Your Translation
+1. Fork the repository
+2. Add your `.po` file and update LINGUAS
+3. Create a pull request
+
+## Translation Tools
+
+- **[Poedit](https://poedit.net/)**: User-friendly GUI editor
+- **[Lokalize](https://apps.kde.org/lokalize/)**: KDE translation tool
+- **Text editors**: VS Code, Vim, etc. with gettext plugins
+
+## Need Help?
+
+- Check existing translations for reference
+- Ask questions in GitHub issues
+- Join our community discussions
+
+## Language Codes Reference
 
 |Code      |Language                                  |
 |----------|------------------------------------------|
@@ -202,11 +263,11 @@ rename it to match your country code and add your contry code.
 |en_TT     |English (Trinidad & Tobago)               |
 |en_TC     |English (Turks & Caicos Islands)          |
 |en_TV     |English (Tuvalu)                          |
-|en_UM     |English (U.S. Outlying Islands)           |
-|en_VI     |English (U.S. Virgin Islands)             |
 |en_UG     |English (Uganda)                          |
 |en_GB     |English (United Kingdom)                  |
 |en_US     |English (United States)                   |
+|en_UM     |English (U.S. Outlying Islands)           |
+|en_VI     |English (U.S. Virgin Islands)             |
 |en_VU     |English (Vanuatu)                         |
 |en_ZM     |English (Zambia)                          |
 |en_ZW     |English (Zimbabwe)                        |
@@ -233,7 +294,7 @@ rename it to match your country code and add your contry code.
 |fr_KM     |French (Comoros)                          |
 |fr_CG     |French (Congo - Brazzaville)              |
 |fr_CD     |French (Congo - Kinshasa)                 |
-|fr_CI     |French (Côte d’Ivoire)                    |
+|fr_CI     |French (Côte d'Ivoire)                    |
 |fr_DJ     |French (Djibouti)                         |
 |fr_GQ     |French (Equatorial Guinea)                |
 |fr_FR     |French (France)                           |
@@ -256,11 +317,11 @@ rename it to match your country code and add your contry code.
 |fr_NE     |French (Niger)                            |
 |fr_RE     |French (Réunion)                          |
 |fr_RW     |French (Rwanda)                           |
-|fr_SN     |French (Senegal)                          |
-|fr_SC     |French (Seychelles)                       |
 |fr_BL     |French (St. Barthélemy)                   |
 |fr_MF     |French (St. Martin)                       |
 |fr_PM     |French (St. Pierre & Miquelon)            |
+|fr_SN     |French (Senegal)                          |
+|fr_SC     |French (Seychelles)                       |
 |fr_CH     |French (Switzerland)                      |
 |fr_SY     |French (Syria)                            |
 |fr_TG     |French (Togo)                             |
@@ -290,14 +351,15 @@ rename it to match your country code and add your contry code.
 |el_GR     |Greek (Greece)                            |
 |gu        |Gujarati                                  |
 |gu_IN     |Gujarati (India)                          |
+|guz       |Gusii                                     |
+|guz_KE    |Gusii (Kenya)                             |
 |ha        |Hausa                                     |
-|ha_GH     |Hausa (Ghana)                             |
 |ha_Latn_GH|Hausa (Latin, Ghana)                      |
 |ha_Latn_NE|Hausa (Latin, Niger)                      |
 |ha_Latn_NG|Hausa (Latin, Nigeria)                    |
 |ha_Latn   |Hausa (Latin)                             |
-|ha_NE     |Hausa (Niger)                             |
-|ha_NG     |Hausa (Nigeria)                           |
+|haw       |Hawaiian                                  |
+|haw_US    |Hawaiian (United States)                  |
 |he        |Hebrew                                    |
 |he_IL     |Hebrew (Israel)                           |
 |hi        |Hindi                                     |
@@ -316,35 +378,41 @@ rename it to match your country code and add your contry code.
 |it_IT     |Italian (Italy)                           |
 |it_SM     |Italian (San Marino)                      |
 |it_CH     |Italian (Switzerland)                     |
+|it_VA     |Italian (Vatican City)                    |
 |ja        |Japanese                                  |
 |ja_JP     |Japanese (Japan)                          |
+|kea       |Kabuverdianu                              |
+|kea_CV    |Kabuverdianu (Cape Verde)                 |
+|kab       |Kabyle                                    |
+|kab_DZ    |Kabyle (Algeria)                          |
 |kl        |Kalaallisut                               |
 |kl_GL     |Kalaallisut (Greenland)                   |
+|kln       |Kalenjin                                  |
+|kln_KE    |Kalenjin (Kenya)                          |
+|kam       |Kamba                                     |
+|kam_KE    |Kamba (Kenya)                             |
 |kn        |Kannada                                   |
 |kn_IN     |Kannada (India)                           |
-|ks        |Kashmiri                                  |
-|ks_Arab_IN|Kashmiri (Arabic, India)                  |
-|ks_Arab   |Kashmiri (Arabic)                         |
-|ks_IN     |Kashmiri (India)                          |
 |kk        |Kazakh                                    |
 |kk_Cyrl_KZ|Kazakh (Cyrillic, Kazakhstan)             |
 |kk_Cyrl   |Kazakh (Cyrillic)                         |
-|kk_KZ     |Kazakh (Kazakhstan)                       |
 |km        |Khmer                                     |
 |km_KH     |Khmer (Cambodia)                          |
 |ki        |Kikuyu                                    |
 |ki_KE     |Kikuyu (Kenya)                            |
 |rw        |Kinyarwanda                               |
 |rw_RW     |Kinyarwanda (Rwanda)                      |
+|kok       |Konkani                                   |
+|kok_IN    |Konkani (India)                           |
 |ko        |Korean                                    |
 |ko_KP     |Korean (North Korea)                      |
 |ko_KR     |Korean (South Korea)                      |
-|ky        |Kyrgyz                                    |
-|ky_Cyrl_KG|Kyrgyz (Cyrillic, Kyrgyzstan)             |
-|ky_Cyrl   |Kyrgyz (Cyrillic)                         |
-|ky_KG     |Kyrgyz (Kyrgyzstan)                       |
-|lo        |Lao                                       |
-|lo_LA     |Lao (Laos)                                |
+|khq       |Koyra Chiini                              |
+|khq_ML    |Koyra Chiini (Mali)                       |
+|ses       |Koyraboro Senni                           |
+|ses_ML    |Koyraboro Senni (Mali)                    |
+|lag       |Langi                                     |
+|lag_TZ    |Langi (Tanzania)                          |
 |lv        |Latvian                                   |
 |lv_LV     |Latvian (Latvia)                          |
 |ln        |Lingala                                   |
@@ -354,20 +422,20 @@ rename it to match your country code and add your contry code.
 |ln_CD     |Lingala (Congo - Kinshasa)                |
 |lt        |Lithuanian                                |
 |lt_LT     |Lithuanian (Lithuania)                    |
-|lu        |Luba-Katanga                              |
-|lu_CD     |Luba-Katanga (Congo - Kinshasa)           |
-|lb        |Luxembourgish                             |
-|lb_LU     |Luxembourgish (Luxembourg)                |
+|luo       |Luo                                       |
+|luo_KE    |Luo (Kenya)                               |
+|luy       |Luyia                                     |
+|luy_KE    |Luyia (Kenya)                             |
 |mk        |Macedonian                                |
 |mk_MK     |Macedonian (Macedonia)                    |
+|jmc       |Machame                                   |
+|jmc_TZ    |Machame (Tanzania)                        |
+|kde       |Makonde                                   |
+|kde_TZ    |Makonde (Tanzania)                        |
 |mg        |Malagasy                                  |
 |mg_MG     |Malagasy (Madagascar)                     |
 |ms        |Malay                                     |
 |ms_BN     |Malay (Brunei)                            |
-|ms_Latn_BN|Malay (Latin, Brunei)                     |
-|ms_Latn_MY|Malay (Latin, Malaysia)                   |
-|ms_Latn_SG|Malay (Latin, Singapore)                  |
-|ms_Latn   |Malay (Latin)                             |
 |ms_MY     |Malay (Malaysia)                          |
 |ms_SG     |Malay (Singapore)                         |
 |ml        |Malayalam                                 |
@@ -378,34 +446,32 @@ rename it to match your country code and add your contry code.
 |gv_IM     |Manx (Isle of Man)                        |
 |mr        |Marathi                                   |
 |mr_IN     |Marathi (India)                           |
-|mn        |Mongolian                                 |
-|mn_Cyrl_MN|Mongolian (Cyrillic, Mongolia)            |
-|mn_Cyrl   |Mongolian (Cyrillic)                      |
-|mn_MN     |Mongolian (Mongolia)                      |
+|mas       |Masai                                     |
+|mas_KE    |Masai (Kenya)                             |
+|mas_TZ    |Masai (Tanzania)                          |
+|mer       |Meru                                      |
+|mer_KE    |Meru (Kenya)                              |
+|mfe       |Morisyen                                  |
+|mfe_MU    |Morisyen (Mauritius)                      |
+|naq       |Nama                                      |
+|naq_NA    |Nama (Namibia)                            |
 |ne        |Nepali                                    |
 |ne_IN     |Nepali (India)                            |
 |ne_NP     |Nepali (Nepal)                            |
 |nd        |North Ndebele                             |
 |nd_ZW     |North Ndebele (Zimbabwe)                  |
-|se        |Northern Sami                             |
-|se_FI     |Northern Sami (Finland)                   |
-|se_NO     |Northern Sami (Norway)                    |
-|se_SE     |Northern Sami (Sweden)                    |
-|no        |Norwegian                                 |
-|no_NO     |Norwegian (Norway)                        |
 |nb        |Norwegian Bokmål                          |
 |nb_NO     |Norwegian Bokmål (Norway)                 |
 |nb_SJ     |Norwegian Bokmål (Svalbard & Jan Mayen)   |
 |nn        |Norwegian Nynorsk                         |
 |nn_NO     |Norwegian Nynorsk (Norway)                |
+|nyn       |Nyankole                                  |
+|nyn_UG    |Nyankole (Uganda)                         |
 |or        |Oriya                                     |
 |or_IN     |Oriya (India)                             |
 |om        |Oromo                                     |
 |om_ET     |Oromo (Ethiopia)                          |
 |om_KE     |Oromo (Kenya)                             |
-|os        |Ossetic                                   |
-|os_GE     |Ossetic (Georgia)                         |
-|os_RU     |Ossetic (Russia)                          |
 |ps        |Pashto                                    |
 |ps_AF     |Pashto (Afghanistan)                      |
 |fa        |Persian                                   |
@@ -428,19 +494,13 @@ rename it to match your country code and add your contry code.
 |pa_Arab   |Punjabi (Arabic)                          |
 |pa_Guru_IN|Punjabi (Gurmukhi, India)                 |
 |pa_Guru   |Punjabi (Gurmukhi)                        |
-|pa_IN     |Punjabi (India)                           |
-|pa_PK     |Punjabi (Pakistan)                        |
-|qu        |Quechua                                   |
-|qu_BO     |Quechua (Bolivia)                         |
-|qu_EC     |Quechua (Ecuador)                         |
-|qu_PE     |Quechua (Peru)                            |
 |ro        |Romanian                                  |
 |ro_MD     |Romanian (Moldova)                        |
 |ro_RO     |Romanian (Romania)                        |
 |rm        |Romansh                                   |
 |rm_CH     |Romansh (Switzerland)                     |
-|rn        |Rundi                                     |
-|rn_BI     |Rundi (Burundi)                           |
+|rof       |Rombo                                     |
+|rof_TZ    |Rombo (Tanzania)                          |
 |ru        |Russian                                   |
 |ru_BY     |Russian (Belarus)                         |
 |ru_KZ     |Russian (Kazakhstan)                      |
@@ -448,27 +508,26 @@ rename it to match your country code and add your contry code.
 |ru_MD     |Russian (Moldova)                         |
 |ru_RU     |Russian (Russia)                          |
 |ru_UA     |Russian (Ukraine)                         |
+|rwk       |Rwa                                       |
+|rwk_TZ    |Rwa (Tanzania)                            |
+|saq       |Samburu                                   |
+|saq_KE    |Samburu (Kenya)                           |
 |sg        |Sango                                     |
 |sg_CF     |Sango (Central African Republic)          |
-|gd        |Scottish Gaelic                           |
-|gd_GB     |Scottish Gaelic (United Kingdom)          |
+|seh       |Sena                                      |
+|seh_MZ    |Sena (Mozambique)                         |
 |sr        |Serbian                                   |
 |sr_BA     |Serbian (Bosnia & Herzegovina)            |
 |sr_Cyrl_BA|Serbian (Cyrillic, Bosnia & Herzegovina)  |
-|sr_Cyrl_XK|Serbian (Cyrillic, Kosovo)                |
 |sr_Cyrl_ME|Serbian (Cyrillic, Montenegro)            |
 |sr_Cyrl_RS|Serbian (Cyrillic, Serbia)                |
 |sr_Cyrl   |Serbian (Cyrillic)                        |
-|sr_XK     |Serbian (Kosovo)                          |
 |sr_Latn_BA|Serbian (Latin, Bosnia & Herzegovina)     |
-|sr_Latn_XK|Serbian (Latin, Kosovo)                   |
 |sr_Latn_ME|Serbian (Latin, Montenegro)               |
 |sr_Latn_RS|Serbian (Latin, Serbia)                   |
 |sr_Latn   |Serbian (Latin)                           |
 |sr_ME     |Serbian (Montenegro)                      |
 |sr_RS     |Serbian (Serbia)                          |
-|sh        |Serbo-Croatian                            |
-|sh_BA     |Serbo-Croatian (Bosnia & Herzegovina)     |
 |sn        |Shona                                     |
 |sn_ZW     |Shona (Zimbabwe)                          |
 |ii        |Sichuan Yi                                |
@@ -479,6 +538,8 @@ rename it to match your country code and add your contry code.
 |sk_SK     |Slovak (Slovakia)                         |
 |sl        |Slovenian                                 |
 |sl_SI     |Slovenian (Slovenia)                      |
+|xog       |Soga                                      |
+|xog_UG    |Soga (Uganda)                             |
 |so        |Somali                                    |
 |so_DJ     |Somali (Djibouti)                         |
 |so_ET     |Somali (Ethiopia)                         |
@@ -487,8 +548,6 @@ rename it to match your country code and add your contry code.
 |es        |Spanish                                   |
 |es_AR     |Spanish (Argentina)                       |
 |es_BO     |Spanish (Bolivia)                         |
-|es_IC     |Spanish (Canary Islands)                  |
-|es_EA     |Spanish (Ceuta & Melilla)                 |
 |es_CL     |Spanish (Chile)                           |
 |es_CO     |Spanish (Colombia)                        |
 |es_CR     |Spanish (Costa Rica)                      |
@@ -499,12 +558,12 @@ rename it to match your country code and add your contry code.
 |es_GQ     |Spanish (Equatorial Guinea)               |
 |es_GT     |Spanish (Guatemala)                       |
 |es_HN     |Spanish (Honduras)                        |
+|es_419    |Spanish (Latin America)                   |
 |es_MX     |Spanish (Mexico)                          |
 |es_NI     |Spanish (Nicaragua)                       |
 |es_PA     |Spanish (Panama)                          |
 |es_PY     |Spanish (Paraguay)                        |
 |es_PE     |Spanish (Peru)                            |
-|es_PH     |Spanish (Philippines)                     |
 |es_PR     |Spanish (Puerto Rico)                     |
 |es_ES     |Spanish (Spain)                           |
 |es_US     |Spanish (United States)                   |
@@ -518,8 +577,16 @@ rename it to match your country code and add your contry code.
 |sv_AX     |Swedish (Åland Islands)                   |
 |sv_FI     |Swedish (Finland)                         |
 |sv_SE     |Swedish (Sweden)                          |
-|tl        |Tagalog                                   |
-|tl_PH     |Tagalog (Philippines)                     |
+|gsw       |Swiss German                              |
+|gsw_CH    |Swiss German (Switzerland)                |
+|gsw_LI    |Swiss German (Liechtenstein)              |
+|shi       |Tachelhit                                 |
+|shi_Latn_MA|Tachelhit (Latin, Morocco)                |
+|shi_Latn  |Tachelhit (Latin)                         |
+|shi_Tfng_MA|Tachelhit (Tifinagh, Morocco)             |
+|shi_Tfng  |Tachelhit (Tifinagh)                      |
+|dav       |Taita                                     |
+|dav_KE    |Taita (Kenya)                             |
 |ta        |Tamil                                     |
 |ta_IN     |Tamil (India)                             |
 |ta_MY     |Tamil (Malaysia)                          |
@@ -527,6 +594,9 @@ rename it to match your country code and add your contry code.
 |ta_LK     |Tamil (Sri Lanka)                         |
 |te        |Telugu                                    |
 |te_IN     |Telugu (India)                            |
+|teo       |Teso                                      |
+|teo_KE    |Teso (Kenya)                              |
+|teo_UG    |Teso (Uganda)                             |
 |th        |Thai                                      |
 |th_TH     |Thai (Thailand)                           |
 |bo        |Tibetan                                   |
@@ -545,26 +615,19 @@ rename it to match your country code and add your contry code.
 |ur        |Urdu                                      |
 |ur_IN     |Urdu (India)                              |
 |ur_PK     |Urdu (Pakistan)                           |
-|ug        |Uyghur                                    |
-|ug_Arab_CN|Uyghur (Arabic, China)                    |
-|ug_Arab   |Uyghur (Arabic)                           |
-|ug_CN     |Uyghur (China)                            |
 |uz        |Uzbek                                     |
-|uz_AF     |Uzbek (Afghanistan)                       |
 |uz_Arab_AF|Uzbek (Arabic, Afghanistan)               |
 |uz_Arab   |Uzbek (Arabic)                            |
 |uz_Cyrl_UZ|Uzbek (Cyrillic, Uzbekistan)              |
 |uz_Cyrl   |Uzbek (Cyrillic)                          |
 |uz_Latn_UZ|Uzbek (Latin, Uzbekistan)                 |
 |uz_Latn   |Uzbek (Latin)                             |
-|uz_UZ     |Uzbek (Uzbekistan)                        |
 |vi        |Vietnamese                                |
 |vi_VN     |Vietnamese (Vietnam)                      |
+|vun       |Vunjo                                     |
+|vun_TZ    |Vunjo (Tanzania)                          |
 |cy        |Welsh                                     |
 |cy_GB     |Welsh (United Kingdom)                    |
-|fy        |Western Frisian                           |
-|fy_NL     |Western Frisian (Netherlands)             |
-|yi        |Yiddish                                   |
 |yo        |Yoruba                                    |
 |yo_BJ     |Yoruba (Benin)                            |
 |yo_NG     |Yoruba (Nigeria)                          |

@@ -1,7 +1,7 @@
 core_files = files(
     'Enum.vala',
     'Constants.vala',
-    'QuickAdd.vala',
+    'QuickAddCore.vala',
 
     'Utils/Util.vala',
     'Utils/Datetime.vala',
@@ -29,7 +29,7 @@ core_files = files(
     'Layouts/HeaderItem.vala',
 
     'Widgets/LoadingButton.vala',
-    'Widgets/Entries.vala',
+    'Widgets/TextView.vala',
     'Widgets/IconColorProject.vala',
     'Widgets/PinButton.vala',
     'Widgets/PriorityButton.vala',
@@ -37,7 +37,7 @@ core_files = files(
     'Widgets/ItemLabelChild.vala',
     'Widgets/CircularProgressBar.vala',
     'Widgets/StatusButton.vala',
-    'Widgets/LabelsPickerCore.vala',
+    'Widgets/MarkdownEditor.vala',
 
     'Widgets/Calendar/Calendar.vala',
     'Widgets/Calendar/CalendarDay.vala',
@@ -59,11 +59,14 @@ core_files = files(
     'Widgets/LabelPicker/LabelPicker.vala',
     'Widgets/LabelPicker/LabelRow.vala',
     'Widgets/LabelPicker/LabelButton.vala',
+    'Widgets/LabelPicker/LabelsPickerCore.vala',
+    'Widgets/LabelPicker/LabelQuickPicker.vala',
 
+
+    'Widgets/ProjectPicker/ProjectPickerCore.vala',
     'Widgets/ProjectPicker/ProjectPickerPopover.vala',
     'Widgets/ProjectPicker/ProjectPickerRow.vala',
     'Widgets/ProjectPicker/ProjectPickerButton.vala',
-    'Widgets/ProjectPicker/SectionPickerRow.vala',
 
     'Widgets/SectionPicker/SectionButton.vala',
     'Widgets/SectionPicker/SectionPicker.vala',
@@ -72,12 +75,7 @@ core_files = files(
     'Widgets/ReminderPicker/ReminderButton.vala',
     'Widgets/ReminderPicker/ReminderPicker.vala',
     'Widgets/ReminderPicker/ReminderRow.vala',
-
-    'Widgets/Markdown/MarkdownEditView.vala',
-    'Widgets/Markdown/MarkdownView.vala',
-    'Widgets/Markdown/Color.vala',
-    'Widgets/Markdown/MarkdownBuffer.vala',
-
+    
     'Objects/BaseObject.vala',
     'Objects/Color.vala',
     'Objects/DueDate.vala',
@@ -91,6 +89,8 @@ core_files = files(
     'Objects/Attachment.vala',
     'Objects/ObjectEvent.vala',
     'Objects/Source.vala',
+    'Objects/TranslationMetric.vala',
+    'Objects/Release.vala',
     
     'Objects/Filters/Inbox.vala',
     'Objects/Filters/Pinboard.vala',
@@ -116,13 +116,18 @@ core_deps = [
   libadwaita_dep,
   json_dep,
   libsoup_dep,
-  gtksourceview_dep,
   libical_dep,
-  libecal_dep,
   libgxml_dep,
   libsecret_dep,
-  libspelling
+  libspelling,
+  gtksourceview_dep
 ]
+
+if get_option('evolution')
+    if libecal_dep.found()
+        core_deps += libecal_dep
+    endif
+endif
 
 core_lib = shared_library(
     'planify',

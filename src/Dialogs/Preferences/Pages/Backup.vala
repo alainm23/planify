@@ -41,8 +41,8 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
             use_markup = true,
             wrap = true,
             xalign = 0,
-            margin_end = 6,
-            margin_start = 6
+            margin_end = 3,
+            margin_start = 3
         };
 
         var add_button = new Gtk.Button.with_label (_("Create Backup")) {
@@ -53,12 +53,25 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
 
         backups_group = new Layouts.HeaderItem (_("Backup Files")) {
             card = true,
-            margin_top = 12,
             reveal = true,
             placeholder_message = _("No backups found, create one clicking the button above.")
         };
 
         backups_group.set_sort_func (set_sort_func);
+
+        var location_label = new Gtk.Label (_("Backup files are stored in: %s").printf (Environment.get_user_data_dir () + "/io.github.alainm23.planify/backups")) {
+            wrap = true,
+            xalign = 0,
+            margin_start = 6
+        };
+        location_label.add_css_class ("dimmed");
+        location_label.add_css_class ("caption");
+
+        var backups_box = new Gtk.Box (VERTICAL, 6) {
+            margin_top = 12
+        };
+        backups_box.append (backups_group);
+        backups_box.append (location_label);
 
         var import_planner_button = new Gtk.Button.with_label (_("Migrate"));
 
@@ -74,7 +87,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         content_box.append (description_label);
         content_box.append (add_button);
         content_box.append (import_button);
-        content_box.append (backups_group);
+        content_box.append (backups_box);
         content_box.append (migrate_group);
 
         var content_clamp = new Adw.Clamp () {
@@ -435,7 +448,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
                 dialog.body_use_markup = true;
                 dialog.add_response ("cancel", _("Cancel"));
                 dialog.add_response ("restore", _("Restore Backup"));
-                dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+                dialog.set_response_appearance ("restore", Adw.ResponseAppearance.DESTRUCTIVE);
                 dialog.present (Planify._instance.main_window);
 
                 dialog.response.connect ((response) => {

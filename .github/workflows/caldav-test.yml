@@ -1,6 +1,11 @@
 name: CalDAV Integration Test
 
-on: [pull_request, push]
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
 
 jobs:
   caldav-integration:
@@ -51,7 +56,7 @@ jobs:
           meson test -C build --suite=caldav-integration --print-errorlogs
 
       - name: Upload Meson test log
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: meson-test-log
           path: build/meson-logs/testlog.txt

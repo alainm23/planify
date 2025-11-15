@@ -25,6 +25,8 @@ public class Layouts.FilterPaneChild : Gtk.FlowBoxChild {
 
     private Gtk.Label count_label;
     private Gtk.Revealer indicator_revealer;
+    private Objects.Project? current_inbox_project = null;
+    private ulong inbox_count_signal_id = 0;
     private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public FilterPaneChild (Objects.BaseObject filter_type) {
@@ -38,9 +40,6 @@ public class Layouts.FilterPaneChild : Gtk.FlowBoxChild {
     }
 
     construct {
-        add_css_class ("card");
-        add_css_class ("filter-pane-child");
-
         var title_image = new Gtk.Image.from_icon_name (filter_type.icon_name) {
             margin_start = 3
         };
@@ -60,7 +59,7 @@ public class Layouts.FilterPaneChild : Gtk.FlowBoxChild {
         };
 
         indicator_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            transition_type = CROSSFADE,
             child = indicator_widget,
             hexpand = true,
             halign = END
@@ -78,7 +77,7 @@ public class Layouts.FilterPaneChild : Gtk.FlowBoxChild {
         };
 
         var count_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            transition_type = CROSSFADE,
             child = count_label
         };
 
@@ -88,8 +87,7 @@ public class Layouts.FilterPaneChild : Gtk.FlowBoxChild {
             margin_start = 3,
             margin_end = 3,
             margin_top = 3,
-            margin_bottom = 3,
-            width_request = 100
+            margin_bottom = 3
         };
 
         main_grid.attach (title_image, 0, 0, 1, 1);
@@ -97,6 +95,8 @@ public class Layouts.FilterPaneChild : Gtk.FlowBoxChild {
         main_grid.attach (title_box, 0, 1, 2, 2);
 
         child = main_grid;
+        add_css_class ("filter-pane-child");
+
         Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
 
         Util.get_default ().set_widget_color (filter_type.theme_color (), this);
@@ -142,6 +142,10 @@ public class Layouts.FilterPaneChild : Gtk.FlowBoxChild {
     public void init_badge_count () {
         if (filter_type is Objects.Filters.Inbox) {
             init_inbox_count ();
+
+            Services.Settings.get_default ().settings.changed["local-inbox-project-id"].connect (() => {
+                init_inbox_count ();
+            });
         } else if (filter_type is Objects.Filters.Today) {
             var today_filter = filter_type as Objects.Filters.Today;
             update_count_label (today_filter.item_count + today_filter.overdeue_count);
@@ -159,14 +163,18 @@ public class Layouts.FilterPaneChild : Gtk.FlowBoxChild {
     }
 
     private void init_inbox_count () {
-        Objects.Project inbox_project = Services.Store.instance ().get_project (
+        if (current_inbox_project != null && inbox_count_signal_id > 0) {
+            current_inbox_project.disconnect (inbox_count_signal_id);
+        }
+
+        current_inbox_project = Services.Store.instance ().get_project (
             Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
         );
 
-        update_count_label (inbox_project.item_count);
-        signals_map[inbox_project.count_updated.connect (() => {
-            update_count_label (inbox_project.item_count);
-        })] = inbox_project;
+        update_count_label (current_inbox_project.item_count);
+        inbox_count_signal_id = current_inbox_project.count_updated.connect (() => {
+            update_count_label (current_inbox_project.item_count);
+        });
     }
 
     public int item_order () {
