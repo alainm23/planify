@@ -20,11 +20,22 @@ core_files = files(
     'Services/CalDAV/Providers/Nextcloud.vala',
 
     'Services/Chrono/Chrono.vala',
-    'Services/Chrono/Enum.vala',
-    'Services/Chrono/Types.vala',
-    'Services/Chrono/Locales/En/En.vala',
-    'Services/Chrono/Locales/En/Constants.vala',
-    'Services/Chrono/Locales/En/Parsers/ENCasualDateParser.vala',
+    'Services/Chrono/LanguageParser.vala',
+    'Services/Chrono/Parser.vala',
+    'Services/Chrono/ParseResult.vala',
+    'Services/Chrono/RecurrenceRule.vala',
+    'Services/Chrono/Common/ISOParser.vala',
+    'Services/Chrono/Common/SlashParser.vala',
+    'Services/Chrono/Common/TimeParser.vala',
+    'Services/Chrono/Locales/en/EnglishParser.vala',
+    'Services/Chrono/Locales/en/ENConstants.vala',
+    'Services/Chrono/Locales/en/ENDateTimeComboParser.vala',
+    'Services/Chrono/Locales/en/ENRecurrenceParser.vala',
+    'Services/Chrono/Locales/en/ENCasualDateParser.vala',
+    'Services/Chrono/Locales/en/ENCasualTimeParser.vala',
+    'Services/Chrono/Locales/en/ENMonthNameParser.vala',
+    'Services/Chrono/Locales/en/ENRelativeDateFormatParser.vala',
+    'Services/Chrono/Locales/en/ENTimeExpressionParser.vala',
 
     'Layouts/HeaderItem.vala',
 
@@ -55,7 +66,7 @@ core_files = files(
     'Widgets/DateTimePicker/DateTimePicker.vala',
     'Widgets/DateTimePicker/TimePicker.vala',
     'Widgets/DateTimePicker/RepeatConfig.vala',
-
+    
     'Widgets/LabelPicker/LabelPicker.vala',
     'Widgets/LabelPicker/LabelRow.vala',
     'Widgets/LabelPicker/LabelButton.vala',
