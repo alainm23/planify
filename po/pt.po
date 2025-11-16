@@ -2963,6 +2963,8 @@ msgid ""
 "This will disable the CalDAV resolve process.\n"
 "Proceed at your own risk"
 msgstr ""
+"Isto vai desativar o processo de resolução do CalDAV.\n"
+"Prossiga pela sua conta e risco."
 
 #: src/Widgets/BypassResolveSwitchRow.vala:49
 #: src/Widgets/IgnoreSSLSwitchRow.vala:49
