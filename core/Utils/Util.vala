@@ -809,7 +809,7 @@ We hope you’ll enjoy using Planify!""");
         return generator.to_data (null);
     }
 
-    public async void move_backend_type_item (Objects.Item item, Objects.Project target_project, string parent_id = "") {
+    public async void move_backend_type_item (Objects.Item item, Objects.Project target_project, string parent_id = "", bool notify = true) {
         var new_item = item.duplicate ();
         new_item.project_id = target_project.id;
         new_item.parent_id = parent_id;
@@ -819,14 +819,14 @@ We hope you’ll enjoy using Planify!""");
 
         if (target_project.source_type == SourceType.LOCAL) {
             new_item.id = Util.get_default ().generate_id (new_item);
-            yield add_final_duplicate_item (new_item, item);
+            yield add_final_duplicate_item (new_item, item, notify);
         } else if (target_project.source_type == SourceType.TODOIST) {
             HttpResponse response = yield Services.Todoist.get_default ().add (new_item);
             item.loading = false;
 
             if (response.status) {
                 new_item.id = response.data;
-                yield add_final_duplicate_item (new_item, item);
+                yield add_final_duplicate_item (new_item, item, notify);
             }
         } else if (target_project.source_type == SourceType.CALDAV) {
             new_item.id = Util.get_default ().generate_id (new_item);
@@ -836,13 +836,17 @@ We hope you’ll enjoy using Planify!""");
             item.loading = false;
 
             if (response.status) {
-                yield add_final_duplicate_item (new_item, item);
+                yield add_final_duplicate_item (new_item, item, notify);
             }
         }
     }
 
-    public async void add_final_duplicate_item (Objects.Item new_item, Objects.Item item) {
-        new_item.project.add_item_if_not_exists (new_item);
+    public async void add_final_duplicate_item (Objects.Item new_item, Objects.Item item, bool notify = true) {
+        if (new_item.has_parent) {
+            new_item.parent.add_item_if_not_exists (new_item);
+        } else {
+            new_item.project.add_item_if_not_exists (new_item);
+        }
 
         foreach (Objects.Reminder reminder in item.reminders) {
             var _reminder = reminder.duplicate ();
@@ -859,12 +863,14 @@ We hope you’ll enjoy using Planify!""");
         }
 
         foreach (Objects.Item subitem in item.items) {
-            yield move_backend_type_item (subitem, new_item.project, new_item.id);
+            yield move_backend_type_item (subitem, new_item.project, new_item.id, false);
         }
 
-        Services.EventBus.get_default ().send_toast (
-            create_toast (_("Task moved to %s".printf (new_item.project.name)))
-        );
+        if (notify) {
+            Services.EventBus.get_default ().send_toast (
+                create_toast (_("Task moved to %s".printf (new_item.project.name)))
+            );
+        }
 
         item.delete_item ();
     }
