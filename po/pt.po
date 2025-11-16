@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-14 12:01+0000\n"
-"PO-Revision-Date: 2025-11-16 11:52+0000\n"
+"PO-Revision-Date: 2025-11-17 12:51+0000\n"
 "Last-Translator: André Barata <andretiagob@protonmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/pt/>\n"
@@ -428,7 +428,7 @@ msgstr "Adicione uma descrição…"
 #: core/QuickAddCore.vala:239 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
-msgstr "Adicionar etiquetas"
+msgstr "Adicionar Etiquetas"
 
 #: core/QuickAddCore.vala:244 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
@@ -483,7 +483,7 @@ msgstr "p1 = mais alta, p4 = mais baixa"
 
 #: core/QuickAddCore.vala:1262
 msgid "Add labels"
-msgstr "Adicione etiquetas"
+msgstr "Adicionar etiquetas"
 
 #: core/QuickAddCore.vala:1262
 msgid "Opens label selector"
@@ -1729,7 +1729,7 @@ msgstr "A sincronizar…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:207
 msgid "Please Enter Your Credentials"
-msgstr "Insira as Suas Credenciais, Por Favor"
+msgstr "Insira as suas credenciais, por favor"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:209
 msgid "Loading…"
@@ -1880,7 +1880,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:450
 msgid "Restore Backup"
-msgstr "Restaurar Cópia de Segurança"
+msgstr "Restaurar cópia de segurança"
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:137
@@ -1889,7 +1889,7 @@ msgstr "Geral"
 
 #: src/Dialogs/Preferences/Pages/General.vala:36
 msgid "Custom Sort Order"
-msgstr "Ordenação Personalizada"
+msgstr "Ordenação personalizada"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:485 src/Views/Scheduled/Scheduled.vala:225
@@ -2943,7 +2943,7 @@ msgstr "Não foram encontrados anexos. Adicione os ficheiros aqui."
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
 msgid "Bypass Location Resolve"
-msgstr "Contornar a determinação da localização"
+msgstr "Contornar a resolução da localização"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:32
 msgid ""
@@ -2964,139 +2964,143 @@ msgid ""
 "Proceed at your own risk"
 msgstr ""
 "Isto vai desativar o processo de resolução do CalDAV.\n"
-"Prossiga pela sua conta e risco."
+"Prossiga pela sua conta e risco"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:49
 #: src/Widgets/IgnoreSSLSwitchRow.vala:49
 msgid "Continue Anyway"
-msgstr ""
+msgstr "Continuar na mesma"
 
 #: src/Widgets/CompletedTaskRow.vala:95
 #: src/Widgets/ItemDetailCompleted.vala:128 src/Widgets/SubItems.vala:92
 msgid "Sub-tasks"
-msgstr ""
+msgstr "Subtarefas"
 
 #: src/Widgets/EditableTextView.vala:78 src/Widgets/EditableTextView.vala:145
 msgid "Show more"
-msgstr ""
+msgstr "Mostrar mais"
 
 #: src/Widgets/EditableTextView.vala:149
 msgid "Show less"
-msgstr ""
+msgstr "Mostrar menos"
 
 #: src/Widgets/ErrorView.vala:107
 msgid "Report Issue"
-msgstr ""
+msgstr "Reportar problema"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:31
 msgid "Disable SSL certificate validation"
-msgstr ""
+msgstr "Desativar a validação do certificado SSL"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:32
 msgid "Not recommended – exposes you to security risks"
-msgstr ""
+msgstr "Não é recomendado - vai ser exposto a riscos de segurança"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:46
 msgid ""
 "This will disable SSL validation and exposes you to attacks.\n"
 "Proceed at your own risk"
 msgstr ""
+"Isto vai desativar a validação do SSL e vai ser exposto a ataques.\n"
+"Prossiga pela sua conta e risco"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task uncompleted"
-msgstr ""
+msgstr "Tarefa não terminada"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:51
 msgid "Task moved to project"
-msgstr ""
+msgstr "A tarefa foi movida para o projeto"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:61
 msgid "Task moved to"
-msgstr ""
+msgstr "A tarefa foi movida para"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:87
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:108
 msgid "New"
-msgstr ""
+msgstr "Novo"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:192
 #: src/Widgets/ItemChangeHistoryRow.vala:193
 msgid "Pin: Active"
-msgstr ""
+msgstr "Afixar: Ativo"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:192
 #: src/Widgets/ItemChangeHistoryRow.vala:193
 msgid "Pin: Inactive"
-msgstr ""
+msgstr "Afixar: Inativo"
 
 #: src/Widgets/ItemDetailCompleted.vala:74
 msgid "Completed At"
-msgstr ""
+msgstr "Terminado em"
 
 #: src/Widgets/MultiSelectToolbar.vala:220
 msgid "Mark as Completed"
-msgstr ""
+msgstr "Marcar como terminado"
 
 #: src/Widgets/MultiSelectToolbar.vala:246
 msgid "Delete To-Do"
-msgstr ""
+msgstr "Eliminar tarefa"
 
 #: src/Widgets/MultiSelectToolbar.vala:247
 msgid "Are you sure you want to delete this to-do?"
-msgstr ""
+msgstr "Tem a certeza de que pretende eliminar esta tarefa?"
 
 #: src/Widgets/MultiSelectToolbar.vala:250
 #, c-format
 msgid "Delete %d To-Do"
-msgstr ""
+msgstr "Eliminar %d tarefa"
 
 #: src/Widgets/MultiSelectToolbar.vala:251
 #, c-format
 msgid "Delete %d To-Dos"
-msgstr ""
+msgstr "Eliminar %d tarefas"
 
 #: src/Widgets/MultiSelectToolbar.vala:256
 #, c-format
 msgid "Are you sure you want to delete this %d to-do?"
-msgstr ""
+msgstr "Tem a certeza de que pretende eliminar esta %d tarefa?"
 
 #: src/Widgets/MultiSelectToolbar.vala:257
 #, c-format
 msgid "Are you sure you want to delete these %d to-dos?"
-msgstr ""
+msgstr "Tem a certeza de que pretende eliminar estas %d tarefas?"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
-msgstr ""
+msgstr "Nova versão disponível!"
 
 #: src/Widgets/NewVersionPopup.vala:66
 msgid ""
 "Update now to enjoy the latest improvements, bug fixes, and new features "
 "that make Planify even better"
 msgstr ""
+"Atualize agora para desfrutar dos últimos melhoramentos, correções de "
+"problemas e novas funcionalidades que tornam o Planify ainda melhor"
 
 #: src/Widgets/NewVersionPopup.vala:73
 msgid "Update Now"
-msgstr ""
+msgstr "Atualizar agora"
 
 #: src/Widgets/NewVersionPopup.vala:110
 msgid "Close"
-msgstr ""
+msgstr "Fechar"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
-msgstr ""
+msgstr "Desarquivar"
 
 #: src/Widgets/SubItems.vala:523
 msgid "No subtasks added yet. Get started!"
-msgstr ""
+msgstr "Ainda não foram adicionadas subtarefas. Comece por fazer uma!"
 
 #: src/Widgets/SyncButton.vala:90
 msgid "Failed to connect to server"
-msgstr ""
+msgstr "A conexão ao servidor falhou"
 
 #: src/Widgets/SyncButton.vala:90
 msgid ""
@@ -3105,34 +3109,39 @@ msgid ""
 "Any changes you make while disconnected\n"
 "will be synchronized when you reconnect."
 msgstr ""
+"Parece que o servidor está inacessível,\n"
+"está conectado à Internet?\n"
+"Quaisquer alterações que fizer enquanto desconectado,\n"
+"estas vão sincronizar quando voltar a conectar-se."
 
 #: src/Widgets/TranslationRow.vala:95
 #, c-format
 msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
-msgstr ""
+msgstr "<b>%s</b> está %.0f%% completado. Pode ajudar a terminar a tradução!"
 
 #: src/Widgets/TranslationRow.vala:129 src/Widgets/TranslationRow.vala:151
 #: src/Widgets/TranslationRow.vala:155
 msgid "Translations"
-msgstr ""
+msgstr "Traduções"
 
 #: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
 #: src/Widgets/TranslationRow.vala:156
 msgid "Help make Planify available worldwide"
-msgstr ""
+msgstr "Ajude o Planify para que este fique disponível no mundo inteiro"
 
 #: src/Widgets/TranslationRow.vala:138
 msgid "Help improve translations"
-msgstr ""
+msgstr "Ajude a melhorar as traduções"
 
 #: src/Widgets/TranslationRow.vala:145
 msgid "Start a new translation"
-msgstr ""
+msgstr "Iniciar uma nova tradução"
 
 #: src/Widgets/TranslationRow.vala:146
 #, c-format
 msgid "<b>%s</b> is not available yet. Be the first to translate it!"
 msgstr ""
+"<b>%s</b> ainda não está disponível. Seja o primeiro a fazer a tradução!"
 
 #: quick-add/MainWindow.vala:9
 msgid "Planify - Quick Add"
@@ -3141,27 +3150,27 @@ msgstr "Planify - 'Adicionar rápido'"
 #: data/resources/ui/shortcuts.ui:12
 msgctxt "shortcut window"
 msgid "Used Anywhere"
-msgstr ""
+msgstr "Usado em qualquer lugar"
 
 #: data/resources/ui/shortcuts.ui:16
 msgctxt "shortcut window"
 msgid "Create a New Task"
-msgstr ""
+msgstr "Criar uma Nova Tarefa"
 
 #: data/resources/ui/shortcuts.ui:23
 msgctxt "shortcut window"
 msgid "Paste Plain Text to Create New Task"
-msgstr ""
+msgstr "Colar texto simples para criar uma nova tarefa"
 
 #: data/resources/ui/shortcuts.ui:30
 msgctxt "shortcut window"
 msgid "Create a New Project"
-msgstr ""
+msgstr "Criar um novo projeto"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Create a New Section in a Project"
-msgstr ""
+msgstr "Criar uma nova secção num projeto"
 
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
@@ -3171,64 +3180,64 @@ msgstr "Procurar"
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Open Quick Find"
-msgstr ""
+msgstr "Abrir a procura rápida"
 
 #: data/resources/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Control Windows"
-msgstr ""
+msgstr "Controlo de janelas"
 
 #: data/resources/ui/shortcuts.ui:61
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "Sair"
 
 #: data/resources/ui/shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Open Preferences"
-msgstr ""
+msgstr "Abrir definições"
 
 #: data/resources/ui/shortcuts.ui:75
 msgctxt "shortcut window"
 msgid "Toggle Sidebar"
-msgstr ""
+msgstr "Ativar/desativar barra lateral"
 
 #: data/resources/ui/shortcuts.ui:82
 msgctxt "shortcut window"
 msgid "Open Keyboard Shortcuts"
-msgstr ""
+msgstr "Abrir os atalhos do teclado"
 
 #: data/resources/ui/shortcuts.ui:90
 msgctxt "shortcut window"
 msgid "Navigate"
-msgstr ""
+msgstr "Navegar"
 
 #: data/resources/ui/shortcuts.ui:94
 msgctxt "shortcut window"
 msgid "Open Homepage"
-msgstr ""
+msgstr "Abrir 'Página principal'"
 
 #: data/resources/ui/shortcuts.ui:101
 msgctxt "shortcut window"
 msgid "Open Inbox"
-msgstr ""
+msgstr "Abrir 'Caixa de entrada'"
 
 #: data/resources/ui/shortcuts.ui:108
 msgctxt "shortcut window"
 msgid "Open Today"
-msgstr ""
+msgstr "Abrir 'Hoje'"
 
 #: data/resources/ui/shortcuts.ui:115
 msgctxt "shortcut window"
 msgid "Open Scheduled"
-msgstr ""
+msgstr "Abrir 'Agendados'"
 
 #: data/resources/ui/shortcuts.ui:122
 msgctxt "shortcut window"
 msgid "Open Labels"
-msgstr ""
+msgstr "Abrir 'Etiquetas'"
 
 #: data/resources/ui/shortcuts.ui:129
 msgctxt "shortcut window"
 msgid "Open Pinboard"
-msgstr "Abrir afixados"
+msgstr "Abrir 'Afixados'"
