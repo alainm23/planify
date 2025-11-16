@@ -1,7 +1,7 @@
 {
     "app-id" : "io.github.alainm23.planify.Devel",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "48",
+    "runtime-version" : "49",
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.alainm23.planify.Devel",
     "tags" : [
@@ -18,7 +18,8 @@
         "--talk-name=io.github.alainm23.planify",
         "--talk-name=io.github.alainm23.planify.quick-add",
         "--own-name=io.github.alainm23.planify.quick-add",
-        "--own-name=io.github.alainm23.planify"
+        "--own-name=io.github.alainm23.planify",
+        "--env=GOBJECT_DEBUG=instance-count"
     ],
     "cleanup" : [
         "/include",
@@ -95,8 +96,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://download.gnome.org/sources/evolution-data-server/3.56/evolution-data-server-3.56.1.tar.xz",
-                    "sha256" : "646cc0037da3f9f295794c637d95394ad76f8c9bee2268be2c4183e27720c137",
+                    "url" : "https://download.gnome.org/sources/evolution-data-server/3.58/evolution-data-server-3.58.0.tar.xz",
+                    "sha256" : "a2b5a0b8db11b728edc1d6f1c229dc2711962b7a87c0384221dac8d96000cef7",
                     "x-checker-data" : {
                         "type" : "gnome",
                         "name" : "evolution-data-server"
