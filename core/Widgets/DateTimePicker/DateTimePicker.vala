@@ -687,7 +687,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         construct {
             date_icon = new Gtk.Image ();
 
-            date_label = new Gtk.Label (Utils.Datetime.get_default_date_format_from_date (due_date.datetime)) {
+            date_label = new Gtk.Label (Utils.Datetime.get_relative_date_from_date (due_date.datetime)) {
                 use_markup = true,
                 ellipsize = END
             };
