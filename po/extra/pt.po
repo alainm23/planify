@@ -121,6 +121,4 @@ msgstr "Planify"
 
 #: data/io.github.alainm23.planify.desktop.in.in:14
 msgid "development;task;tasks;project;todo;reminder;reminders;event;events;calendar;todoist;"
-msgstr ""
-"desenvolvimento;tarefa;tarefas;projeto;todo;lembrete;lembretes;evento;eventos;calendário;todoist;"
-""
+msgstr "desenvolvimento;tarefa;tarefas;projeto;todo;lembrete;lembretes;evento;eventos;calendário;todoist;"
