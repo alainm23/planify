@@ -488,8 +488,8 @@
   "zh_Hant": {
     "language": "Chinese (Traditional Han script)",
     "total_strings": 693,
-    "translated_strings": 692,
-    "translated_percent": 99.8
+    "translated_strings": 693,
+    "translated_percent": 100.0
   },
   "kab": {
     "language": "Kabyle",
@@ -500,7 +500,7 @@
   "pt": {
     "language": "Portuguese",
     "total_strings": 693,
-    "translated_strings": 111,
-    "translated_percent": 16.0
+    "translated_strings": 693,
+    "translated_percent": 100.0
   }
 }
