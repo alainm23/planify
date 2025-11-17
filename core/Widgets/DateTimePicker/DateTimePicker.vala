@@ -125,7 +125,9 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         return pages_map[page];
     }
 
-    private Adw.NavigationPage build_main_page () {        
+    private Adw.NavigationPage build_main_page () {
+        Objects.DueDate? last_parsed_duedate = null;
+        
         var search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Type a date…")
         };
@@ -261,6 +263,16 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             navigation_view.push (build_page ("repeat"));
         })] = repeat_item;
 
+        search_entry.activate.connect (() => {
+            if (last_parsed_duedate != null) {
+                duedate = last_parsed_duedate;
+                visible_no_date = true;
+                check_items (duedate);
+                duedate_changed ();
+                popdown ();
+            }
+        });
+
         search_entry.search_changed.connect (() => {
             if (search_timeout_id != 0) {
                 GLib.Source.remove (search_timeout_id);
@@ -275,6 +287,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
                 var text = search_entry.text.strip ();
                 if (text.length == 0) {
+                    last_parsed_duedate = null;
                     add_default_suggestions (suggested_date_box);
                     return GLib.Source.REMOVE;
                 }
@@ -312,7 +325,12 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                         }
                     }
 
-                    suggested_date_box.append (new SuggestedDate (parsed_duedate));
+                    last_parsed_duedate = parsed_duedate;
+                    var suggested_date = new SuggestedDate (parsed_duedate);
+                    suggested_date_box.append (suggested_date);
+                    connect_suggested_date (suggested_date);
+                } else {
+                    last_parsed_duedate = null;
                 }
                 
                 return GLib.Source.REMOVE;
@@ -323,16 +341,32 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     private void add_default_suggestions (Adw.WrapBox box) {
-        box.append (new SuggestedDate (build_duedate (new DateTime.now_local ())) {
+        var today = new SuggestedDate (build_duedate (new DateTime.now_local ())) {
             title = _("Today")
-        });
+        };
+        box.append (today);
+        connect_suggested_date (today);
 
-        box.append (new SuggestedDate (build_duedate (new DateTime.now_local ().add_days (1))) {
+        var tomorrow = new SuggestedDate (build_duedate (new DateTime.now_local ().add_days (1))) {
             title = _("Tomorrow")
-        });
+        };
+        box.append (tomorrow);
+        connect_suggested_date (tomorrow);
         
-        box.append (new SuggestedDate (build_duedate (new DateTime.now_local ().add_days (7))) {
+        var next_week = new SuggestedDate (build_duedate (new DateTime.now_local ().add_days (7))) {
             title = _("Next week")
+        };
+        box.append (next_week);
+        connect_suggested_date (next_week);
+    }
+
+    private void connect_suggested_date (SuggestedDate suggested_date) {
+        suggested_date.clicked.connect (() => {
+            duedate = suggested_date.due_date;
+            visible_no_date = true;
+            check_items (duedate);
+            duedate_changed ();
+            popdown ();
         });
     }
 
@@ -634,6 +668,9 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         private Gtk.Image date_icon;
         private Gtk.Label date_label;
+        private Gtk.Button button;
+
+        public signal void clicked ();
 
         public string title {
             set {
@@ -659,9 +696,11 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             date_box.append (date_icon);
             date_box.append (date_label);
 
-            var button = new Gtk.Button () {
+            button = new Gtk.Button () {
                 child = date_box
             };
+
+            button.clicked.connect (() => clicked ());
 
             child = button;
 
