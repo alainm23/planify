@@ -1,6 +1,23 @@
 /*
-* Copyright © 2024 Alain M. (https://github.com/alainm23/planify)
-*/
+ * Copyright © 2025 Alain M. (https://github.com/alainm23/planify)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ * Authored by: Alain M. <alainmh23@gmail.com>
+ */
 
 namespace Chrono {
     public class ENRecurrenceParser : Object {
@@ -14,13 +31,13 @@ namespace Chrono {
         
         public ENRecurrenceParser () {
             try {
-                basic_regex = new Regex (@"\\bevery\\s+(?:(\\d+)\\s+)?(day|week|month|year)s?\\b", RegexCompileFlags.CASELESS);
-                alias_regex = new Regex (@"\\b(daily|weekly|monthly|yearly)\\b", RegexCompileFlags.CASELESS);
-                time_of_day_regex = new Regex (@"\\bevery\\s+(morning|afternoon|evening|night)\\b", RegexCompileFlags.CASELESS);
-                weekday_regex = new Regex (@"\\bevery\\s+(weekday|workday|weekend)\\b", RegexCompileFlags.CASELESS);
-                ordinal_day_regex = new Regex (@"\\bevery\\s+(?:(\\d+)(?:st|nd|rd|th)|last\\s+day)\\b", RegexCompileFlags.CASELESS);
-                specific_date_regex = new Regex (@"\\bevery\\s+(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)(?:uary|ruary|ch|il|e|y|ust|tember|ober|ember)?\\s+(\\d+)(?:st|nd|rd|th)?\\b", RegexCompileFlags.CASELESS);
-                hour_regex = new Regex (@"\\bevery\\s+hour\\b", RegexCompileFlags.CASELESS);
+                basic_regex = new Regex (@"\\bevery\\s+(?:(\\d+)\\s+)?(day|week|month|year)s?\\b", RegexCompileFlags.CASELESS); // vala-lint=unnecessary-string-template
+                alias_regex = new Regex (@"\\b(daily|weekly|monthly|yearly)\\b", RegexCompileFlags.CASELESS); // vala-lint=unnecessary-string-template
+                time_of_day_regex = new Regex (@"\\bevery\\s+(morning|afternoon|evening|night)\\b", RegexCompileFlags.CASELESS); // vala-lint=unnecessary-string-template
+                weekday_regex = new Regex (@"\\bevery\\s+(weekday|workday|weekend)\\b", RegexCompileFlags.CASELESS); // vala-lint=unnecessary-string-template
+                ordinal_day_regex = new Regex (@"\\bevery\\s+(?:(\\d+)(?:st|nd|rd|th)|last\\s+day)\\b", RegexCompileFlags.CASELESS); // vala-lint=unnecessary-string-template
+                specific_date_regex = new Regex (@"\\bevery\\s+(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)(?:uary|ruary|ch|il|e|y|ust|tember|ober|ember)?\\s+(\\d+)(?:st|nd|rd|th)?\\b", RegexCompileFlags.CASELESS); // vala-lint=unnecessary-string-template
+                hour_regex = new Regex (@"\\bevery\\s+hour\\b", RegexCompileFlags.CASELESS); // vala-lint=unnecessary-string-template
             } catch (Error e) {
                 warning ("Error compiling regex: %s", e.message);
             }
