@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-14 10:24+0000\n"
-"Last-Translator: Simon Arys <arys.simon@outlook.com>\n"
+"PO-Revision-Date: 2025-11-18 16:51+0000\n"
+"Last-Translator: Luc Roberge <lroberge@proton.me>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/fr/>\n"
 "Language: fr\n"
@@ -528,7 +528,7 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:300
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr "Chargement des tâches pour %s.."
+msgstr "Chargement des tâches pour %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, fuzzy, c-format
