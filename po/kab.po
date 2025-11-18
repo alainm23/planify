@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-10 10:40+0000\n"
-"PO-Revision-Date: 2025-11-14 11:25+0000\n"
+"PO-Revision-Date: 2025-11-18 16:51+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/kab/>\n"
@@ -460,7 +460,7 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1241 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Inegzumen n unasiw"
 
 #: core/QuickAddCore.vala:1247
 msgid "Speed up task creation with these shortcuts"
@@ -924,11 +924,11 @@ msgstr ""
 
 #: core/Utils/Util.vala:686
 msgid "💼️Work"
-msgstr ""
+msgstr "💼️Axeddim"
 
 #: core/Utils/Util.vala:692
 msgid "🎒️School"
-msgstr ""
+msgstr "🎒️Aɣerbaz"
 
 #: core/Utils/Util.vala:698
 msgid "👉️Delegated"
@@ -1108,19 +1108,19 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:277
 msgid "Weekly"
-msgstr ""
+msgstr "Yal ddurt"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:281
 msgid "Monthly"
-msgstr ""
+msgstr "Yal ayyur"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:285
 msgid "Yearly"
-msgstr ""
+msgstr "Yal aseggas"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:289
 msgid "Custom"
-msgstr ""
+msgstr "Udmawan"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Minute(s)"
@@ -1160,7 +1160,7 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:265
 msgid "Summary"
-msgstr ""
+msgstr "Agzul"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:271
 msgid "Repeat every"
@@ -1169,7 +1169,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:278
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:76
 msgid "End"
-msgstr ""
+msgstr "Tagara"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:443
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:244
@@ -1240,7 +1240,7 @@ msgstr ""
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
-msgstr ""
+msgstr "Nadi"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Search or Create"
@@ -1514,7 +1514,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
 #: src/Dialogs/Preferences/PreferencesWindow.vala:108
 msgid "Accounts"
-msgstr ""
+msgstr "Imiḍanen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
 msgid "Add Source"
@@ -1558,11 +1558,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:55
 msgid "Username"
-msgstr ""
+msgstr "Isem n useqdac"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:58
 msgid "Password"
-msgstr ""
+msgstr "Awal n uɛeddi"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:67
 msgid "Calendar Home URL"
@@ -1595,16 +1595,16 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "- https://cloud.example.com/"
-msgstr ""
+msgstr "- https://cloud.example.com/"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:55
 msgid "- https://example.com/nextcloud/"
-msgstr ""
+msgstr "- https://example.com/nextcloud/"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:165
 msgid "Source"
-msgstr ""
+msgstr "Aɣbalu"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:74
 msgid "Display Name"
@@ -2292,12 +2292,12 @@ msgstr ""
 
 #: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
 msgid "New Project"
-msgstr ""
+msgstr "Asenfar amaynut"
 
 #: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:704
 #: src/Views/Project/Project.vala:333
 msgid "Edit Project"
-msgstr ""
+msgstr "Ẓreg asenfar"
 
 #: src/Dialogs/Project.vala:126
 msgid "Give your project a name"
@@ -2309,7 +2309,7 @@ msgstr ""
 
 #: src/Dialogs/Project.vala:204 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
-msgstr ""
+msgstr "Rnu asenfar"
 
 #: src/Dialogs/Project.vala:204
 msgid "Update Project"
@@ -2381,7 +2381,7 @@ msgstr ""
 
 #: src/Layouts/ItemBoard.vala:725 src/Layouts/ItemRow.vala:1173
 msgid "Edit"
-msgstr ""
+msgstr "Ẓreg"
 
 #: src/Layouts/ItemBoard.vala:726 src/Layouts/ItemRow.vala:1174
 #: src/Layouts/ItemRow.vala:1278 src/Layouts/ItemSidebarView.vala:455
@@ -2522,7 +2522,7 @@ msgstr ""
 
 #: src/Layouts/Sidebar.vala:122
 msgid "Add Account"
-msgstr ""
+msgstr "Rnu amiḍan"
 
 #: src/Layouts/Sidebar.vala:123
 msgid "Customize Sidebar"
@@ -2701,11 +2701,11 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:340
 msgid "Select"
-msgstr ""
+msgstr "Fren"
 
 #: src/Views/Project/Project.vala:341
 msgid "Paste"
-msgstr ""
+msgstr "Senṭeḍ"
 
 #: src/Views/Project/Project.vala:342 src/Views/Project/Project.vala:443
 msgid "Expand All"
@@ -2717,16 +2717,16 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:463
 msgid "List"
-msgstr ""
+msgstr "Tabdart"
 
 #: src/Views/Project/Project.vala:469
 msgid "Board"
-msgstr ""
+msgstr "Tafelwit"
 
 #: src/Views/Project/Project.vala:481 src/Views/Scheduled/Scheduled.vala:222
 #: src/Views/Today.vala:609
 msgid "Sorting"
-msgstr ""
+msgstr "Asmizzwer"
 
 #: src/Views/Project/Project.vala:484
 msgid "Custom sort order"
@@ -2812,7 +2812,7 @@ msgstr ""
 
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
-msgstr ""
+msgstr "Ldi"
 
 #: src/Widgets/Attachments.vala:248
 msgid "No attachments found. Add files here."
@@ -2893,7 +2893,7 @@ msgstr ""
 
 #: src/Widgets/ItemChangeHistoryRow.vala:108
 msgid "New"
-msgstr ""
+msgstr "Amaynut"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:192
 #: src/Widgets/ItemChangeHistoryRow.vala:193
@@ -2957,7 +2957,7 @@ msgstr ""
 
 #: src/Widgets/NewVersionPopup.vala:110
 msgid "Close"
-msgstr ""
+msgstr "Mdel"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
