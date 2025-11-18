@@ -87,7 +87,7 @@ msgid "Every month"
 msgstr "Co miesiąc"
 
 #: core/Enum.vala:228
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "Every %d months"
 msgstr "Co %d miesiąc"
 
@@ -96,7 +96,7 @@ msgid "Every year"
 msgstr "Co rok"
 
 #: core/Enum.vala:230
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "Every %d years"
 msgstr "Co %d lat"
 

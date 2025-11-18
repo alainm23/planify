@@ -1,8 +1,3 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the io.github.alainm23.planify package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
@@ -1645,10 +1640,9 @@ msgid ""
 "tasks that you'll organize later"
 msgstr ""
 "Por predefinição, a sua caixa de entrada é o local onde irá conter as "
-"tarefas criadas. Baseado na metodologia 'Getting Things Done' "
-"(fazer o que tem que ser feito) por David Allen, este local serve como o "
-"foco central para as suas ideias rápidas e tarefas que poderá querer "
-"organizar mais tarde"
+"tarefas criadas. Baseado na metodologia 'Getting Things Done' (fazer o que "
+"tem que ser feito) por David Allen, este local serve como o foco central "
+"para as suas ideias rápidas e tarefas que poderá querer organizar mais tarde"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "Server URL examples:"
