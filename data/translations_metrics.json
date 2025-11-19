@@ -494,11 +494,11 @@
   "kab": {
     "language": "Kabyle",
     "total_strings": 693,
-    "translated_strings": 74,
-    "translated_percent": 10.6
+    "translated_strings": 103,
+    "translated_percent": 14.8
   },
-  "pt": {
-    "language": "Portuguese",
+  "pt_PT": {
+    "language": "Portuguese (Portugal)",
     "total_strings": 693,
     "translated_strings": 693,
     "translated_percent": 100.0
