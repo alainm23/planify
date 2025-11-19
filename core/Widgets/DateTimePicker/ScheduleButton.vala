@@ -23,6 +23,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     public bool is_board { get; construct; }
     public string label { get; construct; }
 
+    private Gtk.MenuButton button;
     private Gtk.Label due_label;
     private Gtk.Box schedule_box;
     private Gtk.Image due_image;
@@ -117,7 +118,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         schedule_box.append (due_image);
         schedule_box.append (due_label);
 
-        var button = new Gtk.MenuButton () {
+        button = new Gtk.MenuButton () {
             child = schedule_box,
             popover = datetime_picker,
             css_classes = { "flat" }
@@ -187,14 +188,14 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         card_grid.attach (title_label, 1, 0, 1, 1);
         card_grid.attach (due_label, 1, 1, 1, 1);
 
-        var model_button = new Gtk.MenuButton () {
+        button = new Gtk.MenuButton () {
             popover = datetime_picker,
             child = card_grid,
             css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
             hexpand = true
         };
 
-        attach (model_button, 0, 0);
+        attach (button, 0, 0);
 
         signal_map[datetime_picker.duedate_changed.connect (() => {
             duedate = datetime_picker.duedate;
@@ -286,5 +287,9 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         if (datetime_picker != null) {
             datetime_picker.clean_up ();
         }
+    }
+
+    public void open_picker () {
+        button.active = true;
     }
 }

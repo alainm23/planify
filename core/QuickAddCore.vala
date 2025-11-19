@@ -233,7 +233,9 @@ public class Layouts.QuickAddCore : Adw.Bin {
             top_margin = 12
         };
 
-        schedule_button = new Widgets.ScheduleButton ();
+        schedule_button = new Widgets.ScheduleButton () {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Labels"), "Ctrl + d"),
+        };
 
         label_button = new Widgets.LabelPicker.LabelButton () {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Labels"), "@"),
@@ -635,10 +637,16 @@ public class Layouts.QuickAddCore : Adw.Bin {
             return true;
         }));
 
+        var open_schedule_shortcut = new Gtk.Shortcut (Gtk.ShortcutTrigger.parse_string ("<Control>d"), new Gtk.CallbackAction (() => {
+            schedule_button.open_picker ();
+            return true;
+        }));
+
         shortcut_controller = new Gtk.ShortcutController ();
         shortcut_controller.add_shortcut (open_label_shortcut);
         shortcut_controller.add_shortcut (open_reminder_shortcut);
         shortcut_controller.add_shortcut (toggle_keep_adding_shortcut);
+        shortcut_controller.add_shortcut (open_schedule_shortcut);
         add_controller (shortcut_controller);
 
         destroy_controller = new Gtk.EventControllerKey ();
