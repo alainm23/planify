@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-14 11:08+0000\n"
-"Last-Translator: Ivan Bottigelli <testbottyivan@gmail.com>\n"
+"PO-Revision-Date: 2025-11-20 10:19+0000\n"
+"Last-Translator: An Maf <weblate.unfounded955@passmail.net>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/it/>\n"
 "Language: it\n"
@@ -401,7 +401,7 @@ msgstr "Cancella Selezione %s"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:35
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:44
 msgid "Todoist"
-msgstr ""
+msgstr "Todoist"
 
 #: core/QuickAddCore.vala:134
 msgid "Task added successfully!"
@@ -422,7 +422,7 @@ msgstr "Aggiungi una descrizione…"
 
 #: core/QuickAddCore.vala:244
 msgid "Set date"
-msgstr ""
+msgstr "Imposta data"
 
 #: core/QuickAddCore.vala:248 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
@@ -486,7 +486,7 @@ msgstr "Aggiungi etichette"
 
 #: core/QuickAddCore.vala:1288
 msgid "Opens label selector"
-msgstr ""
+msgstr "Apre il selettore di etichette"
 
 #: core/QuickAddCore.vala:1289
 msgid "Assign project"
@@ -494,7 +494,7 @@ msgstr "Assegna Progetto"
 
 #: core/QuickAddCore.vala:1289
 msgid "Opens project selector"
-msgstr ""
+msgstr "Apre il selettore di progetti"
 
 #: core/QuickAddCore.vala:1290
 msgid "Set reminder"
@@ -502,11 +502,11 @@ msgstr "Imposta promemoria"
 
 #: core/QuickAddCore.vala:1290
 msgid "Opens reminder options"
-msgstr ""
+msgstr "Apri opzioni promemoria"
 
 #: core/QuickAddCore.vala:1305
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Mantieni aperto alla creazione dell'attività"
 
 #: core/QuickAddCore.vala:1311
 msgid "Tip"
@@ -602,23 +602,23 @@ msgstr "%s %s fa"
 #: core/Utils/Datetime.vala:93
 #, c-format
 msgid "%s %s left"
-msgstr ""
+msgstr "%s %s mancante"
 
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
-msgstr ""
+msgstr "%-l:%M:%S %p"
 
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
-msgstr ""
+msgstr "%-l:%M %p"
 
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%H:%M:%S"
 
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
-msgstr ""
+msgstr "%H:%M"
 
 #: core/Utils/Datetime.vala:411
 msgid "Mo,"
@@ -650,129 +650,129 @@ msgstr "Do,"
 
 #: core/Utils/Datetime.vala:628
 msgid "%a, %b %-e, %Y"
-msgstr ""
+msgstr "%a, %b %-e, %Y"
 
 #: core/Utils/Datetime.vala:631
 msgid "%b %-e %Y"
-msgstr ""
+msgstr "%b %-e %Y"
 
 #: core/Utils/Datetime.vala:634 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: core/Utils/Datetime.vala:637
 msgid "%b %-e"
-msgstr ""
+msgstr "%b %-e"
 
 #: core/Utils/Datetime.vala:640
 msgid "%a %Y"
-msgstr ""
+msgstr "%a %Y"
 
 #: core/Utils/Datetime.vala:643
 #, c-format
 msgid "%a"
-msgstr ""
+msgstr "%a"
 
 #: core/Utils/Datetime.vala:646
 msgid "%a, %b %-e"
-msgstr ""
+msgstr "%a, %b %-e"
 
 #: core/Utils/Datetime.vala:649
 msgid "%b"
-msgstr ""
+msgstr "%b"
 
 #: core/Utils/Util.vala:41
 msgid "Berry Red"
-msgstr ""
+msgstr "Rosso Lampone"
 
 #: core/Utils/Util.vala:42
 msgid "Red"
-msgstr ""
+msgstr "Rosso"
 
 #: core/Utils/Util.vala:43
 msgid "Orange"
-msgstr ""
+msgstr "Arancione"
 
 #: core/Utils/Util.vala:44
 msgid "Yellow"
-msgstr ""
+msgstr "Giallo"
 
 #: core/Utils/Util.vala:45
 msgid "Olive Green"
-msgstr ""
+msgstr "Verde Oliva"
 
 #: core/Utils/Util.vala:46
 msgid "Lime Green"
-msgstr ""
+msgstr "Verde Lime"
 
 #: core/Utils/Util.vala:47
 msgid "Green"
-msgstr ""
+msgstr "Verde"
 
 #: core/Utils/Util.vala:48
 msgid "Mint Green"
-msgstr ""
+msgstr "Verde Menta"
 
 #: core/Utils/Util.vala:49
 msgid "Teal"
-msgstr ""
+msgstr "Verde Acqua"
 
 #: core/Utils/Util.vala:50
 msgid "Sky Blue"
-msgstr ""
+msgstr "Blu Cielo"
 
 #: core/Utils/Util.vala:51
 msgid "Light Blue"
-msgstr ""
+msgstr "Azzurro"
 
 #: core/Utils/Util.vala:52
 msgid "Blue"
-msgstr ""
+msgstr "Blu"
 
 #: core/Utils/Util.vala:53
 msgid "Grape"
-msgstr ""
+msgstr "Violetto"
 
 #: core/Utils/Util.vala:54
 msgid "Violet"
-msgstr ""
+msgstr "Viola"
 
 #: core/Utils/Util.vala:55
 msgid "Lavender"
-msgstr ""
+msgstr "Lavanda"
 
 #: core/Utils/Util.vala:56
 msgid "Magenta"
-msgstr ""
+msgstr "Magenta"
 
 #: core/Utils/Util.vala:57
 msgid "Salmon"
-msgstr ""
+msgstr "Rosa Salmone"
 
 #: core/Utils/Util.vala:58
 msgid "Charcoal"
-msgstr ""
+msgstr "Carbone"
 
 #: core/Utils/Util.vala:59
 msgid "Grey"
-msgstr ""
+msgstr "Grigio"
 
 #: core/Utils/Util.vala:60
 msgid "Taupe"
-msgstr ""
+msgstr "Grigio Talpa"
 
 #: core/Utils/Util.vala:218
 msgid "Light"
-msgstr ""
+msgstr "Chiaro"
 
 #: core/Utils/Util.vala:221
 msgid "Dark"
-msgstr ""
+msgstr "Scuro"
 
 #: core/Utils/Util.vala:224
 msgid "Dark Blue"
-msgstr ""
+msgstr "Blu Scuro"
 
 #: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:407
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:53
@@ -781,11 +781,11 @@ msgstr "Nessuno"
 
 #: core/Utils/Util.vala:268
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Oggi + Inbox"
 
 #: core/Utils/Util.vala:440
 msgid "Delete All"
-msgstr ""
+msgstr "Elimina tutto"
 
 #: core/Utils/Util.vala:454
 msgid "Process completed, you need to start Planify again."
@@ -794,7 +794,7 @@ msgstr "Processo completato , è necessario riavviare Planify."
 #: core/Utils/Util.vala:456
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:221
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: core/Utils/Util.vala:566
 msgid "On This Computer"
@@ -802,7 +802,7 @@ msgstr "Su Questo Computer"
 
 #: core/Utils/Util.vala:591
 msgid "Meet Planify"
-msgstr ""
+msgstr "Scopri Planify"
 
 #: core/Utils/Util.vala:594
 msgid ""
@@ -849,27 +849,31 @@ msgstr ""
 
 #: core/Utils/Util.vala:619
 msgid "Reorder your to-dos"
-msgstr ""
+msgstr "Riordina i tuoi compiti"
 
 #: core/Utils/Util.vala:620
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
 msgstr ""
+"Per riordinare la tua lista, clicca e mantieni su un compito, poi trascinalo "
+"nella posizione desiderata."
 
 #: core/Utils/Util.vala:625
 msgid "Create a project"
-msgstr ""
+msgstr "Crea un progetto"
 
 #: core/Utils/Util.vala:626
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
+"Organizza i tuoi compiti al meglio! Vai al pannello di sinistra e clicca il "
+"tasto '+' nella sezione 'Su questo Computer' e aggiungi il tuo progetto."
 
 #: core/Utils/Util.vala:631
 msgid "You’re done!"
-msgstr ""
+msgstr "Fatto!"
 
 #: core/Utils/Util.vala:632
 msgid ""
@@ -879,6 +883,11 @@ msgid ""
 "below.\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
+"Questo è tutto quello che devi sapere. Sentiti libero di iniziare ad "
+"aggiungere i tuoi progetti e le tue attività.\n"
+"Puoi ritornare a questo progetto più tardi per imparare le funzionalità "
+"avanzate qui sotto.\n"
+"Ci auguriamo che ti piacerà usare Planify!"
 
 #: core/Utils/Util.vala:646
 msgid "Tune your setup"
@@ -886,17 +895,19 @@ msgstr ""
 
 #: core/Utils/Util.vala:654
 msgid "Show your calendar events"
-msgstr ""
+msgstr "Mostra gli eventi dal tuo calendario"
 
 #: core/Utils/Util.vala:655
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
+"Puoi mostrare gli eventi dal calendario del tuo sistema in Planify. Vai a "
+"'Preferenze' 🡒 Generali 🡒 Eventi dal Calendario per attivarlo."
 
 #: core/Utils/Util.vala:661
 msgid "Enable synchronization with third-party services"
-msgstr ""
+msgstr "Abilita sincronizzazione con i servizi di terze parti"
 
 #: core/Utils/Util.vala:662
 msgid ""
