@@ -132,6 +132,17 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             placeholder_text = _("Type a date…")
         };
 
+        var search_key_controller = new Gtk.EventControllerKey ();
+        search_entry.add_controller (search_key_controller);
+        search_key_controller.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == Gdk.Key.Escape) {
+                popdown ();
+                return true;
+            }
+            
+            return false;
+        });
+
         var suggested_date_box = new Adw.WrapBox () {
             child_spacing = 6,
             line_spacing = 6,

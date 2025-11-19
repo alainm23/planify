@@ -82,6 +82,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
     private uint date_detection_timeout_id = 0;
     private string last_detected_date_text = "";
     private bool date_auto_detection_enabled = true;
+    private Chrono.Chrono chrono;
 
     public int position { get; set; default = -1; }
     public NewTaskPosition new_task_position { get; set; default = Services.Settings.get_default ().get_new_task_position (); }
@@ -103,6 +104,9 @@ public class Layouts.QuickAddCore : Adw.Bin {
     }
 
     construct {
+        chrono = new Chrono.Chrono ();
+        date_auto_detection_enabled = Services.Settings.get_default ().settings.get_boolean ("smart-date-recognition");
+        
         item = new Objects.Item ();
         item.project_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
         item.priority = Util.get_default ().get_default_priority ();
@@ -452,8 +456,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
         signal_map[schedule_button.duedate_changed.connect (() => {
             set_duedate (schedule_button.duedate);
             
-            // Re-enable auto-detection if user clears the date
-            if (schedule_button.duedate.date == "") {
+            if (schedule_button.duedate.date == "" && Services.Settings.get_default ().settings.get_boolean ("smart-date-recognition")) {
                 date_auto_detection_enabled = true;
                 last_detected_date_text = "";
             }
@@ -535,7 +538,10 @@ public class Layouts.QuickAddCore : Adw.Bin {
             handle_labels_popover (content_entry.get_text ());
             handle_text_trigger (SHORTCUTS_KEY_PROJECTS, content_entry.get_text ());
             handle_text_trigger (SHORTCUTS_KEY_REMINDERS, content_entry.get_text ());
-            handle_natural_date_detection (content_entry.get_text ());
+            
+            if (Services.Settings.get_default ().settings.get_boolean ("smart-date-recognition")) {
+                handle_natural_date_detection (content_entry.get_text ());
+            }
         })] = content_entry;
 
         content_controller_key = new Gtk.EventControllerKey ();
@@ -1089,7 +1095,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
             flying_label,
             0.0,
             1.0,
-            600,
+            400,
             target
         );
 
@@ -1434,33 +1440,31 @@ public class Layouts.QuickAddCore : Adw.Bin {
             return;
         }
         
-        // Cancel previous timeout
         if (date_detection_timeout_id > 0) {
             Source.remove (date_detection_timeout_id);
             date_detection_timeout_id = 0;
         }
         
-        // Wait 800ms after user stops typing
         date_detection_timeout_id = Timeout.add (800, () => {
             date_detection_timeout_id = 0;
             
-            var chrono = new Chrono.Chrono ();
             var result = chrono.parse (text);
             
-            // Check if previously detected date text no longer exists in current text
-            if (last_detected_date_text != "" && !text.contains (last_detected_date_text)) {
-                // User removed/changed the date, re-enable detection
-                date_auto_detection_enabled = true;
-                last_detected_date_text = "";
+            if (last_detected_date_text != "") {
+                if (!text.contains (last_detected_date_text)) {
+                    date_auto_detection_enabled = true;
+                    last_detected_date_text = "";
+                } else if (result != null && result.matched_text != last_detected_date_text) {
+                    date_auto_detection_enabled = true;
+                    last_detected_date_text = "";
+                }
             }
             
-            // Skip if auto-detection is disabled (date already set)
             if (!date_auto_detection_enabled) {
                 return Source.REMOVE;
             }
             
             if (result != null && result.date != null && result.matched_text.length > 0) {
-                // Only trigger if it's a new detection
                 if (result.matched_text != last_detected_date_text) {
                     last_detected_date_text = result.matched_text;
                     animate_date_to_schedule_button (result.matched_text, result.date);
@@ -1515,11 +1519,11 @@ public class Layouts.QuickAddCore : Adw.Bin {
             flying_label,
             0.0,
             1.0,
-            600,
+            400,
             target
         );
 
-        animation.easing = Adw.Easing.EASE_OUT_CUBIC;
+        animation.easing = Adw.Easing.EASE_IN_OUT_CUBIC;
 
         animation.done.connect (() => {
             animation_container.remove (flying_label);
@@ -1528,7 +1532,6 @@ public class Layouts.QuickAddCore : Adw.Bin {
             duedate.date = Utils.Datetime.get_todoist_datetime_format (date);
             set_duedate (duedate);
             
-            // Disable auto-detection after setting a date
             date_auto_detection_enabled = false;
         });
 
