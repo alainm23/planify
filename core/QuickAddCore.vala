@@ -104,7 +104,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
     }
 
     construct {
-        chrono = new Chrono.Chrono ();
+        chrono = new Chrono.Chrono (Util.get_user_language ());
         date_auto_detection_enabled = Services.Settings.get_default ().settings.get_boolean ("smart-date-recognition");
         
         item = new Objects.Item ();

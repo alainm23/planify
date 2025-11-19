@@ -22,12 +22,14 @@
 namespace Chrono {
     public class Chrono : Object {
         private Parser parser;
+        private string language;
         
-        public Chrono () {
+        public Chrono (string language = "en") {
+            this.language = language;
             parser = new Parser ();
         }
         
-        public ParseResult? parse (string text, string language = "en", bool parse_recurrence = false) {
+        public ParseResult? parse (string text, bool parse_recurrence = false) {
             return parser.parse (text, language, parse_recurrence);
         }
     }

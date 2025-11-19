@@ -36,6 +36,14 @@ core_files = files(
     'Services/Chrono/Locales/en/ENMonthNameParser.vala',
     'Services/Chrono/Locales/en/ENRelativeDateFormatParser.vala',
     'Services/Chrono/Locales/en/ENTimeExpressionParser.vala',
+    'Services/Chrono/Locales/es/SpanishParser.vala',
+    'Services/Chrono/Locales/es/ESConstants.vala',
+    'Services/Chrono/Locales/es/ESCasualDateParser.vala',
+    'Services/Chrono/Locales/es/ESCasualTimeParser.vala',
+    'Services/Chrono/Locales/es/ESDateTimeComboParser.vala',
+    'Services/Chrono/Locales/es/ESMonthNameParser.vala',
+    'Services/Chrono/Locales/es/ESRelativeDateFormatParser.vala',
+    'Services/Chrono/Locales/es/ESTimeExpressionParser.vala',
 
     'Layouts/HeaderItem.vala',
 
