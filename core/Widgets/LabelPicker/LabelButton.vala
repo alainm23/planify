@@ -151,9 +151,6 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
 
     public void open_picker () {
         button.active = true;
-        Timeout.add (100, () => {
-            return GLib.Source.REMOVE;
-        });
     }
 
     public void clean_up () {
