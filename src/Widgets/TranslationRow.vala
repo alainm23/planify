@@ -109,7 +109,7 @@ public class Widgets.TranslationRow : Adw.PreferencesRow {
     public async void load_translation_data () {
         try {
             var metrics = yield Services.Api.get_default ().get_translation_metrics ();
-            var languages = Util.get_default ().get_current_languages ();
+            var languages = Util.get_current_languages ();
 
             string user_lang = "";
             string full_lang = "";

@@ -26,6 +26,7 @@ namespace Chrono {
         public Parser () {
             language_parsers = new Gee.HashMap<string, LanguageParser> ();
             register_language ("en", new EnglishParser ());
+            register_language ("es", new SpanishParser ());
         }
         
         public void register_language (string code, LanguageParser parser) {
