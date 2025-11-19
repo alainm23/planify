@@ -79,6 +79,9 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     private Gee.HashMap<string, Adw.NavigationPage> pages_map = new Gee.HashMap<string, Adw.NavigationPage> ();
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
+    private Chrono.Chrono chrono;
+    private uint search_timeout_id = 0;
+
     public DateTimePicker () {
         Object (
             has_arrow: false,
@@ -92,6 +95,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     construct {
+        chrono = new Chrono.Chrono ();
+
         navigation_view = new Adw.NavigationView ();
         navigation_view.add (build_page ("main"));
 
@@ -121,9 +126,30 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     private Adw.NavigationPage build_main_page () {
-        today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
-        tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "today-calendar-symbolic");
-        next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "work-week-symbolic");
+        Objects.DueDate? last_parsed_duedate = null;
+        
+        var search_entry = new Gtk.SearchEntry () {
+            placeholder_text = _("Type a date…")
+        };
+
+        var search_key_controller = new Gtk.EventControllerKey ();
+        search_entry.add_controller (search_key_controller);
+        search_key_controller.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == Gdk.Key.Escape) {
+                popdown ();
+                return true;
+            }
+            
+            return false;
+        });
+
+        var suggested_date_box = new Adw.WrapBox () {
+            child_spacing = 6,
+            line_spacing = 6,
+            margin_top = 9,
+            margin_bottom = 6
+        };
+
         date_item = new Widgets.ContextMenu.MenuItem (_("Choose a date"), "month-symbolic");
         date_item.arrow = true;
         date_item.autohide_popover = false;
@@ -177,9 +203,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        content_box.append (today_item);
-        content_box.append (tomorrow_item);
-        content_box.append (next_week_item);
+        content_box.append (search_entry);
+        content_box.append (suggested_date_box);
         content_box.append (date_item);
         content_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 6
@@ -191,20 +216,29 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         content_box.append (time_box);
         content_box.append (action_revealer);
 
-        var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.content = content_box;
+        var popover_scrolled = new Gtk.ScrolledWindow () {
+            child = content_box,
+            vscrollbar_policy = NEVER,
+            hscrollbar_policy = NEVER
+        };
 
-        signal_map[today_item.activate_item.connect (() => {
-            set_date (new DateTime.now_local ());
-        })] = today_item;
+        var toolbar_view = new Adw.ToolbarView () {
+            content = popover_scrolled
+        };
 
-        signal_map[tomorrow_item.activate_item.connect (() => {
-            set_date (new DateTime.now_local ().add_days (1));
-        })] = tomorrow_item;
+        add_default_suggestions (suggested_date_box);
 
-        signal_map[next_week_item.activate_item.connect (() => {
-            set_date (new DateTime.now_local ().add_days (7));
-        })] = next_week_item;
+        //  signal_map[today_item.activate_item.connect (() => {
+        //      set_date (new DateTime.now_local ());
+        //  })] = today_item;
+
+        //  signal_map[tomorrow_item.activate_item.connect (() => {
+        //      set_date (new DateTime.now_local ().add_days (1));
+        //  })] = tomorrow_item;
+
+        //  signal_map[next_week_item.activate_item.connect (() => {
+        //      set_date (new DateTime.now_local ().add_days (7));
+        //  })] = next_week_item;
 
         signal_map[time_picker.time_changed.connect (() => {
             duedate.datetime = Utils.Datetime.get_date_only (duedate.datetime);
@@ -240,7 +274,119 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             navigation_view.push (build_page ("repeat"));
         })] = repeat_item;
 
+        search_entry.activate.connect (() => {
+            if (last_parsed_duedate != null) {
+                duedate = last_parsed_duedate;
+                visible_no_date = true;
+                check_items (duedate);
+                duedate_changed ();
+                popdown ();
+            }
+        });
+
+        search_entry.search_changed.connect (() => {
+            if (search_timeout_id != 0) {
+                GLib.Source.remove (search_timeout_id);
+            }
+
+            search_timeout_id = Timeout.add (300, () => {
+                search_timeout_id = 0;
+                
+                while (suggested_date_box.get_first_child () != null) {
+                    suggested_date_box.remove (suggested_date_box.get_first_child ());
+                }
+
+                var text = search_entry.text.strip ();
+                if (text.length == 0) {
+                    last_parsed_duedate = null;
+                    add_default_suggestions (suggested_date_box);
+                    return GLib.Source.REMOVE;
+                }
+
+                var result = chrono.parse (text);
+                if (result != null && result.date != null) {
+                    var parsed_duedate = new Objects.DueDate ();
+                    parsed_duedate.datetime = result.date;
+                    
+                    if (result.recurrence != null) {
+                        parsed_duedate.is_recurring = true;
+                        parsed_duedate.recurrency_interval = result.recurrence.interval;
+                        
+                        switch (result.recurrence.recurrence_type) {
+                            case Chrono.RecurrenceType.DAILY:
+                                parsed_duedate.recurrency_type = RecurrencyType.EVERY_DAY;
+                                break;
+                            case Chrono.RecurrenceType.WEEKLY:
+                                parsed_duedate.recurrency_type = RecurrencyType.EVERY_WEEK;
+                                break;
+                            case Chrono.RecurrenceType.MONTHLY:
+                                parsed_duedate.recurrency_type = RecurrencyType.EVERY_MONTH;
+                                break;
+                            case Chrono.RecurrenceType.YEARLY:
+                                parsed_duedate.recurrency_type = RecurrencyType.EVERY_YEAR;
+                                break;
+                        }
+                        
+                        if (result.recurrence.days_of_week != null && result.recurrence.days_of_week.size > 0) {
+                            string weeks = "";
+                            foreach (var day in result.recurrence.days_of_week) {
+                                weeks += day.to_string () + ",";
+                            }
+                            parsed_duedate.recurrency_weeks = weeks.substring (0, weeks.length - 1);
+                        }
+                    }
+
+                    last_parsed_duedate = parsed_duedate;
+                    var suggested_date = new SuggestedDate (parsed_duedate);
+                    suggested_date_box.append (suggested_date);
+                    connect_suggested_date (suggested_date);
+                } else {
+                    last_parsed_duedate = null;
+                }
+                
+                return GLib.Source.REMOVE;
+            });
+        });
+
         return new Adw.NavigationPage (toolbar_view, _("Menu"));
+    }
+
+    private void add_default_suggestions (Adw.WrapBox box) {
+        var today = new SuggestedDate (build_duedate (new DateTime.now_local ())) {
+            title = _("Today")
+        };
+        box.append (today);
+        connect_suggested_date (today);
+
+        var tomorrow = new SuggestedDate (build_duedate (new DateTime.now_local ().add_days (1))) {
+            title = _("Tomorrow")
+        };
+        box.append (tomorrow);
+        connect_suggested_date (tomorrow);
+        
+        var next_week = new SuggestedDate (build_duedate (new DateTime.now_local ().add_days (7))) {
+            title = _("Next week")
+        };
+        box.append (next_week);
+        connect_suggested_date (next_week);
+    }
+
+    private void connect_suggested_date (SuggestedDate suggested_date) {
+        suggested_date.clicked.connect (() => {
+            duedate = suggested_date.due_date;
+            visible_no_date = true;
+            check_items (duedate);
+            duedate_changed ();
+            popdown ();
+        });
+    }
+
+    private Objects.DueDate build_duedate (DateTime date) {
+        var duedate = new Objects.DueDate ();
+        
+        duedate.datetime = Utils.Datetime.get_date_only (date);
+
+        return duedate;
     }
 
     private Adw.NavigationPage build_calendar_page () {
@@ -526,5 +672,85 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         }
 
         signal_map.clear ();
+    }
+
+    public class SuggestedDate : Adw.Bin {
+        public Objects.DueDate due_date { get; construct; }
+
+        private Gtk.Image date_icon;
+        private Gtk.Label date_label;
+        private Gtk.Button button;
+
+        public signal void clicked ();
+
+        public string title {
+            set {
+                date_label.label = value;
+            }
+        }
+
+        public SuggestedDate (Objects.DueDate due_date) {
+            Object (
+                due_date: due_date
+            );
+        }
+
+        construct {
+            date_icon = new Gtk.Image ();
+
+            date_label = new Gtk.Label (Utils.Datetime.get_relative_date_from_date (due_date.datetime)) {
+                use_markup = true,
+                ellipsize = END
+            };
+
+            var date_box = new Gtk.Box (HORIZONTAL, 6);
+            date_box.append (date_icon);
+            date_box.append (date_label);
+
+            button = new Gtk.Button () {
+                child = date_box
+            };
+
+            button.clicked.connect (() => clicked ());
+
+            child = button;
+
+            if (Utils.Datetime.is_today (due_date.datetime)) {
+                date_icon.icon_name = "star-outline-thick-symbolic";
+            } else if (Utils.Datetime.is_tomorrow (due_date.datetime)) {
+                date_icon.icon_name = "today-calendar-symbolic";
+            } else if (Utils.Datetime.is_overdue (due_date.datetime)) {
+                date_icon.icon_name = "month-symbolic";
+            } else {
+                date_icon.icon_name = "month-symbolic";
+            }
+
+            if (due_date.is_recurring) {
+                var end_label = "";
+                if (due_date.end_type == RecurrencyEndType.ON_DATE) {
+                    var date_label = Utils.Datetime.get_default_date_format_from_date (
+                        Utils.Datetime.get_date_only (
+                            Utils.Datetime.get_date_from_string (due_date.recurrency_end)
+                        )
+                    );
+                    end_label = _("until") + " " + date_label;
+                } else if (due_date.end_type == RecurrencyEndType.AFTER) {
+                    int count = due_date.recurrency_count;
+                    end_label = _("for") + " " + "%d %s".printf (count, count > 1 ? _("times") : _("time"));
+                }
+
+                date_icon.icon_name = "playlist-repeat-symbolic";
+
+                string repeat_text = Utils.Datetime.get_recurrency_weeks (
+                    due_date.recurrency_type,
+                    due_date.recurrency_interval,
+                    due_date.recurrency_weeks,
+                    end_label
+                ).down ();
+
+                date_label.label += ", <small>%s</small>".printf (repeat_text);
+                date_label.tooltip_text = repeat_text;
+            }
+        }
     }
 }

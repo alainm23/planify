@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Alain M. (https://github.com/alainm23/planify)
+ * Copyright © 2025 Alain M. (https://github.com/alainm23/planify)
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -18,9 +18,9 @@
  *
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
-
-public class Chrono.En.Parse : Chrono.Configuration {
-    construct {
-        parsers.add (new Chrono.En.ENCasualDateParser ());
+ 
+namespace Chrono {
+    public abstract class LanguageParser : Object {
+        public abstract ParseResult? parse (string text, bool parse_recurrence = false);
     }
 }

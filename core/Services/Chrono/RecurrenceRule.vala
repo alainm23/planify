@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Alain M. (https://github.com/alainm23/planify)
+ * Copyright © 2025 Alain M. (https://github.com/alainm23/planify)
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -18,3 +18,26 @@
  *
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
+ 
+namespace Chrono {
+    public enum RecurrenceType {
+        DAILY,
+        WEEKLY,
+        MONTHLY,
+        YEARLY
+    }
+    
+    public class RecurrenceRule : Object {
+        public RecurrenceType recurrence_type { get; set; }
+        public int interval { get; set; default = 1; }
+        public Gee.ArrayList<int>? days_of_week { get; set; }
+        public int? day_of_month { get; set; }
+        public int? month_of_year { get; set; }
+        public int? hour { get; set; }
+        public bool? last_day { get; set; }
+        
+        public RecurrenceRule (RecurrenceType recurrence_type) {
+            this.recurrence_type = recurrence_type;
+        }
+    }
+}
