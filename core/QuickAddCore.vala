@@ -234,7 +234,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
         };
 
         schedule_button = new Widgets.ScheduleButton () {
-            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Labels"), "Ctrl + d"),
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Set date"), "Ctrl + d"),
         };
 
         label_button = new Widgets.LabelPicker.LabelButton () {

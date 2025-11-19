@@ -65,7 +65,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    public ScheduleButton (string label = _("Schedule")) {
+    public ScheduleButton (string label = _("Date")) {
         Object (
             is_board: false,
             valign: Gtk.Align.CENTER,
@@ -74,7 +74,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         );
     }
 
-    public ScheduleButton.for_board (string label = _("Schedule")) {
+    public ScheduleButton.for_board (string label = _("Date")) {
         Object (
             is_board: true,
             tooltip_text: label,
@@ -126,7 +126,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
         var clear_button = new Gtk.Button.from_icon_name ("window-close") {
             css_classes = { "flat" },
-            tooltip_text = _("Clear Schedule")
+            tooltip_text = _("Remove date")
         };
 
         clear_revealer = new Gtk.Revealer () {
