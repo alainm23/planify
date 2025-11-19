@@ -15,7 +15,7 @@ msgstr ""
 "X-Generator: Weblate 5.15-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
-#: src/Dialogs/Preferences/Pages/General.vala:56
+#: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
 msgstr "Проекты"
 
@@ -284,7 +284,7 @@ msgstr "запланировано"
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Util.vala:247
 #: core/Widgets/Calendar/CalendarHeader.vala:82
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:124
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:356
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:711
 #: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:500
 #: src/Views/Project/Project.vala:664 src/Views/Today.vala:202
@@ -296,7 +296,7 @@ msgid "today"
 msgstr "сегодня"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:125
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:362
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:714
 #: src/Layouts/ItemRow.vala:1161
 msgid "Tomorrow"
@@ -414,34 +414,38 @@ msgstr "Удалить раздел %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:127
+#: core/QuickAddCore.vala:134
 msgid "Task added successfully!"
 msgstr "Задача успешно добавлена!"
 
-#: core/QuickAddCore.vala:143 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:150 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Название задания"
 
-#: core/QuickAddCore.vala:173
+#: core/QuickAddCore.vala:180
 msgid "This field is required"
 msgstr "Это поле обязательно для заполнения"
 
-#: core/QuickAddCore.vala:197
+#: core/QuickAddCore.vala:204
 msgid "Add a description…"
 msgstr "Добавить описание…"
 
-#: core/QuickAddCore.vala:239 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:244
+msgid "Set date"
+msgstr ""
+
+#: core/QuickAddCore.vala:248 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Добавить Метки"
 
-#: core/QuickAddCore.vala:244 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:253 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Установить приоритет"
 
-#: core/QuickAddCore.vala:249
+#: core/QuickAddCore.vala:258
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -450,20 +454,20 @@ msgstr "Установить приоритет"
 msgid "Add Reminders"
 msgstr "Добавить напоминания"
 
-#: core/QuickAddCore.vala:290 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:299 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Добавить задачу"
 
-#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1279
+#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1305
 msgid "Keep adding"
 msgstr "Добавить заметку"
 
-#: core/QuickAddCore.vala:313
+#: core/QuickAddCore.vala:322
 msgid "Select a Project"
 msgstr "Выберите проект"
 
-#: core/QuickAddCore.vala:340
+#: core/QuickAddCore.vala:349
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -471,55 +475,55 @@ msgstr ""
 "Функция быстрого добавления не может найти ни одного доступного проекта. "
 "Попробуйте создать проект в Planify."
 
-#: core/QuickAddCore.vala:1241 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1267 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: core/QuickAddCore.vala:1247
+#: core/QuickAddCore.vala:1273
 msgid "Speed up task creation with these shortcuts"
 msgstr "Ускорьте создание задач с помощью этих комбинаций клавиш"
 
-#: core/QuickAddCore.vala:1261
+#: core/QuickAddCore.vala:1287
 msgid "Set priority"
 msgstr "Задать важность"
 
-#: core/QuickAddCore.vala:1261
+#: core/QuickAddCore.vala:1287
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = высший, p4 = низший"
 
-#: core/QuickAddCore.vala:1262
+#: core/QuickAddCore.vala:1288
 msgid "Add labels"
 msgstr "Добавить метки"
 
-#: core/QuickAddCore.vala:1262
+#: core/QuickAddCore.vala:1288
 msgid "Opens label selector"
 msgstr "Открыть селектор меток"
 
-#: core/QuickAddCore.vala:1263
+#: core/QuickAddCore.vala:1289
 msgid "Assign project"
 msgstr "Начать проект"
 
-#: core/QuickAddCore.vala:1263
+#: core/QuickAddCore.vala:1289
 msgid "Opens project selector"
 msgstr "Открыть селектор проекта"
 
-#: core/QuickAddCore.vala:1264
+#: core/QuickAddCore.vala:1290
 msgid "Set reminder"
 msgstr "Установить напоминания"
 
-#: core/QuickAddCore.vala:1264
+#: core/QuickAddCore.vala:1290
 msgid "Opens reminder options"
 msgstr "Открыть настройки напоминания"
 
-#: core/QuickAddCore.vala:1279
+#: core/QuickAddCore.vala:1305
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1285
+#: core/QuickAddCore.vala:1311
 msgid "Tip"
 msgstr "Подсказка"
 
-#: core/QuickAddCore.vala:1285
+#: core/QuickAddCore.vala:1311
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Комбинируйте ярлыки в поле заголовка для более быстрого создания"
 
@@ -630,65 +634,65 @@ msgstr "%H:%M:%S"
 msgid "%H:%M"
 msgstr "%H:%M"
 
-#: core/Utils/Datetime.vala:403
+#: core/Utils/Datetime.vala:411
 msgid "Mo,"
 msgstr "Пн,"
 
-#: core/Utils/Datetime.vala:407
+#: core/Utils/Datetime.vala:415
 msgid "Tu,"
 msgstr "Вт,"
 
-#: core/Utils/Datetime.vala:411
+#: core/Utils/Datetime.vala:419
 msgid "We,"
 msgstr "Ср,"
 
-#: core/Utils/Datetime.vala:415
+#: core/Utils/Datetime.vala:423
 msgid "Th,"
 msgstr "Чт,"
 
-#: core/Utils/Datetime.vala:419
+#: core/Utils/Datetime.vala:427
 msgid "Fr,"
 msgstr "Пт,"
 
-#: core/Utils/Datetime.vala:423
+#: core/Utils/Datetime.vala:431
 msgid "Sa,"
 msgstr "Сб,"
 
-#: core/Utils/Datetime.vala:427
+#: core/Utils/Datetime.vala:435
 msgid "Su,"
 msgstr "Вс,"
 
-#: core/Utils/Datetime.vala:620
+#: core/Utils/Datetime.vala:628
 msgid "%a, %b %-e, %Y"
 msgstr "%a, %b %-e, %Y"
 
-#: core/Utils/Datetime.vala:623
+#: core/Utils/Datetime.vala:631
 msgid "%b %-e %Y"
 msgstr "%b %-e %Y"
 
-#: core/Utils/Datetime.vala:626 core/Widgets/Calendar/CalendarHeader.vala:36
+#: core/Utils/Datetime.vala:634 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
-#: core/Utils/Datetime.vala:629
+#: core/Utils/Datetime.vala:637
 msgid "%b %-e"
 msgstr "%b %-e"
 
-#: core/Utils/Datetime.vala:632
+#: core/Utils/Datetime.vala:640
 msgid "%a %Y"
 msgstr "%a %Y"
 
-#: core/Utils/Datetime.vala:635
+#: core/Utils/Datetime.vala:643
 #, c-format
 msgid "%a"
 msgstr "%a"
 
-#: core/Utils/Datetime.vala:638
+#: core/Utils/Datetime.vala:646
 msgid "%a, %b %-e"
 msgstr "%a, %b %-e"
 
-#: core/Utils/Datetime.vala:641
+#: core/Utils/Datetime.vala:649
 msgid "%b"
 msgstr "%b"
 
@@ -784,7 +788,7 @@ msgstr "Тёмный"
 msgid "Dark Blue"
 msgstr "Тёмно-синий"
 
-#: core/Utils/Util.vala:241 core/Widgets/DateTimePicker/DateTimePicker.vala:261
+#: core/Utils/Util.vala:241 core/Widgets/DateTimePicker/DateTimePicker.vala:407
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:53
 msgid "None"
 msgstr "Нет"
@@ -1101,70 +1105,98 @@ msgstr "Пт"
 msgid "Sa"
 msgstr "Сб"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:126
-msgid "Next week"
-msgstr "Следующая неделя"
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:132
+msgid "Type a date…"
+msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:127
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:153
 msgid "Choose a date"
 msgstr "Выбрать дату"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:131
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:384
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:157
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:530
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 msgid "Repeat"
 msgstr "Повторять"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:140
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:166
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:143
 msgid "Time"
 msgstr "Время"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:159
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:185
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:254
 #: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:82
 msgid "Done"
 msgstr "Готово"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:163
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:189
 msgid "Clear"
 msgstr "Очистить"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:243
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:351
 msgid "Menu"
 msgstr "Меню"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:257
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:368
+msgid "Next week"
+msgstr "Следующая неделя"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:403
 msgid "Calendar"
 msgstr "Календарь"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:265
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:411
 msgid "Daily"
 msgstr "Ежедневно"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:269
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:415
 msgid "Weekdays"
 msgstr "По будням"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:273
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:419
 msgid "Weekends"
 msgstr "Выходные"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:277
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:423
 msgid "Weekly"
 msgstr "Еженедельно"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:281
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:427
 msgid "Monthly"
 msgstr "Ежемесячно"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:285
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:431
 msgid "Yearly"
 msgstr "Ежегодно"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:289
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:435
 msgid "Custom"
 msgstr "Установить вручную"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:736
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:443
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:245
+msgid "until"
+msgstr "до"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:739
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+msgid "for"
+msgstr " "
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:739
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+msgid "times"
+msgstr "раз(а)"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:739
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+msgid "time"
+msgstr "раз"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Minute(s)"
@@ -1215,38 +1247,17 @@ msgstr "Повторять каждые"
 msgid "End"
 msgstr "Завершить"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:443
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:244
-msgid "until"
-msgstr "до"
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:68
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:77
+msgid "Date"
+msgstr ""
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:247
-msgid "for"
-msgstr " "
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:129
+msgid "Remove date"
+msgstr ""
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:247
-msgid "times"
-msgstr "раз(а)"
-
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:247
-msgid "time"
-msgstr "раз"
-
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:67
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:76
-#: src/Views/Project/Board.vala:279 src/Views/Project/List.vala:367
-msgid "Schedule"
-msgstr "Расписание"
-
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:128
-msgid "Clear Schedule"
-msgstr "Очистить расписание"
-
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:169
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:207
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:170
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "Set a Due Date"
 msgstr "Задать срок выполнения"
 
@@ -1913,77 +1924,85 @@ msgstr "По убыванию"
 msgid "Ordered"
 msgstr "Упорядочить"
 
-#: src/Dialogs/Preferences/Pages/General.vala:61
+#: src/Dialogs/Preferences/Pages/General.vala:60
 msgid "DE Integration"
 msgstr "Интеграция с рабочим окружением"
 
-#: src/Dialogs/Preferences/Pages/General.vala:69
+#: src/Dialogs/Preferences/Pages/General.vala:68
 msgid "Run in Background"
 msgstr "Работа в фоновом режиме"
 
-#: src/Dialogs/Preferences/Pages/General.vala:70
+#: src/Dialogs/Preferences/Pages/General.vala:69
 msgid "Let Planify run in background and send notifications"
 msgstr "Позвольте Planify работать в фоновом режиме и отправлять уведомления"
 
-#: src/Dialogs/Preferences/Pages/General.vala:83
+#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
 msgstr "Запускать при старте системы"
 
-#: src/Dialogs/Preferences/Pages/General.vala:84
+#: src/Dialogs/Preferences/Pages/General.vala:83
 msgid "Whether Planify should run on startup"
 msgstr "Должен ли Planify запускаться при старте системы"
 
-#: src/Dialogs/Preferences/Pages/General.vala:97
+#: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
 msgstr "События календаря"
 
-#: src/Dialogs/Preferences/Pages/General.vala:104
+#: src/Dialogs/Preferences/Pages/General.vala:103
 msgid "Date and Time"
 msgstr "Дата и время"
 
-#: src/Dialogs/Preferences/Pages/General.vala:107
+#: src/Dialogs/Preferences/Pages/General.vala:106
 msgid "24h"
 msgstr "24-часовой"
 
-#: src/Dialogs/Preferences/Pages/General.vala:108
+#: src/Dialogs/Preferences/Pages/General.vala:107
 msgid "12h"
 msgstr "12-часовой"
 
-#: src/Dialogs/Preferences/Pages/General.vala:111
+#: src/Dialogs/Preferences/Pages/General.vala:110
 msgid "Clock Format"
 msgstr "Формат времени"
 
-#: src/Dialogs/Preferences/Pages/General.vala:118
+#: src/Dialogs/Preferences/Pages/General.vala:117
 msgid "Sunday"
 msgstr "Воскресенье"
 
-#: src/Dialogs/Preferences/Pages/General.vala:119
+#: src/Dialogs/Preferences/Pages/General.vala:118
 msgid "Monday"
 msgstr "Понедельник"
 
-#: src/Dialogs/Preferences/Pages/General.vala:120
+#: src/Dialogs/Preferences/Pages/General.vala:119
 msgid "Tuesday"
 msgstr "Вторник"
 
-#: src/Dialogs/Preferences/Pages/General.vala:121
+#: src/Dialogs/Preferences/Pages/General.vala:120
 msgid "Wednesday"
 msgstr "Среда"
 
-#: src/Dialogs/Preferences/Pages/General.vala:122
+#: src/Dialogs/Preferences/Pages/General.vala:121
 msgid "Thursday"
 msgstr "Четверг"
 
-#: src/Dialogs/Preferences/Pages/General.vala:123
+#: src/Dialogs/Preferences/Pages/General.vala:122
 msgid "Friday"
 msgstr "Пятница"
 
-#: src/Dialogs/Preferences/Pages/General.vala:124
+#: src/Dialogs/Preferences/Pages/General.vala:123
 msgid "Saturday"
 msgstr "Суббота"
 
-#: src/Dialogs/Preferences/Pages/General.vala:127
+#: src/Dialogs/Preferences/Pages/General.vala:126
 msgid "Start of the Week"
 msgstr "Начало недели"
+
+#: src/Dialogs/Preferences/Pages/General.vala:138
+msgid "Smart Date Recognition"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:139
+msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
@@ -2795,6 +2814,10 @@ msgstr "Нет доступных меток. Создайте, нажав кн�
 msgid "Note"
 msgstr "Примечание"
 
+#: src/Views/Project/Board.vala:279 src/Views/Project/List.vala:367
+msgid "Schedule"
+msgstr "Расписание"
+
 #: src/Views/Project/Board.vala:316 src/Views/Project/List.vala:402
 #: src/Views/Project/Project.vala:335 src/Views/Project/Project.vala:367
 msgid "When?"
@@ -3236,6 +3259,9 @@ msgstr "Открыть «Метки»"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Открыть «Закреплённые»"
+
+#~ msgid "Clear Schedule"
+#~ msgstr "Очистить расписание"
 
 #~ msgid "Stay open after creating task"
 #~ msgstr "Оставлять открытым после создания задачи"

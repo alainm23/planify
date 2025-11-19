@@ -15,7 +15,7 @@ msgstr ""
 "X-Generator: Weblate 5.15-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
-#: src/Dialogs/Preferences/Pages/General.vala:56
+#: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
 msgstr "Projeler"
 
@@ -285,7 +285,7 @@ msgstr "yaklaşan"
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Util.vala:247
 #: core/Widgets/Calendar/CalendarHeader.vala:82
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:124
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:356
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:711
 #: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:500
 #: src/Views/Project/Project.vala:664 src/Views/Today.vala:202
@@ -297,7 +297,7 @@ msgid "today"
 msgstr "bugün"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:125
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:362
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:714
 #: src/Layouts/ItemRow.vala:1161
 msgid "Tomorrow"
@@ -415,35 +415,39 @@ msgstr "Bölümü Sil"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:127
+#: core/QuickAddCore.vala:134
 #, fuzzy
 msgid "Task added successfully!"
 msgstr "Proje eklendi."
 
-#: core/QuickAddCore.vala:143 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:150 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Yapılacak adı"
 
-#: core/QuickAddCore.vala:173
+#: core/QuickAddCore.vala:180
 msgid "This field is required"
 msgstr "Bu alan gerekli"
 
-#: core/QuickAddCore.vala:197
+#: core/QuickAddCore.vala:204
 msgid "Add a description…"
 msgstr "Açıklama ekle…"
 
-#: core/QuickAddCore.vala:239 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:244
+msgid "Set date"
+msgstr ""
+
+#: core/QuickAddCore.vala:248 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Etiket Ekle"
 
-#: core/QuickAddCore.vala:244 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:253 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Önceliğe göre sırala"
 
-#: core/QuickAddCore.vala:249
+#: core/QuickAddCore.vala:258
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -452,21 +456,21 @@ msgstr "Önceliğe göre sırala"
 msgid "Add Reminders"
 msgstr "Hatırlatıcı Ekle"
 
-#: core/QuickAddCore.vala:290 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:299 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Görev Ekle"
 
-#: core/QuickAddCore.vala:296 core/QuickAddCore.vala:1279
+#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1305
 msgid "Keep adding"
 msgstr ""
 
-#: core/QuickAddCore.vala:313
+#: core/QuickAddCore.vala:322
 #, fuzzy
 msgid "Select a Project"
 msgstr "Bir proje seç"
 
-#: core/QuickAddCore.vala:340
+#: core/QuickAddCore.vala:349
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -474,61 +478,61 @@ msgstr ""
 "Üzgünüm, Hızlı Ekleme kullanılabilir bir proje bulamadı. Planify'dan proje "
 "oluşturmayı deneyin."
 
-#: core/QuickAddCore.vala:1241 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1267 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Klavye Kısayolları"
 
-#: core/QuickAddCore.vala:1247
+#: core/QuickAddCore.vala:1273
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1261
+#: core/QuickAddCore.vala:1287
 #, fuzzy
 msgid "Set priority"
 msgstr "Önceliğe göre sırala"
 
-#: core/QuickAddCore.vala:1261
+#: core/QuickAddCore.vala:1287
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1262
+#: core/QuickAddCore.vala:1288
 #, fuzzy
 msgid "Add labels"
 msgstr "Etiket(ler) ekle"
 
-#: core/QuickAddCore.vala:1262
+#: core/QuickAddCore.vala:1288
 #, fuzzy
 msgid "Opens label selector"
 msgstr "Etiketler"
 
-#: core/QuickAddCore.vala:1263
+#: core/QuickAddCore.vala:1289
 #, fuzzy
 msgid "Assign project"
 msgstr "Proje Ekle"
 
-#: core/QuickAddCore.vala:1263
+#: core/QuickAddCore.vala:1289
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1264
+#: core/QuickAddCore.vala:1290
 #, fuzzy
 msgid "Set reminder"
 msgstr "Zamanlı hatırlatıcılar ayarlayın!"
 
-#: core/QuickAddCore.vala:1264
+#: core/QuickAddCore.vala:1290
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1279
+#: core/QuickAddCore.vala:1305
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1285
+#: core/QuickAddCore.vala:1311
 #, fuzzy
 msgid "Tip"
 msgstr "Üst"
 
-#: core/QuickAddCore.vala:1285
+#: core/QuickAddCore.vala:1311
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -637,65 +641,65 @@ msgstr ""
 msgid "%H:%M"
 msgstr ""
 
-#: core/Utils/Datetime.vala:403
+#: core/Utils/Datetime.vala:411
 msgid "Mo,"
 msgstr "Paz,"
 
-#: core/Utils/Datetime.vala:407
+#: core/Utils/Datetime.vala:415
 msgid "Tu,"
 msgstr "Sal,"
 
-#: core/Utils/Datetime.vala:411
+#: core/Utils/Datetime.vala:419
 msgid "We,"
 msgstr "Çrş"
 
-#: core/Utils/Datetime.vala:415
+#: core/Utils/Datetime.vala:423
 msgid "Th,"
 msgstr "Per,"
 
-#: core/Utils/Datetime.vala:419
+#: core/Utils/Datetime.vala:427
 msgid "Fr,"
 msgstr "Cum,"
 
-#: core/Utils/Datetime.vala:423
+#: core/Utils/Datetime.vala:431
 msgid "Sa,"
 msgstr "Cts,"
 
-#: core/Utils/Datetime.vala:427
+#: core/Utils/Datetime.vala:435
 msgid "Su,"
 msgstr "Paz,"
 
-#: core/Utils/Datetime.vala:620
+#: core/Utils/Datetime.vala:628
 msgid "%a, %b %-e, %Y"
 msgstr ""
 
-#: core/Utils/Datetime.vala:623
+#: core/Utils/Datetime.vala:631
 msgid "%b %-e %Y"
 msgstr ""
 
-#: core/Utils/Datetime.vala:626 core/Widgets/Calendar/CalendarHeader.vala:36
+#: core/Utils/Datetime.vala:634 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
-#: core/Utils/Datetime.vala:629
+#: core/Utils/Datetime.vala:637
 msgid "%b %-e"
 msgstr ""
 
-#: core/Utils/Datetime.vala:632
+#: core/Utils/Datetime.vala:640
 msgid "%a %Y"
 msgstr ""
 
-#: core/Utils/Datetime.vala:635
+#: core/Utils/Datetime.vala:643
 #, c-format
 msgid "%a"
 msgstr ""
 
-#: core/Utils/Datetime.vala:638
+#: core/Utils/Datetime.vala:646
 msgid "%a, %b %-e"
 msgstr ""
 
-#: core/Utils/Datetime.vala:641
+#: core/Utils/Datetime.vala:649
 msgid "%b"
 msgstr ""
 
@@ -791,7 +795,7 @@ msgstr "Koyu"
 msgid "Dark Blue"
 msgstr "Koyu Mavi"
 
-#: core/Utils/Util.vala:241 core/Widgets/DateTimePicker/DateTimePicker.vala:261
+#: core/Utils/Util.vala:241 core/Widgets/DateTimePicker/DateTimePicker.vala:407
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:53
 msgid "None"
 msgstr "Hiçbiri"
@@ -1125,73 +1129,101 @@ msgstr "Cum"
 msgid "Sa"
 msgstr "Cts"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:126
-msgid "Next week"
-msgstr "Sonraki hafta"
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:132
+msgid "Type a date…"
+msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:127
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:153
 msgid "Choose a date"
 msgstr "Tarih seçiniz"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:131
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:384
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:157
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:530
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 msgid "Repeat"
 msgstr "Yinele"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:140
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:166
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:143
 msgid "Time"
 msgstr "Zaman"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:159
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:185
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:254
 #: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:82
 msgid "Done"
 msgstr "Tamamlandı"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:163
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:189
 msgid "Clear"
 msgstr "Temizle"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:243
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:351
 msgid "Menu"
 msgstr "Menü"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:257
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:368
+msgid "Next week"
+msgstr "Sonraki hafta"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:403
 #, fuzzy
 msgid "Calendar"
 msgstr "Takvim Etkinlikleri"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:265
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:411
 msgid "Daily"
 msgstr "Günlük"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:269
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:415
 #, fuzzy
 msgid "Weekdays"
 msgstr "Haftalık"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:273
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:419
 #, fuzzy
 msgid "Weekends"
 msgstr "Hafta"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:277
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:423
 msgid "Weekly"
 msgstr "Haftalık"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:281
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:427
 msgid "Monthly"
 msgstr "Aylık"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:285
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:431
 msgid "Yearly"
 msgstr "Yıllık"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:289
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:435
 msgid "Custom"
 msgstr "Özel"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:736
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:443
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:245
+msgid "until"
+msgstr "şu zamana kadar"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:739
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+msgid "for"
+msgstr ""
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:739
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+msgid "times"
+msgstr ""
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:739
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+msgid "time"
+msgstr "zaman"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Minute(s)"
@@ -1244,39 +1276,17 @@ msgstr "Yinele"
 msgid "End"
 msgstr "Etkin"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:443
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:244
-msgid "until"
-msgstr "şu zamana kadar"
-
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:247
-msgid "for"
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:68
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:77
+msgid "Date"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:247
-msgid "times"
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:129
+msgid "Remove date"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:247
-msgid "time"
-msgstr "zaman"
-
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:67
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:76
-#: src/Views/Project/Board.vala:279 src/Views/Project/List.vala:367
-msgid "Schedule"
-msgstr "Zamanla"
-
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:128
-#, fuzzy
-msgid "Clear Schedule"
-msgstr "Zamanla"
-
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:169
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:207
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:170
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "Set a Due Date"
 msgstr "Bitiş tarihi"
 
@@ -1962,77 +1972,85 @@ msgstr "Azalan"
 msgid "Ordered"
 msgstr "Sıralı"
 
-#: src/Dialogs/Preferences/Pages/General.vala:61
+#: src/Dialogs/Preferences/Pages/General.vala:60
 msgid "DE Integration"
 msgstr "Masaüstü Ortamı Tümleşimi"
 
-#: src/Dialogs/Preferences/Pages/General.vala:69
+#: src/Dialogs/Preferences/Pages/General.vala:68
 msgid "Run in Background"
 msgstr "Arka Planda Çalıştır"
 
-#: src/Dialogs/Preferences/Pages/General.vala:70
+#: src/Dialogs/Preferences/Pages/General.vala:69
 msgid "Let Planify run in background and send notifications"
 msgstr "Planify'ın arka planda çalışmasına ve bildirim göndermesine izin ver"
 
-#: src/Dialogs/Preferences/Pages/General.vala:83
+#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
 msgstr "Başlangıçta Çalıştır"
 
-#: src/Dialogs/Preferences/Pages/General.vala:84
+#: src/Dialogs/Preferences/Pages/General.vala:83
 msgid "Whether Planify should run on startup"
 msgstr "Planify'ın başlangıçta çalışma durumu"
 
-#: src/Dialogs/Preferences/Pages/General.vala:97
+#: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
 msgstr "Takvim Etkinlikleri"
 
-#: src/Dialogs/Preferences/Pages/General.vala:104
+#: src/Dialogs/Preferences/Pages/General.vala:103
 msgid "Date and Time"
 msgstr "Tarih ve Zaman"
 
-#: src/Dialogs/Preferences/Pages/General.vala:107
+#: src/Dialogs/Preferences/Pages/General.vala:106
 msgid "24h"
 msgstr "24 saat"
 
-#: src/Dialogs/Preferences/Pages/General.vala:108
+#: src/Dialogs/Preferences/Pages/General.vala:107
 msgid "12h"
 msgstr "12 saat"
 
-#: src/Dialogs/Preferences/Pages/General.vala:111
+#: src/Dialogs/Preferences/Pages/General.vala:110
 msgid "Clock Format"
 msgstr "Saat Biçimi"
 
-#: src/Dialogs/Preferences/Pages/General.vala:118
+#: src/Dialogs/Preferences/Pages/General.vala:117
 msgid "Sunday"
 msgstr "Pazar"
 
-#: src/Dialogs/Preferences/Pages/General.vala:119
+#: src/Dialogs/Preferences/Pages/General.vala:118
 msgid "Monday"
 msgstr "Pazartesi"
 
-#: src/Dialogs/Preferences/Pages/General.vala:120
+#: src/Dialogs/Preferences/Pages/General.vala:119
 msgid "Tuesday"
 msgstr "Salı"
 
-#: src/Dialogs/Preferences/Pages/General.vala:121
+#: src/Dialogs/Preferences/Pages/General.vala:120
 msgid "Wednesday"
 msgstr "Çarşamba"
 
-#: src/Dialogs/Preferences/Pages/General.vala:122
+#: src/Dialogs/Preferences/Pages/General.vala:121
 msgid "Thursday"
 msgstr "Perşembe"
 
-#: src/Dialogs/Preferences/Pages/General.vala:123
+#: src/Dialogs/Preferences/Pages/General.vala:122
 msgid "Friday"
 msgstr "Cuma"
 
-#: src/Dialogs/Preferences/Pages/General.vala:124
+#: src/Dialogs/Preferences/Pages/General.vala:123
 msgid "Saturday"
 msgstr "Cumartesi"
 
-#: src/Dialogs/Preferences/Pages/General.vala:127
+#: src/Dialogs/Preferences/Pages/General.vala:126
 msgid "Start of the Week"
 msgstr "Hafta Haşlangıcı"
+
+#: src/Dialogs/Preferences/Pages/General.vala:138
+msgid "Smart Date Recognition"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:139
+msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
@@ -2855,6 +2873,10 @@ msgstr ""
 msgid "Note"
 msgstr "Not"
 
+#: src/Views/Project/Board.vala:279 src/Views/Project/List.vala:367
+msgid "Schedule"
+msgstr "Zamanla"
+
 #: src/Views/Project/Board.vala:316 src/Views/Project/List.vala:402
 #: src/Views/Project/Project.vala:335 src/Views/Project/Project.vala:367
 msgid "When?"
@@ -3297,6 +3319,10 @@ msgstr "Etiketler"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Panoyu aç"
+
+#, fuzzy
+#~ msgid "Clear Schedule"
+#~ msgstr "Zamanla"
 
 #~ msgid "Process completed, you need to start Planify again"
 #~ msgstr "İşlem tamamlandı, Planify'ı yeniden başlatmanız gerekiyor"
