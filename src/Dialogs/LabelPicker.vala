@@ -20,7 +20,10 @@
  */
 
 public class Dialogs.LabelPicker : Adw.Dialog {
+    public LabelPickerType picker_type { get; construct; }
+
     private Widgets.LabelsPickerCore labels_picker_core;
+    private Widgets.LoadingButton button;
 
     public Gee.ArrayList<Objects.Label> labels {
         set {
@@ -28,11 +31,18 @@ public class Dialogs.LabelPicker : Adw.Dialog {
         }
     }
 
+    public string button_text {
+        set {
+            button.label = value;
+        }
+    }
+
     public signal void labels_changed (Gee.HashMap<string, Objects.Label> labels);
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
-    public LabelPicker () {
+    public LabelPicker (LabelPickerType picker_type = LabelPickerType.FILTER_ONLY) {
         Object (
+            picker_type: picker_type,
             title: _("Labels"),
             content_width: 320,
             content_height: 450
@@ -47,9 +57,9 @@ public class Dialogs.LabelPicker : Adw.Dialog {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class ("flat");
 
-        labels_picker_core = new Widgets.LabelsPickerCore (LabelPickerType.FILTER_ONLY);
+        labels_picker_core = new Widgets.LabelsPickerCore (picker_type);
 
-        var button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Filter")) {
+        button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Filter")) {
             margin_top = 12,
             margin_start = 12,
             margin_end = 12,

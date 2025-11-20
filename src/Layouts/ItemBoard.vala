@@ -63,7 +63,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     public bool is_loading {
         set {
             _is_loading = value;
-            
+
             hide_loading_button.is_loading = _is_loading;
             set_loading_state (_is_loading);
         }
@@ -96,7 +96,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 hide_loading_button.margin_top = 6;
             }
         }
-}
+    }
 
 
     public bool on_drag = false;
@@ -193,7 +193,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             margin_end = 6,
             css_classes = { "dimmed", "caption", "transition" }
         };
-        
+
         description_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             child = description_label
@@ -372,20 +372,20 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                     if (item.project == null) {
                         return GLib.Source.REMOVE;
                     }
-                    
+
                     if (!Services.EventBus.get_default ().multi_select_enabled) {
                         item.project.show_multi_select = true;
                     }
-                    
+
                     select_checkbutton.active = !select_checkbutton.active;
                     selected_toggled (select_checkbutton.active);
-                    
+
                     return GLib.Source.REMOVE;
                 });
-                
+
                 return;
             }
-            
+
             if (Services.EventBus.get_default ().multi_select_enabled) {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);
@@ -562,7 +562,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     private async void _complete_item (bool old_checked, string old_completed_at) {
         checked_button.sensitive = false;
-        
+
         HttpResponse response = yield item.complete_item (old_checked);
 
         if (response.status) {
@@ -718,7 +718,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         no_date_item = new Widgets.ContextMenu.MenuItem (_ ("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = item.has_due;
+
         var move_item = new Widgets.ContextMenu.MenuItem (_ ("Move"), "arrow3-right-symbolic");
+        var labels_item = new Widgets.ContextMenu.MenuItem (_ ("Labels"), "tag-outline-symbolic");
 
         var add_item = new Widgets.ContextMenu.MenuItem (_ ("Add Subtask"), "plus-large-symbolic");
         var complete_item = new Widgets.ContextMenu.MenuItem (_ ("Complete"), "check-round-outline-symbolic");
@@ -730,15 +732,17 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (today_item);
-        menu_box.append (tomorrow_item);
-        menu_box.append (pinboard_item);
-        menu_box.append (no_date_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (move_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (complete_item);
         menu_box.append (edit_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (today_item);
+        menu_box.append (tomorrow_item);
+        menu_box.append (no_date_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (pinboard_item);
+        menu_box.append (move_item);
+        menu_box.append (labels_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (add_item);
         menu_box.append (duplicate_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -773,6 +777,21 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                     move (item.project, id);
                 }
             });
+        });
+
+        labels_item.activate_item.connect (() => {
+            var dialog = new Dialogs.LabelPicker (LabelPickerType.FILTER_AND_CREATE) {
+                button_text = _("Apply")
+            };
+
+            dialog.add_labels (item.source);
+            dialog.labels = item.labels;
+
+            dialog.labels_changed.connect ((labels) => {
+                item.update_labels (labels);
+            });
+
+            dialog.present (Planify._instance.main_window);
         });
 
         today_item.activate_item.connect (() => {
@@ -1061,7 +1080,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
             var target_list = (Gtk.ListBox) target_widget.parent;
             int new_index = target_widget.get_index ();
-            
+
             target_list.insert (picked_widget, new_index);
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
 
@@ -1171,6 +1190,5 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         }
 
         signals_map.clear ();
-
     }
 }

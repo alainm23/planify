@@ -99,9 +99,10 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
         listbox = new Gtk.ListBox () {
             hexpand = true,
-            valign = Gtk.Align.START,
-            css_classes = { "listbox-background" }
+            valign = Gtk.Align.START
         };
+        listbox.add_css_class ("listbox-background");
+        listbox.add_css_class ("listbox-separator-6");
 
         listbox.set_placeholder (get_placeholder ());
 

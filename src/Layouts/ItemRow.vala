@@ -777,7 +777,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = pin_button;
 
         signals_map[label_button.labels_changed.connect ((labels) => {
-            update_labels (labels);
+            item.update_labels (labels);
         })] = label_button;
 
         signals_map[
@@ -1167,6 +1167,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         no_date_item.visible = item.has_due;
 
         var move_item = new Widgets.ContextMenu.MenuItem (_ ("Move"), "arrow3-right-symbolic");
+        var labels_item = new Widgets.ContextMenu.MenuItem (_ ("Labels"), "tag-outline-symbolic");
 
         var add_item = new Widgets.ContextMenu.MenuItem (_ ("Add Subtask"), "plus-large-symbolic");
         var complete_item = new Widgets.ContextMenu.MenuItem (_ ("Complete"), "check-round-outline-symbolic");
@@ -1180,15 +1181,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
         if (!item.completed && !item.project.is_deck) {
-            menu_box.append (today_item);
-            menu_box.append (tomorrow_item);
-            menu_box.append (pinboard_item);
-            menu_box.append (no_date_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-            menu_box.append (move_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (complete_item);
             menu_box.append (edit_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (today_item);
+            menu_box.append (tomorrow_item);
+            menu_box.append (no_date_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (pinboard_item);
+            menu_box.append (move_item);
+            menu_box.append (labels_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (add_item);
             menu_box.append (duplicate_item);
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -1230,6 +1233,21 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 dialog.present (Planify._instance.main_window);
             })] = move_item;
 
+            signals_map[labels_item.activate_item.connect (() => {
+                var dialog = new Dialogs.LabelPicker (LabelPickerType.FILTER_AND_CREATE) {
+                    button_text = _("Apply")
+                };
+
+                dialog.add_labels (item.source);
+                dialog.labels = item.labels;
+
+                signals_map[dialog.labels_changed.connect ((labels) => {
+                    item.update_labels (labels);
+                })] = dialog;
+
+                dialog.present (Planify._instance.main_window);
+            })] = labels_item;
+
             signals_map[complete_item.activate_item.connect (() => {
                 checked_button.active = !checked_button.active;
                 checked_toggled (checked_button.active);
@@ -1262,7 +1280,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             has_arrow = false,
             child = menu_box,
             halign = Gtk.Align.START,
-            width_request = 250
+            width_request = 275
         };
 
         menu_handle_popover.set_parent (this);
@@ -1484,29 +1502,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         Services.EventBus.get_default ().send_toast (toast);
     }
 
-    public void update_labels (Gee.HashMap<string, Objects.Label> new_labels) {
-        bool update = false;
-
-        foreach (var entry in new_labels.entries) {
-            if (item.get_label (entry.key) == null) {
-                item.add_label_if_not_exists (entry.value);
-                update = true;
-            }
-        }
-
-        foreach (var label in item._get_labels ()) {
-            if (!new_labels.has_key (label.id)) {
-                item.delete_item_label (label.id);
-                update = true;
-            }
-        }
-
-        if (!update) {
-            return;
-        }
-
-        item.update_async ();
-    }
+    
 
     public override void delete_request (bool undo = true) {
         main_revealer.reveal_child = false;
