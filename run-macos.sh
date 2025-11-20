@@ -17,13 +17,17 @@ if [ -d "build" ]; then
     rm -rf build
 fi
 
+# Ensure pkg-config can find Homebrew libs (libical, icu4c)
+export PKG_CONFIG_PATH="/opt/homebrew/opt/libical/lib/pkgconfig:/opt/homebrew/opt/icu4c/lib/pkgconfig:${PKG_CONFIG_PATH}"
+
 # Configure with meson without optional dependencies
 echo "Configuring project..."
 meson setup build \
     -Dwebkit=false \
     -Dspelling=disabled \
     -Dportal=false \
-    -Devolution=false
+    -Devolution=false \
+    -Dgxml-0.20:docs=false
 
 # Compile
 echo "Compiling..."
