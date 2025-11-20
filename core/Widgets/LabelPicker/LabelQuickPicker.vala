@@ -66,9 +66,9 @@ public class Widgets.LabelPicker.LabelQuickPicker : Gtk.Popover {
     construct {
         listbox = new Gtk.ListBox () {
             hexpand = true,
-            valign = Gtk.Align.START,
-            css_classes = { "listbox-background" }
+            valign = Gtk.Align.START
         };
+        listbox.add_css_class ("listbox-background");
 
         listbox.set_sort_func ((row1, row2) => {
             Objects.Label item1 = ((Widgets.LabelPicker.LabelRow) row1).label;
@@ -88,10 +88,10 @@ public class Widgets.LabelPicker.LabelQuickPicker : Gtk.Popover {
 
         var listbox_content = new Adw.Bin () {
             child = listbox,
-            margin_start = 6,
-            margin_end = 6,
-            margin_top = 6,
-            margin_bottom = 6
+            margin_start = 12,
+            margin_end = 12,
+            margin_top = 12,
+            margin_bottom = 12
         };
 
         listbox_scrolled = new Gtk.ScrolledWindow () {
@@ -153,7 +153,8 @@ public class Widgets.LabelPicker.LabelQuickPicker : Gtk.Popover {
 
     private void add_label (Objects.Label label) {
         labels_widgets_map[label.id] = new Widgets.LabelPicker.LabelRow (label) {
-            hide_check_button = true
+            hide_check_button = true,
+            margin = 6
         };
         listbox.append (labels_widgets_map[label.id]);
     }
@@ -192,7 +193,8 @@ public class Widgets.LabelPicker.LabelQuickPicker : Gtk.Popover {
         create_label.id = "create_new_label";
         
         create_label_row = new Widgets.LabelPicker.LabelRow (create_label) {
-            hide_check_button = true
+            hide_check_button = true,
+            margin = 6
         };
         
         listbox.append (create_label_row);
