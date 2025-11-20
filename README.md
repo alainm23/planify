@@ -117,6 +117,27 @@ sudo ninja install
 io.github.alainm23.planify
 ```
 
+### 🍏 macOS Build (Experimental)
+Planify can be built on macOS (tested on Apple Silicon, macOS 14+) using Homebrew’s GTK4/libadwaita stack. Optional components not available on macOS are disabled (Evolution, WebKit, portals, spell check).
+
+1. Install dependencies:
+   ```bash
+   brew update
+   brew install vala meson ninja gtk4 libadwaita libgee json-glib \
+     libsoup sqlite libical gtksourceview5 desktop-file-utils \
+     libsecret icu4c pango cairo fontconfig
+   ```
+2. Make pkg-config find libical/icu:
+   ```bash
+   export PKG_CONFIG_PATH="/opt/homebrew/opt/libical/lib/pkgconfig:/opt/homebrew/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
+   ```
+3. Build and run via the helper script:
+   ```bash
+   chmod +x run-macos.sh
+   ./run-macos.sh
+   ```
+   The script cleans the build dir, configures Meson with macOS-safe flags (`-Devolution=false -Dwebkit=false -Dportal=false -Dspelling=disabled`), compiles, compiles schemas, and launches the app with the needed runtime env vars.
+
 ### 🏗️ Development Setup
 
 **Using GNOME Builder:**
