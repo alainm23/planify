@@ -48,6 +48,9 @@ if meson compile -C build; then
     # Use macOS system fonts as fallback
     export PANGO_EMOJI_FONT="Apple Color Emoji"
     
+    # Force app to appear in Dock on macOS
+    export GDK_BACKEND=quartz
+    
     GSETTINGS_SCHEMA_DIR=data ./build/src/io.github.alainm23.planify
 else
     echo "Compilation error"

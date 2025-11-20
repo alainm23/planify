@@ -342,7 +342,7 @@ public class Util : GLib.Object {
         string _css = """
             popover,
             window {
-                font-size: %s%;
+                font-size: %s%%;
             }
         """;
 
@@ -351,6 +351,7 @@ public class Util : GLib.Object {
         try {
             string scale = (100 * Services.Settings.get_default ().get_double ("font-scale")).to_string ();
             var css = _css.printf (scale);
+            print ("CSS Font Scale Applied: %s\n", css);
 
             provider.load_from_string (css);
             Gtk.StyleContext.add_provider_for_display (
