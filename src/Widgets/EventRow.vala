@@ -89,7 +89,6 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         grid.append (color_grid);
         grid.append (name_label);
 
-        // Agregar icono de video si tiene Meet o Teams
         var description = component.get_description ();
         if (description != null && ("meet.google.com" in description || "teams.microsoft.com" in description)) {
             var video_icon = new Gtk.Image.from_icon_name ("video-camera-symbolic") {
@@ -102,7 +101,6 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 
         child = grid;
 
-        // Click gesture
         var click_gesture = new Gtk.GestureClick ();
         click_gesture.released.connect (() => {
             if (popover == null) {
