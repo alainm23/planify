@@ -28,8 +28,9 @@ msgid "Tasks"
 msgstr "Aufgaben"
 
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
-#: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:36
-#: src/Dialogs/Preferences/Pages/Backup.vala:370
+#: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
+#: src/Dialogs/Preferences/Pages/Backup.vala:370 src/Layouts/ItemBoard.vala:723
+#: src/Layouts/ItemRow.vala:1170
 msgid "Labels"
 msgstr "Labels"
 
@@ -150,7 +151,7 @@ msgstr "Aufgabe aktualisiert"
 msgid "Content"
 msgstr "Inhalt"
 
-#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1873
+#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
 #: src/Layouts/ItemSidebarView.vala:183
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
@@ -1275,7 +1276,7 @@ msgstr "Zeit hinzufügen"
 msgid "Select Labels"
 msgstr "Labels auswählen"
 
-#: core/Widgets/LabelPicker/LabelQuickPicker.vala:190
+#: core/Widgets/LabelPicker/LabelQuickPicker.vala:191
 #, c-format
 msgid "Label not found: Create '%s'"
 msgstr "Label nicht gefunden: Erstelle „%s“"
@@ -1309,7 +1310,8 @@ msgstr "Suchen"
 msgid "Search or Create"
 msgstr "Suchen oder erstellen"
 
-#: core/Widgets/MarkdownEditor.vala:1360
+#: core/Widgets/MarkdownEditor.vala:1360 src/Layouts/ItemBoard.vala:784
+#: src/Layouts/ItemRow.vala:1238
 msgid "Apply"
 msgstr "Anwenden"
 
@@ -1423,7 +1425,7 @@ msgid "To Do"
 msgstr "Zu tun"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1172
+#: src/Layouts/ItemBoard.vala:726 src/Layouts/ItemRow.vala:1173
 #: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "Erledigt"
@@ -1508,7 +1510,7 @@ msgstr "Bitte gib deine Anmeldedaten ein"
 msgid "Network Is Not Available"
 msgstr "Netzwerk ist nicht verfügbar"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1284
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1302
 #: src/Layouts/ItemSidebarView.vala:461
 msgid "Change History"
 msgstr "Änderungsverlauf"
@@ -1562,7 +1564,7 @@ msgstr "Label hinzufügen"
 msgid "Update Label"
 msgstr "Label aktualisieren"
 
-#: src/Dialogs/LabelPicker.vala:52
+#: src/Dialogs/LabelPicker.vala:62
 msgid "Filter"
 msgstr "Filter"
 
@@ -2456,8 +2458,8 @@ msgid "Project added successfully!"
 msgstr "Projekt erfolgreich hinzugefügt!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1169
-#: src/Layouts/ItemRow.vala:1279 src/Layouts/ItemSidebarView.vala:456
+#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1169
+#: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemSidebarView.vala:456
 msgid "Move"
 msgstr "Verschieben"
 
@@ -2508,43 +2510,43 @@ msgid "Unpin"
 msgstr "Lösen"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:594 src/Layouts/ItemRow.vala:1480
+#: src/Layouts/ItemBoard.vala:594 src/Layouts/ItemRow.vala:1498
 #: src/Layouts/ItemSidebarView.vala:622
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Erledigt. Nächstes vorkommen: %s"
 
-#: src/Layouts/ItemBoard.vala:723 src/Layouts/ItemRow.vala:1171
+#: src/Layouts/ItemBoard.vala:725 src/Layouts/ItemRow.vala:1172
 msgid "Add Subtask"
 msgstr "Unteraufgabe hinzufügen"
 
-#: src/Layouts/ItemBoard.vala:725 src/Layouts/ItemRow.vala:1173
+#: src/Layouts/ItemBoard.vala:727 src/Layouts/ItemRow.vala:1174
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: src/Layouts/ItemBoard.vala:726 src/Layouts/ItemRow.vala:1174
-#: src/Layouts/ItemRow.vala:1278 src/Layouts/ItemSidebarView.vala:455
+#: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1175
+#: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:455
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
 msgid "Duplicate"
 msgstr "Duplizieren"
 
-#: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1176
-#: src/Layouts/ItemRow.vala:1281 src/Layouts/ItemSidebarView.vala:458
+#: src/Layouts/ItemBoard.vala:730 src/Layouts/ItemRow.vala:1177
+#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemSidebarView.vala:458
 msgid "Delete Task"
 msgstr "Aufgabe löschen"
 
-#: src/Layouts/ItemBoard.vala:1011 src/Layouts/ItemRow.vala:1743
+#: src/Layouts/ItemBoard.vala:1030 src/Layouts/ItemRow.vala:1739
 msgid "Order changed to 'Custom sort order'"
 msgstr "Reihenfolge wurde in 'Benutzerdefinierte Sortierreihenfolge' geändert"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:1097 src/Layouts/ItemRow.vala:1526
+#: src/Layouts/ItemBoard.vala:1116 src/Layouts/ItemRow.vala:1522
 #, c-format
 msgid "%s was deleted"
 msgstr "%s wurde gelöscht"
 
-#: src/Layouts/ItemBoard.vala:1098 src/Layouts/ItemRow.vala:1527
+#: src/Layouts/ItemBoard.vala:1117 src/Layouts/ItemRow.vala:1523
 msgid "Undo"
 msgstr "Rückgängig machen"
 
@@ -2564,11 +2566,11 @@ msgstr "Unteraufgaben verbergen"
 msgid "Show Sub-tasks"
 msgstr "Unteraufgaben anzeigen"
 
-#: src/Layouts/ItemRow.vala:1274 src/Layouts/ItemSidebarView.vala:452
+#: src/Layouts/ItemRow.vala:1292 src/Layouts/ItemSidebarView.vala:452
 msgid "Use as a Note"
 msgstr "Als Notiz verwenden"
 
-#: src/Layouts/ItemRow.vala:1277 src/Layouts/ItemSidebarView.vala:454
+#: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemSidebarView.vala:454
 msgid "Copy to Clipboard"
 msgstr "In die Zwischenablage kopieren"
 
