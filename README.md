@@ -139,59 +139,12 @@ Planify can be built on macOS (tested on Apple Silicon, macOS 14+) using Homebre
    The script cleans the build dir, configures Meson with macOS-safe flags (`-Devolution=false -Dwebkit=false -Dportal=false -Dspelling=disabled`), compiles, compiles schemas, and launches the app with the needed runtime env vars.
 
 #### DMG Packaging (Experimental)
-After building, you can produce a DMG from the in-tree build artifacts (uses Homebrew-shared libs; not fully standalone):
+After building, you can generate a DMG (still relies on Homebrew GTK/libadwaita on the target system; not fully standalone):
 ```bash
-# Install into a staging DESTDIR
-meson install -C build --destdir build/dist
-
-# Create a minimal .app bundle
-APPDIR="build/Planify.app"
-rm -rf "$APPDIR"
-mkdir -p "$APPDIR/Contents/MacOS" "$APPDIR/Contents/Resources"
-cp build/dist/opt/homebrew/bin/io.github.alainm23.planify "$APPDIR/Contents/MacOS/planify-bin"
-cat > "$APPDIR/Contents/MacOS/Planify" <<'EOF'
-#!/bin/bash
-APP_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-RES="$APP_ROOT/Resources"
-export GSETTINGS_SCHEMA_DIR="$RES/glib-2.0/schemas"
-export XDG_DATA_DIRS="$RES:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
-export FONTCONFIG_PATH=/opt/homebrew/etc/fonts
-export FONTCONFIG_FILE=/opt/homebrew/etc/fonts/fonts.conf
-export PANGO_EMOJI_FONT="Apple Color Emoji"
-exec "$APP_ROOT/MacOS/planify-bin" "$@"
-EOF
-chmod +x "$APPDIR/Contents/MacOS/Planify"
-
-# Copy resources (schemas/icons/locale/etc.) from DESTDIR
-cp -R build/dist/opt/homebrew/share/. "$APPDIR/Contents/Resources/"
-glib-compile-schemas "$APPDIR/Contents/Resources/glib-2.0/schemas"
-
-# Bundle the planify libraries (minimal)
-cp build/dist/opt/homebrew/lib/libplanify.0.dylib "$APPDIR/Contents/MacOS/"
-cp build/dist/opt/homebrew/lib/libgxml-0.20.2.0.2.dylib "$APPDIR/Contents/MacOS/"
-install_name_tool -change /opt/homebrew/lib/libplanify.0.dylib @executable_path/libplanify.0.dylib "$APPDIR/Contents/MacOS/planify-bin"
-install_name_tool -id @executable_path/libplanify.0.dylib "$APPDIR/Contents/MacOS/libplanify.0.dylib"
-install_name_tool -change /opt/homebrew/lib/libgxml-0.20.2.0.2.dylib @executable_path/libgxml-0.20.2.0.2.dylib "$APPDIR/Contents/MacOS/libplanify.0.dylib"
-
-# Info.plist
-cat > "$APPDIR/Contents/Info.plist" <<'PLIST'
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0"><dict>
-  <key>CFBundleExecutable</key><string>Planify</string>
-  <key>CFBundleIdentifier</key><string>io.github.alainm23.planify</string>
-  <key>CFBundleName</key><string>Planify</string>
-  <key>CFBundleVersion</key><string>4.15.2</string>
-  <key>CFBundleShortVersionString</key><string>4.15.2</string>
-  <key>LSMinimumSystemVersion</key><string>11.0</string>
-  <key>NSHighResolutionCapable</key><true/>
-</dict></plist>
-PLIST
-
-# Build the DMG
-hdiutil create -volname "Planify" -srcfolder "$APPDIR" -ov -format UDZO build/Planify.dmg
+# From repo root, after ./run-macos.sh
+./scripts/build-macos-dmg.sh
 ```
-Result: `build/Planify.dmg` (uses Homebrew GTK/libadwaita runtime; not fully self-contained).
+Result: `build/Planify.dmg`.
 
 ### 🏗️ Development Setup
 
