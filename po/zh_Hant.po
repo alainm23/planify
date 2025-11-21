@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-16 11:51+0000\n"
+"PO-Revision-Date: 2025-11-20 10:19+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -423,7 +423,7 @@ msgstr "加上描述…"
 
 #: core/QuickAddCore.vala:244
 msgid "Set date"
-msgstr ""
+msgstr "設定日期"
 
 #: core/QuickAddCore.vala:248 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
@@ -1079,7 +1079,7 @@ msgstr "週六"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:132
 msgid "Type a date…"
-msgstr ""
+msgstr "輸入日期…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:153
 msgid "Choose a date"
@@ -1222,11 +1222,11 @@ msgstr "結束"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
-msgstr ""
+msgstr "移除日期"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
@@ -1952,11 +1952,11 @@ msgstr "一週開始"
 
 #: src/Dialogs/Preferences/Pages/General.vala:138
 msgid "Smart Date Recognition"
-msgstr ""
+msgstr "智能日期識別"
 
 #: src/Dialogs/Preferences/Pages/General.vala:139
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr ""
+msgstr "自動偵測日期，像是\"明日\"或\"下週\""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
