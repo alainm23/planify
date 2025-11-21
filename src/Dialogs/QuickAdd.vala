@@ -52,6 +52,11 @@ public class Dialogs.QuickAdd : Adw.Dialog {
         quick_add_widget = new Layouts.QuickAddCore ();
         child = quick_add_widget;
 
+        var window = Planify._instance.main_window;
+        if (window != null) {
+            window.resizable = false;
+        }
+
         signal_map[quick_add_widget.hide_destroy.connect (() => {
             close ();
         })] = quick_add_widget;
@@ -64,6 +69,10 @@ public class Dialogs.QuickAdd : Adw.Dialog {
         })] = quick_add_widget;
 
         closed.connect (() => {
+            if (window != null) {
+                window.resizable = true;
+            }
+            
             clean_up ();
             Services.EventBus.get_default ().connect_all_accels ();
         });
