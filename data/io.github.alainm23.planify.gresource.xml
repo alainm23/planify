@@ -119,6 +119,9 @@
     <file alias="lightbulb-symbolic.svg">resources/icons/lightbulb-symbolic.svg</file>
     <file alias="language-symbolic.svg">resources/icons/language-symbolic.svg</file>
     <file alias="down-small-symbolic.svg">resources/icons/down-small-symbolic.svg</file>
+    <file alias="video-camera-symbolic.svg">resources/icons/video-camera-symbolic.svg</file>
+    <file alias="map-marker-symbolic.svg">resources/icons/map-marker-symbolic.svg</file>
+    <file alias="people-symbolic.svg">resources/icons/people-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
@@ -207,6 +210,9 @@
     <file alias="lightbulb-symbolic.svg">resources/icons/lightbulb-symbolic.svg</file>
     <file alias="language-symbolic.svg">resources/icons/language-symbolic.svg</file>
     <file alias="down-small-symbolic.svg">resources/icons/down-small-symbolic.svg</file>
+    <file alias="video-camera-symbolic.svg">resources/icons/video-camera-symbolic.svg</file>
+    <file alias="map-marker-symbolic.svg">resources/icons/map-marker-symbolic.svg</file>
+    <file alias="people-symbolic.svg">resources/icons/people-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
@@ -295,5 +301,8 @@
     <file alias="lightbulb-symbolic.svg">resources/icons/lightbulb-symbolic.svg</file>
     <file alias="language-symbolic.svg">resources/icons/language-symbolic.svg</file>
     <file alias="down-small-symbolic.svg">resources/icons/down-small-symbolic.svg</file>
+    <file alias="video-camera-symbolic.svg">resources/icons/video-camera-symbolic.svg</file>
+    <file alias="map-marker-symbolic.svg">resources/icons/map-marker-symbolic.svg</file>
+    <file alias="people-symbolic.svg">resources/icons/people-symbolic.svg</file>
   </gresource>
 </gresources>

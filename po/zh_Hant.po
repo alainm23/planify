@@ -146,7 +146,7 @@ msgid "Content"
 msgstr "目錄"
 
 #: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
-#: src/Layouts/ItemSidebarView.vala:183
+#: src/Layouts/ItemSidebarView.vala:183 src/Widgets/EventRow.vala:304
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "描述"
@@ -1109,6 +1109,7 @@ msgid "Next week"
 msgstr "下週"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:403
+#: src/Widgets/EventRow.vala:275
 msgid "Calendar"
 msgstr "行事曆"
 
@@ -2913,6 +2914,36 @@ msgstr "顯示較少"
 #: src/Widgets/ErrorView.vala:107
 msgid "Report Issue"
 msgstr "提報問題"
+
+#: src/Widgets/EventRow.vala:196
+#, c-format
+msgid "In %d minutes"
+msgstr ""
+
+#: src/Widgets/EventRow.vala:198
+#, c-format
+msgid "In %d hours"
+msgstr ""
+
+#: src/Widgets/EventRow.vala:203
+msgid "Happening now"
+msgstr ""
+
+#: src/Widgets/EventRow.vala:238
+msgid "Location"
+msgstr ""
+
+#: src/Widgets/EventRow.vala:251
+msgid "Organizer"
+msgstr ""
+
+#: src/Widgets/EventRow.vala:265
+msgid "URL"
+msgstr ""
+
+#: src/Widgets/EventRow.vala:356
+msgid "Join"
+msgstr ""
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:31
 msgid "Disable SSL certificate validation"
