@@ -157,6 +157,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
             xalign = 0,
             wrap = true,
             selectable = true,
+            can_focus = false,
             css_classes = { "title-4" }
         };
 
@@ -177,14 +178,41 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
             xalign = 0,
             wrap = true,
             selectable = true,
+            can_focus = false,
             css_classes = { "dimmed", "caption" }
         };
 
-        var header_box = new Gtk.Box (VERTICAL, 3) {
-            margin_bottom = 3
-        };
+        var header_box = new Gtk.Box (VERTICAL, 3);
         header_box.append (title_label);
         header_box.append (date_label);
+
+        var now = new DateTime.now_local ();
+        if (!is_allday && start_time.get_day_of_year () == now.get_day_of_year () && start_time.get_year () == now.get_year ()) {
+            var time_diff = start_time.difference (now) / TimeSpan.MINUTE;
+            string time_status = "";
+            
+            if (time_diff > 0) {
+                if (time_diff < 60) {
+                    time_status = _("In %d minutes").printf ((int)time_diff);
+                } else {
+                    time_status = _("In %d hours").printf ((int)(time_diff / 60));
+                }
+            } else if (time_diff > -60 && end_time != null) {
+                var end_diff = end_time.difference (now) / TimeSpan.MINUTE;
+                if (end_diff > 0) {
+                    time_status = _("Happening now");
+                }
+            }
+            
+            if (time_status != "") {
+                var time_status_label = new Gtk.Label (time_status) {
+                    xalign = 0,
+                    css_classes = { "caption", "accent" }
+                };
+                header_box.append (time_status_label);
+            }
+        }
+
 
         var popover_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             margin_top = 12,
@@ -193,13 +221,18 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
             margin_end = 12
         };
         popover_box.append (header_box);
+        popover_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_top = 3,
+            margin_bottom = 3
+        });
 
         var location = component.get_location ();
         if (location != null && location != "") {
             var location_label = new Gtk.Label (location) {
                 xalign = 0,
                 wrap = true,
-                selectable = true
+                selectable = true,
+                can_focus = false
             };
             
             popover_box.append (create_info_widget ("map-marker-symbolic", _("Location"), location_label));
@@ -212,7 +245,8 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
                 var organizer_label = new Gtk.Label (organizer.replace ("mailto:", "")) {
                     xalign = 0,
                     wrap = true,
-                    selectable = true
+                    selectable = true,
+                    can_focus = false
                 };
                 popover_box.append (create_info_widget ("people-symbolic", _("Organizer"), organizer_label));
             }
@@ -225,7 +259,8 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
                 var url_label = new Gtk.Label (url) {
                     xalign = 0,
                     wrap = true,
-                    selectable = true
+                    selectable = true,
+                    can_focus = false
                 };
                 popover_box.append (create_info_widget ("external-link-symbolic", _("URL"), url_label));
             }
@@ -234,7 +269,8 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         var calendar_label = new Gtk.Label (source.dup_display_name ()) {
             xalign = 0,
             wrap = true,
-            selectable = true
+            selectable = true,
+            can_focus = false
         };
         popover_box.append (create_info_widget ("work-week-symbolic", _("Calendar"), calendar_label));
 
@@ -261,6 +297,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
                     xalign = 0,
                     wrap = true,
                     selectable = true,
+                    can_focus = false,
                     use_markup = false
                 };
                 
@@ -269,7 +306,8 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         }
 
         popover = new Gtk.Popover () {
-            child = popover_box
+            child = popover_box,
+            width_request = 275
         };
 
         popover.set_parent (this);
@@ -313,6 +351,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
             hexpand = true
         };
         url_entry.add_css_class ("caption");
+        url_entry.add_css_class ("accent");
         
         var join_button = new Gtk.Button.with_label (_("Join")) {
             valign = Gtk.Align.CENTER
