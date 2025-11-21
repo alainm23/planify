@@ -72,6 +72,7 @@ public class Dialogs.QuickAdd : Adw.Dialog {
             if (window != null) {
                 window.resizable = true;
             }
+            
             clean_up ();
             Services.EventBus.get_default ().connect_all_accels ();
         });
