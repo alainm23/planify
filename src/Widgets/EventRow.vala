@@ -283,7 +283,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         
         var icon = new Gtk.Image.from_icon_name (icon_name) {
             pixel_size = 12,
-            valign = Gtk.Align.START
+            valign = Gtk.Align.CENTER
         };
         icon.add_css_class ("dimmed");
         
