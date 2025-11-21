@@ -44,10 +44,33 @@ glib-compile-schemas "$APPDIR/Contents/Resources/glib-2.0/schemas"
 
 # Bundle Planify libs (not fully self-contained; still uses Homebrew GTK stack)
 cp "$DESTDIR/opt/homebrew/lib/libplanify.0.dylib" "$APPDIR/Contents/MacOS/"
-cp "$DESTDIR/opt/homebrew/lib/libgxml-0.20.2.0.2.dylib" "$APPDIR/Contents/MacOS/"
+if [ -f "/opt/homebrew/lib/libgxml-0.20.2.0.2.dylib" ]; then
+  cp "/opt/homebrew/lib/libgxml-0.20.2.0.2.dylib" "$APPDIR/Contents/MacOS/"
+  install_name_tool -change /opt/homebrew/lib/libgxml-0.20.2.0.2.dylib @executable_path/libgxml-0.20.2.0.2.dylib "$APPDIR/Contents/MacOS/libplanify.0.dylib"
+fi
 install_name_tool -change /opt/homebrew/lib/libplanify.0.dylib @executable_path/libplanify.0.dylib "$APPDIR/Contents/MacOS/planify-bin"
 install_name_tool -id @executable_path/libplanify.0.dylib "$APPDIR/Contents/MacOS/libplanify.0.dylib"
-install_name_tool -change /opt/homebrew/lib/libgxml-0.20.2.0.2.dylib @executable_path/libgxml-0.20.2.0.2.dylib "$APPDIR/Contents/MacOS/libplanify.0.dylib"
+
+# Copy and convert app icon to .icns
+ICON_PNG="$ROOT/data/icons/io.github.alainm23.planify.png"
+if [ -f "$ICON_PNG" ]; then
+  echo "Converting PNG icon to .icns..."
+  mkdir -p /tmp/planify.iconset
+  sips -z 16 16     "$ICON_PNG" --out /tmp/planify.iconset/icon_16x16.png 2>/dev/null
+  sips -z 32 32     "$ICON_PNG" --out /tmp/planify.iconset/icon_16x16@2x.png 2>/dev/null
+  sips -z 32 32     "$ICON_PNG" --out /tmp/planify.iconset/icon_32x32.png 2>/dev/null
+  sips -z 64 64     "$ICON_PNG" --out /tmp/planify.iconset/icon_32x32@2x.png 2>/dev/null
+  sips -z 128 128   "$ICON_PNG" --out /tmp/planify.iconset/icon_128x128.png 2>/dev/null
+  sips -z 256 256   "$ICON_PNG" --out /tmp/planify.iconset/icon_128x128@2x.png 2>/dev/null
+  sips -z 256 256   "$ICON_PNG" --out /tmp/planify.iconset/icon_256x256.png 2>/dev/null
+  sips -z 512 512   "$ICON_PNG" --out /tmp/planify.iconset/icon_256x256@2x.png 2>/dev/null
+  sips -z 512 512   "$ICON_PNG" --out /tmp/planify.iconset/icon_512x512.png 2>/dev/null
+  iconutil -c icns /tmp/planify.iconset -o "$APPDIR/Contents/Resources/planify.icns" 2>/dev/null
+  rm -rf /tmp/planify.iconset
+  echo "App icon created: planify.icns"
+else
+  echo "Warning: Icon not found at $ICON_PNG"
+fi
 
 # Info.plist with version from the build config
 VERSION="$(grep -E 'public const string VERSION' "$BUILD/config.vala" | sed 's/.*\"\\(.*\\)\";/\\1/')" || VERSION="0.0.0"
@@ -60,6 +83,7 @@ cat > "$APPDIR/Contents/Info.plist" <<PLIST
   <key>CFBundleName</key><string>Planify</string>
   <key>CFBundleVersion</key><string>${VERSION}</string>
   <key>CFBundleShortVersionString</key><string>${VERSION}</string>
+  <key>CFBundleIconFile</key><string>planify.icns</string>
   <key>LSMinimumSystemVersion</key><string>11.0</string>
   <key>NSHighResolutionCapable</key><true/>
 </dict></plist>

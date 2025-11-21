@@ -269,16 +269,13 @@ public class Services.Store : GLib.Object {
      *  Projects
      */
 
-    public void insert_project (Objects.Project project) {
-        if (Services.Database.get_default ().insert_project (project)) {
-            projects.add (project);
-
+    public void insert_project (Objects.Project project) {        if (Services.Database.get_default ().insert_project (project)) {            projects.add (project);
             if (project.parent == null) {
                 project_added (project);
             } else {
                 project.parent.subproject_added (project);
             }
-        }
+        } else {        }
     }
 
     public Gee.ArrayList<Objects.Project> get_projects_by_source (string source_id) {

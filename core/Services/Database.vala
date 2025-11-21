@@ -183,6 +183,7 @@ public class Services.Database : GLib.Object {
         var db_dir = get_db_dir ();
         DirUtils.create_with_parents (db_dir, 0755);
         db_path = Path.build_filename (db_dir, "database.db");
+
         Sqlite.Database.open (db_path, out db);
 
         create_tables ();
@@ -642,7 +643,7 @@ public class Services.Database : GLib.Object {
     }
 
     public void clear_database () {
-        string db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
+        string db_path = Path.build_filename (get_db_dir (), "database.db");
         File db_file = File.new_for_path (db_path);
 
         if (db_file.query_exists ()) {
@@ -787,11 +788,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$last_sync", source.last_sync);
         set_parameter_str (stmt, "$data", source.data.to_json ());
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool delete_source (Objects.Source source) {
@@ -804,11 +807,13 @@ public class Services.Database : GLib.Object {
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$id", source.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool update_source (Objects.Source source) {
@@ -838,11 +843,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$data", source.data.to_json ());
         set_parameter_str (stmt, "$id", source.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     /*
@@ -938,11 +945,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$calendar_url", project.calendar_url);
         set_parameter_str (stmt, "$sorted_by", project.sorted_by.to_string ());
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool delete_project (Objects.Project project) {
@@ -955,11 +964,13 @@ public class Services.Database : GLib.Object {
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$id", project.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public void delete_project_db (Objects.Project project) {
@@ -1041,11 +1052,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$sorted_by", project.sorted_by.to_string ());
         set_parameter_str (stmt, "$id", project.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool archive_project (Objects.Project project) {
@@ -1059,11 +1072,13 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$is_archived", project.is_archived);
         set_parameter_str (stmt, "$id", project.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     /*
@@ -1120,11 +1135,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$backend_type", label.backend_type.to_string ());
         set_parameter_str (stmt, "$source_id", label.source_id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool delete_label (Objects.Label label) {
@@ -1137,11 +1154,13 @@ public class Services.Database : GLib.Object {
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$id", label.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool update_label (Objects.Label label) {
@@ -1161,11 +1180,13 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$is_favorite", label.is_favorite);
         set_parameter_str (stmt, "$id", label.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     /*
@@ -1196,11 +1217,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$description", section.description);
         set_parameter_bool (stmt, "$hidded", section.hidded);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public Gee.ArrayList<Objects.Section> get_sections_collection () {
@@ -1245,11 +1268,13 @@ public class Services.Database : GLib.Object {
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$id", section.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool update_section (Objects.Section section) {
@@ -1277,11 +1302,13 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$hidded", section.hidded);
         set_parameter_str (stmt, "$id", section.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool move_section (Objects.Section section, string old_project_id) {
@@ -1295,11 +1322,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$project_id", section.project_id);
         set_parameter_str (stmt, "$id", section.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool move_section_items (Objects.Section section) {
@@ -1313,12 +1342,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$project_id", section.project_id);
         set_parameter_str (stmt, "$section_id", section.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool archive_section (Objects.Section section) {
@@ -1332,12 +1362,13 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$is_archived", section.is_archived);
         set_parameter_str (stmt, "$id", section.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     /*
@@ -1378,11 +1409,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$extra_data", item.extra_data);
         set_parameter_str (stmt, "$item_type", item.item_type.to_string ());
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public Gee.ArrayList<Objects.Item> get_items_collection () {
@@ -1453,12 +1486,13 @@ public class Services.Database : GLib.Object {
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$id", item.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool update_item (Objects.Item item, string update_id = "") {
@@ -1497,12 +1531,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$item_type", item.item_type.to_string ());
         set_parameter_str (stmt, "$id", item.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool move_item (Objects.Item item) {
@@ -1525,12 +1560,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$extra_data", item.extra_data);
         set_parameter_str (stmt, "$id", item.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool complete_item (Objects.Item item, bool old_checked) {
@@ -1546,12 +1582,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$completed_at", item.completed_at);
         set_parameter_str (stmt, "$id", item.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public void update_child_order (Objects.BaseObject base_object) {
@@ -1597,12 +1634,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$due", reminder.due.to_string ());
         set_parameter_int (stmt, "$mm_offset", reminder.mm_offset);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public Gee.ArrayList<Objects.Reminder> get_reminders_collection () {
@@ -1660,12 +1698,13 @@ public class Services.Database : GLib.Object {
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$id", reminder.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     // Atrachments
@@ -1686,12 +1725,13 @@ public class Services.Database : GLib.Object {
         set_parameter_int64 (stmt, "$file_size", attachment.file_size);
         set_parameter_str (stmt, "$file_path", attachment.file_path);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public Gee.ArrayList<Objects.Attachment> get_attachments_collection () {
@@ -1732,12 +1772,13 @@ public class Services.Database : GLib.Object {
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$id", attachment.id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     /*
@@ -1859,12 +1900,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$new_id", new_id);
         set_parameter_str (stmt, "$current_id", current_id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool update_project_section_id (string current_id, string new_id) {
@@ -1878,12 +1920,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$new_id", new_id);
         set_parameter_str (stmt, "$current_id", current_id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool update_project_item_id (string current_id, string new_id) {
@@ -1897,12 +1940,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$new_id", new_id);
         set_parameter_str (stmt, "$current_id", current_id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool update_section_id (string current_id, string new_id) {
@@ -1916,12 +1960,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$new_id", new_id);
         set_parameter_str (stmt, "$current_id", current_id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool update_section_item_id (string current_id, string new_id) {
@@ -1935,12 +1980,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$new_id", new_id);
         set_parameter_str (stmt, "$current_id", current_id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool update_item_id (string current_id, string new_id) {
@@ -1954,12 +2000,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$new_id", new_id);
         set_parameter_str (stmt, "$current_id", current_id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public bool update_item_child_id (string current_id, string new_id) {
@@ -1973,12 +2020,13 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$new_id", new_id);
         set_parameter_str (stmt, "$current_id", current_id);
 
-        if (stmt.step () != Sqlite.DONE) {
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
 
-
-        return stmt.step () == Sqlite.DONE;
+        return true;
     }
 
     public void remove_CurTempIds (string id) {     // vala-lint=naming-convention

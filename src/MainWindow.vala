@@ -169,23 +169,16 @@ public class MainWindow : Adw.ApplicationWindow {
 
             view_stack.visible_child = overlay_split_view;
 
-            if (Services.Store.instance ().is_sources_empty ()) {
-                Util.get_default ().create_local_source ();
-            }
+            if (Services.Store.instance ().is_sources_empty ()) {                var local_source = Util.get_default ().create_local_source ();            }
 
-            if (Services.Store.instance ().is_database_empty ()) {
-                Util.get_default ().create_inbox_project ();
-                Util.get_default ().create_tutorial_project ();
+            if (Services.Store.instance ().is_database_empty ()) {                var inbox = Util.get_default ().create_inbox_project ();                Util.get_default ().create_tutorial_project ();
                 Util.get_default ().create_default_labels ();
-            }
+            } else {            }
 
             sidebar.init ();
 
             Services.Notification.get_default ();
-            Services.TimeMonitor.get_default ().init_timeout ();
-
-            go_homepage ();
-
+            Services.TimeMonitor.get_default ().init_timeout ();            go_homepage ();
             Services.Store.instance ().project_deleted.connect (valid_view_removed);
             Services.Store.instance ().project_archived.connect (valid_view_removed);
 
@@ -471,11 +464,14 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     private void add_inbox_view () {
-        var inbox_project = Services.Store.instance ().get_project (Services.Settings.get_default ().settings.get_string ("local-inbox-project-id"));
+        string inbox_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");        
+        var inbox_project = Services.Store.instance ().get_project (inbox_id);
         
-        if (inbox_project != null) {
-            add_project_view (inbox_project);
+        if (inbox_project != null) {            add_project_view (inbox_project);
             previous_inbox_project_id = inbox_project.id;
+        } else {            foreach (var p in Services.Store.instance ().projects) {
+                print ("  - Project: '%s' (id: %s)\n", p.name, p.id);
+            }
         }
     }
 
@@ -510,17 +506,13 @@ public class MainWindow : Adw.ApplicationWindow {
         }
     }
 
-    public Views.Project add_project_view (Objects.Project project) {
+    public Views.Project add_project_view (Objects.Project project) {        
         Views.Project ? project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
-        if (project_view == null) {
-            project_view = new Views.Project (project);
+        if (project_view == null) {            project_view = new Views.Project (project);
             views_stack.add_named (project_view, project.view_id);
             add_view_to_cache (project.view_id, project_view);
-        } else {
-            update_view_access (project.view_id);
-        }
-
-        views_stack.set_visible_child_name (project.view_id);
+        } else {            update_view_access (project.view_id);
+        }        views_stack.set_visible_child_name (project.view_id);
         return project_view;
     }
 
@@ -605,14 +597,10 @@ public class MainWindow : Adw.ApplicationWindow {
 
     public void go_homepage () {
         string home_page_id = Services.Settings.get_default ().get_string ("home-view");
-
         if (home_page_id.has_prefix ("project-")) {
-            var project_id = home_page_id.substring (8);
-            if (project_id != null && project_id.length > 0) {
-                Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project_id);
+            var project_id = home_page_id.substring (8);            if (project_id != null && project_id.length > 0) {                Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project_id);
             }
-        } else {
-            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, home_page_id);
+        } else {            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, home_page_id);
         }
     }
 
