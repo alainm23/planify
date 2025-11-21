@@ -2559,6 +2559,7 @@ msgid "Show Sub-tasks"
 msgstr "Показать подзадачи"
 
 #: src/Layouts/ItemRow.vala:1274 src/Layouts/ItemSidebarView.vala:452
+#: src/Layouts/ItemRow.vala:1292
 msgid "Use as a Note"
 msgstr "Использовать как Заметку"
 
