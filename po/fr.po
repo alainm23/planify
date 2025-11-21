@@ -957,8 +957,8 @@ msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
 msgstr ""
-"Le bouton bleu que vous voyez en bas de chaque vue est plus puissant qu’il n’"
-"y paraît : il est fait pour bouger ! Faites-le glisser vers le haut pour "
+"Le bouton bleu que vous voyez en bas de chaque vue est plus puissant qu’il "
+"n’y paraît : il est fait pour bouger ! Faites-le glisser vers le haut pour "
 "créer une tâche là où vous le souhaitez."
 
 #: core/Utils/Util.vala:685
@@ -1642,7 +1642,8 @@ msgstr "Vous ne pouvez pas cacher ce compte"
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
-msgstr "Ce compte contient votre projet principal. Veuillez d'abord le changer."
+msgstr ""
+"Ce compte contient votre projet principal. Veuillez d'abord le changer."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
 msgid "Change Inbox"
@@ -1965,7 +1966,8 @@ msgstr "Exécuter en arrière-plan"
 
 #: src/Dialogs/Preferences/Pages/General.vala:69
 msgid "Let Planify run in background and send notifications"
-msgstr "Laisser Planify s’exécuter en arrière-plan et envoyer des notifications"
+msgstr ""
+"Laisser Planify s’exécuter en arrière-plan et envoyer des notifications"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
@@ -2288,8 +2290,8 @@ msgid ""
 "supporting us."
 msgstr ""
 "Planify est développé avec amour et passion pour l’open source. Cependant, "
-"si vous aimez Planify et que vous souhaitez aider son développement, n’"
-"hésitez pas à nous soutenir."
+"si vous aimez Planify et que vous souhaitez aider son développement, "
+"n’hésitez pas à nous soutenir."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Sync your favorite to-do providers"
@@ -2329,7 +2331,8 @@ msgstr "Créer un projet tutoriel"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:199
 msgid "Learn the app step by step with a short tutorial project"
-msgstr "Faites le tour pas à pas de l’application avec un court projet tutoriel"
+msgstr ""
+"Faites le tour pas à pas de l’application avec un court projet tutoriel"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:218
 msgid "Want to buy me a drink?"
@@ -2442,8 +2445,8 @@ msgid ""
 "If you have any questions about your data or any other issue, please contact "
 "us. We will be happy to answer you."
 msgstr ""
-"Si vous avez des questions concernant vos données ou tout autre sujet, n’"
-"hésitez pas à nous contacter. Nous nous ferons un plaisir de vous répondre."
+"Si vous avez des questions concernant vos données ou tout autre sujet, "
+"n’hésitez pas à nous contacter. Nous nous ferons un plaisir de vous répondre."
 
 #: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -2683,8 +2686,8 @@ msgstr "Favoris"
 #: src/Layouts/Sidebar.vala:42
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr ""
-"Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton « + "
-"»"
+"Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton "
+"« + »"
 
 #: src/Layouts/Sidebar.vala:122
 #, fuzzy
@@ -2857,8 +2860,8 @@ msgstr "%d tâches accomplies et leurs sous-tâches seront supprimées"
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
 msgstr ""
-"Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton « + "
-"»"
+"Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton "
+"« + »"
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
