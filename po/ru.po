@@ -3,10 +3,10 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-14 10:44+0000\n"
-"Last-Translator: Umar <umory866b@relay.firefox.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
-"io-github-alainm23-planify/ru/>\n"
+"PO-Revision-Date: 2025-11-19 10:32+0000\n"
+"Last-Translator: Fraxinus Acer <yasson2008@ya.ru>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/planner/io-"
+"github-alainm23-planify/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,8 +28,9 @@ msgid "Tasks"
 msgstr "Задачи"
 
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
-#: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
-#: src/Dialogs/Preferences/Pages/Backup.vala:370 src/Layouts/ItemBoard.vala:723
+#: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:36
+#: src/Dialogs/Preferences/Pages/Backup.vala:370
+#: src/Dialogs/LabelPicker.vala:46 src/Layouts/ItemBoard.vala:723
 #: src/Layouts/ItemRow.vala:1170
 msgid "Labels"
 msgstr "Метки"
@@ -151,9 +152,9 @@ msgstr "Задача обновлена"
 msgid "Content"
 msgstr "Содержимое"
 
-#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
+#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1873
 #: src/Layouts/ItemSidebarView.vala:183
-#: src/Widgets/ItemDetailCompleted.vala:113
+#: src/Widgets/ItemDetailCompleted.vala:113 src/Layouts/ItemRow.vala:1869
 msgid "Description"
 msgstr "Описание"
 
@@ -518,7 +519,7 @@ msgstr "Открыть настройки напоминания"
 
 #: core/QuickAddCore.vala:1305
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Переключатель остаётся открытым после создания задачи"
 
 #: core/QuickAddCore.vala:1311
 msgid "Tip"
@@ -557,7 +558,7 @@ msgstr "Синхронизация %s…"
 
 #: core/Services/CalDAV/Core.vala:253
 msgid "Sync completed"
-msgstr "Синхоризация завершена"
+msgstr "Синхронизация завершена"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -836,7 +837,7 @@ msgstr "Нажмите на эту задачу"
 #: core/Utils/Util.vala:602
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-msgstr "Вы смотрите на задание! Выполните её, нажав на флажок слева. "
+msgstr "Вы смотрите на задание! Выполните его, нажав на флажок слева. "
 
 #: core/Utils/Util.vala:607
 msgid "Create a new task"
@@ -1246,7 +1247,7 @@ msgstr "Повторять каждые"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:278
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:76
 msgid "End"
-msgstr "Завершить"
+msgstr "В конце"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
@@ -1271,6 +1272,7 @@ msgstr "Добавить время"
 msgid "Select Labels"
 msgstr "Выбрать метки"
 
+#: core/Widgets/LabelPicker/LabelQuickPicker.vala:190
 #: core/Widgets/LabelPicker/LabelQuickPicker.vala:191
 #, c-format
 msgid "Label not found: Create '%s'"
@@ -1419,8 +1421,9 @@ msgid "To Do"
 msgstr "Задание"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:726 src/Layouts/ItemRow.vala:1173
-#: src/Services/Notification.vala:98
+#: src/Layouts/ItemBoard.vala:724 src/Layouts/ItemRow.vala:1172
+#: src/Services/Notification.vala:98 src/Layouts/ItemBoard.vala:726
+#: src/Layouts/ItemRow.vala:1173
 msgid "Complete"
 msgstr "Выполнить"
 
@@ -1447,7 +1450,7 @@ msgstr "Выполненных задач ещё нет."
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
 #: src/Views/Filter.vala:593
 msgid "Delete All Completed Tasks"
-msgstr "Зачёркивать выполненные задачи"
+msgstr "Удалять все выполненные задачи"
 
 # # c-format
 #: src/Dialogs/CompletedTasks.vala:165
@@ -1501,8 +1504,8 @@ msgstr "Введите данные Вашей учётной записи"
 msgid "Network Is Not Available"
 msgstr "Сеть недоступна"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1302
-#: src/Layouts/ItemSidebarView.vala:461
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1284
+#: src/Layouts/ItemSidebarView.vala:461 src/Layouts/ItemRow.vala:1302
 msgid "Change History"
 msgstr "Изменить журнал"
 
@@ -1557,7 +1560,7 @@ msgstr "Добавить метку"
 msgid "Update Label"
 msgstr "Обновить метку"
 
-#: src/Dialogs/LabelPicker.vala:62
+#: src/Dialogs/LabelPicker.vala:52 src/Dialogs/LabelPicker.vala:62
 msgid "Filter"
 msgstr "Фильтр"
 
@@ -2009,7 +2012,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
 msgid "Home View"
-msgstr "Обзор домашней страницы"
+msgstr "Вид домашней страницы"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:180
@@ -2117,11 +2120,11 @@ msgstr "Настройки задач"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:38
 msgid "Complete Instantly"
-msgstr "Завершить мгновенно"
+msgstr "Завершать мгновенно"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:39
 msgid "Complete with Undo"
-msgstr "Завершено с отменой"
+msgstr "Завершать с возвратом"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:42
 msgid "Task Completion"
@@ -2153,7 +2156,7 @@ msgstr "Выполненные задачи вычёркивать"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:75
 msgid "Start"
-msgstr "Начать"
+msgstr "В начале"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:79
 msgid "New Task Position"
@@ -2342,7 +2345,7 @@ msgstr "Обсуждайте и делитесь своим мнением"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:318
 msgid "Mastodon"
-msgstr "соцсеть Mastodon"
+msgstr "Соцсеть Mastodon"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:337
 msgid "Privacy"
@@ -2437,8 +2440,9 @@ msgid "Project added successfully!"
 msgstr "Проект успешно добавлен!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1169
-#: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemSidebarView.vala:456
+#: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1169
+#: src/Layouts/ItemRow.vala:1279 src/Layouts/ItemSidebarView.vala:456
+#: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1297
 msgid "Move"
 msgstr "Переместить"
 
@@ -2489,42 +2493,51 @@ msgid "Unpin"
 msgstr "Открепить"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:594 src/Layouts/ItemRow.vala:1498
-#: src/Layouts/ItemSidebarView.vala:622
+#: src/Layouts/ItemBoard.vala:594 src/Layouts/ItemRow.vala:1480
+#: src/Layouts/ItemSidebarView.vala:622 src/Layouts/ItemRow.vala:1498
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Выполнено. Следующий раз: %s"
 
+#: src/Layouts/ItemBoard.vala:723 src/Layouts/ItemRow.vala:1171
 #: src/Layouts/ItemBoard.vala:725 src/Layouts/ItemRow.vala:1172
 msgid "Add Subtask"
 msgstr "Добавить подзадачу"
 
+#: src/Layouts/ItemBoard.vala:725 src/Layouts/ItemRow.vala:1173
 #: src/Layouts/ItemBoard.vala:727 src/Layouts/ItemRow.vala:1174
 msgid "Edit"
 msgstr "Изменить"
 
-#: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1175
-#: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:455
+#: src/Layouts/ItemBoard.vala:726 src/Layouts/ItemRow.vala:1174
+#: src/Layouts/ItemRow.vala:1278 src/Layouts/ItemSidebarView.vala:455
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
+#: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1175
+#: src/Layouts/ItemRow.vala:1296
 msgid "Duplicate"
 msgstr "Дублировать"
 
+#: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1176
+#: src/Layouts/ItemRow.vala:1281 src/Layouts/ItemSidebarView.vala:458
 #: src/Layouts/ItemBoard.vala:730 src/Layouts/ItemRow.vala:1177
-#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemSidebarView.vala:458
+#: src/Layouts/ItemRow.vala:1299
 msgid "Delete Task"
 msgstr "Удалить задачу"
 
+#: src/Layouts/ItemBoard.vala:1011 src/Layouts/ItemRow.vala:1743
 #: src/Layouts/ItemBoard.vala:1030 src/Layouts/ItemRow.vala:1739
 msgid "Order changed to 'Custom sort order'"
 msgstr "Сортировка изменена на сортировку «Вручную»"
 
 # # c-format
+#: src/Layouts/ItemBoard.vala:1097 src/Layouts/ItemRow.vala:1526
 #: src/Layouts/ItemBoard.vala:1116 src/Layouts/ItemRow.vala:1522
 #, c-format
 msgid "%s was deleted"
 msgstr "%s удалено"
 
+#: src/Layouts/ItemBoard.vala:1098 src/Layouts/ItemRow.vala:1527
 #: src/Layouts/ItemBoard.vala:1117 src/Layouts/ItemRow.vala:1523
 msgid "Undo"
 msgstr "Отменить"
@@ -2545,12 +2558,12 @@ msgstr "Скрыть подзадачи"
 msgid "Show Sub-tasks"
 msgstr "Показать подзадачи"
 
-#: src/Layouts/ItemRow.vala:1292 src/Layouts/ItemSidebarView.vala:452
-#, fuzzy
+#: src/Layouts/ItemRow.vala:1274 src/Layouts/ItemSidebarView.vala:452
 msgid "Use as a Note"
-msgstr "Сделать заметкой"
+msgstr "Использовать как Заметку"
 
-#: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemSidebarView.vala:454
+#: src/Layouts/ItemRow.vala:1277 src/Layouts/ItemSidebarView.vala:454
+#: src/Layouts/ItemRow.vala:1295
 msgid "Copy to Clipboard"
 msgstr "Скопировать в буфер обмена"
 

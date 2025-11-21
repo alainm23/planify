@@ -2241,8 +2241,7 @@ msgstr "Markdown-formattering inschakelen"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:121
 msgid "Toggle Markdown support for tasks on or off"
-msgstr ""
-"Of Markdown-ondersteuning in taken in- of uitgeschakeld dient te worden"
+msgstr "Of Markdown-ondersteuning in taken in- of uitgeschakeld dient te worden"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:128
 msgid "Always Show Details Sidebar"
