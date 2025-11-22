@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-14 10:56+0000\n"
+"PO-Revision-Date: 2025-11-21 09:36+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/hr/>\n"
@@ -425,7 +425,7 @@ msgstr "Dodaj opis …"
 
 #: core/QuickAddCore.vala:244
 msgid "Set date"
-msgstr ""
+msgstr "Postavi datum"
 
 #: core/QuickAddCore.vala:248 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
@@ -509,7 +509,7 @@ msgstr "Otvara opcije podsjetnika"
 
 #: core/QuickAddCore.vala:1305
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Uključi/Isključi ostavljanje otvorenim nakon stvaranja zadatka"
 
 #: core/QuickAddCore.vala:1311
 msgid "Tip"
@@ -1092,7 +1092,7 @@ msgstr "Su"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:132
 msgid "Type a date…"
-msgstr ""
+msgstr "Upiši datum …"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:153
 msgid "Choose a date"
@@ -1236,11 +1236,11 @@ msgstr "Kraj"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
-msgstr ""
+msgstr "Ukloni datum"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
@@ -1978,11 +1978,11 @@ msgstr "Početak tjedna"
 
 #: src/Dialogs/Preferences/Pages/General.vala:138
 msgid "Smart Date Recognition"
-msgstr ""
+msgstr "Pametno prepoznavanje datuma"
 
 #: src/Dialogs/Preferences/Pages/General.vala:139
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr ""
+msgstr "Automatsko otkrivanje datuma poput „sutra” ili „sljedeći tjedan”"
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
