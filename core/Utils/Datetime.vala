@@ -75,7 +75,7 @@ public class Utils.Datetime {
         }
 
         if (has_time (datetime)) {
-            returned = "%s %s".printf (returned, datetime.format (get_default_time_format ()));
+            returned = "%s, %s".printf (returned, datetime.format (get_default_time_format ()));
         }
 
         return returned;

@@ -60,6 +60,26 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.16.0" date="2025-11-21">
+      <description translate="no">
+        <p>✨ Planify 4.16.0 introduces natural language date parsing, improved backend consistency, better keyboard control, and several quality-of-life UI fixes.</p>
+        <ul>
+          <li>Fixed tasks disappearing from the Today view when moving them to another project.</li>
+          <li>Resolved subtask duplication when moving tasks between different backends (e.g., LOCAL ↔ Todoist), ensuring subtasks are added only to their parent instead of both parent and project.</li>
+          <li>Reduced redundant toast notifications — now shows only one toast per move operation.</li>
+          <li>Fixed issue where Ctrl key events (Ctrl+C, Ctrl+V, Ctrl+A) unintentionally toggled the 'Keep adding' option.</li>
+          <li>Added new keyboard shortcut: 'Ctrl+K' to toggle the 'Keep adding' mode, and updated the keyboard shortcuts popover accordingly.</li>
+          <li>Added a new natural language date processor with support for ISO 8601 dates, slash/dot formats, time parsing, month names, and casual expressions like 'today', 'tomorrow', and 'now'.</li>
+          <li>Introduced full Spanish language support in the date parser, including expressions like 'hoy', 'mañana', 'próxima semana', 'mes pasado', and Spanish month names with or without accents.</li>
+          <li>Added 'Labels' item to the task’s context menu for quick label management.</li>
+          <li>Added event details popover with direct integration for Google Meet and Microsoft Teams meetings.</li>
+          <li>Fixed Quick Add window maximizing unintentionally on double-click, improving overall task creation UX.</li>
+          <li>General improvements to performance, design consistency, and overall stability.</li>
+        </ul>
+      </description>
+    </release>
+
+
     <release version="4.15.2" date="2025-11-07">
       <description translate="no">
         <p>✨ Planify 4.15.2 brings improved keyboard flows, smarter Quick Add, spell-check options, and a smoother backup experience.</p>
