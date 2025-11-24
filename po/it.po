@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-20 10:19+0000\n"
-"Last-Translator: An Maf <weblate.unfounded955@passmail.net>\n"
+"PO-Revision-Date: 2025-11-23 13:51+0000\n"
+"Last-Translator: Paolo Asperti <paolo@asperti.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/it/>\n"
 "Language: it\n"
@@ -1205,7 +1205,7 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:199
 msgid "Never"
-msgstr ""
+msgstr "Mai"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:203
 msgid "On Date"
@@ -1285,7 +1285,7 @@ msgstr ""
 #: core/Widgets/MarkdownEditor.vala:1360 src/Layouts/ItemBoard.vala:784
 #: src/Layouts/ItemRow.vala:1238
 msgid "Apply"
-msgstr ""
+msgstr "Applica"
 
 #: core/Widgets/MarkdownEditor.vala:1365
 msgid "Remove link"
