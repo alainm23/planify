@@ -378,13 +378,22 @@ public class Layouts.QuickAddCore : Adw.Bin {
         animation_container = new Gtk.Fixed () {
             can_target = false
         };
-        animation_overlay = new Gtk.Overlay ();
 
-        var window = new Gtk.WindowHandle ();
+        animation_overlay = new Gtk.Overlay ();
         animation_overlay.set_child (main_stack);
         animation_overlay.add_overlay (animation_container);
-        window.set_child (animation_overlay);
-        
+
+        Gtk.Widget container;
+        if (is_window_quick_add) {
+            container = new Gtk.WindowHandle () {
+                child = animation_overlay
+            };
+        } else {
+            container = new Adw.Bin () {
+                child = animation_overlay
+            };
+        }
+                
         var click_gesture = new Gtk.GestureClick ();
         click_gesture.pressed.connect ((n_press, x, y) => {
             if (labels_quick_picker != null && labels_quick_picker.visible) {
@@ -392,7 +401,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
                 content_entry.get_allocation (out entry_allocation);
                 
                 double entry_x, entry_y;
-                if (window.translate_coordinates (content_entry, x, y, out entry_x, out entry_y)) {
+                if (container.translate_coordinates (content_entry, x, y, out entry_x, out entry_y)) {
                     if (entry_x < 0 || entry_x > entry_allocation.width || 
                         entry_y < 0 || entry_y > entry_allocation.height) {
                         labels_quick_picker.popdown ();
@@ -400,9 +409,9 @@ public class Layouts.QuickAddCore : Adw.Bin {
                 }
             }
         });
-        window.add_controller (click_gesture);
+        container.add_controller (click_gesture);
 
-        child = window;
+        child = container;
 
         Timeout.add (main_stack.transition_duration, () => {
             if (Services.Store.instance ().is_database_empty ()) {
