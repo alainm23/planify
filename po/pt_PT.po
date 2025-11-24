@@ -273,8 +273,8 @@ msgid "scheduled"
 msgstr "agendadas"
 
 #: core/Objects/Filters/Scheduled.vala:49
-msgid "upcomings"
-msgstr "próximas"
+msgid "upcoming"
+msgstr ""
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Util.vala:265
@@ -1605,8 +1605,8 @@ msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
-"Esta conta contém o seu projeto atual do Início. Altere primeiro o "
-"seu projeto no Início, por favor."
+"Esta conta contém o seu projeto atual do Início. Altere primeiro o seu "
+"projeto no Início, por favor."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
 msgid "Change Inbox"
@@ -1653,10 +1653,10 @@ msgid ""
 "Getting Things Done methodology, it's your capture point for quick ideas and "
 "tasks that you'll organize later"
 msgstr ""
-"Por predefinição, o Início é o local onde irá conter as "
-"tarefas criadas. Baseado na metodologia 'Getting Things Done' (fazer o que "
-"tem que ser feito) por David Allen, este local serve como o foco central "
-"para as suas ideias rápidas e tarefas que poderá querer organizar mais tarde"
+"Por predefinição, o Início é o local onde irá conter as tarefas criadas. "
+"Baseado na metodologia 'Getting Things Done' (fazer o que tem que ser feito) "
+"por David Allen, este local serve como o foco central para as suas ideias "
+"rápidas e tarefas que poderá querer organizar mais tarde"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "Server URL examples:"
@@ -2041,8 +2041,8 @@ msgstr "Guardar o último projeto selecionado"
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
 msgstr ""
-"Se estive desativado, o projeto a ser selecionado por estará predefinição "
-"em Início"
+"Se estive desativado, o projeto a ser selecionado por estará predefinição em "
+"Início"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:127
 msgid "The command was copied to the clipboard"
@@ -3291,6 +3291,9 @@ msgstr "Abrir 'Etiquetas'"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Abrir 'Afixados'"
+
+#~ msgid "upcomings"
+#~ msgstr "próximas"
 
 #~ msgid "Clear Schedule"
 #~ msgstr "Limpar agenda"
