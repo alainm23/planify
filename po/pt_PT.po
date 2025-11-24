@@ -153,7 +153,7 @@ msgstr "Descrição"
 
 #: core/Enum.vala:528 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr "Agendado"
+msgstr "Agendadas"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:704 src/Layouts/ItemBoard.vala:717
@@ -163,11 +163,11 @@ msgstr "Afixar"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr "Todas as tarefas"
+msgstr "Tarefas todas"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
-msgstr "todas as tarefas"
+msgstr "Tarefas todas"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all"
@@ -175,11 +175,11 @@ msgstr "todas"
 
 #: core/Objects/Filters/Anytime.vala:33
 msgid "Anytime"
-msgstr "A qualquer altura"
+msgstr "Data qualquer"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "anytime"
-msgstr "a qualquer altura"
+msgstr "Data qualquer"
 
 #: core/Objects/Filters/Anytime.vala:34 core/Objects/Filters/Completed.vala:34
 #: core/Objects/Filters/Inbox.vala:36 core/Objects/Filters/Labels.vala:34
@@ -196,11 +196,11 @@ msgstr "sem data"
 
 #: core/Objects/Filters/Completed.vala:33
 msgid "Completed"
-msgstr "Terminada"
+msgstr "Terminadas"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "completed"
-msgstr "terminada"
+msgstr "terminadas"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "logbook"
@@ -214,11 +214,11 @@ msgstr "diário"
 #: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr "Caixa de entrada"
+msgstr "Início"
 
 #: core/Objects/Filters/Inbox.vala:36
 msgid "inbox"
-msgstr "caixa de entrada"
+msgstr "início"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
@@ -262,19 +262,19 @@ msgstr "nenhuma"
 
 #: core/Objects/Filters/Repeating.vala:33
 msgid "Repeating"
-msgstr "Repetindo"
+msgstr "A repetir"
 
 #: core/Objects/Filters/Repeating.vala:34
 msgid "repeating"
-msgstr "repetindo"
+msgstr "A repetir"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr "agendada"
+msgstr "agendadas"
 
 #: core/Objects/Filters/Scheduled.vala:49
-msgid "upcoming"
-msgstr "próxima"
+msgid "upcomings"
+msgstr "próximas"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Util.vala:265
@@ -370,7 +370,7 @@ msgstr "Eliminar"
 
 #: core/Objects/Project.vala:783
 msgid "The project was copied to the Clipboard."
-msgstr "O projeto foi copiado para a Área de Transferência."
+msgstr "O projeto foi copiado para a área de transferência."
 
 #: core/Objects/Project.vala:819
 #, c-format
@@ -447,7 +447,7 @@ msgstr "Adicionar lembretes"
 #: core/QuickAddCore.vala:299 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
-msgstr "Adicionar tarefa"
+msgstr "Nova tarefa"
 
 #: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1305
 msgid "Keep adding"
@@ -511,7 +511,7 @@ msgstr "Ative para manter a tarefa criada aberta"
 
 #: core/QuickAddCore.vala:1311
 msgid "Tip"
-msgstr "Dica"
+msgstr "Sugestão"
 
 #: core/QuickAddCore.vala:1311
 msgid "Combine shortcuts in the title field for faster creation"
@@ -781,7 +781,7 @@ msgstr "Nenhum"
 
 #: core/Utils/Util.vala:268
 msgid "Today + Inbox"
-msgstr "Hoje + Caixa de entrada"
+msgstr "Hoje + Início"
 
 #: core/Utils/Util.vala:440
 msgid "Delete All"
@@ -835,7 +835,7 @@ msgid ""
 "a task description, and tap the 'Add Task' button."
 msgstr ""
 "Agora é a sua vez! Clique no botão '+' no fundo da janela do seu projeto, "
-"adicione uma descrição da tarefa e clique no botão 'Adicionar tarefa'."
+"adicione uma descrição da tarefa e clique no botão 'Nova tarefa'."
 
 #: core/Utils/Util.vala:613
 msgid "Plan this to-do for today or later"
@@ -977,7 +977,7 @@ msgstr "🏡️Casa"
 
 #: core/Utils/Util.vala:728
 msgid "🏃‍♀️️Follow Up"
-msgstr "🏃‍♀️️Seguimento"
+msgstr "🏃‍♀️Dar seguimento"
 
 #: core/Utils/Util.vala:969
 msgid "Task duplicated"
@@ -1583,7 +1583,7 @@ msgstr "Adicionar fonte"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
 msgid "Inbox Page"
-msgstr "Página da caixa de entrada"
+msgstr "Página de Início"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:102
 msgid "You can sort your accounts by dragging and dropping"
@@ -1605,12 +1605,12 @@ msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
-"Esta conta contém o seu projeto atual da caixa de entrada. Altere primeiro o "
-"seu projeto da caixa de entrada, por favor."
+"Esta conta contém o seu projeto atual do Início. Altere primeiro o "
+"seu projeto no Início, por favor."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
 msgid "Change Inbox"
-msgstr "Alterar caixa de entrada"
+msgstr "Alterar Início"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:517
 msgid "Syncing…"
@@ -1645,7 +1645,7 @@ msgstr "Iniciar sessão"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:28
 msgid "Inbox Project"
-msgstr "Projeto da caixa de entrada"
+msgstr "Projeto do 'Início'"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:37
 msgid ""
@@ -1653,7 +1653,7 @@ msgid ""
 "Getting Things Done methodology, it's your capture point for quick ideas and "
 "tasks that you'll organize later"
 msgstr ""
-"Por predefinição, a sua caixa de entrada é o local onde irá conter as "
+"Por predefinição, o Início é o local onde irá conter as "
 "tarefas criadas. Baseado na metodologia 'Getting Things Done' (fazer o que "
 "tem que ser feito) por David Allen, este local serve como o foco central "
 "para as suas ideias rápidas e tarefas que poderá querer organizar mais tarde"
@@ -2041,8 +2041,8 @@ msgstr "Guardar o último projeto selecionado"
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
 msgstr ""
-"Se estive desativado, o projeto a ser selecionado por predefinição é a sua "
-"caixa de entrada"
+"Se estive desativado, o projeto a ser selecionado por estará predefinição "
+"em Início"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:127
 msgid "The command was copied to the clipboard"
@@ -2218,7 +2218,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:136
 msgid "Enable Spell Checking"
-msgstr "Ativar a verificação de ortografia"
+msgstr "Ativar a verificação ortográfica"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:137
 msgid "Check spelling in task descriptions and notes"
@@ -2662,7 +2662,7 @@ msgstr "Ir para 'Hoje'"
 
 #: src/Layouts/Sidebar.vala:316 src/Layouts/Sidebar.vala:368
 msgid "Go to Scheduled"
-msgstr "Ir para 'Agendado'"
+msgstr "Ir para 'Agendadas'"
 
 #: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Labels"
@@ -2886,7 +2886,7 @@ msgstr "Ordem ascendente"
 
 #: src/Views/Project/Project.vala:496
 msgid "Duedate"
-msgstr "Data de expiração"
+msgstr "A terminar"
 
 #: src/Views/Project/Project.vala:499
 msgid "All (default)"
@@ -3270,7 +3270,7 @@ msgstr "Abrir 'Página principal'"
 #: data/resources/ui/shortcuts.ui:101
 msgctxt "shortcut window"
 msgid "Open Inbox"
-msgstr "Abrir 'Caixa de entrada'"
+msgstr "Abrir Início"
 
 #: data/resources/ui/shortcuts.ui:108
 msgctxt "shortcut window"
@@ -3280,7 +3280,7 @@ msgstr "Abrir 'Hoje'"
 #: data/resources/ui/shortcuts.ui:115
 msgctxt "shortcut window"
 msgid "Open Scheduled"
-msgstr "Abrir 'Agendados'"
+msgstr "Abrir 'Agendadas'"
 
 #: data/resources/ui/shortcuts.ui:122
 msgctxt "shortcut window"
