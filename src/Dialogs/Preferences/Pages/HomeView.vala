@@ -186,6 +186,10 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
                 radio_button.active = !radio_button.active;
                 toggled ();
             });
+
+            radio_button.toggled.connect (() => {
+                toggled ();
+            });
         }
     }
 }
