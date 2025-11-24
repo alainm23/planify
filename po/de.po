@@ -350,7 +350,7 @@ msgstr "Dies kann nicht rückgängig gemacht werden"
 #: core/Objects/Project.vala:880 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:439
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:407
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
@@ -397,7 +397,7 @@ msgstr "Dies wird %s und alle seine Aufgaben archivieren."
 
 #: core/Objects/Project.vala:881 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
-#: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
+#: src/Layouts/SectionRow.vala:662 src/Views/Project/Project.vala:345
 msgid "Archive"
 msgstr "Archivieren"
 
@@ -455,7 +455,7 @@ msgid "Add Reminders"
 msgstr "Erinnerungen hinzufügen"
 
 #: core/QuickAddCore.vala:299 src/Layouts/SectionBoard.vala:562
-#: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
+#: src/Layouts/SectionRow.vala:655 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Aufgabe hinzufügen"
 
@@ -1573,7 +1573,7 @@ msgstr "Filter"
 msgid "Archived Projects"
 msgstr "Archivierte Projekte"
 
-#: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:659
+#: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:658
 #: src/Views/Project/Project.vala:338
 msgid "Manage Sections"
 msgstr "Abschnitte verwalten"
@@ -1611,16 +1611,20 @@ msgstr "Du kannst deine Konten per Drag & Drop sortieren"
 
 # Assumed error "Planner" -> "Planify" and "is sync" -> "is syncing"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:228
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:547
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:548
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr ""
 "Planify synchronisiert deine Aufgaben, das kann ein paar Minuten dauern"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
+msgid "SSL verification is disabled"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
 msgid "Cannot Hide This Account"
 msgstr "Dieses Konto kann nicht verborgen werden"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:405
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -1628,11 +1632,11 @@ msgstr ""
 "Dieses Konto enthält Ihr aktuelles Posteingangsprojekt. Bitte ändern Sie Ihr "
 "Posteingangsprojekt zuerst."
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:409
 msgid "Change Inbox"
 msgstr "Posteingang ändern"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:517
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:518
 msgid "Syncing…"
 msgstr "Synchronisieren…"
 
@@ -2480,7 +2484,7 @@ msgid "New Section"
 msgstr "Neuer Abschnitt"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:563
-#: src/Layouts/SectionRow.vala:657
+#: src/Layouts/SectionRow.vala:656
 msgid "Edit Section"
 msgstr "Abschnitt bearbeiten"
 
@@ -2528,7 +2532,7 @@ msgstr "Bearbeiten"
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1175
 #: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:455
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
-#: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
+#: src/Layouts/SectionRow.vala:659 src/Views/Project/Project.vala:334
 msgid "Duplicate"
 msgstr "Duplizieren"
 
@@ -2625,7 +2629,7 @@ msgstr "Teilen"
 msgid "Send by E-Mail"
 msgstr "Per E-Mail senden"
 
-#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:225
+#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 msgid "Add tasks"
 msgstr "Füge Aufgaben hinzu"
 
@@ -2633,12 +2637,12 @@ msgstr "Füge Aufgaben hinzu"
 msgid "Load more"
 msgstr "Mehr laden"
 
-#: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:613
+#: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:612
 #: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
 msgid "completed tasks"
 msgstr "abgeschlossene Aufgaben"
 
-#: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:658
+#: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:657
 msgid "Move Section"
 msgstr "Abschnitt verschieben"
 
@@ -2646,12 +2650,12 @@ msgstr "Abschnitt verschieben"
 msgid "Manage Section Order"
 msgstr "Reihenfolge der Abschnitte verändern"
 
-#: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
+#: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:660
 #: src/Views/Project/Project.vala:540
 msgid "Show Completed Tasks"
 msgstr "Abgeschlossene Aufgaben anzeigen"
 
-#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:664
+#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:663
 #: src/Widgets/SectionItemRow.vala:207
 msgid "Delete Section"
 msgstr "Abschnitt löschen"
