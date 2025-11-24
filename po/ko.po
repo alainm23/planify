@@ -475,7 +475,8 @@ msgstr "프로젝트 삭제"
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
-msgstr "죄송합니다, 빠른 추가 기능으로 가능한 프로젝트를 찾을 수 없습니다. Planify의 "
+msgstr ""
+"죄송합니다, 빠른 추가 기능으로 가능한 프로젝트를 찾을 수 없습니다. Planify의 "
 "기본 프로젝트를 생성해 보세요."
 
 #: core/QuickAddCore.vala:1276 src/MainWindow.vala:707
@@ -832,8 +833,8 @@ msgid ""
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
-"이 프로젝트는 시작하는 데 필요한 모든 것을 보여줍니다. 자유롭게 탐색해 보세요"
-" - 설정에서 언제든지 프로젝트를 만들 수 있습니다."
+"이 프로젝트는 시작하는 데 필요한 모든 것을 보여줍니다. 자유롭게 탐색해 보세"
+"요 - 설정에서 언제든지 프로젝트를 만들 수 있습니다."
 
 #: core/Utils/Util.vala:601
 #, fuzzy
@@ -844,8 +845,9 @@ msgstr "이 할 일을 탭하세요"
 #, fuzzy
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-msgstr "지금 할 일을 보고 있어요! 왼쪽의 체크박스를 탭하여 완료하세요. 완료된 할 일은"
-" 프로젝트 하단에 모입니다."
+msgstr ""
+"지금 할 일을 보고 있어요! 왼쪽의 체크박스를 탭하여 완료하세요. 완료된 할 일"
+"은 프로젝트 하단에 모입니다."
 
 #: core/Utils/Util.vala:607
 #, fuzzy
@@ -857,7 +859,8 @@ msgstr "새 작업 생성"
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
-msgstr "이제 당신 차례입니다. 프로젝트 하단의 '+' 버튼을 탭하고, 대기 중인 작업을 입"
+msgstr ""
+"이제 당신 차례입니다. 프로젝트 하단의 '+' 버튼을 탭하고, 대기 중인 작업을 입"
 "력한 후 파란색 '저장' 버튼을 탭하세요."
 
 #: core/Utils/Util.vala:613
@@ -880,8 +883,9 @@ msgstr "할 일의 순서를 변경하세요"
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
-msgstr "리스트를 재정렬하려면, 할 일을 탭하고 길게 누른 후 원하는 위치로 드래그하세요"
-"."
+msgstr ""
+"리스트를 재정렬하려면, 할 일을 탭하고 길게 누른 후 원하는 위치로 드래그하세"
+"요."
 
 #: core/Utils/Util.vala:625
 msgid "Create a project"
@@ -891,7 +895,8 @@ msgstr "새 프로젝트를 생성하세요"
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
-msgstr "할 일을 더 잘 정리하세요! 왼쪽 패널로 이동하여 '이 컴퓨터' 섹션에서 '+' 버튼"
+msgstr ""
+"할 일을 더 잘 정리하세요! 왼쪽 패널로 이동하여 '이 컴퓨터' 섹션에서 '+' 버튼"
 "을 클릭하고, 직접 프로젝트를 추가하세요."
 
 #: core/Utils/Util.vala:631
@@ -965,7 +970,8 @@ msgstr ""
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
-msgstr "태그를 사용하면 Planify에서 워크플로우를 개선할 수 있습니다. 태그를 추가하려"
+msgstr ""
+"태그를 사용하면 Planify에서 워크플로우를 개선할 수 있습니다. 태그를 추가하려"
 "면 하단의 태그 버튼을 클릭하세요."
 
 #: core/Utils/Util.vala:692
@@ -977,8 +983,9 @@ msgstr "시기적절한 리마인더를 설정하세요!"
 msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
 "add a reminder."
-msgstr "중요한 이벤트나 특별한 일을 기억하기 위해 Planify에서 알림을 받고 싶으시다면,"
-" 아래의 종 버튼을 눌러 알림을 추가하세요."
+msgstr ""
+"중요한 이벤트나 특별한 일을 기억하기 위해 Planify에서 알림을 받고 싶으시다"
+"면, 아래의 종 버튼을 눌러 알림을 추가하세요."
 
 #: core/Utils/Util.vala:704
 msgid "💼️Work"
@@ -1449,7 +1456,8 @@ msgstr "완료"
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
-msgstr "이 기기가 켜지면 Planify가 자동으로 시작되고 창이 닫힌 상태에서도 할 일 알림"
+msgstr ""
+"이 기기가 켜지면 Planify가 자동으로 시작되고 창이 닫힌 상태에서도 할 일 알림"
 "을 보낼 수 있도록 실행됩니다."
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
@@ -1718,7 +1726,8 @@ msgstr "동기화 서버"
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
-msgstr "이 설정을 활성화하여 Planify가 15분마다 Todoist 계정과 자동으로 동기화되도록 "
+msgstr ""
+"이 설정을 활성화하여 Planify가 15분마다 Todoist 계정과 자동으로 동기화되도록 "
 "하세요"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:96
@@ -1829,7 +1838,8 @@ msgstr "백업"
 msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
-msgstr "데이터 손실을 걱정하지 마세요. 활성 프로젝트, 작업 및 댓글을 백업하고 나중에 "
+msgstr ""
+"데이터 손실을 걱정하지 마세요. 활성 프로젝트, 작업 및 댓글을 백업하고 나중에 "
 "가져올 수 있습니다."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:48
@@ -1909,7 +1919,8 @@ msgstr "백업 복원"
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
-msgstr "계속하시겠습니까? 이 작업은 현재 데이터를 삭제하고 백업 데이터로 교체합니다."
+msgstr ""
+"계속하시겠습니까? 이 작업은 현재 데이터를 삭제하고 백업 데이터로 교체합니다."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:450
 msgid "Restore Backup"
@@ -2041,14 +2052,16 @@ msgstr "빠른 추가"
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
-msgstr "빠른 추가를 사용하여 데스크톱의 어디서나 몇 번의 키 입력으로 할 일을 생성하세"
+msgstr ""
+"빠른 추가를 사용하여 데스크톱의 어디서나 몇 번의 키 입력으로 할 일을 생성하세"
 "요. 현재 사용 중인 앱을 떠날 필요도 없습니다."
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:55
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
-msgstr "시스템 설정 → 키보드 → 단축키 → 사용자 정의로 이동한 다음, 다음과 같이 새 단"
+msgstr ""
+"시스템 설정 → 키보드 → 단축키 → 사용자 정의로 이동한 다음, 다음과 같이 새 단"
 "축키를 추가하세요:"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
@@ -2397,7 +2410,8 @@ msgstr "개인 데이터"
 msgid ""
 "We collect absolutely nothing and all your data is stored in a database on "
 "your computer."
-msgstr "우리는 어떤 데이터도 수집하지 않으며 모든 데이터는 사용자의 컴퓨터에 있는 데"
+msgstr ""
+"우리는 어떤 데이터도 수집하지 않으며 모든 데이터는 사용자의 컴퓨터에 있는 데"
 "이터베이스에 저장됩니다."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:412
@@ -2406,9 +2420,9 @@ msgid ""
 "default, your data will be stored on their private servers, we only display "
 "your configured tasks and manage them for you."
 msgstr ""
-"Todoist와 통합을 선택하면 선택 사항이며 기본적으로 선택되지 않습니다. 이 경우"
-" 데이터는 그들의 개인 서버에 저장되며, 우리는 사용자가 설정한 작업만 표시하고"
-" 관리합니다."
+"Todoist와 통합을 선택하면 선택 사항이며 기본적으로 선택되지 않습니다. 이 경"
+"우 데이터는 그들의 개인 서버에 저장되며, 우리는 사용자가 설정한 작업만 표시하"
+"고 관리합니다."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:417
 msgid "Do you have any questions?"
@@ -2418,7 +2432,8 @@ msgstr "별도의 질문이 있으십니까?"
 msgid ""
 "If you have any questions about your data or any other issue, please contact "
 "us. We will be happy to answer you."
-msgstr "데이터나 기타 문제에 대한 질문이 있으시면 문의해 주세요. 즐거운 마음으로 답변"
+msgstr ""
+"데이터나 기타 문제에 대한 질문이 있으시면 문의해 주세요. 즐거운 마음으로 답변"
 "해 드리겠습니다."
 
 #: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
@@ -2686,7 +2701,8 @@ msgstr "게시판으로 이동"
 
 #: src/Layouts/SidebarSourceRow.vala:43
 msgid "No project available. Create one by clicking on the '+' button"
-msgstr "사용 가능한 프로젝트가 없습니다. '+' 버튼을 클릭하여 하나 만들어 보세요"
+msgstr ""
+"사용 가능한 프로젝트가 없습니다. '+' 버튼을 클릭하여 하나 만들어 보세요"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
