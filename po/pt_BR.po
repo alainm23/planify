@@ -888,8 +888,8 @@ msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
-"Organize melhor suas tarefas! Vá para o painel esquerdo e clique no botão '+"
-"' na seção ‘Neste computador’ e adicione seu próprio projeto."
+"Organize melhor suas tarefas! Vá para o painel esquerdo e clique no botão "
+"'+' na seção ‘Neste computador’ e adicione seu próprio projeto."
 
 #: core/Utils/Util.vala:631
 msgid "You’re done!"
@@ -1624,7 +1624,8 @@ msgstr "Você pode classificar suas contas arrastando e soltando"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:547
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
-msgstr "Planify está sincronizando suas tarefas, isso pode levar alguns minutos"
+msgstr ""
+"Planify está sincronizando suas tarefas, isso pode levar alguns minutos"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
 msgid "Cannot Hide This Account"
