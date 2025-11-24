@@ -447,7 +447,7 @@ msgstr "Thêm Lời Nhắc"
 msgid "Add Task"
 msgstr "Thêm Nhiệm Vụ"
 
-#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1305
+#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1314
 msgid "Keep adding"
 msgstr "Tiếp tục thêm"
 
@@ -456,58 +456,62 @@ msgid "Select a Project"
 msgstr "Chọn Dự Án"
 
 #: core/QuickAddCore.vala:349
-msgid "I'm sorry, Quick Add can't find any project available, try creating a project from Planify."
-msgstr "Rất tiếc, Quick Add không tìm thấy dự án nào khả dụng, hãy thử tạo dự án từ Planify."
+msgid ""
+"I'm sorry, Quick Add can't find any project available, try creating a "
+"project from Planify."
+msgstr ""
+"Rất tiếc, Quick Add không tìm thấy dự án nào khả dụng, hãy thử tạo dự án từ "
+"Planify."
 
-#: core/QuickAddCore.vala:1267 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1276 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Phím Tắt"
 
-#: core/QuickAddCore.vala:1273
+#: core/QuickAddCore.vala:1282
 msgid "Speed up task creation with these shortcuts"
 msgstr "Tăng tốc tạo nhiệm vụ với các phím tắt này"
 
-#: core/QuickAddCore.vala:1287
+#: core/QuickAddCore.vala:1296
 msgid "Set priority"
 msgstr "Đặt ưu tiên"
 
-#: core/QuickAddCore.vala:1287
+#: core/QuickAddCore.vala:1296
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = cao nhất, p4 = thấp nhất"
 
-#: core/QuickAddCore.vala:1288
+#: core/QuickAddCore.vala:1297
 msgid "Add labels"
 msgstr "Thêm nhãn"
 
-#: core/QuickAddCore.vala:1288
+#: core/QuickAddCore.vala:1297
 msgid "Opens label selector"
 msgstr "Mở bộ chọn nhãn"
 
-#: core/QuickAddCore.vala:1289
+#: core/QuickAddCore.vala:1298
 msgid "Assign project"
 msgstr "Giao dự án"
 
-#: core/QuickAddCore.vala:1289
+#: core/QuickAddCore.vala:1298
 msgid "Opens project selector"
 msgstr "Mở bộ chọn dự án"
 
-#: core/QuickAddCore.vala:1290
+#: core/QuickAddCore.vala:1299
 msgid "Set reminder"
 msgstr "Đặt lời nhắc"
 
-#: core/QuickAddCore.vala:1290
+#: core/QuickAddCore.vala:1299
 msgid "Opens reminder options"
 msgstr "Mở tùy chọn lời nhắc"
 
-#: core/QuickAddCore.vala:1305
+#: core/QuickAddCore.vala:1314
 msgid "Toggle stay open after creating task"
 msgstr "Chuyển đổi giữ mở sau khi tạo nhiệm vụ"
 
-#: core/QuickAddCore.vala:1311
+#: core/QuickAddCore.vala:1320
 msgid "Tip"
 msgstr "Mẹo"
 
-#: core/QuickAddCore.vala:1311
+#: core/QuickAddCore.vala:1320
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Kết hợp phím tắt trong trường tiêu đề để tạo nhanh hơn"
 
@@ -547,7 +551,8 @@ msgid "The request was incorrect."
 msgstr "Yêu cầu không đúng."
 
 #: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
-msgid "Authentication is required, and has failed, or has not yet been provided."
+msgid ""
+"Authentication is required, and has failed, or has not yet been provided."
 msgstr "Xác thực là bắt buộc, và đã thất bại, hoặc chưa được cung cấp."
 
 #: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
@@ -797,31 +802,43 @@ msgid "Meet Planify"
 msgstr "Gặp Planify"
 
 #: core/Utils/Util.vala:594
-msgid "This project shows you everything you need to know to hit the ground running. Don’t hesitate to play around with it – you can always recreate it from Preferences."
-msgstr "Dự án này cho bạn thấy mọi thứ bạn cần biết để bắt đầu. Đừng ngần ngại thử nghiệm – bạn luôn có thể tạo lại từ Tùy Chỉnh."
+msgid ""
+"This project shows you everything you need to know to hit the ground "
+"running. Don’t hesitate to play around with it – you can always recreate it "
+"from Preferences."
+msgstr ""
+"Dự án này cho bạn thấy mọi thứ bạn cần biết để bắt đầu. Đừng ngần ngại thử "
+"nghiệm – bạn luôn có thể tạo lại từ Tùy Chỉnh."
 
 #: core/Utils/Util.vala:601
 msgid "Tap this task"
 msgstr "Nhấn nhiệm vụ này"
 
 #: core/Utils/Util.vala:602
-msgid "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-msgstr "Bạn đang xem một nhiệm vụ! Hoàn thành bằng cách nhấn hộp kiểm bên trái. "
+msgid ""
+"You're looking at a to-do! Complete it by tapping the checkbox on the left. "
+msgstr ""
+"Bạn đang xem một nhiệm vụ! Hoàn thành bằng cách nhấn hộp kiểm bên trái. "
 
 #: core/Utils/Util.vala:607
 msgid "Create a new task"
 msgstr "Tạo nhiệm vụ mới"
 
 #: core/Utils/Util.vala:608
-msgid "Now it's your turn! Tap the '+' button at the bottom of your project, enter a task description, and tap the 'Add Task' button."
-msgstr "Bây giờ đến lượt bạn! Nhấn nút '+' ở dưới dự án, nhập mô tả nhiệm vụ, và nhấn 'Thêm Nhiệm Vụ'."
+msgid ""
+"Now it's your turn! Tap the '+' button at the bottom of your project, enter "
+"a task description, and tap the 'Add Task' button."
+msgstr ""
+"Bây giờ đến lượt bạn! Nhấn nút '+' ở dưới dự án, nhập mô tả nhiệm vụ, và "
+"nhấn 'Thêm Nhiệm Vụ'."
 
 #: core/Utils/Util.vala:613
 msgid "Plan this to-do for today or later"
 msgstr "Lập kế hoạch nhiệm vụ này cho hôm nay hoặc sau"
 
 #: core/Utils/Util.vala:614
-msgid "Tap the calendar button at the bottom to decide when to complete this to-do."
+msgid ""
+"Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr "Nhấn nút lịch ở dưới để quyết định khi nào hoàn thành nhiệm vụ này."
 
 #: core/Utils/Util.vala:619
@@ -829,16 +846,23 @@ msgid "Reorder your to-dos"
 msgstr "Sắp xếp lại nhiệm vụ"
 
 #: core/Utils/Util.vala:620
-msgid "To reorder your list, tap and hold a to-do, then drag it to where it should go."
-msgstr "Để sắp xếp lại danh sách, nhấn và giữ nhiệm vụ, sau đó kéo đến vị trí cần."
+msgid ""
+"To reorder your list, tap and hold a to-do, then drag it to where it should "
+"go."
+msgstr ""
+"Để sắp xếp lại danh sách, nhấn và giữ nhiệm vụ, sau đó kéo đến vị trí cần."
 
 #: core/Utils/Util.vala:625
 msgid "Create a project"
 msgstr "Tạo dự án"
 
 #: core/Utils/Util.vala:626
-msgid "Organize your to-dos better! Go to the left panel and click the '+' button in the 'On This Computer' section and add a project of your own."
-msgstr "Tổ chức nhiệm vụ tốt hơn! Đi đến bảng bên trái và nhấn nút '+' trong phần 'Trên Máy Tính Này' và thêm dự án của bạn."
+msgid ""
+"Organize your to-dos better! Go to the left panel and click the '+' button "
+"in the 'On This Computer' section and add a project of your own."
+msgstr ""
+"Tổ chức nhiệm vụ tốt hơn! Đi đến bảng bên trái và nhấn nút '+' trong phần "
+"'Trên Máy Tính Này' và thêm dự án của bạn."
 
 #: core/Utils/Util.vala:631
 msgid "You’re done!"
@@ -846,11 +870,14 @@ msgstr "Bạn đã xong!"
 
 #: core/Utils/Util.vala:632
 msgid ""
-"That’s all you really need to know. Feel free to start adding your own projects and to-dos.\n"
-"You can come back to this project later to learn the advanced features below.\n"
+"That’s all you really need to know. Feel free to start adding your own "
+"projects and to-dos.\n"
+"You can come back to this project later to learn the advanced features "
+"below.\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
-"Đó là tất cả những gì bạn cần biết. Hãy bắt đầu thêm dự án và nhiệm vụ của riêng bạn.\n"
+"Đó là tất cả những gì bạn cần biết. Hãy bắt đầu thêm dự án và nhiệm vụ của "
+"riêng bạn.\n"
 "Bạn có thể quay lại dự án này sau để học các tính năng nâng cao bên dưới.\n"
 "Chúng tôi hy vọng bạn thích sử dụng Planify!"
 
@@ -863,16 +890,24 @@ msgid "Show your calendar events"
 msgstr "Hiển thị sự kiện lịch"
 
 #: core/Utils/Util.vala:655
-msgid "You can display your system's calendar events in Planify. Go to 'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
-msgstr "Bạn có thể hiển thị sự kiện lịch hệ thống trong Planify. Đi đến 'Tùy Chỉnh' 🡒 Tổng Quan 🡒 Sự Kiện Lịch để bật."
+msgid ""
+"You can display your system's calendar events in Planify. Go to "
+"'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
+msgstr ""
+"Bạn có thể hiển thị sự kiện lịch hệ thống trong Planify. Đi đến 'Tùy Chỉnh' "
+"🡒 Tổng Quan 🡒 Sự Kiện Lịch để bật."
 
 #: core/Utils/Util.vala:661
 msgid "Enable synchronization with third-party services"
 msgstr "Bật đồng bộ với dịch vụ bên thứ ba"
 
 #: core/Utils/Util.vala:662
-msgid "Planify not only creates tasks locally, but can also synchronize with your Todoist account. Go to 'Preferences' 🡒 'Accounts'."
-msgstr "Planify không chỉ tạo nhiệm vụ cục bộ, mà còn có thể đồng bộ với tài khoản Todoist. Đi đến 'Tùy Chỉnh' 🡒 'Tài Khoản'."
+msgid ""
+"Planify not only creates tasks locally, but can also synchronize with your "
+"Todoist account. Go to 'Preferences' 🡒 'Accounts'."
+msgstr ""
+"Planify không chỉ tạo nhiệm vụ cục bộ, mà còn có thể đồng bộ với tài khoản "
+"Todoist. Đi đến 'Tùy Chỉnh' 🡒 'Tài Khoản'."
 
 #: core/Utils/Util.vala:670
 msgid "Boost your productivity"
@@ -883,24 +918,35 @@ msgid "Drag the plus button!"
 msgstr "Kéo nút cộng!"
 
 #: core/Utils/Util.vala:679
-msgid "That blue button you see at the bottom of each screen is more powerful than it looks: it's made to move! Drag it up to create a task wherever you want."
-msgstr "Nút xanh ở dưới mỗi màn hình mạnh mẽ hơn vẻ ngoài: nó được thiết kế để di chuyển! Kéo lên để tạo nhiệm vụ bất cứ đâu."
+msgid ""
+"That blue button you see at the bottom of each screen is more powerful than "
+"it looks: it's made to move! Drag it up to create a task wherever you want."
+msgstr ""
+"Nút xanh ở dưới mỗi màn hình mạnh mẽ hơn vẻ ngoài: nó được thiết kế để di "
+"chuyển! Kéo lên để tạo nhiệm vụ bất cứ đâu."
 
 #: core/Utils/Util.vala:685
 msgid "Add labels to your tasks!"
 msgstr "Thêm nhãn cho nhiệm vụ!"
 
 #: core/Utils/Util.vala:686
-msgid "Labels help you organize and categorize your tasks. To add a label, click the label button at the bottom."
-msgstr "Nhãn giúp tổ chức và phân loại nhiệm vụ. Để thêm nhãn, nhấn nút nhãn ở dưới."
+msgid ""
+"Labels help you organize and categorize your tasks. To add a label, click "
+"the label button at the bottom."
+msgstr ""
+"Nhãn giúp tổ chức và phân loại nhiệm vụ. Để thêm nhãn, nhấn nút nhãn ở dưới."
 
 #: core/Utils/Util.vala:692
 msgid "Set timely reminders!"
 msgstr "Đặt lời nhắc kịp thời!"
 
 #: core/Utils/Util.vala:693
-msgid "Get notified about important tasks or events. Tap the bell button below to add a reminder."
-msgstr "Nhận thông báo về nhiệm vụ hoặc sự kiện quan trọng. Nhấn nút chuông ở dưới để thêm lời nhắc."
+msgid ""
+"Get notified about important tasks or events. Tap the bell button below to "
+"add a reminder."
+msgstr ""
+"Nhận thông báo về nhiệm vụ hoặc sự kiện quan trọng. Nhấn nút chuông ở dưới "
+"để thêm lời nhắc."
 
 #: core/Utils/Util.vala:704
 msgid "💼️Work"
@@ -1209,8 +1255,12 @@ msgid "Label not found: Create '%s'"
 msgstr "Không tìm thấy nhãn: Tạo '%s'"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
-msgid "Your list of filters will show up here. Create one by entering the name and pressing the Enter key."
-msgstr "Danh sách bộ lọc của bạn sẽ hiển thị ở đây. Tạo một bộ lọc bằng cách nhập tên và nhấn phím Enter."
+msgid ""
+"Your list of filters will show up here. Create one by entering the name and "
+"pressing the Enter key."
+msgstr ""
+"Danh sách bộ lọc của bạn sẽ hiển thị ở đây. Tạo một bộ lọc bằng cách nhập "
+"tên và nhấn phím Enter."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
@@ -1290,8 +1340,11 @@ msgid "Reminders"
 msgstr "Lời Nhắc"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:110
-msgid "Your list of reminders will show up here. Add one by clicking the '+' button."
-msgstr "Danh sách lời nhắc của bạn sẽ hiển thị ở đây. Thêm một lời nhắc bằng cách nhấn nút '+'."
+msgid ""
+"Your list of reminders will show up here. Add one by clicking the '+' button."
+msgstr ""
+"Danh sách lời nhắc của bạn sẽ hiển thị ở đây. Thêm một lời nhắc bằng cách "
+"nhấn nút '+'."
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:157
 msgid "Add Reminder"
@@ -1349,8 +1402,12 @@ msgid "Complete"
 msgstr "Hoàn thành"
 
 #: src/App.vala:143
-msgid "Planify will automatically start when this device turns on and run when its window is closed so that it can send to-do notifications."
-msgstr "Planify sẽ tự động khởi động khi thiết bị này được bật và chạy khi cửa sổ của nó được đóng để có thể gửi thông báo nhiệm vụ."
+msgid ""
+"Planify will automatically start when this device turns on and run when its "
+"window is closed so that it can send to-do notifications."
+msgstr ""
+"Planify sẽ tự động khởi động khi thiết bị này được bật và chạy khi cửa sổ "
+"của nó được đóng để có thể gửi thông báo nhiệm vụ."
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 msgid "Completed Tasks"
@@ -1372,12 +1429,16 @@ msgstr "Xóa Tất Cả Nhiệm Vụ Đã Hoàn Thành"
 #: src/Dialogs/CompletedTasks.vala:165
 #, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
-msgstr "Điều này sẽ xóa %d nhiệm vụ đã hoàn thành và nhiệm vụ phụ của nó khỏi dự án %s"
+msgstr ""
+"Điều này sẽ xóa %d nhiệm vụ đã hoàn thành và nhiệm vụ phụ của nó khỏi dự án "
+"%s"
 
 #: src/Dialogs/CompletedTasks.vala:166
 #, c-format
 msgid "This will delete %d completed tasks and their subtasks from project %s"
-msgstr "Điều này sẽ xóa %d nhiệm vụ đã hoàn thành và nhiệm vụ phụ của chúng khỏi dự án %s"
+msgstr ""
+"Điều này sẽ xóa %d nhiệm vụ đã hoàn thành và nhiệm vụ phụ của chúng khỏi dự "
+"án %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:655
@@ -1434,8 +1495,11 @@ msgid "Updated at"
 msgstr "Đã cập nhật vào"
 
 #: src/Dialogs/ItemChangeHistory.vala:69
-msgid "Your change history will be displayed here once you start making changes."
-msgstr "Lịch sử thay đổi của bạn sẽ được hiển thị ở đây khi bạn bắt đầu thực hiện thay đổi."
+msgid ""
+"Your change history will be displayed here once you start making changes."
+msgstr ""
+"Lịch sử thay đổi của bạn sẽ được hiển thị ở đây khi bạn bắt đầu thực hiện "
+"thay đổi."
 
 #: src/Dialogs/ItemChangeHistory.vala:138
 #, c-format
@@ -1521,8 +1585,12 @@ msgid "Cannot Hide This Account"
 msgstr "Không Thể Ẩn Tài Khoản Này"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
-msgid "This account contains your current Inbox project. Please change your Inbox project first."
-msgstr "Tài khoản này chứa dự án Hộp Thư Đến hiện tại của bạn. Vui lòng thay đổi dự án Hộp Thư Đến trước."
+msgid ""
+"This account contains your current Inbox project. Please change your Inbox "
+"project first."
+msgstr ""
+"Tài khoản này chứa dự án Hộp Thư Đến hiện tại của bạn. Vui lòng thay đổi dự "
+"án Hộp Thư Đến trước."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
 msgid "Change Inbox"
@@ -1564,8 +1632,14 @@ msgid "Inbox Project"
 msgstr "Dự Án Hộp Thư Đến"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:37
-msgid "Your Inbox is where new tasks land by default. Based on David Allen's Getting Things Done methodology, it's your capture point for quick ideas and tasks that you'll organize later"
-msgstr "Hộp Thư Đến là nơi các nhiệm vụ mới mặc định sẽ đến. Dựa trên phương pháp Getting Things Done của David Allen, đây là điểm thu thập ý tưởng nhanh và các nhiệm vụ bạn sẽ tổ chức sau"
+msgid ""
+"Your Inbox is where new tasks land by default. Based on David Allen's "
+"Getting Things Done methodology, it's your capture point for quick ideas and "
+"tasks that you'll organize later"
+msgstr ""
+"Hộp Thư Đến là nơi các nhiệm vụ mới mặc định sẽ đến. Dựa trên phương pháp "
+"Getting Things Done của David Allen, đây là điểm thu thập ý tưởng nhanh và "
+"các nhiệm vụ bạn sẽ tổ chức sau"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "Server URL examples:"
@@ -1593,8 +1667,12 @@ msgid "Sync Server"
 msgstr "Máy Chủ Đồng Bộ"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:83
-msgid "Activate this setting so that Planify automatically synchronizes with your account account every 15 minutes"
-msgstr "Kích hoạt cài đặt này để Planify tự động đồng bộ với tài khoản của bạn mỗi 15 phút"
+msgid ""
+"Activate this setting so that Planify automatically synchronizes with your "
+"account account every 15 minutes"
+msgstr ""
+"Kích hoạt cài đặt này để Planify tự động đồng bộ với tài khoản của bạn mỗi "
+"15 phút"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:96
 msgid "Last Sync"
@@ -1687,7 +1765,8 @@ msgstr "Chủ đề xanh dương chuyên nghiệp"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:121
 msgid "Custom themes are not available when using the system light theme"
-msgstr "Các chủ đề tùy chỉnh không khả dụng khi sử dụng chủ đề sáng của hệ thống"
+msgstr ""
+"Các chủ đề tùy chỉnh không khả dụng khi sử dụng chủ đề sáng của hệ thống"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:159
 msgid "Font Size"
@@ -1698,8 +1777,12 @@ msgid "Backup"
 msgstr "Sao Lưu"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
-msgid "Never worry about losing your data. You can create backups of your active projects, tasks and comments and import them later."
-msgstr "Đừng lo lắng về việc mất dữ liệu của bạn. Bạn có thể tạo bản sao lưu các dự án, nhiệm vụ và nhận xét đang hoạt động, sau đó nhập chúng sau."
+msgid ""
+"Never worry about losing your data. You can create backups of your active "
+"projects, tasks and comments and import them later."
+msgstr ""
+"Đừng lo lắng về việc mất dữ liệu của bạn. Bạn có thể tạo bản sao lưu các dự "
+"án, nhiệm vụ và nhận xét đang hoạt động, sau đó nhập chúng sau."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:48
 msgid "Create Backup"
@@ -1715,7 +1798,8 @@ msgstr "Tệp Sao Lưu"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:57
 msgid "No backups found, create one clicking the button above."
-msgstr "Không tìm thấy bản sao lưu nào, hãy tạo một bản bằng cách nhấp vào nút trên."
+msgstr ""
+"Không tìm thấy bản sao lưu nào, hãy tạo một bản bằng cách nhấp vào nút trên."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
 #, c-format
@@ -1775,8 +1859,12 @@ msgid "Restore backup"
 msgstr "Khôi phục bản sao lưu"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:445
-msgid "Are you sure you want to continue? This operation will delete your current data and replace it with the backup data."
-msgstr "Bạn có chắc muốn tiếp tục không? Thao tác này sẽ xóa dữ liệu hiện tại của bạn và thay thế bằng dữ liệu sao lưu."
+msgid ""
+"Are you sure you want to continue? This operation will delete your current "
+"data and replace it with the backup data."
+msgstr ""
+"Bạn có chắc muốn tiếp tục không? Thao tác này sẽ xóa dữ liệu hiện tại của "
+"bạn và thay thế bằng dữ liệu sao lưu."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:450
 msgid "Restore Backup"
@@ -1904,12 +1992,21 @@ msgid "Quick Add"
 msgstr "Thêm Nhanh"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:43
-msgid "Use Quick Add to create to-dos from anywhere on your desktop with just a few keystrokes. You don’t even have to leave the app you’re currently in."
-msgstr "Sử dụng Thêm Nhanh để tạo nhiệm vụ cần làm từ bất cứ đâu trên màn hình của bạn chỉ với vài lần gõ phím. Bạn thậm chí không cần phải thoát khỏi ứng dụng đang sử dụng."
+msgid ""
+"Use Quick Add to create to-dos from anywhere on your desktop with just a few "
+"keystrokes. You don’t even have to leave the app you’re currently in."
+msgstr ""
+"Sử dụng Thêm Nhanh để tạo nhiệm vụ cần làm từ bất cứ đâu trên màn hình của "
+"bạn chỉ với vài lần gõ phím. Bạn thậm chí không cần phải thoát khỏi ứng dụng "
+"đang sử dụng."
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:55
-msgid "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new shortcut with the following:"
-msgstr "Đi tới Cài đặt Hệ thống → Bàn phím → Phím tắt → Tùy chỉnh, sau đó thêm một phím tắt mới với thông tin sau:"
+msgid ""
+"Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
+"shortcut with the following:"
+msgstr ""
+"Đi tới Cài đặt Hệ thống → Bàn phím → Phím tắt → Tùy chỉnh, sau đó thêm một "
+"phím tắt mới với thông tin sau:"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
 msgid "Settings"
@@ -1962,8 +2059,14 @@ msgid "Supporting Us"
 msgstr "Ủng Hộ Chúng Tôi"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:41
-msgid "Our mission is to provide the best open source task management application for users all over the world. Your donations support this work. Want to donate today?"
-msgstr "Sứ mệnh của chúng tôi là cung cấp ứng dụng quản lý tác vụ mã nguồn mở tốt nhất cho người dùng trên toàn thế giới. Khoản đóng góp của bạn hỗ trợ công việc này. Bạn muốn đóng góp ngay hôm nay?"
+msgid ""
+"Our mission is to provide the best open source task management application "
+"for users all over the world. Your donations support this work. Want to "
+"donate today?"
+msgstr ""
+"Sứ mệnh của chúng tôi là cung cấp ứng dụng quản lý tác vụ mã nguồn mở tốt "
+"nhất cho người dùng trên toàn thế giới. Khoản đóng góp của bạn hỗ trợ công "
+"việc này. Bạn muốn đóng góp ngay hôm nay?"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:49
 msgid "Patreon"
@@ -2050,8 +2153,11 @@ msgid "Open Tasks in Sidebar View"
 msgstr "Mở Nhiệm Vụ trong Chế Độ Xem Thanh Bên"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:103
-msgid "Always display task details in the sidebar instead of expanding in list view."
-msgstr "Luôn hiển thị chi tiết nhiệm vụ trong thanh bên thay vì mở rộng trong chế độ xem danh sách."
+msgid ""
+"Always display task details in the sidebar instead of expanding in list view."
+msgstr ""
+"Luôn hiển thị chi tiết nhiệm vụ trong thanh bên thay vì mở rộng trong chế độ "
+"xem danh sách."
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:110
 msgid "Single Task Focus Mode"
@@ -2059,7 +2165,9 @@ msgstr "Chế Độ Tập Trung Vào Một Nhiệm Vụ"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:111
 msgid "Allow only one task to be expanded at a time in list view"
-msgstr "Chỉ cho phép một nhiệm vụ được mở rộng tại một thời điểm trong chế độ xem danh sách"
+msgstr ""
+"Chỉ cho phép một nhiệm vụ được mở rộng tại một thời điểm trong chế độ xem "
+"danh sách"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:120
 msgid "Enable Markdown Formatting"
@@ -2074,8 +2182,12 @@ msgid "Always Show Details Sidebar"
 msgstr "Luôn Hiển Thị Thanh Bên Chi Tiết"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:129
-msgid "Keep the details sidebar always visible for faster task navigation, without repeatedly opening and closing it"
-msgstr "Giữ thanh bên chi tiết luôn hiển thị để điều hướng nhiệm vụ nhanh hơn, mà không cần mở và đóng nhiều lần"
+msgid ""
+"Keep the details sidebar always visible for faster task navigation, without "
+"repeatedly opening and closing it"
+msgstr ""
+"Giữ thanh bên chi tiết luôn hiển thị để điều hướng nhiệm vụ nhanh hơn, mà "
+"không cần mở và đóng nhiều lần"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:136
 msgid "Enable Spell Checking"
@@ -2094,8 +2206,11 @@ msgid "Automatic reminders"
 msgstr "Lời nhắc tự động"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:164
-msgid "When enabled, a reminder before the task’s due time will be added by default."
-msgstr "Khi được bật, lời nhắc trước thời gian đến hạn của nhiệm vụ sẽ được thêm mặc định."
+msgid ""
+"When enabled, a reminder before the task’s due time will be added by default."
+msgstr ""
+"Khi được bật, lời nhắc trước thời gian đến hạn của nhiệm vụ sẽ được thêm mặc "
+"định."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:704
 msgid "Preferences"
@@ -2107,8 +2222,14 @@ msgid "Support Planify"
 msgstr "Ủng Hộ Planify"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:52
-msgid "Planify is being developed with love and passion for open source. However, if you like Planify and want to support its development, please consider supporting us."
-msgstr "Planify đang được phát triển bằng tình yêu và niềm đam mê đối với mã nguồn mở. Tuy nhiên, nếu bạn thích Planify và muốn hỗ trợ sự phát triển của nó, vui lòng cân nhắc ủng hộ chúng tôi."
+msgid ""
+"Planify is being developed with love and passion for open source. However, "
+"if you like Planify and want to support its development, please consider "
+"supporting us."
+msgstr ""
+"Planify đang được phát triển bằng tình yêu và niềm đam mê đối với mã nguồn "
+"mở. Tuy nhiên, nếu bạn thích Planify và muốn hỗ trợ sự phát triển của nó, "
+"vui lòng cân nhắc ủng hộ chúng tôi."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Sync your favorite to-do providers"
@@ -2234,20 +2355,34 @@ msgid "Personal Data"
 msgstr "Dữ Liệu Cá Nhân"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:406
-msgid "We collect absolutely nothing and all your data is stored in a database on your computer."
-msgstr "Chúng tôi hoàn toàn không thu thập gì cả và tất cả dữ liệu của bạn được lưu trữ trong cơ sở dữ liệu trên máy tính của bạn."
+msgid ""
+"We collect absolutely nothing and all your data is stored in a database on "
+"your computer."
+msgstr ""
+"Chúng tôi hoàn toàn không thu thập gì cả và tất cả dữ liệu của bạn được lưu "
+"trữ trong cơ sở dữ liệu trên máy tính của bạn."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:412
-msgid "If you choose to integrate Todoist, which is optional and not selected by default, your data will be stored on their private servers, we only display your configured tasks and manage them for you."
-msgstr "Nếu bạn chọn tích hợp Todoist, một tùy chọn không được chọn mặc định, dữ liệu của bạn sẽ được lưu trữ trên máy chủ riêng của họ, chúng tôi chỉ hiển thị các nhiệm vụ đã cấu hình của bạn và quản lý chúng cho bạn."
+msgid ""
+"If you choose to integrate Todoist, which is optional and not selected by "
+"default, your data will be stored on their private servers, we only display "
+"your configured tasks and manage them for you."
+msgstr ""
+"Nếu bạn chọn tích hợp Todoist, một tùy chọn không được chọn mặc định, dữ "
+"liệu của bạn sẽ được lưu trữ trên máy chủ riêng của họ, chúng tôi chỉ hiển "
+"thị các nhiệm vụ đã cấu hình của bạn và quản lý chúng cho bạn."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:417
 msgid "Do you have any questions?"
 msgstr "Bạn có bất kỳ câu hỏi nào không?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:423
-msgid "If you have any questions about your data or any other issue, please contact us. We will be happy to answer you."
-msgstr "Nếu bạn có bất kỳ câu hỏi nào về dữ liệu của bạn hoặc bất kỳ vấn đề nào khác, vui lòng liên hệ với chúng tôi. Chúng tôi sẽ sẵn lòng trả lời bạn."
+msgid ""
+"If you have any questions about your data or any other issue, please contact "
+"us. We will be happy to answer you."
+msgstr ""
+"Nếu bạn có bất kỳ câu hỏi nào về dữ liệu của bạn hoặc bất kỳ vấn đề nào "
+"khác, vui lòng liên hệ với chúng tôi. Chúng tôi sẽ sẵn lòng trả lời bạn."
 
 #: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -2290,7 +2425,8 @@ msgstr "Tìm Kiếm Nhanh"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
-msgstr "Nhanh chóng chuyển đổi dự án và chế độ xem, tìm nhiệm vụ, tìm kiếm theo nhãn"
+msgstr ""
+"Nhanh chóng chuyển đổi dự án và chế độ xem, tìm nhiệm vụ, tìm kiếm theo nhãn"
 
 #: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:223
 #: src/Views/Project/Project.vala:336
@@ -2541,17 +2677,25 @@ msgstr "Kiểm Tra Tính Toàn Vẹn Cơ Sở Dữ Liệu Thất Bại"
 
 #: src/MainWindow.vala:829
 msgid ""
-"We've detected issues with the database structure that may prevent the application from functioning properly. This may be due to missing tables or columns, likely caused by data corruption or an incomplete update.\n"
+"We've detected issues with the database structure that may prevent the "
+"application from functioning properly. This may be due to missing tables or "
+"columns, likely caused by data corruption or an incomplete update.\n"
 "\n"
-"The database will now be reset to restore normal functionality, and any existing data will be removed.\n"
+"The database will now be reset to restore normal functionality, and any "
+"existing data will be removed.\n"
 "\n"
-"After the reset, you’ll be able to restore any backup you’ve created previously. Thank you for your patience"
+"After the reset, you’ll be able to restore any backup you’ve created "
+"previously. Thank you for your patience"
 msgstr ""
-"Chúng tôi đã phát hiện các vấn đề với cấu trúc cơ sở dữ liệu có thể ngăn ứng dụng hoạt động bình thường. Điều này có thể do thiếu bảng hoặc cột, thường là do hỏng dữ liệu hoặc cập nhật không đầy đủ.\n"
+"Chúng tôi đã phát hiện các vấn đề với cấu trúc cơ sở dữ liệu có thể ngăn ứng "
+"dụng hoạt động bình thường. Điều này có thể do thiếu bảng hoặc cột, thường "
+"là do hỏng dữ liệu hoặc cập nhật không đầy đủ.\n"
 "\n"
-"Cơ sở dữ liệu sẽ được đặt lại để khôi phục chức năng bình thường và mọi dữ liệu hiện có sẽ bị xóa.\n"
+"Cơ sở dữ liệu sẽ được đặt lại để khôi phục chức năng bình thường và mọi dữ "
+"liệu hiện có sẽ bị xóa.\n"
 "\n"
-"Sau khi đặt lại, bạn sẽ có thể khôi phục bất kỳ bản sao lưu nào bạn đã tạo trước đó. Cảm ơn sự kiên nhẫn của bạn"
+"Sau khi đặt lại, bạn sẽ có thể khôi phục bất kỳ bản sao lưu nào bạn đã tạo "
+"trước đó. Cảm ơn sự kiên nhẫn của bạn"
 
 #: src/MainWindow.vala:831
 msgid "Reset Database"
@@ -2787,8 +2931,12 @@ msgid "Bypass Location Resolve"
 msgstr "Bỏ Qua Giải Quyết Vị Trí"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:32
-msgid "Workaround for CalDAV connection issues with connections using non-default ports"
-msgstr "Giải pháp tạm thời cho các vấn đề kết nối CalDAV với các kết nối sử dụng cổng không mặc định"
+msgid ""
+"Workaround for CalDAV connection issues with connections using non-default "
+"ports"
+msgstr ""
+"Giải pháp tạm thời cho các vấn đề kết nối CalDAV với các kết nối sử dụng "
+"cổng không mặc định"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:45
 #: src/Widgets/IgnoreSSLSwitchRow.vala:45
@@ -2942,8 +3090,12 @@ msgid "New version available!"
 msgstr "Phiên bản mới đã có!"
 
 #: src/Widgets/NewVersionPopup.vala:66
-msgid "Update now to enjoy the latest improvements, bug fixes, and new features that make Planify even better"
-msgstr "Cập nhật ngay để tận hưởng những cải tiến mới nhất, sửa lỗi và tính năng mới giúp Planify trở nên tốt hơn"
+msgid ""
+"Update now to enjoy the latest improvements, bug fixes, and new features "
+"that make Planify even better"
+msgstr ""
+"Cập nhật ngay để tận hưởng những cải tiến mới nhất, sửa lỗi và tính năng mới "
+"giúp Planify trở nên tốt hơn"
 
 #: src/Widgets/NewVersionPopup.vala:73
 msgid "Update Now"

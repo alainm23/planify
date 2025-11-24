@@ -464,7 +464,7 @@ msgstr "Добавяне на напомняния"
 msgid "Add Task"
 msgstr "Добавяне на задача"
 
-#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1305
+#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1314
 msgid "Keep adding"
 msgstr ""
 
@@ -480,61 +480,61 @@ msgstr ""
 "„Бързо добавяне“ не може да намери наличен проект, опитайте да създадете "
 "проект от „Planify“."
 
-#: core/QuickAddCore.vala:1267 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1276 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Клавишни комбинации"
 
-#: core/QuickAddCore.vala:1273
+#: core/QuickAddCore.vala:1282
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1287
+#: core/QuickAddCore.vala:1296
 #, fuzzy
 msgid "Set priority"
 msgstr "Задаване на приоритета"
 
-#: core/QuickAddCore.vala:1287
+#: core/QuickAddCore.vala:1296
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1288
+#: core/QuickAddCore.vala:1297
 #, fuzzy
 msgid "Add labels"
 msgstr "Добавяне на етикети"
 
-#: core/QuickAddCore.vala:1288
+#: core/QuickAddCore.vala:1297
 #, fuzzy
 msgid "Opens label selector"
 msgstr "Отваряне на „Етикети“"
 
-#: core/QuickAddCore.vala:1289
+#: core/QuickAddCore.vala:1298
 #, fuzzy
 msgid "Assign project"
 msgstr "Добавяне на проект"
 
-#: core/QuickAddCore.vala:1289
+#: core/QuickAddCore.vala:1298
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1290
+#: core/QuickAddCore.vala:1299
 #, fuzzy
 msgid "Set reminder"
 msgstr "Задавайте напомняния!"
 
-#: core/QuickAddCore.vala:1290
+#: core/QuickAddCore.vala:1299
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1305
+#: core/QuickAddCore.vala:1314
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1311
+#: core/QuickAddCore.vala:1320
 #, fuzzy
 msgid "Tip"
 msgstr "Горе"
 
-#: core/QuickAddCore.vala:1311
+#: core/QuickAddCore.vala:1320
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
