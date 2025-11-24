@@ -364,6 +364,7 @@ msgstr "Это действие не может быть отменено"
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:265
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -401,6 +402,7 @@ msgstr "Это действие заархивирует %s и все его з�
 #: core/Objects/Project.vala:881 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
+#: src/Layouts/SectionRow.vala:662
 msgid "Archive"
 msgstr "Архивировать"
 
@@ -459,6 +461,7 @@ msgstr "Добавить напоминания"
 
 #: core/QuickAddCore.vala:299 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
+#: src/Layouts/SectionRow.vala:655
 msgid "Add Task"
 msgstr "Добавить задачу"
 
@@ -1571,7 +1574,7 @@ msgid "Archived Projects"
 msgstr "Архивированные проекты"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:659
-#: src/Views/Project/Project.vala:338
+#: src/Views/Project/Project.vala:338 src/Layouts/SectionRow.vala:658
 msgid "Manage Sections"
 msgstr "Управление разделами"
 
@@ -1608,14 +1611,17 @@ msgstr "Вы можете сортироваться свои учётные з�
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:228
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:547
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:548
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr "Planify синхронизирует ваши задачи, это может занять несколько минут"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
 msgid "Cannot Hide This Account"
 msgstr "Невозможно скрыть этот аккаунт"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:405
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -1624,10 +1630,12 @@ msgstr ""
 "измените проект «Входящие»."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:409
 msgid "Change Inbox"
 msgstr "Изменить «Входящие»"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:517
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:518
 msgid "Syncing…"
 msgstr "Синхронизирование…"
 
@@ -2464,7 +2472,7 @@ msgid "New Section"
 msgstr "Новый раздел"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:563
-#: src/Layouts/SectionRow.vala:657
+#: src/Layouts/SectionRow.vala:657 src/Layouts/SectionRow.vala:656
 msgid "Edit Section"
 msgstr "Изменить раздел"
 
@@ -2516,7 +2524,7 @@ msgstr "Изменить"
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1175
-#: src/Layouts/ItemRow.vala:1296
+#: src/Layouts/ItemRow.vala:1296 src/Layouts/SectionRow.vala:659
 msgid "Duplicate"
 msgstr "Дублировать"
 
@@ -2620,6 +2628,7 @@ msgid "Send by E-Mail"
 msgstr "Отправить по E-Mail"
 
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:225
+#: src/Layouts/SectionRow.vala:224
 msgid "Add tasks"
 msgstr "Добавить задачи"
 
@@ -2629,10 +2638,12 @@ msgstr "Загрузить ещё"
 
 #: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:613
 #: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
+#: src/Layouts/SectionRow.vala:612
 msgid "completed tasks"
 msgstr "выполненные задачи"
 
 #: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:658
+#: src/Layouts/SectionRow.vala:657
 msgid "Move Section"
 msgstr "Перенести раздел"
 
@@ -2641,12 +2652,12 @@ msgid "Manage Section Order"
 msgstr "Изменить порядок разделов"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
-#: src/Views/Project/Project.vala:540
+#: src/Views/Project/Project.vala:540 src/Layouts/SectionRow.vala:660
 msgid "Show Completed Tasks"
 msgstr "Показать выполненные задачи"
 
 #: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:664
-#: src/Widgets/SectionItemRow.vala:207
+#: src/Widgets/SectionItemRow.vala:207 src/Layouts/SectionRow.vala:663
 msgid "Delete Section"
 msgstr "Удалить раздел"
 
@@ -3306,6 +3317,10 @@ msgstr ""
 
 #: src/Widgets/EventRow.vala:356
 msgid "Join"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
+msgid "SSL verification is disabled"
 msgstr ""
 
 #~ msgid "Clear Schedule"

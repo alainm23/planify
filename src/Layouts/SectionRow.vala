@@ -166,9 +166,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         drop_inbox_widget = new Gtk.Grid () {
             css_classes = { "transition", "drop-target" },
             height_request = 30,
-            margin_start = 24,
+            margin_start = 32,
             margin_end = 24,
-            margin_top = 3,
             margin_bottom = 6
         };
 

@@ -295,8 +295,9 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
 
             Gtk.Image ? warning_image = null;
             if (source.source_type == SourceType.CALDAV && source.caldav_data.ignore_ssl) {
-                warning_image = new Gtk.Image.from_icon_name ("dialog-warning-symbolic");
-                warning_image.set_tooltip_text ("SSL verification is disabled");
+                warning_image = new Gtk.Image.from_icon_name ("dialog-warning-symbolic") {
+                    tooltip_text = _("SSL verification is disabled")
+                };
             }
 
             var end_box = new Gtk.Box (HORIZONTAL, 12) {

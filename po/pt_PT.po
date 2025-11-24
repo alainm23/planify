@@ -348,7 +348,7 @@ msgstr "Isto não pode ser revertido"
 #: core/Objects/Project.vala:880 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:439
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:407
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
@@ -393,7 +393,7 @@ msgstr "Isto vai arquivar o %s e todas as respetivas tarefas."
 
 #: core/Objects/Project.vala:881 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
-#: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
+#: src/Layouts/SectionRow.vala:662 src/Views/Project/Project.vala:345
 msgid "Archive"
 msgstr "Arquivar"
 
@@ -450,7 +450,7 @@ msgid "Add Reminders"
 msgstr "Adicionar lembretes"
 
 #: core/QuickAddCore.vala:299 src/Layouts/SectionBoard.vala:562
-#: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
+#: src/Layouts/SectionRow.vala:655 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Nova tarefa"
 
@@ -1558,7 +1558,7 @@ msgstr "Filtro"
 msgid "Archived Projects"
 msgstr "Arquivar projetos"
 
-#: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:659
+#: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:658
 #: src/Views/Project/Project.vala:338
 msgid "Manage Sections"
 msgstr "Gerir secções"
@@ -1595,17 +1595,21 @@ msgid "You can sort your accounts by dragging and dropping"
 msgstr "Pode ordenar as suas contas ao clicar, arrastar e largar"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:228
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:547
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:548
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr ""
 "O Planify está a sincronizar as suas tarefas, isto pode demorar alguns "
 "minutos"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
+msgid "SSL verification is disabled"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
 msgid "Cannot Hide This Account"
 msgstr "Não é possível ocultar esta conta"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:405
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -1613,11 +1617,11 @@ msgstr ""
 "Esta conta contém o seu projeto atual do Início. Altere primeiro o seu "
 "projeto no Início, por favor."
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:409
 msgid "Change Inbox"
 msgstr "Alterar Início"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:517
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:518
 msgid "Syncing…"
 msgstr "A sincronizar…"
 
@@ -2472,7 +2476,7 @@ msgid "New Section"
 msgstr "Nova secção"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:563
-#: src/Layouts/SectionRow.vala:657
+#: src/Layouts/SectionRow.vala:656
 msgid "Edit Section"
 msgstr "Editar secção"
 
@@ -2519,7 +2523,7 @@ msgstr "Editar"
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1175
 #: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:455
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
-#: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
+#: src/Layouts/SectionRow.vala:659 src/Views/Project/Project.vala:334
 msgid "Duplicate"
 msgstr "Duplicar"
 
@@ -2614,7 +2618,7 @@ msgstr "Partilhar"
 msgid "Send by E-Mail"
 msgstr "Enviar por e-mail"
 
-#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:225
+#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 msgid "Add tasks"
 msgstr "Adicionar tarefas"
 
@@ -2622,12 +2626,12 @@ msgstr "Adicionar tarefas"
 msgid "Load more"
 msgstr "Carregar mais"
 
-#: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:613
+#: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:612
 #: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
 msgid "completed tasks"
 msgstr "tarefas terminadas"
 
-#: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:658
+#: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:657
 msgid "Move Section"
 msgstr "Mover secção"
 
@@ -2635,12 +2639,12 @@ msgstr "Mover secção"
 msgid "Manage Section Order"
 msgstr "Gerir a ordem das secções"
 
-#: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
+#: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:660
 #: src/Views/Project/Project.vala:540
 msgid "Show Completed Tasks"
 msgstr "Mostrar tarefas terminadas"
 
-#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:664
+#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:663
 #: src/Widgets/SectionItemRow.vala:207
 msgid "Delete Section"
 msgstr "Eliminar secção"
