@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-14 11:04+0000\n"
+"PO-Revision-Date: 2025-11-23 13:51+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/et/>\n"
@@ -423,7 +423,7 @@ msgstr "Lisa kirjeldus…"
 
 #: core/QuickAddCore.vala:244
 msgid "Set date"
-msgstr ""
+msgstr "Määra kuupäev"
 
 #: core/QuickAddCore.vala:248 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
@@ -491,11 +491,11 @@ msgstr "Avab sildivalija"
 
 #: core/QuickAddCore.vala:1289
 msgid "Assign project"
-msgstr ""
+msgstr "Määra projekti/ettevõtmise täitja"
 
 #: core/QuickAddCore.vala:1289
 msgid "Opens project selector"
-msgstr ""
+msgstr "Avab ettevõtmiste valija"
 
 #: core/QuickAddCore.vala:1290
 msgid "Set reminder"
@@ -537,20 +537,20 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "Käivitan sünkroonimist…"
 
 #: core/Services/CalDAV/Core.vala:245
 #, c-format
 msgid "Syncing %s…"
-msgstr ""
+msgstr "Sünkroonin: %s…"
 
 #: core/Services/CalDAV/Core.vala:253
 msgid "Sync completed"
-msgstr ""
+msgstr "Sünkroonimine on valmis"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Päring polnud korrektne."
 
 #: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
 msgid ""
@@ -587,21 +587,21 @@ msgstr "Eile"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "days"
-msgstr ""
+msgstr "päeva"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "day"
-msgstr ""
+msgstr "päev"
 
 #: core/Utils/Datetime.vala:91
 #, c-format
 msgid "%s %s ago"
-msgstr ""
+msgstr "%s %s tagasi"
 
 #: core/Utils/Datetime.vala:93
 #, c-format
 msgid "%s %s left"
-msgstr ""
+msgstr "jäänud on %s %s"
 
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
@@ -931,27 +931,27 @@ msgstr ""
 
 #: core/Utils/Util.vala:704
 msgid "💼️Work"
-msgstr ""
+msgstr "💼Töö"
 
 #: core/Utils/Util.vala:710
 msgid "🎒️School"
-msgstr ""
+msgstr "🎒Õppimine"
 
 #: core/Utils/Util.vala:716
 msgid "👉️Delegated"
-msgstr ""
+msgstr "👉Delegeeritud"
 
 #: core/Utils/Util.vala:722
 msgid "🏡️Home"
-msgstr ""
+msgstr "🏡Kodu"
 
 #: core/Utils/Util.vala:728
 msgid "🏃‍♀️️Follow Up"
-msgstr ""
+msgstr "🏃‍♀️️Jätkuülesanded"
 
 #: core/Utils/Util.vala:969
 msgid "Task duplicated"
-msgstr ""
+msgstr "Ülesande koopia on tehtud"
 
 #: core/Utils/Util.vala:1005
 msgid "Section duplicated"
@@ -1871,11 +1871,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
-msgstr ""
+msgstr "Käivita sisselogimisel"
 
 #: src/Dialogs/Preferences/Pages/General.vala:83
 msgid "Whether Planify should run on startup"
-msgstr ""
+msgstr "Kas Planify rakenduse peaks käivitama süsteemi sisselogimisel"
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -1965,7 +1965,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:92
 msgid "Save Last Selected Project"
-msgstr ""
+msgstr "Salvesta viimativalitud ettevõtmine"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
@@ -1978,19 +1978,19 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
 #: src/Dialogs/Preferences/PreferencesWindow.vala:158
 msgid "Sidebar"
-msgstr ""
+msgstr "Külgriba"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:37
 msgid "Show in Sidebar"
-msgstr ""
+msgstr "Näita külgribal"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:56
 msgid "Show Task Count"
-msgstr ""
+msgstr "Näita ülesannete arvu"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:61
 msgid "Sidebar Width"
-msgstr ""
+msgstr "Külgriba laius"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:66
 msgid "List View for Filters"
@@ -2202,11 +2202,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:198
 msgid "Create Tutorial Project"
-msgstr ""
+msgstr "Koosta näidis- või testettevõtmine"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:199
 msgid "Learn the app step by step with a short tutorial project"
-msgstr ""
+msgstr "Koostades näidis- või testettevõtmise saad seda rakendust tunda õppida"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:218
 msgid "Want to buy me a drink?"
@@ -2575,6 +2575,8 @@ msgstr "Vaata teadetetahvlit"
 #: src/Layouts/SidebarSourceRow.vala:43
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr ""
+"Ühtegi ettevõtmist/projekti pole saadaval. Klõpside „+“ ikooni saad esimese "
+"koostada"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -2725,7 +2727,7 @@ msgstr "Lisa mõni ülesanne. Uue ülesande lisamiseks vajuta „a“"
 
 #: src/Views/Project/Project.vala:64
 msgid "Project Actions"
-msgstr ""
+msgstr "Tegevused ettevõtmistega"
 
 #: src/Views/Project/Project.vala:222
 msgid "New Task"
@@ -2943,7 +2945,7 @@ msgstr ""
 
 #: src/Widgets/ItemChangeHistoryRow.vala:51
 msgid "Task moved to project"
-msgstr ""
+msgstr "Ülesanne on tõstetud ettevõtmisesse/projekti"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:61
 msgid "Task moved to"
@@ -3076,7 +3078,7 @@ msgstr "Planify - Kiirlisamine"
 #: data/resources/ui/shortcuts.ui:12
 msgctxt "shortcut window"
 msgid "Used Anywhere"
-msgstr ""
+msgstr "Kasuta kõikjal rakenduses"
 
 #: data/resources/ui/shortcuts.ui:16
 msgctxt "shortcut window"
@@ -3086,7 +3088,7 @@ msgstr "Koosta uus ülesanne"
 #: data/resources/ui/shortcuts.ui:23
 msgctxt "shortcut window"
 msgid "Paste Plain Text to Create New Task"
-msgstr ""
+msgstr "Uue ülesande koostamiseks aseta ülesanne lõikelaualt"
 
 #: data/resources/ui/shortcuts.ui:30
 msgctxt "shortcut window"
@@ -3111,7 +3113,7 @@ msgstr "Ava kiirotsing"
 #: data/resources/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Control Windows"
-msgstr ""
+msgstr "Halda aknaid"
 
 #: data/resources/ui/shortcuts.ui:61
 msgctxt "shortcut window"
@@ -3161,7 +3163,7 @@ msgstr "Ava ajakava"
 #: data/resources/ui/shortcuts.ui:122
 msgctxt "shortcut window"
 msgid "Open Labels"
-msgstr ""
+msgstr "Ava sildid"
 
 #: data/resources/ui/shortcuts.ui:129
 msgctxt "shortcut window"
