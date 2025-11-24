@@ -179,6 +179,10 @@ public class Dialogs.Preferences.Pages.InboxPage : Dialogs.Preferences.Pages.Bas
                 radio_button.active = !radio_button.active;
                 toggled ();
             });
+
+            radio_button.toggled.connect (() => {
+                toggled ();
+            });
         }
     }
 }
