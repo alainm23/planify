@@ -228,7 +228,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             height_request = 32,
             css_classes = { "drop-area", "drop-target" },
             margin_bottom = 3,
-            margin_start = 19
+            margin_start = 27
         };
 
         motion_top_revealer = new Gtk.Revealer () {
