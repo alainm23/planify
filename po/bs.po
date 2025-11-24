@@ -451,7 +451,7 @@ msgstr ""
 msgid "Add Task"
 msgstr ""
 
-#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1305
+#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1314
 msgid "Keep adding"
 msgstr ""
 
@@ -465,55 +465,55 @@ msgid ""
 "project from Planify."
 msgstr ""
 
-#: core/QuickAddCore.vala:1267 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1276 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1273
+#: core/QuickAddCore.vala:1282
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1287
+#: core/QuickAddCore.vala:1296
 msgid "Set priority"
 msgstr ""
 
-#: core/QuickAddCore.vala:1287
+#: core/QuickAddCore.vala:1296
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1288
+#: core/QuickAddCore.vala:1297
 msgid "Add labels"
 msgstr ""
 
-#: core/QuickAddCore.vala:1288
+#: core/QuickAddCore.vala:1297
 msgid "Opens label selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1289
+#: core/QuickAddCore.vala:1298
 msgid "Assign project"
 msgstr ""
 
-#: core/QuickAddCore.vala:1289
+#: core/QuickAddCore.vala:1298
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1290
+#: core/QuickAddCore.vala:1299
 msgid "Set reminder"
 msgstr ""
 
-#: core/QuickAddCore.vala:1290
+#: core/QuickAddCore.vala:1299
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1305
+#: core/QuickAddCore.vala:1314
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1311
+#: core/QuickAddCore.vala:1320
 msgid "Tip"
 msgstr ""
 
-#: core/QuickAddCore.vala:1311
+#: core/QuickAddCore.vala:1320
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 

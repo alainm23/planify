@@ -460,7 +460,7 @@ msgstr "Ajouter des rappels"
 msgid "Add Task"
 msgstr "Ajouter la tâche"
 
-#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1305
+#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1314
 msgid "Keep adding"
 msgstr "Continuer d'ajouter"
 
@@ -476,56 +476,56 @@ msgstr ""
 "Désolé, l’Ajout rapide ne peut trouver aucun projet disponible, essayez de "
 "créer un projet depuis Planify."
 
-#: core/QuickAddCore.vala:1267 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1276 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Raccourcis clavier"
 
-#: core/QuickAddCore.vala:1273
+#: core/QuickAddCore.vala:1282
 msgid "Speed up task creation with these shortcuts"
 msgstr "Accélérer la création de tâches avec ces raccourcis"
 
 # # c-format
-#: core/QuickAddCore.vala:1287
+#: core/QuickAddCore.vala:1296
 msgid "Set priority"
 msgstr "Priorité"
 
-#: core/QuickAddCore.vala:1287
+#: core/QuickAddCore.vala:1296
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = le plus haut, p4 = le plus bas"
 
-#: core/QuickAddCore.vala:1288
+#: core/QuickAddCore.vala:1297
 msgid "Add labels"
 msgstr "Ajouter des étiquettes"
 
-#: core/QuickAddCore.vala:1288
+#: core/QuickAddCore.vala:1297
 msgid "Opens label selector"
 msgstr "Ouvre le sélecteur d'étiquette"
 
-#: core/QuickAddCore.vala:1289
+#: core/QuickAddCore.vala:1298
 msgid "Assign project"
 msgstr "Ajouter à un projet"
 
-#: core/QuickAddCore.vala:1289
+#: core/QuickAddCore.vala:1298
 msgid "Opens project selector"
 msgstr "Ouvre le sélecteur de projet"
 
-#: core/QuickAddCore.vala:1290
+#: core/QuickAddCore.vala:1299
 msgid "Set reminder"
 msgstr "Programmer un rappel"
 
-#: core/QuickAddCore.vala:1290
+#: core/QuickAddCore.vala:1299
 msgid "Opens reminder options"
 msgstr "Ouvre les options de rappel"
 
-#: core/QuickAddCore.vala:1305
+#: core/QuickAddCore.vala:1314
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1311
+#: core/QuickAddCore.vala:1320
 msgid "Tip"
 msgstr "Astuce"
 
-#: core/QuickAddCore.vala:1311
+#: core/QuickAddCore.vala:1320
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 "Combinez les raccourcis dans le champ du titre pour une création plus rapide"

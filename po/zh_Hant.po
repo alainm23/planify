@@ -449,7 +449,7 @@ msgstr "添加提醒"
 msgid "Add Task"
 msgstr "添加任務"
 
-#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1305
+#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1314
 msgid "Keep adding"
 msgstr "保持添加"
 
@@ -463,55 +463,55 @@ msgid ""
 "project from Planify."
 msgstr "抱歉，快速添加無法找到任何可用的專案，請從 Planify 中建立一個專案。"
 
-#: core/QuickAddCore.vala:1267 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1276 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "鍵盤快速鍵"
 
-#: core/QuickAddCore.vala:1273
+#: core/QuickAddCore.vala:1282
 msgid "Speed up task creation with these shortcuts"
 msgstr "利用這些快速鍵來加快任務建立"
 
-#: core/QuickAddCore.vala:1287
+#: core/QuickAddCore.vala:1296
 msgid "Set priority"
 msgstr "設定優先等級"
 
-#: core/QuickAddCore.vala:1287
+#: core/QuickAddCore.vala:1296
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = 最高 、 p4 = 最低"
 
-#: core/QuickAddCore.vala:1288
+#: core/QuickAddCore.vala:1297
 msgid "Add labels"
 msgstr "添加標籤"
 
-#: core/QuickAddCore.vala:1288
+#: core/QuickAddCore.vala:1297
 msgid "Opens label selector"
 msgstr "開啟標籤選取"
 
-#: core/QuickAddCore.vala:1289
+#: core/QuickAddCore.vala:1298
 msgid "Assign project"
 msgstr "指派專案"
 
-#: core/QuickAddCore.vala:1289
+#: core/QuickAddCore.vala:1298
 msgid "Opens project selector"
 msgstr "開啟專案選擇"
 
-#: core/QuickAddCore.vala:1290
+#: core/QuickAddCore.vala:1299
 msgid "Set reminder"
 msgstr "設定提醒"
 
-#: core/QuickAddCore.vala:1290
+#: core/QuickAddCore.vala:1299
 msgid "Opens reminder options"
 msgstr "開啟提醒選項"
 
-#: core/QuickAddCore.vala:1305
+#: core/QuickAddCore.vala:1314
 msgid "Toggle stay open after creating task"
 msgstr "切換成保持開啟狀態，在建立任務之後"
 
-#: core/QuickAddCore.vala:1311
+#: core/QuickAddCore.vala:1320
 msgid "Tip"
 msgstr "技巧"
 
-#: core/QuickAddCore.vala:1311
+#: core/QuickAddCore.vala:1320
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "在標題欄位中組合快速鍵操作，以利更快建立"
 
