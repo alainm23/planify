@@ -148,7 +148,7 @@ msgid "Content"
 msgstr "Sadržaj"
 
 #: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
-#: src/Layouts/ItemSidebarView.vala:183 src/Widgets/EventRow.vala:304
+#: src/Layouts/ItemSidebarView.vala:183 src/Widgets/EventRow.vala:310
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Opis"
@@ -2359,7 +2359,7 @@ msgid "Privacy"
 msgstr "Privatnost"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:343
-#: src/Dialogs/Preferences/PreferencesWindow.vala:453
+#: src/Dialogs/Preferences/PreferencesWindow.vala:452
 msgid "Privacy Policy"
 msgstr "Politika privatnosti"
 
@@ -3034,7 +3034,7 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:356
+#: src/Widgets/EventRow.vala:370
 msgid "Join"
 msgstr ""
 
