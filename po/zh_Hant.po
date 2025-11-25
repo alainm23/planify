@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-23 13:51+0000\n"
+"PO-Revision-Date: 2025-11-25 10:52+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -1559,7 +1559,7 @@ msgstr "Planify 正在同步您的任務，要花費數分鐘"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
 msgid "SSL verification is disabled"
-msgstr ""
+msgstr "SSL 驗證停用"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
 msgid "Cannot Hide This Account"
