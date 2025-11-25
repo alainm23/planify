@@ -824,7 +824,6 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
             content_entry.grab_focus ();
             
-            // Reset shift_enter_used flag after processing
             shift_enter_used = false;
 
             return;
