@@ -37,23 +37,19 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
             reveal = true
         };
 
-        var group_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-        group_box.append (filters_group);
-
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 400,
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12,
-            margin_bottom = 24,
-            child = group_box
+        var group_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12,
+            margin_top = 12
         };
+        group_box.append (filters_group);
 
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
             vexpand = true,
-            child = content_clamp
+            child = group_box
         };
 
         var toolbar_view = new Adw.ToolbarView ();

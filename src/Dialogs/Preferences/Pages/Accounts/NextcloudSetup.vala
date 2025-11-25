@@ -113,11 +113,13 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             vexpand = true,
-            hexpand = true
+            hexpand = true,
+            margin_start = 12,
+            margin_end = 12,
+            margin_top = 12
         };
 
         content_box.append (entries_group);
-        content_box.append (message_revealer);
         content_box.append (advanced_button);
         content_box.append (advanced_options_revealer);
         content_box.append (login_button);
@@ -130,23 +132,15 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
         main_stack = new Gtk.Stack () {
             vexpand = true,
             hexpand = true,
-            transition_type = Gtk.StackTransitionType.CROSSFADE
+            transition_type = Gtk.StackTransitionType.CROSSFADE,
         };
 
         main_stack.add_named (content_box, "main-page");
         main_stack.add_named (loading_page, "loading-page");
 
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 400,
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12,
-            child = main_stack
-        };
-
         var toolbar_view = new Adw.ToolbarView ();
         toolbar_view.add_top_bar (new Adw.HeaderBar ());
-        toolbar_view.content = content_clamp;
+        toolbar_view.content = main_stack;
 
         child = toolbar_view;
 

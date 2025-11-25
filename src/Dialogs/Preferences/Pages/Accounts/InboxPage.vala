@@ -45,20 +45,18 @@ public class Dialogs.Preferences.Pages.InboxPage : Dialogs.Preferences.Pages.Bas
         group_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
         group_box.append (description_label);
 
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 400,
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12,
-            margin_bottom = 24,
-            child = group_box
+        var content_box = new Gtk.Box (VERTICAL, 0) {
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 24
         };
+        content_box.append (group_box);
 
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
             vexpand = true,
-            child = content_clamp
+            child = content_box
         };
 
         var toolbar_view = new Adw.ToolbarView () {

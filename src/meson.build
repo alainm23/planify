@@ -128,7 +128,7 @@ sources = files(
   'Dialogs/Preferences/Pages/General.vala',
   'Dialogs/Preferences/Pages/TaskSetting.vala',
   'Dialogs/Preferences/Pages/QuickAdd.vala',
-  'Dialogs/Preferences/Pages/Support.vala',
+  'Dialogs/Preferences/Pages/Donate.vala',
   'Dialogs/Preferences/Pages/Accounts/Accounts.vala',
   'Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala',
   'Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala',
