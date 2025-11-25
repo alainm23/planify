@@ -404,38 +404,38 @@ msgstr "Eliminar a secção %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:134
+#: core/QuickAddCore.vala:136
 msgid "Task added successfully!"
 msgstr "A tarefa foi adicionada com sucesso!"
 
-#: core/QuickAddCore.vala:150 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:152 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Nome da tarefa"
 
-#: core/QuickAddCore.vala:180
+#: core/QuickAddCore.vala:182
 msgid "This field is required"
 msgstr "É necessário preencher este campo"
 
-#: core/QuickAddCore.vala:204
+#: core/QuickAddCore.vala:206
 msgid "Add a description…"
 msgstr "Adicione uma descrição…"
 
-#: core/QuickAddCore.vala:244
+#: core/QuickAddCore.vala:246
 msgid "Set date"
 msgstr "Definir a data"
 
-#: core/QuickAddCore.vala:248 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:250 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Adicionar Etiquetas"
 
-#: core/QuickAddCore.vala:253 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:255 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Definir a prioridade"
 
-#: core/QuickAddCore.vala:258
+#: core/QuickAddCore.vala:260
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -444,20 +444,20 @@ msgstr "Definir a prioridade"
 msgid "Add Reminders"
 msgstr "Adicionar lembretes"
 
-#: core/QuickAddCore.vala:299 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:301 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:655 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Nova tarefa"
 
-#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1314
+#: core/QuickAddCore.vala:307 core/QuickAddCore.vala:1335
 msgid "Keep adding"
 msgstr "Continuar a adicionar"
 
-#: core/QuickAddCore.vala:322
+#: core/QuickAddCore.vala:324
 msgid "Select a Project"
 msgstr "Selecione um projeto"
 
-#: core/QuickAddCore.vala:349
+#: core/QuickAddCore.vala:351
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -465,55 +465,55 @@ msgstr ""
 "Lamentamos mas o 'Adicionar rápido' não encontrou nenhum projeto disponível, "
 "tente criar um a partir do Planify."
 
-#: core/QuickAddCore.vala:1276 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1297 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr "Atalhos do teclado"
 
-#: core/QuickAddCore.vala:1282
+#: core/QuickAddCore.vala:1303
 msgid "Speed up task creation with these shortcuts"
 msgstr "Acelerar a criação de tarefas com este atalhos"
 
-#: core/QuickAddCore.vala:1296
+#: core/QuickAddCore.vala:1317
 msgid "Set priority"
 msgstr "Definir prioridade"
 
-#: core/QuickAddCore.vala:1296
+#: core/QuickAddCore.vala:1317
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = mais alta, p4 = mais baixa"
 
-#: core/QuickAddCore.vala:1297
+#: core/QuickAddCore.vala:1318
 msgid "Add labels"
 msgstr "Adicionar etiquetas"
 
-#: core/QuickAddCore.vala:1297
+#: core/QuickAddCore.vala:1318
 msgid "Opens label selector"
 msgstr "Abre o selecionador de etiquetas"
 
-#: core/QuickAddCore.vala:1298
+#: core/QuickAddCore.vala:1319
 msgid "Assign project"
 msgstr "Atribuir projeto"
 
-#: core/QuickAddCore.vala:1298
+#: core/QuickAddCore.vala:1319
 msgid "Opens project selector"
 msgstr "Abre o seletor de projetos"
 
-#: core/QuickAddCore.vala:1299
+#: core/QuickAddCore.vala:1320
 msgid "Set reminder"
 msgstr "Definir lembrete"
 
-#: core/QuickAddCore.vala:1299
+#: core/QuickAddCore.vala:1320
 msgid "Opens reminder options"
 msgstr "Abre as opções do lembrete"
 
-#: core/QuickAddCore.vala:1314
+#: core/QuickAddCore.vala:1335
 msgid "Toggle stay open after creating task"
 msgstr "Ative para manter a tarefa criada aberta"
 
-#: core/QuickAddCore.vala:1320
+#: core/QuickAddCore.vala:1341
 msgid "Tip"
 msgstr "Sugestão"
 
-#: core/QuickAddCore.vala:1320
+#: core/QuickAddCore.vala:1341
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combinar atalhos no campo do título para uma criação mais rápida"
 
