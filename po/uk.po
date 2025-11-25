@@ -14,12 +14,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Weblate 5.15-dev\n"
 
-#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
+#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
 msgstr "Проєкти"
 
-#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:362
+#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:356
 msgid "Sections"
 msgstr "Розділи"
 
@@ -29,7 +29,7 @@ msgstr "Завдання"
 
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
-#: src/Dialogs/Preferences/Pages/Backup.vala:370 src/Layouts/ItemBoard.vala:723
+#: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:723
 #: src/Layouts/ItemRow.vala:1170
 msgid "Labels"
 msgstr "Мітки"
@@ -352,12 +352,12 @@ msgstr "Це не можна скасувати"
 #: core/Objects/Project.vala:880 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:439
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
-#: src/Dialogs/Preferences/Pages/Backup.vala:383
-#: src/Dialogs/Preferences/Pages/Backup.vala:449
+#: src/Dialogs/Preferences/Pages/Backup.vala:377
+#: src/Dialogs/Preferences/Pages/Backup.vala:443
 #: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:546
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
@@ -369,7 +369,7 @@ msgstr "Скасувати"
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:824
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
-#: src/Dialogs/Preferences/Pages/Backup.vala:279
+#: src/Dialogs/Preferences/Pages/Backup.vala:273
 #: src/Layouts/ItemSidebarView.vala:547 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
@@ -815,7 +815,7 @@ msgid "Process completed, you need to start Planify again."
 msgstr "Процес завершено, вам потрібно знову запустити Planify."
 
 #: core/Utils/Util.vala:456
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:221
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 msgid "Ok"
 msgstr "ОК"
 
@@ -1534,8 +1534,8 @@ msgid "Please enter your credentials"
 msgstr "Будь ласка, введіть свої облікові дані"
 
 #: src/Dialogs/GoogleOAuth.vala:151
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:218
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:220
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:212
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:214
 msgid "Network Is Not Available"
 msgstr "Мережа недоступна"
 
@@ -1636,37 +1636,37 @@ msgstr "Додати джерело"
 msgid "Inbox Page"
 msgstr "Вхідні"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:102
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:105
 #, fuzzy
 msgid "You can sort your accounts by dragging and dropping"
 msgstr "Ви можете сортувати свої облікові записи, перетягуючи їх"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:228
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:548
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr "Planify синхронізує ваші завдання, це може тривати кілька хвилин"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:398
 msgid "Cannot Hide This Account"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:405
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:399
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:409
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
 #, fuzzy
 msgid "Change Inbox"
 msgstr "Відкрити «Вхідні»"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:518
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 msgid "Syncing…"
 msgstr "Синхронізація…"
 
@@ -1782,19 +1782,19 @@ msgstr ""
 msgid "Connect with Token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:171
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:165
 msgid "Enter token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:189
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:183
 msgid "Synchronizing…"
 msgstr "Синхронізація…"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:207
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:201
 msgid "Please Enter Your Credentials"
 msgstr "Будь ласка, введіть свої облікові дані"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:209
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
 msgid "Loading…"
 msgstr "Завантаження…"
 
@@ -1886,51 +1886,51 @@ msgstr "Перенести"
 msgid "Migrate From Planner"
 msgstr "Перенести з Planner"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:118
+#: src/Dialogs/Preferences/Pages/Backup.vala:112
 msgid "The Backup was created successfully."
 msgstr "Резервну копію успішно створено."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:135
+#: src/Dialogs/Preferences/Pages/Backup.vala:129
 msgid "Tasks Migrate Successfully"
 msgstr "Завдання успішно перенесено"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:139
+#: src/Dialogs/Preferences/Pages/Backup.vala:133
 msgid "The database file does not exist."
 msgstr "Файл бази даних не існує."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:177
+#: src/Dialogs/Preferences/Pages/Backup.vala:171
 msgid "Selected file is invalid"
 msgstr "Вибраний файл недійсний"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:222
+#: src/Dialogs/Preferences/Pages/Backup.vala:216
 msgid "View Backup"
 msgstr "Переглянути резервну копію"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:278
+#: src/Dialogs/Preferences/Pages/Backup.vala:272
 msgid "Download"
 msgstr "Завантажити"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:342
+#: src/Dialogs/Preferences/Pages/Backup.vala:336
 msgid "Import Overview"
 msgstr "Огляд імпорту"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:354 src/Dialogs/Project.vala:353
+#: src/Dialogs/Preferences/Pages/Backup.vala:348 src/Dialogs/Project.vala:353
 msgid "Sources"
 msgstr "Источник"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:366
+#: src/Dialogs/Preferences/Pages/Backup.vala:360
 msgid "To-Dos"
 msgstr "Завдання"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:388
+#: src/Dialogs/Preferences/Pages/Backup.vala:382
 msgid "Confirm"
 msgstr "Підтвердити"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:444
+#: src/Dialogs/Preferences/Pages/Backup.vala:438
 msgid "Restore backup"
 msgstr "Відновити резервну копію"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:445
+#: src/Dialogs/Preferences/Pages/Backup.vala:439
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
@@ -1938,9 +1938,70 @@ msgstr ""
 "Ви впевнені, що хочете продовжити? Ця операція видалить ваші поточні дані та "
 "замінить їх резервними даними."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:444
 msgid "Restore Backup"
 msgstr "Відновити резервну копію"
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:45
+#: src/Dialogs/Preferences/PreferencesWindow.vala:217
+msgid "Donate"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:54
+msgid "Support Planify Development"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:59
+msgid ""
+"Help keep Planify free and open source! Your donations directly support "
+"development, new features, and maintenance. Every contribution, no matter "
+"the size, makes a difference."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:76
+msgid "Patreon"
+msgstr "Patreon"
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:77
+msgid "Monthly recurring support"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:91
+msgid "PayPal"
+msgstr "PayPal"
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:92
+msgid "One-time donation"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:106
+msgid "Liberapay"
+msgstr "Liberapay"
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:107
+msgid "Weekly recurring donations"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:121
+msgid "Ko-fi"
+msgstr "Ko-fi"
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:122
+msgid "Buy me a coffee ☕"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:134
+msgid "Choose Your Preferred Platform"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:149
+msgid "Thank you for your support! 🙏"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:156
+msgid "Your contribution helps keep Planify alive and growing."
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:137
@@ -2093,7 +2154,7 @@ msgstr "Зберігати останній вибраний проєкт"
 msgid "If unchecked, the default project selected is Inbox"
 msgstr "Якщо позначку не знято, проєктом за замовчуванням буде «Вхідні»"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:127
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:121
 msgid "The command was copied to the clipboard"
 msgstr "Команду скопійовано в буфер обміну"
 
@@ -2106,56 +2167,25 @@ msgstr "Бічна панель"
 msgid "Show in Sidebar"
 msgstr "Показати на бічній панелі"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:56
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:55
 msgid "Show Task Count"
 msgstr "Показати кількість завдань"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:61
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:60
 msgid "Sidebar Width"
 msgstr "Ширина бічної панелі"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:66
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:65
 msgid "List View for Filters"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:67
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:66
 msgid "Show filters in a simple list instead of a grid"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:83
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:87
 msgid "You can sort your views by dragging and dropping"
 msgstr "Ви можете сортувати подання перетягуванням"
-
-#: src/Dialogs/Preferences/Pages/Support.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:60
-msgid "Supporting Us"
-msgstr "Підтримати нас"
-
-#: src/Dialogs/Preferences/Pages/Support.vala:41
-msgid ""
-"Our mission is to provide the best open source task management application "
-"for users all over the world. Your donations support this work. Want to "
-"donate today?"
-msgstr ""
-"Наша місія — забезпечити найкращий додаток для керування завданнями з "
-"відкритим кодом для користувачів у всьому світі. Ваші пожертви підтримують "
-"цю роботу. Хочете зробити пожертву сьогодні?"
-
-#: src/Dialogs/Preferences/Pages/Support.vala:49
-msgid "Patreon"
-msgstr "Patreon"
-
-#: src/Dialogs/Preferences/Pages/Support.vala:62
-msgid "PayPal"
-msgstr "PayPal"
-
-#: src/Dialogs/Preferences/Pages/Support.vala:75
-msgid "Liberapay"
-msgstr "Liberapay"
-
-#: src/Dialogs/Preferences/Pages/Support.vala:88
-msgid "Ko-fi"
-msgstr "Ko-fi"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
 msgid "Task Settings"
@@ -2290,11 +2320,6 @@ msgstr ""
 msgid "Preferences"
 msgstr "Налаштування"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:45
-#: src/Dialogs/Preferences/PreferencesWindow.vala:217
-msgid "Support Planify"
-msgstr "Підтримайте Planify"
-
 #: src/Dialogs/Preferences/PreferencesWindow.vala:52
 msgid ""
 "Planify is being developed with love and passion for open source. However, "
@@ -2304,6 +2329,10 @@ msgstr ""
 "Planify розробляється з любов'ю та пристрастю до відкритого коду. Однак, "
 "якщо вам подобається Planify і ви хочете підтримати його розвиток, будь "
 "ласка, підтримати нас."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:60
+msgid "Donate Now"
+msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Sync your favorite to-do providers"
@@ -2367,7 +2396,7 @@ msgid "Reach Us"
 msgstr "Зв'яжіться з нами"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:271
-#: src/Dialogs/Preferences/PreferencesWindow.vala:428
+#: src/Dialogs/Preferences/PreferencesWindow.vala:432
 msgid "Contact Us"
 msgstr "Зв'яжіться з нами"
 
@@ -2401,7 +2430,7 @@ msgid "Privacy"
 msgstr "Конфіденційність"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:343
-#: src/Dialogs/Preferences/PreferencesWindow.vala:459
+#: src/Dialogs/Preferences/PreferencesWindow.vala:453
 msgid "Privacy Policy"
 msgstr "Політика конфіденційності"
 
@@ -2425,11 +2454,11 @@ msgstr "Видалити всі дані?"
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "Безповоротно видаляє всі ваші списки, завдання та нагадування"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:400
+#: src/Dialogs/Preferences/PreferencesWindow.vala:404
 msgid "Personal Data"
 msgstr "Персональні дані"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:406
+#: src/Dialogs/Preferences/PreferencesWindow.vala:410
 msgid ""
 "We collect absolutely nothing and all your data is stored in a database on "
 "your computer."
@@ -2437,7 +2466,7 @@ msgstr ""
 "Ми абсолютно нічого не збираємо, і всі ваші дані зберігаються в базі даних "
 "на вашому комп'ютері."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:412
+#: src/Dialogs/Preferences/PreferencesWindow.vala:416
 msgid ""
 "If you choose to integrate Todoist, which is optional and not selected by "
 "default, your data will be stored on their private servers, we only display "
@@ -2447,11 +2476,11 @@ msgstr ""
 "замовчуванням, ваші дані зберігатимуться на їхніх приватних серверах, ми "
 "лише відображаємо налаштовані вами завдання та керуємо ними для вас."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:417
+#: src/Dialogs/Preferences/PreferencesWindow.vala:421
 msgid "Do you have any questions?"
 msgstr "У вас є питання?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:423
+#: src/Dialogs/Preferences/PreferencesWindow.vala:427
 msgid ""
 "If you have any questions about your data or any other issue, please contact "
 "us. We will be happy to answer you."
@@ -3355,6 +3384,21 @@ msgstr "Відкрити «Мітки»"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Відкрити «Закріплені»"
+
+#~ msgid "Supporting Us"
+#~ msgstr "Підтримати нас"
+
+#~ msgid ""
+#~ "Our mission is to provide the best open source task management "
+#~ "application for users all over the world. Your donations support this "
+#~ "work. Want to donate today?"
+#~ msgstr ""
+#~ "Наша місія — забезпечити найкращий додаток для керування завданнями з "
+#~ "відкритим кодом для користувачів у всьому світі. Ваші пожертви "
+#~ "підтримують цю роботу. Хочете зробити пожертву сьогодні?"
+
+#~ msgid "Support Planify"
+#~ msgstr "Підтримайте Planify"
 
 #, fuzzy
 #~ msgid "Clear Schedule"

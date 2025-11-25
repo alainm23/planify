@@ -16,10 +16,12 @@ msgstr ""
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:55
+#: src/Dialogs/Preferences/Pages/Backup.vala:352
 msgid "Projects"
 msgstr "專案"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:362
+#: src/Dialogs/Preferences/Pages/Backup.vala:356
 msgid "Sections"
 msgstr "階段"
 
@@ -30,7 +32,7 @@ msgstr "任務"
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:370 src/Layouts/ItemBoard.vala:723
-#: src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemRow.vala:1170 src/Dialogs/Preferences/Pages/Backup.vala:364
 msgid "Labels"
 msgstr "標籤"
 
@@ -354,6 +356,9 @@ msgstr "此項無法取消動作"
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:265
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
+#: src/Dialogs/Preferences/Pages/Backup.vala:377
+#: src/Dialogs/Preferences/Pages/Backup.vala:443
 msgid "Cancel"
 msgstr "取消"
 
@@ -365,6 +370,7 @@ msgstr "取消"
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
 #: src/Widgets/MultiSelectToolbar.vala:266
+#: src/Dialogs/Preferences/Pages/Backup.vala:273
 msgid "Delete"
 msgstr "刪除"
 
@@ -790,6 +796,7 @@ msgstr "處理已經完成，必須再次啟動 Planify。"
 
 #: core/Utils/Util.vala:456
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:221
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 msgid "Ok"
 msgstr "OK"
 
@@ -806,7 +813,8 @@ msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
-msgstr "此項專案展示了入門操作所需瞭解的一切。請不必猶豫盡情玩用 - 隨時都可以從〔偏好"
+msgstr ""
+"此項專案展示了入門操作所需瞭解的一切。請不必猶豫盡情玩用 - 隨時都可以從〔偏好"
 "設定〕中重新建立。"
 
 #: core/Utils/Util.vala:601
@@ -826,8 +834,9 @@ msgstr "建立新的任務"
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
-msgstr "現在輪到您啦！在您的專案底部點按 '＋' 按鈕、輸入任務描述，並點按 〔添加任務〕"
-" 。"
+msgstr ""
+"現在輪到您啦！在您的專案底部點按 '＋' 按鈕、輸入任務描述，並點按 〔添加任"
+"務〕 。"
 
 #: core/Utils/Util.vala:613
 msgid "Plan this to-do for today or later"
@@ -856,7 +865,8 @@ msgstr "建立專案"
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
-msgstr "組織待辦事項更加好用！前往左側面板，點按〔在此台電腦〕階段中的 '＋' 按鈕，然"
+msgstr ""
+"組織待辦事項更加好用！前往左側面板，點按〔在此台電腦〕階段中的 '＋' 按鈕，然"
 "後添加您自己的專案計畫。"
 
 #: core/Utils/Util.vala:631
@@ -887,8 +897,9 @@ msgstr "顯示您的行事曆事件"
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
-msgstr "您可以在 Planify 中顯示系統的行事曆事件。前往 〔偏好設定 🡒 通則 🡒 行事曆事件"
-"〕 將其開用。"
+msgstr ""
+"您可以在 Planify 中顯示系統的行事曆事件。前往 〔偏好設定 🡒 通則 🡒 行事曆事"
+"件〕 將其開用。"
 
 #: core/Utils/Util.vala:661
 msgid "Enable synchronization with third-party services"
@@ -898,8 +909,9 @@ msgstr "啟用同步，使用第三方服務"
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
-msgstr "Planify 不僅可以在本地建立任務，還可以與您的 Todoist 帳戶同步。前往〔偏好設定"
-" 🡒 帳戶〕。"
+msgstr ""
+"Planify 不僅可以在本地建立任務，還可以與您的 Todoist 帳戶同步。前往〔偏好設"
+"定 🡒 帳戶〕。"
 
 #: core/Utils/Util.vala:670
 msgid "Boost your productivity"
@@ -913,7 +925,8 @@ msgstr "拖放加號按鈕！"
 msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
-msgstr "在每個螢幕底部，您所見到的藍色按鈕，比看起來更加厲害：它是用來移動的！ 將它拖"
+msgstr ""
+"在每個螢幕底部，您所見到的藍色按鈕，比看起來更加厲害：它是用來移動的！ 將它拖"
 "放向上，即可在任何想要的位置上建立出任務。"
 
 #: core/Utils/Util.vala:685
@@ -1389,7 +1402,8 @@ msgstr "完成"
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
-msgstr "在裝置開啟之時 Planify 將會自動啟動，而當其視窗關閉時仍會運行，以便可以發送待"
+msgstr ""
+"在裝置開啟之時 Planify 將會自動啟動，而當其視窗關閉時仍會運行，以便可以發送待"
 "辦事項通知。"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
@@ -1453,6 +1467,8 @@ msgstr "請輸入您的身份驗證"
 #: src/Dialogs/GoogleOAuth.vala:151
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:218
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:220
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:212
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:214
 msgid "Network Is Not Available"
 msgstr "網路無法作用"
 
@@ -1549,11 +1565,14 @@ msgid "Inbox Page"
 msgstr "收件箱頁"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:102
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:105
 msgid "You can sort your accounts by dragging and dropping"
 msgstr "您可以利用拖放操作來對帳戶進行排序"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:228
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:548
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr "Planify 正在同步您的任務，要花費數分鐘"
 
@@ -1562,20 +1581,24 @@ msgid "SSL verification is disabled"
 msgstr "SSL 驗證停用"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:398
 msgid "Cannot Hide This Account"
 msgstr "無法隱藏該帳戶"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:405
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:399
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr "該帳戶包含您目前的收件箱專案。請先變更您的收件箱專案。"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:409
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
 msgid "Change Inbox"
 msgstr "變更收件箱"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:518
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 msgid "Syncing…"
 msgstr "同步中…"
 
@@ -1690,18 +1713,22 @@ msgid "Connect with Token"
 msgstr "連接使用標記"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:171
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:165
 msgid "Enter token"
 msgstr "輸入標記(token)"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:189
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:183
 msgid "Synchronizing…"
 msgstr "正在同步中…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:207
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:201
 msgid "Please Enter Your Credentials"
 msgstr "請輸入您的身份驗證"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:209
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
 msgid "Loading…"
 msgstr "載入中…"
 
@@ -1758,7 +1785,8 @@ msgstr "備份"
 msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
-msgstr "永遠不用擔心遺失資料。凡作用中的專案、任務、評論等，您可以建立其備份，並可在"
+msgstr ""
+"永遠不用擔心遺失資料。凡作用中的專案、任務、評論等，您可以建立其備份，並可在"
 "日後匯入。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:48
@@ -1791,56 +1819,69 @@ msgid "Migrate From Planner"
 msgstr "移轉來自 Planner"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:118
+#: src/Dialogs/Preferences/Pages/Backup.vala:112
 msgid "The Backup was created successfully."
 msgstr "備份已經成功地建立了。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:135
+#: src/Dialogs/Preferences/Pages/Backup.vala:129
 msgid "Tasks Migrate Successfully"
 msgstr "任務移轉成功"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:139
+#: src/Dialogs/Preferences/Pages/Backup.vala:133
 msgid "The database file does not exist."
 msgstr "資料庫檔案不存在。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:177
+#: src/Dialogs/Preferences/Pages/Backup.vala:171
 msgid "Selected file is invalid"
 msgstr "所選檔案無效"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:222
+#: src/Dialogs/Preferences/Pages/Backup.vala:216
 msgid "View Backup"
 msgstr "檢視備份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:278
+#: src/Dialogs/Preferences/Pages/Backup.vala:272
 msgid "Download"
 msgstr "下載"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:342
+#: src/Dialogs/Preferences/Pages/Backup.vala:336
 msgid "Import Overview"
 msgstr "匯入概覽"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:354 src/Dialogs/Project.vala:353
+#: src/Dialogs/Preferences/Pages/Backup.vala:348
 msgid "Sources"
 msgstr "來源"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:366
+#: src/Dialogs/Preferences/Pages/Backup.vala:360
 msgid "To-Dos"
 msgstr "待辦事項"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:388
+#: src/Dialogs/Preferences/Pages/Backup.vala:382
 msgid "Confirm"
 msgstr "確認"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:444
+#: src/Dialogs/Preferences/Pages/Backup.vala:438
 msgid "Restore backup"
 msgstr "還原備份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:445
+#: src/Dialogs/Preferences/Pages/Backup.vala:439
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
 msgstr "確定要繼續嗎？此操作將刪除您目前的資料，並用備份資料來取代。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:444
 msgid "Restore Backup"
 msgstr "還原備份"
 
@@ -1969,14 +2010,16 @@ msgstr "快速添加"
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
-msgstr "使用〔快速添加〕，只需要點按幾下按鍵，即可在桌面任何位置上建立出待辦事項。您"
+msgstr ""
+"使用〔快速添加〕，只需要點按幾下按鍵，即可在桌面任何位置上建立出待辦事項。您"
 "甚至不必離開當下所在用的應用程式。"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:55
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
-msgstr "前往〔系統設定 → 鍵盤 → 快速鍵 → 自訂〕，然後用以下方式添加新的快速鍵："
+msgstr ""
+"前往〔系統設定 → 鍵盤 → 快速鍵 → 自訂〕，然後用以下方式添加新的快速鍵："
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
 msgid "Settings"
@@ -1991,6 +2034,7 @@ msgid "If unchecked, the default project selected is Inbox"
 msgstr "若無勾選，預設所選的專案是收件箱"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:127
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:121
 msgid "The command was copied to the clipboard"
 msgstr "該指令已經複製至剪貼簿"
 
@@ -2004,22 +2048,27 @@ msgid "Show in Sidebar"
 msgstr "顯示於側邊列"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:56
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:55
 msgid "Show Task Count"
 msgstr "顯示任務計數"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:61
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:60
 msgid "Sidebar Width"
 msgstr "側邊列寬度"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:66
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:65
 msgid "List View for Filters"
 msgstr "清單檢視用於篩選"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:67
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:66
 msgid "Show filters in a simple list instead of a grid"
 msgstr "顯示篩選，以簡單清單替代網格"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:83
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:87
 msgid "You can sort your views by dragging and dropping"
 msgstr "您可以排序檢視，利用拖放操作"
 
@@ -2033,22 +2082,27 @@ msgid ""
 "Our mission is to provide the best open source task management application "
 "for users all over the world. Your donations support this work. Want to "
 "donate today?"
-msgstr "我們的使命是為世界各地的用戶提供最好的開源的任務管理應用程式。您的捐款將支援"
+msgstr ""
+"我們的使命是為世界各地的用戶提供最好的開源的任務管理應用程式。您的捐款將支援"
 "這項工作，今天要捐款嗎？"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:49
+#: src/Dialogs/Preferences/Pages/Donate.vala:76
 msgid "Patreon"
 msgstr "Patreon (贊助募資平台)"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:62
+#: src/Dialogs/Preferences/Pages/Donate.vala:91
 msgid "PayPal"
 msgstr "PayPal"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:75
+#: src/Dialogs/Preferences/Pages/Donate.vala:106
 msgid "Liberapay"
 msgstr "Liberapay"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:88
+#: src/Dialogs/Preferences/Pages/Donate.vala:121
 msgid "Ko-fi"
 msgstr "Ko-fi"
 
@@ -2186,7 +2240,8 @@ msgid ""
 "Planify is being developed with love and passion for open source. However, "
 "if you like Planify and want to support its development, please consider "
 "supporting us."
-msgstr "Planify 的開發是對於開源充滿了衷愛與熱情。然而，若您喜歡 Planify 並希望支持其"
+msgstr ""
+"Planify 的開發是對於開源充滿了衷愛與熱情。然而，若您喜歡 Planify 並希望支持其"
 "發展，請酌量支持我們。"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
@@ -2251,6 +2306,7 @@ msgstr "聯絡我們"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:271
 #: src/Dialogs/Preferences/PreferencesWindow.vala:428
+#: src/Dialogs/Preferences/PreferencesWindow.vala:432
 msgid "Contact Us"
 msgstr "聯絡我們"
 
@@ -2285,6 +2341,7 @@ msgstr "隱私"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:343
 #: src/Dialogs/Preferences/PreferencesWindow.vala:459
+#: src/Dialogs/Preferences/PreferencesWindow.vala:453
 msgid "Privacy Policy"
 msgstr "隱私政策"
 
@@ -2309,28 +2366,34 @@ msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "刪除全部您的清單、任務和提醒，無法救回"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:400
+#: src/Dialogs/Preferences/PreferencesWindow.vala:404
 msgid "Personal Data"
 msgstr "個人資料"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:406
+#: src/Dialogs/Preferences/PreferencesWindow.vala:410
 msgid ""
 "We collect absolutely nothing and all your data is stored in a database on "
 "your computer."
 msgstr "我們絕對不收集任何資訊，全部您的資料都儲存於資料庫在您的電腦中。"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:412
+#: src/Dialogs/Preferences/PreferencesWindow.vala:416
 msgid ""
 "If you choose to integrate Todoist, which is optional and not selected by "
 "default, your data will be stored on their private servers, we only display "
 "your configured tasks and manage them for you."
-msgstr "如果您選擇整合 Todoist (其為選項而非預設選用)，您的資料將會儲存在其私有服務器"
+msgstr ""
+"如果您選擇整合 Todoist (其為選項而非預設選用)，您的資料將會儲存在其私有服務器"
 "上。我們僅顯示您所設置的任務，並為您管理。"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:417
+#: src/Dialogs/Preferences/PreferencesWindow.vala:421
 msgid "Do you have any questions?"
 msgstr "您有任何疑問嗎？"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:423
+#: src/Dialogs/Preferences/PreferencesWindow.vala:427
 msgid ""
 "If you have any questions about your data or any other issue, please contact "
 "us. We will be happy to answer you."
@@ -3199,6 +3262,55 @@ msgstr "開啟標籤"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "開啟釘貼看板"
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:45
+#: src/Dialogs/Preferences/PreferencesWindow.vala:217
+msgid "Donate"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:54
+msgid "Support Planify Development"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:59
+msgid ""
+"Help keep Planify free and open source! Your donations directly support "
+"development, new features, and maintenance. Every contribution, no matter "
+"the size, makes a difference."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:77
+msgid "Monthly recurring support"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:92
+msgid "One-time donation"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:107
+msgid "Weekly recurring donations"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:122
+msgid "Buy me a coffee ☕"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:134
+msgid "Choose Your Preferred Platform"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:149
+msgid "Thank you for your support! 🙏"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:156
+msgid "Your contribution helps keep Planify alive and growing."
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:60
+msgid "Donate Now"
+msgstr ""
 
 #~ msgid "Clear Schedule"
 #~ msgstr "清除行程"

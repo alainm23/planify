@@ -127,19 +127,13 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             vexpand = true,
-            hexpand = true
+            hexpand = true,
+            margin_start = 12,
+            margin_end = 12
         };
         content_box.append (entries_group);
         content_box.append (login_button);
         content_box.append (message_card);
-
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 400,
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12,
-            child = content_box
-        };
 
         signal_map[token_entry.changed.connect (() => {
             login_button.sensitive = token_entry.text != null && token_entry.text != "";
@@ -150,7 +144,7 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
         })] = login_button;
         
 
-        return content_clamp;
+        return content_box;
     }
 
 #if USE_WEBKITGTK

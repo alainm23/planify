@@ -81,30 +81,24 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             vexpand = true,
-            hexpand = true
+            hexpand = true,
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12,
+            margin_top = 12
         };
-
         content_box.append (description_label);
         content_box.append (add_button);
         content_box.append (import_button);
         content_box.append (backups_box);
         content_box.append (migrate_group);
 
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 400,
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12,
-            margin_bottom = 12,
-            child = content_box
-        };
-
         var scrolled_window = new Gtk.ScrolledWindow () {
             hexpand = true,
             vexpand = true,
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hscrollbar_policy = Gtk.PolicyType.NEVER,
-            child = content_clamp
+            child = content_box
         };
 
         var toolbar_view = new Adw.ToolbarView ();

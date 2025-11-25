@@ -5,8 +5,8 @@ msgstr ""
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
 "PO-Revision-Date: 2025-11-14 10:30+0000\n"
 "Last-Translator: oo nth <oonth@mail.com>\n"
-"Language-Team: Hindi <https://hosted.weblate.org/projects/planner/"
-"io-github-alainm23-planify/hi/>\n"
+"Language-Team: Hindi <https://hosted.weblate.org/projects/planner/io-github-"
+"alainm23-planify/hi/>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,10 +16,12 @@ msgstr ""
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
 #: src/Dialogs/Preferences/Pages/General.vala:55
+#: src/Dialogs/Preferences/Pages/Backup.vala:352
 msgid "Projects"
 msgstr "परियोजनाएं"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:362
+#: src/Dialogs/Preferences/Pages/Backup.vala:356
 msgid "Sections"
 msgstr "अनुभाग"
 
@@ -30,7 +32,7 @@ msgstr "कार्य"
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:370 src/Layouts/ItemBoard.vala:723
-#: src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemRow.vala:1170 src/Dialogs/Preferences/Pages/Backup.vala:364
 msgid "Labels"
 msgstr "लेबल"
 
@@ -363,6 +365,9 @@ msgstr "इसे पूर्ववत नहीं किया जा सक�
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:265
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
+#: src/Dialogs/Preferences/Pages/Backup.vala:377
+#: src/Dialogs/Preferences/Pages/Backup.vala:443
 msgid "Cancel"
 msgstr "रद्द करें"
 
@@ -374,6 +379,7 @@ msgstr "रद्द करें"
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
 #: src/Widgets/MultiSelectToolbar.vala:266
+#: src/Dialogs/Preferences/Pages/Backup.vala:273
 msgid "Delete"
 msgstr "मिटाएं"
 
@@ -476,7 +482,8 @@ msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
-"मुझे खेद है, शीघ्र जोड़ने हेतु कोई भी परियोजना उपलब्ध नहीं है। प्लॅानिफाई से एक परियोजना बनाने का प्रयास करें।"
+"मुझे खेद है, शीघ्र जोड़ने हेतु कोई भी परियोजना उपलब्ध नहीं है। प्लॅानिफाई से एक परियोजना "
+"बनाने का प्रयास करें।"
 
 #: core/QuickAddCore.vala:1276 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
@@ -814,6 +821,7 @@ msgstr "प्रक्रिया पूर्ण, प्लॅानिफा
 
 #: core/Utils/Util.vala:456
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:221
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 msgid "Ok"
 msgstr "ठीक है"
 
@@ -832,8 +840,8 @@ msgid ""
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
-"यह परियोजना वह सब कुछ दिखती है जो आपको प्लॅानिफाई के उपयोग हेतु जानना आवश्यक है। इसमें बेझिझक बदलाव करें -"
-" सेटिंग से हमेशा एक नया बना सकते हैं।"
+"यह परियोजना वह सब कुछ दिखती है जो आपको प्लॅानिफाई के उपयोग हेतु जानना आवश्यक है। इसमें "
+"बेझिझक बदलाव करें - सेटिंग से हमेशा एक नया बना सकते हैं।"
 
 #: core/Utils/Util.vala:601
 #, fuzzy
@@ -845,8 +853,8 @@ msgstr "इस कार्य को टैप करें"
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
-"आप एक कार्य को देख रहे हैं! बाईं ओर चेकबॉक्स पर टैप करके इसे पूरा करें। पूर्ण किए गए कार्य परियोजना के "
-"निचले भाग में एकत्र किए जाते हैं।"
+"आप एक कार्य को देख रहे हैं! बाईं ओर चेकबॉक्स पर टैप करके इसे पूरा करें। पूर्ण किए गए कार्य "
+"परियोजना के निचले भाग में एकत्र किए जाते हैं।"
 
 #: core/Utils/Util.vala:607
 #, fuzzy
@@ -859,8 +867,8 @@ msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
 msgstr ""
-"अब आपकी बारी है, अपने परियोजना के नीचे '+' बटन पर टैप करें, कोई भी लंबित दर्ज करें और नीले 'सहेजें' "
-"बटन पर टैप करें।"
+"अब आपकी बारी है, अपने परियोजना के नीचे '+' बटन पर टैप करें, कोई भी लंबित दर्ज करें और "
+"नीले 'सहेजें' बटन पर टैप करें।"
 
 #: core/Utils/Util.vala:613
 #, fuzzy
@@ -893,8 +901,8 @@ msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
-"अपने कार्यों को बेहतर ढंग से व्यवस्थित करें! बाएं पैनल पर जाएं और 'इस कंप्यूटर पर' अनुभाग में '+' बटन "
-"पर क्लिक करें और खुद की एक परियोजना जोड़ें।"
+"अपने कार्यों को बेहतर ढंग से व्यवस्थित करें! बाएं पैनल पर जाएं और 'इस कंप्यूटर पर' अनुभाग में "
+"'+' बटन पर क्लिक करें और खुद की एक परियोजना जोड़ें।"
 
 #: core/Utils/Util.vala:631
 msgid "You’re done!"
@@ -926,8 +934,8 @@ msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
-"सिस्टम के कैलेंडर कार्यक्रमों को प्लॅानिफाई में दिखाया जा सकता है। इसे चालू करने के लिए 'प्राथमिकताएं' 🡒 सामान्य 🡒 "
-"कैलेंडर कार्यक्रम पर जाएं।"
+"सिस्टम के कैलेंडर कार्यक्रमों को प्लॅानिफाई में दिखाया जा सकता है। इसे चालू करने के लिए "
+"'प्राथमिकताएं' 🡒 सामान्य 🡒 कैलेंडर कार्यक्रम पर जाएं।"
 
 #: core/Utils/Util.vala:661
 #, fuzzy
@@ -940,8 +948,8 @@ msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
-"प्लॅानिफाई स्थानीय कार्यों को बनाने के साथ ही Todoist खाते को भी समन्वयन कर सकता है। 'प्राथमिकताएं' 🡒 'खाते' "
-"पर जाएं।"
+"प्लॅानिफाई स्थानीय कार्यों को बनाने के साथ ही Todoist खाते को भी समन्वयन कर सकता है। "
+"'प्राथमिकताएं' 🡒 'खाते' पर जाएं।"
 
 #: core/Utils/Util.vala:670
 msgid "Boost your productivity"
@@ -956,8 +964,8 @@ msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
 msgstr ""
-"स्क्रीन के नीचे की और दिखाई देने वाला नीला बटन शक्तिशाली है: इसे खिंचा जा सकता है! जहां कार्य बनाना चाहते हैं वहां "
-"इसे खींच कर ले जाएं।"
+"स्क्रीन के नीचे की और दिखाई देने वाला नीला बटन शक्तिशाली है: इसे खिंचा जा सकता है! जहां "
+"कार्य बनाना चाहते हैं वहां इसे खींच कर ले जाएं।"
 
 #: core/Utils/Util.vala:685
 msgid "Add labels to your tasks!"
@@ -969,7 +977,8 @@ msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
-"टैग प्लॅानिफाई में कार्यप्रवाह को बेहतर बनता है। टैग जोड़ने के लिए नीचे दिए गए टैग बटन पर क्लिक करें।"
+"टैग प्लॅानिफाई में कार्यप्रवाह को बेहतर बनता है। टैग जोड़ने के लिए नीचे दिए गए टैग बटन पर "
+"क्लिक करें।"
 
 #: core/Utils/Util.vala:692
 msgid "Set timely reminders!"
@@ -981,8 +990,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
 "add a reminder."
 msgstr ""
-"चाहते हैं कि प्लॅानिफाई आपको किसी महत्वपूर्ण कार्यक्रम या किसी विशेष चीज़ की याद दिलाने के लिए अधिसूचना भेजे। रिमाइं"
-"डर जोड़ने के लिए नीचे घंटी का बटन दबाएं।"
+"चाहते हैं कि प्लॅानिफाई आपको किसी महत्वपूर्ण कार्यक्रम या किसी विशेष चीज़ की याद दिलाने के "
+"लिए अधिसूचना भेजे। रिमाइंडर जोड़ने के लिए नीचे घंटी का बटन दबाएं।"
 
 #: core/Utils/Util.vala:704
 msgid "💼️Work"
@@ -1300,8 +1309,7 @@ msgstr ""
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
-msgstr ""
-"आपकी फिल्टर सूची यहां दिखाई देगी। नाम दर्ज करके और Enter दबा कर एक बनाएं।"
+msgstr "आपकी फिल्टर सूची यहां दिखाई देगी। नाम दर्ज करके और Enter दबा कर एक बनाएं।"
 
 # # c-format
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
@@ -1454,8 +1462,8 @@ msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
 msgstr ""
-"जब यह उपकरण चालू होगा तो प्लॅानिफाई स्वचालित रूप से प्रारंभ हो जाएगा और विंडो बंद होने पर भी चलेगा ताकि यह कार्"
-"य संबंधी अधिसूचनाएं भेज सके।"
+"जब यह उपकरण चालू होगा तो प्लॅानिफाई स्वचालित रूप से प्रारंभ हो जाएगा और विंडो बंद होने "
+"पर भी चलेगा ताकि यह कार्य संबंधी अधिसूचनाएं भेज सके।"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 #, fuzzy
@@ -1481,15 +1489,13 @@ msgstr "सभी पूर्ण कार्य मिटाएं"
 #: src/Dialogs/CompletedTasks.vala:165
 #, fuzzy, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
-msgstr ""
-"यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
+msgstr "यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
 
 # # c-format
 #: src/Dialogs/CompletedTasks.vala:166
 #, c-format
 msgid "This will delete %d completed tasks and their subtasks from project %s"
-msgstr ""
-"यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
+msgstr "यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:581
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:655
@@ -1525,6 +1531,8 @@ msgstr "कृपया अपने प्रत्ययपत्र दर्
 #: src/Dialogs/GoogleOAuth.vala:151
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:218
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:220
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:212
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:214
 msgid "Network Is Not Available"
 msgstr "नेटवर्क उपलब्ध नहीं है"
 
@@ -1548,8 +1556,7 @@ msgstr "समय अद्यतित"
 #: src/Dialogs/ItemChangeHistory.vala:69
 msgid ""
 "Your change history will be displayed here once you start making changes."
-msgstr ""
-"जब परिवर्तन करना शुरू करेंगे तो आपका परिवर्तन इतिहास यहां प्रदर्शित किया जाएगा।"
+msgstr "जब परिवर्तन करना शुरू करेंगे तो आपका परिवर्तन इतिहास यहां प्रदर्शित किया जाएगा।"
 
 # # c-format
 #: src/Dialogs/ItemChangeHistory.vala:138
@@ -1626,37 +1633,44 @@ msgid "Inbox Page"
 msgstr "इनबॉक्स"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:102
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:105
 #, fuzzy
 msgid "You can sort your accounts by dragging and dropping"
 msgstr "आप अपने विचारों को खींचकर और छोड़ कर छांट सकते हैं"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:228
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:548
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
-msgstr ""
-"प्लॅानिफाई आपके कार्यों को समन्वयित कर रहा है, इसमें कुछ मिनट लग सकते हैं"
+msgstr "प्लॅानिफाई आपके कार्यों को समन्वयित कर रहा है, इसमें कुछ मिनट लग सकते हैं"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:398
 msgid "Cannot Hide This Account"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:405
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:399
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:409
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
 #, fuzzy
 msgid "Change Inbox"
 msgstr "इनबॉक्स खोलें"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:518
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 #, fuzzy
 msgid "Syncing…"
 msgstr "समन्वयन..."
@@ -1733,8 +1747,8 @@ msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
 msgstr ""
-"इस सेटिंग को सक्रिय करें ताकि प्लॅानिफाई स्वचालित रूप से हर 15 मिनट में आपके Todoist खाते के साथ समन्वयित हो"
-" जाए"
+"इस सेटिंग को सक्रिय करें ताकि प्लॅानिफाई स्वचालित रूप से हर 15 मिनट में आपके Todoist खाते "
+"के साथ समन्वयित हो जाए"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:96
 msgid "Last Sync"
@@ -1774,18 +1788,22 @@ msgid "Connect with Token"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:171
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:165
 msgid "Enter token"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:189
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:183
 msgid "Synchronizing…"
 msgstr "समन्वयन..."
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:207
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:201
 msgid "Please Enter Your Credentials"
 msgstr "कृपया अपना प्रत्ययपत्र दर्ज करें"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:209
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
 msgid "Loading…"
 msgstr "लोड हो रहा है…"
 
@@ -1845,8 +1863,8 @@ msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
 msgstr ""
-"अपना डेटा खोने की चिंता कभी न करें। आप अपनी सक्रिय परियोजनाओं, कार्यों और टिप्पणियों का बैकअप बना सकते हैं और बा"
-"द में उन्हें आयात कर सकते हैं।"
+"अपना डेटा खोने की चिंता कभी न करें। आप अपनी सक्रिय परियोजनाओं, कार्यों और टिप्पणियों का "
+"बैकअप बना सकते हैं और बाद में उन्हें आयात कर सकते हैं।"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:48
 msgid "Create Backup"
@@ -1878,57 +1896,71 @@ msgid "Migrate From Planner"
 msgstr "प्लानर से प्रवासन"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:118
+#: src/Dialogs/Preferences/Pages/Backup.vala:112
 msgid "The Backup was created successfully."
 msgstr "कार्य प्रवासन सफल"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:135
+#: src/Dialogs/Preferences/Pages/Backup.vala:129
 msgid "Tasks Migrate Successfully"
 msgstr "कार्य प्रवासन सफल"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:139
+#: src/Dialogs/Preferences/Pages/Backup.vala:133
 msgid "The database file does not exist."
 msgstr "डेटाबेस फाइल मौजूद नहीं है।"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:177
+#: src/Dialogs/Preferences/Pages/Backup.vala:171
 msgid "Selected file is invalid"
 msgstr "चयनित फाइल अमान्य है"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:222
+#: src/Dialogs/Preferences/Pages/Backup.vala:216
 msgid "View Backup"
 msgstr "बैकअप देखें"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:278
+#: src/Dialogs/Preferences/Pages/Backup.vala:272
 msgid "Download"
 msgstr "डाउनलोड"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:342
+#: src/Dialogs/Preferences/Pages/Backup.vala:336
 msgid "Import Overview"
 msgstr "आयात अवलोकन"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:354 src/Dialogs/Project.vala:353
+#: src/Dialogs/Preferences/Pages/Backup.vala:348
 msgid "Sources"
 msgstr "स्रोत"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:366
+#: src/Dialogs/Preferences/Pages/Backup.vala:360
 msgid "To-Dos"
 msgstr "कार्य"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:388
+#: src/Dialogs/Preferences/Pages/Backup.vala:382
 msgid "Confirm"
 msgstr "पुष्टि करें"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:444
+#: src/Dialogs/Preferences/Pages/Backup.vala:438
 msgid "Restore backup"
 msgstr "बैकअप बहाल"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:445
+#: src/Dialogs/Preferences/Pages/Backup.vala:439
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
 msgstr ""
-"क्या आप वाकई जारी रखना चाहते हैं? यह अभियान आपके वर्तमान डेटा को मिटा देगा और इसे बैकअप डेटा से बदल देगा।"
+"क्या आप वाकई जारी रखना चाहते हैं? यह अभियान आपके वर्तमान डेटा को मिटा देगा और इसे "
+"बैकअप डेटा से बदल देगा।"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:444
 msgid "Restore Backup"
 msgstr "बैकअप बहाल"
 
@@ -2059,15 +2091,16 @@ msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
 msgstr ""
-"बस कुछ कीस्ट्रोक्स के साथ अपने डेस्कटॉप पर कहीं से भी करने-हेतु कार्य बनाने के लिए शीघ्र जोड़ें का उपयोग करें। "
-"आपको वह ऐप छोड़ने की भी ज़रूरत नहीं है जिसमें आप वर्तमान में हैं।"
+"बस कुछ कीस्ट्रोक्स के साथ अपने डेस्कटॉप पर कहीं से भी करने-हेतु कार्य बनाने के लिए शीघ्र जोड़ें "
+"का उपयोग करें। आपको वह ऐप छोड़ने की भी ज़रूरत नहीं है जिसमें आप वर्तमान में हैं।"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:55
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
 msgstr ""
-"सिस्टम सेटिंग → कीबोर्ड → शॉर्टकट → तदनुकूल पर जाएं, फिर निम्नलिखित के साथ एक नया शॉर्टकट जोड़ें:"
+"सिस्टम सेटिंग → कीबोर्ड → शॉर्टकट → तदनुकूल पर जाएं, फिर निम्नलिखित के साथ एक नया "
+"शॉर्टकट जोड़ें:"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
 msgid "Settings"
@@ -2082,6 +2115,7 @@ msgid "If unchecked, the default project selected is Inbox"
 msgstr "यदि जांचा नहीं गया है, तो चयनित तयशुदा परियोजना इनबॉक्स है"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:127
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:121
 msgid "The command was copied to the clipboard"
 msgstr "कमांड को क्लिपबोर्ड पर कॉपी किया गया था"
 
@@ -2095,22 +2129,27 @@ msgid "Show in Sidebar"
 msgstr "पार्श्वपट्टी में दिखाएं"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:56
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:55
 msgid "Show Task Count"
 msgstr "कार्य संख्या दिखाएं"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:61
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:60
 msgid "Sidebar Width"
 msgstr "पार्श्वपट्टी की चौड़ाई"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:66
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:65
 msgid "List View for Filters"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:67
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:66
 msgid "Show filters in a simple list instead of a grid"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:83
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:87
 msgid "You can sort your views by dragging and dropping"
 msgstr "आप अपने विचारों को खींचकर और छोड़ कर छांट सकते हैं"
 
@@ -2125,22 +2164,26 @@ msgid ""
 "for users all over the world. Your donations support this work. Want to "
 "donate today?"
 msgstr ""
-"हमारा मिशन दुनिया भर के उपयोक्ताओं के लिए सर्वोत्तम खुले स्त्रोत की कार्य प्रबंधन अनुप्रयोग प्रदान करना है। "
-"आपका दान इस कार्य का समर्थन करता है। आज दान करना चाहते हैं?"
+"हमारा मिशन दुनिया भर के उपयोक्ताओं के लिए सर्वोत्तम खुले स्त्रोत की कार्य प्रबंधन अनुप्रयोग "
+"प्रदान करना है। आपका दान इस कार्य का समर्थन करता है। आज दान करना चाहते हैं?"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:49
+#: src/Dialogs/Preferences/Pages/Donate.vala:76
 msgid "Patreon"
 msgstr "Patreon"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:62
+#: src/Dialogs/Preferences/Pages/Donate.vala:91
 msgid "PayPal"
 msgstr "PayPal"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:75
+#: src/Dialogs/Preferences/Pages/Donate.vala:106
 msgid "Liberapay"
 msgstr "Liberapay"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:88
+#: src/Dialogs/Preferences/Pages/Donate.vala:121
 msgid "Ko-fi"
 msgstr "Ko-fi"
 
@@ -2285,8 +2328,9 @@ msgid ""
 "if you like Planify and want to support its development, please consider "
 "supporting us."
 msgstr ""
-"प्लॅानिफाई को ओपन सोर्स के प्रति प्रेम और जुनून के साथ विकसित किया जा रहा है। तथापि, यदि आप प्लॅानिफाई को पसंद "
-"करते हैं और इसके विकास का समर्थन करना चाहते हैं, तो कृपया हमें समर्थन देने पर विचार करें।"
+"प्लॅानिफाई को ओपन सोर्स के प्रति प्रेम और जुनून के साथ विकसित किया जा रहा है। तथापि, "
+"यदि आप प्लॅानिफाई को पसंद करते हैं और इसके विकास का समर्थन करना चाहते हैं, तो कृपया हमें "
+"समर्थन देने पर विचार करें।"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Sync your favorite to-do providers"
@@ -2350,6 +2394,7 @@ msgstr "हम तक पहुंचें"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:271
 #: src/Dialogs/Preferences/PreferencesWindow.vala:428
+#: src/Dialogs/Preferences/PreferencesWindow.vala:432
 msgid "Contact Us"
 msgstr "हमसे संपर्क करें"
 
@@ -2384,6 +2429,7 @@ msgstr "गोपनीयता"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:343
 #: src/Dialogs/Preferences/PreferencesWindow.vala:459
+#: src/Dialogs/Preferences/PreferencesWindow.vala:453
 msgid "Privacy Policy"
 msgstr "गोपनीयता नीति"
 
@@ -2408,37 +2454,43 @@ msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "आपकी सभी सूचियां, कार्य और रिमाइंडर को अपरिवर्तनीय रूप से मिटा देता है"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:400
+#: src/Dialogs/Preferences/PreferencesWindow.vala:404
 msgid "Personal Data"
 msgstr "व्यक्तिगत डेटा"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:406
+#: src/Dialogs/Preferences/PreferencesWindow.vala:410
 msgid ""
 "We collect absolutely nothing and all your data is stored in a database on "
 "your computer."
 msgstr ""
-"हम बिल्कुल कुछ भी एकत्र नहीं करते हैं और आपका सारा डेटा आपके कंप्यूटर पर एक डेटाबेस में संग्रहीत होता है।"
+"हम बिल्कुल कुछ भी एकत्र नहीं करते हैं और आपका सारा डेटा आपके कंप्यूटर पर एक डेटाबेस में "
+"संग्रहीत होता है।"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:412
+#: src/Dialogs/Preferences/PreferencesWindow.vala:416
 msgid ""
 "If you choose to integrate Todoist, which is optional and not selected by "
 "default, your data will be stored on their private servers, we only display "
 "your configured tasks and manage them for you."
 msgstr ""
-"यदि आप Todoist को एकीकृत करना चुनते हैं, जो वैकल्पिक है और तयशुदा रूप से चयनित नहीं है, तो आपका डेटा "
-"उनके निजी सर्वर पर संग्रहीत किया जाएगा, हम केवल आपके विन्यस्त कार्यों को प्रदर्शित करते हैं और उन्हें आपके लि"
-"ए प्रबंधित करते हैं।"
+"यदि आप Todoist को एकीकृत करना चुनते हैं, जो वैकल्पिक है और तयशुदा रूप से चयनित नहीं है, "
+"तो आपका डेटा उनके निजी सर्वर पर संग्रहीत किया जाएगा, हम केवल आपके विन्यस्त कार्यों को "
+"प्रदर्शित करते हैं और उन्हें आपके लिए प्रबंधित करते हैं।"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:417
+#: src/Dialogs/Preferences/PreferencesWindow.vala:421
 msgid "Do you have any questions?"
 msgstr "क्या आपका कोई प्रश्न है?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:423
+#: src/Dialogs/Preferences/PreferencesWindow.vala:427
 msgid ""
 "If you have any questions about your data or any other issue, please contact "
 "us. We will be happy to answer you."
 msgstr ""
-"यदि आपके डेटा या किसी अन्य समस्या के बारे में आपके कोई प्रश्न हैं, तो कृपया हमसे संपर्क करें। हमें आपको उत्तर "
-"देने में ख़ुशी होगी।"
+"यदि आपके डेटा या किसी अन्य समस्या के बारे में आपके कोई प्रश्न हैं, तो कृपया हमसे संपर्क करें। "
+"हमें आपको उत्तर देने में ख़ुशी होगी।"
 
 #: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -2481,8 +2533,7 @@ msgstr "शीघ्र खोज"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
-msgstr ""
-"परियोजनाओं और दृश्यों को शीघ्र रूप से बदलें, कार्य खोजें, लेबल द्वारा खोजें"
+msgstr "परियोजनाओं और दृश्यों को शीघ्र रूप से बदलें, कार्य खोजें, लेबल द्वारा खोजें"
 
 #: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:223
 #: src/Views/Project/Project.vala:336
@@ -3327,6 +3378,55 @@ msgstr "लेबल खोलें"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "पिनबोर्ड खोलें"
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:45
+#: src/Dialogs/Preferences/PreferencesWindow.vala:217
+msgid "Donate"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:54
+msgid "Support Planify Development"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:59
+msgid ""
+"Help keep Planify free and open source! Your donations directly support "
+"development, new features, and maintenance. Every contribution, no matter "
+"the size, makes a difference."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:77
+msgid "Monthly recurring support"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:92
+msgid "One-time donation"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:107
+msgid "Weekly recurring donations"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:122
+msgid "Buy me a coffee ☕"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:134
+msgid "Choose Your Preferred Platform"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:149
+msgid "Thank you for your support! 🙏"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:156
+msgid "Your contribution helps keep Planify alive and growing."
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:60
+msgid "Donate Now"
+msgstr ""
 
 #, fuzzy
 #~ msgid "Clear Schedule"

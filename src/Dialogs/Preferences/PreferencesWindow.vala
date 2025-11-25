@@ -42,7 +42,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         page.name = "preferences";
         page.icon_name = "applications-system-symbolic";
 
-        var banner_title = new Gtk.Label (_("Support Planify")) {
+        var banner_title = new Gtk.Label (_("Donate")) {
             halign = START,
             css_classes = { "font-bold", "banner-text" }
         };
@@ -57,7 +57,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             css_classes = { "caption", "banner-text" }
         };
 
-        var banner_button = new Gtk.Button.with_label (_("Supporting Us")) {
+        var banner_button = new Gtk.Button.with_label (_("Donate Now")) {
             halign = START,
             margin_top = 6,
             css_classes = { "banner-text" }
@@ -91,7 +91,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
                                                         GLib.SettingsBindFlags.DEFAULT);
 
         signal_map[banner_button.clicked.connect (() => {
-            push_subpage (build_page ("support"));
+            push_subpage (build_page ("donate"));
         })] = banner_button;
 
         signal_map[close_button.clicked.connect (() => {
@@ -214,11 +214,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         supporting_us_row.activatable = true;
         supporting_us_row.add_prefix (generate_icon ("heart-outline-thick-symbolic"));
         supporting_us_row.add_suffix (generate_icon ("go-next-symbolic"));
-        supporting_us_row.title = _("Support Planify");
+        supporting_us_row.title = _("Donate");
         supporting_us_row.subtitle = _("Want to buy me a drink?");
 
         signal_map[supporting_us_row.activated.connect (() => {
-            push_subpage (build_page ("support"));
+            push_subpage (build_page ("donate"));
         })] = supporting_us_row;
 
         var issue_row = new Adw.ActionRow ();
@@ -394,7 +394,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
     private Adw.NavigationPage get_privacy_policy_page () {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             vexpand = true,
-            hexpand = true
+            hexpand = true,
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12,
+            margin_top = 12
         };
 
         content_box.append (new Gtk.Label (_("Personal Data")) {
@@ -427,28 +431,18 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
         var contact_us_button = new Gtk.Button.with_label (_("Contact Us")) {
             vexpand = true,
-            margin_bottom = 24,
             valign = END,
             css_classes = { "suggested-action" }
         };
 
         content_box.append (contact_us_button);
 
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 400,
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12
-        };
-
-        content_clamp.child = content_box;
-
         var scrolled_window = new Gtk.ScrolledWindow () {
             hexpand = true,
             vexpand = true,
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hscrollbar_policy = Gtk.PolicyType.NEVER,
-            child = content_clamp
+            child = content_box
         };
 
         var toolbar_view = new Adw.ToolbarView ();
@@ -508,8 +502,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             case "quick-add":
                 page_map[page] = new Dialogs.Preferences.Pages.QuickAdd (this);
                 break;
-            case "support":
-                page_map[page] = new Dialogs.Preferences.Pages.Support (this);
+            case "donate":
+                page_map[page] = new Dialogs.Preferences.Pages.Donate (this);
                 break;
             default:
                 warning ("The page %s does not exist\n", page);
