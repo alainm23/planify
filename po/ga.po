@@ -404,38 +404,38 @@ msgstr ""
 msgid "Todoist"
 msgstr ""
 
-#: core/QuickAddCore.vala:134
+#: core/QuickAddCore.vala:136
 msgid "Task added successfully!"
 msgstr ""
 
-#: core/QuickAddCore.vala:150 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:152 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr ""
 
-#: core/QuickAddCore.vala:180
+#: core/QuickAddCore.vala:182
 msgid "This field is required"
 msgstr ""
 
-#: core/QuickAddCore.vala:204
+#: core/QuickAddCore.vala:206
 msgid "Add a description…"
 msgstr ""
 
-#: core/QuickAddCore.vala:244
+#: core/QuickAddCore.vala:246
 msgid "Set date"
 msgstr ""
 
-#: core/QuickAddCore.vala:248 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:250 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr ""
 
-#: core/QuickAddCore.vala:253 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:255 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr ""
 
-#: core/QuickAddCore.vala:258
+#: core/QuickAddCore.vala:260
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -444,74 +444,74 @@ msgstr ""
 msgid "Add Reminders"
 msgstr ""
 
-#: core/QuickAddCore.vala:299 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:301 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:655 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr ""
 
-#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1314
+#: core/QuickAddCore.vala:307 core/QuickAddCore.vala:1335
 msgid "Keep adding"
 msgstr ""
 
-#: core/QuickAddCore.vala:322
+#: core/QuickAddCore.vala:324
 msgid "Select a Project"
 msgstr ""
 
-#: core/QuickAddCore.vala:349
+#: core/QuickAddCore.vala:351
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
 
-#: core/QuickAddCore.vala:1276 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1297 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1282
+#: core/QuickAddCore.vala:1303
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1296
+#: core/QuickAddCore.vala:1317
 msgid "Set priority"
 msgstr ""
 
-#: core/QuickAddCore.vala:1296
+#: core/QuickAddCore.vala:1317
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1297
+#: core/QuickAddCore.vala:1318
 msgid "Add labels"
 msgstr ""
 
-#: core/QuickAddCore.vala:1297
+#: core/QuickAddCore.vala:1318
 msgid "Opens label selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1298
+#: core/QuickAddCore.vala:1319
 msgid "Assign project"
 msgstr ""
 
-#: core/QuickAddCore.vala:1298
+#: core/QuickAddCore.vala:1319
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1299
+#: core/QuickAddCore.vala:1320
 msgid "Set reminder"
 msgstr ""
 
-#: core/QuickAddCore.vala:1299
+#: core/QuickAddCore.vala:1320
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1314
+#: core/QuickAddCore.vala:1335
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1320
+#: core/QuickAddCore.vala:1341
 msgid "Tip"
 msgstr ""
 
-#: core/QuickAddCore.vala:1320
+#: core/QuickAddCore.vala:1341
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
