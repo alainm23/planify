@@ -98,26 +98,20 @@ public class Dialogs.Preferences.Pages.QuickAdd : Dialogs.Preferences.Pages.Base
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             vexpand = true,
-            hexpand = true
+            hexpand = true,
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12,
+            margin_top = 12
         };
-
         content_box.append (description_label);
         content_box.append (description2_label);
         content_box.append (command_group);
         content_box.append (settings_group);
 
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 400,
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12
-        };
-
-        content_clamp.child = content_box;
-
         var toolbar_view = new Adw.ToolbarView ();
         toolbar_view.add_top_bar (new Adw.HeaderBar ());
-        toolbar_view.content = content_clamp;
+        toolbar_view.content = content_box;
 
         child = toolbar_view;
 
