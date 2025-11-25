@@ -53,9 +53,11 @@ public class Layouts.QuickAddCore : Adw.Bin {
     public signal void parent_can_close (bool active);
 
     public bool ctrl_pressed { get; set; default = false; }
+    public bool shift_pressed { get; set; default = false; }
     public bool labels_picker_activate_shortcut { get; set; default = false; }
     public bool project_picker_activate_shortcut { get; set; default = false; }
     public bool reminder_picker_activate_shortcut { get; set; default = false; }
+    private bool shift_enter_used { get; set; default = false; }
     
     public enum FocusedWidget {
         CONTENT_ENTRY,
@@ -561,6 +563,12 @@ public class Layouts.QuickAddCore : Adw.Bin {
                 return true;
             }
             
+            if (keyval == Gdk.Key.Return && shift_pressed) {
+                shift_enter_used = true;
+                add_item ();
+                return true;
+            }
+            
             if (labels_quick_picker != null && labels_quick_picker.visible) {
                 if (keyval == Gdk.Key.Down || keyval == Gdk.Key.Up) {
                     labels_quick_picker.navigate_listbox (keyval == Gdk.Key.Down);
@@ -584,6 +592,9 @@ public class Layouts.QuickAddCore : Adw.Bin {
         signal_map[description_textview.return_pressed.connect (() => {
             if (ctrl_pressed) {
                 add_item ();
+            } else if (shift_pressed) {
+                shift_enter_used = true;
+                add_item ();
             }
         })] = description_textview;
 
@@ -603,6 +614,10 @@ public class Layouts.QuickAddCore : Adw.Bin {
             if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
                 ctrl_pressed = true;
             }
+            
+            if (keyval == Gdk.Key.Shift_L || keyval == Gdk.Key.Shift_R) {
+                shift_pressed = true;
+            }
 
             return false;
         })] = event_controller_key;
@@ -610,6 +625,10 @@ public class Layouts.QuickAddCore : Adw.Bin {
         signal_map[event_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
                 ctrl_pressed = false;
+            }
+            
+            if (keyval == Gdk.Key.Shift_L || keyval == Gdk.Key.Shift_R) {
+                shift_pressed = false;
             }
         })] = event_controller_key;
 
@@ -767,7 +786,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
     }
 
     public void added_successfully () {
-        if (create_more_button.active) {
+        if (create_more_button.active || shift_enter_used) {
             main_stack.visible_child_name = "main";
             added_image.remove_css_class ("fancy-turn-animation");
 
@@ -804,6 +823,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
             priority_button.reset ();
 
             content_entry.grab_focus ();
+            
+            shift_enter_used = false;
 
             return;
         }
