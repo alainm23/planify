@@ -36,8 +36,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
     construct {
         views_group = new Layouts.HeaderItem (_("Show in Sidebar")) {
             card = true,
-            reveal = true,
-            margin_top = 12
+            reveal = true
         };
 
         views_group.add_child (new SidebarRow (Objects.Filters.Inbox.get_default ()));
@@ -77,7 +76,12 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
         count_group.add (sidebar_width_row);
         count_group.add (list_view_filters_row);
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12,
+            margin_top = 12
+        };
         content_box.append (count_group);
         content_box.append (views_group);
         content_box.append (new Gtk.Label (_("You can sort your views by dragging and dropping")) {
@@ -87,19 +91,11 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
             margin_top = 3
         });
 
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 600,
-            margin_start = 24,
-            margin_end = 24,
-            margin_bottom = 24,
-            child = content_box
-        };
-
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
             vexpand = true,
-            child = content_clamp
+            child = content_box
         };
 
         var toolbar_view = new Adw.ToolbarView () {

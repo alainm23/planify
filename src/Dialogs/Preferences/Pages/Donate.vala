@@ -19,34 +19,63 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Dialogs.Preferences.Pages.Support : Dialogs.Preferences.Pages.BasePage {
-    public Support (Adw.PreferencesDialog preferences_dialog) {
+public class Dialogs.Preferences.Pages.Donate : Dialogs.Preferences.Pages.BasePage {
+    public Donate (Adw.PreferencesDialog preferences_dialog) {
         Object (
             preferences_dialog: preferences_dialog,
-            title: _("Supporting Us")
+            title: _("Donate")
         );
     }
 
-    ~Support () {
-        debug ("Destroying - Dialogs.Preferences.Pages.Support\n");
+    ~Donate () {
+        debug ("Destroying - Dialogs.Preferences.Pages.Donate\n");
     }
 
     construct {
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 18) {
             vexpand = true,
-            hexpand = true
+            hexpand = true,
+            margin_start = 24,
+            margin_end = 24,
+            margin_bottom = 24,
+            margin_top = 24
         };
 
-        content_box.append (
-            new Gtk.Label (_("Our mission is to provide the best open source task management application for users all over the world. Your donations support this work. Want to donate today?")) {
-            wrap = true,
-            xalign = 0
-        });
+        // Hero section with emoji and title
+        var hero_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
+            halign = Gtk.Align.CENTER,
+            margin_bottom = 24
+        };
 
+        var emoji_label = new Gtk.Label ("💝") {
+            css_classes = { "title-1" }
+        };
+
+        var hero_title = new Gtk.Label (_("Support Planify Development")) {
+            css_classes = { "title-2" },
+            halign = Gtk.Align.CENTER
+        };
+
+        var hero_description = new Gtk.Label (_("Help keep Planify free and open source! Your donations directly support development, new features, and maintenance. Every contribution, no matter the size, makes a difference.")) {
+            wrap = true,
+            justify = Gtk.Justification.CENTER,
+            css_classes = { "body" },
+            margin_start = 12,
+            margin_end = 12
+        };
+
+        hero_box.append (emoji_label);
+        hero_box.append (hero_title);
+        hero_box.append (hero_description);
+        content_box.append (hero_box);
+
+        // Donation options with icons and descriptions
         var patreon_row = new Adw.ActionRow ();
         patreon_row.activatable = true;
         patreon_row.add_suffix (new Gtk.Image.from_icon_name ("go-next-symbolic"));
         patreon_row.title = _("Patreon");
+        patreon_row.subtitle = _("Monthly recurring support");
+        patreon_row.css_classes = { "card" };
 
         signal_map[patreon_row.activated.connect (() => {
             try {
@@ -60,6 +89,8 @@ public class Dialogs.Preferences.Pages.Support : Dialogs.Preferences.Pages.BaseP
         paypal_row.activatable = true;
         paypal_row.add_suffix (new Gtk.Image.from_icon_name ("go-next-symbolic"));
         paypal_row.title = _("PayPal");
+        paypal_row.subtitle = _("One-time donation");
+        paypal_row.css_classes = { "card" };
 
         signal_map[paypal_row.activated.connect (() => {
             try {
@@ -73,6 +104,8 @@ public class Dialogs.Preferences.Pages.Support : Dialogs.Preferences.Pages.BaseP
         liberapay_row.activatable = true;
         liberapay_row.add_suffix (new Gtk.Image.from_icon_name ("go-next-symbolic"));
         liberapay_row.title = _("Liberapay");
+        liberapay_row.subtitle = _("Weekly recurring donations");
+        liberapay_row.css_classes = { "card" };
 
         signal_map[liberapay_row.activated.connect (() => {
             try {
@@ -86,6 +119,8 @@ public class Dialogs.Preferences.Pages.Support : Dialogs.Preferences.Pages.BaseP
         kofi_row.activatable = true;
         kofi_row.add_suffix (new Gtk.Image.from_icon_name ("go-next-symbolic"));
         kofi_row.title = _("Ko-fi");
+        kofi_row.subtitle = _("Buy me a coffee ☕");
+        kofi_row.css_classes = { "card" };
 
         signal_map[kofi_row.activated.connect (() => {
             try {
@@ -96,6 +131,7 @@ public class Dialogs.Preferences.Pages.Support : Dialogs.Preferences.Pages.BaseP
         })] = kofi_row;
 
         var group = new Adw.PreferencesGroup () {
+            title = _("Choose Your Preferred Platform"),
             margin_top = 12
         };
         group.add (patreon_row);
@@ -105,21 +141,34 @@ public class Dialogs.Preferences.Pages.Support : Dialogs.Preferences.Pages.BaseP
 
         content_box.append (group);
 
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 400,
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12
+        // Thank you message
+        var thanks_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            css_classes = { "card" }
         };
 
-        content_clamp.child = content_box;
+        var thanks_label = new Gtk.Label (_("Thank you for your support! 🙏")) {
+            css_classes = { "title-4" },
+            halign = Gtk.Align.CENTER,
+            margin_top = 12,
+            margin_bottom = 6
+        };
+
+        var thanks_description = new Gtk.Label (_("Your contribution helps keep Planify alive and growing.")) {
+            css_classes = { "caption" },
+            halign = Gtk.Align.CENTER,
+            margin_bottom = 12
+        };
+
+        thanks_box.append (thanks_label);
+        thanks_box.append (thanks_description);
+        content_box.append (thanks_box);
 
         var scrolled_window = new Gtk.ScrolledWindow () {
             hexpand = true,
             vexpand = true,
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hscrollbar_policy = Gtk.PolicyType.NEVER,
-            child = content_clamp
+            child = content_box
         };
 
         var toolbar_view = new Adw.ToolbarView ();

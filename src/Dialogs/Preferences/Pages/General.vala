@@ -142,26 +142,22 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
         
         datetime_group.add (smart_date_recognition_row);
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12,
+            margin_top = 12
+        };
         content_box.append (sort_setting_group);
         content_box.append (de_group);
         content_box.append (datetime_group);
-
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 600,
-            margin_start = 24,
-            margin_end = 24,
-            margin_bottom = 24
-        };
-
-        content_clamp.child = content_box;
 
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
             vexpand = true
         };
-        scrolled_window.child = content_clamp;
+        scrolled_window.child = content_box;
 
         var toolbar_view = new Adw.ToolbarView ();
         toolbar_view.add_top_bar (new Adw.HeaderBar ());

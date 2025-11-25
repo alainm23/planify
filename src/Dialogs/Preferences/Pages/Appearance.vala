@@ -160,22 +160,19 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
         };
         font_size_group.add (font_size_row);
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12,
+            margin_top = 12
+        };
         content_box.append (system_appearance_group);
         content_box.append (theme_group);
         content_box.append (placeholder_revealer);
         content_box.append (font_size_group);
 
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 600,
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12,
-            child = content_box
-        };
-
         var toolbar_view = new Adw.ToolbarView () {
-            content = content_clamp
+            content = content_box
         };
         toolbar_view.add_top_bar (new Adw.HeaderBar ());
 
