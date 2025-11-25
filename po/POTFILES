@@ -133,11 +133,11 @@ src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala
 src/Dialogs/Preferences/Pages/Appearance.vala
 src/Dialogs/Preferences/Pages/Backup.vala
 src/Dialogs/Preferences/Pages/BasePage.vala
+src/Dialogs/Preferences/Pages/Donate.vala
 src/Dialogs/Preferences/Pages/General.vala
 src/Dialogs/Preferences/Pages/HomeView.vala
 src/Dialogs/Preferences/Pages/QuickAdd.vala
 src/Dialogs/Preferences/Pages/Sidebar.vala
-src/Dialogs/Preferences/Pages/Support.vala
 src/Dialogs/Preferences/Pages/TaskSetting.vala
 src/Dialogs/Preferences/PreferencesWindow.vala
 src/Dialogs/Project.vala
