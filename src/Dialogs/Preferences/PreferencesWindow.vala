@@ -441,7 +441,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             hexpand = true,
             vexpand = true,
             hscrollbar_policy = Gtk.PolicyType.NEVER,
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
             child = content_box
         };
 

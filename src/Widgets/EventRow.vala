@@ -90,7 +90,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         grid.append (name_label);
 
         var description = component.get_description ();
-        if (description != null && ("meet.google.com" in description || "teams.microsoft.com" in description)) {
+        if (description != null && ("meet.google.com" in description || "teams.microsoft.com" in description || "zoom.us" in description)) {
             var video_icon = new Gtk.Image.from_icon_name ("video-camera-symbolic") {
                 pixel_size = 12,
                 valign = Gtk.Align.CENTER,
@@ -290,6 +290,12 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
                     popover_box.append (create_meeting_widget ("Microsoft Teams", teams_url));
                     content_added = true;
                 }
+            } else if ("zoom.us" in description || "Zoom" in description) {
+                var zoom_url = extract_zoom_url (description);
+                if (zoom_url != null) {
+                    popover_box.append (create_meeting_widget ("Zoom", zoom_url));
+                    content_added = true;
+                }
             }
             
             if (!content_added) {
@@ -305,8 +311,16 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
             }
         }
 
+        var popover_scrolled_window = new Gtk.ScrolledWindow () {
+            hexpand = true,
+            vexpand = true,
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            vscrollbar_policy = Gtk.PolicyType.NEVER,
+            child = popover_box
+        };
+
         popover = new Gtk.Popover () {
-            child = popover_box,
+            child = popover_scrolled_window,
             width_request = 275
         };
 
@@ -392,6 +406,15 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         if (regex.match (description, 0, out match_info)) {
             var url = match_info.fetch (0);
             return url.replace ("&amp;", "&");
+        }
+        return null;
+    }
+
+    private string? extract_zoom_url (string description) {
+        var regex = /https:\/\/[a-z0-9]+\.zoom\.us\/[^\s]+/;
+        MatchInfo match_info;
+        if (regex.match (description, 0, out match_info)) {
+            return match_info.fetch (0);
         }
         return null;
     }
