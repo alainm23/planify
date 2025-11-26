@@ -2477,10 +2477,9 @@ msgid ""
 "default, your data will be stored on their private servers, we only display "
 "your configured tasks and manage them for you."
 msgstr ""
-"Todoist tümleşimini seçerseniz, "
-"(isteğe bağlıdır ve öntanımlı olarak seçili değildir), verileriniz kendi "
-"özel sunucularında saklanır, biz sadece yapılandırılmış görevlerinizi "
-"görüntüler ve sizin için yönetiriz."
+"Todoist tümleşimini seçerseniz, (isteğe bağlıdır ve öntanımlı olarak seçili "
+"değildir), verileriniz kendi özel sunucularında saklanır, biz sadece "
+"yapılandırılmış görevlerinizi görüntüler ve sizin için yönetiriz."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:421
 msgid "Do you have any questions?"
