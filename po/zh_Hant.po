@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-25 10:52+0000\n"
+"PO-Revision-Date: 2025-11-26 03:03+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -3268,50 +3268,51 @@ msgstr "開啟釘貼看板"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:45
 #: src/Dialogs/Preferences/PreferencesWindow.vala:217
 msgid "Donate"
-msgstr ""
+msgstr "贊助"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:54
 msgid "Support Planify Development"
-msgstr ""
+msgstr "支持 Planify 開發"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:59
 msgid ""
 "Help keep Planify free and open source! Your donations directly support "
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
-msgstr ""
+msgstr "協助維持 Planify 自由使用和開放源碼！您的贊助捐款直接支持開發、新功能和維護。"
+"每項貢獻，無論大小，影響深遠。"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:77
 msgid "Monthly recurring support"
-msgstr ""
+msgstr "每月定期支持"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:92
 msgid "One-time donation"
-msgstr ""
+msgstr "一次性贊助"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:107
 msgid "Weekly recurring donations"
-msgstr ""
+msgstr "每周定期贊助捐款"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:122
 msgid "Buy me a coffee ☕"
-msgstr ""
+msgstr "請我喝杯咖啡 ☕"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:134
 msgid "Choose Your Preferred Platform"
-msgstr ""
+msgstr "選擇您所喜愛使用的平台"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Thank you for your support! 🙏"
-msgstr ""
+msgstr "感謝您的支持！ 🙏"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:156
 msgid "Your contribution helps keep Planify alive and growing."
-msgstr ""
+msgstr "您的貢獻有助於維持 Planify 生長茁壯。"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:60
 msgid "Donate Now"
-msgstr ""
+msgstr "立即贊助捐款"
 
 #~ msgid "Clear Schedule"
 #~ msgstr "清除行程"
