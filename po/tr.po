@@ -3,10 +3,10 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-14 10:07+0000\n"
-"Last-Translator: Deleted User <noreply+13144@weblate.org>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/planner/io-"
-"github-alainm23-planify/tr/>\n"
+"PO-Revision-Date: 2025-11-28 15:00+0000\n"
+"Last-Translator: Hasan Sarptaş <sarptas+weblate@gmail.com>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/planner/"
+"io-github-alainm23-planify/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -182,11 +182,11 @@ msgstr "Tüm"
 
 #: core/Objects/Filters/Anytime.vala:33
 msgid "Anytime"
-msgstr ""
+msgstr "Herhangi bir zaman"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "anytime"
-msgstr ""
+msgstr "herhangi bir zaman"
 
 #: core/Objects/Filters/Anytime.vala:34 core/Objects/Filters/Completed.vala:34
 #: core/Objects/Filters/Inbox.vala:36 core/Objects/Filters/Labels.vala:34
@@ -224,9 +224,8 @@ msgid "Inbox"
 msgstr "Gelen Kutusu"
 
 #: core/Objects/Filters/Inbox.vala:36
-#, fuzzy
 msgid "inbox"
-msgstr "Gelen Kutusu"
+msgstr "gelen kutusu"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
@@ -331,15 +330,15 @@ msgstr "Görev panoya kopyalandı"
 
 # c-format
 #: core/Objects/Item.vala:1611 core/Utils/Util.vala:889
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
-msgstr "Görev panoya kopyalandı"
+msgstr "Görev %s projesine taşındı"
 
 # c-format
 #: core/Objects/Label.vala:206
-#, fuzzy, c-format
+#, c-format
 msgid "Delete Label %s"
-msgstr "Etiketi sil"
+msgstr "%s Etiketini Sil"
 
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:820
 #: core/Objects/Section.vala:377
@@ -347,7 +346,7 @@ msgstr "Etiketi sil"
 #: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416 src/Layouts/ItemSidebarView.vala:552
 msgid "This can not be undone"
-msgstr ""
+msgstr "Bu geri alınamaz"
 
 #: core/Objects/Label.vala:210 core/Objects/Project.vala:823
 #: core/Objects/Project.vala:880 core/Objects/Section.vala:380
@@ -384,31 +383,31 @@ msgstr "Proje Panoya kopyalandı."
 
 # c-format
 #: core/Objects/Project.vala:819
-#, fuzzy, c-format
+#, c-format
 msgid "Delete Project %s?"
-msgstr "Projeyi Sil"
+msgstr "%s Projesi Silinsin mi?"
 
 #: core/Objects/Project.vala:876 core/Objects/Section.vala:402
 msgid "Archive?"
-msgstr ""
+msgstr "Arşivlensin mi?"
 
 # # c-format
 #: core/Objects/Project.vala:877 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "Bu, %s ve onun tüm görevlerini arşivleyecektir."
 
 #: core/Objects/Project.vala:881 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:662 src/Views/Project/Project.vala:345
 msgid "Archive"
-msgstr ""
+msgstr "Arşivle"
 
 # c-format
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
-#, fuzzy, c-format
+#, c-format
 msgid "Delete Section %s"
-msgstr "Bölümü Sil"
+msgstr "%s Bölümünü Sil"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
@@ -418,9 +417,8 @@ msgid "Todoist"
 msgstr "Todoist"
 
 #: core/QuickAddCore.vala:136
-#, fuzzy
 msgid "Task added successfully!"
-msgstr "Proje eklendi."
+msgstr "Görev başarıyla  eklendi!"
 
 #: core/QuickAddCore.vala:152 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
@@ -437,7 +435,7 @@ msgstr "Açıklama ekle…"
 
 #: core/QuickAddCore.vala:246
 msgid "Set date"
-msgstr ""
+msgstr "Tarih ayarla"
 
 #: core/QuickAddCore.vala:250 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
@@ -465,12 +463,11 @@ msgstr "Görev Ekle"
 
 #: core/QuickAddCore.vala:307 core/QuickAddCore.vala:1335
 msgid "Keep adding"
-msgstr ""
+msgstr "Eklemeye devam edin"
 
 #: core/QuickAddCore.vala:324
-#, fuzzy
 msgid "Select a Project"
-msgstr "Bir proje seç"
+msgstr "Bir Proje Seç"
 
 #: core/QuickAddCore.vala:351
 msgid ""
@@ -486,89 +483,83 @@ msgstr "Klavye Kısayolları"
 
 #: core/QuickAddCore.vala:1303
 msgid "Speed up task creation with these shortcuts"
-msgstr ""
+msgstr "Bu kısayollarla görev oluşturmayı hızlandır"
 
 #: core/QuickAddCore.vala:1317
-#, fuzzy
 msgid "Set priority"
-msgstr "Önceliğe göre sırala"
+msgstr "Önceliği ayarla"
 
 #: core/QuickAddCore.vala:1317
 msgid "p1 = highest, p4 = lowest"
-msgstr ""
+msgstr "p1 = en yüksek, p4 = en düşük"
 
 #: core/QuickAddCore.vala:1318
-#, fuzzy
 msgid "Add labels"
-msgstr "Etiket(ler) ekle"
+msgstr "Etiket ekle"
 
 #: core/QuickAddCore.vala:1318
-#, fuzzy
 msgid "Opens label selector"
-msgstr "Etiketler"
+msgstr "Etiket seçiciyi açar"
 
 #: core/QuickAddCore.vala:1319
-#, fuzzy
 msgid "Assign project"
-msgstr "Proje Ekle"
+msgstr "Proje ata"
 
 #: core/QuickAddCore.vala:1319
 msgid "Opens project selector"
-msgstr ""
+msgstr "Proje seçiciyi açar"
 
 #: core/QuickAddCore.vala:1320
-#, fuzzy
 msgid "Set reminder"
-msgstr "Zamanlı hatırlatıcılar ayarlayın!"
+msgstr "Hatırlatıcı ayarla"
 
 #: core/QuickAddCore.vala:1320
 msgid "Opens reminder options"
-msgstr ""
+msgstr "Hatırlatıcı ayarlarını açar"
 
 #: core/QuickAddCore.vala:1335
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Görev oluşturulduktan sonra açık kalmayı değiştir"
 
 #: core/QuickAddCore.vala:1341
 #, fuzzy
 msgid "Tip"
-msgstr "Üst"
+msgstr "İpucu"
 
 #: core/QuickAddCore.vala:1341
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "Daha hızlı oluşturma için başlık alanındaki kısayolları birleştirin"
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
-#, fuzzy, c-format
+#, c-format
 msgid "Loading tasks for %s…"
-msgstr "Yükleniyor…"
+msgstr "%s için görevler yükleniyor…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
-#, c-format
+#, c-format, fuzzy
 msgid "Processing task %d of %d"
-msgstr ""
+msgstr "%d'nin %d görevi işleniyor"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
-msgstr ""
+msgstr "Kaynak zaten mevcut"
 
 #: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
 msgid "Failed to resolve principal url"
-msgstr ""
+msgstr "Ana url çözülemedi"
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "Senkronizasyon başlıyor…"
 
 #: core/Services/CalDAV/Core.vala:245
-#, fuzzy, c-format
+#, c-format
 msgid "Syncing %s…"
-msgstr "Eşzamanlanıyor…"
+msgstr "%s senkronize ediliyor…"
 
 #: core/Services/CalDAV/Core.vala:253
-#, fuzzy
 msgid "Sync completed"
-msgstr "tamamlandı"
+msgstr "Senkronizasyon tamamlandı"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -695,7 +686,7 @@ msgstr ""
 #: core/Utils/Datetime.vala:643
 #, c-format
 msgid "%a"
-msgstr ""
+msgstr "%a"
 
 #: core/Utils/Datetime.vala:646
 msgid "%a, %b %-e"
@@ -828,49 +819,43 @@ msgid "Meet Planify"
 msgstr "Planify ile tanışın"
 
 #: core/Utils/Util.vala:594
-#, fuzzy
 msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
-"Bu proje, işe koyulmak için bilmeniz gereken her şeyi size gösterecek. "
-"Kurcalamaktan çekinmeyin. Ayarlardan her zaman yenisini oluşturabilirsiniz."
+"Bu proje, hemen işe koyulmanız için bilmeniz gereken her şeyi gösteriyor. "
+"Denemekten çekinmeyin; istediğiniz zaman Tercihler'den yeniden "
+"oluşturabilirsiniz."
 
 #: core/Utils/Util.vala:601
-#, fuzzy
 msgid "Tap this task"
-msgstr "Bu yapılacaka dokunun"
+msgstr "Bu göreve dokunun"
 
 #: core/Utils/Util.vala:602
-#, fuzzy
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
-"Yapılacak bir işe bakıyorsunuz! Soldaki onay kutusuna dokunarak tamamlayın. "
-"Tamamlanan yapılacaklar projenizin altında toplanır."
+"Bir yapılacak göreve  bakıyorsunuz! Soldaki onay kutusuna dokunarak onu "
+"tamamlayın. "
 
 #: core/Utils/Util.vala:607
-#, fuzzy
 msgid "Create a new task"
-msgstr "Yeni Görev Oluştur"
+msgstr "Yeni bir görev oluştur"
 
 #: core/Utils/Util.vala:608
-#, fuzzy
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
 msgstr ""
-"Şimdi sıra sizde. Projenizin altındaki '+' düğmesine dokunun, bekleyenleri "
-"girin ve mavi 'Kaydet' düğmesine dokunun."
+"Şimdi sıra sizde! Projenizin alt kısmındaki '+' butonuna dokunun, görev "
+"tanımını girin ve 'Görev Ekle' butonuna dokunun."
 
 #: core/Utils/Util.vala:613
-#, fuzzy
 msgid "Plan this to-do for today or later"
 msgstr "Bu yapılacak işi bugün veya daha sonrasına planlayın"
 
 #: core/Utils/Util.vala:614
-#, fuzzy
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
@@ -880,7 +865,7 @@ msgstr ""
 #: core/Utils/Util.vala:619
 #, fuzzy
 msgid "Reorder your to-dos"
-msgstr "Yapılacaklarınızı yeniden sıralayın"
+msgstr "Yapılacaklar listenizi  yeniden sıralayın"
 
 #: core/Utils/Util.vala:620
 msgid ""
@@ -940,18 +925,16 @@ msgstr ""
 "için 'Tercihler' 🡒 Takvim Olayları'na gidin."
 
 #: core/Utils/Util.vala:661
-#, fuzzy
 msgid "Enable synchronization with third-party services"
-msgstr "Üçüncü taraf hizmetiyle eşzamanlamayı etkinleştirin."
+msgstr "Üçüncü taraf hizmetiyle senkronizasyonu etkinleştirin."
 
 #: core/Utils/Util.vala:662
-#, fuzzy
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
 "Planify sadece yerel olarak görevler oluşturmakla kalmaz, aynı zamanda "
-"Todoist hesabınızı da eşzamanlayabilir. 'Tercihler' 🡒 'Hesaplar'a git."
+"Todoist hesabınızı da senkronize edebilir. 'Tercihler' 🡒 'Hesaplar'a git."
 
 #: core/Utils/Util.vala:670
 msgid "Boost your productivity"
@@ -971,16 +954,15 @@ msgstr ""
 
 #: core/Utils/Util.vala:685
 msgid "Add labels to your tasks!"
-msgstr ""
+msgstr "Görevlerinize etiket ekleyin!"
 
 #: core/Utils/Util.vala:686
-#, fuzzy
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
-"Etiketler, Planify'daki iş akışınızı geliştirmenizi sağlar. Etiket eklemek "
-"için alttaki etiket düğmesine tıklayın."
+"Etiketler, görevlerinizi düzenlemenize ve kategorilere ayırmanıza yardımcı "
+"olur. Etiket eklemek için alttaki etiket düğmesine tıklayın."
 
 #: core/Utils/Util.vala:692
 msgid "Set timely reminders!"
