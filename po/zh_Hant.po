@@ -146,7 +146,7 @@ msgid "Content"
 msgstr "目錄"
 
 #: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
-#: src/Layouts/ItemSidebarView.vala:183 src/Widgets/EventRow.vala:310
+#: src/Layouts/ItemSidebarView.vala:178 src/Widgets/EventRow.vala:310
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "描述"
@@ -334,7 +334,7 @@ msgstr "刪除標籤 %s"
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:820
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
-#: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:635
+#: src/Layouts/ItemSidebarView.vala:552 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
 msgstr "此項無法取消動作"
@@ -349,7 +349,7 @@ msgstr "此項無法取消動作"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
-#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:546
+#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:555
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -361,7 +361,7 @@ msgstr "取消"
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
-#: src/Layouts/ItemSidebarView.vala:547 src/Layouts/SectionBoard.vala:639
+#: src/Layouts/ItemSidebarView.vala:556 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
 #: src/Widgets/MultiSelectToolbar.vala:266
@@ -1464,7 +1464,7 @@ msgid "Network Is Not Available"
 msgstr "網路無法作用"
 
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1302
-#: src/Layouts/ItemSidebarView.vala:461
+#: src/Layouts/ItemSidebarView.vala:470
 msgid "Change History"
 msgstr "變更歷史記錄"
 
@@ -1858,58 +1858,58 @@ msgstr "還原備份"
 msgid "Donate"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:54
+#: src/Dialogs/Preferences/Pages/Donate.vala:53
 msgid "Support Planify Development"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:59
+#: src/Dialogs/Preferences/Pages/Donate.vala:58
 msgid ""
 "Help keep Planify free and open source! Your donations directly support "
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:76
+#: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Patreon"
 msgstr "Patreon (贊助募資平台)"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:77
+#: src/Dialogs/Preferences/Pages/Donate.vala:75
 msgid "Monthly recurring support"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:91
+#: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
 msgstr "PayPal"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:92
+#: src/Dialogs/Preferences/Pages/Donate.vala:89
 msgid "One-time donation"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:106
+#: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Liberapay"
 msgstr "Liberapay"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:107
+#: src/Dialogs/Preferences/Pages/Donate.vala:103
 msgid "Weekly recurring donations"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:121
+#: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
 msgstr "Ko-fi"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:122
+#: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:134
+#: src/Dialogs/Preferences/Pages/Donate.vala:128
 msgid "Choose Your Preferred Platform"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:149
+#: src/Dialogs/Preferences/Pages/Donate.vala:142
 msgid "Thank you for your support! 🙏"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:156
+#: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Your contribution helps keep Planify alive and growing."
 msgstr ""
 
@@ -2292,7 +2292,6 @@ msgid "Reach Us"
 msgstr "聯絡我們"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:271
-#: src/Dialogs/Preferences/PreferencesWindow.vala:432
 msgid "Contact Us"
 msgstr "聯絡我們"
 
@@ -2326,7 +2325,6 @@ msgid "Privacy"
 msgstr "隱私"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:343
-#: src/Dialogs/Preferences/PreferencesWindow.vala:452
 msgid "Privacy Policy"
 msgstr "隱私政策"
 
@@ -2342,42 +2340,13 @@ msgstr "刪除應用程式資料"
 msgid "A tutorial project has been created"
 msgstr "教學專案已經建立"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:371
+#: src/Dialogs/Preferences/PreferencesWindow.vala:375
 msgid "Delete All Data?"
 msgstr "刪除全部資料？"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:372
+#: src/Dialogs/Preferences/PreferencesWindow.vala:376
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "刪除全部您的清單、任務和提醒，無法救回"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:404
-msgid "Personal Data"
-msgstr "個人資料"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:410
-msgid ""
-"We collect absolutely nothing and all your data is stored in a database on "
-"your computer."
-msgstr "我們絕對不收集任何資訊，全部您的資料都儲存於資料庫在您的電腦中。"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:416
-msgid ""
-"If you choose to integrate Todoist, which is optional and not selected by "
-"default, your data will be stored on their private servers, we only display "
-"your configured tasks and manage them for you."
-msgstr ""
-"如果您選擇整合 Todoist (其為選項而非預設選用)，您的資料將會儲存在其私有服務器"
-"上。我們僅顯示您所設置的任務，並為您管理。"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:421
-msgid "Do you have any questions?"
-msgstr "您有任何疑問嗎？"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:427
-msgid ""
-"If you have any questions about your data or any other issue, please contact "
-"us. We will be happy to answer you."
-msgstr "如果您對於自己的資料有任何疑問或其他問題，請聯絡我們，將樂意為您解答。"
 
 #: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -2410,7 +2379,7 @@ msgstr "專案已經添加成功！"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1169
-#: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemSidebarView.vala:456
+#: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemSidebarView.vala:465
 msgid "Move"
 msgstr "移動"
 
@@ -2459,7 +2428,7 @@ msgid "Unpin"
 msgstr "解除釘貼"
 
 #: src/Layouts/ItemBoard.vala:594 src/Layouts/ItemRow.vala:1498
-#: src/Layouts/ItemSidebarView.vala:622
+#: src/Layouts/ItemSidebarView.vala:631
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "已經完成。下次發生：%s"
@@ -2473,14 +2442,14 @@ msgid "Edit"
 msgstr "編輯"
 
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1175
-#: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:455
+#: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:464
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:659 src/Views/Project/Project.vala:334
 msgid "Duplicate"
 msgstr "製作複本"
 
 #: src/Layouts/ItemBoard.vala:730 src/Layouts/ItemRow.vala:1177
-#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemSidebarView.vala:458
+#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemSidebarView.vala:467
 msgid "Delete Task"
 msgstr "刪除任務"
 
@@ -2513,11 +2482,11 @@ msgstr "隱藏子任務"
 msgid "Show Sub-tasks"
 msgstr "顯示子任務"
 
-#: src/Layouts/ItemRow.vala:1292 src/Layouts/ItemSidebarView.vala:452
+#: src/Layouts/ItemRow.vala:1292 src/Layouts/ItemSidebarView.vala:461
 msgid "Use as a Note"
 msgstr "用作為記事"
 
-#: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemSidebarView.vala:454
+#: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemSidebarView.vala:463
 msgid "Copy to Clipboard"
 msgstr "複製至剪貼簿"
 
@@ -2533,7 +2502,7 @@ msgstr "標題"
 msgid "Properties"
 msgstr "屬性"
 
-#: src/Layouts/ItemSidebarView.vala:542
+#: src/Layouts/ItemSidebarView.vala:551
 msgid "Are you sure you want to delete?"
 msgstr "您確定要刪除嗎？"
 
@@ -3242,6 +3211,31 @@ msgstr "開啟標籤"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "開啟釘貼看板"
+
+#~ msgid "Personal Data"
+#~ msgstr "個人資料"
+
+#~ msgid ""
+#~ "We collect absolutely nothing and all your data is stored in a database "
+#~ "on your computer."
+#~ msgstr "我們絕對不收集任何資訊，全部您的資料都儲存於資料庫在您的電腦中。"
+
+#~ msgid ""
+#~ "If you choose to integrate Todoist, which is optional and not selected by "
+#~ "default, your data will be stored on their private servers, we only "
+#~ "display your configured tasks and manage them for you."
+#~ msgstr ""
+#~ "如果您選擇整合 Todoist (其為選項而非預設選用)，您的資料將會儲存在其私有服"
+#~ "務器上。我們僅顯示您所設置的任務，並為您管理。"
+
+#~ msgid "Do you have any questions?"
+#~ msgstr "您有任何疑問嗎？"
+
+#~ msgid ""
+#~ "If you have any questions about your data or any other issue, please "
+#~ "contact us. We will be happy to answer you."
+#~ msgstr ""
+#~ "如果您對於自己的資料有任何疑問或其他問題，請聯絡我們，將樂意為您解答。"
 
 #~ msgid "Supporting Us"
 #~ msgstr "支援我們"
