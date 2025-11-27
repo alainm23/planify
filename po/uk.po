@@ -152,7 +152,7 @@ msgid "Content"
 msgstr "Зміст"
 
 #: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
-#: src/Layouts/ItemSidebarView.vala:183 src/Widgets/EventRow.vala:310
+#: src/Layouts/ItemSidebarView.vala:178 src/Widgets/EventRow.vala:310
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Опис"
@@ -343,7 +343,7 @@ msgstr "Видалити мітку %s"
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:820
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
-#: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:635
+#: src/Layouts/ItemSidebarView.vala:552 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
 msgstr "Це не можна скасувати"
@@ -358,7 +358,7 @@ msgstr "Це не можна скасувати"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
-#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:546
+#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:555
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -370,7 +370,7 @@ msgstr "Скасувати"
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
-#: src/Layouts/ItemSidebarView.vala:547 src/Layouts/SectionBoard.vala:639
+#: src/Layouts/ItemSidebarView.vala:556 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
 #: src/Widgets/MultiSelectToolbar.vala:266
@@ -1540,7 +1540,7 @@ msgid "Network Is Not Available"
 msgstr "Мережа недоступна"
 
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1302
-#: src/Layouts/ItemSidebarView.vala:461
+#: src/Layouts/ItemSidebarView.vala:470
 msgid "Change History"
 msgstr "Історія змін"
 
@@ -1948,58 +1948,58 @@ msgstr "Відновити резервну копію"
 msgid "Donate"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:54
+#: src/Dialogs/Preferences/Pages/Donate.vala:53
 msgid "Support Planify Development"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:59
+#: src/Dialogs/Preferences/Pages/Donate.vala:58
 msgid ""
 "Help keep Planify free and open source! Your donations directly support "
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:76
+#: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Patreon"
 msgstr "Patreon"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:77
+#: src/Dialogs/Preferences/Pages/Donate.vala:75
 msgid "Monthly recurring support"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:91
+#: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
 msgstr "PayPal"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:92
+#: src/Dialogs/Preferences/Pages/Donate.vala:89
 msgid "One-time donation"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:106
+#: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Liberapay"
 msgstr "Liberapay"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:107
+#: src/Dialogs/Preferences/Pages/Donate.vala:103
 msgid "Weekly recurring donations"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:121
+#: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
 msgstr "Ko-fi"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:122
+#: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:134
+#: src/Dialogs/Preferences/Pages/Donate.vala:128
 msgid "Choose Your Preferred Platform"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:149
+#: src/Dialogs/Preferences/Pages/Donate.vala:142
 msgid "Thank you for your support! 🙏"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:156
+#: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Your contribution helps keep Planify alive and growing."
 msgstr ""
 
@@ -2396,7 +2396,6 @@ msgid "Reach Us"
 msgstr "Зв'яжіться з нами"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:271
-#: src/Dialogs/Preferences/PreferencesWindow.vala:432
 msgid "Contact Us"
 msgstr "Зв'яжіться з нами"
 
@@ -2430,7 +2429,6 @@ msgid "Privacy"
 msgstr "Конфіденційність"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:343
-#: src/Dialogs/Preferences/PreferencesWindow.vala:452
 msgid "Privacy Policy"
 msgstr "Політика конфіденційності"
 
@@ -2446,47 +2444,13 @@ msgstr "Видалити дані програми"
 msgid "A tutorial project has been created"
 msgstr "Створено навчальний проект"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:371
+#: src/Dialogs/Preferences/PreferencesWindow.vala:375
 msgid "Delete All Data?"
 msgstr "Видалити всі дані?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:372
+#: src/Dialogs/Preferences/PreferencesWindow.vala:376
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "Безповоротно видаляє всі ваші списки, завдання та нагадування"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:404
-msgid "Personal Data"
-msgstr "Персональні дані"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:410
-msgid ""
-"We collect absolutely nothing and all your data is stored in a database on "
-"your computer."
-msgstr ""
-"Ми абсолютно нічого не збираємо, і всі ваші дані зберігаються в базі даних "
-"на вашому комп'ютері."
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:416
-msgid ""
-"If you choose to integrate Todoist, which is optional and not selected by "
-"default, your data will be stored on their private servers, we only display "
-"your configured tasks and manage them for you."
-msgstr ""
-"Якщо ви вирішите інтегрувати Todoist, що є необов’язковим і не вибрано за "
-"замовчуванням, ваші дані зберігатимуться на їхніх приватних серверах, ми "
-"лише відображаємо налаштовані вами завдання та керуємо ними для вас."
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:421
-msgid "Do you have any questions?"
-msgstr "У вас є питання?"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:427
-msgid ""
-"If you have any questions about your data or any other issue, please contact "
-"us. We will be happy to answer you."
-msgstr ""
-"Якщо у вас є будь-які питання щодо ваших даних або будь-яка інша проблема, "
-"будь ласка, зв’яжіться з нами. Ми будемо раді вам відповісти."
 
 #: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -2519,7 +2483,7 @@ msgstr "Проєкт успішно додано!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1169
-#: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemSidebarView.vala:456
+#: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemSidebarView.vala:465
 msgid "Move"
 msgstr "Перенести"
 
@@ -2572,7 +2536,7 @@ msgstr "Відкріпити"
 
 # # c-format
 #: src/Layouts/ItemBoard.vala:594 src/Layouts/ItemRow.vala:1498
-#: src/Layouts/ItemSidebarView.vala:622
+#: src/Layouts/ItemSidebarView.vala:631
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Завершено. Наступний повтор: %s"
@@ -2586,14 +2550,14 @@ msgid "Edit"
 msgstr "Редагувати"
 
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1175
-#: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:455
+#: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:464
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:659 src/Views/Project/Project.vala:334
 msgid "Duplicate"
 msgstr "Дублювати"
 
 #: src/Layouts/ItemBoard.vala:730 src/Layouts/ItemRow.vala:1177
-#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemSidebarView.vala:458
+#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemSidebarView.vala:467
 msgid "Delete Task"
 msgstr "Видалити завдання"
 
@@ -2629,11 +2593,11 @@ msgstr "Приховати підзавдання"
 msgid "Show Sub-tasks"
 msgstr "Показати підзавдання"
 
-#: src/Layouts/ItemRow.vala:1292 src/Layouts/ItemSidebarView.vala:452
+#: src/Layouts/ItemRow.vala:1292 src/Layouts/ItemSidebarView.vala:461
 msgid "Use as a Note"
 msgstr "Використати як нотатку"
 
-#: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemSidebarView.vala:454
+#: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemSidebarView.vala:463
 msgid "Copy to Clipboard"
 msgstr "Копіювати в буфер обміну"
 
@@ -2649,7 +2613,7 @@ msgstr "Назва"
 msgid "Properties"
 msgstr "Властивості"
 
-#: src/Layouts/ItemSidebarView.vala:542
+#: src/Layouts/ItemSidebarView.vala:551
 msgid "Are you sure you want to delete?"
 msgstr "Ви впевнені, що хочете видалити?"
 
@@ -3384,6 +3348,35 @@ msgstr "Відкрити «Мітки»"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Відкрити «Закріплені»"
+
+#~ msgid "Personal Data"
+#~ msgstr "Персональні дані"
+
+#~ msgid ""
+#~ "We collect absolutely nothing and all your data is stored in a database "
+#~ "on your computer."
+#~ msgstr ""
+#~ "Ми абсолютно нічого не збираємо, і всі ваші дані зберігаються в базі "
+#~ "даних на вашому комп'ютері."
+
+#~ msgid ""
+#~ "If you choose to integrate Todoist, which is optional and not selected by "
+#~ "default, your data will be stored on their private servers, we only "
+#~ "display your configured tasks and manage them for you."
+#~ msgstr ""
+#~ "Якщо ви вирішите інтегрувати Todoist, що є необов’язковим і не вибрано за "
+#~ "замовчуванням, ваші дані зберігатимуться на їхніх приватних серверах, ми "
+#~ "лише відображаємо налаштовані вами завдання та керуємо ними для вас."
+
+#~ msgid "Do you have any questions?"
+#~ msgstr "У вас є питання?"
+
+#~ msgid ""
+#~ "If you have any questions about your data or any other issue, please "
+#~ "contact us. We will be happy to answer you."
+#~ msgstr ""
+#~ "Якщо у вас є будь-які питання щодо ваших даних або будь-яка інша "
+#~ "проблема, будь ласка, зв’яжіться з нами. Ми будемо раді вам відповісти."
 
 #~ msgid "Supporting Us"
 #~ msgstr "Підтримати нас"

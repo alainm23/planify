@@ -144,7 +144,7 @@ msgid "Content"
 msgstr "Nội Dung"
 
 #: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
-#: src/Layouts/ItemSidebarView.vala:183 src/Widgets/EventRow.vala:310
+#: src/Layouts/ItemSidebarView.vala:178 src/Widgets/EventRow.vala:310
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Mô Tả"
@@ -332,7 +332,7 @@ msgstr "Xóa Nhãn %s"
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:820
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
-#: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:635
+#: src/Layouts/ItemSidebarView.vala:552 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
 msgstr "Không thể hoàn tác"
@@ -347,7 +347,7 @@ msgstr "Không thể hoàn tác"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
-#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:546
+#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:555
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -359,7 +359,7 @@ msgstr "Hủy"
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
-#: src/Layouts/ItemSidebarView.vala:547 src/Layouts/SectionBoard.vala:639
+#: src/Layouts/ItemSidebarView.vala:556 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
 #: src/Widgets/MultiSelectToolbar.vala:266
@@ -1478,7 +1478,7 @@ msgid "Network Is Not Available"
 msgstr "Mạng Không Khả Dụng"
 
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1302
-#: src/Layouts/ItemSidebarView.vala:461
+#: src/Layouts/ItemSidebarView.vala:470
 msgid "Change History"
 msgstr "Lịch Sử Thay Đổi"
 
@@ -1880,58 +1880,58 @@ msgstr "Khôi Phục Sao Lưu"
 msgid "Donate"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:54
+#: src/Dialogs/Preferences/Pages/Donate.vala:53
 msgid "Support Planify Development"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:59
+#: src/Dialogs/Preferences/Pages/Donate.vala:58
 msgid ""
 "Help keep Planify free and open source! Your donations directly support "
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:76
+#: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Patreon"
 msgstr "Patreon"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:77
+#: src/Dialogs/Preferences/Pages/Donate.vala:75
 msgid "Monthly recurring support"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:91
+#: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
 msgstr "PayPal"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:92
+#: src/Dialogs/Preferences/Pages/Donate.vala:89
 msgid "One-time donation"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:106
+#: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Liberapay"
 msgstr "Liberapay"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:107
+#: src/Dialogs/Preferences/Pages/Donate.vala:103
 msgid "Weekly recurring donations"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:121
+#: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
 msgstr "Ko-fi"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:122
+#: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:134
+#: src/Dialogs/Preferences/Pages/Donate.vala:128
 msgid "Choose Your Preferred Platform"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:149
+#: src/Dialogs/Preferences/Pages/Donate.vala:142
 msgid "Thank you for your support! 🙏"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:156
+#: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Your contribution helps keep Planify alive and growing."
 msgstr ""
 
@@ -2325,7 +2325,6 @@ msgid "Reach Us"
 msgstr "Liên Hệ Với Chúng Tôi"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:271
-#: src/Dialogs/Preferences/PreferencesWindow.vala:432
 msgid "Contact Us"
 msgstr "Liên Hệ Với Chúng Tôi"
 
@@ -2359,7 +2358,6 @@ msgid "Privacy"
 msgstr "Quyền Riêng Tư"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:343
-#: src/Dialogs/Preferences/PreferencesWindow.vala:452
 msgid "Privacy Policy"
 msgstr "Chính Sách Quyền Riêng Tư"
 
@@ -2375,47 +2373,13 @@ msgstr "Xóa Dữ Liệu Ứng Dụng"
 msgid "A tutorial project has been created"
 msgstr "Một dự án hướng dẫn đã được tạo"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:371
+#: src/Dialogs/Preferences/PreferencesWindow.vala:375
 msgid "Delete All Data?"
 msgstr "Xóa Tất Cả Dữ Liệu?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:372
+#: src/Dialogs/Preferences/PreferencesWindow.vala:376
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "Xóa vĩnh viễn tất cả danh sách, nhiệm vụ và lời nhắc của bạn"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:404
-msgid "Personal Data"
-msgstr "Dữ Liệu Cá Nhân"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:410
-msgid ""
-"We collect absolutely nothing and all your data is stored in a database on "
-"your computer."
-msgstr ""
-"Chúng tôi hoàn toàn không thu thập gì cả và tất cả dữ liệu của bạn được lưu "
-"trữ trong cơ sở dữ liệu trên máy tính của bạn."
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:416
-msgid ""
-"If you choose to integrate Todoist, which is optional and not selected by "
-"default, your data will be stored on their private servers, we only display "
-"your configured tasks and manage them for you."
-msgstr ""
-"Nếu bạn chọn tích hợp Todoist, một tùy chọn không được chọn mặc định, dữ "
-"liệu của bạn sẽ được lưu trữ trên máy chủ riêng của họ, chúng tôi chỉ hiển "
-"thị các nhiệm vụ đã cấu hình của bạn và quản lý chúng cho bạn."
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:421
-msgid "Do you have any questions?"
-msgstr "Bạn có bất kỳ câu hỏi nào không?"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:427
-msgid ""
-"If you have any questions about your data or any other issue, please contact "
-"us. We will be happy to answer you."
-msgstr ""
-"Nếu bạn có bất kỳ câu hỏi nào về dữ liệu của bạn hoặc bất kỳ vấn đề nào "
-"khác, vui lòng liên hệ với chúng tôi. Chúng tôi sẽ sẵn lòng trả lời bạn."
 
 #: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -2448,7 +2412,7 @@ msgstr "Dự án đã được thêm thành công!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1169
-#: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemSidebarView.vala:456
+#: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemSidebarView.vala:465
 msgid "Move"
 msgstr "Di Chuyển"
 
@@ -2498,7 +2462,7 @@ msgid "Unpin"
 msgstr "Bỏ Ghim"
 
 #: src/Layouts/ItemBoard.vala:594 src/Layouts/ItemRow.vala:1498
-#: src/Layouts/ItemSidebarView.vala:622
+#: src/Layouts/ItemSidebarView.vala:631
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Đã hoàn thành. Lần lặp lại tiếp theo: %s"
@@ -2512,14 +2476,14 @@ msgid "Edit"
 msgstr "Chỉnh Sửa"
 
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1175
-#: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:455
+#: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:464
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:659 src/Views/Project/Project.vala:334
 msgid "Duplicate"
 msgstr "Tạo Bản Sao"
 
 #: src/Layouts/ItemBoard.vala:730 src/Layouts/ItemRow.vala:1177
-#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemSidebarView.vala:458
+#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemSidebarView.vala:467
 msgid "Delete Task"
 msgstr "Xóa Nhiệm Vụ"
 
@@ -2552,11 +2516,11 @@ msgstr "Ẩn Nhiệm Vụ Phụ"
 msgid "Show Sub-tasks"
 msgstr "Hiển Thị Nhiệm Vụ Phụ"
 
-#: src/Layouts/ItemRow.vala:1292 src/Layouts/ItemSidebarView.vala:452
+#: src/Layouts/ItemRow.vala:1292 src/Layouts/ItemSidebarView.vala:461
 msgid "Use as a Note"
 msgstr "Sử Dụng như Ghi Chú"
 
-#: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemSidebarView.vala:454
+#: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemSidebarView.vala:463
 msgid "Copy to Clipboard"
 msgstr "Sao Chép vào Bộ Nhớ Tạm"
 
@@ -2572,7 +2536,7 @@ msgstr "Tiêu Đề"
 msgid "Properties"
 msgstr "Thuộc tính"
 
-#: src/Layouts/ItemSidebarView.vala:542
+#: src/Layouts/ItemSidebarView.vala:551
 msgid "Are you sure you want to delete?"
 msgstr "Bạn có chắc chắn muốn xóa không?"
 
@@ -3288,6 +3252,35 @@ msgstr "Mở Nhãn"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Mở Bảng Ghim"
+
+#~ msgid "Personal Data"
+#~ msgstr "Dữ Liệu Cá Nhân"
+
+#~ msgid ""
+#~ "We collect absolutely nothing and all your data is stored in a database "
+#~ "on your computer."
+#~ msgstr ""
+#~ "Chúng tôi hoàn toàn không thu thập gì cả và tất cả dữ liệu của bạn được "
+#~ "lưu trữ trong cơ sở dữ liệu trên máy tính của bạn."
+
+#~ msgid ""
+#~ "If you choose to integrate Todoist, which is optional and not selected by "
+#~ "default, your data will be stored on their private servers, we only "
+#~ "display your configured tasks and manage them for you."
+#~ msgstr ""
+#~ "Nếu bạn chọn tích hợp Todoist, một tùy chọn không được chọn mặc định, dữ "
+#~ "liệu của bạn sẽ được lưu trữ trên máy chủ riêng của họ, chúng tôi chỉ "
+#~ "hiển thị các nhiệm vụ đã cấu hình của bạn và quản lý chúng cho bạn."
+
+#~ msgid "Do you have any questions?"
+#~ msgstr "Bạn có bất kỳ câu hỏi nào không?"
+
+#~ msgid ""
+#~ "If you have any questions about your data or any other issue, please "
+#~ "contact us. We will be happy to answer you."
+#~ msgstr ""
+#~ "Nếu bạn có bất kỳ câu hỏi nào về dữ liệu của bạn hoặc bất kỳ vấn đề nào "
+#~ "khác, vui lòng liên hệ với chúng tôi. Chúng tôi sẽ sẵn lòng trả lời bạn."
 
 #~ msgid "Supporting Us"
 #~ msgstr "Ủng Hộ Chúng Tôi"

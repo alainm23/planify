@@ -150,6 +150,7 @@ msgstr "目錄"
 #: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
 #: src/Layouts/ItemSidebarView.vala:183 src/Widgets/EventRow.vala:304
 #: src/Widgets/ItemDetailCompleted.vala:113 src/Widgets/EventRow.vala:310
+#: src/Layouts/ItemSidebarView.vala:178
 msgid "Description"
 msgstr "描述"
 
@@ -337,7 +338,7 @@ msgstr "刪除標籤 %s"
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:635
-#: src/Services/Backups.vala:416
+#: src/Services/Backups.vala:416 src/Layouts/ItemSidebarView.vala:552
 msgid "This can not be undone"
 msgstr "此項無法取消動作"
 
@@ -359,6 +360,7 @@ msgstr "此項無法取消動作"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
+#: src/Layouts/ItemSidebarView.vala:555
 msgid "Cancel"
 msgstr "取消"
 
@@ -371,6 +373,7 @@ msgstr "取消"
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
 #: src/Widgets/MultiSelectToolbar.vala:266
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
+#: src/Layouts/ItemSidebarView.vala:556
 msgid "Delete"
 msgstr "刪除"
 
@@ -1473,7 +1476,7 @@ msgid "Network Is Not Available"
 msgstr "網路無法作用"
 
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1302
-#: src/Layouts/ItemSidebarView.vala:461
+#: src/Layouts/ItemSidebarView.vala:461 src/Layouts/ItemSidebarView.vala:470
 msgid "Change History"
 msgstr "變更歷史記錄"
 
@@ -1577,6 +1580,7 @@ msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr "Planify 正在同步您的任務，要花費數分鐘"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
 msgstr "SSL 驗證停用"
 
@@ -2088,21 +2092,25 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Support.vala:49
 #: src/Dialogs/Preferences/Pages/Donate.vala:76
+#: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Patreon"
 msgstr "Patreon (贊助募資平台)"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:62
 #: src/Dialogs/Preferences/Pages/Donate.vala:91
+#: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
 msgstr "PayPal"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:75
 #: src/Dialogs/Preferences/Pages/Donate.vala:106
+#: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Liberapay"
 msgstr "Liberapay"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:88
 #: src/Dialogs/Preferences/Pages/Donate.vala:121
+#: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
 msgstr "Ko-fi"
 
@@ -2359,10 +2367,12 @@ msgid "A tutorial project has been created"
 msgstr "教學專案已經建立"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:371
+#: src/Dialogs/Preferences/PreferencesWindow.vala:375
 msgid "Delete All Data?"
 msgstr "刪除全部資料？"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:372
+#: src/Dialogs/Preferences/PreferencesWindow.vala:376
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "刪除全部您的清單、任務和提醒，無法救回"
 
@@ -2432,6 +2442,7 @@ msgstr "專案已經添加成功！"
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1169
 #: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemSidebarView.vala:456
+#: src/Layouts/ItemSidebarView.vala:465
 msgid "Move"
 msgstr "移動"
 
@@ -2480,7 +2491,7 @@ msgid "Unpin"
 msgstr "解除釘貼"
 
 #: src/Layouts/ItemBoard.vala:594 src/Layouts/ItemRow.vala:1498
-#: src/Layouts/ItemSidebarView.vala:622
+#: src/Layouts/ItemSidebarView.vala:622 src/Layouts/ItemSidebarView.vala:631
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "已經完成。下次發生：%s"
@@ -2497,11 +2508,13 @@ msgstr "編輯"
 #: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:455
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:659 src/Views/Project/Project.vala:334
+#: src/Layouts/ItemSidebarView.vala:464
 msgid "Duplicate"
 msgstr "製作複本"
 
 #: src/Layouts/ItemBoard.vala:730 src/Layouts/ItemRow.vala:1177
 #: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemSidebarView.vala:458
+#: src/Layouts/ItemSidebarView.vala:467
 msgid "Delete Task"
 msgstr "刪除任務"
 
@@ -2535,10 +2548,12 @@ msgid "Show Sub-tasks"
 msgstr "顯示子任務"
 
 #: src/Layouts/ItemRow.vala:1292 src/Layouts/ItemSidebarView.vala:452
+#: src/Layouts/ItemSidebarView.vala:461
 msgid "Use as a Note"
 msgstr "用作為記事"
 
 #: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemSidebarView.vala:454
+#: src/Layouts/ItemSidebarView.vala:463
 msgid "Copy to Clipboard"
 msgstr "複製至剪貼簿"
 
@@ -2554,7 +2569,7 @@ msgstr "標題"
 msgid "Properties"
 msgstr "屬性"
 
-#: src/Layouts/ItemSidebarView.vala:542
+#: src/Layouts/ItemSidebarView.vala:542 src/Layouts/ItemSidebarView.vala:551
 msgid "Are you sure you want to delete?"
 msgstr "您確定要刪除嗎？"
 
@@ -3279,7 +3294,8 @@ msgid ""
 "Help keep Planify free and open source! Your donations directly support "
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
-msgstr "協助維持 Planify 自由使用和開放源碼！您的贊助捐款直接支持開發、新功能和維護。"
+msgstr ""
+"協助維持 Planify 自由使用和開放源碼！您的贊助捐款直接支持開發、新功能和維護。"
 "每項貢獻，無論大小，影響深遠。"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:77

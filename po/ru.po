@@ -158,6 +158,7 @@ msgstr "Содержимое"
 #: src/Layouts/ItemSidebarView.vala:183
 #: src/Widgets/ItemDetailCompleted.vala:113 src/Layouts/ItemRow.vala:1869
 #: src/Widgets/EventRow.vala:304 src/Widgets/EventRow.vala:310
+#: src/Layouts/ItemSidebarView.vala:178
 msgid "Description"
 msgstr "Описание"
 
@@ -347,7 +348,7 @@ msgstr "Удалить метку %s"
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:635
-#: src/Services/Backups.vala:416
+#: src/Services/Backups.vala:416 src/Layouts/ItemSidebarView.vala:552
 msgid "This can not be undone"
 msgstr "Это действие не может быть отменено"
 
@@ -370,6 +371,7 @@ msgstr "Это действие не может быть отменено"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
+#: src/Layouts/ItemSidebarView.vala:555
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -382,6 +384,7 @@ msgstr "Отмена"
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
 #: src/Widgets/MultiSelectToolbar.vala:266
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
+#: src/Layouts/ItemSidebarView.vala:556
 msgid "Delete"
 msgstr "Удалить"
 
@@ -1524,6 +1527,7 @@ msgstr "Сеть недоступна"
 
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1284
 #: src/Layouts/ItemSidebarView.vala:461 src/Layouts/ItemRow.vala:1302
+#: src/Layouts/ItemSidebarView.vala:470
 msgid "Change History"
 msgstr "Изменить журнал"
 
@@ -2153,21 +2157,25 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Support.vala:49
 #: src/Dialogs/Preferences/Pages/Donate.vala:76
+#: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Patreon"
 msgstr "Patreon"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:62
 #: src/Dialogs/Preferences/Pages/Donate.vala:91
+#: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
 msgstr "PayPal"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:75
 #: src/Dialogs/Preferences/Pages/Donate.vala:106
+#: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Liberapay"
 msgstr "Liberapay"
 
 #: src/Dialogs/Preferences/Pages/Support.vala:88
 #: src/Dialogs/Preferences/Pages/Donate.vala:121
+#: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
 msgstr "Ko-fi"
 
@@ -2429,10 +2437,12 @@ msgid "A tutorial project has been created"
 msgstr "Обучающий проект был создан"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:371
+#: src/Dialogs/Preferences/PreferencesWindow.vala:375
 msgid "Delete All Data?"
 msgstr "Удалить все данные?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:372
+#: src/Dialogs/Preferences/PreferencesWindow.vala:376
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "Безвозвратно удаляет списки, задачи и напоминания"
 
@@ -2508,6 +2518,7 @@ msgstr "Проект успешно добавлен!"
 #: src/Layouts/ItemBoard.vala:721 src/Layouts/ItemRow.vala:1169
 #: src/Layouts/ItemRow.vala:1279 src/Layouts/ItemSidebarView.vala:456
 #: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1297
+#: src/Layouts/ItemSidebarView.vala:465
 msgid "Move"
 msgstr "Переместить"
 
@@ -2560,6 +2571,7 @@ msgstr "Открепить"
 # # c-format
 #: src/Layouts/ItemBoard.vala:594 src/Layouts/ItemRow.vala:1480
 #: src/Layouts/ItemSidebarView.vala:622 src/Layouts/ItemRow.vala:1498
+#: src/Layouts/ItemSidebarView.vala:631
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Выполнено. Следующий раз: %s"
@@ -2580,13 +2592,14 @@ msgstr "Изменить"
 #: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1175
 #: src/Layouts/ItemRow.vala:1296 src/Layouts/SectionRow.vala:659
+#: src/Layouts/ItemSidebarView.vala:464
 msgid "Duplicate"
 msgstr "Дублировать"
 
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1176
 #: src/Layouts/ItemRow.vala:1281 src/Layouts/ItemSidebarView.vala:458
 #: src/Layouts/ItemBoard.vala:730 src/Layouts/ItemRow.vala:1177
-#: src/Layouts/ItemRow.vala:1299
+#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemSidebarView.vala:467
 msgid "Delete Task"
 msgstr "Удалить задачу"
 
@@ -2624,12 +2637,12 @@ msgid "Show Sub-tasks"
 msgstr "Показать подзадачи"
 
 #: src/Layouts/ItemRow.vala:1274 src/Layouts/ItemSidebarView.vala:452
-#: src/Layouts/ItemRow.vala:1292
+#: src/Layouts/ItemRow.vala:1292 src/Layouts/ItemSidebarView.vala:461
 msgid "Use as a Note"
 msgstr "Использовать как Заметку"
 
 #: src/Layouts/ItemRow.vala:1277 src/Layouts/ItemSidebarView.vala:454
-#: src/Layouts/ItemRow.vala:1295
+#: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemSidebarView.vala:463
 msgid "Copy to Clipboard"
 msgstr "Скопировать в буфер обмена"
 
@@ -2645,7 +2658,7 @@ msgstr "Заголовок"
 msgid "Properties"
 msgstr "Свойства"
 
-#: src/Layouts/ItemSidebarView.vala:542
+#: src/Layouts/ItemSidebarView.vala:542 src/Layouts/ItemSidebarView.vala:551
 msgid "Are you sure you want to delete?"
 msgstr "Удалить?"
 
@@ -3386,10 +3399,12 @@ msgid "Donate"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:54
+#: src/Dialogs/Preferences/Pages/Donate.vala:53
 msgid "Support Planify Development"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:59
+#: src/Dialogs/Preferences/Pages/Donate.vala:58
 msgid ""
 "Help keep Planify free and open source! Your donations directly support "
 "development, new features, and maintenance. Every contribution, no matter "
@@ -3397,30 +3412,37 @@ msgid ""
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:77
+#: src/Dialogs/Preferences/Pages/Donate.vala:75
 msgid "Monthly recurring support"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:92
+#: src/Dialogs/Preferences/Pages/Donate.vala:89
 msgid "One-time donation"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:107
+#: src/Dialogs/Preferences/Pages/Donate.vala:103
 msgid "Weekly recurring donations"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:122
+#: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:134
+#: src/Dialogs/Preferences/Pages/Donate.vala:128
 msgid "Choose Your Preferred Platform"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:149
+#: src/Dialogs/Preferences/Pages/Donate.vala:142
 msgid "Thank you for your support! 🙏"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:156
+#: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Your contribution helps keep Planify alive and growing."
 msgstr ""
 

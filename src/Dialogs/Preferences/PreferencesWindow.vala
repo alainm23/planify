@@ -364,7 +364,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         })] = backups_row;
 
         signal_map[privacy_policy_row.activated.connect (() => {
-            push_subpage (get_privacy_policy_page ());
+            try {
+                AppInfo.launch_default_for_uri (Constants.PRIVACY_POLICY_URL, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
         })] = privacy_policy_row;
 
         signal_map[delete_row.activated.connect (() => {
@@ -389,80 +393,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
         });
-    }
-
-    private Adw.NavigationPage get_privacy_policy_page () {
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
-            vexpand = true,
-            hexpand = true,
-            margin_start = 12,
-            margin_end = 12,
-            margin_bottom = 12,
-            margin_top = 12
-        };
-
-        content_box.append (new Gtk.Label (_("Personal Data")) {
-            css_classes = { "font-bold" },
-            halign = START
-        });
-
-        content_box.append (new Gtk.Label (_(
-                                               "We collect absolutely nothing and all your data is stored in a database on your computer.")) {
-            wrap = true,
-            xalign = 0
-        });
-
-        content_box.append (new Gtk.Label (_(
-                                               "If you choose to integrate Todoist, which is optional and not selected by default, your data will be stored on their private servers, we only display your configured tasks and manage them for you.")) {
-            wrap = true,
-            xalign = 0
-        });
-
-        content_box.append (new Gtk.Label (_("Do you have any questions?")) {
-            css_classes = { "font-bold" },
-            halign = START
-        });
-
-        content_box.append (new Gtk.Label (_(
-                                               "If you have any questions about your data or any other issue, please contact us. We will be happy to answer you.")) {
-            wrap = true,
-            xalign = 0
-        });
-
-        var contact_us_button = new Gtk.Button.with_label (_("Contact Us")) {
-            vexpand = true,
-            valign = END,
-            css_classes = { "suggested-action" }
-        };
-
-        content_box.append (contact_us_button);
-
-        var scrolled_window = new Gtk.ScrolledWindow () {
-            hexpand = true,
-            vexpand = true,
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            child = content_box
-        };
-
-        var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (new Adw.HeaderBar ());
-        toolbar_view.content = scrolled_window;
-
-        var page = new Adw.NavigationPage (toolbar_view, "oauth-todoist") {
-            title = _("Privacy Policy")
-        };
-        
-        signal_map[contact_us_button.clicked.connect (() => {
-            string uri = "mailto:%s".printf (Constants.CONTACT_US);
-
-            try {
-                AppInfo.launch_default_for_uri (uri, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
-        })] = contact_us_button;
-
-        return page;
     }
 
     private Gtk.Widget generate_icon (string icon_name, int size = 16) {
