@@ -5,8 +5,8 @@ msgstr ""
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
 "PO-Revision-Date: 2025-11-14 10:38+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
-"Language-Team: Kazakh <https://hosted.weblate.org/projects/planner/"
-"io-github-alainm23-planify/kk/>\n"
+"Language-Team: Kazakh <https://hosted.weblate.org/projects/planner/io-github-"
+"alainm23-planify/kk/>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -146,8 +146,9 @@ msgid "Content"
 msgstr "Мазмұн"
 
 #: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
-#: src/Layouts/ItemSidebarView.vala:178 src/Widgets/EventRow.vala:310
+#: src/Layouts/ItemSidebarView.vala:183 src/Widgets/EventRow.vala:310
 #: src/Widgets/ItemDetailCompleted.vala:113
+#: src/Layouts/ItemSidebarView.vala:178
 msgid "Description"
 msgstr "Сипаттама"
 
@@ -335,8 +336,8 @@ msgstr "%s белгісін жою"
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:820
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
-#: src/Layouts/ItemSidebarView.vala:552 src/Layouts/SectionBoard.vala:635
-#: src/Services/Backups.vala:416
+#: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:635
+#: src/Services/Backups.vala:416 src/Layouts/ItemSidebarView.vala:552
 msgid "This can not be undone"
 msgstr "Бұны қайтаруға болмайды"
 
@@ -350,11 +351,11 @@ msgstr "Бұны қайтаруға болмайды"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
-#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:555
+#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:546
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:265
+#: src/Widgets/MultiSelectToolbar.vala:265 src/Layouts/ItemSidebarView.vala:555
 msgid "Cancel"
 msgstr "Болдырмау"
 
@@ -362,10 +363,10 @@ msgstr "Болдырмау"
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
-#: src/Layouts/ItemSidebarView.vala:556 src/Layouts/SectionBoard.vala:639
+#: src/Layouts/ItemSidebarView.vala:547 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
-#: src/Widgets/MultiSelectToolbar.vala:266
+#: src/Widgets/MultiSelectToolbar.vala:266 src/Layouts/ItemSidebarView.vala:556
 msgid "Delete"
 msgstr "Жою"
 
@@ -1515,7 +1516,7 @@ msgid "Network Is Not Available"
 msgstr "Желі қолжетімді емес"
 
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1302
-#: src/Layouts/ItemSidebarView.vala:470
+#: src/Layouts/ItemSidebarView.vala:461 src/Layouts/ItemSidebarView.vala:470
 msgid "Change History"
 msgstr "Өзгерістер тарихы"
 
@@ -1923,10 +1924,12 @@ msgstr "Сақтық көшірмені қалпына келтіру"
 msgid "Donate"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Donate.vala:54
 #: src/Dialogs/Preferences/Pages/Donate.vala:53
 msgid "Support Planify Development"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Donate.vala:59
 #: src/Dialogs/Preferences/Pages/Donate.vala:58
 msgid ""
 "Help keep Planify free and open source! Your donations directly support "
@@ -1934,46 +1937,57 @@ msgid ""
 "the size, makes a difference."
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Donate.vala:76
 #: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Patreon"
 msgstr "Patreon"
 
+#: src/Dialogs/Preferences/Pages/Donate.vala:77
 #: src/Dialogs/Preferences/Pages/Donate.vala:75
 msgid "Monthly recurring support"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Donate.vala:91
 #: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
 msgstr "PayPal"
 
+#: src/Dialogs/Preferences/Pages/Donate.vala:92
 #: src/Dialogs/Preferences/Pages/Donate.vala:89
 msgid "One-time donation"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Donate.vala:106
 #: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Liberapay"
 msgstr "Liberapay"
 
+#: src/Dialogs/Preferences/Pages/Donate.vala:107
 #: src/Dialogs/Preferences/Pages/Donate.vala:103
 msgid "Weekly recurring donations"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Donate.vala:121
 #: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
 msgstr "Ko-fi"
 
+#: src/Dialogs/Preferences/Pages/Donate.vala:122
 #: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Donate.vala:134
 #: src/Dialogs/Preferences/Pages/Donate.vala:128
 msgid "Choose Your Preferred Platform"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Donate.vala:149
 #: src/Dialogs/Preferences/Pages/Donate.vala:142
 msgid "Thank you for your support! 🙏"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Donate.vala:156
 #: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Your contribution helps keep Planify alive and growing."
 msgstr ""
@@ -2371,6 +2385,7 @@ msgid "Reach Us"
 msgstr "Бізбен байланысу"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:271
+#: src/Dialogs/Preferences/PreferencesWindow.vala:432
 msgid "Contact Us"
 msgstr "Бізбен хабарласу"
 
@@ -2404,6 +2419,7 @@ msgid "Privacy"
 msgstr "Жеке өмір"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:343
+#: src/Dialogs/Preferences/PreferencesWindow.vala:452
 msgid "Privacy Policy"
 msgstr "Жеке өмір саясаты"
 
@@ -2419,14 +2435,50 @@ msgstr "Қолданба деректерін жою"
 msgid "A tutorial project has been created"
 msgstr "Оқу жобасы жасалды"
 
+#: src/Dialogs/Preferences/PreferencesWindow.vala:371
 #: src/Dialogs/Preferences/PreferencesWindow.vala:375
 msgid "Delete All Data?"
 msgstr "Барлық деректерді жою керек пе?"
 
+#: src/Dialogs/Preferences/PreferencesWindow.vala:372
 #: src/Dialogs/Preferences/PreferencesWindow.vala:376
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr ""
 "Барлық тізімдер, тапсырмалар және еске салғыштарды қайтарылмайтын түрде жояды"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:404
+msgid "Personal Data"
+msgstr "Жеке деректер"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:410
+msgid ""
+"We collect absolutely nothing and all your data is stored in a database on "
+"your computer."
+msgstr ""
+"Біз мүлдем ештеңе жинамаймыз және барлық деректеріңіз компьютеріңіздегі "
+"дерекқорда сақталады."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:416
+msgid ""
+"If you choose to integrate Todoist, which is optional and not selected by "
+"default, your data will be stored on their private servers, we only display "
+"your configured tasks and manage them for you."
+msgstr ""
+"Егер Todoist-ты интеграциялауды таңдасаңыз (бұл міндетті емес және әдепкі "
+"бойынша таңдалмаған), деректеріңіз олардың жеке серверлерінде сақталады, біз "
+"тек конфигурацияланған тапсырмаларыңызды көрсетеміз және оларды басқарамыз."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:421
+msgid "Do you have any questions?"
+msgstr "Сұрақтарыңыз бар ма?"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:427
+msgid ""
+"If you have any questions about your data or any other issue, please contact "
+"us. We will be happy to answer you."
+msgstr ""
+"Деректеріңіз немесе басқа мәселелер туралы сұрақтарыңыз болса, бізбен "
+"хабарласыңыз. Біз сізге жауап беруге қуанышпыз."
 
 #: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -2459,7 +2511,8 @@ msgstr "Жоба сәтті қосылды!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1169
-#: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemSidebarView.vala:465
+#: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemSidebarView.vala:456
+#: src/Layouts/ItemSidebarView.vala:465
 msgid "Move"
 msgstr "Жылжыту"
 
@@ -2511,7 +2564,7 @@ msgid "Unpin"
 msgstr "Бекітуді алып тастау"
 
 #: src/Layouts/ItemBoard.vala:594 src/Layouts/ItemRow.vala:1498
-#: src/Layouts/ItemSidebarView.vala:631
+#: src/Layouts/ItemSidebarView.vala:622 src/Layouts/ItemSidebarView.vala:631
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Аяқталды. Келесі кездесу: %s"
@@ -2525,14 +2578,16 @@ msgid "Edit"
 msgstr "Өңдеу"
 
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1175
-#: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:464
+#: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:455
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:659 src/Views/Project/Project.vala:334
+#: src/Layouts/ItemSidebarView.vala:464
 msgid "Duplicate"
 msgstr "Көшіру"
 
 #: src/Layouts/ItemBoard.vala:730 src/Layouts/ItemRow.vala:1177
-#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemSidebarView.vala:467
+#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemSidebarView.vala:458
+#: src/Layouts/ItemSidebarView.vala:467
 msgid "Delete Task"
 msgstr "Тапсырманы жою"
 
@@ -2565,11 +2620,13 @@ msgstr "Қосымша тапсырмаларды жасыру"
 msgid "Show Sub-tasks"
 msgstr "Қосымша тапсырмаларды көрсету"
 
-#: src/Layouts/ItemRow.vala:1292 src/Layouts/ItemSidebarView.vala:461
+#: src/Layouts/ItemRow.vala:1292 src/Layouts/ItemSidebarView.vala:452
+#: src/Layouts/ItemSidebarView.vala:461
 msgid "Use as a Note"
 msgstr "Жазба ретінде пайдалану"
 
-#: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemSidebarView.vala:463
+#: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemSidebarView.vala:454
+#: src/Layouts/ItemSidebarView.vala:463
 msgid "Copy to Clipboard"
 msgstr "Буферге көшіру"
 
@@ -2585,7 +2642,7 @@ msgstr "Атауы"
 msgid "Properties"
 msgstr "Қасиеттер"
 
-#: src/Layouts/ItemSidebarView.vala:551
+#: src/Layouts/ItemSidebarView.vala:542 src/Layouts/ItemSidebarView.vala:551
 msgid "Are you sure you want to delete?"
 msgstr "Жоюды шынымен қалайсыз ба?"
 
@@ -3310,36 +3367,6 @@ msgstr "Белгілерді ашу"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Жапсырма тақтасын ашу"
-
-#~ msgid "Personal Data"
-#~ msgstr "Жеке деректер"
-
-#~ msgid ""
-#~ "We collect absolutely nothing and all your data is stored in a database "
-#~ "on your computer."
-#~ msgstr ""
-#~ "Біз мүлдем ештеңе жинамаймыз және барлық деректеріңіз компьютеріңіздегі "
-#~ "дерекқорда сақталады."
-
-#~ msgid ""
-#~ "If you choose to integrate Todoist, which is optional and not selected by "
-#~ "default, your data will be stored on their private servers, we only "
-#~ "display your configured tasks and manage them for you."
-#~ msgstr ""
-#~ "Егер Todoist-ты интеграциялауды таңдасаңыз (бұл міндетті емес және әдепкі "
-#~ "бойынша таңдалмаған), деректеріңіз олардың жеке серверлерінде сақталады, "
-#~ "біз тек конфигурацияланған тапсырмаларыңызды көрсетеміз және оларды "
-#~ "басқарамыз."
-
-#~ msgid "Do you have any questions?"
-#~ msgstr "Сұрақтарыңыз бар ма?"
-
-#~ msgid ""
-#~ "If you have any questions about your data or any other issue, please "
-#~ "contact us. We will be happy to answer you."
-#~ msgstr ""
-#~ "Деректеріңіз немесе басқа мәселелер туралы сұрақтарыңыз болса, бізбен "
-#~ "хабарласыңыз. Біз сізге жауап беруге қуанышпыз."
 
 #~ msgid "Supporting Us"
 #~ msgstr "Бізді қолдау"
