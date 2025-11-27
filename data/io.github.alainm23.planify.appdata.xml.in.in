@@ -60,6 +60,19 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.16.1" date="2025-11-27">
+      <description translate="no">
+        <p>✨ Planify 4.16.1 is a maintenance release focused on fixing reported bugs and polishing the overall user experience.</p>
+        <ul>
+          <li>Fixed an issue where opening the Quick Add dialog while the window was maximized caused the main window to resize.</li>
+          <li>Resolved a UX problem where selecting the Inbox project by clicking directly on the radio button did not trigger the project change.</li>
+          <li>Updated the design of the Donate page for improved readability and visual consistency.</li>
+          <li>Added Shift+Enter as a temporary "keep adding" shortcut. This restores the previous behavior where pressing Shift+Enter adds the task and keeps the dialog open, regardless of the state of the 'Keep adding' toggle. Fixes: #2077</li>
+          <li>Added support for Zoom meeting links in the calendar event details view.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.16.0" date="2025-11-21">
       <description translate="no">
         <p>✨ Planify 4.16.0 introduces natural language date parsing, improved backend consistency, better keyboard control, and several quality-of-life UI fixes.</p>
@@ -78,7 +91,6 @@
         </ul>
       </description>
     </release>
-
 
     <release version="4.15.2" date="2025-11-07">
       <description translate="no">
