@@ -3339,6 +3339,10 @@ msgstr "您的貢獻有助於維持 Planify 生長茁壯。"
 msgid "Donate Now"
 msgstr "立即贊助捐款"
 
+#: src/Widgets/NewVersionPopup.vala:89
+msgid "Dismiss"
+msgstr ""
+
 #~ msgid "Clear Schedule"
 #~ msgstr "清除行程"
 

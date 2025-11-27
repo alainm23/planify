@@ -3100,9 +3100,9 @@ msgstr ""
 msgid "Update Now"
 msgstr "Aktualiziraj sada"
 
-#: src/Widgets/NewVersionPopup.vala:110
-msgid "Close"
-msgstr "Zatvori"
+#: src/Widgets/NewVersionPopup.vala:89
+msgid "Dismiss"
+msgstr ""
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
@@ -3254,6 +3254,9 @@ msgstr "Otvori etikete"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Otvori oglasnu ploču"
+
+#~ msgid "Close"
+#~ msgstr "Zatvori"
 
 #~ msgid "Personal Data"
 #~ msgstr "Osobni podatci"

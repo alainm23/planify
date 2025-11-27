@@ -3450,6 +3450,10 @@ msgstr ""
 msgid "Donate Now"
 msgstr ""
 
+#: src/Widgets/NewVersionPopup.vala:89
+msgid "Dismiss"
+msgstr ""
+
 #~ msgid "Clear Schedule"
 #~ msgstr "Очистить расписание"
 

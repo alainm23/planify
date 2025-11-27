@@ -3239,8 +3239,8 @@ msgstr ""
 msgid "Update Now"
 msgstr "समय अद्यतित"
 
-#: src/Widgets/NewVersionPopup.vala:110
-msgid "Close"
+#: src/Widgets/NewVersionPopup.vala:89
+msgid "Dismiss"
 msgstr ""
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
