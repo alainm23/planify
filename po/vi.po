@@ -3098,9 +3098,9 @@ msgstr ""
 msgid "Update Now"
 msgstr "Cập Nhật Ngay"
 
-#: src/Widgets/NewVersionPopup.vala:110
-msgid "Close"
-msgstr "Đóng"
+#: src/Widgets/NewVersionPopup.vala:89
+msgid "Dismiss"
+msgstr ""
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
@@ -3252,6 +3252,9 @@ msgstr "Mở Nhãn"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Mở Bảng Ghim"
+
+#~ msgid "Close"
+#~ msgstr "Đóng"
 
 #~ msgid "Personal Data"
 #~ msgstr "Dữ Liệu Cá Nhân"

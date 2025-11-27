@@ -3134,9 +3134,9 @@ msgstr ""
 msgid "Update Now"
 msgstr "Обновите сейчас"
 
-#: src/Widgets/NewVersionPopup.vala:110
-msgid "Close"
-msgstr "Закрыть"
+#: src/Widgets/NewVersionPopup.vala:89
+msgid "Dismiss"
+msgstr ""
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
@@ -3288,6 +3288,9 @@ msgstr "Открыть «Метки»"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Открыть «Закреплённые»"
+
+#~ msgid "Close"
+#~ msgstr "Закрыть"
 
 #~ msgid "Supporting Us"
 #~ msgstr "Поддержать нас"

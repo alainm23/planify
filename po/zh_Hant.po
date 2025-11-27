@@ -3059,9 +3059,9 @@ msgstr "立即更新以享受最新的改進、錯誤修正和新進功能，促
 msgid "Update Now"
 msgstr "立即更新"
 
-#: src/Widgets/NewVersionPopup.vala:110
-msgid "Close"
-msgstr "關閉"
+#: src/Widgets/NewVersionPopup.vala:89
+msgid "Dismiss"
+msgstr ""
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
@@ -3213,6 +3213,9 @@ msgstr "開啟標籤"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "開啟釘貼看板"
+
+#~ msgid "Close"
+#~ msgstr "關閉"
 
 #~ msgid "Supporting Us"
 #~ msgstr "支援我們"

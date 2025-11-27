@@ -3104,9 +3104,9 @@ msgstr ""
 msgid "Update Now"
 msgstr "Atjaunināt tagad"
 
-#: src/Widgets/NewVersionPopup.vala:110
-msgid "Close"
-msgstr "Aizvērt"
+#: src/Widgets/NewVersionPopup.vala:89
+msgid "Dismiss"
+msgstr ""
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
@@ -3259,6 +3259,9 @@ msgstr "Rāda birkas"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Rāda piespraustos"
+
+#~ msgid "Close"
+#~ msgstr "Aizvērt"
 
 #~ msgid "Personal Data"
 #~ msgstr "Personīgie dati"

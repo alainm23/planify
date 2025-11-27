@@ -3113,9 +3113,9 @@ msgstr ""
 msgid "Update Now"
 msgstr "Update Now"
 
-#: src/Widgets/NewVersionPopup.vala:110
-msgid "Close"
-msgstr "Close"
+#: src/Widgets/NewVersionPopup.vala:89
+msgid "Dismiss"
+msgstr ""
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
@@ -3267,6 +3267,9 @@ msgstr "Open Labels"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Open Pinboard"
+
+#~ msgid "Close"
+#~ msgstr "Close"
 
 #~ msgid "Personal Data"
 #~ msgstr "Personal Data"
