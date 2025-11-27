@@ -41,7 +41,6 @@ public class Dialogs.Preferences.Pages.Donate : Dialogs.Preferences.Pages.BasePa
             margin_top = 24
         };
 
-        // Hero section with emoji and title
         var hero_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             halign = Gtk.Align.CENTER,
             margin_bottom = 24
@@ -69,13 +68,11 @@ public class Dialogs.Preferences.Pages.Donate : Dialogs.Preferences.Pages.BasePa
         hero_box.append (hero_description);
         content_box.append (hero_box);
 
-        // Donation options with icons and descriptions
         var patreon_row = new Adw.ActionRow ();
         patreon_row.activatable = true;
         patreon_row.add_suffix (new Gtk.Image.from_icon_name ("go-next-symbolic"));
         patreon_row.title = _("Patreon");
         patreon_row.subtitle = _("Monthly recurring support");
-        patreon_row.css_classes = { "card" };
 
         signal_map[patreon_row.activated.connect (() => {
             try {
@@ -90,7 +87,6 @@ public class Dialogs.Preferences.Pages.Donate : Dialogs.Preferences.Pages.BasePa
         paypal_row.add_suffix (new Gtk.Image.from_icon_name ("go-next-symbolic"));
         paypal_row.title = _("PayPal");
         paypal_row.subtitle = _("One-time donation");
-        paypal_row.css_classes = { "card" };
 
         signal_map[paypal_row.activated.connect (() => {
             try {
@@ -105,7 +101,6 @@ public class Dialogs.Preferences.Pages.Donate : Dialogs.Preferences.Pages.BasePa
         liberapay_row.add_suffix (new Gtk.Image.from_icon_name ("go-next-symbolic"));
         liberapay_row.title = _("Liberapay");
         liberapay_row.subtitle = _("Weekly recurring donations");
-        liberapay_row.css_classes = { "card" };
 
         signal_map[liberapay_row.activated.connect (() => {
             try {
@@ -120,7 +115,6 @@ public class Dialogs.Preferences.Pages.Donate : Dialogs.Preferences.Pages.BasePa
         kofi_row.add_suffix (new Gtk.Image.from_icon_name ("go-next-symbolic"));
         kofi_row.title = _("Ko-fi");
         kofi_row.subtitle = _("Buy me a coffee ☕");
-        kofi_row.css_classes = { "card" };
 
         signal_map[kofi_row.activated.connect (() => {
             try {
@@ -141,8 +135,7 @@ public class Dialogs.Preferences.Pages.Donate : Dialogs.Preferences.Pages.BasePa
 
         content_box.append (group);
 
-        // Thank you message
-        var thanks_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+        var thanks_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             css_classes = { "card" }
         };
 

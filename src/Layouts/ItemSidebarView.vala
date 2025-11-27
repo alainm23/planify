@@ -27,7 +27,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Gtk.Revealer spinner_revealer;
     private Widgets.TextView content_textview;
     private Widgets.MarkdownEditor markdown_editor;
-    private Gtk.Revealer markdown_revealer;
+    private Gtk.Revealer markdown_editor_revealer;
     private Widgets.StatusButton status_button;
     private Widgets.ScheduleButton schedule_button;
     private Widgets.PriorityButton priority_button;
@@ -173,15 +173,24 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         properties_group.title = _("Properties");
         properties_group.add (properties_grid);
 
-        markdown_revealer = new Gtk.Revealer ();
+        markdown_editor_revealer = new Gtk.Revealer ();
 
-        var description_group = new Adw.PreferencesGroup () {
-            margin_start = 12,
-            margin_end = 12,
+        var description_title = new Gtk.Label (_("Description")) {
+            halign = START,
+            hexpand = true,
+            ellipsize = END,
+            margin_start = 3,
+            margin_end = 3
+        };
+        description_title.add_css_class ("heading");
+
+        var description_group = new Gtk.Box (VERTICAL, 6) {
+            margin_start = 9,
+            margin_end = 9,
             margin_top = 12
         };
-        description_group.title = _("Description");
-        description_group.add (markdown_revealer);
+        description_group.append (description_title);
+        description_group.append (markdown_editor_revealer);
 
         subitems = new Widgets.SubItems.for_board () {
             margin_top = 12
@@ -638,12 +647,16 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         markdown_editor.set_text (item.description);
 
         var markdown_editor_card = new Adw.Bin () {
-            child = markdown_editor
+            child = markdown_editor,
+            margin_top = 3,
+            margin_start = 3,
+            margin_end = 3,
+            margin_bottom = 3
         };
         markdown_editor_card.add_css_class ("card");
 
-        markdown_revealer.child = markdown_editor_card;
-        markdown_revealer.reveal_child = true;
+        markdown_editor_revealer.child = markdown_editor_card;
+        markdown_editor_revealer.reveal_child = true;
 
         build_markdown_signals ();
     }
@@ -661,9 +674,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         destroy_markdown_signals ();
         
-        markdown_revealer.reveal_child = false;
-        Timeout.add (markdown_revealer.transition_duration, () => {
-            markdown_revealer.child = null;
+        markdown_editor_revealer.reveal_child = false;
+        Timeout.add (markdown_editor_revealer.transition_duration, () => {
+            markdown_editor_revealer.child = null;
             markdown_editor = null;
             return GLib.Source.REMOVE;
         });
@@ -671,7 +684,13 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
     private void destroy_markdown_signals () {
         foreach (var entry in markdown_handlerses.entries) {
-            entry.value.disconnect (entry.key);
+            if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
+                try {
+                    entry.value.disconnect (entry.key);
+                } catch (Error e) {
+                    warning ("Error disconnecting markdown signal: %s", e.message);
+                }
+            }
         }
 
         markdown_handlerses.clear ();
