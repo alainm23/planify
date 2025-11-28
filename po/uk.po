@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-14 10:53+0000\n"
-"Last-Translator: Andrii Serbovets <serbovets.translation@gmail.com>\n"
+"PO-Revision-Date: 2025-11-28 15:00+0000\n"
+"Last-Translator: Максим Діланян <dilanyan.maxim@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/uk/>\n"
 "Language: uk\n"
@@ -436,7 +436,7 @@ msgstr "Додати опис…"
 
 #: core/QuickAddCore.vala:246
 msgid "Set date"
-msgstr ""
+msgstr "Вказати дату"
 
 #: core/QuickAddCore.vala:250 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
@@ -464,7 +464,7 @@ msgstr "Додати завдання"
 
 #: core/QuickAddCore.vala:307 core/QuickAddCore.vala:1335
 msgid "Keep adding"
-msgstr ""
+msgstr "Продовжити додавання"
 
 #: core/QuickAddCore.vala:324
 #, fuzzy
@@ -485,7 +485,7 @@ msgstr "Комбінації клавіш"
 
 #: core/QuickAddCore.vala:1303
 msgid "Speed up task creation with these shortcuts"
-msgstr ""
+msgstr "Пришвидшіть створення завдань за допомогою цих комбінацій клавіш"
 
 #: core/QuickAddCore.vala:1317
 #, fuzzy
@@ -513,20 +513,19 @@ msgstr "Додати проєкт"
 
 #: core/QuickAddCore.vala:1319
 msgid "Opens project selector"
-msgstr ""
+msgstr "Відкриває селектор проєктів"
 
 #: core/QuickAddCore.vala:1320
-#, fuzzy
 msgid "Set reminder"
-msgstr "Встановлюйте своєчасні нагадування!"
+msgstr "Встановити нагадування"
 
 #: core/QuickAddCore.vala:1320
 msgid "Opens reminder options"
-msgstr ""
+msgstr "Відкриває параметри нагадування"
 
 #: core/QuickAddCore.vala:1335
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Залишати відкритим після створення завдання"
 
 #: core/QuickAddCore.vala:1341
 #, fuzzy
@@ -535,29 +534,29 @@ msgstr "Зверху"
 
 #: core/QuickAddCore.vala:1341
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "Поєднуйте комбінації клавіш у полі заголовка для швидшого створення"
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
-#, fuzzy, c-format
+#, c-format
 msgid "Loading tasks for %s…"
-msgstr "Завантаження…"
+msgstr "Завантаження завдань для %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Processing task %d of %d"
-msgstr ""
+msgstr "Обробка завдання %d з %d"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
-msgstr ""
+msgstr "Джерело вже існує"
 
 #: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
 msgid "Failed to resolve principal url"
-msgstr ""
+msgstr "Не вдалося розпізнати головну URL-адресу"
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "Розпочато синхронізацію…"
 
 #: core/Services/CalDAV/Core.vala:245
 #, c-format
@@ -565,9 +564,8 @@ msgid "Syncing %s…"
 msgstr "Синхронізація %s…"
 
 #: core/Services/CalDAV/Core.vala:253
-#, fuzzy
 msgid "Sync completed"
-msgstr "виконано"
+msgstr "Синхронізацію завершено"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -968,7 +966,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:685
 msgid "Add labels to your tasks!"
-msgstr ""
+msgstr "Додайте мітки до своїх завдань!"
 
 #: core/Utils/Util.vala:686
 #, fuzzy
@@ -1068,20 +1066,20 @@ msgstr "Назад"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:66
 msgid "Previous month"
-msgstr ""
+msgstr "Попередній місяць"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
-msgstr ""
+msgstr "Вперед"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
-msgstr ""
+msgstr "Наступного місяця"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #, c-format
 msgid "Previous month, %s"
-msgstr ""
+msgstr "Попередній місяць, %s"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
@@ -1091,7 +1089,7 @@ msgstr ""
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 #, c-format
 msgid "Next month, %s"
-msgstr ""
+msgstr "Наступного місяця, %s"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:39
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
@@ -1130,7 +1128,7 @@ msgstr "Сб"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:132
 msgid "Type a date…"
-msgstr ""
+msgstr "Вкажіть дату…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:153
 msgid "Choose a date"
@@ -1279,11 +1277,11 @@ msgstr "Кінець"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
-msgstr ""
+msgstr "Видалити дату"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
@@ -1303,7 +1301,7 @@ msgstr "Вибрати мітки"
 #: core/Widgets/LabelPicker/LabelQuickPicker.vala:191
 #, c-format
 msgid "Label not found: Create '%s'"
-msgstr ""
+msgstr "Мітку не знайдено: Створити '%s'"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
 msgid ""
@@ -1337,7 +1335,7 @@ msgstr "Створити чи знайти"
 #: core/Widgets/MarkdownEditor.vala:1360 src/Layouts/ItemBoard.vala:784
 #: src/Layouts/ItemRow.vala:1238
 msgid "Apply"
-msgstr ""
+msgstr "Застосувати"
 
 #: core/Widgets/MarkdownEditor.vala:1365
 #, fuzzy
@@ -1649,17 +1647,19 @@ msgstr "Planify синхронізує ваші завдання, це може 
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
-msgstr ""
+msgstr "SSL-перевірку вимкнено"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:398
 msgid "Cannot Hide This Account"
-msgstr ""
+msgstr "Неможливо приховати цей обліковий запис"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:399
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Цей обліковий запис містить ваш поточний проект Inbox. Спочатку змініть свій "
+"проект Inbox."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
 #, fuzzy
@@ -1692,7 +1692,7 @@ msgstr "Календар"
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:79
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:92
 msgid "Advanced Options"
-msgstr ""
+msgstr "Розширені параметри"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:91
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:103
@@ -1710,6 +1710,9 @@ msgid ""
 "Getting Things Done methodology, it's your capture point for quick ideas and "
 "tasks that you'll organize later"
 msgstr ""
+"Ваша папка «Вхідні» – це місце, куди нові завдання потрапляють за "
+"замовчуванням. Згідно з методологією «GTD» Девіда Аллена, це ваша точка "
+"збору швидких ідей та завдань, які ви пізніше організуєте"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 #, fuzzy
@@ -1760,31 +1763,31 @@ msgstr "Видалити джерело?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
 msgid "Token"
-msgstr ""
+msgstr "Токен"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:100
 msgid "How to get your token?"
-msgstr ""
+msgstr "Як отримати свій токен?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
-msgstr ""
+msgstr "1. Перейдіть до Todoist → Налаштування → Інтеграції → Розробник"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:102
 msgid "2. Find 'API token' and copy your token"
-msgstr ""
+msgstr "2. Знайдіть «API token» та скопіюйте свій токен"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:103
 msgid "3. Paste it in the field above"
-msgstr ""
+msgstr "3. Вставте його в поле вище"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:122
 msgid "Connect with Token"
-msgstr ""
+msgstr "Підключити з токеном"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:165
 msgid "Enter token"
-msgstr ""
+msgstr "Введіть токен"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:183
 msgid "Synchronizing…"
@@ -1818,7 +1821,7 @@ msgstr "Світлий стиль"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:71
 msgid "Clean light theme"
-msgstr ""
+msgstr "Легка світла тема"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:87
 msgid "Dark Style"
@@ -1826,7 +1829,7 @@ msgstr "Темний стиль"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:88
 msgid "Elegant dark theme"
-msgstr ""
+msgstr "Елегантна темна тема"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:104
 msgid "Dark Blue Style"
@@ -1834,15 +1837,15 @@ msgstr "Темно-синій стиль"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:105
 msgid "Professional blue theme"
-msgstr ""
+msgstr "Професійна синя тема"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:121
 msgid "Custom themes are not available when using the system light theme"
-msgstr ""
+msgstr "Користувацькі теми недоступні під час використання світлої теми системи"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:159
 msgid "Font Size"
-msgstr ""
+msgstr "Розмір шрифту"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
 #, fuzzy
@@ -1876,7 +1879,7 @@ msgstr "Резервні копії не знайдено, створіть їх
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
 #, c-format
 msgid "Backup files are stored in: %s"
-msgstr ""
+msgstr "Резервні копії файлів зберігаються у: %s"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:76
 msgid "Migrate"
@@ -1946,11 +1949,11 @@ msgstr "Відновити резервну копію"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:45
 #: src/Dialogs/Preferences/PreferencesWindow.vala:217
 msgid "Donate"
-msgstr ""
+msgstr "Пожертвувати"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:53
 msgid "Support Planify Development"
-msgstr ""
+msgstr "Підтримка розвитку Planify"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:58
 msgid ""
@@ -1958,6 +1961,9 @@ msgid ""
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
 msgstr ""
+"Допоможіть зберегти Planify безкоштовним та з відкритим вихідним кодом! Ваші "
+"пожертви безпосередньо підтримують розробку, нові функції та підтримку. "
+"Кожен внесок, незалежно від розміру, має значення."
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Patreon"
@@ -1965,7 +1971,7 @@ msgstr "Patreon"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:75
 msgid "Monthly recurring support"
-msgstr ""
+msgstr "Щомісячна періодична підтримка"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
@@ -1973,7 +1979,7 @@ msgstr "PayPal"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:89
 msgid "One-time donation"
-msgstr ""
+msgstr "Одноразова пожертва"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Liberapay"
@@ -1981,7 +1987,7 @@ msgstr "Liberapay"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:103
 msgid "Weekly recurring donations"
-msgstr ""
+msgstr "Щотижневі регулярні пожертви"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
@@ -1989,19 +1995,19 @@ msgstr "Ko-fi"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
-msgstr ""
+msgstr "Купи мені кави ☕"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:128
 msgid "Choose Your Preferred Platform"
-msgstr ""
+msgstr "Оберіть бажану платформу"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:142
 msgid "Thank you for your support! 🙏"
-msgstr ""
+msgstr "Дякую за вашу підтримку! 🙏"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Your contribution helps keep Planify alive and growing."
-msgstr ""
+msgstr "Ваш внесок допомагає Planify жити та розвиватися."
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:137
@@ -2108,11 +2114,11 @@ msgstr "Початок тижня"
 
 #: src/Dialogs/Preferences/Pages/General.vala:138
 msgid "Smart Date Recognition"
-msgstr ""
+msgstr "Розумне розпізнавання дати"
 
 #: src/Dialogs/Preferences/Pages/General.vala:139
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr ""
+msgstr "Автоматично визначати дати, такі як «завтра» або «наступного тижня»"
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
@@ -2177,11 +2183,11 @@ msgstr "Ширина бічної панелі"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:65
 msgid "List View for Filters"
-msgstr ""
+msgstr "Перегляд фільтрів списком"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:66
 msgid "Show filters in a simple list instead of a grid"
-msgstr ""
+msgstr "Відображати фільтри у вигляді простого списку замість сітки"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:87
 msgid "You can sort your views by dragging and dropping"
@@ -2209,6 +2215,7 @@ msgstr "Сигнал завершення завдання"
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:43
 msgid "Choose how tasks behave when marked as complete"
 msgstr ""
+"Виберіть, як завдання будуть поводитися, коли їх буде позначено як виконані"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:50
 msgid "Priority 1"
@@ -2232,7 +2239,7 @@ msgstr "Викреслювати виконані завдання"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:75
 msgid "Start"
-msgstr ""
+msgstr "Почати"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:79
 msgid "New Task Position"
@@ -2244,7 +2251,7 @@ msgstr "Завжди показувати виконані підзавданн�
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:87
 msgid "Keep all completed subtasks visible without collapsing them"
-msgstr ""
+msgstr "Зберігайте всі виконані підзавдання видимими, не згортаючи їх"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:94
 msgid "Task Complete Tone"
@@ -2263,14 +2270,16 @@ msgstr "Відкрити завдання на бічній панелі"
 msgid ""
 "Always display task details in the sidebar instead of expanding in list view."
 msgstr ""
+"Завжди відображати деталі завдання на бічній панелі, а не розгортати їх у "
+"списку."
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:110
 msgid "Single Task Focus Mode"
-msgstr ""
+msgstr "Режим фокусування на одному завданні"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:111
 msgid "Allow only one task to be expanded at a time in list view"
-msgstr ""
+msgstr "Дозволити розгортання лише одного завдання одночасно у списку"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:120
 msgid "Enable Markdown Formatting"
@@ -2295,11 +2304,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:136
 msgid "Enable Spell Checking"
-msgstr ""
+msgstr "Увімкнути перевірку орфографії"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:137
 msgid "Check spelling in task descriptions and notes"
-msgstr ""
+msgstr "Перевірка орфографії в описах завдань та примітках"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:148
 msgid "Enabled"
@@ -2332,7 +2341,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:60
 msgid "Donate Now"
-msgstr ""
+msgstr "Пожертвувати зараз"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Sync your favorite to-do providers"
@@ -2340,7 +2349,7 @@ msgstr "Синхронізуйте свої улюблені плануваль�
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:124
 msgid "Set the view shown at first launch"
-msgstr ""
+msgstr "Налаштувати вигляд, що відображається під час першого запуску"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:138
 msgid "Customize to your liking"
@@ -2381,15 +2390,15 @@ msgstr "Хочеш пригостити мене випивкою?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:228
 msgid "Report Issue or Request Feature"
-msgstr ""
+msgstr "Повідомити про проблему або запросити функцію"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:229
 msgid "Share bugs or ideas on GitHub"
-msgstr ""
+msgstr "Діліться помилками або ідеями на GitHub"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:255
 msgid "Get Involved"
-msgstr ""
+msgstr "Долучитися"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
@@ -2657,7 +2666,7 @@ msgstr "Додати підзавдання"
 
 #: src/Layouts/SectionBoard.vala:175
 msgid "Load more"
-msgstr ""
+msgstr "Завантажити більше"
 
 #: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:612
 #: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
@@ -2748,7 +2757,7 @@ msgstr "Завдання виконано"
 
 #: src/MainWindow.vala:790
 msgid "View"
-msgstr ""
+msgstr "Переглянути"
 
 #: src/MainWindow.vala:828
 msgid "Database Integrity Check Failed"
@@ -2768,10 +2777,13 @@ msgid ""
 msgstr ""
 "Ми виявили проблеми зі структурою бази даних, які можуть перешкоджати "
 "належній роботі програми. Це може бути пов'язано з відсутніми таблицями або "
-"стовпцями, ймовірно, через пошкодження або неповне оновлення. База даних "
-"буде скинута для відновлення нормальної функціональності, а всі існуючі дані "
-"будуть видалені. Після скидання ви зможете відновити будь-яку резервну "
-"копію, яку створили раніше. Дякуємо за ваше терпіння"
+"стовпцями, ймовірно, через пошкодження або неповне оновлення.\n"
+"\n"
+"База даних буде скинута для відновлення нормальної функціональності, а всі "
+"існуючі дані будуть видалені.\n"
+"\n"
+"Після скидання ви зможете відновити будь-яку резервну копію, яку створили "
+"раніше. Дякуємо за ваше терпіння"
 
 #: src/MainWindow.vala:831
 #, fuzzy
@@ -2788,7 +2800,7 @@ msgstr "Резервну копію успішно імпортовано"
 
 #: src/Services/Backups.vala:548
 msgid "Planify will restart to apply the changes"
-msgstr ""
+msgstr "Planify перезавантажиться, щоб застосувати зміни"
 
 #: src/Services/Backups.vala:551
 msgid "Restart Now"
@@ -2834,9 +2846,8 @@ msgid "Press 'a' to create a new task"
 msgstr "Натисніть «a», щоб створити нове завдання"
 
 #: src/Views/Filter.vala:129
-#, fuzzy
 msgid "All tasks completed!"
-msgstr "Завдання виконано"
+msgstr "Всі завдання виконано!"
 
 #: src/Views/Filter.vala:130
 msgid "Great job, nothing left to do 🎉"
