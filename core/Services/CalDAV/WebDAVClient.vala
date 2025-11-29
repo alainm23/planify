@@ -148,7 +148,43 @@ public class Services.CalDAV.WebDAVMultiStatus : Object {
 
     public WebDAVMultiStatus.from_string (string xml) throws GLib.Error {
         this.xml_content = xml;
-        this.root = new GXml.XDocument.from_string (xml).document_element;
+        debug ("[CalDAV] Parsing XML, length: %d", xml != null ? xml.length : 0);
+        
+        if (xml == null || xml.strip () == "") {
+            warning ("[CalDAV] Empty XML");
+            xml = "<?xml version=\"1.0\"?><multistatus xmlns=\"DAV:\"/>";
+        }
+        
+        var cleaned = clean_xml (xml);
+        
+        try {
+            this.root = new GXml.XDocument.from_string (cleaned).document_element;
+        } catch (Error e) {
+            warning ("[CalDAV] XML parse error: %s", e.message);
+            warning ("[CalDAV] First 1000 chars: %s", cleaned.substring(0, int.min(1000, cleaned.length)));
+            warning ("[CalDAV] Last 200 chars: %s", cleaned.substring(int.max(0, cleaned.length - 200)));
+            throw e;
+        }
+    }
+    
+    private string clean_xml (string xml) {
+        var trimmed = xml.strip ();
+        
+        var last_close = trimmed.last_index_of ("</d:multistatus>");
+        if (last_close == -1) {
+            last_close = trimmed.last_index_of ("</multistatus>");
+        }
+        
+        if (last_close > 0) {
+            var tag_len = trimmed.has_suffix ("</d:multistatus>") ? 16 : 14;
+            var end_pos = last_close + tag_len;
+            if (end_pos < trimmed.length) {
+                debug ("[CalDAV] Removing %d extra bytes", trimmed.length - end_pos);
+                return trimmed.substring (0, end_pos);
+            }
+        }
+        
+        return trimmed;
     }
 
     public void debug_print () {
