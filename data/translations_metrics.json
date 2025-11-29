@@ -86,8 +86,8 @@
   "uk": {
     "language": "Ukrainian",
     "total_strings": 709,
-    "translated_strings": 510,
-    "translated_percent": 71.9
+    "translated_strings": 709,
+    "translated_percent": 100.0
   },
   "zh": {
     "language": "Chinese (Simplified Han script)",
