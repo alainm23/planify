@@ -238,9 +238,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.CENTER,
-            css_classes = { "priority-color" },
             sensitive = !item.project.is_deck
         };
+        checked_button.add_css_class ("priority-color");
 
         checked_button_revealer = new Gtk.Revealer () {
             child = checked_button,
