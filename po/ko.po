@@ -119,8 +119,8 @@ msgstr ""
 
 #: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:488 src/Views/Project/Project.vala:533
-#: src/Views/Scheduled/Scheduled.vala:228
-#: src/Views/Scheduled/Scheduled.vala:257 src/Views/Today.vala:615
+#: src/Views/Scheduled/Scheduled.vala:230
+#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:615
 #: src/Views/Today.vala:644 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "우선순위"
@@ -130,7 +130,7 @@ msgid "Label"
 msgstr "라벨"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:486
-#: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:613
+#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:613
 msgid "Due Date"
 msgstr "기한"
 
@@ -1493,7 +1493,7 @@ msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr "%d개의 완료된 작업 및 하위 작업을 프로젝트 %s에서 삭제합니다"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:581
-#: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:655
+#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:655
 msgid "Filter By"
 msgstr "필터 기준"
 
@@ -2001,7 +2001,7 @@ msgid "Custom Sort Order"
 msgstr "사용자 정의 순서"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
-#: src/Views/Project/Project.vala:485 src/Views/Scheduled/Scheduled.vala:225
+#: src/Views/Project/Project.vala:485 src/Views/Scheduled/Scheduled.vala:227
 #: src/Views/Today.vala:612
 msgid "Alphabetically"
 msgstr "알파벳 순"
@@ -2892,7 +2892,7 @@ msgstr "리스트"
 msgid "Board"
 msgstr "보드"
 
-#: src/Views/Project/Project.vala:481 src/Views/Scheduled/Scheduled.vala:222
+#: src/Views/Project/Project.vala:481 src/Views/Scheduled/Scheduled.vala:224
 #: src/Views/Today.vala:609
 msgid "Sorting"
 msgstr "정렬"
@@ -2901,7 +2901,7 @@ msgstr "정렬"
 msgid "Custom sort order"
 msgstr "사용자 정의 순서"
 
-#: src/Views/Project/Project.vala:487 src/Views/Scheduled/Scheduled.vala:227
+#: src/Views/Project/Project.vala:487 src/Views/Scheduled/Scheduled.vala:229
 #: src/Views/Today.vala:614
 msgid "Date Added"
 msgstr "추가된 날짜"
@@ -2935,27 +2935,27 @@ msgstr "이번 달"
 msgid "Next 30 Days"
 msgstr "다음 30일"
 
-#: src/Views/Project/Project.vala:511 src/Views/Scheduled/Scheduled.vala:235
+#: src/Views/Project/Project.vala:511 src/Views/Scheduled/Scheduled.vala:237
 #: src/Views/Today.vala:622
 msgid "P1"
 msgstr "P1"
 
-#: src/Views/Project/Project.vala:517 src/Views/Scheduled/Scheduled.vala:241
+#: src/Views/Project/Project.vala:517 src/Views/Scheduled/Scheduled.vala:243
 #: src/Views/Today.vala:628
 msgid "P2"
 msgstr "P2"
 
-#: src/Views/Project/Project.vala:523 src/Views/Scheduled/Scheduled.vala:247
+#: src/Views/Project/Project.vala:523 src/Views/Scheduled/Scheduled.vala:249
 #: src/Views/Today.vala:634
 msgid "P3"
 msgstr "P3"
 
-#: src/Views/Project/Project.vala:529 src/Views/Scheduled/Scheduled.vala:253
+#: src/Views/Project/Project.vala:529 src/Views/Scheduled/Scheduled.vala:255
 #: src/Views/Today.vala:640
 msgid "P4"
 msgstr "P4"
 
-#: src/Views/Project/Project.vala:536 src/Views/Scheduled/Scheduled.vala:260
+#: src/Views/Project/Project.vala:536 src/Views/Scheduled/Scheduled.vala:262
 #: src/Views/Today.vala:647
 msgid "Filter by Labels"
 msgstr "라벨로 필터링"
@@ -2969,11 +2969,11 @@ msgstr "완료된 작업 표시"
 msgid "Sort By"
 msgstr "정렬 기준"
 
-#: src/Views/Today.vala:154
+#: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:154
 msgid "Overdue"
 msgstr "기한 초과"
 
-#: src/Views/Today.vala:162
+#: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:162
 msgid "Reschedule"
 msgstr "일정 변경"
 

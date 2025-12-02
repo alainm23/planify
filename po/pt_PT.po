@@ -113,8 +113,8 @@ msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:488 src/Views/Project/Project.vala:533
-#: src/Views/Scheduled/Scheduled.vala:228
-#: src/Views/Scheduled/Scheduled.vala:257 src/Views/Today.vala:615
+#: src/Views/Scheduled/Scheduled.vala:230
+#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:615
 #: src/Views/Today.vala:644 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "Prioridade"
@@ -124,7 +124,7 @@ msgid "Label"
 msgstr "Etiqueta"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:486
-#: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:613
+#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:613
 msgid "Due Date"
 msgstr "Expiradas"
 
@@ -1453,7 +1453,7 @@ msgstr ""
 "projeto %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:581
-#: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:655
+#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:655
 msgid "Filter By"
 msgstr "Filtrar por"
 
@@ -1965,7 +1965,7 @@ msgid "Custom Sort Order"
 msgstr "Ordenação personalizada"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
-#: src/Views/Project/Project.vala:485 src/Views/Scheduled/Scheduled.vala:225
+#: src/Views/Project/Project.vala:485 src/Views/Scheduled/Scheduled.vala:227
 #: src/Views/Today.vala:612
 msgid "Alphabetically"
 msgstr "Alfabeticamente"
@@ -2861,7 +2861,7 @@ msgstr "Lista"
 msgid "Board"
 msgstr "Quadro"
 
-#: src/Views/Project/Project.vala:481 src/Views/Scheduled/Scheduled.vala:222
+#: src/Views/Project/Project.vala:481 src/Views/Scheduled/Scheduled.vala:224
 #: src/Views/Today.vala:609
 msgid "Sorting"
 msgstr "Ordenar"
@@ -2870,7 +2870,7 @@ msgstr "Ordenar"
 msgid "Custom sort order"
 msgstr "Ordenação personalizada"
 
-#: src/Views/Project/Project.vala:487 src/Views/Scheduled/Scheduled.vala:227
+#: src/Views/Project/Project.vala:487 src/Views/Scheduled/Scheduled.vala:229
 #: src/Views/Today.vala:614
 msgid "Date Added"
 msgstr "Mais recentes"
@@ -2903,27 +2903,27 @@ msgstr "Este mês"
 msgid "Next 30 Days"
 msgstr "Nos próximos 30 dias"
 
-#: src/Views/Project/Project.vala:511 src/Views/Scheduled/Scheduled.vala:235
+#: src/Views/Project/Project.vala:511 src/Views/Scheduled/Scheduled.vala:237
 #: src/Views/Today.vala:622
 msgid "P1"
 msgstr "P1"
 
-#: src/Views/Project/Project.vala:517 src/Views/Scheduled/Scheduled.vala:241
+#: src/Views/Project/Project.vala:517 src/Views/Scheduled/Scheduled.vala:243
 #: src/Views/Today.vala:628
 msgid "P2"
 msgstr "P2"
 
-#: src/Views/Project/Project.vala:523 src/Views/Scheduled/Scheduled.vala:247
+#: src/Views/Project/Project.vala:523 src/Views/Scheduled/Scheduled.vala:249
 #: src/Views/Today.vala:634
 msgid "P3"
 msgstr "P3"
 
-#: src/Views/Project/Project.vala:529 src/Views/Scheduled/Scheduled.vala:253
+#: src/Views/Project/Project.vala:529 src/Views/Scheduled/Scheduled.vala:255
 #: src/Views/Today.vala:640
 msgid "P4"
 msgstr "P4"
 
-#: src/Views/Project/Project.vala:536 src/Views/Scheduled/Scheduled.vala:260
+#: src/Views/Project/Project.vala:536 src/Views/Scheduled/Scheduled.vala:262
 #: src/Views/Today.vala:647
 msgid "Filter by Labels"
 msgstr "Filtrar por etiquetas"
@@ -2936,11 +2936,11 @@ msgstr "Procurar por tarefas terminadas"
 msgid "Sort By"
 msgstr "Ordenar Por"
 
-#: src/Views/Today.vala:154
+#: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:154
 msgid "Overdue"
 msgstr "Expirou"
 
-#: src/Views/Today.vala:162
+#: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:162
 msgid "Reschedule"
 msgstr "Reagendar"
 
