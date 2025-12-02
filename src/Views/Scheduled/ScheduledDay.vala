@@ -139,7 +139,6 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
         content.append (listbox_revealer);
 
         child = content;
-
         add_items ();
 
         Timeout.add (listbox_revealer.transition_duration, () => {
