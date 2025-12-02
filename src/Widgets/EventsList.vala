@@ -132,6 +132,10 @@ public class Widgets.EventsList : Adw.Bin {
                 if (CalendarEventsUtil.calcomp_is_on_month (component, start_date)) {
                     add_row_event (component, source);
                 }
+            } else if (is_range) {
+                if (event_overlaps_range (component)) {
+                    add_row_event (component, source);
+                }
             }
         }
     }
@@ -140,7 +144,8 @@ public class Widgets.EventsList : Adw.Bin {
         unowned ICal.Component ical = component.get_icalcomponent ();
         var event_uid = ical.get_uid ();
         if (!event_hashmap.has_key (event_uid)) {
-            event_hashmap[event_uid] = new Widgets.EventRow (ical, source);
+            bool show_date = is_month || is_range;
+            event_hashmap[event_uid] = new Widgets.EventRow (ical, source, show_date);
             listbox.append (event_hashmap[event_uid]);
         }
 
@@ -157,6 +162,8 @@ public class Widgets.EventsList : Adw.Bin {
                 in_range = CalendarEventsUtil.calcomp_is_on_day (component, start_date);
             } else if (is_month) {
                 in_range = CalendarEventsUtil.calcomp_is_on_month (component, start_date);
+            } else if (is_range) {
+                in_range = event_overlaps_range (component);
             }
 
             if (event_hashmap.has_key (event_uid)) {
@@ -206,6 +213,30 @@ public class Widgets.EventsList : Adw.Bin {
         }
 
         return 0;
+    }
+
+    private bool event_overlaps_range (ECal.Component component) {
+        unowned ICal.Component ical = component.get_icalcomponent ();
+        ICal.Time ? start_time = ical.get_dtstart ();
+        ICal.Time ? end_time = ical.get_dtend ();
+        ICal.Time ? due_time = ical.get_due ();
+        
+        if (due_time != null && !due_time.is_null_time ()) {
+            end_time = due_time;
+            if (start_time == null || start_time.is_null_time ()) {
+                start_time = due_time;
+            }
+        }
+        
+        if (start_time == null || end_time == null) {
+            return false;
+        }
+        
+        var event_start = CalendarEventsUtil.ical_to_date_time (start_time);
+        var event_end = CalendarEventsUtil.ical_to_date_time (end_time);
+        
+        // Check if event overlaps with our date range
+        return !(event_end.compare (start_date) < 0 || event_start.compare (end_date.add_days (1)) >= 0);
     }
 
     public void clean_up () {

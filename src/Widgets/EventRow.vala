@@ -23,6 +23,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
     public unowned ICal.Component component { get; construct; }
     public unowned E.SourceCalendar cal { get; construct; }
     public E.Source source { get; construct; }
+    public bool show_date { get; construct; default = false; }
 
     public GLib.DateTime start_time { get; private set; }
     public GLib.DateTime ? end_time { get; private set; }
@@ -35,11 +36,12 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    public EventRow (ICal.Component component, E.Source source) {
+    public EventRow (ICal.Component component, E.Source source, bool show_date = false) {
         Object (
             component : component,
             cal: (E.SourceCalendar ?) source.get_extension (E.SOURCE_EXTENSION_CALENDAR),
-            source: source
+            source: source,
+            show_date: show_date
         );
     }
 
@@ -82,7 +84,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
             margin_bottom = 3
         };
 
-        if (!is_allday) {
+        if (!is_allday || show_date) {
             grid.append (time_label);
         }
 
@@ -119,8 +121,17 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
     }
 
     private void update_timelabel () {
-        string format = Utils.Datetime.is_clock_format_12h () ? "%I:%M %p" : "%H:%M";
-        time_label.label = start_time.format (format);
+        if (show_date) {
+            if (is_allday) {
+                time_label.label = start_time.format ("%d %b");
+            } else {
+                string time_format = Utils.Datetime.is_clock_format_12h () ? "%I:%M %p" : "%H:%M";
+                time_label.label = start_time.format ("%d %b · ") + start_time.format (time_format);
+            }
+        } else {
+            string format = Utils.Datetime.is_clock_format_12h () ? "%I:%M %p" : "%H:%M";
+            time_label.label = start_time.format (format);
+        }
     }
 
     private void update_color () {
