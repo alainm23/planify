@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-14 10:53+0000\n"
-"Last-Translator: WhiredPlanck <whiredplanck@outlook.com>\n"
+"PO-Revision-Date: 2025-11-30 19:00+0000\n"
+"Last-Translator: IN A <chineseina@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hans/>\n"
 "Language: zh\n"
@@ -127,34 +127,34 @@ msgstr "标签"
 #: core/Enum.vala:351 src/Views/Project/Project.vala:486
 #: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:613
 msgid "Due Date"
-msgstr ""
+msgstr "到期日"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
-msgstr ""
+msgstr "部分"
 
 #: core/Enum.vala:463
 msgid "Task Created"
-msgstr ""
+msgstr "任务已经建立"
 
 #: core/Enum.vala:466
 msgid "Task Updated"
-msgstr ""
+msgstr "任务已经更新"
 
 #: core/Enum.vala:522
 msgid "Content"
-msgstr ""
+msgstr "目录"
 
 #: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
 #: src/Layouts/ItemSidebarView.vala:178 src/Widgets/EventRow.vala:310
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: core/Enum.vala:528 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr ""
+msgstr "行程"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:31
 #: src/Layouts/ItemBoard.vala:704 src/Layouts/ItemBoard.vala:717
@@ -205,7 +205,7 @@ msgstr "已完成"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "logbook"
-msgstr ""
+msgstr "记录在册"
 
 #: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:262
 #: core/Utils/Util.vala:575
@@ -215,7 +215,7 @@ msgstr ""
 #: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr ""
+msgstr "索引"
 
 #: core/Objects/Filters/Inbox.vala:36
 msgid "inbox"
@@ -317,7 +317,7 @@ msgstr "无标签"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "unlabeled"
-msgstr ""
+msgstr "尚无标签"
 
 #: core/Objects/Item.vala:1320
 msgid "Task copied to clipboard"
@@ -397,7 +397,7 @@ msgstr "归档"
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
 msgid "Delete Section %s"
-msgstr ""
+msgstr "删除部分%s"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
@@ -413,7 +413,7 @@ msgstr "任务添加成功！"
 #: core/QuickAddCore.vala:152 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
-msgstr ""
+msgstr "待办事项名称"
 
 #: core/QuickAddCore.vala:182
 msgid "This field is required"
@@ -425,7 +425,7 @@ msgstr "添加说明……"
 
 #: core/QuickAddCore.vala:246
 msgid "Set date"
-msgstr ""
+msgstr "设定日期"
 
 #: core/QuickAddCore.vala:250 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
@@ -463,8 +463,7 @@ msgstr "选择项目"
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
-msgstr ""
-"抱歉，快速添加功能找不到任何可用的项目，请先在 Planify 中创建一个项目。"
+msgstr "抱歉，快速添加功能找不到任何可用的项目，请先在 Planify 中创建一个项目。"
 
 #: core/QuickAddCore.vala:1297 src/MainWindow.vala:707
 msgid "Keyboard Shortcuts"
@@ -508,63 +507,63 @@ msgstr "打开提醒选项"
 
 #: core/QuickAddCore.vala:1335
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "切换成保持开放状态，在建立任务之后"
 
 #: core/QuickAddCore.vala:1341
 msgid "Tip"
-msgstr ""
+msgstr "小贴士"
 
 #: core/QuickAddCore.vala:1341
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "在标题栏配合快捷指令，实现快速创建"
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr ""
+msgstr "%s 任务加载中…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Processing task %d of %d"
-msgstr ""
+msgstr "正在处理第 %d 个任务，共 %d 个"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
-msgstr ""
+msgstr "该来源已存在"
 
 #: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
 msgid "Failed to resolve principal url"
-msgstr ""
+msgstr "无法解析主体 URL"
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "开始进行同步…"
 
 #: core/Services/CalDAV/Core.vala:245
 #, c-format
 msgid "Syncing %s…"
-msgstr ""
+msgstr "正在同步 %s…"
 
 #: core/Services/CalDAV/Core.vala:253
 msgid "Sync completed"
-msgstr ""
+msgstr "同步已经完成"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
-msgstr ""
+msgstr "所提请求不正确。"
 
 #: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "需要身份验证：验证失败或未提供凭据。"
 
 #: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "请求有效，但访问被禁止。"
 
 #: core/Services/Todoist.vala:1513 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "找不到请求的资源。"
 
 #: core/Services/Todoist.vala:1514 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
@@ -618,35 +617,35 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
-msgstr ""
+msgstr "%H:%M"
 
 #: core/Utils/Datetime.vala:411
 msgid "Mo,"
-msgstr ""
+msgstr "周一、"
 
 #: core/Utils/Datetime.vala:415
 msgid "Tu,"
-msgstr ""
+msgstr "周二、"
 
 #: core/Utils/Datetime.vala:419
 msgid "We,"
-msgstr ""
+msgstr "周三、"
 
 #: core/Utils/Datetime.vala:423
 msgid "Th,"
-msgstr ""
+msgstr "周四、"
 
 #: core/Utils/Datetime.vala:427
 msgid "Fr,"
-msgstr ""
+msgstr "周五、"
 
 #: core/Utils/Datetime.vala:431
 msgid "Sa,"
-msgstr ""
+msgstr "周六、"
 
 #: core/Utils/Datetime.vala:435
 msgid "Su,"
-msgstr ""
+msgstr "周日、"
 
 #: core/Utils/Datetime.vala:628
 msgid "%a, %b %-e, %Y"
@@ -667,12 +666,12 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:640
 msgid "%a %Y"
-msgstr ""
+msgstr "%a %Y"
 
 #: core/Utils/Datetime.vala:643
 #, c-format
 msgid "%a"
-msgstr ""
+msgstr "%a"
 
 #: core/Utils/Datetime.vala:646
 msgid "%a, %b %-e"
@@ -680,7 +679,7 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:649
 msgid "%b"
-msgstr ""
+msgstr "%b"
 
 #: core/Utils/Util.vala:41
 msgid "Berry Red"
@@ -740,7 +739,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:55
 msgid "Lavender"
-msgstr ""
+msgstr "薰衣草"
 
 #: core/Utils/Util.vala:56
 msgid "Magenta"
@@ -768,7 +767,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:221
 msgid "Dark"
-msgstr ""
+msgstr "暗色"
 
 #: core/Utils/Util.vala:224
 msgid "Dark Blue"
@@ -785,24 +784,24 @@ msgstr ""
 
 #: core/Utils/Util.vala:440
 msgid "Delete All"
-msgstr ""
+msgstr "删除全部"
 
 #: core/Utils/Util.vala:454
 msgid "Process completed, you need to start Planify again."
-msgstr ""
+msgstr "处理已经完成，必须再次启动。"
 
 #: core/Utils/Util.vala:456
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 msgid "Ok"
-msgstr ""
+msgstr "好"
 
 #: core/Utils/Util.vala:566
 msgid "On This Computer"
-msgstr ""
+msgstr "在此台电脑"
 
 #: core/Utils/Util.vala:591
 msgid "Meet Planify"
-msgstr ""
+msgstr "关于页面"
 
 #: core/Utils/Util.vala:594
 msgid ""
@@ -847,11 +846,11 @@ msgstr ""
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
-msgstr ""
+msgstr "长按并拖动待办事项，即可调整顺序。"
 
 #: core/Utils/Util.vala:625
 msgid "Create a project"
-msgstr ""
+msgstr "新建项目"
 
 #: core/Utils/Util.vala:626
 msgid ""
@@ -1961,7 +1960,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:110
 msgid "Clock Format"
-msgstr ""
+msgstr "时间格式"
 
 #: src/Dialogs/Preferences/Pages/General.vala:117
 msgid "Sunday"

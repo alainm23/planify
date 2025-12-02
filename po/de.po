@@ -1613,8 +1613,7 @@ msgstr "Du kannst deine Konten per Drag & Drop sortieren"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 msgid "Planify is syncing your tasks, this may take a few minutes"
-msgstr ""
-"Planify synchronisiert deine Aufgaben, das kann ein paar Minuten dauern"
+msgstr "Planify synchronisiert deine Aufgaben, das kann ein paar Minuten dauern"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
