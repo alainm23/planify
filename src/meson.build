@@ -100,6 +100,7 @@ sources = files(
   'Views/Scheduled/ScheduledDay.vala',
   'Views/Scheduled/ScheduledRange.vala',
   'Views/Scheduled/ScheduledMonth.vala',
+  'Views/Scheduled/ScheduledOverdue.vala',
 
   'Dialogs/Project.vala',
   'Dialogs/Section.vala',
