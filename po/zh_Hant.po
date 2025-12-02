@@ -146,7 +146,7 @@ msgid "Content"
 msgstr "目錄"
 
 #: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
-#: src/Layouts/ItemSidebarView.vala:178 src/Widgets/EventRow.vala:310
+#: src/Layouts/ItemSidebarView.vala:178 src/Widgets/EventRow.vala:321
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "描述"
@@ -1115,7 +1115,7 @@ msgid "Next week"
 msgstr "下週"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:403
-#: src/Widgets/EventRow.vala:275
+#: src/Widgets/EventRow.vala:286
 msgid "Calendar"
 msgstr "行事曆"
 
@@ -2933,33 +2933,33 @@ msgstr "顯示較少"
 msgid "Report Issue"
 msgstr "提報問題"
 
-#: src/Widgets/EventRow.vala:196
+#: src/Widgets/EventRow.vala:207
 #, c-format
 msgid "In %d minutes"
 msgstr "於 %d 分鐘內"
 
-#: src/Widgets/EventRow.vala:198
+#: src/Widgets/EventRow.vala:209
 #, c-format
 msgid "In %d hours"
 msgstr "於 %d 小時內"
 
-#: src/Widgets/EventRow.vala:203
+#: src/Widgets/EventRow.vala:214
 msgid "Happening now"
 msgstr "現正發生"
 
-#: src/Widgets/EventRow.vala:238
+#: src/Widgets/EventRow.vala:249
 msgid "Location"
 msgstr "地點"
 
-#: src/Widgets/EventRow.vala:251
+#: src/Widgets/EventRow.vala:262
 msgid "Organizer"
 msgstr "發起人"
 
-#: src/Widgets/EventRow.vala:265
+#: src/Widgets/EventRow.vala:276
 msgid "URL"
 msgstr "URL"
 
-#: src/Widgets/EventRow.vala:370
+#: src/Widgets/EventRow.vala:381
 msgid "Join"
 msgstr "加入"
 

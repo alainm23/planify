@@ -146,7 +146,7 @@ msgid "Content"
 msgstr "Saturs"
 
 #: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
-#: src/Layouts/ItemSidebarView.vala:178 src/Widgets/EventRow.vala:310
+#: src/Layouts/ItemSidebarView.vala:178 src/Widgets/EventRow.vala:321
 #: src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Apraksts"
@@ -1130,7 +1130,7 @@ msgid "Next week"
 msgstr "Nākamā nedēļa"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:403
-#: src/Widgets/EventRow.vala:275
+#: src/Widgets/EventRow.vala:286
 msgid "Calendar"
 msgstr "Kalendārs"
 
@@ -2975,33 +2975,33 @@ msgstr "Rādīt mazāk"
 msgid "Report Issue"
 msgstr "Ziņot par kļūmi"
 
-#: src/Widgets/EventRow.vala:196
+#: src/Widgets/EventRow.vala:207
 #, c-format
 msgid "In %d minutes"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:198
+#: src/Widgets/EventRow.vala:209
 #, c-format
 msgid "In %d hours"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:203
+#: src/Widgets/EventRow.vala:214
 msgid "Happening now"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:238
+#: src/Widgets/EventRow.vala:249
 msgid "Location"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:251
+#: src/Widgets/EventRow.vala:262
 msgid "Organizer"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:265
+#: src/Widgets/EventRow.vala:276
 msgid "URL"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:370
+#: src/Widgets/EventRow.vala:381
 msgid "Join"
 msgstr ""
 
