@@ -319,4 +319,34 @@ public class Services.CalendarEvents : Object {
 
         return sources;
     }
+
+    public async bool create_event (string source_uid, string title, GLib.DateTime date) {
+        ECal.Client client;
+        lock (source_client) {
+            client = source_client.get (source_uid);
+        }
+
+        if (client == null) {
+            critical ("Calendar client not found for UID: %s", source_uid);
+            return false;
+        }
+
+        var event = new ICal.Component (ICal.ComponentKind.VEVENT_COMPONENT);
+        event.set_summary (title);
+        event.set_uid (GLib.Uuid.string_random ());
+
+        var dt_start = new ICal.Time.from_timet_with_zone ((time_t) date.to_unix (), 0, null);
+        event.set_dtstart (dt_start);
+        event.set_dtend (dt_start);
+
+        try {
+            string? uid = null;
+            yield client.create_object (event, ECal.OperationFlags.NONE, null, out uid);
+            debug ("Event created with UID: %s", uid);
+            return true;
+        } catch (Error e) {
+            critical ("Error creating event: %s", e.message);
+            return false;
+        }
+    }
 }
