@@ -346,6 +346,10 @@ public class Views.Project : Adw.Bin {
         var delete_item = new Widgets.ContextMenu.MenuItem (_ ("Delete Project"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
+        var calendar_sync_item = new Widgets.ContextMenu.MenuItem (_ ("Calendar Sync"), "month-symbolic") {
+            badge = _("New")
+        };
+
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
@@ -388,7 +392,6 @@ public class Views.Project : Adw.Bin {
         if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
             menu_box.append (add_section_item);
             menu_box.append (manage_sections);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             
             signal_map[add_section_item.activate_item.connect (() => {
                 prepare_new_section ();
@@ -398,6 +401,16 @@ public class Views.Project : Adw.Bin {
                 var dialog = new Dialogs.ManageSectionOrder (project);
                 dialog.present (Planify._instance.main_window);
             })] = manage_sections;
+        }
+
+        if (!project.is_inbox_project) {
+            menu_box.append (calendar_sync_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+
+            signal_map[calendar_sync_item.clicked.connect (() => {
+                var dialog = new Dialogs.CalendarSync (project);
+                dialog.present (Planify._instance.main_window);
+            })] = calendar_sync_item;
         }
 
         menu_box.append (select_item);
