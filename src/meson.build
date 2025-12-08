@@ -115,7 +115,6 @@ sources = files(
   'Dialogs/ItemChangeHistory.vala',
   'Dialogs/ErrorDialog.vala',
   'Dialogs/CompletedTasks.vala',
-  'Dialogs/CalendarSync.vala',
   
   'Dialogs/QuickFind/QuickFind.vala',
   'Dialogs/QuickFind/QuickFindItem.vala',
@@ -142,10 +141,7 @@ sources = files(
 if get_option('evolution')
     sources += 'Widgets/EventRow.vala'
     sources += 'Widgets/EventsList.vala'
-    sources += 'Services/CalendarEvents/CalendarEvents.vala'
-    sources += 'Services/CalendarEvents/DateIterator.vala'
-    sources += 'Services/CalendarEvents/DateRange.vala'
-    sources += 'Services/CalendarEvents/Util.vala'
+    sources += 'Dialogs/CalendarSync.vala'
 endif
 
 executable(

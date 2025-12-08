@@ -22,8 +22,10 @@
 public class Dialogs.CalendarSync : Adw.Dialog {
     public Objects.Project project { get; construct; }
     
-    private Gtk.Button enable_button;
+    private Widgets.LoadingButton enable_button;
+    private Widgets.LoadingButton disable_button;
     private E.Source? selected_source = null;
+    private Gtk.Stack stack;
 
     public CalendarSync (Objects.Project project) {
         Object (
@@ -107,7 +109,7 @@ public class Dialogs.CalendarSync : Adw.Dialog {
         var calendar_popover = create_calendar_popover (calendar_button, calendar_name_label, calendar_location_label, calendar_color);
         calendar_button.popover = calendar_popover;
 
-        enable_button = new Gtk.Button.with_label (_("Enable Sync")) {
+        enable_button = new Widgets.LoadingButton.with_label (_("Enable Sync")) {
             sensitive = false,
             margin_start = 24,
             margin_end = 24,
@@ -119,7 +121,7 @@ public class Dialogs.CalendarSync : Adw.Dialog {
 
         enable_button.clicked.connect (() => {
             if (selected_source != null) {
-                test_create_event.begin ();
+                sync_tasks.begin ();
             }
         });
 
@@ -131,48 +133,196 @@ public class Dialogs.CalendarSync : Adw.Dialog {
         content_box.append (calendar_button);
         content_box.append (enable_button);
 
+        var success_page = create_success_page ();
+        var active_page = create_active_page ();
+
+        stack = new Gtk.Stack () {
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
+        stack.add_named (content_box, "setup");
+        stack.add_named (success_page, "success");
+        stack.add_named (active_page, "active");
+
         var toolbar_view = new Adw.ToolbarView () {
-            content = content_box
+            content = stack
         };
         toolbar_view.add_top_bar (new Adw.HeaderBar ());
 
         child = toolbar_view;
+
+        if (project.calendar_source_uid != "") {
+            stack.set_visible_child_name ("active");
+        }
     }
 
-    private async void test_create_event () {
-        print ("[CalendarSync] Starting test...\n");
-        print ("[CalendarSync] Selected calendar: %s\n", selected_source.dup_display_name ());
-        print ("[CalendarSync] Calendar UID: %s\n", selected_source.get_uid ());
-        print ("[CalendarSync] Total items in project: %d\n", project.all_items.size);
+    private async void unsync_tasks () {
+        disable_button.is_loading = true;
+        disable_button.sensitive = false;
 
+        int deleted_count = 0;
         foreach (var item in project.all_items) {
-            print ("[CalendarSync] Checking item: %s (has_due: %s)\n", item.content, item.has_due.to_string ());
-            
-            if (item.has_due) {
-                print ("[CalendarSync] Found item with due date: %s\n", item.content);
-                print ("[CalendarSync] Due date: %s\n", item.due.datetime.to_string ());
-                
-                bool success = yield Services.CalendarEvents.get_default ().create_event (
-                    selected_source.get_uid (),
-                    item.content,
-                    item.due.datetime
+            if (item.calendar_event_uid != "") {
+                bool success = yield Services.CalendarEvents.get_default ().delete_event (
+                    project.calendar_source_uid,
+                    item.calendar_event_uid
                 );
                 
-                print ("[CalendarSync] Event creation result: %s\n", success.to_string ());
-                
                 if (success) {
-                    print ("[CalendarSync] Successfully created event!\n");
-                } else {
-                    print ("[CalendarSync] Failed to create event\n");
+                    item.calendar_event_uid = "";
+                    item.update_local ();
+                    deleted_count++;
                 }
-                
-                close ();
-                return;
             }
         }
+
+        project.calendar_source_uid = "";
+        project.update_local ();
+
+        disable_button.is_loading = false;
         
-        print ("[CalendarSync] No items with due date found\n");
+        Services.EventBus.get_default ().send_toast (
+            Util.get_default ().create_toast (_("Calendar sync disabled successfully"))
+        );
+        
         close ();
+    }
+
+    private async void sync_tasks () {
+        enable_button.is_loading = true;
+        enable_button.sensitive = false;
+
+        project.calendar_source_uid = selected_source.get_uid ();
+        project.update_local ();
+
+        int synced_count = 0;
+        foreach (var item in project.all_items) {
+            if (item.has_due) {
+                string? event_uid = yield Services.CalendarEvents.get_default ().create_event (
+                    selected_source.get_uid (),
+                    item
+                );
+                
+                if (event_uid != null) {
+                    item.calendar_event_uid = event_uid;
+                    item.update_local ();
+                    synced_count++;
+                }
+            }
+        }
+
+        enable_button.is_loading = false;
+        stack.set_visible_child_name ("success");
+    }
+
+    private Gtk.Widget create_active_page () {
+        var icon = new Gtk.Image.from_icon_name ("check-round-outline-symbolic") {
+            pixel_size = 64,
+            css_classes = { "success" }
+        };
+
+        var title = new Gtk.Label (_("Calendar Sync Active")) {
+            css_classes = { "title-1" },
+            margin_top = 24
+        };
+
+        var description = new Gtk.Label (_("Your tasks are currently synced with your calendar. Any task with a date automatically appears as a calendar event.")) {
+            wrap = true,
+            justify = Gtk.Justification.CENTER,
+            margin_start = 24,
+            margin_end = 24,
+            margin_top = 12
+        };
+
+        var calendar_info = new Gtk.Label ("") {
+            wrap = true,
+            justify = Gtk.Justification.CENTER,
+            margin_start = 24,
+            margin_end = 24,
+            margin_top = 24,
+            css_classes = { "dim-label" }
+        };
+
+        load_active_calendar_info.begin (calendar_info);
+
+        disable_button = new Widgets.LoadingButton.with_label (_("Disable Sync")) {
+            margin_start = 24,
+            margin_end = 24,
+            margin_top = 24,
+            margin_bottom = 24,
+            halign = CENTER
+        };
+        disable_button.add_css_class ("destructive-action");
+        disable_button.add_css_class ("pill");
+        disable_button.clicked.connect (() => {
+            unsync_tasks.begin ();
+        });
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            valign = Gtk.Align.CENTER,
+            vexpand = true
+        };
+        box.append (icon);
+        box.append (title);
+        box.append (description);
+        box.append (calendar_info);
+        box.append (disable_button);
+
+        return box;
+    }
+
+    private async void load_active_calendar_info (Gtk.Label label) {
+        try {
+            var registry = yield new E.SourceRegistry (null);
+            var source = registry.ref_source (project.calendar_source_uid);
+            
+            if (source != null) {
+                label.label = _("Synced with: %s").printf (source.dup_display_name ());
+            }
+        } catch (Error e) {
+            critical ("Error loading calendar info: %s", e.message);
+        }
+    }
+
+    private Gtk.Widget create_success_page () {
+        var icon = new Gtk.Image.from_icon_name ("check-round-outline-symbolic") {
+            pixel_size = 64,
+            css_classes = { "success" }
+        };
+
+        var title = new Gtk.Label (_("Sync Enabled!")) {
+            css_classes = { "title-1" },
+            margin_top = 24
+        };
+
+        var description = new Gtk.Label (_("Your tasks are now synced with your calendar. Any task with a date will automatically appear as a calendar event.")) {
+            wrap = true,
+            justify = Gtk.Justification.CENTER,
+            margin_start = 24,
+            margin_end = 24,
+            margin_top = 12
+        };
+
+        var ok_button = new Gtk.Button.with_label (_("OK")) {
+            margin_start = 24,
+            margin_end = 24,
+            margin_top = 32,
+            margin_bottom = 24,
+            halign = CENTER
+        };
+        ok_button.add_css_class ("suggested-action");
+        ok_button.add_css_class ("pill");
+        ok_button.clicked.connect (() => close ());
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            valign = Gtk.Align.CENTER,
+            vexpand = true
+        };
+        box.append (icon);
+        box.append (title);
+        box.append (description);
+        box.append (ok_button);
+
+        return box;
     }
 
     private Gtk.Widget create_benefit_card (string description) {
@@ -255,9 +405,14 @@ public class Dialogs.CalendarSync : Adw.Dialog {
         try {
             var registry = yield new E.SourceRegistry (null);
             var sources = registry.list_sources (E.SOURCE_EXTENSION_CALENDAR);
+            var used_calendars = Services.Store.instance ().get_used_calendar_sources ();
 
             sources.foreach ((source) => {
                 if (!source.enabled) {
+                    return;
+                }
+
+                if (used_calendars.contains (source.get_uid ())) {
                     return;
                 }
 

@@ -320,32 +320,141 @@ public class Services.CalendarEvents : Object {
         return sources;
     }
 
-    public async bool create_event (string source_uid, string title, GLib.DateTime date) {
+    private async ECal.Client? get_client (string source_uid) {
+        if (registry == null) {
+            while (registry == null) {
+                yield Util.nap (100);
+            }
+        }
+        
         ECal.Client client;
         lock (source_client) {
             client = source_client.get (source_uid);
         }
 
         if (client == null) {
-            critical ("Calendar client not found for UID: %s", source_uid);
-            return false;
+            var source = registry.ref_source (source_uid);
+            if (source != null) {
+                yield add_source_async (source);
+                lock (source_client) {
+                    client = source_client.get (source_uid);
+                }
+            }
+            
+            if (client == null) {
+                critical ("Calendar client not found for UID: %s", source_uid);
+                return null;
+            }
+        }
+
+        return client;
+    }
+
+    public async string? create_event (string source_uid, Objects.Item item) {
+        var client = yield get_client (source_uid);
+        if (client == null) {
+            return null;
+        }
+
+        if (!item.has_due) {
+            return null;
         }
 
         var event = new ICal.Component (ICal.ComponentKind.VEVENT_COMPONENT);
-        event.set_summary (title);
-        event.set_uid (GLib.Uuid.string_random ());
+        
+        var generated_uid = Util.get_default ().generate_id ();
+        event.set_uid (generated_uid);
+        event.set_summary (item.content);
+        
+        if (item.description != "") {
+            event.set_description (item.description);
+        }
 
-        var dt_start = new ICal.Time.from_timet_with_zone ((time_t) date.to_unix (), 0, null);
+        bool has_time = Utils.Datetime.has_time (item.due.datetime);
+        
+        var dt_start = new ICal.Time ();
+        dt_start.set_date (item.due.datetime.get_year (), item.due.datetime.get_month (), item.due.datetime.get_day_of_month ());
+        
+        if (has_time) {
+            dt_start.set_time (item.due.datetime.get_hour (), item.due.datetime.get_minute (), item.due.datetime.get_second ());
+            dt_start.set_is_date (false);
+        } else {
+            dt_start.set_is_date (true);
+        }
+        
         event.set_dtstart (dt_start);
         event.set_dtend (dt_start);
 
         try {
             string? uid = null;
-            yield client.create_object (event, ECal.OperationFlags.NONE, null, out uid);
-            debug ("Event created with UID: %s", uid);
-            return true;
+            client.create_object.begin (event, ECal.OperationFlags.NONE, null, (obj, res) => {
+                try {
+                    client.create_object.end (res, out uid);
+                    create_event.callback ();
+                } catch (Error e) {
+                    critical ("Error creating event: %s", e.message);
+                    create_event.callback ();
+                }
+            });
+            yield;
+            return uid ?? generated_uid;
         } catch (Error e) {
             critical ("Error creating event: %s", e.message);
+            return null;
+        }
+    }
+
+    public async bool delete_event (string source_uid, string event_uid) {
+        var client = yield get_client (source_uid);
+        if (client == null) {
+            return false;
+        }
+
+        try {
+            yield client.remove_object (event_uid, null, ECal.ObjModType.THIS, ECal.OperationFlags.NONE, null);
+            return true;
+        } catch (Error e) {
+            critical ("Error deleting event: %s", e.message);
+            return false;
+        }
+    }
+
+    public async bool update_event (string source_uid, string event_uid, Objects.Item item) {
+        var client = yield get_client (source_uid);
+        if (client == null) {
+            return false;
+        }
+
+        try {
+            ICal.Component? ical_event = null;
+            yield client.get_object (event_uid, null, null, out ical_event);
+            
+            if (ical_event == null) {
+                return false;
+            }
+
+            ical_event.set_summary (item.content);
+            ical_event.set_description (item.description);
+
+            bool has_time = Utils.Datetime.has_time (item.due.datetime);
+            
+            var dt_start = new ICal.Time ();
+            dt_start.set_date (item.due.datetime.get_year (), item.due.datetime.get_month (), item.due.datetime.get_day_of_month ());
+            
+            if (has_time) {
+                dt_start.set_time (item.due.datetime.get_hour (), item.due.datetime.get_minute (), item.due.datetime.get_second ());
+                dt_start.set_is_date (false);
+            } else {
+                dt_start.set_is_date (true);
+            }
+            
+            ical_event.set_dtstart (dt_start);
+            ical_event.set_dtend (dt_start);
+
+            yield client.modify_object (ical_event, ECal.ObjModType.THIS, ECal.OperationFlags.NONE, null);
+            return true;
+        } catch (Error e) {
+            critical ("Error updating event: %s", e.message);
             return false;
         }
     }

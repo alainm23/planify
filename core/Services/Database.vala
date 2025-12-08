@@ -75,6 +75,7 @@ public class Services.Database : GLib.Object {
         table_columns["Items"].add ("labels");
         table_columns["Items"].add ("extra_data");
         table_columns["Items"].add ("item_type");
+        table_columns["Items"].add ("calendar_event_uid");
 
         table_columns["Labels"] = new Gee.ArrayList<string> ();
         table_columns["Labels"].add ("id");
@@ -279,7 +280,8 @@ public class Services.Database : GLib.Object {
                 pinned              INTEGER,
                 labels              TEXT,
                 extra_data          TEXT,
-                item_type           TEXT
+                item_type           TEXT,
+                calendar_event_uid  TEXT
             );
         """;
 
@@ -636,6 +638,7 @@ public class Services.Database : GLib.Object {
          * - Add calendar_url column to Projects
          */
         add_text_column ("Projects", "calendar_source_uid", "");
+        add_text_column ("Items", "calendar_event_uid", "");
     }
 
     public void clear_database () {
@@ -1381,10 +1384,10 @@ public class Services.Database : GLib.Object {
         sql = """
             INSERT OR IGNORE INTO Items (id, content, description, due, added_at, completed_at,
                 updated_at, section_id, project_id, parent_id, priority, child_order,
-                checked, is_deleted, day_order, collapsed, pinned, labels, extra_data, item_type)
+                checked, is_deleted, day_order, collapsed, pinned, labels, extra_data, item_type, calendar_event_uid)
             VALUES ($id, $content, $description, $due, $added_at, $completed_at,
                 $updated_at, $section_id, $project_id, $parent_id, $priority, $child_order,
-                $checked, $is_deleted, $day_order, $collapsed, $pinned, $labels, $extra_data, $item_type);
+                $checked, $is_deleted, $day_order, $collapsed, $pinned, $labels, $extra_data, $item_type, $calendar_event_uid);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1408,6 +1411,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$labels", get_labels_ids (item.labels));
         set_parameter_str (stmt, "$extra_data", item.extra_data);
         set_parameter_str (stmt, "$item_type", item.item_type.to_string ());
+        set_parameter_str (stmt, "$calendar_event_uid", item.calendar_event_uid);
 
         int result = stmt.step ();
         if (result != Sqlite.DONE) {
@@ -1472,6 +1476,7 @@ public class Services.Database : GLib.Object {
         return_value.labels = Services.Store.instance ().get_labels_by_item_labels (stmt.column_text (17));
         return_value.extra_data = stmt.column_text (18);
         return_value.item_type = ItemType.parse (stmt.column_text (19));
+        return_value.calendar_event_uid = stmt.column_text (20);
 
         return return_value;
     }
@@ -1505,7 +1510,7 @@ public class Services.Database : GLib.Object {
                 section_id=$section_id, project_id=$project_id, parent_id=$parent_id,
                 priority=$priority, child_order=$child_order, checked=$checked,
                 is_deleted=$is_deleted, day_order=$day_order, collapsed=$collapsed,
-                pinned=$pinned, labels=$labels, extra_data=$extra_data, item_type=$item_type
+                pinned=$pinned, labels=$labels, extra_data=$extra_data, item_type=$item_type, calendar_event_uid=$calendar_event_uid
             WHERE id=$id;
         """;
 
@@ -1529,6 +1534,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$labels", get_labels_ids (item.labels));
         set_parameter_str (stmt, "$extra_data", item.extra_data);
         set_parameter_str (stmt, "$item_type", item.item_type.to_string ());
+        set_parameter_str (stmt, "$calendar_event_uid", item.calendar_event_uid);
         set_parameter_str (stmt, "$id", item.id);
 
         int result = stmt.step ();
@@ -1617,7 +1623,10 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    // Reminders
+    /*
+        Reminders
+     */
+
     public bool insert_reminder (Objects.Reminder reminder) {
         Sqlite.Statement stmt;
         string sql;

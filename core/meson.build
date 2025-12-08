@@ -126,6 +126,13 @@ core_files = files(
     'Objects/Filters/AllItems.vala'
 )
 
+if get_option('evolution')
+    core_files += 'Services/CalendarEvents/CalendarEvents.vala'
+    core_files += 'Services/CalendarEvents/DateIterator.vala'
+    core_files += 'Services/CalendarEvents/DateRange.vala'
+    core_files += 'Services/CalendarEvents/Util.vala'
+endif
+
 core_deps = [
   gio_dep,
   glib_dep,
