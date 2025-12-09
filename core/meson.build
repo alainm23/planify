@@ -152,6 +152,7 @@ core_deps = [
 if get_option('evolution')
     if libecal_dep.found()
         core_deps += libecal_dep
+        core_deps += libedataserver_dep
     endif
 endif
 

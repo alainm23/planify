@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update
-          apt-get install -y sudo pipx git apache2-utils valac meson ninja-build gettext desktop-file-utils libgtk-4-dev libadwaita-1-dev libgee-0.8-dev libgranite-7-dev libjson-glib-dev libecal2.0-dev libsoup-3.0-dev libwebkitgtk-6.0-dev libgtksourceview-5-dev libportal-dev libportal-gtk4-dev libspelling-1-dev
+          apt-get install -y sudo pipx git apache2-utils valac meson ninja-build gettext desktop-file-utils libgtk-4-dev libadwaita-1-dev libgee-0.8-dev libgranite-7-dev libjson-glib-dev libecal2.0-dev libsoup-3.0-dev libwebkitgtk-6.0-dev libgtksourceview-5-dev libportal-dev libportal-gtk4-dev libspelling-1-dev dbus-x11
 
       - name: Install Radicale with pipx
         run: |
@@ -45,6 +45,12 @@ jobs:
       - name: Start Radicale server
         run: |
           nohup /github/home/.local/bin/radicale --config /tmp/radicale/config &
+
+      - name: Start D-Bus session
+        run: |
+          mkdir -p /tmp/dbus
+          dbus-daemon --session --fork --address=unix:path=/tmp/dbus/session_bus_socket
+          echo "DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/dbus/session_bus_socket" >> $GITHUB_ENV
 
       - name: Configure and build
         run: |
