@@ -36,6 +36,10 @@ core/Services/CalDAV/CalDAVClient.vala
 core/Services/CalDAV/Core.vala
 core/Services/CalDAV/Providers/Nextcloud.vala
 core/Services/CalDAV/WebDAVClient.vala
+core/Services/CalendarEvents/CalendarEvents.vala
+core/Services/CalendarEvents/DateIterator.vala
+core/Services/CalendarEvents/DateRange.vala
+core/Services/CalendarEvents/Util.vala
 core/Services/Chrono/Chrono.vala
 core/Services/Chrono/Common/ISOParser.vala
 core/Services/Chrono/Common/SlashParser.vala
@@ -115,6 +119,7 @@ core/Widgets/StatusButton.vala
 core/Widgets/TextView.vala
 
 src/App.vala
+src/Dialogs/CalendarSync.vala
 src/Dialogs/CompletedTasks.vala
 src/Dialogs/DatePicker.vala
 src/Dialogs/ErrorDialog.vala
@@ -166,10 +171,6 @@ src/Objects/Backup.vala
 src/Services/ActionManager.vala
 src/Services/Api.vala
 src/Services/Backups.vala
-src/Services/CalendarEvents/CalendarEvents.vala
-src/Services/CalendarEvents/DateIterator.vala
-src/Services/CalendarEvents/DateRange.vala
-src/Services/CalendarEvents/Util.vala
 src/Services/DBusServer.vala
 src/Services/GoogleTasks.vala
 src/Services/MigrateFromPlanner.vala
