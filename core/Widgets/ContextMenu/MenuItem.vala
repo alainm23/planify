@@ -24,8 +24,10 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
     private Gtk.Revealer menu_icon_revealer;
     private Gtk.Label menu_title;
     private Gtk.Label secondary_label;
+    private Gtk.Label badge_label;
     private Gtk.Revealer loading_revealer;
     private Gtk.Revealer secondary_label_revealer;
+    private Gtk.Revealer badge_revealer;
     private Gtk.Revealer select_revealer;
     private Gtk.Revealer arrow_revealer;
 
@@ -70,6 +72,13 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
             secondary_label.label = value;
             secondary_label.tooltip_text = value;
             secondary_label_revealer.reveal_child = value.length > 0;
+        }
+    }
+
+    public string badge {
+        set {
+            badge_label.label = value;
+            badge_revealer.reveal_child = value.length > 0;
         }
     }
 
@@ -165,6 +174,16 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
             child = secondary_label
         };
 
+        badge_label = new Gtk.Label (null) {
+            css_classes = { "caption", "border-outline" },
+            margin_start = 6
+        };
+
+        badge_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            child = badge_label
+        };
+
         loading_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
             child = new Adw.Spinner () {
@@ -178,6 +197,7 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         };
 
         end_box.append (secondary_label_revealer);
+        end_box.append (badge_revealer);
         end_box.append (loading_revealer);
         end_box.append (select_revealer);
         end_box.append (arrow_revealer);

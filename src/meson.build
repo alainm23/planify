@@ -141,10 +141,7 @@ sources = files(
 if get_option('evolution')
     sources += 'Widgets/EventRow.vala'
     sources += 'Widgets/EventsList.vala'
-    sources += 'Services/CalendarEvents/CalendarEvents.vala'
-    sources += 'Services/CalendarEvents/DateIterator.vala'
-    sources += 'Services/CalendarEvents/DateRange.vala'
-    sources += 'Services/CalendarEvents/Util.vala'
+    sources += 'Dialogs/CalendarSync.vala'
 endif
 
 executable(

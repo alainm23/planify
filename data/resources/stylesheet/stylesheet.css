@@ -509,6 +509,11 @@ checkbutton.theme-selector radio:checked {
     border-radius: 1px;
 }
 
+.source-calendar-color {
+    background: linear-gradient(135deg, @colorAccent 0%, alpha(@colorAccent, 0.7) 100%);
+    border-radius: 50%;
+}
+
 .icon-color {
     color: @colorAccent;
 }
@@ -712,4 +717,11 @@ checkbutton.theme-selector radio:checked {
     border: 1px solid @item_border_color;
     padding: 12px;
     border-radius: 9px;
+}
+
+.border-outline {
+    border: 1px solid @accent_color;
+    color: @accent_color;
+    border-radius: 6px;
+    padding: 0px 6px;
 }

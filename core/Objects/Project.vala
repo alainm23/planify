@@ -37,6 +37,7 @@ public class Objects.Project : Objects.BaseObject {
     public string sync_id { get; set; default = ""; }
     public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
     public string calendar_url { get; set; default = ""; }
+    public string calendar_source_uid { get; set; default = ""; }   
 
     bool _show_completed = false;
     public bool show_completed {

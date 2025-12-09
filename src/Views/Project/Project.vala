@@ -159,7 +159,7 @@ public class Views.Project : Adw.Bin {
         };
         right_click.pressed.connect (on_right_click);
         add_controller (right_click);
-        
+
         signal_map[project.updated.connect (() => {
             headerbar.title = project.is_inbox_project ? _("Inbox") : project.name;
         })] = project;
@@ -170,7 +170,7 @@ public class Views.Project : Adw.Bin {
 
         signal_map[project.show_multi_select_change.connect (() => {
             toolbar_view.reveal_bottom_bars = project.show_multi_select;
-            
+
             if (project.show_multi_select) {
                 Services.EventBus.get_default ().multi_select_enabled = true;
                 Services.EventBus.get_default ().show_multi_select (true);
@@ -226,7 +226,7 @@ public class Views.Project : Adw.Bin {
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (add_task_item);
         menu_box.append (add_section_item);
-        
+
         context_menu = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
@@ -238,16 +238,16 @@ public class Views.Project : Adw.Bin {
             prepare_new_item ();
             context_menu.popdown ();
         });
-        
+
         add_section_item.clicked.connect (() => {
             prepare_new_section ();
             context_menu.popdown ();
         });
     }
-    
+
     private void on_right_click (int n_press, double x, double y) {
         Gdk.Rectangle rect = { (int) x, (int) y, 250, 1 };
-        
+
         context_menu.set_parent (this);
         context_menu.set_pointing_to (rect);
         context_menu.popup ();
@@ -388,8 +388,7 @@ public class Views.Project : Adw.Bin {
         if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
             menu_box.append (add_section_item);
             menu_box.append (manage_sections);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-            
+
             signal_map[add_section_item.activate_item.connect (() => {
                 prepare_new_section ();
             })] = add_section_item;
@@ -399,6 +398,22 @@ public class Views.Project : Adw.Bin {
                 dialog.present (Planify._instance.main_window);
             })] = manage_sections;
         }
+
+#if WITH_EVOLUTION
+        var calendar_sync_item = new Widgets.ContextMenu.MenuItem (_ ("Calendar Sync"), "month-symbolic") {
+            badge = _("New")
+        };
+
+        if (!project.is_inbox_project) {
+            menu_box.append (calendar_sync_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+
+            calendar_sync_item.clicked.connect (() => {
+                var dialog = new Dialogs.CalendarSync (project);
+                dialog.present (Planify._instance.main_window);
+            });
+        }
+#endif
 
         menu_box.append (select_item);
         menu_box.append (paste_item);
@@ -424,7 +439,7 @@ public class Views.Project : Adw.Bin {
             child = menu_box,
             width_request = 250
         };
-        
+
         signal_map[paste_item.clicked.connect (() => {
             Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 

@@ -25,6 +25,8 @@ public class Objects.Item : Objects.BaseObject {
     public string added_at { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public string completed_at { get; set; default = ""; }
     public string updated_at { get; set; default = ""; }
+    public string calendar_event_uid { get; set; default = ""; }   
+
     string _section_id = "";
     public string section_id {
         get { return _section_id; }
