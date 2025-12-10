@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-09 10:54+0000\n"
+"POT-Creation-Date: 2025-12-10 11:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,8 +117,8 @@ msgstr ""
 #: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:503 src/Views/Project/Project.vala:548
 #: src/Views/Scheduled/Scheduled.vala:230
-#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:615
-#: src/Views/Today.vala:644 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:611
+#: src/Views/Today.vala:640 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr ""
 
@@ -127,7 +127,7 @@ msgid "Label"
 msgstr ""
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:501
-#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:613
+#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:609
 msgid "Due Date"
 msgstr ""
 
@@ -1495,7 +1495,7 @@ msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr ""
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:596
-#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:655
+#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:651
 msgid "Filter By"
 msgstr ""
 
@@ -1985,7 +1985,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:500 src/Views/Scheduled/Scheduled.vala:227
-#: src/Views/Today.vala:612
+#: src/Views/Today.vala:608
 msgid "Alphabetically"
 msgstr ""
 
@@ -2749,12 +2749,12 @@ msgid "View Option Menu"
 msgstr ""
 
 #: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
-#: src/Views/Project/List.vala:116 src/Views/Today.vala:254
+#: src/Views/Project/List.vala:116 src/Views/Today.vala:250
 msgid "Add Some Tasks"
 msgstr ""
 
 #: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
-#: src/Views/Project/List.vala:117 src/Views/Today.vala:255
+#: src/Views/Project/List.vala:117 src/Views/Today.vala:251
 msgid "Press 'a' to create a new task"
 msgstr ""
 
@@ -2842,7 +2842,7 @@ msgid "Board"
 msgstr ""
 
 #: src/Views/Project/Project.vala:496 src/Views/Scheduled/Scheduled.vala:224
-#: src/Views/Today.vala:609
+#: src/Views/Today.vala:605
 msgid "Sorting"
 msgstr ""
 
@@ -2851,7 +2851,7 @@ msgid "Custom sort order"
 msgstr ""
 
 #: src/Views/Project/Project.vala:502 src/Views/Scheduled/Scheduled.vala:229
-#: src/Views/Today.vala:614
+#: src/Views/Today.vala:610
 msgid "Date Added"
 msgstr ""
 
@@ -2884,27 +2884,27 @@ msgid "Next 30 Days"
 msgstr ""
 
 #: src/Views/Project/Project.vala:526 src/Views/Scheduled/Scheduled.vala:237
-#: src/Views/Today.vala:622
+#: src/Views/Today.vala:618
 msgid "P1"
 msgstr ""
 
 #: src/Views/Project/Project.vala:532 src/Views/Scheduled/Scheduled.vala:243
-#: src/Views/Today.vala:628
+#: src/Views/Today.vala:624
 msgid "P2"
 msgstr ""
 
 #: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:249
-#: src/Views/Today.vala:634
+#: src/Views/Today.vala:630
 msgid "P3"
 msgstr ""
 
 #: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:255
-#: src/Views/Today.vala:640
+#: src/Views/Today.vala:636
 msgid "P4"
 msgstr ""
 
 #: src/Views/Project/Project.vala:551 src/Views/Scheduled/Scheduled.vala:262
-#: src/Views/Today.vala:647
+#: src/Views/Today.vala:643
 msgid "Filter by Labels"
 msgstr ""
 
