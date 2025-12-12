@@ -1886,8 +1886,9 @@ msgid "Font Size"
 msgstr "Размер шрифта"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-msgid "Backup"
-msgstr "Резервная копия"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
+msgid "Backups"
+msgstr "Резервные копии"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
 msgid ""
@@ -2231,6 +2232,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "Вы можете менять порядок своих списков, перетаскивая их"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
 msgstr "Настройки задач"
 
@@ -2384,10 +2386,6 @@ msgstr "Установите вид, отображаемый при перво�
 msgid "Customize to your liking"
 msgstr "Настройте как вам нравится"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:148
-msgid "Task Setting"
-msgstr "Настройка задач"
-
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
 msgstr "Настройте вашу боковую панель"
@@ -2395,10 +2393,6 @@ msgstr "Настройте вашу боковую панель"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
 msgstr "Добавляйте задачи из любого места"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:191
-msgid "Backups"
-msgstr "Резервные копии"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
@@ -3368,6 +3362,12 @@ msgstr "Открыть «Метки»"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Открыть «Закреплённые»"
+
+#~ msgid "Backup"
+#~ msgstr "Резервная копия"
+
+#~ msgid "Task Setting"
+#~ msgstr "Настройка задач"
 
 #~ msgid "Supporting Us"
 #~ msgstr "Поддержать нас"

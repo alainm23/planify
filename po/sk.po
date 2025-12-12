@@ -1901,8 +1901,8 @@ msgid "Font Size"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-#, fuzzy
-msgid "Backup"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
+msgid "Backups"
 msgstr "Zálohy"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
@@ -2244,6 +2244,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "Môžete zoradiť vaše zobrazenia ťahaním a pustení"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
 msgstr "Nastavenia úloh"
 
@@ -2400,10 +2401,6 @@ msgstr ""
 msgid "Customize to your liking"
 msgstr "Prispôsobte si podľa svojich predstáv"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:148
-msgid "Task Setting"
-msgstr "Nastavenie úloh"
-
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
 msgstr "Prispôsobte si postranný panel"
@@ -2411,10 +2408,6 @@ msgstr "Prispôsobte si postranný panel"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
 msgstr "Pridávanie úloh z akéhokoľvek miesta"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:191
-msgid "Backups"
-msgstr "Zálohy"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
@@ -3384,6 +3377,13 @@ msgstr "Otvoriť štítky"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Otvoriť nástenku"
+
+#, fuzzy
+#~ msgid "Backup"
+#~ msgstr "Zálohy"
+
+#~ msgid "Task Setting"
+#~ msgstr "Nastavenie úloh"
 
 #~ msgid "Personal Data"
 #~ msgstr "Osobné údaje"

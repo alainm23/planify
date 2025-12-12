@@ -1859,7 +1859,8 @@ msgid "Font Size"
 msgstr "Cỡ Chữ"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-msgid "Backup"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
+msgid "Backups"
 msgstr "Sao Lưu"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
@@ -2201,6 +2202,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "Bạn có thể sắp xếp các chế độ xem bằng cách kéo và thả"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
 msgstr "Cài Đặt Nhiệm Vụ"
 
@@ -2358,10 +2360,6 @@ msgstr "Đặt chế độ xem hiển thị khi khởi chạy lần đầu"
 msgid "Customize to your liking"
 msgstr "Tùy chỉnh theo ý thích của bạn"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:148
-msgid "Task Setting"
-msgstr "Cài Đặt Nhiệm Vụ"
-
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
 msgstr "Tùy chỉnh thanh bên của bạn"
@@ -2369,10 +2367,6 @@ msgstr "Tùy chỉnh thanh bên của bạn"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
 msgstr "Thêm nhiệm vụ cần làm từ bất cứ đâu"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:191
-msgid "Backups"
-msgstr "Sao Lưu"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
@@ -3330,6 +3324,12 @@ msgstr "Mở Nhãn"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Mở Bảng Ghim"
+
+#~ msgid "Backup"
+#~ msgstr "Sao Lưu"
+
+#~ msgid "Task Setting"
+#~ msgstr "Cài Đặt Nhiệm Vụ"
 
 #~ msgid "Close"
 #~ msgstr "Đóng"
