@@ -225,7 +225,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         var add_button = new Gtk.Button () {
             child = add_button_box,
-            margin_start = 16,
+            margin_start = 24,
             margin_bottom = 6,
             margin_top = 3,
             halign = START,
