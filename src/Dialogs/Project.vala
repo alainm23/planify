@@ -32,6 +32,7 @@ public class Dialogs.Project : Adw.Dialog {
     private Gtk.Switch emoji_switch;
     private Gtk.Label emoji_label;
     private Gtk.Label source_selected_label;
+    private Widgets.TextView description_textview;
 
     private Adw.NavigationView navigation_view;
     private Adw.NavigationPage sources_page;
@@ -72,21 +73,6 @@ public class Dialogs.Project : Adw.Dialog {
     }
 
     construct {
-        sources_page = get_sources_page ();
-
-        navigation_view = new Adw.NavigationView ();
-        navigation_view.add (get_main_page ());
-
-        child = navigation_view;
-        Services.EventBus.get_default ().disconnect_typing_accel ();
-
-        closed.connect (() => {
-            clean_up ();
-            Services.EventBus.get_default ().connect_typing_accel ();
-        });
-    }
-
-    private Adw.NavigationPage get_main_page () {
         emoji_label = new Gtk.Label (project.emoji);
 
         progress_bar = new Widgets.CircularProgressBar (32) {
@@ -139,6 +125,32 @@ public class Dialogs.Project : Adw.Dialog {
         emoji_switch_row.add_prefix (emoji_icon);
         emoji_switch_row.add_suffix (emoji_switch);
 
+        description_textview = new Widgets.TextView () {
+            wrap_mode = Gtk.WrapMode.WORD,
+            hexpand = true,
+            vexpand = true,
+            top_margin = 6,
+            bottom_margin = 6,
+            left_margin = 12,
+            right_margin = 12,
+            placeholder_text = _("Add a description…")
+        };
+        description_textview.set_text (project.description);
+
+        var description_scrolled = new Gtk.ScrolledWindow () {
+            hexpand = true,
+            vexpand = true,
+            child = description_textview,
+            height_request = 128
+        };
+
+        var description_row = new Adw.ExpanderRow () {
+            title = _("Description"),
+            expanded = project.description != ""
+        };
+        description_row.add_prefix (new Gtk.Image.from_icon_name ("paper-symbolic"));
+        description_row.add_row (description_scrolled);
+
         var name_group = new Adw.PreferencesGroup () {
             margin_end = 12,
             margin_start = 12,
@@ -146,6 +158,7 @@ public class Dialogs.Project : Adw.Dialog {
         };
 
         name_group.add (name_entry);
+        name_group.add (description_row);
         name_group.add (emoji_switch_row);
 
         source_selected_label = new Gtk.Label (project.source.display_name) {
@@ -221,10 +234,9 @@ public class Dialogs.Project : Adw.Dialog {
         content_box.append (submit_button);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 600,
-            margin_start = 12,
-            margin_end = 12,
-            margin_bottom = 12,
+            margin_start = 6,
+            margin_end = 6,
+            margin_bottom = 6,
             margin_top = 6
         };
 
@@ -234,7 +246,15 @@ public class Dialogs.Project : Adw.Dialog {
         toolbar_view.add_top_bar (new Adw.HeaderBar ());
         toolbar_view.content = content_clamp;
 
-        var navigation_page = new Adw.NavigationPage (toolbar_view, header_title);
+        var main_page = new Adw.NavigationPage (toolbar_view, header_title);
+        
+        sources_page = get_sources_page ();
+
+        navigation_view = new Adw.NavigationView ();
+        navigation_view.add (main_page);
+
+        child = navigation_view;
+        Services.EventBus.get_default ().disconnect_typing_accel ();
 
         Timeout.add (emoji_color_stack.transition_duration, () => {
             progress_bar.color = project.color;
@@ -284,7 +304,10 @@ public class Dialogs.Project : Adw.Dialog {
             navigation_view.push (sources_page);
         })] = source_row;
 
-        return navigation_page;
+        closed.connect (() => {
+            clean_up ();
+            Services.EventBus.get_default ().connect_typing_accel ();
+        });
     }
 
     private Adw.NavigationPage get_sources_page () {
@@ -365,6 +388,7 @@ public class Dialogs.Project : Adw.Dialog {
         project.color = color_picker_row.color;
         project.icon_style = emoji_switch.active ? ProjectIconStyle.EMOJI : ProjectIconStyle.PROGRESS;
         project.emoji = emoji_label.label;
+        project.description = description_textview.get_text ();
 
         submit_button.is_loading = true;
 

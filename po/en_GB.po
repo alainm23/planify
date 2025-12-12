@@ -145,9 +145,9 @@ msgstr "Task Updated"
 msgid "Content"
 msgstr "Content"
 
-#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
-#: src/Layouts/ItemSidebarView.vala:178 src/Widgets/EventRow.vala:321
-#: src/Widgets/ItemDetailCompleted.vala:113
+#: core/Enum.vala:525 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
+#: src/Layouts/ItemRow.vala:1869 src/Layouts/ItemSidebarView.vala:178
+#: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Description"
 
@@ -210,7 +210,7 @@ msgstr "logbook"
 #: core/Utils/Util.vala:575
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
-#: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:330
+#: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:328
 #: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
@@ -417,7 +417,7 @@ msgstr "To-do name"
 msgid "This field is required"
 msgstr "This field is required"
 
-#: core/QuickAddCore.vala:206
+#: core/QuickAddCore.vala:206 src/Dialogs/Project.vala:136
 msgid "Add a description…"
 msgstr "Add a description…"
 
@@ -1755,7 +1755,7 @@ msgid "- https://example.com/nextcloud/"
 msgstr "- https://example.com/nextcloud/"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
-#: src/Dialogs/Project.vala:165
+#: src/Dialogs/Project.vala:178
 msgid "Source"
 msgstr "Source"
 
@@ -1941,7 +1941,7 @@ msgstr "Download"
 msgid "Import Overview"
 msgstr "Import Overview"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:348 src/Dialogs/Project.vala:353
+#: src/Dialogs/Preferences/Pages/Backup.vala:348 src/Dialogs/Project.vala:376
 msgid "Sources"
 msgstr "Sources"
 
@@ -2471,32 +2471,32 @@ msgstr "Delete All Data?"
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "Deletes all your lists, tasks, and reminders irreversibly"
 
-#: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
+#: src/Dialogs/Project.vala:59 src/Layouts/Sidebar.vala:121
 msgid "New Project"
 msgstr "New Project"
 
-#: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:704
+#: src/Dialogs/Project.vala:67 src/Layouts/ProjectRow.vala:704
 #: src/Views/Project/Project.vala:333
 msgid "Edit Project"
 msgstr "Edit Project"
 
-#: src/Dialogs/Project.vala:126
+#: src/Dialogs/Project.vala:112
 msgid "Give your project a name"
 msgstr "Give your project a name"
 
-#: src/Dialogs/Project.vala:137
+#: src/Dialogs/Project.vala:123
 msgid "Use Emoji"
 msgstr "Use Emoji"
 
-#: src/Dialogs/Project.vala:204 src/Views/Label/LabelSourceRow.vala:56
+#: src/Dialogs/Project.vala:217 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
 msgstr "Add Project"
 
-#: src/Dialogs/Project.vala:204
+#: src/Dialogs/Project.vala:217
 msgid "Update Project"
 msgstr "Update Project"
 
-#: src/Dialogs/Project.vala:447
+#: src/Dialogs/Project.vala:471
 msgid "Project added successfully!"
 msgstr "Project added successfully!"
 
@@ -2875,11 +2875,11 @@ msgstr "No labels available. Create one by clicking on the '+' button"
 msgid "Note"
 msgstr "Note"
 
-#: src/Views/Project/Board.vala:279 src/Views/Project/List.vala:367
+#: src/Views/Project/Board.vala:279 src/Views/Project/List.vala:365
 msgid "Schedule"
 msgstr "Schedule"
 
-#: src/Views/Project/Board.vala:316 src/Views/Project/List.vala:402
+#: src/Views/Project/Board.vala:316 src/Views/Project/List.vala:400
 #: src/Views/Project/Project.vala:335 src/Views/Project/Project.vala:367
 msgid "When?"
 msgstr "When?"
