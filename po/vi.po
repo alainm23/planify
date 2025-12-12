@@ -280,7 +280,7 @@ msgstr "sắp tới"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:356
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:711
 #: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:515
-#: src/Views/Project/Project.vala:679 src/Views/Today.vala:202
+#: src/Views/Project/Project.vala:681 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Hôm Nay"
 
@@ -1522,7 +1522,7 @@ msgstr ""
 "Điều này sẽ xóa %d nhiệm vụ đã hoàn thành và nhiệm vụ phụ của chúng khỏi dự "
 "án %s"
 
-#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:596
+#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:598
 #: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:651
 msgid "Filter By"
 msgstr "Lọc Theo"
@@ -1533,7 +1533,7 @@ msgstr "Tuần Tới"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:719
 #: src/Layouts/ItemRow.vala:1166 src/Views/Project/Project.vala:520
-#: src/Views/Project/Project.vala:689
+#: src/Views/Project/Project.vala:691
 msgid "No Date"
 msgstr "Không Có Ngày"
 
@@ -2671,7 +2671,6 @@ msgid "Manage Section Order"
 msgstr "Quản Lý Thứ Tự Phần"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:660
-#: src/Views/Project/Project.vala:555
 msgid "Show Completed Tasks"
 msgstr "Hiển Thị Nhiệm Vụ Đã Hoàn Thành"
 
@@ -2930,19 +2929,19 @@ msgstr "Ngày Đến Hạn"
 msgid "All (default)"
 msgstr "Tất Cả (mặc định)"
 
-#: src/Views/Project/Project.vala:516 src/Views/Project/Project.vala:681
+#: src/Views/Project/Project.vala:516 src/Views/Project/Project.vala:683
 msgid "This Week"
 msgstr "Tuần Này"
 
-#: src/Views/Project/Project.vala:517 src/Views/Project/Project.vala:683
+#: src/Views/Project/Project.vala:517 src/Views/Project/Project.vala:685
 msgid "Next 7 Days"
 msgstr "7 Ngày Tới"
 
-#: src/Views/Project/Project.vala:518 src/Views/Project/Project.vala:685
+#: src/Views/Project/Project.vala:518 src/Views/Project/Project.vala:687
 msgid "This Month"
 msgstr "Tháng Này"
 
-#: src/Views/Project/Project.vala:519 src/Views/Project/Project.vala:687
+#: src/Views/Project/Project.vala:519 src/Views/Project/Project.vala:689
 msgid "Next 30 Days"
 msgstr "30 Ngày Tới"
 
@@ -2971,11 +2970,19 @@ msgstr "P4"
 msgid "Filter by Labels"
 msgstr "Lọc theo Nhãn"
 
-#: src/Views/Project/Project.vala:560
+#: src/Views/Project/Project.vala:555
+msgid "Show Completed"
+msgstr ""
+
+#: src/Views/Project/Project.vala:556
+msgid "Display completed tasks in the list"
+msgstr ""
+
+#: src/Views/Project/Project.vala:562
 msgid "Search completed tasks"
 msgstr "Tìm kiếm nhiệm vụ đã hoàn thành"
 
-#: src/Views/Project/Project.vala:587
+#: src/Views/Project/Project.vala:589
 msgid "Sort By"
 msgstr "Sắp Xếp Theo"
 

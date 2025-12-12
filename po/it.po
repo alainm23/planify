@@ -282,7 +282,7 @@ msgstr "imminente"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:356
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:711
 #: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:515
-#: src/Views/Project/Project.vala:679 src/Views/Today.vala:202
+#: src/Views/Project/Project.vala:681 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Oggi"
 
@@ -1514,7 +1514,7 @@ msgstr ""
 msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr ""
 
-#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:596
+#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:598
 #: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:651
 msgid "Filter By"
 msgstr ""
@@ -1525,7 +1525,7 @@ msgstr ""
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:719
 #: src/Layouts/ItemRow.vala:1166 src/Views/Project/Project.vala:520
-#: src/Views/Project/Project.vala:689
+#: src/Views/Project/Project.vala:691
 msgid "No Date"
 msgstr ""
 
@@ -2631,7 +2631,6 @@ msgid "Manage Section Order"
 msgstr ""
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:660
-#: src/Views/Project/Project.vala:555
 msgid "Show Completed Tasks"
 msgstr ""
 
@@ -2881,19 +2880,19 @@ msgstr ""
 msgid "All (default)"
 msgstr ""
 
-#: src/Views/Project/Project.vala:516 src/Views/Project/Project.vala:681
+#: src/Views/Project/Project.vala:516 src/Views/Project/Project.vala:683
 msgid "This Week"
 msgstr ""
 
-#: src/Views/Project/Project.vala:517 src/Views/Project/Project.vala:683
+#: src/Views/Project/Project.vala:517 src/Views/Project/Project.vala:685
 msgid "Next 7 Days"
 msgstr ""
 
-#: src/Views/Project/Project.vala:518 src/Views/Project/Project.vala:685
+#: src/Views/Project/Project.vala:518 src/Views/Project/Project.vala:687
 msgid "This Month"
 msgstr ""
 
-#: src/Views/Project/Project.vala:519 src/Views/Project/Project.vala:687
+#: src/Views/Project/Project.vala:519 src/Views/Project/Project.vala:689
 msgid "Next 30 Days"
 msgstr ""
 
@@ -2922,11 +2921,19 @@ msgstr ""
 msgid "Filter by Labels"
 msgstr ""
 
-#: src/Views/Project/Project.vala:560
+#: src/Views/Project/Project.vala:555
+msgid "Show Completed"
+msgstr ""
+
+#: src/Views/Project/Project.vala:556
+msgid "Display completed tasks in the list"
+msgstr ""
+
+#: src/Views/Project/Project.vala:562
 msgid "Search completed tasks"
 msgstr ""
 
-#: src/Views/Project/Project.vala:587
+#: src/Views/Project/Project.vala:589
 msgid "Sort By"
 msgstr ""
 

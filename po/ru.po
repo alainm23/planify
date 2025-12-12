@@ -288,7 +288,7 @@ msgstr "запланировано"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:356
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:711
 #: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:515
-#: src/Views/Project/Project.vala:679 src/Views/Today.vala:202
+#: src/Views/Project/Project.vala:681 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Сегодня"
 
@@ -1546,7 +1546,7 @@ msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr ""
 "Это приведёт к удалению %d выполненных задач и их подзадач из проекта %s"
 
-#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:596
+#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:598
 #: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:651
 msgid "Filter By"
 msgstr "Фильтровать по"
@@ -1557,7 +1557,7 @@ msgstr "Следующая Неделя"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:719
 #: src/Layouts/ItemRow.vala:1166 src/Views/Project/Project.vala:520
-#: src/Views/Project/Project.vala:689
+#: src/Views/Project/Project.vala:691
 msgid "No Date"
 msgstr "Без срока"
 
@@ -2700,7 +2700,6 @@ msgid "Manage Section Order"
 msgstr "Изменить порядок разделов"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:660
-#: src/Views/Project/Project.vala:555
 msgid "Show Completed Tasks"
 msgstr "Показать выполненные задачи"
 
@@ -2962,19 +2961,19 @@ msgstr "Срок выполнения"
 msgid "All (default)"
 msgstr "Все (по умолчанию)"
 
-#: src/Views/Project/Project.vala:516 src/Views/Project/Project.vala:681
+#: src/Views/Project/Project.vala:516 src/Views/Project/Project.vala:683
 msgid "This Week"
 msgstr "На этой неделе"
 
-#: src/Views/Project/Project.vala:517 src/Views/Project/Project.vala:683
+#: src/Views/Project/Project.vala:517 src/Views/Project/Project.vala:685
 msgid "Next 7 Days"
 msgstr "Следующие 7 дней"
 
-#: src/Views/Project/Project.vala:518 src/Views/Project/Project.vala:685
+#: src/Views/Project/Project.vala:518 src/Views/Project/Project.vala:687
 msgid "This Month"
 msgstr "В этом месяце"
 
-#: src/Views/Project/Project.vala:519 src/Views/Project/Project.vala:687
+#: src/Views/Project/Project.vala:519 src/Views/Project/Project.vala:689
 msgid "Next 30 Days"
 msgstr "Следующие 30 дней"
 
@@ -3003,11 +3002,19 @@ msgstr "П4"
 msgid "Filter by Labels"
 msgstr "Фильтровать по меткам"
 
-#: src/Views/Project/Project.vala:560
+#: src/Views/Project/Project.vala:555
+msgid "Show Completed"
+msgstr ""
+
+#: src/Views/Project/Project.vala:556
+msgid "Display completed tasks in the list"
+msgstr ""
+
+#: src/Views/Project/Project.vala:562
 msgid "Search completed tasks"
 msgstr "Найти завершённые задачи"
 
-#: src/Views/Project/Project.vala:587
+#: src/Views/Project/Project.vala:589
 msgid "Sort By"
 msgstr "Сортировать По"
 
