@@ -1873,8 +1873,9 @@ msgid "Font Size"
 msgstr "Font Size"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-msgid "Backup"
-msgstr "Backup"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
+msgid "Backups"
+msgstr "Backups"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
 msgid ""
@@ -2213,6 +2214,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "You can sort your views by dragging and dropping"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
 msgstr "Task Settings"
 
@@ -2366,10 +2368,6 @@ msgstr "Set the view shown at first launch"
 msgid "Customize to your liking"
 msgstr "Customize to your liking"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:148
-msgid "Task Setting"
-msgstr "Task Setting"
-
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
 msgstr "Customize your sidebar"
@@ -2377,10 +2375,6 @@ msgstr "Customize your sidebar"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
 msgstr "Adding to-do's from anywhere"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:191
-msgid "Backups"
-msgstr "Backups"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
@@ -3345,6 +3339,12 @@ msgstr "Open Labels"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Open Pinboard"
+
+#~ msgid "Backup"
+#~ msgstr "Backup"
+
+#~ msgid "Task Setting"
+#~ msgstr "Task Setting"
 
 #~ msgid "Close"
 #~ msgstr "Close"

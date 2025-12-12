@@ -25,7 +25,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
     public Backup (Adw.PreferencesDialog preferences_dialog) {
         Object (
             preferences_dialog: preferences_dialog,
-            title: _("Backup")
+            title: _("Backups")
         );
     }
 

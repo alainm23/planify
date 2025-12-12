@@ -1840,7 +1840,8 @@ msgid "Font Size"
 msgstr "字型大小"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-msgid "Backup"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
+msgid "Backups"
 msgstr "備份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
@@ -2179,6 +2180,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "您可以排序檢視，利用拖放操作"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
 msgstr "任務設定"
 
@@ -2327,10 +2329,6 @@ msgstr "在首次啟動時，設定檢視顯示"
 msgid "Customize to your liking"
 msgstr "依您喜好進行自訂"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:148
-msgid "Task Setting"
-msgstr "任務設定"
-
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
 msgstr "自訂您的側邊列"
@@ -2338,10 +2336,6 @@ msgstr "自訂您的側邊列"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
 msgstr "從任何位置添加待辦事項"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:191
-msgid "Backups"
-msgstr "備份"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
@@ -3291,6 +3285,12 @@ msgstr "開啟標籤"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "開啟釘貼看板"
+
+#~ msgid "Backup"
+#~ msgstr "備份"
+
+#~ msgid "Task Setting"
+#~ msgstr "任務設定"
 
 #~ msgid "Supporting Us"
 #~ msgstr "支援我們"

@@ -1915,8 +1915,8 @@ msgid "Font Size"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-#, fuzzy
-msgid "Backup"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
+msgid "Backups"
 msgstr "बैकअप"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
@@ -2257,6 +2257,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "आप अपने विचारों को खींचकर और छोड़ कर छांट सकते हैं"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
 msgstr "कार्य सेटिंग"
 
@@ -2412,10 +2413,6 @@ msgstr ""
 msgid "Customize to your liking"
 msgstr "पसंद के अनुसार अनुकूलित करें"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:148
-msgid "Task Setting"
-msgstr "कार्य सेटिंग"
-
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
 msgstr "पार्श्वपट्टी अनुकूलित करें"
@@ -2423,10 +2420,6 @@ msgstr "पार्श्वपट्टी अनुकूलित करे�
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
 msgstr "कहीं से भी कार्यों को जोड़ें"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:191
-msgid "Backups"
-msgstr "बैकअप"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
@@ -3399,6 +3392,13 @@ msgstr "लेबल खोलें"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "पिनबोर्ड खोलें"
+
+#, fuzzy
+#~ msgid "Backup"
+#~ msgstr "बैकअप"
+
+#~ msgid "Task Setting"
+#~ msgstr "कार्य सेटिंग"
 
 #~ msgid "Supporting Us"
 #~ msgstr "हमारा समर्थन करें"

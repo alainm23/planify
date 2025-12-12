@@ -1916,8 +1916,8 @@ msgid "Font Size"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-#, fuzzy
-msgid "Backup"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
+msgid "Backups"
 msgstr "백업"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
@@ -2257,6 +2257,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "끌어다 놓기로 보기를 정렬할 수 있습니다"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
 msgstr "작업 설정"
 
@@ -2410,10 +2411,6 @@ msgstr ""
 msgid "Customize to your liking"
 msgstr "원하는 대로 사용자 정의"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:148
-msgid "Task Setting"
-msgstr "작업 설정"
-
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
 msgstr "사이드바 사용자 정의"
@@ -2421,10 +2418,6 @@ msgstr "사이드바 사용자 정의"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
 msgstr "어디서나 할 일 추가"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:191
-msgid "Backups"
-msgstr "백업"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
@@ -3400,6 +3393,13 @@ msgstr "라벨 열기"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "게시판 열기"
+
+#, fuzzy
+#~ msgid "Backup"
+#~ msgstr "백업"
+
+#~ msgid "Task Setting"
+#~ msgstr "작업 설정"
 
 #~ msgid "Personal Data"
 #~ msgstr "개인 데이터"

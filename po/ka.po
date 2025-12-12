@@ -1865,8 +1865,8 @@ msgid "Font Size"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-#, fuzzy
-msgid "Backup"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
+msgid "Backups"
 msgstr "მარქაფები"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
@@ -2199,6 +2199,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "თქვენი ხედის დალაგება გადათრევით და დაყრით შეგიძლიათ"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
 msgstr "ამოცანის მორგება"
 
@@ -2350,10 +2351,6 @@ msgstr ""
 msgid "Customize to your liking"
 msgstr "მოირგეთ თქვენი სურვილისამებრ"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:148
-msgid "Task Setting"
-msgstr "ამოცანის პარამეტრი"
-
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
 msgstr "მოირგეთ თქვენი გვერდითი პანელი"
@@ -2361,10 +2358,6 @@ msgstr "მოირგეთ თქვენი გვერდითი პა
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
 msgstr "გეგმების დამატება ნებისმიერი ადგილიდან"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:191
-msgid "Backups"
-msgstr "მარქაფები"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
@@ -3320,6 +3313,13 @@ msgstr "ჭდეების გახან"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "დაფის გახსნა"
+
+#, fuzzy
+#~ msgid "Backup"
+#~ msgstr "მარქაფები"
+
+#~ msgid "Task Setting"
+#~ msgstr "ამოცანის პარამეტრი"
 
 #~ msgid "Personal Data"
 #~ msgstr "პირადი მონაცემებები"

@@ -1863,8 +1863,9 @@ msgid "Font Size"
 msgstr "Veličina fonta"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-msgid "Backup"
-msgstr "Sigurnosna kopija"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
+msgid "Backups"
+msgstr "Sigurnosne kopije"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
 msgid ""
@@ -2204,6 +2205,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "Prikaze možeš razvrstati povlačenjem i ispuštanjem"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
 msgstr "Postavke zadatka"
 
@@ -2358,10 +2360,6 @@ msgstr "Postavi prikaz koji se prikazuje pri prvom pokretanju"
 msgid "Customize to your liking"
 msgstr "Prilagodite po svom ukusu"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:148
-msgid "Task Setting"
-msgstr "Postavke zadatka"
-
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
 msgstr "Prilagodi bočnu traku"
@@ -2369,10 +2367,6 @@ msgstr "Prilagodi bočnu traku"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
 msgstr "Dodavanje zadataka s bilo kojeg mjesta"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:191
-msgid "Backups"
-msgstr "Sigurnosne kopije"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
@@ -3332,6 +3326,12 @@ msgstr "Otvori etikete"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Otvori oglasnu ploču"
+
+#~ msgid "Backup"
+#~ msgstr "Sigurnosna kopija"
+
+#~ msgid "Task Setting"
+#~ msgstr "Postavke zadatka"
 
 #~ msgid "Close"
 #~ msgstr "Zatvori"

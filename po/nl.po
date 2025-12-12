@@ -1923,8 +1923,8 @@ msgid "Font Size"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-#, fuzzy
-msgid "Backup"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
+msgid "Backups"
 msgstr "Back-ups"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
@@ -2268,6 +2268,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "Je kan je weergaves sorteren door drag-'n-drop"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
 msgstr "Taakinstellingen"
 
@@ -2426,10 +2427,6 @@ msgstr ""
 msgid "Customize to your liking"
 msgstr "Planify naar wens aanpassen"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:148
-msgid "Task Setting"
-msgstr "Taakinstelling"
-
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
 msgstr "Pas de zijbalk aan"
@@ -2437,10 +2434,6 @@ msgstr "Pas de zijbalk aan"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
 msgstr "Taken van eender waar toevoegen"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:191
-msgid "Backups"
-msgstr "Back-ups"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
@@ -3420,6 +3413,13 @@ msgstr "Labels weergeven"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Prikbord weergeven"
+
+#, fuzzy
+#~ msgid "Backup"
+#~ msgstr "Back-ups"
+
+#~ msgid "Task Setting"
+#~ msgstr "Taakinstelling"
 
 #~ msgid "Personal Data"
 #~ msgstr "Persoonlijke gegevens"
