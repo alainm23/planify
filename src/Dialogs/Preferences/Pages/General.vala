@@ -146,7 +146,7 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 12,
-            margin_top = 12
+            margin_top = 6
         };
         content_box.append (sort_setting_group);
         content_box.append (de_group);

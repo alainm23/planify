@@ -41,7 +41,7 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 12,
-            margin_top = 12
+            margin_top = 6
         };
         group_box.append (filters_group);
 

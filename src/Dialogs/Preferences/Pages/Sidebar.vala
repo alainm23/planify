@@ -80,7 +80,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 12,
-            margin_top = 12
+            margin_top = 6
         };
         content_box.append (count_group);
         content_box.append (views_group);

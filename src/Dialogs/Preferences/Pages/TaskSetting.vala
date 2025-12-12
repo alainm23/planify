@@ -32,7 +32,9 @@ public class Dialogs.Preferences.Pages.TaskSetting : Dialogs.Preferences.Pages.B
     }
 
     construct {
-        var group = new Adw.PreferencesGroup ();
+        var group = new Adw.PreferencesGroup () {
+            title = _("General")
+        };
 
         var complete_tasks_model = new Gtk.StringList (null);
         complete_tasks_model.append (_("Complete Instantly"));
@@ -174,7 +176,7 @@ public class Dialogs.Preferences.Pages.TaskSetting : Dialogs.Preferences.Pages.B
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 12,
-            margin_top = 12
+            margin_top = 6
         };
         content_box.append (group);
         content_box.append (reminders_group);

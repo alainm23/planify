@@ -608,7 +608,7 @@ checkbutton.theme-selector radio:checked {
 }
 
 .badge {
-    background: #3584e4;
+    background: @accent_color;
     border-radius: 3px;
     padding: 0 3px;
 }
@@ -646,8 +646,8 @@ checkbutton.theme-selector radio:checked {
 }
 
 .keep-adding-button:checked {
-    background: alpha(#3584e4, 0.15);
-    color: #3584e4;
+    background: alpha(@accent_color, 0.15);
+    color: @accent_color;
 }
 
 .add-button {
