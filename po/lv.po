@@ -1863,8 +1863,9 @@ msgid "Font Size"
 msgstr "Burtu izmērs"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-msgid "Backup"
-msgstr "Dublējumkopija"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
+msgid "Backups"
+msgstr "Dublējumkopijas"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
 msgid ""
@@ -2207,6 +2208,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "Jūs varat kārtot skatus velkot un nometot"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
 msgstr "Uzdevumu iestatījumi"
 
@@ -2361,10 +2363,6 @@ msgstr "Nosakiet skatu, kas uzrādās pirmajā atvēršanas reizē"
 msgid "Customize to your liking"
 msgstr "Maniet kā Jums tīkami"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:148
-msgid "Task Setting"
-msgstr "Uzdevumu iestatījumi"
-
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
 msgstr "Pielāgojiet Jūsu sānjoslu"
@@ -2372,10 +2370,6 @@ msgstr "Pielāgojiet Jūsu sānjoslu"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
 msgstr "Pievienojiet uzdevumus no jebkurienes"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:191
-msgid "Backups"
-msgstr "Dublējumkopijas"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
@@ -3337,6 +3331,12 @@ msgstr "Rāda birkas"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Rāda piespraustos"
+
+#~ msgid "Backup"
+#~ msgstr "Dublējumkopija"
+
+#~ msgid "Task Setting"
+#~ msgstr "Uzdevumu iestatījumi"
 
 #~ msgid "Close"
 #~ msgstr "Aizvērt"

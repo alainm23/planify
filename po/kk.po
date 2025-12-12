@@ -1901,8 +1901,8 @@ msgid "Font Size"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-#, fuzzy
-msgid "Backup"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
+msgid "Backups"
 msgstr "Сақтық көшірмелер"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
@@ -2246,6 +2246,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "Көріністерді сүйреп апару арқылы реттеуге болады"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
 msgstr "Тапсырма параметрлері"
 
@@ -2404,10 +2405,6 @@ msgstr ""
 msgid "Customize to your liking"
 msgstr "Өз талғамыңыз бойынша реттеу"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:148
-msgid "Task Setting"
-msgstr "Тапсырма параметрлері"
-
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
 msgstr "Бүйір тақтаны реттеу"
@@ -2415,10 +2412,6 @@ msgstr "Бүйір тақтаны реттеу"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
 msgstr "Кез келген жерден тапсырмалар қосу"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:191
-msgid "Backups"
-msgstr "Сақтық көшірмелер"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
@@ -3388,6 +3381,13 @@ msgstr "Белгілерді ашу"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Жапсырма тақтасын ашу"
+
+#, fuzzy
+#~ msgid "Backup"
+#~ msgstr "Сақтық көшірмелер"
+
+#~ msgid "Task Setting"
+#~ msgstr "Тапсырма параметрлері"
 
 #~ msgid "Personal Data"
 #~ msgstr "Жеке деректер"
