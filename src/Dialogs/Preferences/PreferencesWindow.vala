@@ -145,7 +145,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         task_setting_row.activatable = true;
         task_setting_row.add_prefix (generate_icon ("check-round-outline-symbolic"));
         task_setting_row.add_suffix (generate_icon ("go-next-symbolic"));
-        task_setting_row.title = _("Task Setting");
+        task_setting_row.title = _("Task Settings");
 
         signal_map[task_setting_row.activated.connect (() => {
             push_subpage (build_page ("task-setting"));
