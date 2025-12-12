@@ -289,7 +289,7 @@ msgstr "आगामी"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:356
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:711
 #: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:515
-#: src/Views/Project/Project.vala:679 src/Views/Today.vala:202
+#: src/Views/Project/Project.vala:681 src/Views/Today.vala:202
 msgid "Today"
 msgstr "आज"
 
@@ -1572,7 +1572,7 @@ msgstr "यह परियोजना %2$s से %1$d पूर्ण कि�
 msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr "यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
 
-#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:596
+#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:598
 #: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:651
 msgid "Filter By"
 msgstr "ऐसे फिल्टर करें"
@@ -1583,7 +1583,7 @@ msgstr "अगले हफ्ते"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:719
 #: src/Layouts/ItemRow.vala:1166 src/Views/Project/Project.vala:520
-#: src/Views/Project/Project.vala:689
+#: src/Views/Project/Project.vala:691
 msgid "No Date"
 msgstr "कोई तारीख नहीं"
 
@@ -2730,7 +2730,6 @@ msgid "Manage Section Order"
 msgstr "अनुभाग क्रम प्रबंधित करें"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:660
-#: src/Views/Project/Project.vala:555
 msgid "Show Completed Tasks"
 msgstr "पूर्ण कार्य दिखाएं"
 
@@ -2993,19 +2992,19 @@ msgstr "देयतारीख"
 msgid "All (default)"
 msgstr "सभी (तयशुदा)"
 
-#: src/Views/Project/Project.vala:516 src/Views/Project/Project.vala:681
+#: src/Views/Project/Project.vala:516 src/Views/Project/Project.vala:683
 msgid "This Week"
 msgstr "इस सप्ताह"
 
-#: src/Views/Project/Project.vala:517 src/Views/Project/Project.vala:683
+#: src/Views/Project/Project.vala:517 src/Views/Project/Project.vala:685
 msgid "Next 7 Days"
 msgstr "अगले 7 दिन"
 
-#: src/Views/Project/Project.vala:518 src/Views/Project/Project.vala:685
+#: src/Views/Project/Project.vala:518 src/Views/Project/Project.vala:687
 msgid "This Month"
 msgstr "इस महीने"
 
-#: src/Views/Project/Project.vala:519 src/Views/Project/Project.vala:687
+#: src/Views/Project/Project.vala:519 src/Views/Project/Project.vala:689
 msgid "Next 30 Days"
 msgstr "अगले 30 दिन"
 
@@ -3034,12 +3033,20 @@ msgstr "P4"
 msgid "Filter by Labels"
 msgstr "लेबल द्वारा फिल्टर करें"
 
-#: src/Views/Project/Project.vala:560
+#: src/Views/Project/Project.vala:555
+msgid "Show Completed"
+msgstr ""
+
+#: src/Views/Project/Project.vala:556
+msgid "Display completed tasks in the list"
+msgstr ""
+
+#: src/Views/Project/Project.vala:562
 #, fuzzy
 msgid "Search completed tasks"
 msgstr "पूर्ण कार्य दिखाएं"
 
-#: src/Views/Project/Project.vala:587
+#: src/Views/Project/Project.vala:589
 msgid "Sort By"
 msgstr "ऐसे छांटें"
 

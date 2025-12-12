@@ -283,7 +283,7 @@ msgstr "blížiace sa"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:356
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:711
 #: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:515
-#: src/Views/Project/Project.vala:679 src/Views/Today.vala:202
+#: src/Views/Project/Project.vala:681 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Dnes"
 
@@ -1560,7 +1560,7 @@ msgstr "Toto vymaže %d dokončených úloh a ich podúlohy z projektu %s"
 msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr "Toto vymaže %d dokončených úloh a ich podúlohy z projektu %s"
 
-#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:596
+#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:598
 #: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:651
 msgid "Filter By"
 msgstr "Filtrovať podľa"
@@ -1571,7 +1571,7 @@ msgstr "Ďalší týždeň"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:719
 #: src/Layouts/ItemRow.vala:1166 src/Views/Project/Project.vala:520
-#: src/Views/Project/Project.vala:689
+#: src/Views/Project/Project.vala:691
 msgid "No Date"
 msgstr "Žiadny dátum"
 
@@ -2716,7 +2716,6 @@ msgid "Manage Section Order"
 msgstr "Spravovať poradie sekcií"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:660
-#: src/Views/Project/Project.vala:555
 msgid "Show Completed Tasks"
 msgstr "Zobraziť dokončené úlohy"
 
@@ -2985,19 +2984,19 @@ msgstr "Dátum splatnosti"
 msgid "All (default)"
 msgstr "Všetko (predvolené)"
 
-#: src/Views/Project/Project.vala:516 src/Views/Project/Project.vala:681
+#: src/Views/Project/Project.vala:516 src/Views/Project/Project.vala:683
 msgid "This Week"
 msgstr "Tento týždeň"
 
-#: src/Views/Project/Project.vala:517 src/Views/Project/Project.vala:683
+#: src/Views/Project/Project.vala:517 src/Views/Project/Project.vala:685
 msgid "Next 7 Days"
 msgstr "Nasledujúcich 7 dní"
 
-#: src/Views/Project/Project.vala:518 src/Views/Project/Project.vala:685
+#: src/Views/Project/Project.vala:518 src/Views/Project/Project.vala:687
 msgid "This Month"
 msgstr "Tento mesiac"
 
-#: src/Views/Project/Project.vala:519 src/Views/Project/Project.vala:687
+#: src/Views/Project/Project.vala:519 src/Views/Project/Project.vala:689
 msgid "Next 30 Days"
 msgstr "Nasledujúcich 30 dní"
 
@@ -3026,12 +3025,20 @@ msgstr "P4"
 msgid "Filter by Labels"
 msgstr "Filtrovať podľa štítkov"
 
-#: src/Views/Project/Project.vala:560
+#: src/Views/Project/Project.vala:555
+msgid "Show Completed"
+msgstr ""
+
+#: src/Views/Project/Project.vala:556
+msgid "Display completed tasks in the list"
+msgstr ""
+
+#: src/Views/Project/Project.vala:562
 #, fuzzy
 msgid "Search completed tasks"
 msgstr "Zobraziť dokončené úlohy"
 
-#: src/Views/Project/Project.vala:587
+#: src/Views/Project/Project.vala:589
 msgid "Sort By"
 msgstr "Triediť podľa"
 
