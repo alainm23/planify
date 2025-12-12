@@ -164,7 +164,7 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 12,
-            margin_top = 12
+            margin_top = 6
         };
         content_box.append (system_appearance_group);
         content_box.append (theme_group);
