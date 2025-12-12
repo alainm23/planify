@@ -430,10 +430,10 @@ public class MainWindow : Adw.ApplicationWindow {
         });
 
         var window_gesture = new Gtk.GestureClick ();
-        toast_overlay.add_controller (window_gesture);
+        view_stack.add_controller (window_gesture);
         window_gesture.pressed.connect ((n_press, x, y) => {
             if (Services.EventBus.get_default ().item_edit_active) {
-                var target = toast_overlay.pick (x, y, Gtk.PickFlags.DEFAULT);
+                var target = view_stack.pick (x, y, Gtk.PickFlags.DEFAULT);
                 
                 bool clicked_on_editing_task = false;
                 var widget = target;
