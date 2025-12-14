@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-18 16:51+0000\n"
-"Last-Translator: Luc Roberge <lroberge@proton.me>\n"
+"PO-Revision-Date: 2025-12-14 10:09+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/fr/>\n"
 "Language: fr\n"
@@ -2115,8 +2115,7 @@ msgstr "Exécuter en arrière-plan"
 
 #: src/Dialogs/Preferences/Pages/General.vala:69
 msgid "Let Planify run in background and send notifications"
-msgstr ""
-"Laisser Planify s’exécuter en arrière-plan et envoyer des notifications"
+msgstr "Laisser Planify s’exécuter en arrière-plan et envoyer des notifications"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
@@ -2441,8 +2440,7 @@ msgstr "Créer un projet tutoriel"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:199
 msgid "Learn the app step by step with a short tutorial project"
-msgstr ""
-"Faites le tour pas à pas de l’application avec un court projet tutoriel"
+msgstr "Faites le tour pas à pas de l’application avec un court projet tutoriel"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:218
 msgid "Want to buy me a drink?"
@@ -2758,8 +2756,8 @@ msgstr "Favoris"
 #: src/Layouts/Sidebar.vala:42
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr ""
-"Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton "
-"« + »"
+"Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton « + "
+"»"
 
 #: src/Layouts/Sidebar.vala:122
 #, fuzzy
@@ -2928,8 +2926,8 @@ msgstr "%d tâches accomplies et leurs sous-tâches seront supprimées"
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
 msgstr ""
-"Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton "
-"« + »"
+"Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton « + "
+"»"
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
