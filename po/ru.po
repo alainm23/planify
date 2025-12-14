@@ -3,10 +3,10 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-30 19:00+0000\n"
-"Last-Translator: David Sanford <real.refbatch@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
-"io-github-alainm23-planify/ru/>\n"
+"PO-Revision-Date: 2025-12-14 10:01+0000\n"
+"Last-Translator: Localizer <Localizer_in_Russian@protonmail.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/planner/io-"
+"github-alainm23-planify/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -919,8 +919,8 @@ msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
-"Вы можете отображать события календаря вашей системы в Planify. Перейдите в "
-"«Настройки» 🡒 «Общие» 🡒 «События календаря», чтобы включить их."
+"Вы можете отображать события календаря вашей системы в Planify. Перейдите в «"
+"Настройки» 🡒 «Общие» 🡒 «События календаря», чтобы включить их."
 
 #: core/Utils/Util.vala:661
 msgid "Enable synchronization with third-party services"
@@ -2182,8 +2182,8 @@ msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
 msgstr ""
-"Откройте «Системные настройки» → «Клавиатура» → «Комбинации клавиш» → "
-"«Пользовательская комбинация клавиш», затем добавьте новую комбинацию клавиш "
+"Откройте «Системные настройки» → «Клавиатура» → «Комбинации клавиш» → «"
+"Пользовательская комбинация клавиш», затем добавьте новую комбинацию клавиш "
 "со следующим текстом:"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
@@ -2196,8 +2196,7 @@ msgstr "Сохранить в последний выбранный проект
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
-msgstr ""
-"Если эта опция не включена, по умолчанию будет выбран проект «Входящие»"
+msgstr "Если эта опция не включена, по умолчанию будет выбран проект «Входящие»"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:121
 msgid "The command was copied to the clipboard"

@@ -3,10 +3,10 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-14 09:58+0000\n"
+"PO-Revision-Date: 2025-12-14 10:03+0000\n"
 "Last-Translator: succesvollezakenvrouw <joris.briet@kolkmannen.com>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
-"io-github-alainm23-planify/nl/>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/planner/io-github-"
+"alainm23-planify/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2360,8 +2360,7 @@ msgstr "Markdown-formattering inschakelen"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:123
 msgid "Toggle Markdown support for tasks on or off"
-msgstr ""
-"Of Markdown-ondersteuning in taken in- of uitgeschakeld dient te worden"
+msgstr "Of Markdown-ondersteuning in taken in- of uitgeschakeld dient te worden"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:130
 msgid "Always Show Details Sidebar"

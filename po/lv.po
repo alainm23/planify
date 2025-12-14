@@ -3,10 +3,10 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-14 11:13+0000\n"
+"PO-Revision-Date: 2025-12-14 10:11+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
-"Language-Team: Latvian <https://hosted.weblate.org/projects/planner/"
-"io-github-alainm23-planify/lv/>\n"
+"Language-Team: Latvian <https://hosted.weblate.org/projects/planner/io-"
+"github-alainm23-planify/lv/>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3215,8 +3215,7 @@ msgstr ""
 #: src/Widgets/TranslationRow.vala:95
 #, c-format
 msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
-msgstr ""
-"<b>%s</b> tulkojums ir %.0f%% pabeigts. Jūs variet palīdzēt to pabeigt!"
+msgstr "<b>%s</b> tulkojums ir %.0f%% pabeigts. Jūs variet palīdzēt to pabeigt!"
 
 #: src/Widgets/TranslationRow.vala:129 src/Widgets/TranslationRow.vala:151
 #: src/Widgets/TranslationRow.vala:155

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-14 10:30+0000\n"
+"PO-Revision-Date: 2025-12-14 09:56+0000\n"
 "Last-Translator: oo nth <oonth@mail.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/hi/>\n"
@@ -1306,7 +1306,8 @@ msgstr ""
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
-msgstr "आपकी फिल्टर सूची यहां दिखाई देगी। नाम दर्ज करके और Enter दबा कर एक बनाएं।"
+msgstr ""
+"आपकी फिल्टर सूची यहां दिखाई देगी। नाम दर्ज करके और Enter दबा कर एक बनाएं।"
 
 # # c-format
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
@@ -1564,13 +1565,15 @@ msgstr "सभी पूर्ण कार्य मिटाएं"
 #: src/Dialogs/CompletedTasks.vala:165
 #, fuzzy, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
-msgstr "यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
+msgstr ""
+"यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
 
 # # c-format
 #: src/Dialogs/CompletedTasks.vala:166
 #, c-format
 msgid "This will delete %d completed tasks and their subtasks from project %s"
-msgstr "यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
+msgstr ""
+"यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:598
 #: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:651
@@ -1629,7 +1632,8 @@ msgstr "समय अद्यतित"
 #: src/Dialogs/ItemChangeHistory.vala:69
 msgid ""
 "Your change history will be displayed here once you start making changes."
-msgstr "जब परिवर्तन करना शुरू करेंगे तो आपका परिवर्तन इतिहास यहां प्रदर्शित किया जाएगा।"
+msgstr ""
+"जब परिवर्तन करना शुरू करेंगे तो आपका परिवर्तन इतिहास यहां प्रदर्शित किया जाएगा।"
 
 # # c-format
 #: src/Dialogs/ItemChangeHistory.vala:138
@@ -1714,7 +1718,8 @@ msgstr "आप अपने विचारों को खींचकर औ�
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
-msgstr "प्लॅानिफाई आपके कार्यों को समन्वयित कर रहा है, इसमें कुछ मिनट लग सकते हैं"
+msgstr ""
+"प्लॅानिफाई आपके कार्यों को समन्वयित कर रहा है, इसमें कुछ मिनट लग सकते हैं"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
@@ -2552,7 +2557,8 @@ msgstr "शीघ्र खोज"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
-msgstr "परियोजनाओं और दृश्यों को शीघ्र रूप से बदलें, कार्य खोजें, लेबल द्वारा खोजें"
+msgstr ""
+"परियोजनाओं और दृश्यों को शीघ्र रूप से बदलें, कार्य खोजें, लेबल द्वारा खोजें"
 
 #: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:223
 #: src/Views/Project/Project.vala:336
