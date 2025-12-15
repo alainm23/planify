@@ -130,6 +130,10 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             check_select_bar ();
         });
 
+        Services.EventBus.get_default ().unselect_all.connect (() => {
+            unselect_all ();
+        });
+
         done_button.clicked.connect (() => {
             unselect_all ();
         });
@@ -146,13 +150,6 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
         priority_button.changed.connect ((priority) => {
             set_priority (priority);
-        });
-
-        Services.EventBus.get_default ().escape_pressed.connect (() => {
-            if (Services.EventBus.get_default ().multi_select_enabled) {
-                print ("Se Activo\n");
-                unselect_all ();
-            }
         });
     }
 

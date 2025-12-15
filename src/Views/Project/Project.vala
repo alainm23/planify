@@ -210,12 +210,6 @@ public class Views.Project : Adw.Bin {
         signal_map[project.handle_scroll_visibility_change.connect ((visible) => {
             headerbar.update_title_box_visibility (visible);
         })] = project;
-
-        signal_map[Services.EventBus.get_default ().escape_pressed.connect (() => {
-            if (project.show_multi_select) {
-                project.show_multi_select = false;
-            }
-        })] = Services.EventBus.get_default ();
     }
 
     private void create_context_menu () {
@@ -274,6 +268,10 @@ public class Views.Project : Adw.Bin {
     private void update_project_view () {
         project_stack.visible_child = loading_spinner;
         project_view_revealer.reveal_child = false;
+
+        if (Services.EventBus.get_default ().multi_select_enabled) {
+            clear_multi_select ();
+        }
 
         Timeout.add (project_view_revealer.transition_duration, () => {
             destroy_current_view ();
@@ -757,6 +755,12 @@ public class Views.Project : Adw.Bin {
 
         var dialog = new Dialogs.Section.new (project);
         dialog.present (Planify._instance.main_window);
+    }
+
+    private void clear_multi_select () {
+        Services.EventBus.get_default ().multi_select_enabled = false;
+        Services.EventBus.get_default ().show_multi_select (false);
+        Services.EventBus.get_default ().unselect_all ();
     }
 
     public void clean_up () {
