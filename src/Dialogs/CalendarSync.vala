@@ -102,7 +102,8 @@ public class Dialogs.CalendarSync : Adw.Dialog {
             child = calendar_button_grid,
             margin_start = 24,
             margin_end = 24,
-            margin_top = 12
+            margin_top = 12,
+            margin_bottom = 12
         };
         calendar_button.add_css_class ("pill");
 
@@ -117,7 +118,6 @@ public class Dialogs.CalendarSync : Adw.Dialog {
             margin_top = 24
         };
         enable_button.add_css_class ("suggested-action");
-        enable_button.add_css_class ("pill");
 
         enable_button.clicked.connect (() => {
             if (selected_source != null) {
