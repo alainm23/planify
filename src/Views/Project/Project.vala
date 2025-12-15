@@ -269,6 +269,10 @@ public class Views.Project : Adw.Bin {
         project_stack.visible_child = loading_spinner;
         project_view_revealer.reveal_child = false;
 
+        if (Services.EventBus.get_default ().multi_select_enabled) {
+            clear_multi_select ();
+        }
+
         Timeout.add (project_view_revealer.transition_duration, () => {
             destroy_current_view ();
 
@@ -751,6 +755,12 @@ public class Views.Project : Adw.Bin {
 
         var dialog = new Dialogs.Section.new (project);
         dialog.present (Planify._instance.main_window);
+    }
+
+    private void clear_multi_select () {
+        Services.EventBus.get_default ().multi_select_enabled = false;
+        Services.EventBus.get_default ().show_multi_select (false);
+        Services.EventBus.get_default ().unselect_all ();
     }
 
     public void clean_up () {
