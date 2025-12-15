@@ -411,6 +411,7 @@ public class MainWindow : Adw.ApplicationWindow {
                 if (Services.EventBus.get_default ().multi_select_enabled) {
                     Services.EventBus.get_default ().multi_select_enabled = false;
                     Services.EventBus.get_default ().show_multi_select (false);
+                    Services.EventBus.get_default ().unselect_all ();
                     return true;
                 }
                 
