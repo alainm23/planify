@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-15 12:51+0000\n"
+"PO-Revision-Date: 2025-12-16 10:19+0000\n"
 "Last-Translator: Robert Svensk <robertsvensk@yandex.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/sv/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -511,101 +511,104 @@ msgstr "Växla mellan att hålla öppet efter att ha skapat en uppgift"
 
 #: core/QuickAddCore.vala:1341
 msgid "Tip"
-msgstr ""
+msgstr "Tips"
 
 #: core/QuickAddCore.vala:1341
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "Kombinera genvägar i titelfältet för snabbare skapande"
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr ""
+msgstr "Laddar uppdrag för %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Processing task %d of %d"
-msgstr ""
+msgstr "Bearbetar uppgifter %d av %d"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
-msgstr ""
+msgstr "Källan finns redan"
 
 #: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
 msgid "Failed to resolve principal url"
-msgstr ""
+msgstr "Misslyckades att lösa huvud-url"
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "Startar synkronisering…"
 
 #: core/Services/CalDAV/Core.vala:245
 #, c-format
 msgid "Syncing %s…"
-msgstr ""
+msgstr "Synkroniserar %s…"
 
 #: core/Services/CalDAV/Core.vala:253
 msgid "Sync completed"
-msgstr ""
+msgstr "Synkronisering klar"
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
-msgstr ""
+msgstr "På den här datorn"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Förfrågan var inkorrekt."
 
 #: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
+"Autentisering krävs, men har misslyckats eller har ännu inte "
+"tillhandahållits."
 
 #: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "Förfrågan var giltig, men för något som är förbjudet."
 
 #: core/Services/Todoist.vala:1513 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Den begärda källan kunde ej hittas."
 
 #: core/Services/Todoist.vala:1514 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
+"Användaren har skickat för många förfrågningar under en viss tidsperiod."
 
 #: core/Services/Todoist.vala:1515 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "Förfrågan misslyckades på grund av serverfel."
 
 #: core/Services/Todoist.vala:1516 src/Widgets/ErrorView.vala:144
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "Servern kan för tillfälligt inte hantera begäran."
 
 #: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
-msgstr ""
+msgstr "Okänt fel"
 
 #: core/Utils/Datetime.vala:72
 msgid "Yesterday"
-msgstr ""
+msgstr "Igår"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "days"
-msgstr ""
+msgstr "dagar"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "day"
-msgstr ""
+msgstr "dag"
 
 #: core/Utils/Datetime.vala:91
 #, c-format
 msgid "%s %s ago"
-msgstr ""
+msgstr "%s %s sedan"
 
 #: core/Utils/Datetime.vala:93
 #, c-format
 msgid "%s %s left"
-msgstr ""
+msgstr "%s %s kvar"
 
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
@@ -625,31 +628,31 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:411
 msgid "Mo,"
-msgstr ""
+msgstr "Mån,"
 
 #: core/Utils/Datetime.vala:415
 msgid "Tu,"
-msgstr ""
+msgstr "Tis,"
 
 #: core/Utils/Datetime.vala:419
 msgid "We,"
-msgstr ""
+msgstr "Ons,"
 
 #: core/Utils/Datetime.vala:423
 msgid "Th,"
-msgstr ""
+msgstr "Tors,"
 
 #: core/Utils/Datetime.vala:427
 msgid "Fr,"
-msgstr ""
+msgstr "Fre,"
 
 #: core/Utils/Datetime.vala:431
 msgid "Sa,"
-msgstr ""
+msgstr "Lör,"
 
 #: core/Utils/Datetime.vala:435
 msgid "Su,"
-msgstr ""
+msgstr "Sön,"
 
 #: core/Utils/Datetime.vala:628
 msgid "%a, %b %-e, %Y"
@@ -687,125 +690,125 @@ msgstr ""
 
 #: core/Utils/Util.vala:41
 msgid "Berry Red"
-msgstr ""
+msgstr "Bärröd"
 
 #: core/Utils/Util.vala:42
 msgid "Red"
-msgstr ""
+msgstr "Röd"
 
 #: core/Utils/Util.vala:43
 msgid "Orange"
-msgstr ""
+msgstr "Orange"
 
 #: core/Utils/Util.vala:44
 msgid "Yellow"
-msgstr ""
+msgstr "Gul"
 
 #: core/Utils/Util.vala:45
 msgid "Olive Green"
-msgstr ""
+msgstr "Olivgrön"
 
 #: core/Utils/Util.vala:46
 msgid "Lime Green"
-msgstr ""
+msgstr "Limegrön"
 
 #: core/Utils/Util.vala:47
 msgid "Green"
-msgstr ""
+msgstr "Grön"
 
 #: core/Utils/Util.vala:48
 msgid "Mint Green"
-msgstr ""
+msgstr "Mintgrön"
 
 #: core/Utils/Util.vala:49
 msgid "Teal"
-msgstr ""
+msgstr "Blågrön"
 
 #: core/Utils/Util.vala:50
 msgid "Sky Blue"
-msgstr ""
+msgstr "Himmelsblå"
 
 #: core/Utils/Util.vala:51
 msgid "Light Blue"
-msgstr ""
+msgstr "Ljusblå"
 
 #: core/Utils/Util.vala:52
 msgid "Blue"
-msgstr ""
+msgstr "Blå"
 
 #: core/Utils/Util.vala:53
 msgid "Grape"
-msgstr ""
+msgstr "Druva"
 
 #: core/Utils/Util.vala:54
 msgid "Violet"
-msgstr ""
+msgstr "Violett"
 
 #: core/Utils/Util.vala:55
 msgid "Lavender"
-msgstr ""
+msgstr "Lavender"
 
 #: core/Utils/Util.vala:56
 msgid "Magenta"
-msgstr ""
+msgstr "Magenta"
 
 #: core/Utils/Util.vala:57
 msgid "Salmon"
-msgstr ""
+msgstr "Lax"
 
 #: core/Utils/Util.vala:58
 msgid "Charcoal"
-msgstr ""
+msgstr "Kol"
 
 #: core/Utils/Util.vala:59
 msgid "Grey"
-msgstr ""
+msgstr "Grå"
 
 #: core/Utils/Util.vala:60
 msgid "Taupe"
-msgstr ""
+msgstr "Gråbrun"
 
 #: core/Utils/Util.vala:218
 msgid "Light"
-msgstr ""
+msgstr "Ljus"
 
 #: core/Utils/Util.vala:221
 msgid "Dark"
-msgstr ""
+msgstr "Mörk"
 
 #: core/Utils/Util.vala:224
 msgid "Dark Blue"
-msgstr ""
+msgstr "Mörkblå"
 
 #: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:407
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 msgid "None"
-msgstr ""
+msgstr "Ingen"
 
 #: core/Utils/Util.vala:268
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Idag + Inkorg"
 
 #: core/Utils/Util.vala:440
 msgid "Delete All"
-msgstr ""
+msgstr "Radera allt"
 
 #: core/Utils/Util.vala:454
 msgid "Process completed, you need to start Planify again."
-msgstr ""
+msgstr "Bearbetning klar, du behöver starta om Planify."
 
 #: core/Utils/Util.vala:456
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: core/Utils/Util.vala:566
 msgid "On This Computer"
-msgstr ""
+msgstr "På den här Datorn"
 
 #: core/Utils/Util.vala:591
 msgid "Meet Planify"
-msgstr ""
+msgstr "Möt Planify"
 
 #: core/Utils/Util.vala:594
 msgid ""
@@ -813,58 +816,70 @@ msgid ""
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
+"Detta projekt visar dig allt du behöver veta om det grundläggande. Tveka "
+"inte att testa dig runt - du kan alltid återskapa allt från Inställningar."
 
 #: core/Utils/Util.vala:601
 msgid "Tap this task"
-msgstr ""
+msgstr "Tryck på denna uppgift"
 
 #: core/Utils/Util.vala:602
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
+"Du tittar på en att-göra-lista! Slutför genom att fylla i kryssrutorna till "
+"vänster. "
 
 #: core/Utils/Util.vala:607
 msgid "Create a new task"
-msgstr ""
+msgstr "Skapa en ny uppgift"
 
 #: core/Utils/Util.vala:608
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
 msgstr ""
+"Nu är det din tur! Tryck på '+' knappen längst ner på ditt projekt, ange en "
+"uppgiftsbeskrivning, och tryck på 'Lägg till' knappen."
 
 #: core/Utils/Util.vala:613
 msgid "Plan this to-do for today or later"
-msgstr ""
+msgstr "Planera den här att-göra-listan för idag eller senare"
 
 #: core/Utils/Util.vala:614
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
+"Tryck på kalenderknappen längst ned för att bestämma när du vill slutföra "
+"denna uppgift."
 
 #: core/Utils/Util.vala:619
 msgid "Reorder your to-dos"
-msgstr ""
+msgstr "Beställ om din att-göra-lista"
 
 #: core/Utils/Util.vala:620
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
 msgstr ""
+"För att beställa om din lista, tryck och håll en att-göra, dra den sedan dit "
+"den ska vara."
 
 #: core/Utils/Util.vala:625
 msgid "Create a project"
-msgstr ""
+msgstr "Skapa projekt"
 
 #: core/Utils/Util.vala:626
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
+"Organisera dina uppgifter bättre! Gå till vänstra panelen och klicka på '+' "
+"knappen i 'Den Här Datorn' och lägg till eget projekt."
 
 #: core/Utils/Util.vala:631
 msgid "You’re done!"
-msgstr ""
+msgstr "Du är klar!"
 
 #: core/Utils/Util.vala:632
 msgid ""
@@ -874,24 +889,31 @@ msgid ""
 "below.\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
+"Det är allt du behöver veta. Du kan lägga till dina egna projekt och "
+"uppgifter.\n"
+"Du kan komma tillbaka till detta projekt senare för att lära dig de "
+"avancerade funktionerna nedan.\n"
+"Vi hoppas du är nöjd med att använda Planify!"
 
 #: core/Utils/Util.vala:646
 msgid "Tune your setup"
-msgstr ""
+msgstr "Justera din inställning"
 
 #: core/Utils/Util.vala:654
 msgid "Show your calendar events"
-msgstr ""
+msgstr "Visa dina kalenderhändelser"
 
 #: core/Utils/Util.vala:655
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
+"Du kan visa kalenderhändelserna i ditt system i Planify. Gå till "
+"'Inställningar' 🡒 Allmänt 🡒 Kalenderhändelser för att aktivera funktionen."
 
 #: core/Utils/Util.vala:661
 msgid "Enable synchronization with third-party services"
-msgstr ""
+msgstr "Aktivera synkronisering med tjänster från tredje part"
 
 #: core/Utils/Util.vala:662
 msgid ""
