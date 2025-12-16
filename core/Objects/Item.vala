@@ -1520,9 +1520,9 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    public void move (Objects.Project project, string _section_id) {
+    public void move (Objects.Project project, string _section_id, bool notify = true) {
         if (project.source_type == SourceType.LOCAL) {
-            _move (project.id, _section_id);
+            _move (project.id, _section_id, notify);
         } else if (project.source_type == SourceType.TODOIST) {
             loading = true;
             sensitive = false;
@@ -1539,7 +1539,7 @@ public class Objects.Item : Objects.BaseObject {
                 loading = false;
 
                 if (response.status) {
-                    _move (project.id, _section_id);
+                    _move (project.id, _section_id, notify);
                 } else {
                     Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
                 }
@@ -1548,11 +1548,11 @@ public class Objects.Item : Objects.BaseObject {
             loading = true;
             sensitive = false;
             
-            move_caldav_recursive.begin (project, _section_id);
+            move_caldav_recursive.begin (project, _section_id, notify);
         }
     }
 
-    private async void move_caldav_recursive (Objects.Project project, string _section_id) {
+    private async void move_caldav_recursive (Objects.Project project, string _section_id, bool notify = true) {
         var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
         
         try {
@@ -1576,7 +1576,7 @@ public class Objects.Item : Objects.BaseObject {
             
             yield move_all_subitems_caldav (this, project, caldav_client);
             
-            _move (project.id, _section_id);
+            _move (project.id, _section_id, notify);
         } catch (Error e) {
             Services.EventBus.get_default ().send_error_toast (0, e.message);
         }
@@ -1597,7 +1597,7 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    private void _move (string _project_id, string _section_id) {
+    private void _move (string _project_id, string _section_id, bool notify = true) {
         string old_project_id = this.project_id;
         string old_section_id = this.section_id;
         string old_parent_id = this.parent_id;
@@ -1609,9 +1609,12 @@ public class Objects.Item : Objects.BaseObject {
         Services.Store.instance ().move_item (this, old_project_id, old_section_id, old_parent_id);
         Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
         Services.EventBus.get_default ().drag_n_drop_active (old_project_id, false);
-        Services.EventBus.get_default ().send_toast (
-            Util.get_default ().create_toast (_("Task moved to %s".printf (project.name)))
-        );
+        
+        if (notify) {
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (_("Task moved to %s".printf (project.name)))
+            );
+        }
     }
 
     public bool was_archived () {

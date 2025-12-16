@@ -1217,7 +1217,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 if (item.project.is_inbox_project) {
                     dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
                 } else {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
+                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
                 }
 
                 dialog.project = item.project;
@@ -1336,7 +1336,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 if (item.project.is_inbox_project) {
                     dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
                 } else {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
+                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
                 }
 
                 signals_map[dialog.changed.connect ((type, id) => {

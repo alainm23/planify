@@ -701,7 +701,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         });
 
         move_item.clicked.connect (() => {
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (section.source);
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (section.source);
             dialog.project = section.project;
             dialog.present (Planify._instance.main_window);
 

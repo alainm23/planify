@@ -24,6 +24,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
     private Gtk.Label size_label;
     private Widgets.ScheduleButton schedule_button;
+    private Gtk.Button move_button;
     private Widgets.LabelPicker.LabelButton label_button;
     private Widgets.PriorityButton priority_button;
     private Gtk.MenuButton menu_button;
@@ -59,6 +60,12 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             visible_clear_button = false,
             visible_no_date = true
         };
+
+        move_button = new Gtk.Button.from_icon_name ("arrow3-right-symbolic") {
+            sensitive = false,
+            tooltip_text = _ ("Move to Project"),
+        };
+        move_button.add_css_class ("flat");
 
         label_button = new Widgets.LabelPicker.LabelButton () {
             sensitive = false,
@@ -96,6 +103,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
         content_box.append (size_label);
         content_box.append (schedule_button);
+        content_box.append (move_button);
         content_box.append (label_button);
         content_box.append (priority_button);
         content_box.append (menu_button);
@@ -140,6 +148,23 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
         schedule_button.duedate_changed.connect (() => {
             set_datetime (schedule_button.duedate);
+        });
+
+        move_button.clicked.connect (() => {
+            Dialogs.ProjectPicker.ProjectPicker dialog;
+            if (project.is_inbox_project) {
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
+            } else {
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (project.source);
+            }
+
+            dialog.project = project;
+
+            dialog.changed.connect ((type, id) => {
+                move (Services.Store.instance ().get_project (id));
+            });
+
+            dialog.present (Planify._instance.main_window);
         });
 
         label_button.labels_changed.connect ((labels) => {
@@ -300,6 +325,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
         size_label.label = items_selected.size.to_string ();
         schedule_button.sensitive = active;
+        move_button.sensitive = active;
         priority_button.sensitive = active;
         label_button.sensitive = active;
         complete_item.sensitive = active;
@@ -326,5 +352,33 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         }
 
         label_button.labels = _labels;
+    }
+
+    public void move (Objects.Project project) {
+        int count = items_selected.size;
+        
+        foreach (string key in items_selected.keys) {
+            var item = items_selected[key].item;
+
+            string project_id = project.id;
+
+            if (item.project.source_id != project.source_id) {
+                Util.get_default ().move_backend_type_item.begin (item, project, "", false);
+            } else {
+                if (item.project_id != project_id || item.section_id != "") {
+                    item.move (project, "", false);
+                }
+            }
+        }
+
+        string message = count == 1 ? 
+            _("Task moved to %s").printf (project.name) :
+            _("%d tasks moved to %s").printf (count, project.name);
+
+        Services.EventBus.get_default ().send_toast (
+            Util.get_default ().create_toast (message)
+        );
+
+        unselect_all ();
     }
 }

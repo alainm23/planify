@@ -507,7 +507,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             if (item.project.is_inbox_project) {
                 dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
             } else {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
             }
 
             dialog.project = item.project;
