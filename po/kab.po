@@ -321,7 +321,8 @@ msgstr ""
 msgid "Task copied to clipboard"
 msgstr ""
 
-#: core/Objects/Item.vala:1613 core/Utils/Util.vala:889
+#: core/Objects/Item.vala:1615 core/Utils/Util.vala:889
+#: src/Widgets/MultiSelectToolbar.vala:375
 #, c-format
 msgid "Task moved to %s"
 msgstr ""
@@ -353,7 +354,7 @@ msgstr ""
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:262
+#: src/Widgets/MultiSelectToolbar.vala:287
 msgid "Cancel"
 msgstr "Semmet"
 
@@ -363,8 +364,8 @@ msgstr "Semmet"
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
 #: src/Layouts/ItemSidebarView.vala:556 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
-#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:219
-#: src/Widgets/MultiSelectToolbar.vala:263
+#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
+#: src/Widgets/MultiSelectToolbar.vala:288
 msgid "Delete"
 msgstr "Kkes"
 
@@ -1087,7 +1088,7 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:185
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:254
-#: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:82
+#: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
 msgid "Done"
 msgstr ""
 
@@ -3052,36 +3053,45 @@ msgstr ""
 msgid "Completed At"
 msgstr ""
 
-#: src/Widgets/MultiSelectToolbar.vala:217
+#: src/Widgets/MultiSelectToolbar.vala:66
+msgid "Move to Project"
+msgstr ""
+
+#: src/Widgets/MultiSelectToolbar.vala:242
 msgid "Mark as Completed"
 msgstr ""
 
-#: src/Widgets/MultiSelectToolbar.vala:243
+#: src/Widgets/MultiSelectToolbar.vala:268
 msgid "Delete To-Do"
 msgstr ""
 
-#: src/Widgets/MultiSelectToolbar.vala:244
+#: src/Widgets/MultiSelectToolbar.vala:269
 msgid "Are you sure you want to delete this to-do?"
 msgstr ""
 
-#: src/Widgets/MultiSelectToolbar.vala:247
+#: src/Widgets/MultiSelectToolbar.vala:272
 #, c-format
 msgid "Delete %d To-Do"
 msgstr ""
 
-#: src/Widgets/MultiSelectToolbar.vala:248
+#: src/Widgets/MultiSelectToolbar.vala:273
 #, c-format
 msgid "Delete %d To-Dos"
 msgstr ""
 
-#: src/Widgets/MultiSelectToolbar.vala:253
+#: src/Widgets/MultiSelectToolbar.vala:278
 #, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgstr ""
 
-#: src/Widgets/MultiSelectToolbar.vala:254
+#: src/Widgets/MultiSelectToolbar.vala:279
 #, c-format
 msgid "Are you sure you want to delete these %d to-dos?"
+msgstr ""
+
+#: src/Widgets/MultiSelectToolbar.vala:376
+#, c-format
+msgid "%d tasks moved to %s"
 msgstr ""
 
 #: src/Widgets/NewVersionPopup.vala:42
