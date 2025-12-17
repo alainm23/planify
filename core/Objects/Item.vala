@@ -25,7 +25,8 @@ public class Objects.Item : Objects.BaseObject {
     public string added_at { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public string completed_at { get; set; default = ""; }
     public string updated_at { get; set; default = ""; }
-    public string calendar_event_uid { get; set; default = ""; }   
+    public string calendar_event_uid { get; set; default = ""; }
+    public string deadline_date { get; set; default = ""; }  
 
     string _section_id = "";
     public string section_id {
@@ -236,6 +237,23 @@ public class Objects.Item : Objects.BaseObject {
         get {
             _updated_datetime = new GLib.DateTime.from_iso8601 (updated_at, new GLib.TimeZone.local ());
             return _updated_datetime;
+        }
+    }
+
+    GLib.DateTime _deadline_datetime;
+    public GLib.DateTime deadline_datetime {
+        get {
+            if (!has_deadline) {
+                return null;
+            }
+            _deadline_datetime = new GLib.DateTime.from_iso8601 (deadline_date, new GLib.TimeZone.local ());
+            return _deadline_datetime;
+        }
+    }
+
+    public bool has_deadline {
+        get {
+            return deadline_date != "";
         }
     }
 

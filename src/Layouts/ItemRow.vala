@@ -69,13 +69,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Widgets.LabelPicker.LabelButton label_button;
     private Widgets.PinButton pin_button;
     private Widgets.ReminderPicker.ReminderButton reminder_button;
-    private Gtk.Button add_button;
+    private Widgets.DeadlineButton deadline_button;
+    private Widgets.DeadlineButton deadline_button_detail;
     private Gtk.MenuButton attachments_button;
     private Widgets.Attachments attachments;
     private Gtk.Label attachments_count;
     private Gtk.Box action_box;
     private Gtk.Label show_subtasks_label;
     private Gtk.Revealer show_subtasks_revealer;
+    private Gtk.Revealer add_subtasks_button_revealer;
+    private Gtk.Button add_subtasks_button;
 
     private Widgets.SubItems subitems;
     private Gtk.MenuButton menu_button;
@@ -117,6 +120,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 hide_loading_button.remove_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = true;
                 show_subtasks_revealer.reveal_child = subitems.has_children && edit;
+                add_subtasks_button_revealer.reveal_child = edit;
 
                 // Due labels
                 due_box_revealer.reveal_child = false;
@@ -155,6 +159,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 hide_loading_button.add_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = false;
                 show_subtasks_revealer.reveal_child = false;
+                add_subtasks_button_revealer.reveal_child = false;
 
                 check_due ();
                 check_description ();
@@ -383,14 +388,23 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = content_textview
         };
 
+        pin_button = new Widgets.PinButton () {
+            sensitive = !item.completed,
+            no_padding = true
+        };
+
         hide_loading_button = new Widgets.LoadingButton.with_icon ("go-up-symbolic", 16) {
             css_classes = { "flat", "no-padding" }
         };
 
+        var top_right_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        top_right_box.append (pin_button);
+        top_right_box.append (hide_loading_button);
+
         hide_loading_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
             valign = Gtk.Align.START,
-            child = hide_loading_button
+            child = top_right_box
         };
 
         select_checkbutton = new Gtk.CheckButton () {
@@ -441,6 +455,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             sensitive = !item.completed
         };
 
+        deadline_button_detail = new Widgets.DeadlineButton.with_detail ();
+
+        var dates_box = new Gtk.Box (VERTICAL, 0);
+        dates_box.append (schedule_button);
+        dates_box.append (deadline_button_detail);
+
         priority_button = new Widgets.PriorityButton () {
             sensitive = !item.completed
         };
@@ -451,20 +471,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         label_button.source = item.project.source;
 
-        pin_button = new Widgets.PinButton () {
-            sensitive = !item.completed
-        };
-
         reminder_button = new Widgets.ReminderPicker.ReminderButton () {
             sensitive = !item.completed
         };
 
-        add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
-            valign = Gtk.Align.CENTER,
-            tooltip_text = _ ("Add Subtasks"),
-            css_classes = { "flat" },
-            sensitive = !item.completed
-        };
+        deadline_button = new Widgets.DeadlineButton ();
 
         attachments = new Widgets.Attachments ();
         attachments.present_item (item);
@@ -516,18 +527,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         action_box_right = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = Services.EventBus.get_default ().mobile_mode ? false : true,
-            halign = Services.EventBus.get_default ().mobile_mode ? Gtk.Align.FILL : Gtk.Align.END
+            halign = Services.EventBus.get_default ().mobile_mode ? Gtk.Align.FILL : Gtk.Align.END,
+            valign = END
         };
 
-        action_box_right.append (add_button);
         action_box_right.append (attachments_button_overlay);
         action_box_right.append (label_button);
         action_box_right.append (priority_button);
         action_box_right.append (reminder_button);
-        action_box_right.append (pin_button);
+        action_box_right.append (deadline_button);
         action_box_right.append (menu_button);
 
-        action_box.append (schedule_button);
+        action_box.append (dates_box);
         action_box.append (action_box_right);
 
         var details_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -562,9 +573,25 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         itemrow_box.add_css_class ("task-item");
         itemrow_box.add_css_class ("drop-target");
 
-        subitems = new Widgets.SubItems (is_project_view);
-        subitems.present_item (item);
-        subitems.reveal_child = item.items.size > 0 && item.collapsed;
+        var add_subtasks_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        add_subtasks_box.append (new Gtk.Image.from_icon_name ("plus-large-symbolic") {
+            pixel_size = 12
+        });
+        add_subtasks_box.append (new Gtk.Label (_ ("Add Subtasks")));
+
+        add_subtasks_button = new Gtk.Button () {
+            child = add_subtasks_box,
+            css_classes = { "flat", "small-button", "hidden-button" },
+            margin_start = 16,
+            margin_bottom = 3,
+            halign = START,
+            sensitive = !item.completed
+        };
+
+        add_subtasks_button_revealer = new Gtk.Revealer () {
+            child = add_subtasks_button,
+            reveal_child = edit
+        };
 
         show_subtasks_label = new Gtk.Label (null);
 
@@ -587,8 +614,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             reveal_child = subitems.has_children && edit
         };
 
+        subitems = new Widgets.SubItems (is_project_view);
+        subitems.present_item (item);
+        subitems.reveal_child = item.items.size > 0 && item.collapsed;
+
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.append (itemrow_box);
+        box.append (add_subtasks_button_revealer);
         box.append (show_subtasks_revealer);
         box.append (subitems);
 
@@ -824,7 +856,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = Services.EventBus.get_default ();
 
         var add_subitem_gesture = new Gtk.GestureClick ();
-        add_button.add_controller (add_subitem_gesture);
+        add_subtasks_button.add_controller (add_subitem_gesture);
         signals_map[add_subitem_gesture.pressed.connect ((n_press, x, y) => {
             add_subitem_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             subitems.prepare_new_item ();
@@ -882,6 +914,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             check_reminders ();
         })] = item;
 
+        signals_map[deadline_button.date_selected.connect ((date) => {
+            update_deadline (date);
+        })] = deadline_button;
+
+        signals_map[deadline_button_detail.date_selected.connect ((date) => {
+            update_deadline (date);
+        })] = deadline_button_detail;
+
         signals_map[Services.EventBus.get_default ().drag_items_end.connect ((project_id) => {
             if (item.project_id == project_id) {
                 motion_top_revealer.reveal_child = false;
@@ -910,12 +950,23 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 if (active) {
                     if (item.id != focused_item_id) {
                         itemrow_box.add_css_class ("dimmed");
+                        
                     }
                 } else {
                     itemrow_box.remove_css_class ("dimmed");
+                    
                 }
             } else if (!active && edit) {
                 edit = false;
+            }
+        })] = Services.EventBus.get_default ();
+
+
+        signals_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
+            if (active) {
+                show_subtasks_button.add_css_class ("dimmed");
+            } else {
+                show_subtasks_button.remove_css_class ("dimmed");
             }
         })] = Services.EventBus.get_default ();
 
@@ -1029,6 +1080,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         pin_button.update_from_item (item);
         reminder_button.set_reminders (item.reminders);
 
+        deadline_button.datetime = item.deadline_datetime;
+        deadline_button.reveal_content = !item.has_deadline;
+
+        deadline_button_detail.datetime = item.deadline_datetime;
+        deadline_button_detail.reveal_content = item.has_deadline;
+
         show_subtasks_label.label = item.collapsed ? _ ("Hide Sub-tasks") : _ ("Show Sub-tasks");
 
         check_due ();
@@ -1048,7 +1105,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             label_button.sensitive = !item.completed;
             pin_button.sensitive = !item.completed;
             reminder_button.sensitive = !item.completed;
-            add_button.sensitive = !item.completed;
+            add_subtasks_button.sensitive = !item.completed;
             attachments_button.sensitive = !item.completed;
         } else {
             remove_css_class ("task-editing");
@@ -1476,6 +1533,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     public void update_date (GLib.DateTime ? date) {
         item.update_date (date);
+    }
+
+    public void update_deadline (GLib.DateTime ? date) {
+        item.deadline_date = date == null ? "" : date.to_string ();
+        item.update_async ();
     }
 
     private void update_next_recurrency () {
