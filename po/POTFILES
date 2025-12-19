@@ -93,6 +93,7 @@ core/Widgets/DateTimePicker/DateTimePicker.vala
 core/Widgets/DateTimePicker/RepeatConfig.vala
 core/Widgets/DateTimePicker/ScheduleButton.vala
 core/Widgets/DateTimePicker/TimePicker.vala
+core/Widgets/DeadlineButton.vala
 core/Widgets/IconColorProject.vala
 core/Widgets/ItemLabelChild.vala
 core/Widgets/ItemLabels.vala

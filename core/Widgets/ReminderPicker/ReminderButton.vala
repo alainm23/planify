@@ -61,7 +61,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
         if (is_board) {
             var title_label = new Gtk.Label (_("Reminders")) {
                 halign = START,
-                css_classes = { "title-4", "caption" }
+                css_classes = { "title-4", "caption", "font-bold" }
             };
 
             value_label = new Gtk.Label (_("Add Reminders")) {

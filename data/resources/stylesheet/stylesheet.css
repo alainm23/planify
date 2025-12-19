@@ -370,9 +370,14 @@ entry.flat:focus-within {
 .pane-due-button {
     background-color: @upcoming_bg_color;
     border-radius: 6px;
-    padding: 3px 6px;
+    padding: 1px 4px;
     color: @upcoming_fg_color;
     font-weight: 500;
+}
+
+.pane-due-button.error {
+    background-color: transparent;
+    color: @error_color;
 }
 
 .icon-animation-dropshadow,

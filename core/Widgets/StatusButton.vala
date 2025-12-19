@@ -38,7 +38,7 @@ public class Widgets.StatusButton : Adw.Bin {
 
         var title_label = new Gtk.Label (_("Status")) {
             halign = START,
-            css_classes = { "title-4", "caption" }
+            css_classes = { "title-4", "caption", "font-bold" }
         };
 
         value_label = new Gtk.Label (_("To Do")) {

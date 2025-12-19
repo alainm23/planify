@@ -57,6 +57,7 @@ core_files = files(
     'Widgets/CircularProgressBar.vala',
     'Widgets/StatusButton.vala',
     'Widgets/MarkdownEditor.vala',
+    'Widgets/DeadlineButton.vala',
 
     'Widgets/Calendar/Calendar.vala',
     'Widgets/Calendar/CalendarDay.vala',

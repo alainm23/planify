@@ -244,7 +244,7 @@ public class Views.Board : Adw.Bin {
     }
 
     private void update_duedate () {
-        due_image.icon_name = "month-symbolic";
+        due_image.icon_name = "delay-long-small-symbolic";
         due_image.css_classes = {};
         due_label.css_classes = {};
         due_revealer.reveal_child = false;
@@ -252,19 +252,13 @@ public class Views.Board : Adw.Bin {
         if (project.due_date != "") {
             var datetime = Utils.Datetime.get_date_from_string (project.due_date);
 
-            due_label.label = Utils.Datetime.get_relative_date_from_date (datetime);
-            days_left_label.label = Utils.Datetime.days_left (datetime);
+            due_label.label = Utils.Datetime.get_short_date_format_from_date (datetime);
+            days_left_label.label = Utils.Datetime.get_relative_time_from_date (datetime);
 
-            if (Utils.Datetime.is_today (datetime)) {
-                due_image.icon_name = "star-outline-thick-symbolic";
-                due_image.add_css_class ("today-color");
-                due_label.add_css_class ("today-color");
-            } else if (Utils.Datetime.is_overdue (datetime)) {
-                due_image.icon_name = "month-symbolic";
-                due_image.add_css_class ("overdue-color");
-                due_label.add_css_class ("overdue-color");
+            if (Utils.Datetime.is_today (datetime) || Utils.Datetime.is_overdue (datetime)) {
+                due_image.add_css_class ("error");
+                due_label.add_css_class ("error");
             } else {
-                due_image.icon_name = "month-symbolic";
                 due_image.css_classes = {};
                 due_label.css_classes = {};
             }
@@ -283,13 +277,14 @@ public class Views.Board : Adw.Bin {
 
         days_left_label = new Gtk.Label (null) {
             xalign = 0,
-            // yalign = 0.7,
-            css_classes = { "dimmed", "caption" }
+            yalign = 0.5f
         };
-        days_left_label.yalign = float.parse ("0.7");
+        days_left_label.add_css_class ("dimmed");
 
         var due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 3
+            margin_start = 3,
+            margin_top = 3,
+            margin_bottom = 3
         };
 
         due_box.append (due_image);
