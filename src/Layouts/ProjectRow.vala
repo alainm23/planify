@@ -815,7 +815,13 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         }
 
         var datetime = Utils.Datetime.get_date_from_string (project.due_date);
-        due_label.label = Utils.Datetime.days_left (datetime, true);
+        due_label.label = Utils.Datetime.get_relative_time_from_date (datetime);
+
+        if (Utils.Datetime.is_today (datetime) || Utils.Datetime.is_overdue (datetime)) {
+            due_label.add_css_class ("error");
+        } else {
+            due_label.remove_css_class ("error");
+        }
     }
 
     private void add_subprojects () {

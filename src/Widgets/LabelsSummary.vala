@@ -45,13 +45,13 @@ public class Widgets.LabelsSummary : Adw.Bin {
     
     public int start_margin {
         set {
-            box_layout.margin_start = value;
+            content_box.margin_start = value;
         }
     }
 
     public int end_margin {
         set {
-            box_layout.margin_end = value;
+            content_box.margin_end = value;
         }
     }
 
@@ -77,10 +77,9 @@ public class Widgets.LabelsSummary : Adw.Bin {
         };
 
         more_label_grid = new Adw.Bin () {
-            valign = CENTER,
             css_classes = { "item-label-child" },
             child = more_label,
-            margin_start = 6
+            margin_start = 6,
         };
 
         more_label_revealer = new Gtk.Revealer () {
