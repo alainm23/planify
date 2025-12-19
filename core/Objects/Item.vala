@@ -1172,7 +1172,7 @@ public class Objects.Item : Objects.BaseObject {
                     Array<short> values = new Array<short> ();
                     short val;
 
-                    if (due.recurrency_weeks.split (",").length > 0) {
+                    if (due.recurrency_weeks != null && due.recurrency_weeks.split (",").length > 0) {
                         if (due.recurrency_weeks.contains ("1")) {
                             val = (short) 2;
                             values.append_val (val);
@@ -1763,6 +1763,30 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         return response;
+    }
+
+    public void update_labels (Gee.HashMap<string, Objects.Label> new_labels) {
+        bool update = false;
+
+        foreach (var entry in new_labels.entries) {
+            if (get_label (entry.key) == null) {
+                add_label_if_not_exists (entry.value);
+                update = true;
+            }
+        }
+
+        foreach (var label in _get_labels ()) {
+            if (!new_labels.has_key (label.id)) {
+                delete_item_label (label.id);
+                update = true;
+            }
+        }
+
+        if (!update) {
+            return;
+        }
+
+        update_async ();
     }
 
     public void to_string () {

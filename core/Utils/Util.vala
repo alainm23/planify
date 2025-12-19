@@ -232,6 +232,24 @@ public class Util : GLib.Object {
         return Intl.get_language_names ();
     }
 
+    public static string get_user_language () {
+        string[] languages = Intl.get_language_names ();
+        
+        if (languages.length > 0) {
+            string lang = languages[0];
+            
+            if ("_" in lang) {
+                lang = lang.split ("_")[0];
+            } else if ("." in lang) {
+                lang = lang.split (".")[0];
+            }
+            
+            return lang.down ();
+        }
+        
+        return "en";
+    }
+
     public string get_badge_name () {
         string returned = "";
         int badge_count = Services.Settings.get_default ().settings.get_enum ("badge-count");

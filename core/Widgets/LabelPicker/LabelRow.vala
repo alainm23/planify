@@ -21,6 +21,8 @@
 
 public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
     public Objects.Label label { get; construct; }
+
+    private Gtk.Box content_box;
     
     private bool _hide_check_button = false;
     public bool hide_check_button {
@@ -34,6 +36,15 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
     public bool active {
         set {
             checked_button.active = value;
+        }
+    }
+
+    public int margin {
+        set {
+            content_box.margin_start = value;
+            content_box.margin_top = value;
+            content_box.margin_end = value;
+            content_box.margin_bottom = value;
         }
     }
 
@@ -54,6 +65,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
 
     construct {
         add_css_class ("border-radius-6");
+        add_css_class ("no-padding");
 
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.CENTER,
@@ -78,13 +90,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
             halign = END
         };
 
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_top = 3,
-            margin_bottom = 3,
-            margin_start = 3,
-            margin_end = 3
-        };
-
+        content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         content_box.append (checked_button);
         content_box.append (color_grid);
         content_box.append (name_label);

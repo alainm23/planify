@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Alain M. (https://github.com/alainm23/planify)
+ * Copyright © 2025 Alain M. (https://github.com/alainm23/planify)
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -18,19 +18,19 @@
  *
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
-
-public class Chrono.Configuration : GLib.Object {
-    public Gee.ArrayList<Chrono.AbstractParser> parsers { get; set; default = new Gee.ArrayList<Chrono.AbstractParser> (); }
-}
-
-public interface Chrono.AbstractParser : GLib.Object {
-    public abstract GLib.Regex inner_pattern ();
-
-    public abstract Chrono.ParsingResult inner_extract (GLib.MatchInfo match);
-}
-
-public class Chrono.ParsingResult : GLib.Object {
-    public int index { get; set; default = 0; }
-    public string text { get; set; default = ""; }
-    public GLib.DateTime ? datetime { get; set; default = null; }
+ 
+namespace Chrono {
+    public class ParseResult : Object {
+        public DateTime? date { get; set; }
+        public RecurrenceRule? recurrence { get; set; }
+        public int start_index { get; set; }
+        public int end_index { get; set; }
+        public string matched_text { get; set; }
+        
+        public ParseResult () {
+            start_index = -1;
+            end_index = -1;
+            matched_text = "";
+        }
+    }
 }
