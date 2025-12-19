@@ -3,10 +3,10 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-11-14 10:07+0000\n"
+"PO-Revision-Date: 2025-12-14 09:57+0000\n"
 "Last-Translator: Deleted User <noreply+13144@weblate.org>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/planner/"
-"io-github-alainm23-planify/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/planner/io-"
+"github-alainm23-planify/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,12 +14,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.15-dev\n"
 
-#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:358
+#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
 msgstr "Projeler"
 
-#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:362
+#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:356
 msgid "Sections"
 msgstr "Bölümler"
 
@@ -29,7 +29,7 @@ msgstr "Görevler"
 
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
-#: src/Dialogs/Preferences/Pages/Backup.vala:370 src/Layouts/ItemBoard.vala:723
+#: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:723
 #: src/Layouts/ItemRow.vala:1170
 msgid "Labels"
 msgstr "Etiketler"
@@ -118,10 +118,10 @@ msgid "CalDAV"
 msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
-#: src/Views/Project/Project.vala:488 src/Views/Project/Project.vala:533
-#: src/Views/Scheduled/Scheduled.vala:228
-#: src/Views/Scheduled/Scheduled.vala:257 src/Views/Today.vala:615
-#: src/Views/Today.vala:644 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Project/Project.vala:501 src/Views/Project/Project.vala:546
+#: src/Views/Scheduled/Scheduled.vala:230
+#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:611
+#: src/Views/Today.vala:640 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "Öncelik"
 
@@ -129,8 +129,8 @@ msgstr "Öncelik"
 msgid "Label"
 msgstr "Etiketler"
 
-#: core/Enum.vala:351 src/Views/Project/Project.vala:486
-#: src/Views/Scheduled/Scheduled.vala:226 src/Views/Today.vala:613
+#: core/Enum.vala:351 src/Views/Project/Project.vala:499
+#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:609
 msgid "Due Date"
 msgstr "Bitiş tarihi"
 
@@ -151,9 +151,9 @@ msgstr "Görev güncellendi"
 msgid "Content"
 msgstr "İçerik"
 
-#: core/Enum.vala:525 src/Dialogs/Section.vala:91 src/Layouts/ItemRow.vala:1869
-#: src/Layouts/ItemSidebarView.vala:183 src/Widgets/EventRow.vala:304
-#: src/Widgets/ItemDetailCompleted.vala:113
+#: core/Enum.vala:525 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
+#: src/Layouts/ItemRow.vala:1869 src/Layouts/ItemSidebarView.vala:178
+#: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Açıklama"
 
@@ -181,11 +181,11 @@ msgstr "Tüm"
 
 #: core/Objects/Filters/Anytime.vala:33
 msgid "Anytime"
-msgstr ""
+msgstr "Herhangi bir zaman"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "anytime"
-msgstr ""
+msgstr "herhangi bir zaman"
 
 #: core/Objects/Filters/Anytime.vala:34 core/Objects/Filters/Completed.vala:34
 #: core/Objects/Filters/Inbox.vala:36 core/Objects/Filters/Labels.vala:34
@@ -216,16 +216,15 @@ msgstr "logbook"
 #: core/Utils/Util.vala:575
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
-#: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:330
+#: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:328
 #: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
 msgstr "Gelen Kutusu"
 
 #: core/Objects/Filters/Inbox.vala:36
-#, fuzzy
 msgid "inbox"
-msgstr "Gelen Kutusu"
+msgstr "gelen kutusu"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
@@ -235,19 +234,19 @@ msgstr "etiketler"
 msgid "Pinboard"
 msgstr "Pano"
 
-#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:113
+#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:115
 msgid "Priority 1: high"
 msgstr "Öncelik 1: yüksek"
 
-#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:115
+#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:117
 msgid "Priority 2: medium"
 msgstr "Öncelik 2: orta"
 
-#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:117
+#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:119
 msgid "Priority 3: low"
 msgstr "Öncelik 3: düşük"
 
-#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:119
+#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:121
 msgid "Priority 4: none"
 msgstr "Öncelik 4: yok"
 
@@ -288,8 +287,8 @@ msgstr "yaklaşan"
 #: core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:356
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:711
-#: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:500
-#: src/Views/Project/Project.vala:664 src/Views/Today.vala:202
+#: src/Layouts/ItemRow.vala:1158 src/Views/Project/Project.vala:513
+#: src/Views/Project/Project.vala:679 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Bugün"
 
@@ -324,90 +323,91 @@ msgstr "etiketler"
 msgid "unlabeled"
 msgstr "etiketler"
 
-#: core/Objects/Item.vala:1320
+#: core/Objects/Item.vala:1322
 msgid "Task copied to clipboard"
 msgstr "Görev panoya kopyalandı"
 
 # c-format
-#: core/Objects/Item.vala:1611 core/Utils/Util.vala:889
-#, fuzzy, c-format
+#: core/Objects/Item.vala:1615 core/Utils/Util.vala:889
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, c-format
 msgid "Task moved to %s"
-msgstr "Görev panoya kopyalandı"
+msgstr "Görev %s projesine taşındı"
 
 # c-format
 #: core/Objects/Label.vala:206
-#, fuzzy, c-format
+#, c-format
 msgid "Delete Label %s"
-msgstr "Etiketi sil"
+msgstr "%s Etiketini Sil"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:820
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:821
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
-#: src/Layouts/ItemSidebarView.vala:543 src/Layouts/SectionBoard.vala:635
+#: src/Layouts/ItemSidebarView.vala:552 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
-msgstr ""
+msgstr "Bu geri alınamaz"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:823
-#: core/Objects/Project.vala:880 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:824
+#: core/Objects/Project.vala:881 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:439
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:407
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
-#: src/Dialogs/Preferences/Pages/Backup.vala:383
-#: src/Dialogs/Preferences/Pages/Backup.vala:449
-#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:546
+#: src/Dialogs/Preferences/Pages/Backup.vala:377
+#: src/Dialogs/Preferences/Pages/Backup.vala:443
+#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:555
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:265
+#: src/Widgets/MultiSelectToolbar.vala:287
 msgid "Cancel"
 msgstr "İptal"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:824
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:825
 #: core/Objects/Section.vala:381 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
-#: src/Dialogs/Preferences/Pages/Backup.vala:279
-#: src/Layouts/ItemSidebarView.vala:547 src/Layouts/SectionBoard.vala:639
+#: src/Dialogs/Preferences/Pages/Backup.vala:273
+#: src/Layouts/ItemSidebarView.vala:556 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
-#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:222
-#: src/Widgets/MultiSelectToolbar.vala:266
+#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
+#: src/Widgets/MultiSelectToolbar.vala:288
 msgid "Delete"
 msgstr "Sil"
 
-#: core/Objects/Project.vala:783
+#: core/Objects/Project.vala:784
 msgid "The project was copied to the Clipboard."
 msgstr "Proje Panoya kopyalandı."
 
 # c-format
-#: core/Objects/Project.vala:819
-#, fuzzy, c-format
+#: core/Objects/Project.vala:820
+#, c-format
 msgid "Delete Project %s?"
-msgstr "Projeyi Sil"
+msgstr "%s Projesi Silinsin mi?"
 
-#: core/Objects/Project.vala:876 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:877 core/Objects/Section.vala:402
 msgid "Archive?"
-msgstr ""
+msgstr "Arşivlensin mi?"
 
 # # c-format
-#: core/Objects/Project.vala:877 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:878 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "Bu, %s ve onun tüm görevlerini arşivleyecektir."
 
-#: core/Objects/Project.vala:881 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:882 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
-#: src/Layouts/SectionRow.vala:663 src/Views/Project/Project.vala:345
+#: src/Layouts/SectionRow.vala:662 src/Views/Project/Project.vala:343
 msgid "Archive"
-msgstr ""
+msgstr "Arşivle"
 
 # c-format
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
-#, fuzzy, c-format
+#, c-format
 msgid "Delete Section %s"
-msgstr "Bölümü Sil"
+msgstr "%s Bölümünü Sil"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
@@ -416,39 +416,38 @@ msgstr "Bölümü Sil"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:134
-#, fuzzy
+#: core/QuickAddCore.vala:136
 msgid "Task added successfully!"
-msgstr "Proje eklendi."
+msgstr "Görev başarıyla  eklendi!"
 
-#: core/QuickAddCore.vala:150 src/Layouts/ItemRow.vala:357
+#: core/QuickAddCore.vala:152 src/Layouts/ItemRow.vala:357
 #: src/Layouts/ItemSidebarView.vala:119 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Yapılacak adı"
 
-#: core/QuickAddCore.vala:180
+#: core/QuickAddCore.vala:182
 msgid "This field is required"
 msgstr "Bu alan gerekli"
 
-#: core/QuickAddCore.vala:204
+#: core/QuickAddCore.vala:206 src/Dialogs/Project.vala:136
 msgid "Add a description…"
 msgstr "Açıklama ekle…"
 
-#: core/QuickAddCore.vala:244
+#: core/QuickAddCore.vala:246
 msgid "Set date"
-msgstr ""
+msgstr "Tarih ayarla"
 
-#: core/QuickAddCore.vala:248 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:250 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Etiket Ekle"
 
-#: core/QuickAddCore.vala:253 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:255 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Önceliğe göre sırala"
 
-#: core/QuickAddCore.vala:258
+#: core/QuickAddCore.vala:260
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -457,21 +456,20 @@ msgstr "Önceliğe göre sırala"
 msgid "Add Reminders"
 msgstr "Hatırlatıcı Ekle"
 
-#: core/QuickAddCore.vala:299 src/Layouts/SectionBoard.vala:562
-#: src/Layouts/SectionRow.vala:656 src/Widgets/MagicButton.vala:50
+#: core/QuickAddCore.vala:301 src/Layouts/SectionBoard.vala:562
+#: src/Layouts/SectionRow.vala:655 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Görev Ekle"
 
-#: core/QuickAddCore.vala:305 core/QuickAddCore.vala:1305
+#: core/QuickAddCore.vala:307 core/QuickAddCore.vala:1335
 msgid "Keep adding"
-msgstr ""
+msgstr "Eklemeye devam edin"
 
-#: core/QuickAddCore.vala:322
-#, fuzzy
+#: core/QuickAddCore.vala:324
 msgid "Select a Project"
-msgstr "Bir proje seç"
+msgstr "Bir Proje Seç"
 
-#: core/QuickAddCore.vala:349
+#: core/QuickAddCore.vala:351
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -479,95 +477,93 @@ msgstr ""
 "Üzgünüm, Hızlı Ekleme kullanılabilir bir proje bulamadı. Planify'dan proje "
 "oluşturmayı deneyin."
 
-#: core/QuickAddCore.vala:1267 src/MainWindow.vala:707
+#: core/QuickAddCore.vala:1297 src/MainWindow.vala:716
 msgid "Keyboard Shortcuts"
 msgstr "Klavye Kısayolları"
 
-#: core/QuickAddCore.vala:1273
+#: core/QuickAddCore.vala:1303
 msgid "Speed up task creation with these shortcuts"
-msgstr ""
+msgstr "Bu kısayollarla görev oluşturmayı hızlandır"
 
-#: core/QuickAddCore.vala:1287
-#, fuzzy
+#: core/QuickAddCore.vala:1317
 msgid "Set priority"
-msgstr "Önceliğe göre sırala"
+msgstr "Önceliği ayarla"
 
-#: core/QuickAddCore.vala:1287
+#: core/QuickAddCore.vala:1317
 msgid "p1 = highest, p4 = lowest"
-msgstr ""
+msgstr "p1 = en yüksek, p4 = en düşük"
 
-#: core/QuickAddCore.vala:1288
-#, fuzzy
+#: core/QuickAddCore.vala:1318
 msgid "Add labels"
-msgstr "Etiket(ler) ekle"
+msgstr "Etiket ekle"
 
-#: core/QuickAddCore.vala:1288
-#, fuzzy
+#: core/QuickAddCore.vala:1318
 msgid "Opens label selector"
-msgstr "Etiketler"
+msgstr "Etiket seçiciyi açar"
 
-#: core/QuickAddCore.vala:1289
-#, fuzzy
+#: core/QuickAddCore.vala:1319
 msgid "Assign project"
-msgstr "Proje Ekle"
+msgstr "Proje ata"
 
-#: core/QuickAddCore.vala:1289
+#: core/QuickAddCore.vala:1319
 msgid "Opens project selector"
-msgstr ""
+msgstr "Proje seçiciyi açar"
 
-#: core/QuickAddCore.vala:1290
-#, fuzzy
+#: core/QuickAddCore.vala:1320
 msgid "Set reminder"
-msgstr "Zamanlı hatırlatıcılar ayarlayın!"
+msgstr "Hatırlatıcı ayarla"
 
-#: core/QuickAddCore.vala:1290
+#: core/QuickAddCore.vala:1320
 msgid "Opens reminder options"
-msgstr ""
+msgstr "Hatırlatıcı ayarlarını açar"
 
-#: core/QuickAddCore.vala:1305
+#: core/QuickAddCore.vala:1335
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Görev oluşturulduktan sonra açık kalmayı değiştir"
 
-#: core/QuickAddCore.vala:1311
+#: core/QuickAddCore.vala:1341
 #, fuzzy
 msgid "Tip"
-msgstr "Üst"
+msgstr "İpucu"
 
-#: core/QuickAddCore.vala:1311
+#: core/QuickAddCore.vala:1341
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "Daha hızlı oluşturma için başlık alanındaki kısayolları birleştirin"
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
-#, fuzzy, c-format
+#, c-format
 msgid "Loading tasks for %s…"
-msgstr "Yükleniyor…"
+msgstr "%s için görevler yükleniyor…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
-#, c-format
+#, fuzzy, c-format
 msgid "Processing task %d of %d"
-msgstr ""
+msgstr "%d'nin %d görevi işleniyor"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
-msgstr ""
+msgstr "Kaynak zaten mevcut"
 
 #: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
 msgid "Failed to resolve principal url"
-msgstr ""
+msgstr "Ana url çözülemedi"
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "Senkronizasyon başlıyor…"
 
 #: core/Services/CalDAV/Core.vala:245
-#, fuzzy, c-format
+#, c-format
 msgid "Syncing %s…"
-msgstr "Eşzamanlanıyor…"
+msgstr "%s senkronize ediliyor…"
 
 #: core/Services/CalDAV/Core.vala:253
-#, fuzzy
 msgid "Sync completed"
-msgstr "tamamlandı"
+msgstr "Senkronizasyon tamamlandı"
+
+#: core/Services/CalendarEvents/Util.vala:244
+msgid "On this computer"
+msgstr "Bu bilgisayarda"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -694,7 +690,7 @@ msgstr ""
 #: core/Utils/Datetime.vala:643
 #, c-format
 msgid "%a"
-msgstr ""
+msgstr "%a"
 
 #: core/Utils/Datetime.vala:646
 msgid "%a, %b %-e"
@@ -797,7 +793,7 @@ msgid "Dark Blue"
 msgstr "Koyu Mavi"
 
 #: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:407
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:53
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 msgid "None"
 msgstr "Hiçbiri"
 
@@ -814,7 +810,7 @@ msgid "Process completed, you need to start Planify again."
 msgstr "İşlem tamamlandı, Planify'ı yeniden başlatmanız gerekiyor."
 
 #: core/Utils/Util.vala:456
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:221
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 msgid "Ok"
 msgstr "Tamam"
 
@@ -827,49 +823,43 @@ msgid "Meet Planify"
 msgstr "Planify ile tanışın"
 
 #: core/Utils/Util.vala:594
-#, fuzzy
 msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
-"Bu proje, işe koyulmak için bilmeniz gereken her şeyi size gösterecek. "
-"Kurcalamaktan çekinmeyin. Ayarlardan her zaman yenisini oluşturabilirsiniz."
+"Bu proje, hemen işe koyulmanız için bilmeniz gereken her şeyi gösteriyor. "
+"Denemekten çekinmeyin; istediğiniz zaman Tercihler'den yeniden "
+"oluşturabilirsiniz."
 
 #: core/Utils/Util.vala:601
-#, fuzzy
 msgid "Tap this task"
-msgstr "Bu yapılacaka dokunun"
+msgstr "Bu göreve dokunun"
 
 #: core/Utils/Util.vala:602
-#, fuzzy
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
-"Yapılacak bir işe bakıyorsunuz! Soldaki onay kutusuna dokunarak tamamlayın. "
-"Tamamlanan yapılacaklar projenizin altında toplanır."
+"Bir yapılacak göreve  bakıyorsunuz! Soldaki onay kutusuna dokunarak onu "
+"tamamlayın. "
 
 #: core/Utils/Util.vala:607
-#, fuzzy
 msgid "Create a new task"
-msgstr "Yeni Görev Oluştur"
+msgstr "Yeni bir görev oluştur"
 
 #: core/Utils/Util.vala:608
-#, fuzzy
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
 msgstr ""
-"Şimdi sıra sizde. Projenizin altındaki '+' düğmesine dokunun, bekleyenleri "
-"girin ve mavi 'Kaydet' düğmesine dokunun."
+"Şimdi sıra sizde! Projenizin alt kısmındaki '+' butonuna dokunun, görev "
+"tanımını girin ve 'Görev Ekle' butonuna dokunun."
 
 #: core/Utils/Util.vala:613
-#, fuzzy
 msgid "Plan this to-do for today or later"
 msgstr "Bu yapılacak işi bugün veya daha sonrasına planlayın"
 
 #: core/Utils/Util.vala:614
-#, fuzzy
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
@@ -879,7 +869,7 @@ msgstr ""
 #: core/Utils/Util.vala:619
 #, fuzzy
 msgid "Reorder your to-dos"
-msgstr "Yapılacaklarınızı yeniden sıralayın"
+msgstr "Yapılacaklar listenizi  yeniden sıralayın"
 
 #: core/Utils/Util.vala:620
 msgid ""
@@ -939,18 +929,16 @@ msgstr ""
 "için 'Tercihler' 🡒 Takvim Olayları'na gidin."
 
 #: core/Utils/Util.vala:661
-#, fuzzy
 msgid "Enable synchronization with third-party services"
-msgstr "Üçüncü taraf hizmetiyle eşzamanlamayı etkinleştirin."
+msgstr "Üçüncü taraf hizmetiyle senkronizasyonu etkinleştirin."
 
 #: core/Utils/Util.vala:662
-#, fuzzy
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
 "Planify sadece yerel olarak görevler oluşturmakla kalmaz, aynı zamanda "
-"Todoist hesabınızı da eşzamanlayabilir. 'Tercihler' 🡒 'Hesaplar'a git."
+"Todoist hesabınızı da senkronize edebilir. 'Tercihler' 🡒 'Hesaplar'a git."
 
 #: core/Utils/Util.vala:670
 msgid "Boost your productivity"
@@ -970,16 +958,15 @@ msgstr ""
 
 #: core/Utils/Util.vala:685
 msgid "Add labels to your tasks!"
-msgstr ""
+msgstr "Görevlerinize etiket ekleyin!"
 
 #: core/Utils/Util.vala:686
-#, fuzzy
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
-"Etiketler, Planify'daki iş akışınızı geliştirmenizi sağlar. Etiket eklemek "
-"için alttaki etiket düğmesine tıklayın."
+"Etiketler, görevlerinizi düzenlemenize ve kategorilere ayırmanıza yardımcı "
+"olur. Etiket eklemek için alttaki etiket düğmesine tıklayın."
 
 #: core/Utils/Util.vala:692
 msgid "Set timely reminders!"
@@ -1027,31 +1014,31 @@ msgstr "Bölüm Adı"
 msgid "Project duplicated"
 msgstr "Projeler"
 
-#: core/Utils/Util.vala:1099 src/Dialogs/Preferences/Pages/TaskSetting.vala:153
+#: core/Utils/Util.vala:1099 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
 msgstr ""
 
-#: core/Utils/Util.vala:1102 src/Dialogs/Preferences/Pages/TaskSetting.vala:154
+#: core/Utils/Util.vala:1102 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
 msgstr "10 dakika önce"
 
-#: core/Utils/Util.vala:1105 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1105 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
 msgstr "30 dakika önce"
 
-#: core/Utils/Util.vala:1108 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1108 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
 msgstr "45 dakika önce"
 
-#: core/Utils/Util.vala:1111 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1111 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
 msgstr "1 saat önce"
 
-#: core/Utils/Util.vala:1114 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1114 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
 msgstr "2 saat önce"
 
-#: core/Utils/Util.vala:1117 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1117 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
 msgstr "3 saat önce"
 
@@ -1151,7 +1138,7 @@ msgstr "Zaman"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:185
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:254
-#: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:82
+#: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
 msgid "Done"
 msgstr "Tamamlandı"
 
@@ -1168,7 +1155,7 @@ msgid "Next week"
 msgstr "Sonraki hafta"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:403
-#: src/Widgets/EventRow.vala:275
+#: src/Widgets/EventRow.vala:286
 #, fuzzy
 msgid "Calendar"
 msgstr "Takvim Etkinlikleri"
@@ -1273,7 +1260,7 @@ msgid "Repeat every"
 msgstr "Yinele"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:278
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:76
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
 #, fuzzy
 msgid "End"
 msgstr "Etkin"
@@ -1394,7 +1381,7 @@ msgstr "Aramak için yazınız"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:144
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:146
 msgid "Reminders"
 msgstr "Hatırlatıcılar"
 
@@ -1475,6 +1462,84 @@ msgstr ""
 "Planify, bu aygıt açıldığında kendiliğinden başlayacak ve yapılacaklar "
 "bildirimleri gönderebilmek için penceresi kapatıldığında çalışacak."
 
+#: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
+#: src/Views/Project/Project.vala:401
+msgid "Calendar Sync"
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:45
+msgid ""
+"Turn your tasks into calendar events automatically. Any task with a date "
+"will appear in your calendar, making it easier to plan your day."
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:53
+msgid ""
+"Requirement: You need a calendar account configured in GNOME Calendar "
+"(Google, Nextcloud, etc.)"
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:62
+msgid ""
+"Get mobile notifications for your tasks through Google Calendar, Outlook, or "
+"any calendar app"
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:63
+msgid ""
+"Your tasks sync everywhere: phone, tablet, web browser, and any device with "
+"your calendar"
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:83
+msgid "Choose Calendar"
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:88
+msgid "Select a calendar from the list"
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:113
+msgid "Enable Sync"
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:184
+msgid "Calendar sync disabled successfully"
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:223
+msgid "Calendar Sync Active"
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:228
+msgid ""
+"Your tasks are currently synced with your calendar. Any task with a date "
+"automatically appears as a calendar event."
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:247
+msgid "Disable Sync"
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:279
+#, c-format
+msgid "Synced with: %s"
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:292
+msgid "Sync Enabled!"
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:297
+msgid ""
+"Your tasks are now synced with your calendar. Any task with a date will "
+"automatically appear as a calendar event."
+msgstr ""
+
+#: src/Dialogs/CalendarSync.vala:305
+msgid "OK"
+msgstr ""
+
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 #, fuzzy
 msgid "Completed Tasks"
@@ -1505,8 +1570,8 @@ msgstr ""
 msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr ""
 
-#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:581
-#: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:655
+#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:596
+#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:651
 msgid "Filter By"
 msgstr "Filtrele"
 
@@ -1515,8 +1580,8 @@ msgid "Next Week"
 msgstr "Sonraki Hafta"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:719
-#: src/Layouts/ItemRow.vala:1166 src/Views/Project/Project.vala:505
-#: src/Views/Project/Project.vala:674
+#: src/Layouts/ItemRow.vala:1166 src/Views/Project/Project.vala:518
+#: src/Views/Project/Project.vala:689
 msgid "No Date"
 msgstr "Tarih Yok"
 
@@ -1537,13 +1602,13 @@ msgid "Please enter your credentials"
 msgstr "Lütfen kimlik bilgilerinizi girin"
 
 #: src/Dialogs/GoogleOAuth.vala:151
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:218
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:220
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:212
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:214
 msgid "Network Is Not Available"
 msgstr "Ağ Kullanılamıyor"
 
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1302
-#: src/Layouts/ItemSidebarView.vala:461
+#: src/Layouts/ItemSidebarView.vala:470
 msgid "Change History"
 msgstr ""
 
@@ -1600,12 +1665,12 @@ msgstr "Etiketi Güncelle"
 msgid "Filter"
 msgstr "Filtrele"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:712
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:721
 msgid "Archived Projects"
 msgstr "Proje Ekle"
 
-#: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:659
-#: src/Views/Project/Project.vala:338
+#: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:658
+#: src/Views/Project/Project.vala:336
 msgid "Manage Sections"
 msgstr "Bölüm Sıralamasını Yönet"
 
@@ -1638,33 +1703,37 @@ msgstr "Kaynak"
 msgid "Inbox Page"
 msgstr "Gelen Kutusu"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:102
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:105
 #, fuzzy
 msgid "You can sort your accounts by dragging and dropping"
 msgstr "Görünümlerinizi sürükleyip bırakarak sıralayabilirsiniz"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:228
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:547
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr "Planlayıcı görevlerinizi eşzamanlıyor, bu birkaç dakika sürebilir"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
+msgid "SSL verification is disabled"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:398
 msgid "Cannot Hide This Account"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:404
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:399
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:408
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
 #, fuzzy
 msgid "Change Inbox"
 msgstr "Gelen kutusunu aç"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:517
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 #, fuzzy
 msgid "Syncing…"
 msgstr "Eşzamanlanıyor…"
@@ -1724,7 +1793,7 @@ msgid "- https://example.com/nextcloud/"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
-#: src/Dialogs/Project.vala:165
+#: src/Dialogs/Project.vala:178
 msgid "Source"
 msgstr "Kaynak"
 
@@ -1781,19 +1850,19 @@ msgstr ""
 msgid "Connect with Token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:171
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:165
 msgid "Enter token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:189
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:183
 msgid "Synchronizing…"
 msgstr "Eşzamanlanıyor…"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:207
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:201
 msgid "Please Enter Your Credentials"
 msgstr "Lütfen Kimlik Bilgilerinizi Girin"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:209
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
 msgid "Loading…"
 msgstr "Yükleniyor…"
 
@@ -1844,8 +1913,8 @@ msgid "Font Size"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-#, fuzzy
-msgid "Backup"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
+msgid "Backups"
 msgstr "Yedekler"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
@@ -1888,51 +1957,51 @@ msgstr "Geçiş yap"
 msgid "Migrate From Planner"
 msgstr "Planlayıcıdan Geçiş Yapın"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:118
+#: src/Dialogs/Preferences/Pages/Backup.vala:112
 msgid "The Backup was created successfully."
 msgstr "Görevler Başarıyla Eşzamanlandı"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:135
+#: src/Dialogs/Preferences/Pages/Backup.vala:129
 msgid "Tasks Migrate Successfully"
 msgstr "Görevler Başarıyla Eşzamanlandı"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:139
+#: src/Dialogs/Preferences/Pages/Backup.vala:133
 msgid "The database file does not exist."
 msgstr "Veritabanı dosyası yok"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:177
+#: src/Dialogs/Preferences/Pages/Backup.vala:171
 msgid "Selected file is invalid"
 msgstr "Seçilen dosya geçersiz"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:222
+#: src/Dialogs/Preferences/Pages/Backup.vala:216
 msgid "View Backup"
 msgstr "Yedek Oluştur"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:278
+#: src/Dialogs/Preferences/Pages/Backup.vala:272
 msgid "Download"
 msgstr "İndir"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:342
+#: src/Dialogs/Preferences/Pages/Backup.vala:336
 msgid "Import Overview"
 msgstr "İçe Aktarmaya Genel Görünümü"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:354 src/Dialogs/Project.vala:353
+#: src/Dialogs/Preferences/Pages/Backup.vala:348 src/Dialogs/Project.vala:376
 msgid "Sources"
 msgstr "Kaynak"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:366
+#: src/Dialogs/Preferences/Pages/Backup.vala:360
 msgid "To-Dos"
 msgstr "Yapılacak Ekle"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:388
+#: src/Dialogs/Preferences/Pages/Backup.vala:382
 msgid "Confirm"
 msgstr "Onayla"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:444
+#: src/Dialogs/Preferences/Pages/Backup.vala:438
 msgid "Restore backup"
 msgstr "Yedeği geri yükle"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:445
+#: src/Dialogs/Preferences/Pages/Backup.vala:439
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
@@ -1940,11 +2009,73 @@ msgstr ""
 "Devam etmek istediğinizden emin misiniz? Bu işlem mevcut verilerinizi "
 "silecek ve yedek verilerle değiştirecek."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:444
 msgid "Restore Backup"
 msgstr "Yedeği Geri Yükle"
 
+#: src/Dialogs/Preferences/Pages/Donate.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:45
+#: src/Dialogs/Preferences/PreferencesWindow.vala:217
+msgid "Donate"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:53
+msgid "Support Planify Development"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:58
+msgid ""
+"Help keep Planify free and open source! Your donations directly support "
+"development, new features, and maintenance. Every contribution, no matter "
+"the size, makes a difference."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:74
+msgid "Patreon"
+msgstr "Patreon"
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:75
+msgid "Monthly recurring support"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:88
+msgid "PayPal"
+msgstr "PayPal"
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:89
+msgid "One-time donation"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:102
+msgid "Liberapay"
+msgstr "Liberapay"
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:103
+msgid "Weekly recurring donations"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:116
+msgid "Ko-fi"
+msgstr "Ko-fi"
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:117
+msgid "Buy me a coffee ☕"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:128
+msgid "Choose Your Preferred Platform"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:142
+msgid "Thank you for your support! 🙏"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Donate.vala:149
+msgid "Your contribution helps keep Planify alive and growing."
+msgstr ""
+
 #: src/Dialogs/Preferences/Pages/General.vala:26
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
 #: src/Dialogs/Preferences/PreferencesWindow.vala:137
 msgid "General"
 msgstr "Genel"
@@ -1954,8 +2085,8 @@ msgid "Custom Sort Order"
 msgstr "Özel Sıralama Düzeni"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
-#: src/Views/Project/Project.vala:485 src/Views/Scheduled/Scheduled.vala:225
-#: src/Views/Today.vala:612
+#: src/Views/Project/Project.vala:498 src/Views/Scheduled/Scheduled.vala:227
+#: src/Views/Today.vala:608
 msgid "Alphabetically"
 msgstr "Alfabetik"
 
@@ -2095,7 +2226,7 @@ msgstr "Son Seçilen Projeyi Kaydet"
 msgid "If unchecked, the default project selected is Inbox"
 msgstr "İşaretlenmezse, öntanımlı proje Gelen Kutusu olarak seçilir"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:127
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:121
 msgid "The command was copied to the clipboard"
 msgstr "Komut panoya kopyalandı"
 
@@ -2108,192 +2239,157 @@ msgstr "Kenar çubuğu"
 msgid "Show in Sidebar"
 msgstr "Kenar Çubuğunda Göster"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:56
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:55
 msgid "Show Task Count"
 msgstr "Görev Sayısını Göster"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:61
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:60
 msgid "Sidebar Width"
 msgstr "Kenar Çubuğu Genişliği"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:66
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:65
 msgid "List View for Filters"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:67
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:66
 msgid "Show filters in a simple list instead of a grid"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:83
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:87
 msgid "You can sort your views by dragging and dropping"
 msgstr "Görünümlerinizi sürükleyip bırakarak sıralayabilirsiniz"
 
-#: src/Dialogs/Preferences/Pages/Support.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:60
-msgid "Supporting Us"
-msgstr "Bizi Destekleyin"
-
-#: src/Dialogs/Preferences/Pages/Support.vala:41
-msgid ""
-"Our mission is to provide the best open source task management application "
-"for users all over the world. Your donations support this work. Want to "
-"donate today?"
-msgstr ""
-"Misyonumuz, tüm kullanıcılar için en iyi açık kaynak kodlu görev yönetim "
-"uygulamasını sağlamaktır. Bağışlarınız bu çalışmayı destekler. Bağış yapmak "
-"ister misiniz?"
-
-#: src/Dialogs/Preferences/Pages/Support.vala:49
-msgid "Patreon"
-msgstr "Patreon"
-
-#: src/Dialogs/Preferences/Pages/Support.vala:62
-msgid "PayPal"
-msgstr "PayPal"
-
-#: src/Dialogs/Preferences/Pages/Support.vala:75
-msgid "Liberapay"
-msgstr "Liberapay"
-
-#: src/Dialogs/Preferences/Pages/Support.vala:88
-msgid "Ko-fi"
-msgstr "Ko-fi"
-
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
 msgstr "Görev Ayarları"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:38
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:40
 #, fuzzy
 msgid "Complete Instantly"
 msgstr "Anında"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:39
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:41
 #, fuzzy
 msgid "Complete with Undo"
 msgstr "Tamamlandı"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:42
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:44
 #, fuzzy
 msgid "Task Completion"
 msgstr "Görevi Tamamla"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:43
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:45
 msgid "Choose how tasks behave when marked as complete"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:50
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:52
 msgid "Priority 1"
 msgstr "Öncelik 1"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:51
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:53
 msgid "Priority 2"
 msgstr "Öncelik 2"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:52
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:54
 msgid "Priority 3"
 msgstr "Öncelik 3"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:56
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:58
 msgid "Default Priority"
 msgstr "Öntanımlı Öncelik"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:68
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:70
 msgid "Cross Out Completed Tasks"
 msgstr "Tamamlanan Görevleri Göster"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:75
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:77
 msgid "Start"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:79
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:81
 msgid "New Task Position"
 msgstr "Yeni Görev Pozisyonu"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:86
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:88
 msgid "Always Show Completed Sub-Tasks"
 msgstr "Tamamlanan Görevleri Göster"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:87
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:89
 msgid "Keep all completed subtasks visible without collapsing them"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:94
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:96
 msgid "Task Complete Tone"
 msgstr "Görevi Tamamla"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:95
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:97
 msgid "Play a sound when tasks are completed"
 msgstr "Görevler tamamlandığında bir ses çalın"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:102
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:104
 #, fuzzy
 msgid "Open Tasks in Sidebar View"
 msgstr "Görevi Kenar Çubuğu Görünümünde Açın"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:103
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:105
 msgid ""
 "Always display task details in the sidebar instead of expanding in list view."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:110
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:112
 msgid "Single Task Focus Mode"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:111
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:113
 msgid "Allow only one task to be expanded at a time in list view"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:120
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:122
 msgid "Enable Markdown Formatting"
 msgstr "Markdown Biçimlendirmeyi Etkinleştir"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:121
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:123
 msgid "Toggle Markdown support for tasks on or off"
 msgstr "Görevler için Markdown desteğini açma veya kapatma"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:128
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:130
 #, fuzzy
 msgid "Always Show Details Sidebar"
 msgstr "Kenar Çubuğunda Göster"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:129
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:131
 msgid ""
 "Keep the details sidebar always visible for faster task navigation, without "
 "repeatedly opening and closing it"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:136
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:138
 msgid "Enable Spell Checking"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:137
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:139
 msgid "Check spelling in task descriptions and notes"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:148
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
 msgid "Enabled"
 msgstr "Etkin"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:162
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:164
 msgid "Automatic reminders"
 msgstr "Zamanlı hatırlatıcılar ayarlayın!"
 
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:164
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:166
 msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr ""
 "Etkinleştirildiğinde, varsayılan olarak görevin bitiş zamanından önce bir "
 "hatırlatıcı eklenecektir."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:704
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:713
 msgid "Preferences"
 msgstr "Tercihler"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:45
-#: src/Dialogs/Preferences/PreferencesWindow.vala:217
-msgid "Support Planify"
-msgstr "Planify'ı Destekleyin"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:52
 msgid ""
@@ -2304,6 +2400,10 @@ msgstr ""
 "Planify açık kaynak olarak, sevgi ve tutkuyla geliştirilmektedir. Planify'ı "
 "seviyorsanız ve gelişimini desteklemek istiyorsanız, bizi desteklemeyi "
 "unutmayın."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:60
+msgid "Donate Now"
+msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Sync your favorite to-do providers"
@@ -2317,10 +2417,6 @@ msgstr ""
 msgid "Customize to your liking"
 msgstr "İsteğinize göre özelleştirin"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:148
-msgid "Task Setting"
-msgstr "Görev Ayarları"
-
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
 msgstr "Kenar çubuğunuzu özelleştirin"
@@ -2328,10 +2424,6 @@ msgstr "Kenar çubuğunuzu özelleştirin"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
 msgstr "Her yerden yapılacaklar ekleme"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:191
-msgid "Backups"
-msgstr "Yedekler"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
@@ -2366,7 +2458,6 @@ msgid "Reach Us"
 msgstr "Bize Ulaşın"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:271
-#: src/Dialogs/Preferences/PreferencesWindow.vala:428
 msgid "Contact Us"
 msgstr "İletişime Geç"
 
@@ -2400,7 +2491,6 @@ msgid "Privacy"
 msgstr "Gizlilik"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:343
-#: src/Dialogs/Preferences/PreferencesWindow.vala:459
 msgid "Privacy Policy"
 msgstr "Gizlilik İlkesi"
 
@@ -2416,82 +2506,48 @@ msgstr "Planify Verilerini Sil"
 msgid "A tutorial project has been created"
 msgstr "Öğretici proje oluşturuldu"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:371
+#: src/Dialogs/Preferences/PreferencesWindow.vala:375
 msgid "Delete All Data?"
 msgstr "Planify Verilerini Sil"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:372
+#: src/Dialogs/Preferences/PreferencesWindow.vala:376
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr ""
 "Tüm listelerinizi, görevlerinizi ve hatırlatıcılarınızı geri döndürülemez "
 "şekilde siler"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:400
-msgid "Personal Data"
-msgstr "Kişisel Veriler"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:406
-msgid ""
-"We collect absolutely nothing and all your data is stored in a database on "
-"your computer."
-msgstr ""
-"Kesinlikle hiçbir şey toplamıyoruz ve tüm verileriniz bilgisayarınızdaki bir "
-"veritabanında saklanıyor."
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:412
-msgid ""
-"If you choose to integrate Todoist, which is optional and not selected by "
-"default, your data will be stored on their private servers, we only display "
-"your configured tasks and manage them for you."
-msgstr ""
-"Todoist tümleşimini seçerseniz, (isteğe bağlıdır ve öntanımlı olarak seçili "
-"değildir), verileriniz kendi özel sunucularında saklanır, biz sadece "
-"yapılandırılmış görevlerinizi görüntüler ve sizin için yönetiriz."
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:417
-msgid "Do you have any questions?"
-msgstr "Herhangi bir sorunuz var mı?"
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:423
-msgid ""
-"If you have any questions about your data or any other issue, please contact "
-"us. We will be happy to answer you."
-msgstr ""
-"Verileriniz veya başka bir konu hakkında sorunuz varsa, bizimle iletişime "
-"geçin. Cevap vermekten mutluluk duyarız."
-
-#: src/Dialogs/Project.vala:58 src/Layouts/Sidebar.vala:121
+#: src/Dialogs/Project.vala:59 src/Layouts/Sidebar.vala:121
 msgid "New Project"
 msgstr "Yeni Proje"
 
-#: src/Dialogs/Project.vala:66 src/Layouts/ProjectRow.vala:704
-#: src/Views/Project/Project.vala:333
+#: src/Dialogs/Project.vala:67 src/Layouts/ProjectRow.vala:704
+#: src/Views/Project/Project.vala:331
 msgid "Edit Project"
 msgstr "Projeyi Düzenle"
 
-#: src/Dialogs/Project.vala:126
+#: src/Dialogs/Project.vala:112
 msgid "Give your project a name"
 msgstr "Proje adı"
 
-#: src/Dialogs/Project.vala:137
+#: src/Dialogs/Project.vala:123
 msgid "Use Emoji"
 msgstr "Emoji kullan"
 
-#: src/Dialogs/Project.vala:204 src/Views/Label/LabelSourceRow.vala:56
+#: src/Dialogs/Project.vala:217 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
 msgstr "Proje Ekle"
 
-#: src/Dialogs/Project.vala:204
+#: src/Dialogs/Project.vala:217
 msgid "Update Project"
 msgstr "Projeyi Güncelle"
 
-#: src/Dialogs/Project.vala:447
+#: src/Dialogs/Project.vala:471
 msgid "Project added successfully!"
 msgstr "Proje eklendi."
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:722 src/Layouts/ItemRow.vala:1169
-#: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemSidebarView.vala:456
+#: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemSidebarView.vala:465
 msgid "Move"
 msgstr "Taşı"
 
@@ -2505,13 +2561,13 @@ msgstr ""
 "Hızlıca projeleri ve görünümleri değiştirin, görevleri bulun, etiketlere "
 "göre arama yapın"
 
-#: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:223
-#: src/Views/Project/Project.vala:336
+#: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:217
+#: src/Views/Project/Project.vala:334
 msgid "New Section"
 msgstr "Yeni Bölüm"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:563
-#: src/Layouts/SectionRow.vala:657
+#: src/Layouts/SectionRow.vala:656
 msgid "Edit Section"
 msgstr "Bölümü Düzenle"
 
@@ -2544,7 +2600,7 @@ msgstr ""
 
 # # c-format
 #: src/Layouts/ItemBoard.vala:594 src/Layouts/ItemRow.vala:1498
-#: src/Layouts/ItemSidebarView.vala:622
+#: src/Layouts/ItemSidebarView.vala:631
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Tamamlandı. Sonraki gerçekleşme: %s"
@@ -2558,14 +2614,14 @@ msgid "Edit"
 msgstr "Düzenle"
 
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1175
-#: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:455
+#: src/Layouts/ItemRow.vala:1296 src/Layouts/ItemSidebarView.vala:464
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
-#: src/Layouts/SectionRow.vala:660 src/Views/Project/Project.vala:334
+#: src/Layouts/SectionRow.vala:659 src/Views/Project/Project.vala:332
 msgid "Duplicate"
 msgstr "Çoğalt"
 
 #: src/Layouts/ItemBoard.vala:730 src/Layouts/ItemRow.vala:1177
-#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemSidebarView.vala:458
+#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemSidebarView.vala:467
 msgid "Delete Task"
 msgstr "Görevi Sil"
 
@@ -2601,11 +2657,11 @@ msgstr "Alt Görev Ekle"
 msgid "Show Sub-tasks"
 msgstr "Alt Görev Ekle"
 
-#: src/Layouts/ItemRow.vala:1292 src/Layouts/ItemSidebarView.vala:452
+#: src/Layouts/ItemRow.vala:1292 src/Layouts/ItemSidebarView.vala:461
 msgid "Use as a Note"
 msgstr "Tarih seçiniz"
 
-#: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemSidebarView.vala:454
+#: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemSidebarView.vala:463
 msgid "Copy to Clipboard"
 msgstr "Panoya Kopyala"
 
@@ -2621,7 +2677,7 @@ msgstr ""
 msgid "Properties"
 msgstr ""
 
-#: src/Layouts/ItemSidebarView.vala:542
+#: src/Layouts/ItemSidebarView.vala:551
 msgid "Are you sure you want to delete?"
 msgstr "%s ögesini silmek istediğinizden emin misiniz?"
 
@@ -2645,7 +2701,7 @@ msgstr "Gözdelere Ekle"
 msgid "Refresh"
 msgstr ""
 
-#: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:346
+#: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:344
 #: src/Widgets/ProjectItemRow.vala:154
 msgid "Delete Project"
 msgstr "Projeyi Sil"
@@ -2658,7 +2714,7 @@ msgstr "Paylaş"
 msgid "Send by E-Mail"
 msgstr "E-posta İle Gönder"
 
-#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:225
+#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 #, fuzzy
 msgid "Add tasks"
 msgstr "Görev Ekle"
@@ -2667,13 +2723,13 @@ msgstr "Görev Ekle"
 msgid "Load more"
 msgstr ""
 
-#: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:613
+#: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:612
 #: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
 #, fuzzy
 msgid "completed tasks"
 msgstr "Görevi Tamamla"
 
-#: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:658
+#: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:657
 msgid "Move Section"
 msgstr "Bölümü Taşı"
 
@@ -2681,12 +2737,11 @@ msgstr "Bölümü Taşı"
 msgid "Manage Section Order"
 msgstr "Bölüm Sıralamasını Yönet"
 
-#: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:661
-#: src/Views/Project/Project.vala:540
+#: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:660
 msgid "Show Completed Tasks"
 msgstr "Tamamlanan Görevleri Göster"
 
-#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:664
+#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:663
 #: src/Widgets/SectionItemRow.vala:207
 msgid "Delete Section"
 msgstr "Bölümü Sil"
@@ -2738,32 +2793,32 @@ msgstr ""
 msgid "Open Quick Find"
 msgstr "Hızlı bulu aç"
 
-#: src/MainWindow.vala:710
+#: src/MainWindow.vala:719
 msgid "About Planify"
 msgstr "Planify Hakkında"
 
-#: src/MainWindow.vala:770
+#: src/MainWindow.vala:779
 msgid "Oops! Something happened"
 msgstr ""
 
-#: src/MainWindow.vala:773
+#: src/MainWindow.vala:782
 msgid "See More"
 msgstr "Proje oluştur"
 
-#: src/MainWindow.vala:789 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:798 src/Widgets/ItemChangeHistoryRow.vala:48
 #, fuzzy
 msgid "Task completed"
 msgstr "tamamlandı"
 
-#: src/MainWindow.vala:790
+#: src/MainWindow.vala:799
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:828
+#: src/MainWindow.vala:837
 msgid "Database Integrity Check Failed"
 msgstr ""
 
-#: src/MainWindow.vala:829
+#: src/MainWindow.vala:838
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2776,7 +2831,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:831
+#: src/MainWindow.vala:840
 #, fuzzy
 msgid "Reset Database"
 msgstr "Tümünü sıfırla"
@@ -2801,10 +2856,6 @@ msgstr ""
 msgid "Planify Backup Files"
 msgstr "Planify Yedek Dosyaları"
 
-#: src/Services/CalendarEvents/Util.vala:244
-msgid "On this computer"
-msgstr "Bu bilgisayarda"
-
 # c-format
 #: src/Services/Notification.vala:99
 #, fuzzy
@@ -2827,12 +2878,12 @@ msgid "View Option Menu"
 msgstr ""
 
 #: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
-#: src/Views/Project/List.vala:116 src/Views/Today.vala:254
+#: src/Views/Project/List.vala:116 src/Views/Today.vala:250
 msgid "Add Some Tasks"
 msgstr "Görev Ekle"
 
 #: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
-#: src/Views/Project/List.vala:117 src/Views/Today.vala:255
+#: src/Views/Project/List.vala:117 src/Views/Today.vala:251
 #, fuzzy
 msgid "Press 'a' to create a new task"
 msgstr "Yeni Görev Oluşturmak için Düz Metin Yapıştır"
@@ -2876,12 +2927,12 @@ msgstr ""
 msgid "Note"
 msgstr "Not"
 
-#: src/Views/Project/Board.vala:279 src/Views/Project/List.vala:367
+#: src/Views/Project/Board.vala:279 src/Views/Project/List.vala:365
 msgid "Schedule"
 msgstr "Zamanla"
 
-#: src/Views/Project/Board.vala:316 src/Views/Project/List.vala:402
-#: src/Views/Project/Project.vala:335 src/Views/Project/Project.vala:367
+#: src/Views/Project/Board.vala:316 src/Views/Project/List.vala:400
+#: src/Views/Project/Project.vala:333 src/Views/Project/Project.vala:365
 msgid "When?"
 msgstr "Ne zaman?"
 
@@ -2893,117 +2944,129 @@ msgstr ""
 msgid "Project Actions"
 msgstr "Projeler"
 
-#: src/Views/Project/Project.vala:222
+#: src/Views/Project/Project.vala:216
 #, fuzzy
 msgid "New Task"
 msgstr "Görevleri Taşı"
 
-#: src/Views/Project/Project.vala:340
+#: src/Views/Project/Project.vala:338
 msgid "Select"
 msgstr "Seç"
 
-#: src/Views/Project/Project.vala:341
+#: src/Views/Project/Project.vala:339
 msgid "Paste"
 msgstr "Yapıştır"
 
-#: src/Views/Project/Project.vala:342 src/Views/Project/Project.vala:443
+#: src/Views/Project/Project.vala:340 src/Views/Project/Project.vala:456
 msgid "Expand All"
 msgstr ""
 
-#: src/Views/Project/Project.vala:447
+#: src/Views/Project/Project.vala:402 src/Widgets/ItemChangeHistoryRow.vala:108
+msgid "New"
+msgstr ""
+
+#: src/Views/Project/Project.vala:460
 msgid "Collapse All"
 msgstr ""
 
-#: src/Views/Project/Project.vala:463
+#: src/Views/Project/Project.vala:476
 msgid "List"
 msgstr "Liste"
 
-#: src/Views/Project/Project.vala:469
+#: src/Views/Project/Project.vala:482
 msgid "Board"
 msgstr "Pano"
 
-#: src/Views/Project/Project.vala:481 src/Views/Scheduled/Scheduled.vala:222
-#: src/Views/Today.vala:609
+#: src/Views/Project/Project.vala:494 src/Views/Scheduled/Scheduled.vala:224
+#: src/Views/Today.vala:605
 msgid "Sorting"
 msgstr "Bizi Destekleyin"
 
-#: src/Views/Project/Project.vala:484
+#: src/Views/Project/Project.vala:497
 msgid "Custom sort order"
 msgstr "Özel sıralama düzeni"
 
-#: src/Views/Project/Project.vala:487 src/Views/Scheduled/Scheduled.vala:227
-#: src/Views/Today.vala:614
+#: src/Views/Project/Project.vala:500 src/Views/Scheduled/Scheduled.vala:229
+#: src/Views/Today.vala:610
 msgid "Date Added"
 msgstr "Eklenme tarihi"
 
-#: src/Views/Project/Project.vala:490
+#: src/Views/Project/Project.vala:503
 #, fuzzy
 msgid "Ascending Order"
 msgstr "Artan"
 
-#: src/Views/Project/Project.vala:496
+#: src/Views/Project/Project.vala:509
 msgid "Duedate"
 msgstr "Güncelle"
 
-#: src/Views/Project/Project.vala:499
+#: src/Views/Project/Project.vala:512
 msgid "All (default)"
 msgstr ""
 
-#: src/Views/Project/Project.vala:501 src/Views/Project/Project.vala:666
+#: src/Views/Project/Project.vala:514 src/Views/Project/Project.vala:681
 msgid "This Week"
 msgstr ""
 
-#: src/Views/Project/Project.vala:502 src/Views/Project/Project.vala:668
+#: src/Views/Project/Project.vala:515 src/Views/Project/Project.vala:683
 msgid "Next 7 Days"
 msgstr ""
 
-#: src/Views/Project/Project.vala:503 src/Views/Project/Project.vala:670
+#: src/Views/Project/Project.vala:516 src/Views/Project/Project.vala:685
 msgid "This Month"
 msgstr ""
 
-#: src/Views/Project/Project.vala:504 src/Views/Project/Project.vala:672
+#: src/Views/Project/Project.vala:517 src/Views/Project/Project.vala:687
 msgid "Next 30 Days"
 msgstr ""
 
-#: src/Views/Project/Project.vala:511 src/Views/Scheduled/Scheduled.vala:235
-#: src/Views/Today.vala:622
+#: src/Views/Project/Project.vala:524 src/Views/Scheduled/Scheduled.vala:237
+#: src/Views/Today.vala:618
 msgid "P1"
 msgstr ""
 
-#: src/Views/Project/Project.vala:517 src/Views/Scheduled/Scheduled.vala:241
-#: src/Views/Today.vala:628
+#: src/Views/Project/Project.vala:530 src/Views/Scheduled/Scheduled.vala:243
+#: src/Views/Today.vala:624
 msgid "P2"
 msgstr ""
 
-#: src/Views/Project/Project.vala:523 src/Views/Scheduled/Scheduled.vala:247
-#: src/Views/Today.vala:634
+#: src/Views/Project/Project.vala:536 src/Views/Scheduled/Scheduled.vala:249
+#: src/Views/Today.vala:630
 msgid "P3"
 msgstr ""
 
-#: src/Views/Project/Project.vala:529 src/Views/Scheduled/Scheduled.vala:253
-#: src/Views/Today.vala:640
+#: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:255
+#: src/Views/Today.vala:636
 msgid "P4"
 msgstr ""
 
-#: src/Views/Project/Project.vala:536 src/Views/Scheduled/Scheduled.vala:260
-#: src/Views/Today.vala:647
+#: src/Views/Project/Project.vala:549 src/Views/Scheduled/Scheduled.vala:262
+#: src/Views/Today.vala:643
 msgid "Filter by Labels"
 msgstr "Etiketlere Göre Filtrele"
 
-#: src/Views/Project/Project.vala:545
+#: src/Views/Project/Project.vala:553
+msgid "Show Completed"
+msgstr ""
+
+#: src/Views/Project/Project.vala:554
+msgid "Display completed tasks in the list"
+msgstr ""
+
+#: src/Views/Project/Project.vala:560
 #, fuzzy
 msgid "Search completed tasks"
 msgstr "Tamamlanan Görevleri Göster"
 
-#: src/Views/Project/Project.vala:572
+#: src/Views/Project/Project.vala:587
 msgid "Sort By"
 msgstr "Sırala"
 
-#: src/Views/Today.vala:154
+#: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:154
 msgid "Overdue"
 msgstr "Süresi doldu"
 
-#: src/Views/Today.vala:162
+#: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:162
 msgid "Reschedule"
 msgstr "Yeniden zamanla"
 
@@ -3063,33 +3126,33 @@ msgstr "Tamamlanan Görevleri Göster"
 msgid "Report Issue"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:196
+#: src/Widgets/EventRow.vala:207
 #, c-format
 msgid "In %d minutes"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:198
+#: src/Widgets/EventRow.vala:209
 #, c-format
 msgid "In %d hours"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:203
+#: src/Widgets/EventRow.vala:214
 msgid "Happening now"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:238
+#: src/Widgets/EventRow.vala:249
 msgid "Location"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:251
+#: src/Widgets/EventRow.vala:262
 msgid "Organizer"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:265
+#: src/Widgets/EventRow.vala:276
 msgid "URL"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:356
+#: src/Widgets/EventRow.vala:381
 msgid "Join"
 msgstr ""
 
@@ -3128,10 +3191,6 @@ msgstr "Görev panoya kopyalandı"
 msgid "Previous"
 msgstr ""
 
-#: src/Widgets/ItemChangeHistoryRow.vala:108
-msgid "New"
-msgstr ""
-
 #: src/Widgets/ItemChangeHistoryRow.vala:192
 #: src/Widgets/ItemChangeHistoryRow.vala:193
 msgid "Pin: Active"
@@ -3147,40 +3206,49 @@ msgstr ""
 msgid "Completed At"
 msgstr "Tamamlandı"
 
-#: src/Widgets/MultiSelectToolbar.vala:220
+#: src/Widgets/MultiSelectToolbar.vala:66
+msgid "Move to Project"
+msgstr ""
+
+#: src/Widgets/MultiSelectToolbar.vala:242
 msgid "Mark as Completed"
 msgstr "Tamamlanmış Olarak Maskele"
 
-#: src/Widgets/MultiSelectToolbar.vala:246
+#: src/Widgets/MultiSelectToolbar.vala:268
 msgid "Delete To-Do"
 msgstr "Yapılacak'ı Sil"
 
-#: src/Widgets/MultiSelectToolbar.vala:247
+#: src/Widgets/MultiSelectToolbar.vala:269
 msgid "Are you sure you want to delete this to-do?"
 msgstr "Bu yapılacakʼı silmek istediğinize emin misiniz?"
 
 # # c-format
-#: src/Widgets/MultiSelectToolbar.vala:250
+#: src/Widgets/MultiSelectToolbar.vala:272
 #, fuzzy, c-format
 msgid "Delete %d To-Do"
 msgstr "%d Yapılacakʼı Sil"
 
 # # c-format
-#: src/Widgets/MultiSelectToolbar.vala:251
+#: src/Widgets/MultiSelectToolbar.vala:273
 #, c-format
 msgid "Delete %d To-Dos"
 msgstr "%d Yapılacakʼı Sil"
 
-#: src/Widgets/MultiSelectToolbar.vala:256
+#: src/Widgets/MultiSelectToolbar.vala:278
 #, fuzzy, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgstr "Bu yapılacakʼı silmek istediğinize emin misiniz?"
 
 # # c-format
-#: src/Widgets/MultiSelectToolbar.vala:257
+#: src/Widgets/MultiSelectToolbar.vala:279
 #, c-format
 msgid "Are you sure you want to delete these %d to-dos?"
 msgstr "%d yapılacakʼı silmek istediğinize emin misiniz?"
+
+#: src/Widgets/MultiSelectToolbar.vala:376
+#, c-format
+msgid "%d tasks moved to %s"
+msgstr ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
@@ -3198,8 +3266,8 @@ msgstr ""
 msgid "Update Now"
 msgstr "Güncellenme tarihi"
 
-#: src/Widgets/NewVersionPopup.vala:110
-msgid "Close"
+#: src/Widgets/NewVersionPopup.vala:89
+msgid "Dismiss"
 msgstr ""
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
@@ -3352,6 +3420,57 @@ msgstr "Etiketler"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Panoyu aç"
+
+#, fuzzy
+#~ msgid "Backup"
+#~ msgstr "Yedekler"
+
+#~ msgid "Task Setting"
+#~ msgstr "Görev Ayarları"
+
+#~ msgid "Personal Data"
+#~ msgstr "Kişisel Veriler"
+
+#~ msgid ""
+#~ "We collect absolutely nothing and all your data is stored in a database "
+#~ "on your computer."
+#~ msgstr ""
+#~ "Kesinlikle hiçbir şey toplamıyoruz ve tüm verileriniz bilgisayarınızdaki "
+#~ "bir veritabanında saklanıyor."
+
+#~ msgid ""
+#~ "If you choose to integrate Todoist, which is optional and not selected by "
+#~ "default, your data will be stored on their private servers, we only "
+#~ "display your configured tasks and manage them for you."
+#~ msgstr ""
+#~ "Todoist tümleşimini seçerseniz, (isteğe bağlıdır ve öntanımlı olarak "
+#~ "seçili değildir), verileriniz kendi özel sunucularında saklanır, biz "
+#~ "sadece yapılandırılmış görevlerinizi görüntüler ve sizin için yönetiriz."
+
+#~ msgid "Do you have any questions?"
+#~ msgstr "Herhangi bir sorunuz var mı?"
+
+#~ msgid ""
+#~ "If you have any questions about your data or any other issue, please "
+#~ "contact us. We will be happy to answer you."
+#~ msgstr ""
+#~ "Verileriniz veya başka bir konu hakkında sorunuz varsa, bizimle iletişime "
+#~ "geçin. Cevap vermekten mutluluk duyarız."
+
+#~ msgid "Supporting Us"
+#~ msgstr "Bizi Destekleyin"
+
+#~ msgid ""
+#~ "Our mission is to provide the best open source task management "
+#~ "application for users all over the world. Your donations support this "
+#~ "work. Want to donate today?"
+#~ msgstr ""
+#~ "Misyonumuz, tüm kullanıcılar için en iyi açık kaynak kodlu görev yönetim "
+#~ "uygulamasını sağlamaktır. Bağışlarınız bu çalışmayı destekler. Bağış "
+#~ "yapmak ister misiniz?"
+
+#~ msgid "Support Planify"
+#~ msgstr "Planify'ı Destekleyin"
 
 #, fuzzy
 #~ msgid "Clear Schedule"

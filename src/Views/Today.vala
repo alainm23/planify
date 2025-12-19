@@ -209,18 +209,14 @@ public class Views.Today : Adw.Bin {
 
         var today_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin_start = 24,
-            margin_end = 24
+            margin_end = 24,
+            margin_top = 12
         };
         today_header_box.append (today_label);
 
-        var today_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            margin_top = 12
-        };
-        today_box.append (today_header_box);
-
         today_revealer = new Gtk.Revealer () {
             transition_type = SLIDE_DOWN,
-            child = today_box
+            child = today_header_box
         };
 
         listbox = new Gtk.ListBox () {
@@ -437,10 +433,10 @@ public class Views.Today : Adw.Bin {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
         })] = scrolled_window.vadjustment;
 
-        signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
+        signal_map[Services.EventBus.get_default ().dim_content.connect ((active) => {
             title_box.sensitive = !active;
-            today_box.sensitive = !active;
-            overdue_box.sensitive = !active;
+            today_header_box.sensitive = !active;
+            overdue_header_box.sensitive = !active;
         })] = Services.EventBus.get_default ();
     }
 

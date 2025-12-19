@@ -54,27 +54,34 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
             selection_mode = Gtk.SelectionMode.NONE
         };
 
-        var radio = new Gtk.CheckButton ();
+        var colors_list = new Gee.ArrayList<Objects.Color> ();
         foreach (var entry in Util.get_default ().get_colors ().entries) {
-            if (entry.key.has_prefix ("#")) {
-                continue;
+            if (!entry.key.has_prefix ("#")) {
+                colors_list.add (entry.value);
             }
+        }
+        
+        colors_list.sort ((a, b) => {
+            return a.id - b.id;
+        });
 
+        var radio = new Gtk.CheckButton ();
+        foreach (Objects.Color color_obj in colors_list) {
             Gtk.CheckButton color_radio = new Gtk.CheckButton () {
                 valign = Gtk.Align.CENTER,
                 halign = Gtk.Align.CENTER,
-                tooltip_text = Util.get_default ().get_color_name (entry.key),
-                name = entry.key,
+                tooltip_text = color_obj.name,
+                name = color_obj.name,
                 css_classes = { "color-radio" },
                 group = radio
             };
 
-            Util.get_default ().set_widget_color (Util.get_default ().get_color (entry.key), color_radio);
-            colors_hashmap[entry.key] = color_radio;
-            colors_flowbox.append (colors_hashmap[entry.key]);
+            Util.get_default ().set_widget_color (color_obj.hexadecimal, color_radio);
+            colors_hashmap[color_obj.hexadecimal] = color_radio;
+            colors_flowbox.append (colors_hashmap[color_obj.hexadecimal]);
 
             signal_map[color_radio.toggled.connect (() => {
-                color = entry.key;
+                color = color_obj.hexadecimal;
                 color_changed (color);
             })] = color_radio;
         }

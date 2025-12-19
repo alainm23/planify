@@ -159,7 +159,7 @@ public class Views.Project : Adw.Bin {
         };
         right_click.pressed.connect (on_right_click);
         add_controller (right_click);
-        
+
         signal_map[project.updated.connect (() => {
             headerbar.title = project.is_inbox_project ? _("Inbox") : project.name;
         })] = project;
@@ -170,7 +170,7 @@ public class Views.Project : Adw.Bin {
 
         signal_map[project.show_multi_select_change.connect (() => {
             toolbar_view.reveal_bottom_bars = project.show_multi_select;
-            
+
             if (project.show_multi_select) {
                 Services.EventBus.get_default ().multi_select_enabled = true;
                 Services.EventBus.get_default ().show_multi_select (true);
@@ -210,12 +210,6 @@ public class Views.Project : Adw.Bin {
         signal_map[project.handle_scroll_visibility_change.connect ((visible) => {
             headerbar.update_title_box_visibility (visible);
         })] = project;
-
-        signal_map[Services.EventBus.get_default ().escape_pressed.connect (() => {
-            if (project.show_multi_select) {
-                project.show_multi_select = false;
-            }
-        })] = Services.EventBus.get_default ();
     }
 
     private void create_context_menu () {
@@ -226,7 +220,7 @@ public class Views.Project : Adw.Bin {
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (add_task_item);
         menu_box.append (add_section_item);
-        
+
         context_menu = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
@@ -238,16 +232,16 @@ public class Views.Project : Adw.Bin {
             prepare_new_item ();
             context_menu.popdown ();
         });
-        
+
         add_section_item.clicked.connect (() => {
             prepare_new_section ();
             context_menu.popdown ();
         });
     }
-    
+
     private void on_right_click (int n_press, double x, double y) {
         Gdk.Rectangle rect = { (int) x, (int) y, 250, 1 };
-        
+
         context_menu.set_parent (this);
         context_menu.set_pointing_to (rect);
         context_menu.popup ();
@@ -274,6 +268,10 @@ public class Views.Project : Adw.Bin {
     private void update_project_view () {
         project_stack.visible_child = loading_spinner;
         project_view_revealer.reveal_child = false;
+
+        if (Services.EventBus.get_default ().multi_select_enabled) {
+            clear_multi_select ();
+        }
 
         Timeout.add (project_view_revealer.transition_duration, () => {
             destroy_current_view ();
@@ -388,8 +386,7 @@ public class Views.Project : Adw.Bin {
         if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
             menu_box.append (add_section_item);
             menu_box.append (manage_sections);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-            
+
             signal_map[add_section_item.activate_item.connect (() => {
                 prepare_new_section ();
             })] = add_section_item;
@@ -399,6 +396,22 @@ public class Views.Project : Adw.Bin {
                 dialog.present (Planify._instance.main_window);
             })] = manage_sections;
         }
+
+#if WITH_EVOLUTION
+        var calendar_sync_item = new Widgets.ContextMenu.MenuItem (_ ("Calendar Sync"), "month-symbolic") {
+            badge = _("New")
+        };
+
+        if (!project.is_inbox_project) {
+            menu_box.append (calendar_sync_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+
+            calendar_sync_item.clicked.connect (() => {
+                var dialog = new Dialogs.CalendarSync (project);
+                dialog.present (Planify._instance.main_window);
+            });
+        }
+#endif
 
         menu_box.append (select_item);
         menu_box.append (paste_item);
@@ -424,7 +437,7 @@ public class Views.Project : Adw.Bin {
             child = menu_box,
             width_request = 250
         };
-        
+
         signal_map[paste_item.clicked.connect (() => {
             Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 
@@ -537,7 +550,9 @@ public class Views.Project : Adw.Bin {
             arrow = true
         };
 
-        var show_completed_item = new Widgets.ContextMenu.MenuSwitch (_ ("Show Completed Tasks"), "check-round-outline-symbolic");
+        var show_completed_item = new Widgets.ContextMenu.MenuSwitch (_ ("Show Completed"), "check-round-outline-symbolic") {
+            tooltip_text = _("Display completed tasks in the list")
+        };
         show_completed_item.active = project.show_completed;
 
         var show_completed_item_button = new Gtk.Button.from_icon_name ("edit-find-symbolic") {
@@ -740,6 +755,12 @@ public class Views.Project : Adw.Bin {
 
         var dialog = new Dialogs.Section.new (project);
         dialog.present (Planify._instance.main_window);
+    }
+
+    private void clear_multi_select () {
+        Services.EventBus.get_default ().multi_select_enabled = false;
+        Services.EventBus.get_default ().show_multi_select (false);
+        Services.EventBus.get_default ().unselect_all ();
     }
 
     public void clean_up () {

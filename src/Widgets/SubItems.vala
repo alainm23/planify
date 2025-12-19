@@ -119,7 +119,7 @@ public class Widgets.SubItems : Adw.Bin {
             hexpand = true,
             css_classes = { "listbox-background" },
             margin_start = is_board ? 6 : 0,
-            margin_end = is_board ? 12 : 0,
+            margin_end = is_board ? 9 : 0,
         };
 
         if (is_board) {
@@ -535,12 +535,12 @@ public class Widgets.SubItems : Adw.Bin {
             hexpand = true,
             vexpand = true,
             margin_top = 6,
-            margin_start = 6,
-            margin_end = 12,
+            margin_start = 3,
+            margin_end = 3,
             margin_bottom = 6,
-            child = message_label,
-            css_classes = { "card" }
+            child = message_label
         };
+        placeholder_grid.add_css_class ("card");
 
         return placeholder_grid;
     }

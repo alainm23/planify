@@ -31,10 +31,10 @@ namespace Chrono {
         public ENMonthNameParser () {
             try {
                 month_regex = new Regex (
-                    "(\\d{1,2})\\s+(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)(?:\\s+(\\d{2,4}))?|" +
-                    "(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)(?:,?\\s+(\\d{4}))|" +
-                    "(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\\s+(\\d{1,2})(?:,?\\s+(\\d{2,4}))?|" +
-                    "(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)",
+                    "\\b(\\d{1,2})\\s+(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\\b(?:\\s+(\\d{2,4}))?|" +
+                    "\\b(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\\b(?:,?\\s+(\\d{4}))|" +
+                    "\\b(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\\b\\s+(\\d{1,2})(?:,?\\s+(\\d{2,4}))?|" +
+                    "\\b(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\\b",
                     RegexCompileFlags.CASELESS
                 );
             } catch (Error e) {

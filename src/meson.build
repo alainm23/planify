@@ -100,6 +100,7 @@ sources = files(
   'Views/Scheduled/ScheduledDay.vala',
   'Views/Scheduled/ScheduledRange.vala',
   'Views/Scheduled/ScheduledMonth.vala',
+  'Views/Scheduled/ScheduledOverdue.vala',
 
   'Dialogs/Project.vala',
   'Dialogs/Section.vala',
@@ -128,7 +129,7 @@ sources = files(
   'Dialogs/Preferences/Pages/General.vala',
   'Dialogs/Preferences/Pages/TaskSetting.vala',
   'Dialogs/Preferences/Pages/QuickAdd.vala',
-  'Dialogs/Preferences/Pages/Support.vala',
+  'Dialogs/Preferences/Pages/Donate.vala',
   'Dialogs/Preferences/Pages/Accounts/Accounts.vala',
   'Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala',
   'Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala',
@@ -140,10 +141,7 @@ sources = files(
 if get_option('evolution')
     sources += 'Widgets/EventRow.vala'
     sources += 'Widgets/EventsList.vala'
-    sources += 'Services/CalendarEvents/CalendarEvents.vala'
-    sources += 'Services/CalendarEvents/DateIterator.vala'
-    sources += 'Services/CalendarEvents/DateRange.vala'
-    sources += 'Services/CalendarEvents/Util.vala'
+    sources += 'Dialogs/CalendarSync.vala'
 endif
 
 executable(

@@ -271,7 +271,11 @@ public class MainWindow : Adw.ApplicationWindow {
 
         Services.Settings.get_default ().settings.changed["font-scale"].connect (Util.get_default ().update_font_scale);
 
-        Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {            
+        Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {  
+            if (Services.EventBus.get_default ().multi_select_enabled) {
+                clear_multi_select ();
+            }
+
             if (pane_type == PaneType.PROJECT) {
                 var project = Services.Store.instance ().get_project (id);
                 if (project != null) {
@@ -409,8 +413,7 @@ public class MainWindow : Adw.ApplicationWindow {
                 }
                 
                 if (Services.EventBus.get_default ().multi_select_enabled) {
-                    Services.EventBus.get_default ().multi_select_enabled = false;
-                    Services.EventBus.get_default ().show_multi_select (false);
+                    clear_multi_select ();
                     return true;
                 }
                 
@@ -430,10 +433,10 @@ public class MainWindow : Adw.ApplicationWindow {
         });
 
         var window_gesture = new Gtk.GestureClick ();
-        toast_overlay.add_controller (window_gesture);
+        view_stack.add_controller (window_gesture);
         window_gesture.pressed.connect ((n_press, x, y) => {
             if (Services.EventBus.get_default ().item_edit_active) {
-                var target = toast_overlay.pick (x, y, Gtk.PickFlags.DEFAULT);
+                var target = view_stack.pick (x, y, Gtk.PickFlags.DEFAULT);
                 
                 bool clicked_on_editing_task = false;
                 var widget = target;
@@ -459,6 +462,12 @@ public class MainWindow : Adw.ApplicationWindow {
 
     public void show_hide_sidebar () {
         overlay_split_view.show_sidebar = !overlay_split_view.show_sidebar;
+    }
+
+    private void clear_multi_select () {
+        Services.EventBus.get_default ().multi_select_enabled = false;
+        Services.EventBus.get_default ().show_multi_select (false);
+        Services.EventBus.get_default ().unselect_all ();
     }
 
     private void init_backend () {

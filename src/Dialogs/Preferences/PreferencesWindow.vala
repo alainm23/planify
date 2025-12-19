@@ -42,7 +42,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         page.name = "preferences";
         page.icon_name = "applications-system-symbolic";
 
-        var banner_title = new Gtk.Label (_("Support Planify")) {
+        var banner_title = new Gtk.Label (_("Donate")) {
             halign = START,
             css_classes = { "font-bold", "banner-text" }
         };
@@ -57,7 +57,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             css_classes = { "caption", "banner-text" }
         };
 
-        var banner_button = new Gtk.Button.with_label (_("Supporting Us")) {
+        var banner_button = new Gtk.Button.with_label (_("Donate Now")) {
             halign = START,
             margin_top = 6,
             css_classes = { "banner-text" }
@@ -91,7 +91,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
                                                         GLib.SettingsBindFlags.DEFAULT);
 
         signal_map[banner_button.clicked.connect (() => {
-            push_subpage (build_page ("support"));
+            push_subpage (build_page ("donate"));
         })] = banner_button;
 
         signal_map[close_button.clicked.connect (() => {
@@ -145,7 +145,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         task_setting_row.activatable = true;
         task_setting_row.add_prefix (generate_icon ("check-round-outline-symbolic"));
         task_setting_row.add_suffix (generate_icon ("go-next-symbolic"));
-        task_setting_row.title = _("Task Setting");
+        task_setting_row.title = _("Task Settings");
 
         signal_map[task_setting_row.activated.connect (() => {
             push_subpage (build_page ("task-setting"));
@@ -214,11 +214,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         supporting_us_row.activatable = true;
         supporting_us_row.add_prefix (generate_icon ("heart-outline-thick-symbolic"));
         supporting_us_row.add_suffix (generate_icon ("go-next-symbolic"));
-        supporting_us_row.title = _("Support Planify");
+        supporting_us_row.title = _("Donate");
         supporting_us_row.subtitle = _("Want to buy me a drink?");
 
         signal_map[supporting_us_row.activated.connect (() => {
-            push_subpage (build_page ("support"));
+            push_subpage (build_page ("donate"));
         })] = supporting_us_row;
 
         var issue_row = new Adw.ActionRow ();
@@ -364,7 +364,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         })] = backups_row;
 
         signal_map[privacy_policy_row.activated.connect (() => {
-            push_subpage (get_privacy_policy_page ());
+            try {
+                AppInfo.launch_default_for_uri (Constants.PRIVACY_POLICY_URL, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
         })] = privacy_policy_row;
 
         signal_map[delete_row.activated.connect (() => {
@@ -389,87 +393,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
         });
-    }
-
-    private Adw.NavigationPage get_privacy_policy_page () {
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
-            vexpand = true,
-            hexpand = true
-        };
-
-        content_box.append (new Gtk.Label (_("Personal Data")) {
-            css_classes = { "font-bold" },
-            halign = START
-        });
-
-        content_box.append (new Gtk.Label (_(
-                                               "We collect absolutely nothing and all your data is stored in a database on your computer.")) {
-            wrap = true,
-            xalign = 0
-        });
-
-        content_box.append (new Gtk.Label (_(
-                                               "If you choose to integrate Todoist, which is optional and not selected by default, your data will be stored on their private servers, we only display your configured tasks and manage them for you.")) {
-            wrap = true,
-            xalign = 0
-        });
-
-        content_box.append (new Gtk.Label (_("Do you have any questions?")) {
-            css_classes = { "font-bold" },
-            halign = START
-        });
-
-        content_box.append (new Gtk.Label (_(
-                                               "If you have any questions about your data or any other issue, please contact us. We will be happy to answer you.")) {
-            wrap = true,
-            xalign = 0
-        });
-
-        var contact_us_button = new Gtk.Button.with_label (_("Contact Us")) {
-            vexpand = true,
-            margin_bottom = 24,
-            valign = END,
-            css_classes = { "suggested-action" }
-        };
-
-        content_box.append (contact_us_button);
-
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 400,
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12
-        };
-
-        content_clamp.child = content_box;
-
-        var scrolled_window = new Gtk.ScrolledWindow () {
-            hexpand = true,
-            vexpand = true,
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            child = content_clamp
-        };
-
-        var toolbar_view = new Adw.ToolbarView ();
-        toolbar_view.add_top_bar (new Adw.HeaderBar ());
-        toolbar_view.content = scrolled_window;
-
-        var page = new Adw.NavigationPage (toolbar_view, "oauth-todoist") {
-            title = _("Privacy Policy")
-        };
-        
-        signal_map[contact_us_button.clicked.connect (() => {
-            string uri = "mailto:%s".printf (Constants.CONTACT_US);
-
-            try {
-                AppInfo.launch_default_for_uri (uri, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
-        })] = contact_us_button;
-
-        return page;
     }
 
     private Gtk.Widget generate_icon (string icon_name, int size = 16) {
@@ -508,8 +431,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             case "quick-add":
                 page_map[page] = new Dialogs.Preferences.Pages.QuickAdd (this);
                 break;
-            case "support":
-                page_map[page] = new Dialogs.Preferences.Pages.Support (this);
+            case "donate":
+                page_map[page] = new Dialogs.Preferences.Pages.Donate (this);
                 break;
             default:
                 warning ("The page %s does not exist\n", page);

@@ -73,16 +73,16 @@ public class Views.List : Adw.Bin {
 
         var title_box = new Gtk.Box (HORIZONTAL, 6) {
             valign = CENTER,
-            margin_start = 22,
+            margin_start = 30,
         };
 
         title_box.append (icon_project);
         title_box.append (title_label);
 
-        var description_widget = new Widgets.EditableTextView (_ ("Note")) {
+        var description_widget = new Widgets.EditableTextView (_("Note")) {
             text = project.description,
             margin_top = 12,
-            margin_start = 24,
+            margin_start = 32,
             margin_end = 24
         };
 
@@ -115,7 +115,7 @@ public class Views.List : Adw.Bin {
             icon_name = "check-round-outline-symbolic",
             title = _ ("Add Some Tasks"),
             description = _ ("Press 'a' to create a new task"),
-            can_focus = true
+            can_focus = false
         };
         listbox_placeholder.update_property (Gtk.AccessibleProperty.LABEL, 
             _ ("Add Some Tasks. Press 'a' to create a new task"), -1);
@@ -263,7 +263,6 @@ public class Views.List : Adw.Bin {
             filters.sensitive = !active;
             pinned_items_flowbox.sensitive = !active;
 
-            description_widget.sensitive = !active;
             if (active) {
                 description_widget.add_css_class ("dimmed");
             } else {
@@ -284,7 +283,6 @@ public class Views.List : Adw.Bin {
         }
 
         listbox_placeholder_stack.visible_child_name = count > 0 ? "listbox" : "placeholder";
-        scrolled_window.can_focus = count > 0;
     }
 
     private void add_sections () {

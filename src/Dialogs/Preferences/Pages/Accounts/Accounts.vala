@@ -97,25 +97,19 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         };
         inbox_group.add (inbox_page_row);
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 3);
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 3) {
+            margin_start = 12,
+            margin_end = 12
+        };
         content_box.append (sources_group);
         content_box.append (new Gtk.Label (_("You can sort your accounts by dragging and dropping")) {
             css_classes = { "caption", "dimmed" },
-            halign = START,
-            margin_start = 12
+            halign = START
         });
         content_box.append (inbox_group);
 
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 600,
-            margin_start = 24,
-            margin_end = 24
-        };
-
-        content_clamp.child = content_box;
-
         var toolbar_view = new Adw.ToolbarView () {
-            content = content_clamp
+            content = content_box
         };
         toolbar_view.add_top_bar (new Adw.HeaderBar ());
 
@@ -236,8 +230,8 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 24) {
             margin_top = 128,
-            margin_start = 64,
-            margin_end = 64
+            margin_start = 12,
+            margin_end = 12
         };
         box.append (image);
         box.append (label);
@@ -295,8 +289,9 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
 
             Gtk.Image ? warning_image = null;
             if (source.source_type == SourceType.CALDAV && source.caldav_data.ignore_ssl) {
-                warning_image = new Gtk.Image.from_icon_name ("dialog-warning-symbolic");
-                warning_image.set_tooltip_text ("SSL verification is disabled");
+                warning_image = new Gtk.Image.from_icon_name ("dialog-warning-symbolic") {
+                    tooltip_text = _("SSL verification is disabled")
+                };
             }
 
             var end_box = new Gtk.Box (HORIZONTAL, 12) {

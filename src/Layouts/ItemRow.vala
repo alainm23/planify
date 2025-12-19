@@ -228,7 +228,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             height_request = 32,
             css_classes = { "drop-area", "drop-target" },
             margin_bottom = 3,
-            margin_start = 19
+            margin_start = 27
         };
 
         motion_top_revealer = new Gtk.Revealer () {
@@ -238,9 +238,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.CENTER,
-            css_classes = { "priority-color" },
             sensitive = !item.project.is_deck
         };
+        checked_button.add_css_class ("priority-color");
 
         checked_button_revealer = new Gtk.Revealer () {
             child = checked_button,
@@ -1217,7 +1217,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 if (item.project.is_inbox_project) {
                     dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
                 } else {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
+                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
                 }
 
                 dialog.project = item.project;
@@ -1336,7 +1336,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 if (item.project.is_inbox_project) {
                     dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
                 } else {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
+                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
                 }
 
                 signals_map[dialog.changed.connect ((type, id) => {

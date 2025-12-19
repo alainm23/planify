@@ -4,7 +4,7 @@
 }
 
 .calendar-day.selected {
-    background-color: #3584e4;
+    background-color: @accent_color;
     color: #ffffff;
 }
 
