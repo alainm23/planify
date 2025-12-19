@@ -135,6 +135,7 @@ Planify can be built on macOS (tested on Apple Silicon, macOS 14+) using Homebre
    ```bash
    chmod +x run-macos.sh
    ./run-macos.sh
+   GSETTINGS_SCHEMA_DIR=data ./build/src/io.github.alainm23.planify
    ```
    The script cleans the build dir, configures Meson with macOS-safe flags (`-Devolution=false -Dwebkit=false -Dportal=false -Dspelling=disabled`), compiles, compiles schemas, and launches the app with the needed runtime env vars.
 
