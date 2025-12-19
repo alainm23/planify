@@ -22,6 +22,16 @@
 public class Widgets.PinButton : Gtk.Button {
     private Gtk.Image pinned_image;
 
+    public bool no_padding {
+        set {
+            if (value) {
+                add_css_class ("no-padding");
+            } else {
+                remove_css_class ("no-padding");
+            }
+        }
+    }
+
     public signal void changed ();
 
     public PinButton () {
@@ -57,7 +67,7 @@ public class Widgets.PinButton : Gtk.Button {
         } else {
             pinned_image.remove_css_class ("pinboard-color");
         }
-    }
+    } 
 
     public void reset () {
         pinned_image.css_classes = {};

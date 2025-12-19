@@ -32,6 +32,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
     private Widgets.ScheduleButton schedule_button;
     private Widgets.PriorityButton priority_button;
     private Widgets.ReminderPicker.ReminderButton reminder_button;
+    private Widgets.DeadlineButton deadline_button;
+    private Widgets.DeadlineButton deadline_button_detail;
     private Widgets.LabelPicker.LabelButton label_button;
     private Widgets.PinButton pin_button;
     private Gtk.Image added_image;
@@ -246,6 +248,14 @@ public class Layouts.QuickAddCore : Adw.Bin {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Set date"), "Ctrl + d"),
         };
 
+        deadline_button_detail = new Widgets.DeadlineButton.with_detail () {
+            reveal_content = false
+        };
+
+        var dates_box = new Gtk.Box (VERTICAL, 0);
+        dates_box.append (schedule_button);
+        dates_box.append (deadline_button_detail);
+
         label_button = new Widgets.LabelPicker.LabelButton () {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Labels"), "@"),
         };
@@ -259,6 +269,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
         reminder_button = new Widgets.ReminderPicker.ReminderButton (true) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Reminders"), "!"),
         };
+
+        deadline_button = new Widgets.DeadlineButton ();
 
         pin_button = new Widgets.PinButton ();
 
@@ -277,9 +289,10 @@ public class Layouts.QuickAddCore : Adw.Bin {
         action_box_right.append (label_button);
         action_box_right.append (priority_button);
         action_box_right.append (reminder_button);
+        action_box_right.append (deadline_button);
         action_box_right.append (pin_button);
 
-        action_box.append (schedule_button);
+        action_box.append (dates_box);
         action_box.append (action_box_right);
 
         var quick_add_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -534,6 +547,36 @@ public class Layouts.QuickAddCore : Adw.Bin {
                 });
             }
         })] = reminder_button;
+
+        signal_map[deadline_button.date_selected.connect ((date) => {
+            update_deadline (date);
+        })] = deadline_button;
+
+        signal_map[deadline_button.picker_opened.connect ((active) => {
+            parent_can_close (!active);
+
+            if (!active) {
+                Timeout.add (250, () => {
+                    restore_focus ();
+                    return GLib.Source.REMOVE;
+                });
+            }
+        })] = deadline_button;
+
+        signal_map[deadline_button_detail.date_selected.connect ((date) => {
+            update_deadline (date);
+        })] = deadline_button_detail;
+
+        signal_map[deadline_button_detail.picker_opened.connect ((active) => {
+            parent_can_close (!active);
+
+            if (!active) {
+                Timeout.add (250, () => {
+                    restore_focus ();
+                    return GLib.Source.REMOVE;
+                });
+            }
+        })] = deadline_button_detail;
 
         signal_map[content_entry.activate.connect (() => {
             if (labels_quick_picker != null && labels_quick_picker.visible) {
@@ -966,6 +1009,16 @@ public class Layouts.QuickAddCore : Adw.Bin {
         if (labels_change && labels_picker_activate_shortcut) {
             remove_entry_char ("@");
         }
+    }
+
+    private void update_deadline (GLib.DateTime ? date) {
+        item.deadline_date = date == null ? "" : date.to_string ();
+
+        deadline_button.datetime = item.deadline_datetime;
+        deadline_button.reveal_content = !item.has_deadline;
+
+        deadline_button_detail.datetime = item.deadline_datetime;
+        deadline_button_detail.reveal_content = item.has_deadline;
     }
 
     private void remove_entry_char (string value) {

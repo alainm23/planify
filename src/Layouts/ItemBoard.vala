@@ -34,6 +34,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     private Gtk.Label description_label;
     private Gtk.Revealer description_revealer;
 
+    private Gtk.Label deadline_label;
+    private Gtk.Revealer deadline_revealer;
+    private Gtk.Box deadline_box;
+
     private Gtk.Label due_label;
     private Gtk.Box due_box;
     private Gtk.Label repeat_label;
@@ -269,7 +273,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         subtaks_label.add_css_class ("caption");
 
         var subtaks_container = new Adw.Bin () {
-            child = subtaks_label
+            child = subtaks_label,
+            margin_end = 6
         };
         subtaks_container.add_css_class ("upcoming-grid");
 
@@ -278,17 +283,40 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             child = subtaks_container
         };
 
+        var deadline_icon = new Gtk.Image.from_icon_name ("delay-long-small-symbolic") {
+            pixel_size = 12
+        };
+
+        deadline_label = new Gtk.Label (null);
+        deadline_label.add_css_class ("caption");
+
+        deadline_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
+            valign = Gtk.Align.CENTER,
+            hexpand = true,
+            halign = END,
+            css_classes = { "dimmed" }
+        };
+
+        deadline_box.append (deadline_icon);
+        deadline_box.append (deadline_label);
+
+        deadline_revealer = new Gtk.Revealer () {
+            transition_type = SLIDE_RIGHT,
+            child = deadline_box
+        };
+
         footer_box = new Gtk.Box (HORIZONTAL, 0) {
             hexpand = true,
             margin_start = 30,
             margin_top = 3,
-            margin_end = 6
+            margin_end = 12
         };
 
         footer_box.append (due_box_revealer);
         footer_box.append (labels_summary);
         footer_box.append (reminder_revealer);
         footer_box.append (subtaks_revealer);
+        footer_box.append (deadline_revealer);
 
         footer_revealer = new Gtk.Revealer () {
             transition_type = SLIDE_DOWN,
@@ -298,6 +326,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         handle_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         handle_grid.append (content_box);
         handle_grid.append (description_revealer);
+        handle_grid.append (deadline_revealer);
         handle_grid.append (footer_revealer);
 
         card_widget = new Adw.Bin () {
@@ -479,7 +508,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         })] = hide_loading_button;
 
         signals_map[Services.EventBus.get_default ().day_changed.connect (() => {
-            update_due_label ();
+            update_request ();
         })] = Services.EventBus.get_default ();
 
         signals_map[activate.connect (() => {
@@ -613,6 +642,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         description_label.tooltip_text = item.description.strip ();
         description_revealer.reveal_child = description_label.label.length > 0;
 
+        update_deadline ();
         update_due_label ();
         labels_summary.update_request ();
         labels_summary.check_revealer ();
@@ -620,7 +650,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         reminder_revealer.reveal_child = item.reminders.size > 0;
         update_subtasks ();
         footer_revealer.reveal_child = due_box_revealer.reveal_child || labels_summary.reveal_child ||
-                                       reminder_revealer.reveal_child || subtaks_revealer.reveal_child;
+                                       reminder_revealer.reveal_child || subtaks_revealer.reveal_child || deadline_revealer.reveal_child;
     }
 
     private void verify_item_type () {
@@ -680,6 +710,34 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             due_box_revealer.reveal_child = false;
             repeat_revealer.reveal_child = false;
         }
+    }
+
+    private void update_deadline () {
+        deadline_box.remove_css_class ("error");
+        deadline_box.remove_css_class ("dimmed");
+
+        if (item.has_deadline) {
+            deadline_label.label = Utils.Datetime.get_relative_time_from_date (item.deadline_datetime);
+            
+            if (!item.completed) {
+                var date_only = Utils.Datetime.get_date_only (item.deadline_datetime);
+                bool is_overdue = Utils.Datetime.is_today (date_only) || 
+                                  Utils.Datetime.is_yesterday (date_only) || 
+                                  Utils.Datetime.is_overdue (date_only);
+                
+                if (is_overdue) {
+                    deadline_box.add_css_class ("error");
+                } else {
+                    deadline_box.add_css_class ("dimmed");
+                }
+            } else {
+                deadline_box.add_css_class ("dimmed");
+            }
+        } else {
+            deadline_label.label = "";
+        }
+
+        deadline_revealer.reveal_child = item.has_deadline;
     }
 
     private void update_subtasks () {

@@ -330,7 +330,7 @@ public class Views.Project : Adw.Bin {
     private Gtk.Popover build_context_menu_popover () {
         var edit_item = new Widgets.ContextMenu.MenuItem (_ ("Edit Project"), "edit-symbolic");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_ ("Duplicate"), "tabs-stack-symbolic");
-        var schedule_item = new Widgets.ContextMenu.MenuItem (_ ("When?"), "month-symbolic");
+        var schedule_item = new Widgets.ContextMenu.MenuItem (_ ("Project Deadline"), "delay-long-small-symbolic");
         var add_section_item = new Widgets.ContextMenu.MenuItem (_ ("New Section"), "tab-new-symbolic");
         add_section_item.secondary_text = "S";
         var manage_sections = new Widgets.ContextMenu.MenuItem (_ ("Manage Sections"), "permissions-generic-symbolic");
@@ -362,7 +362,7 @@ public class Views.Project : Adw.Bin {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 
             signal_map[schedule_item.activate_item.connect (() => {
-                var dialog = new Dialogs.DatePicker (_ ("When?"));
+                var dialog = new Dialogs.DatePicker (_ ("Project Deadline"));
                 dialog.clear = project.due_date != "";
 
                 signal_map[dialog.date_changed.connect (() => {

@@ -225,6 +225,18 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
         foreach (Objects.Item item in Services.Store.instance ().get_items_by_date (date, false)) {
             add_item (item);
         }
+
+        // Add items with deadline today
+        if (Utils.Datetime.is_today (date)) {
+            foreach (Objects.Item item in Services.Store.instance ().items) {
+                if (!item.checked && !item.was_archived () && item.has_deadline) {
+                    var deadline_date = Utils.Datetime.get_date_only (item.deadline_datetime);
+                    if (Utils.Datetime.is_today (deadline_date) && !items.has_key (item.id)) {
+                        add_item (item);
+                    }
+                }
+            }
+        }
     }
 
     private void add_item (Objects.Item item) {
@@ -236,8 +248,11 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
     }
 
     private void valid_add_item (Objects.Item item) {
-        if (!items.has_key (item.id) &&
-            Services.Store.instance ().valid_item_by_date (item, date, false)) {
+        bool valid_due = item.has_due && Services.Store.instance ().valid_item_by_date (item, date, false);
+        bool valid_deadline = Utils.Datetime.is_today (date) && item.has_deadline && 
+                              Utils.Datetime.is_today (Utils.Datetime.get_date_only (item.deadline_datetime));
+        
+        if (!items.has_key (item.id) && (valid_due || valid_deadline)) {
             items[item.id] = new Layouts.ItemRow (item);
             items[item.id].disable_drag_and_drop ();
             listbox.append (items[item.id]);
@@ -261,26 +276,31 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
             items[item.id].update_request ();
         }
 
-        if (items.has_key (item.id) && !item.has_due) {
+        if (items.has_key (item.id) && !item.has_due && !item.has_deadline) {
             items[item.id].hide_destroy ();
             items.unset (item.id);
         }
 
-
-        if (items.has_key (item.id) && item.has_due) {
-            if (!Services.Store.instance ().valid_item_by_date (item, date, false)) {
+        if (items.has_key (item.id) && (item.has_due || item.has_deadline)) {
+            bool valid_due = item.has_due && Services.Store.instance ().valid_item_by_date (item, date, false);
+            bool valid_deadline = Utils.Datetime.is_today (date) && item.has_deadline && 
+                                  Utils.Datetime.is_today (Utils.Datetime.get_date_only (item.deadline_datetime));
+            
+            if (!valid_due && !valid_deadline) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
             }
         }
 
-        if (item.has_due) {
+        if (item.has_due || (Utils.Datetime.is_today (date) && item.has_deadline)) {
             valid_add_item (item);
         }
 
         listbox_revealer.reveal_child = has_items;
         listbox.invalidate_filter ();
     }
+
+
 
     public void clean_up () {
         listbox.set_filter_func (null);
