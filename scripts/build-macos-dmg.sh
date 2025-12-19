@@ -44,10 +44,22 @@ glib-compile-schemas "$APPDIR/Contents/Resources/glib-2.0/schemas"
 
 # Bundle Planify libs (not fully self-contained; still uses Homebrew GTK stack)
 cp "$DESTDIR/opt/homebrew/lib/libplanify.0.dylib" "$APPDIR/Contents/MacOS/"
-cp "$DESTDIR/opt/homebrew/lib/libgxml-0.20.2.0.2.dylib" "$APPDIR/Contents/MacOS/"
+
+# Find and copy libgxml from Homebrew (it's an external dependency)
+GXML_LIB=$(find /opt/homebrew/lib -name "libgxml-0.20.*.dylib" -type f | head -1)
+if [ -z "$GXML_LIB" ]; then
+  echo "Warning: libgxml not found in /opt/homebrew/lib. App may not work properly." >&2
+else
+  GXML_NAME=$(basename "$GXML_LIB")
+  cp "$GXML_LIB" "$APPDIR/Contents/MacOS/"
+  echo "Bundled $GXML_NAME"
+  
+  # Update library paths
+  install_name_tool -change "/opt/homebrew/lib/$GXML_NAME" "@executable_path/$GXML_NAME" "$APPDIR/Contents/MacOS/libplanify.0.dylib" 2>/dev/null || true
+fi
+
 install_name_tool -change /opt/homebrew/lib/libplanify.0.dylib @executable_path/libplanify.0.dylib "$APPDIR/Contents/MacOS/planify-bin"
 install_name_tool -id @executable_path/libplanify.0.dylib "$APPDIR/Contents/MacOS/libplanify.0.dylib"
-install_name_tool -change /opt/homebrew/lib/libgxml-0.20.2.0.2.dylib @executable_path/libgxml-0.20.2.0.2.dylib "$APPDIR/Contents/MacOS/libplanify.0.dylib"
 
 # Info.plist with version from the build config
 VERSION="$(grep -E 'public const string VERSION' "$BUILD/config.vala" | sed 's/.*\"\\(.*\\)\";/\\1/')" || VERSION="0.0.0"
