@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-14 10:09+0000\n"
-"Last-Translator: Simon Arys <arys.simon@outlook.com>\n"
+"PO-Revision-Date: 2025-12-18 02:00+0000\n"
+"Last-Translator: MolleWare <hugo.molle@yahoo.fr>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/fr/>\n"
 "Language: fr\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -387,11 +387,11 @@ msgstr "Projet copié vers le presse-papiers."
 #: core/Objects/Project.vala:820
 #, c-format
 msgid "Delete Project %s?"
-msgstr "Supprimer le projet %s ?"
+msgstr "Supprimer le projet %s?"
 
 #: core/Objects/Project.vala:877 core/Objects/Section.vala:402
 msgid "Archive?"
-msgstr "Archiver ?"
+msgstr "Archiver  ?"
 
 # # c-format
 #: core/Objects/Project.vala:878 core/Objects/Section.vala:403
@@ -437,7 +437,7 @@ msgstr "Ajouter une description…"
 
 #: core/QuickAddCore.vala:248
 msgid "Set date"
-msgstr ""
+msgstr "Définir la date"
 
 #: core/QuickAddCore.vala:260 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
@@ -522,7 +522,7 @@ msgstr "Ouvre les options de rappel"
 
 #: core/QuickAddCore.vala:1388
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Activer pour rester ouvert après la création de la tâche"
 
 #: core/QuickAddCore.vala:1394
 msgid "Tip"
@@ -1143,7 +1143,7 @@ msgstr "Sa"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:132
 msgid "Type a date…"
-msgstr ""
+msgstr "Entrer une date…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:153
 msgid "Choose a date"
@@ -1290,11 +1290,11 @@ msgstr "Fin"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
-msgstr ""
+msgstr "Supprimer la date"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
@@ -1493,35 +1493,44 @@ msgstr ""
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
 #: src/Views/Project/Project.vala:401
 msgid "Calendar Sync"
-msgstr ""
+msgstr "synchronisation du calendrier"
 
 #: src/Dialogs/CalendarSync.vala:45
 msgid ""
 "Turn your tasks into calendar events automatically. Any task with a date "
 "will appear in your calendar, making it easier to plan your day."
 msgstr ""
+"Transformez automatiquement vos tâches en événements de calendrier. Toute "
+"tâche avec une date apparaîtra dans votre calendrier, ce qui facilitera la "
+"planification de votre journée."
 
 #: src/Dialogs/CalendarSync.vala:53
 msgid ""
 "Requirement: You need a calendar account configured in GNOME Calendar "
 "(Google, Nextcloud, etc.)"
 msgstr ""
+"Exigence : Vous avez besoin d'un compte de calendrier configuré dans GNOME "
+"Calendar (Google, Nextcloud, etc)"
 
 #: src/Dialogs/CalendarSync.vala:62
 msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
 msgstr ""
+"Recevez des notifications mobiles pour vos tâches via Google Agenda, Outlook "
+"ou toute autre application de calendrier"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
 "Your tasks sync everywhere: phone, tablet, web browser, and any device with "
 "your calendar"
 msgstr ""
+"Vos tâches se synchronisent partout : téléphone, tablette, navigateur Web et "
+"n'importe quel appareil avec votre calendrier"
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
-msgstr ""
+msgstr "Choisissez votre calendrier"
 
 #: src/Dialogs/CalendarSync.vala:88
 msgid "Select a calendar from the list"
@@ -1756,8 +1765,7 @@ msgstr "Vous ne pouvez pas cacher ce compte"
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
-msgstr ""
-"Ce compte contient votre projet principal. Veuillez d'abord le changer."
+msgstr "Ce compte contient votre projet principal. Veuillez d'abord le changer."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
 msgid "Change Inbox"
@@ -2142,8 +2150,7 @@ msgstr "Exécuter en arrière-plan"
 
 #: src/Dialogs/Preferences/Pages/General.vala:69
 msgid "Let Planify run in background and send notifications"
-msgstr ""
-"Laisser Planify s’exécuter en arrière-plan et envoyer des notifications"
+msgstr "Laisser Planify s’exécuter en arrière-plan et envoyer des notifications"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
@@ -2468,8 +2475,7 @@ msgstr "Créer un projet tutoriel"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:199
 msgid "Learn the app step by step with a short tutorial project"
-msgstr ""
-"Faites le tour pas à pas de l’application avec un court projet tutoriel"
+msgstr "Faites le tour pas à pas de l’application avec un court projet tutoriel"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:218
 msgid "Want to buy me a drink?"
@@ -2785,8 +2791,8 @@ msgstr "Favoris"
 #: src/Layouts/Sidebar.vala:42
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr ""
-"Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton "
-"« + »"
+"Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton « + "
+"»"
 
 #: src/Layouts/Sidebar.vala:122
 #, fuzzy
@@ -2955,8 +2961,8 @@ msgstr "%d tâches accomplies et leurs sous-tâches seront supprimées"
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
 msgstr ""
-"Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton "
-"« + »"
+"Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton « + "
+"»"
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"

@@ -1733,8 +1733,7 @@ msgstr "Você pode classificar suas contas arrastando e soltando"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
-msgstr ""
-"Planify está sincronizando suas tarefas, isso pode levar alguns minutos"
+msgstr "Planify está sincronizando suas tarefas, isso pode levar alguns minutos"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
