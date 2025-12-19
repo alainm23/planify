@@ -35,6 +35,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Widgets.PinButton pin_button;
     private Widgets.SectionPicker.SectionButton section_button;
     private Widgets.ReminderPicker.ReminderButton reminder_button;
+    private Widgets.DeadlineButton deadline_button;
     private Widgets.SubItems subitems;
     private Widgets.Attachments attachments;
 
@@ -149,6 +150,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         priority_button = new Widgets.PriorityButton.for_board ();
         label_button = new Widgets.LabelPicker.LabelButton.for_board ();
         reminder_button = new Widgets.ReminderPicker.ReminderButton.for_board ();
+        deadline_button = new Widgets.DeadlineButton.card ();
 
         var properties_grid = new Gtk.Grid () {
             column_homogeneous = true,
@@ -163,6 +165,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         properties_grid.attach (priority_button, 1, 1);
         properties_grid.attach (label_button, 0, 2);
         properties_grid.attach (reminder_button, 1, 2);
+        properties_grid.attach (deadline_button, 0, 3);
 
         var properties_group = new Adw.PreferencesGroup () {
             margin_start = 12,
@@ -370,6 +373,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         signals_map[item.loading_change.connect (() => {
             spinner_revealer.reveal_child = item.loading;
         })] = item;
+
+        signals_map[deadline_button.date_selected.connect ((date) => {
+            update_deadline (date);
+        })] = deadline_button;
     }
 
     public void clean_up () {
@@ -406,6 +413,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         section_button.update_from_item (item);
 
         reminder_button.set_reminders (item.reminders);
+
+        deadline_button.datetime = item.deadline_datetime;
         
         content_textview.editable = !item.completed;
         markdown_editor.is_editable = !item.completed;
@@ -423,6 +432,11 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         use_note_item.active = item.item_type == ItemType.NOTE;
         status_button.sensitive = item.item_type == ItemType.TASK;
         parent_back_button.visible = item.has_parent;
+        deadline_button.sensitive = !item.completed;
+
+        if (item.completed) {
+            deadline_button.remove_error_style ();
+        }
     }
 
     public void update_due (Objects.DueDate duedate) {
@@ -694,5 +708,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         }
 
         markdown_handlerses.clear ();
+    }
+
+    public void update_deadline (GLib.DateTime ? date) {
+        item.deadline_date = date == null ? "" : date.to_string ();
+        item.update_async ();
     }
 }

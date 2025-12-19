@@ -622,6 +622,38 @@ public class Utils.Datetime {
         );
     }
 
+    public static string get_relative_time_from_date (GLib.DateTime date) {
+        var date_only = get_date_only (date);
+        var today = get_date_only (new GLib.DateTime.now_local ());
+                
+        string relative_time;
+        if (is_today (date_only)) {
+            relative_time = _("Today");
+        } else if (is_tomorrow (date_only)) {
+            relative_time = _("Tomorrow");
+        } else if (is_yesterday (date_only)) {
+            relative_time = _("Yesterday");
+        } else {
+            int days_diff = (int) ((date_only.difference (today)) / GLib.TimeSpan.DAY);
+            if (days_diff > 0) {
+                relative_time = _("in %d days").printf (days_diff);
+            } else {
+                relative_time = _("%d days ago").printf (-days_diff);
+            }
+        }
+        
+        return relative_time;
+    }
+
+    public static string get_short_date_format_from_date (GLib.DateTime date) {
+        var date_only = get_date_only (date);
+        
+        var day_name = date_only.format ("%a");
+        var day_month = date_only.format ("%e %b");
+
+        return "%s, %s".printf (day_name, day_month);
+    }
+
     public static string get_default_date_format (bool with_weekday = false, bool with_day = true, bool with_year = false) {
         if (with_weekday == true && with_day == true && with_year == true) {
             /// TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year

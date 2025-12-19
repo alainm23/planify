@@ -32,6 +32,7 @@ public class Widgets.DeadlineButton : Adw.Bin {
     private Gtk.Popover calendar_popover;
     private Gtk.MenuButton button;
     private Gtk.Revealer delete_revealer;
+    private Gtk.Label deadline_label;
     private Gtk.Label deadline_date_label;
     private Gtk.Label deadline_relative_label;
     private Gtk.Revealer main_revealer;
@@ -51,12 +52,21 @@ public class Widgets.DeadlineButton : Adw.Bin {
                     deadline_date_label.remove_css_class ("error");
 
                     deadline_relative_label.label = null;
+                    deadline_label.remove_css_class ("error");
+                } else if (button_type == DeadlineButtonType.CARD) {
+                    deadline_label.label = _("Set a Deadline");
+                    deadline_label.tooltip_text = null;
+                    deadline_icon.remove_css_class ("error");
                 }
             } else {
                 if (button_type == DeadlineButtonType.BUTTON_DETAIL) {
                     deadline_date_label.label = get_date_format (value);
                     deadline_relative_label.label = get_relative_date_format (value);
                     update_error_style (value);
+                } else if (button_type == DeadlineButtonType.CARD) {
+                    deadline_label.label = "%s, %s".printf (get_date_format (value), get_relative_date_format (value));
+                    deadline_label.tooltip_text = deadline_label.label;
+                    update_card_error_style (value);
                 }
             }
         }
@@ -69,6 +79,7 @@ public class Widgets.DeadlineButton : Adw.Bin {
     }
 
     public signal void date_selected (GLib.DateTime ? date);
+    public signal void picker_opened (bool active);
 
     public DeadlineButton () {
         Object (
@@ -97,12 +108,21 @@ public class Widgets.DeadlineButton : Adw.Bin {
 
     construct {
         calendar_popover = build_popover ();
+        
         build_button_content ();
         build_ui ();
+
+        calendar_popover.closed.connect (() => {
+            picker_opened (false);
+        });
+
+        calendar_popover.show.connect (() => {
+            picker_opened (true);
+        });
     }
 
     private void build_button_content () {
-        deadline_icon = new Gtk.Image.from_icon_name ("hourglass-symbolic");
+        deadline_icon = new Gtk.Image.from_icon_name ("delay-long-small-symbolic");
         
         Gtk.Widget button_child;
 
@@ -126,8 +146,33 @@ public class Widgets.DeadlineButton : Adw.Bin {
             deadline_box.append (deadline_relative_label);
             button_child = deadline_box;
         } else {
-            // CARD type
-            button_child = deadline_icon;
+            var title_label = new Gtk.Label (_("Deadline")) {
+                halign = START,
+                css_classes = { "title-4", "caption", "font-bold" }
+            };
+
+            deadline_label = new Gtk.Label (_("Set a Deadline")) {
+                xalign = 0,
+                use_markup = true,
+                halign = START,
+                ellipsize = Pango.EllipsizeMode.END,
+                css_classes = { "caption" }
+            };
+
+            var card_grid = new Gtk.Grid () {
+                column_spacing = 12,
+                margin_start = 12,
+                margin_end = 6,
+                margin_top = 6,
+                margin_bottom = 6,
+                vexpand = true,
+                hexpand = true
+            };
+            card_grid.attach (deadline_icon, 0, 0, 1, 2);
+            card_grid.attach (title_label, 1, 0, 1, 1);
+            card_grid.attach (deadline_label, 1, 1, 1, 1);
+
+            button_child = card_grid;
         }
 
         button = new Gtk.MenuButton () {
@@ -136,6 +181,13 @@ public class Widgets.DeadlineButton : Adw.Bin {
             child = button_child,
             popover = calendar_popover
         };
+
+        if (button_type == DeadlineButtonType.CARD) {
+            add_css_class ("card");
+            add_css_class ("activatable");
+            button.add_css_class ("menu-button-no-padding");
+            button.hexpand = true;
+        }
     }
 
     private void build_ui () {
@@ -191,35 +243,11 @@ public class Widgets.DeadlineButton : Adw.Bin {
     }
 
     private string get_date_format (GLib.DateTime date) {
-        var date_only = Utils.Datetime.get_date_only (date);
-        
-        var day_name = date_only.format ("%a");
-        var day_month = date_only.format ("%e %b");
-
-        return "%s, %s".printf (day_name, day_month);
+        return Utils.Datetime.get_short_date_format_from_date (date);
     }
 
     private string get_relative_date_format (GLib.DateTime date) {
-        var date_only = Utils.Datetime.get_date_only (date);
-        var today = Utils.Datetime.get_date_only (new GLib.DateTime.now_local ());
-                
-        string relative_time;
-        if (Utils.Datetime.is_today (date_only)) {
-            relative_time = _("Today");
-        } else if (Utils.Datetime.is_tomorrow (date_only)) {
-            relative_time = _("Tomorrow");
-        } else if (Utils.Datetime.is_yesterday (date_only)) {
-            relative_time = _("Yesterday");
-        } else {
-            int days_diff = (int) ((date_only.difference (today)) / GLib.TimeSpan.DAY);
-            if (days_diff > 0) {
-                relative_time = _("in %d days").printf (days_diff);
-            } else {
-                relative_time = _("%d days ago").printf (-days_diff);
-            }
-        }
-        
-        return relative_time;
+        return Utils.Datetime.get_relative_time_from_date (date);
     }
 
     private void update_error_style (GLib.DateTime date) {
@@ -233,6 +261,31 @@ public class Widgets.DeadlineButton : Adw.Bin {
             deadline_icon.add_css_class ("error");
         } else {
             deadline_date_label.remove_css_class ("error");
+            deadline_icon.remove_css_class ("error");
+        }
+    }
+
+    private void update_card_error_style (GLib.DateTime date) {
+        var date_only = Utils.Datetime.get_date_only (date);
+        bool is_overdue = Utils.Datetime.is_today (date_only) || 
+                          Utils.Datetime.is_yesterday (date_only) || 
+                          Utils.Datetime.is_overdue (date_only);
+        
+        if (is_overdue) {
+            deadline_label.add_css_class ("error");
+            deadline_icon.add_css_class ("error");
+        } else {
+            deadline_label.remove_css_class ("error");
+            deadline_icon.remove_css_class ("error");
+        }
+    }
+
+    public void remove_error_style () {
+        if (button_type == DeadlineButtonType.BUTTON_DETAIL) {
+            deadline_date_label.remove_css_class ("error");
+            deadline_icon.remove_css_class ("error");
+        } else if (button_type == DeadlineButtonType.CARD) {
+            deadline_label.remove_css_class ("error");
             deadline_icon.remove_css_class ("error");
         }
     }

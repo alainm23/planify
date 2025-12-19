@@ -472,6 +472,18 @@ public class Views.Today : Adw.Bin {
             add_item (item);
         }
 
+        foreach (Objects.Item item in Services.Store.instance ().items) {
+            if (!item.checked && !item.was_archived () && item.has_deadline) {
+                var deadline_date = Utils.Datetime.get_date_only (item.deadline_datetime);
+                
+                if (Utils.Datetime.is_today (deadline_date) && !items.has_key (item.id)) {
+                    add_item (item);
+                } else if (Utils.Datetime.is_overdue (deadline_date) && !overdue_items.has_key (item.id)) {
+                    add_overdue_item (item);
+                }
+            }
+        }
+
         update_headers ();
     }
 
@@ -496,13 +508,17 @@ public class Views.Today : Adw.Bin {
     }
 
     private void valid_add_item (Objects.Item item) {
-        if (!items.has_key (item.id) &&
-            Services.Store.instance ().valid_item_by_date (item, date, false)) {
+        bool valid_due_today = item.has_due && Services.Store.instance ().valid_item_by_date (item, date, false);
+        bool valid_deadline_today = item.has_deadline && Utils.Datetime.is_today (Utils.Datetime.get_date_only (item.deadline_datetime));
+        
+        if (!items.has_key (item.id) && (valid_due_today || valid_deadline_today)) {
             add_item (item);
         }
 
-        if (!overdue_items.has_key (item.id) &&
-            Services.Store.instance ().valid_item_by_overdue (item, date, false)) {
+        bool valid_due_overdue = item.has_due && Services.Store.instance ().valid_item_by_overdue (item, date, false);
+        bool valid_deadline_overdue = item.has_deadline && Utils.Datetime.is_overdue (Utils.Datetime.get_date_only (item.deadline_datetime));
+        
+        if (!overdue_items.has_key (item.id) && (valid_due_overdue || valid_deadline_overdue)) {
             add_overdue_item (item);
         }
 
@@ -538,31 +554,37 @@ public class Views.Today : Adw.Bin {
             overdue_items[item.id].update_request ();
         }
 
-        if (items.has_key (item.id) && !item.has_due) {
+        if (items.has_key (item.id) && !item.has_due && !item.has_deadline) {
             items[item.id].hide_destroy ();
             items.unset (item.id);
         }
 
-        if (overdue_items.has_key (item.id) && !item.has_due) {
+        if (overdue_items.has_key (item.id) && !item.has_due && !item.has_deadline) {
             overdue_items[item.id].hide_destroy ();
             overdue_items.unset (item.id);
         }
 
-        if (items.has_key (item.id) && item.has_due) {
-            if (!Services.Store.instance ().valid_item_by_date (item, date, false)) {
+        if (items.has_key (item.id) && (item.has_due || item.has_deadline)) {
+            bool valid_due = item.has_due && Services.Store.instance ().valid_item_by_date (item, date, false);
+            bool valid_deadline = item.has_deadline && Utils.Datetime.is_today (Utils.Datetime.get_date_only (item.deadline_datetime));
+            
+            if (!valid_due && !valid_deadline) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
             }
         }
 
-        if (overdue_items.has_key (item.id) && item.has_due) {
-            if (!Services.Store.instance ().valid_item_by_overdue (item, date, false)) {
+        if (overdue_items.has_key (item.id) && (item.has_due || item.has_deadline)) {
+            bool valid_due = item.has_due && Services.Store.instance ().valid_item_by_overdue (item, date, false);
+            bool valid_deadline = item.has_deadline && Utils.Datetime.is_overdue (Utils.Datetime.get_date_only (item.deadline_datetime));
+            
+            if (!valid_due && !valid_deadline) {
                 overdue_items[item.id].hide_destroy ();
                 overdue_items.unset (item.id);
             }
         }
 
-        if (item.has_due) {
+        if (item.has_due || item.has_deadline) {
             valid_add_item (item);
         }
 

@@ -50,8 +50,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer repeat_revealer;
     private Gtk.Revealer due_box_revealer;
     private Gtk.Revealer description_image_revealer;
-    private Gtk.Revealer reminder_revelaer;
+    private Gtk.Revealer reminder_revealer;
     private Gtk.Label reminder_count;
+    private Gtk.Label deadline_label;
+    private Gtk.Box deadline_box;
+    private Gtk.Revealer deadline_revealer;
     private Gtk.Box action_box_right;
 
     private Gtk.Revealer detail_revealer;
@@ -125,7 +128,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 // Due labels
                 due_box_revealer.reveal_child = false;
                 description_image_revealer.reveal_child = false;
-                reminder_revelaer.reveal_child = false;
+                reminder_revealer.reveal_child = false;
+                deadline_revealer.reveal_child = false;
 
                 if (complete_timeout != 0) {
                     itemrow_box.remove_css_class ("complete");
@@ -164,6 +168,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 check_due ();
                 check_description ();
                 check_reminders ();
+                check_deadline ();
 
                 if (drag_enabled) {
                     build_drag_and_drop ();
@@ -332,7 +337,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         reminder_box.append (reminder_icon);
         reminder_box.append (reminder_count);
 
-        reminder_revelaer = new Gtk.Revealer () {
+        reminder_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
             child = reminder_box
         };
@@ -342,12 +347,53 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             start_margin = 6
         };
 
+        var deadline_icon = new Gtk.Image.from_icon_name ("delay-long-small-symbolic") {
+            pixel_size = 12
+        };
+
+        deadline_label = new Gtk.Label (null);
+        deadline_label.add_css_class ("caption");
+
+        deadline_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
+            valign = CENTER,
+            css_classes = { "dimmed" },
+        };
+
+        deadline_box.append (deadline_icon);
+        deadline_box.append (deadline_label);
+
+        deadline_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = deadline_box
+        };
+
+        project_name_label = new Gtk.Label (null) {
+            css_classes = { "caption", "dimmed" },
+            ellipsize = Pango.EllipsizeMode.END,
+            max_width_chars = 16,
+            margin_start = 6
+        };
+
+        project_name_label_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = project_name_label,
+            reveal_child = !is_project_view
+        };
+
+        var right_box = new Gtk.Box (HORIZONTAL, 0) {
+            hexpand = true,
+            halign = END
+        };
+        right_box.append (deadline_revealer);
+        right_box.append (project_name_label_revealer);
+
         var content_label_box = new Gtk.Box (HORIZONTAL, 0);
         content_label_box.append (due_box_revealer);
         content_label_box.append (content_label);
         content_label_box.append (description_image_revealer);
-        content_label_box.append (reminder_revelaer);
+        content_label_box.append (reminder_revealer);
         content_label_box.append (labels_summary);
+        content_label_box.append (right_box);
 
         content_label_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
@@ -418,19 +464,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = select_checkbutton
         };
 
-        project_name_label = new Gtk.Label (null) {
-            css_classes = { "caption", "dimmed" },
-            margin_end = 6,
-            ellipsize = Pango.EllipsizeMode.END,
-            max_width_chars = 16
-        };
-
-        project_name_label_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = project_name_label,
-            reveal_child = !is_project_view
-        };
-
         content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             valign = CENTER,
             margin_start = 6
@@ -441,7 +474,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var content_main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         content_main_box.append (checked_button_revealer);
         content_main_box.append (content_box);
-        content_main_box.append (project_name_label_revealer);
         content_main_box.append (hide_loading_revealer);
 
         markdown_revealer = new Gtk.Revealer ();
@@ -455,7 +487,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             sensitive = !item.completed
         };
 
-        deadline_button_detail = new Widgets.DeadlineButton.with_detail ();
+        deadline_button_detail = new Widgets.DeadlineButton.with_detail () {
+            sensitive = !item.completed
+        };
 
         var dates_box = new Gtk.Box (VERTICAL, 0);
         dates_box.append (schedule_button);
@@ -475,7 +509,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             sensitive = !item.completed
         };
 
-        deadline_button = new Widgets.DeadlineButton ();
+        deadline_button = new Widgets.DeadlineButton () {
+            sensitive = !item.completed
+        };
 
         attachments = new Widgets.Attachments ();
         attachments.present_item (item);
@@ -971,7 +1007,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = Services.EventBus.get_default ();
 
         signals_map[Services.EventBus.get_default ().day_changed.connect (() => {
-            schedule_button.update_from_item (item);
+            update_request ();
         })] = Services.EventBus.get_default ();
 
         signals_map[notify["edit"].connect (() => {
@@ -1091,6 +1127,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         check_due ();
         check_description ();
         check_reminders ();
+        check_deadline ();
 
         if (edit) {
             add_css_class ("task-editing");
@@ -1107,8 +1144,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             reminder_button.sensitive = !item.completed;
             add_subtasks_button.sensitive = !item.completed;
             attachments_button.sensitive = !item.completed;
+            deadline_button.sensitive = !item.completed;
+            deadline_button_detail.sensitive = !item.completed;
         } else {
             remove_css_class ("task-editing");
+        }
+
+        if (item.completed) {
+            deadline_button_detail.remove_error_style ();
         }
     }
 
@@ -1136,7 +1179,31 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     private void check_reminders () {
         reminder_count.label = item.reminders.size.to_string ();
-        reminder_revelaer.reveal_child = !edit && item.reminders.size > 0;
+        reminder_revealer.reveal_child = !edit && item.reminders.size > 0;
+    }
+
+    private void check_deadline () {
+        deadline_box.remove_css_class ("error");
+        deadline_box.remove_css_class ("dimmed");
+
+        if (item.has_deadline) {
+            deadline_label.label = Utils.Datetime.get_relative_time_from_date (item.deadline_datetime);
+            
+            var date_only = Utils.Datetime.get_date_only (item.deadline_datetime);
+            bool is_overdue = Utils.Datetime.is_today (date_only) || 
+                              Utils.Datetime.is_yesterday (date_only) || 
+                              Utils.Datetime.is_overdue (date_only);
+            
+            if (is_overdue) {
+                deadline_box.add_css_class ("error");
+            } else {
+                deadline_box.add_css_class ("dimmed");
+            }
+        } else {
+            deadline_label.label = "";
+        }
+
+        deadline_revealer.reveal_child = !edit && item.has_deadline;
     }
 
     private void check_due () {

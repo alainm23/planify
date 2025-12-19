@@ -164,7 +164,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
         var title_label = new Gtk.Label (label) {
             halign = START,
-            css_classes = { "title-4", "caption" }
+            css_classes = { "title-4", "caption", "font-bold" }
         };
 
         due_label = new Gtk.Label (_("Set a Due Date")) {
