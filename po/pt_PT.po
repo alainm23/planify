@@ -336,7 +336,7 @@ msgstr "Eliminar a etiqueta %s"
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:821
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
-#: src/Layouts/ItemSidebarView.vala:566 src/Layouts/SectionBoard.vala:635
+#: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
 msgstr "Isto não pode ser revertido"
@@ -351,7 +351,7 @@ msgstr "Isto não pode ser revertido"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
-#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:569
+#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:580
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -364,7 +364,7 @@ msgstr "Cancelar"
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
-#: src/Layouts/ItemSidebarView.vala:570 src/Layouts/SectionBoard.vala:639
+#: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
 #: src/Widgets/MultiSelectToolbar.vala:288
@@ -1601,7 +1601,7 @@ msgid "Network Is Not Available"
 msgstr "A rede não se encontra disponível"
 
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1426
-#: src/Layouts/ItemSidebarView.vala:484
+#: src/Layouts/ItemSidebarView.vala:495
 msgid "Change History"
 msgstr "Histórico de alterações"
 
@@ -2546,7 +2546,7 @@ msgstr "O projeto foi adicionado com sucesso!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:780 src/Layouts/ItemRow.vala:1293
-#: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemSidebarView.vala:479
+#: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemSidebarView.vala:490
 msgid "Move"
 msgstr "Mover"
 
@@ -2597,7 +2597,7 @@ msgid "Unpin"
 msgstr "Desafixar"
 
 #: src/Layouts/ItemBoard.vala:623 src/Layouts/ItemRow.vala:1627
-#: src/Layouts/ItemSidebarView.vala:645
+#: src/Layouts/ItemSidebarView.vala:656
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Terminado. Próxima ocorrência: %s"
@@ -2611,14 +2611,14 @@ msgid "Edit"
 msgstr "Editar"
 
 #: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1299
-#: src/Layouts/ItemRow.vala:1420 src/Layouts/ItemSidebarView.vala:478
+#: src/Layouts/ItemRow.vala:1420 src/Layouts/ItemSidebarView.vala:489
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:659 src/Views/Project/Project.vala:332
 msgid "Duplicate"
 msgstr "Duplicar"
 
 #: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1301
-#: src/Layouts/ItemRow.vala:1423 src/Layouts/ItemSidebarView.vala:481
+#: src/Layouts/ItemRow.vala:1423 src/Layouts/ItemSidebarView.vala:492
 msgid "Delete Task"
 msgstr "Eliminar tarefa"
 
@@ -2651,11 +2651,11 @@ msgstr "Ocultar subtarefas"
 msgid "Show Sub-tasks"
 msgstr "Mostrar subtarefas"
 
-#: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:475
+#: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:486
 msgid "Use as a Note"
 msgstr "Usar como nota"
 
-#: src/Layouts/ItemRow.vala:1419 src/Layouts/ItemSidebarView.vala:477
+#: src/Layouts/ItemRow.vala:1419 src/Layouts/ItemSidebarView.vala:488
 msgid "Copy to Clipboard"
 msgstr "Copiar para a área de trabalho"
 
@@ -2671,7 +2671,7 @@ msgstr "Título"
 msgid "Properties"
 msgstr "Propriedades"
 
-#: src/Layouts/ItemSidebarView.vala:565
+#: src/Layouts/ItemSidebarView.vala:576
 msgid "Are you sure you want to delete?"
 msgstr "Tem a certeza de que pretende eliminar?"
 
