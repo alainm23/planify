@@ -301,6 +301,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
                 Services.EventBus.get_default ().close_item ();
             }
         });
+
+        if (Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
+            init_markdown_editor ();
+        }
     }
 
     private void update_content_description () {
@@ -313,14 +317,18 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     public void present_item (Objects.Item _item) {
-        if (Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
+        bool always_show = Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar");
+        
+        if (always_show) {
             clean_up ();
         }
 
         item = _item;
         update_id = Util.get_default ().generate_id ();
 
-        build_markdown_editor ();
+        if (!always_show) {
+            build_markdown_editor ();
+        }
 
         label_button.source = item.project.source;
         update_request ();
@@ -387,8 +395,11 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         signals_map.clear ();
         subitems.clean_up ();
         attachments.clean_up ();
+        destroy_markdown_signals ();
 
-        destroy_markdown_editor ();
+        if (!Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
+            destroy_markdown_editor ();
+        }
     }
 
     public void update_request () {
@@ -645,6 +656,27 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         var title = _("Completed. Next occurrence: %s".printf (Utils.Datetime.get_default_date_format_from_date (next_recurrency)));
         var toast = Util.get_default ().create_toast (title, 3);
         Services.EventBus.get_default ().send_toast (toast);
+    }
+
+    private void init_markdown_editor () {
+        markdown_editor = new Widgets.MarkdownEditor ();
+        markdown_editor.text_view.height_request = 64;
+        markdown_editor.margin_start = 12;
+        markdown_editor.margin_end = 12;
+        markdown_editor.margin_top = 12;
+        markdown_editor.margin_bottom = 12;
+
+        var markdown_editor_card = new Adw.Bin () {
+            child = markdown_editor,
+            margin_top = 3,
+            margin_start = 3,
+            margin_end = 3,
+            margin_bottom = 3
+        };
+        markdown_editor_card.add_css_class ("card");
+
+        markdown_editor_revealer.child = markdown_editor_card;
+        markdown_editor_revealer.reveal_child = true;
     }
 
     private void build_markdown_editor () {
