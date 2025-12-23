@@ -561,9 +561,13 @@ public class Services.Backups : Object {
     }
 
     private void add_filters (Gtk.FileDialog file_dialog) {
-        Gtk.FileFilter filter = new Gtk.FileFilter ();
-        filter.add_pattern ("*.json");
+        var filter = new Gtk.FileFilter ();
         filter.set_filter_name (_("Planify Backup Files"));
+        filter.add_pattern ("*.json");
+        
+        var filters = new ListStore (typeof (Gtk.FileFilter));
+        filters.append (filter);
+        file_dialog.filters = filters;
         file_dialog.default_filter = filter;
     }
 }
