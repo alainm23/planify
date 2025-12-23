@@ -58,7 +58,7 @@ public class Views.Scheduled.ScheduledOverdue : Gtk.ListBoxRow {
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
             valign = CENTER,
-            margin_start = 24,
+            margin_start = 30,
             margin_end = 24
         };
 
