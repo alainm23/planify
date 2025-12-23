@@ -100,7 +100,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         };
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 24,
+            margin_start = 30,
             margin_bottom = 6
         };
 
@@ -114,7 +114,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             base_object = Objects.Filters.Scheduled.get_default ()
         };
 
-        filters.flowbox.margin_start = 24;
+        filters.flowbox.margin_start = 30;
         filters.flowbox.margin_top = 12;
         filters.flowbox.margin_end = 12;
         filters.flowbox.margin_bottom = 3;
