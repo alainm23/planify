@@ -609,13 +609,13 @@ public class Views.Filter : Adw.Bin {
 
             var dialog = new Adw.AlertDialog (
                 GLib.ngettext (
-                    _("Delete Completed Task"),
-                    _("Delete Completed Tasks"),
+                    "Delete Completed Task",
+                    "Delete Completed Tasks",
                     items.size
                 ),
                 GLib.ngettext (
-                    _("This will delete %d completed task and its subtasks"),
-                    _("This will delete %d completed tasks and their subtasks"),
+                    "This will delete %d completed task and its subtasks",
+                    "This will delete %d completed tasks and their subtasks",
                     items.size
                 ).printf (items.size)
             );
