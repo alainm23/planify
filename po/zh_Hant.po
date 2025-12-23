@@ -2768,7 +2768,7 @@ msgstr "Planify 將會重新啟動以套用變更"
 msgid "Restart Now"
 msgstr "立即重新啟動"
 
-#: src/Services/Backups.vala:566
+#: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Planify 備份檔案"
 

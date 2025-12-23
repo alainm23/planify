@@ -2835,7 +2835,7 @@ msgstr "Planify će se ponovo pokrenuti kako bi se primijenile promjene"
 msgid "Restart Now"
 msgstr "Ponovo pokreni sada"
 
-#: src/Services/Backups.vala:566
+#: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Datoteke sigurnosnih kopija aplikacije Planify"
 

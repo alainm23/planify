@@ -2858,7 +2858,7 @@ msgstr ""
 msgid "Restart Now"
 msgstr ""
 
-#: src/Services/Backups.vala:566
+#: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Planify сақтық көшірме файлдары"
 

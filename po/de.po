@@ -2850,7 +2850,7 @@ msgstr "Planify wird neu gestartet um die Änderungen anzuwenden"
 msgid "Restart Now"
 msgstr "Jetzt neustarten"
 
-#: src/Services/Backups.vala:566
+#: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Planify Sicherungsdateien"
 

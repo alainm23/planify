@@ -2839,7 +2839,7 @@ msgstr "O Planify vai reiniciar para aplicar as alterações feitas"
 msgid "Restart Now"
 msgstr "Reiniciar agora"
 
-#: src/Services/Backups.vala:566
+#: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Ficheiros da cópia de segurança do Planify"
 

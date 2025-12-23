@@ -2741,7 +2741,7 @@ msgstr ""
 msgid "Restart Now"
 msgstr "Taaskäivita kohe"
 
-#: src/Services/Backups.vala:566
+#: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Planify varukoopiad"
 

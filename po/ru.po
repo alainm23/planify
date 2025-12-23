@@ -2828,7 +2828,7 @@ msgstr "Planify перезапустится, чтобы применить из
 msgid "Restart Now"
 msgstr "Перезапустить сейчас"
 
-#: src/Services/Backups.vala:566
+#: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Резервные копии Planify"
 

@@ -2877,7 +2877,7 @@ msgstr ""
 msgid "Restart Now"
 msgstr ""
 
-#: src/Services/Backups.vala:566
+#: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "प्लॅानिफाई की बैकअप फाइलें"
 

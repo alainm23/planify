@@ -2796,7 +2796,7 @@ msgstr "Planify sẽ khởi động lại để áp dụng các thay đổi"
 msgid "Restart Now"
 msgstr "Khởi Động Lại Ngay"
 
-#: src/Services/Backups.vala:566
+#: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Tệp Sao Lưu Planify"
 
