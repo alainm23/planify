@@ -2833,7 +2833,7 @@ msgstr "Planify перезавантажиться, щоб застосуват�
 msgid "Restart Now"
 msgstr "Перезавантажити зараз"
 
-#: src/Services/Backups.vala:566
+#: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Планування резервних копій файлів"
 
