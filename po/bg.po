@@ -1634,8 +1634,7 @@ msgstr "Зареждане"
 
 #: src/Dialogs/GoogleOAuth.vala:83
 msgid "Planner is sync your tasks, this may take a few minutes"
-msgstr ""
-"„Planner“ синхронизира задачите ви, което може да отнеме няколко минути"
+msgstr "„Planner“ синхронизира задачите ви, което може да отнеме няколко минути"
 
 #: src/Dialogs/GoogleOAuth.vala:135
 msgid "Please enter your credentials"
@@ -2252,8 +2251,8 @@ msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
 msgstr ""
-"Отидете в „Стандартни настройки“ → „Клавиатура“ → „Клавишни комбинации“ → "
-"„Друг“, след което добавете нова комбинация със следното:"
+"Отидете в „Стандартни настройки“ → „Клавиатура“ → „Клавишни комбинации“ → „"
+"Друг“, след което добавете нова комбинация със следното:"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
 msgid "Settings"
@@ -2265,8 +2264,7 @@ msgstr "Запазване на последно избрания проект"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
-msgstr ""
-"Ако е премахната отметката, по подразбиране се избира проекта „Входящи“"
+msgstr "Ако е премахната отметката, по подразбиране се избира проекта „Входящи“"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:121
 msgid "The command was copied to the clipboard"

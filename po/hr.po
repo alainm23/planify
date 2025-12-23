@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-15 12:51+0000\n"
+"PO-Revision-Date: 2025-12-21 01:00+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/hr/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -658,12 +658,12 @@ msgstr "Ne,"
 #: core/Utils/Datetime.vala:639
 #, c-format
 msgid "in %d days"
-msgstr ""
+msgstr "za %d dana"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
 msgid "%d days ago"
-msgstr ""
+msgstr "prije %d dana"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
@@ -1269,17 +1269,17 @@ msgstr "Dodaj vrijeme"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:132
 msgid "Set Deadline"
-msgstr ""
+msgstr "Postavi rok"
 
 #: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:87
 #: core/Widgets/DeadlineButton.vala:94 core/Widgets/DeadlineButton.vala:101
 #: core/Widgets/DeadlineButton.vala:154
 msgid "Set a Deadline"
-msgstr ""
+msgstr "Postavi rok"
 
 #: core/Widgets/DeadlineButton.vala:149
 msgid "Deadline"
-msgstr ""
+msgstr "Rok"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -2920,7 +2920,7 @@ msgstr "Novi zadatak"
 
 #: src/Views/Project/Project.vala:333 src/Views/Project/Project.vala:365
 msgid "Project Deadline"
-msgstr ""
+msgstr "Rok projekta"
 
 #: src/Views/Project/Project.vala:338
 msgid "Select"
@@ -3178,7 +3178,7 @@ msgstr "Završeno"
 
 #: src/Widgets/MultiSelectToolbar.vala:66
 msgid "Move to Project"
-msgstr ""
+msgstr "Premjesti u projekt"
 
 #: src/Widgets/MultiSelectToolbar.vala:242
 msgid "Mark as Completed"
@@ -3215,7 +3215,7 @@ msgstr "Stvarno želiš izbrisati ovih %d zadatka?"
 #: src/Widgets/MultiSelectToolbar.vala:376
 #, c-format
 msgid "%d tasks moved to %s"
-msgstr ""
+msgstr "%d zadatka premješteno u %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
