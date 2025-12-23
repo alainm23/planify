@@ -636,9 +636,9 @@ public class Utils.Datetime {
         } else {
             int days_diff = (int) ((date_only.difference (today)) / GLib.TimeSpan.DAY);
             if (days_diff > 0) {
-                relative_time = _("in %d days").printf (days_diff);
+                relative_time = GLib.ngettext ("in %d day", "in %d days", days_diff).printf (days_diff);
             } else {
-                relative_time = _("%d days ago").printf (-days_diff);
+                relative_time = GLib.ngettext ("%d day ago", "%d days ago", -days_diff).printf (-days_diff);
             }
         }
         

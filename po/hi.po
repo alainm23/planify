@@ -30,7 +30,7 @@ msgstr "कार्य"
 #: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:781
-#: src/Layouts/ItemRow.vala:1294
+#: src/Layouts/ItemRow.vala:1294 core/Enum.vala:530
 msgid "Labels"
 msgstr "लेबल"
 
@@ -42,7 +42,7 @@ msgstr "फिल्टर"
 msgid "Lists"
 msgstr "सूचियां"
 
-#: core/Enum.vala:218
+#: core/Enum.vala:218 core/Enum.vala:214
 msgid "Don't Repeat"
 msgstr "दोहराएं नहीं"
 
@@ -108,12 +108,14 @@ msgstr "हर %d वर्ष"
 
 #: core/Enum.vala:280 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
+#: core/Enum.vala:276
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: core/Enum.vala:283 core/Services/CalDAV/CalDAVClient.vala:121
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
+#: core/Enum.vala:279
 msgid "CalDAV"
 msgstr "CalDAV"
 
@@ -122,48 +124,53 @@ msgstr "CalDAV"
 #: src/Views/Scheduled/Scheduled.vala:230
 #: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:633
 #: src/Views/Today.vala:662 src/Widgets/ItemDetailCompleted.vala:82
+#: core/Enum.vala:341 core/Enum.vala:527
 msgid "Priority"
 msgstr "वरीयता"
 
-#: core/Enum.vala:348
+#: core/Enum.vala:348 core/Enum.vala:344
 msgid "Label"
 msgstr "लेबल"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:499
 #: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:631
+#: core/Enum.vala:347
 msgid "Due Date"
 msgstr "देय तारीख"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
+#: core/Enum.vala:350
 msgid "Section"
 msgstr "अनुभाग"
 
-#: core/Enum.vala:463
+#: core/Enum.vala:463 core/Enum.vala:459
 msgid "Task Created"
 msgstr "कार्य निर्मित"
 
-#: core/Enum.vala:466
+#: core/Enum.vala:466 core/Enum.vala:462
 msgid "Task Updated"
 msgstr "कार्य अद्यतित"
 
-#: core/Enum.vala:522
+#: core/Enum.vala:522 core/Enum.vala:518
 msgid "Content"
 msgstr "सामग्री"
 
 #: core/Enum.vala:525 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:1998 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
+#: core/Enum.vala:521
 msgid "Description"
 msgstr "विवरण"
 
-#: core/Enum.vala:528 core/Objects/Filters/Scheduled.vala:48
+#: core/Enum.vala:528 core/Objects/Filters/Scheduled.vala:48 core/Enum.vala:524
 msgid "Scheduled"
 msgstr "अनुसूचित"
 
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:762 src/Layouts/ItemBoard.vala:775
 #: src/Layouts/ItemRow.vala:1275 src/Layouts/ItemRow.vala:1288
+#: core/Enum.vala:533
 msgid "Pin"
 msgstr "पिन"
 
@@ -1333,8 +1340,7 @@ msgstr ""
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
-msgstr ""
-"आपकी फिल्टर सूची यहां दिखाई देगी। नाम दर्ज करके और Enter दबा कर एक बनाएं।"
+msgstr "आपकी फिल्टर सूची यहां दिखाई देगी। नाम दर्ज करके और Enter दबा कर एक बनाएं।"
 
 # # c-format
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
@@ -1592,15 +1598,13 @@ msgstr "सभी पूर्ण कार्य मिटाएं"
 #: src/Dialogs/CompletedTasks.vala:165
 #, fuzzy, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
-msgstr ""
-"यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
+msgstr "यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
 
 # # c-format
 #: src/Dialogs/CompletedTasks.vala:166
 #, c-format
 msgid "This will delete %d completed tasks and their subtasks from project %s"
-msgstr ""
-"यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
+msgstr "यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:596
 #: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:673
@@ -1659,8 +1663,7 @@ msgstr "समय अद्यतित"
 #: src/Dialogs/ItemChangeHistory.vala:69
 msgid ""
 "Your change history will be displayed here once you start making changes."
-msgstr ""
-"जब परिवर्तन करना शुरू करेंगे तो आपका परिवर्तन इतिहास यहां प्रदर्शित किया जाएगा।"
+msgstr "जब परिवर्तन करना शुरू करेंगे तो आपका परिवर्तन इतिहास यहां प्रदर्शित किया जाएगा।"
 
 # # c-format
 #: src/Dialogs/ItemChangeHistory.vala:138
@@ -1745,8 +1748,7 @@ msgstr "आप अपने विचारों को खींचकर औ�
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
-msgstr ""
-"प्लॅानिफाई आपके कार्यों को समन्वयित कर रहा है, इसमें कुछ मिनट लग सकते हैं"
+msgstr "प्लॅानिफाई आपके कार्यों को समन्वयित कर रहा है, इसमें कुछ मिनट लग सकते हैं"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
@@ -2584,8 +2586,7 @@ msgstr "शीघ्र खोज"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
-msgstr ""
-"परियोजनाओं और दृश्यों को शीघ्र रूप से बदलें, कार्य खोजें, लेबल द्वारा खोजें"
+msgstr "परियोजनाओं और दृश्यों को शीघ्र रूप से बदलें, कार्य खोजें, लेबल द्वारा खोजें"
 
 #: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:217
 #: src/Views/Project/Project.vala:334
@@ -3445,6 +3446,34 @@ msgstr "लेबल खोलें"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "पिनबोर्ड खोलें"
+
+#: core/Utils/Datetime.vala:639
+#, c-format
+msgid "in %d day"
+msgid_plural "in %d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/Utils/Datetime.vala:641
+#, c-format
+msgid "%d day ago"
+msgid_plural "%d days ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Widgets/EventRow.vala:207
+#, c-format
+msgid "In %d minute"
+msgid_plural "In %d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Widgets/EventRow.vala:209
+#, c-format
+msgid "In %d hour"
+msgid_plural "In %d hours"
+msgstr[0] ""
+msgstr[1] ""
 
 #, fuzzy
 #~ msgid "Backup"

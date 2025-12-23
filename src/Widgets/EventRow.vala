@@ -204,9 +204,9 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
             
             if (time_diff > 0) {
                 if (time_diff < 60) {
-                    time_status = _("In %d minutes").printf ((int)time_diff);
+                    time_status = GLib.ngettext ("In %d minute", "In %d minutes", (ulong)time_diff).printf ((int)time_diff);
                 } else {
-                    time_status = _("In %d hours").printf ((int)(time_diff / 60));
+                    time_status = GLib.ngettext ("In %d hour", "In %d hours", (ulong)(time_diff / 60)).printf ((int)(time_diff / 60));
                 }
             } else if (time_diff > -60 && end_time != null) {
                 var end_diff = end_time.difference (now) / TimeSpan.MINUTE;
