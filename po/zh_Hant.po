@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-21 01:00+0000\n"
+"PO-Revision-Date: 2025-12-24 10:02+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -47,40 +47,40 @@ msgid "Don't Repeat"
 msgstr "不要重複"
 
 #: core/Enum.vala:216
-#, fuzzy, c-format
+#, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
-msgstr[0] "每分鐘"
+msgstr[0] "每隔 %d 分鐘"
 
 #: core/Enum.vala:218
-#, fuzzy, c-format
+#, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
-msgstr[0] "每小時"
+msgstr[0] "每隔 %d 小時"
 
 #: core/Enum.vala:220
-#, fuzzy, c-format
+#, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
-msgstr[0] "每日"
+msgstr[0] "每隔 %d 日"
 
 #: core/Enum.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
-msgstr[0] "每週"
+msgstr[0] "每隔 %d 週"
 
 #: core/Enum.vala:224
-#, fuzzy, c-format
+#, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
-msgstr[0] "每月"
+msgstr[0] "每隔 %d 個月"
 
 #: core/Enum.vala:226
-#, fuzzy, c-format
+#, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
-msgstr[0] "每年"
+msgstr[0] "每隔 %d 年"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -307,10 +307,10 @@ msgstr "任務已經複製至剪貼簿"
 #: core/Objects/Item.vala:1633 core/Utils/Util.vala:889
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "任務已經移至 %s"
+msgstr[0] "%d 個任務已經移至 %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
@@ -640,13 +640,13 @@ msgstr "週日、"
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
+msgstr[0] "於 %d 日內"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
+msgstr[0] "%d 日之前"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
@@ -1519,7 +1519,7 @@ msgid "Delete All Completed Tasks"
 msgstr "刪除全部已經完成任務"
 
 #: src/Dialogs/CompletedTasks.vala:165
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
@@ -1585,7 +1585,7 @@ msgid ""
 msgstr "您的變更歷史記錄將會顯示於此，一旦開始進行變更。"
 
 #: src/Dialogs/ItemChangeHistory.vala:138
-#, fuzzy, c-format
+#, c-format
 msgid "Load more history from %d week ago…"
 msgid_plural "Load more history from %d weeks ago…"
 msgstr[0] "載入更多歷史記錄自 %d 週之前…"
@@ -2808,16 +2808,15 @@ msgid "Great job, nothing left to do 🎉"
 msgstr "做得好，清光光一件不留 🎉"
 
 #: src/Views/Filter.vala:612
-#, fuzzy
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
-msgstr[0] "刪除已經完成任務"
+msgstr[0] "刪除已經完成的任務"
 
 #: src/Views/Filter.vala:617
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
-msgstr[0] "這將刪除 %d 已經完成任務及其子任務"
+msgstr[0] "這將刪除 %d 個已經完成的任務及其子任務"
 
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
@@ -3031,13 +3030,13 @@ msgstr "提報問題"
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
-msgstr[0] ""
+msgstr[0] "於 %d 分鐘內"
 
 #: src/Widgets/EventRow.vala:209
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
-msgstr[0] ""
+msgstr[0] "於 %d 小時內"
 
 #: src/Widgets/EventRow.vala:214
 msgid "Happening now"
@@ -3122,13 +3121,13 @@ msgid "Are you sure you want to delete this to-do?"
 msgstr "您確定要刪除此待辦事項？"
 
 #: src/Widgets/MultiSelectToolbar.vala:272
-#, fuzzy, c-format
+#, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
-msgstr[0] "刪除 %d 待辦事項"
+msgstr[0] "刪除 %d 個待辦事項"
 
 #: src/Widgets/MultiSelectToolbar.vala:278
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "您確定要刪除此 %d 個待辦事項嗎？"
