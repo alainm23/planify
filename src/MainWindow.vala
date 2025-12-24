@@ -225,6 +225,10 @@ public class MainWindow : Adw.ApplicationWindow {
                     source.run_server ();
                 }
             });
+            
+#if WITH_EVOLUTION
+            Services.Store.instance ().setup_calendar_events ();
+#endif
         });
 
         var color_scheme_settings = ColorSchemeSettings.Settings.get_default ();
