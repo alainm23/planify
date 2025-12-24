@@ -1334,12 +1334,12 @@ msgstr "Ara"
 msgid "Search or Create"
 msgstr "Ara veya Oluştur"
 
-#: core/Widgets/MarkdownEditor.vala:1360 src/Layouts/ItemBoard.vala:842
+#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
 #: src/Layouts/ItemRow.vala:1362
 msgid "Apply"
 msgstr "Uygula"
 
-#: core/Widgets/MarkdownEditor.vala:1365
+#: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
 msgstr "Bağlantıyı kaldır"
 

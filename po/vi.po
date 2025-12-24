@@ -1301,12 +1301,12 @@ msgstr "Tìm Kiếm"
 msgid "Search or Create"
 msgstr "Tìm Kiếm hoặc Tạo"
 
-#: core/Widgets/MarkdownEditor.vala:1360 src/Layouts/ItemBoard.vala:842
+#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
 #: src/Layouts/ItemRow.vala:1362
 msgid "Apply"
 msgstr "Áp dụng"
 
-#: core/Widgets/MarkdownEditor.vala:1365
+#: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
 msgstr "Xóa liên kết"
 

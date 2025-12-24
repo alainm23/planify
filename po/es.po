@@ -1343,12 +1343,12 @@ msgstr "Buscar"
 msgid "Search or Create"
 msgstr "Buscar o crear"
 
-#: core/Widgets/MarkdownEditor.vala:1360 src/Layouts/ItemBoard.vala:842
+#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
 #: src/Layouts/ItemRow.vala:1362
 msgid "Apply"
 msgstr "Aplicar"
 
-#: core/Widgets/MarkdownEditor.vala:1365
+#: core/Widgets/MarkdownEditor.vala:1383
 #, fuzzy
 msgid "Remove link"
 msgstr "Eliminar"
