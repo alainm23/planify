@@ -1169,6 +1169,24 @@ public class Widgets.MarkdownEditor : Adw.Bin {
                 } while (match_info.next ());
             }
             
+            var plain_url_regex = new GLib.Regex ("(?<!\\[)(?<!\\()\\b[a-zA-Z][a-zA-Z0-9+.-]*://[^\\s)]+");
+            
+            if (plain_url_regex.match (text, 0, out match_info)) {
+                do {
+                    int start_pos, end_pos;
+                    match_info.fetch_pos (0, out start_pos, out end_pos);
+                    
+                    var start_chars = text.substring (0, start_pos).char_count ();
+                    var end_chars = text.substring (0, end_pos).char_count ();
+                    
+                    Gtk.TextIter url_start, url_end;
+                    buffer.get_iter_at_offset (out url_start, start_chars);
+                    buffer.get_iter_at_offset (out url_end, end_chars);
+                    
+                    buffer.apply_tag (link_tag, url_start, url_end);
+                    
+                } while (match_info.next ());
+            }
 
         } catch (GLib.RegexError e) {
             warning ("Error in regex: %s", e.message);
@@ -1536,6 +1554,22 @@ public class Widgets.MarkdownEditor : Adw.Bin {
                     }
                 } while (match_info.next ());
             }
+            
+            var plain_url_regex = new GLib.Regex ("\\b[a-zA-Z][a-zA-Z0-9+.-]*://[^\\s)]+");
+            
+            if (plain_url_regex.match (text, 0, out match_info)) {
+                do {
+                    int start_pos, end_pos;
+                    match_info.fetch_pos (0, out start_pos, out end_pos);
+                    
+                    var start_chars = text.substring (0, start_pos).char_count ();
+                    var end_chars = text.substring (0, end_pos).char_count ();
+                    
+                    if (cursor_offset >= start_chars && cursor_offset <= end_chars) {
+                        return match_info.fetch (0);
+                    }
+                } while (match_info.next ());
+            }
         } catch (GLib.RegexError e) {
             warning ("Error in regex: %s", e.message);
         }
@@ -1660,11 +1694,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     private string normalize_url (string url) {
         var trimmed_url = url.strip ();
         
-        if (trimmed_url.has_prefix ("http://") || 
-            trimmed_url.has_prefix ("https://") ||
-            trimmed_url.has_prefix ("ftp://") ||
-            trimmed_url.has_prefix ("file://") ||
-            trimmed_url.has_prefix ("mailto:")) {
+        if (trimmed_url.contains ("://")) {
             return trimmed_url;
         }
         
@@ -1683,7 +1713,9 @@ public class Widgets.MarkdownEditor : Adw.Bin {
             try {
                 AppInfo.launch_default_for_uri (normalized_url, null);
             } catch (Error e) {
-                warning ("Error opening URL: %s", e.message);
+                Services.EventBus.get_default ().send_toast (
+                    Util.get_default ().create_toast (e.message)
+                );
             }
         }
     }
