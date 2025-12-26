@@ -450,8 +450,7 @@ msgstr "选择项目"
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
-msgstr ""
-"抱歉，快速添加功能找不到任何可用的项目，请先在 Planify 中创建一个项目。"
+msgstr "抱歉，快速添加功能找不到任何可用的项目，请先在 Planify 中创建一个项目。"
 
 #: core/QuickAddCore.vala:1350 src/MainWindow.vala:716
 msgid "Keyboard Shortcuts"
@@ -1279,12 +1278,12 @@ msgstr ""
 msgid "Search or Create"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1360 src/Layouts/ItemBoard.vala:842
+#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
 #: src/Layouts/ItemRow.vala:1362
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1365
+#: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
 msgstr ""
 

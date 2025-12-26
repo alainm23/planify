@@ -1326,12 +1326,12 @@ msgstr "Meklēt"
 msgid "Search or Create"
 msgstr "Meklēt vai izveidot"
 
-#: core/Widgets/MarkdownEditor.vala:1360 src/Layouts/ItemBoard.vala:842
+#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
 #: src/Layouts/ItemRow.vala:1362
 msgid "Apply"
 msgstr "Piemērot"
 
-#: core/Widgets/MarkdownEditor.vala:1365
+#: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
 msgstr "Noņemt saiti"
 
@@ -3252,8 +3252,7 @@ msgstr ""
 #: src/Widgets/TranslationRow.vala:95
 #, c-format
 msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
-msgstr ""
-"<b>%s</b> tulkojums ir %.0f%% pabeigts. Jūs variet palīdzēt to pabeigt!"
+msgstr "<b>%s</b> tulkojums ir %.0f%% pabeigts. Jūs variet palīdzēt to pabeigt!"
 
 #: src/Widgets/TranslationRow.vala:129 src/Widgets/TranslationRow.vala:151
 #: src/Widgets/TranslationRow.vala:155

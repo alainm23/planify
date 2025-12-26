@@ -1341,12 +1341,12 @@ msgstr "Search"
 msgid "Search or Create"
 msgstr "Procure ou Crie"
 
-#: core/Widgets/MarkdownEditor.vala:1360 src/Layouts/ItemBoard.vala:842
+#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
 #: src/Layouts/ItemRow.vala:1362
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1365
+#: core/Widgets/MarkdownEditor.vala:1383
 #, fuzzy
 msgid "Remove link"
 msgstr "Remover"
@@ -1717,8 +1717,7 @@ msgstr "Você pode classificar suas contas arrastando e soltando"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 #, fuzzy
 msgid "Planify is syncing your tasks, this may take a few minutes"
-msgstr ""
-"Planify está sincronizando suas tarefas, isso pode levar alguns minutos"
+msgstr "Planify está sincronizando suas tarefas, isso pode levar alguns minutos"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"

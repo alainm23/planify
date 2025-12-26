@@ -921,8 +921,8 @@ msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
-"Ви можете відображати події календаря вашої системи в Planify. Перейдіть до "
-"«Налаштування» 🡒 Загальні 🡒 Події календаря, щоб увімкнути цю функцію."
+"Ви можете відображати події календаря вашої системи в Planify. Перейдіть до «"
+"Налаштування» 🡒 Загальні 🡒 Події календаря, щоб увімкнути цю функцію."
 
 #: core/Utils/Util.vala:661
 msgid "Enable synchronization with third-party services"
@@ -934,8 +934,8 @@ msgid ""
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
 "Planify не лише створює завдання локально, але й може синхронізуватмся з "
-"вашим обліковим записом Todoist. Перейдіть до розділу «Налаштування» 🡒 "
-"«Облікові записи»."
+"вашим обліковим записом Todoist. Перейдіть до розділу «Налаштування» 🡒 «"
+"Облікові записи»."
 
 #: core/Utils/Util.vala:670
 msgid "Boost your productivity"
@@ -1327,12 +1327,12 @@ msgstr "Пошук"
 msgid "Search or Create"
 msgstr "Створити чи знайти"
 
-#: core/Widgets/MarkdownEditor.vala:1360 src/Layouts/ItemBoard.vala:842
+#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
 #: src/Layouts/ItemRow.vala:1362
 msgid "Apply"
 msgstr "Застосувати"
 
-#: core/Widgets/MarkdownEditor.vala:1365
+#: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
 msgstr "Видалити посилання"
 
@@ -1889,8 +1889,7 @@ msgstr "Професійна синя тема"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:121
 msgid "Custom themes are not available when using the system light theme"
-msgstr ""
-"Користувацькі теми недоступні під час використання світлої теми системи"
+msgstr "Користувацькі теми недоступні під час використання світлої теми системи"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:159
 msgid "Font Size"

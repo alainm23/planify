@@ -569,8 +569,7 @@ msgstr "Žiadosť bola nesprávna."
 #: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
-"Je potrebná autentifikácia, ktorá zlyhala alebo ešte nebola poskytnutá."
+msgstr "Je potrebná autentifikácia, ktorá zlyhala alebo ešte nebola poskytnutá."
 
 #: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
@@ -1358,12 +1357,12 @@ msgstr "Hľadať"
 msgid "Search or Create"
 msgstr "Hľadať alebo vytvoriť"
 
-#: core/Widgets/MarkdownEditor.vala:1360 src/Layouts/ItemBoard.vala:842
+#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
 #: src/Layouts/ItemRow.vala:1362
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1365
+#: core/Widgets/MarkdownEditor.vala:1383
 #, fuzzy
 msgid "Remove link"
 msgstr "Odstrániť"

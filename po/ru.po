@@ -921,8 +921,8 @@ msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
-"Вы можете отображать события календаря вашей системы в Planify. Перейдите в "
-"«Настройки» 🡒 «Общие» 🡒 «События календаря», чтобы включить их."
+"Вы можете отображать события календаря вашей системы в Planify. Перейдите в «"
+"Настройки» 🡒 «Общие» 🡒 «События календаря», чтобы включить их."
 
 #: core/Utils/Util.vala:661
 msgid "Enable synchronization with third-party services"
@@ -1326,12 +1326,12 @@ msgstr "Поиск"
 msgid "Search or Create"
 msgstr "Создать или найти"
 
-#: core/Widgets/MarkdownEditor.vala:1360 src/Layouts/ItemBoard.vala:842
+#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
 #: src/Layouts/ItemRow.vala:1362
 msgid "Apply"
 msgstr "Применить"
 
-#: core/Widgets/MarkdownEditor.vala:1365
+#: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
 msgstr "Удалить ссылку"
 
@@ -2191,8 +2191,8 @@ msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
 msgstr ""
-"Откройте «Системные настройки» → «Клавиатура» → «Комбинации клавиш» → "
-"«Пользовательская комбинация клавиш», затем добавьте новую комбинацию клавиш "
+"Откройте «Системные настройки» → «Клавиатура» → «Комбинации клавиш» → «"
+"Пользовательская комбинация клавиш», затем добавьте новую комбинацию клавиш "
 "со следующим текстом:"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
@@ -2205,8 +2205,7 @@ msgstr "Сохранить в последний выбранный проект
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
-msgstr ""
-"Если эта опция не включена, по умолчанию будет выбран проект «Входящие»"
+msgstr "Если эта опция не включена, по умолчанию будет выбран проект «Входящие»"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:121
 msgid "The command was copied to the clipboard"
