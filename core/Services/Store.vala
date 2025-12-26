@@ -137,8 +137,8 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    construct {
-        #if WITH_EVOLUTION
+#if WITH_EVOLUTION
+    public void setup_calendar_events () {
         Services.CalendarEvents.get_default ().components_removed.connect ((source, components) => {
             foreach (var component in components) {
                 unowned ICal.Component ical = component.get_icalcomponent ();
@@ -153,8 +153,8 @@ public class Services.Store : GLib.Object {
                 }
             }
         });
-        #endif
     }
+#endif
 
     public bool is_database_empty () {
         return projects.size <= 0;

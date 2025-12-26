@@ -31,6 +31,9 @@ public class Views.Project : Adw.Bin {
     private Widgets.ContextMenu.MenuItem expand_all_item;
     private Widgets.ContextMenu.MenuCheckPicker priority_filter;
     private Widgets.ContextMenu.MenuPicker due_date_item;
+#if WITH_EVOLUTION
+    private Widgets.ContextMenu.MenuItem calendar_sync_item;
+#endif
     private Widgets.MultiSelectToolbar multiselect_toolbar;
     private Gtk.Revealer indicator_revealer;
     private Gtk.Popover context_menu;
@@ -54,6 +57,33 @@ public class Views.Project : Adw.Bin {
     }
 
     construct {
+#if WITH_EVOLUTION
+        var calendar_sync_button = new Gtk.Button.from_icon_name ("month-symbolic") {
+            tooltip_text = _("Calendar Sync Active")
+        };
+
+        var calendar_sync_indicator = new Adw.Bin () {
+            width_request = 9,
+            height_request = 9,
+            margin_top = 6,
+            margin_end = 6,
+            halign = END,
+            valign = START,
+            css_classes = { "indicator" }
+        };
+
+        var calendar_sync_overlay = new Gtk.Overlay () {
+            child = calendar_sync_button
+        };
+        calendar_sync_overlay.add_overlay (calendar_sync_indicator);
+
+        var calendar_sync_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = calendar_sync_overlay,
+            reveal_child = project.calendar_source_uid != ""
+        };
+#endif
+
         var menu_button = new Gtk.MenuButton () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
@@ -99,7 +129,9 @@ public class Views.Project : Adw.Bin {
 
         headerbar.pack_end (menu_button);
         headerbar.pack_end (view_setting_overlay);
-
+#if WITH_EVOLUTION
+        headerbar.pack_end (calendar_sync_revealer);
+#endif
         project_view_revealer = new Gtk.Revealer () {
             hexpand = true,
             vexpand = true,
@@ -162,6 +194,10 @@ public class Views.Project : Adw.Bin {
 
         signal_map[project.updated.connect (() => {
             headerbar.title = project.is_inbox_project ? _("Inbox") : project.name;
+#if WITH_EVOLUTION
+            calendar_sync_revealer.reveal_child = project.calendar_source_uid != "";
+            calendar_sync_item.visible = project.calendar_source_uid == "";
+#endif
         })] = project;
 
         signal_map[multiselect_toolbar.closed.connect (() => {
@@ -210,6 +246,13 @@ public class Views.Project : Adw.Bin {
         signal_map[project.handle_scroll_visibility_change.connect ((visible) => {
             headerbar.update_title_box_visibility (visible);
         })] = project;
+
+#if WITH_EVOLUTION
+        calendar_sync_button.clicked.connect (() => {
+            var dialog = new Dialogs.CalendarSync (project);
+            dialog.present (Planify._instance.main_window);
+        });
+#endif
     }
 
     private void create_context_menu () {
@@ -398,8 +441,9 @@ public class Views.Project : Adw.Bin {
         }
 
 #if WITH_EVOLUTION
-        var calendar_sync_item = new Widgets.ContextMenu.MenuItem (_ ("Calendar Sync"), "month-symbolic") {
-            badge = _("New")
+        calendar_sync_item = new Widgets.ContextMenu.MenuItem (_ ("Calendar Sync"), "month-symbolic") {
+            badge = _("New"),
+            visible = project.calendar_source_uid == ""
         };
 
         if (!project.is_inbox_project) {
