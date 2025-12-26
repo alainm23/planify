@@ -219,11 +219,34 @@ public class Planify : Adw.Application {
         add_action (snooze_60);
     }
 
+    private static void ensure_schema_dir () {
+        var current = GLib.Environment.get_variable ("GSETTINGS_SCHEMA_DIR");
+        if (current != null && current != "") {
+            return;
+        }
+
+        // Prefer a locally built schema (for in-tree runs), then fall back to the system install dir.
+        string[] candidates = {
+            Path.build_filename (GLib.Environment.get_current_dir (), "data"),
+            Path.build_filename (Build.DATADIR, "glib-2.0", "schemas")
+        };
+
+        foreach (var dir in candidates) {
+            var compiled = Path.build_filename (dir, "gschemas.compiled");
+            if (FileUtils.test (compiled, FileTest.IS_REGULAR)) {
+                GLib.Environment.set_variable ("GSETTINGS_SCHEMA_DIR", dir, true);
+                break;
+            }
+        }
+    }
+
     public static int main (string[] args) {
         // NOTE: Workaround for https://github.com/alainm23/planify/issues/1069
         GLib.Environment.set_variable ("WEBKIT_DISABLE_COMPOSITING_MODE", "1", true);
         // NOTE: Workaround for https://github.com/alainm23/planify/issues/1120
         GLib.Environment.set_variable ("WEBKIT_DISABLE_DMABUF_RENDERER", "1", true);
+
+        ensure_schema_dir ();
 
         Planify app = Planify.instance;
         return app.run (args);
