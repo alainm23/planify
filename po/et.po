@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-26 11:30+0000\n"
+"PO-Revision-Date: 2025-12-27 23:02+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/et/>\n"
@@ -656,8 +656,8 @@ msgstr[1] ""
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d päev tagasi"
+msgstr[1] "%d päeva tagasi"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
@@ -1044,113 +1044,113 @@ msgstr ""
 #: core/Widgets/Calendar/CalendarWeek.vala:39
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
 msgid "Su"
-msgstr ""
+msgstr "Pühap"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:40
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:137
 msgid "Mo"
-msgstr ""
+msgstr "Esmasp"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:41
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Tu"
-msgstr ""
+msgstr "Teisip"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:42
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:149
 msgid "We"
-msgstr ""
+msgstr "Kolmap"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:43
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:155
 msgid "Th"
-msgstr ""
+msgstr "Neljap"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:44
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:161
 msgid "Fr"
-msgstr ""
+msgstr "Reede"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:45
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:167
 msgid "Sa"
-msgstr ""
+msgstr "Laup"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:132
 msgid "Type a date…"
-msgstr ""
+msgstr "Sisesta kuupäev…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:153
 msgid "Choose a date"
-msgstr ""
+msgstr "Vali kuupäev"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:157
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:530
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 msgid "Repeat"
-msgstr ""
+msgstr "Korda"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:166
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:143
 msgid "Time"
-msgstr ""
+msgstr "Kellaaeg"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:185
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:254
 #: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
 msgid "Done"
-msgstr ""
+msgstr "Valmis"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:189
 msgid "Clear"
-msgstr ""
+msgstr "Tühjenda"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:351
 msgid "Menu"
-msgstr ""
+msgstr "Menüü"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:368
 msgid "Next week"
-msgstr ""
+msgstr "Järgmisel nädalal"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:403
 #: src/Widgets/EventRow.vala:286
 msgid "Calendar"
-msgstr ""
+msgstr "Kalender"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:411
 msgid "Daily"
-msgstr ""
+msgstr "Iga päev"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:415
 msgid "Weekdays"
-msgstr ""
+msgstr "Tööpäevad"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:419
 msgid "Weekends"
-msgstr ""
+msgstr "Nädalavahetused"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:423
 msgid "Weekly"
-msgstr ""
+msgstr "Iga nädal"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:427
 msgid "Monthly"
-msgstr ""
+msgstr "Iga kuu"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:431
 msgid "Yearly"
-msgstr ""
+msgstr "Iga aasta"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:435
 msgid "Custom"
-msgstr ""
+msgstr "Kohandatud"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:736
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:443
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
 msgid "until"
-msgstr ""
+msgstr "kuni"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:739
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
@@ -1239,27 +1239,27 @@ msgstr "Lisa aeg"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:132
 msgid "Set Deadline"
-msgstr ""
+msgstr "Lisa tähtaeg"
 
 #: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:87
 #: core/Widgets/DeadlineButton.vala:94 core/Widgets/DeadlineButton.vala:101
 #: core/Widgets/DeadlineButton.vala:154
 msgid "Set a Deadline"
-msgstr ""
+msgstr "Lisa tähtaeg"
 
 #: core/Widgets/DeadlineButton.vala:149
 msgid "Deadline"
-msgstr ""
+msgstr "Tähtaeg"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
 msgid "Select Labels"
-msgstr ""
+msgstr "Vali sildid"
 
 #: core/Widgets/LabelPicker/LabelQuickPicker.vala:191
 #, c-format
 msgid "Label not found: Create '%s'"
-msgstr ""
+msgstr "Silti ei leidu: lisa „%s“"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
 msgid ""
