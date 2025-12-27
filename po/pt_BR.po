@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-14 09:52+0000\n"
-"Last-Translator: José Victor dos Santos Neto <ssvictorsant0z@gmail.com>\n"
+"PO-Revision-Date: 2025-12-27 23:02+0000\n"
+"Last-Translator: Lucas Garcia Borges <lg.borges12@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -47,25 +47,25 @@ msgid "Don't Repeat"
 msgstr "Não Repetir"
 
 #: core/Enum.vala:216
-#, fuzzy, c-format
+#, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
-msgstr[0] "Todo minuto"
-msgstr[1] "Todo minuto"
+msgstr[0] "A cada minuto"
+msgstr[1] "A cada %d minutos"
 
 #: core/Enum.vala:218
-#, fuzzy, c-format
+#, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
-msgstr[0] "Toda hora"
-msgstr[1] "Toda hora"
+msgstr[0] "A cada hora"
+msgstr[1] "A cada %d horas"
 
 #: core/Enum.vala:220
-#, fuzzy, c-format
+#, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
-msgstr[0] "Todo dia"
-msgstr[1] "Todo dia"
+msgstr[0] "A cada dia"
+msgstr[1] "A cada %d dias"
 
 #: core/Enum.vala:222
 #, fuzzy, c-format
