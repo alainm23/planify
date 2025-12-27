@@ -32,8 +32,8 @@
   "es": {
     "language": "Spanish",
     "total_strings": 720,
-    "translated_strings": 561,
-    "translated_percent": 77.9
+    "translated_strings": 567,
+    "translated_percent": 78.7
   },
   "fr": {
     "language": "French",
@@ -44,8 +44,8 @@
   "hi": {
     "language": "Hindi",
     "total_strings": 737,
-    "translated_strings": 490,
-    "translated_percent": 66.4
+    "translated_strings": 483,
+    "translated_percent": 65.5
   },
   "ka": {
     "language": "Georgian",
@@ -194,8 +194,8 @@
   "et": {
     "language": "Estonian",
     "total_strings": 720,
-    "translated_strings": 333,
-    "translated_percent": 46.2
+    "translated_strings": 374,
+    "translated_percent": 51.9
   },
   "eu": {
     "language": "Basque",
