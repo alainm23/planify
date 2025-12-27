@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
 "PO-Revision-Date: 2025-12-27 23:02+0000\n"
-"Last-Translator: Ole <oleole@users.noreply.hosted.weblate.org>\n"
+"Last-Translator: Jonathan Merlet <okistanpro@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/fr/>\n"
 "Language: fr\n"
@@ -984,14 +984,12 @@ msgid "Set timely reminders!"
 msgstr "Programmez des rappels !"
 
 #: core/Utils/Util.vala:693
-#, fuzzy
 msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
 "add a reminder."
 msgstr ""
-"Vous souhaitez que Planify vous envoie une notification pour vous rappeler "
-"un événement important ou quelque chose de spécial ? Cliquez sur le bouton "
-"en forme de cloche ci-dessous pour ajouter un rappel."
+"Soyez notifié lorsque des tâches ou des événements importants ont lieu. "
+"Cliquez sur le bouton en forme de cloche ci-dessous pour ajouter un rappel."
 
 #: core/Utils/Util.vala:704
 msgid "💼️Work"
