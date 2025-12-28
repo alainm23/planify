@@ -38,8 +38,8 @@
   "fr": {
     "language": "French",
     "total_strings": 720,
-    "translated_strings": 572,
-    "translated_percent": 79.4
+    "translated_strings": 696,
+    "translated_percent": 96.6
   },
   "hi": {
     "language": "Hindi",
@@ -68,8 +68,8 @@
   "pt_BR": {
     "language": "Portuguese (Brazil)",
     "total_strings": 720,
-    "translated_strings": 540,
-    "translated_percent": 75.0
+    "translated_strings": 543,
+    "translated_percent": 75.4
   },
   "ru": {
     "language": "Russian",
