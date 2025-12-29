@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-27 23:02+0000\n"
-"Last-Translator: Jonathan Merlet <okistanpro@gmail.com>\n"
+"PO-Revision-Date: 2025-12-30 20:00+0000\n"
+"Last-Translator: HUGO DUNOGEANT <h.dunogeant@proton.me>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/fr/>\n"
 "Language: fr\n"
@@ -907,7 +907,6 @@ msgid "You’re done!"
 msgstr "C’est terminé !"
 
 #: core/Utils/Util.vala:632
-#, fuzzy
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -915,11 +914,11 @@ msgid ""
 "below.\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
-"C’est tout ce dont vous avez besoin pour débuter. Vous pouvez maintenant "
-"ajouter vos propres projets et tâches.\n"
+"C’est à peu près tout ce que vous avez besoin de savoir pour le moment. "
+"Sentez-vous libre d'ajouter vos propres projets et tâches.\n"
 "Vous pouvez revenir à ce projet plus tard pour découvrir les fonctionnalités "
 "avancées ci-dessous…\n"
-"Nous espérons que vous aurez plaisir à utiliser Planify !"
+"Nous espérons que vous apprécierez Planify !"
 
 #: core/Utils/Util.vala:646
 msgid "Tune your setup"
@@ -3285,8 +3284,9 @@ msgid "Update Now"
 msgstr "Mettre à jour maintenant"
 
 #: src/Widgets/NewVersionPopup.vala:89
+#, fuzzy
 msgid "Dismiss"
-msgstr ""
+msgstr "Ignorer"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
