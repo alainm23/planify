@@ -37,7 +37,7 @@ public class Widgets.TranslationRow : Adw.PreferencesRow {
 
     public string title {
         owned get {
-             return _title_label.label;
+            return _title_label.label;
         }
 
         set {
@@ -108,52 +108,43 @@ public class Widgets.TranslationRow : Adw.PreferencesRow {
 
     public async void load_translation_data () {
         try {
-            var metrics = yield Services.Api.get_default ().get_translation_metrics ();
-            var languages = Util.get_current_languages ();
+            var languages = Intl.get_language_names ();
 
-            string user_lang = "";
-            string full_lang = "";
             foreach (string lang in languages) {
                 if (lang == "C" || lang == "POSIX") {
                     continue;
                 }
-                
-                full_lang = lang;
-                if (lang.contains ("_")) {
-                    user_lang = lang.split ("_")[0];
-                } else {
-                    user_lang = lang;
-                }
-                
+
+                string user_lang = lang.contains ("_") ? lang.split ("_")[0] : lang;
+
                 if (user_lang == "en") {
-                    title = _("Translations");
-                    subtitle = _("Help make Planify available worldwide");
+                    title = _ ("Translations");
+                    subtitle = _ ("Help make Planify available worldwide");
                     hide_level_bar ();
                     return;
                 }
-                
-                if (metrics.has_key (user_lang) || metrics.has_key (full_lang)) {
-                    var metric = metrics.has_key (full_lang) ? metrics.get (full_lang) : metrics.get (user_lang);
-                    if (metric.translated_percent > 0.0) {
-                        title = _("Help improve translations");
-                        prepare_animation (metric.language, metric.translated_percent);
-                        return;
-                    }
+
+                var metric = yield get_current_translation_metric ();
+                if (metric != null && metric.translated_percent > 0.0) {
+                    title = _ ("Help improve translations");
+                    var language_name = get_language_name (metric.code);
+                    prepare_animation (language_name, metric.translated_percent);
+                    return;
                 }
-                
-                string language_name = get_language_name (full_lang);
-                title = _("Start a new translation");
-                subtitle = _("<b>%s</b> is not available yet. Be the first to translate it!").printf (language_name);
+
+                string language_name = get_language_name (lang);
+                title = _ ("Start a new translation");
+                subtitle = _ ("<b>%s</b> is not available yet. Be the first to translate it!").printf (language_name);
                 hide_level_bar ();
                 return;
             }
-            
-            title = _("Translations");
-            subtitle = _("Help make Planify available worldwide");
+
+            title = _ ("Translations");
+            subtitle = _ ("Help make Planify available worldwide");
             hide_level_bar ();
         } catch (Error e) {
-            title = _("Translations");
-            subtitle = _("Help make Planify available worldwide");
+            title = _ ("Translations");
+            subtitle = _ ("Help make Planify available worldwide");
             hide_level_bar ();
         }
     }
@@ -253,9 +244,102 @@ public class Widgets.TranslationRow : Adw.PreferencesRow {
         if (locale_names.has_key (lang_code)) {
             return locale_names.get (lang_code);
         }
-        
+
         string base_lang = lang_code.contains ("_") ? lang_code.split ("_")[0] : lang_code;
         return locale_names.has_key (base_lang) ? locale_names.get (base_lang) : base_lang.up ();
+    }
+
+
+    /**
+     *   Calculates the translation coverage percentage for the current locale by parsing the MO file.
+     *
+     *   This function searches for the first available MO file (translation catalog) in the system's locale directory, based on the user's language preferences.
+     *   It reads the MO file to count the number of translated strings and calculates the translation coverage percentage.
+     *
+     *   Returns a `TranslationMetric` object or `null` if no translations are available. Throws an `Error` if the MO file is unreadable, corrupted, or invalid.
+     *
+     *   MO File Format:
+     *
+     *   | Field                  | Size (bytes) | Description                                           |
+     *   |------------------------|--------------|-------------------------------------------------------|
+     *   | Magic Number           | 4            | Identifies endianness (`0x950412de` or `0xde120495`). |
+     *   | File Format Revision   | 4            | Version of the MO file format (0 or 1).               |
+     *   | Number of Strings      | 4            | Number of translated string entries.                  |
+     *   | ...                    | ...          | ...                                                   |
+     *
+     *   More information: https://www.gnu.org/software/gettext/manual/html_node/MO-Files.html
+     */
+    private async Objects.TranslationMetric? get_current_translation_metric () throws Error {
+        const uint32 MAGIC_NUMBER_LE = (uint32) 0x950412de;
+        const uint32 MAGIC_NUMBER_BE = (uint32) 0xde120495;
+
+        string[] languages = Intl.get_language_names ();
+        string? mo_path = null;
+        string? current_lang = null;
+
+        foreach (var lang in languages) {
+            var path = Path.build_filename (Build.LOCALEDIR, lang, "LC_MESSAGES", Build.GETTEXT_PACKAGE + ".mo");
+            if (FileUtils.test (path, FileTest.EXISTS)) {
+                mo_path = path;
+                current_lang = lang;
+                break;
+            }
+        }
+
+        if (mo_path == null) {
+            warning ("Current locale has no translations available");
+            return null;
+        }
+
+        int translated_strings = 0;
+        DataInputStream? data_stream = null;
+        try {
+            var file = File.new_for_path (mo_path);
+            var stream = yield file.read_async ();
+            data_stream = new DataInputStream (stream);
+            data_stream.set_byte_order (DataStreamByteOrder.LITTLE_ENDIAN);
+
+            uint32 magic = data_stream.read_uint32 ();
+            if (magic == MAGIC_NUMBER_BE) {
+                data_stream.set_byte_order (DataStreamByteOrder.BIG_ENDIAN);
+            } else if (magic != MAGIC_NUMBER_LE) {
+                warning ("Unrecognized magic number in MO file: %s", mo_path);
+                return null;
+            }
+
+            var revision_number = data_stream.read_uint32 ();
+
+            if (revision_number != 0 && revision_number != 1) {
+                warning ("MO File has an invalid revision number. Revision Number appeares to be %u", revision_number);
+            }
+
+            translated_strings = (int) data_stream.read_uint32 () - 1;
+        } catch (Error e) {
+            warning ("Error reading .mo file: %s", e.message);
+            return null;
+        } finally {
+            if (data_stream != null) {
+                try {
+                    yield data_stream.close_async ();
+                } catch (Error e) {
+                    warning ("Error closing stream: %s", e.message);
+                }
+            }
+        }
+
+        if (translated_strings <= 0) {
+            warning ("Invalid number of translated strings in MO file: %s", mo_path);
+            return null;
+        }
+
+        var metric = new Objects.TranslationMetric ();
+        metric.code = current_lang;
+        metric.total_strings = Build.TOTAL_STRINGS;
+        metric.translated_strings = translated_strings;
+        metric.translated_percent = (double) metric.translated_strings / metric.total_strings * 100.0;
+        metric.language = GLib.Intl.setlocale (GLib.LocaleCategory.MESSAGES, "");
+
+        return metric;
     }
 
     construct {

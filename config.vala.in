@@ -7,4 +7,5 @@ namespace Build {
     public const string PROFILE = @PROFILE@;
     public const string LOCALEDIR = @LOCALEDIR@;
     public const string GNOMELOCALEDIR = @GNOMELOCALEDIR@;
+    public const int TOTAL_STRINGS = @TOTAL_STRINGS@;
 }
