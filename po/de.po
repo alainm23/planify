@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-14 10:10+0000\n"
-"Last-Translator: Salomon May <sollymay@gmail.com>\n"
+"PO-Revision-Date: 2025-12-30 20:00+0000\n"
+"Last-Translator: Henning Lehmann <web@jhlehmann.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/de/>\n"
 "Language: de\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -54,39 +54,39 @@ msgstr[0] "Jede Minute"
 msgstr[1] "Jede Minute"
 
 #: core/Enum.vala:218
-#, fuzzy, c-format
+#, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
 msgstr[0] "Jede Stunde"
-msgstr[1] "Jede Stunde"
+msgstr[1] "Alle %d Stunden"
 
 #: core/Enum.vala:220
-#, fuzzy, c-format
+#, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
 msgstr[0] "Jeden Tag"
-msgstr[1] "Jeden Tag"
+msgstr[1] "Alle %d Tage"
 
 #: core/Enum.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
 msgstr[0] "Jede Woche"
-msgstr[1] "Jede Woche"
+msgstr[1] "Alle %d Wochen"
 
 #: core/Enum.vala:224
-#, fuzzy, c-format
+#, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
 msgstr[0] "Jeden Monat"
-msgstr[1] "Jeden Monat"
+msgstr[1] "Alle %d Monate"
 
 #: core/Enum.vala:226
-#, fuzzy, c-format
+#, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
 msgstr[0] "Jedes Jahr"
-msgstr[1] "Jedes Jahr"
+msgstr[1] "Alle %d Jahre"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -313,11 +313,11 @@ msgstr "Aufgabe in die Zwischenablage kopiert"
 #: core/Objects/Item.vala:1633 core/Utils/Util.vala:889
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Aufgabe verschoben zu %s"
-msgstr[1] "Aufgabe verschoben zu %s"
+msgstr[0] "Aufgabe hierhin verschoben: %s"
+msgstr[1] "%d Aufgaben hierhin verschoben: %s"
 
 # # c-format
 #: core/Objects/Label.vala:206
@@ -421,7 +421,7 @@ msgstr "Beschreibung hinzufügen…"
 
 #: core/QuickAddCore.vala:248
 msgid "Set date"
-msgstr ""
+msgstr "Datum festlegen"
 
 #: core/QuickAddCore.vala:260 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
@@ -505,7 +505,7 @@ msgstr "Erinnerungseinstellungen öffnen"
 
 #: core/QuickAddCore.vala:1388
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Weiterhin geöffnet bleiben, nachdem Aufgabe erstellt wurde"
 
 #: core/QuickAddCore.vala:1394
 msgid "Tip"
@@ -1767,9 +1767,9 @@ msgid ""
 "Getting Things Done methodology, it's your capture point for quick ideas and "
 "tasks that you'll organize later"
 msgstr ""
-"Dein Posteingang ist, wo neue Aufgaben standardmäßig landen. Basierend auf "
-"David Allen's Getting Things Done Methodik, ist es dein Ausgangspunkt für "
-"schnelle Ideen und Aufgaben, die du später organisieren kannst"
+"Neue Aufgaben landen standardmäßig in deinem Posteingang. Dies basiert auf "
+"David Allens \"Getting Things Done\"-Methodik, und ist dein Ausgangspunkt "
+"für schnelle Ideen und Aufgaben, die du später organisieren kannst"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "Server URL examples:"
