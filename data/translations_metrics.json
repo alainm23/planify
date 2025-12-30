@@ -38,8 +38,8 @@
   "fr": {
     "language": "French",
     "total_strings": 720,
-    "translated_strings": 696,
-    "translated_percent": 96.6
+    "translated_strings": 697,
+    "translated_percent": 96.8
   },
   "hi": {
     "language": "Hindi",
@@ -158,8 +158,8 @@
   "cs": {
     "language": "Czech",
     "total_strings": 720,
-    "translated_strings": 7,
-    "translated_percent": 0.9
+    "translated_strings": 55,
+    "translated_percent": 7.6
   },
   "cv": {
     "language": "Chuvash",
