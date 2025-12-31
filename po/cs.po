@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-30 20:00+0000\n"
+"PO-Revision-Date: 2025-12-31 13:55+0000\n"
 "Last-Translator: ExistingPerson <dedek.vlastimil2@proton.me>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/cs/>\n"
@@ -391,36 +391,36 @@ msgstr ""
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:662 src/Views/Project/Project.vala:386
 msgid "Archive"
-msgstr ""
+msgstr "Archiv"
 
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
 msgid "Delete Section %s"
-msgstr ""
+msgstr "Smazat sekci %s"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:35
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:44
 msgid "Todoist"
-msgstr ""
+msgstr "Todoist"
 
 #: core/QuickAddCore.vala:138
 msgid "Task added successfully!"
-msgstr ""
+msgstr "Úkol úspěšně přidán!"
 
 #: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:408
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
-msgstr ""
+msgstr "Název úkolu"
 
 #: core/QuickAddCore.vala:184
 msgid "This field is required"
-msgstr ""
+msgstr "Toto pole je povinné"
 
 #: core/QuickAddCore.vala:208 src/Dialogs/Project.vala:136
 msgid "Add a description…"
-msgstr ""
+msgstr "Přidejte popis…"
 
 #: core/QuickAddCore.vala:248
 msgid "Set date"
@@ -452,11 +452,11 @@ msgstr "Přidat úkol"
 
 #: core/QuickAddCore.vala:320 core/QuickAddCore.vala:1388
 msgid "Keep adding"
-msgstr ""
+msgstr "Přidat další"
 
 #: core/QuickAddCore.vala:337
 msgid "Select a Project"
-msgstr ""
+msgstr "Vyberte Projekt"
 
 #: core/QuickAddCore.vala:364
 msgid ""
@@ -470,7 +470,7 @@ msgstr "Klávesové Zkratky"
 
 #: core/QuickAddCore.vala:1356
 msgid "Speed up task creation with these shortcuts"
-msgstr ""
+msgstr "Zrychlete vytváření úkolů s těmito klávesovými zkratkami"
 
 #: core/QuickAddCore.vala:1370
 msgid "Set priority"
@@ -478,7 +478,7 @@ msgstr "Nastavit prioritu"
 
 #: core/QuickAddCore.vala:1370
 msgid "p1 = highest, p4 = lowest"
-msgstr ""
+msgstr "p1 = nejvyšší, p4 = nejnižší"
 
 #: core/QuickAddCore.vala:1371
 msgid "Add labels"
@@ -486,15 +486,15 @@ msgstr "Přidat štítky"
 
 #: core/QuickAddCore.vala:1371
 msgid "Opens label selector"
-msgstr ""
+msgstr "Otevřít výběr štítků"
 
 #: core/QuickAddCore.vala:1372
 msgid "Assign project"
-msgstr ""
+msgstr "Přiřadit projekt"
 
 #: core/QuickAddCore.vala:1372
 msgid "Opens project selector"
-msgstr ""
+msgstr "Otevřít výběr projektů"
 
 #: core/QuickAddCore.vala:1373
 msgid "Set reminder"
@@ -502,7 +502,7 @@ msgstr "Nastavit připomenutí"
 
 #: core/QuickAddCore.vala:1373
 msgid "Opens reminder options"
-msgstr ""
+msgstr "Otevřít možnosti připomenutí"
 
 #: core/QuickAddCore.vala:1388
 msgid "Toggle stay open after creating task"
@@ -519,7 +519,7 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:300
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr ""
+msgstr "Načítání úkolů pro %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
@@ -536,12 +536,12 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "Začínám synchronizaci…"
 
 #: core/Services/CalDAV/Core.vala:245
 #, c-format
 msgid "Syncing %s…"
-msgstr ""
+msgstr "Synchronizuji %s…"
 
 #: core/Services/CalDAV/Core.vala:253
 msgid "Sync completed"
@@ -549,7 +549,7 @@ msgstr "Synchronizace dokončena"
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
-msgstr ""
+msgstr "Na tomto počítači"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -604,7 +604,7 @@ msgstr ""
 #: core/Utils/Datetime.vala:93
 #, c-format
 msgid "%s %s left"
-msgstr ""
+msgstr "%s %s zbývá"
 
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
@@ -624,39 +624,39 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:411
 msgid "Mo,"
-msgstr ""
+msgstr "Po,"
 
 #: core/Utils/Datetime.vala:415
 msgid "Tu,"
-msgstr ""
+msgstr "Út,"
 
 #: core/Utils/Datetime.vala:419
 msgid "We,"
-msgstr ""
+msgstr "Stř,"
 
 #: core/Utils/Datetime.vala:423
 msgid "Th,"
-msgstr ""
+msgstr "Čt,"
 
 #: core/Utils/Datetime.vala:427
 msgid "Fr,"
-msgstr ""
+msgstr "Pá,"
 
 #: core/Utils/Datetime.vala:431
 msgid "Sa,"
-msgstr ""
+msgstr "So,"
 
 #: core/Utils/Datetime.vala:435
 msgid "Su,"
-msgstr ""
+msgstr "Ne,"
 
 #: core/Utils/Datetime.vala:639
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "v %d dni"
+msgstr[1] "ve %d dnech"
+msgstr[2] "v %d dnech"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
@@ -706,19 +706,19 @@ msgstr ""
 
 #: core/Utils/Util.vala:42
 msgid "Red"
-msgstr ""
+msgstr "Červená"
 
 #: core/Utils/Util.vala:43
 msgid "Orange"
-msgstr ""
+msgstr "Oranžová"
 
 #: core/Utils/Util.vala:44
 msgid "Yellow"
-msgstr ""
+msgstr "Žlutá"
 
 #: core/Utils/Util.vala:45
 msgid "Olive Green"
-msgstr ""
+msgstr "Olivově Zelená"
 
 #: core/Utils/Util.vala:46
 msgid "Lime Green"
@@ -726,7 +726,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:47
 msgid "Green"
-msgstr ""
+msgstr "Zelená"
 
 #: core/Utils/Util.vala:48
 msgid "Mint Green"
@@ -742,11 +742,11 @@ msgstr ""
 
 #: core/Utils/Util.vala:51
 msgid "Light Blue"
-msgstr ""
+msgstr "Světle Modrá"
 
 #: core/Utils/Util.vala:52
 msgid "Blue"
-msgstr ""
+msgstr "Modrá"
 
 #: core/Utils/Util.vala:53
 msgid "Grape"
@@ -774,7 +774,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:59
 msgid "Grey"
-msgstr ""
+msgstr "Šedá"
 
 #: core/Utils/Util.vala:60
 msgid "Taupe"
@@ -790,20 +790,20 @@ msgstr ""
 
 #: core/Utils/Util.vala:224
 msgid "Dark Blue"
-msgstr ""
+msgstr "Tmavě Modrá"
 
 #: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:407
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 msgid "None"
-msgstr ""
+msgstr "Žádná"
 
 #: core/Utils/Util.vala:268
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Dnes + Schránka"
 
 #: core/Utils/Util.vala:440
 msgid "Delete All"
-msgstr ""
+msgstr "Smazat Vše"
 
 #: core/Utils/Util.vala:454
 msgid "Process completed, you need to start Planify again."
@@ -812,15 +812,15 @@ msgstr ""
 #: core/Utils/Util.vala:456
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: core/Utils/Util.vala:566
 msgid "On This Computer"
-msgstr ""
+msgstr "Na Tomto Počítači"
 
 #: core/Utils/Util.vala:591
 msgid "Meet Planify"
-msgstr ""
+msgstr "Poznejte Planify"
 
 #: core/Utils/Util.vala:594
 msgid ""
@@ -831,7 +831,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:601
 msgid "Tap this task"
-msgstr ""
+msgstr "Klikněte na tento úkol"
 
 #: core/Utils/Util.vala:602
 msgid ""
@@ -840,7 +840,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:607
 msgid "Create a new task"
-msgstr ""
+msgstr "Vytvořte nový úkol"
 
 #: core/Utils/Util.vala:608
 msgid ""
@@ -850,7 +850,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:613
 msgid "Plan this to-do for today or later"
-msgstr ""
+msgstr "Naplánujte tento úkol na zítra nebo na později"
 
 #: core/Utils/Util.vala:614
 msgid ""
@@ -869,7 +869,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:625
 msgid "Create a project"
-msgstr ""
+msgstr "Vytvořte projekt"
 
 #: core/Utils/Util.vala:626
 msgid ""
@@ -950,11 +950,11 @@ msgstr ""
 
 #: core/Utils/Util.vala:704
 msgid "💼️Work"
-msgstr ""
+msgstr "💼️Práce"
 
 #: core/Utils/Util.vala:710
 msgid "🎒️School"
-msgstr ""
+msgstr "🎒️Škola"
 
 #: core/Utils/Util.vala:716
 msgid "👉️Delegated"
@@ -962,7 +962,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:722
 msgid "🏡️Home"
-msgstr ""
+msgstr "🏡️Domov"
 
 #: core/Utils/Util.vala:728
 msgid "🏃‍♀️️Follow Up"
@@ -978,7 +978,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:1031 core/Utils/Util.vala:1057
 msgid "Project duplicated"
-msgstr ""
+msgstr "Projekt zduplikovaný"
 
 #: core/Utils/Util.vala:1099 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
@@ -1019,24 +1019,24 @@ msgstr ""
 
 #: core/Widgets/Calendar/CalendarHeader.vala:64 src/Layouts/HeaderBar.vala:93
 msgid "Back"
-msgstr ""
+msgstr "Zpět"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:66
 msgid "Previous month"
-msgstr ""
+msgstr "Předchozí měsíc"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
-msgstr ""
+msgstr "Dopředu"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
-msgstr ""
+msgstr "Následující měsíc"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #, c-format
 msgid "Previous month, %s"
-msgstr ""
+msgstr "Předchozí měsíc, %s"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
@@ -1046,42 +1046,42 @@ msgstr ""
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 #, c-format
 msgid "Next month, %s"
-msgstr ""
+msgstr "Následující měsíc, %s"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:39
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
 msgid "Su"
-msgstr ""
+msgstr "Ne"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:40
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:137
 msgid "Mo"
-msgstr ""
+msgstr "Po"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:41
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Tu"
-msgstr ""
+msgstr "Út"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:42
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:149
 msgid "We"
-msgstr ""
+msgstr "Stř"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:43
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:155
 msgid "Th"
-msgstr ""
+msgstr "Čt"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:44
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:161
 msgid "Fr"
-msgstr ""
+msgstr "Pá"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:45
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:167
 msgid "Sa"
-msgstr ""
+msgstr "So"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:132
 msgid "Type a date…"
@@ -1089,7 +1089,7 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:153
 msgid "Choose a date"
-msgstr ""
+msgstr "Vyberte datum"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:157
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:530
@@ -1100,34 +1100,34 @@ msgstr ""
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:166
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:143
 msgid "Time"
-msgstr ""
+msgstr "Čas"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:185
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:254
 #: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
 msgid "Done"
-msgstr ""
+msgstr "Dokončit"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:189
 msgid "Clear"
-msgstr ""
+msgstr "Vyčistit"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:351
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:368
 msgid "Next week"
-msgstr ""
+msgstr "Následující týden"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:403
 #: src/Widgets/EventRow.vala:286
 msgid "Calendar"
-msgstr ""
+msgstr "Kalendář"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:411
 msgid "Daily"
-msgstr ""
+msgstr "Denně"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:415
 msgid "Weekdays"
@@ -1143,7 +1143,7 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:427
 msgid "Monthly"
-msgstr ""
+msgstr "Měsíčně"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:431
 msgid "Yearly"
@@ -1151,13 +1151,13 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:435
 msgid "Custom"
-msgstr ""
+msgstr "Vlastní"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:736
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:443
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
 msgid "until"
-msgstr ""
+msgstr "dokud"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:739
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
@@ -1175,7 +1175,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 msgid "time"
-msgstr ""
+msgstr "čas"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Minute(s)"
@@ -1203,7 +1203,7 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:199
 msgid "Never"
-msgstr ""
+msgstr "Nikdy"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:203
 msgid "On Date"
@@ -1211,29 +1211,29 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:207
 msgid "After"
-msgstr ""
+msgstr "Po"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:265
 msgid "Summary"
-msgstr ""
+msgstr "Shrnutí"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:271
 msgid "Repeat every"
-msgstr ""
+msgstr "Opakovat každý"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:278
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
 msgid "End"
-msgstr ""
+msgstr "Konec"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
-msgstr ""
+msgstr "Odstranit datum"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
@@ -1242,7 +1242,7 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/TimePicker.vala:113
 msgid "Add Time"
-msgstr ""
+msgstr "Přidat Čas"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:132
 msgid "Set Deadline"
@@ -1261,12 +1261,12 @@ msgstr ""
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
 msgid "Select Labels"
-msgstr ""
+msgstr "Vybrat Štítky"
 
 #: core/Widgets/LabelPicker/LabelQuickPicker.vala:191
 #, c-format
 msgid "Label not found: Create '%s'"
-msgstr ""
+msgstr "Štítek nenalezen: Vytvořit '%s'"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
 msgid ""
@@ -1278,7 +1278,7 @@ msgstr ""
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
-msgstr ""
+msgstr "Vytvořit '%s'"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
 msgid "Your list of filters will show up here."
@@ -1288,49 +1288,49 @@ msgstr ""
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
-msgstr ""
+msgstr "Vyhledat"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Search or Create"
-msgstr ""
+msgstr "Vyhledat nebo Vytvořit"
 
 #: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
 #: src/Layouts/ItemRow.vala:1362
 msgid "Apply"
-msgstr ""
+msgstr "Použít"
 
 #: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
-msgstr ""
+msgstr "Odstranit odkaz"
 
 #: core/Widgets/PriorityButton.vala:95 core/Widgets/PriorityButton.vala:135
 #: core/Widgets/PriorityButton.vala:200
 msgid "Priority 4: None"
-msgstr ""
+msgstr "Priorita 4: Žádná"
 
 #: core/Widgets/PriorityButton.vala:126 core/Widgets/PriorityButton.vala:182
 msgid "Priority 1: High"
-msgstr ""
+msgstr "Priorita 1: Vysoká"
 
 #: core/Widgets/PriorityButton.vala:129
 msgid "Priority 2: Medium"
-msgstr ""
+msgstr "Priorita 2: Střední"
 
 #: core/Widgets/PriorityButton.vala:132
 msgid "Priority 3: Low"
-msgstr ""
+msgstr "Priorita 3: Nízká"
 
 #: core/Widgets/PriorityButton.vala:188
 msgid "Priority 1: Medium"
-msgstr ""
+msgstr "Priorita 1: Střední"
 
 #: core/Widgets/PriorityButton.vala:194
 msgid "Priority 1: Low"
-msgstr ""
+msgstr "Priorita 1: Nízká"
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:63
 msgid "Your list of section will show up here."
-msgstr ""
+msgstr "Váš seznam sekcí se zobrazí zde."
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
@@ -1339,7 +1339,7 @@ msgstr ""
 #: core/Widgets/SectionPicker/SectionPickerRow.vala:38
 #: src/Widgets/CompletedTaskRow.vala:77 src/Widgets/ItemDetailCompleted.vala:80
 msgid "No Section"
-msgstr ""
+msgstr "Žádná Sekce"
 
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:46
 msgid "Type a search"
@@ -1349,7 +1349,7 @@ msgstr ""
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:146
 msgid "Reminders"
-msgstr ""
+msgstr "Připomenutí"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:110
 msgid ""
@@ -1358,31 +1358,31 @@ msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:157
 msgid "Add Reminder"
-msgstr ""
+msgstr "Přidat Připomenutí"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:192
 msgid "In 5 minutes"
-msgstr ""
+msgstr "V 5 minutách"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:193
 msgid "In 15 minutes"
-msgstr ""
+msgstr "V 15 minutách"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:194
 msgid "In 30 minutes"
-msgstr ""
+msgstr "V 30 minutách"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:195
 msgid "In 1 hour"
-msgstr ""
+msgstr "V 1 hodině"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:196
 msgid "In 3 hours"
-msgstr ""
+msgstr "V 3 hodinách"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:197
 msgid "In 6 hours"
-msgstr ""
+msgstr "V 6 hodinách"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
