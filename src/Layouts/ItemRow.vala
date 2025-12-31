@@ -645,12 +645,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             halign = START
         };
 
+        subitems = new Widgets.SubItems (is_project_view);
+
         show_subtasks_revealer = new Gtk.Revealer () {
             child = show_subtasks_button,
             reveal_child = subitems.has_children && edit
         };
 
-        subitems = new Widgets.SubItems (is_project_view);
         subitems.present_item (item);
         subitems.reveal_child = item.items.size > 0 && item.collapsed;
 
