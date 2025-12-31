@@ -26,8 +26,8 @@
   "de": {
     "language": "German",
     "total_strings": 720,
-    "translated_strings": 653,
-    "translated_percent": 90.6
+    "translated_strings": 661,
+    "translated_percent": 91.8
   },
   "es": {
     "language": "Spanish",
@@ -158,8 +158,8 @@
   "cs": {
     "language": "Czech",
     "total_strings": 720,
-    "translated_strings": 55,
-    "translated_percent": 7.6
+    "translated_strings": 82,
+    "translated_percent": 11.3
   },
   "cv": {
     "language": "Chuvash",
@@ -356,8 +356,8 @@
   "nb": {
     "language": "Norwegian Bokmål",
     "total_strings": 720,
-    "translated_strings": 0,
-    "translated_percent": 0.0
+    "translated_strings": 2,
+    "translated_percent": 0.2
   },
   "nn": {
     "language": "Norwegian Nynorsk",
