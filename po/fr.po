@@ -2144,7 +2144,8 @@ msgstr "Exécuter en arrière-plan"
 
 #: src/Dialogs/Preferences/Pages/General.vala:69
 msgid "Let Planify run in background and send notifications"
-msgstr "Laisser Planify s’exécuter en arrière-plan et envoyer des notifications"
+msgstr ""
+"Laisser Planify s’exécuter en arrière-plan et envoyer des notifications"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
@@ -2469,7 +2470,8 @@ msgstr "Créer un projet tutoriel"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:199
 msgid "Learn the app step by step with a short tutorial project"
-msgstr "Faites le tour pas à pas de l’application avec un court projet tutoriel"
+msgstr ""
+"Faites le tour pas à pas de l’application avec un court projet tutoriel"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:218
 msgid "Want to buy me a drink?"
@@ -2780,8 +2782,8 @@ msgstr "Favoris"
 #: src/Layouts/Sidebar.vala:42
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr ""
-"Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton « + "
-"»"
+"Aucune tâche favorite disponible. Créez-en une en cliquant sur le bouton "
+"« + »"
 
 #: src/Layouts/Sidebar.vala:122
 msgid "Add Account"
@@ -3338,7 +3340,8 @@ msgstr "Commencer une nouvelle traduction"
 #: src/Widgets/TranslationRow.vala:146
 #, c-format
 msgid "<b>%s</b> is not available yet. Be the first to translate it!"
-msgstr "<b>%s</b> n'est pas encore disponible. Soyez le premier à le traduire !"
+msgstr ""
+"<b>%s</b> n'est pas encore disponible. Soyez le premier à le traduire !"
 
 #: quick-add/MainWindow.vala:9
 msgid "Planify - Quick Add"
