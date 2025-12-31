@@ -31,19 +31,21 @@ public class Objects.DueDate : GLib.Object {
     public bool recurrence_supported { get; set; default = false; }
 
     GLib.DateTime ? _datetime = null;
-    public GLib.DateTime ? datetime {
+    public GLib.DateTime? datetime {
         get {
+            if (this == null || date == null) {
+                return null;
+            }
             if (_datetime == null) {
                 _datetime = Utils.Datetime.get_todoist_datetime (date);
             }
-
             return _datetime;
         }
-
         set {
             date = Utils.Datetime.get_todoist_datetime_format (value);
         }
     }
+
 
     GLib.DateTime _end_datetime;
     public GLib.DateTime end_datetime {
