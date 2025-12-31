@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-30 20:00+0000\n"
+"PO-Revision-Date: 2025-12-31 13:55+0000\n"
 "Last-Translator: Stein-Aksel Basma <stein-aksel@basma.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/nb_NO/>\n"
@@ -25,79 +25,79 @@ msgstr "Seksjoner"
 
 #: core/Enum.vala:174 core/Enum.vala:183
 msgid "Tasks"
-msgstr ""
+msgstr "Oppgaver"
 
 #: core/Enum.vala:177 core/Enum.vala:530 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:781
 #: src/Layouts/ItemRow.vala:1294
 msgid "Labels"
-msgstr ""
+msgstr "Etiketter"
 
 #: core/Enum.vala:180 src/Dialogs/Preferences/Pages/HomeView.vala:35
 msgid "Filters"
-msgstr ""
+msgstr "Filtere"
 
 #: core/Enum.vala:186
 msgid "Lists"
-msgstr ""
+msgstr "Lister"
 
 #: core/Enum.vala:214
 msgid "Don't Repeat"
-msgstr ""
+msgstr "Ikke gjenta"
 
 #: core/Enum.vala:216
 #, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hvert minutt"
+msgstr[1] "Hvert %d minutt"
 
 #: core/Enum.vala:218
 #, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hver time"
+msgstr[1] "Hver %d time"
 
 #: core/Enum.vala:220
 #, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hver dag"
+msgstr[1] "Hver %d dag"
 
 #: core/Enum.vala:222
 #, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hver uke"
+msgstr[1] "Hver %d uke"
 
 #: core/Enum.vala:224
 #, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hver måned"
+msgstr[1] "Hver %d måned"
 
 #: core/Enum.vala:226
 #, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hvert år"
+msgstr[1] "Hvert %d år"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
 msgid "Nextcloud"
-msgstr ""
+msgstr "Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:121
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
-msgstr ""
+msgstr "CalDAV"
 
 #: core/Enum.vala:341 core/Enum.vala:527 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:545 src/Views/Project/Project.vala:590
@@ -105,43 +105,43 @@ msgstr ""
 #: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:633
 #: src/Views/Today.vala:662 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
-msgstr ""
+msgstr "Prioritet"
 
 #: core/Enum.vala:344
 msgid "Label"
-msgstr ""
+msgstr "Etikett"
 
 #: core/Enum.vala:347 src/Views/Project/Project.vala:543
 #: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:631
 msgid "Due Date"
-msgstr ""
+msgstr "Forfallsdato"
 
 #: core/Enum.vala:350 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
-msgstr ""
+msgstr "Seksjon"
 
 #: core/Enum.vala:459
 msgid "Task Created"
-msgstr ""
+msgstr "Oppgave opprettet"
 
 #: core/Enum.vala:462
 msgid "Task Updated"
-msgstr ""
+msgstr "Oppgave oppdatert"
 
 #: core/Enum.vala:518
 msgid "Content"
-msgstr ""
+msgstr "Innhold"
 
 #: core/Enum.vala:521 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:1998 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
 #: core/Enum.vala:524 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr ""
+msgstr "Planlagt"
 
 #: core/Enum.vala:533 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:762 src/Layouts/ItemBoard.vala:775
@@ -151,23 +151,23 @@ msgstr ""
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr ""
+msgstr "Alle oppgaver"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
-msgstr ""
+msgstr "alle oppgaver"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all"
-msgstr ""
+msgstr "alle"
 
 #: core/Objects/Filters/Anytime.vala:33
 msgid "Anytime"
-msgstr ""
+msgstr "Når som helst"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "anytime"
-msgstr ""
+msgstr "når som helst"
 
 #: core/Objects/Filters/Anytime.vala:34 core/Objects/Filters/Completed.vala:34
 #: core/Objects/Filters/Inbox.vala:36 core/Objects/Filters/Labels.vala:34
@@ -176,23 +176,23 @@ msgstr ""
 #: core/Objects/Filters/Scheduled.vala:49 core/Objects/Filters/Today.vala:50
 #: core/Objects/Filters/Tomorrow.vala:34 core/Objects/Filters/Unlabeled.vala:34
 msgid "filters"
-msgstr ""
+msgstr "filtere"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr ""
+msgstr "ingen dato"
 
 #: core/Objects/Filters/Completed.vala:33
 msgid "Completed"
-msgstr ""
+msgstr "Fullført"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "completed"
-msgstr ""
+msgstr "fullført"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "logbook"
-msgstr ""
+msgstr "loggbok"
 
 #: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:262
 #: core/Utils/Util.vala:575
@@ -202,67 +202,67 @@ msgstr ""
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:196
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr ""
+msgstr "Innboks"
 
 #: core/Objects/Filters/Inbox.vala:36
 msgid "inbox"
-msgstr ""
+msgstr "innboks"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
-msgstr ""
+msgstr "etiketter"
 
 #: core/Objects/Filters/Pinboard.vala:34
 msgid "Pinboard"
-msgstr ""
+msgstr "Oppslagstavle"
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:116
 msgid "Priority 1: high"
-msgstr ""
+msgstr "Prioritet 1:høy"
 
 #: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:118
 msgid "Priority 2: medium"
-msgstr ""
+msgstr "Prioritet 2:middels"
 
 #: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:120
 msgid "Priority 3: low"
-msgstr ""
+msgstr "Prioritet 3:lav"
 
 #: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:122
 msgid "Priority 4: none"
-msgstr ""
+msgstr "Prioritet 4:ingen"
 
 #: core/Objects/Filters/Priority.vala:170
 msgid "high"
-msgstr ""
+msgstr "høy"
 
 #: core/Objects/Filters/Priority.vala:172
 msgid "medium"
-msgstr ""
+msgstr "middels"
 
 #: core/Objects/Filters/Priority.vala:174
 msgid "low"
-msgstr ""
+msgstr "lav"
 
 #: core/Objects/Filters/Priority.vala:176
 msgid "none"
-msgstr ""
+msgstr "ingen"
 
 #: core/Objects/Filters/Repeating.vala:33
 msgid "Repeating"
-msgstr ""
+msgstr "Gjentakende"
 
 #: core/Objects/Filters/Repeating.vala:34
 msgid "repeating"
-msgstr ""
+msgstr "gjentakende"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr ""
+msgstr "planlagt"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
-msgstr ""
+msgstr "kommende"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
@@ -272,11 +272,11 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1282 src/Views/Project/Project.vala:557
 #: src/Views/Project/Project.vala:723 src/Views/Today.vala:202
 msgid "Today"
-msgstr ""
+msgstr "I dag"
 
 #: core/Objects/Filters/Today.vala:50
 msgid "today"
-msgstr ""
+msgstr "i dag"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Utils/Datetime.vala:633
@@ -284,31 +284,31 @@ msgstr ""
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:772
 #: src/Layouts/ItemRow.vala:1285
 msgid "Tomorrow"
-msgstr ""
+msgstr "I morgen"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "tomorrow"
-msgstr ""
+msgstr "i morgen"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "date"
-msgstr ""
+msgstr "dato"
 
 #: core/Objects/Filters/Unlabeled.vala:33
 msgid "Unlabeled"
-msgstr ""
+msgstr "Umerket"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "no label"
-msgstr ""
+msgstr "ingen etikett"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "unlabeled"
-msgstr ""
+msgstr "umerket"
 
 #: core/Objects/Item.vala:1340
 msgid "Task copied to clipboard"
-msgstr ""
+msgstr "Oppgave kopiert til utklippstavlen"
 
 #: core/Objects/Item.vala:1633 core/Utils/Util.vala:889
 #: src/Widgets/MultiSelectToolbar.vala:376
@@ -316,13 +316,13 @@ msgstr ""
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Oppgave flyttet til %s"
+msgstr[1] "%d oppgaver flyttet til %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
 msgid "Delete Label %s"
-msgstr ""
+msgstr "Slett etikett %s"
 
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:821
 #: core/Objects/Section.vala:377
@@ -330,7 +330,7 @@ msgstr ""
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
-msgstr ""
+msgstr "Dette kan ikke angres"
 
 #: core/Objects/Label.vala:210 core/Objects/Project.vala:824
 #: core/Objects/Project.vala:881 core/Objects/Section.vala:380
@@ -348,7 +348,7 @@ msgstr ""
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:287
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:825
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:208
@@ -360,36 +360,36 @@ msgstr ""
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
 #: src/Widgets/MultiSelectToolbar.vala:288
 msgid "Delete"
-msgstr ""
+msgstr "Slett"
 
 #: core/Objects/Project.vala:784
 msgid "The project was copied to the Clipboard."
-msgstr ""
+msgstr "Prosjektet ble kopiert til utklippstavlen."
 
 #: core/Objects/Project.vala:820
 #, c-format
 msgid "Delete Project %s?"
-msgstr ""
+msgstr "Slett prosjekt %s?"
 
 #: core/Objects/Project.vala:877 core/Objects/Section.vala:402
 msgid "Archive?"
-msgstr ""
+msgstr "Arkiver?"
 
 #: core/Objects/Project.vala:878 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "Dette vil arkivere %s og alle tilhørende oppgaver."
 
 #: core/Objects/Project.vala:882 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:662 src/Views/Project/Project.vala:386
 msgid "Archive"
-msgstr ""
+msgstr "Arkiver?"
 
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
 msgid "Delete Section %s"
-msgstr ""
+msgstr "Slett seksjon %s"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
@@ -400,34 +400,34 @@ msgstr ""
 
 #: core/QuickAddCore.vala:138
 msgid "Task added successfully!"
-msgstr ""
+msgstr "Oppgaven er lagt til!"
 
 #: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:408
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
-msgstr ""
+msgstr "Navn på gjøremål"
 
 #: core/QuickAddCore.vala:184
 msgid "This field is required"
-msgstr ""
+msgstr "Dette feltet er obligatorisk"
 
 #: core/QuickAddCore.vala:208 src/Dialogs/Project.vala:136
 msgid "Add a description…"
-msgstr ""
+msgstr "Legg til en beskrivelse…"
 
 #: core/QuickAddCore.vala:248
 msgid "Set date"
-msgstr ""
+msgstr "Angi dato"
 
 #: core/QuickAddCore.vala:260 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
-msgstr ""
+msgstr "Legg til etiketter"
 
 #: core/QuickAddCore.vala:265 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
-msgstr ""
+msgstr "Angi prioriteten"
 
 #: core/QuickAddCore.vala:270
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
@@ -436,382 +436,385 @@ msgstr ""
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
 #: core/Widgets/ReminderPicker/ReminderButton.vala:177
 msgid "Add Reminders"
-msgstr ""
+msgstr "Legg til påminnelser"
 
 #: core/QuickAddCore.vala:314 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:655 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
-msgstr ""
+msgstr "Legg til oppgave"
 
 #: core/QuickAddCore.vala:320 core/QuickAddCore.vala:1388
 msgid "Keep adding"
-msgstr ""
+msgstr "Fortsett å legge til"
 
 #: core/QuickAddCore.vala:337
 msgid "Select a Project"
-msgstr ""
+msgstr "Velg et prosjekt"
 
 #: core/QuickAddCore.vala:364
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
+"Beklager, men Hurtigtillegg finner ingen tilgjengelige prosjekter. Prøv å "
+"opprette et prosjekt fra Planify."
 
 #: core/QuickAddCore.vala:1350 src/MainWindow.vala:720
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Tastatursnarveier"
 
 #: core/QuickAddCore.vala:1356
 msgid "Speed up task creation with these shortcuts"
-msgstr ""
+msgstr "Få fart på oppgaveopprettingen med disse snarveiene"
 
 #: core/QuickAddCore.vala:1370
 msgid "Set priority"
-msgstr ""
+msgstr "Angi prioritet"
 
 #: core/QuickAddCore.vala:1370
 msgid "p1 = highest, p4 = lowest"
-msgstr ""
+msgstr "p1 = høyest, p4 = lavest"
 
 #: core/QuickAddCore.vala:1371
 msgid "Add labels"
-msgstr ""
+msgstr "Legg til etiketter"
 
 #: core/QuickAddCore.vala:1371
 msgid "Opens label selector"
-msgstr ""
+msgstr "Åpner etikettvelgeren"
 
 #: core/QuickAddCore.vala:1372
 msgid "Assign project"
-msgstr ""
+msgstr "Tilordne prosjekt"
 
 #: core/QuickAddCore.vala:1372
 msgid "Opens project selector"
-msgstr ""
+msgstr "Åpner prosjektvelgeren"
 
 #: core/QuickAddCore.vala:1373
 msgid "Set reminder"
-msgstr ""
+msgstr "Angi påminnelse"
 
 #: core/QuickAddCore.vala:1373
 msgid "Opens reminder options"
-msgstr ""
+msgstr "Åpner påminnelsesalternativer"
 
 #: core/QuickAddCore.vala:1388
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Veksle mellom å holde åpent etter at oppgaven er opprettet"
 
 #: core/QuickAddCore.vala:1394
 msgid "Tip"
-msgstr ""
+msgstr "Tips"
 
 #: core/QuickAddCore.vala:1394
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "Kombiner snarveier i tittelfeltet for raskere oppretting"
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr ""
+msgstr "Laster oppgaver for %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Processing task %d of %d"
-msgstr ""
+msgstr "Behandler oppgave %d av %d"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
-msgstr ""
+msgstr "Kilde finnes allerede"
 
 #: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
 msgid "Failed to resolve principal url"
-msgstr ""
+msgstr "Kunne ikke løse hoved-URL-en"
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "Starter synk…"
 
 #: core/Services/CalDAV/Core.vala:245
 #, c-format
 msgid "Syncing %s…"
-msgstr ""
+msgstr "Synker %s…"
 
 #: core/Services/CalDAV/Core.vala:253
 msgid "Sync completed"
-msgstr ""
+msgstr "Synk fullført"
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
-msgstr ""
+msgstr "På denne datamaskinen"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Forespørselen var feilaktig."
 
 #: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Autentisering kreves, og har mislyktes, eller ikke blitt angitt."
 
 #: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "Forespørselen var gyldig, men for noe som var forbudt."
 
 #: core/Services/Todoist.vala:1513 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Kunne ikke finne forespurt ressurs."
 
 #: core/Services/Todoist.vala:1514 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
+"Brukeren har sendt for mange forespørsler i løpet av en gitt tidsperiode."
 
 #: core/Services/Todoist.vala:1515 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "Forespørselen mislyktes som følge av tjenerfeil."
 
 #: core/Services/Todoist.vala:1516 src/Widgets/ErrorView.vala:144
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "Tjeneren kan ikke håndtere forespørselen nå."
 
 #: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
-msgstr ""
+msgstr "Ukjent feil"
 
 #: core/Utils/Datetime.vala:72 core/Utils/Datetime.vala:635
 msgid "Yesterday"
-msgstr ""
+msgstr "I går"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "days"
-msgstr ""
+msgstr "dager"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "day"
-msgstr ""
+msgstr "dag"
 
 #: core/Utils/Datetime.vala:91
 #, c-format
 msgid "%s %s ago"
-msgstr ""
+msgstr "%s %s siden"
 
 #: core/Utils/Datetime.vala:93
 #, c-format
 msgid "%s %s left"
-msgstr ""
+msgstr "%s %s igjen"
 
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
-msgstr ""
+msgstr "%-H:%M:%S"
 
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
-msgstr ""
+msgstr "%-H:%M"
 
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%H:%M:%S"
 
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
-msgstr ""
+msgstr "%H:%M"
 
 #: core/Utils/Datetime.vala:411
 msgid "Mo,"
-msgstr ""
+msgstr "Ma,"
 
 #: core/Utils/Datetime.vala:415
 msgid "Tu,"
-msgstr ""
+msgstr "Ti,"
 
 #: core/Utils/Datetime.vala:419
 msgid "We,"
-msgstr ""
+msgstr "On,"
 
 #: core/Utils/Datetime.vala:423
 msgid "Th,"
-msgstr ""
+msgstr "To,"
 
 #: core/Utils/Datetime.vala:427
 msgid "Fr,"
-msgstr ""
+msgstr "Fr,"
 
 #: core/Utils/Datetime.vala:431
 msgid "Sa,"
-msgstr ""
+msgstr "Lø,"
 
 #: core/Utils/Datetime.vala:435
 msgid "Su,"
-msgstr ""
+msgstr "Sø,"
 
 #: core/Utils/Datetime.vala:639
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "om %d dag"
+msgstr[1] "om %d dager"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d dag siden"
+msgstr[1] "%d dager siden"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
-msgstr ""
+msgstr "%a, %b %-e, %Y"
 
 #: core/Utils/Datetime.vala:663
 msgid "%b %-e %Y"
-msgstr ""
+msgstr "%b %-e %Y"
 
 #: core/Utils/Datetime.vala:666 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: core/Utils/Datetime.vala:669
 msgid "%b %-e"
-msgstr ""
+msgstr "%b %-e"
 
 #: core/Utils/Datetime.vala:672
 msgid "%a %Y"
-msgstr ""
+msgstr "%a %Y"
 
 #: core/Utils/Datetime.vala:675
 #, c-format
 msgid "%a"
-msgstr ""
+msgstr "%a"
 
 #: core/Utils/Datetime.vala:678
 msgid "%a, %b %-e"
-msgstr ""
+msgstr "%a, %b %-e"
 
 #: core/Utils/Datetime.vala:681
 msgid "%b"
-msgstr ""
+msgstr "%b"
 
 #: core/Utils/Util.vala:41
 msgid "Berry Red"
-msgstr ""
+msgstr "Bærrød"
 
 #: core/Utils/Util.vala:42
 msgid "Red"
-msgstr ""
+msgstr "Rød"
 
 #: core/Utils/Util.vala:43
 msgid "Orange"
-msgstr ""
+msgstr "Oransje"
 
 #: core/Utils/Util.vala:44
 msgid "Yellow"
-msgstr ""
+msgstr "Gul"
 
 #: core/Utils/Util.vala:45
 msgid "Olive Green"
-msgstr ""
+msgstr "Olivengrønn"
 
 #: core/Utils/Util.vala:46
 msgid "Lime Green"
-msgstr ""
+msgstr "Limegrønn"
 
 #: core/Utils/Util.vala:47
 msgid "Green"
-msgstr ""
+msgstr "Grønn"
 
 #: core/Utils/Util.vala:48
 msgid "Mint Green"
-msgstr ""
+msgstr "Mintgrønn"
 
 #: core/Utils/Util.vala:49
 msgid "Teal"
-msgstr ""
+msgstr "Turkis"
 
 #: core/Utils/Util.vala:50
 msgid "Sky Blue"
-msgstr ""
+msgstr "Himmelblå"
 
 #: core/Utils/Util.vala:51
 msgid "Light Blue"
-msgstr ""
+msgstr "Lyseblå"
 
 #: core/Utils/Util.vala:52
 msgid "Blue"
-msgstr ""
+msgstr "Blå"
 
 #: core/Utils/Util.vala:53
 msgid "Grape"
-msgstr ""
+msgstr "Drue"
 
 #: core/Utils/Util.vala:54
 msgid "Violet"
-msgstr ""
+msgstr "Fiolett"
 
 #: core/Utils/Util.vala:55
 msgid "Lavender"
-msgstr ""
+msgstr "Lavendel"
 
 #: core/Utils/Util.vala:56
 msgid "Magenta"
-msgstr ""
+msgstr "Magenta"
 
 #: core/Utils/Util.vala:57
 msgid "Salmon"
-msgstr ""
+msgstr "Lakserosa"
 
 #: core/Utils/Util.vala:58
 msgid "Charcoal"
-msgstr ""
+msgstr "Trekull"
 
 #: core/Utils/Util.vala:59
 msgid "Grey"
-msgstr ""
+msgstr "Grå"
 
 #: core/Utils/Util.vala:60
 msgid "Taupe"
-msgstr ""
+msgstr "Gråbrun"
 
 #: core/Utils/Util.vala:218
 msgid "Light"
-msgstr ""
+msgstr "Lys"
 
 #: core/Utils/Util.vala:221
 msgid "Dark"
-msgstr ""
+msgstr "Mørk"
 
 #: core/Utils/Util.vala:224
 msgid "Dark Blue"
-msgstr ""
+msgstr "Mørkeblå"
 
 #: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:407
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 msgid "None"
-msgstr ""
+msgstr "Ingen"
 
 #: core/Utils/Util.vala:268
 msgid "Today + Inbox"
-msgstr ""
+msgstr "I dag + innboks"
 
 #: core/Utils/Util.vala:440
 msgid "Delete All"
-msgstr ""
+msgstr "Slett alt"
 
 #: core/Utils/Util.vala:454
 msgid "Process completed, you need to start Planify again."
-msgstr ""
+msgstr "Prosessen er fullført, du må starte Planify på nytt."
 
 #: core/Utils/Util.vala:456
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 msgid "Ok"
-msgstr ""
+msgstr "OK"
 
 #: core/Utils/Util.vala:566
 msgid "On This Computer"
-msgstr ""
+msgstr "På denne datamaskinen"
 
 #: core/Utils/Util.vala:591
 msgid "Meet Planify"
-msgstr ""
+msgstr "Møt Planify"
 
 #: core/Utils/Util.vala:594
 msgid ""
@@ -819,58 +822,71 @@ msgid ""
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
+"Dette prosjektet viser deg alt du trenger å vite for å komme i gang. Ikke "
+"nøl med å eksperimentere med det – du kan alltids gjenskape det fra "
+"Innstillinger."
 
 #: core/Utils/Util.vala:601
 msgid "Tap this task"
-msgstr ""
+msgstr "Trykk på denne oppgaven"
 
 #: core/Utils/Util.vala:602
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
+"Du ser på en gjøremålsoppgave! Fullfør den ved å trykke på avmerkingsboksen "
+"til venstre. Fullførte gjøremål samles nederst i prosjektet ditt. "
 
 #: core/Utils/Util.vala:607
 msgid "Create a new task"
-msgstr ""
+msgstr "Opprett et nytt gjøremål"
 
 #: core/Utils/Util.vala:608
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
 msgstr ""
+"Nå er det din tur! Trykk på «+»-knappen nederst i prosjektet ditt, skriv inn "
+"en oppgavebeskrivelse, og trykk på «Legg til oppgave»-knappen."
 
 #: core/Utils/Util.vala:613
 msgid "Plan this to-do for today or later"
-msgstr ""
+msgstr "Planlegg dette gjøremålet for i dag eller senere"
 
 #: core/Utils/Util.vala:614
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
+"Trykk på kalenderknappen nederst for å bestemme når du skal fullføre denne "
+"gjøremålsoppgaven."
 
 #: core/Utils/Util.vala:619
 msgid "Reorder your to-dos"
-msgstr ""
+msgstr "Endre rekkefølgen på gjøremålene dine"
 
 #: core/Utils/Util.vala:620
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
 msgstr ""
+"For å endre rekkefølgen på listen, trykk og hold på en gjøremålsoppgave, og "
+"dra den deretter dit den skal være."
 
 #: core/Utils/Util.vala:625
 msgid "Create a project"
-msgstr ""
+msgstr "Opprett et prosjekt"
 
 #: core/Utils/Util.vala:626
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
+"Organiser gjøremålene dine bedre! Gå til venstre panel og klikk på «+»-"
+"knappen i «På denne datamaskinen»-delen, og legg til ditt eget prosjekt."
 
 #: core/Utils/Util.vala:631
 msgid "You’re done!"
-msgstr ""
+msgstr "Du er ferdig!"
 
 #: core/Utils/Util.vala:632
 msgid ""
@@ -880,24 +896,31 @@ msgid ""
 "below.\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
+"Det er alt du egentlig trenger å vite. Begynn gjerne å legge til dine egne "
+"prosjekter og gjøremål.\n"
+"Du kan komme tilbake til dette prosjektet senere for å lære de avanserte "
+"funksjonene nedenfor.\n"
+"Vi håper du liker å bruke Planify!"
 
 #: core/Utils/Util.vala:646
 msgid "Tune your setup"
-msgstr ""
+msgstr "Finjuster oppsettet ditt"
 
 #: core/Utils/Util.vala:654
 msgid "Show your calendar events"
-msgstr ""
+msgstr "Vis kalenderhendelsene dine"
 
 #: core/Utils/Util.vala:655
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
+"Du kan vise systemets kalenderhendelser i Planify. Gå til «Innstillinger» 🡒 "
+"Generelt 🡒 Kalenderhendelser for å slå det på."
 
 #: core/Utils/Util.vala:661
 msgid "Enable synchronization with third-party services"
-msgstr ""
+msgstr "Aktiver synkronisering med tredjepartstjenester"
 
 #: core/Utils/Util.vala:662
 msgid ""
