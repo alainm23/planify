@@ -219,7 +219,7 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
             width_request = 64
         };
 
-        var label = new Gtk.Label (_("Planify is syncing your tasks, this may take a few minutes")) {
+        var label = new Gtk.Label (_("Planify is syncing your tasks, this may take a few moments")) {
             wrap = true,
             halign = Gtk.Align.CENTER,
             justify = Gtk.Justification.CENTER,
@@ -539,7 +539,7 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
             secondary_label.add_css_class ("dimmed");
             secondary_label.add_css_class ("caption");
 
-            var primary_label = new Gtk.Label (_("Planify is syncing your tasks, this may take a few minutes")) {
+            var primary_label = new Gtk.Label (_("Planify is syncing your tasks, this may take a few moments")) {
                 wrap = true,
                 halign = CENTER,
                 justify = CENTER,

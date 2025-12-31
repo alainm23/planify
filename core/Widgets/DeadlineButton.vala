@@ -52,7 +52,6 @@ public class Widgets.DeadlineButton : Adw.Bin {
                     deadline_date_label.remove_css_class ("error");
 
                     deadline_relative_label.label = null;
-                    deadline_label.remove_css_class ("error");
                 } else if (button_type == DeadlineButtonType.CARD) {
                     deadline_label.label = _("Set a Deadline");
                     deadline_label.tooltip_text = null;
