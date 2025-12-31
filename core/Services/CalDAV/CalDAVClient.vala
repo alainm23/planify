@@ -303,6 +303,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         const int ITEM_BATCH = 50;
         int processed = 0;
         
+        project.freeze_update = true;
         for (int i = 0; i < responses.size; i += ITEM_BATCH) {
             var batch_end = int.min (i + ITEM_BATCH, responses.size);
             
@@ -341,6 +342,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             
             yield Util.nap (10);
         }
+        project.freeze_update = false;
+        project.count_update ();
     }
 
     public async void sync_tasklist (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
@@ -370,6 +373,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         }
 
         var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
+        project.freeze_update = true;
 
         foreach (WebDAVResponse response in multi_status.responses ()) {
             string? href = response.href;
@@ -459,6 +463,9 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         }
 
         project.loading = false;
+        project.freeze_update = false;
+        project.count_update ();
+
         project.sync_finished ();
     }
 

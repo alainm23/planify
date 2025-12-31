@@ -317,6 +317,8 @@ public class Services.Store : GLib.Object {
         var sections = get_sections_by_project (project);
         var items = get_items_by_project (project);
         var subprojects = get_subprojects (project);
+
+        project.freeze_update = true;
         
         #if WITH_EVOLUTION
         if (project.calendar_source_uid != "") {
@@ -354,6 +356,10 @@ public class Services.Store : GLib.Object {
         foreach (Objects.Project subproject in subprojects) {
             yield delete_project (subproject);
         }
+
+        project.freeze_update = false;
+        project.count_update ();
+        update_project (project);
         
         if (Services.Database.get_default ().delete_project (project)) {
             project.deleted ();
