@@ -115,6 +115,8 @@ sources = files(
   
   'Dialogs/QuickFind/QuickFind.vala',
   'Dialogs/QuickFind/QuickFindItem.vala',
+  'Dialogs/QuickFind/QuickFindSectionSorter.vala',
+  'Dialogs/QuickFind/QuickFindFactory.vala',
   'Dialogs/QuickFind/Synapse.vala',
 
   'Dialogs/Preferences/PreferencesWindow.vala',
