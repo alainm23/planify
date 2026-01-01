@@ -33,7 +33,7 @@ public class Objects.DueDate : GLib.Object {
     GLib.DateTime ? _datetime = null;
     public GLib.DateTime? datetime {
         get {
-            if (this == null || date == null) {
+            if (date == null) {
                 return null;
             }
             if (_datetime == null) {

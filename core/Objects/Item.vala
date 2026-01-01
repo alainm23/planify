@@ -156,7 +156,7 @@ public class Objects.Item : Objects.BaseObject {
 
     public bool has_due {
         get {
-            return due.datetime != null;
+            return due != null && due.datetime != null;
         }
     }
 
