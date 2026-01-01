@@ -234,6 +234,13 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         add_button.add_css_class ("flat");
         add_button.add_css_class ("add-button");
 
+
+        add_items ();
+        show_completed_changed ();
+        build_drag_and_drop ();
+        update_count_label (section.section_count);
+        update_collapsed_button ();
+
         bottom_box.append (listbox);
         bottom_box.append (drop_inbox_revealer);
         bottom_box.append (add_button);
@@ -258,12 +265,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         };
 
         child = content_revealer;
-
-        add_items ();
-        show_completed_changed ();
-        build_drag_and_drop ();
-        update_count_label (section.section_count);
-        update_collapsed_button ();
 
         Timeout.add (content_revealer.transition_duration, () => {
             content_revealer.reveal_child = true;
@@ -522,9 +523,18 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             );
         });
 
-        foreach (Objects.Item item in items) {
-            add_item (item);
-        }
+        int index = 0;
+        Idle.add (() => {
+            int count = 0;
+
+            while (index < items.size && count < 50) {
+                add_item (items[index]);
+                index++;
+                count++;
+            }
+
+            return index < items.size;
+        });
 
         update_sort ();
     }
