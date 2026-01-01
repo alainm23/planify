@@ -13,8 +13,8 @@
   },
   "en": {
     "language": "English",
-    "total_strings": 750,
-    "translated_strings": 750,
+    "total_strings": 720,
+    "translated_strings": 720,
     "translated_percent": 100.0
   },
   "bg": {
@@ -32,8 +32,8 @@
   "es": {
     "language": "Spanish",
     "total_strings": 720,
-    "translated_strings": 567,
-    "translated_percent": 78.7
+    "translated_strings": 573,
+    "translated_percent": 79.5
   },
   "fr": {
     "language": "French",
@@ -43,9 +43,9 @@
   },
   "hi": {
     "language": "Hindi",
-    "total_strings": 737,
-    "translated_strings": 483,
-    "translated_percent": 65.5
+    "total_strings": 707,
+    "translated_strings": 472,
+    "translated_percent": 66.7
   },
   "ka": {
     "language": "Georgian",
@@ -98,8 +98,8 @@
   "hr": {
     "language": "Croatian",
     "total_strings": 720,
-    "translated_strings": 703,
-    "translated_percent": 97.6
+    "translated_strings": 720,
+    "translated_percent": 100.0
   },
   "af": {
     "language": "Afrikaans",
@@ -146,8 +146,8 @@
   "ca": {
     "language": "Catalan",
     "total_strings": 720,
-    "translated_strings": 49,
-    "translated_percent": 6.8
+    "translated_strings": 246,
+    "translated_percent": 34.1
   },
   "ckb": {
     "language": "Kurdish (Central)",
@@ -158,8 +158,8 @@
   "cs": {
     "language": "Czech",
     "total_strings": 720,
-    "translated_strings": 82,
-    "translated_percent": 11.3
+    "translated_strings": 189,
+    "translated_percent": 26.2
   },
   "cv": {
     "language": "Chuvash",
@@ -356,8 +356,8 @@
   "nb": {
     "language": "Norwegian Bokmål",
     "total_strings": 720,
-    "translated_strings": 2,
-    "translated_percent": 0.2
+    "translated_strings": 315,
+    "translated_percent": 43.7
   },
   "nn": {
     "language": "Norwegian Nynorsk",
