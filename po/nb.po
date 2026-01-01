@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-01 00:25+0000\n"
+"PO-Revision-Date: 2026-01-02 11:01+0000\n"
 "Last-Translator: Stein-Aksel Basma <stein-aksel@basma.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/nb_NO/>\n"
@@ -384,7 +384,7 @@ msgstr "Dette vil arkivere %s og alle tilhørende oppgaver."
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:662 src/Views/Project/Project.vala:386
 msgid "Archive"
-msgstr "Arkiver?"
+msgstr "Arkiver"
 
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
@@ -1551,7 +1551,7 @@ msgstr "Ingen fullførte oppgaver ennå."
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
 #: src/Views/Filter.vala:593
 msgid "Delete All Completed Tasks"
-msgstr ""
+msgstr "Slett alle fullførte oppgaver"
 
 #: src/Dialogs/CompletedTasks.vala:165
 #, c-format
@@ -1559,44 +1559,46 @@ msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
 msgstr[0] ""
+"Dette sletter %d fullført oppgave og dens underoppgaver fra prosjektet %s"
 msgstr[1] ""
+"Dette sletter %d fullført oppgaver og deres underoppgaver fra prosjektet %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
 #: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:673
 msgid "Filter By"
-msgstr ""
+msgstr "Filtrer etter"
 
 #: src/Dialogs/DatePicker.vala:69
 msgid "Next Week"
-msgstr ""
+msgstr "Neste uke"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:777
 #: src/Layouts/ItemRow.vala:1290 src/Views/Project/Project.vala:562
 #: src/Views/Project/Project.vala:733
 msgid "No Date"
-msgstr ""
+msgstr "Ingen dato"
 
 #: src/Dialogs/GoogleOAuth.vala:40
 msgid "Todoist Sync"
-msgstr ""
+msgstr "Todoist Synk"
 
 #: src/Dialogs/GoogleOAuth.vala:55 src/Dialogs/GoogleOAuth.vala:140
 msgid "Loading"
-msgstr ""
+msgstr "Laster"
 
 #: src/Dialogs/GoogleOAuth.vala:83
 msgid "Planner is sync your tasks, this may take a few minutes"
-msgstr ""
+msgstr "Planleggeren synkroniserer oppgavene dine. Dette kan ta noen minutter"
 
 #: src/Dialogs/GoogleOAuth.vala:135
 msgid "Please enter your credentials"
-msgstr ""
+msgstr "Vennligst skriv inn påloggingsinformasjonen din"
 
 #: src/Dialogs/GoogleOAuth.vala:151
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:212
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:214
 msgid "Network Is Not Available"
-msgstr ""
+msgstr "Nettverket er ikke tilgjengelig"
 
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1426
 #: src/Layouts/ItemSidebarView.vala:495
@@ -1605,15 +1607,15 @@ msgstr ""
 
 #: src/Dialogs/ItemChangeHistory.vala:54
 msgid "Added at"
-msgstr ""
+msgstr "Lagt til"
 
 #: src/Dialogs/ItemChangeHistory.vala:56
 msgid "Not available"
-msgstr ""
+msgstr "Ikke tilgjengelig"
 
 #: src/Dialogs/ItemChangeHistory.vala:60
 msgid "Updated at"
-msgstr ""
+msgstr "Oppdatert"
 
 #: src/Dialogs/ItemChangeHistory.vala:69
 msgid ""
@@ -1629,23 +1631,23 @@ msgstr[1] ""
 
 #: src/Dialogs/Label.vala:45
 msgid "New Label"
-msgstr ""
+msgstr "Ny etikett"
 
 #: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:161
 msgid "Edit Label"
-msgstr ""
+msgstr "Rediger etikett"
 
 #: src/Dialogs/Label.vala:65
 msgid "Give your label a name"
-msgstr ""
+msgstr "Gi etiketten din et navn"
 
 #: src/Dialogs/Label.vala:89
 msgid "Add Label"
-msgstr ""
+msgstr "Legg til etikett"
 
 #: src/Dialogs/Label.vala:89
 msgid "Update Label"
-msgstr ""
+msgstr "Oppdater etikett"
 
 #: src/Dialogs/LabelPicker.vala:62
 msgid "Filter"
@@ -1653,83 +1655,85 @@ msgstr ""
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:725
 msgid "Archived Projects"
-msgstr ""
+msgstr "Arkivert prosjekter"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:658
 #: src/Views/Project/Project.vala:379
 msgid "Manage Sections"
-msgstr ""
+msgstr "Administrer seksjoner"
 
 #: src/Dialogs/ManageSectionOrder.vala:54
 msgid "You can sort your sections by dragging and dropping"
-msgstr ""
+msgstr "Du kan sortere seksjonene dine ved å dra og slippe"
 
 #: src/Dialogs/ManageSectionOrder.vala:76
 msgid "Archived"
-msgstr ""
+msgstr "Arkivert"
 
 #: src/Dialogs/ManageSectionOrder.vala:184 src/Layouts/SectionBoard.vala:77
 #: src/Layouts/SectionRow.vala:88
 msgid "(No Section)"
-msgstr ""
+msgstr "(Ingen seksjon)"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
 #: src/Dialogs/Preferences/PreferencesWindow.vala:108
 msgid "Accounts"
-msgstr ""
+msgstr "Kontoer"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
 msgid "Add Source"
-msgstr ""
+msgstr "Legg til kilde"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
 msgid "Inbox Page"
-msgstr ""
+msgstr "Innboks side"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:105
 msgid "You can sort your accounts by dragging and dropping"
-msgstr ""
+msgstr "Du kan sortere kontoene dine ved å dra og slippe"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 msgid "Planify is syncing your tasks, this may take a few minutes"
-msgstr ""
+msgstr "Planify synkroniserer oppgavene dine. Dette kan ta noen minutter"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
-msgstr ""
+msgstr "SSL-verifisering er deaktivert"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:398
 msgid "Cannot Hide This Account"
-msgstr ""
+msgstr "Kan ikke skjule denne kontoen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:399
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Denne kontoen inneholder ditt nåværende Innboks-prosjekt. Vennligst endre "
+"Innboks-prosjektet ditt først."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
 msgid "Change Inbox"
-msgstr ""
+msgstr "Endre Innboks"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 msgid "Syncing…"
-msgstr ""
+msgstr "Synker…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:52
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:48
 msgid "Server URL"
-msgstr ""
+msgstr "Server URL"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:55
 msgid "Username"
-msgstr ""
+msgstr "Brukernavn"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:58
 msgid "Password"
-msgstr ""
+msgstr "Passord"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:67
 msgid "Calendar Home URL"
@@ -1738,16 +1742,16 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:79
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:92
 msgid "Advanced Options"
-msgstr ""
+msgstr "Avanserte innstillinger"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:91
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:103
 msgid "Log In"
-msgstr ""
+msgstr "Logg inn"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:28
 msgid "Inbox Project"
-msgstr ""
+msgstr "Innboks prosjekt"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:37
 msgid ""
@@ -1755,178 +1759,187 @@ msgid ""
 "Getting Things Done methodology, it's your capture point for quick ideas and "
 "tasks that you'll organize later"
 msgstr ""
+"Innboksen din er der nye oppgaver som standard lander. Basert på David "
+"Allens Getting Things Done-metodikk, er det ditt innsamlingspunkt for raske "
+"ideer og oppgaver som du skal organisere senere"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "Server URL examples:"
-msgstr ""
+msgstr "Eksempler på server-URLer:"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "- https://cloud.example.com/"
-msgstr ""
+msgstr "- https://cloud.eksempel.no/"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:55
 msgid "- https://example.com/nextcloud/"
-msgstr ""
+msgstr "- https://eksempel.no/nextcloud/"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:178
 msgid "Source"
-msgstr ""
+msgstr "Kilde"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:74
 msgid "Display Name"
-msgstr ""
+msgstr "Visningsnavn"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:80
 msgid "Sync Server"
-msgstr ""
+msgstr "Synk Server"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:83
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
 msgstr ""
+"Aktiver denne innstillingen slik at Planify automatisk synkroniseres med "
+"kontoen din hvert 15. minutt"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:96
 msgid "Last Sync"
-msgstr ""
+msgstr "Siste synk"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:111
 msgid "Delete Source"
-msgstr ""
+msgstr "Slett kilde"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:179
 msgid "Delete Source?"
-msgstr ""
+msgstr "Slett kilde?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
 msgid "Token"
-msgstr ""
+msgstr "Token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:100
 msgid "How to get your token?"
-msgstr ""
+msgstr "Hvordan får du tak i tokenet ditt?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
-msgstr ""
+msgstr "1. Gå til Todoist → Innstillinger → Integrasjoner → Utvikler"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:102
 msgid "2. Find 'API token' and copy your token"
-msgstr ""
+msgstr "2. Finn «API-token» og kopier tokenet ditt"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:103
 msgid "3. Paste it in the field above"
-msgstr ""
+msgstr "3. Lim det inn i feltet ovenfor"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:122
 msgid "Connect with Token"
-msgstr ""
+msgstr "Koble til med token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:165
 msgid "Enter token"
-msgstr ""
+msgstr "Skriv inn token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:183
 msgid "Synchronizing…"
-msgstr ""
+msgstr "Sunkroniserer…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:201
 msgid "Please Enter Your Credentials"
-msgstr ""
+msgstr "Vennligst skriv inn legitimasjonen din"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
 msgid "Loading…"
-msgstr ""
+msgstr "Laster…"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:36
 #: src/Dialogs/Preferences/PreferencesWindow.vala:169
 msgid "Appearance"
-msgstr ""
+msgstr "Utseende"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:51
 msgid "Use System Settings"
-msgstr ""
+msgstr "Bruk systeminnstillinger"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:61
 msgid "Select theme"
-msgstr ""
+msgstr "Velg tema"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:70
 msgid "Light Style"
-msgstr ""
+msgstr "Lys stil"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:71
 msgid "Clean light theme"
-msgstr ""
+msgstr "Rent lyst tema"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:87
 msgid "Dark Style"
-msgstr ""
+msgstr "Mørk stil"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:88
 msgid "Elegant dark theme"
-msgstr ""
+msgstr "Elegant mørkt tema"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:104
 msgid "Dark Blue Style"
-msgstr ""
+msgstr "Mørk blå stil"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:105
 msgid "Professional blue theme"
-msgstr ""
+msgstr "Profesjonelt blått tema"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:121
 msgid "Custom themes are not available when using the system light theme"
 msgstr ""
+"Tilpassede temaer er ikke tilgjengelige når du bruker system lyst-temaet"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:159
 msgid "Font Size"
-msgstr ""
+msgstr "Skriftstørrelse"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
 #: src/Dialogs/Preferences/PreferencesWindow.vala:191
 msgid "Backups"
-msgstr ""
+msgstr "Sikkerhetskopier"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:38
 msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
 msgstr ""
+"Du trenger aldri å bekymre deg for å miste data. Du kan ta sikkerhetskopier "
+"av aktive prosjekter, oppgaver og kommentarer og importere dem senere."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:48
 msgid "Create Backup"
-msgstr ""
+msgstr "Opprett sikkerhetskopi"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:52
 msgid "Import Backup"
-msgstr ""
+msgstr "Importer sikkerhetskopi"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:54
 msgid "Backup Files"
-msgstr ""
+msgstr "Sikkerhetskopi filer"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:57
 msgid "No backups found, create one clicking the button above."
 msgstr ""
+"Ingen sikkerhetskopier funnet. Opprett en ved å klikke på knappen ovenfor."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
 #, c-format
 msgid "Backup files are stored in: %s"
-msgstr ""
+msgstr "Sikkerhetskopieringsfiler er lagret i: %s"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:76
 msgid "Migrate"
-msgstr ""
+msgstr "Migrer"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:78
 msgid "Migrate From Planner"
-msgstr ""
+msgstr "Migrer fra Planner"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:112
 msgid "The Backup was created successfully."
-msgstr ""
+msgstr "Sikkerhetskopien ble opprettet."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:129
 msgid "Tasks Migrate Successfully"
@@ -1934,11 +1947,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:133
 msgid "The database file does not exist."
-msgstr ""
+msgstr "Databasefilen finnes ikke."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:171
 msgid "Selected file is invalid"
-msgstr ""
+msgstr "Valgt fil er ugyldig"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:216
 msgid "View Backup"
@@ -1946,7 +1959,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:272
 msgid "Download"
-msgstr ""
+msgstr "Last ned"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:336
 msgid "Import Overview"
@@ -1954,39 +1967,41 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:348 src/Dialogs/Project.vala:376
 msgid "Sources"
-msgstr ""
+msgstr "Kilder"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:360
 msgid "To-Dos"
-msgstr ""
+msgstr "Gjøremål"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:382
 msgid "Confirm"
-msgstr ""
+msgstr "Bekreft"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:438
 msgid "Restore backup"
-msgstr ""
+msgstr "Gjenopprett sikkerhetskopi"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:439
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
 msgstr ""
+"Er du sikker på at du vil fortsette? Denne operasjonen vil slette dine "
+"nåværende data og erstatte dem med sikkerhetskopidataene."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:444
 msgid "Restore Backup"
-msgstr ""
+msgstr "Gjenopprett sikkerhetskopi"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:45
 #: src/Dialogs/Preferences/PreferencesWindow.vala:217
 msgid "Donate"
-msgstr ""
+msgstr "Doner"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:53
 msgid "Support Planify Development"
-msgstr ""
+msgstr "Støtt Planify-utvikling"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:58
 msgid ""
@@ -1994,10 +2009,13 @@ msgid ""
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
 msgstr ""
+"Hjelp oss med å holde Planify gratis og åpen kildekode! Dine donasjoner "
+"støtter direkte utvikling, nye funksjoner og vedlikehold. Hvert bidrag, "
+"uansett størrelse, utgjør en forskjell."
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Patreon"
-msgstr ""
+msgstr "Patreon"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:75
 msgid "Monthly recurring support"
@@ -2005,19 +2023,19 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
-msgstr ""
+msgstr "PayPal"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:89
 msgid "One-time donation"
-msgstr ""
+msgstr "Engangsdonasjon"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Liberapay"
-msgstr ""
+msgstr "Liberapay"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:103
 msgid "Weekly recurring donations"
-msgstr ""
+msgstr "Ukentlige gjentakende donasjoner"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
@@ -2025,25 +2043,25 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
-msgstr ""
+msgstr "Kjøp meg en kaffe ☕"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:128
 msgid "Choose Your Preferred Platform"
-msgstr ""
+msgstr "Velg din foretrukne plattform"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:142
 msgid "Thank you for your support! 🙏"
-msgstr ""
+msgstr "Takk for støtten! 🙏"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Your contribution helps keep Planify alive and growing."
-msgstr ""
+msgstr "Ditt bidrag bidrar til å holde Planify levende og voksende."
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
 #: src/Dialogs/Preferences/PreferencesWindow.vala:137
 msgid "General"
-msgstr ""
+msgstr "Generelt"
 
 #: src/Dialogs/Preferences/Pages/General.vala:36
 msgid "Custom Sort Order"
@@ -2053,19 +2071,19 @@ msgstr ""
 #: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:227
 #: src/Views/Today.vala:630
 msgid "Alphabetically"
-msgstr ""
+msgstr "Alfabetisk"
 
 #: src/Dialogs/Preferences/Pages/General.vala:40
 msgid "Sort by"
-msgstr ""
+msgstr "Sorter etter"
 
 #: src/Dialogs/Preferences/Pages/General.vala:45
 msgid "Ascending"
-msgstr ""
+msgstr "Stigende"
 
 #: src/Dialogs/Preferences/Pages/General.vala:46
 msgid "Descending"
-msgstr ""
+msgstr "Synkende"
 
 #: src/Dialogs/Preferences/Pages/General.vala:49
 msgid "Ordered"
@@ -2073,113 +2091,118 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:60
 msgid "DE Integration"
-msgstr ""
+msgstr "DE Integrasjon"
 
 #: src/Dialogs/Preferences/Pages/General.vala:68
 msgid "Run in Background"
-msgstr ""
+msgstr "Kjør i bakgrunnen"
 
 #: src/Dialogs/Preferences/Pages/General.vala:69
 msgid "Let Planify run in background and send notifications"
-msgstr ""
+msgstr "La Planify kjøre i bakgrunnen og sende varsler"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
-msgstr ""
+msgstr "Kjør ved oppstart"
 
 #: src/Dialogs/Preferences/Pages/General.vala:83
 msgid "Whether Planify should run on startup"
-msgstr ""
+msgstr "Om Planify skal kjøres ved oppstart"
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
-msgstr ""
+msgstr "Kalenderhendelser"
 
 #: src/Dialogs/Preferences/Pages/General.vala:103
 msgid "Date and Time"
-msgstr ""
+msgstr "Dato og tid"
 
 #: src/Dialogs/Preferences/Pages/General.vala:106
 msgid "24h"
-msgstr ""
+msgstr "24t"
 
 #: src/Dialogs/Preferences/Pages/General.vala:107
 msgid "12h"
-msgstr ""
+msgstr "12t"
 
 #: src/Dialogs/Preferences/Pages/General.vala:110
 msgid "Clock Format"
-msgstr ""
+msgstr "Klokkeformat"
 
 #: src/Dialogs/Preferences/Pages/General.vala:117
 msgid "Sunday"
-msgstr ""
+msgstr "Søndag"
 
 #: src/Dialogs/Preferences/Pages/General.vala:118
 msgid "Monday"
-msgstr ""
+msgstr "Mandag"
 
 #: src/Dialogs/Preferences/Pages/General.vala:119
 msgid "Tuesday"
-msgstr ""
+msgstr "Tirsdag"
 
 #: src/Dialogs/Preferences/Pages/General.vala:120
 msgid "Wednesday"
-msgstr ""
+msgstr "Onsdag"
 
 #: src/Dialogs/Preferences/Pages/General.vala:121
 msgid "Thursday"
-msgstr ""
+msgstr "Torsdag"
 
 #: src/Dialogs/Preferences/Pages/General.vala:122
 msgid "Friday"
-msgstr ""
+msgstr "Fredag"
 
 #: src/Dialogs/Preferences/Pages/General.vala:123
 msgid "Saturday"
-msgstr ""
+msgstr "Lørdag"
 
 #: src/Dialogs/Preferences/Pages/General.vala:126
 msgid "Start of the Week"
-msgstr ""
+msgstr "Starten på uken"
 
 #: src/Dialogs/Preferences/Pages/General.vala:138
 msgid "Smart Date Recognition"
-msgstr ""
+msgstr "Smart datogjenkjenning"
 
 #: src/Dialogs/Preferences/Pages/General.vala:139
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr ""
+msgstr "Oppdag automatisk datoer som «i morgen» eller «neste uke»"
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
 msgid "Home View"
-msgstr ""
+msgstr "Hjem visning"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:180
 msgid "Quick Add"
-msgstr ""
+msgstr "Hurtigtillegg"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:43
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
 msgstr ""
+"Bruk Hurtigtillegg for å opprette gjøremål fra hvor som helst på "
+"skrivebordet med bare noen få tastetrykk. Du trenger ikke engang å forlate "
+"appen du er i."
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:55
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
 msgstr ""
+"Gå til Systeminnstillinger → Tastatur → Snarveier → Tilpasset, og legg "
+"deretter til en ny snarvei med følgende:"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
 msgid "Settings"
-msgstr ""
+msgstr "Innstillinger"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:92
 msgid "Save Last Selected Project"
-msgstr ""
+msgstr "Lagre sist valgte prosjekt"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
@@ -2187,16 +2210,16 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:121
 msgid "The command was copied to the clipboard"
-msgstr ""
+msgstr "Kommandoen ble kopiert til utklippstavlen"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
 #: src/Dialogs/Preferences/PreferencesWindow.vala:158
 msgid "Sidebar"
-msgstr ""
+msgstr "Sidefelt"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:37
 msgid "Show in Sidebar"
-msgstr ""
+msgstr "Vis i sidefelt"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:55
 msgid "Show Task Count"
@@ -2221,7 +2244,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
-msgstr ""
+msgstr "Oppgaveinnstillinger"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:40
 msgid "Complete Instantly"
@@ -2233,55 +2256,55 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:44
 msgid "Task Completion"
-msgstr ""
+msgstr "Oppgavefullføring"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:45
 msgid "Choose how tasks behave when marked as complete"
-msgstr ""
+msgstr "Velg hvordan oppgaver oppfører seg når de er merket som fullførte"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:52
 msgid "Priority 1"
-msgstr ""
+msgstr "Prioritet 1"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:53
 msgid "Priority 2"
-msgstr ""
+msgstr "Prioritet 2"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:54
 msgid "Priority 3"
-msgstr ""
+msgstr "Prioritet 3"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:58
 msgid "Default Priority"
-msgstr ""
+msgstr "Standard prioritet"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:70
 msgid "Cross Out Completed Tasks"
-msgstr ""
+msgstr "Stryk ut fullførte oppgaver"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:77
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:81
 msgid "New Task Position"
-msgstr ""
+msgstr "Plassering for ny oppgave"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:88
 msgid "Always Show Completed Sub-Tasks"
-msgstr ""
+msgstr "Vis alltid fullførte deloppgaver"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:89
 msgid "Keep all completed subtasks visible without collapsing them"
-msgstr ""
+msgstr "Hold alle fullførte deloppgaver synlige uten å skjule dem"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:96
 msgid "Task Complete Tone"
-msgstr ""
+msgstr "Lyd for fullført oppgave"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:97
 msgid "Play a sound when tasks are completed"
-msgstr ""
+msgstr "Spill av en lyd når oppgavene er fullført"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:104
 msgid "Open Tasks in Sidebar View"
@@ -2291,6 +2314,8 @@ msgstr ""
 msgid ""
 "Always display task details in the sidebar instead of expanding in list view."
 msgstr ""
+"Vis alltid oppgavedetaljer i sidefeltet i stedet for å utvide dem i "
+"listevisning."
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:112
 msgid "Single Task Focus Mode"
@@ -2298,50 +2323,54 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:113
 msgid "Allow only one task to be expanded at a time in list view"
-msgstr ""
+msgstr "Tillat at bare én oppgave utvides om gangen i listevisning"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:122
 msgid "Enable Markdown Formatting"
-msgstr ""
+msgstr "Aktiver markdown-formatering"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:123
 msgid "Toggle Markdown support for tasks on or off"
-msgstr ""
+msgstr "Slå av eller på Markdown-støtte for oppgaver"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:130
 msgid "Always Show Details Sidebar"
-msgstr ""
+msgstr "Vis alltid detaljer sidefeltet"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:131
 msgid ""
 "Keep the details sidebar always visible for faster task navigation, without "
 "repeatedly opening and closing it"
 msgstr ""
+"Hold detaljsidefeltet alltid synlig for raskere oppgavenavigasjon, uten å "
+"måtte åpne og lukke det gjentatte ganger"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:138
 msgid "Enable Spell Checking"
-msgstr ""
+msgstr "Aktiver stavekontroll"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:139
 msgid "Check spelling in task descriptions and notes"
-msgstr ""
+msgstr "Sjekk stavemåte i oppgavebeskrivelser og notater"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
 msgid "Enabled"
-msgstr ""
+msgstr "Aktivert"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:164
 msgid "Automatic reminders"
-msgstr ""
+msgstr "Automatiske påminnelser"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:166
 msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr ""
+"Når dette er aktivert, legges det som standard til en påminnelse før "
+"oppgavens forfallstid."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:717
 msgid "Preferences"
-msgstr ""
+msgstr "Innstillinger"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:52
 msgid ""
@@ -2349,176 +2378,178 @@ msgid ""
 "if you like Planify and want to support its development, please consider "
 "supporting us."
 msgstr ""
+"Planify utvikles med kjærlighet og lidenskap for åpen kildekode. Men hvis du "
+"liker Planify og ønsker å støtte utviklingen, bør du vurdere å støtte oss."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:60
 msgid "Donate Now"
-msgstr ""
+msgstr "Doner nå"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Sync your favorite to-do providers"
-msgstr ""
+msgstr "Synkroniser dine favoritt gjøremålsleverandører"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:124
 msgid "Set the view shown at first launch"
-msgstr ""
+msgstr "Angi visningen som vises ved første oppstart"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:138
 msgid "Customize to your liking"
-msgstr ""
+msgstr "Tilpass etter din smak"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Customize your sidebar"
-msgstr ""
+msgstr "Tilpass sidefeltet"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "Adding to-do's from anywhere"
-msgstr ""
+msgstr "Legge til gjøremål fra hvor som helst"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:192
 msgid "Backup or migrate from Planner."
-msgstr ""
+msgstr "Sikkerhetskopier eller migrer fra Planner."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:198
 msgid "Create Tutorial Project"
-msgstr ""
+msgstr "Opprett veiledningsprosjekt"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:199
 msgid "Learn the app step by step with a short tutorial project"
-msgstr ""
+msgstr "Lær appen trinn for trinn med et kort veiledningsprosjekt"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:218
 msgid "Want to buy me a drink?"
-msgstr ""
+msgstr "Vil du kjøpe meg en drink?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:228
 msgid "Report Issue or Request Feature"
-msgstr ""
+msgstr "Rapporter problem eller be om funksjon"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:229
 msgid "Share bugs or ideas on GitHub"
-msgstr ""
+msgstr "Del feil eller ideer på GitHub"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:255
 msgid "Get Involved"
-msgstr ""
+msgstr "Bli involvert"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
-msgstr ""
+msgstr "Nå oss"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:271
 msgid "Contact Us"
-msgstr ""
+msgstr "Kontakt oss"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:272
 msgid "Request a feature or ask us anything"
-msgstr ""
+msgstr "Be om en funksjon eller spør oss om hva som helst"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:288
 msgid "Tweet Us"
-msgstr ""
+msgstr "Tweet oss"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:289
 #: src/Dialogs/Preferences/PreferencesWindow.vala:319
 msgid "Share some love"
-msgstr ""
+msgstr "Del litt kjærlighet"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:303
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:304
 msgid "Discuss and share your feedback"
-msgstr ""
+msgstr "Diskuter og del tilbakemeldingene dine"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:318
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:337
 msgid "Privacy"
-msgstr ""
+msgstr "Personvern"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:343
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Personvernregler"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:344
 msgid "We have nothing on you"
-msgstr ""
+msgstr "Vi har ingenting på deg"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:350
 msgid "Delete App Data"
-msgstr ""
+msgstr "Slett App data"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:359
 msgid "A tutorial project has been created"
-msgstr ""
+msgstr "Et veiledningsprosjekt er opprettet"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:375
 msgid "Delete All Data?"
-msgstr ""
+msgstr "Slett alle data?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:376
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
-msgstr ""
+msgstr "Sletter alle listene, oppgavene og påminnelsene dine permanent"
 
 #: src/Dialogs/Project.vala:59 src/Layouts/Sidebar.vala:121
 msgid "New Project"
-msgstr ""
+msgstr "Nytt prosjekt"
 
 #: src/Dialogs/Project.vala:67 src/Layouts/ProjectRow.vala:704
 #: src/Views/Project/Project.vala:374
 msgid "Edit Project"
-msgstr ""
+msgstr "Rediger prosjekt"
 
 #: src/Dialogs/Project.vala:112
 msgid "Give your project a name"
-msgstr ""
+msgstr "Gi prosjektet ditt et navn"
 
 #: src/Dialogs/Project.vala:123
 msgid "Use Emoji"
-msgstr ""
+msgstr "Bruk Emoji"
 
 #: src/Dialogs/Project.vala:217 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
-msgstr ""
+msgstr "Legg til prosjekt"
 
 #: src/Dialogs/Project.vala:217
 msgid "Update Project"
-msgstr ""
+msgstr "Oppdater prosjekt"
 
 #: src/Dialogs/Project.vala:471
 msgid "Project added successfully!"
-msgstr ""
+msgstr "Prosjekt lagt til!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:780 src/Layouts/ItemRow.vala:1293
 #: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemSidebarView.vala:490
 msgid "Move"
-msgstr ""
+msgstr "Flytt"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:42
 msgid "Quick Find"
-msgstr ""
+msgstr "Hurtigsøk"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
-msgstr ""
+msgstr "Bytt raskt prosjekter og visninger, finn oppgaver, søk etter etiketter"
 
 #: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:260
 #: src/Views/Project/Project.vala:377
 msgid "New Section"
-msgstr ""
+msgstr "Ny seksjon"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:563
 #: src/Layouts/SectionRow.vala:656
 msgid "Edit Section"
-msgstr ""
+msgstr "Rediger seksjon"
 
 #: src/Dialogs/Section.vala:67
 msgid "Section Name"
-msgstr ""
+msgstr "Seksjonsnavn"
 
 #: src/Dialogs/Section.vala:102 src/Widgets/SectionsOrderPopover.vala:39
 msgid "Add Section"
@@ -2526,11 +2557,11 @@ msgstr ""
 
 #: src/Dialogs/Section.vala:102
 msgid "Update Section"
-msgstr ""
+msgstr "Oppdater seksjon"
 
 #: src/Dialogs/Section.vala:209 src/Dialogs/Section.vala:223
 msgid "Section added"
-msgstr ""
+msgstr "Seksjon lagt til"
 
 #: src/Layouts/HeaderBar.vala:79
 msgid "Open/Close Sidebar"
@@ -2546,27 +2577,27 @@ msgstr ""
 #: src/Layouts/ItemSidebarView.vala:656
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr ""
+msgstr "Fullført. Neste forekomst: %s"
 
 #: src/Layouts/ItemBoard.vala:783 src/Layouts/ItemRow.vala:1296
 msgid "Add Subtask"
-msgstr ""
+msgstr "Legg til deloppgaver"
 
 #: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1298
 msgid "Edit"
-msgstr ""
+msgstr "Rediger"
 
 #: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1299
 #: src/Layouts/ItemRow.vala:1420 src/Layouts/ItemSidebarView.vala:489
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:659 src/Views/Project/Project.vala:375
 msgid "Duplicate"
-msgstr ""
+msgstr "Dupliser"
 
 #: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1301
 #: src/Layouts/ItemRow.vala:1423 src/Layouts/ItemSidebarView.vala:492
 msgid "Delete Task"
-msgstr ""
+msgstr "Slett oppgave"
 
 #: src/Layouts/ItemBoard.vala:1088 src/Layouts/ItemRow.vala:1868
 msgid "Order changed to 'Custom sort order'"
@@ -2575,27 +2606,27 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:1174 src/Layouts/ItemRow.vala:1651
 #, c-format
 msgid "%s was deleted"
-msgstr ""
+msgstr "%s ble slettet"
 
 #: src/Layouts/ItemBoard.vala:1175 src/Layouts/ItemRow.vala:1652
 msgid "Undo"
-msgstr ""
+msgstr "Angre"
 
 #: src/Layouts/ItemRow.vala:521
 msgid "Add Attachments"
-msgstr ""
+msgstr "Legg til vedlegg"
 
 #: src/Layouts/ItemRow.vala:616
 msgid "Add Subtasks"
-msgstr ""
+msgstr "Legg til deloppgaver"
 
 #: src/Layouts/ItemRow.vala:1125
 msgid "Hide Sub-tasks"
-msgstr ""
+msgstr "Skjul deloppgaver"
 
 #: src/Layouts/ItemRow.vala:1125
 msgid "Show Sub-tasks"
-msgstr ""
+msgstr "Vis deloppgaver"
 
 #: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:486
 msgid "Use as a Note"
@@ -2603,7 +2634,7 @@ msgstr ""
 
 #: src/Layouts/ItemRow.vala:1419 src/Layouts/ItemSidebarView.vala:488
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Kopier til utklippstavlen"
 
 #: src/Layouts/ItemSidebarView.vala:77
 msgid "Close Detail"
@@ -2611,19 +2642,19 @@ msgstr ""
 
 #: src/Layouts/ItemSidebarView.vala:144 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
-msgstr ""
+msgstr "Tittel"
 
 #: src/Layouts/ItemSidebarView.vala:176 src/Widgets/ItemDetailCompleted.vala:90
 msgid "Properties"
-msgstr ""
+msgstr "Egenskaper"
 
 #: src/Layouts/ItemSidebarView.vala:576
 msgid "Are you sure you want to delete?"
-msgstr ""
+msgstr "Er du sikker på at du vil slette?"
 
 #: src/Layouts/LabelRow.vala:162
 msgid "Delete Label"
-msgstr ""
+msgstr "Slett etikett"
 
 #: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:224
 msgid "Projects sort changed to 'Custom sort order'"
@@ -2635,58 +2666,58 @@ msgstr ""
 
 #: src/Layouts/ProjectRow.vala:697 src/Layouts/ProjectRow.vala:703
 msgid "Add to Favorites"
-msgstr ""
+msgstr "Legg til Favoritter"
 
 #: src/Layouts/ProjectRow.vala:706
 msgid "Refresh"
-msgstr ""
+msgstr "Oppfrisk"
 
 #: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:387
 #: src/Widgets/ProjectItemRow.vala:154
 msgid "Delete Project"
-msgstr ""
+msgstr "Slett prosjekt"
 
 #: src/Layouts/ProjectRow.vala:712
 msgid "Share"
-msgstr ""
+msgstr "Del"
 
 #: src/Layouts/ProjectRow.vala:713
 msgid "Send by E-Mail"
-msgstr ""
+msgstr "Send med e-post"
 
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 msgid "Add tasks"
-msgstr ""
+msgstr "Legg til oppgaver"
 
 #: src/Layouts/SectionBoard.vala:175
 msgid "Load more"
-msgstr ""
+msgstr "Last mer"
 
 #: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:612
 #: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
 msgid "completed tasks"
-msgstr ""
+msgstr "fullførte oppgaver"
 
 #: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:657
 msgid "Move Section"
-msgstr ""
+msgstr "Flytt seksjon"
 
 #: src/Layouts/SectionBoard.vala:565
 msgid "Manage Section Order"
-msgstr ""
+msgstr "Administrer seksjonsrekkefølge"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:660
 msgid "Show Completed Tasks"
-msgstr ""
+msgstr "Vis fullførte oppgaver"
 
 #: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:663
 #: src/Widgets/SectionItemRow.vala:207
 msgid "Delete Section"
-msgstr ""
+msgstr "Slett seksjon"
 
 #: src/Layouts/Sidebar.vala:40
 msgid "Favorites"
-msgstr ""
+msgstr "Favorittter"
 
 #: src/Layouts/Sidebar.vala:42
 msgid "No favorites available. Create one by clicking on the '+' button"
@@ -2694,7 +2725,7 @@ msgstr ""
 
 #: src/Layouts/Sidebar.vala:122
 msgid "Add Account"
-msgstr ""
+msgstr "Legg til konto"
 
 #: src/Layouts/Sidebar.vala:123
 msgid "Customize Sidebar"
@@ -2702,15 +2733,15 @@ msgstr ""
 
 #: src/Layouts/Sidebar.vala:312 src/Layouts/Sidebar.vala:364
 msgid "Go to Today"
-msgstr ""
+msgstr "Gå til I dag"
 
 #: src/Layouts/Sidebar.vala:316 src/Layouts/Sidebar.vala:368
 msgid "Go to Scheduled"
-msgstr ""
+msgstr "Gå til Planlagt"
 
 #: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Labels"
-msgstr ""
+msgstr "Gå til Etiketter"
 
 #: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Pinboard"
@@ -2718,11 +2749,11 @@ msgstr ""
 
 #: src/Layouts/SidebarSourceRow.vala:43
 msgid "No project available. Create one by clicking on the '+' button"
-msgstr ""
+msgstr "Ingen prosjekter tilgjengelig. Opprett et ved å klikke på «+»-knappen"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
-msgstr ""
+msgstr "Hovedmeny"
 
 #: src/MainWindow.vala:84
 msgid "Open Quick Find"
@@ -2730,27 +2761,27 @@ msgstr ""
 
 #: src/MainWindow.vala:723
 msgid "About Planify"
-msgstr ""
+msgstr "Om Planify"
 
 #: src/MainWindow.vala:783
 msgid "Oops! Something happened"
-msgstr ""
+msgstr "Ups! Noe skjedde"
 
 #: src/MainWindow.vala:786
 msgid "See More"
-msgstr ""
+msgstr "Se mer"
 
 #: src/MainWindow.vala:802 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
-msgstr ""
+msgstr "Oppgave fullført"
 
 #: src/MainWindow.vala:803
 msgid "View"
-msgstr ""
+msgstr "Vis"
 
 #: src/MainWindow.vala:841
 msgid "Database Integrity Check Failed"
-msgstr ""
+msgstr "Integritetssjekk av databasen mislyktes"
 
 #: src/MainWindow.vala:842
 msgid ""
@@ -2764,42 +2795,52 @@ msgid ""
 "After the reset, you’ll be able to restore any backup you’ve created "
 "previously. Thank you for your patience"
 msgstr ""
+"Vi har oppdaget problemer med databasestrukturen som kan forhindre at "
+"applikasjonen fungerer som den skal. Dette kan skyldes manglende tabeller "
+"eller kolonner, sannsynligvis forårsaket av datafeil eller en ufullstendig "
+"oppdatering.\n"
+"\n"
+"Databasen vil nå bli tilbakestilt for å gjenopprette normal funksjonalitet, "
+"og eventuelle eksisterende data vil bli fjernet.\n"
+"\n"
+"Etter tilbakestillingen vil du kunne gjenopprette eventuelle "
+"sikkerhetskopier du har opprettet tidligere. Takk for tålmodigheten"
 
 #: src/MainWindow.vala:844
 msgid "Reset Database"
-msgstr ""
+msgstr "Tilbakestill database"
 
 #: src/Services/Backups.vala:415
 msgid "Delete Backup"
-msgstr ""
+msgstr "Slett sikkerhetskopi"
 
 #: src/Services/Backups.vala:547
 msgid "Backup Successfully Imported"
-msgstr ""
+msgstr "Sikkerhetskopien er importert"
 
 #: src/Services/Backups.vala:548
 msgid "Planify will restart to apply the changes"
-msgstr ""
+msgstr "Planify vil starte på nytt for å implementere endringene"
 
 #: src/Services/Backups.vala:551
 msgid "Restart Now"
-msgstr ""
+msgstr "Omstart nå"
 
 #: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
-msgstr ""
+msgstr "Planify sikkerhetskopi-filer"
 
 #: src/Services/Notification.vala:99
 msgid "Snooze for 10 minutes"
-msgstr ""
+msgstr "Slumre i 10 minutter"
 
 #: src/Services/Notification.vala:100
 msgid "Snooze for 30 minutes"
-msgstr ""
+msgstr "Slumre i 30 minutter"
 
 #: src/Services/Notification.vala:101
 msgid "Snooze for 1 hour"
-msgstr ""
+msgstr "Slumre i 1 time"
 
 #: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
 #: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:87
@@ -2809,26 +2850,26 @@ msgstr ""
 #: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
 #: src/Views/Project/List.vala:116 src/Views/Today.vala:250
 msgid "Add Some Tasks"
-msgstr ""
+msgstr "Legg til noen oppgaver"
 
 #: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
 #: src/Views/Project/List.vala:117 src/Views/Today.vala:251
 msgid "Press 'a' to create a new task"
-msgstr ""
+msgstr "Trykk på «a» for å opprette en ny oppgave"
 
 #: src/Views/Filter.vala:129
 msgid "All tasks completed!"
-msgstr ""
+msgstr "Alle oppgaver fullført!"
 
 #: src/Views/Filter.vala:130
 msgid "Great job, nothing left to do 🎉"
-msgstr ""
+msgstr "Godt jobba, ingenting igjen å gjøre 🎉"
 
 #: src/Views/Filter.vala:612
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Slett fullført oppgave"
+msgstr[1] "Slett fullførtw oppgaver"
 
 #: src/Views/Filter.vala:617
 #, c-format
@@ -2839,11 +2880,11 @@ msgstr[1] ""
 
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
-msgstr ""
+msgstr "Ingen etiketter tilgjengelig. Opprett en ved å klikke på «+»-knappen"
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
-msgstr ""
+msgstr "Merknad"
 
 #: src/Views/Project/Board.vala:273
 msgid "Schedule"
@@ -2851,11 +2892,11 @@ msgstr ""
 
 #: src/Views/Project/Board.vala:311 src/Views/Project/List.vala:399
 msgid "When?"
-msgstr ""
+msgstr "Når?"
 
 #: src/Views/Project/List.vala:121
 msgid "Add Some Tasks. Press 'a' to create a new task"
-msgstr ""
+msgstr "Legg til noen oppgaver. Trykk på 'a' for å opprette en ny oppgave"
 
 #: src/Views/Project/Project.vala:94
 msgid "Project Actions"
@@ -2863,31 +2904,31 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:259
 msgid "New Task"
-msgstr ""
+msgstr "Ny oppgave"
 
 #: src/Views/Project/Project.vala:376 src/Views/Project/Project.vala:408
 msgid "Project Deadline"
-msgstr ""
+msgstr "Prosjektfrist"
 
 #: src/Views/Project/Project.vala:381
 msgid "Select"
-msgstr ""
+msgstr "Velg"
 
 #: src/Views/Project/Project.vala:382
 msgid "Paste"
-msgstr ""
+msgstr "Lim inn"
 
 #: src/Views/Project/Project.vala:383 src/Views/Project/Project.vala:500
 msgid "Expand All"
-msgstr ""
+msgstr "Utvid alle"
 
 #: src/Views/Project/Project.vala:445 src/Widgets/ItemChangeHistoryRow.vala:108
 msgid "New"
-msgstr ""
+msgstr "Ny"
 
 #: src/Views/Project/Project.vala:504
 msgid "Collapse All"
-msgstr ""
+msgstr "Trekk sammen alle"
 
 #: src/Views/Project/Project.vala:520
 msgid "List"
@@ -2904,12 +2945,12 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:541
 msgid "Custom sort order"
-msgstr ""
+msgstr "Tilpasset sorteringsrekkefølge"
 
 #: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:229
 #: src/Views/Today.vala:632
 msgid "Date Added"
-msgstr ""
+msgstr "Dato lagt til"
 
 #: src/Views/Project/Project.vala:547
 msgid "Ascending Order"
@@ -2917,47 +2958,47 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:553
 msgid "Duedate"
-msgstr ""
+msgstr "Forfallsdato"
 
 #: src/Views/Project/Project.vala:556
 msgid "All (default)"
-msgstr ""
+msgstr "Alle (standard)"
 
 #: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
 msgid "This Week"
-msgstr ""
+msgstr "Denne uken"
 
 #: src/Views/Project/Project.vala:559 src/Views/Project/Project.vala:727
 msgid "Next 7 Days"
-msgstr ""
+msgstr "Neste 7 dger"
 
 #: src/Views/Project/Project.vala:560 src/Views/Project/Project.vala:729
 msgid "This Month"
-msgstr ""
+msgstr "Denne måneden"
 
 #: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:731
 msgid "Next 30 Days"
-msgstr ""
+msgstr "Neste 30 dager"
 
 #: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:237
 #: src/Views/Today.vala:640
 msgid "P1"
-msgstr ""
+msgstr "P1"
 
 #: src/Views/Project/Project.vala:574 src/Views/Scheduled/Scheduled.vala:243
 #: src/Views/Today.vala:646
 msgid "P2"
-msgstr ""
+msgstr "P2"
 
 #: src/Views/Project/Project.vala:580 src/Views/Scheduled/Scheduled.vala:249
 #: src/Views/Today.vala:652
 msgid "P3"
-msgstr ""
+msgstr "P3"
 
 #: src/Views/Project/Project.vala:586 src/Views/Scheduled/Scheduled.vala:255
 #: src/Views/Today.vala:658
 msgid "P4"
-msgstr ""
+msgstr "P4"
 
 #: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:262
 #: src/Views/Today.vala:665
@@ -2966,11 +3007,11 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:597
 msgid "Show Completed"
-msgstr ""
+msgstr "Vis fullført"
 
 #: src/Views/Project/Project.vala:598
 msgid "Display completed tasks in the list"
-msgstr ""
+msgstr "Vis fullførte oppgaver i listen"
 
 #: src/Views/Project/Project.vala:604
 msgid "Search completed tasks"
@@ -2978,19 +3019,19 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:631
 msgid "Sort By"
-msgstr ""
+msgstr "Sorter etter"
 
 #: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:154
 msgid "Overdue"
-msgstr ""
+msgstr "Forsinket"
 
 #: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:162
 msgid "Reschedule"
-msgstr ""
+msgstr "Planlegge på nytt"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
-msgstr ""
+msgstr "Vedlegg"
 
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
@@ -2998,7 +3039,7 @@ msgstr ""
 
 #: src/Widgets/Attachments.vala:248
 msgid "No attachments found. Add files here."
-msgstr ""
+msgstr "Ingen vedlegg funnet. Legg til filer her."
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
 msgid "Bypass Location Resolve"
@@ -3008,7 +3049,7 @@ msgstr ""
 msgid ""
 "Workaround for CalDAV connection issues with connections using non-default "
 "ports"
-msgstr ""
+msgstr "Advarsel"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:45
 #: src/Widgets/IgnoreSSLSwitchRow.vala:45
@@ -3020,46 +3061,48 @@ msgid ""
 "This will disable the CalDAV resolve process.\n"
 "Proceed at your own risk"
 msgstr ""
+"Dette vil deaktivere CalDAV-løsningsprosessen.\n"
+"Fortsett på egen risiko"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:49
 #: src/Widgets/IgnoreSSLSwitchRow.vala:49
 msgid "Continue Anyway"
-msgstr ""
+msgstr "Fortsett uansett"
 
 #: src/Widgets/CompletedTaskRow.vala:95
 #: src/Widgets/ItemDetailCompleted.vala:128 src/Widgets/SubItems.vala:92
 msgid "Sub-tasks"
-msgstr ""
+msgstr "Deloppgaver"
 
 #: src/Widgets/EditableTextView.vala:78 src/Widgets/EditableTextView.vala:145
 msgid "Show more"
-msgstr ""
+msgstr "Vis mer"
 
 #: src/Widgets/EditableTextView.vala:149
 msgid "Show less"
-msgstr ""
+msgstr "Vis mindre"
 
 #: src/Widgets/ErrorView.vala:107
 msgid "Report Issue"
-msgstr ""
+msgstr "Rapporter problem"
 
 #: src/Widgets/EventRow.vala:207
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Om %d minutt"
+msgstr[1] "Om %d minutter"
 
 #: src/Widgets/EventRow.vala:209
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Om %d time"
+msgstr[1] "Om %d timer"
 
 #: src/Widgets/EventRow.vala:214
 msgid "Happening now"
-msgstr ""
+msgstr "Skjer nå"
 
 #: src/Widgets/EventRow.vala:249
 msgid "Location"
@@ -3071,7 +3114,7 @@ msgstr ""
 
 #: src/Widgets/EventRow.vala:276
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/Widgets/EventRow.vala:381
 msgid "Join"
@@ -3079,33 +3122,35 @@ msgstr ""
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:31
 msgid "Disable SSL certificate validation"
-msgstr ""
+msgstr "Deaktiver validering av SSL-sertifikat"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:32
 msgid "Not recommended – exposes you to security risks"
-msgstr ""
+msgstr "Ikke anbefalt – utsetter deg for sikkerhetsrisikoer"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:46
 msgid ""
 "This will disable SSL validation and exposes you to attacks.\n"
 "Proceed at your own risk"
 msgstr ""
+"Dette vil deaktivere SSL-validering og eksponere deg for angrep.\n"
+"Fortsett på egen risiko"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task uncompleted"
-msgstr ""
+msgstr "Oppgaven er ikke fullført"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:51
 msgid "Task moved to project"
-msgstr ""
+msgstr "Oppgave flyttet til prosjekt"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:61
 msgid "Task moved to"
-msgstr ""
+msgstr "Oppgave flyttet til"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:87
 msgid "Previous"
-msgstr ""
+msgstr "Forrige"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:192
 #: src/Widgets/ItemChangeHistoryRow.vala:193
@@ -3123,11 +3168,11 @@ msgstr ""
 
 #: src/Widgets/MultiSelectToolbar.vala:66
 msgid "Move to Project"
-msgstr ""
+msgstr "Flytt til prosjekt"
 
 #: src/Widgets/MultiSelectToolbar.vala:242
 msgid "Mark as Completed"
-msgstr ""
+msgstr "Merk som fullført"
 
 #: src/Widgets/MultiSelectToolbar.vala:268
 msgid "Delete To-Do"
@@ -3135,35 +3180,37 @@ msgstr ""
 
 #: src/Widgets/MultiSelectToolbar.vala:269
 msgid "Are you sure you want to delete this to-do?"
-msgstr ""
+msgstr "Er du sikker på at du vil slette denne gjøremålsoppgaven?"
 
 #: src/Widgets/MultiSelectToolbar.vala:272
 #, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Slett %d gjøremål"
+msgstr[1] "Slett %d gjøremål"
 
 #: src/Widgets/MultiSelectToolbar.vala:278
 #, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Er du sikker på at du vil slette dette %d gjøremålet?"
+msgstr[1] "Er du sikker på at du vil slette disse %d gjøremålene?"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
-msgstr ""
+msgstr "Ny versjon tilgjengelig!"
 
 #: src/Widgets/NewVersionPopup.vala:66
 msgid ""
 "Update now to enjoy the latest improvements, bug fixes, and new features "
 "that make Planify even better"
 msgstr ""
+"Oppdater nå for å få de nyeste forbedringene, feilrettingene og nye "
+"funksjonene som gjør Planify enda bedre"
 
 #: src/Widgets/NewVersionPopup.vala:73
 msgid "Update Now"
-msgstr ""
+msgstr "Oppdater nå"
 
 #: src/Widgets/NewVersionPopup.vala:89
 msgid "Dismiss"
@@ -3175,11 +3222,11 @@ msgstr ""
 
 #: src/Widgets/SubItems.vala:523
 msgid "No subtasks added yet. Get started!"
-msgstr ""
+msgstr "Ingen deloppgaver er lagt til ennå. Kom i gang!"
 
 #: src/Widgets/SyncButton.vala:90
 msgid "Failed to connect to server"
-msgstr ""
+msgstr "Kunne ikke koble til serveren"
 
 #: src/Widgets/SyncButton.vala:90
 msgid ""
@@ -3188,34 +3235,39 @@ msgid ""
 "Any changes you make while disconnected\n"
 "will be synchronized when you reconnect."
 msgstr ""
+"Det ser ut som serveren ikke kan nås.\n"
+"Er du koblet til internett?\n"
+"Alle endringer du gjør mens du er frakoblet, \n"
+"vil bli synkronisert når du kobler til igjen."
 
 #: src/Widgets/TranslationRow.vala:95
 #, c-format
 msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
-msgstr ""
+msgstr "<b>%s</b> er %.0f%% fullført. Du kan hjelpe til med å fullføre det!"
 
 #: src/Widgets/TranslationRow.vala:129 src/Widgets/TranslationRow.vala:151
 #: src/Widgets/TranslationRow.vala:155
 msgid "Translations"
-msgstr ""
+msgstr "Oversettelser"
 
 #: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
 #: src/Widgets/TranslationRow.vala:156
 msgid "Help make Planify available worldwide"
-msgstr ""
+msgstr "Hjelp med å gjøre Planify tilgjengelig over hele verden"
 
 #: src/Widgets/TranslationRow.vala:138
 msgid "Help improve translations"
-msgstr ""
+msgstr "Hjelp med å forbedre oversettelsene"
 
 #: src/Widgets/TranslationRow.vala:145
 msgid "Start a new translation"
-msgstr ""
+msgstr "Start en ny oversettelse"
 
 #: src/Widgets/TranslationRow.vala:146
 #, c-format
 msgid "<b>%s</b> is not available yet. Be the first to translate it!"
 msgstr ""
+"<b>%s</b> er ikke tilgjengelig ennå. Bli den første til å oversette det!"
 
 #: quick-add/MainWindow.vala:9
 msgid "Planify - Quick Add"
