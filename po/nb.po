@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-02 11:01+0000\n"
+"PO-Revision-Date: 2026-01-03 13:01+0000\n"
 "Last-Translator: Stein-Aksel Basma <stein-aksel@basma.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/nb_NO/>\n"
@@ -1603,7 +1603,7 @@ msgstr "Nettverket er ikke tilgjengelig"
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1426
 #: src/Layouts/ItemSidebarView.vala:495
 msgid "Change History"
-msgstr ""
+msgstr "Endringslogg"
 
 #: src/Dialogs/ItemChangeHistory.vala:54
 msgid "Added at"
@@ -1620,7 +1620,7 @@ msgstr "Oppdatert"
 #: src/Dialogs/ItemChangeHistory.vala:69
 msgid ""
 "Your change history will be displayed here once you start making changes."
-msgstr ""
+msgstr "Endringsloggen din vises her når du begynner å gjøre endringer."
 
 #: src/Dialogs/ItemChangeHistory.vala:138
 #, c-format
@@ -1955,7 +1955,7 @@ msgstr "Valgt fil er ugyldig"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:216
 msgid "View Backup"
-msgstr ""
+msgstr "Vis sikkerhetskopi"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:272
 msgid "Download"
@@ -2019,7 +2019,7 @@ msgstr "Patreon"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:75
 msgid "Monthly recurring support"
-msgstr ""
+msgstr "Månedlig gjentakende support"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
@@ -2065,7 +2065,7 @@ msgstr "Generelt"
 
 #: src/Dialogs/Preferences/Pages/General.vala:36
 msgid "Custom Sort Order"
-msgstr ""
+msgstr "Tilpasset sorteringsrekkefølgeq"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:227
@@ -2207,6 +2207,7 @@ msgstr "Lagre sist valgte prosjekt"
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
 msgstr ""
+"Hvis den ikke er avmerket, er det standardprosjektet som er valgt Innboks"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:121
 msgid "The command was copied to the clipboard"
@@ -2223,11 +2224,11 @@ msgstr "Vis i sidefelt"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:55
 msgid "Show Task Count"
-msgstr ""
+msgstr "Vis antall oppgaver"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:60
 msgid "Sidebar Width"
-msgstr ""
+msgstr "Bredde på sidefeltet"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:65
 msgid "List View for Filters"
@@ -2235,7 +2236,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:66
 msgid "Show filters in a simple list instead of a grid"
-msgstr ""
+msgstr "Vis filtre i en enkel liste i stedet for et rutenett"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:87
 msgid "You can sort your views by dragging and dropping"
@@ -2252,7 +2253,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:41
 msgid "Complete with Undo"
-msgstr ""
+msgstr "Fullfør med Angre"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:44
 msgid "Task Completion"
@@ -2553,7 +2554,7 @@ msgstr "Seksjonsnavn"
 
 #: src/Dialogs/Section.vala:102 src/Widgets/SectionsOrderPopover.vala:39
 msgid "Add Section"
-msgstr ""
+msgstr "Legg til Seksjon"
 
 #: src/Dialogs/Section.vala:102
 msgid "Update Section"
@@ -2565,7 +2566,7 @@ msgstr "Seksjon lagt til"
 
 #: src/Layouts/HeaderBar.vala:79
 msgid "Open/Close Sidebar"
-msgstr ""
+msgstr "Åpne/lukk sidefelt"
 
 #: src/Layouts/ItemBoard.vala:156 src/Layouts/ItemBoard.vala:762
 #: src/Layouts/ItemBoard.vala:775 src/Layouts/ItemRow.vala:1275
@@ -2630,7 +2631,7 @@ msgstr "Vis deloppgaver"
 
 #: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:486
 msgid "Use as a Note"
-msgstr ""
+msgstr "Bruk som Merknad"
 
 #: src/Layouts/ItemRow.vala:1419 src/Layouts/ItemSidebarView.vala:488
 msgid "Copy to Clipboard"
@@ -2638,7 +2639,7 @@ msgstr "Kopier til utklippstavlen"
 
 #: src/Layouts/ItemSidebarView.vala:77
 msgid "Close Detail"
-msgstr ""
+msgstr "Lukk detalj"
 
 #: src/Layouts/ItemSidebarView.vala:144 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
@@ -2662,7 +2663,7 @@ msgstr ""
 
 #: src/Layouts/ProjectRow.vala:697 src/Layouts/ProjectRow.vala:703
 msgid "Remove From Favorites"
-msgstr ""
+msgstr "Fjern fra Favoritter"
 
 #: src/Layouts/ProjectRow.vala:697 src/Layouts/ProjectRow.vala:703
 msgid "Add to Favorites"
@@ -2721,7 +2722,7 @@ msgstr "Favorittter"
 
 #: src/Layouts/Sidebar.vala:42
 msgid "No favorites available. Create one by clicking on the '+' button"
-msgstr ""
+msgstr "Ingen favoritter tilgjengelig. Opprett en ved å klikke på «+»-knappen"
 
 #: src/Layouts/Sidebar.vala:122
 msgid "Add Account"
@@ -2729,7 +2730,7 @@ msgstr "Legg til konto"
 
 #: src/Layouts/Sidebar.vala:123
 msgid "Customize Sidebar"
-msgstr ""
+msgstr "Tilpass sidefeltet"
 
 #: src/Layouts/Sidebar.vala:312 src/Layouts/Sidebar.vala:364
 msgid "Go to Today"
@@ -2745,7 +2746,7 @@ msgstr "Gå til Etiketter"
 
 #: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Pinboard"
-msgstr ""
+msgstr "Gå til oppslagstavle"
 
 #: src/Layouts/SidebarSourceRow.vala:43
 msgid "No project available. Create one by clicking on the '+' button"
@@ -2757,7 +2758,7 @@ msgstr "Hovedmeny"
 
 #: src/MainWindow.vala:84
 msgid "Open Quick Find"
-msgstr ""
+msgstr "Åpne hurtigsøk"
 
 #: src/MainWindow.vala:723
 msgid "About Planify"
@@ -2875,8 +2876,8 @@ msgstr[1] "Slett fullførtw oppgaver"
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Dette vil slette %d fullført oppgave og dens deloppgaver"
+msgstr[1] "Dette vil slette %d fullførte oppgaver og deres deloppgaver"
 
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
@@ -2888,7 +2889,7 @@ msgstr "Merknad"
 
 #: src/Views/Project/Board.vala:273
 msgid "Schedule"
-msgstr ""
+msgstr "Planlegg"
 
 #: src/Views/Project/Board.vala:311 src/Views/Project/List.vala:399
 msgid "When?"
@@ -2900,7 +2901,7 @@ msgstr "Legg til noen oppgaver. Trykk på 'a' for å opprette en ny oppgave"
 
 #: src/Views/Project/Project.vala:94
 msgid "Project Actions"
-msgstr ""
+msgstr "Prosjekthandlinger"
 
 #: src/Views/Project/Project.vala:259
 msgid "New Task"
@@ -2941,7 +2942,7 @@ msgstr ""
 #: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:224
 #: src/Views/Today.vala:627
 msgid "Sorting"
-msgstr ""
+msgstr "Sortering"
 
 #: src/Views/Project/Project.vala:541
 msgid "Custom sort order"
@@ -2954,7 +2955,7 @@ msgstr "Dato lagt til"
 
 #: src/Views/Project/Project.vala:547
 msgid "Ascending Order"
-msgstr ""
+msgstr "Stigende rekkefølge"
 
 #: src/Views/Project/Project.vala:553
 msgid "Duedate"
@@ -3015,7 +3016,7 @@ msgstr "Vis fullførte oppgaver i listen"
 
 #: src/Views/Project/Project.vala:604
 msgid "Search completed tasks"
-msgstr ""
+msgstr "Søk etter fullførte oppgaver"
 
 #: src/Views/Project/Project.vala:631
 msgid "Sort By"
@@ -3035,7 +3036,7 @@ msgstr "Vedlegg"
 
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
-msgstr ""
+msgstr "Åpne"
 
 #: src/Widgets/Attachments.vala:248
 msgid "No attachments found. Add files here."
@@ -3054,7 +3055,7 @@ msgstr "Advarsel"
 #: src/Widgets/BypassResolveSwitchRow.vala:45
 #: src/Widgets/IgnoreSSLSwitchRow.vala:45
 msgid "Warning"
-msgstr ""
+msgstr "Advarsel"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:46
 msgid ""
@@ -3106,11 +3107,11 @@ msgstr "Skjer nå"
 
 #: src/Widgets/EventRow.vala:249
 msgid "Location"
-msgstr ""
+msgstr "Plassering"
 
 #: src/Widgets/EventRow.vala:262
 msgid "Organizer"
-msgstr ""
+msgstr "Arrangør"
 
 #: src/Widgets/EventRow.vala:276
 msgid "URL"
@@ -3164,7 +3165,7 @@ msgstr ""
 
 #: src/Widgets/ItemDetailCompleted.vala:74
 msgid "Completed At"
-msgstr ""
+msgstr "Fullført"
 
 #: src/Widgets/MultiSelectToolbar.vala:66
 msgid "Move to Project"
@@ -3176,7 +3177,7 @@ msgstr "Merk som fullført"
 
 #: src/Widgets/MultiSelectToolbar.vala:268
 msgid "Delete To-Do"
-msgstr ""
+msgstr "Slett gjøremål"
 
 #: src/Widgets/MultiSelectToolbar.vala:269
 msgid "Are you sure you want to delete this to-do?"
@@ -3214,7 +3215,7 @@ msgstr "Oppdater nå"
 
 #: src/Widgets/NewVersionPopup.vala:89
 msgid "Dismiss"
-msgstr ""
+msgstr "Avvis"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
@@ -3281,89 +3282,89 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:16
 msgctxt "shortcut window"
 msgid "Create a New Task"
-msgstr ""
+msgstr "Opprett en ny oppgave"
 
 #: data/resources/ui/shortcuts.ui:23
 msgctxt "shortcut window"
 msgid "Paste Plain Text to Create New Task"
-msgstr ""
+msgstr "Lim inn ren tekst for å opprette ny oppgave"
 
 #: data/resources/ui/shortcuts.ui:30
 msgctxt "shortcut window"
 msgid "Create a New Project"
-msgstr ""
+msgstr "Opprett nytt prosjekt"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Create a New Section in a Project"
-msgstr ""
+msgstr "Oppsett ny seksjon i prosjekt"
 
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
 msgid "Search"
-msgstr ""
+msgstr "Søk"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Open Quick Find"
-msgstr ""
+msgstr "Åpne hurtigsøk"
 
 #: data/resources/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Control Windows"
-msgstr ""
+msgstr "Kontroller vinduer"
 
 #: data/resources/ui/shortcuts.ui:61
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "Avslutt"
 
 #: data/resources/ui/shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Open Preferences"
-msgstr ""
+msgstr "Åpne innstillinger"
 
 #: data/resources/ui/shortcuts.ui:75
 msgctxt "shortcut window"
 msgid "Toggle Sidebar"
-msgstr ""
+msgstr "Vis/skjul sidefelt"
 
 #: data/resources/ui/shortcuts.ui:82
 msgctxt "shortcut window"
 msgid "Open Keyboard Shortcuts"
-msgstr ""
+msgstr "Åpne hurtigtaster"
 
 #: data/resources/ui/shortcuts.ui:90
 msgctxt "shortcut window"
 msgid "Navigate"
-msgstr ""
+msgstr "Naviger"
 
 #: data/resources/ui/shortcuts.ui:94
 msgctxt "shortcut window"
 msgid "Open Homepage"
-msgstr ""
+msgstr "Åpne hjemmeside"
 
 #: data/resources/ui/shortcuts.ui:101
 msgctxt "shortcut window"
 msgid "Open Inbox"
-msgstr ""
+msgstr "Åpne Innboks"
 
 #: data/resources/ui/shortcuts.ui:108
 msgctxt "shortcut window"
 msgid "Open Today"
-msgstr ""
+msgstr "Åpne I dag"
 
 #: data/resources/ui/shortcuts.ui:115
 msgctxt "shortcut window"
 msgid "Open Scheduled"
-msgstr ""
+msgstr "Åpne planlagte"
 
 #: data/resources/ui/shortcuts.ui:122
 msgctxt "shortcut window"
 msgid "Open Labels"
-msgstr ""
+msgstr "Åpne etiketter"
 
 #: data/resources/ui/shortcuts.ui:129
 msgctxt "shortcut window"
 msgid "Open Pinboard"
-msgstr ""
+msgstr "Åpne oppslagstavle"
