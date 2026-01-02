@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-14 09:54+0000\n"
-"Last-Translator: Andrii Serbovets <serbovets.translation@gmail.com>\n"
+"PO-Revision-Date: 2026-01-03 13:01+0000\n"
+"Last-Translator: Maksym Dilanian <dilanyan.maxim@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/uk/>\n"
 "Language: uk\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -47,46 +47,46 @@ msgid "Don't Repeat"
 msgstr "Не повторювати"
 
 #: core/Enum.vala:216
-#, fuzzy, c-format
+#, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
 msgstr[0] "Кожну хвилину"
-msgstr[1] "Кожну хвилину"
+msgstr[1] "Кожні %d хвилин"
 
 #: core/Enum.vala:218
-#, fuzzy, c-format
+#, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
 msgstr[0] "Щогодини"
-msgstr[1] "Щогодини"
+msgstr[1] "Кожні %d годин"
 
 #: core/Enum.vala:220
-#, fuzzy, c-format
+#, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
 msgstr[0] "Щодня"
-msgstr[1] "Щодня"
+msgstr[1] "Кожні %d днів"
 
 #: core/Enum.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
 msgstr[0] "Щотижня"
-msgstr[1] "Щотижня"
+msgstr[1] "Кожні %d тижнів"
 
 #: core/Enum.vala:224
-#, fuzzy, c-format
+#, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
 msgstr[0] "Щомісяця"
-msgstr[1] "Щомісяця"
+msgstr[1] "Кожні %d місяців"
 
 #: core/Enum.vala:226
-#, fuzzy, c-format
+#, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
 msgstr[0] "Щороку"
-msgstr[1] "Щороку"
+msgstr[1] "Кожні %d років"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -314,11 +314,11 @@ msgstr "Завдання скопійовано в буфер обміну"
 #: core/Objects/Item.vala:1633 core/Utils/Util.vala:889
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] "Завдання перемещіно в %s"
-msgstr[1] "Завдання перемещіно в %s"
+msgstr[1] "%d завдань перемещіно в %s"
 
 # c-format
 #: core/Objects/Label.vala:206
@@ -490,7 +490,7 @@ msgstr "Відкриває селектор міток"
 
 #: core/QuickAddCore.vala:1372
 msgid "Assign project"
-msgstr "Призначити проект"
+msgstr "Призначити проєкт"
 
 #: core/QuickAddCore.vala:1372
 msgid "Opens project selector"
@@ -657,15 +657,15 @@ msgstr "Нд,"
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "через %d день"
+msgstr[1] "через %d днів"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d день тому"
+msgstr[1] "%d днів тому"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
@@ -813,7 +813,7 @@ msgstr "Процес завершено, вам потрібно знову за
 #: core/Utils/Util.vala:456
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 msgid "Ok"
-msgstr "ОК"
+msgstr "Ок"
 
 #: core/Utils/Util.vala:566
 msgid "On This Computer"
@@ -1276,17 +1276,17 @@ msgstr "Додати час"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:132
 msgid "Set Deadline"
-msgstr ""
+msgstr "Встановити термін"
 
 #: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:87
 #: core/Widgets/DeadlineButton.vala:94 core/Widgets/DeadlineButton.vala:101
 #: core/Widgets/DeadlineButton.vala:154
 msgid "Set a Deadline"
-msgstr ""
+msgstr "Встановити термін"
 
 #: core/Widgets/DeadlineButton.vala:149
 msgid "Deadline"
-msgstr ""
+msgstr "Кінцевий термін"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1460,80 +1460,92 @@ msgstr ""
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
 #: src/Views/Project/Project.vala:444
 msgid "Calendar Sync"
-msgstr ""
+msgstr "Синхронізація календаря"
 
 #: src/Dialogs/CalendarSync.vala:45
 msgid ""
 "Turn your tasks into calendar events automatically. Any task with a date "
 "will appear in your calendar, making it easier to plan your day."
 msgstr ""
+"Автоматично перетворюйте свої завдання на події календаря. Будь-яке завдання "
+"з датою відображатиметься у вашому календарі, що полегшить планування дня."
 
 #: src/Dialogs/CalendarSync.vala:53
 msgid ""
 "Requirement: You need a calendar account configured in GNOME Calendar "
 "(Google, Nextcloud, etc.)"
 msgstr ""
+"Вимога: Вам потрібен обліковий запис календаря, налаштований у Календарі "
+"GNOME (Google, Nextcloud тощо)"
 
 #: src/Dialogs/CalendarSync.vala:62
 msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
 msgstr ""
+"Отримуйте мобільні сповіщення про свої завдання через Календар Google, "
+"Outlook або будь-який інший додаток календаря"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
 "Your tasks sync everywhere: phone, tablet, web browser, and any device with "
 "your calendar"
 msgstr ""
+"Ваші завдання синхронізуються всюди: на телефоні, планшеті, у веббраузері та "
+"на будь-якому пристрої з вашим календарем"
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
-msgstr ""
+msgstr "Виберіть календар"
 
 #: src/Dialogs/CalendarSync.vala:88
 msgid "Select a calendar from the list"
-msgstr ""
+msgstr "Виберіть календар зі списку"
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
-msgstr ""
+msgstr "Увімкнути синхронізацію"
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
-msgstr ""
+msgstr "Синхронізацію календаря успішно вимкнено"
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
-msgstr ""
+msgstr "Синхронізація календаря активна"
 
 #: src/Dialogs/CalendarSync.vala:228
 msgid ""
 "Your tasks are currently synced with your calendar. Any task with a date "
 "automatically appears as a calendar event."
 msgstr ""
+"Ваші завдання наразі синхронізовано з вашим календарем. Будь-яке завдання з "
+"датою автоматично відображається як подія календаря."
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
-msgstr ""
+msgstr "Вимкнути синхронізацію"
 
 #: src/Dialogs/CalendarSync.vala:279
 #, c-format
 msgid "Synced with: %s"
-msgstr ""
+msgstr "Синхронізовано з: %s"
 
 #: src/Dialogs/CalendarSync.vala:292
 msgid "Sync Enabled!"
-msgstr ""
+msgstr "Синхронізацію ввімкнено!"
 
 #: src/Dialogs/CalendarSync.vala:297
 msgid ""
 "Your tasks are now synced with your calendar. Any task with a date will "
 "automatically appear as a calendar event."
 msgstr ""
+"Ваші завдання тепер синхронізовано з вашим календарем. Будь-яке завдання з "
+"датою автоматично відображатиметься як подія календаря."
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
-msgstr ""
+msgstr "ОК"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 msgid "Completed Tasks"
@@ -1554,14 +1566,12 @@ msgstr "Видалити всі виконані завдання"
 
 # # c-format
 #: src/Dialogs/CompletedTasks.vala:165
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
-msgstr[0] ""
-"Буде видалено %d завершених завдань та їхні підзавдання з проєкту %s"
-msgstr[1] ""
-"Буде видалено %d завершених завдань та їхні підзавдання з проєкту %s"
+msgstr[0] "Буде видалено %d завершене завдання та його підзавдання з проєкту %s"
+msgstr[1] "Буде видалено %d завершених завдань та їхні підзавдання з проєкту %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
 #: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:673
@@ -1625,7 +1635,7 @@ msgstr ""
 
 # # c-format
 #: src/Dialogs/ItemChangeHistory.vala:138
-#, fuzzy, c-format
+#, c-format
 msgid "Load more history from %d week ago…"
 msgid_plural "Load more history from %d weeks ago…"
 msgstr[0] "Завантажити історію %d-тижневої давності…"
@@ -1657,7 +1667,7 @@ msgstr "Фільтр"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:725
 msgid "Archived Projects"
-msgstr "Архівні проекти"
+msgstr "Архівні проєкти"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:658
 #: src/Views/Project/Project.vala:379
@@ -1713,8 +1723,8 @@ msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
-"Цей обліковий запис містить ваш поточний проект Inbox. Спочатку змініть свій "
-"проект Inbox."
+"Цей обліковий запис містить ваш поточний проєкт Inbox. Спочатку змініть свій "
+"проєкт Inbox."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
 msgid "Change Inbox"
@@ -1906,7 +1916,7 @@ msgid ""
 "projects, tasks and comments and import them later."
 msgstr ""
 "Ніколи не хвилюйтеся про втрату даних. Ви можете створювати резервні копії "
-"активних проектів, завдань і коментарів та імпортувати їх пізніше."
+"активних проєктів, завдань і коментарів та імпортувати їх пізніше."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:48
 msgid "Create Backup"
@@ -1967,7 +1977,7 @@ msgstr "Огляд імпорту"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:348 src/Dialogs/Project.vala:376
 msgid "Sources"
-msgstr "Источник"
+msgstr "Джерела"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:360
 msgid "To-Dos"
@@ -2418,7 +2428,7 @@ msgstr "Створити навчальний проєкт"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:199
 msgid "Learn the app step by step with a short tutorial project"
 msgstr ""
-"Вивчіть додаток крок за кроком за допомогою короткого навчального проекту"
+"Вивчіть додаток крок за кроком за допомогою короткого навчального проєкту"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:218
 msgid "Want to buy me a drink?"
@@ -2487,7 +2497,7 @@ msgstr "Видалити дані програми"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:359
 msgid "A tutorial project has been created"
-msgstr "Створено навчальний проект"
+msgstr "Створено навчальний проєкт"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:375
 msgid "Delete All Data?"
@@ -2520,7 +2530,7 @@ msgstr "Додати проєкт"
 
 #: src/Dialogs/Project.vala:217
 msgid "Update Project"
-msgstr "Обновить проект"
+msgstr "Оновити проєкт"
 
 #: src/Dialogs/Project.vala:471
 msgid "Project added successfully!"
@@ -2539,7 +2549,7 @@ msgstr "Швидкий пошук"
 #: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
-"Швидко перемикайтесь між проектами та переглядами, шукайте завдання, шукайте "
+"Швидко перемикайтесь між проєктами та переглядами, шукайте завдання, шукайте "
 "за мітками"
 
 #: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:260
@@ -2665,7 +2675,7 @@ msgstr "Видалити мітку"
 
 #: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:224
 msgid "Projects sort changed to 'Custom sort order'"
-msgstr "Сортування проектів змінено на сортування «Вручну»"
+msgstr "Сортування проєктів змінено на сортування «Вручну»"
 
 #: src/Layouts/ProjectRow.vala:697 src/Layouts/ProjectRow.vala:703
 msgid "Remove From Favorites"
@@ -2872,19 +2882,18 @@ msgid "Great job, nothing left to do 🎉"
 msgstr "Чудова робота, більше нічого не залишилося робити 🎉"
 
 #: src/Views/Filter.vala:612
-#, fuzzy
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
-msgstr[0] "Видалити всі виконані завдання"
-msgstr[1] "Видалити всі виконані завдання"
+msgstr[0] "Видалити виконане завдання"
+msgstr[1] "Видалити виконані завдання"
 
 # # c-format
 #: src/Views/Filter.vala:617
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
-msgstr[0] "Будуть видалені завершені завдання (%d) та їх підзавдання"
-msgstr[1] "Будуть видалені завершені завдання (%d) та їх підзавдання"
+msgstr[0] "Будуть видалені %d завершене завдання та його підзавдання"
+msgstr[1] "Будуть видалені %d завершених завданнь та їх підзавдання"
 
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
@@ -2916,7 +2925,7 @@ msgstr "Нове завдання"
 
 #: src/Views/Project/Project.vala:376 src/Views/Project/Project.vala:408
 msgid "Project Deadline"
-msgstr ""
+msgstr "Кінцевий термін проєкту"
 
 #: src/Views/Project/Project.vala:381
 msgid "Select"
@@ -3015,11 +3024,11 @@ msgstr "Фільтрувати за мітками"
 
 #: src/Views/Project/Project.vala:597
 msgid "Show Completed"
-msgstr ""
+msgstr "Показати виконані"
 
 #: src/Views/Project/Project.vala:598
 msgid "Display completed tasks in the list"
-msgstr ""
+msgstr "Відображати виконані завдання у списку"
 
 #: src/Views/Project/Project.vala:604
 msgid "Search completed tasks"
@@ -3100,15 +3109,15 @@ msgstr "Повідомити про проблему"
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Через %d хвилину"
+msgstr[1] "Через %d хвилин"
 
 #: src/Widgets/EventRow.vala:209
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Через %d годину"
+msgstr[1] "Через %d годин"
 
 #: src/Widgets/EventRow.vala:214
 msgid "Happening now"
@@ -3180,7 +3189,7 @@ msgstr "Завершено"
 
 #: src/Widgets/MultiSelectToolbar.vala:66
 msgid "Move to Project"
-msgstr ""
+msgstr "Перемістити до проєкту"
 
 #: src/Widgets/MultiSelectToolbar.vala:242
 msgid "Mark as Completed"
@@ -3196,18 +3205,18 @@ msgstr "Ви впевнені, що хочете видалити це завд�
 
 # # c-format
 #: src/Widgets/MultiSelectToolbar.vala:272
-#, fuzzy, c-format
+#, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
-msgstr[0] "Видалити завдання (%d)"
-msgstr[1] "Видалити завдання (%d)"
+msgstr[0] "Видалити %d завдання"
+msgstr[1] "Видалити %d завданнь"
 
 #: src/Widgets/MultiSelectToolbar.vala:278
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
-msgstr[0] "Ви впевнені, що хочете видалити ці завдання (%d)?"
-msgstr[1] "Ви впевнені, що хочете видалити ці завдання (%d)?"
+msgstr[0] "Ви впевнені, що хочете видалити це %d завдання?"
+msgstr[1] "Ви впевнені, що хочете видалити ці %d завданнь?"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
