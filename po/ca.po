@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-02 11:01+0000\n"
+"PO-Revision-Date: 2026-01-03 13:01+0000\n"
 "Last-Translator: Guillem Servera <guillem@gservera.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/ca/>\n"
@@ -417,7 +417,7 @@ msgstr "Afegeix una descripció…"
 
 #: core/QuickAddCore.vala:248
 msgid "Set date"
-msgstr ""
+msgstr "Defineix data"
 
 #: core/QuickAddCore.vala:260 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
@@ -507,7 +507,7 @@ msgstr "Consell"
 
 #: core/QuickAddCore.vala:1394
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "Combina dreceres al camp de títol per a una creació més ràpida"
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
 #, c-format
@@ -525,7 +525,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
 msgid "Failed to resolve principal url"
-msgstr ""
+msgstr "No s'ha pogut resoldre l'URL principal"
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
@@ -551,11 +551,11 @@ msgstr "Sol·licitud incorrecta."
 #: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Es requereix autenticació i o bé ha fallat o no s'ha subministrat."
 
 #: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "La sol·licitud és vàlida, però per quelcom que és prohibit."
 
 #: core/Services/Todoist.vala:1513 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
@@ -564,6 +564,7 @@ msgstr "El recurs sol·licitat no s'ha pogut trobar."
 #: core/Services/Todoist.vala:1514 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
+"L'usuari ha enviat massa sol·licituds en un determinat interval de temps."
 
 #: core/Services/Todoist.vala:1515 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
@@ -609,7 +610,7 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%H:%M:%S"
 
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
@@ -914,6 +915,8 @@ msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
+"El Planify no només crea tasques locals, també pot sincronitzar-se amb el "
+"vostre compte de Todoist. Ves a 'Preferències' 🡒 'Comptes'."
 
 #: core/Utils/Util.vala:670
 msgid "Boost your productivity"
@@ -921,7 +924,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:678
 msgid "Drag the plus button!"
-msgstr ""
+msgstr "Arrossega el botó més!"
 
 #: core/Utils/Util.vala:679
 msgid ""
@@ -943,7 +946,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:692
 msgid "Set timely reminders!"
-msgstr ""
+msgstr "Defineix recordatoris oportuns!"
 
 #: core/Utils/Util.vala:693
 msgid ""
@@ -1591,7 +1594,7 @@ msgstr ""
 
 #: src/Dialogs/ItemChangeHistory.vala:60
 msgid "Updated at"
-msgstr ""
+msgstr "Actualitzada el"
 
 #: src/Dialogs/ItemChangeHistory.vala:69
 msgid ""
@@ -1615,7 +1618,7 @@ msgstr "Edita l'etiqueta"
 
 #: src/Dialogs/Label.vala:65
 msgid "Give your label a name"
-msgstr ""
+msgstr "Dóna un nom a l'etiqueta"
 
 #: src/Dialogs/Label.vala:89
 msgid "Add Label"
@@ -1623,7 +1626,7 @@ msgstr "Afegeix etiqueta"
 
 #: src/Dialogs/Label.vala:89
 msgid "Update Label"
-msgstr ""
+msgstr "Actualitza l'etiqueta"
 
 #: src/Dialogs/LabelPicker.vala:62
 msgid "Filter"
@@ -1636,7 +1639,7 @@ msgstr "Projectes arxivats"
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:658
 #: src/Views/Project/Project.vala:379
 msgid "Manage Sections"
-msgstr ""
+msgstr "Administra les seccions"
 
 #: src/Dialogs/ManageSectionOrder.vala:54
 msgid "You can sort your sections by dragging and dropping"
@@ -1644,18 +1647,18 @@ msgstr "Pots ordenar les teves seccions arrossegant i amollant"
 
 #: src/Dialogs/ManageSectionOrder.vala:76
 msgid "Archived"
-msgstr ""
+msgstr "Arxivades"
 
 #: src/Dialogs/ManageSectionOrder.vala:184 src/Layouts/SectionBoard.vala:77
 #: src/Layouts/SectionRow.vala:88
 msgid "(No Section)"
-msgstr ""
+msgstr "(Sense secció)"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
 #: src/Dialogs/Preferences/PreferencesWindow.vala:108
 msgid "Accounts"
-msgstr ""
+msgstr "Comptes"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
 msgid "Add Source"
@@ -1663,7 +1666,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
 msgid "Inbox Page"
-msgstr ""
+msgstr "Pàgina Entrada"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:105
 msgid "You can sort your accounts by dragging and dropping"
@@ -1673,14 +1676,15 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr ""
+"El Planify està sincronitzant les vostres tasques, això pot trigar uns minuts"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
-msgstr ""
+msgstr "La verificació SSL està desactivada"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:398
 msgid "Cannot Hide This Account"
-msgstr ""
+msgstr "No es pot amagar aquest compte"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:399
 msgid ""
@@ -1694,7 +1698,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 msgid "Syncing…"
-msgstr ""
+msgstr "Sincronitzant…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:52
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:48
@@ -1716,7 +1720,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:79
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:92
 msgid "Advanced Options"
-msgstr ""
+msgstr "Opcions avançades"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:91
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:103
@@ -1807,7 +1811,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:183
 msgid "Synchronizing…"
-msgstr ""
+msgstr "Sincronitzant…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:201
 msgid "Please Enter Your Credentials"
@@ -1815,16 +1819,16 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
 msgid "Loading…"
-msgstr ""
+msgstr "Carregant…"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:36
 #: src/Dialogs/Preferences/PreferencesWindow.vala:169
 msgid "Appearance"
-msgstr ""
+msgstr "Aparença"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:51
 msgid "Use System Settings"
-msgstr ""
+msgstr "Fes servir la configuració del sistema"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:61
 msgid "Select theme"
@@ -1904,7 +1908,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:112
 msgid "The Backup was created successfully."
-msgstr ""
+msgstr "Còpia de seguretat creada amb èxit."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:129
 msgid "Tasks Migrate Successfully"
@@ -1995,7 +1999,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:103
 msgid "Weekly recurring donations"
-msgstr ""
+msgstr "Donació recurrent setmanal"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
@@ -2007,7 +2011,7 @@ msgstr "Compra'm un cafè ☕"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:128
 msgid "Choose Your Preferred Platform"
-msgstr ""
+msgstr "Tria la teva plataforma preferida"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:142
 msgid "Thank you for your support! 🙏"
@@ -2031,7 +2035,7 @@ msgstr "Ordre personalitzat"
 #: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:227
 #: src/Views/Today.vala:630
 msgid "Alphabetically"
-msgstr ""
+msgstr "Alfabèticament"
 
 #: src/Dialogs/Preferences/Pages/General.vala:40
 msgid "Sort by"
@@ -2059,7 +2063,7 @@ msgstr "Executa en segon pla"
 
 #: src/Dialogs/Preferences/Pages/General.vala:69
 msgid "Let Planify run in background and send notifications"
-msgstr ""
+msgstr "Permet al Planify executar-se en segon pla i enviar notificacions"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
@@ -2123,11 +2127,11 @@ msgstr "Inici de setmana"
 
 #: src/Dialogs/Preferences/Pages/General.vala:138
 msgid "Smart Date Recognition"
-msgstr ""
+msgstr "Reconeixement intel·ligent de dates"
 
 #: src/Dialogs/Preferences/Pages/General.vala:139
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr ""
+msgstr "Detecta automàticament dates com \"demà\" o \"setmana que ve\""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
@@ -2190,7 +2194,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:66
 msgid "Show filters in a simple list instead of a grid"
-msgstr ""
+msgstr "Mostra els filtres en una llista en lloc d'una graella"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:87
 msgid "You can sort your views by dragging and dropping"
