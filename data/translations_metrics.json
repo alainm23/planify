@@ -146,8 +146,8 @@
   "ca": {
     "language": "Catalan",
     "total_strings": 720,
-    "translated_strings": 246,
-    "translated_percent": 34.1
+    "translated_strings": 442,
+    "translated_percent": 61.3
   },
   "ckb": {
     "language": "Kurdish (Central)",
@@ -356,8 +356,8 @@
   "nb": {
     "language": "Norwegian Bokmål",
     "total_strings": 720,
-    "translated_strings": 315,
-    "translated_percent": 43.7
+    "translated_strings": 642,
+    "translated_percent": 89.1
   },
   "nn": {
     "language": "Norwegian Nynorsk",
