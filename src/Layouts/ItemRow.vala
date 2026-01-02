@@ -791,10 +791,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var content_controller_key = new Gtk.EventControllerKey ();
         content_textview.add_controller (content_controller_key);
         signals_map[content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-            if (keyval == 65293) {
+            if (keyval == Gdk.Key.Return) {
                 edit = false;
                 return Gdk.EVENT_STOP;
-            } else if (keyval == 65289 && markdown_editor != null) {
+            } else if (keyval == Gdk.Key.Tab && markdown_editor != null) {
                 markdown_editor.view_focus ();
                 return Gdk.EVENT_STOP;
             }
@@ -803,7 +803,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = content_controller_key;
 
         signals_map[content_controller_key.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
+            if (keyval == Gdk.Key.Escape) {
                 edit = false;
             } else {
                 update_content_description ();
