@@ -1578,6 +1578,25 @@ public class Services.Database : GLib.Object {
         return true;
     }
 
+    public bool delete_all_items_by_project (Objects.Project project) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            DELETE FROM Items WHERE project_id=$project_id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$project_id", project.id);
+
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        }
+
+        return true;
+    }
+
     public bool update_item (Objects.Item item, string update_id = "") {
         item.updated_at = new GLib.DateTime.now_local ().to_string ();
         Sqlite.Statement stmt;
