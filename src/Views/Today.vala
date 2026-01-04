@@ -782,7 +782,9 @@ public class Views.Today : Adw.Bin {
         }
 
         foreach (var entry in signal_map.entries) {
-            entry.value.disconnect (entry.key);
+            if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
+                entry.value.disconnect (entry.key);
+            }
         }
 
         signal_map.clear ();

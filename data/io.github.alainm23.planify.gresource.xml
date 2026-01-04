@@ -15,11 +15,6 @@
     <file alias="shortcuts.ui" compressed="true">resources/ui/shortcuts.ui</file>
     <file preprocess="xml-stripblanks">io.github.alainm23.planify.appdata.xml.in.in</file>
 
-    <!-- Videos -->
-    <file alias="dnd-order.webm" compressed="true">resources/videos/dnd-order.webm</file>
-    <file alias="subprojects.webm" compressed="true">resources/videos/subprojects.webm</file>
-    <file alias="magic-button.webm" compressed="true">resources/videos/magic-button.webm</file>
-
     <!-- Audios -->
     <file alias="success.ogg" compressed="true">resources/sounds/success.ogg</file>
 

@@ -645,12 +645,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             halign = START
         };
 
+        subitems = new Widgets.SubItems (is_project_view);
+
         show_subtasks_revealer = new Gtk.Revealer () {
             child = show_subtasks_button,
             reveal_child = subitems.has_children && edit
         };
 
-        subitems = new Widgets.SubItems (is_project_view);
         subitems.present_item (item);
         subitems.reveal_child = item.items.size > 0 && item.collapsed;
 
@@ -790,10 +791,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var content_controller_key = new Gtk.EventControllerKey ();
         content_textview.add_controller (content_controller_key);
         signals_map[content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-            if (keyval == 65293) {
+            if (keyval == Gdk.Key.Return) {
                 edit = false;
                 return Gdk.EVENT_STOP;
-            } else if (keyval == 65289 && markdown_editor != null) {
+            } else if (keyval == Gdk.Key.Tab && markdown_editor != null) {
                 markdown_editor.view_focus ();
                 return Gdk.EVENT_STOP;
             }
@@ -802,7 +803,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = content_controller_key;
 
         signals_map[content_controller_key.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
+            if (keyval == Gdk.Key.Escape) {
                 edit = false;
             } else {
                 update_content_description ();

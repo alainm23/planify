@@ -1,6 +1,6 @@
 using GLib;
 
-async void test_caldav_login_async () {
+async void test_caldav_login_async () throws GLib.Error {
     string? server_url = Environment.get_variable ("CALDAV_URL");
     string? username = Environment.get_variable ("CALDAV_USER");
     string? password = Environment.get_variable ("CALDAV_PASS");
