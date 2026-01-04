@@ -122,7 +122,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
             show_progress = true
         };
 
-        var main_stack = new Gtk.Stack () {
+        main_stack = new Gtk.Stack () {
             vexpand = true,
             hexpand = true,
             transition_type = Gtk.StackTransitionType.CROSSFADE
