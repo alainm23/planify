@@ -631,6 +631,23 @@ public class Services.Store : GLib.Object {
         }
     }
 
+    public bool insert_items_transaction (Gee.ArrayList<Objects.Item> items, bool insert = true) {
+        if (Services.Database.get_default ().insert_items_transaction (items, insert)) {
+            foreach (var item in items) {
+                _items_by_project_cache.unset (item.project_id);
+                add_item (item, insert);
+
+                #if WITH_EVOLUTION
+                if (item.project != null && item.project.calendar_source_uid != "" && item.has_due) {
+                    create_calendar_event.begin (item);
+                }
+                #endif
+            }
+            return true;
+        }
+        return false;
+    }
+
     #if WITH_EVOLUTION
     private async void create_calendar_event (Objects.Item item) {
         string? event_uid = yield Services.CalendarEvents.get_default ().create_event (
