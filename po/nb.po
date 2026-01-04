@@ -30,7 +30,7 @@ msgstr "Oppgaver"
 #: core/Enum.vala:177 core/Enum.vala:530 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:781
-#: src/Layouts/ItemRow.vala:1294
+#: src/Layouts/ItemRow.vala:1294 src/Layouts/ItemRow.vala:1295
 msgid "Labels"
 msgstr "Etiketter"
 
@@ -136,6 +136,7 @@ msgstr "Innhold"
 #: core/Enum.vala:521 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:1998 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
+#: src/Layouts/ItemRow.vala:1999
 msgid "Description"
 msgstr "Beskrivelse"
 
@@ -146,6 +147,7 @@ msgstr "Planlagt"
 #: core/Enum.vala:533 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:762 src/Layouts/ItemBoard.vala:775
 #: src/Layouts/ItemRow.vala:1275 src/Layouts/ItemRow.vala:1288
+#: src/Layouts/ItemRow.vala:1276 src/Layouts/ItemRow.vala:1289
 msgid "Pin"
 msgstr ""
 
@@ -271,6 +273,8 @@ msgstr "kommende"
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:769
 #: src/Layouts/ItemRow.vala:1282 src/Views/Project/Project.vala:557
 #: src/Views/Project/Project.vala:723 src/Views/Today.vala:202
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:359
+#: src/Layouts/ItemRow.vala:1283
 msgid "Today"
 msgstr "I dag"
 
@@ -283,6 +287,8 @@ msgstr "i dag"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:362
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:772
 #: src/Layouts/ItemRow.vala:1285
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:365
+#: src/Layouts/ItemRow.vala:1286
 msgid "Tomorrow"
 msgstr "I morgen"
 
@@ -306,13 +312,13 @@ msgstr "ingen etikett"
 msgid "unlabeled"
 msgstr "umerket"
 
-#: core/Objects/Item.vala:1340
+#: core/Objects/Item.vala:1340 core/Objects/Item.vala:1346
 msgid "Task copied to clipboard"
 msgstr "Oppgave kopiert til utklippstavlen"
 
 #: core/Objects/Item.vala:1633 core/Utils/Util.vala:889
 #: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
+#: src/Widgets/MultiSelectToolbar.vala:379 core/Objects/Item.vala:1639
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
@@ -788,6 +794,7 @@ msgstr "Mørkeblå"
 
 #: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:407
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:410
 msgid "None"
 msgstr "Ingen"
 
@@ -1132,6 +1139,7 @@ msgid "Done"
 msgstr "Ferdig"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:189
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:192
 msgid "Clear"
 msgstr ""
 
@@ -2570,7 +2578,8 @@ msgstr "Åpne/lukk sidefelt"
 
 #: src/Layouts/ItemBoard.vala:156 src/Layouts/ItemBoard.vala:762
 #: src/Layouts/ItemBoard.vala:775 src/Layouts/ItemRow.vala:1275
-#: src/Layouts/ItemRow.vala:1288
+#: src/Layouts/ItemRow.vala:1288 src/Layouts/ItemRow.vala:1276
+#: src/Layouts/ItemRow.vala:1289
 msgid "Unpin"
 msgstr ""
 
@@ -2601,6 +2610,7 @@ msgid "Delete Task"
 msgstr "Slett oppgave"
 
 #: src/Layouts/ItemBoard.vala:1088 src/Layouts/ItemRow.vala:1868
+#: src/Layouts/ItemRow.vala:1869
 msgid "Order changed to 'Custom sort order'"
 msgstr ""
 

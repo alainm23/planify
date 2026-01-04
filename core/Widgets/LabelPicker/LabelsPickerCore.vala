@@ -224,7 +224,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         signals_map[search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
             var key = Gdk.keyval_name (keyval).replace ("KP_", "");
             
-            if (keyval == 65307) {
+            if (keyval == Gdk.Key.Escape) {
                 close ();
             } else if (key == "Down") {
                 listbox.get_row_at_index (0).grab_focus ();

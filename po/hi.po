@@ -31,6 +31,7 @@ msgstr "कार्य"
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:781
 #: src/Layouts/ItemRow.vala:1294 core/Enum.vala:530
+#: src/Layouts/ItemRow.vala:1295
 msgid "Labels"
 msgstr "लेबल"
 
@@ -46,8 +47,8 @@ msgstr "सूचियां"
 msgid "Don't Repeat"
 msgstr "दोहराएं नहीं"
 
-#: core/Enum.vala:220
-#, fuzzy
+#: core/Enum.vala:220 core/Enum.vala:216
+#, fuzzy, c-format
 msgid "Every minute"
 msgstr "हर मिनट"
 
@@ -57,8 +58,8 @@ msgstr "हर मिनट"
 msgid "Every %d minutes"
 msgstr "हर %d मिनट"
 
-#: core/Enum.vala:222
-#, fuzzy
+#: core/Enum.vala:222 core/Enum.vala:218
+#, fuzzy, c-format
 msgid "Every hour"
 msgstr "हर घंटे"
 
@@ -68,8 +69,8 @@ msgstr "हर घंटे"
 msgid "Every %d hours"
 msgstr "हर %d घंटे"
 
-#: core/Enum.vala:224
-#, fuzzy
+#: core/Enum.vala:224 core/Enum.vala:220
+#, fuzzy, c-format
 msgid "Every day"
 msgstr "हर दिन"
 
@@ -79,8 +80,8 @@ msgstr "हर दिन"
 msgid "Every %d days"
 msgstr "हर %d दिन"
 
-#: core/Enum.vala:226
-#, fuzzy
+#: core/Enum.vala:226 core/Enum.vala:222
+#, fuzzy, c-format
 msgid "Every week"
 msgstr "हर हफ्ते"
 
@@ -90,8 +91,8 @@ msgstr "हर हफ्ते"
 msgid "Every %d weeks"
 msgstr "हर %d हफ्ते"
 
-#: core/Enum.vala:228
-#, fuzzy
+#: core/Enum.vala:228 core/Enum.vala:224
+#, fuzzy, c-format
 msgid "Every month"
 msgstr "हर महीने"
 
@@ -101,8 +102,8 @@ msgstr "हर महीने"
 msgid "Every %d months"
 msgstr "हर %d महीने"
 
-#: core/Enum.vala:230
-#, fuzzy
+#: core/Enum.vala:230 core/Enum.vala:226
+#, fuzzy, c-format
 msgid "Every year"
 msgstr "हर वर्ष"
 
@@ -166,7 +167,7 @@ msgstr "सामग्री"
 #: core/Enum.vala:525 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:1998 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
-#: core/Enum.vala:521
+#: core/Enum.vala:521 src/Layouts/ItemRow.vala:1999
 msgid "Description"
 msgstr "विवरण"
 
@@ -177,7 +178,8 @@ msgstr "अनुसूचित"
 #: core/Enum.vala:537 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:762 src/Layouts/ItemBoard.vala:775
 #: src/Layouts/ItemRow.vala:1275 src/Layouts/ItemRow.vala:1288
-#: core/Enum.vala:533
+#: core/Enum.vala:533 src/Layouts/ItemRow.vala:1276
+#: src/Layouts/ItemRow.vala:1289
 msgid "Pin"
 msgstr "पिन"
 
@@ -306,6 +308,8 @@ msgstr "आगामी"
 #: src/Layouts/ItemRow.vala:1282 src/Views/Project/Project.vala:513
 #: src/Views/Project/Project.vala:679 src/Views/Today.vala:202
 #: src/Views/Project/Project.vala:557 src/Views/Project/Project.vala:723
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:359
+#: src/Layouts/ItemRow.vala:1283
 msgid "Today"
 msgstr "आज"
 
@@ -318,6 +322,8 @@ msgstr "आज"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:362
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:772
 #: src/Layouts/ItemRow.vala:1285
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:365
+#: src/Layouts/ItemRow.vala:1286
 msgid "Tomorrow"
 msgstr "कल"
 
@@ -341,13 +347,15 @@ msgstr "कोई लेबल नहीं"
 msgid "unlabeled"
 msgstr "लेबल नहीं किया गया"
 
-#: core/Objects/Item.vala:1340
+#: core/Objects/Item.vala:1340 core/Objects/Item.vala:1346
 msgid "Task copied to clipboard"
 msgstr "कार्य को क्लिपबोर्ड पर कॉपी किया गया"
 
 # # c-format
 #: core/Objects/Item.vala:1633 core/Utils/Util.vala:889
-#: src/Widgets/MultiSelectToolbar.vala:375
+#: src/Widgets/MultiSelectToolbar.vala:375 core/Objects/Item.vala:1639
+#: src/Widgets/MultiSelectToolbar.vala:376
+#: src/Widgets/MultiSelectToolbar.vala:379
 #, fuzzy, c-format
 msgid "Task moved to %s"
 msgstr "कार्य को %s पर भेजा गया"
@@ -832,6 +840,7 @@ msgstr "गहरा नीला"
 
 #: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:407
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:410
 msgid "None"
 msgstr "कोई नहीं"
 
@@ -1156,100 +1165,121 @@ msgid "Sa"
 msgstr "रवि"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:132
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:135
 msgid "Type a date…"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:153
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:156
 msgid "Choose a date"
 msgstr "कोई तारीख चुनें"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:157
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:530
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:160
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:533
 msgid "Repeat"
 msgstr "दोहराएं"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:166
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:143
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:169
 msgid "Time"
 msgstr "समय"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:185
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:254
 #: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:188
 msgid "Done"
 msgstr "संपन्न"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:189
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:192
 msgid "Clear"
 msgstr "साफ करें"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:351
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:354
 #, fuzzy
 msgid "Menu"
 msgstr "मुख्य मेनू"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:368
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:371
 msgid "Next week"
 msgstr "अगले हफ्ते"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:403
 #: src/Widgets/EventRow.vala:286
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:406
 #, fuzzy
 msgid "Calendar"
 msgstr "कैलेंडर कार्यक्रम"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:411
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:414
 msgid "Daily"
 msgstr "प्रतिदिन"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:415
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:418
 #, fuzzy
 msgid "Weekdays"
 msgstr "साप्ताहिक"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:419
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:422
 #, fuzzy
 msgid "Weekends"
 msgstr "हफ्ता(ते)"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:423
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:426
 msgid "Weekly"
 msgstr "साप्ताहिक"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:427
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:430
 msgid "Monthly"
 msgstr "मासिक"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:431
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:434
 msgid "Yearly"
 msgstr "वार्षिक"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:435
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:438
 msgid "Custom"
 msgstr "तदनुकूल"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:736
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:443
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:747
 msgid "until"
 msgstr "यहां तक"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:739
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 msgid "for"
 msgstr "में"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:739
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 msgid "times"
 msgstr "बार"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:739
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 msgid "time"
 msgstr "बार"
 
@@ -1374,7 +1404,7 @@ msgid "Search or Create"
 msgstr "खोजें या बनाएं"
 
 #: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
-#: src/Layouts/ItemRow.vala:1362
+#: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemRow.vala:1363
 msgid "Apply"
 msgstr ""
 
@@ -1494,7 +1524,7 @@ msgstr "लंबित"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:784 src/Layouts/ItemRow.vala:1297
-#: src/Services/Notification.vala:98
+#: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1298
 msgid "Complete"
 msgstr "पूर्ण"
 
@@ -1629,7 +1659,7 @@ msgstr "अगले हफ्ते"
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:777
 #: src/Layouts/ItemRow.vala:1290 src/Views/Project/Project.vala:518
 #: src/Views/Project/Project.vala:689 src/Views/Project/Project.vala:562
-#: src/Views/Project/Project.vala:733
+#: src/Views/Project/Project.vala:733 src/Layouts/ItemRow.vala:1291
 msgid "No Date"
 msgstr "कोई तारीख नहीं"
 
@@ -1656,7 +1686,7 @@ msgid "Network Is Not Available"
 msgstr "नेटवर्क उपलब्ध नहीं है"
 
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1426
-#: src/Layouts/ItemSidebarView.vala:495
+#: src/Layouts/ItemSidebarView.vala:495 src/Layouts/ItemRow.vala:1427
 msgid "Change History"
 msgstr "इतिहास बदलें"
 
@@ -2591,6 +2621,7 @@ msgstr "परियोजना सफलतापूर्वक जोड़�
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:780 src/Layouts/ItemRow.vala:1293
 #: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemSidebarView.vala:490
+#: src/Layouts/ItemRow.vala:1294 src/Layouts/ItemRow.vala:1422
 msgid "Move"
 msgstr "स्थानांतरण"
 
@@ -2636,22 +2667,25 @@ msgstr "पार्श्वपट्टी खोलें/बंद करे
 
 #: src/Layouts/ItemBoard.vala:156 src/Layouts/ItemBoard.vala:762
 #: src/Layouts/ItemBoard.vala:775 src/Layouts/ItemRow.vala:1275
-#: src/Layouts/ItemRow.vala:1288
+#: src/Layouts/ItemRow.vala:1288 src/Layouts/ItemRow.vala:1276
+#: src/Layouts/ItemRow.vala:1289
 msgid "Unpin"
 msgstr ""
 
 # # c-format
 #: src/Layouts/ItemBoard.vala:623 src/Layouts/ItemRow.vala:1627
-#: src/Layouts/ItemSidebarView.vala:656
+#: src/Layouts/ItemSidebarView.vala:656 src/Layouts/ItemRow.vala:1628
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "पूर्ण। अगली बार: %s"
 
 #: src/Layouts/ItemBoard.vala:783 src/Layouts/ItemRow.vala:1296
+#: src/Layouts/ItemRow.vala:1297
 msgid "Add Subtask"
 msgstr "उपकार्य जोड़ें"
 
 #: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1298
+#: src/Layouts/ItemRow.vala:1299
 msgid "Edit"
 msgstr "संपादन"
 
@@ -2659,26 +2693,31 @@ msgstr "संपादन"
 #: src/Layouts/ItemRow.vala:1420 src/Layouts/ItemSidebarView.vala:489
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:659 src/Views/Project/Project.vala:332
-#: src/Views/Project/Project.vala:375
+#: src/Views/Project/Project.vala:375 src/Layouts/ItemRow.vala:1300
+#: src/Layouts/ItemRow.vala:1421
 msgid "Duplicate"
 msgstr "प्रतिरूप"
 
 #: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1301
 #: src/Layouts/ItemRow.vala:1423 src/Layouts/ItemSidebarView.vala:492
+#: src/Layouts/ItemRow.vala:1302 src/Layouts/ItemRow.vala:1424
 msgid "Delete Task"
 msgstr "कार्य मिटाएं"
 
 #: src/Layouts/ItemBoard.vala:1088 src/Layouts/ItemRow.vala:1868
+#: src/Layouts/ItemRow.vala:1869
 msgid "Order changed to 'Custom sort order'"
 msgstr "क्रम को 'तदनुकूल छंटाई क्रम' में बदल दिया गया"
 
 # # c-format
 #: src/Layouts/ItemBoard.vala:1174 src/Layouts/ItemRow.vala:1651
+#: src/Layouts/ItemRow.vala:1652
 #, c-format
 msgid "%s was deleted"
 msgstr "%s मिटा दिया गया"
 
 #: src/Layouts/ItemBoard.vala:1175 src/Layouts/ItemRow.vala:1652
+#: src/Layouts/ItemRow.vala:1653
 msgid "Undo"
 msgstr "पूर्ववत करें"
 
@@ -2690,21 +2729,23 @@ msgstr "अनुलग्नक जोड़ें"
 msgid "Add Subtasks"
 msgstr "उपकार्य जोड़ें"
 
-#: src/Layouts/ItemRow.vala:1125
+#: src/Layouts/ItemRow.vala:1125 src/Layouts/ItemRow.vala:1126
 #, fuzzy
 msgid "Hide Sub-tasks"
 msgstr "उप-कार्य"
 
-#: src/Layouts/ItemRow.vala:1125
+#: src/Layouts/ItemRow.vala:1125 src/Layouts/ItemRow.vala:1126
 #, fuzzy
 msgid "Show Sub-tasks"
 msgstr "उप-कार्य"
 
 #: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:486
+#: src/Layouts/ItemRow.vala:1417
 msgid "Use as a Note"
 msgstr "नोट के रूप में उपयोग करें"
 
 #: src/Layouts/ItemRow.vala:1419 src/Layouts/ItemSidebarView.vala:488
+#: src/Layouts/ItemRow.vala:1420
 msgid "Copy to Clipboard"
 msgstr "क्लिपबोर्ड पर कॉपी करें"
 
@@ -3325,7 +3366,7 @@ msgstr ""
 msgid "Unarchive"
 msgstr "असंग्रहित करें"
 
-#: src/Widgets/SubItems.vala:523
+#: src/Widgets/SubItems.vala:523 src/Widgets/SubItems.vala:525
 msgid "No subtasks added yet. Get started!"
 msgstr ""
 

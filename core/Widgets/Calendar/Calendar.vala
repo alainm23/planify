@@ -39,10 +39,12 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
     }
 
     GLib.DateTime _date;
-    public GLib.DateTime date {
+    public GLib.DateTime? date {
         set {
             _date = value;
-            view_date (_date);
+            if (_date != null) {
+                view_date (_date);
+            }
         }
 
         get {

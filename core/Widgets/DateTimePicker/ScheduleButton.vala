@@ -147,7 +147,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         add_controller (motion_gesture);
 
         signal_map[motion_gesture.enter.connect (() => {
-            clear_revealer.reveal_child = duedate.datetime != null;
+            clear_revealer.reveal_child = duedate != null && duedate.datetime != null;
         })] = motion_gesture;
 
         signal_map[motion_gesture.leave.connect (() => {
