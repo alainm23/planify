@@ -50,8 +50,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer repeat_revealer;
     private Gtk.Revealer due_box_revealer;
     private Gtk.Revealer description_image_revealer;
-    private Gtk.Revealer reminder_revelaer;
+    private Gtk.Revealer reminder_revealer;
     private Gtk.Label reminder_count;
+    private Gtk.Label deadline_label;
+    private Gtk.Box deadline_box;
+    private Gtk.Revealer deadline_revealer;
     private Gtk.Box action_box_right;
 
     private Gtk.Revealer detail_revealer;
@@ -69,13 +72,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Widgets.LabelPicker.LabelButton label_button;
     private Widgets.PinButton pin_button;
     private Widgets.ReminderPicker.ReminderButton reminder_button;
-    private Gtk.Button add_button;
+    private Widgets.DeadlineButton deadline_button;
+    private Widgets.DeadlineButton deadline_button_detail;
     private Gtk.MenuButton attachments_button;
     private Widgets.Attachments attachments;
     private Gtk.Label attachments_count;
     private Gtk.Box action_box;
     private Gtk.Label show_subtasks_label;
     private Gtk.Revealer show_subtasks_revealer;
+    private Gtk.Revealer add_subtasks_button_revealer;
+    private Gtk.Button add_subtasks_button;
 
     private Widgets.SubItems subitems;
     private Gtk.MenuButton menu_button;
@@ -117,11 +123,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 hide_loading_button.remove_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = true;
                 show_subtasks_revealer.reveal_child = subitems.has_children && edit;
+                add_subtasks_button_revealer.reveal_child = edit;
 
                 // Due labels
                 due_box_revealer.reveal_child = false;
                 description_image_revealer.reveal_child = false;
-                reminder_revelaer.reveal_child = false;
+                reminder_revealer.reveal_child = false;
+                deadline_revealer.reveal_child = false;
 
                 if (complete_timeout != 0) {
                     itemrow_box.remove_css_class ("complete");
@@ -155,10 +163,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 hide_loading_button.add_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = false;
                 show_subtasks_revealer.reveal_child = false;
+                add_subtasks_button_revealer.reveal_child = false;
 
                 check_due ();
                 check_description ();
                 check_reminders ();
+                check_deadline ();
 
                 if (drag_enabled) {
                     build_drag_and_drop ();
@@ -228,7 +238,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             height_request = 32,
             css_classes = { "drop-area", "drop-target" },
             margin_bottom = 3,
-            margin_start = 19
+            margin_start = 27
         };
 
         motion_top_revealer = new Gtk.Revealer () {
@@ -238,9 +248,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.CENTER,
-            css_classes = { "priority-color" },
             sensitive = !item.project.is_deck
         };
+        checked_button.add_css_class ("priority-color");
 
         checked_button_revealer = new Gtk.Revealer () {
             child = checked_button,
@@ -327,7 +337,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         reminder_box.append (reminder_icon);
         reminder_box.append (reminder_count);
 
-        reminder_revelaer = new Gtk.Revealer () {
+        reminder_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
             child = reminder_box
         };
@@ -337,12 +347,53 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             start_margin = 6
         };
 
+        var deadline_icon = new Gtk.Image.from_icon_name ("delay-long-small-symbolic") {
+            pixel_size = 12
+        };
+
+        deadline_label = new Gtk.Label (null);
+        deadline_label.add_css_class ("caption");
+
+        deadline_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
+            valign = CENTER,
+            css_classes = { "dimmed" },
+        };
+
+        deadline_box.append (deadline_icon);
+        deadline_box.append (deadline_label);
+
+        deadline_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = deadline_box
+        };
+
+        project_name_label = new Gtk.Label (null) {
+            css_classes = { "caption", "dimmed" },
+            ellipsize = Pango.EllipsizeMode.END,
+            max_width_chars = 16,
+            margin_start = 6
+        };
+
+        project_name_label_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = project_name_label,
+            reveal_child = !is_project_view
+        };
+
+        var right_box = new Gtk.Box (HORIZONTAL, 0) {
+            hexpand = true,
+            halign = END
+        };
+        right_box.append (deadline_revealer);
+        right_box.append (project_name_label_revealer);
+
         var content_label_box = new Gtk.Box (HORIZONTAL, 0);
         content_label_box.append (due_box_revealer);
         content_label_box.append (content_label);
         content_label_box.append (description_image_revealer);
-        content_label_box.append (reminder_revelaer);
+        content_label_box.append (reminder_revealer);
         content_label_box.append (labels_summary);
+        content_label_box.append (right_box);
 
         content_label_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
@@ -383,14 +434,23 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = content_textview
         };
 
+        pin_button = new Widgets.PinButton () {
+            sensitive = !item.completed,
+            no_padding = true
+        };
+
         hide_loading_button = new Widgets.LoadingButton.with_icon ("go-up-symbolic", 16) {
             css_classes = { "flat", "no-padding" }
         };
 
+        var top_right_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        top_right_box.append (pin_button);
+        top_right_box.append (hide_loading_button);
+
         hide_loading_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
             valign = Gtk.Align.START,
-            child = hide_loading_button
+            child = top_right_box
         };
 
         select_checkbutton = new Gtk.CheckButton () {
@@ -404,19 +464,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = select_checkbutton
         };
 
-        project_name_label = new Gtk.Label (null) {
-            css_classes = { "caption", "dimmed" },
-            margin_end = 6,
-            ellipsize = Pango.EllipsizeMode.END,
-            max_width_chars = 16
-        };
-
-        project_name_label_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = project_name_label,
-            reveal_child = !is_project_view
-        };
-
         content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             valign = CENTER,
             margin_start = 6
@@ -427,7 +474,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var content_main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         content_main_box.append (checked_button_revealer);
         content_main_box.append (content_box);
-        content_main_box.append (project_name_label_revealer);
         content_main_box.append (hide_loading_revealer);
 
         markdown_revealer = new Gtk.Revealer ();
@@ -441,6 +487,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             sensitive = !item.completed
         };
 
+        deadline_button_detail = new Widgets.DeadlineButton.with_detail () {
+            sensitive = !item.completed
+        };
+
+        var dates_box = new Gtk.Box (VERTICAL, 0);
+        dates_box.append (schedule_button);
+        dates_box.append (deadline_button_detail);
+
         priority_button = new Widgets.PriorityButton () {
             sensitive = !item.completed
         };
@@ -451,18 +505,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         label_button.source = item.project.source;
 
-        pin_button = new Widgets.PinButton () {
-            sensitive = !item.completed
-        };
-
         reminder_button = new Widgets.ReminderPicker.ReminderButton () {
             sensitive = !item.completed
         };
 
-        add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
-            valign = Gtk.Align.CENTER,
-            tooltip_text = _ ("Add Subtasks"),
-            css_classes = { "flat" },
+        deadline_button = new Widgets.DeadlineButton () {
             sensitive = !item.completed
         };
 
@@ -516,18 +563,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         action_box_right = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = Services.EventBus.get_default ().mobile_mode ? false : true,
-            halign = Services.EventBus.get_default ().mobile_mode ? Gtk.Align.FILL : Gtk.Align.END
+            halign = Services.EventBus.get_default ().mobile_mode ? Gtk.Align.FILL : Gtk.Align.END,
+            valign = END
         };
 
-        action_box_right.append (add_button);
         action_box_right.append (attachments_button_overlay);
         action_box_right.append (label_button);
         action_box_right.append (priority_button);
         action_box_right.append (reminder_button);
-        action_box_right.append (pin_button);
+        action_box_right.append (deadline_button);
         action_box_right.append (menu_button);
 
-        action_box.append (schedule_button);
+        action_box.append (dates_box);
         action_box.append (action_box_right);
 
         var details_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -562,9 +609,25 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         itemrow_box.add_css_class ("task-item");
         itemrow_box.add_css_class ("drop-target");
 
-        subitems = new Widgets.SubItems (is_project_view);
-        subitems.present_item (item);
-        subitems.reveal_child = item.items.size > 0 && item.collapsed;
+        var add_subtasks_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        add_subtasks_box.append (new Gtk.Image.from_icon_name ("plus-large-symbolic") {
+            pixel_size = 12
+        });
+        add_subtasks_box.append (new Gtk.Label (_ ("Add Subtasks")));
+
+        add_subtasks_button = new Gtk.Button () {
+            child = add_subtasks_box,
+            css_classes = { "flat", "small-button", "hidden-button" },
+            margin_start = 16,
+            margin_bottom = 3,
+            halign = START,
+            sensitive = !item.completed
+        };
+
+        add_subtasks_button_revealer = new Gtk.Revealer () {
+            child = add_subtasks_button,
+            reveal_child = edit
+        };
 
         show_subtasks_label = new Gtk.Label (null);
 
@@ -587,8 +650,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             reveal_child = subitems.has_children && edit
         };
 
+        subitems = new Widgets.SubItems (is_project_view);
+        subitems.present_item (item);
+        subitems.reveal_child = item.items.size > 0 && item.collapsed;
+
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.append (itemrow_box);
+        box.append (add_subtasks_button_revealer);
         box.append (show_subtasks_revealer);
         box.append (subitems);
 
@@ -777,7 +845,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = pin_button;
 
         signals_map[label_button.labels_changed.connect ((labels) => {
-            update_labels (labels);
+            item.update_labels (labels);
         })] = label_button;
 
         signals_map[
@@ -824,7 +892,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = Services.EventBus.get_default ();
 
         var add_subitem_gesture = new Gtk.GestureClick ();
-        add_button.add_controller (add_subitem_gesture);
+        add_subtasks_button.add_controller (add_subitem_gesture);
         signals_map[add_subitem_gesture.pressed.connect ((n_press, x, y) => {
             add_subitem_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             subitems.prepare_new_item ();
@@ -882,6 +950,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             check_reminders ();
         })] = item;
 
+        signals_map[deadline_button.date_selected.connect ((date) => {
+            update_deadline (date);
+        })] = deadline_button;
+
+        signals_map[deadline_button_detail.date_selected.connect ((date) => {
+            update_deadline (date);
+        })] = deadline_button_detail;
+
         signals_map[Services.EventBus.get_default ().drag_items_end.connect ((project_id) => {
             if (item.project_id == project_id) {
                 motion_top_revealer.reveal_child = false;
@@ -910,17 +986,28 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 if (active) {
                     if (item.id != focused_item_id) {
                         itemrow_box.add_css_class ("dimmed");
+                        
                     }
                 } else {
                     itemrow_box.remove_css_class ("dimmed");
+                    
                 }
             } else if (!active && edit) {
                 edit = false;
             }
         })] = Services.EventBus.get_default ();
 
+
+        signals_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
+            if (active) {
+                show_subtasks_button.add_css_class ("dimmed");
+            } else {
+                show_subtasks_button.remove_css_class ("dimmed");
+            }
+        })] = Services.EventBus.get_default ();
+
         signals_map[Services.EventBus.get_default ().day_changed.connect (() => {
-            schedule_button.update_from_item (item);
+            update_request ();
         })] = Services.EventBus.get_default ();
 
         signals_map[notify["edit"].connect (() => {
@@ -1029,11 +1116,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         pin_button.update_from_item (item);
         reminder_button.set_reminders (item.reminders);
 
+        deadline_button.datetime = item.deadline_datetime;
+        deadline_button.reveal_content = !item.has_deadline;
+
+        deadline_button_detail.datetime = item.deadline_datetime;
+        deadline_button_detail.reveal_content = item.has_deadline;
+
         show_subtasks_label.label = item.collapsed ? _ ("Hide Sub-tasks") : _ ("Show Sub-tasks");
 
         check_due ();
         check_description ();
         check_reminders ();
+        check_deadline ();
 
         if (edit) {
             add_css_class ("task-editing");
@@ -1048,10 +1142,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             label_button.sensitive = !item.completed;
             pin_button.sensitive = !item.completed;
             reminder_button.sensitive = !item.completed;
-            add_button.sensitive = !item.completed;
+            add_subtasks_button.sensitive = !item.completed;
             attachments_button.sensitive = !item.completed;
+            deadline_button.sensitive = !item.completed;
+            deadline_button_detail.sensitive = !item.completed;
         } else {
             remove_css_class ("task-editing");
+        }
+
+        if (item.completed) {
+            deadline_button_detail.remove_error_style ();
         }
     }
 
@@ -1079,7 +1179,31 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     private void check_reminders () {
         reminder_count.label = item.reminders.size.to_string ();
-        reminder_revelaer.reveal_child = !edit && item.reminders.size > 0;
+        reminder_revealer.reveal_child = !edit && item.reminders.size > 0;
+    }
+
+    private void check_deadline () {
+        deadline_box.remove_css_class ("error");
+        deadline_box.remove_css_class ("dimmed");
+
+        if (item.has_deadline) {
+            deadline_label.label = Utils.Datetime.get_relative_time_from_date (item.deadline_datetime);
+            
+            var date_only = Utils.Datetime.get_date_only (item.deadline_datetime);
+            bool is_overdue = Utils.Datetime.is_today (date_only) || 
+                              Utils.Datetime.is_yesterday (date_only) || 
+                              Utils.Datetime.is_overdue (date_only);
+            
+            if (is_overdue) {
+                deadline_box.add_css_class ("error");
+            } else {
+                deadline_box.add_css_class ("dimmed");
+            }
+        } else {
+            deadline_label.label = "";
+        }
+
+        deadline_revealer.reveal_child = !edit && item.has_deadline;
     }
 
     private void check_due () {
@@ -1167,6 +1291,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         no_date_item.visible = item.has_due;
 
         var move_item = new Widgets.ContextMenu.MenuItem (_ ("Move"), "arrow3-right-symbolic");
+        var labels_item = new Widgets.ContextMenu.MenuItem (_ ("Labels"), "tag-outline-symbolic");
 
         var add_item = new Widgets.ContextMenu.MenuItem (_ ("Add Subtask"), "plus-large-symbolic");
         var complete_item = new Widgets.ContextMenu.MenuItem (_ ("Complete"), "check-round-outline-symbolic");
@@ -1180,15 +1305,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
         if (!item.completed && !item.project.is_deck) {
-            menu_box.append (today_item);
-            menu_box.append (tomorrow_item);
-            menu_box.append (pinboard_item);
-            menu_box.append (no_date_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-            menu_box.append (move_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (complete_item);
             menu_box.append (edit_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (today_item);
+            menu_box.append (tomorrow_item);
+            menu_box.append (no_date_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (pinboard_item);
+            menu_box.append (move_item);
+            menu_box.append (labels_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (add_item);
             menu_box.append (duplicate_item);
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -1214,7 +1341,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 if (item.project.is_inbox_project) {
                     dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
                 } else {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
+                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
                 }
 
                 dialog.project = item.project;
@@ -1229,6 +1356,21 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
                 dialog.present (Planify._instance.main_window);
             })] = move_item;
+
+            signals_map[labels_item.activate_item.connect (() => {
+                var dialog = new Dialogs.LabelPicker (LabelPickerType.FILTER_AND_CREATE) {
+                    button_text = _("Apply")
+                };
+
+                dialog.add_labels (item.source);
+                dialog.labels = item.labels;
+
+                signals_map[dialog.labels_changed.connect ((labels) => {
+                    item.update_labels (labels);
+                })] = dialog;
+
+                dialog.present (Planify._instance.main_window);
+            })] = labels_item;
 
             signals_map[complete_item.activate_item.connect (() => {
                 checked_button.active = !checked_button.active;
@@ -1262,7 +1404,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             has_arrow = false,
             child = menu_box,
             halign = Gtk.Align.START,
-            width_request = 250
+            width_request = 275
         };
 
         menu_handle_popover.set_parent (this);
@@ -1318,7 +1460,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 if (item.project.is_inbox_project) {
                     dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
                 } else {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
+                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
                 }
 
                 signals_map[dialog.changed.connect ((type, id) => {
@@ -1460,6 +1602,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         item.update_date (date);
     }
 
+    public void update_deadline (GLib.DateTime ? date) {
+        item.deadline_date = date == null ? "" : date.to_string ();
+        item.update_async ();
+    }
+
     private void update_next_recurrency () {
         var promise = new Services.Promise<GLib.DateTime> ();
 
@@ -1484,29 +1631,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         Services.EventBus.get_default ().send_toast (toast);
     }
 
-    public void update_labels (Gee.HashMap<string, Objects.Label> new_labels) {
-        bool update = false;
-
-        foreach (var entry in new_labels.entries) {
-            if (item.get_label (entry.key) == null) {
-                item.add_label_if_not_exists (entry.value);
-                update = true;
-            }
-        }
-
-        foreach (var label in item._get_labels ()) {
-            if (!new_labels.has_key (label.id)) {
-                item.delete_item_label (label.id);
-                update = true;
-            }
-        }
-
-        if (!update) {
-            return;
-        }
-
-        item.update_async ();
-    }
+    
 
     public override void delete_request (bool undo = true) {
         main_revealer.reveal_child = false;

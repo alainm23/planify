@@ -209,25 +209,21 @@ public enum RecurrencyType {
     public string to_friendly_string (int? interval = null) {
         int count = (interval == null || interval == 0) ? 1 : interval;
 
-        string pluralized (string singular, string plural) {
-            return GLib.ngettext (singular, plural, count).printf (count);
-        }
-
         switch (this) {
             case NONE:
                 return _("Don't Repeat");
             case MINUTELY:
-                return pluralized (_("Every minute"), _("Every %d minutes"));
+                return GLib.ngettext ("Every minute", "Every %d minutes", count).printf (count);
             case HOURLY:
-                return pluralized (_("Every hour"), _("Every %d hours"));
+                return GLib.ngettext ("Every hour", "Every %d hours", count).printf (count);
             case EVERY_DAY:
-                return pluralized (_("Every day"), _("Every %d days"));
+                return GLib.ngettext ("Every day", "Every %d days", count).printf (count);
             case EVERY_WEEK:
-                return pluralized (_("Every week"), _("Every %d weeks"));
+                return GLib.ngettext ("Every week", "Every %d weeks", count).printf (count);
             case EVERY_MONTH:
-                return pluralized (_("Every month"), _("Every %d months"));
+                return GLib.ngettext ("Every month", "Every %d months", count).printf (count);
             case EVERY_YEAR:
-                return pluralized (_("Every year"), _("Every %d years"));
+                return GLib.ngettext ("Every year", "Every %d years", count).printf (count);
             default:
                 assert_not_reached ();
         }

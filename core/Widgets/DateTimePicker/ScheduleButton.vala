@@ -23,6 +23,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     public bool is_board { get; construct; }
     public string label { get; construct; }
 
+    private Gtk.MenuButton button;
     private Gtk.Label due_label;
     private Gtk.Box schedule_box;
     private Gtk.Image due_image;
@@ -64,7 +65,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    public ScheduleButton (string label = _("Schedule")) {
+    public ScheduleButton (string label = _("Date")) {
         Object (
             is_board: false,
             valign: Gtk.Align.CENTER,
@@ -73,7 +74,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         );
     }
 
-    public ScheduleButton.for_board (string label = _("Schedule")) {
+    public ScheduleButton.for_board (string label = _("Date")) {
         Object (
             is_board: true,
             tooltip_text: label,
@@ -117,7 +118,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         schedule_box.append (due_image);
         schedule_box.append (due_label);
 
-        var button = new Gtk.MenuButton () {
+        button = new Gtk.MenuButton () {
             child = schedule_box,
             popover = datetime_picker,
             css_classes = { "flat" }
@@ -125,7 +126,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
         var clear_button = new Gtk.Button.from_icon_name ("window-close") {
             css_classes = { "flat" },
-            tooltip_text = _("Clear Schedule")
+            tooltip_text = _("Remove date")
         };
 
         clear_revealer = new Gtk.Revealer () {
@@ -163,7 +164,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
         var title_label = new Gtk.Label (label) {
             halign = START,
-            css_classes = { "title-4", "caption" }
+            css_classes = { "title-4", "caption", "font-bold" }
         };
 
         due_label = new Gtk.Label (_("Set a Due Date")) {
@@ -187,14 +188,14 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         card_grid.attach (title_label, 1, 0, 1, 1);
         card_grid.attach (due_label, 1, 1, 1, 1);
 
-        var model_button = new Gtk.MenuButton () {
+        button = new Gtk.MenuButton () {
             popover = datetime_picker,
             child = card_grid,
             css_classes = { "flat", "card", "activatable", "menu-button-no-padding" },
             hexpand = true
         };
 
-        attach (model_button, 0, 0);
+        attach (button, 0, 0);
 
         signal_map[datetime_picker.duedate_changed.connect (() => {
             duedate = datetime_picker.duedate;
@@ -286,5 +287,9 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         if (datetime_picker != null) {
             datetime_picker.clean_up ();
         }
+    }
+
+    public void open_picker () {
+        button.active = true;
     }
 }

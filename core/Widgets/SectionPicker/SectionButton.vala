@@ -34,7 +34,7 @@ public class Widgets.SectionPicker.SectionButton : Adw.Bin {
     construct {
         var title_label = new Gtk.Label (_("Section")) {
             halign = START,
-            css_classes = { "title-4", "caption" }
+            css_classes = { "title-4", "caption", "font-bold" }
         };
 
         section_label = new Gtk.Label (_("Select Section")) {

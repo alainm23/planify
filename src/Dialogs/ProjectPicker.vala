@@ -32,7 +32,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
 
     public signal void changed (string type, string id);
 
-    public ProjectPicker.for_project (Objects.Source source) {
+    public ProjectPicker.for_source (Objects.Source source) {
         Object (
             source: source,
             title: _("Move"),

@@ -11,7 +11,7 @@ jobs:
       image: 'ghcr.io/flathub-infra/flatpak-github-actions:gnome-48'
       options: '--privileged'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: planify.Devel.flatpak
@@ -21,7 +21,7 @@ jobs:
   gettext:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install gettext
         run: sudo apt-get update && sudo apt-get install -y gettext

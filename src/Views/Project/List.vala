@@ -73,16 +73,16 @@ public class Views.List : Adw.Bin {
 
         var title_box = new Gtk.Box (HORIZONTAL, 6) {
             valign = CENTER,
-            margin_start = 22,
+            margin_start = 30,
         };
 
         title_box.append (icon_project);
         title_box.append (title_label);
 
-        var description_widget = new Widgets.EditableTextView (_ ("Note")) {
+        var description_widget = new Widgets.EditableTextView (_("Note")) {
             text = project.description,
             margin_top = 12,
-            margin_start = 24,
+            margin_start = 32,
             margin_end = 24
         };
 
@@ -115,7 +115,7 @@ public class Views.List : Adw.Bin {
             icon_name = "check-round-outline-symbolic",
             title = _ ("Add Some Tasks"),
             description = _ ("Press 'a' to create a new task"),
-            can_focus = true
+            can_focus = false
         };
         listbox_placeholder.update_property (Gtk.AccessibleProperty.LABEL, 
             _ ("Add Some Tasks. Press 'a' to create a new task"), -1);
@@ -263,7 +263,6 @@ public class Views.List : Adw.Bin {
             filters.sensitive = !active;
             pinned_items_flowbox.sensitive = !active;
 
-            description_widget.sensitive = !active;
             if (active) {
                 description_widget.add_css_class ("dimmed");
             } else {
@@ -284,7 +283,6 @@ public class Views.List : Adw.Bin {
         }
 
         listbox_placeholder_stack.visible_child_name = count > 0 ? "listbox" : "placeholder";
-        scrolled_window.can_focus = count > 0;
     }
 
     private void add_sections () {
@@ -332,7 +330,7 @@ public class Views.List : Adw.Bin {
     }
 
     private void update_duedate () {
-        due_image.icon_name = "month-symbolic";
+        due_image.icon_name = "delay-long-small-symbolic";
         due_image.css_classes = {};
         due_label.css_classes = {};
         due_revealer.reveal_child = false;
@@ -340,19 +338,13 @@ public class Views.List : Adw.Bin {
         if (project.due_date != "") {
             var datetime = Utils.Datetime.get_date_from_string (project.due_date);
 
-            due_label.label = Utils.Datetime.get_relative_date_from_date (datetime);
-            days_left_label.label = Utils.Datetime.days_left (datetime);
+            due_label.label = Utils.Datetime.get_short_date_format_from_date (datetime);
+            days_left_label.label = Utils.Datetime.get_relative_time_from_date (datetime);
 
-            if (Utils.Datetime.is_today (datetime)) {
-                due_image.icon_name = "star-outline-thick-symbolic";
-                due_image.add_css_class ("today-color");
-                due_label.add_css_class ("today-color");
-            } else if (Utils.Datetime.is_overdue (datetime)) {
-                due_image.icon_name = "month-symbolic";
-                due_image.add_css_class ("overdue-color");
-                due_label.add_css_class ("overdue-color");
+            if (Utils.Datetime.is_today (datetime) || Utils.Datetime.is_overdue (datetime)) {
+                due_image.add_css_class ("error");
+                due_label.add_css_class ("error");
             } else {
-                due_image.icon_name = "month-symbolic";
                 due_image.css_classes = {};
                 due_label.css_classes = {};
             }
@@ -362,9 +354,9 @@ public class Views.List : Adw.Bin {
     }
 
     private Gtk.Revealer build_due_date_widget () {
-        due_image = new Gtk.Image.from_icon_name ("month-symbolic");
+        due_image = new Gtk.Image.from_icon_name ("delay-long-small-symbolic");
 
-        due_label = new Gtk.Label (_ ("Schedule")) {
+        due_label = new Gtk.Label (null) {
             xalign = 0
         };
 
@@ -373,10 +365,11 @@ public class Views.List : Adw.Bin {
             yalign = 0.5f
         };
         days_left_label.add_css_class ("dimmed");
-        days_left_label.add_css_class ("caption");
 
         var due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 3
+            margin_start = 3,
+            margin_top = 3,
+            margin_bottom = 3
         };
 
         due_box.append (due_image);
@@ -385,11 +378,15 @@ public class Views.List : Adw.Bin {
 
         var due_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
             margin_top = 12,
-            margin_start = 24
+            margin_start = 30
         };
-        due_content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        due_content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_start = 3
+        });
         due_content.append (due_box);
-        due_content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        due_content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_start = 3
+        });
 
         var due_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,

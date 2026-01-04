@@ -60,6 +60,53 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.17.0" date="2025-12-26">
+      <description translate="no">
+        <p>🚀 Planify 4.17.0 introduces deadlines, better scheduling, and calendar integration, along with multiple bug fixes and UX improvements.</p>
+        <ul>
+          <li>Added deadline support, separate from due dates, with visual indicators for overdue tasks.</li>
+          <li>Overdue tasks are now shown in the Scheduled view with quick reschedule actions.</li>
+          <li>Added multi-select support to move multiple tasks between projects.</li>
+          <li>Introduced calendar sync and event creation via Evolution Data Server (EDS).</li>
+          <li>Improved calendar range views and event date display.</li>
+          <li>Fixed task editing issues in Overdue view and projects without tasks.</li>
+          <li>Added support for custom URI schemes in the Markdown editor.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.16.1" date="2025-11-27">
+      <description translate="no">
+        <p>✨ Planify 4.16.1 is a maintenance release focused on fixing reported bugs and polishing the overall user experience.</p>
+        <ul>
+          <li>Fixed an issue where opening the Quick Add dialog while the window was maximized caused the main window to resize.</li>
+          <li>Resolved a UX problem where selecting the Inbox project by clicking directly on the radio button did not trigger the project change.</li>
+          <li>Updated the design of the Donate page for improved readability and visual consistency.</li>
+          <li>Added Shift+Enter as a temporary "keep adding" shortcut. This restores the previous behavior where pressing Shift+Enter adds the task and keeps the dialog open, regardless of the state of the 'Keep adding' toggle. Fixes: #2077</li>
+          <li>Added support for Zoom meeting links in the calendar event details view.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.16.0" date="2025-11-21">
+      <description translate="no">
+        <p>✨ Planify 4.16.0 introduces natural language date parsing, improved backend consistency, better keyboard control, and several quality-of-life UI fixes.</p>
+        <ul>
+          <li>Fixed tasks disappearing from the Today view when moving them to another project.</li>
+          <li>Resolved subtask duplication when moving tasks between different backends (e.g., LOCAL ↔ Todoist), ensuring subtasks are added only to their parent instead of both parent and project.</li>
+          <li>Reduced redundant toast notifications — now shows only one toast per move operation.</li>
+          <li>Fixed issue where Ctrl key events (Ctrl+C, Ctrl+V, Ctrl+A) unintentionally toggled the 'Keep adding' option.</li>
+          <li>Added new keyboard shortcut: 'Ctrl+K' to toggle the 'Keep adding' mode, and updated the keyboard shortcuts popover accordingly.</li>
+          <li>Added a new natural language date processor with support for ISO 8601 dates, slash/dot formats, time parsing, month names, and casual expressions like 'today', 'tomorrow', and 'now'.</li>
+          <li>Introduced full Spanish language support in the date parser, including expressions like 'hoy', 'mañana', 'próxima semana', 'mes pasado', and Spanish month names with or without accents.</li>
+          <li>Added 'Labels' item to the task’s context menu for quick label management.</li>
+          <li>Added event details popover with direct integration for Google Meet and Microsoft Teams meetings.</li>
+          <li>Fixed Quick Add window maximizing unintentionally on double-click, improving overall task creation UX.</li>
+          <li>General improvements to performance, design consistency, and overall stability.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.15.2" date="2025-11-07">
       <description translate="no">
         <p>✨ Planify 4.15.2 brings improved keyboard flows, smarter Quick Add, spell-check options, and a smoother backup experience.</p>

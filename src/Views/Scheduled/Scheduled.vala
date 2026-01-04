@@ -100,7 +100,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         };
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 24,
+            margin_start = 30,
             margin_bottom = 6
         };
 
@@ -114,7 +114,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             base_object = Objects.Filters.Scheduled.get_default ()
         };
 
-        filters.flowbox.margin_start = 24;
+        filters.flowbox.margin_start = 30;
         filters.flowbox.margin_top = 12;
         filters.flowbox.margin_end = 12;
         filters.flowbox.margin_bottom = 3;
@@ -180,6 +180,8 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
     }
 
     private void add_days () {
+        listbox.append (new Views.Scheduled.ScheduledOverdue ());
+        
         var date = new GLib.DateTime.now_local ();
         var month_days = Utils.Datetime.get_days_of_month (date.get_month (), date.get_year ());
         var remaining_days = month_days - date.add_days (7).get_day_of_month ();
@@ -343,6 +345,8 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
                 ((Views.Scheduled.ScheduledMonth) row).clean_up ();
             } else if (row is Views.Scheduled.ScheduledRange) {
                 ((Views.Scheduled.ScheduledRange) row).clean_up ();
+            } else if (row is Views.Scheduled.ScheduledOverdue) {
+                ((Views.Scheduled.ScheduledOverdue) row).clean_up ();
             }
         }
 

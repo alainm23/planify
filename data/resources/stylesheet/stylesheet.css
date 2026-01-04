@@ -212,7 +212,7 @@ entry.flat:focus-within {
 }
 
 .priority-1-color check {
-    box-shadow: inset 0 0 0 1px #ff7066;
+    box-shadow: inset 0 0 0 2px #ff7066;
     background: rgba(255, 112, 102, 0.1);
 }
 
@@ -241,12 +241,12 @@ entry.flat:focus-within {
 }
 
 .priority-2-color check {
-    box-shadow: inset 0 0 0 1px #ff9a14;
+    box-shadow: inset 0 0 0 2px #ff9a14;
     background: rgba(255, 154, 20, 0.1);
 }
 
 .priority-3-color check {
-    box-shadow: inset 0 0 0 1px #5297ff;
+    box-shadow: inset 0 0 0 2px #5297ff;
     background: rgba(82, 151, 255, 0.1);
 }
 
@@ -370,9 +370,14 @@ entry.flat:focus-within {
 .pane-due-button {
     background-color: @upcoming_bg_color;
     border-radius: 6px;
-    padding: 3px 6px;
+    padding: 1px 4px;
     color: @upcoming_fg_color;
     font-weight: 500;
+}
+
+.pane-due-button.error {
+    background-color: transparent;
+    color: @error_color;
 }
 
 .icon-animation-dropshadow,
@@ -509,6 +514,11 @@ checkbutton.theme-selector radio:checked {
     border-radius: 1px;
 }
 
+.source-calendar-color {
+    background: linear-gradient(135deg, @colorAccent 0%, alpha(@colorAccent, 0.7) 100%);
+    border-radius: 50%;
+}
+
 .icon-color {
     color: @colorAccent;
 }
@@ -603,7 +613,7 @@ checkbutton.theme-selector radio:checked {
 }
 
 .badge {
-    background: #3584e4;
+    background: @accent_color;
     border-radius: 3px;
     padding: 0 3px;
 }
@@ -641,8 +651,8 @@ checkbutton.theme-selector radio:checked {
 }
 
 .keep-adding-button:checked {
-    background: alpha(#3584e4, 0.15);
-    color: #3584e4;
+    background: alpha(@accent_color, 0.15);
+    color: @accent_color;
 }
 
 .add-button {
@@ -712,4 +722,11 @@ checkbutton.theme-selector radio:checked {
     border: 1px solid @item_border_color;
     padding: 12px;
     border-radius: 9px;
+}
+
+.border-outline {
+    border: 1px solid @accent_color;
+    color: @accent_color;
+    border-radius: 6px;
+    padding: 0px 6px;
 }

@@ -49,8 +49,7 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
         sort_order_projects_row.title = _("Ordered");
         sort_order_projects_row.model = sort_order_projects_model;
         sort_order_projects_row.selected = Services.Settings.get_default ().settings.get_enum ("projects-ordered");
-        sort_order_projects_row.sensitive = Services.Settings.get_default ().settings.get_enum ("projects-sort-by") ==
-                                            1;
+        sort_order_projects_row.sensitive = Services.Settings.get_default ().settings.get_enum ("projects-sort-by") == 1;
 
         var sort_setting_group = new Adw.PreferencesGroup ();
         sort_setting_group.title = _("Projects");
@@ -130,26 +129,35 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
 
         datetime_group.add (start_week_row);
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+        var smart_date_recognition_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER,
+            active = Services.Settings.get_default ().settings.get_boolean ("smart-date-recognition")
+        };
+
+        var smart_date_recognition_row = new Adw.ActionRow ();
+        smart_date_recognition_row.title = _("Smart Date Recognition");
+        smart_date_recognition_row.subtitle = _("Automatically detect dates like \"tomorrow\" or \"next week\"");
+        smart_date_recognition_row.set_activatable_widget (smart_date_recognition_switch);
+        smart_date_recognition_row.add_suffix (smart_date_recognition_switch);
+        
+        datetime_group.add (smart_date_recognition_row);
+
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12,
+            margin_top = 6
+        };
         content_box.append (sort_setting_group);
         content_box.append (de_group);
         content_box.append (datetime_group);
-
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 600,
-            margin_start = 24,
-            margin_end = 24,
-            margin_bottom = 24
-        };
-
-        content_clamp.child = content_box;
 
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
             vexpand = true
         };
-        scrolled_window.child = content_clamp;
+        scrolled_window.child = content_box;
 
         var toolbar_view = new Adw.ToolbarView ();
         toolbar_view.add_top_bar (new Adw.HeaderBar ());
@@ -183,6 +191,10 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
         signal_map[calendar_events_switch.notify["active"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("calendar-enabled", calendar_events_switch.active);
         })] = calendar_events_switch;
+
+        signal_map[smart_date_recognition_switch.notify["active"].connect (() => {
+            Services.Settings.get_default ().settings.set_boolean ("smart-date-recognition", smart_date_recognition_switch.active);
+        })] = smart_date_recognition_switch;
 
         signal_map[clock_format_row.notify["selected"].connect (() => {
             Services.Settings.get_default ().settings.set_enum ("clock-format", (int) clock_format_row.selected);

@@ -32,6 +32,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
     private Widgets.ScheduleButton schedule_button;
     private Widgets.PriorityButton priority_button;
     private Widgets.ReminderPicker.ReminderButton reminder_button;
+    private Widgets.DeadlineButton deadline_button;
+    private Widgets.DeadlineButton deadline_button_detail;
     private Widgets.LabelPicker.LabelButton label_button;
     private Widgets.PinButton pin_button;
     private Gtk.Image added_image;
@@ -53,9 +55,11 @@ public class Layouts.QuickAddCore : Adw.Bin {
     public signal void parent_can_close (bool active);
 
     public bool ctrl_pressed { get; set; default = false; }
+    public bool shift_pressed { get; set; default = false; }
     public bool labels_picker_activate_shortcut { get; set; default = false; }
     public bool project_picker_activate_shortcut { get; set; default = false; }
     public bool reminder_picker_activate_shortcut { get; set; default = false; }
+    private bool shift_enter_used { get; set; default = false; }
     
     public enum FocusedWidget {
         CONTENT_ENTRY,
@@ -79,6 +83,10 @@ public class Layouts.QuickAddCore : Adw.Bin {
     private Gtk.EventControllerKey content_controller_key;
     private Gtk.EventControllerKey event_controller_key;
     private Gtk.ShortcutController shortcut_controller;
+    private uint date_detection_timeout_id = 0;
+    private string last_detected_date_text = "";
+    private bool date_auto_detection_enabled = true;
+    private Chrono.Chrono chrono;
 
     public int position { get; set; default = -1; }
     public NewTaskPosition new_task_position { get; set; default = Services.Settings.get_default ().get_new_task_position (); }
@@ -100,6 +108,9 @@ public class Layouts.QuickAddCore : Adw.Bin {
     }
 
     construct {
+        chrono = new Chrono.Chrono (Util.get_user_language ());
+        date_auto_detection_enabled = Services.Settings.get_default ().settings.get_boolean ("smart-date-recognition");
+        
         item = new Objects.Item ();
         item.project_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
         item.priority = Util.get_default ().get_default_priority ();
@@ -233,7 +244,17 @@ public class Layouts.QuickAddCore : Adw.Bin {
             top_margin = 12
         };
 
-        schedule_button = new Widgets.ScheduleButton ();
+        schedule_button = new Widgets.ScheduleButton () {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Set date"), "Ctrl + d"),
+        };
+
+        deadline_button_detail = new Widgets.DeadlineButton.with_detail () {
+            reveal_content = false
+        };
+
+        var dates_box = new Gtk.Box (VERTICAL, 0);
+        dates_box.append (schedule_button);
+        dates_box.append (deadline_button_detail);
 
         label_button = new Widgets.LabelPicker.LabelButton () {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Labels"), "@"),
@@ -248,6 +269,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
         reminder_button = new Widgets.ReminderPicker.ReminderButton (true) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Reminders"), "!"),
         };
+
+        deadline_button = new Widgets.DeadlineButton ();
 
         pin_button = new Widgets.PinButton ();
 
@@ -266,9 +289,10 @@ public class Layouts.QuickAddCore : Adw.Bin {
         action_box_right.append (label_button);
         action_box_right.append (priority_button);
         action_box_right.append (reminder_button);
+        action_box_right.append (deadline_button);
         action_box_right.append (pin_button);
 
-        action_box.append (schedule_button);
+        action_box.append (dates_box);
         action_box.append (action_box_right);
 
         var quick_add_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -369,13 +393,22 @@ public class Layouts.QuickAddCore : Adw.Bin {
         animation_container = new Gtk.Fixed () {
             can_target = false
         };
-        animation_overlay = new Gtk.Overlay ();
 
-        var window = new Gtk.WindowHandle ();
+        animation_overlay = new Gtk.Overlay ();
         animation_overlay.set_child (main_stack);
         animation_overlay.add_overlay (animation_container);
-        window.set_child (animation_overlay);
-        
+
+        Gtk.Widget container;
+        if (is_window_quick_add) {
+            container = new Gtk.WindowHandle () {
+                child = animation_overlay
+            };
+        } else {
+            container = new Adw.Bin () {
+                child = animation_overlay
+            };
+        }
+                
         var click_gesture = new Gtk.GestureClick ();
         click_gesture.pressed.connect ((n_press, x, y) => {
             if (labels_quick_picker != null && labels_quick_picker.visible) {
@@ -383,7 +416,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
                 content_entry.get_allocation (out entry_allocation);
                 
                 double entry_x, entry_y;
-                if (window.translate_coordinates (content_entry, x, y, out entry_x, out entry_y)) {
+                if (container.translate_coordinates (content_entry, x, y, out entry_x, out entry_y)) {
                     if (entry_x < 0 || entry_x > entry_allocation.width || 
                         entry_y < 0 || entry_y > entry_allocation.height) {
                         labels_quick_picker.popdown ();
@@ -391,9 +424,9 @@ public class Layouts.QuickAddCore : Adw.Bin {
                 }
             }
         });
-        window.add_controller (click_gesture);
+        container.add_controller (click_gesture);
 
-        child = window;
+        child = container;
 
         Timeout.add (main_stack.transition_duration, () => {
             if (Services.Store.instance ().is_database_empty ()) {
@@ -446,6 +479,11 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
         signal_map[schedule_button.duedate_changed.connect (() => {
             set_duedate (schedule_button.duedate);
+            
+            if (schedule_button.duedate.date == "" && Services.Settings.get_default ().settings.get_boolean ("smart-date-recognition")) {
+                date_auto_detection_enabled = true;
+                last_detected_date_text = "";
+            }
         })] = schedule_button;
 
         signal_map[schedule_button.picker_opened.connect ((active) => {
@@ -510,6 +548,36 @@ public class Layouts.QuickAddCore : Adw.Bin {
             }
         })] = reminder_button;
 
+        signal_map[deadline_button.date_selected.connect ((date) => {
+            update_deadline (date);
+        })] = deadline_button;
+
+        signal_map[deadline_button.picker_opened.connect ((active) => {
+            parent_can_close (!active);
+
+            if (!active) {
+                Timeout.add (250, () => {
+                    restore_focus ();
+                    return GLib.Source.REMOVE;
+                });
+            }
+        })] = deadline_button;
+
+        signal_map[deadline_button_detail.date_selected.connect ((date) => {
+            update_deadline (date);
+        })] = deadline_button_detail;
+
+        signal_map[deadline_button_detail.picker_opened.connect ((active) => {
+            parent_can_close (!active);
+
+            if (!active) {
+                Timeout.add (250, () => {
+                    restore_focus ();
+                    return GLib.Source.REMOVE;
+                });
+            }
+        })] = deadline_button_detail;
+
         signal_map[content_entry.activate.connect (() => {
             if (labels_quick_picker != null && labels_quick_picker.visible) {
                 return;
@@ -524,12 +592,22 @@ public class Layouts.QuickAddCore : Adw.Bin {
             handle_labels_popover (content_entry.get_text ());
             handle_text_trigger (SHORTCUTS_KEY_PROJECTS, content_entry.get_text ());
             handle_text_trigger (SHORTCUTS_KEY_REMINDERS, content_entry.get_text ());
+            
+            if (Services.Settings.get_default ().settings.get_boolean ("smart-date-recognition")) {
+                handle_natural_date_detection (content_entry.get_text ());
+            }
         })] = content_entry;
 
         content_controller_key = new Gtk.EventControllerKey ();
         content_entry.add_controller (content_controller_key);
         signal_map[content_controller_key.key_pressed.connect ((keyval, keycode, state) => {            
             if (keyval == Gdk.Key.Return && ctrl_pressed) {
+                add_item ();
+                return true;
+            }
+            
+            if (keyval == Gdk.Key.Return && shift_pressed) {
+                shift_enter_used = true;
                 add_item ();
                 return true;
             }
@@ -557,6 +635,9 @@ public class Layouts.QuickAddCore : Adw.Bin {
         signal_map[description_textview.return_pressed.connect (() => {
             if (ctrl_pressed) {
                 add_item ();
+            } else if (shift_pressed) {
+                shift_enter_used = true;
+                add_item ();
             }
         })] = description_textview;
 
@@ -576,6 +657,10 @@ public class Layouts.QuickAddCore : Adw.Bin {
             if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
                 ctrl_pressed = true;
             }
+            
+            if (keyval == Gdk.Key.Shift_L || keyval == Gdk.Key.Shift_R) {
+                shift_pressed = true;
+            }
 
             return false;
         })] = event_controller_key;
@@ -583,6 +668,10 @@ public class Layouts.QuickAddCore : Adw.Bin {
         signal_map[event_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
                 ctrl_pressed = false;
+            }
+            
+            if (keyval == Gdk.Key.Shift_L || keyval == Gdk.Key.Shift_R) {
+                shift_pressed = false;
             }
         })] = event_controller_key;
 
@@ -635,10 +724,16 @@ public class Layouts.QuickAddCore : Adw.Bin {
             return true;
         }));
 
+        var open_schedule_shortcut = new Gtk.Shortcut (Gtk.ShortcutTrigger.parse_string ("<Control>d"), new Gtk.CallbackAction (() => {
+            schedule_button.open_picker ();
+            return true;
+        }));
+
         shortcut_controller = new Gtk.ShortcutController ();
         shortcut_controller.add_shortcut (open_label_shortcut);
         shortcut_controller.add_shortcut (open_reminder_shortcut);
         shortcut_controller.add_shortcut (toggle_keep_adding_shortcut);
+        shortcut_controller.add_shortcut (open_schedule_shortcut);
         add_controller (shortcut_controller);
 
         destroy_controller = new Gtk.EventControllerKey ();
@@ -734,7 +829,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
     }
 
     public void added_successfully () {
-        if (create_more_button.active) {
+        if (create_more_button.active || shift_enter_used) {
             main_stack.visible_child_name = "main";
             added_image.remove_css_class ("fancy-turn-animation");
 
@@ -771,6 +866,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
             priority_button.reset ();
 
             content_entry.grab_focus ();
+            
+            shift_enter_used = false;
 
             return;
         }
@@ -864,6 +961,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
         if (!item.has_due) {
             item.due.reset ();
+            date_auto_detection_enabled = true;
+            last_detected_date_text = "";
         }
 
         schedule_button.update_from_item (item);
@@ -910,6 +1009,16 @@ public class Layouts.QuickAddCore : Adw.Bin {
         if (labels_change && labels_picker_activate_shortcut) {
             remove_entry_char ("@");
         }
+    }
+
+    private void update_deadline (GLib.DateTime ? date) {
+        item.deadline_date = date == null ? "" : date.to_string ();
+
+        deadline_button.datetime = item.deadline_datetime;
+        deadline_button.reveal_content = !item.has_deadline;
+
+        deadline_button_detail.datetime = item.deadline_datetime;
+        deadline_button_detail.reveal_content = item.has_deadline;
     }
 
     private void remove_entry_char (string value) {
@@ -1069,7 +1178,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
             flying_label,
             0.0,
             1.0,
-            600,
+            400,
             target
         );
 
@@ -1407,6 +1516,109 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
     private int set_sort_func (Objects.Item item1, Objects.Item item2) {
         return item1.child_order - item2.child_order;
+    }
+
+    private void handle_natural_date_detection (string text) {
+        if (text.length < 3) {
+            return;
+        }
+        
+        if (date_detection_timeout_id > 0) {
+            Source.remove (date_detection_timeout_id);
+            date_detection_timeout_id = 0;
+        }
+        
+        date_detection_timeout_id = Timeout.add (800, () => {
+            date_detection_timeout_id = 0;
+            
+            var result = chrono.parse (text);
+            
+            if (last_detected_date_text != "") {
+                if (!text.contains (last_detected_date_text)) {
+                    date_auto_detection_enabled = true;
+                    last_detected_date_text = "";
+                } else if (result != null && result.matched_text != last_detected_date_text) {
+                    date_auto_detection_enabled = true;
+                    last_detected_date_text = "";
+                }
+            }
+            
+            if (!date_auto_detection_enabled) {
+                return Source.REMOVE;
+            }
+            
+            if (result != null && result.date != null && result.matched_text.length > 0) {
+                if (result.matched_text != last_detected_date_text) {
+                    last_detected_date_text = result.matched_text;
+                    animate_date_to_schedule_button (result.matched_text, result.date);
+                }
+            }
+            
+            return Source.REMOVE;
+        });
+    }
+
+    private void animate_date_to_schedule_button (string date_text, DateTime date) {
+        double entry_x, entry_y;
+        double button_x, button_y;
+
+        Graphene.Point entry_point;
+        if (!content_entry.compute_point (animation_overlay, Graphene.Point (), out entry_point)) {
+            return;
+        }
+        entry_x = entry_point.x;
+        entry_y = entry_point.y;
+
+        Graphene.Point button_point;
+        if (!schedule_button.compute_point (animation_overlay, Graphene.Point (), out button_point)) {
+            return;
+        }
+        button_x = button_point.x;
+        button_y = button_point.y;
+
+        var cursor_x_offset = get_cursor_position_in_entry ();
+
+        var start_x = entry_x + cursor_x_offset;
+        var start_y = entry_y + content_entry.get_height () / 2;
+        var end_x = button_x + schedule_button.get_width () / 2;
+        var end_y = button_y + schedule_button.get_height () / 2;
+
+        var flying_label = new Gtk.Label (date_text) {
+            css_classes = { "date-flying-label" }
+        };
+
+        animation_container.put (flying_label, (int) start_x, (int) start_y);
+
+        var target = new Adw.CallbackAnimationTarget ((progress) => {
+            var current_x = (int) lerp (start_x, end_x, progress);
+            var current_y = (int) lerp (start_y, end_y, progress);
+
+            animation_container.move (flying_label, current_x, current_y);
+
+            flying_label.opacity = 1.0 - (progress * 0.3);
+        });
+
+        var animation = new Adw.TimedAnimation (
+            flying_label,
+            0.0,
+            1.0,
+            400,
+            target
+        );
+
+        animation.easing = Adw.Easing.EASE_IN_OUT_CUBIC;
+
+        animation.done.connect (() => {
+            animation_container.remove (flying_label);
+            
+            var duedate = new Objects.DueDate ();
+            duedate.date = Utils.Datetime.get_todoist_datetime_format (date);
+            set_duedate (duedate);
+            
+            date_auto_detection_enabled = false;
+        });
+
+        animation.play ();
     }
 
     public void clean_up () {

@@ -96,7 +96,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         var header_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             valign = Gtk.Align.START,
-            margin_start = 24,
+            margin_start = 30,
             margin_end = 24
         };
 

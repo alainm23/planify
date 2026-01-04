@@ -166,9 +166,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         drop_inbox_widget = new Gtk.Grid () {
             css_classes = { "transition", "drop-target" },
             height_request = 30,
-            margin_start = 24,
+            margin_start = 32,
             margin_end = 24,
-            margin_top = 3,
             margin_bottom = 6
         };
 
@@ -226,7 +225,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         var add_button = new Gtk.Button () {
             child = add_button_box,
-            margin_start = 16,
+            margin_start = 24,
             margin_bottom = 6,
             margin_top = 3,
             halign = START,
@@ -702,7 +701,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         });
 
         move_item.clicked.connect (() => {
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (section.source);
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (section.source);
             dialog.project = section.project;
             dialog.present (Planify._instance.main_window);
 

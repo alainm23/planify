@@ -333,5 +333,11 @@
             <summary>Enable Spell Checking</summary>
             <description>Enable spell checking in task descriptions and notes to help catch spelling errors</description>
         </key>
+
+        <key name="smart-date-recognition" type="b">
+            <default>true</default>
+            <summary>Smart Date Recognition</summary>
+            <description>Automatically detect and parse natural language dates like "tomorrow" or "next week" when creating tasks</description>
+        </key>
     </schema>
 </schemalist>

@@ -137,6 +137,25 @@ public class Services.Store : GLib.Object {
         }
     }
 
+#if WITH_EVOLUTION
+    public void setup_calendar_events () {
+        Services.CalendarEvents.get_default ().components_removed.connect ((source, components) => {
+            foreach (var component in components) {
+                unowned ICal.Component ical = component.get_icalcomponent ();
+                string event_uid = ical.get_uid ();
+                
+                foreach (var item in items) {
+                    if (item.calendar_event_uid == event_uid) {
+                        item.calendar_event_uid = "";
+                        Services.Database.get_default ().update_item (item);
+                        break;
+                    }
+                }
+            }
+        });
+    }
+#endif
+
     public bool is_database_empty () {
         return projects.size <= 0;
     }
@@ -298,6 +317,16 @@ public class Services.Store : GLib.Object {
         var sections = get_sections_by_project (project);
         var items = get_items_by_project (project);
         var subprojects = get_subprojects (project);
+        
+        #if WITH_EVOLUTION
+        if (project.calendar_source_uid != "") {
+            foreach (var item in items) {
+                if (item.calendar_event_uid != "") {
+                    Services.CalendarEvents.get_default ().delete_event (project.calendar_source_uid, item.calendar_event_uid);
+                }
+            }
+        }
+        #endif
         
         const int BATCH_SIZE = 50;
         
@@ -587,8 +616,28 @@ public class Services.Store : GLib.Object {
         if (Services.Database.get_default ().insert_item (item, insert)) {
             _items_by_project_cache.unset (item.project_id);
             add_item (item, insert);
+            
+            #if WITH_EVOLUTION
+            if (item.project != null && item.project.calendar_source_uid != "" && item.has_due) {
+                create_calendar_event.begin (item);
+            }
+            #endif
         }
     }
+
+    #if WITH_EVOLUTION
+    private async void create_calendar_event (Objects.Item item) {
+        string? event_uid = yield Services.CalendarEvents.get_default ().create_event (
+            item.project.calendar_source_uid,
+            item
+        );
+        
+        if (event_uid != null) {
+            item.calendar_event_uid = event_uid;
+            Services.Database.get_default ().update_item (item);
+        }
+    }
+    #endif
 
     public void add_item (Objects.Item item, bool insert = true) {
         items.add (item);
@@ -609,6 +658,20 @@ public class Services.Store : GLib.Object {
 
     public void update_item (Objects.Item item, string update_id = "") {
         if (Services.Database.get_default ().update_item (item, update_id)) {
+            #if WITH_EVOLUTION
+            if (item.project != null && item.project.calendar_source_uid != "") {
+                if (!item.has_due && item.calendar_event_uid != "") {
+                    Services.CalendarEvents.get_default ().delete_event.begin (item.project.calendar_source_uid, item.calendar_event_uid);
+                    item.calendar_event_uid = "";
+                    Services.Database.get_default ().update_item (item);
+                } else if (item.has_due && item.calendar_event_uid != "") {
+                    Services.CalendarEvents.get_default ().update_event.begin (item.project.calendar_source_uid, item.calendar_event_uid, item);
+                } else if (item.has_due && item.calendar_event_uid == "") {
+                    create_calendar_event.begin (item);
+                }
+            }
+            #endif
+            
             item.updated (update_id);
             item_updated (item, update_id);
         }
@@ -627,6 +690,12 @@ public class Services.Store : GLib.Object {
     public void delete_item (Objects.Item item) {
         if (Services.Database.get_default ().delete_item (item)) {
             _items_by_project_cache.unset (item.project_id);
+
+            #if WITH_EVOLUTION
+            if (item.calendar_event_uid != "" && item.project != null && item.project.calendar_source_uid != "") {
+                Services.CalendarEvents.get_default ().delete_event.begin (item.project.calendar_source_uid, item.calendar_event_uid);
+            }
+            #endif
 
             foreach (Objects.Item subitem in get_subitems (item)) {
                 delete_item (subitem);
@@ -650,6 +719,28 @@ public class Services.Store : GLib.Object {
         if (Services.Database.get_default ().move_item (item)) {
             _items_by_project_cache.unset (old_project_id);
             _items_by_project_cache.unset (item.project_id);
+
+            #if WITH_EVOLUTION            
+            if (item.has_due) {
+                var old_project = get_project (old_project_id);
+                var new_project = item.project;
+                
+                string old_calendar = old_project != null ? old_project.calendar_source_uid : "";
+                string new_calendar = new_project != null ? new_project.calendar_source_uid : "";
+                                
+                if (old_calendar != "" && new_calendar == "" && item.calendar_event_uid != "") {
+                    Services.CalendarEvents.get_default ().delete_event.begin (old_calendar, item.calendar_event_uid);
+                    item.calendar_event_uid = "";
+                    Services.Database.get_default ().update_item (item);
+                } else if (old_calendar == "" && new_calendar != "") {
+                    create_calendar_event.begin (item);
+                } else if (old_calendar != new_calendar && new_calendar != "" && item.calendar_event_uid != "") {
+                    Services.CalendarEvents.get_default ().delete_event.begin (old_calendar, item.calendar_event_uid);
+                    create_calendar_event.begin (item);
+                }
+            }
+
+            #endif
 
             foreach (Objects.Item subitem in get_subitems (item)) {
                 subitem.project_id = item.project_id;
@@ -1349,6 +1440,20 @@ public class Services.Store : GLib.Object {
             foreach (var attachment in attachments) {
                 if (attachment.item_id == item.id) {
                     return_value.add (attachment);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<string> get_used_calendar_sources () {
+        Gee.ArrayList<string> return_value = new Gee.ArrayList<string> ();
+        
+        lock (_projects) {
+            foreach (var project in projects) {
+                if (project.calendar_source_uid != "" && !return_value.contains (project.calendar_source_uid)) {
+                    return_value.add (project.calendar_source_uid);
                 }
             }
 

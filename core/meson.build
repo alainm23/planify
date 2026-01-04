@@ -20,11 +20,30 @@ core_files = files(
     'Services/CalDAV/Providers/Nextcloud.vala',
 
     'Services/Chrono/Chrono.vala',
-    'Services/Chrono/Enum.vala',
-    'Services/Chrono/Types.vala',
-    'Services/Chrono/Locales/En/En.vala',
-    'Services/Chrono/Locales/En/Constants.vala',
-    'Services/Chrono/Locales/En/Parsers/ENCasualDateParser.vala',
+    'Services/Chrono/LanguageParser.vala',
+    'Services/Chrono/Parser.vala',
+    'Services/Chrono/ParseResult.vala',
+    'Services/Chrono/RecurrenceRule.vala',
+    'Services/Chrono/Common/ISOParser.vala',
+    'Services/Chrono/Common/SlashParser.vala',
+    'Services/Chrono/Common/TimeParser.vala',
+    'Services/Chrono/Locales/en/EnglishParser.vala',
+    'Services/Chrono/Locales/en/ENConstants.vala',
+    'Services/Chrono/Locales/en/ENDateTimeComboParser.vala',
+    'Services/Chrono/Locales/en/ENRecurrenceParser.vala',
+    'Services/Chrono/Locales/en/ENCasualDateParser.vala',
+    'Services/Chrono/Locales/en/ENCasualTimeParser.vala',
+    'Services/Chrono/Locales/en/ENMonthNameParser.vala',
+    'Services/Chrono/Locales/en/ENRelativeDateFormatParser.vala',
+    'Services/Chrono/Locales/en/ENTimeExpressionParser.vala',
+    'Services/Chrono/Locales/es/SpanishParser.vala',
+    'Services/Chrono/Locales/es/ESConstants.vala',
+    'Services/Chrono/Locales/es/ESCasualDateParser.vala',
+    'Services/Chrono/Locales/es/ESCasualTimeParser.vala',
+    'Services/Chrono/Locales/es/ESDateTimeComboParser.vala',
+    'Services/Chrono/Locales/es/ESMonthNameParser.vala',
+    'Services/Chrono/Locales/es/ESRelativeDateFormatParser.vala',
+    'Services/Chrono/Locales/es/ESTimeExpressionParser.vala',
 
     'Layouts/HeaderItem.vala',
 
@@ -38,6 +57,7 @@ core_files = files(
     'Widgets/CircularProgressBar.vala',
     'Widgets/StatusButton.vala',
     'Widgets/MarkdownEditor.vala',
+    'Widgets/DeadlineButton.vala',
 
     'Widgets/Calendar/Calendar.vala',
     'Widgets/Calendar/CalendarDay.vala',
@@ -55,7 +75,7 @@ core_files = files(
     'Widgets/DateTimePicker/DateTimePicker.vala',
     'Widgets/DateTimePicker/TimePicker.vala',
     'Widgets/DateTimePicker/RepeatConfig.vala',
-
+    
     'Widgets/LabelPicker/LabelPicker.vala',
     'Widgets/LabelPicker/LabelRow.vala',
     'Widgets/LabelPicker/LabelButton.vala',
@@ -107,6 +127,13 @@ core_files = files(
     'Objects/Filters/AllItems.vala'
 )
 
+if get_option('evolution')
+    core_files += 'Services/CalendarEvents/CalendarEvents.vala'
+    core_files += 'Services/CalendarEvents/DateIterator.vala'
+    core_files += 'Services/CalendarEvents/DateRange.vala'
+    core_files += 'Services/CalendarEvents/Util.vala'
+endif
+
 core_deps = [
   gio_dep,
   glib_dep,
@@ -126,6 +153,7 @@ core_deps = [
 if get_option('evolution')
     if libecal_dep.found()
         core_deps += libecal_dep
+        core_deps += libedataserver_dep
     endif
 endif
 

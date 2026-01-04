@@ -27,7 +27,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Gtk.Revealer spinner_revealer;
     private Widgets.TextView content_textview;
     private Widgets.MarkdownEditor markdown_editor;
-    private Gtk.Revealer markdown_revealer;
+    private Gtk.Revealer markdown_editor_revealer;
     private Widgets.StatusButton status_button;
     private Widgets.ScheduleButton schedule_button;
     private Widgets.PriorityButton priority_button;
@@ -35,6 +35,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Widgets.PinButton pin_button;
     private Widgets.SectionPicker.SectionButton section_button;
     private Widgets.ReminderPicker.ReminderButton reminder_button;
+    private Widgets.DeadlineButton deadline_button;
     private Widgets.SubItems subitems;
     private Widgets.Attachments attachments;
 
@@ -149,6 +150,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         priority_button = new Widgets.PriorityButton.for_board ();
         label_button = new Widgets.LabelPicker.LabelButton.for_board ();
         reminder_button = new Widgets.ReminderPicker.ReminderButton.for_board ();
+        deadline_button = new Widgets.DeadlineButton.card ();
 
         var properties_grid = new Gtk.Grid () {
             column_homogeneous = true,
@@ -163,6 +165,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         properties_grid.attach (priority_button, 1, 1);
         properties_grid.attach (label_button, 0, 2);
         properties_grid.attach (reminder_button, 1, 2);
+        properties_grid.attach (deadline_button, 0, 3);
 
         var properties_group = new Adw.PreferencesGroup () {
             margin_start = 12,
@@ -173,15 +176,24 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         properties_group.title = _("Properties");
         properties_group.add (properties_grid);
 
-        markdown_revealer = new Gtk.Revealer ();
+        markdown_editor_revealer = new Gtk.Revealer ();
 
-        var description_group = new Adw.PreferencesGroup () {
-            margin_start = 12,
-            margin_end = 12,
+        var description_title = new Gtk.Label (_("Description")) {
+            halign = START,
+            hexpand = true,
+            ellipsize = END,
+            margin_start = 3,
+            margin_end = 3
+        };
+        description_title.add_css_class ("heading");
+
+        var description_group = new Gtk.Box (VERTICAL, 6) {
+            margin_start = 9,
+            margin_end = 9,
             margin_top = 12
         };
-        description_group.title = _("Description");
-        description_group.add (markdown_revealer);
+        description_group.append (description_title);
+        description_group.append (markdown_editor_revealer);
 
         subitems = new Widgets.SubItems.for_board () {
             margin_top = 12
@@ -289,6 +301,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
                 Services.EventBus.get_default ().close_item ();
             }
         });
+
+        if (Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
+            init_markdown_editor ();
+        }
     }
 
     private void update_content_description () {
@@ -301,14 +317,18 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     public void present_item (Objects.Item _item) {
-        if (Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
+        bool always_show = Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar");
+        
+        if (always_show) {
             clean_up ();
         }
 
         item = _item;
         update_id = Util.get_default ().generate_id ();
 
-        build_markdown_editor ();
+        if (!always_show) {
+            build_markdown_editor ();
+        }
 
         label_button.source = item.project.source;
         update_request ();
@@ -361,6 +381,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         signals_map[item.loading_change.connect (() => {
             spinner_revealer.reveal_child = item.loading;
         })] = item;
+
+        signals_map[deadline_button.date_selected.connect ((date) => {
+            update_deadline (date);
+        })] = deadline_button;
     }
 
     public void clean_up () {
@@ -371,8 +395,11 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         signals_map.clear ();
         subitems.clean_up ();
         attachments.clean_up ();
+        destroy_markdown_signals ();
 
-        destroy_markdown_editor ();
+        if (!Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
+            destroy_markdown_editor ();
+        }
     }
 
     public void update_request () {
@@ -397,6 +424,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         section_button.update_from_item (item);
 
         reminder_button.set_reminders (item.reminders);
+
+        deadline_button.datetime = item.deadline_datetime;
         
         content_textview.editable = !item.completed;
         markdown_editor.is_editable = !item.completed;
@@ -414,6 +443,11 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         use_note_item.active = item.item_type == ItemType.NOTE;
         status_button.sensitive = item.item_type == ItemType.TASK;
         parent_back_button.visible = item.has_parent;
+        deadline_button.sensitive = !item.completed;
+
+        if (item.completed) {
+            deadline_button.remove_error_style ();
+        }
     }
 
     public void update_due (Objects.DueDate duedate) {
@@ -498,7 +532,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             if (item.project.is_inbox_project) {
                 dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
             } else {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
             }
 
             dialog.project = item.project;
@@ -624,6 +658,27 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         Services.EventBus.get_default ().send_toast (toast);
     }
 
+    private void init_markdown_editor () {
+        markdown_editor = new Widgets.MarkdownEditor ();
+        markdown_editor.text_view.height_request = 64;
+        markdown_editor.margin_start = 12;
+        markdown_editor.margin_end = 12;
+        markdown_editor.margin_top = 12;
+        markdown_editor.margin_bottom = 12;
+
+        var markdown_editor_card = new Adw.Bin () {
+            child = markdown_editor,
+            margin_top = 3,
+            margin_start = 3,
+            margin_end = 3,
+            margin_bottom = 3
+        };
+        markdown_editor_card.add_css_class ("card");
+
+        markdown_editor_revealer.child = markdown_editor_card;
+        markdown_editor_revealer.reveal_child = true;
+    }
+
     private void build_markdown_editor () {
         if (markdown_editor != null) {
             return;
@@ -638,12 +693,16 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         markdown_editor.set_text (item.description);
 
         var markdown_editor_card = new Adw.Bin () {
-            child = markdown_editor
+            child = markdown_editor,
+            margin_top = 3,
+            margin_start = 3,
+            margin_end = 3,
+            margin_bottom = 3
         };
         markdown_editor_card.add_css_class ("card");
 
-        markdown_revealer.child = markdown_editor_card;
-        markdown_revealer.reveal_child = true;
+        markdown_editor_revealer.child = markdown_editor_card;
+        markdown_editor_revealer.reveal_child = true;
 
         build_markdown_signals ();
     }
@@ -661,9 +720,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         destroy_markdown_signals ();
         
-        markdown_revealer.reveal_child = false;
-        Timeout.add (markdown_revealer.transition_duration, () => {
-            markdown_revealer.child = null;
+        markdown_editor_revealer.reveal_child = false;
+        Timeout.add (markdown_editor_revealer.transition_duration, () => {
+            markdown_editor_revealer.child = null;
             markdown_editor = null;
             return GLib.Source.REMOVE;
         });
@@ -671,9 +730,20 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
     private void destroy_markdown_signals () {
         foreach (var entry in markdown_handlerses.entries) {
-            entry.value.disconnect (entry.key);
+            if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
+                try {
+                    entry.value.disconnect (entry.key);
+                } catch (Error e) {
+                    warning ("Error disconnecting markdown signal: %s", e.message);
+                }
+            }
         }
 
         markdown_handlerses.clear ();
+    }
+
+    public void update_deadline (GLib.DateTime ? date) {
+        item.deadline_date = date == null ? "" : date.to_string ();
+        item.update_async ();
     }
 }

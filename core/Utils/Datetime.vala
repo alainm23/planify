@@ -75,7 +75,7 @@ public class Utils.Datetime {
         }
 
         if (has_time (datetime)) {
-            returned = "%s %s".printf (returned, datetime.format (get_default_time_format ()));
+            returned = "%s, %s".printf (returned, datetime.format (get_default_time_format ()));
         }
 
         return returned;
@@ -259,7 +259,7 @@ public class Utils.Datetime {
                 recurrency_weeks += "6,";
             }
 
-            if (recurrency_weeks.split (",").length > 0) {
+            if (recurrency_weeks != null && recurrency_weeks.split (",").length > 0) {
                 recurrency_weeks.slice (0, -1);
             }
 
@@ -344,6 +344,10 @@ public class Utils.Datetime {
     }
 
     public static int get_next_day_of_week_from_recurrency_week (GLib.DateTime datetime, Objects.DueDate duedate) {
+        if (duedate.recurrency_weeks == null || duedate.recurrency_weeks == "") {
+            return datetime.get_day_of_week ();
+        }
+        
         string[] weeks = duedate.recurrency_weeks.split (",");
         int day_of_week = datetime.get_day_of_week ();
         int index = 0;
@@ -363,6 +367,10 @@ public class Utils.Datetime {
     }
 
     public static GLib.DateTime next_recurrency_week (GLib.DateTime datetime, Objects.DueDate duedate, bool user = false) {
+        if (duedate.recurrency_weeks == null || duedate.recurrency_weeks == "") {
+            return datetime.add_days (duedate.recurrency_interval * 7);
+        }
+        
         string[] weeks = duedate.recurrency_weeks.split (","); // [1, 2, 3]
         int day_of_week = datetime.get_day_of_week (); // 2
         int days = 0;
@@ -397,7 +405,7 @@ public class Utils.Datetime {
         string returned = recurrency_type.to_friendly_string (recurrency_interval);
 
         if (recurrency_type == RecurrencyType.EVERY_WEEK &&
-            recurrency_weeks.split (",").length > 0) {
+            recurrency_weeks != null && recurrency_weeks.split (",").length > 0) {
             string weeks = "";
             if (recurrency_weeks.contains ("1")) {
                 weeks += _("Mo,");
@@ -612,6 +620,38 @@ public class Utils.Datetime {
             time == null ? date.get_minute () : time.get_minute (),
             0
         );
+    }
+
+    public static string get_relative_time_from_date (GLib.DateTime date) {
+        var date_only = get_date_only (date);
+        var today = get_date_only (new GLib.DateTime.now_local ());
+                
+        string relative_time;
+        if (is_today (date_only)) {
+            relative_time = _("Today");
+        } else if (is_tomorrow (date_only)) {
+            relative_time = _("Tomorrow");
+        } else if (is_yesterday (date_only)) {
+            relative_time = _("Yesterday");
+        } else {
+            int days_diff = (int) ((date_only.difference (today)) / GLib.TimeSpan.DAY);
+            if (days_diff > 0) {
+                relative_time = GLib.ngettext ("in %d day", "in %d days", days_diff).printf (days_diff);
+            } else {
+                relative_time = GLib.ngettext ("%d day ago", "%d days ago", -days_diff).printf (-days_diff);
+            }
+        }
+        
+        return relative_time;
+    }
+
+    public static string get_short_date_format_from_date (GLib.DateTime date) {
+        var date_only = get_date_only (date);
+        
+        var day_name = date_only.format ("%a");
+        var day_month = date_only.format ("%e %b");
+
+        return "%s, %s".printf (day_name, day_month);
     }
 
     public static string get_default_date_format (bool with_weekday = false, bool with_day = true, bool with_year = false) {
