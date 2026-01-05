@@ -1693,7 +1693,8 @@ msgstr "Du kannst deine Konten per Drag & Drop sortieren"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 msgid "Planify is syncing your tasks, this may take a few minutes"
-msgstr "Planify synchronisiert deine Aufgaben, das kann ein paar Minuten dauern"
+msgstr ""
+"Planify synchronisiert deine Aufgaben, das kann ein paar Minuten dauern"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
@@ -2173,7 +2174,8 @@ msgstr "Intelligente Datumserkennung"
 
 #: src/Dialogs/Preferences/Pages/General.vala:139
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr "Erkenne automatisch Datumsangaben wie \"Morgen\" oder \"Nächste Woche\""
+msgstr ""
+"Erkenne automatisch Datumsangaben wie \"Morgen\" oder \"Nächste Woche\""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
