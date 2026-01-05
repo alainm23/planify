@@ -106,8 +106,8 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         search_entry.add_controller (search_entry_ctrl_key);
         signal_map[search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
             var key = Gdk.keyval_name (keyval).replace ("KP_", "");
-            
-            if (keyval == 65307) {
+
+            if (keyval == Gdk.Key.Escape) {
                 hide_destroy ();
             } else if (key == "Down") {
                 listbox.get_row_at_index (0).grab_focus ();
@@ -120,7 +120,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         var event_controller_key = new Gtk.EventControllerKey ();
         ((Gtk.Widget) this).add_controller (event_controller_key);
         signal_map[event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
+            if (keyval == Gdk.Key.Escape) {
                 hide_destroy ();
             }
 
@@ -147,7 +147,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
 
         if (key == "Up") {
             var selected_row = listbox.get_selected_row ();
-            
+
             if (selected_row != null) {
                 Gtk.ListBoxRow first_visible_row = null;
                 int index = 0;
@@ -160,7 +160,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
                     }
                     index++;
                 }
-                
+
                 if (first_visible_row != null && selected_row == first_visible_row) {
                     search_entry.grab_focus ();
                     search_entry.set_position (search_entry.text.length);
