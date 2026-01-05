@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-21 01:00+0000\n"
+"PO-Revision-Date: 2025-12-31 16:56+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/hr/>\n"
@@ -48,52 +48,52 @@ msgid "Don't Repeat"
 msgstr "Ne ponavljaj"
 
 #: core/Enum.vala:216
-#, fuzzy, c-format
+#, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
 msgstr[0] "Svake minute"
-msgstr[1] "Svake minute"
-msgstr[2] "Svake minute"
+msgstr[1] "Svake %d minute"
+msgstr[2] "Svakih %d minuta"
 
 #: core/Enum.vala:218
-#, fuzzy, c-format
+#, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
 msgstr[0] "Svaki sat"
-msgstr[1] "Svaki sat"
-msgstr[2] "Svaki sat"
+msgstr[1] "Svaka %d sata"
+msgstr[2] "Svakih %d sati"
 
 #: core/Enum.vala:220
-#, fuzzy, c-format
+#, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
 msgstr[0] "Svaki dan"
-msgstr[1] "Svaki dan"
-msgstr[2] "Svaki dan"
+msgstr[1] "Svaka %d dana"
+msgstr[2] "Svakih %d dana"
 
 #: core/Enum.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
 msgstr[0] "Svaki tjedan"
-msgstr[1] "Svaki tjedan"
-msgstr[2] "Svaki tjedan"
+msgstr[1] "Svaka %d tjedna"
+msgstr[2] "Svakih %d tjedna"
 
 #: core/Enum.vala:224
-#, fuzzy, c-format
+#, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
 msgstr[0] "Svaki mjesec"
-msgstr[1] "Svaki mjesec"
-msgstr[2] "Svaki mjesec"
+msgstr[1] "Svaka %d mjeseca"
+msgstr[2] "Svakih %d mjeseci"
 
 #: core/Enum.vala:226
-#, fuzzy, c-format
+#, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
 msgstr[0] "Svake godine"
-msgstr[1] "Svake godine"
-msgstr[2] "Svake godine"
+msgstr[1] "Svake %d godine"
+msgstr[2] "Svakih %d godina"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -320,12 +320,12 @@ msgstr "Zadatak je kopiran u međuspremnik"
 #: core/Objects/Item.vala:1639 core/Utils/Util.vala:889
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] "Zadatak je premješten u %s"
-msgstr[1] "Zadatak je premješten u %s"
-msgstr[2] "Zadatak je premješten u %s"
+msgstr[1] "%d zadatka su premještena u %s"
+msgstr[2] "%d zadataka su premješteni u %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
@@ -657,17 +657,17 @@ msgstr "Ne,"
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "za %d dan"
+msgstr[1] "za %d dana"
+msgstr[2] "za %d dana"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "prije %d dan"
+msgstr[1] "prije %d dana"
+msgstr[2] "prije %d dana"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
@@ -1559,16 +1559,16 @@ msgid "Delete All Completed Tasks"
 msgstr "Izbriši sve završene zadatke"
 
 #: src/Dialogs/CompletedTasks.vala:165
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
 msgstr[0] ""
-"Ovo će izbrisati %d završena zadatka i njihove podzadatke iz projekta %s"
+"Ovo će izbrisati %d završeni zadatak i njegove podzadatke iz projekta %s"
 msgstr[1] ""
 "Ovo će izbrisati %d završena zadatka i njihove podzadatke iz projekta %s"
 msgstr[2] ""
-"Ovo će izbrisati %d završena zadatka i njihove podzadatke iz projekta %s"
+"Ovo će izbrisati %d završenih zadataka i njihove podzadatke iz projekta %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
 #: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:673
@@ -1609,12 +1609,12 @@ msgstr ""
 "Povijest promjena će se ovdje prikazati nakon što počneš raditi promjene."
 
 #: src/Dialogs/ItemChangeHistory.vala:138
-#, fuzzy, c-format
+#, c-format
 msgid "Load more history from %d week ago…"
 msgid_plural "Load more history from %d weeks ago…"
 msgstr[0] "Učitaj više povijesti od prije %d tjedan …"
-msgstr[1] "Učitaj više povijesti od prije %d tjedan …"
-msgstr[2] "Učitaj više povijesti od prije %d tjedan …"
+msgstr[1] "Učitaj više povijesti od prije %d tjedna …"
+msgstr[2] "Učitaj više povijesti od prije %d tjedna …"
 
 #: src/Dialogs/Label.vala:45
 msgid "New Label"
@@ -2858,20 +2858,19 @@ msgid "Great job, nothing left to do 🎉"
 msgstr "Odličan posao, nema ničega za obaviti 🎉"
 
 #: src/Views/Filter.vala:612
-#, fuzzy
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "Izbriši završeni zadatak"
-msgstr[1] "Izbriši završeni zadatak"
-msgstr[2] "Izbriši završeni zadatak"
+msgstr[1] "Izbriši završene zadatke"
+msgstr[2] "Izbriši završene zadatke"
 
 #: src/Views/Filter.vala:617
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
-msgstr[0] "Ovo će izbrisati %d dovršena zadatka i njihove podzadatke"
-msgstr[1] "Ovo će izbrisati %d dovršena zadatka i njihove podzadatke"
-msgstr[2] "Ovo će izbrisati %d dovršena zadatka i njihove podzadatke"
+msgstr[0] "Ovo će izbrisati %d završeni zadatak i njegove podzadatke"
+msgstr[1] "Ovo će izbrisati %d završena zadatka i njihove podzadatke"
+msgstr[2] "Ovo će izbrisati %d završenih zadataka i njihove podzadatke"
 
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
@@ -3087,17 +3086,17 @@ msgstr "Prijavi problem"
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Za %d minutu"
+msgstr[1] "Za %d minute"
+msgstr[2] "Za %d minuta"
 
 #: src/Widgets/EventRow.vala:209
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Za %d sat"
+msgstr[1] "Za %d sata"
+msgstr[2] "Za %d sati"
 
 #: src/Widgets/EventRow.vala:214
 msgid "Happening now"
@@ -3182,20 +3181,20 @@ msgid "Are you sure you want to delete this to-do?"
 msgstr "Stvarno želiš izbrisati ovaj zadatak?"
 
 #: src/Widgets/MultiSelectToolbar.vala:272
-#, fuzzy, c-format
+#, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
 msgstr[0] "Izbriši %d zadatak"
-msgstr[1] "Izbriši %d zadatak"
-msgstr[2] "Izbriši %d zadatak"
+msgstr[1] "Izbriši %d zadatka"
+msgstr[2] "Izbriši %d zadataka"
 
 #: src/Widgets/MultiSelectToolbar.vala:278
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Stvarno želiš izbrisati ovaj %d zadatak?"
-msgstr[1] "Stvarno želiš izbrisati ovaj %d zadatak?"
-msgstr[2] "Stvarno želiš izbrisati ovaj %d zadatak?"
+msgstr[1] "Stvarno želiš izbrisati ova %d zadatka?"
+msgstr[2] "Stvarno želiš izbrisati ovih %d zadataka?"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"

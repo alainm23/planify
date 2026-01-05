@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-27 23:02+0000\n"
-"Last-Translator: Claudio Alex Rodríguez Parra <claudio.rp2403@gmail.com>\n"
+"PO-Revision-Date: 2026-01-04 17:51+0000\n"
+"Last-Translator: Aitor-RM <Aitor.Rufian@alu.uclm.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/es/>\n"
 "Language: es\n"
@@ -314,11 +314,11 @@ msgstr "Tarea copiada al portapapeles"
 #: core/Objects/Item.vala:1639 core/Utils/Util.vala:889
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] "Tarea movida a %s"
-msgstr[1] "Tarea movida a %s"
+msgstr[1] "%d areas movidas a %s"
 
 # # c-format
 #: core/Objects/Label.vala:206
@@ -506,7 +506,7 @@ msgstr "Abrir opciones de recordatorio"
 
 #: core/QuickAddCore.vala:1388
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Alternar mantener abierto después de crear tarea"
 
 #: core/QuickAddCore.vala:1394
 msgid "Tip"
@@ -656,15 +656,15 @@ msgstr "Dom,"
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "en %d día"
+msgstr[1] "en %d días"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "hace %d día"
+msgstr[1] "hace %d días"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
@@ -839,12 +839,11 @@ msgid "Tap this task"
 msgstr "Toca esta tarea"
 
 #: core/Utils/Util.vala:602
-#, fuzzy
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
 "¡Estás viendo una tarea! Complétala tocando la casilla de la izquierda. Las "
-"tareas completadas se agrupan al final de tu proyecto."
+"tareas completadas se agrupan al final de tu proyecto. "
 
 #: core/Utils/Util.vala:607
 #, fuzzy
@@ -934,9 +933,8 @@ msgstr ""
 "'Preferencias' 🡒 General 🡒 Eventos de calendario para activarlo."
 
 #: core/Utils/Util.vala:661
-#, fuzzy
 msgid "Enable synchronization with third-party services"
-msgstr "Activa la sincronización con servicios de terceros."
+msgstr "Activa la sincronización con servicios de terceros"
 
 #: core/Utils/Util.vala:662
 #, fuzzy
@@ -965,9 +963,8 @@ msgstr ""
 "una tarea donde quieras."
 
 #: core/Utils/Util.vala:685
-#, fuzzy
 msgid "Add labels to your tasks!"
-msgstr "Adjunte archivos a sus tareas"
+msgstr "¡Añade etiquetas a tus tareas!"
 
 #: core/Utils/Util.vala:686
 #, fuzzy
@@ -1275,11 +1272,11 @@ msgstr "Fin"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
-msgstr ""
+msgstr "Eliminar fecha"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
@@ -1292,17 +1289,17 @@ msgstr "Añadir tiempo"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:132
 msgid "Set Deadline"
-msgstr ""
+msgstr "Establecer fecha límite"
 
 #: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:87
 #: core/Widgets/DeadlineButton.vala:94 core/Widgets/DeadlineButton.vala:101
 #: core/Widgets/DeadlineButton.vala:154
 msgid "Set a Deadline"
-msgstr ""
+msgstr "Establecer una fecha límite"
 
 #: core/Widgets/DeadlineButton.vala:149
 msgid "Deadline"
-msgstr ""
+msgstr "Fecha límite"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1477,80 +1474,93 @@ msgstr ""
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
 #: src/Views/Project/Project.vala:444
 msgid "Calendar Sync"
-msgstr ""
+msgstr "Sincronización del calendario"
 
 #: src/Dialogs/CalendarSync.vala:45
 msgid ""
 "Turn your tasks into calendar events automatically. Any task with a date "
 "will appear in your calendar, making it easier to plan your day."
 msgstr ""
+"Convierte tus tareas en eventos del calendario automáticamente. Cualquier "
+"tarea con una fecha aparecerá en tu calendario, lo que te facilitará la "
+"planificación de tu día."
 
 #: src/Dialogs/CalendarSync.vala:53
 msgid ""
 "Requirement: You need a calendar account configured in GNOME Calendar "
 "(Google, Nextcloud, etc.)"
 msgstr ""
+"Requisito: Necesitas una cuenta de calendario configurada en GNOME Calendar "
+"(Google, Nextcloud, etc.)"
 
 #: src/Dialogs/CalendarSync.vala:62
 msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
 msgstr ""
+"Reciba notificaciones móviles de sus tareas a través de Google Calendar, "
+"Outlook o cualquier aplicación de calendario"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
 "Your tasks sync everywhere: phone, tablet, web browser, and any device with "
 "your calendar"
 msgstr ""
+"Tus tareas se sincronizan en todas partes: teléfono, tablet, navegador web y "
+"cualquier dispositivo con tu calendario"
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
-msgstr ""
+msgstr "Elegir calendario"
 
 #: src/Dialogs/CalendarSync.vala:88
 msgid "Select a calendar from the list"
-msgstr ""
+msgstr "Selecionar un calendario de la lista"
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
-msgstr ""
+msgstr "Habilitar sincronización"
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
-msgstr ""
+msgstr "Sincronización del calendario desactivada correctamente"
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
-msgstr ""
+msgstr "Sincronización del calendario activa"
 
 #: src/Dialogs/CalendarSync.vala:228
 msgid ""
 "Your tasks are currently synced with your calendar. Any task with a date "
 "automatically appears as a calendar event."
 msgstr ""
+"Tus tareas están sincronizadas actualmente con tu calendario. Cualquier "
+"tarea con una fecha aparece automáticamente como un evento del calendario."
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
-msgstr ""
+msgstr "Sincronización desactivada"
 
 #: src/Dialogs/CalendarSync.vala:279
 #, c-format
 msgid "Synced with: %s"
-msgstr ""
+msgstr "Sincronizado con: %s"
 
 #: src/Dialogs/CalendarSync.vala:292
 msgid "Sync Enabled!"
-msgstr ""
+msgstr "Sincronización activada!"
 
 #: src/Dialogs/CalendarSync.vala:297
 msgid ""
 "Your tasks are now synced with your calendar. Any task with a date will "
 "automatically appear as a calendar event."
 msgstr ""
+"Tus tareas ahora están sincronizadas con tu calendario. Cualquier tarea con "
+"una fecha aparecerá automáticamente como un evento del calendario."
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 msgid "Completed Tasks"
@@ -1700,7 +1710,7 @@ msgstr "Planify está sincronizando sus tareas, esto puede tardar unos minutos"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
-msgstr ""
+msgstr "La verificación SSL está desactivada"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:398
 msgid "Cannot Hide This Account"
@@ -1826,23 +1836,23 @@ msgstr "¿Cómo obtener tu token?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
-msgstr ""
+msgstr "1. Ve a Todoist → Configuración → Integraciones → Desarrollador"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:102
 msgid "2. Find 'API token' and copy your token"
-msgstr ""
+msgstr "2. Busca 'API token' y copia tu token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:103
 msgid "3. Paste it in the field above"
-msgstr ""
+msgstr "3. Pégalo en el campo de arriba"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:122
 msgid "Connect with Token"
-msgstr ""
+msgstr "Conectarse con Token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:165
 msgid "Enter token"
-msgstr ""
+msgstr "Introducir Token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:183
 msgid "Synchronizing…"
@@ -1881,7 +1891,7 @@ msgstr "Estilo claro"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:71
 msgid "Clean light theme"
-msgstr ""
+msgstr "Tema claro limpio"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:87
 msgid "Dark Style"
@@ -1889,7 +1899,7 @@ msgstr "Estilo oscuro"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:88
 msgid "Elegant dark theme"
-msgstr ""
+msgstr "Tema negro elegante"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:104
 msgid "Dark Blue Style"
@@ -1897,15 +1907,17 @@ msgstr "Estilo azul oscuro"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:105
 msgid "Professional blue theme"
-msgstr ""
+msgstr "Tema azul elegante"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:121
 msgid "Custom themes are not available when using the system light theme"
 msgstr ""
+"Los temas personalizados no están disponibles cuando se utiliza el tema "
+"claro del sistema"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:159
 msgid "Font Size"
-msgstr ""
+msgstr "Tamaño de letra"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
 #: src/Dialogs/Preferences/PreferencesWindow.vala:191
@@ -1941,7 +1953,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
 #, c-format
 msgid "Backup files are stored in: %s"
-msgstr ""
+msgstr "Los archivos de la copia de seguridad se almacenan en: %s"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:76
 msgid "Migrate"
@@ -2011,11 +2023,11 @@ msgstr "Restaurar copia de seguridad"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:45
 #: src/Dialogs/Preferences/PreferencesWindow.vala:217
 msgid "Donate"
-msgstr ""
+msgstr "Donar"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:53
 msgid "Support Planify Development"
-msgstr ""
+msgstr "Apoyar el desarrollo de Planify"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:58
 msgid ""
@@ -2023,6 +2035,9 @@ msgid ""
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
 msgstr ""
+"¡Ayuda a mantener Planify gratuito y de código abierto! Tus donaciones "
+"apoyan directamente el desarrollo, las nuevas funciones y el mantenimiento. "
+"Cada contribución, sin importar su cuantía, marca la diferencia."
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Patreon"
@@ -2030,7 +2045,7 @@ msgstr "Patreon"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:75
 msgid "Monthly recurring support"
-msgstr ""
+msgstr "Soporte mensual recurrente"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
@@ -2038,7 +2053,7 @@ msgstr "PayPal"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:89
 msgid "One-time donation"
-msgstr ""
+msgstr "Donación única"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Liberapay"
@@ -2046,7 +2061,7 @@ msgstr "Liberapay"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:103
 msgid "Weekly recurring donations"
-msgstr ""
+msgstr "Donaciones semanales recurrentes"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
@@ -2054,19 +2069,19 @@ msgstr "Ko-fi"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
-msgstr ""
+msgstr "Comprame un café ☕"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:128
 msgid "Choose Your Preferred Platform"
-msgstr ""
+msgstr "Elige tu plataforma favorita"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:142
 msgid "Thank you for your support! 🙏"
-msgstr ""
+msgstr "Gracias por tu apoyo! 🙏"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Your contribution helps keep Planify alive and growing."
-msgstr ""
+msgstr "Tu contribución ayuda a mantener vivo y en crecimiento a Planify."
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
@@ -2174,11 +2189,12 @@ msgstr "Inicio de la semana"
 
 #: src/Dialogs/Preferences/Pages/General.vala:138
 msgid "Smart Date Recognition"
-msgstr ""
+msgstr "Reconocimiento inteligente de fechas"
 
 #: src/Dialogs/Preferences/Pages/General.vala:139
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
 msgstr ""
+"Detecta automáticamente fechas como \"mañana\" o \"la semana que viene\""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
@@ -2250,7 +2266,7 @@ msgstr "Nuevos filtros"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:66
 msgid "Show filters in a simple list instead of a grid"
-msgstr ""
+msgstr "Mostrar los filtros en una lista simple en lugar de una cuadrícula"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:87
 msgid "You can sort your views by dragging and dropping"
@@ -2278,7 +2294,7 @@ msgstr "Tono de tarea completada"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:45
 msgid "Choose how tasks behave when marked as complete"
-msgstr ""
+msgstr "Elige cómo se comportan las tareas cuando se marcan como completadas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:52
 msgid "Priority 1"
@@ -2302,7 +2318,7 @@ msgstr "Tachar las tareas completadas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:77
 msgid "Start"
-msgstr ""
+msgstr "Inicio"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:81
 msgid "New Task Position"
@@ -2314,7 +2330,7 @@ msgstr "Mostrar siempre las subtareas completadas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:89
 msgid "Keep all completed subtasks visible without collapsing them"
-msgstr ""
+msgstr "Mantener todas las subtareas completadas visibles sin colapsarlas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:96
 msgid "Task Complete Tone"
@@ -2333,14 +2349,16 @@ msgstr "Abrir tarea en la vista de barra lateral"
 msgid ""
 "Always display task details in the sidebar instead of expanding in list view."
 msgstr ""
+"Mostrar siempre los detalles de las tareas en la barra lateral en lugar de "
+"expandirlos en la vista de lista."
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:112
 msgid "Single Task Focus Mode"
-msgstr ""
+msgstr "Modo de enfoque en una sola tarea"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:113
 msgid "Allow only one task to be expanded at a time in list view"
-msgstr ""
+msgstr "Permitir que solo se expanda una tarea a la vez en la vista de lista"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:122
 msgid "Enable Markdown Formatting"
@@ -2402,7 +2420,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:60
 msgid "Donate Now"
-msgstr ""
+msgstr "Donar ahora"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Sync your favorite to-do providers"
@@ -2410,7 +2428,7 @@ msgstr "Sincroniza tus servicios de tareas favoritos"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:124
 msgid "Set the view shown at first launch"
-msgstr ""
+msgstr "Establecer la vista que se muestra al iniciar por primera vez"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:138
 msgid "Customize to your liking"
@@ -2475,7 +2493,7 @@ msgstr "Comparte un poco de amor"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:303
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:304
 msgid "Discuss and share your feedback"
@@ -2717,7 +2735,7 @@ msgstr "Añadir tarea"
 
 #: src/Layouts/SectionBoard.vala:175
 msgid "Load more"
-msgstr ""
+msgstr "Cargar más"
 
 #: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:612
 #: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
@@ -2806,7 +2824,7 @@ msgstr "Tarea completada"
 
 #: src/MainWindow.vala:803
 msgid "View"
-msgstr ""
+msgstr "Vista"
 
 #: src/MainWindow.vala:841
 msgid "Database Integrity Check Failed"
@@ -2849,11 +2867,11 @@ msgstr "Copia de seguridad importada correctamente"
 
 #: src/Services/Backups.vala:548
 msgid "Planify will restart to apply the changes"
-msgstr ""
+msgstr "Planify se reiniciará para aplicar los cambios"
 
 #: src/Services/Backups.vala:551
 msgid "Restart Now"
-msgstr ""
+msgstr "Reiniciar ahora"
 
 #: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
@@ -2896,7 +2914,7 @@ msgstr "Tarea completada"
 
 #: src/Views/Filter.vala:130
 msgid "Great job, nothing left to do 🎉"
-msgstr ""
+msgstr "¡Buen trabajo, no queda nada por hacer! 🎉"
 
 #: src/Views/Filter.vala:612
 #, fuzzy
@@ -2931,7 +2949,7 @@ msgstr "¿Cuándo?"
 
 #: src/Views/Project/List.vala:121
 msgid "Add Some Tasks. Press 'a' to create a new task"
-msgstr ""
+msgstr "Añade algunas tareas. Pulsa \"a\" para crear una nueva tarea"
 
 #: src/Views/Project/Project.vala:94
 msgid "Project Actions"
@@ -2944,7 +2962,7 @@ msgstr "Nueva posición de la tarea"
 
 #: src/Views/Project/Project.vala:376 src/Views/Project/Project.vala:408
 msgid "Project Deadline"
-msgstr ""
+msgstr "Fecha límite del proyecto"
 
 #: src/Views/Project/Project.vala:381
 msgid "Select"
@@ -2986,7 +3004,7 @@ msgstr "Orden personalizado"
 #: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:229
 #: src/Views/Today.vala:632
 msgid "Date Added"
-msgstr "Fecha de adición"
+msgstr "Fecha añadida"
 
 #: src/Views/Project/Project.vala:547
 #, fuzzy
@@ -3044,11 +3062,11 @@ msgstr "Filtrar por etiquetas"
 
 #: src/Views/Project/Project.vala:597
 msgid "Show Completed"
-msgstr ""
+msgstr "Mostrar completadas"
 
 #: src/Views/Project/Project.vala:598
 msgid "Display completed tasks in the list"
-msgstr ""
+msgstr "Mostrar tareas completada en la lista"
 
 #: src/Views/Project/Project.vala:604
 #, fuzzy
@@ -3088,22 +3106,26 @@ msgid ""
 "Workaround for CalDAV connection issues with connections using non-default "
 "ports"
 msgstr ""
+"Solución alternativa para problemas de conexión CalDAV con conexiones que "
+"utilizan puertos no predeterminados"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:45
 #: src/Widgets/IgnoreSSLSwitchRow.vala:45
 msgid "Warning"
-msgstr ""
+msgstr "Aviso"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:46
 msgid ""
 "This will disable the CalDAV resolve process.\n"
 "Proceed at your own risk"
 msgstr ""
+"Esto desactivará el proceso de resolución CalDAV.\n"
+"Proceda bajo su propia responsabilidad"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:49
 #: src/Widgets/IgnoreSSLSwitchRow.vala:49
 msgid "Continue Anyway"
-msgstr ""
+msgstr "Caontinuar de todos modos"
 
 #: src/Widgets/CompletedTaskRow.vala:95
 #: src/Widgets/ItemDetailCompleted.vala:128 src/Widgets/SubItems.vala:92
@@ -3112,7 +3134,7 @@ msgstr "Subtareas"
 
 #: src/Widgets/EditableTextView.vala:78 src/Widgets/EditableTextView.vala:145
 msgid "Show more"
-msgstr ""
+msgstr "Mostrar más"
 
 #: src/Widgets/EditableTextView.vala:149
 #, fuzzy
@@ -3127,8 +3149,8 @@ msgstr "Informar problema"
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "En %d minuto"
+msgstr[1] "En %d minutos"
 
 #: src/Widgets/EventRow.vala:209
 #, c-format

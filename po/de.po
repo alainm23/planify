@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-30 20:00+0000\n"
-"Last-Translator: Henning Lehmann <web@jhlehmann.de>\n"
+"PO-Revision-Date: 2026-01-03 13:01+0000\n"
+"Last-Translator: numerfolt <numerfolt@posteo.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/de/>\n"
 "Language: de\n"
@@ -47,11 +47,11 @@ msgid "Don't Repeat"
 msgstr "Nicht wiederholen"
 
 #: core/Enum.vala:216
-#, fuzzy, c-format
+#, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
 msgstr[0] "Jede Minute"
-msgstr[1] "Jede Minute"
+msgstr[1] "Alle %d Minuten"
 
 #: core/Enum.vala:218
 #, c-format
@@ -658,15 +658,15 @@ msgstr "So,"
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "in einem Tag"
+msgstr[1] "in %d Tagen"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "vor einem Tag"
+msgstr[1] "vor %d Tagen"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
@@ -1119,7 +1119,7 @@ msgstr "Sa"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:135
 msgid "Type a date…"
-msgstr ""
+msgstr "Gib ein Datum ein…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:156
 msgid "Choose a date"
@@ -1263,11 +1263,11 @@ msgstr "Ende"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
-msgstr ""
+msgstr "Datum entfernen"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
@@ -1280,17 +1280,17 @@ msgstr "Zeit hinzufügen"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:132
 msgid "Set Deadline"
-msgstr ""
+msgstr "Frist setzen"
 
 #: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:87
 #: core/Widgets/DeadlineButton.vala:94 core/Widgets/DeadlineButton.vala:101
 #: core/Widgets/DeadlineButton.vala:154
 msgid "Set a Deadline"
-msgstr ""
+msgstr "Eine Frist setzen"
 
 #: core/Widgets/DeadlineButton.vala:149
 msgid "Deadline"
-msgstr ""
+msgstr "Frist"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1463,80 +1463,92 @@ msgstr ""
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
 #: src/Views/Project/Project.vala:444
 msgid "Calendar Sync"
-msgstr ""
+msgstr "Kalender-Synchronisierung"
 
 #: src/Dialogs/CalendarSync.vala:45
 msgid ""
 "Turn your tasks into calendar events automatically. Any task with a date "
 "will appear in your calendar, making it easier to plan your day."
 msgstr ""
+"Aufgaben automatisch in Kalender-Einträge umwandeln. Jede Aufgabe mit einem "
+"Datum erscheint in deinem Kalender, um deine Tagesplanung zu erleichtern."
 
 #: src/Dialogs/CalendarSync.vala:53
 msgid ""
 "Requirement: You need a calendar account configured in GNOME Calendar "
 "(Google, Nextcloud, etc.)"
 msgstr ""
+"Voraussetzung: In GNOME Calendar muss ein Kalender-Account konfiguriert sein "
+"(Google, Nextcloud, etc.)"
 
 #: src/Dialogs/CalendarSync.vala:62
 msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
 msgstr ""
+"Erhalte Benachrichtigungen für deine Aufgaben durch Google Calendar, Outlook "
+"oder eine beliebige Kalender-App"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
 "Your tasks sync everywhere: phone, tablet, web browser, and any device with "
 "your calendar"
 msgstr ""
+"Deine Aufgaben werden überall synchronisiert: Smartphone, Tablet, Browser "
+"und alle anderen Geräte mit deinem Kalender"
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
-msgstr ""
+msgstr "Kalender auswählen"
 
 #: src/Dialogs/CalendarSync.vala:88
 msgid "Select a calendar from the list"
-msgstr ""
+msgstr "Wähle einen Kalender von der Liste"
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
-msgstr ""
+msgstr "Synchronisation aktivieren"
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
-msgstr ""
+msgstr "Kalender-Synchronisierung erfolgreich deaktiviert"
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
-msgstr ""
+msgstr "Kalender-Synchronisierung aktiv"
 
 #: src/Dialogs/CalendarSync.vala:228
 msgid ""
 "Your tasks are currently synced with your calendar. Any task with a date "
 "automatically appears as a calendar event."
 msgstr ""
+"Deine Aufgaben werden aktuell mit deinem Kalender synchronisiert. Jede "
+"Aufgabe mit einem Datum erscheint automatisch als Kalender-Eintrag."
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
-msgstr ""
+msgstr "Sychronisation deaktivieren"
 
 #: src/Dialogs/CalendarSync.vala:279
 #, c-format
 msgid "Synced with: %s"
-msgstr ""
+msgstr "Synchronisiert mit: %s"
 
 #: src/Dialogs/CalendarSync.vala:292
 msgid "Sync Enabled!"
-msgstr ""
+msgstr "Synchronisierung aktiviert!"
 
 #: src/Dialogs/CalendarSync.vala:297
 msgid ""
 "Your tasks are now synced with your calendar. Any task with a date will "
 "automatically appear as a calendar event."
 msgstr ""
+"Deine Aufgaben werden nun mit deinem Kalender synchronisiert. Für jede "
+"Aufgabe mit einem Datum wird automatisch ein Kalender-Eintrag erscheinen."
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
-msgstr ""
+msgstr "Ok"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 msgid "Completed Tasks"
@@ -1557,12 +1569,12 @@ msgstr "Alle abgeschlossenen Aufgaben löschen"
 
 # # c-format
 #: src/Dialogs/CompletedTasks.vala:165
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
 msgstr[0] ""
-"Dies wird %d abgeschlossene Aufgaben und deren Unteraufgaben aus dem Projekt "
+"Dies wird %d abgeschlossene Aufgabe und deren Unteraufgaben aus dem Projekt "
 "%s löschen"
 msgstr[1] ""
 "Dies wird %d abgeschlossene Aufgaben und deren Unteraufgaben aus dem Projekt "
@@ -1607,11 +1619,11 @@ msgstr "Wenn Änderungen vorgenommen wurden, wird hier der Verlauf angezeigt."
 
 # # c-format
 #: src/Dialogs/ItemChangeHistory.vala:138
-#, fuzzy, c-format
+#, c-format
 msgid "Load more history from %d week ago…"
 msgid_plural "Load more history from %d weeks ago…"
-msgstr[0] "Mehr Verlauf von vor %d Woche laden…"
-msgstr[1] "Mehr Verlauf von vor %d Woche laden…"
+msgstr[0] "Mehr Verlauf von vor einer Woche laden…"
+msgstr[1] "Mehr Verlauf von vor %d Wochen laden…"
 
 #: src/Dialogs/Label.vala:45
 msgid "New Label"
@@ -1681,12 +1693,11 @@ msgstr "Du kannst deine Konten per Drag & Drop sortieren"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 msgid "Planify is syncing your tasks, this may take a few minutes"
-msgstr ""
-"Planify synchronisiert deine Aufgaben, das kann ein paar Minuten dauern"
+msgstr "Planify synchronisiert deine Aufgaben, das kann ein paar Minuten dauern"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
-msgstr ""
+msgstr "SSL-Überprüfung ist deaktiviert"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:398
 msgid "Cannot Hide This Account"
@@ -1991,11 +2002,11 @@ msgstr "Sicherung wiederherstellen"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:45
 #: src/Dialogs/Preferences/PreferencesWindow.vala:217
 msgid "Donate"
-msgstr ""
+msgstr "Spenden"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:53
 msgid "Support Planify Development"
-msgstr ""
+msgstr "Unterstütze die Entwicklung von Planify"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:58
 msgid ""
@@ -2003,6 +2014,10 @@ msgid ""
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
 msgstr ""
+"Hilf dabei, Planify kostenlos und als Open Source verfügbar zu halten! Deine "
+"Spende unterstützt direkt die Entwicklung, neue Funktionen und "
+"Wartungsarbeiten. Jeder Beitrag, egal in welcher Höhe, macht einen "
+"Unterschied."
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Patreon"
@@ -2010,7 +2025,7 @@ msgstr "Patreon"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:75
 msgid "Monthly recurring support"
-msgstr ""
+msgstr "Monatliche Unterstützung"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
@@ -2018,7 +2033,7 @@ msgstr "PayPal"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:89
 msgid "One-time donation"
-msgstr ""
+msgstr "Einmalige Spende"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Liberapay"
@@ -2026,7 +2041,7 @@ msgstr "Liberapay"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:103
 msgid "Weekly recurring donations"
-msgstr ""
+msgstr "Wöchentliche Spende"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
@@ -2034,19 +2049,19 @@ msgstr "Ko-fi"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
-msgstr ""
+msgstr "Kauf mir einen Kaffee ☕"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:128
 msgid "Choose Your Preferred Platform"
-msgstr ""
+msgstr "Wähle deine bevorzugte Plattform"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:142
 msgid "Thank you for your support! 🙏"
-msgstr ""
+msgstr "Danke für deine Unterstützung! 🙏"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Your contribution helps keep Planify alive and growing."
-msgstr ""
+msgstr "Dein Beitrag hilft dabei, dass Planify weiter wächst und gedeiht."
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
@@ -2154,11 +2169,11 @@ msgstr "Start der Woche"
 
 #: src/Dialogs/Preferences/Pages/General.vala:138
 msgid "Smart Date Recognition"
-msgstr ""
+msgstr "Intelligente Datumserkennung"
 
 #: src/Dialogs/Preferences/Pages/General.vala:139
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr ""
+msgstr "Erkenne automatisch Datumsangaben wie \"Morgen\" oder \"Nächste Woche\""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
@@ -2345,11 +2360,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:138
 msgid "Enable Spell Checking"
-msgstr ""
+msgstr "Rechtschreibüberprüfung aktivieren"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:139
 msgid "Check spelling in task descriptions and notes"
-msgstr ""
+msgstr "Rechtschreibung in Aufgabenbeschreibungen und Notizen überprüfen"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
 msgid "Enabled"
@@ -2380,7 +2395,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:60
 msgid "Donate Now"
-msgstr ""
+msgstr "Jetzt Spenden"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Sync your favorite to-do providers"
@@ -2873,19 +2888,18 @@ msgid "Great job, nothing left to do 🎉"
 msgstr "Tolle Arbeit, nichts mehr zu tun 🎉"
 
 #: src/Views/Filter.vala:612
-#, fuzzy
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "Erledigte Aufgabe löschen"
-msgstr[1] "Erledigte Aufgabe löschen"
+msgstr[1] "Erledigte Aufgaben löschen"
 
 # # c-format
 #: src/Views/Filter.vala:617
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
 msgstr[0] "Dies wird %d erledigte Aufgabe und ihre Unteraufgaben löschen"
-msgstr[1] "Dies wird %d erledigte Aufgabe und ihre Unteraufgaben löschen"
+msgstr[1] "Dies wird %d erledigte Aufgaben und ihre Unteraufgaben löschen"
 
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
@@ -2918,7 +2932,7 @@ msgstr "Neue Aufgabe"
 
 #: src/Views/Project/Project.vala:376 src/Views/Project/Project.vala:408
 msgid "Project Deadline"
-msgstr ""
+msgstr "Projektfrist"
 
 #: src/Views/Project/Project.vala:381
 msgid "Select"
@@ -3018,11 +3032,11 @@ msgstr "Nach Labels filtern"
 
 #: src/Views/Project/Project.vala:597
 msgid "Show Completed"
-msgstr ""
+msgstr "Abgeschlossene anzeigen"
 
 #: src/Views/Project/Project.vala:598
 msgid "Display completed tasks in the list"
-msgstr ""
+msgstr "Zeige abschgeschlossene Aufgaben in der Liste an"
 
 #: src/Views/Project/Project.vala:604
 msgid "Search completed tasks"
@@ -3103,35 +3117,35 @@ msgstr "Fehler melden"
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "In einer Minute"
+msgstr[1] "In %d Minuten"
 
 #: src/Widgets/EventRow.vala:209
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "In einer Stunde"
+msgstr[1] "In %d Stunden"
 
 #: src/Widgets/EventRow.vala:214
 msgid "Happening now"
-msgstr ""
+msgstr "Jetzt gerade"
 
 #: src/Widgets/EventRow.vala:249
 msgid "Location"
-msgstr ""
+msgstr "Ort"
 
 #: src/Widgets/EventRow.vala:262
 msgid "Organizer"
-msgstr ""
+msgstr "Veranstalter"
 
 #: src/Widgets/EventRow.vala:276
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/Widgets/EventRow.vala:381
 msgid "Join"
-msgstr ""
+msgstr "Beitreten"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:31
 msgid "Disable SSL certificate validation"
@@ -3182,7 +3196,7 @@ msgstr "Abgeschlossen am"
 
 #: src/Widgets/MultiSelectToolbar.vala:66
 msgid "Move to Project"
-msgstr ""
+msgstr "Bewege zu Projekt"
 
 # Assumed error "Mask" -> "Mark"
 #: src/Widgets/MultiSelectToolbar.vala:242
@@ -3199,18 +3213,18 @@ msgstr "Bist du sicher, dass du diese Aufgabe löschen möchtest?"
 
 # # c-format
 #: src/Widgets/MultiSelectToolbar.vala:272
-#, fuzzy, c-format
+#, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
-msgstr[0] "Lösche Aufgabe %d"
-msgstr[1] "Lösche Aufgabe %d"
+msgstr[0] "Lösche %d Aufgabe"
+msgstr[1] "Lösche %d Aufgaben"
 
 #: src/Widgets/MultiSelectToolbar.vala:278
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
-msgstr[0] "Bist du sicher, dass du %d löschen möchtest?"
-msgstr[1] "Bist du sicher, dass du %d löschen möchtest?"
+msgstr[0] "Bist du sicher, dass du %d Aufgabe löschen möchtest?"
+msgstr[1] "Bist du sicher, dass du %d Aufgaben löschen möchtest?"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -3230,7 +3244,7 @@ msgstr "Jetzt aktualisieren"
 
 #: src/Widgets/NewVersionPopup.vala:89
 msgid "Dismiss"
-msgstr ""
+msgstr "Verwerfen"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
