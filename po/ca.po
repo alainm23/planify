@@ -792,6 +792,7 @@ msgstr "Blau fosc"
 
 #: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:407
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:410
 msgid "None"
 msgstr "Cap"
 
@@ -1098,78 +1099,96 @@ msgid "Sa"
 msgstr "Ds"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:132
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:135
 msgid "Type a date…"
 msgstr "Escriu una data…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:153
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:156
 msgid "Choose a date"
 msgstr "Tria una data"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:157
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:530
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:160
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:533
 msgid "Repeat"
 msgstr "Repeteix"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:166
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:143
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:169
 msgid "Time"
 msgstr "Hora"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:185
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:254
 #: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:188
 msgid "Done"
 msgstr "Fet"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:189
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:192
 msgid "Clear"
 msgstr "Esborra"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:351
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:354
 msgid "Menu"
 msgstr "Menú"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:368
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:371
 msgid "Next week"
 msgstr "Setmana que ve"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:403
 #: src/Widgets/EventRow.vala:286
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:406
 msgid "Calendar"
 msgstr "Calendari"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:411
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:414
 msgid "Daily"
 msgstr "Cada dia"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:415
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:418
 msgid "Weekdays"
 msgstr "Entre setmana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:419
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:422
 msgid "Weekends"
 msgstr "Caps de setmana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:423
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:426
 msgid "Weekly"
 msgstr "Cada setmana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:427
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:430
 msgid "Monthly"
 msgstr "Cada mes"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:431
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:434
 msgid "Yearly"
 msgstr "Cada any"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:435
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:438
 msgid "Custom"
 msgstr "Personalitzat"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:736
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:443
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:747
 msgid "until"
 msgstr "fins"
 
@@ -1314,7 +1333,7 @@ msgid "Search or Create"
 msgstr "Cerca o crea"
 
 #: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
-#: src/Layouts/ItemRow.vala:1362
+#: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemRow.vala:1363
 msgid "Apply"
 msgstr "Aplica"
 
@@ -1428,7 +1447,7 @@ msgstr "Tasca"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:784 src/Layouts/ItemRow.vala:1297
-#: src/Services/Notification.vala:98
+#: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1298
 msgid "Complete"
 msgstr "Enllesteix"
 
@@ -1562,7 +1581,7 @@ msgstr "Setmana que ve"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:777
 #: src/Layouts/ItemRow.vala:1290 src/Views/Project/Project.vala:562
-#: src/Views/Project/Project.vala:733
+#: src/Views/Project/Project.vala:733 src/Layouts/ItemRow.vala:1291
 msgid "No Date"
 msgstr "Sense data"
 
@@ -2486,6 +2505,7 @@ msgstr "Projecte afegit amb èxit!"
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:780 src/Layouts/ItemRow.vala:1293
 #: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemSidebarView.vala:490
+#: src/Layouts/ItemRow.vala:1294 src/Layouts/ItemRow.vala:1422
 msgid "Move"
 msgstr "Mou"
 
@@ -2529,7 +2549,8 @@ msgstr ""
 
 #: src/Layouts/ItemBoard.vala:156 src/Layouts/ItemBoard.vala:762
 #: src/Layouts/ItemBoard.vala:775 src/Layouts/ItemRow.vala:1275
-#: src/Layouts/ItemRow.vala:1288
+#: src/Layouts/ItemRow.vala:1288 src/Layouts/ItemRow.vala:1276
+#: src/Layouts/ItemRow.vala:1289
 msgid "Unpin"
 msgstr "Desenganxa"
 
@@ -2575,6 +2596,7 @@ msgid "%s was deleted"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1175 src/Layouts/ItemRow.vala:1652
+#: src/Layouts/ItemRow.vala:1653
 msgid "Undo"
 msgstr "Desfés"
 
@@ -2586,11 +2608,11 @@ msgstr "Afegeix adjunts"
 msgid "Add Subtasks"
 msgstr "Afegeix subtasques"
 
-#: src/Layouts/ItemRow.vala:1125
+#: src/Layouts/ItemRow.vala:1125 src/Layouts/ItemRow.vala:1126
 msgid "Hide Sub-tasks"
 msgstr "Amaga les subtasques"
 
-#: src/Layouts/ItemRow.vala:1125
+#: src/Layouts/ItemRow.vala:1125 src/Layouts/ItemRow.vala:1126
 msgid "Show Sub-tasks"
 msgstr "Mostra les subtasques"
 
@@ -2600,6 +2622,7 @@ msgid "Use as a Note"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1419 src/Layouts/ItemSidebarView.vala:488
+#: src/Layouts/ItemRow.vala:1420
 msgid "Copy to Clipboard"
 msgstr "Copia al portaretalls"
 
@@ -3171,7 +3194,7 @@ msgstr ""
 msgid "Unarchive"
 msgstr "Desarxiva"
 
-#: src/Widgets/SubItems.vala:523
+#: src/Widgets/SubItems.vala:523 src/Widgets/SubItems.vala:525
 msgid "No subtasks added yet. Get started!"
 msgstr "Encara no s'han afegit subtasques. Som-hi!"
 
