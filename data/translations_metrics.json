@@ -13,15 +13,15 @@
   },
   "en": {
     "language": "English",
-    "total_strings": 750,
-    "translated_strings": 750,
+    "total_strings": 720,
+    "translated_strings": 720,
     "translated_percent": 100.0
   },
   "bg": {
     "language": "Bulgarian",
-    "total_strings": 720,
-    "translated_strings": 504,
-    "translated_percent": 70.0
+    "total_strings": 716,
+    "translated_strings": 500,
+    "translated_percent": 69.8
   },
   "de": {
     "language": "German",
@@ -43,9 +43,9 @@
   },
   "hi": {
     "language": "Hindi",
-    "total_strings": 737,
-    "translated_strings": 483,
-    "translated_percent": 65.5
+    "total_strings": 703,
+    "translated_strings": 468,
+    "translated_percent": 66.5
   },
   "ka": {
     "language": "Georgian",
@@ -505,7 +505,7 @@
   },
   "kw": {
     "language": "Cornish",
-    "total_strings": 716,
+    "total_strings": 720,
     "translated_strings": 0,
     "translated_percent": 0.0
   }
