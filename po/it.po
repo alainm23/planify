@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-14 10:08+0000\n"
-"Last-Translator: Ivan Bottigelli <testbottyivan@gmail.com>\n"
+"PO-Revision-Date: 2026-01-08 13:17+0000\n"
+"Last-Translator: David Zahariev <davidzahariev@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/it/>\n"
 "Language: it\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -47,46 +47,46 @@ msgid "Don't Repeat"
 msgstr "Non ripetere"
 
 #: core/Enum.vala:216
-#, fuzzy, c-format
+#, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
 msgstr[0] "Ogni minuto"
-msgstr[1] "Ogni minuto"
+msgstr[1] "Ogni %d minuti"
 
 #: core/Enum.vala:218
-#, fuzzy, c-format
+#, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
 msgstr[0] "Ogni ora"
-msgstr[1] "Ogni ora"
+msgstr[1] "Ogni %d ore"
 
 #: core/Enum.vala:220
-#, fuzzy, c-format
+#, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
 msgstr[0] "Ogni giorno"
-msgstr[1] "Ogni giorno"
+msgstr[1] "Ogni %d giorni"
 
 #: core/Enum.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
 msgstr[0] "Ogni settimana"
-msgstr[1] "Ogni settimana"
+msgstr[1] "Ogni %d settimane"
 
 #: core/Enum.vala:224
-#, fuzzy, c-format
+#, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
 msgstr[0] "Ogni mese"
-msgstr[1] "Ogni mese"
+msgstr[1] "Ogni %d mesi"
 
 #: core/Enum.vala:226
-#, fuzzy, c-format
+#, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
 msgstr[0] "Ogni anno"
-msgstr[1] "Ogni anno"
+msgstr[1] "Ogni %d anni"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -313,11 +313,11 @@ msgstr "Attività copiata negli appunti"
 #: core/Objects/Item.vala:1639 core/Utils/Util.vala:889
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] "Task spostato in %s"
-msgstr[1] "Task spostato in %s"
+msgstr[1] "%d Task spostate in %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
@@ -544,7 +544,7 @@ msgstr "Sincronizzazione completata"
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
-msgstr ""
+msgstr "In questo computer"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -927,20 +927,25 @@ msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
+"Planify non solo crea Task in locale ma può anche sincronizzare il tuo "
+"account Todoist. Vai in 'Preferenze' 🡒 'Account'."
 
 #: core/Utils/Util.vala:670
 msgid "Boost your productivity"
-msgstr ""
+msgstr "Migliora la tua produttività"
 
 #: core/Utils/Util.vala:678
 msgid "Drag the plus button!"
-msgstr ""
+msgstr "Premi e sposta il bottone +!"
 
 #: core/Utils/Util.vala:679
 msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
 msgstr ""
+"Quel bottone blu che vedi in basso in ogni pagina è più potente di quello "
+"che sembra: è fatto per muoversi! Premilo e spostalo per creare una task "
+"ovunque tu voglia."
 
 #: core/Utils/Util.vala:685
 msgid "Add labels to your tasks!"
