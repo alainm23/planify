@@ -830,8 +830,8 @@ msgid ""
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
-"이 프로젝트는 시작하는 데 필요한 모든 것을 보여줍니다. 자유롭게 탐색해 보세"
-"요 - 설정에서 언제든지 프로젝트를 만들 수 있습니다."
+"이 프로젝트는 시작하는 데 필요한 모든 것을 보여줍니다. 자유롭게 탐색해 "
+"보세요 - 설정에서 언제든지 프로젝트를 만들 수 있습니다."
 
 #: core/Utils/Util.vala:597
 #, fuzzy
@@ -843,8 +843,8 @@ msgstr "이 할 일을 탭하세요"
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
-"지금 할 일을 보고 있어요! 왼쪽의 체크박스를 탭하여 완료하세요. 완료된 할 일"
-"은 프로젝트 하단에 모입니다."
+"지금 할 일을 보고 있어요! 왼쪽의 체크박스를 탭하여 완료하세요. 완료된 할 "
+"일은 프로젝트 하단에 모입니다."
 
 #: core/Utils/Util.vala:603
 #, fuzzy
@@ -857,8 +857,8 @@ msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
 msgstr ""
-"이제 당신 차례입니다. 프로젝트 하단의 '+' 버튼을 탭하고, 대기 중인 작업을 입"
-"력한 후 파란색 '저장' 버튼을 탭하세요."
+"이제 당신 차례입니다. 프로젝트 하단의 '+' 버튼을 탭하고, 대기 중인 작업을 "
+"입력한 후 파란색 '저장' 버튼을 탭하세요."
 
 #: core/Utils/Util.vala:609
 #, fuzzy
@@ -881,8 +881,8 @@ msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
 msgstr ""
-"리스트를 재정렬하려면, 할 일을 탭하고 길게 누른 후 원하는 위치로 드래그하세"
-"요."
+"리스트를 재정렬하려면, 할 일을 탭하고 길게 누른 후 원하는 위치로 "
+"드래그하세요."
 
 #: core/Utils/Util.vala:621
 msgid "Create a project"
@@ -893,8 +893,8 @@ msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
-"할 일을 더 잘 정리하세요! 왼쪽 패널로 이동하여 '이 컴퓨터' 섹션에서 '+' 버튼"
-"을 클릭하고, 직접 프로젝트를 추가하세요."
+"할 일을 더 잘 정리하세요! 왼쪽 패널로 이동하여 '이 컴퓨터' 섹션에서 '+' "
+"버튼을 클릭하고, 직접 프로젝트를 추가하세요."
 
 #: core/Utils/Util.vala:627
 msgid "You’re done!"
@@ -939,8 +939,8 @@ msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
-"Planify는 로컬에서만 작업을 생성할 수 있을 뿐만 아니라, Todoist 계정과도 동기"
-"화할 수 있습니다. '설정' 🡒 '계정'으로 이동하세요."
+"Planify는 로컬에서만 작업을 생성할 수 있을 뿐만 아니라, Todoist 계정과도 "
+"동기화할 수 있습니다. '설정' 🡒 '계정'으로 이동하세요."
 
 #: core/Utils/Util.vala:666
 msgid "Boost your productivity"
@@ -955,8 +955,8 @@ msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
 msgstr ""
-"각 화면 하단에 있는 파란 버튼은 보기보다 강력합니다: 이동할 수 있도록 설계되"
-"었습니다! 위로 드래그하여 원하는 곳에 작업을 생성하세요."
+"각 화면 하단에 있는 파란 버튼은 보기보다 강력합니다: 이동할 수 있도록 "
+"설계되었습니다! 위로 드래그하여 원하는 곳에 작업을 생성하세요."
 
 #: core/Utils/Util.vala:681
 msgid "Add labels to your tasks!"
@@ -968,8 +968,8 @@ msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
-"태그를 사용하면 Planify에서 워크플로우를 개선할 수 있습니다. 태그를 추가하려"
-"면 하단의 태그 버튼을 클릭하세요."
+"태그를 사용하면 Planify에서 워크플로우를 개선할 수 있습니다. 태그를 "
+"추가하려면 하단의 태그 버튼을 클릭하세요."
 
 #: core/Utils/Util.vala:688
 msgid "Set timely reminders!"
@@ -981,8 +981,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
 "add a reminder."
 msgstr ""
-"중요한 이벤트나 특별한 일을 기억하기 위해 Planify에서 알림을 받고 싶으시다"
-"면, 아래의 종 버튼을 눌러 알림을 추가하세요."
+"중요한 이벤트나 특별한 일을 기억하기 위해 Planify에서 알림을 받고 "
+"싶으시다면, 아래의 종 버튼을 눌러 알림을 추가하세요."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1468,8 +1468,8 @@ msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
 msgstr ""
-"이 기기가 켜지면 Planify가 자동으로 시작되고 창이 닫힌 상태에서도 할 일 알림"
-"을 보낼 수 있도록 실행됩니다."
+"이 기기가 켜지면 Planify가 자동으로 시작되고 창이 닫힌 상태에서도 할 일 "
+"알림을 보낼 수 있도록 실행됩니다."
 
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
 #: src/Views/Project/Project.vala:444
@@ -1986,8 +1986,7 @@ msgstr "백업 복원"
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
-msgstr ""
-"계속하시겠습니까? 이 작업은 현재 데이터를 삭제하고 백업 데이터로 교체합니다."
+msgstr "계속하시겠습니까? 이 작업은 현재 데이터를 삭제하고 백업 데이터로 교체합니다."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:444
 msgid "Restore Backup"
@@ -2182,16 +2181,16 @@ msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
 msgstr ""
-"빠른 추가를 사용하여 데스크톱의 어디서나 몇 번의 키 입력으로 할 일을 생성하세"
-"요. 현재 사용 중인 앱을 떠날 필요도 없습니다."
+"빠른 추가를 사용하여 데스크톱의 어디서나 몇 번의 키 입력으로 할 일을 "
+"생성하세요. 현재 사용 중인 앱을 떠날 필요도 없습니다."
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:55
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
 msgstr ""
-"시스템 설정 → 키보드 → 단축키 → 사용자 정의로 이동한 다음, 다음과 같이 새 단"
-"축키를 추가하세요:"
+"시스템 설정 → 키보드 → 단축키 → 사용자 정의로 이동한 다음, 다음과 같이 새 "
+"단축키를 추가하세요:"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
 msgid "Settings"
@@ -2374,8 +2373,8 @@ msgid ""
 "if you like Planify and want to support its development, please consider "
 "supporting us."
 msgstr ""
-"Planify는 오픈 소스를 사랑하고 열정을 가지고 개발되고 있습니다. Planify를 좋"
-"아하고 개발을 지원하고 싶다면, 지원을 고려해 주세요."
+"Planify는 오픈 소스를 사랑하고 열정을 가지고 개발되고 있습니다. Planify를 "
+"좋아하고 개발을 지원하고 싶다면, 지원을 고려해 주세요."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:60
 msgid "Donate Now"
@@ -2754,8 +2753,7 @@ msgstr "게시판으로 이동"
 
 #: src/Layouts/SidebarSourceRow.vala:43
 msgid "No project available. Create one by clicking on the '+' button"
-msgstr ""
-"사용 가능한 프로젝트가 없습니다. '+' 버튼을 클릭하여 하나 만들어 보세요"
+msgstr "사용 가능한 프로젝트가 없습니다. '+' 버튼을 클릭하여 하나 만들어 보세요"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
