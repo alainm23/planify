@@ -26,11 +26,4 @@ public class Objects.TranslationMetric : GLib.Object {
     public int translated_strings { get; set; }
     public double translated_percent { get; set; }
 
-    public TranslationMetric.from_json (string code, Json.Object object) {
-        this.code = code;
-        this.language = object.get_string_member ("language");
-        this.total_strings = (int) object.get_int_member ("total_strings");
-        this.translated_strings = (int) object.get_int_member ("translated_strings");
-        this.translated_percent = object.get_double_member ("translated_percent");
-    }
 }
