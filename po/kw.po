@@ -1,103 +1,107 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-03 13:01+0000\n"
-"Last-Translator: Guillem Servera <guillem@gservera.com>\n"
-"Language-Team: Catalan <https://hosted.weblate.org/projects/planner/io-"
-"github-alainm23-planify/ca/>\n"
-"Language: ca\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-31 16:56+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: kw\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ((n == 1) ? 1 : (((n % 100 "
+"== 2 || n % 100 == 22 || n % 100 == 42 || n % 100 == 62 || n % 100 == 82) || "
+"n % 1000 == 0 && (n % 100000 >= 1000 && n % 100000 <= 20000 || n % 100000 == "
+"40000 || n % 100000 == 60000 || n % 100000 == 80000) || n != 0 && n % "
+"1000000 == 100000) ? 2 : ((n % 100 == 3 || n % 100 == 23 || n % 100 == 43 || "
+"n % 100 == 63 || n % 100 == 83) ? 3 : ((n != 1 && (n % 100 == 1 || n % 100 "
+"== 21 || n % 100 == 41 || n % 100 == 61 || n % 100 == 81)) ? 4 : 5))));\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
-msgstr "Projectes"
+msgstr ""
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:356
 msgid "Sections"
-msgstr "Seccions"
+msgstr ""
 
 #: core/Enum.vala:174 core/Enum.vala:183
 msgid "Tasks"
-msgstr "Tasques"
+msgstr ""
 
 #: core/Enum.vala:177 core/Enum.vala:530 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:781
 #: src/Layouts/ItemRow.vala:1295
 msgid "Labels"
-msgstr "Etiquetes"
+msgstr ""
 
 #: core/Enum.vala:180 src/Dialogs/Preferences/Pages/HomeView.vala:35
 msgid "Filters"
-msgstr "Filtres"
+msgstr ""
 
 #: core/Enum.vala:186
 msgid "Lists"
-msgstr "Llistes"
+msgstr ""
 
 #: core/Enum.vala:214
 msgid "Don't Repeat"
-msgstr "No repetir"
+msgstr ""
 
 #: core/Enum.vala:216
 #, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
-msgstr[0] "Cada minut"
-msgstr[1] "Cada %d minuts"
+msgstr[0] ""
+msgstr[1] ""
 
 #: core/Enum.vala:218
 #, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
-msgstr[0] "Cada hora"
-msgstr[1] "Cada %d hores"
+msgstr[0] ""
+msgstr[1] ""
 
 #: core/Enum.vala:220
 #, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
-msgstr[0] "Cada dia"
-msgstr[1] "Cada %d dies"
+msgstr[0] ""
+msgstr[1] ""
 
 #: core/Enum.vala:222
 #, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
-msgstr[0] "Cada setmana"
-msgstr[1] "Cada %d setmanes"
+msgstr[0] ""
+msgstr[1] ""
 
 #: core/Enum.vala:224
 #, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
-msgstr[0] "Cada mes"
-msgstr[1] "Cada %d mesos"
+msgstr[0] ""
+msgstr[1] ""
 
 #: core/Enum.vala:226
 #, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
-msgstr[0] "Cada any"
-msgstr[1] "Cada %d anys"
+msgstr[0] ""
+msgstr[1] ""
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
 msgid "Nextcloud"
-msgstr "Nextcloud"
+msgstr ""
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:121
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
-msgstr "CalDAV"
+msgstr ""
 
 #: core/Enum.vala:341 core/Enum.vala:527 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:545 src/Views/Project/Project.vala:590
@@ -105,57 +109,57 @@ msgstr "CalDAV"
 #: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:633
 #: src/Views/Today.vala:662 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
-msgstr "Prioritat"
+msgstr ""
 
 #: core/Enum.vala:344
 msgid "Label"
-msgstr "Etiqueta"
+msgstr ""
 
 #: core/Enum.vala:347 src/Views/Project/Project.vala:543
 #: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:631
 msgid "Due Date"
-msgstr "Data de venciment"
+msgstr ""
 
 #: core/Enum.vala:350 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
-msgstr "Secció"
+msgstr ""
 
 #: core/Enum.vala:459
 msgid "Task Created"
-msgstr "Tasca creada"
+msgstr ""
 
 #: core/Enum.vala:462
 msgid "Task Updated"
-msgstr "Tasca actualitzada"
+msgstr ""
 
 #: core/Enum.vala:518
 msgid "Content"
-msgstr "Contingut"
+msgstr ""
 
 #: core/Enum.vala:521 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:1999 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
-msgstr "Descripció"
+msgstr ""
 
 #: core/Enum.vala:524 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr "Planificat"
+msgstr ""
 
 #: core/Enum.vala:533 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:762 src/Layouts/ItemBoard.vala:775
 #: src/Layouts/ItemRow.vala:1276 src/Layouts/ItemRow.vala:1289
 msgid "Pin"
-msgstr "Fixar"
+msgstr ""
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr "Totes les tasques"
+msgstr ""
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
-msgstr "totes les tasques"
+msgstr ""
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all"
@@ -163,11 +167,11 @@ msgstr ""
 
 #: core/Objects/Filters/Anytime.vala:33
 msgid "Anytime"
-msgstr "En qualsevol moment"
+msgstr ""
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "anytime"
-msgstr "a qualsevol moment"
+msgstr ""
 
 #: core/Objects/Filters/Anytime.vala:34 core/Objects/Filters/Completed.vala:34
 #: core/Objects/Filters/Inbox.vala:36 core/Objects/Filters/Labels.vala:34
@@ -176,23 +180,23 @@ msgstr "a qualsevol moment"
 #: core/Objects/Filters/Scheduled.vala:49 core/Objects/Filters/Today.vala:50
 #: core/Objects/Filters/Tomorrow.vala:34 core/Objects/Filters/Unlabeled.vala:34
 msgid "filters"
-msgstr "filtres"
+msgstr ""
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr "sense data"
+msgstr ""
 
 #: core/Objects/Filters/Completed.vala:33
 msgid "Completed"
-msgstr "Completat"
+msgstr ""
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "completed"
-msgstr "completat"
+msgstr ""
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "logbook"
-msgstr "bitàcora"
+msgstr ""
 
 #: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:262
 #: core/Utils/Util.vala:575
@@ -202,67 +206,67 @@ msgstr "bitàcora"
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:196
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr "Safata d'entrada"
+msgstr ""
 
 #: core/Objects/Filters/Inbox.vala:36
 msgid "inbox"
-msgstr "safata d'entrada"
+msgstr ""
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
-msgstr "etiquetes"
+msgstr ""
 
 #: core/Objects/Filters/Pinboard.vala:34
 msgid "Pinboard"
-msgstr "Importants"
+msgstr ""
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:116
 msgid "Priority 1: high"
-msgstr "Prioritat 1: alta"
+msgstr ""
 
 #: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:118
 msgid "Priority 2: medium"
-msgstr "Prioritat 2: mitja"
+msgstr ""
 
 #: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:120
 msgid "Priority 3: low"
-msgstr "Prioritat 3: baixa"
+msgstr ""
 
 #: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:122
 msgid "Priority 4: none"
-msgstr "Prioritat 4: cap"
+msgstr ""
 
 #: core/Objects/Filters/Priority.vala:170
 msgid "high"
-msgstr "alta"
+msgstr ""
 
 #: core/Objects/Filters/Priority.vala:172
 msgid "medium"
-msgstr "mitja"
+msgstr ""
 
 #: core/Objects/Filters/Priority.vala:174
 msgid "low"
-msgstr "baixa"
+msgstr ""
 
 #: core/Objects/Filters/Priority.vala:176
 msgid "none"
-msgstr "cap"
+msgstr ""
 
 #: core/Objects/Filters/Repeating.vala:33
 msgid "Repeating"
-msgstr "Repetint"
+msgstr ""
 
 #: core/Objects/Filters/Repeating.vala:34
 msgid "repeating"
-msgstr "repetint"
+msgstr ""
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr "planificat"
+msgstr ""
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
-msgstr "proper"
+msgstr ""
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
@@ -272,11 +276,11 @@ msgstr "proper"
 #: src/Layouts/ItemRow.vala:1283 src/Views/Project/Project.vala:557
 #: src/Views/Project/Project.vala:723 src/Views/Today.vala:202
 msgid "Today"
-msgstr "Avui"
+msgstr ""
 
 #: core/Objects/Filters/Today.vala:50
 msgid "today"
-msgstr "avui"
+msgstr ""
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Utils/Datetime.vala:633
@@ -284,31 +288,31 @@ msgstr "avui"
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:772
 #: src/Layouts/ItemRow.vala:1286
 msgid "Tomorrow"
-msgstr "Demà"
+msgstr ""
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "tomorrow"
-msgstr "demà"
+msgstr ""
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "date"
-msgstr "data"
+msgstr ""
 
 #: core/Objects/Filters/Unlabeled.vala:33
 msgid "Unlabeled"
-msgstr "Sense etiquetar"
+msgstr ""
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "no label"
-msgstr "sense etiqueta"
+msgstr ""
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "unlabeled"
-msgstr "sense etiquetar"
+msgstr ""
 
 #: core/Objects/Item.vala:1346
 msgid "Task copied to clipboard"
-msgstr "Tasca copiada al porta-retalls"
+msgstr ""
 
 #: core/Objects/Item.vala:1639 core/Utils/Util.vala:889
 #: src/Widgets/MultiSelectToolbar.vala:376
@@ -316,13 +320,13 @@ msgstr "Tasca copiada al porta-retalls"
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Tasca moguda a %s"
-msgstr[1] "%d tasques mogudes a %s"
+msgstr[0] ""
+msgstr[1] ""
 
 #: core/Objects/Label.vala:206
 #, c-format
 msgid "Delete Label %s"
-msgstr "Elimina l'etiqueta %s"
+msgstr ""
 
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:821
 #: core/Objects/Section.vala:377
@@ -330,7 +334,7 @@ msgstr "Elimina l'etiqueta %s"
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
-msgstr "Aquesta acció no es pot desfer"
+msgstr ""
 
 #: core/Objects/Label.vala:210 core/Objects/Project.vala:824
 #: core/Objects/Project.vala:881 core/Objects/Section.vala:380
@@ -348,7 +352,7 @@ msgstr "Aquesta acció no es pot desfer"
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:287
 msgid "Cancel"
-msgstr "Cancel·la"
+msgstr ""
 
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:825
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:208
@@ -360,16 +364,16 @@ msgstr "Cancel·la"
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
 #: src/Widgets/MultiSelectToolbar.vala:288
 msgid "Delete"
-msgstr "Esborra"
+msgstr ""
 
 #: core/Objects/Project.vala:784
 msgid "The project was copied to the Clipboard."
-msgstr "El projecte s'ha copiat al portaretalls."
+msgstr ""
 
 #: core/Objects/Project.vala:820
 #, c-format
 msgid "Delete Project %s?"
-msgstr "Vols eliminar el projecte %s?"
+msgstr ""
 
 #: core/Objects/Project.vala:877 core/Objects/Section.vala:402
 msgid "Archive?"
@@ -378,56 +382,56 @@ msgstr ""
 #: core/Objects/Project.vala:878 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr "Això arxivarà %s i totes les seves tasques."
+msgstr ""
 
 #: core/Objects/Project.vala:882 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:662 src/Views/Project/Project.vala:386
 msgid "Archive"
-msgstr "Arxiva"
+msgstr ""
 
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
 msgid "Delete Section %s"
-msgstr "Elimina la secció %s"
+msgstr ""
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:35
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:44
 msgid "Todoist"
-msgstr "Todoist"
+msgstr ""
 
 #: core/QuickAddCore.vala:138
 msgid "Task added successfully!"
-msgstr "Tasca afegida amb èxit!"
+msgstr ""
 
 #: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:408
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
-msgstr "Nom de la tasca"
+msgstr ""
 
 #: core/QuickAddCore.vala:184
 msgid "This field is required"
-msgstr "Aquest camp és obligatori"
+msgstr ""
 
 #: core/QuickAddCore.vala:208 src/Dialogs/Project.vala:136
 msgid "Add a description…"
-msgstr "Afegeix una descripció…"
+msgstr ""
 
 #: core/QuickAddCore.vala:248
 msgid "Set date"
-msgstr "Defineix data"
+msgstr ""
 
 #: core/QuickAddCore.vala:260 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
-msgstr "Afegeix etiquetes"
+msgstr ""
 
 #: core/QuickAddCore.vala:265 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
-msgstr "Estableix la prioritat"
+msgstr ""
 
 #: core/QuickAddCore.vala:270
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
@@ -436,20 +440,20 @@ msgstr "Estableix la prioritat"
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
 #: core/Widgets/ReminderPicker/ReminderButton.vala:177
 msgid "Add Reminders"
-msgstr "Afegeix recordatoris"
+msgstr ""
 
 #: core/QuickAddCore.vala:314 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:655 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
-msgstr "Afegeix una tasca"
+msgstr ""
 
 #: core/QuickAddCore.vala:320 core/QuickAddCore.vala:1388
 msgid "Keep adding"
-msgstr "Continua afegint"
+msgstr ""
 
 #: core/QuickAddCore.vala:337
 msgid "Select a Project"
-msgstr "Selecciona un projecte"
+msgstr ""
 
 #: core/QuickAddCore.vala:364
 msgid ""
@@ -459,43 +463,43 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1350 src/MainWindow.vala:720
 msgid "Keyboard Shortcuts"
-msgstr "Dreceres de teclat"
+msgstr ""
 
 #: core/QuickAddCore.vala:1356
 msgid "Speed up task creation with these shortcuts"
-msgstr "Accelera la creació de tasques amb aquestes dreceres"
+msgstr ""
 
 #: core/QuickAddCore.vala:1370
 msgid "Set priority"
-msgstr "Estableix prioritat"
+msgstr ""
 
 #: core/QuickAddCore.vala:1370
 msgid "p1 = highest, p4 = lowest"
-msgstr "p1 = més alta, p4 = més baixa"
+msgstr ""
 
 #: core/QuickAddCore.vala:1371
 msgid "Add labels"
-msgstr "Afegeix etiquetes"
+msgstr ""
 
 #: core/QuickAddCore.vala:1371
 msgid "Opens label selector"
-msgstr "Obre el selector d'etiquetes"
+msgstr ""
 
 #: core/QuickAddCore.vala:1372
 msgid "Assign project"
-msgstr "Assigna un projecte"
+msgstr ""
 
 #: core/QuickAddCore.vala:1372
 msgid "Opens project selector"
-msgstr "Obre el selector de projectes"
+msgstr ""
 
 #: core/QuickAddCore.vala:1373
 msgid "Set reminder"
-msgstr "Defineix recordatori"
+msgstr ""
 
 #: core/QuickAddCore.vala:1373
 msgid "Opens reminder options"
-msgstr "Obre les opcions de recordatori"
+msgstr ""
 
 #: core/QuickAddCore.vala:1388
 msgid "Toggle stay open after creating task"
@@ -503,21 +507,21 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1394
 msgid "Tip"
-msgstr "Consell"
+msgstr ""
 
 #: core/QuickAddCore.vala:1394
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr "Combina dreceres al camp de títol per a una creació més ràpida"
+msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr "Carregant tasques per %s…"
+msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Processing task %d of %d"
-msgstr "Processant tasca %d de %d"
+msgstr ""
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
@@ -525,80 +529,79 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
 msgid "Failed to resolve principal url"
-msgstr "No s'ha pogut resoldre l'URL principal"
+msgstr ""
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr "Iniciant sincronització…"
+msgstr ""
 
 #: core/Services/CalDAV/Core.vala:245
 #, c-format
 msgid "Syncing %s…"
-msgstr "Sincronitzant %s…"
+msgstr ""
 
 #: core/Services/CalDAV/Core.vala:253
 msgid "Sync completed"
-msgstr "Sincronització completada"
+msgstr ""
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
-msgstr "En aquest ordinador"
+msgstr ""
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
-msgstr "Sol·licitud incorrecta."
+msgstr ""
 
 #: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr "Es requereix autenticació i o bé ha fallat o no s'ha subministrat."
+msgstr ""
 
 #: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
-msgstr "La sol·licitud és vàlida, però per quelcom que és prohibit."
+msgstr ""
 
 #: core/Services/Todoist.vala:1513 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
-msgstr "El recurs sol·licitat no s'ha pogut trobar."
+msgstr ""
 
 #: core/Services/Todoist.vala:1514 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
-"L'usuari ha enviat massa sol·licituds en un determinat interval de temps."
 
 #: core/Services/Todoist.vala:1515 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
-msgstr "La sol·licitud ha fallat per un error del servidor."
+msgstr ""
 
 #: core/Services/Todoist.vala:1516 src/Widgets/ErrorView.vala:144
 msgid "The server is currently unable to handle the request."
-msgstr "El servidor no ha pogut processar la sol·licitud en aquest moment."
+msgstr ""
 
 #: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
-msgstr "Error desconegut"
+msgstr ""
 
 #: core/Utils/Datetime.vala:72 core/Utils/Datetime.vala:635
 msgid "Yesterday"
-msgstr "Ahir"
+msgstr ""
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "days"
-msgstr "dies"
+msgstr ""
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "day"
-msgstr "dia"
+msgstr ""
 
 #: core/Utils/Datetime.vala:91
 #, c-format
 msgid "%s %s ago"
-msgstr "fa %s %s"
+msgstr ""
 
 #: core/Utils/Datetime.vala:93
 #, c-format
 msgid "%s %s left"
-msgstr "d'aquí a %s %s"
+msgstr ""
 
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
@@ -610,53 +613,53 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
-msgstr "%H:%M:%S"
+msgstr ""
 
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
-msgstr "%H:%M"
+msgstr ""
 
 #: core/Utils/Datetime.vala:411
 msgid "Mo,"
-msgstr "Dl,"
+msgstr ""
 
 #: core/Utils/Datetime.vala:415
 msgid "Tu,"
-msgstr "Dm,"
+msgstr ""
 
 #: core/Utils/Datetime.vala:419
 msgid "We,"
-msgstr "Dx,"
+msgstr ""
 
 #: core/Utils/Datetime.vala:423
 msgid "Th,"
-msgstr "Dj,"
+msgstr ""
 
 #: core/Utils/Datetime.vala:427
 msgid "Fr,"
-msgstr "Dv,"
+msgstr ""
 
 #: core/Utils/Datetime.vala:431
 msgid "Sa,"
-msgstr "Ds,"
+msgstr ""
 
 #: core/Utils/Datetime.vala:435
 msgid "Su,"
-msgstr "Dg,"
+msgstr ""
 
 #: core/Utils/Datetime.vala:639
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] "d'aquí %d dia"
-msgstr[1] "d'aquí %d dies"
+msgstr[0] ""
+msgstr[1] ""
 
 #: core/Utils/Datetime.vala:641
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] "fa %d dia"
-msgstr[1] "fa %d dies"
+msgstr[0] ""
+msgstr[1] ""
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
@@ -669,7 +672,7 @@ msgstr ""
 #: core/Utils/Datetime.vala:666 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
-msgstr "%Y"
+msgstr ""
 
 #: core/Utils/Datetime.vala:669
 msgid "%b %-e"
@@ -698,59 +701,59 @@ msgstr ""
 
 #: core/Utils/Util.vala:42
 msgid "Red"
-msgstr "Vermell"
+msgstr ""
 
 #: core/Utils/Util.vala:43
 msgid "Orange"
-msgstr "Taronja"
+msgstr ""
 
 #: core/Utils/Util.vala:44
 msgid "Yellow"
-msgstr "Groc"
+msgstr ""
 
 #: core/Utils/Util.vala:45
 msgid "Olive Green"
-msgstr "Verd oliva"
+msgstr ""
 
 #: core/Utils/Util.vala:46
 msgid "Lime Green"
-msgstr "Verd llima"
+msgstr ""
 
 #: core/Utils/Util.vala:47
 msgid "Green"
-msgstr "Verd"
+msgstr ""
 
 #: core/Utils/Util.vala:48
 msgid "Mint Green"
-msgstr "Verd menta"
+msgstr ""
 
 #: core/Utils/Util.vala:49
 msgid "Teal"
-msgstr "Turquesa"
+msgstr ""
 
 #: core/Utils/Util.vala:50
 msgid "Sky Blue"
-msgstr "Blau cel"
+msgstr ""
 
 #: core/Utils/Util.vala:51
 msgid "Light Blue"
-msgstr "Blau clar"
+msgstr ""
 
 #: core/Utils/Util.vala:52
 msgid "Blue"
-msgstr "Blau"
+msgstr ""
 
 #: core/Utils/Util.vala:53
 msgid "Grape"
-msgstr "Raïm"
+msgstr ""
 
 #: core/Utils/Util.vala:54
 msgid "Violet"
-msgstr "Violeta"
+msgstr ""
 
 #: core/Utils/Util.vala:55
 msgid "Lavender"
-msgstr "Espígol"
+msgstr ""
 
 #: core/Utils/Util.vala:56
 msgid "Magenta"
@@ -758,15 +761,15 @@ msgstr ""
 
 #: core/Utils/Util.vala:57
 msgid "Salmon"
-msgstr "Salmó"
+msgstr ""
 
 #: core/Utils/Util.vala:58
 msgid "Charcoal"
-msgstr "Carbó"
+msgstr ""
 
 #: core/Utils/Util.vala:59
 msgid "Grey"
-msgstr "Gris"
+msgstr ""
 
 #: core/Utils/Util.vala:60
 msgid "Taupe"
@@ -774,24 +777,24 @@ msgstr ""
 
 #: core/Utils/Util.vala:218
 msgid "Light"
-msgstr "Clar"
+msgstr ""
 
 #: core/Utils/Util.vala:221
 msgid "Dark"
-msgstr "Fosc"
+msgstr ""
 
 #: core/Utils/Util.vala:224
 msgid "Dark Blue"
-msgstr "Blau fosc"
+msgstr ""
 
 #: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:410
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 msgid "None"
-msgstr "Cap"
+msgstr ""
 
 #: core/Utils/Util.vala:268
 msgid "Today + Inbox"
-msgstr "Avui + Entrada"
+msgstr ""
 
 #: core/Utils/Util.vala:440
 msgid "Delete All"
@@ -799,20 +802,20 @@ msgstr ""
 
 #: core/Utils/Util.vala:454
 msgid "Process completed, you need to start Planify again."
-msgstr "Procés completat, torna a iniciar el Planify."
+msgstr ""
 
 #: core/Utils/Util.vala:456
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 msgid "Ok"
-msgstr "D'acord"
+msgstr ""
 
 #: core/Utils/Util.vala:566
 msgid "On This Computer"
-msgstr "En aquest ordinador"
+msgstr ""
 
 #: core/Utils/Util.vala:591
 msgid "Meet Planify"
-msgstr "Coneix Planify"
+msgstr ""
 
 #: core/Utils/Util.vala:594
 msgid ""
@@ -820,58 +823,48 @@ msgid ""
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
-"Aquest projecte et mostra tot el que necessites saber per començar. No "
-"dubtis a experimentar-hi el que vulguis – sempre pots tornar-lo a crear des "
-"de Preferències."
 
 #: core/Utils/Util.vala:601
 msgid "Tap this task"
-msgstr "Toca aquesta tasca"
+msgstr ""
 
 #: core/Utils/Util.vala:602
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
-"Estàs veient una tasca! Enllesteix-la tocant la casella de verificació de "
-"l'esquerra. "
 
 #: core/Utils/Util.vala:607
 msgid "Create a new task"
-msgstr "Crea una nova tasca"
+msgstr ""
 
 #: core/Utils/Util.vala:608
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
 msgstr ""
-"Ara és el teu torn! Toca el botó '+' a baix del teu projecte, introdueix una "
-"descripció per a la tasca i toca el botó 'Afegeix tasca'."
 
 #: core/Utils/Util.vala:613
 msgid "Plan this to-do for today or later"
-msgstr "Programa aquesta tasca per avui o més endavant"
+msgstr ""
 
 #: core/Utils/Util.vala:614
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
-"Prem el botó del calendari a baix per decidir quan completar aquesta tasca."
 
 #: core/Utils/Util.vala:619
 msgid "Reorder your to-dos"
-msgstr "Reordena les teves tasques"
+msgstr ""
 
 #: core/Utils/Util.vala:620
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
 msgstr ""
-"Per reordenar la llista, mantén premuda una tasca, llavors arrosega-la a on "
-"correspongui."
 
 #: core/Utils/Util.vala:625
 msgid "Create a project"
-msgstr "Crea un projecte"
+msgstr ""
 
 #: core/Utils/Util.vala:626
 msgid ""
@@ -898,7 +891,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:654
 msgid "Show your calendar events"
-msgstr "Mostra els esdeveniments del teu calendari"
+msgstr ""
 
 #: core/Utils/Util.vala:655
 msgid ""
@@ -908,15 +901,13 @@ msgstr ""
 
 #: core/Utils/Util.vala:661
 msgid "Enable synchronization with third-party services"
-msgstr "Activa la sincronització amb serveis de tercers"
+msgstr ""
 
 #: core/Utils/Util.vala:662
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
-"El Planify no només crea tasques locals, també pot sincronitzar-se amb el "
-"vostre compte de Todoist. Ves a 'Preferències' 🡒 'Comptes'."
 
 #: core/Utils/Util.vala:670
 msgid "Boost your productivity"
@@ -924,7 +915,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:678
 msgid "Drag the plus button!"
-msgstr "Arrossega el botó més!"
+msgstr ""
 
 #: core/Utils/Util.vala:679
 msgid ""
@@ -934,87 +925,83 @@ msgstr ""
 
 #: core/Utils/Util.vala:685
 msgid "Add labels to your tasks!"
-msgstr "Afegeix etiquetes a les teves tasques!"
+msgstr ""
 
 #: core/Utils/Util.vala:686
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
-"Les etiquetes t'ajuden a organitzar i categoritzar les tasques. Per afegir-"
-"ne una, fes clic al botó de l'etiqueta abaix."
 
 #: core/Utils/Util.vala:692
 msgid "Set timely reminders!"
-msgstr "Defineix recordatoris oportuns!"
+msgstr ""
 
 #: core/Utils/Util.vala:693
 msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
 "add a reminder."
 msgstr ""
-"Rep notificacions sobre tasques o esdeveniments importants. Toca el botó de "
-"la campana a baix per afegir un recordatori."
 
 #: core/Utils/Util.vala:704
 msgid "💼️Work"
-msgstr "💼Feina"
+msgstr ""
 
 #: core/Utils/Util.vala:710
 msgid "🎒️School"
-msgstr "🎒Escola"
+msgstr ""
 
 #: core/Utils/Util.vala:716
 msgid "👉️Delegated"
-msgstr "👉Delegades"
+msgstr ""
 
 #: core/Utils/Util.vala:722
 msgid "🏡️Home"
-msgstr "🏡Casa"
+msgstr ""
 
 #: core/Utils/Util.vala:728
 msgid "🏃‍♀️️Follow Up"
-msgstr "🏃‍♀️️Seguiment"
+msgstr ""
 
 #: core/Utils/Util.vala:969
 msgid "Task duplicated"
-msgstr "Tasca duplicada"
+msgstr ""
 
 #: core/Utils/Util.vala:1005
 msgid "Section duplicated"
-msgstr "Secció duplicada"
+msgstr ""
 
 #: core/Utils/Util.vala:1031 core/Utils/Util.vala:1057
 msgid "Project duplicated"
-msgstr "Projecte duplicat"
+msgstr ""
 
 #: core/Utils/Util.vala:1099 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
-msgstr "En vèncer"
+msgstr ""
 
 #: core/Utils/Util.vala:1102 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
-msgstr "10 minuts abans"
+msgstr ""
 
 #: core/Utils/Util.vala:1105 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
-msgstr "30 minuts abans"
+msgstr ""
 
 #: core/Utils/Util.vala:1108 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
-msgstr "45 minuts abans"
+msgstr ""
 
 #: core/Utils/Util.vala:1111 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
-msgstr "1 hora abans"
+msgstr ""
 
 #: core/Utils/Util.vala:1114 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
-msgstr "2 hores abans"
+msgstr ""
 
 #: core/Utils/Util.vala:1117 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
-msgstr "3 hores abans"
+msgstr ""
 
 #: core/Widgets/Calendar/CalendarDay.vala:73
 msgid "%A, %B %e, %Y"
@@ -1027,19 +1014,19 @@ msgstr ""
 
 #: core/Widgets/Calendar/CalendarHeader.vala:64 src/Layouts/HeaderBar.vala:93
 msgid "Back"
-msgstr "Enrere"
+msgstr ""
 
 #: core/Widgets/Calendar/CalendarHeader.vala:66
 msgid "Previous month"
-msgstr "Mes anterior"
+msgstr ""
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
-msgstr "Endavant"
+msgstr ""
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
-msgstr "Mes següent"
+msgstr ""
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #, c-format
@@ -1054,118 +1041,118 @@ msgstr ""
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 #, c-format
 msgid "Next month, %s"
-msgstr "Mes següent, %s"
+msgstr ""
 
 #: core/Widgets/Calendar/CalendarWeek.vala:39
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
 msgid "Su"
-msgstr "Dg"
+msgstr ""
 
 #: core/Widgets/Calendar/CalendarWeek.vala:40
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:137
 msgid "Mo"
-msgstr "Dl"
+msgstr ""
 
 #: core/Widgets/Calendar/CalendarWeek.vala:41
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Tu"
-msgstr "Dm"
+msgstr ""
 
 #: core/Widgets/Calendar/CalendarWeek.vala:42
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:149
 msgid "We"
-msgstr "Dx"
+msgstr ""
 
 #: core/Widgets/Calendar/CalendarWeek.vala:43
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:155
 msgid "Th"
-msgstr "Dj"
+msgstr ""
 
 #: core/Widgets/Calendar/CalendarWeek.vala:44
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:161
 msgid "Fr"
-msgstr "Dv"
+msgstr ""
 
 #: core/Widgets/Calendar/CalendarWeek.vala:45
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:167
 msgid "Sa"
-msgstr "Ds"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:135
 msgid "Type a date…"
-msgstr "Escriu una data…"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:156
 msgid "Choose a date"
-msgstr "Tria una data"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:160
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:533
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 msgid "Repeat"
-msgstr "Repeteix"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:169
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:143
 msgid "Time"
-msgstr "Hora"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:188
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:254
 #: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
 msgid "Done"
-msgstr "Fet"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:192
 msgid "Clear"
-msgstr "Esborra"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:354
 msgid "Menu"
-msgstr "Menú"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:371
 msgid "Next week"
-msgstr "Setmana que ve"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:406
 #: src/Widgets/EventRow.vala:286
 msgid "Calendar"
-msgstr "Calendari"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:414
 msgid "Daily"
-msgstr "Cada dia"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:418
 msgid "Weekdays"
-msgstr "Entre setmana"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:422
 msgid "Weekends"
-msgstr "Caps de setmana"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:426
 msgid "Weekly"
-msgstr "Cada setmana"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:430
 msgid "Monthly"
-msgstr "Cada mes"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:434
 msgid "Yearly"
-msgstr "Cada any"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:438
 msgid "Custom"
-msgstr "Personalitzat"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:747
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:443
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
 msgid "until"
-msgstr "fins"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
@@ -1187,35 +1174,35 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Minute(s)"
-msgstr "Minut(s)"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Hour(s)"
-msgstr "Hora(es)"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Day(s)"
-msgstr "Dia(es)"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Week(s)"
-msgstr "Setmana(es)"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Month(s)"
-msgstr "Mes(os)"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Year(s)"
-msgstr "Any(s)"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:199
 msgid "Never"
-msgstr "Mai"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:203
 msgid "On Date"
-msgstr "A la data"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:207
 msgid "After"
@@ -1223,21 +1210,21 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:265
 msgid "Summary"
-msgstr "Resum"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:271
 msgid "Repeat every"
-msgstr "Repeteix cada"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:278
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
 msgid "End"
-msgstr "Fi"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
 msgid "Date"
-msgstr "Data"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
@@ -1246,101 +1233,99 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "Set a Due Date"
-msgstr "Defineix una data de venciment"
+msgstr ""
 
 #: core/Widgets/DateTimePicker/TimePicker.vala:113
 msgid "Add Time"
-msgstr "Afegeix hora"
+msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:132
 msgid "Set Deadline"
-msgstr "Defineix un termini"
+msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:87
 #: core/Widgets/DeadlineButton.vala:94 core/Widgets/DeadlineButton.vala:101
 #: core/Widgets/DeadlineButton.vala:154
 msgid "Set a Deadline"
-msgstr "Estableix un termini"
+msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:149
 msgid "Deadline"
-msgstr "Termini"
+msgstr ""
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
 msgid "Select Labels"
-msgstr "Selecciona etiquetes"
+msgstr ""
 
 #: core/Widgets/LabelPicker/LabelQuickPicker.vala:191
 #, c-format
 msgid "Label not found: Create '%s'"
-msgstr "Etiqueta inexistent: Crea '%s'"
+msgstr ""
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
 msgstr ""
-"La teva llista de filtres apareixerà aquí. Crea'n un introduint-ne el nom i "
-"prement la tecla Enter."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
-msgstr "Crea '%s'"
+msgstr ""
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
 msgid "Your list of filters will show up here."
-msgstr "La vostra llista de filtres apareixerà aquí."
+msgstr ""
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
-msgstr "Cerca"
+msgstr ""
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Search or Create"
-msgstr "Cerca o crea"
+msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
 #: src/Layouts/ItemRow.vala:1363
 msgid "Apply"
-msgstr "Aplica"
+msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
-msgstr "Elimina enllaç"
+msgstr ""
 
 #: core/Widgets/PriorityButton.vala:95 core/Widgets/PriorityButton.vala:135
 #: core/Widgets/PriorityButton.vala:200
 msgid "Priority 4: None"
-msgstr "Prioritat 4: Cap"
+msgstr ""
 
 #: core/Widgets/PriorityButton.vala:126 core/Widgets/PriorityButton.vala:182
 msgid "Priority 1: High"
-msgstr "Prioritat 1: Alta"
+msgstr ""
 
 #: core/Widgets/PriorityButton.vala:129
 msgid "Priority 2: Medium"
-msgstr "Prioritat 2: Mitja"
+msgstr ""
 
 #: core/Widgets/PriorityButton.vala:132
 msgid "Priority 3: Low"
-msgstr "Prioritat 3: Baixa"
+msgstr ""
 
 #: core/Widgets/PriorityButton.vala:188
 msgid "Priority 1: Medium"
-msgstr "Prioritat 1: Mitja"
+msgstr ""
 
 #: core/Widgets/PriorityButton.vala:194
 msgid "Priority 1: Low"
-msgstr "Prioritat 1: Baixa"
+msgstr ""
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:63
 msgid "Your list of section will show up here."
-msgstr "La vostra llista de seccions apareixerà aquí."
+msgstr ""
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
@@ -1349,7 +1334,7 @@ msgstr "La vostra llista de seccions apareixerà aquí."
 #: core/Widgets/SectionPicker/SectionPickerRow.vala:38
 #: src/Widgets/CompletedTaskRow.vala:77 src/Widgets/ItemDetailCompleted.vala:80
 msgid "No Section"
-msgstr "Sense secció"
+msgstr ""
 
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:46
 msgid "Type a search"
@@ -1359,82 +1344,78 @@ msgstr ""
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:146
 msgid "Reminders"
-msgstr "Recordatoris"
+msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:110
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the '+' button."
 msgstr ""
-"La teva llista de recordatoris apareixerà aquí. Afegeix-ne un clicant el "
-"botó '+'."
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:157
 msgid "Add Reminder"
-msgstr "Afegeix recordatori"
+msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:192
 msgid "In 5 minutes"
-msgstr "En 5 minuts"
+msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:193
 msgid "In 15 minutes"
-msgstr "En 15 minuts"
+msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:194
 msgid "In 30 minutes"
-msgstr "En 30 minuts"
+msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:195
 msgid "In 1 hour"
-msgstr "En 1 hora"
+msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:196
 msgid "In 3 hours"
-msgstr "En 3 hores"
+msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:197
 msgid "In 6 hours"
-msgstr "En 6 hores"
+msgstr ""
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
-msgstr "Defineix una secció"
+msgstr ""
 
 #: core/Widgets/SectionPicker/SectionButton.vala:40
 msgid "Select Section"
-msgstr "Tria una secció"
+msgstr ""
 
 #: core/Widgets/StatusButton.vala:32
 msgid "Set The Status"
-msgstr "Defineix-ne l'estat"
+msgstr ""
 
 #: core/Widgets/StatusButton.vala:39
 msgid "Status"
-msgstr "Estat"
+msgstr ""
 
 #: core/Widgets/StatusButton.vala:44 core/Widgets/StatusButton.vala:76
 #: core/Widgets/StatusButton.vala:114
 msgid "To Do"
-msgstr "Tasca"
+msgstr ""
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:784 src/Layouts/ItemRow.vala:1298
 #: src/Services/Notification.vala:98
 msgid "Complete"
-msgstr "Enllesteix"
+msgstr ""
 
 #: src/App.vala:143
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
 msgstr ""
-"El Planify s'iniciarà automàticament quan s'encengui aquest dispositiu i "
-"s'executarà en segon pla per poder enviar notificacions de les tasques."
 
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
 #: src/Views/Project/Project.vala:444
 msgid "Calendar Sync"
-msgstr "Sincronització amb el calendari"
+msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:45
 msgid ""
@@ -1447,8 +1428,6 @@ msgid ""
 "Requirement: You need a calendar account configured in GNOME Calendar "
 "(Google, Nextcloud, etc.)"
 msgstr ""
-"Requisit: Necessites un compte de calendari configurat al GNOME Calendar "
-"(Google, Nextcloud, etc.)"
 
 #: src/Dialogs/CalendarSync.vala:62
 msgid ""
@@ -1464,60 +1443,56 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
-msgstr "Tria calendari"
+msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:88
 msgid "Select a calendar from the list"
-msgstr "Selecciona un calendari de la llista"
+msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
-msgstr "Activa la sincronització"
+msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
-msgstr "Sincronització amb calendari desactivada amb èxit"
+msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
-msgstr "Sincronització amb calendari activada"
+msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:228
 msgid ""
 "Your tasks are currently synced with your calendar. Any task with a date "
 "automatically appears as a calendar event."
 msgstr ""
-"Les teves tasques estan sincronitzades amb el calendari. Qualsevol tasca amb "
-"data hi apareixerà automàticament com un esdeveniment."
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
-msgstr "Desactiva la sincronització"
+msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:279
 #, c-format
 msgid "Synced with: %s"
-msgstr "Sincronitzat amb: %s"
+msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:292
 msgid "Sync Enabled!"
-msgstr "Sincronització activada!"
+msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:297
 msgid ""
 "Your tasks are now synced with your calendar. Any task with a date will "
 "automatically appear as a calendar event."
 msgstr ""
-"Les teves tasques ara es sincronitzen amb el teu calendari. Qualsevol tasca "
-"amb data apareixerà automàticament com un esdeveniment al calendari."
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
-msgstr "D'acord"
+msgstr ""
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 msgid "Completed Tasks"
-msgstr "Tasques enllestides"
+msgstr ""
 
 #: src/Dialogs/CompletedTasks.vala:59
 msgid "View Filter Menu"
@@ -1525,12 +1500,12 @@ msgstr ""
 
 #: src/Dialogs/CompletedTasks.vala:95
 msgid "No completed tasks yet."
-msgstr "No hi ha tasques enllestides encara."
+msgstr ""
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
 #: src/Views/Filter.vala:593
 msgid "Delete All Completed Tasks"
-msgstr "Esborra totes les tasques enllestides"
+msgstr ""
 
 #: src/Dialogs/CompletedTasks.vala:165
 #, c-format
@@ -1538,24 +1513,22 @@ msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
 msgstr[0] ""
-"Això esborrarà %d tasca enllestida i les seves subtasques del projecte %s"
 msgstr[1] ""
-"Això esborrarà %d tasques enllestides i les seves subtasques del projecte %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
 #: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:673
 msgid "Filter By"
-msgstr "Filtra per"
+msgstr ""
 
 #: src/Dialogs/DatePicker.vala:69
 msgid "Next Week"
-msgstr "Setmana que ve"
+msgstr ""
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:777
 #: src/Layouts/ItemRow.vala:1291 src/Views/Project/Project.vala:562
 #: src/Views/Project/Project.vala:733
 msgid "No Date"
-msgstr "Sense data"
+msgstr ""
 
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1427
 #: src/Layouts/ItemSidebarView.vala:495
@@ -1572,7 +1545,7 @@ msgstr ""
 
 #: src/Dialogs/ItemChangeHistory.vala:60
 msgid "Updated at"
-msgstr "Actualitzada el"
+msgstr ""
 
 #: src/Dialogs/ItemChangeHistory.vala:69
 msgid ""
@@ -1583,60 +1556,60 @@ msgstr ""
 #, c-format
 msgid "Load more history from %d week ago…"
 msgid_plural "Load more history from %d weeks ago…"
-msgstr[0] "Carrega més historial de fa %d setmana…"
-msgstr[1] "Carrega més historial de fa %d setmanes…"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Dialogs/Label.vala:45
 msgid "New Label"
-msgstr "Nova etiqueta"
+msgstr ""
 
 #: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:161
 msgid "Edit Label"
-msgstr "Edita l'etiqueta"
+msgstr ""
 
 #: src/Dialogs/Label.vala:65
 msgid "Give your label a name"
-msgstr "Dóna un nom a l'etiqueta"
+msgstr ""
 
 #: src/Dialogs/Label.vala:89
 msgid "Add Label"
-msgstr "Afegeix etiqueta"
+msgstr ""
 
 #: src/Dialogs/Label.vala:89
 msgid "Update Label"
-msgstr "Actualitza l'etiqueta"
+msgstr ""
 
 #: src/Dialogs/LabelPicker.vala:62
 msgid "Filter"
-msgstr "Filtra"
+msgstr ""
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:725
 msgid "Archived Projects"
-msgstr "Projectes arxivats"
+msgstr ""
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:658
 #: src/Views/Project/Project.vala:379
 msgid "Manage Sections"
-msgstr "Administra les seccions"
+msgstr ""
 
 #: src/Dialogs/ManageSectionOrder.vala:54
 msgid "You can sort your sections by dragging and dropping"
-msgstr "Pots ordenar les teves seccions arrossegant i amollant"
+msgstr ""
 
 #: src/Dialogs/ManageSectionOrder.vala:76
 msgid "Archived"
-msgstr "Arxivades"
+msgstr ""
 
 #: src/Dialogs/ManageSectionOrder.vala:184 src/Layouts/SectionBoard.vala:77
 #: src/Layouts/SectionRow.vala:88
 msgid "(No Section)"
-msgstr "(Sense secció)"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
 #: src/Dialogs/Preferences/PreferencesWindow.vala:108
 msgid "Accounts"
-msgstr "Comptes"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
 msgid "Add Source"
@@ -1644,7 +1617,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
 msgid "Inbox Page"
-msgstr "Pàgina Entrada"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:105
 msgid "You can sort your accounts by dragging and dropping"
@@ -1654,15 +1627,14 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr ""
-"El Planify està sincronitzant les vostres tasques, això pot trigar uns minuts"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
-msgstr "La verificació SSL està desactivada"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:398
 msgid "Cannot Hide This Account"
-msgstr "No es pot amagar aquest compte"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:399
 msgid ""
@@ -1676,20 +1648,20 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 msgid "Syncing…"
-msgstr "Sincronitzant…"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:52
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:48
 msgid "Server URL"
-msgstr "URL del servidor"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:55
 msgid "Username"
-msgstr "Nom d'usuari"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:58
 msgid "Password"
-msgstr "Contrasenya"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:67
 msgid "Calendar Home URL"
@@ -1698,7 +1670,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:79
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:92
 msgid "Advanced Options"
-msgstr "Opcions avançades"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:91
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:103
@@ -1735,7 +1707,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:74
 msgid "Display Name"
-msgstr "Nom per mostrar"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:80
 msgid "Sync Server"
@@ -1789,7 +1761,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:183
 msgid "Synchronizing…"
-msgstr "Sincronitzant…"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:201
 msgid "Please Enter Your Credentials"
@@ -1797,21 +1769,21 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
 msgid "Loading…"
-msgstr "Carregant…"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:212
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:214
 msgid "Network Is Not Available"
-msgstr "Xarxa no disponible"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:36
 #: src/Dialogs/Preferences/PreferencesWindow.vala:169
 msgid "Appearance"
-msgstr "Aparença"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:51
 msgid "Use System Settings"
-msgstr "Fes servir la configuració del sistema"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:61
 msgid "Select theme"
@@ -1819,7 +1791,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:70
 msgid "Light Style"
-msgstr "Aspecte clar"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:71
 msgid "Clean light theme"
@@ -1827,7 +1799,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:87
 msgid "Dark Style"
-msgstr "Aspecte fosc"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:88
 msgid "Elegant dark theme"
@@ -1891,7 +1863,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:112
 msgid "The Backup was created successfully."
-msgstr "Còpia de seguretat creada amb èxit."
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:129
 msgid "Tasks Migrate Successfully"
@@ -1899,11 +1871,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:133
 msgid "The database file does not exist."
-msgstr "L'arxiu de base de dades no existeix."
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:171
 msgid "Selected file is invalid"
-msgstr "L'arxiu seleccionat no és vàlid"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:216
 msgid "View Backup"
@@ -1911,7 +1883,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:272
 msgid "Download"
-msgstr "Baixa"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:336
 msgid "Import Overview"
@@ -1970,11 +1942,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
-msgstr "PayPal"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:89
 msgid "One-time donation"
-msgstr "Donació puntual"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Liberapay"
@@ -1982,7 +1954,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:103
 msgid "Weekly recurring donations"
-msgstr "Donació recurrent setmanal"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
@@ -1990,47 +1962,47 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
-msgstr "Compra'm un cafè ☕"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:128
 msgid "Choose Your Preferred Platform"
-msgstr "Tria la teva plataforma preferida"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:142
 msgid "Thank you for your support! 🙏"
-msgstr "Gràcies pel teu suport! 🙏"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Your contribution helps keep Planify alive and growing."
-msgstr "La teva contribució ajuda a mantenir viu i fer créixer el Planify."
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
 #: src/Dialogs/Preferences/PreferencesWindow.vala:137
 msgid "General"
-msgstr "General"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:36
 msgid "Custom Sort Order"
-msgstr "Ordre personalitzat"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:227
 #: src/Views/Today.vala:630
 msgid "Alphabetically"
-msgstr "Alfabèticament"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:40
 msgid "Sort by"
-msgstr "Ordena per"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:45
 msgid "Ascending"
-msgstr "Ascendent"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:46
 msgid "Descending"
-msgstr "Descendent"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:49
 msgid "Ordered"
@@ -2042,15 +2014,15 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:68
 msgid "Run in Background"
-msgstr "Executa en segon pla"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:69
 msgid "Let Planify run in background and send notifications"
-msgstr "Permet al Planify executar-se en segon pla i enviar notificacions"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
-msgstr "Executa a l'inici"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:83
 msgid "Whether Planify should run on startup"
@@ -2058,63 +2030,63 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
-msgstr "Esdeveniments del calendari"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:103
 msgid "Date and Time"
-msgstr "Data i hora"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:106
 msgid "24h"
-msgstr "24h"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:107
 msgid "12h"
-msgstr "12h"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:110
 msgid "Clock Format"
-msgstr "Format d'hora"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:117
 msgid "Sunday"
-msgstr "Diumenge"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:118
 msgid "Monday"
-msgstr "Dilluns"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:119
 msgid "Tuesday"
-msgstr "Dimarts"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:120
 msgid "Wednesday"
-msgstr "Dimecres"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:121
 msgid "Thursday"
-msgstr "Dijous"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:122
 msgid "Friday"
-msgstr "Divendres"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:123
 msgid "Saturday"
-msgstr "Dissabte"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:126
 msgid "Start of the Week"
-msgstr "Inici de setmana"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:138
 msgid "Smart Date Recognition"
-msgstr "Reconeixement intel·ligent de dates"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:139
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr "Detecta automàticament dates com \"demà\" o \"setmana que ve\""
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
@@ -2140,7 +2112,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
 msgid "Settings"
-msgstr "Preferències"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:92
 msgid "Save Last Selected Project"
@@ -2157,19 +2129,19 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
 #: src/Dialogs/Preferences/PreferencesWindow.vala:158
 msgid "Sidebar"
-msgstr "Barra lateral"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:37
 msgid "Show in Sidebar"
-msgstr "Mostra a la barra lateral"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:55
 msgid "Show Task Count"
-msgstr "Mostra el recompte de tasques"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:60
 msgid "Sidebar Width"
-msgstr "Amplada de la barra lateral"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:65
 msgid "List View for Filters"
@@ -2177,7 +2149,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:66
 msgid "Show filters in a simple list instead of a grid"
-msgstr "Mostra els filtres en una llista en lloc d'una graella"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:87
 msgid "You can sort your views by dragging and dropping"
@@ -2186,7 +2158,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Task Settings"
-msgstr "Paràmetres de la tasca"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:40
 msgid "Complete Instantly"
@@ -2202,23 +2174,23 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:45
 msgid "Choose how tasks behave when marked as complete"
-msgstr "Defineix com es comporten les tasques quan es marquen com enllestides"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:52
 msgid "Priority 1"
-msgstr "Prioritat 1"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:53
 msgid "Priority 2"
-msgstr "Prioritat 2"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:54
 msgid "Priority 3"
-msgstr "Prioritat 3"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:58
 msgid "Default Priority"
-msgstr "Prioritat per defecte"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:70
 msgid "Cross Out Completed Tasks"
@@ -2234,7 +2206,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:88
 msgid "Always Show Completed Sub-Tasks"
-msgstr "Mostra sempre les subtasques enllestides"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:89
 msgid "Keep all completed subtasks visible without collapsing them"
@@ -2246,11 +2218,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:97
 msgid "Play a sound when tasks are completed"
-msgstr "Reprodueix un so en completar tasques"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:104
 msgid "Open Tasks in Sidebar View"
-msgstr "Obre les tasques a la barra lateral"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:105
 msgid ""
@@ -2267,7 +2239,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:122
 msgid "Enable Markdown Formatting"
-msgstr "Activa el format Markdown"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:123
 msgid "Toggle Markdown support for tasks on or off"
@@ -2285,7 +2257,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:138
 msgid "Enable Spell Checking"
-msgstr "Activa la comprovació ortogràfica"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:139
 msgid "Check spelling in task descriptions and notes"
@@ -2293,11 +2265,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
 msgid "Enabled"
-msgstr "Activada"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:164
 msgid "Automatic reminders"
-msgstr "Recordatoris automàtics"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:166
 msgid ""
@@ -2365,7 +2337,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:255
 msgid "Get Involved"
-msgstr "Participa"
+msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
@@ -2373,7 +2345,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:271
 msgid "Contact Us"
-msgstr "Contacta'ns"
+msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:272
 msgid "Request a feature or ask us anything"
@@ -2381,7 +2353,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:288
 msgid "Tweet Us"
-msgstr "Tuita'ns"
+msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:289
 #: src/Dialogs/Preferences/PreferencesWindow.vala:319
@@ -2390,7 +2362,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:303
 msgid "Discord"
-msgstr "Discord"
+msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:304
 msgid "Discuss and share your feedback"
@@ -2398,27 +2370,27 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:318
 msgid "Mastodon"
-msgstr "Mastodon"
+msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:337
 msgid "Privacy"
-msgstr "Privadesa"
+msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:343
 msgid "Privacy Policy"
-msgstr "Política de privadesa"
+msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:344
 msgid "We have nothing on you"
-msgstr "No recollim res sobre tu"
+msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:350
 msgid "Delete App Data"
-msgstr "Esborra les dades de l'app"
+msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:359
 msgid "A tutorial project has been created"
-msgstr "S'ha creat un projecte tutorial"
+msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:375
 msgid "Delete All Data?"
@@ -2430,42 +2402,42 @@ msgstr ""
 
 #: src/Dialogs/Project.vala:59 src/Layouts/Sidebar.vala:121
 msgid "New Project"
-msgstr "Nou projecte"
+msgstr ""
 
 #: src/Dialogs/Project.vala:67 src/Layouts/ProjectRow.vala:704
 #: src/Views/Project/Project.vala:374
 msgid "Edit Project"
-msgstr "Edita el projecte"
+msgstr ""
 
 #: src/Dialogs/Project.vala:112
 msgid "Give your project a name"
-msgstr "Dóna un nom al projecte"
+msgstr ""
 
 #: src/Dialogs/Project.vala:123
 msgid "Use Emoji"
-msgstr "Fes servir Emoji"
+msgstr ""
 
 #: src/Dialogs/Project.vala:217 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
-msgstr "Afegeix un projecte"
+msgstr ""
 
 #: src/Dialogs/Project.vala:217
 msgid "Update Project"
-msgstr "Actualitza el projecte"
+msgstr ""
 
 #: src/Dialogs/Project.vala:471
 msgid "Project added successfully!"
-msgstr "Projecte afegit amb èxit!"
+msgstr ""
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:780 src/Layouts/ItemRow.vala:1294
 #: src/Layouts/ItemRow.vala:1422 src/Layouts/ItemSidebarView.vala:490
 msgid "Move"
-msgstr "Mou"
+msgstr ""
 
 #: src/Dialogs/QuickFind/QuickFind.vala:42
 msgid "Quick Find"
-msgstr "Cerca ràpida"
+msgstr ""
 
 #: src/Dialogs/QuickFind/QuickFind.vala:260
 msgid "Quickly switch projects and views, find tasks, search by labels"
@@ -2505,7 +2477,7 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:775 src/Layouts/ItemRow.vala:1276
 #: src/Layouts/ItemRow.vala:1289
 msgid "Unpin"
-msgstr "Desenganxa"
+msgstr ""
 
 #: src/Layouts/ItemBoard.vala:623 src/Layouts/ItemRow.vala:1628
 #: src/Layouts/ItemSidebarView.vala:656
@@ -2544,23 +2516,23 @@ msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1175 src/Layouts/ItemRow.vala:1653
 msgid "Undo"
-msgstr "Desfés"
+msgstr ""
 
 #: src/Layouts/ItemRow.vala:521
 msgid "Add Attachments"
-msgstr "Afegeix adjunts"
+msgstr ""
 
 #: src/Layouts/ItemRow.vala:616
 msgid "Add Subtasks"
-msgstr "Afegeix subtasques"
+msgstr ""
 
 #: src/Layouts/ItemRow.vala:1126
 msgid "Hide Sub-tasks"
-msgstr "Amaga les subtasques"
+msgstr ""
 
 #: src/Layouts/ItemRow.vala:1126
 msgid "Show Sub-tasks"
-msgstr "Mostra les subtasques"
+msgstr ""
 
 #: src/Layouts/ItemRow.vala:1417 src/Layouts/ItemSidebarView.vala:486
 msgid "Use as a Note"
@@ -2568,7 +2540,7 @@ msgstr ""
 
 #: src/Layouts/ItemRow.vala:1420 src/Layouts/ItemSidebarView.vala:488
 msgid "Copy to Clipboard"
-msgstr "Copia al portaretalls"
+msgstr ""
 
 #: src/Layouts/ItemSidebarView.vala:77
 msgid "Close Detail"
@@ -2576,7 +2548,7 @@ msgstr ""
 
 #: src/Layouts/ItemSidebarView.vala:144 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
-msgstr "Títol"
+msgstr ""
 
 #: src/Layouts/ItemSidebarView.vala:176 src/Widgets/ItemDetailCompleted.vala:90
 msgid "Properties"
@@ -2584,7 +2556,7 @@ msgstr ""
 
 #: src/Layouts/ItemSidebarView.vala:576
 msgid "Are you sure you want to delete?"
-msgstr "Segur que ho vols eliminar?"
+msgstr ""
 
 #: src/Layouts/LabelRow.vala:162
 msgid "Delete Label"
@@ -2596,41 +2568,41 @@ msgstr ""
 
 #: src/Layouts/ProjectRow.vala:697 src/Layouts/ProjectRow.vala:703
 msgid "Remove From Favorites"
-msgstr "Elimina de Preferides"
+msgstr ""
 
 #: src/Layouts/ProjectRow.vala:697 src/Layouts/ProjectRow.vala:703
 msgid "Add to Favorites"
-msgstr "Afegeix a Preferides"
+msgstr ""
 
 #: src/Layouts/ProjectRow.vala:706
 msgid "Refresh"
-msgstr "Actualitza"
+msgstr ""
 
 #: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:387
 #: src/Widgets/ProjectItemRow.vala:154
 msgid "Delete Project"
-msgstr "Esborra el projecte"
+msgstr ""
 
 #: src/Layouts/ProjectRow.vala:712
 msgid "Share"
-msgstr "Comparteix"
+msgstr ""
 
 #: src/Layouts/ProjectRow.vala:713
 msgid "Send by E-Mail"
-msgstr "Envia per e-mail"
+msgstr ""
 
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 msgid "Add tasks"
-msgstr "Afegeix tasques"
+msgstr ""
 
 #: src/Layouts/SectionBoard.vala:175
 msgid "Load more"
-msgstr "Carrega més"
+msgstr ""
 
 #: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:612
 #: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
 msgid "completed tasks"
-msgstr "tasques enllestides"
+msgstr ""
 
 #: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:657
 msgid "Move Section"
@@ -2642,40 +2614,40 @@ msgstr ""
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:660
 msgid "Show Completed Tasks"
-msgstr "Mostra les tasques enllestides"
+msgstr ""
 
 #: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:663
 #: src/Widgets/SectionItemRow.vala:207
 msgid "Delete Section"
-msgstr "Elimina la secció"
+msgstr ""
 
 #: src/Layouts/Sidebar.vala:40
 msgid "Favorites"
-msgstr "Preferides"
+msgstr ""
 
 #: src/Layouts/Sidebar.vala:42
 msgid "No favorites available. Create one by clicking on the '+' button"
-msgstr "Cap preferida disponible. Crea'n una clicant el botó '+'"
+msgstr ""
 
 #: src/Layouts/Sidebar.vala:122
 msgid "Add Account"
-msgstr "Afegeix compte"
+msgstr ""
 
 #: src/Layouts/Sidebar.vala:123
 msgid "Customize Sidebar"
-msgstr "Personalitza la barra lateral"
+msgstr ""
 
 #: src/Layouts/Sidebar.vala:312 src/Layouts/Sidebar.vala:364
 msgid "Go to Today"
-msgstr "Ves a Avui"
+msgstr ""
 
 #: src/Layouts/Sidebar.vala:316 src/Layouts/Sidebar.vala:368
 msgid "Go to Scheduled"
-msgstr "Ves a Programades"
+msgstr ""
 
 #: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Labels"
-msgstr "Ves a Etiquetes"
+msgstr ""
 
 #: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Pinboard"
@@ -2683,11 +2655,11 @@ msgstr ""
 
 #: src/Layouts/SidebarSourceRow.vala:43
 msgid "No project available. Create one by clicking on the '+' button"
-msgstr "Cap projecte disponible. Crea'n un clicant el botó '+'"
+msgstr ""
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
-msgstr "Menú principal"
+msgstr ""
 
 #: src/MainWindow.vala:84
 msgid "Open Quick Find"
@@ -2695,7 +2667,7 @@ msgstr ""
 
 #: src/MainWindow.vala:723
 msgid "About Planify"
-msgstr "Quant al Planify"
+msgstr ""
 
 #: src/MainWindow.vala:783
 msgid "Oops! Something happened"
@@ -2707,7 +2679,7 @@ msgstr ""
 
 #: src/MainWindow.vala:802 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
-msgstr "Tasca enllestida"
+msgstr ""
 
 #: src/MainWindow.vala:803
 msgid "View"
@@ -2744,11 +2716,11 @@ msgstr ""
 
 #: src/Services/Backups.vala:548
 msgid "Planify will restart to apply the changes"
-msgstr "El Planify es reiniciarà per aplicar els canvis"
+msgstr ""
 
 #: src/Services/Backups.vala:551
 msgid "Restart Now"
-msgstr "Reinicia ara"
+msgstr ""
 
 #: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
@@ -2799,16 +2771,16 @@ msgstr[1] ""
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
-msgstr[0] "Això eliminarà %d tasca completada i les seves subtasques"
-msgstr[1] "Això eliminarà %d tasques completades i les seves subtasques"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
-msgstr "Cap etiqueta disponible. Crea'n una clicant el botó '+'"
+msgstr ""
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
-msgstr "Nota"
+msgstr ""
 
 #: src/Views/Project/Board.vala:273
 msgid "Schedule"
@@ -2832,7 +2804,7 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:376 src/Views/Project/Project.vala:408
 msgid "Project Deadline"
-msgstr "Termini del projecte"
+msgstr ""
 
 #: src/Views/Project/Project.vala:381
 msgid "Select"
@@ -2869,7 +2841,7 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:541
 msgid "Custom sort order"
-msgstr "Ordre personalitzat"
+msgstr ""
 
 #: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:229
 #: src/Views/Today.vala:632
@@ -2878,7 +2850,7 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:547
 msgid "Ascending Order"
-msgstr "Ordre ascendent"
+msgstr ""
 
 #: src/Views/Project/Project.vala:553
 msgid "Duedate"
@@ -2907,27 +2879,27 @@ msgstr ""
 #: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:237
 #: src/Views/Today.vala:640
 msgid "P1"
-msgstr "P1"
+msgstr ""
 
 #: src/Views/Project/Project.vala:574 src/Views/Scheduled/Scheduled.vala:243
 #: src/Views/Today.vala:646
 msgid "P2"
-msgstr "P2"
+msgstr ""
 
 #: src/Views/Project/Project.vala:580 src/Views/Scheduled/Scheduled.vala:249
 #: src/Views/Today.vala:652
 msgid "P3"
-msgstr "P3"
+msgstr ""
 
 #: src/Views/Project/Project.vala:586 src/Views/Scheduled/Scheduled.vala:255
 #: src/Views/Today.vala:658
 msgid "P4"
-msgstr "P4"
+msgstr ""
 
 #: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:262
 #: src/Views/Today.vala:665
 msgid "Filter by Labels"
-msgstr "Filtra per etiquetes"
+msgstr ""
 
 #: src/Views/Project/Project.vala:597
 msgid "Show Completed"
@@ -2939,11 +2911,11 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:604
 msgid "Search completed tasks"
-msgstr "Cerca tasques completades"
+msgstr ""
 
 #: src/Views/Project/Project.vala:631
 msgid "Sort By"
-msgstr "Ordena per"
+msgstr ""
 
 #: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:154
 msgid "Overdue"
@@ -2998,11 +2970,11 @@ msgstr ""
 
 #: src/Widgets/EditableTextView.vala:78 src/Widgets/EditableTextView.vala:145
 msgid "Show more"
-msgstr "Mostra més"
+msgstr ""
 
 #: src/Widgets/EditableTextView.vala:149
 msgid "Show less"
-msgstr "Mostra menys"
+msgstr ""
 
 #: src/Widgets/ErrorView.vala:107
 msgid "Report Issue"
@@ -3019,8 +2991,8 @@ msgstr[1] ""
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
-msgstr[0] "D'aquí %d hora"
-msgstr[1] "D'aquí %d hores"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/EventRow.vala:214
 msgid "Happening now"
@@ -3028,7 +3000,7 @@ msgstr ""
 
 #: src/Widgets/EventRow.vala:249
 msgid "Location"
-msgstr "Ubicació"
+msgstr ""
 
 #: src/Widgets/EventRow.vala:262
 msgid "Organizer"
@@ -3036,7 +3008,7 @@ msgstr ""
 
 #: src/Widgets/EventRow.vala:276
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 #: src/Widgets/EventRow.vala:381
 msgid "Join"
@@ -3044,11 +3016,11 @@ msgstr ""
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:31
 msgid "Disable SSL certificate validation"
-msgstr "Desactiva la validació del certificat SSL"
+msgstr ""
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:32
 msgid "Not recommended – exposes you to security risks"
-msgstr "No recomanat – t'exposa a riscs de seguretat"
+msgstr ""
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:46
 msgid ""
@@ -3066,11 +3038,11 @@ msgstr ""
 
 #: src/Widgets/ItemChangeHistoryRow.vala:61
 msgid "Task moved to"
-msgstr "Tasca moguda a"
+msgstr ""
 
 #: src/Widgets/ItemChangeHistoryRow.vala:87
 msgid "Previous"
-msgstr "Anterior"
+msgstr ""
 
 #: src/Widgets/ItemChangeHistoryRow.vala:192
 #: src/Widgets/ItemChangeHistoryRow.vala:193
@@ -3084,41 +3056,41 @@ msgstr ""
 
 #: src/Widgets/ItemDetailCompleted.vala:74
 msgid "Completed At"
-msgstr "Enllestida el"
+msgstr ""
 
 #: src/Widgets/MultiSelectToolbar.vala:66
 msgid "Move to Project"
-msgstr "Mou al projecte"
+msgstr ""
 
 #: src/Widgets/MultiSelectToolbar.vala:242
 msgid "Mark as Completed"
-msgstr "Marca com enllestida"
+msgstr ""
 
 #: src/Widgets/MultiSelectToolbar.vala:268
 msgid "Delete To-Do"
-msgstr "Esborra la tasca"
+msgstr ""
 
 #: src/Widgets/MultiSelectToolbar.vala:269
 msgid "Are you sure you want to delete this to-do?"
-msgstr "Segur que vols esborrar aquesta tasca?"
+msgstr ""
 
 #: src/Widgets/MultiSelectToolbar.vala:272
 #, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
-msgstr[0] "Elimina %d tasca"
-msgstr[1] "Elimina %d tasques"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/MultiSelectToolbar.vala:278
 #, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
-msgstr[0] "Segur que vols eliminar aquesta %d tasca?"
-msgstr[1] "Segur que vols eliminar aquestes %d tasques?"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
-msgstr "Nova versió disponible!"
+msgstr ""
 
 #: src/Widgets/NewVersionPopup.vala:66
 msgid ""
@@ -3128,7 +3100,7 @@ msgstr ""
 
 #: src/Widgets/NewVersionPopup.vala:73
 msgid "Update Now"
-msgstr "Actualitza ara"
+msgstr ""
 
 #: src/Widgets/NewVersionPopup.vala:89
 msgid "Dismiss"
@@ -3136,15 +3108,15 @@ msgstr ""
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
-msgstr "Desarxiva"
+msgstr ""
 
 #: src/Widgets/SubItems.vala:525
 msgid "No subtasks added yet. Get started!"
-msgstr "Encara no s'han afegit subtasques. Som-hi!"
+msgstr ""
 
 #: src/Widgets/SyncButton.vala:90
 msgid "Failed to connect to server"
-msgstr "No s'ha pogut connectar al servidor"
+msgstr ""
 
 #: src/Widgets/SyncButton.vala:90
 msgid ""
@@ -3162,26 +3134,25 @@ msgstr ""
 #: src/Widgets/TranslationRow.vala:129 src/Widgets/TranslationRow.vala:151
 #: src/Widgets/TranslationRow.vala:155
 msgid "Translations"
-msgstr "Traduccions"
+msgstr ""
 
 #: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
 #: src/Widgets/TranslationRow.vala:156
 msgid "Help make Planify available worldwide"
-msgstr "Ajuda a fer el Planify disponible per tot el món"
+msgstr ""
 
 #: src/Widgets/TranslationRow.vala:138
 msgid "Help improve translations"
-msgstr "Ajuda a millorar les traduccions"
+msgstr ""
 
 #: src/Widgets/TranslationRow.vala:145
 msgid "Start a new translation"
-msgstr "Comença una nova traducció"
+msgstr ""
 
 #: src/Widgets/TranslationRow.vala:146
 #, c-format
 msgid "<b>%s</b> is not available yet. Be the first to translate it!"
 msgstr ""
-"<b>%s</b> no es troba disponible encara. Sigues el primer en traduir-hi!"
 
 #: quick-add/MainWindow.vala:9
 msgid "Planify - Quick Add"
@@ -3195,32 +3166,32 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:16
 msgctxt "shortcut window"
 msgid "Create a New Task"
-msgstr "Crea una nova tasca"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:23
 msgctxt "shortcut window"
 msgid "Paste Plain Text to Create New Task"
-msgstr "Enganxa text sense format per crear una tasca nova"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:30
 msgctxt "shortcut window"
 msgid "Create a New Project"
-msgstr "Crea un projecte nou"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Create a New Section in a Project"
-msgstr "Crea una nova secció dins un projecte"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
 msgid "Search"
-msgstr "Cerca"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Open Quick Find"
-msgstr "Obre la cerca ràpida"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:57
 msgctxt "shortcut window"
@@ -3230,60 +3201,54 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:61
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Surt"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Open Preferences"
-msgstr "Obre les preferències"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:75
 msgctxt "shortcut window"
 msgid "Toggle Sidebar"
-msgstr "Mostra/amaga la barra lateral"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:82
 msgctxt "shortcut window"
 msgid "Open Keyboard Shortcuts"
-msgstr "Obre les dreceres de teclat"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:90
 msgctxt "shortcut window"
 msgid "Navigate"
-msgstr "Navega"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:94
 msgctxt "shortcut window"
 msgid "Open Homepage"
-msgstr "Obre la pàgina d'inici"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:101
 msgctxt "shortcut window"
 msgid "Open Inbox"
-msgstr "Obre la safata d'entrada"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:108
 msgctxt "shortcut window"
 msgid "Open Today"
-msgstr "Obre Avui"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:115
 msgctxt "shortcut window"
 msgid "Open Scheduled"
-msgstr "Obre Programades"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:122
 msgctxt "shortcut window"
 msgid "Open Labels"
-msgstr "Obre Etiquetes"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:129
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr ""
-
-#~ msgid "Todoist Sync"
-#~ msgstr "Sincronització amb Todoist"
-
-#~ msgid "Loading"
-#~ msgstr "Carregant"

@@ -36,12 +36,15 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         set {
             _duedate = value;
             if (_duedate.datetime != null) {
+                if (calendar_view == null) {
+                    build_page ("calendar");
+                }
                 calendar_view.date = _duedate.datetime;
             }
 
             check_items (_duedate);
 
-            if (Utils.Datetime.has_time (_duedate.datetime)) {
+            if (time_picker != null && Utils.Datetime.has_time (_duedate.datetime)) {
                 time_picker.time = _duedate.datetime;
                 time_picker.has_time = true;
             }
@@ -52,7 +55,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                 _duedate = new Objects.DueDate ();
             }
 
-            if (time_picker.has_time) {
+            if (time_picker != null && time_picker.has_time) {
                 if (_duedate.datetime == null) {
                     _duedate.datetime = time_picker.time;
                 } else {
@@ -613,13 +616,21 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     public void reset () {
-        time_picker.reset ();
+        if (time_picker != null) {
+            time_picker.reset ();
+        }
         visible_no_date = false;
-        calendar_view.reset ();
+        if (calendar_view != null) {
+            calendar_view.reset ();
+        }
         check_items (null);
     }
 
     private void check_items (Objects.DueDate ? duedate) {
+        if (today_item == null || tomorrow_item == null || next_week_item == null || date_item == null || repeat_item == null) {
+            return;
+        }
+
         today_item.selected = false;
         tomorrow_item.selected = false;
         next_week_item.selected = false;

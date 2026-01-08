@@ -124,7 +124,6 @@ src/Dialogs/CalendarSync.vala
 src/Dialogs/CompletedTasks.vala
 src/Dialogs/DatePicker.vala
 src/Dialogs/ErrorDialog.vala
-src/Dialogs/GoogleOAuth.vala
 src/Dialogs/ItemChangeHistory.vala
 src/Dialogs/Label.vala
 src/Dialogs/LabelPicker.vala
@@ -173,7 +172,6 @@ src/Services/ActionManager.vala
 src/Services/Api.vala
 src/Services/Backups.vala
 src/Services/DBusServer.vala
-src/Services/GoogleTasks.vala
 src/Services/MigrateFromPlanner.vala
 src/Services/Notification.vala
 src/Services/TimeMonitor.vala
