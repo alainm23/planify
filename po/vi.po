@@ -188,8 +188,8 @@ msgstr "đã hoàn thành"
 msgid "logbook"
 msgstr "nhật ký"
 
-#: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:262
-#: core/Utils/Util.vala:575
+#: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:258
+#: core/Utils/Util.vala:571
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:328
@@ -260,7 +260,7 @@ msgstr "sắp tới"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
-#: core/Utils/Util.vala:265 core/Widgets/Calendar/CalendarHeader.vala:82
+#: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:359
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:769
 #: src/Layouts/ItemRow.vala:1283 src/Views/Project/Project.vala:557
@@ -304,7 +304,7 @@ msgstr "chưa có nhãn"
 msgid "Task copied to clipboard"
 msgstr "Nhiệm vụ đã sao chép vào bộ nhớ tạm"
 
-#: core/Objects/Item.vala:1639 core/Utils/Util.vala:889
+#: core/Objects/Item.vala:1639 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, fuzzy, c-format
@@ -327,7 +327,7 @@ msgstr "Không thể hoàn tác"
 
 #: core/Objects/Label.vala:210 core/Objects/Project.vala:824
 #: core/Objects/Project.vala:881 core/Objects/Section.vala:380
-#: core/Objects/Section.vala:406 core/Utils/Util.vala:439
+#: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
@@ -776,37 +776,37 @@ msgstr "Tối"
 msgid "Dark Blue"
 msgstr "Tối Xanh Dương"
 
-#: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:410
+#: core/Utils/Util.vala:255 core/Widgets/DateTimePicker/DateTimePicker.vala:410
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 msgid "None"
 msgstr "Không"
 
-#: core/Utils/Util.vala:268
+#: core/Utils/Util.vala:264
 msgid "Today + Inbox"
 msgstr "Hôm Nay + Hộp Thư Đến"
 
-#: core/Utils/Util.vala:440
+#: core/Utils/Util.vala:436
 msgid "Delete All"
 msgstr "Xóa Tất Cả"
 
-#: core/Utils/Util.vala:454
+#: core/Utils/Util.vala:450
 msgid "Process completed, you need to start Planify again."
 msgstr "Quá trình hoàn thành, bạn cần khởi động lại Planify."
 
-#: core/Utils/Util.vala:456
+#: core/Utils/Util.vala:452
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 msgid "Ok"
 msgstr "Ok"
 
-#: core/Utils/Util.vala:566
+#: core/Utils/Util.vala:562
 msgid "On This Computer"
 msgstr "Trên Máy Tính Này"
 
-#: core/Utils/Util.vala:591
+#: core/Utils/Util.vala:587
 msgid "Meet Planify"
 msgstr "Gặp Planify"
 
-#: core/Utils/Util.vala:594
+#: core/Utils/Util.vala:590
 msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around with it – you can always recreate it "
@@ -815,21 +815,21 @@ msgstr ""
 "Dự án này cho bạn thấy mọi thứ bạn cần biết để bắt đầu. Đừng ngần ngại thử "
 "nghiệm – bạn luôn có thể tạo lại từ Tùy Chỉnh."
 
-#: core/Utils/Util.vala:601
+#: core/Utils/Util.vala:597
 msgid "Tap this task"
 msgstr "Nhấn nhiệm vụ này"
 
-#: core/Utils/Util.vala:602
+#: core/Utils/Util.vala:598
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
 "Bạn đang xem một nhiệm vụ! Hoàn thành bằng cách nhấn hộp kiểm bên trái. "
 
-#: core/Utils/Util.vala:607
+#: core/Utils/Util.vala:603
 msgid "Create a new task"
 msgstr "Tạo nhiệm vụ mới"
 
-#: core/Utils/Util.vala:608
+#: core/Utils/Util.vala:604
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
@@ -837,31 +837,31 @@ msgstr ""
 "Bây giờ đến lượt bạn! Nhấn nút '+' ở dưới dự án, nhập mô tả nhiệm vụ, và "
 "nhấn 'Thêm Nhiệm Vụ'."
 
-#: core/Utils/Util.vala:613
+#: core/Utils/Util.vala:609
 msgid "Plan this to-do for today or later"
 msgstr "Lập kế hoạch nhiệm vụ này cho hôm nay hoặc sau"
 
-#: core/Utils/Util.vala:614
+#: core/Utils/Util.vala:610
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr "Nhấn nút lịch ở dưới để quyết định khi nào hoàn thành nhiệm vụ này."
 
-#: core/Utils/Util.vala:619
+#: core/Utils/Util.vala:615
 msgid "Reorder your to-dos"
 msgstr "Sắp xếp lại nhiệm vụ"
 
-#: core/Utils/Util.vala:620
+#: core/Utils/Util.vala:616
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
 msgstr ""
 "Để sắp xếp lại danh sách, nhấn và giữ nhiệm vụ, sau đó kéo đến vị trí cần."
 
-#: core/Utils/Util.vala:625
+#: core/Utils/Util.vala:621
 msgid "Create a project"
 msgstr "Tạo dự án"
 
-#: core/Utils/Util.vala:626
+#: core/Utils/Util.vala:622
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
@@ -869,11 +869,11 @@ msgstr ""
 "Tổ chức nhiệm vụ tốt hơn! Đi đến bảng bên trái và nhấn nút '+' trong phần "
 "'Trên Máy Tính Này' và thêm dự án của bạn."
 
-#: core/Utils/Util.vala:631
+#: core/Utils/Util.vala:627
 msgid "You’re done!"
 msgstr "Bạn đã xong!"
 
-#: core/Utils/Util.vala:632
+#: core/Utils/Util.vala:628
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -886,15 +886,15 @@ msgstr ""
 "Bạn có thể quay lại dự án này sau để học các tính năng nâng cao bên dưới.\n"
 "Chúng tôi hy vọng bạn thích sử dụng Planify!"
 
-#: core/Utils/Util.vala:646
+#: core/Utils/Util.vala:642
 msgid "Tune your setup"
 msgstr "Điều chỉnh thiết lập"
 
-#: core/Utils/Util.vala:654
+#: core/Utils/Util.vala:650
 msgid "Show your calendar events"
 msgstr "Hiển thị sự kiện lịch"
 
-#: core/Utils/Util.vala:655
+#: core/Utils/Util.vala:651
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
@@ -902,11 +902,11 @@ msgstr ""
 "Bạn có thể hiển thị sự kiện lịch hệ thống trong Planify. Đi đến 'Tùy Chỉnh' "
 "🡒 Tổng Quan 🡒 Sự Kiện Lịch để bật."
 
-#: core/Utils/Util.vala:661
+#: core/Utils/Util.vala:657
 msgid "Enable synchronization with third-party services"
 msgstr "Bật đồng bộ với dịch vụ bên thứ ba"
 
-#: core/Utils/Util.vala:662
+#: core/Utils/Util.vala:658
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
@@ -914,15 +914,15 @@ msgstr ""
 "Planify không chỉ tạo nhiệm vụ cục bộ, mà còn có thể đồng bộ với tài khoản "
 "Todoist. Đi đến 'Tùy Chỉnh' 🡒 'Tài Khoản'."
 
-#: core/Utils/Util.vala:670
+#: core/Utils/Util.vala:666
 msgid "Boost your productivity"
 msgstr "Tăng năng suất"
 
-#: core/Utils/Util.vala:678
+#: core/Utils/Util.vala:674
 msgid "Drag the plus button!"
 msgstr "Kéo nút cộng!"
 
-#: core/Utils/Util.vala:679
+#: core/Utils/Util.vala:675
 msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
@@ -930,22 +930,22 @@ msgstr ""
 "Nút xanh ở dưới mỗi màn hình mạnh mẽ hơn vẻ ngoài: nó được thiết kế để di "
 "chuyển! Kéo lên để tạo nhiệm vụ bất cứ đâu."
 
-#: core/Utils/Util.vala:685
+#: core/Utils/Util.vala:681
 msgid "Add labels to your tasks!"
 msgstr "Thêm nhãn cho nhiệm vụ!"
 
-#: core/Utils/Util.vala:686
+#: core/Utils/Util.vala:682
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
 "Nhãn giúp tổ chức và phân loại nhiệm vụ. Để thêm nhãn, nhấn nút nhãn ở dưới."
 
-#: core/Utils/Util.vala:692
+#: core/Utils/Util.vala:688
 msgid "Set timely reminders!"
 msgstr "Đặt lời nhắc kịp thời!"
 
-#: core/Utils/Util.vala:693
+#: core/Utils/Util.vala:689
 msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
 "add a reminder."
@@ -953,63 +953,63 @@ msgstr ""
 "Nhận thông báo về nhiệm vụ hoặc sự kiện quan trọng. Nhấn nút chuông ở dưới "
 "để thêm lời nhắc."
 
-#: core/Utils/Util.vala:704
+#: core/Utils/Util.vala:700
 msgid "💼️Work"
 msgstr "💼️Công Việc"
 
-#: core/Utils/Util.vala:710
+#: core/Utils/Util.vala:706
 msgid "🎒️School"
 msgstr "🎒️Trường Học"
 
-#: core/Utils/Util.vala:716
+#: core/Utils/Util.vala:712
 msgid "👉️Delegated"
 msgstr "👉️Giao Phó"
 
-#: core/Utils/Util.vala:722
+#: core/Utils/Util.vala:718
 msgid "🏡️Home"
 msgstr "🏡️Nhà"
 
-#: core/Utils/Util.vala:728
+#: core/Utils/Util.vala:724
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️Theo Dõi"
 
-#: core/Utils/Util.vala:969
+#: core/Utils/Util.vala:965
 msgid "Task duplicated"
 msgstr "Nhiệm vụ đã nhân bản"
 
-#: core/Utils/Util.vala:1005
+#: core/Utils/Util.vala:1001
 msgid "Section duplicated"
 msgstr "Phần đã nhân bản"
 
-#: core/Utils/Util.vala:1031 core/Utils/Util.vala:1057
+#: core/Utils/Util.vala:1027 core/Utils/Util.vala:1053
 msgid "Project duplicated"
 msgstr "Dự án đã nhân bản"
 
-#: core/Utils/Util.vala:1099 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1095 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
 msgstr "Vào thời gian đến hạn"
 
-#: core/Utils/Util.vala:1102 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1098 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
 msgstr "10 phút trước"
 
-#: core/Utils/Util.vala:1105 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1101 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
 msgstr "30 phút trước"
 
-#: core/Utils/Util.vala:1108 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1104 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
 msgstr "45 phút trước"
 
-#: core/Utils/Util.vala:1111 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1107 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
 msgstr "1 giờ trước"
 
-#: core/Utils/Util.vala:1114 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
+#: core/Utils/Util.vala:1110 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
 msgstr "2 giờ trước"
 
-#: core/Utils/Util.vala:1117 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
+#: core/Utils/Util.vala:1113 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
 msgstr "3 giờ trước"
 
@@ -3195,25 +3195,25 @@ msgstr ""
 msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
 msgstr "<b>%s</b> đã hoàn thành %.0f%%. Bạn có thể giúp hoàn thành nó!"
 
-#: src/Widgets/TranslationRow.vala:129 src/Widgets/TranslationRow.vala:151
-#: src/Widgets/TranslationRow.vala:155
+#: src/Widgets/TranslationRow.vala:121 src/Widgets/TranslationRow.vala:142
+#: src/Widgets/TranslationRow.vala:146
 msgid "Translations"
 msgstr "Bản Dịch"
 
-#: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
-#: src/Widgets/TranslationRow.vala:156
+#: src/Widgets/TranslationRow.vala:122 src/Widgets/TranslationRow.vala:143
+#: src/Widgets/TranslationRow.vala:147
 msgid "Help make Planify available worldwide"
 msgstr "Giúp Planify có mặt trên toàn thế giới"
 
-#: src/Widgets/TranslationRow.vala:138
+#: src/Widgets/TranslationRow.vala:129
 msgid "Help improve translations"
 msgstr "Giúp cải thiện bản dịch"
 
-#: src/Widgets/TranslationRow.vala:145
+#: src/Widgets/TranslationRow.vala:136
 msgid "Start a new translation"
 msgstr "Bắt đầu một bản dịch mới"
 
-#: src/Widgets/TranslationRow.vala:146
+#: src/Widgets/TranslationRow.vala:137
 #, c-format
 msgid "<b>%s</b> is not available yet. Be the first to translate it!"
 msgstr "<b>%s</b> chưa có. Hãy là người đầu tiên dịch nó!"

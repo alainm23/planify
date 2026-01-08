@@ -188,8 +188,8 @@ msgstr "已經完成"
 msgid "logbook"
 msgstr "記錄載冊"
 
-#: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:262
-#: core/Utils/Util.vala:575
+#: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:258
+#: core/Utils/Util.vala:571
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:328
@@ -260,7 +260,7 @@ msgstr "即將來到"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
-#: core/Utils/Util.vala:265 core/Widgets/Calendar/CalendarHeader.vala:82
+#: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:359
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:769
 #: src/Layouts/ItemRow.vala:1283 src/Views/Project/Project.vala:557
@@ -304,7 +304,7 @@ msgstr "尚無標籤"
 msgid "Task copied to clipboard"
 msgstr "任務已經複製至剪貼簿"
 
-#: core/Objects/Item.vala:1639 core/Utils/Util.vala:889
+#: core/Objects/Item.vala:1639 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, c-format
@@ -327,7 +327,7 @@ msgstr "此項無法取消動作"
 
 #: core/Objects/Label.vala:210 core/Objects/Project.vala:824
 #: core/Objects/Project.vala:881 core/Objects/Section.vala:380
-#: core/Objects/Section.vala:406 core/Utils/Util.vala:439
+#: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
@@ -774,37 +774,37 @@ msgstr "暗"
 msgid "Dark Blue"
 msgstr "暗藍"
 
-#: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:410
+#: core/Utils/Util.vala:255 core/Widgets/DateTimePicker/DateTimePicker.vala:410
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 msgid "None"
 msgstr "無"
 
-#: core/Utils/Util.vala:268
+#: core/Utils/Util.vala:264
 msgid "Today + Inbox"
 msgstr "今日 + 收件箱"
 
-#: core/Utils/Util.vala:440
+#: core/Utils/Util.vala:436
 msgid "Delete All"
 msgstr "刪除全部"
 
-#: core/Utils/Util.vala:454
+#: core/Utils/Util.vala:450
 msgid "Process completed, you need to start Planify again."
 msgstr "處理已經完成，必須再次啟動 Planify。"
 
-#: core/Utils/Util.vala:456
+#: core/Utils/Util.vala:452
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 msgid "Ok"
 msgstr "OK"
 
-#: core/Utils/Util.vala:566
+#: core/Utils/Util.vala:562
 msgid "On This Computer"
 msgstr "在此台電腦"
 
-#: core/Utils/Util.vala:591
+#: core/Utils/Util.vala:587
 msgid "Meet Planify"
 msgstr "認識 Planify"
 
-#: core/Utils/Util.vala:594
+#: core/Utils/Util.vala:590
 msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around with it – you can always recreate it "
@@ -813,20 +813,20 @@ msgstr ""
 "此項專案展示了入門操作所需瞭解的一切。請不必猶豫盡情玩用 - 隨時都可以從〔偏好"
 "設定〕中重新建立。"
 
-#: core/Utils/Util.vala:601
+#: core/Utils/Util.vala:597
 msgid "Tap this task"
 msgstr "點按此任務"
 
-#: core/Utils/Util.vala:602
+#: core/Utils/Util.vala:598
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr "您正在查看待辦事項！點按左側勾選框用來完成它。 "
 
-#: core/Utils/Util.vala:607
+#: core/Utils/Util.vala:603
 msgid "Create a new task"
 msgstr "建立新的任務"
 
-#: core/Utils/Util.vala:608
+#: core/Utils/Util.vala:604
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
@@ -834,30 +834,30 @@ msgstr ""
 "現在輪到您啦！在您的專案底部點按 '＋' 按鈕、輸入任務描述，並點按 〔添加任"
 "務〕 。"
 
-#: core/Utils/Util.vala:613
+#: core/Utils/Util.vala:609
 msgid "Plan this to-do for today or later"
 msgstr "計畫待辦事項用於今日或稍後"
 
-#: core/Utils/Util.vala:614
+#: core/Utils/Util.vala:610
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr "點按底部的行事曆按鈕，來決定何時要完成此待辦事項。"
 
-#: core/Utils/Util.vala:619
+#: core/Utils/Util.vala:615
 msgid "Reorder your to-dos"
 msgstr "重新排列您的待辦事項"
 
-#: core/Utils/Util.vala:620
+#: core/Utils/Util.vala:616
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
 msgstr "要重新排序您的清單，請點按住待辦事項，然後將其拖放到其應該去之處。"
 
-#: core/Utils/Util.vala:625
+#: core/Utils/Util.vala:621
 msgid "Create a project"
 msgstr "建立專案"
 
-#: core/Utils/Util.vala:626
+#: core/Utils/Util.vala:622
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
@@ -865,11 +865,11 @@ msgstr ""
 "組織待辦事項更加好用！前往左側面板，點按〔在此台電腦〕階段中的 '＋' 按鈕，然"
 "後添加您自己的專案計畫。"
 
-#: core/Utils/Util.vala:631
+#: core/Utils/Util.vala:627
 msgid "You’re done!"
 msgstr "您完成了！"
 
-#: core/Utils/Util.vala:632
+#: core/Utils/Util.vala:628
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -881,15 +881,15 @@ msgstr ""
 "您可以稍後再返回到這個專案內容，來學習以下的進階功能。\n"
 "我們希望您會樂於運用 Planify！"
 
-#: core/Utils/Util.vala:646
+#: core/Utils/Util.vala:642
 msgid "Tune your setup"
 msgstr "調整自己的設定"
 
-#: core/Utils/Util.vala:654
+#: core/Utils/Util.vala:650
 msgid "Show your calendar events"
 msgstr "顯示您的行事曆事件"
 
-#: core/Utils/Util.vala:655
+#: core/Utils/Util.vala:651
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
@@ -897,11 +897,11 @@ msgstr ""
 "您可以在 Planify 中顯示系統的行事曆事件。前往 〔偏好設定 🡒 通則 🡒 行事曆事"
 "件〕 將其開用。"
 
-#: core/Utils/Util.vala:661
+#: core/Utils/Util.vala:657
 msgid "Enable synchronization with third-party services"
 msgstr "啟用同步，使用第三方服務"
 
-#: core/Utils/Util.vala:662
+#: core/Utils/Util.vala:658
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
@@ -909,15 +909,15 @@ msgstr ""
 "Planify 不僅可以在本地建立任務，還可以與您的 Todoist 帳戶同步。前往〔偏好設"
 "定 🡒 帳戶〕。"
 
-#: core/Utils/Util.vala:670
+#: core/Utils/Util.vala:666
 msgid "Boost your productivity"
 msgstr "躍昇您的生產力"
 
-#: core/Utils/Util.vala:678
+#: core/Utils/Util.vala:674
 msgid "Drag the plus button!"
 msgstr "拖放加號按鈕！"
 
-#: core/Utils/Util.vala:679
+#: core/Utils/Util.vala:675
 msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
@@ -925,83 +925,83 @@ msgstr ""
 "在每個螢幕底部，您所見到的藍色按鈕，比看起來更加厲害：它是用來移動的！ 將它拖"
 "放向上，即可在任何想要的位置上建立出任務。"
 
-#: core/Utils/Util.vala:685
+#: core/Utils/Util.vala:681
 msgid "Add labels to your tasks!"
 msgstr "添加標籤至您的任務！"
 
-#: core/Utils/Util.vala:686
+#: core/Utils/Util.vala:682
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr "標籤可以幫助您對任務加以組織和分類。要添加標籤，請點按底部的標籤按鈕。"
 
-#: core/Utils/Util.vala:692
+#: core/Utils/Util.vala:688
 msgid "Set timely reminders!"
 msgstr "設定及時提醒！"
 
-#: core/Utils/Util.vala:693
+#: core/Utils/Util.vala:689
 msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
 "add a reminder."
 msgstr "取得有關重要任務或事件的通知。點按下方的鈴鐺按鈕以添加提醒。"
 
-#: core/Utils/Util.vala:704
+#: core/Utils/Util.vala:700
 msgid "💼️Work"
 msgstr "💼️工作"
 
-#: core/Utils/Util.vala:710
+#: core/Utils/Util.vala:706
 msgid "🎒️School"
 msgstr "🎒️學校"
 
-#: core/Utils/Util.vala:716
+#: core/Utils/Util.vala:712
 msgid "👉️Delegated"
 msgstr "👉指派"
 
-#: core/Utils/Util.vala:722
+#: core/Utils/Util.vala:718
 msgid "🏡️Home"
 msgstr "🏡️家務"
 
-#: core/Utils/Util.vala:728
+#: core/Utils/Util.vala:724
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️跟進"
 
-#: core/Utils/Util.vala:969
+#: core/Utils/Util.vala:965
 msgid "Task duplicated"
 msgstr "任務已經製作複本"
 
-#: core/Utils/Util.vala:1005
+#: core/Utils/Util.vala:1001
 msgid "Section duplicated"
 msgstr "階段已經製作複本"
 
-#: core/Utils/Util.vala:1031 core/Utils/Util.vala:1057
+#: core/Utils/Util.vala:1027 core/Utils/Util.vala:1053
 msgid "Project duplicated"
 msgstr "專案已經製作複本"
 
-#: core/Utils/Util.vala:1099 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1095 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
 msgstr "處於到期"
 
-#: core/Utils/Util.vala:1102 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1098 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
 msgstr "10 分鐘之前"
 
-#: core/Utils/Util.vala:1105 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1101 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
 msgstr "30 分鐘之前"
 
-#: core/Utils/Util.vala:1108 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1104 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
 msgstr "45 分鐘之前"
 
-#: core/Utils/Util.vala:1111 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1107 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
 msgstr "1 小時之前"
 
-#: core/Utils/Util.vala:1114 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
+#: core/Utils/Util.vala:1110 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
 msgstr "2 小時之前"
 
-#: core/Utils/Util.vala:1117 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
+#: core/Utils/Util.vala:1113 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
 msgstr "3 小時之前"
 
@@ -3162,25 +3162,25 @@ msgstr ""
 msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
 msgstr "<b>%s</b> 是 %.0f%% 完成度。您可以幫忙搞定它！"
 
-#: src/Widgets/TranslationRow.vala:129 src/Widgets/TranslationRow.vala:151
-#: src/Widgets/TranslationRow.vala:155
+#: src/Widgets/TranslationRow.vala:121 src/Widgets/TranslationRow.vala:142
+#: src/Widgets/TranslationRow.vala:146
 msgid "Translations"
 msgstr "翻譯"
 
-#: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
-#: src/Widgets/TranslationRow.vala:156
+#: src/Widgets/TranslationRow.vala:122 src/Widgets/TranslationRow.vala:143
+#: src/Widgets/TranslationRow.vala:147
 msgid "Help make Planify available worldwide"
 msgstr "協助 Planify 通行全球世界"
 
-#: src/Widgets/TranslationRow.vala:138
+#: src/Widgets/TranslationRow.vala:129
 msgid "Help improve translations"
 msgstr "協助改進翻譯"
 
-#: src/Widgets/TranslationRow.vala:145
+#: src/Widgets/TranslationRow.vala:136
 msgid "Start a new translation"
 msgstr "開始新建翻譯"
 
-#: src/Widgets/TranslationRow.vala:146
+#: src/Widgets/TranslationRow.vala:137
 #, c-format
 msgid "<b>%s</b> is not available yet. Be the first to translate it!"
 msgstr "<b>%s</b> 尚未可用。成為第一個進行翻譯的人！"
