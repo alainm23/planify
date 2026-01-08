@@ -203,7 +203,8 @@ msgstr "журнал"
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:328
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:196
-#: src/Widgets/ProjectItemRow.vala:139
+#: src/Widgets/ProjectItemRow.vala:139 core/Utils/Util.vala:258
+#: core/Utils/Util.vala:571
 msgid "Inbox"
 msgstr "Входящи"
 
@@ -276,7 +277,7 @@ msgstr "предстоящи"
 #: src/Layouts/ItemRow.vala:1282 src/Views/Project/Project.vala:557
 #: src/Views/Project/Project.vala:723 src/Views/Today.vala:202
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:359
-#: src/Layouts/ItemRow.vala:1283
+#: src/Layouts/ItemRow.vala:1283 core/Utils/Util.vala:261
 msgid "Today"
 msgstr "Днес"
 
@@ -323,6 +324,7 @@ msgstr "Задачата е копирана в буфера за обмен"
 #: core/Objects/Item.vala:1633 core/Utils/Util.vala:889
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379 core/Objects/Item.vala:1639
+#: core/Utils/Util.vala:885
 #, fuzzy, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
@@ -357,7 +359,7 @@ msgstr "Това не може да бъде върнато"
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:287
+#: src/Widgets/MultiSelectToolbar.vala:287 core/Utils/Util.vala:435
 msgid "Cancel"
 msgstr "Отказване"
 
@@ -813,36 +815,37 @@ msgstr "Тъмно синьо"
 
 #: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:407
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:410
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:410 core/Utils/Util.vala:255
 msgid "None"
 msgstr "Без"
 
-#: core/Utils/Util.vala:268
+#: core/Utils/Util.vala:268 core/Utils/Util.vala:264
 msgid "Today + Inbox"
 msgstr "Днес + Входящи"
 
-#: core/Utils/Util.vala:440
+#: core/Utils/Util.vala:440 core/Utils/Util.vala:436
 msgid "Delete All"
 msgstr "Изтриване на всички файлове"
 
-#: core/Utils/Util.vala:454
+#: core/Utils/Util.vala:454 core/Utils/Util.vala:450
 msgid "Process completed, you need to start Planify again."
 msgstr "Процесът е завършен, трябва да стартирате „Planify“ наново."
 
 #: core/Utils/Util.vala:456
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
+#: core/Utils/Util.vala:452
 msgid "Ok"
 msgstr "Добре"
 
-#: core/Utils/Util.vala:566
+#: core/Utils/Util.vala:566 core/Utils/Util.vala:562
 msgid "On This Computer"
 msgstr "На този компютър"
 
-#: core/Utils/Util.vala:591
+#: core/Utils/Util.vala:591 core/Utils/Util.vala:587
 msgid "Meet Planify"
 msgstr "Запознайте се с „Planify“"
 
-#: core/Utils/Util.vala:594
+#: core/Utils/Util.vala:594 core/Utils/Util.vala:590
 #, fuzzy
 msgid ""
 "This project shows you everything you need to know to hit the ground "
@@ -853,24 +856,24 @@ msgstr ""
 "работа. Не се колебайте да си поиграете с него - винаги може да създадете "
 "нов проект от настройките."
 
-#: core/Utils/Util.vala:601
+#: core/Utils/Util.vala:601 core/Utils/Util.vala:597
 #, fuzzy
 msgid "Tap this task"
 msgstr "Натиснете тази задача"
 
-#: core/Utils/Util.vala:602
+#: core/Utils/Util.vala:602 core/Utils/Util.vala:598
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
 "Гледате към една задача! Завършете я, като натиснете полето за избор вляво. "
 "Завършените задачи се събират най-отдоло на вашия проект. "
 
-#: core/Utils/Util.vala:607
+#: core/Utils/Util.vala:607 core/Utils/Util.vala:603
 #, fuzzy
 msgid "Create a new task"
 msgstr "Създаване на нова задача"
 
-#: core/Utils/Util.vala:608
+#: core/Utils/Util.vala:608 core/Utils/Util.vala:604
 #, fuzzy
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
@@ -879,12 +882,12 @@ msgstr ""
 "Сега е ваш ред, натиснете бутона „+“ в долната част на проекта, въведете "
 "всички неизпълнени и докоснете синия бутон „Запазване“."
 
-#: core/Utils/Util.vala:613
+#: core/Utils/Util.vala:613 core/Utils/Util.vala:609
 #, fuzzy
 msgid "Plan this to-do for today or later"
 msgstr "Планирайте тази задача до днес или по-късно"
 
-#: core/Utils/Util.vala:614
+#: core/Utils/Util.vala:614 core/Utils/Util.vala:610
 #, fuzzy
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
@@ -892,12 +895,12 @@ msgstr ""
 "Натиснете бутона на календара в долната част, за да решите кога да направите "
 "тази задача."
 
-#: core/Utils/Util.vala:619
+#: core/Utils/Util.vala:619 core/Utils/Util.vala:615
 #, fuzzy
 msgid "Reorder your to-dos"
 msgstr "Пренаредете вашите задачи"
 
-#: core/Utils/Util.vala:620
+#: core/Utils/Util.vala:620 core/Utils/Util.vala:616
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
@@ -905,11 +908,11 @@ msgstr ""
 "За да пренаредите списъка, натиснете и задръжте дадена задача, след което я "
 "изтеглете до мястото, където трябва да бъде."
 
-#: core/Utils/Util.vala:625
+#: core/Utils/Util.vala:625 core/Utils/Util.vala:621
 msgid "Create a project"
 msgstr "Създайте проект"
 
-#: core/Utils/Util.vala:626
+#: core/Utils/Util.vala:626 core/Utils/Util.vala:622
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
@@ -917,11 +920,11 @@ msgstr ""
 "Организирайте задачите си по-добре! Отидете в левия панел, натиснете бутона "
 "„+“ в раздела „На този компютър“ и добавете свой проект."
 
-#: core/Utils/Util.vala:631
+#: core/Utils/Util.vala:631 core/Utils/Util.vala:627
 msgid "You’re done!"
 msgstr "Готови сте!"
 
-#: core/Utils/Util.vala:632
+#: core/Utils/Util.vala:632 core/Utils/Util.vala:628
 #, fuzzy
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
@@ -938,15 +941,15 @@ msgstr ""
 "\n"
 "Надяваме се, че ще ви хареса да използвате „Planify“!"
 
-#: core/Utils/Util.vala:646
+#: core/Utils/Util.vala:646 core/Utils/Util.vala:642
 msgid "Tune your setup"
 msgstr "Персонализирайте по свой вкус"
 
-#: core/Utils/Util.vala:654
+#: core/Utils/Util.vala:654 core/Utils/Util.vala:650
 msgid "Show your calendar events"
 msgstr "Покажете събитията от календара си"
 
-#: core/Utils/Util.vala:655
+#: core/Utils/Util.vala:655 core/Utils/Util.vala:651
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
@@ -954,12 +957,12 @@ msgstr ""
 "Може да показвате събитията от календара на системата си в „Planify“. "
 "Отидете в „Настройки“ 🡒 „Календарни събития“, за да го включите."
 
-#: core/Utils/Util.vala:661
+#: core/Utils/Util.vala:661 core/Utils/Util.vala:657
 #, fuzzy
 msgid "Enable synchronization with third-party services"
 msgstr "Активирайте синхронизацията с услуга на трето лице."
 
-#: core/Utils/Util.vala:662
+#: core/Utils/Util.vala:662 core/Utils/Util.vala:658
 #, fuzzy
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
@@ -968,15 +971,15 @@ msgstr ""
 "„Planify“ не само създава задачи локално, но и може да синхронизира профила "
 "ви в „Todoist“. Отидете в „Настройки“ 🡒 „Профили“."
 
-#: core/Utils/Util.vala:670
+#: core/Utils/Util.vala:670 core/Utils/Util.vala:666
 msgid "Boost your productivity"
 msgstr "Увеличете производителността си"
 
-#: core/Utils/Util.vala:678
+#: core/Utils/Util.vala:678 core/Utils/Util.vala:674
 msgid "Drag the plus button!"
 msgstr "Изтеглете „плюс“ бутона!"
 
-#: core/Utils/Util.vala:679
+#: core/Utils/Util.vala:679 core/Utils/Util.vala:675
 msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
@@ -985,11 +988,11 @@ msgstr ""
 "отколкото изглежда: той е създаден да се движи! Изтеглете го нагоре, за да "
 "създадете задача, където пожелаете."
 
-#: core/Utils/Util.vala:685
+#: core/Utils/Util.vala:685 core/Utils/Util.vala:681
 msgid "Add labels to your tasks!"
 msgstr ""
 
-#: core/Utils/Util.vala:686
+#: core/Utils/Util.vala:686 core/Utils/Util.vala:682
 #, fuzzy
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
@@ -998,11 +1001,11 @@ msgstr ""
 "Етикетите ви позволяват да подобрите работния си процес в „Planify“. За да "
 "добавите етикет, натиснете върху бутона за етикет в долната част."
 
-#: core/Utils/Util.vala:692
+#: core/Utils/Util.vala:692 core/Utils/Util.vala:688
 msgid "Set timely reminders!"
 msgstr "Задавайте напомняния!"
 
-#: core/Utils/Util.vala:693
+#: core/Utils/Util.vala:693 core/Utils/Util.vala:689
 #, fuzzy
 msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
@@ -1012,63 +1015,71 @@ msgstr ""
 "събитие или нещо специално. Натиснете звънец бутона по-долу, за да добавите "
 "напомняне."
 
-#: core/Utils/Util.vala:704
+#: core/Utils/Util.vala:704 core/Utils/Util.vala:700
 msgid "💼️Work"
 msgstr "💼️Работа"
 
-#: core/Utils/Util.vala:710
+#: core/Utils/Util.vala:710 core/Utils/Util.vala:706
 msgid "🎒️School"
 msgstr "🎒️Училище"
 
-#: core/Utils/Util.vala:716
+#: core/Utils/Util.vala:716 core/Utils/Util.vala:712
 msgid "👉️Delegated"
 msgstr "👉️Делегирано"
 
-#: core/Utils/Util.vala:722
+#: core/Utils/Util.vala:722 core/Utils/Util.vala:718
 msgid "🏡️Home"
 msgstr "🏡️Вкъщи"
 
-#: core/Utils/Util.vala:728
+#: core/Utils/Util.vala:728 core/Utils/Util.vala:724
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️Следващо"
 
-#: core/Utils/Util.vala:969
+#: core/Utils/Util.vala:969 core/Utils/Util.vala:965
 msgid "Task duplicated"
 msgstr "Задачата е дублирана"
 
-#: core/Utils/Util.vala:1005
+#: core/Utils/Util.vala:1005 core/Utils/Util.vala:1001
 msgid "Section duplicated"
 msgstr "Име на раздела"
 
 #: core/Utils/Util.vala:1031 core/Utils/Util.vala:1057
+#: core/Utils/Util.vala:1027 core/Utils/Util.vala:1053
 msgid "Project duplicated"
 msgstr "Действия по проекта"
 
 #: core/Utils/Util.vala:1099 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1095
 msgid "At due time"
 msgstr "Навреме"
 
 #: core/Utils/Util.vala:1102 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1098
 msgid "10 minutes before"
 msgstr "10 минути преди крайния срок"
 
 #: core/Utils/Util.vala:1105 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1101
 msgid "30 minutes before"
 msgstr "30 минути преди крайния срок"
 
 #: core/Utils/Util.vala:1108 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1104
 msgid "45 minutes before"
 msgstr "45 минути преди крайния срок"
 
 #: core/Utils/Util.vala:1111 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1107
 msgid "1 hour before"
 msgstr "1 час преди крайния срок"
 
 #: core/Utils/Util.vala:1114 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
+#: core/Utils/Util.vala:1110
 msgid "2 hours before"
 msgstr "2 часа преди крайния срок"
 
 #: core/Utils/Util.vala:1117 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
+#: core/Utils/Util.vala:1113
 msgid "3 hours before"
 msgstr "3 часа преди крайния срок"
 
@@ -3355,24 +3366,26 @@ msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
 msgstr ""
 
 #: src/Widgets/TranslationRow.vala:129 src/Widgets/TranslationRow.vala:151
-#: src/Widgets/TranslationRow.vala:155
+#: src/Widgets/TranslationRow.vala:155 src/Widgets/TranslationRow.vala:121
+#: src/Widgets/TranslationRow.vala:142 src/Widgets/TranslationRow.vala:146
 msgid "Translations"
 msgstr ""
 
 #: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
-#: src/Widgets/TranslationRow.vala:156
+#: src/Widgets/TranslationRow.vala:156 src/Widgets/TranslationRow.vala:122
+#: src/Widgets/TranslationRow.vala:143 src/Widgets/TranslationRow.vala:147
 msgid "Help make Planify available worldwide"
 msgstr ""
 
-#: src/Widgets/TranslationRow.vala:138
+#: src/Widgets/TranslationRow.vala:138 src/Widgets/TranslationRow.vala:129
 msgid "Help improve translations"
 msgstr ""
 
-#: src/Widgets/TranslationRow.vala:145
+#: src/Widgets/TranslationRow.vala:145 src/Widgets/TranslationRow.vala:136
 msgid "Start a new translation"
 msgstr ""
 
-#: src/Widgets/TranslationRow.vala:146
+#: src/Widgets/TranslationRow.vala:146 src/Widgets/TranslationRow.vala:137
 #, c-format
 msgid "<b>%s</b> is not available yet. Be the first to translate it!"
 msgstr ""

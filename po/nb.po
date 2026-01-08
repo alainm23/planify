@@ -202,7 +202,8 @@ msgstr "loggbok"
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:328
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:196
-#: src/Widgets/ProjectItemRow.vala:139
+#: src/Widgets/ProjectItemRow.vala:139 core/Utils/Util.vala:258
+#: core/Utils/Util.vala:571
 msgid "Inbox"
 msgstr "Innboks"
 
@@ -274,7 +275,7 @@ msgstr "kommende"
 #: src/Layouts/ItemRow.vala:1282 src/Views/Project/Project.vala:557
 #: src/Views/Project/Project.vala:723 src/Views/Today.vala:202
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:359
-#: src/Layouts/ItemRow.vala:1283
+#: src/Layouts/ItemRow.vala:1283 core/Utils/Util.vala:261
 msgid "Today"
 msgstr "I dag"
 
@@ -319,6 +320,7 @@ msgstr "Oppgave kopiert til utklippstavlen"
 #: core/Objects/Item.vala:1633 core/Utils/Util.vala:889
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379 core/Objects/Item.vala:1639
+#: core/Utils/Util.vala:885
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
@@ -352,7 +354,7 @@ msgstr "Dette kan ikke angres"
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:287
+#: src/Widgets/MultiSelectToolbar.vala:287 core/Utils/Util.vala:435
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -794,36 +796,37 @@ msgstr "Mørkeblå"
 
 #: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:407
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:410
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:410 core/Utils/Util.vala:255
 msgid "None"
 msgstr "Ingen"
 
-#: core/Utils/Util.vala:268
+#: core/Utils/Util.vala:268 core/Utils/Util.vala:264
 msgid "Today + Inbox"
 msgstr "I dag + innboks"
 
-#: core/Utils/Util.vala:440
+#: core/Utils/Util.vala:440 core/Utils/Util.vala:436
 msgid "Delete All"
 msgstr "Slett alt"
 
-#: core/Utils/Util.vala:454
+#: core/Utils/Util.vala:454 core/Utils/Util.vala:450
 msgid "Process completed, you need to start Planify again."
 msgstr "Prosessen er fullført, du må starte Planify på nytt."
 
 #: core/Utils/Util.vala:456
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
+#: core/Utils/Util.vala:452
 msgid "Ok"
 msgstr "OK"
 
-#: core/Utils/Util.vala:566
+#: core/Utils/Util.vala:566 core/Utils/Util.vala:562
 msgid "On This Computer"
 msgstr "På denne datamaskinen"
 
-#: core/Utils/Util.vala:591
+#: core/Utils/Util.vala:591 core/Utils/Util.vala:587
 msgid "Meet Planify"
 msgstr "Møt Planify"
 
-#: core/Utils/Util.vala:594
+#: core/Utils/Util.vala:594 core/Utils/Util.vala:590
 msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around with it – you can always recreate it "
@@ -833,22 +836,22 @@ msgstr ""
 "nøl med å eksperimentere med det – du kan alltids gjenskape det fra "
 "Innstillinger."
 
-#: core/Utils/Util.vala:601
+#: core/Utils/Util.vala:601 core/Utils/Util.vala:597
 msgid "Tap this task"
 msgstr "Trykk på denne oppgaven"
 
-#: core/Utils/Util.vala:602
+#: core/Utils/Util.vala:602 core/Utils/Util.vala:598
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
 "Du ser på en gjøremålsoppgave! Fullfør den ved å trykke på avmerkingsboksen "
 "til venstre. Fullførte gjøremål samles nederst i prosjektet ditt. "
 
-#: core/Utils/Util.vala:607
+#: core/Utils/Util.vala:607 core/Utils/Util.vala:603
 msgid "Create a new task"
 msgstr "Opprett et nytt gjøremål"
 
-#: core/Utils/Util.vala:608
+#: core/Utils/Util.vala:608 core/Utils/Util.vala:604
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
@@ -856,22 +859,22 @@ msgstr ""
 "Nå er det din tur! Trykk på «+»-knappen nederst i prosjektet ditt, skriv inn "
 "en oppgavebeskrivelse, og trykk på «Legg til oppgave»-knappen."
 
-#: core/Utils/Util.vala:613
+#: core/Utils/Util.vala:613 core/Utils/Util.vala:609
 msgid "Plan this to-do for today or later"
 msgstr "Planlegg dette gjøremålet for i dag eller senere"
 
-#: core/Utils/Util.vala:614
+#: core/Utils/Util.vala:614 core/Utils/Util.vala:610
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
 "Trykk på kalenderknappen nederst for å bestemme når du skal fullføre denne "
 "gjøremålsoppgaven."
 
-#: core/Utils/Util.vala:619
+#: core/Utils/Util.vala:619 core/Utils/Util.vala:615
 msgid "Reorder your to-dos"
 msgstr "Endre rekkefølgen på gjøremålene dine"
 
-#: core/Utils/Util.vala:620
+#: core/Utils/Util.vala:620 core/Utils/Util.vala:616
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
@@ -879,11 +882,11 @@ msgstr ""
 "For å endre rekkefølgen på listen, trykk og hold på en gjøremålsoppgave, og "
 "dra den deretter dit den skal være."
 
-#: core/Utils/Util.vala:625
+#: core/Utils/Util.vala:625 core/Utils/Util.vala:621
 msgid "Create a project"
 msgstr "Opprett et prosjekt"
 
-#: core/Utils/Util.vala:626
+#: core/Utils/Util.vala:626 core/Utils/Util.vala:622
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
@@ -891,11 +894,11 @@ msgstr ""
 "Organiser gjøremålene dine bedre! Gå til venstre panel og klikk på «+»-"
 "knappen i «På denne datamaskinen»-delen, og legg til ditt eget prosjekt."
 
-#: core/Utils/Util.vala:631
+#: core/Utils/Util.vala:631 core/Utils/Util.vala:627
 msgid "You’re done!"
 msgstr "Du er ferdig!"
 
-#: core/Utils/Util.vala:632
+#: core/Utils/Util.vala:632 core/Utils/Util.vala:628
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -909,15 +912,15 @@ msgstr ""
 "funksjonene nedenfor.\n"
 "Vi håper du liker å bruke Planify!"
 
-#: core/Utils/Util.vala:646
+#: core/Utils/Util.vala:646 core/Utils/Util.vala:642
 msgid "Tune your setup"
 msgstr "Finjuster oppsettet ditt"
 
-#: core/Utils/Util.vala:654
+#: core/Utils/Util.vala:654 core/Utils/Util.vala:650
 msgid "Show your calendar events"
 msgstr "Vis kalenderhendelsene dine"
 
-#: core/Utils/Util.vala:655
+#: core/Utils/Util.vala:655 core/Utils/Util.vala:651
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
@@ -925,11 +928,11 @@ msgstr ""
 "Du kan vise systemets kalenderhendelser i Planify. Gå til «Innstillinger» 🡒 "
 "Generelt 🡒 Kalenderhendelser for å slå det på."
 
-#: core/Utils/Util.vala:661
+#: core/Utils/Util.vala:661 core/Utils/Util.vala:657
 msgid "Enable synchronization with third-party services"
 msgstr "Aktiver synkronisering med tredjepartstjenester"
 
-#: core/Utils/Util.vala:662
+#: core/Utils/Util.vala:662 core/Utils/Util.vala:658
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
@@ -937,15 +940,15 @@ msgstr ""
 "Planify oppretter ikke bare oppgaver lokalt, men kan også synkronisere med "
 "Todoist-kontoen din. Gå til «Innstillinger» 🡒 «Kontoer»."
 
-#: core/Utils/Util.vala:670
+#: core/Utils/Util.vala:670 core/Utils/Util.vala:666
 msgid "Boost your productivity"
 msgstr "Øk produktiviteten din"
 
-#: core/Utils/Util.vala:678
+#: core/Utils/Util.vala:678 core/Utils/Util.vala:674
 msgid "Drag the plus button!"
 msgstr "Dra plussknappen!"
 
-#: core/Utils/Util.vala:679
+#: core/Utils/Util.vala:679 core/Utils/Util.vala:675
 msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
@@ -954,11 +957,11 @@ msgstr ""
 "til: den er laget for å bevege seg! Dra den opp for å opprette en oppgave "
 "hvor du vil."
 
-#: core/Utils/Util.vala:685
+#: core/Utils/Util.vala:685 core/Utils/Util.vala:681
 msgid "Add labels to your tasks!"
 msgstr "Legg til etiketter på oppgavene dine!"
 
-#: core/Utils/Util.vala:686
+#: core/Utils/Util.vala:686 core/Utils/Util.vala:682
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
@@ -966,11 +969,11 @@ msgstr ""
 "Etiketter hjelper deg med å organisere og kategorisere oppgavene dine. For å "
 "legge til en etikett, klikk på etikettknappen nederst."
 
-#: core/Utils/Util.vala:692
+#: core/Utils/Util.vala:692 core/Utils/Util.vala:688
 msgid "Set timely reminders!"
 msgstr "Sett påminnelser i tide!"
 
-#: core/Utils/Util.vala:693
+#: core/Utils/Util.vala:693 core/Utils/Util.vala:689
 msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
 "add a reminder."
@@ -978,63 +981,71 @@ msgstr ""
 "Få varsler om viktige oppgaver eller hendelser. Trykk på bjelleknappen "
 "nedenfor for å legge til en påminnelse."
 
-#: core/Utils/Util.vala:704
+#: core/Utils/Util.vala:704 core/Utils/Util.vala:700
 msgid "💼️Work"
 msgstr "💼️Arbeid"
 
-#: core/Utils/Util.vala:710
+#: core/Utils/Util.vala:710 core/Utils/Util.vala:706
 msgid "🎒️School"
 msgstr "🎒️Skole"
 
-#: core/Utils/Util.vala:716
+#: core/Utils/Util.vala:716 core/Utils/Util.vala:712
 msgid "👉️Delegated"
 msgstr "👉️Delegert"
 
-#: core/Utils/Util.vala:722
+#: core/Utils/Util.vala:722 core/Utils/Util.vala:718
 msgid "🏡️Home"
 msgstr "🏡️Hjem"
 
-#: core/Utils/Util.vala:728
+#: core/Utils/Util.vala:728 core/Utils/Util.vala:724
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️ Følg opp"
 
-#: core/Utils/Util.vala:969
+#: core/Utils/Util.vala:969 core/Utils/Util.vala:965
 msgid "Task duplicated"
 msgstr "Oppgave duplisert"
 
-#: core/Utils/Util.vala:1005
+#: core/Utils/Util.vala:1005 core/Utils/Util.vala:1001
 msgid "Section duplicated"
 msgstr "Seksjon duplisert"
 
 #: core/Utils/Util.vala:1031 core/Utils/Util.vala:1057
+#: core/Utils/Util.vala:1027 core/Utils/Util.vala:1053
 msgid "Project duplicated"
 msgstr "Prosjekt duplisert"
 
 #: core/Utils/Util.vala:1099 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1095
 msgid "At due time"
 msgstr "Til rett tid"
 
 #: core/Utils/Util.vala:1102 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1098
 msgid "10 minutes before"
 msgstr "10 minutter før"
 
 #: core/Utils/Util.vala:1105 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1101
 msgid "30 minutes before"
 msgstr "30 minutter før"
 
 #: core/Utils/Util.vala:1108 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1104
 msgid "45 minutes before"
 msgstr "45 minutter før"
 
 #: core/Utils/Util.vala:1111 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1107
 msgid "1 hour before"
 msgstr "1 time før"
 
 #: core/Utils/Util.vala:1114 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
+#: core/Utils/Util.vala:1110
 msgid "2 hours before"
 msgstr "2 timer før"
 
 #: core/Utils/Util.vala:1117 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
+#: core/Utils/Util.vala:1113
 msgid "3 hours before"
 msgstr "3 timer før"
 
@@ -3286,24 +3297,26 @@ msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
 msgstr "<b>%s</b> er %.0f%% fullført. Du kan hjelpe til med å fullføre det!"
 
 #: src/Widgets/TranslationRow.vala:129 src/Widgets/TranslationRow.vala:151
-#: src/Widgets/TranslationRow.vala:155
+#: src/Widgets/TranslationRow.vala:155 src/Widgets/TranslationRow.vala:121
+#: src/Widgets/TranslationRow.vala:142 src/Widgets/TranslationRow.vala:146
 msgid "Translations"
 msgstr "Oversettelser"
 
 #: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
-#: src/Widgets/TranslationRow.vala:156
+#: src/Widgets/TranslationRow.vala:156 src/Widgets/TranslationRow.vala:122
+#: src/Widgets/TranslationRow.vala:143 src/Widgets/TranslationRow.vala:147
 msgid "Help make Planify available worldwide"
 msgstr "Hjelp med å gjøre Planify tilgjengelig over hele verden"
 
-#: src/Widgets/TranslationRow.vala:138
+#: src/Widgets/TranslationRow.vala:138 src/Widgets/TranslationRow.vala:129
 msgid "Help improve translations"
 msgstr "Hjelp med å forbedre oversettelsene"
 
-#: src/Widgets/TranslationRow.vala:145
+#: src/Widgets/TranslationRow.vala:145 src/Widgets/TranslationRow.vala:136
 msgid "Start a new translation"
 msgstr "Start en ny oversettelse"
 
-#: src/Widgets/TranslationRow.vala:146
+#: src/Widgets/TranslationRow.vala:146 src/Widgets/TranslationRow.vala:137
 #, c-format
 msgid "<b>%s</b> is not available yet. Be the first to translate it!"
 msgstr ""
