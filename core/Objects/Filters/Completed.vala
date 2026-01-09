@@ -36,24 +36,41 @@ public class Objects.Filters.Completed : Objects.BaseObject {
         view_id = "completed";
         color = Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#ffbe6f" : "#ff7800";
 
-        Services.Store.instance ().item_added.connect (() => {
-            count_update ();
+
+        Services.Store.instance ().item_added.connect ((item, updated) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_deleted.connect (() => {
-            count_update ();
+        Services.Store.instance ().item_deleted.connect ((item) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_updated.connect (() => {
-            count_update ();
+        Services.Store.instance ().item_archived.connect ((item) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_archived.connect (() => {
-            count_update ();
+        Services.Store.instance ().item_unarchived.connect ((item) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_unarchived.connect (() => {
-            count_update ();
+        Services.Store.instance ().item_updated.connect ((item, update_id) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
+        });
+
+        Services.Store.instance ().project_updated.connect ((project) => {
+            if (!project.freeze_update) {
+                count_update ();
+            }
         });
     }
 

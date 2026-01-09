@@ -1665,13 +1665,6 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public bool exists_project (Objects.Project project) {
-        if (has_parent) {
-            var parent_item = parent;
-            if (parent_item != null) {
-                return parent_item.exists_project (project);
-            }
-        }
-
         return _project_id == project.id;
     }
 
