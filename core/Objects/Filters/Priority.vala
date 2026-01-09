@@ -139,29 +139,41 @@ public class Objects.Filters.Priority : Objects.BaseObject {
         keywords = get_keywords () + ";" + _("filters");
         view_id = "priority-%d".printf (priority);
 
-        Services.Store.instance ().item_added.connect (() => {
-            _count = Services.Store.instance ().get_items_by_priority (priority, false).size;
-            count_updated ();
+
+        Services.Store.instance ().item_added.connect ((item, updated) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_deleted.connect (() => {
-            _count = Services.Store.instance ().get_items_by_priority (priority, false).size;
-            count_updated ();
+        Services.Store.instance ().item_deleted.connect ((item) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_updated.connect (() => {
-            _count = Services.Store.instance ().get_items_by_priority (priority, false).size;
-            count_updated ();
+        Services.Store.instance ().item_archived.connect ((item) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_archived.connect (() => {
-            _count = Services.Store.instance ().get_items_by_priority (priority, false).size;
-            count_updated ();
+        Services.Store.instance ().item_unarchived.connect ((item) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_unarchived.connect (() => {
-            _count = Services.Store.instance ().get_items_by_priority (priority, false).size;
-            count_updated ();
+        Services.Store.instance ().item_updated.connect ((item, update_id) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
+        });
+
+        Services.Store.instance ().project_updated.connect ((project) => {
+            if (!project.freeze_update) {
+                count_update ();
+            }
         });
     }
 
@@ -175,5 +187,11 @@ public class Objects.Filters.Priority : Objects.BaseObject {
         } else {
             return "%s;%s".printf ("p4", _("none"));
         }
+    }
+
+    public override void count_update () {
+        _count = Services.Store.instance ().get_items_by_priority (priority, false).size;
+
+        count_updated ();
     }
 }
