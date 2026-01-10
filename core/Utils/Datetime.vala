@@ -28,7 +28,7 @@ public class Utils.Datetime {
         GLib.DateTime datetime = null;
 
         // YYYY-MM-DD
-        if (date.length == 10) {
+        if (date.length <= 10) {
             var _date = date.split ("-");
 
             datetime = new GLib.DateTime.local (
