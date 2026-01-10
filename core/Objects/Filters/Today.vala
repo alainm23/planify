@@ -52,24 +52,40 @@ public class Objects.Filters.Today : Objects.BaseObject {
         view_id = "today";
         color = "#33d17a";
 
-        Services.Store.instance ().item_added.connect (() => {
-            count_update ();
+        Services.Store.instance ().item_added.connect ((item, updated) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_deleted.connect (() => {
-            count_update ();
+        Services.Store.instance ().item_deleted.connect ((item) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_archived.connect (() => {
-            count_update ();
+        Services.Store.instance ().item_archived.connect ((item) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_unarchived.connect (() => {
-            count_update ();
+        Services.Store.instance ().item_unarchived.connect ((item) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_updated.connect (() => {
-            count_update ();
+        Services.Store.instance ().item_updated.connect ((item, update_id) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
+        });
+
+        Services.Store.instance ().project_updated.connect ((project) => {
+            if (!project.freeze_update) {
+                count_update ();
+            }
         });
     }
 
@@ -82,7 +98,7 @@ public class Objects.Filters.Today : Objects.BaseObject {
     public override void count_update () {
         _item_count = update_count ();
         _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
-        
+
         count_updated ();
     }
 }
