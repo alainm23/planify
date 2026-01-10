@@ -227,19 +227,19 @@ msgstr "优先级 3 ：低"
 msgid "Priority 4: none"
 msgstr "优先级 4 ：无"
 
-#: core/Objects/Filters/Priority.vala:170
+#: core/Objects/Filters/Priority.vala:182
 msgid "high"
 msgstr "高"
 
-#: core/Objects/Filters/Priority.vala:172
+#: core/Objects/Filters/Priority.vala:184
 msgid "medium"
 msgstr "中"
 
-#: core/Objects/Filters/Priority.vala:174
+#: core/Objects/Filters/Priority.vala:186
 msgid "low"
 msgstr "低"
 
-#: core/Objects/Filters/Priority.vala:176
+#: core/Objects/Filters/Priority.vala:188
 msgid "none"
 msgstr "无"
 
@@ -319,7 +319,7 @@ msgstr[0] "任务已移动到%s"
 msgid "Delete Label %s"
 msgstr "已删除标签%s"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:821
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:828
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
@@ -327,8 +327,8 @@ msgstr "已删除标签%s"
 msgid "This can not be undone"
 msgstr "无法撤销"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:824
-#: core/Objects/Project.vala:881 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:831
+#: core/Objects/Project.vala:888 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
@@ -345,8 +345,8 @@ msgstr "无法撤销"
 msgid "Cancel"
 msgstr "取消"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:825
-#: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:208
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:832
+#: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
@@ -357,25 +357,25 @@ msgstr "取消"
 msgid "Delete"
 msgstr "删除"
 
-#: core/Objects/Project.vala:784
+#: core/Objects/Project.vala:791
 msgid "The project was copied to the Clipboard."
 msgstr "该项目已复制到剪贴板。"
 
-#: core/Objects/Project.vala:820
+#: core/Objects/Project.vala:827
 #, c-format
 msgid "Delete Project %s?"
 msgstr "删除项目%s？"
 
-#: core/Objects/Project.vala:877 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:884 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "归档？"
 
-#: core/Objects/Project.vala:878 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:885 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "将会归档%s及其所有任务。"
 
-#: core/Objects/Project.vala:882 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:889 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
@@ -509,7 +509,7 @@ msgstr "在标题栏配合快捷指令，实现快速创建"
 msgid "Loading tasks for %s…"
 msgstr "%s 任务加载中…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:338
+#: core/Services/CalDAV/CalDAVClient.vala:339
 #, c-format
 msgid "Processing task %d of %d"
 msgstr "正在处理第 %d 个任务，共 %d 个"
@@ -539,36 +539,36 @@ msgstr "同步已经完成"
 msgid "On this computer"
 msgstr ""
 
-#: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1520 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "所提请求不正确。"
 
-#: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1521 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "需要身份验证：验证失败或未提供凭据。"
 
-#: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "请求有效，但访问被禁止。"
 
-#: core/Services/Todoist.vala:1513 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "找不到请求的资源。"
 
-#: core/Services/Todoist.vala:1514 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
 
-#: core/Services/Todoist.vala:1515 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
 msgstr ""
 
-#: core/Services/Todoist.vala:1516 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:144
 msgid "The server is currently unable to handle the request."
 msgstr ""
 
-#: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1529 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
 msgstr ""
 
@@ -1228,17 +1228,17 @@ msgstr ""
 msgid "Add Time"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:132
+#: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:87
-#: core/Widgets/DeadlineButton.vala:94 core/Widgets/DeadlineButton.vala:101
-#: core/Widgets/DeadlineButton.vala:154
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
+#: core/Widgets/DeadlineButton.vala:153
 msgid "Set a Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:149
+#: core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
 msgstr ""
 
@@ -1612,7 +1612,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
-msgid "Planify is syncing your tasks, this may take a few minutes"
+msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293

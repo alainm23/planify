@@ -272,18 +272,22 @@ msgid "Priority 4: none"
 msgstr "वरीयता 4: कोई नहीं"
 
 #: core/Objects/Filters/Priority.vala:170
+#: core/Objects/Filters/Priority.vala:182
 msgid "high"
 msgstr "उच्च"
 
 #: core/Objects/Filters/Priority.vala:172
+#: core/Objects/Filters/Priority.vala:184
 msgid "medium"
 msgstr "मध्यम"
 
 #: core/Objects/Filters/Priority.vala:174
+#: core/Objects/Filters/Priority.vala:186
 msgid "low"
 msgstr "निम्न"
 
 #: core/Objects/Filters/Priority.vala:176
+#: core/Objects/Filters/Priority.vala:188
 msgid "none"
 msgstr "कोई नहीं"
 
@@ -374,7 +378,7 @@ msgstr "लेबल %s मिटाएं"
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
-#: src/Services/Backups.vala:416
+#: src/Services/Backups.vala:416 core/Objects/Project.vala:828
 msgid "This can not be undone"
 msgstr "इसे पूर्ववत नहीं किया जा सकता"
 
@@ -393,6 +397,7 @@ msgstr "इसे पूर्ववत नहीं किया जा सक�
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:287 core/Utils/Util.vala:435
+#: core/Objects/Project.vala:831 core/Objects/Project.vala:888
 msgid "Cancel"
 msgstr "रद्द करें"
 
@@ -404,26 +409,29 @@ msgstr "रद्द करें"
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
-#: src/Widgets/MultiSelectToolbar.vala:288
+#: src/Widgets/MultiSelectToolbar.vala:288 core/Objects/Project.vala:832
+#: core/Widgets/DeadlineButton.vala:207
 msgid "Delete"
 msgstr "मिटाएं"
 
-#: core/Objects/Project.vala:784
+#: core/Objects/Project.vala:784 core/Objects/Project.vala:791
 msgid "The project was copied to the Clipboard."
 msgstr "परियोजना को क्लिपबोर्ड पर कॉपी किया गया था।"
 
 # # c-format
-#: core/Objects/Project.vala:820
+#: core/Objects/Project.vala:820 core/Objects/Project.vala:827
 #, c-format
 msgid "Delete Project %s?"
 msgstr "परियोजना %s मिटाएं?"
 
 #: core/Objects/Project.vala:877 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:884
 msgid "Archive?"
 msgstr "संग्रहित करें?"
 
 # # c-format
 #: core/Objects/Project.vala:878 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:885
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "यह %s और उसके सभी कार्यों को संग्रहीत करेगा।"
@@ -432,6 +440,7 @@ msgstr "यह %s और उसके सभी कार्यों को स
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:662 src/Views/Project/Project.vala:343
 #: src/Views/Project/Project.vala:386 src/Layouts/SectionRow.vala:672
+#: core/Objects/Project.vala:889
 msgid "Archive"
 msgstr "संग्रहीत करें"
 
@@ -577,6 +586,7 @@ msgid "Loading tasks for %s…"
 msgstr "लोड हो रहा है…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
+#: core/Services/CalDAV/CalDAVClient.vala:339
 #, c-format
 msgid "Processing task %d of %d"
 msgstr ""
@@ -608,35 +618,43 @@ msgid "On this computer"
 msgstr "इस कंप्यूटर पर"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1520
 msgid "The request was incorrect."
 msgstr "अनुरोध गलत था।"
 
 #: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1521
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "प्रमाणीकरण आवश्यक है, या तो विफल हुआ या प्रदान नहीं किया गया।"
 
 #: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1522
 msgid "The request was valid, but for something that is forbidden."
 msgstr "अनुरोध मान्य था, लेकिन निषिद्ध चीज़ के लिए।"
 
 #: core/Services/Todoist.vala:1513 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1523
 msgid "The requested resource could not be found."
 msgstr "अनुरोधित संसाधन नहीं मिला।"
 
 #: core/Services/Todoist.vala:1514 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1524
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "उपयोक्ता ने निश्चित समय में बहुत अधिक अनुरोध भेजे हैं।"
 
 #: core/Services/Todoist.vala:1515 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1525
 msgid "The request failed due to a server error."
 msgstr "सर्वर त्रुटि के कारण अनुरोध विफल हुआ।"
 
 #: core/Services/Todoist.vala:1516 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1526
 msgid "The server is currently unable to handle the request."
 msgstr "सर्वर अनुरोध संभालने में फिलहाल असमर्थ है।"
 
 #: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1529
 msgid "Unknown error"
 msgstr "अज्ञात त्रुटि"
 
@@ -1368,16 +1386,19 @@ msgid "Add Time"
 msgstr "समय"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:132
+#: core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:87
 #: core/Widgets/DeadlineButton.vala:94 core/Widgets/DeadlineButton.vala:101
-#: core/Widgets/DeadlineButton.vala:154
+#: core/Widgets/DeadlineButton.vala:154 core/Widgets/DeadlineButton.vala:56
+#: core/Widgets/DeadlineButton.vala:86 core/Widgets/DeadlineButton.vala:93
+#: core/Widgets/DeadlineButton.vala:100 core/Widgets/DeadlineButton.vala:153
 msgid "Set a Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:149
+#: core/Widgets/DeadlineButton.vala:149 core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
 msgstr ""
 
@@ -3572,6 +3593,11 @@ msgid "In %d hour"
 msgid_plural "In %d hours"
 msgstr[0] ""
 msgstr[1] ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
+msgid "Planify is syncing your tasks, this may take a few moments"
+msgstr ""
 
 #, fuzzy
 #~ msgid "Backup"

@@ -238,18 +238,22 @@ msgid "Priority 4: none"
 msgstr "Prioritat 4: cap"
 
 #: core/Objects/Filters/Priority.vala:170
+#: core/Objects/Filters/Priority.vala:182
 msgid "high"
 msgstr "alta"
 
 #: core/Objects/Filters/Priority.vala:172
+#: core/Objects/Filters/Priority.vala:184
 msgid "medium"
 msgstr "mitja"
 
 #: core/Objects/Filters/Priority.vala:174
+#: core/Objects/Filters/Priority.vala:186
 msgid "low"
 msgstr "baixa"
 
 #: core/Objects/Filters/Priority.vala:176
+#: core/Objects/Filters/Priority.vala:188
 msgid "none"
 msgstr "cap"
 
@@ -339,7 +343,7 @@ msgstr "Elimina l'etiqueta %s"
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
-#: src/Services/Backups.vala:416
+#: src/Services/Backups.vala:416 core/Objects/Project.vala:828
 msgid "This can not be undone"
 msgstr "Aquesta acció no es pot desfer"
 
@@ -358,6 +362,7 @@ msgstr "Aquesta acció no es pot desfer"
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:287 core/Utils/Util.vala:435
+#: core/Objects/Project.vala:831 core/Objects/Project.vala:888
 msgid "Cancel"
 msgstr "Cancel·la"
 
@@ -369,24 +374,27 @@ msgstr "Cancel·la"
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
-#: src/Widgets/MultiSelectToolbar.vala:288
+#: src/Widgets/MultiSelectToolbar.vala:288 core/Objects/Project.vala:832
+#: core/Widgets/DeadlineButton.vala:207
 msgid "Delete"
 msgstr "Esborra"
 
-#: core/Objects/Project.vala:784
+#: core/Objects/Project.vala:784 core/Objects/Project.vala:791
 msgid "The project was copied to the Clipboard."
 msgstr "El projecte s'ha copiat al portaretalls."
 
-#: core/Objects/Project.vala:820
+#: core/Objects/Project.vala:820 core/Objects/Project.vala:827
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Vols eliminar el projecte %s?"
 
 #: core/Objects/Project.vala:877 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:884
 msgid "Archive?"
 msgstr ""
 
 #: core/Objects/Project.vala:878 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:885
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Això arxivarà %s i totes les seves tasques."
@@ -394,7 +402,7 @@ msgstr "Això arxivarà %s i totes les seves tasques."
 #: core/Objects/Project.vala:882 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:662 src/Views/Project/Project.vala:386
-#: src/Layouts/SectionRow.vala:672
+#: src/Layouts/SectionRow.vala:672 core/Objects/Project.vala:889
 msgid "Archive"
 msgstr "Arxiva"
 
@@ -529,6 +537,7 @@ msgid "Loading tasks for %s…"
 msgstr "Carregant tasques per %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
+#: core/Services/CalDAV/CalDAVClient.vala:339
 #, c-format
 msgid "Processing task %d of %d"
 msgstr "Processant tasca %d de %d"
@@ -559,36 +568,44 @@ msgid "On this computer"
 msgstr "En aquest ordinador"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1520
 msgid "The request was incorrect."
 msgstr "Sol·licitud incorrecta."
 
 #: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1521
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Es requereix autenticació i o bé ha fallat o no s'ha subministrat."
 
 #: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1522
 msgid "The request was valid, but for something that is forbidden."
 msgstr "La sol·licitud és vàlida, però per quelcom que és prohibit."
 
 #: core/Services/Todoist.vala:1513 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1523
 msgid "The requested resource could not be found."
 msgstr "El recurs sol·licitat no s'ha pogut trobar."
 
 #: core/Services/Todoist.vala:1514 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1524
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
 "L'usuari ha enviat massa sol·licituds en un determinat interval de temps."
 
 #: core/Services/Todoist.vala:1515 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1525
 msgid "The request failed due to a server error."
 msgstr "La sol·licitud ha fallat per un error del servidor."
 
 #: core/Services/Todoist.vala:1516 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1526
 msgid "The server is currently unable to handle the request."
 msgstr "El servidor no ha pogut processar la sol·licitud en aquest moment."
 
 #: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1529
 msgid "Unknown error"
 msgstr "Error desconegut"
 
@@ -1298,16 +1315,19 @@ msgid "Add Time"
 msgstr "Afegeix hora"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:132
+#: core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr "Defineix un termini"
 
 #: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:87
 #: core/Widgets/DeadlineButton.vala:94 core/Widgets/DeadlineButton.vala:101
-#: core/Widgets/DeadlineButton.vala:154
+#: core/Widgets/DeadlineButton.vala:154 core/Widgets/DeadlineButton.vala:56
+#: core/Widgets/DeadlineButton.vala:86 core/Widgets/DeadlineButton.vala:93
+#: core/Widgets/DeadlineButton.vala:100 core/Widgets/DeadlineButton.vala:153
 msgid "Set a Deadline"
 msgstr "Estableix un termini"
 
-#: core/Widgets/DeadlineButton.vala:149
+#: core/Widgets/DeadlineButton.vala:149 core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
 msgstr "Termini"
 
@@ -3370,4 +3390,9 @@ msgstr "Obre Etiquetes"
 #: data/resources/ui/shortcuts.ui:129
 msgctxt "shortcut window"
 msgid "Open Pinboard"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
+msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr ""

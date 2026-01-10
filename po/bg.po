@@ -240,18 +240,22 @@ msgid "Priority 4: none"
 msgstr "Priority 4: без"
 
 #: core/Objects/Filters/Priority.vala:170
+#: core/Objects/Filters/Priority.vala:182
 msgid "high"
 msgstr "високо"
 
 #: core/Objects/Filters/Priority.vala:172
+#: core/Objects/Filters/Priority.vala:184
 msgid "medium"
 msgstr "средно"
 
 #: core/Objects/Filters/Priority.vala:174
+#: core/Objects/Filters/Priority.vala:186
 msgid "low"
 msgstr "ниско"
 
 #: core/Objects/Filters/Priority.vala:176
+#: core/Objects/Filters/Priority.vala:188
 msgid "none"
 msgstr "без"
 
@@ -344,7 +348,7 @@ msgstr "Премахване на етикета %s"
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
-#: src/Services/Backups.vala:416
+#: src/Services/Backups.vala:416 core/Objects/Project.vala:828
 msgid "This can not be undone"
 msgstr "Това не може да бъде върнато"
 
@@ -363,6 +367,7 @@ msgstr "Това не може да бъде върнато"
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:287 core/Utils/Util.vala:435
+#: core/Objects/Project.vala:831 core/Objects/Project.vala:888
 msgid "Cancel"
 msgstr "Отказване"
 
@@ -374,26 +379,29 @@ msgstr "Отказване"
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
-#: src/Widgets/MultiSelectToolbar.vala:288
+#: src/Widgets/MultiSelectToolbar.vala:288 core/Objects/Project.vala:832
+#: core/Widgets/DeadlineButton.vala:207
 msgid "Delete"
 msgstr "Изтриване"
 
-#: core/Objects/Project.vala:784
+#: core/Objects/Project.vala:784 core/Objects/Project.vala:791
 msgid "The project was copied to the Clipboard."
 msgstr "Проектът е копиран в буфера за обмен."
 
 # # c-format
-#: core/Objects/Project.vala:820
+#: core/Objects/Project.vala:820 core/Objects/Project.vala:827
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Да се премахне ли проекта %s?"
 
 #: core/Objects/Project.vala:877 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:884
 msgid "Archive?"
 msgstr "Архивиране?"
 
 # # c-format
 #: core/Objects/Project.vala:878 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:885
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Това ще архивира %s и всички негови задачи."
@@ -401,7 +409,7 @@ msgstr "Това ще архивира %s и всички негови зада�
 #: core/Objects/Project.vala:882 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:662 src/Views/Project/Project.vala:386
-#: src/Layouts/SectionRow.vala:672
+#: src/Layouts/SectionRow.vala:672 core/Objects/Project.vala:889
 msgid "Archive"
 msgstr "Архив"
 
@@ -546,6 +554,7 @@ msgid "Loading tasks for %s…"
 msgstr "Зареждане…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
+#: core/Services/CalDAV/CalDAVClient.vala:339
 #, c-format
 msgid "Processing task %d of %d"
 msgstr ""
@@ -577,37 +586,45 @@ msgid "On this computer"
 msgstr "На този компютър"
 
 #: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1520
 msgid "The request was incorrect."
 msgstr "Заявката е неправилна."
 
 #: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1521
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 "Упълномощаване е задължително, но е неуспешно или все още не е предоставено."
 
 #: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1522
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Заявката е правилна, но за нещо, което е забранено."
 
 #: core/Services/Todoist.vala:1513 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1523
 msgid "The requested resource could not be found."
 msgstr "Заявеният ресурс не може да бъде намерен."
 
 #: core/Services/Todoist.vala:1514 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1524
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
 "Потребителят е изпратил твърде много заявки за определен период от време."
 
 #: core/Services/Todoist.vala:1515 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1525
 msgid "The request failed due to a server error."
 msgstr "Заявката е неуспешна поради грешка на сървъра."
 
 #: core/Services/Todoist.vala:1516 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1526
 msgid "The server is currently unable to handle the request."
 msgstr "В момента сървърът не може да обработи заявката."
 
 #: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1529
 msgid "Unknown error"
 msgstr "Непозната грешка"
 
@@ -1350,16 +1367,19 @@ msgid "Add Time"
 msgstr "Добавяне на време"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:132
+#: core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:87
 #: core/Widgets/DeadlineButton.vala:94 core/Widgets/DeadlineButton.vala:101
-#: core/Widgets/DeadlineButton.vala:154
+#: core/Widgets/DeadlineButton.vala:154 core/Widgets/DeadlineButton.vala:56
+#: core/Widgets/DeadlineButton.vala:86 core/Widgets/DeadlineButton.vala:93
+#: core/Widgets/DeadlineButton.vala:100 core/Widgets/DeadlineButton.vala:153
 msgid "Set a Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:149
+#: core/Widgets/DeadlineButton.vala:149 core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
 msgstr ""
 
@@ -3509,6 +3529,11 @@ msgstr "Отваряне на „Етикети“"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Отваряне на „Закачени“"
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
+msgid "Planify is syncing your tasks, this may take a few moments"
+msgstr ""
 
 # # c-format
 #, c-format
