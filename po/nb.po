@@ -31,6 +31,7 @@ msgstr "Oppgaver"
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:781
 #: src/Layouts/ItemRow.vala:1294 src/Layouts/ItemRow.vala:1295
+#: src/Layouts/ItemRow.vala:1232
 msgid "Labels"
 msgstr "Etiketter"
 
@@ -136,7 +137,7 @@ msgstr "Innhold"
 #: core/Enum.vala:521 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:1998 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
-#: src/Layouts/ItemRow.vala:1999
+#: src/Layouts/ItemRow.vala:1999 src/Layouts/ItemRow.vala:1938
 msgid "Description"
 msgstr "Beskrivelse"
 
@@ -148,6 +149,7 @@ msgstr "Planlagt"
 #: src/Layouts/ItemBoard.vala:762 src/Layouts/ItemBoard.vala:775
 #: src/Layouts/ItemRow.vala:1275 src/Layouts/ItemRow.vala:1288
 #: src/Layouts/ItemRow.vala:1276 src/Layouts/ItemRow.vala:1289
+#: src/Layouts/ItemRow.vala:1213 src/Layouts/ItemRow.vala:1226
 msgid "Pin"
 msgstr ""
 
@@ -276,6 +278,7 @@ msgstr "kommende"
 #: src/Views/Project/Project.vala:723 src/Views/Today.vala:202
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:359
 #: src/Layouts/ItemRow.vala:1283 core/Utils/Util.vala:261
+#: src/Layouts/ItemRow.vala:1220
 msgid "Today"
 msgstr "I dag"
 
@@ -289,7 +292,7 @@ msgstr "i dag"
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:772
 #: src/Layouts/ItemRow.vala:1285
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:365
-#: src/Layouts/ItemRow.vala:1286
+#: src/Layouts/ItemRow.vala:1286 src/Layouts/ItemRow.vala:1223
 msgid "Tomorrow"
 msgstr "I morgen"
 
@@ -391,6 +394,7 @@ msgstr "Dette vil arkivere %s og alle tilhørende oppgaver."
 #: core/Objects/Project.vala:882 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:662 src/Views/Project/Project.vala:386
+#: src/Layouts/SectionRow.vala:672
 msgid "Archive"
 msgstr "Arkiver"
 
@@ -412,6 +416,7 @@ msgstr "Oppgaven er lagt til!"
 
 #: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:408
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
+#: src/Layouts/ItemRow.vala:414
 msgid "To-do name"
 msgstr "Navn på gjøremål"
 
@@ -448,6 +453,7 @@ msgstr "Legg til påminnelser"
 
 #: core/QuickAddCore.vala:314 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:655 src/Widgets/MagicButton.vala:50
+#: src/Layouts/SectionRow.vala:665
 msgid "Add Task"
 msgstr "Legg til oppgave"
 
@@ -1360,6 +1366,7 @@ msgstr "Søk eller opprett"
 
 #: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
 #: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemRow.vala:1363
+#: src/Layouts/ItemRow.vala:1302
 msgid "Apply"
 msgstr "Bruk"
 
@@ -1473,6 +1480,7 @@ msgstr "Gjøremål"
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:784 src/Layouts/ItemRow.vala:1297
 #: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1298
+#: src/Layouts/ItemRow.vala:1235
 msgid "Complete"
 msgstr "Fullført"
 
@@ -1614,6 +1622,7 @@ msgstr "Neste uke"
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:777
 #: src/Layouts/ItemRow.vala:1290 src/Views/Project/Project.vala:562
 #: src/Views/Project/Project.vala:733 src/Layouts/ItemRow.vala:1291
+#: src/Layouts/ItemRow.vala:1228
 msgid "No Date"
 msgstr "Ingen dato"
 
@@ -1641,6 +1650,7 @@ msgstr "Nettverket er ikke tilgjengelig"
 
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1426
 #: src/Layouts/ItemSidebarView.vala:495 src/Layouts/ItemRow.vala:1427
+#: src/Layouts/ItemRow.vala:1366
 msgid "Change History"
 msgstr "Endringslogg"
 
@@ -1697,7 +1707,7 @@ msgid "Archived Projects"
 msgstr "Arkivert prosjekter"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:658
-#: src/Views/Project/Project.vala:379
+#: src/Views/Project/Project.vala:379 src/Layouts/SectionRow.vala:668
 msgid "Manage Sections"
 msgstr "Administrer seksjoner"
 
@@ -2567,6 +2577,7 @@ msgstr "Prosjekt lagt til!"
 #: src/Layouts/ItemBoard.vala:780 src/Layouts/ItemRow.vala:1293
 #: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemSidebarView.vala:490
 #: src/Layouts/ItemRow.vala:1294 src/Layouts/ItemRow.vala:1422
+#: src/Layouts/ItemRow.vala:1231 src/Layouts/ItemRow.vala:1361
 msgid "Move"
 msgstr "Flytt"
 
@@ -2584,7 +2595,7 @@ msgid "New Section"
 msgstr "Ny seksjon"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:563
-#: src/Layouts/SectionRow.vala:656
+#: src/Layouts/SectionRow.vala:656 src/Layouts/SectionRow.vala:666
 msgid "Edit Section"
 msgstr "Rediger seksjon"
 
@@ -2611,23 +2622,25 @@ msgstr "Åpne/lukk sidefelt"
 #: src/Layouts/ItemBoard.vala:156 src/Layouts/ItemBoard.vala:762
 #: src/Layouts/ItemBoard.vala:775 src/Layouts/ItemRow.vala:1275
 #: src/Layouts/ItemRow.vala:1288 src/Layouts/ItemRow.vala:1276
-#: src/Layouts/ItemRow.vala:1289
+#: src/Layouts/ItemRow.vala:1289 src/Layouts/ItemRow.vala:1213
+#: src/Layouts/ItemRow.vala:1226
 msgid "Unpin"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:623 src/Layouts/ItemRow.vala:1627
 #: src/Layouts/ItemSidebarView.vala:656 src/Layouts/ItemRow.vala:1628
+#: src/Layouts/ItemRow.vala:1567
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Fullført. Neste forekomst: %s"
 
 #: src/Layouts/ItemBoard.vala:783 src/Layouts/ItemRow.vala:1296
-#: src/Layouts/ItemRow.vala:1297
+#: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemRow.vala:1234
 msgid "Add Subtask"
 msgstr "Legg til deloppgaver"
 
 #: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1298
-#: src/Layouts/ItemRow.vala:1299
+#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemRow.vala:1236
 msgid "Edit"
 msgstr "Rediger"
 
@@ -2636,54 +2649,59 @@ msgstr "Rediger"
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:659 src/Views/Project/Project.vala:375
 #: src/Layouts/ItemRow.vala:1300 src/Layouts/ItemRow.vala:1421
+#: src/Layouts/ItemRow.vala:1237 src/Layouts/ItemRow.vala:1360
+#: src/Layouts/SectionRow.vala:669
 msgid "Duplicate"
 msgstr "Dupliser"
 
 #: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1301
 #: src/Layouts/ItemRow.vala:1423 src/Layouts/ItemSidebarView.vala:492
 #: src/Layouts/ItemRow.vala:1302 src/Layouts/ItemRow.vala:1424
+#: src/Layouts/ItemRow.vala:1239 src/Layouts/ItemRow.vala:1363
 msgid "Delete Task"
 msgstr "Slett oppgave"
 
 #: src/Layouts/ItemBoard.vala:1088 src/Layouts/ItemRow.vala:1868
-#: src/Layouts/ItemRow.vala:1869
+#: src/Layouts/ItemRow.vala:1869 src/Layouts/ItemRow.vala:1808
 msgid "Order changed to 'Custom sort order'"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1174 src/Layouts/ItemRow.vala:1651
-#: src/Layouts/ItemRow.vala:1652
+#: src/Layouts/ItemRow.vala:1652 src/Layouts/ItemRow.vala:1591
 #, c-format
 msgid "%s was deleted"
 msgstr "%s ble slettet"
 
 #: src/Layouts/ItemBoard.vala:1175 src/Layouts/ItemRow.vala:1652
-#: src/Layouts/ItemRow.vala:1653
+#: src/Layouts/ItemRow.vala:1653 src/Layouts/ItemRow.vala:1592
 msgid "Undo"
 msgstr "Angre"
 
-#: src/Layouts/ItemRow.vala:521
+#: src/Layouts/ItemRow.vala:521 src/Layouts/ItemRow.vala:2013
 msgid "Add Attachments"
 msgstr "Legg til vedlegg"
 
-#: src/Layouts/ItemRow.vala:616
+#: src/Layouts/ItemRow.vala:616 src/Layouts/ItemRow.vala:573
 msgid "Add Subtasks"
 msgstr "Legg til deloppgaver"
 
 #: src/Layouts/ItemRow.vala:1125 src/Layouts/ItemRow.vala:1126
+#: src/Layouts/ItemRow.vala:1063
 msgid "Hide Sub-tasks"
 msgstr "Skjul deloppgaver"
 
 #: src/Layouts/ItemRow.vala:1125 src/Layouts/ItemRow.vala:1126
+#: src/Layouts/ItemRow.vala:1063
 msgid "Show Sub-tasks"
 msgstr "Vis deloppgaver"
 
 #: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:486
-#: src/Layouts/ItemRow.vala:1417
+#: src/Layouts/ItemRow.vala:1417 src/Layouts/ItemRow.vala:1356
 msgid "Use as a Note"
 msgstr "Bruk som Merknad"
 
 #: src/Layouts/ItemRow.vala:1419 src/Layouts/ItemSidebarView.vala:488
-#: src/Layouts/ItemRow.vala:1420
+#: src/Layouts/ItemRow.vala:1420 src/Layouts/ItemRow.vala:1359
 msgid "Copy to Clipboard"
 msgstr "Kopier til utklippstavlen"
 
@@ -2746,10 +2764,12 @@ msgstr "Last mer"
 
 #: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:612
 #: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
+#: src/Layouts/SectionRow.vala:622
 msgid "completed tasks"
 msgstr "fullførte oppgaver"
 
 #: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:657
+#: src/Layouts/SectionRow.vala:667
 msgid "Move Section"
 msgstr "Flytt seksjon"
 
@@ -2758,11 +2778,12 @@ msgid "Manage Section Order"
 msgstr "Administrer seksjonsrekkefølge"
 
 #: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:660
+#: src/Layouts/SectionRow.vala:670
 msgid "Show Completed Tasks"
 msgstr "Vis fullførte oppgaver"
 
 #: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:663
-#: src/Widgets/SectionItemRow.vala:207
+#: src/Widgets/SectionItemRow.vala:207 src/Layouts/SectionRow.vala:673
 msgid "Delete Section"
 msgstr "Slett seksjon"
 
