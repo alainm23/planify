@@ -343,7 +343,7 @@ msgstr "ეს ქმედება შეუქცევადია"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
-#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:580
+#: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:580
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -2482,11 +2482,11 @@ msgstr "პროექტი წარმატებით დაემატ�
 msgid "Move"
 msgstr "გადატანა"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:42
+#: src/Dialogs/QuickFind/QuickFind.vala:48
 msgid "Quick Find"
 msgstr "სწრაფი ძებნა"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:260
+#: src/Dialogs/QuickFind/QuickFind.vala:318
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 "სწრაფად გადართეთ პროექტები და ხედები, იპოვეთ ამოცანები, მოძებნეთ ჭდეებით"

@@ -385,7 +385,7 @@ msgstr "इसे पूर्ववत नहीं किया जा सक�
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
-#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:580
+#: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:580
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -2635,11 +2635,11 @@ msgstr "परियोजना सफलतापूर्वक जोड़�
 msgid "Move"
 msgstr "स्थानांतरण"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:42
+#: src/Dialogs/QuickFind/QuickFind.vala:48
 msgid "Quick Find"
 msgstr "शीघ्र खोज"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:260
+#: src/Dialogs/QuickFind/QuickFind.vala:318
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr "परियोजनाओं और दृश्यों को शीघ्र रूप से बदलें, कार्य खोजें, लेबल द्वारा खोजें"
 
