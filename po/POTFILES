@@ -149,7 +149,9 @@ src/Dialogs/Project.vala
 src/Dialogs/ProjectPicker.vala
 src/Dialogs/QuickAdd.vala
 src/Dialogs/QuickFind/QuickFind.vala
+src/Dialogs/QuickFind/QuickFindFactory.vala
 src/Dialogs/QuickFind/QuickFindItem.vala
+src/Dialogs/QuickFind/QuickFindSectionSorter.vala
 src/Dialogs/QuickFind/Synapse.vala
 src/Dialogs/Section.vala
 src/Layouts/FilterPaneChild.vala

@@ -335,7 +335,7 @@ msgstr "此項無法取消動作"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
-#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:580
+#: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:580
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -2458,11 +2458,11 @@ msgstr "專案已經添加成功！"
 msgid "Move"
 msgstr "移動"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:42
+#: src/Dialogs/QuickFind/QuickFind.vala:48
 msgid "Quick Find"
 msgstr "快速尋找"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:260
+#: src/Dialogs/QuickFind/QuickFind.vala:318
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr "快速切換專案及檢視、尋找任務、依照標籤搜尋"
 

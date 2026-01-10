@@ -344,7 +344,7 @@ msgstr "Cette action est irréversible"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
-#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:580
+#: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:580
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -2568,11 +2568,11 @@ msgstr "Projet ajouté avec succès !"
 msgid "Move"
 msgstr "Déplacer"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:42
+#: src/Dialogs/QuickFind/QuickFind.vala:48
 msgid "Quick Find"
 msgstr "Recherche rapide"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:260
+#: src/Dialogs/QuickFind/QuickFind.vala:318
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 "Passez rapidement d’un projet et d’une vue à l’autre, trouvez des tâches, "
