@@ -51,24 +51,41 @@ public class Objects.Filters.Scheduled : Objects.BaseObject {
         view_id = "scheduled";
         color = Services.Settings.get_default ().settings.get_boolean ("dark-mode") ? "#dc8add" : "#9141ac";
 
-        Services.Store.instance ().item_added.connect (() => {
-            count_update ();
+
+        Services.Store.instance ().item_added.connect ((item, updated) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_deleted.connect (() => {
-            count_update ();
+        Services.Store.instance ().item_deleted.connect ((item) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_updated.connect (() => {
-            count_update ();
+        Services.Store.instance ().item_archived.connect ((item) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_archived.connect (() => {
-            count_update ();
+        Services.Store.instance ().item_unarchived.connect ((item) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
         });
 
-        Services.Store.instance ().item_unarchived.connect (() => {
-            count_update ();
+        Services.Store.instance ().item_updated.connect ((item, update_id) => {
+            if (!item.project.freeze_update) {
+                count_update ();
+            }
+        });
+
+        Services.Store.instance ().project_updated.connect ((project) => {
+            if (!project.freeze_update) {
+                count_update ();
+            }
         });
     }
 
