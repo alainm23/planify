@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-03 13:01+0000\n"
-"Last-Translator: numerfolt <numerfolt@posteo.de>\n"
+"PO-Revision-Date: 2026-01-12 09:01+0000\n"
+"Last-Translator: Sebastian Hagn <sebastian@hagn.me>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/de/>\n"
 "Language: de\n"
@@ -1692,7 +1692,7 @@ msgstr "Du kannst deine Konten per Drag & Drop sortieren"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr ""
+msgstr "Planify synchronisiert deine Aufgaben, dies kann einige Momente dauern"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
@@ -2172,8 +2172,7 @@ msgstr "Intelligente Datumserkennung"
 
 #: src/Dialogs/Preferences/Pages/General.vala:139
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr ""
-"Erkenne automatisch Datumsangaben wie \"Morgen\" oder \"Nächste Woche\""
+msgstr "Erkenne automatisch Datumsangaben wie \"morgen\" oder \"nächste Woche\""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
