@@ -30,7 +30,6 @@ msgstr "Oppgaver"
 #: core/Enum.vala:177 core/Enum.vala:530 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:781
-#: src/Layouts/ItemRow.vala:1294 src/Layouts/ItemRow.vala:1295
 #: src/Layouts/ItemRow.vala:1232
 msgid "Labels"
 msgstr "Etiketter"
@@ -135,9 +134,8 @@ msgid "Content"
 msgstr "Innhold"
 
 #: core/Enum.vala:521 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1998 src/Layouts/ItemSidebarView.vala:181
+#: src/Layouts/ItemRow.vala:1938 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
-#: src/Layouts/ItemRow.vala:1999 src/Layouts/ItemRow.vala:1938
 msgid "Description"
 msgstr "Beskrivelse"
 
@@ -147,8 +145,6 @@ msgstr "Planlagt"
 
 #: core/Enum.vala:533 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:762 src/Layouts/ItemBoard.vala:775
-#: src/Layouts/ItemRow.vala:1275 src/Layouts/ItemRow.vala:1288
-#: src/Layouts/ItemRow.vala:1276 src/Layouts/ItemRow.vala:1289
 #: src/Layouts/ItemRow.vala:1213 src/Layouts/ItemRow.vala:1226
 msgid "Pin"
 msgstr ""
@@ -198,14 +194,13 @@ msgstr "fullført"
 msgid "logbook"
 msgstr "loggbok"
 
-#: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:262
-#: core/Utils/Util.vala:575
+#: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:258
+#: core/Utils/Util.vala:571
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:328
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:196
-#: src/Widgets/ProjectItemRow.vala:139 core/Utils/Util.vala:258
-#: core/Utils/Util.vala:571
+#: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
 msgstr "Innboks"
 
@@ -237,22 +232,18 @@ msgstr "Prioritet 3:lav"
 msgid "Priority 4: none"
 msgstr "Prioritet 4:ingen"
 
-#: core/Objects/Filters/Priority.vala:170
 #: core/Objects/Filters/Priority.vala:182
 msgid "high"
 msgstr "høy"
 
-#: core/Objects/Filters/Priority.vala:172
 #: core/Objects/Filters/Priority.vala:184
 msgid "medium"
 msgstr "middels"
 
-#: core/Objects/Filters/Priority.vala:174
 #: core/Objects/Filters/Priority.vala:186
 msgid "low"
 msgstr "lav"
 
-#: core/Objects/Filters/Priority.vala:176
 #: core/Objects/Filters/Priority.vala:188
 msgid "none"
 msgstr "ingen"
@@ -275,14 +266,11 @@ msgstr "kommende"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
-#: core/Utils/Util.vala:265 core/Widgets/Calendar/CalendarHeader.vala:82
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:356
-#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:769
-#: src/Layouts/ItemRow.vala:1282 src/Views/Project/Project.vala:557
-#: src/Views/Project/Project.vala:723 src/Views/Today.vala:202
+#: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:359
-#: src/Layouts/ItemRow.vala:1283 core/Utils/Util.vala:261
-#: src/Layouts/ItemRow.vala:1220
+#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:769
+#: src/Layouts/ItemRow.vala:1220 src/Views/Project/Project.vala:557
+#: src/Views/Project/Project.vala:723 src/Views/Today.vala:202
 msgid "Today"
 msgstr "I dag"
 
@@ -292,11 +280,9 @@ msgstr "i dag"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Utils/Datetime.vala:633
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:362
-#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:772
-#: src/Layouts/ItemRow.vala:1285
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:365
-#: src/Layouts/ItemRow.vala:1286 src/Layouts/ItemRow.vala:1223
+#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:772
+#: src/Layouts/ItemRow.vala:1223
 msgid "Tomorrow"
 msgstr "I morgen"
 
@@ -320,14 +306,13 @@ msgstr "ingen etikett"
 msgid "unlabeled"
 msgstr "umerket"
 
-#: core/Objects/Item.vala:1340 core/Objects/Item.vala:1346
+#: core/Objects/Item.vala:1346
 msgid "Task copied to clipboard"
 msgstr "Oppgave kopiert til utklippstavlen"
 
-#: core/Objects/Item.vala:1633 core/Utils/Util.vala:889
+#: core/Objects/Item.vala:1639 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379 core/Objects/Item.vala:1639
-#: core/Utils/Util.vala:885
+#: src/Widgets/MultiSelectToolbar.vala:379
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
@@ -339,17 +324,17 @@ msgstr[1] "%d oppgaver flyttet til %s"
 msgid "Delete Label %s"
 msgstr "Slett etikett %s"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:821
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:828
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
-#: src/Services/Backups.vala:416 core/Objects/Project.vala:828
+#: src/Services/Backups.vala:416
 msgid "This can not be undone"
 msgstr "Dette kan ikke angres"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:824
-#: core/Objects/Project.vala:881 core/Objects/Section.vala:380
-#: core/Objects/Section.vala:406 core/Utils/Util.vala:439
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:831
+#: core/Objects/Project.vala:888 core/Objects/Section.vala:380
+#: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
@@ -361,48 +346,43 @@ msgstr "Dette kan ikke angres"
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:287 core/Utils/Util.vala:435
-#: core/Objects/Project.vala:831 core/Objects/Project.vala:888
+#: src/Widgets/MultiSelectToolbar.vala:287
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:825
-#: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:208
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:832
+#: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
-#: src/Widgets/MultiSelectToolbar.vala:288 core/Objects/Project.vala:832
-#: core/Widgets/DeadlineButton.vala:207
+#: src/Widgets/MultiSelectToolbar.vala:288
 msgid "Delete"
 msgstr "Slett"
 
-#: core/Objects/Project.vala:784 core/Objects/Project.vala:791
+#: core/Objects/Project.vala:791
 msgid "The project was copied to the Clipboard."
 msgstr "Prosjektet ble kopiert til utklippstavlen."
 
-#: core/Objects/Project.vala:820 core/Objects/Project.vala:827
+#: core/Objects/Project.vala:827
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Slett prosjekt %s?"
 
-#: core/Objects/Project.vala:877 core/Objects/Section.vala:402
-#: core/Objects/Project.vala:884
+#: core/Objects/Project.vala:884 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "Arkiver?"
 
-#: core/Objects/Project.vala:878 core/Objects/Section.vala:403
-#: core/Objects/Project.vala:885
+#: core/Objects/Project.vala:885 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Dette vil arkivere %s og alle tilhørende oppgaver."
 
-#: core/Objects/Project.vala:882 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:889 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
-#: src/Layouts/SectionRow.vala:662 src/Views/Project/Project.vala:386
-#: src/Layouts/SectionRow.vala:672 core/Objects/Project.vala:889
+#: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
 msgstr "Arkiver"
 
@@ -422,9 +402,8 @@ msgstr "Todoist"
 msgid "Task added successfully!"
 msgstr "Oppgaven er lagt til!"
 
-#: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:408
+#: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:414
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
-#: src/Layouts/ItemRow.vala:414
 msgid "To-do name"
 msgstr "Navn på gjøremål"
 
@@ -460,8 +439,7 @@ msgid "Add Reminders"
 msgstr "Legg til påminnelser"
 
 #: core/QuickAddCore.vala:314 src/Layouts/SectionBoard.vala:562
-#: src/Layouts/SectionRow.vala:655 src/Widgets/MagicButton.vala:50
-#: src/Layouts/SectionRow.vala:665
+#: src/Layouts/SectionRow.vala:665 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Legg til oppgave"
 
@@ -538,7 +516,6 @@ msgstr "Kombiner snarveier i tittelfeltet for raskere oppretting"
 msgid "Loading tasks for %s…"
 msgstr "Laster oppgaver for %s…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:338
 #: core/Services/CalDAV/CalDAVClient.vala:339
 #, c-format
 msgid "Processing task %d of %d"
@@ -569,45 +546,37 @@ msgstr "Synk fullført"
 msgid "On this computer"
 msgstr "På denne datamaskinen"
 
-#: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
-#: core/Services/Todoist.vala:1520
+#: core/Services/Todoist.vala:1520 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "Forespørselen var feilaktig."
 
-#: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
-#: core/Services/Todoist.vala:1521
+#: core/Services/Todoist.vala:1521 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Autentisering kreves, og har mislyktes, eller ikke blitt angitt."
 
-#: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
-#: core/Services/Todoist.vala:1522
+#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Forespørselen var gyldig, men for noe som var forbudt."
 
-#: core/Services/Todoist.vala:1513 src/Widgets/ErrorView.vala:141
-#: core/Services/Todoist.vala:1523
+#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "Kunne ikke finne forespurt ressurs."
 
-#: core/Services/Todoist.vala:1514 src/Widgets/ErrorView.vala:142
-#: core/Services/Todoist.vala:1524
+#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
 "Brukeren har sendt for mange forespørsler i løpet av en gitt tidsperiode."
 
-#: core/Services/Todoist.vala:1515 src/Widgets/ErrorView.vala:143
-#: core/Services/Todoist.vala:1525
+#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
 msgstr "Forespørselen mislyktes som følge av tjenerfeil."
 
-#: core/Services/Todoist.vala:1516 src/Widgets/ErrorView.vala:144
-#: core/Services/Todoist.vala:1526
+#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:144
 msgid "The server is currently unable to handle the request."
 msgstr "Tjeneren kan ikke håndtere forespørselen nå."
 
-#: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
-#: core/Services/Todoist.vala:1529
+#: core/Services/Todoist.vala:1529 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
 msgstr "Ukjent feil"
 
@@ -817,39 +786,37 @@ msgstr "Mørk"
 msgid "Dark Blue"
 msgstr "Mørkeblå"
 
-#: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:407
+#: core/Utils/Util.vala:255 core/Widgets/DateTimePicker/DateTimePicker.vala:410
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:410 core/Utils/Util.vala:255
 msgid "None"
 msgstr "Ingen"
 
-#: core/Utils/Util.vala:268 core/Utils/Util.vala:264
+#: core/Utils/Util.vala:264
 msgid "Today + Inbox"
 msgstr "I dag + innboks"
 
-#: core/Utils/Util.vala:440 core/Utils/Util.vala:436
+#: core/Utils/Util.vala:436
 msgid "Delete All"
 msgstr "Slett alt"
 
-#: core/Utils/Util.vala:454 core/Utils/Util.vala:450
+#: core/Utils/Util.vala:450
 msgid "Process completed, you need to start Planify again."
 msgstr "Prosessen er fullført, du må starte Planify på nytt."
 
-#: core/Utils/Util.vala:456
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 #: core/Utils/Util.vala:452
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 msgid "Ok"
 msgstr "OK"
 
-#: core/Utils/Util.vala:566 core/Utils/Util.vala:562
+#: core/Utils/Util.vala:562
 msgid "On This Computer"
 msgstr "På denne datamaskinen"
 
-#: core/Utils/Util.vala:591 core/Utils/Util.vala:587
+#: core/Utils/Util.vala:587
 msgid "Meet Planify"
 msgstr "Møt Planify"
 
-#: core/Utils/Util.vala:594 core/Utils/Util.vala:590
+#: core/Utils/Util.vala:590
 msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around with it – you can always recreate it "
@@ -859,22 +826,22 @@ msgstr ""
 "nøl med å eksperimentere med det – du kan alltids gjenskape det fra "
 "Innstillinger."
 
-#: core/Utils/Util.vala:601 core/Utils/Util.vala:597
+#: core/Utils/Util.vala:597
 msgid "Tap this task"
 msgstr "Trykk på denne oppgaven"
 
-#: core/Utils/Util.vala:602 core/Utils/Util.vala:598
+#: core/Utils/Util.vala:598
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
 "Du ser på en gjøremålsoppgave! Fullfør den ved å trykke på avmerkingsboksen "
 "til venstre. Fullførte gjøremål samles nederst i prosjektet ditt. "
 
-#: core/Utils/Util.vala:607 core/Utils/Util.vala:603
+#: core/Utils/Util.vala:603
 msgid "Create a new task"
 msgstr "Opprett et nytt gjøremål"
 
-#: core/Utils/Util.vala:608 core/Utils/Util.vala:604
+#: core/Utils/Util.vala:604
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
@@ -882,22 +849,22 @@ msgstr ""
 "Nå er det din tur! Trykk på «+»-knappen nederst i prosjektet ditt, skriv inn "
 "en oppgavebeskrivelse, og trykk på «Legg til oppgave»-knappen."
 
-#: core/Utils/Util.vala:613 core/Utils/Util.vala:609
+#: core/Utils/Util.vala:609
 msgid "Plan this to-do for today or later"
 msgstr "Planlegg dette gjøremålet for i dag eller senere"
 
-#: core/Utils/Util.vala:614 core/Utils/Util.vala:610
+#: core/Utils/Util.vala:610
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
 "Trykk på kalenderknappen nederst for å bestemme når du skal fullføre denne "
 "gjøremålsoppgaven."
 
-#: core/Utils/Util.vala:619 core/Utils/Util.vala:615
+#: core/Utils/Util.vala:615
 msgid "Reorder your to-dos"
 msgstr "Endre rekkefølgen på gjøremålene dine"
 
-#: core/Utils/Util.vala:620 core/Utils/Util.vala:616
+#: core/Utils/Util.vala:616
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
@@ -905,11 +872,11 @@ msgstr ""
 "For å endre rekkefølgen på listen, trykk og hold på en gjøremålsoppgave, og "
 "dra den deretter dit den skal være."
 
-#: core/Utils/Util.vala:625 core/Utils/Util.vala:621
+#: core/Utils/Util.vala:621
 msgid "Create a project"
 msgstr "Opprett et prosjekt"
 
-#: core/Utils/Util.vala:626 core/Utils/Util.vala:622
+#: core/Utils/Util.vala:622
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
@@ -917,11 +884,11 @@ msgstr ""
 "Organiser gjøremålene dine bedre! Gå til venstre panel og klikk på «+»-"
 "knappen i «På denne datamaskinen»-delen, og legg til ditt eget prosjekt."
 
-#: core/Utils/Util.vala:631 core/Utils/Util.vala:627
+#: core/Utils/Util.vala:627
 msgid "You’re done!"
 msgstr "Du er ferdig!"
 
-#: core/Utils/Util.vala:632 core/Utils/Util.vala:628
+#: core/Utils/Util.vala:628
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -935,15 +902,15 @@ msgstr ""
 "funksjonene nedenfor.\n"
 "Vi håper du liker å bruke Planify!"
 
-#: core/Utils/Util.vala:646 core/Utils/Util.vala:642
+#: core/Utils/Util.vala:642
 msgid "Tune your setup"
 msgstr "Finjuster oppsettet ditt"
 
-#: core/Utils/Util.vala:654 core/Utils/Util.vala:650
+#: core/Utils/Util.vala:650
 msgid "Show your calendar events"
 msgstr "Vis kalenderhendelsene dine"
 
-#: core/Utils/Util.vala:655 core/Utils/Util.vala:651
+#: core/Utils/Util.vala:651
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
@@ -951,11 +918,11 @@ msgstr ""
 "Du kan vise systemets kalenderhendelser i Planify. Gå til «Innstillinger» 🡒 "
 "Generelt 🡒 Kalenderhendelser for å slå det på."
 
-#: core/Utils/Util.vala:661 core/Utils/Util.vala:657
+#: core/Utils/Util.vala:657
 msgid "Enable synchronization with third-party services"
 msgstr "Aktiver synkronisering med tredjepartstjenester"
 
-#: core/Utils/Util.vala:662 core/Utils/Util.vala:658
+#: core/Utils/Util.vala:658
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
@@ -963,15 +930,15 @@ msgstr ""
 "Planify oppretter ikke bare oppgaver lokalt, men kan også synkronisere med "
 "Todoist-kontoen din. Gå til «Innstillinger» 🡒 «Kontoer»."
 
-#: core/Utils/Util.vala:670 core/Utils/Util.vala:666
+#: core/Utils/Util.vala:666
 msgid "Boost your productivity"
 msgstr "Øk produktiviteten din"
 
-#: core/Utils/Util.vala:678 core/Utils/Util.vala:674
+#: core/Utils/Util.vala:674
 msgid "Drag the plus button!"
 msgstr "Dra plussknappen!"
 
-#: core/Utils/Util.vala:679 core/Utils/Util.vala:675
+#: core/Utils/Util.vala:675
 msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
@@ -980,11 +947,11 @@ msgstr ""
 "til: den er laget for å bevege seg! Dra den opp for å opprette en oppgave "
 "hvor du vil."
 
-#: core/Utils/Util.vala:685 core/Utils/Util.vala:681
+#: core/Utils/Util.vala:681
 msgid "Add labels to your tasks!"
 msgstr "Legg til etiketter på oppgavene dine!"
 
-#: core/Utils/Util.vala:686 core/Utils/Util.vala:682
+#: core/Utils/Util.vala:682
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
@@ -992,11 +959,11 @@ msgstr ""
 "Etiketter hjelper deg med å organisere og kategorisere oppgavene dine. For å "
 "legge til en etikett, klikk på etikettknappen nederst."
 
-#: core/Utils/Util.vala:692 core/Utils/Util.vala:688
+#: core/Utils/Util.vala:688
 msgid "Set timely reminders!"
 msgstr "Sett påminnelser i tide!"
 
-#: core/Utils/Util.vala:693 core/Utils/Util.vala:689
+#: core/Utils/Util.vala:689
 msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
 "add a reminder."
@@ -1004,71 +971,63 @@ msgstr ""
 "Få varsler om viktige oppgaver eller hendelser. Trykk på bjelleknappen "
 "nedenfor for å legge til en påminnelse."
 
-#: core/Utils/Util.vala:704 core/Utils/Util.vala:700
+#: core/Utils/Util.vala:700
 msgid "💼️Work"
 msgstr "💼️Arbeid"
 
-#: core/Utils/Util.vala:710 core/Utils/Util.vala:706
+#: core/Utils/Util.vala:706
 msgid "🎒️School"
 msgstr "🎒️Skole"
 
-#: core/Utils/Util.vala:716 core/Utils/Util.vala:712
+#: core/Utils/Util.vala:712
 msgid "👉️Delegated"
 msgstr "👉️Delegert"
 
-#: core/Utils/Util.vala:722 core/Utils/Util.vala:718
+#: core/Utils/Util.vala:718
 msgid "🏡️Home"
 msgstr "🏡️Hjem"
 
-#: core/Utils/Util.vala:728 core/Utils/Util.vala:724
+#: core/Utils/Util.vala:724
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️ Følg opp"
 
-#: core/Utils/Util.vala:969 core/Utils/Util.vala:965
+#: core/Utils/Util.vala:965
 msgid "Task duplicated"
 msgstr "Oppgave duplisert"
 
-#: core/Utils/Util.vala:1005 core/Utils/Util.vala:1001
+#: core/Utils/Util.vala:1001
 msgid "Section duplicated"
 msgstr "Seksjon duplisert"
 
-#: core/Utils/Util.vala:1031 core/Utils/Util.vala:1057
 #: core/Utils/Util.vala:1027 core/Utils/Util.vala:1053
 msgid "Project duplicated"
 msgstr "Prosjekt duplisert"
 
-#: core/Utils/Util.vala:1099 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
-#: core/Utils/Util.vala:1095
+#: core/Utils/Util.vala:1095 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
 msgstr "Til rett tid"
 
-#: core/Utils/Util.vala:1102 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
-#: core/Utils/Util.vala:1098
+#: core/Utils/Util.vala:1098 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
 msgstr "10 minutter før"
 
-#: core/Utils/Util.vala:1105 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
-#: core/Utils/Util.vala:1101
+#: core/Utils/Util.vala:1101 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
 msgstr "30 minutter før"
 
-#: core/Utils/Util.vala:1108 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
-#: core/Utils/Util.vala:1104
+#: core/Utils/Util.vala:1104 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
 msgstr "45 minutter før"
 
-#: core/Utils/Util.vala:1111 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
-#: core/Utils/Util.vala:1107
+#: core/Utils/Util.vala:1107 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
 msgstr "1 time før"
 
-#: core/Utils/Util.vala:1114 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
-#: core/Utils/Util.vala:1110
+#: core/Utils/Util.vala:1110 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
 msgstr "2 timer før"
 
-#: core/Utils/Util.vala:1117 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
-#: core/Utils/Util.vala:1113
+#: core/Utils/Util.vala:1113 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
 msgstr "3 timer før"
 
@@ -1147,118 +1106,97 @@ msgstr "Fr"
 msgid "Sa"
 msgstr "Lø"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:132
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:135
 msgid "Type a date…"
 msgstr "Skriv inn en dato…"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:153
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:156
 msgid "Choose a date"
 msgstr "Velg en dato"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:157
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:530
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:160
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:533
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 msgid "Repeat"
 msgstr "Gjenta"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:166
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:143
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:169
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:143
 msgid "Time"
 msgstr "Tid"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:185
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:188
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:254
 #: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:188
 msgid "Done"
 msgstr "Ferdig"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:189
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:192
 msgid "Clear"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:351
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:354
 msgid "Menu"
 msgstr "Meny"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:368
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:371
 msgid "Next week"
 msgstr "Neste uke"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:403
-#: src/Widgets/EventRow.vala:286
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:406
+#: src/Widgets/EventRow.vala:286
 msgid "Calendar"
 msgstr "Kalender"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:411
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:414
 msgid "Daily"
 msgstr "Daglig"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:415
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:418
 msgid "Weekdays"
 msgstr "Ukedager"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:419
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:422
 msgid "Weekends"
 msgstr "Helger"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:423
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:426
 msgid "Weekly"
 msgstr "Ukentlig"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:427
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:430
 msgid "Monthly"
 msgstr "Månedlig"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:431
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:434
 msgid "Yearly"
 msgstr "Årlig"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:435
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:438
 msgid "Custom"
 msgstr "Tilpasset"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:736
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:747
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:443
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:747
 msgid "until"
 msgstr "til"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:739
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 msgid "for"
 msgstr "for"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:739
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 msgid "times"
 msgstr "ganger"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:739
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 msgid "time"
 msgstr "tid"
 
@@ -1329,20 +1267,17 @@ msgstr "Sett en forfallsdato"
 msgid "Add Time"
 msgstr "Legg til tid"
 
-#: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:132
-#: core/Widgets/DeadlineButton.vala:131
+#: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr "Angi frist"
 
-#: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:87
-#: core/Widgets/DeadlineButton.vala:94 core/Widgets/DeadlineButton.vala:101
-#: core/Widgets/DeadlineButton.vala:154 core/Widgets/DeadlineButton.vala:56
-#: core/Widgets/DeadlineButton.vala:86 core/Widgets/DeadlineButton.vala:93
-#: core/Widgets/DeadlineButton.vala:100 core/Widgets/DeadlineButton.vala:153
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
+#: core/Widgets/DeadlineButton.vala:153
 msgid "Set a Deadline"
 msgstr "Angi en frist"
 
-#: core/Widgets/DeadlineButton.vala:149 core/Widgets/DeadlineButton.vala:148
+#: core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
 msgstr "Frist"
 
@@ -1385,7 +1320,6 @@ msgid "Search or Create"
 msgstr "Søk eller opprett"
 
 #: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
-#: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemRow.vala:1363
 #: src/Layouts/ItemRow.vala:1302
 msgid "Apply"
 msgstr "Bruk"
@@ -1498,9 +1432,8 @@ msgid "To Do"
 msgstr "Gjøremål"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:784 src/Layouts/ItemRow.vala:1297
-#: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1298
-#: src/Layouts/ItemRow.vala:1235
+#: src/Layouts/ItemBoard.vala:784 src/Layouts/ItemRow.vala:1235
+#: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "Fullført"
 
@@ -1640,37 +1573,13 @@ msgid "Next Week"
 msgstr "Neste uke"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:777
-#: src/Layouts/ItemRow.vala:1290 src/Views/Project/Project.vala:562
-#: src/Views/Project/Project.vala:733 src/Layouts/ItemRow.vala:1291
-#: src/Layouts/ItemRow.vala:1228
+#: src/Layouts/ItemRow.vala:1228 src/Views/Project/Project.vala:562
+#: src/Views/Project/Project.vala:733
 msgid "No Date"
 msgstr "Ingen dato"
 
-#: src/Dialogs/GoogleOAuth.vala:40
-msgid "Todoist Sync"
-msgstr "Todoist Synk"
-
-#: src/Dialogs/GoogleOAuth.vala:55 src/Dialogs/GoogleOAuth.vala:140
-msgid "Loading"
-msgstr "Laster"
-
-#: src/Dialogs/GoogleOAuth.vala:83
-msgid "Planner is sync your tasks, this may take a few minutes"
-msgstr "Planleggeren synkroniserer oppgavene dine. Dette kan ta noen minutter"
-
-#: src/Dialogs/GoogleOAuth.vala:135
-msgid "Please enter your credentials"
-msgstr "Vennligst skriv inn påloggingsinformasjonen din"
-
-#: src/Dialogs/GoogleOAuth.vala:151
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:212
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:214
-msgid "Network Is Not Available"
-msgstr "Nettverket er ikke tilgjengelig"
-
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1426
-#: src/Layouts/ItemSidebarView.vala:495 src/Layouts/ItemRow.vala:1427
-#: src/Layouts/ItemRow.vala:1366
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1366
+#: src/Layouts/ItemSidebarView.vala:495
 msgid "Change History"
 msgstr "Endringslogg"
 
@@ -1726,8 +1635,8 @@ msgstr ""
 msgid "Archived Projects"
 msgstr "Arkivert prosjekter"
 
-#: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:658
-#: src/Views/Project/Project.vala:379 src/Layouts/SectionRow.vala:668
+#: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:668
+#: src/Views/Project/Project.vala:379
 msgid "Manage Sections"
 msgstr "Administrer seksjoner"
 
@@ -1764,8 +1673,8 @@ msgstr "Du kan sortere kontoene dine ved å dra og slippe"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
-msgid "Planify is syncing your tasks, this may take a few minutes"
-msgstr "Planify synkroniserer oppgavene dine. Dette kan ta noen minutter"
+msgid "Planify is syncing your tasks, this may take a few moments"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
@@ -1916,6 +1825,11 @@ msgstr "Vennligst skriv inn legitimasjonen din"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
 msgid "Loading…"
 msgstr "Laster…"
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:212
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:214
+msgid "Network Is Not Available"
+msgstr "Nettverket er ikke tilgjengelig"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:36
 #: src/Dialogs/Preferences/PreferencesWindow.vala:169
@@ -2594,10 +2508,8 @@ msgid "Project added successfully!"
 msgstr "Prosjekt lagt til!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:780 src/Layouts/ItemRow.vala:1293
-#: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemSidebarView.vala:490
-#: src/Layouts/ItemRow.vala:1294 src/Layouts/ItemRow.vala:1422
-#: src/Layouts/ItemRow.vala:1231 src/Layouts/ItemRow.vala:1361
+#: src/Layouts/ItemBoard.vala:780 src/Layouts/ItemRow.vala:1231
+#: src/Layouts/ItemRow.vala:1361 src/Layouts/ItemSidebarView.vala:490
 msgid "Move"
 msgstr "Flytt"
 
@@ -2615,7 +2527,7 @@ msgid "New Section"
 msgstr "Ny seksjon"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:563
-#: src/Layouts/SectionRow.vala:656 src/Layouts/SectionRow.vala:666
+#: src/Layouts/SectionRow.vala:666
 msgid "Edit Section"
 msgstr "Rediger seksjon"
 
@@ -2640,90 +2552,73 @@ msgid "Open/Close Sidebar"
 msgstr "Åpne/lukk sidefelt"
 
 #: src/Layouts/ItemBoard.vala:156 src/Layouts/ItemBoard.vala:762
-#: src/Layouts/ItemBoard.vala:775 src/Layouts/ItemRow.vala:1275
-#: src/Layouts/ItemRow.vala:1288 src/Layouts/ItemRow.vala:1276
-#: src/Layouts/ItemRow.vala:1289 src/Layouts/ItemRow.vala:1213
+#: src/Layouts/ItemBoard.vala:775 src/Layouts/ItemRow.vala:1213
 #: src/Layouts/ItemRow.vala:1226
 msgid "Unpin"
 msgstr ""
 
-#: src/Layouts/ItemBoard.vala:623 src/Layouts/ItemRow.vala:1627
-#: src/Layouts/ItemSidebarView.vala:656 src/Layouts/ItemRow.vala:1628
-#: src/Layouts/ItemRow.vala:1567
+#: src/Layouts/ItemBoard.vala:623 src/Layouts/ItemRow.vala:1567
+#: src/Layouts/ItemSidebarView.vala:656
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Fullført. Neste forekomst: %s"
 
-#: src/Layouts/ItemBoard.vala:783 src/Layouts/ItemRow.vala:1296
-#: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemRow.vala:1234
+#: src/Layouts/ItemBoard.vala:783 src/Layouts/ItemRow.vala:1234
 msgid "Add Subtask"
 msgstr "Legg til deloppgaver"
 
-#: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1298
-#: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemRow.vala:1236
+#: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1236
 msgid "Edit"
 msgstr "Rediger"
 
-#: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1299
-#: src/Layouts/ItemRow.vala:1420 src/Layouts/ItemSidebarView.vala:489
+#: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1237
+#: src/Layouts/ItemRow.vala:1360 src/Layouts/ItemSidebarView.vala:489
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
-#: src/Layouts/SectionRow.vala:659 src/Views/Project/Project.vala:375
-#: src/Layouts/ItemRow.vala:1300 src/Layouts/ItemRow.vala:1421
-#: src/Layouts/ItemRow.vala:1237 src/Layouts/ItemRow.vala:1360
-#: src/Layouts/SectionRow.vala:669
+#: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:375
 msgid "Duplicate"
 msgstr "Dupliser"
 
-#: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1301
-#: src/Layouts/ItemRow.vala:1423 src/Layouts/ItemSidebarView.vala:492
-#: src/Layouts/ItemRow.vala:1302 src/Layouts/ItemRow.vala:1424
-#: src/Layouts/ItemRow.vala:1239 src/Layouts/ItemRow.vala:1363
+#: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1239
+#: src/Layouts/ItemRow.vala:1363 src/Layouts/ItemSidebarView.vala:492
 msgid "Delete Task"
 msgstr "Slett oppgave"
 
-#: src/Layouts/ItemBoard.vala:1088 src/Layouts/ItemRow.vala:1868
-#: src/Layouts/ItemRow.vala:1869 src/Layouts/ItemRow.vala:1808
+#: src/Layouts/ItemBoard.vala:1088 src/Layouts/ItemRow.vala:1808
 msgid "Order changed to 'Custom sort order'"
 msgstr ""
 
-#: src/Layouts/ItemBoard.vala:1174 src/Layouts/ItemRow.vala:1651
-#: src/Layouts/ItemRow.vala:1652 src/Layouts/ItemRow.vala:1591
+#: src/Layouts/ItemBoard.vala:1174 src/Layouts/ItemRow.vala:1591
 #, c-format
 msgid "%s was deleted"
 msgstr "%s ble slettet"
 
-#: src/Layouts/ItemBoard.vala:1175 src/Layouts/ItemRow.vala:1652
-#: src/Layouts/ItemRow.vala:1653 src/Layouts/ItemRow.vala:1592
+#: src/Layouts/ItemBoard.vala:1175 src/Layouts/ItemRow.vala:1592
 msgid "Undo"
 msgstr "Angre"
 
-#: src/Layouts/ItemRow.vala:521 src/Layouts/ItemRow.vala:2013
-msgid "Add Attachments"
-msgstr "Legg til vedlegg"
-
-#: src/Layouts/ItemRow.vala:616 src/Layouts/ItemRow.vala:573
+#: src/Layouts/ItemRow.vala:573
 msgid "Add Subtasks"
 msgstr "Legg til deloppgaver"
 
-#: src/Layouts/ItemRow.vala:1125 src/Layouts/ItemRow.vala:1126
 #: src/Layouts/ItemRow.vala:1063
 msgid "Hide Sub-tasks"
 msgstr "Skjul deloppgaver"
 
-#: src/Layouts/ItemRow.vala:1125 src/Layouts/ItemRow.vala:1126
 #: src/Layouts/ItemRow.vala:1063
 msgid "Show Sub-tasks"
 msgstr "Vis deloppgaver"
 
-#: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:486
-#: src/Layouts/ItemRow.vala:1417 src/Layouts/ItemRow.vala:1356
+#: src/Layouts/ItemRow.vala:1356 src/Layouts/ItemSidebarView.vala:486
 msgid "Use as a Note"
 msgstr "Bruk som Merknad"
 
-#: src/Layouts/ItemRow.vala:1419 src/Layouts/ItemSidebarView.vala:488
-#: src/Layouts/ItemRow.vala:1420 src/Layouts/ItemRow.vala:1359
+#: src/Layouts/ItemRow.vala:1359 src/Layouts/ItemSidebarView.vala:488
 msgid "Copy to Clipboard"
 msgstr "Kopier til utklippstavlen"
+
+#: src/Layouts/ItemRow.vala:2013
+msgid "Add Attachments"
+msgstr "Legg til vedlegg"
 
 #: src/Layouts/ItemSidebarView.vala:77
 msgid "Close Detail"
@@ -2782,14 +2677,12 @@ msgstr "Legg til oppgaver"
 msgid "Load more"
 msgstr "Last mer"
 
-#: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:612
+#: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:622
 #: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
-#: src/Layouts/SectionRow.vala:622
 msgid "completed tasks"
 msgstr "fullførte oppgaver"
 
-#: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:657
-#: src/Layouts/SectionRow.vala:667
+#: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:667
 msgid "Move Section"
 msgstr "Flytt seksjon"
 
@@ -2797,13 +2690,12 @@ msgstr "Flytt seksjon"
 msgid "Manage Section Order"
 msgstr "Administrer seksjonsrekkefølge"
 
-#: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:660
-#: src/Layouts/SectionRow.vala:670
+#: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:670
 msgid "Show Completed Tasks"
 msgstr "Vis fullførte oppgaver"
 
-#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:663
-#: src/Widgets/SectionItemRow.vala:207 src/Layouts/SectionRow.vala:673
+#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:673
+#: src/Widgets/SectionItemRow.vala:207
 msgid "Delete Section"
 msgstr "Slett seksjon"
 
@@ -3312,7 +3204,7 @@ msgstr "Avvis"
 msgid "Unarchive"
 msgstr ""
 
-#: src/Widgets/SubItems.vala:523 src/Widgets/SubItems.vala:525
+#: src/Widgets/SubItems.vala:525
 msgid "No subtasks added yet. Get started!"
 msgstr "Ingen deloppgaver er lagt til ennå. Kom i gang!"
 
@@ -3337,27 +3229,25 @@ msgstr ""
 msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
 msgstr "<b>%s</b> er %.0f%% fullført. Du kan hjelpe til med å fullføre det!"
 
-#: src/Widgets/TranslationRow.vala:129 src/Widgets/TranslationRow.vala:151
-#: src/Widgets/TranslationRow.vala:155 src/Widgets/TranslationRow.vala:121
-#: src/Widgets/TranslationRow.vala:142 src/Widgets/TranslationRow.vala:146
+#: src/Widgets/TranslationRow.vala:121 src/Widgets/TranslationRow.vala:142
+#: src/Widgets/TranslationRow.vala:146
 msgid "Translations"
 msgstr "Oversettelser"
 
-#: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
-#: src/Widgets/TranslationRow.vala:156 src/Widgets/TranslationRow.vala:122
-#: src/Widgets/TranslationRow.vala:143 src/Widgets/TranslationRow.vala:147
+#: src/Widgets/TranslationRow.vala:122 src/Widgets/TranslationRow.vala:143
+#: src/Widgets/TranslationRow.vala:147
 msgid "Help make Planify available worldwide"
 msgstr "Hjelp med å gjøre Planify tilgjengelig over hele verden"
 
-#: src/Widgets/TranslationRow.vala:138 src/Widgets/TranslationRow.vala:129
+#: src/Widgets/TranslationRow.vala:129
 msgid "Help improve translations"
 msgstr "Hjelp med å forbedre oversettelsene"
 
-#: src/Widgets/TranslationRow.vala:145 src/Widgets/TranslationRow.vala:136
+#: src/Widgets/TranslationRow.vala:136
 msgid "Start a new translation"
 msgstr "Start en ny oversettelse"
 
-#: src/Widgets/TranslationRow.vala:146 src/Widgets/TranslationRow.vala:137
+#: src/Widgets/TranslationRow.vala:137
 #, c-format
 msgid "<b>%s</b> is not available yet. Be the first to translate it!"
 msgstr ""
@@ -3462,7 +3352,18 @@ msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Åpne oppslagstavle"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
-msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr ""
+#~ msgid "Todoist Sync"
+#~ msgstr "Todoist Synk"
+
+#~ msgid "Loading"
+#~ msgstr "Laster"
+
+#~ msgid "Planner is sync your tasks, this may take a few minutes"
+#~ msgstr ""
+#~ "Planleggeren synkroniserer oppgavene dine. Dette kan ta noen minutter"
+
+#~ msgid "Please enter your credentials"
+#~ msgstr "Vennligst skriv inn påloggingsinformasjonen din"
+
+#~ msgid "Planify is syncing your tasks, this may take a few minutes"
+#~ msgstr "Planify synkroniserer oppgavene dine. Dette kan ta noen minutter"
