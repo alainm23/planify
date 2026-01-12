@@ -2172,7 +2172,8 @@ msgstr "Intelligente Datumserkennung"
 
 #: src/Dialogs/Preferences/Pages/General.vala:139
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr "Erkenne automatisch Datumsangaben wie \"morgen\" oder \"nächste Woche\""
+msgstr ""
+"Erkenne automatisch Datumsangaben wie \"morgen\" oder \"nächste Woche\""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
