@@ -3235,8 +3235,7 @@ msgstr ""
 #: src/Widgets/TranslationRow.vala:95
 #, c-format
 msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
-msgstr ""
-"<b>%s</b> tulkojums ir %.0f%% pabeigts. Jūs variet palīdzēt to pabeigt!"
+msgstr "<b>%s</b> tulkojums ir %.0f%% pabeigts. Jūs variet palīdzēt to pabeigt!"
 
 #: src/Widgets/TranslationRow.vala:121 src/Widgets/TranslationRow.vala:142
 #: src/Widgets/TranslationRow.vala:146
