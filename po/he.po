@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-14 10:00+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-01-13 22:30+0000\n"
+"Last-Translator: Binyamin Pekar <binyamin.pekar@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/he/>\n"
 "Language: he\n"
@@ -12,81 +12,81 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.2-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
-msgstr ""
+msgstr "פרויקטים"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:356
 msgid "Sections"
-msgstr ""
+msgstr "מדור"
 
 #: core/Enum.vala:174 core/Enum.vala:183
 msgid "Tasks"
-msgstr ""
+msgstr "מטלות"
 
 #: core/Enum.vala:177 core/Enum.vala:530 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:781
 #: src/Layouts/ItemRow.vala:1232
 msgid "Labels"
-msgstr ""
+msgstr "תוויות"
 
 #: core/Enum.vala:180 src/Dialogs/Preferences/Pages/HomeView.vala:35
 msgid "Filters"
-msgstr ""
+msgstr "מסננים"
 
 #: core/Enum.vala:186
 msgid "Lists"
-msgstr ""
+msgstr "רשימות"
 
 #: core/Enum.vala:214
 msgid "Don't Repeat"
-msgstr ""
+msgstr "אל תחזור"
 
 #: core/Enum.vala:216
 #, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "כל דקה"
+msgstr[1] "כל %d דקות"
 
 #: core/Enum.vala:218
 #, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "כל שעה"
+msgstr[1] "כל %d שעות"
 
 #: core/Enum.vala:220
 #, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "כל יום"
+msgstr[1] "כל %d ימים"
 
 #: core/Enum.vala:222
 #, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "כל שבוע"
+msgstr[1] "כל %d שבועות"
 
 #: core/Enum.vala:224
 #, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "כל חודש"
+msgstr[1] "כל %d חודשים"
 
 #: core/Enum.vala:226
 #, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "כל שנה‪‪"
+msgstr[1] "כל %d שנים"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -105,69 +105,69 @@ msgstr ""
 #: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:633
 #: src/Views/Today.vala:662 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
-msgstr ""
+msgstr "עדיפות"
 
 #: core/Enum.vala:344
 msgid "Label"
-msgstr ""
+msgstr "תווית"
 
 #: core/Enum.vala:347 src/Views/Project/Project.vala:543
 #: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:631
 msgid "Due Date"
-msgstr ""
+msgstr "תאריך יעד"
 
 #: core/Enum.vala:350 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
-msgstr ""
+msgstr "מדור"
 
 #: core/Enum.vala:459
 msgid "Task Created"
-msgstr ""
+msgstr "מטלה נוצרה"
 
 #: core/Enum.vala:462
 msgid "Task Updated"
-msgstr ""
+msgstr "מטלה עודכנה"
 
 #: core/Enum.vala:518
 msgid "Content"
-msgstr ""
+msgstr "תוכן"
 
 #: core/Enum.vala:521 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:1938 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
-msgstr ""
+msgstr "תיאור"
 
 #: core/Enum.vala:524 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr ""
+msgstr "מתוזמן"
 
 #: core/Enum.vala:533 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:762 src/Layouts/ItemBoard.vala:775
 #: src/Layouts/ItemRow.vala:1213 src/Layouts/ItemRow.vala:1226
 msgid "Pin"
-msgstr ""
+msgstr "הצמד"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr ""
+msgstr "כל המטלות"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
-msgstr ""
+msgstr "כל המטלות"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all"
-msgstr ""
+msgstr "הכל"
 
 #: core/Objects/Filters/Anytime.vala:33
 msgid "Anytime"
-msgstr ""
+msgstr "כל זמן"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "anytime"
-msgstr ""
+msgstr "כל זמן"
 
 #: core/Objects/Filters/Anytime.vala:34 core/Objects/Filters/Completed.vala:34
 #: core/Objects/Filters/Inbox.vala:36 core/Objects/Filters/Labels.vala:34
@@ -176,23 +176,23 @@ msgstr ""
 #: core/Objects/Filters/Scheduled.vala:49 core/Objects/Filters/Today.vala:50
 #: core/Objects/Filters/Tomorrow.vala:34 core/Objects/Filters/Unlabeled.vala:34
 msgid "filters"
-msgstr ""
+msgstr "מסננים"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr ""
+msgstr "ללא תאריך"
 
 #: core/Objects/Filters/Completed.vala:33
 msgid "Completed"
-msgstr ""
+msgstr "הושלם"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "completed"
-msgstr ""
+msgstr "הושלם"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "logbook"
-msgstr ""
+msgstr "יומן אירועים"
 
 #: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:258
 #: core/Utils/Util.vala:571
@@ -202,67 +202,67 @@ msgstr ""
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:196
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr ""
+msgstr "דואר נכנס"
 
 #: core/Objects/Filters/Inbox.vala:36
 msgid "inbox"
-msgstr ""
+msgstr "דואר נכנס"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
-msgstr ""
+msgstr "תוויות"
 
 #: core/Objects/Filters/Pinboard.vala:34
 msgid "Pinboard"
-msgstr ""
+msgstr "לוח מודעות"
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:116
 msgid "Priority 1: high"
-msgstr ""
+msgstr "עדיפות 1: גבוהה"
 
 #: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:118
 msgid "Priority 2: medium"
-msgstr ""
+msgstr "עדיפות 2: בינונית"
 
 #: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:120
 msgid "Priority 3: low"
-msgstr ""
+msgstr "עדיפות 3: נמוכה"
 
 #: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:122
 msgid "Priority 4: none"
-msgstr ""
+msgstr "עדיפות 4: ללא"
 
 #: core/Objects/Filters/Priority.vala:182
 msgid "high"
-msgstr ""
+msgstr "גבוהה"
 
 #: core/Objects/Filters/Priority.vala:184
 msgid "medium"
-msgstr ""
+msgstr "בינונית"
 
 #: core/Objects/Filters/Priority.vala:186
 msgid "low"
-msgstr ""
+msgstr "נמוכה"
 
 #: core/Objects/Filters/Priority.vala:188
 msgid "none"
-msgstr ""
+msgstr "ללא"
 
 #: core/Objects/Filters/Repeating.vala:33
 msgid "Repeating"
-msgstr ""
+msgstr "חזרה"
 
 #: core/Objects/Filters/Repeating.vala:34
 msgid "repeating"
-msgstr ""
+msgstr "חזרה"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr ""
+msgstr "מתוזמן"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
-msgstr ""
+msgstr "מתקרב"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
@@ -272,11 +272,11 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1220 src/Views/Project/Project.vala:557
 #: src/Views/Project/Project.vala:723 src/Views/Today.vala:202
 msgid "Today"
-msgstr ""
+msgstr "היום"
 
 #: core/Objects/Filters/Today.vala:50
 msgid "today"
-msgstr ""
+msgstr "היום"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Utils/Datetime.vala:633
@@ -284,31 +284,31 @@ msgstr ""
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:772
 #: src/Layouts/ItemRow.vala:1223
 msgid "Tomorrow"
-msgstr ""
+msgstr "מחר"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "tomorrow"
-msgstr ""
+msgstr "מחר"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "date"
-msgstr ""
+msgstr "תאריך"
 
 #: core/Objects/Filters/Unlabeled.vala:33
 msgid "Unlabeled"
-msgstr ""
+msgstr "ללא תווית"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "no label"
-msgstr ""
+msgstr "אין תווית"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "unlabeled"
-msgstr ""
+msgstr "ללא תווית"
 
 #: core/Objects/Item.vala:1346
 msgid "Task copied to clipboard"
-msgstr ""
+msgstr "המטלה הועתקה ללוח"
 
 #: core/Objects/Item.vala:1639 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
@@ -316,13 +316,13 @@ msgstr ""
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "המטלה הועברה אל %s"
+msgstr[1] "%d מטלות עברו אל %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
 msgid "Delete Label %s"
-msgstr ""
+msgstr "מחק תווית %s"
 
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:828
 #: core/Objects/Section.vala:377
@@ -330,7 +330,7 @@ msgstr ""
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
-msgstr ""
+msgstr "לא ניתן לבטל"
 
 #: core/Objects/Label.vala:210 core/Objects/Project.vala:831
 #: core/Objects/Project.vala:888 core/Objects/Section.vala:380
@@ -348,7 +348,7 @@ msgstr ""
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:287
 msgid "Cancel"
-msgstr ""
+msgstr "ביטול"
 
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:832
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
@@ -360,36 +360,36 @@ msgstr ""
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
 #: src/Widgets/MultiSelectToolbar.vala:288
 msgid "Delete"
-msgstr ""
+msgstr "מחק"
 
 #: core/Objects/Project.vala:791
 msgid "The project was copied to the Clipboard."
-msgstr ""
+msgstr "הפרויקט הועתק ללוח."
 
 #: core/Objects/Project.vala:827
 #, c-format
 msgid "Delete Project %s?"
-msgstr ""
+msgstr "האם למחוק את הפרויקט %s?"
 
 #: core/Objects/Project.vala:884 core/Objects/Section.vala:402
 msgid "Archive?"
-msgstr ""
+msgstr "האם להעביר לארכיון?"
 
 #: core/Objects/Project.vala:885 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "זה יעביר לארכיון %s ואת כל המטלות שלו."
 
 #: core/Objects/Project.vala:889 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
-msgstr ""
+msgstr "ארכיון"
 
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
 msgid "Delete Section %s"
-msgstr ""
+msgstr "מחק את המדור %s"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
@@ -400,7 +400,7 @@ msgstr ""
 
 #: core/QuickAddCore.vala:138
 msgid "Task added successfully!"
-msgstr ""
+msgstr "המטלה נוספה בהצלחה!"
 
 #: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:414
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
@@ -409,25 +409,25 @@ msgstr ""
 
 #: core/QuickAddCore.vala:184
 msgid "This field is required"
-msgstr ""
+msgstr "שדה זה נדרש"
 
 #: core/QuickAddCore.vala:208 src/Dialogs/Project.vala:136
 msgid "Add a description…"
-msgstr ""
+msgstr "הוסף תיאור…"
 
 #: core/QuickAddCore.vala:248
 msgid "Set date"
-msgstr ""
+msgstr "הגדר תאריך"
 
 #: core/QuickAddCore.vala:260 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
-msgstr ""
+msgstr "הוסף תוויות"
 
 #: core/QuickAddCore.vala:265 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
-msgstr ""
+msgstr "הגדר את העדיפות"
 
 #: core/QuickAddCore.vala:270
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
@@ -436,38 +436,39 @@ msgstr ""
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
 #: core/Widgets/ReminderPicker/ReminderButton.vala:177
 msgid "Add Reminders"
-msgstr ""
+msgstr "הוסף תזכורות"
 
 #: core/QuickAddCore.vala:314 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:665 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
-msgstr ""
+msgstr "הוסף מטלה"
 
 #: core/QuickAddCore.vala:320 core/QuickAddCore.vala:1388
 msgid "Keep adding"
-msgstr ""
+msgstr "המשך להוסיף"
 
 #: core/QuickAddCore.vala:337
 msgid "Select a Project"
-msgstr ""
+msgstr "בחר פרויקט"
 
 #: core/QuickAddCore.vala:364
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
+"מצטער, \"הוספה מהירה\" לא מצאה אף פרויקט זמין, נסה ליצור פרויקט מ-Planify."
 
 #: core/QuickAddCore.vala:1350 src/MainWindow.vala:720
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "קיצורי מקלדת"
 
 #: core/QuickAddCore.vala:1356
 msgid "Speed up task creation with these shortcuts"
-msgstr ""
+msgstr "האץ יצירת מטלות באמצעות קיצורי הדרך האלה"
 
 #: core/QuickAddCore.vala:1370
 msgid "Set priority"
-msgstr ""
+msgstr "הגדר חשיבות"
 
 #: core/QuickAddCore.vala:1370
 msgid "p1 = highest, p4 = lowest"
@@ -475,27 +476,27 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1371
 msgid "Add labels"
-msgstr ""
+msgstr "הוסף תוויות"
 
 #: core/QuickAddCore.vala:1371
 msgid "Opens label selector"
-msgstr ""
+msgstr "פותח את בורר התוויות"
 
 #: core/QuickAddCore.vala:1372
 msgid "Assign project"
-msgstr ""
+msgstr "שיוך פרויקט"
 
 #: core/QuickAddCore.vala:1372
 msgid "Opens project selector"
-msgstr ""
+msgstr "פותח את בורר הפרויקטים"
 
 #: core/QuickAddCore.vala:1373
 msgid "Set reminder"
-msgstr ""
+msgstr "הגדר תזכורת"
 
 #: core/QuickAddCore.vala:1373
 msgid "Opens reminder options"
-msgstr ""
+msgstr "פותח אפשרויות תזכורת"
 
 #: core/QuickAddCore.vala:1388
 msgid "Toggle stay open after creating task"
