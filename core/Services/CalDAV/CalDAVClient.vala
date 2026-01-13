@@ -308,6 +308,15 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var items_list = new Gee.ArrayList<Objects.Item> ();
 
         Idle.add (() => {
+            if (index >= responses.size) {
+                if (progress_callback != null) {
+                    progress_callback (responses.size, responses.size, _ ("Loaded tasks for %s…").printf (project.name));
+                }
+                project.add_items_batched (items_list);
+                Idle.add ((owned) callback);
+                return false;
+            }
+
             var response = responses[index];
             string? href = response.href;
 

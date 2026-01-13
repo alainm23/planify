@@ -532,17 +532,24 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public void add_items_batched (Gee.ArrayList<Objects.Item> items) {
+        var items_to_remove = new Gee.ArrayList<Objects.Item> ();
+        
         foreach (var item in items) {
             string? parent_id = Util.find_string_value ("RELATED-TO", item.calendar_data);
+            
             if (parent_id != null && parent_id != "") {
                 Objects.Item ? parent_item = Services.Store.instance ().get_item (parent_id);
                 if (parent_item != null) {
                     parent_item.add_item_if_not_exists (item);
-                    items.remove (item);
+                    items_to_remove.add (item);
                 }
             }
         }
-
+        
+        foreach (var item in items_to_remove) {
+            items.remove (item);
+        }
+        
         if (!Services.Store.instance ().insert_items_transaction (items)) {
             error ("Failed to insert items in transaction");
         }
