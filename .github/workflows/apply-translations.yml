@@ -1,0 +1,77 @@
+name: Apply Translation Updates
+
+on:
+    issue_comment:
+        types: [ edited ]
+
+permissions:
+    contents: write
+    pull-requests: read
+
+jobs:
+    apply:
+        if: |
+            github.event.issue.pull_request &&
+            contains(github.event.comment.body, '- [x] **Apply translation updates**')
+
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Get PR info
+                id: pr
+                uses: actions/github-script@v8
+                with:
+                    script: |
+                        const pr = await github.rest.pulls.get({
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          pull_number: context.issue.number,
+                        });
+                        
+                        core.setOutput("ref", pr.data.head.ref);
+                        core.setOutput("repo", pr.data.head.repo.full_name);
+
+            -   uses: actions/checkout@v6
+                with:
+                    repository: ${{ steps.pr.outputs.repo }}
+                    ref: ${{ steps.pr.outputs.ref }}
+                    fetch-depth: 0
+
+            -   name: Install gettext
+                run: sudo apt-get update && sudo apt-get install -y gettext
+
+            -   name: Configure git
+                run: |
+                    git config user.name "Planify Bot"
+                    git config user.email "actions@github.com"
+
+            -   name: Update POTFILES and translations
+                run: |
+                    cat > po/POTFILES << 'EOF'
+                    # List of source files containing translatable strings.
+                    # Please keep this file sorted alphabetically.
+                    EOF
+                    
+                    find core -name "*.vala" | sort >> po/POTFILES
+                    echo >> po/POTFILES
+                    find src -name "*.vala" | sort >> po/POTFILES
+                    echo >> po/POTFILES
+                    find quick-add -name "*.vala" | sort >> po/POTFILES
+                    echo >> po/POTFILES
+                    echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
+                    
+                    python3 scripts/update_translations.py
+
+            -   name: Commit changes
+                run: |
+                    git add po/
+                    if ! git diff --staged --quiet; then
+                      git commit -m "Update translations"
+                      git push
+                    fi
+              - name: Notify Weblate of changes
+                run: |
+                  curl -X POST "https://hosted.weblate.org/api/components/planner/io-github-alainm23-planify/repository/" \
+                    -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
+                    -H "Content-Type: application/json" \
+                    -d '{"operation": "pull"}'

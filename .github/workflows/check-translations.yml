@@ -1,0 +1,92 @@
+name: Check if POTFILES need to be updated
+
+on:
+    pull_request:
+        types: [ opened, synchronize, reopened ]
+
+permissions:
+    contents: read
+    pull-requests: write
+
+jobs:
+    gettext-check:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: actions/checkout@v6
+                with:
+                    fetch-depth: 0
+
+            -   name: Install gettext
+                run: sudo apt-get update && sudo apt-get install -y gettext
+
+            -   name: Configure git
+                run: |
+                    git config user.name "Planify Bot"
+                    git config user.email "actions@github.com"
+
+            -   name: Update POTFILES and translations
+                run: |
+                    cat > po/POTFILES << 'EOF'
+                    # List of source files containing translatable strings.
+                    # Please keep this file sorted alphabetically.
+                    EOF
+                    
+                    find core -name "*.vala" | sort >> po/POTFILES
+                    echo >> po/POTFILES
+                    find src -name "*.vala" | sort >> po/POTFILES
+                    echo >> po/POTFILES
+                    find quick-add -name "*.vala" | sort >> po/POTFILES
+                    echo >> po/POTFILES
+                    echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
+                    
+                    python3 scripts/update_translations.py
+
+            -   name: Check for changes
+                id: diff
+                run: |
+                    if git diff --ignore-matching-lines='^"POT-Creation-Date:' \
+                                --ignore-matching-lines='^"PO-Revision-Date:' \
+                                --ignore-matching-lines='^"Report-Msgid-Bugs-To:' \
+                                --quiet po/; then
+                      echo "changed=false" >> $GITHUB_OUTPUT
+                    else
+                      echo "changed=true" >> $GITHUB_OUTPUT
+                    fi
+
+            -   name: Comment on PR if updates are needed
+                if: steps.diff.outputs.changed == 'true'
+                uses: actions/github-script@v8
+                with:
+                    script: |
+                        const body = `
+                          **Translation files need updating**
+                          - [ ] **Apply translation updates**
+                          `;
+                        
+                          const { data: comments } = await github.rest.issues.listComments({
+                              owner: context.repo.owner,
+                              repo: context.repo.repo,
+                              issue_number: context.issue.number,
+                          });
+                        
+                          const existing = comments.find(
+                          c => c.user.login === "github-actions[bot]" &&
+                          c.body.includes("Translation files need updating")
+                          );
+                        
+                          if (existing) {
+                              await github.rest.issues.updateComment({
+                                  owner: context.repo.owner,
+                                  repo: context.repo.repo,
+                                  comment_id: existing.id,
+                                  body,
+                              });
+                          } else {
+                              await github.rest.issues.createComment({
+                                  owner: context.repo.owner,
+                                  repo: context.repo.repo,
+                                  issue_number: context.issue.number,
+                                  body,
+                              });
+                          }
