@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-04 17:51+0000\n"
-"Last-Translator: Aitor-RM <Aitor.Rufian@alu.uclm.es>\n"
+"PO-Revision-Date: 2026-01-14 11:18+0000\n"
+"Last-Translator: Jose Manuel Sánchez <josemas@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/es/>\n"
 "Language: es\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -521,16 +521,15 @@ msgstr "Combina atajos en el campo de título para una creación más rápida"
 msgid "Loading tasks for %s…"
 msgstr "Cargando tareas para %s…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:313
-#: core/Services/CalDAV/CalDAVClient.vala:345
-#, c-format
-msgid "Loaded tasks for %s…"
-msgstr ""
-
-#: core/Services/CalDAV/CalDAVClient.vala:338
+#: core/Services/CalDAV/CalDAVClient.vala:329
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Sincronizando tarea %d de %d"
+
+#: core/Services/CalDAV/CalDAVClient.vala:336
+#, c-format
+msgid "Loaded tasks for %s…"
+msgstr "Tareas cargadas para %s…"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
@@ -840,9 +839,8 @@ msgstr ""
 "configuración."
 
 #: core/Utils/Util.vala:597
-#, fuzzy
 msgid "Tap this task"
-msgstr "Toca esta tarea"
+msgstr "Toca en esta tarea"
 
 #: core/Utils/Util.vala:598
 msgid ""
@@ -1711,7 +1709,7 @@ msgstr "Puedes ordenar tus cuentas arrastrando y soltando"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr ""
+msgstr "Planify está sincronizando tus tareas, esto puede llevar un momento"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"

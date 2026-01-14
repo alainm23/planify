@@ -232,18 +232,22 @@ msgstr "Prioridade 3: baixa"
 msgid "Priority 4: none"
 msgstr "Prioridade 4: nenhuma"
 
+#: core/Objects/Filters/Priority.vala:170
 #: core/Objects/Filters/Priority.vala:182
 msgid "high"
 msgstr "alto"
 
+#: core/Objects/Filters/Priority.vala:172
 #: core/Objects/Filters/Priority.vala:184
 msgid "medium"
 msgstr "médio"
 
+#: core/Objects/Filters/Priority.vala:174
 #: core/Objects/Filters/Priority.vala:186
 msgid "low"
 msgstr "baixo"
 
+#: core/Objects/Filters/Priority.vala:176
 #: core/Objects/Filters/Priority.vala:188
 msgid "none"
 msgstr "nenhum"
@@ -326,16 +330,17 @@ msgstr[1] "Tarefas adicionadas a <b>%s</b>"
 msgid "Delete Label %s"
 msgstr "Excluir rótulo %s"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:851
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:821
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
-#: src/Services/Backups.vala:416
+#: src/Services/Backups.vala:416 core/Objects/Project.vala:828
+#: core/Objects/Project.vala:851
 msgid "This can not be undone"
 msgstr "Isso não pode ser desfeito"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:854
-#: core/Objects/Project.vala:911 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:824
+#: core/Objects/Project.vala:881 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
@@ -348,45 +353,53 @@ msgstr "Isso não pode ser desfeito"
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:287
+#: src/Widgets/MultiSelectToolbar.vala:287 core/Objects/Project.vala:831
+#: core/Objects/Project.vala:888 core/Objects/Project.vala:854
+#: core/Objects/Project.vala:911
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:855
-#: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:825
+#: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:208
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
-#: src/Widgets/MultiSelectToolbar.vala:288
+#: src/Widgets/MultiSelectToolbar.vala:288 core/Objects/Project.vala:832
+#: core/Widgets/DeadlineButton.vala:207 core/Objects/Project.vala:855
 msgid "Delete"
 msgstr "Deletar"
 
+#: core/Objects/Project.vala:784 core/Objects/Project.vala:791
 #: core/Objects/Project.vala:814
 msgid "The project was copied to the Clipboard."
 msgstr "Este projeto foi copiado para a Área de Transferência."
 
 # c-format
+#: core/Objects/Project.vala:820 core/Objects/Project.vala:827
 #: core/Objects/Project.vala:850
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Excluir Projeto %s?"
 
-#: core/Objects/Project.vala:907 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:877 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:884 core/Objects/Project.vala:907
 msgid "Archive?"
 msgstr "Arquivar?"
 
 # # c-format
-#: core/Objects/Project.vala:908 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:878 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:885 core/Objects/Project.vala:908
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Isto irá arquivar %s e todas suas tarefas."
 
-#: core/Objects/Project.vala:912 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:882 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
+#: core/Objects/Project.vala:889 core/Objects/Project.vala:912
 msgid "Archive"
 msgstr "Arquivar"
 
@@ -519,21 +532,17 @@ msgstr "Dica"
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combine atalhos no campo de título para uma criação rápida"
 
+#: core/Services/CalDAV/CalDAVClient.vala:300
 #: core/Services/CalDAV/CalDAVClient.vala:302
 #, fuzzy, c-format
 msgid "Loading tasks for %s…"
 msgstr "Carregando…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:313
-#: core/Services/CalDAV/CalDAVClient.vala:345
-#, c-format
-msgid "Loaded tasks for %s…"
-msgstr ""
-
 #: core/Services/CalDAV/CalDAVClient.vala:338
+#: core/Services/CalDAV/CalDAVClient.vala:339
 #, c-format
-msgid "Syncing task %d of %d"
-msgstr ""
+msgid "Processing task %d of %d"
+msgstr "Processando tarefa %d de %d"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
@@ -560,36 +569,44 @@ msgstr "Sincronização completa"
 msgid "On this computer"
 msgstr "Neste computador"
 
-#: core/Services/Todoist.vala:1520 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1520
 msgid "The request was incorrect."
 msgstr "A requisição foi incorreta."
 
-#: core/Services/Todoist.vala:1521 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1521
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Autenticação é requerida, mas falhou ou não foi provida ainda."
 
-#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1522
 msgid "The request was valid, but for something that is forbidden."
 msgstr "A requisição foi válida, mas por algum motivo é proibida."
 
-#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1513 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1523
 msgid "The requested resource could not be found."
 msgstr "O recurso requerido não pôde ser encontrado."
 
-#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1514 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1524
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "O usuário mandou muitas requisições em um dado período de tempo."
 
-#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1515 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1525
 msgid "The request failed due to a server error."
 msgstr "A requisição falhou devido a um erro de servidor."
 
-#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1516 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1526
 msgid "The server is currently unable to handle the request."
 msgstr "O servidor não pode processar a requisição no momento."
 
-#: core/Services/Todoist.vala:1529 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1529
 msgid "Unknown error"
 msgstr "Erro desconhecido"
 
@@ -1294,17 +1311,20 @@ msgstr "Data de vencimento"
 msgid "Add Time"
 msgstr "Adicionar tempo"
 
-#: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
+#: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:132
+#: core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
-#: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
-#: core/Widgets/DeadlineButton.vala:153
+#: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:87
+#: core/Widgets/DeadlineButton.vala:94 core/Widgets/DeadlineButton.vala:101
+#: core/Widgets/DeadlineButton.vala:154 core/Widgets/DeadlineButton.vala:56
+#: core/Widgets/DeadlineButton.vala:86 core/Widgets/DeadlineButton.vala:93
+#: core/Widgets/DeadlineButton.vala:100 core/Widgets/DeadlineButton.vala:153
 msgid "Set a Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:148
+#: core/Widgets/DeadlineButton.vala:149 core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
 msgstr ""
 
@@ -1699,8 +1719,10 @@ msgstr "Você pode classificar suas contas arrastando e soltando"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
-msgid "Planify is syncing your tasks, this may take a few moments"
+#, fuzzy
+msgid "Planify is syncing your tasks, this may take a few minutes"
 msgstr ""
+"Planify está sincronizando suas tarefas, isso pode levar alguns minutos"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
@@ -3405,14 +3427,23 @@ msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Abrir Quadro de Anúncios"
 
-#, c-format
-#~ msgid "Processing task %d of %d"
-#~ msgstr "Processando tarefa %d de %d"
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
+msgid "Planify is syncing your tasks, this may take a few moments"
+msgstr ""
 
-#, fuzzy
-#~ msgid "Planify is syncing your tasks, this may take a few minutes"
-#~ msgstr ""
-#~ "Planify está sincronizando suas tarefas, isso pode levar alguns minutos"
+#: core/Services/CalDAV/CalDAVClient.vala:329
+#: core/Services/CalDAV/CalDAVClient.vala:338
+#, c-format
+msgid "Syncing task %d of %d"
+msgstr ""
+
+#: core/Services/CalDAV/CalDAVClient.vala:336
+#: core/Services/CalDAV/CalDAVClient.vala:313
+#: core/Services/CalDAV/CalDAVClient.vala:345
+#, c-format
+msgid "Loaded tasks for %s…"
+msgstr ""
 
 #~ msgid "Todoist Sync"
 #~ msgstr "Sincronizar todoist"
