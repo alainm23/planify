@@ -69,3 +69,9 @@ jobs:
                       git commit -m "Update translations"
                       git push
                     fi
+              - name: Notify Weblate of changes
+                run: |
+                  curl -X POST "https://hosted.weblate.org/api/components/planner/io-github-alainm23-planify/repository/" \
+                    -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
+                    -H "Content-Type: application/json" \
+                    -d '{"operation": "pull"}'
