@@ -335,6 +335,7 @@ msgstr "Excluir rótulo %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416 core/Objects/Project.vala:828
+#: core/Objects/Project.vala:851
 msgid "This can not be undone"
 msgstr "Isso não pode ser desfeito"
 
@@ -353,7 +354,8 @@ msgstr "Isso não pode ser desfeito"
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:287 core/Objects/Project.vala:831
-#: core/Objects/Project.vala:888
+#: core/Objects/Project.vala:888 core/Objects/Project.vala:854
+#: core/Objects/Project.vala:911
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -366,28 +368,30 @@ msgstr "Cancelar"
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
 #: src/Widgets/MultiSelectToolbar.vala:288 core/Objects/Project.vala:832
-#: core/Widgets/DeadlineButton.vala:207
+#: core/Widgets/DeadlineButton.vala:207 core/Objects/Project.vala:855
 msgid "Delete"
 msgstr "Deletar"
 
 #: core/Objects/Project.vala:784 core/Objects/Project.vala:791
+#: core/Objects/Project.vala:814
 msgid "The project was copied to the Clipboard."
 msgstr "Este projeto foi copiado para a Área de Transferência."
 
 # c-format
 #: core/Objects/Project.vala:820 core/Objects/Project.vala:827
+#: core/Objects/Project.vala:850
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Excluir Projeto %s?"
 
 #: core/Objects/Project.vala:877 core/Objects/Section.vala:402
-#: core/Objects/Project.vala:884
+#: core/Objects/Project.vala:884 core/Objects/Project.vala:907
 msgid "Archive?"
 msgstr "Arquivar?"
 
 # # c-format
 #: core/Objects/Project.vala:878 core/Objects/Section.vala:403
-#: core/Objects/Project.vala:885
+#: core/Objects/Project.vala:885 core/Objects/Project.vala:908
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Isto irá arquivar %s e todas suas tarefas."
@@ -395,7 +399,7 @@ msgstr "Isto irá arquivar %s e todas suas tarefas."
 #: core/Objects/Project.vala:882 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
-#: core/Objects/Project.vala:889
+#: core/Objects/Project.vala:889 core/Objects/Project.vala:912
 msgid "Archive"
 msgstr "Arquivar"
 
@@ -529,6 +533,7 @@ msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combine atalhos no campo de título para uma criação rápida"
 
 #: core/Services/CalDAV/CalDAVClient.vala:300
+#: core/Services/CalDAV/CalDAVClient.vala:302
 #, fuzzy, c-format
 msgid "Loading tasks for %s…"
 msgstr "Carregando…"
@@ -3425,6 +3430,16 @@ msgstr "Abrir Quadro de Anúncios"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 msgid "Planify is syncing your tasks, this may take a few moments"
+msgstr ""
+
+#: core/Services/CalDAV/CalDAVClient.vala:329
+#, c-format
+msgid "Syncing task %d of %d"
+msgstr ""
+
+#: core/Services/CalDAV/CalDAVClient.vala:336
+#, c-format
+msgid "Loaded tasks for %s…"
 msgstr ""
 
 #~ msgid "Todoist Sync"
