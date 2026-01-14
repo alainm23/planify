@@ -83,7 +83,6 @@ public class Services.EventBus : Object {
 
     // Multi Select
     public bool multi_select_enabled = false;
-    public bool ctrl_key_pressed = false;
     public signal void show_multi_select (bool enabled);
     public signal void select_item (Gtk.Widget itemrow);
     public signal void unselect_item (Gtk.Widget itemrow);

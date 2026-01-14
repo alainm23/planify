@@ -396,7 +396,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         var detail_gesture_click = new Gtk.GestureClick ();
         card_widget.add_controller (detail_gesture_click);
         signals_map[detail_gesture_click.released.connect ((n_press, x, y) => {
-            if (Services.EventBus.get_default ().ctrl_key_pressed) {
+            var modifier = detail_gesture_click.get_current_event_state ();
+            if ((modifier & Gdk.ModifierType.CONTROL_MASK) != 0) {
                 Idle.add (() => {
                     if (item.project == null) {
                         return GLib.Source.REMOVE;

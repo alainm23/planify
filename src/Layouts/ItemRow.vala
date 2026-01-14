@@ -678,7 +678,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = handle_gesture_click;
         
         signals_map[handle_gesture_click.released.connect ((n_press, x, y) => {
-            if (Services.EventBus.get_default ().ctrl_key_pressed) {
+            var modifier = handle_gesture_click.get_current_event_state ();
+            if ((modifier & Gdk.ModifierType.CONTROL_MASK) != 0) {
                 Idle.add (() => {
                     if (item.project == null) {
                         return GLib.Source.REMOVE;
