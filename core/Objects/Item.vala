@@ -156,7 +156,7 @@ public class Objects.Item : Objects.BaseObject {
 
     public bool has_due {
         get {
-            return due.datetime != null;
+            return due != null && due.datetime != null;
         }
     }
 
@@ -519,12 +519,18 @@ public class Objects.Item : Objects.BaseObject {
 
         ICal.Property ? sort_order_property = ical_vtodo.get_first_property (ICal.PropertyKind.from_string ("X-APPLE-SORT-ORDER"));
         if (sort_order_property != null) {
-            child_order = int.parse (sort_order_property.get_value_as_string ());
+            var sort_order_str = sort_order_property.get_value_as_string ();
+            if (sort_order_str != null) {
+                child_order = int.parse (sort_order_str);
+            }
         }
 
         ICal.Property ? pinned_property = ical_vtodo.get_first_property (ICal.PropertyKind.from_string ("X-PINNED"));
         if (pinned_property != null) {
-            pinned = bool.parse (pinned_property.get_value_as_string ());
+            var pinned_str = pinned_property.get_value_as_string ();
+            if (pinned_str != null) {
+                pinned = bool.parse (pinned_str);
+            }
         } else {
             pinned = false;
         }
@@ -1659,13 +1665,6 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public bool exists_project (Objects.Project project) {
-        if (has_parent) {
-            var parent_item = parent;
-            if (parent_item != null) {
-                return parent_item.exists_project (project);
-            }
-        }
-
         return _project_id == project.id;
     }
 

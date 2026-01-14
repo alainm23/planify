@@ -124,7 +124,6 @@ src/Dialogs/CalendarSync.vala
 src/Dialogs/CompletedTasks.vala
 src/Dialogs/DatePicker.vala
 src/Dialogs/ErrorDialog.vala
-src/Dialogs/GoogleOAuth.vala
 src/Dialogs/ItemChangeHistory.vala
 src/Dialogs/Label.vala
 src/Dialogs/LabelPicker.vala
@@ -150,7 +149,9 @@ src/Dialogs/Project.vala
 src/Dialogs/ProjectPicker.vala
 src/Dialogs/QuickAdd.vala
 src/Dialogs/QuickFind/QuickFind.vala
+src/Dialogs/QuickFind/QuickFindFactory.vala
 src/Dialogs/QuickFind/QuickFindItem.vala
+src/Dialogs/QuickFind/QuickFindSectionSorter.vala
 src/Dialogs/QuickFind/Synapse.vala
 src/Dialogs/Section.vala
 src/Layouts/FilterPaneChild.vala
@@ -173,7 +174,6 @@ src/Services/ActionManager.vala
 src/Services/Api.vala
 src/Services/Backups.vala
 src/Services/DBusServer.vala
-src/Services/GoogleTasks.vala
 src/Services/MigrateFromPlanner.vala
 src/Services/Notification.vala
 src/Services/TimeMonitor.vala

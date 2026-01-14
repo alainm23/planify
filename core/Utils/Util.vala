@@ -228,10 +228,6 @@ public class Util : GLib.Object {
         return returned;
     }
 
-    public static string[] get_current_languages () {
-        return Intl.get_language_names ();
-    }
-
     public static string get_user_language () {
         string[] languages = Intl.get_language_names ();
         

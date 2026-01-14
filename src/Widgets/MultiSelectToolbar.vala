@@ -269,14 +269,14 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             string message = _ ("Are you sure you want to delete this to-do?");
             if (items_selected.size > 0) {
                 title = GLib.ngettext (
-                    _("Delete %d To-Do"),
-                    _("Delete %d To-Dos"),
+                    "Delete %d To-Do",
+                    "Delete %d To-Dos",
                     items_selected.size
                 ).printf (items_selected.size);
 
                 message = GLib.ngettext (
-                    _("Are you sure you want to delete this %d to-do?"),
-                    _("Are you sure you want to delete these %d to-dos?"),
+                    "Are you sure you want to delete this %d to-do?",
+                    "Are you sure you want to delete these %d to-dos?",
                     items_selected.size
                 ).printf (items_selected.size);
             }
@@ -371,9 +371,16 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             }
         }
 
-        string message = count == 1 ? 
-            _("Task moved to %s").printf (project.name) :
-            _("%d tasks moved to %s").printf (count, project.name);
+        string message;
+        if (count == 1) {
+            message = _("Task moved to %s").printf (project.name);
+        } else {
+            message = GLib.ngettext (
+                "Task moved to %s",
+                "%d tasks moved to %s",
+                count
+            ).printf (count, project.name);
+        }
 
         Services.EventBus.get_default ().send_toast (
             Util.get_default ().create_toast (message)

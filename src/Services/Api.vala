@@ -28,28 +28,6 @@ public class Services.Api : GLib.Object {
         return _instance;
     }
 
-    public async Gee.HashMap<string, Objects.TranslationMetric> get_translation_metrics () throws Error {
-        var session = new Soup.Session ();
-        var message = new Soup.Message ("GET", "https://raw.githubusercontent.com/alainm23/planify/refs/heads/master/data/translations_metrics.json");
-        
-        var response = yield session.send_and_read_async (message, Priority.DEFAULT, null);
-        var json_string = (string) response.get_data ();
-        
-        var parser = new Json.Parser ();
-        parser.load_from_data (json_string);
-        
-        var root_object = parser.get_root ().get_object ();
-        var metrics = new Gee.HashMap<string, Objects.TranslationMetric> ();
-        
-        root_object.foreach_member ((object, code, node) => {
-            var metric_object = node.get_object ();
-            var metric = new Objects.TranslationMetric.from_json (code, metric_object);
-            metrics.set (code, metric);
-        });
-        
-        return metrics;
-    }
-
     public async Objects.Release? get_latest_release () throws Error {
         var session = new Soup.Session ();
         var message = new Soup.Message ("GET", "https://flathub.org/api/v2/appstream/io.github.alainm23.planify?locale=en");

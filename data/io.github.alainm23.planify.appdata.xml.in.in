@@ -60,6 +60,21 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.17.0" date="2025-12-26">
+      <description translate="no">
+        <p>🚀 Planify 4.17.0 introduces deadlines, better scheduling, and calendar integration, along with multiple bug fixes and UX improvements.</p>
+        <ul>
+          <li>Added deadline support, separate from due dates, with visual indicators for overdue tasks.</li>
+          <li>Overdue tasks are now shown in the Scheduled view with quick reschedule actions.</li>
+          <li>Added multi-select support to move multiple tasks between projects.</li>
+          <li>Introduced calendar sync and event creation via Evolution Data Server (EDS).</li>
+          <li>Improved calendar range views and event date display.</li>
+          <li>Fixed task editing issues in Overdue view and projects without tasks.</li>
+          <li>Added support for custom URI schemes in the Markdown editor.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.16.1" date="2025-11-27">
       <description translate="no">
         <p>✨ Planify 4.16.1 is a maintenance release focused on fixing reported bugs and polishing the overall user experience.</p>

@@ -27,10 +27,10 @@ msgstr "Бөлімдер"
 msgid "Tasks"
 msgstr "Тапсырмалар"
 
-#: core/Enum.vala:177 core/Enum.vala:534 core/Objects/Filters/Labels.vala:33
+#: core/Enum.vala:177 core/Enum.vala:530 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
-#: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:781
-#: src/Layouts/ItemRow.vala:1294
+#: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:782
+#: src/Layouts/ItemRow.vala:1233
 msgid "Labels"
 msgstr "Белгілер"
 
@@ -42,122 +42,110 @@ msgstr "Сүзгілер"
 msgid "Lists"
 msgstr "Тізімдер"
 
-#: core/Enum.vala:218
+#: core/Enum.vala:214
 msgid "Don't Repeat"
 msgstr "Қайталамау"
 
-#: core/Enum.vala:220
+#: core/Enum.vala:216
+#, fuzzy, c-format
 msgid "Every minute"
-msgstr "Әр минут сайын"
+msgid_plural "Every %d minutes"
+msgstr[0] "Әр минут сайын"
+msgstr[1] "Әр минут сайын"
+
+#: core/Enum.vala:218
+#, fuzzy, c-format
+msgid "Every hour"
+msgid_plural "Every %d hours"
+msgstr[0] "Әр сағат сайын"
+msgstr[1] "Әр сағат сайын"
 
 #: core/Enum.vala:220
-#, c-format
-msgid "Every %d minutes"
-msgstr "Әр %d минут сайын"
-
-#: core/Enum.vala:222
-msgid "Every hour"
-msgstr "Әр сағат сайын"
-
-#: core/Enum.vala:222
-#, c-format
-msgid "Every %d hours"
-msgstr "Әр %d сағат сайын"
-
-#: core/Enum.vala:224
+#, fuzzy, c-format
 msgid "Every day"
-msgstr "Әр күн сайын"
+msgid_plural "Every %d days"
+msgstr[0] "Әр күн сайын"
+msgstr[1] "Әр күн сайын"
+
+#: core/Enum.vala:222
+#, fuzzy, c-format
+msgid "Every week"
+msgid_plural "Every %d weeks"
+msgstr[0] "Әр апта сайын"
+msgstr[1] "Әр апта сайын"
 
 #: core/Enum.vala:224
-#, c-format
-msgid "Every %d days"
-msgstr "Әр %d күн сайын"
-
-#: core/Enum.vala:226
-msgid "Every week"
-msgstr "Әр апта сайын"
-
-#: core/Enum.vala:226
-#, c-format
-msgid "Every %d weeks"
-msgstr "Әр %d апта сайын"
-
-#: core/Enum.vala:228
+#, fuzzy, c-format
 msgid "Every month"
-msgstr "Әр ай сайын"
+msgid_plural "Every %d months"
+msgstr[0] "Әр ай сайын"
+msgstr[1] "Әр ай сайын"
 
-#: core/Enum.vala:228
-#, c-format
-msgid "Every %d months"
-msgstr "Әр %d ай сайын"
-
-#: core/Enum.vala:230
+#: core/Enum.vala:226
+#, fuzzy, c-format
 msgid "Every year"
-msgstr "Әр жыл сайын"
+msgid_plural "Every %d years"
+msgstr[0] "Әр жыл сайын"
+msgstr[1] "Әр жыл сайын"
 
-#: core/Enum.vala:230
-#, c-format
-msgid "Every %d years"
-msgstr "Әр %d жыл сайын"
-
-#: core/Enum.vala:280 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
+#: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
-#: core/Enum.vala:283 core/Services/CalDAV/CalDAVClient.vala:121
+#: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:121
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
 msgstr "CalDAV"
 
-#: core/Enum.vala:345 core/Enum.vala:531 core/Widgets/PriorityButton.vala:90
-#: src/Views/Project/Project.vala:501 src/Views/Project/Project.vala:546
+#: core/Enum.vala:341 core/Enum.vala:527 core/Widgets/PriorityButton.vala:90
+#: src/Views/Project/Project.vala:545 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:230
 #: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:633
 #: src/Views/Today.vala:662 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "Басымдылық"
 
-#: core/Enum.vala:348
+#: core/Enum.vala:344
 msgid "Label"
 msgstr "Белгі"
 
-#: core/Enum.vala:351 src/Views/Project/Project.vala:499
+#: core/Enum.vala:347 src/Views/Project/Project.vala:543
 #: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:631
 msgid "Due Date"
 msgstr "Мерзімі"
 
-#: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
+#: core/Enum.vala:350 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
 msgstr "Бөлім"
 
-#: core/Enum.vala:463
+#: core/Enum.vala:459
 msgid "Task Created"
 msgstr "Тапсырма жасалды"
 
-#: core/Enum.vala:466
+#: core/Enum.vala:462
 msgid "Task Updated"
 msgstr "Тапсырма жаңартылды"
 
-#: core/Enum.vala:522
+#: core/Enum.vala:518
 msgid "Content"
 msgstr "Мазмұн"
 
-#: core/Enum.vala:525 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1998 src/Layouts/ItemSidebarView.vala:181
+#: core/Enum.vala:521 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
+#: src/Layouts/ItemRow.vala:1939 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Сипаттама"
 
-#: core/Enum.vala:528 core/Objects/Filters/Scheduled.vala:48
+#: core/Enum.vala:524 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
 msgstr "Жоспарланған"
 
-#: core/Enum.vala:537 core/Widgets/PinButton.vala:41
-#: src/Layouts/ItemBoard.vala:762 src/Layouts/ItemBoard.vala:775
-#: src/Layouts/ItemRow.vala:1275 src/Layouts/ItemRow.vala:1288
+#: core/Enum.vala:533 core/Widgets/PinButton.vala:41
+#: src/Layouts/ItemBoard.vala:763 src/Layouts/ItemBoard.vala:776
+#: src/Layouts/ItemRow.vala:1214 src/Layouts/ItemRow.vala:1227
 msgid "Pin"
 msgstr "Бекіту"
 
@@ -206,12 +194,12 @@ msgstr "аяқталған"
 msgid "logbook"
 msgstr "журнал"
 
-#: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:262
-#: core/Utils/Util.vala:575
+#: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:258
+#: core/Utils/Util.vala:571
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
 #: src/Views/Project/Board.vala:219 src/Views/Project/List.vala:328
-#: src/Views/Project/Project.vala:97 src/Views/Project/Project.vala:164
+#: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:196
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
 msgstr "Кіріс жәшігі"
@@ -245,19 +233,19 @@ msgstr "Басымдылық 3: төмен"
 msgid "Priority 4: none"
 msgstr "Басымдылық 4: жоқ"
 
-#: core/Objects/Filters/Priority.vala:170
+#: core/Objects/Filters/Priority.vala:182
 msgid "high"
 msgstr "жоғары"
 
-#: core/Objects/Filters/Priority.vala:172
+#: core/Objects/Filters/Priority.vala:184
 msgid "medium"
 msgstr "орташа"
 
-#: core/Objects/Filters/Priority.vala:174
+#: core/Objects/Filters/Priority.vala:186
 msgid "low"
 msgstr "төмен"
 
-#: core/Objects/Filters/Priority.vala:176
+#: core/Objects/Filters/Priority.vala:188
 msgid "none"
 msgstr "жоқ"
 
@@ -279,11 +267,11 @@ msgstr "алдағы"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
-#: core/Utils/Util.vala:265 core/Widgets/Calendar/CalendarHeader.vala:82
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:356
-#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:769
-#: src/Layouts/ItemRow.vala:1282 src/Views/Project/Project.vala:513
-#: src/Views/Project/Project.vala:679 src/Views/Today.vala:202
+#: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:359
+#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:770
+#: src/Layouts/ItemRow.vala:1221 src/Views/Project/Project.vala:557
+#: src/Views/Project/Project.vala:723 src/Views/Today.vala:202
 msgid "Today"
 msgstr "Бүгін"
 
@@ -293,9 +281,9 @@ msgstr "бүгін"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Utils/Datetime.vala:633
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:362
-#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:772
-#: src/Layouts/ItemRow.vala:1285
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:365
+#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:773
+#: src/Layouts/ItemRow.vala:1224
 msgid "Tomorrow"
 msgstr "Ертең"
 
@@ -319,32 +307,35 @@ msgstr "белгі жоқ"
 msgid "unlabeled"
 msgstr "белгісіз"
 
-#: core/Objects/Item.vala:1340
+#: core/Objects/Item.vala:1346
 msgid "Task copied to clipboard"
 msgstr "Тапсырма буферге көшірілді"
 
-#: core/Objects/Item.vala:1633 core/Utils/Util.vala:889
-#: src/Widgets/MultiSelectToolbar.vala:375
-#, c-format
+#: core/Objects/Item.vala:1639 core/Utils/Util.vala:885
+#: src/Widgets/MultiSelectToolbar.vala:376
+#: src/Widgets/MultiSelectToolbar.vala:379
+#, fuzzy, c-format
 msgid "Task moved to %s"
-msgstr "Тапсырма %s дегенге жылжытылды"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Тапсырма %s дегенге жылжытылды"
+msgstr[1] "Тапсырма %s дегенге жылжытылды"
 
 #: core/Objects/Label.vala:206
 #, c-format
 msgid "Delete Label %s"
 msgstr "%s белгісін жою"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:821
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:851
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
-#: src/Layouts/ItemSidebarView.vala:566 src/Layouts/SectionBoard.vala:635
+#: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
 msgstr "Бұны қайтаруға болмайды"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:824
-#: core/Objects/Project.vala:881 core/Objects/Section.vala:380
-#: core/Objects/Section.vala:406 core/Utils/Util.vala:439
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:854
+#: core/Objects/Project.vala:911 core/Objects/Section.vala:380
+#: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
@@ -352,7 +343,7 @@ msgstr "Бұны қайтаруға болмайды"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
-#: src/Dialogs/QuickFind/QuickFind.vala:47 src/Layouts/ItemSidebarView.vala:569
+#: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:580
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -360,39 +351,39 @@ msgstr "Бұны қайтаруға болмайды"
 msgid "Cancel"
 msgstr "Болдырмау"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:825
-#: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:208
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:855
+#: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
-#: src/Layouts/ItemSidebarView.vala:570 src/Layouts/SectionBoard.vala:639
+#: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
 #: src/Widgets/MultiSelectToolbar.vala:288
 msgid "Delete"
 msgstr "Жою"
 
-#: core/Objects/Project.vala:784
+#: core/Objects/Project.vala:814
 msgid "The project was copied to the Clipboard."
 msgstr "Жоба буферге көшірілді."
 
-#: core/Objects/Project.vala:820
+#: core/Objects/Project.vala:850
 #, c-format
 msgid "Delete Project %s?"
 msgstr "%s жобасын жою керек пе?"
 
-#: core/Objects/Project.vala:877 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:907 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "Мұрағаттау керек пе?"
 
-#: core/Objects/Project.vala:878 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:908 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Бұл %s және оның барлық тапсырмаларын мұрағаттайды."
 
-#: core/Objects/Project.vala:882 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:912 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
-#: src/Layouts/SectionRow.vala:662 src/Views/Project/Project.vala:343
+#: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
 msgstr "Мұрағат"
 
@@ -413,7 +404,7 @@ msgstr "Todoist"
 msgid "Task added successfully!"
 msgstr "Жоба сәтті қосылды!"
 
-#: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:408
+#: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:414
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Тапсырма атауы"
@@ -450,7 +441,7 @@ msgid "Add Reminders"
 msgstr "Еске салғыштар қосу"
 
 #: core/QuickAddCore.vala:314 src/Layouts/SectionBoard.vala:562
-#: src/Layouts/SectionRow.vala:655 src/Widgets/MagicButton.vala:50
+#: src/Layouts/SectionRow.vala:665 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Тапсырма қосу"
 
@@ -470,7 +461,7 @@ msgstr ""
 "Кешіріңіз, Жылдам қосу қолжетімді жобаларды таба алмады, Planify арқылы жоба "
 "жасауға тырысыңыз."
 
-#: core/QuickAddCore.vala:1350 src/MainWindow.vala:716
+#: core/QuickAddCore.vala:1350 src/MainWindow.vala:710
 msgid "Keyboard Shortcuts"
 msgstr "Пернетақта қысқартулары"
 
@@ -528,14 +519,20 @@ msgstr "Жоғары"
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:300
+#: core/Services/CalDAV/CalDAVClient.vala:302
 #, fuzzy, c-format
 msgid "Loading tasks for %s…"
 msgstr "Жүктелуде…"
 
+#: core/Services/CalDAV/CalDAVClient.vala:313
+#: core/Services/CalDAV/CalDAVClient.vala:345
+#, c-format
+msgid "Loaded tasks for %s…"
+msgstr ""
+
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
-msgid "Processing task %d of %d"
+msgid "Syncing task %d of %d"
 msgstr ""
 
 #: core/Services/CalDAV/Core.vala:164
@@ -564,36 +561,36 @@ msgstr "аяқталған"
 msgid "On this computer"
 msgstr "Осы компьютерде"
 
-#: core/Services/Todoist.vala:1510 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1520 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "Сұраныс дұрыс емес."
 
-#: core/Services/Todoist.vala:1511 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1521 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Аутентификация қажет, бірақ сәтсіз болды немесе әлі берілмеген."
 
-#: core/Services/Todoist.vala:1512 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Сұраныс дұрыс, бірақ тыйым салынған нәрсе үшін."
 
-#: core/Services/Todoist.vala:1513 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "Сұралған ресурс табылмады."
 
-#: core/Services/Todoist.vala:1514 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Пайдаланушы белгілі бір уақыт ішінде тым көп сұраныс жіберді."
 
-#: core/Services/Todoist.vala:1515 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
 msgstr "Сервер қатесі себебінен сұраныс сәтсіз болды."
 
-#: core/Services/Todoist.vala:1516 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:144
 msgid "The server is currently unable to handle the request."
 msgstr "Сервер қазіргі уақытта сұранысты өңдей алмайды."
 
-#: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1529 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
 msgstr "Белгісіз қате"
 
@@ -665,13 +662,17 @@ msgstr "Жк,"
 
 #: core/Utils/Datetime.vala:639
 #, c-format
-msgid "in %d days"
-msgstr ""
+msgid "in %d day"
+msgid_plural "in %d days"
+msgstr[0] ""
+msgstr[1] ""
 
 #: core/Utils/Datetime.vala:641
 #, c-format
-msgid "%d days ago"
-msgstr ""
+msgid "%d day ago"
+msgid_plural "%d days ago"
+msgstr[0] ""
+msgstr[1] ""
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
@@ -799,37 +800,37 @@ msgstr "Қараңғы"
 msgid "Dark Blue"
 msgstr "Қою көк"
 
-#: core/Utils/Util.vala:259 core/Widgets/DateTimePicker/DateTimePicker.vala:407
+#: core/Utils/Util.vala:255 core/Widgets/DateTimePicker/DateTimePicker.vala:410
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 msgid "None"
 msgstr "Ешқандай"
 
-#: core/Utils/Util.vala:268
+#: core/Utils/Util.vala:264
 msgid "Today + Inbox"
 msgstr "Бүгін + Кіріс жәшігі"
 
-#: core/Utils/Util.vala:440
+#: core/Utils/Util.vala:436
 msgid "Delete All"
 msgstr "Барлығын жою"
 
-#: core/Utils/Util.vala:454
+#: core/Utils/Util.vala:450
 msgid "Process completed, you need to start Planify again."
 msgstr "Процесс аяқталды, Planify қайта қосу керек."
 
-#: core/Utils/Util.vala:456
+#: core/Utils/Util.vala:452
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
 msgid "Ok"
 msgstr "Жарайды"
 
-#: core/Utils/Util.vala:566
+#: core/Utils/Util.vala:562
 msgid "On This Computer"
 msgstr "Осы компьютерде"
 
-#: core/Utils/Util.vala:591
+#: core/Utils/Util.vala:587
 msgid "Meet Planify"
 msgstr "Planify-мен танысу"
 
-#: core/Utils/Util.vala:594
+#: core/Utils/Util.vala:590
 #, fuzzy
 msgid ""
 "This project shows you everything you need to know to hit the ground "
@@ -839,12 +840,12 @@ msgstr ""
 "Бұл жоба сізге жұмысты бастау үшін білу қажет барлық нәрсені көрсетеді. Онда "
 "тәжірибе жасауға тартынбаңыз – әрқашан параметрлерден жаңасын жасай аласыз."
 
-#: core/Utils/Util.vala:601
+#: core/Utils/Util.vala:597
 #, fuzzy
 msgid "Tap this task"
 msgstr "Осы тапсырманы түртіңіз"
 
-#: core/Utils/Util.vala:602
+#: core/Utils/Util.vala:598
 #, fuzzy
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
@@ -852,12 +853,12 @@ msgstr ""
 "Сіз тапсырманы қарап тұрсыз! Оны сол жақтағы белгі қорапшасын түрту арқылы "
 "аяқтаңыз. Аяқталған тапсырмалар жобаның төменгі жағында жиналады."
 
-#: core/Utils/Util.vala:607
+#: core/Utils/Util.vala:603
 #, fuzzy
 msgid "Create a new task"
 msgstr "Жаңа тапсырма жасау"
 
-#: core/Utils/Util.vala:608
+#: core/Utils/Util.vala:604
 #, fuzzy
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
@@ -866,12 +867,12 @@ msgstr ""
 "Енді сіздің кезек, жобаңыздың төменгі жағындағы '+' түймесін түртіп, кез "
 "келген тапсырманы енгізіп, көк 'Сақтау' түймесін түртіңіз."
 
-#: core/Utils/Util.vala:613
+#: core/Utils/Util.vala:609
 #, fuzzy
 msgid "Plan this to-do for today or later"
 msgstr "Бұл тапсырманы бүгінге немесе кейінге жоспарлау"
 
-#: core/Utils/Util.vala:614
+#: core/Utils/Util.vala:610
 #, fuzzy
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
@@ -879,12 +880,12 @@ msgstr ""
 "Осы тапсырманы қашан орындауды шешу үшін төмендегі күнтізбе түймесін "
 "түртіңіз."
 
-#: core/Utils/Util.vala:619
+#: core/Utils/Util.vala:615
 #, fuzzy
 msgid "Reorder your to-dos"
 msgstr "Тапсырмаларыңызды қайта реттеу"
 
-#: core/Utils/Util.vala:620
+#: core/Utils/Util.vala:616
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
@@ -892,11 +893,11 @@ msgstr ""
 "Тізімді қайта реттеу үшін тапсырманы түртіп ұстап, оны болу керек жерге "
 "сүйреңіз."
 
-#: core/Utils/Util.vala:625
+#: core/Utils/Util.vala:621
 msgid "Create a project"
 msgstr "Жоба жасау"
 
-#: core/Utils/Util.vala:626
+#: core/Utils/Util.vala:622
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
@@ -904,12 +905,12 @@ msgstr ""
 "Тапсырмаларыңызды жақсырақ ұйымдастырыңыз! Сол жақ панельге өтіп, 'Осы "
 "компьютерде' бөлімінде '+' түймесін басып, өз жобаңызды қосыңыз."
 
-#: core/Utils/Util.vala:631
+#: core/Utils/Util.vala:627
 #, fuzzy
 msgid "You’re done!"
 msgstr "Дайын!"
 
-#: core/Utils/Util.vala:632
+#: core/Utils/Util.vala:628
 #, fuzzy
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
@@ -924,15 +925,15 @@ msgstr ""
 "болады.\n"
 "Planify қолдануға ұнайды деп үміттенеміз!"
 
-#: core/Utils/Util.vala:646
+#: core/Utils/Util.vala:642
 msgid "Tune your setup"
 msgstr "Баптауларды реттеу"
 
-#: core/Utils/Util.vala:654
+#: core/Utils/Util.vala:650
 msgid "Show your calendar events"
 msgstr "Күнтізбе оқиғаларын көрсету"
 
-#: core/Utils/Util.vala:655
+#: core/Utils/Util.vala:651
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
@@ -940,12 +941,12 @@ msgstr ""
 "Жүйеңіздің күнтізбе оқиғаларын Planify-да көрсете аласыз. 'Параметрлер' 🡒 "
 "Жалпы 🡒 Күнтізбе оқиғаларына өтіп қосыңыз."
 
-#: core/Utils/Util.vala:661
+#: core/Utils/Util.vala:657
 #, fuzzy
 msgid "Enable synchronization with third-party services"
 msgstr "Үшінші тарап қызметімен синхрондауды қосу."
 
-#: core/Utils/Util.vala:662
+#: core/Utils/Util.vala:658
 #, fuzzy
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
@@ -955,15 +956,15 @@ msgstr ""
 "Todoist аккаунтыңызды синхрондай алады. 'Параметрлер' 🡒 'Аккаунттар' "
 "бөліміне өтіңіз."
 
-#: core/Utils/Util.vala:670
+#: core/Utils/Util.vala:666
 msgid "Boost your productivity"
 msgstr "Өнімділікті арттыру"
 
-#: core/Utils/Util.vala:678
+#: core/Utils/Util.vala:674
 msgid "Drag the plus button!"
 msgstr "Плюс түймесін сүйреңіз!"
 
-#: core/Utils/Util.vala:679
+#: core/Utils/Util.vala:675
 msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
@@ -972,11 +973,11 @@ msgstr ""
 "ол қозғалу үшін жасалған! Қалаған жерде тапсырма жасау үшін оны жоғары "
 "сүйреңіз."
 
-#: core/Utils/Util.vala:685
+#: core/Utils/Util.vala:681
 msgid "Add labels to your tasks!"
 msgstr ""
 
-#: core/Utils/Util.vala:686
+#: core/Utils/Util.vala:682
 #, fuzzy
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
@@ -985,11 +986,11 @@ msgstr ""
 "Тегтер Planify-дағы жұмыс ағымын жақсартуға мүмкіндік береді. Тег қосу үшін "
 "төмендегі тег түймесін басыңыз."
 
-#: core/Utils/Util.vala:692
+#: core/Utils/Util.vala:688
 msgid "Set timely reminders!"
 msgstr "Уақтылы еске салғыштар орнатыңыз!"
 
-#: core/Utils/Util.vala:693
+#: core/Utils/Util.vala:689
 #, fuzzy
 msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
@@ -998,63 +999,63 @@ msgstr ""
 "Planify маңызды оқиға немесе ерекше нәрсе туралы еске салу хабарламасын "
 "жіберуін қалайсыз. Еске салғыш қосу үшін төмендегі қоңырау түймесін түртіңіз."
 
-#: core/Utils/Util.vala:704
+#: core/Utils/Util.vala:700
 msgid "💼️Work"
 msgstr "💼️Жұмыс"
 
-#: core/Utils/Util.vala:710
+#: core/Utils/Util.vala:706
 msgid "🎒️School"
 msgstr "🎒️Мектеп"
 
-#: core/Utils/Util.vala:716
+#: core/Utils/Util.vala:712
 msgid "👉️Delegated"
 msgstr "👉️Тапсырылған"
 
-#: core/Utils/Util.vala:722
+#: core/Utils/Util.vala:718
 msgid "🏡️Home"
 msgstr "🏡️Үй"
 
-#: core/Utils/Util.vala:728
+#: core/Utils/Util.vala:724
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️Қадағалау"
 
-#: core/Utils/Util.vala:969
+#: core/Utils/Util.vala:965
 msgid "Task duplicated"
 msgstr "Тапсырма көшірілді"
 
-#: core/Utils/Util.vala:1005
+#: core/Utils/Util.vala:1001
 msgid "Section duplicated"
 msgstr "Бөлім көшірілді"
 
-#: core/Utils/Util.vala:1031 core/Utils/Util.vala:1057
+#: core/Utils/Util.vala:1027 core/Utils/Util.vala:1053
 msgid "Project duplicated"
 msgstr "Жоба көшірілді"
 
-#: core/Utils/Util.vala:1099 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1095 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
 msgstr "Мерзім кезінде"
 
-#: core/Utils/Util.vala:1102 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1098 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
 msgstr "10 минут бұрын"
 
-#: core/Utils/Util.vala:1105 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1101 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
 msgstr "30 минут бұрын"
 
-#: core/Utils/Util.vala:1108 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1104 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
 msgstr "45 минут бұрын"
 
-#: core/Utils/Util.vala:1111 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1107 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
 msgstr "1 сағат бұрын"
 
-#: core/Utils/Util.vala:1114 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
+#: core/Utils/Util.vala:1110 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
 msgstr "2 сағат бұрын"
 
-#: core/Utils/Util.vala:1117 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
+#: core/Utils/Util.vala:1113 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
 msgstr "3 сағат бұрын"
 
@@ -1133,97 +1134,97 @@ msgstr "Жұ"
 msgid "Sa"
 msgstr "Се"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:132
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:135
 msgid "Type a date…"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:153
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:156
 msgid "Choose a date"
 msgstr "Күнді таңдау"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:157
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:530
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:160
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:533
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 msgid "Repeat"
 msgstr "Қайталау"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:166
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:169
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:143
 msgid "Time"
 msgstr "Уақыт"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:185
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:188
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:254
 #: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
 msgid "Done"
 msgstr "Дайын"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:189
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:192
 msgid "Clear"
 msgstr "Тазалау"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:351
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:354
 msgid "Menu"
 msgstr "Мәзір"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:368
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:371
 msgid "Next week"
 msgstr "Келесі апта"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:403
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:406
 #: src/Widgets/EventRow.vala:286
 msgid "Calendar"
 msgstr "Күнтізбе"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:411
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:414
 msgid "Daily"
 msgstr "Күн сайын"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:415
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:418
 #, fuzzy
 msgid "Weekdays"
 msgstr "Апта сайын"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:419
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:422
 #, fuzzy
 msgid "Weekends"
 msgstr "Апта"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:423
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:426
 msgid "Weekly"
 msgstr "Апта сайын"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:427
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:430
 msgid "Monthly"
 msgstr "Ай сайын"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:431
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:434
 msgid "Yearly"
 msgstr "Жыл сайын"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:435
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:438
 msgid "Custom"
 msgstr "Арнайы"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:736
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:747
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:443
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
 msgid "until"
 msgstr "дейін"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:739
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 msgid "for"
 msgstr "үшін"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:739
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 msgid "times"
 msgstr "рет"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:739
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 msgid "time"
@@ -1297,17 +1298,17 @@ msgstr "Мерзімді орнату"
 msgid "Add Time"
 msgstr "Уақыт қосу"
 
-#: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:132
+#: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:87
-#: core/Widgets/DeadlineButton.vala:94 core/Widgets/DeadlineButton.vala:101
-#: core/Widgets/DeadlineButton.vala:154
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
+#: core/Widgets/DeadlineButton.vala:153
 msgid "Set a Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:149
+#: core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
 msgstr ""
 
@@ -1349,12 +1350,12 @@ msgstr "Іздеу"
 msgid "Search or Create"
 msgstr "Іздеу немесе жасау"
 
-#: core/Widgets/MarkdownEditor.vala:1360 src/Layouts/ItemBoard.vala:842
-#: src/Layouts/ItemRow.vala:1362
+#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:843
+#: src/Layouts/ItemRow.vala:1303
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1365
+#: core/Widgets/MarkdownEditor.vala:1383
 #, fuzzy
 msgid "Remove link"
 msgstr "Алып тастау"
@@ -1464,7 +1465,7 @@ msgid "To Do"
 msgstr "Орындауға"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:784 src/Layouts/ItemRow.vala:1297
+#: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1236
 #: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "Аяқтау"
@@ -1478,7 +1479,7 @@ msgstr ""
 "жабылғанда жұмыс істей береді, сонда тапсырма хабарламаларын жібере алады."
 
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
-#: src/Views/Project/Project.vala:401
+#: src/Views/Project/Project.vala:444
 msgid "Calendar Sync"
 msgstr ""
 
@@ -1522,7 +1523,7 @@ msgstr ""
 msgid "Calendar sync disabled successfully"
 msgstr ""
 
-#: src/Dialogs/CalendarSync.vala:223
+#: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
 msgstr ""
 
@@ -1575,18 +1576,16 @@ msgstr "Барлық аяқталған тапсырмаларды жою"
 #: src/Dialogs/CompletedTasks.vala:165
 #, fuzzy, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
-msgstr ""
+msgid_plural ""
+"This will delete %d completed tasks and their subtasks from project %s"
+msgstr[0] ""
+"Бұл %s жобасынан %d аяқталған тапсырма мен олардың қосымша тапсырмаларын "
+"жояды"
+msgstr[1] ""
 "Бұл %s жобасынан %d аяқталған тапсырма мен олардың қосымша тапсырмаларын "
 "жояды"
 
-#: src/Dialogs/CompletedTasks.vala:166
-#, c-format
-msgid "This will delete %d completed tasks and their subtasks from project %s"
-msgstr ""
-"Бұл %s жобасынан %d аяқталған тапсырма мен олардың қосымша тапсырмаларын "
-"жояды"
-
-#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:596
+#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
 #: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:673
 msgid "Filter By"
 msgstr "Сүзу түрі"
@@ -1595,36 +1594,14 @@ msgstr "Сүзу түрі"
 msgid "Next Week"
 msgstr "Келесі апта"
 
-#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:777
-#: src/Layouts/ItemRow.vala:1290 src/Views/Project/Project.vala:518
-#: src/Views/Project/Project.vala:689
+#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:778
+#: src/Layouts/ItemRow.vala:1229 src/Views/Project/Project.vala:562
+#: src/Views/Project/Project.vala:733
 msgid "No Date"
 msgstr "Күні жоқ"
 
-#: src/Dialogs/GoogleOAuth.vala:40
-msgid "Todoist Sync"
-msgstr "Todoist синхрондауы"
-
-#: src/Dialogs/GoogleOAuth.vala:55 src/Dialogs/GoogleOAuth.vala:140
-msgid "Loading"
-msgstr "Жүктелуде"
-
-#: src/Dialogs/GoogleOAuth.vala:83
-msgid "Planner is sync your tasks, this may take a few minutes"
-msgstr "Planner тапсырмаларды синхрондауда, бұл бірнеше минут алуы мүмкін"
-
-#: src/Dialogs/GoogleOAuth.vala:135
-msgid "Please enter your credentials"
-msgstr "Тіркелгі деректеріңізді енгізіңіз"
-
-#: src/Dialogs/GoogleOAuth.vala:151
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:212
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:214
-msgid "Network Is Not Available"
-msgstr "Желі қолжетімді емес"
-
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1426
-#: src/Layouts/ItemSidebarView.vala:484
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1367
+#: src/Layouts/ItemSidebarView.vala:495
 msgid "Change History"
 msgstr "Өзгерістер тарихы"
 
@@ -1649,12 +1626,9 @@ msgstr ""
 #: src/Dialogs/ItemChangeHistory.vala:138
 #, fuzzy, c-format
 msgid "Load more history from %d week ago…"
-msgstr "%d апта бұрынғы тарихты көбірек жүктеу…"
-
-#: src/Dialogs/ItemChangeHistory.vala:139
-#, c-format
-msgid "Load more history from %d weeks ago…"
-msgstr "%d апта бұрынғы тарихты көбірек жүктеу…"
+msgid_plural "Load more history from %d weeks ago…"
+msgstr[0] "%d апта бұрынғы тарихты көбірек жүктеу…"
+msgstr[1] "%d апта бұрынғы тарихты көбірек жүктеу…"
 
 #: src/Dialogs/Label.vala:45
 msgid "New Label"
@@ -1680,12 +1654,12 @@ msgstr "Белгіні жаңарту"
 msgid "Filter"
 msgstr "Сүзгі"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:721
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:715
 msgid "Archived Projects"
 msgstr "Мұрағатталған жобалар"
 
-#: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:658
-#: src/Views/Project/Project.vala:336
+#: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:668
+#: src/Views/Project/Project.vala:379
 msgid "Manage Sections"
 msgstr "Бөлімдерді басқару"
 
@@ -1725,9 +1699,8 @@ msgstr "Аккаунттарды сүйреп апару арқылы ретте
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
-#, fuzzy
-msgid "Planify is syncing your tasks, this may take a few minutes"
-msgstr "Planify тапсырмаларыңызды синхрондауда, бұл бірнеше минут алуы мүмкін"
+msgid "Planify is syncing your tasks, this may take a few moments"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
@@ -1880,6 +1853,11 @@ msgstr "Тіркелгі деректеріңізді енгізіңіз"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
 msgid "Loading…"
 msgstr "Жүктелуде…"
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:212
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:214
+msgid "Network Is Not Available"
+msgstr "Желі қолжетімді емес"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:36
 #: src/Dialogs/Preferences/PreferencesWindow.vala:169
@@ -2098,7 +2076,7 @@ msgid "Custom Sort Order"
 msgstr "Арнайы реттеу"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
-#: src/Views/Project/Project.vala:498 src/Views/Scheduled/Scheduled.vala:227
+#: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:227
 #: src/Views/Today.vala:630
 msgid "Alphabetically"
 msgstr "Алфавит бойынша"
@@ -2404,7 +2382,7 @@ msgstr ""
 "Қосылған кезде тапсырманың мерзімі алдында еске салғыш әдепкі бойынша "
 "қосылады."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:713
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:707
 msgid "Preferences"
 msgstr "Параметрлер"
 
@@ -2536,7 +2514,7 @@ msgid "New Project"
 msgstr "Жаңа жоба"
 
 #: src/Dialogs/Project.vala:67 src/Layouts/ProjectRow.vala:704
-#: src/Views/Project/Project.vala:331
+#: src/Views/Project/Project.vala:374
 msgid "Edit Project"
 msgstr "Жобаны өңдеу"
 
@@ -2561,28 +2539,28 @@ msgid "Project added successfully!"
 msgstr "Жоба сәтті қосылды!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:780 src/Layouts/ItemRow.vala:1293
-#: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemSidebarView.vala:479
+#: src/Layouts/ItemBoard.vala:781 src/Layouts/ItemRow.vala:1232
+#: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemSidebarView.vala:490
 msgid "Move"
 msgstr "Жылжыту"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:42
+#: src/Dialogs/QuickFind/QuickFind.vala:48
 msgid "Quick Find"
 msgstr "Жылдам іздеу"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:260
+#: src/Dialogs/QuickFind/QuickFind.vala:318
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 "Жобалар мен көрініс арасында жылдам ауысу, тапсырмаларды табу, белгілер "
 "бойынша іздеу"
 
-#: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:217
-#: src/Views/Project/Project.vala:334
+#: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:260
+#: src/Views/Project/Project.vala:377
 msgid "New Section"
 msgstr "Жаңа бөлім"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:563
-#: src/Layouts/SectionRow.vala:656
+#: src/Layouts/SectionRow.vala:666
 msgid "Edit Section"
 msgstr "Бөлімді өңдеу"
 
@@ -2607,74 +2585,74 @@ msgstr "Бөлім атауы"
 msgid "Open/Close Sidebar"
 msgstr "Бүйір тақтаны ашу/жабу"
 
-#: src/Layouts/ItemBoard.vala:156 src/Layouts/ItemBoard.vala:762
-#: src/Layouts/ItemBoard.vala:775 src/Layouts/ItemRow.vala:1275
-#: src/Layouts/ItemRow.vala:1288
+#: src/Layouts/ItemBoard.vala:156 src/Layouts/ItemBoard.vala:763
+#: src/Layouts/ItemBoard.vala:776 src/Layouts/ItemRow.vala:1214
+#: src/Layouts/ItemRow.vala:1227
 msgid "Unpin"
 msgstr "Бекітуді алып тастау"
 
-#: src/Layouts/ItemBoard.vala:623 src/Layouts/ItemRow.vala:1627
-#: src/Layouts/ItemSidebarView.vala:645
+#: src/Layouts/ItemBoard.vala:624 src/Layouts/ItemRow.vala:1568
+#: src/Layouts/ItemSidebarView.vala:656
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Аяқталды. Келесі кездесу: %s"
 
-#: src/Layouts/ItemBoard.vala:783 src/Layouts/ItemRow.vala:1296
+#: src/Layouts/ItemBoard.vala:784 src/Layouts/ItemRow.vala:1235
 msgid "Add Subtask"
 msgstr "Қосымша тапсырма қосу"
 
-#: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1298
+#: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1237
 msgid "Edit"
 msgstr "Өңдеу"
 
-#: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1299
-#: src/Layouts/ItemRow.vala:1420 src/Layouts/ItemSidebarView.vala:478
+#: src/Layouts/ItemBoard.vala:787 src/Layouts/ItemRow.vala:1238
+#: src/Layouts/ItemRow.vala:1361 src/Layouts/ItemSidebarView.vala:489
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
-#: src/Layouts/SectionRow.vala:659 src/Views/Project/Project.vala:332
+#: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:375
 msgid "Duplicate"
 msgstr "Көшіру"
 
-#: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1301
-#: src/Layouts/ItemRow.vala:1423 src/Layouts/ItemSidebarView.vala:481
+#: src/Layouts/ItemBoard.vala:789 src/Layouts/ItemRow.vala:1240
+#: src/Layouts/ItemRow.vala:1364 src/Layouts/ItemSidebarView.vala:492
 msgid "Delete Task"
 msgstr "Тапсырманы жою"
 
-#: src/Layouts/ItemBoard.vala:1088 src/Layouts/ItemRow.vala:1868
+#: src/Layouts/ItemBoard.vala:1089 src/Layouts/ItemRow.vala:1809
 msgid "Order changed to 'Custom sort order'"
 msgstr "Реттеу 'Арнайы реттеу' болып өзгертілді"
 
-#: src/Layouts/ItemBoard.vala:1174 src/Layouts/ItemRow.vala:1651
+#: src/Layouts/ItemBoard.vala:1175 src/Layouts/ItemRow.vala:1592
 #, c-format
 msgid "%s was deleted"
 msgstr "%s жойылды"
 
-#: src/Layouts/ItemBoard.vala:1175 src/Layouts/ItemRow.vala:1652
+#: src/Layouts/ItemBoard.vala:1176 src/Layouts/ItemRow.vala:1593
 msgid "Undo"
 msgstr "Болдырмау"
 
-#: src/Layouts/ItemRow.vala:521
-msgid "Add Attachments"
-msgstr "Қосымшалар қосу"
-
-#: src/Layouts/ItemRow.vala:616
+#: src/Layouts/ItemRow.vala:573
 msgid "Add Subtasks"
 msgstr "Қосымша тапсырмалар қосу"
 
-#: src/Layouts/ItemRow.vala:1125
+#: src/Layouts/ItemRow.vala:1064
 msgid "Hide Sub-tasks"
 msgstr "Қосымша тапсырмаларды жасыру"
 
-#: src/Layouts/ItemRow.vala:1125
+#: src/Layouts/ItemRow.vala:1064
 msgid "Show Sub-tasks"
 msgstr "Қосымша тапсырмаларды көрсету"
 
-#: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:475
+#: src/Layouts/ItemRow.vala:1357 src/Layouts/ItemSidebarView.vala:486
 msgid "Use as a Note"
 msgstr "Жазба ретінде пайдалану"
 
-#: src/Layouts/ItemRow.vala:1419 src/Layouts/ItemSidebarView.vala:477
+#: src/Layouts/ItemRow.vala:1360 src/Layouts/ItemSidebarView.vala:488
 msgid "Copy to Clipboard"
 msgstr "Буферге көшіру"
+
+#: src/Layouts/ItemRow.vala:2014
+msgid "Add Attachments"
+msgstr "Қосымшалар қосу"
 
 #: src/Layouts/ItemSidebarView.vala:77
 msgid "Close Detail"
@@ -2688,7 +2666,7 @@ msgstr "Атауы"
 msgid "Properties"
 msgstr "Қасиеттер"
 
-#: src/Layouts/ItemSidebarView.vala:565
+#: src/Layouts/ItemSidebarView.vala:576
 msgid "Are you sure you want to delete?"
 msgstr "Жоюды шынымен қалайсыз ба?"
 
@@ -2712,7 +2690,7 @@ msgstr "Таңдаулыларға қосу"
 msgid "Refresh"
 msgstr "Жаңарту"
 
-#: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:344
+#: src/Layouts/ProjectRow.vala:709 src/Views/Project/Project.vala:387
 #: src/Widgets/ProjectItemRow.vala:154
 msgid "Delete Project"
 msgstr "Жобаны жою"
@@ -2734,13 +2712,13 @@ msgstr "Қосымша тапсырмалар қосу"
 msgid "Load more"
 msgstr ""
 
-#: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:612
+#: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:622
 #: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
 #, fuzzy
 msgid "completed tasks"
 msgstr "Аяқталған тапсырмалар"
 
-#: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:657
+#: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:667
 msgid "Move Section"
 msgstr "Бөлімді жылжыту"
 
@@ -2748,11 +2726,11 @@ msgstr "Бөлімді жылжыту"
 msgid "Manage Section Order"
 msgstr "Бөлімдер ретін басқару"
 
-#: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:660
+#: src/Layouts/SectionBoard.vala:567 src/Layouts/SectionRow.vala:670
 msgid "Show Completed Tasks"
 msgstr "Аяқталған тапсырмаларды көрсету"
 
-#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:663
+#: src/Layouts/SectionBoard.vala:570 src/Layouts/SectionRow.vala:673
 #: src/Widgets/SectionItemRow.vala:207
 msgid "Delete Section"
 msgstr "Бөлімді жою"
@@ -2803,31 +2781,31 @@ msgstr "Негізгі мәзір"
 msgid "Open Quick Find"
 msgstr "Жылдам іздеуді ашу"
 
-#: src/MainWindow.vala:719
+#: src/MainWindow.vala:713
 msgid "About Planify"
 msgstr "Planify туралы"
 
-#: src/MainWindow.vala:779
+#: src/MainWindow.vala:773
 msgid "Oops! Something happened"
 msgstr "Кешіріңіз! Бірдеңе болды"
 
-#: src/MainWindow.vala:782
+#: src/MainWindow.vala:776
 msgid "See More"
 msgstr "Толығырақ көру"
 
-#: src/MainWindow.vala:798 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:792 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Тапсырма аяқталды"
 
-#: src/MainWindow.vala:799
+#: src/MainWindow.vala:793
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:837
+#: src/MainWindow.vala:831
 msgid "Database Integrity Check Failed"
 msgstr "Дерекқор тұтастығын тексеру сәтсіз болды"
 
-#: src/MainWindow.vala:838
+#: src/MainWindow.vala:832
 #, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
@@ -2848,7 +2826,7 @@ msgstr ""
 "кейін бұрын жасаған кез келген сақтық көшірмені қалпына келтіре аласыз. "
 "Шыдамдылығыңыз үшін рахмет"
 
-#: src/MainWindow.vala:840
+#: src/MainWindow.vala:834
 msgid "Reset Database"
 msgstr "Дерекқорды қалпына келтіру"
 
@@ -2868,7 +2846,7 @@ msgstr ""
 msgid "Restart Now"
 msgstr ""
 
-#: src/Services/Backups.vala:566
+#: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Planify сақтық көшірме файлдары"
 
@@ -2887,7 +2865,7 @@ msgstr "30 минуттан кейін"
 msgid "Snooze for 1 hour"
 msgstr "1 сағаттан кейін"
 
-#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:89
+#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
 #: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:87
 msgid "View Option Menu"
 msgstr "Көру опциялары мәзірі"
@@ -2914,22 +2892,18 @@ msgstr ""
 #: src/Views/Filter.vala:612
 #, fuzzy
 msgid "Delete Completed Task"
-msgstr "Барлық аяқталған тапсырмаларды жою"
-
-#: src/Views/Filter.vala:613
-#, fuzzy
-msgid "Delete Completed Tasks"
-msgstr "Барлық аяқталған тапсырмаларды жою"
+msgid_plural "Delete Completed Tasks"
+msgstr[0] "Барлық аяқталған тапсырмаларды жою"
+msgstr[1] "Барлық аяқталған тапсырмаларды жою"
 
 #: src/Views/Filter.vala:617
 #, fuzzy, c-format
 msgid "This will delete %d completed task and its subtasks"
-msgstr "Бұл %d аяқталған тапсырманы және олардың қосымша тапсырмаларын жояды"
-
-#: src/Views/Filter.vala:618
-#, c-format
-msgid "This will delete %d completed tasks and their subtasks"
-msgstr "Бұл %d аяқталған тапсырманы және олардың қосымша тапсырмаларын жояды"
+msgid_plural "This will delete %d completed tasks and their subtasks"
+msgstr[0] ""
+"Бұл %d аяқталған тапсырманы және олардың қосымша тапсырмаларын жояды"
+msgstr[1] ""
+"Бұл %d аяқталған тапсырманы және олардың қосымша тапсырмаларын жояды"
 
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
@@ -2951,129 +2925,129 @@ msgstr "Қашан?"
 msgid "Add Some Tasks. Press 'a' to create a new task"
 msgstr ""
 
-#: src/Views/Project/Project.vala:64
+#: src/Views/Project/Project.vala:94
 msgid "Project Actions"
 msgstr "Жоба әрекеттері"
 
-#: src/Views/Project/Project.vala:216
+#: src/Views/Project/Project.vala:259
 #, fuzzy
 msgid "New Task"
 msgstr "Жаңа тапсырма орны"
 
-#: src/Views/Project/Project.vala:333 src/Views/Project/Project.vala:365
+#: src/Views/Project/Project.vala:376 src/Views/Project/Project.vala:408
 msgid "Project Deadline"
 msgstr ""
 
-#: src/Views/Project/Project.vala:338
+#: src/Views/Project/Project.vala:381
 msgid "Select"
 msgstr "Таңдау"
 
-#: src/Views/Project/Project.vala:339
+#: src/Views/Project/Project.vala:382
 msgid "Paste"
 msgstr "Қою"
 
-#: src/Views/Project/Project.vala:340 src/Views/Project/Project.vala:456
+#: src/Views/Project/Project.vala:383 src/Views/Project/Project.vala:500
 msgid "Expand All"
 msgstr "Барлығын жаю"
 
-#: src/Views/Project/Project.vala:402 src/Widgets/ItemChangeHistoryRow.vala:108
+#: src/Views/Project/Project.vala:445 src/Widgets/ItemChangeHistoryRow.vala:108
 msgid "New"
 msgstr "Жаңа"
 
-#: src/Views/Project/Project.vala:460
+#: src/Views/Project/Project.vala:504
 msgid "Collapse All"
 msgstr "Барлығын жию"
 
-#: src/Views/Project/Project.vala:476
+#: src/Views/Project/Project.vala:520
 msgid "List"
 msgstr "Тізім"
 
-#: src/Views/Project/Project.vala:482
+#: src/Views/Project/Project.vala:526
 msgid "Board"
 msgstr "Тақта"
 
-#: src/Views/Project/Project.vala:494 src/Views/Scheduled/Scheduled.vala:224
+#: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:224
 #: src/Views/Today.vala:627
 msgid "Sorting"
 msgstr "Реттеу"
 
-#: src/Views/Project/Project.vala:497
+#: src/Views/Project/Project.vala:541
 msgid "Custom sort order"
 msgstr "Арнайы реттеу"
 
-#: src/Views/Project/Project.vala:500 src/Views/Scheduled/Scheduled.vala:229
+#: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:229
 #: src/Views/Today.vala:632
 msgid "Date Added"
 msgstr "Қосылған күні"
 
-#: src/Views/Project/Project.vala:503
+#: src/Views/Project/Project.vala:547
 #, fuzzy
 msgid "Ascending Order"
 msgstr "Өсу ретімен"
 
-#: src/Views/Project/Project.vala:509
+#: src/Views/Project/Project.vala:553
 msgid "Duedate"
 msgstr "Мерзімі"
 
-#: src/Views/Project/Project.vala:512
+#: src/Views/Project/Project.vala:556
 msgid "All (default)"
 msgstr "Барлығы (әдепкі)"
 
-#: src/Views/Project/Project.vala:514 src/Views/Project/Project.vala:681
+#: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
 msgid "This Week"
 msgstr "Осы апта"
 
-#: src/Views/Project/Project.vala:515 src/Views/Project/Project.vala:683
+#: src/Views/Project/Project.vala:559 src/Views/Project/Project.vala:727
 msgid "Next 7 Days"
 msgstr "Келесі 7 күн"
 
-#: src/Views/Project/Project.vala:516 src/Views/Project/Project.vala:685
+#: src/Views/Project/Project.vala:560 src/Views/Project/Project.vala:729
 msgid "This Month"
 msgstr "Осы ай"
 
-#: src/Views/Project/Project.vala:517 src/Views/Project/Project.vala:687
+#: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:731
 msgid "Next 30 Days"
 msgstr "Келесі 30 күн"
 
-#: src/Views/Project/Project.vala:524 src/Views/Scheduled/Scheduled.vala:237
+#: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:237
 #: src/Views/Today.vala:640
 msgid "P1"
 msgstr "Б1"
 
-#: src/Views/Project/Project.vala:530 src/Views/Scheduled/Scheduled.vala:243
+#: src/Views/Project/Project.vala:574 src/Views/Scheduled/Scheduled.vala:243
 #: src/Views/Today.vala:646
 msgid "P2"
 msgstr "Б2"
 
-#: src/Views/Project/Project.vala:536 src/Views/Scheduled/Scheduled.vala:249
+#: src/Views/Project/Project.vala:580 src/Views/Scheduled/Scheduled.vala:249
 #: src/Views/Today.vala:652
 msgid "P3"
 msgstr "Б3"
 
-#: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:255
+#: src/Views/Project/Project.vala:586 src/Views/Scheduled/Scheduled.vala:255
 #: src/Views/Today.vala:658
 msgid "P4"
 msgstr "Б4"
 
-#: src/Views/Project/Project.vala:549 src/Views/Scheduled/Scheduled.vala:262
+#: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:262
 #: src/Views/Today.vala:665
 msgid "Filter by Labels"
 msgstr "Белгілер бойынша сүзу"
 
-#: src/Views/Project/Project.vala:553
+#: src/Views/Project/Project.vala:597
 msgid "Show Completed"
 msgstr ""
 
-#: src/Views/Project/Project.vala:554
+#: src/Views/Project/Project.vala:598
 msgid "Display completed tasks in the list"
 msgstr ""
 
-#: src/Views/Project/Project.vala:560
+#: src/Views/Project/Project.vala:604
 #, fuzzy
 msgid "Search completed tasks"
 msgstr "Аяқталған тапсырмаларды көрсету"
 
-#: src/Views/Project/Project.vala:587
+#: src/Views/Project/Project.vala:631
 msgid "Sort By"
 msgstr "Реттеу түрі"
 
@@ -3143,13 +3117,17 @@ msgstr "Мәселе туралы хабарлау"
 
 #: src/Widgets/EventRow.vala:207
 #, c-format
-msgid "In %d minutes"
-msgstr ""
+msgid "In %d minute"
+msgid_plural "In %d minutes"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/EventRow.vala:209
 #, c-format
-msgid "In %d hours"
-msgstr ""
+msgid "In %d hour"
+msgid_plural "In %d hours"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/EventRow.vala:214
 msgid "Happening now"
@@ -3236,27 +3214,16 @@ msgstr "Бұл тапсырманы жоюды шынымен қалайсыз �
 #: src/Widgets/MultiSelectToolbar.vala:272
 #, fuzzy, c-format
 msgid "Delete %d To-Do"
-msgstr "%d тапсырманы жою"
-
-#: src/Widgets/MultiSelectToolbar.vala:273
-#, c-format
-msgid "Delete %d To-Dos"
-msgstr "%d тапсырманы жою"
+msgid_plural "Delete %d To-Dos"
+msgstr[0] "%d тапсырманы жою"
+msgstr[1] "%d тапсырманы жою"
 
 #: src/Widgets/MultiSelectToolbar.vala:278
 #, fuzzy, c-format
 msgid "Are you sure you want to delete this %d to-do?"
-msgstr "Бұл тапсырманы жоюды шынымен қалайсыз ба?"
-
-#: src/Widgets/MultiSelectToolbar.vala:279
-#, c-format
-msgid "Are you sure you want to delete these %d to-dos?"
-msgstr "Осы %d тапсырманы жоюды шынымен қалайсыз ба?"
-
-#: src/Widgets/MultiSelectToolbar.vala:376
-#, c-format
-msgid "%d tasks moved to %s"
-msgstr ""
+msgid_plural "Are you sure you want to delete these %d to-dos?"
+msgstr[0] "Бұл тапсырманы жоюды шынымен қалайсыз ба?"
+msgstr[1] "Бұл тапсырманы жоюды шынымен қалайсыз ба?"
 
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
@@ -3282,7 +3249,7 @@ msgstr ""
 msgid "Unarchive"
 msgstr "Мұрағаттан шығару"
 
-#: src/Widgets/SubItems.vala:523
+#: src/Widgets/SubItems.vala:525
 msgid "No subtasks added yet. Get started!"
 msgstr "Қосымша тапсырмалар әлі қосылмаған. Бастаңыз!"
 
@@ -3307,25 +3274,25 @@ msgstr ""
 msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
 msgstr ""
 
-#: src/Widgets/TranslationRow.vala:129 src/Widgets/TranslationRow.vala:151
-#: src/Widgets/TranslationRow.vala:155
+#: src/Widgets/TranslationRow.vala:121 src/Widgets/TranslationRow.vala:142
+#: src/Widgets/TranslationRow.vala:146
 msgid "Translations"
 msgstr ""
 
-#: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
-#: src/Widgets/TranslationRow.vala:156
+#: src/Widgets/TranslationRow.vala:122 src/Widgets/TranslationRow.vala:143
+#: src/Widgets/TranslationRow.vala:147
 msgid "Help make Planify available worldwide"
 msgstr ""
 
-#: src/Widgets/TranslationRow.vala:138
+#: src/Widgets/TranslationRow.vala:129
 msgid "Help improve translations"
 msgstr ""
 
-#: src/Widgets/TranslationRow.vala:145
+#: src/Widgets/TranslationRow.vala:136
 msgid "Start a new translation"
 msgstr ""
 
-#: src/Widgets/TranslationRow.vala:146
+#: src/Widgets/TranslationRow.vala:137
 #, c-format
 msgid "<b>%s</b> is not available yet. Be the first to translate it!"
 msgstr ""
@@ -3428,6 +3395,75 @@ msgstr "Белгілерді ашу"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Жапсырма тақтасын ашу"
+
+#, fuzzy
+#~ msgid "Planify is syncing your tasks, this may take a few minutes"
+#~ msgstr ""
+#~ "Planify тапсырмаларыңызды синхрондауда, бұл бірнеше минут алуы мүмкін"
+
+#~ msgid "Todoist Sync"
+#~ msgstr "Todoist синхрондауы"
+
+#~ msgid "Loading"
+#~ msgstr "Жүктелуде"
+
+#~ msgid "Planner is sync your tasks, this may take a few minutes"
+#~ msgstr "Planner тапсырмаларды синхрондауда, бұл бірнеше минут алуы мүмкін"
+
+#~ msgid "Please enter your credentials"
+#~ msgstr "Тіркелгі деректеріңізді енгізіңіз"
+
+#, c-format
+#~ msgid "Every %d minutes"
+#~ msgstr "Әр %d минут сайын"
+
+#, c-format
+#~ msgid "Every %d hours"
+#~ msgstr "Әр %d сағат сайын"
+
+#, c-format
+#~ msgid "Every %d days"
+#~ msgstr "Әр %d күн сайын"
+
+#, c-format
+#~ msgid "Every %d weeks"
+#~ msgstr "Әр %d апта сайын"
+
+#, c-format
+#~ msgid "Every %d months"
+#~ msgstr "Әр %d ай сайын"
+
+#, c-format
+#~ msgid "Every %d years"
+#~ msgstr "Әр %d жыл сайын"
+
+#, c-format
+#~ msgid ""
+#~ "This will delete %d completed tasks and their subtasks from project %s"
+#~ msgstr ""
+#~ "Бұл %s жобасынан %d аяқталған тапсырма мен олардың қосымша тапсырмаларын "
+#~ "жояды"
+
+#, c-format
+#~ msgid "Load more history from %d weeks ago…"
+#~ msgstr "%d апта бұрынғы тарихты көбірек жүктеу…"
+
+#, fuzzy
+#~ msgid "Delete Completed Tasks"
+#~ msgstr "Барлық аяқталған тапсырмаларды жою"
+
+#, c-format
+#~ msgid "This will delete %d completed tasks and their subtasks"
+#~ msgstr ""
+#~ "Бұл %d аяқталған тапсырманы және олардың қосымша тапсырмаларын жояды"
+
+#, c-format
+#~ msgid "Delete %d To-Dos"
+#~ msgstr "%d тапсырманы жою"
+
+#, c-format
+#~ msgid "Are you sure you want to delete these %d to-dos?"
+#~ msgstr "Осы %d тапсырманы жоюды шынымен қалайсыз ба?"
 
 #, fuzzy
 #~ msgid "Backup"

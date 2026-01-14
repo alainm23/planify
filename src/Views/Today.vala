@@ -118,7 +118,7 @@ public class Views.Today : Adw.Bin {
         };
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 24,
+            margin_start = 30,
         };
 
         title_box.append (today_icon);
@@ -128,7 +128,7 @@ public class Views.Today : Adw.Bin {
         #if WITH_EVOLUTION
         event_list = new Widgets.EventsList.for_day (date) {
             margin_top = 12,
-            margin_start = 24,
+            margin_start = 30,
             margin_end = 24
         };
 
@@ -146,7 +146,7 @@ public class Views.Today : Adw.Bin {
             base_object = Objects.Filters.Today.get_default ()
         };
 
-        filters.flowbox.margin_start = 24;
+        filters.flowbox.margin_start = 30;
         filters.flowbox.margin_top = 12;
         filters.flowbox.margin_end = 12;
         filters.flowbox.margin_bottom = 3;
@@ -165,7 +165,7 @@ public class Views.Today : Adw.Bin {
         };
 
         var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 24,
+            margin_start = 30,
             margin_end = 24
         };
         overdue_header_box.append (overdue_label);
@@ -208,7 +208,7 @@ public class Views.Today : Adw.Bin {
         today_label.add_css_class ("font-bold");
 
         var today_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 24,
+            margin_start = 30,
             margin_end = 24,
             margin_top = 12
         };
@@ -782,7 +782,9 @@ public class Views.Today : Adw.Bin {
         }
 
         foreach (var entry in signal_map.entries) {
-            entry.value.disconnect (entry.key);
+            if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
+                entry.value.disconnect (entry.key);
+            }
         }
 
         signal_map.clear ();

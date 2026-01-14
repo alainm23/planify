@@ -70,7 +70,7 @@ public class Views.Filter : Adw.Bin {
         };
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 24
+            margin_start = 30
         };
 
         title_box.append (title_icon);
@@ -102,7 +102,7 @@ public class Views.Filter : Adw.Bin {
         };
 
         load_more_button = new Gtk.Button.with_label ("Cargar más") {
-            margin_start = 9,
+            margin_start = 20,
             halign = START,
         };
         load_more_button.add_css_class ("flat");
@@ -570,7 +570,7 @@ public class Views.Filter : Adw.Bin {
 
         var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
             margin_top = 12,
-            margin_start = 24,
+            margin_start = 30,
             margin_bottom = 12
         };
 
@@ -609,13 +609,13 @@ public class Views.Filter : Adw.Bin {
 
             var dialog = new Adw.AlertDialog (
                 GLib.ngettext (
-                    _("Delete Completed Task"),
-                    _("Delete Completed Tasks"),
+                    "Delete Completed Task",
+                    "Delete Completed Tasks",
                     items.size
                 ),
                 GLib.ngettext (
-                    _("This will delete %d completed task and its subtasks"),
-                    _("This will delete %d completed tasks and their subtasks"),
+                    "This will delete %d completed task and its subtasks",
+                    "This will delete %d completed tasks and their subtasks",
                     items.size
                 ).printf (items.size)
             );

@@ -225,6 +225,10 @@ public class MainWindow : Adw.ApplicationWindow {
                     source.run_server ();
                 }
             });
+            
+#if WITH_EVOLUTION
+            Services.Store.instance ().setup_calendar_events ();
+#endif
         });
 
         var color_scheme_settings = ColorSchemeSettings.Settings.get_default ();
@@ -399,10 +403,6 @@ public class MainWindow : Adw.ApplicationWindow {
         var key_controller = new Gtk.EventControllerKey ();
         ((Gtk.Widget) this).add_controller (key_controller);
         key_controller.key_pressed.connect ((keyval, keycode, state) => {
-            if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
-                Services.EventBus.get_default ().ctrl_key_pressed = true;
-            }
-            
             if (keyval == Gdk.Key.Escape) {
                 Services.EventBus.get_default ().escape_pressed ();
                 
@@ -424,12 +424,6 @@ public class MainWindow : Adw.ApplicationWindow {
             }
             
             return false;
-        });
-        
-        key_controller.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == Gdk.Key.Control_L || keyval == Gdk.Key.Control_R) {
-                Services.EventBus.get_default ().ctrl_key_pressed = false;
-            }
         });
 
         var window_gesture = new Gtk.GestureClick ();

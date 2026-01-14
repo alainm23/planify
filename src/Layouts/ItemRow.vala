@@ -44,6 +44,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer content_entry_revealer;
     private Gtk.Box content_box;
 
+    #if WITH_LIBSPELLING
+    private Spelling.TextBufferAdapter? spelling_adapter = null;
+    #endif
+
     private Gtk.Label due_label;
     private Gtk.Box due_box;
     private Gtk.Label repeat_label;
@@ -56,6 +60,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Box deadline_box;
     private Gtk.Revealer deadline_revealer;
     private Gtk.Box action_box_right;
+    private Gtk.Box dates_box;
+    private Gtk.Overlay attachments_button_overlay;
 
     private Gtk.Revealer detail_revealer;
     private Gtk.Revealer main_revealer;
@@ -415,15 +421,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 #if WITH_LIBSPELLING
         var source_buffer = new GtkSource.Buffer (null);
         content_textview.buffer = source_buffer;
-        
-        var adapter = new Spelling.TextBufferAdapter (source_buffer, Spelling.Checker.get_default ());
-        content_textview.extra_menu = adapter.get_menu_model ();
-        content_textview.insert_action_group ("spelling", adapter);
-        adapter.enabled = Services.Settings.get_default ().settings.get_boolean ("spell-checking-enabled");
-        
-        Services.Settings.get_default ().settings.changed["spell-checking-enabled"].connect (() => {
-            adapter.enabled = Services.Settings.get_default ().settings.get_boolean ("spell-checking-enabled");
-        });
 #endif
 
         content_entry_revealer = new Gtk.Revealer () {
@@ -483,64 +480,20 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             sensitive = !item.completed
         };
 
-        schedule_button = new Widgets.ScheduleButton () {
-            sensitive = !item.completed
-        };
+        schedule_button = null;
+        deadline_button_detail = null;
 
-        deadline_button_detail = new Widgets.DeadlineButton.with_detail () {
-            sensitive = !item.completed
-        };
+        dates_box = new Gtk.Box (VERTICAL, 0);
 
-        var dates_box = new Gtk.Box (VERTICAL, 0);
-        dates_box.append (schedule_button);
-        dates_box.append (deadline_button_detail);
+        priority_button = null;
+        label_button = null;
+        reminder_button = null;
+        deadline_button = null;
+        attachments = null;
+        attachments_button = null;
+        attachments_count = null;
 
-        priority_button = new Widgets.PriorityButton () {
-            sensitive = !item.completed
-        };
-
-        label_button = new Widgets.LabelPicker.LabelButton () {
-            sensitive = !item.completed
-        };
-
-        label_button.source = item.project.source;
-
-        reminder_button = new Widgets.ReminderPicker.ReminderButton () {
-            sensitive = !item.completed
-        };
-
-        deadline_button = new Widgets.DeadlineButton () {
-            sensitive = !item.completed
-        };
-
-        attachments = new Widgets.Attachments ();
-        attachments.present_item (item);
-
-        attachments_button = new Gtk.MenuButton () {
-            icon_name = "mail-attachment-symbolic",
-            tooltip_text = _ ("Add Attachments"),
-            popover = new Gtk.Popover () {
-                has_arrow = false,
-                child = attachments,
-                width_request = 350
-            },
-            css_classes = { "flat" },
-            sensitive = !item.completed
-        };
-
-        attachments_count = new Gtk.Label (item.attachments.size.to_string ()) {
-            css_classes = { "badge", "caption" },
-            width_request = 12,
-            margin_end = 3,
-            halign = END,
-            valign = START,
-            visible = item.attachments.size > 0
-        };
-
-        var attachments_button_overlay = new Gtk.Overlay () {
-            child = attachments_button
-        };
-        attachments_button_overlay.add_overlay (attachments_count);
+        attachments_button_overlay = null;
 
         menu_button = new Gtk.MenuButton () {
             icon_name = "view-more-symbolic",
@@ -567,11 +520,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             valign = END
         };
 
-        action_box_right.append (attachments_button_overlay);
-        action_box_right.append (label_button);
-        action_box_right.append (priority_button);
-        action_box_right.append (reminder_button);
-        action_box_right.append (deadline_button);
         action_box_right.append (menu_button);
 
         action_box.append (dates_box);
@@ -586,6 +534,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             child = details_grid
         };
+
+        signals_map[detail_revealer.notify["reveal-child"].connect (() => {
+            if (detail_revealer.reveal_child) {
+                build_detail_widgets ();
+                #if WITH_LIBSPELLING
+                init_spelling_adapter ();
+                #endif
+            }
+        })] = detail_revealer;
 
         var handle_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             valign = Gtk.Align.START,
@@ -645,12 +602,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             halign = START
         };
 
+        subitems = new Widgets.SubItems (is_project_view);
+
         show_subtasks_revealer = new Gtk.Revealer () {
             child = show_subtasks_button,
             reveal_child = subitems.has_children && edit
         };
 
-        subitems = new Widgets.SubItems (is_project_view);
         subitems.present_item (item);
         subitems.reveal_child = item.items.size > 0 && item.collapsed;
 
@@ -720,7 +678,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = handle_gesture_click;
         
         signals_map[handle_gesture_click.released.connect ((n_press, x, y) => {
-            if (Services.EventBus.get_default ().ctrl_key_pressed) {
+            var modifier = handle_gesture_click.get_current_event_state ();
+            if ((modifier & Gdk.ModifierType.CONTROL_MASK) != 0) {
                 Idle.add (() => {
                     if (item.project == null) {
                         return GLib.Source.REMOVE;
@@ -790,10 +749,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var content_controller_key = new Gtk.EventControllerKey ();
         content_textview.add_controller (content_controller_key);
         signals_map[content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-            if (keyval == 65293) {
+            if (keyval == Gdk.Key.Return) {
                 edit = false;
                 return Gdk.EVENT_STOP;
-            } else if (keyval == 65289 && markdown_editor != null) {
+            } else if (keyval == Gdk.Key.Tab && markdown_editor != null) {
                 markdown_editor.view_focus ();
                 return Gdk.EVENT_STOP;
             }
@@ -802,7 +761,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = content_controller_key;
 
         signals_map[content_controller_key.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
+            if (keyval == Gdk.Key.Escape) {
                 edit = false;
             } else {
                 update_content_description ();
@@ -824,16 +783,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             });
         })] = hide_loading_button;
 
-        signals_map[schedule_button.duedate_changed.connect (() => {
-            update_due (schedule_button.duedate);
-        })] = schedule_button;
-
-        signals_map[priority_button.changed.connect ((priority) => {
-            if (item.priority != priority) {
-                item.priority = priority;
-                item.update_async ();
-            }
-        })] = priority_button;
 
         signals_map[pin_button.changed.connect (() => {
             item.update_pin (!item.pinned);
@@ -844,9 +793,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
         })] = pin_button;
 
-        signals_map[label_button.labels_changed.connect ((labels) => {
-            item.update_labels (labels);
-        })] = label_button;
 
         signals_map[
             Services.Settings.get_default ().settings.changed["underline-completed-tasks"].connect (update_request)
@@ -936,44 +882,25 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             main_revealer.reveal_child = item.show_item;
         })] = item;
 
-        signals_map[reminder_button.reminder_added.connect ((reminder) => {
-            item.add_reminder (reminder);
-        })] = reminder_button;
-
         signals_map[item.reminder_added.connect ((reminder) => {
-            reminder_button.add_reminder (reminder, item.reminders);
+            if (reminder_button != null) {
+                reminder_button.add_reminder (reminder, item.reminders);
+            }
             check_reminders ();
         })] = item;
 
         signals_map[item.reminder_deleted.connect ((reminder) => {
-            reminder_button.delete_reminder (reminder, item.reminders);
+            if (reminder_button != null) {
+                reminder_button.delete_reminder (reminder, item.reminders);
+            }
             check_reminders ();
         })] = item;
-
-        signals_map[deadline_button.date_selected.connect ((date) => {
-            update_deadline (date);
-        })] = deadline_button;
-
-        signals_map[deadline_button_detail.date_selected.connect ((date) => {
-            update_deadline (date);
-        })] = deadline_button_detail;
 
         signals_map[Services.EventBus.get_default ().drag_items_end.connect ((project_id) => {
             if (item.project_id == project_id) {
                 motion_top_revealer.reveal_child = false;
             }
         })] = Services.EventBus.get_default ();
-
-        signals_map[attachments.update_count.connect ((count) => {
-            attachments_count.label = count <= 0 ? "" : count.to_string ();
-            attachments_count.visible = count > 0;
-        })] = attachments;
-
-        signals_map[attachments.file_selector_opened.connect ((active) => {
-            if (active) {
-                attachments_button.popover.popdown ();
-            }
-        })] = attachments;
 
         signals_map[Services.EventBus.get_default ().close_item_edit.connect (() => {
             if (edit) {
@@ -1110,17 +1037,29 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         project_name_label.tooltip_text = project_name_label.label;
 
         labels_summary.update_request ();
-        label_button.labels = item._get_labels ();
-        schedule_button.update_from_item (item);
-        priority_button.update_from_item (item);
+        if (label_button != null) {
+            label_button.labels = item._get_labels ();
+        }
+        if (schedule_button != null) {
+            schedule_button.update_from_item (item);
+        }
+        if (priority_button != null) {
+            priority_button.update_from_item (item);
+        }
         pin_button.update_from_item (item);
-        reminder_button.set_reminders (item.reminders);
+        if (reminder_button != null) {
+            reminder_button.set_reminders (item.reminders);
+        }
 
-        deadline_button.datetime = item.deadline_datetime;
-        deadline_button.reveal_content = !item.has_deadline;
+        if (deadline_button != null) {
+            deadline_button.datetime = item.deadline_datetime;
+            deadline_button.reveal_content = !item.has_deadline;
+        }
 
-        deadline_button_detail.datetime = item.deadline_datetime;
-        deadline_button_detail.reveal_content = item.has_deadline;
+        if (deadline_button_detail != null) {
+            deadline_button_detail.datetime = item.deadline_datetime;
+            deadline_button_detail.reveal_content = item.has_deadline;
+        }
 
         show_subtasks_label.label = item.collapsed ? _ ("Hide Sub-tasks") : _ ("Show Sub-tasks");
 
@@ -1137,20 +1076,20 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
             item_labels.sensitive = !item.completed && !item.project.is_deck;
 
-            schedule_button.sensitive = !item.completed;
-            priority_button.sensitive = !item.completed;
-            label_button.sensitive = !item.completed;
+            if (schedule_button != null) schedule_button.sensitive = !item.completed;
+            if (priority_button != null) priority_button.sensitive = !item.completed;
+            if (label_button != null) label_button.sensitive = !item.completed;
             pin_button.sensitive = !item.completed;
-            reminder_button.sensitive = !item.completed;
+            if (reminder_button != null) reminder_button.sensitive = !item.completed;
             add_subtasks_button.sensitive = !item.completed;
-            attachments_button.sensitive = !item.completed;
-            deadline_button.sensitive = !item.completed;
-            deadline_button_detail.sensitive = !item.completed;
+            if (attachments_button != null) attachments_button.sensitive = !item.completed;
+            if (deadline_button != null) deadline_button.sensitive = !item.completed;
+            if (deadline_button_detail != null) deadline_button_detail.sensitive = !item.completed;
         } else {
             remove_css_class ("task-editing");
         }
 
-        if (item.completed) {
+        if (item.completed && deadline_button_detail != null) {
             deadline_button_detail.remove_error_style ();
         }
     }
@@ -1333,7 +1272,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             })] = pinboard_item;
 
             signals_map[no_date_item.activate_item.connect (() => {
-                schedule_button.reset ();
+                if (schedule_button != null) {
+                    schedule_button.reset ();
+                }
             })] = no_date_item;
 
             signals_map[move_item.activate_item.connect (() => {
@@ -2031,6 +1972,145 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = markdown_editor.buffer;
     }
 
+    private void build_detail_widgets () {
+        if (schedule_button != null) {
+            return;
+        }
+
+        schedule_button = new Widgets.ScheduleButton () {
+            sensitive = !item.completed
+        };
+
+        deadline_button_detail = new Widgets.DeadlineButton.with_detail () {
+            sensitive = !item.completed
+        };
+
+        dates_box.append (schedule_button);
+        dates_box.append (deadline_button_detail);
+
+        priority_button = new Widgets.PriorityButton () {
+            sensitive = !item.completed
+        };
+
+        label_button = new Widgets.LabelPicker.LabelButton () {
+            sensitive = !item.completed
+        };
+        label_button.source = item.project.source;
+        label_button.labels = item._get_labels ();
+
+        reminder_button = new Widgets.ReminderPicker.ReminderButton () {
+            sensitive = !item.completed
+        };
+
+        deadline_button = new Widgets.DeadlineButton () {
+            sensitive = !item.completed
+        };
+
+        attachments = new Widgets.Attachments ();
+        attachments.present_item (item);
+
+        attachments_button = new Gtk.MenuButton () {
+            icon_name = "mail-attachment-symbolic",
+            tooltip_text = _ ("Add Attachments"),
+            popover = new Gtk.Popover () {
+                has_arrow = false,
+                child = attachments,
+                width_request = 350
+            },
+            css_classes = { "flat" },
+            sensitive = !item.completed
+        };
+
+        attachments_count = new Gtk.Label (item.attachments.size.to_string ()) {
+            css_classes = { "badge", "caption" },
+            width_request = 12,
+            margin_end = 3,
+            halign = END,
+            valign = START,
+            visible = item.attachments.size > 0
+        };
+
+        attachments_button_overlay = new Gtk.Overlay () {
+            child = attachments_button
+        };
+        attachments_button_overlay.add_overlay (attachments_count);
+
+        action_box_right.remove (menu_button);
+        action_box_right.append (attachments_button_overlay);
+        action_box_right.append (label_button);
+        action_box_right.append (priority_button);
+        action_box_right.append (reminder_button);
+        action_box_right.append (deadline_button);
+        action_box_right.append (menu_button);
+
+        schedule_button.update_from_item (item);
+        priority_button.update_from_item (item);
+        pin_button.update_from_item (item);
+        reminder_button.set_reminders (item.reminders);
+        deadline_button.datetime = item.deadline_datetime;
+        deadline_button.reveal_content = !item.has_deadline;
+        deadline_button_detail.datetime = item.deadline_datetime;
+        deadline_button_detail.reveal_content = item.has_deadline;
+
+        signals_map[schedule_button.duedate_changed.connect (() => {
+            update_due (schedule_button.duedate);
+        })] = schedule_button;
+
+        signals_map[priority_button.changed.connect ((priority) => {
+            if (item.priority != priority) {
+                item.priority = priority;
+                item.update_async ();
+            }
+        })] = priority_button;
+
+        signals_map[label_button.labels_changed.connect ((labels) => {
+            item.update_labels (labels);
+        })] = label_button;
+
+        signals_map[reminder_button.reminder_added.connect ((reminder) => {
+            item.add_reminder (reminder);
+        })] = reminder_button;
+
+        signals_map[deadline_button.date_selected.connect ((date) => {
+            update_deadline (date);
+        })] = deadline_button;
+
+        signals_map[deadline_button_detail.date_selected.connect ((date) => {
+            update_deadline (date);
+        })] = deadline_button_detail;
+
+        signals_map[attachments.update_count.connect ((count) => {
+            attachments_count.label = count <= 0 ? "" : count.to_string ();
+            attachments_count.visible = count > 0;
+        })] = attachments;
+
+        signals_map[attachments.file_selector_opened.connect ((active) => {
+            if (active) {
+                attachments_button.popover.popdown ();
+            }
+        })] = attachments;
+    }
+
+    #if WITH_LIBSPELLING
+    private void init_spelling_adapter () {
+        if (spelling_adapter != null) return;
+
+        var source_buffer = content_textview.buffer as GtkSource.Buffer;
+        if (source_buffer == null) return;
+
+        spelling_adapter = new Spelling.TextBufferAdapter (source_buffer, Spelling.Checker.get_default ());
+        content_textview.extra_menu = spelling_adapter.get_menu_model ();
+        content_textview.insert_action_group ("spelling", spelling_adapter);
+        spelling_adapter.enabled = Services.Settings.get_default ().settings.get_boolean ("spell-checking-enabled");
+
+        Services.Settings.get_default ().settings.changed["spell-checking-enabled"].connect (() => {
+            if (spelling_adapter != null) {
+                spelling_adapter.enabled = Services.Settings.get_default ().settings.get_boolean ("spell-checking-enabled");
+            }
+        });
+    }
+    #endif
+
     private void destroy_markdown_editor () {
         if (markdown_editor == null) {
             return;
@@ -2096,12 +2176,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         destroy_markdown_signals ();
 
         subitems.clean_up ();
-        attachments.clean_up ();
-        item_labels.clean_up ();
-        schedule_button.clean_up ();
-        priority_button.clean_up ();
-        label_button.clean_up ();
-        reminder_button.clean_up ();
+        if (attachments != null) attachments.clean_up ();
+        if (item_labels != null) item_labels.clean_up ();
+        if (schedule_button != null) schedule_button.clean_up ();
+        if (priority_button != null) priority_button.clean_up ();
+        if (label_button != null) label_button.clean_up ();
+        if (reminder_button != null) reminder_button.clean_up ();
         
         markdown_editor = null;
     }

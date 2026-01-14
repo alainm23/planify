@@ -1,7 +1,7 @@
 project(
   'io.github.alainm23.planify',
   'vala', 'c',
-  version: '4.16.1'
+  version: '4.17.0'
 )
 
 gnome = import('gnome')
@@ -99,7 +99,12 @@ datadir = prefix / get_option('datadir')
 localedir = prefix / get_option ('localedir')
 libexecdir = prefix / get_option('libexecdir')
 
+grep = find_program('grep')
+total_strings_res = run_command(grep, '-c', 'msgid', meson.project_source_root() + '/po/io.github.alainm23.planify.pot', check : true)
+total_strings = total_strings_res.stdout().strip().to_int() - 1
+
 conf_data = configuration_data()
+conf_data.set('TOTAL_STRINGS', total_strings)
 conf_data.set_quoted('APPLICATION_ID', application_id)
 conf_data.set_quoted('GETTEXT_PACKAGE', application_id)
 conf_data.set_quoted('GNOMELOCALEDIR', localedir)

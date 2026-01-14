@@ -137,8 +137,8 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    construct {
-        #if WITH_EVOLUTION
+#if WITH_EVOLUTION
+    public void setup_calendar_events () {
         Services.CalendarEvents.get_default ().components_removed.connect ((source, components) => {
             foreach (var component in components) {
                 unowned ICal.Component ical = component.get_icalcomponent ();
@@ -153,8 +153,8 @@ public class Services.Store : GLib.Object {
                 }
             }
         });
-        #endif
     }
+#endif
 
     public bool is_database_empty () {
         return projects.size <= 0;
@@ -317,6 +317,8 @@ public class Services.Store : GLib.Object {
         var sections = get_sections_by_project (project);
         var items = get_items_by_project (project);
         var subprojects = get_subprojects (project);
+
+        project.freeze_update = true;
         
         #if WITH_EVOLUTION
         if (project.calendar_source_uid != "") {
@@ -328,20 +330,12 @@ public class Services.Store : GLib.Object {
         }
         #endif
         
-        const int BATCH_SIZE = 50;
-        
-        for (int i = 0; i < items.size; i += BATCH_SIZE) {
-            var batch_end = int.min (i + BATCH_SIZE, items.size);
-            
-            for (int j = i; j < batch_end; j++) {
-                Services.Database.get_default ().delete_item (items[j]);
-                _items_by_project_cache.unset (items[j].project_id);
-                items[j].deleted ();
-                _items.remove (items[j]);
-                item_deleted (items[j]);
-            }
-            
-            yield Util.nap (5);
+        Services.Database.get_default ().delete_all_items_by_project (project);
+        foreach (Objects.Item item in items) {
+            _items_by_project_cache.unset (item.project_id);
+            item.deleted ();
+            _items.remove (item);
+            item_deleted (item);
         }
         
         foreach (Objects.Section section in sections) {
@@ -354,6 +348,10 @@ public class Services.Store : GLib.Object {
         foreach (Objects.Project subproject in subprojects) {
             yield delete_project (subproject);
         }
+
+        project.freeze_update = false;
+        project.count_update ();
+        update_project (project);
         
         if (Services.Database.get_default ().delete_project (project)) {
             project.deleted ();
@@ -623,6 +621,23 @@ public class Services.Store : GLib.Object {
             }
             #endif
         }
+    }
+
+    public bool insert_items_transaction (Gee.ArrayList<Objects.Item> items, bool insert = true) {
+        if (Services.Database.get_default ().insert_items_transaction (items, insert)) {
+            foreach (var item in items) {
+                _items_by_project_cache.unset (item.project_id);
+                add_item (item, insert);
+
+                #if WITH_EVOLUTION
+                if (item.project != null && item.project.calendar_source_uid != "" && item.has_due) {
+                    create_calendar_event.begin (item);
+                }
+                #endif
+            }
+            return true;
+        }
+        return false;
     }
 
     #if WITH_EVOLUTION

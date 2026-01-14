@@ -1439,6 +1439,77 @@ public class Services.Database : GLib.Object {
         return true;
     }
 
+    public bool insert_items_transaction (Gee.ArrayList<Objects.Item> items, bool insert = true) {
+        Sqlite.Statement stmt;
+        bool success = true;
+
+        sql = "BEGIN TRANSACTION;";
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+            return false;
+        }
+
+        sql = """
+        INSERT OR IGNORE INTO Items (id, content, description, due, added_at, completed_at,
+            updated_at, section_id, project_id, parent_id, priority, child_order,
+            checked, is_deleted, day_order, collapsed, pinned, labels, extra_data, item_type, calendar_event_uid, deadline_date)
+        VALUES ($id, $content, $description, $due, $added_at, $completed_at,
+            $updated_at, $section_id, $project_id, $parent_id, $priority, $child_order,
+            $checked, $is_deleted, $day_order, $collapsed, $pinned, $labels, $extra_data, $item_type, $calendar_event_uid, $deadline_date);
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+
+        foreach (var item in items) {
+            set_parameter_str (stmt, "$id", item.id);
+            set_parameter_str (stmt, "$content", item.content);
+            set_parameter_str (stmt, "$description", item.description);
+            set_parameter_str (stmt, "$due", item.due.to_string ());
+            set_parameter_str (stmt, "$added_at", item.added_at);
+            set_parameter_str (stmt, "$completed_at", item.completed_at);
+            set_parameter_str (stmt, "$updated_at", item.updated_at);
+            set_parameter_str (stmt, "$section_id", item.section_id);
+            set_parameter_str (stmt, "$project_id", item.project_id);
+            set_parameter_str (stmt, "$parent_id", item.parent_id);
+            set_parameter_int (stmt, "$priority", item.priority);
+            set_parameter_int (stmt, "$child_order", item.child_order);
+            set_parameter_bool (stmt, "$checked", item.checked);
+            set_parameter_bool (stmt, "$is_deleted", item.is_deleted);
+            set_parameter_int (stmt, "$day_order", item.day_order);
+            set_parameter_bool (stmt, "$collapsed", item.collapsed);
+            set_parameter_bool (stmt, "$pinned", item.pinned);
+            set_parameter_str (stmt, "$labels", get_labels_ids (item.labels));
+            set_parameter_str (stmt, "$extra_data", item.extra_data);
+            set_parameter_str (stmt, "$item_type", item.item_type.to_string ());
+            set_parameter_str (stmt, "$calendar_event_uid", item.calendar_event_uid);
+            set_parameter_str (stmt, "$deadline_date", item.deadline_date);
+
+            int result = stmt.step ();
+            if (result != Sqlite.DONE) {
+                warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+                success = false;
+                break;
+            }
+
+            stmt.reset ();
+        }
+
+        if (success) {
+            sql = "COMMIT;";
+            if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+                warning (errormsg);
+                success = false;
+            }
+        } else {
+            sql = "ROLLBACK;";
+            if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+                warning (errormsg);
+            }
+        }
+
+        return success;
+    }
+
     public Gee.ArrayList<Objects.Item> get_items_collection () {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         Sqlite.Statement stmt;
@@ -1508,6 +1579,25 @@ public class Services.Database : GLib.Object {
 
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$id", item.id);
+
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool delete_all_items_by_project (Objects.Project project) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            DELETE FROM Items WHERE project_id=$project_id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$project_id", project.id);
 
         int result = stmt.step ();
         if (result != Sqlite.DONE) {

@@ -33,8 +33,6 @@ sources = files(
   'MainWindow.vala',
 
   'Objects/Backup.vala',
-
-  # 'Services/GoogleTasks.vala', No longer used?
   'Services/ActionManager.vala',
   'Services/Api.vala',
   'Services/Notification.vala',
@@ -105,7 +103,6 @@ sources = files(
   'Dialogs/Project.vala',
   'Dialogs/Section.vala',
   'Dialogs/Label.vala',
-  #'Dialogs/GoogleOAuth.vala', No longer used?
   'Dialogs/QuickAdd.vala',
   'Dialogs/ManageSectionOrder.vala',
   'Dialogs/ProjectPicker.vala',
@@ -118,6 +115,8 @@ sources = files(
   
   'Dialogs/QuickFind/QuickFind.vala',
   'Dialogs/QuickFind/QuickFindItem.vala',
+  'Dialogs/QuickFind/QuickFindSectionSorter.vala',
+  'Dialogs/QuickFind/QuickFindFactory.vala',
   'Dialogs/QuickFind/Synapse.vala',
 
   'Dialogs/Preferences/PreferencesWindow.vala',
