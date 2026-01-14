@@ -353,7 +353,7 @@ msgstr[5] "تم نسخ المهمة الى%s"
 msgid "Delete Label %s"
 msgstr "حذف الاسم %s"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:828
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:851
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
@@ -361,8 +361,8 @@ msgstr "حذف الاسم %s"
 msgid "This can not be undone"
 msgstr "هذا لا يمكن الرجوع عنه"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:831
-#: core/Objects/Project.vala:888 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:854
+#: core/Objects/Project.vala:911 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
@@ -379,7 +379,7 @@ msgstr "هذا لا يمكن الرجوع عنه"
 msgid "Cancel"
 msgstr "الغاء"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:832
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:855
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
@@ -391,25 +391,25 @@ msgstr "الغاء"
 msgid "Delete"
 msgstr "حذف"
 
-#: core/Objects/Project.vala:791
+#: core/Objects/Project.vala:814
 msgid "The project was copied to the Clipboard."
 msgstr "تم نسخ المشروع للحافظة."
 
-#: core/Objects/Project.vala:827
+#: core/Objects/Project.vala:850
 #, c-format
 msgid "Delete Project %s?"
 msgstr "حذف المشروع %s؟"
 
-#: core/Objects/Project.vala:884 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:907 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "أرشفة؟"
 
-#: core/Objects/Project.vala:885 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:908 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "هذا سيأرشف %s وكل مهامه."
 
-#: core/Objects/Project.vala:889 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:912 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
@@ -540,15 +540,21 @@ msgstr "نصيحة"
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "اجمع الاختصارات في العنوان لإنشاء أسرع"
 
-#: core/Services/CalDAV/CalDAVClient.vala:300
+#: core/Services/CalDAV/CalDAVClient.vala:302
 #, c-format
 msgid "Loading tasks for %s…"
 msgstr "جاري تحميل المهام ل %s…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:339
+#: core/Services/CalDAV/CalDAVClient.vala:313
+#: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
-msgid "Processing task %d of %d"
-msgstr "جاري معالجة المهمة %d ل %d"
+msgid "Loaded tasks for %s…"
+msgstr ""
+
+#: core/Services/CalDAV/CalDAVClient.vala:338
+#, c-format
+msgid "Syncing task %d of %d"
+msgstr ""
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
@@ -3319,6 +3325,10 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr ""
+
+#, c-format
+#~ msgid "Processing task %d of %d"
+#~ msgstr "جاري معالجة المهمة %d ل %d"
 
 #, c-format
 #~ msgid "Every %d minutes"

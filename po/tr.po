@@ -326,7 +326,7 @@ msgstr[1] "Görev %s projesine taşındı"
 msgid "Delete Label %s"
 msgstr "%s Etiketini Sil"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:828
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:851
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
@@ -334,8 +334,8 @@ msgstr "%s Etiketini Sil"
 msgid "This can not be undone"
 msgstr "Bu geri alınamaz"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:831
-#: core/Objects/Project.vala:888 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:854
+#: core/Objects/Project.vala:911 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
@@ -352,7 +352,7 @@ msgstr "Bu geri alınamaz"
 msgid "Cancel"
 msgstr "İptal"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:832
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:855
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
@@ -364,27 +364,27 @@ msgstr "İptal"
 msgid "Delete"
 msgstr "Sil"
 
-#: core/Objects/Project.vala:791
+#: core/Objects/Project.vala:814
 msgid "The project was copied to the Clipboard."
 msgstr "Proje Panoya kopyalandı."
 
 # c-format
-#: core/Objects/Project.vala:827
+#: core/Objects/Project.vala:850
 #, c-format
 msgid "Delete Project %s?"
 msgstr "%s Projesi Silinsin mi?"
 
-#: core/Objects/Project.vala:884 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:907 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "Arşivlensin mi?"
 
 # # c-format
-#: core/Objects/Project.vala:885 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:908 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Bu, %s ve onun tüm görevlerini arşivleyecektir."
 
-#: core/Objects/Project.vala:889 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:912 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
@@ -517,15 +517,21 @@ msgstr "İpucu"
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Daha hızlı oluşturma için başlık alanındaki kısayolları birleştirin"
 
-#: core/Services/CalDAV/CalDAVClient.vala:300
+#: core/Services/CalDAV/CalDAVClient.vala:302
 #, c-format
 msgid "Loading tasks for %s…"
 msgstr "%s için görevler yükleniyor…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:339
+#: core/Services/CalDAV/CalDAVClient.vala:313
+#: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
-msgid "Processing task %d of %d"
-msgstr "%d/%d görev işleniyor"
+msgid "Loaded tasks for %s…"
+msgstr ""
+
+#: core/Services/CalDAV/CalDAVClient.vala:338
+#, c-format
+msgid "Syncing task %d of %d"
+msgstr ""
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
@@ -3383,6 +3389,10 @@ msgstr "Etiketler"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Panoyu aç"
+
+#, c-format
+#~ msgid "Processing task %d of %d"
+#~ msgstr "%d/%d görev işleniyor"
 
 #, fuzzy
 #~ msgid "Planify is syncing your tasks, this may take a few minutes"

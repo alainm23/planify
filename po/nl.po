@@ -327,7 +327,7 @@ msgstr[1] "Taak verplaatst naar %s"
 msgid "Delete Label %s"
 msgstr "Label %s verwijderen"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:828
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:851
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
@@ -335,8 +335,8 @@ msgstr "Label %s verwijderen"
 msgid "This can not be undone"
 msgstr "Dit kan niet ongedaan gemaakt worden"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:831
-#: core/Objects/Project.vala:888 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:854
+#: core/Objects/Project.vala:911 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
@@ -353,7 +353,7 @@ msgstr "Dit kan niet ongedaan gemaakt worden"
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:832
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:855
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
@@ -365,27 +365,27 @@ msgstr "Annuleren"
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: core/Objects/Project.vala:791
+#: core/Objects/Project.vala:814
 msgid "The project was copied to the Clipboard."
 msgstr "Het project werd naar het klembord gekopieerd."
 
 # # c-format
-#: core/Objects/Project.vala:827
+#: core/Objects/Project.vala:850
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Project %s verwijderen?"
 
-#: core/Objects/Project.vala:884 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:907 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "Archiveren?"
 
 # # c-format
-#: core/Objects/Project.vala:885 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:908 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Dit zal %s en alle bijhorende taken archiveren."
 
-#: core/Objects/Project.vala:889 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:912 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
@@ -522,15 +522,21 @@ msgstr "Bovenaan"
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combineer sneltoetsen in titelvak om sneller te bouwen"
 
-#: core/Services/CalDAV/CalDAVClient.vala:300
+#: core/Services/CalDAV/CalDAVClient.vala:302
 #, c-format
 msgid "Loading tasks for %s…"
 msgstr "Taken van %s worden geladen…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:339
+#: core/Services/CalDAV/CalDAVClient.vala:313
+#: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
-msgid "Processing task %d of %d"
-msgstr "Taak %d van %d wordt verwerkt"
+msgid "Loaded tasks for %s…"
+msgstr ""
+
+#: core/Services/CalDAV/CalDAVClient.vala:338
+#, c-format
+msgid "Syncing task %d of %d"
+msgstr ""
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
@@ -3404,6 +3410,10 @@ msgstr "Labels weergeven"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Prikbord weergeven"
+
+#, c-format
+#~ msgid "Processing task %d of %d"
+#~ msgstr "Taak %d van %d wordt verwerkt"
 
 # Assumed error "Planner" -> "Planify" and "is sync" -> "is syncing"
 #, fuzzy
