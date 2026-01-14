@@ -32,6 +32,7 @@ msgstr "कार्य"
 #: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:781
 #: src/Layouts/ItemRow.vala:1294 core/Enum.vala:530
 #: src/Layouts/ItemRow.vala:1295 src/Layouts/ItemRow.vala:1232
+#: src/Layouts/ItemBoard.vala:782 src/Layouts/ItemRow.vala:1233
 msgid "Labels"
 msgstr "लेबल"
 
@@ -168,7 +169,7 @@ msgstr "सामग्री"
 #: src/Layouts/ItemRow.vala:1998 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
 #: core/Enum.vala:521 src/Layouts/ItemRow.vala:1999
-#: src/Layouts/ItemRow.vala:1938
+#: src/Layouts/ItemRow.vala:1938 src/Layouts/ItemRow.vala:1939
 msgid "Description"
 msgstr "विवरण"
 
@@ -181,7 +182,9 @@ msgstr "अनुसूचित"
 #: src/Layouts/ItemRow.vala:1275 src/Layouts/ItemRow.vala:1288
 #: core/Enum.vala:533 src/Layouts/ItemRow.vala:1276
 #: src/Layouts/ItemRow.vala:1289 src/Layouts/ItemRow.vala:1213
-#: src/Layouts/ItemRow.vala:1226
+#: src/Layouts/ItemRow.vala:1226 src/Layouts/ItemBoard.vala:763
+#: src/Layouts/ItemBoard.vala:776 src/Layouts/ItemRow.vala:1214
+#: src/Layouts/ItemRow.vala:1227
 msgid "Pin"
 msgstr "पिन"
 
@@ -317,7 +320,8 @@ msgstr "आगामी"
 #: src/Views/Project/Project.vala:557 src/Views/Project/Project.vala:723
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:359
 #: src/Layouts/ItemRow.vala:1283 core/Utils/Util.vala:261
-#: src/Layouts/ItemRow.vala:1220
+#: src/Layouts/ItemRow.vala:1220 src/Layouts/ItemBoard.vala:770
+#: src/Layouts/ItemRow.vala:1221
 msgid "Today"
 msgstr "आज"
 
@@ -332,6 +336,7 @@ msgstr "आज"
 #: src/Layouts/ItemRow.vala:1285
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:365
 #: src/Layouts/ItemRow.vala:1286 src/Layouts/ItemRow.vala:1223
+#: src/Layouts/ItemBoard.vala:773 src/Layouts/ItemRow.vala:1224
 msgid "Tomorrow"
 msgstr "कल"
 
@@ -527,6 +532,7 @@ msgstr ""
 "बनाने का प्रयास करें।"
 
 #: core/QuickAddCore.vala:1350 src/MainWindow.vala:716 src/MainWindow.vala:720
+#: src/MainWindow.vala:710
 msgid "Keyboard Shortcuts"
 msgstr "कीबोर्ड शॉर्टकट"
 
@@ -1446,7 +1452,8 @@ msgstr "खोजें या बनाएं"
 
 #: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:842
 #: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemRow.vala:1363
-#: src/Layouts/ItemRow.vala:1302
+#: src/Layouts/ItemRow.vala:1302 src/Layouts/ItemBoard.vala:843
+#: src/Layouts/ItemRow.vala:1303
 msgid "Apply"
 msgstr ""
 
@@ -1567,7 +1574,8 @@ msgstr "लंबित"
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:784 src/Layouts/ItemRow.vala:1297
 #: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1298
-#: src/Layouts/ItemRow.vala:1235
+#: src/Layouts/ItemRow.vala:1235 src/Layouts/ItemBoard.vala:785
+#: src/Layouts/ItemRow.vala:1236
 msgid "Complete"
 msgstr "पूर्ण"
 
@@ -1703,7 +1711,8 @@ msgstr "अगले हफ्ते"
 #: src/Layouts/ItemRow.vala:1290 src/Views/Project/Project.vala:518
 #: src/Views/Project/Project.vala:689 src/Views/Project/Project.vala:562
 #: src/Views/Project/Project.vala:733 src/Layouts/ItemRow.vala:1291
-#: src/Layouts/ItemRow.vala:1228
+#: src/Layouts/ItemRow.vala:1228 src/Layouts/ItemBoard.vala:778
+#: src/Layouts/ItemRow.vala:1229
 msgid "No Date"
 msgstr "कोई तारीख नहीं"
 
@@ -1731,7 +1740,7 @@ msgstr "नेटवर्क उपलब्ध नहीं है"
 
 #: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1426
 #: src/Layouts/ItemSidebarView.vala:495 src/Layouts/ItemRow.vala:1427
-#: src/Layouts/ItemRow.vala:1366
+#: src/Layouts/ItemRow.vala:1366 src/Layouts/ItemRow.vala:1367
 msgid "Change History"
 msgstr "इतिहास बदलें"
 
@@ -1789,7 +1798,7 @@ msgid "Filter"
 msgstr "फिल्टर"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:721
-#: src/MainWindow.vala:725
+#: src/MainWindow.vala:725 src/MainWindow.vala:715
 msgid "Archived Projects"
 msgstr "संग्रहीत परियोजनाएं"
 
@@ -2508,7 +2517,7 @@ msgstr ""
 "सक्षम होने पर, कार्य के नियत समय से पहले एक रिमाइंडर तयशुदा रूप से जोड़ दिया जाएगा।"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:713
-#: src/MainWindow.vala:717
+#: src/MainWindow.vala:717 src/MainWindow.vala:707
 msgid "Preferences"
 msgstr "प्राथमिकताएं"
 
@@ -2669,6 +2678,8 @@ msgstr "परियोजना सफलतापूर्वक जोड़�
 #: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemSidebarView.vala:490
 #: src/Layouts/ItemRow.vala:1294 src/Layouts/ItemRow.vala:1422
 #: src/Layouts/ItemRow.vala:1231 src/Layouts/ItemRow.vala:1361
+#: src/Layouts/ItemBoard.vala:781 src/Layouts/ItemRow.vala:1232
+#: src/Layouts/ItemRow.vala:1362
 msgid "Move"
 msgstr "स्थानांतरण"
 
@@ -2716,25 +2727,30 @@ msgstr "पार्श्वपट्टी खोलें/बंद करे
 #: src/Layouts/ItemBoard.vala:775 src/Layouts/ItemRow.vala:1275
 #: src/Layouts/ItemRow.vala:1288 src/Layouts/ItemRow.vala:1276
 #: src/Layouts/ItemRow.vala:1289 src/Layouts/ItemRow.vala:1213
-#: src/Layouts/ItemRow.vala:1226
+#: src/Layouts/ItemRow.vala:1226 src/Layouts/ItemBoard.vala:763
+#: src/Layouts/ItemBoard.vala:776 src/Layouts/ItemRow.vala:1214
+#: src/Layouts/ItemRow.vala:1227
 msgid "Unpin"
 msgstr ""
 
 # # c-format
 #: src/Layouts/ItemBoard.vala:623 src/Layouts/ItemRow.vala:1627
 #: src/Layouts/ItemSidebarView.vala:656 src/Layouts/ItemRow.vala:1628
-#: src/Layouts/ItemRow.vala:1567
+#: src/Layouts/ItemRow.vala:1567 src/Layouts/ItemBoard.vala:624
+#: src/Layouts/ItemRow.vala:1568
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "पूर्ण। अगली बार: %s"
 
 #: src/Layouts/ItemBoard.vala:783 src/Layouts/ItemRow.vala:1296
 #: src/Layouts/ItemRow.vala:1297 src/Layouts/ItemRow.vala:1234
+#: src/Layouts/ItemBoard.vala:784 src/Layouts/ItemRow.vala:1235
 msgid "Add Subtask"
 msgstr "उपकार्य जोड़ें"
 
 #: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1298
 #: src/Layouts/ItemRow.vala:1299 src/Layouts/ItemRow.vala:1236
+#: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1237
 msgid "Edit"
 msgstr "संपादन"
 
@@ -2745,6 +2761,8 @@ msgstr "संपादन"
 #: src/Views/Project/Project.vala:375 src/Layouts/ItemRow.vala:1300
 #: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemRow.vala:1237
 #: src/Layouts/ItemRow.vala:1360 src/Layouts/SectionRow.vala:669
+#: src/Layouts/ItemBoard.vala:787 src/Layouts/ItemRow.vala:1238
+#: src/Layouts/ItemRow.vala:1361
 msgid "Duplicate"
 msgstr "प्रतिरूप"
 
@@ -2752,27 +2770,33 @@ msgstr "प्रतिरूप"
 #: src/Layouts/ItemRow.vala:1423 src/Layouts/ItemSidebarView.vala:492
 #: src/Layouts/ItemRow.vala:1302 src/Layouts/ItemRow.vala:1424
 #: src/Layouts/ItemRow.vala:1239 src/Layouts/ItemRow.vala:1363
+#: src/Layouts/ItemBoard.vala:789 src/Layouts/ItemRow.vala:1240
+#: src/Layouts/ItemRow.vala:1364
 msgid "Delete Task"
 msgstr "कार्य मिटाएं"
 
 #: src/Layouts/ItemBoard.vala:1088 src/Layouts/ItemRow.vala:1868
 #: src/Layouts/ItemRow.vala:1869 src/Layouts/ItemRow.vala:1808
+#: src/Layouts/ItemBoard.vala:1089 src/Layouts/ItemRow.vala:1809
 msgid "Order changed to 'Custom sort order'"
 msgstr "क्रम को 'तदनुकूल छंटाई क्रम' में बदल दिया गया"
 
 # # c-format
 #: src/Layouts/ItemBoard.vala:1174 src/Layouts/ItemRow.vala:1651
 #: src/Layouts/ItemRow.vala:1652 src/Layouts/ItemRow.vala:1591
+#: src/Layouts/ItemBoard.vala:1175 src/Layouts/ItemRow.vala:1592
 #, c-format
 msgid "%s was deleted"
 msgstr "%s मिटा दिया गया"
 
 #: src/Layouts/ItemBoard.vala:1175 src/Layouts/ItemRow.vala:1652
 #: src/Layouts/ItemRow.vala:1653 src/Layouts/ItemRow.vala:1592
+#: src/Layouts/ItemBoard.vala:1176 src/Layouts/ItemRow.vala:1593
 msgid "Undo"
 msgstr "पूर्ववत करें"
 
 #: src/Layouts/ItemRow.vala:521 src/Layouts/ItemRow.vala:2013
+#: src/Layouts/ItemRow.vala:2014
 msgid "Add Attachments"
 msgstr "अनुलग्नक जोड़ें"
 
@@ -2781,24 +2805,26 @@ msgid "Add Subtasks"
 msgstr "उपकार्य जोड़ें"
 
 #: src/Layouts/ItemRow.vala:1125 src/Layouts/ItemRow.vala:1126
-#: src/Layouts/ItemRow.vala:1063
+#: src/Layouts/ItemRow.vala:1063 src/Layouts/ItemRow.vala:1064
 #, fuzzy
 msgid "Hide Sub-tasks"
 msgstr "उप-कार्य"
 
 #: src/Layouts/ItemRow.vala:1125 src/Layouts/ItemRow.vala:1126
-#: src/Layouts/ItemRow.vala:1063
+#: src/Layouts/ItemRow.vala:1063 src/Layouts/ItemRow.vala:1064
 #, fuzzy
 msgid "Show Sub-tasks"
 msgstr "उप-कार्य"
 
 #: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:486
 #: src/Layouts/ItemRow.vala:1417 src/Layouts/ItemRow.vala:1356
+#: src/Layouts/ItemRow.vala:1357
 msgid "Use as a Note"
 msgstr "नोट के रूप में उपयोग करें"
 
 #: src/Layouts/ItemRow.vala:1419 src/Layouts/ItemSidebarView.vala:488
 #: src/Layouts/ItemRow.vala:1420 src/Layouts/ItemRow.vala:1359
+#: src/Layouts/ItemRow.vala:1360
 msgid "Copy to Clipboard"
 msgstr "क्लिपबोर्ड पर कॉपी करें"
 
@@ -2932,33 +2958,33 @@ msgstr "मुख्य मेनू"
 msgid "Open Quick Find"
 msgstr "शीघ्र खोज खोलें"
 
-#: src/MainWindow.vala:719 src/MainWindow.vala:723
+#: src/MainWindow.vala:719 src/MainWindow.vala:723 src/MainWindow.vala:713
 msgid "About Planify"
 msgstr "प्लॅानिफाई के बारे में"
 
-#: src/MainWindow.vala:779 src/MainWindow.vala:783
+#: src/MainWindow.vala:779 src/MainWindow.vala:783 src/MainWindow.vala:773
 msgid "Oops! Something happened"
 msgstr "उफ़! कुछ हुआ"
 
-#: src/MainWindow.vala:782 src/MainWindow.vala:786
+#: src/MainWindow.vala:782 src/MainWindow.vala:786 src/MainWindow.vala:776
 msgid "See More"
 msgstr "और बनाएं"
 
 #: src/MainWindow.vala:798 src/Widgets/ItemChangeHistoryRow.vala:48
-#: src/MainWindow.vala:802
+#: src/MainWindow.vala:802 src/MainWindow.vala:792
 #, fuzzy
 msgid "Task completed"
 msgstr "पूर्ण"
 
-#: src/MainWindow.vala:799 src/MainWindow.vala:803
+#: src/MainWindow.vala:799 src/MainWindow.vala:803 src/MainWindow.vala:793
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:837 src/MainWindow.vala:841
+#: src/MainWindow.vala:837 src/MainWindow.vala:841 src/MainWindow.vala:831
 msgid "Database Integrity Check Failed"
 msgstr ""
 
-#: src/MainWindow.vala:838 src/MainWindow.vala:842
+#: src/MainWindow.vala:838 src/MainWindow.vala:842 src/MainWindow.vala:832
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2971,7 +2997,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:840 src/MainWindow.vala:844
+#: src/MainWindow.vala:840 src/MainWindow.vala:844 src/MainWindow.vala:834
 msgid "Reset Database"
 msgstr ""
 
