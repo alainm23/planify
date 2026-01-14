@@ -3605,11 +3605,14 @@ msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:329
+#: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Syncing task %d of %d"
 msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:336
+#: core/Services/CalDAV/CalDAVClient.vala:313
+#: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
 msgstr ""

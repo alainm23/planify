@@ -521,14 +521,15 @@ msgstr "Поєднуйте комбінації клавіш у полі заг�
 msgid "Loading tasks for %s…"
 msgstr "Завантаження завдань для %s…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:329
-#, c-format
-msgid "Syncing task %d of %d"
-msgstr ""
-
-#: core/Services/CalDAV/CalDAVClient.vala:336
+#: core/Services/CalDAV/CalDAVClient.vala:313
+#: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
+msgstr ""
+
+#: core/Services/CalDAV/CalDAVClient.vala:338
+#, c-format
+msgid "Syncing task %d of %d"
 msgstr ""
 
 #: core/Services/CalDAV/Core.vala:164
