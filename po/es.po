@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-14 11:11+0000\n"
+"PO-Revision-Date: 2026-01-14 11:18+0000\n"
 "Last-Translator: Jose Manuel Sánchez <josemas@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/es/>\n"
@@ -1709,7 +1709,7 @@ msgstr "Puedes ordenar tus cuentas arrastrando y soltando"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr ""
+msgstr "Planify está sincronizando tus tareas, esto puede llevar un momento"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
