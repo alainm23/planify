@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-14 11:18+0000\n"
+"PO-Revision-Date: 2026-01-14 11:43+0000\n"
 "Last-Translator: Jose Manuel Sánchez <josemas@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/es/>\n"
@@ -3102,7 +3102,7 @@ msgstr "No se encontraron archivos adjuntos. Agrega archivos aquí."
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
 msgid "Bypass Location Resolve"
-msgstr ""
+msgstr "Omitir Resolución de Ubicación"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:32
 msgid ""
@@ -3159,42 +3159,44 @@ msgstr[1] "En %d minutos"
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "En %d hora"
+msgstr[1] "En %d horas"
 
 #: src/Widgets/EventRow.vala:214
 msgid "Happening now"
-msgstr ""
+msgstr "Sucediendo ahora"
 
 #: src/Widgets/EventRow.vala:249
 msgid "Location"
-msgstr ""
+msgstr "Ubicación"
 
 #: src/Widgets/EventRow.vala:262
 msgid "Organizer"
-msgstr ""
+msgstr "Organizador"
 
 #: src/Widgets/EventRow.vala:276
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/Widgets/EventRow.vala:381
 msgid "Join"
-msgstr ""
+msgstr "Unirse"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:31
 msgid "Disable SSL certificate validation"
-msgstr ""
+msgstr "Deshabilitar la validación del certificado SSL"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:32
 msgid "Not recommended – exposes you to security risks"
-msgstr ""
+msgstr "No recomendado: te expone a riesgos de seguridad"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:46
 msgid ""
 "This will disable SSL validation and exposes you to attacks.\n"
 "Proceed at your own risk"
 msgstr ""
+"Esto deshabilitará la validación SSL y te expondrá a ataques.\n"
+"Continúa bajo tu propio riesgo"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task uncompleted"
@@ -3232,7 +3234,7 @@ msgstr "Completado el"
 
 #: src/Widgets/MultiSelectToolbar.vala:66
 msgid "Move to Project"
-msgstr ""
+msgstr "Mover al Proyecto"
 
 #: src/Widgets/MultiSelectToolbar.vala:242
 msgid "Mark as Completed"
@@ -3271,6 +3273,8 @@ msgid ""
 "Update now to enjoy the latest improvements, bug fixes, and new features "
 "that make Planify even better"
 msgstr ""
+"Actualiza ahora para disfrutar de las últimas mejoras, correcciones de "
+"errores y nuevas funciones que hacen que Planify sea aún mejor"
 
 #: src/Widgets/NewVersionPopup.vala:73
 #, fuzzy
@@ -3279,7 +3283,7 @@ msgstr "Actualizada el"
 
 #: src/Widgets/NewVersionPopup.vala:89
 msgid "Dismiss"
-msgstr ""
+msgstr "Descartar"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
@@ -3308,17 +3312,17 @@ msgstr ""
 #: src/Widgets/TranslationRow.vala:95
 #, c-format
 msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
-msgstr ""
+msgstr "<b>%s</b> está %.0f%% completo. ¡Puedes ayudar a terminarlo!"
 
 #: src/Widgets/TranslationRow.vala:121 src/Widgets/TranslationRow.vala:142
 #: src/Widgets/TranslationRow.vala:146
 msgid "Translations"
-msgstr ""
+msgstr "Traducciones"
 
 #: src/Widgets/TranslationRow.vala:122 src/Widgets/TranslationRow.vala:143
 #: src/Widgets/TranslationRow.vala:147
 msgid "Help make Planify available worldwide"
-msgstr ""
+msgstr "Ayuda a que Planify esté disponible en todo el mundo"
 
 #: src/Widgets/TranslationRow.vala:129
 msgid "Help improve translations"
@@ -3326,12 +3330,12 @@ msgstr "Ayuda a mejorar las traducciones"
 
 #: src/Widgets/TranslationRow.vala:136
 msgid "Start a new translation"
-msgstr ""
+msgstr "Iniciar una nueva traducción"
 
 #: src/Widgets/TranslationRow.vala:137
 #, c-format
 msgid "<b>%s</b> is not available yet. Be the first to translate it!"
-msgstr ""
+msgstr "<b>%s</b> aún no está disponible. ¡Sé el primero en traducirlo!"
 
 #: quick-add/MainWindow.vala:9
 msgid "Planify - Quick Add"
