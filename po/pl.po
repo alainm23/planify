@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-14 10:00+0000\n"
-"Last-Translator: Seweryn Górczak <gorczakseweryn@gmail.com>\n"
+"PO-Revision-Date: 2026-01-17 16:01+0000\n"
+"Last-Translator: Szymon Lebida <szymenxd@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/pl/>\n"
 "Language: pl\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -48,52 +48,52 @@ msgid "Don't Repeat"
 msgstr "Nie powtarzaj"
 
 #: core/Enum.vala:216
-#, fuzzy, c-format
+#, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
 msgstr[0] "Co minutę"
-msgstr[1] "Co minutę"
-msgstr[2] "Co minutę"
+msgstr[1] "Co %d minuty"
+msgstr[2] "Co %d minut"
 
 #: core/Enum.vala:218
-#, fuzzy, c-format
+#, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
 msgstr[0] "Co godzinę"
-msgstr[1] "Co godzinę"
-msgstr[2] "Co godzinę"
+msgstr[1] "Co %d godziny"
+msgstr[2] "Co %d godzin"
 
 #: core/Enum.vala:220
-#, fuzzy, c-format
+#, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
 msgstr[0] "Codziennie"
-msgstr[1] "Codziennie"
-msgstr[2] "Codziennie"
+msgstr[1] "Co %d dni"
+msgstr[2] "Co %d dni"
 
 #: core/Enum.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
-msgstr[0] "Każdego tygodnia"
-msgstr[1] "Każdego tygodnia"
-msgstr[2] "Każdego tygodnia"
+msgstr[0] "Co tydzień"
+msgstr[1] "Co %d tygodnie"
+msgstr[2] "Co %d tygodni"
 
 #: core/Enum.vala:224
-#, fuzzy, c-format
+#, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
 msgstr[0] "Co miesiąc"
-msgstr[1] "Co miesiąc"
-msgstr[2] "Co miesiąc"
+msgstr[1] "Co %d miesiące"
+msgstr[2] "Co %d miesięcy"
 
 #: core/Enum.vala:226
-#, fuzzy, c-format
+#, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
 msgstr[0] "Co rok"
-msgstr[1] "Co rok"
-msgstr[2] "Co rok"
+msgstr[1] "Co %d lata"
+msgstr[2] "Co %d lat"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -320,17 +320,17 @@ msgstr "Zadanie skopiowane do schowka"
 #: core/Objects/Item.vala:1639 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Zadanie zostało przeniesione do %s"
-msgstr[1] "Zadanie zostało przeniesione do %s"
-msgstr[2] "Zadanie zostało przeniesione do %s"
+msgstr[0] "Zadanie przeniesione do %s"
+msgstr[1] "%d zadania przeniesione do %s"
+msgstr[2] "%d zadań przeniesionych do %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
 msgid "Delete Label %s"
-msgstr ""
+msgstr "Usuń etykietę %s"
 
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:851
 #: core/Objects/Section.vala:377
@@ -338,7 +338,7 @@ msgstr ""
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
-msgstr ""
+msgstr "Tej czynności nie można cofnąć"
 
 #: core/Objects/Label.vala:210 core/Objects/Project.vala:854
 #: core/Objects/Project.vala:911 core/Objects/Section.vala:380
@@ -356,7 +356,7 @@ msgstr ""
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:287
 msgid "Cancel"
-msgstr ""
+msgstr "Anuluj"
 
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:855
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
@@ -368,16 +368,16 @@ msgstr ""
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
 #: src/Widgets/MultiSelectToolbar.vala:288
 msgid "Delete"
-msgstr ""
+msgstr "Usuń"
 
 #: core/Objects/Project.vala:814
 msgid "The project was copied to the Clipboard."
-msgstr ""
+msgstr "Projekt został skopiowany do schowka."
 
 #: core/Objects/Project.vala:850
 #, c-format
 msgid "Delete Project %s?"
-msgstr ""
+msgstr "Usunąć projekt %s?"
 
 #: core/Objects/Project.vala:907 core/Objects/Section.vala:402
 msgid "Archive?"
@@ -397,45 +397,45 @@ msgstr ""
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
 msgid "Delete Section %s"
-msgstr ""
+msgstr "Usuń sekcję %s"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:35
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:44
 msgid "Todoist"
-msgstr ""
+msgstr "Todoist"
 
 #: core/QuickAddCore.vala:138
 msgid "Task added successfully!"
-msgstr ""
+msgstr "Pomyślnie dodano zadanie!"
 
 #: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:414
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
-msgstr ""
+msgstr "Nazwa zadania"
 
 #: core/QuickAddCore.vala:184
 msgid "This field is required"
-msgstr ""
+msgstr "To pole jest wymagane"
 
 #: core/QuickAddCore.vala:208 src/Dialogs/Project.vala:136
 msgid "Add a description…"
-msgstr ""
+msgstr "Dodaj opis…"
 
 #: core/QuickAddCore.vala:248
 msgid "Set date"
-msgstr ""
+msgstr "Ustaw datę"
 
 #: core/QuickAddCore.vala:260 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
-msgstr ""
+msgstr "Dodaj etykiety"
 
 #: core/QuickAddCore.vala:265 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
-msgstr ""
+msgstr "Ustaw priorytet"
 
 #: core/QuickAddCore.vala:270
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
@@ -444,38 +444,40 @@ msgstr ""
 #: core/Widgets/ReminderPicker/ReminderButton.vala:150
 #: core/Widgets/ReminderPicker/ReminderButton.vala:177
 msgid "Add Reminders"
-msgstr ""
+msgstr "Dodaj przypomnienia"
 
 #: core/QuickAddCore.vala:314 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:665 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
-msgstr ""
+msgstr "Dodaj zadanie"
 
 #: core/QuickAddCore.vala:320 core/QuickAddCore.vala:1388
 msgid "Keep adding"
-msgstr ""
+msgstr "Kontynuuj dodawanie"
 
 #: core/QuickAddCore.vala:337
 msgid "Select a Project"
-msgstr ""
+msgstr "Wybierz projekt"
 
 #: core/QuickAddCore.vala:364
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
+"Przykro mi, szybkie dodawanie nie może znaleźć żadnego dostępnego projektu. "
+"Spróbuj utworzyć projekt w Planify."
 
 #: core/QuickAddCore.vala:1350 src/MainWindow.vala:710
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Skróty klawiszowe"
 
 #: core/QuickAddCore.vala:1356
 msgid "Speed up task creation with these shortcuts"
-msgstr ""
+msgstr "Przyśpiesz tworzenie zadań z tymi skrótami"
 
 #: core/QuickAddCore.vala:1370
 msgid "Set priority"
-msgstr ""
+msgstr "Ustaw priorytet"
 
 #: core/QuickAddCore.vala:1370
 msgid "p1 = highest, p4 = lowest"
@@ -483,23 +485,23 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1371
 msgid "Add labels"
-msgstr ""
+msgstr "Dodaj etykiety"
 
 #: core/QuickAddCore.vala:1371
 msgid "Opens label selector"
-msgstr ""
+msgstr "Otwórz wybór etykiet"
 
 #: core/QuickAddCore.vala:1372
 msgid "Assign project"
-msgstr ""
+msgstr "Przypisz projekt"
 
 #: core/QuickAddCore.vala:1372
 msgid "Opens project selector"
-msgstr ""
+msgstr "Otwórz wybór projektów"
 
 #: core/QuickAddCore.vala:1373
 msgid "Set reminder"
-msgstr ""
+msgstr "Ustaw przypomnienie"
 
 #: core/QuickAddCore.vala:1373
 msgid "Opens reminder options"
