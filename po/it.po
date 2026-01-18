@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-08 13:17+0000\n"
-"Last-Translator: David Zahariev <davidzahariev@gmail.com>\n"
+"PO-Revision-Date: 2026-01-18 17:20+0000\n"
+"Last-Translator: Vittorio Cerrati <gabrycio05@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/it/>\n"
 "Language: it\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -664,8 +664,8 @@ msgstr[1] ""
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d giorno fa"
+msgstr[1] "%d giorni fa"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
@@ -955,39 +955,43 @@ msgstr ""
 
 #: core/Utils/Util.vala:681
 msgid "Add labels to your tasks!"
-msgstr ""
+msgstr "Aggiungi etichette ai tuoi compiti!"
 
 #: core/Utils/Util.vala:682
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
+"Le etichette ti aiutano ad organizzare e catalogare i tuoi compiti. Per "
+"aggiungere un'etichetta, clicca sul pulsante etichetta in basso."
 
 #: core/Utils/Util.vala:688
 msgid "Set timely reminders!"
-msgstr ""
+msgstr "Imposta promemoria timerati!"
 
 #: core/Utils/Util.vala:689
 msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
 "add a reminder."
 msgstr ""
+"Ricevi una notifica riguardo ad attività importanti o eventi. Premi il "
+"pulsante con la campanella qui sotto per aggiungere un promemoria."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
-msgstr ""
+msgstr "💼Lavoro"
 
 #: core/Utils/Util.vala:706
 msgid "🎒️School"
-msgstr ""
+msgstr "🎒Scuola"
 
 #: core/Utils/Util.vala:712
 msgid "👉️Delegated"
-msgstr ""
+msgstr "👉️Delegato"
 
 #: core/Utils/Util.vala:718
 msgid "🏡️Home"
-msgstr ""
+msgstr "🏡Casa"
 
 #: core/Utils/Util.vala:724
 msgid "🏃‍♀️️Follow Up"
@@ -995,60 +999,60 @@ msgstr ""
 
 #: core/Utils/Util.vala:965
 msgid "Task duplicated"
-msgstr ""
+msgstr "Attività duplicata"
 
 #: core/Utils/Util.vala:1001
 msgid "Section duplicated"
-msgstr ""
+msgstr "Sezione duplicata"
 
 #: core/Utils/Util.vala:1027 core/Utils/Util.vala:1053
 msgid "Project duplicated"
-msgstr ""
+msgstr "Progetto duplicato"
 
 #: core/Utils/Util.vala:1095 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
-msgstr ""
+msgstr "Alla scadenza"
 
 #: core/Utils/Util.vala:1098 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
-msgstr ""
+msgstr "10 minuti prima"
 
 #: core/Utils/Util.vala:1101 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
-msgstr ""
+msgstr "30 minuti prima"
 
 #: core/Utils/Util.vala:1104 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
-msgstr ""
+msgstr "45 minuti prima"
 
 #: core/Utils/Util.vala:1107 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
-msgstr ""
+msgstr "1 ora prima"
 
 #: core/Utils/Util.vala:1110 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
-msgstr ""
+msgstr "2 ore prima"
 
 #: core/Utils/Util.vala:1113 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
-msgstr ""
+msgstr "3 ore prima"
 
 #: core/Widgets/Calendar/CalendarDay.vala:73
 msgid "%A, %B %e, %Y"
-msgstr ""
+msgstr "%A, %B %e, %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:35
 #: core/Widgets/Calendar/CalendarHeader.vala:54
 msgid "%OB"
-msgstr ""
+msgstr "%OB"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:64 src/Layouts/HeaderBar.vala:93
 msgid "Back"
-msgstr ""
+msgstr "Indietro"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:66
 msgid "Previous month"
-msgstr ""
+msgstr "Mese precedente"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
@@ -1056,71 +1060,71 @@ msgstr ""
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
-msgstr ""
+msgstr "Mese prossimo"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #, c-format
 msgid "Previous month, %s"
-msgstr ""
+msgstr "Mese precedente, %s"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 msgid "%B %Y"
-msgstr ""
+msgstr "%B %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 #, c-format
 msgid "Next month, %s"
-msgstr ""
+msgstr "Il prossimo mese, %s"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:39
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
 msgid "Su"
-msgstr "Do"
+msgstr "Dom"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:40
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:137
 msgid "Mo"
-msgstr "Lu"
+msgstr "Lun"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:41
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Tu"
-msgstr "Ma"
+msgstr "Mar"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:42
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:149
 msgid "We"
-msgstr "Me"
+msgstr "Mer"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:43
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:155
 msgid "Th"
-msgstr "Gi"
+msgstr "Gio"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:44
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:161
 msgid "Fr"
-msgstr "Ve"
+msgstr "Ven"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:45
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:167
 msgid "Sa"
-msgstr "Sa"
+msgstr "Sab"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:135
 msgid "Type a date…"
-msgstr ""
+msgstr "Digita una data…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:156
 msgid "Choose a date"
-msgstr ""
+msgstr "Scegli una data"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:160
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:533
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 msgid "Repeat"
-msgstr ""
+msgstr "Ripeti"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:169
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:143
@@ -1131,100 +1135,100 @@ msgstr ""
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:254
 #: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
 msgid "Done"
-msgstr ""
+msgstr "Fatto"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:192
 msgid "Clear"
-msgstr ""
+msgstr "Ripulisci"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:354
 msgid "Menu"
-msgstr ""
+msgstr "Menù"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:371
 msgid "Next week"
-msgstr ""
+msgstr "La prossima settimana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:406
 #: src/Widgets/EventRow.vala:286
 msgid "Calendar"
-msgstr ""
+msgstr "Calendario"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:414
 msgid "Daily"
-msgstr ""
+msgstr "Ogni giorno"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:418
 msgid "Weekdays"
-msgstr ""
+msgstr "Giorni feriali"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:422
 msgid "Weekends"
-msgstr ""
+msgstr "Weekend"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:426
 msgid "Weekly"
-msgstr ""
+msgstr "Ogni settimana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:430
 msgid "Monthly"
-msgstr ""
+msgstr "Ogni mese"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:434
 msgid "Yearly"
-msgstr ""
+msgstr "Ogni anno"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:438
 msgid "Custom"
-msgstr ""
+msgstr "Personalizzato"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:747
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:443
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
 msgid "until"
-msgstr ""
+msgstr "fino a"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 msgid "for"
-msgstr ""
+msgstr "per"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 msgid "times"
-msgstr ""
+msgstr "volte"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 msgid "time"
-msgstr ""
+msgstr "volta"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minuto(i)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Hour(s)"
-msgstr ""
+msgstr "Ora(e)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Day(s)"
-msgstr ""
+msgstr "Giorno(i)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Week(s)"
-msgstr ""
+msgstr "Settimana(e)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Month(s)"
-msgstr ""
+msgstr "Mese(i)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Year(s)"
-msgstr ""
+msgstr "Anno(i)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:199
 msgid "Never"
@@ -1232,11 +1236,11 @@ msgstr "Mai"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:203
 msgid "On Date"
-msgstr ""
+msgstr "Alla Data"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:207
 msgid "After"
-msgstr ""
+msgstr "Dopo"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:265
 msgid "Summary"
@@ -1244,30 +1248,30 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:271
 msgid "Repeat every"
-msgstr ""
+msgstr "Ripeti ogni"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:278
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
 msgid "End"
-msgstr ""
+msgstr "Fine"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
-msgstr ""
+msgstr "Rimuovi data"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "Set a Due Date"
-msgstr ""
+msgstr "Imposta una data di scadenza"
 
 #: core/Widgets/DateTimePicker/TimePicker.vala:113
 msgid "Add Time"
-msgstr ""
+msgstr "Aggiungi orario"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
@@ -1286,7 +1290,7 @@ msgstr ""
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
 msgid "Select Labels"
-msgstr ""
+msgstr "Seleziona etichette"
 
 #: core/Widgets/LabelPicker/LabelQuickPicker.vala:191
 #, c-format
@@ -1298,6 +1302,8 @@ msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
 msgstr ""
+"La tua lista di filtri verrà mostrata qui. Per crearne una inserisci il nome "
+"e premi il tasto Invio."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
@@ -1307,17 +1313,17 @@ msgstr ""
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
 msgid "Your list of filters will show up here."
-msgstr ""
+msgstr "La tua lista di filtri verrà mostrata qui."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
-msgstr ""
+msgstr "Cerca"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Search or Create"
-msgstr ""
+msgstr "Cerca o Crea"
 
 #: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:843
 #: src/Layouts/ItemRow.vala:1303
@@ -1374,48 +1380,50 @@ msgstr ""
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:146
 msgid "Reminders"
-msgstr ""
+msgstr "Promemoria"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:110
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the '+' button."
 msgstr ""
+"La tua lista di promemoria verrà mostrata qui. Aggiungine uno cliccando sul "
+"pulsante '+'."
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:157
 msgid "Add Reminder"
-msgstr ""
+msgstr "Aggiungi promemoria"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:192
 msgid "In 5 minutes"
-msgstr ""
+msgstr "Tra 5 minuti"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:193
 msgid "In 15 minutes"
-msgstr ""
+msgstr "Tra 15 minuti"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:194
 msgid "In 30 minutes"
-msgstr ""
+msgstr "Tra 30 minuti"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:195
 msgid "In 1 hour"
-msgstr ""
+msgstr "Tra 1 ora"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:196
 msgid "In 3 hours"
-msgstr ""
+msgstr "Tra 3 ore"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:197
 msgid "In 6 hours"
-msgstr ""
+msgstr "Tra 6 ore"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
-msgstr ""
+msgstr "Imposta Sezione"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:40
 msgid "Select Section"
-msgstr ""
+msgstr "Seleziona Sezione"
 
 #: core/Widgets/StatusButton.vala:32
 msgid "Set The Status"
