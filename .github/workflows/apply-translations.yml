@@ -13,7 +13,6 @@ jobs:
         if: |
             github.event.issue.pull_request &&
             contains(github.event.comment.body, '- [x] **Apply translation updates**')
-
         runs-on: ubuntu-latest
 
         steps:
@@ -31,21 +30,29 @@ jobs:
                         core.setOutput("ref", pr.data.head.ref);
                         core.setOutput("repo", pr.data.head.repo.full_name);
 
-            -   uses: actions/checkout@v6
+            -   name: Checkout main repository
+                uses: actions/checkout@v6
+                with:
+                    path: main-repo
+
+            -   name: Checkout PR branch
+                uses: actions/checkout@v6
                 with:
                     repository: ${{ steps.pr.outputs.repo }}
                     ref: ${{ steps.pr.outputs.ref }}
-                    fetch-depth: 0
+                    path: pr-repo
 
             -   name: Install gettext
                 run: sudo apt-get update && sudo apt-get install -y gettext
 
             -   name: Configure git
+                working-directory: pr-repo
                 run: |
                     git config user.name "Planify Bot"
                     git config user.email "actions@github.com"
 
             -   name: Update POTFILES and translations
+                working-directory: pr-repo
                 run: |
                     cat > po/POTFILES << 'EOF'
                     # List of source files containing translatable strings.
@@ -63,15 +70,17 @@ jobs:
                     python3 scripts/update_translations.py
 
             -   name: Commit changes
+                working-directory: pr-repo
                 run: |
                     git add po/
                     if ! git diff --staged --quiet; then
                       git commit -m "Update translations"
                       git push
                     fi
-              - name: Notify Weblate of changes
+
+            -   name: Notify Weblate of changes
                 run: |
-                  curl -X POST "https://hosted.weblate.org/api/components/planner/io-github-alainm23-planify/repository/" \
-                    -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
-                    -H "Content-Type: application/json" \
-                    -d '{"operation": "pull"}'
+                    curl -X POST "https://hosted.weblate.org/api/components/planner/io-github-alainm23-planify/repository/" \
+                      -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
+                      -H "Content-Type: application/json" \
+                      -d '{"operation": "pull"}'
