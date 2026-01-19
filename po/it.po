@@ -27,7 +27,7 @@ msgstr "Sezioni"
 msgid "Tasks"
 msgstr "Compiti"
 
-#: core/Enum.vala:177 core/Enum.vala:530 core/Objects/Filters/Labels.vala:33
+#: core/Enum.vala:177 core/Enum.vala:540 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:782
 #: src/Layouts/ItemRow.vala:1233
@@ -99,51 +99,55 @@ msgstr "Nextcloud"
 msgid "CalDAV"
 msgstr "CalDAV"
 
-#: core/Enum.vala:341 core/Enum.vala:527 core/Widgets/PriorityButton.vala:90
+#: core/Enum.vala:345 core/Enum.vala:537 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:545 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:230
-#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:633
-#: src/Views/Today.vala:662 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:712
+#: src/Views/Today.vala:741 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "Priorità"
 
-#: core/Enum.vala:344
+#: core/Enum.vala:348
 msgid "Label"
 msgstr "Etichetta"
 
-#: core/Enum.vala:347 src/Views/Project/Project.vala:543
-#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:631
+#: core/Enum.vala:351 src/Views/Project/Project.vala:543
+#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:710
 msgid "Due Date"
 msgstr "Scadenza"
 
-#: core/Enum.vala:350 core/Widgets/SectionPicker/SectionButton.vala:35
+#: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
 msgstr "Sezione"
 
-#: core/Enum.vala:459
+#: core/Enum.vala:357 src/Views/Today.vala:765
+msgid "Assignment"
+msgstr ""
+
+#: core/Enum.vala:469
 msgid "Task Created"
 msgstr "Attività creata"
 
-#: core/Enum.vala:462
+#: core/Enum.vala:472
 msgid "Task Updated"
 msgstr "Attività aggiornata"
 
-#: core/Enum.vala:518
+#: core/Enum.vala:528
 msgid "Content"
 msgstr "Contenuto"
 
-#: core/Enum.vala:521 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
+#: core/Enum.vala:531 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:1939 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Descrizione"
 
-#: core/Enum.vala:524 core/Objects/Filters/Scheduled.vala:48
+#: core/Enum.vala:534 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
 msgstr "Programmata"
 
-#: core/Enum.vala:533 core/Widgets/PinButton.vala:41
+#: core/Enum.vala:543 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:763 src/Layouts/ItemBoard.vala:776
 #: src/Layouts/ItemRow.vala:1214 src/Layouts/ItemRow.vala:1227
 msgid "Pin"
@@ -216,19 +220,19 @@ msgstr "etichette"
 msgid "Pinboard"
 msgstr "Bacheca"
 
-#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:116
+#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:118
 msgid "Priority 1: high"
 msgstr "Priorità 1: alta"
 
-#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:118
+#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:120
 msgid "Priority 2: medium"
 msgstr "Priorità 2: media"
 
-#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:120
+#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:122
 msgid "Priority 3: low"
 msgstr "Priorità 3: bassa"
 
-#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:122
+#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:124
 msgid "Priority 4: none"
 msgstr "Priorità 4: nessuna"
 
@@ -270,7 +274,7 @@ msgstr "imminente"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:359
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:770
 #: src/Layouts/ItemRow.vala:1221 src/Views/Project/Project.vala:557
-#: src/Views/Project/Project.vala:723 src/Views/Today.vala:202
+#: src/Views/Project/Project.vala:723 src/Views/Today.vala:203
 msgid "Today"
 msgstr "Oggi"
 
@@ -306,11 +310,11 @@ msgstr "nessuna etichetta"
 msgid "unlabeled"
 msgstr "senza etichetta"
 
-#: core/Objects/Item.vala:1346
+#: core/Objects/Item.vala:1361
 msgid "Task copied to clipboard"
 msgstr "Attività copiata negli appunti"
 
-#: core/Objects/Item.vala:1639 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1654 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, c-format
@@ -552,38 +556,38 @@ msgstr "Sincronizzazione completata"
 msgid "On this computer"
 msgstr "In questo computer"
 
-#: core/Services/Todoist.vala:1520 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "La richiesta era errata."
 
-#: core/Services/Todoist.vala:1521 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 "L'autenticazione è richiesta, ma non è riuscita oppure non è ancora stata "
 "fornita."
 
-#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "La richiesta era valida, ma per qualcosa che è proibito."
 
-#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "La risorsa richiesta non è stata trovata."
 
-#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "L'utente ha inviato troppe richieste in un dato lasso di tempo."
 
-#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1527 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
 msgstr "La richiesta non è riuscita a causa di un errore del server."
 
-#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1528 src/Widgets/ErrorView.vala:144
 msgid "The server is currently unable to handle the request."
 msgstr "Al momento il server non è in grado di gestire la richiesta."
 
-#: core/Services/Todoist.vala:1529 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1531 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
 msgstr "Errore sconosciuto"
 
@@ -794,7 +798,7 @@ msgid "Dark Blue"
 msgstr "Blu Scuro"
 
 #: core/Utils/Util.vala:255 core/Widgets/DateTimePicker/DateTimePicker.vala:410
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55 src/Views/Today.vala:760
 msgid "None"
 msgstr "Nessuno"
 
@@ -1046,7 +1050,7 @@ msgstr "%A, %B %e, %Y"
 msgid "%OB"
 msgstr "%OB"
 
-#: core/Widgets/Calendar/CalendarHeader.vala:64 src/Layouts/HeaderBar.vala:93
+#: core/Widgets/Calendar/CalendarHeader.vala:64 src/Layouts/HeaderBar.vala:88
 msgid "Back"
 msgstr "Indietro"
 
@@ -1554,7 +1558,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
-#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:673
+#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:772
 msgid "Filter By"
 msgstr ""
 
@@ -2026,7 +2030,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:227
-#: src/Views/Today.vala:630
+#: src/Views/Today.vala:709
 msgid "Alphabetically"
 msgstr ""
 
@@ -2777,17 +2781,17 @@ msgid "Snooze for 1 hour"
 msgstr ""
 
 #: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
-#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:87
+#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:88
 msgid "View Option Menu"
 msgstr ""
 
 #: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
-#: src/Views/Project/List.vala:116 src/Views/Today.vala:250
+#: src/Views/Project/List.vala:116 src/Views/Today.vala:251
 msgid "Add Some Tasks"
 msgstr ""
 
 #: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
-#: src/Views/Project/List.vala:117 src/Views/Today.vala:251
+#: src/Views/Project/List.vala:117 src/Views/Today.vala:252
 msgid "Press 'a' to create a new task"
 msgstr ""
 
@@ -2873,7 +2877,7 @@ msgid "Board"
 msgstr ""
 
 #: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:224
-#: src/Views/Today.vala:627
+#: src/Views/Today.vala:706
 msgid "Sorting"
 msgstr ""
 
@@ -2882,7 +2886,7 @@ msgid "Custom sort order"
 msgstr ""
 
 #: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:229
-#: src/Views/Today.vala:632
+#: src/Views/Today.vala:711
 msgid "Date Added"
 msgstr ""
 
@@ -2915,27 +2919,27 @@ msgid "Next 30 Days"
 msgstr ""
 
 #: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:237
-#: src/Views/Today.vala:640
+#: src/Views/Today.vala:719
 msgid "P1"
 msgstr ""
 
 #: src/Views/Project/Project.vala:574 src/Views/Scheduled/Scheduled.vala:243
-#: src/Views/Today.vala:646
+#: src/Views/Today.vala:725
 msgid "P2"
 msgstr ""
 
 #: src/Views/Project/Project.vala:580 src/Views/Scheduled/Scheduled.vala:249
-#: src/Views/Today.vala:652
+#: src/Views/Today.vala:731
 msgid "P3"
 msgstr ""
 
 #: src/Views/Project/Project.vala:586 src/Views/Scheduled/Scheduled.vala:255
-#: src/Views/Today.vala:658
+#: src/Views/Today.vala:737
 msgid "P4"
 msgstr ""
 
 #: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:262
-#: src/Views/Today.vala:665
+#: src/Views/Today.vala:744
 msgid "Filter by Labels"
 msgstr ""
 
@@ -2955,12 +2959,16 @@ msgstr ""
 msgid "Sort By"
 msgstr ""
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:154
+#: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:155
 msgid "Overdue"
 msgstr ""
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:162
+#: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:163
 msgid "Reschedule"
+msgstr ""
+
+#: src/Views/Today.vala:753
+msgid "Me"
 msgstr ""
 
 #: src/Widgets/Attachments.vala:58
