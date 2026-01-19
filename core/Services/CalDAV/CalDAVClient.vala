@@ -582,7 +582,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         try {
             yield send_request ("DELETE", project.calendar_url, "text/calendar", null, null, null,
-                                { Soup.Status.NO_CONTENT });
+                                { Soup.Status.NO_CONTENT, Soup.Status.MULTI_STATUS });
+            // Radicale sends a Multi-Status with 200 OK -> TODO: Validate Response in Multi Status?
             response.status = true;
         } catch (Error e) {
             response.error_code = e.code;
