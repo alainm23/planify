@@ -314,7 +314,8 @@ public enum FilterItemType {
     PRIORITY = 0,
     LABEL = 1,
     DUE_DATE = 2,
-    SECTION = 3;
+    SECTION = 3,
+    ASSIGNMENT = 4;
 
     public string to_string () {
         switch (this) {
@@ -329,6 +330,9 @@ public enum FilterItemType {
 
             case SECTION:
                 return "section";
+
+            case ASSIGNMENT:
+                return "assignment";
 
             default:
                 assert_not_reached ();
@@ -349,6 +353,9 @@ public enum FilterItemType {
             case SECTION:
                 return _("Section");
 
+            case ASSIGNMENT:
+                return _("Assignment");
+
             default:
                 assert_not_reached ();
         }
@@ -367,6 +374,9 @@ public enum FilterItemType {
 
             case SECTION:
                 return "arrow3-right-symbolic";
+
+            case ASSIGNMENT:
+                return "avatar-default-symbolic";
 
             default:
                 assert_not_reached ();
