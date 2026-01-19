@@ -81,11 +81,6 @@ public class Layouts.HeaderBar : Adw.Bin {
 
         update_sidebar_icon ();
 
-        var sidebar_button_revealer = new Gtk.Revealer () {
-            transition_type = SLIDE_LEFT,
-            child = sidebar_button
-        };
-
         // Back Button
         back_button = new Gtk.Button.from_icon_name ("go-previous-symbolic") {
             valign = Gtk.Align.CENTER,
@@ -133,7 +128,7 @@ public class Layouts.HeaderBar : Adw.Bin {
             title_widget = title_box_revealer,
         };
 
-        headerbar.pack_start (sidebar_button_revealer);
+        headerbar.pack_start (sidebar_button);
         headerbar.pack_start (back_button_revealer);
 
         child = headerbar;
@@ -148,7 +143,6 @@ public class Layouts.HeaderBar : Adw.Bin {
         })] = back_button;
 
         signal_map[Services.Settings.get_default ().settings.changed["slim-mode"].connect (() => {
-            sidebar_button_revealer.reveal_child = !Services.Settings.get_default ().settings.get_boolean ("slim-mode");
             update_sidebar_icon ();
         })] = Services.Settings.get_default ();
     }
