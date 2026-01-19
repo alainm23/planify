@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-30 20:00+0000\n"
-"Last-Translator: HUGO DUNOGEANT <h.dunogeant@proton.me>\n"
+"PO-Revision-Date: 2026-01-20 21:01+0000\n"
+"Last-Translator: Nicolas Auffray <nicolas.auffray@zaclys.net>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/fr/>\n"
 "Language: fr\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -123,7 +123,7 @@ msgstr "Section"
 
 #: core/Enum.vala:357 src/Views/Today.vala:765
 msgid "Assignment"
-msgstr ""
+msgstr "Affectation"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -536,7 +536,7 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Synchronisation des tâches %d de %d"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
@@ -1712,7 +1712,6 @@ msgid "Add Source"
 msgstr "Ajouter une source"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
-#, fuzzy
 msgid "Inbox Page"
 msgstr "Boîte de réception"
 
@@ -1723,7 +1722,7 @@ msgstr "Vous pouvez trier vos comptes par glisser-déposer"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
 msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr ""
+msgstr "Planify synchronise vos tâches, ceci peut prendre un moment"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
 msgid "SSL verification is disabled"
@@ -3283,7 +3282,6 @@ msgid "Update Now"
 msgstr "Mettre à jour maintenant"
 
 #: src/Widgets/NewVersionPopup.vala:89
-#, fuzzy
 msgid "Dismiss"
 msgstr "Ignorer"
 
@@ -3293,7 +3291,7 @@ msgstr "Désarchiver"
 
 #: src/Widgets/SubItems.vala:525
 msgid "No subtasks added yet. Get started!"
-msgstr "Aucune sous-tâche n’a encore été ajoutée. Allez-y !"
+msgstr "Aucune sous-tâche n’a encore été ajoutée. Allez-y !"
 
 #: src/Widgets/SyncButton.vala:90
 msgid "Failed to connect to server"
