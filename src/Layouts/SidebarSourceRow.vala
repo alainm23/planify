@@ -65,8 +65,15 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
                 sync_button.sync_finished ();
             });
 
-            source.sync_failed.connect (() => {
-                sync_button.sync_failed ();
+            source.sync_failed.connect ((custom_message) => {
+                if (source.source_type == SourceType.TODOIST && source.needs_migration ()) {
+                    sync_button.sync_failed ("<b>%s</b>\n%s".printf (
+                        _("Account Migration Required"),
+                        _("Todoist has updated their API. Please reconnect your account in Settings to continue syncing.")
+                    ));
+                } else {
+                    sync_button.sync_failed ();
+                }
             });
         }
 

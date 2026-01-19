@@ -298,11 +298,33 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
                 hexpand = true,
                 halign = END
             };
+
             if (warning_image != null) {
                 end_box.append (warning_image);
             }
-            end_box.append (visible_checkbutton);
-            end_box.append (new Gtk.Image.from_icon_name ("go-next-symbolic"));
+
+            // Check if Todoist account needs migration
+            if (source.source_type == SourceType.TODOIST && source.needs_migration ()) {
+                var migration_warning = new Gtk.Image.from_icon_name ("dialog-warning-symbolic") {
+                    tooltip_text = _("Account migration required")
+                };
+                migration_warning.add_css_class ("warning");
+
+                var migration_button = new Gtk.Button.with_label (_("Reconnect")) {
+                    valign = CENTER
+                };
+                migration_button.add_css_class ("suggested-action");
+
+                migration_button.clicked.connect (() => {
+                    // show_migration_dialog ();
+                });
+
+                end_box.append (migration_warning);
+                end_box.append (migration_button);
+            } else {
+                end_box.append (visible_checkbutton);
+                end_box.append (new Gtk.Image.from_icon_name ("go-next-symbolic"));
+            }
 
             var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
                 margin_top = 6,

@@ -23,7 +23,7 @@ public class Services.Todoist : GLib.Object {
     private Soup.Session session;
     private Json.Parser parser;
 
-    private const string TODOIST_SYNC_URL = "https://api.todoist.com/sync/v9/sync";
+    private const string TODOIST_SYNC_URL = "https://api.todoist.com/api/v1/sync";
     private const string RESOURCE_TYPES = "[\"user\", \"projects\", \"sections\", \"items\", \"labels\", \"reminders\"]";
     private const string PROJECTS_COLLECTION = "projects";
     private const string SECTIONS_COLLECTION = "sections";
@@ -89,12 +89,11 @@ public class Services.Todoist : GLib.Object {
     }
 
     public async void add_todoist_account (string token, HttpResponse response) {
-        string url = TODOIST_SYNC_URL;
-        url = url + "?sync_token=" + "*";
-        url = url + "&resource_types=" + RESOURCE_TYPES;
-
-        var message = new Soup.Message ("POST", url);
+        var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
         message.request_headers.append ("Authorization", "Bearer %s".printf (token));
+        
+        string form_data = "sync_token=*&resource_types=%s".printf (RESOURCE_TYPES);
+        message.set_request_body_from_bytes ("application/x-www-form-urlencoded", new GLib.Bytes (form_data.data));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -108,6 +107,7 @@ public class Services.Todoist : GLib.Object {
 
             todoist_data.sync_token = parser.get_root ().get_object ().get_string_member ("sync_token");
             todoist_data.access_token = token;
+            todoist_data.api_version = "v1";
             source.sync_server = true;
 
             // Create user
@@ -208,14 +208,22 @@ public class Services.Todoist : GLib.Object {
             return;
         }
 
+        // Don't sync if account needs migration
+        if (source.needs_migration ()) {
+            source.sync_failed ();
+            return;
+        }
+
         source.sync_started ();
 
-        string url = TODOIST_SYNC_URL;
-        url = url + "?sync_token=" + source.todoist_data.sync_token;
-        url = url + "&resource_types=" + RESOURCE_TYPES;
-
-        var message = new Soup.Message ("POST", url);
+        var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
         message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
+        
+        string form_data = "sync_token=%s&resource_types=%s".printf (
+            source.todoist_data.sync_token,
+            RESOURCE_TYPES
+        );
+        message.set_request_body_from_bytes ("application/x-www-form-urlencoded", new GLib.Bytes (form_data.data));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
