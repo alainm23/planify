@@ -1,5 +1,4 @@
 # Portuguese translations for extra package
-# Traduções em português brasileiro para o pacote extra.
 # Copyright (C) 2025 THE extra'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the extra package.
 # Automatically generated, 2025.
