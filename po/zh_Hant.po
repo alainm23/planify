@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-15 07:40+0000\n"
+"PO-Revision-Date: 2026-01-22 02:01+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -117,7 +117,7 @@ msgstr "階段"
 
 #: core/Enum.vala:357 src/Views/Today.vala:765
 msgid "Assignment"
-msgstr ""
+msgstr "分派"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -2964,7 +2964,7 @@ msgstr "重新排定行程"
 
 #: src/Views/Today.vala:753
 msgid "Me"
-msgstr ""
+msgstr "我"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
