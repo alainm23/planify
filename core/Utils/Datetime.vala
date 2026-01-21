@@ -435,7 +435,7 @@ public class Utils.Datetime {
                 weeks += _("Su,");
             }
 
-            weeks = weeks.slice (0, -1);
+            weeks = weeks.slice (0, -weeks.reverse ().index_of_nth_char (1));
             returned = "%s (%s)".printf (returned, weeks);
         }
 
