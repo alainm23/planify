@@ -36,6 +36,7 @@ public class Views.Today : Adw.Bin {
     private Gtk.Stack listbox_placeholder_stack;
     private Gtk.Revealer indicator_revealer;
     private Widgets.ContextMenu.MenuCheckPicker priority_filter;
+    private Widgets.ContextMenu.MenuCheckPicker assignment_filter;
 
     public Gee.HashMap<string, Layouts.ItemRow> overdue_items = new Gee.HashMap<string, Layouts.ItemRow> ();
     public Gee.HashMap<string, Layouts.ItemRow> items = new Gee.HashMap<string, Layouts.ItemRow> ();
@@ -370,42 +371,92 @@ public class Views.Today : Adw.Bin {
 
         listbox.set_filter_func ((row) => {
             var item = ((Layouts.ItemRow) row).item;
-            bool return_value = true;
 
             if (Objects.Filters.Today.get_default ().filters.size <= 0) {
                 return true;
             }
 
-            return_value = false;
+            // Check assignment filters (AND logic - must pass if any are enabled)
+            bool has_assignment_filter = false;
+            bool passes_assignment_filter = false;
             foreach (Objects.Filters.FilterItem filter in Objects.Filters.Today.get_default ().filters.values) {
-                if (filter.filter_type == FilterItemType.PRIORITY) {
-                    return_value = return_value || item.priority == int.parse (filter.value);
-                } else if (filter.filter_type == FilterItemType.LABEL) {
-                    return_value = return_value || item.has_label (filter.value);
+                if (filter.filter_type == FilterItemType.ASSIGNMENT) {
+                    has_assignment_filter = true;
+                    if (filter.value == "me") {
+                        passes_assignment_filter = passes_assignment_filter || is_item_assigned_to_me (item);
+                    } else if (filter.value == "none") {
+                        passes_assignment_filter = passes_assignment_filter || is_item_not_assigned (item);
+                    }
                 }
             }
 
-            return return_value;
+            if (has_assignment_filter && !passes_assignment_filter) {
+                return false;
+            }
+
+            // Check priority and label filters (OR logic among themselves)
+            bool has_other_filters = false;
+            bool passes_other_filters = false;
+            foreach (Objects.Filters.FilterItem filter in Objects.Filters.Today.get_default ().filters.values) {
+                if (filter.filter_type == FilterItemType.PRIORITY) {
+                    has_other_filters = true;
+                    passes_other_filters = passes_other_filters || item.priority == int.parse (filter.value);
+                } else if (filter.filter_type == FilterItemType.LABEL) {
+                    has_other_filters = true;
+                    passes_other_filters = passes_other_filters || item.has_label (filter.value);
+                }
+            }
+
+            if (has_other_filters) {
+                return passes_other_filters;
+            }
+
+            return true;
         });
 
         overdue_listbox.set_filter_func ((row) => {
             var item = ((Layouts.ItemRow) row).item;
-            bool return_value = true;
 
             if (Objects.Filters.Today.get_default ().filters.size <= 0) {
                 return true;
             }
 
-            return_value = false;
+            // Check assignment filters (AND logic - must pass if any are enabled)
+            bool has_assignment_filter = false;
+            bool passes_assignment_filter = false;
             foreach (Objects.Filters.FilterItem filter in Objects.Filters.Today.get_default ().filters.values) {
-                if (filter.filter_type == FilterItemType.PRIORITY) {
-                    return_value = return_value || item.priority == int.parse (filter.value);
-                } else if (filter.filter_type == FilterItemType.LABEL) {
-                    return_value = return_value || item.has_label (filter.value);
+                if (filter.filter_type == FilterItemType.ASSIGNMENT) {
+                    has_assignment_filter = true;
+                    if (filter.value == "me") {
+                        passes_assignment_filter = passes_assignment_filter || is_item_assigned_to_me (item);
+                    } else if (filter.value == "none") {
+                        passes_assignment_filter = passes_assignment_filter || is_item_not_assigned (item);
+                    }
                 }
             }
 
-            return return_value;
+            if (has_assignment_filter && !passes_assignment_filter) {
+                return false;
+            }
+
+            // Check priority and label filters (OR logic among themselves)
+            bool has_other_filters = false;
+            bool passes_other_filters = false;
+            foreach (Objects.Filters.FilterItem filter in Objects.Filters.Today.get_default ().filters.values) {
+                if (filter.filter_type == FilterItemType.PRIORITY) {
+                    has_other_filters = true;
+                    passes_other_filters = passes_other_filters || item.priority == int.parse (filter.value);
+                } else if (filter.filter_type == FilterItemType.LABEL) {
+                    has_other_filters = true;
+                    passes_other_filters = passes_other_filters || item.has_label (filter.value);
+                }
+            }
+
+            if (has_other_filters) {
+                return passes_other_filters;
+            }
+
+            return true;
         });
 
         signal_map[Objects.Filters.Today.get_default ().filter_added.connect (() => {
@@ -413,7 +464,11 @@ public class Views.Today : Adw.Bin {
             overdue_listbox.invalidate_filter ();
         })] = Objects.Filters.Today.get_default ();
 
-        signal_map[Objects.Filters.Today.get_default ().filter_removed.connect (() => {
+        signal_map[Objects.Filters.Today.get_default ().filter_removed.connect ((filter) => {
+            if (filter.filter_type == FilterItemType.ASSIGNMENT) {
+                assignment_filter.unchecked (filter);
+            }
+
             listbox.invalidate_filter ();
             overdue_listbox.invalidate_filter ();
         })] = Objects.Filters.Today.get_default ();
@@ -623,6 +678,30 @@ public class Views.Today : Adw.Bin {
         headerbar.subtitle = date_format;
     }
 
+    private bool is_item_assigned_to_me (Objects.Item item) {
+        if (item.responsible_uid == "") {
+            return false;
+        }
+
+        Objects.Project? project = Services.Store.instance ().get_project (item.project_id);
+        if (project == null) {
+            return false;
+        }
+
+        Objects.Source? source = Services.Store.instance ().get_source (project.source_id);
+        if (source == null || source.source_type != SourceType.TODOIST) {
+            return false;
+        }
+
+        return item.responsible_uid == source.todoist_data.user_id;
+    }
+
+    private bool is_item_not_assigned (Objects.Item item) {
+        return item.responsible_uid == "";
+    }
+
+
+
     private Gtk.Popover build_view_setting_popover () {
         var sorted_by_item = new Widgets.ContextMenu.MenuPicker (_ ("Sorting"), "vertical-arrows-long-symbolic") {
             selected = Services.Settings.get_default ().settings.get_string ("today-sort-order")
@@ -666,6 +745,26 @@ public class Views.Today : Adw.Bin {
             arrow = true
         };
 
+        // Assignment filter
+        var assignment_items = new Gee.ArrayList<Objects.Filters.FilterItem> ();
+
+        var assigned_to_me_item = new Objects.Filters.FilterItem () {
+            filter_type = FilterItemType.ASSIGNMENT,
+            name = _("Me"),
+            value = "me"
+        };
+        assignment_items.add (assigned_to_me_item);
+
+        var not_assigned_item = new Objects.Filters.FilterItem () {
+            filter_type = FilterItemType.ASSIGNMENT,
+            name = _("None"),
+            value = "none"
+        };
+        assignment_items.add (not_assigned_item);
+
+        assignment_filter = new Widgets.ContextMenu.MenuCheckPicker (_("Assignment"), "avatar-default-symbolic");
+        assignment_filter.set_items (assignment_items);
+
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (sorted_by_item);
@@ -679,6 +778,7 @@ public class Views.Today : Adw.Bin {
         });
         menu_box.append (priority_filter);
         menu_box.append (labels_filter);
+        menu_box.append (assignment_filter);
 
         var popover = new Gtk.Popover () {
             has_arrow = false,
@@ -748,6 +848,14 @@ public class Views.Today : Adw.Bin {
             
             dialog.present (Planify._instance.main_window);
         })] = labels_filter;
+
+        signal_map[assignment_filter.filter_change.connect ((filter, active) => {
+            if (active) {
+                Objects.Filters.Today.get_default ().add_filter (filter);
+            } else {
+                Objects.Filters.Today.get_default ().remove_filter (filter);
+            }
+        })] = assignment_filter;
 
         return popover;
     }

@@ -112,6 +112,7 @@ public class Services.Todoist : GLib.Object {
 
             // Create user
             var user_object = parser.get_root ().get_object ().get_object_member ("user");
+            todoist_data.user_id = user_object.get_string_member ("id");
             if (user_object.get_null_member ("image_id") == false) {
                 todoist_data.user_image_id = user_object.get_string_member ("image_id");
                 todoist_data.user_avatar = user_object.get_string_member ("avatar_s640");
@@ -237,6 +238,7 @@ public class Services.Todoist : GLib.Object {
                 // Update user
                 if (parser.get_root ().get_object ().has_member ("user")) {
                     var user_object = parser.get_root ().get_object ().get_object_member ("user");
+                    source.todoist_data.user_id = user_object.get_string_member ("id");
                     source.todoist_data.user_is_premium = user_object.get_boolean_member ("is_premium");
                     source.todoist_data.user_email = user_object.get_string_member ("email");
                     source.todoist_data.user_name = user_object.get_string_member ("full_name");

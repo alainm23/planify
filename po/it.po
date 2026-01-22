@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-08 13:17+0000\n"
-"Last-Translator: David Zahariev <davidzahariev@gmail.com>\n"
+"PO-Revision-Date: 2026-01-18 17:20+0000\n"
+"Last-Translator: Vittorio Cerrati <gabrycio05@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/it/>\n"
 "Language: it\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -27,7 +27,7 @@ msgstr "Sezioni"
 msgid "Tasks"
 msgstr "Compiti"
 
-#: core/Enum.vala:177 core/Enum.vala:530 core/Objects/Filters/Labels.vala:33
+#: core/Enum.vala:177 core/Enum.vala:540 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:782
 #: src/Layouts/ItemRow.vala:1233
@@ -99,51 +99,55 @@ msgstr "Nextcloud"
 msgid "CalDAV"
 msgstr "CalDAV"
 
-#: core/Enum.vala:341 core/Enum.vala:527 core/Widgets/PriorityButton.vala:90
+#: core/Enum.vala:345 core/Enum.vala:537 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:545 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:230
-#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:633
-#: src/Views/Today.vala:662 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:712
+#: src/Views/Today.vala:741 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "Priorità"
 
-#: core/Enum.vala:344
+#: core/Enum.vala:348
 msgid "Label"
 msgstr "Etichetta"
 
-#: core/Enum.vala:347 src/Views/Project/Project.vala:543
-#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:631
+#: core/Enum.vala:351 src/Views/Project/Project.vala:543
+#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:710
 msgid "Due Date"
 msgstr "Scadenza"
 
-#: core/Enum.vala:350 core/Widgets/SectionPicker/SectionButton.vala:35
+#: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
 msgstr "Sezione"
 
-#: core/Enum.vala:459
+#: core/Enum.vala:357 src/Views/Today.vala:765
+msgid "Assignment"
+msgstr ""
+
+#: core/Enum.vala:469
 msgid "Task Created"
 msgstr "Attività creata"
 
-#: core/Enum.vala:462
+#: core/Enum.vala:472
 msgid "Task Updated"
 msgstr "Attività aggiornata"
 
-#: core/Enum.vala:518
+#: core/Enum.vala:528
 msgid "Content"
 msgstr "Contenuto"
 
-#: core/Enum.vala:521 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
+#: core/Enum.vala:531 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:1939 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Descrizione"
 
-#: core/Enum.vala:524 core/Objects/Filters/Scheduled.vala:48
+#: core/Enum.vala:534 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
 msgstr "Programmata"
 
-#: core/Enum.vala:533 core/Widgets/PinButton.vala:41
+#: core/Enum.vala:543 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:763 src/Layouts/ItemBoard.vala:776
 #: src/Layouts/ItemRow.vala:1214 src/Layouts/ItemRow.vala:1227
 msgid "Pin"
@@ -216,19 +220,19 @@ msgstr "etichette"
 msgid "Pinboard"
 msgstr "Bacheca"
 
-#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:116
+#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:118
 msgid "Priority 1: high"
 msgstr "Priorità 1: alta"
 
-#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:118
+#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:120
 msgid "Priority 2: medium"
 msgstr "Priorità 2: media"
 
-#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:120
+#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:122
 msgid "Priority 3: low"
 msgstr "Priorità 3: bassa"
 
-#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:122
+#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:124
 msgid "Priority 4: none"
 msgstr "Priorità 4: nessuna"
 
@@ -270,7 +274,7 @@ msgstr "imminente"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:359
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:770
 #: src/Layouts/ItemRow.vala:1221 src/Views/Project/Project.vala:557
-#: src/Views/Project/Project.vala:723 src/Views/Today.vala:202
+#: src/Views/Project/Project.vala:723 src/Views/Today.vala:203
 msgid "Today"
 msgstr "Oggi"
 
@@ -306,11 +310,11 @@ msgstr "nessuna etichetta"
 msgid "unlabeled"
 msgstr "senza etichetta"
 
-#: core/Objects/Item.vala:1346
+#: core/Objects/Item.vala:1361
 msgid "Task copied to clipboard"
 msgstr "Attività copiata negli appunti"
 
-#: core/Objects/Item.vala:1639 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1654 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, c-format
@@ -552,38 +556,38 @@ msgstr "Sincronizzazione completata"
 msgid "On this computer"
 msgstr "In questo computer"
 
-#: core/Services/Todoist.vala:1520 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "La richiesta era errata."
 
-#: core/Services/Todoist.vala:1521 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 "L'autenticazione è richiesta, ma non è riuscita oppure non è ancora stata "
 "fornita."
 
-#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "La richiesta era valida, ma per qualcosa che è proibito."
 
-#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "La risorsa richiesta non è stata trovata."
 
-#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "L'utente ha inviato troppe richieste in un dato lasso di tempo."
 
-#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1527 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
 msgstr "La richiesta non è riuscita a causa di un errore del server."
 
-#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1528 src/Widgets/ErrorView.vala:144
 msgid "The server is currently unable to handle the request."
 msgstr "Al momento il server non è in grado di gestire la richiesta."
 
-#: core/Services/Todoist.vala:1529 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1531 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
 msgstr "Errore sconosciuto"
 
@@ -664,8 +668,8 @@ msgstr[1] ""
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d giorno fa"
+msgstr[1] "%d giorni fa"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
@@ -794,7 +798,7 @@ msgid "Dark Blue"
 msgstr "Blu Scuro"
 
 #: core/Utils/Util.vala:255 core/Widgets/DateTimePicker/DateTimePicker.vala:410
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55 src/Views/Today.vala:760
 msgid "None"
 msgstr "Nessuno"
 
@@ -955,39 +959,43 @@ msgstr ""
 
 #: core/Utils/Util.vala:681
 msgid "Add labels to your tasks!"
-msgstr ""
+msgstr "Aggiungi etichette ai tuoi compiti!"
 
 #: core/Utils/Util.vala:682
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
+"Le etichette ti aiutano ad organizzare e catalogare i tuoi compiti. Per "
+"aggiungere un'etichetta, clicca sul pulsante etichetta in basso."
 
 #: core/Utils/Util.vala:688
 msgid "Set timely reminders!"
-msgstr ""
+msgstr "Imposta promemoria timerati!"
 
 #: core/Utils/Util.vala:689
 msgid ""
 "Get notified about important tasks or events. Tap the bell button below to "
 "add a reminder."
 msgstr ""
+"Ricevi una notifica riguardo ad attività importanti o eventi. Premi il "
+"pulsante con la campanella qui sotto per aggiungere un promemoria."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
-msgstr ""
+msgstr "💼Lavoro"
 
 #: core/Utils/Util.vala:706
 msgid "🎒️School"
-msgstr ""
+msgstr "🎒Scuola"
 
 #: core/Utils/Util.vala:712
 msgid "👉️Delegated"
-msgstr ""
+msgstr "👉️Delegato"
 
 #: core/Utils/Util.vala:718
 msgid "🏡️Home"
-msgstr ""
+msgstr "🏡Casa"
 
 #: core/Utils/Util.vala:724
 msgid "🏃‍♀️️Follow Up"
@@ -995,60 +1003,60 @@ msgstr ""
 
 #: core/Utils/Util.vala:965
 msgid "Task duplicated"
-msgstr ""
+msgstr "Attività duplicata"
 
 #: core/Utils/Util.vala:1001
 msgid "Section duplicated"
-msgstr ""
+msgstr "Sezione duplicata"
 
 #: core/Utils/Util.vala:1027 core/Utils/Util.vala:1053
 msgid "Project duplicated"
-msgstr ""
+msgstr "Progetto duplicato"
 
 #: core/Utils/Util.vala:1095 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
-msgstr ""
+msgstr "Alla scadenza"
 
 #: core/Utils/Util.vala:1098 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
-msgstr ""
+msgstr "10 minuti prima"
 
 #: core/Utils/Util.vala:1101 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
-msgstr ""
+msgstr "30 minuti prima"
 
 #: core/Utils/Util.vala:1104 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
-msgstr ""
+msgstr "45 minuti prima"
 
 #: core/Utils/Util.vala:1107 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
-msgstr ""
+msgstr "1 ora prima"
 
 #: core/Utils/Util.vala:1110 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
-msgstr ""
+msgstr "2 ore prima"
 
 #: core/Utils/Util.vala:1113 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
-msgstr ""
+msgstr "3 ore prima"
 
 #: core/Widgets/Calendar/CalendarDay.vala:73
 msgid "%A, %B %e, %Y"
-msgstr ""
+msgstr "%A, %B %e, %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:35
 #: core/Widgets/Calendar/CalendarHeader.vala:54
 msgid "%OB"
-msgstr ""
+msgstr "%OB"
 
-#: core/Widgets/Calendar/CalendarHeader.vala:64 src/Layouts/HeaderBar.vala:93
+#: core/Widgets/Calendar/CalendarHeader.vala:64 src/Layouts/HeaderBar.vala:88
 msgid "Back"
-msgstr ""
+msgstr "Indietro"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:66
 msgid "Previous month"
-msgstr ""
+msgstr "Mese precedente"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
@@ -1056,71 +1064,71 @@ msgstr ""
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
-msgstr ""
+msgstr "Mese prossimo"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #, c-format
 msgid "Previous month, %s"
-msgstr ""
+msgstr "Mese precedente, %s"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 msgid "%B %Y"
-msgstr ""
+msgstr "%B %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 #, c-format
 msgid "Next month, %s"
-msgstr ""
+msgstr "Il prossimo mese, %s"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:39
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
 msgid "Su"
-msgstr "Do"
+msgstr "Dom"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:40
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:137
 msgid "Mo"
-msgstr "Lu"
+msgstr "Lun"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:41
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Tu"
-msgstr "Ma"
+msgstr "Mar"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:42
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:149
 msgid "We"
-msgstr "Me"
+msgstr "Mer"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:43
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:155
 msgid "Th"
-msgstr "Gi"
+msgstr "Gio"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:44
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:161
 msgid "Fr"
-msgstr "Ve"
+msgstr "Ven"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:45
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:167
 msgid "Sa"
-msgstr "Sa"
+msgstr "Sab"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:135
 msgid "Type a date…"
-msgstr ""
+msgstr "Digita una data…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:156
 msgid "Choose a date"
-msgstr ""
+msgstr "Scegli una data"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:160
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:533
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 msgid "Repeat"
-msgstr ""
+msgstr "Ripeti"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:169
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:143
@@ -1131,100 +1139,100 @@ msgstr ""
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:254
 #: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
 msgid "Done"
-msgstr ""
+msgstr "Fatto"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:192
 msgid "Clear"
-msgstr ""
+msgstr "Ripulisci"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:354
 msgid "Menu"
-msgstr ""
+msgstr "Menù"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:371
 msgid "Next week"
-msgstr ""
+msgstr "La prossima settimana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:406
 #: src/Widgets/EventRow.vala:286
 msgid "Calendar"
-msgstr ""
+msgstr "Calendario"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:414
 msgid "Daily"
-msgstr ""
+msgstr "Ogni giorno"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:418
 msgid "Weekdays"
-msgstr ""
+msgstr "Giorni feriali"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:422
 msgid "Weekends"
-msgstr ""
+msgstr "Weekend"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:426
 msgid "Weekly"
-msgstr ""
+msgstr "Ogni settimana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:430
 msgid "Monthly"
-msgstr ""
+msgstr "Ogni mese"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:434
 msgid "Yearly"
-msgstr ""
+msgstr "Ogni anno"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:438
 msgid "Custom"
-msgstr ""
+msgstr "Personalizzato"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:747
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:443
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
 msgid "until"
-msgstr ""
+msgstr "fino a"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 msgid "for"
-msgstr ""
+msgstr "per"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 msgid "times"
-msgstr ""
+msgstr "volte"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:750
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:447
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 msgid "time"
-msgstr ""
+msgstr "volta"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minuto(i)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Hour(s)"
-msgstr ""
+msgstr "Ora(e)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Day(s)"
-msgstr ""
+msgstr "Giorno(i)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Week(s)"
-msgstr ""
+msgstr "Settimana(e)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Month(s)"
-msgstr ""
+msgstr "Mese(i)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Year(s)"
-msgstr ""
+msgstr "Anno(i)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:199
 msgid "Never"
@@ -1232,11 +1240,11 @@ msgstr "Mai"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:203
 msgid "On Date"
-msgstr ""
+msgstr "Alla Data"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:207
 msgid "After"
-msgstr ""
+msgstr "Dopo"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:265
 msgid "Summary"
@@ -1244,30 +1252,30 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:271
 msgid "Repeat every"
-msgstr ""
+msgstr "Ripeti ogni"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:278
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
 msgid "End"
-msgstr ""
+msgstr "Fine"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
-msgstr ""
+msgstr "Rimuovi data"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "Set a Due Date"
-msgstr ""
+msgstr "Imposta una data di scadenza"
 
 #: core/Widgets/DateTimePicker/TimePicker.vala:113
 msgid "Add Time"
-msgstr ""
+msgstr "Aggiungi orario"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
@@ -1286,7 +1294,7 @@ msgstr ""
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
 msgid "Select Labels"
-msgstr ""
+msgstr "Seleziona etichette"
 
 #: core/Widgets/LabelPicker/LabelQuickPicker.vala:191
 #, c-format
@@ -1298,6 +1306,8 @@ msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
 msgstr ""
+"La tua lista di filtri verrà mostrata qui. Per crearne una inserisci il nome "
+"e premi il tasto Invio."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
@@ -1307,17 +1317,17 @@ msgstr ""
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
 msgid "Your list of filters will show up here."
-msgstr ""
+msgstr "La tua lista di filtri verrà mostrata qui."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
-msgstr ""
+msgstr "Cerca"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Search or Create"
-msgstr ""
+msgstr "Cerca o Crea"
 
 #: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:843
 #: src/Layouts/ItemRow.vala:1303
@@ -1374,48 +1384,50 @@ msgstr ""
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:146
 msgid "Reminders"
-msgstr ""
+msgstr "Promemoria"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:110
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the '+' button."
 msgstr ""
+"La tua lista di promemoria verrà mostrata qui. Aggiungine uno cliccando sul "
+"pulsante '+'."
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:157
 msgid "Add Reminder"
-msgstr ""
+msgstr "Aggiungi promemoria"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:192
 msgid "In 5 minutes"
-msgstr ""
+msgstr "Tra 5 minuti"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:193
 msgid "In 15 minutes"
-msgstr ""
+msgstr "Tra 15 minuti"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:194
 msgid "In 30 minutes"
-msgstr ""
+msgstr "Tra 30 minuti"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:195
 msgid "In 1 hour"
-msgstr ""
+msgstr "Tra 1 ora"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:196
 msgid "In 3 hours"
-msgstr ""
+msgstr "Tra 3 ore"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:197
 msgid "In 6 hours"
-msgstr ""
+msgstr "Tra 6 ore"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
-msgstr ""
+msgstr "Imposta Sezione"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:40
 msgid "Select Section"
-msgstr ""
+msgstr "Seleziona Sezione"
 
 #: core/Widgets/StatusButton.vala:32
 msgid "Set The Status"
@@ -1546,7 +1558,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
-#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:673
+#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:772
 msgid "Filter By"
 msgstr ""
 
@@ -2018,7 +2030,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:227
-#: src/Views/Today.vala:630
+#: src/Views/Today.vala:709
 msgid "Alphabetically"
 msgstr ""
 
@@ -2769,17 +2781,17 @@ msgid "Snooze for 1 hour"
 msgstr ""
 
 #: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
-#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:87
+#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:88
 msgid "View Option Menu"
 msgstr ""
 
 #: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
-#: src/Views/Project/List.vala:116 src/Views/Today.vala:250
+#: src/Views/Project/List.vala:116 src/Views/Today.vala:251
 msgid "Add Some Tasks"
 msgstr ""
 
 #: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
-#: src/Views/Project/List.vala:117 src/Views/Today.vala:251
+#: src/Views/Project/List.vala:117 src/Views/Today.vala:252
 msgid "Press 'a' to create a new task"
 msgstr ""
 
@@ -2865,7 +2877,7 @@ msgid "Board"
 msgstr ""
 
 #: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:224
-#: src/Views/Today.vala:627
+#: src/Views/Today.vala:706
 msgid "Sorting"
 msgstr ""
 
@@ -2874,7 +2886,7 @@ msgid "Custom sort order"
 msgstr ""
 
 #: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:229
-#: src/Views/Today.vala:632
+#: src/Views/Today.vala:711
 msgid "Date Added"
 msgstr ""
 
@@ -2907,27 +2919,27 @@ msgid "Next 30 Days"
 msgstr ""
 
 #: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:237
-#: src/Views/Today.vala:640
+#: src/Views/Today.vala:719
 msgid "P1"
 msgstr ""
 
 #: src/Views/Project/Project.vala:574 src/Views/Scheduled/Scheduled.vala:243
-#: src/Views/Today.vala:646
+#: src/Views/Today.vala:725
 msgid "P2"
 msgstr ""
 
 #: src/Views/Project/Project.vala:580 src/Views/Scheduled/Scheduled.vala:249
-#: src/Views/Today.vala:652
+#: src/Views/Today.vala:731
 msgid "P3"
 msgstr ""
 
 #: src/Views/Project/Project.vala:586 src/Views/Scheduled/Scheduled.vala:255
-#: src/Views/Today.vala:658
+#: src/Views/Today.vala:737
 msgid "P4"
 msgstr ""
 
 #: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:262
-#: src/Views/Today.vala:665
+#: src/Views/Today.vala:744
 msgid "Filter by Labels"
 msgstr ""
 
@@ -2947,12 +2959,16 @@ msgstr ""
 msgid "Sort By"
 msgstr ""
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:154
+#: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:155
 msgid "Overdue"
 msgstr ""
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:162
+#: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:163
 msgid "Reschedule"
+msgstr ""
+
+#: src/Views/Today.vala:753
+msgid "Me"
 msgstr ""
 
 #: src/Widgets/Attachments.vala:58

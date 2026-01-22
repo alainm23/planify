@@ -56,6 +56,8 @@ public class Objects.Item : Objects.BaseObject {
     }
     public string extra_data { get; set; default = ""; }
     public ItemType item_type { get; set; default = ItemType.TASK; }
+    public string responsible_uid { get; set; default = ""; }
+
 
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
     public Gee.ArrayList<Objects.Label> labels { get; set; default = new Gee.ArrayList<Objects.Label> (); }
@@ -386,6 +388,13 @@ public class Objects.Item : Objects.BaseObject {
         } else {
             due.reset ();
         }
+
+        if (!node.get_object ().get_null_member ("responsible_uid")) {
+            responsible_uid = node.get_object ().get_string_member ("responsible_uid");
+        } else {
+            responsible_uid = "";
+        }
+
     }
 
     public void update_from_json (Json.Node node) {
@@ -421,6 +430,12 @@ public class Objects.Item : Objects.BaseObject {
             due.update_from_json (node.get_object ().get_object_member ("due"));
         } else {
             due.reset ();
+        }
+
+        if (!node.get_object ().get_null_member ("responsible_uid")) {
+            responsible_uid = node.get_object ().get_string_member ("responsible_uid");
+        } else {
+            responsible_uid = "";
         }
     }
 
