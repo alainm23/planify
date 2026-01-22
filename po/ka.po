@@ -311,11 +311,11 @@ msgstr "ჭდის გარეშე"
 msgid "unlabeled"
 msgstr "ჭდემოხსნილი"
 
-#: core/Objects/Item.vala:1361
+#: core/Objects/Item.vala:1374
 msgid "Task copied to clipboard"
 msgstr "ამოცანა დაკოპირდა ბუფერში"
 
-#: core/Objects/Item.vala:1654 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1667 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, fuzzy, c-format
@@ -329,7 +329,7 @@ msgstr[1] "ამოცანა გადატანილია %s-ში"
 msgid "Delete Label %s"
 msgstr "%s ჭდის წაშლა"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:851
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
@@ -337,11 +337,11 @@ msgstr "%s ჭდის წაშლა"
 msgid "This can not be undone"
 msgstr "ეს ქმედება შეუქცევადია"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:854
-#: core/Objects/Project.vala:911 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:859
+#: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:424
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
@@ -355,7 +355,7 @@ msgstr "ეს ქმედება შეუქცევადია"
 msgid "Cancel"
 msgstr "გაუქმება"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:855
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
@@ -367,25 +367,25 @@ msgstr "გაუქმება"
 msgid "Delete"
 msgstr "წაშლა"
 
-#: core/Objects/Project.vala:814
+#: core/Objects/Project.vala:819
 msgid "The project was copied to the Clipboard."
 msgstr "პროექტი დაკოპირდა ბუფერში."
 
-#: core/Objects/Project.vala:850
+#: core/Objects/Project.vala:855
 #, c-format
 msgid "Delete Project %s?"
 msgstr "წავშალო პროექტი %s?"
 
-#: core/Objects/Project.vala:907 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:912 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "დავაარქივო?"
 
-#: core/Objects/Project.vala:908 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:913 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "ეს დააარქივებს %s-ს და მის ყველა ამოცანას."
 
-#: core/Objects/Project.vala:912 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:917 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
@@ -565,38 +565,38 @@ msgstr "დასრულებულია"
 msgid "On this computer"
 msgstr "ამ კომპიუტერზე"
 
-#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1530 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "მოთხოვნა არასწორია."
 
-#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1531 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "ავტორიზაცია მოთხოვნილია, მაგრამ ჩავარდა, ან ჯერ შეყვანილი არაა."
 
-#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1532 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "მოთხოვნა სწორია, მაგრამ მიეკუთვნება რაღაცას, რაც აკრძალულია."
 
-#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1533 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "მოთხოვნილი რესურსი აღმოჩენილი არაა."
 
-#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1534 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
 "მომხმარებელმა გამოაგზავნა მეტისმეტად ბევრი მოთხოვნა მითითებული დროის "
 "შუალედში."
 
-#: core/Services/Todoist.vala:1527 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1535 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
 msgstr "მოთხოვნა ჩავარდა სერვერის შეცდომის გამო."
 
-#: core/Services/Todoist.vala:1528 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1536 src/Widgets/ErrorView.vala:144
 msgid "The server is currently unable to handle the request."
 msgstr "სერვერს ამჟამად არ შეუძლია მოთხოვნის დამუშავება."
 
-#: core/Services/Todoist.vala:1531 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1539 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
 msgstr "უცნობ შეცდომა"
 
@@ -1665,7 +1665,7 @@ msgid "You can sort your accounts by dragging and dropping"
 msgstr "თქვენი ანგარიშების დალაგება გადათრევით და დაყრით შეგიძლიათ"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:564
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr ""
 
@@ -1673,22 +1673,30 @@ msgstr ""
 msgid "SSL verification is disabled"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:398
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
+msgid "Account migration required"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:313
+msgid "Reconnect"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:420
 msgid "Cannot Hide This Account"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:399
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:421
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:425
 #, fuzzy
 msgid "Change Inbox"
 msgstr "საფოსტო ყუთის გახსნა"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:534
 #, fuzzy
 msgid "Syncing…"
 msgstr "სინქრონიზაცია…"
@@ -2619,7 +2627,7 @@ msgstr "მართლა გნებავთ წაშლა?"
 msgid "Delete Label"
 msgstr "ჭდის წაშლა"
 
-#: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:224
+#: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:231
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "პროექტის დალაგების წესი შეიცვალა 'მორგებული დალაგების მიმდევრობაზე'"
 
@@ -2717,6 +2725,16 @@ msgstr "დაფაზე გადასვლა"
 #: src/Layouts/SidebarSourceRow.vala:43
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "პროექტები ხელმისაწვდომი არაა. შექმენით ახალი '+' ღილაკზე დაწკაპუნებით"
+
+#: src/Layouts/SidebarSourceRow.vala:71
+msgid "Account Migration Required"
+msgstr ""
+
+#: src/Layouts/SidebarSourceRow.vala:72
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Settings to "
+"continue syncing."
+msgstr ""
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -3192,11 +3210,11 @@ msgstr "დეარქივირება"
 msgid "No subtasks added yet. Get started!"
 msgstr "ჯერ ქვეამოცანები არ დაგიმატებიათ. დავიწყოთ!"
 
-#: src/Widgets/SyncButton.vala:90
+#: src/Widgets/SyncButton.vala:94
 msgid "Failed to connect to server"
 msgstr "სერვერთან მიერთების შეცდომა"
 
-#: src/Widgets/SyncButton.vala:90
+#: src/Widgets/SyncButton.vala:94
 msgid ""
 "It looks like the server is unreachable,\n"
 "are you connected to the internet?\n"

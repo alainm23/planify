@@ -305,12 +305,12 @@ msgstr "라벨 없음"
 msgid "unlabeled"
 msgstr "라벨 없음"
 
-#: core/Objects/Item.vala:1361
+#: core/Objects/Item.vala:1374
 msgid "Task copied to clipboard"
 msgstr "작업이 클립보드에 복사되었습니다"
 
 # # c-format
-#: core/Objects/Item.vala:1654 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1667 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, fuzzy, c-format
@@ -324,7 +324,7 @@ msgstr[0] "작업이 %s(으)로 이동되었습니다"
 msgid "Delete Label %s"
 msgstr "라벨 %s 삭제"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:851
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
@@ -332,11 +332,11 @@ msgstr "라벨 %s 삭제"
 msgid "This can not be undone"
 msgstr "이 작업은 취소할 수 없습니다"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:854
-#: core/Objects/Project.vala:911 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:859
+#: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:424
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
@@ -350,7 +350,7 @@ msgstr "이 작업은 취소할 수 없습니다"
 msgid "Cancel"
 msgstr "취소"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:855
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
@@ -362,27 +362,27 @@ msgstr "취소"
 msgid "Delete"
 msgstr "삭제"
 
-#: core/Objects/Project.vala:814
+#: core/Objects/Project.vala:819
 msgid "The project was copied to the Clipboard."
 msgstr "프로젝트가 클립보드에 복사되었습니다."
 
 # # c-format
-#: core/Objects/Project.vala:850
+#: core/Objects/Project.vala:855
 #, c-format
 msgid "Delete Project %s?"
 msgstr "프로젝트 %s을(를) 삭제하시겠습니까?"
 
-#: core/Objects/Project.vala:907 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:912 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "보관하시겠습니까?"
 
 # # c-format
-#: core/Objects/Project.vala:908 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:913 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "%s 및 모든 작업이 보관됩니다."
 
-#: core/Objects/Project.vala:912 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:917 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
@@ -564,36 +564,36 @@ msgstr "완료됨"
 msgid "On this computer"
 msgstr "이 컴퓨터에서"
 
-#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1530 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "요청이 잘못되었습니다."
 
-#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1531 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "인증이 필요하지만 실패했거나 아직 제공되지 않았습니다."
 
-#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1532 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "요청은 유효하지만 금지된 항목에 대한 것입니다."
 
-#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1533 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "요청한 리소스를 찾을 수 없습니다."
 
-#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1534 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "사용자가 일정 시간 내에 너무 많은 요청을 보냈습니다."
 
-#: core/Services/Todoist.vala:1527 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1535 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
 msgstr "서버 오류로 인해 요청이 실패했습니다."
 
-#: core/Services/Todoist.vala:1528 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1536 src/Widgets/ErrorView.vala:144
 msgid "The server is currently unable to handle the request."
 msgstr "서버가 현재 요청을 처리할 수 없습니다."
 
-#: core/Services/Todoist.vala:1531 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1539 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
 msgstr "알 수 없는 오류"
 
@@ -1698,7 +1698,7 @@ msgid "You can sort your accounts by dragging and dropping"
 msgstr "끌어다 놓기로 보기를 정렬할 수 있습니다"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:564
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr ""
 
@@ -1706,22 +1706,30 @@ msgstr ""
 msgid "SSL verification is disabled"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:398
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
+msgid "Account migration required"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:313
+msgid "Reconnect"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:420
 msgid "Cannot Hide This Account"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:399
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:421
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:425
 #, fuzzy
 msgid "Change Inbox"
 msgstr "수신함 열기"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:534
 #, fuzzy
 msgid "Syncing…"
 msgstr "동기화 중..."
@@ -2666,7 +2674,7 @@ msgstr "삭제하시겠습니까?"
 msgid "Delete Label"
 msgstr "라벨 삭제"
 
-#: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:224
+#: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:231
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "프로젝트 정렬이 '사용자 정의 순서'로 변경되었습니다"
 
@@ -2765,6 +2773,16 @@ msgstr "게시판으로 이동"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr ""
 "사용 가능한 프로젝트가 없습니다. '+' 버튼을 클릭하여 하나 만들어 보세요"
+
+#: src/Layouts/SidebarSourceRow.vala:71
+msgid "Account Migration Required"
+msgstr ""
+
+#: src/Layouts/SidebarSourceRow.vala:72
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Settings to "
+"continue syncing."
+msgstr ""
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -3243,11 +3261,11 @@ msgstr "보관 해제"
 msgid "No subtasks added yet. Get started!"
 msgstr ""
 
-#: src/Widgets/SyncButton.vala:90
+#: src/Widgets/SyncButton.vala:94
 msgid "Failed to connect to server"
 msgstr ""
 
-#: src/Widgets/SyncButton.vala:90
+#: src/Widgets/SyncButton.vala:94
 #, fuzzy
 msgid ""
 "It looks like the server is unreachable,\n"
