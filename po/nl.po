@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
 "PO-Revision-Date: 2026-01-25 06:43+0000\n"
-"Last-Translator: Gert <gert-dev-weblate@users.noreply.hosted.weblate.org>\n"
+"Last-Translator: succesvollezakenvrouw <joris.briet@kolkmannen.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/nl/>\n"
 "Language: nl\n"
@@ -1898,6 +1898,8 @@ msgstr "Professioneel blauw thema"
 #: src/Dialogs/Preferences/Pages/Appearance.vala:121
 msgid "Custom themes are not available when using the system light theme"
 msgstr ""
+"Gepersonaliseerde thema's zijn niet beschikbaar wanneer systeemweergave "
+"wordt gebruikt"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:159
 msgid "Font Size"
