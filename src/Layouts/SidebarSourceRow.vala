@@ -51,6 +51,13 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
 
             sync_button.clicked.connect (() => {
                 if (source.source_type == SourceType.TODOIST) {
+                    if (source.needs_migration ()) {
+                        var preferences_dialog = new Dialogs.Preferences.PreferencesWindow ();
+                        preferences_dialog.show_page ("accounts");
+                        preferences_dialog.present (Planify._instance.main_window);
+                        return;
+                    }
+                    
                     Services.Todoist.get_default ().sync.begin (source);
                 } else if (source.source_type == SourceType.CALDAV) {
                     Services.CalDAV.Core.get_default ().sync.begin (source);

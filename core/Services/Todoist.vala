@@ -45,7 +45,7 @@ public class Services.Todoist : GLib.Object {
         parser = new Json.Parser ();
     }
 
-    public async HttpResponse login (string _url) {
+    public async HttpResponse login (string _url, Objects.Source? migrate_source = null) {
         string code = _url.split ("=")[1];
         code = code.split ("&")[0];
 
@@ -64,7 +64,7 @@ public class Services.Todoist : GLib.Object {
             var root = parser.get_root ().get_object ();
             var token = root.get_string_member ("access_token");
 
-            yield add_todoist_account (token, response);
+            yield add_todoist_account (token, response, migrate_source);
         } catch (Error e) {
             response.error_code = e.code;
             response.error = e.message;
@@ -74,11 +74,11 @@ public class Services.Todoist : GLib.Object {
         return response;
     }
 
-    public async HttpResponse login_token (string token) {
+    public async HttpResponse login_token (string token, Objects.Source? migrate_source = null) {
         var response = new HttpResponse ();
 
         try {
-            yield add_todoist_account (token, response);
+            yield add_todoist_account (token, response, migrate_source);
         } catch (Error e) {
             response.error_code = e.code;
             response.error = e.message;
@@ -88,7 +88,7 @@ public class Services.Todoist : GLib.Object {
         return response;
     }
 
-    public async void add_todoist_account (string token, HttpResponse response) {
+    public async void add_todoist_account (string token, HttpResponse response, Objects.Source? migrate_source = null) {
         var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
         message.request_headers.append ("Authorization", "Bearer %s".printf (token));
         
@@ -127,10 +127,12 @@ public class Services.Todoist : GLib.Object {
             source.data = todoist_data;
 
             if (Services.Store.instance ().source_todoist_exists (todoist_data.user_email)) {
-                response.error_code = 409;
-                response.error = "Source already exists";
-                response.status = false;
-                return;
+                if (migrate_source == null || migrate_source.todoist_data.user_email != todoist_data.user_email) {
+                    response.error_code = 409;
+                    response.error = "Source already exists";
+                    response.status = false;
+                    return;
+                }
             }
 
             Services.Store.instance ().insert_source (source);
@@ -191,6 +193,10 @@ public class Services.Todoist : GLib.Object {
 
             source.last_sync = new GLib.DateTime.now_local ().to_string ();
             source.save ();
+
+            if (migrate_source != null) {
+                migrate_source.delete_source.begin ();
+            }
 
             response.status = true;
         } catch (Error e) {

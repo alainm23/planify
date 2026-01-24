@@ -118,17 +118,11 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
 
         Gee.HashMap<string, SourceRow> sources_hashmap = new Gee.HashMap<string, SourceRow> ();
         foreach (Objects.Source source in Services.Store.instance ().sources) {
-            if (!sources_hashmap.has_key (source.id)) {
-                sources_hashmap[source.id] = new SourceRow (source, preferences_dialog);
-                sources_group.add_child (sources_hashmap[source.id]);
-            }
+            add_source_row (source, sources_hashmap);
         }
 
         signal_map[Services.Store.instance ().source_added.connect ((source) => {
-            if (!sources_hashmap.has_key (source.id)) {
-                sources_hashmap[source.id] = new SourceRow (source, preferences_dialog);
-                sources_group.add_child (sources_hashmap[source.id]);
-            }
+            add_source_row (source, sources_hashmap);
         })] = Services.Store.instance ();
 
         signal_map[Services.Store.instance ().source_deleted.connect ((source) => {
@@ -170,6 +164,24 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         destroy.connect (() => {
             clean_up ();
         });
+    }
+
+    private void add_source_row (Objects.Source source, Gee.HashMap<string, SourceRow> sources_hashmap) {
+        if (!sources_hashmap.has_key (source.id)) {
+            var source_row = new SourceRow (source, preferences_dialog);
+            sources_hashmap[source.id] = source_row;
+            sources_group.add_child (source_row);
+            
+            source_row.migration_requested.connect (() => {
+                #if USE_WEBKITGTK
+                var todoist_setup = new TodoistSetup.with_webkit (preferences_dialog, this);
+                #else
+                var todoist_setup = new TodoistSetup (preferences_dialog, this);
+                #endif
+                todoist_setup.set_migrate_mode (source);
+                preferences_dialog.push_subpage (todoist_setup);
+            });
+        }
     }
 
     public void show_message_error (int error_code, string error_message, bool visible_issue_button = true) {
@@ -242,6 +254,8 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
     public class SourceRow : Gtk.ListBoxRow {
         public Objects.Source source { get; construct; }
         public Adw.PreferencesDialog preferences_dialog { get; construct; }
+
+        public signal void migration_requested ();
 
         private Widgets.ReorderChild reorder;
         private Gtk.Revealer main_revealer;
@@ -316,7 +330,7 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
                 migration_button.add_css_class ("suggested-action");
 
                 migration_button.clicked.connect (() => {
-                    // show_migration_dialog ();
+                    migration_requested ();
                 });
 
                 end_box.append (migration_warning);
