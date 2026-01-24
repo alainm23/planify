@@ -195,6 +195,7 @@ public class Services.Todoist : GLib.Object {
             source.save ();
 
             if (migrate_source != null) {
+                check_and_update_inbox_project (migrate_source);
                 migrate_source.delete_source.begin ();
             }
 
@@ -204,6 +205,27 @@ public class Services.Todoist : GLib.Object {
             response.error = e.message;
             debug (e.message);
         }
+    }
+
+    private void check_and_update_inbox_project (Objects.Source migrate_source) {
+        string current_inbox_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
+        Objects.Project? current_inbox = Services.Store.instance ().get_project (current_inbox_id);
+        
+        if (current_inbox != null && current_inbox.source_id == migrate_source.id) {
+            Objects.Project? local_inbox = get_local_inbox_project ();
+            if (local_inbox != null) {
+                Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", local_inbox.id);
+            }
+        }
+    }
+
+    private Objects.Project? get_local_inbox_project () {
+        foreach (Objects.Project project in Services.Store.instance ().projects) {
+            if (project.backend_type == SourceType.LOCAL && project.inbox_project) {
+                return project;
+            }
+        }
+        return null;
     }
 
     /*
