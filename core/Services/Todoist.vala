@@ -239,11 +239,17 @@ public class Services.Todoist : GLib.Object {
     }
 
     private Objects.Project? get_local_inbox_project () {
+        print ("[MIGRATION] Searching for local inbox project...\n");
         foreach (Objects.Project project in Services.Store.instance ().projects) {
-            if (project.backend_type == SourceType.LOCAL && project.inbox_project) {
+            print ("[MIGRATION] Checking project: %s (source_id: %s, inbox_project: %s)\n", 
+                project.name, project.source_id, project.inbox_project.to_string ());
+            
+            if (project.source_id == SourceType.LOCAL.to_string () && project.inbox_project) {
+                print ("[MIGRATION] Found local inbox: %s\n", project.name);
                 return project;
             }
         }
+        print ("[MIGRATION] No local inbox found\n");
         return null;
     }
 
