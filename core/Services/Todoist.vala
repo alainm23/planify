@@ -208,48 +208,24 @@ public class Services.Todoist : GLib.Object {
     }
 
     private void check_and_update_inbox_project (Objects.Source migrate_source) {
-        print ("[MIGRATION] Checking inbox project...\n");
-        
         string current_inbox_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
-        print ("[MIGRATION] Current inbox ID: %s\n", current_inbox_id);
-        
         Objects.Project? current_inbox = Services.Store.instance ().get_project (current_inbox_id);
         
-        if (current_inbox != null) {
-            print ("[MIGRATION] Current inbox project found: %s (source_id: %s)\n", current_inbox.name, current_inbox.source_id);
-            print ("[MIGRATION] Migrate source ID: %s\n", migrate_source.id);
-            
-            if (current_inbox.source_id == migrate_source.id) {
-                print ("[MIGRATION] Inbox belongs to migrate source, searching for local inbox...\n");
-                
-                Objects.Project? local_inbox = get_local_inbox_project ();
-                if (local_inbox != null) {
-                    print ("[MIGRATION] Local inbox found: %s (ID: %s)\n", local_inbox.name, local_inbox.id);
-                    Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", local_inbox.id);
-                    print ("[MIGRATION] Inbox updated successfully\n");
-                } else {
-                    print ("[MIGRATION] ERROR: Local inbox not found!\n");
-                }
-            } else {
-                print ("[MIGRATION] Inbox does not belong to migrate source, no change needed\n");
+        if (current_inbox != null && current_inbox.source_id == migrate_source.id) {
+            Objects.Project? local_inbox = get_local_inbox_project ();
+            if (local_inbox != null) {
+                Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", local_inbox.id);
             }
-        } else {
-            print ("[MIGRATION] Current inbox project not found\n");
         }
     }
 
     private Objects.Project? get_local_inbox_project () {
-        print ("[MIGRATION] Searching for local inbox project...\n");
         foreach (Objects.Project project in Services.Store.instance ().projects) {
-            print ("[MIGRATION] Checking project: %s (source_id: %s, inbox_project: %s)\n", 
-                project.name, project.source_id, project.inbox_project.to_string ());
-            
             if (project.source_id == SourceType.LOCAL.to_string () && project.inbox_project) {
-                print ("[MIGRATION] Found local inbox: %s\n", project.name);
                 return project;
             }
         }
-        print ("[MIGRATION] No local inbox found\n");
+        
         return null;
     }
 
