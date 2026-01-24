@@ -208,14 +208,33 @@ public class Services.Todoist : GLib.Object {
     }
 
     private void check_and_update_inbox_project (Objects.Source migrate_source) {
+        debug ("[MIGRATION] Checking inbox project...");
+        
         string current_inbox_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
+        debug ("[MIGRATION] Current inbox ID: %s", current_inbox_id);
+        
         Objects.Project? current_inbox = Services.Store.instance ().get_project (current_inbox_id);
         
-        if (current_inbox != null && current_inbox.source_id == migrate_source.id) {
-            Objects.Project? local_inbox = get_local_inbox_project ();
-            if (local_inbox != null) {
-                Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", local_inbox.id);
+        if (current_inbox != null) {
+            debug ("[MIGRATION] Current inbox project found: %s (source_id: %s)", current_inbox.name, current_inbox.source_id);
+            debug ("[MIGRATION] Migrate source ID: %s", migrate_source.id);
+            
+            if (current_inbox.source_id == migrate_source.id) {
+                debug ("[MIGRATION] Inbox belongs to migrate source, searching for local inbox...");
+                
+                Objects.Project? local_inbox = get_local_inbox_project ();
+                if (local_inbox != null) {
+                    debug ("[MIGRATION] Local inbox found: %s (ID: %s)", local_inbox.name, local_inbox.id);
+                    Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", local_inbox.id);
+                    debug ("[MIGRATION] Inbox updated successfully");
+                } else {
+                    debug ("[MIGRATION] ERROR: Local inbox not found!");
+                }
+            } else {
+                debug ("[MIGRATION] Inbox does not belong to migrate source, no change needed");
             }
+        } else {
+            debug ("[MIGRATION] Current inbox project not found");
         }
     }
 
