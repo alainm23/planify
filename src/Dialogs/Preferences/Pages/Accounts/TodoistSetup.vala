@@ -27,13 +27,7 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
     private Adw.EntryRow token_entry;
     private Widgets.LoadingButton login_button;
     
-    private bool is_migrating = false;
     private Objects.Source? migrate_source = null;
-
-    public void set_migrate_mode (Objects.Source source) {
-        is_migrating = true;
-        migrate_source = source;
-    }
 
     public TodoistSetup (Adw.PreferencesDialog preferences_dialog, Accounts accounts_page) {
         Object (
@@ -254,6 +248,10 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
             toast.timeout = 3;
             preferences_dialog.add_toast (toast);
         }
+    }
+
+    public void set_migrate_mode (Objects.Source source) {
+        migrate_source = source;
     }
 }
 
