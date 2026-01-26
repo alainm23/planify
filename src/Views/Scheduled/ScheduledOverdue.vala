@@ -118,6 +118,7 @@ public class Views.Scheduled.ScheduledOverdue : Gtk.ListBoxRow {
                 if (!Services.Store.instance ().valid_item_by_overdue (item, date, false)) {
                     item_map[item.id].hide_destroy ();
                     item_map.unset (item.id);
+                    Services.EventBus.get_default ().unfocus_item ();
                 }
             }
 
@@ -196,12 +197,14 @@ public class Views.Scheduled.ScheduledOverdue : Gtk.ListBoxRow {
         if (item_map.has_key (item.id) && !item.has_due) {
             item_map[item.id].hide_destroy ();
             item_map.unset (item.id);
+            Services.EventBus.get_default ().unfocus_item ();
         }
 
         if (item_map.has_key (item.id) && item.has_due) {
             if (!Services.Store.instance ().valid_item_by_overdue (item, date, false)) {
                 item_map[item.id].hide_destroy ();
                 item_map.unset (item.id);
+                Services.EventBus.get_default ().unfocus_item ();
             }
         }
 

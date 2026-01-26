@@ -260,6 +260,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         if (items.has_key (item.id) && !item.has_due) {
             items[item.id].hide_destroy ();
             items.unset (item.id);
+            Services.EventBus.get_default ().unfocus_item ();
         }
 
 
@@ -267,6 +268,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
             if (!Services.Store.instance ().valid_item_by_date_range (item, start_date, end_date, false)) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
+                Services.EventBus.get_default ().unfocus_item ();
             }
         }
 
