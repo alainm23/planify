@@ -139,6 +139,7 @@ public class Widgets.ErrorView : Adw.Bin {
         messages.set (401, _("Authentication is required, and has failed, or has not yet been provided."));
         messages.set (403, _("The request was valid, but for something that is forbidden."));
         messages.set (404, _("The requested resource could not be found."));
+        messages.set (410, _("Account migration required."));
         messages.set (429, _("The user has sent too many requests in a given amount of time."));
         messages.set (500, _("The request failed due to a server error."));
         messages.set (503, _("The server is currently unable to handle the request."));
