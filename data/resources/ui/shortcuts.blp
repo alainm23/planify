@@ -1,0 +1,101 @@
+using Gtk 4.0;
+
+ShortcutsWindow shortcuts-planify {
+  modal: true;
+
+  ShortcutsSection shortcuts {
+    section-name: "shortcuts";
+    max-height: 12;
+
+    ShortcutsGroup used-anywhere {
+      title: C_("shortcut window", "Used Anywhere");
+
+      ShortcutsShortcut create-task {
+        accelerator: "a";
+        title: C_("shortcut window", "Create a New Task");
+      }
+
+      ShortcutsShortcut paste-task {
+        accelerator: "<ctrl>v";
+        title: C_("shortcut window", "Paste Plain Text to Create New Task");
+      }
+
+      ShortcutsShortcut create-project {
+        accelerator: "p";
+        title: C_("shortcut window", "Create a New Project");
+      }
+
+      ShortcutsShortcut create-section {
+        accelerator: "s";
+        title: C_("shortcut window", "Create a New Section in a Project");
+      }
+    }
+
+    ShortcutsGroup search {
+      title: C_("shortcut window", "Search");
+
+      ShortcutsShortcut quick-find {
+        accelerator: "<ctrl>f";
+        title: C_("shortcut window", "Open Quick Find");
+      }
+    }
+
+    ShortcutsGroup control-windows {
+      title: C_("shortcut window", "Control Windows");
+
+      ShortcutsShortcut quit {
+        accelerator: "<ctrl>q";
+        title: C_("shortcut window", "Quit");
+      }
+
+      ShortcutsShortcut open-preferences {
+        accelerator: "<ctrl>comma";
+        title: C_("shortcut window", "Open Preferences");
+      }
+
+      ShortcutsShortcut show-hide-sidebar {
+        accelerator: "m";
+        title: C_("shortcut window", "Toggle Sidebar");
+      }
+
+      ShortcutsShortcut keyboard-shortcuts {
+        accelerator: "F1";
+        title: C_("shortcut window", "Open Keyboard Shortcuts");
+      }
+    }
+
+    ShortcutsGroup navigate {
+      title: C_("shortcut window", "Navigate");
+
+      ShortcutsShortcut homepage {
+        accelerator: "<ctrl>h";
+        title: C_("shortcut window", "Open Homepage");
+      }
+
+      ShortcutsShortcut inbox {
+        accelerator: "<ctrl>i";
+        title: C_("shortcut window", "Open Inbox");
+      }
+
+      ShortcutsShortcut today {
+        accelerator: "<ctrl>t";
+        title: C_("shortcut window", "Open Today");
+      }
+
+      ShortcutsShortcut scheduled {
+        accelerator: "<ctrl>u";
+        title: C_("shortcut window", "Open Scheduled");
+      }
+
+      ShortcutsShortcut labels {
+        accelerator: "<ctrl>l";
+        title: C_("shortcut window", "Open Labels");
+      }
+
+      ShortcutsShortcut pinboard {
+        accelerator: "<ctrl>p";
+        title: C_("shortcut window", "Open Pinboard");
+      }
+    }
+  }
+}

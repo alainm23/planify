@@ -66,11 +66,23 @@ endif
 # Resources #
 ############
 
+
+blueprints = custom_target('blueprints',
+                           input : files(
+                               'data/resources/ui/shortcuts.blp',
+                           ),
+                           output : 'shortcuts.ui',
+                           command : [find_program('blueprint-compiler'), 'batch-compile', '@CURRENT_SOURCE_DIR@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],
+)
+
+
 asresources = gnome.compile_resources (
     'as-resources', 'data/io.github.alainm23.planify.gresource.xml',
+    dependencies: blueprints,
     source_dir: 'data',
     c_name: 'as'
 )
+
 
 ###########
 # Profile #
