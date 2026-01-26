@@ -433,11 +433,13 @@ public class Views.Filter : Adw.Bin {
             if (items.has_key (item.id) && item.priority != priority.priority) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
+                Services.EventBus.get_default ().unfocus_item ();
             }
 
             if (items.has_key (item.id) && !item.checked) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
+                Services.EventBus.get_default ().unfocus_item ();
             }
 
             valid_add_item (item);
@@ -445,6 +447,7 @@ public class Views.Filter : Adw.Bin {
             if (items.has_key (item.id) && item.checked) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
+                Services.EventBus.get_default ().unfocus_item ();
             }
 
             valid_add_item (item);
@@ -452,6 +455,7 @@ public class Views.Filter : Adw.Bin {
             if (items.has_key (item.id) && (!item.has_due || !Utils.Datetime.is_tomorrow (item.due.datetime))) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
+                Services.EventBus.get_default ().unfocus_item ();
             }
 
             valid_add_item (item);
@@ -459,6 +463,7 @@ public class Views.Filter : Adw.Bin {
             if (items.has_key (item.id) && !item.pinned) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
+                Services.EventBus.get_default ().unfocus_item ();
             }
 
             valid_add_item (item);
@@ -466,6 +471,7 @@ public class Views.Filter : Adw.Bin {
             if (items.has_key (item.id) && item.has_due) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
+                Services.EventBus.get_default ().unfocus_item ();
             }
 
             valid_add_item (item);
@@ -473,6 +479,7 @@ public class Views.Filter : Adw.Bin {
             if (items.has_key (item.id) && (!item.has_due || !item.due.is_recurring)) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
+                Services.EventBus.get_default ().unfocus_item ();
             }
 
             valid_add_item (item);
@@ -480,6 +487,7 @@ public class Views.Filter : Adw.Bin {
             if (items.has_key (item.id) && item.labels.size > 0) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
+                Services.EventBus.get_default ().unfocus_item ();
             }
 
             valid_add_item (item);
@@ -498,6 +506,7 @@ public class Views.Filter : Adw.Bin {
                 if (items.has_key (item.id) && item.completed) {
                     items[item.id].hide_destroy ();
                     items.unset (item.id);
+                    Services.EventBus.get_default ().unfocus_item ();
                 }
             } else {
                 valid_update_item (item);
@@ -509,6 +518,7 @@ public class Views.Filter : Adw.Bin {
                 if (items.has_key (item.id) && !item.completed) {
                     items[item.id].hide_destroy ();
                     items.unset (item.id);
+                    Services.EventBus.get_default ().unfocus_item ();
                 }
             }
         }

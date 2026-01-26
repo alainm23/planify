@@ -492,6 +492,10 @@ public class Views.Today : Adw.Bin {
             title_box.sensitive = !active;
             today_header_box.sensitive = !active;
             overdue_header_box.sensitive = !active;
+
+            #if WITH_EVOLUTION
+            event_list.sensitive = !active;
+            #endif
         })] = Services.EventBus.get_default ();
     }
 
@@ -612,11 +616,13 @@ public class Views.Today : Adw.Bin {
         if (items.has_key (item.id) && !item.has_due && !item.has_deadline) {
             items[item.id].hide_destroy ();
             items.unset (item.id);
+            Services.EventBus.get_default ().unfocus_item ();
         }
 
         if (overdue_items.has_key (item.id) && !item.has_due && !item.has_deadline) {
             overdue_items[item.id].hide_destroy ();
             overdue_items.unset (item.id);
+            Services.EventBus.get_default ().unfocus_item ();
         }
 
         if (items.has_key (item.id) && (item.has_due || item.has_deadline)) {
@@ -626,6 +632,7 @@ public class Views.Today : Adw.Bin {
             if (!valid_due && !valid_deadline) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
+                Services.EventBus.get_default ().unfocus_item ();
             }
         }
 
@@ -636,6 +643,7 @@ public class Views.Today : Adw.Bin {
             if (!valid_due && !valid_deadline) {
                 overdue_items[item.id].hide_destroy ();
                 overdue_items.unset (item.id);
+                Services.EventBus.get_default ().unfocus_item ();
             }
         }
 
