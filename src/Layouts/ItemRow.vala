@@ -1108,7 +1108,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         if (markdown_editor != null) {
-            markdown_editor.margin_start = item.item_type == ItemType.TASK ? 24 : 6;
+            markdown_editor.margin_start = item.item_type == ItemType.TASK ? 24 : 0;
         }
     }
 
@@ -1940,7 +1940,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         markdown_editor.text_view.height_request = 64;
-        markdown_editor.margin_start = item.item_type == ItemType.TASK ? 24 : 6;
+        markdown_editor.margin_start = item.item_type == ItemType.TASK ? 24 : 0;
         markdown_editor.margin_end = 6;
         markdown_editor.margin_top = 3;
         markdown_editor.margin_bottom = 12;
