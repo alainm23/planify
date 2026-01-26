@@ -1,101 +1,95 @@
 using Gtk 4.0;
+using Adw 1;
 
-ShortcutsWindow shortcuts-planify {
-  modal: true;
+Adw.ShortcutsDialog shortcuts_dialog {
+  Adw.ShortcutsSection {
+    title: C_("shortcut window", "Used Anywhere");
 
-  ShortcutsSection shortcuts {
-    section-name: "shortcuts";
-    max-height: 12;
-
-    ShortcutsGroup used-anywhere {
-      title: C_("shortcut window", "Used Anywhere");
-
-      ShortcutsShortcut create-task {
-        accelerator: "a";
-        title: C_("shortcut window", "Create a New Task");
-      }
-
-      ShortcutsShortcut paste-task {
-        accelerator: "<ctrl>v";
-        title: C_("shortcut window", "Paste Plain Text to Create New Task");
-      }
-
-      ShortcutsShortcut create-project {
-        accelerator: "p";
-        title: C_("shortcut window", "Create a New Project");
-      }
-
-      ShortcutsShortcut create-section {
-        accelerator: "s";
-        title: C_("shortcut window", "Create a New Section in a Project");
-      }
+    Adw.ShortcutsItem {
+      accelerator: "a";
+      title: C_("shortcut window", "Create a New Task");
     }
 
-    ShortcutsGroup search {
-      title: C_("shortcut window", "Search");
-
-      ShortcutsShortcut quick-find {
-        accelerator: "<ctrl>f";
-        title: C_("shortcut window", "Open Quick Find");
-      }
+    Adw.ShortcutsItem {
+      accelerator: "<ctrl>v";
+      title: C_("shortcut window", "Paste Plain Text to Create New Task");
     }
 
-    ShortcutsGroup control-windows {
-      title: C_("shortcut window", "Control Windows");
-
-      ShortcutsShortcut quit {
-        accelerator: "<ctrl>q";
-        title: C_("shortcut window", "Quit");
-      }
-
-      ShortcutsShortcut open-preferences {
-        accelerator: "<ctrl>comma";
-        title: C_("shortcut window", "Open Preferences");
-      }
-
-      ShortcutsShortcut show-hide-sidebar {
-        accelerator: "m";
-        title: C_("shortcut window", "Toggle Sidebar");
-      }
-
-      ShortcutsShortcut keyboard-shortcuts {
-        accelerator: "F1";
-        title: C_("shortcut window", "Open Keyboard Shortcuts");
-      }
+    Adw.ShortcutsItem {
+      accelerator: "p";
+      title: C_("shortcut window", "Create a New Project");
     }
 
-    ShortcutsGroup navigate {
-      title: C_("shortcut window", "Navigate");
+    Adw.ShortcutsItem {
+      accelerator: "s";
+      title: C_("shortcut window", "Create a New Section in a Project");
+    }
+  }
 
-      ShortcutsShortcut homepage {
-        accelerator: "<ctrl>h";
-        title: C_("shortcut window", "Open Homepage");
-      }
+  Adw.ShortcutsSection {
+    title: C_("shortcut window", "Search");
 
-      ShortcutsShortcut inbox {
-        accelerator: "<ctrl>i";
-        title: C_("shortcut window", "Open Inbox");
-      }
+    Adw.ShortcutsItem {
+      accelerator: "<ctrl>f";
+      title: C_("shortcut window", "Open Quick Find");
+    }
+  }
 
-      ShortcutsShortcut today {
-        accelerator: "<ctrl>t";
-        title: C_("shortcut window", "Open Today");
-      }
+  Adw.ShortcutsSection {
+    title: C_("shortcut window", "Control Windows");
 
-      ShortcutsShortcut scheduled {
-        accelerator: "<ctrl>u";
-        title: C_("shortcut window", "Open Scheduled");
-      }
+    Adw.ShortcutsItem {
+      accelerator: "<ctrl>q";
+      title: C_("shortcut window", "Quit");
+    }
 
-      ShortcutsShortcut labels {
-        accelerator: "<ctrl>l";
-        title: C_("shortcut window", "Open Labels");
-      }
+    Adw.ShortcutsItem {
+      accelerator: "<ctrl>comma";
+      title: C_("shortcut window", "Open Preferences");
+    }
 
-      ShortcutsShortcut pinboard {
-        accelerator: "<ctrl>p";
-        title: C_("shortcut window", "Open Pinboard");
-      }
+    Adw.ShortcutsItem {
+      accelerator: "m";
+      title: C_("shortcut window", "Toggle Sidebar");
+    }
+
+    Adw.ShortcutsItem {
+      accelerator: "F1";
+      title: C_("shortcut window", "Open Keyboard Shortcuts");
+    }
+  }
+
+  Adw.ShortcutsSection {
+    title: C_("shortcut window", "Navigate");
+
+    Adw.ShortcutsItem {
+      accelerator: "<ctrl>h";
+      title: C_("shortcut window", "Open Homepage");
+    }
+
+    Adw.ShortcutsItem {
+      accelerator: "<ctrl>i";
+      title: C_("shortcut window", "Open Inbox");
+    }
+
+    Adw.ShortcutsItem {
+      accelerator: "<ctrl>t";
+      title: C_("shortcut window", "Open Today");
+    }
+
+    Adw.ShortcutsItem {
+      accelerator: "<ctrl>u";
+      title: C_("shortcut window", "Open Scheduled");
+    }
+
+    Adw.ShortcutsItem {
+      accelerator: "<ctrl>l";
+      title: C_("shortcut window", "Open Labels");
+    }
+
+    Adw.ShortcutsItem {
+      accelerator: "<ctrl>p";
+      title: C_("shortcut window", "Open Pinboard");
     }
   }
 }

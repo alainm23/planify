@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/io/github/alainm23/planify/stylesheet">
@@ -11,6 +12,7 @@
   
   <gresource prefix="/io/github/alainm23/planify">
     <file alias="index.css" compressed="true">resources/stylesheet/index.css</file>
+    <file alias="shortcuts.ui" compressed="true">resources/ui/shortcuts.ui</file>
     <file preprocess="xml-stripblanks">io.github.alainm23.planify.appdata.xml.in.in</file>
 
     <!-- Audios -->
@@ -24,8 +26,6 @@
     <file alias="light-mode.svg">resources/images/light-mode.svg</file>
     <file alias="dark-mode.svg">resources/images/dark-mode.svg</file>
     <file alias="blue-mode.svg">resources/images/blue-mode.svg</file>
-
-    <file alias="shortcuts.ui" compressed="true">resources/ui/shortcuts.ui</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/icons/scalable/actions">
