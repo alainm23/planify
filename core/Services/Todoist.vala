@@ -800,6 +800,10 @@ public class Services.Todoist : GLib.Object {
     }
 
     public async HttpResponse add (Objects.BaseObject object) {
+        if (source.needs_migration ()) {
+            return;
+        }
+
         string temp_id = Util.get_default ().generate_string ();
         string uuid = Util.get_default ().generate_string ();
         string id;
