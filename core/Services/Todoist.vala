@@ -30,7 +30,7 @@ public class Services.Todoist : GLib.Object {
     private const string ITEMS_COLLECTION = "items";
     private const string LABELS_COLLECTION = "labels";
     private const string REMINDERS_COLLECTION = "reminders";
-    private const string MIGRATE_MESSAGE = _("Todoist has updated their API. Please reconnect your account in Settings to continue syncing.");
+    private const string MIGRATE_MESSAGE = _("Todoist has updated their API. Please reconnect your account in Preferences to continue syncing.");
 
     private static Todoist ? _instance;
     public static Todoist get_default () {
