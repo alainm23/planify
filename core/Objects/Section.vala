@@ -144,7 +144,7 @@ public class Objects.Section : Objects.BaseObject {
         added_at = node.get_object ().get_string_member ("added_at");
         project_id = node.get_object ().get_string_member ("project_id");
         section_order = (int32) node.get_object ().get_int_member ("section_order");
-        collapsed = node.get_object ().get_boolean_member ("collapsed");
+        collapsed = node.get_object ().get_boolean_member ("is_collapsed");
         is_deleted = node.get_object ().get_boolean_member ("is_deleted");
         is_archived = node.get_object ().get_boolean_member ("is_archived");
     }
@@ -156,7 +156,7 @@ public class Objects.Section : Objects.BaseObject {
         section_order = (int32) node.get_object ().get_int_member ("section_order");
         is_deleted = node.get_object ().get_boolean_member ("is_deleted");
         is_archived = node.get_object ().get_boolean_member ("is_archived");
-        collapsed = node.get_object ().get_boolean_member ("collapsed");
+        collapsed = node.get_object ().get_boolean_member ("is_collapsed");
 
         if (!node.get_object ().get_null_member ("archived_at")) {
             archived_at = node.get_object ().get_string_member ("archived_at");

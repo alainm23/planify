@@ -311,12 +311,12 @@ msgstr "कोई लेबल नहीं"
 msgid "unlabeled"
 msgstr "लेबल नहीं किया गया"
 
-#: core/Objects/Item.vala:1361
+#: core/Objects/Item.vala:1374
 msgid "Task copied to clipboard"
 msgstr "कार्य को क्लिपबोर्ड पर कॉपी किया गया"
 
 # # c-format
-#: core/Objects/Item.vala:1654 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1667 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, fuzzy, c-format
@@ -331,22 +331,23 @@ msgstr[1] "कार्य को %s पर भेजा गया"
 msgid "Delete Label %s"
 msgstr "लेबल %s मिटाएं"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:851
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
 msgstr "इसे पूर्ववत नहीं किया जा सकता"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:854
-#: core/Objects/Project.vala:911 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:859
+#: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:438
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:191
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:220
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
 #: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:580
@@ -357,10 +358,10 @@ msgstr "इसे पूर्ववत नहीं किया जा सक�
 msgid "Cancel"
 msgstr "रद्द करें"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:855
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
@@ -369,27 +370,27 @@ msgstr "रद्द करें"
 msgid "Delete"
 msgstr "मिटाएं"
 
-#: core/Objects/Project.vala:814
+#: core/Objects/Project.vala:819
 msgid "The project was copied to the Clipboard."
 msgstr "परियोजना को क्लिपबोर्ड पर कॉपी किया गया था।"
 
 # # c-format
-#: core/Objects/Project.vala:850
+#: core/Objects/Project.vala:855
 #, c-format
 msgid "Delete Project %s?"
 msgstr "परियोजना %s मिटाएं?"
 
-#: core/Objects/Project.vala:907 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:912 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "संग्रहित करें?"
 
 # # c-format
-#: core/Objects/Project.vala:908 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:913 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "यह %s और उसके सभी कार्यों को संग्रहीत करेगा।"
 
-#: core/Objects/Project.vala:912 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:917 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
@@ -403,8 +404,8 @@ msgstr "अनुभाग %s मिटाएं"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:35
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:44
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:37
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:46
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -571,36 +572,36 @@ msgstr "पूर्ण"
 msgid "On this computer"
 msgstr "इस कंप्यूटर पर"
 
-#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1559 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "अनुरोध गलत था।"
 
-#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1560 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "प्रमाणीकरण आवश्यक है, या तो विफल हुआ या प्रदान नहीं किया गया।"
 
-#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1561 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "अनुरोध मान्य था, लेकिन निषिद्ध चीज़ के लिए।"
 
-#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1562 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "अनुरोधित संसाधन नहीं मिला।"
 
-#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1563 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "उपयोक्ता ने निश्चित समय में बहुत अधिक अनुरोध भेजे हैं।"
 
-#: core/Services/Todoist.vala:1527 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1564 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
 msgstr "सर्वर त्रुटि के कारण अनुरोध विफल हुआ।"
 
-#: core/Services/Todoist.vala:1528 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1565 src/Widgets/ErrorView.vala:144
 msgid "The server is currently unable to handle the request."
 msgstr "सर्वर अनुरोध संभालने में फिलहाल असमर्थ है।"
 
-#: core/Services/Todoist.vala:1531 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1568 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
 msgstr "अज्ञात त्रुटि"
 
@@ -830,7 +831,7 @@ msgid "Process completed, you need to start Planify again."
 msgstr "प्रक्रिया पूर्ण, प्लॅानिफाई फिर शुरू करें।"
 
 #: core/Utils/Util.vala:452
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:217
 msgid "Ok"
 msgstr "ठीक है"
 
@@ -1709,31 +1710,40 @@ msgstr "इनबॉक्स"
 msgid "You can sort your accounts by dragging and dropping"
 msgstr "आप अपने विचारों को खींचकर और छोड़ कर छांट सकते हैं"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:578
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:307
 msgid "SSL verification is disabled"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:398
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
+msgid "Account migration required"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
+msgid "Reconnect"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:399
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:435
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:439
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:221
 #, fuzzy
 msgid "Change Inbox"
 msgstr "इनबॉक्स खोलें"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:548
 #, fuzzy
 msgid "Syncing…"
 msgstr "समन्वयन..."
@@ -1822,52 +1832,62 @@ msgstr "अंतिम समन्वयन"
 msgid "Delete Source"
 msgstr "अनुभाग मिटाएं"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:179
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:187
 msgid "Delete Source?"
 msgstr "अनुभाग मिटाएं"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
+msgid "Cannot Delete This Source"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
+msgid ""
+"This source contains your current Inbox project. Please change your Inbox "
+"project first."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:100
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:102
 msgid "How to get your token?"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:103
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:102
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:104
 msgid "2. Find 'API token' and copy your token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:103
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:105
 msgid "3. Paste it in the field above"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:122
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:124
 msgid "Connect with Token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:165
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:167
 msgid "Enter token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:183
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:185
 msgid "Synchronizing…"
 msgstr "समन्वयन..."
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:201
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
 msgid "Please Enter Your Credentials"
 msgstr "कृपया अपना प्रत्ययपत्र दर्ज करें"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:205
 msgid "Loading…"
 msgstr "लोड हो रहा है…"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:212
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:214
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
 msgid "Network Is Not Available"
 msgstr "नेटवर्क उपलब्ध नहीं है"
 
@@ -2681,7 +2701,7 @@ msgstr "क्या आप वाकई मिटाना चाहते ह�
 msgid "Delete Label"
 msgstr "लेबल मिटाएं"
 
-#: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:224
+#: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:238
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "परियोजना छंटाई को 'तदनुकूल छंटाई क्रम' में बदल दिया गया"
 
@@ -2779,6 +2799,16 @@ msgstr "पिनबोर्ड पर जाएं"
 #: src/Layouts/SidebarSourceRow.vala:43
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "कोई परियोजना उपलब्ध नहीं है। '+' बटन पर क्लिक करके एक बनाएं"
+
+#: src/Layouts/SidebarSourceRow.vala:78
+msgid "Account Migration Required"
+msgstr ""
+
+#: src/Layouts/SidebarSourceRow.vala:79
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Settings to "
+"continue syncing."
+msgstr ""
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -3261,11 +3291,11 @@ msgstr "असंग्रहित करें"
 msgid "No subtasks added yet. Get started!"
 msgstr ""
 
-#: src/Widgets/SyncButton.vala:90
+#: src/Widgets/SyncButton.vala:94
 msgid "Failed to connect to server"
 msgstr ""
 
-#: src/Widgets/SyncButton.vala:90
+#: src/Widgets/SyncButton.vala:94
 #, fuzzy
 msgid ""
 "It looks like the server is unreachable,\n"

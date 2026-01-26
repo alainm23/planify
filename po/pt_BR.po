@@ -310,12 +310,12 @@ msgstr "sem rótulos"
 msgid "unlabeled"
 msgstr "sem rótulo"
 
-#: core/Objects/Item.vala:1361
+#: core/Objects/Item.vala:1374
 msgid "Task copied to clipboard"
 msgstr "Tarefa copiada para a área de transferência"
 
 # c-format
-#: core/Objects/Item.vala:1654 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1667 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, fuzzy, c-format
@@ -330,22 +330,23 @@ msgstr[1] "Tarefas adicionadas a <b>%s</b>"
 msgid "Delete Label %s"
 msgstr "Excluir rótulo %s"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:851
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:180
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
 msgstr "Isso não pode ser desfeito"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:854
-#: core/Objects/Project.vala:911 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:859
+#: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:402
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:438
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:183
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:191
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:220
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
 #: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:580
@@ -356,10 +357,10 @@ msgstr "Isso não pode ser desfeito"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:855
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:184
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:625
@@ -368,27 +369,27 @@ msgstr "Cancelar"
 msgid "Delete"
 msgstr "Deletar"
 
-#: core/Objects/Project.vala:814
+#: core/Objects/Project.vala:819
 msgid "The project was copied to the Clipboard."
 msgstr "Este projeto foi copiado para a Área de Transferência."
 
 # c-format
-#: core/Objects/Project.vala:850
+#: core/Objects/Project.vala:855
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Excluir Projeto %s?"
 
-#: core/Objects/Project.vala:907 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:912 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "Arquivar?"
 
 # # c-format
-#: core/Objects/Project.vala:908 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:913 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Isto irá arquivar %s e todas suas tarefas."
 
-#: core/Objects/Project.vala:912 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:917 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
@@ -402,8 +403,8 @@ msgstr "Deletar Seção %s"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:35
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:44
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:37
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:46
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -564,36 +565,36 @@ msgstr "Sincronização completa"
 msgid "On this computer"
 msgstr "Neste computador"
 
-#: core/Services/Todoist.vala:1522 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1559 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "A requisição foi incorreta."
 
-#: core/Services/Todoist.vala:1523 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1560 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Autenticação é requerida, mas falhou ou não foi provida ainda."
 
-#: core/Services/Todoist.vala:1524 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1561 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "A requisição foi válida, mas por algum motivo é proibida."
 
-#: core/Services/Todoist.vala:1525 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1562 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "O recurso requerido não pôde ser encontrado."
 
-#: core/Services/Todoist.vala:1526 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1563 src/Widgets/ErrorView.vala:142
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "O usuário mandou muitas requisições em um dado período de tempo."
 
-#: core/Services/Todoist.vala:1527 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1564 src/Widgets/ErrorView.vala:143
 msgid "The request failed due to a server error."
 msgstr "A requisição falhou devido a um erro de servidor."
 
-#: core/Services/Todoist.vala:1528 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1565 src/Widgets/ErrorView.vala:144
 msgid "The server is currently unable to handle the request."
 msgstr "O servidor não pode processar a requisição no momento."
 
-#: core/Services/Todoist.vala:1531 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1568 src/Widgets/ErrorView.vala:146
 msgid "Unknown error"
 msgstr "Erro desconhecido"
 
@@ -823,7 +824,7 @@ msgid "Process completed, you need to start Planify again."
 msgstr "Processo concluído, você precisa iniciar o Planify novamente."
 
 #: core/Utils/Util.vala:452
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:215
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:217
 msgid "Ok"
 msgstr "Ok"
 
@@ -1701,31 +1702,40 @@ msgstr "Caixa de Entrada"
 msgid "You can sort your accounts by dragging and dropping"
 msgstr "Você pode classificar suas contas arrastando e soltando"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:222
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:542
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:578
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:293
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:307
 msgid "SSL verification is disabled"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:398
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
+msgid "Account migration required"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
+msgid "Reconnect"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:399
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:435
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:403
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:439
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:221
 #, fuzzy
 msgid "Change Inbox"
 msgstr "Abrir Caixa de Entrada"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:548
 #, fuzzy
 msgid "Syncing…"
 msgstr "Sincronizando…"
@@ -1814,52 +1824,62 @@ msgstr "Última Sincronização"
 msgid "Delete Source"
 msgstr "Excluir fonte?"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:179
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:187
 msgid "Delete Source?"
 msgstr "Excluir fonte?"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
+msgid "Cannot Delete This Source"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
+msgid ""
+"This source contains your current Inbox project. Please change your Inbox "
+"project first."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:100
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:102
 msgid "How to get your token?"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:103
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:102
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:104
 msgid "2. Find 'API token' and copy your token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:103
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:105
 msgid "3. Paste it in the field above"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:122
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:124
 msgid "Connect with Token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:165
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:167
 msgid "Enter token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:183
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:185
 msgid "Synchronizing…"
 msgstr "Sincronizando…"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:201
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
 msgid "Please Enter Your Credentials"
 msgstr "Por Favor, Insira suas Credenciais"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:205
 msgid "Loading…"
 msgstr "Carregando…"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:212
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:214
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
 msgid "Network Is Not Available"
 msgstr "A Internet Não Está Disponível"
 
@@ -2679,7 +2699,7 @@ msgstr "Tem certeza de que deseja excluir %s?"
 msgid "Delete Label"
 msgstr "Deletar Rótulo"
 
-#: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:224
+#: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:238
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr ""
 "Classificação de projetos alterada para 'Ordem de classificação "
@@ -2779,6 +2799,16 @@ msgstr "Ir para o Quadro de Anúncios"
 #: src/Layouts/SidebarSourceRow.vala:43
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Nenhum projeto disponível. Crie um clicando no botão '+'"
+
+#: src/Layouts/SidebarSourceRow.vala:78
+msgid "Account Migration Required"
+msgstr ""
+
+#: src/Layouts/SidebarSourceRow.vala:79
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Settings to "
+"continue syncing."
+msgstr ""
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -3270,11 +3300,11 @@ msgstr "Desarquivar"
 msgid "No subtasks added yet. Get started!"
 msgstr "Nenhuma subtarefa adicionada ainda. Comece já!"
 
-#: src/Widgets/SyncButton.vala:90
+#: src/Widgets/SyncButton.vala:94
 msgid "Failed to connect to server"
 msgstr "Falha de conexão com o servidor"
 
-#: src/Widgets/SyncButton.vala:90
+#: src/Widgets/SyncButton.vala:94
 msgid ""
 "It looks like the server is unreachable,\n"
 "are you connected to the internet?\n"

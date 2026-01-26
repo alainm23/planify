@@ -118,17 +118,11 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
 
         Gee.HashMap<string, SourceRow> sources_hashmap = new Gee.HashMap<string, SourceRow> ();
         foreach (Objects.Source source in Services.Store.instance ().sources) {
-            if (!sources_hashmap.has_key (source.id)) {
-                sources_hashmap[source.id] = new SourceRow (source, preferences_dialog);
-                sources_group.add_child (sources_hashmap[source.id]);
-            }
+            add_source_row (source, sources_hashmap);
         }
 
         signal_map[Services.Store.instance ().source_added.connect ((source) => {
-            if (!sources_hashmap.has_key (source.id)) {
-                sources_hashmap[source.id] = new SourceRow (source, preferences_dialog);
-                sources_group.add_child (sources_hashmap[source.id]);
-            }
+            add_source_row (source, sources_hashmap);
         })] = Services.Store.instance ();
 
         signal_map[Services.Store.instance ().source_deleted.connect ((source) => {
@@ -170,6 +164,24 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         destroy.connect (() => {
             clean_up ();
         });
+    }
+
+    private void add_source_row (Objects.Source source, Gee.HashMap<string, SourceRow> sources_hashmap) {
+        if (!sources_hashmap.has_key (source.id)) {
+            var source_row = new SourceRow (source, preferences_dialog);
+            sources_hashmap[source.id] = source_row;
+            sources_group.add_child (source_row);
+            
+            source_row.migration_requested.connect (() => {
+                #if USE_WEBKITGTK
+                var todoist_setup = new TodoistSetup.with_webkit (preferences_dialog, this);
+                #else
+                var todoist_setup = new TodoistSetup (preferences_dialog, this);
+                #endif
+                todoist_setup.set_migrate_mode (source);
+                preferences_dialog.push_subpage (todoist_setup);
+            });
+        }
     }
 
     public void show_message_error (int error_code, string error_message, bool visible_issue_button = true) {
@@ -243,6 +255,8 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         public Objects.Source source { get; construct; }
         public Adw.PreferencesDialog preferences_dialog { get; construct; }
 
+        public signal void migration_requested ();
+
         private Widgets.ReorderChild reorder;
         private Gtk.Revealer main_revealer;
         private Gtk.Switch visible_checkbutton;
@@ -298,11 +312,33 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
                 hexpand = true,
                 halign = END
             };
+
             if (warning_image != null) {
                 end_box.append (warning_image);
             }
-            end_box.append (visible_checkbutton);
-            end_box.append (new Gtk.Image.from_icon_name ("go-next-symbolic"));
+
+            // Check if Todoist account needs migration
+            if (source.source_type == SourceType.TODOIST && source.needs_migration ()) {
+                var migration_warning = new Gtk.Image.from_icon_name ("dialog-warning-symbolic") {
+                    tooltip_text = _("Account migration required")
+                };
+                migration_warning.add_css_class ("warning");
+
+                var migration_button = new Gtk.Button.with_label (_("Reconnect")) {
+                    valign = CENTER
+                };
+                migration_button.add_css_class ("suggested-action");
+
+                migration_button.clicked.connect (() => {
+                    migration_requested ();
+                });
+
+                end_box.append (migration_warning);
+                end_box.append (migration_button);
+            } else {
+                end_box.append (visible_checkbutton);
+                end_box.append (new Gtk.Image.from_icon_name ("go-next-symbolic"));
+            }
 
             var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
                 margin_top = 6,

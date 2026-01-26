@@ -175,6 +175,14 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
         })] = display_entry;
 
         signal_map[delete_button.activated.connect (() => {
+            string current_inbox_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
+            Objects.Project? current_inbox = Services.Store.instance ().get_project (current_inbox_id);
+            
+            if (current_inbox != null && current_inbox.source_id == source.id) {
+                show_inbox_warning_dialog ();
+                return;
+            }
+
             var dialog = new Adw.AlertDialog (
                 _("Delete Source?"),
                 _("This can not be undone")
@@ -200,6 +208,26 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
 
         destroy.connect (() => {
             clean_up ();
+        });
+    }
+
+    private void show_inbox_warning_dialog () {
+        var dialog = new Adw.AlertDialog (
+            _("Cannot Delete This Source"),
+            _("This source contains your current Inbox project. Please change your Inbox project first.")
+        );
+
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("change", _("Change Inbox"));
+        dialog.set_response_appearance ("change", Adw.ResponseAppearance.SUGGESTED);
+        dialog.set_default_response ("change");
+        dialog.set_close_response ("cancel");
+
+        dialog.choose.begin (Planify._instance.main_window, null, (obj, res) => {
+            string response = dialog.choose.end (res);
+            if (response == "change") {
+                preferences_dialog.push_subpage (new Dialogs.Preferences.Pages.InboxPage (preferences_dialog));
+            }
         });
     }
 }

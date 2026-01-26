@@ -195,6 +195,15 @@ public class Objects.Source : Objects.BaseObject {
             last_sync
         );
     }
+
+    public bool needs_migration () {
+        if (source_type != SourceType.TODOIST) {
+            return false;
+        }
+        
+        return todoist_data.api_version == "" || 
+               todoist_data.api_version == "v9";
+    }
 }
 
 public class Objects.SourceData : GLib.Object {
@@ -223,6 +232,7 @@ public class Objects.SourceTodoistData : Objects.SourceData {
     public string user_name { get; set; default = ""; }
     public string user_avatar { get; set; default = ""; }
     public bool user_is_premium { get; set; default = false; }
+    public string api_version { get; set; default = "v9"; }
 
     public SourceTodoistData.from_json (string json) {
         Json.Parser parser = new Json.Parser ();
@@ -262,6 +272,10 @@ public class Objects.SourceTodoistData : Objects.SourceData {
             if (object.has_member ("user_is_premium")) {
                 user_is_premium = object.get_boolean_member ("user_is_premium");
             }
+
+            if (object.has_member ("api_version")) {
+                api_version = object.get_string_member ("api_version");
+            }
         } catch (Error e) {
             debug (e.message);
         }
@@ -295,6 +309,9 @@ public class Objects.SourceTodoistData : Objects.SourceData {
 
         builder.set_member_name ("user_is_premium");
         builder.add_boolean_value (user_is_premium);
+
+        builder.set_member_name ("api_version");
+        builder.add_string_value (api_version);
 
         builder.end_object ();
 

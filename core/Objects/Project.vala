@@ -637,6 +637,11 @@ public class Objects.Project : Objects.BaseObject {
             builder.add_null_value ();
         }
 
+        if (description != "") {
+            builder.set_member_name ("description");
+            builder.add_string_value (description);
+        }
+
         builder.end_object ();
         builder.end_object ();
         builder.end_array ();
