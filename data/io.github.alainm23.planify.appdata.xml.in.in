@@ -35,16 +35,16 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-01.png</image>
+      <image>https://raw.githubusercontent.com/alainm23/planify/main/data/resources/screenshot/screenshot-01.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-02.png</image>
+      <image>https://raw.githubusercontent.com/alainm23/planify/main/data/resources/screenshot/screenshot-02.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-03.png</image>
+      <image>https://raw.githubusercontent.com/alainm23/planify/main/data/resources/screenshot/screenshot-03.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-04.png</image>
+      <image>https://raw.githubusercontent.com/alainm23/planify/main/data/resources/screenshot/screenshot-04.png</image>
     </screenshot>
   </screenshots>
   <kudos>
@@ -56,7 +56,7 @@
   <url type="homepage">https://useplanify.com/</url>
   <url type="bugtracker">https://github.com/alainm23/planify/issues</url>
   <url type="vcs-browser">https://github.com/alainm23/planify</url>
-  <url type="translate">https://github.com/alainm23/planify/tree/master/po#readme</url>
+  <url type="translate">https://github.com/alainm23/planify/tree/main/po#readme</url>
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
