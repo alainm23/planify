@@ -102,8 +102,8 @@ msgstr "CalDAV"
 #: core/Enum.vala:345 core/Enum.vala:537 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:545 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:230
-#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:712
-#: src/Views/Today.vala:741 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:720
+#: src/Views/Today.vala:749 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "Пріоритет"
 
@@ -112,7 +112,7 @@ msgid "Label"
 msgstr "Мітки"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:543
-#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:710
+#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:718
 msgid "Due Date"
 msgstr "Дата виконання"
 
@@ -121,7 +121,7 @@ msgstr "Дата виконання"
 msgid "Section"
 msgstr "Розділ"
 
-#: core/Enum.vala:357 src/Views/Today.vala:765
+#: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
 msgstr ""
 
@@ -351,7 +351,7 @@ msgstr "Це не можна скасувати"
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
 #: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:580
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
-#: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
+#: src/Views/Filter.vala:634 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:287
 msgid "Cancel"
@@ -363,7 +363,7 @@ msgstr "Скасувати"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
-#: src/Services/Backups.vala:420 src/Views/Filter.vala:625
+#: src/Services/Backups.vala:420 src/Views/Filter.vala:635
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
 #: src/Widgets/MultiSelectToolbar.vala:288
 msgid "Delete"
@@ -562,37 +562,43 @@ msgstr "Синхронізацію завершено"
 msgid "On this computer"
 msgstr "На цьому комп'ютері"
 
-#: core/Services/Todoist.vala:1559 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:33 src/Layouts/SidebarSourceRow.vala:79
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Preferences "
+"to continue syncing."
+msgstr ""
+
+#: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "Запит був неправильним."
 
-#: core/Services/Todoist.vala:1560 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1610 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 "Потрібна автентифікація, але вона не була успішна або ще не була надана."
 
-#: core/Services/Todoist.vala:1561 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1611 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Запит був дійсним, але щодо чогось забороненого."
 
-#: core/Services/Todoist.vala:1562 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1612 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "Запитаний ресурс не знайдено."
 
-#: core/Services/Todoist.vala:1563 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1613 src/Widgets/ErrorView.vala:143
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Користувач надіслав забагато запитів за заданий проміжок часу."
 
-#: core/Services/Todoist.vala:1564 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1614 src/Widgets/ErrorView.vala:144
 msgid "The request failed due to a server error."
 msgstr "Запит не вдалося виконати через помилку сервера."
 
-#: core/Services/Todoist.vala:1565 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1615 src/Widgets/ErrorView.vala:145
 msgid "The server is currently unable to handle the request."
 msgstr "Сервер наразі не може обробити запит."
 
-#: core/Services/Todoist.vala:1568 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "Невідома помилка"
 
@@ -805,7 +811,7 @@ msgid "Dark Blue"
 msgstr "Темно-синій"
 
 #: core/Utils/Util.vala:255 core/Widgets/DateTimePicker/DateTimePicker.vala:410
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55 src/Views/Today.vala:760
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55 src/Views/Today.vala:768
 msgid "None"
 msgstr "Немає"
 
@@ -1571,7 +1577,7 @@ msgid "No completed tasks yet."
 msgstr "Поки що немає виконаних завдань."
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:593
+#: src/Views/Filter.vala:603
 msgid "Delete All Completed Tasks"
 msgstr "Видалити всі виконані завдання"
 
@@ -1587,7 +1593,7 @@ msgstr[1] ""
 "Буде видалено %d завершених завдань та їхні підзавдання з проєкту %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
-#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:772
+#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:780
 msgid "Filter By"
 msgstr "Фільтр"
 
@@ -2095,7 +2101,7 @@ msgstr "Вручну"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:227
-#: src/Views/Today.vala:709
+#: src/Views/Today.vala:717
 msgid "Alphabetically"
 msgstr "Алфавітом"
 
@@ -2727,7 +2733,7 @@ msgid "Load more"
 msgstr "Завантажити більше"
 
 #: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:622
-#: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
+#: src/Widgets/SubItems.vala:420
 msgid "completed tasks"
 msgstr "Виконані завдання"
 
@@ -2786,12 +2792,6 @@ msgstr "Немає жодного проєкту. Створіть новий, �
 
 #: src/Layouts/SidebarSourceRow.vala:78
 msgid "Account Migration Required"
-msgstr ""
-
-#: src/Layouts/SidebarSourceRow.vala:79
-msgid ""
-"Todoist has updated their API. Please reconnect your account in Settings to "
-"continue syncing."
 msgstr ""
 
 #: src/MainWindow.vala:79
@@ -2907,14 +2907,18 @@ msgstr "Всі завдання виконано!"
 msgid "Great job, nothing left to do 🎉"
 msgstr "Чудова робота, більше нічого не залишилося робити 🎉"
 
-#: src/Views/Filter.vala:612
+#: src/Views/Filter.vala:361
+msgid "tasks"
+msgstr ""
+
+#: src/Views/Filter.vala:622
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "Видалити виконане завдання"
 msgstr[1] "Видалити виконані завдання"
 
 # # c-format
-#: src/Views/Filter.vala:617
+#: src/Views/Filter.vala:627
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
@@ -2982,7 +2986,7 @@ msgid "Board"
 msgstr "Дошка"
 
 #: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:224
-#: src/Views/Today.vala:706
+#: src/Views/Today.vala:714
 msgid "Sorting"
 msgstr "Сортування"
 
@@ -2991,7 +2995,7 @@ msgid "Custom sort order"
 msgstr "Вручну"
 
 #: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:229
-#: src/Views/Today.vala:711
+#: src/Views/Today.vala:719
 msgid "Date Added"
 msgstr "Датою додавання"
 
@@ -3024,27 +3028,27 @@ msgid "Next 30 Days"
 msgstr "Наступні 30 днів"
 
 #: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:237
-#: src/Views/Today.vala:719
+#: src/Views/Today.vala:727
 msgid "P1"
 msgstr "П1"
 
 #: src/Views/Project/Project.vala:574 src/Views/Scheduled/Scheduled.vala:243
-#: src/Views/Today.vala:725
+#: src/Views/Today.vala:733
 msgid "P2"
 msgstr "П2"
 
 #: src/Views/Project/Project.vala:580 src/Views/Scheduled/Scheduled.vala:249
-#: src/Views/Today.vala:731
+#: src/Views/Today.vala:739
 msgid "P3"
 msgstr "П3"
 
 #: src/Views/Project/Project.vala:586 src/Views/Scheduled/Scheduled.vala:255
-#: src/Views/Today.vala:737
+#: src/Views/Today.vala:745
 msgid "P4"
 msgstr "П4"
 
 #: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:262
-#: src/Views/Today.vala:744
+#: src/Views/Today.vala:752
 msgid "Filter by Labels"
 msgstr "Фільтрувати за мітками"
 
@@ -3072,7 +3076,7 @@ msgstr "Прострочено"
 msgid "Reschedule"
 msgstr "Перенести"
 
-#: src/Views/Today.vala:753
+#: src/Views/Today.vala:761
 msgid "Me"
 msgstr ""
 
@@ -3134,6 +3138,10 @@ msgstr "Показати менше"
 #: src/Widgets/ErrorView.vala:107
 msgid "Report Issue"
 msgstr "Повідомити про проблему"
+
+#: src/Widgets/ErrorView.vala:142
+msgid "Account migration required."
+msgstr ""
 
 #: src/Widgets/EventRow.vala:207
 #, c-format
