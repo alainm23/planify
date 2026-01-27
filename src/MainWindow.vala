@@ -756,9 +756,8 @@ public class MainWindow : Adw.ApplicationWindow {
             var shortcuts_builder = new Gtk.Builder ();
             shortcuts_builder.add_from_resource ("/io/github/alainm23/planify/shortcuts.ui");
             
-            var shortcuts_window = (Gtk.ShortcutsWindow) shortcuts_builder.get_object ("shortcuts-planify");
-            shortcuts_window.set_transient_for (this);
-            shortcuts_window.show ();
+            var shortcuts_dialog = (Adw.ShortcutsDialog) shortcuts_builder.get_object ("shortcuts_dialog");
+            shortcuts_dialog.present (this);
         } catch (Error e) {
             warning ("Failed to open shortcuts window: %s\n", e.message);
         }
