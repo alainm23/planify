@@ -102,8 +102,8 @@ msgstr "CalDAV"
 #: core/Enum.vala:345 core/Enum.vala:537 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:545 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:230
-#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:712
-#: src/Views/Today.vala:741 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:720
+#: src/Views/Today.vala:749 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "वरीयता"
 
@@ -112,7 +112,7 @@ msgid "Label"
 msgstr "लेबल"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:543
-#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:710
+#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:718
 msgid "Due Date"
 msgstr "देय तारीख"
 
@@ -121,7 +121,7 @@ msgstr "देय तारीख"
 msgid "Section"
 msgstr "अनुभाग"
 
-#: core/Enum.vala:357 src/Views/Today.vala:765
+#: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
 msgstr ""
 
@@ -352,7 +352,7 @@ msgstr "इसे पूर्ववत नहीं किया जा सक�
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
 #: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:580
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
-#: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
+#: src/Views/Filter.vala:634 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:287
 msgid "Cancel"
@@ -364,7 +364,7 @@ msgstr "रद्द करें"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
-#: src/Services/Backups.vala:420 src/Views/Filter.vala:625
+#: src/Services/Backups.vala:420 src/Views/Filter.vala:635
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
 #: src/Widgets/MultiSelectToolbar.vala:288
 msgid "Delete"
@@ -572,36 +572,42 @@ msgstr "पूर्ण"
 msgid "On this computer"
 msgstr "इस कंप्यूटर पर"
 
-#: core/Services/Todoist.vala:1559 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:33 src/Layouts/SidebarSourceRow.vala:79
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Preferences "
+"to continue syncing."
+msgstr ""
+
+#: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "अनुरोध गलत था।"
 
-#: core/Services/Todoist.vala:1560 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1610 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "प्रमाणीकरण आवश्यक है, या तो विफल हुआ या प्रदान नहीं किया गया।"
 
-#: core/Services/Todoist.vala:1561 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1611 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "अनुरोध मान्य था, लेकिन निषिद्ध चीज़ के लिए।"
 
-#: core/Services/Todoist.vala:1562 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1612 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "अनुरोधित संसाधन नहीं मिला।"
 
-#: core/Services/Todoist.vala:1563 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1613 src/Widgets/ErrorView.vala:143
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "उपयोक्ता ने निश्चित समय में बहुत अधिक अनुरोध भेजे हैं।"
 
-#: core/Services/Todoist.vala:1564 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1614 src/Widgets/ErrorView.vala:144
 msgid "The request failed due to a server error."
 msgstr "सर्वर त्रुटि के कारण अनुरोध विफल हुआ।"
 
-#: core/Services/Todoist.vala:1565 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1615 src/Widgets/ErrorView.vala:145
 msgid "The server is currently unable to handle the request."
 msgstr "सर्वर अनुरोध संभालने में फिलहाल असमर्थ है।"
 
-#: core/Services/Todoist.vala:1568 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "अज्ञात त्रुटि"
 
@@ -814,7 +820,7 @@ msgid "Dark Blue"
 msgstr "गहरा नीला"
 
 #: core/Utils/Util.vala:255 core/Widgets/DateTimePicker/DateTimePicker.vala:410
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55 src/Views/Today.vala:760
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55 src/Views/Today.vala:768
 msgid "None"
 msgstr "कोई नहीं"
 
@@ -1583,7 +1589,7 @@ msgid "No completed tasks yet."
 msgstr "पूर्ण कार्य दिखाएं"
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:593
+#: src/Views/Filter.vala:603
 msgid "Delete All Completed Tasks"
 msgstr "सभी पूर्ण कार्य मिटाएं"
 
@@ -1599,7 +1605,7 @@ msgstr[1] ""
 "यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
-#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:772
+#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:780
 msgid "Filter By"
 msgstr "ऐसे फिल्टर करें"
 
@@ -2108,7 +2114,7 @@ msgstr "तदनुकूल छंटाई क्रम"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:227
-#: src/Views/Today.vala:709
+#: src/Views/Today.vala:717
 msgid "Alphabetically"
 msgstr "वर्णानुक्रम"
 
@@ -2740,7 +2746,7 @@ msgid "Load more"
 msgstr ""
 
 #: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:622
-#: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
+#: src/Widgets/SubItems.vala:420
 #, fuzzy
 msgid "completed tasks"
 msgstr "कार्य पूर्ण करें"
@@ -2802,12 +2808,6 @@ msgstr "कोई परियोजना उपलब्ध नहीं ह�
 
 #: src/Layouts/SidebarSourceRow.vala:78
 msgid "Account Migration Required"
-msgstr ""
-
-#: src/Layouts/SidebarSourceRow.vala:79
-msgid ""
-"Todoist has updated their API. Please reconnect your account in Settings to "
-"continue syncing."
 msgstr ""
 
 #: src/MainWindow.vala:79
@@ -2919,7 +2919,11 @@ msgstr "पूर्ण"
 msgid "Great job, nothing left to do 🎉"
 msgstr ""
 
-#: src/Views/Filter.vala:612
+#: src/Views/Filter.vala:361
+msgid "tasks"
+msgstr ""
+
+#: src/Views/Filter.vala:622
 #, fuzzy
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
@@ -2927,7 +2931,7 @@ msgstr[0] "सभी पूर्ण कार्य मिटाएं"
 msgstr[1] "सभी पूर्ण कार्य मिटाएं"
 
 # # c-format
-#: src/Views/Filter.vala:617
+#: src/Views/Filter.vala:627
 #, fuzzy, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
@@ -2996,7 +3000,7 @@ msgid "Board"
 msgstr "बोर्ड"
 
 #: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:224
-#: src/Views/Today.vala:706
+#: src/Views/Today.vala:714
 msgid "Sorting"
 msgstr "छंटाई"
 
@@ -3005,7 +3009,7 @@ msgid "Custom sort order"
 msgstr "तदनुकूल छंटाई क्रम"
 
 #: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:229
-#: src/Views/Today.vala:711
+#: src/Views/Today.vala:719
 msgid "Date Added"
 msgstr "तारीख जोड़ा गया"
 
@@ -3039,27 +3043,27 @@ msgid "Next 30 Days"
 msgstr "अगले 30 दिन"
 
 #: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:237
-#: src/Views/Today.vala:719
+#: src/Views/Today.vala:727
 msgid "P1"
 msgstr "P1"
 
 #: src/Views/Project/Project.vala:574 src/Views/Scheduled/Scheduled.vala:243
-#: src/Views/Today.vala:725
+#: src/Views/Today.vala:733
 msgid "P2"
 msgstr "P2"
 
 #: src/Views/Project/Project.vala:580 src/Views/Scheduled/Scheduled.vala:249
-#: src/Views/Today.vala:731
+#: src/Views/Today.vala:739
 msgid "P3"
 msgstr "P3"
 
 #: src/Views/Project/Project.vala:586 src/Views/Scheduled/Scheduled.vala:255
-#: src/Views/Today.vala:737
+#: src/Views/Today.vala:745
 msgid "P4"
 msgstr "P4"
 
 #: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:262
-#: src/Views/Today.vala:744
+#: src/Views/Today.vala:752
 msgid "Filter by Labels"
 msgstr "लेबल द्वारा फिल्टर करें"
 
@@ -3088,7 +3092,7 @@ msgstr "अतिदेय"
 msgid "Reschedule"
 msgstr "पुनर्निर्धारित"
 
-#: src/Views/Today.vala:753
+#: src/Views/Today.vala:761
 msgid "Me"
 msgstr ""
 
@@ -3147,6 +3151,10 @@ msgstr "पूर्ण कार्य दिखाएं"
 #: src/Widgets/ErrorView.vala:107
 msgid "Report Issue"
 msgstr "समस्या दर्ज करें"
+
+#: src/Widgets/ErrorView.vala:142
+msgid "Account migration required."
+msgstr ""
 
 #: src/Widgets/EventRow.vala:207
 #, c-format

@@ -127,8 +127,8 @@ msgstr "CalDAV"
 #: core/Enum.vala:345 core/Enum.vala:537 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:545 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:230
-#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:712
-#: src/Views/Today.vala:741 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:720
+#: src/Views/Today.vala:749 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "الأولوية"
 
@@ -137,7 +137,7 @@ msgid "Label"
 msgstr "ملصق"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:543
-#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:710
+#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:718
 msgid "Due Date"
 msgstr "تاريخ الاستحقاق"
 
@@ -146,7 +146,7 @@ msgstr "تاريخ الاستحقاق"
 msgid "Section"
 msgstr "قسم"
 
-#: core/Enum.vala:357 src/Views/Today.vala:765
+#: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
 msgstr ""
 
@@ -378,7 +378,7 @@ msgstr "هذا لا يمكن الرجوع عنه"
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
 #: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:580
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
-#: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
+#: src/Views/Filter.vala:634 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:287
 msgid "Cancel"
@@ -390,7 +390,7 @@ msgstr "الغاء"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
-#: src/Services/Backups.vala:420 src/Views/Filter.vala:625
+#: src/Services/Backups.vala:420 src/Views/Filter.vala:635
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
 #: src/Widgets/MultiSelectToolbar.vala:288
 msgid "Delete"
@@ -586,36 +586,42 @@ msgstr "تمت المزامنة"
 msgid "On this computer"
 msgstr ""
 
-#: core/Services/Todoist.vala:1559 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:33 src/Layouts/SidebarSourceRow.vala:79
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Preferences "
+"to continue syncing."
+msgstr ""
+
+#: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "الطلب غير صحيح."
 
-#: core/Services/Todoist.vala:1560 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1610 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "التصديق مطلوب, و فشل, أو لم يتم تقديمه حتى الآن."
 
-#: core/Services/Todoist.vala:1561 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1611 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "الطلب صالح, لكن لشيء محظور."
 
-#: core/Services/Todoist.vala:1562 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1612 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "المورد المطلوب غير موجود."
 
-#: core/Services/Todoist.vala:1563 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1613 src/Widgets/ErrorView.vala:143
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "لقد أرسل المستخدم طلبات في وقت محدد أكثر مما يجب."
 
-#: core/Services/Todoist.vala:1564 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1614 src/Widgets/ErrorView.vala:144
 msgid "The request failed due to a server error."
 msgstr "فشل الطلب بسبب خطأ في المخدم."
 
-#: core/Services/Todoist.vala:1565 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1615 src/Widgets/ErrorView.vala:145
 msgid "The server is currently unable to handle the request."
 msgstr "المخدم غير قادر حالياً على معالجة الطلب."
 
-#: core/Services/Todoist.vala:1568 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "خطأ غير معروف"
 
@@ -834,7 +840,7 @@ msgid "Dark Blue"
 msgstr ""
 
 #: core/Utils/Util.vala:255 core/Widgets/DateTimePicker/DateTimePicker.vala:410
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55 src/Views/Today.vala:760
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55 src/Views/Today.vala:768
 msgid "None"
 msgstr ""
 
@@ -1549,7 +1555,7 @@ msgid "No completed tasks yet."
 msgstr ""
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:593
+#: src/Views/Filter.vala:603
 msgid "Delete All Completed Tasks"
 msgstr ""
 
@@ -1566,7 +1572,7 @@ msgstr[4] ""
 msgstr[5] ""
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
-#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:772
+#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:780
 msgid "Filter By"
 msgstr ""
 
@@ -2061,7 +2067,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:227
-#: src/Views/Today.vala:709
+#: src/Views/Today.vala:717
 msgid "Alphabetically"
 msgstr ""
 
@@ -2673,7 +2679,7 @@ msgid "Load more"
 msgstr ""
 
 #: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:622
-#: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
+#: src/Widgets/SubItems.vala:420
 msgid "completed tasks"
 msgstr ""
 
@@ -2732,12 +2738,6 @@ msgstr ""
 
 #: src/Layouts/SidebarSourceRow.vala:78
 msgid "Account Migration Required"
-msgstr ""
-
-#: src/Layouts/SidebarSourceRow.vala:79
-msgid ""
-"Todoist has updated their API. Please reconnect your account in Settings to "
-"continue syncing."
 msgstr ""
 
 #: src/MainWindow.vala:79
@@ -2844,7 +2844,11 @@ msgstr ""
 msgid "Great job, nothing left to do 🎉"
 msgstr ""
 
-#: src/Views/Filter.vala:612
+#: src/Views/Filter.vala:361
+msgid "tasks"
+msgstr ""
+
+#: src/Views/Filter.vala:622
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] ""
@@ -2854,7 +2858,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: src/Views/Filter.vala:617
+#: src/Views/Filter.vala:627
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
@@ -2926,7 +2930,7 @@ msgid "Board"
 msgstr ""
 
 #: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:224
-#: src/Views/Today.vala:706
+#: src/Views/Today.vala:714
 msgid "Sorting"
 msgstr ""
 
@@ -2935,7 +2939,7 @@ msgid "Custom sort order"
 msgstr ""
 
 #: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:229
-#: src/Views/Today.vala:711
+#: src/Views/Today.vala:719
 msgid "Date Added"
 msgstr ""
 
@@ -2968,27 +2972,27 @@ msgid "Next 30 Days"
 msgstr ""
 
 #: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:237
-#: src/Views/Today.vala:719
+#: src/Views/Today.vala:727
 msgid "P1"
 msgstr ""
 
 #: src/Views/Project/Project.vala:574 src/Views/Scheduled/Scheduled.vala:243
-#: src/Views/Today.vala:725
+#: src/Views/Today.vala:733
 msgid "P2"
 msgstr ""
 
 #: src/Views/Project/Project.vala:580 src/Views/Scheduled/Scheduled.vala:249
-#: src/Views/Today.vala:731
+#: src/Views/Today.vala:739
 msgid "P3"
 msgstr ""
 
 #: src/Views/Project/Project.vala:586 src/Views/Scheduled/Scheduled.vala:255
-#: src/Views/Today.vala:737
+#: src/Views/Today.vala:745
 msgid "P4"
 msgstr ""
 
 #: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:262
-#: src/Views/Today.vala:744
+#: src/Views/Today.vala:752
 msgid "Filter by Labels"
 msgstr ""
 
@@ -3016,7 +3020,7 @@ msgstr ""
 msgid "Reschedule"
 msgstr ""
 
-#: src/Views/Today.vala:753
+#: src/Views/Today.vala:761
 msgid "Me"
 msgstr ""
 
@@ -3073,6 +3077,10 @@ msgstr ""
 
 #: src/Widgets/ErrorView.vala:107
 msgid "Report Issue"
+msgstr ""
+
+#: src/Widgets/ErrorView.vala:142
+msgid "Account migration required."
 msgstr ""
 
 #: src/Widgets/EventRow.vala:207
