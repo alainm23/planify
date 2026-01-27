@@ -23,13 +23,14 @@ public class Services.Todoist : GLib.Object {
     private Soup.Session session;
     private Json.Parser parser;
 
-    private const string TODOIST_SYNC_URL = "https://api.todoist.com/sync/v9/sync";
+    private const string TODOIST_SYNC_URL = "https://api.todoist.com/api/v1/sync";
     private const string RESOURCE_TYPES = "[\"user\", \"projects\", \"sections\", \"items\", \"labels\", \"reminders\"]";
     private const string PROJECTS_COLLECTION = "projects";
     private const string SECTIONS_COLLECTION = "sections";
     private const string ITEMS_COLLECTION = "items";
     private const string LABELS_COLLECTION = "labels";
     private const string REMINDERS_COLLECTION = "reminders";
+    private const string MIGRATE_MESSAGE = _("Todoist has updated their API. Please reconnect your account in Preferences to continue syncing.");
 
     private static Todoist ? _instance;
     public static Todoist get_default () {
@@ -45,7 +46,7 @@ public class Services.Todoist : GLib.Object {
         parser = new Json.Parser ();
     }
 
-    public async HttpResponse login (string _url) {
+    public async HttpResponse login (string _url, Objects.Source? migrate_source = null) {
         string code = _url.split ("=")[1];
         code = code.split ("&")[0];
 
@@ -64,7 +65,7 @@ public class Services.Todoist : GLib.Object {
             var root = parser.get_root ().get_object ();
             var token = root.get_string_member ("access_token");
 
-            yield add_todoist_account (token, response);
+            yield add_todoist_account (token, response, migrate_source);
         } catch (Error e) {
             response.error_code = e.code;
             response.error = e.message;
@@ -74,11 +75,11 @@ public class Services.Todoist : GLib.Object {
         return response;
     }
 
-    public async HttpResponse login_token (string token) {
+    public async HttpResponse login_token (string token, Objects.Source? migrate_source = null) {
         var response = new HttpResponse ();
 
         try {
-            yield add_todoist_account (token, response);
+            yield add_todoist_account (token, response, migrate_source);
         } catch (Error e) {
             response.error_code = e.code;
             response.error = e.message;
@@ -88,13 +89,12 @@ public class Services.Todoist : GLib.Object {
         return response;
     }
 
-    public async void add_todoist_account (string token, HttpResponse response) {
-        string url = TODOIST_SYNC_URL;
-        url = url + "?sync_token=" + "*";
-        url = url + "&resource_types=" + RESOURCE_TYPES;
-
-        var message = new Soup.Message ("POST", url);
+    public async void add_todoist_account (string token, HttpResponse response, Objects.Source? migrate_source = null) {
+        var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
         message.request_headers.append ("Authorization", "Bearer %s".printf (token));
+        
+        string form_data = "sync_token=*&resource_types=%s".printf (RESOURCE_TYPES);
+        message.set_request_body_from_bytes ("application/x-www-form-urlencoded", new GLib.Bytes (form_data.data));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -108,6 +108,7 @@ public class Services.Todoist : GLib.Object {
 
             todoist_data.sync_token = parser.get_root ().get_object ().get_string_member ("sync_token");
             todoist_data.access_token = token;
+            todoist_data.api_version = "v1";
             source.sync_server = true;
 
             // Create user
@@ -127,10 +128,12 @@ public class Services.Todoist : GLib.Object {
             source.data = todoist_data;
 
             if (Services.Store.instance ().source_todoist_exists (todoist_data.user_email)) {
-                response.error_code = 409;
-                response.error = "Source already exists";
-                response.status = false;
-                return;
+                if (migrate_source == null || migrate_source.todoist_data.user_email != todoist_data.user_email) {
+                    response.error_code = 409;
+                    response.error = "Source already exists";
+                    response.status = false;
+                    return;
+                }
             }
 
             Services.Store.instance ().insert_source (source);
@@ -192,12 +195,39 @@ public class Services.Todoist : GLib.Object {
             source.last_sync = new GLib.DateTime.now_local ().to_string ();
             source.save ();
 
+            if (migrate_source != null) {
+                check_and_update_inbox_project (migrate_source);
+                migrate_source.delete_source.begin ();
+            }
+
             response.status = true;
         } catch (Error e) {
             response.error_code = e.code;
             response.error = e.message;
             debug (e.message);
         }
+    }
+
+    private void check_and_update_inbox_project (Objects.Source migrate_source) {
+        string current_inbox_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
+        Objects.Project? current_inbox = Services.Store.instance ().get_project (current_inbox_id);
+        
+        if (current_inbox != null && current_inbox.source_id == migrate_source.id) {
+            Objects.Project? local_inbox = get_local_inbox_project ();
+            if (local_inbox != null) {
+                Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", local_inbox.id);
+            }
+        }
+    }
+
+    private Objects.Project? get_local_inbox_project () {
+        foreach (Objects.Project project in Services.Store.instance ().projects) {
+            if (project.source_id == SourceType.LOCAL.to_string () && project.inbox_project) {
+                return project;
+            }
+        }
+        
+        return null;
     }
 
     /*
@@ -209,14 +239,22 @@ public class Services.Todoist : GLib.Object {
             return;
         }
 
+        // Don't sync if account needs migration
+        if (source.needs_migration ()) {
+            source.sync_failed ();
+            return;
+        }
+
         source.sync_started ();
 
-        string url = TODOIST_SYNC_URL;
-        url = url + "?sync_token=" + source.todoist_data.sync_token;
-        url = url + "&resource_types=" + RESOURCE_TYPES;
-
-        var message = new Soup.Message ("POST", url);
+        var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
         message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
+        
+        string form_data = "sync_token=%s&resource_types=%s".printf (
+            source.todoist_data.sync_token,
+            RESOURCE_TYPES
+        );
+        message.set_request_body_from_bytes ("application/x-www-form-urlencoded", new GLib.Bytes (form_data.data));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
@@ -763,6 +801,15 @@ public class Services.Todoist : GLib.Object {
     }
 
     public async HttpResponse add (Objects.BaseObject object) {
+        HttpResponse response = new HttpResponse ();
+
+        if (object.source.needs_migration ()) {
+            response.status = false;
+            response.error = MIGRATE_MESSAGE;
+            response.error_code = 410;
+            return response;
+        }
+
         string temp_id = Util.get_default ().generate_string ();
         string uuid = Util.get_default ().generate_string ();
         string id;
@@ -774,8 +821,6 @@ public class Services.Todoist : GLib.Object {
             "Bearer %s".printf (object.source.todoist_data.access_token)
         );
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
-
-        HttpResponse response = new HttpResponse ();
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -845,6 +890,15 @@ public class Services.Todoist : GLib.Object {
     }
 
     public async HttpResponse update (Objects.BaseObject object) {
+        HttpResponse response = new HttpResponse ();
+
+        if (object.source.needs_migration ()) {
+            response.status = false;
+            response.error = MIGRATE_MESSAGE;
+            response.error_code = 410;
+            return response;
+        }
+
         string uuid = Util.get_default ().generate_string ();
         string json = object.get_update_json (uuid);
 
@@ -856,8 +910,6 @@ public class Services.Todoist : GLib.Object {
             "Bearer %s".printf (source.todoist_data.access_token)
         );
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
-
-        HttpResponse response = new HttpResponse ();
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1023,6 +1075,15 @@ public class Services.Todoist : GLib.Object {
     }
 
     public async HttpResponse delete (Objects.BaseObject object) {
+        HttpResponse response = new HttpResponse ();
+
+        if (object.source.needs_migration ()) {
+            response.status = false;
+            response.error = MIGRATE_MESSAGE;
+            response.error_code = 410;
+            return response;
+        }
+
         string uuid = Util.get_default ().generate_string ();
         string json = get_delete_json (object.id, object.type_delete, uuid);
 
@@ -1032,8 +1093,6 @@ public class Services.Todoist : GLib.Object {
             "Bearer %s".printf (object.source.todoist_data.access_token)
         );
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
-
-        HttpResponse response = new HttpResponse ();
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1106,6 +1165,15 @@ public class Services.Todoist : GLib.Object {
      */
 
     public async HttpResponse complete_item (Objects.Item item) {
+        HttpResponse response = new HttpResponse ();
+
+        if (item.source.needs_migration ()) {
+            response.status = false;
+            response.error = MIGRATE_MESSAGE;
+            response.error_code = 410;
+            return response;
+        }
+
         string uuid = Util.get_default ().generate_string ();
         string json = item.get_check_json (uuid, item.checked ? "item_complete" : "item_uncomplete");
         Objects.Source source = item.source;
@@ -1116,8 +1184,6 @@ public class Services.Todoist : GLib.Object {
             "Bearer %s".printf (source.todoist_data.access_token)
         );
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
-
-        HttpResponse response = new HttpResponse ();
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1213,6 +1279,15 @@ public class Services.Todoist : GLib.Object {
     }
 
     public async HttpResponse move_item (Objects.Item item, string type, string id) {
+        HttpResponse response = new HttpResponse ();
+
+        if (item.source.needs_migration ()) {
+            response.status = false;
+            response.error = MIGRATE_MESSAGE;
+            response.error_code = 410;
+            return response;
+        }
+
         string uuid = Util.get_default ().generate_string ();
         string json = item.get_move_item (uuid, type, id);
         Objects.Source source = item.source;
@@ -1223,8 +1298,6 @@ public class Services.Todoist : GLib.Object {
             "Bearer %s".printf (source.todoist_data.access_token)
         );
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
-
-        HttpResponse response = new HttpResponse ();
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1281,6 +1354,15 @@ public class Services.Todoist : GLib.Object {
     }
 
     public async HttpResponse move_project_section (Objects.BaseObject base_object, string project_id) {
+        HttpResponse response = new HttpResponse ();
+
+        if (base_object.source.needs_migration ()) {
+            response.status = false;
+            response.error = MIGRATE_MESSAGE;
+            response.error_code = 410;
+            return response;
+        }
+
         string uuid = Util.get_default ().generate_string ();
         string json = base_object.get_move_json (uuid, project_id);
 
@@ -1290,8 +1372,6 @@ public class Services.Todoist : GLib.Object {
             "Bearer %s".printf (base_object.source.todoist_data.access_token)
         );
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
-
-        HttpResponse response = new HttpResponse ();
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1353,6 +1433,15 @@ public class Services.Todoist : GLib.Object {
     }
 
     public async HttpResponse duplicate_project (Objects.Project project) {
+        HttpResponse response = new HttpResponse ();
+
+        if (project.source.needs_migration ()) {
+            response.status = false;
+            response.error = MIGRATE_MESSAGE;
+            response.error_code = 410;
+            return response;
+        }
+
         string json = get_duplicate_project_json (project);
 
         var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
@@ -1361,8 +1450,6 @@ public class Services.Todoist : GLib.Object {
             "Bearer %s".printf (project.source.todoist_data.access_token)
         );
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
-
-        HttpResponse response = new HttpResponse ();
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);

@@ -200,6 +200,7 @@ public class Views.Label : Adw.Bin {
         if (items.has_key (item.id) && !item.has_label (label.id)) {
             items[item.id].hide_destroy ();
             items.unset (item.id);
+            Services.EventBus.get_default ().unfocus_item ();
         }
 
         valid_add_item (item);

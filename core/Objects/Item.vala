@@ -1084,6 +1084,19 @@ public class Objects.Item : Objects.BaseObject {
             builder.add_null_value ();
         }
 
+        if (has_deadline) {
+            builder.set_member_name ("deadline");
+            builder.begin_object ();
+
+            builder.set_member_name ("date");
+            builder.add_string_value (Utils.Datetime.get_todoist_datetime_format (deadline_datetime));
+
+            builder.end_object ();
+        } else {
+            builder.set_member_name ("deadline");
+            builder.add_null_value ();
+        }
+
         builder.set_member_name ("labels");
         builder.begin_array ();
         foreach (Objects.Label label in labels) {
