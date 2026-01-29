@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-15 07:40+0000\n"
+"PO-Revision-Date: 2026-01-29 13:30+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -96,8 +96,9 @@ msgstr "CalDAV 行事曆協議"
 #: core/Enum.vala:345 core/Enum.vala:537 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:545 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:230
-#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:720
-#: src/Views/Today.vala:749 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:712
+#: src/Views/Today.vala:741 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Today.vala:720 src/Views/Today.vala:749
 msgid "Priority"
 msgstr "優先等級"
 
@@ -106,7 +107,8 @@ msgid "Label"
 msgstr "標籤"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:543
-#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:718
+#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:710
+#: src/Views/Today.vala:718
 msgid "Due Date"
 msgstr "到期日"
 
@@ -115,9 +117,9 @@ msgstr "到期日"
 msgid "Section"
 msgstr "階段"
 
-#: core/Enum.vala:357 src/Views/Today.vala:773
+#: core/Enum.vala:357 src/Views/Today.vala:765
 msgid "Assignment"
-msgstr ""
+msgstr "分派"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -342,9 +344,9 @@ msgstr "此項無法取消動作"
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
 #: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:580
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
-#: src/Views/Filter.vala:634 src/Widgets/BypassResolveSwitchRow.vala:48
+#: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:287
+#: src/Widgets/MultiSelectToolbar.vala:287 src/Views/Filter.vala:634
 msgid "Cancel"
 msgstr "取消"
 
@@ -354,9 +356,9 @@ msgstr "取消"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
-#: src/Services/Backups.vala:420 src/Views/Filter.vala:635
+#: src/Services/Backups.vala:420 src/Views/Filter.vala:625
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
-#: src/Widgets/MultiSelectToolbar.vala:288
+#: src/Widgets/MultiSelectToolbar.vala:288 src/Views/Filter.vala:635
 msgid "Delete"
 msgstr "刪除"
 
@@ -548,41 +550,43 @@ msgstr "同步已經完成"
 msgid "On this computer"
 msgstr "在此台電腦上"
 
-#: core/Services/Todoist.vala:33 src/Layouts/SidebarSourceRow.vala:79
-msgid ""
-"Todoist has updated their API. Please reconnect your account in Preferences "
-"to continue syncing."
-msgstr ""
-
-#: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1559 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1609
 msgid "The request was incorrect."
 msgstr "所提請求不正確。"
 
-#: core/Services/Todoist.vala:1610 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1560 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1610
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "需要身份驗證，但遭失敗，或是尚未提供。"
 
-#: core/Services/Todoist.vala:1611 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1561 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1611
 msgid "The request was valid, but for something that is forbidden."
 msgstr "該請求是有效的，但因某些事物是禁止的。"
 
-#: core/Services/Todoist.vala:1612 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1562 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1612
 msgid "The requested resource could not be found."
 msgstr "所提請求的資源無法找到。"
 
+#: core/Services/Todoist.vala:1563 src/Widgets/ErrorView.vala:142
 #: core/Services/Todoist.vala:1613 src/Widgets/ErrorView.vala:143
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "使用者在給定時間內發送過多請求。"
 
+#: core/Services/Todoist.vala:1564 src/Widgets/ErrorView.vala:143
 #: core/Services/Todoist.vala:1614 src/Widgets/ErrorView.vala:144
 msgid "The request failed due to a server error."
 msgstr "由於伺服器錯誤，請求失敗。"
 
+#: core/Services/Todoist.vala:1565 src/Widgets/ErrorView.vala:144
 #: core/Services/Todoist.vala:1615 src/Widgets/ErrorView.vala:145
 msgid "The server is currently unable to handle the request."
 msgstr "伺服器目前無法處理該請求。"
 
+#: core/Services/Todoist.vala:1568 src/Widgets/ErrorView.vala:146
 #: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "不明錯誤"
@@ -792,7 +796,8 @@ msgid "Dark Blue"
 msgstr "暗藍"
 
 #: core/Utils/Util.vala:255 core/Widgets/DateTimePicker/DateTimePicker.vala:410
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55 src/Views/Today.vala:768
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55 src/Views/Today.vala:760
+#: src/Views/Today.vala:768
 msgid "None"
 msgstr "無"
 
@@ -1531,7 +1536,7 @@ msgid "No completed tasks yet."
 msgstr "無尚已經完成的任務。"
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:603
+#: src/Views/Filter.vala:593 src/Views/Filter.vala:603
 msgid "Delete All Completed Tasks"
 msgstr "刪除全部已經完成任務"
 
@@ -1543,7 +1548,8 @@ msgid_plural ""
 msgstr[0] "這將刪除 %d 個已經完成的任務及其子任務，來自專案 %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
-#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:780
+#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:772
+#: src/Views/Today.vala:780
 msgid "Filter By"
 msgstr "篩選依照"
 
@@ -1660,11 +1666,11 @@ msgstr "SSL 驗證停用"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
 msgid "Account migration required"
-msgstr ""
+msgstr "帳號遷移是必須的"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Reconnect"
-msgstr ""
+msgstr "重新連接"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
@@ -1771,13 +1777,13 @@ msgstr "刪除來源？"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "無法刪除此來源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
-msgstr ""
+msgstr "該來源含有您目前的 Inbox 收件專案。請首先變更您的收件專案。"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
@@ -2042,7 +2048,7 @@ msgstr "自訂排序順序"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:227
-#: src/Views/Today.vala:717
+#: src/Views/Today.vala:709 src/Views/Today.vala:717
 msgid "Alphabetically"
 msgstr "按照字母順序"
 
@@ -2659,7 +2665,7 @@ msgid "Load more"
 msgstr "載入更多"
 
 #: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:622
-#: src/Widgets/SubItems.vala:420
+#: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
 msgid "completed tasks"
 msgstr "已經完成任務"
 
@@ -2718,7 +2724,13 @@ msgstr "尚無可用的專案。點按 '＋' 按鈕來進行建立"
 
 #: src/Layouts/SidebarSourceRow.vala:78
 msgid "Account Migration Required"
-msgstr ""
+msgstr "帳戶遷移是必須的"
+
+#: src/Layouts/SidebarSourceRow.vala:79
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Settings to "
+"continue syncing."
+msgstr "Todoist 已經更新其 API。請在“設定”中重新連接您的帳號以繼續同步。"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -2830,16 +2842,12 @@ msgstr "全部任務已經完成！"
 msgid "Great job, nothing left to do 🎉"
 msgstr "做得好，清光光一件不留 🎉"
 
-#: src/Views/Filter.vala:361
-msgid "tasks"
-msgstr ""
-
-#: src/Views/Filter.vala:622
+#: src/Views/Filter.vala:612 src/Views/Filter.vala:622
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "刪除已經完成的任務"
 
-#: src/Views/Filter.vala:627
+#: src/Views/Filter.vala:617 src/Views/Filter.vala:627
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
@@ -2906,7 +2914,7 @@ msgid "Board"
 msgstr "板面"
 
 #: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:224
-#: src/Views/Today.vala:714
+#: src/Views/Today.vala:706 src/Views/Today.vala:714
 msgid "Sorting"
 msgstr "正在排序"
 
@@ -2915,7 +2923,7 @@ msgid "Custom sort order"
 msgstr "自訂排列順序"
 
 #: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:229
-#: src/Views/Today.vala:719
+#: src/Views/Today.vala:711 src/Views/Today.vala:719
 msgid "Date Added"
 msgstr "資料已經添加"
 
@@ -2948,27 +2956,27 @@ msgid "Next 30 Days"
 msgstr "接下來 30 日"
 
 #: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:237
-#: src/Views/Today.vala:727
+#: src/Views/Today.vala:719 src/Views/Today.vala:727
 msgid "P1"
 msgstr "P1"
 
 #: src/Views/Project/Project.vala:574 src/Views/Scheduled/Scheduled.vala:243
-#: src/Views/Today.vala:733
+#: src/Views/Today.vala:725 src/Views/Today.vala:733
 msgid "P2"
 msgstr "P2"
 
 #: src/Views/Project/Project.vala:580 src/Views/Scheduled/Scheduled.vala:249
-#: src/Views/Today.vala:739
+#: src/Views/Today.vala:731 src/Views/Today.vala:739
 msgid "P3"
 msgstr "P3"
 
 #: src/Views/Project/Project.vala:586 src/Views/Scheduled/Scheduled.vala:255
-#: src/Views/Today.vala:745
+#: src/Views/Today.vala:737 src/Views/Today.vala:745
 msgid "P4"
 msgstr "P4"
 
 #: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:262
-#: src/Views/Today.vala:752
+#: src/Views/Today.vala:744 src/Views/Today.vala:752
 msgid "Filter by Labels"
 msgstr "篩選 依照標籤"
 
@@ -2996,9 +3004,9 @@ msgstr "逾期"
 msgid "Reschedule"
 msgstr "重新排定行程"
 
-#: src/Views/Today.vala:761
+#: src/Views/Today.vala:753
 msgid "Me"
-msgstr ""
+msgstr "我"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
@@ -3056,10 +3064,6 @@ msgstr "顯示較少"
 #: src/Widgets/ErrorView.vala:107
 msgid "Report Issue"
 msgstr "提報問題"
-
-#: src/Widgets/ErrorView.vala:142
-msgid "Account migration required."
-msgstr ""
 
 #: src/Widgets/EventRow.vala:207
 #, c-format
@@ -3335,6 +3339,20 @@ msgstr "開啟標籤"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "開啟釘貼看板"
+
+#: core/Services/Todoist.vala:33 src/Layouts/SidebarSourceRow.vala:79
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Preferences "
+"to continue syncing."
+msgstr ""
+
+#: src/Views/Filter.vala:361
+msgid "tasks"
+msgstr ""
+
+#: src/Widgets/ErrorView.vala:142
+msgid "Account migration required."
+msgstr ""
 
 #, c-format
 #~ msgid "Processing task %d of %d"
