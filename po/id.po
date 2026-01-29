@@ -3392,3 +3392,17 @@ msgstr "Buka Label"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Buka Papan Sematan"
+
+#: core/Services/Todoist.vala:33 src/Layouts/SidebarSourceRow.vala:79
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Preferences "
+"to continue syncing."
+msgstr ""
+
+#: src/Views/Filter.vala:361
+msgid "tasks"
+msgstr ""
+
+#: src/Widgets/ErrorView.vala:142
+msgid "Account migration required."
+msgstr ""

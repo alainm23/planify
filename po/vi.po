@@ -96,8 +96,8 @@ msgstr "CalDAV"
 #: core/Enum.vala:345 core/Enum.vala:537 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:545 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:230
-#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:712
-#: src/Views/Today.vala:741 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:720
+#: src/Views/Today.vala:749 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "Ưu Tiên"
 
@@ -106,7 +106,7 @@ msgid "Label"
 msgstr "Nhãn"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:543
-#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:710
+#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:718
 msgid "Due Date"
 msgstr "Ngày Đến Hạn"
 
@@ -115,7 +115,7 @@ msgstr "Ngày Đến Hạn"
 msgid "Section"
 msgstr "Phần"
 
-#: core/Enum.vala:357 src/Views/Today.vala:765
+#: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
 msgstr ""
 
@@ -342,7 +342,7 @@ msgstr "Không thể hoàn tác"
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
 #: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:580
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
-#: src/Views/Filter.vala:624 src/Widgets/BypassResolveSwitchRow.vala:48
+#: src/Views/Filter.vala:634 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:287
 msgid "Cancel"
@@ -354,7 +354,7 @@ msgstr "Hủy"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
-#: src/Services/Backups.vala:420 src/Views/Filter.vala:625
+#: src/Services/Backups.vala:420 src/Views/Filter.vala:635
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
 #: src/Widgets/MultiSelectToolbar.vala:288
 msgid "Delete"
@@ -550,36 +550,42 @@ msgstr "Đồng bộ hoàn tất"
 msgid "On this computer"
 msgstr "Trên máy tính này"
 
-#: core/Services/Todoist.vala:1559 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:33 src/Layouts/SidebarSourceRow.vala:79
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Preferences "
+"to continue syncing."
+msgstr ""
+
+#: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "Yêu cầu không đúng."
 
-#: core/Services/Todoist.vala:1560 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1610 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Xác thực là bắt buộc, và đã thất bại, hoặc chưa được cung cấp."
 
-#: core/Services/Todoist.vala:1561 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1611 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Yêu cầu hợp lệ, nhưng cho thứ gì đó bị cấm."
 
-#: core/Services/Todoist.vala:1562 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1612 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "Tài nguyên yêu cầu không tìm thấy."
 
-#: core/Services/Todoist.vala:1563 src/Widgets/ErrorView.vala:142
+#: core/Services/Todoist.vala:1613 src/Widgets/ErrorView.vala:143
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Người dùng đã gửi quá nhiều yêu cầu trong khoảng thời gian nhất định."
 
-#: core/Services/Todoist.vala:1564 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1614 src/Widgets/ErrorView.vala:144
 msgid "The request failed due to a server error."
 msgstr "Yêu cầu thất bại do lỗi máy chủ."
 
-#: core/Services/Todoist.vala:1565 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1615 src/Widgets/ErrorView.vala:145
 msgid "The server is currently unable to handle the request."
 msgstr "Máy chủ hiện không thể xử lý yêu cầu."
 
-#: core/Services/Todoist.vala:1568 src/Widgets/ErrorView.vala:146
+#: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "Lỗi không xác định"
 
@@ -788,7 +794,7 @@ msgid "Dark Blue"
 msgstr "Tối Xanh Dương"
 
 #: core/Utils/Util.vala:255 core/Widgets/DateTimePicker/DateTimePicker.vala:410
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55 src/Views/Today.vala:760
+#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55 src/Views/Today.vala:768
 msgid "None"
 msgstr "Không"
 
@@ -1530,7 +1536,7 @@ msgid "No completed tasks yet."
 msgstr "Chưa có nhiệm vụ nào hoàn thành."
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:593
+#: src/Views/Filter.vala:603
 msgid "Delete All Completed Tasks"
 msgstr "Xóa Tất Cả Nhiệm Vụ Đã Hoàn Thành"
 
@@ -1544,7 +1550,7 @@ msgstr[0] ""
 "%s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
-#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:772
+#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:780
 msgid "Filter By"
 msgstr "Lọc Theo"
 
@@ -2049,7 +2055,7 @@ msgstr "Thứ Tự Sắp Xếp Tùy Chỉnh"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:227
-#: src/Views/Today.vala:709
+#: src/Views/Today.vala:717
 msgid "Alphabetically"
 msgstr "Theo Bảng Chữ Cái"
 
@@ -2678,7 +2684,7 @@ msgid "Load more"
 msgstr "Tải thêm"
 
 #: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:622
-#: src/Views/Filter.vala:361 src/Widgets/SubItems.vala:420
+#: src/Widgets/SubItems.vala:420
 msgid "completed tasks"
 msgstr "nhiệm vụ đã hoàn thành"
 
@@ -2737,12 +2743,6 @@ msgstr "Không có dự án nào. Tạo một dự án bằng cách nhấp vào 
 
 #: src/Layouts/SidebarSourceRow.vala:78
 msgid "Account Migration Required"
-msgstr ""
-
-#: src/Layouts/SidebarSourceRow.vala:79
-msgid ""
-"Todoist has updated their API. Please reconnect your account in Settings to "
-"continue syncing."
 msgstr ""
 
 #: src/MainWindow.vala:79
@@ -2858,13 +2858,17 @@ msgstr "Tất cả nhiệm vụ đã hoàn thành!"
 msgid "Great job, nothing left to do 🎉"
 msgstr "Làm tốt lắm, không còn gì để làm nữa 🎉"
 
-#: src/Views/Filter.vala:612
+#: src/Views/Filter.vala:361
+msgid "tasks"
+msgstr ""
+
+#: src/Views/Filter.vala:622
 #, fuzzy
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "Xóa Nhiệm Vụ Đã Hoàn Thành"
 
-#: src/Views/Filter.vala:617
+#: src/Views/Filter.vala:627
 #, fuzzy, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
@@ -2931,7 +2935,7 @@ msgid "Board"
 msgstr "Bảng"
 
 #: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:224
-#: src/Views/Today.vala:706
+#: src/Views/Today.vala:714
 msgid "Sorting"
 msgstr "Sắp Xếp"
 
@@ -2940,7 +2944,7 @@ msgid "Custom sort order"
 msgstr "Thứ tự sắp xếp tùy chỉnh"
 
 #: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:229
-#: src/Views/Today.vala:711
+#: src/Views/Today.vala:719
 msgid "Date Added"
 msgstr "Ngày Thêm"
 
@@ -2973,27 +2977,27 @@ msgid "Next 30 Days"
 msgstr "30 Ngày Tới"
 
 #: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:237
-#: src/Views/Today.vala:719
+#: src/Views/Today.vala:727
 msgid "P1"
 msgstr "P1"
 
 #: src/Views/Project/Project.vala:574 src/Views/Scheduled/Scheduled.vala:243
-#: src/Views/Today.vala:725
+#: src/Views/Today.vala:733
 msgid "P2"
 msgstr "P2"
 
 #: src/Views/Project/Project.vala:580 src/Views/Scheduled/Scheduled.vala:249
-#: src/Views/Today.vala:731
+#: src/Views/Today.vala:739
 msgid "P3"
 msgstr "P3"
 
 #: src/Views/Project/Project.vala:586 src/Views/Scheduled/Scheduled.vala:255
-#: src/Views/Today.vala:737
+#: src/Views/Today.vala:745
 msgid "P4"
 msgstr "P4"
 
 #: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:262
-#: src/Views/Today.vala:744
+#: src/Views/Today.vala:752
 msgid "Filter by Labels"
 msgstr "Lọc theo Nhãn"
 
@@ -3021,7 +3025,7 @@ msgstr "Quá Hạn"
 msgid "Reschedule"
 msgstr "Lên Lịch Lại"
 
-#: src/Views/Today.vala:753
+#: src/Views/Today.vala:761
 msgid "Me"
 msgstr ""
 
@@ -3083,6 +3087,10 @@ msgstr "Hiển thị ít hơn"
 #: src/Widgets/ErrorView.vala:107
 msgid "Report Issue"
 msgstr "Báo Cáo Sự Cố"
+
+#: src/Widgets/ErrorView.vala:142
+msgid "Account migration required."
+msgstr ""
 
 #: src/Widgets/EventRow.vala:207
 #, c-format

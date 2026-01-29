@@ -686,7 +686,7 @@ We hope you’ll enjoy using Planify!""");
         item_03_03.project_id = project.id;
         item_03_03.section_id = section_02.id;
         item_03_03.content = _("Set timely reminders!");
-        item_03_03.description = _("Get notified about important tasks or events. Tap the bell button below to add a reminder.");
+        item_03_03.description = _("Get notified about important tasks or events. Tap the clock button below to add a reminder.");
         
         section_02.add_item_if_not_exists (item_03_01);
         section_02.add_item_if_not_exists (item_03_02);
