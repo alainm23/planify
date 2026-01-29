@@ -987,6 +987,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
+"Seja notificado sobre tarefas e eventos importantes. Clique no botão do "
+"relógio abaixo para adicionar um lembrete."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
