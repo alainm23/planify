@@ -990,14 +990,10 @@ msgid "Set timely reminders!"
 msgstr "Zamanlı hatırlatıcılar ayarlayın!"
 
 #: core/Utils/Util.vala:689
-#, fuzzy
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Planify'ın size önemli etkinliği ya da özel bir şeyi hatırlatmamı için "
-"bildirim göndermesini mi istiyorsunuz. Hatırlatıcı eklemek için aşağıdaki "
-"zil düğmesine dokunun."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3435,6 +3431,15 @@ msgstr "Etiketler"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Panoyu aç"
+
+#, fuzzy
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Planify'ın size önemli etkinliği ya da özel bir şeyi hatırlatmamı için "
+#~ "bildirim göndermesini mi istiyorsunuz. Hatırlatıcı eklemek için aşağıdaki "
+#~ "zil düğmesine dokunun."
 
 #, c-format
 #~ msgid "Processing task %d of %d"

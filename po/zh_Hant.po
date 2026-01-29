@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-15 07:40+0000\n"
+"PO-Revision-Date: 2026-01-29 13:30+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -117,7 +117,7 @@ msgstr "階段"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "分派"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -958,9 +958,9 @@ msgstr "設定及時提醒！"
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
-msgstr "取得有關重要任務或事件的通知。點按下方的鈴鐺按鈕以添加提醒。"
+msgstr ""
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1660,11 +1660,11 @@ msgstr "SSL 驗證停用"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
 msgid "Account migration required"
-msgstr ""
+msgstr "帳號遷移是必須的"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Reconnect"
-msgstr ""
+msgstr "重新連接"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
@@ -1771,13 +1771,13 @@ msgstr "刪除來源？"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "無法刪除此來源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
-msgstr ""
+msgstr "該來源含有您目前的 Inbox 收件專案。請首先變更您的收件專案。"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
@@ -2718,7 +2718,7 @@ msgstr "尚無可用的專案。點按 '＋' 按鈕來進行建立"
 
 #: src/Layouts/SidebarSourceRow.vala:78
 msgid "Account Migration Required"
-msgstr ""
+msgstr "帳戶遷移是必須的"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -2998,7 +2998,7 @@ msgstr "重新排定行程"
 
 #: src/Views/Today.vala:761
 msgid "Me"
-msgstr ""
+msgstr "我"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
@@ -3335,6 +3335,16 @@ msgstr "開啟標籤"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "開啟釘貼看板"
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr "取得有關重要任務或事件的通知。點按下方的鈴鐺按鈕以添加提醒。"
+
+#~ msgid ""
+#~ "Todoist has updated their API. Please reconnect your account in Settings "
+#~ "to continue syncing."
+#~ msgstr "Todoist 已經更新其 API。請在“設定”中重新連接您的帳號以繼續同步。"
 
 #, c-format
 #~ msgid "Processing task %d of %d"

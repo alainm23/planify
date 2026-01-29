@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-30 20:00+0000\n"
+"PO-Revision-Date: 2026-01-20 21:01+0000\n"
 "Last-Translator: HUGO DUNOGEANT <h.dunogeant@proton.me>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/fr/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -123,7 +123,7 @@ msgstr "Section"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "Affectation"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -537,7 +537,7 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Synchronisation des tâches %d de %d"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
@@ -1001,11 +1001,9 @@ msgstr "Programmez des rappels !"
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Soyez notifié lorsque des tâches ou des événements importants ont lieu. "
-"Cliquez sur le bouton en forme de cloche ci-dessous pour ajouter un rappel."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1719,7 +1717,6 @@ msgid "Add Source"
 msgstr "Ajouter une source"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
-#, fuzzy
 msgid "Inbox Page"
 msgstr "Boîte de réception"
 
@@ -1730,7 +1727,7 @@ msgstr "Vous pouvez trier vos comptes par glisser-déposer"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:578
 msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr ""
+msgstr "Planify synchronise vos tâches, ceci peut prendre un moment"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:307
 msgid "SSL verification is disabled"
@@ -2237,7 +2234,6 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
-#, fuzzy
 msgid "Home View"
 msgstr "Page d’accueil"
 
@@ -3321,7 +3317,6 @@ msgid "Update Now"
 msgstr "Mettre à jour maintenant"
 
 #: src/Widgets/NewVersionPopup.vala:89
-#, fuzzy
 msgid "Dismiss"
 msgstr "Ignorer"
 
@@ -3331,7 +3326,7 @@ msgstr "Désarchiver"
 
 #: src/Widgets/SubItems.vala:525
 msgid "No subtasks added yet. Get started!"
-msgstr "Aucune sous-tâche n’a encore été ajoutée. Allez-y !"
+msgstr "Aucune sous-tâche n’a encore été ajoutée. Allez-y !"
 
 #: src/Widgets/SyncButton.vala:94
 msgid "Failed to connect to server"
@@ -3476,6 +3471,14 @@ msgstr "Ouvrir les étiquettes"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Ouvrir la section Épinglé"
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Soyez notifié lorsque des tâches ou des événements importants ont lieu. "
+#~ "Cliquez sur le bouton en forme de cloche ci-dessous pour ajouter un "
+#~ "rappel."
 
 #, fuzzy, c-format
 #~ msgid "Processing task %d of %d"

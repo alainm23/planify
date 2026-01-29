@@ -988,11 +988,9 @@ msgstr "Устанавливайте своевременные напомина
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Получайте уведомления о важных задачах или событиях. Нажмите на колокольчик "
-"внизу, чтобы добавить напоминание."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3411,6 +3409,13 @@ msgstr "Открыть «Метки»"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Открыть «Закреплённые»"
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Получайте уведомления о важных задачах или событиях. Нажмите на "
+#~ "колокольчик внизу, чтобы добавить напоминание."
 
 #, c-format
 #~ msgid "Processing task %d of %d"

@@ -982,11 +982,9 @@ msgstr "Sett påminnelser i tide!"
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Få varsler om viktige oppgaver eller hendelser. Trykk på bjelleknappen "
-"nedenfor for å legge til en påminnelse."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3403,6 +3401,13 @@ msgstr "Åpne etiketter"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Åpne oppslagstavle"
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Få varsler om viktige oppgaver eller hendelser. Trykk på bjelleknappen "
+#~ "nedenfor for å legge til en påminnelse."
 
 #, c-format
 #~ msgid "Processing task %d of %d"

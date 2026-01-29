@@ -1013,14 +1013,10 @@ msgid "Set timely reminders!"
 msgstr "Задавайте напомняния!"
 
 #: core/Utils/Util.vala:689
-#, fuzzy
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Искате „Planify“ да ви изпрати известие, което да ви напомни за важно "
-"събитие или нещо специално. Натиснете звънец бутона по-долу, за да добавите "
-"напомняне."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3469,6 +3465,15 @@ msgstr "Отваряне на „Етикети“"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Отваряне на „Закачени“"
+
+#, fuzzy
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Искате „Planify“ да ви изпрати известие, което да ви напомни за важно "
+#~ "събитие или нещо специално. Натиснете звънец бутона по-долу, за да "
+#~ "добавите напомняне."
 
 #~ msgid "Todoist Sync"
 #~ msgstr "Todoist Синхронизация"

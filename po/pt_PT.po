@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-14 12:01+0000\n"
-"PO-Revision-Date: 2025-12-14 10:01+0000\n"
+"PO-Revision-Date: 2026-01-27 10:01+0000\n"
 "Last-Translator: André Barata <andretiagob@protonmail.com>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_PT/>\n"
@@ -123,7 +123,7 @@ msgstr "Secção"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "Atribuição"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -266,7 +266,7 @@ msgstr "agendadas"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
-msgstr ""
+msgstr "próximas"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
@@ -374,7 +374,7 @@ msgstr "O projeto foi copiado para a área de transferência."
 #: core/Objects/Project.vala:855
 #, c-format
 msgid "Delete Project %s?"
-msgstr "Apagar o projeto %s?"
+msgstr "Eliminar o projeto %s?"
 
 #: core/Objects/Project.vala:912 core/Objects/Section.vala:402
 msgid "Archive?"
@@ -525,12 +525,12 @@ msgstr "A carregar tarefas para %s…"
 #: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Tarefas carregadas para %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "A sincronizar tarefas %d de %d"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
@@ -562,6 +562,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"O Todoist atualizou a sua 'API'. Volte a ligar a sua conta em Definições "
+"para continuar a sincronização, por favor."
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -667,15 +669,15 @@ msgstr "Do,"
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "dentro de %d dia"
+msgstr[1] "dentro de %d dias"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "há %d dia atrás"
+msgstr[1] "há %d dias atrás"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
@@ -982,11 +984,9 @@ msgstr "Defina lembretes atempadamente!"
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Seja notificado sobre tarefas ou eventos importantes. Clique no botão do "
-"'relógio' em baixo para adicionar um lembrete."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1286,17 +1286,17 @@ msgstr "Adicionar hora"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
-msgstr ""
+msgstr "Definir data limite"
 
 #: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
 #: core/Widgets/DeadlineButton.vala:153
 msgid "Set a Deadline"
-msgstr ""
+msgstr "Definir uma data limite"
 
 #: core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
-msgstr ""
+msgstr "Data limite"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1467,80 +1467,94 @@ msgstr ""
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
 #: src/Views/Project/Project.vala:444
 msgid "Calendar Sync"
-msgstr ""
+msgstr "Sincronizar calendário"
 
 #: src/Dialogs/CalendarSync.vala:45
 msgid ""
 "Turn your tasks into calendar events automatically. Any task with a date "
 "will appear in your calendar, making it easier to plan your day."
 msgstr ""
+"Transforme automaticamente as suas tarefas em eventos no calendário. "
+"Qualquer tarefa com uma data vai aparecer neste, tornando mais fácil planear "
+"o seu dia."
 
 #: src/Dialogs/CalendarSync.vala:53
 msgid ""
 "Requirement: You need a calendar account configured in GNOME Calendar "
 "(Google, Nextcloud, etc.)"
 msgstr ""
+"Requisito: Necessita de uma conta com calendário configurada no Calendário "
+"GNOME (Google, Nextcloud, etc.)"
 
 #: src/Dialogs/CalendarSync.vala:62
 msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
 msgstr ""
+"Obtenha notificações no telemóvel para as suas tarefas a partir do "
+"Calendário Google, Outlook ou de qualquer outra aplicação"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
 "Your tasks sync everywhere: phone, tablet, web browser, and any device with "
 "your calendar"
 msgstr ""
+"Sincronize as suas tarefas em qualquer lugar: telemóvel, navegador web ou em "
+"qualquer dispositivo com o seu calendário"
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
-msgstr ""
+msgstr "Escolher calendário"
 
 #: src/Dialogs/CalendarSync.vala:88
 msgid "Select a calendar from the list"
-msgstr ""
+msgstr "Selecionar um calendário da lista"
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
-msgstr ""
+msgstr "Ativar sincronização"
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
-msgstr ""
+msgstr "A sincronização do calendário foi desativada com sucesso"
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
-msgstr ""
+msgstr "A sincronização do calendário está ligada"
 
 #: src/Dialogs/CalendarSync.vala:228
 msgid ""
 "Your tasks are currently synced with your calendar. Any task with a date "
 "automatically appears as a calendar event."
 msgstr ""
+"As suas tarefas estão atualmente sincronizadas com o seu calendário. "
+"Qualquer tarefa com uma data vai aparecer automaticamente como um evento no "
+"calendário."
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
-msgstr ""
+msgstr "Desativar sincronização"
 
 #: src/Dialogs/CalendarSync.vala:279
 #, c-format
 msgid "Synced with: %s"
-msgstr ""
+msgstr "Sincronizado com: %s"
 
 #: src/Dialogs/CalendarSync.vala:292
 msgid "Sync Enabled!"
-msgstr ""
+msgstr "Sincronização ativa!"
 
 #: src/Dialogs/CalendarSync.vala:297
 msgid ""
 "Your tasks are now synced with your calendar. Any task with a date will "
 "automatically appear as a calendar event."
 msgstr ""
+"As suas tarefas estão agora sincronizadas com o seu calendário. Qualquer "
+"tarefa com uma data vai aparecer automaticamente como um evento no mesmo."
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 msgid "Completed Tasks"
@@ -1685,18 +1699,19 @@ msgstr "Pode ordenar as suas contas ao clicar, arrastar e largar"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:578
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr ""
+"O Planify está a sincronizar as suas tarefas, isto pode demorar algum tempo"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:307
 msgid "SSL verification is disabled"
-msgstr ""
+msgstr "A verificação 'SSl' está desativada"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
 msgid "Account migration required"
-msgstr ""
+msgstr "É necessário migrar a conta"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Reconnect"
-msgstr ""
+msgstr "Restabelecer ligação"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
@@ -1808,13 +1823,15 @@ msgstr "Apagar a fonte?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "Não é possível eliminar esta fonte"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Esta fonte contém o seu projeto atual do Ínicio. Altere o projeto do seu "
+"Ínicio primeiro, por favor."
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
@@ -2013,11 +2030,11 @@ msgstr "Restaurar cópia de segurança"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:45
 #: src/Dialogs/Preferences/PreferencesWindow.vala:217
 msgid "Donate"
-msgstr ""
+msgstr "Doar"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:53
 msgid "Support Planify Development"
-msgstr ""
+msgstr "Suporte o desenvolvimento do Planify"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:58
 msgid ""
@@ -2025,6 +2042,9 @@ msgid ""
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
 msgstr ""
+"Ajude a manter o Planify grátis e em código aberto! As suas doações suportam "
+"diretamente o desenvolvimento, novas funcionalidades e manutenção. Todas as "
+"contribuições, independentemente do valor, fazem a diferença."
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Patreon"
@@ -2032,7 +2052,7 @@ msgstr "Patreon"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:75
 msgid "Monthly recurring support"
-msgstr ""
+msgstr "Doações recorrentes mensais"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
@@ -2040,7 +2060,7 @@ msgstr "PayPal"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:89
 msgid "One-time donation"
-msgstr ""
+msgstr "Doação única"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Liberapay"
@@ -2048,7 +2068,7 @@ msgstr "Liberapay"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:103
 msgid "Weekly recurring donations"
-msgstr ""
+msgstr "Doações recorrentes semanais"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
@@ -2056,19 +2076,19 @@ msgstr "Ko-fi"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
-msgstr ""
+msgstr "Ofereça um café ☕"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:128
 msgid "Choose Your Preferred Platform"
-msgstr ""
+msgstr "Escolha a sua plataforma preferencial"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:142
 msgid "Thank you for your support! 🙏"
-msgstr ""
+msgstr "obrigado pelo seu suporte! 🙏"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Your contribution helps keep Planify alive and growing."
-msgstr ""
+msgstr "A sua contribuição ajuda a manter o Planify vivo e a crescer."
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
@@ -2405,7 +2425,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:60
 msgid "Donate Now"
-msgstr ""
+msgstr "Doar agora"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Sync your favorite to-do providers"
@@ -2781,7 +2801,7 @@ msgstr "Não existem projetos disponíveis. Crie um ao clicar no botão '+'"
 
 #: src/Layouts/SidebarSourceRow.vala:78
 msgid "Account Migration Required"
-msgstr ""
+msgstr "É necessário migrar a conta"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -2899,7 +2919,7 @@ msgstr "Bom trabalho, não tem mais nada a fazer 🎉"
 
 #: src/Views/Filter.vala:361
 msgid "tasks"
-msgstr ""
+msgstr "tarefas"
 
 #: src/Views/Filter.vala:622
 #, fuzzy
@@ -2946,7 +2966,7 @@ msgstr "Nova tarefa"
 
 #: src/Views/Project/Project.vala:376 src/Views/Project/Project.vala:408
 msgid "Project Deadline"
-msgstr ""
+msgstr "Data limite do projeto"
 
 #: src/Views/Project/Project.vala:381
 msgid "Select"
@@ -3045,11 +3065,11 @@ msgstr "Filtrar por etiquetas"
 
 #: src/Views/Project/Project.vala:597
 msgid "Show Completed"
-msgstr ""
+msgstr "Mostrar terminadas"
 
 #: src/Views/Project/Project.vala:598
 msgid "Display completed tasks in the list"
-msgstr ""
+msgstr "Mostrar tarefas terminadas na lista"
 
 #: src/Views/Project/Project.vala:604
 msgid "Search completed tasks"
@@ -3069,7 +3089,7 @@ msgstr "Reagendar"
 
 #: src/Views/Today.vala:761
 msgid "Me"
-msgstr ""
+msgstr "Eu"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
@@ -3132,21 +3152,21 @@ msgstr "Reportar problema"
 
 #: src/Widgets/ErrorView.vala:142
 msgid "Account migration required."
-msgstr ""
+msgstr "É necessário migrar a conta."
 
 #: src/Widgets/EventRow.vala:207
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Dentro de %d minuto"
+msgstr[1] "Dentro de %d minutos"
 
 #: src/Widgets/EventRow.vala:209
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Dentro de %d hora"
+msgstr[1] "Dentro de %d horas"
 
 #: src/Widgets/EventRow.vala:214
 msgid "Happening now"
@@ -3216,7 +3236,7 @@ msgstr "Terminado em"
 
 #: src/Widgets/MultiSelectToolbar.vala:66
 msgid "Move to Project"
-msgstr ""
+msgstr "Mover para projeto"
 
 #: src/Widgets/MultiSelectToolbar.vala:242
 msgid "Mark as Completed"
@@ -3235,7 +3255,7 @@ msgstr "Tem a certeza de que pretende eliminar esta tarefa?"
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
 msgstr[0] "Eliminar %d tarefa"
-msgstr[1] "Eliminar %d tarefa"
+msgstr[1] "Eliminar %d tarefas"
 
 #: src/Widgets/MultiSelectToolbar.vala:278
 #, fuzzy, c-format
@@ -3262,7 +3282,7 @@ msgstr "Atualizar agora"
 
 #: src/Widgets/NewVersionPopup.vala:89
 msgid "Dismiss"
-msgstr ""
+msgstr "Descartar"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
@@ -3415,6 +3435,13 @@ msgstr "Abrir 'Etiquetas'"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Abrir 'Afixados'"
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Seja notificado sobre tarefas ou eventos importantes. Clique no botão do "
+#~ "'relógio' em baixo para adicionar um lembrete."
 
 #, c-format
 #~ msgid "Processing task %d of %d"
