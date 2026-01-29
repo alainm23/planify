@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-22 02:01+0000\n"
+"PO-Revision-Date: 2026-01-29 13:30+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -1654,11 +1654,11 @@ msgstr "SSL 驗證停用"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
 msgid "Account migration required"
-msgstr ""
+msgstr "帳號遷移是必須的"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Reconnect"
-msgstr ""
+msgstr "重新連接"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
@@ -1765,13 +1765,13 @@ msgstr "刪除來源？"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "無法刪除此來源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
-msgstr ""
+msgstr "該來源含有您目前的 Inbox 收件專案。請首先變更您的收件專案。"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
@@ -2712,13 +2712,13 @@ msgstr "尚無可用的專案。點按 '＋' 按鈕來進行建立"
 
 #: src/Layouts/SidebarSourceRow.vala:78
 msgid "Account Migration Required"
-msgstr ""
+msgstr "帳戶遷移是必須的"
 
 #: src/Layouts/SidebarSourceRow.vala:79
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Settings to "
 "continue syncing."
-msgstr ""
+msgstr "Todoist 已經更新其 API。請在“設定”中重新連接您的帳號以繼續同步。"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
