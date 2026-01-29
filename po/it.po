@@ -982,11 +982,9 @@ msgstr "Imposta promemoria timerati!"
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Ricevi una notifica riguardo ad attività importanti o eventi. Premi il "
-"pulsante con la campanella qui sotto per aggiungere un promemoria."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3336,6 +3334,13 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr ""
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Ricevi una notifica riguardo ad attività importanti o eventi. Premi il "
+#~ "pulsante con la campanella qui sotto per aggiungere un promemoria."
 
 #, c-format
 #~ msgid "Processing task %d of %d"

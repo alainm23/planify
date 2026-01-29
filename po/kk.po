@@ -1002,13 +1002,10 @@ msgid "Set timely reminders!"
 msgstr "Уақтылы еске салғыштар орнатыңыз!"
 
 #: core/Utils/Util.vala:689
-#, fuzzy
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Planify маңызды оқиға немесе ерекше нәрсе туралы еске салу хабарламасын "
-"жіберуін қалайсыз. Еске салғыш қосу үшін төмендегі қоңырау түймесін түртіңіз."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3441,6 +3438,15 @@ msgstr "Белгілерді ашу"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Жапсырма тақтасын ашу"
+
+#, fuzzy
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Planify маңызды оқиға немесе ерекше нәрсе туралы еске салу хабарламасын "
+#~ "жіберуін қалайсыз. Еске салғыш қосу үшін төмендегі қоңырау түймесін "
+#~ "түртіңіз."
 
 #, fuzzy
 #~ msgid "Planify is syncing your tasks, this may take a few minutes"

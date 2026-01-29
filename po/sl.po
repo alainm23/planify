@@ -997,11 +997,9 @@ msgstr "Nastavite pravočasne opomnike!"
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Prejemajte obvestila o pomembnih opravilih ali dogodkih. Dotaknite se "
-"spodnjega gumba zvonca, da dodate opomnik."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3363,3 +3361,10 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Odpri tablo"
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Prejemajte obvestila o pomembnih opravilih ali dogodkih. Dotaknite se "
+#~ "spodnjega gumba zvonca, da dodate opomnik."

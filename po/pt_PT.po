@@ -562,8 +562,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
-"O Todoist atualizou a sua 'API'. Volte a ligar a sua conta em Definições para "
-"continuar a sincronização, por favor."
+"O Todoist atualizou a sua 'API'. Volte a ligar a sua conta em Definições "
+"para continuar a sincronização, por favor."
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -984,11 +984,9 @@ msgstr "Defina lembretes atempadamente!"
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Seja notificado sobre tarefas ou eventos importantes. Clique no botão do "
-"'relógio' em baixo para adicionar um lembrete."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1476,32 +1474,33 @@ msgid ""
 "Turn your tasks into calendar events automatically. Any task with a date "
 "will appear in your calendar, making it easier to plan your day."
 msgstr ""
-"Transforme automaticamente as suas tarefas em eventos no calendário. Qualquer "
-"tarefa com uma data vai aparecer neste, tornando mais fácil planear o seu dia."
+"Transforme automaticamente as suas tarefas em eventos no calendário. "
+"Qualquer tarefa com uma data vai aparecer neste, tornando mais fácil planear "
+"o seu dia."
 
 #: src/Dialogs/CalendarSync.vala:53
 msgid ""
 "Requirement: You need a calendar account configured in GNOME Calendar "
 "(Google, Nextcloud, etc.)"
 msgstr ""
-"Requisito: Necessita de uma conta com calendário configurada no "
-"Calendário GNOME (Google, Nextcloud, etc.)"
+"Requisito: Necessita de uma conta com calendário configurada no Calendário "
+"GNOME (Google, Nextcloud, etc.)"
 
 #: src/Dialogs/CalendarSync.vala:62
 msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
 msgstr ""
-"Obtenha notificações no telemóvel para as suas tarefas a partir do Calendário "
-"Google, Outlook ou de qualquer outra aplicação"
+"Obtenha notificações no telemóvel para as suas tarefas a partir do "
+"Calendário Google, Outlook ou de qualquer outra aplicação"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
 "Your tasks sync everywhere: phone, tablet, web browser, and any device with "
 "your calendar"
 msgstr ""
-"Sincronize as suas tarefas em qualquer lugar: telemóvel, navegador web ou "
-"em qualquer dispositivo com o seu calendário"
+"Sincronize as suas tarefas em qualquer lugar: telemóvel, navegador web ou em "
+"qualquer dispositivo com o seu calendário"
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
@@ -1528,8 +1527,9 @@ msgid ""
 "Your tasks are currently synced with your calendar. Any task with a date "
 "automatically appears as a calendar event."
 msgstr ""
-"As suas tarefas estão atualmente sincronizadas com o seu calendário. Qualquer "
-"tarefa com uma data vai aparecer automaticamente como um evento no calendário."
+"As suas tarefas estão atualmente sincronizadas com o seu calendário. "
+"Qualquer tarefa com uma data vai aparecer automaticamente como um evento no "
+"calendário."
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
@@ -1698,7 +1698,8 @@ msgstr "Pode ordenar as suas contas ao clicar, arrastar e largar"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:578
 msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr "O Planify está a sincronizar as suas tarefas, isto pode demorar algum tempo"
+msgstr ""
+"O Planify está a sincronizar as suas tarefas, isto pode demorar algum tempo"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:307
 msgid "SSL verification is disabled"
@@ -2041,9 +2042,9 @@ msgid ""
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
 msgstr ""
-"Ajude a manter o Planify grátis e em código aberto! As suas doações "
-"suportam diretamente o desenvolvimento, novas funcionalidades e manutenção. "
-"Todas as contribuições, independentemente do valor, fazem a diferença."
+"Ajude a manter o Planify grátis e em código aberto! As suas doações suportam "
+"diretamente o desenvolvimento, novas funcionalidades e manutenção. Todas as "
+"contribuições, independentemente do valor, fazem a diferença."
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Patreon"
@@ -3434,6 +3435,13 @@ msgstr "Abrir 'Etiquetas'"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Abrir 'Afixados'"
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Seja notificado sobre tarefas ou eventos importantes. Clique no botão do "
+#~ "'relógio' em baixo para adicionar um lembrete."
 
 #, c-format
 #~ msgid "Processing task %d of %d"

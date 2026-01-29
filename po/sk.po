@@ -1011,14 +1011,10 @@ msgid "Set timely reminders!"
 msgstr "Nastavte si včasné pripomienky!"
 
 #: core/Utils/Util.vala:689
-#, fuzzy
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Chcete, aby vám Planify poslal notifikáciu na pripomenutie dôležitého "
-"udalosti alebo niečoho špeciálneho. Kliknite na tlačidlo zvončeka nižšie a "
-"pridajte pripomienku."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3452,6 +3448,15 @@ msgstr "Otvoriť štítky"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Otvoriť nástenku"
+
+#, fuzzy
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Chcete, aby vám Planify poslal notifikáciu na pripomenutie dôležitého "
+#~ "udalosti alebo niečoho špeciálneho. Kliknite na tlačidlo zvončeka nižšie "
+#~ "a pridajte pripomienku."
 
 #, fuzzy
 #~ msgid "Planify is syncing your tasks, this may take a few minutes"
