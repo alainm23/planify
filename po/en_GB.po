@@ -992,13 +992,10 @@ msgid "Set timely reminders!"
 msgstr "Set timely reminders!"
 
 #: core/Utils/Util.vala:689
-#, fuzzy
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"You want Planify to send you a notification to remind you of an important "
-"event or something special. Tap the bell button below to add a reminder."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3400,6 +3397,14 @@ msgstr "Open Labels"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Open Pinboard"
+
+#, fuzzy
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "You want Planify to send you a notification to remind you of an important "
+#~ "event or something special. Tap the bell button below to add a reminder."
 
 #, c-format
 #~ msgid "Processing task %d of %d"

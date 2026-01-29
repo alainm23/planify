@@ -986,11 +986,9 @@ msgstr "Postavite pravovremene podsjetnike!"
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Primaj obavijesti o važnim zadacima ili događajima. Dodirni gumb zvona za "
-"dodavanje podsjetnika."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3418,6 +3416,13 @@ msgstr "Otvori etikete"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Otvori oglasnu ploču"
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Primaj obavijesti o važnim zadacima ili događajima. Dodirni gumb zvona za "
+#~ "dodavanje podsjetnika."
 
 #, c-format
 #~ msgid "Processing task %d of %d"
