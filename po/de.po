@@ -993,11 +993,9 @@ msgstr "Lege zeitliche Erinnerungen fest!"
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Bekomme Nachrichten über wichtige Aufgaben oder Ereignisse. Tippe auf den "
-"Glockenknopf unten, um eine Erinnerung hinzuzufügen."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3449,6 +3447,13 @@ msgstr "'Labels' öffnen"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "'Pinnwand' öffnen"
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Bekomme Nachrichten über wichtige Aufgaben oder Ereignisse. Tippe auf den "
+#~ "Glockenknopf unten, um eine Erinnerung hinzuzufügen."
 
 #, c-format
 #~ msgid "Processing task %d of %d"

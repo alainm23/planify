@@ -993,13 +993,10 @@ msgid "Set timely reminders!"
 msgstr "시기적절한 리마인더를 설정하세요!"
 
 #: core/Utils/Util.vala:689
-#, fuzzy
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"중요한 이벤트나 특별한 일을 기억하기 위해 Planify에서 알림을 받고 싶으시다"
-"면, 아래의 종 버튼을 눌러 알림을 추가하세요."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3423,6 +3420,14 @@ msgstr "라벨 열기"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "게시판 열기"
+
+#, fuzzy
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "중요한 이벤트나 특별한 일을 기억하기 위해 Planify에서 알림을 받고 싶으시다"
+#~ "면, 아래의 종 버튼을 눌러 알림을 추가하세요."
 
 #, fuzzy
 #~ msgid "Planify is syncing your tasks, this may take a few minutes"

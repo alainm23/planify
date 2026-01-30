@@ -964,11 +964,9 @@ msgstr "Đặt lời nhắc kịp thời!"
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Nhận thông báo về nhiệm vụ hoặc sự kiện quan trọng. Nhấn nút chuông ở dưới "
-"để thêm lời nhắc."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3368,6 +3366,13 @@ msgstr "Mở Nhãn"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Mở Bảng Ghim"
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Nhận thông báo về nhiệm vụ hoặc sự kiện quan trọng. Nhấn nút chuông ở "
+#~ "dưới để thêm lời nhắc."
 
 #, c-format
 #~ msgid "Processing task %d of %d"

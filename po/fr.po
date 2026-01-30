@@ -1001,11 +1001,9 @@ msgstr "Programmez des rappels !"
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Soyez notifié lorsque des tâches ou des événements importants ont lieu. "
-"Cliquez sur le bouton en forme de cloche ci-dessous pour ajouter un rappel."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3473,6 +3471,14 @@ msgstr "Ouvrir les étiquettes"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Ouvrir la section Épinglé"
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Soyez notifié lorsque des tâches ou des événements importants ont lieu. "
+#~ "Cliquez sur le bouton en forme de cloche ci-dessous pour ajouter un "
+#~ "rappel."
 
 #, fuzzy, c-format
 #~ msgid "Processing task %d of %d"

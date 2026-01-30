@@ -989,11 +989,9 @@ msgstr "Nosakiet laicīgus atgādinājumus!"
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Saņemiet paziņojumus par būtiskiem uzdevumiem vai notikumiem. Spiediet uz "
-"zvana pogu lejā, lai pievienotu atgādinājumu."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3411,6 +3409,13 @@ msgstr "Rāda birkas"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Rāda piespraustos"
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Saņemiet paziņojumus par būtiskiem uzdevumiem vai notikumiem. Spiediet uz "
+#~ "zvana pogu lejā, lai pievienotu atgādinājumu."
 
 #, c-format
 #~ msgid "Processing task %d of %d"

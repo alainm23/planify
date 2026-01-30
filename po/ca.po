@@ -967,11 +967,9 @@ msgstr "Defineix recordatoris oportuns!"
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Rep notificacions sobre tasques o esdeveniments importants. Toca el botó de "
-"la campana a baix per afegir un recordatori."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -3332,6 +3330,13 @@ msgstr "Obre Etiquetes"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr ""
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Rep notificacions sobre tasques o esdeveniments importants. Toca el botó "
+#~ "de la campana a baix per afegir un recordatori."
 
 #, c-format
 #~ msgid "Processing task %d of %d"
