@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
 "PO-Revision-Date: 2026-01-31 10:01+0000\n"
-"Last-Translator: Jose Manuel Sánchez <josemas@gmail.com>\n"
+"Last-Translator: \"Pedro M. T.\" <pedels@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/es/>\n"
 "Language: es\n"
@@ -979,13 +979,12 @@ msgid "Add labels to your tasks!"
 msgstr "¡Añade etiquetas a tus tareas!"
 
 #: core/Utils/Util.vala:682
-#, fuzzy
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
-"Las etiquetas te permiten mejorar tu flujo de trabajo en Planify. Para "
-"añadir una, haz clic en el botón de etiqueta en la parte inferior."
+"Las etiquetas te ayudan a organizar y categorizar tus tareas. Para añadir "
+"una, haz clic en el botón de etiqueta en la parte inferior."
 
 #: core/Utils/Util.vala:688
 msgid "Set timely reminders!"
