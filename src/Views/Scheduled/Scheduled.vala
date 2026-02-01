@@ -340,14 +340,8 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
     public void clean_up () {
         foreach (var row in Util.get_default ().get_children (listbox)) {
-            if (row is Views.Scheduled.ScheduledDay) {
-                ((Views.Scheduled.ScheduledDay) row).clean_up ();
-            } else if (row is Views.Scheduled.ScheduledMonth) {
-                ((Views.Scheduled.ScheduledMonth) row).clean_up ();
-            } else if (row is Views.Scheduled.ScheduledRange) {
-                ((Views.Scheduled.ScheduledRange) row).clean_up ();
-            } else if (row is Views.Scheduled.ScheduledOverdue) {
-                ((Views.Scheduled.ScheduledOverdue) row).clean_up ();
+            if (row is Views.Scheduled.ScheduledSection) {
+                ((Views.Scheduled.ScheduledSection) row).clean_up ();
             }
         }
 
