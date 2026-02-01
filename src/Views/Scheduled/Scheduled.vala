@@ -305,6 +305,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             }
 
             var dialog = new Dialogs.LabelPicker ();
+            dialog.add_labels_list (Services.Store.instance ().labels);
             dialog.labels = _labels;
 
             signal_map[dialog.labels_changed.connect ((labels) => {
