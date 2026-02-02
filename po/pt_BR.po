@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-27 23:02+0000\n"
-"Last-Translator: Lucas Garcia Borges <lg.borges12@gmail.com>\n"
+"PO-Revision-Date: 2026-02-03 16:07+0000\n"
+"Last-Translator: Matheus Lima <matheus.rlima@proton.me>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -68,25 +68,25 @@ msgstr[0] "A cada dia"
 msgstr[1] "A cada %d dias"
 
 #: core/Enum.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
 msgstr[0] "Toda semana"
-msgstr[1] "Toda semana"
+msgstr[1] "A cada %d semanas"
 
 #: core/Enum.vala:224
-#, fuzzy, c-format
+#, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
 msgstr[0] "Todo mês"
-msgstr[1] "Todo mês"
+msgstr[1] "A cada %d meses"
 
 #: core/Enum.vala:226
-#, fuzzy, c-format
+#, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
 msgstr[0] "Todo ano"
-msgstr[1] "Todo ano"
+msgstr[1] "A cada %d anos"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -123,7 +123,7 @@ msgstr "Seções"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "Atribuição"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -496,9 +496,8 @@ msgid "Opens label selector"
 msgstr "Abrir Seletor de Rótulos"
 
 #: core/QuickAddCore.vala:1372
-#, fuzzy
 msgid "Assign project"
-msgstr "Adicionar projeto"
+msgstr "Atribuir projeto"
 
 #: core/QuickAddCore.vala:1372
 msgid "Opens project selector"
@@ -525,9 +524,9 @@ msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combine atalhos no campo de título para uma criação rápida"
 
 #: core/Services/CalDAV/CalDAVClient.vala:302
-#, fuzzy, c-format
+#, c-format
 msgid "Loading tasks for %s…"
-msgstr "Carregando…"
+msgstr "Carregando em %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:313
 #: core/Services/CalDAV/CalDAVClient.vala:345
@@ -553,9 +552,9 @@ msgid "Starting sync…"
 msgstr "Inicializando a sincronização…"
 
 #: core/Services/CalDAV/Core.vala:245
-#, fuzzy, c-format
+#, c-format
 msgid "Syncing %s…"
-msgstr "Sincronizando…"
+msgstr "Sincronizando %s…"
 
 #: core/Services/CalDAV/Core.vala:253
 msgid "Sync completed"
@@ -570,6 +569,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"O Todoist atualizou sua API. Por favor, reconecte sua conta em "
+"\"Preferências\" para continuar a sincronização."
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -1001,6 +1002,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
+"Seja notificado sobre tarefas ou eventos importantes. Clique no botão do "
+"relógio abaixo para adicionar um lembrete."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1077,7 +1080,7 @@ msgstr "Voltar"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:66
 msgid "Previous month"
-msgstr ""
+msgstr "Mês anterior"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
@@ -1085,12 +1088,12 @@ msgstr ""
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
-msgstr ""
+msgstr "Próximo mês"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #, c-format
 msgid "Previous month, %s"
-msgstr ""
+msgstr "Mês anterior, %s"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
@@ -1100,7 +1103,7 @@ msgstr ""
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 #, c-format
 msgid "Next month, %s"
-msgstr ""
+msgstr "Próximo mês, %s"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:39
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
@@ -1139,7 +1142,7 @@ msgstr "Sáb"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:135
 msgid "Type a date…"
-msgstr ""
+msgstr "Digite uma data…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:156
 msgid "Choose a date"
@@ -1203,7 +1206,7 @@ msgstr "Mensalmente"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:434
 msgid "Yearly"
-msgstr "Yearly"
+msgstr "Anualmente"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:438
 msgid "Custom"
@@ -1286,11 +1289,11 @@ msgstr "Fim"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
-msgstr ""
+msgstr "Remover data"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
@@ -1303,17 +1306,17 @@ msgstr "Adicionar tempo"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
-msgstr ""
+msgstr "Definir prazo"
 
 #: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
 #: core/Widgets/DeadlineButton.vala:153
 msgid "Set a Deadline"
-msgstr ""
+msgstr "Definir um prazo"
 
 #: core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
-msgstr ""
+msgstr "Prazo"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1323,7 +1326,7 @@ msgstr "Deletar Rótulo"
 #: core/Widgets/LabelPicker/LabelQuickPicker.vala:191
 #, c-format
 msgid "Label not found: Create '%s'"
-msgstr ""
+msgstr "Rótulo não encontrado: Criar '%s'"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
 msgid ""
@@ -1348,7 +1351,7 @@ msgstr "Sua lista de filtros aparecerá aqui."
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
-msgstr "Search"
+msgstr "Pesquisar"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Search or Create"
@@ -1357,12 +1360,11 @@ msgstr "Procure ou Crie"
 #: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:843
 #: src/Layouts/ItemRow.vala:1303
 msgid "Apply"
-msgstr ""
+msgstr "Aplicar"
 
 #: core/Widgets/MarkdownEditor.vala:1383
-#, fuzzy
 msgid "Remove link"
-msgstr "Remover"
+msgstr "Remover link"
 
 #: core/Widgets/PriorityButton.vala:95 core/Widgets/PriorityButton.vala:135
 #: core/Widgets/PriorityButton.vala:200
@@ -1488,51 +1490,61 @@ msgstr ""
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
 #: src/Views/Project/Project.vala:444
 msgid "Calendar Sync"
-msgstr ""
+msgstr "Sincronizar calendário"
 
 #: src/Dialogs/CalendarSync.vala:45
+#, fuzzy
 msgid ""
 "Turn your tasks into calendar events automatically. Any task with a date "
 "will appear in your calendar, making it easier to plan your day."
 msgstr ""
+"Transforme suas tarefas em eventos de calendário automaticamente. Qualquer "
+"tarefa com uma data aparecerá em seu calendário, tornando mais fácil "
+"planejar seu dia."
 
 #: src/Dialogs/CalendarSync.vala:53
 msgid ""
 "Requirement: You need a calendar account configured in GNOME Calendar "
 "(Google, Nextcloud, etc.)"
 msgstr ""
+"Requisito: é necessário uma conta de calendário configurada no \"GNOME "
+"Calendar\" (Google, Nextcloud, etc.)"
 
 #: src/Dialogs/CalendarSync.vala:62
 msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
 msgstr ""
+"Receba notificações para as suas tarefas através do Google Calendar, "
+"Outlook, ou qualquer aplicativo de calendário"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
 "Your tasks sync everywhere: phone, tablet, web browser, and any device with "
 "your calendar"
 msgstr ""
+"Suas tarefas são sincronizadas em todos os lugares: celular, tablet, "
+"navegador da web e qualquer dispositivo com seu calendário conectado"
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
-msgstr ""
+msgstr "Escolha o calendário"
 
 #: src/Dialogs/CalendarSync.vala:88
 msgid "Select a calendar from the list"
-msgstr ""
+msgstr "Selecione um calendário da lista"
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
-msgstr ""
+msgstr "Ativar a sincronização"
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
-msgstr ""
+msgstr "Sincronização do calendário desativada com sucesso"
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
-msgstr ""
+msgstr "Sincronização do calendário ativa"
 
 #: src/Dialogs/CalendarSync.vala:228
 msgid ""
@@ -1542,7 +1554,7 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
-msgstr ""
+msgstr "Desabilitar a sincronização"
 
 #: src/Dialogs/CalendarSync.vala:279
 #, c-format
@@ -1551,7 +1563,7 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:292
 msgid "Sync Enabled!"
-msgstr ""
+msgstr "Sincronização habilitada!"
 
 #: src/Dialogs/CalendarSync.vala:297
 msgid ""
@@ -1561,7 +1573,7 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 msgid "Completed Tasks"
@@ -1764,7 +1776,7 @@ msgstr "Calendário"
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:79
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:92
 msgid "Advanced Options"
-msgstr ""
+msgstr "Configurações Avançadas"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:91
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:103
@@ -1822,9 +1834,8 @@ msgid "Last Sync"
 msgstr "Última Sincronização"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:111
-#, fuzzy
 msgid "Delete Source"
-msgstr "Excluir fonte?"
+msgstr "Excluir fonte"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:187
 msgid "Delete Source?"
@@ -1832,7 +1843,7 @@ msgstr "Excluir fonte?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "Não foi possível deletar esta fonte"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
@@ -1929,7 +1940,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:159
 msgid "Font Size"
-msgstr ""
+msgstr "Tamanho da letra"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
 #: src/Dialogs/Preferences/PreferencesWindow.vala:191
@@ -1991,7 +2002,7 @@ msgstr "O arquivo selecionado é inválido"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:216
 msgid "View Backup"
-msgstr "Criar Backup"
+msgstr "Visualizar Backup"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:272
 msgid "Download"
