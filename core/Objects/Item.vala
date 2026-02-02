@@ -1681,10 +1681,21 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public bool was_archived () {
-        if (has_parent) {
+        return was_archived_internal (new Gee.HashSet<string> ());
+    }
+
+    private bool was_archived_internal (Gee.Set<string> visited) {
+        // Prevent infinite recursion with circular references
+        if (visited.contains (id)) {
+            return false;
+        }
+
+        visited.add (id);
+
+        if (has_parent && _parent_id != id) { // Check for direct self-reference
             var parent_item = parent;
             if (parent_item != null) {
-                return parent_item.was_archived ();
+                return parent_item.was_archived_internal (visited);
             }
         }
 
