@@ -513,6 +513,10 @@ public class Objects.Item : Objects.BaseObject {
         ICal.Property ? related_to_property = ical_vtodo.get_first_property (ICal.PropertyKind.RELATEDTO_PROPERTY);
         if (related_to_property != null) {
             parent_id = related_to_property.get_relatedto ();
+            if (parent_id == id) {
+                warning ("Item/Task %s has a direct self-reference", id);
+                parent_id = "";
+            }
         } else {
             parent_id = "";
         }
@@ -1687,6 +1691,7 @@ public class Objects.Item : Objects.BaseObject {
     private bool was_archived_internal (Gee.Set<string> visited) {
         // Prevent infinite recursion with circular references
         if (visited.contains (id)) {
+            warning ("Item/Task %s has a circular reference", id);
             return false;
         }
 
