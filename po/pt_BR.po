@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-02-03 16:07+0000\n"
-"Last-Translator: Matheus Lima <matheus.rlima@proton.me>\n"
+"PO-Revision-Date: 2026-02-06 12:01+0000\n"
+"Last-Translator: Leonardo Nascimento <leonardogabrielllpedroso@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -532,12 +532,12 @@ msgstr "Carregando em %s…"
 #: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Tarefas carregadas para %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Sincronizando tarefa %d de %d"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
@@ -677,15 +677,15 @@ msgstr "Dom,"
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "em %d dia"
+msgstr[1] "em %d dias"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d dia atrás"
+msgstr[1] "%d dias atrás"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
