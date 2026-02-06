@@ -95,6 +95,7 @@ sources = files(
   'Views/Filter.vala',
   
   'Views/Scheduled/Scheduled.vala',
+  'Views/Scheduled/ScheduledSection.vala',
   'Views/Scheduled/ScheduledDay.vala',
   'Views/Scheduled/ScheduledRange.vala',
   'Views/Scheduled/ScheduledMonth.vala',
