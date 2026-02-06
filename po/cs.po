@@ -316,11 +316,11 @@ msgstr "bez štítku"
 msgid "unlabeled"
 msgstr "neoštítkované"
 
-#: core/Objects/Item.vala:1374
+#: core/Objects/Item.vala:1384
 msgid "Task copied to clipboard"
 msgstr "Úkol zkopírován do schránky"
 
-#: core/Objects/Item.vala:1667 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1677 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, c-format
@@ -2970,11 +2970,11 @@ msgstr ""
 msgid "Sort By"
 msgstr ""
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:155
+#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
 msgid "Overdue"
 msgstr ""
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:163
+#: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:163
 msgid "Reschedule"
 msgstr ""
 

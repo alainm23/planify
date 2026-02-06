@@ -538,6 +538,16 @@ public class Objects.Item : Objects.BaseObject {
             if (sort_order_str != null) {
                 child_order = int.parse (sort_order_str);
             }
+        } else {
+            // Items without an X-APPLE-SORT-ORDER must use the time in seconds
+            // since 2001-01-01-00:00:00 (978307200L) as their sort order
+           ICal.Property ? created_property = ical_vtodo.get_first_property (ICal.PropertyKind.CREATED_PROPERTY);
+            if (created_property != null) {
+                var create_time = (long) created_property.get_created ().as_timet ();
+                child_order = (int)(create_time - 978307200L);
+            } else {
+                // TODO should probably emit a warning that manual sorting will not work?
+            }
         }
 
         ICal.Property ? pinned_property = ical_vtodo.get_first_property (ICal.PropertyKind.from_string ("X-PINNED"));
@@ -1192,6 +1202,7 @@ public class Objects.Item : Objects.BaseObject {
         ICal.Component ical = new ICal.Component.vtodo ();
 
         ical.set_uid (id);
+        ical.set_dtstamp (new ICal.Time.current_with_zone (ICal.Timezone.get_utc_timezone ()));
         ical.set_summary (content);
         ical.set_description (description);
 

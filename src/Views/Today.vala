@@ -485,7 +485,7 @@ public class Views.Today : Adw.Bin {
         })] = reschedule_button;
 
         signal_map[scrolled_window.vadjustment.value_changed.connect (() => {
-            headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);            
+            headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);
         })] = scrolled_window.vadjustment;
 
         signal_map[Services.EventBus.get_default ().dim_content.connect ((active) => {
@@ -534,7 +534,7 @@ public class Views.Today : Adw.Bin {
         foreach (Objects.Item item in Services.Store.instance ().items) {
             if (!item.checked && !item.was_archived () && item.has_deadline) {
                 var deadline_date = Utils.Datetime.get_date_only (item.deadline_datetime);
-                
+
                 if (Utils.Datetime.is_today (deadline_date) && !items.has_key (item.id)) {
                     add_item (item);
                 } else if (Utils.Datetime.is_overdue (deadline_date) && !overdue_items.has_key (item.id)) {
@@ -569,14 +569,14 @@ public class Views.Today : Adw.Bin {
     private void valid_add_item (Objects.Item item) {
         bool valid_due_today = item.has_due && Services.Store.instance ().valid_item_by_date (item, date, false);
         bool valid_deadline_today = item.has_deadline && Utils.Datetime.is_today (Utils.Datetime.get_date_only (item.deadline_datetime));
-        
+
         if (!items.has_key (item.id) && (valid_due_today || valid_deadline_today)) {
             add_item (item);
         }
 
         bool valid_due_overdue = item.has_due && Services.Store.instance ().valid_item_by_overdue (item, date, false);
         bool valid_deadline_overdue = item.has_deadline && Utils.Datetime.is_overdue (Utils.Datetime.get_date_only (item.deadline_datetime));
-        
+
         if (!overdue_items.has_key (item.id) && (valid_due_overdue || valid_deadline_overdue)) {
             add_overdue_item (item);
         }
@@ -628,7 +628,7 @@ public class Views.Today : Adw.Bin {
         if (items.has_key (item.id) && (item.has_due || item.has_deadline)) {
             bool valid_due = item.has_due && Services.Store.instance ().valid_item_by_date (item, date, false);
             bool valid_deadline = item.has_deadline && Utils.Datetime.is_today (Utils.Datetime.get_date_only (item.deadline_datetime));
-            
+
             if (!valid_due && !valid_deadline) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
@@ -639,7 +639,7 @@ public class Views.Today : Adw.Bin {
         if (overdue_items.has_key (item.id) && (item.has_due || item.has_deadline)) {
             bool valid_due = item.has_due && Services.Store.instance ().valid_item_by_overdue (item, date, false);
             bool valid_deadline = item.has_deadline && Utils.Datetime.is_overdue (Utils.Datetime.get_date_only (item.deadline_datetime));
-            
+
             if (!valid_due && !valid_deadline) {
                 overdue_items[item.id].hide_destroy ();
                 overdue_items.unset (item.id);
@@ -718,7 +718,7 @@ public class Views.Today : Adw.Bin {
         sorted_by_item.add_item (_("Due Date"), SortedByType.DUE_DATE.to_string ());
         sorted_by_item.add_item (_("Date Added"), SortedByType.ADDED_DATE.to_string ());
         sorted_by_item.add_item (_("Priority"), SortedByType.PRIORITY.to_string ());
-        
+
         // Filters
         var priority_items = new Gee.ArrayList<Objects.Filters.FilterItem> ();
 
@@ -815,19 +815,8 @@ public class Views.Today : Adw.Bin {
                 }
             }
 
-            Gee.HashMap<string, Objects.Label> labels_map = new Gee.HashMap<string, Objects.Label> ();
-            Gee.ArrayList<Objects.Label> labels_list = new Gee.ArrayList<Objects.Label> ();
-            foreach (Layouts.ItemRow item_row in items.values) {
-                foreach (Objects.Label label in item_row.item.labels) {
-                    if (!labels_map.has_key (label.id)) {
-                        labels_map[label.id] = label;
-                        labels_list.add (labels_map[label.id]);
-                    }
-                }
-            }
-
             var dialog = new Dialogs.LabelPicker ();
-            dialog.add_labels_list (labels_list);
+            dialog.add_labels_list (Services.Store.instance ().labels);
             dialog.labels = _labels;
 
             signal_map[dialog.labels_changed.connect ((labels) => {
@@ -853,7 +842,7 @@ public class Views.Today : Adw.Bin {
                     Objects.Filters.Today.get_default ().remove_filter (filter);
                 }
             })] = dialog;
-            
+
             dialog.present (Planify._instance.main_window);
         })] = labels_filter;
 

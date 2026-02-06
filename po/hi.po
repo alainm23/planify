@@ -311,12 +311,12 @@ msgstr "कोई लेबल नहीं"
 msgid "unlabeled"
 msgstr "लेबल नहीं किया गया"
 
-#: core/Objects/Item.vala:1374
+#: core/Objects/Item.vala:1384
 msgid "Task copied to clipboard"
 msgstr "कार्य को क्लिपबोर्ड पर कॉपी किया गया"
 
 # # c-format
-#: core/Objects/Item.vala:1667 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1677 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, fuzzy, c-format
@@ -3081,11 +3081,11 @@ msgstr "पूर्ण कार्य दिखाएं"
 msgid "Sort By"
 msgstr "ऐसे छांटें"
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:155
+#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
 msgid "Overdue"
 msgstr "अतिदेय"
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:163
+#: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:163
 msgid "Reschedule"
 msgstr "पुनर्निर्धारित"
 
