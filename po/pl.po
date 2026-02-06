@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-17 16:01+0000\n"
-"Last-Translator: Szymon Lebida <szymenxd@gmail.com>\n"
+"PO-Revision-Date: 2026-02-03 16:07+0000\n"
+"Last-Translator: Łukasz Przybysz <poczta@lukprzybysz.pl>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/pl/>\n"
 "Language: pl\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -130,7 +130,7 @@ msgstr "Sekcja"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "Zadanie"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -317,11 +317,11 @@ msgstr "bez etykiety"
 msgid "unlabeled"
 msgstr "nieoznaczone"
 
-#: core/Objects/Item.vala:1374
+#: core/Objects/Item.vala:1384
 msgid "Task copied to clipboard"
 msgstr "Zadanie skopiowane do schowka"
 
-#: core/Objects/Item.vala:1667 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1677 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, c-format
@@ -386,18 +386,18 @@ msgstr "Usunąć projekt %s?"
 
 #: core/Objects/Project.vala:912 core/Objects/Section.vala:402
 msgid "Archive?"
-msgstr ""
+msgstr "Zarchiwizować?"
 
 #: core/Objects/Project.vala:913 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "To zarchiwizuje %s i wszystkie jego zadania."
 
 #: core/Objects/Project.vala:917 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
-msgstr ""
+msgstr "Zarchiwizuj"
 
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
@@ -486,7 +486,7 @@ msgstr "Ustaw priorytet"
 
 #: core/QuickAddCore.vala:1370
 msgid "p1 = highest, p4 = lowest"
-msgstr ""
+msgstr "p1 = najwyższy, p4 = najniższy"
 
 #: core/QuickAddCore.vala:1371
 msgid "Add labels"
@@ -510,7 +510,7 @@ msgstr "Ustaw przypomnienie"
 
 #: core/QuickAddCore.vala:1373
 msgid "Opens reminder options"
-msgstr ""
+msgstr "Otwiera opcje przypomnienia"
 
 #: core/QuickAddCore.vala:1388
 msgid "Toggle stay open after creating task"
@@ -518,7 +518,7 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1394
 msgid "Tip"
-msgstr ""
+msgstr "Wskazówka"
 
 #: core/QuickAddCore.vala:1394
 msgid "Combine shortcuts in the title field for faster creation"
@@ -542,34 +542,36 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
-msgstr ""
+msgstr "Źródło już istnieje"
 
 #: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
 msgid "Failed to resolve principal url"
-msgstr ""
+msgstr "Nie udało się rozwiązać głównego url"
 
 #: core/Services/CalDAV/Core.vala:230
 msgid "Starting sync…"
-msgstr ""
+msgstr "Rozpoczęto synchronizację…"
 
 #: core/Services/CalDAV/Core.vala:245
 #, c-format
 msgid "Syncing %s…"
-msgstr ""
+msgstr "Synchronizuję %s…"
 
 #: core/Services/CalDAV/Core.vala:253
 msgid "Sync completed"
-msgstr ""
+msgstr "Synchronizacja ukończona"
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
-msgstr ""
+msgstr "Na tym komputerze"
 
 #: core/Services/Todoist.vala:33 src/Layouts/SidebarSourceRow.vala:79
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"Todoist zaktualizował swoje API. Połącz swoje konto ponownie w "
+"Preferencjach, aby synchronizować."
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -2973,11 +2975,11 @@ msgstr ""
 msgid "Sort By"
 msgstr ""
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:155
+#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
 msgid "Overdue"
 msgstr ""
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:163
+#: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:163
 msgid "Reschedule"
 msgstr ""
 
