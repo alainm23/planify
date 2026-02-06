@@ -19,10 +19,10 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Widgets.ColorPickerRow : Gtk.Grid {
+public class Widgets.ColorPickerRow : Adw.Bin {
     public string color { get; set; }
 
-    public signal void color_changed (string color);
+    public signal void color_changed ();
 
     private Gee.HashMap<string, Gtk.CheckButton> colors_hashmap;
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -71,22 +71,22 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
                 valign = Gtk.Align.CENTER,
                 halign = Gtk.Align.CENTER,
                 tooltip_text = color_obj.name,
-                name = color_obj.name,
+                name = color_obj.name_code,
                 css_classes = { "color-radio" },
                 group = radio
             };
 
             Util.get_default ().set_widget_color (color_obj.hexadecimal, color_radio);
-            colors_hashmap[color_obj.hexadecimal] = color_radio;
-            colors_flowbox.append (colors_hashmap[color_obj.hexadecimal]);
+            colors_hashmap[color_obj.name_code] = color_radio;
+            colors_flowbox.append (colors_hashmap[color_obj.name_code]);
 
             signal_map[color_radio.toggled.connect (() => {
-                color = color_obj.hexadecimal;
-                color_changed (color);
+                color = color_obj.name_code;
+                color_changed ();
             })] = color_radio;
         }
 
-        attach (colors_flowbox, 0, 0);
+        child = colors_flowbox;
 
         signal_map[notify["color"].connect (() => {
             if (colors_hashmap.has_key (color)) {
@@ -96,7 +96,7 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
 
         signal_map[colors_flowbox.child_activated.connect ((child) => {
             color = child.child.name;
-            color_changed (color);
+            color_changed ();
         })] = colors_flowbox;
     }
 
