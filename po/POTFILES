@@ -190,6 +190,7 @@ src/Views/Scheduled/ScheduledDay.vala
 src/Views/Scheduled/ScheduledMonth.vala
 src/Views/Scheduled/ScheduledOverdue.vala
 src/Views/Scheduled/ScheduledRange.vala
+src/Views/Scheduled/ScheduledSection.vala
 src/Views/Today.vala
 src/Widgets/AttachmentRow.vala
 src/Widgets/Attachments.vala
