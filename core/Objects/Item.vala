@@ -1202,6 +1202,7 @@ public class Objects.Item : Objects.BaseObject {
         ICal.Component ical = new ICal.Component.vtodo ();
 
         ical.set_uid (id);
+        ical.set_dtstamp (new ICal.Time.current_with_zone (ICal.Timezone.get_utc_timezone ()));
         ical.set_summary (content);
         ical.set_description (description);
 
