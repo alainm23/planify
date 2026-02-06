@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-20 21:01+0000\n"
-"Last-Translator: HUGO DUNOGEANT <h.dunogeant@proton.me>\n"
+"PO-Revision-Date: 2026-01-31 10:01+0000\n"
+"Last-Translator: orychalk <orychalk@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/fr/>\n"
 "Language: fr\n"
@@ -310,12 +310,12 @@ msgstr "pas d’étiquette"
 msgid "unlabeled"
 msgstr "sans étiquette"
 
-#: core/Objects/Item.vala:1374
+#: core/Objects/Item.vala:1384
 msgid "Task copied to clipboard"
 msgstr "Tâche copiée dans le presse-papiers"
 
 # # c-format
-#: core/Objects/Item.vala:1667 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1677 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, c-format
@@ -532,7 +532,7 @@ msgstr "Chargement des tâches pour %s…"
 #: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Chargement des tâches pour %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
@@ -569,6 +569,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"Todois a mis à jour son API. Merci de reconnecter votre compte dans les "
+"Préférences pour continuer la synchronisation."
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -629,12 +631,10 @@ msgid "%s %s left"
 msgstr "%s %s restant"
 
 #: core/Utils/Datetime.vala:103
-#, fuzzy
 msgid "%-l:%M:%S %p"
 msgstr "%-l:%M:%S %p"
 
 #: core/Utils/Datetime.vala:106
-#, fuzzy
 msgid "%-l:%M %p"
 msgstr "%-l:%M %p"
 
@@ -689,12 +689,10 @@ msgstr[0] "il y a %d jour"
 msgstr[1] "il y a %d jours"
 
 #: core/Utils/Datetime.vala:660
-#, fuzzy
 msgid "%a, %b %-e, %Y"
 msgstr "%a, %b %-e, %Y"
 
 #: core/Utils/Datetime.vala:663
-#, fuzzy
 msgid "%b %-e %Y"
 msgstr "%b %-e %Y"
 
@@ -704,27 +702,23 @@ msgid "%Y"
 msgstr "%Y"
 
 #: core/Utils/Datetime.vala:669
-#, fuzzy
 msgid "%b %-e"
 msgstr "%b %-e"
 
 #: core/Utils/Datetime.vala:672
-#, fuzzy
 msgid "%a %Y"
 msgstr "%a %Y"
 
 #: core/Utils/Datetime.vala:675
-#, fuzzy, c-format
+#, c-format
 msgid "%a"
 msgstr "%a"
 
 #: core/Utils/Datetime.vala:678
-#, fuzzy
 msgid "%a, %b %-e"
 msgstr "%a, %b %-e"
 
 #: core/Utils/Datetime.vala:681
-#, fuzzy
 msgid "%b"
 msgstr "%b"
 
@@ -1004,6 +998,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
+"Soyez notifié des tâches ou évènements importants. Cliquez sur le bouton "
+"horloge ci-dessous pour ajouter un rappel."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1066,7 +1062,6 @@ msgid "3 hours before"
 msgstr "3 heures avant"
 
 #: core/Widgets/Calendar/CalendarDay.vala:73
-#, fuzzy
 msgid "%A, %B %e, %Y"
 msgstr "%A, %B %e, %Y"
 
@@ -1098,7 +1093,6 @@ msgstr "Mois précédent, %s"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
-#, fuzzy
 msgid "%B %Y"
 msgstr "%B %Y"
 
@@ -1189,12 +1183,10 @@ msgid "Daily"
 msgstr "Quotidiennement"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:418
-#, fuzzy
 msgid "Weekdays"
 msgstr "Aux jours ouvrés (Lun. au Ven.)"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:422
-#, fuzzy
 msgid "Weekends"
 msgstr "Aux jours de weekend (Sam. et Dim.)"
 
@@ -1251,9 +1243,8 @@ msgid "Day(s)"
 msgstr "Jour(s)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
-#, fuzzy
 msgid "Week(s)"
-msgstr "Hebdomadairement"
+msgstr "Semaine"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:120
 msgid "Month(s)"
@@ -1735,11 +1726,11 @@ msgstr "Vérification SSL désactivée"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
 msgid "Account migration required"
-msgstr ""
+msgstr "Migration de compte requis"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Reconnect"
-msgstr ""
+msgstr "Reconnexion"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
@@ -1851,13 +1842,15 @@ msgstr "Supprimer la source ?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "Impossible de Supprimer Cette Source"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"La source contient votre boîte de réception de projet. S'il vous plait, "
+"changez d'abord votre boite de réception de projet."
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
@@ -2312,19 +2305,16 @@ msgid "Task Settings"
 msgstr "Paramètres des tâches"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:40
-#, fuzzy
 msgid "Complete Instantly"
-msgstr "Instantanément"
+msgstr "Terminé Instantanément"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:41
-#, fuzzy
 msgid "Complete with Undo"
-msgstr "Terminé"
+msgstr "Terminé avec Annulation"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:44
-#, fuzzy
 msgid "Task Completion"
-msgstr "Son de notification des tâches accomplies"
+msgstr "Tâche Terminée"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:45
 msgid "Choose how tasks behave when marked as complete"
@@ -2375,7 +2365,6 @@ msgid "Play a sound when tasks are completed"
 msgstr "Jouer un son lorsque les tâches sont accomplies"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:104
-#, fuzzy
 msgid "Open Tasks in Sidebar View"
 msgstr "Ouvrir les tâches dans la vue latérale"
 
@@ -2830,7 +2819,7 @@ msgstr "Pas de projet disponible. Créez-en un en cliquant sur le bouton ’+’
 
 #: src/Layouts/SidebarSourceRow.vala:78
 msgid "Account Migration Required"
-msgstr ""
+msgstr "Migration de Compte Requise"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -2950,7 +2939,7 @@ msgstr "Excellent travail, il n'y a plus rien à faire 🎉"
 
 #: src/Views/Filter.vala:361
 msgid "tasks"
-msgstr ""
+msgstr "tâche"
 
 #: src/Views/Filter.vala:622
 msgid "Delete Completed Task"
@@ -3111,17 +3100,17 @@ msgstr "Chercher parmi les tâches accomplies"
 msgid "Sort By"
 msgstr "Trier par"
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:155
+#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
 msgid "Overdue"
 msgstr "En retard"
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:163
+#: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:163
 msgid "Reschedule"
 msgstr "Reprogrammer"
 
 #: src/Views/Today.vala:761
 msgid "Me"
-msgstr ""
+msgstr "Moi"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
@@ -3137,7 +3126,7 @@ msgstr "Aucune pièce-jointe trouvée. Ajoutez des fichiers ici."
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
 msgid "Bypass Location Resolve"
-msgstr ""
+msgstr "Contourner la résolution de l'emplacement"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:32
 msgid ""
@@ -3184,7 +3173,7 @@ msgstr "Signaler un problème"
 
 #: src/Widgets/ErrorView.vala:142
 msgid "Account migration required."
-msgstr ""
+msgstr "Migration de compte requise."
 
 #: src/Widgets/EventRow.vala:207
 #, c-format

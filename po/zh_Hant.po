@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-29 13:30+0000\n"
+"PO-Revision-Date: 2026-02-01 12:33+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -304,11 +304,11 @@ msgstr "無標籤"
 msgid "unlabeled"
 msgstr "尚無標籤"
 
-#: core/Objects/Item.vala:1374
+#: core/Objects/Item.vala:1384
 msgid "Task copied to clipboard"
 msgstr "任務已經複製至剪貼簿"
 
-#: core/Objects/Item.vala:1667 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1677 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, c-format
@@ -552,7 +552,7 @@ msgstr "在此台電腦上"
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
-msgstr ""
+msgstr "Todoist 已經更新其 API。請在〔偏好設定〕中重新連接您的帳戶以繼續同步。"
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -960,7 +960,7 @@ msgstr "設定及時提醒！"
 msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
-msgstr ""
+msgstr "取得有關重要任務或事件的通知，點按下方的時鐘按鈕來增添提醒。"
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -2832,7 +2832,7 @@ msgstr "做得好，清光光一件不留 🎉"
 
 #: src/Views/Filter.vala:361
 msgid "tasks"
-msgstr ""
+msgstr "任務"
 
 #: src/Views/Filter.vala:622
 msgid "Delete Completed Task"
@@ -2988,11 +2988,11 @@ msgstr "搜尋已經完成任務"
 msgid "Sort By"
 msgstr "排序依照"
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:155
+#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
 msgid "Overdue"
 msgstr "逾期"
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:163
+#: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:163
 msgid "Reschedule"
 msgstr "重新排定行程"
 
@@ -3059,7 +3059,7 @@ msgstr "提報問題"
 
 #: src/Widgets/ErrorView.vala:142
 msgid "Account migration required."
-msgstr ""
+msgstr "帳戶遷移是必須的。"
 
 #: src/Widgets/EventRow.vala:207
 #, c-format
