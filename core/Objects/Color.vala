@@ -22,12 +22,14 @@
 public class Objects.Color : GLib.Object {
     public int id { get; construct; }
     public string name { get; construct; }
+    public string name_code { get; construct; }
     public string hexadecimal { get; construct; }
 
-    public Color (int id, string name, string hexadecimal) {
+    public Color (int id, string name, string name_code, string hexadecimal) {
         Object (
             id: id,
             name: name,
+            name_code: name_code,
             hexadecimal: hexadecimal
         );
     }

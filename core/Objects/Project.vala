@@ -623,7 +623,7 @@ public class Objects.Project : Objects.BaseObject {
         builder.set_member_name ("color");
         builder.add_string_value (color);
 
-        builder.set_member_name ("collapsed");
+        builder.set_member_name ("is_collapsed");
         builder.add_boolean_value (collapsed);
 
         builder.set_member_name ("is_favorite");
