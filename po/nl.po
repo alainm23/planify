@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-25 06:43+0000\n"
-"Last-Translator: succesvollezakenvrouw <joris.briet@kolkmannen.com>\n"
+"PO-Revision-Date: 2026-02-07 12:00+0000\n"
+"Last-Translator: Bart Ratgers <bart@optiprise.nl>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/nl/>\n"
 "Language: nl\n"
@@ -567,6 +567,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"Todoist heeft zijn API bijgewerkt. Koppel je account opnieuw via de "
+"voorkeuren om te blijven synchroniseren."
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -993,6 +995,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
+"Ontvang meldingen over belangrijke taken of gebeurtenissen. Tik op de knop "
+"met klok symbool hieronder om een herinnering toe te voegen."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1713,11 +1717,11 @@ msgstr "SSL-verificatie staat uit"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
 msgid "Account migration required"
-msgstr ""
+msgstr "Accountmigratie vereist"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Reconnect"
-msgstr ""
+msgstr "Opnieuw verbinden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
@@ -1829,13 +1833,14 @@ msgstr "Bron verwijderen?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "Deze bron kan niet worden verwijderd"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Deze bron bevat je huidige Inbox-project. Wijzig eerst je Inbox-project."
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
@@ -2793,7 +2798,7 @@ msgstr ""
 
 #: src/Layouts/SidebarSourceRow.vala:78
 msgid "Account Migration Required"
-msgstr ""
+msgstr "Accountmigratie vereist"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -2828,7 +2833,6 @@ msgid "Database Integrity Check Failed"
 msgstr "Integriteitscheck database mislukt"
 
 #: src/MainWindow.vala:832
-#, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2843,9 +2847,12 @@ msgstr ""
 "We hebben problemen gedetecteerd met de databasestructuur die ervoor kunnen "
 "zorgen dat de applicatie niet goed werkt. Dit kan te wijten zijn aan "
 "ontbrekende tabellen of kolommen en is waarschijnlijk te wijten aan "
-"corruptie of een onvolledige update. De database zal nu opnieuw ingesteld "
-"worden, en alle bestaande data wordt verwijderd. Hierna kan je één van je "
-"vorige back-ups terugzetten. Bedankt voor je geduld."
+"corruptie of een onvolledige update. \n"
+"\n"
+"De database zal nu opnieuw ingesteld worden, en alle bestaande data wordt "
+"verwijderd. \n"
+"\n"
+"Hierna kan je één van je vorige back-ups terugzetten. Bedankt voor je geduld."
 
 #: src/MainWindow.vala:834
 msgid "Reset Database"
@@ -2908,7 +2915,7 @@ msgstr "Goed gedaan, er is niets meer te doen 🎉"
 
 #: src/Views/Filter.vala:361
 msgid "tasks"
-msgstr ""
+msgstr "taken"
 
 #: src/Views/Filter.vala:622
 msgid "Delete Completed Task"
@@ -3140,7 +3147,7 @@ msgstr "Probleem rapporteren"
 
 #: src/Widgets/ErrorView.vala:142
 msgid "Account migration required."
-msgstr ""
+msgstr "Accountmigratie vereist."
 
 #: src/Widgets/EventRow.vala:207
 #, c-format
@@ -3289,16 +3296,15 @@ msgid "Failed to connect to server"
 msgstr "Verbinden met server mislukt"
 
 #: src/Widgets/SyncButton.vala:94
-#, fuzzy
 msgid ""
 "It looks like the server is unreachable,\n"
 "are you connected to the internet?\n"
 "Any changes you make while disconnected\n"
 "will be synchronized when you reconnect."
 msgstr ""
-"Het lijkt erop dat je niet online bent\n"
+"Het lijkt erop dat je niet online bent.\n"
 "Aanpassingen wanneer offline worden\n"
-"gesynchroniseerd zodra je terug online bent"
+"gesynchroniseerd zodra je terug online bent."
 
 #: src/Widgets/TranslationRow.vala:95
 #, c-format
