@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-27 12:14+0000\n"
+"PO-Revision-Date: 2026-01-31 10:01+0000\n"
 "Last-Translator: marjan <marjan.euroming@gmail.com>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/sl/>\n"
@@ -3012,42 +3012,44 @@ msgstr ""
 
 #: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
 msgid "Overdue"
-msgstr ""
+msgstr "Zamujen rok"
 
 #: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:163
 msgid "Reschedule"
-msgstr ""
+msgstr "Prerazporedite"
 
 #: src/Views/Today.vala:761
 msgid "Me"
-msgstr ""
+msgstr "Jaz"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
-msgstr ""
+msgstr "Priponke"
 
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
-msgstr ""
+msgstr "Odpri"
 
 #: src/Widgets/Attachments.vala:248
 msgid "No attachments found. Add files here."
-msgstr ""
+msgstr "Prilog ni bilo najdenih. Dodajte datoteke tukaj."
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
 msgid "Bypass Location Resolve"
-msgstr ""
+msgstr "Obhod lokacije Rešitev"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:32
 msgid ""
 "Workaround for CalDAV connection issues with connections using non-default "
 "ports"
 msgstr ""
+"Rešitev za težave s povezavo CalDAV pri povezavah, ki uporabljajo vrata, ki "
+"niso privzeta"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:45
 #: src/Widgets/IgnoreSSLSwitchRow.vala:45
 msgid "Warning"
-msgstr ""
+msgstr "Opozorilo"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:46
 msgid ""
@@ -3058,28 +3060,28 @@ msgstr ""
 #: src/Widgets/BypassResolveSwitchRow.vala:49
 #: src/Widgets/IgnoreSSLSwitchRow.vala:49
 msgid "Continue Anyway"
-msgstr ""
+msgstr "Vseeno nadaljuj"
 
 #: src/Widgets/CompletedTaskRow.vala:95
 #: src/Widgets/ItemDetailCompleted.vala:128 src/Widgets/SubItems.vala:92
 msgid "Sub-tasks"
-msgstr ""
+msgstr "Podnaloge"
 
 #: src/Widgets/EditableTextView.vala:78 src/Widgets/EditableTextView.vala:145
 msgid "Show more"
-msgstr ""
+msgstr "Pokaži več"
 
 #: src/Widgets/EditableTextView.vala:149
 msgid "Show less"
-msgstr ""
+msgstr "Pokaži manj"
 
 #: src/Widgets/ErrorView.vala:107
 msgid "Report Issue"
-msgstr ""
+msgstr "Prijavi težavo"
 
 #: src/Widgets/ErrorView.vala:142
 msgid "Account migration required."
-msgstr ""
+msgstr "Potrebna je selitev računa."
 
 #: src/Widgets/EventRow.vala:207
 #, c-format
@@ -3101,31 +3103,31 @@ msgstr[3] ""
 
 #: src/Widgets/EventRow.vala:214
 msgid "Happening now"
-msgstr ""
+msgstr "Dogaja se zdaj"
 
 #: src/Widgets/EventRow.vala:249
 msgid "Location"
-msgstr ""
+msgstr "Lokacija"
 
 #: src/Widgets/EventRow.vala:262
 msgid "Organizer"
-msgstr ""
+msgstr "Organizator"
 
 #: src/Widgets/EventRow.vala:276
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/Widgets/EventRow.vala:381
 msgid "Join"
-msgstr ""
+msgstr "Pridruži se"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:31
 msgid "Disable SSL certificate validation"
-msgstr ""
+msgstr "Onemogoči preverjanje potrdila SSL"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:32
 msgid "Not recommended – exposes you to security risks"
-msgstr ""
+msgstr "Ni priporočljivo – izpostavlja vas varnostnim tveganjem"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:46
 msgid ""
