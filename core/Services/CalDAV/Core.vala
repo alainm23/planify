@@ -21,7 +21,6 @@
 
 public class Services.CalDAV.Core : GLib.Object {
 
-    private Soup.Session session;
     private Gee.HashMap<string, Services.CalDAV.CalDAVClient> clients;
 
     public signal void sync_progress (int current, int total, string message);
@@ -36,7 +35,6 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     public Core () {
-        session = new Soup.Session ();
         clients = new Gee.HashMap<string, Services.CalDAV.CalDAVClient> ();
     }
 
@@ -136,7 +134,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
 
     public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable, bool ignore_ssl = false) throws GLib.Error {
-        var caldav_client = new Services.CalDAV.CalDAVClient (session, dav_url, username, password, ignore_ssl);
+        var caldav_client = new Services.CalDAV.CalDAVClient (new Soup.Session (), dav_url, username, password, ignore_ssl);
 
         try {
             string? principal_url = yield caldav_client.get_principal_url (cancellable);
