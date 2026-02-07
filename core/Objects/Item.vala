@@ -513,6 +513,10 @@ public class Objects.Item : Objects.BaseObject {
         ICal.Property ? related_to_property = ical_vtodo.get_first_property (ICal.PropertyKind.RELATEDTO_PROPERTY);
         if (related_to_property != null) {
             parent_id = related_to_property.get_relatedto ();
+            if (parent_id == id) {
+                warning ("Item/Task %s has a direct self-reference", id);
+                parent_id = "";
+            }
         } else {
             parent_id = "";
         }
@@ -1681,10 +1685,22 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public bool was_archived () {
-        if (has_parent) {
+        return was_archived_internal (new Gee.HashSet<string> ());
+    }
+
+    private bool was_archived_internal (Gee.Set<string> visited) {
+        // Prevent infinite recursion with circular references
+        if (visited.contains (id)) {
+            warning ("Item/Task %s has a circular reference", id);
+            return false;
+        }
+
+        visited.add (id);
+
+        if (has_parent && _parent_id != id) { // Check for direct self-reference
             var parent_item = parent;
             if (parent_item != null) {
-                return parent_item.was_archived ();
+                return parent_item.was_archived_internal (visited);
             }
         }
 

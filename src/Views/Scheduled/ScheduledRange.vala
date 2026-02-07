@@ -59,7 +59,9 @@ public class Views.Scheduled.ScheduledRange : Views.Scheduled.ScheduledSection {
         title_box.append (date_range_label);
 
         header_content = create_header (title_box);
+        #if WITH_EVOLUTION
         setup_events (header_content);
+        #endif
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
