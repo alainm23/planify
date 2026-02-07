@@ -824,7 +824,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (active) {
                 select_revealer.reveal_child = true;
                 checked_button.sensitive = false;
-                disable_drag_and_drop ();
+                if (drag_source != null) {
+                    itemrow_box.remove_controller (drag_source);
+                    drag_source = null;
+                }
             } else {
                 select_revealer.reveal_child = false;
                 checked_button.sensitive = true;
