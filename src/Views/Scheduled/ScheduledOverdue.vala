@@ -54,7 +54,9 @@ public class Views.Scheduled.ScheduledOverdue : Views.Scheduled.ScheduledSection
         title_box.append (reschedule_button);
 
         header_content = create_header (title_box);
+        #if WITH_EVOLUTION
         setup_events (header_content);
+        #endif
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
