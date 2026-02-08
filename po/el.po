@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-14 10:05+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-02-06 12:01+0000\n"
+"Last-Translator: \"Georgios K.\" <kalligator+github@gmail.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/el/>\n"
 "Language: el\n"
@@ -12,92 +12,92 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
-msgstr ""
+msgstr "Έργα"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:356
 msgid "Sections"
-msgstr ""
+msgstr "Ενότητες"
 
 #: core/Enum.vala:174 core/Enum.vala:183
 msgid "Tasks"
-msgstr ""
+msgstr "Εργασίες"
 
 #: core/Enum.vala:177 core/Enum.vala:540 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:782
 #: src/Layouts/ItemRow.vala:1233
 msgid "Labels"
-msgstr ""
+msgstr "Ετικέτες"
 
 #: core/Enum.vala:180 src/Dialogs/Preferences/Pages/HomeView.vala:35
 msgid "Filters"
-msgstr ""
+msgstr "Φίλτρα"
 
 #: core/Enum.vala:186
 msgid "Lists"
-msgstr ""
+msgstr "Λίστες"
 
 #: core/Enum.vala:214
 msgid "Don't Repeat"
-msgstr ""
+msgstr "Να μην Επαναλαμβάνεται"
 
 #: core/Enum.vala:216
 #, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Κάθε λεπτό"
+msgstr[1] "Κάθε %d λεπτά"
 
 #: core/Enum.vala:218
 #, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Κάθε ώρα"
+msgstr[1] "Κάθε %d ώρες"
 
 #: core/Enum.vala:220
 #, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Κάθε μέρα"
+msgstr[1] "Κάθε %d ημέρες"
 
 #: core/Enum.vala:222
 #, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Κάθε εβδομάδα"
+msgstr[1] "Κάθε %d εβδομάδες"
 
 #: core/Enum.vala:224
 #, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Κάθε μήνα"
+msgstr[1] "Κάθε %d μήνες"
 
 #: core/Enum.vala:226
 #, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Κάθε χρόνο"
+msgstr[1] "Κάθε %d χρόνια"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
 msgid "Nextcloud"
-msgstr ""
+msgstr "Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:121
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
-msgstr ""
+msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:537 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:545 src/Views/Project/Project.vala:590
@@ -105,73 +105,73 @@ msgstr ""
 #: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:720
 #: src/Views/Today.vala:749 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
-msgstr ""
+msgstr "Προτεραιότητα"
 
 #: core/Enum.vala:348
 msgid "Label"
-msgstr ""
+msgstr "Ετικέτα"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:543
 #: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:718
 msgid "Due Date"
-msgstr ""
+msgstr "Προθεσμία"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
-msgstr ""
+msgstr "Ενότητα"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "Ανάθεση"
 
 #: core/Enum.vala:469
 msgid "Task Created"
-msgstr ""
+msgstr "Η Εργασία Δημιουργήθηκε"
 
 #: core/Enum.vala:472
 msgid "Task Updated"
-msgstr ""
+msgstr "Η Εργασία Ενημερώθηκε"
 
 #: core/Enum.vala:528
 msgid "Content"
-msgstr ""
+msgstr "Περιεχόμενο"
 
 #: core/Enum.vala:531 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:1939 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
-msgstr ""
+msgstr "Περιγραφή"
 
 #: core/Enum.vala:534 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr ""
+msgstr "Έχει προγραμματιστεί"
 
 #: core/Enum.vala:543 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:763 src/Layouts/ItemBoard.vala:776
 #: src/Layouts/ItemRow.vala:1214 src/Layouts/ItemRow.vala:1227
 msgid "Pin"
-msgstr ""
+msgstr "Καρφιτσώστε"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr ""
+msgstr "Όλες οι Εργασίες"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
-msgstr ""
+msgstr "όλες οι εργασίες"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all"
-msgstr ""
+msgstr "όλα"
 
 #: core/Objects/Filters/Anytime.vala:33
 msgid "Anytime"
-msgstr ""
+msgstr "Οποτεδήποτε"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "anytime"
-msgstr ""
+msgstr "οποτεδήποτε"
 
 #: core/Objects/Filters/Anytime.vala:34 core/Objects/Filters/Completed.vala:34
 #: core/Objects/Filters/Inbox.vala:36 core/Objects/Filters/Labels.vala:34
@@ -180,23 +180,23 @@ msgstr ""
 #: core/Objects/Filters/Scheduled.vala:49 core/Objects/Filters/Today.vala:50
 #: core/Objects/Filters/Tomorrow.vala:34 core/Objects/Filters/Unlabeled.vala:34
 msgid "filters"
-msgstr ""
+msgstr "φίλτρα"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr ""
+msgstr "χωρίς ημερομηνία"
 
 #: core/Objects/Filters/Completed.vala:33
 msgid "Completed"
-msgstr ""
+msgstr "Ολοκληρώθηκε"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "completed"
-msgstr ""
+msgstr "ολοκληρώθηκε"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "logbook"
-msgstr ""
+msgstr "αρχείο καταγραφής"
 
 #: core/Objects/Filters/Inbox.vala:35 core/Utils/Util.vala:258
 #: core/Utils/Util.vala:571
@@ -206,67 +206,67 @@ msgstr ""
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:196
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr ""
+msgstr "Εισερχόμενα"
 
 #: core/Objects/Filters/Inbox.vala:36
 msgid "inbox"
-msgstr ""
+msgstr "εισερχόμενα"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
-msgstr ""
+msgstr "ετικέτες"
 
 #: core/Objects/Filters/Pinboard.vala:34
 msgid "Pinboard"
-msgstr ""
+msgstr "Ταμπλό καρφιτσωμένων"
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:118
 msgid "Priority 1: high"
-msgstr ""
+msgstr "Προτεραιότητα 1: υψηλή"
 
 #: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:120
 msgid "Priority 2: medium"
-msgstr ""
+msgstr "Προτεραιότητα 2: μέση"
 
 #: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:122
 msgid "Priority 3: low"
-msgstr ""
+msgstr "Προτεραιότητα 3: χαμηλή"
 
 #: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:124
 msgid "Priority 4: none"
-msgstr ""
+msgstr "Προτεραιότητα 4: καμία"
 
 #: core/Objects/Filters/Priority.vala:182
 msgid "high"
-msgstr ""
+msgstr "υψηλή"
 
 #: core/Objects/Filters/Priority.vala:184
 msgid "medium"
-msgstr ""
+msgstr "μέση"
 
 #: core/Objects/Filters/Priority.vala:186
 msgid "low"
-msgstr ""
+msgstr "χαμηλή"
 
 #: core/Objects/Filters/Priority.vala:188
 msgid "none"
-msgstr ""
+msgstr "καμία"
 
 #: core/Objects/Filters/Repeating.vala:33
 msgid "Repeating"
-msgstr ""
+msgstr "Επαναλαμβανόμενη"
 
 #: core/Objects/Filters/Repeating.vala:34
 msgid "repeating"
-msgstr ""
+msgstr "επαναλαμβανόμενη"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr ""
+msgstr "έχει προγραμματιστεί"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
-msgstr ""
+msgstr "προσεχείς"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
@@ -276,11 +276,11 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1221 src/Views/Project/Project.vala:557
 #: src/Views/Project/Project.vala:723 src/Views/Today.vala:203
 msgid "Today"
-msgstr ""
+msgstr "Σήμερα"
 
 #: core/Objects/Filters/Today.vala:50
 msgid "today"
-msgstr ""
+msgstr "σήμερα"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Utils/Datetime.vala:633
@@ -288,31 +288,31 @@ msgstr ""
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:773
 #: src/Layouts/ItemRow.vala:1224
 msgid "Tomorrow"
-msgstr ""
+msgstr "Αύριο"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "tomorrow"
-msgstr ""
+msgstr "αύριο"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "date"
-msgstr ""
+msgstr "ημερομηνία"
 
 #: core/Objects/Filters/Unlabeled.vala:33
 msgid "Unlabeled"
-msgstr ""
+msgstr "Χωρίς ετικέτα"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "no label"
-msgstr ""
+msgstr "καμιά ετικέτα"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "unlabeled"
-msgstr ""
+msgstr "χωρίς ετικέτα"
 
 #: core/Objects/Item.vala:1389
 msgid "Task copied to clipboard"
-msgstr ""
+msgstr "Η εργασία αντιγράφηκε στο πρόχειρο"
 
 #: core/Objects/Item.vala:1682 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
@@ -320,13 +320,13 @@ msgstr ""
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Η εργασία μεταφέρθηκε στο %s"
+msgstr[1] "%d εργασίες μεταφέρθηκαν στο %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
 msgid "Delete Label %s"
-msgstr ""
+msgstr "Διαγραφή ετικέτας %s"
 
 #: core/Objects/Label.vala:207 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
@@ -334,7 +334,7 @@ msgstr ""
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
-msgstr ""
+msgstr "Αυτό δεν μπορεί να αναιρεθεί"
 
 #: core/Objects/Label.vala:210 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:916 core/Objects/Section.vala:380
@@ -353,7 +353,7 @@ msgstr ""
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:287
 msgid "Cancel"
-msgstr ""
+msgstr "Άκυρο"
 
 #: core/Objects/Label.vala:211 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
@@ -365,74 +365,74 @@ msgstr ""
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
 #: src/Widgets/MultiSelectToolbar.vala:288
 msgid "Delete"
-msgstr ""
+msgstr "Διαγραφή"
 
 #: core/Objects/Project.vala:819
 msgid "The project was copied to the Clipboard."
-msgstr ""
+msgstr "Το έργο αντιγράφηκε στο Πρόχειρο."
 
 #: core/Objects/Project.vala:855
 #, c-format
 msgid "Delete Project %s?"
-msgstr ""
+msgstr "Διαγραφή του Έργου %s;"
 
 #: core/Objects/Project.vala:912 core/Objects/Section.vala:402
 msgid "Archive?"
-msgstr ""
+msgstr "Αρχειοθέτηση;"
 
 #: core/Objects/Project.vala:913 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "Αυτή η ενέργεια θα αρχειοθετήσει το %s καθώς και όλες τις εργασίες του."
 
 #: core/Objects/Project.vala:917 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
-msgstr ""
+msgstr "Αρχειοθέτηση"
 
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
 msgid "Delete Section %s"
-msgstr ""
+msgstr "Διαγραφή Ενότητας %s"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:37
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:46
 msgid "Todoist"
-msgstr ""
+msgstr "Todoist"
 
 #: core/QuickAddCore.vala:138
 msgid "Task added successfully!"
-msgstr ""
+msgstr "Η εργασία προστέθηκε με επιτυχία!"
 
 #: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:414
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
-msgstr ""
+msgstr "Όνομα To-do"
 
 #: core/QuickAddCore.vala:184
 msgid "This field is required"
-msgstr ""
+msgstr "Αυτό το πεδίο είναι υποχρεωτικό"
 
 #: core/QuickAddCore.vala:208 src/Dialogs/Project.vala:136
 msgid "Add a description…"
-msgstr ""
+msgstr "Πρόσθεσε μια περιγραφή…"
 
 #: core/QuickAddCore.vala:248
 msgid "Set date"
-msgstr ""
+msgstr "Ορίστε ημερομηνία"
 
 #: core/QuickAddCore.vala:260 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
-msgstr ""
+msgstr "Προσθήκη Ετικετών"
 
 #: core/QuickAddCore.vala:265 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
-msgstr ""
+msgstr "Ορίστε την προτεραιότητα"
 
 #: core/QuickAddCore.vala:270
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
@@ -472,7 +472,7 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1370
 msgid "Set priority"
-msgstr ""
+msgstr "Ορισμός προτεραιότητας"
 
 #: core/QuickAddCore.vala:1370
 msgid "p1 = highest, p4 = lowest"

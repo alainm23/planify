@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-03 13:01+0000\n"
+"PO-Revision-Date: 2026-02-07 12:00+0000\n"
 "Last-Translator: Maksym Dilanian <dilanyan.maxim@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/uk/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -123,7 +123,7 @@ msgstr "Розділ"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "Призначення"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -530,12 +530,12 @@ msgstr "Завантаження завдань для %s…"
 #: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Завантажено завдання для %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Синхронізація завдання %d з %d"
 
 #: core/Services/CalDAV/Core.vala:164
 msgid "Source already exists"
@@ -567,6 +567,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"Todoist оновив свій API. Будь ласка, повторно підключіть свій обліковий "
+"запис у налаштуваннях, щоб продовжити синхронізацію."
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -992,6 +994,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
+"Отримуйте сповіщення про важливі завдання або події. Натисніть кнопку "
+"годинника нижче, щоб додати нагадування."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1703,7 +1707,7 @@ msgstr "Ви можете сортувати свої облікові запи�
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:578
 msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr ""
+msgstr "Planify синхронізує ваші завдання, це може тривати кілька хвилин"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:307
 msgid "SSL verification is disabled"
@@ -1711,11 +1715,11 @@ msgstr "SSL-перевірку вимкнено"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
 msgid "Account migration required"
-msgstr ""
+msgstr "Потрібна міграція облікового запису"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Reconnect"
-msgstr ""
+msgstr "Знову підключитися"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
@@ -1826,13 +1830,15 @@ msgstr "Видалити джерело?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "Неможливо видалити це джерело"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Це джерело містить ваш поточний проект Вхідні. Спочатку змініть свій проект "
+"Вхідні."
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
@@ -2790,7 +2796,7 @@ msgstr "Немає жодного проєкту. Створіть новий, �
 
 #: src/Layouts/SidebarSourceRow.vala:78
 msgid "Account Migration Required"
-msgstr ""
+msgstr "Потрібна міграція облікового запису"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -2907,7 +2913,7 @@ msgstr "Чудова робота, більше нічого не залишил
 
 #: src/Views/Filter.vala:361
 msgid "tasks"
-msgstr ""
+msgstr "завдання"
 
 #: src/Views/Filter.vala:622
 msgid "Delete Completed Task"
@@ -3076,7 +3082,7 @@ msgstr "Перенести"
 
 #: src/Views/Today.vala:761
 msgid "Me"
-msgstr ""
+msgstr "Я"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
@@ -3139,7 +3145,7 @@ msgstr "Повідомити про проблему"
 
 #: src/Widgets/ErrorView.vala:142
 msgid "Account migration required."
-msgstr ""
+msgstr "Потрібна міграція облікового запису."
 
 #: src/Widgets/EventRow.vala:207
 #, c-format
