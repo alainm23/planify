@@ -140,12 +140,10 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
     }
 
     private string get_time_range_for_day (GLib.DateTime day, string time_format) {
-        // Si el evento es de un solo día
         if (start_time.get_day_of_year () == end_time.get_day_of_year () && start_time.get_year () == end_time.get_year ()) {
             return start_time.format (time_format);
         }
         
-        // Normalizar las fechas a medianoche para comparación correcta
         var day_normalized = new GLib.DateTime.local (day.get_year (), day.get_month (), day.get_day_of_month (), 0, 0, 0);
         var start_normalized = new GLib.DateTime.local (start_time.get_year (), start_time.get_month (), start_time.get_day_of_month (), 0, 0, 0);
         var end_normalized = new GLib.DateTime.local (end_time.get_year (), end_time.get_month (), end_time.get_day_of_month (), 0, 0, 0);
@@ -164,7 +162,6 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         } else if (is_last_day) {
             result = start_of_day + " - " + end_time.format (time_format);
         } else {
-            // Día intermedio o vista de rango: mostrar rango completo del evento
             result = start_time.format ("%d %b ") + start_time.format (time_format) + " - " + 
                      end_time.format ("%d %b ") + end_time.format (time_format);
         }

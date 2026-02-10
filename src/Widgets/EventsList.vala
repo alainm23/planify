@@ -237,13 +237,11 @@ public class Widgets.EventsList : Adw.Bin {
         var event_start = CalendarEventsUtil.ical_to_date_time (start_time);
         var event_end = CalendarEventsUtil.ical_to_date_time (end_time);
         
-        // Normalizar a medianoche para comparación de días
         var range_start = new GLib.DateTime.local (start_date.get_year (), start_date.get_month (), start_date.get_day_of_month (), 0, 0, 0);
         var range_end = new GLib.DateTime.local (end_date.get_year (), end_date.get_month (), end_date.get_day_of_month (), 23, 59, 59);
         var event_start_day = new GLib.DateTime.local (event_start.get_year (), event_start.get_month (), event_start.get_day_of_month (), 0, 0, 0);
         var event_end_day = new GLib.DateTime.local (event_end.get_year (), event_end.get_month (), event_end.get_day_of_month (), 23, 59, 59);
         
-        // El evento se solapa si: el inicio del evento es <= fin del rango Y el fin del evento es >= inicio del rango
         return event_start_day.compare (range_end) <= 0 && event_end_day.compare (range_start) >= 0;
     }
 
