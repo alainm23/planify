@@ -209,7 +209,8 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
         for (int i = 0; i < 4; i++) {
             date = date.add_months (1);
-            listbox.append (new Views.Scheduled.ScheduledMonth (date));
+            var first_of_month = new GLib.DateTime.local (date.get_year (), date.get_month (), 1, 0, 0, 0);
+            listbox.append (new Views.Scheduled.ScheduledMonth (first_of_month));
         }
     }
 

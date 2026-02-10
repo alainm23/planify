@@ -145,7 +145,9 @@ public class Widgets.EventsList : Adw.Bin {
         var event_uid = ical.get_uid ();
         if (!event_hashmap.has_key (event_uid)) {
             bool show_date = is_month || is_range;
-            event_hashmap[event_uid] = new Widgets.EventRow (ical, source, show_date);
+            GLib.DateTime? display_date = start_date;
+            
+            event_hashmap[event_uid] = new Widgets.EventRow (ical, source, show_date, display_date);
             listbox.append (event_hashmap[event_uid]);
         }
 
@@ -235,8 +237,12 @@ public class Widgets.EventsList : Adw.Bin {
         var event_start = CalendarEventsUtil.ical_to_date_time (start_time);
         var event_end = CalendarEventsUtil.ical_to_date_time (end_time);
         
-        // Check if event overlaps with our date range
-        return !(event_end.compare (start_date) < 0 || event_start.compare (end_date.add_days (1)) >= 0);
+        var range_start = new GLib.DateTime.local (start_date.get_year (), start_date.get_month (), start_date.get_day_of_month (), 0, 0, 0);
+        var range_end = new GLib.DateTime.local (end_date.get_year (), end_date.get_month (), end_date.get_day_of_month (), 23, 59, 59);
+        var event_start_day = new GLib.DateTime.local (event_start.get_year (), event_start.get_month (), event_start.get_day_of_month (), 0, 0, 0);
+        var event_end_day = new GLib.DateTime.local (event_end.get_year (), event_end.get_month (), event_end.get_day_of_month (), 23, 59, 59);
+        
+        return event_start_day.compare (range_end) <= 0 && event_end_day.compare (range_start) >= 0;
     }
 
     public void clean_up () {
