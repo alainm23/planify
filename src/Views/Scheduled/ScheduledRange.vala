@@ -112,7 +112,6 @@ public class Views.Scheduled.ScheduledRange : Views.Scheduled.ScheduledSection {
         signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
             header_content.sensitive = !active;
         })] = Services.EventBus.get_default ();
-
     }
 
     protected override void add_items () {
@@ -150,4 +149,14 @@ public class Views.Scheduled.ScheduledRange : Views.Scheduled.ScheduledSection {
 
         listbox_revealer.reveal_child = has_items;
     }
+
+#if WITH_EVOLUTION
+    protected override Widgets.EventsList? create_events_list () {
+        return new Widgets.EventsList.for_range (start_date, end_date) {
+            hexpand = true,
+            valign = Gtk.Align.START,
+            margin_top = 6
+        };
+    }
+#endif
 }

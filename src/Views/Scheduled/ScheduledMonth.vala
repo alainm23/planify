@@ -49,8 +49,6 @@ public class Views.Scheduled.ScheduledMonth : Views.Scheduled.ScheduledSection {
         };
         title_box.append (month_label);
 
-
-
         header_content = create_header (title_box);
         #if WITH_EVOLUTION
         setup_events (header_content);
@@ -104,8 +102,6 @@ public class Views.Scheduled.ScheduledMonth : Views.Scheduled.ScheduledSection {
         signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
             header_content.sensitive = !active;
         })] = Services.EventBus.get_default ();
-
-
     }
 
     protected override void add_items () {

@@ -24,6 +24,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
     public unowned E.SourceCalendar cal { get; construct; }
     public E.Source source { get; construct; }
     public bool show_date { get; construct; default = false; }
+    public GLib.DateTime? display_date { get; construct; default = null; }
 
     public GLib.DateTime start_time { get; private set; }
     public GLib.DateTime ? end_time { get; private set; }
@@ -36,12 +37,13 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    public EventRow (ICal.Component component, E.Source source, bool show_date = false) {
+    public EventRow (ICal.Component component, E.Source source, bool show_date = false, GLib.DateTime? display_date = null) {
         Object (
             component : component,
             cal: (E.SourceCalendar ?) source.get_extension (E.SOURCE_EXTENSION_CALENDAR),
             source: source,
-            show_date: show_date
+            show_date: show_date,
+            display_date: display_date
         );
     }
 
@@ -121,17 +123,53 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
     }
 
     private void update_timelabel () {
+        string time_format = Utils.Datetime.is_clock_format_12h () ? "%I:%M %p" : "%H:%M";
+        
         if (show_date) {
             if (is_allday) {
                 time_label.label = start_time.format ("%d %b");
             } else {
-                string time_format = Utils.Datetime.is_clock_format_12h () ? "%I:%M %p" : "%H:%M";
-                time_label.label = start_time.format ("%d %b · ") + start_time.format (time_format);
+                time_label.label = start_time.format ("%d %b · ") + get_time_range_for_day (display_date ?? start_time, time_format);
             }
         } else {
-            string format = Utils.Datetime.is_clock_format_12h () ? "%I:%M %p" : "%H:%M";
-            time_label.label = start_time.format (format);
+            if (is_allday) {
+                return;
+            }
+            time_label.label = get_time_range_for_day (display_date ?? start_time, time_format);
         }
+    }
+
+    private string get_time_range_for_day (GLib.DateTime day, string time_format) {
+        // Si el evento es de un solo día
+        if (start_time.get_day_of_year () == end_time.get_day_of_year () && start_time.get_year () == end_time.get_year ()) {
+            return start_time.format (time_format);
+        }
+        
+        // Normalizar las fechas a medianoche para comparación correcta
+        var day_normalized = new GLib.DateTime.local (day.get_year (), day.get_month (), day.get_day_of_month (), 0, 0, 0);
+        var start_normalized = new GLib.DateTime.local (start_time.get_year (), start_time.get_month (), start_time.get_day_of_month (), 0, 0, 0);
+        var end_normalized = new GLib.DateTime.local (end_time.get_year (), end_time.get_month (), end_time.get_day_of_month (), 0, 0, 0);
+        
+        bool is_first_day = day_normalized.equal (start_normalized);
+        bool is_last_day = day_normalized.equal (end_normalized);
+        
+        string end_of_day = Utils.Datetime.is_clock_format_12h () ? "11:59 PM" : "23:59";
+        string start_of_day = Utils.Datetime.is_clock_format_12h () ? "12:00 AM" : "00:00";
+        
+        string result;
+        if (is_first_day && is_last_day) {
+            result = start_time.format (time_format);
+        } else if (is_first_day) {
+            result = start_time.format (time_format) + " - " + end_of_day;
+        } else if (is_last_day) {
+            result = start_of_day + " - " + end_time.format (time_format);
+        } else {
+            // Día intermedio o vista de rango: mostrar rango completo del evento
+            result = start_time.format ("%d %b ") + start_time.format (time_format) + " - " + 
+                     end_time.format ("%d %b ") + end_time.format (time_format);
+        }
+        
+        return result;
     }
 
     private void update_color () {
