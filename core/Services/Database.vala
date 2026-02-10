@@ -1387,7 +1387,7 @@ public class Services.Database : GLib.Object {
         Items
      */
 
-    public bool insert_item (Objects.Item item, bool insert = true) {
+    public bool insert_item (Objects.Item item) {
         Sqlite.Statement stmt;
 
         sql = """
@@ -1435,7 +1435,7 @@ public class Services.Database : GLib.Object {
         return true;
     }
 
-    public bool insert_items_transaction (Gee.ArrayList<Objects.Item> items, bool insert = true) {
+    public bool insert_items_transaction (Gee.ArrayList<Objects.Item> items) {
         Sqlite.Statement stmt;
         bool success = true;
 
