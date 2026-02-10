@@ -766,7 +766,7 @@ public class Objects.Project : Objects.BaseObject {
         );
     }
 
-    public override void count_update () {
+    public override void count_update () {        
         if (freeze_update) {
             return;
         }
