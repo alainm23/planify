@@ -793,7 +793,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
         })] = pin_button;
 
-
         signals_map[
             Services.Settings.get_default ().settings.changed["underline-completed-tasks"].connect (update_request)
         ] = Services.Settings.get_default ();

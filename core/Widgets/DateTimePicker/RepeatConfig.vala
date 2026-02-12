@@ -102,6 +102,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
             margin_end = 9,
             ellipsize = Pango.EllipsizeMode.END
         };
+        repeat_label.add_css_class ("accent");
 
         var repeat_preview_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_top = 6
@@ -244,7 +245,8 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         ends_stack = new Gtk.Stack () {
             hexpand = true,
             transition_type = Gtk.StackTransitionType.CROSSFADE,
-            margin_top = 6
+            margin_top = 12,
+            margin_bottom = 6
         };
 
         ends_stack.add_named (new Gtk.Label (null), "never");
@@ -252,32 +254,28 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         ends_stack.add_named (count_interval, "after");
 
         var submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Done")) {
-            margin_top = 6,
+            margin_top = 12,
             vexpand = true,
             valign = Gtk.Align.END
         };
         submit_button.add_css_class ("suggested-action");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_start = 6,
-            margin_end = 6
+            margin_start = 9,
+            margin_end = 9,
+            margin_bottom = 9
         };
-        content_box.append (new Gtk.Label (_("Summary")) {
-            css_classes = { "heading", "h4" },
-            margin_top = 6,
-            halign = Gtk.Align.START
-        });
         content_box.append (repeat_preview_box);
         content_box.append (new Gtk.Label (_("Repeat every")) {
             css_classes = { "heading", "h4" },
-            margin_top = 6,
+            margin_top = 12,
             halign = Gtk.Align.START
         });
         content_box.append (repeat_box);
         content_box.append (weeks_revealer);
         content_box.append (new Gtk.Label (_("End")) {
             css_classes = { "heading", "h4" },
-            margin_top = 6,
+            margin_top = 12,
             halign = Gtk.Align.START
         });
         content_box.append (ends_grid);
