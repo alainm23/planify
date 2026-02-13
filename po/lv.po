@@ -29,8 +29,8 @@ msgstr "Uzdevumi"
 
 #: core/Enum.vala:177 core/Enum.vala:540 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
-#: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:782
-#: src/Layouts/ItemRow.vala:1233
+#: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:783
+#: src/Layouts/ItemRow.vala:1236
 msgid "Labels"
 msgstr "Birkas"
 
@@ -107,8 +107,8 @@ msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:537 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:545 src/Views/Project/Project.vala:590
-#: src/Views/Scheduled/Scheduled.vala:230
-#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:720
+#: src/Views/Scheduled/Scheduled.vala:231
+#: src/Views/Scheduled/Scheduled.vala:260 src/Views/Today.vala:720
 #: src/Views/Today.vala:749 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "Prioritāte"
@@ -118,7 +118,7 @@ msgid "Label"
 msgstr "Birka"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:543
-#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:718
+#: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:718
 msgid "Due Date"
 msgstr "Termiņš"
 
@@ -144,8 +144,8 @@ msgid "Content"
 msgstr "Saturs"
 
 #: core/Enum.vala:531 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1939 src/Layouts/ItemSidebarView.vala:181
-#: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
+#: src/Layouts/ItemRow.vala:1940 src/Layouts/ItemSidebarView.vala:181
+#: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Apraksts"
 
@@ -154,8 +154,8 @@ msgid "Scheduled"
 msgstr "Ieplānots"
 
 #: core/Enum.vala:543 core/Widgets/PinButton.vala:41
-#: src/Layouts/ItemBoard.vala:763 src/Layouts/ItemBoard.vala:776
-#: src/Layouts/ItemRow.vala:1214 src/Layouts/ItemRow.vala:1227
+#: src/Layouts/ItemBoard.vala:764 src/Layouts/ItemBoard.vala:777
+#: src/Layouts/ItemRow.vala:1217 src/Layouts/ItemRow.vala:1230
 msgid "Pin"
 msgstr "Piespraust"
 
@@ -277,9 +277,9 @@ msgstr "Tuvojas"
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:359
-#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:770
-#: src/Layouts/ItemRow.vala:1221 src/Views/Project/Project.vala:557
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:369
+#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:771
+#: src/Layouts/ItemRow.vala:1224 src/Views/Project/Project.vala:557
 #: src/Views/Project/Project.vala:723 src/Views/Today.vala:203
 msgid "Today"
 msgstr "Šodien"
@@ -290,9 +290,9 @@ msgstr "šodien"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Utils/Datetime.vala:633
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:365
-#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:773
-#: src/Layouts/ItemRow.vala:1224
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:375
+#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:774
+#: src/Layouts/ItemRow.vala:1227
 msgid "Tomorrow"
 msgstr "Rītdien"
 
@@ -316,11 +316,11 @@ msgstr "nav birkas"
 msgid "unlabeled"
 msgstr "bez birkām"
 
-#: core/Objects/Item.vala:1374
+#: core/Objects/Item.vala:1389
 msgid "Task copied to clipboard"
 msgstr "Uzdevums nokopēts starpliktuvē"
 
-#: core/Objects/Item.vala:1667 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1682 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, fuzzy, c-format
@@ -414,7 +414,7 @@ msgstr "Todoist"
 msgid "Task added successfully!"
 msgstr "Uzdevums pievienots!"
 
-#: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:414
+#: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:401
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Uzdevuma nosaukums"
@@ -471,7 +471,7 @@ msgstr ""
 "Baidos, ka ātrās pievienošanas logs nevar atrast nevienu pieejamu projektu, "
 "pamēģiniet izveidot jaunu projektu."
 
-#: core/QuickAddCore.vala:1350 src/MainWindow.vala:710
+#: core/QuickAddCore.vala:1350 src/MainWindow.vala:712
 msgid "Keyboard Shortcuts"
 msgstr "Tastatūras īsceļi"
 
@@ -539,24 +539,24 @@ msgstr ""
 msgid "Syncing task %d of %d"
 msgstr ""
 
-#: core/Services/CalDAV/Core.vala:164
+#: core/Services/CalDAV/Core.vala:162
 msgid "Source already exists"
 msgstr "Avots jau pastāv"
 
-#: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
+#: core/Services/CalDAV/Core.vala:173 core/Services/CalDAV/Core.vala:218
 msgid "Failed to resolve principal url"
 msgstr "Neizdevies atrisināt principālo saiti"
 
-#: core/Services/CalDAV/Core.vala:230
+#: core/Services/CalDAV/Core.vala:228
 msgid "Starting sync…"
 msgstr "Uzsāk sinhronizāciju…"
 
-#: core/Services/CalDAV/Core.vala:245
+#: core/Services/CalDAV/Core.vala:243
 #, c-format
 msgid "Syncing %s…"
 msgstr "Sinhronizē %s…"
 
-#: core/Services/CalDAV/Core.vala:253
+#: core/Services/CalDAV/Core.vala:251
 msgid "Sync completed"
 msgstr "Sinhronizācija pabeigta"
 
@@ -813,8 +813,8 @@ msgstr "Tumšs"
 msgid "Dark Blue"
 msgstr "Tumši zils"
 
-#: core/Utils/Util.vala:255 core/Widgets/DateTimePicker/DateTimePicker.vala:410
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55 src/Views/Today.vala:768
+#: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
+#: src/Views/Today.vala:768
 msgid "None"
 msgstr "Nav"
 
@@ -989,11 +989,9 @@ msgstr "Nosakiet laicīgus atgādinājumus!"
 
 #: core/Utils/Util.vala:689
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Saņemiet paziņojumus par būtiskiem uzdevumiem vai notikumiem. Spiediet uz "
-"zvana pogu lejā, lai pievienotu atgādinājumu."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1095,156 +1093,157 @@ msgstr "%B %Y"
 msgid "Next month, %s"
 msgstr "Nākamais mēnesis, %s"
 
-#: core/Widgets/Calendar/CalendarWeek.vala:39
+#: core/Widgets/Calendar/CalendarMonth.vala:80
+#: core/Widgets/Calendar/CalendarMonth.vala:193
+#: core/Widgets/Calendar/CalendarMonth.vala:209
+msgid "Choose a date"
+msgstr "Izvēlēties datumu"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:46
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
 msgid "Su"
 msgstr "Sv"
 
-#: core/Widgets/Calendar/CalendarWeek.vala:40
+#: core/Widgets/Calendar/CalendarWeek.vala:47
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:137
 msgid "Mo"
 msgstr "Pr"
 
-#: core/Widgets/Calendar/CalendarWeek.vala:41
+#: core/Widgets/Calendar/CalendarWeek.vala:48
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Tu"
 msgstr "Ot"
 
-#: core/Widgets/Calendar/CalendarWeek.vala:42
+#: core/Widgets/Calendar/CalendarWeek.vala:49
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:149
 msgid "We"
 msgstr "Tr"
 
-#: core/Widgets/Calendar/CalendarWeek.vala:43
+#: core/Widgets/Calendar/CalendarWeek.vala:50
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:155
 msgid "Th"
 msgstr "Ce"
 
-#: core/Widgets/Calendar/CalendarWeek.vala:44
+#: core/Widgets/Calendar/CalendarWeek.vala:51
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:161
 msgid "Fr"
 msgstr "Pk"
 
-#: core/Widgets/Calendar/CalendarWeek.vala:45
+#: core/Widgets/Calendar/CalendarWeek.vala:52
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:167
 msgid "Sa"
 msgstr "Se"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:135
-msgid "Type a date…"
-msgstr ""
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:80
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:184
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:505
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:140
+msgid "Time"
+msgstr "Laiks"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:156
-msgid "Choose a date"
-msgstr "Izvēlēties datumu"
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:91
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:828
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:431
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:245
+#: src/Layouts/ItemBoard.vala:687 src/Layouts/ItemRow.vala:1167
+msgid "until"
+msgstr "līdz"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:160
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:533
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:831
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+msgid "for"
+msgstr " "
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:831
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+msgid "times"
+msgstr "reizes"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:831
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+msgid "time"
+msgstr "reizi"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:105
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:186
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 msgid "Repeat"
 msgstr "Atkārtot"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:169
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:143
-msgid "Time"
-msgstr "Laiks"
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:161
+msgid "Type a date…"
+msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:188
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:254
-#: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
-msgid "Done"
-msgstr "Gatavs"
-
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:192
-msgid "Clear"
-msgstr "Noņemt"
-
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:354
-msgid "Menu"
-msgstr "Izvēlne"
-
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:371
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:381
 msgid "Next week"
 msgstr "Nākamā nedēļa"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:406
-#: src/Widgets/EventRow.vala:286
-msgid "Calendar"
-msgstr "Kalendārs"
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:523
+msgid "Save"
+msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:414
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:559
 msgid "Daily"
 msgstr "Katru dienu"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:418
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:563
 msgid "Weekdays"
 msgstr "Darbdienās"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:422
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:567
 msgid "Weekends"
 msgstr "Nedēļas nogalēs"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:426
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:571
 msgid "Weekly"
 msgstr "Katru nedēļu"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:430
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:575
 msgid "Monthly"
 msgstr "Katru mēnesi"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:434
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:579
 msgid "Yearly"
 msgstr "Katru gadu"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:438
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Custom"
 msgstr "Pielāgots"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:747
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:443
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:245
-msgid "until"
-msgstr "līdz"
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:855
+msgid "No date"
+msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-msgid "for"
-msgstr " "
-
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-msgid "times"
-msgstr "reizes"
-
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-msgid "time"
-msgstr "reizi"
-
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:120
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
 msgstr "Minūte(s)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:120
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Hour(s)"
 msgstr "Stunda(s)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:120
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Day(s)"
 msgstr "Diena(s)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:120
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Week(s)"
 msgstr "Nedēļa(s)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:120
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Month(s)"
 msgstr "Mēnesis(-šus)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:120
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Year(s)"
 msgstr "Gadu(s)"
 
@@ -1260,15 +1259,17 @@ msgstr "Sākot ar"
 msgid "After"
 msgstr "Pēc"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:265
-msgid "Summary"
-msgstr "Apkopojums"
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:255
+#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:844
+#: src/Layouts/ItemRow.vala:1304
+msgid "Apply"
+msgstr "Piemērot"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:271
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:268
 msgid "Repeat every"
 msgstr "Atkārtot katru"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:278
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:275
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
 msgid "End"
 msgstr "Beigas"
@@ -1286,10 +1287,6 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "Set a Due Date"
 msgstr "Noteikt termiņu"
-
-#: core/Widgets/DateTimePicker/TimePicker.vala:113
-msgid "Add Time"
-msgstr "Pievienot laiku"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
@@ -1342,11 +1339,6 @@ msgstr "Meklēt"
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Search or Create"
 msgstr "Meklēt vai izveidot"
-
-#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:843
-#: src/Layouts/ItemRow.vala:1303
-msgid "Apply"
-msgstr "Piemērot"
 
 #: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
@@ -1407,31 +1399,31 @@ msgstr ""
 "Jūsu atgādinājumu saraksts uzrādīsies šeit. Pievienojiet jaunu, spiežot pogu "
 "'+'."
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:157
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:154
 msgid "Add Reminder"
 msgstr "Pievienot atgādinājumu"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:192
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:189
 msgid "In 5 minutes"
 msgstr "Pēc 5 minūtēm"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:193
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:190
 msgid "In 15 minutes"
 msgstr "Pēc 15 minūtēm"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:194
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:191
 msgid "In 30 minutes"
 msgstr "Pēc 30 minūtēm"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:195
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:192
 msgid "In 1 hour"
 msgstr "Pēc 1 stundas"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:196
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:193
 msgid "In 3 hours"
 msgstr "Pēc 3 stundām"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:197
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:194
 msgid "In 6 hours"
 msgstr "Pēc 6 stundām"
 
@@ -1457,7 +1449,7 @@ msgid "To Do"
 msgstr "Paveikt"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1236
+#: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1239
 #: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "Izpildīts"
@@ -1578,7 +1570,7 @@ msgstr[2] ""
 "Šī darbība dzēsīs %d paveiktos uzdevumus un to apakšuzdevumus no projekta %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
-#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:780
+#: src/Views/Scheduled/Scheduled.vala:271 src/Views/Today.vala:780
 msgid "Filter By"
 msgstr "Atlasīt pēc"
 
@@ -1586,13 +1578,17 @@ msgstr "Atlasīt pēc"
 msgid "Next Week"
 msgstr "Nākamā nedēļa"
 
-#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:778
-#: src/Layouts/ItemRow.vala:1229 src/Views/Project/Project.vala:562
+#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:779
+#: src/Layouts/ItemRow.vala:1232 src/Views/Project/Project.vala:562
 #: src/Views/Project/Project.vala:733
 msgid "No Date"
 msgstr "Nav termiņa"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1367
+#: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
+msgid "Done"
+msgstr "Gatavs"
+
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1368
 #: src/Layouts/ItemSidebarView.vala:495
 msgid "Change History"
 msgstr "Mainīt vēsturi"
@@ -1646,7 +1642,7 @@ msgstr "Mainīt birku"
 msgid "Filter"
 msgstr "Atlasīt"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:715
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
 msgid "Archived Projects"
 msgstr "Arhivētie projekti"
 
@@ -2084,7 +2080,7 @@ msgid "Custom Sort Order"
 msgstr "Pielāgota secība"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
-#: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:227
+#: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:228
 #: src/Views/Today.vala:717
 msgid "Alphabetically"
 msgstr "Alfabētiski"
@@ -2383,7 +2379,7 @@ msgstr ""
 "Kad iespējots, tiks pievienots atgādinājums pirms uzdevuma termiņa pēc "
 "noklusējuma."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:707
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
 msgid "Preferences"
 msgstr "Iestatījumi"
 
@@ -2540,8 +2536,8 @@ msgid "Project added successfully!"
 msgstr "Projekts izveidots!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:781 src/Layouts/ItemRow.vala:1232
-#: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemSidebarView.vala:490
+#: src/Layouts/ItemBoard.vala:782 src/Layouts/ItemRow.vala:1235
+#: src/Layouts/ItemRow.vala:1363 src/Layouts/ItemSidebarView.vala:490
 msgid "Move"
 msgstr "Pārvietot"
 
@@ -2585,72 +2581,72 @@ msgstr "Sadaļa pievienota"
 msgid "Open/Close Sidebar"
 msgstr "Atvērt/aizvērt sānjoslu"
 
-#: src/Layouts/ItemBoard.vala:156 src/Layouts/ItemBoard.vala:763
-#: src/Layouts/ItemBoard.vala:776 src/Layouts/ItemRow.vala:1214
-#: src/Layouts/ItemRow.vala:1227
+#: src/Layouts/ItemBoard.vala:155 src/Layouts/ItemBoard.vala:764
+#: src/Layouts/ItemBoard.vala:777 src/Layouts/ItemRow.vala:1217
+#: src/Layouts/ItemRow.vala:1230
 msgid "Unpin"
 msgstr "Atspraust"
 
-#: src/Layouts/ItemBoard.vala:624 src/Layouts/ItemRow.vala:1568
+#: src/Layouts/ItemBoard.vala:611 src/Layouts/ItemRow.vala:1569
 #: src/Layouts/ItemSidebarView.vala:656
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Paveikts. Nākamā reize: %s"
 
-#: src/Layouts/ItemBoard.vala:784 src/Layouts/ItemRow.vala:1235
+#: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1238
 msgid "Add Subtask"
 msgstr "Pievienot apakšuzdevumu"
 
-#: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1237
+#: src/Layouts/ItemBoard.vala:787 src/Layouts/ItemRow.vala:1240
 msgid "Edit"
 msgstr "Rediģēt"
 
-#: src/Layouts/ItemBoard.vala:787 src/Layouts/ItemRow.vala:1238
-#: src/Layouts/ItemRow.vala:1361 src/Layouts/ItemSidebarView.vala:489
+#: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1241
+#: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemSidebarView.vala:489
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:375
 msgid "Duplicate"
 msgstr "Dublēt"
 
-#: src/Layouts/ItemBoard.vala:789 src/Layouts/ItemRow.vala:1240
-#: src/Layouts/ItemRow.vala:1364 src/Layouts/ItemSidebarView.vala:492
+#: src/Layouts/ItemBoard.vala:790 src/Layouts/ItemRow.vala:1243
+#: src/Layouts/ItemRow.vala:1365 src/Layouts/ItemSidebarView.vala:492
 msgid "Delete Task"
 msgstr "Dzēst uzdevumu"
 
-#: src/Layouts/ItemBoard.vala:1089 src/Layouts/ItemRow.vala:1809
+#: src/Layouts/ItemBoard.vala:1090 src/Layouts/ItemRow.vala:1810
 msgid "Order changed to 'Custom sort order'"
 msgstr "Kārtojums nomainīts uz 'Pielāgoto secību'"
 
-#: src/Layouts/ItemBoard.vala:1175 src/Layouts/ItemRow.vala:1592
+#: src/Layouts/ItemBoard.vala:1176 src/Layouts/ItemRow.vala:1593
 #, c-format
 msgid "%s was deleted"
 msgstr "%s tika dzēsts"
 
-#: src/Layouts/ItemBoard.vala:1176 src/Layouts/ItemRow.vala:1593
+#: src/Layouts/ItemBoard.vala:1177 src/Layouts/ItemRow.vala:1594
 msgid "Undo"
 msgstr "Atsaukt"
 
-#: src/Layouts/ItemRow.vala:573
+#: src/Layouts/ItemRow.vala:560
 msgid "Add Subtasks"
 msgstr "Pievienot apakšuzdevumus"
 
-#: src/Layouts/ItemRow.vala:1064
+#: src/Layouts/ItemRow.vala:1053
 msgid "Hide Sub-tasks"
 msgstr "Slēpt apakšuzdevumus"
 
-#: src/Layouts/ItemRow.vala:1064
+#: src/Layouts/ItemRow.vala:1053
 msgid "Show Sub-tasks"
 msgstr "Rādīt apakšuzdevumus"
 
-#: src/Layouts/ItemRow.vala:1357 src/Layouts/ItemSidebarView.vala:486
+#: src/Layouts/ItemRow.vala:1358 src/Layouts/ItemSidebarView.vala:486
 msgid "Use as a Note"
 msgstr "Lietot kā piezīmi"
 
-#: src/Layouts/ItemRow.vala:1360 src/Layouts/ItemSidebarView.vala:488
+#: src/Layouts/ItemRow.vala:1361 src/Layouts/ItemSidebarView.vala:488
 msgid "Copy to Clipboard"
 msgstr "Kopēt starpliktuvē"
 
-#: src/Layouts/ItemRow.vala:2014
+#: src/Layouts/ItemRow.vala:2015
 msgid "Add Attachments"
 msgstr "Pievienot pielikumus"
 
@@ -2781,31 +2777,31 @@ msgstr "Galvenā izvēlne"
 msgid "Open Quick Find"
 msgstr "Atvērt ātro meklēšanu"
 
-#: src/MainWindow.vala:713
+#: src/MainWindow.vala:715
 msgid "About Planify"
 msgstr "Par Planify"
 
-#: src/MainWindow.vala:773
+#: src/MainWindow.vala:775
 msgid "Oops! Something happened"
 msgstr "Ak vai! Kaut kas negaidīts noticis"
 
-#: src/MainWindow.vala:776
+#: src/MainWindow.vala:778
 msgid "See More"
 msgstr "Skatīt vairāk"
 
-#: src/MainWindow.vala:792 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Uzdevums paveikts"
 
-#: src/MainWindow.vala:793
+#: src/MainWindow.vala:795
 msgid "View"
 msgstr "Skatīt"
 
-#: src/MainWindow.vala:831
+#: src/MainWindow.vala:833
 msgid "Database Integrity Check Failed"
 msgstr "Datubāzes veseluma pārbaude neizturēta"
 
-#: src/MainWindow.vala:832
+#: src/MainWindow.vala:834
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2827,7 +2823,7 @@ msgstr ""
 "Pēc atiestatīšanas, Jūs varēsiet atjaunot jebkuru dublējumkopiju, ko "
 "iepriekš esat veidojuši. Paldies par Jūsu pacietību"
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:836
 msgid "Reset Database"
 msgstr "Atiestatīt datubāzi"
 
@@ -2967,7 +2963,7 @@ msgstr "Saraksts"
 msgid "Board"
 msgstr "Tāfele"
 
-#: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:224
+#: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:225
 #: src/Views/Today.vala:714
 msgid "Sorting"
 msgstr "Kārtošana"
@@ -2976,7 +2972,7 @@ msgstr "Kārtošana"
 msgid "Custom sort order"
 msgstr "Pielāgota secība"
 
-#: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:229
+#: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:230
 #: src/Views/Today.vala:719
 msgid "Date Added"
 msgstr "Izveides datums"
@@ -3009,27 +3005,27 @@ msgstr "Šomēnes"
 msgid "Next 30 Days"
 msgstr "Turpmākās 30 dienas"
 
-#: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:237
+#: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:238
 #: src/Views/Today.vala:727
 msgid "P1"
 msgstr "P1"
 
-#: src/Views/Project/Project.vala:574 src/Views/Scheduled/Scheduled.vala:243
+#: src/Views/Project/Project.vala:574 src/Views/Scheduled/Scheduled.vala:244
 #: src/Views/Today.vala:733
 msgid "P2"
 msgstr "P2"
 
-#: src/Views/Project/Project.vala:580 src/Views/Scheduled/Scheduled.vala:249
+#: src/Views/Project/Project.vala:580 src/Views/Scheduled/Scheduled.vala:250
 #: src/Views/Today.vala:739
 msgid "P3"
 msgstr "P3"
 
-#: src/Views/Project/Project.vala:586 src/Views/Scheduled/Scheduled.vala:255
+#: src/Views/Project/Project.vala:586 src/Views/Scheduled/Scheduled.vala:256
 #: src/Views/Today.vala:745
 msgid "P4"
 msgstr "P4"
 
-#: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:262
+#: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:263
 #: src/Views/Today.vala:752
 msgid "Filter by Labels"
 msgstr "Atlasīt pēc birkām"
@@ -3050,11 +3046,11 @@ msgstr "Meklēt paveiktos uzdevumus"
 msgid "Sort By"
 msgstr "Kārtot pēc"
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:155
+#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
 msgid "Overdue"
 msgstr "Nokavēts"
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:163
+#: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:163
 msgid "Reschedule"
 msgstr "Pārlikt uz"
 
@@ -3125,7 +3121,7 @@ msgstr "Ziņot par kļūmi"
 msgid "Account migration required."
 msgstr ""
 
-#: src/Widgets/EventRow.vala:207
+#: src/Widgets/EventRow.vala:242
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
@@ -3133,7 +3129,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/Widgets/EventRow.vala:209
+#: src/Widgets/EventRow.vala:244
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
@@ -3141,23 +3137,27 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/Widgets/EventRow.vala:214
+#: src/Widgets/EventRow.vala:249
 msgid "Happening now"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:249
+#: src/Widgets/EventRow.vala:284
 msgid "Location"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:262
+#: src/Widgets/EventRow.vala:297
 msgid "Organizer"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:276
+#: src/Widgets/EventRow.vala:311
 msgid "URL"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:381
+#: src/Widgets/EventRow.vala:321
+msgid "Calendar"
+msgstr "Kalendārs"
+
+#: src/Widgets/EventRow.vala:416
 msgid "Join"
 msgstr ""
 
@@ -3411,6 +3411,25 @@ msgstr "Rāda birkas"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Rāda piespraustos"
+
+#~ msgid "Clear"
+#~ msgstr "Noņemt"
+
+#~ msgid "Menu"
+#~ msgstr "Izvēlne"
+
+#~ msgid "Summary"
+#~ msgstr "Apkopojums"
+
+#~ msgid "Add Time"
+#~ msgstr "Pievienot laiku"
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Saņemiet paziņojumus par būtiskiem uzdevumiem vai notikumiem. Spiediet uz "
+#~ "zvana pogu lejā, lai pievienotu atgādinājumu."
 
 #, c-format
 #~ msgid "Processing task %d of %d"

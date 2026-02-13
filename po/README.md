@@ -40,7 +40,7 @@ msgstr "Hola"  # Replace with your translation
 - Preserve placeholders like `%s`, `%d`
 
 ### Step 5: Add to LINGUAS File
-Add your language code to the [LINGUAS](https://github.com/alainm23/planify/blob/master/po/LINGUAS) file.
+Add your language code to the [LINGUAS](https://github.com/alainm23/planify/blob/main/po/LINGUAS) file.
 
 ### Step 6: Test Your Translation
 1. Build Planify with your translation

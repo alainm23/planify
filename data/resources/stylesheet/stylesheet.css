@@ -736,3 +736,8 @@ checkbutton.theme-selector radio:checked {
     margin-left: 6px;
     margin-right: 6px;
 }
+
+
+.dimming-bg {
+    background: rgba(0, 0, 0, 0.25);
+}

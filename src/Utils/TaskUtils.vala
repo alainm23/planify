@@ -40,7 +40,7 @@ public class Utils.TaskUtils {
         }
 
         if (prev == null && next != null) {
-            moved_row.item.child_order = (int) (next.item.child_order / 2);
+            moved_row.item.child_order = (int) (next.item.child_order - 1000);
         } else if (prev != null && next == null) {
             moved_row.item.child_order = prev.item.child_order + 1000;
         } else if (prev != null && next != null) {

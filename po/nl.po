@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-12 12:33+0000\n"
-"Last-Translator: succesvollezakenvrouw <joris.briet@kolkmannen.com>\n"
+"PO-Revision-Date: 2026-02-07 12:00+0000\n"
+"Last-Translator: Bart Ratgers <bart@optiprise.nl>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/nl/>\n"
 "Language: nl\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -29,8 +29,8 @@ msgstr "Taken"
 
 #: core/Enum.vala:177 core/Enum.vala:540 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
-#: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:782
-#: src/Layouts/ItemRow.vala:1233
+#: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:783
+#: src/Layouts/ItemRow.vala:1236
 msgid "Labels"
 msgstr "Labels"
 
@@ -47,46 +47,46 @@ msgid "Don't Repeat"
 msgstr "Niet herhalen"
 
 #: core/Enum.vala:216
-#, fuzzy, c-format
+#, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
 msgstr[0] "Elke minuut"
-msgstr[1] "Elke minuut"
+msgstr[1] "Elke %d minuten"
 
 #: core/Enum.vala:218
-#, fuzzy, c-format
+#, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
 msgstr[0] "Elk uur"
-msgstr[1] "Elk uur"
+msgstr[1] "Elk %d uren"
 
 #: core/Enum.vala:220
-#, fuzzy, c-format
+#, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
 msgstr[0] "Elke dag"
-msgstr[1] "Elke dag"
+msgstr[1] "Elke %d dagen"
 
 #: core/Enum.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
 msgstr[0] "Elke week"
-msgstr[1] "Elke week"
+msgstr[1] "Elke %d weken"
 
 #: core/Enum.vala:224
-#, fuzzy, c-format
+#, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
 msgstr[0] "Elke maand"
-msgstr[1] "Elke maand"
+msgstr[1] "Elke %d maanden"
 
 #: core/Enum.vala:226
-#, fuzzy, c-format
+#, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
 msgstr[0] "Elk jaar"
-msgstr[1] "Elk jaar"
+msgstr[1] "Elk %d jaren"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -101,8 +101,8 @@ msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:537 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:545 src/Views/Project/Project.vala:590
-#: src/Views/Scheduled/Scheduled.vala:230
-#: src/Views/Scheduled/Scheduled.vala:259 src/Views/Today.vala:720
+#: src/Views/Scheduled/Scheduled.vala:231
+#: src/Views/Scheduled/Scheduled.vala:260 src/Views/Today.vala:720
 #: src/Views/Today.vala:749 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "Prioriteit"
@@ -112,7 +112,7 @@ msgid "Label"
 msgstr "Label"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:543
-#: src/Views/Scheduled/Scheduled.vala:228 src/Views/Today.vala:718
+#: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:718
 msgid "Due Date"
 msgstr "Deadline"
 
@@ -123,7 +123,7 @@ msgstr "Onderverdeling"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "Toewijzing"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -138,8 +138,8 @@ msgid "Content"
 msgstr "Inhoud"
 
 #: core/Enum.vala:531 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1939 src/Layouts/ItemSidebarView.vala:181
-#: src/Widgets/EventRow.vala:321 src/Widgets/ItemDetailCompleted.vala:113
+#: src/Layouts/ItemRow.vala:1940 src/Layouts/ItemSidebarView.vala:181
+#: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Beschrijving"
 
@@ -148,8 +148,8 @@ msgid "Scheduled"
 msgstr "Gepland"
 
 #: core/Enum.vala:543 core/Widgets/PinButton.vala:41
-#: src/Layouts/ItemBoard.vala:763 src/Layouts/ItemBoard.vala:776
-#: src/Layouts/ItemRow.vala:1214 src/Layouts/ItemRow.vala:1227
+#: src/Layouts/ItemBoard.vala:764 src/Layouts/ItemBoard.vala:777
+#: src/Layouts/ItemRow.vala:1217 src/Layouts/ItemRow.vala:1230
 msgid "Pin"
 msgstr "Vastgeprikt"
 
@@ -206,12 +206,11 @@ msgstr "logboek"
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:196
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr "Inbox"
+msgstr "Postvak"
 
 #: core/Objects/Filters/Inbox.vala:36
-#, fuzzy
 msgid "inbox"
-msgstr "Inbox"
+msgstr "postvak"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
@@ -272,9 +271,9 @@ msgstr "aankomend"
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:359
-#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:770
-#: src/Layouts/ItemRow.vala:1221 src/Views/Project/Project.vala:557
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:369
+#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:771
+#: src/Layouts/ItemRow.vala:1224 src/Views/Project/Project.vala:557
 #: src/Views/Project/Project.vala:723 src/Views/Today.vala:203
 msgid "Today"
 msgstr "Vandaag"
@@ -285,9 +284,9 @@ msgstr "vandaag"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Utils/Datetime.vala:633
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:365
-#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:773
-#: src/Layouts/ItemRow.vala:1224
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:375
+#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:774
+#: src/Layouts/ItemRow.vala:1227
 msgid "Tomorrow"
 msgstr "Morgen"
 
@@ -311,19 +310,19 @@ msgstr "geen label"
 msgid "unlabeled"
 msgstr "ongelabeld"
 
-#: core/Objects/Item.vala:1374
+#: core/Objects/Item.vala:1389
 msgid "Task copied to clipboard"
 msgstr "Taak gekopieerd naar klembord"
 
 # # c-format
-#: core/Objects/Item.vala:1667 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1682 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] "Taak verplaatst naar %s"
-msgstr[1] "Taak verplaatst naar %s"
+msgstr[1] "%d taken verplaatst naar %s"
 
 # # c-format
 #: core/Objects/Label.vala:206
@@ -413,7 +412,7 @@ msgstr "Todoist"
 msgid "Task added successfully!"
 msgstr "Taak succesvol toegevoegd!"
 
-#: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:414
+#: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:401
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Naam taak"
@@ -470,7 +469,7 @@ msgstr ""
 "Sorry, snel toevoegen lukt niet zonder een project, probeer eerst een "
 "project aan te maken."
 
-#: core/QuickAddCore.vala:1350 src/MainWindow.vala:710
+#: core/QuickAddCore.vala:1350 src/MainWindow.vala:712
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
@@ -479,7 +478,6 @@ msgid "Speed up task creation with these shortcuts"
 msgstr "Versnel het maken van taken met deze snelkoppelingen"
 
 #: core/QuickAddCore.vala:1370
-#, fuzzy
 msgid "Set priority"
 msgstr "Prioriteit instellen"
 
@@ -492,14 +490,12 @@ msgid "Add labels"
 msgstr "Label(s) toevoegen"
 
 #: core/QuickAddCore.vala:1371
-#, fuzzy
 msgid "Opens label selector"
-msgstr "Labels weergeven"
+msgstr "Toont de labelselectie"
 
 #: core/QuickAddCore.vala:1372
-#, fuzzy
 msgid "Assign project"
-msgstr "Project toevoegen"
+msgstr "Project toewijzen"
 
 #: core/QuickAddCore.vala:1372
 msgid "Opens project selector"
@@ -515,17 +511,15 @@ msgstr "Opent herinneringsopties"
 
 #: core/QuickAddCore.vala:1388
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Open blijven na aanmaken nieuwe taak"
 
 #: core/QuickAddCore.vala:1394
-#, fuzzy
 msgid "Tip"
-msgstr "Bovenaan"
+msgstr "Tip"
 
 #: core/QuickAddCore.vala:1394
-#, fuzzy
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr "Combineer sneltoetsen in titelvak om sneller te bouwen"
+msgstr "Combineer sneltoetsen in het titelveld om het aanmaken te versnellen"
 
 #: core/Services/CalDAV/CalDAVClient.vala:302
 #, c-format
@@ -536,31 +530,31 @@ msgstr "Taken van %s worden geladen…"
 #: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Taken geladen voor %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Taak %d van de %d synchroniseren"
 
-#: core/Services/CalDAV/Core.vala:164
+#: core/Services/CalDAV/Core.vala:162
 msgid "Source already exists"
 msgstr "Bron bestaat al"
 
-#: core/Services/CalDAV/Core.vala:175 core/Services/CalDAV/Core.vala:220
+#: core/Services/CalDAV/Core.vala:173 core/Services/CalDAV/Core.vala:218
 msgid "Failed to resolve principal url"
 msgstr "Mislukt om primaire URL op te lossen"
 
-#: core/Services/CalDAV/Core.vala:230
+#: core/Services/CalDAV/Core.vala:228
 msgid "Starting sync…"
 msgstr "Sync wordt gestart…"
 
-#: core/Services/CalDAV/Core.vala:245
+#: core/Services/CalDAV/Core.vala:243
 #, c-format
 msgid "Syncing %s…"
 msgstr "%s Synchroniseren…"
 
-#: core/Services/CalDAV/Core.vala:253
+#: core/Services/CalDAV/Core.vala:251
 msgid "Sync completed"
 msgstr "Synchronisatie voltooid"
 
@@ -573,6 +567,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"Todoist heeft zijn API bijgewerkt. Koppel je account opnieuw via de "
+"voorkeuren om te blijven synchroniseren."
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -711,7 +707,7 @@ msgid "%a %Y"
 msgstr ""
 
 #: core/Utils/Datetime.vala:675
-#, fuzzy, c-format
+#, c-format
 msgid "%a"
 msgstr "%a"
 
@@ -816,14 +812,14 @@ msgstr "Donker"
 msgid "Dark Blue"
 msgstr "Donkerblauw"
 
-#: core/Utils/Util.vala:255 core/Widgets/DateTimePicker/DateTimePicker.vala:410
-#: src/Dialogs/Preferences/Pages/TaskSetting.vala:55 src/Views/Today.vala:768
+#: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
+#: src/Views/Today.vala:768
 msgid "None"
 msgstr "Geen"
 
 #: core/Utils/Util.vala:264
 msgid "Today + Inbox"
-msgstr "Vandaag + Inbox"
+msgstr "Vandaag + Postvak"
 
 #: core/Utils/Util.vala:436
 msgid "Delete All"
@@ -857,7 +853,6 @@ msgstr ""
 "Voorkeuren."
 
 #: core/Utils/Util.vala:597
-#, fuzzy
 msgid "Tap this task"
 msgstr "Klik op deze taak"
 
@@ -869,7 +864,6 @@ msgstr ""
 "vinken. "
 
 #: core/Utils/Util.vala:603
-#, fuzzy
 msgid "Create a new task"
 msgstr "Nieuwe taak aanmaken"
 
@@ -882,12 +876,10 @@ msgstr ""
 "beschrijving in en druk op de 'Taak Toevoegen'-knop om op te slaan."
 
 #: core/Utils/Util.vala:609
-#, fuzzy
 msgid "Plan this to-do for today or later"
 msgstr "Plan deze taak voor vandaag of een later moment"
 
 #: core/Utils/Util.vala:610
-#, fuzzy
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
@@ -895,7 +887,6 @@ msgstr ""
 "moet zijn."
 
 #: core/Utils/Util.vala:615
-#, fuzzy
 msgid "Reorder your to-dos"
 msgstr "Verander je taken van volgorde"
 
@@ -924,7 +915,6 @@ msgid "You’re done!"
 msgstr "Je bent klaar!"
 
 #: core/Utils/Util.vala:628
-#, fuzzy
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -934,10 +924,8 @@ msgid ""
 msgstr ""
 "Dat was alles dat je echt moest weten. Begin gerust met het toevoegen van "
 "eigen projecten en taken.\n"
-"\n"
 "Je kan altijd later terugkomen naar dit project om over de meer geavanceerde "
 "functionaliteiten onderaan te leren.\n"
-"\n"
 "We hopen dat het gebruik van Planify je blij zal maken!"
 
 #: core/Utils/Util.vala:642
@@ -958,12 +946,10 @@ msgstr ""
 "naar 'Voorkeuren' 🡒 Algemeen 🡒 Kalenderevenementen om dit aan te zetten."
 
 #: core/Utils/Util.vala:657
-#, fuzzy
 msgid "Enable synchronization with third-party services"
-msgstr "Activeer synchronisatie met diensten van derde partijen."
+msgstr "Synchronisatie met diensten van derde partijen activeren"
 
 #: core/Utils/Util.vala:658
-#, fuzzy
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
@@ -993,27 +979,24 @@ msgid "Add labels to your tasks!"
 msgstr "Geef je taken een label!"
 
 #: core/Utils/Util.vala:682
-#, fuzzy
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
 "Met labels kan je je workflow in Planify verbeteren. Om een label toe te "
-"voegen, klik je op de tag-knop onderaan."
+"voegen, klik je op de label-knop onderaan."
 
 #: core/Utils/Util.vala:688
 msgid "Set timely reminders!"
 msgstr "Stel herinneringen op tijd in!"
 
 #: core/Utils/Util.vala:689
-#, fuzzy
 msgid ""
-"Get notified about important tasks or events. Tap the bell button below to "
+"Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
-"Wil je dat Planify je een melding stuurt om je te herinneren aan een "
-"belangrijke gebeurtenis of iets speciaals? Klik op de bel-knop onderaan om "
-"een herinnering in te stellen."
+"Ontvang meldingen over belangrijke taken of gebeurtenissen. Tik op de knop "
+"met klok symbool hieronder om een herinnering toe te voegen."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1094,7 +1077,7 @@ msgstr "Vorige maand"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
-msgstr ""
+msgstr "Volgende"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
@@ -1115,159 +1098,157 @@ msgstr ""
 msgid "Next month, %s"
 msgstr "Volgende maand, %s"
 
-#: core/Widgets/Calendar/CalendarWeek.vala:39
+#: core/Widgets/Calendar/CalendarMonth.vala:80
+#: core/Widgets/Calendar/CalendarMonth.vala:193
+#: core/Widgets/Calendar/CalendarMonth.vala:209
+msgid "Choose a date"
+msgstr "Datum kiezen"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:46
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
 msgid "Su"
 msgstr "Zo"
 
-#: core/Widgets/Calendar/CalendarWeek.vala:40
+#: core/Widgets/Calendar/CalendarWeek.vala:47
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:137
 msgid "Mo"
 msgstr "Ma"
 
-#: core/Widgets/Calendar/CalendarWeek.vala:41
+#: core/Widgets/Calendar/CalendarWeek.vala:48
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Tu"
 msgstr "Di"
 
-#: core/Widgets/Calendar/CalendarWeek.vala:42
+#: core/Widgets/Calendar/CalendarWeek.vala:49
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:149
 msgid "We"
 msgstr "Wo"
 
-#: core/Widgets/Calendar/CalendarWeek.vala:43
+#: core/Widgets/Calendar/CalendarWeek.vala:50
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:155
 msgid "Th"
 msgstr "Do"
 
-#: core/Widgets/Calendar/CalendarWeek.vala:44
+#: core/Widgets/Calendar/CalendarWeek.vala:51
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:161
 msgid "Fr"
 msgstr "Vr"
 
-#: core/Widgets/Calendar/CalendarWeek.vala:45
+#: core/Widgets/Calendar/CalendarWeek.vala:52
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:167
 msgid "Sa"
 msgstr "Za"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:135
-msgid "Type a date…"
-msgstr "Voer datum in…"
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:80
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:184
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:505
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:140
+msgid "Time"
+msgstr "Tijd"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:156
-msgid "Choose a date"
-msgstr "Datum kiezen"
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:91
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:828
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:431
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:245
+#: src/Layouts/ItemBoard.vala:687 src/Layouts/ItemRow.vala:1167
+msgid "until"
+msgstr "tot"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:160
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:533
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:831
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+msgid "for"
+msgstr "voor"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:831
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+msgid "times"
+msgstr "tijden"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:831
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
+#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+msgid "time"
+msgstr "tijd"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:105
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:186
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 msgid "Repeat"
 msgstr "Herhalen"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:169
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:143
-msgid "Time"
-msgstr "Tijd"
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:161
+msgid "Type a date…"
+msgstr "Voer datum in…"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:188
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:254
-#: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
-msgid "Done"
-msgstr "Toepassen"
-
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:192
-msgid "Clear"
-msgstr "Wissen"
-
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:354
-msgid "Menu"
-msgstr "Menu"
-
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:371
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:381
 msgid "Next week"
 msgstr "Volgende week"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:406
-#: src/Widgets/EventRow.vala:286
-msgid "Calendar"
-msgstr "Kalender"
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:523
+msgid "Save"
+msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:414
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:559
 msgid "Daily"
 msgstr "Dagelijks"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:418
-#, fuzzy
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:563
 msgid "Weekdays"
-msgstr "Wekelijks"
+msgstr "Weekdagen"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:422
-#, fuzzy
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:567
 msgid "Weekends"
-msgstr "We(e)k(en)"
+msgstr "Weekends"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:426
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:571
 msgid "Weekly"
 msgstr "Wekelijks"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:430
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:575
 msgid "Monthly"
 msgstr "Maandelijks"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:434
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:579
 msgid "Yearly"
 msgstr "Jaarlijks"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:438
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Custom"
 msgstr "Aangepast"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:747
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:443
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:245
-msgid "until"
-msgstr "tot"
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:855
+msgid "No date"
+msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-msgid "for"
-msgstr "voor"
-
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-msgid "times"
-msgstr "tijden"
-
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:750
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:447
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-msgid "time"
-msgstr "tijd"
-
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:120
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
 msgstr "Minu(u)t(en)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:120
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Hour(s)"
 msgstr "U(u)r(en)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:120
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Day(s)"
 msgstr "Dag(en)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:120
-#, fuzzy
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Week(s)"
-msgstr "Wekelijks"
+msgstr "We(e)k(en)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:120
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Month(s)"
 msgstr "Maand(en)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:120
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Year(s)"
 msgstr "Ja(a)r(en)"
 
@@ -1283,15 +1264,17 @@ msgstr "Op datum"
 msgid "After"
 msgstr "Na"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:265
-msgid "Summary"
-msgstr "Samenvatting"
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:255
+#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:844
+#: src/Layouts/ItemRow.vala:1304
+msgid "Apply"
+msgstr "Toepassen"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:271
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:268
 msgid "Repeat every"
 msgstr "Herhalen elke"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:278
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:275
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
 msgid "End"
 msgstr "Einde"
@@ -1309,10 +1292,6 @@ msgstr "Datum verwijderen"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "Set a Due Date"
 msgstr "Stel een deadline in"
-
-#: core/Widgets/DateTimePicker/TimePicker.vala:113
-msgid "Add Time"
-msgstr "Tijd instellen"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
@@ -1367,15 +1346,9 @@ msgstr "Zoeken"
 msgid "Search or Create"
 msgstr "Zoeken of Aanmaken"
 
-#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:843
-#: src/Layouts/ItemRow.vala:1303
-msgid "Apply"
-msgstr "Toepassen"
-
 #: core/Widgets/MarkdownEditor.vala:1383
-#, fuzzy
 msgid "Remove link"
-msgstr "Verwijderen"
+msgstr "Link verwijderen"
 
 #: core/Widgets/PriorityButton.vala:95 core/Widgets/PriorityButton.vala:135
 #: core/Widgets/PriorityButton.vala:200
@@ -1431,33 +1404,33 @@ msgid ""
 msgstr ""
 "Je herinneringen zullen hier getoond worden. Voeg er één toe via de '+'-knop."
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:157
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:154
 msgid "Add Reminder"
 msgstr "Herinnering toevoegen"
 
 # # c-format
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:192
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:189
 msgid "In 5 minutes"
 msgstr "Binnen 5 minuten"
 
 # # c-format
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:193
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:190
 msgid "In 15 minutes"
 msgstr "Binnen 15 minuten"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:194
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:191
 msgid "In 30 minutes"
 msgstr "Binnen 30 minuten"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:195
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:192
 msgid "In 1 hour"
 msgstr "Binnen 1 uur"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:196
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:193
 msgid "In 3 hours"
 msgstr "Binnen 3 uren"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:197
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:194
 msgid "In 6 hours"
 msgstr "Binnen 6 uren"
 
@@ -1483,7 +1456,7 @@ msgid "To Do"
 msgstr "Open"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1236
+#: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1239
 #: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "Afgerond"
@@ -1506,73 +1479,86 @@ msgid ""
 "Turn your tasks into calendar events automatically. Any task with a date "
 "will appear in your calendar, making it easier to plan your day."
 msgstr ""
+"Taken automatisch omzetten naar kalenderevenementen. Taken met een datum "
+"zullen automatisch in je kalender verschijnen, wat het eenvoudiger maakt om "
+"je dag te plannen."
 
 #: src/Dialogs/CalendarSync.vala:53
 msgid ""
 "Requirement: You need a calendar account configured in GNOME Calendar "
 "(Google, Nextcloud, etc.)"
 msgstr ""
+"Vereiste: Je moet een kalenderaccount configureren via GNOME Calendar "
+"(Google, Nextcloud, enzovoorts)"
 
 #: src/Dialogs/CalendarSync.vala:62
 msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
 msgstr ""
+"Ontvang mobiele notificaties voor je taken via Google Calendar, Outlook of "
+"andere kalenderapplicaties"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
 "Your tasks sync everywhere: phone, tablet, web browser, and any device with "
 "your calendar"
 msgstr ""
+"Je taken synchroniseren overal: smartphone, tablet, webbrowser of andere "
+"toestellen met je kalender"
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
-msgstr ""
+msgstr "Kalender kiezen"
 
 #: src/Dialogs/CalendarSync.vala:88
 msgid "Select a calendar from the list"
-msgstr ""
+msgstr "Kies een kalender uit de lijst"
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
-msgstr ""
+msgstr "Synchronisatie activeren"
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
-msgstr ""
+msgstr "Kalendersynchronisatie succesvol uitgeschakeld"
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
-msgstr ""
+msgstr "Kalendersynchronisatie actief"
 
 #: src/Dialogs/CalendarSync.vala:228
 msgid ""
 "Your tasks are currently synced with your calendar. Any task with a date "
 "automatically appears as a calendar event."
 msgstr ""
+"Je taken worden momenteel gesynchroniseerd met je kalender. Taken met een "
+"datum verschijnen automatisch als kalenderevenement."
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
-msgstr ""
+msgstr "Synchronisatie uitschakelen"
 
 #: src/Dialogs/CalendarSync.vala:279
 #, c-format
 msgid "Synced with: %s"
-msgstr ""
+msgstr "Gesynchroniseerd met: %s"
 
 #: src/Dialogs/CalendarSync.vala:292
 msgid "Sync Enabled!"
-msgstr ""
+msgstr "Synchronisatie ingeschakeld!"
 
 #: src/Dialogs/CalendarSync.vala:297
 msgid ""
 "Your tasks are now synced with your calendar. Any task with a date will "
 "automatically appear as a calendar event."
 msgstr ""
+"Je taken worden nu gesynchroniseerd met je kalender. Taken met een datum "
+"zullen automatisch als kalenderevenement verschijnen."
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 msgid "Completed Tasks"
@@ -1593,19 +1579,19 @@ msgstr "Alle afgeronde taken verwijderen"
 
 # # c-format
 #: src/Dialogs/CompletedTasks.vala:165
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
 msgstr[0] ""
-"Dit zal %d afgeronde taken en alle onderliggende subtaken uit project %s "
+"Dit zal %d afgeronde taak en alle onderliggende subtaken uit project %s "
 "verwijderen"
 msgstr[1] ""
-"Dit zal %d afgeronde taken en alle onderliggende subtaken uit project %s "
+"Dit zal %d afgeronde taken en hun onderliggende subtaken uit project %s "
 "verwijderen"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
-#: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:780
+#: src/Views/Scheduled/Scheduled.vala:271 src/Views/Today.vala:780
 msgid "Filter By"
 msgstr "Filteren op"
 
@@ -1613,13 +1599,17 @@ msgstr "Filteren op"
 msgid "Next Week"
 msgstr "Volgende week"
 
-#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:778
-#: src/Layouts/ItemRow.vala:1229 src/Views/Project/Project.vala:562
+#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:779
+#: src/Layouts/ItemRow.vala:1232 src/Views/Project/Project.vala:562
 #: src/Views/Project/Project.vala:733
 msgid "No Date"
 msgstr "Geen datum"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1367
+#: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
+msgid "Done"
+msgstr "Toepassen"
+
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1368
 #: src/Layouts/ItemSidebarView.vala:495
 msgid "Change History"
 msgstr "Geschiedenis wijzigen"
@@ -1644,10 +1634,10 @@ msgstr ""
 
 # # c-format
 #: src/Dialogs/ItemChangeHistory.vala:138
-#, fuzzy, c-format
+#, c-format
 msgid "Load more history from %d week ago…"
 msgid_plural "Load more history from %d weeks ago…"
-msgstr[0] "Meer geschiedenis van %d weken geleden laden…"
+msgstr[0] "Meer geschiedenis van %d week geleden laden…"
 msgstr[1] "Meer geschiedenis van %d weken geleden laden…"
 
 #: src/Dialogs/Label.vala:45
@@ -1674,7 +1664,7 @@ msgstr "Label bewerken"
 msgid "Filter"
 msgstr "Filteren"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:715
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
 msgid "Archived Projects"
 msgstr "Gearchiveerde projecten"
 
@@ -1684,9 +1674,8 @@ msgid "Manage Sections"
 msgstr "Onderverdelingen beheren"
 
 #: src/Dialogs/ManageSectionOrder.vala:54
-#, fuzzy
 msgid "You can sort your sections by dragging and dropping"
-msgstr "Je kan  accounts sorteren door te slepen"
+msgstr "Je kan onderverdelingen sorteren door te slepen"
 
 #: src/Dialogs/ManageSectionOrder.vala:76
 msgid "Archived"
@@ -1708,19 +1697,17 @@ msgid "Add Source"
 msgstr "Bron toevoegen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
-#, fuzzy
 msgid "Inbox Page"
-msgstr "Inbox"
+msgstr "Postvak-pagina"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:105
-#, fuzzy
 msgid "You can sort your accounts by dragging and dropping"
-msgstr "Je kan  accounts sorteren door te slepen"
+msgstr "Je kan accounts sorteren door te slepen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:578
 msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr ""
+msgstr "Planify synchroniseert je taken, even geduld"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:307
 msgid "SSL verification is disabled"
@@ -1728,11 +1715,11 @@ msgstr "SSL-verificatie staat uit"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
 msgid "Account migration required"
-msgstr ""
+msgstr "Accountmigratie vereist"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Reconnect"
-msgstr ""
+msgstr "Opnieuw verbinden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
@@ -1743,11 +1730,13 @@ msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Deze account bevat je huidige postvak-project. Gelieve je postvak-project "
+"eerst te wijzigen."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:439
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:221
 msgid "Change Inbox"
-msgstr "Inbox veranderen"
+msgstr "Postvak veranderen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:548
 msgid "Syncing…"
@@ -1767,9 +1756,8 @@ msgid "Password"
 msgstr "Wachtwoord"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:67
-#, fuzzy
 msgid "Calendar Home URL"
-msgstr "Kalender"
+msgstr "Home-URL kalender"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:79
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:92
@@ -1782,9 +1770,8 @@ msgid "Log In"
 msgstr "Aanmelden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:28
-#, fuzzy
 msgid "Inbox Project"
-msgstr "Standaardproject Inbox"
+msgstr "Standaardproject postvak"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:37
 msgid ""
@@ -1792,7 +1779,7 @@ msgid ""
 "Getting Things Done methodology, it's your capture point for quick ideas and "
 "tasks that you'll organize later"
 msgstr ""
-"Nieuwe taken worden standaard toegevoegd aan uw Inbox. Gebaseerd op de "
+"Nieuwe taken worden standaard toegevoegd aan uw postvak. Gebaseerd op de "
 "\"David Allen's Getting Things Done\"-methode, dit is het verzamelpunt voor "
 "snelle ideeën en taken die je later ordent"
 
@@ -1844,13 +1831,14 @@ msgstr "Bron verwijderen?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "Deze bron kan niet worden verwijderd"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Deze bron bevat je huidige Inbox-project. Wijzig eerst je Inbox-project."
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
@@ -1862,7 +1850,7 @@ msgstr "Hoe krijg je jouw token?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:103
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
-msgstr ""
+msgstr "1. Go to Todoist → Instellingen → Integraties → Ontwikkelaar"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:104
 msgid "2. Find 'API token' and copy your token"
@@ -1937,6 +1925,8 @@ msgstr "Professioneel blauw thema"
 #: src/Dialogs/Preferences/Pages/Appearance.vala:121
 msgid "Custom themes are not available when using the system light theme"
 msgstr ""
+"Gepersonaliseerde thema's zijn niet beschikbaar wanneer systeemweergave "
+"wordt gebruikt"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:159
 msgid "Font Size"
@@ -2045,11 +2035,11 @@ msgstr "Back-up terugzetten"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:45
 #: src/Dialogs/Preferences/PreferencesWindow.vala:217
 msgid "Donate"
-msgstr ""
+msgstr "Doneren"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:53
 msgid "Support Planify Development"
-msgstr ""
+msgstr "Planify-ontwikkeling steunen"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:58
 msgid ""
@@ -2057,6 +2047,8 @@ msgid ""
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
 msgstr ""
+"Help Planify gratis en open source te houden! Donaties steunen ontwikkeling "
+"en onderhoud rechtstreeks. Elke bijdrage, groot of klein, maakt een verschil."
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Patreon"
@@ -2064,7 +2056,7 @@ msgstr "Patreon"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:75
 msgid "Monthly recurring support"
-msgstr ""
+msgstr "Maandelijkse bijdrage"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
@@ -2072,7 +2064,7 @@ msgstr "PayPal"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:89
 msgid "One-time donation"
-msgstr ""
+msgstr "Éénmalige donatie"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Liberapay"
@@ -2080,7 +2072,7 @@ msgstr "Liberapay"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:103
 msgid "Weekly recurring donations"
-msgstr ""
+msgstr "Wekelijkse bijdrage"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
@@ -2088,19 +2080,19 @@ msgstr "Ko-fi"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
-msgstr ""
+msgstr "Trakteer me op een koffie ☕"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:128
 msgid "Choose Your Preferred Platform"
-msgstr ""
+msgstr "Voorkeursplatform selecteren"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:142
 msgid "Thank you for your support! 🙏"
-msgstr ""
+msgstr "Bedankt voor je steun! 🙏"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Your contribution helps keep Planify alive and growing."
-msgstr ""
+msgstr "Jouw bijdrage helpt Planify levend te houden."
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
@@ -2113,7 +2105,7 @@ msgid "Custom Sort Order"
 msgstr "Aangepaste volgorde"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
-#: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:227
+#: src/Views/Project/Project.vala:542 src/Views/Scheduled/Scheduled.vala:228
 #: src/Views/Today.vala:717
 msgid "Alphabetically"
 msgstr "Alfabetisch"
@@ -2208,15 +2200,14 @@ msgstr "Start van de week"
 
 #: src/Dialogs/Preferences/Pages/General.vala:138
 msgid "Smart Date Recognition"
-msgstr ""
+msgstr "Slimme datumherkenning"
 
 #: src/Dialogs/Preferences/Pages/General.vala:139
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr ""
+msgstr "Detecteert automatisch datums zoals \"morgen\" of \"volgende week\""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
-#, fuzzy
 msgid "Home View"
 msgstr "Startpagina"
 
@@ -2252,7 +2243,7 @@ msgstr "Laatst geselecteerde project onthouden"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "If unchecked, the default project selected is Inbox"
-msgstr "Wanneer uitgeschakeld zal het standaardproject de Inbox zijn"
+msgstr "Wanneer uitgeschakeld zal het standaardproject het postvak zijn"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:121
 msgid "The command was copied to the clipboard"
@@ -2276,13 +2267,12 @@ msgid "Sidebar Width"
 msgstr "Breedte zijbalk"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:65
-#, fuzzy
 msgid "List View for Filters"
-msgstr "Nieuwe filters"
+msgstr "Lijstweergave voor filters"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:66
 msgid "Show filters in a simple list instead of a grid"
-msgstr ""
+msgstr "Filters in een eenvoudige lijst tonen i.p.v. een tabel"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:87
 msgid "You can sort your views by dragging and dropping"
@@ -2294,23 +2284,20 @@ msgid "Task Settings"
 msgstr "Taakinstellingen"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:40
-#, fuzzy
 msgid "Complete Instantly"
-msgstr "Onmiddellijk"
+msgstr "Onmiddellijk afronden"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:41
-#, fuzzy
 msgid "Complete with Undo"
-msgstr "Afgewerkt"
+msgstr "Afronden met mogelijkheid ongedaan te maken"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:44
-#, fuzzy
 msgid "Task Completion"
-msgstr "Tint afgeronde taak"
+msgstr "Taakafrondingsmodus"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:45
 msgid "Choose how tasks behave when marked as complete"
-msgstr ""
+msgstr "Bepaal hoe taken zich gedragen wanneer ze afgerond worden"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:52
 msgid "Priority 1"
@@ -2334,7 +2321,7 @@ msgstr "Afgeronde taken doorstrepen"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:77
 msgid "Start"
-msgstr ""
+msgstr "Begin"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:81
 msgid "New Task Position"
@@ -2346,7 +2333,7 @@ msgstr "Afgeronde subtaken altijd tonen"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:89
 msgid "Keep all completed subtasks visible without collapsing them"
-msgstr ""
+msgstr "Houd alle afgeronde subtaken zichtbaar zonder ze in te klappen"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:96
 msgid "Task Complete Tone"
@@ -2357,22 +2344,22 @@ msgid "Play a sound when tasks are completed"
 msgstr "Geluid afspelen bij afronden van taken"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:104
-#, fuzzy
 msgid "Open Tasks in Sidebar View"
-msgstr "Taak in zijbalk openen"
+msgstr "Taken in zijbalk openen"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:105
 msgid ""
 "Always display task details in the sidebar instead of expanding in list view."
 msgstr ""
+"Taakdetails als weergeven in de zijbalk i.p.v. de lijstweergave te vergroten."
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:112
 msgid "Single Task Focus Mode"
-msgstr ""
+msgstr "Concentratiemodus één taak"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:113
 msgid "Allow only one task to be expanded at a time in list view"
-msgstr ""
+msgstr "Altijd slechts één taak tegelijk uitgeklapt houden in lijstweergave"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:122
 msgid "Enable Markdown Formatting"
@@ -2388,21 +2375,20 @@ msgid "Always Show Details Sidebar"
 msgstr "Zijbalk met details altijd tonen"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:131
-#, fuzzy
 msgid ""
 "Keep the details sidebar always visible for faster task navigation, without "
 "repeatedly opening and closing it"
 msgstr ""
-"Zorg dat het paneel met details altijd zichtbaar blijft om eenvoudiger "
-"tussen taken te wisselen, zodat je deze niet continu opnieuw moet openen."
+"Houd de zijbalk altijd zichtbaar om eenvoudiger te wisselen tussen taken, "
+"zodat je deze niet steeds opnieuw moet openen"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:138
 msgid "Enable Spell Checking"
-msgstr ""
+msgstr "Spellingscontrole inschakelen"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:139
 msgid "Check spelling in task descriptions and notes"
-msgstr ""
+msgstr "Spelling in taakbeschrijvingen en -notities controleren"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
 msgid "Enabled"
@@ -2419,7 +2405,7 @@ msgstr ""
 "Wanneer ingeschakeld zal er standaard een herinnering ingesteld worden "
 "vooraleer de deadline van de taak afloopt."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:707
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -2434,7 +2420,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:60
 msgid "Donate Now"
-msgstr ""
+msgstr "Nu doneren"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Sync your favorite to-do providers"
@@ -2442,7 +2428,7 @@ msgstr "Synchroniseer met je favoriete providers"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:124
 msgid "Set the view shown at first launch"
-msgstr ""
+msgstr "De pagina instellen die getoond wordt bij het opstarten"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:138
 msgid "Customize to your liking"
@@ -2474,15 +2460,15 @@ msgstr "Wil je me trakteren op een koffie?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:228
 msgid "Report Issue or Request Feature"
-msgstr ""
+msgstr "Probleem rapporteren of uitbreiding aanvragen"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:229
 msgid "Share bugs or ideas on GitHub"
-msgstr ""
+msgstr "Deel bugs of ideeën via GitHub"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:255
 msgid "Get Involved"
-msgstr ""
+msgstr "Geraak betrokken"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
@@ -2507,7 +2493,7 @@ msgstr "Deel in de liefde"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:303
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:304
 msgid "Discuss and share your feedback"
@@ -2575,8 +2561,8 @@ msgid "Project added successfully!"
 msgstr "Project met succes toegevoegd!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:781 src/Layouts/ItemRow.vala:1232
-#: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemSidebarView.vala:490
+#: src/Layouts/ItemBoard.vala:782 src/Layouts/ItemRow.vala:1235
+#: src/Layouts/ItemRow.vala:1363 src/Layouts/ItemSidebarView.vala:490
 msgid "Move"
 msgstr "Verplaatsen"
 
@@ -2613,82 +2599,81 @@ msgid "Update Section"
 msgstr "Onderverdeling bewerken"
 
 #: src/Dialogs/Section.vala:209 src/Dialogs/Section.vala:223
-#, fuzzy
 msgid "Section added"
-msgstr "Naam onderverdeling"
+msgstr "Onderverdeling toegevoegd"
 
 #: src/Layouts/HeaderBar.vala:79
 msgid "Open/Close Sidebar"
 msgstr "Zijbalk tonen/verbergen"
 
-#: src/Layouts/ItemBoard.vala:156 src/Layouts/ItemBoard.vala:763
-#: src/Layouts/ItemBoard.vala:776 src/Layouts/ItemRow.vala:1214
-#: src/Layouts/ItemRow.vala:1227
+#: src/Layouts/ItemBoard.vala:155 src/Layouts/ItemBoard.vala:764
+#: src/Layouts/ItemBoard.vala:777 src/Layouts/ItemRow.vala:1217
+#: src/Layouts/ItemRow.vala:1230
 msgid "Unpin"
 msgstr "Losmaken"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:624 src/Layouts/ItemRow.vala:1568
+#: src/Layouts/ItemBoard.vala:611 src/Layouts/ItemRow.vala:1569
 #: src/Layouts/ItemSidebarView.vala:656
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Afgewerkt. Volgende datum: %s"
 
-#: src/Layouts/ItemBoard.vala:784 src/Layouts/ItemRow.vala:1235
+#: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1238
 msgid "Add Subtask"
 msgstr "Subtaak toevoegen"
 
-#: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1237
+#: src/Layouts/ItemBoard.vala:787 src/Layouts/ItemRow.vala:1240
 msgid "Edit"
 msgstr "Bewerken"
 
-#: src/Layouts/ItemBoard.vala:787 src/Layouts/ItemRow.vala:1238
-#: src/Layouts/ItemRow.vala:1361 src/Layouts/ItemSidebarView.vala:489
+#: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1241
+#: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemSidebarView.vala:489
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:375
 msgid "Duplicate"
 msgstr "Dupliceren"
 
-#: src/Layouts/ItemBoard.vala:789 src/Layouts/ItemRow.vala:1240
-#: src/Layouts/ItemRow.vala:1364 src/Layouts/ItemSidebarView.vala:492
+#: src/Layouts/ItemBoard.vala:790 src/Layouts/ItemRow.vala:1243
+#: src/Layouts/ItemRow.vala:1365 src/Layouts/ItemSidebarView.vala:492
 msgid "Delete Task"
 msgstr "Taak verwijderen"
 
-#: src/Layouts/ItemBoard.vala:1089 src/Layouts/ItemRow.vala:1809
+#: src/Layouts/ItemBoard.vala:1090 src/Layouts/ItemRow.vala:1810
 msgid "Order changed to 'Custom sort order'"
 msgstr "Volgorde aangepast naar 'Aangepaste volgorde'"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:1175 src/Layouts/ItemRow.vala:1592
+#: src/Layouts/ItemBoard.vala:1176 src/Layouts/ItemRow.vala:1593
 #, c-format
 msgid "%s was deleted"
 msgstr "%s werd verwijderd"
 
-#: src/Layouts/ItemBoard.vala:1176 src/Layouts/ItemRow.vala:1593
+#: src/Layouts/ItemBoard.vala:1177 src/Layouts/ItemRow.vala:1594
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-#: src/Layouts/ItemRow.vala:573
+#: src/Layouts/ItemRow.vala:560
 msgid "Add Subtasks"
 msgstr "Subtaken toevoegen"
 
-#: src/Layouts/ItemRow.vala:1064
+#: src/Layouts/ItemRow.vala:1053
 msgid "Hide Sub-tasks"
 msgstr "Subtaken verbergen"
 
-#: src/Layouts/ItemRow.vala:1064
+#: src/Layouts/ItemRow.vala:1053
 msgid "Show Sub-tasks"
 msgstr "Subtaken tonen"
 
-#: src/Layouts/ItemRow.vala:1357 src/Layouts/ItemSidebarView.vala:486
+#: src/Layouts/ItemRow.vala:1358 src/Layouts/ItemSidebarView.vala:486
 msgid "Use as a Note"
 msgstr "Als opmerking gebruiken"
 
-#: src/Layouts/ItemRow.vala:1360 src/Layouts/ItemSidebarView.vala:488
+#: src/Layouts/ItemRow.vala:1361 src/Layouts/ItemSidebarView.vala:488
 msgid "Copy to Clipboard"
 msgstr "Naar klembord kopiëren"
 
-#: src/Layouts/ItemRow.vala:2014
+#: src/Layouts/ItemRow.vala:2015
 msgid "Add Attachments"
 msgstr "Bijlagen toevoegen"
 
@@ -2742,19 +2727,17 @@ msgid "Send by E-Mail"
 msgstr "Per e-mail verzenden"
 
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
-#, fuzzy
 msgid "Add tasks"
-msgstr "Taak toevoegen"
+msgstr "Taken toevoegen"
 
 #: src/Layouts/SectionBoard.vala:175
 msgid "Load more"
-msgstr ""
+msgstr "Meer ophalen"
 
 #: src/Layouts/SectionBoard.vala:544 src/Layouts/SectionRow.vala:622
 #: src/Widgets/SubItems.vala:420
-#, fuzzy
 msgid "completed tasks"
-msgstr "Afgeronde taken"
+msgstr "afgeronde taken"
 
 #: src/Layouts/SectionBoard.vala:564 src/Layouts/SectionRow.vala:667
 msgid "Move Section"
@@ -2783,14 +2766,12 @@ msgstr ""
 "Geen favorieten beschikbaar. Maak er één aan door op de '+'-knop te drukken"
 
 #: src/Layouts/Sidebar.vala:122
-#, fuzzy
 msgid "Add Account"
-msgstr "Accounts"
+msgstr "Account toevoegen"
 
 #: src/Layouts/Sidebar.vala:123
-#, fuzzy
 msgid "Customize Sidebar"
-msgstr "Pas de zijbalk aan"
+msgstr "Zijbalk personaliseren"
 
 #: src/Layouts/Sidebar.vala:312 src/Layouts/Sidebar.vala:364
 msgid "Go to Today"
@@ -2815,7 +2796,7 @@ msgstr ""
 
 #: src/Layouts/SidebarSourceRow.vala:78
 msgid "Account Migration Required"
-msgstr ""
+msgstr "Accountmigratie vereist"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -2825,32 +2806,31 @@ msgstr "Hoofdmenu"
 msgid "Open Quick Find"
 msgstr "Snel zoeken openen"
 
-#: src/MainWindow.vala:713
+#: src/MainWindow.vala:715
 msgid "About Planify"
 msgstr "Over Planify"
 
-#: src/MainWindow.vala:773
+#: src/MainWindow.vala:775
 msgid "Oops! Something happened"
 msgstr "Oeps! Er is iets gebeurd"
 
-#: src/MainWindow.vala:776
+#: src/MainWindow.vala:778
 msgid "See More"
 msgstr "Meer tonen"
 
-#: src/MainWindow.vala:792 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Taak afgewerkt"
 
-#: src/MainWindow.vala:793
+#: src/MainWindow.vala:795
 msgid "View"
-msgstr ""
+msgstr "Weergave"
 
-#: src/MainWindow.vala:831
+#: src/MainWindow.vala:833
 msgid "Database Integrity Check Failed"
 msgstr "Integriteitscheck database mislukt"
 
-#: src/MainWindow.vala:832
-#, fuzzy
+#: src/MainWindow.vala:834
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2865,11 +2845,14 @@ msgstr ""
 "We hebben problemen gedetecteerd met de databasestructuur die ervoor kunnen "
 "zorgen dat de applicatie niet goed werkt. Dit kan te wijten zijn aan "
 "ontbrekende tabellen of kolommen en is waarschijnlijk te wijten aan "
-"corruptie of een onvolledige update. De database zal nu opnieuw ingesteld "
-"worden, en alle bestaande data wordt verwijderd. Hierna kan je één van je "
-"vorige back-ups terugzetten. Bedankt voor je geduld."
+"corruptie of een onvolledige update. \n"
+"\n"
+"De database zal nu opnieuw ingesteld worden, en alle bestaande data wordt "
+"verwijderd. \n"
+"\n"
+"Hierna kan je één van je vorige back-ups terugzetten. Bedankt voor je geduld."
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:836
 msgid "Reset Database"
 msgstr "Database opnieuw instellen"
 
@@ -2883,30 +2866,27 @@ msgstr "Back-up met succes geïmporteerd"
 
 #: src/Services/Backups.vala:548
 msgid "Planify will restart to apply the changes"
-msgstr ""
+msgstr "Planify zal nu herstarten om de wijzigingen door te voeren"
 
 #: src/Services/Backups.vala:551
 msgid "Restart Now"
-msgstr ""
+msgstr "Nu herstarten"
 
 #: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Back-up-bestanden van Planify"
 
 #: src/Services/Notification.vala:99
-#, fuzzy
 msgid "Snooze for 10 minutes"
-msgstr "Binnen 30 minuten"
+msgstr "10 minuten uitstellen"
 
 #: src/Services/Notification.vala:100
-#, fuzzy
 msgid "Snooze for 30 minutes"
-msgstr "Binnen 30 minuten"
+msgstr "30 minuten uitstellen"
 
 #: src/Services/Notification.vala:101
-#, fuzzy
 msgid "Snooze for 1 hour"
-msgstr "Binnen 1 uur"
+msgstr "1 uur uitstellen"
 
 #: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
 #: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:88
@@ -2924,32 +2904,30 @@ msgid "Press 'a' to create a new task"
 msgstr "Druk op 'a' om een nieuwe taak aan te maken"
 
 #: src/Views/Filter.vala:129
-#, fuzzy
 msgid "All tasks completed!"
-msgstr "Taak afgewerkt"
+msgstr "Alle taken afgewerkt!"
 
 #: src/Views/Filter.vala:130
 msgid "Great job, nothing left to do 🎉"
-msgstr ""
+msgstr "Goed gedaan, er is niets meer te doen 🎉"
 
 #: src/Views/Filter.vala:361
 msgid "tasks"
-msgstr ""
+msgstr "taken"
 
 #: src/Views/Filter.vala:622
-#, fuzzy
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
-msgstr[0] "Alle afgeronde taken verwijderen"
-msgstr[1] "Alle afgeronde taken verwijderen"
+msgstr[0] "Afgeronde taak verwijderen"
+msgstr[1] "Afgeronde taken verwijderen"
 
 # # c-format
 #: src/Views/Filter.vala:627
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
-msgstr[0] "Dit zal %d afgeronde taken en alle bijhorende subtaken verwijderen"
-msgstr[1] "Dit zal %d afgeronde taken en alle bijhorende subtaken verwijderen"
+msgstr[0] "Dit zal %d afgeronde taak en de bijhorende subtaken verwijderen"
+msgstr[1] "Dit zal %d afgeronde taken en de bijhorende subtaken verwijderen"
 
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
@@ -2969,20 +2947,19 @@ msgstr "Wanneer?"
 
 #: src/Views/Project/List.vala:121
 msgid "Add Some Tasks. Press 'a' to create a new task"
-msgstr ""
+msgstr "Voeg enkele taken toe. Druk op 'a' om een nieuwe taak aan te maken"
 
 #: src/Views/Project/Project.vala:94
 msgid "Project Actions"
 msgstr "Projectacties"
 
 #: src/Views/Project/Project.vala:259
-#, fuzzy
 msgid "New Task"
-msgstr "Aufgaben verschieben"
+msgstr "Nieuwe taak"
 
 #: src/Views/Project/Project.vala:376 src/Views/Project/Project.vala:408
 msgid "Project Deadline"
-msgstr ""
+msgstr "Deadline project"
 
 #: src/Views/Project/Project.vala:381
 msgid "Select"
@@ -3012,7 +2989,7 @@ msgstr "Lijst"
 msgid "Board"
 msgstr "Bord"
 
-#: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:224
+#: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:225
 #: src/Views/Today.vala:714
 msgid "Sorting"
 msgstr "Sortering"
@@ -3021,15 +2998,14 @@ msgstr "Sortering"
 msgid "Custom sort order"
 msgstr "Aangepaste volgorde"
 
-#: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:229
+#: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:230
 #: src/Views/Today.vala:719
 msgid "Date Added"
 msgstr "Datum ingesteld"
 
 #: src/Views/Project/Project.vala:547
-#, fuzzy
 msgid "Ascending Order"
-msgstr "Oplopend"
+msgstr "Oplopende volgorde"
 
 #: src/Views/Project/Project.vala:553
 msgid "Duedate"
@@ -3055,59 +3031,58 @@ msgstr "Deze maand"
 msgid "Next 30 Days"
 msgstr "Volgende 30 dagen"
 
-#: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:237
+#: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:238
 #: src/Views/Today.vala:727
 msgid "P1"
 msgstr "P1"
 
-#: src/Views/Project/Project.vala:574 src/Views/Scheduled/Scheduled.vala:243
+#: src/Views/Project/Project.vala:574 src/Views/Scheduled/Scheduled.vala:244
 #: src/Views/Today.vala:733
 msgid "P2"
 msgstr "P2"
 
-#: src/Views/Project/Project.vala:580 src/Views/Scheduled/Scheduled.vala:249
+#: src/Views/Project/Project.vala:580 src/Views/Scheduled/Scheduled.vala:250
 #: src/Views/Today.vala:739
 msgid "P3"
 msgstr "P3"
 
-#: src/Views/Project/Project.vala:586 src/Views/Scheduled/Scheduled.vala:255
+#: src/Views/Project/Project.vala:586 src/Views/Scheduled/Scheduled.vala:256
 #: src/Views/Today.vala:745
 msgid "P4"
 msgstr "P4"
 
-#: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:262
+#: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:263
 #: src/Views/Today.vala:752
 msgid "Filter by Labels"
 msgstr "Op label filteren"
 
 #: src/Views/Project/Project.vala:597
 msgid "Show Completed"
-msgstr ""
+msgstr "Afgeronde taken weergeven"
 
 #: src/Views/Project/Project.vala:598
 msgid "Display completed tasks in the list"
-msgstr ""
+msgstr "Afgeronde taken in de lijst weergeven"
 
 #: src/Views/Project/Project.vala:604
-#, fuzzy
 msgid "Search completed tasks"
-msgstr "Afgeronde taken tonen"
+msgstr "Afgeronde taken doorzoeken"
 
 #: src/Views/Project/Project.vala:631
 msgid "Sort By"
 msgstr "Sorteren op"
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:46 src/Views/Today.vala:155
+#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
 msgid "Overdue"
 msgstr "Over tijd"
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:51 src/Views/Today.vala:163
+#: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:163
 msgid "Reschedule"
 msgstr "Uitstellen"
 
 #: src/Views/Today.vala:761
 msgid "Me"
-msgstr ""
+msgstr "Ik"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
@@ -3123,29 +3098,33 @@ msgstr "Nog geen bijlagen. Voeg deze hier toe."
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
 msgid "Bypass Location Resolve"
-msgstr ""
+msgstr "Locatieoplossing omzeilen"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:32
 msgid ""
 "Workaround for CalDAV connection issues with connections using non-default "
 "ports"
 msgstr ""
+"Werk rond CalDAV-verbindingsproblemen heen bij gebruik van connecties met "
+"poorten die niet standaard zijn"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:45
 #: src/Widgets/IgnoreSSLSwitchRow.vala:45
 msgid "Warning"
-msgstr ""
+msgstr "Waarschuwing"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:46
 msgid ""
 "This will disable the CalDAV resolve process.\n"
 "Proceed at your own risk"
 msgstr ""
+"Dit zal het CalDAV-oplossingsproces uitschakelen.\n"
+"Ga op eigen risico verder"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:49
 #: src/Widgets/IgnoreSSLSwitchRow.vala:49
 msgid "Continue Anyway"
-msgstr ""
+msgstr "Toch doorgaan"
 
 #: src/Widgets/CompletedTaskRow.vala:95
 #: src/Widgets/ItemDetailCompleted.vala:128 src/Widgets/SubItems.vala:92
@@ -3154,12 +3133,11 @@ msgstr "Subtaken"
 
 #: src/Widgets/EditableTextView.vala:78 src/Widgets/EditableTextView.vala:145
 msgid "Show more"
-msgstr ""
+msgstr "Meer tonen"
 
 #: src/Widgets/EditableTextView.vala:149
-#, fuzzy
 msgid "Show less"
-msgstr "Afgeronde taken tonen"
+msgstr "Minder tonen"
 
 #: src/Widgets/ErrorView.vala:107
 msgid "Report Issue"
@@ -3167,55 +3145,61 @@ msgstr "Probleem rapporteren"
 
 #: src/Widgets/ErrorView.vala:142
 msgid "Account migration required."
-msgstr ""
+msgstr "Accountmigratie vereist."
 
-#: src/Widgets/EventRow.vala:207
+#: src/Widgets/EventRow.vala:242
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "In %d minuut"
+msgstr[1] "In %d minuten"
 
-#: src/Widgets/EventRow.vala:209
+#: src/Widgets/EventRow.vala:244
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/Widgets/EventRow.vala:214
-msgid "Happening now"
-msgstr ""
+msgstr[0] "In %d uur"
+msgstr[1] "In %d uren"
 
 #: src/Widgets/EventRow.vala:249
+msgid "Happening now"
+msgstr "Vindt nu plaats"
+
+#: src/Widgets/EventRow.vala:284
 msgid "Location"
-msgstr ""
+msgstr "Locatie"
 
-#: src/Widgets/EventRow.vala:262
+#: src/Widgets/EventRow.vala:297
 msgid "Organizer"
-msgstr ""
+msgstr "Organisator"
 
-#: src/Widgets/EventRow.vala:276
+#: src/Widgets/EventRow.vala:311
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
-#: src/Widgets/EventRow.vala:381
+#: src/Widgets/EventRow.vala:321
+msgid "Calendar"
+msgstr "Kalender"
+
+#: src/Widgets/EventRow.vala:416
 msgid "Join"
-msgstr ""
+msgstr "Toetreden"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:31
 msgid "Disable SSL certificate validation"
-msgstr ""
+msgstr "Validatie SSL-certificaten uitschakelen"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:32
 msgid "Not recommended – exposes you to security risks"
-msgstr ""
+msgstr "Niet aangeraden – stelt je bloot aan veiligheidsrisico's"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:46
 msgid ""
 "This will disable SSL validation and exposes you to attacks.\n"
 "Proceed at your own risk"
 msgstr ""
+"Dit zal SSL-validatie uitschakelen en stelt je bloot aan aanvallen.\n"
+"Ga verder op eigen risico"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task uncompleted"
@@ -3223,15 +3207,13 @@ msgstr "Taak opnieuw geopend"
 
 # # c-format
 #: src/Widgets/ItemChangeHistoryRow.vala:51
-#, fuzzy
 msgid "Task moved to project"
-msgstr "Taak verplaatst naar project: %s"
+msgstr "Taak verplaatst naar project"
 
 # # c-format
 #: src/Widgets/ItemChangeHistoryRow.vala:61
-#, fuzzy
 msgid "Task moved to"
-msgstr "Taak verplaatst naar %s"
+msgstr "Taak verplaatst naar"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:87
 msgid "Previous"
@@ -3253,7 +3235,7 @@ msgstr "Afgewerkt op"
 
 #: src/Widgets/MultiSelectToolbar.vala:66
 msgid "Move to Project"
-msgstr ""
+msgstr "Naar project verplaatsen"
 
 # Assumed error "Mask" -> "Mark"
 #: src/Widgets/MultiSelectToolbar.vala:242
@@ -3270,38 +3252,38 @@ msgstr "Ben je zeker dat je deze taak wil verwijderen?"
 
 # # c-format
 #: src/Widgets/MultiSelectToolbar.vala:272
-#, fuzzy, c-format
+#, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
-msgstr[0] "%d taken verwijderen"
+msgstr[0] "%d taak verwijderen"
 msgstr[1] "%d taken verwijderen"
 
 #: src/Widgets/MultiSelectToolbar.vala:278
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
-msgstr[0] "Ben je zeker dat je deze taak wil verwijderen?"
-msgstr[1] "Ben je zeker dat je deze taak wil verwijderen?"
+msgstr[0] "Ben je zeker dat je deze %d taak wil verwijderen?"
+msgstr[1] "Ben je zeker dat je deze %d taken wil verwijderen?"
 
 #: src/Widgets/NewVersionPopup.vala:42
-#, fuzzy
 msgid "New version available!"
-msgstr "Niet beschikbaar"
+msgstr "Nieuwe versie beschikbaar!"
 
 #: src/Widgets/NewVersionPopup.vala:66
 msgid ""
 "Update now to enjoy the latest improvements, bug fixes, and new features "
 "that make Planify even better"
 msgstr ""
+"Werk nu bij om de laatste verbeteringen, bugfixes en nieuwe functies te "
+"verkrijgen die Planify nog beter maken"
 
 #: src/Widgets/NewVersionPopup.vala:73
-#, fuzzy
 msgid "Update Now"
-msgstr "Bijgewerkt op"
+msgstr "Nu bijwerken"
 
 #: src/Widgets/NewVersionPopup.vala:89
 msgid "Dismiss"
-msgstr ""
+msgstr "Negeren"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
@@ -3313,47 +3295,47 @@ msgstr "Nog geen subtaken. Voeg er nu één toe!"
 
 #: src/Widgets/SyncButton.vala:94
 msgid "Failed to connect to server"
-msgstr ""
+msgstr "Verbinden met server mislukt"
 
 #: src/Widgets/SyncButton.vala:94
-#, fuzzy
 msgid ""
 "It looks like the server is unreachable,\n"
 "are you connected to the internet?\n"
 "Any changes you make while disconnected\n"
 "will be synchronized when you reconnect."
 msgstr ""
-"Het lijkt erop dat je niet online bent\n"
+"Het lijkt erop dat je niet online bent.\n"
 "Aanpassingen wanneer offline worden\n"
-"gesynchroniseerd zodra je terug online bent"
+"gesynchroniseerd zodra je terug online bent."
 
 #: src/Widgets/TranslationRow.vala:95
 #, c-format
 msgid "<b>%s</b> is %.0f%% complete. You can help finish it!"
-msgstr ""
+msgstr "<b>%s</b> is %.0f%% compleet. Je kan helpen deze compleet te maken!"
 
 #: src/Widgets/TranslationRow.vala:121 src/Widgets/TranslationRow.vala:142
 #: src/Widgets/TranslationRow.vala:146
 msgid "Translations"
-msgstr ""
+msgstr "Vertalingen"
 
 #: src/Widgets/TranslationRow.vala:122 src/Widgets/TranslationRow.vala:143
 #: src/Widgets/TranslationRow.vala:147
 msgid "Help make Planify available worldwide"
-msgstr ""
+msgstr "Help Planify wereldwijd beschikbaar te maken"
 
 #: src/Widgets/TranslationRow.vala:129
 msgid "Help improve translations"
-msgstr ""
+msgstr "Help met verbeteren van vertalingen"
 
 #: src/Widgets/TranslationRow.vala:136
 msgid "Start a new translation"
-msgstr ""
+msgstr "Een nieuwe vertaling starten"
 
 #: src/Widgets/TranslationRow.vala:137
 #, c-format
 msgid "<b>%s</b> is not available yet. Be the first to translate it!"
 msgstr ""
+"<b>%s</b> is nog niet beschikbaar. Wees de eerste om ernaar te vertalen!"
 
 #: quick-add/MainWindow.vala:9
 msgid "Planify - Quick Add"
@@ -3432,7 +3414,7 @@ msgstr "Homepagina weergeven"
 #: data/resources/ui/shortcuts.ui:101
 msgctxt "shortcut window"
 msgid "Open Inbox"
-msgstr "Inbox weergeven"
+msgstr "Postvak weergeven"
 
 #: data/resources/ui/shortcuts.ui:108
 msgctxt "shortcut window"
@@ -3453,6 +3435,25 @@ msgstr "Labels weergeven"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Prikbord weergeven"
+
+#~ msgid "Clear"
+#~ msgstr "Wissen"
+
+#~ msgid "Menu"
+#~ msgstr "Menu"
+
+#~ msgid "Summary"
+#~ msgstr "Samenvatting"
+
+#~ msgid "Add Time"
+#~ msgstr "Tijd instellen"
+
+#~ msgid ""
+#~ "Get notified about important tasks or events. Tap the bell button below "
+#~ "to add a reminder."
+#~ msgstr ""
+#~ "Wil je herinnerd worden bij belangrijke taken of gebeurtenissen? Klik "
+#~ "onderaan op de bel-knop om een herinnering in te stellen."
 
 #, c-format
 #~ msgid "Processing task %d of %d"

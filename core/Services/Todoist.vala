@@ -814,7 +814,7 @@ public class Services.Todoist : GLib.Object {
         string uuid = Util.get_default ().generate_string ();
         string id;
         string json = object.get_add_json (temp_id, uuid);
-
+        
         var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
         message.request_headers.append (
             "Authorization",

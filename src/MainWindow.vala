@@ -195,7 +195,9 @@ public class MainWindow : Adw.ApplicationWindow {
                 Objects.Item item = Services.Database.get_default ().get_item_by_id (id);
                 Gee.ArrayList<Objects.Reminder> reminders = Services.Database.get_default ().get_reminders_by_item_id (id);
 
+                Services.Store.instance ().clear_project_cache (item.project_id);
                 Services.Store.instance ().add_item (item);
+
                 foreach (Objects.Reminder reminder in reminders) {
                     item.add_reminder_events (reminder);
                 }

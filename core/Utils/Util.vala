@@ -38,26 +38,26 @@ public class Util : GLib.Object {
         if (colors == null) {
             colors = new Gee.HashMap<string, Objects.Color> ();
 
-            colors.set ("berry_red", new Objects.Color (30, _("Berry Red"), "#c42d78"));
-            colors.set ("red", new Objects.Color (31, _("Red"), "#e23d3d"));
-            colors.set ("orange", new Objects.Color (32, _("Orange"), "#ff8a2a"));
-            colors.set ("yellow", new Objects.Color (33, _("Yellow"), "#f5c400"));
-            colors.set ("olive_green", new Objects.Color (34, _("Olive Green"), "#9cab3a"));
-            colors.set ("lime_green", new Objects.Color (35, _("Lime Green"), "#70c741"));
-            colors.set ("green", new Objects.Color (36, _("Green"), "#27983a"));
-            colors.set ("mint_green", new Objects.Color (37, _("Mint Green"), "#55cbb0"));
-            colors.set ("teal", new Objects.Color (38, _("Teal"), "#1492b2"));
-            colors.set ("sky_blue", new Objects.Color (39, _("Sky Blue"), "#139ef7"));
-            colors.set ("light_blue", new Objects.Color (40, _("Light Blue"), "#7fb9e8"));
-            colors.set ("blue", new Objects.Color (41, _("Blue"), "#3c6dff"));
-            colors.set ("grape", new Objects.Color (42, _("Grape"), "#7b44e6"));
-            colors.set ("violet", new Objects.Color (43, _("Violet"), "#a02adb"));
-            colors.set ("lavender", new Objects.Color (44, _("Lavender"), "#d89ae8"));
-            colors.set ("magenta", new Objects.Color (45, _("Magenta"), "#d6458d"));
-            colors.set ("salmon", new Objects.Color (46, _("Salmon"), "#f77c70"));
-            colors.set ("charcoal", new Objects.Color (47, _("Charcoal"), "#666666"));
-            colors.set ("grey", new Objects.Color (48, _("Grey"), "#a0a0a0"));
-            colors.set ("taupe", new Objects.Color (49, _("Taupe"), "#b99780"));
+            colors.set ("berry_red", new Objects.Color (30, _("Berry Red"), "berry_red", "#c42d78"));
+            colors.set ("red", new Objects.Color (31, _("Red"), "red", "#e23d3d"));
+            colors.set ("orange", new Objects.Color (32, _("Orange"), "orange", "#ff8a2a"));
+            colors.set ("yellow", new Objects.Color (33, _("Yellow"), "yellow", "#f5c400"));
+            colors.set ("olive_green", new Objects.Color (34, _("Olive Green"), "olive_green", "#9cab3a"));
+            colors.set ("lime_green", new Objects.Color (35, _("Lime Green"), "lime_green", "#70c741"));
+            colors.set ("green", new Objects.Color (36, _("Green"), "green", "#27983a"));
+            colors.set ("mint_green", new Objects.Color (37, _("Mint Green"), "mint_green", "#55cbb0"));
+            colors.set ("teal", new Objects.Color (38, _("Teal"), "teal", "#1492b2"));
+            colors.set ("sky_blue", new Objects.Color (39, _("Sky Blue"), "sky_blue", "#139ef7"));
+            colors.set ("light_blue", new Objects.Color (40, _("Light Blue"), "light_blue", "#7fb9e8"));
+            colors.set ("blue", new Objects.Color (41, _("Blue"), "blue", "#3c6dff"));
+            colors.set ("grape", new Objects.Color (42, _("Grape"), "grape", "#7b44e6"));
+            colors.set ("violet", new Objects.Color (43, _("Violet"), "violet", "#a02adb"));
+            colors.set ("lavender", new Objects.Color (44, _("Lavender"), "lavender", "#d89ae8"));
+            colors.set ("magenta", new Objects.Color (45, _("Magenta"), "magenta", "#d6458d"));
+            colors.set ("salmon", new Objects.Color (46, _("Salmon"), "salmon", "#f77c70"));
+            colors.set ("charcoal", new Objects.Color (47, _("Charcoal"), "charcoal", "#666666"));
+            colors.set ("grey", new Objects.Color (48, _("Grey"), "grey", "#a0a0a0"));
+            colors.set ("taupe", new Objects.Color (49, _("Taupe"), "taupe", "#b99780"));
 
         }
 
@@ -686,7 +686,7 @@ We hope you’ll enjoy using Planify!""");
         item_03_03.project_id = project.id;
         item_03_03.section_id = section_02.id;
         item_03_03.content = _("Set timely reminders!");
-        item_03_03.description = _("Get notified about important tasks or events. Tap the bell button below to add a reminder.");
+        item_03_03.description = _("Get notified about important tasks or events. Tap the clock button below to add a reminder.");
         
         section_02.add_item_if_not_exists (item_03_01);
         section_02.add_item_if_not_exists (item_03_02);

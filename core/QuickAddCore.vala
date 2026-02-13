@@ -1475,18 +1475,15 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
         if (position == -1) {
             if (new_task_position == NewTaskPosition.START) {
-                new_order = items[0].child_order / 2;
+                position = 0;
             } else {
-                new_order = items[items.size - 1].child_order + 1000;
+                position = items.size;
             }
-        } else if (position == 0) {
-            var first = items[0];
-            new_order = first.child_order / 2;
+        }
 
-            if (new_order == first.child_order) {
-                normalize_orders (items);
-                return generate_child_order ();
-            }
+        if (position == 0) {
+            var first = items[0];
+            new_order = first.child_order - 1000;
         } else if (position > 0 && position < items.size) {
             var prev = items[position - 1];
             var next = items[position];
