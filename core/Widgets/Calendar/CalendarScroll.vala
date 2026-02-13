@@ -99,7 +99,44 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
     }
 
     private void select_date (GLib.DateTime date) {
+        ensure_month_loaded (date);
         update_selection ();
+        scroll_to_date (date);
+    }
+
+    private void ensure_month_loaded (GLib.DateTime target_date) {
+        var today = new GLib.DateTime.now_local ();
+        int months_diff = (target_date.get_year () - today.get_year ()) * 12 + 
+                         (target_date.get_month () - today.get_month ());
+        
+        if (months_diff < 0) {
+            return;
+        }
+        
+        while (loaded_months <= months_diff) {
+            var next_month = today.add_months (loaded_months);
+            add_month_section (next_month, false);
+            loaded_months++;
+        }
+    }
+
+    private void scroll_to_date (GLib.DateTime target_date) {
+        var today = new GLib.DateTime.now_local ();
+        int target_month_index = (target_date.get_year () - today.get_year ()) * 12 + 
+                                 (target_date.get_month () - today.get_month ());
+        
+        if (target_month_index < 0 || target_month_index >= month_sections.size) {
+            return;
+        }
+        
+        var target_section = month_sections[target_month_index];
+        
+        Idle.add (() => {
+            double target_y = target_section.get_allocated_height () * target_month_index;
+            double center_offset = (scrolled_window.vadjustment.page_size - target_section.get_allocated_height ()) / 2;
+            scrolled_window.vadjustment.value = double.max (0, target_y - center_offset);
+            return false;
+        });
     }
 
     private void update_selection () {
@@ -111,6 +148,12 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
     public void reset () {
         _date = null;
         update_selection ();
+    }
+
+    public void scroll_to_selected_date () {
+        if (_date != null) {
+            scroll_to_date (_date);
+        }
     }
 
     private class MonthSection : Adw.Bin {

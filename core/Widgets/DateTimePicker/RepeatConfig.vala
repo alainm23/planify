@@ -122,8 +122,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         };
 
         recurrency_combobox = new Gtk.DropDown.from_strings (items) {
-            hexpand = true,
-            vexpand = true,
+            valign = CENTER,
             selected = 2
         };
 
@@ -253,7 +252,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         ends_stack.add_named (datepicker_button, "on");
         ends_stack.add_named (count_interval, "after");
 
-        var submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Done")) {
+        var submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Apply")) {
             margin_top = 12,
             vexpand = true,
             valign = Gtk.Align.END
@@ -282,16 +281,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         content_box.append (ends_stack);
         content_box.append (submit_button);
 
-        var toolbar_view = new Adw.ToolbarView () {
-            content = content_box
-        };
-
-        toolbar_view.add_top_bar (new Adw.HeaderBar () {
-            show_title = false,
-            show_end_title_buttons = false,
-        });
-
-        child = toolbar_view;
+        child = content_box;
         update_repeat_label ();
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
