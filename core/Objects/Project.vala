@@ -38,7 +38,7 @@ public class Objects.Project : Objects.BaseObject {
     public string sync_id { get; set; default = ""; }
     public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
     public string calendar_url { get; set; default = ""; }
-    public string calendar_source_uid { get; set; default = ""; }   
+    public string calendar_source_uid { get; set; default = ""; }
 
     bool _show_completed = false;
     public bool show_completed {
@@ -119,7 +119,7 @@ public class Objects.Project : Objects.BaseObject {
             return _view_id;
         }
     }
-    
+
     string _parent_id_string;
     public string parent_id_string {
         get {
@@ -535,7 +535,7 @@ public class Objects.Project : Objects.BaseObject {
         var related_items = new Gee.ArrayList<Objects.Item> ();
 
         foreach (var item in items) {
-            string? parent_id = Util.find_string_value ("RELATED-TO", item.calendar_data);
+            string ? parent_id = Util.find_string_value ("RELATED-TO", item.calendar_data);
             if (parent_id != null && parent_id != "") {
                 Objects.Item ? parent_item = Services.Store.instance ().get_item (parent_id);
                 if (parent_item != null) {
@@ -623,7 +623,7 @@ public class Objects.Project : Objects.BaseObject {
         builder.set_member_name ("color");
         builder.add_string_value (color);
 
-        builder.set_member_name ("collapsed");
+        builder.set_member_name ("is_collapsed");
         builder.add_boolean_value (collapsed);
 
         builder.set_member_name ("is_favorite");
@@ -772,7 +772,7 @@ public class Objects.Project : Objects.BaseObject {
         }
 
         var project_items = Services.Store.instance ().get_items_by_project (this);
-        
+
         int pending_tasks = 0;
         int items_total = 0;
         int items_checked = 0;
@@ -871,35 +871,35 @@ public class Objects.Project : Objects.BaseObject {
 
     private void handle_project_deletion () {
         loading = true;
-        
+
         if (source_type == SourceType.LOCAL) {
             Services.Store.instance ().delete_project.begin (this);
             return;
         }
-        
+
         if (source_type == SourceType.TODOIST) {
             delete_from_todoist ();
         } else if (source_type == SourceType.CALDAV) {
             delete_from_caldav ();
         }
     }
-    
+
     private void delete_from_todoist () {
         Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
             handle_remote_delete_response (Services.Todoist.get_default ().delete.end (res));
         });
     }
-    
+
     private void delete_from_caldav () {
         var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
         caldav_client.delete_project.begin (this, (obj, res) => {
             handle_remote_delete_response (caldav_client.delete_project.end (res));
         });
     }
-    
+
     private void handle_remote_delete_response (HttpResponse response) {
         loading = false;
-        
+
         if (response.status) {
             Services.Store.instance ().delete_project.begin (this);
         } else {

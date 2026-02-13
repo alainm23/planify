@@ -184,17 +184,17 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
                                                                    system_appearance_switch.active);
         })] = system_appearance_switch;
 
-        signal_map[light_radio.activate.connect (() => {
+        signal_map[light_radio.toggled.connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("dark-mode", false);
             Services.Settings.get_default ().settings.set_enum ("appearance", 0);
         })] = light_radio;
 
-        signal_map[dark_radio.activate.connect (() => {
+        signal_map[dark_radio.toggled.connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("dark-mode", true);
             Services.Settings.get_default ().settings.set_enum ("appearance", 1);
         })] = dark_radio;
 
-        signal_map[blue_radio.activate.connect (() => {
+        signal_map[blue_radio.toggled.connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("dark-mode", true);
             Services.Settings.get_default ().settings.set_enum ("appearance", 2);
         })] = blue_radio;

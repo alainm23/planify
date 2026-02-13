@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
     <enum id="io.github.alainm23.planify.appearance">
+        <value nick="Light" value="0" />
         <value nick="Dark" value="1" />
         <value nick="Dark Blue" value="2" />
     </enum>

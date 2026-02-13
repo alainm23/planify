@@ -209,7 +209,8 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
         for (int i = 0; i < 4; i++) {
             date = date.add_months (1);
-            listbox.append (new Views.Scheduled.ScheduledMonth (date));
+            var first_of_month = new GLib.DateTime.local (date.get_year (), date.get_month (), 1, 0, 0, 0);
+            listbox.append (new Views.Scheduled.ScheduledMonth (first_of_month));
         }
     }
 
@@ -305,6 +306,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             }
 
             var dialog = new Dialogs.LabelPicker ();
+            dialog.add_labels_list (Services.Store.instance ().labels);
             dialog.labels = _labels;
 
             signal_map[dialog.labels_changed.connect ((labels) => {
@@ -339,14 +341,8 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
     public void clean_up () {
         foreach (var row in Util.get_default ().get_children (listbox)) {
-            if (row is Views.Scheduled.ScheduledDay) {
-                ((Views.Scheduled.ScheduledDay) row).clean_up ();
-            } else if (row is Views.Scheduled.ScheduledMonth) {
-                ((Views.Scheduled.ScheduledMonth) row).clean_up ();
-            } else if (row is Views.Scheduled.ScheduledRange) {
-                ((Views.Scheduled.ScheduledRange) row).clean_up ();
-            } else if (row is Views.Scheduled.ScheduledOverdue) {
-                ((Views.Scheduled.ScheduledOverdue) row).clean_up ();
+            if (row is Views.Scheduled.ScheduledSection) {
+                ((Views.Scheduled.ScheduledSection) row).clean_up ();
             }
         }
 

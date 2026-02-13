@@ -158,8 +158,8 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
 
         child = toolbar_view;
 
-        signal_map[sync_server_row.activated.connect (() => {
-            source.sync_server = !source.sync_server;
+        signal_map[sync_server_row.notify["active"].connect (() => {
+            source.sync_server = sync_server_row.active;
             source.save ();
 
             if (source.sync_server) {

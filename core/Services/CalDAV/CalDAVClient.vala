@@ -378,7 +378,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         yield fetch_project_details (project, cancellable);
 
-        if (project.sync_id == "") {
+        if (project.sync_id == null || project.sync_id == "") {
             project.loading = false;
             return;
         }
@@ -597,7 +597,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var url = update ? item.ical_url : GLib.Path.build_path ("/", item.project.calendar_url, "%s.ics".printf (item.id));
         var body = item.to_vtodo ();
 
-        var expected = update ? new Soup.Status[]{ Soup.Status.NO_CONTENT }
+        var expected = update ? new Soup.Status[]{ Soup.Status.NO_CONTENT, Soup.Status.CREATED }
                               : new Soup.Status[]{ Soup.Status.CREATED };
 
         HttpResponse response = new HttpResponse ();
@@ -620,7 +620,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield send_request ("PUT", item.ical_url, "", body, null, null, { Soup.Status.NO_CONTENT });
+            yield send_request ("PUT", item.ical_url, "text/calendar", body, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED });
             item.extra_data = Util.generate_extra_data (item.ical_url, "", body);
 
             response.status = true;
