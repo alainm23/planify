@@ -21,8 +21,6 @@
 
 public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
     private Gtk.Entry time_entry;
-    private Gtk.Stack time_stack;
-    private Gtk.Revealer no_time_revealer;
 
     public string format_12 { get; construct; }
     public string format_24 { get; construct; }
@@ -31,7 +29,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
     public GLib.DateTime time {
         get {
             if (_time == null) {
-                time = new GLib.DateTime.now_local ();
+                time = new GLib.DateTime.now_local ().add_minutes (10);
             }
 
             return _time;
@@ -43,26 +41,9 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
         }
     }
 
-    public bool has_time {
-        get {
-            return time_stack.visible_child_name == "time-box";
-        }
-
-        set {
-            time_stack.visible_child_name = value ? "time-box" : "add-time";
-        }
-    }
-
-    public bool no_time_visible {
-        set {
-            no_time_revealer.reveal_child = value;
-        }
-    }
-
     private string old_string = "";
 
     public signal void time_changed ();
-    public signal void time_added ();
     public signal void activated ();
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -82,55 +63,11 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
 
         time_entry = new Gtk.Entry () {
             max_width_chars = 9,
-            margin_start = 12,
-            has_frame = false
+            hexpand = true
         };
 
-        var no_time_button = new Gtk.Button.from_icon_name ("cross-large-circle-filled-symbolic") {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER,
-            css_classes = { "flat" }
-        };
-
-        no_time_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
-            reveal_child = true,
-            child = no_time_button
-        };
-
-        var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            css_classes = { "card" },
-            margin_top = 3,
-            margin_bottom = 3,
-            margin_end = 3
-        };
-        time_box.append (time_entry);
-        time_box.append (no_time_revealer);
-
-        var add_time_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.END,
-            tooltip_text = _("Add Time"),
-            css_classes = { "flat", "dimmed" }
-        };
-
-        time_stack = new Gtk.Stack () {
-            transition_type = Gtk.StackTransitionType.CROSSFADE,
-            margin_start = 3,
-            hexpand = true,
-        };
-
-        time_stack.add_named (add_time_button, "add-time");
-        time_stack.add_named (time_box, "time-box");
-
-        child = time_stack;
-
-        signal_map[add_time_button.clicked.connect (() => {
-            time_stack.visible_child_name = "time-box";
-            update_text ();
-            time_added ();
-            time_entry.grab_focus ();
-        })] = add_time_button;
+        child = time_entry;
+        update_text ();
 
         // Connecting to events allowing manual changes
         var focus_controller = new Gtk.EventControllerFocus ();
@@ -162,10 +99,6 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
             is_unfocused ();
             activated ();
         })] = time_entry;
-
-        signal_map[no_time_button.clicked.connect (() => {
-            reset ();
-        })] = no_time_button;
     }
 
     private void is_unfocused () {
@@ -275,7 +208,6 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
     }
 
     public void reset () {
-        time_stack.visible_child_name = "add-time";
         _time = null;
         update_text ();
     }
@@ -286,5 +218,9 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
         }
 
         signal_map.clear ();
+    }
+
+    public void grab_entry_focus () {
+        time_entry.grab_focus ();
     }
 }

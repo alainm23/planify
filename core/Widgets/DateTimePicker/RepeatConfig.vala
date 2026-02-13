@@ -102,6 +102,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
             margin_end = 9,
             ellipsize = Pango.EllipsizeMode.END
         };
+        repeat_label.add_css_class ("accent");
 
         var repeat_preview_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_top = 6
@@ -121,8 +122,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         };
 
         recurrency_combobox = new Gtk.DropDown.from_strings (items) {
-            hexpand = true,
-            vexpand = true,
+            valign = CENTER,
             selected = 2
         };
 
@@ -244,56 +244,44 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         ends_stack = new Gtk.Stack () {
             hexpand = true,
             transition_type = Gtk.StackTransitionType.CROSSFADE,
-            margin_top = 6
+            margin_top = 12,
+            margin_bottom = 6
         };
 
         ends_stack.add_named (new Gtk.Label (null), "never");
         ends_stack.add_named (datepicker_button, "on");
         ends_stack.add_named (count_interval, "after");
 
-        var submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Done")) {
-            margin_top = 6,
+        var submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Apply")) {
+            margin_top = 12,
             vexpand = true,
             valign = Gtk.Align.END
         };
         submit_button.add_css_class ("suggested-action");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_start = 6,
-            margin_end = 6
+            margin_start = 9,
+            margin_end = 9,
+            margin_bottom = 9
         };
-        content_box.append (new Gtk.Label (_("Summary")) {
-            css_classes = { "heading", "h4" },
-            margin_top = 6,
-            halign = Gtk.Align.START
-        });
         content_box.append (repeat_preview_box);
         content_box.append (new Gtk.Label (_("Repeat every")) {
             css_classes = { "heading", "h4" },
-            margin_top = 6,
+            margin_top = 12,
             halign = Gtk.Align.START
         });
         content_box.append (repeat_box);
         content_box.append (weeks_revealer);
         content_box.append (new Gtk.Label (_("End")) {
             css_classes = { "heading", "h4" },
-            margin_top = 6,
+            margin_top = 12,
             halign = Gtk.Align.START
         });
         content_box.append (ends_grid);
         content_box.append (ends_stack);
         content_box.append (submit_button);
 
-        var toolbar_view = new Adw.ToolbarView () {
-            content = content_box
-        };
-
-        toolbar_view.add_top_bar (new Adw.HeaderBar () {
-            show_title = false,
-            show_end_title_buttons = false,
-        });
-
-        child = toolbar_view;
+        child = content_box;
         update_repeat_label ();
         Services.EventBus.get_default ().disconnect_typing_accel ();
 

@@ -64,6 +64,8 @@ core_files = files(
     'Widgets/Calendar/CalendarHeader.vala',
     'Widgets/Calendar/CalendarView.vala',
     'Widgets/Calendar/CalendarWeek.vala',
+    'Widgets/Calendar/CalendarMonth.vala',
+    'Widgets/Calendar/CalendarScroll.vala',
 
     'Widgets/ContextMenu/MenuItem.vala',
     'Widgets/ContextMenu/MenuSeparator.vala',
