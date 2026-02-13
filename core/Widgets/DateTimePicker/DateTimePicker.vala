@@ -717,7 +717,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         signal_map[calendar_scroll_view.day_selected.connect (() => {
             if (calendar_scroll_view.date != null) {
-                set_date (calendar_scroll_view.date, true);
+                set_date (calendar_scroll_view.date, false);
                 visible_no_date = true;
                 main_stack.visible_child_name = "main"; 
             }
