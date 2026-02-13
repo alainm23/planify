@@ -2,7 +2,7 @@ name: Build Flatpak
 'on':
   push:
     branches:
-      - master
+      - main
 jobs:
   flatpak:
     name: flatpak
