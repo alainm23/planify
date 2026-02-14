@@ -1424,7 +1424,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         popover.child = menu_box;
 
-         signals_map[delete_item.activate_item.connect (() => {
+        signals_map[delete_item.activate_item.connect (() => {
             delete_request ();
         })] = delete_item;
 
@@ -1572,8 +1572,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var toast = Util.get_default ().create_toast (title, 3);
         Services.EventBus.get_default ().send_toast (toast);
     }
-
-    
 
     public override void delete_request (bool undo = true) {
         main_revealer.reveal_child = false;
@@ -2158,25 +2156,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 }
             }
         }
-
         signals_map.clear ();
 
-        foreach (var entry in dnd_handlerses.entries) {
-            if (entry.value != null) {
-                try {
-                    entry.value.disconnect (entry.key);
-                } catch (Error e) {
-                    warning ("Error disconnecting DnD signal: %s", e.message);
-                }
-            }
-        }
-
         dnd_handlerses.clear ();
-        
-        destroy_markdown_editor ();
-        destroy_markdown_signals ();
 
         subitems.clean_up ();
+
         if (attachments != null) attachments.clean_up ();
         if (item_labels != null) item_labels.clean_up ();
         if (schedule_button != null) schedule_button.clean_up ();
