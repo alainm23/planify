@@ -65,7 +65,11 @@ public class Services.CalendarEvents : Object {
         source_components = new HashTable<E.Source, Gee.TreeMultiMap<string, ECal.Component>> (CalendarEventsUtil.source_hash_func, CalendarEventsUtil.source_equal_func);
         source_view = new HashTable<string, ECal.ClientView> (str_hash, str_equal);
 
+#if HAVE__NL_TIME_FIRST_WEEKDAY
         int week_start = Posix.NLTime.FIRST_WEEKDAY.to_string ().data[0];
+#else
+        int week_start = 0;
+#endif
         if (week_start >= 1 && week_start <= 7) {
             week_starts_on = (GLib.DateWeekday) (week_start - 1);
         }
