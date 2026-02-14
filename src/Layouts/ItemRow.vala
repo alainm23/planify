@@ -462,9 +462,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         markdown_revealer = new Gtk.Revealer ();
 
-        item_labels = new Widgets.ItemLabels (item) {
+        item_labels = new Widgets.ItemLabels () {
             margin_start = 24,
-            sensitive = !item.completed
+            sensitive = !item.completed,
+            item = item
         };
 
         schedule_button = null;
@@ -1027,7 +1028,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         labels_summary.update_request ();
         if (label_button != null) {
-            label_button.labels = item._get_labels ();
+            label_button.labels = item.get_labels_list ();
         }
         if (schedule_button != null) {
             schedule_button.update_from_item (item);
@@ -1424,7 +1425,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         popover.child = menu_box;
 
-         signals_map[delete_item.activate_item.connect (() => {
+        signals_map[delete_item.activate_item.connect (() => {
             delete_request ();
         })] = delete_item;
 
@@ -1572,8 +1573,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var toast = Util.get_default ().create_toast (title, 3);
         Services.EventBus.get_default ().send_toast (toast);
     }
-
-    
 
     public override void delete_request (bool undo = true) {
         main_revealer.reveal_child = false;
@@ -1997,7 +1996,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             sensitive = !item.completed
         };
         label_button.source = item.project.source;
-        label_button.labels = item._get_labels ();
+        label_button.labels = item.get_labels_list ();
 
         reminder_button = new Widgets.ReminderPicker.ReminderButton () {
             sensitive = !item.completed
@@ -2158,25 +2157,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 }
             }
         }
-
         signals_map.clear ();
 
-        foreach (var entry in dnd_handlerses.entries) {
-            if (entry.value != null) {
-                try {
-                    entry.value.disconnect (entry.key);
-                } catch (Error e) {
-                    warning ("Error disconnecting DnD signal: %s", e.message);
-                }
-            }
-        }
-
         dnd_handlerses.clear ();
-        
+
         destroy_markdown_editor ();
         destroy_markdown_signals ();
 
         subitems.clean_up ();
+
         if (attachments != null) attachments.clean_up ();
         if (item_labels != null) item_labels.clean_up ();
         if (schedule_button != null) schedule_button.clean_up ();
