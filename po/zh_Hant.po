@@ -30,7 +30,7 @@ msgstr "任務"
 #: core/Enum.vala:177 core/Enum.vala:540 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:783
-#: src/Layouts/ItemRow.vala:1236
+#: src/Layouts/ItemRow.vala:1237
 msgid "Labels"
 msgstr "標籤"
 
@@ -132,7 +132,7 @@ msgid "Content"
 msgstr "目錄"
 
 #: core/Enum.vala:531 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1940 src/Layouts/ItemSidebarView.vala:181
+#: src/Layouts/ItemRow.vala:1939 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "描述"
@@ -143,7 +143,7 @@ msgstr "行程"
 
 #: core/Enum.vala:543 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:764 src/Layouts/ItemBoard.vala:777
-#: src/Layouts/ItemRow.vala:1217 src/Layouts/ItemRow.vala:1230
+#: src/Layouts/ItemRow.vala:1218 src/Layouts/ItemRow.vala:1231
 msgid "Pin"
 msgstr "釘貼"
 
@@ -267,7 +267,7 @@ msgstr "即將來到"
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:369
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:771
-#: src/Layouts/ItemRow.vala:1224 src/Views/Project/Project.vala:557
+#: src/Layouts/ItemRow.vala:1225 src/Views/Project/Project.vala:557
 #: src/Views/Project/Project.vala:723 src/Views/Today.vala:203
 msgid "Today"
 msgstr "今日"
@@ -280,7 +280,7 @@ msgstr "今日"
 #: core/Utils/Datetime.vala:633
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:375
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:774
-#: src/Layouts/ItemRow.vala:1227
+#: src/Layouts/ItemRow.vala:1228
 msgid "Tomorrow"
 msgstr "明日"
 
@@ -304,11 +304,11 @@ msgstr "無標籤"
 msgid "unlabeled"
 msgstr "尚無標籤"
 
-#: core/Objects/Item.vala:1389
+#: core/Objects/Item.vala:1393
 msgid "Task copied to clipboard"
 msgstr "任務已經複製至剪貼簿"
 
-#: core/Objects/Item.vala:1682 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, c-format
@@ -396,38 +396,38 @@ msgstr "刪除階段 %s"
 msgid "Todoist"
 msgstr "待辦事項清單"
 
-#: core/QuickAddCore.vala:138
+#: core/QuickAddCore.vala:140
 msgid "Task added successfully!"
 msgstr "任務已經加入成功！"
 
-#: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:401
+#: core/QuickAddCore.vala:156 src/Layouts/ItemRow.vala:401
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "待辦事項名稱"
 
-#: core/QuickAddCore.vala:184
+#: core/QuickAddCore.vala:186
 msgid "This field is required"
 msgstr "此欄必填"
 
-#: core/QuickAddCore.vala:208 src/Dialogs/Project.vala:136
+#: core/QuickAddCore.vala:210 src/Dialogs/Project.vala:136
 msgid "Add a description…"
 msgstr "加上描述…"
 
-#: core/QuickAddCore.vala:248
+#: core/QuickAddCore.vala:251
 msgid "Set date"
 msgstr "設定日期"
 
-#: core/QuickAddCore.vala:260 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:263 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "添加標籤"
 
-#: core/QuickAddCore.vala:265 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:268 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "設定優先等級"
 
-#: core/QuickAddCore.vala:270
+#: core/QuickAddCore.vala:273
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -436,74 +436,74 @@ msgstr "設定優先等級"
 msgid "Add Reminders"
 msgstr "添加提醒"
 
-#: core/QuickAddCore.vala:314 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:317 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:665 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "添加任務"
 
-#: core/QuickAddCore.vala:320 core/QuickAddCore.vala:1388
+#: core/QuickAddCore.vala:323 core/QuickAddCore.vala:1432
 msgid "Keep adding"
 msgstr "保持添加"
 
-#: core/QuickAddCore.vala:337
+#: core/QuickAddCore.vala:340
 msgid "Select a Project"
 msgstr "選擇專案"
 
-#: core/QuickAddCore.vala:364
+#: core/QuickAddCore.vala:367
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr "抱歉，快速添加無法找到任何可用的專案，請從 Planify 中建立一個專案。"
 
-#: core/QuickAddCore.vala:1350 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1394 src/MainWindow.vala:712
 msgid "Keyboard Shortcuts"
 msgstr "鍵盤快速鍵"
 
-#: core/QuickAddCore.vala:1356
+#: core/QuickAddCore.vala:1400
 msgid "Speed up task creation with these shortcuts"
 msgstr "利用這些快速鍵來加快任務建立"
 
-#: core/QuickAddCore.vala:1370
+#: core/QuickAddCore.vala:1414
 msgid "Set priority"
 msgstr "設定優先等級"
 
-#: core/QuickAddCore.vala:1370
+#: core/QuickAddCore.vala:1414
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = 最高 、 p4 = 最低"
 
-#: core/QuickAddCore.vala:1371
+#: core/QuickAddCore.vala:1415
 msgid "Add labels"
 msgstr "添加標籤"
 
-#: core/QuickAddCore.vala:1371
+#: core/QuickAddCore.vala:1415
 msgid "Opens label selector"
 msgstr "開啟標籤選取"
 
-#: core/QuickAddCore.vala:1372
+#: core/QuickAddCore.vala:1416
 msgid "Assign project"
 msgstr "指派專案"
 
-#: core/QuickAddCore.vala:1372
+#: core/QuickAddCore.vala:1416
 msgid "Opens project selector"
 msgstr "開啟專案選擇"
 
-#: core/QuickAddCore.vala:1373
+#: core/QuickAddCore.vala:1417
 msgid "Set reminder"
 msgstr "設定提醒"
 
-#: core/QuickAddCore.vala:1373
+#: core/QuickAddCore.vala:1417
 msgid "Opens reminder options"
 msgstr "開啟提醒選項"
 
-#: core/QuickAddCore.vala:1388
+#: core/QuickAddCore.vala:1432
 msgid "Toggle stay open after creating task"
 msgstr "切換成保持開啟狀態，在建立任務之後"
 
-#: core/QuickAddCore.vala:1394
+#: core/QuickAddCore.vala:1438
 msgid "Tip"
 msgstr "技巧"
 
-#: core/QuickAddCore.vala:1394
+#: core/QuickAddCore.vala:1438
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "在標題欄位中組合快速鍵操作，以利更快建立"
 
@@ -1114,7 +1114,7 @@ msgstr "時間"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:828
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:431
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
-#: src/Layouts/ItemBoard.vala:687 src/Layouts/ItemRow.vala:1167
+#: src/Layouts/ItemBoard.vala:687 src/Layouts/ItemRow.vala:1168
 msgid "until"
 msgstr "直到"
 
@@ -1122,7 +1122,7 @@ msgstr "直到"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:435
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "for"
 msgstr "用於"
 
@@ -1130,7 +1130,7 @@ msgstr "用於"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:435
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "times"
 msgstr "次"
 
@@ -1138,7 +1138,7 @@ msgstr "次"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:435
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "time"
 msgstr "次"
 
@@ -1230,7 +1230,7 @@ msgstr "之後"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:255
 #: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:844
-#: src/Layouts/ItemRow.vala:1304
+#: src/Layouts/ItemRow.vala:1305
 msgid "Apply"
 msgstr "套用"
 
@@ -1414,7 +1414,7 @@ msgid "To Do"
 msgstr "待辦事項"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1239
+#: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1240
 #: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "完成"
@@ -1546,7 +1546,7 @@ msgid "Next Week"
 msgstr "下週"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:779
-#: src/Layouts/ItemRow.vala:1232 src/Views/Project/Project.vala:562
+#: src/Layouts/ItemRow.vala:1233 src/Views/Project/Project.vala:562
 #: src/Views/Project/Project.vala:733
 msgid "No Date"
 msgstr "無日期"
@@ -1555,7 +1555,7 @@ msgstr "無日期"
 msgid "Done"
 msgstr "完成"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1368
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1369
 #: src/Layouts/ItemSidebarView.vala:495
 msgid "Change History"
 msgstr "變更歷史記錄"
@@ -2177,7 +2177,15 @@ msgstr "儲存上次最後所選的專案"
 msgid "If unchecked, the default project selected is Inbox"
 msgstr "若無勾選，預設所選的專案是收件箱"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:121
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:103
+msgid "Keep Task Properties"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
+msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:133
 msgid "The command was copied to the clipboard"
 msgstr "該指令已經複製至剪貼簿"
 
@@ -2487,8 +2495,8 @@ msgid "Project added successfully!"
 msgstr "專案已經添加成功！"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:782 src/Layouts/ItemRow.vala:1235
-#: src/Layouts/ItemRow.vala:1363 src/Layouts/ItemSidebarView.vala:490
+#: src/Layouts/ItemBoard.vala:782 src/Layouts/ItemRow.vala:1236
+#: src/Layouts/ItemRow.vala:1364 src/Layouts/ItemSidebarView.vala:490
 msgid "Move"
 msgstr "移動"
 
@@ -2531,71 +2539,71 @@ msgid "Open/Close Sidebar"
 msgstr "開啟/關閉 側邊列"
 
 #: src/Layouts/ItemBoard.vala:155 src/Layouts/ItemBoard.vala:764
-#: src/Layouts/ItemBoard.vala:777 src/Layouts/ItemRow.vala:1217
-#: src/Layouts/ItemRow.vala:1230
+#: src/Layouts/ItemBoard.vala:777 src/Layouts/ItemRow.vala:1218
+#: src/Layouts/ItemRow.vala:1231
 msgid "Unpin"
 msgstr "解除釘貼"
 
-#: src/Layouts/ItemBoard.vala:611 src/Layouts/ItemRow.vala:1569
+#: src/Layouts/ItemBoard.vala:611 src/Layouts/ItemRow.vala:1570
 #: src/Layouts/ItemSidebarView.vala:656
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "已經完成。下次發生：%s"
 
-#: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1238
+#: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1239
 msgid "Add Subtask"
 msgstr "添加子任務"
 
-#: src/Layouts/ItemBoard.vala:787 src/Layouts/ItemRow.vala:1240
+#: src/Layouts/ItemBoard.vala:787 src/Layouts/ItemRow.vala:1241
 msgid "Edit"
 msgstr "編輯"
 
-#: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1241
-#: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemSidebarView.vala:489
+#: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1242
+#: src/Layouts/ItemRow.vala:1363 src/Layouts/ItemSidebarView.vala:489
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:375
 msgid "Duplicate"
 msgstr "製作複本"
 
-#: src/Layouts/ItemBoard.vala:790 src/Layouts/ItemRow.vala:1243
-#: src/Layouts/ItemRow.vala:1365 src/Layouts/ItemSidebarView.vala:492
+#: src/Layouts/ItemBoard.vala:790 src/Layouts/ItemRow.vala:1244
+#: src/Layouts/ItemRow.vala:1366 src/Layouts/ItemSidebarView.vala:492
 msgid "Delete Task"
 msgstr "刪除任務"
 
-#: src/Layouts/ItemBoard.vala:1090 src/Layouts/ItemRow.vala:1810
+#: src/Layouts/ItemBoard.vala:1090 src/Layouts/ItemRow.vala:1809
 msgid "Order changed to 'Custom sort order'"
 msgstr "順序變更為〔自訂排列順序〕"
 
-#: src/Layouts/ItemBoard.vala:1176 src/Layouts/ItemRow.vala:1593
+#: src/Layouts/ItemBoard.vala:1176 src/Layouts/ItemRow.vala:1592
 #, c-format
 msgid "%s was deleted"
 msgstr "%s 已經刪除"
 
-#: src/Layouts/ItemBoard.vala:1177 src/Layouts/ItemRow.vala:1594
+#: src/Layouts/ItemBoard.vala:1177 src/Layouts/ItemRow.vala:1593
 msgid "Undo"
 msgstr "取消動作"
 
-#: src/Layouts/ItemRow.vala:560
+#: src/Layouts/ItemRow.vala:561
 msgid "Add Subtasks"
 msgstr "添加子任務"
 
-#: src/Layouts/ItemRow.vala:1053
+#: src/Layouts/ItemRow.vala:1054
 msgid "Hide Sub-tasks"
 msgstr "隱藏子任務"
 
-#: src/Layouts/ItemRow.vala:1053
+#: src/Layouts/ItemRow.vala:1054
 msgid "Show Sub-tasks"
 msgstr "顯示子任務"
 
-#: src/Layouts/ItemRow.vala:1358 src/Layouts/ItemSidebarView.vala:486
+#: src/Layouts/ItemRow.vala:1359 src/Layouts/ItemSidebarView.vala:486
 msgid "Use as a Note"
 msgstr "用作為記事"
 
-#: src/Layouts/ItemRow.vala:1361 src/Layouts/ItemSidebarView.vala:488
+#: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemSidebarView.vala:488
 msgid "Copy to Clipboard"
 msgstr "複製至剪貼簿"
 
-#: src/Layouts/ItemRow.vala:2015
+#: src/Layouts/ItemRow.vala:2014
 msgid "Add Attachments"
 msgstr "添加附件"
 

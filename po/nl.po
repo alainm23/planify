@@ -30,7 +30,7 @@ msgstr "Taken"
 #: core/Enum.vala:177 core/Enum.vala:540 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:783
-#: src/Layouts/ItemRow.vala:1236
+#: src/Layouts/ItemRow.vala:1237
 msgid "Labels"
 msgstr "Labels"
 
@@ -138,7 +138,7 @@ msgid "Content"
 msgstr "Inhoud"
 
 #: core/Enum.vala:531 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1940 src/Layouts/ItemSidebarView.vala:181
+#: src/Layouts/ItemRow.vala:1939 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "Beschrijving"
@@ -149,7 +149,7 @@ msgstr "Gepland"
 
 #: core/Enum.vala:543 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:764 src/Layouts/ItemBoard.vala:777
-#: src/Layouts/ItemRow.vala:1217 src/Layouts/ItemRow.vala:1230
+#: src/Layouts/ItemRow.vala:1218 src/Layouts/ItemRow.vala:1231
 msgid "Pin"
 msgstr "Vastgeprikt"
 
@@ -273,7 +273,7 @@ msgstr "aankomend"
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:369
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:771
-#: src/Layouts/ItemRow.vala:1224 src/Views/Project/Project.vala:557
+#: src/Layouts/ItemRow.vala:1225 src/Views/Project/Project.vala:557
 #: src/Views/Project/Project.vala:723 src/Views/Today.vala:203
 msgid "Today"
 msgstr "Vandaag"
@@ -286,7 +286,7 @@ msgstr "vandaag"
 #: core/Utils/Datetime.vala:633
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:375
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:774
-#: src/Layouts/ItemRow.vala:1227
+#: src/Layouts/ItemRow.vala:1228
 msgid "Tomorrow"
 msgstr "Morgen"
 
@@ -310,12 +310,12 @@ msgstr "geen label"
 msgid "unlabeled"
 msgstr "ongelabeld"
 
-#: core/Objects/Item.vala:1389
+#: core/Objects/Item.vala:1393
 msgid "Task copied to clipboard"
 msgstr "Taak gekopieerd naar klembord"
 
 # # c-format
-#: core/Objects/Item.vala:1682 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
 #, c-format
@@ -408,38 +408,38 @@ msgstr "Onderverdeling %s verwijderen"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:138
+#: core/QuickAddCore.vala:140
 msgid "Task added successfully!"
 msgstr "Taak succesvol toegevoegd!"
 
-#: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:401
+#: core/QuickAddCore.vala:156 src/Layouts/ItemRow.vala:401
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Naam taak"
 
-#: core/QuickAddCore.vala:184
+#: core/QuickAddCore.vala:186
 msgid "This field is required"
 msgstr "Dit veld is verplicht"
 
-#: core/QuickAddCore.vala:208 src/Dialogs/Project.vala:136
+#: core/QuickAddCore.vala:210 src/Dialogs/Project.vala:136
 msgid "Add a description…"
 msgstr "Voeg een beschrijving toe…"
 
-#: core/QuickAddCore.vala:248
+#: core/QuickAddCore.vala:251
 msgid "Set date"
 msgstr "Stel datum in"
 
-#: core/QuickAddCore.vala:260 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:263 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Labels toevoegen"
 
-#: core/QuickAddCore.vala:265 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:268 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Prioriteit instellen"
 
-#: core/QuickAddCore.vala:270
+#: core/QuickAddCore.vala:273
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -448,20 +448,20 @@ msgstr "Prioriteit instellen"
 msgid "Add Reminders"
 msgstr "Herinneringen toevoegen"
 
-#: core/QuickAddCore.vala:314 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:317 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:665 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Taak toevoegen"
 
-#: core/QuickAddCore.vala:320 core/QuickAddCore.vala:1388
+#: core/QuickAddCore.vala:323 core/QuickAddCore.vala:1432
 msgid "Keep adding"
 msgstr "Blijf toevoegen"
 
-#: core/QuickAddCore.vala:337
+#: core/QuickAddCore.vala:340
 msgid "Select a Project"
 msgstr "Project selecteren"
 
-#: core/QuickAddCore.vala:364
+#: core/QuickAddCore.vala:367
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -469,55 +469,55 @@ msgstr ""
 "Sorry, snel toevoegen lukt niet zonder een project, probeer eerst een "
 "project aan te maken."
 
-#: core/QuickAddCore.vala:1350 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1394 src/MainWindow.vala:712
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
-#: core/QuickAddCore.vala:1356
+#: core/QuickAddCore.vala:1400
 msgid "Speed up task creation with these shortcuts"
 msgstr "Versnel het maken van taken met deze snelkoppelingen"
 
-#: core/QuickAddCore.vala:1370
+#: core/QuickAddCore.vala:1414
 msgid "Set priority"
 msgstr "Prioriteit instellen"
 
-#: core/QuickAddCore.vala:1370
+#: core/QuickAddCore.vala:1414
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = hoogste, p4 = laagste"
 
-#: core/QuickAddCore.vala:1371
+#: core/QuickAddCore.vala:1415
 msgid "Add labels"
 msgstr "Label(s) toevoegen"
 
-#: core/QuickAddCore.vala:1371
+#: core/QuickAddCore.vala:1415
 msgid "Opens label selector"
 msgstr "Toont de labelselectie"
 
-#: core/QuickAddCore.vala:1372
+#: core/QuickAddCore.vala:1416
 msgid "Assign project"
 msgstr "Project toewijzen"
 
-#: core/QuickAddCore.vala:1372
+#: core/QuickAddCore.vala:1416
 msgid "Opens project selector"
 msgstr "Opent projectselector"
 
-#: core/QuickAddCore.vala:1373
+#: core/QuickAddCore.vala:1417
 msgid "Set reminder"
 msgstr "herinnering instellen"
 
-#: core/QuickAddCore.vala:1373
+#: core/QuickAddCore.vala:1417
 msgid "Opens reminder options"
 msgstr "Opent herinneringsopties"
 
-#: core/QuickAddCore.vala:1388
+#: core/QuickAddCore.vala:1432
 msgid "Toggle stay open after creating task"
 msgstr "Open blijven na aanmaken nieuwe taak"
 
-#: core/QuickAddCore.vala:1394
+#: core/QuickAddCore.vala:1438
 msgid "Tip"
 msgstr "Tip"
 
-#: core/QuickAddCore.vala:1394
+#: core/QuickAddCore.vala:1438
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combineer sneltoetsen in het titelveld om het aanmaken te versnellen"
 
@@ -1150,7 +1150,7 @@ msgstr "Tijd"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:828
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:431
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
-#: src/Layouts/ItemBoard.vala:687 src/Layouts/ItemRow.vala:1167
+#: src/Layouts/ItemBoard.vala:687 src/Layouts/ItemRow.vala:1168
 msgid "until"
 msgstr "tot"
 
@@ -1158,7 +1158,7 @@ msgstr "tot"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:435
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "for"
 msgstr "voor"
 
@@ -1166,7 +1166,7 @@ msgstr "voor"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:435
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "times"
 msgstr "tijden"
 
@@ -1174,7 +1174,7 @@ msgstr "tijden"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:435
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "time"
 msgstr "tijd"
 
@@ -1266,7 +1266,7 @@ msgstr "Na"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:255
 #: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:844
-#: src/Layouts/ItemRow.vala:1304
+#: src/Layouts/ItemRow.vala:1305
 msgid "Apply"
 msgstr "Toepassen"
 
@@ -1456,7 +1456,7 @@ msgid "To Do"
 msgstr "Open"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1239
+#: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1240
 #: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "Afgerond"
@@ -1600,7 +1600,7 @@ msgid "Next Week"
 msgstr "Volgende week"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:779
-#: src/Layouts/ItemRow.vala:1232 src/Views/Project/Project.vala:562
+#: src/Layouts/ItemRow.vala:1233 src/Views/Project/Project.vala:562
 #: src/Views/Project/Project.vala:733
 msgid "No Date"
 msgstr "Geen datum"
@@ -1609,7 +1609,7 @@ msgstr "Geen datum"
 msgid "Done"
 msgstr "Toepassen"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1368
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1369
 #: src/Layouts/ItemSidebarView.vala:495
 msgid "Change History"
 msgstr "Geschiedenis wijzigen"
@@ -2245,7 +2245,15 @@ msgstr "Laatst geselecteerde project onthouden"
 msgid "If unchecked, the default project selected is Inbox"
 msgstr "Wanneer uitgeschakeld zal het standaardproject het postvak zijn"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:121
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:103
+msgid "Keep Task Properties"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
+msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:133
 msgid "The command was copied to the clipboard"
 msgstr "Het commando werd naar het klembord gekopieerd"
 
@@ -2561,8 +2569,8 @@ msgid "Project added successfully!"
 msgstr "Project met succes toegevoegd!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:782 src/Layouts/ItemRow.vala:1235
-#: src/Layouts/ItemRow.vala:1363 src/Layouts/ItemSidebarView.vala:490
+#: src/Layouts/ItemBoard.vala:782 src/Layouts/ItemRow.vala:1236
+#: src/Layouts/ItemRow.vala:1364 src/Layouts/ItemSidebarView.vala:490
 msgid "Move"
 msgstr "Verplaatsen"
 
@@ -2607,73 +2615,73 @@ msgid "Open/Close Sidebar"
 msgstr "Zijbalk tonen/verbergen"
 
 #: src/Layouts/ItemBoard.vala:155 src/Layouts/ItemBoard.vala:764
-#: src/Layouts/ItemBoard.vala:777 src/Layouts/ItemRow.vala:1217
-#: src/Layouts/ItemRow.vala:1230
+#: src/Layouts/ItemBoard.vala:777 src/Layouts/ItemRow.vala:1218
+#: src/Layouts/ItemRow.vala:1231
 msgid "Unpin"
 msgstr "Losmaken"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:611 src/Layouts/ItemRow.vala:1569
+#: src/Layouts/ItemBoard.vala:611 src/Layouts/ItemRow.vala:1570
 #: src/Layouts/ItemSidebarView.vala:656
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Afgewerkt. Volgende datum: %s"
 
-#: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1238
+#: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1239
 msgid "Add Subtask"
 msgstr "Subtaak toevoegen"
 
-#: src/Layouts/ItemBoard.vala:787 src/Layouts/ItemRow.vala:1240
+#: src/Layouts/ItemBoard.vala:787 src/Layouts/ItemRow.vala:1241
 msgid "Edit"
 msgstr "Bewerken"
 
-#: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1241
-#: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemSidebarView.vala:489
+#: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1242
+#: src/Layouts/ItemRow.vala:1363 src/Layouts/ItemSidebarView.vala:489
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:375
 msgid "Duplicate"
 msgstr "Dupliceren"
 
-#: src/Layouts/ItemBoard.vala:790 src/Layouts/ItemRow.vala:1243
-#: src/Layouts/ItemRow.vala:1365 src/Layouts/ItemSidebarView.vala:492
+#: src/Layouts/ItemBoard.vala:790 src/Layouts/ItemRow.vala:1244
+#: src/Layouts/ItemRow.vala:1366 src/Layouts/ItemSidebarView.vala:492
 msgid "Delete Task"
 msgstr "Taak verwijderen"
 
-#: src/Layouts/ItemBoard.vala:1090 src/Layouts/ItemRow.vala:1810
+#: src/Layouts/ItemBoard.vala:1090 src/Layouts/ItemRow.vala:1809
 msgid "Order changed to 'Custom sort order'"
 msgstr "Volgorde aangepast naar 'Aangepaste volgorde'"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:1176 src/Layouts/ItemRow.vala:1593
+#: src/Layouts/ItemBoard.vala:1176 src/Layouts/ItemRow.vala:1592
 #, c-format
 msgid "%s was deleted"
 msgstr "%s werd verwijderd"
 
-#: src/Layouts/ItemBoard.vala:1177 src/Layouts/ItemRow.vala:1594
+#: src/Layouts/ItemBoard.vala:1177 src/Layouts/ItemRow.vala:1593
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-#: src/Layouts/ItemRow.vala:560
+#: src/Layouts/ItemRow.vala:561
 msgid "Add Subtasks"
 msgstr "Subtaken toevoegen"
 
-#: src/Layouts/ItemRow.vala:1053
+#: src/Layouts/ItemRow.vala:1054
 msgid "Hide Sub-tasks"
 msgstr "Subtaken verbergen"
 
-#: src/Layouts/ItemRow.vala:1053
+#: src/Layouts/ItemRow.vala:1054
 msgid "Show Sub-tasks"
 msgstr "Subtaken tonen"
 
-#: src/Layouts/ItemRow.vala:1358 src/Layouts/ItemSidebarView.vala:486
+#: src/Layouts/ItemRow.vala:1359 src/Layouts/ItemSidebarView.vala:486
 msgid "Use as a Note"
 msgstr "Als opmerking gebruiken"
 
-#: src/Layouts/ItemRow.vala:1361 src/Layouts/ItemSidebarView.vala:488
+#: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemSidebarView.vala:488
 msgid "Copy to Clipboard"
 msgstr "Naar klembord kopiëren"
 
-#: src/Layouts/ItemRow.vala:2015
+#: src/Layouts/ItemRow.vala:2014
 msgid "Add Attachments"
 msgstr "Bijlagen toevoegen"
 

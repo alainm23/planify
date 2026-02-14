@@ -253,7 +253,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         var popover = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
-            position = Gtk.PositionType.TOP
+            position = TOP
         };
 
         complete_item.clicked.connect (() => {
@@ -292,7 +292,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             dialog.response.connect ((response) => {
                 if (response == "delete") {
                     foreach (string key in items_selected.keys) {
-                        items_selected[key].delete_request (false);
+                        items_selected[key].item.delete_item ();
                     }
 
                     unselect_all ();
