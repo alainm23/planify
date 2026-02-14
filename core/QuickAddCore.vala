@@ -70,7 +70,9 @@ public class Layouts.QuickAddCore : Adw.Bin {
     
     private Objects.DueDate? preserved_duedate = null;
     private bool preserved_pinned = false;
+    private int preserved_priority = Constants.PRIORITY_4;
     private Gee.HashMap<string, Objects.Label>? preserved_labels = null;
+    private string preserved_deadline = "";
     private bool restoring_labels = false;
 
     public const string SHORTCUTS_KEY_PROJECTS = "#";
@@ -239,9 +241,10 @@ public class Layouts.QuickAddCore : Adw.Bin {
             });
         })] = description_textview.buffer;
 
-        item_labels = new Widgets.ItemLabels (item) {
+        item_labels = new Widgets.ItemLabels () {
             margin_start = 12,
-            top_margin = 12
+            top_margin = 12,
+            item = item
         };
 
         schedule_button = new Widgets.ScheduleButton () {
@@ -258,8 +261,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
         label_button = new Widgets.LabelPicker.LabelButton () {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Labels"), "@"),
+            source = item.project.source
         };
-        label_button.source = item.project.source;
 
         priority_button = new Widgets.PriorityButton () {
             tooltip_markup = Util.get_default ().markup_accels_tooltip (_("Set The Priority"), { "p1", "p2", "p3", "p4" }),
@@ -512,7 +515,13 @@ public class Layouts.QuickAddCore : Adw.Bin {
             }
         })] = priority_button;
 
-        signal_map[label_button.labels_changed.connect (set_labels)] = label_button;
+        signal_map[label_button.labels_changed.connect ((new_labels) => {
+            if (restoring_labels) {
+                return;
+            }
+            
+            set_labels (new_labels);
+        })] = label_button;
 
         signal_map[label_button.picker_opened.connect ((active) => {
             parent_can_close (!active);
@@ -695,11 +704,13 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
         signal_map[item_labels.label_clicked.connect ((label) => {
             var current_labels = new Gee.HashMap<string, Objects.Label> ();
-            foreach (var existing_label in item._get_labels ()) {
+            foreach (var existing_label in item.get_labels_list ()) {
                 if (existing_label.id != label.id) {
                     current_labels[existing_label.id] = existing_label;
                 }
             }
+            
+            restoring_labels = true;
             set_labels (current_labels);
             
             var labels_list = new Gee.ArrayList<Objects.Label> ();
@@ -707,6 +718,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
                 labels_list.add (lbl);
             }
             label_button.labels = labels_list;
+            
+            restoring_labels = false;
         })] = item_labels;
 
         var open_label_shortcut = new Gtk.Shortcut (Gtk.ShortcutTrigger.parse_string ("<Control>l"), new Gtk.CallbackAction (() => {
@@ -840,30 +853,56 @@ public class Layouts.QuickAddCore : Adw.Bin {
             content_entry.text = "";
             description_textview.set_text ("");
             
-            if (preserved_duedate != null) {
+            bool keep_properties = Services.Settings.get_default ().settings.get_boolean ("quick-add-keep-properties");
+            
+            if (keep_properties && preserved_duedate != null) {
                 item.due = preserved_duedate.duplicate ();
                 schedule_button.update_from_item (item);
             } else {
                 schedule_button.reset ();
             }
             
-            if (preserved_pinned) {
+            if (keep_properties && preserved_pinned) {
                 item.pinned = preserved_pinned;
                 pin_button.update_from_item (item);
             } else {
                 pin_button.reset ();
             }
             
-            if (preserved_labels != null && preserved_labels.size > 0) {
+            if (keep_properties && preserved_priority != -1) {
+                item.priority = preserved_priority;
+                priority_button.update_from_item (item);
+            } else {
+                priority_button.reset ();
+            }
+            
+            if (keep_properties && preserved_labels != null && preserved_labels.size > 0) {
                 restoring_labels = true;
                 set_labels (preserved_labels);
                 restoring_labels = false;
+                
+                var labels_list = new Gee.ArrayList<Objects.Label> ();
+                foreach (var lbl in preserved_labels.values) {
+                    labels_list.add (lbl);
+                }
+                label_button.labels = labels_list;
             } else {
                 label_button.reset ();
                 item_labels.reset ();
             }
             
-            priority_button.reset ();
+            if (keep_properties && preserved_deadline != "") {
+                item.deadline_date = preserved_deadline;
+                deadline_button.datetime = item.deadline_datetime;
+                deadline_button.reveal_content = !item.has_deadline;
+                deadline_button_detail.datetime = item.deadline_datetime;
+                deadline_button_detail.reveal_content = item.has_deadline;
+            } else {
+                deadline_button.datetime = null;
+                deadline_button.reveal_content = false;
+                deadline_button_detail.datetime = null;
+                deadline_button_detail.reveal_content = false;
+            }
 
             content_entry.grab_focus ();
             
@@ -935,6 +974,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
         item.section_id = old_section_id;
         item.parent_id = old_parent_id;
 
+        item_labels.item = item;
         label_button.source = item.project.source;
         labels_quick_picker.source = item.project.source;
     }
@@ -963,6 +1003,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
             item.due.reset ();
             date_auto_detection_enabled = true;
             last_detected_date_text = "";
+        } else {
+            preserved_duedate = item.due.duplicate ();
         }
 
         schedule_button.update_from_item (item);
@@ -974,6 +1016,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
         }
 
         item.priority = priority;
+        preserved_priority = priority;
         priority_button.update_from_item (item);
     }
 
@@ -992,7 +1035,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
             }
         }
 
-        foreach (var label in item._get_labels ()) {
+        foreach (var label in item.get_labels_list ()) {
             if (!new_labels.has_key (label.id)) {
                 item.delete_item_label (label.id);
                 labels_change = true;
@@ -1013,6 +1056,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
     private void update_deadline (GLib.DateTime ? date) {
         item.deadline_date = date == null ? "" : date.to_string ();
+        preserved_deadline = item.deadline_date;
 
         deadline_button.datetime = item.deadline_datetime;
         deadline_button.reveal_content = !item.has_deadline;
@@ -1340,7 +1384,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
         item.add_label_if_not_exists (label);
         
         var labels_list = new Gee.ArrayList<Objects.Label> ();
-        foreach (var lbl in item._get_labels ()) {
+        foreach (var lbl in item.get_labels_list ()) {
             labels_list.add (lbl);
         }
         label_button.labels = labels_list;

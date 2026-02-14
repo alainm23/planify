@@ -462,9 +462,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         markdown_revealer = new Gtk.Revealer ();
 
-        item_labels = new Widgets.ItemLabels (item) {
+        item_labels = new Widgets.ItemLabels () {
             margin_start = 24,
-            sensitive = !item.completed
+            sensitive = !item.completed,
+            item = item
         };
 
         schedule_button = null;
@@ -1027,7 +1028,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         labels_summary.update_request ();
         if (label_button != null) {
-            label_button.labels = item._get_labels ();
+            label_button.labels = item.get_labels_list ();
         }
         if (schedule_button != null) {
             schedule_button.update_from_item (item);
@@ -1997,7 +1998,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             sensitive = !item.completed
         };
         label_button.source = item.project.source;
-        label_button.labels = item._get_labels ();
+        label_button.labels = item.get_labels_list ();
 
         reminder_button = new Widgets.ReminderPicker.ReminderButton () {
             sensitive = !item.completed
