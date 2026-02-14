@@ -2161,6 +2161,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         dnd_handlerses.clear ();
 
+        destroy_markdown_editor ();
+        destroy_markdown_signals ();
+
         subitems.clean_up ();
 
         if (attachments != null) attachments.clean_up ();
