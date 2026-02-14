@@ -415,7 +415,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         priority_button.update_from_item (item);
         status_button.update_from_item (item);
 
-        label_button.labels = item._get_labels ();
+        label_button.labels = item.get_labels_list ();
         label_button.update_tooltip_from_item (item);
 
         pin_button.update_from_item (item);
@@ -468,7 +468,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             }
         }
 
-        foreach (var label in item._get_labels ()) {
+        foreach (var label in item.get_labels_list ()) {
             if (!new_labels.has_key (label.id)) {
                 item.delete_item_label (label.id);
                 update = true;

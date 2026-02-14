@@ -333,13 +333,13 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
     private void check_labels (Objects.Item item, bool active) {
         if (active) {
-            foreach (Objects.Label label in item._get_labels ()) {
+            foreach (Objects.Label label in item.get_labels_list ()) {
                 if (!labels.has_key (label.id)) {
                     labels[label.id] = label;
                 }
             }
         } else {
-            foreach (Objects.Label label in item._get_labels ()) {
+            foreach (Objects.Label label in item.get_labels_list ()) {
                 if (labels.has_key (label.id)) {
                     labels.unset (label.id);
                 }
