@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-02-07 12:00+0000\n"
+"PO-Revision-Date: 2026-02-15 14:09+0000\n"
 "Last-Translator: Maksym Dilanian <dilanyan.maxim@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/uk/>\n"
@@ -1193,7 +1193,7 @@ msgstr "Наступний тиждень"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
 msgid "Save"
-msgstr ""
+msgstr "Зберегти"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:559
 msgid "Daily"
@@ -1225,7 +1225,7 @@ msgstr "Власне"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:855
 msgid "No date"
-msgstr ""
+msgstr "Без дати"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
@@ -2244,11 +2244,13 @@ msgstr "Якщо позначку не знято, проєктом за зам�
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:103
 msgid "Keep Task Properties"
-msgstr ""
+msgstr "Зберігати властивості завдання"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
 msgstr ""
+"Коли ввімкнено опцію «Продовжити додавання», зберігати дату, мітки та "
+"закріплений статус"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:133
 msgid "The command was copied to the clipboard"
@@ -3261,7 +3263,7 @@ msgstr "Ви впевнені, що хочете видалити це завд�
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
 msgstr[0] "Видалити %d завдання"
-msgstr[1] "Видалити %d завданнь"
+msgstr[1] "Видалити %d завдань"
 
 #: src/Widgets/MultiSelectToolbar.vala:278
 #, c-format
