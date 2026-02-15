@@ -396,38 +396,38 @@ msgstr "Xóa Phần %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:140
+#: core/QuickAddCore.vala:148
 msgid "Task added successfully!"
 msgstr "Nhiệm vụ đã thêm thành công!"
 
-#: core/QuickAddCore.vala:156 src/Layouts/ItemRow.vala:401
+#: core/QuickAddCore.vala:164 src/Layouts/ItemRow.vala:401
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Tên nhiệm vụ"
 
-#: core/QuickAddCore.vala:186
+#: core/QuickAddCore.vala:194
 msgid "This field is required"
 msgstr "Trường này là bắt buộc"
 
-#: core/QuickAddCore.vala:210 src/Dialogs/Project.vala:136
+#: core/QuickAddCore.vala:218 src/Dialogs/Project.vala:136
 msgid "Add a description…"
 msgstr "Thêm mô tả…"
 
-#: core/QuickAddCore.vala:251
+#: core/QuickAddCore.vala:259
 msgid "Set date"
 msgstr "Đặt ngày"
 
-#: core/QuickAddCore.vala:263 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:271 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Thêm Nhãn"
 
-#: core/QuickAddCore.vala:268 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:276 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Đặt Ưu Tiên"
 
-#: core/QuickAddCore.vala:273
+#: core/QuickAddCore.vala:281
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -436,20 +436,20 @@ msgstr "Đặt Ưu Tiên"
 msgid "Add Reminders"
 msgstr "Thêm Lời Nhắc"
 
-#: core/QuickAddCore.vala:317 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:325 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:665 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Thêm Nhiệm Vụ"
 
-#: core/QuickAddCore.vala:323 core/QuickAddCore.vala:1432
+#: core/QuickAddCore.vala:331 core/QuickAddCore.vala:1444
 msgid "Keep adding"
 msgstr "Tiếp tục thêm"
 
-#: core/QuickAddCore.vala:340
+#: core/QuickAddCore.vala:348
 msgid "Select a Project"
 msgstr "Chọn Dự Án"
 
-#: core/QuickAddCore.vala:367
+#: core/QuickAddCore.vala:375
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -457,55 +457,55 @@ msgstr ""
 "Rất tiếc, Quick Add không tìm thấy dự án nào khả dụng, hãy thử tạo dự án từ "
 "Planify."
 
-#: core/QuickAddCore.vala:1394 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
 msgid "Keyboard Shortcuts"
 msgstr "Phím Tắt"
 
-#: core/QuickAddCore.vala:1400
+#: core/QuickAddCore.vala:1412
 msgid "Speed up task creation with these shortcuts"
 msgstr "Tăng tốc tạo nhiệm vụ với các phím tắt này"
 
-#: core/QuickAddCore.vala:1414
+#: core/QuickAddCore.vala:1426
 msgid "Set priority"
 msgstr "Đặt ưu tiên"
 
-#: core/QuickAddCore.vala:1414
+#: core/QuickAddCore.vala:1426
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = cao nhất, p4 = thấp nhất"
 
-#: core/QuickAddCore.vala:1415
+#: core/QuickAddCore.vala:1427
 msgid "Add labels"
 msgstr "Thêm nhãn"
 
-#: core/QuickAddCore.vala:1415
+#: core/QuickAddCore.vala:1427
 msgid "Opens label selector"
 msgstr "Mở bộ chọn nhãn"
 
-#: core/QuickAddCore.vala:1416
+#: core/QuickAddCore.vala:1428
 msgid "Assign project"
 msgstr "Giao dự án"
 
-#: core/QuickAddCore.vala:1416
+#: core/QuickAddCore.vala:1428
 msgid "Opens project selector"
 msgstr "Mở bộ chọn dự án"
 
-#: core/QuickAddCore.vala:1417
+#: core/QuickAddCore.vala:1429
 msgid "Set reminder"
 msgstr "Đặt lời nhắc"
 
-#: core/QuickAddCore.vala:1417
+#: core/QuickAddCore.vala:1429
 msgid "Opens reminder options"
 msgstr "Mở tùy chọn lời nhắc"
 
-#: core/QuickAddCore.vala:1432
+#: core/QuickAddCore.vala:1444
 msgid "Toggle stay open after creating task"
 msgstr "Chuyển đổi giữ mở sau khi tạo nhiệm vụ"
 
-#: core/QuickAddCore.vala:1438
+#: core/QuickAddCore.vala:1450
 msgid "Tip"
 msgstr "Mẹo"
 
-#: core/QuickAddCore.vala:1438
+#: core/QuickAddCore.vala:1450
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Kết hợp phím tắt trong trường tiêu đề để tạo nhanh hơn"
 
@@ -1122,7 +1122,7 @@ msgstr "Thời gian"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:828
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:431
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:430
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
 #: src/Layouts/ItemBoard.vala:687 src/Layouts/ItemRow.vala:1168
 msgid "until"
@@ -1130,7 +1130,7 @@ msgstr "cho đến"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "for"
@@ -1138,7 +1138,7 @@ msgstr "trong"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "times"
@@ -1146,7 +1146,7 @@ msgstr "lần"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "time"
