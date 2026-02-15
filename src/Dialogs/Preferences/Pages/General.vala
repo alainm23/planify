@@ -59,19 +59,6 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
         var de_group = new Adw.PreferencesGroup ();
         de_group.title = _("DE Integration");
 
-        var run_background_switch = new Gtk.Switch () {
-            valign = Gtk.Align.CENTER,
-            active = Services.Settings.get_default ().settings.get_boolean ("run-in-background")
-        };
-
-        var run_background_row = new Adw.ActionRow ();
-        run_background_row.title = _("Run in Background");
-        run_background_row.subtitle = _("Let Planify run in background and send notifications");
-        run_background_row.set_activatable_widget (run_background_switch);
-        run_background_row.add_suffix (run_background_switch);
-
-        // de_group.add (run_background_row);
-
         #if WITH_LIBPORTAL
         var run_on_startup_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
@@ -80,11 +67,24 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
 
         var run_on_startup_row = new Adw.ActionRow ();
         run_on_startup_row.title = _("Run on Startup");
-        run_on_startup_row.subtitle = _("Whether Planify should run on startup");
+        run_on_startup_row.subtitle = _("Launch Planify automatically when you start your computer");
         run_on_startup_row.set_activatable_widget (run_on_startup_switch);
         run_on_startup_row.add_suffix (run_on_startup_switch);
 
         de_group.add (run_on_startup_row);
+
+        var run_background_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER,
+            active = Services.Settings.get_default ().settings.get_boolean ("run-in-background")
+        };
+
+        var run_background_row = new Adw.ActionRow ();
+        run_background_row.title = _("Run in Background");
+        run_background_row.subtitle = _("Keep Planify running in the system tray when closing the window");
+        run_background_row.set_activatable_widget (run_background_switch);
+        run_background_row.add_suffix (run_background_switch);
+
+        de_group.add (run_background_row);
         #endif
 
         var calendar_events_switch = new Gtk.Switch () {
