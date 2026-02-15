@@ -107,6 +107,7 @@ public class Widgets.EditableTextView : Adw.Bin {
             update_display ();
             Services.EventBus.get_default ().disconnect_typing_accel ();
             start_timeout ();
+            print ("EditableTextView: Entered editing mode");
         })] = gesture_focus;
 
         signal_map[gesture_focus.leave.connect (() => {
