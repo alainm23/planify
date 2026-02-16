@@ -8,19 +8,21 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2025-10-08 17:08-0500\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-02-17 22:09+0000\n"
+"Last-Translator: Theodor Onarheim <tonar@runbox.no>\n"
+"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/planner/"
+"planify-extra/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:7
 #: data/io.github.alainm23.planify.desktop.in.in:4
 msgid "Forget about forgetting things"
-msgstr ""
+msgstr "Bare glem å glemme ting"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:13
 msgid ""
@@ -28,54 +30,57 @@ msgid ""
 "life organized. With a clean and intuitive interface, cloud synchronization, "
 "and advanced features, you'll never forget what matters again."
 msgstr ""
+"Planify er din moderne og kraftige påminnelse-app som hjelper deg å holde "
+"deg organisert. Med et glatt og intuitivt design, skylagringsstøtte, og "
+"avanserte funksjoner, kommer du aldri til å glemme det som betyr noe igjen."
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:14
 msgid "✨ Core Features:"
-msgstr ""
+msgstr "✨ Hovedfunksjoner:"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:16
 msgid "Modern and clean interface designed with GTK4 and libadwaita"
-msgstr ""
+msgstr "Moderne og rent brukergrensesnitt designet med GTK4 og libadwaita"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:17
 msgid "Drag and drop to organize tasks and projects effortlessly"
-msgstr ""
+msgstr "Dra og slipp for å enkelt organisere oppgaver og prosjekter"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:18
 msgid "Visual progress indicators for each project"
-msgstr ""
+msgstr "Visuelle framdrifts-indikatorer for hvert prosjekt"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:19
 msgid "Smart organization with sections and custom labels"
-msgstr ""
+msgstr "Smart-organisering med seksjoner og egendefinerte merker"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:20
 msgid "Calendar integration to visualize your schedule"
-msgstr ""
+msgstr "Kalender-integrering for å visualisere planene dine"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:21
 msgid "Multiple reminders per task to never miss a deadline"
-msgstr ""
+msgstr "Flere påminnelser per oppgave så man alltid når deadline"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:22
 msgid "Dark mode with seamless system theme integration"
-msgstr ""
+msgstr "Mørk modus med sømløs synkronisering med systemets tema"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:23
 msgid "Quick and powerful search to find anything instantly"
-msgstr ""
+msgstr "Raskt og kraftig søk for å finne hva som helst på sekundet"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:24
 msgid "Recurring tasks with flexible patterns"
-msgstr ""
+msgstr "Repeterende oppgaver med fleksible gjentagelsesmønster"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:25
 msgid "Attachments and links in your tasks"
-msgstr ""
+msgstr "Vedlegg og linker i oppgavene dine"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:27
 msgid "☁️ Cloud Synchronization:"
-msgstr ""
+msgstr "☁️ Sky-synkronisering:"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:29
 msgid "Full synchronization with Todoist to access your tasks from anywhere"
