@@ -33,7 +33,7 @@ appstream_file = i18n.merge_file(
   output: '@0@.appdata.xml'.format(application_id),
   po_dir: join_paths(meson.project_source_root(), 'po'),
   install: true,
-  install_dir: get_option('datadir') / 'appdata',
+  install_dir: get_option('datadir') / 'metainfo',
 )
 
 install_data('io.github.alainm23.planify.gschema.xml',
