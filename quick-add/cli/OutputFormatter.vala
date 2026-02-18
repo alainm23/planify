@@ -19,13 +19,46 @@
 
 namespace PlanifyCLI {
     public class OutputFormatter : Object {
+        private delegate void FieldValueAdder (Json.Builder builder);
+
+        private struct FieldDef {
+            string name;
+            FieldValueAdder add_value;
+        }
+
+        // Define fields to include in output
+        private static FieldDef[] get_project_fields (Objects.Project project) {
+            return {
+                { "id", (builder) => builder.add_string_value (project.id) },
+                { "name", (builder) => builder.add_string_value (project.name) },
+                { "item-count", (builder) => builder.add_int_value (project.item_count) },
+                { "description", (builder) => builder.add_string_value (project.description) }
+            };
+        }
+
+        private static FieldDef[] get_item_fields (Objects.Item item) {
+            return {
+                { "id", (builder) => builder.add_string_value (item.id) },
+                { "content", (builder) => builder.add_string_value (item.content) },
+                { "description", (builder) => builder.add_string_value (item.description) },
+                { "project-id", (builder) => builder.add_string_value (item.project_id) },
+                { "parent-id", (builder) => builder.add_string_value (item.parent_id) },
+                { "added-at", (builder) => builder.add_string_value (item.added_at) },
+                { "completed-at", (builder) => builder.add_string_value (item.completed_at) },
+                { "updated-at", (builder) => builder.add_string_value (item.updated_at) }
+            };
+        }
+
         public static void print_task_result (Objects.Item item, Objects.Project project) {
             var builder = new Json.Builder ();
             builder.begin_object ();
+            
             builder.set_member_name ("task");
-            builder.add_value (Json.gobject_serialize (item));
+            add_object (builder, get_item_fields (item));
+            
             builder.set_member_name ("project");
-            builder.add_value (Json.gobject_serialize (project));
+            add_object (builder, get_project_fields (project));
+            
             builder.end_object ();
 
             var generator = new Json.Generator ();
@@ -39,7 +72,7 @@ namespace PlanifyCLI {
             builder.begin_array ();
 
             foreach (var project in projects) {
-                builder.add_value (Json.gobject_serialize (project));
+                add_object (builder, get_project_fields (project));
             }
 
             builder.end_array ();
@@ -48,6 +81,17 @@ namespace PlanifyCLI {
             generator.set_root (builder.get_root ());
             generator.pretty = true;
             stdout.printf ("%s\n", generator.to_data (null));
+        }
+
+        private static void add_object (Json.Builder builder, FieldDef[] fields) {
+            builder.begin_object ();
+
+            foreach (var field in fields) {
+                builder.set_member_name (field.name);
+                field.add_value (builder);
+            }
+
+            builder.end_object ();
         }
     }
 }
