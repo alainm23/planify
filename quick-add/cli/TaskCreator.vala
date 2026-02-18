@@ -68,7 +68,8 @@ namespace PlanifyCLI {
             string? description,
             int priority,
             GLib.DateTime? due_datetime,
-            Objects.Project project
+            Objects.Project project,
+            string? parent_id
         ) {
             var item = new Objects.Item ();
             item.id = Util.get_default ().generate_id (item);
@@ -77,6 +78,11 @@ namespace PlanifyCLI {
             // Convert user-friendly priority (1=high, 4=none) to internal format (4=high, 1=none)
             item.priority = 5 - priority;
             item.added_at = new GLib.DateTime.now_local ().to_string ();
+
+            // Set parent_id if provided
+            if (parent_id != null && parent_id.strip () != "") {
+                item.parent_id = parent_id.strip ();
+            }
 
             // Set description if provided
             if (description != null && description.strip () != "") {

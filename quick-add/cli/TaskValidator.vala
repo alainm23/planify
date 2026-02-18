@@ -68,5 +68,22 @@ namespace PlanifyCLI {
             datetime = new GLib.DateTime.local (year, month, day, 0, 0, 0);
             return true;
         }
+
+        public static bool validate_parent_id (string? parent_id, out string? error_message) {
+            error_message = null;
+
+            if (parent_id == null || parent_id.strip () == "") {
+                return true; // No parent_id provided is valid
+            }
+
+            // Check if parent task exists
+            Objects.Item? parent_item = Services.Store.instance ().get_item (parent_id.strip ());
+            if (parent_item == null) {
+                error_message = "Error: Parent task ID '%s' not found".printf (parent_id);
+                return false;
+            }
+
+            return true;
+        }
     }
 }

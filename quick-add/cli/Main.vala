@@ -55,6 +55,12 @@ namespace PlanifyCLI {
         // Initialize database
         Services.Database.get_default ().init_database ();
 
+        // Validate parent_id if provided
+        if (!TaskValidator.validate_parent_id (args.parent_id, out error_message)) {
+            stderr.printf ("%s\n", error_message);
+            return 1;
+        }
+
         // Find target project
         Objects.Project? target_project = TaskCreator.find_project (
             args.project_id,
@@ -73,7 +79,8 @@ namespace PlanifyCLI {
             args.description,
             args.priority,
             due_datetime,
-            target_project
+            target_project,
+            args.parent_id
         );
 
         // Save and notify

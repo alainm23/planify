@@ -29,6 +29,7 @@ namespace PlanifyCLI {
         public string? description { get; set; default = null; }
         public string? project_name { get; set; default = null; }
         public string? project_id { get; set; default = null; }
+        public string? parent_id { get; set; default = null; }
         public int priority { get; set; default = 4; }
         public string? due_date { get; set; default = null; }
     }
@@ -98,6 +99,14 @@ namespace PlanifyCLI {
                         exit_code = 1;
                         return null;
                     }
+                } else if (arg == "-a" || arg == "--parent-id") {
+                    if (i + 1 < args.length) {
+                        task_args.parent_id = args[++i];
+                    } else {
+                        stderr.printf ("Error: %s requires an argument\n", arg);
+                        exit_code = 1;
+                        return null;
+                    }
                 } else if (arg == "-P" || arg == "--priority") {
                     if (i + 1 < args.length) {
                         task_args.priority = int.parse (args[++i]);
@@ -147,6 +156,7 @@ namespace PlanifyCLI {
             stdout.printf ("  -d, --description=DESC     Task description\n");
             stdout.printf ("  -p, --project=PROJECT      Project name (defaults to inbox)\n");
             stdout.printf ("  -i, --project-id=ID        Project ID (preferred over name)\n");
+            stdout.printf ("  -a, --parent-id=ID         Parent task ID (creates a subtask)\n");
             stdout.printf ("  -P, --priority=1-4         Priority: 1=high, 2=medium, 3=low, 4=none (default: 4)\n");
             stdout.printf ("  -D, --due=DATE             Due date in YYYY-MM-DD format\n");
             stdout.printf ("  -h, --help                 Show this help message\n");
