@@ -371,16 +371,11 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             }
         }
 
-        string message;
-        if (count == 1) {
-            message = _("Task moved to %s").printf (project.name);
-        } else {
-            message = GLib.ngettext (
+        string message = GLib.ngettext (
                 "Task moved to %s",
                 "%d tasks moved to %s",
                 count
             ).printf (count, project.name);
-        }
 
         Services.EventBus.get_default ().send_toast (
             Util.get_default ().create_toast (message)

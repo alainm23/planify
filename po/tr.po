@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-18 04:30-0500\n"
 "PO-Revision-Date: 2026-02-18 06:59+0000\n"
 "Last-Translator: Yunus <yunuskeskin3@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/io-"
@@ -316,13 +316,9 @@ msgstr "Görev panoya kopyalandı"
 
 # c-format
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
 #, fuzzy, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "Görev %s projesine taşındı"
-msgstr[1] "Görev %s projesine taşındı"
+msgid "Moved to %s"
+msgstr "Görev %s projesine taşındı"
 
 # c-format
 #: core/Objects/Label.vala:206
@@ -469,7 +465,7 @@ msgstr ""
 "Üzgünüm, Hızlı Ekleme kullanılabilir bir proje bulamadı. Planify'dan proje "
 "oluşturmayı deneyin."
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:733
 msgid "Keyboard Shortcuts"
 msgstr "Klavye Kısayolları"
 
@@ -598,6 +594,7 @@ msgstr "Sunucu hatası nedeniyle istek başarısız oldu."
 msgid "The server is currently unable to handle the request."
 msgstr "Sunucu şu anda isteği işleyemiyor."
 
+#. TODO: use soup messages as fallback?
 #: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "Bilinmeyen hata"
@@ -626,18 +623,22 @@ msgstr "%s %s önce"
 msgid "%s %s left"
 msgstr "%s %s kaldı"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -684,37 +685,48 @@ msgid_plural "%d days ago"
 msgstr[0] ""
 msgstr[1] ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:663
 msgid "%b %-e %Y"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:666 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:669
+#, c-format
 msgid "%b %-e"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:672
 msgid "%a %Y"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:675
 #, c-format
 msgid "%a"
 msgstr "%a"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:678
+#, c-format
 msgid "%a, %b %-e"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:681
+#, c-format
 msgid "%b"
 msgstr ""
 
@@ -1324,6 +1336,7 @@ msgstr ""
 "oluşturun."
 
 # c-format
+#. vala-lint=naming-convention
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
@@ -1382,6 +1395,7 @@ msgstr ""
 "Hatırlatıcılar listeniz burada görünecek. '+' düğmesine tıklayarak bir tane "
 "ekleyin"
 
+#. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
@@ -1466,7 +1480,7 @@ msgstr "Yapılacak"
 msgid "Complete"
 msgstr "Tamamlandı"
 
-#: src/App.vala:143
+#: src/App.vala:147
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1652,7 +1666,7 @@ msgstr "Etiketi Güncelle"
 msgid "Filter"
 msgstr "Filtrele"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:738
 msgid "Archived Projects"
 msgstr "Proje Ekle"
 
@@ -2116,21 +2130,21 @@ msgstr "Sıralı"
 msgid "DE Integration"
 msgstr "Masaüstü Ortamı Tümleşimi"
 
-#: src/Dialogs/Preferences/Pages/General.vala:68
-msgid "Run in Background"
-msgstr "Arka Planda Çalıştır"
-
 #: src/Dialogs/Preferences/Pages/General.vala:69
-msgid "Let Planify run in background and send notifications"
-msgstr "Planify'ın arka planda çalışmasına ve bildirim göndermesine izin ver"
-
-#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
 msgstr "Başlangıçta Çalıştır"
 
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:82
+msgid "Run in Background"
+msgstr "Arka Planda Çalıştır"
+
 #: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Whether Planify should run on startup"
-msgstr "Planify'ın başlangıçta çalışma durumu"
+msgid "Keep Planify running in the system tray when closing the window"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2401,7 +2415,7 @@ msgstr ""
 "Etkinleştirildiğinde, varsayılan olarak görevin bitiş zamanından önce bir "
 "hatırlatıcı eklenecektir."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:730
 msgid "Preferences"
 msgstr "Tercihler"
 
@@ -2467,6 +2481,7 @@ msgstr ""
 msgid "Get Involved"
 msgstr ""
 
+#. Reach Us Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
 msgstr "Bize Ulaşın"
@@ -2811,32 +2826,32 @@ msgstr ""
 msgid "Open Quick Find"
 msgstr "Hızlı bulu aç"
 
-#: src/MainWindow.vala:715
+#: src/MainWindow.vala:736
 msgid "About Planify"
 msgstr "Planify Hakkında"
 
-#: src/MainWindow.vala:775
+#: src/MainWindow.vala:796
 msgid "Oops! Something happened"
 msgstr ""
 
-#: src/MainWindow.vala:778
+#: src/MainWindow.vala:799
 msgid "See More"
 msgstr "Proje oluştur"
 
-#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:815 src/Widgets/ItemChangeHistoryRow.vala:48
 #, fuzzy
 msgid "Task completed"
 msgstr "tamamlandı"
 
-#: src/MainWindow.vala:795
+#: src/MainWindow.vala:816
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:833
+#: src/MainWindow.vala:854
 msgid "Database Integrity Check Failed"
 msgstr ""
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:855
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2849,7 +2864,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:836
+#: src/MainWindow.vala:857
 #, fuzzy
 msgid "Reset Database"
 msgstr "Tümünü sıfırla"
@@ -3014,6 +3029,7 @@ msgstr "Eklenme tarihi"
 msgid "Ascending Order"
 msgstr "Artan"
 
+#. Filters
 #: src/Views/Project/Project.vala:553
 msgid "Duedate"
 msgstr "Güncelle"
@@ -3096,6 +3112,7 @@ msgstr ""
 msgid "Attachments"
 msgstr "Görev Ekle"
 
+#. translators: Open file
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr ""
@@ -3271,6 +3288,14 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Bu yapılacakʼı silmek istediğinize emin misiniz?"
 msgstr[1] "Bu yapılacakʼı silmek istediğinize emin misiniz?"
 
+# c-format
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, fuzzy, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Görev %s projesine taşındı"
+msgstr[1] "Görev %s projesine taşındı"
+
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
 msgid "New version available!"
@@ -3441,6 +3466,13 @@ msgstr "Etiketler"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Panoyu aç"
+
+#~ msgid "Let Planify run in background and send notifications"
+#~ msgstr ""
+#~ "Planify'ın arka planda çalışmasına ve bildirim göndermesine izin ver"
+
+#~ msgid "Whether Planify should run on startup"
+#~ msgstr "Planify'ın başlangıçta çalışma durumu"
 
 #~ msgid "Clear"
 #~ msgstr "Temizle"

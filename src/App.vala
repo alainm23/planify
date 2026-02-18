@@ -134,15 +134,19 @@ public class Planify : Adw.Application {
 
     #if WITH_LIBPORTAL
     public async bool ask_for_background (Xdp.BackgroundFlags flags = Xdp.BackgroundFlags.AUTOSTART) {
-        const string[] DAEMON_COMMAND = { "io.github.alainm23.planify", "--background" };
+        bool run_in_background = Services.Settings.get_default ().settings.get_boolean ("run-in-background");
+        string[] daemon_command = run_in_background ? 
+            new string[] { "io.github.alainm23.planify", "--background" } : 
+            new string[] { "io.github.alainm23.planify" };
+
         if (portal == null) {
             portal = new Xdp.Portal ();
         }
 
         string reason = _(
             "Planify will automatically start when this device turns on " + "and run when its window is closed so that it can send to-do notifications.");
-        var command = new GenericArray<unowned string> (2);
-        foreach (unowned var arg in DAEMON_COMMAND) {
+        var command = new GenericArray<unowned string> (daemon_command.length);
+        foreach (unowned var arg in daemon_command) {
             command.add (arg);
         }
 
