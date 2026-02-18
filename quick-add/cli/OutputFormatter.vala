@@ -20,11 +20,18 @@
 namespace PlanifyCLI {
     public class OutputFormatter : Object {
         public static void print_task_result (Objects.Item item, Objects.Project project) {
-            stdout.printf ("{\n");
-            stdout.printf ("  \"taskId\": \"%s\",\n", item.id);
-            stdout.printf ("  \"projectId\": \"%s\",\n", project.id);
-            stdout.printf ("  \"projectName\": \"%s\"\n", project.name);
-            stdout.printf ("}\n");
+            var builder = new Json.Builder ();
+            builder.begin_object ();
+            builder.set_member_name ("task");
+            builder.add_value (Json.gobject_serialize (item));
+            builder.set_member_name ("project");
+            builder.add_value (Json.gobject_serialize (project));
+            builder.end_object ();
+
+            var generator = new Json.Generator ();
+            generator.set_root (builder.get_root ());
+            generator.pretty = true;
+            stdout.printf ("%s\n", generator.to_data (null));
         }
 
         public static void print_projects_list (Gee.ArrayList<Objects.Project> projects) {
