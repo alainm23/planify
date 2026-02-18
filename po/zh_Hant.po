@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-02-01 12:33+0000\n"
+"PO-Revision-Date: 2026-02-15 14:09+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -1158,7 +1158,7 @@ msgstr "下週"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
 msgid "Save"
-msgstr ""
+msgstr "儲存"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:559
 msgid "Daily"
@@ -1190,7 +1190,7 @@ msgstr "自訂"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:855
 msgid "No date"
-msgstr ""
+msgstr "無日期"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
@@ -2179,11 +2179,11 @@ msgstr "若無勾選，預設所選的專案是收件箱"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:103
 msgid "Keep Task Properties"
-msgstr ""
+msgstr "保留任務屬性"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
-msgstr ""
+msgstr "當'保持添加'已為啟用時，保留日期、標籤和釘上狀態"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:133
 msgid "The command was copied to the clipboard"
