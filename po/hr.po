@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-18 04:30-0500\n"
 "PO-Revision-Date: 2026-02-14 12:09+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
@@ -322,14 +322,9 @@ msgid "Task copied to clipboard"
 msgstr "Zadatak je kopiran u međuspremnik"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
-#, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "Zadatak je premješten u %s"
-msgstr[1] "%d zadatka su premještena u %s"
-msgstr[2] "%d zadataka su premješteni u %s"
+#, fuzzy, c-format
+msgid "Moved to %s"
+msgstr "Zadatak je premješten u %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
@@ -472,7 +467,7 @@ msgstr ""
 "Žao mi je, brzo dodavanje ne može pronaći nijedan dostupan projekt, pokušaj "
 "stvoriti projekt iz aplikacije Planify."
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:733
 msgid "Keyboard Shortcuts"
 msgstr "Tipkovni prečaci"
 
@@ -602,6 +597,7 @@ msgstr "Zahtjev nije uspio zbog greške servera."
 msgid "The server is currently unable to handle the request."
 msgstr "Server trenutačno ne može obraditi zahtjev."
 
+#. TODO: use soup messages as fallback?
 #: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "Nepoznata greška"
@@ -628,18 +624,22 @@ msgstr "%s %s prije"
 msgid "%s %s left"
 msgstr "%s %s preostalo"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
 msgstr "%-H:%M:%S"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
 msgstr "%-H:%M"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -688,37 +688,48 @@ msgstr[0] "prije %d dan"
 msgstr[1] "prije %d dana"
 msgstr[2] "prije %d dana"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
 msgstr "%a, %d. %m. %Y."
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:663
 msgid "%b %-e %Y"
 msgstr "%d. %m. %Y."
 
+#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:666 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y."
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:669
+#, fuzzy, c-format
 msgid "%b %-e"
 msgstr "%d. %m."
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:672
 msgid "%a %Y"
 msgstr "%a, %Y."
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:675
 #, c-format
 msgid "%a"
 msgstr "%a"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:678
+#, fuzzy, c-format
 msgid "%a, %b %-e"
 msgstr "%a, %d. %m."
 
+#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:681
+#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -1321,6 +1332,7 @@ msgstr ""
 "Tvoj popis filtara će se ovdje prikazati. Stvori filtar unosom imena i "
 "pritiskom tipke Enter."
 
+#. vala-lint=naming-convention
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
@@ -1374,6 +1386,7 @@ msgstr "Prioritet 1: Niski"
 msgid "Your list of section will show up here."
 msgstr "Tvoj popis odjeljaka će se ovdje prikazati."
 
+#. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
@@ -1455,7 +1468,7 @@ msgstr "Zadatak"
 msgid "Complete"
 msgstr "Završi"
 
-#: src/App.vala:143
+#: src/App.vala:147
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1657,7 +1670,7 @@ msgstr "Aktualiziraj etiketu"
 msgid "Filter"
 msgstr "Filtar"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:738
 msgid "Archived Projects"
 msgstr "Arhivirani projekti"
 
@@ -2121,21 +2134,21 @@ msgstr "Razvrstano"
 msgid "DE Integration"
 msgstr "DE integracija"
 
-#: src/Dialogs/Preferences/Pages/General.vala:68
-msgid "Run in Background"
-msgstr "Izvodi u pozadini"
-
 #: src/Dialogs/Preferences/Pages/General.vala:69
-msgid "Let Planify run in background and send notifications"
-msgstr "Dopusti da Planify radi u pozadini i šalje obavijesti"
-
-#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
 msgstr "Pokreni prilikom pokretanja sustava"
 
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:82
+msgid "Run in Background"
+msgstr "Izvodi u pozadini"
+
 #: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Whether Planify should run on startup"
-msgstr "Treba li Planify pokrenuti nakon pokretanja sustava"
+msgid "Keep Planify running in the system tray when closing the window"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2403,7 +2416,7 @@ msgid ""
 msgstr ""
 "Kada je uključeno, standardno će se dodati podsjetnik prije roka zadatka."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:730
 msgid "Preferences"
 msgstr "Osobitosti"
 
@@ -2469,6 +2482,7 @@ msgstr "Dijeli greške ili ideje na GitHub-u"
 msgid "Get Involved"
 msgstr "Uključi se"
 
+#. Reach Us Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
 msgstr "Javi nam se"
@@ -2801,31 +2815,31 @@ msgstr "Glavni izbornik"
 msgid "Open Quick Find"
 msgstr "Otvori brzo pronalaženje"
 
-#: src/MainWindow.vala:715
+#: src/MainWindow.vala:736
 msgid "About Planify"
 msgstr "O aplikaciji Planify"
 
-#: src/MainWindow.vala:775
+#: src/MainWindow.vala:796
 msgid "Oops! Something happened"
 msgstr "Ups! Nešto se dogodilo"
 
-#: src/MainWindow.vala:778
+#: src/MainWindow.vala:799
 msgid "See More"
 msgstr "Pogledaj više"
 
-#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:815 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Zadatak završen"
 
-#: src/MainWindow.vala:795
+#: src/MainWindow.vala:816
 msgid "View"
 msgstr "Prikaz"
 
-#: src/MainWindow.vala:833
+#: src/MainWindow.vala:854
 msgid "Database Integrity Check Failed"
 msgstr "Provjera integriteta baze podataka nije uspjela"
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:855
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2848,7 +2862,7 @@ msgstr ""
 "Nakon resetiranja možeš obnoviti bazu podataka pomoću prethodno izrađene "
 "sigurnosne kopije. Hvala na strpljenju"
 
-#: src/MainWindow.vala:836
+#: src/MainWindow.vala:857
 msgid "Reset Database"
 msgstr "Resetiraj bazu podataka"
 
@@ -3004,6 +3018,7 @@ msgstr "Datum dodavanja"
 msgid "Ascending Order"
 msgstr "Uzlazni redoslijed"
 
+#. Filters
 #: src/Views/Project/Project.vala:553
 msgid "Duedate"
 msgstr "Datum roka"
@@ -3085,6 +3100,7 @@ msgstr "Ja"
 msgid "Attachments"
 msgstr "Prilozi"
 
+#. translators: Open file
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Otvori"
@@ -3262,6 +3278,14 @@ msgstr[0] "Stvarno želiš izbrisati ovaj %d zadatak?"
 msgstr[1] "Stvarno želiš izbrisati ova %d zadatka?"
 msgstr[2] "Stvarno želiš izbrisati ovih %d zadataka?"
 
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Zadatak je premješten u %s"
+msgstr[1] "%d zadatka su premještena u %s"
+msgstr[2] "%d zadataka su premješteni u %s"
+
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
 msgstr "Dostupna je nova verzija!"
@@ -3432,6 +3456,12 @@ msgstr "Otvori etikete"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Otvori oglasnu ploču"
+
+#~ msgid "Let Planify run in background and send notifications"
+#~ msgstr "Dopusti da Planify radi u pozadini i šalje obavijesti"
+
+#~ msgid "Whether Planify should run on startup"
+#~ msgstr "Treba li Planify pokrenuti nakon pokretanja sustava"
 
 #~ msgid "Clear"
 #~ msgstr "Izbriši"

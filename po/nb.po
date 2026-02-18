@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-18 04:30-0500\n"
 "PO-Revision-Date: 2026-01-03 13:01+0000\n"
 "Last-Translator: Stein-Aksel Basma <stein-aksel@basma.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/planner/"
@@ -315,13 +315,9 @@ msgid "Task copied to clipboard"
 msgstr "Oppgave kopiert til utklippstavlen"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
-#, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "Oppgave flyttet til %s"
-msgstr[1] "%d oppgaver flyttet til %s"
+#, fuzzy, c-format
+msgid "Moved to %s"
+msgstr "Oppgave flyttet til %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
@@ -464,7 +460,7 @@ msgstr ""
 "Beklager, men Hurtigtillegg finner ingen tilgjengelige prosjekter. Prøv å "
 "opprette et prosjekt fra Planify."
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:733
 msgid "Keyboard Shortcuts"
 msgstr "Tastatursnarveier"
 
@@ -593,6 +589,7 @@ msgstr "Forespørselen mislyktes som følge av tjenerfeil."
 msgid "The server is currently unable to handle the request."
 msgstr "Tjeneren kan ikke håndtere forespørselen nå."
 
+#. TODO: use soup messages as fallback?
 #: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "Ukjent feil"
@@ -619,18 +616,22 @@ msgstr "%s %s siden"
 msgid "%s %s left"
 msgstr "%s %s igjen"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
 msgstr "%-H:%M:%S"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
 msgstr "%-H:%M"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -677,37 +678,48 @@ msgid_plural "%d days ago"
 msgstr[0] "%d dag siden"
 msgstr[1] "%d dager siden"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
 msgstr "%a, %b %-e, %Y"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:663
 msgid "%b %-e %Y"
 msgstr "%b %-e %Y"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:666 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:669
+#, c-format
 msgid "%b %-e"
 msgstr "%b %-e"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:672
 msgid "%a %Y"
 msgstr "%a %Y"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:675
 #, c-format
 msgid "%a"
 msgstr "%a"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:678
+#, c-format
 msgid "%a, %b %-e"
 msgstr "%a, %b %-e"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:681
+#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -1313,6 +1325,7 @@ msgstr ""
 "Filtrene dine vises her. Opprett et ved å skrive inn navnet og trykke på "
 "Enter-tasten."
 
+#. vala-lint=naming-convention
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
@@ -1366,6 +1379,7 @@ msgstr "Prioritet 1: Lav"
 msgid "Your list of section will show up here."
 msgstr "Seksjonslisten din vil vises her."
 
+#. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
@@ -1446,7 +1460,7 @@ msgstr "Gjøremål"
 msgid "Complete"
 msgstr "Fullført"
 
-#: src/App.vala:143
+#: src/App.vala:147
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1644,7 +1658,7 @@ msgstr "Oppdater etikett"
 msgid "Filter"
 msgstr ""
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:738
 msgid "Archived Projects"
 msgstr "Arkivert prosjekter"
 
@@ -2108,21 +2122,21 @@ msgstr ""
 msgid "DE Integration"
 msgstr "DE Integrasjon"
 
-#: src/Dialogs/Preferences/Pages/General.vala:68
-msgid "Run in Background"
-msgstr "Kjør i bakgrunnen"
-
 #: src/Dialogs/Preferences/Pages/General.vala:69
-msgid "Let Planify run in background and send notifications"
-msgstr "La Planify kjøre i bakgrunnen og sende varsler"
-
-#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
 msgstr "Kjør ved oppstart"
 
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:82
+msgid "Run in Background"
+msgstr "Kjør i bakgrunnen"
+
 #: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Whether Planify should run on startup"
-msgstr "Om Planify skal kjøres ved oppstart"
+msgid "Keep Planify running in the system tray when closing the window"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2392,7 +2406,7 @@ msgstr ""
 "Når dette er aktivert, legges det som standard til en påminnelse før "
 "oppgavens forfallstid."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:730
 msgid "Preferences"
 msgstr "Innstillinger"
 
@@ -2457,6 +2471,7 @@ msgstr "Del feil eller ideer på GitHub"
 msgid "Get Involved"
 msgstr "Bli involvert"
 
+#. Reach Us Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
 msgstr "Nå oss"
@@ -2787,31 +2802,31 @@ msgstr "Hovedmeny"
 msgid "Open Quick Find"
 msgstr "Åpne hurtigsøk"
 
-#: src/MainWindow.vala:715
+#: src/MainWindow.vala:736
 msgid "About Planify"
 msgstr "Om Planify"
 
-#: src/MainWindow.vala:775
+#: src/MainWindow.vala:796
 msgid "Oops! Something happened"
 msgstr "Ups! Noe skjedde"
 
-#: src/MainWindow.vala:778
+#: src/MainWindow.vala:799
 msgid "See More"
 msgstr "Se mer"
 
-#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:815 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Oppgave fullført"
 
-#: src/MainWindow.vala:795
+#: src/MainWindow.vala:816
 msgid "View"
 msgstr "Vis"
 
-#: src/MainWindow.vala:833
+#: src/MainWindow.vala:854
 msgid "Database Integrity Check Failed"
 msgstr "Integritetssjekk av databasen mislyktes"
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:855
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2834,7 +2849,7 @@ msgstr ""
 "Etter tilbakestillingen vil du kunne gjenopprette eventuelle "
 "sikkerhetskopier du har opprettet tidligere. Takk for tålmodigheten"
 
-#: src/MainWindow.vala:836
+#: src/MainWindow.vala:857
 msgid "Reset Database"
 msgstr "Tilbakestill database"
 
@@ -2988,6 +3003,7 @@ msgstr "Dato lagt til"
 msgid "Ascending Order"
 msgstr "Stigende rekkefølge"
 
+#. Filters
 #: src/Views/Project/Project.vala:553
 msgid "Duedate"
 msgstr "Forfallsdato"
@@ -3069,6 +3085,7 @@ msgstr ""
 msgid "Attachments"
 msgstr "Vedlegg"
 
+#. translators: Open file
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Åpne"
@@ -3239,6 +3256,13 @@ msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Er du sikker på at du vil slette dette %d gjøremålet?"
 msgstr[1] "Er du sikker på at du vil slette disse %d gjøremålene?"
+
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Oppgave flyttet til %s"
+msgstr[1] "%d oppgaver flyttet til %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -3411,6 +3435,12 @@ msgstr "Åpne etiketter"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Åpne oppslagstavle"
+
+#~ msgid "Let Planify run in background and send notifications"
+#~ msgstr "La Planify kjøre i bakgrunnen og sende varsler"
+
+#~ msgid "Whether Planify should run on startup"
+#~ msgstr "Om Planify skal kjøres ved oppstart"
 
 #~ msgid "Menu"
 #~ msgstr "Meny"

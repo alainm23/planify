@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-18 04:30-0500\n"
 "PO-Revision-Date: 2025-12-14 09:56+0000\n"
 "Last-Translator: oo nth <oonth@mail.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/planner/io-github-"
@@ -317,13 +317,9 @@ msgstr "कार्य को क्लिपबोर्ड पर कॉप�
 
 # # c-format
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
 #, fuzzy, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "कार्य को %s पर भेजा गया"
-msgstr[1] "कार्य को %s पर भेजा गया"
+msgid "Moved to %s"
+msgstr "कार्य को %s पर भेजा गया"
 
 # # c-format
 #: core/Objects/Label.vala:206
@@ -472,7 +468,7 @@ msgstr ""
 "मुझे खेद है, शीघ्र जोड़ने हेतु कोई भी परियोजना उपलब्ध नहीं है। प्लॅानिफाई से एक परियोजना "
 "बनाने का प्रयास करें।"
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:733
 msgid "Keyboard Shortcuts"
 msgstr "कीबोर्ड शॉर्टकट"
 
@@ -607,6 +603,7 @@ msgstr "सर्वर त्रुटि के कारण अनुरो�
 msgid "The server is currently unable to handle the request."
 msgstr "सर्वर अनुरोध संभालने में फिलहाल असमर्थ है।"
 
+#. TODO: use soup messages as fallback?
 #: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "अज्ञात त्रुटि"
@@ -635,18 +632,22 @@ msgstr "%s %s पहले"
 msgid "%s %s left"
 msgstr "%s %s शेष"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
 msgstr ""
@@ -693,37 +694,48 @@ msgid_plural "%d days ago"
 msgstr[0] ""
 msgstr[1] ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:663
 msgid "%b %-e %Y"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:666 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:669
+#, c-format
 msgid "%b %-e"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:672
 msgid "%a %Y"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:675
 #, c-format
 msgid "%a"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:678
+#, c-format
 msgid "%a, %b %-e"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:681
+#, c-format
 msgid "%b"
 msgstr ""
 
@@ -1335,6 +1347,7 @@ msgid ""
 msgstr "आपकी फिल्टर सूची यहां दिखाई देगी। नाम दर्ज करके और Enter दबा कर एक बनाएं।"
 
 # # c-format
+#. vala-lint=naming-convention
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
@@ -1390,6 +1403,7 @@ msgstr "वरीयता 1: निम्न"
 msgid "Your list of section will show up here."
 msgstr "आपकी रिमाइंडर सूची यहां दिखाई देगी। '+' बटन पर क्लिक करके एक जोड़ें।"
 
+#. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
@@ -1475,7 +1489,7 @@ msgstr "लंबित"
 msgid "Complete"
 msgstr "पूर्ण"
 
-#: src/App.vala:143
+#: src/App.vala:147
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1665,7 +1679,7 @@ msgstr "लेबल अद्यतन"
 msgid "Filter"
 msgstr "फिल्टर"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:738
 msgid "Archived Projects"
 msgstr "संग्रहीत परियोजनाएं"
 
@@ -2130,21 +2144,21 @@ msgstr "क्रम"
 msgid "DE Integration"
 msgstr "DE एकीकरण"
 
-#: src/Dialogs/Preferences/Pages/General.vala:68
-msgid "Run in Background"
-msgstr "पृष्ठभूमि में चलाएं"
-
 #: src/Dialogs/Preferences/Pages/General.vala:69
-msgid "Let Planify run in background and send notifications"
-msgstr "प्लॅानिफाई को पृष्ठभूमि में चलने दें और अधिसूचनाएं भेजें"
-
-#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
 msgstr "शुरुआत पर चलाएं"
 
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:82
+msgid "Run in Background"
+msgstr "पृष्ठभूमि में चलाएं"
+
 #: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Whether Planify should run on startup"
-msgstr "क्या प्लॅानिफाई को शुरुआत पर चलना चाहिए"
+msgid "Keep Planify running in the system tray when closing the window"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2413,7 +2427,7 @@ msgid ""
 msgstr ""
 "सक्षम होने पर, कार्य के नियत समय से पहले एक रिमाइंडर तयशुदा रूप से जोड़ दिया जाएगा।"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:730
 msgid "Preferences"
 msgstr "प्राथमिकताएं"
 
@@ -2479,6 +2493,7 @@ msgstr ""
 msgid "Get Involved"
 msgstr ""
 
+#. Reach Us Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
 msgstr "हम तक पहुंचें"
@@ -2818,32 +2833,32 @@ msgstr "मुख्य मेनू"
 msgid "Open Quick Find"
 msgstr "शीघ्र खोज खोलें"
 
-#: src/MainWindow.vala:715
+#: src/MainWindow.vala:736
 msgid "About Planify"
 msgstr "प्लॅानिफाई के बारे में"
 
-#: src/MainWindow.vala:775
+#: src/MainWindow.vala:796
 msgid "Oops! Something happened"
 msgstr "उफ़! कुछ हुआ"
 
-#: src/MainWindow.vala:778
+#: src/MainWindow.vala:799
 msgid "See More"
 msgstr "और बनाएं"
 
-#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:815 src/Widgets/ItemChangeHistoryRow.vala:48
 #, fuzzy
 msgid "Task completed"
 msgstr "पूर्ण"
 
-#: src/MainWindow.vala:795
+#: src/MainWindow.vala:816
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:833
+#: src/MainWindow.vala:854
 msgid "Database Integrity Check Failed"
 msgstr ""
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:855
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2856,7 +2871,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:836
+#: src/MainWindow.vala:857
 msgid "Reset Database"
 msgstr ""
 
@@ -3018,6 +3033,7 @@ msgstr "तारीख जोड़ा गया"
 msgid "Ascending Order"
 msgstr "आरोही"
 
+#. Filters
 #: src/Views/Project/Project.vala:553
 msgid "Duedate"
 msgstr "देयतारीख"
@@ -3100,6 +3116,7 @@ msgstr ""
 msgid "Attachments"
 msgstr "अनुलग्नक"
 
+#. translators: Open file
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "खोलें"
@@ -3276,6 +3293,14 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "क्या आप वाकई इस कार्य को मिटाना चाहते हैं?"
 msgstr[1] "क्या आप वाकई इस कार्य को मिटाना चाहते हैं?"
 
+# # c-format
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, fuzzy, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "कार्य को %s पर भेजा गया"
+msgstr[1] "कार्य को %s पर भेजा गया"
+
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
 msgid "New version available!"
@@ -3446,6 +3471,12 @@ msgstr "लेबल खोलें"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "पिनबोर्ड खोलें"
+
+#~ msgid "Let Planify run in background and send notifications"
+#~ msgstr "प्लॅानिफाई को पृष्ठभूमि में चलने दें और अधिसूचनाएं भेजें"
+
+#~ msgid "Whether Planify should run on startup"
+#~ msgstr "क्या प्लॅानिफाई को शुरुआत पर चलना चाहिए"
 
 #~ msgid "Clear"
 #~ msgstr "साफ करें"

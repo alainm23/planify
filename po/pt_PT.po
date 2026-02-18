@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-14 12:01+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-18 04:30-0500\n"
 "PO-Revision-Date: 2026-02-16 15:09+0000\n"
 "Last-Translator: André Barata <andretiagob@protonmail.com>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
@@ -315,13 +315,9 @@ msgid "Task copied to clipboard"
 msgstr "A tarefa foi copiada para a área de transferência"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
-#, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "A tarefa foi movida para %s"
-msgstr[1] "%d tarefas foram movidas para %s"
+#, fuzzy, c-format
+msgid "Moved to %s"
+msgstr "A tarefa foi movida para %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
@@ -464,7 +460,7 @@ msgstr ""
 "Lamentamos mas o 'Adicionar rápido' não encontrou nenhum projeto disponível, "
 "tente criar um a partir do Planify."
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:733
 msgid "Keyboard Shortcuts"
 msgstr "Atalhos do teclado"
 
@@ -595,6 +591,7 @@ msgstr "A solicitação falhou devido a um erro de servidor."
 msgid "The server is currently unable to handle the request."
 msgstr "Neste momento o servido é incapaz de gerir a solicitação."
 
+#. TODO: use soup messages as fallback?
 #: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "Erro desconhecido"
@@ -621,18 +618,22 @@ msgstr "Há %s %s"
 msgid "%s %s left"
 msgstr "Faltam %s %s"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
 msgstr "%-l:%M:%S %p"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
 msgstr "%-l:%M %p"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -679,37 +680,48 @@ msgid_plural "%d days ago"
 msgstr[0] "há %d dia atrás"
 msgstr[1] "há %d dias atrás"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
 msgstr "%a, %b %-e, %Y"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:663
 msgid "%b %-e %Y"
 msgstr "%b %-e %Y"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:666 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:669
+#, c-format
 msgid "%b %-e"
 msgstr "%b %-e"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:672
 msgid "%a %Y"
 msgstr "%a %Y"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:675
 #, c-format
 msgid "%a"
 msgstr "%a"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:678
+#, c-format
 msgid "%a, %b %-e"
 msgstr "%a, %b %-e"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:681
+#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -1317,6 +1329,7 @@ msgstr ""
 "A sua lista de filtros vai ser exibida aqui. Crie uma ao inserir o nome "
 "desta e depois de pressionar a tecla Enter."
 
+#. vala-lint=naming-convention
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
@@ -1370,6 +1383,7 @@ msgstr "Prioridade 1: Baixa"
 msgid "Your list of section will show up here."
 msgstr "A sua lista de secções vai ser exibida aqui."
 
+#. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
@@ -1451,7 +1465,7 @@ msgstr "Tarefa"
 msgid "Complete"
 msgstr "Terminado"
 
-#: src/App.vala:143
+#: src/App.vala:147
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1655,7 +1669,7 @@ msgstr "Atualizar etiqueta"
 msgid "Filter"
 msgstr "Filtro"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:738
 msgid "Archived Projects"
 msgstr "Arquivar projetos"
 
@@ -2126,22 +2140,21 @@ msgstr "Ordenação"
 msgid "DE Integration"
 msgstr "Integração do ambiente de área de trabalho"
 
-#: src/Dialogs/Preferences/Pages/General.vala:68
-msgid "Run in Background"
-msgstr "Executar em segundo plano"
-
 #: src/Dialogs/Preferences/Pages/General.vala:69
-msgid "Let Planify run in background and send notifications"
-msgstr "Permitir que o Planify execute em segundo e envie notificações"
-
-#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
 msgstr "Executar ao iniciar o computador"
 
-#: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Whether Planify should run on startup"
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
 msgstr ""
-"Permitir que o Planify execute automaticamente quando iniciar o computador"
+
+#: src/Dialogs/Preferences/Pages/General.vala:82
+msgid "Run in Background"
+msgstr "Executar em segundo plano"
+
+#: src/Dialogs/Preferences/Pages/General.vala:83
+msgid "Keep Planify running in the system tray when closing the window"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2419,7 +2432,7 @@ msgstr ""
 "Quando ativado, vai ser notificado de que tem uma tarefa a aproximar-se do "
 "tempo limite."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:730
 msgid "Preferences"
 msgstr "Definições"
 
@@ -2487,6 +2500,7 @@ msgstr "Partilhe problemas ou ideias no GitHub"
 msgid "Get Involved"
 msgstr "Junte-se a nós"
 
+#. Reach Us Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
 msgstr "Venha até nós"
@@ -2821,31 +2835,31 @@ msgstr "Menu principal"
 msgid "Open Quick Find"
 msgstr "Abrir procura rápida"
 
-#: src/MainWindow.vala:715
+#: src/MainWindow.vala:736
 msgid "About Planify"
 msgstr "Acerca do Planify"
 
-#: src/MainWindow.vala:775
+#: src/MainWindow.vala:796
 msgid "Oops! Something happened"
 msgstr "Ups! Ocorreu algum problema"
 
-#: src/MainWindow.vala:778
+#: src/MainWindow.vala:799
 msgid "See More"
 msgstr "Ver mais"
 
-#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:815 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Tarefa terminada"
 
-#: src/MainWindow.vala:795
+#: src/MainWindow.vala:816
 msgid "View"
 msgstr "Vista"
 
-#: src/MainWindow.vala:833
+#: src/MainWindow.vala:854
 msgid "Database Integrity Check Failed"
 msgstr "A verificação de integridade da base de dados falhou"
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:855
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2868,7 +2882,7 @@ msgstr ""
 "Após o processo terminar, vai poder restaurar uma das suas cópia de "
 "segurança que criou anteriormente. Obrigado pela sua compreensão"
 
-#: src/MainWindow.vala:836
+#: src/MainWindow.vala:857
 msgid "Reset Database"
 msgstr "Restaurar base de dados"
 
@@ -3023,6 +3037,7 @@ msgstr "Mais recentes"
 msgid "Ascending Order"
 msgstr "Ordem ascendente"
 
+#. Filters
 #: src/Views/Project/Project.vala:553
 msgid "Duedate"
 msgstr "A terminar"
@@ -3104,6 +3119,7 @@ msgstr "Eu"
 msgid "Attachments"
 msgstr "Anexos"
 
+#. translators: Open file
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Abrir"
@@ -3277,6 +3293,13 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Tem a certeza de que pretende eliminar esta %d tarefa?"
 msgstr[1] "Tem a certeza de que pretende eliminar estas %d tarefas?"
 
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "A tarefa foi movida para %s"
+msgstr[1] "%d tarefas foram movidas para %s"
+
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
 msgstr "Nova versão disponível!"
@@ -3448,6 +3471,13 @@ msgstr "Abrir 'Etiquetas'"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Abrir 'Afixados'"
+
+#~ msgid "Let Planify run in background and send notifications"
+#~ msgstr "Permitir que o Planify execute em segundo e envie notificações"
+
+#~ msgid "Whether Planify should run on startup"
+#~ msgstr ""
+#~ "Permitir que o Planify execute automaticamente quando iniciar o computador"
 
 #~ msgid "Clear"
 #~ msgstr "Limpar"

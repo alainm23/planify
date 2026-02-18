@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-18 04:30-0500\n"
 "PO-Revision-Date: 2025-12-14 10:04+0000\n"
 "Last-Translator: Deleted User <noreply+20372@weblate.org>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/planner/io-github-"
@@ -322,14 +322,9 @@ msgid "Task copied to clipboard"
 msgstr "Úloha skopírovaná do schránky"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
 #, fuzzy, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "Úloha presunutá do %s"
-msgstr[1] "Úloha presunutá do %s"
-msgstr[2] "Úloha presunutá do %s"
+msgid "Moved to %s"
+msgstr "Úloha presunutá do %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
@@ -473,7 +468,7 @@ msgstr ""
 "Ľutujeme, Quick Add nemôže nájsť žiadny dostupný projekt, skúste vytvoriť "
 "projekt z Planify."
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:733
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové skratky"
 
@@ -609,6 +604,7 @@ msgstr "Požiadavka zlyhala kvôli chybe servera."
 msgid "The server is currently unable to handle the request."
 msgstr "Server momentálne nemôže spracovať požiadavku."
 
+#. TODO: use soup messages as fallback?
 #: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "Neznáma chyba"
@@ -635,18 +631,22 @@ msgstr "%s %s dozadu"
 msgid "%s %s left"
 msgstr "%s %s zostáva"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
 msgstr ""
@@ -695,37 +695,48 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:663
 msgid "%b %-e %Y"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:666 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
+#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:669
+#, c-format
 msgid "%b %-e"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:672
 msgid "%a %Y"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:675
 #, c-format
 msgid "%a"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:678
+#, c-format
 msgid "%a, %b %-e"
 msgstr ""
 
+#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:681
+#, c-format
 msgid "%b"
 msgstr ""
 
@@ -1350,6 +1361,7 @@ msgstr ""
 "Váš zoznam filtrov sa tu zobrazí. Vytvorte jeden zadaním názvu a stlačením "
 "klávesy Enter."
 
+#. vala-lint=naming-convention
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
@@ -1404,6 +1416,7 @@ msgstr "Priorita 1: Nízka"
 msgid "Your list of section will show up here."
 msgstr "Váš zoznam sekcií sa zobrazí tu."
 
+#. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
@@ -1485,7 +1498,7 @@ msgstr "Na vykonanie"
 msgid "Complete"
 msgstr "Dokončené"
 
-#: src/App.vala:143
+#: src/App.vala:147
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1670,7 +1683,7 @@ msgstr "Aktualizovať štítok"
 msgid "Filter"
 msgstr "Filter"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:738
 msgid "Archived Projects"
 msgstr "Archivované projekty"
 
@@ -2135,21 +2148,21 @@ msgstr "Usporiadané"
 msgid "DE Integration"
 msgstr "DE integrácia"
 
-#: src/Dialogs/Preferences/Pages/General.vala:68
-msgid "Run in Background"
-msgstr "Spustiť na pozadí"
-
 #: src/Dialogs/Preferences/Pages/General.vala:69
-msgid "Let Planify run in background and send notifications"
-msgstr "Nechajte aplikáciu Planify bežať na pozadí a posielať notifikácie"
-
-#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
 msgstr "Spustiť pri štarte"
 
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:82
+msgid "Run in Background"
+msgstr "Spustiť na pozadí"
+
 #: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Whether Planify should run on startup"
-msgstr "Či by mala aplikácia Planify bežať pri štarte"
+msgid "Keep Planify running in the system tray when closing the window"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2421,7 +2434,7 @@ msgid ""
 msgstr ""
 "Keď je povolené, pred časom splnenia úlohy sa automaticky pridá pripomienka."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:730
 msgid "Preferences"
 msgstr "Predvoľby"
 
@@ -2486,6 +2499,7 @@ msgstr ""
 msgid "Get Involved"
 msgstr ""
 
+#. Reach Us Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
 msgstr "Kontaktujte nás"
@@ -2825,31 +2839,31 @@ msgstr "Hlavné menu"
 msgid "Open Quick Find"
 msgstr "Otvoriť rýchle vyhľadávanie"
 
-#: src/MainWindow.vala:715
+#: src/MainWindow.vala:736
 msgid "About Planify"
 msgstr "O Planify"
 
-#: src/MainWindow.vala:775
+#: src/MainWindow.vala:796
 msgid "Oops! Something happened"
 msgstr "Ups! Niečo sa stalo"
 
-#: src/MainWindow.vala:778
+#: src/MainWindow.vala:799
 msgid "See More"
 msgstr "Zobraziť viac"
 
-#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:815 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Úloha dokončená"
 
-#: src/MainWindow.vala:795
+#: src/MainWindow.vala:816
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:833
+#: src/MainWindow.vala:854
 msgid "Database Integrity Check Failed"
 msgstr "Kontrola integrity databázy zlyhala"
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:855
 #, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
@@ -2869,7 +2883,7 @@ msgstr ""
 "existujúce údaje budú odstránené. Po resetovaní budete môcť obnoviť "
 "akúkoľvek zálohu, ktorú ste vytvorili. Ďakujeme za vašu trpezlivosť"
 
-#: src/MainWindow.vala:836
+#: src/MainWindow.vala:857
 msgid "Reset Database"
 msgstr "Resetovať databázu"
 
@@ -3032,6 +3046,7 @@ msgstr "Dátum pridania"
 msgid "Ascending Order"
 msgstr "Vzostupne"
 
+#. Filters
 #: src/Views/Project/Project.vala:553
 msgid "Duedate"
 msgstr "Dátum splatnosti"
@@ -3114,6 +3129,7 @@ msgstr ""
 msgid "Attachments"
 msgstr "Prílohy"
 
+#. translators: Open file
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Otvoriť"
@@ -3288,6 +3304,14 @@ msgstr[0] "Ste si istí, že chcete odstrániť túto úlohu?"
 msgstr[1] "Ste si istí, že chcete odstrániť túto úlohu?"
 msgstr[2] "Ste si istí, že chcete odstrániť túto úlohu?"
 
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, fuzzy, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Úloha presunutá do %s"
+msgstr[1] "Úloha presunutá do %s"
+msgstr[2] "Úloha presunutá do %s"
+
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
 msgid "New version available!"
@@ -3458,6 +3482,12 @@ msgstr "Otvoriť štítky"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Otvoriť nástenku"
+
+#~ msgid "Let Planify run in background and send notifications"
+#~ msgstr "Nechajte aplikáciu Planify bežať na pozadí a posielať notifikácie"
+
+#~ msgid "Whether Planify should run on startup"
+#~ msgstr "Či by mala aplikácia Planify bežať pri štarte"
 
 #~ msgid "Clear"
 #~ msgstr "Vymazať"
