@@ -57,6 +57,110 @@ namespace PlanifyCLI {
         return 0;
     }
 
+    private static int update_task (UpdateArguments args) {
+        // Validate task_id
+        if (args.task_id == null || args.task_id.strip () == "") {
+            stderr.printf ("Error: --task-id is required\n");
+            return 1;
+        }
+
+        // Initialize database
+        Services.Database.get_default ().init_database ();
+
+        // Get existing item
+        Objects.Item? item = Services.Store.instance ().get_item (args.task_id.strip ());
+        if (item == null) {
+            stderr.printf ("Error: Task ID '%s' not found\n", args.task_id);
+            return 1;
+        }
+
+        string? error_message;
+
+        // Update content if provided
+        if (args.content != null && args.content.strip () != "") {
+            item.content = args.content.strip ();
+        }
+
+        // Update description if provided
+        if (args.description != null) {
+            item.description = args.description.strip ();
+        }
+
+        // Update priority if provided
+        if (args.priority != -1) {
+            if (!TaskValidator.validate_priority (args.priority, out error_message)) {
+                stderr.printf ("%s\n", error_message);
+                return 1;
+            }
+            // Convert user-friendly priority (1=high, 4=none) to internal format (4=high, 1=none)
+            item.priority = 5 - args.priority;
+        }
+
+        // Update due date if provided
+        if (args.due_date != null) {
+            GLib.DateTime? due_datetime;
+            if (!TaskValidator.validate_and_parse_date (args.due_date, out due_datetime, out error_message)) {
+                stderr.printf ("%s\n", error_message);
+                return 1;
+            }
+            if (due_datetime != null) {
+                item.due.date = Utils.Datetime.get_todoist_datetime_format (due_datetime);
+            }
+        }
+
+        // Handle project change if provided
+        bool project_changed = false;
+        string old_project_id = item.project_id;
+        string old_section_id = item.section_id;
+        string old_parent_id = item.parent_id;
+
+        if (args.project_id != null || args.project_name != null) {
+            Objects.Project? target_project = TaskCreator.find_project (
+                args.project_id,
+                args.project_name,
+                out error_message
+            );
+
+            if (target_project == null) {
+                stderr.printf ("%s\n", error_message);
+                return 1;
+            }
+
+            if (item.project_id != target_project.id) {
+                item.project_id = target_project.id;
+                item.section_id = "";  // Reset section when moving to new project
+                project_changed = true;
+            }
+        }
+
+        // Update parent_id if provided
+        if (args.parent_id != null) {
+            if (!TaskValidator.validate_parent_id (args.parent_id, out error_message)) {
+                stderr.printf ("%s\n", error_message);
+                return 1;
+            }
+            item.parent_id = args.parent_id.strip ();
+        }
+
+        // Save changes
+        if (project_changed) {
+            Services.Store.instance ().move_item (item, old_project_id, old_section_id, old_parent_id);
+        } else {
+            Services.Store.instance ().update_item (item);
+        }
+
+        // Get the current project for output
+        Objects.Project? current_project = Services.Store.instance ().get_project (item.project_id);
+        if (current_project == null) {
+            current_project = Services.Store.instance ().get_inbox_project ();
+        }
+
+        // Output result
+        OutputFormatter.print_task_result (item, current_project);
+
+        return 0;
+    }
+
     private static int add_task (TaskArguments args) {
         // Validate content
         string? error_message;
@@ -140,6 +244,8 @@ namespace PlanifyCLI {
                 return list_projects ();
             case CommandType.LIST:
                 return list_tasks (parsed.list_args);
+            case CommandType.UPDATE:
+                return update_task (parsed.update_args);
             case CommandType.ADD:
                 return add_task (parsed.task_args);
             default:
