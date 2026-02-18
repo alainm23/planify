@@ -654,10 +654,6 @@ public class Services.Store : GLib.Object {
     }
     #endif
 
-    public void clear_items_by_project_cache (string project_id) {
-        _items_by_project_cache.unset (project_id);
-    }
-
     public void add_item (Objects.Item item, bool insert = true) {
         items.add (item);
         item_added (item, insert);
