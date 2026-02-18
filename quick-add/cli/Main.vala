@@ -31,6 +31,32 @@ namespace PlanifyCLI {
         return 0;
     }
 
+    private static int list_tasks (ListArguments args) {
+        // Initialize database
+        Services.Database.get_default ().init_database ();
+
+        // Find target project
+        string? error_message;
+        Objects.Project? target_project = TaskCreator.find_project (
+            args.project_id,
+            args.project_name,
+            out error_message
+        );
+
+        if (target_project == null) {
+            stderr.printf ("%s\n", error_message);
+            return 1;
+        }
+
+        // Get all items for the project
+        var items = Services.Store.instance ().get_items_by_project (target_project);
+
+        // Output result
+        OutputFormatter.print_tasks_list (items);
+
+        return 0;
+    }
+
     private static int add_task (TaskArguments args) {
         // Validate content
         string? error_message;
@@ -112,6 +138,8 @@ namespace PlanifyCLI {
         switch (parsed.command_type) {
             case CommandType.LIST_PROJECTS:
                 return list_projects ();
+            case CommandType.LIST:
+                return list_tasks (parsed.list_args);
             case CommandType.ADD:
                 return add_task (parsed.task_args);
             default:

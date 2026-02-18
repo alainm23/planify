@@ -83,6 +83,22 @@ namespace PlanifyCLI {
             stdout.printf ("%s\n", generator.to_data (null));
         }
 
+        public static void print_tasks_list (Gee.ArrayList<Objects.Item> items) {
+            var builder = new Json.Builder ();
+            builder.begin_array ();
+
+            foreach (var item in items) {
+                add_object (builder, get_item_fields (item));
+            }
+
+            builder.end_array ();
+
+            var generator = new Json.Generator ();
+            generator.set_root (builder.get_root ());
+            generator.pretty = true;
+            stdout.printf ("%s\n", generator.to_data (null));
+        }
+
         private static void add_object (Json.Builder builder, FieldDef[] fields) {
             builder.begin_object ();
 

@@ -21,7 +21,8 @@ namespace PlanifyCLI {
     public enum CommandType {
         NONE,
         ADD,
-        LIST_PROJECTS
+        LIST_PROJECTS,
+        LIST
     }
 
     public class TaskArguments : Object {
@@ -34,9 +35,15 @@ namespace PlanifyCLI {
         public string? due_date { get; set; default = null; }
     }
 
+    public class ListArguments : Object {
+        public string? project_name { get; set; default = null; }
+        public string? project_id { get; set; default = null; }
+    }
+
     public class ParsedCommand : Object {
         public CommandType command_type { get; set; default = CommandType.NONE; }
         public TaskArguments? task_args { get; set; default = null; }
+        public ListArguments? list_args { get; set; default = null; }
     }
 
     public class ArgumentParser : Object {
@@ -47,7 +54,7 @@ namespace PlanifyCLI {
             if (args.length < 2) {
                 stderr.printf ("Error: No command specified\n");
                 stderr.printf ("Usage: %s <command> [OPTIONS]\n", args[0]);
-                stderr.printf ("Commands: add, list-projects\n");
+                stderr.printf ("Commands: add, list, list-projects\n");
                 stderr.printf ("Run '%s --help' for more information\n", args[0]);
                 exit_code = 1;
                 return null;
@@ -58,6 +65,44 @@ namespace PlanifyCLI {
 
             if (command == "list-projects") {
                 parsed.command_type = CommandType.LIST_PROJECTS;
+                return parsed;
+            } else if (command == "list") {
+                parsed.command_type = CommandType.LIST;
+                var list_args = new ListArguments ();
+
+                // Parse options starting from index 2
+                for (int i = 2; i < args.length; i++) {
+                    string arg = args[i];
+                    
+                    if (arg == "-p" || arg == "--project") {
+                        if (i + 1 < args.length) {
+                            list_args.project_name = args[++i];
+                        } else {
+                            stderr.printf ("Error: %s requires an argument\n", arg);
+                            exit_code = 1;
+                            return null;
+                        }
+                    } else if (arg == "-i" || arg == "--project-id") {
+                        if (i + 1 < args.length) {
+                            list_args.project_id = args[++i];
+                        } else {
+                            stderr.printf ("Error: %s requires an argument\n", arg);
+                            exit_code = 1;
+                            return null;
+                        }
+                    } else if (arg == "-h" || arg == "--help") {
+                        print_list_help (args[0]);
+                        exit_code = 0;
+                        return null;
+                    } else {
+                        stderr.printf ("Error: Unknown option '%s'\n", arg);
+                        stderr.printf ("Run '%s list --help' for usage information\n", args[0]);
+                        exit_code = 1;
+                        return null;
+                    }
+                }
+
+                parsed.list_args = list_args;
                 return parsed;
             } else if (command == "add") {
                 parsed.command_type = CommandType.ADD;
@@ -139,7 +184,7 @@ namespace PlanifyCLI {
                 return parsed;
             } else {
                 stderr.printf ("Error: Unknown command '%s'\n", command);
-                stderr.printf ("Available commands: add, list-projects\n");
+                stderr.printf ("Available commands: add, list, list-projects\n");
                 exit_code = 1;
                 return null;
             }
@@ -149,9 +194,9 @@ namespace PlanifyCLI {
             stdout.printf ("Usage: %s <command> [OPTIONS]\n\n", program_name);
             stdout.printf ("Commands:\n");
             stdout.printf ("  add              Add a new task\n");
+            stdout.printf ("  list             List tasks from a project (JSON output)\n");
             stdout.printf ("  list-projects    List all projects (JSON output)\n\n");
             stdout.printf ("Add command options:\n");
-            stdout.printf ("Options:\n");
             stdout.printf ("  -c, --content=CONTENT      Task content (required)\n");
             stdout.printf ("  -d, --description=DESC     Task description\n");
             stdout.printf ("  -p, --project=PROJECT      Project name (defaults to inbox)\n");
@@ -159,6 +204,19 @@ namespace PlanifyCLI {
             stdout.printf ("  -a, --parent-id=ID         Parent task ID (creates a subtask)\n");
             stdout.printf ("  -P, --priority=1-4         Priority: 1=high, 2=medium, 3=low, 4=none (default: 4)\n");
             stdout.printf ("  -D, --due=DATE             Due date in YYYY-MM-DD format\n");
+            stdout.printf ("  -h, --help                 Show this help message\n\n");
+            stdout.printf ("List command options:\n");
+            stdout.printf ("  -p, --project=PROJECT      Project name (defaults to inbox)\n");
+            stdout.printf ("  -i, --project-id=ID        Project ID (preferred over name)\n");
+            stdout.printf ("  -h, --help                 Show this help message\n");
+        }
+
+        private static void print_list_help (string program_name) {
+            stdout.printf ("Usage: %s list [OPTIONS]\n\n", program_name);
+            stdout.printf ("List tasks from a project (JSON output)\n\n");
+            stdout.printf ("Options:\n");
+            stdout.printf ("  -p, --project=PROJECT      Project name (defaults to inbox)\n");
+            stdout.printf ("  -i, --project-id=ID        Project ID (preferred over name)\n");
             stdout.printf ("  -h, --help                 Show this help message\n");
         }
     }
