@@ -18,6 +18,12 @@
  */
 
 namespace PlanifyCLI {
+    public enum CommandType {
+        NONE,
+        ADD,
+        LIST_PROJECTS
+    }
+
     public class TaskArguments : Object {
         public string? content { get; set; default = null; }
         public string? description { get; set; default = null; }
@@ -27,29 +33,34 @@ namespace PlanifyCLI {
         public string? due_date { get; set; default = null; }
     }
 
+    public class ParsedCommand : Object {
+        public CommandType command_type { get; set; default = CommandType.NONE; }
+        public TaskArguments? task_args { get; set; default = null; }
+    }
+
     public class ArgumentParser : Object {
-        public static TaskArguments? parse (string[] args, out int exit_code) {
+        public static ParsedCommand? parse (string[] args, out int exit_code) {
             exit_code = 0;
 
             // Check for command
             if (args.length < 2) {
                 stderr.printf ("Error: No command specified\n");
-                stderr.printf ("Usage: %s add [OPTIONS]\n", args[0]);
+                stderr.printf ("Usage: %s <command> [OPTIONS]\n", args[0]);
+                stderr.printf ("Commands: add, list-projects\n");
                 stderr.printf ("Run '%s --help' for more information\n", args[0]);
                 exit_code = 1;
                 return null;
             }
 
             string command = args[1];
-            
-            if (command != "add") {
-                stderr.printf ("Error: Unknown command '%s'\n", command);
-                stderr.printf ("Available commands: add\n");
-                exit_code = 1;
-                return null;
-            }
+            var parsed = new ParsedCommand ();
 
-            var task_args = new TaskArguments ();
+            if (command == "list-projects") {
+                parsed.command_type = CommandType.LIST_PROJECTS;
+                return parsed;
+            } else if (command == "add") {
+                parsed.command_type = CommandType.ADD;
+                var task_args = new TaskArguments ();
 
             // Parse options starting from index 2
             for (int i = 2; i < args.length; i++) {
@@ -115,11 +126,22 @@ namespace PlanifyCLI {
                 }
             }
 
-            return task_args;
+                parsed.task_args = task_args;
+                return parsed;
+            } else {
+                stderr.printf ("Error: Unknown command '%s'\n", command);
+                stderr.printf ("Available commands: add, list-projects\n");
+                exit_code = 1;
+                return null;
+            }
         }
 
         private static void print_help (string program_name) {
-            stdout.printf ("Usage: %s add [OPTIONS]\n\n", program_name);
+            stdout.printf ("Usage: %s <command> [OPTIONS]\n\n", program_name);
+            stdout.printf ("Commands:\n");
+            stdout.printf ("  add              Add a new task\n");
+            stdout.printf ("  list-projects    List all projects (JSON output)\n\n");
+            stdout.printf ("Add command options:\n");
             stdout.printf ("Options:\n");
             stdout.printf ("  -c, --content=CONTENT      Task content (required)\n");
             stdout.printf ("  -d, --description=DESC     Task description\n");

@@ -26,5 +26,21 @@ namespace PlanifyCLI {
             stdout.printf ("  \"projectName\": \"%s\"\n", project.name);
             stdout.printf ("}\n");
         }
+
+        public static void print_projects_list (Gee.ArrayList<Objects.Project> projects) {
+            var builder = new Json.Builder ();
+            builder.begin_array ();
+
+            foreach (var project in projects) {
+                builder.add_value (Json.gobject_serialize (project));
+            }
+
+            builder.end_array ();
+
+            var generator = new Json.Generator ();
+            generator.set_root (builder.get_root ());
+            generator.pretty = true;
+            stdout.printf ("%s\n", generator.to_data (null));
+        }
     }
 }

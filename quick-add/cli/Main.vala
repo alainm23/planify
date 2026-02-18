@@ -18,6 +18,19 @@
  */
 
 namespace PlanifyCLI {
+    private static int list_projects () {
+        // Initialize database
+        Services.Database.get_default ().init_database ();
+
+        // Get all projects from store
+        var projects = Services.Store.instance ().projects;
+
+        // Output as JSON
+        OutputFormatter.print_projects_list (projects);
+
+        return 0;
+    }
+
     private static int add_task (TaskArguments args) {
         // Validate content
         string? error_message;
@@ -82,13 +95,21 @@ namespace PlanifyCLI {
 
         // Parse arguments
         int exit_code;
-        TaskArguments? task_args = ArgumentParser.parse (args, out exit_code);
+        ParsedCommand? parsed = ArgumentParser.parse (args, out exit_code);
 
-        if (task_args == null) {
+        if (parsed == null) {
             return exit_code;
         }
 
-        // Execute add command
-        return add_task (task_args);
+        // Route to appropriate command handler
+        switch (parsed.command_type) {
+            case CommandType.LIST_PROJECTS:
+                return list_projects ();
+            case CommandType.ADD:
+                return add_task (parsed.task_args);
+            default:
+                stderr.printf ("Error: Unknown command\n");
+                return 1;
+        }
     }
 }
