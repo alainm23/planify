@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-31 16:56+0000\n"
+"PO-Revision-Date: 2026-02-14 12:09+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/hr/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -130,7 +130,7 @@ msgstr "Odjeljak"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "Zadatak"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -191,7 +191,7 @@ msgstr "filtri"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr "nema datuma"
+msgstr "bez datuma"
 
 #: core/Objects/Filters/Completed.vala:33
 msgid "Completed"
@@ -533,12 +533,12 @@ msgstr "Učitavanje zadataka za %s …"
 #: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Učitani zadaci za %s …"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Sinkroniziranje zadatka %d od %d"
 
 #: core/Services/CalDAV/Core.vala:162
 msgid "Source already exists"
@@ -570,6 +570,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"Usluga Todoist je aktualizirala svoj API. Za nastavljanje sinkronizacije "
+"ponovo poveži svoj račun u postavkama."
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -989,6 +991,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
+"Primaj obavijesti o važnim zadacima ili događajima. Dodirni gumb sata za "
+"dodavanje podsjetnika."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1186,7 +1190,7 @@ msgstr "Sljedeći tjedan"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
 msgid "Save"
-msgstr ""
+msgstr "Spremi"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:559
 msgid "Daily"
@@ -1218,7 +1222,7 @@ msgstr "Prilagođeno"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:855
 msgid "No date"
-msgstr ""
+msgstr "Bez datuma"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
@@ -1592,7 +1596,7 @@ msgstr "Sljedeći tjedan"
 #: src/Layouts/ItemRow.vala:1233 src/Views/Project/Project.vala:562
 #: src/Views/Project/Project.vala:733
 msgid "No Date"
-msgstr "Nema datuma"
+msgstr "Bez datuma"
 
 #: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
 msgid "Done"
@@ -1696,7 +1700,7 @@ msgstr "Račune možeš razvrstati povlačenjem i ispuštanjem"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:578
 msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr ""
+msgstr "Planify sinkronizira tvoje zadatke, to može ponešto potrajati"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:307
 msgid "SSL verification is disabled"
@@ -1704,11 +1708,11 @@ msgstr "SSL provjera je isključena"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
 msgid "Account migration required"
-msgstr ""
+msgstr "Potrebna je migracija računa"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Reconnect"
-msgstr ""
+msgstr "Ponovo poveži"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
@@ -1819,13 +1823,15 @@ msgstr "Izbrisati izvor?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "Nije moguće izbrisati ovaj izvor"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Ovaj izvor sadrži tvoj trenutačni projekt ulaznog sandučića. Najprije "
+"promijeni svoj projekt ulaznog sandučića."
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
@@ -2785,7 +2791,7 @@ msgstr "Nema dostupnih projekata. Stvori projekt klikom na gumb '+'"
 
 #: src/Layouts/SidebarSourceRow.vala:78
 msgid "Account Migration Required"
-msgstr ""
+msgstr "Potrebna je migracija računa"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -2903,7 +2909,7 @@ msgstr "Odličan posao, nema ničega za obaviti 🎉"
 
 #: src/Views/Filter.vala:361
 msgid "tasks"
-msgstr ""
+msgstr "zadaci"
 
 #: src/Views/Filter.vala:622
 msgid "Delete Completed Task"
@@ -3073,7 +3079,7 @@ msgstr "Promijeni termin"
 
 #: src/Views/Today.vala:761
 msgid "Me"
-msgstr ""
+msgstr "Ja"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
@@ -3136,7 +3142,7 @@ msgstr "Prijavi problem"
 
 #: src/Widgets/ErrorView.vala:142
 msgid "Account migration required."
-msgstr ""
+msgstr "Potrebna je migracija računa."
 
 #: src/Widgets/EventRow.vala:242
 #, c-format

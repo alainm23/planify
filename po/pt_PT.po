@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-14 12:01+0000\n"
-"PO-Revision-Date: 2026-01-27 10:01+0000\n"
+"PO-Revision-Date: 2026-02-16 15:09+0000\n"
 "Last-Translator: André Barata <andretiagob@protonmail.com>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_PT/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.16\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -47,46 +47,46 @@ msgid "Don't Repeat"
 msgstr "Não repetir"
 
 #: core/Enum.vala:216
-#, fuzzy, c-format
+#, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
 msgstr[0] "A cada minuto"
-msgstr[1] "A cada minuto"
+msgstr[1] "A cada %d minutos"
 
 #: core/Enum.vala:218
-#, fuzzy, c-format
+#, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
 msgstr[0] "A cada hora"
-msgstr[1] "A cada hora"
+msgstr[1] "A cada %d horas"
 
 #: core/Enum.vala:220
-#, fuzzy, c-format
+#, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
 msgstr[0] "Todos os dias"
-msgstr[1] "Todos os dias"
+msgstr[1] "A cada %d dias"
 
 #: core/Enum.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
 msgstr[0] "Todas as semanas"
-msgstr[1] "Todas as semanas"
+msgstr[1] "A cada %d semanas"
 
 #: core/Enum.vala:224
-#, fuzzy, c-format
+#, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
 msgstr[0] "Todos os meses"
-msgstr[1] "Todos os meses"
+msgstr[1] "A cada %d meses"
 
 #: core/Enum.vala:226
-#, fuzzy, c-format
+#, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
 msgstr[0] "Todos os anos"
-msgstr[1] "Todos os anos"
+msgstr[1] "A cada %d anos"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -317,11 +317,11 @@ msgstr "A tarefa foi copiada para a área de transferência"
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] "A tarefa foi movida para %s"
-msgstr[1] "A tarefa foi movida para %s"
+msgstr[1] "%d tarefas foram movidas para %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
@@ -1186,7 +1186,7 @@ msgstr "Próxima semana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:559
 msgid "Daily"
@@ -1218,7 +1218,7 @@ msgstr "Personalizado"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:855
 msgid "No date"
-msgstr ""
+msgstr "Sem data"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
@@ -1570,7 +1570,7 @@ msgid "Delete All Completed Tasks"
 msgstr "Eliminar todas as tarefas terminadas"
 
 #: src/Dialogs/CompletedTasks.vala:165
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
@@ -1578,8 +1578,8 @@ msgstr[0] ""
 "Isto vai eliminar %d tarefa terminada e as respetivas subtarefas do projeto "
 "%s"
 msgstr[1] ""
-"Isto vai eliminar %d tarefa terminada e as respetivas subtarefas do projeto "
-"%s"
+"Isto vai eliminar %d tarefas terminadas e as respetivas subtarefas do "
+"projeto %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
 #: src/Views/Scheduled/Scheduled.vala:271 src/Views/Today.vala:780
@@ -1625,11 +1625,11 @@ msgstr ""
 "alterações."
 
 #: src/Dialogs/ItemChangeHistory.vala:138
-#, fuzzy, c-format
+#, c-format
 msgid "Load more history from %d week ago…"
 msgid_plural "Load more history from %d weeks ago…"
 msgstr[0] "Carregar mais histórico de %d semana atrás…"
-msgstr[1] "Carregar mais histórico de %d semana atrás…"
+msgstr[1] "Carregar mais histórico de %d semanas atrás…"
 
 #: src/Dialogs/Label.vala:45
 msgid "New Label"
@@ -2247,11 +2247,13 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:103
 msgid "Keep Task Properties"
-msgstr ""
+msgstr "Manter propriedades da tarefa"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
 msgstr ""
+"Quando o 'Continuar a adicionar' estiver ativado, preservar datas, etiquetas "
+"e estado do fixar"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:133
 msgid "The command was copied to the clipboard"
@@ -2930,18 +2932,17 @@ msgid "tasks"
 msgstr "tarefas"
 
 #: src/Views/Filter.vala:622
-#, fuzzy
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "Eliminar tarefa terminada"
-msgstr[1] "Eliminar tarefa terminada"
+msgstr[1] "Eliminar tarefas terminadas"
 
 #: src/Views/Filter.vala:627
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
 msgstr[0] "Isto vai eliminar %d tarefa terminada e as respetivas subtarefas"
-msgstr[1] "Isto vai eliminar %d tarefa terminada e as respetivas subtarefas"
+msgstr[1] "Isto vai eliminar %d tarefas terminadas e as respetivas subtarefas"
 
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
@@ -3263,18 +3264,18 @@ msgid "Are you sure you want to delete this to-do?"
 msgstr "Tem a certeza de que pretende eliminar esta tarefa?"
 
 #: src/Widgets/MultiSelectToolbar.vala:272
-#, fuzzy, c-format
+#, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
 msgstr[0] "Eliminar %d tarefa"
 msgstr[1] "Eliminar %d tarefas"
 
 #: src/Widgets/MultiSelectToolbar.vala:278
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Tem a certeza de que pretende eliminar esta %d tarefa?"
-msgstr[1] "Tem a certeza de que pretende eliminar esta %d tarefa?"
+msgstr[1] "Tem a certeza de que pretende eliminar estas %d tarefas?"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"

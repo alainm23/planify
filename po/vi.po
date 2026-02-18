@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-21 09:39+0000\n"
-"PO-Revision-Date: 2025-12-14 10:07+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-02-14 12:09+0000\n"
+"Last-Translator: Loc Huynh <huynhloc.contact@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/vi/>\n"
 "Language: vi\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -47,40 +47,40 @@ msgid "Don't Repeat"
 msgstr "Không Lặp Lại"
 
 #: core/Enum.vala:216
-#, fuzzy, c-format
+#, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
-msgstr[0] "Mỗi phút"
+msgstr[0] "Mỗi %d phút"
 
 #: core/Enum.vala:218
-#, fuzzy, c-format
+#, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
-msgstr[0] "Mỗi giờ"
+msgstr[0] "Mỗi %d giờ"
 
 #: core/Enum.vala:220
-#, fuzzy, c-format
+#, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
-msgstr[0] "Mỗi ngày"
+msgstr[0] "Mỗi %d ngày"
 
 #: core/Enum.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
-msgstr[0] "Mỗi tuần"
+msgstr[0] "Mỗi %d tuần"
 
 #: core/Enum.vala:224
-#, fuzzy, c-format
+#, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
-msgstr[0] "Mỗi tháng"
+msgstr[0] "Mỗi %d tháng"
 
 #: core/Enum.vala:226
-#, fuzzy, c-format
+#, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
-msgstr[0] "Mỗi năm"
+msgstr[0] "Mỗi %d năm"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -117,7 +117,7 @@ msgstr "Phần"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "Phân công"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -311,10 +311,10 @@ msgstr "Nhiệm vụ đã sao chép vào bộ nhớ tạm"
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Nhiệm vụ đã di chuyển đến %s"
+msgstr[0] "%d nhiệm vụ đã di chuyển đến %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
@@ -518,12 +518,12 @@ msgstr "Đang tải nhiệm vụ cho %s…"
 #: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Đã tải nhiệm vụ cho %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Đang đồng bộ hóa nhiệm vụ %d của %d"
 
 #: core/Services/CalDAV/Core.vala:162
 msgid "Source already exists"
@@ -555,6 +555,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"Todoist đã cập nhật API của họ. Vui lòng kết nối lại tài khoản của bạn trong "
+"Tùy chọn để tiếp tục đồng bộ hóa."
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -659,13 +661,13 @@ msgstr "CN,"
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
+msgstr[0] "trong %d ngày"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
+msgstr[0] "%d ngày trước"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
@@ -967,6 +969,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
+"Nhận thông báo về các nhiệm vụ hoặc sự kiện quan trọng. Nhấn vào nút đồng hồ "
+"bên dưới để thêm lời nhắc."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1164,7 +1168,7 @@ msgstr "Tuần sau"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
 msgid "Save"
-msgstr ""
+msgstr "Lưu"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:559
 msgid "Daily"
@@ -1196,7 +1200,7 @@ msgstr "Tùy Chỉnh"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:855
 msgid "No date"
-msgstr ""
+msgstr "Không có ngày"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
@@ -1265,17 +1269,17 @@ msgstr "Đặt Ngày Đến Hạn"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
-msgstr ""
+msgstr "Đặt thời hạn"
 
 #: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
 #: core/Widgets/DeadlineButton.vala:153
 msgid "Set a Deadline"
-msgstr ""
+msgstr "Đặt thời hạn"
 
 #: core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
-msgstr ""
+msgstr "Thời hạn"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1440,80 +1444,93 @@ msgstr ""
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
 #: src/Views/Project/Project.vala:444
 msgid "Calendar Sync"
-msgstr ""
+msgstr "Đồng bộ hóa lịch"
 
 #: src/Dialogs/CalendarSync.vala:45
 msgid ""
 "Turn your tasks into calendar events automatically. Any task with a date "
 "will appear in your calendar, making it easier to plan your day."
 msgstr ""
+"Tự động biến nhiệm vụ của bạn thành sự kiện lịch. Bất kỳ nhiệm vụ nào có "
+"ngày sẽ xuất hiện trong lịch của bạn, giúp bạn lập kế hoạch trong ngày dễ "
+"dàng hơn."
 
 #: src/Dialogs/CalendarSync.vala:53
 msgid ""
 "Requirement: You need a calendar account configured in GNOME Calendar "
 "(Google, Nextcloud, etc.)"
 msgstr ""
+"Yêu cầu: Bạn cần có tài khoản lịch được định cấu hình trong Lịch Gnome "
+"(Google, Nextcloud, v.v.)"
 
 #: src/Dialogs/CalendarSync.vala:62
 msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
 msgstr ""
+"Nhận thông báo trên thiết bị di động cho nhiệm vụ của bạn thông qua Lịch "
+"Google, Outlook hoặc bất kỳ ứng dụng lịch nào"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
 "Your tasks sync everywhere: phone, tablet, web browser, and any device with "
 "your calendar"
 msgstr ""
+"Nhiệm vụ của bạn được đồng bộ hóa ở mọi nơi: điện thoại, máy tính bảng, "
+"trình duyệt web và bất kỳ thiết bị nào có lịch của bạn"
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
-msgstr ""
+msgstr "Chọn Lịch"
 
 #: src/Dialogs/CalendarSync.vala:88
 msgid "Select a calendar from the list"
-msgstr ""
+msgstr "Chọn lịch từ danh sách"
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
-msgstr ""
+msgstr "Bật đồng bộ hóa"
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
-msgstr ""
+msgstr "Đồng bộ hóa lịch đã được tắt thành công"
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
-msgstr ""
+msgstr "Đồng bộ hóa lịch đang hoạt động"
 
 #: src/Dialogs/CalendarSync.vala:228
 msgid ""
 "Your tasks are currently synced with your calendar. Any task with a date "
 "automatically appears as a calendar event."
 msgstr ""
+"Nhiệm vụ của bạn hiện được đồng bộ hóa với lịch của bạn. Bất kỳ nhiệm vụ nào "
+"có ngày đều tự động xuất hiện dưới dạng sự kiện lịch."
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
-msgstr ""
+msgstr "Tắt đồng bộ hóa"
 
 #: src/Dialogs/CalendarSync.vala:279
 #, c-format
 msgid "Synced with: %s"
-msgstr ""
+msgstr "Đã đồng bộ hóa với: %s"
 
 #: src/Dialogs/CalendarSync.vala:292
 msgid "Sync Enabled!"
-msgstr ""
+msgstr "Đã bật đồng bộ hóa!"
 
 #: src/Dialogs/CalendarSync.vala:297
 msgid ""
 "Your tasks are now synced with your calendar. Any task with a date will "
 "automatically appear as a calendar event."
 msgstr ""
+"Nhiệm vụ của bạn hiện đã được đồng bộ hóa với lịch của bạn. Bất kỳ nhiệm vụ "
+"nào có ngày sẽ tự động xuất hiện dưới dạng sự kiện lịch."
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 msgid "Completed Tasks"
@@ -1533,13 +1550,13 @@ msgid "Delete All Completed Tasks"
 msgstr "Xóa Tất Cả Nhiệm Vụ Đã Hoàn Thành"
 
 #: src/Dialogs/CompletedTasks.vala:165
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
 msgstr[0] ""
-"Điều này sẽ xóa %d nhiệm vụ đã hoàn thành và nhiệm vụ phụ của nó khỏi dự án "
-"%s"
+"Thao tác này sẽ xóa %d nhiệm vụ đã hoàn thành và các nhiệm vụ phụ của chúng "
+"khỏi dự án %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
 #: src/Views/Scheduled/Scheduled.vala:271 src/Views/Today.vala:780
@@ -1585,7 +1602,7 @@ msgstr ""
 "thay đổi."
 
 #: src/Dialogs/ItemChangeHistory.vala:138
-#, fuzzy, c-format
+#, c-format
 msgid "Load more history from %d week ago…"
 msgid_plural "Load more history from %d weeks ago…"
 msgstr[0] "Tải thêm lịch sử từ %d tuần trước…"
@@ -1658,18 +1675,20 @@ msgstr "Bạn có thể sắp xếp các tài khoản bằng cách kéo và th�
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:578
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr ""
+"Planify đang đồng bộ hóa các nhiệm vụ của bạn, quá trình này có thể mất vài "
+"phút"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:307
 msgid "SSL verification is disabled"
-msgstr ""
+msgstr "Xác minh SSL bị vô hiệu hóa"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
 msgid "Account migration required"
-msgstr ""
+msgstr "Yêu cầu di chuyển tài khoản"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Reconnect"
-msgstr ""
+msgstr "Kết nối lại"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
@@ -1780,13 +1799,15 @@ msgstr "Xóa Nguồn?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "Không thể xóa nguồn này"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Nguồn này chứa dự án Hộp thư đến hiện tại của bạn. Vui lòng thay đổi dự án "
+"Hộp thư đến của bạn trước."
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
@@ -1982,11 +2003,11 @@ msgstr "Khôi Phục Sao Lưu"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:45
 #: src/Dialogs/Preferences/PreferencesWindow.vala:217
 msgid "Donate"
-msgstr ""
+msgstr "Quyên góp"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:53
 msgid "Support Planify Development"
-msgstr ""
+msgstr "Hỗ trợ phát triển Planify"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:58
 msgid ""
@@ -1994,6 +2015,9 @@ msgid ""
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
 msgstr ""
+"Hãy giúp Planify luôn có nguồn mở và miễn phí! Sự đóng góp của bạn trực tiếp "
+"hỗ trợ phát triển, tính năng mới và bảo trì. Mỗi đóng góp, bất kể quy mô, "
+"đều tạo nên sự khác biệt."
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Patreon"
@@ -2001,7 +2025,7 @@ msgstr "Patreon"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:75
 msgid "Monthly recurring support"
-msgstr ""
+msgstr "Hỗ trợ định kỳ hàng tháng"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "PayPal"
@@ -2009,7 +2033,7 @@ msgstr "PayPal"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:89
 msgid "One-time donation"
-msgstr ""
+msgstr "Đóng góp một lần"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Liberapay"
@@ -2017,7 +2041,7 @@ msgstr "Liberapay"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:103
 msgid "Weekly recurring donations"
-msgstr ""
+msgstr "Đóng góp định kỳ hàng tuần"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
@@ -2025,19 +2049,19 @@ msgstr "Ko-fi"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
-msgstr ""
+msgstr "Mua cho tôi một ly cà phê ☕"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:128
 msgid "Choose Your Preferred Platform"
-msgstr ""
+msgstr "Chọn nền tảng ưa thích của bạn"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:142
 msgid "Thank you for your support! 🙏"
-msgstr ""
+msgstr "Cảm ơn sự hỗ trợ của bạn! 🙏"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Your contribution helps keep Planify alive and growing."
-msgstr ""
+msgstr "Sự đóng góp của bạn giúp Planify tồn tại và phát triển."
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
@@ -2376,7 +2400,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:60
 msgid "Donate Now"
-msgstr ""
+msgstr "Đóng góp ngay"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Sync your favorite to-do providers"
@@ -2747,7 +2771,7 @@ msgstr "Không có dự án nào. Tạo một dự án bằng cách nhấp vào 
 
 #: src/Layouts/SidebarSourceRow.vala:78
 msgid "Account Migration Required"
-msgstr ""
+msgstr "Yêu cầu di chuyển tài khoản"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -2864,19 +2888,19 @@ msgstr "Làm tốt lắm, không còn gì để làm nữa 🎉"
 
 #: src/Views/Filter.vala:361
 msgid "tasks"
-msgstr ""
+msgstr "nhiệm vụ"
 
 #: src/Views/Filter.vala:622
-#, fuzzy
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
-msgstr[0] "Xóa Nhiệm Vụ Đã Hoàn Thành"
+msgstr[0] "Xóa nhiệm vụ đã hoàn thành"
 
 #: src/Views/Filter.vala:627
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
-msgstr[0] "Điều này sẽ xóa %d nhiệm vụ đã hoàn thành và nhiệm vụ phụ của nó"
+msgstr[0] ""
+"Thao tác này sẽ xóa %d nhiệm vụ đã hoàn thành và các nhiệm vụ phụ của chúng"
 
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
@@ -2908,7 +2932,7 @@ msgstr "Nhiệm Vụ Mới"
 
 #: src/Views/Project/Project.vala:376 src/Views/Project/Project.vala:408
 msgid "Project Deadline"
-msgstr ""
+msgstr "Thời hạn dự án"
 
 #: src/Views/Project/Project.vala:381
 msgid "Select"
@@ -3007,11 +3031,11 @@ msgstr "Lọc theo Nhãn"
 
 #: src/Views/Project/Project.vala:597
 msgid "Show Completed"
-msgstr ""
+msgstr "Hiển thị đã hoàn thành"
 
 #: src/Views/Project/Project.vala:598
 msgid "Display completed tasks in the list"
-msgstr ""
+msgstr "Hiển thị các nhiệm vụ đã hoàn thành trong danh sách"
 
 #: src/Views/Project/Project.vala:604
 msgid "Search completed tasks"
@@ -3031,7 +3055,7 @@ msgstr "Lên Lịch Lại"
 
 #: src/Views/Today.vala:761
 msgid "Me"
-msgstr ""
+msgstr "Tôi"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
@@ -3094,19 +3118,19 @@ msgstr "Báo Cáo Sự Cố"
 
 #: src/Widgets/ErrorView.vala:142
 msgid "Account migration required."
-msgstr ""
+msgstr "Yêu cầu di chuyển tài khoản."
 
 #: src/Widgets/EventRow.vala:242
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
-msgstr[0] ""
+msgstr[0] "Trong %d phút"
 
 #: src/Widgets/EventRow.vala:244
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
-msgstr[0] ""
+msgstr[0] "Trong %d giờ"
 
 #: src/Widgets/EventRow.vala:249
 msgid "Happening now"
@@ -3180,7 +3204,7 @@ msgstr "Hoàn Thành Lúc"
 
 #: src/Widgets/MultiSelectToolbar.vala:66
 msgid "Move to Project"
-msgstr ""
+msgstr "Di chuyển đến dự án"
 
 #: src/Widgets/MultiSelectToolbar.vala:242
 msgid "Mark as Completed"
@@ -3195,16 +3219,16 @@ msgid "Are you sure you want to delete this to-do?"
 msgstr "Bạn có chắc chắn muốn xóa nhiệm vụ cần làm này không?"
 
 #: src/Widgets/MultiSelectToolbar.vala:272
-#, fuzzy, c-format
+#, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
-msgstr[0] "Xóa %d Nhiệm Vụ Cần Làm"
+msgstr[0] "Xóa %d việc cần làm"
 
 #: src/Widgets/MultiSelectToolbar.vala:278
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
-msgstr[0] "Bạn có chắc chắn muốn xóa %d nhiệm vụ cần làm này không?"
+msgstr[0] "Bạn có chắc chắn muốn xóa %d việc cần làm này không?"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -3224,7 +3248,7 @@ msgstr "Cập Nhật Ngay"
 
 #: src/Widgets/NewVersionPopup.vala:89
 msgid "Dismiss"
-msgstr ""
+msgstr "Bỏ qua"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"

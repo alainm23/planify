@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-01-31 10:01+0000\n"
-"Last-Translator: orychalk <orychalk@gmail.com>\n"
+"PO-Revision-Date: 2026-02-18 06:59+0000\n"
+"Last-Translator: Gameking <valafennou@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/fr/>\n"
 "Language: fr\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -1229,7 +1229,7 @@ msgstr "Personnalisé"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:855
 msgid "No date"
-msgstr ""
+msgstr "Pas de date"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
@@ -2266,11 +2266,13 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:103
 msgid "Keep Task Properties"
-msgstr ""
+msgstr "Conserver les propriétés de la tâche"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
 msgstr ""
+"Quand \"Laisser ajouter\" est activé, conserve la date, les étiquettes, et "
+"le statut épinglé"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:133
 msgid "The command was copied to the clipboard"
