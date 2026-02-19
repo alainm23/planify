@@ -198,6 +198,24 @@ namespace PlanifyCLI {
             Services.Store.instance ().update_item (item);
         }
 
+        // Notify main app via DBus
+        bool dbus_notified = false;
+        try {
+            DBusClient.get_default ().interface.update_item (item.id);
+            dbus_notified = true;
+        } catch (Error e) {
+            // Not a critical error - main app might not be running
+            debug ("DBus notification failed: %s", e.message);
+        }
+
+        // Ensure DBus message is flushed before exit
+        if (dbus_notified) {
+            var main_context = MainContext.default ();
+            while (main_context.pending ()) {
+                main_context.iteration (false);
+            }
+        }
+
         // Get the current project for output
         Objects.Project? current_project = Services.Store.instance ().get_project (item.project_id);
         if (current_project == null) {
