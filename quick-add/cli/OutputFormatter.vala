@@ -43,6 +43,7 @@ namespace PlanifyCLI {
                 { "description", (builder) => builder.add_string_value (item.description) },
                 { "checked", (builder) => builder.add_boolean_value (item.checked) },
                 { "pinned", (builder) => builder.add_boolean_value (item.pinned) },
+                { "priority", (builder) => builder.add_int_value (5 - item.priority) },
                 { "project-id", (builder) => builder.add_string_value (item.project_id) },
                 { "section-id", (builder) => builder.add_string_value (item.section_id) },
                 { "parent-id", (builder) => builder.add_string_value (item.parent_id) },
