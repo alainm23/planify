@@ -35,6 +35,7 @@ namespace PlanifyCLI {
         public int priority { get; set; default = 4; }
         public string? due_date { get; set; default = null; }
         public string? labels { get; set; default = null; }
+        public int pinned { get; set; default = -1; } // -1 = not set, 0 = unpinned, 1 = pinned
     }
 
     public class ListArguments : Object {
@@ -53,6 +54,7 @@ namespace PlanifyCLI {
         public string? due_date { get; set; default = null; }
         public string? labels { get; set; default = null; }
         public int checked { get; set; default = -1; } // -1 = not set, 0 = uncomplete, 1 = complete
+        public int pinned { get; set; default = -1; } // -1 = not set, 0 = unpinned, 1 = pinned
     }
 
     public class ParsedCommand : Object {
@@ -204,6 +206,23 @@ namespace PlanifyCLI {
                         update_args.checked = 1;
                     } else if (arg == "--uncomplete") {
                         update_args.checked = 0;
+                    } else if (arg == "--pin") {
+                        if (i + 1 < args.length) {
+                            string value = args[++i].down ();
+                            if (value == "true") {
+                                update_args.pinned = 1;
+                            } else if (value == "false") {
+                                update_args.pinned = 0;
+                            } else {
+                                stderr.printf ("Error: --pin requires 'true' or 'false'\n");
+                                exit_code = 1;
+                                return null;
+                            }
+                        } else {
+                            stderr.printf ("Error: --pin requires an argument (true or false)\n");
+                            exit_code = 1;
+                            return null;
+                        }
                     } else if (arg == "-h" || arg == "--help") {
                         print_update_help (args[0]);
                         exit_code = 0;
@@ -290,6 +309,23 @@ namespace PlanifyCLI {
                         exit_code = 1;
                         return null;
                     }
+                } else if (arg == "--pin") {
+                    if (i + 1 < args.length) {
+                        string value = args[++i].down ();
+                        if (value == "true") {
+                            task_args.pinned = 1;
+                        } else if (value == "false") {
+                            task_args.pinned = 0;
+                        } else {
+                            stderr.printf ("Error: --pin requires 'true' or 'false'\n");
+                            exit_code = 1;
+                            return null;
+                        }
+                    } else {
+                        stderr.printf ("Error: --pin requires an argument (true or false)\n");
+                        exit_code = 1;
+                        return null;
+                    }
                 } else if (arg == "-h" || arg == "--help") {
                     print_help (args[0]);
                     exit_code = 0;
@@ -328,6 +364,7 @@ namespace PlanifyCLI {
             stdout.printf ("  -P, --priority=1-4         Priority: 1=high, 2=medium, 3=low, 4=none (default: 4)\n");
             stdout.printf ("  -D, --due=DATE             Due date in YYYY-MM-DD format\n");
             stdout.printf ("  -l, --labels=LABELS        Comma-separated list of label names\n");
+            stdout.printf ("  --pin=true|false           Pin or unpin the task\n");
             stdout.printf ("  -h, --help                 Show this help message\n\n");
             stdout.printf ("List command options:\n");
             stdout.printf ("  -p, --project=PROJECT      Project name (defaults to inbox)\n");
@@ -370,6 +407,7 @@ namespace PlanifyCLI {
             stdout.printf ("  -l, --labels=LABELS        Comma-separated list of label names\n");
             stdout.printf ("  --complete                 Mark task as complete\n");
             stdout.printf ("  --uncomplete               Mark task as incomplete\n");
+            stdout.printf ("  --pin=true|false           Pin or unpin the task\n");
             stdout.printf ("  -h, --help                 Show this help message\n");
         }
     }

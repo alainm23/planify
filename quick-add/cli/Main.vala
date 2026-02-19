@@ -191,6 +191,11 @@ namespace PlanifyCLI {
             }
         }
 
+        // Update pinned if provided
+        if (args.pinned != -1) {
+            item.pinned = args.pinned == 1;
+        }
+
         // Save changes
         if (project_changed) {
             Services.Store.instance ().move_item (item, old_project_id, old_section_id, old_parent_id);
@@ -299,6 +304,11 @@ namespace PlanifyCLI {
                     item.labels.add (label);
                 }
             }
+        }
+
+        // Set pinned if provided
+        if (args.pinned != -1) {
+            item.pinned = args.pinned == 1;
         }
 
         // Save and notify
