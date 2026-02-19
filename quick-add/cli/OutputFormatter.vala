@@ -44,6 +44,7 @@ namespace PlanifyCLI {
                 { "checked", (builder) => builder.add_boolean_value (item.checked) },
                 { "pinned", (builder) => builder.add_boolean_value (item.pinned) },
                 { "project-id", (builder) => builder.add_string_value (item.project_id) },
+                { "section-id", (builder) => builder.add_string_value (item.section_id) },
                 { "parent-id", (builder) => builder.add_string_value (item.parent_id) },
                 { "added-at", (builder) => builder.add_string_value (item.added_at) },
                 { "completed-at", (builder) => builder.add_string_value (item.completed_at) },

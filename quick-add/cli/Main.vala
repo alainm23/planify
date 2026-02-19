@@ -133,6 +133,28 @@ namespace PlanifyCLI {
             }
         }
 
+        // Handle section change if provided
+        if (args.section_id != null || args.section_name != null) {
+            Objects.Project? current_project = Services.Store.instance ().get_project (item.project_id);
+            if (current_project != null) {
+                Objects.Section? target_section = TaskCreator.find_section (
+                    args.section_id,
+                    args.section_name,
+                    current_project,
+                    out error_message
+                );
+
+                if (target_section == null) {
+                    stderr.printf ("%s\n", error_message);
+                    return 1;
+                }
+
+                if (item.section_id != target_section.id) {
+                    item.section_id = target_section.id;
+                }
+            }
+        }
+
         // Update parent_id if provided
         if (args.parent_id != null) {
             if (!TaskValidator.validate_parent_id (args.parent_id, out error_message)) {
@@ -284,6 +306,23 @@ namespace PlanifyCLI {
             target_project,
             args.parent_id
         );
+
+        // Find and set section if provided
+        if (args.section_id != null || args.section_name != null) {
+            Objects.Section? target_section = TaskCreator.find_section (
+                args.section_id,
+                args.section_name,
+                target_project,
+                out error_message
+            );
+
+            if (target_section == null) {
+                stderr.printf ("%s\n", error_message);
+                return 1;
+            }
+
+            item.section_id = target_section.id;
+        }
 
         // Add labels if provided
         if (args.labels != null && args.labels.strip () != "") {

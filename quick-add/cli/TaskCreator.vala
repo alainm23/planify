@@ -19,6 +19,43 @@
 
 namespace PlanifyCLI {
     public class TaskCreator : Object {
+        public static Objects.Section? find_section (string? section_id, string? section_name, Objects.Project project, out string? error_message) {
+            error_message = null;
+            Objects.Section? target_section = null;
+
+            // Prefer section ID over name
+            if (section_id != null && section_id.strip () != "") {
+                // Search by section ID
+                foreach (var section in Services.Store.instance ().get_sections_by_project (project)) {
+                    if (section.id == section_id.strip ()) {
+                        target_section = section;
+                        break;
+                    }
+                }
+
+                if (target_section == null) {
+                    error_message = "Error: Section ID '%s' not found in project '%s'".printf (section_id, project.name);
+                    return null;
+                }
+            } else if (section_name != null && section_name.strip () != "") {
+                // Search for section by name (case-insensitive)
+                string search_name = section_name.strip ().down ();
+                foreach (var section in Services.Store.instance ().get_sections_by_project (project)) {
+                    if (section.name.down () == search_name) {
+                        target_section = section;
+                        break;
+                    }
+                }
+
+                if (target_section == null) {
+                    error_message = "Error: Section '%s' not found in project '%s'".printf (section_name, project.name);
+                    return null;
+                }
+            }
+
+            return target_section;
+        }
+
         public static Objects.Project? find_project (string? project_id, string? project_name, out string? error_message) {
             error_message = null;
             Objects.Project? target_project = null;
