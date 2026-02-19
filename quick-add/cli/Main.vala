@@ -165,6 +165,32 @@ namespace PlanifyCLI {
             item.check_labels (new_labels);
         }
 
+        // Handle completion status change if provided
+        if (args.checked != -1) {
+            bool old_checked = item.checked;
+            bool new_checked = args.checked == 1;
+            
+            if (old_checked != new_checked) {
+                item.checked = new_checked;
+                if (new_checked) {
+                    item.completed_at = new GLib.DateTime.now_local ().to_string ();
+                } else {
+                    item.completed_at = "";
+                }
+                
+                // Use async completion handler
+                var loop = new MainLoop ();
+                item.complete_item.begin (old_checked, (obj, res) => {
+                    var response = item.complete_item.end (res);
+                    if (!response.status) {
+                        stderr.printf ("Error: Failed to update task completion status\n");
+                    }
+                    loop.quit ();
+                });
+                loop.run ();
+            }
+        }
+
         // Save changes
         if (project_changed) {
             Services.Store.instance ().move_item (item, old_project_id, old_section_id, old_parent_id);

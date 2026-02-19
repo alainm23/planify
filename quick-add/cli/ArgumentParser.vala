@@ -52,6 +52,7 @@ namespace PlanifyCLI {
         public int priority { get; set; default = -1; }
         public string? due_date { get; set; default = null; }
         public string? labels { get; set; default = null; }
+        public int checked { get; set; default = -1; } // -1 = not set, 0 = uncomplete, 1 = complete
     }
 
     public class ParsedCommand : Object {
@@ -199,6 +200,10 @@ namespace PlanifyCLI {
                             exit_code = 1;
                             return null;
                         }
+                    } else if (arg == "--complete") {
+                        update_args.checked = 1;
+                    } else if (arg == "--uncomplete") {
+                        update_args.checked = 0;
                     } else if (arg == "-h" || arg == "--help") {
                         print_update_help (args[0]);
                         exit_code = 0;
@@ -363,6 +368,8 @@ namespace PlanifyCLI {
             stdout.printf ("  -P, --priority=1-4         Priority: 1=high, 2=medium, 3=low, 4=none\n");
             stdout.printf ("  -D, --due=DATE             Due date in YYYY-MM-DD format\n");
             stdout.printf ("  -l, --labels=LABELS        Comma-separated list of label names\n");
+            stdout.printf ("  --complete                 Mark task as complete\n");
+            stdout.printf ("  --uncomplete               Mark task as incomplete\n");
             stdout.printf ("  -h, --help                 Show this help message\n");
         }
     }
