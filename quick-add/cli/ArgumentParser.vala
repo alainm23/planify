@@ -34,6 +34,7 @@ namespace PlanifyCLI {
         public string? parent_id { get; set; default = null; }
         public int priority { get; set; default = 4; }
         public string? due_date { get; set; default = null; }
+        public string? labels { get; set; default = null; }
     }
 
     public class ListArguments : Object {
@@ -50,6 +51,7 @@ namespace PlanifyCLI {
         public string? parent_id { get; set; default = null; }
         public int priority { get; set; default = -1; }
         public string? due_date { get; set; default = null; }
+        public string? labels { get; set; default = null; }
     }
 
     public class ParsedCommand : Object {
@@ -189,6 +191,14 @@ namespace PlanifyCLI {
                             exit_code = 1;
                             return null;
                         }
+                    } else if (arg == "-l" || arg == "--labels") {
+                        if (i + 1 < args.length) {
+                            update_args.labels = args[++i];
+                        } else {
+                            stderr.printf ("Error: %s requires an argument\n", arg);
+                            exit_code = 1;
+                            return null;
+                        }
                     } else if (arg == "-h" || arg == "--help") {
                         print_update_help (args[0]);
                         exit_code = 0;
@@ -267,6 +277,14 @@ namespace PlanifyCLI {
                         exit_code = 1;
                         return null;
                     }
+                } else if (arg == "-l" || arg == "--labels") {
+                    if (i + 1 < args.length) {
+                        task_args.labels = args[++i];
+                    } else {
+                        stderr.printf ("Error: %s requires an argument\n", arg);
+                        exit_code = 1;
+                        return null;
+                    }
                 } else if (arg == "-h" || arg == "--help") {
                     print_help (args[0]);
                     exit_code = 0;
@@ -304,6 +322,7 @@ namespace PlanifyCLI {
             stdout.printf ("  -a, --parent-id=ID         Parent task ID (creates a subtask)\n");
             stdout.printf ("  -P, --priority=1-4         Priority: 1=high, 2=medium, 3=low, 4=none (default: 4)\n");
             stdout.printf ("  -D, --due=DATE             Due date in YYYY-MM-DD format\n");
+            stdout.printf ("  -l, --labels=LABELS        Comma-separated list of label names\n");
             stdout.printf ("  -h, --help                 Show this help message\n\n");
             stdout.printf ("List command options:\n");
             stdout.printf ("  -p, --project=PROJECT      Project name (defaults to inbox)\n");
@@ -318,6 +337,7 @@ namespace PlanifyCLI {
             stdout.printf ("  -a, --parent-id=ID         New parent task ID\n");
             stdout.printf ("  -P, --priority=1-4         Priority: 1=high, 2=medium, 3=low, 4=none\n");
             stdout.printf ("  -D, --due=DATE             Due date in YYYY-MM-DD format\n");
+            stdout.printf ("  -l, --labels=LABELS        Comma-separated list of label names\n");
             stdout.printf ("  -h, --help                 Show this help message\n");
         }
 
@@ -342,6 +362,7 @@ namespace PlanifyCLI {
             stdout.printf ("  -a, --parent-id=ID         New parent task ID\n");
             stdout.printf ("  -P, --priority=1-4         Priority: 1=high, 2=medium, 3=low, 4=none\n");
             stdout.printf ("  -D, --due=DATE             Due date in YYYY-MM-DD format\n");
+            stdout.printf ("  -l, --labels=LABELS        Comma-separated list of label names\n");
             stdout.printf ("  -h, --help                 Show this help message\n");
         }
     }

@@ -45,7 +45,14 @@ namespace PlanifyCLI {
                 { "parent-id", (builder) => builder.add_string_value (item.parent_id) },
                 { "added-at", (builder) => builder.add_string_value (item.added_at) },
                 { "completed-at", (builder) => builder.add_string_value (item.completed_at) },
-                { "updated-at", (builder) => builder.add_string_value (item.updated_at) }
+                { "updated-at", (builder) => builder.add_string_value (item.updated_at) },
+                { "labels", (builder) => {
+                    builder.begin_array ();
+                    foreach (var label in item.labels) {
+                        builder.add_string_value (label.name);
+                    }
+                    builder.end_array ();
+                }}
             };
         }
 

@@ -142,6 +142,29 @@ namespace PlanifyCLI {
             item.parent_id = args.parent_id.strip ();
         }
 
+        // Update labels if provided
+        if (args.labels != null) {
+            var new_labels = new Gee.HashMap<string, Objects.Label> ();
+            string[] label_names = args.labels.split (",");
+            foreach (string label_name in label_names) {
+                string trimmed = label_name.strip ();
+                if (trimmed != "") {
+                    Objects.Label? label = Services.Store.instance ().get_label_by_name (trimmed, true, item.project.source_id);
+                    if (label == null) {
+                        // Create new label if it doesn't exist
+                        label = new Objects.Label ();
+                        label.id = Util.get_default ().generate_id (label);
+                        label.name = trimmed;
+                        label.color = Util.get_default ().get_random_color ();
+                        label.source_id = item.project.source_id;
+                        Services.Store.instance ().insert_label (label);
+                    }
+                    new_labels[label.id] = label;
+                }
+            }
+            item.check_labels (new_labels);
+        }
+
         // Save changes
         if (project_changed) {
             Services.Store.instance ().move_item (item, old_project_id, old_section_id, old_parent_id);
@@ -212,6 +235,27 @@ namespace PlanifyCLI {
             target_project,
             args.parent_id
         );
+
+        // Add labels if provided
+        if (args.labels != null && args.labels.strip () != "") {
+            string[] label_names = args.labels.split (",");
+            foreach (string label_name in label_names) {
+                string trimmed = label_name.strip ();
+                if (trimmed != "") {
+                    Objects.Label? label = Services.Store.instance ().get_label_by_name (trimmed, true, target_project.source_id);
+                    if (label == null) {
+                        // Create new label if it doesn't exist
+                        label = new Objects.Label ();
+                        label.id = Util.get_default ().generate_id (label);
+                        label.name = trimmed;
+                        label.color = Util.get_default ().get_random_color ();
+                        label.source_id = target_project.source_id;
+                        Services.Store.instance ().insert_label (label);
+                    }
+                    item.labels.add (label);
+                }
+            }
+        }
 
         // Save and notify
         TaskCreator.save_and_notify (item);
