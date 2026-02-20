@@ -69,7 +69,7 @@ def main():
     subprocess.run([
         'xgettext', '--files-from=po/POTFILES', '--directory=.',
         '--output=po/io.github.alainm23.planify.pot',
-        '--from-code=UTF-8', '--keyword=_', '--keyword=N_',
+        '--from-code=UTF-8', '--keyword=_', '--keyword=N_', '--keyword=C_:1c,2'
         '--package-name=io.github.alainm23.planify'
     ], check=True)
     
