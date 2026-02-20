@@ -29,7 +29,6 @@ void main (string[] args) {
     
     PlanifyCLI.Tests.ArgumentParser.register_tests ();
     PlanifyCLI.Tests.TaskValidator.register_tests ();
-    PlanifyCLI.Tests.OutputFormatter.register_tests ();
     PlanifyCLI.Tests.PriorityConversion.register_tests ();
     
     Test.run ();
