@@ -72,6 +72,13 @@ namespace PlanifyCLI {
         public static ParsedCommand? parse (string[] args, out int exit_code) {
             exit_code = 0;
 
+            // Check for top-level help
+            if (args.length >= 2 && (args[1] == "-h" || args[1] == "--help")) {
+                print_general_help (args[0]);
+                exit_code = 0;
+                return null;
+            }
+
             // Check for command
             if (args.length < 2) {
                 stderr.printf ("Error: No command specified\n");
@@ -226,9 +233,9 @@ namespace PlanifyCLI {
                         if (i + 1 < args.length) {
                             string value = args[++i].down ();
                             if (value == "true") {
-                        update_args.checked = 1;
+                                update_args.checked = 1;
                             } else if (value == "false") {
-                        update_args.checked = 0;
+                                update_args.checked = 0;
                             } else {
                                 stderr.printf ("Error: --complete requires 'true' or 'false'\n");
                                 exit_code = 1;
@@ -376,7 +383,7 @@ namespace PlanifyCLI {
                         return null;
                     }
                 } else if (arg == "-h" || arg == "--help") {
-                    print_help (args[0]);
+                    print_add_help (args[0]);
                     exit_code = 0;
                     return null;
                 } else {
@@ -397,14 +404,24 @@ namespace PlanifyCLI {
             }
         }
 
-        private static void print_help (string program_name) {
+        private static void print_general_help (string program_name) {
             stdout.printf ("Usage: %s <command> [OPTIONS]\n\n", program_name);
             stdout.printf ("Commands:\n");
             stdout.printf ("  add              Add a new task\n");
-            stdout.printf ("  list             List tasks from a project (JSON output)\n");
+            stdout.printf ("  list             List tasks from a project\n");
             stdout.printf ("  update           Update an existing task\n");
-            stdout.printf ("  list-projects    List all projects (JSON output)\n\n");
-            stdout.printf ("Add command options:\n");
+            stdout.printf ("  list-projects    List all projects\n\n");
+            stdout.printf ("Run '%s <command> --help' for command-specific options\n\n", program_name);
+            stdout.printf ("Examples:\n");
+            stdout.printf ("  %s add --help\n", program_name);
+            stdout.printf ("  %s list --help\n", program_name);
+            stdout.printf ("  %s update --help\n", program_name);
+        }
+
+        private static void print_add_help (string program_name) {
+            stdout.printf ("Usage: %s add [OPTIONS]\n\n", program_name);
+            stdout.printf ("Add a new task to Planify\n\n");
+            stdout.printf ("Options:\n");
             stdout.printf ("  -c, --content=CONTENT      Task content (required)\n");
             stdout.printf ("  -d, --description=DESC     Task description\n");
             stdout.printf ("  -p, --project=PROJECT      Project name (defaults to inbox)\n");
@@ -416,29 +433,12 @@ namespace PlanifyCLI {
             stdout.printf ("  -D, --due=DATE             Due date in YYYY-MM-DD format\n");
             stdout.printf ("  -l, --labels=LABELS        Comma-separated list of label names\n");
             stdout.printf ("  --pin=true|false           Pin or unpin the task\n");
-            stdout.printf ("  -h, --help                 Show this help message\n\n");
-            stdout.printf ("List command options:\n");
-            stdout.printf ("  -p, --project=PROJECT      Project name (defaults to inbox)\n");
-            stdout.printf ("  -i, --project-id=ID        Project ID (preferred over name)\n");
-            stdout.printf ("  -h, --help                 Show this help message\n\n");
-            stdout.printf ("Update command options:\n");
-            stdout.printf ("  -t, --task-id=ID           Task ID to update (required)\n");
-            stdout.printf ("  -c, --content=CONTENT      New task content\n");
-            stdout.printf ("  -d, --description=DESC     New task description\n");
-            stdout.printf ("  -p, --project=PROJECT      Move to project by name\n");
-            stdout.printf ("  -i, --project-id=ID        Move to project by ID (preferred over name)\n");
-            stdout.printf ("  -s, --section=SECTION      Move to section by name\n");
-            stdout.printf ("  -S, --section-id=ID        Move to section by ID (preferred over name)\n");
-            stdout.printf ("  -a, --parent-id=ID         New parent task ID\n");
-            stdout.printf ("  -P, --priority=1-4         Priority: 1=high, 2=medium, 3=low, 4=none\n");
-            stdout.printf ("  -D, --due=DATE             Due date in YYYY-MM-DD format\n");
-            stdout.printf ("  -l, --labels=LABELS        Comma-separated list of label names\n");
             stdout.printf ("  -h, --help                 Show this help message\n");
         }
 
         private static void print_list_help (string program_name) {
             stdout.printf ("Usage: %s list [OPTIONS]\n\n", program_name);
-            stdout.printf ("List tasks from a project (JSON output)\n\n");
+            stdout.printf ("List tasks from a project\n\n");
             stdout.printf ("Options:\n");
             stdout.printf ("  -p, --project=PROJECT      Project name (defaults to inbox)\n");
             stdout.printf ("  -i, --project-id=ID        Project ID (preferred over name)\n");
