@@ -92,315 +92,213 @@ namespace PlanifyCLI {
             string command = args[1];
             var parsed = new ParsedCommand ();
 
-            if (command == "list-projects") {
-                parsed.command_type = CommandType.LIST_PROJECTS;
-                return parsed;
-            } else if (command == "list") {
-                parsed.command_type = CommandType.LIST;
-                var list_args = new ListArguments ();
-
-                // Parse options starting from index 2
-                for (int i = 2; i < args.length; i++) {
-                    string arg = args[i];
-                    
-                    if (arg == "-p" || arg == "--project") {
-                        if (i + 1 < args.length) {
-                            list_args.project_name = args[++i];
-                        } else {
-                            stderr.printf ("Error: %s requires an argument\n", arg);
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "-i" || arg == "--project-id") {
-                        if (i + 1 < args.length) {
-                            list_args.project_id = args[++i];
-                        } else {
-                            stderr.printf ("Error: %s requires an argument\n", arg);
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "-h" || arg == "--help") {
-                        print_list_help (args[0]);
-                        exit_code = 0;
-                        return null;
-                    } else {
-                        stderr.printf ("Error: Unknown option '%s'\n", arg);
-                        stderr.printf ("Run '%s list --help' for usage information\n", args[0]);
-                        exit_code = 1;
-                        return null;
-                    }
-                }
-
-                parsed.list_args = list_args;
-                return parsed;
-            } else if (command == "update") {
-                parsed.command_type = CommandType.UPDATE;
-                var update_args = new UpdateArguments ();
-
-                // Parse options starting from index 2
-                for (int i = 2; i < args.length; i++) {
-                    string arg = args[i];
-                    
-                    if (arg == "-t" || arg == "--task-id") {
-                        if (i + 1 < args.length) {
-                            update_args.task_id = args[++i];
-                        } else {
-                            stderr.printf ("Error: %s requires an argument\n", arg);
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "-c" || arg == "--content") {
-                        if (i + 1 < args.length) {
-                            update_args.content = args[++i];
-                        } else {
-                            stderr.printf ("Error: %s requires an argument\n", arg);
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "-d" || arg == "--description") {
-                        if (i + 1 < args.length) {
-                            update_args.description = args[++i];
-                        } else {
-                            stderr.printf ("Error: %s requires an argument\n", arg);
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "-p" || arg == "--project") {
-                        if (i + 1 < args.length) {
-                            update_args.project_name = args[++i];
-                        } else {
-                            stderr.printf ("Error: %s requires an argument\n", arg);
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "-i" || arg == "--project-id") {
-                        if (i + 1 < args.length) {
-                            update_args.project_id = args[++i];
-                        } else {
-                            stderr.printf ("Error: %s requires an argument\n", arg);
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "-s" || arg == "--section") {
-                        if (i + 1 < args.length) {
-                            update_args.section_name = args[++i];
-                        } else {
-                            stderr.printf ("Error: %s requires an argument\n", arg);
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "-S" || arg == "--section-id") {
-                        if (i + 1 < args.length) {
-                            update_args.section_id = args[++i];
-                        } else {
-                            stderr.printf ("Error: %s requires an argument\n", arg);
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "-a" || arg == "--parent-id") {
-                        if (i + 1 < args.length) {
-                            update_args.parent_id = args[++i];
-                        } else {
-                            stderr.printf ("Error: %s requires an argument\n", arg);
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "-P" || arg == "--priority") {
-                        if (i + 1 < args.length) {
-                            update_args.priority = int.parse (args[++i]);
-                        } else {
-                            stderr.printf ("Error: %s requires an argument\n", arg);
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "-D" || arg == "--due") {
-                        if (i + 1 < args.length) {
-                            update_args.due_date = args[++i];
-                        } else {
-                            stderr.printf ("Error: %s requires an argument\n", arg);
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "-l" || arg == "--labels") {
-                        if (i + 1 < args.length) {
-                            update_args.labels = args[++i];
-                        } else {
-                            stderr.printf ("Error: %s requires an argument\n", arg);
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "--complete") {
-                        if (i + 1 < args.length) {
-                            string value = args[++i].down ();
-                            if (value == "true") {
-                                update_args.checked = 1;
-                            } else if (value == "false") {
-                                update_args.checked = 0;
-                            } else {
-                                stderr.printf ("Error: --complete requires 'true' or 'false'\n");
-                                exit_code = 1;
-                                return null;
-                            }
-                        } else {
-                            stderr.printf ("Error: --complete requires an argument (true or false)\n");
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "--pin") {
-                        if (i + 1 < args.length) {
-                            string value = args[++i].down ();
-                            if (value == "true") {
-                                update_args.pinned = 1;
-                            } else if (value == "false") {
-                                update_args.pinned = 0;
-                            } else {
-                                stderr.printf ("Error: --pin requires 'true' or 'false'\n");
-                                exit_code = 1;
-                                return null;
-                            }
-                        } else {
-                            stderr.printf ("Error: --pin requires an argument (true or false)\n");
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else if (arg == "-h" || arg == "--help") {
-                        print_update_help (args[0]);
-                        exit_code = 0;
-                        return null;
-                    } else {
-                        stderr.printf ("Error: Unknown option '%s'\n", arg);
-                        stderr.printf ("Run '%s update --help' for usage information\n", args[0]);
-                        exit_code = 1;
-                        return null;
-                    }
-                }
-
-                parsed.update_args = update_args;
-                return parsed;
-            } else if (command == "add") {
-                parsed.command_type = CommandType.ADD;
-                var task_args = new TaskArguments ();
-
-            // Parse options starting from index 2
+            string[] command_args = new string[args.length - 1];
+            command_args[0] = args[0] + " " + command;
             for (int i = 2; i < args.length; i++) {
-                string arg = args[i];
-                
-                if (arg == "-c" || arg == "--content") {
-                    if (i + 1 < args.length) {
-                        task_args.content = args[++i];
-                    } else {
-                        stderr.printf ("Error: %s requires an argument\n", arg);
-                        exit_code = 1;
-                        return null;
-                    }
-                } else if (arg == "-d" || arg == "--description") {
-                    if (i + 1 < args.length) {
-                        task_args.description = args[++i];
-                    } else {
-                        stderr.printf ("Error: %s requires an argument\n", arg);
-                        exit_code = 1;
-                        return null;
-                    }
-                } else if (arg == "-p" || arg == "--project") {
-                    if (i + 1 < args.length) {
-                        task_args.project_name = args[++i];
-                    } else {
-                        stderr.printf ("Error: %s requires an argument\n", arg);
-                        exit_code = 1;
-                        return null;
-                    }
-                } else if (arg == "-i" || arg == "--project-id") {
-                    if (i + 1 < args.length) {
-                        task_args.project_id = args[++i];
-                    } else {
-                        stderr.printf ("Error: %s requires an argument\n", arg);
-                        exit_code = 1;
-                        return null;
-                    }
-                } else if (arg == "-s" || arg == "--section") {
-                    if (i + 1 < args.length) {
-                        task_args.section_name = args[++i];
-                    } else {
-                        stderr.printf ("Error: %s requires an argument\n", arg);
-                        exit_code = 1;
-                        return null;
-                    }
-                } else if (arg == "-S" || arg == "--section-id") {
-                    if (i + 1 < args.length) {
-                        task_args.section_id = args[++i];
-                    } else {
-                        stderr.printf ("Error: %s requires an argument\n", arg);
-                        exit_code = 1;
-                        return null;
-                    }
-                } else if (arg == "-a" || arg == "--parent-id") {
-                    if (i + 1 < args.length) {
-                        task_args.parent_id = args[++i];
-                    } else {
-                        stderr.printf ("Error: %s requires an argument\n", arg);
-                        exit_code = 1;
-                        return null;
-                    }
-                } else if (arg == "-P" || arg == "--priority") {
-                    if (i + 1 < args.length) {
-                        task_args.priority = int.parse (args[++i]);
-                    } else {
-                        stderr.printf ("Error: %s requires an argument\n", arg);
-                        exit_code = 1;
-                        return null;
-                    }
-                } else if (arg == "-D" || arg == "--due") {
-                    if (i + 1 < args.length) {
-                        task_args.due_date = args[++i];
-                    } else {
-                        stderr.printf ("Error: %s requires an argument\n", arg);
-                        exit_code = 1;
-                        return null;
-                    }
-                } else if (arg == "-l" || arg == "--labels") {
-                    if (i + 1 < args.length) {
-                        task_args.labels = args[++i];
-                    } else {
-                        stderr.printf ("Error: %s requires an argument\n", arg);
-                        exit_code = 1;
-                        return null;
-                    }
-                } else if (arg == "--pin") {
-                    if (i + 1 < args.length) {
-                        string value = args[++i].down ();
-                        if (value == "true") {
-                            task_args.pinned = 1;
-                        } else if (value == "false") {
-                            task_args.pinned = 0;
-                        } else {
-                            stderr.printf ("Error: --pin requires 'true' or 'false'\n");
-                            exit_code = 1;
-                            return null;
-                        }
-                    } else {
-                        stderr.printf ("Error: --pin requires an argument (true or false)\n");
-                        exit_code = 1;
-                        return null;
-                    }
-                } else if (arg == "-h" || arg == "--help") {
-                    print_add_help (args[0]);
-                    exit_code = 0;
-                    return null;
-                } else {
-                    stderr.printf ("Error: Unknown option '%s'\n", arg);
-                    stderr.printf ("Run '%s add --help' for usage information\n", args[0]);
-                    exit_code = 1;
-                    return null;
-                }
+                command_args[i - 1] = args[i];
             }
 
-                parsed.task_args = task_args;
-                return parsed;
-            } else {
-                stderr.printf ("Error: Unknown command '%s'\n", command);
-                stderr.printf ("Available commands: add, list, update, list-projects\n");
+            try {
+                switch (command) {
+                    case "list-projects":
+                        parsed.command_type = CommandType.LIST_PROJECTS;
+                        return parsed;
+
+                    case "list":
+                        parsed.command_type = CommandType.LIST;
+                        parsed.list_args = parse_list_command (command_args);
+                        return parsed;
+
+                    case "add":
+                        parsed.command_type = CommandType.ADD;
+                        parsed.task_args = parse_add_command (command_args);
+                        return parsed;
+
+                    case "update":
+                        parsed.command_type = CommandType.UPDATE;
+                        parsed.update_args = parse_update_command (command_args);
+                        return parsed;
+
+                    default:
+                        stderr.printf ("Error: Unknown command '%s'\n", command);
+                        stderr.printf ("Available commands: add, list, update, list-projects\n");
+                        exit_code = 1;
+                        return null;
+                }
+            } catch (OptionError e) {
+                stderr.printf ("Error: %s\n", e.message);
                 exit_code = 1;
                 return null;
+            }
+        }
+
+        private static ListArguments parse_list_command (string[] args) throws OptionError {
+            string? project_name = null;
+            string? project_id = null;
+
+            var options = new OptionEntry[3];
+            options[0] = { "project", 'p', 0, OptionArg.STRING, ref project_name,
+                          "Project name (defaults to inbox)", "PROJECT" };
+            options[1] = { "project-id", 'i', 0, OptionArg.STRING, ref project_id,
+                          "Project ID (preferred over name)", "ID" };
+            options[2] = { null };
+
+            var context = new OptionContext ("- List tasks from a project");
+            context.add_main_entries (options, null);
+            context.set_help_enabled (true);
+
+            unowned string[] tmp = args;
+            context.parse (ref tmp);
+
+            var list_args = new ListArguments ();
+            list_args.project_name = project_name;
+            list_args.project_id = project_id;
+
+            return list_args;
+        }
+
+        private static TaskArguments parse_add_command (string[] args) throws OptionError {
+            string? content = null;
+            string? description = null;
+            string? project_name = null;
+            string? project_id = null;
+            string? section_name = null;
+            string? section_id = null;
+            string? parent_id = null;
+            int priority = 4;
+            string? due_date = null;
+            string? labels = null;
+            string? pin_str = null;
+
+            var options = new OptionEntry[12];
+            options[0] = { "content", 'c', 0, OptionArg.STRING, ref content,
+                          "Task content (required)", "CONTENT" };
+            options[1] = { "description", 'd', 0, OptionArg.STRING, ref description,
+                          "Task description", "DESC" };
+            options[2] = { "project", 'p', 0, OptionArg.STRING, ref project_name,
+                          "Project name (defaults to inbox)", "PROJECT" };
+            options[3] = { "project-id", 'i', 0, OptionArg.STRING, ref project_id,
+                          "Project ID (preferred over name)", "ID" };
+            options[4] = { "section", 's', 0, OptionArg.STRING, ref section_name,
+                          "Section name", "SECTION" };
+            options[5] = { "section-id", 'S', 0, OptionArg.STRING, ref section_id,
+                          "Section ID (preferred over name)", "ID" };
+            options[6] = { "parent-id", 'a', 0, OptionArg.STRING, ref parent_id,
+                          "Parent task ID (creates a subtask)", "ID" };
+            options[7] = { "priority", 'P', 0, OptionArg.INT, ref priority,
+                          "Priority: 1=high, 2=medium, 3=low, 4=none (default: 4)", "1-4" };
+            options[8] = { "due", 'D', 0, OptionArg.STRING, ref due_date,
+                          "Due date in YYYY-MM-DD format", "DATE" };
+            options[9] = { "labels", 'l', 0, OptionArg.STRING, ref labels,
+                          "Comma-separated list of label names", "LABELS" };
+            options[10] = { "pin", 0, 0, OptionArg.STRING, ref pin_str,
+                           "Pin or unpin the task", "true|false" };
+            options[11] = { null };
+
+            var context = new OptionContext ("- Add a new task to Planify");
+            context.add_main_entries (options, null);
+            context.set_help_enabled (true);
+
+            unowned string[] tmp = args;
+            context.parse (ref tmp);
+
+            var task_args = new TaskArguments ();
+            task_args.content = content;
+            task_args.description = description;
+            task_args.project_name = project_name;
+            task_args.project_id = project_id;
+            task_args.section_name = section_name;
+            task_args.section_id = section_id;
+            task_args.parent_id = parent_id;
+            task_args.priority = priority;
+            task_args.due_date = due_date;
+            task_args.labels = labels;
+            task_args.pinned = parse_boolean_option (pin_str);
+
+            return task_args;
+        }
+
+        private static UpdateArguments parse_update_command (string[] args) throws OptionError {
+            string? task_id = null;
+            string? content = null;
+            string? description = null;
+            string? project_name = null;
+            string? project_id = null;
+            string? section_name = null;
+            string? section_id = null;
+            string? parent_id = null;
+            int priority = -1;
+            string? due_date = null;
+            string? labels = null;
+            string? complete_str = null;
+            string? pin_str = null;
+
+            var options = new OptionEntry[14];
+            options[0] = { "task-id", 't', 0, OptionArg.STRING, ref task_id,
+                          "Task ID to update (required)", "ID" };
+            options[1] = { "content", 'c', 0, OptionArg.STRING, ref content,
+                          "New task content", "CONTENT" };
+            options[2] = { "description", 'd', 0, OptionArg.STRING, ref description,
+                          "New task description", "DESC" };
+            options[3] = { "project", 'p', 0, OptionArg.STRING, ref project_name,
+                          "Move to project by name", "PROJECT" };
+            options[4] = { "project-id", 'i', 0, OptionArg.STRING, ref project_id,
+                          "Move to project by ID (preferred over name)", "ID" };
+            options[5] = { "section", 's', 0, OptionArg.STRING, ref section_name,
+                          "Section name", "SECTION" };
+            options[6] = { "section-id", 'S', 0, OptionArg.STRING, ref section_id,
+                          "Section ID (preferred over name)", "ID" };
+            options[7] = { "parent-id", 'a', 0, OptionArg.STRING, ref parent_id,
+                          "New parent task ID", "ID" };
+            options[8] = { "priority", 'P', 0, OptionArg.INT, ref priority,
+                          "Priority: 1=high, 2=medium, 3=low, 4=none", "1-4" };
+            options[9] = { "due", 'D', 0, OptionArg.STRING, ref due_date,
+                          "Due date in YYYY-MM-DD format", "DATE" };
+            options[10] = { "labels", 'l', 0, OptionArg.STRING, ref labels,
+                           "Comma-separated list of label names", "LABELS" };
+            options[11] = { "complete", 0, 0, OptionArg.STRING, ref complete_str,
+                           "Mark task as complete or incomplete", "true|false" };
+            options[12] = { "pin", 0, 0, OptionArg.STRING, ref pin_str,
+                           "Pin or unpin the task", "true|false" };
+            options[13] = { null };
+
+            var context = new OptionContext ("- Update an existing task. Only provided fields will be changed.");
+            context.add_main_entries (options, null);
+            context.set_help_enabled (true);
+
+            unowned string[] tmp = args;
+            context.parse (ref tmp);
+
+            var update_args = new UpdateArguments ();
+            update_args.task_id = task_id;
+            update_args.content = content;
+            update_args.description = description;
+            update_args.project_name = project_name;
+            update_args.project_id = project_id;
+            update_args.section_name = section_name;
+            update_args.section_id = section_id;
+            update_args.parent_id = parent_id;
+            update_args.priority = priority;
+            update_args.due_date = due_date;
+            update_args.labels = labels;
+            update_args.checked = parse_boolean_option (complete_str);
+            update_args.pinned = parse_boolean_option (pin_str);
+
+            return update_args;
+        }
+
+        private static int parse_boolean_option (string? value) throws OptionError {
+            if (value == null) {
+                return -1;
+            }
+
+            string lower_value = value.down ();
+            if (lower_value == "true") {
+                return 1;
+            } else if (lower_value == "false") {
+                return 0;
+            } else {
+                throw new OptionError.BAD_VALUE ("Boolean option requires 'true' or 'false'");
             }
         }
 
@@ -416,51 +314,6 @@ namespace PlanifyCLI {
             stdout.printf ("  %s add --help\n", program_name);
             stdout.printf ("  %s list --help\n", program_name);
             stdout.printf ("  %s update --help\n", program_name);
-        }
-
-        private static void print_add_help (string program_name) {
-            stdout.printf ("Usage: %s add [OPTIONS]\n\n", program_name);
-            stdout.printf ("Add a new task to Planify\n\n");
-            stdout.printf ("Options:\n");
-            stdout.printf ("  -c, --content=CONTENT      Task content (required)\n");
-            stdout.printf ("  -d, --description=DESC     Task description\n");
-            stdout.printf ("  -p, --project=PROJECT      Project name (defaults to inbox)\n");
-            stdout.printf ("  -i, --project-id=ID        Project ID (preferred over name)\n");
-            stdout.printf ("  -s, --section=SECTION      Section name\n");
-            stdout.printf ("  -S, --section-id=ID        Section ID (preferred over name)\n");
-            stdout.printf ("  -a, --parent-id=ID         Parent task ID (creates a subtask)\n");
-            stdout.printf ("  -P, --priority=1-4         Priority: 1=high, 2=medium, 3=low, 4=none (default: 4)\n");
-            stdout.printf ("  -D, --due=DATE             Due date in YYYY-MM-DD format\n");
-            stdout.printf ("  -l, --labels=LABELS        Comma-separated list of label names\n");
-            stdout.printf ("  --pin=true|false           Pin or unpin the task\n");
-            stdout.printf ("  -h, --help                 Show this help message\n");
-        }
-
-        private static void print_list_help (string program_name) {
-            stdout.printf ("Usage: %s list [OPTIONS]\n\n", program_name);
-            stdout.printf ("List tasks from a project\n\n");
-            stdout.printf ("Options:\n");
-            stdout.printf ("  -p, --project=PROJECT      Project name (defaults to inbox)\n");
-            stdout.printf ("  -i, --project-id=ID        Project ID (preferred over name)\n");
-            stdout.printf ("  -h, --help                 Show this help message\n");
-        }
-
-        private static void print_update_help (string program_name) {
-            stdout.printf ("Usage: %s update [OPTIONS]\n\n", program_name);
-            stdout.printf ("Update an existing task. Only provided fields will be changed.\n\n");
-            stdout.printf ("Options:\n");
-            stdout.printf ("  -t, --task-id=ID           Task ID to update (required)\n");
-            stdout.printf ("  -c, --content=CONTENT      New task content\n");
-            stdout.printf ("  -d, --description=DESC     New task description\n");
-            stdout.printf ("  -p, --project=PROJECT      Move to project by name\n");
-            stdout.printf ("  -i, --project-id=ID        Move to project by ID (preferred over name)\n");
-            stdout.printf ("  -a, --parent-id=ID         New parent task ID\n");
-            stdout.printf ("  -P, --priority=1-4         Priority: 1=high, 2=medium, 3=low, 4=none\n");
-            stdout.printf ("  -D, --due=DATE             Due date in YYYY-MM-DD format\n");
-            stdout.printf ("  -l, --labels=LABELS        Comma-separated list of label names\n");
-            stdout.printf ("  --complete=true|false      Mark task as complete or incomplete\n");
-            stdout.printf ("  --pin=true|false           Pin or unpin the task\n");
-            stdout.printf ("  -h, --help                 Show this help message\n");
         }
     }
 }
