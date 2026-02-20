@@ -223,9 +223,22 @@ namespace PlanifyCLI {
                             return null;
                         }
                     } else if (arg == "--complete") {
+                        if (i + 1 < args.length) {
+                            string value = args[++i].down ();
+                            if (value == "true") {
                         update_args.checked = 1;
-                    } else if (arg == "--uncomplete") {
+                            } else if (value == "false") {
                         update_args.checked = 0;
+                            } else {
+                                stderr.printf ("Error: --complete requires 'true' or 'false'\n");
+                                exit_code = 1;
+                                return null;
+                            }
+                        } else {
+                            stderr.printf ("Error: --complete requires an argument (true or false)\n");
+                            exit_code = 1;
+                            return null;
+                        }
                     } else if (arg == "--pin") {
                         if (i + 1 < args.length) {
                             string value = args[++i].down ();
@@ -445,8 +458,7 @@ namespace PlanifyCLI {
             stdout.printf ("  -P, --priority=1-4         Priority: 1=high, 2=medium, 3=low, 4=none\n");
             stdout.printf ("  -D, --due=DATE             Due date in YYYY-MM-DD format\n");
             stdout.printf ("  -l, --labels=LABELS        Comma-separated list of label names\n");
-            stdout.printf ("  --complete                 Mark task as complete\n");
-            stdout.printf ("  --uncomplete               Mark task as incomplete\n");
+            stdout.printf ("  --complete=true|false      Mark task as complete or incomplete\n");
             stdout.printf ("  --pin=true|false           Pin or unpin the task\n");
             stdout.printf ("  -h, --help                 Show this help message\n");
         }

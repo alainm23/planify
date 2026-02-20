@@ -161,23 +161,23 @@ namespace PlanifyCLI.Tests.ArgumentParser {
         print ("Testing: 'update' command with completion flags\n");
         int exit_code;
         
-        // Test --complete
-        string[] args_complete = {"planify-cli", "update", "-t", "task-123", "--complete"};
+        // Test --complete=true
+        string[] args_complete = {"planify-cli", "update", "-t", "task-123", "--complete", "true"};
         var parsed = PlanifyCLI.ArgumentParser.parse (args_complete, out exit_code);
         
         assert (parsed != null);
         assert (exit_code == 0);
         assert (parsed.update_args.checked == 1);
-        print ("  ✓ Parses --complete flag\n");
+        print ("  ✓ Parses --complete=true\n");
         
-        // Test --uncomplete
-        string[] args_uncomplete = {"planify-cli", "update", "-t", "task-123", "--uncomplete"};
+        // Test --complete=false
+        string[] args_uncomplete = {"planify-cli", "update", "-t", "task-123", "--complete", "false"};
         parsed = PlanifyCLI.ArgumentParser.parse (args_uncomplete, out exit_code);
         
         assert (parsed != null);
         assert (exit_code == 0);
         assert (parsed.update_args.checked == 0);
-        print ("  ✓ Parses --uncomplete flag\n---\n");
+        print ("  ✓ Parses --complete=false\n---\n");
     }
 
     void test_missing_required_arg () {
@@ -204,6 +204,18 @@ namespace PlanifyCLI.Tests.ArgumentParser {
         print ("  ✓ Returns error for invalid pin value\n---\n");
     }
 
+    void test_invalid_complete_value () {
+        print ("Testing: Invalid --complete value\n");
+        int exit_code;
+        string[] args = {"planify-cli", "update", "-t", "task-123", "--complete", "invalid"};
+        
+        var parsed = PlanifyCLI.ArgumentParser.parse (args, out exit_code);
+        
+        assert (parsed == null);
+        assert (exit_code == 1);
+        print ("  ✓ Returns error for invalid complete value\n---\n");
+    }
+
     void test_unknown_option () {
         print ("Testing: Unknown option\n");
         int exit_code;
@@ -228,6 +240,7 @@ namespace PlanifyCLI.Tests.ArgumentParser {
         Test.add_func ("/cli/argument_parser/update_completion", test_update_completion);
         Test.add_func ("/cli/argument_parser/missing_required_arg", test_missing_required_arg);
         Test.add_func ("/cli/argument_parser/invalid_pin_value", test_invalid_pin_value);
+        Test.add_func ("/cli/argument_parser/invalid_complete_value", test_invalid_complete_value);
         Test.add_func ("/cli/argument_parser/unknown_option", test_unknown_option);
     }
 }
