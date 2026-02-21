@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
 "PO-Revision-Date: 2026-02-22 16:09+0000\n"
-"Last-Translator: Daniel Wiik <d.wiik@outlook.com>\n"
+"Last-Translator: erikburk <erik.bjork13@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/planner/planify-"
 "extra/sv/>\n"
 "Language: sv\n"
@@ -46,6 +46,7 @@ msgstr "Modernt och rent gränssnitt utformat med GTK4 och libadwaita"
 #: data/io.github.alainm23.planify.appdata.xml.in.in:17
 msgid "Drag and drop to organize tasks and projects effortlessly"
 msgstr ""
+"Dra och släpp för att organisera uppgifter och projekt utan ansträngning"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:18
 msgid "Visual progress indicators for each project"
