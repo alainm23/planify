@@ -3,9 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-02-16 15:09+0000\n"
-"Last-Translator: Hosted Weblate user 141188 "
-"<relay3477@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-02-21 15:09+0000\n"
+"Last-Translator: numerfolt <numerfolt@posteo.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/de/>\n"
 "Language: de\n"
@@ -13,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -124,7 +123,7 @@ msgstr "Abschnitt"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "Zuweisung"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -999,6 +998,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
+"Erhalte Benachrichtigungen zu wichtigen Aufgaben oder Ereignissen. Klicke "
+"den Uhr-Knopf unten, um eine Erinnerung hinzuzufügen."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1196,7 +1197,7 @@ msgstr "Nächste Woche"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:559
 msgid "Daily"
@@ -1228,7 +1229,7 @@ msgstr "Benutzerdefiniert"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:855
 msgid "No date"
-msgstr ""
+msgstr "Kein Datum"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
@@ -1716,11 +1717,11 @@ msgstr "SSL-Überprüfung ist deaktiviert"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
 msgid "Account migration required"
-msgstr ""
+msgstr "Kontoübertragung erforderlich"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Reconnect"
-msgstr ""
+msgstr "Erneut verbinden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
@@ -1832,13 +1833,15 @@ msgstr "Quelle löschen?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "Kann diese Quelle nicht löschen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Diese Quelle enthält dein aktuelles Posteingangsprojekt. Bitte ändere erst "
+"dein Posteingangsprojekt."
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
@@ -2254,11 +2257,13 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:103
 msgid "Keep Task Properties"
-msgstr ""
+msgstr "Aufgabeneigenschaften beibehalten"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
 msgstr ""
+"Behält Datum, Labels und Status des Anheftens bei, wenn \"Weitere "
+"hinzufügen\" aktiviert ist"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:133
 msgid "The command was copied to the clipboard"
@@ -2816,8 +2821,9 @@ msgstr ""
 "Kein Projekt vorhanden. Erstelle eins, indem du auf den \"+\" Knopf klickst"
 
 #: src/Layouts/SidebarSourceRow.vala:78
+#, fuzzy
 msgid "Account Migration Required"
-msgstr ""
+msgstr "Kontoübertragung erforderlich"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -2936,7 +2942,7 @@ msgstr "Tolle Arbeit, nichts mehr zu tun 🎉"
 
 #: src/Views/Filter.vala:361
 msgid "tasks"
-msgstr ""
+msgstr "Aufgaben"
 
 #: src/Views/Filter.vala:622
 msgid "Delete Completed Task"
@@ -3107,7 +3113,7 @@ msgstr "Neu planen"
 
 #: src/Views/Today.vala:761
 msgid "Me"
-msgstr ""
+msgstr "Ich"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
@@ -3170,7 +3176,7 @@ msgstr "Fehler melden"
 
 #: src/Widgets/ErrorView.vala:142
 msgid "Account migration required."
-msgstr ""
+msgstr "Kontoübertragung erforderlich."
 
 #: src/Widgets/EventRow.vala:242
 #, c-format
