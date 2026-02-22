@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
 "PO-Revision-Date: 2026-02-22 16:09+0000\n"
-"Last-Translator: Semen Fomchenkov <S.fomchenkov@yandex.ru>\n"
+"Last-Translator: David Sanford <real.refbatch@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/ru/>\n"
 "Language: ru\n"
@@ -2028,7 +2028,7 @@ msgstr "Восстановить резервную копию"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:45
 #: src/Dialogs/Preferences/PreferencesWindow.vala:217
 msgid "Donate"
-msgstr "Сделать пожертвование"
+msgstr "Пожертвовать"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:53
 msgid "Support Planify Development"
@@ -2194,7 +2194,7 @@ msgstr "Начало недели"
 
 #: src/Dialogs/Preferences/Pages/General.vala:138
 msgid "Smart Date Recognition"
-msgstr "Умное распознавание дат"
+msgstr "Умное распознавание даты"
 
 #: src/Dialogs/Preferences/Pages/General.vala:139
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
@@ -3181,7 +3181,7 @@ msgstr "Организатор"
 
 #: src/Widgets/EventRow.vala:311
 msgid "URL"
-msgstr "URL"
+msgstr "Ссылка"
 
 #: src/Widgets/EventRow.vala:321
 msgid "Calendar"
