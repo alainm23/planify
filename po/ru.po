@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
 "PO-Revision-Date: 2026-02-22 16:09+0000\n"
-"Last-Translator: David Sanford <real.refbatch@gmail.com>\n"
+"Last-Translator: Semen Fomchenkov <S.fomchenkov@yandex.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/ru/>\n"
 "Language: ru\n"
@@ -543,7 +543,7 @@ msgstr "Источник уже существует"
 
 #: core/Services/CalDAV/Core.vala:173 core/Services/CalDAV/Core.vala:218
 msgid "Failed to resolve principal url"
-msgstr "Не удалось разрешить основной URL-адрес"
+msgstr "Не удалось разрешить основной адрес"
 
 #: core/Services/CalDAV/Core.vala:228
 msgid "Starting sync…"
@@ -1632,8 +1632,8 @@ msgstr ""
 #, c-format
 msgid "Load more history from %d week ago…"
 msgid_plural "Load more history from %d weeks ago…"
-msgstr[0] "Загрузить журнал за %d-недель назад…"
-msgstr[1] "Загрузить журнал за %d-недель назад…"
+msgstr[0] "Загрузить журнал за %d-неделю назад…"
+msgstr[1] "Загрузить журнал за %d-недели (-ль) назад…"
 
 #: src/Dialogs/Label.vala:45
 msgid "New Label"
