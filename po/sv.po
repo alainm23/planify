@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2025-12-16 10:19+0000\n"
-"Last-Translator: Robert Svensk <robertsvensk@yandex.com>\n"
+"PO-Revision-Date: 2026-02-22 16:09+0000\n"
+"Last-Translator: Daniel Wiik <d.wiik@outlook.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/sv/>\n"
 "Language: sv\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1-dev\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -47,46 +47,46 @@ msgid "Don't Repeat"
 msgstr "Upprepa ej"
 
 #: core/Enum.vala:216
-#, fuzzy, c-format
+#, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
 msgstr[0] "Varje minut"
-msgstr[1] "Varje minut"
+msgstr[1] "Var %d minut"
 
 #: core/Enum.vala:218
-#, fuzzy, c-format
+#, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
 msgstr[0] "Varje timme"
-msgstr[1] "Varje timme"
+msgstr[1] "Var %d timme"
 
 #: core/Enum.vala:220
-#, fuzzy, c-format
+#, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
 msgstr[0] "Varje dag"
-msgstr[1] "Varje dag"
+msgstr[1] "Var %d dag"
 
 #: core/Enum.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
 msgstr[0] "Varje vecka"
-msgstr[1] "Varje vecka"
+msgstr[1] "Var %d vecka"
 
 #: core/Enum.vala:224
-#, fuzzy, c-format
+#, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
 msgstr[0] "Varje månad"
-msgstr[1] "Varje månad"
+msgstr[1] "Var %d månad"
 
 #: core/Enum.vala:226
-#, fuzzy, c-format
+#, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
 msgstr[0] "Varje år"
-msgstr[1] "Varje år"
+msgstr[1] "Var %d år"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -123,7 +123,7 @@ msgstr "Avsnitt"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "Uppgift"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -317,11 +317,11 @@ msgstr "Uppgift kopierad till anslagstavla"
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] "Uppgift flyttad till %s"
-msgstr[1] "Uppgift flyttad till %s"
+msgstr[1] "%d uppgifter flyttade till %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
@@ -401,7 +401,7 @@ msgstr "Ta bort Sektion %s"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:37
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:46
 msgid "Todoist"
-msgstr "Att göra"
+msgstr "Todoist"
 
 #: core/QuickAddCore.vala:148
 msgid "Task added successfully!"
@@ -525,12 +525,12 @@ msgstr "Laddar uppdrag för %s…"
 #: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Laddade uppgifter för %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Synkronisera uppgift %d av %d"
 
 #: core/Services/CalDAV/Core.vala:162
 msgid "Source already exists"
@@ -562,6 +562,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"Todoist har uppdaterat sitt API. Återanslut ditt konto i Inställningar för "
+"att fortsätta synkronisera."
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -3086,7 +3088,7 @@ msgstr ""
 
 #: src/Widgets/EventRow.vala:311
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/Widgets/EventRow.vala:321
 msgid "Calendar"
