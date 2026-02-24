@@ -4,6 +4,8 @@ project(
   version: '4.18.0'
 )
 
+cc = meson.get_compiler('c')
+
 gnome = import('gnome')
 i18n = import('i18n')
 pkgconfig = import('pkgconfig')
@@ -101,6 +103,17 @@ libexecdir = prefix / get_option('libexecdir')
 grep = find_program('grep')
 total_strings_res = run_command(grep, '-c', 'msgid', meson.project_source_root() + '/po/io.github.alainm23.planify.pot', check : true)
 total_strings = total_strings_res.stdout().strip().to_int() - 1
+
+# _NL_TIME_FIRST_WEEKDAY is a glibc-ism
+nl_time_first_weekday_src = '''
+  #include <langinfo.h>
+  int main() {
+    nl_langinfo(_NL_TIME_FIRST_WEEKDAY);
+  };
+'''
+if cc.compiles(nl_time_first_weekday_src)
+    add_project_arguments('-D', 'HAVE__NL_TIME_FIRST_WEEKDAY', language: 'vala')
+endif
 
 conf_data = configuration_data()
 conf_data.set('TOTAL_STRINGS', total_strings)
