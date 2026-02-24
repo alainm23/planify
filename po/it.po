@@ -403,38 +403,38 @@ msgstr "Cancella Selezione %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:140
+#: core/QuickAddCore.vala:148
 msgid "Task added successfully!"
 msgstr "Task aggiunto con successo!"
 
-#: core/QuickAddCore.vala:156 src/Layouts/ItemRow.vala:401
+#: core/QuickAddCore.vala:164 src/Layouts/ItemRow.vala:401
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Nome to-do"
 
-#: core/QuickAddCore.vala:186
+#: core/QuickAddCore.vala:194
 msgid "This field is required"
 msgstr "Questo campo è obbligatorio"
 
-#: core/QuickAddCore.vala:210 src/Dialogs/Project.vala:136
+#: core/QuickAddCore.vala:218 src/Dialogs/Project.vala:136
 msgid "Add a description…"
 msgstr "Aggiungi una descrizione…"
 
-#: core/QuickAddCore.vala:251
+#: core/QuickAddCore.vala:259
 msgid "Set date"
 msgstr "Imposta data"
 
-#: core/QuickAddCore.vala:263 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:271 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Aggiungi etichetta"
 
-#: core/QuickAddCore.vala:268 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:276 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Imposta la Priorità"
 
-#: core/QuickAddCore.vala:273
+#: core/QuickAddCore.vala:281
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -443,20 +443,20 @@ msgstr "Imposta la Priorità"
 msgid "Add Reminders"
 msgstr "Aggiungi promemoria"
 
-#: core/QuickAddCore.vala:317 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:325 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:665 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Aggiungi Task"
 
-#: core/QuickAddCore.vala:323 core/QuickAddCore.vala:1432
+#: core/QuickAddCore.vala:331 core/QuickAddCore.vala:1444
 msgid "Keep adding"
 msgstr "Continua ad aggiungere"
 
-#: core/QuickAddCore.vala:340
+#: core/QuickAddCore.vala:348
 msgid "Select a Project"
 msgstr "Scegli un Progetto"
 
-#: core/QuickAddCore.vala:367
+#: core/QuickAddCore.vala:375
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -464,55 +464,55 @@ msgstr ""
 "Mi dispiace, Quick Add non riesce a trovare alcun progetto disponibile. "
 "Prova a creare un progetto da Planify."
 
-#: core/QuickAddCore.vala:1394 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
 msgid "Keyboard Shortcuts"
 msgstr "Scorciatoie da tastiera"
 
-#: core/QuickAddCore.vala:1400
+#: core/QuickAddCore.vala:1412
 msgid "Speed up task creation with these shortcuts"
 msgstr "Velocizza la creazione di task con queste scorciatoie"
 
-#: core/QuickAddCore.vala:1414
+#: core/QuickAddCore.vala:1426
 msgid "Set priority"
 msgstr "Imposta Priorità"
 
-#: core/QuickAddCore.vala:1414
+#: core/QuickAddCore.vala:1426
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = più alta, p4 = più bassa"
 
-#: core/QuickAddCore.vala:1415
+#: core/QuickAddCore.vala:1427
 msgid "Add labels"
 msgstr "Aggiungi etichette"
 
-#: core/QuickAddCore.vala:1415
+#: core/QuickAddCore.vala:1427
 msgid "Opens label selector"
 msgstr "Apre il selettore di etichette"
 
-#: core/QuickAddCore.vala:1416
+#: core/QuickAddCore.vala:1428
 msgid "Assign project"
 msgstr "Assegna Progetto"
 
-#: core/QuickAddCore.vala:1416
+#: core/QuickAddCore.vala:1428
 msgid "Opens project selector"
 msgstr "Apre il selettore di progetti"
 
-#: core/QuickAddCore.vala:1417
+#: core/QuickAddCore.vala:1429
 msgid "Set reminder"
 msgstr "Imposta promemoria"
 
-#: core/QuickAddCore.vala:1417
+#: core/QuickAddCore.vala:1429
 msgid "Opens reminder options"
 msgstr "Apri opzioni promemoria"
 
-#: core/QuickAddCore.vala:1432
+#: core/QuickAddCore.vala:1444
 msgid "Toggle stay open after creating task"
 msgstr "Mantieni aperto alla creazione dell'attività"
 
-#: core/QuickAddCore.vala:1438
+#: core/QuickAddCore.vala:1450
 msgid "Tip"
 msgstr "Suggerimento"
 
-#: core/QuickAddCore.vala:1438
+#: core/QuickAddCore.vala:1450
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combina scorciatoie nel campo del titolo per una creazione più veloce"
 
@@ -1136,7 +1136,7 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:828
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:431
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:430
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
 #: src/Layouts/ItemBoard.vala:687 src/Layouts/ItemRow.vala:1168
 msgid "until"
@@ -1144,7 +1144,7 @@ msgstr "fino a"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "for"
@@ -1152,7 +1152,7 @@ msgstr "per"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "times"
@@ -1160,7 +1160,7 @@ msgstr "volte"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "time"

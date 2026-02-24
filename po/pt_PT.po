@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-14 12:01+0000\n"
-"PO-Revision-Date: 2026-01-27 10:01+0000\n"
+"PO-Revision-Date: 2026-02-16 15:09+0000\n"
 "Last-Translator: André Barata <andretiagob@protonmail.com>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_PT/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.16\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -47,46 +47,46 @@ msgid "Don't Repeat"
 msgstr "Não repetir"
 
 #: core/Enum.vala:216
-#, fuzzy, c-format
+#, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
 msgstr[0] "A cada minuto"
-msgstr[1] "A cada minuto"
+msgstr[1] "A cada %d minutos"
 
 #: core/Enum.vala:218
-#, fuzzy, c-format
+#, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
 msgstr[0] "A cada hora"
-msgstr[1] "A cada hora"
+msgstr[1] "A cada %d horas"
 
 #: core/Enum.vala:220
-#, fuzzy, c-format
+#, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
 msgstr[0] "Todos os dias"
-msgstr[1] "Todos os dias"
+msgstr[1] "A cada %d dias"
 
 #: core/Enum.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
 msgstr[0] "Todas as semanas"
-msgstr[1] "Todas as semanas"
+msgstr[1] "A cada %d semanas"
 
 #: core/Enum.vala:224
-#, fuzzy, c-format
+#, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
 msgstr[0] "Todos os meses"
-msgstr[1] "Todos os meses"
+msgstr[1] "A cada %d meses"
 
 #: core/Enum.vala:226
-#, fuzzy, c-format
+#, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
 msgstr[0] "Todos os anos"
-msgstr[1] "Todos os anos"
+msgstr[1] "A cada %d anos"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -317,11 +317,11 @@ msgstr "A tarefa foi copiada para a área de transferência"
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] "A tarefa foi movida para %s"
-msgstr[1] "A tarefa foi movida para %s"
+msgstr[1] "%d tarefas foram movidas para %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
@@ -403,38 +403,38 @@ msgstr "Eliminar a secção %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:140
+#: core/QuickAddCore.vala:148
 msgid "Task added successfully!"
 msgstr "A tarefa foi adicionada com sucesso!"
 
-#: core/QuickAddCore.vala:156 src/Layouts/ItemRow.vala:401
+#: core/QuickAddCore.vala:164 src/Layouts/ItemRow.vala:401
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Nome da tarefa"
 
-#: core/QuickAddCore.vala:186
+#: core/QuickAddCore.vala:194
 msgid "This field is required"
 msgstr "É necessário preencher este campo"
 
-#: core/QuickAddCore.vala:210 src/Dialogs/Project.vala:136
+#: core/QuickAddCore.vala:218 src/Dialogs/Project.vala:136
 msgid "Add a description…"
 msgstr "Adicione uma descrição…"
 
-#: core/QuickAddCore.vala:251
+#: core/QuickAddCore.vala:259
 msgid "Set date"
 msgstr "Definir a data"
 
-#: core/QuickAddCore.vala:263 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:271 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Adicionar Etiquetas"
 
-#: core/QuickAddCore.vala:268 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:276 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Definir a prioridade"
 
-#: core/QuickAddCore.vala:273
+#: core/QuickAddCore.vala:281
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -443,20 +443,20 @@ msgstr "Definir a prioridade"
 msgid "Add Reminders"
 msgstr "Adicionar lembretes"
 
-#: core/QuickAddCore.vala:317 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:325 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:665 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Nova tarefa"
 
-#: core/QuickAddCore.vala:323 core/QuickAddCore.vala:1432
+#: core/QuickAddCore.vala:331 core/QuickAddCore.vala:1444
 msgid "Keep adding"
 msgstr "Continuar a adicionar"
 
-#: core/QuickAddCore.vala:340
+#: core/QuickAddCore.vala:348
 msgid "Select a Project"
 msgstr "Selecione um projeto"
 
-#: core/QuickAddCore.vala:367
+#: core/QuickAddCore.vala:375
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -464,55 +464,55 @@ msgstr ""
 "Lamentamos mas o 'Adicionar rápido' não encontrou nenhum projeto disponível, "
 "tente criar um a partir do Planify."
 
-#: core/QuickAddCore.vala:1394 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
 msgid "Keyboard Shortcuts"
 msgstr "Atalhos do teclado"
 
-#: core/QuickAddCore.vala:1400
+#: core/QuickAddCore.vala:1412
 msgid "Speed up task creation with these shortcuts"
 msgstr "Acelerar a criação de tarefas com este atalhos"
 
-#: core/QuickAddCore.vala:1414
+#: core/QuickAddCore.vala:1426
 msgid "Set priority"
 msgstr "Definir prioridade"
 
-#: core/QuickAddCore.vala:1414
+#: core/QuickAddCore.vala:1426
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = mais alta, p4 = mais baixa"
 
-#: core/QuickAddCore.vala:1415
+#: core/QuickAddCore.vala:1427
 msgid "Add labels"
 msgstr "Adicionar etiquetas"
 
-#: core/QuickAddCore.vala:1415
+#: core/QuickAddCore.vala:1427
 msgid "Opens label selector"
 msgstr "Abre o selecionador de etiquetas"
 
-#: core/QuickAddCore.vala:1416
+#: core/QuickAddCore.vala:1428
 msgid "Assign project"
 msgstr "Atribuir projeto"
 
-#: core/QuickAddCore.vala:1416
+#: core/QuickAddCore.vala:1428
 msgid "Opens project selector"
 msgstr "Abre o seletor de projetos"
 
-#: core/QuickAddCore.vala:1417
+#: core/QuickAddCore.vala:1429
 msgid "Set reminder"
 msgstr "Definir lembrete"
 
-#: core/QuickAddCore.vala:1417
+#: core/QuickAddCore.vala:1429
 msgid "Opens reminder options"
 msgstr "Abre as opções do lembrete"
 
-#: core/QuickAddCore.vala:1432
+#: core/QuickAddCore.vala:1444
 msgid "Toggle stay open after creating task"
 msgstr "Ative para manter a tarefa criada aberta"
 
-#: core/QuickAddCore.vala:1438
+#: core/QuickAddCore.vala:1450
 msgid "Tip"
 msgstr "Sugestão"
 
-#: core/QuickAddCore.vala:1438
+#: core/QuickAddCore.vala:1450
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combinar atalhos no campo do título para uma criação mais rápida"
 
@@ -1140,7 +1140,7 @@ msgstr "Hora"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:828
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:431
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:430
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
 #: src/Layouts/ItemBoard.vala:687 src/Layouts/ItemRow.vala:1168
 msgid "until"
@@ -1148,7 +1148,7 @@ msgstr "até"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "for"
@@ -1156,7 +1156,7 @@ msgstr "para"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "times"
@@ -1164,7 +1164,7 @@ msgstr "horas"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1171
 msgid "time"
@@ -1186,7 +1186,7 @@ msgstr "Próxima semana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:559
 msgid "Daily"
@@ -1218,7 +1218,7 @@ msgstr "Personalizado"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:855
 msgid "No date"
-msgstr ""
+msgstr "Sem data"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
@@ -1570,7 +1570,7 @@ msgid "Delete All Completed Tasks"
 msgstr "Eliminar todas as tarefas terminadas"
 
 #: src/Dialogs/CompletedTasks.vala:165
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
@@ -1578,8 +1578,8 @@ msgstr[0] ""
 "Isto vai eliminar %d tarefa terminada e as respetivas subtarefas do projeto "
 "%s"
 msgstr[1] ""
-"Isto vai eliminar %d tarefa terminada e as respetivas subtarefas do projeto "
-"%s"
+"Isto vai eliminar %d tarefas terminadas e as respetivas subtarefas do "
+"projeto %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
 #: src/Views/Scheduled/Scheduled.vala:271 src/Views/Today.vala:780
@@ -1625,11 +1625,11 @@ msgstr ""
 "alterações."
 
 #: src/Dialogs/ItemChangeHistory.vala:138
-#, fuzzy, c-format
+#, c-format
 msgid "Load more history from %d week ago…"
 msgid_plural "Load more history from %d weeks ago…"
 msgstr[0] "Carregar mais histórico de %d semana atrás…"
-msgstr[1] "Carregar mais histórico de %d semana atrás…"
+msgstr[1] "Carregar mais histórico de %d semanas atrás…"
 
 #: src/Dialogs/Label.vala:45
 msgid "New Label"
@@ -2247,11 +2247,13 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:103
 msgid "Keep Task Properties"
-msgstr ""
+msgstr "Manter propriedades da tarefa"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
 msgstr ""
+"Quando o 'Continuar a adicionar' estiver ativado, preservar datas, etiquetas "
+"e estado do fixar"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:133
 msgid "The command was copied to the clipboard"
@@ -2930,18 +2932,17 @@ msgid "tasks"
 msgstr "tarefas"
 
 #: src/Views/Filter.vala:622
-#, fuzzy
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "Eliminar tarefa terminada"
-msgstr[1] "Eliminar tarefa terminada"
+msgstr[1] "Eliminar tarefas terminadas"
 
 #: src/Views/Filter.vala:627
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
 msgstr[0] "Isto vai eliminar %d tarefa terminada e as respetivas subtarefas"
-msgstr[1] "Isto vai eliminar %d tarefa terminada e as respetivas subtarefas"
+msgstr[1] "Isto vai eliminar %d tarefas terminadas e as respetivas subtarefas"
 
 #: src/Views/Label/LabelSourceRow.vala:49
 msgid "No labels available. Create one by clicking on the '+' button"
@@ -3263,18 +3264,18 @@ msgid "Are you sure you want to delete this to-do?"
 msgstr "Tem a certeza de que pretende eliminar esta tarefa?"
 
 #: src/Widgets/MultiSelectToolbar.vala:272
-#, fuzzy, c-format
+#, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
 msgstr[0] "Eliminar %d tarefa"
 msgstr[1] "Eliminar %d tarefas"
 
 #: src/Widgets/MultiSelectToolbar.vala:278
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Tem a certeza de que pretende eliminar esta %d tarefa?"
-msgstr[1] "Tem a certeza de que pretende eliminar esta %d tarefa?"
+msgstr[1] "Tem a certeza de que pretende eliminar estas %d tarefas?"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"

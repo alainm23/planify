@@ -96,6 +96,14 @@ public class Layouts.QuickAddCore : Adw.Bin {
     public bool is_loading {
         set {
             submit_button.is_loading = value;
+
+            submit_button.sensitive = !value;
+            content_entry.sensitive = !value;
+            description_textview.sensitive = !value;
+        }
+
+        get {
+            return submit_button.is_loading;
         }
     }
 
@@ -769,6 +777,10 @@ public class Layouts.QuickAddCore : Adw.Bin {
     }
 
     private void add_item () {
+        if (is_loading) {
+            return;
+        }
+
         info_revealer.reveal_child = false;
         content_entry.remove_css_class ("error");
 
