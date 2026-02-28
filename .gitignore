@@ -11,3 +11,6 @@ subprojects/gxml**/
 planify*txt
 .flatpak
 .buildconfig
+
+/subprojects/blueprint-compiler
+/data/resources/ui/*.ui
