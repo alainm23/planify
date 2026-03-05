@@ -136,7 +136,18 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
             );
         }
 
-        return (string) response.get_data ();
+        size_t bytecount = response.get_size();
+
+        uint8[] data = response.get_data();
+        uint8[] buffer = new uint8[bytecount + 1];
+
+        Memory.copy (buffer, data, bytecount);
+        buffer[bytecount] = 0; // explicit null
+
+        // Convert to a Vala string.
+        string result = (string) buffer;
+
+        return result;
     }
 
 }
