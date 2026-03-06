@@ -1,4 +1,4 @@
-/*
+    /*
  * Copyright © 2025 Alain M. (https://github.com/alainm23/planify)
  *
  * This program is free software; you can redistribute it and/or
@@ -136,18 +136,10 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
             );
         }
 
-        size_t bytecount = response.get_size();
+        var response_data = response.get_data ();
+        response_data += '\0';
 
-        uint8[] data = response.get_data();
-        uint8[] buffer = new uint8[bytecount + 1];
-
-        Memory.copy (buffer, data, bytecount);
-        buffer[bytecount] = 0; // explicit null
-
-        // Convert to a Vala string.
-        string result = (string) buffer;
-
-        return result;
+        return (string) response_data;
     }
 
 }
