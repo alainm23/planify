@@ -1,4 +1,4 @@
-    /*
+/*
  * Copyright © 2025 Alain M. (https://github.com/alainm23/planify)
  *
  * This program is free software; you can redistribute it and/or
