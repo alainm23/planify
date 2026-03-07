@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
 "PO-Revision-Date: 2026-03-08 14:09+0000\n"
-"Last-Translator: Matheus Lima <matheus.rlima@proton.me>\n"
+"Last-Translator: Matheus Moura <matheusmoura16@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -1235,7 +1235,7 @@ msgstr "Personalizado"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:855
 msgid "No date"
-msgstr ""
+msgstr "Sem data"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
