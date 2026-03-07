@@ -22,6 +22,7 @@
 [DBus (name = "io.github.alainm23.planify")]
 public interface DBusClientInterface : Object {
     public abstract void add_item (string id) throws Error;
+    public abstract void update_item (string id) throws Error;
 }
 
 public class DBusClient : Object {
