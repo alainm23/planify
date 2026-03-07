@@ -136,7 +136,10 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
             );
         }
 
-        return (string) response.get_data ();
+        var response_data = response.get_data ();
+        response_data += '\0';
+
+        return (string) response_data;
     }
 
 }
