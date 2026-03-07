@@ -784,7 +784,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             source_list.remove (picked_widget);
 
             listbox.append (picked_widget);
-            Utils.TaskUtils.update_single_item_order (listbox, picked_widget, picked_widget.get_index () + 1);
+            Utils.TaskUtils.update_single_item_order (listbox, picked_widget, picked_widget.get_index ());
 
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
 
