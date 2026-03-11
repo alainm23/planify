@@ -31,6 +31,9 @@ public class Services.Todoist : GLib.Object {
     private const string LABELS_COLLECTION = "labels";
     private const string REMINDERS_COLLECTION = "reminders";
     private const string MIGRATE_MESSAGE = _("Todoist has updated their API. Please reconnect your account in Preferences to continue syncing.");
+    private const string LABELS_RESOURCE_TYPES = "[\"labels\"]";
+
+    private Gee.HashSet<string> labels_backfill_attempted;
 
     private static Todoist ? _instance;
     public static Todoist get_default () {
@@ -44,6 +47,7 @@ public class Services.Todoist : GLib.Object {
     public Todoist () {
         session = new Soup.Session ();
         parser = new Json.Parser ();
+        labels_backfill_attempted = new Gee.HashSet<string> ();
     }
 
     public async HttpResponse login (string _url, Objects.Source? migrate_source = null) {
@@ -279,6 +283,9 @@ public class Services.Todoist : GLib.Object {
                 foreach (unowned Json.Node _node in _labels.get_elements ()) {
                     string _id = _node.get_object ().get_string_member ("id");
                     Objects.Label ? label = Services.Store.instance ().get_label (_id);
+                    if (label != null && label.source_id != source.id) {
+                        label = null;
+                    }
                     if (label != null) {
                         if (_node.get_object ().get_boolean_member ("is_deleted")) {
                             Services.Store.instance ().delete_label (label);
@@ -291,6 +298,13 @@ public class Services.Todoist : GLib.Object {
                         _label.source_id = source.id;
 
                         Services.Store.instance ().insert_label (_label);
+                    }
+                }
+
+                if (_labels.get_length () == 0) {
+                    if (!labels_backfill_attempted.contains (source.id)) {
+                        labels_backfill_attempted.add (source.id);
+                        yield backfill_labels_snapshot (source);
                     }
                 }
 
@@ -408,6 +422,46 @@ public class Services.Todoist : GLib.Object {
         }
 
         source.sync_finished ();
+    }
+
+    private async void backfill_labels_snapshot (Objects.Source source) {
+        var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
+        message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
+
+        string form_data = "sync_token=*&resource_types=%s".printf (LABELS_RESOURCE_TYPES);
+        message.set_request_body_from_bytes ("application/x-www-form-urlencoded", new GLib.Bytes (form_data.data));
+
+        var labels_parser = new Json.Parser ();
+
+        try {
+            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
+            labels_parser.load_from_data ((string) stream.get_data ());
+
+            if (!labels_parser.get_root ().get_object ().has_member (LABELS_COLLECTION)) {
+                return;
+            }
+
+            unowned Json.Array labels = labels_parser.get_root ().get_object ().get_array_member (LABELS_COLLECTION);
+
+            foreach (unowned Json.Node _node in labels.get_elements ()) {
+                string _id = _node.get_object ().get_string_member ("id");
+                Objects.Label ? label = Services.Store.instance ().get_label (_id);
+                if (label != null && label.source_id == source.id) {
+                    if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                        Services.Store.instance ().delete_label (label);
+                    } else {
+                        label.update_from_json (_node);
+                        Services.Store.instance ().update_label (label);
+                    }
+                } else if (!_node.get_object ().get_boolean_member ("is_deleted")) {
+                    Objects.Label _label = new Objects.Label.from_json (_node);
+                    _label.source_id = source.id;
+                    Services.Store.instance ().insert_label (_label);
+                }
+            }
+        } catch (Error e) {
+            debug ("Labels backfill failed: %s".printf (e.message));
+        }
     }
 
     /*

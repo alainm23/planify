@@ -615,8 +615,10 @@ public class Objects.Item : Objects.BaseObject {
     public Gee.ArrayList<Objects.Label> get_labels_from_json (Json.Node node) {
         Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
         foreach (unowned Json.Node element in node.get_object ().get_array_member ("labels").get_elements ()) {
-            Objects.Label label = Services.Store.instance ().get_label_by_name (element.get_string (), true, project.source_id);
-            return_value.add (label);
+            Objects.Label ? label = resolve_label_from_sync_value (element.get_string ());
+            if (label != null) {
+                return_value.add (label);
+            }
         }
         return return_value;
     }
@@ -643,10 +645,35 @@ public class Objects.Item : Objects.BaseObject {
     public Gee.HashMap<string, Objects.Label> get_labels_maps_from_json (Json.Node node) {
         Gee.HashMap<string, Objects.Label> return_value = new Gee.HashMap<string, Objects.Label> ();
         foreach (unowned Json.Node element in node.get_object ().get_array_member ("labels").get_elements ()) {
-            Objects.Label label = Services.Store.instance ().get_label_by_name (element.get_string (), true, project.source_id);
-            return_value[label.id] = label;
+            Objects.Label ? label = resolve_label_from_sync_value (element.get_string ());
+            if (label != null) {
+                return_value[label.id] = label;
+            }
         }
         return return_value;
+    }
+
+    private Objects.Label ? resolve_label_from_sync_value (string value) {
+        Objects.Label ? label = Services.Store.instance ().get_label (value);
+        string source_id = get_item_source_id ();
+        if (label != null && source_id != "" && label.source_id == source_id) {
+            return label;
+        }
+
+        if (source_id != "") {
+            return Services.Store.instance ().get_label_by_name (value, true, source_id);
+        }
+
+        return null;
+    }
+
+    private string get_item_source_id () {
+        Objects.Project ? item_project = project;
+        if (item_project != null) {
+            return item_project.source_id;
+        }
+
+        return "";
     }
 
     public Gee.HashMap<string, Objects.Label> get_labels_maps_from_caldav (GLib.SList<string> categories_list) {
