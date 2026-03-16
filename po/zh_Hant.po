@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-02-15 14:09+0000\n"
+"PO-Revision-Date: 2026-03-16 23:09+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -12,16 +12,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
-msgstr "專案"
+msgstr "專案計畫"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:356
 msgid "Sections"
-msgstr "階段"
+msgstr "區段"
 
 #: core/Enum.vala:174 core/Enum.vala:183
 msgid "Tasks"
@@ -394,7 +394,7 @@ msgstr "刪除階段 %s"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:37
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:46
 msgid "Todoist"
-msgstr "待辦事項清單"
+msgstr "Todoist"
 
 #: core/QuickAddCore.vala:148
 msgid "Task added successfully!"
@@ -811,7 +811,7 @@ msgstr "處理已經完成，必須再次啟動 Planify。"
 #: core/Utils/Util.vala:452
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:217
 msgid "Ok"
-msgstr "OK"
+msgstr "好"
 
 #: core/Utils/Util.vala:562
 msgid "On This Computer"
@@ -1721,8 +1721,8 @@ msgid ""
 "tasks that you'll organize later"
 msgstr ""
 "依照預設，您的收件箱是新建任務所在的位置。基於 David Allen 的 Getting Things "
-"Done (GTD) 方法論，這正是您快速抓到點子想法及任務工作的捕捉點，而隨後您會將其"
-"組織起來"
+"Done 方法論，這正是您快速抓到點子想法及任務工作的捕捉點，而隨後您會將其組織起"
+"來"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
 msgid "Server URL examples:"
