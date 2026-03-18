@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2026-02-17 22:09+0000\n"
+"PO-Revision-Date: 2026-03-10 22:54+0000\n"
 "Last-Translator: Theodor Onarheim <tonar@runbox.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/planner/"
 "planify-extra/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:7
 #: data/io.github.alainm23.planify.desktop.in.in:4
@@ -84,29 +84,33 @@ msgstr "☁️ Sky-synkronisering:"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:29
 msgid "Full synchronization with Todoist to access your tasks from anywhere"
-msgstr ""
+msgstr "Full synkronisering med Todoist gir tilgang til dine gjøremål overalt"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:30
 msgid ""
 "Support for Nextcloud and CalDAV servers (Radicale, Baïkal) to keep your "
 "data private"
 msgstr ""
+"Støtte for Nextcloud og CalDAV-servere (Radicale, Baïkal) for å la deg holde "
+"dine data for deg selv"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:31
 msgid "Offline mode: work without internet and sync when you're back online"
 msgstr ""
+"Frakoblet modus: jobb uten interett og synkroniser når du kobler til igjen"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:32
 msgid "Cross-platform synchronization to access from any device"
 msgstr ""
+"Synkronisering på tvers av platformer for tilgang fra alle slags enheter"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:34
 msgid "* Planify is not created by, affiliated with, or supported by Doist"
-msgstr ""
+msgstr "* Planify er ikke laget av, knyttet til, eller støttet av Doist"
 
 #: data/io.github.alainm23.planify.desktop.in.in:3
 msgid "Planify"
-msgstr ""
+msgstr "Planify"
 
 #: data/io.github.alainm23.planify.desktop.in.in:14
 msgid "development;task;tasks;project;todo;reminder;reminders;event;events;calendar;todoist;"
