@@ -62,7 +62,7 @@
   <releases>
     <release version="4.18.3" date="2026-03-18">
       <description translate="no">
-        <p>&#x1f680; Planify 4.18.3 introduces a new CLI interface, a redesigned date/time picker, calendar fixes, and multiple stability improvements.</p>
+        <p>🚀 Planify 4.18.3 introduces a new CLI interface, a redesigned date/time picker, calendar fixes, and multiple stability improvements.</p>
         <ul>
           <li>Added initial CLI interface with support for add, list, list-projects, and update commands.</li>
           <li>Complete redesign of the date/time picker with improved usability and instant updates.</li>
@@ -99,7 +99,7 @@
     </release>
     <release version="4.17.0" date="2025-12-26">
       <description translate="no">
-        <p>&#x1f680; Planify 4.17.0 introduces deadlines, better scheduling, and calendar integration, along with multiple bug fixes and UX improvements.</p>
+        <p>🚀 Planify 4.17.0 introduces deadlines, better scheduling, and calendar integration, along with multiple bug fixes and UX improvements.</p>
         <ul>
           <li>Added deadline support, separate from due dates, with visual indicators for overdue tasks.</li>
           <li>Overdue tasks are now shown in the Scheduled view with quick reschedule actions.</li>
@@ -175,7 +175,7 @@
           <li>Improved the behavior and validation of hidden sources across the app, ensuring consistency in Quick Add, Labels, and Project Picker views.</li>
           <li>Enhanced smoothness and responsiveness when dragging tasks to the end of long project lists. The scroll speed now dynamically adjusts based on cursor position.</li>
         </ul>
-        <p>&#x1f41e; Fixes:</p>
+        <p>🐞 Fixes:</p>
         <ul>
           <li>Fixed a crash that occurred when reordering views in the sidebar.</li>
           <li>Fixed an issue where Planify didn’t correctly read multiple CalDAV tasks.</li>
