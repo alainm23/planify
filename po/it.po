@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-03-08 14:09+0000\n"
+"PO-Revision-Date: 2026-03-16 23:09+0000\n"
 "Last-Translator: Stephnie Klim <sylorutu@denipl.net>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/it/>\n"
@@ -334,7 +334,7 @@ msgstr "Cancella Etichetta %s"
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
-msgstr "Questo non può essere annullato"
+msgstr "L'operazione non può essere annullata"
 
 #: core/Objects/Label.vala:210 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:916 core/Objects/Section.vala:380
@@ -1466,32 +1466,41 @@ msgid ""
 "Turn your tasks into calendar events automatically. Any task with a date "
 "will appear in your calendar, making it easier to plan your day."
 msgstr ""
+"Trasforma automaticamente le tue attività in eventi del calendario. "
+"Qualunque attività con una data comparirà nel tuo calendario, rendendo più "
+"facile pianificare la tua giornata."
 
 #: src/Dialogs/CalendarSync.vala:53
 msgid ""
 "Requirement: You need a calendar account configured in GNOME Calendar "
 "(Google, Nextcloud, etc.)"
 msgstr ""
+"Requisito: È necessario un account del calendario configurato in GNOME "
+"Calendar (Google, Nextcloud, etc.)"
 
 #: src/Dialogs/CalendarSync.vala:62
 msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
 msgstr ""
+"Ricevi notifiche sul cellulare per le tue attività tramite Google Calendar, "
+"Outlook o qualsiasi altra app di calendario"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
 "Your tasks sync everywhere: phone, tablet, web browser, and any device with "
 "your calendar"
 msgstr ""
+"Le tue attività vengono sincronizzate ovunque: telefono, tablet, browser e "
+"qualsiasi altro dispositivo con il tuo calendario"
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
-msgstr ""
+msgstr "Scegli Calendario"
 
 #: src/Dialogs/CalendarSync.vala:88
 msgid "Select a calendar from the list"
-msgstr ""
+msgstr "Seleziona un calendario dalla lista"
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
@@ -1499,17 +1508,19 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
-msgstr ""
+msgstr "Sincronizzazione del calendario disabilitata correttamente"
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
-msgstr ""
+msgstr "Sincronizzazione del calendario attiva"
 
 #: src/Dialogs/CalendarSync.vala:228
 msgid ""
 "Your tasks are currently synced with your calendar. Any task with a date "
 "automatically appears as a calendar event."
 msgstr ""
+"Le tue attività sono attualmente sincronizzate con il tuo calendario. Ogni "
+"attività con una data appare automaticamente come un evento nel calendario."
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
@@ -1529,6 +1540,8 @@ msgid ""
 "Your tasks are now synced with your calendar. Any task with a date will "
 "automatically appear as a calendar event."
 msgstr ""
+"Le tue attività sono attualmente sincronizzate con il tuo calendario. Ogni "
+"attività con una data appare automaticamente come un evento nel calendario."
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
@@ -2883,7 +2896,7 @@ msgstr "Aggiungi qualche attività. Premi 'a' per creare una nuova attività"
 
 #: src/Views/Project/Project.vala:94
 msgid "Project Actions"
-msgstr ""
+msgstr "Azioni progetto"
 
 #: src/Views/Project/Project.vala:259
 msgid "New Task"
@@ -2990,7 +3003,7 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:597
 msgid "Show Completed"
-msgstr ""
+msgstr "Mostra completati"
 
 #: src/Views/Project/Project.vala:598
 msgid "Display completed tasks in the list"
@@ -2998,7 +3011,7 @@ msgstr "Mostra attività completate nella lista"
 
 #: src/Views/Project/Project.vala:604
 msgid "Search completed tasks"
-msgstr "Ricerca attività completate"
+msgstr "Cerca tra le attività completate"
 
 #: src/Views/Project/Project.vala:631
 msgid "Sort By"
