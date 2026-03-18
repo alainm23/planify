@@ -60,7 +60,7 @@
 	<url type="donation">https://www.patreon.com/alainm23</url>
 	<launchable type="desktop-id">@appid@.desktop</launchable>
 	<releases>
-		<release version="4.18.2" date="2026-03-18">
+		<release version="4.18.3" date="2026-03-18">
 			<description translate="no">
 				<p>🚀 Planify 4.18.2 introduces a new CLI interface, a redesigned date/time picker, calendar fixes, and multiple stability improvements.</p>
 				<ul>
