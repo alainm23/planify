@@ -26,7 +26,7 @@ jobs:
         run: |
           python3 << 'PYTHON_SCRIPT' >> $GITHUB_OUTPUT
           import xml.etree.ElementTree as ET
-          tree = ET.parse('data/io.github.alainm23.planify.appdata.xml.in.in')
+          tree = ET.parse('data/io.github.alainm23.planify.metainfo.xml.in.in')
           root = tree.getroot()
           version = '${{ steps.version.outputs.version }}'
           print('changelog<<EOF')

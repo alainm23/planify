@@ -1,7 +1,7 @@
 project(
   'io.github.alainm23.planify',
   'vala', 'c',
-  version: '4.18.2'
+  version: '4.18.3'
 )
 
 cc = meson.get_compiler('c')

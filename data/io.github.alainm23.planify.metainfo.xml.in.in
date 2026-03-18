@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
   <id>@appid@</id>
   <metadata_license>CC0</metadata_license>
@@ -60,31 +60,9 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
-    <release version="4.18.0" date="2026-02-08">
-  <description translate="no">
-    <p>
-      This release focuses on performance improvements, stability, and bug fixes across the app.
-      While there are no major visual changes, Planify should feel noticeably faster and more reliable,
-      especially when working with large task lists and synced accounts.
-    </p>
-      <ul>
-        <li>Refactored Quick Find to use ListView, significantly improving search performance with large result sets, thanks to @byquanton.</li>
-        <li>Improved task rendering performance by lazily loading task details and batching ItemRow creation,reducing UI overhead and improving responsiveness, thanks to @byquanton.</li>
-        <li>Fixed a crash when typing dates with years below 1000 in the due date picker, thanks to @pgrit.</li>
-        <li>Optimized database operations by batching inserts when importing projects and batching deletes when removing them, improving overall performance, thanks to @byquanton.</li>
-        <li>Fixed Quick Find getting stuck in multi-select mode by improving Ctrl key detection during mouse events, thanks to @pgrit.</li>
-        <li>Added support for Todoist assignment filtering in the Today view, allowing filtering by assigned and unassigned tasks, thanks to @alyraffauf.</li>
-        <li>Added a mandatory Todoist API migration flow with a warning and re-login option to ensure continued sync support, thanks to @alainm23.</li>
-        <li>Improved Radicale CalDAV compatibility by accepting HTTP 201 responses for PUT requests, fixing sync issues when updating tasks, thanks to @mntmn.</li>
-        <li>Fixed filtering by labels in Today and other non-project views, thanks to @byquanton.</li>
-        <li>Fixed manual task ordering synchronization with CalDAV and Nextcloud, ensuring consistent ordering after drag and drop actions, thanks to @pgrit.</li>
-        <li>Fixed drag and drop not working correctly after using multi-selection, thanks to @pgrit.</li>
-      </ul>
-    </description>
-  </release>
-    <release version="4.18.2" date="2026-03-18">
+    <release version="4.18.3" date="2026-03-18">
       <description translate="no">
-        <p>🚀 Planify 4.18.2 introduces a new CLI interface, a redesigned date/time picker, calendar fixes, and multiple stability improvements.</p>
+        <p>🚀 Planify 4.18.3 introduces a new CLI interface, a redesigned date/time picker, calendar fixes, and multiple stability improvements.</p>
         <ul>
           <li>Added initial CLI interface with support for add, list, list-projects, and update commands.</li>
           <li>Complete redesign of the date/time picker with improved usability and instant updates.</li>
@@ -99,7 +77,26 @@
         </ul>
       </description>
     </release>
-
+    <release version="4.18.0" date="2026-02-08">
+      <description translate="no">
+        <p>This release focuses on performance improvements, stability, and bug fixes across the app.
+        While there are no major visual changes, Planify should feel noticeably faster and more reliable,
+        especially when working with large task lists and synced accounts.</p>
+        <ul>
+          <li>Refactored Quick Find to use ListView, significantly improving search performance with large result sets, thanks to @byquanton.</li>
+          <li>Improved task rendering performance by lazily loading task details and batching ItemRow creation,reducing UI overhead and improving responsiveness, thanks to @byquanton.</li>
+          <li>Fixed a crash when typing dates with years below 1000 in the due date picker, thanks to @pgrit.</li>
+          <li>Optimized database operations by batching inserts when importing projects and batching deletes when removing them, improving overall performance, thanks to @byquanton.</li>
+          <li>Fixed Quick Find getting stuck in multi-select mode by improving Ctrl key detection during mouse events, thanks to @pgrit.</li>
+          <li>Added support for Todoist assignment filtering in the Today view, allowing filtering by assigned and unassigned tasks, thanks to @alyraffauf.</li>
+          <li>Added a mandatory Todoist API migration flow with a warning and re-login option to ensure continued sync support, thanks to @alainm23.</li>
+          <li>Improved Radicale CalDAV compatibility by accepting HTTP 201 responses for PUT requests, fixing sync issues when updating tasks, thanks to @mntmn.</li>
+          <li>Fixed filtering by labels in Today and other non-project views, thanks to @byquanton.</li>
+          <li>Fixed manual task ordering synchronization with CalDAV and Nextcloud, ensuring consistent ordering after drag and drop actions, thanks to @pgrit.</li>
+          <li>Fixed drag and drop not working correctly after using multi-selection, thanks to @pgrit.</li>
+        </ul>
+      </description>
+    </release>
     <release version="4.17.0" date="2025-12-26">
       <description translate="no">
         <p>🚀 Planify 4.17.0 introduces deadlines, better scheduling, and calendar integration, along with multiple bug fixes and UX improvements.</p>
@@ -114,7 +111,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.16.1" date="2025-11-27">
       <description translate="no">
         <p>✨ Planify 4.16.1 is a maintenance release focused on fixing reported bugs and polishing the overall user experience.</p>
@@ -127,7 +123,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.16.0" date="2025-11-21">
       <description translate="no">
         <p>✨ Planify 4.16.0 introduces natural language date parsing, improved backend consistency, better keyboard control, and several quality-of-life UI fixes.</p>
@@ -146,7 +141,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.15.2" date="2025-11-07">
       <description translate="no">
         <p>✨ Planify 4.15.2 brings improved keyboard flows, smarter Quick Add, spell-check options, and a smoother backup experience.</p>
@@ -165,7 +159,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.15.1" date="2025-10-11">
       <description translate="no">
         <p>✨ Planify 4.15.1 is here! Enjoy a new Markdown editor, smoother animations, Focus Mode, and smarter ways to organize your tasks.</p>
@@ -192,7 +185,6 @@
         </ul>
       </description>
     </release>
-
     <release version="4.14.1" date="2025-09-28">
       <description translate="no">
         <ul>
