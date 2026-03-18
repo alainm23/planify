@@ -82,7 +82,23 @@
       </ul>
     </description>
   </release>
-
+    <release version="4.18.2" date="2026-03-18">
+      <description translate="no">
+        <p>🚀 Planify 4.18.2 introduces a new CLI interface, a redesigned date/time picker, calendar fixes, and multiple stability improvements.</p>
+        <ul>
+          <li>Added initial CLI interface with support for add, list, list-projects, and update commands.</li>
+          <li>Complete redesign of the date/time picker with improved usability and instant updates.</li>
+          <li>Added preference to preserve task properties in "Keep Adding" mode.</li>
+          <li>Improved multi-day calendar event display in Scheduled view.</li>
+          <li>Fixed events not loading correctly in month view.</li>
+          <li>Fixed incorrect event overlap detection in date ranges.</li>
+          <li>Fixed crash when deleting multiple tasks using multiselect.</li>
+          <li>Fixed duplicate task submissions during async operations.</li>
+          <li>Restored keyboard shortcuts on startup.</li>
+          <li>Fixed project cache not updating when adding tasks via Quick Add.</li>
+        </ul>
+      </description>
+    </release>
 
     <release version="4.17.0" date="2025-12-26">
       <description translate="no">
