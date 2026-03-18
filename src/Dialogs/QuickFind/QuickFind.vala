@@ -97,7 +97,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         list_view = new Gtk.ListView (selection_model, list_item_factory) {
             hexpand = true,
             vexpand = true,
-            css_classes = { "listbox-background" },
+            css_classes = { "listbox-background", "quick-find-list" },
             margin_bottom = 6
         };
         list_view.header_factory = header_factory;

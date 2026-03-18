@@ -730,3 +730,14 @@ checkbutton.theme-selector radio:checked {
     border-radius: 6px;
     padding: 0px 6px;
 }
+
+.quick-find-list row {
+    border-radius: 6px;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+
+.dimming-bg {
+    background: rgba(0, 0, 0, 0.25);
+}

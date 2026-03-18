@@ -126,11 +126,8 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
 
         signal_map[add_button.clicked.connect (() => {
             calendar.date = new GLib.DateTime.now_local ();
-
-            time_picker.has_time = true;
-            time_picker.no_time_visible = false;
             time_picker.time = new GLib.DateTime.now_local ().add_hours (1);
-
+            
             navigation_view.push (build_page ("picker"));
         })] = add_button;
 

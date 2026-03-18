@@ -81,6 +81,8 @@ core/Utils/Util.vala
 core/Widgets/Calendar/Calendar.vala
 core/Widgets/Calendar/CalendarDay.vala
 core/Widgets/Calendar/CalendarHeader.vala
+core/Widgets/Calendar/CalendarMonth.vala
+core/Widgets/Calendar/CalendarScroll.vala
 core/Widgets/Calendar/CalendarView.vala
 core/Widgets/Calendar/CalendarWeek.vala
 core/Widgets/CircularProgressBar.vala
@@ -190,6 +192,7 @@ src/Views/Scheduled/ScheduledDay.vala
 src/Views/Scheduled/ScheduledMonth.vala
 src/Views/Scheduled/ScheduledOverdue.vala
 src/Views/Scheduled/ScheduledRange.vala
+src/Views/Scheduled/ScheduledSection.vala
 src/Views/Today.vala
 src/Widgets/AttachmentRow.vala
 src/Widgets/Attachments.vala

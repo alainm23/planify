@@ -55,12 +55,19 @@ public class Dialogs.QuickAdd : Adw.Dialog {
         signal_map[quick_add_widget.hide_destroy.connect (() => {
             close ();
         })] = quick_add_widget;
+
         signal_map[quick_add_widget.add_item_db.connect ((add_item_db))] = quick_add_widget;
+
         signal_map[quick_add_widget.parent_can_close.connect ((active) => {
             Timeout.add (250, () => {
                 can_close = active;
                 return GLib.Source.REMOVE;
             });
+        })] = quick_add_widget;
+
+        signal_map[quick_add_widget.error.connect ((response) => {
+            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+            close ();
         })] = quick_add_widget;
 
         closed.connect (() => {

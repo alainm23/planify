@@ -26,14 +26,14 @@ appdata_conf = configuration_data()
 appdata_conf.set('appid', application_id)
 appstream_file = i18n.merge_file(
   input: configure_file(
-    input: files('io.github.alainm23.planify.appdata.xml.in.in'),
-    output: 'io.github.alainm23.planify.appdata.xml.in',
+    input: files('io.github.alainm23.planify.metainfo.xml.in.in'),
+    output: 'io.github.alainm23.planify.metainfo.xml.in',
     configuration: appdata_conf
   ),
-  output: '@0@.appdata.xml'.format(application_id),
+  output: '@0@.metainfo.xml'.format(application_id),
   po_dir: join_paths(meson.project_source_root(), 'po'),
   install: true,
-  install_dir: get_option('datadir') / 'appdata',
+  install_dir: get_option('datadir') / 'metainfo',
 )
 
 install_data('io.github.alainm23.planify.gschema.xml',

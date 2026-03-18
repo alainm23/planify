@@ -26,6 +26,8 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
     private Gtk.Stack stack;
     private Adw.EntryRow token_entry;
     private Widgets.LoadingButton login_button;
+    
+    private Objects.Source? migrate_source = null;
 
     public TodoistSetup (Adw.PreferencesDialog preferences_dialog, Accounts accounts_page) {
         Object (
@@ -183,7 +185,7 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
                 title = _("Synchronizing…");
                 stack.visible_child_name = "loading";
 
-                Services.Todoist.get_default ().login.begin (uri, (obj, res) => {
+                Services.Todoist.get_default ().login.begin (uri, migrate_source, (obj, res) => {
                     HttpResponse response = Services.Todoist.get_default ().login.end (res);
                     preferences_dialog.pop_subpage ();
                     webview.get_network_session ().get_website_data_manager ().clear.begin (WebKit.WebsiteDataTypes.ALL, 0, null);
@@ -229,7 +231,7 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
     private void on_token_login_clicked () {
         stack.visible_child_name = "loading";
 
-        Services.Todoist.get_default ().login_token.begin (token_entry.text, (obj, res) => {
+        Services.Todoist.get_default ().login_token.begin (token_entry.text, migrate_source, (obj, res) => {
             HttpResponse response = Services.Todoist.get_default ().login_token.end (res);
             preferences_dialog.pop_subpage ();
             verify_response (response);
@@ -246,6 +248,10 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
             toast.timeout = 3;
             preferences_dialog.add_toast (toast);
         }
+    }
+
+    public void set_migrate_mode (Objects.Source source) {
+        migrate_source = source;
     }
 }
 

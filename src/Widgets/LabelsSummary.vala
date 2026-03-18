@@ -110,7 +110,7 @@ public class Widgets.LabelsSummary : Adw.Bin {
     public void update_request () {
         more_label_revealer.reveal_child = false;
         
-        var item_labels = item._get_labels ();
+        var item_labels = item.get_labels_list ();
         var overflow_labels = new Gee.ArrayList<Objects.Label> ();
         int current_visible = labels.size;
         

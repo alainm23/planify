@@ -253,7 +253,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         var popover = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
-            position = Gtk.PositionType.TOP
+            position = TOP
         };
 
         complete_item.clicked.connect (() => {
@@ -292,7 +292,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             dialog.response.connect ((response) => {
                 if (response == "delete") {
                     foreach (string key in items_selected.keys) {
-                        items_selected[key].delete_request (false);
+                        items_selected[key].item.delete_item ();
                     }
 
                     unselect_all ();
@@ -333,13 +333,13 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
     private void check_labels (Objects.Item item, bool active) {
         if (active) {
-            foreach (Objects.Label label in item._get_labels ()) {
+            foreach (Objects.Label label in item.get_labels_list ()) {
                 if (!labels.has_key (label.id)) {
                     labels[label.id] = label;
                 }
             }
         } else {
-            foreach (Objects.Label label in item._get_labels ()) {
+            foreach (Objects.Label label in item.get_labels_list ()) {
                 if (labels.has_key (label.id)) {
                     labels.unset (label.id);
                 }

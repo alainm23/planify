@@ -64,7 +64,7 @@ public class Dialogs.QuickFind.QuickFindFactory : GLib.Object {
 
     private static void on_list_item_teardown (Gtk.SignalListItemFactory factory, GLib.Object list_item_obj) {
         var list_item = (Gtk.ListItem) list_item_obj;
-    // TODO: Signals?
+        // TODO: Signals?
     }
 
     private static void on_list_item_bind (Gtk.SignalListItemFactory factory, GLib.Object list_item_obj) {
@@ -100,10 +100,10 @@ public class Dialogs.QuickFind.QuickFindFactory : GLib.Object {
         };
 
         main_grid.column_spacing = 6;
-        main_grid.margin_start = 0;
-        main_grid.margin_end = 0;
-        main_grid.margin_top = 0;
-        main_grid.margin_bottom = 0;
+        main_grid.margin_start = 6;
+        main_grid.margin_end = 3;
+        main_grid.margin_top = 3;
+        main_grid.margin_bottom = 3;
         main_grid.attach (icon_project, 0, 0);
         main_grid.attach (name_label, 1, 0);
     }
@@ -125,8 +125,12 @@ public class Dialogs.QuickFind.QuickFindFactory : GLib.Object {
             ellipsize = Pango.EllipsizeMode.END,
             xalign = 0,
             css_classes = { "dimmed", "caption" }
-        };
+        };  
 
+        main_grid.margin_start = 6;
+        main_grid.margin_end = 6;
+        main_grid.margin_top = 3;
+        main_grid.margin_bottom = 3;
         main_grid.attach (section_icon, 0, 0, 1, 2);
         main_grid.attach (name_label, 1, 0, 1, 1);
         main_grid.attach (project_label, 1, 1, 1, 1);
@@ -158,6 +162,10 @@ public class Dialogs.QuickFind.QuickFindFactory : GLib.Object {
             project_label.label += "%s / %s".printf (project_label.label, item_obj.section.name);
         }
 
+        main_grid.margin_start = 6;
+        main_grid.margin_end = 6;
+        main_grid.margin_top = 3;
+        main_grid.margin_bottom = 3;
         main_grid.attach (checked_button, 0, 0, 1, 2);
         main_grid.attach (content_label, 1, 0, 1, 1);
         main_grid.attach (project_label, 1, 1, 1, 1);
@@ -181,6 +189,10 @@ public class Dialogs.QuickFind.QuickFindFactory : GLib.Object {
             use_markup = true
         };
 
+        main_grid.margin_start = 6;
+        main_grid.margin_end = 6;
+        main_grid.margin_top = 3;
+        main_grid.margin_bottom = 3;
         main_grid.attach (widget_color, 0, 0);
         main_grid.attach (name_label, 1, 0);
     }
@@ -198,6 +210,10 @@ public class Dialogs.QuickFind.QuickFindFactory : GLib.Object {
             use_markup = true
         };
 
+        main_grid.margin_start = 6;
+        main_grid.margin_end = 6;
+        main_grid.margin_top = 3;
+        main_grid.margin_bottom = 3;
         main_grid.attach (priority_icon, 0, 0);
         main_grid.attach (name_label, 1, 0);
     }
@@ -214,6 +230,10 @@ public class Dialogs.QuickFind.QuickFindFactory : GLib.Object {
             use_markup = true
         };
 
+        main_grid.margin_start = 6;
+        main_grid.margin_end = 6;
+        main_grid.margin_top = 3;
+        main_grid.margin_bottom = 3;
         main_grid.attach (filter_icon, 0, 0);
         main_grid.attach (name_label, 1, 0);
     }
@@ -235,12 +255,10 @@ public class Dialogs.QuickFind.QuickFindFactory : GLib.Object {
     private static void on_header_setup (Object object) {
         var header = (Gtk.ListHeader) object;
 
-        var header_label = new Gtk.Label ("") {
+        var header_label = new Gtk.Label (null) {
             css_classes = { "caption", "font-bold" },
             halign = Gtk.Align.START,
-            margin_start = 12,
-            margin_bottom = 6,
-            margin_top = 6
+            margin_start = 9,
         };
 
         header.child = header_label;

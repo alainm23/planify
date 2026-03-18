@@ -273,6 +273,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         
         duedate = new Objects.DueDate ();
         duedate.datetime = null;
+        datetime_picker.duedate = duedate;
 
         duedate_changed ();
     }

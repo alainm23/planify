@@ -290,47 +290,47 @@ void test_recurrence_parser () {
     var chrono = new Chrono.Chrono ();
     
     print ("Testing: 'every day'\n");
-    var result = chrono.parse ("every day");
+    var result = chrono.parse ("every day", true);
     assert (result != null && result.recurrence != null);
     print ("  Type: %s\n---\n", result.recurrence.recurrence_type.to_string ());
     
     print ("Testing: 'daily'\n");
-    result = chrono.parse ("daily");
+    result = chrono.parse ("daily", true);
     assert (result != null && result.recurrence != null);
     print ("  Type: %s\n---\n", result.recurrence.recurrence_type.to_string ());
     
     print ("Testing: 'every morning'\n");
-    result = chrono.parse ("every morning");
+    result = chrono.parse ("every morning", true);
     assert (result != null && result.recurrence != null);
     print ("  Type: %s, Hour: %d\n---\n", result.recurrence.recurrence_type.to_string (), result.recurrence.hour);
     
     print ("Testing: 'every weekday'\n");
-    result = chrono.parse ("every weekday");
+    result = chrono.parse ("every weekday", true);
     assert (result != null && result.recurrence != null);
     print ("  Type: %s, Days: %d\n---\n", result.recurrence.recurrence_type.to_string (), result.recurrence.days_of_week.size);
     
     print ("Testing: 'every weekend'\n");
-    result = chrono.parse ("every weekend");
+    result = chrono.parse ("every weekend", true);
     assert (result != null && result.recurrence != null);
     print ("  Type: %s\n---\n", result.recurrence.recurrence_type.to_string ());
     
     print ("Testing: 'every 27th'\n");
-    result = chrono.parse ("every 27th");
+    result = chrono.parse ("every 27th", true);
     assert (result != null && result.recurrence != null);
     print ("  Type: %s, Day: %d\n---\n", result.recurrence.recurrence_type.to_string (), result.recurrence.day_of_month);
     
     print ("Testing: 'every last day'\n");
-    result = chrono.parse ("every last day");
+    result = chrono.parse ("every last day", true);
     assert (result != null && result.recurrence != null);
     print ("  Type: %s, Last: %s\n---\n", result.recurrence.recurrence_type.to_string (), result.recurrence.last_day.to_string ());
     
     print ("Testing: 'every jan 27th'\n");
-    result = chrono.parse ("every jan 27th");
+    result = chrono.parse ("every jan 27th", true);
     assert (result != null && result.recurrence != null);
     print ("  Type: %s, Month: %d, Day: %d\n---\n", result.recurrence.recurrence_type.to_string (), result.recurrence.month_of_year, result.recurrence.day_of_month);
     
     print ("Testing: 'every hour'\n");
-    result = chrono.parse ("every hour");
+    result = chrono.parse ("every hour", true);
     assert (result != null && result.recurrence != null);
     print ("  Type: %s\n---\n", result.recurrence.recurrence_type.to_string ());
 }

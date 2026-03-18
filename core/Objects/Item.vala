@@ -56,11 +56,13 @@ public class Objects.Item : Objects.BaseObject {
     }
     public string extra_data { get; set; default = ""; }
     public ItemType item_type { get; set; default = ItemType.TASK; }
+    public string responsible_uid { get; set; default = ""; }
+
 
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
     public Gee.ArrayList<Objects.Label> labels { get; set; default = new Gee.ArrayList<Objects.Label> (); }
 
-    public Gee.ArrayList<Objects.Label> _get_labels () {
+    public Gee.ArrayList<Objects.Label> get_labels_list () {
         Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
 
         foreach (Objects.Label label in labels) {
@@ -386,6 +388,13 @@ public class Objects.Item : Objects.BaseObject {
         } else {
             due.reset ();
         }
+
+        if (!node.get_object ().get_null_member ("responsible_uid")) {
+            responsible_uid = node.get_object ().get_string_member ("responsible_uid");
+        } else {
+            responsible_uid = "";
+        }
+
     }
 
     public void update_from_json (Json.Node node) {
@@ -421,6 +430,12 @@ public class Objects.Item : Objects.BaseObject {
             due.update_from_json (node.get_object ().get_object_member ("due"));
         } else {
             due.reset ();
+        }
+
+        if (!node.get_object ().get_null_member ("responsible_uid")) {
+            responsible_uid = node.get_object ().get_string_member ("responsible_uid");
+        } else {
+            responsible_uid = "";
         }
     }
 
@@ -498,6 +513,10 @@ public class Objects.Item : Objects.BaseObject {
         ICal.Property ? related_to_property = ical_vtodo.get_first_property (ICal.PropertyKind.RELATEDTO_PROPERTY);
         if (related_to_property != null) {
             parent_id = related_to_property.get_relatedto ();
+            if (parent_id == id) {
+                warning ("Item/Task %s has a direct self-reference", id);
+                parent_id = "";
+            }
         } else {
             parent_id = "";
         }
@@ -522,6 +541,16 @@ public class Objects.Item : Objects.BaseObject {
             var sort_order_str = sort_order_property.get_value_as_string ();
             if (sort_order_str != null) {
                 child_order = int.parse (sort_order_str);
+            }
+        } else {
+            // Items without an X-APPLE-SORT-ORDER must use the time in seconds
+            // since 2001-01-01-00:00:00 (978307200L) as their sort order
+           ICal.Property ? created_property = ical_vtodo.get_first_property (ICal.PropertyKind.CREATED_PROPERTY);
+            if (created_property != null) {
+                var create_time = (long) created_property.get_created ().as_timet ();
+                child_order = (int)(create_time - 978307200L);
+            } else {
+                // TODO should probably emit a warning that manual sorting will not work?
             }
         }
 
@@ -576,7 +605,7 @@ public class Objects.Item : Objects.BaseObject {
             }
         }
 
-        foreach (var label in _get_labels ()) {
+        foreach (var label in get_labels_list ()) {
             if (!new_labels.has_key (label.id)) {
                 delete_item_label (label.id);
             }
@@ -920,6 +949,10 @@ public class Objects.Item : Objects.BaseObject {
         item_label_added (label);
     }
 
+    public void clean_labels () {
+        labels.clear ();
+    }
+
     public Objects.Label ? delete_item_label (string id) {
         Objects.Label ? return_value = null;
         return_value = get_label (id);
@@ -1069,6 +1102,19 @@ public class Objects.Item : Objects.BaseObject {
             builder.add_null_value ();
         }
 
+        if (has_deadline) {
+            builder.set_member_name ("deadline");
+            builder.begin_object ();
+
+            builder.set_member_name ("date");
+            builder.add_string_value (Utils.Datetime.get_todoist_datetime_format (deadline_datetime));
+
+            builder.end_object ();
+        } else {
+            builder.set_member_name ("deadline");
+            builder.add_null_value ();
+        }
+
         builder.set_member_name ("labels");
         builder.begin_array ();
         foreach (Objects.Label label in labels) {
@@ -1164,6 +1210,7 @@ public class Objects.Item : Objects.BaseObject {
         ICal.Component ical = new ICal.Component.vtodo ();
 
         ical.set_uid (id);
+        ical.set_dtstamp (new ICal.Time.current_with_zone (ICal.Timezone.get_utc_timezone ()));
         ical.set_summary (content);
         ical.set_description (description);
 
@@ -1642,10 +1689,22 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public bool was_archived () {
-        if (has_parent) {
+        return was_archived_internal (new Gee.HashSet<string> ());
+    }
+
+    private bool was_archived_internal (Gee.Set<string> visited) {
+        // Prevent infinite recursion with circular references
+        if (visited.contains (id)) {
+            warning ("Item/Task %s has a circular reference", id);
+            return false;
+        }
+
+        visited.add (id);
+
+        if (has_parent && _parent_id != id) { // Check for direct self-reference
             var parent_item = parent;
             if (parent_item != null) {
-                return parent_item.was_archived ();
+                return parent_item.was_archived_internal (visited);
             }
         }
 
@@ -1797,7 +1856,7 @@ public class Objects.Item : Objects.BaseObject {
             }
         }
 
-        foreach (var label in _get_labels ()) {
+        foreach (var label in get_labels_list ()) {
             if (!new_labels.has_key (label.id)) {
                 delete_item_label (label.id);
                 update = true;

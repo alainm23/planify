@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
     <enum id="io.github.alainm23.planify.appearance">
+        <value nick="Light" value="0" />
         <value nick="Dark" value="1" />
         <value nick="Dark Blue" value="2" />
     </enum>
@@ -338,6 +339,12 @@
             <default>true</default>
             <summary>Smart Date Recognition</summary>
             <description>Automatically detect and parse natural language dates like "tomorrow" or "next week" when creating tasks</description>
+        </key>
+
+        <key name="quick-add-keep-properties" type="b">
+            <default>false</default>
+            <summary>Keep task properties when adding multiple tasks</summary>
+            <description>When "Keep adding" is enabled, preserve date, labels, and pinned status for the next task</description>
         </key>
     </schema>
 </schemalist>

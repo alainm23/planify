@@ -40,7 +40,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     private Gtk.Label due_label;
     private Gtk.Box due_box;
-    private Gtk.Label repeat_label;
     private Gtk.Revealer repeat_revealer;
     private Gtk.Revealer due_box_revealer;
     private Widgets.LabelsSummary labels_summary;
@@ -211,25 +210,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         var repeat_image = new Gtk.Image.from_icon_name ("playlist-repeat-symbolic") {
             pixel_size = 12,
-            margin_top = 3
-        };
-
-        repeat_label = new Gtk.Label (null) {
-            valign = Gtk.Align.CENTER,
-            css_classes = { "caption" },
-            ellipsize = Pango.EllipsizeMode.END
-        };
-
-        var repeat_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_top = 3,
             margin_start = 6
         };
 
-        repeat_box.append (repeat_image);
-        repeat_box.append (repeat_label);
-
         repeat_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = repeat_box
+            child = repeat_image
         };
 
         due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
@@ -690,10 +677,24 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
             repeat_revealer.reveal_child = item.due.is_recurring;
             if (item.due.is_recurring) {
-                due_label.label += ", ";
-                repeat_label.label = Utils.Datetime.get_recurrency_weeks (
-                    item.due.recurrency_type, item.due.recurrency_interval,
-                    item.due.recurrency_weeks
+                var end_label = "";
+                if (item.due.end_type == RecurrencyEndType.ON_DATE) {
+                    var date_label = Utils.Datetime.get_default_date_format_from_date (
+                        Utils.Datetime.get_date_only (
+                            Utils.Datetime.get_date_from_string (item.due.recurrency_end)
+                        )
+                    );
+                    end_label = _("until") + " " + date_label;
+                } else if (item.due.end_type == RecurrencyEndType.AFTER) {
+                    int count = item.due.recurrency_count;
+                    end_label = _("for") + " " + "%d %s".printf (count, count > 1 ? _("times") : _("time"));
+                }
+
+                due_box.tooltip_text = Utils.Datetime.get_recurrency_weeks (
+                    item.due.recurrency_type,
+                    item.due.recurrency_interval,
+                    item.due.recurrency_weeks,
+                    end_label
                 ).down ();
             }
 
@@ -706,7 +707,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             }
         } else {
             due_label.label = "";
-            repeat_label.label = "";
+            due_box.tooltip_text = "";
 
             due_box_revealer.reveal_child = false;
             repeat_revealer.reveal_child = false;

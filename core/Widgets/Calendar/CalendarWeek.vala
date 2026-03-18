@@ -22,6 +22,13 @@
 public class Widgets.Calendar.CalendarWeek : Gtk.Box {
     private Gtk.Label[] day_labels;
 
+    public int margin_horizontal {
+        set {
+            margin_start = value;
+            margin_end = value;
+        }
+    }
+
     ~CalendarWeek () {
         debug ("Destroying - Widgets.Calendar.CalendarWeek\n");
     }
@@ -31,9 +38,9 @@ public class Widgets.Calendar.CalendarWeek : Gtk.Box {
         homogeneous = true;
         valign = Gtk.Align.CENTER;
         margin_start = 6;
+        margin_end = 6;
         margin_top = 6;
         margin_bottom = 6;
-        margin_end = 6;
 
         day_labels = new Gtk.Label[] {
             new Gtk.Label (_("Su")),

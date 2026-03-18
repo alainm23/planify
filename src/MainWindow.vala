@@ -135,7 +135,7 @@ public class MainWindow : Adw.ApplicationWindow {
             sidebar = sidebar_view
         };
 
-        var breakpoint = new Adw.Breakpoint (Adw.BreakpointCondition.parse ("max-width: 500sp"));
+        var breakpoint = new Adw.Breakpoint (Adw.BreakpointCondition.parse ("max-width: 675sp"));
         breakpoint.add_setter (overlay_split_view, "collapsed", true);
         add_breakpoint (breakpoint);
 
@@ -195,7 +195,9 @@ public class MainWindow : Adw.ApplicationWindow {
                 Objects.Item item = Services.Database.get_default ().get_item_by_id (id);
                 Gee.ArrayList<Objects.Reminder> reminders = Services.Database.get_default ().get_reminders_by_item_id (id);
 
+                Services.Store.instance ().clear_project_cache (item.project_id);
                 Services.Store.instance ().add_item (item);
+
                 foreach (Objects.Reminder reminder in reminders) {
                     item.add_reminder_events (reminder);
                 }
@@ -808,7 +810,7 @@ public class MainWindow : Adw.ApplicationWindow {
             dialog = new Adw.AboutDialog ();
         } else {
             dialog = new Adw.AboutDialog.from_appdata (
-                "/io/github/alainm23/planify/" + Build.APPLICATION_ID + ".appdata.xml.in.in", Build.VERSION
+                "/io/github/alainm23/planify/" + Build.APPLICATION_ID + ".metainfo.xml.in.in", Build.VERSION
             );
         }
 

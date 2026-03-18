@@ -611,7 +611,7 @@ public class Services.Store : GLib.Object {
      */
 
     public void insert_item (Objects.Item item, bool insert = true) {
-        if (Services.Database.get_default ().insert_item (item, insert)) {
+        if (Services.Database.get_default ().insert_item (item)) {
             _items_by_project_cache.unset (item.project_id);
             add_item (item, insert);
             
@@ -624,7 +624,7 @@ public class Services.Store : GLib.Object {
     }
 
     public bool insert_items_transaction (Gee.ArrayList<Objects.Item> items, bool insert = true) {
-        if (Services.Database.get_default ().insert_items_transaction (items, insert)) {
+        if (Services.Database.get_default ().insert_items_transaction (items)) {
             foreach (var item in items) {
                 _items_by_project_cache.unset (item.project_id);
                 add_item (item, insert);
@@ -1474,5 +1474,9 @@ public class Services.Store : GLib.Object {
 
             return return_value;
         }
+    }
+
+    public void clear_project_cache (string project_id) {
+        _items_by_project_cache.unset (project_id);
     }
 }

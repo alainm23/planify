@@ -84,9 +84,14 @@ public class Widgets.SyncButton : Adw.Bin {
         sync_button.remove_css_class ("is_loading");
     }
 
-    public void sync_failed () {
+    public void sync_failed (string? custom_message = null) {
         sync_button.remove_css_class ("is_loading");
         stack.visible_child_name = "error";
-        tooltip_markup = "<b>%s</b>\n%s".printf (_("Failed to connect to server"), _("It looks like the server is unreachable,\nare you connected to the internet?\nAny changes you make while disconnected\nwill be synchronized when you reconnect.")); // vala-lint=line-length
+        
+        if (custom_message != null && custom_message != "") {
+            tooltip_markup = custom_message;
+        } else {
+            tooltip_markup = "<b>%s</b>\n%s".printf (_("Failed to connect to server"), _("It looks like the server is unreachable,\nare you connected to the internet?\nAny changes you make while disconnected\nwill be synchronized when you reconnect.")); // vala-lint=line-length
+        }
     }
 }
