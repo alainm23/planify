@@ -1683,7 +1683,7 @@ public class Objects.Item : Objects.BaseObject {
         
         if (notify) {
             Services.EventBus.get_default ().send_toast (
-                Util.get_default ().create_toast (_("Task moved to %s".printf (project.name)))
+                Util.get_default ().create_toast (_("Moved to %s".printf (project.name)))
             );
         }
     }
