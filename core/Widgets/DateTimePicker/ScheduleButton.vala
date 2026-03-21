@@ -69,7 +69,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         Object (
             is_board: false,
             valign: Gtk.Align.CENTER,
-            tooltip_text: label,
+            tooltip_text: _("The date you plan to work on this task"),
             label: label
         );
     }
@@ -77,7 +77,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     public ScheduleButton.for_board (string label = _("Date")) {
         Object (
             is_board: true,
-            tooltip_text: label,
+            tooltip_text: _("The date you plan to work on this task"),
             label: label
         );
     }
@@ -167,7 +167,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             css_classes = { "title-4", "caption", "font-bold" }
         };
 
-        due_label = new Gtk.Label (_("Set a Due Date")) {
+        due_label = new Gtk.Label (_("When do you plan to work on this?")) {
             xalign = 0,
             use_markup = true,
             halign = START,
@@ -205,12 +205,12 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
     public void update_from_item (Objects.Item item) {
         if (is_board) {
-            due_label.label = _("Set a Due Date");
-            tooltip_text = label;
+            due_label.label = _("When do you plan to work on this?");
+            tooltip_text = _("The date you plan to work on this task");
             due_image.icon_name = "month-symbolic";
         } else {
             due_label.label = label;
-            tooltip_text = label;
+            tooltip_text = _("The date you plan to work on this task");
             due_image.icon_name = "month-symbolic";
         }
 
