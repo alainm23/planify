@@ -25,9 +25,13 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
     private Gtk.SearchEntry search_entry;
     private Gtk.ListBox listbox;
     private Gtk.Label placeholder_message_label;
+    private Gtk.Label placeholder_title_label;
+    private Gtk.Image placeholder_icon;
     private Gtk.Revealer add_tag_revealer;
     private Gtk.Revealer spinner_revealer;
     private Gtk.Revealer search_entry_revealer;
+    private Gtk.ToggleButton filter_button;
+    private bool hide_unused;
 
     public Gee.ArrayList<Objects.Label> labels {
         set {
@@ -86,14 +90,29 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = picker_type == LabelPickerType.FILTER_ONLY ? _("Search") : _("Search or Create"),
             valign = Gtk.Align.CENTER,
-            hexpand = true,
+            hexpand = true
+        };
+
+        hide_unused = Services.Settings.get_default ().settings.get_boolean ("label-picker-hide-unused");
+
+        filter_button = new Gtk.ToggleButton () {
+            icon_name = "funnel-outline-symbolic",
+            active = hide_unused,
+            valign = Gtk.Align.CENTER,
+            tooltip_text = _("Hide unused labels"),
+            css_classes = { "flat" }
+        };
+
+        var search_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 12
         };
+        search_box.append (search_entry);
+        search_box.append (filter_button);
 
         search_entry_revealer = new Gtk.Revealer () {
-            child = search_entry,
+            child = search_box,
             reveal_child = true
         };
 
@@ -188,23 +207,14 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         })] = listbox_controller_key;
 
         signals_map[search_entry.search_changed.connect (() => {
-            int size = 0;
-            listbox.set_filter_func ((row) => {
-                var label = ((Widgets.LabelPicker.LabelRow) row).label;
-                var return_value = search_entry.text.down () in label.name.down ();
-
-                if (return_value) {
-                    size++;
-                }
-
-                return return_value;
-            });
-
-            if (picker_type == LabelPickerType.FILTER_AND_CREATE) {
-                add_tag_revealer.reveal_child = size <= 0;
-                placeholder_message_label.label = size <= 0 ? PLACEHOLDER_CREATE_MESSAGE.printf (search_entry.text) : PLACEHOLDER_MESSAGE;
-            }
+            invalidate_filter ();
         })] = search_entry;
+
+        signals_map[filter_button.toggled.connect (() => {
+            hide_unused = filter_button.active;
+            Services.Settings.get_default ().settings.set_boolean ("label-picker-hide-unused", hide_unused);
+            invalidate_filter ();
+        })] = filter_button;
 
         signals_map[search_entry.activate.connect (() => {
             if (source != null && search_entry.text.length > 0) {
@@ -289,20 +299,26 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
     }
 
     private Gtk.Widget get_placeholder () {
-        var add_tag_icon = new Gtk.Image.from_icon_name ("tag-outline-add-symbolic") {
+        placeholder_icon = new Gtk.Image.from_icon_name ("tag-outline-add-symbolic") {
             pixel_size = 32,
-            margin_bottom = 12
+            margin_bottom = 12,
+            css_classes = { "dimmed" }
         };
 
         add_tag_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
-            child = add_tag_icon
+            child = placeholder_icon
+        };
+
+        placeholder_title_label = new Gtk.Label (_("No Labels")) {
+            css_classes = { "title-4" }
         };
 
         placeholder_message_label = new Gtk.Label (PLACEHOLDER_MESSAGE) {
             wrap = true,
             justify = Gtk.Justification.CENTER,
-            css_classes = { "dimmed", "caption" }
+            css_classes = { "dimmed", "caption" },
+            margin_top = 4
         };
 
         var spinner = new Adw.Spinner () {
@@ -321,11 +337,13 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             valign = CENTER,
+            halign = CENTER,
             margin_start = 24,
             margin_end = 24,
             margin_top = 24
         };
         box.append (add_tag_revealer);
+        box.append (placeholder_title_label);
         box.append (placeholder_message_label);
         box.append (spinner_revealer);
 
@@ -340,6 +358,44 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         } else {
             if (picked.has_key (label.id)) {
                 picked.unset (label.id);
+            }
+        }
+    }
+
+    private void invalidate_filter () {
+        string search_text = search_entry.text.down ();
+        int size = 0;
+
+        listbox.set_filter_func ((row) => {
+            var label = ((Widgets.LabelPicker.LabelRow) row).label;
+
+            if (hide_unused && label.label_count <= 0) {
+                return false;
+            }
+
+            var matches_search = search_text in label.name.down ();
+            if (matches_search) {
+                size++;
+            }
+
+            return matches_search;
+        });
+
+        if (picker_type == LabelPickerType.FILTER_AND_CREATE) {
+            if (hide_unused && size <= 0 && search_text.length == 0) {
+                placeholder_icon.icon_name = "funnel-outline-symbolic";
+                add_tag_revealer.reveal_child = true;
+                placeholder_title_label.label = _("All Hidden");
+                placeholder_message_label.label = _("All labels are hidden by the filter. Disable the filter to see them.");
+            } else if (size <= 0) {
+                placeholder_icon.icon_name = "tag-outline-add-symbolic";
+                add_tag_revealer.reveal_child = true;
+                placeholder_title_label.label = PLACEHOLDER_CREATE_MESSAGE.printf (search_entry.text);
+                placeholder_message_label.label = _("Press Enter to create and assign it");
+            } else {
+                placeholder_title_label.label = _("No Labels");
+                placeholder_message_label.label = PLACEHOLDER_MESSAGE;
+                add_tag_revealer.reveal_child = false;
             }
         }
     }

@@ -958,10 +958,10 @@ public class Objects.Item : Objects.BaseObject {
         return_value = get_label (id);
 
         if (return_value != null) {
+            labels.remove (return_value);
+
             Services.Store.instance ().item_label_deleted (return_value);
             item_label_deleted (return_value);
-
-            labels.remove (return_value);
         }
 
         return return_value;
