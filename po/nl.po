@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-21 04:41-0500\n"
+"POT-Creation-Date: 2026-03-21 04:43-0500\n"
 "PO-Revision-Date: 2026-02-07 12:00+0000\n"
 "Last-Translator: Bart Ratgers <bart@optiprise.nl>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/io-github-"
@@ -708,7 +708,7 @@ msgstr "%Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:669
-#, fuzzy
+#, fuzzy, c-format
 msgid "%b %-e"
 msgstr "%b %-e"
 
@@ -726,7 +726,7 @@ msgstr "%a"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:678
-#, fuzzy
+#, fuzzy, c-format
 msgid "%a, %b %-e"
 msgstr "%a, %b %-e"
 

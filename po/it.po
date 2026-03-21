@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-21 04:41-0500\n"
+"POT-Creation-Date: 2026-03-21 04:43-0500\n"
 "PO-Revision-Date: 2026-01-18 17:20+0000\n"
 "Last-Translator: Vittorio Cerrati <gabrycio05@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/io-"
@@ -2108,10 +2108,6 @@ msgstr "Ordinato"
 msgid "DE Integration"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:68
-msgid "Run in Background"
-msgstr "Esegui in Background"
-
 #: src/Dialogs/Preferences/Pages/General.vala:69
 msgid "Run on Startup"
 msgstr "Esegui all'avvio"
@@ -2122,7 +2118,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run in Background"
-msgstr ""
+msgstr "Esegui in Background"
 
 #: src/Dialogs/Preferences/Pages/General.vala:83
 msgid "Keep Planify running in the system tray when closing the window"
@@ -2186,7 +2182,8 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:139
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr "Rileva automaticamente le date come \"domani\" o \"settimana prossima\""
+msgstr ""
+"Rileva automaticamente le date come \"domani\" o \"settimana prossima\""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123

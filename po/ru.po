@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-21 04:41-0500\n"
+"POT-Creation-Date: 2026-03-21 04:43-0500\n"
 "PO-Revision-Date: 2025-12-14 10:01+0000\n"
 "Last-Translator: Localizer <Localizer_in_Russian@protonmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/io-"
@@ -316,13 +316,9 @@ msgstr "Задача скопирована в буфер обмена"
 
 # c-format
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
-#, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "Задача перемещена в %s"
-msgstr[1] "%d задач перемещены в %s"
+#, fuzzy, c-format
+msgid "Moved to %s"
+msgstr "Задача перемещена в %s"
 
 # c-format
 #: core/Objects/Label.vala:206

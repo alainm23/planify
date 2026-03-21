@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-21 04:41-0500\n"
+"POT-Creation-Date: 2026-03-21 04:43-0500\n"
 "PO-Revision-Date: 2025-12-14 10:12+0000\n"
 "Last-Translator: Fraxinus Acer <yasson2008@ya.ru>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
@@ -315,13 +315,9 @@ msgid "Task copied to clipboard"
 msgstr "Task copied to clipboard"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
-#, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "Task moved to %s"
-msgstr[1] "%d tasks moved to %s"
+#, fuzzy, c-format
+msgid "Moved to %s"
+msgstr "Task moved to %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
