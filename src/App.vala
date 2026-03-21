@@ -136,8 +136,8 @@ public class Planify : Adw.Application {
     public async bool ask_for_background (Xdp.BackgroundFlags flags = Xdp.BackgroundFlags.AUTOSTART) {
         bool run_in_background = Services.Settings.get_default ().settings.get_boolean ("run-in-background");
         string[] daemon_command = run_in_background ? 
-            new string[] { "io.github.alainm23.planify", "--background" } : 
-            new string[] { "io.github.alainm23.planify" };
+            new string[] { Build.APPLICATION_ID, "--background" } : 
+            new string[] { Build.APPLICATION_ID };
 
         if (portal == null) {
             portal = new Xdp.Portal ();
