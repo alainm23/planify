@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-18 04:30-0500\n"
-"PO-Revision-Date: 2026-01-22 02:01+0000\n"
-"Last-Translator: linsui <linsui@users.noreply.hosted.weblate.org>\n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
+"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"PO-Revision-Date: 2026-03-16 23:09+0000\n"
+"Last-Translator: 姚怀宇 <orisgo111@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hans/>\n"
 "Language: zh\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -109,7 +109,7 @@ msgstr "标签"
 #: core/Enum.vala:351 src/Views/Project/Project.vala:543
 #: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:718
 msgid "Due Date"
-msgstr "到期日"
+msgstr "截止日期"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
@@ -118,11 +118,11 @@ msgstr "部分"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "分配事务"
 
 #: core/Enum.vala:469
 msgid "Task Created"
-msgstr "任务已经建立"
+msgstr "已建立任务"
 
 #: core/Enum.vala:472
 msgid "Task Updated"
@@ -140,7 +140,7 @@ msgstr "描述"
 
 #: core/Enum.vala:534 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr "行程"
+msgstr "日程"
 
 #: core/Enum.vala:543 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:764 src/Layouts/ItemBoard.vala:777
@@ -179,7 +179,7 @@ msgstr "过滤器"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr "没有日期"
+msgstr "日期未设定"
 
 #: core/Objects/Filters/Completed.vala:33
 msgid "Completed"
@@ -205,7 +205,7 @@ msgstr "索引"
 
 #: core/Objects/Filters/Inbox.vala:36
 msgid "inbox"
-msgstr "收集箱"
+msgstr "收件箱"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
@@ -1627,7 +1627,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
 #: src/Dialogs/Preferences/PreferencesWindow.vala:108
 msgid "Accounts"
-msgstr ""
+msgstr "账户"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
 msgid "Add Source"
@@ -2717,7 +2717,7 @@ msgstr ""
 
 #: src/MainWindow.vala:736
 msgid "About Planify"
-msgstr ""
+msgstr "关于 Planify"
 
 #: src/MainWindow.vala:796
 msgid "Oops! Something happened"

@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-18 04:30-0500\n"
-"PO-Revision-Date: 2026-01-03 13:01+0000\n"
-"Last-Translator: Stein-Aksel Basma <stein-aksel@basma.no>\n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
+"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"PO-Revision-Date: 2026-03-10 22:54+0000\n"
+"Last-Translator: Theodor Onarheim <tonar@runbox.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/planner/"
 "io-github-alainm23-planify/nb_NO/>\n"
 "Language: nb\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -123,7 +123,7 @@ msgstr "Seksjon"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "Oppgave"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -151,7 +151,7 @@ msgstr "Planlagt"
 #: src/Layouts/ItemBoard.vala:764 src/Layouts/ItemBoard.vala:777
 #: src/Layouts/ItemRow.vala:1218 src/Layouts/ItemRow.vala:1231
 msgid "Pin"
-msgstr ""
+msgstr "Pin-kode"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -558,6 +558,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"Todoist har oppdatert API-en sin. Koble til din konto på nytt i Instillinger "
+"for å kunne synkronisere videre."
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -997,6 +999,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
+"Få varsel om viktige oppgaver eller hendelser. Trykk på klokke-ikonet "
+"nedenfor for å legge til påminnelse."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1194,7 +1198,7 @@ msgstr "Neste uke"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
 msgid "Save"
-msgstr ""
+msgstr "Lagre"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:559
 msgid "Daily"
@@ -1226,7 +1230,7 @@ msgstr "Tilpasset"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:855
 msgid "No date"
-msgstr ""
+msgstr "Ingen dato"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
@@ -1656,7 +1660,7 @@ msgstr "Oppdater etikett"
 
 #: src/Dialogs/LabelPicker.vala:62
 msgid "Filter"
-msgstr ""
+msgstr "Filtrer"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:738
 msgid "Archived Projects"
@@ -1701,7 +1705,7 @@ msgstr "Du kan sortere kontoene dine ved å dra og slippe"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:578
 msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr ""
+msgstr "Planify synkroniserer oppgavene dine - dette bør ikke ta lang tid"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:307
 msgid "SSL verification is disabled"
@@ -1709,11 +1713,11 @@ msgstr "SSL-verifisering er deaktivert"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
 msgid "Account migration required"
-msgstr ""
+msgstr "Flytting av konto kreves"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Reconnect"
-msgstr ""
+msgstr "Koble til igjen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
@@ -1824,13 +1828,14 @@ msgstr "Slett kilde?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "Kilden kan ikke slettes"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Denne kilden inneholder Innboks-prosjektet ditt. Bytt Innboks-prosjekt først."
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
@@ -2068,7 +2073,7 @@ msgstr "Ukentlige gjentakende donasjoner"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
-msgstr ""
+msgstr "Ko-fi"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
@@ -2277,7 +2282,7 @@ msgstr "Vis filtre i en enkel liste i stedet for et rutenett"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:87
 msgid "You can sort your views by dragging and dropping"
-msgstr ""
+msgstr "Du kan dra og slippe for å sortere visningene dine"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:148

@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-18 04:30-0500\n"
-"PO-Revision-Date: 2026-01-13 22:30+0000\n"
-"Last-Translator: Binyamin Pekar <binyamin.pekar@gmail.com>\n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
+"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"PO-Revision-Date: 2026-03-08 14:09+0000\n"
+"Last-Translator: \"Omer I.S.\" <omeritzicschwartz@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/he/>\n"
 "Language: he\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.15.2-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -91,7 +91,7 @@ msgstr[1] "כל %d שנים"
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
 msgid "Nextcloud"
-msgstr ""
+msgstr "‏Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:121
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
@@ -406,7 +406,7 @@ msgstr "המטלה נוספה בהצלחה!"
 #: core/QuickAddCore.vala:164 src/Layouts/ItemRow.vala:401
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
-msgstr ""
+msgstr "שם מטלה"
 
 #: core/QuickAddCore.vala:194
 msgid "This field is required"
@@ -505,7 +505,7 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1450
 msgid "Tip"
-msgstr ""
+msgstr "עצה"
 
 #: core/QuickAddCore.vala:1450
 msgid "Combine shortcuts in the title field for faster creation"
@@ -514,13 +514,13 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:302
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr ""
+msgstr "המשימות עבור %s נטענות…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:313
 #: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "המשימות עבור %s נטענו…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
@@ -529,7 +529,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:162
 msgid "Source already exists"
-msgstr ""
+msgstr "המקור כבר קיים"
 
 #: core/Services/CalDAV/Core.vala:173 core/Services/CalDAV/Core.vala:218
 msgid "Failed to resolve principal url"
@@ -537,7 +537,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:228
 msgid "Starting sync…"
-msgstr ""
+msgstr "הסנכרון מתחיל…"
 
 #: core/Services/CalDAV/Core.vala:243
 #, c-format
@@ -550,7 +550,7 @@ msgstr ""
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
-msgstr ""
+msgstr "במחשב זה"
 
 #: core/Services/Todoist.vala:33 src/Layouts/SidebarSourceRow.vala:79
 msgid ""
@@ -560,7 +560,7 @@ msgstr ""
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
-msgstr ""
+msgstr "הבקשה הייתה שגויה."
 
 #: core/Services/Todoist.vala:1610 src/Widgets/ErrorView.vala:139
 msgid ""
@@ -594,15 +594,15 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:72 core/Utils/Datetime.vala:635
 msgid "Yesterday"
-msgstr ""
+msgstr "אתמול"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "days"
-msgstr ""
+msgstr "ימים"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "day"
-msgstr ""
+msgstr "יום"
 
 #: core/Utils/Datetime.vala:91
 #, c-format
@@ -636,31 +636,31 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:411
 msgid "Mo,"
-msgstr ""
+msgstr "ב׳,"
 
 #: core/Utils/Datetime.vala:415
 msgid "Tu,"
-msgstr ""
+msgstr "ג׳,"
 
 #: core/Utils/Datetime.vala:419
 msgid "We,"
-msgstr ""
+msgstr "ד׳,"
 
 #: core/Utils/Datetime.vala:423
 msgid "Th,"
-msgstr ""
+msgstr "ה׳,"
 
 #: core/Utils/Datetime.vala:427
 msgid "Fr,"
-msgstr ""
+msgstr "ו׳,"
 
 #: core/Utils/Datetime.vala:431
 msgid "Sa,"
-msgstr ""
+msgstr "ש׳,"
 
 #: core/Utils/Datetime.vala:435
 msgid "Su,"
-msgstr ""
+msgstr "א׳,"
 
 #: core/Utils/Datetime.vala:639
 #, c-format
@@ -731,43 +731,43 @@ msgstr ""
 
 #: core/Utils/Util.vala:43
 msgid "Orange"
-msgstr ""
+msgstr "כתום"
 
 #: core/Utils/Util.vala:44
 msgid "Yellow"
-msgstr ""
+msgstr "צהוב"
 
 #: core/Utils/Util.vala:45
 msgid "Olive Green"
-msgstr ""
+msgstr "ירוק זית"
 
 #: core/Utils/Util.vala:46
 msgid "Lime Green"
-msgstr ""
+msgstr "ירוק לימון"
 
 #: core/Utils/Util.vala:47
 msgid "Green"
-msgstr ""
+msgstr "ירוק"
 
 #: core/Utils/Util.vala:48
 msgid "Mint Green"
-msgstr ""
+msgstr "ירוק מנטה"
 
 #: core/Utils/Util.vala:49
 msgid "Teal"
-msgstr ""
+msgstr "טורקיז"
 
 #: core/Utils/Util.vala:50
 msgid "Sky Blue"
-msgstr ""
+msgstr "תכלת"
 
 #: core/Utils/Util.vala:51
 msgid "Light Blue"
-msgstr ""
+msgstr "כחול בהיר"
 
 #: core/Utils/Util.vala:52
 msgid "Blue"
-msgstr ""
+msgstr "כחול"
 
 #: core/Utils/Util.vala:53
 msgid "Grape"
@@ -795,7 +795,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:59
 msgid "Grey"
-msgstr ""
+msgstr "אפור"
 
 #: core/Utils/Util.vala:60
 msgid "Taupe"
@@ -803,15 +803,15 @@ msgstr ""
 
 #: core/Utils/Util.vala:218
 msgid "Light"
-msgstr ""
+msgstr "בהיר"
 
 #: core/Utils/Util.vala:221
 msgid "Dark"
-msgstr ""
+msgstr "כהה"
 
 #: core/Utils/Util.vala:224
 msgid "Dark Blue"
-msgstr ""
+msgstr "כחול כהה"
 
 #: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 #: src/Views/Today.vala:768
@@ -824,7 +824,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:436
 msgid "Delete All"
-msgstr ""
+msgstr "למחוק הכול"
 
 #: core/Utils/Util.vala:450
 msgid "Process completed, you need to start Planify again."
@@ -833,15 +833,15 @@ msgstr ""
 #: core/Utils/Util.vala:452
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:217
 msgid "Ok"
-msgstr ""
+msgstr "אישור"
 
 #: core/Utils/Util.vala:562
 msgid "On This Computer"
-msgstr ""
+msgstr "במחשב זה"
 
 #: core/Utils/Util.vala:587
 msgid "Meet Planify"
-msgstr ""
+msgstr "נעים מאוד, Planify"
 
 #: core/Utils/Util.vala:590
 msgid ""
@@ -861,7 +861,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:603
 msgid "Create a new task"
-msgstr ""
+msgstr "יצירת משימה חדשה"
 
 #: core/Utils/Util.vala:604
 msgid ""
@@ -890,7 +890,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:621
 msgid "Create a project"
-msgstr ""
+msgstr "יצירת מיזם"
 
 #: core/Utils/Util.vala:622
 msgid ""
@@ -900,7 +900,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:627
 msgid "You’re done!"
-msgstr ""
+msgstr "סיימת!"
 
 #: core/Utils/Util.vala:628
 msgid ""
@@ -927,7 +927,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:657
 msgid "Enable synchronization with third-party services"
-msgstr ""
+msgstr "הפעלת סנכרון עם שירותי צד שלישי"
 
 #: core/Utils/Util.vala:658
 msgid ""
@@ -971,11 +971,11 @@ msgstr ""
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
-msgstr ""
+msgstr "💼️ עבודה"
 
 #: core/Utils/Util.vala:706
 msgid "🎒️School"
-msgstr ""
+msgstr "🎒️ לימודים"
 
 #: core/Utils/Util.vala:712
 msgid "👉️Delegated"
@@ -983,7 +983,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:718
 msgid "🏡️Home"
-msgstr ""
+msgstr "🏡️ בית"
 
 #: core/Utils/Util.vala:724
 msgid "🏃‍♀️️Follow Up"
@@ -995,11 +995,11 @@ msgstr ""
 
 #: core/Utils/Util.vala:1001
 msgid "Section duplicated"
-msgstr ""
+msgstr "הבחירה שוכפלה"
 
 #: core/Utils/Util.vala:1027 core/Utils/Util.vala:1053
 msgid "Project duplicated"
-msgstr ""
+msgstr "המיזם שוכפל"
 
 #: core/Utils/Util.vala:1095 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
@@ -1007,27 +1007,27 @@ msgstr ""
 
 #: core/Utils/Util.vala:1098 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
-msgstr ""
+msgstr "10 דקות קודם"
 
 #: core/Utils/Util.vala:1101 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
-msgstr ""
+msgstr "לפני חצי שעה"
 
 #: core/Utils/Util.vala:1104 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
-msgstr ""
+msgstr "45 דקות קודם"
 
 #: core/Utils/Util.vala:1107 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
-msgstr ""
+msgstr "שעה קודם"
 
 #: core/Utils/Util.vala:1110 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
-msgstr ""
+msgstr "שעתיים קודם"
 
 #: core/Utils/Util.vala:1113 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
-msgstr ""
+msgstr "3 שעות קודם"
 
 #: core/Widgets/Calendar/CalendarDay.vala:73
 msgid "%A, %B %e, %Y"
@@ -1040,11 +1040,11 @@ msgstr ""
 
 #: core/Widgets/Calendar/CalendarHeader.vala:64 src/Layouts/HeaderBar.vala:88
 msgid "Back"
-msgstr ""
+msgstr "חזרה"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:66
 msgid "Previous month"
-msgstr ""
+msgstr "החודש הקודם"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
@@ -1052,7 +1052,7 @@ msgstr ""
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
-msgstr ""
+msgstr "החודש הבא"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #, c-format
@@ -1078,44 +1078,44 @@ msgstr ""
 #: core/Widgets/Calendar/CalendarWeek.vala:46
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:173
 msgid "Su"
-msgstr ""
+msgstr "א׳"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:47
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:137
 msgid "Mo"
-msgstr ""
+msgstr "ב׳"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:48
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Tu"
-msgstr ""
+msgstr "ג׳"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:49
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:149
 msgid "We"
-msgstr ""
+msgstr "ד׳"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:50
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:155
 msgid "Th"
-msgstr ""
+msgstr "ה׳"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:51
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:161
 msgid "Fr"
-msgstr ""
+msgstr "ו׳"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:52
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:167
 msgid "Sa"
-msgstr ""
+msgstr "ש׳"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:80
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:184
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:505
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:140
 msgid "Time"
-msgstr ""
+msgstr "שעה"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:828
@@ -1123,7 +1123,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
 #: src/Layouts/ItemBoard.vala:687 src/Layouts/ItemRow.vala:1168
 msgid "until"
-msgstr ""
+msgstr "עד"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
@@ -1153,7 +1153,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:186
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 msgid "Repeat"
-msgstr ""
+msgstr "חזרה"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:161
 msgid "Type a date…"
@@ -1161,11 +1161,11 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:381
 msgid "Next week"
-msgstr ""
+msgstr "שבוע הבא"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
 msgid "Save"
-msgstr ""
+msgstr "שמירה"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:559
 msgid "Daily"
@@ -1173,23 +1173,23 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:563
 msgid "Weekdays"
-msgstr ""
+msgstr "ימי השבוע"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:567
 msgid "Weekends"
-msgstr ""
+msgstr "סופי שבוע"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:571
 msgid "Weekly"
-msgstr ""
+msgstr "כל שבוע"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:575
 msgid "Monthly"
-msgstr ""
+msgstr "כל חודש"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:579
 msgid "Yearly"
-msgstr ""
+msgstr "כל שנה"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Custom"
@@ -1201,49 +1201,49 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
-msgstr ""
+msgstr "דקה/דקות"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Hour(s)"
-msgstr ""
+msgstr "שעה/שעות"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Day(s)"
-msgstr ""
+msgstr "יום/ימים"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Week(s)"
-msgstr ""
+msgstr "שבוע/שבועות"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Month(s)"
-msgstr ""
+msgstr "חודש/חודשים"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Year(s)"
-msgstr ""
+msgstr "שנה/שנים"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:199
 msgid "Never"
-msgstr ""
+msgstr "אף פעם"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:203
 msgid "On Date"
-msgstr ""
+msgstr "בתאריך"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:207
 msgid "After"
-msgstr ""
+msgstr "לאחר"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:255
 #: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:844
 #: src/Layouts/ItemRow.vala:1305
 msgid "Apply"
-msgstr ""
+msgstr "החלה"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:268
 msgid "Repeat every"
-msgstr ""
+msgstr "חזרה כל"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:275
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
@@ -1309,40 +1309,40 @@ msgstr ""
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
-msgstr ""
+msgstr "חיפוש"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Search or Create"
-msgstr ""
+msgstr "חיפוש או יצירה"
 
 #: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
-msgstr ""
+msgstr "הסרת קישור"
 
 #: core/Widgets/PriorityButton.vala:95 core/Widgets/PriorityButton.vala:135
 #: core/Widgets/PriorityButton.vala:200
 msgid "Priority 4: None"
-msgstr ""
+msgstr "עדיפות 4: ללא"
 
 #: core/Widgets/PriorityButton.vala:126 core/Widgets/PriorityButton.vala:182
 msgid "Priority 1: High"
-msgstr ""
+msgstr "עדיפות 1: גבוהה"
 
 #: core/Widgets/PriorityButton.vala:129
 msgid "Priority 2: Medium"
-msgstr ""
+msgstr "עדיפות 2: בינונית"
 
 #: core/Widgets/PriorityButton.vala:132
 msgid "Priority 3: Low"
-msgstr ""
+msgstr "עדיפות 3: נמוכה"
 
 #: core/Widgets/PriorityButton.vala:188
 msgid "Priority 1: Medium"
-msgstr ""
+msgstr "עדיפות 1: בינונית"
 
 #: core/Widgets/PriorityButton.vala:194
 msgid "Priority 1: Low"
-msgstr ""
+msgstr "עדיפות 1: נמוכה"
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:63
 msgid "Your list of section will show up here."
@@ -1366,7 +1366,7 @@ msgstr ""
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:146
 msgid "Reminders"
-msgstr ""
+msgstr "תזכורות"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:110
 msgid ""
@@ -1375,7 +1375,7 @@ msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:154
 msgid "Add Reminder"
-msgstr ""
+msgstr "הוספת תזכורת"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:189
 msgid "In 5 minutes"
@@ -1415,18 +1415,18 @@ msgstr ""
 
 #: core/Widgets/StatusButton.vala:39
 msgid "Status"
-msgstr ""
+msgstr "מצב"
 
 #: core/Widgets/StatusButton.vala:44 core/Widgets/StatusButton.vala:76
 #: core/Widgets/StatusButton.vala:114
 msgid "To Do"
-msgstr ""
+msgstr "מטלה"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1240
 #: src/Services/Notification.vala:98
 msgid "Complete"
-msgstr ""
+msgstr "השלמה"
 
 #: src/App.vala:147
 msgid ""
@@ -1437,7 +1437,7 @@ msgstr ""
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
 #: src/Views/Project/Project.vala:444
 msgid "Calendar Sync"
-msgstr ""
+msgstr "סנכרון לוח שנה"
 
 #: src/Dialogs/CalendarSync.vala:45
 msgid ""
@@ -1473,7 +1473,7 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
-msgstr ""
+msgstr "הפעלת סנכרון"
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
@@ -1481,7 +1481,7 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
-msgstr ""
+msgstr "סנכרון לוח השנה פעיל"
 
 #: src/Dialogs/CalendarSync.vala:228
 msgid ""
@@ -1491,16 +1491,16 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
-msgstr ""
+msgstr "השבתת סנכרון"
 
 #: src/Dialogs/CalendarSync.vala:279
 #, c-format
 msgid "Synced with: %s"
-msgstr ""
+msgstr "בסנכרון עם: %s"
 
 #: src/Dialogs/CalendarSync.vala:292
 msgid "Sync Enabled!"
-msgstr ""
+msgstr "הסנכרון מופעל!"
 
 #: src/Dialogs/CalendarSync.vala:297
 msgid ""
@@ -1510,11 +1510,11 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
-msgstr ""
+msgstr "אישור"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 msgid "Completed Tasks"
-msgstr ""
+msgstr "משימות שהושלמו"
 
 #: src/Dialogs/CompletedTasks.vala:59
 msgid "View Filter Menu"
@@ -1540,11 +1540,11 @@ msgstr[1] ""
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:640
 #: src/Views/Scheduled/Scheduled.vala:271 src/Views/Today.vala:780
 msgid "Filter By"
-msgstr ""
+msgstr "סינון לפי"
 
 #: src/Dialogs/DatePicker.vala:69
 msgid "Next Week"
-msgstr ""
+msgstr "שבוע הבא"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:779
 #: src/Layouts/ItemRow.vala:1233 src/Views/Project/Project.vala:562
@@ -1587,11 +1587,11 @@ msgstr[1] ""
 
 #: src/Dialogs/Label.vala:45
 msgid "New Label"
-msgstr ""
+msgstr "תווית חדשה"
 
 #: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:161
 msgid "Edit Label"
-msgstr ""
+msgstr "עריכת תווית"
 
 #: src/Dialogs/Label.vala:65
 msgid "Give your label a name"
@@ -1599,11 +1599,11 @@ msgstr ""
 
 #: src/Dialogs/Label.vala:89
 msgid "Add Label"
-msgstr ""
+msgstr "הוספת תווית"
 
 #: src/Dialogs/Label.vala:89
 msgid "Update Label"
-msgstr ""
+msgstr "עדכון תווית"
 
 #: src/Dialogs/LabelPicker.vala:62
 msgid "Filter"

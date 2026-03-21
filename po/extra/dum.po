@@ -1,28 +1,26 @@
-# Hebrew translations for extra package.
-# Copyright (C) 2025 THE extra'S COPYRIGHT HOLDER
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the extra package.
-# Automatically generated, 2025.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2026-03-08 22:09+0000\n"
-"Last-Translator: \"Omer I.S.\" <omeritzicschwartz@gmail.com>\n"
-"Language-Team: Hebrew <https://hosted.weblate.org/projects/planner/planify-"
-"extra/he/>\n"
-"Language: he\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: dum\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.17-dev\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:7
 #: data/io.github.alainm23.planify.desktop.in.in:4
 msgid "Forget about forgetting things"
-msgstr "הגיע הזמן לשכוח מלשכוח דברים"
+msgstr ""
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:13
 msgid ""
@@ -33,7 +31,7 @@ msgstr ""
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:14
 msgid "✨ Core Features:"
-msgstr "✨ תכונות ליבה:"
+msgstr ""
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:16
 msgid "Modern and clean interface designed with GTK4 and libadwaita"
@@ -77,7 +75,7 @@ msgstr ""
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:27
 msgid "☁️ Cloud Synchronization:"
-msgstr "☁️ סנכרון עם הענן:"
+msgstr ""
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:29
 msgid "Full synchronization with Todoist to access your tasks from anywhere"

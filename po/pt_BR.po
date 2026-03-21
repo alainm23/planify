@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-18 04:30-0500\n"
-"PO-Revision-Date: 2026-02-06 12:01+0000\n"
-"Last-Translator: Leonardo Nascimento <leonardogabrielllpedroso@gmail.com>\n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
+"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"PO-Revision-Date: 2026-03-08 14:09+0000\n"
+"Last-Translator: Matheus Moura <matheusmoura16@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -994,7 +994,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:681
 msgid "Add labels to your tasks!"
-msgstr ""
+msgstr "Adicione etiqueta(s) às suas tarefas!"
 
 #: core/Utils/Util.vala:682
 #, fuzzy
@@ -1247,7 +1247,7 @@ msgstr "Personalizado"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:855
 msgid "No date"
-msgstr ""
+msgstr "Sem data"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"

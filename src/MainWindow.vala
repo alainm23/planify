@@ -831,7 +831,7 @@ public class MainWindow : Adw.ApplicationWindow {
             dialog = new Adw.AboutDialog ();
         } else {
             dialog = new Adw.AboutDialog.from_appdata (
-                "/io/github/alainm23/planify/" + Build.APPLICATION_ID + ".appdata.xml.in.in", Build.VERSION
+                "/io/github/alainm23/planify/" + Build.APPLICATION_ID + ".metainfo.xml.in.in", Build.VERSION
             );
         }
 

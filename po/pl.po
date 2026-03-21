@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-18 04:30-0500\n"
-"PO-Revision-Date: 2026-02-03 16:07+0000\n"
-"Last-Translator: Łukasz Przybysz <poczta@lukprzybysz.pl>\n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
+"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"PO-Revision-Date: 2026-03-13 13:09+0000\n"
+"Last-Translator: Krzysztof Raczkowski <raczkow@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/pl/>\n"
 "Language: pl\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -152,7 +152,7 @@ msgstr "Opis"
 
 #: core/Enum.vala:534 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr "Zaplanowany"
+msgstr "Zaplanowane"
 
 #: core/Enum.vala:543 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:764 src/Layouts/ItemBoard.vala:777
@@ -269,7 +269,7 @@ msgstr "powtarzanie"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr "zaplanowany"
+msgstr "zaplanowane"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
@@ -509,7 +509,7 @@ msgstr "Otwiera opcje przypomnienia"
 
 #: core/QuickAddCore.vala:1444
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Okno pozostanie otwarte po utworzeniu zadania"
 
 #: core/QuickAddCore.vala:1450
 msgid "Tip"
@@ -517,23 +517,23 @@ msgstr "Wskazówka"
 
 #: core/QuickAddCore.vala:1450
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "Twórz zadania szybciej, wpisując skróty bezpośrednio w tytule"
 
 #: core/Services/CalDAV/CalDAVClient.vala:302
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr ""
+msgstr "Wczytywanie zadań dla %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:313
 #: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Wczytano zadania dla %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Synchronizacja zadania %d z %d"
 
 #: core/Services/CalDAV/Core.vala:162
 msgid "Source already exists"
@@ -541,7 +541,7 @@ msgstr "Źródło już istnieje"
 
 #: core/Services/CalDAV/Core.vala:173 core/Services/CalDAV/Core.vala:218
 msgid "Failed to resolve principal url"
-msgstr "Nie udało się rozwiązać głównego url"
+msgstr "Nie można odnaleźć głównego adresu url"
 
 #: core/Services/CalDAV/Core.vala:228
 msgid "Starting sync…"
@@ -570,7 +570,7 @@ msgstr ""
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Błędne zapytanie."
 
 #: core/Services/Todoist.vala:1610 src/Widgets/ErrorView.vala:139
 msgid ""
@@ -604,7 +604,7 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:72 core/Utils/Datetime.vala:635
 msgid "Yesterday"
-msgstr ""
+msgstr "Wczoraj"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "days"
@@ -646,92 +646,92 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:411
 msgid "Mo,"
-msgstr ""
+msgstr "Pn,"
 
 #: core/Utils/Datetime.vala:415
 msgid "Tu,"
-msgstr ""
+msgstr "Wt,"
 
 #: core/Utils/Datetime.vala:419
 msgid "We,"
-msgstr ""
+msgstr "Śr,"
 
 #: core/Utils/Datetime.vala:423
 msgid "Th,"
-msgstr ""
+msgstr "Cz,"
 
 #: core/Utils/Datetime.vala:427
 msgid "Fr,"
-msgstr ""
+msgstr "Pt,"
 
 #: core/Utils/Datetime.vala:431
 msgid "Sa,"
-msgstr ""
+msgstr "So,"
 
 #: core/Utils/Datetime.vala:435
 msgid "Su,"
-msgstr ""
+msgstr "Nd,"
 
 #: core/Utils/Datetime.vala:639
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "w %d dzień"
+msgstr[1] "w %d dni"
+msgstr[2] "w %d dni"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d dzień temu"
+msgstr[1] "%d dni temu"
+msgstr[2] "%d dni temu"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
-msgstr ""
+msgstr "%a, %b %-e, %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:663
 msgid "%b %-e %Y"
-msgstr ""
+msgstr "%b %-e %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:666 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:669
 #, c-format
 msgid "%b %-e"
-msgstr ""
+msgstr "%b %-e"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:672
 msgid "%a %Y"
-msgstr ""
+msgstr "%a %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:675
 #, c-format
 msgid "%a"
-msgstr ""
+msgstr "%a"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:678
 #, c-format
 msgid "%a, %b %-e"
-msgstr ""
+msgstr "%a, %b %-e"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:681
 #, c-format
 msgid "%b"
-msgstr ""
+msgstr "%b"
 
 #: core/Utils/Util.vala:41
 msgid "Berry Red"
@@ -739,19 +739,19 @@ msgstr ""
 
 #: core/Utils/Util.vala:42
 msgid "Red"
-msgstr ""
+msgstr "Czerwony"
 
 #: core/Utils/Util.vala:43
 msgid "Orange"
-msgstr ""
+msgstr "Pomarańczowy"
 
 #: core/Utils/Util.vala:44
 msgid "Yellow"
-msgstr ""
+msgstr "Żółty"
 
 #: core/Utils/Util.vala:45
 msgid "Olive Green"
-msgstr ""
+msgstr "Oliwkowy"
 
 #: core/Utils/Util.vala:46
 msgid "Lime Green"
@@ -759,7 +759,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:47
 msgid "Green"
-msgstr ""
+msgstr "Zielony"
 
 #: core/Utils/Util.vala:48
 msgid "Mint Green"
@@ -779,7 +779,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:52
 msgid "Blue"
-msgstr ""
+msgstr "Niebieski"
 
 #: core/Utils/Util.vala:53
 msgid "Grape"
@@ -787,7 +787,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:54
 msgid "Violet"
-msgstr ""
+msgstr "Fioletowy"
 
 #: core/Utils/Util.vala:55
 msgid "Lavender"
@@ -799,7 +799,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:57
 msgid "Salmon"
-msgstr ""
+msgstr "Łososiowy"
 
 #: core/Utils/Util.vala:58
 msgid "Charcoal"
@@ -807,7 +807,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:59
 msgid "Grey"
-msgstr ""
+msgstr "Szary"
 
 #: core/Utils/Util.vala:60
 msgid "Taupe"
@@ -815,28 +815,28 @@ msgstr ""
 
 #: core/Utils/Util.vala:218
 msgid "Light"
-msgstr ""
+msgstr "Jasny"
 
 #: core/Utils/Util.vala:221
 msgid "Dark"
-msgstr ""
+msgstr "Ciemny"
 
 #: core/Utils/Util.vala:224
 msgid "Dark Blue"
-msgstr ""
+msgstr "Granatowy"
 
 #: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 #: src/Views/Today.vala:768
 msgid "None"
-msgstr ""
+msgstr "Żaden"
 
 #: core/Utils/Util.vala:264
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Dzisiaj + Skrzynka odbiorcza"
 
 #: core/Utils/Util.vala:436
 msgid "Delete All"
-msgstr ""
+msgstr "Usuń wszystko"
 
 #: core/Utils/Util.vala:450
 msgid "Process completed, you need to start Planify again."
@@ -849,7 +849,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:562
 msgid "On This Computer"
-msgstr ""
+msgstr "Na tym komputerze"
 
 #: core/Utils/Util.vala:587
 msgid "Meet Planify"

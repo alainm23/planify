@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-18 04:30-0500\n"
-"PO-Revision-Date: 2025-12-14 10:12+0000\n"
-"Last-Translator: Fraxinus Acer <yasson2008@ya.ru>\n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
+"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"PO-Revision-Date: 2026-03-01 14:09+0000\n"
+"Last-Translator: ash <x-fhjfxh@keysmash.solutions>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/en_GB/>\n"
 "Language: en_GB\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -47,46 +47,46 @@ msgid "Don't Repeat"
 msgstr "Don't Repeat"
 
 #: core/Enum.vala:216
-#, fuzzy, c-format
+#, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
 msgstr[0] "Every minute"
-msgstr[1] "Every minute"
+msgstr[1] "Every %d minutes"
 
 #: core/Enum.vala:218
-#, fuzzy, c-format
+#, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
 msgstr[0] "Every hour"
-msgstr[1] "Every hour"
+msgstr[1] "Every %d hours"
 
 #: core/Enum.vala:220
-#, fuzzy, c-format
+#, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
 msgstr[0] "Every day"
-msgstr[1] "Every day"
+msgstr[1] "Every %d days"
 
 #: core/Enum.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
 msgstr[0] "Every week"
-msgstr[1] "Every week"
+msgstr[1] "Every %d weeks"
 
 #: core/Enum.vala:224
-#, fuzzy, c-format
+#, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
 msgstr[0] "Every month"
-msgstr[1] "Every month"
+msgstr[1] "Every %d months"
 
 #: core/Enum.vala:226
-#, fuzzy, c-format
+#, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
 msgstr[0] "Every year"
-msgstr[1] "Every year"
+msgstr[1] "Every %d years"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -315,9 +315,13 @@ msgid "Task copied to clipboard"
 msgstr "Task copied to clipboard"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#, fuzzy, c-format
-msgid "Moved to %s"
-msgstr "Task moved to %s"
+#: src/Widgets/MultiSelectToolbar.vala:376
+#: src/Widgets/MultiSelectToolbar.vala:379
+#, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Task moved to %s"
+msgstr[1] "%d tasks moved to %s"
 
 #: core/Objects/Label.vala:206
 #, c-format
@@ -418,7 +422,7 @@ msgstr "Add a description…"
 
 #: core/QuickAddCore.vala:259
 msgid "Set date"
-msgstr ""
+msgstr "Set date"
 
 #: core/QuickAddCore.vala:271 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
@@ -502,7 +506,7 @@ msgstr "Opens reminder options"
 
 #: core/QuickAddCore.vala:1444
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Toggle stay open after creating task"
 
 #: core/QuickAddCore.vala:1450
 msgid "Tip"
@@ -521,12 +525,12 @@ msgstr "Loading tasks for %s…"
 #: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Loaded tasks for %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Syncing task %d of %d"
 
 #: core/Services/CalDAV/Core.vala:162
 msgid "Source already exists"
@@ -3166,7 +3170,7 @@ msgstr ""
 
 #: src/Widgets/EventRow.vala:311
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/Widgets/EventRow.vala:321
 msgid "Calendar"
