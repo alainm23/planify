@@ -35,6 +35,18 @@ public class Views.Labels : Adw.Bin {
             title = Objects.Filters.Labels.get_default ().name
         };
 
+        var view_setting_button = new Gtk.MenuButton () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
+            margin_end = 12,
+            popover = build_view_setting_popover (),
+            icon_name = "view-sort-descending-rtl-symbolic",
+            css_classes = { "flat" },
+            tooltip_text = _("View Option Menu")
+        };
+
+        headerbar.pack_end (view_setting_button);
+
         var title_icon = new Gtk.Image.from_icon_name (Objects.Filters.Labels.get_default ().icon_name) {
             pixel_size = 16,
             valign = CENTER,
@@ -130,6 +142,32 @@ public class Views.Labels : Adw.Bin {
             sources_hashmap[source.id] = new Views.LabelSourceRow (source);
             sources_listbox.append (sources_hashmap[source.id]);
         }
+    }
+
+    private Gtk.Popover build_view_setting_popover () {
+        var show_active_only_item = new Widgets.ContextMenu.MenuSwitch (_("Only Active Projects"), "funnel-outline-symbolic") {
+            tooltip_text = _("Only show labels used by tasks in active (non-archived) projects")
+        };
+        show_active_only_item.active = Services.Settings.get_default ().settings.get_boolean ("labels-show-active-only");
+
+        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_top = 3,
+            margin_bottom = 3
+        };
+        menu_box.append (show_active_only_item);
+
+        var popover = new Gtk.Popover () {
+            has_arrow = false,
+            position = Gtk.PositionType.BOTTOM,
+            child = menu_box,
+            width_request = 250
+        };
+
+        signal_map[show_active_only_item.activate_item.connect (() => {
+            Services.Settings.get_default ().settings.set_boolean ("labels-show-active-only", show_active_only_item.active);
+        })] = show_active_only_item;
+
+        return popover;
     }
 
     public void prepare_new_item (string content = "") {
