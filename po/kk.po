@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-21 04:43-0500\n"
 "PO-Revision-Date: 2025-12-14 10:08+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Kazakh <https://hosted.weblate.org/projects/planner/io-github-"
@@ -316,20 +316,16 @@ msgid "Task copied to clipboard"
 msgstr "Тапсырма буферге көшірілді"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
 #, fuzzy, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "Тапсырма %s дегенге жылжытылды"
-msgstr[1] "Тапсырма %s дегенге жылжытылды"
+msgid "Moved to %s"
+msgstr "Тапсырма %s дегенге жылжытылды"
 
-#: core/Objects/Label.vala:206
+#: core/Objects/Label.vala:220
 #, c-format
 msgid "Delete Label %s"
 msgstr "%s белгісін жою"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:856
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
@@ -337,7 +333,7 @@ msgstr "%s белгісін жою"
 msgid "This can not be undone"
 msgstr "Бұны қайтаруға болмайды"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:859
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
@@ -356,7 +352,7 @@ msgstr "Бұны қайтаруға болмайды"
 msgid "Cancel"
 msgstr "Болдырмау"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:860
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
@@ -466,7 +462,7 @@ msgstr ""
 "Кешіріңіз, Жылдам қосу қолжетімді жобаларды таба алмады, Planify арқылы жоба "
 "жасауға тырысыңыз."
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:733
 msgid "Keyboard Shortcuts"
 msgstr "Пернетақта қысқартулары"
 
@@ -1296,23 +1292,34 @@ msgstr "Соңы"
 msgid "Date"
 msgstr ""
 
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:72
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:80
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:209
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:213
+msgid "The date you plan to work on this task"
+msgstr ""
+
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
-msgid "Set a Due Date"
-msgstr "Мерзімді орнату"
+msgid "When do you plan to work on this?"
+msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
-#: core/Widgets/DeadlineButton.vala:153
-msgid "Set a Deadline"
+#: core/Widgets/DeadlineButton.vala:135
+msgid "The latest date to complete this task"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
+msgid "What is the latest date to complete this?"
 msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:148
@@ -1329,7 +1336,7 @@ msgstr "Белгілерді таңдау"
 msgid "Label not found: Create '%s'"
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:68
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
@@ -1337,25 +1344,46 @@ msgstr ""
 "Сүзгілер тізімі осы жерде көрсетіледі. Атауын енгізіп, Enter пернесін басу "
 "арқылы жаңасын жасаңыз."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:69
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr "'%s' жасау"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Your list of filters will show up here."
 msgstr "Сүзгілер тізімі осы жерде көрсетіледі."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "Іздеу"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search or Create"
 msgstr "Іздеу немесе жасау"
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
+msgid "Hide unused labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
+msgid "No Labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
+msgid "All Hidden"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
+msgid "All labels are hidden by the filter. Disable the filter to see them."
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
+msgid "Press Enter to create and assign it"
+msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:1383
 #, fuzzy
@@ -1472,7 +1500,7 @@ msgstr "Орындауға"
 msgid "Complete"
 msgstr "Аяқтау"
 
-#: src/App.vala:143
+#: src/App.vala:147
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1660,7 +1688,7 @@ msgstr "Белгіні жаңарту"
 msgid "Filter"
 msgstr "Сүзгі"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:738
 msgid "Archived Projects"
 msgstr "Мұрағатталған жобалар"
 
@@ -2126,21 +2154,21 @@ msgstr "Реттелген"
 msgid "DE Integration"
 msgstr "Жүйелік интеграция"
 
-#: src/Dialogs/Preferences/Pages/General.vala:68
-msgid "Run in Background"
-msgstr "Фонда жұмыс істеу"
-
 #: src/Dialogs/Preferences/Pages/General.vala:69
-msgid "Let Planify run in background and send notifications"
-msgstr "Planify фонда жұмыс істеп, хабарламалар жіберуіне рұқсат беру"
-
-#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
 msgstr "Қосылған кезде іске қосу"
 
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:82
+msgid "Run in Background"
+msgstr "Фонда жұмыс істеу"
+
 #: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Whether Planify should run on startup"
-msgstr "Planify жүйе қосылған кезде іске қосылу керек пе"
+msgid "Keep Planify running in the system tray when closing the window"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2415,7 +2443,7 @@ msgstr ""
 "Қосылған кезде тапсырманың мерзімі алдында еске салғыш әдепкі бойынша "
 "қосылады."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:730
 msgid "Preferences"
 msgstr "Параметрлер"
 
@@ -2818,31 +2846,31 @@ msgstr "Негізгі мәзір"
 msgid "Open Quick Find"
 msgstr "Жылдам іздеуді ашу"
 
-#: src/MainWindow.vala:715
+#: src/MainWindow.vala:736
 msgid "About Planify"
 msgstr "Planify туралы"
 
-#: src/MainWindow.vala:775
+#: src/MainWindow.vala:796
 msgid "Oops! Something happened"
 msgstr "Кешіріңіз! Бірдеңе болды"
 
-#: src/MainWindow.vala:778
+#: src/MainWindow.vala:799
 msgid "See More"
 msgstr "Толығырақ көру"
 
-#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:815 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Тапсырма аяқталды"
 
-#: src/MainWindow.vala:795
+#: src/MainWindow.vala:816
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:833
+#: src/MainWindow.vala:854
 msgid "Database Integrity Check Failed"
 msgstr "Дерекқор тұтастығын тексеру сәтсіз болды"
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:855
 #, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
@@ -2863,7 +2891,7 @@ msgstr ""
 "кейін бұрын жасаған кез келген сақтық көшірмені қалпына келтіре аласыз. "
 "Шыдамдылығыңыз үшін рахмет"
 
-#: src/MainWindow.vala:836
+#: src/MainWindow.vala:857
 msgid "Reset Database"
 msgstr "Дерекқорды қалпына келтіру"
 
@@ -2902,8 +2930,9 @@ msgstr "30 минуттан кейін"
 msgid "Snooze for 1 hour"
 msgstr "1 сағаттан кейін"
 
-#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
-#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:88
+#: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
+#: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
+#: src/Views/Today.vala:88
 msgid "View Option Menu"
 msgstr "Көру опциялары мәзірі"
 
@@ -2947,8 +2976,21 @@ msgstr[1] ""
 "Бұл %d аяқталған тапсырманы және олардың қосымша тапсырмаларын жояды"
 
 #: src/Views/Label/LabelSourceRow.vala:49
+#: src/Views/Label/LabelSourceRow.vala:125
 msgid "No labels available. Create one by clicking on the '+' button"
 msgstr "Қолжетімді белгілер жоқ. '+' түймесін басу арқылы жасаңыз"
+
+#: src/Views/Label/LabelSourceRow.vala:122
+msgid "All labels are hidden by the filter"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:148
+msgid "Only Active Projects"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:149
+msgid "Only show labels used by tasks in active (non-archived) projects"
+msgstr ""
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
@@ -3278,6 +3320,13 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Бұл тапсырманы жоюды шынымен қалайсыз ба?"
 msgstr[1] "Бұл тапсырманы жоюды шынымен қалайсыз ба?"
 
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, fuzzy, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Тапсырма %s дегенге жылжытылды"
+msgstr[1] "Тапсырма %s дегенге жылжытылды"
+
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
 msgid "New version available!"
@@ -3448,6 +3497,15 @@ msgstr "Белгілерді ашу"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Жапсырма тақтасын ашу"
+
+#~ msgid "Set a Due Date"
+#~ msgstr "Мерзімді орнату"
+
+#~ msgid "Let Planify run in background and send notifications"
+#~ msgstr "Planify фонда жұмыс істеп, хабарламалар жіберуіне рұқсат беру"
+
+#~ msgid "Whether Planify should run on startup"
+#~ msgstr "Planify жүйе қосылған кезде іске қосылу керек пе"
 
 #~ msgid "Clear"
 #~ msgstr "Тазалау"

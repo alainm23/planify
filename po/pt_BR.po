@@ -318,6 +318,7 @@ msgstr "Tarefa copiada para a área de transferência"
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
 #: src/Widgets/MultiSelectToolbar.vala:376
 #: src/Widgets/MultiSelectToolbar.vala:379
+#: src/Widgets/MultiSelectToolbar.vala:375
 #, fuzzy, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
@@ -325,7 +326,7 @@ msgstr[0] "Tarefas adicionadas a <b>%s</b>"
 msgstr[1] "Tarefas adicionadas a <b>%s</b>"
 
 # c-format
-#: core/Objects/Label.vala:206
+#: core/Objects/Label.vala:206 core/Objects/Label.vala:220
 #, c-format
 msgid "Delete Label %s"
 msgstr "Excluir rótulo %s"
@@ -334,7 +335,7 @@ msgstr "Excluir rótulo %s"
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
-#: src/Services/Backups.vala:416
+#: src/Services/Backups.vala:416 core/Objects/Label.vala:221
 msgid "This can not be undone"
 msgstr "Isso não pode ser desfeito"
 
@@ -353,7 +354,7 @@ msgstr "Isso não pode ser desfeito"
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:634 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:287
+#: src/Widgets/MultiSelectToolbar.vala:287 core/Objects/Label.vala:224
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -365,7 +366,7 @@ msgstr "Cancelar"
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:635
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
-#: src/Widgets/MultiSelectToolbar.vala:288
+#: src/Widgets/MultiSelectToolbar.vala:288 core/Objects/Label.vala:225
 msgid "Delete"
 msgstr "Deletar"
 
@@ -469,7 +470,7 @@ msgstr ""
 "Sinto muito, o Quick Add não consegue encontrar nenhum projeto disponível, "
 "tente criar um projeto no Planify."
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712 src/MainWindow.vala:733
 msgid "Keyboard Shortcuts"
 msgstr "Atalhos do Teclado"
 
@@ -1328,6 +1329,7 @@ msgid "Label not found: Create '%s'"
 msgstr "Rótulo não encontrado: Criar '%s'"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:68
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
@@ -1338,21 +1340,25 @@ msgstr ""
 # # c-format
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:69
 #, c-format
 msgid "Create '%s'"
 msgstr "Criar '%s'"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Your list of filters will show up here."
 msgstr "Sua lista de filtros aparecerá aqui."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search"
 msgstr "Pesquisar"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search or Create"
 msgstr "Procure ou Crie"
 
@@ -1472,7 +1478,7 @@ msgstr "Pendência"
 msgid "Complete"
 msgstr "Completar"
 
-#: src/App.vala:143
+#: src/App.vala:143 src/App.vala:147
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1673,6 +1679,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
+#: src/MainWindow.vala:738
 msgid "Archived Projects"
 msgstr "Projetos Arquivados"
 
@@ -2136,6 +2143,7 @@ msgid "DE Integration"
 msgstr "Integração DE"
 
 #: src/Dialogs/Preferences/Pages/General.vala:68
+#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run in Background"
 msgstr "Executar em Segundo Plano"
 
@@ -2144,6 +2152,7 @@ msgid "Let Planify run in background and send notifications"
 msgstr "Deixe o Planify rodar em segundo plano e enviar notificações"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
+#: src/Dialogs/Preferences/Pages/General.vala:69
 msgid "Run on Startup"
 msgstr "Executar ao Iniciar"
 
@@ -2425,6 +2434,7 @@ msgstr ""
 "adicionado por padrão."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
+#: src/MainWindow.vala:730
 msgid "Preferences"
 msgstr "Preferências"
 
@@ -2831,32 +2841,33 @@ msgstr "Menu principal"
 msgid "Open Quick Find"
 msgstr "Abra a Busca Rápida"
 
-#: src/MainWindow.vala:715
+#: src/MainWindow.vala:715 src/MainWindow.vala:736
 msgid "About Planify"
 msgstr "Sobre o Planify"
 
-#: src/MainWindow.vala:775
+#: src/MainWindow.vala:775 src/MainWindow.vala:796
 msgid "Oops! Something happened"
 msgstr "Ops! Aconteceu alguma coisa"
 
-#: src/MainWindow.vala:778
+#: src/MainWindow.vala:778 src/MainWindow.vala:799
 msgid "See More"
 msgstr "Crie mais"
 
 #: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:815
 msgid "Task completed"
 msgstr "Tarefa concluída"
 
-#: src/MainWindow.vala:795
+#: src/MainWindow.vala:795 src/MainWindow.vala:816
 #, fuzzy
 msgid "View"
 msgstr "Exibição de Lista"
 
-#: src/MainWindow.vala:833
+#: src/MainWindow.vala:833 src/MainWindow.vala:854
 msgid "Database Integrity Check Failed"
 msgstr "Falha na verificação de integridade do banco de dados"
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:834 src/MainWindow.vala:855
 #, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
@@ -2877,7 +2888,7 @@ msgstr ""
 "redefinição, você poderá restaurar qualquer backup criado anteriormente. "
 "Agradecemos a sua paciência"
 
-#: src/MainWindow.vala:836
+#: src/MainWindow.vala:836 src/MainWindow.vala:857
 msgid "Reset Database"
 msgstr "Redefinir banco de dados"
 
@@ -2920,6 +2931,7 @@ msgstr "Em 1 hora"
 
 #: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
 #: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:88
+#: src/Views/Label/Labels.vala:45
 msgid "View Option Menu"
 msgstr "Ver menu de opções"
 
@@ -2962,6 +2974,7 @@ msgstr[0] "Isto irá deletar %d tarefas completadas e suas subtarefas"
 msgstr[1] "Isto irá deletar %d tarefas completadas e suas subtarefas"
 
 #: src/Views/Label/LabelSourceRow.vala:49
+#: src/Views/Label/LabelSourceRow.vala:125
 msgid "No labels available. Create one by clicking on the '+' button"
 msgstr "Nenhum favorito disponível. Crie um clicando no botão '+'"
 
@@ -3467,6 +3480,75 @@ msgstr "Abrir Rótulos"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Abrir Quadro de Anúncios"
+
+# c-format
+#: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
+#, fuzzy, c-format
+msgid "Moved to %s"
+msgstr "Tarefas adicionadas a <b>%s</b>"
+
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:72
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:80
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:209
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:213
+msgid "The date you plan to work on this task"
+msgstr ""
+
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:170
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:208
+msgid "When do you plan to work on this?"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
+#: core/Widgets/DeadlineButton.vala:135
+msgid "The latest date to complete this task"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
+msgid "What is the latest date to complete this?"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
+msgid "Hide unused labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
+msgid "No Labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
+msgid "All Hidden"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
+msgid "All labels are hidden by the filter. Disable the filter to see them."
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
+msgid "Press Enter to create and assign it"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:83
+msgid "Keep Planify running in the system tray when closing the window"
+msgstr ""
+
+#: src/Views/Label/LabelSourceRow.vala:122
+msgid "All labels are hidden by the filter"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:148
+msgid "Only Active Projects"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:149
+msgid "Only show labels used by tasks in active (non-archived) projects"
+msgstr ""
 
 #~ msgid "Clear"
 #~ msgstr "Limpar"

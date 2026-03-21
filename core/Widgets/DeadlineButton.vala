@@ -51,9 +51,9 @@ public class Widgets.DeadlineButton : Adw.Bin {
                     deadline_date_label.label = _("Set Deadline");
                     deadline_date_label.remove_css_class ("error");
 
-                    deadline_relative_label.label = null;
+                    deadline_relative_label.label = _("The latest date to complete this task");
                 } else if (button_type == DeadlineButtonType.CARD) {
-                    deadline_label.label = _("Set a Deadline");
+                    deadline_label.label = _("What is the latest date to complete this?");
                     deadline_label.tooltip_text = null;
                     deadline_icon.remove_css_class ("error");
                 }
@@ -83,21 +83,21 @@ public class Widgets.DeadlineButton : Adw.Bin {
     public DeadlineButton () {
         Object (
             button_type: DeadlineButtonType.BUTTON,
-            tooltip_text: _("Set a Deadline")
+            tooltip_text: _("The latest date to complete this task")
         );
     }
 
     public DeadlineButton.with_detail () {
         Object (
             button_type: DeadlineButtonType.BUTTON_DETAIL,
-            tooltip_text: _("Set a Deadline")
+            tooltip_text: _("The latest date to complete this task")
         );
     }
 
     public DeadlineButton.card () {
         Object (
             button_type: DeadlineButtonType.CARD,
-            tooltip_text: _("Set a Deadline")
+            tooltip_text: _("The latest date to complete this task")
         );
     }
 
@@ -132,7 +132,7 @@ public class Widgets.DeadlineButton : Adw.Bin {
                 halign = START
             };
 
-            deadline_relative_label = new Gtk.Label (null) {
+            deadline_relative_label = new Gtk.Label (_("The latest date to complete this task")) {
                 halign = START
             };
             deadline_relative_label.add_css_class ("dimmed");
@@ -150,7 +150,7 @@ public class Widgets.DeadlineButton : Adw.Bin {
                 css_classes = { "title-4", "caption", "font-bold" }
             };
 
-            deadline_label = new Gtk.Label (_("Set a Deadline")) {
+            deadline_label = new Gtk.Label (_("What is the latest date to complete this?")) {
                 xalign = 0,
                 use_markup = true,
                 halign = START,

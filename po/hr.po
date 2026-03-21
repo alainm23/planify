@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-03-01 14:09+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-21 04:43-0500\n"
+"PO-Revision-Date: 2026-02-14 12:09+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/hr/>\n"
@@ -322,21 +322,16 @@ msgid "Task copied to clipboard"
 msgstr "Zadatak je kopiran u međuspremnik"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
-#, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "Zadatak je premješten u %s"
-msgstr[1] "%d zadatka su premještena u %s"
-msgstr[2] "%d zadataka su premješteni u %s"
+#, fuzzy, c-format
+msgid "Moved to %s"
+msgstr "Zadatak je premješten u %s"
 
-#: core/Objects/Label.vala:206
+#: core/Objects/Label.vala:220
 #, c-format
 msgid "Delete Label %s"
 msgstr "Izbriši etiketu %s"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:856
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
@@ -344,7 +339,7 @@ msgstr "Izbriši etiketu %s"
 msgid "This can not be undone"
 msgstr "Ovo se ne može poništiti"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:859
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
@@ -363,7 +358,7 @@ msgstr "Ovo se ne može poništiti"
 msgid "Cancel"
 msgstr "Odustani"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:860
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
@@ -472,7 +467,7 @@ msgstr ""
 "Žao mi je, brzo dodavanje ne može pronaći nijedan dostupan projekt, pokušaj "
 "stvoriti projekt iz aplikacije Planify."
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:733
 msgid "Keyboard Shortcuts"
 msgstr "Tipkovni prečaci"
 
@@ -702,6 +697,7 @@ msgid "%Y"
 msgstr "%Y."
 
 #: core/Utils/Datetime.vala:669
+#, fuzzy
 msgid "%b %-e"
 msgstr "%d. %m."
 
@@ -715,6 +711,7 @@ msgid "%a"
 msgstr "%a"
 
 #: core/Utils/Datetime.vala:678
+#, fuzzy
 msgid "%a, %b %-e"
 msgstr "%a, %d. %m."
 
@@ -1280,24 +1277,35 @@ msgstr "Kraj"
 msgid "Date"
 msgstr "Datum"
 
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:72
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:80
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:209
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:213
+msgid "The date you plan to work on this task"
+msgstr ""
+
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
 msgstr "Ukloni datum"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
-msgid "Set a Due Date"
-msgstr "Postavi datum roka"
+msgid "When do you plan to work on this?"
+msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr "Postavi rok"
 
-#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
-#: core/Widgets/DeadlineButton.vala:153
-msgid "Set a Deadline"
-msgstr "Postavi rok"
+#: core/Widgets/DeadlineButton.vala:135
+msgid "The latest date to complete this task"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
+msgid "What is the latest date to complete this?"
+msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
@@ -1313,7 +1321,7 @@ msgstr "Odaberi etikete"
 msgid "Label not found: Create '%s'"
 msgstr "Etiketa nije pronađena: Stvori „%s”"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:68
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
@@ -1321,25 +1329,46 @@ msgstr ""
 "Tvoj popis filtara će se ovdje prikazati. Stvori filtar unosom imena i "
 "pritiskom tipke Enter."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:69
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr "Stvori „%s”"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Your list of filters will show up here."
 msgstr "Tvoj popis filtara će se ovdje prikazati."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "Traži"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search or Create"
 msgstr "Traži ili stvori"
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
+msgid "Hide unused labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
+msgid "No Labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
+msgid "All Hidden"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
+msgid "All labels are hidden by the filter. Disable the filter to see them."
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
+msgid "Press Enter to create and assign it"
+msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
@@ -1455,7 +1484,7 @@ msgstr "Zadatak"
 msgid "Complete"
 msgstr "Završi"
 
-#: src/App.vala:143
+#: src/App.vala:147
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1657,7 +1686,7 @@ msgstr "Aktualiziraj etiketu"
 msgid "Filter"
 msgstr "Filtar"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:738
 msgid "Archived Projects"
 msgstr "Arhivirani projekti"
 
@@ -2121,21 +2150,21 @@ msgstr "Razvrstano"
 msgid "DE Integration"
 msgstr "DE integracija"
 
-#: src/Dialogs/Preferences/Pages/General.vala:68
-msgid "Run in Background"
-msgstr "Izvodi u pozadini"
-
 #: src/Dialogs/Preferences/Pages/General.vala:69
-msgid "Let Planify run in background and send notifications"
-msgstr "Dopusti da Planify radi u pozadini i šalje obavijesti"
-
-#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
 msgstr "Pokreni prilikom pokretanja sustava"
 
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:82
+msgid "Run in Background"
+msgstr "Izvodi u pozadini"
+
 #: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Whether Planify should run on startup"
-msgstr "Treba li Planify pokrenuti nakon pokretanja sustava"
+msgid "Keep Planify running in the system tray when closing the window"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2405,7 +2434,7 @@ msgid ""
 msgstr ""
 "Kada je uključeno, standardno će se dodati podsjetnik prije roka zadatka."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:730
 msgid "Preferences"
 msgstr "Osobitosti"
 
@@ -2803,31 +2832,31 @@ msgstr "Glavni izbornik"
 msgid "Open Quick Find"
 msgstr "Otvori brzo pronalaženje"
 
-#: src/MainWindow.vala:715
+#: src/MainWindow.vala:736
 msgid "About Planify"
 msgstr "O aplikaciji Planify"
 
-#: src/MainWindow.vala:775
+#: src/MainWindow.vala:796
 msgid "Oops! Something happened"
 msgstr "Ups! Nešto se dogodilo"
 
-#: src/MainWindow.vala:778
+#: src/MainWindow.vala:799
 msgid "See More"
 msgstr "Pogledaj više"
 
-#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:815 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Zadatak završen"
 
-#: src/MainWindow.vala:795
+#: src/MainWindow.vala:816
 msgid "View"
 msgstr "Prikaz"
 
-#: src/MainWindow.vala:833
+#: src/MainWindow.vala:854
 msgid "Database Integrity Check Failed"
 msgstr "Provjera integriteta baze podataka nije uspjela"
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:855
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2850,7 +2879,7 @@ msgstr ""
 "Nakon resetiranja možeš obnoviti bazu podataka pomoću prethodno izrađene "
 "sigurnosne kopije. Hvala na strpljenju"
 
-#: src/MainWindow.vala:836
+#: src/MainWindow.vala:857
 msgid "Reset Database"
 msgstr "Resetiraj bazu podataka"
 
@@ -2886,8 +2915,9 @@ msgstr "Ponovi alarm za 30 minuta"
 msgid "Snooze for 1 hour"
 msgstr "Ponovi alarm za 1 sat"
 
-#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
-#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:88
+#: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
+#: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
+#: src/Views/Today.vala:88
 msgid "View Option Menu"
 msgstr "Prikaz izbornika opcija"
 
@@ -2929,8 +2959,21 @@ msgstr[1] "Ovo će izbrisati %d završena zadatka i njihove podzadatke"
 msgstr[2] "Ovo će izbrisati %d završenih zadataka i njihove podzadatke"
 
 #: src/Views/Label/LabelSourceRow.vala:49
+#: src/Views/Label/LabelSourceRow.vala:125
 msgid "No labels available. Create one by clicking on the '+' button"
 msgstr "Nema dostupnih etiketa. Stvori etiketu klikom na gumb '+'"
+
+#: src/Views/Label/LabelSourceRow.vala:122
+msgid "All labels are hidden by the filter"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:148
+msgid "Only Active Projects"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:149
+msgid "Only show labels used by tasks in active (non-archived) projects"
+msgstr ""
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
@@ -3264,6 +3307,14 @@ msgstr[0] "Stvarno želiš izbrisati ovaj %d zadatak?"
 msgstr[1] "Stvarno želiš izbrisati ova %d zadatka?"
 msgstr[2] "Stvarno želiš izbrisati ovih %d zadataka?"
 
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Zadatak je premješten u %s"
+msgstr[1] "%d zadatka su premještena u %s"
+msgstr[2] "%d zadataka su premješteni u %s"
+
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
 msgstr "Dostupna je nova verzija!"
@@ -3434,6 +3485,18 @@ msgstr "Otvori etikete"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Otvori oglasnu ploču"
+
+#~ msgid "Set a Due Date"
+#~ msgstr "Postavi datum roka"
+
+#~ msgid "Set a Deadline"
+#~ msgstr "Postavi rok"
+
+#~ msgid "Let Planify run in background and send notifications"
+#~ msgstr "Dopusti da Planify radi u pozadini i šalje obavijesti"
+
+#~ msgid "Whether Planify should run on startup"
+#~ msgstr "Treba li Planify pokrenuti nakon pokretanja sustava"
 
 #~ msgid "Clear"
 #~ msgstr "Izbriši"
