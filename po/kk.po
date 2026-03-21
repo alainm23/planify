@@ -320,12 +320,12 @@ msgstr "Тапсырма буферге көшірілді"
 msgid "Moved to %s"
 msgstr "Тапсырма %s дегенге жылжытылды"
 
-#: core/Objects/Label.vala:206
+#: core/Objects/Label.vala:220
 #, c-format
 msgid "Delete Label %s"
 msgstr "%s белгісін жою"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:856
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
@@ -333,7 +333,7 @@ msgstr "%s белгісін жою"
 msgid "This can not be undone"
 msgstr "Бұны қайтаруға болмайды"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:859
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
@@ -352,7 +352,7 @@ msgstr "Бұны қайтаруға болмайды"
 msgid "Cancel"
 msgstr "Болдырмау"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:860
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
@@ -597,7 +597,6 @@ msgstr "Сервер қатесі себебінен сұраныс сәтсіз
 msgid "The server is currently unable to handle the request."
 msgstr "Сервер қазіргі уақытта сұранысты өңдей алмайды."
 
-#. TODO: use soup messages as fallback?
 #: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "Белгісіз қате"
@@ -624,22 +623,18 @@ msgstr "%s %s бұрын"
 msgid "%s %s left"
 msgstr "%s %s қалды"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
 msgstr ""
@@ -686,48 +681,37 @@ msgid_plural "%d days ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:663
 msgid "%b %-e %Y"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:666 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:669
-#, c-format
 msgid "%b %-e"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:672
 msgid "%a %Y"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:675
 #, c-format
 msgid "%a"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:678
-#, c-format
 msgid "%a, %b %-e"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:681
-#, c-format
 msgid "%b"
 msgstr ""
 
@@ -1308,23 +1292,34 @@ msgstr "Соңы"
 msgid "Date"
 msgstr ""
 
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:72
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:80
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:209
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:213
+msgid "The date you plan to work on this task"
+msgstr ""
+
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
-msgid "Set a Due Date"
-msgstr "Мерзімді орнату"
+msgid "When do you plan to work on this?"
+msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
-#: core/Widgets/DeadlineButton.vala:153
-msgid "Set a Deadline"
+#: core/Widgets/DeadlineButton.vala:135
+msgid "The latest date to complete this task"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
+msgid "What is the latest date to complete this?"
 msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:148
@@ -1341,7 +1336,7 @@ msgstr "Белгілерді таңдау"
 msgid "Label not found: Create '%s'"
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:68
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
@@ -1349,26 +1344,46 @@ msgstr ""
 "Сүзгілер тізімі осы жерде көрсетіледі. Атауын енгізіп, Enter пернесін басу "
 "арқылы жаңасын жасаңыз."
 
-#. vala-lint=naming-convention
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:69
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr "'%s' жасау"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Your list of filters will show up here."
 msgstr "Сүзгілер тізімі осы жерде көрсетіледі."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "Іздеу"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search or Create"
 msgstr "Іздеу немесе жасау"
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
+msgid "Hide unused labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
+msgid "No Labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
+msgid "All Hidden"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
+msgid "All labels are hidden by the filter. Disable the filter to see them."
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
+msgid "Press Enter to create and assign it"
+msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:1383
 #, fuzzy
@@ -1404,7 +1419,6 @@ msgstr "Басымдылық 1: Төмен"
 msgid "Your list of section will show up here."
 msgstr "Бөлімдер тізімі осы жерде көрсетіледі."
 
-#. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
@@ -2494,7 +2508,6 @@ msgstr ""
 msgid "Get Involved"
 msgstr ""
 
-#. Reach Us Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
 msgstr "Бізбен байланысу"
@@ -2917,8 +2930,9 @@ msgstr "30 минуттан кейін"
 msgid "Snooze for 1 hour"
 msgstr "1 сағаттан кейін"
 
-#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
-#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:88
+#: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
+#: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
+#: src/Views/Today.vala:88
 msgid "View Option Menu"
 msgstr "Көру опциялары мәзірі"
 
@@ -2962,8 +2976,21 @@ msgstr[1] ""
 "Бұл %d аяқталған тапсырманы және олардың қосымша тапсырмаларын жояды"
 
 #: src/Views/Label/LabelSourceRow.vala:49
+#: src/Views/Label/LabelSourceRow.vala:125
 msgid "No labels available. Create one by clicking on the '+' button"
 msgstr "Қолжетімді белгілер жоқ. '+' түймесін басу арқылы жасаңыз"
+
+#: src/Views/Label/LabelSourceRow.vala:122
+msgid "All labels are hidden by the filter"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:148
+msgid "Only Active Projects"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:149
+msgid "Only show labels used by tasks in active (non-archived) projects"
+msgstr ""
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
@@ -3041,7 +3068,6 @@ msgstr "Қосылған күні"
 msgid "Ascending Order"
 msgstr "Өсу ретімен"
 
-#. Filters
 #: src/Views/Project/Project.vala:553
 msgid "Duedate"
 msgstr "Мерзімі"
@@ -3124,7 +3150,6 @@ msgstr ""
 msgid "Attachments"
 msgstr "Қосымшалар"
 
-#. translators: Open file
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Ашу"
@@ -3472,6 +3497,9 @@ msgstr "Белгілерді ашу"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Жапсырма тақтасын ашу"
+
+#~ msgid "Set a Due Date"
+#~ msgstr "Мерзімді орнату"
 
 #~ msgid "Let Planify run in background and send notifications"
 #~ msgstr "Planify фонда жұмыс істеп, хабарламалар жіберуіне рұқсат беру"

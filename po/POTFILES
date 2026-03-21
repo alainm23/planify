@@ -226,5 +226,10 @@ src/Widgets/TranslationRow.vala
 quick-add/App.vala
 quick-add/MainWindow.vala
 quick-add/Services/DBusClient.vala
+quick-add/cli/ArgumentParser.vala
+quick-add/cli/Main.vala
+quick-add/cli/OutputFormatter.vala
+quick-add/cli/TaskCreator.vala
+quick-add/cli/TaskValidator.vala
 
 data/resources/ui/shortcuts.ui

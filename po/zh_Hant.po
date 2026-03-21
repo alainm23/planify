@@ -313,12 +313,12 @@ msgstr "任務已經複製至剪貼簿"
 msgid "Moved to %s"
 msgstr "%d 個任務已經移至 %s"
 
-#: core/Objects/Label.vala:206
+#: core/Objects/Label.vala:220
 #, c-format
 msgid "Delete Label %s"
 msgstr "刪除標籤 %s"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:856
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
@@ -326,7 +326,7 @@ msgstr "刪除標籤 %s"
 msgid "This can not be undone"
 msgstr "此項無法取消動作"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:859
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
@@ -345,7 +345,7 @@ msgstr "此項無法取消動作"
 msgid "Cancel"
 msgstr "取消"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:860
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
@@ -580,7 +580,6 @@ msgstr "由於伺服器錯誤，請求失敗。"
 msgid "The server is currently unable to handle the request."
 msgstr "伺服器目前無法處理該請求。"
 
-#. TODO: use soup messages as fallback?
 #: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "不明錯誤"
@@ -607,22 +606,18 @@ msgstr "%s %s 之前"
 msgid "%s %s left"
 msgstr "%s %s 剩下"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
 msgstr "%-l:%M:%S %p"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
 msgstr "%-l:%M %p"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -667,48 +662,37 @@ msgid "%d day ago"
 msgid_plural "%d days ago"
 msgstr[0] "%d 日之前"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
 msgstr "%a, %b %-e, %Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:663
 msgid "%b %-e %Y"
 msgstr "%b %-e %Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:666 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:669
-#, c-format
 msgid "%b %-e"
 msgstr "%b %-e"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:672
 msgid "%a %Y"
 msgstr "%a %Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:675
 #, c-format
 msgid "%a"
 msgstr "%a"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:678
-#, c-format
 msgid "%a, %b %-e"
 msgstr "%a, %b %-e"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:681
-#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -1261,24 +1245,35 @@ msgstr "結束"
 msgid "Date"
 msgstr "日期"
 
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:72
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:80
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:209
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:213
+msgid "The date you plan to work on this task"
+msgstr ""
+
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
 msgstr "移除日期"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
-msgid "Set a Due Date"
-msgstr "設定到期日"
+msgid "When do you plan to work on this?"
+msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr "設定截止日期"
 
-#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
-#: core/Widgets/DeadlineButton.vala:153
-msgid "Set a Deadline"
-msgstr "設定截止日期"
+#: core/Widgets/DeadlineButton.vala:135
+msgid "The latest date to complete this task"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
+msgid "What is the latest date to complete this?"
+msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
@@ -1294,32 +1289,52 @@ msgstr "選擇標籤"
 msgid "Label not found: Create '%s'"
 msgstr "標籤未找到：建立 '%s'"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:68
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
 msgstr "您所篩選的清單將顯示於此。輸入名稱並按 Enter 鍵即可建立一個。"
 
-#. vala-lint=naming-convention
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:69
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr "建立 '%s'"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Your list of filters will show up here."
 msgstr "您所篩選的清單將會顯示於此。"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "搜尋"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search or Create"
 msgstr "搜尋或建立"
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
+msgid "Hide unused labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
+msgid "No Labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
+msgid "All Hidden"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
+msgid "All labels are hidden by the filter. Disable the filter to see them."
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
+msgid "Press Enter to create and assign it"
+msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
@@ -1354,7 +1369,6 @@ msgstr "優先等級 1： 低"
 msgid "Your list of section will show up here."
 msgstr "您的階段清單將會在此顯示。"
 
-#. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
@@ -2419,7 +2433,6 @@ msgstr "分享錯誤問題或點子想法於 GitHub 網站"
 msgid "Get Involved"
 msgstr "取得參與"
 
-#. Reach Us Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Reach Us"
 msgstr "聯絡我們"
@@ -2829,8 +2842,9 @@ msgstr "小憩 30 分鐘"
 msgid "Snooze for 1 hour"
 msgstr "小憩 1 小時"
 
-#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
-#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:88
+#: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
+#: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
+#: src/Views/Today.vala:88
 msgid "View Option Menu"
 msgstr "檢視選項選單"
 
@@ -2868,8 +2882,21 @@ msgid_plural "This will delete %d completed tasks and their subtasks"
 msgstr[0] "這將刪除 %d 個已經完成的任務及其子任務"
 
 #: src/Views/Label/LabelSourceRow.vala:49
+#: src/Views/Label/LabelSourceRow.vala:125
 msgid "No labels available. Create one by clicking on the '+' button"
 msgstr "尚無標籤可用。點按 '＋' 鈕來進行建立"
+
+#: src/Views/Label/LabelSourceRow.vala:122
+msgid "All labels are hidden by the filter"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:148
+msgid "Only Active Projects"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:149
+msgid "Only show labels used by tasks in active (non-archived) projects"
+msgstr ""
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
@@ -2945,7 +2972,6 @@ msgstr "資料已經添加"
 msgid "Ascending Order"
 msgstr "升冪順序"
 
-#. Filters
 #: src/Views/Project/Project.vala:553
 msgid "Duedate"
 msgstr "到期日"
@@ -3027,7 +3053,6 @@ msgstr "我"
 msgid "Attachments"
 msgstr "附件"
 
-#. translators: Open file
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "開啟"
@@ -3369,6 +3394,12 @@ msgstr "開啟標籤"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "開啟釘貼看板"
+
+#~ msgid "Set a Due Date"
+#~ msgstr "設定到期日"
+
+#~ msgid "Set a Deadline"
+#~ msgstr "設定截止日期"
 
 #~ msgid "Let Planify run in background and send notifications"
 #~ msgstr "讓 Planify 在背景執行並發送通知"
