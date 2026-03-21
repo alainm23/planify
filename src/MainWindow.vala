@@ -257,16 +257,13 @@ public class MainWindow : Adw.ApplicationWindow {
 
         #if WITH_LIBPORTAL
         Services.Settings.get_default ().settings.changed["run-on-startup"].connect (() => {
-            bool active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
+            update_autostart ();
+        });
 
-            if (active) {
-                Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
-                    Planify.instance.ask_for_background.end (res);
-                });
-            } else {
-                Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.NONE, (obj, res) => {
-                    Planify.instance.ask_for_background.end (res);
-                });
+        Services.Settings.get_default ().settings.changed["run-in-background"].connect (() => {
+            bool run_on_startup = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
+            if (run_on_startup) {
+                update_autostart ();
             }
         });
         #endif
@@ -454,11 +451,35 @@ public class MainWindow : Adw.ApplicationWindow {
         Services.Settings.get_default ().settings.changed["local-inbox-project-id"].connect (() => {
             handle_inbox_project_change ();
         });
+
+        close_request.connect (() => {
+            if (Services.Settings.get_default ().settings.get_boolean ("run-in-background")) {
+                hide ();
+                return true;
+            }
+            return false;
+        });
     }
 
     public void show_hide_sidebar () {
         overlay_split_view.show_sidebar = !overlay_split_view.show_sidebar;
     }
+
+    #if WITH_LIBPORTAL
+    private void update_autostart () {
+        bool run_on_startup = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
+
+        if (run_on_startup) {
+            Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
+                Planify.instance.ask_for_background.end (res);
+            });
+        } else {
+            Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.NONE, (obj, res) => {
+                Planify.instance.ask_for_background.end (res);
+            });
+        }
+    }
+    #endif
 
     private void clear_multi_select () {
         Services.EventBus.get_default ().multi_select_enabled = false;
