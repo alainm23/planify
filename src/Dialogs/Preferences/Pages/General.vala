@@ -176,11 +176,13 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
                                                                 (int) sort_order_projects_row.selected);
         })] = sort_order_projects_row;
 
-        signal_map[run_background_switch.notify["active"].connect (() => {
-            Services.Settings.get_default ().settings.set_boolean ("run-in-background", run_background_switch.active);
-        })] = run_background_switch;
-
 #if WITH_LIBPORTAL
+        var run_background_handler = run_background_switch.notify["active"].connect (() => {
+            Services.Settings.get_default ().settings.set_boolean ("run-in-background", run_background_switch.active);
+        });
+        
+        signal_map[run_background_handler] = run_background_switch;
+
         var run_on_startup_handler = run_on_startup_switch.notify["active"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("run-on-startup", run_on_startup_switch.active);
         });
