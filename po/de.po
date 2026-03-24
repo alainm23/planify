@@ -1,10 +1,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-02-21 15:09+0000\n"
-"Last-Translator: numerfolt <numerfolt@posteo.de>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-21 04:43-0500\n"
+"PO-Revision-Date: 2026-02-16 15:09+0000\n"
+"Last-Translator: Hosted Weblate user 141188 "
+"<relay3477@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/de/>\n"
 "Language: de\n"
@@ -315,21 +316,17 @@ msgid "Task copied to clipboard"
 msgstr "Aufgabe in die Zwischenablage kopiert"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
-#, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "Aufgabe hierhin verschoben: %s"
-msgstr[1] "%d Aufgaben hierhin verschoben: %s"
+#, fuzzy, c-format
+msgid "Moved to %s"
+msgstr "Aufgabe hierhin verschoben: %s"
 
 # # c-format
-#: core/Objects/Label.vala:206
+#: core/Objects/Label.vala:220
 #, c-format
 msgid "Delete Label %s"
 msgstr "Label %s löschen"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:856
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
@@ -337,7 +334,7 @@ msgstr "Label %s löschen"
 msgid "This can not be undone"
 msgstr "Dies kann nicht rückgängig gemacht werden"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:859
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
@@ -356,7 +353,7 @@ msgstr "Dies kann nicht rückgängig gemacht werden"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:860
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
@@ -468,7 +465,7 @@ msgstr ""
 "Es tut uns leid, 'Schnell hinzufügen' kann kein verfügbares Projekt finden. "
 "Versuche ein Projekt in Planify zu erstellen."
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:733
 msgid "Keyboard Shortcuts"
 msgstr "Tastenkombinationen"
 
@@ -701,6 +698,7 @@ msgid "%Y"
 msgstr "%Y"
 
 #: core/Utils/Datetime.vala:669
+#, fuzzy
 msgid "%b %-e"
 msgstr "%d. %b"
 
@@ -714,6 +712,7 @@ msgid "%a"
 msgstr "%a"
 
 #: core/Utils/Datetime.vala:678
+#, fuzzy
 msgid "%a, %b %-e"
 msgstr "%a, %d. %b"
 
@@ -1287,24 +1286,35 @@ msgstr "Ende"
 msgid "Date"
 msgstr "Datum"
 
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:72
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:80
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:209
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:213
+msgid "The date you plan to work on this task"
+msgstr ""
+
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
 msgstr "Datum entfernen"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
-msgid "Set a Due Date"
-msgstr "Fälligkeitsdatum setzen"
+msgid "When do you plan to work on this?"
+msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr "Frist setzen"
 
-#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
-#: core/Widgets/DeadlineButton.vala:153
-msgid "Set a Deadline"
-msgstr "Eine Frist setzen"
+#: core/Widgets/DeadlineButton.vala:135
+msgid "The latest date to complete this task"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
+msgid "What is the latest date to complete this?"
+msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
@@ -1320,7 +1330,7 @@ msgstr "Labels auswählen"
 msgid "Label not found: Create '%s'"
 msgstr "Label nicht gefunden: Erstelle „%s“"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:68
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
@@ -1329,25 +1339,46 @@ msgstr ""
 "Namen eingibst und die Eingabetaste drückst."
 
 # # c-format
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:69
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr "Erstelle '%s'"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Your list of filters will show up here."
 msgstr "Die Liste an Filtern wird hier angezeigt."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "Suchen"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search or Create"
 msgstr "Suchen oder erstellen"
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
+msgid "Hide unused labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
+msgid "No Labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
+msgid "All Hidden"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
+msgid "All labels are hidden by the filter. Disable the filter to see them."
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
+msgid "Press Enter to create and assign it"
+msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
@@ -1464,7 +1495,7 @@ msgstr "Zu tun"
 msgid "Complete"
 msgstr "Erledigt"
 
-#: src/App.vala:143
+#: src/App.vala:147
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1666,7 +1697,7 @@ msgstr "Label aktualisieren"
 msgid "Filter"
 msgstr "Filter"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:738
 msgid "Archived Projects"
 msgstr "Archivierte Projekte"
 
@@ -2136,21 +2167,21 @@ msgstr "Ordnung"
 msgid "DE Integration"
 msgstr "Desktop-Umgebung Integration"
 
-#: src/Dialogs/Preferences/Pages/General.vala:68
-msgid "Run in Background"
-msgstr "Im Hintergrund ausführen"
-
 #: src/Dialogs/Preferences/Pages/General.vala:69
-msgid "Let Planify run in background and send notifications"
-msgstr "Lass Planify im Hintergrund laufen und Benachrichtigungen senden"
-
-#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
 msgstr "Beim Starten ausführen"
 
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:82
+msgid "Run in Background"
+msgstr "Im Hintergrund ausführen"
+
 #: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Whether Planify should run on startup"
-msgstr "Ob Planify beim Starten ausgeführt werden soll"
+msgid "Keep Planify running in the system tray when closing the window"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2427,7 +2458,7 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr "Wenn aktiv wird eine Erinnerung zur Fälligkeit hinzugefügt."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:730
 msgid "Preferences"
 msgstr "Einstellungen"
 
@@ -2833,31 +2864,31 @@ msgstr "Hauptmenü"
 msgid "Open Quick Find"
 msgstr "Schnelle Suche öffnen"
 
-#: src/MainWindow.vala:715
+#: src/MainWindow.vala:736
 msgid "About Planify"
 msgstr "Über Planify"
 
-#: src/MainWindow.vala:775
+#: src/MainWindow.vala:796
 msgid "Oops! Something happened"
 msgstr "Hoppla! Etwas ist passiert"
 
-#: src/MainWindow.vala:778
+#: src/MainWindow.vala:799
 msgid "See More"
 msgstr "Weitere erstellen"
 
-#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:815 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Aufgabe erledigt"
 
-#: src/MainWindow.vala:795
+#: src/MainWindow.vala:816
 msgid "View"
 msgstr "Ansicht"
 
-#: src/MainWindow.vala:833
+#: src/MainWindow.vala:854
 msgid "Database Integrity Check Failed"
 msgstr "Integritätsprüfung der Datenbank fehlgeschlagen"
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:855
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2881,7 +2912,7 @@ msgstr ""
 "Nach dem Zurücksetzen können alle zuvor erstellten Sicherungen "
 "wiederherstellen. Danke für dein Verständnis"
 
-#: src/MainWindow.vala:836
+#: src/MainWindow.vala:857
 msgid "Reset Database"
 msgstr "Datenbank zurücksetzen"
 
@@ -2917,8 +2948,9 @@ msgstr "Für 30 Minuten schlummern"
 msgid "Snooze for 1 hour"
 msgstr "Für 1 Stunde schlummern"
 
-#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
-#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:88
+#: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
+#: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
+#: src/Views/Today.vala:88
 msgid "View Option Menu"
 msgstr "Optionenmenü anzeigen"
 
@@ -2959,9 +2991,22 @@ msgstr[0] "Dies wird %d erledigte Aufgabe und ihre Unteraufgaben löschen"
 msgstr[1] "Dies wird %d erledigte Aufgaben und ihre Unteraufgaben löschen"
 
 #: src/Views/Label/LabelSourceRow.vala:49
+#: src/Views/Label/LabelSourceRow.vala:125
 msgid "No labels available. Create one by clicking on the '+' button"
 msgstr ""
 "Keine Labels verfügbar. Erstelle einen, indem du auf den '+' Knopf klickst"
+
+#: src/Views/Label/LabelSourceRow.vala:122
+msgid "All labels are hidden by the filter"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:148
+msgid "Only Active Projects"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:149
+msgid "Only show labels used by tasks in active (non-archived) projects"
+msgstr ""
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
@@ -3295,6 +3340,13 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Bist du sicher, dass du %d Aufgabe löschen möchtest?"
 msgstr[1] "Bist du sicher, dass du %d Aufgaben löschen möchtest?"
 
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Aufgabe hierhin verschoben: %s"
+msgstr[1] "%d Aufgaben hierhin verschoben: %s"
+
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
 msgstr "Neue Version verfügbar!"
@@ -3466,6 +3518,18 @@ msgstr "'Labels' öffnen"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "'Pinnwand' öffnen"
+
+#~ msgid "Set a Due Date"
+#~ msgstr "Fälligkeitsdatum setzen"
+
+#~ msgid "Set a Deadline"
+#~ msgstr "Eine Frist setzen"
+
+#~ msgid "Let Planify run in background and send notifications"
+#~ msgstr "Lass Planify im Hintergrund laufen und Benachrichtigungen senden"
+
+#~ msgid "Whether Planify should run on startup"
+#~ msgstr "Ob Planify beim Starten ausgeführt werden soll"
 
 #~ msgid "Clear"
 #~ msgstr "Löschen"

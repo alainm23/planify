@@ -65,6 +65,7 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
 
         child = main_revealer;
         add_labels ();
+        update_filter ();
 
         Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = source.is_visible;
@@ -96,9 +97,33 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
             }
         })] = Services.Store.instance ();
 
+        signal_map[Services.Settings.get_default ().settings.changed["labels-show-active-only"].connect (() => {
+            update_filter ();
+        })] = Services.Settings.get_default ().settings;
+
+        signal_map[Services.Store.instance ().project_archived.connect (() => {
+            group.invalidate_filter ();
+        })] = Services.Store.instance ();
+
+        signal_map[Services.Store.instance ().project_unarchived.connect (() => {
+            group.invalidate_filter ();
+        })] = Services.Store.instance ();
+
         source.updated.connect (() => {
             main_revealer.reveal_child = source.is_visible;
         });
+    }
+
+    private void update_filter () {
+        if (Services.Settings.get_default ().settings.get_boolean ("labels-show-active-only")) {
+            group.set_filter_func ((row) => {
+                return ((Layouts.LabelRow) row).label.label_count > 0;
+            });
+            group.placeholder_message = _("All labels are hidden by the filter");
+        } else {
+            group.set_filter_func (null);
+            group.placeholder_message = _("No labels available. Create one by clicking on the '+' button");
+        }
     }
 
     private void add_labels () {

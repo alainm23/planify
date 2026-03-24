@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-21 04:43-0500\n"
 "PO-Revision-Date: 2026-02-03 16:07+0000\n"
 "Last-Translator: Łukasz Przybysz <poczta@lukprzybysz.pl>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/planner/io-github-"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -152,7 +152,7 @@ msgstr "Opis"
 
 #: core/Enum.vala:534 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr "Zaplanowany"
+msgstr "Zaplanowane"
 
 #: core/Enum.vala:543 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:764 src/Layouts/ItemBoard.vala:777
@@ -269,7 +269,7 @@ msgstr "powtarzanie"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr "zaplanowany"
+msgstr "zaplanowane"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
@@ -322,21 +322,16 @@ msgid "Task copied to clipboard"
 msgstr "Zadanie skopiowane do schowka"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
-#, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "Zadanie przeniesione do %s"
-msgstr[1] "%d zadania przeniesione do %s"
-msgstr[2] "%d zadań przeniesionych do %s"
+#, fuzzy, c-format
+msgid "Moved to %s"
+msgstr "Zadanie przeniesione do %s"
 
-#: core/Objects/Label.vala:206
+#: core/Objects/Label.vala:220
 #, c-format
 msgid "Delete Label %s"
 msgstr "Usuń etykietę %s"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:856
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
@@ -344,7 +339,7 @@ msgstr "Usuń etykietę %s"
 msgid "This can not be undone"
 msgstr "Tej czynności nie można cofnąć"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:859
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
@@ -363,7 +358,7 @@ msgstr "Tej czynności nie można cofnąć"
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:860
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
@@ -472,7 +467,7 @@ msgstr ""
 "Przykro mi, szybkie dodawanie nie może znaleźć żadnego dostępnego projektu. "
 "Spróbuj utworzyć projekt w Planify."
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:733
 msgid "Keyboard Shortcuts"
 msgstr "Skróty klawiszowe"
 
@@ -514,7 +509,7 @@ msgstr "Otwiera opcje przypomnienia"
 
 #: core/QuickAddCore.vala:1444
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Okno pozostanie otwarte po utworzeniu zadania"
 
 #: core/QuickAddCore.vala:1450
 msgid "Tip"
@@ -522,23 +517,23 @@ msgstr "Wskazówka"
 
 #: core/QuickAddCore.vala:1450
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "Twórz zadania szybciej, wpisując skróty bezpośrednio w tytule"
 
 #: core/Services/CalDAV/CalDAVClient.vala:302
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr ""
+msgstr "Wczytywanie zadań dla %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:313
 #: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Wczytano zadania dla %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Synchronizacja zadania %d z %d"
 
 #: core/Services/CalDAV/Core.vala:162
 msgid "Source already exists"
@@ -546,7 +541,7 @@ msgstr "Źródło już istnieje"
 
 #: core/Services/CalDAV/Core.vala:173 core/Services/CalDAV/Core.vala:218
 msgid "Failed to resolve principal url"
-msgstr "Nie udało się rozwiązać głównego url"
+msgstr "Nie można odnaleźć głównego adresu url"
 
 #: core/Services/CalDAV/Core.vala:228
 msgid "Starting sync…"
@@ -575,7 +570,7 @@ msgstr ""
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Błędne zapytanie."
 
 #: core/Services/Todoist.vala:1610 src/Widgets/ErrorView.vala:139
 msgid ""
@@ -608,7 +603,7 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:72 core/Utils/Datetime.vala:635
 msgid "Yesterday"
-msgstr ""
+msgstr "Wczoraj"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "days"
@@ -646,81 +641,81 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:411
 msgid "Mo,"
-msgstr ""
+msgstr "Pn,"
 
 #: core/Utils/Datetime.vala:415
 msgid "Tu,"
-msgstr ""
+msgstr "Wt,"
 
 #: core/Utils/Datetime.vala:419
 msgid "We,"
-msgstr ""
+msgstr "Śr,"
 
 #: core/Utils/Datetime.vala:423
 msgid "Th,"
-msgstr ""
+msgstr "Cz,"
 
 #: core/Utils/Datetime.vala:427
 msgid "Fr,"
-msgstr ""
+msgstr "Pt,"
 
 #: core/Utils/Datetime.vala:431
 msgid "Sa,"
-msgstr ""
+msgstr "So,"
 
 #: core/Utils/Datetime.vala:435
 msgid "Su,"
-msgstr ""
+msgstr "Nd,"
 
 #: core/Utils/Datetime.vala:639
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "w %d dzień"
+msgstr[1] "w %d dni"
+msgstr[2] "w %d dni"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d dzień temu"
+msgstr[1] "%d dni temu"
+msgstr[2] "%d dni temu"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
-msgstr ""
+msgstr "%a, %b %-e, %Y"
 
 #: core/Utils/Datetime.vala:663
 msgid "%b %-e %Y"
-msgstr ""
+msgstr "%b %-e %Y"
 
 #: core/Utils/Datetime.vala:666 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: core/Utils/Datetime.vala:669
 msgid "%b %-e"
-msgstr ""
+msgstr "%b %-e"
 
 #: core/Utils/Datetime.vala:672
 msgid "%a %Y"
-msgstr ""
+msgstr "%a %Y"
 
 #: core/Utils/Datetime.vala:675
 #, c-format
 msgid "%a"
-msgstr ""
+msgstr "%a"
 
 #: core/Utils/Datetime.vala:678
 msgid "%a, %b %-e"
-msgstr ""
+msgstr "%a, %b %-e"
 
 #: core/Utils/Datetime.vala:681
 msgid "%b"
-msgstr ""
+msgstr "%b"
 
 #: core/Utils/Util.vala:41
 msgid "Berry Red"
@@ -728,19 +723,19 @@ msgstr ""
 
 #: core/Utils/Util.vala:42
 msgid "Red"
-msgstr ""
+msgstr "Czerwony"
 
 #: core/Utils/Util.vala:43
 msgid "Orange"
-msgstr ""
+msgstr "Pomarańczowy"
 
 #: core/Utils/Util.vala:44
 msgid "Yellow"
-msgstr ""
+msgstr "Żółty"
 
 #: core/Utils/Util.vala:45
 msgid "Olive Green"
-msgstr ""
+msgstr "Oliwkowy"
 
 #: core/Utils/Util.vala:46
 msgid "Lime Green"
@@ -748,7 +743,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:47
 msgid "Green"
-msgstr ""
+msgstr "Zielony"
 
 #: core/Utils/Util.vala:48
 msgid "Mint Green"
@@ -768,7 +763,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:52
 msgid "Blue"
-msgstr ""
+msgstr "Niebieski"
 
 #: core/Utils/Util.vala:53
 msgid "Grape"
@@ -776,7 +771,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:54
 msgid "Violet"
-msgstr ""
+msgstr "Fioletowy"
 
 #: core/Utils/Util.vala:55
 msgid "Lavender"
@@ -788,7 +783,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:57
 msgid "Salmon"
-msgstr ""
+msgstr "Łososiowy"
 
 #: core/Utils/Util.vala:58
 msgid "Charcoal"
@@ -796,7 +791,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:59
 msgid "Grey"
-msgstr ""
+msgstr "Szary"
 
 #: core/Utils/Util.vala:60
 msgid "Taupe"
@@ -804,28 +799,28 @@ msgstr ""
 
 #: core/Utils/Util.vala:218
 msgid "Light"
-msgstr ""
+msgstr "Jasny"
 
 #: core/Utils/Util.vala:221
 msgid "Dark"
-msgstr ""
+msgstr "Ciemny"
 
 #: core/Utils/Util.vala:224
 msgid "Dark Blue"
-msgstr ""
+msgstr "Granatowy"
 
 #: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 #: src/Views/Today.vala:768
 msgid "None"
-msgstr ""
+msgstr "Żaden"
 
 #: core/Utils/Util.vala:264
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Dzisiaj + Skrzynka odbiorcza"
 
 #: core/Utils/Util.vala:436
 msgid "Delete All"
-msgstr ""
+msgstr "Usuń wszystko"
 
 #: core/Utils/Util.vala:450
 msgid "Process completed, you need to start Planify again."
@@ -838,7 +833,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:562
 msgid "On This Computer"
-msgstr ""
+msgstr "Na tym komputerze"
 
 #: core/Utils/Util.vala:587
 msgid "Meet Planify"
@@ -1256,23 +1251,34 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:72
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:80
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:209
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:213
+msgid "The date you plan to work on this task"
+msgstr ""
+
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
-msgid "Set a Due Date"
+msgid "When do you plan to work on this?"
 msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
-#: core/Widgets/DeadlineButton.vala:153
-msgid "Set a Deadline"
+#: core/Widgets/DeadlineButton.vala:135
+msgid "The latest date to complete this task"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
+msgid "What is the latest date to complete this?"
 msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:148
@@ -1289,30 +1295,51 @@ msgstr ""
 msgid "Label not found: Create '%s'"
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:68
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:69
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Your list of filters will show up here."
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search or Create"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
+msgid "Hide unused labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
+msgid "No Labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
+msgid "All Hidden"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
+msgid "All labels are hidden by the filter. Disable the filter to see them."
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
+msgid "Press Enter to create and assign it"
 msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:1383
@@ -1427,7 +1454,7 @@ msgstr ""
 msgid "Complete"
 msgstr ""
 
-#: src/App.vala:143
+#: src/App.vala:147
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1610,7 +1637,7 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:738
 msgid "Archived Projects"
 msgstr ""
 
@@ -2058,20 +2085,20 @@ msgstr ""
 msgid "DE Integration"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:68
-msgid "Run in Background"
-msgstr ""
-
 #: src/Dialogs/Preferences/Pages/General.vala:69
-msgid "Let Planify run in background and send notifications"
-msgstr ""
-
-#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:82
+msgid "Run in Background"
+msgstr ""
+
 #: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Whether Planify should run on startup"
+msgid "Keep Planify running in the system tray when closing the window"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
@@ -2330,7 +2357,7 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:730
 msgid "Preferences"
 msgstr ""
 
@@ -2723,31 +2750,31 @@ msgstr ""
 msgid "Open Quick Find"
 msgstr ""
 
-#: src/MainWindow.vala:715
+#: src/MainWindow.vala:736
 msgid "About Planify"
 msgstr ""
 
-#: src/MainWindow.vala:775
+#: src/MainWindow.vala:796
 msgid "Oops! Something happened"
 msgstr ""
 
-#: src/MainWindow.vala:778
+#: src/MainWindow.vala:799
 msgid "See More"
 msgstr ""
 
-#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:815 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr ""
 
-#: src/MainWindow.vala:795
+#: src/MainWindow.vala:816
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:833
+#: src/MainWindow.vala:854
 msgid "Database Integrity Check Failed"
 msgstr ""
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:855
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2760,7 +2787,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:836
+#: src/MainWindow.vala:857
 msgid "Reset Database"
 msgstr ""
 
@@ -2796,8 +2823,9 @@ msgstr ""
 msgid "Snooze for 1 hour"
 msgstr ""
 
-#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
-#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:88
+#: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
+#: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
+#: src/Views/Today.vala:88
 msgid "View Option Menu"
 msgstr ""
 
@@ -2839,7 +2867,20 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: src/Views/Label/LabelSourceRow.vala:49
+#: src/Views/Label/LabelSourceRow.vala:125
 msgid "No labels available. Create one by clicking on the '+' button"
+msgstr ""
+
+#: src/Views/Label/LabelSourceRow.vala:122
+msgid "All labels are hidden by the filter"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:148
+msgid "Only Active Projects"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:149
+msgid "Only show labels used by tasks in active (non-archived) projects"
 msgstr ""
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
@@ -3167,6 +3208,14 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Zadanie przeniesione do %s"
+msgstr[1] "%d zadania przeniesione do %s"
+msgstr[2] "%d zadań przeniesionych do %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"

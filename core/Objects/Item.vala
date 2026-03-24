@@ -958,10 +958,10 @@ public class Objects.Item : Objects.BaseObject {
         return_value = get_label (id);
 
         if (return_value != null) {
+            labels.remove (return_value);
+
             Services.Store.instance ().item_label_deleted (return_value);
             item_label_deleted (return_value);
-
-            labels.remove (return_value);
         }
 
         return return_value;
@@ -1683,7 +1683,7 @@ public class Objects.Item : Objects.BaseObject {
         
         if (notify) {
             Services.EventBus.get_default ().send_toast (
-                Util.get_default ().create_toast (_("Task moved to %s".printf (project.name)))
+                Util.get_default ().create_toast (_("Moved to %s".printf (project.name)))
             );
         }
     }

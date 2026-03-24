@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-21 04:43-0500\n"
 "PO-Revision-Date: 2026-01-03 13:01+0000\n"
 "Last-Translator: Stein-Aksel Basma <stein-aksel@basma.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/planner/"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -123,7 +123,7 @@ msgstr "Seksjon"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "Oppgave"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -151,7 +151,7 @@ msgstr "Planlagt"
 #: src/Layouts/ItemBoard.vala:764 src/Layouts/ItemBoard.vala:777
 #: src/Layouts/ItemRow.vala:1218 src/Layouts/ItemRow.vala:1231
 msgid "Pin"
-msgstr ""
+msgstr "Pin-kode"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -315,20 +315,16 @@ msgid "Task copied to clipboard"
 msgstr "Oppgave kopiert til utklippstavlen"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
-#, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "Oppgave flyttet til %s"
-msgstr[1] "%d oppgaver flyttet til %s"
+#, fuzzy, c-format
+msgid "Moved to %s"
+msgstr "Oppgave flyttet til %s"
 
-#: core/Objects/Label.vala:206
+#: core/Objects/Label.vala:220
 #, c-format
 msgid "Delete Label %s"
 msgstr "Slett etikett %s"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:856
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
@@ -336,7 +332,7 @@ msgstr "Slett etikett %s"
 msgid "This can not be undone"
 msgstr "Dette kan ikke angres"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:859
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
@@ -355,7 +351,7 @@ msgstr "Dette kan ikke angres"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:860
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
@@ -464,7 +460,7 @@ msgstr ""
 "Beklager, men Hurtigtillegg finner ingen tilgjengelige prosjekter. Prøv å "
 "opprette et prosjekt fra Planify."
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:733
 msgid "Keyboard Shortcuts"
 msgstr "Tastatursnarveier"
 
@@ -562,6 +558,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"Todoist har oppdatert API-en sin. Koble til din konto på nytt i Instillinger "
+"for å kunne synkronisere videre."
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -985,6 +983,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
+"Få varsel om viktige oppgaver eller hendelser. Trykk på klokke-ikonet "
+"nedenfor for å legge til påminnelse."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1182,7 +1182,7 @@ msgstr "Neste uke"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
 msgid "Save"
-msgstr ""
+msgstr "Lagre"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:559
 msgid "Daily"
@@ -1214,7 +1214,7 @@ msgstr "Tilpasset"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:855
 msgid "No date"
-msgstr ""
+msgstr "Ingen dato"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
@@ -1272,24 +1272,35 @@ msgstr "Slutt"
 msgid "Date"
 msgstr "Dato"
 
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:72
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:80
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:209
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:213
+msgid "The date you plan to work on this task"
+msgstr ""
+
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
 msgstr "Fjern dato"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
-msgid "Set a Due Date"
-msgstr "Sett en forfallsdato"
+msgid "When do you plan to work on this?"
+msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr "Angi frist"
 
-#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
-#: core/Widgets/DeadlineButton.vala:153
-msgid "Set a Deadline"
-msgstr "Angi en frist"
+#: core/Widgets/DeadlineButton.vala:135
+msgid "The latest date to complete this task"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
+msgid "What is the latest date to complete this?"
+msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
@@ -1305,7 +1316,7 @@ msgstr "Velg etiketter"
 msgid "Label not found: Create '%s'"
 msgstr "Etikett ikke funnet: Opprett '%s'"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:68
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
@@ -1313,25 +1324,46 @@ msgstr ""
 "Filtrene dine vises her. Opprett et ved å skrive inn navnet og trykke på "
 "Enter-tasten."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:69
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr "Opprett '%s'"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Your list of filters will show up here."
 msgstr "Listen over filtre vil vises her."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "Søk"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search or Create"
 msgstr "Søk eller opprett"
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
+msgid "Hide unused labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
+msgid "No Labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
+msgid "All Hidden"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
+msgid "All labels are hidden by the filter. Disable the filter to see them."
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
+msgid "Press Enter to create and assign it"
+msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
@@ -1446,7 +1478,7 @@ msgstr "Gjøremål"
 msgid "Complete"
 msgstr "Fullført"
 
-#: src/App.vala:143
+#: src/App.vala:147
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1642,9 +1674,9 @@ msgstr "Oppdater etikett"
 
 #: src/Dialogs/LabelPicker.vala:62
 msgid "Filter"
-msgstr ""
+msgstr "Filtrer"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:738
 msgid "Archived Projects"
 msgstr "Arkivert prosjekter"
 
@@ -1687,7 +1719,7 @@ msgstr "Du kan sortere kontoene dine ved å dra og slippe"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:578
 msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr ""
+msgstr "Planify synkroniserer oppgavene dine - dette bør ikke ta lang tid"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:307
 msgid "SSL verification is disabled"
@@ -1695,11 +1727,11 @@ msgstr "SSL-verifisering er deaktivert"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
 msgid "Account migration required"
-msgstr ""
+msgstr "Flytting av konto kreves"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Reconnect"
-msgstr ""
+msgstr "Koble til igjen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
 msgid "Cannot Hide This Account"
@@ -1810,13 +1842,14 @@ msgstr "Slett kilde?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "Kilden kan ikke slettes"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Denne kilden inneholder Innboks-prosjektet ditt. Bytt Innboks-prosjekt først."
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
 msgid "Token"
@@ -2054,7 +2087,7 @@ msgstr "Ukentlige gjentakende donasjoner"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Ko-fi"
-msgstr ""
+msgstr "Ko-fi"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:117
 msgid "Buy me a coffee ☕"
@@ -2108,21 +2141,21 @@ msgstr ""
 msgid "DE Integration"
 msgstr "DE Integrasjon"
 
-#: src/Dialogs/Preferences/Pages/General.vala:68
-msgid "Run in Background"
-msgstr "Kjør i bakgrunnen"
-
 #: src/Dialogs/Preferences/Pages/General.vala:69
-msgid "Let Planify run in background and send notifications"
-msgstr "La Planify kjøre i bakgrunnen og sende varsler"
-
-#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
 msgstr "Kjør ved oppstart"
 
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:82
+msgid "Run in Background"
+msgstr "Kjør i bakgrunnen"
+
 #: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Whether Planify should run on startup"
-msgstr "Om Planify skal kjøres ved oppstart"
+msgid "Keep Planify running in the system tray when closing the window"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2263,7 +2296,7 @@ msgstr "Vis filtre i en enkel liste i stedet for et rutenett"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:87
 msgid "You can sort your views by dragging and dropping"
-msgstr ""
+msgstr "Du kan dra og slippe for å sortere visningene dine"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:148
@@ -2392,7 +2425,7 @@ msgstr ""
 "Når dette er aktivert, legges det som standard til en påminnelse før "
 "oppgavens forfallstid."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:730
 msgid "Preferences"
 msgstr "Innstillinger"
 
@@ -2787,31 +2820,31 @@ msgstr "Hovedmeny"
 msgid "Open Quick Find"
 msgstr "Åpne hurtigsøk"
 
-#: src/MainWindow.vala:715
+#: src/MainWindow.vala:736
 msgid "About Planify"
 msgstr "Om Planify"
 
-#: src/MainWindow.vala:775
+#: src/MainWindow.vala:796
 msgid "Oops! Something happened"
 msgstr "Ups! Noe skjedde"
 
-#: src/MainWindow.vala:778
+#: src/MainWindow.vala:799
 msgid "See More"
 msgstr "Se mer"
 
-#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:815 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Oppgave fullført"
 
-#: src/MainWindow.vala:795
+#: src/MainWindow.vala:816
 msgid "View"
 msgstr "Vis"
 
-#: src/MainWindow.vala:833
+#: src/MainWindow.vala:854
 msgid "Database Integrity Check Failed"
 msgstr "Integritetssjekk av databasen mislyktes"
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:855
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2834,7 +2867,7 @@ msgstr ""
 "Etter tilbakestillingen vil du kunne gjenopprette eventuelle "
 "sikkerhetskopier du har opprettet tidligere. Takk for tålmodigheten"
 
-#: src/MainWindow.vala:836
+#: src/MainWindow.vala:857
 msgid "Reset Database"
 msgstr "Tilbakestill database"
 
@@ -2870,8 +2903,9 @@ msgstr "Slumre i 30 minutter"
 msgid "Snooze for 1 hour"
 msgstr "Slumre i 1 time"
 
-#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
-#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:88
+#: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
+#: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
+#: src/Views/Today.vala:88
 msgid "View Option Menu"
 msgstr ""
 
@@ -2911,8 +2945,21 @@ msgstr[0] "Dette vil slette %d fullført oppgave og dens deloppgaver"
 msgstr[1] "Dette vil slette %d fullførte oppgaver og deres deloppgaver"
 
 #: src/Views/Label/LabelSourceRow.vala:49
+#: src/Views/Label/LabelSourceRow.vala:125
 msgid "No labels available. Create one by clicking on the '+' button"
 msgstr "Ingen etiketter tilgjengelig. Opprett en ved å klikke på «+»-knappen"
+
+#: src/Views/Label/LabelSourceRow.vala:122
+msgid "All labels are hidden by the filter"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:148
+msgid "Only Active Projects"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:149
+msgid "Only show labels used by tasks in active (non-archived) projects"
+msgstr ""
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
@@ -3240,6 +3287,13 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Er du sikker på at du vil slette dette %d gjøremålet?"
 msgstr[1] "Er du sikker på at du vil slette disse %d gjøremålene?"
 
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Oppgave flyttet til %s"
+msgstr[1] "%d oppgaver flyttet til %s"
+
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
 msgstr "Ny versjon tilgjengelig!"
@@ -3411,6 +3465,18 @@ msgstr "Åpne etiketter"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Åpne oppslagstavle"
+
+#~ msgid "Set a Due Date"
+#~ msgstr "Sett en forfallsdato"
+
+#~ msgid "Set a Deadline"
+#~ msgstr "Angi en frist"
+
+#~ msgid "Let Planify run in background and send notifications"
+#~ msgstr "La Planify kjøre i bakgrunnen og sende varsler"
+
+#~ msgid "Whether Planify should run on startup"
+#~ msgstr "Om Planify skal kjøres ved oppstart"
 
 #~ msgid "Menu"
 #~ msgstr "Meny"

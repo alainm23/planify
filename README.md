@@ -136,6 +136,7 @@ We welcome contributions! Here's how you can help:
 
 ### 💻 Code Contributions
 - Read our [Architecture Guide](ARCHITECTURE.md)
+- Review our [AI Policy](AI_POLICY.md) for guidelines on AI-assisted contributions
 - Fork the repository and create a feature branch
 - Follow our coding standards and commit message format
 - Submit a pull request with a clear description

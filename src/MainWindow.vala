@@ -195,8 +195,7 @@ public class MainWindow : Adw.ApplicationWindow {
                 Objects.Item item = Services.Database.get_default ().get_item_by_id (id);
                 Gee.ArrayList<Objects.Reminder> reminders = Services.Database.get_default ().get_reminders_by_item_id (id);
 
-                Services.Store.instance ().clear_project_cache (item.project_id);
-                Services.Store.instance ().add_item (item);
+                Services.Store.instance ().insert_item (item, true, false);
 
                 foreach (Objects.Reminder reminder in reminders) {
                     item.add_reminder_events (reminder);
@@ -257,16 +256,13 @@ public class MainWindow : Adw.ApplicationWindow {
 
         #if WITH_LIBPORTAL
         Services.Settings.get_default ().settings.changed["run-on-startup"].connect (() => {
-            bool active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
+            update_autostart ();
+        });
 
-            if (active) {
-                Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
-                    Planify.instance.ask_for_background.end (res);
-                });
-            } else {
-                Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.NONE, (obj, res) => {
-                    Planify.instance.ask_for_background.end (res);
-                });
+        Services.Settings.get_default ().settings.changed["run-in-background"].connect (() => {
+            bool run_on_startup = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
+            if (run_on_startup) {
+                update_autostart ();
             }
         });
         #endif
@@ -454,11 +450,35 @@ public class MainWindow : Adw.ApplicationWindow {
         Services.Settings.get_default ().settings.changed["local-inbox-project-id"].connect (() => {
             handle_inbox_project_change ();
         });
+
+        close_request.connect (() => {
+            if (Services.Settings.get_default ().settings.get_boolean ("run-in-background")) {
+                hide ();
+                return true;
+            }
+            return false;
+        });
     }
 
     public void show_hide_sidebar () {
         overlay_split_view.show_sidebar = !overlay_split_view.show_sidebar;
     }
+
+    #if WITH_LIBPORTAL
+    private void update_autostart () {
+        bool run_on_startup = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
+
+        if (run_on_startup) {
+            Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
+                Planify.instance.ask_for_background.end (res);
+            });
+        } else {
+            Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.NONE, (obj, res) => {
+                Planify.instance.ask_for_background.end (res);
+            });
+        }
+    }
+    #endif
 
     private void clear_multi_select () {
         Services.EventBus.get_default ().multi_select_enabled = false;
@@ -810,7 +830,7 @@ public class MainWindow : Adw.ApplicationWindow {
             dialog = new Adw.AboutDialog ();
         } else {
             dialog = new Adw.AboutDialog.from_appdata (
-                "/io/github/alainm23/planify/" + Build.APPLICATION_ID + ".appdata.xml.in.in", Build.VERSION
+                "/io/github/alainm23/planify/" + Build.APPLICATION_ID + ".metainfo.xml.in.in", Build.VERSION
             );
         }
 
