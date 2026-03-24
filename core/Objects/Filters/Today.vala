@@ -33,7 +33,7 @@ public class Objects.Filters.Today : Objects.BaseObject {
     public int overdeue_count {
         get {
             if (_overdeue_count == null) {
-                _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
+                _overdeue_count = Services.Store.instance ().get_items_by_overdue_view (false).size;
             }
 
             return _overdeue_count;
@@ -97,7 +97,7 @@ public class Objects.Filters.Today : Objects.BaseObject {
 
     public override void count_update () {
         _item_count = update_count ();
-        _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
+        _overdeue_count = Services.Store.instance ().get_items_by_overdue_view (false).size;
 
         count_updated ();
     }

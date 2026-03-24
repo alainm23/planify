@@ -537,6 +537,7 @@ public class Services.Store : GLib.Object {
             foreach (var section in sections) {
                 if (section.id == current_id) {
                     section.id = new_id;
+                    break;
                 }
             }
 
@@ -544,6 +545,7 @@ public class Services.Store : GLib.Object {
                 foreach (var item in items) {
                     if (item.section_id == current_id) {
                         item.section_id = new_id;
+                        break;
                     }
                 }
             }
@@ -818,6 +820,7 @@ public class Services.Store : GLib.Object {
             foreach (var item in items) {
                 if (item.id == current_id) {
                     item.id = new_id;
+                    break;
                 }
             }
 
@@ -1173,7 +1176,7 @@ public class Services.Store : GLib.Object {
                 item.due.datetime.get_year () == date.get_year ());
     }
 
-    public Gee.ArrayList<Objects.Item> get_items_by_overdeue_view (bool checked = true) {
+    public Gee.ArrayList<Objects.Item> get_items_by_overdue_view (bool checked = true) {
         GLib.DateTime date_now = new GLib.DateTime.now_local ();
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
@@ -1197,9 +1200,10 @@ public class Services.Store : GLib.Object {
             return false;
         }
 
+        var now = new GLib.DateTime.now_local ();
         return (item.checked == checked &&
-                item.due.datetime.compare (new GLib.DateTime.now_local ()) < 0 &&
-                !Utils.Datetime.is_same_day (item.due.datetime, new GLib.DateTime.now_local ()));
+                item.due.datetime.compare (now) < 0 &&
+                !Utils.Datetime.is_same_day (item.due.datetime, now));
     }
 
     /*
@@ -1342,7 +1346,7 @@ public class Services.Store : GLib.Object {
 
     public Gee.ArrayList<Objects.Section> get_all_sections_by_search (string search_text) {
         Gee.ArrayList<Objects.Section> return_value = new Gee.ArrayList<Objects.Section> ();
-        lock (_projects) {
+        lock (_sections) {
             foreach (var section in sections) {
                 if (search_text.down () in section.name.down () && !section.was_archived ()) {
                     return_value.add (section);
@@ -1426,7 +1430,7 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    // Atrachments
+    // Attachments
     public void insert_attachment (Objects.Attachment attachment) {
         if (Services.Database.get_default ().insert_attachment (attachment)) {
             attachments.add (attachment);
