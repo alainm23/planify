@@ -610,13 +610,26 @@ public class Services.Store : GLib.Object {
      *  Items
      */
 
-    public void insert_item (Objects.Item item, bool insert = true) {
-        if (Services.Database.get_default ().insert_item (item)) {
-            _items_by_project_cache.unset (item.project_id);
-            add_item (item, insert);
-            
+    public void insert_item (Objects.Item item, bool insert = true, bool persist = true) {
+        if (!persist || Services.Database.get_default ().insert_item (item)) {
+            clear_project_cache (item.project_id);
+            items.add (item);
+            item_added (item, insert);
+
+            if (insert) {
+                if (item.parent_id != "") {
+                    item.parent.item_added (item);
+                } else {
+                    if (item.section_id == "") {
+                        item.project.item_added (item);
+                    } else {
+                        item.section.item_added (item);
+                    }
+                }
+            }
+
             #if WITH_EVOLUTION
-            if (item.project != null && item.project.calendar_source_uid != "" && item.has_due) {
+            if (persist && item.project != null && item.project.calendar_source_uid != "" && item.has_due) {
                 create_calendar_event.begin (item);
             }
             #endif
@@ -626,8 +639,7 @@ public class Services.Store : GLib.Object {
     public bool insert_items_transaction (Gee.ArrayList<Objects.Item> items, bool insert = true) {
         if (Services.Database.get_default ().insert_items_transaction (items)) {
             foreach (var item in items) {
-                _items_by_project_cache.unset (item.project_id);
-                add_item (item, insert);
+                insert_item (item, insert, false);
 
                 #if WITH_EVOLUTION
                 if (item.project != null && item.project.calendar_source_uid != "" && item.has_due) {
@@ -653,23 +665,6 @@ public class Services.Store : GLib.Object {
         }
     }
     #endif
-
-    public void add_item (Objects.Item item, bool insert = true) {
-        items.add (item);
-        item_added (item, insert);
-
-        if (insert) {
-            if (item.parent_id != "") {
-                item.parent.item_added (item);
-            } else {
-                if (item.section_id == "") {
-                    item.project.item_added (item);
-                } else {
-                    item.section.item_added (item);
-                }
-            }
-        }
-    }
 
     public void update_item (Objects.Item item, string update_id = "") {
         if (Services.Database.get_default ().update_item (item, update_id)) {
