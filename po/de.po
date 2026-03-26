@@ -1,11 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-02-16 15:09+0000\n"
-"Last-Translator: Hosted Weblate user 141188 "
-"<relay3477@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-03-27 11:00+0000\n"
+"Last-Translator: Marius <hi@mariusscheel.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/de/>\n"
 "Language: de\n"
@@ -13,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -1291,7 +1290,7 @@ msgstr "Datum"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:209
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:213
 msgid "The date you plan to work on this task"
-msgstr ""
+msgstr "Datum, an dem du an dieser Aufgabe arbeiten willst"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
@@ -1300,7 +1299,7 @@ msgstr "Datum entfernen"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "When do you plan to work on this?"
-msgstr ""
+msgstr "Wann hast du vor, an dieser Aufgabe zu arbeiten?"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
@@ -1310,11 +1309,11 @@ msgstr "Frist setzen"
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
 #: core/Widgets/DeadlineButton.vala:135
 msgid "The latest date to complete this task"
-msgstr ""
+msgstr "Der späteste Termin zum Erledigen dieser Aufgabe"
 
 #: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
 msgid "What is the latest date to complete this?"
-msgstr ""
+msgstr "Bis wann sollte das spätestens erledigt sein?"
 
 #: core/Widgets/DeadlineButton.vala:148
 msgid "Deadline"
@@ -1361,24 +1360,26 @@ msgstr "Suchen oder erstellen"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
 msgid "Hide unused labels"
-msgstr ""
+msgstr "Nicht verwendete Labels ausblenden"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
 msgid "No Labels"
-msgstr ""
+msgstr "Keine Labels vorhanden"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
 msgid "All Hidden"
-msgstr ""
+msgstr "Alle ausgeblendet"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
 msgid "All labels are hidden by the filter. Disable the filter to see them."
 msgstr ""
+"Durch deine Filtereinstellungen sind alle Labels ausgeblendet. Deaktiviere "
+"den Filter, um sie anzuzeigen."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
 msgid "Press Enter to create and assign it"
-msgstr ""
+msgstr "Drücke Enter, um das Label zu erstellen und zuzuweisen"
 
 #: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
@@ -2173,7 +2174,7 @@ msgstr "Beim Starten ausführen"
 
 #: src/Dialogs/Preferences/Pages/General.vala:70
 msgid "Launch Planify automatically when you start your computer"
-msgstr ""
+msgstr "Planify automatisch öffnen, sobald du deinen Computer startest"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run in Background"
@@ -2182,6 +2183,7 @@ msgstr "Im Hintergrund ausführen"
 #: src/Dialogs/Preferences/Pages/General.vala:83
 msgid "Keep Planify running in the system tray when closing the window"
 msgstr ""
+"Planify soll nach dem Schließen des Fensters im Hintergrund weiterlaufen"
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2998,15 +3000,17 @@ msgstr ""
 
 #: src/Views/Label/LabelSourceRow.vala:122
 msgid "All labels are hidden by the filter"
-msgstr ""
+msgstr "Durch deine Filtereinstellungen sind alle Labels ausgeblendet"
 
 #: src/Views/Label/Labels.vala:148
 msgid "Only Active Projects"
-msgstr ""
+msgstr "Nur aktive Projekte"
 
 #: src/Views/Label/Labels.vala:149
 msgid "Only show labels used by tasks in active (non-archived) projects"
 msgstr ""
+"Zeige nur Labels an, die von Aufgaben in aktiven (nicht archivierten) "
+"Projekten verwendet werden"
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
