@@ -367,7 +367,12 @@ public class Dialogs.ProductivityReport.ProductivitySection : Adw.Bin {
             child = goals_content
         };
 
-        var stats_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+        var stats_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
+            margin_top = 1,
+            margin_bottom = 1,
+            margin_start = 1,
+            margin_end = 1,
+        };
         stats_box.append (cards_grid);
         stats_box.append (goals_card);
         stats_box.append (build_motivation_card ());
@@ -405,7 +410,11 @@ public class Dialogs.ProductivityReport.ProductivitySection : Adw.Bin {
 
         var card = new Adw.Bin () {
             css_classes = { "card" },
-            child = box
+            child = box,
+            margin_top = 2,
+            margin_bottom = 2,
+            margin_start = 2,
+            margin_end = 2,
         };
 
         motivation_revealer = new Gtk.Revealer () {
