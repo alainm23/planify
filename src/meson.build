@@ -113,6 +113,10 @@ sources = files(
   'Dialogs/ItemChangeHistory.vala',
   'Dialogs/ErrorDialog.vala',
   'Dialogs/CompletedTasks.vala',
+  'Dialogs/ProductivityReport/ProductivityReport.vala',
+  'Dialogs/ProductivityReport/SummarySection.vala',
+  'Dialogs/ProductivityReport/ProductivitySection.vala',
+  'Dialogs/ProductivityReport/StatCard.vala',
   
   'Dialogs/QuickFind/QuickFind.vala',
   'Dialogs/QuickFind/QuickFindItem.vala',
