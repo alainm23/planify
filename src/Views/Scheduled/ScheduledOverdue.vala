@@ -134,7 +134,7 @@ public class Views.Scheduled.ScheduledOverdue : Views.Scheduled.ScheduledSection
             listbox.remove (child);
         }
 
-        foreach (Objects.Item item in Services.Store.instance ().get_items_by_overdeue_view (false)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_items_by_overdue_view (false)) {
             add_item (item);
         }
 
