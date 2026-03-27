@@ -40,6 +40,7 @@ sources = files(
   'Services/DBusServer.vala',
   'Services/Backups.vala',
   'Services/MigrateFromPlanner.vala',
+  'Services/ExportService.vala',
 
   'Utils/TaskUtils.vala',
 
