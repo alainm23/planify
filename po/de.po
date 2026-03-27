@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-03-27 11:00+0000\n"
-"Last-Translator: Marius <hi@mariusscheel.de>\n"
+"PO-Revision-Date: 2026-03-28 15:09+0000\n"
+"Last-Translator: Henning Lehmann <web@jhlehmann.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/de/>\n"
 "Language: de\n"
@@ -318,9 +318,9 @@ msgid "Task copied to clipboard"
 msgstr "Aufgabe in die Zwischenablage kopiert"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#, fuzzy, c-format
+#, c-format
 msgid "Moved to %s"
-msgstr "Aufgabe hierhin verschoben: %s"
+msgstr "Verschoben nach: %s"
 
 # # c-format
 #: core/Objects/Label.vala:220
@@ -700,9 +700,8 @@ msgid "%Y"
 msgstr "%Y"
 
 #: core/Utils/Datetime.vala:669
-#, fuzzy
 msgid "%b %-e"
-msgstr "%d. %b"
+msgstr "%-e. %b"
 
 #: core/Utils/Datetime.vala:672
 msgid "%a %Y"
@@ -714,9 +713,8 @@ msgid "%a"
 msgstr "%a"
 
 #: core/Utils/Datetime.vala:678
-#, fuzzy
 msgid "%a, %b %-e"
-msgstr "%a, %d. %b"
+msgstr "%a, %-e. %b"
 
 #: core/Utils/Datetime.vala:681
 msgid "%b"
@@ -2599,24 +2597,25 @@ msgstr "Löscht alle Listen, Aufgaben und Erinnerungen unwiderruflich"
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
 #: src/MainWindow.vala:732
 msgid "Summary & Productivity"
-msgstr ""
+msgstr "Zusammenfassung & Produktivität"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
 msgid "Set Up Goals"
-msgstr ""
+msgstr "Ziele Festlegen"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
 msgid "Define how many tasks you want to complete per day and week"
 msgstr ""
+"Lege fest, wieviele Aufgaben du pro Tag und pro Woche erledigen möchtest"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
 msgid "Summary Details"
-msgstr ""
+msgstr "Details"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
 msgid "Detailed summary will appear here"
-msgstr ""
+msgstr "Details werden hier erscheinen"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
 #: src/Dialogs/ProductivityReport/SummarySection.vala:33
@@ -2625,16 +2624,16 @@ msgstr "Zusmamenfassung"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
 msgid "Productivity Details"
-msgstr ""
+msgstr "Produktivitätsdetails"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
 msgid "Detailed productivity stats will appear here"
-msgstr ""
+msgstr "Detaillierte Produktivitäts-Statistiken werden hier erscheinen"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
 msgid "Productivity"
-msgstr ""
+msgstr "Produktivität"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
@@ -2644,43 +2643,43 @@ msgstr "Weitere erstellen"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
 msgid "All goals achieved! You're unstoppable"
-msgstr ""
+msgstr "Alle Ziele erfüllt – du bist unaufhaltsam!"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
 msgid "Daily goal crushed! Keep the momentum going"
-msgstr ""
+msgstr "Tagesziel erreicht! Bleib am Ball"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
 msgid "Weekly goal achieved! Enjoy the rest of your week"
-msgstr ""
+msgstr "Wochenziel erreicht! Genieße den Rest der Woche"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
 msgid "Start your day, your first task awaits"
-msgstr ""
+msgstr "Starte in den Tag – die erste Aufgabe wartet"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
 msgid "Almost there! Just a few more tasks today"
-msgstr ""
+msgstr "Fast geschafft! Nur noch ein paar Aufgaben für heute"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
 msgid "Great pace this week, you're almost at your goal"
-msgstr ""
+msgstr "Tolles Tempo diese Woche, du bist fast am Ziel"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
 msgid "Halfway through your daily goal, nice progress"
-msgstr ""
+msgstr "Auf halbem Weg zu deinem Tagesziel, toller Fortschritt"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
 msgid "Solid week so far, keep it up"
-msgstr ""
+msgstr "Prima Woche bislang, weiter so"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
 msgid "Every task completed is a step forward"
-msgstr ""
+msgstr "Jede erledigte Aufgabe ist ein Schritt nach vorn"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
 msgid "Set your daily and weekly goals to start tracking your productivity"
-msgstr ""
+msgstr "Setze Tages- und Wochenziele, um deine Produktivität zu tracken"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:286
 #: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
@@ -2694,23 +2693,23 @@ msgstr "Diesen Monat"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
 msgid "Daily Goal"
-msgstr ""
+msgstr "Tagesziel"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
 msgid "Weekly Goal"
-msgstr ""
+msgstr "Wochenziel"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
 msgid "Edit Goals"
-msgstr ""
+msgstr "Ziele bearbeiten"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:56
 msgid "Total"
-msgstr ""
+msgstr "Gesamt"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:57
 msgid "Pending"
-msgstr ""
+msgstr "Ausstehend"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:59
 #: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
@@ -2719,7 +2718,7 @@ msgstr "Überfällig"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:73
 msgid "Progress"
-msgstr ""
+msgstr "Fortschritt"
 
 #: src/Dialogs/Project.vala:59 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -2919,11 +2918,11 @@ msgstr "Per E-Mail senden"
 
 #: src/Layouts/ProjectRow.vala:714
 msgid "Export as PDF"
-msgstr ""
+msgstr "Als PDF exportieren"
 
 #: src/Layouts/ProjectRow.vala:791
 msgid "Project exported as PDF"
-msgstr ""
+msgstr "Projekt als PDF exportiert"
 
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 msgid "Add tasks"
@@ -2994,9 +2993,8 @@ msgstr ""
 "Kein Projekt vorhanden. Erstelle eins, indem du auf den \"+\" Knopf klickst"
 
 #: src/Layouts/SidebarSourceRow.vala:78
-#, fuzzy
 msgid "Account Migration Required"
-msgstr "Kontoübertragung erforderlich"
+msgstr "Kontomigration erforderlich"
 
 #: src/MainWindow.vala:79
 msgid "Main Menu"
@@ -3076,7 +3074,7 @@ msgstr "Planify Sicherungsdateien"
 
 #: src/Services/ExportService.vala:187
 msgid "Deadline:"
-msgstr ""
+msgstr "Frist:"
 
 #: src/Services/Notification.vala:99
 msgid "Snooze for 10 minutes"
