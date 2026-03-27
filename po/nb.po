@@ -187,6 +187,7 @@ msgid "no date"
 msgstr "ingen dato"
 
 #: core/Objects/Filters/Completed.vala:33
+#: src/Dialogs/ProductivityReport/SummarySection.vala:58
 msgid "Completed"
 msgstr "Fullført"
 
@@ -275,6 +276,7 @@ msgstr "kommende"
 #: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:771
 #: src/Layouts/ItemRow.vala:1225 src/Views/Project/Project.vala:557
 #: src/Views/Project/Project.vala:723 src/Views/Today.vala:203
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:285
 msgid "Today"
 msgstr "I dag"
 
@@ -466,6 +468,7 @@ msgstr ""
 "opprette et prosjekt fra Planify."
 
 #: core/QuickAddCore.vala:1406 src/MainWindow.vala:712 src/MainWindow.vala:733
+#: src/MainWindow.vala:734
 msgid "Keyboard Shortcuts"
 msgstr "Tastatursnarveier"
 
@@ -1186,10 +1189,12 @@ msgid "Next week"
 msgstr "Neste uke"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
 msgid "Save"
 msgstr "Lagre"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:559
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
 msgid "Daily"
 msgstr "Daglig"
 
@@ -1202,6 +1207,7 @@ msgid "Weekends"
 msgstr "Helger"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:571
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 msgid "Weekly"
 msgstr "Ukentlig"
 
@@ -1655,7 +1661,7 @@ msgid "Filter"
 msgstr "Filtrer"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
-#: src/MainWindow.vala:738
+#: src/MainWindow.vala:738 src/MainWindow.vala:739
 msgid "Archived Projects"
 msgstr "Arkivert prosjekter"
 
@@ -2407,7 +2413,7 @@ msgstr ""
 "oppgavens forfallstid."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
-#: src/MainWindow.vala:730
+#: src/MainWindow.vala:730 src/MainWindow.vala:729
 msgid "Preferences"
 msgstr "Innstillinger"
 
@@ -2802,32 +2808,35 @@ msgstr "Hovedmeny"
 msgid "Open Quick Find"
 msgstr "Åpne hurtigsøk"
 
-#: src/MainWindow.vala:715 src/MainWindow.vala:736
+#: src/MainWindow.vala:715 src/MainWindow.vala:736 src/MainWindow.vala:737
 msgid "About Planify"
 msgstr "Om Planify"
 
-#: src/MainWindow.vala:775 src/MainWindow.vala:796
+#: src/MainWindow.vala:775 src/MainWindow.vala:796 src/MainWindow.vala:805
 msgid "Oops! Something happened"
 msgstr "Ups! Noe skjedde"
 
 #: src/MainWindow.vala:778 src/MainWindow.vala:799
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
+#: src/Dialogs/ProductivityReport/SummarySection.vala:38
+#: src/MainWindow.vala:808
 msgid "See More"
 msgstr "Se mer"
 
 #: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
-#: src/MainWindow.vala:815
+#: src/MainWindow.vala:815 src/MainWindow.vala:824
 msgid "Task completed"
 msgstr "Oppgave fullført"
 
-#: src/MainWindow.vala:795 src/MainWindow.vala:816
+#: src/MainWindow.vala:795 src/MainWindow.vala:816 src/MainWindow.vala:825
 msgid "View"
 msgstr "Vis"
 
-#: src/MainWindow.vala:833 src/MainWindow.vala:854
+#: src/MainWindow.vala:833 src/MainWindow.vala:854 src/MainWindow.vala:863
 msgid "Database Integrity Check Failed"
 msgstr "Integritetssjekk av databasen mislyktes"
 
-#: src/MainWindow.vala:834 src/MainWindow.vala:855
+#: src/MainWindow.vala:834 src/MainWindow.vala:855 src/MainWindow.vala:864
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2850,7 +2859,7 @@ msgstr ""
 "Etter tilbakestillingen vil du kunne gjenopprette eventuelle "
 "sikkerhetskopier du har opprettet tidligere. Takk for tålmodigheten"
 
-#: src/MainWindow.vala:836 src/MainWindow.vala:857
+#: src/MainWindow.vala:836 src/MainWindow.vala:857 src/MainWindow.vala:866
 msgid "Reset Database"
 msgstr "Tilbakestill database"
 
@@ -3015,6 +3024,7 @@ msgid "All (default)"
 msgstr "Alle (standard)"
 
 #: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:286
 msgid "This Week"
 msgstr "Denne uken"
 
@@ -3023,6 +3033,7 @@ msgid "Next 7 Days"
 msgstr "Neste 7 dger"
 
 #: src/Views/Project/Project.vala:560 src/Views/Project/Project.vala:729
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:287
 msgid "This Month"
 msgstr "Denne måneden"
 
@@ -3072,6 +3083,7 @@ msgid "Sort By"
 msgstr "Sorter etter"
 
 #: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
+#: src/Dialogs/ProductivityReport/SummarySection.vala:59
 msgid "Overdue"
 msgstr "Forsinket"
 
@@ -3498,11 +3510,113 @@ msgstr ""
 msgid "Only show labels used by tasks in active (non-archived) projects"
 msgstr ""
 
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
+#: src/Dialogs/ProductivityReport/SummarySection.vala:33
+msgid "Summary"
+msgstr "Sammendrag"
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
+#: src/MainWindow.vala:732
+msgid "Summary & Productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
+msgid "Set Up Goals"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
+msgid "Define how many tasks you want to complete per day and week"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
+msgid "Summary Details"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
+msgid "Detailed summary will appear here"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
+msgid "Productivity Details"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
+msgid "Detailed productivity stats will appear here"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
+msgid "Productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
+msgid "All goals achieved! You're unstoppable"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
+msgid "Daily goal crushed! Keep the momentum going"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
+msgid "Weekly goal achieved! Enjoy the rest of your week"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
+msgid "Start your day, your first task awaits"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
+msgid "Almost there! Just a few more tasks today"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
+msgid "Great pace this week, you're almost at your goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
+msgid "Halfway through your daily goal, nice progress"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
+msgid "Solid week so far, keep it up"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
+msgid "Every task completed is a step forward"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
+msgid "Set your daily and weekly goals to start tracking your productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
+msgid "Daily Goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
+msgid "Weekly Goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
+msgid "Edit Goals"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:56
+msgid "Total"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:57
+msgid "Pending"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:73
+msgid "Progress"
+msgstr ""
+
 #~ msgid "Menu"
 #~ msgstr "Meny"
-
-#~ msgid "Summary"
-#~ msgstr "Sammendrag"
 
 #~ msgid "Add Time"
 #~ msgstr "Legg til tid"

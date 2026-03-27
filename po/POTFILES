@@ -147,6 +147,10 @@ src/Dialogs/Preferences/Pages/QuickAdd.vala
 src/Dialogs/Preferences/Pages/Sidebar.vala
 src/Dialogs/Preferences/Pages/TaskSetting.vala
 src/Dialogs/Preferences/PreferencesWindow.vala
+src/Dialogs/ProductivityReport/ProductivityReport.vala
+src/Dialogs/ProductivityReport/ProductivitySection.vala
+src/Dialogs/ProductivityReport/StatCard.vala
+src/Dialogs/ProductivityReport/SummarySection.vala
 src/Dialogs/Project.vala
 src/Dialogs/ProjectPicker.vala
 src/Dialogs/QuickAdd.vala

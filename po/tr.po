@@ -187,6 +187,7 @@ msgid "no date"
 msgstr "Bitiş tarihi"
 
 #: core/Objects/Filters/Completed.vala:33
+#: src/Dialogs/ProductivityReport/SummarySection.vala:58
 msgid "Completed"
 msgstr "Tamamlandı"
 
@@ -272,9 +273,11 @@ msgstr "yaklaşan"
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:369
-#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:771
-#: src/Layouts/ItemRow.vala:1225 src/Views/Project/Project.vala:557
-#: src/Views/Project/Project.vala:723 src/Views/Today.vala:203
+#: src/Dialogs/DatePicker.vala:62
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:285
+#: src/Layouts/ItemBoard.vala:771 src/Layouts/ItemRow.vala:1225
+#: src/Views/Project/Project.vala:557 src/Views/Project/Project.vala:723
+#: src/Views/Today.vala:203
 msgid "Today"
 msgstr "Bugün"
 
@@ -465,7 +468,7 @@ msgstr ""
 "Üzgünüm, Hızlı Ekleme kullanılabilir bir proje bulamadı. Planify'dan proje "
 "oluşturmayı deneyin."
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:733
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:734
 msgid "Keyboard Shortcuts"
 msgstr "Klavye Kısayolları"
 
@@ -1186,10 +1189,12 @@ msgid "Next week"
 msgstr "Sonraki hafta"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
 msgid "Save"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:559
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
 msgid "Daily"
 msgstr "Günlük"
 
@@ -1202,6 +1207,7 @@ msgid "Weekends"
 msgstr "Hafta sonları"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:571
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 msgid "Weekly"
 msgstr "Haftalık"
 
@@ -1680,7 +1686,7 @@ msgstr "Etiketi Güncelle"
 msgid "Filter"
 msgstr "Filtrele"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:738
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:739
 msgid "Archived Projects"
 msgstr "Proje Ekle"
 
@@ -2429,7 +2435,7 @@ msgstr ""
 "Etkinleştirildiğinde, varsayılan olarak görevin bitiş zamanından önce bir "
 "hatırlatıcı eklenecektir."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:730
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:729
 msgid "Preferences"
 msgstr "Tercihler"
 
@@ -2557,6 +2563,132 @@ msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr ""
 "Tüm listelerinizi, görevlerinizi ve hatırlatıcılarınızı geri döndürülemez "
 "şekilde siler"
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
+#: src/MainWindow.vala:732
+msgid "Summary & Productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
+msgid "Set Up Goals"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
+msgid "Define how many tasks you want to complete per day and week"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
+msgid "Summary Details"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
+msgid "Detailed summary will appear here"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
+#: src/Dialogs/ProductivityReport/SummarySection.vala:33
+msgid "Summary"
+msgstr "Özet"
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
+msgid "Productivity Details"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
+msgid "Detailed productivity stats will appear here"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
+msgid "Productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
+#: src/Dialogs/ProductivityReport/SummarySection.vala:38
+#: src/MainWindow.vala:808
+msgid "See More"
+msgstr "Proje oluştur"
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
+msgid "All goals achieved! You're unstoppable"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
+msgid "Daily goal crushed! Keep the momentum going"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
+msgid "Weekly goal achieved! Enjoy the rest of your week"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
+msgid "Start your day, your first task awaits"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
+msgid "Almost there! Just a few more tasks today"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
+msgid "Great pace this week, you're almost at your goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
+msgid "Halfway through your daily goal, nice progress"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
+msgid "Solid week so far, keep it up"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
+msgid "Every task completed is a step forward"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
+msgid "Set your daily and weekly goals to start tracking your productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:286
+#: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
+msgid "This Week"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:287
+#: src/Views/Project/Project.vala:560 src/Views/Project/Project.vala:729
+msgid "This Month"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
+msgid "Daily Goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
+msgid "Weekly Goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
+msgid "Edit Goals"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:56
+msgid "Total"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:57
+msgid "Pending"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:59
+#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
+msgid "Overdue"
+msgstr "Süresi doldu"
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:73
+msgid "Progress"
+msgstr ""
 
 #: src/Dialogs/Project.vala:59 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -2839,32 +2971,28 @@ msgstr ""
 msgid "Open Quick Find"
 msgstr "Hızlı bulu aç"
 
-#: src/MainWindow.vala:736
+#: src/MainWindow.vala:737
 msgid "About Planify"
 msgstr "Planify Hakkında"
 
-#: src/MainWindow.vala:796
+#: src/MainWindow.vala:805
 msgid "Oops! Something happened"
 msgstr ""
 
-#: src/MainWindow.vala:799
-msgid "See More"
-msgstr "Proje oluştur"
-
-#: src/MainWindow.vala:815 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:824 src/Widgets/ItemChangeHistoryRow.vala:48
 #, fuzzy
 msgid "Task completed"
 msgstr "tamamlandı"
 
-#: src/MainWindow.vala:816
+#: src/MainWindow.vala:825
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:854
+#: src/MainWindow.vala:863
 msgid "Database Integrity Check Failed"
 msgstr ""
 
-#: src/MainWindow.vala:855
+#: src/MainWindow.vala:864
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2877,7 +3005,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:857
+#: src/MainWindow.vala:866
 #, fuzzy
 msgid "Reset Database"
 msgstr "Tümünü sıfırla"
@@ -3064,16 +3192,8 @@ msgstr "Güncelle"
 msgid "All (default)"
 msgstr ""
 
-#: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
-msgid "This Week"
-msgstr ""
-
 #: src/Views/Project/Project.vala:559 src/Views/Project/Project.vala:727
 msgid "Next 7 Days"
-msgstr ""
-
-#: src/Views/Project/Project.vala:560 src/Views/Project/Project.vala:729
-msgid "This Month"
 msgstr ""
 
 #: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:731
@@ -3121,10 +3241,6 @@ msgstr "Tamamlanan Görevleri Göster"
 #: src/Views/Project/Project.vala:631
 msgid "Sort By"
 msgstr "Sırala"
-
-#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
-msgid "Overdue"
-msgstr "Süresi doldu"
 
 #: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:163
 msgid "Reschedule"
@@ -3507,9 +3623,6 @@ msgstr "Panoyu aç"
 
 #~ msgid "Menu"
 #~ msgstr "Menü"
-
-#~ msgid "Summary"
-#~ msgstr "Özet"
 
 #~ msgid "Add Time"
 #~ msgstr "Zaman Ekle"
