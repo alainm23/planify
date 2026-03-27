@@ -753,7 +753,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:50
 msgid "Sky Blue"
-msgstr ""
+msgstr "Oblačně Modrá"
 
 #: core/Utils/Util.vala:51
 msgid "Light Blue"
