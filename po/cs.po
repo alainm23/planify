@@ -985,11 +985,11 @@ msgstr ""
 
 #: core/Utils/Util.vala:965
 msgid "Task duplicated"
-msgstr ""
+msgstr "Úkol zduplikován"
 
 #: core/Utils/Util.vala:1001
 msgid "Section duplicated"
-msgstr ""
+msgstr "Sekce zduplikovaná"
 
 #: core/Utils/Util.vala:1027 core/Utils/Util.vala:1053
 msgid "Project duplicated"
@@ -1147,7 +1147,7 @@ msgstr "čas"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:186
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 msgid "Repeat"
-msgstr ""
+msgstr "Opakovat"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:161
 msgid "Type a date…"
@@ -1169,7 +1169,7 @@ msgstr "Denně"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:563
 msgid "Weekdays"
-msgstr ""
+msgstr "Týdně"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:567
 msgid "Weekends"
