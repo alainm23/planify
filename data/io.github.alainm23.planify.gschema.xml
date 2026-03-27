@@ -358,5 +358,17 @@
             <summary>Keep task properties when adding multiple tasks</summary>
             <description>When "Keep adding" is enabled, preserve date, labels, and pinned status for the next task</description>
         </key>
+
+        <key name="daily-task-goal" type="i">
+            <default>0</default>
+            <summary>Daily task completion goal</summary>
+            <description>Number of tasks the user aims to complete each day. 0 means not configured.</description>
+        </key>
+
+        <key name="weekly-task-goal" type="i">
+            <default>0</default>
+            <summary>Weekly task completion goal</summary>
+            <description>Number of tasks the user aims to complete each week. 0 means not configured.</description>
+        </key>
     </schema>
 </schemalist>
