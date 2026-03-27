@@ -180,7 +180,7 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
             month_label = new Gtk.Label (null) {
                 halign = Gtk.Align.START,
                 css_classes = { "font-bold" },
-                margin_start = 6
+                margin_start = 9
             };
 
             calendar_week = new Widgets.Calendar.CalendarWeek () {
@@ -201,6 +201,10 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
             main_box.append (month_label);
             main_box.append (calendar_week);
             main_box.append (days_grid);
+            main_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+                margin_start = 6,
+                margin_end = 6
+            });
 
             child = main_box;
 
@@ -228,14 +232,13 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
                 0, 0, 0
             );
 
-            int day_of_week = first_day_date.get_day_of_week () - start_week;
-            if (day_of_week < 0) {
-                day_of_week += 7;
-            }
-            day_of_week = (day_of_week + 7) % 7;
-
-            int col = day_of_week;
+            int day_of_week = first_day_date.get_day_of_week () % 7; // Sunday=0, Monday=1...Saturday=6
+            int col = (day_of_week - start_week + 7) % 7;
             int row = 0;
+
+            for (int i = 0; i < col; i++) {
+                days_grid.attach (new Gtk.Label (null), i, 0, 1, 1);
+            }
 
             for (int day = start_day; day <= max_days; day++) {
                 var day_datetime = new DateTime.local (
