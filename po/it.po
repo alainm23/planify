@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-01-18 17:20+0000\n"
-"Last-Translator: Vittorio Cerrati <gabrycio05@gmail.com>\n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
+"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"PO-Revision-Date: 2026-03-27 11:00+0000\n"
+"Last-Translator: Matteo Crocetti <matteocrocetti@proton.me>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/it/>\n"
 "Language: it\n"
@@ -123,7 +123,7 @@ msgstr "Sezione"
 
 #: core/Enum.vala:357 src/Views/Today.vala:773
 msgid "Assignment"
-msgstr ""
+msgstr "Incarico"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -273,11 +273,10 @@ msgstr "imminente"
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:369
-#: src/Dialogs/DatePicker.vala:62
+#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:771
+#: src/Layouts/ItemRow.vala:1225 src/Views/Project/Project.vala:557
+#: src/Views/Project/Project.vala:723 src/Views/Today.vala:203
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:285
-#: src/Layouts/ItemBoard.vala:771 src/Layouts/ItemRow.vala:1225
-#: src/Views/Project/Project.vala:557 src/Views/Project/Project.vala:723
-#: src/Views/Today.vala:203
 msgid "Today"
 msgstr "Oggi"
 
@@ -318,24 +317,29 @@ msgid "Task copied to clipboard"
 msgstr "Attività copiata negli appunti"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#, fuzzy, c-format
-msgid "Moved to %s"
-msgstr "Task spostato in %s"
+#: src/Widgets/MultiSelectToolbar.vala:376
+#: src/Widgets/MultiSelectToolbar.vala:379
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Task spostato in %s"
+msgstr[1] "%d Task spostate in %s"
 
-#: core/Objects/Label.vala:220
+#: core/Objects/Label.vala:206 core/Objects/Label.vala:220
 #, c-format
 msgid "Delete Label %s"
 msgstr "Cancella Etichetta %s"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:856
+#: core/Objects/Label.vala:207 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
-#: src/Services/Backups.vala:416
+#: src/Services/Backups.vala:416 core/Objects/Label.vala:221
 msgid "This can not be undone"
 msgstr "L'operazione non può essere annullata"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:859
+#: core/Objects/Label.vala:210 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
@@ -350,11 +354,11 @@ msgstr "L'operazione non può essere annullata"
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:634 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:287
+#: src/Widgets/MultiSelectToolbar.vala:287 core/Objects/Label.vala:224
 msgid "Cancel"
 msgstr "Annulla"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:860
+#: core/Objects/Label.vala:211 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
@@ -362,7 +366,7 @@ msgstr "Annulla"
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:635
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
-#: src/Widgets/MultiSelectToolbar.vala:288
+#: src/Widgets/MultiSelectToolbar.vala:288 core/Objects/Label.vala:225
 msgid "Delete"
 msgstr "Elimina"
 
@@ -463,7 +467,8 @@ msgstr ""
 "Mi dispiace, Quick Add non riesce a trovare alcun progetto disponibile. "
 "Prova a creare un progetto da Planify."
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:734
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712 src/MainWindow.vala:733
+#: src/MainWindow.vala:734
 msgid "Keyboard Shortcuts"
 msgstr "Scorciatoie da tastiera"
 
@@ -524,12 +529,12 @@ msgstr "Caricamento task per %s…"
 #: core/Services/CalDAV/CalDAVClient.vala:345
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Attività caricate per %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:338
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Attività di sincronizzazione %d di %d"
 
 #: core/Services/CalDAV/Core.vala:162
 msgid "Source already exists"
@@ -561,6 +566,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"Todoist hanno aggiornato le loro API. Per favore riconnetti il tuo account "
+"in Impostazioni per continuare la sincronizzazione."
 
 #: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
@@ -667,8 +674,8 @@ msgstr "Do,"
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "in %d giorno"
+msgstr[1] "in %d giorni"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
@@ -920,7 +927,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:642
 msgid "Tune your setup"
-msgstr ""
+msgstr "Sintonizza la tua configurazione"
 
 #: core/Utils/Util.vala:650
 msgid "Show your calendar events"
@@ -984,6 +991,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
+"Ricevi notifiche su attività o eventi importanti. Tocca il pulsante "
+"dell'orologio qui sotto per aggiungere un promemoria."
 
 #: core/Utils/Util.vala:700
 msgid "💼️Work"
@@ -1003,7 +1012,7 @@ msgstr "🏡Casa"
 
 #: core/Utils/Util.vala:724
 msgid "🏃‍♀️️Follow Up"
-msgstr ""
+msgstr "🏃‍♀️️Prossimi"
 
 #: core/Utils/Util.vala:965
 msgid "Task duplicated"
@@ -1064,7 +1073,7 @@ msgstr "Mese precedente"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
-msgstr ""
+msgstr "Avanti"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
@@ -1131,7 +1140,7 @@ msgstr "Sab"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:505
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:140
 msgid "Time"
-msgstr ""
+msgstr "Ora"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:828
@@ -1180,9 +1189,8 @@ msgid "Next week"
 msgstr "La prossima settimana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:559
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
@@ -1216,7 +1224,7 @@ msgstr "Personalizzato"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:855
 msgid "No date"
-msgstr ""
+msgstr "Senza data"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
@@ -1274,35 +1282,24 @@ msgstr "Fine"
 msgid "Date"
 msgstr "Data"
 
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:72
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:80
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:209
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:213
-msgid "The date you plan to work on this task"
-msgstr ""
-
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
 msgstr "Rimuovi data"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
-msgid "When do you plan to work on this?"
-msgstr ""
+msgid "Set a Due Date"
+msgstr "Imposta una data di scadenza"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
-msgstr ""
+msgstr "Imposta una Scadenza"
 
-#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
-#: core/Widgets/DeadlineButton.vala:135
-msgid "The latest date to complete this task"
-msgstr ""
-
-#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
-msgid "What is the latest date to complete this?"
-msgstr ""
+#: core/Widgets/DeadlineButton.vala:153
+msgid "Set a Deadline"
+msgstr "Imposta una scadenza"
 
 #: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
@@ -1318,6 +1315,7 @@ msgstr "Seleziona etichette"
 msgid "Label not found: Create '%s'"
 msgstr "Etichetta non trovata: Crea '%s'"
 
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:68
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
@@ -1326,46 +1324,29 @@ msgstr ""
 "La tua lista di filtri verrà mostrata qui. Per crearne una inserisci il nome "
 "e premi il tasto Invio."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:69
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:69
 #, c-format
 msgid "Create '%s'"
 msgstr "Crea '%s'"
 
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Your list of filters will show up here."
 msgstr "La tua lista di filtri verrà mostrata qui."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search"
 msgstr "Cerca"
 
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search or Create"
 msgstr "Cerca o Crea"
-
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
-msgid "Hide unused labels"
-msgstr ""
-
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
-msgid "No Labels"
-msgstr ""
-
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
-msgid "All Hidden"
-msgstr ""
-
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
-msgid "All labels are hidden by the filter. Disable the filter to see them."
-msgstr ""
-
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
-msgid "Press Enter to create and assign it"
-msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
@@ -1411,7 +1392,7 @@ msgstr "Nessuna Sezione"
 
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:46
 msgid "Type a search"
-msgstr ""
+msgstr "Digita una ricerca"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
@@ -1464,24 +1445,24 @@ msgstr "Seleziona Sezione"
 
 #: core/Widgets/StatusButton.vala:32
 msgid "Set The Status"
-msgstr ""
+msgstr "Imposta lo status"
 
 #: core/Widgets/StatusButton.vala:39
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: core/Widgets/StatusButton.vala:44 core/Widgets/StatusButton.vala:76
 #: core/Widgets/StatusButton.vala:114
 msgid "To Do"
-msgstr ""
+msgstr "Da fare"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1240
 #: src/Services/Notification.vala:98
 msgid "Complete"
-msgstr ""
+msgstr "Completato"
 
-#: src/App.vala:147
+#: src/App.vala:143 src/App.vala:147
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1538,7 +1519,7 @@ msgstr "Seleziona un calendario dalla lista"
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
-msgstr ""
+msgstr "Attiva sincronizzazione"
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
@@ -1558,16 +1539,16 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
-msgstr ""
+msgstr "Disattiva sincronizzazione"
 
 #: src/Dialogs/CalendarSync.vala:279
 #, c-format
 msgid "Synced with: %s"
-msgstr ""
+msgstr "Sincronizzato con: %s"
 
 #: src/Dialogs/CalendarSync.vala:292
 msgid "Sync Enabled!"
-msgstr ""
+msgstr "Sincronizzazione abilitata!"
 
 #: src/Dialogs/CalendarSync.vala:297
 msgid ""
@@ -1579,7 +1560,7 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 msgid "Completed Tasks"
@@ -1587,7 +1568,7 @@ msgstr "Attività completate"
 
 #: src/Dialogs/CompletedTasks.vala:59
 msgid "View Filter Menu"
-msgstr ""
+msgstr "Visualizza il menu dei filtri"
 
 #: src/Dialogs/CompletedTasks.vala:95
 msgid "No completed tasks yet."
@@ -1678,7 +1659,8 @@ msgstr "Aggiorna Etichetta"
 msgid "Filter"
 msgstr ""
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:739
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
+#: src/MainWindow.vala:738 src/MainWindow.vala:739
 msgid "Archived Projects"
 msgstr ""
 
@@ -2128,20 +2110,22 @@ msgstr "Ordinato"
 msgid "DE Integration"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:69
-msgid "Run on Startup"
-msgstr "Esegui all'avvio"
-
-#: src/Dialogs/Preferences/Pages/General.vala:70
-msgid "Launch Planify automatically when you start your computer"
-msgstr ""
-
+#: src/Dialogs/Preferences/Pages/General.vala:68
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run in Background"
 msgstr "Esegui in Background"
 
+#: src/Dialogs/Preferences/Pages/General.vala:69
+msgid "Let Planify run in background and send notifications"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:82
+#: src/Dialogs/Preferences/Pages/General.vala:69
+msgid "Run on Startup"
+msgstr "Esegui all'avvio"
+
 #: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Keep Planify running in the system tray when closing the window"
+msgid "Whether Planify should run on startup"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
@@ -2403,7 +2387,8 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:729
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
+#: src/MainWindow.vala:730 src/MainWindow.vala:729
 msgid "Preferences"
 msgstr "Preferenze"
 
@@ -2525,132 +2510,6 @@ msgstr "Eliminare Tutti i Dati?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:376
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:732
-msgid "Summary & Productivity"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
-msgid "Set Up Goals"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
-msgid "Define how many tasks you want to complete per day and week"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
-msgid "Summary Details"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
-msgid "Detailed summary will appear here"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
-#: src/Dialogs/ProductivityReport/SummarySection.vala:33
-msgid "Summary"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
-msgid "Productivity Details"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
-msgid "Detailed productivity stats will appear here"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
-msgid "Productivity"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
-#: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:808
-msgid "See More"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
-msgid "All goals achieved! You're unstoppable"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
-msgid "Daily goal crushed! Keep the momentum going"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
-msgid "Weekly goal achieved! Enjoy the rest of your week"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
-msgid "Start your day, your first task awaits"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
-msgid "Almost there! Just a few more tasks today"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
-msgid "Great pace this week, you're almost at your goal"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
-msgid "Halfway through your daily goal, nice progress"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
-msgid "Solid week so far, keep it up"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
-msgid "Every task completed is a step forward"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
-msgid "Set your daily and weekly goals to start tracking your productivity"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:286
-#: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
-msgid "This Week"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:287
-#: src/Views/Project/Project.vala:560 src/Views/Project/Project.vala:729
-msgid "This Month"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
-msgid "Daily Goal"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
-msgid "Weekly Goal"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
-msgid "Edit Goals"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/SummarySection.vala:56
-msgid "Total"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/SummarySection.vala:57
-msgid "Pending"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/SummarySection.vala:59
-#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
-msgid "Overdue"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/SummarySection.vala:73
-msgid "Progress"
 msgstr ""
 
 #: src/Dialogs/Project.vala:59 src/Layouts/Sidebar.vala:121
@@ -2930,27 +2789,35 @@ msgstr "Menù Principale"
 msgid "Open Quick Find"
 msgstr ""
 
-#: src/MainWindow.vala:737
+#: src/MainWindow.vala:715 src/MainWindow.vala:736 src/MainWindow.vala:737
 msgid "About Planify"
 msgstr "Informazioni su Planify"
 
-#: src/MainWindow.vala:805
+#: src/MainWindow.vala:775 src/MainWindow.vala:796 src/MainWindow.vala:805
 msgid "Oops! Something happened"
 msgstr ""
 
-#: src/MainWindow.vala:824 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:778 src/MainWindow.vala:799
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
+#: src/Dialogs/ProductivityReport/SummarySection.vala:38
+#: src/MainWindow.vala:808
+msgid "See More"
+msgstr ""
+
+#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:815 src/MainWindow.vala:824
 msgid "Task completed"
 msgstr ""
 
-#: src/MainWindow.vala:825
+#: src/MainWindow.vala:795 src/MainWindow.vala:816 src/MainWindow.vala:825
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:863
+#: src/MainWindow.vala:833 src/MainWindow.vala:854 src/MainWindow.vala:863
 msgid "Database Integrity Check Failed"
 msgstr ""
 
-#: src/MainWindow.vala:864
+#: src/MainWindow.vala:834 src/MainWindow.vala:855 src/MainWindow.vala:864
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2963,7 +2830,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:866
+#: src/MainWindow.vala:836 src/MainWindow.vala:857 src/MainWindow.vala:866
 msgid "Reset Database"
 msgstr ""
 
@@ -3003,9 +2870,9 @@ msgstr ""
 msgid "Snooze for 1 hour"
 msgstr ""
 
-#: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
-#: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
-#: src/Views/Today.vala:88
+#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
+#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:88
+#: src/Views/Label/Labels.vala:45
 msgid "View Option Menu"
 msgstr ""
 
@@ -3047,18 +2914,6 @@ msgstr[1] ""
 #: src/Views/Label/LabelSourceRow.vala:49
 #: src/Views/Label/LabelSourceRow.vala:125
 msgid "No labels available. Create one by clicking on the '+' button"
-msgstr ""
-
-#: src/Views/Label/LabelSourceRow.vala:122
-msgid "All labels are hidden by the filter"
-msgstr ""
-
-#: src/Views/Label/Labels.vala:148
-msgid "Only Active Projects"
-msgstr ""
-
-#: src/Views/Label/Labels.vala:149
-msgid "Only show labels used by tasks in active (non-archived) projects"
 msgstr ""
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
@@ -3143,8 +2998,18 @@ msgstr ""
 msgid "All (default)"
 msgstr ""
 
+#: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:286
+msgid "This Week"
+msgstr ""
+
 #: src/Views/Project/Project.vala:559 src/Views/Project/Project.vala:727
 msgid "Next 7 Days"
+msgstr ""
+
+#: src/Views/Project/Project.vala:560 src/Views/Project/Project.vala:729
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:287
+msgid "This Month"
 msgstr ""
 
 #: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:731
@@ -3190,6 +3055,11 @@ msgstr "Cerca tra le attività completate"
 
 #: src/Views/Project/Project.vala:631
 msgid "Sort By"
+msgstr ""
+
+#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
+#: src/Dialogs/ProductivityReport/SummarySection.vala:59
+msgid "Overdue"
 msgstr ""
 
 #: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:163
@@ -3371,13 +3241,6 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Widgets/MultiSelectToolbar.vala:375
-#, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "Task spostato in %s"
-msgstr[1] "%d Task spostate in %s"
-
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
 msgstr "Nuova versione disponibile!"
@@ -3547,11 +3410,178 @@ msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr ""
 
-#~ msgid "Set a Due Date"
-#~ msgstr "Imposta una data di scadenza"
+#: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
+#, fuzzy, c-format
+msgid "Moved to %s"
+msgstr "Task spostato in %s"
 
-#~ msgid "Set a Deadline"
-#~ msgstr "Imposta una scadenza"
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:72
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:80
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:209
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:213
+msgid "The date you plan to work on this task"
+msgstr ""
+
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:170
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:208
+msgid "When do you plan to work on this?"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
+#: core/Widgets/DeadlineButton.vala:135
+msgid "The latest date to complete this task"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
+msgid "What is the latest date to complete this?"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
+msgid "Hide unused labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
+msgid "No Labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
+msgid "All Hidden"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
+msgid "All labels are hidden by the filter. Disable the filter to see them."
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
+msgid "Press Enter to create and assign it"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:83
+msgid "Keep Planify running in the system tray when closing the window"
+msgstr ""
+
+#: src/Views/Label/LabelSourceRow.vala:122
+msgid "All labels are hidden by the filter"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:148
+msgid "Only Active Projects"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:149
+msgid "Only show labels used by tasks in active (non-archived) projects"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
+#: src/MainWindow.vala:732
+msgid "Summary & Productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
+msgid "Set Up Goals"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
+msgid "Define how many tasks you want to complete per day and week"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
+msgid "Summary Details"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
+msgid "Detailed summary will appear here"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
+#: src/Dialogs/ProductivityReport/SummarySection.vala:33
+msgid "Summary"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
+msgid "Productivity Details"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
+msgid "Detailed productivity stats will appear here"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
+msgid "Productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
+msgid "All goals achieved! You're unstoppable"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
+msgid "Daily goal crushed! Keep the momentum going"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
+msgid "Weekly goal achieved! Enjoy the rest of your week"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
+msgid "Start your day, your first task awaits"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
+msgid "Almost there! Just a few more tasks today"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
+msgid "Great pace this week, you're almost at your goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
+msgid "Halfway through your daily goal, nice progress"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
+msgid "Solid week so far, keep it up"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
+msgid "Every task completed is a step forward"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
+msgid "Set your daily and weekly goals to start tracking your productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
+msgid "Daily Goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
+msgid "Weekly Goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
+msgid "Edit Goals"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:56
+msgid "Total"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:57
+msgid "Pending"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:73
+msgid "Progress"
+msgstr ""
 
 #~ msgid "Clear"
 #~ msgstr "Ripulisci"
