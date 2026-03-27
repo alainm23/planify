@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
 "PO-Revision-Date: 2026-03-28 15:09+0000\n"
-"Last-Translator: ExistingPerson <dedek.vlastimil2@proton.me>\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/cs/>\n"
 "Language: cs\n"
@@ -737,7 +737,7 @@ msgstr "Olivově Zelená"
 
 #: core/Utils/Util.vala:46
 msgid "Lime Green"
-msgstr "Limetkově Zelená"
+msgstr "Limetkově zelená"
 
 #: core/Utils/Util.vala:47
 msgid "Green"
@@ -753,7 +753,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:50
 msgid "Sky Blue"
-msgstr "Oblačně Modrá"
+msgstr "Oblačně modrá"
 
 #: core/Utils/Util.vala:51
 msgid "Light Blue"
@@ -874,7 +874,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:615
 msgid "Reorder your to-dos"
-msgstr "Zorganizujte své úkoly"
+msgstr "Změňte pořadí svých úkolů"
 
 #: core/Utils/Util.vala:616
 msgid ""
@@ -1169,11 +1169,11 @@ msgstr "Denně"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:563
 msgid "Weekdays"
-msgstr "Týdně"
+msgstr "Dny v týdnu"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:567
 msgid "Weekends"
-msgstr "Výkendy"
+msgstr "Víkendy"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:571
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
@@ -1270,7 +1270,7 @@ msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
-msgstr "Nastavit Deadline"
+msgstr "Nastavit termín"
 
 #: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
