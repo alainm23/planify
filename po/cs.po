@@ -874,7 +874,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:615
 msgid "Reorder your to-dos"
-msgstr ""
+msgstr "Zorganizujte své úkoly"
 
 #: core/Utils/Util.vala:616
 msgid ""
