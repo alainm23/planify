@@ -1178,7 +1178,7 @@ msgstr "Výkendy"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:571
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 msgid "Weekly"
-msgstr ""
+msgstr "Týdně"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:575
 msgid "Monthly"
@@ -1186,7 +1186,7 @@ msgstr "Měsíčně"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:579
 msgid "Yearly"
-msgstr ""
+msgstr "Ročně"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Custom"
@@ -1198,27 +1198,27 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minuty"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Hour(s)"
-msgstr ""
+msgstr "Hodiny"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Day(s)"
-msgstr ""
+msgstr "Dny"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Week(s)"
-msgstr ""
+msgstr "Týdny"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Month(s)"
-msgstr ""
+msgstr "Měsíce"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Year(s)"
-msgstr ""
+msgstr "Roky"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:199
 msgid "Never"
@@ -1270,7 +1270,7 @@ msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
-msgstr ""
+msgstr "Nastavit Deadline"
 
 #: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
