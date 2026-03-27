@@ -1320,7 +1320,7 @@ msgstr ""
 msgid "What is the latest date to complete this?"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:148
+#: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
 msgstr ""
 
@@ -2882,6 +2882,14 @@ msgstr "공유"
 msgid "Send by E-Mail"
 msgstr "이메일로 보내기"
 
+#: src/Layouts/ProjectRow.vala:714
+msgid "Export as PDF"
+msgstr ""
+
+#: src/Layouts/ProjectRow.vala:791
+msgid "Project exported as PDF"
+msgstr ""
+
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 #, fuzzy
 msgid "Add tasks"
@@ -3022,6 +3030,10 @@ msgstr ""
 #: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Planify 백업 파일"
+
+#: src/Services/ExportService.vala:187
+msgid "Deadline:"
+msgstr ""
 
 # # c-format
 #: src/Services/Notification.vala:99

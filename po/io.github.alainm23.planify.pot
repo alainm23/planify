@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-26 11:32+0000\n"
+"POT-Creation-Date: 2026-03-27 11:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1278,7 +1278,7 @@ msgstr ""
 msgid "What is the latest date to complete this?"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:148
+#: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
 msgstr ""
 
@@ -2793,6 +2793,14 @@ msgstr ""
 msgid "Send by E-Mail"
 msgstr ""
 
+#: src/Layouts/ProjectRow.vala:714
+msgid "Export as PDF"
+msgstr ""
+
+#: src/Layouts/ProjectRow.vala:791
+msgid "Project exported as PDF"
+msgstr ""
+
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 msgid "Add tasks"
 msgstr ""
@@ -2926,6 +2934,10 @@ msgstr ""
 
 #: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
+msgstr ""
+
+#: src/Services/ExportService.vala:187
+msgid "Deadline:"
 msgstr ""
 
 #: src/Services/Notification.vala:99
