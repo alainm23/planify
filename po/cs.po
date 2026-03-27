@@ -1173,7 +1173,7 @@ msgstr "Týdně"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:567
 msgid "Weekends"
-msgstr ""
+msgstr "Výkendy"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:571
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
