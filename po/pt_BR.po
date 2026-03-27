@@ -1320,7 +1320,7 @@ msgstr "Definir prazo"
 msgid "Set a Deadline"
 msgstr "Definir um prazo"
 
-#: core/Widgets/DeadlineButton.vala:148
+#: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
 msgstr "Prazo"
 
@@ -2765,6 +2765,14 @@ msgstr "Compartilhar"
 msgid "Send by E-Mail"
 msgstr "Enviar por E-Mail"
 
+#: src/Layouts/ProjectRow.vala:714
+msgid "Export as PDF"
+msgstr ""
+
+#: src/Layouts/ProjectRow.vala:791
+msgid "Project exported as PDF"
+msgstr ""
+
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 #, fuzzy
 msgid "Add tasks"
@@ -2920,6 +2928,10 @@ msgstr ""
 #: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Planeje Arquivos de Backup"
+
+#: src/Services/ExportService.vala:187
+msgid "Deadline:"
+msgstr ""
 
 # # c-format
 #: src/Services/Notification.vala:99

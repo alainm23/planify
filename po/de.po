@@ -1321,7 +1321,7 @@ msgstr "Der späteste Termin zum Erledigen dieser Aufgabe"
 msgid "What is the latest date to complete this?"
 msgstr "Bis wann sollte das spätestens erledigt sein?"
 
-#: core/Widgets/DeadlineButton.vala:148
+#: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
 msgstr "Frist"
 
@@ -2917,6 +2917,14 @@ msgstr "Teilen"
 msgid "Send by E-Mail"
 msgstr "Per E-Mail senden"
 
+#: src/Layouts/ProjectRow.vala:714
+msgid "Export as PDF"
+msgstr ""
+
+#: src/Layouts/ProjectRow.vala:791
+msgid "Project exported as PDF"
+msgstr ""
+
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 msgid "Add tasks"
 msgstr "Füge Aufgaben hinzu"
@@ -3065,6 +3073,10 @@ msgstr "Jetzt neustarten"
 #: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Planify Sicherungsdateien"
+
+#: src/Services/ExportService.vala:187
+msgid "Deadline:"
+msgstr ""
 
 #: src/Services/Notification.vala:99
 msgid "Snooze for 10 minutes"

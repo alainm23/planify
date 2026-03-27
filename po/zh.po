@@ -1262,7 +1262,7 @@ msgstr ""
 msgid "Set a Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:148
+#: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
 msgstr ""
 
@@ -2637,6 +2637,14 @@ msgstr ""
 msgid "Send by E-Mail"
 msgstr ""
 
+#: src/Layouts/ProjectRow.vala:714
+msgid "Export as PDF"
+msgstr ""
+
+#: src/Layouts/ProjectRow.vala:791
+msgid "Project exported as PDF"
+msgstr ""
+
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 msgid "Add tasks"
 msgstr ""
@@ -2778,6 +2786,10 @@ msgstr ""
 
 #: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
+msgstr ""
+
+#: src/Services/ExportService.vala:187
+msgid "Deadline:"
 msgstr ""
 
 #: src/Services/Notification.vala:99

@@ -1302,7 +1302,7 @@ msgstr "Angi frist"
 msgid "Set a Deadline"
 msgstr "Angi en frist"
 
-#: core/Widgets/DeadlineButton.vala:148
+#: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
 msgstr "Frist"
 
@@ -2730,6 +2730,14 @@ msgstr "Del"
 msgid "Send by E-Mail"
 msgstr "Send med e-post"
 
+#: src/Layouts/ProjectRow.vala:714
+msgid "Export as PDF"
+msgstr ""
+
+#: src/Layouts/ProjectRow.vala:791
+msgid "Project exported as PDF"
+msgstr ""
+
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 msgid "Add tasks"
 msgstr "Legg til oppgaver"
@@ -2882,6 +2890,10 @@ msgstr "Omstart nå"
 #: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Planify sikkerhetskopi-filer"
+
+#: src/Services/ExportService.vala:187
+msgid "Deadline:"
+msgstr ""
 
 #: src/Services/Notification.vala:99
 msgid "Snooze for 10 minutes"

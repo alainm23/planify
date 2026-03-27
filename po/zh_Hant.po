@@ -1274,7 +1274,7 @@ msgstr "設定截止日期"
 msgid "Set a Deadline"
 msgstr "設定截止日期"
 
-#: core/Widgets/DeadlineButton.vala:148
+#: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
 msgstr "截止日期"
 
@@ -2672,6 +2672,14 @@ msgstr "分享"
 msgid "Send by E-Mail"
 msgstr "寄出電子郵件"
 
+#: src/Layouts/ProjectRow.vala:714
+msgid "Export as PDF"
+msgstr ""
+
+#: src/Layouts/ProjectRow.vala:791
+msgid "Project exported as PDF"
+msgstr ""
+
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 msgid "Add tasks"
 msgstr "添加任務"
@@ -2820,6 +2828,10 @@ msgstr "立即重新啟動"
 #: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Planify 備份檔案"
+
+#: src/Services/ExportService.vala:187
+msgid "Deadline:"
+msgstr ""
 
 #: src/Services/Notification.vala:99
 msgid "Snooze for 10 minutes"
