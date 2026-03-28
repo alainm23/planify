@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-03-27 11:00+0000\n"
-"Last-Translator: Matteo Crocetti <matteocrocetti@proton.me>\n"
+"PO-Revision-Date: 2026-03-28 15:09+0000\n"
+"Last-Translator: Stephnie Klim <sylorutu@denipl.net>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/it/>\n"
 "Language: it\n"
@@ -2787,7 +2787,7 @@ msgstr "Menù Principale"
 
 #: src/MainWindow.vala:84
 msgid "Open Quick Find"
-msgstr ""
+msgstr "Apri ricerca rapida"
 
 #: src/MainWindow.vala:715 src/MainWindow.vala:736 src/MainWindow.vala:737
 msgid "About Planify"
@@ -2950,7 +2950,7 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:382
 msgid "Paste"
-msgstr ""
+msgstr "Incolla"
 
 #: src/Views/Project/Project.vala:383 src/Views/Project/Project.vala:500
 msgid "Expand All"
@@ -2975,7 +2975,7 @@ msgstr ""
 #: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:225
 #: src/Views/Today.vala:714
 msgid "Sorting"
-msgstr ""
+msgstr "Ordinamento"
 
 #: src/Views/Project/Project.vala:541
 msgid "Custom sort order"
