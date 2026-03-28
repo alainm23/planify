@@ -1061,6 +1061,7 @@ msgid "3 hours before"
 msgstr "3 Stunden davor"
 
 #: core/Widgets/Calendar/CalendarDay.vala:73
+#: core/Widgets/Calendar/CalendarDay.vala:103
 msgid "%A, %B %e, %Y"
 msgstr "%A, %e. %B %Y"
 
@@ -1103,6 +1104,9 @@ msgstr "Nächster Monat, %s"
 #: core/Widgets/Calendar/CalendarMonth.vala:80
 #: core/Widgets/Calendar/CalendarMonth.vala:193
 #: core/Widgets/Calendar/CalendarMonth.vala:209
+#: core/Widgets/Calendar/CalendarMonth.vala:82
+#: core/Widgets/Calendar/CalendarMonth.vala:183
+#: core/Widgets/Calendar/CalendarMonth.vala:201
 msgid "Choose a date"
 msgstr "Datum auswählen"
 
