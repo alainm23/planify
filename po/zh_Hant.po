@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-03-28 15:09+0000\n"
+"PO-Revision-Date: 2026-03-30 06:09+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -3464,101 +3464,101 @@ msgstr "摘要"
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
 #: src/MainWindow.vala:732
 msgid "Summary & Productivity"
-msgstr ""
+msgstr "摘要總結與生產力"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
 msgid "Set Up Goals"
-msgstr ""
+msgstr "設定目標"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
 msgid "Define how many tasks you want to complete per day and week"
-msgstr ""
+msgstr "定義您每日每週要完成任務的數量"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
 msgid "Summary Details"
-msgstr ""
+msgstr "摘要詳情"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
 msgid "Detailed summary will appear here"
-msgstr ""
+msgstr "詳細摘要將出現在這裡"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
 msgid "Productivity Details"
-msgstr ""
+msgstr "生產力詳情"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
 msgid "Detailed productivity stats will appear here"
-msgstr ""
+msgstr "詳細的生產力統計將顯示在這裡"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
 msgid "Productivity"
-msgstr ""
+msgstr "生產力"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
 msgid "All goals achieved! You're unstoppable"
-msgstr ""
+msgstr "全部目標都已達成了！你真是勢不可擋"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
 msgid "Daily goal crushed! Keep the momentum going"
-msgstr ""
+msgstr "每日目標個個擊碎！保持衝勁呀"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
 msgid "Weekly goal achieved! Enjoy the rest of your week"
-msgstr ""
+msgstr "每週目標都已達成！享受本週所餘時光吧"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
 msgid "Start your day, your first task awaits"
-msgstr ""
+msgstr "啟動新的一天，您的第一個任務正等著吶"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
 msgid "Almost there! Just a few more tasks today"
-msgstr ""
+msgstr "就快要達成了！今天還有一些任務呦"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
 msgid "Great pace this week, you're almost at your goal"
-msgstr ""
+msgstr "本週進展順利，您就快要達成目標啦"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
 msgid "Halfway through your daily goal, nice progress"
-msgstr ""
+msgstr "每日目標已完成大半，進展很不錯呦"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
 msgid "Solid week so far, keep it up"
-msgstr ""
+msgstr "到目前為止，本週努力扎實，繼續保持呀"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
 msgid "Every task completed is a step forward"
-msgstr ""
+msgstr "每項任務的完成都是前進的一步"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
 msgid "Set your daily and weekly goals to start tracking your productivity"
-msgstr ""
+msgstr "設定每日每週目標以開始追蹤您的生產力"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
 msgid "Daily Goal"
-msgstr ""
+msgstr "每日目標"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
 msgid "Weekly Goal"
-msgstr ""
+msgstr "每週目標"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
 msgid "Edit Goals"
-msgstr ""
+msgstr "編輯目標"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:56
 msgid "Total"
-msgstr ""
+msgstr "合計"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:57
 msgid "Pending"
-msgstr ""
+msgstr "待處理"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:73
 msgid "Progress"
-msgstr ""
+msgstr "進度"
 
 #~ msgid "Clear"
 #~ msgstr "清除"
