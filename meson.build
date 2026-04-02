@@ -28,14 +28,6 @@ libspelling = dependency('libspelling-1', required: get_option('spelling'))
 gtksourceview_dep = dependency('gtksourceview-5')
 m_dep = meson.get_compiler('c').find_library('m', required : false)
 
-if get_option('webkit')
-    webkitgtk_dep = dependency('webkitgtk-6.0')
-    add_project_arguments('-D', 'USE_WEBKITGTK', language: 'vala')
-    if not webkitgtk_dep.found()
-        error('webkitgtk-6.0 requested but not found')
-    endif
-endif
-
 if libspelling.found ()
   add_project_arguments(['--define=WITH_LIBSPELLING'], language: 'vala')
 endif
