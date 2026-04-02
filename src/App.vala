@@ -78,8 +78,6 @@ public class Planify : Adw.Application {
 
         foreach (var file in files) {
             string uri = file.get_uri ();
-            debug ("Received URI: %s\n", uri);
-
             if (uri.has_prefix ("planify://")) {
                 handle_uri (uri);
             }
@@ -87,8 +85,6 @@ public class Planify : Adw.Application {
     }
 
     private void handle_uri (string uri) {
-        debug ("Handling URI: %s\n", uri);
-
         var parts = uri.replace ("planify://", "").split ("?", 2);
         string path = parts[0].replace ("/", "");
 
