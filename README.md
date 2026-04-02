@@ -71,7 +71,6 @@
 | libsoup-3.0 | ≥ 3.4.4 |
 | sqlite3 | ≥ 3.45.1 |
 | libadwaita-1 | ≥ 1.5.3 |
-| webkitgtk-6.0 | ≥ 2.44.3 |
 | json-glib-1.0 | ≥ 1.8.0 |
 | libecal-2.0 | ≥ 3.52.4 |
 | libedataserver-1.2 | ≥ 3.52.4 |
@@ -86,12 +85,12 @@
 
 **Fedora/RHEL:**
 ```bash
-sudo dnf install vala meson ninja-build gtk4-devel libadwaita-devel libgee-devel libsoup3-devel webkitgtk6.0-devel libportal-devel libportal-gtk4-devel evolution-devel libspelling-devel gtksourceview5-devel
+sudo dnf install vala meson ninja-build gtk4-devel libadwaita-devel libgee-devel libsoup3-devel libportal-devel libportal-gtk4-devel evolution-devel libspelling-devel gtksourceview5-devel
 ```
 
 **Ubuntu/Debian:**
 ```bash
-sudo apt install valac meson ninja-build libgtk-4-dev libadwaita-1-dev libgee-0.8-dev libjson-glib-dev libecal2.0-dev libsoup-3.0-dev libwebkitgtk-6.0-dev libportal-dev libportal-gtk4-dev libspelling-1-dev libgtksourceview-5-dev
+sudo apt install valac meson ninja-build libgtk-4-dev libadwaita-1-dev libgee-0.8-dev libjson-glib-dev libecal2.0-dev libsoup-3.0-dev libportal-dev libportal-gtk4-dev libspelling-1-dev libgtksourceview-5-dev
 ```
 
 </details>
