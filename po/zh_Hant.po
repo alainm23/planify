@@ -267,10 +267,11 @@ msgstr "即將來到"
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:369
-#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:771
-#: src/Layouts/ItemRow.vala:1225 src/Views/Project/Project.vala:557
-#: src/Views/Project/Project.vala:723 src/Views/Today.vala:203
+#: src/Dialogs/DatePicker.vala:62
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:285
+#: src/Layouts/ItemBoard.vala:771 src/Layouts/ItemRow.vala:1225
+#: src/Views/Project/Project.vala:557 src/Views/Project/Project.vala:723
+#: src/Views/Today.vala:203
 msgid "Today"
 msgstr "今日"
 
@@ -311,47 +312,44 @@ msgid "Task copied to clipboard"
 msgstr "任務已經複製至剪貼簿"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
-#: src/Widgets/MultiSelectToolbar.vala:375
 #, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "%d 個任務已經移至 %s"
+msgid "Moved to %s"
+msgstr "已經移至 %s"
 
-#: core/Objects/Label.vala:206 core/Objects/Label.vala:220
+#: core/Objects/Label.vala:220
 #, c-format
 msgid "Delete Label %s"
 msgstr "刪除標籤 %s"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:856
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
 #: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
-#: src/Services/Backups.vala:416 core/Objects/Label.vala:221
+#: src/Services/Backups.vala:416
 msgid "This can not be undone"
 msgstr "此項無法取消動作"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:859
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:438
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:430
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:191
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:220
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
 #: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:580
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:634 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:287 core/Objects/Label.vala:224
+#: src/Widgets/MultiSelectToolbar.vala:287
 msgid "Cancel"
 msgstr "取消"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:860
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
@@ -359,7 +357,7 @@ msgstr "取消"
 #: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:635
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
-#: src/Widgets/MultiSelectToolbar.vala:288 core/Objects/Label.vala:225
+#: src/Widgets/MultiSelectToolbar.vala:288
 msgid "Delete"
 msgstr "刪除"
 
@@ -394,8 +392,10 @@ msgstr "刪除階段 %s"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:37
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:46
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:38
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:227
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:235
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:252
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -458,8 +458,7 @@ msgid ""
 "project from Planify."
 msgstr "抱歉，快速添加無法找到任何可用的專案，請從 Planify 中建立一個專案。"
 
-#: core/QuickAddCore.vala:1406 src/MainWindow.vala:712 src/MainWindow.vala:733
-#: src/MainWindow.vala:734
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:734
 msgid "Keyboard Shortcuts"
 msgstr "鍵盤快速鍵"
 
@@ -813,7 +812,6 @@ msgid "Process completed, you need to start Planify again."
 msgstr "處理已經完成，必須再次啟動 Planify。"
 
 #: core/Utils/Util.vala:452
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:217
 msgid "Ok"
 msgstr "好"
 
@@ -1255,24 +1253,35 @@ msgstr "結束"
 msgid "Date"
 msgstr "日期"
 
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:72
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:80
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:209
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:213
+msgid "The date you plan to work on this task"
+msgstr "您所計劃的日期 進行此任務"
+
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
 msgstr "移除日期"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
-msgid "Set a Due Date"
-msgstr "設定到期日"
+msgid "When do you plan to work on this?"
+msgstr "您計劃何時進行此項目？"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr "設定截止日期"
 
-#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
-#: core/Widgets/DeadlineButton.vala:153
-msgid "Set a Deadline"
-msgstr "設定截止日期"
+#: core/Widgets/DeadlineButton.vala:135
+msgid "The latest date to complete this task"
+msgstr "完成此任務的最晚日期"
+
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
+msgid "What is the latest date to complete this?"
+msgstr "完成此項目的最晚日期？"
 
 #: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
@@ -1288,36 +1297,52 @@ msgstr "選擇標籤"
 msgid "Label not found: Create '%s'"
 msgstr "標籤未找到：建立 '%s'"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:68
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
 msgstr "您所篩選的清單將顯示於此。輸入名稱並按 Enter 鍵即可建立一個。"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
-#: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:69
+#: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr "建立 '%s'"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Your list of filters will show up here."
 msgstr "您所篩選的清單將會顯示於此。"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search"
 msgstr "搜尋"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search or Create"
 msgstr "搜尋或建立"
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
+msgid "Hide unused labels"
+msgstr "隱藏尚未使用的標籤"
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
+msgid "No Labels"
+msgstr "無標籤"
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
+msgid "All Hidden"
+msgstr "全部隱藏"
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
+msgid "All labels are hidden by the filter. Disable the filter to see them."
+msgstr "全部標籤都已由篩選器隱藏。停用篩選器才能看到它們。"
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
+msgid "Press Enter to create and assign it"
+msgstr "按 Enter 鍵進行建立並指派它"
 
 #: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
@@ -1431,7 +1456,7 @@ msgstr "待辦事項"
 msgid "Complete"
 msgstr "完成"
 
-#: src/App.vala:143 src/App.vala:147
+#: src/App.vala:167
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1619,8 +1644,7 @@ msgstr "更新標籤"
 msgid "Filter"
 msgstr "篩選"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
-#: src/MainWindow.vala:738 src/MainWindow.vala:739
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:739
 msgid "Archived Projects"
 msgstr "已經封存的專案"
 
@@ -1660,39 +1684,39 @@ msgstr "收件箱頁"
 msgid "You can sort your accounts by dragging and dropping"
 msgstr "您可以利用拖放操作來對帳戶進行排序"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:578
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:226
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:570
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr "Planify 正在同步您的任務，這可能需要花點時間"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:307
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
 msgid "SSL verification is disabled"
 msgstr "SSL 驗證停用"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:315
 msgid "Account migration required"
 msgstr "帳號遷移是必須的"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:319
 msgid "Reconnect"
 msgstr "重新連接"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:426
 msgid "Cannot Hide This Account"
 msgstr "無法隱藏該帳戶"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:435
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:427
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr "該帳戶包含您目前的收件箱專案。請先變更您的收件箱專案。"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:439
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:431
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:221
 msgid "Change Inbox"
 msgstr "變更收件箱"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:548
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:540
 msgid "Syncing…"
 msgstr "同步中…"
 
@@ -1790,52 +1814,55 @@ msgid ""
 "project first."
 msgstr "該來源含有您目前的 Inbox 收件專案。請首先變更您的收件專案。"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:89
+msgid "Connect to Todoist"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
+msgid "Sign in with your Todoist account to sync your tasks"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
+msgid "Sign in with Browser"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:113
+msgid "Use API Token instead"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:151
 msgid "Token"
 msgstr "標記"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:102
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:157
 msgid "How to get your token?"
 msgstr "如何取得您的標記(token)？"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:103
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:158
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
 msgstr ""
 "1. 前往 待辦事項清單(Todoist) → 設定(Settings) → 整合(Integrations) → 開發者"
 "(Developer)"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:104
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:159
 msgid "2. Find 'API token' and copy your token"
 msgstr "2. 找到 'API token' 並複製您的標記(token)"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:105
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
 msgid "3. Paste it in the field above"
 msgstr "3. 於上方欄位中貼上"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:124
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:179
 msgid "Connect with Token"
 msgstr "連接使用標記"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:167
-msgid "Enter token"
-msgstr "輸入標記(token)"
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:219
+msgid "Waiting for login…"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:185
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:256
 msgid "Synchronizing…"
 msgstr "正在同步中…"
-
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
-msgid "Please Enter Your Credentials"
-msgstr "請輸入您的身份驗證"
-
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:205
-msgid "Loading…"
-msgstr "載入中…"
-
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:214
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
-msgid "Network Is Not Available"
-msgstr "網路無法作用"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:36
 #: src/Dialogs/Preferences/PreferencesWindow.vala:169
@@ -2077,23 +2104,21 @@ msgstr "指定的"
 msgid "DE Integration"
 msgstr "桌面整合"
 
-#: src/Dialogs/Preferences/Pages/General.vala:68
-#: src/Dialogs/Preferences/Pages/General.vala:82
-msgid "Run in Background"
-msgstr "背景執行"
-
-#: src/Dialogs/Preferences/Pages/General.vala:69
-msgid "Let Planify run in background and send notifications"
-msgstr "讓 Planify 在背景執行並發送通知"
-
-#: src/Dialogs/Preferences/Pages/General.vala:82
 #: src/Dialogs/Preferences/Pages/General.vala:69
 msgid "Run on Startup"
 msgstr "於啟動時執行"
 
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
+msgstr "自動啟動 Planify 當您啟動電腦時"
+
+#: src/Dialogs/Preferences/Pages/General.vala:82
+msgid "Run in Background"
+msgstr "背景執行"
+
 #: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Whether Planify should run on startup"
-msgstr "是否 Planify 應於啟動時執行"
+msgid "Keep Planify running in the system tray when closing the window"
+msgstr "保持 Planify 在系統匣中運行 當關閉視窗時"
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2354,8 +2379,7 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr "當已經啟用，依照預設在任務到期時間之前會添加提醒。"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
-#: src/MainWindow.vala:730 src/MainWindow.vala:729
+#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:729
 msgid "Preferences"
 msgstr "偏好設定"
 
@@ -2480,6 +2504,132 @@ msgstr "刪除全部資料？"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:376
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "刪除全部您的清單、任務和提醒，無法救回"
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
+#: src/MainWindow.vala:732
+msgid "Summary & Productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
+msgid "Set Up Goals"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
+msgid "Define how many tasks you want to complete per day and week"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
+msgid "Summary Details"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
+msgid "Detailed summary will appear here"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
+#: src/Dialogs/ProductivityReport/SummarySection.vala:33
+msgid "Summary"
+msgstr "摘要"
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
+msgid "Productivity Details"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
+msgid "Detailed productivity stats will appear here"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
+msgid "Productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
+#: src/Dialogs/ProductivityReport/SummarySection.vala:38
+#: src/MainWindow.vala:808
+msgid "See More"
+msgstr "查看更多"
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
+msgid "All goals achieved! You're unstoppable"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
+msgid "Daily goal crushed! Keep the momentum going"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
+msgid "Weekly goal achieved! Enjoy the rest of your week"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
+msgid "Start your day, your first task awaits"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
+msgid "Almost there! Just a few more tasks today"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
+msgid "Great pace this week, you're almost at your goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
+msgid "Halfway through your daily goal, nice progress"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
+msgid "Solid week so far, keep it up"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
+msgid "Every task completed is a step forward"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
+msgid "Set your daily and weekly goals to start tracking your productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:286
+#: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
+msgid "This Week"
+msgstr "本週"
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:287
+#: src/Views/Project/Project.vala:560 src/Views/Project/Project.vala:729
+msgid "This Month"
+msgstr "本月份"
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
+msgid "Daily Goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
+msgid "Weekly Goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
+msgid "Edit Goals"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:56
+msgid "Total"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:57
+msgid "Pending"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:59
+#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
+msgid "Overdue"
+msgstr "逾期"
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:73
+msgid "Progress"
+msgstr ""
 
 #: src/Dialogs/Project.vala:59 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -2758,35 +2908,27 @@ msgstr "主要選單"
 msgid "Open Quick Find"
 msgstr "開啟快速尋找"
 
-#: src/MainWindow.vala:715 src/MainWindow.vala:736 src/MainWindow.vala:737
+#: src/MainWindow.vala:737
 msgid "About Planify"
 msgstr "關於 Planify"
 
-#: src/MainWindow.vala:775 src/MainWindow.vala:796 src/MainWindow.vala:805
+#: src/MainWindow.vala:805
 msgid "Oops! Something happened"
 msgstr "哎呀！有事發生了"
 
-#: src/MainWindow.vala:778 src/MainWindow.vala:799
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
-#: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:808
-msgid "See More"
-msgstr "查看更多"
-
-#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
-#: src/MainWindow.vala:815 src/MainWindow.vala:824
+#: src/MainWindow.vala:824 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "任務已經完成"
 
-#: src/MainWindow.vala:795 src/MainWindow.vala:816 src/MainWindow.vala:825
+#: src/MainWindow.vala:825
 msgid "View"
 msgstr "檢視"
 
-#: src/MainWindow.vala:833 src/MainWindow.vala:854 src/MainWindow.vala:863
+#: src/MainWindow.vala:863
 msgid "Database Integrity Check Failed"
 msgstr "資料庫整合檢查失敗"
 
-#: src/MainWindow.vala:834 src/MainWindow.vala:855 src/MainWindow.vala:864
+#: src/MainWindow.vala:864
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2805,7 +2947,7 @@ msgstr ""
 "\n"
 "重設之後，您將能夠恢復先前建立的任何備份。感謝您耐心等侯"
 
-#: src/MainWindow.vala:836 src/MainWindow.vala:857 src/MainWindow.vala:866
+#: src/MainWindow.vala:866
 msgid "Reset Database"
 msgstr "重設資料庫"
 
@@ -2845,9 +2987,9 @@ msgstr "小憩 30 分鐘"
 msgid "Snooze for 1 hour"
 msgstr "小憩 1 小時"
 
-#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
-#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:88
-#: src/Views/Label/Labels.vala:45
+#: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
+#: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
+#: src/Views/Today.vala:88
 msgid "View Option Menu"
 msgstr "檢視選項選單"
 
@@ -2888,6 +3030,18 @@ msgstr[0] "這將刪除 %d 個已經完成的任務及其子任務"
 #: src/Views/Label/LabelSourceRow.vala:125
 msgid "No labels available. Create one by clicking on the '+' button"
 msgstr "尚無標籤可用。點按 '＋' 鈕來進行建立"
+
+#: src/Views/Label/LabelSourceRow.vala:122
+msgid "All labels are hidden by the filter"
+msgstr "全部標籤均為隱藏 由篩選器"
+
+#: src/Views/Label/Labels.vala:148
+msgid "Only Active Projects"
+msgstr "僅作用中的專案項目"
+
+#: src/Views/Label/Labels.vala:149
+msgid "Only show labels used by tasks in active (non-archived) projects"
+msgstr "僅顯示任務所使用的標籤 於作用中(非存檔的)的專案項目"
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
@@ -2971,19 +3125,9 @@ msgstr "到期日"
 msgid "All (default)"
 msgstr "全部(預設)"
 
-#: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:286
-msgid "This Week"
-msgstr "本週"
-
 #: src/Views/Project/Project.vala:559 src/Views/Project/Project.vala:727
 msgid "Next 7 Days"
 msgstr "接下來 7 日"
-
-#: src/Views/Project/Project.vala:560 src/Views/Project/Project.vala:729
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:287
-msgid "This Month"
-msgstr "本月份"
 
 #: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:731
 msgid "Next 30 Days"
@@ -3029,11 +3173,6 @@ msgstr "搜尋已經完成任務"
 #: src/Views/Project/Project.vala:631
 msgid "Sort By"
 msgstr "排序依照"
-
-#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
-#: src/Dialogs/ProductivityReport/SummarySection.vala:59
-msgid "Overdue"
-msgstr "逾期"
 
 #: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:163
 msgid "Reschedule"
@@ -3214,6 +3353,12 @@ msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "您確定要刪除此 %d 個待辦事項嗎？"
 
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "%d 個任務已經移至 %s"
+
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
 msgstr "有新版本可用！"
@@ -3383,178 +3528,29 @@ msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "開啟釘貼看板"
 
-#: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#, c-format
-msgid "Moved to %s"
-msgstr "已經移至 %s"
+#~ msgid "Set a Due Date"
+#~ msgstr "設定到期日"
 
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:72
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:80
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:209
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:213
-msgid "The date you plan to work on this task"
-msgstr "您所計劃的日期 進行此任務"
+#~ msgid "Set a Deadline"
+#~ msgstr "設定截止日期"
 
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:170
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:208
-msgid "When do you plan to work on this?"
-msgstr "您計劃何時進行此項目？"
+#~ msgid "Enter token"
+#~ msgstr "輸入標記(token)"
 
-#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
-#: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
-#: core/Widgets/DeadlineButton.vala:135
-msgid "The latest date to complete this task"
-msgstr "完成此任務的最晚日期"
+#~ msgid "Please Enter Your Credentials"
+#~ msgstr "請輸入您的身份驗證"
 
-#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
-msgid "What is the latest date to complete this?"
-msgstr "完成此項目的最晚日期？"
+#~ msgid "Loading…"
+#~ msgstr "載入中…"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
-msgid "Hide unused labels"
-msgstr "隱藏尚未使用的標籤"
+#~ msgid "Network Is Not Available"
+#~ msgstr "網路無法作用"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
-msgid "No Labels"
-msgstr "無標籤"
+#~ msgid "Let Planify run in background and send notifications"
+#~ msgstr "讓 Planify 在背景執行並發送通知"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
-msgid "All Hidden"
-msgstr "全部隱藏"
-
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
-msgid "All labels are hidden by the filter. Disable the filter to see them."
-msgstr "全部標籤都已由篩選器隱藏。停用篩選器才能看到它們。"
-
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
-msgid "Press Enter to create and assign it"
-msgstr "按 Enter 鍵進行建立並指派它"
-
-#: src/Dialogs/Preferences/Pages/General.vala:70
-msgid "Launch Planify automatically when you start your computer"
-msgstr "自動啟動 Planify 當您啟動電腦時"
-
-#: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Keep Planify running in the system tray when closing the window"
-msgstr "保持 Planify 在系統匣中運行 當關閉視窗時"
-
-#: src/Views/Label/LabelSourceRow.vala:122
-msgid "All labels are hidden by the filter"
-msgstr "全部標籤均為隱藏 由篩選器"
-
-#: src/Views/Label/Labels.vala:148
-msgid "Only Active Projects"
-msgstr "僅作用中的專案項目"
-
-#: src/Views/Label/Labels.vala:149
-msgid "Only show labels used by tasks in active (non-archived) projects"
-msgstr "僅顯示任務所使用的標籤 於作用中(非存檔的)的專案項目"
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
-#: src/Dialogs/ProductivityReport/SummarySection.vala:33
-msgid "Summary"
-msgstr "摘要"
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:732
-msgid "Summary & Productivity"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
-msgid "Set Up Goals"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
-msgid "Define how many tasks you want to complete per day and week"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
-msgid "Summary Details"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
-msgid "Detailed summary will appear here"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
-msgid "Productivity Details"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
-msgid "Detailed productivity stats will appear here"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
-msgid "Productivity"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
-msgid "All goals achieved! You're unstoppable"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
-msgid "Daily goal crushed! Keep the momentum going"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
-msgid "Weekly goal achieved! Enjoy the rest of your week"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
-msgid "Start your day, your first task awaits"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
-msgid "Almost there! Just a few more tasks today"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
-msgid "Great pace this week, you're almost at your goal"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
-msgid "Halfway through your daily goal, nice progress"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
-msgid "Solid week so far, keep it up"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
-msgid "Every task completed is a step forward"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
-msgid "Set your daily and weekly goals to start tracking your productivity"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
-msgid "Daily Goal"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
-msgid "Weekly Goal"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
-msgid "Edit Goals"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/SummarySection.vala:56
-msgid "Total"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/SummarySection.vala:57
-msgid "Pending"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/SummarySection.vala:73
-msgid "Progress"
-msgstr ""
+#~ msgid "Whether Planify should run on startup"
+#~ msgstr "是否 Planify 應於啟動時執行"
 
 #~ msgid "Clear"
 #~ msgstr "清除"

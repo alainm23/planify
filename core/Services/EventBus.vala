@@ -62,6 +62,9 @@ public class Services.EventBus : Object {
     public signal void drag_items_end (string project_id);
     public signal void update_sources_position ();
 
+    // OAuth
+    public signal void oauth_callback (string uri);
+
     public bool _mobile_mode = Services.Settings.get_default ().settings.get_boolean ("mobile-mode");
     public bool mobile_mode {
         set {
