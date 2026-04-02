@@ -257,12 +257,6 @@
             <description>Display the number of pending tasks next to each project and view in the sidebar for quick overview</description>
         </key>
 
-        <key name="show-support-banner" type="b">
-            <default>true</default>
-            <summary>Show support banner</summary>
-            <description>Display the support banner encouraging donations or contributions</description>
-        </key>
-
         <key name="always-show-completed-subtasks" type="b">
             <default>false</default>
             <summary>Always Show Completed Sub-Tasks</summary>
