@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-02-15 14:09+0000\n"
-"Last-Translator: Maksym Dilanian <dilanyan.maxim@gmail.com>\n"
+"PO-Revision-Date: 2026-03-30 06:09+0000\n"
+"Last-Translator: den karp <denkashmenkalive@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/uk/>\n"
 "Language: uk\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -319,7 +319,7 @@ msgstr "Завдання скопійовано в буфер обміну"
 
 # c-format
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#, fuzzy, c-format
+#, c-format
 msgid "Moved to %s"
 msgstr "Завдання перемещіно в %s"
 
@@ -1311,11 +1311,11 @@ msgstr "Встановити термін"
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
 #: core/Widgets/DeadlineButton.vala:135
 msgid "The latest date to complete this task"
-msgstr ""
+msgstr "Останній термін виконання завдання"
 
 #: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
 msgid "What is the latest date to complete this?"
-msgstr ""
+msgstr "Який останній термін виконання цього завдання?"
 
 #: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
@@ -1371,11 +1371,11 @@ msgstr ""
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
 msgid "All Hidden"
-msgstr ""
+msgstr "Усі приховані"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
 msgid "All labels are hidden by the filter. Disable the filter to see them."
-msgstr ""
+msgstr "Всі мітки приховані фільтром. Вимкніть фільтр, щоб їх побачити."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
 msgid "Press Enter to create and assign it"

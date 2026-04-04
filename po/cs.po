@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-02-18 06:59+0000\n"
+"PO-Revision-Date: 2026-03-28 15:09+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/cs/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -540,7 +540,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:162
 msgid "Source already exists"
-msgstr ""
+msgstr "Zdroj už existuje"
 
 #: core/Services/CalDAV/Core.vala:173 core/Services/CalDAV/Core.vala:218
 msgid "Failed to resolve principal url"
@@ -720,7 +720,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:41
 msgid "Berry Red"
-msgstr ""
+msgstr "Bobulově červená"
 
 #: core/Utils/Util.vala:42
 msgid "Red"
@@ -740,7 +740,7 @@ msgstr "Olivově Zelená"
 
 #: core/Utils/Util.vala:46
 msgid "Lime Green"
-msgstr ""
+msgstr "Limetkově zelená"
 
 #: core/Utils/Util.vala:47
 msgid "Green"
@@ -756,7 +756,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:50
 msgid "Sky Blue"
-msgstr ""
+msgstr "Oblačně modrá"
 
 #: core/Utils/Util.vala:51
 msgid "Light Blue"
@@ -876,7 +876,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:615
 msgid "Reorder your to-dos"
-msgstr ""
+msgstr "Změňte pořadí svých úkolů"
 
 #: core/Utils/Util.vala:616
 msgid ""
@@ -987,11 +987,11 @@ msgstr ""
 
 #: core/Utils/Util.vala:965
 msgid "Task duplicated"
-msgstr ""
+msgstr "Úkol zduplikován"
 
 #: core/Utils/Util.vala:1001
 msgid "Section duplicated"
-msgstr ""
+msgstr "Sekce zduplikovaná"
 
 #: core/Utils/Util.vala:1027 core/Utils/Util.vala:1053
 msgid "Project duplicated"
@@ -1149,7 +1149,7 @@ msgstr "čas"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:186
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 msgid "Repeat"
-msgstr ""
+msgstr "Opakovat"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:161
 msgid "Type a date…"
@@ -1171,16 +1171,16 @@ msgstr "Denně"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:563
 msgid "Weekdays"
-msgstr ""
+msgstr "Dny v týdnu"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:567
 msgid "Weekends"
-msgstr ""
+msgstr "Víkendy"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:571
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 msgid "Weekly"
-msgstr ""
+msgstr "Týdně"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:575
 msgid "Monthly"
@@ -1188,7 +1188,7 @@ msgstr "Měsíčně"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:579
 msgid "Yearly"
-msgstr ""
+msgstr "Ročně"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Custom"
@@ -1200,27 +1200,27 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minuty"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Hour(s)"
-msgstr ""
+msgstr "Hodiny"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Day(s)"
-msgstr ""
+msgstr "Dny"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Week(s)"
-msgstr ""
+msgstr "Týdny"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Month(s)"
-msgstr ""
+msgstr "Měsíce"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:121
 msgid "Year(s)"
-msgstr ""
+msgstr "Roky"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:199
 msgid "Never"
@@ -1272,7 +1272,7 @@ msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
-msgstr ""
+msgstr "Nastavit termín"
 
 #: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
