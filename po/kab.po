@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2025-12-14 10:12+0000\n"
+"PO-Revision-Date: 2026-04-07 12:09+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/kab/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -207,11 +207,11 @@ msgstr ""
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:196
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr ""
+msgstr "Tanaka n urmas"
 
 #: core/Objects/Filters/Inbox.vala:36
 msgid "inbox"
-msgstr ""
+msgstr "Tanaka n urmas"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
@@ -756,7 +756,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:52
 msgid "Blue"
-msgstr ""
+msgstr "Azegzaw"
 
 #: core/Utils/Util.vala:53
 msgid "Grape"
@@ -809,7 +809,7 @@ msgstr "Ula d yiwen"
 
 #: core/Utils/Util.vala:264
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Assa + Tanaka n urmas"
 
 #: core/Utils/Util.vala:436
 msgid "Delete All"
@@ -3459,7 +3459,7 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:101
 msgctxt "shortcut window"
 msgid "Open Inbox"
-msgstr ""
+msgstr "Ldi tanaka n urmas"
 
 #: data/resources/ui/shortcuts.ui:108
 msgctxt "shortcut window"
