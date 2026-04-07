@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-03-30 06:09+0000\n"
-"Last-Translator: den karp <denkashmenkalive@gmail.com>\n"
+"PO-Revision-Date: 2026-04-07 12:10+0000\n"
+"Last-Translator: Maksym Dilanian <dilanyan.maxim@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/uk/>\n"
 "Language: uk\n"
@@ -461,7 +461,7 @@ msgstr "Продовжити додавання"
 
 #: core/QuickAddCore.vala:348
 msgid "Select a Project"
-msgstr "Виберіть проєкт"
+msgstr "Вибрати проєкт"
 
 #: core/QuickAddCore.vala:375
 msgid ""
@@ -481,15 +481,15 @@ msgstr "Пришвидшіть створення завдань за допом
 
 #: core/QuickAddCore.vala:1426
 msgid "Set priority"
-msgstr "Встановіть пріоритет"
+msgstr "Встановити пріоритет"
 
 #: core/QuickAddCore.vala:1426
 msgid "p1 = highest, p4 = lowest"
-msgstr "п1 = найвищий, п4 = найнижчий"
+msgstr "p1 = найвищий, p4 = найнижчий"
 
 #: core/QuickAddCore.vala:1427
 msgid "Add labels"
-msgstr "Додайте мітки"
+msgstr "Додати мітки"
 
 #: core/QuickAddCore.vala:1427
 msgid "Opens label selector"
@@ -1280,7 +1280,7 @@ msgstr "Повторювати кожний"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:275
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
 msgid "End"
-msgstr "Кінець"
+msgstr "В кінці"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
@@ -1292,7 +1292,7 @@ msgstr "Дата"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:209
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:213
 msgid "The date you plan to work on this task"
-msgstr ""
+msgstr "Дата, коли ви плануєте працювати над цим завданням"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
@@ -1301,7 +1301,7 @@ msgstr "Видалити дату"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "When do you plan to work on this?"
-msgstr ""
+msgstr "Коли ви готові взятись за це?"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
@@ -1362,12 +1362,12 @@ msgstr "Створити чи знайти"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
 msgid "Hide unused labels"
-msgstr ""
+msgstr "Приховати невикористані мітки"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
 msgid "No Labels"
-msgstr ""
+msgstr "Без міток"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
 msgid "All Hidden"
@@ -1379,7 +1379,7 @@ msgstr "Всі мітки приховані фільтром. Вимкніть 
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
 msgid "Press Enter to create and assign it"
-msgstr ""
+msgstr "Натисніть Enter, щоб створити та призначити його"
 
 #: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
@@ -1876,19 +1876,19 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:89
 msgid "Connect to Todoist"
-msgstr ""
+msgstr "Підключитися до Todoist"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
 msgid "Sign in with your Todoist account to sync your tasks"
-msgstr ""
+msgstr "Увійдіть у свій обліковий запис Todoist, щоб синхронізувати завдання"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
 msgid "Sign in with Browser"
-msgstr ""
+msgstr "Увійти за допомогою браузера"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:113
 msgid "Use API Token instead"
-msgstr ""
+msgstr "Використати токен API замість цього"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:151
 msgid "Token"
@@ -1916,7 +1916,7 @@ msgstr "Підключити з токеном"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:219
 msgid "Waiting for login…"
-msgstr ""
+msgstr "Очікування входу…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:256
 msgid "Synchronizing…"
@@ -2171,7 +2171,7 @@ msgstr "Запускати при вході"
 
 #: src/Dialogs/Preferences/Pages/General.vala:70
 msgid "Launch Planify automatically when you start your computer"
-msgstr ""
+msgstr "Автоматично запускати Planify під час увімкнення комп'ютера"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run in Background"
@@ -2179,7 +2179,7 @@ msgstr "Працювати у фоновому режимі"
 
 #: src/Dialogs/Preferences/Pages/General.vala:83
 msgid "Keep Planify running in the system tray when closing the window"
-msgstr ""
+msgstr "Залишати Planify запущеним у системному треї після закриття вікна"
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2305,7 +2305,7 @@ msgstr "Показати на бічній панелі"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:55
 msgid "Show Task Count"
-msgstr "Показати кількість завдань"
+msgstr "Показувати кількість завдань"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:60
 msgid "Sidebar Width"
@@ -2367,7 +2367,7 @@ msgstr "Викреслювати виконані завдання"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:77
 msgid "Start"
-msgstr "Почати"
+msgstr "На початку"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:81
 msgid "New Task Position"
@@ -2425,7 +2425,7 @@ msgid ""
 "Keep the details sidebar always visible for faster task navigation, without "
 "repeatedly opening and closing it"
 msgstr ""
-"Завжди тримайте панель деталей видимою для легшої навігації між завданнями, "
+"Завжди тримати панель деталей видимою для швидшої навігації між завданнями, "
 "уникаючи необхідності постійно відкривати та закривати панель"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:138
@@ -2569,24 +2569,24 @@ msgstr "Безповоротно видаляє всі ваші списки, з
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
 #: src/MainWindow.vala:732
 msgid "Summary & Productivity"
-msgstr ""
+msgstr "Підсумок та продуктивність"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
 msgid "Set Up Goals"
-msgstr ""
+msgstr "Встановіть цілі"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
 msgid "Define how many tasks you want to complete per day and week"
-msgstr ""
+msgstr "Визначте, скільки завдань ви хочете виконувати на день і на тиждень"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
 msgid "Summary Details"
-msgstr ""
+msgstr "Зведені деталі"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
 msgid "Detailed summary will appear here"
-msgstr ""
+msgstr "Детальний опис з'явиться тут"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
 #: src/Dialogs/ProductivityReport/SummarySection.vala:33
@@ -2595,16 +2595,16 @@ msgstr "Зміст"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
 msgid "Productivity Details"
-msgstr ""
+msgstr "Деталі продуктивності"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
 msgid "Detailed productivity stats will appear here"
-msgstr ""
+msgstr "Детальна статистика продуктивності з'явиться тут"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
 msgid "Productivity"
-msgstr ""
+msgstr "Продуктивність"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
@@ -2614,43 +2614,45 @@ msgstr "Дивитися більше"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
 msgid "All goals achieved! You're unstoppable"
-msgstr ""
+msgstr "Всіх цілей досягнуто! Ви непереможні"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
 msgid "Daily goal crushed! Keep the momentum going"
-msgstr ""
+msgstr "Щоденна мета досягнута! Продовжуйте в тому ж темпі"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
 msgid "Weekly goal achieved! Enjoy the rest of your week"
-msgstr ""
+msgstr "Тижнева ціль досягнута! Насолоджуйтесь рештою тижня"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
 msgid "Start your day, your first task awaits"
-msgstr ""
+msgstr "Почніть свій день, перше завдання чекає на вас"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
 msgid "Almost there! Just a few more tasks today"
-msgstr ""
+msgstr "Майже готово! Сьогодні залишилося лише кілька завдань"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
 msgid "Great pace this week, you're almost at your goal"
-msgstr ""
+msgstr "Чудовий темп цього тижня, ви майже досягли своєї цілі"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
 msgid "Halfway through your daily goal, nice progress"
-msgstr ""
+msgstr "На півдорозі до вашої щоденної цілі, гарний прогрес"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
 msgid "Solid week so far, keep it up"
-msgstr ""
+msgstr "Поки що непоганий тиждень, продовжуйте в тому ж дусі"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
 msgid "Every task completed is a step forward"
-msgstr ""
+msgstr "Кожне виконане завдання – це крок вперед"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
 msgid "Set your daily and weekly goals to start tracking your productivity"
 msgstr ""
+"Встановіть свої щоденні та щотижневі цілі, щоб почати відстежувати свою "
+"продуктивність"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:286
 #: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
@@ -2664,23 +2666,23 @@ msgstr "Цього місяця"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
 msgid "Daily Goal"
-msgstr ""
+msgstr "Щоденна ціль"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
 msgid "Weekly Goal"
-msgstr ""
+msgstr "Тижнева ціль"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
 msgid "Edit Goals"
-msgstr ""
+msgstr "Редагувати цілі"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:56
 msgid "Total"
-msgstr ""
+msgstr "Всього"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:57
 msgid "Pending"
-msgstr ""
+msgstr "Очікує на розгляд"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:59
 #: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
@@ -2689,7 +2691,7 @@ msgstr "Прострочено"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:73
 msgid "Progress"
-msgstr ""
+msgstr "Прогрес"
 
 #: src/Dialogs/Project.vala:59 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -2888,11 +2890,11 @@ msgstr "Надіслати електронною поштою"
 
 #: src/Layouts/ProjectRow.vala:714
 msgid "Export as PDF"
-msgstr ""
+msgstr "Експортувати як PDF"
 
 #: src/Layouts/ProjectRow.vala:791
 msgid "Project exported as PDF"
-msgstr ""
+msgstr "Проект експортовано у форматі PDF"
 
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 msgid "Add tasks"
@@ -3040,7 +3042,7 @@ msgstr "Планування резервних копій файлів"
 
 #: src/Services/ExportService.vala:187
 msgid "Deadline:"
-msgstr ""
+msgstr "Кінцевий термін:"
 
 #: src/Services/Notification.vala:99
 msgid "Snooze for 10 minutes"
@@ -3103,15 +3105,17 @@ msgstr "Немає доступних міток. Створіть їх, нат�
 
 #: src/Views/Label/LabelSourceRow.vala:122
 msgid "All labels are hidden by the filter"
-msgstr ""
+msgstr "Усі мітки приховані фільтром"
 
 #: src/Views/Label/Labels.vala:148
 msgid "Only Active Projects"
-msgstr ""
+msgstr "Тільки активні проєкти"
 
 #: src/Views/Label/Labels.vala:149
 msgid "Only show labels used by tasks in active (non-archived) projects"
 msgstr ""
+"Показувати лише мітки, що використовуються завданнями в активних "
+"(неархівованих) проєктах"
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
@@ -3529,7 +3533,7 @@ msgstr "Створити нове завдання"
 #: data/resources/ui/shortcuts.ui:23
 msgctxt "shortcut window"
 msgid "Paste Plain Text to Create New Task"
-msgstr "Вставте звичайний текст, щоб створити нове завдання"
+msgstr "Вставити звичайний текст, щоб створити нове завдання"
 
 #: data/resources/ui/shortcuts.ui:30
 msgctxt "shortcut window"
