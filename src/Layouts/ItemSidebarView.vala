@@ -311,6 +311,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         if (item.content != content_textview.get_text () ||
             item.description != markdown_editor.get_text ().chomp ()) {
             item.content = content_textview.get_text ();
+            item.item_type = item.content.has_prefix ("* ") ? ItemType.NOTE : ItemType.TASK;
+            use_note_item.active = item.item_type == ItemType.NOTE;
             item.description = markdown_editor.get_text ().chomp ();
             item.update_async_timeout (update_id);
         }
