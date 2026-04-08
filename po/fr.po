@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-02-18 06:59+0000\n"
-"Last-Translator: Gameking <valafennou@gmail.com>\n"
+"PO-Revision-Date: 2026-04-09 08:09+0000\n"
+"Last-Translator: bakrav <bakrav@users.noreply.hosted.weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/fr/>\n"
 "Language: fr\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -1296,7 +1296,7 @@ msgstr "Date"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:209
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:213
 msgid "The date you plan to work on this task"
-msgstr ""
+msgstr "La date à laquelle vous prévoyez de travailler sur cette tâche"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
@@ -1305,7 +1305,7 @@ msgstr "Supprimer la date"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "When do you plan to work on this?"
-msgstr ""
+msgstr "Quand prévoyez-vous de travailler sur cela ?"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
@@ -1315,11 +1315,11 @@ msgstr "Définir l'échéance"
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
 #: core/Widgets/DeadlineButton.vala:135
 msgid "The latest date to complete this task"
-msgstr ""
+msgstr "La dernière date pour terminer cette tâche"
 
 #: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
 msgid "What is the latest date to complete this?"
-msgstr ""
+msgstr "Quelle est la dernière date pour terminer ceci ?"
 
 #: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
@@ -1352,9 +1352,7 @@ msgstr "Créer « %s »"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Your list of filters will show up here."
-msgstr ""
-"Votre liste de rappels apparaîtra ici. Ajoutez-en une en cliquant sur le "
-"bouton '+'."
+msgstr "Votre liste de filtres apparaîtra ici."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
@@ -1368,12 +1366,12 @@ msgstr "Chercher ou créer"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
 msgid "Hide unused labels"
-msgstr ""
+msgstr "Cacher les étiquettes inutilisées"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
 msgid "No Labels"
-msgstr ""
+msgstr "Pas d'étiquette"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
 msgid "All Hidden"
@@ -1382,6 +1380,8 @@ msgstr ""
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
 msgid "All labels are hidden by the filter. Disable the filter to see them."
 msgstr ""
+"Toutes les étiquettes sont cachées par le filtre. Désactivez le filtre pour "
+"les voir."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
 msgid "Press Enter to create and assign it"
@@ -1892,7 +1892,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
 msgid "Sign in with your Todoist account to sync your tasks"
-msgstr ""
+msgstr "Connectez-vous avec votre compte Todoist pour synchroniser vos tâches"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
 msgid "Sign in with Browser"
@@ -1904,7 +1904,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:151
 msgid "Token"
-msgstr "Jeton d'accès"
+msgstr "Jeton"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:157
 msgid "How to get your token?"
