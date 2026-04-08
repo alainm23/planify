@@ -86,10 +86,23 @@ public class Planify : Adw.Application {
 
     private void handle_uri (string uri) {
         var parts = uri.replace ("planify://", "").split ("?", 2);
-        string path = parts[0].replace ("/", "");
+        string path = parts[0];
 
-        if (path == "auth") {
+        if (path.has_prefix ("auth")) {
             Services.EventBus.get_default ().oauth_callback (uri);
+        } else if (path.has_prefix ("project/")) {
+            string project_id = path.substring (8);
+            Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project_id);
+        } else if (path.has_prefix ("item/")) {
+            string item_id = path.substring (5);
+            var item = Services.Store.instance ().get_item (item_id);
+            if (item != null) {
+                Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, item.project_id);
+                Timeout.add (275, () => {
+                    Services.EventBus.get_default ().open_item (item);
+                    return GLib.Source.REMOVE;
+                });
+            }
         }
     }
 
