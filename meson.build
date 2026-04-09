@@ -129,7 +129,7 @@ subdir('core')
 subdir('src')
 subdir('quick-add')
 subdir('data')
-# subdir('search-provider')
+subdir('search-provider')
 subdir('po')
 
 # Testing
