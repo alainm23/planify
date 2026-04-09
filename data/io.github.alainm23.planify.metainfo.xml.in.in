@@ -50,6 +50,7 @@
   <kudos>
     <kudo>ModernToolkit</kudo>
     <kudo>HiDpiIcon</kudo>
+    <kudo>SearchProvider</kudo>
   </kudos>
   <developer_name translate="no">Alain</developer_name>
   <update_contact>alainmh23@gmail.com</update_contact>

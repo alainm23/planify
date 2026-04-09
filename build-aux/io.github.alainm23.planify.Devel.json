@@ -23,12 +23,10 @@
     ],
     "cleanup" : [
         "/include",
+        "/lib/girepository-1.0",
         "/lib/pkgconfig",
-        "/man",
-        "/share/doc",
-        "/share/gtk-doc",
-        "/share/man",
-        "/share/pkgconfig",
+        "/share/gir-1.0",
+        "/share/vala",
         "*.la",
         "*.a"
     ],
