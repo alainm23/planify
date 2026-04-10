@@ -133,11 +133,7 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         })] = Services.Store.instance ();
 
         signal_map[todoist_item.clicked.connect (() => {
-            #if USE_WEBKITGTK
-            preferences_dialog.push_subpage (new TodoistSetup.with_webkit (preferences_dialog, this));
-            #else
             preferences_dialog.push_subpage (new TodoistSetup (preferences_dialog, this));
-            #endif
         })] = todoist_item;
 
         signal_map[nextcloud_item.clicked.connect (() => {
@@ -173,11 +169,7 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
             sources_group.add_child (source_row);
             
             source_row.migration_requested.connect (() => {
-                #if USE_WEBKITGTK
-                var todoist_setup = new TodoistSetup.with_webkit (preferences_dialog, this);
-                #else
                 var todoist_setup = new TodoistSetup (preferences_dialog, this);
-                #endif
                 todoist_setup.set_migrate_mode (source);
                 preferences_dialog.push_subpage (todoist_setup);
             });

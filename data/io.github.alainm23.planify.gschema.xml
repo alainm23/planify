@@ -257,16 +257,22 @@
             <description>Display the number of pending tasks next to each project and view in the sidebar for quick overview</description>
         </key>
 
-        <key name="show-support-banner" type="b">
-            <default>true</default>
-            <summary>Show support banner</summary>
-            <description>Display the support banner encouraging donations or contributions</description>
-        </key>
-
         <key name="always-show-completed-subtasks" type="b">
             <default>false</default>
             <summary>Always Show Completed Sub-Tasks</summary>
             <description>Keep completed subtasks visible in the task list instead of hiding them, providing a complete view of task progress</description>
+        </key>
+
+        <key name="labels-show-active-only" type="b">
+            <default>false</default>
+            <summary>Only Show Labels From Active Projects</summary>
+            <description>Only show labels that have tasks in active (non-archived) projects</description>
+        </key>
+
+        <key name="label-picker-hide-unused" type="b">
+            <default>false</default>
+            <summary>Hide Unused Labels in Picker</summary>
+            <description>Hide labels without tasks in active projects from the label picker</description>
         </key>
 
         <key name="task-complete-tone" type="b">
@@ -339,6 +345,24 @@
             <default>true</default>
             <summary>Smart Date Recognition</summary>
             <description>Automatically detect and parse natural language dates like "tomorrow" or "next week" when creating tasks</description>
+        </key>
+
+        <key name="quick-add-keep-properties" type="b">
+            <default>false</default>
+            <summary>Keep task properties when adding multiple tasks</summary>
+            <description>When "Keep adding" is enabled, preserve date, labels, and pinned status for the next task</description>
+        </key>
+
+        <key name="daily-task-goal" type="i">
+            <default>0</default>
+            <summary>Daily task completion goal</summary>
+            <description>Number of tasks the user aims to complete each day. 0 means not configured.</description>
+        </key>
+
+        <key name="weekly-task-goal" type="i">
+            <default>0</default>
+            <summary>Weekly task completion goal</summary>
+            <description>Number of tasks the user aims to complete each week. 0 means not configured.</description>
         </key>
     </schema>
 </schemalist>

@@ -20,7 +20,29 @@
  */
 
 public class Widgets.ItemLabels : Adw.Bin {
-    public Objects.Item item { get; construct; }
+    Objects.Item _item;
+    public Objects.Item item {
+        get {
+            return _item;
+        }
+
+        set {
+            disconnect_signals ();
+            reset ();
+            
+            _item = value;
+            
+            signal_map[_item.item_label_deleted.connect ((label) => {
+                remove_item_label (label);
+            })] = _item;
+
+            signal_map[_item.item_label_added.connect ((label) => {
+                add_item_label (label);
+            })] = _item;
+            
+            add_labels ();
+        }
+    }
 
     public signal void label_clicked (Objects.Label label);
 
@@ -35,12 +57,6 @@ public class Widgets.ItemLabels : Adw.Bin {
 
     private Gee.HashMap<string, Widgets.ItemLabelChild> item_labels_map = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
-
-    public ItemLabels (Objects.Item item) {
-        Object (
-            item: item
-        );
-    }
 
     public int top_margin {
         set {
@@ -65,19 +81,22 @@ public class Widgets.ItemLabels : Adw.Bin {
         };
 
         child = main_revealer;
-        add_labels ();
+    }
 
-        signal_map[item.item_label_deleted.connect ((label) => {
-            remove_item_label (label);
-        })] = item;
+    private void disconnect_signals () {
+        foreach (var entry in signal_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
 
-        signal_map[item.item_label_added.connect ((label) => {
-            add_item_label (label);
-        })] = item;
+        signal_map.clear ();
     }
 
     public void add_labels () {
-        foreach (Objects.Label label in item._get_labels ()) {
+        if (_item == null) {
+            return;
+        }
+        
+        foreach (Objects.Label label in _item.get_labels_list ()) {
             add_item_label (label);
         }
 
@@ -88,7 +107,6 @@ public class Widgets.ItemLabels : Adw.Bin {
         if (!item_labels_map.has_key (label.id)) {
             item_labels_map[label.id] = new Widgets.ItemLabelChild (label);
             item_labels_map[label.id].clicked.connect (() => {
-                print ("ItemLabelChild clicked: %s\n", label.name);
                 label_clicked (label);
             });
             box_layout.append (item_labels_map[label.id]);
@@ -120,11 +138,7 @@ public class Widgets.ItemLabels : Adw.Bin {
     }
 
     public void clean_up () {
-        foreach (var entry in signal_map.entries) {
-            entry.value.disconnect (entry.key);
-        }
-
-        signal_map.clear ();
+        disconnect_signals ();
 
         foreach (Widgets.ItemLabelChild item_label_row in item_labels_map.values) {
             item_label_row.clean_up ();

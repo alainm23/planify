@@ -1,8 +1,10 @@
 project(
   'io.github.alainm23.planify',
   'vala', 'c',
-  version: '4.18.0'
+  version: '4.18.3'
 )
+
+cc = meson.get_compiler('c')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -25,14 +27,6 @@ libsecret_dep = dependency('libsecret-1')
 libspelling = dependency('libspelling-1', required: get_option('spelling'))
 gtksourceview_dep = dependency('gtksourceview-5')
 m_dep = meson.get_compiler('c').find_library('m', required : false)
-
-if get_option('webkit')
-    webkitgtk_dep = dependency('webkitgtk-6.0')
-    add_project_arguments('-D', 'USE_WEBKITGTK', language: 'vala')
-    if not webkitgtk_dep.found()
-        error('webkitgtk-6.0 requested but not found')
-    endif
-endif
 
 if libspelling.found ()
   add_project_arguments(['--define=WITH_LIBSPELLING'], language: 'vala')
@@ -114,6 +108,17 @@ grep = find_program('grep')
 total_strings_res = run_command(grep, '-c', 'msgid', meson.project_source_root() + '/po/io.github.alainm23.planify.pot', check : true)
 total_strings = total_strings_res.stdout().strip().to_int() - 1
 
+# _NL_TIME_FIRST_WEEKDAY is a glibc-ism
+nl_time_first_weekday_src = '''
+  #include <langinfo.h>
+  int main() {
+    nl_langinfo(_NL_TIME_FIRST_WEEKDAY);
+  };
+'''
+if cc.compiles(nl_time_first_weekday_src)
+    add_project_arguments('-D', 'HAVE__NL_TIME_FIRST_WEEKDAY', language: 'vala')
+endif
+
 conf_data = configuration_data()
 conf_data.set('TOTAL_STRINGS', total_strings)
 conf_data.set_quoted('APPLICATION_ID', application_id)
@@ -136,7 +141,7 @@ subdir('core')
 subdir('src')
 subdir('quick-add')
 subdir('data')
-# subdir('search-provider')
+subdir('search-provider')
 subdir('po')
 
 # Testing

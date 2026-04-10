@@ -100,6 +100,20 @@ public class Objects.Label : Objects.BaseObject {
                 label_count_updated ();
             }
         });
+
+        Services.Store.instance ().item_archived.connect ((item) => {
+            if (item.has_label (id)) {
+                _label_count = update_label_count ();
+                label_count_updated ();
+            }
+        });
+
+        Services.Store.instance ().item_unarchived.connect ((item) => {
+            if (item.has_label (id)) {
+                _label_count = update_label_count ();
+                label_count_updated ();
+            }
+        });
     }
 
     private int update_label_count () {

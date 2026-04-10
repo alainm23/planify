@@ -517,7 +517,7 @@ public class Views.Today : Adw.Bin {
             overdue_listbox.remove (child);
         }
 
-        foreach (Objects.Item item in Services.Store.instance ().get_items_by_overdeue_view (false)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_items_by_overdue_view (false)) {
             add_overdue_item (item);
         }
 

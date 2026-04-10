@@ -42,6 +42,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Label content_label;
     private Gtk.Revealer content_label_revealer;
     private Gtk.Revealer content_entry_revealer;
+    private Widgets.ContextMenu.MenuSwitch use_note_item;
     private Gtk.Box content_box;
 
     #if WITH_LIBSPELLING
@@ -462,9 +463,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         markdown_revealer = new Gtk.Revealer ();
 
-        item_labels = new Widgets.ItemLabels (item) {
+        item_labels = new Widgets.ItemLabels () {
             margin_start = 24,
-            sensitive = !item.completed
+            sensitive = !item.completed,
+            item = item
         };
 
         schedule_button = null;
@@ -975,9 +977,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private void update_content_description () {
         if (item.content != content_textview.buffer.text) {
             item.content = content_textview.buffer.text;
+            item.item_type = item.content.has_prefix ("* ") ? ItemType.NOTE : ItemType.TASK;
             content_label.label = MarkdownProcessor.get_default ().markup_string (item.content);
             content_label.tooltip_text = item.content.strip ();
             content_label.update_property (Gtk.AccessibleProperty.LABEL, item.content, -1);
+            _verify_item_type ();
             item.update_async_timeout (update_id);
             return;
         }
@@ -1027,7 +1031,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         labels_summary.update_request ();
         if (label_button != null) {
-            label_button.labels = item._get_labels ();
+            label_button.labels = item.get_labels_list ();
         }
         if (schedule_button != null) {
             schedule_button.update_from_item (item);
@@ -1084,7 +1088,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void _verify_item_type () {
-        if (item.item_type == ItemType.TASK) {
+        bool is_task = item.item_type == ItemType.TASK && !item.content.has_prefix ("* ");
+
+        if (is_task) {
             checked_button_revealer.reveal_child = true;
             action_box.margin_start = 16;
             content_box.margin_start = 6;
@@ -1097,7 +1103,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         if (markdown_editor != null) {
-            markdown_editor.margin_start = item.item_type == ItemType.TASK ? 24 : 0;
+            markdown_editor.margin_start = is_task ? 24 : 0;
+        }
+
+        if (use_note_item != null) {
+            use_note_item.active = !is_task;
         }
     }
 
@@ -1355,7 +1365,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private Gtk.Popover build_button_context_menu () {
-        var use_note_item = new Widgets.ContextMenu.MenuSwitch (_ ("Use as a Note"), "paper-symbolic");
+        use_note_item = new Widgets.ContextMenu.MenuSwitch (_ ("Use as a Note"), "paper-symbolic");
         use_note_item.active = item.item_type == ItemType.NOTE;
 
         var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_ ("Copy to Clipboard"), "clipboard-symbolic");
@@ -1424,7 +1434,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         popover.child = menu_box;
 
-         signals_map[delete_item.activate_item.connect (() => {
+        signals_map[delete_item.activate_item.connect (() => {
             delete_request ();
         })] = delete_item;
 
@@ -1572,8 +1582,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var toast = Util.get_default ().create_toast (title, 3);
         Services.EventBus.get_default ().send_toast (toast);
     }
-
-    
 
     public override void delete_request (bool undo = true) {
         main_revealer.reveal_child = false;
@@ -1997,7 +2005,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             sensitive = !item.completed
         };
         label_button.source = item.project.source;
-        label_button.labels = item._get_labels ();
+        label_button.labels = item.get_labels_list ();
 
         reminder_button = new Widgets.ReminderPicker.ReminderButton () {
             sensitive = !item.completed
@@ -2158,25 +2166,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 }
             }
         }
-
         signals_map.clear ();
 
-        foreach (var entry in dnd_handlerses.entries) {
-            if (entry.value != null) {
-                try {
-                    entry.value.disconnect (entry.key);
-                } catch (Error e) {
-                    warning ("Error disconnecting DnD signal: %s", e.message);
-                }
-            }
-        }
-
         dnd_handlerses.clear ();
-        
+
         destroy_markdown_editor ();
         destroy_markdown_signals ();
 
         subitems.clean_up ();
+
         if (attachments != null) attachments.clean_up ();
         if (item_labels != null) item_labels.clean_up ();
         if (schedule_button != null) schedule_button.clean_up ();

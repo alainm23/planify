@@ -62,7 +62,7 @@ public class Objects.Item : Objects.BaseObject {
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
     public Gee.ArrayList<Objects.Label> labels { get; set; default = new Gee.ArrayList<Objects.Label> (); }
 
-    public Gee.ArrayList<Objects.Label> _get_labels () {
+    public Gee.ArrayList<Objects.Label> get_labels_list () {
         Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
 
         foreach (Objects.Label label in labels) {
@@ -605,7 +605,7 @@ public class Objects.Item : Objects.BaseObject {
             }
         }
 
-        foreach (var label in _get_labels ()) {
+        foreach (var label in get_labels_list ()) {
             if (!new_labels.has_key (label.id)) {
                 delete_item_label (label.id);
             }
@@ -949,15 +949,19 @@ public class Objects.Item : Objects.BaseObject {
         item_label_added (label);
     }
 
+    public void clean_labels () {
+        labels.clear ();
+    }
+
     public Objects.Label ? delete_item_label (string id) {
         Objects.Label ? return_value = null;
         return_value = get_label (id);
 
         if (return_value != null) {
+            labels.remove (return_value);
+
             Services.Store.instance ().item_label_deleted (return_value);
             item_label_deleted (return_value);
-
-            labels.remove (return_value);
         }
 
         return return_value;
@@ -1679,7 +1683,7 @@ public class Objects.Item : Objects.BaseObject {
         
         if (notify) {
             Services.EventBus.get_default ().send_toast (
-                Util.get_default ().create_toast (_("Task moved to %s".printf (project.name)))
+                Util.get_default ().create_toast (_("Moved to %s".printf (project.name)))
             );
         }
     }
@@ -1852,7 +1856,7 @@ public class Objects.Item : Objects.BaseObject {
             }
         }
 
-        foreach (var label in _get_labels ()) {
+        foreach (var label in get_labels_list ()) {
             if (!new_labels.has_key (label.id)) {
                 delete_item_label (label.id);
                 update = true;

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-21 04:43-0500\n"
 "PO-Revision-Date: 2025-12-14 09:55+0000\n"
 "Last-Translator: 권나연 <gno3333@naver.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/planner/io-github-"
@@ -29,8 +29,8 @@ msgstr "할 일"
 
 #: core/Enum.vala:177 core/Enum.vala:540 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
-#: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:783
-#: src/Layouts/ItemRow.vala:1236
+#: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:785
+#: src/Layouts/ItemRow.vala:1246
 msgid "Labels"
 msgstr "라벨"
 
@@ -132,7 +132,7 @@ msgid "Content"
 msgstr ""
 
 #: core/Enum.vala:531 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1940 src/Layouts/ItemSidebarView.vala:181
+#: src/Layouts/ItemRow.vala:1948 src/Layouts/ItemSidebarView.vala:181
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:113
 msgid "Description"
 msgstr "설명"
@@ -142,8 +142,8 @@ msgid "Scheduled"
 msgstr "일정"
 
 #: core/Enum.vala:543 core/Widgets/PinButton.vala:41
-#: src/Layouts/ItemBoard.vala:764 src/Layouts/ItemBoard.vala:777
-#: src/Layouts/ItemRow.vala:1217 src/Layouts/ItemRow.vala:1230
+#: src/Layouts/ItemBoard.vala:766 src/Layouts/ItemBoard.vala:779
+#: src/Layouts/ItemRow.vala:1227 src/Layouts/ItemRow.vala:1240
 msgid "Pin"
 msgstr "고정"
 
@@ -181,6 +181,7 @@ msgid "no date"
 msgstr "날짜 없음"
 
 #: core/Objects/Filters/Completed.vala:33
+#: src/Dialogs/ProductivityReport/SummarySection.vala:58
 msgid "Completed"
 msgstr "완료됨"
 
@@ -267,9 +268,11 @@ msgstr "예정된"
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:369
-#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:771
-#: src/Layouts/ItemRow.vala:1224 src/Views/Project/Project.vala:557
-#: src/Views/Project/Project.vala:723 src/Views/Today.vala:203
+#: src/Dialogs/DatePicker.vala:62
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:285
+#: src/Layouts/ItemBoard.vala:773 src/Layouts/ItemRow.vala:1234
+#: src/Views/Project/Project.vala:557 src/Views/Project/Project.vala:723
+#: src/Views/Today.vala:203
 msgid "Today"
 msgstr "오늘"
 
@@ -280,8 +283,8 @@ msgstr "오늘"
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Utils/Datetime.vala:633
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:375
-#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:774
-#: src/Layouts/ItemRow.vala:1227
+#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:776
+#: src/Layouts/ItemRow.vala:1237
 msgid "Tomorrow"
 msgstr "내일"
 
@@ -305,45 +308,43 @@ msgstr "라벨 없음"
 msgid "unlabeled"
 msgstr "라벨 없음"
 
-#: core/Objects/Item.vala:1389
+#: core/Objects/Item.vala:1393
 msgid "Task copied to clipboard"
 msgstr "작업이 클립보드에 복사되었습니다"
 
 # # c-format
-#: core/Objects/Item.vala:1682 core/Utils/Util.vala:885
-#: src/Widgets/MultiSelectToolbar.vala:376
-#: src/Widgets/MultiSelectToolbar.vala:379
+#: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
 #, fuzzy, c-format
-msgid "Task moved to %s"
-msgid_plural "%d tasks moved to %s"
-msgstr[0] "작업이 %s(으)로 이동되었습니다"
+msgid "Moved to %s"
+msgstr "작업이 %s(으)로 이동되었습니다"
 
 # # c-format
-#: core/Objects/Label.vala:206
+#: core/Objects/Label.vala:220
 #, c-format
 msgid "Delete Label %s"
 msgstr "라벨 %s 삭제"
 
-#: core/Objects/Label.vala:207 core/Objects/Project.vala:856
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:856
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
-#: src/Layouts/ItemSidebarView.vala:577 src/Layouts/SectionBoard.vala:635
+#: src/Layouts/ItemSidebarView.vala:579 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:416
 msgid "This can not be undone"
 msgstr "이 작업은 취소할 수 없습니다"
 
-#: core/Objects/Label.vala:210 core/Objects/Project.vala:859
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:438
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:430
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:191
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:220
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
-#: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:580
+#: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:582
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:634 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -351,12 +352,12 @@ msgstr "이 작업은 취소할 수 없습니다"
 msgid "Cancel"
 msgstr "취소"
 
-#: core/Objects/Label.vala:211 core/Objects/Project.vala:860
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:860
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
-#: src/Layouts/ItemSidebarView.vala:581 src/Layouts/SectionBoard.vala:639
+#: src/Layouts/ItemSidebarView.vala:583 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:635
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
 #: src/Widgets/MultiSelectToolbar.vala:288
@@ -397,44 +398,46 @@ msgstr "섹션 %s 삭제"
 
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:37
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:46
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:38
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:227
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:235
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:252
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:138
+#: core/QuickAddCore.vala:148
 #, fuzzy
 msgid "Task added successfully!"
 msgstr "프로젝트가 성공적으로 추가되었습니다!"
 
-#: core/QuickAddCore.vala:154 src/Layouts/ItemRow.vala:401
+#: core/QuickAddCore.vala:164 src/Layouts/ItemRow.vala:402
 #: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "할 일 이름"
 
-#: core/QuickAddCore.vala:184
+#: core/QuickAddCore.vala:194
 msgid "This field is required"
 msgstr ""
 
-#: core/QuickAddCore.vala:208 src/Dialogs/Project.vala:136
+#: core/QuickAddCore.vala:218 src/Dialogs/Project.vala:136
 msgid "Add a description…"
 msgstr "설명"
 
-#: core/QuickAddCore.vala:248
+#: core/QuickAddCore.vala:259
 msgid "Set date"
 msgstr ""
 
-#: core/QuickAddCore.vala:260 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:271 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "라벨 추가"
 
-#: core/QuickAddCore.vala:265 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:276 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "우선순위를 설정하세요"
 
-#: core/QuickAddCore.vala:270
+#: core/QuickAddCore.vala:281
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -443,21 +446,21 @@ msgstr "우선순위를 설정하세요"
 msgid "Add Reminders"
 msgstr "리마인더 추가"
 
-#: core/QuickAddCore.vala:314 src/Layouts/SectionBoard.vala:562
+#: core/QuickAddCore.vala:325 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:665 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "작업 추가"
 
-#: core/QuickAddCore.vala:320 core/QuickAddCore.vala:1388
+#: core/QuickAddCore.vala:331 core/QuickAddCore.vala:1444
 msgid "Keep adding"
 msgstr ""
 
-#: core/QuickAddCore.vala:337
+#: core/QuickAddCore.vala:348
 #, fuzzy
 msgid "Select a Project"
 msgstr "프로젝트 삭제"
 
-#: core/QuickAddCore.vala:364
+#: core/QuickAddCore.vala:375
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -465,61 +468,61 @@ msgstr ""
 "죄송합니다, 빠른 추가 기능으로 가능한 프로젝트를 찾을 수 없습니다. Planify의 "
 "기본 프로젝트를 생성해 보세요."
 
-#: core/QuickAddCore.vala:1350 src/MainWindow.vala:712
+#: core/QuickAddCore.vala:1406 src/MainWindow.vala:734
 msgid "Keyboard Shortcuts"
 msgstr "키보드 단축키"
 
-#: core/QuickAddCore.vala:1356
+#: core/QuickAddCore.vala:1412
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1370
+#: core/QuickAddCore.vala:1426
 #, fuzzy
 msgid "Set priority"
 msgstr "우선순위를 설정하세요"
 
-#: core/QuickAddCore.vala:1370
+#: core/QuickAddCore.vala:1426
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1371
+#: core/QuickAddCore.vala:1427
 #, fuzzy
 msgid "Add labels"
 msgstr "라벨 추가"
 
-#: core/QuickAddCore.vala:1371
+#: core/QuickAddCore.vala:1427
 #, fuzzy
 msgid "Opens label selector"
 msgstr "라벨 열기"
 
-#: core/QuickAddCore.vala:1372
+#: core/QuickAddCore.vala:1428
 #, fuzzy
 msgid "Assign project"
 msgstr "프로젝트 추가"
 
-#: core/QuickAddCore.vala:1372
+#: core/QuickAddCore.vala:1428
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1373
+#: core/QuickAddCore.vala:1429
 #, fuzzy
 msgid "Set reminder"
 msgstr "시기적절한 리마인더를 설정하세요!"
 
-#: core/QuickAddCore.vala:1373
+#: core/QuickAddCore.vala:1429
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1388
+#: core/QuickAddCore.vala:1444
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1394
+#: core/QuickAddCore.vala:1450
 #, fuzzy
 msgid "Tip"
 msgstr "상단"
 
-#: core/QuickAddCore.vala:1394
+#: core/QuickAddCore.vala:1450
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -828,7 +831,6 @@ msgid "Process completed, you need to start Planify again."
 msgstr "처리 완료, Planify를 재시작해야 합니다."
 
 #: core/Utils/Util.vala:452
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:217
 msgid "Ok"
 msgstr "확인"
 
@@ -1058,7 +1060,7 @@ msgstr ""
 msgid "3 hours before"
 msgstr ""
 
-#: core/Widgets/Calendar/CalendarDay.vala:73
+#: core/Widgets/Calendar/CalendarDay.vala:103
 msgid "%A, %B %e, %Y"
 msgstr ""
 
@@ -1098,9 +1100,9 @@ msgstr ""
 msgid "Next month, %s"
 msgstr ""
 
-#: core/Widgets/Calendar/CalendarMonth.vala:80
-#: core/Widgets/Calendar/CalendarMonth.vala:193
-#: core/Widgets/Calendar/CalendarMonth.vala:209
+#: core/Widgets/Calendar/CalendarMonth.vala:82
+#: core/Widgets/Calendar/CalendarMonth.vala:183
+#: core/Widgets/Calendar/CalendarMonth.vala:201
 msgid "Choose a date"
 msgstr "날짜 선택"
 
@@ -1148,33 +1150,33 @@ msgstr "시간"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:828
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:431
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:430
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
-#: src/Layouts/ItemBoard.vala:687 src/Layouts/ItemRow.vala:1167
+#: src/Layouts/ItemBoard.vala:689 src/Layouts/ItemRow.vala:1177
 msgid "until"
 msgstr "까지"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemBoard.vala:692 src/Layouts/ItemRow.vala:1180
 msgid "for"
 msgstr "동안"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemBoard.vala:692 src/Layouts/ItemRow.vala:1180
 msgid "times"
 msgstr "횟수"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:831
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:435
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
-#: src/Layouts/ItemBoard.vala:690 src/Layouts/ItemRow.vala:1170
+#: src/Layouts/ItemBoard.vala:692 src/Layouts/ItemRow.vala:1180
 msgid "time"
 msgstr "시간"
 
@@ -1193,10 +1195,12 @@ msgid "Next week"
 msgstr "다음 주"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
 msgid "Save"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:559
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
 msgid "Daily"
 msgstr "매일"
 
@@ -1211,6 +1215,7 @@ msgid "Weekends"
 msgstr "주"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:571
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 msgid "Weekly"
 msgstr "매주"
 
@@ -1268,8 +1273,8 @@ msgid "After"
 msgstr "후에"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:255
-#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:844
-#: src/Layouts/ItemRow.vala:1304
+#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:846
+#: src/Layouts/ItemRow.vala:1314
 msgid "Apply"
 msgstr ""
 
@@ -1287,26 +1292,37 @@ msgstr "종료"
 msgid "Date"
 msgstr ""
 
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:72
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:80
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:209
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:213
+msgid "The date you plan to work on this task"
+msgstr ""
+
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
-msgid "Set a Due Date"
-msgstr "기한을 설정하세요"
+msgid "When do you plan to work on this?"
+msgstr ""
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:86
+#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
-#: core/Widgets/DeadlineButton.vala:153
-msgid "Set a Deadline"
+#: core/Widgets/DeadlineButton.vala:135
+msgid "The latest date to complete this task"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:148
+#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
+msgid "What is the latest date to complete this?"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
 msgstr ""
 
@@ -1320,7 +1336,7 @@ msgstr "라벨 선택"
 msgid "Label not found: Create '%s'"
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:64
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:68
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
@@ -1328,24 +1344,45 @@ msgstr "여기에 알림 목록이 표시됩니다. '+' 버튼을 클릭하여 �
 
 # c-format
 # c-format
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:65
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:69
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, fuzzy, c-format
 msgid "Create '%s'"
 msgstr "추가 생성"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:83
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Your list of filters will show up here."
 msgstr "여기에 알림 목록이 표시됩니다. '+' 버튼을 클릭하여 알림을 추가하세요."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "검색"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search or Create"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
+msgid "Hide unused labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
+msgid "No Labels"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
+msgid "All Hidden"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
+msgid "All labels are hidden by the filter. Disable the filter to see them."
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
+msgid "Press Enter to create and assign it"
 msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:1383
@@ -1463,12 +1500,12 @@ msgid "To Do"
 msgstr "할 일"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:786 src/Layouts/ItemRow.vala:1239
+#: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1249
 #: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "완료"
 
-#: src/App.vala:143
+#: src/App.vala:163
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1591,8 +1628,8 @@ msgstr "필터 기준"
 msgid "Next Week"
 msgstr "다음 주"
 
-#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:779
-#: src/Layouts/ItemRow.vala:1232 src/Views/Project/Project.vala:562
+#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:781
+#: src/Layouts/ItemRow.vala:1242 src/Views/Project/Project.vala:562
 #: src/Views/Project/Project.vala:733
 msgid "No Date"
 msgstr "날짜 없음"
@@ -1601,8 +1638,8 @@ msgstr "날짜 없음"
 msgid "Done"
 msgstr "완료"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1368
-#: src/Layouts/ItemSidebarView.vala:495
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1378
+#: src/Layouts/ItemSidebarView.vala:497
 msgid "Change History"
 msgstr ""
 
@@ -1653,7 +1690,7 @@ msgstr "라벨 업데이트"
 msgid "Filter"
 msgstr "필터"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:717
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:739
 msgid "Archived Projects"
 msgstr "보관된 프로젝트"
 
@@ -1678,7 +1715,7 @@ msgstr "(섹션 없음)"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
-#: src/Dialogs/Preferences/PreferencesWindow.vala:108
+#: src/Dialogs/Preferences/PreferencesWindow.vala:49
 msgid "Accounts"
 msgstr "계정"
 
@@ -1696,40 +1733,40 @@ msgstr "수신함"
 msgid "You can sort your accounts by dragging and dropping"
 msgstr "끌어다 놓기로 보기를 정렬할 수 있습니다"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:578
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:226
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:570
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:307
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
 msgid "SSL verification is disabled"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:323
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:315
 msgid "Account migration required"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:319
 msgid "Reconnect"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:434
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:426
 msgid "Cannot Hide This Account"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:435
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:427
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:439
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:431
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:221
 #, fuzzy
 msgid "Change Inbox"
 msgstr "수신함 열기"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:548
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:540
 #, fuzzy
 msgid "Syncing…"
 msgstr "동기화 중..."
@@ -1832,53 +1869,56 @@ msgid ""
 "project first."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:96
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:89
+msgid "Connect to Todoist"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
+msgid "Sign in with your Todoist account to sync your tasks"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
+msgid "Sign in with Browser"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:113
+msgid "Use API Token instead"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:151
 msgid "Token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:102
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:157
 msgid "How to get your token?"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:103
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:158
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:104
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:159
 msgid "2. Find 'API token' and copy your token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:105
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
 msgid "3. Paste it in the field above"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:124
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:179
 msgid "Connect with Token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:167
-msgid "Enter token"
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:219
+msgid "Waiting for login…"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:185
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:256
 msgid "Synchronizing…"
 msgstr "동기화 중..."
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:203
-msgid "Please Enter Your Credentials"
-msgstr "자격 증명을 입력하세요"
-
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:205
-msgid "Loading…"
-msgstr "로딩 중…"
-
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:214
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
-msgid "Network Is Not Available"
-msgstr "네트워크를 사용할 수 없습니다"
-
 #: src/Dialogs/Preferences/Pages/Appearance.vala:36
-#: src/Dialogs/Preferences/PreferencesWindow.vala:169
+#: src/Dialogs/Preferences/PreferencesWindow.vala:110
 msgid "Appearance"
 msgstr "모양"
 
@@ -1924,7 +1964,7 @@ msgid "Font Size"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-#: src/Dialogs/Preferences/PreferencesWindow.vala:191
+#: src/Dialogs/Preferences/PreferencesWindow.vala:132
 msgid "Backups"
 msgstr "백업"
 
@@ -2021,8 +2061,7 @@ msgid "Restore Backup"
 msgstr "백업 복원"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:45
-#: src/Dialogs/Preferences/PreferencesWindow.vala:217
+#: src/Dialogs/Preferences/PreferencesWindow.vala:158
 msgid "Donate"
 msgstr ""
 
@@ -2083,7 +2122,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
-#: src/Dialogs/Preferences/PreferencesWindow.vala:137
+#: src/Dialogs/Preferences/PreferencesWindow.vala:78
 msgid "General"
 msgstr "일반"
 
@@ -2117,21 +2156,21 @@ msgstr "정렬됨"
 msgid "DE Integration"
 msgstr "DE 통합"
 
-#: src/Dialogs/Preferences/Pages/General.vala:68
-msgid "Run in Background"
-msgstr "백그라운드에서 실행"
-
 #: src/Dialogs/Preferences/Pages/General.vala:69
-msgid "Let Planify run in background and send notifications"
-msgstr "Planify를 백그라운드에서 실행하고 알림을 보내도록 설정하세요"
-
-#: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run on Startup"
 msgstr "시작 시 실행"
 
+#: src/Dialogs/Preferences/Pages/General.vala:70
+msgid "Launch Planify automatically when you start your computer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:82
+msgid "Run in Background"
+msgstr "백그라운드에서 실행"
+
 #: src/Dialogs/Preferences/Pages/General.vala:83
-msgid "Whether Planify should run on startup"
-msgstr "Planify가 시작 시 실행할지 여부"
+msgid "Keep Planify running in the system tray when closing the window"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2194,13 +2233,13 @@ msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:123
+#: src/Dialogs/Preferences/PreferencesWindow.vala:64
 #, fuzzy
 msgid "Home View"
 msgstr "홈 페이지"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:180
+#: src/Dialogs/Preferences/PreferencesWindow.vala:121
 msgid "Quick Add"
 msgstr "빠른 추가"
 
@@ -2232,12 +2271,20 @@ msgstr "마지막으로 선택된 프로젝트 저장"
 msgid "If unchecked, the default project selected is Inbox"
 msgstr "선택하지 않으면 기본 프로젝트는 수신함으로 설정됩니다"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:121
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:103
+msgid "Keep Task Properties"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
+msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:133
 msgid "The command was copied to the clipboard"
 msgstr "명령이 클립보드에 복사되었습니다"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
-#: src/Dialogs/Preferences/PreferencesWindow.vala:158
+#: src/Dialogs/Preferences/PreferencesWindow.vala:99
 msgid "Sidebar"
 msgstr "사이드바"
 
@@ -2266,7 +2313,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "끌어다 놓기로 보기를 정렬할 수 있습니다"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:148
+#: src/Dialogs/Preferences/PreferencesWindow.vala:89
 msgid "Task Settings"
 msgstr "작업 설정"
 
@@ -2391,131 +2438,244 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:41 src/MainWindow.vala:709
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:729
 msgid "Preferences"
 msgstr "설정"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:52
-msgid ""
-"Planify is being developed with love and passion for open source. However, "
-"if you like Planify and want to support its development, please consider "
-"supporting us."
-msgstr ""
-"Planify는 오픈 소스를 사랑하고 열정을 가지고 개발되고 있습니다. Planify를 좋"
-"아하고 개발을 지원하고 싶다면, 지원을 고려해 주세요."
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:60
-msgid "Donate Now"
-msgstr ""
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:109
+#: src/Dialogs/Preferences/PreferencesWindow.vala:50
 msgid "Sync your favorite to-do providers"
 msgstr "즐겨 사용하는 할 일 제공자와 동기화"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:124
+#: src/Dialogs/Preferences/PreferencesWindow.vala:65
 msgid "Set the view shown at first launch"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:138
+#: src/Dialogs/Preferences/PreferencesWindow.vala:79
 msgid "Customize to your liking"
 msgstr "원하는 대로 사용자 정의"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:159
+#: src/Dialogs/Preferences/PreferencesWindow.vala:100
 msgid "Customize your sidebar"
 msgstr "사이드바 사용자 정의"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:181
+#: src/Dialogs/Preferences/PreferencesWindow.vala:122
 msgid "Adding to-do's from anywhere"
 msgstr "어디서나 할 일 추가"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:192
+#: src/Dialogs/Preferences/PreferencesWindow.vala:133
 msgid "Backup or migrate from Planner."
 msgstr "플래너에서 백업 또는 마이그레이션."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:198
+#: src/Dialogs/Preferences/PreferencesWindow.vala:139
 msgid "Create Tutorial Project"
 msgstr "튜토리얼 프로젝트 생성"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:199
+#: src/Dialogs/Preferences/PreferencesWindow.vala:140
 msgid "Learn the app step by step with a short tutorial project"
 msgstr "짧은 튜토리얼 프로젝트로앱을 단계별로 배우세요"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:218
+#: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Want to buy me a drink?"
 msgstr "제게 음료수를 사주고 싶으신가요?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:228
+#: src/Dialogs/Preferences/PreferencesWindow.vala:169
 msgid "Report Issue or Request Feature"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:229
+#: src/Dialogs/Preferences/PreferencesWindow.vala:170
 msgid "Share bugs or ideas on GitHub"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:255
+#: src/Dialogs/Preferences/PreferencesWindow.vala:196
 msgid "Get Involved"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:265
+#: src/Dialogs/Preferences/PreferencesWindow.vala:206
 msgid "Reach Us"
 msgstr "연락처"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:271
+#: src/Dialogs/Preferences/PreferencesWindow.vala:212
 msgid "Contact Us"
 msgstr "문의하기"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:272
+#: src/Dialogs/Preferences/PreferencesWindow.vala:213
 msgid "Request a feature or ask us anything"
 msgstr "기능 요청 또는 문의 사항"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:288
+#: src/Dialogs/Preferences/PreferencesWindow.vala:229
 msgid "Tweet Us"
 msgstr "트윗 보내기"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:289
-#: src/Dialogs/Preferences/PreferencesWindow.vala:319
+#: src/Dialogs/Preferences/PreferencesWindow.vala:230
+#: src/Dialogs/Preferences/PreferencesWindow.vala:260
 msgid "Share some love"
 msgstr "애정을 공유하세요"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:303
+#: src/Dialogs/Preferences/PreferencesWindow.vala:244
 msgid "Discord"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:304
+#: src/Dialogs/Preferences/PreferencesWindow.vala:245
 msgid "Discuss and share your feedback"
 msgstr "피드백 논의 및 공유"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:318
+#: src/Dialogs/Preferences/PreferencesWindow.vala:259
 msgid "Mastodon"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:337
+#: src/Dialogs/Preferences/PreferencesWindow.vala:278
 msgid "Privacy"
 msgstr "개인정보 보호"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:343
+#: src/Dialogs/Preferences/PreferencesWindow.vala:284
 msgid "Privacy Policy"
 msgstr "개인정보 보호정책"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:344
+#: src/Dialogs/Preferences/PreferencesWindow.vala:285
 msgid "We have nothing on you"
 msgstr "우리는 당신에 대해 아무것도 모릅니다"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:350
+#: src/Dialogs/Preferences/PreferencesWindow.vala:291
 msgid "Delete App Data"
 msgstr "앱 데이터 삭제"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:359
+#: src/Dialogs/Preferences/PreferencesWindow.vala:300
 msgid "A tutorial project has been created"
 msgstr "튜토리얼 프로젝트가 생성되었습니다"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:375
+#: src/Dialogs/Preferences/PreferencesWindow.vala:316
 msgid "Delete All Data?"
 msgstr "모든 데이터를 삭제하시겠습니까?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:376
+#: src/Dialogs/Preferences/PreferencesWindow.vala:317
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "모든 목록, 작업 및 알림을 되돌릴 수 없게 삭제합니다"
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
+#: src/MainWindow.vala:732
+msgid "Summary & Productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
+msgid "Set Up Goals"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
+msgid "Define how many tasks you want to complete per day and week"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
+msgid "Summary Details"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
+msgid "Detailed summary will appear here"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
+#: src/Dialogs/ProductivityReport/SummarySection.vala:33
+msgid "Summary"
+msgstr "요약"
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
+msgid "Productivity Details"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
+msgid "Detailed productivity stats will appear here"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
+msgid "Productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
+#: src/Dialogs/ProductivityReport/SummarySection.vala:38
+#: src/MainWindow.vala:808
+msgid "See More"
+msgstr "추가 생성"
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
+msgid "All goals achieved! You're unstoppable"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
+msgid "Daily goal crushed! Keep the momentum going"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
+msgid "Weekly goal achieved! Enjoy the rest of your week"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
+msgid "Start your day, your first task awaits"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
+msgid "Almost there! Just a few more tasks today"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
+msgid "Great pace this week, you're almost at your goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
+msgid "Halfway through your daily goal, nice progress"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
+msgid "Solid week so far, keep it up"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
+msgid "Every task completed is a step forward"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
+msgid "Set your daily and weekly goals to start tracking your productivity"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:286
+#: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
+msgid "This Week"
+msgstr "이번 주"
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:287
+#: src/Views/Project/Project.vala:560 src/Views/Project/Project.vala:729
+msgid "This Month"
+msgstr "이번 달"
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
+msgid "Daily Goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
+msgid "Weekly Goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
+msgid "Edit Goals"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:56
+msgid "Total"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:57
+msgid "Pending"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:59
+#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
+msgid "Overdue"
+msgstr "기한 초과"
+
+#: src/Dialogs/ProductivityReport/SummarySection.vala:73
+msgid "Progress"
+msgstr ""
 
 #: src/Dialogs/Project.vala:59 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -2547,8 +2707,8 @@ msgid "Project added successfully!"
 msgstr "프로젝트가 성공적으로 추가되었습니다!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:782 src/Layouts/ItemRow.vala:1235
-#: src/Layouts/ItemRow.vala:1363 src/Layouts/ItemSidebarView.vala:490
+#: src/Layouts/ItemBoard.vala:784 src/Layouts/ItemRow.vala:1245
+#: src/Layouts/ItemRow.vala:1373 src/Layouts/ItemSidebarView.vala:492
 msgid "Move"
 msgstr "이동"
 
@@ -2591,76 +2751,76 @@ msgstr "섹션 이름"
 msgid "Open/Close Sidebar"
 msgstr "사이드바 열기/닫기"
 
-#: src/Layouts/ItemBoard.vala:155 src/Layouts/ItemBoard.vala:764
-#: src/Layouts/ItemBoard.vala:777 src/Layouts/ItemRow.vala:1217
-#: src/Layouts/ItemRow.vala:1230
+#: src/Layouts/ItemBoard.vala:155 src/Layouts/ItemBoard.vala:766
+#: src/Layouts/ItemBoard.vala:779 src/Layouts/ItemRow.vala:1227
+#: src/Layouts/ItemRow.vala:1240
 msgid "Unpin"
 msgstr ""
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:611 src/Layouts/ItemRow.vala:1569
-#: src/Layouts/ItemSidebarView.vala:656
+#: src/Layouts/ItemBoard.vala:611 src/Layouts/ItemRow.vala:1579
+#: src/Layouts/ItemSidebarView.vala:658
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "완료되었습니다. 다음 발생: %s"
 
-#: src/Layouts/ItemBoard.vala:785 src/Layouts/ItemRow.vala:1238
+#: src/Layouts/ItemBoard.vala:787 src/Layouts/ItemRow.vala:1248
 msgid "Add Subtask"
 msgstr "하위 작업 추가"
 
-#: src/Layouts/ItemBoard.vala:787 src/Layouts/ItemRow.vala:1240
+#: src/Layouts/ItemBoard.vala:789 src/Layouts/ItemRow.vala:1250
 msgid "Edit"
 msgstr "편집"
 
-#: src/Layouts/ItemBoard.vala:788 src/Layouts/ItemRow.vala:1241
-#: src/Layouts/ItemRow.vala:1362 src/Layouts/ItemSidebarView.vala:489
+#: src/Layouts/ItemBoard.vala:790 src/Layouts/ItemRow.vala:1251
+#: src/Layouts/ItemRow.vala:1372 src/Layouts/ItemSidebarView.vala:491
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:375
 msgid "Duplicate"
 msgstr "복제"
 
-#: src/Layouts/ItemBoard.vala:790 src/Layouts/ItemRow.vala:1243
-#: src/Layouts/ItemRow.vala:1365 src/Layouts/ItemSidebarView.vala:492
+#: src/Layouts/ItemBoard.vala:792 src/Layouts/ItemRow.vala:1253
+#: src/Layouts/ItemRow.vala:1375 src/Layouts/ItemSidebarView.vala:494
 msgid "Delete Task"
 msgstr "작업 삭제"
 
-#: src/Layouts/ItemBoard.vala:1090 src/Layouts/ItemRow.vala:1810
+#: src/Layouts/ItemBoard.vala:1092 src/Layouts/ItemRow.vala:1818
 msgid "Order changed to 'Custom sort order'"
 msgstr "정렬이 '사용자 정의 순서'로 변경되었습니다"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:1176 src/Layouts/ItemRow.vala:1593
+#: src/Layouts/ItemBoard.vala:1178 src/Layouts/ItemRow.vala:1601
 #, c-format
 msgid "%s was deleted"
 msgstr "%s이(가) 삭제되었습니다"
 
-#: src/Layouts/ItemBoard.vala:1177 src/Layouts/ItemRow.vala:1594
+#: src/Layouts/ItemBoard.vala:1179 src/Layouts/ItemRow.vala:1602
 msgid "Undo"
 msgstr "되돌리기"
 
-#: src/Layouts/ItemRow.vala:560
+#: src/Layouts/ItemRow.vala:562
 msgid "Add Subtasks"
 msgstr "하위 작업 추가"
 
-#: src/Layouts/ItemRow.vala:1053
+#: src/Layouts/ItemRow.vala:1057
 #, fuzzy
 msgid "Hide Sub-tasks"
 msgstr "하위 작업"
 
-#: src/Layouts/ItemRow.vala:1053
+#: src/Layouts/ItemRow.vala:1057
 #, fuzzy
 msgid "Show Sub-tasks"
 msgstr "하위 작업"
 
-#: src/Layouts/ItemRow.vala:1358 src/Layouts/ItemSidebarView.vala:486
+#: src/Layouts/ItemRow.vala:1368 src/Layouts/ItemSidebarView.vala:488
 msgid "Use as a Note"
 msgstr "날짜 선택"
 
-#: src/Layouts/ItemRow.vala:1361 src/Layouts/ItemSidebarView.vala:488
+#: src/Layouts/ItemRow.vala:1371 src/Layouts/ItemSidebarView.vala:490
 msgid "Copy to Clipboard"
 msgstr "클립보드에 복사"
 
-#: src/Layouts/ItemRow.vala:2015
+#: src/Layouts/ItemRow.vala:2023
 msgid "Add Attachments"
 msgstr "첨부 팡리 추가"
 
@@ -2676,7 +2836,7 @@ msgstr "제목"
 msgid "Properties"
 msgstr "속성"
 
-#: src/Layouts/ItemSidebarView.vala:576
+#: src/Layouts/ItemSidebarView.vala:578
 msgid "Are you sure you want to delete?"
 msgstr "삭제하시겠습니까?"
 
@@ -2712,6 +2872,14 @@ msgstr "공유"
 #: src/Layouts/ProjectRow.vala:713
 msgid "Send by E-Mail"
 msgstr "이메일로 보내기"
+
+#: src/Layouts/ProjectRow.vala:714
+msgid "Export as PDF"
+msgstr ""
+
+#: src/Layouts/ProjectRow.vala:791
+msgid "Project exported as PDF"
+msgstr ""
 
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 #, fuzzy
@@ -2796,32 +2964,28 @@ msgstr "메인 메뉴"
 msgid "Open Quick Find"
 msgstr "빠른 검색 열기"
 
-#: src/MainWindow.vala:715
+#: src/MainWindow.vala:737
 msgid "About Planify"
 msgstr "Planify 정보"
 
-#: src/MainWindow.vala:775
+#: src/MainWindow.vala:805
 msgid "Oops! Something happened"
 msgstr ""
 
-#: src/MainWindow.vala:778
-msgid "See More"
-msgstr "추가 생성"
-
-#: src/MainWindow.vala:794 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:824 src/Widgets/ItemChangeHistoryRow.vala:48
 #, fuzzy
 msgid "Task completed"
 msgstr "완료됨"
 
-#: src/MainWindow.vala:795
+#: src/MainWindow.vala:825
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:833
+#: src/MainWindow.vala:863
 msgid "Database Integrity Check Failed"
 msgstr ""
 
-#: src/MainWindow.vala:834
+#: src/MainWindow.vala:864
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -2834,7 +2998,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:836
+#: src/MainWindow.vala:866
 msgid "Reset Database"
 msgstr ""
 
@@ -2858,6 +3022,10 @@ msgstr ""
 msgid "Planify Backup Files"
 msgstr "Planify 백업 파일"
 
+#: src/Services/ExportService.vala:187
+msgid "Deadline:"
+msgstr ""
+
 # # c-format
 #: src/Services/Notification.vala:99
 #, fuzzy
@@ -2874,8 +3042,9 @@ msgstr "%d분마다"
 msgid "Snooze for 1 hour"
 msgstr ""
 
-#: src/Views/Filter.vala:86 src/Views/Project/Project.vala:119
-#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:88
+#: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
+#: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
+#: src/Views/Today.vala:88
 msgid "View Option Menu"
 msgstr "옵션 메뉴 보기"
 
@@ -2917,8 +3086,21 @@ msgid_plural "This will delete %d completed tasks and their subtasks"
 msgstr[0] "이 작업은 %d개의 완료된 작업 및 하위 작업을 삭제합니다"
 
 #: src/Views/Label/LabelSourceRow.vala:49
+#: src/Views/Label/LabelSourceRow.vala:125
 msgid "No labels available. Create one by clicking on the '+' button"
 msgstr "즐겨찾기가 없습니다. '+' 버튼을 클릭하여 하나 만들어 보세요"
+
+#: src/Views/Label/LabelSourceRow.vala:122
+msgid "All labels are hidden by the filter"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:148
+msgid "Only Active Projects"
+msgstr ""
+
+#: src/Views/Label/Labels.vala:149
+msgid "Only show labels used by tasks in active (non-archived) projects"
+msgstr ""
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
@@ -3004,17 +3186,9 @@ msgstr "기한"
 msgid "All (default)"
 msgstr "전체 (기본)"
 
-#: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
-msgid "This Week"
-msgstr "이번 주"
-
 #: src/Views/Project/Project.vala:559 src/Views/Project/Project.vala:727
 msgid "Next 7 Days"
 msgstr "다음 7일"
-
-#: src/Views/Project/Project.vala:560 src/Views/Project/Project.vala:729
-msgid "This Month"
-msgstr "이번 달"
 
 #: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:731
 msgid "Next 30 Days"
@@ -3061,10 +3235,6 @@ msgstr "완료된 작업 표시"
 #: src/Views/Project/Project.vala:631
 msgid "Sort By"
 msgstr "정렬 기준"
-
-#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
-msgid "Overdue"
-msgstr "기한 초과"
 
 #: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:163
 msgid "Reschedule"
@@ -3250,6 +3420,13 @@ msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "이 할 일을 삭제하시겠습니까?"
 
+# # c-format
+#: src/Widgets/MultiSelectToolbar.vala:375
+#, fuzzy, c-format
+msgid "Task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "작업이 %s(으)로 이동되었습니다"
+
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
 msgid "New version available!"
@@ -3421,15 +3598,38 @@ msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "게시판 열기"
 
+#~ msgid ""
+#~ "Planify is being developed with love and passion for open source. "
+#~ "However, if you like Planify and want to support its development, please "
+#~ "consider supporting us."
+#~ msgstr ""
+#~ "Planify는 오픈 소스를 사랑하고 열정을 가지고 개발되고 있습니다. Planify를 "
+#~ "좋아하고 개발을 지원하고 싶다면, 지원을 고려해 주세요."
+
+#~ msgid "Please Enter Your Credentials"
+#~ msgstr "자격 증명을 입력하세요"
+
+#~ msgid "Loading…"
+#~ msgstr "로딩 중…"
+
+#~ msgid "Network Is Not Available"
+#~ msgstr "네트워크를 사용할 수 없습니다"
+
+#~ msgid "Set a Due Date"
+#~ msgstr "기한을 설정하세요"
+
+#~ msgid "Let Planify run in background and send notifications"
+#~ msgstr "Planify를 백그라운드에서 실행하고 알림을 보내도록 설정하세요"
+
+#~ msgid "Whether Planify should run on startup"
+#~ msgstr "Planify가 시작 시 실행할지 여부"
+
 #~ msgid "Clear"
 #~ msgstr "지우기"
 
 #, fuzzy
 #~ msgid "Menu"
 #~ msgstr "메인 메뉴"
-
-#~ msgid "Summary"
-#~ msgstr "요약"
 
 #, fuzzy
 #~ msgid "Add Time"

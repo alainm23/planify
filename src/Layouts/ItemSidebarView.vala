@@ -311,6 +311,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         if (item.content != content_textview.get_text () ||
             item.description != markdown_editor.get_text ().chomp ()) {
             item.content = content_textview.get_text ();
+            item.item_type = item.content.has_prefix ("* ") ? ItemType.NOTE : ItemType.TASK;
+            use_note_item.active = item.item_type == ItemType.NOTE;
             item.description = markdown_editor.get_text ().chomp ();
             item.update_async_timeout (update_id);
         }
@@ -415,7 +417,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         priority_button.update_from_item (item);
         status_button.update_from_item (item);
 
-        label_button.labels = item._get_labels ();
+        label_button.labels = item.get_labels_list ();
         label_button.update_tooltip_from_item (item);
 
         pin_button.update_from_item (item);
@@ -468,7 +470,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             }
         }
 
-        foreach (var label in item._get_labels ()) {
+        foreach (var label in item.get_labels_list ()) {
             if (!new_labels.has_key (label.id)) {
                 item.delete_item_label (label.id);
                 update = true;

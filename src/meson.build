@@ -4,12 +4,6 @@ deps = [
   m_dep
 ]
 
-if get_option('webkit')
-    if webkitgtk_dep.found()
-        deps += webkitgtk_dep
-    endif
-endif
-
 
 if get_option('portal')
     if libportal_dep.found()
@@ -40,6 +34,7 @@ sources = files(
   'Services/DBusServer.vala',
   'Services/Backups.vala',
   'Services/MigrateFromPlanner.vala',
+  'Services/ExportService.vala',
 
   'Utils/TaskUtils.vala',
 
@@ -113,6 +108,10 @@ sources = files(
   'Dialogs/ItemChangeHistory.vala',
   'Dialogs/ErrorDialog.vala',
   'Dialogs/CompletedTasks.vala',
+  'Dialogs/ProductivityReport/ProductivityReport.vala',
+  'Dialogs/ProductivityReport/SummarySection.vala',
+  'Dialogs/ProductivityReport/ProductivitySection.vala',
+  'Dialogs/ProductivityReport/StatCard.vala',
   
   'Dialogs/QuickFind/QuickFind.vala',
   'Dialogs/QuickFind/QuickFindItem.vala',

@@ -94,7 +94,19 @@ public class Dialogs.Preferences.Pages.QuickAdd : Dialogs.Preferences.Pages.Base
         save_last_row.set_activatable_widget (save_last_switch);
         save_last_row.add_suffix (save_last_switch);
 
+        var keep_properties_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER,
+            active = Services.Settings.get_default ().settings.get_boolean ("quick-add-keep-properties")
+        };
+
+        var keep_properties_row = new Adw.ActionRow ();
+        keep_properties_row.title = _("Keep Task Properties");
+        keep_properties_row.subtitle = _("When 'Keep adding' is enabled, preserve date, labels, and pinned status");
+        keep_properties_row.set_activatable_widget (keep_properties_switch);
+        keep_properties_row.add_suffix (keep_properties_switch);
+
         settings_group.add (save_last_row);
+        settings_group.add (keep_properties_row);
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             vexpand = true,
@@ -125,6 +137,11 @@ public class Dialogs.Preferences.Pages.QuickAdd : Dialogs.Preferences.Pages.Base
             Services.Settings.get_default ().settings.set_boolean ("quick-add-save-last-project",
                                                                    save_last_switch.active);
         })] = save_last_switch;
+
+        signal_map[keep_properties_switch.notify["active"].connect (() => {
+            Services.Settings.get_default ().settings.set_boolean ("quick-add-keep-properties",
+                                                                   keep_properties_switch.active);
+        })] = keep_properties_switch;
 
         destroy.connect (() => {
             clean_up ();

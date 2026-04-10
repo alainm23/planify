@@ -642,7 +642,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     private void verify_item_type () {
-        if (item.item_type == ItemType.TASK) {
+        bool is_task = item.item_type == ItemType.TASK && !item.content.has_prefix ("* ");
+
+        if (is_task) {
             checked_button_revealer.reveal_child = true;
             description_label.margin_start = 30;
             footer_box.margin_start = 30;

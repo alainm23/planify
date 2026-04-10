@@ -882,7 +882,7 @@ We hope you’ll enjoy using Planify!""");
 
         if (notify) {
             Services.EventBus.get_default ().send_toast (
-                create_toast (_("Task moved to %s".printf (new_item.project.name)))
+                create_toast (_("Moved to %s".printf (new_item.project.name)))
             );
         }
 

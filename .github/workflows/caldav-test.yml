@@ -62,7 +62,7 @@ jobs:
           meson test -C build --suite=caldav-integration --print-errorlogs
 
       - name: Upload Meson test log
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: meson-test-log
           path: build/meson-logs/testlog.txt

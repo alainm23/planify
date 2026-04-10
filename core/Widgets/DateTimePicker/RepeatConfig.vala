@@ -283,7 +283,6 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
 
         child = content_box;
         update_repeat_label ();
-        Services.EventBus.get_default ().disconnect_typing_accel ();
 
         signal_map[recurrency_interval.value_changed.connect (() => {
             update_repeat_label ();
