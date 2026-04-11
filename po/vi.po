@@ -565,36 +565,36 @@ msgstr ""
 msgid "Invalid API token"
 msgstr ""
 
-#: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "Yêu cầu không đúng."
 
-#: core/Services/Todoist.vala:1625 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1625 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Xác thực là bắt buộc, và đã thất bại, hoặc chưa được cung cấp."
 
-#: core/Services/Todoist.vala:1626 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1626 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Yêu cầu hợp lệ, nhưng cho thứ gì đó bị cấm."
 
-#: core/Services/Todoist.vala:1627 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1627 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "Tài nguyên yêu cầu không tìm thấy."
 
-#: core/Services/Todoist.vala:1628 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1628 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Người dùng đã gửi quá nhiều yêu cầu trong khoảng thời gian nhất định."
 
-#: core/Services/Todoist.vala:1629 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1629 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "Yêu cầu thất bại do lỗi máy chủ."
 
-#: core/Services/Todoist.vala:1630 src/Widgets/ErrorView.vala:145
+#: core/Services/Todoist.vala:1630 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "Máy chủ hiện không thể xử lý yêu cầu."
 
-#: core/Services/Todoist.vala:1633 src/Widgets/ErrorView.vala:147
+#: core/Services/Todoist.vala:1633 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "Lỗi không xác định"
 
@@ -3295,11 +3295,20 @@ msgstr "Hiển thị thêm"
 msgid "Show less"
 msgstr "Hiển thị ít hơn"
 
-#: src/Widgets/ErrorView.vala:107
+#: src/Widgets/ErrorView.vala:111
+msgid "Copy error message"
+msgstr ""
+
+#: src/Widgets/ErrorView.vala:129
+#, c-format
+msgid "For more details, share your log file: %s"
+msgstr ""
+
+#: src/Widgets/ErrorView.vala:148
 msgid "Report Issue"
 msgstr "Báo Cáo Sự Cố"
 
-#: src/Widgets/ErrorView.vala:142
+#: src/Widgets/ErrorView.vala:191
 msgid "Account migration required."
 msgstr "Yêu cầu di chuyển tài khoản."
 
