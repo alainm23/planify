@@ -44,6 +44,7 @@ namespace Constants {
     public const string MASTODON_URL = "https://mastodon.social/@planifyapp";
     public const string DISCORD_URL = "https://discord.com/invite/dxxyumrTJW";
     public const string ISSUE_URL = "https://github.com/alainm23/planify/issues";
+    public const string NEW_ISSUE_URL = "https://github.com/alainm23/planify/issues/new?assignees=&labels=Type:+Bug&template=bug_report.yml";
     public const string WEBLATE_URL = "https://hosted.weblate.org/engage/planner/";
     public const string FLATHUB_URL = "https://flathub.org/apps/io.github.alainm23.planify";
     public const string PRIVACY_POLICY_URL = "https://useplanify.com/privacy-policy/";
