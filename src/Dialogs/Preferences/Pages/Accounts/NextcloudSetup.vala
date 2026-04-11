@@ -44,86 +44,93 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
     }
 
     construct {
+        var icon = new Gtk.Image.from_icon_name ("cloud-outline-thick-symbolic") {
+            pixel_size = 48,
+            css_classes = { "dimmed" }
+        };
+
+        var title_label = new Gtk.Label (_("Connect to Nextcloud")) {
+            css_classes = { "font-bold", "title-3" },
+            margin_top = 12
+        };
+
+        var description_label = new Gtk.Label (_("Sign in with your Nextcloud account to sync tasks via CalDAV")) {
+            css_classes = { "dimmed", "caption" },
+            wrap = true,
+            justify = CENTER,
+            max_width_chars = 40
+        };
+
+        var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            halign = CENTER,
+            margin_bottom = 18
+        };
+        header_box.append (icon);
+        header_box.append (title_label);
+        header_box.append (description_label);
+
         server_entry = new Adw.EntryRow ();
         server_entry.title = _("Server URL");
 
         var entries_group = new Adw.PreferencesGroup ();
         entries_group.add (server_entry);
 
-        var message_label = new Gtk.Label ("%s\n\n%s\n%s"
-                                            .printf (_("Server URL examples:"), _("- https://cloud.example.com/"),
-                                                     _("- https://example.com/nextcloud/"))) {
-            wrap = true,
-            css_classes = { "dim-label", "caption" }
+        var step1_label = new Gtk.Label (_("https://cloud.example.com")) {
+            xalign = 0,
+            css_classes = { "monospace", "caption" }
         };
 
-        var message_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_top = 12,
-            margin_bottom = 12,
+        var step2_label = new Gtk.Label (_("https://example.com/nextcloud")) {
+            xalign = 0,
+            css_classes = { "monospace", "caption" }
+        };
+
+        var examples_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 4) {
+            margin_top = 8,
+            margin_bottom = 8,
             margin_start = 12,
-            margin_end = 12,
+            margin_end = 12
         };
+        examples_box.append (step1_label);
+        examples_box.append (step2_label);
 
-        message_box.append (message_label);
-
-        var message_card = new Adw.Bin () {
-            css_classes = { "card" },
-            child = message_box
+        var examples_group = new Adw.PreferencesGroup () {
+            margin_top = 6
         };
+        examples_group.title = _("URL examples");
+        examples_group.add (examples_box);
 
-        var message_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = true,
-            child = message_card
-        };
-
-        // Advanced options
-
-        var advanced_entries_group = new Adw.PreferencesGroup ();
-
+        // SSL option
         ignore_ssl_row = new Widgets.IgnoreSSLSwitchRow ();
 
-        var advanced_options_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = false,
-            child = advanced_entries_group
-        };
-
-        var advanced_button = new Gtk.Button.with_label (_("Advanced Options")) {
-            css_classes = { "flat" }
-        };
-
-        signal_map[advanced_button.clicked.connect (() => {
-            advanced_options_revealer.reveal_child = !advanced_options_revealer.reveal_child;
-        })] = advanced_button;
-        
-        advanced_entries_group.add (ignore_ssl_row);
-
+        entries_group.add (ignore_ssl_row);
 
         login_button = new Widgets.LoadingButton.with_label (_("Log In")) {
-            margin_top = 12,
+            margin_top = 24,
             sensitive = false,
-            css_classes = { "suggested-action" }
+            css_classes = { "suggested-action", "pill" },
+            halign = CENTER
         };
 
         cancel_button = new Gtk.Button.with_label (_("Cancel")) {
-            css_classes = { "flat" },
+            css_classes = { "flat", "pill" },
+            halign = CENTER,
             visible = false
         };
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             vexpand = true,
             hexpand = true,
             margin_start = 12,
             margin_end = 12,
-            margin_top = 12
+            margin_top = 24
         };
 
+        content_box.append (header_box);
         content_box.append (entries_group);
-        content_box.append (advanced_button);
-        content_box.append (advanced_options_revealer);
         content_box.append (login_button);
         content_box.append (cancel_button);
+        content_box.append (examples_group);
 
         var loading_page = new Dialogs.Preferences.Pages.Accounts.LoadingPage () {
             show_progress = true
@@ -178,21 +185,25 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
     }
 
     private void on_login_button_clicked () {
+        Services.LogService.get_default ().info ("NextcloudSetup", "Login button clicked");
         GLib.Cancellable cancellable = new GLib.Cancellable ();
         login_button.is_loading = true;
         cancel_button.visible = true;
 
         signal_map[cancel_button.clicked.connect (() => {
+            Services.LogService.get_default ().info ("NextcloudSetup", "Login cancelled by user");
             cancellable.cancel ();
         })] = cancel_button;
 
         var core_service = Services.CalDAV.Core.get_default ();
         var nextcloud_provider = new Services.CalDAV.Providers.Nextcloud ();
 
+        Services.LogService.get_default ().info ("NextcloudSetup", "Starting Nextcloud login flow");
         nextcloud_provider.start_login_flow.begin (server_entry.text, cancellable, ignore_ssl_row.active, (obj, res) => {
             HttpResponse response = nextcloud_provider.start_login_flow.end (res);
 
             if (response.status) {
+                Services.LogService.get_default ().info ("NextcloudSetup", "Login successful, syncing account");
                 Objects.Source source = (Objects.Source) response.data_object.get_object ();
                 main_stack.visible_child_name = "loading-page";
 
@@ -200,8 +211,10 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
                     response = core_service.add_caldav_account.end (res);
 
                     if (response.status) {
+                        Services.LogService.get_default ().info ("NextcloudSetup", "Account synced successfully");
                         preferences_dialog.pop_subpage ();
                     } else {
+                        Services.LogService.get_default ().error ("NextcloudSetup", "Account sync failed: %s".printf (response.error));
                         main_stack.visible_child_name = "main-page";
                         login_button.is_loading = false;
                         cancel_button.visible = false;
@@ -209,6 +222,7 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
                     }
                 });
             } else {
+                Services.LogService.get_default ().error ("NextcloudSetup", "Login flow failed: %s".printf (response.error));
                 login_button.is_loading = false;
                 cancel_button.visible = false;
 
