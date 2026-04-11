@@ -334,8 +334,8 @@ msgstr "Không thể hoàn tác"
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:430
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:148
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:115
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:191
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:220
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
@@ -1752,30 +1752,46 @@ msgstr "Thay Đổi Hộp Thư Đến"
 msgid "Syncing…"
 msgstr "Đang đồng bộ…"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:52
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:48
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
+msgid "Connect to CalDAV"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
+msgid "Connect to any CalDAV-compatible server to sync your tasks"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
 msgid "Server URL"
 msgstr "URL Máy Chủ"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:55
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:80
 msgid "Username"
 msgstr "Tên người dùng"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:58
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:83
 msgid "Password"
 msgstr "Mật khẩu"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:67
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
 msgid "Calendar Home URL"
 msgstr "URL Trang Chủ Lịch"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:79
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:92
-msgid "Advanced Options"
-msgstr "Tùy Chọn Nâng Cao"
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
+msgid "Advanced"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:91
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:103
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
+msgid "Show advanced options"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
+msgid "Hide advanced options"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
 msgid "Log In"
 msgstr "Đăng Nhập"
 
@@ -1793,17 +1809,25 @@ msgstr ""
 "Getting Things Done của David Allen, đây là điểm thu thập ý tưởng nhanh và "
 "các nhiệm vụ bạn sẽ tổ chức sau"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
-msgid "Server URL examples:"
-msgstr "Ví dụ URL Máy Chủ:"
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
+msgid "Connect to Nextcloud"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
-msgid "- https://cloud.example.com/"
-msgstr "- https://cloud.example.com/"
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:57
+msgid "Sign in with your Nextcloud account to sync tasks via CalDAV"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:55
-msgid "- https://example.com/nextcloud/"
-msgstr "- https://example.com/nextcloud/"
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
+msgid "https://cloud.example.com"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:83
+msgid "https://example.com/nextcloud"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:100
+msgid "URL examples"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:178
@@ -3598,6 +3622,18 @@ msgstr "Mở Nhãn"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Mở Bảng Ghim"
+
+#~ msgid "Advanced Options"
+#~ msgstr "Tùy Chọn Nâng Cao"
+
+#~ msgid "Server URL examples:"
+#~ msgstr "Ví dụ URL Máy Chủ:"
+
+#~ msgid "- https://cloud.example.com/"
+#~ msgstr "- https://cloud.example.com/"
+
+#~ msgid "- https://example.com/nextcloud/"
+#~ msgstr "- https://example.com/nextcloud/"
 
 #~ msgid "Token"
 #~ msgstr "Token"
