@@ -96,7 +96,11 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         ignore_ssl_row = new Widgets.IgnoreSSLSwitchRow ();
         bypass_resolve_row = new Widgets.BypassResolveSwitchRow ();
 
-        var advanced_group = new Adw.PreferencesGroup ();
+        var advanced_group = new Adw.PreferencesGroup () {
+            margin_bottom = 3,
+            margin_start = 3,
+            margin_end = 3
+        };
         advanced_group.title = _("Advanced");
         advanced_group.add (calendar_home_entry);
         advanced_group.add (ignore_ssl_row);
