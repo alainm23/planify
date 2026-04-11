@@ -72,6 +72,7 @@ core/Services/Chrono/RecurrenceRule.vala
 core/Services/ColorSchemeSettings.vala
 core/Services/Database.vala
 core/Services/EventBus.vala
+core/Services/LogService.vala
 core/Services/Settings.vala
 core/Services/Store.vala
 core/Services/Todoist.vala

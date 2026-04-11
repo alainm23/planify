@@ -118,7 +118,7 @@ msgstr[5] "كل سنة"
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
-#: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:121
+#: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:124
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
@@ -424,9 +424,9 @@ msgstr "حذف القسم %s"
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:38
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:227
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:235
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:252
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:288
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -543,40 +543,40 @@ msgstr "نصيحة"
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "اجمع الاختصارات في العنوان لإنشاء أسرع"
 
-#: core/Services/CalDAV/CalDAVClient.vala:302
+#: core/Services/CalDAV/CalDAVClient.vala:311
 #, c-format
 msgid "Loading tasks for %s…"
 msgstr "جاري تحميل المهام ل %s…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:313
-#: core/Services/CalDAV/CalDAVClient.vala:345
+#: core/Services/CalDAV/CalDAVClient.vala:322
+#: core/Services/CalDAV/CalDAVClient.vala:354
 #, c-format
 msgid "Loaded tasks for %s…"
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:338
+#: core/Services/CalDAV/CalDAVClient.vala:347
 #, c-format
 msgid "Syncing task %d of %d"
 msgstr ""
 
-#: core/Services/CalDAV/Core.vala:162
+#: core/Services/CalDAV/Core.vala:169
 msgid "Source already exists"
 msgstr "المصدر موجود بالفعل"
 
-#: core/Services/CalDAV/Core.vala:173 core/Services/CalDAV/Core.vala:218
+#: core/Services/CalDAV/Core.vala:180 core/Services/CalDAV/Core.vala:227
 msgid "Failed to resolve principal url"
 msgstr "فشل في حل عنوان URL الرئيسي"
 
-#: core/Services/CalDAV/Core.vala:228
+#: core/Services/CalDAV/Core.vala:237
 msgid "Starting sync…"
 msgstr "جاري تفعيل المزامنة…"
 
-#: core/Services/CalDAV/Core.vala:243
+#: core/Services/CalDAV/Core.vala:252
 #, c-format
 msgid "Syncing %s…"
 msgstr "جاري مزامنة %s…"
 
-#: core/Services/CalDAV/Core.vala:251
+#: core/Services/CalDAV/Core.vala:260
 msgid "Sync completed"
 msgstr "تمت المزامنة"
 
@@ -590,36 +590,40 @@ msgid ""
 "to continue syncing."
 msgstr ""
 
-#: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:108
+msgid "Invalid API token"
+msgstr ""
+
+#: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "الطلب غير صحيح."
 
-#: core/Services/Todoist.vala:1610 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1625 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "التصديق مطلوب, و فشل, أو لم يتم تقديمه حتى الآن."
 
-#: core/Services/Todoist.vala:1611 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1626 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "الطلب صالح, لكن لشيء محظور."
 
-#: core/Services/Todoist.vala:1612 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1627 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "المورد المطلوب غير موجود."
 
-#: core/Services/Todoist.vala:1613 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1628 src/Widgets/ErrorView.vala:143
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "لقد أرسل المستخدم طلبات في وقت محدد أكثر مما يجب."
 
-#: core/Services/Todoist.vala:1614 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1629 src/Widgets/ErrorView.vala:144
 msgid "The request failed due to a server error."
 msgstr "فشل الطلب بسبب خطأ في المخدم."
 
-#: core/Services/Todoist.vala:1615 src/Widgets/ErrorView.vala:145
+#: core/Services/Todoist.vala:1630 src/Widgets/ErrorView.vala:145
 msgid "The server is currently unable to handle the request."
 msgstr "المخدم غير قادر حالياً على معالجة الطلب."
 
-#: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
+#: core/Services/Todoist.vala:1633 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "خطأ غير معروف"
 
@@ -1484,7 +1488,7 @@ msgstr ""
 msgid "Complete"
 msgstr ""
 
-#: src/App.vala:163
+#: src/App.vala:183
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1856,35 +1860,43 @@ msgstr ""
 msgid "Use API Token instead"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:151
-msgid "Token"
-msgstr ""
-
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:157
-msgid "How to get your token?"
-msgstr ""
-
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:158
-msgid "1. Go to Todoist → Settings → Integrations → Developer"
-msgstr ""
-
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:159
-msgid "2. Find 'API token' and copy your token"
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:155
+msgid "API Token"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
+msgid "Connect using your personal Todoist API token"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:176
+msgid "Paste your API token"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:181
+msgid "Connect"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:188
+msgid "1. Go to Todoist → Settings → Integrations → Developer"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:193
+msgid "2. Copy your API token"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:198
 msgid "3. Paste it in the field above"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:179
-msgid "Connect with Token"
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
+msgid "How to get your token"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:219
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
 msgid "Waiting for login…"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:256
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:292
 msgid "Synchronizing…"
 msgstr ""
 
@@ -2144,58 +2156,68 @@ msgid "Calendar Events"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:103
+msgid "GNOME Shell Search"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:104
+msgid ""
+"Search tasks and projects directly from GNOME Shell. Enable it in Settings → "
+"Search"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:109
 msgid "Date and Time"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:106
+#: src/Dialogs/Preferences/Pages/General.vala:112
 msgid "24h"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:107
+#: src/Dialogs/Preferences/Pages/General.vala:113
 msgid "12h"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:110
+#: src/Dialogs/Preferences/Pages/General.vala:116
 msgid "Clock Format"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:117
+#: src/Dialogs/Preferences/Pages/General.vala:123
 msgid "Sunday"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:118
+#: src/Dialogs/Preferences/Pages/General.vala:124
 msgid "Monday"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:119
+#: src/Dialogs/Preferences/Pages/General.vala:125
 msgid "Tuesday"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:120
+#: src/Dialogs/Preferences/Pages/General.vala:126
 msgid "Wednesday"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:121
+#: src/Dialogs/Preferences/Pages/General.vala:127
 msgid "Thursday"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:122
+#: src/Dialogs/Preferences/Pages/General.vala:128
 msgid "Friday"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:123
+#: src/Dialogs/Preferences/Pages/General.vala:129
 msgid "Saturday"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:126
+#: src/Dialogs/Preferences/Pages/General.vala:132
 msgid "Start of the Week"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:138
+#: src/Dialogs/Preferences/Pages/General.vala:144
 msgid "Smart Date Recognition"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:139
+#: src/Dialogs/Preferences/Pages/General.vala:145
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
 msgstr ""
 
