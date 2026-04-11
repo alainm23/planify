@@ -561,36 +561,36 @@ msgstr "Todoist 已經更新其 API。請在〔偏好設定〕中重新連接您
 msgid "Invalid API token"
 msgstr ""
 
-#: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "所提請求不正確。"
 
-#: core/Services/Todoist.vala:1625 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1625 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "需要身份驗證，但遭失敗，或是尚未提供。"
 
-#: core/Services/Todoist.vala:1626 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1626 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr "該請求是有效的，但因某些事物是禁止的。"
 
-#: core/Services/Todoist.vala:1627 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1627 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "所提請求的資源無法找到。"
 
-#: core/Services/Todoist.vala:1628 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1628 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "使用者在給定時間內發送過多請求。"
 
-#: core/Services/Todoist.vala:1629 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1629 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "由於伺服器錯誤，請求失敗。"
 
-#: core/Services/Todoist.vala:1630 src/Widgets/ErrorView.vala:145
+#: core/Services/Todoist.vala:1630 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "伺服器目前無法處理該請求。"
 
-#: core/Services/Todoist.vala:1633 src/Widgets/ErrorView.vala:147
+#: core/Services/Todoist.vala:1633 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "不明錯誤"
 
@@ -3243,11 +3243,20 @@ msgstr "顯示更多"
 msgid "Show less"
 msgstr "顯示較少"
 
-#: src/Widgets/ErrorView.vala:107
+#: src/Widgets/ErrorView.vala:111
+msgid "Copy error message"
+msgstr ""
+
+#: src/Widgets/ErrorView.vala:129
+#, c-format
+msgid "For more details, share your log file: %s"
+msgstr ""
+
+#: src/Widgets/ErrorView.vala:148
 msgid "Report Issue"
 msgstr "提報問題"
 
-#: src/Widgets/ErrorView.vala:142
+#: src/Widgets/ErrorView.vala:191
 msgid "Account migration required."
 msgstr "帳戶遷移是必須的。"
 

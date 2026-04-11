@@ -571,37 +571,37 @@ msgstr ""
 msgid "Invalid API token"
 msgstr ""
 
-#: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "A solicitação estava incorreta."
 
-#: core/Services/Todoist.vala:1625 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1625 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 "É necessário fazer a autenticação, esta falhou ou ainda não foi fornecida."
 
-#: core/Services/Todoist.vala:1626 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1626 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr "A solicitação foi válida mas para algo que é proibido."
 
-#: core/Services/Todoist.vala:1627 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1627 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "Os recursos solicitados não foram encontrados."
 
-#: core/Services/Todoist.vala:1628 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1628 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "O utilizador enviou demasiadas solicitações num curto espaço de tempo."
 
-#: core/Services/Todoist.vala:1629 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1629 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "A solicitação falhou devido a um erro de servidor."
 
-#: core/Services/Todoist.vala:1630 src/Widgets/ErrorView.vala:145
+#: core/Services/Todoist.vala:1630 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "Neste momento o servido é incapaz de gerir a solicitação."
 
-#: core/Services/Todoist.vala:1633 src/Widgets/ErrorView.vala:147
+#: core/Services/Todoist.vala:1633 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "Erro desconhecido"
 
@@ -3343,11 +3343,20 @@ msgstr "Mostrar mais"
 msgid "Show less"
 msgstr "Mostrar menos"
 
-#: src/Widgets/ErrorView.vala:107
+#: src/Widgets/ErrorView.vala:111
+msgid "Copy error message"
+msgstr ""
+
+#: src/Widgets/ErrorView.vala:129
+#, c-format
+msgid "For more details, share your log file: %s"
+msgstr ""
+
+#: src/Widgets/ErrorView.vala:148
 msgid "Report Issue"
 msgstr "Reportar problema"
 
-#: src/Widgets/ErrorView.vala:142
+#: src/Widgets/ErrorView.vala:191
 msgid "Account migration required."
 msgstr "É necessário migrar a conta."
 
