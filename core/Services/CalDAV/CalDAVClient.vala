@@ -28,6 +28,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
 
     public async string? get_principal_url (GLib.Cancellable cancellable) throws GLib.Error {
+        Services.LogService.get_default ().info ("CalDAV", "Fetching principal URL");
         var xml = """<?xml version="1.0" encoding="utf-8"?>
                         <propfind xmlns="DAV:">
                             <prop>
@@ -54,6 +55,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async string? get_calendar_home (string principal_url, GLib.Cancellable cancellable) throws GLib.Error {
+        Services.LogService.get_default ().info ("CalDAV", "Fetching calendar home");
         var xml = """<?xml version="1.0" encoding="utf-8"?>
                         <propfind xmlns="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
                             <prop>
@@ -81,6 +83,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
 
     public async void update_userdata (string principal_url, Objects.Source source, GLib.Cancellable cancellable) throws GLib.Error {
+        Services.LogService.get_default ().info ("CalDAV", "Updating user data");
         var xml = """<?xml version="1.0" encoding="utf-8"?>
                     <d:propfind xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns">
                         <d:prop>
@@ -122,6 +125,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async Gee.ArrayList<Objects.Project> fetch_project_list (Objects.Source source, GLib.Cancellable cancellable) throws GLib.Error {
+        Services.LogService.get_default ().info ("CalDAV", "Fetching project list");
         var xml = """<?xml version='1.0' encoding='utf-8'?>
                     <d:propfind xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:cal="urn:ietf:params:xml:ns:caldav">
                         <d:prop>
@@ -162,6 +166,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
 
     public async void sync (Objects.Source source, GLib.Cancellable cancellable) throws GLib.Error {
+        Services.LogService.get_default ().info ("CalDAV", "Syncing project list");
         var xml = """<?xml version='1.0' encoding='utf-8'?>
                     <d:propfind xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:cal="urn:ietf:params:xml:ns:caldav" xmlns:nc="http://nextcloud.com/ns">
                         <d:prop>
@@ -205,6 +210,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 var supported_calendar = propstat.get_first_prop_with_tagname ("supported-calendar-component-set");
 
                 if (is_deleted_calendar (resourcetype)) {
+                    Services.LogService.get_default ().info ("CalDAV", "Removing deleted calendar from server");
                     Objects.Project ? project = Services.Store.instance ().get_project_via_url (get_absolute_url (href));
                     if (project != null) {
                         Services.Store.instance ().delete_project (project);
@@ -220,6 +226,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                         Objects.Project ? project = Services.Store.instance ().get_project_via_url (get_absolute_url (href));
 
                         if (project == null) {
+                            Services.LogService.get_default ().info ("CalDAV", "Discovered new project, fetching items");
                             project = new Objects.Project.from_propstat (propstat, get_absolute_url (href));
                             project.source_id = source.id;
 
@@ -236,6 +243,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async void fetch_project_details (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
+        Services.LogService.get_default ().debug ("CalDAV", "Fetching project details");
         var xml = """<?xml version='1.0' encoding='utf-8'?>
                     <d:propfind xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:cal="urn:ietf:params:xml:ns:caldav">
                         <d:prop>
@@ -272,6 +280,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     public delegate void ProgressCallback (int current, int total, string message);
 
     public async void fetch_items_for_project (Objects.Project project, GLib.Cancellable cancellable, owned ProgressCallback? progress_callback = null) throws GLib.Error {
+        Services.LogService.get_default ().info ("CalDAV", "Fetching items for project");
         SourceFunc callback = fetch_items_for_project.callback;
 
         var xml = """<?xml version="1.0" encoding="utf-8"?>
@@ -361,6 +370,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         if (project.is_deck) {
             return;
         }
+
+        Services.LogService.get_default ().info ("CalDAV", "Syncing tasklist");
 
         var xml = """
         <d:sync-collection xmlns:d="DAV:">
@@ -460,7 +471,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                                 vtodo_comp = vcalendar.get_next_component (ICal.ComponentKind.VTODO_COMPONENT);
                             }
                         } catch (Error e) {
-                            warning ("Error parsing VTODO from %s: %s", href, e.message);
+                            Services.LogService.get_default ().error ("CalDAV.Sync", "Error parsing VTODO from %s: %s".printf (href, e.message));
                         }
                     }
                 }
@@ -487,6 +498,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async void update_sync_token (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
+        Services.LogService.get_default ().debug ("CalDAV", "Updating sync token");
         var xml = """<?xml version="1.0" encoding="utf-8"?>
         <d:propfind xmlns:d="DAV:">
             <d:prop>
@@ -511,6 +523,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async HttpResponse create_project (Objects.Project project) {
+        Services.LogService.get_default ().info ("CalDAV", "Creating project");
         var xml = """<?xml version="1.0" encoding="utf-8"?>
             <d:mkcol xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:oc="http://owncloud.org/ns" xmlns:cal="urn:ietf:params:xml:ns:caldav">
             <d:set>
@@ -543,6 +556,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             project.calendar_url = calendar_url;
             response.status = true;
         } catch (Error e) {
+            Services.LogService.get_default ().error ("CalDAV", "Failed to create project: %s".printf (e.message));
             response.error_code = e.code;
             response.error = e.message;
         }
@@ -551,6 +565,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async HttpResponse update_project (Objects.Project project) {
+        Services.LogService.get_default ().info ("CalDAV", "Updating project");
         var xml = """<?xml version="1.0" encoding="utf-8"?>
         <d:propertyupdate xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/">
             <d:set>
@@ -570,6 +585,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
             response.status = true;
         } catch (Error e) {
+            Services.LogService.get_default ().error ("CalDAV", "Failed to update project: %s".printf (e.message));
             response.error_code = e.code;
             response.error = e.message;
         }
@@ -578,6 +594,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async HttpResponse delete_project (Objects.Project project) {
+        Services.LogService.get_default ().info ("CalDAV", "Deleting project");
         HttpResponse response = new HttpResponse ();
 
         try {
@@ -586,6 +603,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             // Radicale sends a Multi-Status with 200 OK -> TODO: Validate Response in Multi Status?
             response.status = true;
         } catch (Error e) {
+            Services.LogService.get_default ().error ("CalDAV", "Failed to delete project: %s".printf (e.message));
             response.error_code = e.code;
             response.error = e.message;
         }
@@ -594,6 +612,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async HttpResponse add_item (Objects.Item item, bool update = false) {
+        Services.LogService.get_default ().info ("CalDAV", update ? "Updating item" : "Adding item");
         var url = update ? item.ical_url : GLib.Path.build_path ("/", item.project.calendar_url, "%s.ics".printf (item.id));
         var body = item.to_vtodo ();
 
@@ -607,6 +626,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             item.extra_data = Util.generate_extra_data (url, "", body);
             response.status = true;
         } catch (Error e) {
+            Services.LogService.get_default ().error ("CalDAV", "Failed to %s item: %s".printf (update ? "update" : "add", e.message));
             response.error_code = e.code;
             response.error = e.message;
         }
@@ -615,6 +635,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async HttpResponse complete_item (Objects.Item item) {
+        Services.LogService.get_default ().info ("CalDAV", "Completing item");
         var body = item.to_vtodo ();
 
         HttpResponse response = new HttpResponse ();
@@ -625,6 +646,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
             response.status = true;
         } catch (Error e) {
+            Services.LogService.get_default ().error ("CalDAV", "Failed to complete item: %s".printf (e.message));
             response.error_code = e.code;
             response.error = e.message;
         }
@@ -634,6 +656,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
 
     public async HttpResponse move_item (Objects.Item item, Objects.Project destination_project) {
+        Services.LogService.get_default ().info ("CalDAV", "Moving item to another project");
         var destination = GLib.Path.build_path ("/", destination_project.calendar_url, "%s.ics".printf (item.id));
 
         var headers = new HashTable<string,string> (str_hash, str_equal);
@@ -648,6 +671,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
             response.status = true;
         } catch (Error e) {
+            Services.LogService.get_default ().error ("CalDAV", "Failed to move item: %s".printf (e.message));
             response.error_code = e.code;
             response.error = e.message;
         }
@@ -657,6 +681,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
 
     public async HttpResponse delete_item (Objects.Item item) {
+        Services.LogService.get_default ().info ("CalDAV", "Deleting item");
         HttpResponse response = new HttpResponse ();
 
         try {
@@ -664,6 +689,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
             response.status = true;
         } catch (Error e) {
+            Services.LogService.get_default ().error ("CalDAV", "Failed to delete item: %s".printf (e.message));
             response.error_code = e.code;
             response.error = e.message;
         }

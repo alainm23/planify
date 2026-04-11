@@ -41,6 +41,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
     public Services.CalDAV.CalDAVClient get_client (Objects.Source source) {
         if (!clients.has_key (source.id)) {
+            Services.LogService.get_default ().info ("CalDAV.Core", "Creating new client for source");
             var client = new Services.CalDAV.CalDAVClient (
                 new Soup.Session (),
                 source.caldav_data.server_url,
@@ -61,6 +62,7 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     public void remove_client (string source_id) {
+        Services.LogService.get_default ().info ("CalDAV.Core", "Removing client");
         clients.unset (source_id);
     }
 
@@ -74,12 +76,13 @@ public class Services.CalDAV.Core : GLib.Object {
         try {
             abs_url = GLib.Uri.resolve_relative (base_url, href, GLib.UriFlags.NONE).to_string ();
         } catch (Error e) {
-            critical ("Failed to resolve relative url: %s", e.message);
+            Services.LogService.get_default ().error ("CalDAV.Core", "Failed to resolve relative url: %s".printf (e.message));
         }
         return abs_url;
     }
 
     public async string resolve_well_known_caldav (Soup.Session session, string base_url, bool ignore_ssl = false) throws GLib.Error {
+        Services.LogService.get_default ().info ("CalDAV.Core", "Resolving .well-known/caldav");
         var well_known_url = make_absolute_url (base_url, "/.well-known/caldav");
         var msg = new Soup.Message ("GET", well_known_url);
         msg.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);
@@ -111,10 +114,10 @@ public class Services.CalDAV.Core : GLib.Object {
 
                     if (base_scheme == "https" && location_scheme == "http") {
                         if (location.has_prefix ("http://")) {
-                            warning ("Resolving .well-known/caldav caused a redirect from https to http. Preventing downgrade.");
+                            Services.LogService.get_default ().warn ("CalDAV.Core", "Resolving .well-known/caldav caused a redirect from https to http. Preventing downgrade.");
                             location = "https" + location.substring (4); // removes http and puts https infront
                         } else {
-                            warning ("Redirect location has http scheme but unexpected format: %s", location);
+                            Services.LogService.get_default ().warn ("CalDAV.Core", "Redirect location has http scheme but unexpected format: %s".printf (location));
                             return base_url;
                         }
                     }
@@ -127,13 +130,14 @@ public class Services.CalDAV.Core : GLib.Object {
             if (e is GLib.IOError.CANCELLED) {
                 throw e;
             }
-            warning ("Failed to check .well-known/caldav: %s", e.message);
+            Services.LogService.get_default ().warn ("CalDAV.Core", "Failed to check .well-known/caldav: %s".printf (e.message));
             return base_url;
         }
     }
 
 
     public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable, bool ignore_ssl = false) throws GLib.Error {
+        Services.LogService.get_default ().info ("CalDAV.Core", "Resolving calendar home");
         var caldav_client = new Services.CalDAV.CalDAVClient (new Soup.Session (), dav_url, username, password, ignore_ssl);
 
         try {
@@ -150,14 +154,17 @@ public class Services.CalDAV.Core : GLib.Object {
             if (e is GLib.IOError.CANCELLED) {
                 throw e;
             }
+            Services.LogService.get_default ().error ("CalDAV.Core", "Failed to resolve calendar home: %s".printf (e.message));
             throw new GLib.IOError.FAILED ("Failed to resolve calendar home: %s".printf (e.message));
         }
     }
 
     public async HttpResponse login (CalDAVType caldav_type, string dav_url, string username, string password, string calendar_home, GLib.Cancellable cancellable, bool ignore_ssl = false) {
+        Services.LogService.get_default ().info ("CalDAV.Core", "Starting login");
         HttpResponse response = new HttpResponse ();
 
         if (Services.Store.instance ().source_caldav_exists (dav_url, username)) {
+            Services.LogService.get_default ().warn ("CalDAV.Core", "Source already exists, aborting login");
             response.error_code = 409;
             response.error = _("Source already exists");
             return response;
@@ -196,8 +203,9 @@ public class Services.CalDAV.Core : GLib.Object {
             response.status = true;
 
             clients[source.id] = caldav_client;
+            Services.LogService.get_default ().info ("CalDAV.Core", "Login successful");
         } catch (Error e) {
-            print ("login error: %s".printf (e.message));
+            Services.LogService.get_default ().error ("CalDAV.Core", "Login error: %s".printf (e.message));
             response.error_code = e.code;
             response.error = e.message;
         }
@@ -207,6 +215,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
     // TODO: why is this a seperate method, can this be merged with login?
     public async HttpResponse add_caldav_account (Objects.Source source, GLib.Cancellable cancellable) {
+        Services.LogService.get_default ().info ("CalDAV.Core", "Adding CalDAV account");
         HttpResponse response = new HttpResponse ();
         var caldav_client = get_client (source);
 
@@ -249,11 +258,12 @@ public class Services.CalDAV.Core : GLib.Object {
             }
 
             sync_progress (projects.size, projects.size, _("Sync completed"));
+            Services.LogService.get_default ().info ("CalDAV.Core", "Account added successfully, %d projects synced".printf (projects.size));
             response.status = true;
         } catch (Error e) {
             response.error_code = e.code;
             response.error = e.message;
-            debug (e.message);
+            Services.LogService.get_default ().error ("CalDAV.Core", "Add account error: %s".printf (e.message));
         }
 
         return response;
@@ -261,6 +271,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
 
     public async void sync (Objects.Source source) {
+        Services.LogService.get_default ().info ("CalDAV.Core", "Starting sync");
         var caldav_client = get_client (source);
 
         source.sync_started ();
@@ -275,8 +286,9 @@ public class Services.CalDAV.Core : GLib.Object {
 
             source.sync_finished ();
             source.last_sync = new GLib.DateTime.now_local ().to_string ();
+            Services.LogService.get_default ().info ("CalDAV.Core", "Sync completed successfully");
         } catch (Error e) {
-            warning ("Failed to sync: %s", e.message);
+            Services.LogService.get_default ().error ("CalDAV.Core", "Failed to sync source '%s': %s".printf (source.display_name, e.message));
             source.sync_failed ();
         }
     }
