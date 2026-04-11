@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-04-07 12:09+0000\n"
+"PO-Revision-Date: 2026-04-12 10:37+0000\n"
 "Last-Translator: André Barata <andretiagob@protonmail.com>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_PT/>\n"
@@ -569,7 +569,7 @@ msgstr ""
 
 #: core/Services/Todoist.vala:108
 msgid "Invalid API token"
-msgstr ""
+msgstr "API de Token inválido"
 
 #: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
@@ -1893,19 +1893,19 @@ msgstr "Em alternativa, use um Token de uma API"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:155
 msgid "API Token"
-msgstr ""
+msgstr "API de Token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
 msgid "Connect using your personal Todoist API token"
-msgstr ""
+msgstr "Ligar usando o seu API de Token pessoal do Todoist"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:176
 msgid "Paste your API token"
-msgstr ""
+msgstr "Colar o seu API de Token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:181
 msgid "Connect"
-msgstr ""
+msgstr "Ligar"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:188
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
@@ -1913,7 +1913,7 @@ msgstr "1. Vá a Todoist → Definições → Integrações → Programador"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:193
 msgid "2. Copy your API token"
-msgstr ""
+msgstr "2. Copiar o seu API de Token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:198
 msgid "3. Paste it in the field above"
@@ -1921,7 +1921,7 @@ msgstr "3. Insira o código ao colar no campo em cima"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
 msgid "How to get your token"
-msgstr ""
+msgstr "Como obter o seu Token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
 msgid "Waiting for login…"
@@ -2201,13 +2201,15 @@ msgstr "Eventos do calendário"
 
 #: src/Dialogs/Preferences/Pages/General.vala:103
 msgid "GNOME Shell Search"
-msgstr ""
+msgstr "Pesquisa do GNOME Shell"
 
 #: src/Dialogs/Preferences/Pages/General.vala:104
 msgid ""
 "Search tasks and projects directly from GNOME Shell. Enable it in Settings → "
 "Search"
 msgstr ""
+"Pesquise diretamente por tarefas e projetos a partir do GNOME Shell. Ative "
+"em Definições → Pesquisar"
 
 #: src/Dialogs/Preferences/Pages/General.vala:109
 msgid "Date and Time"
@@ -3345,12 +3347,12 @@ msgstr "Mostrar menos"
 
 #: src/Widgets/ErrorView.vala:111
 msgid "Copy error message"
-msgstr ""
+msgstr "Copiar mensagem de erro"
 
 #: src/Widgets/ErrorView.vala:129
 #, c-format
 msgid "For more details, share your log file: %s"
-msgstr ""
+msgstr "Para mais detalhes, partilhe o seu ficheiro de registo: %s"
 
 #: src/Widgets/ErrorView.vala:148
 msgid "Report Issue"
