@@ -87,7 +87,7 @@ msgstr[0] "Mỗi %d năm"
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
-#: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:121
+#: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:124
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
@@ -334,8 +334,8 @@ msgstr "Không thể hoàn tác"
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:430
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:148
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:115
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:191
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:220
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
@@ -393,9 +393,9 @@ msgstr "Xóa Phần %s"
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:38
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:227
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:235
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:252
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:288
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -512,40 +512,40 @@ msgstr "Mẹo"
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Kết hợp phím tắt trong trường tiêu đề để tạo nhanh hơn"
 
-#: core/Services/CalDAV/CalDAVClient.vala:302
+#: core/Services/CalDAV/CalDAVClient.vala:311
 #, c-format
 msgid "Loading tasks for %s…"
 msgstr "Đang tải nhiệm vụ cho %s…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:313
-#: core/Services/CalDAV/CalDAVClient.vala:345
+#: core/Services/CalDAV/CalDAVClient.vala:322
+#: core/Services/CalDAV/CalDAVClient.vala:354
 #, c-format
 msgid "Loaded tasks for %s…"
 msgstr "Đã tải nhiệm vụ cho %s…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:338
+#: core/Services/CalDAV/CalDAVClient.vala:347
 #, c-format
 msgid "Syncing task %d of %d"
 msgstr "Đang đồng bộ hóa nhiệm vụ %d của %d"
 
-#: core/Services/CalDAV/Core.vala:162
+#: core/Services/CalDAV/Core.vala:169
 msgid "Source already exists"
 msgstr "Nguồn đã tồn tại"
 
-#: core/Services/CalDAV/Core.vala:173 core/Services/CalDAV/Core.vala:218
+#: core/Services/CalDAV/Core.vala:180 core/Services/CalDAV/Core.vala:227
 msgid "Failed to resolve principal url"
 msgstr "Không thể phân giải url chính"
 
-#: core/Services/CalDAV/Core.vala:228
+#: core/Services/CalDAV/Core.vala:237
 msgid "Starting sync…"
 msgstr "Bắt đầu đồng bộ…"
 
-#: core/Services/CalDAV/Core.vala:243
+#: core/Services/CalDAV/Core.vala:252
 #, c-format
 msgid "Syncing %s…"
 msgstr "Đang đồng bộ %s…"
 
-#: core/Services/CalDAV/Core.vala:251
+#: core/Services/CalDAV/Core.vala:260
 msgid "Sync completed"
 msgstr "Đồng bộ hoàn tất"
 
@@ -561,36 +561,40 @@ msgstr ""
 "Todoist đã cập nhật API của họ. Vui lòng kết nối lại tài khoản của bạn trong "
 "Tùy chọn để tiếp tục đồng bộ hóa."
 
-#: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:108
+msgid "Invalid API token"
+msgstr ""
+
+#: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "Yêu cầu không đúng."
 
-#: core/Services/Todoist.vala:1610 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1625 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Xác thực là bắt buộc, và đã thất bại, hoặc chưa được cung cấp."
 
-#: core/Services/Todoist.vala:1611 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1626 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Yêu cầu hợp lệ, nhưng cho thứ gì đó bị cấm."
 
-#: core/Services/Todoist.vala:1612 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1627 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "Tài nguyên yêu cầu không tìm thấy."
 
-#: core/Services/Todoist.vala:1613 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1628 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Người dùng đã gửi quá nhiều yêu cầu trong khoảng thời gian nhất định."
 
-#: core/Services/Todoist.vala:1614 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1629 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "Yêu cầu thất bại do lỗi máy chủ."
 
-#: core/Services/Todoist.vala:1615 src/Widgets/ErrorView.vala:145
+#: core/Services/Todoist.vala:1630 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "Máy chủ hiện không thể xử lý yêu cầu."
 
-#: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
+#: core/Services/Todoist.vala:1633 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "Lỗi không xác định"
 
@@ -1470,7 +1474,7 @@ msgstr "Cần làm"
 msgid "Complete"
 msgstr "Hoàn thành"
 
-#: src/App.vala:163
+#: src/App.vala:183
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1748,30 +1752,46 @@ msgstr "Thay Đổi Hộp Thư Đến"
 msgid "Syncing…"
 msgstr "Đang đồng bộ…"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:52
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:48
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
+msgid "Connect to CalDAV"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
+msgid "Connect to any CalDAV-compatible server to sync your tasks"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
 msgid "Server URL"
 msgstr "URL Máy Chủ"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:55
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:80
 msgid "Username"
 msgstr "Tên người dùng"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:58
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:83
 msgid "Password"
 msgstr "Mật khẩu"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:67
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
 msgid "Calendar Home URL"
 msgstr "URL Trang Chủ Lịch"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:79
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:92
-msgid "Advanced Options"
-msgstr "Tùy Chọn Nâng Cao"
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
+msgid "Advanced"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:91
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:103
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
+msgid "Show advanced options"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
+msgid "Hide advanced options"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
 msgid "Log In"
 msgstr "Đăng Nhập"
 
@@ -1789,17 +1809,25 @@ msgstr ""
 "Getting Things Done của David Allen, đây là điểm thu thập ý tưởng nhanh và "
 "các nhiệm vụ bạn sẽ tổ chức sau"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
-msgid "Server URL examples:"
-msgstr "Ví dụ URL Máy Chủ:"
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
+msgid "Connect to Nextcloud"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
-msgid "- https://cloud.example.com/"
-msgstr "- https://cloud.example.com/"
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:57
+msgid "Sign in with your Nextcloud account to sync tasks via CalDAV"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:55
-msgid "- https://example.com/nextcloud/"
-msgstr "- https://example.com/nextcloud/"
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
+msgid "https://cloud.example.com"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:83
+msgid "https://example.com/nextcloud"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:100
+msgid "URL examples"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:178
@@ -1862,35 +1890,43 @@ msgstr ""
 msgid "Use API Token instead"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:151
-msgid "Token"
-msgstr "Token"
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:155
+msgid "API Token"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:157
-msgid "How to get your token?"
-msgstr "Làm thế nào để lấy token của bạn?"
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
+msgid "Connect using your personal Todoist API token"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:158
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:176
+msgid "Paste your API token"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:181
+msgid "Connect"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:188
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
 msgstr "1. Đi đến Todoist → Cài đặt → Tích hợp → Nhà phát triển"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:159
-msgid "2. Find 'API token' and copy your token"
-msgstr "2. Tìm 'API token' và sao chép token của bạn"
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:193
+msgid "2. Copy your API token"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:198
 msgid "3. Paste it in the field above"
 msgstr "3. Dán nó vào trường trên"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:179
-msgid "Connect with Token"
-msgstr "Kết nối bằng Token"
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
+msgid "How to get your token"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:219
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
 msgid "Waiting for login…"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:256
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:292
 msgid "Synchronizing…"
 msgstr "Đang đồng bộ…"
 
@@ -2159,58 +2195,68 @@ msgid "Calendar Events"
 msgstr "Sự Kiện Lịch"
 
 #: src/Dialogs/Preferences/Pages/General.vala:103
+msgid "GNOME Shell Search"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:104
+msgid ""
+"Search tasks and projects directly from GNOME Shell. Enable it in Settings → "
+"Search"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:109
 msgid "Date and Time"
 msgstr "Ngày và Giờ"
 
-#: src/Dialogs/Preferences/Pages/General.vala:106
+#: src/Dialogs/Preferences/Pages/General.vala:112
 msgid "24h"
 msgstr "24h"
 
-#: src/Dialogs/Preferences/Pages/General.vala:107
+#: src/Dialogs/Preferences/Pages/General.vala:113
 msgid "12h"
 msgstr "12h"
 
-#: src/Dialogs/Preferences/Pages/General.vala:110
+#: src/Dialogs/Preferences/Pages/General.vala:116
 msgid "Clock Format"
 msgstr "Định Dạng Đồng Hồ"
 
-#: src/Dialogs/Preferences/Pages/General.vala:117
+#: src/Dialogs/Preferences/Pages/General.vala:123
 msgid "Sunday"
 msgstr "Chủ Nhật"
 
-#: src/Dialogs/Preferences/Pages/General.vala:118
+#: src/Dialogs/Preferences/Pages/General.vala:124
 msgid "Monday"
 msgstr "Thứ Hai"
 
-#: src/Dialogs/Preferences/Pages/General.vala:119
+#: src/Dialogs/Preferences/Pages/General.vala:125
 msgid "Tuesday"
 msgstr "Thứ Ba"
 
-#: src/Dialogs/Preferences/Pages/General.vala:120
+#: src/Dialogs/Preferences/Pages/General.vala:126
 msgid "Wednesday"
 msgstr "Thứ Tư"
 
-#: src/Dialogs/Preferences/Pages/General.vala:121
+#: src/Dialogs/Preferences/Pages/General.vala:127
 msgid "Thursday"
 msgstr "Thứ Năm"
 
-#: src/Dialogs/Preferences/Pages/General.vala:122
+#: src/Dialogs/Preferences/Pages/General.vala:128
 msgid "Friday"
 msgstr "Thứ Sáu"
 
-#: src/Dialogs/Preferences/Pages/General.vala:123
+#: src/Dialogs/Preferences/Pages/General.vala:129
 msgid "Saturday"
 msgstr "Thứ Bảy"
 
-#: src/Dialogs/Preferences/Pages/General.vala:126
+#: src/Dialogs/Preferences/Pages/General.vala:132
 msgid "Start of the Week"
 msgstr "Khởi Đầu Tuần"
 
-#: src/Dialogs/Preferences/Pages/General.vala:138
+#: src/Dialogs/Preferences/Pages/General.vala:144
 msgid "Smart Date Recognition"
 msgstr "Nhận Dạng Ngày Thông Minh"
 
-#: src/Dialogs/Preferences/Pages/General.vala:139
+#: src/Dialogs/Preferences/Pages/General.vala:145
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
 msgstr "Tự động phát hiện ngày như \"ngày mai\" hoặc \"tuần tới\""
 
@@ -3273,11 +3319,20 @@ msgstr "Hiển thị thêm"
 msgid "Show less"
 msgstr "Hiển thị ít hơn"
 
-#: src/Widgets/ErrorView.vala:107
+#: src/Widgets/ErrorView.vala:111
+msgid "Copy error message"
+msgstr ""
+
+#: src/Widgets/ErrorView.vala:129
+#, c-format
+msgid "For more details, share your log file: %s"
+msgstr ""
+
+#: src/Widgets/ErrorView.vala:148
 msgid "Report Issue"
 msgstr "Báo Cáo Sự Cố"
 
-#: src/Widgets/ErrorView.vala:142
+#: src/Widgets/ErrorView.vala:191
 msgid "Account migration required."
 msgstr "Yêu cầu di chuyển tài khoản."
 
@@ -3567,6 +3622,30 @@ msgstr "Mở Nhãn"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Mở Bảng Ghim"
+
+#~ msgid "Advanced Options"
+#~ msgstr "Tùy Chọn Nâng Cao"
+
+#~ msgid "Server URL examples:"
+#~ msgstr "Ví dụ URL Máy Chủ:"
+
+#~ msgid "- https://cloud.example.com/"
+#~ msgstr "- https://cloud.example.com/"
+
+#~ msgid "- https://example.com/nextcloud/"
+#~ msgstr "- https://example.com/nextcloud/"
+
+#~ msgid "Token"
+#~ msgstr "Token"
+
+#~ msgid "How to get your token?"
+#~ msgstr "Làm thế nào để lấy token của bạn?"
+
+#~ msgid "2. Find 'API token' and copy your token"
+#~ msgstr "2. Tìm 'API token' và sao chép token của bạn"
+
+#~ msgid "Connect with Token"
+#~ msgstr "Kết nối bằng Token"
 
 #~ msgid ""
 #~ "Planify is being developed with love and passion for open source. "

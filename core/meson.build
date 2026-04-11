@@ -10,6 +10,7 @@ core_files = files(
     'Services/Settings.vala',
     'Services/EventBus.vala',
     'Services/Database.vala',
+    'Services/LogService.vala',
     'Services/Store.vala',
     'Services/Todoist.vala',
     'Services/ColorSchemeSettings.vala',

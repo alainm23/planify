@@ -35,6 +35,7 @@ public class Planify : Adw.Application {
     private static bool run_in_background = false;
     private static bool n_version = false;
     private static bool clear_database = false;
+    private static bool show_log_path = false;
     private static string lang = "";
 
     
@@ -45,6 +46,7 @@ public class Planify : Adw.Application {
     private const OptionEntry[] OPTIONS = {
         { "version", 'v', 0, OptionArg.NONE, ref n_version, "Display version number", null },
         { "reset", 'r', 0, OptionArg.NONE, ref clear_database, "Reset Planify", null },
+        { "log-path", 0, 0, OptionArg.NONE, ref show_log_path, "Print the log file path", null },
         { "background", 'b', 0, OptionArg.NONE, out run_in_background, "Run the Application in background", null },
         { "lang", 'l', 0, OptionArg.STRING, ref lang, "Open Planify in a specific language", "LANG" },
         { null }
@@ -113,6 +115,11 @@ public class Planify : Adw.Application {
 
         if (n_version) {
             debug ("%s\n".printf (Build.VERSION));
+            return;
+        }
+
+        if (show_log_path) {
+            stdout.printf ("%s\n", Services.LogService.get_default ().get_log_path ());
             return;
         }
 
