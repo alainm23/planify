@@ -93,7 +93,7 @@ msgstr[1] "Кожні %d років"
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
-#: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:121
+#: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:124
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
@@ -404,9 +404,9 @@ msgstr "Видали розділ %s"
 #: core/Objects/Source.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:38
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:227
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:235
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:252
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:288
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -523,40 +523,40 @@ msgstr "Підказка"
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Поєднуйте комбінації клавіш у полі заголовка для швидшого створення"
 
-#: core/Services/CalDAV/CalDAVClient.vala:302
+#: core/Services/CalDAV/CalDAVClient.vala:311
 #, c-format
 msgid "Loading tasks for %s…"
 msgstr "Завантаження завдань для %s…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:313
-#: core/Services/CalDAV/CalDAVClient.vala:345
+#: core/Services/CalDAV/CalDAVClient.vala:322
+#: core/Services/CalDAV/CalDAVClient.vala:354
 #, c-format
 msgid "Loaded tasks for %s…"
 msgstr "Завантажено завдання для %s…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:338
+#: core/Services/CalDAV/CalDAVClient.vala:347
 #, c-format
 msgid "Syncing task %d of %d"
 msgstr "Синхронізація завдання %d з %d"
 
-#: core/Services/CalDAV/Core.vala:162
+#: core/Services/CalDAV/Core.vala:169
 msgid "Source already exists"
 msgstr "Джерело вже існує"
 
-#: core/Services/CalDAV/Core.vala:173 core/Services/CalDAV/Core.vala:218
+#: core/Services/CalDAV/Core.vala:180 core/Services/CalDAV/Core.vala:227
 msgid "Failed to resolve principal url"
 msgstr "Не вдалося розпізнати головну URL-адресу"
 
-#: core/Services/CalDAV/Core.vala:228
+#: core/Services/CalDAV/Core.vala:237
 msgid "Starting sync…"
 msgstr "Розпочато синхронізацію…"
 
-#: core/Services/CalDAV/Core.vala:243
+#: core/Services/CalDAV/Core.vala:252
 #, c-format
 msgid "Syncing %s…"
 msgstr "Синхронізація %s…"
 
-#: core/Services/CalDAV/Core.vala:251
+#: core/Services/CalDAV/Core.vala:260
 msgid "Sync completed"
 msgstr "Синхронізацію завершено"
 
@@ -572,37 +572,41 @@ msgstr ""
 "Todoist оновив свій API. Будь ласка, повторно підключіть свій обліковий "
 "запис у налаштуваннях, щоб продовжити синхронізацію."
 
-#: core/Services/Todoist.vala:1609 src/Widgets/ErrorView.vala:138
+#: core/Services/Todoist.vala:108
+msgid "Invalid API token"
+msgstr ""
+
+#: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:138
 msgid "The request was incorrect."
 msgstr "Запит був неправильним."
 
-#: core/Services/Todoist.vala:1610 src/Widgets/ErrorView.vala:139
+#: core/Services/Todoist.vala:1625 src/Widgets/ErrorView.vala:139
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 "Потрібна автентифікація, але вона не була успішна або ще не була надана."
 
-#: core/Services/Todoist.vala:1611 src/Widgets/ErrorView.vala:140
+#: core/Services/Todoist.vala:1626 src/Widgets/ErrorView.vala:140
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Запит був дійсним, але щодо чогось забороненого."
 
-#: core/Services/Todoist.vala:1612 src/Widgets/ErrorView.vala:141
+#: core/Services/Todoist.vala:1627 src/Widgets/ErrorView.vala:141
 msgid "The requested resource could not be found."
 msgstr "Запитаний ресурс не знайдено."
 
-#: core/Services/Todoist.vala:1613 src/Widgets/ErrorView.vala:143
+#: core/Services/Todoist.vala:1628 src/Widgets/ErrorView.vala:143
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Користувач надіслав забагато запитів за заданий проміжок часу."
 
-#: core/Services/Todoist.vala:1614 src/Widgets/ErrorView.vala:144
+#: core/Services/Todoist.vala:1629 src/Widgets/ErrorView.vala:144
 msgid "The request failed due to a server error."
 msgstr "Запит не вдалося виконати через помилку сервера."
 
-#: core/Services/Todoist.vala:1615 src/Widgets/ErrorView.vala:145
+#: core/Services/Todoist.vala:1630 src/Widgets/ErrorView.vala:145
 msgid "The server is currently unable to handle the request."
 msgstr "Сервер наразі не може обробити запит."
 
-#: core/Services/Todoist.vala:1618 src/Widgets/ErrorView.vala:147
+#: core/Services/Todoist.vala:1633 src/Widgets/ErrorView.vala:147
 msgid "Unknown error"
 msgstr "Невідома помилка"
 
@@ -1497,7 +1501,7 @@ msgstr "Завдання"
 msgid "Complete"
 msgstr "Завершити"
 
-#: src/App.vala:163
+#: src/App.vala:183
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1890,35 +1894,43 @@ msgstr "Увійти за допомогою браузера"
 msgid "Use API Token instead"
 msgstr "Використати токен API замість цього"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:151
-msgid "Token"
-msgstr "Токен"
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:155
+msgid "API Token"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:157
-msgid "How to get your token?"
-msgstr "Як отримати свій токен?"
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
+msgid "Connect using your personal Todoist API token"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:158
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:176
+msgid "Paste your API token"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:181
+msgid "Connect"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:188
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
 msgstr "1. Перейдіть до Todoist → Налаштування → Інтеграції → Розробник"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:159
-msgid "2. Find 'API token' and copy your token"
-msgstr "2. Знайдіть «API token» та скопіюйте свій токен"
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:193
+msgid "2. Copy your API token"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:198
 msgid "3. Paste it in the field above"
 msgstr "3. Вставте його в поле вище"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:179
-msgid "Connect with Token"
-msgstr "Підключити з токеном"
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
+msgid "How to get your token"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:219
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
 msgid "Waiting for login…"
 msgstr "Очікування входу…"
 
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:256
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:292
 msgid "Synchronizing…"
 msgstr "Синхронізація…"
 
@@ -2186,58 +2198,68 @@ msgid "Calendar Events"
 msgstr "Події календаря"
 
 #: src/Dialogs/Preferences/Pages/General.vala:103
+msgid "GNOME Shell Search"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:104
+msgid ""
+"Search tasks and projects directly from GNOME Shell. Enable it in Settings → "
+"Search"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/General.vala:109
 msgid "Date and Time"
 msgstr "Дата та час"
 
-#: src/Dialogs/Preferences/Pages/General.vala:106
+#: src/Dialogs/Preferences/Pages/General.vala:112
 msgid "24h"
 msgstr "24-годинний"
 
-#: src/Dialogs/Preferences/Pages/General.vala:107
+#: src/Dialogs/Preferences/Pages/General.vala:113
 msgid "12h"
 msgstr "12-годинний"
 
-#: src/Dialogs/Preferences/Pages/General.vala:110
+#: src/Dialogs/Preferences/Pages/General.vala:116
 msgid "Clock Format"
 msgstr "Формат годинника"
 
-#: src/Dialogs/Preferences/Pages/General.vala:117
+#: src/Dialogs/Preferences/Pages/General.vala:123
 msgid "Sunday"
 msgstr "Неділя"
 
-#: src/Dialogs/Preferences/Pages/General.vala:118
+#: src/Dialogs/Preferences/Pages/General.vala:124
 msgid "Monday"
 msgstr "Понеділок"
 
-#: src/Dialogs/Preferences/Pages/General.vala:119
+#: src/Dialogs/Preferences/Pages/General.vala:125
 msgid "Tuesday"
 msgstr "Вівторок"
 
-#: src/Dialogs/Preferences/Pages/General.vala:120
+#: src/Dialogs/Preferences/Pages/General.vala:126
 msgid "Wednesday"
 msgstr "Середа"
 
-#: src/Dialogs/Preferences/Pages/General.vala:121
+#: src/Dialogs/Preferences/Pages/General.vala:127
 msgid "Thursday"
 msgstr "Четвер"
 
-#: src/Dialogs/Preferences/Pages/General.vala:122
+#: src/Dialogs/Preferences/Pages/General.vala:128
 msgid "Friday"
 msgstr "П'ятниця"
 
-#: src/Dialogs/Preferences/Pages/General.vala:123
+#: src/Dialogs/Preferences/Pages/General.vala:129
 msgid "Saturday"
 msgstr "Субота"
 
-#: src/Dialogs/Preferences/Pages/General.vala:126
+#: src/Dialogs/Preferences/Pages/General.vala:132
 msgid "Start of the Week"
 msgstr "Початок тижня"
 
-#: src/Dialogs/Preferences/Pages/General.vala:138
+#: src/Dialogs/Preferences/Pages/General.vala:144
 msgid "Smart Date Recognition"
 msgstr "Розумне розпізнавання дати"
 
-#: src/Dialogs/Preferences/Pages/General.vala:139
+#: src/Dialogs/Preferences/Pages/General.vala:145
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
 msgstr "Автоматично визначати дати, такі як «завтра» або «наступного тижня»"
 
@@ -3614,6 +3636,18 @@ msgstr "Відкрити «Мітки»"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Відкрити «Закріплені»"
+
+#~ msgid "Token"
+#~ msgstr "Токен"
+
+#~ msgid "How to get your token?"
+#~ msgstr "Як отримати свій токен?"
+
+#~ msgid "2. Find 'API token' and copy your token"
+#~ msgstr "2. Знайдіть «API token» та скопіюйте свій токен"
+
+#~ msgid "Connect with Token"
+#~ msgstr "Підключити з токеном"
 
 #~ msgid ""
 #~ "Planify is being developed with love and passion for open source. "

@@ -147,50 +147,86 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
     }
 
     private Gtk.Widget build_token_page () {
+        var icon = new Gtk.Image.from_icon_name ("key4-symbolic") {
+            pixel_size = 48,
+            css_classes = { "dimmed" }
+        };
+
+        var title_label = new Gtk.Label (_("API Token")) {
+            css_classes = { "font-bold", "title-3" },
+            margin_top = 12
+        };
+
+        var description_label = new Gtk.Label (_("Connect using your personal Todoist API token")) {
+            css_classes = { "dimmed", "caption" },
+            wrap = true,
+            justify = CENTER,
+            max_width_chars = 40
+        };
+
+        var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            halign = CENTER,
+            margin_bottom = 18
+        };
+        header_box.append (icon);
+        header_box.append (title_label);
+        header_box.append (description_label);
+
         token_entry = new Adw.EntryRow ();
-        token_entry.title = _("Token");
+        token_entry.title = _("Paste your API token");
 
         var entries_group = new Adw.PreferencesGroup ();
         entries_group.add (token_entry);
 
-        var message_label = new Gtk.Label ("%s\n\n%s\n%s\n%s".printf (
-                                            _("How to get your token?"),
-                                            _("1. Go to Todoist → Settings → Integrations → Developer"),
-                                            _("2. Find 'API token' and copy your token"),
-                                            _("3. Paste it in the field above"))) {
-            wrap = true,
-            css_classes = { "dimmed", "caption" }
-        };
-
-        var message_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_top = 12,
-            margin_bottom = 12,
-            margin_start = 12,
-            margin_end = 12,
-        };
-        message_box.append (message_label);
-
-        var message_card = new Adw.Bin () {
-            child = message_box,
-            css_classes = { "card" },
-            margin_top = 12
-        };
-
-        login_button = new Widgets.LoadingButton.with_label (_("Connect with Token")) {
-            margin_top = 12,
+        login_button = new Widgets.LoadingButton.with_label (_("Connect")) {
+            margin_top = 16,
             sensitive = false,
-            css_classes = { "suggested-action" }
+            css_classes = { "suggested-action", "pill" },
+            halign = CENTER
         };
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
-            vexpand = true,
-            hexpand = true,
+        var step1_label = new Gtk.Label (_("1. Go to Todoist → Settings → Integrations → Developer")) {
+            wrap = true,
+            xalign = 0
+        };
+
+        var step2_label = new Gtk.Label (_("2. Copy your API token")) {
+            wrap = true,
+            xalign = 0
+        };
+
+        var step3_label = new Gtk.Label (_("3. Paste it in the field above")) {
+            wrap = true,
+            xalign = 0
+        };
+
+        var steps_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 8) {
+            margin_top = 8,
+            margin_bottom = 8,
             margin_start = 12,
             margin_end = 12
         };
+        steps_box.append (step1_label);
+        steps_box.append (step2_label);
+        steps_box.append (step3_label);
+
+        var instructions_group = new Adw.PreferencesGroup () {
+            margin_top = 18
+        };
+        instructions_group.title = _("How to get your token");
+        instructions_group.add (steps_box);
+
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            vexpand = true,
+            hexpand = true,
+            margin_start = 12,
+            margin_end = 12,
+            margin_top = 24
+        };
+        content_box.append (header_box);
         content_box.append (entries_group);
         content_box.append (login_button);
-        content_box.append (message_card);
+        content_box.append (instructions_group);
 
         signal_map[token_entry.changed.connect (() => {
             login_button.sensitive = token_entry.text != null && token_entry.text != "";
