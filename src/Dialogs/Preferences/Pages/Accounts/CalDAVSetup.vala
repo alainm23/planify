@@ -48,6 +48,31 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
     }
 
     construct {
+        var icon = new Gtk.Image.from_icon_name ("network-server-symbolic") {
+            pixel_size = 48,
+            css_classes = { "dimmed" }
+        };
+
+        var title_label = new Gtk.Label (_("Connect to CalDAV")) {
+            css_classes = { "font-bold", "title-3" },
+            margin_top = 12
+        };
+
+        var description_label = new Gtk.Label (_("Connect to any CalDAV-compatible server to sync your tasks")) {
+            css_classes = { "dimmed", "caption" },
+            wrap = true,
+            justify = CENTER,
+            max_width_chars = 40
+        };
+
+        var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            halign = CENTER,
+            margin_bottom = 18
+        };
+        header_box.append (icon);
+        header_box.append (title_label);
+        header_box.append (description_label);
+
         server_entry = new Adw.EntryRow ();
         server_entry.title = _("Server URL");
 
@@ -59,67 +84,93 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         password_entry.input_purpose = Gtk.InputPurpose.PASSWORD;
         password_entry.enable_emoji_completion = false;
 
+        var entries_group = new Adw.PreferencesGroup ();
+        entries_group.add (server_entry);
+        entries_group.add (username_entry);
+        entries_group.add (password_entry);
+
         // Advanced options
-
-        var advanced_entries_group = new Adw.PreferencesGroup ();
-
         calendar_home_entry = new Adw.EntryRow ();
         calendar_home_entry.title = _("Calendar Home URL");
 
         ignore_ssl_row = new Widgets.IgnoreSSLSwitchRow ();
         bypass_resolve_row = new Widgets.BypassResolveSwitchRow ();
 
-        var advanced_options_revealer = new Gtk.Revealer () {
+        var advanced_group = new Adw.PreferencesGroup ();
+        advanced_group.title = _("Advanced");
+        advanced_group.add (calendar_home_entry);
+        advanced_group.add (ignore_ssl_row);
+        advanced_group.add (bypass_resolve_row);
+
+        var advanced_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             reveal_child = false,
-            child = advanced_entries_group
+            child = advanced_group
         };
 
+        var advanced_icon = new Gtk.Image.from_icon_name ("go-down-symbolic") {
+            pixel_size = 12
+        };
 
-        var advanced_button = new Gtk.Button.with_label (_("Advanced Options")) {
-            css_classes = { "flat" }
+        var advanced_label = new Gtk.Label (_("Show advanced options"));
+
+        var advanced_button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 4) {
+            halign = CENTER
+        };
+        advanced_button_box.append (advanced_label);
+        advanced_button_box.append (advanced_icon);
+
+        var advanced_button = new Gtk.Button () {
+            child = advanced_button_box,
+            css_classes = { "flat", "caption", "dimmed" },
+            halign = CENTER,
+            margin_top = 12
         };
 
         signal_map[advanced_button.clicked.connect (() => {
-            advanced_options_revealer.reveal_child = !advanced_options_revealer.reveal_child;
+            var revealed = !advanced_revealer.reveal_child;
+            advanced_revealer.reveal_child = revealed;
+            advanced_label.label = revealed ? _("Hide advanced options") : _("Show advanced options");
+            advanced_icon.icon_name = revealed ? "go-up-symbolic" : "go-down-symbolic";
         })] = advanced_button;
 
-        advanced_entries_group.add (calendar_home_entry);
-        advanced_entries_group.add (ignore_ssl_row);
-        advanced_entries_group.add (bypass_resolve_row);
-
         login_button = new Widgets.LoadingButton.with_label (_("Log In")) {
-            margin_top = 12,
+            margin_top = 24,
             sensitive = false,
-            css_classes = { "suggested-action" }
+            css_classes = { "suggested-action", "pill" },
+            halign = CENTER
         };
 
         cancel_button = new Gtk.Button.with_label (_("Cancel")) {
-            css_classes = { "flat" },
+            css_classes = { "flat", "pill" },
+            halign = CENTER,
             visible = false
         };
 
-        var entries_group = new Adw.PreferencesGroup ();
-        entries_group.add (server_entry);
-        entries_group.add (username_entry);
-        entries_group.add (password_entry);
-
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             vexpand = true,
             hexpand = true,
             margin_start = 12,
             margin_end = 12,
-            margin_top = 12
+            margin_top = 24,
+            margin_bottom = 24
         };
+        content_box.append (header_box);
         content_box.append (entries_group);
         content_box.append (advanced_button);
-        content_box.append (advanced_options_revealer);
-
+        content_box.append (advanced_revealer);
         content_box.append (login_button);
         content_box.append (cancel_button);
 
         var loading_page = new Dialogs.Preferences.Pages.Accounts.LoadingPage () {
             show_progress = true
+        };
+
+        var scrolled_window = new Gtk.ScrolledWindow () {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            hexpand = true,
+            vexpand = true,
+            child = content_box
         };
 
         main_stack = new Gtk.Stack () {
@@ -128,7 +179,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
-        main_stack.add_named (content_box, "main-page");
+        main_stack.add_named (scrolled_window, "main-page");
         main_stack.add_named (loading_page, "loading-page");
 
         var toolbar_view = new Adw.ToolbarView ();
@@ -171,11 +222,13 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
     }
 
     private void on_login_button_clicked () {
+        Services.LogService.get_default ().info ("CalDAVSetup", "Login button clicked");
         GLib.Cancellable cancellable = new GLib.Cancellable ();
         login_button.is_loading = true;
         cancel_button.visible = true;
 
         signal_map[cancel_button.clicked.connect (() => {
+            Services.LogService.get_default ().info ("CalDAVSetup", "Login cancelled by user");
             cancellable.cancel ();
             // Clean up any ongoing operations
             Services.CalDAV.Core.get_default ().clear ();
@@ -193,11 +246,14 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         }
 
         if (server_entry.text == null || server_entry.text == "") {
+            Services.LogService.get_default ().warn ("CalDAVSetup", "Empty server URL");
             login_button.is_loading = false;
             cancel_button.visible = false;
             accounts_page.show_message_error (0, "Invalid Server URL");
             return;
         }
+
+        Services.LogService.get_default ().info ("CalDAVSetup", "Starting login flow");
 
         /*
          * The `resolve_well_known_caldav ()` function can fail on misconfigured CalDAV servers where
@@ -207,8 +263,10 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         var dav_endpoint = "";
         var bypass_resolve = bypass_resolve_row.active;
         if (bypass_resolve) {
+            Services.LogService.get_default ().info ("CalDAVSetup", "Bypassing well-known resolve");
             dav_endpoint = server_entry.text;
         } else {
+            Services.LogService.get_default ().info ("CalDAVSetup", "Resolving well-known CalDAV endpoint");
             try {
                 dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (new Soup.Session (), server_entry.text, ignore_ssl_row.active);
             } catch (Error e) {
@@ -232,8 +290,10 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
 
         var calendar_home = "";
         if (calendar_home_entry.text != null && calendar_home_entry.text != "") {
+            Services.LogService.get_default ().info ("CalDAVSetup", "Using custom calendar home URL");
             calendar_home = calendar_home_entry.text;
         } else {
+            Services.LogService.get_default ().info ("CalDAVSetup", "Resolving calendar home");
             try {
                 calendar_home = yield Services.CalDAV.Core.get_default ().resolve_calendar_home (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, cancellable, ignore_ssl_row.active);
             } catch (Error e) {
@@ -256,6 +316,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         }
 
         if (calendar_home == null) {
+            Services.LogService.get_default ().error ("CalDAVSetup", "Calendar home resolved to null");
             login_button.is_loading = false;
             cancel_button.visible = false;
             accounts_page.show_message_error (0, "Failed to resolve calendar home");
@@ -264,17 +325,21 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
             calendar_home_entry.text = calendar_home;
         }
 
+        Services.LogService.get_default ().info ("CalDAVSetup", "Attempting login");
         HttpResponse response = yield Services.CalDAV.Core.get_default ().login (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, calendar_home, cancellable, ignore_ssl_row.active);
 
         if (response.status) {
+            Services.LogService.get_default ().info ("CalDAVSetup", "Login successful, syncing account");
             Objects.Source source = (Objects.Source) response.data_object.get_object ();
             main_stack.visible_child_name = "loading-page";
 
             response = yield Services.CalDAV.Core.get_default ().add_caldav_account (source, cancellable);
 
             if (response.status) {
+                Services.LogService.get_default ().info ("CalDAVSetup", "Account synced successfully");
                 preferences_dialog.pop_subpage ();
             } else {
+                Services.LogService.get_default ().error ("CalDAVSetup", "Account sync failed: %s".printf (response.error));
                 main_stack.visible_child_name = "main-page";
                 login_button.is_loading = false;
                 cancel_button.visible = false;
