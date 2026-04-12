@@ -272,7 +272,7 @@ msgstr "upcoming"
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:631
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:369
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:384
 #: src/Dialogs/DatePicker.vala:62
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:285
 #: src/Layouts/ItemBoard.vala:773 src/Layouts/ItemRow.vala:1234
@@ -287,7 +287,7 @@ msgstr "today"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Utils/Datetime.vala:633
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:375
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:390
 #: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:776
 #: src/Layouts/ItemRow.vala:1237
 msgid "Tomorrow"
@@ -339,7 +339,7 @@ msgstr "This can not be undone"
 #: core/Objects/Project.vala:916 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:430
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:453
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:148
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:115
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:191
@@ -396,7 +396,7 @@ msgstr "Archive"
 msgid "Delete Section %s"
 msgstr "Delete Section %s"
 
-#: core/Objects/Source.vala:59
+#: core/Objects/Source.vala:60
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
@@ -555,11 +555,31 @@ msgstr "Syncing %s…"
 msgid "Sync completed"
 msgstr "Sync completed"
 
+#: core/Services/CalDAV/Core.vala:298
+msgid "Authentication Expired"
+msgstr ""
+
+#: core/Services/CalDAV/Core.vala:299
+msgid ""
+"Your session has expired. Please remove and re-add your account in "
+"Preferences."
+msgstr ""
+
+#: core/Services/CalDAV/Core.vala:306
+msgid "Too Many Requests"
+msgstr ""
+
+#: core/Services/CalDAV/Core.vala:307
+msgid ""
+"The server is rate limiting requests. Please wait a few minutes and try "
+"again."
+msgstr ""
+
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
 msgstr "On this computer"
 
-#: core/Services/Todoist.vala:33 src/Layouts/SidebarSourceRow.vala:79
+#: core/Services/Todoist.vala:33 src/Layouts/SidebarSourceRow.vala:81
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
@@ -1144,14 +1164,14 @@ msgid "Sa"
 msgstr "Sa"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:80
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:184
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:505
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:190
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:520
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:140
 msgid "Time"
 msgstr "Time"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:828
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:843
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:430
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
 #: src/Layouts/ItemBoard.vala:689 src/Layouts/ItemRow.vala:1177
@@ -1159,7 +1179,7 @@ msgid "until"
 msgstr "until"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:831
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:846
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:692 src/Layouts/ItemRow.vala:1180
@@ -1167,7 +1187,7 @@ msgid "for"
 msgstr "for"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:831
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:846
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:692 src/Layouts/ItemRow.vala:1180
@@ -1175,7 +1195,7 @@ msgid "times"
 msgstr "times"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:831
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:846
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:434
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:692 src/Layouts/ItemRow.vala:1180
@@ -1183,7 +1203,7 @@ msgid "time"
 msgstr "time"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:105
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:186
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:192
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:89
 msgid "Repeat"
 msgstr "Repeat"
@@ -1192,46 +1212,46 @@ msgstr "Repeat"
 msgid "Type a date…"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:381
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:396
 msgid "Next week"
 msgstr "Next week"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:523
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:538
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
 msgid "Save"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:559
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:574
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
 msgid "Daily"
 msgstr "Daily"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:563
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:578
 msgid "Weekdays"
 msgstr "Weekdays"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:567
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:582
 msgid "Weekends"
 msgstr "Weekends"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:571
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:586
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 msgid "Weekly"
 msgstr "Weekly"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:575
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:590
 msgid "Monthly"
 msgstr "Monthly"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:579
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:594
 msgid "Yearly"
 msgstr "Yearly"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:583
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:598
 msgid "Custom"
 msgstr "Custom"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:855
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "No date"
 msgstr ""
 
@@ -1725,7 +1745,7 @@ msgid "You can sort your accounts by dragging and dropping"
 msgstr "You can sort your accounts by dragging and dropping"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:226
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:570
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:593
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr ""
 
@@ -1733,31 +1753,35 @@ msgstr ""
 msgid "SSL verification is disabled"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:315
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
+msgid "Authentication expired"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Account migration required"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:319
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:331
 msgid "Reconnect"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:426
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:449
 msgid "Cannot Hide This Account"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:427
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:450
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:431
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:454
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:221
 #, fuzzy
 msgid "Change Inbox"
 msgstr "Open Inbox"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:540
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:563
 msgid "Syncing…"
 msgstr "Syncing…"
 
@@ -2865,7 +2889,7 @@ msgstr "Are you sure you want to delete?"
 msgid "Delete Label"
 msgstr "Delete Label"
 
-#: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:238
+#: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:240
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "Projects sort changed to 'Custom sort order'"
 
@@ -2970,7 +2994,7 @@ msgstr "Go to Pinboard"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "No project available. Create one by clicking on the '+' button"
 
-#: src/Layouts/SidebarSourceRow.vala:78
+#: src/Layouts/SidebarSourceRow.vala:80
 msgid "Account Migration Required"
 msgstr ""
 
