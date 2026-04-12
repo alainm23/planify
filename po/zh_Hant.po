@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-04-12 10:37+0000\n"
+"PO-Revision-Date: 2026-04-13 14:09+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -1726,11 +1726,11 @@ msgstr "同步中…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
 msgid "Connect to CalDAV"
-msgstr ""
+msgstr "連接至 CalDAV"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
 msgid "Connect to any CalDAV-compatible server to sync your tasks"
-msgstr ""
+msgstr "連接至任何 CalDAV-compatible 伺服器以同步您的任務"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
@@ -1751,16 +1751,16 @@ msgstr "行事曆主頁 URL"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
 msgid "Advanced"
-msgstr ""
+msgstr "進階"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Show advanced options"
-msgstr ""
+msgstr "顯示進階選項"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Hide advanced options"
-msgstr ""
+msgstr "隱藏進階選項"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
@@ -1783,23 +1783,23 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
 msgid "Connect to Nextcloud"
-msgstr ""
+msgstr "連接至 Nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:57
 msgid "Sign in with your Nextcloud account to sync tasks via CalDAV"
-msgstr ""
+msgstr "登入您的 Nextcloud 帳戶以透過 CalDAV 進行同步任務"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
 msgid "https://cloud.example.com"
-msgstr ""
+msgstr "https://cloud.example.com"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:83
 msgid "https://example.com/nextcloud"
-msgstr ""
+msgstr "https://example.com/nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:100
 msgid "URL examples"
-msgstr ""
+msgstr "URL 範例"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:178
