@@ -285,11 +285,32 @@ public class Services.CalDAV.Core : GLib.Object {
             }
 
             source.sync_finished ();
+            source.sync_status = null;
             source.last_sync = new GLib.DateTime.now_local ().to_string ();
             Services.LogService.get_default ().info ("CalDAV.Core", "Sync completed successfully");
         } catch (Error e) {
             Services.LogService.get_default ().error ("CalDAV.Core", "Failed to sync source '%s': %s".printf (source.display_name, e.message));
-            source.sync_failed ();
+
+            if ("HTTP 401" in e.message || "Authentication failed" in e.message) {
+                Services.LogService.get_default ().warn ("CalDAV.Core", "Authentication expired, re-login required");
+                source.sync_status = new SyncStatus (
+                    SyncErrorType.AUTH_EXPIRED,
+                    _("Authentication Expired"),
+                    _("Your session has expired. Please remove and re-add your account in Preferences.")
+                );
+                source.sync_failed (source.sync_status);
+            } else if ("HTTP 429" in e.message || "Too Many Requests" in e.message) {
+                Services.LogService.get_default ().warn ("CalDAV.Core", "Rate limited by server, try again later");
+                source.sync_status = new SyncStatus (
+                    SyncErrorType.SERVER_ERROR,
+                    _("Too Many Requests"),
+                    _("The server is rate limiting requests. Please wait a few minutes and try again.")
+                );
+                source.sync_failed (source.sync_status);
+            } else {
+                source.sync_status = null;
+                source.sync_failed ();
+            }
         }
     }
 }

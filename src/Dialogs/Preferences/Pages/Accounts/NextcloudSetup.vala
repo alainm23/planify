@@ -115,7 +115,8 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
         cancel_button = new Gtk.Button.with_label (_("Cancel")) {
             css_classes = { "flat", "pill" },
             halign = CENTER,
-            visible = false
+            visible = false,
+            margin_top = 12
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -153,20 +154,22 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
 
         signal_map[server_entry.changed.connect (() => {
             if (server_entry.text != null && server_entry.text != "") {
-                var is_valid_url = is_valid_url (server_entry.text);
-                if (!is_valid_url) {
+                var is_valid = is_valid_url (server_entry.text);
+                if (!is_valid) {
                     server_entry.add_css_class ("error");
                 } else {
                     server_entry.remove_css_class ("error");
                 }
+                login_button.sensitive = is_valid;
             } else {
                 server_entry.remove_css_class ("error");
-            }
-
-            if (server_entry.has_css_class ("error")) {
                 login_button.sensitive = false;
-            } else {
-                login_button.sensitive = true;
+            }
+        })] = server_entry;
+
+        signal_map[server_entry.entry_activated.connect (() => {
+            if (login_button.sensitive) {
+                on_login_button_clicked ();
             }
         })] = server_entry;
 

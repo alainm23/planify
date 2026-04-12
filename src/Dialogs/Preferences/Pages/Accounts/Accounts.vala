@@ -305,6 +305,18 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
                 halign = END
             };
 
+            var auth_warning_image = new Gtk.Image.from_icon_name ("dialog-warning-symbolic") {
+                tooltip_text = _("Authentication expired"),
+                visible = source.sync_status != null
+            };
+            auth_warning_image.add_css_class ("error");
+
+            if (source.sync_status != null) {
+                auth_warning_image.tooltip_text = source.sync_status.tooltip;
+            }
+
+            end_box.append (auth_warning_image);
+
             if (warning_image != null) {
                 end_box.append (warning_image);
             }
@@ -370,6 +382,17 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
                 main_revealer.reveal_child = true;
                 return GLib.Source.REMOVE;
             });
+
+            signal_map[source.sync_failed.connect ((status) => {
+                if (status != null) {
+                    auth_warning_image.tooltip_text = status.tooltip;
+                    auth_warning_image.visible = true;
+                }
+            })] = source;
+
+            signal_map[source.sync_finished.connect (() => {
+                auth_warning_image.visible = false;
+            })] = source;
 
             signal_map[source.updated.connect (() => {
                 title_label.label = source.display_name;

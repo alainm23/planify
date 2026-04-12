@@ -29,6 +29,7 @@ public class Objects.Source : Objects.BaseObject {
     public string last_sync { get; set; default = ""; }
     public Objects.SourceData data { get; set; }
     public string display_name { get; set; default = ""; }
+    public SyncStatus? sync_status { get; set; default = null; }
 
     Objects.SourceTodoistData _todoist_data;
     public Objects.SourceTodoistData todoist_data {
@@ -106,7 +107,7 @@ public class Objects.Source : Objects.BaseObject {
 
     public signal void sync_started ();
     public signal void sync_finished ();
-    public signal void sync_failed ();
+    public signal void sync_failed (SyncStatus? status = null);
 
     public Source.from_import_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
