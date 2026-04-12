@@ -161,6 +161,13 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             placeholder_text = _("Type a date…")
         };
 
+        show.connect (() => {
+            Timeout.add (100, () => {
+                search_entry.grab_focus ();
+                return GLib.Source.REMOVE;
+            });
+        });
+
         var search_key_controller = new Gtk.EventControllerKey ();
         search_entry.add_controller (search_key_controller);
         search_key_controller.key_pressed.connect ((keyval, keycode, state) => {
@@ -175,7 +182,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         var suggested_date_box = new Adw.WrapBox () {
             child_spacing = 6,
             line_spacing = 6,
-            margin_top = 9,
             margin_bottom = 6
         };
 
@@ -188,10 +194,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 9,
             margin_end = 9,
-            margin_top = 9,
             margin_bottom = 9
         };
-        content_box.append (search_entry);
         content_box.append (suggested_date_box);
         content_box.append (new Widgets.ContextMenu.MenuSeparator ());
         content_box.append (calendar_view);
@@ -201,13 +205,24 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         var popover_scrolled = new Gtk.ScrolledWindow () {
             child = content_box,
-            vscrollbar_policy = NEVER,
-            hscrollbar_policy = NEVER
+            vscrollbar_policy = AUTOMATIC,
+            hscrollbar_policy = NEVER,
+            propagate_natural_height = true,
+            max_content_height = 425
         };
+
+        var search_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_start = 9,
+            margin_end = 9,
+            margin_top = 9,
+            margin_bottom = 9
+        };
+        search_box.append (search_entry);
 
         var toolbar_view = new Adw.ToolbarView () {
             content = popover_scrolled
         };
+        toolbar_view.add_top_bar (search_box);
 
         dimming_widget = new Adw.Bin () {
             visible = false
