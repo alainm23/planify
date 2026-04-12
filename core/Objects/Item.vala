@@ -1386,9 +1386,44 @@ public class Objects.Item : Objects.BaseObject {
         _items.add (item);
     }
 
+    public string to_clipboard_text () {
+        var text = new StringBuilder ();
+
+        text.append ("[%s] %s".printf (checked ? "x" : " ", content));
+
+        if (priority != Constants.PRIORITY_4) {
+            text.append (" (P%d)".printf (5 - priority));
+        }
+
+        if (has_due) {
+            text.append (" · %s".printf (Utils.Datetime.get_relative_date_from_date (due.datetime)));
+        }
+
+        if (has_deadline) {
+            text.append (" · %s %s".printf (_("Deadline:"), Utils.Datetime.get_relative_time_from_date (deadline_datetime)));
+        }
+
+        if (labels.size > 0) {
+            var label_names = new StringBuilder ();
+            foreach (Objects.Label label in labels) {
+                if (label_names.len > 0) {
+                    label_names.append (", ");
+                }
+                label_names.append (label.name);
+            }
+            text.append (" @%s".printf (label_names.str));
+        }
+
+        if (description != null && description.strip () != "") {
+            text.append ("\n    %s".printf (description.strip ()));
+        }
+
+        return text.str;
+    }
+
     public void copy_clipboard () {
         Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
-        clipboard.set_text ("[%s]%s%s\n------------------------------------------\n%s".printf (checked ? "x" : " ", get_format_date (this), content, description));
+        clipboard.set_text (to_clipboard_text ());
         Services.EventBus.get_default ().send_toast (
             Util.get_default ().create_toast (_("Task copied to clipboard"))
         );
@@ -1416,14 +1451,6 @@ public class Objects.Item : Objects.BaseObject {
         new_item.labels = labels;
         new_item.item_type = item_type;
         return new_item;
-    }
-
-    private string get_format_date (Objects.Item item) {
-        if (!item.has_due) {
-            return " ";
-        }
-
-        return " (" + Utils.Datetime.get_relative_date_from_date (item.due.datetime) + ") ";
     }
 
     public void delete_item () {
