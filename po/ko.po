@@ -337,8 +337,8 @@ msgstr "이 작업은 취소할 수 없습니다"
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:430
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:97
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:109
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:148
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:115
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:191
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:220
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
@@ -1775,32 +1775,48 @@ msgstr "수신함 열기"
 msgid "Syncing…"
 msgstr "동기화 중..."
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:52
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:48
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
+msgid "Connect to CalDAV"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
+msgid "Connect to any CalDAV-compatible server to sync your tasks"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
 msgid "Server URL"
 msgstr "서버 URL"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:55
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:80
 #, fuzzy
 msgid "Username"
 msgstr "사용자 이름"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:58
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:83
 msgid "Password"
 msgstr "비밀번호"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:67
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
 #, fuzzy
 msgid "Calendar Home URL"
 msgstr "캘린더 이벤트"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:79
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:92
-msgid "Advanced Options"
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
+msgid "Advanced"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:91
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:103
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
+msgid "Show advanced options"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
+msgid "Hide advanced options"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
 msgid "Log In"
 msgstr "로그인"
 
@@ -1816,17 +1832,24 @@ msgid ""
 "tasks that you'll organize later"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
-#, fuzzy
-msgid "Server URL examples:"
-msgstr "서버 URL"
-
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:54
-msgid "- https://cloud.example.com/"
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
+msgid "Connect to Nextcloud"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:55
-msgid "- https://example.com/nextcloud/"
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:57
+msgid "Sign in with your Nextcloud account to sync tasks via CalDAV"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
+msgid "https://cloud.example.com"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:83
+msgid "https://example.com/nextcloud"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:100
+msgid "URL examples"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
@@ -3628,6 +3651,10 @@ msgstr "라벨 열기"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "게시판 열기"
+
+#, fuzzy
+#~ msgid "Server URL examples:"
+#~ msgstr "서버 URL"
 
 #~ msgid ""
 #~ "Planify is being developed with love and passion for open source. "

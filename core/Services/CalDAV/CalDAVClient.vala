@@ -367,7 +367,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async void sync_tasklist (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
-        if (project.is_deck) {
+        if (project.is_deck || project.is_archived) {
+            Services.LogService.get_default ().debug ("CalDAV", "Skipping sync for %s project".printf (project.is_archived ? "archived" : "deck"));
             return;
         }
 
