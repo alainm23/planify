@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-04-13 14:09+0000\n"
+"PO-Revision-Date: 2026-04-14 15:09+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -549,23 +549,23 @@ msgstr "同步已經完成"
 
 #: core/Services/CalDAV/Core.vala:298
 msgid "Authentication Expired"
-msgstr ""
+msgstr "認證已經過期"
 
 #: core/Services/CalDAV/Core.vala:299
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
-msgstr ""
+msgstr "您的工作階段已經過期。請在 偏好設定 中移除，並重新添加您的帳戶。"
 
 #: core/Services/CalDAV/Core.vala:306
 msgid "Too Many Requests"
-msgstr ""
+msgstr "請求過多"
 
 #: core/Services/CalDAV/Core.vala:307
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
-msgstr ""
+msgstr "伺服器正在限制請求速率。請等待幾分鐘，然後再試一次。"
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
@@ -1719,7 +1719,7 @@ msgstr "SSL 驗證停用"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
 msgid "Authentication expired"
-msgstr ""
+msgstr "認證已經過期"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Account migration required"
