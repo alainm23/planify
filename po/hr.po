@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-02-14 12:09+0000\n"
+"PO-Revision-Date: 2026-04-14 15:09+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/hr/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -325,9 +325,9 @@ msgid "Task copied to clipboard"
 msgstr "Zadatak je kopiran u međuspremnik"
 
 #: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
-#, fuzzy, c-format
+#, c-format
 msgid "Moved to %s"
-msgstr "Zadatak je premješten u %s"
+msgstr "Premješteno u %s"
 
 #: core/Objects/Label.vala:220
 #, c-format
@@ -564,7 +564,7 @@ msgstr "Sinkronizacija je završena"
 
 #: core/Services/CalDAV/Core.vala:298
 msgid "Authentication Expired"
-msgstr ""
+msgstr "Autentifikacija je istekla"
 
 #: core/Services/CalDAV/Core.vala:299
 msgid ""
@@ -574,7 +574,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:306
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Previše zahtjeva"
 
 #: core/Services/CalDAV/Core.vala:307
 msgid ""
@@ -596,7 +596,7 @@ msgstr ""
 
 #: core/Services/Todoist.vala:108
 msgid "Invalid API token"
-msgstr ""
+msgstr "Nevaljani API token"
 
 #: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
@@ -727,7 +727,6 @@ msgid "%Y"
 msgstr "%Y."
 
 #: core/Utils/Datetime.vala:669
-#, fuzzy
 msgid "%b %-e"
 msgstr "%d. %m."
 
@@ -741,7 +740,6 @@ msgid "%a"
 msgstr "%a"
 
 #: core/Utils/Datetime.vala:678
-#, fuzzy
 msgid "%a, %b %-e"
 msgstr "%a, %d. %m."
 
@@ -1314,7 +1312,7 @@ msgstr "Datum"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:209
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:213
 msgid "The date you plan to work on this task"
-msgstr ""
+msgstr "Datum kada planiraš raditi na ovom zadatku"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
@@ -1323,7 +1321,7 @@ msgstr "Ukloni datum"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "When do you plan to work on this?"
-msgstr ""
+msgstr "Kada planiraš raditi na ovom zadatku?"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
@@ -1333,11 +1331,11 @@ msgstr "Postavi rok"
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
 #: core/Widgets/DeadlineButton.vala:135
 msgid "The latest date to complete this task"
-msgstr ""
+msgstr "Najkasniji datum za obavljanje ovog zadatka"
 
 #: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
 msgid "What is the latest date to complete this?"
-msgstr ""
+msgstr "Koji je zadnji datum za obavljanje ovog zadatka?"
 
 #: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
@@ -1383,24 +1381,24 @@ msgstr "Traži ili stvori"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
 msgid "Hide unused labels"
-msgstr ""
+msgstr "Sakrij nekorištene etikete"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
 msgid "No Labels"
-msgstr ""
+msgstr "Bez etiketa"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
 msgid "All Hidden"
-msgstr ""
+msgstr "Sve skrivene"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
 msgid "All labels are hidden by the filter. Disable the filter to see them."
-msgstr ""
+msgstr "Sve etikete su skrivene filterom. Deaktiviraj filtar za prikaz etiketa."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
 msgid "Press Enter to create and assign it"
-msgstr ""
+msgstr "Pritisni tipku Enter za stvaranje i dodjelu"
 
 #: core/Widgets/MarkdownEditor.vala:1383
 msgid "Remove link"
@@ -1769,7 +1767,7 @@ msgstr "SSL provjera je isključena"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
 msgid "Authentication expired"
-msgstr ""
+msgstr "Autentifikacija je istekla"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Account migration required"
@@ -1827,16 +1825,16 @@ msgstr "URL početne stranice kalendara"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
 msgid "Advanced"
-msgstr ""
+msgstr "Napredno"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Show advanced options"
-msgstr ""
+msgstr "Prikaži napredne opcije"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Hide advanced options"
-msgstr ""
+msgstr "Sakrij napredne opcije"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
@@ -1859,11 +1857,13 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
 msgid "Connect to Nextcloud"
-msgstr ""
+msgstr "Poveži se s Nextcloudom"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:57
 msgid "Sign in with your Nextcloud account to sync tasks via CalDAV"
 msgstr ""
+"Prijavi se sa svojim Nextcloud računom za sinkroniziranje zadataka putem "
+"CalDAV-a"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
 msgid "https://cloud.example.com"
