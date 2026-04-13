@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-04-13 14:09+0000\n"
+"PO-Revision-Date: 2026-04-14 15:09+0000\n"
 "Last-Translator: Maksym Dilanian <dilanyan.maxim@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/uk/>\n"
@@ -562,23 +562,26 @@ msgstr "Синхронізацію завершено"
 
 #: core/Services/CalDAV/Core.vala:298
 msgid "Authentication Expired"
-msgstr ""
+msgstr "Термін дії автентифікації минув"
 
 #: core/Services/CalDAV/Core.vala:299
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr ""
+"Термін дії вашого сеансу закінчився. Будь ласка, видаліть та повторно "
+"додайте свій обліковий запис у налаштуваннях."
 
 #: core/Services/CalDAV/Core.vala:306
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Забагато запитів"
 
 #: core/Services/CalDAV/Core.vala:307
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
 msgstr ""
+"Сервер обмежує кількість запитів. Зачекайте кілька хвилин і спробуйте ще раз."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
@@ -1773,7 +1776,7 @@ msgstr "SSL-перевірку вимкнено"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
 msgid "Authentication expired"
-msgstr ""
+msgstr "Термін дії автентифікації минув"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Account migration required"
