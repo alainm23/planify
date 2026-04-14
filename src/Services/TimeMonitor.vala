@@ -46,9 +46,10 @@ public class Services.TimeMonitor : Object {
     }
 
     private void listen_for_system_resume () {
+        // Try logind via system bus (works on local installs)
         try {
-            var connection = GLib.Bus.get_sync (GLib.BusType.SYSTEM);
-            connection.signal_subscribe (
+            var system_bus = GLib.Bus.get_sync (GLib.BusType.SYSTEM);
+            system_bus.signal_subscribe (
                 "org.freedesktop.login1",
                 "org.freedesktop.login1.Manager",
                 "PrepareForSleep",
@@ -62,14 +63,34 @@ public class Services.TimeMonitor : Object {
                     if (going_to_sleep) {
                         Services.LogService.get_default ().info ("TimeMonitor", "System going to sleep");
                     } else {
-                        Services.LogService.get_default ().info ("TimeMonitor", "System resumed from sleep, checking day change");
+                        Services.LogService.get_default ().info ("TimeMonitor", "System resumed from sleep (logind), checking day change");
                         check_day_change ();
                     }
                 }
             );
             Services.LogService.get_default ().info ("TimeMonitor", "Subscribed to logind PrepareForSleep signal");
         } catch (Error e) {
-            Services.LogService.get_default ().warn ("TimeMonitor", "Could not subscribe to logind PrepareForSleep: %s".printf (e.message));
+            Services.LogService.get_default ().warn ("TimeMonitor", "Could not subscribe to logind: %s".printf (e.message));
+        }
+
+        // Also listen to ScreenSaver WakeUpScreen via session bus (works in Flatpak)
+        try {
+            var session_bus = GLib.Bus.get_sync (GLib.BusType.SESSION);
+            session_bus.signal_subscribe (
+                "org.gnome.ScreenSaver",
+                "org.gnome.ScreenSaver",
+                "WakeUpScreen",
+                "/org/gnome/ScreenSaver",
+                null,
+                GLib.DBusSignalFlags.NONE,
+                (conn, sender, path, iface, signal_name, parameters) => {
+                    Services.LogService.get_default ().info ("TimeMonitor", "Screen woke up (ScreenSaver), checking day change");
+                    check_day_change ();
+                }
+            );
+            Services.LogService.get_default ().info ("TimeMonitor", "Subscribed to ScreenSaver WakeUpScreen signal");
+        } catch (Error e) {
+            Services.LogService.get_default ().warn ("TimeMonitor", "Could not subscribe to ScreenSaver: %s".printf (e.message));
         }
     }
 
