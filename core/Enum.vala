@@ -761,3 +761,26 @@ public class SyncStatus : Object {
         }
     }
 }
+
+
+public enum MarkdownSetting {
+    GLOBAL_DEFAULT,
+    ENABLED,
+    DISABLED;
+
+    public string to_string () {
+        switch (this) {
+            case ENABLED: return "enabled";
+            case DISABLED: return "disabled";
+            default: return "global-default";
+        }
+    }
+
+    public static MarkdownSetting parse (string value) {
+        switch (value) {
+            case "enabled": return ENABLED;
+            case "disabled": return DISABLED;
+            default: return GLOBAL_DEFAULT;
+        }
+    }
+}

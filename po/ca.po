@@ -137,9 +137,9 @@ msgstr "Tasca actualitzada"
 msgid "Content"
 msgstr "Contingut"
 
-#: core/Enum.vala:531 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
+#: core/Enum.vala:531 src/Dialogs/Project.vala:149 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:1948 src/Layouts/ItemSidebarView.vala:181
-#: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:113
+#: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "Descripció"
 
@@ -313,11 +313,15 @@ msgstr "sense etiqueta"
 msgid "unlabeled"
 msgstr "sense etiquetar"
 
-#: core/Objects/Item.vala:1393
+#: core/Objects/Item.vala:1403 src/Services/ExportService.vala:187
+msgid "Deadline:"
+msgstr ""
+
+#: core/Objects/Item.vala:1428
 msgid "Task copied to clipboard"
 msgstr "Tasca copiada al porta-retalls"
 
-#: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1713 core/Utils/Util.vala:885
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "Tasca moguda a %s"
@@ -327,7 +331,7 @@ msgstr "Tasca moguda a %s"
 msgid "Delete Label %s"
 msgstr "Elimina l'etiqueta %s"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:856
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:867
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
 #: src/Layouts/ItemSidebarView.vala:579 src/Layouts/SectionBoard.vala:635
@@ -335,8 +339,8 @@ msgstr "Elimina l'etiqueta %s"
 msgid "This can not be undone"
 msgstr "Aquesta acció no es pot desfer"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:859
-#: core/Objects/Project.vala:916 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:870
+#: core/Objects/Project.vala:927 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:453
@@ -351,41 +355,41 @@ msgstr "Aquesta acció no es pot desfer"
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:634 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:287
+#: src/Widgets/MultiSelectToolbar.vala:314
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:860
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:871
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
 #: src/Layouts/ItemSidebarView.vala:583 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:635
-#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
-#: src/Widgets/MultiSelectToolbar.vala:288
+#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:246
+#: src/Widgets/MultiSelectToolbar.vala:315
 msgid "Delete"
 msgstr "Esborra"
 
-#: core/Objects/Project.vala:819
+#: core/Objects/Project.vala:830
 msgid "The project was copied to the Clipboard."
 msgstr "El projecte s'ha copiat al portaretalls."
 
-#: core/Objects/Project.vala:855
+#: core/Objects/Project.vala:866
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Vols eliminar el projecte %s?"
 
-#: core/Objects/Project.vala:912 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:923 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr ""
 
-#: core/Objects/Project.vala:913 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:924 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Això arxivarà %s i totes les seves tasques."
 
-#: core/Objects/Project.vala:917 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:928 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
@@ -418,7 +422,7 @@ msgstr "Nom de la tasca"
 msgid "This field is required"
 msgstr "Aquest camp és obligatori"
 
-#: core/QuickAddCore.vala:218 src/Dialogs/Project.vala:136
+#: core/QuickAddCore.vala:218 src/Dialogs/Project.vala:137
 msgid "Add a description…"
 msgstr "Afegeix una descripció…"
 
@@ -1266,7 +1270,7 @@ msgid "After"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:255
-#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:846
+#: core/Widgets/MarkdownEditor.vala:1382 src/Layouts/ItemBoard.vala:846
 #: src/Layouts/ItemRow.vala:1314
 msgid "Apply"
 msgstr "Aplica"
@@ -1378,7 +1382,7 @@ msgstr ""
 msgid "Press Enter to create and assign it"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1383
+#: core/Widgets/MarkdownEditor.vala:1387
 msgid "Remove link"
 msgstr "Elimina enllaç"
 
@@ -1838,7 +1842,7 @@ msgid "URL examples"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
-#: src/Dialogs/Project.vala:178
+#: src/Dialogs/Project.vala:179
 msgid "Source"
 msgstr ""
 
@@ -2047,7 +2051,7 @@ msgstr "Baixa"
 msgid "Import Overview"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:348 src/Dialogs/Project.vala:376
+#: src/Dialogs/Preferences/Pages/Backup.vala:348 src/Dialogs/Project.vala:404
 msgid "Sources"
 msgstr ""
 
@@ -2277,7 +2281,7 @@ msgid ""
 "shortcut with the following:"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:84 src/Dialogs/Project.vala:247
 msgid "Settings"
 msgstr "Preferències"
 
@@ -2439,6 +2443,7 @@ msgid "Check spelling in task descriptions and notes"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
+#: src/Dialogs/Project.vala:233
 msgid "Enabled"
 msgstr "Activada"
 
@@ -2690,32 +2695,48 @@ msgstr ""
 msgid "Progress"
 msgstr ""
 
-#: src/Dialogs/Project.vala:59 src/Layouts/Sidebar.vala:121
+#: src/Dialogs/Project.vala:60 src/Layouts/Sidebar.vala:121
 msgid "New Project"
 msgstr "Nou projecte"
 
-#: src/Dialogs/Project.vala:67 src/Layouts/ProjectRow.vala:704
+#: src/Dialogs/Project.vala:68 src/Layouts/ProjectRow.vala:704
 #: src/Views/Project/Project.vala:374
 msgid "Edit Project"
 msgstr "Edita el projecte"
 
-#: src/Dialogs/Project.vala:112
+#: src/Dialogs/Project.vala:113
 msgid "Give your project a name"
 msgstr "Dóna un nom al projecte"
 
-#: src/Dialogs/Project.vala:123
+#: src/Dialogs/Project.vala:124
 msgid "Use Emoji"
 msgstr "Fes servir Emoji"
 
-#: src/Dialogs/Project.vala:217 src/Views/Label/LabelSourceRow.vala:56
+#: src/Dialogs/Project.vala:218 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
 msgstr "Afegeix un projecte"
 
-#: src/Dialogs/Project.vala:217
+#: src/Dialogs/Project.vala:218
 msgid "Update Project"
 msgstr "Actualitza el projecte"
 
-#: src/Dialogs/Project.vala:471
+#: src/Dialogs/Project.vala:232
+msgid "Global Default"
+msgstr ""
+
+#: src/Dialogs/Project.vala:234
+msgid "Disabled"
+msgstr ""
+
+#: src/Dialogs/Project.vala:237
+msgid "Markdown Formatting"
+msgstr ""
+
+#: src/Dialogs/Project.vala:238
+msgid "Override the global markdown setting for this project"
+msgstr ""
+
+#: src/Dialogs/Project.vala:500
 msgid "Project added successfully!"
 msgstr "Projecte afegit amb èxit!"
 
@@ -2825,10 +2846,11 @@ msgid "Use as a Note"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1371 src/Layouts/ItemSidebarView.vala:490
+#: src/Widgets/MultiSelectToolbar.vala:244
 msgid "Copy to Clipboard"
 msgstr "Copia al portaretalls"
 
-#: src/Layouts/ItemRow.vala:2023
+#: src/Layouts/ItemRow.vala:2024
 msgid "Add Attachments"
 msgstr "Afegeix adjunts"
 
@@ -3022,10 +3044,6 @@ msgstr "Reinicia ara"
 
 #: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
-msgstr ""
-
-#: src/Services/ExportService.vala:187
-msgid "Deadline:"
 msgstr ""
 
 #: src/Services/Notification.vala:99
@@ -3276,7 +3294,7 @@ msgid "Continue Anyway"
 msgstr ""
 
 #: src/Widgets/CompletedTaskRow.vala:95
-#: src/Widgets/ItemDetailCompleted.vala:128 src/Widgets/SubItems.vala:92
+#: src/Widgets/ItemDetailCompleted.vala:130 src/Widgets/SubItems.vala:92
 msgid "Sub-tasks"
 msgstr ""
 
@@ -3395,29 +3413,36 @@ msgstr "Mou al projecte"
 msgid "Mark as Completed"
 msgstr "Marca com enllestida"
 
-#: src/Widgets/MultiSelectToolbar.vala:268
+#: src/Widgets/MultiSelectToolbar.vala:284
+#, c-format
+msgid "%d task copied to clipboard"
+msgid_plural "%d tasks copied to clipboard"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Widgets/MultiSelectToolbar.vala:295
 msgid "Delete To-Do"
 msgstr "Esborra la tasca"
 
-#: src/Widgets/MultiSelectToolbar.vala:269
+#: src/Widgets/MultiSelectToolbar.vala:296
 msgid "Are you sure you want to delete this to-do?"
 msgstr "Segur que vols esborrar aquesta tasca?"
 
-#: src/Widgets/MultiSelectToolbar.vala:272
+#: src/Widgets/MultiSelectToolbar.vala:299
 #, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
 msgstr[0] "Elimina %d tasca"
 msgstr[1] "Elimina %d tasques"
 
-#: src/Widgets/MultiSelectToolbar.vala:278
+#: src/Widgets/MultiSelectToolbar.vala:305
 #, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Segur que vols eliminar aquesta %d tasca?"
 msgstr[1] "Segur que vols eliminar aquestes %d tasques?"
 
-#: src/Widgets/MultiSelectToolbar.vala:375
+#: src/Widgets/MultiSelectToolbar.vala:402
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"

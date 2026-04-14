@@ -90,7 +90,9 @@ public class Widgets.ItemDetailCompleted : Adw.NavigationPage {
         properties_group.title = _("Properties");
         properties_group.add (properties_grid);
 
-        markdown_editor = new Widgets.MarkdownEditor ();
+        markdown_editor = new Widgets.MarkdownEditor () {
+            project = item.project
+        };
         markdown_editor.text_view.height_request = 64;
         markdown_editor.is_editable = false;
         markdown_editor.margin_start = 12;

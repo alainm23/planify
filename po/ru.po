@@ -137,9 +137,9 @@ msgstr "Задача обновлена"
 msgid "Content"
 msgstr "Содержимое"
 
-#: core/Enum.vala:531 src/Dialogs/Project.vala:148 src/Dialogs/Section.vala:91
+#: core/Enum.vala:531 src/Dialogs/Project.vala:149 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:1948 src/Layouts/ItemSidebarView.vala:181
-#: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:113
+#: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "Описание"
 
@@ -313,12 +313,16 @@ msgstr "без метки"
 msgid "unlabeled"
 msgstr "непомеченн"
 
-#: core/Objects/Item.vala:1393
+#: core/Objects/Item.vala:1403 src/Services/ExportService.vala:187
+msgid "Deadline:"
+msgstr ""
+
+#: core/Objects/Item.vala:1428
 msgid "Task copied to clipboard"
 msgstr "Задача скопирована в буфер обмена"
 
 # c-format
-#: core/Objects/Item.vala:1686 core/Utils/Util.vala:885
+#: core/Objects/Item.vala:1713 core/Utils/Util.vala:885
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "Задача перемещена в %s"
@@ -329,7 +333,7 @@ msgstr "Задача перемещена в %s"
 msgid "Delete Label %s"
 msgstr "Удалить метку %s"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:856
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:867
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
 #: src/Layouts/ItemSidebarView.vala:579 src/Layouts/SectionBoard.vala:635
@@ -337,8 +341,8 @@ msgstr "Удалить метку %s"
 msgid "This can not be undone"
 msgstr "Это действие не может быть отменено"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:859
-#: core/Objects/Project.vala:916 core/Objects/Section.vala:380
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:870
+#: core/Objects/Project.vala:927 core/Objects/Section.vala:380
 #: core/Objects/Section.vala:406 core/Utils/Util.vala:435
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:453
@@ -353,43 +357,43 @@ msgstr "Это действие не может быть отменено"
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:419
 #: src/Views/Filter.vala:634 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:287
+#: src/Widgets/MultiSelectToolbar.vala:314
 msgid "Cancel"
 msgstr "Отмена"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:860
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:871
 #: core/Objects/Section.vala:381 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
 #: src/Layouts/ItemSidebarView.vala:583 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:420 src/Views/Filter.vala:635
-#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:244
-#: src/Widgets/MultiSelectToolbar.vala:288
+#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:246
+#: src/Widgets/MultiSelectToolbar.vala:315
 msgid "Delete"
 msgstr "Удалить"
 
-#: core/Objects/Project.vala:819
+#: core/Objects/Project.vala:830
 msgid "The project was copied to the Clipboard."
 msgstr "Проект скопирован в буфер обмена."
 
 # c-format
-#: core/Objects/Project.vala:855
+#: core/Objects/Project.vala:866
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Удалить проект %s?"
 
-#: core/Objects/Project.vala:912 core/Objects/Section.vala:402
+#: core/Objects/Project.vala:923 core/Objects/Section.vala:402
 msgid "Archive?"
 msgstr "Архивировать?"
 
 # # c-format
-#: core/Objects/Project.vala:913 core/Objects/Section.vala:403
+#: core/Objects/Project.vala:924 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Это действие заархивирует %s и все его задачи."
 
-#: core/Objects/Project.vala:917 core/Objects/Section.vala:407
+#: core/Objects/Project.vala:928 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
@@ -423,7 +427,7 @@ msgstr "Название задания"
 msgid "This field is required"
 msgstr "Это поле обязательно для заполнения"
 
-#: core/QuickAddCore.vala:218 src/Dialogs/Project.vala:136
+#: core/QuickAddCore.vala:218 src/Dialogs/Project.vala:137
 msgid "Add a description…"
 msgstr "Добавить описание…"
 
@@ -1291,7 +1295,7 @@ msgid "After"
 msgstr "После"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:255
-#: core/Widgets/MarkdownEditor.vala:1378 src/Layouts/ItemBoard.vala:846
+#: core/Widgets/MarkdownEditor.vala:1382 src/Layouts/ItemBoard.vala:846
 #: src/Layouts/ItemRow.vala:1314
 msgid "Apply"
 msgstr "Применить"
@@ -1404,7 +1408,7 @@ msgstr ""
 msgid "Press Enter to create and assign it"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1383
+#: core/Widgets/MarkdownEditor.vala:1387
 msgid "Remove link"
 msgstr "Удалить ссылку"
 
@@ -1879,7 +1883,7 @@ msgid "URL examples"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
-#: src/Dialogs/Project.vala:178
+#: src/Dialogs/Project.vala:179
 msgid "Source"
 msgstr "Источник"
 
@@ -2095,7 +2099,7 @@ msgstr "Скачать"
 msgid "Import Overview"
 msgstr "Обзор импорта"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:348 src/Dialogs/Project.vala:376
+#: src/Dialogs/Preferences/Pages/Backup.vala:348 src/Dialogs/Project.vala:404
 msgid "Sources"
 msgstr "Источники"
 
@@ -2338,7 +2342,7 @@ msgstr ""
 "«Пользовательская комбинация клавиш», затем добавьте новую комбинацию клавиш "
 "со следующим текстом:"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:84
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:84 src/Dialogs/Project.vala:247
 msgid "Settings"
 msgstr "Настройки"
 
@@ -2506,6 +2510,7 @@ msgid "Check spelling in task descriptions and notes"
 msgstr "Проверять орфографию в описаниях задач и описаниях"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
+#: src/Dialogs/Project.vala:233
 msgid "Enabled"
 msgstr "Включено"
 
@@ -2759,32 +2764,48 @@ msgstr "Просрочено"
 msgid "Progress"
 msgstr ""
 
-#: src/Dialogs/Project.vala:59 src/Layouts/Sidebar.vala:121
+#: src/Dialogs/Project.vala:60 src/Layouts/Sidebar.vala:121
 msgid "New Project"
 msgstr "Новый проект"
 
-#: src/Dialogs/Project.vala:67 src/Layouts/ProjectRow.vala:704
+#: src/Dialogs/Project.vala:68 src/Layouts/ProjectRow.vala:704
 #: src/Views/Project/Project.vala:374
 msgid "Edit Project"
 msgstr "Изменить проект"
 
-#: src/Dialogs/Project.vala:112
+#: src/Dialogs/Project.vala:113
 msgid "Give your project a name"
 msgstr "Введите название проекта"
 
-#: src/Dialogs/Project.vala:123
+#: src/Dialogs/Project.vala:124
 msgid "Use Emoji"
 msgstr "Использовать Emoji"
 
-#: src/Dialogs/Project.vala:217 src/Views/Label/LabelSourceRow.vala:56
+#: src/Dialogs/Project.vala:218 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
 msgstr "Добавить проект"
 
-#: src/Dialogs/Project.vala:217
+#: src/Dialogs/Project.vala:218
 msgid "Update Project"
 msgstr "Обновить проект"
 
-#: src/Dialogs/Project.vala:471
+#: src/Dialogs/Project.vala:232
+msgid "Global Default"
+msgstr ""
+
+#: src/Dialogs/Project.vala:234
+msgid "Disabled"
+msgstr ""
+
+#: src/Dialogs/Project.vala:237
+msgid "Markdown Formatting"
+msgstr ""
+
+#: src/Dialogs/Project.vala:238
+msgid "Override the global markdown setting for this project"
+msgstr ""
+
+#: src/Dialogs/Project.vala:500
 msgid "Project added successfully!"
 msgstr "Проект успешно добавлен!"
 
@@ -2898,10 +2919,11 @@ msgid "Use as a Note"
 msgstr "Использовать как Заметку"
 
 #: src/Layouts/ItemRow.vala:1371 src/Layouts/ItemSidebarView.vala:490
+#: src/Widgets/MultiSelectToolbar.vala:244
 msgid "Copy to Clipboard"
 msgstr "Скопировать в буфер обмена"
 
-#: src/Layouts/ItemRow.vala:2023
+#: src/Layouts/ItemRow.vala:2024
 msgid "Add Attachments"
 msgstr "Добавить вложения"
 
@@ -3106,10 +3128,6 @@ msgstr "Перезапустить сейчас"
 #: src/Services/Backups.vala:565
 msgid "Planify Backup Files"
 msgstr "Резервные копии Planify"
-
-#: src/Services/ExportService.vala:187
-msgid "Deadline:"
-msgstr ""
 
 #: src/Services/Notification.vala:99
 msgid "Snooze for 10 minutes"
@@ -3364,7 +3382,7 @@ msgid "Continue Anyway"
 msgstr "Продолжить в любом случае"
 
 #: src/Widgets/CompletedTaskRow.vala:95
-#: src/Widgets/ItemDetailCompleted.vala:128 src/Widgets/SubItems.vala:92
+#: src/Widgets/ItemDetailCompleted.vala:130 src/Widgets/SubItems.vala:92
 msgid "Sub-tasks"
 msgstr "Подзадачи"
 
@@ -3487,23 +3505,30 @@ msgstr "Переместить в проект"
 msgid "Mark as Completed"
 msgstr "Отметить как выполненные"
 
-#: src/Widgets/MultiSelectToolbar.vala:268
+#: src/Widgets/MultiSelectToolbar.vala:284
+#, c-format
+msgid "%d task copied to clipboard"
+msgid_plural "%d tasks copied to clipboard"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Widgets/MultiSelectToolbar.vala:295
 msgid "Delete To-Do"
 msgstr "Удалить задание"
 
-#: src/Widgets/MultiSelectToolbar.vala:269
+#: src/Widgets/MultiSelectToolbar.vala:296
 msgid "Are you sure you want to delete this to-do?"
 msgstr "Вы уверены, что хотите удалить это задание?"
 
 # # c-format
-#: src/Widgets/MultiSelectToolbar.vala:272
+#: src/Widgets/MultiSelectToolbar.vala:299
 #, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
 msgstr[0] "Удалить %d задание"
 msgstr[1] "Удалить %d заданий"
 
-#: src/Widgets/MultiSelectToolbar.vala:278
+#: src/Widgets/MultiSelectToolbar.vala:305
 #, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
@@ -3511,7 +3536,7 @@ msgstr[0] "Вы уверены, что хотите удалить это зад
 msgstr[1] "Вы уверены, что хотите удалить эти задания %d?"
 
 # c-format
-#: src/Widgets/MultiSelectToolbar.vala:375
+#: src/Widgets/MultiSelectToolbar.vala:402
 #, fuzzy, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
