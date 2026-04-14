@@ -15,7 +15,6 @@
         "--socket=wayland",
         "--talk-name=org.gnome.evolution.dataserver.Calendar8",
         "--talk-name=org.gnome.evolution.dataserver.Sources5",
-        "--system-talk-name=org.freedesktop.login1",
         "--talk-name=org.gnome.ScreenSaver",
         "--talk-name=io.github.alainm23.planify",
         "--talk-name=io.github.alainm23.planify.quick-add",
