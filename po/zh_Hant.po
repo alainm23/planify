@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-04-04 02:09+0000\n"
+"PO-Revision-Date: 2026-04-14 15:09+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -553,23 +553,23 @@ msgstr "同步已經完成"
 
 #: core/Services/CalDAV/Core.vala:298
 msgid "Authentication Expired"
-msgstr ""
+msgstr "認證已經過期"
 
 #: core/Services/CalDAV/Core.vala:299
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
-msgstr ""
+msgstr "您的工作階段已經過期。請在 偏好設定 中移除，並重新添加您的帳戶。"
 
 #: core/Services/CalDAV/Core.vala:306
 msgid "Too Many Requests"
-msgstr ""
+msgstr "請求過多"
 
 #: core/Services/CalDAV/Core.vala:307
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
-msgstr ""
+msgstr "伺服器正在限制請求速率。請等待幾分鐘，然後再試一次。"
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
@@ -583,7 +583,7 @@ msgstr "Todoist 已經更新其 API。請在〔偏好設定〕中重新連接您
 
 #: core/Services/Todoist.vala:108
 msgid "Invalid API token"
-msgstr ""
+msgstr "無效的 API token"
 
 #: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
@@ -1723,7 +1723,7 @@ msgstr "SSL 驗證停用"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
 msgid "Authentication expired"
-msgstr ""
+msgstr "認證已經過期"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Account migration required"
@@ -1754,11 +1754,11 @@ msgstr "同步中…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
 msgid "Connect to CalDAV"
-msgstr ""
+msgstr "連接至 CalDAV"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
 msgid "Connect to any CalDAV-compatible server to sync your tasks"
-msgstr ""
+msgstr "連接至任何 CalDAV-compatible 伺服器以同步您的任務"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
@@ -1779,16 +1779,16 @@ msgstr "行事曆主頁 URL"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
 msgid "Advanced"
-msgstr ""
+msgstr "進階"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Show advanced options"
-msgstr ""
+msgstr "顯示進階選項"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Hide advanced options"
-msgstr ""
+msgstr "隱藏進階選項"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
@@ -1811,23 +1811,23 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
 msgid "Connect to Nextcloud"
-msgstr ""
+msgstr "連接至 Nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:57
 msgid "Sign in with your Nextcloud account to sync tasks via CalDAV"
-msgstr ""
+msgstr "登入您的 Nextcloud 帳戶以透過 CalDAV 進行同步任務"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
 msgid "https://cloud.example.com"
-msgstr ""
+msgstr "https://cloud.example.com"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:83
 msgid "https://example.com/nextcloud"
-msgstr ""
+msgstr "https://example.com/nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:100
 msgid "URL examples"
-msgstr ""
+msgstr "URL 範例"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:179
@@ -1888,19 +1888,19 @@ msgstr "使用 API Token 替代"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:155
 msgid "API Token"
-msgstr ""
+msgstr "API Token (存取權杖)"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
 msgid "Connect using your personal Todoist API token"
-msgstr ""
+msgstr "連接使用您個人的 Todoist API token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:176
 msgid "Paste your API token"
-msgstr ""
+msgstr "貼上您的 API token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:181
 msgid "Connect"
-msgstr ""
+msgstr "連接"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:188
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
@@ -1910,7 +1910,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:193
 msgid "2. Copy your API token"
-msgstr ""
+msgstr "2. 複製您的 API token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:198
 msgid "3. Paste it in the field above"
@@ -1918,7 +1918,7 @@ msgstr "3. 於上方欄位中貼上"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
 msgid "How to get your token"
-msgstr ""
+msgstr "如何取得您的 token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
 msgid "Waiting for login…"
@@ -2189,13 +2189,13 @@ msgstr "行事曆事件"
 
 #: src/Dialogs/Preferences/Pages/General.vala:103
 msgid "GNOME Shell Search"
-msgstr ""
+msgstr "GNOME Shell 搜尋"
 
 #: src/Dialogs/Preferences/Pages/General.vala:104
 msgid ""
 "Search tasks and projects directly from GNOME Shell. Enable it in Settings → "
 "Search"
-msgstr ""
+msgstr "搜尋任務和項目直接來自 GNOME Shell 。在 設定 →搜尋 中設定啟用"
 
 #: src/Dialogs/Preferences/Pages/General.vala:109
 msgid "Date and Time"
@@ -3311,12 +3311,12 @@ msgstr "顯示較少"
 
 #: src/Widgets/ErrorView.vala:111
 msgid "Copy error message"
-msgstr ""
+msgstr "複製錯誤訊息"
 
 #: src/Widgets/ErrorView.vala:129
 #, c-format
 msgid "For more details, share your log file: %s"
-msgstr ""
+msgstr "有關更多詳細信息，請分享您的日誌記檔案： %s"
 
 #: src/Widgets/ErrorView.vala:148
 msgid "Report Issue"
