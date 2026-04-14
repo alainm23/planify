@@ -30,19 +30,35 @@ public class Services.TimeMonitor : Object {
     }
 
     private DateTime last_registered_date;
+    private uint midnight_timeout_id = 0;
 
     public void init_timeout () {
         last_registered_date = new DateTime.now_local ();
         Services.LogService.get_default ().info ("TimeMonitor", "Initialized, tracking date: %s".printf (last_registered_date.format ("%Y-%m-%d")));
 
-        // Periodic check every 5 minutes as fallback
-        Timeout.add_seconds (300, () => {
-            check_day_change ();
-            return true;
-        });
-
-        // Listen for system resume from suspend via logind
+        schedule_midnight_check ();
         listen_for_system_resume ();
+    }
+
+    private void schedule_midnight_check () {
+        if (midnight_timeout_id != 0) {
+            GLib.Source.remove (midnight_timeout_id);
+            midnight_timeout_id = 0;
+        }
+
+        var now = new DateTime.now_local ();
+        var tomorrow = now.add_days (1);
+        var midnight = new DateTime.local (tomorrow.get_year (), tomorrow.get_month (), tomorrow.get_day_of_month (), 0, 0, 0);
+        int seconds = (int) (midnight.difference (now) / TimeSpan.SECOND);
+
+        Services.LogService.get_default ().info ("TimeMonitor", "Next day check scheduled in %d seconds".printf (seconds));
+
+        midnight_timeout_id = Timeout.add_seconds (seconds, () => {
+            midnight_timeout_id = 0;
+            check_day_change ();
+            schedule_midnight_check ();
+            return GLib.Source.REMOVE;
+        });
     }
 
     private void listen_for_system_resume () {
@@ -66,6 +82,7 @@ public class Services.TimeMonitor : Object {
                         } else {
                             Services.LogService.get_default ().info ("TimeMonitor", "System resumed from sleep (logind), checking day change");
                             check_day_change ();
+                            schedule_midnight_check ();
                         }
                     }
                 );
@@ -89,6 +106,7 @@ public class Services.TimeMonitor : Object {
                     (conn, sender, path, iface, signal_name, parameters) => {
                         Services.LogService.get_default ().info ("TimeMonitor", "Screen woke up (ScreenSaver), checking day change");
                         check_day_change ();
+                        schedule_midnight_check ();
                     }
                 );
                 Services.LogService.get_default ().info ("TimeMonitor", "Subscribed to ScreenSaver WakeUpScreen signal");
