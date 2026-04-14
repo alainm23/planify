@@ -20,37 +20,72 @@
  */
 
 public class Services.TimeMonitor : Object {
-	private static TimeMonitor? _instance;
-	public static TimeMonitor get_default () {
-		if (_instance == null) {
-			_instance = new TimeMonitor ();
-		}
+    private static TimeMonitor? _instance;
+    public static TimeMonitor get_default () {
+        if (_instance == null) {
+            _instance = new TimeMonitor ();
+        }
 
-		return _instance;
-	}
+        return _instance;
+    }
 
-	private DateTime last_registered_date;
+    private DateTime last_registered_date;
 
-	public void init_timeout () {
-		last_registered_date = new DateTime.now_local ();
+    public void init_timeout () {
+        last_registered_date = new DateTime.now_local ();
+        Services.LogService.get_default ().info ("TimeMonitor", "Initialized, tracking date: %s".printf (last_registered_date.format ("%Y-%m-%d")));
 
-		Timeout.add_seconds (300, () => {
-			check_day_change ();
-			return true;
-		});
-	}
+        // Periodic check every 5 minutes as fallback
+        Timeout.add_seconds (300, () => {
+            check_day_change ();
+            return true;
+        });
 
-	private void check_day_change () {
-		DateTime now = new DateTime.now_local ();
+        // Listen for system resume from suspend via logind
+        listen_for_system_resume ();
+    }
 
-		if (now.get_day_of_month () != last_registered_date.get_day_of_month () ||
-		    now.get_month () != last_registered_date.get_month () ||
-		    now.get_year () != last_registered_date.get_year ()) {
+    private void listen_for_system_resume () {
+        try {
+            var connection = GLib.Bus.get_sync (GLib.BusType.SYSTEM);
+            connection.signal_subscribe (
+                "org.freedesktop.login1",
+                "org.freedesktop.login1.Manager",
+                "PrepareForSleep",
+                "/org/freedesktop/login1",
+                null,
+                GLib.DBusSignalFlags.NONE,
+                (conn, sender, path, iface, signal_name, parameters) => {
+                    bool going_to_sleep;
+                    parameters.get ("(b)", out going_to_sleep);
 
-			Services.EventBus.get_default ().day_changed ();
-			Services.Notification.get_default ().regresh ();
+                    if (going_to_sleep) {
+                        Services.LogService.get_default ().info ("TimeMonitor", "System going to sleep");
+                    } else {
+                        Services.LogService.get_default ().info ("TimeMonitor", "System resumed from sleep, checking day change");
+                        check_day_change ();
+                    }
+                }
+            );
+            Services.LogService.get_default ().info ("TimeMonitor", "Subscribed to logind PrepareForSleep signal");
+        } catch (Error e) {
+            Services.LogService.get_default ().warn ("TimeMonitor", "Could not subscribe to logind PrepareForSleep: %s".printf (e.message));
+        }
+    }
 
-			last_registered_date = now;
-		}
-	}
+    private void check_day_change () {
+        DateTime now = new DateTime.now_local ();
+        Services.LogService.get_default ().debug ("TimeMonitor", "Checking day change: last=%s now=%s".printf (last_registered_date.format ("%Y-%m-%d"), now.format ("%Y-%m-%d")));
+
+        if (now.get_day_of_month () != last_registered_date.get_day_of_month () ||
+            now.get_month () != last_registered_date.get_month () ||
+            now.get_year () != last_registered_date.get_year ()) {
+
+            Services.LogService.get_default ().info ("TimeMonitor", "Day changed from %s to %s".printf (last_registered_date.format ("%Y-%m-%d"), now.format ("%Y-%m-%d")));
+            Services.EventBus.get_default ().day_changed ();
+            Services.Notification.get_default ().regresh ();
+
+            last_registered_date = now;
+        }
+    }
 }
