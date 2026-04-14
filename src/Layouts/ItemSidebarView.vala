@@ -661,7 +661,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     private void init_markdown_editor () {
-        markdown_editor = new Widgets.MarkdownEditor ();
+        markdown_editor = new Widgets.MarkdownEditor () {
+            project = item.project
+        };
         markdown_editor.text_view.height_request = 64;
         markdown_editor.margin_start = 12;
         markdown_editor.margin_end = 12;
@@ -686,7 +688,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             return;
         }
 
-        markdown_editor = new Widgets.MarkdownEditor ();
+        markdown_editor = new Widgets.MarkdownEditor () {
+            project = item.project
+        };
         markdown_editor.text_view.height_request = 64;
         markdown_editor.margin_start = 12;
         markdown_editor.margin_end = 12;

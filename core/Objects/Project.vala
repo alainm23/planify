@@ -39,6 +39,17 @@ public class Objects.Project : Objects.BaseObject {
     public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
     public string calendar_url { get; set; default = ""; }
     public string calendar_source_uid { get; set; default = ""; }
+    public MarkdownSetting markdown_setting { get; set; default = MarkdownSetting.GLOBAL_DEFAULT; }
+
+    public bool is_markdown_enabled {
+        get {
+            switch (markdown_setting) {
+                case MarkdownSetting.ENABLED: return true;
+                case MarkdownSetting.DISABLED: return false;
+                default: return Services.Settings.get_default ().settings.get_boolean ("enable-markdown-formatting");
+            }
+        }
+    }
 
     bool _show_completed = false;
     public bool show_completed {

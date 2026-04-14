@@ -58,9 +58,13 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     private bool updating_programmatically = false;
     
     public string placeholder_text {get; set; default = ""; }
+    public Objects.Project? project { get; set; default = null; }
     
     public bool text_mode {
         get {
+            if (project != null) {
+                return !project.is_markdown_enabled;
+            }
             return !Services.Settings.get_default ().settings.get_boolean ("enable-markdown-formatting");
         }
     }

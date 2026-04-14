@@ -1945,7 +1945,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         markdown_editor = new Widgets.MarkdownEditor () {
-            placeholder_text = _("Description")
+            placeholder_text = _("Description"),
+            project = item.project
         };
 
         markdown_editor.text_view.height_request = 64;
