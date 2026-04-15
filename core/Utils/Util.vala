@@ -400,13 +400,11 @@ public class Util : GLib.Object {
         return str;
     }
 
-    private Gtk.MediaFile soud_medida = null;
     public void play_audio () {
-        if (soud_medida == null) {
-            soud_medida = Gtk.MediaFile.for_resource ("/io/github/alainm23/planify/success.ogg");
-        }
-        
-        soud_medida.play ();
+        Services.LogService.get_default ().info ("Audio", "Playing task completion sound");
+        var media = Gtk.MediaFile.for_resource ("/io/github/alainm23/planify/success.ogg");
+        media.loop = false;
+        media.play ();
     }    
 
     public bool is_input_valid (Gtk.Entry entry) {
