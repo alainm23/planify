@@ -69,6 +69,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
     public FocusedWidget current_focus { get; private set; default = FocusedWidget.CONTENT_ENTRY; }
     
     private Objects.DueDate? preserved_duedate = null;
+    private Objects.DueDate? forced_duedate = null;
     private bool preserved_pinned = false;
     private int preserved_priority = Constants.PRIORITY_4;
     private Gee.HashMap<string, Objects.Label>? preserved_labels = null;
@@ -870,6 +871,9 @@ public class Layouts.QuickAddCore : Adw.Bin {
             if (keep_properties && preserved_duedate != null) {
                 item.due = preserved_duedate.duplicate ();
                 schedule_button.update_from_item (item);
+            } else if (forced_duedate != null) {
+                item.due = forced_duedate.duplicate ();
+                schedule_button.update_from_item (item);
             } else {
                 schedule_button.reset ();
             }
@@ -1001,8 +1005,10 @@ public class Layouts.QuickAddCore : Adw.Bin {
         if (item.due.date == "") {
             item.due.reset ();
             preserved_duedate = null;
+            forced_duedate = null;
         } else {
             preserved_duedate = item.due.duplicate ();
+            forced_duedate = item.due.duplicate ();
         }
 
         schedule_button.update_from_item (item);
