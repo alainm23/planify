@@ -174,12 +174,16 @@ public class Dialogs.Preferences.Pages.InboxPage : Dialogs.Preferences.Pages.Bas
             var select_gesture = new Gtk.GestureClick ();
             action_row.add_controller (select_gesture);
             select_gesture.released.connect (() => {
-                radio_button.active = !radio_button.active;
-                toggled ();
+                if (!radio_button.active) {
+                    radio_button.active = true;
+                    toggled ();
+                }
             });
 
             radio_button.toggled.connect (() => {
-                toggled ();
+                if (radio_button.active) {
+                    toggled ();
+                }
             });
         }
     }
