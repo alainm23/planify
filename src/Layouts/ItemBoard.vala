@@ -542,6 +542,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     private void complete_item (bool old_checked, uint ? time = null) {
         if (Services.Settings.get_default ().settings.get_boolean ("task-complete-tone")) {
+            Services.LogService.get_default ().info ("ItemBoard", "Task completed, playing audio: %s".printf (item.content));
             Util.get_default ().play_audio ();
         }
 

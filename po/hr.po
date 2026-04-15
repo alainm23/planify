@@ -578,7 +578,8 @@ msgstr "Autentifikacija je istekla"
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
-msgstr "Tvoja je sesija istekla. Ukloni i ponovo dodaj svoj račun u postavkama."
+msgstr ""
+"Tvoja je sesija istekla. Ukloni i ponovo dodaj svoj račun u postavkama."
 
 #: core/Services/CalDAV/Core.vala:306
 msgid "Too Many Requests"
