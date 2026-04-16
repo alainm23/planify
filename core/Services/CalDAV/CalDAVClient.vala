@@ -395,7 +395,21 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             return;
         }
 
-        var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
+        WebDAVMultiStatus multi_status;
+        try {
+            multi_status = yield report (project.calendar_url, xml, "1", cancellable);
+        } catch (Error e) {
+            if (e is GLib.IOError.CANCELLED) {
+                throw e;
+            }
+
+            Services.LogService.get_default ().warn ("CalDAV", "sync-collection not supported, falling back to full fetch: %s".printf (e.message));
+            project.loading = false;
+            project.freeze_update = false;
+            yield fetch_items_for_project (project, cancellable);
+            project.sync_finished ();
+            return;
+        }
         project.freeze_update = true;
 
         foreach (WebDAVResponse response in multi_status.responses ()) {
