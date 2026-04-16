@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-03-28 15:09+0000\n"
-"Last-Translator: Henning Lehmann <web@jhlehmann.de>\n"
+"PO-Revision-Date: 2026-04-17 04:09+0000\n"
+"Last-Translator: elea11 <p.manuel.warnecke@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/de/>\n"
 "Language: de\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -565,23 +565,27 @@ msgstr "Synchronisierung ist abgeschlossen"
 
 #: core/Services/CalDAV/Core.vala:298
 msgid "Authentication Expired"
-msgstr ""
+msgstr "Authentifizierung abgelaufen"
 
 #: core/Services/CalDAV/Core.vala:299
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr ""
+"Deine Sitzung ist abgelaufen. Bitte entferne dein Konto unter Einstellungen "
+"und füge es neu hinzu."
 
 #: core/Services/CalDAV/Core.vala:306
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Zu viele Anfragen"
 
 #: core/Services/CalDAV/Core.vala:307
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
 msgstr ""
+"Der Server begrenzt die Zugriffsrate. Bitte warte ein paar Minuten und "
+"versuche es noch einmal."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
@@ -597,7 +601,7 @@ msgstr ""
 
 #: core/Services/Todoist.vala:108
 msgid "Invalid API token"
-msgstr ""
+msgstr "Ungültiges API-Token"
 
 #: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
@@ -1783,7 +1787,7 @@ msgstr "SSL-Überprüfung ist deaktiviert"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
 msgid "Authentication expired"
-msgstr ""
+msgstr "Authentifizierung abgelaufen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Account migration required"
@@ -1816,11 +1820,13 @@ msgstr "Synchronisieren…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
 msgid "Connect to CalDAV"
-msgstr ""
+msgstr "Mit CalDAV verbinden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
 msgid "Connect to any CalDAV-compatible server to sync your tasks"
 msgstr ""
+"Zu jeglichem CalDAV-kompatiblen Server verbinden, um Deine Aufgaben zu "
+"synchronisieren"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
@@ -1841,16 +1847,16 @@ msgstr "URL der Kalender-Startseite"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
 msgid "Advanced"
-msgstr ""
+msgstr "Fortgeschritten"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Show advanced options"
-msgstr ""
+msgstr "Zeige fortgeschrittene Optionen an"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Hide advanced options"
-msgstr ""
+msgstr "Verstecke fortgeschrittene Optionen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
@@ -1873,23 +1879,25 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
 msgid "Connect to Nextcloud"
-msgstr ""
+msgstr "Mit Nextcloud verbinden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:57
 msgid "Sign in with your Nextcloud account to sync tasks via CalDAV"
 msgstr ""
+"Mit Deinem Nextcloud-Konto anmelden, um Aufgaben über CalDAV zu "
+"synchronisieren"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
 msgid "https://cloud.example.com"
-msgstr ""
+msgstr "https://cloud.example.com"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:83
 msgid "https://example.com/nextcloud"
-msgstr ""
+msgstr "https://example.com/nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:100
 msgid "URL examples"
-msgstr ""
+msgstr "URL-Beispiele"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:179
@@ -1939,35 +1947,35 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:89
 msgid "Connect to Todoist"
-msgstr ""
+msgstr "Mit Todoist verbinden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
 msgid "Sign in with your Todoist account to sync your tasks"
-msgstr ""
+msgstr "Bei Todoist-Konto anmelden, um Deine Aufgaben zu synchronisieren"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
 msgid "Sign in with Browser"
-msgstr ""
+msgstr "Über den Browser einloggen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:113
 msgid "Use API Token instead"
-msgstr ""
+msgstr "Stattdessen API-Token verwenden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:155
 msgid "API Token"
-msgstr ""
+msgstr "API-Token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
 msgid "Connect using your personal Todoist API token"
-msgstr ""
+msgstr "Mit Hilfe Deines persönlichen Todoist API-Tokens verbinden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:176
 msgid "Paste your API token"
-msgstr ""
+msgstr "Füge Dein API-Token ein"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:181
 msgid "Connect"
-msgstr ""
+msgstr "Verbinden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:188
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
@@ -1975,7 +1983,7 @@ msgstr "1. Gehe zu Todoist → Einstellungen → Integrationen → Entwickler"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:193
 msgid "2. Copy your API token"
-msgstr ""
+msgstr "2. Kopiere Dein API-Token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:198
 msgid "3. Paste it in the field above"
@@ -1983,11 +1991,11 @@ msgstr "3. Fügen den Token in das obige Feld ein"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
 msgid "How to get your token"
-msgstr ""
+msgstr "Wie Du Dein Token erhältst"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
 msgid "Waiting for login…"
-msgstr ""
+msgstr "Auf Login warten…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:292
 msgid "Synchronizing…"
@@ -2263,13 +2271,15 @@ msgstr "Kalender Ereignisse"
 
 #: src/Dialogs/Preferences/Pages/General.vala:103
 msgid "GNOME Shell Search"
-msgstr ""
+msgstr "GNOME Shell Suche"
 
 #: src/Dialogs/Preferences/Pages/General.vala:104
 msgid ""
 "Search tasks and projects directly from GNOME Shell. Enable it in Settings → "
 "Search"
 msgstr ""
+"Durchsuche Aufgaben und Projekte direkt über die GNOME Shell. In "
+"Einstellungen → Suche aktivieren"
 
 #: src/Dialogs/Preferences/Pages/General.vala:109
 msgid "Date and Time"
@@ -2812,19 +2822,19 @@ msgstr "Projekt aktualisieren"
 
 #: src/Dialogs/Project.vala:232
 msgid "Global Default"
-msgstr ""
+msgstr "Übergreifender Standard"
 
 #: src/Dialogs/Project.vala:234
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktiviert"
 
 #: src/Dialogs/Project.vala:237
 msgid "Markdown Formatting"
-msgstr ""
+msgstr "Markdown-Formatierung"
 
 #: src/Dialogs/Project.vala:238
 msgid "Override the global markdown setting for this project"
-msgstr ""
+msgstr "Überschreibe für dieses Projekt die Markdown-Standardeinstellungen"
 
 #: src/Dialogs/Project.vala:500
 msgid "Project added successfully!"
@@ -3425,12 +3435,12 @@ msgstr "Weniger anzeigen"
 
 #: src/Widgets/ErrorView.vala:111
 msgid "Copy error message"
-msgstr ""
+msgstr "Fehlermeldung kopieren"
 
 #: src/Widgets/ErrorView.vala:129
 #, c-format
 msgid "For more details, share your log file: %s"
-msgstr ""
+msgstr "Teile Deine Protokolldatei für mehr Details: %s"
 
 #: src/Widgets/ErrorView.vala:148
 msgid "Report Issue"
@@ -3538,8 +3548,8 @@ msgstr "Als Erledigt markieren"
 #, c-format
 msgid "%d task copied to clipboard"
 msgid_plural "%d tasks copied to clipboard"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Aufgabe in Zwischenablage kopiert"
+msgstr[1] "%d Aufgaben in Zwischenablage kopiert"
 
 #: src/Widgets/MultiSelectToolbar.vala:295
 msgid "Delete To-Do"
