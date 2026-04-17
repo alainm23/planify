@@ -48,7 +48,7 @@ jobs:
                     echo >> po/POTFILES
                     find quick-add -name "*.vala" | sort >> po/POTFILES
                     echo >> po/POTFILES
-                    echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
+                    echo "data/resources/ui/shortcuts.blp" >> po/POTFILES
                     
                     python3 ../main-repo/scripts/update_translations.py
 
