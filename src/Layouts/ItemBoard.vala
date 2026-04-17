@@ -602,9 +602,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
 
-        Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+        if (response.error_code != 412) {
+            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+        }
     }
-
+    
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
         checked_button.active = false;
         complete_timeout = 0;

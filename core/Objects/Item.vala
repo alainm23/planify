@@ -226,6 +226,14 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    string _etag = "";
+    public string etag {
+        get {
+            _etag = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "etag");
+            return _etag;
+        }
+    }
+
     GLib.DateTime _added_datetime;
     public GLib.DateTime added_datetime {
         get {
@@ -745,6 +753,8 @@ public class Objects.Item : Objects.BaseObject {
 
                     if (response.status) {
                         Services.Store.instance ().update_item (this, update_id);
+                    } else if (response.error_code == 412) {
+                        Services.EventBus.get_default ().send_conflict_toast (project.source);
                     }
                 });
             }
@@ -778,6 +788,8 @@ public class Objects.Item : Objects.BaseObject {
 
                     if (response.status) {
                         Services.Store.instance ().update_item (this, update_id);
+                    } else if (response.error_code == 412) {
+                        Services.EventBus.get_default ().send_conflict_toast (project.source);
                     }
 
                     loading = false;
@@ -807,6 +819,8 @@ public class Objects.Item : Objects.BaseObject {
 
                 if (response.status) {
                     Services.Store.instance ().update_item (this, update_id);
+                } else if (response.error_code == 412) {
+                    Services.EventBus.get_default ().send_conflict_toast (project.source);
                 }
 
                 loading = false;
@@ -1868,6 +1882,8 @@ public class Objects.Item : Objects.BaseObject {
                     subitem.complete_item.begin (old_checked);
                 }
             }
+        } else if (response.error_code == 412) {
+            Services.EventBus.get_default ().send_conflict_toast (project.source);
         }
 
         return response;

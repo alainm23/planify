@@ -1535,7 +1535,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
 
-        Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+        if (response.error_code != 412) {
+            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+        }
     }
 
     public void update_content (string content = "") {

@@ -331,6 +331,21 @@ public class MainWindow : Adw.ApplicationWindow {
 
         Services.EventBus.get_default ().send_error_toast.connect (send_toast_error);
 
+        Services.EventBus.get_default ().send_conflict_toast.connect ((source) => {
+            var toast = new Adw.Toast (_("Task was modified on another device")) {
+                timeout = 5,
+                button_label = _("Sync Now")
+            };
+            toast.button_clicked.connect (() => {
+                if (source.source_type == SourceType.TODOIST) {
+                    Services.Todoist.get_default ().sync.begin (source);
+                } else if (source.source_type == SourceType.CALDAV) {
+                    Services.CalDAV.Core.get_default ().sync.begin (source);
+                }
+            });
+            toast_overlay.add_toast (toast);
+        });
+
         Services.EventBus.get_default ().send_task_completed_toast.connect (show_task_completed_toast);
 
         search_button.clicked.connect (() => {
