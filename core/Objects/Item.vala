@@ -1882,6 +1882,8 @@ public class Objects.Item : Objects.BaseObject {
                     subitem.complete_item.begin (old_checked);
                 }
             }
+        } else if (response.error_code == 412) {
+            Services.EventBus.get_default ().send_conflict_toast (project.source);
         }
 
         return response;
