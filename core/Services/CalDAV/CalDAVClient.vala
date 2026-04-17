@@ -407,7 +407,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 throw e;
             }
 
-            Services.LogService.get_default ().warn ("CalDAV", "sync-collection not supported, falling back to full fetch: %s".printf (e.message));
+            Services.LogService.get_default ().warn ("CalDAV", "sync-collection failed, falling back to full fetch: %s".printf (e.message));
             project.loading = false;
             project.freeze_update = false;
             yield fetch_items_for_project (project, cancellable);
@@ -575,7 +575,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         try {
             yield send_request ("MKCOL", calendar_url, "application/xml", xml, null, null,
-                                { Soup.Status.CREATED });
+                                { Soup.Status.CREATED, Soup.Status.OK });
             project.calendar_url = calendar_url;
             response.status = true;
         } catch (Error e) {
