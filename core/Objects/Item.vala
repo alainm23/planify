@@ -511,6 +511,8 @@ public class Objects.Item : Objects.BaseObject {
 
         if (!ical.get_due ().is_null_time ()) {
             due.date = Utils.Datetime.ical_to_date_time_local (ical.get_due ()).to_string ();
+        } else if (is_update) {
+            due.reset ();
         }
 
         ICal.Property ? rrule_property = ical_vtodo.get_first_property (ICal.PropertyKind.RRULE_PROPERTY);
