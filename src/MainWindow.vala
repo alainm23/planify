@@ -214,6 +214,12 @@ public class MainWindow : Adw.ApplicationWindow {
                 return GLib.Source.REMOVE;
             });
 
+            Services.Store.instance ().source_added.connect ((source) => {
+                if (source.sync_server) {
+                    source.run_server ();
+                }
+            });
+
             // TODO: network_changed is sometimes called very rapidly, so we should debounce it ...
             var network_monitor = GLib.NetworkMonitor.get_default ();
             network_monitor.network_changed.connect (() => {

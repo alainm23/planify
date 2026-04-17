@@ -185,6 +185,7 @@ public class Services.CalDAV.Core : GLib.Object {
             source.id = Util.get_default ().generate_id ();
             source.source_type = SourceType.CALDAV;
             source.last_sync = new GLib.DateTime.now_local ().to_string ();
+            source.sync_server = true;
 
             Objects.SourceCalDAVData caldav_data = new Objects.SourceCalDAVData ();
             caldav_data.server_url = dav_url;
