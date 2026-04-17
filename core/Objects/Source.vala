@@ -132,15 +132,18 @@ public class Objects.Source : Objects.BaseObject {
             return;
         }
 
+        Services.LogService.get_default ().info ("Source", "Starting sync server for source: %s".printf (display_name));
         _run_server ();
 
         server_timeout = Timeout.add_seconds (15 * 60, () => {
             if (sync_server) {
+                Services.LogService.get_default ().info ("Source", "Periodic sync for source: %s".printf (display_name));
                 _run_server ();
                 return true;
             }
 
-            return false; // Don't repeat timeout if sync server isn't active
+            Services.LogService.get_default ().info ("Source", "Sync server stopped for source: %s".printf (display_name));
+            return false;
         });
     }
 
