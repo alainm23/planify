@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-04-14 15:09+0000\n"
+"PO-Revision-Date: 2026-04-17 04:09+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -2719,19 +2719,19 @@ msgstr "更新專案"
 
 #: src/Dialogs/Project.vala:232
 msgid "Global Default"
-msgstr ""
+msgstr "整體預設"
 
 #: src/Dialogs/Project.vala:234
 msgid "Disabled"
-msgstr ""
+msgstr "已經停用"
 
 #: src/Dialogs/Project.vala:237
 msgid "Markdown Formatting"
-msgstr ""
+msgstr "Markdown 格式"
 
 #: src/Dialogs/Project.vala:238
 msgid "Override the global markdown setting for this project"
-msgstr ""
+msgstr "覆蓋整體 Markdown 設定用於此專案"
 
 #: src/Dialogs/Project.vala:500
 msgid "Project added successfully!"
@@ -3420,7 +3420,7 @@ msgstr "標記為已經完成"
 #, c-format
 msgid "%d task copied to clipboard"
 msgid_plural "%d tasks copied to clipboard"
-msgstr[0] ""
+msgstr[0] "%d 任務已經複製至剪貼簿"
 
 #: src/Widgets/MultiSelectToolbar.vala:295
 msgid "Delete To-Do"

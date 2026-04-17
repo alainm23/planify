@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-04-14 15:09+0000\n"
+"PO-Revision-Date: 2026-04-15 17:09+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/hr/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -579,6 +579,7 @@ msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr ""
+"Tvoja je sesija istekla. Ukloni i ponovo dodaj svoj račun u postavkama."
 
 #: core/Services/CalDAV/Core.vala:306
 msgid "Too Many Requests"
@@ -588,7 +589,7 @@ msgstr "Previše zahtjeva"
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
-msgstr ""
+msgstr "Server ograničava broj zahtjeva. Pričekaj par minuta i pokušaj ponovo."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
@@ -1809,11 +1810,13 @@ msgstr "Sinkronizacija …"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
 msgid "Connect to CalDAV"
-msgstr ""
+msgstr "Poveži se na CalDAV"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
 msgid "Connect to any CalDAV-compatible server to sync your tasks"
 msgstr ""
+"Poveži se s bilo kojim CalDAV-kompatibilnim serverom za sinkronizaciju "
+"zadataka"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
@@ -1876,15 +1879,15 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
 msgid "https://cloud.example.com"
-msgstr ""
+msgstr "https://cloud.example.com"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:83
 msgid "https://example.com/nextcloud"
-msgstr ""
+msgstr "https://example.com/nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:100
 msgid "URL examples"
-msgstr ""
+msgstr "URL primjeri"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:178 src/Dialogs/Project.vala:179
@@ -1933,35 +1936,35 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:89
 msgid "Connect to Todoist"
-msgstr ""
+msgstr "Poveži se na Todoist"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
 msgid "Sign in with your Todoist account to sync your tasks"
-msgstr ""
+msgstr "Prijavi se sa svojim Todoist računom za sinkronizaciju tvojih zadataka"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
 msgid "Sign in with Browser"
-msgstr ""
+msgstr "Prijavi se putem preglednika"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:113
 msgid "Use API Token instead"
-msgstr ""
+msgstr "Umjesto toga koristi API token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:155
 msgid "API Token"
-msgstr ""
+msgstr "API token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
 msgid "Connect using your personal Todoist API token"
-msgstr ""
+msgstr "Poveži se pomoću svog osobnog Todoist API tokena"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:176
 msgid "Paste your API token"
-msgstr ""
+msgstr "Umetni svoj API token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:181
 msgid "Connect"
-msgstr ""
+msgstr "Poveži se"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:188
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
@@ -1969,7 +1972,7 @@ msgstr "1. Idi na Todoist → Postavke → Integracije → Programer"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:193
 msgid "2. Copy your API token"
-msgstr ""
+msgstr "2. Kopiraj svoj API token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:198
 msgid "3. Paste it in the field above"
@@ -1977,11 +1980,11 @@ msgstr "3. Umetni ga u gornje polje"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
 msgid "How to get your token"
-msgstr ""
+msgstr "Kako dobiti svoj token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
 msgid "Waiting for login…"
-msgstr ""
+msgstr "Čekanje na prijavu …"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:292
 msgid "Synchronizing…"
@@ -2236,7 +2239,7 @@ msgstr "Pokreni prilikom pokretanja sustava"
 
 #: src/Dialogs/Preferences/Pages/General.vala:70
 msgid "Launch Planify automatically when you start your computer"
-msgstr ""
+msgstr "Pokreni Planify automatski kada pokreneš računalo"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run in Background"
@@ -2244,7 +2247,7 @@ msgstr "Izvodi u pozadini"
 
 #: src/Dialogs/Preferences/Pages/General.vala:83
 msgid "Keep Planify running in the system tray when closing the window"
-msgstr ""
+msgstr "Ostavi Planify pokrenutim u traci sustava prilikom zatvaranja prozora"
 
 #: src/Dialogs/Preferences/Pages/General.vala:96
 msgid "Calendar Events"
@@ -2252,13 +2255,15 @@ msgstr "Kalendarski događaji"
 
 #: src/Dialogs/Preferences/Pages/General.vala:103
 msgid "GNOME Shell Search"
-msgstr ""
+msgstr "Pretraga GNOME ljuske"
 
 #: src/Dialogs/Preferences/Pages/General.vala:104
 msgid ""
 "Search tasks and projects directly from GNOME Shell. Enable it in Settings → "
 "Search"
 msgstr ""
+"Pretraži zadatke i projekte izravno iz GNOME ljuske. Aktiviraj u Postavke → "
+"Pretraga"
 
 #: src/Dialogs/Preferences/Pages/General.vala:109
 msgid "Date and Time"
@@ -2362,7 +2367,7 @@ msgstr "Zadrži svojstva zadatka"
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
 msgstr ""
-"Kada je „Nastavi dodavati” aktivirano, sačuvaj datum, oznake i stanje "
+"Kada je „Nastavi dodavati” uključeno, sačuvaj datum, oznake i stanje "
 "prikvačivanja"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:133
@@ -2642,24 +2647,24 @@ msgstr "Nepovratno briše sve tvoje popise, zadatke i podsjetnike"
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
 #: src/MainWindow.vala:732
 msgid "Summary & Productivity"
-msgstr ""
+msgstr "Sažetak i produktivnost"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
 msgid "Set Up Goals"
-msgstr ""
+msgstr "Postavi ciljeve"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
 msgid "Define how many tasks you want to complete per day and week"
-msgstr ""
+msgstr "Definiraj koliko zadataka želi obaviti dnevno i tjedno"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
 msgid "Summary Details"
-msgstr ""
+msgstr "Detalji sažetka"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
 msgid "Detailed summary will appear here"
-msgstr ""
+msgstr "Detaljan sažetak će se pojaviti ovdje"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
 #: src/Dialogs/ProductivityReport/SummarySection.vala:33
@@ -2668,16 +2673,16 @@ msgstr "Sažetak"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
 msgid "Productivity Details"
-msgstr ""
+msgstr "Detalji produktivnosti"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
 msgid "Detailed productivity stats will appear here"
-msgstr ""
+msgstr "Detaljna statistika produktivnosti će se pojaviti ovdje"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
 msgid "Productivity"
-msgstr ""
+msgstr "Produktivnost"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
@@ -2687,43 +2692,43 @@ msgstr "Pogledaj više"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
 msgid "All goals achieved! You're unstoppable"
-msgstr ""
+msgstr "Svi ciljevi su postignuti! Tebe nitko ne može zaustaviti"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
 msgid "Daily goal crushed! Keep the momentum going"
-msgstr ""
+msgstr "Dnevni cilj ostvaren! Dalje tako"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
 msgid "Weekly goal achieved! Enjoy the rest of your week"
-msgstr ""
+msgstr "Tjedni cilj je postignut! Uživaj u ostatku tjedna"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
 msgid "Start your day, your first task awaits"
-msgstr ""
+msgstr "Započni dan, prvi zadatak te čeka"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
 msgid "Almost there! Just a few more tasks today"
-msgstr ""
+msgstr "Skoro gotovo! Još samo par zadataka za danas"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
 msgid "Great pace this week, you're almost at your goal"
-msgstr ""
+msgstr "Odličan tempo ovaj tjedan. Skoro ćeš postići cilju"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
 msgid "Halfway through your daily goal, nice progress"
-msgstr ""
+msgstr "Na pola puta do dnevnog cilja, lijep napredak"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
 msgid "Solid week so far, keep it up"
-msgstr ""
+msgstr "Dobar tjedan do sada, nastavi tako"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
 msgid "Every task completed is a step forward"
-msgstr ""
+msgstr "Svaki završeni zadatak znači jedan korak naprijed"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
 msgid "Set your daily and weekly goals to start tracking your productivity"
-msgstr ""
+msgstr "Postavi svoje dnevne i tjedne ciljeve za praćenje svoje produktivnosti"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:286
 #: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
@@ -2737,23 +2742,23 @@ msgstr "Ovaj mjesec"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
 msgid "Daily Goal"
-msgstr ""
+msgstr "Dnevni cilj"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
 msgid "Weekly Goal"
-msgstr ""
+msgstr "Tjedni cilj"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
 msgid "Edit Goals"
-msgstr ""
+msgstr "Uredi ciljeve"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:56
 msgid "Total"
-msgstr ""
+msgstr "Ukupno"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:57
 msgid "Pending"
-msgstr ""
+msgstr "Na čekanju"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:59
 #: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
@@ -2762,7 +2767,7 @@ msgstr "Prekoračen rok"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:73
 msgid "Progress"
-msgstr ""
+msgstr "Napredak"
 
 #: src/Dialogs/Project.vala:59 src/Layouts/Sidebar.vala:121
 #: src/Dialogs/Project.vala:60
@@ -2962,11 +2967,11 @@ msgstr "Pošalji e-poštom"
 
 #: src/Layouts/ProjectRow.vala:714
 msgid "Export as PDF"
-msgstr ""
+msgstr "Izvezi kao PDF"
 
 #: src/Layouts/ProjectRow.vala:791
 msgid "Project exported as PDF"
-msgstr ""
+msgstr "Projekt je izvezen kao PDF"
 
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 msgid "Add tasks"
@@ -3115,7 +3120,7 @@ msgstr "Datoteke sigurnosnih kopija aplikacije Planify"
 
 #: src/Services/ExportService.vala:187 core/Objects/Item.vala:1403
 msgid "Deadline:"
-msgstr ""
+msgstr "Rok:"
 
 #: src/Services/Notification.vala:99
 msgid "Snooze for 10 minutes"
@@ -3179,15 +3184,17 @@ msgstr "Nema dostupnih etiketa. Stvori etiketu klikom na gumb '+'"
 
 #: src/Views/Label/LabelSourceRow.vala:122
 msgid "All labels are hidden by the filter"
-msgstr ""
+msgstr "Sve etikete su skrivene filterom"
 
 #: src/Views/Label/Labels.vala:148
 msgid "Only Active Projects"
-msgstr ""
+msgstr "Samo aktivni projekti"
 
 #: src/Views/Label/Labels.vala:149
 msgid "Only show labels used by tasks in active (non-archived) projects"
 msgstr ""
+"Prikaži samo etikete koje koriste zadaci u aktivnim (nearhiviranim) "
+"projektima"
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
@@ -3386,12 +3393,12 @@ msgstr "Prikaži manje"
 
 #: src/Widgets/ErrorView.vala:111
 msgid "Copy error message"
-msgstr ""
+msgstr "Kopiraj poruku o grešci"
 
 #: src/Widgets/ErrorView.vala:129
 #, c-format
 msgid "For more details, share your log file: %s"
-msgstr ""
+msgstr "Za više detalja, dijeli svoju datoteku zapisnika: %s"
 
 #: src/Widgets/ErrorView.vala:148
 msgid "Report Issue"
@@ -3705,27 +3712,27 @@ msgstr "Otvori oglasnu ploču"
 
 #: src/Dialogs/Project.vala:232
 msgid "Global Default"
-msgstr ""
+msgstr "Globalna zadana vrijednost"
 
 #: src/Dialogs/Project.vala:234
 msgid "Disabled"
-msgstr ""
+msgstr "Isključeno"
 
 #: src/Dialogs/Project.vala:237
 msgid "Markdown Formatting"
-msgstr ""
+msgstr "Markdown formatiranje"
 
 #: src/Dialogs/Project.vala:238
 msgid "Override the global markdown setting for this project"
-msgstr ""
+msgstr "Nadjačaj postavku globalnog markdowna za ovaj projekt"
 
 #: src/Widgets/MultiSelectToolbar.vala:284
 #, c-format
 msgid "%d task copied to clipboard"
 msgid_plural "%d tasks copied to clipboard"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d zadatak je kopiran u međuspremnik"
+msgstr[1] "%d zadatka su kopirana u međuspremnik"
+msgstr[2] "%d zadataka je kopirano u međuspremnik"
 
 #~ msgid "Advanced Options"
 #~ msgstr "Napredne opcije"
