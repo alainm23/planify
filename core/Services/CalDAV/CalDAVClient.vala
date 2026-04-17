@@ -407,7 +407,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 throw e;
             }
 
-            Services.LogService.get_default ().warn ("CalDAV", "sync-collection not supported, falling back to full fetch: %s".printf (e.message));
+            Services.LogService.get_default ().warn ("CalDAV", "sync-collection failed, falling back to full fetch: %s".printf (e.message));
             project.loading = false;
             project.freeze_update = false;
             yield fetch_items_for_project (project, cancellable);
@@ -575,7 +575,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         try {
             yield send_request ("MKCOL", calendar_url, "application/xml", xml, null, null,
-                                { Soup.Status.CREATED });
+                                { Soup.Status.CREATED, Soup.Status.OK });
             project.calendar_url = calendar_url;
             response.status = true;
         } catch (Error e) {
@@ -622,13 +622,18 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         try {
             yield send_request ("DELETE", project.calendar_url, "text/calendar", null, null, null,
-                                { Soup.Status.NO_CONTENT, Soup.Status.MULTI_STATUS });
-            // Radicale sends a Multi-Status with 200 OK -> TODO: Validate Response in Multi Status?
+                                { Soup.Status.NO_CONTENT, Soup.Status.MULTI_STATUS, Soup.Status.OK });
             response.status = true;
         } catch (Error e) {
-            Services.LogService.get_default ().error ("CalDAV", "Failed to delete project: %s".printf (e.message));
-            response.error_code = e.code;
-            response.error = e.message;
+            if ("HTTP 405" in e.message) {
+                Services.LogService.get_default ().warn ("CalDAV", "Server does not support project deletion via CalDAV");
+                response.error_code = 405;
+                response.error = _("This server does not support deleting projects via CalDAV. Please delete it from the server directly.");
+            } else {
+                Services.LogService.get_default ().error ("CalDAV", "Failed to delete project: %s".printf (e.message));
+                response.error_code = e.code;
+                response.error = e.message;
+            }
         }
 
         return response;
