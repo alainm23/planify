@@ -27,6 +27,7 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
     protected string password;
     protected string base_url;
     protected bool ignore_ssl;
+    public string? last_response_etag { get; private set; default = null; }
 
 
     public WebDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false) {
@@ -145,6 +146,8 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
 
         var response_data = response.get_data ();
         response_data += '\0';
+
+        last_response_etag = msg.response_headers.get_one ("ETag");
 
         return (string) response_data;
     }
