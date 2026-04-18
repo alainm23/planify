@@ -148,6 +148,11 @@ public class Objects.Source : Objects.BaseObject {
     }
 
     private void _run_server () {
+        if (!is_visible) {
+            Services.LogService.get_default ().info ("Source", "Skipping sync for disabled source: %s".printf (display_name));
+            return;
+        }
+
         if (source_type == SourceType.TODOIST) {
             Services.Todoist.get_default ().sync.begin (this);
         } else if (source_type == SourceType.CALDAV) {
