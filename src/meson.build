@@ -1,7 +1,8 @@
 deps = [
   core_dep,
   gee_dep,
-  m_dep
+  m_dep,
+  icu_uc_dep
 ]
 
 
