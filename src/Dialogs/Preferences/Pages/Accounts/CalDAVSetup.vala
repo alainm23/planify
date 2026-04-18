@@ -196,6 +196,12 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         signal_map[username_entry.changed.connect (() => validate_entries ())] = username_entry;
         signal_map[password_entry.changed.connect (() => validate_entries ())] = password_entry;
 
+        signal_map[password_entry.entry_activated.connect (() => {
+            if (login_button.sensitive) {
+                on_login_button_clicked ();
+            }
+        })] = password_entry;
+
         signal_map[login_button.clicked.connect (() => on_login_button_clicked ())] = login_button;
 
         signal_map[Services.CalDAV.Core.get_default ().sync_progress.connect ((current, total, message) => {
