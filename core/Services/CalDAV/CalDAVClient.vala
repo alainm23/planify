@@ -716,12 +716,35 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         try {
             yield send_request ("MOVE", item.ical_url, "", null, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED }, headers);
-
             item.extra_data = Util.generate_extra_data (destination, "", item.calendar_data);
+            response.status = true;
+        } catch (Error e) {
+            if ("HTTP 502" in e.message || "HTTP 405" in e.message || "HTTP 501" in e.message) {
+                Services.LogService.get_default ().warn ("CalDAV", "MOVE not supported, falling back to PUT+DELETE");
+                response = yield move_item_fallback (item, destination_project, destination);
+            } else {
+                Services.LogService.get_default ().error ("CalDAV", "Failed to move item: %s".printf (e.message));
+                response.error_code = e.code;
+                response.error = e.message;
+            }
+        }
+
+        return response;
+    }
+
+    private async HttpResponse move_item_fallback (Objects.Item item, Objects.Project destination_project, string destination) {
+        HttpResponse response = new HttpResponse ();
+        var body = item.to_vtodo ();
+
+        try {
+            yield send_request ("PUT", destination, "text/calendar", body, null, null, { Soup.Status.CREATED, Soup.Status.NO_CONTENT });
+            item.extra_data = Util.generate_extra_data (destination, last_response_etag ?? "", body);
+
+            yield send_request ("DELETE", item.ical_url, "", null, null, null, { Soup.Status.NO_CONTENT, Soup.Status.OK });
 
             response.status = true;
         } catch (Error e) {
-            Services.LogService.get_default ().error ("CalDAV", "Failed to move item: %s".printf (e.message));
+            Services.LogService.get_default ().error ("CalDAV", "Failed to move item (fallback): %s".printf (e.message));
             response.error_code = e.code;
             response.error = e.message;
         }
