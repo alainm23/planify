@@ -531,7 +531,10 @@ public class Objects.Item : Objects.BaseObject {
             parent_id = "";
         }
 
-        if (ical.get_status () == ICal.PropertyStatus.COMPLETED) {
+        ICal.Property ? percent_property = ical_vtodo.get_first_property (ICal.PropertyKind.PERCENTCOMPLETE_PROPERTY);
+        bool is_percent_complete = percent_property != null && percent_property.get_percentcomplete () == 100;
+
+        if (ical.get_status () == ICal.PropertyStatus.COMPLETED || is_percent_complete) {
             checked = true;
             ICal.Property ? completed_property = ical_vtodo.get_first_property (ICal.PropertyKind.COMPLETED_PROPERTY);
             if (completed_property != null) {
