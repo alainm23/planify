@@ -339,7 +339,11 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                     continue;
                 }
 
+                var getetag = propstat.get_first_prop_with_tagname ("getetag");
+                string etag = getetag != null ? getetag.text_content.strip () : "";
+
                 Objects.Item item = new Objects.Item.from_vtodo (calendar_data.text_content, get_absolute_url (href), project.id);
+                item.extra_data = Util.generate_extra_data (get_absolute_url (href), etag, calendar_data.text_content);
                 items_list.add (item);
             }
 
@@ -403,7 +407,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 throw e;
             }
 
-            Services.LogService.get_default ().warn ("CalDAV", "sync-collection not supported, falling back to full fetch: %s".printf (e.message));
+            Services.LogService.get_default ().warn ("CalDAV", "sync-collection failed, falling back to full fetch: %s".printf (e.message));
             project.loading = false;
             project.freeze_update = false;
             yield fetch_items_for_project (project, cancellable);
@@ -441,6 +445,9 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                     }
 
                     if (is_vtodo) {
+                        var getetag = propstat.get_first_prop_with_tagname ("getetag");
+                        string etag = getetag != null ? getetag.text_content.strip () : "";
+
                         string vtodo_content = yield get_vtodo_by_url (get_absolute_url (href), cancellable);
 
                         try {
@@ -458,6 +465,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                                         bool old_checked = item.checked;
 
                                         item.update_from_vtodo (vtodo_content, get_absolute_url (href));
+                                        item.extra_data = Util.generate_extra_data (get_absolute_url (href), etag, vtodo_content);
                                         item.project_id = project.id;
                                         Services.Store.instance ().update_item (item);
 
@@ -567,7 +575,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         try {
             yield send_request ("MKCOL", calendar_url, "application/xml", xml, null, null,
-                                { Soup.Status.CREATED });
+                                { Soup.Status.CREATED, Soup.Status.OK });
             project.calendar_url = calendar_url;
             response.status = true;
         } catch (Error e) {
@@ -614,13 +622,18 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         try {
             yield send_request ("DELETE", project.calendar_url, "text/calendar", null, null, null,
-                                { Soup.Status.NO_CONTENT, Soup.Status.MULTI_STATUS });
-            // Radicale sends a Multi-Status with 200 OK -> TODO: Validate Response in Multi Status?
+                                { Soup.Status.NO_CONTENT, Soup.Status.MULTI_STATUS, Soup.Status.OK });
             response.status = true;
         } catch (Error e) {
-            Services.LogService.get_default ().error ("CalDAV", "Failed to delete project: %s".printf (e.message));
-            response.error_code = e.code;
-            response.error = e.message;
+            if ("HTTP 405" in e.message) {
+                Services.LogService.get_default ().warn ("CalDAV", "Server does not support project deletion via CalDAV");
+                response.error_code = 405;
+                response.error = _("This server does not support deleting projects via CalDAV. Please delete it from the server directly.");
+            } else {
+                Services.LogService.get_default ().error ("CalDAV", "Failed to delete project: %s".printf (e.message));
+                response.error_code = e.code;
+                response.error = e.message;
+            }
         }
 
         return response;
@@ -637,13 +650,24 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield send_request ("PUT", url, "text/calendar", body, null, null, expected);
-            item.extra_data = Util.generate_extra_data (url, "", body);
+            HashTable<string, string>? headers = null;
+            if (update && item.etag != null && item.etag != "") {
+                headers = new HashTable<string, string> (str_hash, str_equal);
+                headers.insert ("If-Match", item.etag);
+            }
+            yield send_request ("PUT", url, "text/calendar", body, null, null, expected, headers);
+            item.extra_data = Util.generate_extra_data (url, last_response_etag ?? "", body);
             response.status = true;
         } catch (Error e) {
-            Services.LogService.get_default ().error ("CalDAV", "Failed to %s item: %s".printf (update ? "update" : "add", e.message));
-            response.error_code = e.code;
-            response.error = e.message;
+            if ("HTTP 412" in e.message) {
+                Services.LogService.get_default ().warn ("CalDAV", "Conflict detected (412), re-fetching item");
+                response.error_code = 412;
+                response.error = _("Task was modified on another device. Please sync to get the latest version.");
+            } else {
+                Services.LogService.get_default ().error ("CalDAV", "Failed to %s item: %s".printf (update ? "update" : "add", e.message));
+                response.error_code = e.code;
+                response.error = e.message;
+            }
         }
 
         return response;
@@ -656,14 +680,25 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield send_request ("PUT", item.ical_url, "text/calendar", body, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED });
-            item.extra_data = Util.generate_extra_data (item.ical_url, "", body);
+            HashTable<string, string>? headers = null;
+            if (item.etag != null && item.etag != "") {
+                headers = new HashTable<string, string> (str_hash, str_equal);
+                headers.insert ("If-Match", item.etag);
+            }
+            yield send_request ("PUT", item.ical_url, "text/calendar", body, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED }, headers);
+            item.extra_data = Util.generate_extra_data (item.ical_url, last_response_etag ?? "", body);
 
             response.status = true;
         } catch (Error e) {
-            Services.LogService.get_default ().error ("CalDAV", "Failed to complete item: %s".printf (e.message));
-            response.error_code = e.code;
-            response.error = e.message;
+            if ("HTTP 412" in e.message) {
+                Services.LogService.get_default ().warn ("CalDAV", "Conflict detected (412) on complete, re-fetching item");
+                response.error_code = 412;
+                response.error = _("Task was modified on another device. Please sync to get the latest version.");
+            } else {
+                Services.LogService.get_default ().error ("CalDAV", "Failed to complete item: %s".printf (e.message));
+                response.error_code = e.code;
+                response.error = e.message;
+            }
         }
 
         return response;
@@ -681,12 +716,35 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         try {
             yield send_request ("MOVE", item.ical_url, "", null, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED }, headers);
-
             item.extra_data = Util.generate_extra_data (destination, "", item.calendar_data);
+            response.status = true;
+        } catch (Error e) {
+            if ("HTTP 502" in e.message || "HTTP 405" in e.message || "HTTP 501" in e.message) {
+                Services.LogService.get_default ().warn ("CalDAV", "MOVE not supported, falling back to PUT+DELETE");
+                response = yield move_item_fallback (item, destination_project, destination);
+            } else {
+                Services.LogService.get_default ().error ("CalDAV", "Failed to move item: %s".printf (e.message));
+                response.error_code = e.code;
+                response.error = e.message;
+            }
+        }
+
+        return response;
+    }
+
+    private async HttpResponse move_item_fallback (Objects.Item item, Objects.Project destination_project, string destination) {
+        HttpResponse response = new HttpResponse ();
+        var body = item.to_vtodo ();
+
+        try {
+            yield send_request ("PUT", destination, "text/calendar", body, null, null, { Soup.Status.CREATED, Soup.Status.NO_CONTENT });
+            item.extra_data = Util.generate_extra_data (destination, last_response_etag ?? "", body);
+
+            yield send_request ("DELETE", item.ical_url, "", null, null, null, { Soup.Status.NO_CONTENT, Soup.Status.OK });
 
             response.status = true;
         } catch (Error e) {
-            Services.LogService.get_default ().error ("CalDAV", "Failed to move item: %s".printf (e.message));
+            Services.LogService.get_default ().error ("CalDAV", "Failed to move item (fallback): %s".printf (e.message));
             response.error_code = e.code;
             response.error = e.message;
         }

@@ -185,6 +185,7 @@ public class Services.CalDAV.Core : GLib.Object {
             source.id = Util.get_default ().generate_id ();
             source.source_type = SourceType.CALDAV;
             source.last_sync = new GLib.DateTime.now_local ().to_string ();
+            source.sync_server = true;
 
             Objects.SourceCalDAVData caldav_data = new Objects.SourceCalDAVData ();
             caldav_data.server_url = dav_url;
@@ -230,7 +231,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
 
             yield caldav_client.update_userdata (principal_url, source, cancellable);
-            Services.Store.instance ().insert_source (source);
 
             Gee.ArrayList<Objects.Project> projects = yield caldav_client.fetch_project_list (source, cancellable);
 
@@ -256,6 +256,10 @@ public class Services.CalDAV.Core : GLib.Object {
                     processed++;
                 }
             }
+
+            // Insert source after all projects and items are fetched
+            // to avoid concurrent sync triggering duplicate project insertion
+            Services.Store.instance ().insert_source (source);
 
             sync_progress (projects.size, projects.size, _("Sync completed"));
             Services.LogService.get_default ().info ("CalDAV.Core", "Account added successfully, %d projects synced".printf (projects.size));
