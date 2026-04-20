@@ -21,7 +21,6 @@
 
 namespace Constants {
     public const string SOUP_USER_AGENT = "Planify";
-
 #if DEVELOPMENT
     public const bool IS_DEVELOPMENT = true;
 #else
