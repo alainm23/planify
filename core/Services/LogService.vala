@@ -51,8 +51,11 @@ public class Services.LogService : Object {
         var timestamp = new DateTime.now_local ().format ("%Y-%m-%d %H:%M:%S");
         var line = "[%s] [%s] [%s] %s\n".printf (timestamp, level.to_string (), context, message);
 
-        // Always print to stdout
-        print ("%s", line);
+        if (Constants.IS_DEVELOPMENT) {
+            print ("%s", line);
+        } else {
+            GLib.debug ("%s", line.chomp ());
+        }
 
         // Write to file
         if (stream != null) {
