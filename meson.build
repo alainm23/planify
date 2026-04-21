@@ -139,6 +139,7 @@ config_file = configure_file(
 subdir('core')
 subdir('src')
 subdir('quick-add')
+subdir('cli')
 subdir('data')
 subdir('search-provider')
 subdir('po')
