@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-03-28 15:09+0000\n"
+"PO-Revision-Date: 2026-04-22 14:09+0000\n"
 "Last-Translator: Stephnie Klim <sylorutu@denipl.net>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/it/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -145,7 +145,7 @@ msgstr "Descrizione"
 
 #: core/Enum.vala:534 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr "Programmata"
+msgstr "Programmate"
 
 #: core/Enum.vala:543 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:766 src/Layouts/ItemBoard.vala:779
@@ -207,7 +207,7 @@ msgstr "registro"
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:196
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr "Inbox"
+msgstr "Posta in arrivo"
 
 #: core/Objects/Filters/Inbox.vala:36
 msgid "inbox"
@@ -263,7 +263,7 @@ msgstr "ripetendo"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr "programmato"
+msgstr "programmate"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
@@ -382,18 +382,18 @@ msgstr "Eliminare il Progetto %s?"
 
 #: core/Objects/Project.vala:923 core/Objects/Section.vala:402
 msgid "Archive?"
-msgstr "Archivio?"
+msgstr "Archiviare?"
 
 #: core/Objects/Project.vala:924 core/Objects/Section.vala:403
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr "Questo archivio %s e tutti i suoi task."
+msgstr "%s e tutte le sue attività verranno archiviate."
 
 #: core/Objects/Project.vala:928 core/Objects/Section.vala:407
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:569
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
-msgstr "Archivio"
+msgstr "Archivia"
 
 #: core/Objects/Section.vala:376 src/Layouts/SectionBoard.vala:634
 #, c-format
@@ -843,7 +843,7 @@ msgstr "Nessuno"
 
 #: core/Utils/Util.vala:264
 msgid "Today + Inbox"
-msgstr "Oggi + Inbox"
+msgstr "Oggi + Posta in arrivo"
 
 #: core/Utils/Util.vala:436
 msgid "Delete All"
@@ -1710,11 +1710,11 @@ msgstr "Aggiorna Etichetta"
 
 #: src/Dialogs/LabelPicker.vala:62
 msgid "Filter"
-msgstr ""
+msgstr "Filtra"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:739
 msgid "Archived Projects"
-msgstr ""
+msgstr "Progetti archiviati"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionRow.vala:668
 #: src/Views/Project/Project.vala:379
@@ -2603,16 +2603,16 @@ msgstr ""
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
 #: src/MainWindow.vala:732
 msgid "Summary & Productivity"
-msgstr ""
+msgstr "Riepilogo & Produttività"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
 msgid "Set Up Goals"
-msgstr ""
+msgstr "Imposta Obiettivi"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
 msgid "Define how many tasks you want to complete per day and week"
-msgstr ""
+msgstr "Definisci quante attività vuoi completare al giorno ed alla settimana"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
 msgid "Summary Details"
@@ -2625,7 +2625,7 @@ msgstr ""
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
 #: src/Dialogs/ProductivityReport/SummarySection.vala:33
 msgid "Summary"
-msgstr ""
+msgstr "Riepilogo"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
 msgid "Productivity Details"
@@ -2638,7 +2638,7 @@ msgstr ""
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
 msgid "Productivity"
-msgstr ""
+msgstr "Produttività"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
@@ -2685,16 +2685,18 @@ msgstr ""
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
 msgid "Set your daily and weekly goals to start tracking your productivity"
 msgstr ""
+"Imposta i tuoi obiettivi giornalieri e settimanali per iniziare a tracciare "
+"la tua produttività"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:286
 #: src/Views/Project/Project.vala:558 src/Views/Project/Project.vala:725
 msgid "This Week"
-msgstr ""
+msgstr "Questa Settimana"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:287
 #: src/Views/Project/Project.vala:560 src/Views/Project/Project.vala:729
 msgid "This Month"
-msgstr ""
+msgstr "Questo Mese"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
 msgid "Daily Goal"
@@ -2710,20 +2712,20 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:56
 msgid "Total"
-msgstr ""
+msgstr "Totale"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:57
 msgid "Pending"
-msgstr ""
+msgstr "In sospeso"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:59
 #: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
 msgid "Overdue"
-msgstr ""
+msgstr "In ritardo"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:73
 msgid "Progress"
-msgstr ""
+msgstr "Progressi"
 
 #: src/Dialogs/Project.vala:60 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -2783,6 +2785,7 @@ msgstr "Ricerca Rapida"
 #: src/Dialogs/QuickFind/QuickFind.vala:318
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
+"Cambia rapidamente progetto e vista, trova attività, cerca per etichette"
 
 #: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:260
 #: src/Views/Project/Project.vala:377
@@ -2993,7 +2996,7 @@ msgstr "Vai a Oggi"
 
 #: src/Layouts/Sidebar.vala:316 src/Layouts/Sidebar.vala:368
 msgid "Go to Scheduled"
-msgstr "Vai a Pianificato"
+msgstr "Vai a Programmate"
 
 #: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Labels"
@@ -3176,7 +3179,7 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:381
 msgid "Select"
-msgstr ""
+msgstr "Seleziona"
 
 #: src/Views/Project/Project.vala:382
 msgid "Paste"
@@ -3188,11 +3191,11 @@ msgstr "Espandi Tutto"
 
 #: src/Views/Project/Project.vala:445 src/Widgets/ItemChangeHistoryRow.vala:108
 msgid "New"
-msgstr ""
+msgstr "Nuovo"
 
 #: src/Views/Project/Project.vala:504
 msgid "Collapse All"
-msgstr ""
+msgstr "Contrai Tutto"
 
 #: src/Views/Project/Project.vala:520
 msgid "List"
@@ -3214,7 +3217,7 @@ msgstr ""
 #: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:230
 #: src/Views/Today.vala:719
 msgid "Date Added"
-msgstr ""
+msgstr "Data di aggiunta"
 
 #: src/Views/Project/Project.vala:547
 msgid "Ascending Order"
@@ -3226,15 +3229,15 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:556
 msgid "All (default)"
-msgstr ""
+msgstr "Tutti (predefinito)"
 
 #: src/Views/Project/Project.vala:559 src/Views/Project/Project.vala:727
 msgid "Next 7 Days"
-msgstr ""
+msgstr "Prossimi 7 Giorni"
 
 #: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:731
 msgid "Next 30 Days"
-msgstr ""
+msgstr "Prossimi 30 Giorni"
 
 #: src/Views/Project/Project.vala:568 src/Views/Scheduled/Scheduled.vala:238
 #: src/Views/Today.vala:727
@@ -3259,7 +3262,7 @@ msgstr ""
 #: src/Views/Project/Project.vala:593 src/Views/Scheduled/Scheduled.vala:263
 #: src/Views/Today.vala:752
 msgid "Filter by Labels"
-msgstr ""
+msgstr "Filtra per Etichette"
 
 #: src/Views/Project/Project.vala:597
 msgid "Show Completed"
@@ -3499,7 +3502,7 @@ msgstr ""
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:206
 msgid "Unarchive"
-msgstr ""
+msgstr "Disarchivia"
 
 #: src/Widgets/SubItems.vala:525
 msgid "No subtasks added yet. Get started!"
