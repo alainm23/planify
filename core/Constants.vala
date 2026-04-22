@@ -21,6 +21,11 @@
 
 namespace Constants {
     public const string SOUP_USER_AGENT = "Planify";
+#if DEVELOPMENT
+    public const bool IS_DEVELOPMENT = true;
+#else
+    public const bool IS_DEVELOPMENT = false;
+#endif
     public const string TODOIST_CLIENT_ID = "b0dd7d3714314b1dbbdab9ee03b6b432";
     public const string TODOIST_CLIENT_SECRET = "a86dfeb12139459da3e5e2a8c197c678";
     public const string TODOIST_SCOPE = "data:read_write,data:delete,project:delete";

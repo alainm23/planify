@@ -687,13 +687,30 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             }
             yield send_request ("PUT", item.ical_url, "text/calendar", body, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED }, headers);
             item.extra_data = Util.generate_extra_data (item.ical_url, last_response_etag ?? "", body);
-
             response.status = true;
         } catch (Error e) {
             if ("HTTP 412" in e.message) {
-                Services.LogService.get_default ().warn ("CalDAV", "Conflict detected (412) on complete, re-fetching item");
-                response.error_code = 412;
-                response.error = _("Task was modified on another device. Please sync to get the latest version.");
+                Services.LogService.get_default ().warn ("CalDAV", "Conflict on complete (412), re-fetching ETag and retrying");
+                try {
+                    var retry_cancellable = new GLib.Cancellable ();
+                    string vtodo_content = yield get_vtodo_by_url (item.ical_url, retry_cancellable);
+                    // Extract fresh ETag via HEAD or from last GET response
+                    string fresh_etag = last_response_etag ?? "";
+                    item.extra_data = Util.generate_extra_data (item.ical_url, fresh_etag, vtodo_content);
+
+                    HashTable<string, string>? retry_headers = null;
+                    if (fresh_etag != "") {
+                        retry_headers = new HashTable<string, string> (str_hash, str_equal);
+                        retry_headers.insert ("If-Match", fresh_etag);
+                    }
+                    yield send_request ("PUT", item.ical_url, "text/calendar", body, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED }, retry_headers);
+                    item.extra_data = Util.generate_extra_data (item.ical_url, last_response_etag ?? "", body);
+                    response.status = true;
+                } catch (Error retry_error) {
+                    Services.LogService.get_default ().error ("CalDAV", "Retry complete failed: %s".printf (retry_error.message));
+                    response.error_code = 412;
+                    response.error = _("Task was modified on another device. Please sync to get the latest version.");
+                }
             } else {
                 Services.LogService.get_default ().error ("CalDAV", "Failed to complete item: %s".printf (e.message));
                 response.error_code = e.code;

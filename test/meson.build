@@ -21,8 +21,8 @@ test_cli_sources = [
     'cli/test-argument-parser.vala',
     'cli/test-task-validator.vala',
     'cli/test-priority-conversion.vala',
-    join_paths(meson.project_source_root(), 'quick-add', 'cli', 'ArgumentParser.vala'),
-    join_paths(meson.project_source_root(), 'quick-add', 'cli', 'TaskValidator.vala')
+    join_paths(meson.project_source_root(), 'cli', 'ArgumentParser.vala'),
+    join_paths(meson.project_source_root(), 'cli', 'TaskValidator.vala')
 ]
 
 test_cli = executable(
