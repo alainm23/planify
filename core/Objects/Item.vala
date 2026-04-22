@@ -1888,6 +1888,7 @@ public class Objects.Item : Objects.BaseObject {
                 }
             }
         } else if (response.error_code == 412) {
+            loading = false;
             Services.EventBus.get_default ().send_conflict_toast (project.source);
         }
 
