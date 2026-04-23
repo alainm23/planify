@@ -308,7 +308,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var responses = multi_status.responses ();
         
         if (progress_callback != null) {
-            progress_callback (0, responses.size, _("Loading tasks for %s…").printf (project.name));
+            progress_callback (0, responses.size, _ ("Loading tasks for %s…").printf (project.name));
         }
 
         project.freeze_update = true;
@@ -342,9 +342,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 var getetag = propstat.get_first_prop_with_tagname ("getetag");
                 string etag = getetag != null ? getetag.text_content.strip () : "";
 
-                Objects.Item item = new Objects.Item.from_vtodo (calendar_data.text_content, get_absolute_url (href), project.id);
-                item.extra_data = Util.generate_extra_data (get_absolute_url (href), etag, calendar_data.text_content);
-                items_list.add (item);
+                var resource_url = get_absolute_url (href);
+                upsert_vtodo_content (project, resource_url, etag, calendar_data.text_content, items_list);
             }
 
             if (progress_callback != null && index % 10 == 0) {
@@ -379,6 +378,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         Services.LogService.get_default ().info ("CalDAV", "Syncing tasklist");
 
         var xml = """
+        <?xml version='1.0' encoding='utf-8'?>
         <d:sync-collection xmlns:d="DAV:">
             <d:sync-token>%s</d:sync-token>
             <d:sync-level>1</d:sync-level>
@@ -399,6 +399,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         if (project.sync_id == null || project.sync_id == "") {
             Services.LogService.get_default ().warn ("CalDAV", "No sync-token from server, falling back to etag-based sync for '%s'".printf (project.name));
             project.loading = false;
+            project.freeze_update = false;
             yield etag_sync_project (project, cancellable);
             project.sync_finished ();
             return;
@@ -411,11 +412,12 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             if (e is GLib.IOError.CANCELLED) {
                 throw e;
             }
+            // sync-collection fails with a 412 Precondition Failed on Vikunja (but it sends a sync-token?)
 
-            Services.LogService.get_default ().warn ("CalDAV", "sync-collection failed, falling back to full fetch: %s".printf (e.message));
+            Services.LogService.get_default ().warn ("CalDAV", "sync-collection failed, falling back to ETag sync: %s".printf (e.message));
             project.loading = false;
             project.freeze_update = false;
-            yield fetch_items_for_project (project, cancellable);
+            yield etag_sync_project (project, cancellable);
             project.sync_finished ();
             return;
         }
@@ -423,9 +425,10 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         foreach (WebDAVResponse response in multi_status.responses ()) {
             string? href = response.href;
+            var url = get_absolute_url (href);
 
             if (response.status == Soup.Status.NOT_FOUND) {
-                Objects.Item ? item = Services.Store.instance ().get_item_by_ical_url (get_absolute_url (href));
+                Objects.Item ? item = Services.Store.instance ().get_item_by_ical_url (url);
                 if (item != null) {
                     Services.Store.instance ().delete_item (item);
                 }
@@ -435,7 +438,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
             foreach (WebDAVPropStat propstat in response.propstats ()) {
                 if (propstat.status == Soup.Status.NOT_FOUND) {
-                    Objects.Item ? item = Services.Store.instance ().get_item_by_ical_url (get_absolute_url (href));
+                    Objects.Item ? item = Services.Store.instance ().get_item_by_ical_url (url);
                     if (item != null) {
                         Services.Store.instance ().delete_item (item);
                     }
@@ -453,54 +456,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                         var getetag = propstat.get_first_prop_with_tagname ("getetag");
                         string etag = getetag != null ? getetag.text_content.strip () : "";
 
-                        string vtodo_content = yield get_vtodo_by_url (get_absolute_url (href), cancellable);
-
-                        try {
-                            ICal.Component vcalendar = new ICal.Component.from_string (vtodo_content);
-                            
-                            ICal.Component vtodo_comp = vcalendar.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
-                            while (vtodo_comp != null) {
-                                string uid = vtodo_comp.get_uid ();
-                                if (uid != null && uid != "") {
-                                    Objects.Item ? item = Services.Store.instance ().get_item (uid);
-
-                                    if (item != null) {
-                                        string old_project_id = item.project_id;
-                                        string old_parent_id = item.parent_id;
-                                        bool old_checked = item.checked;
-
-                                        item.update_from_vtodo (vtodo_content, get_absolute_url (href));
-                                        item.extra_data = Util.generate_extra_data (get_absolute_url (href), etag, vtodo_content);
-                                        item.project_id = project.id;
-                                        Services.Store.instance ().update_item (item);
-
-                                        if (old_project_id != item.project_id || old_parent_id != item.parent_id) {
-                                            Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
-                                        }
-
-                                        if (old_checked != item.checked) {
-                                            Services.Store.instance ().complete_item (item, old_checked);
-                                        }
-                                    } else {
-                                        var new_item = new Objects.Item.from_vtodo (vtodo_content, get_absolute_url (href), project.id);
-                                        if (new_item.has_parent) {
-                                            Objects.Item ? parent_item = new_item.parent;
-                                            if (parent_item != null) {
-                                                parent_item.add_item_if_not_exists (new_item);
-                                            } else {
-                                                project.add_item_if_not_exists (new_item);
-                                            }
-                                        } else {
-                                            project.add_item_if_not_exists (new_item);
-                                        }
-                                    }
-                                }
-                                
-                                vtodo_comp = vcalendar.get_next_component (ICal.ComponentKind.VTODO_COMPONENT);
-                            }
-                        } catch (Error e) {
-                            Services.LogService.get_default ().error ("CalDAV.Sync", "Error parsing VTODO from %s: %s".printf (href, e.message));
-                        }
+                        string vtodo_content = yield get_vtodo_by_url (url, cancellable);
+                        upsert_vtodo_content (project, url, etag, vtodo_content);
                     }
                 }
             }
@@ -510,14 +467,74 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         if (sync_token != null && sync_token != project.sync_id) {
             project.sync_id = sync_token;
             project.update_local ();
+        } else if (sync_token == null) {
+            // Some CalDAV providers do not support sync-token. Keep token empty
+            // so subsequent syncs always take the ETag fallback path.
+            project.sync_id = "";
+            project.update_local ();
         }
 
         project.loading = false;
         project.freeze_update = false;
         project.count_update ();
         Services.Store.instance ().update_project (project);
+    }
 
-        project.sync_finished ();
+
+    /**
+    * Adds or updates items in a project based on VTODO content from a CalDAV server.
+    *
+    * If @batched_items is provided, all new items are added to this list instead of
+    * being added directly to the project.
+    *
+    */
+    private void upsert_vtodo_content (Objects.Project project, string url, string etag, string vtodo_content, Gee.ArrayList<Objects.Item>? batched_items = null) {
+        ICal.Component vcalendar = new ICal.Component.from_string (vtodo_content);
+        ICal.Component vtodo_comp = vcalendar.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
+        while (vtodo_comp != null) {
+            string uid = vtodo_comp.get_uid ();
+            if (uid != null && uid != "") {
+                Objects.Item ? item = Services.Store.instance ().get_item (uid);
+
+                if (item != null) {
+                    string old_project_id = item.project_id;
+                    string old_parent_id = item.parent_id;
+                    bool old_checked = item.checked;
+
+                    item.update_from_vtodo (vtodo_content, url);
+                    item.extra_data = Util.generate_extra_data (url, etag, vtodo_content);
+                    item.project_id = project.id;
+                    Services.Store.instance ().update_item (item);
+
+                    if (old_project_id != item.project_id || old_parent_id != item.parent_id) {
+                        Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
+                    }
+
+                    if (old_checked != item.checked) {
+                        Services.Store.instance ().complete_item (item, old_checked);
+                    }
+                } else {
+                    var new_item = new Objects.Item.from_vtodo (vtodo_content, url, project.id);
+                    new_item.extra_data = Util.generate_extra_data (url, etag, vtodo_content);
+
+                    if (batched_items != null) {
+                        batched_items.add (new_item);
+                    } else {
+                        if (new_item.has_parent) {
+                            Objects.Item ? parent_item = new_item.parent;
+                            if (parent_item != null) {
+                                parent_item.add_item_if_not_exists (new_item);
+                            } else {
+                                project.add_item_if_not_exists (new_item);
+                            }
+                        } else {
+                            project.add_item_if_not_exists (new_item);
+                        }
+                    }
+                }
+            }
+            vtodo_comp = vcalendar.get_next_component (ICal.ComponentKind.VTODO_COMPONENT);
+        }
     }
 
 
@@ -552,69 +569,42 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             }
         }
 
-        Services.LogService.get_default ().debug ("CalDAV", "Server has %d items".printf (server_map.size));
+        Services.LogService.get_default ().debug ("CalDAV", "Project has %d items".printf (server_map.size));
+        project.freeze_update = true;
 
-        // Step 2: delete local items no longer on server
-        var local_items = Services.Store.instance ().get_items_by_project (project);
-        foreach (Objects.Item local_item in local_items) {
-            if (local_item.ical_url != "" && !server_map.has_key (local_item.ical_url)) {
-                Services.LogService.get_default ().debug ("CalDAV", "Deleting removed item: %s".printf (local_item.content));
-                Services.Store.instance ().delete_item (local_item);
+        
+        try {
+            // Step 2: delete local items no longer on server
+            var stale_items = new Gee.ArrayList<Objects.Item> ();
+            foreach (var local_item in Services.Store.instance ().get_items_by_project (project)) {
+                if (!server_map.has_key (local_item.ical_url)) {
+                    stale_items.add (local_item);
+                }
             }
+
+            foreach (var stale_item in stale_items) {
+                Services.LogService.get_default ().debug ("CalDAV", "Deleting stale item: %s".printf (stale_item.content));
+                Services.Store.instance ().delete_item (stale_item);
+            }
+            // Step 3: fetch and update only changed/new items
+            foreach (var entry in server_map.entries) {
+                string url = entry.key;
+                string server_etag = entry.value;
+
+                Objects.Item? local_item = Services.Store.instance ().get_item_by_ical_url (url);
+                if (local_item != null && server_etag != "" && local_item.etag == server_etag) {
+                    // ETag matches, skip
+                    continue;
+                }
+
+                string vtodo_content = yield get_vtodo_by_url (url, cancellable);
+                upsert_vtodo_content (project, url, server_etag, vtodo_content);
+            }
+        } finally {
+            project.freeze_update = false;
+            project.count_update ();
+            Services.Store.instance ().update_project (project);
         }
-
-        // Step 3: fetch and update only changed/new items
-        foreach (var entry in server_map.entries) {
-            string url = entry.key;
-            string server_etag = entry.value;
-
-            Objects.Item? local_item = Services.Store.instance ().get_item_by_ical_url (url);
-
-            if (local_item != null && local_item.etag == server_etag && server_etag != "") {
-                // ETag matches, skip
-                continue;
-            }
-
-            Services.LogService.get_default ().debug ("CalDAV", "%s item: %s".printf (local_item == null ? "Fetching new" : "Updating changed", url));
-
-            string vtodo_content = yield get_vtodo_by_url (url, cancellable);
-            if (vtodo_content == null) continue;
-
-            if (local_item != null) {
-                string old_project_id = local_item.project_id;
-                string old_parent_id = local_item.parent_id;
-                bool old_checked = local_item.checked;
-
-                local_item.update_from_vtodo (vtodo_content, url);
-                local_item.extra_data = Util.generate_extra_data (url, server_etag, vtodo_content);
-                local_item.project_id = project.id;
-                Services.Store.instance ().update_item (local_item);
-
-                if (old_project_id != local_item.project_id || old_parent_id != local_item.parent_id) {
-                    Services.EventBus.get_default ().item_moved (local_item, old_project_id, "", old_parent_id);
-                }
-
-                if (old_checked != local_item.checked) {
-                    Services.Store.instance ().complete_item (local_item, old_checked);
-                }
-            } else {
-                var new_item = new Objects.Item.from_vtodo (vtodo_content, url, project.id);
-                new_item.extra_data = Util.generate_extra_data (url, server_etag, vtodo_content);
-                if (new_item.has_parent) {
-                    Objects.Item? parent_item = new_item.parent;
-                    if (parent_item != null) {
-                        parent_item.add_item_if_not_exists (new_item);
-                    } else {
-                        project.add_item_if_not_exists (new_item);
-                    }
-                } else {
-                    project.add_item_if_not_exists (new_item);
-                }
-            }
-        }
-
-        project.count_update ();
-        Services.Store.instance ().update_project (project);
     }
 
     private async string? get_vtodo_by_url (string url, GLib.Cancellable cancellable) throws GLib.Error {
