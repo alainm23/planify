@@ -394,8 +394,13 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         yield fetch_project_details (project, cancellable);
 
+        Services.LogService.get_default ().debug ("CalDAV", "sync_id after fetch_project_details: '%s'".printf (project.sync_id ?? "(null)"));
+
         if (project.sync_id == null || project.sync_id == "") {
+            Services.LogService.get_default ().warn ("CalDAV", "No sync-token from server, falling back to etag-based sync for '%s'".printf (project.name));
             project.loading = false;
+            yield etag_sync_project (project, cancellable);
+            project.sync_finished ();
             return;
         }
 
@@ -516,6 +521,102 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
 
+    private async void etag_sync_project (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
+        Services.LogService.get_default ().info ("CalDAV", "ETag sync for '%s'".printf (project.name));
+
+        // Step 1: fetch {url → etag} from server (lightweight, no calendar-data)
+        var xml = """<?xml version="1.0" encoding="utf-8"?>
+        <cal:calendar-query xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
+            <d:prop>
+                <d:getetag/>
+            </d:prop>
+            <cal:filter>
+                <cal:comp-filter name="VCALENDAR">
+                    <cal:comp-filter name="VTODO"/>
+                </cal:comp-filter>
+            </cal:filter>
+        </cal:calendar-query>
+        """;
+
+        var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
+
+        // Build server map: url → etag
+        var server_map = new Gee.HashMap<string, string> ();
+        foreach (var response in multi_status.responses ()) {
+            if (response.href == null) continue;
+            string url = get_absolute_url (response.href);
+            foreach (var propstat in response.propstats ()) {
+                if (propstat.status != Soup.Status.OK) continue;
+                var getetag = propstat.get_first_prop_with_tagname ("getetag");
+                server_map[url] = getetag != null ? getetag.text_content.strip () : "";
+            }
+        }
+
+        Services.LogService.get_default ().debug ("CalDAV", "Server has %d items".printf (server_map.size));
+
+        // Step 2: delete local items no longer on server
+        var local_items = Services.Store.instance ().get_items_by_project (project);
+        foreach (Objects.Item local_item in local_items) {
+            if (local_item.ical_url != "" && !server_map.has_key (local_item.ical_url)) {
+                Services.LogService.get_default ().debug ("CalDAV", "Deleting removed item: %s".printf (local_item.content));
+                Services.Store.instance ().delete_item (local_item);
+            }
+        }
+
+        // Step 3: fetch and update only changed/new items
+        foreach (var entry in server_map.entries) {
+            string url = entry.key;
+            string server_etag = entry.value;
+
+            Objects.Item? local_item = Services.Store.instance ().get_item_by_ical_url (url);
+
+            if (local_item != null && local_item.etag == server_etag && server_etag != "") {
+                // ETag matches, skip
+                continue;
+            }
+
+            Services.LogService.get_default ().debug ("CalDAV", "%s item: %s".printf (local_item == null ? "Fetching new" : "Updating changed", url));
+
+            string vtodo_content = yield get_vtodo_by_url (url, cancellable);
+            if (vtodo_content == null) continue;
+
+            if (local_item != null) {
+                string old_project_id = local_item.project_id;
+                string old_parent_id = local_item.parent_id;
+                bool old_checked = local_item.checked;
+
+                local_item.update_from_vtodo (vtodo_content, url);
+                local_item.extra_data = Util.generate_extra_data (url, server_etag, vtodo_content);
+                local_item.project_id = project.id;
+                Services.Store.instance ().update_item (local_item);
+
+                if (old_project_id != local_item.project_id || old_parent_id != local_item.parent_id) {
+                    Services.EventBus.get_default ().item_moved (local_item, old_project_id, "", old_parent_id);
+                }
+
+                if (old_checked != local_item.checked) {
+                    Services.Store.instance ().complete_item (local_item, old_checked);
+                }
+            } else {
+                var new_item = new Objects.Item.from_vtodo (vtodo_content, url, project.id);
+                new_item.extra_data = Util.generate_extra_data (url, server_etag, vtodo_content);
+                if (new_item.has_parent) {
+                    Objects.Item? parent_item = new_item.parent;
+                    if (parent_item != null) {
+                        parent_item.add_item_if_not_exists (new_item);
+                    } else {
+                        project.add_item_if_not_exists (new_item);
+                    }
+                } else {
+                    project.add_item_if_not_exists (new_item);
+                }
+            }
+        }
+
+        project.count_update ();
+        Services.Store.instance ().update_project (project);
+    }
+
     private async string? get_vtodo_by_url (string url, GLib.Cancellable cancellable) throws GLib.Error {
         return yield send_request ("GET", url, "", null, null, cancellable, { Soup.Status.OK });
     }
@@ -579,9 +680,15 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             project.calendar_url = calendar_url;
             response.status = true;
         } catch (Error e) {
-            Services.LogService.get_default ().error ("CalDAV", "Failed to create project: %s".printf (e.message));
-            response.error_code = e.code;
-            response.error = e.message;
+            if ("HTTP 403" in e.message) {
+                Services.LogService.get_default ().warn ("CalDAV", "Server does not allow creating calendars via CalDAV");
+                response.error_code = 403;
+                response.error = _("This server does not allow creating projects via CalDAV. Please create it directly from your calendar provider's website.");
+            } else {
+                Services.LogService.get_default ().error ("CalDAV", "Failed to create project: %s".printf (e.message));
+                response.error_code = e.code;
+                response.error = e.message;
+            }
         }
 
         return response;
@@ -625,7 +732,11 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                                 { Soup.Status.NO_CONTENT, Soup.Status.MULTI_STATUS, Soup.Status.OK });
             response.status = true;
         } catch (Error e) {
-            if ("HTTP 405" in e.message) {
+            if ("HTTP 403" in e.message) {
+                Services.LogService.get_default ().warn ("CalDAV", "Server does not allow deleting calendars via CalDAV");
+                response.error_code = 403;
+                response.error = _("This server does not allow deleting projects via CalDAV. Please delete it directly from your calendar provider's website.");
+            } else if ("HTTP 405" in e.message) {
                 Services.LogService.get_default ().warn ("CalDAV", "Server does not support project deletion via CalDAV");
                 response.error_code = 405;
                 response.error = _("This server does not support deleting projects via CalDAV. Please delete it from the server directly.");
