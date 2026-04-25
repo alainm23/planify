@@ -1608,6 +1608,13 @@ public class Objects.Item : Objects.BaseObject {
             due.recurrency_count = due.recurrency_count - 1;
         }
 
+        foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (this)) {
+            if (subitem.checked) {
+                subitem.checked = false;
+                subitem.completed_at = "";
+                Services.Store.instance ().update_item (subitem);
+            }
+        }
         if (project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().update_item (this);
             promise.resolve (next_recurrency);
