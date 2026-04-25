@@ -284,7 +284,13 @@ public class Services.CalDAV.Core : GLib.Object {
             var cancellable = new GLib.Cancellable ();
             yield caldav_client.sync (source, cancellable);
 
-            foreach (Objects.Project project in Services.Store.instance ().get_projects_by_source (source.id)) {
+            var projects = Services.Store.instance ().get_projects_by_source (source.id);
+            Services.LogService.get_default ().debug ("CalDAV.Core", "Found %d projects to sync".printf (projects.size));
+
+            foreach (Objects.Project project in projects) {
+                Services.LogService.get_default ().debug ("CalDAV.Core", "Project: '%s' | sync_id: '%s' | url: '%s'".printf (
+                    project.name, project.sync_id ?? "(null)", project.calendar_url ?? "(null)"
+                ));
                 yield caldav_client.sync_tasklist (project, cancellable);
             }
 
