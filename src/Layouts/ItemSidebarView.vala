@@ -187,13 +187,31 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         };
         description_title.add_css_class ("heading");
 
+        var expand_button = new Gtk.Button.from_icon_name ("four-arrows-pointing-outward-symbolic") {
+            valign = CENTER,
+            tooltip_text = _("Expand Description")
+        };
+        expand_button.add_css_class ("flat");
+        expand_button.add_css_class ("caption");
+
+        var description_header = new Gtk.Box (HORIZONTAL, 0) {
+            margin_start = 3,
+            margin_end = 3
+        };
+        description_header.append (description_title);
+        description_header.append (expand_button);
+
         var description_group = new Gtk.Box (VERTICAL, 6) {
             margin_start = 9,
             margin_end = 9,
             margin_top = 12
         };
-        description_group.append (description_title);
+        description_group.append (description_header);
         description_group.append (markdown_editor_revealer);
+
+        expand_button.clicked.connect (() => {
+            open_description_dialog ();
+        });
 
         subitems = new Widgets.SubItems.for_board () {
             margin_top = 12
@@ -751,5 +769,53 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     public void update_deadline (GLib.DateTime ? date) {
         item.deadline_date = date == null ? "" : date.to_string ();
         item.update_async ();
+    }
+
+    private void open_description_dialog () {
+        var editor = new Widgets.MarkdownEditor () {
+            project = item.project,
+            margin_start = 16,
+            margin_end = 16,
+            margin_top = 16,
+            margin_bottom = 16
+        };
+        editor.text_view.height_request = 300;
+        editor.set_text (item.description);
+        editor.is_editable = !item.completed;
+
+        var scrolled = new Gtk.ScrolledWindow () {
+            hexpand = true,
+            vexpand = true,
+            child = editor
+        };
+
+        var toolbar_view = new Adw.ToolbarView ();
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
+        toolbar_view.content = scrolled;
+
+        var dialog = new Adw.Dialog () {
+            title = item.content,
+            content_width = 700,
+            content_height = 500
+        };
+        dialog.child = toolbar_view;
+        dialog.present (Planify._instance.main_window);
+
+        editor.escape_pressed.connect (() => {
+            dialog.close ();
+        });
+
+        dialog.closed.connect (() => {
+            var new_description = editor.get_text ().chomp ();
+            if (item.description != new_description) {
+                item.description = new_description;
+                item.update_async_timeout (update_id);
+                if (markdown_editor != null) {
+                    destroy_markdown_signals ();
+                    markdown_editor.set_text (item.description);
+                    build_markdown_signals ();
+                }
+            }
+        });
     }
 }
