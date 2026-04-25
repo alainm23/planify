@@ -77,10 +77,19 @@ public class Widgets.NewVersionPopup : Adw.Bin {
         update_button.add_css_class ("suggested-action");
 
         update_button.clicked.connect (() => {
+            bool launched = false;
             try {
-                AppInfo.launch_default_for_uri ("appstream://io.github.alainm23.planify", null);
+                launched = AppInfo.launch_default_for_uri ("appstream://io.github.alainm23.planify", null);
             } catch (Error e) {
-                warning ("Error opening GNOME Software: %s", e.message);
+                warning ("Error opening software center: %s", e.message);
+            }
+
+            if (!launched) {
+                try {
+                    AppInfo.launch_default_for_uri ("https://flathub.org/apps/io.github.alainm23.planify", null);
+                } catch (Error e) {
+                    warning ("Error opening browser: %s", e.message);
+                }
             }
 
             dismissed ();
@@ -90,6 +99,7 @@ public class Widgets.NewVersionPopup : Adw.Bin {
             hexpand = true
         };
         dismiss_button.add_css_class ("flat");
+        dismiss_button.add_css_class ("caption");
 
         dismiss_button.clicked.connect (() => {
             dismissed ();
