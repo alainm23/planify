@@ -610,6 +610,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
         checked_button.active = false;
         complete_timeout = 0;
+        card_widget.remove_css_class ("complete");
+        content_label.remove_css_class ("line-through");
+        content_label.remove_css_class ("dimmed");
 
         var title = _ ("Completed. Next occurrence: %s".printf (Utils.Datetime.get_default_date_format_from_date (next_recurrency)));
         var toast = Util.get_default ().create_toast (title, 3);
