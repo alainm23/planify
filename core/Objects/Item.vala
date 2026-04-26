@@ -226,6 +226,14 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    string _etag = "";
+    public string etag {
+        get {
+            _etag = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "etag");
+            return _etag;
+        }
+    }
+
     GLib.DateTime _added_datetime;
     public GLib.DateTime added_datetime {
         get {
@@ -503,6 +511,8 @@ public class Objects.Item : Objects.BaseObject {
 
         if (!ical.get_due ().is_null_time ()) {
             due.date = Utils.Datetime.ical_to_date_time_local (ical.get_due ()).to_string ();
+        } else if (is_update) {
+            due.reset ();
         }
 
         ICal.Property ? rrule_property = ical_vtodo.get_first_property (ICal.PropertyKind.RRULE_PROPERTY);
@@ -521,7 +531,10 @@ public class Objects.Item : Objects.BaseObject {
             parent_id = "";
         }
 
-        if (ical.get_status () == ICal.PropertyStatus.COMPLETED) {
+        ICal.Property ? percent_property = ical_vtodo.get_first_property (ICal.PropertyKind.PERCENTCOMPLETE_PROPERTY);
+        bool is_percent_complete = percent_property != null && percent_property.get_percentcomplete () == 100;
+
+        if (ical.get_status () == ICal.PropertyStatus.COMPLETED || is_percent_complete) {
             checked = true;
             ICal.Property ? completed_property = ical_vtodo.get_first_property (ICal.PropertyKind.COMPLETED_PROPERTY);
             if (completed_property != null) {
@@ -745,6 +758,8 @@ public class Objects.Item : Objects.BaseObject {
 
                     if (response.status) {
                         Services.Store.instance ().update_item (this, update_id);
+                    } else if (response.error_code == 412) {
+                        Services.EventBus.get_default ().send_conflict_toast (project.source);
                     }
                 });
             }
@@ -778,6 +793,8 @@ public class Objects.Item : Objects.BaseObject {
 
                     if (response.status) {
                         Services.Store.instance ().update_item (this, update_id);
+                    } else if (response.error_code == 412) {
+                        Services.EventBus.get_default ().send_conflict_toast (project.source);
                     }
 
                     loading = false;
@@ -807,6 +824,8 @@ public class Objects.Item : Objects.BaseObject {
 
                 if (response.status) {
                     Services.Store.instance ().update_item (this, update_id);
+                } else if (response.error_code == 412) {
+                    Services.EventBus.get_default ().send_conflict_toast (project.source);
                 }
 
                 loading = false;
@@ -958,10 +977,10 @@ public class Objects.Item : Objects.BaseObject {
         return_value = get_label (id);
 
         if (return_value != null) {
+            labels.remove (return_value);
+
             Services.Store.instance ().item_label_deleted (return_value);
             item_label_deleted (return_value);
-
-            labels.remove (return_value);
         }
 
         return return_value;
@@ -1386,9 +1405,44 @@ public class Objects.Item : Objects.BaseObject {
         _items.add (item);
     }
 
+    public string to_clipboard_text () {
+        var text = new StringBuilder ();
+
+        text.append ("[%s] %s".printf (checked ? "x" : " ", content));
+
+        if (priority != Constants.PRIORITY_4) {
+            text.append (" (P%d)".printf (5 - priority));
+        }
+
+        if (has_due) {
+            text.append (" · %s".printf (Utils.Datetime.get_relative_date_from_date (due.datetime)));
+        }
+
+        if (has_deadline) {
+            text.append (" · %s %s".printf (_("Deadline:"), Utils.Datetime.get_relative_time_from_date (deadline_datetime)));
+        }
+
+        if (labels.size > 0) {
+            var label_names = new StringBuilder ();
+            foreach (Objects.Label label in labels) {
+                if (label_names.len > 0) {
+                    label_names.append (", ");
+                }
+                label_names.append (label.name);
+            }
+            text.append (" @%s".printf (label_names.str));
+        }
+
+        if (description != null && description.strip () != "") {
+            text.append ("\n    %s".printf (description.strip ()));
+        }
+
+        return text.str;
+    }
+
     public void copy_clipboard () {
         Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
-        clipboard.set_text ("[%s]%s%s\n------------------------------------------\n%s".printf (checked ? "x" : " ", get_format_date (this), content, description));
+        clipboard.set_text (to_clipboard_text ());
         Services.EventBus.get_default ().send_toast (
             Util.get_default ().create_toast (_("Task copied to clipboard"))
         );
@@ -1416,14 +1470,6 @@ public class Objects.Item : Objects.BaseObject {
         new_item.labels = labels;
         new_item.item_type = item_type;
         return new_item;
-    }
-
-    private string get_format_date (Objects.Item item) {
-        if (!item.has_due) {
-            return " ";
-        }
-
-        return " (" + Utils.Datetime.get_relative_date_from_date (item.due.datetime) + ") ";
     }
 
     public void delete_item () {
@@ -1562,6 +1608,15 @@ public class Objects.Item : Objects.BaseObject {
             due.recurrency_count = due.recurrency_count - 1;
         }
 
+        foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (this)) {
+            if (subitem.checked) {
+                bool old_checked = subitem.checked;
+                subitem.checked = false;
+                subitem.completed_at = "";
+                subitem.update_async ();
+                Services.EventBus.get_default ().checked_toggled (subitem, old_checked);
+            }
+        }
         if (project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().update_item (this);
             promise.resolve (next_recurrency);
@@ -1683,7 +1738,7 @@ public class Objects.Item : Objects.BaseObject {
         
         if (notify) {
             Services.EventBus.get_default ().send_toast (
-                Util.get_default ().create_toast (_("Task moved to %s".printf (project.name)))
+                Util.get_default ().create_toast (_("Moved to %s".printf (project.name)))
             );
         }
     }
@@ -1841,6 +1896,9 @@ public class Objects.Item : Objects.BaseObject {
                     subitem.complete_item.begin (old_checked);
                 }
             }
+        } else if (response.error_code == 412) {
+            loading = false;
+            Services.EventBus.get_default ().send_conflict_toast (project.source);
         }
 
         return response;

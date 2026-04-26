@@ -35,6 +35,7 @@ public class Planify : Adw.Application {
     private static bool run_in_background = false;
     private static bool n_version = false;
     private static bool clear_database = false;
+    private static bool show_log_path = false;
     private static string lang = "";
 
     
@@ -45,6 +46,7 @@ public class Planify : Adw.Application {
     private const OptionEntry[] OPTIONS = {
         { "version", 'v', 0, OptionArg.NONE, ref n_version, "Display version number", null },
         { "reset", 'r', 0, OptionArg.NONE, ref clear_database, "Reset Planify", null },
+        { "log-path", 0, 0, OptionArg.NONE, ref show_log_path, "Print the log file path", null },
         { "background", 'b', 0, OptionArg.NONE, out run_in_background, "Run the Application in background", null },
         { "lang", 'l', 0, OptionArg.STRING, ref lang, "Open Planify in a specific language", "LANG" },
         { null }
@@ -73,6 +75,39 @@ public class Planify : Adw.Application {
         create_dir_with_parents ("/io.github.alainm23.planify/backups");
     }
 
+    protected override void open (File[] files, string hint) {
+        activate ();
+
+        foreach (var file in files) {
+            string uri = file.get_uri ();
+            if (uri.has_prefix ("planify://")) {
+                handle_uri (uri);
+            }
+        }
+    }
+
+    private void handle_uri (string uri) {
+        var parts = uri.replace ("planify://", "").split ("?", 2);
+        string path = parts[0];
+
+        if (path.has_prefix ("auth")) {
+            Services.EventBus.get_default ().oauth_callback (uri);
+        } else if (path.has_prefix ("project/")) {
+            string project_id = path.substring (8);
+            Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project_id);
+        } else if (path.has_prefix ("item/")) {
+            string item_id = path.substring (5);
+            var item = Services.Store.instance ().get_item (item_id);
+            if (item != null) {
+                Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, item.project_id);
+                Timeout.add (275, () => {
+                    Services.EventBus.get_default ().open_item (item);
+                    return GLib.Source.REMOVE;
+                });
+            }
+        }
+    }
+
     protected override void activate () {
         if (lang != "") {
             GLib.Environment.set_variable ("LANGUAGE", lang, true);
@@ -80,6 +115,11 @@ public class Planify : Adw.Application {
 
         if (n_version) {
             debug ("%s\n".printf (Build.VERSION));
+            return;
+        }
+
+        if (show_log_path) {
+            stdout.printf ("%s\n", Services.LogService.get_default ().get_log_path ());
             return;
         }
 
@@ -124,25 +164,25 @@ public class Planify : Adw.Application {
         Util.get_default ().update_theme ();
         Util.get_default ().update_font_scale ();
 
-        if (Services.Settings.get_default ().settings.get_string ("dismissed-update-version") != Build.VERSION) {
-            Services.Settings.get_default ().settings.set_boolean ("show-support-banner", true);
-        }
-
         // Actions
         build_shortcuts ();
     }
 
     #if WITH_LIBPORTAL
     public async bool ask_for_background (Xdp.BackgroundFlags flags = Xdp.BackgroundFlags.AUTOSTART) {
-        const string[] DAEMON_COMMAND = { "io.github.alainm23.planify", "--background" };
+        bool run_in_background = Services.Settings.get_default ().settings.get_boolean ("run-in-background");
+        string[] daemon_command = run_in_background ? 
+            new string[] { Build.APPLICATION_ID, "--background" } : 
+            new string[] { Build.APPLICATION_ID };
+
         if (portal == null) {
             portal = new Xdp.Portal ();
         }
 
         string reason = _(
             "Planify will automatically start when this device turns on " + "and run when its window is closed so that it can send to-do notifications.");
-        var command = new GenericArray<unowned string> (2);
-        foreach (unowned var arg in DAEMON_COMMAND) {
+        var command = new GenericArray<unowned string> (daemon_command.length);
+        foreach (unowned var arg in daemon_command) {
             command.add (arg);
         }
 
@@ -241,15 +281,6 @@ public class Planify : Adw.Application {
     }
 
     public static int main (string[] args) {
-        #if USE_WEBKITGTK
-        // NOTE: Workaround for https://github.com/alainm23/planify/issues/1069
-        GLib.Environment.set_variable ("WEBKIT_DISABLE_COMPOSITING_MODE", "1", true);
-        // NOTE: Workaround for https://github.com/alainm23/planify/issues/1120
-        GLib.Environment.set_variable ("WEBKIT_DISABLE_DMABUF_RENDERER", "1", true);
-        #endif
-
-        ensure_schema_dir ();
-
         Planify app = Planify.instance;
         return app.run (args);
     }

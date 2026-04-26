@@ -1,8 +1,31 @@
 project(
   'io.github.alainm23.planify',
   'vala', 'c',
-  version: '4.18.3'
+  version: '4.19.1'
 )
+
+###########
+# Profile #
+###########
+
+profile = get_option('profile')
+if profile == 'development'
+  find_program('git')
+  rev_txt = run_command('git','rev-parse','--short','HEAD').stdout().strip()
+  rev = '-@0@'.format(rev_txt)
+  application_id = 'io.github.alainm23.planify.Devel'
+  application_path = '/io/github/alainm23/planify/Devel'
+  add_project_arguments(['--define=DEVELOPMENT'], language: 'vala')
+else
+  rev = ''
+  application_id = 'io.github.alainm23.planify'
+  application_path = '/io/github/alainm23/planify'
+endif
+
+################
+# Dependencies #
+################
+
 
 cc = meson.get_compiler('c')
 
@@ -10,7 +33,7 @@ gnome = import('gnome')
 i18n = import('i18n')
 pkgconfig = import('pkgconfig')
 
-add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
+add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (application_id), language:'c')
 add_project_arguments('-DLIBICAL_GLIB_UNSTABLE_API=1', language: 'c')
 add_project_arguments('--vapidir', meson.project_source_root() / 'vapi', language: 'vala')
 
@@ -28,13 +51,10 @@ libsecret_dep = dependency('libsecret-1')
 libspelling = dependency('libspelling-1', required: get_option('spelling'))
 gtksourceview_dep = dependency('gtksourceview-5')
 m_dep = meson.get_compiler('c').find_library('m', required : false)
+icu_uc_dep = dependency('icu-uc')
 
-if get_option('webkit')
-    webkitgtk_dep = dependency('webkitgtk-6.0')
-    add_project_arguments('-D', 'USE_WEBKITGTK', language: 'vala')
-    if not webkitgtk_dep.found()
-        error('webkitgtk-6.0 requested but not found')
-    endif
+if icu_uc_dep.found ()
+  add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
 endif
 
 if libspelling.found ()
@@ -74,23 +94,6 @@ asresources = gnome.compile_resources (
     source_dir: 'data',
     c_name: 'as'
 )
-
-###########
-# Profile #
-###########
-
-profile = get_option('profile')
-if profile == 'development'
-  find_program('git')
-  rev_txt = run_command('git','rev-parse','--short','HEAD').stdout().strip()
-  rev = '-@0@'.format(rev_txt)
-  application_id = 'io.github.alainm23.planify.Devel'
-  application_path = '/io/github/alainm23/planify/Devel'
-else
-  rev = ''
-  application_id = 'io.github.alainm23.planify'
-  application_path = '/io/github/alainm23/planify'
-endif
 
 ############
 # Config #
@@ -137,8 +140,9 @@ config_file = configure_file(
 subdir('core')
 subdir('src')
 subdir('quick-add')
+subdir('cli')
 subdir('data')
-# subdir('search-provider')
+subdir('search-provider')
 subdir('po')
 
 # Testing

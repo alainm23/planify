@@ -77,15 +77,7 @@ public class Dialogs.QuickAdd : Adw.Dialog {
     }
 
     private void add_item_db (Objects.Item item, Gee.ArrayList<Objects.Reminder> reminders) {
-        if (item.has_parent) {
-            item.parent.add_item_if_not_exists (item);
-        } else {
-            if (item.section_id != "") {
-                item.section.add_item_if_not_exists (item);
-            } else {
-                item.project.add_item_if_not_exists (item);
-            }
-        }
+        Services.Store.instance ().insert_item (item);
 
         if (reminders.size > 0) {
             quick_add_widget.is_loading = true;

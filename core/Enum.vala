@@ -734,3 +734,53 @@ public enum Appearance {
         }
     }
 }
+
+
+public enum SyncErrorType {
+    AUTH_EXPIRED,
+    SERVER_ERROR,
+    NETWORK_ERROR
+}
+
+public class SyncStatus : Object {
+    public SyncErrorType error_type { get; set; }
+    public string title { get; set; }
+    public string description { get; set; }
+
+    public SyncStatus (SyncErrorType error_type, string title, string description) {
+        Object (
+            error_type: error_type,
+            title: title,
+            description: description
+        );
+    }
+
+    public string tooltip {
+        owned get {
+            return "%s — %s".printf (title, description);
+        }
+    }
+}
+
+
+public enum MarkdownSetting {
+    GLOBAL_DEFAULT,
+    ENABLED,
+    DISABLED;
+
+    public string to_string () {
+        switch (this) {
+            case ENABLED: return "enabled";
+            case DISABLED: return "disabled";
+            default: return "global-default";
+        }
+    }
+
+    public static MarkdownSetting parse (string value) {
+        switch (value) {
+            case "enabled": return ENABLED;
+            case "disabled": return DISABLED;
+            default: return GLOBAL_DEFAULT;
+        }
+    }
+}

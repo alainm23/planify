@@ -34,9 +34,6 @@ public class Dialogs.Preferences.Pages.QuickAdd : Dialogs.Preferences.Pages.Base
     construct {
         string quick_add_command =
             "flatpak run --command=io.github.alainm23.planify.quick-add %s".printf (Build.APPLICATION_ID);
-        if (GLib.Environment.get_variable ("SNAP") != null) {
-            quick_add_command = "planify.quick-add";
-        }
 
         var description_label = new Gtk.Label (
             _(

@@ -1,7 +1,7 @@
 {
     "app-id" : "io.github.alainm23.planify.Devel",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "49",
+    "runtime-version" : "50",
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.alainm23.planify.Devel",
     "tags" : [
@@ -15,6 +15,7 @@
         "--socket=wayland",
         "--talk-name=org.gnome.evolution.dataserver.Calendar8",
         "--talk-name=org.gnome.evolution.dataserver.Sources5",
+        "--talk-name=org.gnome.ScreenSaver",
         "--talk-name=io.github.alainm23.planify",
         "--talk-name=io.github.alainm23.planify.quick-add",
         "--own-name=io.github.alainm23.planify.quick-add",
@@ -23,12 +24,10 @@
     ],
     "cleanup" : [
         "/include",
+        "/lib/girepository-1.0",
         "/lib/pkgconfig",
-        "/man",
-        "/share/doc",
-        "/share/gtk-doc",
-        "/share/man",
-        "/share/pkgconfig",
+        "/share/gir-1.0",
+        "/share/vala",
         "*.la",
         "*.a"
     ],

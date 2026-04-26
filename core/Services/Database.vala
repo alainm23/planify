@@ -138,6 +138,7 @@ public class Services.Database : GLib.Object {
         table_columns["Projects"].add ("calendar_url");
         table_columns["Projects"].add ("sorted_by");
         table_columns["Projects"].add ("calendar_source_uid");
+        table_columns["Projects"].add ("markdown_setting");
 
         table_columns["Queue"] = new Gee.ArrayList<string> ();
         table_columns["Queue"].add ("uuid");
@@ -243,7 +244,8 @@ public class Services.Database : GLib.Object {
                 source_id               TEXT,
                 calendar_url            TEXT,
                 sorted_by               TEXT,
-                calendar_source_uid     TEXT
+                calendar_source_uid     TEXT,
+                markdown_setting        TEXT
             );
         """;
 
@@ -659,6 +661,12 @@ public class Services.Database : GLib.Object {
         add_text_column ("Items", "calendar_event_uid", "");
         add_text_column ("Items", "deadline_date", "");
         add_text_column ("Items", "responsible_uid", "");
+
+        /*
+         * Planify 4.19
+         * - Add markdown_setting column to Projects
+         */
+        add_text_column ("Projects", "markdown_setting", MarkdownSetting.GLOBAL_DEFAULT.to_string ());
     }
 
     public void clear_database () {
@@ -921,6 +929,7 @@ public class Services.Database : GLib.Object {
         return_value.calendar_url = stmt.column_text (23);
         return_value.sorted_by = SortedByType.parse (stmt.column_text (24));
         return_value.calendar_source_uid = stmt.column_text (25);
+        return_value.markdown_setting = MarkdownSetting.parse (stmt.column_text (26));
         return return_value;
     }
 
@@ -931,11 +940,11 @@ public class Services.Database : GLib.Object {
             INSERT OR IGNORE INTO Projects (id, name, color, backend_type, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
                 sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description, due_date,
-                inbox_section_hidded, sync_id, source_id, calendar_url, sorted_by, calendar_source_uid)
+                inbox_section_hidded, sync_id, source_id, calendar_url, sorted_by, calendar_source_uid, markdown_setting)
             VALUES ($id, $name, $color, $backend_type, $inbox_project, $team_inbox,
                 $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
                 $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description, $due_date,
-                $inbox_section_hidded, $sync_id, $source_id, $calendar_url, $sorted_by, $calendar_source_uid);
+                $inbox_section_hidded, $sync_id, $source_id, $calendar_url, $sorted_by, $calendar_source_uid, $markdown_setting);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -965,6 +974,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$calendar_url", project.calendar_url);
         set_parameter_str (stmt, "$sorted_by", project.sorted_by.to_string ());
         set_parameter_str (stmt, "$calendar_source_uid", project.calendar_source_uid);
+        set_parameter_str (stmt, "$markdown_setting", project.markdown_setting.to_string ());
 
         int result = stmt.step ();
         if (result != Sqlite.DONE) {
@@ -1041,7 +1051,8 @@ public class Services.Database : GLib.Object {
                 source_id=$source_id,
                 calendar_url=$calendar_url,
                 sorted_by=$sorted_by,
-                calendar_source_uid=$calendar_source_uid
+                calendar_source_uid=$calendar_source_uid,
+                markdown_setting=$markdown_setting
             WHERE id=$id;
         """;
 
@@ -1073,6 +1084,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$calendar_url", project.calendar_url);
         set_parameter_str (stmt, "$sorted_by", project.sorted_by.to_string ());
         set_parameter_str (stmt, "$calendar_source_uid", project.calendar_source_uid);
+        set_parameter_str (stmt, "$markdown_setting", project.markdown_setting.to_string ());
         set_parameter_str (stmt, "$id", project.id);
 
         int result = stmt.step ();

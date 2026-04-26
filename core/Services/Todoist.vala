@@ -76,20 +76,23 @@ public class Services.Todoist : GLib.Object {
     }
 
     public async HttpResponse login_token (string token, Objects.Source? migrate_source = null) {
+        Services.LogService.get_default ().info ("Todoist", "Starting login with API token");
         var response = new HttpResponse ();
 
         try {
             yield add_todoist_account (token, response, migrate_source);
         } catch (Error e) {
+            Services.LogService.get_default ().error ("Todoist", "Login with token failed: %s".printf (e.message));
             response.error_code = e.code;
             response.error = e.message;
-            error (e.message);
         }
 
         return response;
     }
 
     public async void add_todoist_account (string token, HttpResponse response, Objects.Source? migrate_source = null) {
+        Services.LogService.get_default ().info ("Todoist", "Adding Todoist account");
+
         var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
         message.request_headers.append ("Authorization", "Bearer %s".printf (token));
         
@@ -98,6 +101,16 @@ public class Services.Todoist : GLib.Object {
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+
+            if (message.status_code != 200) {
+                Services.LogService.get_default ().error ("Todoist", "Authentication failed: HTTP %u".printf (message.status_code));
+                response.error_code = (int) message.status_code;
+                response.error = _("Invalid API token");
+                response.status = false;
+                return;
+            }
+
+            Services.LogService.get_default ().info ("Todoist", "Token validated successfully");
 
             parser.load_from_data ((string) stream.get_data ());
 
@@ -201,7 +214,9 @@ public class Services.Todoist : GLib.Object {
             }
 
             response.status = true;
+            Services.LogService.get_default ().info ("Todoist", "Account added successfully");
         } catch (Error e) {
+            Services.LogService.get_default ().error ("Todoist", "Failed to add account: %s".printf (e.message));
             response.error_code = e.code;
             response.error = e.message;
             debug (e.message);

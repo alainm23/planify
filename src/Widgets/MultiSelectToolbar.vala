@@ -241,12 +241,15 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     private Gtk.Popover build_menu_popover () {
         complete_item = new Widgets.ContextMenu.MenuItem (_ ("Mark as Completed"), "check-round-outline-symbolic");
 
+        var copy_item = new Widgets.ContextMenu.MenuItem (_ ("Copy to Clipboard"), "edit-copy-symbolic");
+
         delete_item = new Widgets.ContextMenu.MenuItem (_ ("Delete"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (complete_item);
+        menu_box.append (copy_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (delete_item);
 
@@ -262,6 +265,30 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             }
 
             unselect_all ();
+        });
+
+        copy_item.clicked.connect (() => {
+            var text = new StringBuilder ();
+            foreach (string key in items_selected.keys) {
+                var item = items_selected[key].item;
+                text.append (item.to_clipboard_text ());
+                text.append ("\n\n");
+            }
+
+            Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+            clipboard.set_text (text.str);
+
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (
+                    GLib.ngettext (
+                        "%d task copied to clipboard",
+                        "%d tasks copied to clipboard",
+                        items_selected.size
+                    ).printf (items_selected.size)
+                )
+            );
+
+            popover.popdown ();
         });
 
         delete_item.clicked.connect (() => {
@@ -371,16 +398,11 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             }
         }
 
-        string message;
-        if (count == 1) {
-            message = _("Task moved to %s").printf (project.name);
-        } else {
-            message = GLib.ngettext (
+        string message = GLib.ngettext (
                 "Task moved to %s",
                 "%d tasks moved to %s",
                 count
             ).printf (count, project.name);
-        }
 
         Services.EventBus.get_default ().send_toast (
             Util.get_default ().create_toast (message)

@@ -542,6 +542,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     private void complete_item (bool old_checked, uint ? time = null) {
         if (Services.Settings.get_default ().settings.get_boolean ("task-complete-tone")) {
+            Services.LogService.get_default ().info ("ItemBoard", "Task completed, playing audio: %s".printf (item.content));
             Util.get_default ().play_audio ();
         }
 
@@ -601,12 +602,17 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
 
-        Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+        if (response.error_code != 412) {
+            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+        }
     }
-
+    
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
         checked_button.active = false;
         complete_timeout = 0;
+        card_widget.remove_css_class ("complete");
+        content_label.remove_css_class ("line-through");
+        content_label.remove_css_class ("dimmed");
 
         var title = _ ("Completed. Next occurrence: %s".printf (Utils.Datetime.get_default_date_format_from_date (next_recurrency)));
         var toast = Util.get_default ().create_toast (title, 3);
@@ -642,7 +648,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     private void verify_item_type () {
-        if (item.item_type == ItemType.TASK) {
+        bool is_task = item.item_type == ItemType.TASK && !item.content.has_prefix ("* ");
+
+        if (is_task) {
             checked_button_revealer.reveal_child = true;
             description_label.margin_start = 30;
             footer_box.margin_start = 30;

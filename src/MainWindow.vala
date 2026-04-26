@@ -195,8 +195,7 @@ public class MainWindow : Adw.ApplicationWindow {
                 Objects.Item item = Services.Database.get_default ().get_item_by_id (id);
                 Gee.ArrayList<Objects.Reminder> reminders = Services.Database.get_default ().get_reminders_by_item_id (id);
 
-                Services.Store.instance ().clear_project_cache (item.project_id);
-                Services.Store.instance ().add_item (item);
+                Services.Store.instance ().insert_item (item, true, false);
 
                 foreach (Objects.Reminder reminder in reminders) {
                     item.add_reminder_events (reminder);
@@ -213,6 +212,12 @@ public class MainWindow : Adw.ApplicationWindow {
                 did_startup_sync = true;
 
                 return GLib.Source.REMOVE;
+            });
+
+            Services.Store.instance ().source_added.connect ((source) => {
+                if (source.sync_server) {
+                    source.run_server ();
+                }
             });
 
             // TODO: network_changed is sometimes called very rapidly, so we should debounce it ...
@@ -257,16 +262,13 @@ public class MainWindow : Adw.ApplicationWindow {
 
         #if WITH_LIBPORTAL
         Services.Settings.get_default ().settings.changed["run-on-startup"].connect (() => {
-            bool active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
+            update_autostart ();
+        });
 
-            if (active) {
-                Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
-                    Planify.instance.ask_for_background.end (res);
-                });
-            } else {
-                Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.NONE, (obj, res) => {
-                    Planify.instance.ask_for_background.end (res);
-                });
+        Services.Settings.get_default ().settings.changed["run-in-background"].connect (() => {
+            bool run_on_startup = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
+            if (run_on_startup) {
+                update_autostart ();
             }
         });
         #endif
@@ -334,6 +336,21 @@ public class MainWindow : Adw.ApplicationWindow {
         });
 
         Services.EventBus.get_default ().send_error_toast.connect (send_toast_error);
+
+        Services.EventBus.get_default ().send_conflict_toast.connect ((source) => {
+            var toast = new Adw.Toast (_("Task was modified on another device")) {
+                timeout = 5,
+                button_label = _("Sync Now")
+            };
+            toast.button_clicked.connect (() => {
+                if (source.source_type == SourceType.TODOIST) {
+                    Services.Todoist.get_default ().sync.begin (source);
+                } else if (source.source_type == SourceType.CALDAV) {
+                    Services.CalDAV.Core.get_default ().sync.begin (source);
+                }
+            });
+            toast_overlay.add_toast (toast);
+        });
 
         Services.EventBus.get_default ().send_task_completed_toast.connect (show_task_completed_toast);
 
@@ -454,11 +471,35 @@ public class MainWindow : Adw.ApplicationWindow {
         Services.Settings.get_default ().settings.changed["local-inbox-project-id"].connect (() => {
             handle_inbox_project_change ();
         });
+
+        close_request.connect (() => {
+            if (Services.Settings.get_default ().settings.get_boolean ("run-in-background")) {
+                hide ();
+                return true;
+            }
+            return false;
+        });
     }
 
     public void show_hide_sidebar () {
         overlay_split_view.show_sidebar = !overlay_split_view.show_sidebar;
     }
+
+    #if WITH_LIBPORTAL
+    private void update_autostart () {
+        bool run_on_startup = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
+
+        if (run_on_startup) {
+            Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
+                Planify.instance.ask_for_background.end (res);
+            });
+        } else {
+            Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.NONE, (obj, res) => {
+                Planify.instance.ask_for_background.end (res);
+            });
+        }
+    }
+    #endif
 
     private void clear_multi_select () {
         Services.EventBus.get_default ().multi_select_enabled = false;
@@ -709,6 +750,8 @@ public class MainWindow : Adw.ApplicationWindow {
         var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
         preferences_item.secondary_text = "Ctrl+,";
 
+        var productivity_item = new Widgets.ContextMenu.MenuItem (Markup.escape_text (_("Summary & Productivity")));
+
         var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
         keyboard_shortcuts_item.secondary_text = "F1";
 
@@ -721,6 +764,8 @@ public class MainWindow : Adw.ApplicationWindow {
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (preferences_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (productivity_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (archive_item);
         menu_box.append (archive_separator);
         menu_box.append (keyboard_shortcuts_item);
@@ -732,6 +777,12 @@ public class MainWindow : Adw.ApplicationWindow {
             width_request = 250,
             position = Gtk.PositionType.BOTTOM
         };
+
+        productivity_item.clicked.connect (() => {
+            popover.popdown ();
+            var dialog = new Dialogs.ProductivityReport.ProductivityReportDialog ();
+            dialog.present (Planify._instance.main_window);
+        });
 
         preferences_item.clicked.connect (() => {
             open_preferences_window ();

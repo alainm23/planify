@@ -401,13 +401,16 @@ public class Util : GLib.Object {
         return str;
     }
 
-    private Gtk.MediaFile soud_medida = null;
+    private Gtk.MediaFile? _audio_media = null;
+
     public void play_audio () {
-        if (soud_medida == null) {
-            soud_medida = Gtk.MediaFile.for_resource ("/io/github/alainm23/planify/success.ogg");
-        }
-        
-        soud_medida.play ();
+        Services.LogService.get_default ().info ("Audio", "Playing task completion sound");
+        _audio_media = Gtk.MediaFile.for_resource ("/io/github/alainm23/planify/success.ogg");
+        _audio_media.loop = false;
+        _audio_media.notify["ended"].connect (() => {
+            _audio_media = null;
+        });
+        _audio_media.play ();
     }    
 
     public bool is_input_valid (Gtk.Entry entry) {
@@ -883,7 +886,7 @@ We hope you’ll enjoy using Planify!""");
 
         if (notify) {
             Services.EventBus.get_default ().send_toast (
-                create_toast (_("Task moved to %s".printf (new_item.project.name)))
+                create_toast (_("Moved to %s".printf (new_item.project.name)))
             );
         }
 

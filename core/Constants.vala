@@ -21,9 +21,15 @@
 
 namespace Constants {
     public const string SOUP_USER_AGENT = "Planify";
+#if DEVELOPMENT
+    public const bool IS_DEVELOPMENT = true;
+#else
+    public const bool IS_DEVELOPMENT = false;
+#endif
     public const string TODOIST_CLIENT_ID = "b0dd7d3714314b1dbbdab9ee03b6b432";
     public const string TODOIST_CLIENT_SECRET = "a86dfeb12139459da3e5e2a8c197c678";
     public const string TODOIST_SCOPE = "data:read_write,data:delete,project:delete";
+    public const string TODOIST_REDIRECT_URI = "planify://auth";
     public const string BACKUP_VERSION = "2.0";
     public const int UPDATE_TIMEOUT = 1500;
     public const int DESTROY_TIMEOUT = 750;
@@ -43,6 +49,7 @@ namespace Constants {
     public const string MASTODON_URL = "https://mastodon.social/@planifyapp";
     public const string DISCORD_URL = "https://discord.com/invite/dxxyumrTJW";
     public const string ISSUE_URL = "https://github.com/alainm23/planify/issues";
+    public const string NEW_ISSUE_URL = "https://github.com/alainm23/planify/issues/new?assignees=&labels=Type:+Bug&template=bug_report.yml";
     public const string WEBLATE_URL = "https://hosted.weblate.org/engage/planner/";
     public const string FLATHUB_URL = "https://flathub.org/apps/io.github.alainm23.planify";
     public const string PRIVACY_POLICY_URL = "https://useplanify.com/privacy-policy/";

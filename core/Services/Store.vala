@@ -537,6 +537,7 @@ public class Services.Store : GLib.Object {
             foreach (var section in sections) {
                 if (section.id == current_id) {
                     section.id = new_id;
+                    break;
                 }
             }
 
@@ -544,6 +545,7 @@ public class Services.Store : GLib.Object {
                 foreach (var item in items) {
                     if (item.section_id == current_id) {
                         item.section_id = new_id;
+                        break;
                     }
                 }
             }
@@ -610,13 +612,26 @@ public class Services.Store : GLib.Object {
      *  Items
      */
 
-    public void insert_item (Objects.Item item, bool insert = true) {
-        if (Services.Database.get_default ().insert_item (item)) {
-            _items_by_project_cache.unset (item.project_id);
-            add_item (item, insert);
-            
+    public void insert_item (Objects.Item item, bool insert = true, bool persist = true) {
+        if (!persist || Services.Database.get_default ().insert_item (item)) {
+            clear_project_cache (item.project_id);
+            items.add (item);
+            item_added (item, insert);
+
+            if (insert) {
+                if (item.parent_id != "") {
+                    item.parent.item_added (item);
+                } else {
+                    if (item.section_id == "") {
+                        item.project.item_added (item);
+                    } else {
+                        item.section.item_added (item);
+                    }
+                }
+            }
+
             #if WITH_EVOLUTION
-            if (item.project != null && item.project.calendar_source_uid != "" && item.has_due) {
+            if (persist && item.project != null && item.project.calendar_source_uid != "" && item.has_due) {
                 create_calendar_event.begin (item);
             }
             #endif
@@ -626,8 +641,7 @@ public class Services.Store : GLib.Object {
     public bool insert_items_transaction (Gee.ArrayList<Objects.Item> items, bool insert = true) {
         if (Services.Database.get_default ().insert_items_transaction (items)) {
             foreach (var item in items) {
-                _items_by_project_cache.unset (item.project_id);
-                add_item (item, insert);
+                insert_item (item, insert, false);
 
                 #if WITH_EVOLUTION
                 if (item.project != null && item.project.calendar_source_uid != "" && item.has_due) {
@@ -653,23 +667,6 @@ public class Services.Store : GLib.Object {
         }
     }
     #endif
-
-    public void add_item (Objects.Item item, bool insert = true) {
-        items.add (item);
-        item_added (item, insert);
-
-        if (insert) {
-            if (item.parent_id != "") {
-                item.parent.item_added (item);
-            } else {
-                if (item.section_id == "") {
-                    item.project.item_added (item);
-                } else {
-                    item.section.item_added (item);
-                }
-            }
-        }
-    }
 
     public void update_item (Objects.Item item, string update_id = "") {
         if (Services.Database.get_default ().update_item (item, update_id)) {
@@ -823,6 +820,7 @@ public class Services.Store : GLib.Object {
             foreach (var item in items) {
                 if (item.id == current_id) {
                     item.id = new_id;
+                    break;
                 }
             }
 
@@ -1178,7 +1176,7 @@ public class Services.Store : GLib.Object {
                 item.due.datetime.get_year () == date.get_year ());
     }
 
-    public Gee.ArrayList<Objects.Item> get_items_by_overdeue_view (bool checked = true) {
+    public Gee.ArrayList<Objects.Item> get_items_by_overdue_view (bool checked = true) {
         GLib.DateTime date_now = new GLib.DateTime.now_local ();
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
@@ -1202,9 +1200,10 @@ public class Services.Store : GLib.Object {
             return false;
         }
 
+        var now = new GLib.DateTime.now_local ();
         return (item.checked == checked &&
-                item.due.datetime.compare (new GLib.DateTime.now_local ()) < 0 &&
-                !Utils.Datetime.is_same_day (item.due.datetime, new GLib.DateTime.now_local ()));
+                item.due.datetime.compare (now) < 0 &&
+                !Utils.Datetime.is_same_day (item.due.datetime, now));
     }
 
     /*
@@ -1347,7 +1346,7 @@ public class Services.Store : GLib.Object {
 
     public Gee.ArrayList<Objects.Section> get_all_sections_by_search (string search_text) {
         Gee.ArrayList<Objects.Section> return_value = new Gee.ArrayList<Objects.Section> ();
-        lock (_projects) {
+        lock (_sections) {
             foreach (var section in sections) {
                 if (search_text.down () in section.name.down () && !section.was_archived ()) {
                     return_value.add (section);
@@ -1431,7 +1430,7 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    // Atrachments
+    // Attachments
     public void insert_attachment (Objects.Attachment attachment) {
         if (Services.Database.get_default ().insert_attachment (attachment)) {
             attachments.add (attachment);

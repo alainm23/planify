@@ -711,6 +711,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         var share_markdown_item = new Widgets.ContextMenu.MenuItem (_("Share"), "share-alt-symbolic");
         var share_email_item = new Widgets.ContextMenu.MenuItem (_("Send by E-Mail"), "mail-symbolic");
+        var export_pdf_item = new Widgets.ContextMenu.MenuItem (_("Export as PDF"), "paper-symbolic");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
@@ -730,6 +731,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         menu_box.append (share_markdown_item);
         menu_box.append (share_email_item);
+        menu_box.append (export_pdf_item);
 
         if (!project.is_deck && !project.inbox_project) {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -774,6 +776,26 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         share_email_item.clicked.connect (() => {
             project.share_mail ();
+        });
+
+        export_pdf_item.clicked.connect (() => {
+            var file_dialog = new Gtk.FileDialog () {
+                initial_name = "%s.pdf".printf (project.name)
+            };
+
+            file_dialog.save.begin (Planify._instance.main_window, null, (obj, res) => {
+                try {
+                    var file = file_dialog.save.end (res);
+                    Services.ExportService.get_default ().export_project_pdf (project, file.get_path ());
+                    Services.EventBus.get_default ().send_toast (
+                        Util.get_default ().create_toast (_("Project exported as PDF"))
+                    );
+                } catch (Error e) {
+                    if (!(e is IOError.CANCELLED)) {
+                        warning ("Error exporting PDF: %s", e.message);
+                    }
+                }
+            });
         });
 
         duplicate_item.clicked.connect (() => {

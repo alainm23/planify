@@ -27,6 +27,7 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
     protected string password;
     protected string base_url;
     protected bool ignore_ssl;
+    public string? last_response_etag { get; private set; default = null; }
 
 
     public WebDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false) {
@@ -38,6 +39,7 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
     }
 
     public void cleanup () {
+        Services.LogService.get_default ().info ("WebDAV", "Cleaning up session");
         if (session != null) {
             session.abort ();
         }
@@ -48,16 +50,18 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         try {
             abs_url = GLib.Uri.resolve_relative (base_url, href, GLib.UriFlags.NONE).to_string ();
         } catch (Error e) {
-            critical ("Failed to resolve relative url: %s", e.message);
+            Services.LogService.get_default ().error ("WebDAV", "Failed to resolve relative url: %s".printf (e.message));
         }
         return abs_url;
     }
 
     public async WebDAVMultiStatus propfind (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
+        Services.LogService.get_default ().debug ("WebDAV", "PROPFIND request (depth: %s)".printf (depth));
         return new WebDAVMultiStatus.from_string (yield send_request ("PROPFIND", url, "application/xml", xml, depth, cancellable, { Soup.Status.MULTI_STATUS }));
     }
 
     public async WebDAVMultiStatus report (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
+        Services.LogService.get_default ().debug ("WebDAV", "REPORT request (depth: %s)".printf (depth));
         return new WebDAVMultiStatus.from_string (yield send_request ("REPORT", url, "application/xml", xml, depth, cancellable, { Soup.Status.MULTI_STATUS }));
     }
 
@@ -66,12 +70,14 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         if (abs_url == null)
             throw new GLib.IOError.FAILED ("Invalid URL: %s".printf (url));
 
+        Services.LogService.get_default ().debug ("WebDAV", "%s %s".printf (method, abs_url));
+
         var msg = new Soup.Message (method, abs_url);
         msg.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);
 
         msg.authenticate.connect ((auth, retrying) => {
             if (retrying) {
-                warning ("Authentication failed\n");
+                Services.LogService.get_default ().error ("WebDAV", "Authentication failed, not retrying");
                 return false;
             }
 
@@ -79,7 +85,7 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
                 auth.authenticate (this.username, this.password);
                 return true;
             }
-            warning ("Unsupported auth schema: %s", auth.scheme_name);
+            Services.LogService.get_default ().warn ("WebDAV", "Unsupported auth schema: %s".printf (auth.scheme_name));
             return false;
         });
 
@@ -115,6 +121,7 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
             response = yield session.send_and_read_async (msg, Priority.DEFAULT, cancellable);
         } catch (Error e) {
             if (e is GLib.IOError.CANCELLED) {
+                Services.LogService.get_default ().info ("WebDAV", "Request cancelled");
                 throw e;
             }
             throw new GLib.IOError.FAILED ("Request failed: %s".printf (e.message));
@@ -130,6 +137,7 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
 
         if (!ok) {
             var response_text = (string) response.get_data ();
+            Services.LogService.get_default ().error ("WebDAV", "%s %s failed: HTTP %u %s".printf (method, abs_url, msg.status_code, msg.reason_phrase ?? ""));
             throw new GLib.IOError.FAILED (
                 "%s %s failed: HTTP %u %s\n%s".printf (
                     method, abs_url, msg.status_code, msg.reason_phrase ?? "", response_text ?? "")
@@ -138,6 +146,8 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
 
         var response_data = response.get_data ();
         response_data += '\0';
+
+        last_response_etag = msg.response_headers.get_one ("ETag");
 
         return (string) response_data;
     }
@@ -155,9 +165,7 @@ public class Services.CalDAV.WebDAVMultiStatus : Object {
     }
 
     public void debug_print () {
-        print ("-------------------------------\n");
-        debug ("%s\b", xml_content);
-        print ("-------------------------------\n");
+        Services.LogService.get_default ().debug ("WebDAV", "Response XML: %s".printf (xml_content));
     }
 
     public Gee.ArrayList<WebDAVResponse> responses () {

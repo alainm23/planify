@@ -1,25 +1,19 @@
-search_provider_c_args = [
-  '-DGETTEXT_PACKAGE="' + meson.project_name () + '"',
-  '-DG_LOG_DOMAIN="PlanifySearchProvider"',
-]
-
 search_provider_sources = [
   'main.vala',
-  'search-provider.vala'
+  'search-provider.vala',
+  'search-repository.vala'
 ]
 
 search_provider_deps = [
   gio_dep,
-  gtk_dep,
   sqlite3_dep,
 ]
 
 executable (
-  'io.github.alainmh23.planify-search-provider',
+  application_id + '-search-provider',
   search_provider_sources,
   config_file,
   dependencies: search_provider_deps,
-  c_args: search_provider_c_args,
   install: true,
   install_dir: libexecdir
 )
