@@ -1794,6 +1794,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 }
             }
 
+            signals_map[dialog.closed.connect (() => {
+                motion_top_revealer.reveal_child = false;
+            })] = dialog;
             dialog.present (Planify._instance.main_window);
             return true;
         })] = drop_order_magic_button_target;
