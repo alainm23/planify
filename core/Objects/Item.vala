@@ -1610,9 +1610,11 @@ public class Objects.Item : Objects.BaseObject {
 
         foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (this)) {
             if (subitem.checked) {
+                bool old_checked = subitem.checked;
                 subitem.checked = false;
                 subitem.completed_at = "";
-                Services.Store.instance ().update_item (subitem);
+                subitem.update_async ();
+                Services.EventBus.get_default ().checked_toggled (subitem, old_checked);
             }
         }
         if (project.source_type == SourceType.LOCAL) {
