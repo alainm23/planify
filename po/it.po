@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-04-22 14:09+0000\n"
+"PO-Revision-Date: 2026-04-28 17:09+0000\n"
 "Last-Translator: Stephnie Klim <sylorutu@denipl.net>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/it/>\n"
@@ -155,11 +155,11 @@ msgstr "Pin"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr "Tutti i compiti"
+msgstr "Tutte le attività"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
-msgstr "tutti i compiti"
+msgstr "tutte le attività"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all"
@@ -378,7 +378,7 @@ msgstr "Il Progetto è stato copiato negli Appunti."
 #: core/Objects/Project.vala:866
 #, c-format
 msgid "Delete Project %s?"
-msgstr "Eliminare il Progetto %s?"
+msgstr "Eliminare Progetto %s?"
 
 #: core/Objects/Project.vala:923 core/Objects/Section.vala:402
 msgid "Archive?"
@@ -452,7 +452,7 @@ msgstr "Aggiungi promemoria"
 #: core/QuickAddCore.vala:325 src/Layouts/SectionBoard.vala:562
 #: src/Layouts/SectionRow.vala:665 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
-msgstr "Aggiungi Task"
+msgstr "Aggiungi Attività"
 
 #: core/QuickAddCore.vala:331 core/QuickAddCore.vala:1444
 msgid "Keep adding"
@@ -839,7 +839,7 @@ msgstr "Blu Scuro"
 #: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 #: src/Views/Today.vala:768
 msgid "None"
-msgstr "Nessuno"
+msgstr "Nessuna"
 
 #: core/Utils/Util.vala:264
 msgid "Today + Inbox"
@@ -2018,6 +2018,8 @@ msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
 msgstr ""
+"Non preoccuparti più di perdere i tuoi dati. Puoi creare dei backup dei tuoi "
+"progetti attivi, delle attività e dei commenti e importarli successivamente."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:48
 msgid "Create Backup"
@@ -2295,7 +2297,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:121
 msgid "Quick Add"
-msgstr ""
+msgstr "Aggiunta Rapida"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:43
 msgid ""
@@ -2344,7 +2346,7 @@ msgstr "Mostra nella barra laterale"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:55
 msgid "Show Task Count"
-msgstr ""
+msgstr "Mostra Conteggio Attività"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:60
 msgid "Sidebar Width"
@@ -2423,7 +2425,7 @@ msgstr "Mantiene visibili tutte le sotto-attività completate senza comprimerle"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:96
 msgid "Task Complete Tone"
-msgstr ""
+msgstr "Suono Completamento Attività"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:97
 msgid "Play a sound when tasks are completed"
@@ -2431,12 +2433,14 @@ msgstr "Riproduci un suono quando vengono completate le attività"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:104
 msgid "Open Tasks in Sidebar View"
-msgstr ""
+msgstr "Apri Attività nella Barra Laterale"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:105
 msgid ""
 "Always display task details in the sidebar instead of expanding in list view."
 msgstr ""
+"Mostra sempre i dettagli delle attività nella barra laterale invece di "
+"espanderli nella vista a elenco."
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:112
 msgid "Single Task Focus Mode"
@@ -2512,15 +2516,15 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:133
 msgid "Backup or migrate from Planner."
-msgstr ""
+msgstr "Esegui backup o fai la migrazione da Planner."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:139
 msgid "Create Tutorial Project"
-msgstr ""
+msgstr "Crea Progetto Tutorial"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:140
 msgid "Learn the app step by step with a short tutorial project"
-msgstr ""
+msgstr "Impara a usare l'app passo dopo passo con un breve progetto tutorial"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid "Want to buy me a drink?"
@@ -2938,11 +2942,11 @@ msgstr "Invia tramite E-Mail"
 
 #: src/Layouts/ProjectRow.vala:714
 msgid "Export as PDF"
-msgstr ""
+msgstr "Esporta come PDF"
 
 #: src/Layouts/ProjectRow.vala:791
 msgid "Project exported as PDF"
-msgstr ""
+msgstr "Progetto esportato come PDF"
 
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
 msgid "Add tasks"
