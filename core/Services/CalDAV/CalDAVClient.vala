@@ -321,7 +321,18 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 if (progress_callback != null) {
                     progress_callback (responses.size, responses.size, _ ("Loaded tasks for %s…").printf (project.name));
                 }
-                project.add_items_batched (items_list);
+                // Two-pass insert: parents first, then subtasks
+                var parents = new Gee.ArrayList<Objects.Item> ();
+                var subtasks = new Gee.ArrayList<Objects.Item> ();
+                foreach (var item in items_list) {
+                    if (item.has_parent) {
+                        subtasks.add (item);
+                    } else {
+                        parents.add (item);
+                    }
+                }
+                project.add_items_batched (parents);
+                project.add_items_batched (subtasks);
                 Idle.add ((owned) callback);
                 return false;
             }
@@ -745,8 +756,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var url = update ? item.ical_url : GLib.Path.build_path ("/", item.project.calendar_url, "%s.ics".printf (item.id));
         var body = item.to_vtodo ();
 
-        var expected = update ? new Soup.Status[]{ Soup.Status.NO_CONTENT, Soup.Status.CREATED }
-                              : new Soup.Status[]{ Soup.Status.CREATED };
+        var expected = update ? new Soup.Status[]{ Soup.Status.NO_CONTENT, Soup.Status.CREATED, Soup.Status.OK }
+                              : new Soup.Status[]{ Soup.Status.CREATED, Soup.Status.OK };
 
         HttpResponse response = new HttpResponse ();
 
