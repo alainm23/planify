@@ -61,6 +61,41 @@
   <url type="donation">https://useplanify.com/donate</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.19.1" date="2026-04-24" urgency="medium">
+      <description translate="no">
+        <p>Planify 4.19.1 is a maintenance release focused on bug fixes and improvements.</p>
+        <p>CalDAV Improvements:</p>
+        <ul>
+          <li>Fixed task completion failing with 412 when modified on another device — now automatically re-fetches the fresh ETag and retries transparently.</li>
+          <li>Fixed sync for servers that don't support sync-token (Posteo and others) — now uses ETag-based sync to detect changes, deletions and completions.</li>
+          <li>Fixed creating and deleting projects on servers that don't allow it via CalDAV (Posteo) — now shows a friendly message instead of a raw error.</li>
+          <li>Fixed Deck task lists not disappearing after disabling them in Nextcloud.</li>
+          <li>Fixed subtasks not being reset when a recurring task advances to its next occurrence.</li>
+        </ul>
+        <p>New Features:</p>
+        <ul>
+          <li>Added expand button in task sidebar to open description in a full-size dialog.</li>
+          <li>Added backup export command to CLI — export all tasks and projects as JSON from the terminal.</li>
+        </ul>
+        <p>Bug Fixes:</p>
+        <ul>
+          <li>Fixed task completion sound not playing.</li>
+          <li>Fixed update button failing on desktops without GNOME Software (Cinnamon, XFCE, KDE) — now falls back to opening Flathub in the browser.</li>
+          <li>Fixed blue placeholder not disappearing when discarding a new task position on X11.</li>
+          <li>Fixed board view not removing strikethrough and dimmed styles after a recurring task resets.</li>
+        </ul>
+      </description>
+      <issues>
+        <issue url="https://github.com/alainm23/planify/issues/2394">CalDAV complete task fails with 412</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2163">CalDAV sync for servers without sync-token</issue>
+        <issue url="https://github.com/alainm23/planify/issues/1256">Deck task lists still showing after disabling</issue>
+        <issue url="https://github.com/alainm23/planify/issues/1438">Subtasks not reset when recurring task completes</issue>
+        <issue url="https://github.com/alainm23/planify/issues/1205">Expand description in full-size dialog</issue>
+        <issue url="https://github.com/alainm23/planify/issues/1458">CLI backup export command</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2400">Update button fails without GNOME Software</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2388">Placeholder stays after discarding new task position</issue>
+      </issues>
+    </release>
     <release version="4.19.0" date="2026-04-20" urgency="medium">
       <description translate="no">
         <p>Planify 4.19.0 is here! This release brings major CalDAV improvements, new productivity features, GNOME Shell search integration, and many bug fixes. Update now and enjoy a smoother experience.</p>

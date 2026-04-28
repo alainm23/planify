@@ -23,7 +23,8 @@ namespace PlanifyCLI {
         ADD,
         LIST_PROJECTS,
         LIST,
-        UPDATE
+        UPDATE,
+        BACKUP
     }
 
     public class TaskArguments : Object {
@@ -61,11 +62,16 @@ namespace PlanifyCLI {
         public int pinned { get; set; default = -1; } // -1 = not set, 0 = unpinned, 1 = pinned
     }
 
+    public class BackupArguments : Object {
+        public string? output { get; set; default = null; }
+    }
+
     public class ParsedCommand : Object {
         public CommandType command_type { get; set; default = CommandType.NONE; }
         public TaskArguments? task_args { get; set; default = null; }
         public ListArguments? list_args { get; set; default = null; }
         public UpdateArguments? update_args { get; set; default = null; }
+        public BackupArguments? backup_args { get; set; default = null; }
     }
 
     public class ArgumentParser : Object {
@@ -119,9 +125,14 @@ namespace PlanifyCLI {
                         parsed.update_args = parse_update_command (command_args);
                         return parsed;
 
+                    case "backup":
+                        parsed.command_type = CommandType.BACKUP;
+                        parsed.backup_args = parse_backup_command (command_args);
+                        return parsed;
+
                     default:
                         stderr.printf ("Error: Unknown command '%s'\n", command);
-                        stderr.printf ("Available commands: add, list, update, list-projects\n");
+                        stderr.printf ("Available commands: add, list, update, list-projects, backup\n");
                         exit_code = 1;
                         return null;
                 }
@@ -302,13 +313,34 @@ namespace PlanifyCLI {
             }
         }
 
+        private static BackupArguments parse_backup_command (string[] args) throws OptionError {
+            string? output = null;
+
+            var options = new OptionEntry[2];
+            options[0] = { "output", 'o', 0, OptionArg.STRING, ref output,
+                          "Output file path (default: stdout)", "FILE" };
+            options[1] = { null };
+
+            var context = new OptionContext ("- Export a JSON backup of all tasks and projects");
+            context.add_main_entries (options, null);
+            context.set_help_enabled (true);
+
+            unowned string[] tmp = args;
+            context.parse (ref tmp);
+
+            var backup_args = new BackupArguments ();
+            backup_args.output = output;
+            return backup_args;
+        }
+
         private static void print_general_help (string program_name) {
             stdout.printf ("Usage: %s <command> [OPTIONS]\n\n", program_name);
             stdout.printf ("Commands:\n");
             stdout.printf ("  add              Add a new task\n");
             stdout.printf ("  list             List tasks from a project\n");
             stdout.printf ("  update           Update an existing task\n");
-            stdout.printf ("  list-projects    List all projects\n\n");
+            stdout.printf ("  list-projects    List all projects\n");
+            stdout.printf ("  backup           Export a JSON backup\n\n");
             stdout.printf ("Run '%s <command> --help' for command-specific options\n\n", program_name);
             stdout.printf ("Examples:\n");
             stdout.printf ("  %s add --help\n", program_name);

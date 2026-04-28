@@ -359,6 +359,29 @@ namespace PlanifyCLI {
         return 0;
     }
 
+    private static int backup (BackupArguments args) {
+        Services.Database.get_default ().init_database ();
+
+        string json = Services.Backup.get_default ().export_to_json ();
+
+        if (args.output != null && args.output.strip () != "") {
+            var file = File.new_for_path (args.output);
+            try {
+                var stream = file.replace (null, false, FileCreateFlags.NONE, null);
+                stream.write (json.data, null);
+                stream.close (null);
+                stderr.printf ("Backup saved to %s\n", args.output);
+            } catch (Error e) {
+                stderr.printf ("Error writing backup: %s\n", e.message);
+                return 1;
+            }
+        } else {
+            stdout.printf ("%s\n", json);
+        }
+
+        return 0;
+    }
+
     public static int main (string[] args) {
         // Initialize localization
         Intl.setlocale (LocaleCategory.ALL, "");
@@ -385,6 +408,8 @@ namespace PlanifyCLI {
                 return update_task (parsed.update_args);
             case CommandType.ADD:
                 return add_task (parsed.task_args);
+            case CommandType.BACKUP:
+                return backup (parsed.backup_args);
             default:
                 stderr.printf ("Error: Unknown command\n");
                 return 1;
