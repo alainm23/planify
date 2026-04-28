@@ -53,7 +53,7 @@ namespace Constants {
     public const string WEBLATE_URL = "https://hosted.weblate.org/engage/planner/";
     public const string FLATHUB_URL = "https://flathub.org/apps/io.github.alainm23.planify";
     public const string PRIVACY_POLICY_URL = "https://useplanify.com/privacy-policy/";
-    public const bool BLOCK_PAST_DAYS = false;
+    public const bool BLOCK_PAST_DAYS = true;
     public const int COMPLETED_PAGE_SIZE = 15;
     public const int HEADERBAR_TITLE_SCROLL_THRESHOLD = 24;
 }
