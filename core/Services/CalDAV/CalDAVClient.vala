@@ -745,8 +745,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var url = update ? item.ical_url : GLib.Path.build_path ("/", item.project.calendar_url, "%s.ics".printf (item.id));
         var body = item.to_vtodo ();
 
-        var expected = update ? new Soup.Status[]{ Soup.Status.NO_CONTENT, Soup.Status.CREATED }
-                              : new Soup.Status[]{ Soup.Status.CREATED };
+        var expected = update ? new Soup.Status[]{ Soup.Status.NO_CONTENT, Soup.Status.CREATED, Soup.Status.OK }
+                              : new Soup.Status[]{ Soup.Status.CREATED, Soup.Status.OK };
 
         HttpResponse response = new HttpResponse ();
 
