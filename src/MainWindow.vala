@@ -249,6 +249,10 @@ public class MainWindow : Adw.ApplicationWindow {
             }
         });
 
+        Adw.StyleManager.get_default ().notify["accent-color"].connect (() => {
+            Util.get_default ().update_theme ();
+        });
+
         Services.Settings.get_default ().settings.changed["system-appearance"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean (
                 "dark-mode",

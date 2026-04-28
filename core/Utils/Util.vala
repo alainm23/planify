@@ -278,12 +278,22 @@ public class Util : GLib.Object {
             dark_mode = color_scheme_settings.prefers_color_scheme == ColorSchemeSettings.Settings.ColorScheme.DARK;
         }
 
+        string accent_color = "#3584e4";
+        if (Adw.StyleManager.get_default ().get_system_supports_accent_colors ()) {
+            var rgba = Adw.StyleManager.get_default ().get_accent_color_rgba ();
+            accent_color = "#%02x%02x%02x".printf (
+                (uint) (rgba.red * 255),
+                (uint) (rgba.green * 255),
+                (uint) (rgba.blue * 255)
+            );
+        }
+
         string window_bg_color = "";
         string popover_bg_color = "";
         string sidebar_bg_color = "";
         string item_border_color = "";
         string upcoming_bg_color = "";
-        string upcoming_fg_color = ""; 
+        string upcoming_fg_color = "";
         string selected_color = "";
         string card_bg_color = "";
 
@@ -330,6 +340,8 @@ public class Util : GLib.Object {
             @define-color upcoming_fg_color %s;
             @define-color selected_color %s;
             @define-color card_bg_color %s;
+            @define-color accent_color %s;
+            @define-color accent_bg_color %s;
         """.printf (
             window_bg_color,
             popover_bg_color,
@@ -338,7 +350,9 @@ public class Util : GLib.Object {
             upcoming_bg_color,
             upcoming_fg_color,
             selected_color,
-            card_bg_color
+            card_bg_color,
+            accent_color,
+            accent_color
         );
 
         var provider = new Gtk.CssProvider ();
