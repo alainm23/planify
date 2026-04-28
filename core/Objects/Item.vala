@@ -1448,6 +1448,43 @@ public class Objects.Item : Objects.BaseObject {
         );
     }
 
+    public string get_ics_content () {
+        return calendar_data != null && calendar_data != "" ? calendar_data : to_vtodo ();
+    }
+
+    public void export_ics (Gtk.Window window) {
+        if (project.source_type != SourceType.CALDAV) return;
+
+        var content = get_ics_content ();
+        var file_dialog = new Gtk.FileDialog ();
+        file_dialog.initial_name = "%s.ics".printf (id);
+
+        var filter = new Gtk.FileFilter ();
+        filter.add_pattern ("*.ics");
+        filter.set_filter_name (_("iCalendar Files"));
+        var filters = new ListStore (typeof (Gtk.FileFilter));
+        filters.append (filter);
+        file_dialog.filters = filters;
+        file_dialog.default_filter = filter;
+
+        file_dialog.save.begin (window, null, (obj, res) => {
+            try {
+                var file = file_dialog.save.end (res);
+                if (!file.get_basename ().down ().has_suffix (".ics")) {
+                    file = File.new_for_path (file.get_path () + ".ics");
+                }
+                var stream = file.replace (null, false, FileCreateFlags.NONE, null);
+                stream.write (content.data, null);
+                stream.close (null);
+                Services.EventBus.get_default ().send_toast (
+                    Util.get_default ().create_toast (_("Task exported successfully"))
+                );
+            } catch (Error e) {
+                debug ("Error exporting .ics: %s", e.message);
+            }
+        });
+    }
+
     public Objects.Item generate_copy () {
         var new_item = new Objects.Item ();
         new_item.id = Util.get_default ().generate_id (new_item);
