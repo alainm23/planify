@@ -32,6 +32,7 @@ core/Objects/Section.vala
 core/Objects/Source.vala
 core/Objects/TranslationMetric.vala
 core/QuickAddCore.vala
+core/Services/Backup.vala
 core/Services/CalDAV/CalDAVClient.vala
 core/Services/CalDAV/Core.vala
 core/Services/CalDAV/Providers/Nextcloud.vala
@@ -232,10 +233,5 @@ src/Widgets/TranslationRow.vala
 quick-add/App.vala
 quick-add/MainWindow.vala
 quick-add/Services/DBusClient.vala
-quick-add/cli/ArgumentParser.vala
-quick-add/cli/Main.vala
-quick-add/cli/OutputFormatter.vala
-quick-add/cli/TaskCreator.vala
-quick-add/cli/TaskValidator.vala
 
 data/resources/ui/shortcuts.ui
