@@ -132,7 +132,7 @@ msgid "Content"
 msgstr "Nội Dung"
 
 #: core/Enum.vala:531 src/Dialogs/Project.vala:149 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1954 src/Layouts/ItemSidebarView.vala:181
+#: src/Layouts/ItemRow.vala:1961 src/Layouts/ItemSidebarView.vala:182
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "Mô Tả"
@@ -316,7 +316,15 @@ msgstr ""
 msgid "Task copied to clipboard"
 msgstr "Nhiệm vụ đã sao chép vào bộ nhớ tạm"
 
-#: core/Objects/Item.vala:1741 core/Utils/Util.vala:888
+#: core/Objects/Item.vala:1464
+msgid "iCalendar Files"
+msgstr ""
+
+#: core/Objects/Item.vala:1480
+msgid "Task exported successfully"
+msgstr ""
+
+#: core/Objects/Item.vala:1778 core/Utils/Util.vala:888
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "%d nhiệm vụ đã di chuyển đến %s"
@@ -329,7 +337,7 @@ msgstr "Xóa Nhãn %s"
 #: core/Objects/Label.vala:221 core/Objects/Project.vala:876
 #: core/Objects/Section.vala:377
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
-#: src/Layouts/ItemSidebarView.vala:597 src/Layouts/SectionBoard.vala:635
+#: src/Layouts/ItemSidebarView.vala:605 src/Layouts/SectionBoard.vala:635
 #: src/Services/Backups.vala:134
 msgid "This can not be undone"
 msgstr "Không thể hoàn tác"
@@ -346,7 +354,7 @@ msgstr "Không thể hoàn tác"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:377
 #: src/Dialogs/Preferences/Pages/Backup.vala:443
-#: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:600
+#: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:608
 #: src/Layouts/SectionBoard.vala:638 src/Services/Backups.vala:137
 #: src/Views/Filter.vala:634 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -359,7 +367,7 @@ msgstr "Hủy"
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
 #: src/Dialogs/Preferences/Pages/Backup.vala:273
-#: src/Layouts/ItemSidebarView.vala:601 src/Layouts/SectionBoard.vala:639
+#: src/Layouts/ItemSidebarView.vala:609 src/Layouts/SectionBoard.vala:639
 #: src/Services/Backups.vala:138 src/Views/Filter.vala:635
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:246
 #: src/Widgets/MultiSelectToolbar.vala:315
@@ -409,7 +417,7 @@ msgid "Task added successfully!"
 msgstr "Nhiệm vụ đã thêm thành công!"
 
 #: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:402
-#: src/Layouts/ItemSidebarView.vala:120 src/Widgets/ItemDetailCompleted.vala:52
+#: src/Layouts/ItemSidebarView.vala:121 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Tên nhiệm vụ"
 
@@ -1667,8 +1675,8 @@ msgstr "Không Có Ngày"
 msgid "Done"
 msgstr "Xong"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1378
-#: src/Layouts/ItemSidebarView.vala:515
+#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1380
+#: src/Layouts/ItemSidebarView.vala:518
 msgid "Change History"
 msgstr "Lịch Sử Thay Đổi"
 
@@ -2809,7 +2817,7 @@ msgstr "Dự án đã được thêm thành công!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:790 src/Layouts/ItemRow.vala:1245
-#: src/Layouts/ItemRow.vala:1373 src/Layouts/ItemSidebarView.vala:510
+#: src/Layouts/ItemRow.vala:1373 src/Layouts/ItemSidebarView.vala:512
 msgid "Move"
 msgstr "Di Chuyển"
 
@@ -2858,8 +2866,8 @@ msgstr "Mở/Đóng Thanh Bên"
 msgid "Unpin"
 msgstr "Bỏ Ghim"
 
-#: src/Layouts/ItemBoard.vala:617 src/Layouts/ItemRow.vala:1582
-#: src/Layouts/ItemSidebarView.vala:676
+#: src/Layouts/ItemBoard.vala:617 src/Layouts/ItemRow.vala:1589
+#: src/Layouts/ItemSidebarView.vala:684
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Đã hoàn thành. Lần lặp lại tiếp theo: %s"
@@ -2873,27 +2881,27 @@ msgid "Edit"
 msgstr "Chỉnh Sửa"
 
 #: src/Layouts/ItemBoard.vala:796 src/Layouts/ItemRow.vala:1251
-#: src/Layouts/ItemRow.vala:1372 src/Layouts/ItemSidebarView.vala:509
+#: src/Layouts/ItemRow.vala:1372 src/Layouts/ItemSidebarView.vala:511
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:566
 #: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:375
 msgid "Duplicate"
 msgstr "Tạo Bản Sao"
 
 #: src/Layouts/ItemBoard.vala:798 src/Layouts/ItemRow.vala:1253
-#: src/Layouts/ItemRow.vala:1375 src/Layouts/ItemSidebarView.vala:512
+#: src/Layouts/ItemRow.vala:1377 src/Layouts/ItemSidebarView.vala:515
 msgid "Delete Task"
 msgstr "Xóa Nhiệm Vụ"
 
-#: src/Layouts/ItemBoard.vala:1098 src/Layouts/ItemRow.vala:1824
+#: src/Layouts/ItemBoard.vala:1098 src/Layouts/ItemRow.vala:1831
 msgid "Order changed to 'Custom sort order'"
 msgstr "Thứ tự đã thay đổi thành 'Thứ tự sắp xếp tùy chỉnh'"
 
-#: src/Layouts/ItemBoard.vala:1184 src/Layouts/ItemRow.vala:1604
+#: src/Layouts/ItemBoard.vala:1184 src/Layouts/ItemRow.vala:1611
 #, c-format
 msgid "%s was deleted"
 msgstr "%s đã bị xóa"
 
-#: src/Layouts/ItemBoard.vala:1185 src/Layouts/ItemRow.vala:1605
+#: src/Layouts/ItemBoard.vala:1185 src/Layouts/ItemRow.vala:1612
 msgid "Undo"
 msgstr "Hoàn Tác"
 
@@ -2909,36 +2917,40 @@ msgstr "Ẩn Nhiệm Vụ Phụ"
 msgid "Show Sub-tasks"
 msgstr "Hiển Thị Nhiệm Vụ Phụ"
 
-#: src/Layouts/ItemRow.vala:1368 src/Layouts/ItemSidebarView.vala:506
+#: src/Layouts/ItemRow.vala:1368 src/Layouts/ItemSidebarView.vala:508
 msgid "Use as a Note"
 msgstr "Sử Dụng như Ghi Chú"
 
-#: src/Layouts/ItemRow.vala:1371 src/Layouts/ItemSidebarView.vala:508
+#: src/Layouts/ItemRow.vala:1371 src/Layouts/ItemSidebarView.vala:510
 #: src/Widgets/MultiSelectToolbar.vala:244
 msgid "Copy to Clipboard"
 msgstr "Sao Chép vào Bộ Nhớ Tạm"
 
-#: src/Layouts/ItemRow.vala:2030
+#: src/Layouts/ItemRow.vala:1374 src/Layouts/ItemSidebarView.vala:513
+msgid "Export as .ics"
+msgstr ""
+
+#: src/Layouts/ItemRow.vala:2037
 msgid "Add Attachments"
 msgstr "Thêm Tệp Đính Kèm"
 
-#: src/Layouts/ItemSidebarView.vala:77
+#: src/Layouts/ItemSidebarView.vala:78
 msgid "Close Detail"
 msgstr "Đóng Chi Tiết"
 
-#: src/Layouts/ItemSidebarView.vala:144 src/Widgets/ItemDetailCompleted.vala:64
+#: src/Layouts/ItemSidebarView.vala:145 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
 msgstr "Tiêu Đề"
 
-#: src/Layouts/ItemSidebarView.vala:176 src/Widgets/ItemDetailCompleted.vala:90
+#: src/Layouts/ItemSidebarView.vala:177 src/Widgets/ItemDetailCompleted.vala:90
 msgid "Properties"
 msgstr "Thuộc tính"
 
-#: src/Layouts/ItemSidebarView.vala:192
+#: src/Layouts/ItemSidebarView.vala:193
 msgid "Expand Description"
 msgstr ""
 
-#: src/Layouts/ItemSidebarView.vala:596
+#: src/Layouts/ItemSidebarView.vala:604
 msgid "Are you sure you want to delete?"
 msgstr "Bạn có chắc chắn muốn xóa không?"
 

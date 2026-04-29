@@ -43,6 +43,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Widgets.ContextMenu.MenuItem copy_clipboard_item;
     private Widgets.ContextMenu.MenuItem duplicate_item;
     private Widgets.ContextMenu.MenuItem move_item;
+    private Widgets.ContextMenu.MenuItem export_ics_item;
 
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
     private Gee.HashMap<ulong, weak GLib.Object> markdown_handlerses = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -464,6 +465,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         status_button.sensitive = item.item_type == ItemType.TASK;
         parent_back_button.visible = item.has_parent;
         deadline_button.sensitive = !item.completed;
+        export_ics_item.visible = item.project.source_type == SourceType.CALDAV;
 
         if (item.completed) {
             deadline_button.remove_error_style ();
@@ -508,6 +510,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "clipboard-symbolic");
         duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
         move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
+        export_ics_item = new Widgets.ContextMenu.MenuItem (_("Export as .ics"), "document-save-symbolic");
 
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
@@ -528,6 +531,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         menu_box.append (copy_clipboard_item);
         menu_box.append (duplicate_item);
         menu_box.append (move_item);
+        menu_box.append (export_ics_item);
         menu_box.append (delete_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (more_information_item);
@@ -574,6 +578,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         more_information_item.activate_item.connect (() => {
             var dialog = new Dialogs.ItemChangeHistory (item);
             dialog.present (Planify._instance.main_window);
+        });
+
+        export_ics_item.clicked.connect (() => {
+            item.export_ics (Planify._instance.main_window);
         });
 
         return popover;
