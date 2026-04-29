@@ -1371,6 +1371,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_ ("Copy to Clipboard"), "clipboard-symbolic");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_ ("Duplicate"), "tabs-stack-symbolic");
         var move_item = new Widgets.ContextMenu.MenuItem (_ ("Move"), "arrow3-right-symbolic");
+        var export_ics_item = new Widgets.ContextMenu.MenuItem (_ ("Export as .ics"), "document-save-symbolic");
+        export_ics_item.visible = item.project.source_type == SourceType.CALDAV;
 
         var delete_item = new Widgets.ContextMenu.MenuItem (_ ("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
@@ -1391,6 +1393,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (copy_clipboard_item);
             menu_box.append (duplicate_item);
+            menu_box.append (export_ics_item);
             menu_box.append (move_item);
 
             signals_map[use_note_item.activate_item.connect (() => {
@@ -1405,6 +1408,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             signals_map[duplicate_item.clicked.connect (() => {
                 Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
             })] = duplicate_item;
+
+            signals_map[export_ics_item.clicked.connect (() => {
+                item.export_ics (Planify._instance.main_window);
+            })] = export_ics_item;
 
             signals_map[move_item.clicked.connect (() => {
                 Dialogs.ProjectPicker.ProjectPicker dialog;
