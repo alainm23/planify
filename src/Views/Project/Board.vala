@@ -24,6 +24,7 @@ public class Views.Board : Adw.Bin {
 
     private Widgets.IconColorProject icon_project;
     private Gtk.Label title_label;
+    private Widgets.EditableTextView description_widget;
     private Gtk.Image due_image;
     private Gtk.Label due_label;
     private Gtk.Label days_left_label;
@@ -71,7 +72,7 @@ public class Views.Board : Adw.Bin {
         title_box.append (icon_project);
         title_box.append (title_label);
 
-        var description_widget = new Widgets.EditableTextView (_("Note")) {
+        description_widget = new Widgets.EditableTextView (_("Note")) {
             text = project.description,
             margin_top = 12,
             margin_start = 24,
@@ -217,6 +218,7 @@ public class Views.Board : Adw.Bin {
     public void update_request () {
         icon_project.update_request ();
         title_label.label = project.is_inbox_project ? _("Inbox") : project.name;
+        description_widget.text = project.description;
         update_duedate ();
     }
 
