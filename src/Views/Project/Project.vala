@@ -40,7 +40,7 @@ public class Views.Project : Adw.Bin {
 
     public ProjectViewStyle view_style {
         get {
-            return project.source_type == SourceType.CALDAV ? ProjectViewStyle.LIST : project.view_style;
+            return project.view_style;
         }
     }
 
@@ -434,7 +434,7 @@ public class Views.Project : Adw.Bin {
             })] = add_section_item;
         }
 
-        if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
+        if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST || project.source_type == SourceType.CALDAV) {
             menu_box.append (manage_sections);
 
             signal_map[manage_sections.clicked.connect (() => {
@@ -616,7 +616,7 @@ public class Views.Project : Adw.Bin {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
-        if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
+        if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST || project.source_type == SourceType.CALDAV) {
             menu_box.append (view_group);
 
             signal_map[view_group.notify["active-name"].connect (() => {
