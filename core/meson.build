@@ -6,6 +6,7 @@ core_files = files(
     'Utils/Util.vala',
     'Utils/Datetime.vala',
     'Utils/MarkdownProcessor.vala',
+    'Utils/JsonUtils.vala',
 
     'Services/Settings.vala',
     'Services/EventBus.vala',
