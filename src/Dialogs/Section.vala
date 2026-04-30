@@ -144,6 +144,7 @@ public class Dialogs.Section : Adw.Dialog {
         });
 
         signal_map[name_entry.entry_activated.connect (add_update_section)] = name_entry;
+        signal_map[name_entry.apply.connect (add_update_section)] = name_entry;
         signal_map[submit_button.clicked.connect (add_update_section)] = submit_button;
 
         closed.connect (() => {
@@ -180,7 +181,6 @@ public class Dialogs.Section : Adw.Dialog {
             return;
         }
 
-
         if (section.project.source_type == SourceType.TODOIST) {
             submit_button.is_loading = true;
             Services.Todoist.get_default ().update.begin (section, (obj, res) => {
@@ -196,6 +196,24 @@ public class Dialogs.Section : Adw.Dialog {
                     section.color = _color;
 
                     Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+                    close ();
+                }
+            });
+        }
+
+        if (section.project.source_type == SourceType.CALDAV) {
+            submit_button.is_loading = true;
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (section.project.source);
+            caldav_client.add_section.begin (section, true, (obj, res) => {
+                submit_button.is_loading = false;
+                HttpResponse caldav_response = caldav_client.add_section.end (res);
+
+                if (caldav_response.status) {
+                    Services.Store.instance ().update_section (section);
+                    close ();
+                } else {
+                    section.name = _name;
+                    Services.EventBus.get_default ().send_error_toast (caldav_response.error_code, caldav_response.error);
                     close ();
                 }
             });
@@ -219,6 +237,25 @@ public class Dialogs.Section : Adw.Dialog {
 
                 if (response.status) {
                     section.id = response.data;
+                    section.project.add_section_if_not_exists (section);
+                    send_toast (_("Section added"));
+                    close ();
+                } else {
+                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+                    close ();
+                }
+            });
+        }
+
+        if (section.project.source_type == SourceType.CALDAV) {
+            submit_button.is_loading = true;
+            section.id = Util.get_default ().generate_id (section);
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (section.project.source);
+            caldav_client.add_section.begin (section, false, (obj, res) => {
+                submit_button.is_loading = false;
+                HttpResponse response = caldav_client.add_section.end (res);
+
+                if (response.status) {
                     section.project.add_section_if_not_exists (section);
                     send_toast (_("Section added"));
                     close ();

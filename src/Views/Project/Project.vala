@@ -40,7 +40,7 @@ public class Views.Project : Adw.Bin {
 
     public ProjectViewStyle view_style {
         get {
-            return project.source_type == SourceType.CALDAV ? ProjectViewStyle.LIST : project.view_style;
+            return project.view_style;
         }
     }
 
@@ -426,13 +426,16 @@ public class Views.Project : Adw.Bin {
             })] = duplicate_item;
         }
 
-        if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
+        if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST || project.source_type == SourceType.CALDAV) {
             menu_box.append (add_section_item);
-            menu_box.append (manage_sections);
 
             signal_map[add_section_item.activate_item.connect (() => {
                 prepare_new_section ();
             })] = add_section_item;
+        }
+
+        if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST || project.source_type == SourceType.CALDAV) {
+            menu_box.append (manage_sections);
 
             signal_map[manage_sections.clicked.connect (() => {
                 var dialog = new Dialogs.ManageSectionOrder (project);
@@ -442,7 +445,6 @@ public class Views.Project : Adw.Bin {
 
 #if WITH_EVOLUTION
         calendar_sync_item = new Widgets.ContextMenu.MenuItem (_ ("Calendar Sync"), "month-symbolic") {
-            badge = _("New"),
             visible = project.calendar_source_uid == ""
         };
 
@@ -614,7 +616,7 @@ public class Views.Project : Adw.Bin {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
-        if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
+        if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST || project.source_type == SourceType.CALDAV) {
             menu_box.append (view_group);
 
             signal_map[view_group.notify["active-name"].connect (() => {
@@ -793,10 +795,6 @@ public class Views.Project : Adw.Bin {
     }
 
     public void prepare_new_section () {
-        if (project.source_type == SourceType.CALDAV) {
-            return;
-        }
-
         var dialog = new Dialogs.Section.new (project);
         dialog.present (Planify._instance.main_window);
     }
