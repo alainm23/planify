@@ -39,6 +39,7 @@ public class Objects.Project : Objects.BaseObject {
     public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
     public string calendar_url { get; set; default = ""; }
     public string calendar_source_uid { get; set; default = ""; }
+    public string extra_data { get; set; default = ""; }
     public MarkdownSetting markdown_setting { get; set; default = MarkdownSetting.GLOBAL_DEFAULT; }
 
     public bool is_markdown_enabled {
@@ -251,7 +252,8 @@ public class Objects.Project : Objects.BaseObject {
 
     public bool is_deck {
         get {
-            return "deck--board" in calendar_url.down ();
+            return "deck--board" in calendar_url.down () ||
+                   Utils.JsonUtils.get_int (extra_data, "deck_board_id") > 0;
         }
     }
 

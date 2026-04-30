@@ -24,6 +24,7 @@ public class Services.CalDAV.Core : GLib.Object {
     private Gee.HashMap<string, Services.CalDAV.CalDAVClient> clients;
 
     public signal void sync_progress (int current, int total, string message);
+    public signal void deck_detected (Objects.Source source);
 
     private static Core ? _instance;
     public static Core get_default () {
@@ -261,6 +262,15 @@ public class Services.CalDAV.Core : GLib.Object {
             // to avoid concurrent sync triggering duplicate project insertion
             Services.Store.instance ().insert_source (source);
 
+            // Probe Deck if Nextcloud
+            if (source.caldav_data.caldav_type == CalDAVType.NEXTCLOUD) {
+                bool deck_available = yield Services.Deck.Core.get_default ().probe (source);
+                if (deck_available) {
+                    Services.LogService.get_default ().info ("CalDAV.Core", "Deck detected on Nextcloud instance");
+                    deck_detected (source);
+                }
+            }
+
             sync_progress (projects.size, projects.size, _("Sync completed"));
             Services.LogService.get_default ().info ("CalDAV.Core", "Account added successfully, %d projects synced".printf (projects.size));
             response.status = true;
@@ -297,6 +307,12 @@ public class Services.CalDAV.Core : GLib.Object {
             source.sync_finished ();
             source.sync_status = null;
             source.last_sync = new GLib.DateTime.now_local ().to_string ();
+
+            // Sync Deck if enabled
+            if (source.caldav_data.caldav_type == CalDAVType.NEXTCLOUD && source.caldav_data.use_deck) {
+                yield Services.Deck.Core.get_default ().sync (source);
+            }
+
             Services.LogService.get_default ().info ("CalDAV.Core", "Sync completed successfully");
         } catch (Error e) {
             Services.LogService.get_default ().error ("CalDAV.Core", "Failed to sync source '%s': %s".printf (source.display_name, e.message));
