@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-04-28 17:09+0000\n"
+"PO-Revision-Date: 2026-05-02 10:09+0000\n"
 "Last-Translator: Stephnie Klim <sylorutu@denipl.net>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/it/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1-dev\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -151,7 +151,7 @@ msgstr "Programmate"
 #: src/Layouts/ItemBoard.vala:772 src/Layouts/ItemBoard.vala:785
 #: src/Layouts/ItemRow.vala:1227 src/Layouts/ItemRow.vala:1240
 msgid "Pin"
-msgstr "Pin"
+msgstr "Appunta"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -1346,7 +1346,7 @@ msgstr "Data"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:209
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:213
 msgid "The date you plan to work on this task"
-msgstr ""
+msgstr "La data in cui prevedi di occuparti di questa attività"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
@@ -1355,7 +1355,7 @@ msgstr "Rimuovi data"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "When do you plan to work on this?"
-msgstr ""
+msgstr "Quando prevedi di occuparti di questo?"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
@@ -1365,11 +1365,11 @@ msgstr "Imposta una Scadenza"
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
 #: core/Widgets/DeadlineButton.vala:135
 msgid "The latest date to complete this task"
-msgstr ""
+msgstr "Il termine ultimo per completare questa attività"
 
 #: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
 msgid "What is the latest date to complete this?"
-msgstr ""
+msgstr "Qual è il termine ultimo per completare questo?"
 
 #: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
@@ -1699,7 +1699,7 @@ msgstr "Cronologia delle Modifiche"
 
 #: src/Dialogs/ItemChangeHistory.vala:54
 msgid "Added at"
-msgstr ""
+msgstr "Aggiunto il"
 
 #: src/Dialogs/ItemChangeHistory.vala:56
 msgid "Not available"
@@ -1707,19 +1707,21 @@ msgstr "Non disponibile"
 
 #: src/Dialogs/ItemChangeHistory.vala:60
 msgid "Updated at"
-msgstr ""
+msgstr "Aggiornato il"
 
 #: src/Dialogs/ItemChangeHistory.vala:69
 msgid ""
 "Your change history will be displayed here once you start making changes."
 msgstr ""
+"La cronologia delle modifiche verrà mostrata qui appena inizierai ad "
+"apportare cambiamenti."
 
 #: src/Dialogs/ItemChangeHistory.vala:138
 #, c-format
 msgid "Load more history from %d week ago…"
 msgid_plural "Load more history from %d weeks ago…"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Carica lo storico di %d settimana fa…"
+msgstr[1] "Carica lo storico di %d settimane fa…"
 
 #: src/Dialogs/Label.vala:45
 msgid "New Label"
@@ -2400,19 +2402,19 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:89
 msgid "Task Settings"
-msgstr ""
+msgstr "Impostazioni Attività"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:40
 msgid "Complete Instantly"
-msgstr ""
+msgstr "Completa Subito"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:41
 msgid "Complete with Undo"
-msgstr ""
+msgstr "Completa con Annullamento"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:44
 msgid "Task Completion"
-msgstr ""
+msgstr "Completamento Attività"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:45
 msgid "Choose how tasks behave when marked as complete"
@@ -2482,6 +2484,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:113
 msgid "Allow only one task to be expanded at a time in list view"
 msgstr ""
+"Consente l'espansione di una sola attività alla volta nella vista a elenco"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:122
 msgid "Enable Markdown Formatting"
@@ -2913,7 +2916,7 @@ msgstr "Mostra Sotto-Attività"
 
 #: src/Layouts/ItemRow.vala:1368 src/Layouts/ItemSidebarView.vala:508
 msgid "Use as a Note"
-msgstr ""
+msgstr "Usa come nota"
 
 #: src/Layouts/ItemRow.vala:1371 src/Layouts/ItemSidebarView.vala:510
 #: src/Widgets/MultiSelectToolbar.vala:244
@@ -2930,7 +2933,7 @@ msgstr "Aggiungi Allegato"
 
 #: src/Layouts/ItemSidebarView.vala:78
 msgid "Close Detail"
-msgstr ""
+msgstr "Chiudi Dettagli"
 
 #: src/Layouts/ItemSidebarView.vala:145 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
@@ -2942,7 +2945,7 @@ msgstr "Proprietà"
 
 #: src/Layouts/ItemSidebarView.vala:193
 msgid "Expand Description"
-msgstr ""
+msgstr "Espandi Descrizione"
 
 #: src/Layouts/ItemSidebarView.vala:604
 msgid "Are you sure you want to delete?"
@@ -3049,7 +3052,7 @@ msgstr "Vai a Etichette"
 
 #: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Pinboard"
-msgstr ""
+msgstr "Vai alla Bacheca"
 
 #: src/Layouts/SidebarSourceRow.vala:43
 msgid "No project available. Create one by clicking on the '+' button"
@@ -3252,11 +3255,11 @@ msgstr "Contrai Tutto"
 
 #: src/Views/Project/Project.vala:520
 msgid "List"
-msgstr ""
+msgstr "Elenco"
 
 #: src/Views/Project/Project.vala:526
 msgid "Board"
-msgstr ""
+msgstr "Tabella"
 
 #: src/Views/Project/Project.vala:538 src/Views/Scheduled/Scheduled.vala:225
 #: src/Views/Today.vala:714
@@ -3343,7 +3346,7 @@ msgstr ""
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
-msgstr ""
+msgstr "Allegati"
 
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
@@ -3351,7 +3354,7 @@ msgstr ""
 
 #: src/Widgets/Attachments.vala:248
 msgid "No attachments found. Add files here."
-msgstr ""
+msgstr "Nessun allegato trovato. Aggiungi i file qui."
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
 msgid "Bypass Location Resolve"
@@ -3382,7 +3385,7 @@ msgstr ""
 #: src/Widgets/CompletedTaskRow.vala:95
 #: src/Widgets/ItemDetailCompleted.vala:130 src/Widgets/SubItems.vala:92
 msgid "Sub-tasks"
-msgstr ""
+msgstr "Sotto-Attività"
 
 #: src/Widgets/EditableTextView.vala:78 src/Widgets/EditableTextView.vala:145
 msgid "Show more"
@@ -3559,7 +3562,7 @@ msgstr "Disarchivia"
 
 #: src/Widgets/SubItems.vala:525
 msgid "No subtasks added yet. Get started!"
-msgstr ""
+msgstr "Ancora nessuna sotto-attività aggiunta. Inizia subito!"
 
 #: src/Widgets/SyncButton.vala:94
 msgid "Failed to connect to server"
@@ -3700,7 +3703,7 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:129
 msgctxt "shortcut window"
 msgid "Open Pinboard"
-msgstr ""
+msgstr "Apri Bacheca"
 
 #~ msgid "Advanced Options"
 #~ msgstr "Opzioni Avanzate"
