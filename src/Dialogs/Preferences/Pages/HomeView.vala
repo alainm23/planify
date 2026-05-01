@@ -161,6 +161,7 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
 
             var action_row = new Adw.ActionRow () {
                 title = base_object.name,
+                use_markup = false,
                 activatable = true
             };
 
