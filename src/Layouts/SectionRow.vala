@@ -690,9 +690,14 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         if (!is_inbox_section) {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-            menu_box.append (archive_item);
+            if (section.project.source_type != SourceType.CALDAV) {
+                menu_box.append (archive_item);
+            }
             menu_box.append (delete_item);
         }
+
+        move_item.visible = section.project.source_type != SourceType.CALDAV;
+        duplicate_item.visible = section.project.source_type != SourceType.CALDAV;
 
         var menu_popover = new Gtk.Popover () {
             has_arrow = false,
