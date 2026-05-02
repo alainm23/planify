@@ -29,6 +29,31 @@ public class Objects.Section : Objects.BaseObject {
     public bool is_archived { get; set; default = false; }
     public string description { get; set; default = ""; }
     public bool hidded { get; set; default = false; }
+    public string extra_data { get; set; default = ""; }
+
+    public static string CALDAV_PREFIX = "List : ";
+
+    string _ical_url = "";
+    public string ical_url {
+        get {
+            _ical_url = Utils.JsonUtils.get_string (extra_data, "ical_url");
+            return _ical_url;
+        }
+    }
+
+    string _etag = "";
+    public string etag {
+        get {
+            _etag = Utils.JsonUtils.get_string (extra_data, "etag");
+            return _etag;
+        }
+    }
+
+    public bool is_caldav_section {
+        get {
+            return project != null && project.source_type == SourceType.CALDAV;
+        }
+    }
 
     // Tmp
     public bool activate_name_editable { get; set; default = false; }
@@ -211,6 +236,11 @@ public class Objects.Section : Objects.BaseObject {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                 });
+            } else if (project.source_type == SourceType.CALDAV && cloud) {
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                caldav_client.add_section.begin (this, true, (obj, res) => {
+                    caldav_client.add_section.end (res);
+                });
             }
 
             return GLib.Source.REMOVE;
@@ -390,6 +420,9 @@ public class Objects.Section : Objects.BaseObject {
                         Services.Todoist.get_default ().delete.end (res);
                         Services.Store.instance ().delete_section (this);
                     });
+                } else if (project.source_type == SourceType.CALDAV && ical_url != "") {
+                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                    _delete_caldav_section.begin (caldav_client);
                 } else {
                     Services.Store.instance ().delete_section (this);
                 }
@@ -428,5 +461,63 @@ public class Objects.Section : Objects.BaseObject {
         }
 
         return is_archived;
+    }
+
+    public string to_vtodo () {
+        ICal.Component ical = new ICal.Component.vtodo ();
+        ical.set_uid (id);
+        ical.set_dtstamp (new ICal.Time.current_with_zone (ICal.Timezone.get_utc_timezone ()));
+        ical.set_summary (CALDAV_PREFIX + name);
+        ical.set_status (ICal.PropertyStatus.NEEDSACTION);
+
+        return "%s%s%s".printf (
+            "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Planify App (https://github.com/alainm23/planify)\n",
+            ical.as_ical_string (),
+            "END:VCALENDAR\n"
+        );
+    }
+
+    public void patch_from_vtodo (string data, string _ical_url) {
+        ICal.Component ical = ICal.Parser.parse_string (data);
+        id = ical.get_uid ();
+        var summary = ical.get_summary ();
+        if (summary != null && summary.has_prefix (CALDAV_PREFIX)) {
+            name = summary.substring (CALDAV_PREFIX.length).strip ();
+        } else {
+            name = summary ?? "";
+        }
+        extra_data = Util.generate_extra_data (_ical_url, "", ical.as_ical_string ());
+    }
+
+    public static bool is_vtodo_section (string summary) {
+        return summary != null && summary.has_prefix (CALDAV_PREFIX);
+    }
+
+    private async void _delete_caldav_section (Services.CalDAV.CalDAVClient caldav_client) {
+        loading = true;
+        try {
+            // Delete all items in this section from server recursively
+            foreach (Objects.Item item in items) {
+                yield delete_item_caldav_recursive (item, caldav_client);
+            }
+
+            // Delete the section VTODO itself
+            HttpResponse caldav_response = yield caldav_client.delete_section (this);
+            if (caldav_response.status) {
+                Services.Store.instance ().delete_section (this);
+            } else {
+                Services.EventBus.get_default ().send_error_toast (caldav_response.error_code, caldav_response.error);
+            }
+        } catch (Error e) {
+            Services.EventBus.get_default ().send_error_toast (0, e.message);
+        }
+        loading = false;
+    }
+
+    private async void delete_item_caldav_recursive (Objects.Item item, Services.CalDAV.CalDAVClient caldav_client) throws Error {
+        foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
+            yield delete_item_caldav_recursive (subitem, caldav_client);
+        }
+        yield caldav_client.delete_item (item);
     }
 }

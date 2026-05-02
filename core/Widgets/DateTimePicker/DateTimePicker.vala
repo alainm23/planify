@@ -357,7 +357,10 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         calendar_view.choose_date_clicked.connect (() => {
             main_stack.visible_child_name = "calendar";
-            calendar_scroll_view.scroll_to_selected_date ();
+            Timeout.add (main_stack.transition_duration + 50, () => {
+                calendar_scroll_view.scroll_to_selected_date ();
+                return GLib.Source.REMOVE;
+            });
         });
 
         hide.connect (() => {

@@ -207,12 +207,12 @@ public class Objects.Item : Objects.BaseObject {
     string _ical_url = "";
     public string ical_url {
         get {
-            var json_object = Services.Todoist.get_default ().get_object_by_string (extra_data);
+            var json_object = Utils.JsonUtils.get_object (extra_data);
 
             if (json_object.has_member ("ics")) {
-                _ical_url = "%s/%s".printf (project.calendar_url, json_object.get_string_member ("ics")); // TODO: Should the stored data be migrated?
-            }else {
-                _ical_url = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "ical_url");
+                _ical_url = "%s/%s".printf (project.calendar_url, json_object.get_string_member ("ics"));
+            } else {
+                _ical_url = Utils.JsonUtils.get_string (extra_data, "ical_url");
             }
             return _ical_url;
         }
@@ -221,7 +221,7 @@ public class Objects.Item : Objects.BaseObject {
     string _calendar_data = "";
     public string calendar_data {
         get {
-            _calendar_data = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "calendar-data");
+            _calendar_data = Utils.JsonUtils.get_string (extra_data, "calendar-data");
             return _calendar_data;
         }
     }
@@ -229,7 +229,7 @@ public class Objects.Item : Objects.BaseObject {
     string _etag = "";
     public string etag {
         get {
-            _etag = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "etag");
+            _etag = Utils.JsonUtils.get_string (extra_data, "etag");
             return _etag;
         }
     }
@@ -522,10 +522,21 @@ public class Objects.Item : Objects.BaseObject {
 
         ICal.Property ? related_to_property = ical_vtodo.get_first_property (ICal.PropertyKind.RELATEDTO_PROPERTY);
         if (related_to_property != null) {
-            parent_id = related_to_property.get_relatedto ();
-            if (parent_id == id) {
+            string related_id = related_to_property.get_relatedto ();
+            if (related_id == id) {
                 warning ("Item/Task %s has a direct self-reference", id);
                 parent_id = "";
+                section_id = "";
+            } else {
+                // Check if RELATED-TO points to a section or a parent item
+                Objects.Section ? related_section = Services.Store.instance ().get_section (related_id);
+                if (related_section != null) {
+                    section_id = related_id;
+                    parent_id = "";
+                } else {
+                    parent_id = related_id;
+                    section_id = "";
+                }
             }
         } else {
             parent_id = "";
@@ -1331,6 +1342,8 @@ public class Objects.Item : Objects.BaseObject {
 
         if (parent_id != "") {
             ical.add_property (new ICal.Property.relatedto (parent_id));
+        } else if (section_id != "" && project.source_type == SourceType.CALDAV) {
+            ical.add_property (new ICal.Property.relatedto (section_id));
         }
 
         if (checked) {
@@ -1446,6 +1459,43 @@ public class Objects.Item : Objects.BaseObject {
         Services.EventBus.get_default ().send_toast (
             Util.get_default ().create_toast (_("Task copied to clipboard"))
         );
+    }
+
+    public string get_ics_content () {
+        return calendar_data != null && calendar_data != "" ? calendar_data : to_vtodo ();
+    }
+
+    public void export_ics (Gtk.Window window) {
+        if (project.source_type != SourceType.CALDAV) return;
+
+        var content = get_ics_content ();
+        var file_dialog = new Gtk.FileDialog ();
+        file_dialog.initial_name = "%s.ics".printf (id);
+
+        var filter = new Gtk.FileFilter ();
+        filter.add_pattern ("*.ics");
+        filter.set_filter_name (_("iCalendar Files"));
+        var filters = new ListStore (typeof (Gtk.FileFilter));
+        filters.append (filter);
+        file_dialog.filters = filters;
+        file_dialog.default_filter = filter;
+
+        file_dialog.save.begin (window, null, (obj, res) => {
+            try {
+                var file = file_dialog.save.end (res);
+                if (!file.get_basename ().down ().has_suffix (".ics")) {
+                    file = File.new_for_path (file.get_path () + ".ics");
+                }
+                var stream = file.replace (null, false, FileCreateFlags.NONE, null);
+                stream.write (content.data, null);
+                stream.close (null);
+                Services.EventBus.get_default ().send_toast (
+                    Util.get_default ().create_toast (_("Task exported successfully"))
+                );
+            } catch (Error e) {
+                debug ("Error exporting .ics: %s", e.message);
+            }
+        });
     }
 
     public Objects.Item generate_copy () {

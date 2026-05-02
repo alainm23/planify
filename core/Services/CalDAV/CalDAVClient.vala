@@ -493,47 +493,82 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         ICal.Component vtodo_comp = vcalendar.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
         while (vtodo_comp != null) {
             string uid = vtodo_comp.get_uid ();
+            string summary = vtodo_comp.get_summary () ?? "";
+
             if (uid != null && uid != "") {
-                Objects.Item ? item = Services.Store.instance ().get_item (uid);
-
-                if (item != null) {
-                    string old_project_id = item.project_id;
-                    string old_parent_id = item.parent_id;
-                    bool old_checked = item.checked;
-
-                    item.update_from_vtodo (vtodo_content, url);
-                    item.extra_data = Util.generate_extra_data (url, etag, vtodo_content);
-                    item.project_id = project.id;
-                    Services.Store.instance ().update_item (item);
-
-                    if (old_project_id != item.project_id || old_parent_id != item.parent_id) {
-                        Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
-                    }
-
-                    if (old_checked != item.checked) {
-                        Services.Store.instance ().complete_item (item, old_checked);
-                    }
+                // Check if this VTODO is a section (starts with "List : ")
+                if (Objects.Section.is_vtodo_section (summary)) {
+                    upsert_section_from_vtodo (project, url, etag, vtodo_content);
                 } else {
-                    var new_item = new Objects.Item.from_vtodo (vtodo_content, url, project.id);
-                    new_item.extra_data = Util.generate_extra_data (url, etag, vtodo_content);
+                    Objects.Item ? item = Services.Store.instance ().get_item (uid);
 
-                    if (batched_items != null) {
-                        batched_items.add (new_item);
+                    if (item != null) {
+                        string old_project_id = item.project_id;
+                        string old_section_id = item.section_id;
+                        string old_parent_id = item.parent_id;
+                        bool old_checked = item.checked;
+
+                        item.update_from_vtodo (vtodo_content, url);
+                        item.extra_data = Util.generate_extra_data (url, etag, vtodo_content);
+                        item.project_id = project.id;
+                        Services.Store.instance ().update_item (item);
+
+                        if (old_project_id != item.project_id || old_section_id != item.section_id || old_parent_id != item.parent_id) {
+                            Services.EventBus.get_default ().item_moved (item, old_project_id, old_section_id, old_parent_id);
+                        }
+
+                        if (old_checked != item.checked) {
+                            Services.Store.instance ().complete_item (item, old_checked);
+                        }
                     } else {
-                        if (new_item.has_parent) {
-                            Objects.Item ? parent_item = new_item.parent;
-                            if (parent_item != null) {
-                                parent_item.add_item_if_not_exists (new_item);
+                        var new_item = new Objects.Item.from_vtodo (vtodo_content, url, project.id);
+                        new_item.extra_data = Util.generate_extra_data (url, etag, vtodo_content);
+
+                        if (batched_items != null) {
+                            batched_items.add (new_item);
+                        } else {
+                            if (new_item.has_parent) {
+                                Objects.Item ? parent_item = new_item.parent;
+                                if (parent_item != null) {
+                                    parent_item.add_item_if_not_exists (new_item);
+                                } else {
+                                    project.add_item_if_not_exists (new_item);
+                                }
                             } else {
                                 project.add_item_if_not_exists (new_item);
                             }
-                        } else {
-                            project.add_item_if_not_exists (new_item);
                         }
                     }
                 }
             }
             vtodo_comp = vcalendar.get_next_component (ICal.ComponentKind.VTODO_COMPONENT);
+        }
+    }
+
+    private void upsert_section_from_vtodo (Objects.Project project, string url, string etag, string vtodo_content) {
+        ICal.Component vcalendar = new ICal.Component.from_string (vtodo_content);
+        ICal.Component vtodo_comp = vcalendar.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
+        if (vtodo_comp == null) return;
+
+        string uid = vtodo_comp.get_uid ();
+        if (uid == null || uid == "") return;
+
+        Objects.Section ? section = Services.Store.instance ().get_section (uid);
+
+        if (section != null) {
+            string old_name = section.name;
+            section.patch_from_vtodo (vtodo_content, url);
+            section.extra_data = Util.generate_extra_data (url, etag, vtodo_content);
+            section.project_id = project.id;
+            Services.Store.instance ().update_section (section);
+            Services.LogService.get_default ().debug ("CalDAV", "Updated section '%s'".printf (section.name));
+        } else {
+            var new_section = new Objects.Section ();
+            new_section.project_id = project.id;
+            new_section.patch_from_vtodo (vtodo_content, url);
+            new_section.extra_data = Util.generate_extra_data (url, etag, vtodo_content);
+            Services.Store.instance ().insert_section (new_section);
+            Services.LogService.get_default ().debug ("CalDAV", "Inserted new section '%s'".printf (new_section.name));
         }
     }
 
@@ -574,17 +609,27 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         
         try {
-            // Step 2: delete local items no longer on server
+            // Step 2: delete local items and sections no longer on server
             var stale_items = new Gee.ArrayList<Objects.Item> ();
             foreach (var local_item in Services.Store.instance ().get_items_by_project (project)) {
-                if (!server_map.has_key (local_item.ical_url)) {
+                if (local_item.ical_url != "" && !server_map.has_key (local_item.ical_url)) {
                     stale_items.add (local_item);
                 }
             }
-
             foreach (var stale_item in stale_items) {
                 Services.LogService.get_default ().debug ("CalDAV", "Deleting stale item: %s".printf (stale_item.content));
                 Services.Store.instance ().delete_item (stale_item);
+            }
+
+            var stale_sections = new Gee.ArrayList<Objects.Section> ();
+            foreach (var local_section in Services.Store.instance ().get_sections_by_project (project)) {
+                if (local_section.ical_url != "" && !server_map.has_key (local_section.ical_url)) {
+                    stale_sections.add (local_section);
+                }
+            }
+            foreach (var stale_section in stale_sections) {
+                Services.LogService.get_default ().debug ("CalDAV", "Deleting stale section: %s".printf (stale_section.name));
+                Services.Store.instance ().delete_section (stale_section);
             }
             // Step 3: fetch and update only changed/new items
             foreach (var entry in server_map.entries) {
@@ -745,8 +790,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var url = update ? item.ical_url : GLib.Path.build_path ("/", item.project.calendar_url, "%s.ics".printf (item.id));
         var body = item.to_vtodo ();
 
-        var expected = update ? new Soup.Status[]{ Soup.Status.NO_CONTENT, Soup.Status.CREATED }
-                              : new Soup.Status[]{ Soup.Status.CREATED };
+        var expected = update ? new Soup.Status[]{ Soup.Status.NO_CONTENT, Soup.Status.CREATED, Soup.Status.OK }
+                              : new Soup.Status[]{ Soup.Status.CREATED, Soup.Status.OK };
 
         HttpResponse response = new HttpResponse ();
 
@@ -885,6 +930,49 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             response.error = e.message;
         }
 
+
+        return response;
+    }
+
+    public async HttpResponse add_section (Objects.Section section, bool update = false) {
+        Services.LogService.get_default ().info ("CalDAV", update ? "Updating section" : "Adding section");
+        var url = update ? section.ical_url : GLib.Path.build_path ("/", section.project.calendar_url, "%s.ics".printf (section.id));
+        var body = section.to_vtodo ();
+        var expected = update ? new Soup.Status[]{ Soup.Status.NO_CONTENT, Soup.Status.CREATED, Soup.Status.OK }
+                              : new Soup.Status[]{ Soup.Status.CREATED, Soup.Status.OK };
+
+        HttpResponse response = new HttpResponse ();
+
+        try {
+            HashTable<string, string>? headers = null;
+            if (update && section.etag != null && section.etag != "") {
+                headers = new HashTable<string, string> (str_hash, str_equal);
+                headers.insert ("If-Match", section.etag);
+            }
+            yield send_request ("PUT", url, "text/calendar", body, null, null, expected, headers);
+            section.extra_data = Util.generate_extra_data (url, last_response_etag ?? "", body);
+            response.status = true;
+        } catch (Error e) {
+            Services.LogService.get_default ().error ("CalDAV", "Failed to %s section: %s".printf (update ? "update" : "add", e.message));
+            response.error_code = e.code;
+            response.error = e.message;
+        }
+
+        return response;
+    }
+
+    public async HttpResponse delete_section (Objects.Section section) {
+        Services.LogService.get_default ().info ("CalDAV", "Deleting section");
+        HttpResponse response = new HttpResponse ();
+
+        try {
+            yield send_request ("DELETE", section.ical_url, "", null, null, null, { Soup.Status.NO_CONTENT, Soup.Status.OK });
+            response.status = true;
+        } catch (Error e) {
+            Services.LogService.get_default ().error ("CalDAV", "Failed to delete section: %s".printf (e.message));
+            response.error_code = e.code;
+            response.error = e.message;
+        }
 
         return response;
     }

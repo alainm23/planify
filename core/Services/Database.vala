@@ -171,6 +171,7 @@ public class Services.Database : GLib.Object {
         table_columns["Sections"].add ("color");
         table_columns["Sections"].add ("description");
         table_columns["Sections"].add ("hidded");
+        table_columns["Sections"].add ("extra_data");
 
         table_columns["Sources"] = new Gee.ArrayList<string> ();
         table_columns["Sources"].add ("id");
@@ -665,8 +666,10 @@ public class Services.Database : GLib.Object {
         /*
          * Planify 4.19
          * - Add markdown_setting column to Projects
+         * - Add extra_data column to Sections
          */
         add_text_column ("Projects", "markdown_setting", MarkdownSetting.GLOBAL_DEFAULT.to_string ());
+        add_text_column ("Sections", "extra_data", "");
     }
 
     public void clear_database () {
@@ -1233,9 +1236,9 @@ public class Services.Database : GLib.Object {
 
         sql = """
             INSERT OR IGNORE INTO Sections (id, name, archived_at, added_at, project_id, section_order,
-            collapsed, is_deleted, is_archived, color, description, hidded)
+            collapsed, is_deleted, is_archived, color, description, hidded, extra_data)
             VALUES ($id, $name, $archived_at, $added_at, $project_id, $section_order,
-            $collapsed, $is_deleted, $is_archived, $color, $description, $hidded);
+            $collapsed, $is_deleted, $is_archived, $color, $description, $hidded, $extra_data);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1251,6 +1254,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$color", section.color);
         set_parameter_str (stmt, "$description", section.description);
         set_parameter_bool (stmt, "$hidded", section.hidded);
+        set_parameter_str (stmt, "$extra_data", section.extra_data);
 
         int result = stmt.step ();
         if (result != Sqlite.DONE) {
@@ -1290,6 +1294,7 @@ public class Services.Database : GLib.Object {
         return_value.color = stmt.column_text (9);
         return_value.description = stmt.column_text (10);
         return_value.hidded = get_parameter_bool (stmt, 11);
+        return_value.extra_data = stmt.column_text (12);
         return return_value;
     }
 
@@ -1319,7 +1324,7 @@ public class Services.Database : GLib.Object {
             UPDATE Sections SET name=$name, archived_at=$archived_at, added_at=$added_at,
                 project_id=$project_id, section_order=$section_order, collapsed=$collapsed,
                 is_deleted=$is_deleted, is_archived=$is_archived, color=$color, description=$description,
-                hidded=$hidded
+                hidded=$hidded, extra_data=$extra_data
             WHERE id=$id;
         """;
 
@@ -1335,6 +1340,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$color", section.color);
         set_parameter_str (stmt, "$description", section.description);
         set_parameter_bool (stmt, "$hidded", section.hidded);
+        set_parameter_str (stmt, "$extra_data", section.extra_data);
         set_parameter_str (stmt, "$id", section.id);
 
         int result = stmt.step ();
