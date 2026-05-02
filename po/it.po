@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-05-02 10:09+0000\n"
+"PO-Revision-Date: 2026-05-03 17:09+0000\n"
 "Last-Translator: Stephnie Klim <sylorutu@denipl.net>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/it/>\n"
@@ -920,7 +920,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:606
 msgid "Create a new task"
-msgstr "Crea un nuovo task"
+msgstr "Crea una nuova attività"
 
 #: core/Utils/Util.vala:607
 msgid ""
@@ -3151,12 +3151,12 @@ msgstr ""
 #: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
 #: src/Views/Today.vala:88
 msgid "View Option Menu"
-msgstr ""
+msgstr "Mostra menù opzioni"
 
 #: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
 #: src/Views/Project/List.vala:116 src/Views/Today.vala:251
 msgid "Add Some Tasks"
-msgstr ""
+msgstr "Aggiungi qualche attività"
 
 #: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
 #: src/Views/Project/List.vala:117 src/Views/Today.vala:252
@@ -3199,11 +3199,13 @@ msgstr ""
 
 #: src/Views/Label/Labels.vala:148
 msgid "Only Active Projects"
-msgstr ""
+msgstr "Solo progetti attivi"
 
 #: src/Views/Label/Labels.vala:149
 msgid "Only show labels used by tasks in active (non-archived) projects"
 msgstr ""
+"Mostra solo le etichette usate dalle attività nei progetti attivi (non "
+"archiviati)"
 
 #: src/Views/Project/Board.vala:74 src/Views/Project/List.vala:82
 msgid "Note"
@@ -3618,12 +3620,12 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:16
 msgctxt "shortcut window"
 msgid "Create a New Task"
-msgstr ""
+msgstr "Crea una nuova attività"
 
 #: data/resources/ui/shortcuts.ui:23
 msgctxt "shortcut window"
 msgid "Paste Plain Text to Create New Task"
-msgstr ""
+msgstr "Incolla testo semplice per creare una nuova attività"
 
 #: data/resources/ui/shortcuts.ui:30
 msgctxt "shortcut window"
@@ -3658,7 +3660,7 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Open Preferences"
-msgstr ""
+msgstr "Apri preferenze"
 
 #: data/resources/ui/shortcuts.ui:75
 msgctxt "shortcut window"
@@ -3668,37 +3670,37 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:82
 msgctxt "shortcut window"
 msgid "Open Keyboard Shortcuts"
-msgstr ""
+msgstr "Apri scorciatoie da tastiera"
 
 #: data/resources/ui/shortcuts.ui:90
 msgctxt "shortcut window"
 msgid "Navigate"
-msgstr ""
+msgstr "Naviga"
 
 #: data/resources/ui/shortcuts.ui:94
 msgctxt "shortcut window"
 msgid "Open Homepage"
-msgstr ""
+msgstr "Apri pagina iniziale"
 
 #: data/resources/ui/shortcuts.ui:101
 msgctxt "shortcut window"
 msgid "Open Inbox"
-msgstr ""
+msgstr "Apri posta in arrivo"
 
 #: data/resources/ui/shortcuts.ui:108
 msgctxt "shortcut window"
 msgid "Open Today"
-msgstr ""
+msgstr "Apri oggi"
 
 #: data/resources/ui/shortcuts.ui:115
 msgctxt "shortcut window"
 msgid "Open Scheduled"
-msgstr ""
+msgstr "Apri programmate"
 
 #: data/resources/ui/shortcuts.ui:122
 msgctxt "shortcut window"
 msgid "Open Labels"
-msgstr ""
+msgstr "Apri etichette"
 
 #: data/resources/ui/shortcuts.ui:129
 msgctxt "shortcut window"
