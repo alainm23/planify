@@ -3,6 +3,12 @@ name: Release
 on:
   pull_request:
     types: [closed]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to build (e.g. 4.19.1)'
+        required: true
+        default: '4.19.1'
 
 jobs:
   create-release:
@@ -78,16 +84,8 @@ jobs:
 
       - name: Build
         run: |
-          export PKG_CONFIG_PATH="/opt/homebrew/opt/libical/lib/pkgconfig:/opt/homebrew/opt/icu4c/lib/pkgconfig:${PKG_CONFIG_PATH}"
-          meson setup build \
-            -Dspelling=disabled \
-            -Dportal=false \
-            -Devolution=false \
-            -Dgxml-0.20:docs=false \
-            -Dc_args="-D__APPLE__" \
-            -Dvala_args="--define=__APPLE__"
-          meson compile -C build
-          glib-compile-schemas data
+          chmod +x scripts/build-macos.sh
+          ./scripts/build-macos.sh
 
       - name: Generate DMG
         run: |
@@ -101,3 +99,41 @@ jobs:
           files: build/Planify.dmg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test-macos-build:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install dependencies
+        run: |
+          brew update
+          brew install vala meson ninja gtk4 libadwaita libgee json-glib \
+            libsoup sqlite libical gtksourceview5 libsecret icu4c gxml \
+            pango cairo fontconfig librsvg dylibbundler create-dmg \
+            --cask font-adwaita
+
+      - name: Build
+        run: |
+          chmod +x scripts/build-macos.sh
+          ./scripts/build-macos.sh
+
+      - name: Generate DMG
+        run: |
+          chmod +x scripts/build-macos-dmg.sh
+          ./scripts/build-macos-dmg.sh
+
+      - name: Verify DMG
+        run: |
+          ls -lh build/Planify.dmg
+          echo "✅ DMG generated successfully"
+
+      - name: Upload DMG as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Planify-macOS-test
+          path: build/Planify.dmg
+          retention-days: 3
