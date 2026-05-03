@@ -52,3 +52,50 @@ jobs:
             ${{ steps.changelog.outputs.changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-macos-dmg:
+    needs: create-release
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'Release')
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Get version from meson.build
+        id: version
+        run: |
+          VERSION=$(grep -Po "version:\s*'\K[0-9.]+(?=')" meson.build)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Install dependencies
+        run: |
+          brew update
+          brew install vala meson ninja gtk4 libadwaita libgee json-glib \
+            libsoup sqlite libical gtksourceview5 libsecret icu4c gxml \
+            pango cairo fontconfig librsvg dylibbundler create-dmg \
+            --cask font-adwaita
+
+      - name: Build
+        run: |
+          export PKG_CONFIG_PATH="/opt/homebrew/opt/libical/lib/pkgconfig:/opt/homebrew/opt/icu4c/lib/pkgconfig:${PKG_CONFIG_PATH}"
+          meson setup build \
+            -Dspelling=disabled \
+            -Dportal=false \
+            -Devolution=false \
+            -Dgxml-0.20:docs=false
+          meson compile -C build
+          glib-compile-schemas data
+
+      - name: Generate DMG
+        run: |
+          chmod +x scripts/build-macos-dmg.sh
+          ./scripts/build-macos-dmg.sh
+
+      - name: Upload DMG to release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          files: build/Planify.dmg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
