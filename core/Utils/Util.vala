@@ -520,7 +520,11 @@ public class Util : GLib.Object {
     }
 
     public bool is_macos () {
-        return FileUtils.test ("/System/Library/CoreServices", FileTest.IS_DIR);
+#if __APPLE__
+        return true;
+#else
+        return false;
+#endif
     }
 
     public List<Gtk.ListBoxRow> get_children (Gtk.ListBox list) {

@@ -83,7 +83,9 @@ jobs:
             -Dspelling=disabled \
             -Dportal=false \
             -Devolution=false \
-            -Dgxml-0.20:docs=false
+            -Dgxml-0.20:docs=false \
+            -Dc_args="-D__APPLE__" \
+            -Dvala_args="--define=__APPLE__"
           meson compile -C build
           glib-compile-schemas data
 

@@ -42,7 +42,7 @@ public class Services.Database : GLib.Object {
 
     private string get_db_dir () {
         // On macOS prefer the standard Application Support location instead of XDG
-        if (FileUtils.test ("/System/Library/CoreServices", FileTest.IS_DIR)) {
+        if (Util.get_default ().is_macos ()) {
             return Path.build_filename (Environment.get_home_dir (), "Library", "Application Support", "io.github.alainm23.planify");
         }
 
@@ -673,7 +673,7 @@ public class Services.Database : GLib.Object {
     }
 
     public void clear_database () {
-        string db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
+        string db_path = Path.build_filename (get_db_dir (), "database.db");
         File db_file = File.new_for_path (db_path);
 
         if (db_file.query_exists ()) {
