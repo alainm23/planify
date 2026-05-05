@@ -173,7 +173,9 @@ public class Objects.Source : Objects.BaseObject {
 
     public async void delete_source () {
         // Remove server_timeout
-        remove_sync_server ();
+        if (sync_server) {
+            remove_sync_server ();
+        }
 
         // Remove DB
         yield Services.Store.instance ().delete_source (this);
