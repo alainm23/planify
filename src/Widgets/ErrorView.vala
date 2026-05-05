@@ -105,11 +105,11 @@ public class Widgets.ErrorView : Adw.Bin {
         };
 
         copy_button = new Gtk.Button.from_icon_name ("edit-copy-symbolic") {
-            valign = Gtk.Align.START,
+            valign = Gtk.Align.END,
             halign = Gtk.Align.END,
             css_classes = { "flat", "circular" },
             tooltip_text = _("Copy error message"),
-            margin_top = 6,
+            margin_bottom = 6,
             margin_end = 6
         };
 
