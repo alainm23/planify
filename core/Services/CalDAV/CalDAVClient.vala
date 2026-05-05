@@ -120,6 +120,10 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             source.display_name = source.caldav_data.user_displayname;
             return;
         }
+        
+        if (source.caldav_data.user_displayname == null) {
+            source.caldav_data.user_displayname = source.caldav_data.username;
+        }
 
         source.display_name = _ ("CalDAV");
     }
