@@ -50,6 +50,18 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
             group.add_widget_end (sync_button);
 
             sync_button.clicked.connect (() => {
+                var tls_failure_context = Services.CalDAV.CertificateTrustStore.get_default ().get_last_tls_failure_for_source (source.id);
+                if (source.source_type == SourceType.CALDAV && tls_failure_context != null && tls_failure_context.flags == GLib.TlsCertificateFlags.UNKNOWN_CA) {
+                    var preferences_dialog = new Dialogs.Preferences.PreferencesWindow ();
+                    preferences_dialog.show_page ("accounts");
+
+                    var source_view = new Dialogs.Preferences.Pages.SourceView (preferences_dialog, source);
+                    preferences_dialog.push_subpage (source_view);
+                    source_view.open_pending_certificate_dialog ();
+                    preferences_dialog.present (Planify._instance.main_window);
+                    return;
+                }
+
                 if (source.source_type == SourceType.TODOIST) {
                     if (source.needs_migration ()) {
                         var preferences_dialog = new Dialogs.Preferences.PreferencesWindow ();
