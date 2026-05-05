@@ -28,8 +28,7 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
     private Gtk.Button cancel_button;
     private Gtk.Stack main_stack;
 
-    // Advanced Options
-    private Widgets.IgnoreSSLSwitchRow ignore_ssl_row;
+    private string source_id;
 
     public NextcloudSetup (Adw.PreferencesDialog preferences_dialog, Accounts accounts_page) {
         Object (
@@ -44,6 +43,8 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
     }
 
     construct {
+        source_id = Util.get_default ().generate_id ();
+
         var icon = new Gtk.Image.from_icon_name ("cloud-outline-thick-symbolic") {
             pixel_size = 48,
             css_classes = { "dimmed" }
@@ -99,11 +100,6 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
         };
         examples_group.title = _("URL examples");
         examples_group.add (examples_box);
-
-        // SSL option
-        ignore_ssl_row = new Widgets.IgnoreSSLSwitchRow ();
-
-        entries_group.add (ignore_ssl_row);
 
         login_button = new Widgets.LoadingButton.with_label (_("Log In")) {
             margin_top = 24,
@@ -183,6 +179,7 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
         })] = Services.CalDAV.Core.get_default ();
 
         destroy.connect (() => {
+            Services.CalDAV.CertificateTrustStore.get_default ().clear_source_state (source_id);
             clean_up ();
         });
     }
@@ -202,7 +199,7 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
         var nextcloud_provider = new Services.CalDAV.Providers.Nextcloud ();
 
         Services.LogService.get_default ().info ("NextcloudSetup", "Starting Nextcloud login flow");
-        nextcloud_provider.start_login_flow.begin (server_entry.text, cancellable, ignore_ssl_row.active, (obj, res) => {
+        nextcloud_provider.start_login_flow.begin (server_entry.text, cancellable, source_id, (obj, res) => {
             HttpResponse response = nextcloud_provider.start_login_flow.end (res);
 
             if (response.status) {
@@ -229,10 +226,25 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
                 login_button.is_loading = false;
                 cancel_button.visible = false;
 
+                var certificate_store = Services.CalDAV.CertificateTrustStore.get_default ();
+                var tls_failure_context = certificate_store.get_last_tls_failure_for_source (source_id);
+                if (tls_failure_context != null) {
+                    open_certificate_details_page (source_id, server_entry.text, accounts_page, () => {
+                        on_login_button_clicked ();
+                    });
+                    return;
+                }
+
                 if (response.error_code == 409) {
                     var toast = new Adw.Toast (response.error.strip ());
                     toast.timeout = 3;
                     preferences_dialog.add_toast (toast);
+                } else if (response.error_code == 0 && certificate_store.get_last_tls_failure_for_source (source_id) != null) {
+                    accounts_page.show_message_error (
+                        500,
+                        certificate_store.build_tls_failure_message_for_source (source_id),
+                        false
+                    );
                 } else {
                     accounts_page.show_message_error (response.error_code, response.error.strip ());
                 }

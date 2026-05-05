@@ -22,8 +22,8 @@
 
 public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
-    public CalDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false) {
-        base (session, base_url, username, password, ignore_ssl);
+    public CalDAVClient (Soup.Session session, string base_url, string username, string password, string source_id) {
+        base (session, base_url, username, password, source_id);
     }
 
 
@@ -391,92 +391,93 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         project.loading = true;
         project.sync_started ();
 
-        yield fetch_project_details (project, cancellable);
-
-        Services.LogService.get_default ().debug ("CalDAV", "sync_id after fetch_project_details: '%s'".printf (project.sync_id ?? "(null)"));
-
-        if (project.sync_id == null || project.sync_id == "") {
-            Services.LogService.get_default ().warn ("CalDAV", "No sync-token from server, falling back to etag-based sync for '%s'".printf (project.name));
-            project.loading = false;
-            project.freeze_update = false;
-            yield etag_sync_project (project, cancellable);
-            project.sync_finished ();
-            return;
-        }
-
-        WebDAVMultiStatus multi_status;
         try {
-            multi_status = yield report (project.calendar_url, xml, "1", cancellable);
-        } catch (Error e) {
-            if (e is GLib.IOError.CANCELLED) {
-                throw e;
+            yield fetch_project_details (project, cancellable);
+
+            Services.LogService.get_default ().debug ("CalDAV", "sync_id after fetch_project_details: '%s'".printf (project.sync_id ?? "(null)"));
+
+            if (project.sync_id == null || project.sync_id == "") {
+                Services.LogService.get_default ().warn ("CalDAV", "No sync-token from server, falling back to etag-based sync for '%s'".printf (project.name));
+                yield etag_sync_project (project, cancellable);
+                project.sync_finished ();
+                return;
             }
-            // sync-collection fails with a 412 Precondition Failed on Vikunja (but it sends a sync-token?)
 
-            Services.LogService.get_default ().warn ("CalDAV", "sync-collection failed, falling back to ETag sync: %s".printf (e.message));
-            project.loading = false;
-            project.freeze_update = false;
-            yield etag_sync_project (project, cancellable);
-            project.sync_finished ();
-            return;
-        }
-        project.freeze_update = true;
-
-        foreach (WebDAVResponse response in multi_status.responses ()) {
-            string? href = response.href;
-            var url = get_absolute_url (href);
-
-            if (response.status == Soup.Status.NOT_FOUND) {
-                Objects.Item ? item = Services.Store.instance ().get_item_by_ical_url (url);
-                if (item != null) {
-                    Services.Store.instance ().delete_item (item);
+            WebDAVMultiStatus multi_status;
+            try {
+                multi_status = yield report (project.calendar_url, xml, "1", cancellable);
+            } catch (Error e) {
+                if (e is GLib.IOError.CANCELLED) {
+                    throw e;
                 }
+                // sync-collection fails with a 412 Precondition Failed on Vikunja (but it sends a sync-token?)
 
-                continue;
+                Services.LogService.get_default ().warn ("CalDAV", "sync-collection failed, falling back to ETag sync: %s".printf (e.message));
+                yield etag_sync_project (project, cancellable);
+                project.sync_finished ();
+                return;
             }
+            project.freeze_update = true;
 
-            foreach (WebDAVPropStat propstat in response.propstats ()) {
-                if (propstat.status == Soup.Status.NOT_FOUND) {
+            foreach (WebDAVResponse response in multi_status.responses ()) {
+                string? href = response.href;
+                var url = get_absolute_url (href);
+
+                if (response.status == Soup.Status.NOT_FOUND) {
                     Objects.Item ? item = Services.Store.instance ().get_item_by_ical_url (url);
                     if (item != null) {
                         Services.Store.instance ().delete_item (item);
                     }
-                } else {
-                    bool is_vtodo = false;
 
-                    var getcontenttype = propstat.get_first_prop_with_tagname ("getcontenttype");
-                    if (getcontenttype != null) {
-                        if (getcontenttype.text_content.down ().index_of ("vtodo") > -1) {
-                            is_vtodo = true;
+                    continue;
+                }
+
+                foreach (WebDAVPropStat propstat in response.propstats ()) {
+                    if (propstat.status == Soup.Status.NOT_FOUND) {
+                        Objects.Item ? item = Services.Store.instance ().get_item_by_ical_url (url);
+                        if (item != null) {
+                            Services.Store.instance ().delete_item (item);
                         }
-                    }
+                    } else {
+                        bool is_vtodo = false;
 
-                    if (is_vtodo) {
-                        var getetag = propstat.get_first_prop_with_tagname ("getetag");
-                        string etag = getetag != null ? getetag.text_content.strip () : "";
+                        var getcontenttype = propstat.get_first_prop_with_tagname ("getcontenttype");
+                        if (getcontenttype != null) {
+                            if (getcontenttype.text_content.down ().index_of ("vtodo") > -1) {
+                                is_vtodo = true;
+                            }
+                        }
 
-                        string vtodo_content = yield get_vtodo_by_url (url, cancellable);
-                        upsert_vtodo_content (project, url, etag, vtodo_content);
+                        if (is_vtodo) {
+                            var getetag = propstat.get_first_prop_with_tagname ("getetag");
+                            string etag = getetag != null ? getetag.text_content.strip () : "";
+
+                            string vtodo_content = yield get_vtodo_by_url (url, cancellable);
+                            upsert_vtodo_content (project, url, etag, vtodo_content);
+                        }
                     }
                 }
             }
-        }
 
-        var sync_token = multi_status.get_first_text_content_by_tag_name ("sync-token");
-        if (sync_token != null && sync_token != project.sync_id) {
-            project.sync_id = sync_token;
-            project.update_local ();
-        } else if (sync_token == null) {
-            // Some CalDAV providers do not support sync-token. Keep token empty
-            // so subsequent syncs always take the ETag fallback path.
-            project.sync_id = "";
-            project.update_local ();
-        }
+            var sync_token = multi_status.get_first_text_content_by_tag_name ("sync-token");
+            if (sync_token != null && sync_token != project.sync_id) {
+                project.sync_id = sync_token;
+                project.update_local ();
+            } else if (sync_token == null) {
+                // Some CalDAV providers do not support sync-token. Keep token empty
+                // so subsequent syncs always take the ETag fallback path.
+                project.sync_id = "";
+                project.update_local ();
+            }
 
-        project.loading = false;
-        project.freeze_update = false;
-        project.count_update ();
-        Services.Store.instance ().update_project (project);
+            project.count_update ();
+            Services.Store.instance ().update_project (project);
+
+            project.sync_finished ();
+        } finally {
+            project.loading = false;
+            project.freeze_update = false;
+        }
     }
 
 

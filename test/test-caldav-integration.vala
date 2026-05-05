@@ -15,22 +15,23 @@ async void test_caldav_login_async () throws GLib.Error {
     var core = Services.CalDAV.Core.get_default ();
     core.clear ();
 
+    var source_id = Util.get_default ().generate_id ();
 
-    var dav_endpoint = yield core.resolve_well_known_caldav (new Soup.Session (), server_url);
+    var dav_endpoint = yield core.resolve_well_known_caldav (new Soup.Session (), server_url, source_id);
 
     assert (dav_endpoint != null && dav_endpoint != "");
     assert (Uri.parse_scheme (dav_endpoint) != null);
 
     message ("Using DAV Endpoint: %s", dav_endpoint);
 
-    var calendar_home = yield core.resolve_calendar_home (CalDAVType.GENERIC, dav_endpoint, username, password, cancellable);
+    var calendar_home = yield core.resolve_calendar_home (CalDAVType.GENERIC, dav_endpoint, username, password, cancellable, source_id);
 
     assert (calendar_home != null && calendar_home != "");
     assert (Uri.parse_scheme (calendar_home) != null);
 
     message ("Calendar Home: %s", calendar_home);
 
-    HttpResponse response = yield core.login (CalDAVType.GENERIC, dav_endpoint, username, password, calendar_home, cancellable);
+    HttpResponse response = yield core.login (CalDAVType.GENERIC, dav_endpoint, username, password, calendar_home, cancellable, source_id);
 
     assert (response.status);
     message ("Login successful");

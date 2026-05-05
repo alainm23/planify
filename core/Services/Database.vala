@@ -175,6 +175,11 @@ public class Services.Database : GLib.Object {
         table_columns["Sources"].add ("sync_server");
         table_columns["Sources"].add ("last_sync");
         table_columns["Sources"].add ("data");
+
+        table_columns["TrustedCertificates"] = new Gee.ArrayList<string> ();
+        table_columns["TrustedCertificates"].add ("source_id");
+        table_columns["TrustedCertificates"].add ("host");
+        table_columns["TrustedCertificates"].add ("fingerprint_sha256");
     }
 
     public void init_database () {
@@ -389,6 +394,20 @@ public class Services.Database : GLib.Object {
                 sync_server         INTEGER,
                 last_sync           TEXT,
                 data                TEXT
+            );
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TABLE IF NOT EXISTS TrustedCertificates (
+                source_id           TEXT NOT NULL,
+                host                TEXT NOT NULL,
+                fingerprint_sha256  TEXT NOT NULL,
+                PRIMARY KEY (source_id, host),
+                FOREIGN KEY (source_id) REFERENCES Sources (id) ON DELETE CASCADE
             );
         """;
 
@@ -692,7 +711,7 @@ public class Services.Database : GLib.Object {
 
         // Verify Tables Integrity
         string[] tables = { "Attachments", "CurTempIds", "Items", "Labels",
-                            "OEvents", "Projects", "Queue", "Reminders", "Sections", "Sources" };
+                    "OEvents", "Projects", "Queue", "Reminders", "Sections", "Sources", "TrustedCertificates" };
 
         foreach (var table_name in tables) {
             if (!table_exists (table_name)) {
@@ -869,6 +888,133 @@ public class Services.Database : GLib.Object {
         }
 
         return true;
+    }
+
+    public bool upsert_trusted_certificates_transaction (string source_id, Gee.HashMap<string, string> trusted_certificates) {
+        Sqlite.Statement stmt;
+
+        if (source_id == null || source_id == "") {
+            return false;
+        }
+
+        if (trusted_certificates == null || trusted_certificates.size == 0) {
+            return true;
+        }
+
+        sql = "BEGIN TRANSACTION;";
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+            return false;
+        }
+
+        bool success = true;
+
+        sql = """
+            INSERT INTO TrustedCertificates (source_id, host, fingerprint_sha256)
+            VALUES ($source_id, $host, $fingerprint_sha256)
+            ON CONFLICT(source_id, host)
+            DO UPDATE SET fingerprint_sha256 = excluded.fingerprint_sha256;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+
+        foreach (var entry in trusted_certificates.entries) {
+            set_parameter_str (stmt, "$source_id", source_id);
+            set_parameter_str (stmt, "$host", entry.key.down ());
+            set_parameter_str (stmt, "$fingerprint_sha256", entry.value);
+
+            int result = stmt.step ();
+            if (result != Sqlite.DONE) {
+                warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+                success = false;
+                break;
+            }
+
+            stmt.reset ();
+        }
+
+        if (success) {
+            sql = "COMMIT;";
+            if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+                warning (errormsg);
+                success = false;
+            }
+        }
+
+        if (!success) {
+            sql = "ROLLBACK;";
+            if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+                warning (errormsg);
+            }
+        }
+
+        return success;
+    }
+
+    public bool delete_trusted_certificate (string source_id, string host) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            DELETE FROM TrustedCertificates
+            WHERE source_id = $source_id AND host = $host;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$source_id", source_id);
+        set_parameter_str (stmt, "$host", host.down ());
+
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        }
+
+        return true;
+    }
+
+    public string? get_trusted_certificate_fingerprint (string source_id, string host) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            SELECT fingerprint_sha256
+            FROM TrustedCertificates
+            WHERE source_id = $source_id AND host = $host
+            LIMIT 1;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$source_id", source_id);
+        set_parameter_str (stmt, "$host", host.down ());
+
+        if (stmt.step () == Sqlite.ROW) {
+            return stmt.column_text (0);
+        }
+
+        return null;
+    }
+
+    public Gee.ArrayList<Gee.HashMap<string, string>> get_trusted_certificates_for_source (string source_id) {
+        var certificates = new Gee.ArrayList<Gee.HashMap<string, string>> ();
+        Sqlite.Statement stmt;
+
+        sql = """
+            SELECT host, fingerprint_sha256
+            FROM TrustedCertificates
+            WHERE source_id = $source_id
+            ORDER BY host;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$source_id", source_id);
+
+        while (stmt.step () == Sqlite.ROW) {
+            var certificate = new Gee.HashMap<string, string> ();
+            certificate["host"] = stmt.column_text (0);
+            certificate["fingerprint_sha256"] = stmt.column_text (1);
+            certificates.add (certificate);
+        }
+
+        return certificates;
     }
 
     /*
