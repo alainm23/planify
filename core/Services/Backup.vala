@@ -58,7 +58,9 @@ public class Services.Backup : Object {
             builder.set_member_name ("updated_at"); builder.add_string_value (source.updated_at);
             builder.set_member_name ("is_visible"); builder.add_boolean_value (source.is_visible);
             builder.set_member_name ("child_order"); builder.add_int_value (source.child_order);
-            builder.set_member_name ("data"); builder.add_string_value (source.data.to_json ());
+            if (source.data != null) {
+                builder.set_member_name ("data"); builder.add_string_value (source.data.to_json ());
+            }
             builder.end_object ();
         }
         builder.end_array ();

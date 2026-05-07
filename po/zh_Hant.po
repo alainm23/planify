@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-04-17 04:09+0000\n"
+"PO-Revision-Date: 2026-05-01 00:09+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.17.1-dev\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -318,11 +318,11 @@ msgstr "任務已經複製至剪貼簿"
 
 #: core/Objects/Item.vala:1464
 msgid "iCalendar Files"
-msgstr ""
+msgstr "iCalendar 檔案"
 
 #: core/Objects/Item.vala:1480
 msgid "Task exported successfully"
-msgstr ""
+msgstr "任務匯出成功"
 
 #: core/Objects/Item.vala:1778 core/Utils/Util.vala:888
 #, c-format
@@ -543,25 +543,25 @@ msgstr "正在同步任務 %d / %d"
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
-msgstr ""
+msgstr "該伺服器不允許經由 CalDAV 建立專案項目。請直接從日曆提供者的網站建立。"
 
 #: core/Services/CalDAV/CalDAVClient.vala:728
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
-msgstr ""
+msgstr "該伺服器不允許經由 CalDAV 刪除專案項目。請直接從日曆提供者的網站將其刪除。"
 
 #: core/Services/CalDAV/CalDAVClient.vala:732
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
-msgstr ""
+msgstr "該伺服器不支援經由 CalDAV 刪除專案項目。請直接從伺服器刪除。"
 
 #: core/Services/CalDAV/CalDAVClient.vala:766
 #: core/Services/CalDAV/CalDAVClient.vala:813
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
-msgstr ""
+msgstr "任務已在另一台裝置上有所修改。請進行同步以取得最新版本。"
 
 #: core/Services/CalDAV/Core.vala:169
 msgid "Source already exists"
@@ -2882,7 +2882,7 @@ msgstr "複製至剪貼簿"
 
 #: src/Layouts/ItemRow.vala:1374 src/Layouts/ItemSidebarView.vala:513
 msgid "Export as .ics"
-msgstr ""
+msgstr "匯出成為 .ics"
 
 #: src/Layouts/ItemRow.vala:2037
 msgid "Add Attachments"
@@ -2902,7 +2902,7 @@ msgstr "屬性"
 
 #: src/Layouts/ItemSidebarView.vala:193
 msgid "Expand Description"
-msgstr ""
+msgstr "展開說明"
 
 #: src/Layouts/ItemSidebarView.vala:604
 msgid "Are you sure you want to delete?"
@@ -3029,11 +3029,11 @@ msgstr "開啟快速尋找"
 
 #: src/MainWindow.vala:341
 msgid "Task was modified on another device"
-msgstr ""
+msgstr "任務已在另一台裝置上有所修改"
 
 #: src/MainWindow.vala:343
 msgid "Sync Now"
-msgstr ""
+msgstr "立即進行同步"
 
 #: src/MainWindow.vala:758
 msgid "About Planify"
