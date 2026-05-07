@@ -397,8 +397,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         Services.LogService.get_default ().info ("CalDAV", "Syncing tasklist");
 
-        var xml = """
-        <?xml version='1.0' encoding='utf-8'?>
+        var xml = """<?xml version='1.0' encoding='utf-8'?>
         <d:sync-collection xmlns:d="DAV:">
             <d:sync-token>%s</d:sync-token>
             <d:sync-level>1</d:sync-level>
