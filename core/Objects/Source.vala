@@ -27,7 +27,7 @@ public class Objects.Source : Objects.BaseObject {
     public int child_order { get; set; default = 0; }
     public bool sync_server { get; set; default = false; }
     public string last_sync { get; set; default = ""; }
-    public Objects.SourceData data { get; set; }
+    public Objects.SourceData? data { get; set; }
     public string display_name { get; set; default = ""; }
     public SyncStatus? sync_status { get; set; default = null; }
 
