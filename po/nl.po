@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-04-07 12:09+0000\n"
-"Last-Translator: Bart Ratgers <bart@optiprise.nl>\n"
+"PO-Revision-Date: 2026-05-06 15:11+0000\n"
+"Last-Translator: Bart van der Woude <bartwoude@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/nl/>\n"
 "Language: nl\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -316,7 +316,7 @@ msgstr "ongelabeld"
 
 #: core/Objects/Item.vala:1422 src/Services/ExportService.vala:187
 msgid "Deadline:"
-msgstr ""
+msgstr "Deadline:"
 
 #: core/Objects/Item.vala:1447
 msgid "Task copied to clipboard"
@@ -324,17 +324,17 @@ msgstr "Taak gekopieerd naar klembord"
 
 #: core/Objects/Item.vala:1464
 msgid "iCalendar Files"
-msgstr ""
+msgstr "iCalendar Bestanden"
 
 #: core/Objects/Item.vala:1480
 msgid "Task exported successfully"
-msgstr ""
+msgstr "Taak succesvol geëxporteerd"
 
 # # c-format
 #: core/Objects/Item.vala:1778 core/Utils/Util.vala:888
-#, fuzzy, c-format
+#, c-format
 msgid "Moved to %s"
-msgstr "Taak verplaatst naar %s"
+msgstr "Verplaatst naar %s"
 
 # # c-format
 #: core/Objects/Label.vala:220
@@ -557,24 +557,33 @@ msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
+"Deze server staat het aanmaken van projecten via CalDAV niet toe. Om dit te "
+"doen kunt u de website van uw kalender provider gebruiken."
 
 #: core/Services/CalDAV/CalDAVClient.vala:728
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"Deze server staat het verwijderen van projected via CalDAV niet toe. Om dit "
+"te doen kunt u de website van uw kalender provider gebruiken."
 
 #: core/Services/CalDAV/CalDAVClient.vala:732
+#, fuzzy
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"Deze server ondersteunt het verwijderen van projecten via CalDAV niet. "
+"Verwijder het project van de server handmatig."
 
 #: core/Services/CalDAV/CalDAVClient.vala:766
 #: core/Services/CalDAV/CalDAVClient.vala:813
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"De taak is aangepast op een ander apparaat. Synchroniseer voor de nieuwste "
+"versie."
 
 #: core/Services/CalDAV/Core.vala:169
 msgid "Source already exists"
@@ -599,23 +608,27 @@ msgstr "Synchronisatie voltooid"
 
 #: core/Services/CalDAV/Core.vala:308
 msgid "Authentication Expired"
-msgstr ""
+msgstr "Aanmelding Verlopen"
 
 #: core/Services/CalDAV/Core.vala:309
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr ""
+"Uw sessie is verlopen. Verwijder en voeg uw account opnieuw toe via de "
+"Voorkeuren."
 
 #: core/Services/CalDAV/Core.vala:316
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Te Veel Verzoeken"
 
 #: core/Services/CalDAV/Core.vala:317
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
 msgstr ""
+"De server begrenst het aantal verzoeken. Probeer het nog eens over een paar "
+"minuten."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
@@ -630,8 +643,9 @@ msgstr ""
 "voorkeuren om te blijven synchroniseren."
 
 #: core/Services/Todoist.vala:108
+#, fuzzy
 msgid "Invalid API token"
-msgstr ""
+msgstr "Ongeldig API token"
 
 #: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
@@ -1363,7 +1377,7 @@ msgstr "Datum"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:209
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:213
 msgid "The date you plan to work on this task"
-msgstr ""
+msgstr "De datum waarop u van plan bent aan deze taak te werken"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
@@ -1372,7 +1386,7 @@ msgstr "Datum verwijderen"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "When do you plan to work on this?"
-msgstr ""
+msgstr "Wanneer bent u van plan aan deze taak te werken?"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
@@ -1382,11 +1396,11 @@ msgstr "Deadline instellen"
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
 #: core/Widgets/DeadlineButton.vala:135
 msgid "The latest date to complete this task"
-msgstr ""
+msgstr "De laatste datum om deze taak af te ronden"
 
 #: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
 msgid "What is the latest date to complete this?"
-msgstr ""
+msgstr "Wat is de laatste dag om dit af te ronden?"
 
 #: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
 msgid "Deadline"
@@ -1433,24 +1447,26 @@ msgstr "Zoeken of Aanmaken"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
 msgid "Hide unused labels"
-msgstr ""
+msgstr "Verberg ongebruikte labels"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
 msgid "No Labels"
-msgstr ""
+msgstr "Geen Labels"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
 msgid "All Hidden"
-msgstr ""
+msgstr "Alles Verborgen"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
 msgid "All labels are hidden by the filter. Disable the filter to see them."
 msgstr ""
+"Alle labels zijn door het filter verborgen. Schakel het filter uit om ze te "
+"zien."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
 msgid "Press Enter to create and assign it"
-msgstr ""
+msgstr "Druk op Enter om het aan te maken en toe te voegen"
 
 #: core/Widgets/MarkdownEditor.vala:1387
 msgid "Remove link"
@@ -1821,7 +1837,7 @@ msgstr "SSL-verificatie staat uit"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
 msgid "Authentication expired"
-msgstr ""
+msgstr "Aanmelding verlopen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Account migration required"
@@ -1854,7 +1870,7 @@ msgstr "Synchroniseren…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
 msgid "Connect to CalDAV"
-msgstr ""
+msgstr "Verbind met CalDAV"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
 msgid "Connect to any CalDAV-compatible server to sync your tasks"

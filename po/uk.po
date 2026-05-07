@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-04-22 14:09+0000\n"
-"Last-Translator: Tymko <kondrashko13@proton.me>\n"
+"PO-Revision-Date: 2026-05-02 10:09+0000\n"
+"Last-Translator: Maksym Dilanian <dilanyan.maxim@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/uk/>\n"
 "Language: uk\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.17.1-dev\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -324,11 +324,11 @@ msgstr "Завдання скопійовано в буфер обміну"
 
 #: core/Objects/Item.vala:1464
 msgid "iCalendar Files"
-msgstr ""
+msgstr "Файли iCalendar"
 
 #: core/Objects/Item.vala:1480
 msgid "Task exported successfully"
-msgstr ""
+msgstr "Завдання успішно експортовано"
 
 # c-format
 #: core/Objects/Item.vala:1778 core/Utils/Util.vala:888
@@ -557,24 +557,32 @@ msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
+"Цей сервер не дозволяє створювати проєкти через CalDAV. Будь ласка, створіть "
+"їх безпосередньо на вебсайті постачальника вашого календаря."
 
 #: core/Services/CalDAV/CalDAVClient.vala:728
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"Цей сервер не дозволяє видаляти проєкти через CalDAV. Будь ласка, видаліть "
+"їх безпосередньо з вебсайту постачальника вашого календаря."
 
 #: core/Services/CalDAV/CalDAVClient.vala:732
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"Цей сервер не підтримує видалення проектів через CalDAV. Будь ласка, "
+"видаліть їх безпосередньо із сервера."
 
 #: core/Services/CalDAV/CalDAVClient.vala:766
 #: core/Services/CalDAV/CalDAVClient.vala:813
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"Завдання було змінено на іншому пристрої. Синхронізуйте, щоб отримати "
+"останню версію."
 
 #: core/Services/CalDAV/Core.vala:169
 msgid "Source already exists"
@@ -2971,7 +2979,7 @@ msgstr "Копіювати в буфер обміну"
 
 #: src/Layouts/ItemRow.vala:1374 src/Layouts/ItemSidebarView.vala:513
 msgid "Export as .ics"
-msgstr ""
+msgstr "Експортувати як .ics"
 
 #: src/Layouts/ItemRow.vala:2037
 msgid "Add Attachments"
@@ -2991,7 +2999,7 @@ msgstr "Властивості"
 
 #: src/Layouts/ItemSidebarView.vala:193
 msgid "Expand Description"
-msgstr ""
+msgstr "Розгорнути опис"
 
 #: src/Layouts/ItemSidebarView.vala:604
 msgid "Are you sure you want to delete?"
@@ -3118,11 +3126,11 @@ msgstr "Відкрити Швидкий пошук"
 
 #: src/MainWindow.vala:341
 msgid "Task was modified on another device"
-msgstr ""
+msgstr "Завдання було змінено на іншому пристрої"
 
 #: src/MainWindow.vala:343
 msgid "Sync Now"
-msgstr ""
+msgstr "Синхронізувати зараз"
 
 #: src/MainWindow.vala:758
 msgid "About Planify"
