@@ -582,10 +582,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         signals_map[drop_row_target.accept.connect ((drop) => {
             var target_widget = this;
 
-            if (target_widget.project.is_deck) {
-                return false;
-            }
-
             GLib.Value value = Value (typeof (Gtk.Widget));
 
             try {
@@ -717,23 +713,21 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (favorite_item);
 
-        if (!project.is_deck && !project.inbox_project) {
+        if (!project.inbox_project) {
             menu_box.append (edit_item);
         }
 
         menu_box.append (duplicate_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 
-        if (project.source_type == SourceType.CALDAV && !project.is_deck) {
-            menu_box.append (refresh_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        }
+        menu_box.append (refresh_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 
         menu_box.append (share_markdown_item);
         menu_box.append (share_email_item);
         menu_box.append (export_pdf_item);
 
-        if (!project.is_deck && !project.inbox_project) {
+        if (!project.inbox_project) {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (archive_item);
             menu_box.append (delete_item);

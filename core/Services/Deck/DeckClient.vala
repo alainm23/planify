@@ -22,11 +22,13 @@
 public class Services.Deck.DeckClient : Object {
     private Soup.Session session;
     private string base_url;
+    private string internal_base_url;
     private string username;
     private string password;
 
     public DeckClient (string base_url, string username, string password) {
         this.base_url = base_url;
+        this.internal_base_url = base_url.replace ("/api/v1.0", "");
         this.username = username;
         this.password = password;
         this.session = new Soup.Session ();
@@ -93,10 +95,18 @@ public class Services.Deck.DeckClient : Object {
         return parser.get_root ().get_array ();
     }
 
-    private async Json.Object send_object_request (string method, string endpoint, string? body = null) throws GLib.Error {
-        var msg = build_message (method, endpoint, body);
+    private async Json.Object send_object_request (string method, string endpoint, string? body = null, bool use_internal = false) throws GLib.Error {
+        var url = (use_internal ? internal_base_url : base_url) + endpoint;
+        var msg = new Soup.Message (method, url);
+        var credentials = Base64.encode (("%s:%s".printf (username, password)).data);
+        msg.request_headers.append ("Authorization", "Basic %s".printf (credentials));
+        msg.request_headers.append ("OCS-APIRequest", "true");
+        msg.request_headers.append ("Content-Type", "application/json");
+        if (body != null) {
+            msg.set_request_body_from_bytes ("application/json", new Bytes (body.data));
+        }
 
-        Services.LogService.get_default ().debug ("Deck", "%s %s%s".printf (method, base_url, endpoint));
+        Services.LogService.get_default ().debug ("Deck", "%s %s%s\nBody: %s".printf (method, base_url, endpoint, body ?? "(null)"));
 
         var bytes = yield session.send_and_read_async (msg, Priority.DEFAULT, null);
         var response = (string) bytes.get_data ();
@@ -149,8 +159,8 @@ public class Services.Deck.DeckClient : Object {
         return yield send_object_request ("POST", "/boards/%d/stacks".printf (board_id), body);
     }
 
-    public async void update_stack (int board_id, int stack_id, string title) throws GLib.Error {
-        var body = """{"title": "%s"}""".printf (title);
+    public async void update_stack (int board_id, int stack_id, string title, int order = 0) throws GLib.Error {
+        var body = """{"title": "%s", "order": %d}""".printf (title, order);
         yield send_object_request ("PUT", "/boards/%d/stacks/%d".printf (board_id, stack_id), body);
     }
 
@@ -178,12 +188,15 @@ public class Services.Deck.DeckClient : Object {
         return yield send_object_request ("POST", "/boards/%d/stacks/%d/cards".printf (board_id, stack_id), body);
     }
 
-    public async void update_card (int board_id, int stack_id, int card_id, string title, string description = "", string? duedate = null, bool archived = false) throws GLib.Error {
+    public async void update_card (int board_id, int stack_id, int card_id, string title, string description = "", string? duedate = null, bool archived = false, int order = 0) throws GLib.Error {
         var builder = new Json.Builder ();
         builder.begin_object ();
+        builder.set_member_name ("id"); builder.add_int_value (card_id);
         builder.set_member_name ("title"); builder.add_string_value (title);
-        builder.set_member_name ("type"); builder.add_string_value ("plain");
         builder.set_member_name ("description"); builder.add_string_value (description);
+        builder.set_member_name ("stackId"); builder.add_int_value (stack_id);
+        builder.set_member_name ("type"); builder.add_string_value ("plain");
+        builder.set_member_name ("order"); builder.add_int_value (order);
         builder.set_member_name ("archived"); builder.add_boolean_value (archived);
         if (duedate != null) {
             builder.set_member_name ("duedate"); builder.add_string_value (duedate);
@@ -196,7 +209,7 @@ public class Services.Deck.DeckClient : Object {
         generator.set_root (builder.get_root ());
         var body = generator.to_data (null);
 
-        yield send_object_request ("PUT", "/boards/%d/stacks/%d/cards/%d".printf (board_id, stack_id, card_id), body);
+        yield send_object_request ("PUT", "/cards/%d".printf (card_id), body, true);
     }
 
     public async void delete_card (int board_id, int stack_id, int card_id) throws GLib.Error {

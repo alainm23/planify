@@ -461,12 +461,25 @@ public class Objects.Project : Objects.BaseObject {
                 if (show_loading) {
                     loading = true;
                 }
-                var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
-                caldav_client.update_project.begin (this, (obj, res) => {
-                    caldav_client.update_project.end (res);
-                    Services.Store.instance ().update_project (this);
-                    loading = false;
-                });
+                
+                if (is_deck) {
+                    var deck_client = Services.Deck.Core.get_default ().get_client (source);
+                    int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
+                    deck_client.update_board.begin (board_id, name, color_hex, (obj, res) => {
+                        try { deck_client.update_board.end (res); } catch (Error e) {
+                            Services.LogService.get_default ().error ("Deck", "Failed to update board: %s".printf (e.message));
+                        }
+                        Services.Store.instance ().update_project (this);
+                        loading = false;
+                    });
+                } else {
+                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
+                    caldav_client.update_project.begin (this, (obj, res) => {
+                        caldav_client.update_project.end (res);
+                        Services.Store.instance ().update_project (this);
+                        loading = false;
+                    });
+                }
             }
 
             return GLib.Source.REMOVE;
@@ -902,7 +915,11 @@ public class Objects.Project : Objects.BaseObject {
         if (source_type == SourceType.TODOIST) {
             delete_from_todoist ();
         } else if (source_type == SourceType.CALDAV) {
-            delete_from_caldav ();
+            if (is_deck) {
+                delete_from_deck ();
+            } else {
+                delete_from_caldav ();
+            }
         }
     }
 
@@ -916,6 +933,19 @@ public class Objects.Project : Objects.BaseObject {
         var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
         caldav_client.delete_project.begin (this, (obj, res) => {
             handle_remote_delete_response (caldav_client.delete_project.end (res));
+        });
+    }
+
+    private void delete_from_deck () {
+        var deck_client = Services.Deck.Core.get_default ().get_client (source);
+        int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
+        deck_client.delete_board.begin (board_id, (obj, res) => {
+            try {
+                deck_client.delete_board.end (res);
+                handle_remote_delete_response (new HttpResponse () { status = true });
+            } catch (Error e) {
+                handle_remote_delete_response (new HttpResponse () { error = e.message });
+            }
         });
     }
 

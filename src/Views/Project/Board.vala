@@ -230,6 +230,7 @@ public class Views.Board : Adw.Bin {
     }
 
     private void add_inbox_section () {
+        if (project.is_deck) return;
         inbox_board = new Layouts.SectionBoard.for_project (project);
         flowbox.append (inbox_board);
     }
@@ -242,7 +243,9 @@ public class Views.Board : Adw.Bin {
     }
 
     public void prepare_new_item (string content = "") {
-        inbox_board.prepare_new_item (content);
+        if (inbox_board != null) {
+            inbox_board.prepare_new_item (content);
+        }
     }
 
     private void update_duedate () {
