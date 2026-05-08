@@ -218,12 +218,7 @@ public class Views.List : Adw.Bin {
 
         listbox.set_filter_func ((child) => {
             Layouts.SectionRow item = ((Layouts.SectionRow) child);
-
-            if (item.is_inbox_section) {
-                return !project.inbox_section_hidded;
-            }
-
-            return !item.section.hidded;
+            return !item.section.was_archived ();
         });
 
         signal_map[description_widget.changed.connect (() => {

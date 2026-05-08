@@ -1,0 +1,174 @@
+.TH PLANIFY-CLI 1 "April 2026" "planify-cli" "User Commands"
+.SH NAME
+planify-cli \- command-line interface for Planify task manager
+.SH SYNOPSIS
+.B planify-cli
+<command> [OPTIONS]
+.SH DESCRIPTION
+.B planify-cli
+is a command-line tool for managing tasks in Planify. It provides functionality to create, list, update tasks, and manage projects directly from the terminal.
+.SH COMMANDS
+.TP
+.B add
+Add a new task to Planify.
+.sp
+.B planify-cli add
+[OPTIONS]
+.TP
+.B list
+List tasks from a project.
+.sp
+.B planify-cli list
+[OPTIONS]
+.TP
+.B update
+Update an existing task. Only provided fields will be changed.
+.sp
+.B planify-cli update
+[OPTIONS]
+.TP
+.B list-projects
+List all projects.
+.sp
+.B planify-cli list-projects
+.SH OPTIONS
+.SS Global Options
+.TP
+.B \-h, \-\-help
+Show help for the command.
+.SS add command options:
+.TP
+.B \-c, \-\-content=CONTENT
+Task content (required)
+.TP
+.B \-d, \-\-description=DESC
+Task description
+.TP
+.B \-p, \-\-project=PROJECT
+Project name (defaults to inbox)
+.TP
+.B \-i, \-\-project-id=ID
+Project ID (preferred over name)
+.TP
+.B \-s, \-\-section=SECTION
+Section name
+.TP
+.B \-S, \-\-section-id=ID
+Section ID (preferred over name)
+.TP
+.B \-a, \-\-parent-id=ID
+Parent task ID (creates a subtask)
+.TP
+.B \-P, \-\-priority=1-4
+Priority: 1=high, 2=medium, 3=low, 4=none (default: 4)
+.TP
+.B \-D, \-\-due=DATE
+Due date in YYYY-MM-DD format
+.TP
+.B \-l, \-\-labels=LABELS
+Comma-separated list of label names
+.TP
+.B \-\-pin=true|false
+Pin or unpin the task
+.SS list command options:
+.TP
+.B \-p, \-\-project=PROJECT
+Project name (defaults to inbox)
+.TP
+.B \-i, \-\-project-id=ID
+Project ID (preferred over name)
+.SS update command options:
+.TP
+.B \-t, \-\-task-id=ID
+Task ID to update (required)
+.TP
+.B \-c, \-\-content=CONTENT
+New task content
+.TP
+.B \-d, \-\-description=DESC
+New task description
+.TP
+.B \-p, \-\-project=PROJECT
+Move to project by name
+.TP
+.B \-i, \-\-project-id=ID
+Move to project by ID (preferred over name)
+.TP
+.B \-s, \-\-section=SECTION
+Section name
+.TP
+.B \-S, \-\-section-id=ID
+Section ID (preferred over name)
+.TP
+.B \-a, \-\-parent-id=ID
+New parent task ID
+.TP
+.B \-P, \-\-priority=1-4
+Priority: 1=high, 2=medium, 3=low, 4=none
+.TP
+.B \-D, \-\-due=DATE
+Due date in YYYY-MM-DD format
+.TP
+.B \-l, \-\-labels=LABELS
+Comma-separated list of label names
+.TP
+.B \-\-complete=true|false
+Mark task as complete or incomplete
+.TP
+.B \-\-pin=true|false
+Pin or unpin the task
+.SH EXAMPLES
+.TP
+.B 1. Get help for a specific command:
+planify-cli add \-\-help
+.br
+planify-cli list \-\-help
+.br
+planify-cli update \-\-help
+.TP
+.B 2. Add a new high-priority task to the inbox:
+planify-cli add \-c "Finish report" \-P 1
+.TP
+.B 3. Add a task with description and due date to a specific project:
+planify-cli add \-c "Team meeting" \-d "Weekly sync" \-p "Work" \-D 2024-12-20
+.TP
+.B 4. List tasks from the inbox:
+planify-cli list
+.TP
+.B 5. List tasks from a specific project:
+planify-cli list \-p "Personal"
+.TP
+.B 6. Update a task's priority and mark as complete:
+planify-cli update \-t TASK_ID \-P 2 \-\-complete=true
+.TP
+.B 7. List all projects:
+planify-cli list-projects
+.SH NOTES
+• When both name and ID options are available (e.g., \-\-project and \-\-project-id), the ID option is preferred.
+.br
+• The update command only modifies fields that are explicitly provided.
+.br
+• Priority levels: 1 (highest) to 4 (none/lowest).
+.br
+• Date format must be YYYY-MM-DD for due dates.
+.br
+• Labels should be provided as a comma-separated list without spaces: label1,label2,label3.
+.br
+• You can find the official CLI documentation on https://useplanify.com/cli
+.br
+• Planify is primarily distributed via Flatpak and you can run its commands by:
+.br
+   flatpak run --command=io.github.alainm23.planify.cli io.github.alainm23.planify <command>
+.br
+.SH SEE ALSO
+.BR planify (1)
+.BR planify-quick-add (1)
+.SH BUGS
+Report bugs to 
+.UR https://github.com/alainm23/planify/issues
+the Planify issue tracker.
+.UE
+.SH AUTHOR
+Planify Development Team
+.SH COPYRIGHT
+Copyright © 2023-2026 Alain M. 

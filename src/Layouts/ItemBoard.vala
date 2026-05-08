@@ -1154,6 +1154,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
             Utils.TaskUtils.update_single_item_order (target_list, picked_widget, new_index);
 
+            picked_widget.item.project.count_update ();
+
             return true;
         })] = drop_order_target;
     }
