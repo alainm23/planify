@@ -279,13 +279,15 @@ public class Util : GLib.Object {
         }
 
         string accent_color = "#3584e4";
-        if (Adw.StyleManager.get_default ().get_system_supports_accent_colors ()) {
-            var rgba = Adw.StyleManager.get_default ().get_accent_color_rgba ();
-            accent_color = "#%02x%02x%02x".printf (
-                (uint) (rgba.red * 255),
-                (uint) (rgba.green * 255),
-                (uint) (rgba.blue * 255)
-            );
+        if (Services.Settings.get_default ().settings.get_boolean ("use-system-accent")) {
+            if (Adw.StyleManager.get_default ().get_system_supports_accent_colors ()) {
+                var rgba = Adw.StyleManager.get_default ().get_accent_color_rgba ();
+                accent_color = "#%02x%02x%02x".printf (
+                    (uint) (rgba.red * 255),
+                    (uint) (rgba.green * 255),
+                    (uint) (rgba.blue * 255)
+                );
+            }
         }
 
         string window_bg_color = "";
@@ -307,8 +309,8 @@ public class Util : GLib.Object {
                 upcoming_fg_color = "#f0f0f0";
                 selected_color = "#2e3a46";
                 card_bg_color = "#222222";
-                Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
-            } else if (appearance_mode == Appearance.DARK_BLUE) {
+                Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.PREFER_DARK;
+            } else {
                 window_bg_color = "#0C0D12";
                 popover_bg_color = "#16171D";
                 sidebar_bg_color = "#14151a";

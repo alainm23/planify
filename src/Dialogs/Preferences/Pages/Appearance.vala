@@ -21,6 +21,7 @@
 
 public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.BasePage {
     private Gtk.Switch system_appearance_switch;
+    private Gtk.Switch system_accent_switch;
     private Adw.ActionRow light_row;
     private Adw.ActionRow dark_row;
     private Adw.ActionRow blue_row;
@@ -57,10 +58,26 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
         system_appearance_row.set_activatable_widget (system_appearance_switch);
         system_appearance_row.add_suffix (system_appearance_switch);
 
+        system_accent_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER,
+            active = Services.Settings.get_default ().settings.get_boolean ("use-system-accent")
+        };
+
+        var system_accent_row = new Adw.ActionRow () {
+            title = _("Use System Accent Color")
+        };
+
+        system_accent_row.add_prefix (new Gtk.Image.from_icon_name ("color-symbolic") {
+            pixel_size = 16
+        });
+        system_accent_row.set_activatable_widget (system_accent_switch);
+        system_accent_row.add_suffix (system_accent_switch);
+
         var system_appearance_group = new Adw.PreferencesGroup () {
             title = _("Select theme")
         };
         system_appearance_group.add (system_appearance_row);
+        system_appearance_group.add (system_accent_row);
 
         light_radio = new Gtk.CheckButton () {
             valign = CENTER
@@ -181,8 +198,13 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
 
         signal_map[system_appearance_switch.notify["active"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("system-appearance",
-                                                                   system_appearance_switch.active);
+                                                                    system_appearance_switch.active);
         })] = system_appearance_switch;
+
+        signal_map[system_accent_switch.notify["active"].connect (() => {
+            Services.Settings.get_default ().settings.set_boolean ("use-system-accent",
+                                                                    system_accent_switch.active);
+        })] = system_accent_switch;
 
         signal_map[light_radio.notify["active"].connect (() => {
             if (light_radio.active) {
@@ -220,6 +242,9 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
 
         signal_map[Services.Settings.get_default ().settings.changed["system-appearance"].connect (verify_theme)] = Services.Settings.get_default ();
         signal_map[Services.Settings.get_default ().settings.changed["dark-mode"].connect (verify_theme)] = Services.Settings.get_default ();
+        signal_map[Services.Settings.get_default ().settings.changed["use-system-accent"].connect (() => {
+            Util.get_default ().update_theme ();
+        })] = Services.Settings.get_default ();
 
         destroy.connect (() => {
             clean_up ();
