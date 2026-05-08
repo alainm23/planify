@@ -356,6 +356,8 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                         items_map.unset (row.item.id);
                     }
                 }
+
+                section.project.count_update ();
             }
         })] = Services.EventBus.get_default ();
 
@@ -740,7 +742,9 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             Utils.TaskUtils.update_single_item_order (listbox, picked_widget, picked_widget.get_index ());
 
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
-            
+
+            section.project.count_update ();
+
             return true;
         })] = drop_target;
     }
