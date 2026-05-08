@@ -33,6 +33,7 @@ public class Views.Board : Adw.Bin {
     private Layouts.SectionBoard inbox_board;
     private Gtk.FlowBox flowbox;
     private Widgets.PinnedItemsBox pinned_items_flowbox;
+    private Gtk.Stack flowbox_placeholder_stack;
 
     public Gee.HashMap<string, Layouts.SectionBoard> sections_map = new Gee.HashMap<string, Layouts.SectionBoard> ();
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -115,6 +116,24 @@ public class Views.Board : Adw.Bin {
         var flowbox_scrolled = new Widgets.ScrolledWindow (flowbox_grid, Gtk.Orientation.HORIZONTAL);
         flowbox_scrolled.margin = 100;
 
+        var deck_placeholder = new Adw.StatusPage () {
+            icon_name = "view-columns-symbolic",
+            title = _("No Sections Yet"),
+            description = _("Create a section to start adding tasks to this board"),
+            can_focus = false,
+            vexpand = true,
+            hexpand = true,
+            margin_bottom = 64
+        };
+
+        flowbox_placeholder_stack = new Gtk.Stack () {
+            vexpand = true,
+            hexpand = true,
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
+        flowbox_placeholder_stack.add_named (flowbox_scrolled, "board");
+        flowbox_placeholder_stack.add_named (deck_placeholder, "placeholder");
+
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             vexpand = true
@@ -129,7 +148,7 @@ public class Views.Board : Adw.Bin {
 
         content_box.append (filters);
         content_box.append (pinned_items_flowbox);
-        content_box.append (flowbox_scrolled);
+        content_box.append (flowbox_placeholder_stack);
 
         child = content_box;
         update_request ();
@@ -137,7 +156,10 @@ public class Views.Board : Adw.Bin {
 
         signal_map[project.section_added.connect ((section) => {
             add_section (section);
+            check_placeholder ();
         })] = project;
+
+        signal_map[project.show_completed_changed.connect (() => check_placeholder ())] = project;
 
         signal_map[project.section_sort_order_changed.connect (() => {
             flowbox.invalidate_sort ();
@@ -161,6 +183,8 @@ public class Views.Board : Adw.Bin {
                 sections_map[section.id].hide_destroy ();
                 sections_map.unset (section.id);
             }
+
+            check_placeholder ();
         })] = Services.Store.instance ();
 
         signal_map[project.updated.connect (() => {
@@ -197,6 +221,7 @@ public class Views.Board : Adw.Bin {
             if (sections_map.has_key (section.id)) {
                 sections_map[section.id].hide_destroy ();
                 sections_map.unset (section.id);
+                check_placeholder ();
             }
         })] = Services.Store.instance ();
 
@@ -208,6 +233,7 @@ public class Views.Board : Adw.Bin {
 
         signal_map[project.count_updated.connect (() => {
             icon_project.update_request ();
+            check_placeholder ();
         })] = project;
 
         signal_map[project.source.sync_finished.connect (() => {
@@ -227,9 +253,19 @@ public class Views.Board : Adw.Bin {
         foreach (Objects.Section section in project.sections) {
             add_section (section);
         }
+        check_placeholder ();
+    }
+
+    private void check_placeholder () {
+        if (!project.is_deck) {
+            return;
+        }
+        
+        flowbox_placeholder_stack.visible_child_name = sections_map.size > 0 ? "board" : "placeholder";
     }
 
     private void add_inbox_section () {
+        if (project.is_deck) return;
         inbox_board = new Layouts.SectionBoard.for_project (project);
         flowbox.append (inbox_board);
     }
@@ -242,7 +278,9 @@ public class Views.Board : Adw.Bin {
     }
 
     public void prepare_new_item (string content = "") {
-        inbox_board.prepare_new_item (content);
+        if (inbox_board != null) {
+            inbox_board.prepare_new_item (content);
+        }
     }
 
     private void update_duedate () {

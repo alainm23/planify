@@ -130,6 +130,7 @@ public class Services.Database : GLib.Object {
         table_columns["Projects"].add ("sorted_by");
         table_columns["Projects"].add ("calendar_source_uid");
         table_columns["Projects"].add ("markdown_setting");
+        table_columns["Projects"].add ("extra_data");
 
         table_columns["Queue"] = new Gee.ArrayList<string> ();
         table_columns["Queue"].add ("uuid");
@@ -659,6 +660,7 @@ public class Services.Database : GLib.Object {
          */
         add_text_column ("Projects", "markdown_setting", MarkdownSetting.GLOBAL_DEFAULT.to_string ());
         add_text_column ("Sections", "extra_data", "");
+        add_text_column ("Projects", "extra_data", "");
     }
 
     public void clear_database () {
@@ -922,6 +924,7 @@ public class Services.Database : GLib.Object {
         return_value.sorted_by = SortedByType.parse (stmt.column_text (24));
         return_value.calendar_source_uid = stmt.column_text (25);
         return_value.markdown_setting = MarkdownSetting.parse (stmt.column_text (26));
+        return_value.extra_data = stmt.column_text (27);
         return return_value;
     }
 
@@ -932,11 +935,11 @@ public class Services.Database : GLib.Object {
             INSERT OR IGNORE INTO Projects (id, name, color, backend_type, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
                 sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description, due_date,
-                inbox_section_hidded, sync_id, source_id, calendar_url, sorted_by, calendar_source_uid, markdown_setting)
+                inbox_section_hidded, sync_id, source_id, calendar_url, sorted_by, calendar_source_uid, markdown_setting, extra_data)
             VALUES ($id, $name, $color, $backend_type, $inbox_project, $team_inbox,
                 $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
                 $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description, $due_date,
-                $inbox_section_hidded, $sync_id, $source_id, $calendar_url, $sorted_by, $calendar_source_uid, $markdown_setting);
+                $inbox_section_hidded, $sync_id, $source_id, $calendar_url, $sorted_by, $calendar_source_uid, $markdown_setting, $extra_data);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -967,6 +970,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$sorted_by", project.sorted_by.to_string ());
         set_parameter_str (stmt, "$calendar_source_uid", project.calendar_source_uid);
         set_parameter_str (stmt, "$markdown_setting", project.markdown_setting.to_string ());
+        set_parameter_str (stmt, "$extra_data", project.extra_data);
 
         int result = stmt.step ();
         if (result != Sqlite.DONE) {
@@ -1044,7 +1048,8 @@ public class Services.Database : GLib.Object {
                 calendar_url=$calendar_url,
                 sorted_by=$sorted_by,
                 calendar_source_uid=$calendar_source_uid,
-                markdown_setting=$markdown_setting
+                markdown_setting=$markdown_setting,
+                extra_data=$extra_data
             WHERE id=$id;
         """;
 
@@ -1077,6 +1082,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$sorted_by", project.sorted_by.to_string ());
         set_parameter_str (stmt, "$calendar_source_uid", project.calendar_source_uid);
         set_parameter_str (stmt, "$markdown_setting", project.markdown_setting.to_string ());
+        set_parameter_str (stmt, "$extra_data", project.extra_data);
         set_parameter_str (stmt, "$id", project.id);
 
         int result = stmt.step ();

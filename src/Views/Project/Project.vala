@@ -163,13 +163,11 @@ public class Views.Project : Adw.Bin {
 
         content_overlay.child = project_stack;
 
-        if (!project.is_deck) {
-            content_overlay.add_overlay (magic_button);
+        content_overlay.add_overlay (magic_button);
 
-            signal_map[magic_button.clicked.connect (() => {
-                prepare_new_item ();
-            })] = magic_button;
-        }
+        signal_map[magic_button.clicked.connect (() => {
+            prepare_new_item ();
+        })] = magic_button;
 
         multiselect_toolbar = new Widgets.MultiSelectToolbar (project);
 
@@ -349,11 +347,26 @@ public class Views.Project : Adw.Bin {
     }
 
     public void prepare_new_item (string content = "") {
-        if (project.is_deck) {
+        if (project_view_revealer.child == null) {
             return;
         }
 
-        if (project_view_revealer.child == null) {
+        if (project.is_deck) {
+            var sections = Services.Store.instance ().get_sections_by_project (project);
+            if (sections.size == 0) {
+                var toast = new Adw.Toast (_("Add a section first to create tasks in this board")) {
+                    timeout = 5,
+                    button_label = _("New Section")
+                };
+                toast.button_clicked.connect (() => prepare_new_section ());
+                Services.EventBus.get_default ().send_toast (toast);
+                return;
+            }
+
+            var dialog = new Dialogs.QuickAdd ();
+            dialog.for_base_object (sections[0]);
+            dialog.update_content (content);
+            dialog.present (Planify._instance.main_window);
             return;
         }
 
@@ -390,7 +403,7 @@ public class Views.Project : Adw.Bin {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
-        if (!project.is_deck && !project.inbox_project) {
+        if (!project.inbox_project) {
             menu_box.append (edit_item);
 
             signal_map[edit_item.activate_item.connect (() => {
@@ -463,7 +476,7 @@ public class Views.Project : Adw.Bin {
         menu_box.append (paste_item);
         menu_box.append (expand_all_item);
 
-        if (!project.is_deck && !project.inbox_project) {
+        if (!project.inbox_project) {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (archive_item);
             menu_box.append (delete_item);

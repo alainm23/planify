@@ -630,30 +630,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         });
 
         delete_item.clicked.connect (() => {
-            var dialog = new Adw.AlertDialog (
-                _ ("Delete Section %s".printf (section.name)),
-                _ ("This can not be undone")
-            );
-
-            dialog.add_response ("cancel", _ ("Cancel"));
-            dialog.add_response ("delete", _ ("Delete"));
-            dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-            dialog.present (Planify._instance.main_window);
-
-            dialog.response.connect ((response) => {
-                if (response == "delete") {
-                    is_loading = true;
-
-                    if (section.project.source_type == SourceType.TODOIST) {
-                        Services.Todoist.get_default ().delete.begin (section, (obj, res) => {
-                            Services.Todoist.get_default ().delete.end (res);
-                            Services.Store.instance ().delete_section (section);
-                        });
-                    } else {
-                        Services.Store.instance ().delete_section (section);
-                    }
-                }
-            });
+            section.delete_section ((Gtk.Window) Planify.instance.main_window);
         });
 
         show_completed_item.clicked.connect (() => {

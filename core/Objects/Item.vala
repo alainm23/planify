@@ -754,27 +754,7 @@ public class Objects.Item : Objects.BaseObject {
 
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
-
-            if (project.source_type == SourceType.LOCAL) {
-                Services.Store.instance ().update_item (this, update_id);
-            } else if (project.source_type == SourceType.TODOIST) {
-                Services.Todoist.get_default ().update.begin (this, (obj, res) => {
-                    Services.Todoist.get_default ().update.end (res);
-                    Services.Store.instance ().update_item (this, update_id);
-                });
-            } else if (project.source_type == SourceType.CALDAV) {
-                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-                caldav_client.add_item.begin (this, true, (obj, res) => {
-                    HttpResponse response = caldav_client.add_item.end (res);
-
-                    if (response.status) {
-                        Services.Store.instance ().update_item (this, update_id);
-                    } else if (response.error_code == 412) {
-                        Services.EventBus.get_default ().send_conflict_toast (project.source);
-                    }
-                });
-            }
-
+            _do_update (update_id, false);
             return GLib.Source.REMOVE;
         });
     }
@@ -786,18 +766,31 @@ public class Objects.Item : Objects.BaseObject {
 
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
-            loading = true;
+            _do_update (update_id, true);
+            return GLib.Source.REMOVE;
+        });
+    }
 
-            if (project.source_type == SourceType.LOCAL) {
+    public void update_async (string update_id = "") {
+        _do_update (update_id, true);
+    }
+
+    private void _do_update (string update_id, bool show_loading) {
+        if (show_loading) loading = true;
+
+        if (project.source_type == SourceType.LOCAL) {
+            Services.Store.instance ().update_item (this, update_id);
+            if (show_loading) loading = false;
+        } else if (project.source_type == SourceType.TODOIST) {
+            Services.Todoist.get_default ().update.begin (this, (obj, res) => {
+                Services.Todoist.get_default ().update.end (res);
                 Services.Store.instance ().update_item (this, update_id);
-                loading = false;
-            } else if (project.source_type == SourceType.TODOIST) {
-                Services.Todoist.get_default ().update.begin (this, (obj, res) => {
-                    Services.Todoist.get_default ().update.end (res);
-                    Services.Store.instance ().update_item (this, update_id);
-                    loading = false;
-                });
-            } else if (project.source_type == SourceType.CALDAV) {
+                if (show_loading) loading = false;
+            });
+        } else if (project.source_type == SourceType.CALDAV) {
+            if (project.is_deck) {
+                _update_deck.begin (update_id);
+            } else {
                 var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
                 caldav_client.add_item.begin (this, true, (obj, res) => {
                     HttpResponse response = caldav_client.add_item.end (res);
@@ -808,39 +801,9 @@ public class Objects.Item : Objects.BaseObject {
                         Services.EventBus.get_default ().send_conflict_toast (project.source);
                     }
 
-                    loading = false;
+                    if (show_loading) loading = false;
                 });
             }
-
-            return GLib.Source.REMOVE;
-        });
-    }
-
-    public void update_async (string update_id = "") {
-        loading = true;
-
-        if (project.source_type == SourceType.LOCAL) {
-            Services.Store.instance ().update_item (this, update_id);
-            loading = false;
-        } else if (project.source_type == SourceType.TODOIST) {
-            Services.Todoist.get_default ().update.begin (this, (obj, res) => {
-                Services.Todoist.get_default ().update.end (res);
-                Services.Store.instance ().update_item (this, update_id);
-                loading = false;
-            });
-        } else if (project.source_type == SourceType.CALDAV) {
-            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-            caldav_client.add_item.begin (this, true, (obj, res) => {
-                HttpResponse response = caldav_client.add_item.end (res);
-
-                if (response.status) {
-                    Services.Store.instance ().update_item (this, update_id);
-                } else if (response.error_code == 412) {
-                    Services.EventBus.get_default ().send_conflict_toast (project.source);
-                }
-
-                loading = false;
-            });
         }
     }
 
@@ -851,17 +814,22 @@ public class Objects.Item : Objects.BaseObject {
 
     private void _update_pin () {
         if (project.source_type == SourceType.CALDAV) {
-            loading = true;
-            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-            caldav_client.add_item.begin (this, true, (obj, res) => {
-                HttpResponse response = caldav_client.add_item.end (res);
+            if (project.is_deck) {
+                _update_deck.begin ("");
+                Services.Store.instance ().update_item_pin (this);
+            } else {
+                loading = true;
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                caldav_client.add_item.begin (this, true, (obj, res) => {
+                    HttpResponse response = caldav_client.add_item.end (res);
 
-                if (response.status) {
-                    Services.Store.instance ().update_item_pin (this);
-                }
+                    if (response.status) {
+                        Services.Store.instance ().update_item_pin (this);
+                    }
 
-                loading = false;
-            });
+                    loading = false;
+                });
+            }
         } else {
             Services.Store.instance ().update_item_pin (this);
         }
@@ -1538,7 +1506,11 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
-            delete_caldav.begin ();
+            if (project.is_deck) {
+                _delete_deck.begin ();
+            } else {
+                delete_caldav.begin ();
+            }
         }
     }
 
@@ -1929,6 +1901,8 @@ public class Objects.Item : Objects.BaseObject {
 
         if (project.source_type == SourceType.TODOIST) {
             response = yield Services.Todoist.get_default ().complete_item (this);
+        } else if (project.source_type == SourceType.CALDAV && project.is_deck) {
+            response = yield _complete_deck_item ();
         } else {
             var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
             response = yield caldav_client.complete_item (this);
@@ -2001,5 +1975,56 @@ public class Objects.Item : Objects.BaseObject {
             print ("  - %s\n", label.name);
         }
         print ("---------------------------------\n");
+    }
+
+    private int get_deck_card_id () {
+        return (int) Utils.JsonUtils.get_int (extra_data, "deck_card_id");
+    }
+
+    private int get_deck_stack_id () {
+        return (int) Utils.JsonUtils.get_int (extra_data, "deck_stack_id");
+    }
+
+    private int get_deck_board_id () {
+        return (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
+    }
+
+    private async void _update_deck (string update_id = "") {
+        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
+        string? duedate = has_due ? due.date : null;
+        try {
+            yield deck_client.update_card (get_deck_board_id (), get_deck_stack_id (), get_deck_card_id (),
+                content, description, duedate, checked, child_order);
+            Services.Store.instance ().update_item (this, update_id);
+        } catch (Error e) {
+            Services.LogService.get_default ().error ("Deck", "Failed to update card: %s".printf (e.message));
+        }
+        loading = false;
+    }
+
+    private async void _delete_deck () {
+        loading = true;
+        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
+        try {
+            yield deck_client.delete_card (get_deck_board_id (), get_deck_stack_id (), get_deck_card_id ());
+            Services.Store.instance ().delete_item (this);
+        } catch (Error e) {
+            Services.EventBus.get_default ().send_error_toast (0, e.message);
+        }
+        loading = false;
+    }
+
+    private async HttpResponse _complete_deck_item () {
+        HttpResponse response = new HttpResponse ();
+        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
+        string? duedate = has_due ? due.date : null;
+        try {
+            yield deck_client.update_card (get_deck_board_id (), get_deck_stack_id (), get_deck_card_id (),
+                content, description, duedate, checked, child_order);
+            response.status = true;
+        } catch (Error e) {
+            response.error = e.message;
+        }
+        return response;
     }
 }

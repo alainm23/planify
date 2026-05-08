@@ -156,6 +156,11 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                     var project = new Objects.Project.from_propstat (propstat, get_absolute_url (href));
                     project.source_id = source.id;
 
+                    // Deck boards are handled by DeckClient, never via CalDAV
+                    if (project.is_deck) {
+                        continue;
+                    }
+
                     projects.add (project);
                 }
             }
@@ -193,6 +198,10 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         var local_projects = Services.Store.instance ().get_projects_by_source (source.id);
         foreach (Objects.Project local_project in local_projects) {
+            // Deck projects are managed by DeckClient, never delete them here
+            if (local_project.is_deck) {
+                continue;
+            }
             if (!server_urls.contains (local_project.calendar_url)) {
                 Services.Store.instance ().delete_project (local_project);
             }
@@ -223,11 +232,22 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                     var name = propstat.get_first_prop_with_tagname ("displayname");
 
                     if (href != null && name != null) {
-                        Objects.Project ? project = Services.Store.instance ().get_project_via_url (get_absolute_url (href));
+                        var project_url = get_absolute_url (href);
+
+                        // Deck boards are always handled by DeckClient, skip in CalDAV
+                        if ("deck--board" in project_url.down ()) {
+                            Objects.Project ? deck_project = Services.Store.instance ().get_project_via_url (project_url);
+                            if (deck_project != null) {
+                                Services.Store.instance ().delete_project (deck_project);
+                            }
+                            continue;
+                        }
+
+                        Objects.Project ? project = Services.Store.instance ().get_project_via_url (project_url);
 
                         if (project == null) {
                             Services.LogService.get_default ().info ("CalDAV", "Discovered new project, fetching items");
-                            project = new Objects.Project.from_propstat (propstat, get_absolute_url (href));
+                            project = new Objects.Project.from_propstat (propstat, project_url);
                             project.source_id = source.id;
 
                             Services.Store.instance ().insert_project (project);
