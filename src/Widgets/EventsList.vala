@@ -20,8 +20,8 @@
  */
 
 public class Widgets.EventsList : Adw.Bin {
-    public GLib.DateTime start_date { get; construct; }
-    public GLib.DateTime end_date { get; construct; }
+    public GLib.DateTime start_date { get; set; }
+    public GLib.DateTime end_date { get; set; }
 
     public bool is_day { get; construct; }
     public bool is_month { get; construct; }
@@ -243,6 +243,32 @@ public class Widgets.EventsList : Adw.Bin {
         var event_end_day = new GLib.DateTime.local (event_end.get_year (), event_end.get_month (), event_end.get_day_of_month (), 23, 59, 59);
         
         return event_start_day.compare (range_end) <= 0 && event_end_day.compare (range_start) >= 0;
+    }
+
+    public void refresh (GLib.DateTime new_start_date, GLib.DateTime? new_end_date = null) {
+        // Update dates
+        start_date = new_start_date;
+        end_date = new_end_date ?? new_start_date;
+
+        // Clean current events
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            ((Widgets.EventRow) row).clean_up ();
+            listbox.remove (row);
+        }
+        event_hashmap.clear ();
+
+        // Disconnect old model signals
+        foreach (var entry in signal_map.entries.to_array ()) {
+            if (entry.value == event_model) {
+                event_model.disconnect (entry.key);
+                signal_map.unset (entry.key);
+            }
+        }
+
+        // Recreate model with new date
+        event_model = new Services.CalendarEvents (start_date);
+        add_events ();
+        change ();
     }
 
     public void clean_up () {

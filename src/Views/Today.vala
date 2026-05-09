@@ -315,6 +315,9 @@ public class Views.Today : Adw.Bin {
             date = new GLib.DateTime.now_local ();
             update_today_label ();
             add_today_items ();
+            #if WITH_EVOLUTION
+            event_list.refresh (date);
+            #endif
         })] = Services.EventBus.get_default ();
 
         signal_map[Services.Store.instance ().item_added.connect (valid_add_item)] = Services.Store.instance ();
