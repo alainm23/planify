@@ -33,6 +33,9 @@ public class Widgets.EventsList : Adw.Bin {
     private Gee.HashMap<string, Widgets.EventRow> event_hashmap;
     private Services.CalendarEvents event_model;
 
+    private GLib.DateTime current_start_date;
+    private GLib.DateTime current_end_date;
+
     public signal void change ();
 
     public bool has_items {
@@ -78,7 +81,9 @@ public class Widgets.EventsList : Adw.Bin {
     }
 
     construct {
-        event_model = new Services.CalendarEvents (start_date);
+        current_start_date = start_date;
+        current_end_date = end_date;
+        event_model = new Services.CalendarEvents (current_start_date);
         event_hashmap = new Gee.HashMap<string, Widgets.EventRow> ();
 
         listbox = new Gtk.ListBox () {
@@ -125,11 +130,11 @@ public class Widgets.EventsList : Adw.Bin {
     private void add_event_model (E.Source source, Gee.Collection<ECal.Component> components) {
         foreach (ECal.Component ? component in components) {
             if (is_day) {
-                if (CalendarEventsUtil.calcomp_is_on_day (component, start_date)) {
+                if (CalendarEventsUtil.calcomp_is_on_day (component, current_start_date)) {
                     add_row_event (component, source);
                 }
             } else if (is_month) {
-                if (CalendarEventsUtil.calcomp_is_on_month (component, start_date)) {
+                if (CalendarEventsUtil.calcomp_is_on_month (component, current_start_date)) {
                     add_row_event (component, source);
                 }
             } else if (is_range) {
@@ -145,7 +150,7 @@ public class Widgets.EventsList : Adw.Bin {
         var event_uid = ical.get_uid ();
         if (!event_hashmap.has_key (event_uid)) {
             bool show_date = is_month || is_range;
-            GLib.DateTime? display_date = start_date;
+            GLib.DateTime? display_date = current_start_date;
             
             event_hashmap[event_uid] = new Widgets.EventRow (ical, source, show_date, display_date);
             listbox.append (event_hashmap[event_uid]);
@@ -161,9 +166,9 @@ public class Widgets.EventsList : Adw.Bin {
             bool in_range = false;
 
             if (is_day) {
-                in_range = CalendarEventsUtil.calcomp_is_on_day (component, start_date);
+                in_range = CalendarEventsUtil.calcomp_is_on_day (component, current_start_date);
             } else if (is_month) {
-                in_range = CalendarEventsUtil.calcomp_is_on_month (component, start_date);
+                in_range = CalendarEventsUtil.calcomp_is_on_month (component, current_start_date);
             } else if (is_range) {
                 in_range = event_overlaps_range (component);
             }
@@ -237,12 +242,38 @@ public class Widgets.EventsList : Adw.Bin {
         var event_start = CalendarEventsUtil.ical_to_date_time (start_time);
         var event_end = CalendarEventsUtil.ical_to_date_time (end_time);
         
-        var range_start = new GLib.DateTime.local (start_date.get_year (), start_date.get_month (), start_date.get_day_of_month (), 0, 0, 0);
-        var range_end = new GLib.DateTime.local (end_date.get_year (), end_date.get_month (), end_date.get_day_of_month (), 23, 59, 59);
+        var range_start = new GLib.DateTime.local (current_start_date.get_year (), current_start_date.get_month (), current_start_date.get_day_of_month (), 0, 0, 0);
+        var range_end = new GLib.DateTime.local (current_end_date.get_year (), current_end_date.get_month (), current_end_date.get_day_of_month (), 23, 59, 59);
         var event_start_day = new GLib.DateTime.local (event_start.get_year (), event_start.get_month (), event_start.get_day_of_month (), 0, 0, 0);
         var event_end_day = new GLib.DateTime.local (event_end.get_year (), event_end.get_month (), event_end.get_day_of_month (), 23, 59, 59);
         
         return event_start_day.compare (range_end) <= 0 && event_end_day.compare (range_start) >= 0;
+    }
+
+    public void refresh (GLib.DateTime new_start_date, GLib.DateTime? new_end_date = null) {
+        // Update dates
+        current_start_date = new_start_date;
+        current_end_date = new_end_date ?? new_start_date;
+
+        // Clean current events
+        foreach (var row in Util.get_default ().get_children (listbox)) {
+            ((Widgets.EventRow) row).clean_up ();
+            listbox.remove (row);
+        }
+        event_hashmap.clear ();
+
+        // Disconnect old model signals
+        foreach (var entry in signal_map.entries.to_array ()) {
+            if (entry.value == event_model) {
+                event_model.disconnect (entry.key);
+                signal_map.unset (entry.key);
+            }
+        }
+
+        // Recreate model with new date
+        event_model = new Services.CalendarEvents (current_start_date);
+        add_events ();
+        change ();
     }
 
     public void clean_up () {
