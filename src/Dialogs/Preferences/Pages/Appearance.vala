@@ -139,6 +139,7 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
             title = _("Accent Color")
         };
         accent_group.add (system_accent_row);
+        accent_group.visible = Adw.StyleManager.get_default ().get_system_supports_accent_colors ();
 
         placeholder_revealer = new Gtk.Revealer () {
             child = new Gtk.Label (_("Custom themes are not available when using the system light theme")) {

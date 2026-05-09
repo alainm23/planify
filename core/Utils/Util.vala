@@ -309,7 +309,7 @@ public class Util : GLib.Object {
                 upcoming_fg_color = "#f0f0f0";
                 selected_color = "#2e3a46";
                 card_bg_color = "#222222";
-                Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.PREFER_DARK;
+                Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
             } else {
                 window_bg_color = "#0C0D12";
                 popover_bg_color = "#16171D";
