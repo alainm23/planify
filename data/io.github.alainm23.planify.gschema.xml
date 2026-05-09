@@ -323,6 +323,12 @@
             <description>Configure when automatic reminders are triggered - at due time, before due time, or custom intervals</description>
         </key>
 
+        <key name="use-system-accent" type="b">
+            <default>true</default>
+            <summary>Use system accent color</summary>
+            <description>Use the system-wide accent color instead of the default blue accent color</description>
+        </key>
+
         <key name="font-scale" type="d">
             <default>1</default>
             <summary>Font scale</summary>
