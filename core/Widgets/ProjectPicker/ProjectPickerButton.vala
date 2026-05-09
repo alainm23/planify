@@ -316,9 +316,12 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         if (project.sections.size == 0) {
             sections_listbox.append (sections_map["no-section"]);
         }
+        
         foreach (Objects.Section section in project.sections) {
-            sections_map[section.id] = new Widgets.SectionPicker.SectionPickerRow (section);
-            sections_listbox.append (sections_map[section.id]);
+            if (!section.was_archived ()) {
+                sections_map[section.id] = new Widgets.SectionPicker.SectionPickerRow (section);
+                sections_listbox.append (sections_map[section.id]);
+            }
         }
     }
 

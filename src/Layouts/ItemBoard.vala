@@ -1154,6 +1154,19 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
             Utils.TaskUtils.update_single_item_order (target_list, picked_widget, new_index);
 
+            // Update counters for source and target sections
+            if (old_section_id != picked_widget.item.section_id) {
+                var source_section = Services.Store.instance ().get_section (old_section_id);
+                if (source_section != null) {
+                    source_section.update_count ();
+                }
+                
+                var target_section = Services.Store.instance ().get_section (picked_widget.item.section_id);
+                if (target_section != null) {
+                    target_section.update_count ();
+                }
+            }
+
             picked_widget.item.project.count_update ();
 
             return true;
