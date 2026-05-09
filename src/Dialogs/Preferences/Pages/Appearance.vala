@@ -29,6 +29,7 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
     private Gtk.CheckButton dark_radio;
     private Gtk.CheckButton blue_radio;
     private Adw.PreferencesGroup theme_group;
+    private Adw.PreferencesGroup accent_group;
     private Gtk.Revealer placeholder_revealer;
     
     public Appearance (Adw.PreferencesDialog preferences_dialog) {
@@ -77,7 +78,7 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
             title = _("Select theme")
         };
         system_appearance_group.add (system_appearance_row);
-        system_appearance_group.add (system_accent_row);
+
 
         light_radio = new Gtk.CheckButton () {
             valign = CENTER
@@ -134,6 +135,11 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
         theme_group.add (dark_row);
         theme_group.add (blue_row);
 
+        accent_group = new Adw.PreferencesGroup () {
+            title = _("Accent Color")
+        };
+        accent_group.add(system_accent_row);
+
         placeholder_revealer = new Gtk.Revealer () {
             child = new Gtk.Label (_("Custom themes are not available when using the system light theme")) {
                 wrap = true,
@@ -186,8 +192,8 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
         content_box.append (system_appearance_group);
         content_box.append (theme_group);
         content_box.append (placeholder_revealer);
+        content_box.append (accent_group);
         content_box.append (font_size_group);
-
         var toolbar_view = new Adw.ToolbarView () {
             content = content_box
         };
