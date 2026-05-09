@@ -165,6 +165,16 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             prepare_new_item ();
         })] = magic_button;
 
+        signal_map[Services.EventBus.get_default ().day_changed.connect (() => {
+            foreach (var row in Util.get_default ().get_children (listbox)) {
+                if (row is Views.Scheduled.ScheduledSection) {
+                    ((Views.Scheduled.ScheduledSection) row).clean_up ();
+                }
+                listbox.remove (row);
+            }
+            add_days ();
+        })] = Services.EventBus.get_default ();
+
         signal_map[scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);
         })] = scrolled_window.vadjustment;
