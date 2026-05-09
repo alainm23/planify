@@ -990,6 +990,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
         item.section_id = old_section_id;
         item.parent_id = old_parent_id;
 
+        position = -1;
+
         item_labels.item = item;
         label_button.source = item.project.source;
         labels_quick_picker.source = item.project.source;
