@@ -78,6 +78,7 @@ core/Services/Settings.vala
 core/Services/Store.vala
 core/Services/Todoist.vala
 core/Utils/Datetime.vala
+core/Utils/JsonUtils.vala
 core/Utils/MarkdownProcessor.vala
 core/Utils/Util.vala
 core/Widgets/Calendar/Calendar.vala
