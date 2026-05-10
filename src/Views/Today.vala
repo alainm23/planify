@@ -362,9 +362,9 @@ public class Views.Today : Adw.Bin {
         })] = magic_button;
 
         #if WITH_EVOLUTION
-        signal_map[event_list.change.connect (() => {
+        event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;
-        })] = event_list;
+        });
         #endif
 
         signal_map[Services.Settings.get_default ().settings.changed["today-sort-order"].connect (() => {
