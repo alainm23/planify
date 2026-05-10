@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-04-15 17:09+0000\n"
+"PO-Revision-Date: 2026-05-10 16:01+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/hr/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17.1-dev\n"
+"X-Generator: Weblate 2026.5-dev\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -331,11 +331,11 @@ msgstr "Zadatak je kopiran u međuspremnik"
 
 #: core/Objects/Item.vala:1464
 msgid "iCalendar Files"
-msgstr ""
+msgstr "iCalendar datoteke"
 
 #: core/Objects/Item.vala:1480
 msgid "Task exported successfully"
-msgstr ""
+msgstr "Zadatak je uspješno izvezen"
 
 #: core/Objects/Item.vala:1778 core/Utils/Util.vala:888
 #, c-format
@@ -559,24 +559,32 @@ msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
+"Ovaj server ne dopušta izradu projekata putem CalDAV-a. Stvori ga izravno s "
+"web-stranice tvojeg pružatelja usluge kalendara."
 
 #: core/Services/CalDAV/CalDAVClient.vala:728
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"Ovaj server ne dopušta brisanje projekata putem CalDAV-a. Izbriši ga izravno "
+"s web-stranice tvojeg pružatelja usluge kalendara."
 
 #: core/Services/CalDAV/CalDAVClient.vala:732
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"Ovaj server ne podržava brisanje projekata putem CalDAV-a. Izbriši ga "
+"izravno sa servera."
 
 #: core/Services/CalDAV/CalDAVClient.vala:766
 #: core/Services/CalDAV/CalDAVClient.vala:813
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"Zadatak je promijenjen na jednom drugom uređaju. Sinkroniziraj uređaje za "
+"dobivanje najnovije verzije."
 
 #: core/Services/CalDAV/Core.vala:169
 msgid "Source already exists"
@@ -2955,7 +2963,7 @@ msgstr "Kopiraj u međuspremnik"
 
 #: src/Layouts/ItemRow.vala:1374 src/Layouts/ItemSidebarView.vala:513
 msgid "Export as .ics"
-msgstr ""
+msgstr "Izvezi kao .ics"
 
 #: src/Layouts/ItemRow.vala:2037
 msgid "Add Attachments"
@@ -2975,7 +2983,7 @@ msgstr "Svojstva"
 
 #: src/Layouts/ItemSidebarView.vala:193
 msgid "Expand Description"
-msgstr ""
+msgstr "Proširi opis"
 
 #: src/Layouts/ItemSidebarView.vala:604
 msgid "Are you sure you want to delete?"
@@ -3103,11 +3111,11 @@ msgstr "Otvori brzo pronalaženje"
 
 #: src/MainWindow.vala:341
 msgid "Task was modified on another device"
-msgstr ""
+msgstr "Zadatak je promijenjen na jednom drugom uređaju"
 
 #: src/MainWindow.vala:343
 msgid "Sync Now"
-msgstr ""
+msgstr "Sinkroniziraj sada"
 
 #: src/MainWindow.vala:758
 msgid "About Planify"
