@@ -509,75 +509,75 @@ public class Services.Todoist : GLib.Object {
         foreach (var q in queue) {
             if (q.query == "project_add") {
                 begin_command (builder, "project_add", q.uuid, q.temp_id);
-                builder.set_member_name ("name"); builder.add_string_value (get_string_member_by_object (q.args, "name"));
-                builder.set_member_name ("color"); builder.add_string_value (get_string_member_by_object (q.args, "color"));
+                builder.set_member_name ("name"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "name"));
+                builder.set_member_name ("color"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "color"));
                 end_command (builder);
             } else if (q.query == "project_update") {
                 begin_command (builder, "project_update", q.uuid);
-                builder.set_member_name ("id"); builder.add_string_value (get_string_member_by_object (q.args, "id"));
-                builder.set_member_name ("name"); builder.add_string_value (get_string_member_by_object (q.args, "name"));
-                builder.set_member_name ("color"); builder.add_string_value (get_string_member_by_object (q.args, "color"));
+                builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
+                builder.set_member_name ("name"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "name"));
+                builder.set_member_name ("color"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "color"));
                 end_command (builder);
             } else if (q.query == "project_delete") {
                 begin_command (builder, "project_delete", q.uuid);
-                builder.set_member_name ("id"); builder.add_string_value (get_string_member_by_object (q.args, "id"));
+                builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
                 end_command (builder);
             } else if (q.query == "section_add") {
                 begin_command (builder, "section_add", q.uuid, q.temp_id);
-                builder.set_member_name ("name"); builder.add_string_value (get_string_member_by_object (q.args, "name"));
-                builder.set_member_name ("project_id"); builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
+                builder.set_member_name ("name"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "name"));
+                builder.set_member_name ("project_id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "project_id"));
                 end_command (builder);
             } else if (q.query == "section_update") {
                 begin_command (builder, "section_update", q.uuid);
-                builder.set_member_name ("id"); builder.add_string_value (get_string_member_by_object (q.args, "id"));
-                builder.set_member_name ("name"); builder.add_string_value (get_string_member_by_object (q.args, "name"));
+                builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
+                builder.set_member_name ("name"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "name"));
                 end_command (builder);
             } else if (q.query == "section_delete") {
                 begin_command (builder, "section_delete", q.uuid);
-                builder.set_member_name ("id"); builder.add_string_value (get_string_member_by_object (q.args, "id"));
+                builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
                 end_command (builder);
             } else if (q.query == "section_move") {
                 begin_command (builder, "section_move", q.uuid);
-                builder.set_member_name ("id"); builder.add_string_value (get_string_member_by_object (q.args, "id"));
-                builder.set_member_name ("project_id"); builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
+                builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
+                builder.set_member_name ("project_id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "project_id"));
                 end_command (builder);
             } else if (q.query == "item_add") {
                 begin_command (builder, "item_add", q.uuid, q.temp_id);
-                builder.set_member_name ("content"); builder.add_string_value (get_string_member_by_object (q.args, "content"));
-                builder.set_member_name ("description"); builder.add_string_value (get_string_member_by_object (q.args, "description"));
-                builder.set_member_name ("priority"); builder.add_int_value (get_int_member_by_object (q.args, "priority"));
-                builder.set_member_name ("project_id"); builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
-                builder.set_member_name ("section_id"); builder.add_string_value (get_string_member_by_object (q.args, "section_id"));
-                builder.set_member_name ("parent_id"); builder.add_string_value (get_string_member_by_object (q.args, "parent_id"));
+                builder.set_member_name ("content"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "content"));
+                builder.set_member_name ("description"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "description"));
+                builder.set_member_name ("priority"); builder.add_int_value (Utils.JsonUtils.get_int (q.args, "priority"));
+                builder.set_member_name ("project_id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "project_id"));
+                builder.set_member_name ("section_id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "section_id"));
+                builder.set_member_name ("parent_id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "parent_id"));
                 end_command (builder);
             } else if (q.query == "item_update") {
                 begin_command (builder, "item_update", q.uuid);
-                builder.set_member_name ("id"); builder.add_string_value (get_string_member_by_object (q.args, "id"));
-                builder.set_member_name ("content"); builder.add_string_value (get_string_member_by_object (q.args, "content"));
-                builder.set_member_name ("description"); builder.add_string_value (get_string_member_by_object (q.args, "description"));
-                builder.set_member_name ("priority"); builder.add_int_value (get_int_member_by_object (q.args, "priority"));
-                if (is_null_member (q.args, "due")) {
+                builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
+                builder.set_member_name ("content"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "content"));
+                builder.set_member_name ("description"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "description"));
+                builder.set_member_name ("priority"); builder.add_int_value (Utils.JsonUtils.get_int (q.args, "priority"));
+                if (Utils.JsonUtils.is_null_member (q.args, "due")) {
                     builder.set_member_name ("due"); builder.add_null_value ();
                 } else {
                     builder.set_member_name ("due");
                     builder.begin_object ();
-                    builder.set_member_name ("date"); builder.add_string_value (get_object_member_by_object (q.args, "due").get_string_member ("date"));
+                    builder.set_member_name ("date"); builder.add_string_value (Utils.JsonUtils.get_object_member (q.args, "due").get_string_member ("date"));
                     builder.end_object ();
                 }
                 end_command (builder);
             } else if (q.query == "item_delete") {
                 begin_command (builder, "item_delete", q.uuid);
-                builder.set_member_name ("id"); builder.add_string_value (get_string_member_by_object (q.args, "id"));
+                builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
                 end_command (builder);
             } else if (q.query == "item_move") {
                 begin_command (builder, "item_move", q.uuid);
-                builder.set_member_name ("id"); builder.add_string_value (get_string_member_by_object (q.args, "id"));
-                string move_type = get_string_member_by_object (q.args, "type");
-                builder.set_member_name (move_type); builder.add_string_value (get_string_member_by_object (q.args, move_type));
+                builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
+                string move_type = Utils.JsonUtils.get_string (q.args, "type");
+                builder.set_member_name (move_type); builder.add_string_value (Utils.JsonUtils.get_string (q.args, move_type));
                 end_command (builder);
             } else if (q.query == "item_complete" || q.query == "item_uncomplete") {
                 begin_command (builder, q.query, q.uuid);
-                builder.set_member_name ("id"); builder.add_string_value (get_string_member_by_object (q.args, "id"));
+                builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
                 end_command (builder);
             }
         }
@@ -590,38 +590,6 @@ public class Services.Todoist : GLib.Object {
         generator.set_root (root);
 
         return generator.to_data (null);
-    }
-
-    public Json.Object get_object_by_string (string object) {
-        var parser = new Json.Parser ();
-
-        try {
-            parser.load_from_data (object, -1);
-        } catch (Error e) {
-            debug (e.message);
-        }
-
-        return parser.get_root ().get_object ();
-    }
-
-    public int64 get_int_member_by_object (string object, string member) {
-        return get_object_by_string (object).get_int_member (member);
-    }
-
-    public string get_string_member_by_object (string object, string member) {
-        return get_object_by_string (object).get_string_member (member);
-    }
-
-    public Json.Object get_object_member_by_object (string object, string member) {
-        return get_object_by_string (object).get_object_member (member);
-    }
-
-    public GLib.Type get_type_by_member (string object, string member) {
-        return get_object_by_string (object).get_member (member).get_value_type ();
-    }
-
-    public bool is_null_member (string object, string member) {
-        return get_object_by_string (object).get_null_member (member);
     }
 
     private void add_item_if_not_exists (Json.Node node) {
