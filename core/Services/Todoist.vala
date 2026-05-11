@@ -1461,7 +1461,7 @@ public class Services.Todoist : GLib.Object {
             case 429: return _("The user has sent too many requests in a given amount of time.");
             case 500: return _("The request failed due to a server error.");
             case 503: return _("The server is currently unable to handle the request.");
-            default:  return _("Unknown error");
+            default: return _("Unknown error");
         }
     }
 }
