@@ -32,6 +32,10 @@ public class Utils.JsonUtils {
         return parser.get_root ().get_object ();
     }
 
+    public static Json.Object get_object_member (string data, string member) {
+        return get_object (data).get_object_member (member);
+    }
+
     public static string get_string (string data, string member) {
         var obj = get_object (data);
 
@@ -64,5 +68,10 @@ public class Utils.JsonUtils {
 
     public static bool has_member (string data, string member) {
         return get_object (data).has_member (member);
+    }
+
+    public static bool is_null_member (string data, string member) {
+        var obj = get_object (data);
+        return obj.has_member (member) && obj.get_null_member (member);
     }
 }
