@@ -567,9 +567,43 @@ public class Services.Database : GLib.Object {
         if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
             warning (errormsg);
         }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_deadline_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.deadline_date != OLD.deadline_date
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ('update', NEW.id, 'item', 'deadline', OLD.deadline_date,
+                    NEW.deadline_date, NEW.project_id);
+            END;
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_parent_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.parent_id != OLD.parent_id
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ('update', NEW.id, 'item', 'parent', OLD.parent_id,
+                    NEW.parent_id, NEW.project_id);
+            END;
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
     }
 
-    public void patch_database () {
+    private void patch_database () {
         /*
          * Planner 3 - Beta 1
          * - Add pinned (0|1) to Items
