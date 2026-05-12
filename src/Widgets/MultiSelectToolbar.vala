@@ -151,12 +151,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         });
 
         move_button.clicked.connect (() => {
-            Dialogs.ProjectPicker.ProjectPicker dialog;
-            if (project.is_inbox_project) {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-            } else {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (project.source);
-            }
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
 
             dialog.project = project;
 

@@ -917,14 +917,14 @@ We hope you’ll enjoy using Planify!""");
         item.loading = true;
         item.sensitive = false;
 
-        if (item.project.source_type == SourceType.LOCAL) {
+        if (new_item.project.source_type == SourceType.LOCAL) {
             new_item.id = Util.get_default ().generate_id (new_item);
 
             item.loading = false;
             item.sensitive = true;
 
             yield insert_duplicate_item (new_item, item, notify);
-        } else if (item.project.source_type == SourceType.TODOIST) {
+        } else if (new_item.project.source_type == SourceType.TODOIST) {
             HttpResponse response = yield Services.Todoist.get_default ().add (new_item);
             
             item.loading = false;
@@ -934,7 +934,7 @@ We hope you’ll enjoy using Planify!""");
                 new_item.id = response.data;
                 yield insert_duplicate_item (new_item, item, notify);
             }
-        } else if (item.project.source_type == SourceType.CALDAV) {
+        } else if (new_item.project.source_type == SourceType.CALDAV) {
             new_item.id = Util.get_default ().generate_id (new_item);
             var caldav_client = Services.CalDAV.Core.get_default ().get_client (new_item.project.source);
             HttpResponse response = yield caldav_client.add_item (new_item);

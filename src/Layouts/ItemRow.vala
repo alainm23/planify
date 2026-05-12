@@ -1289,12 +1289,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             })] = no_date_item;
 
             signals_map[move_item.activate_item.connect (() => {
-                Dialogs.ProjectPicker.ProjectPicker dialog;
-                if (item.project.is_inbox_project) {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-                } else {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
-                }
+                var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
 
                 dialog.project = item.project;
 
@@ -1414,13 +1409,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             })] = export_ics_item;
 
             signals_map[move_item.clicked.connect (() => {
-                Dialogs.ProjectPicker.ProjectPicker dialog;
-
-                if (item.project.is_inbox_project) {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-                } else {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
-                }
+                var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
 
                 signals_map[dialog.changed.connect ((type, id) => {
                     if (type == "project") {
