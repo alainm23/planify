@@ -33,30 +33,6 @@ gnome = import('gnome')
 i18n = import('i18n')
 pkgconfig = import('pkgconfig')
 
-# is this a Windows build?
-is_windows = (host_machine.system() == 'windows')
-if is_windows
-    add_project_arguments('-D', 'IS_WINDOWS', language: 'vala')
-endif
-
-# parse webkit, portal, evolution, and winconsole options
-# on Windows these are unsupported and are forced to false
-with_portal = (get_option('portal') and not is_windows)
-with_evolution = (get_option('evolution') and not is_windows)
-with_win_console = (get_option('winconsole'))
-
-# is this a Windows build?
-is_windows = (host_machine.system() == 'windows')
-if is_windows
-    add_project_arguments('-D', 'IS_WINDOWS', language: 'vala')
-endif
-
-# parse webkit, portal, evolution, and winconsole options
-# on Windows these are unsupported and are forced to false
-with_portal = (get_option('portal') and not is_windows)
-with_evolution = (get_option('evolution') and not is_windows)
-with_win_console = (get_option('winconsole'))
-
 add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (application_id), language:'c')
 add_project_arguments('-DLIBICAL_GLIB_UNSTABLE_API=1', language: 'c')
 
