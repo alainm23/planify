@@ -33,6 +33,30 @@ gnome = import('gnome')
 i18n = import('i18n')
 pkgconfig = import('pkgconfig')
 
+# is this a Windows build?
+is_windows = (host_machine.system() == 'windows')
+if is_windows
+    add_project_arguments('-D', 'IS_WINDOWS', language: 'vala')
+endif
+
+# parse webkit, portal, evolution, and winconsole options
+# on Windows these are unsupported and are forced to false
+with_portal = (get_option('portal') and not is_windows)
+with_evolution = (get_option('evolution') and not is_windows)
+with_win_console = (get_option('winconsole'))
+
+# is this a Windows build?
+is_windows = (host_machine.system() == 'windows')
+if is_windows
+    add_project_arguments('-D', 'IS_WINDOWS', language: 'vala')
+endif
+
+# parse webkit, portal, evolution, and winconsole options
+# on Windows these are unsupported and are forced to false
+with_portal = (get_option('portal') and not is_windows)
+with_evolution = (get_option('evolution') and not is_windows)
+with_win_console = (get_option('winconsole'))
+
 add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (application_id), language:'c')
 add_project_arguments('-DLIBICAL_GLIB_UNSTABLE_API=1', language: 'c')
 
@@ -51,6 +75,12 @@ libspelling = dependency('libspelling-1', required: get_option('spelling'))
 gtksourceview_dep = dependency('gtksourceview-5')
 m_dep = meson.get_compiler('c').find_library('m', required : false)
 icu_uc_dep = dependency('icu-uc')
+
+# is libical version 4 or higher?
+is_libical4 = libical_dep.version().version_compare('>= 4.0.0')
+if is_libical4
+  add_project_arguments('-D', 'IS_LIBICAL4', language: 'vala')
+endif
 
 if icu_uc_dep.found ()
   add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
