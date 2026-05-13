@@ -14,7 +14,7 @@ core_files = files(
     'Services/LogService.vala',
     'Services/Store.vala',
     'Services/Todoist.vala',
-    'Services/Backup.vala',
+    'Services/BackupExporter.vala',
     'Services/ColorSchemeSettings.vala',
 
     'Services/CalDAV/Core.vala',

@@ -377,6 +377,10 @@ public class Objects.Project : Objects.BaseObject {
         if (node.get_object ().has_member ("calendar_url")) {
             calendar_url = node.get_object ().get_string_member ("calendar_url");
         }
+
+        if (node.get_object ().has_member ("markdown_setting")) {
+            markdown_setting = MarkdownSetting.parse (node.get_object ().get_string_member ("markdown_setting"));
+        }
     }
 
     public void update_from_json (Json.Node node) {

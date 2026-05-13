@@ -21,6 +21,7 @@
 
 public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePage {
     private Layouts.HeaderItem backups_group;
+    private Layouts.HeaderItem extra_group;
 
     public Backup (Adw.PreferencesDialog preferences_dialog) {
         Object (
@@ -45,6 +46,15 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
             margin_start = 3
         };
 
+        var auto_backup_row = new Adw.SwitchRow () {
+            title = _("Automatic Daily Backup"),
+            subtitle = _("Creates a backup every day at midnight")
+        };
+        auto_backup_row.active = Services.Settings.get_default ().settings.get_boolean ("backup-automatic");
+
+        var auto_backup_group = new Adw.PreferencesGroup ();
+        auto_backup_group.add (auto_backup_row);
+
         var add_button = new Gtk.Button.with_label (_("Create Backup")) {
             margin_top = 12
         };
@@ -67,11 +77,45 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         location_label.add_css_class ("dimmed");
         location_label.add_css_class ("caption");
 
+        var max_backups_label = new Gtk.Label (_("Only the last 30 backups are shown here. To access older backups, open the backup folder directly.")) {
+            wrap = true,
+            xalign = 0,
+            margin_start = 6
+        };
+        max_backups_label.add_css_class ("dimmed");
+        max_backups_label.add_css_class ("caption");
+        max_backups_label.visible = false;
+
         var backups_box = new Gtk.Box (VERTICAL, 6) {
             margin_top = 12
         };
         backups_box.append (backups_group);
         backups_box.append (location_label);
+        backups_box.append (max_backups_label);
+
+        extra_group = new Layouts.HeaderItem (_("Extra Backup Locations")) {
+            card = true,
+            reveal = true,
+            placeholder_message = _("No extra locations added yet.")
+        };
+
+        var add_folder_button = new Gtk.Button.from_icon_name ("list-add-symbolic") {
+            css_classes = { "flat" }
+        };
+
+        extra_group.add_widget_end (add_folder_button);
+
+        var extra_locations_box = new Gtk.Box (VERTICAL, 6);
+        extra_locations_box.append (extra_group);
+
+        var extra_location_label = new Gtk.Label (_("Backup copies will also be saved to these folders after each backup is created.")) {
+            wrap = true,
+            xalign = 0,
+            margin_start = 6
+        };
+        extra_location_label.add_css_class ("dimmed");
+        extra_location_label.add_css_class ("caption");
+        extra_locations_box.append (extra_location_label);
 
         var import_planner_button = new Gtk.Button.with_label (_("Migrate"));
 
@@ -88,10 +132,12 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
             margin_top = 12
         };
         content_box.append (description_label);
+        content_box.append (auto_backup_group);
         content_box.append (add_button);
         content_box.append (import_button);
         content_box.append (backups_box);
-        content_box.append (migrate_group);
+        content_box.append (extra_locations_box);
+        // content_box.append (migrate_group);
 
         var scrolled_window = new Gtk.ScrolledWindow () {
             hexpand = true,
@@ -107,14 +153,18 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
 
         child = toolbar_view;
 
+        signal_map[auto_backup_row.notify["active"].connect (() => {
+            Services.Settings.get_default ().settings.set_boolean ("backup-automatic", auto_backup_row.active);
+        })] = auto_backup_row;
+
         signal_map[add_button.clicked.connect (() => {
-            Services.Backups.get_default ().create_backup ();
+            Services.BackupManager.get_default ().create_and_distribute_backup ();
             popup_toast (_("The Backup was created successfully."));
         })] = add_button;
 
         signal_map[import_button.clicked.connect (() => {
-            Services.Backups.get_default ().choose_backup_file.begin ((obj, res) => {
-                GLib.File file = Services.Backups.get_default ().choose_backup_file.end (res);
+            Services.BackupManager.get_default ().choose_backup_file.begin ((obj, res) => {
+                GLib.File file = Services.BackupManager.get_default ().choose_backup_file.end (res);
                 Objects.Backup backup = new Objects.Backup.from_file (file);
                 view_backup (backup);
             });
@@ -134,13 +184,41 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
             }
         })] = import_planner_button;
 
-        foreach (Objects.Backup backup in Services.Backups.get_default ().backups) {
+        signal_map[add_folder_button.clicked.connect (() => {
+            var dialog = new Gtk.FileDialog ();
+            dialog.select_folder.begin (Planify._instance.main_window, null, (obj, res) => {
+                try {
+                    var folder = dialog.select_folder.end (res);
+                    var folder_path = folder.get_path ();
+                    Services.BackupManager.get_default ().add_extra_folder (folder_path);
+                    add_extra_folder_row (folder_path);
+                } catch (Error e) {
+                    debug ("Error selecting folder: %s".printf (e.message));
+                }
+            });
+        })] = add_folder_button;
+
+        connect_backup_group_signals ();
+
+        var all_backups = Services.BackupManager.get_default ().backups;
+        var sorted_backups = new Gee.ArrayList<Objects.Backup> ();
+        sorted_backups.add_all (all_backups);
+        sorted_backups.sort ((a, b) => b.datetime.compare (a.datetime));
+        int count = 0;
+        foreach (Objects.Backup backup in sorted_backups) {
+            if (count >= 30) break;
             add_backup_row (backup, backups_group);
+            count++;
+        }
+        max_backups_label.visible = all_backups.size > 30;
+
+        foreach (var folder_path in Services.Settings.get_default ().settings.get_strv ("backup-extra-folders")) {
+            add_extra_folder_row (folder_path);
         }
 
-        signal_map[Services.Backups.get_default ().backup_added.connect ((backup) => {
+        signal_map[Services.BackupManager.get_default ().backup_added.connect ((backup) => {
             add_backup_row (backup, backups_group);
-        })] = Services.Backups.get_default ();
+        })] = Services.BackupManager.get_default ();
 
         destroy.connect (() => {
             clean_up ();
@@ -153,14 +231,25 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         return item2.datetime.compare (item1.datetime);
     }
 
-    private void add_backup_row (Objects.Backup backup, Layouts.HeaderItem group) {
-        var row = new BackupRow (backup);
+    private void add_extra_folder_row (string folder_path) {
+        var row = new ExtraFolderRow (folder_path);
 
-        signal_map[row.view.connect (() => {
-            view_backup (backup);
+        signal_map[row.removed.connect (() => {
+            Services.BackupManager.get_default ().remove_extra_folder (folder_path);
         })] = row;
 
+        extra_group.add_child (row);
+    }
+
+    private void add_backup_row (Objects.Backup backup, Layouts.HeaderItem group) {
+        var row = new BackupRow (backup);
         group.insert_child (row, 0);
+    }
+
+    private void connect_backup_group_signals () {
+        signal_map[backups_group.row_activated.connect ((row) => {
+            view_backup (((BackupRow) row).backup);
+        })] = backups_group;
     }
 
     private void view_backup (Objects.Backup backup) {
@@ -178,6 +267,10 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
             ((BackupRow) row).clean_up ();
         }
 
+        foreach (Gtk.ListBoxRow row in extra_group.get_children ()) {
+            ((ExtraFolderRow) row).clean_up ();
+        }
+
         foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }
@@ -189,7 +282,6 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         public Objects.Backup backup { get; construct; }
 
         private Gtk.Revealer main_revealer;
-        public signal void view ();
         public Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
         public BackupRow (Objects.Backup backup) {
@@ -203,17 +295,15 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         }
 
         construct {
-            add_css_class ("no-selectable");
+            activatable = true;
             add_css_class ("transition");
 
             var name_label = new Gtk.Label (backup.title);
             name_label.valign = Gtk.Align.CENTER;
             name_label.ellipsize = Pango.EllipsizeMode.END;
 
-            var view_button = new Gtk.Button.from_icon_name ("eye-open-negative-filled-symbolic") {
-                valign = CENTER,
-                css_classes = { "flat" },
-                tooltip_text = _("View Backup")
+            var next_icon = new Gtk.Image.from_icon_name ("go-next-symbolic") {
+                valign = CENTER
             };
 
             var menu_button = new Gtk.MenuButton () {
@@ -224,13 +314,13 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
                 css_classes = { "flat" }
             };
 
-            var end_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            var end_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
                 halign = END,
                 hexpand = true,
             };
 
-            end_box.append (view_button);
             end_box.append (menu_button);
+            end_box.append (next_icon);
 
             var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
                 margin_top = 6,
@@ -254,10 +344,6 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
                 main_revealer.reveal_child = true;
                 return GLib.Source.REMOVE;
             });
-
-            signal_map[view_button.clicked.connect (() => {
-                view ();
-            })] = view_button;
 
             signal_map[backup.deleted.connect (() => {
                 hide_destroy ();
@@ -289,12 +375,12 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
 
             signal_map[download_item.clicked.connect (() => {
                 menu_popover.popdown ();
-                Services.Backups.get_default ().save_file_as (backup);
+                Services.BackupManager.get_default ().save_file_as (backup);
             })] = download_item;
 
             signal_map[delete_item.clicked.connect (() => {
                 menu_popover.popdown ();
-                Services.Backups.get_default ().delete_backup (backup);
+                Services.BackupManager.get_default ().delete_backup (backup);
             })] = delete_item;
 
             return menu_popover;
@@ -318,6 +404,78 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         }
     }
 
+    public class ExtraFolderRow : Gtk.ListBoxRow {
+        public string folder_path { get; construct; }
+
+        private Gtk.Revealer main_revealer;
+        public signal void removed ();
+        public Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
+        public ExtraFolderRow (string folder_path) {
+            Object (folder_path: folder_path);
+        }
+
+        construct {
+            add_css_class ("no-selectable");
+
+            var path_label = new Gtk.Label (folder_path) {
+                valign = CENTER,
+                hexpand = true,
+                halign = START,
+                ellipsize = Pango.EllipsizeMode.MIDDLE
+            };
+
+            var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
+                valign = CENTER,
+                css_classes = { "flat" }
+            };
+
+            var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+                margin_top = 6,
+                margin_start = 12,
+                margin_end = 6,
+                margin_bottom = 6
+            };
+            content_box.append (new Gtk.Image.from_icon_name ("folder-symbolic"));
+            content_box.append (path_label);
+            content_box.append (delete_button);
+
+            main_revealer = new Gtk.Revealer () {
+                transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+                child = content_box
+            };
+
+            child = main_revealer;
+
+            Timeout.add (main_revealer.transition_duration, () => {
+                main_revealer.reveal_child = true;
+                return GLib.Source.REMOVE;
+            });
+
+            signal_map[delete_button.clicked.connect (() => {
+                removed ();
+                hide_destroy ();
+            })] = delete_button;
+
+            destroy.connect (() => clean_up ());
+        }
+
+        public void clean_up () {
+            foreach (var entry in signal_map.entries) {
+                entry.value.disconnect (entry.key);
+            }
+            signal_map.clear ();
+        }
+
+        public void hide_destroy () {
+            main_revealer.reveal_child = false;
+            Timeout.add (main_revealer.transition_duration, () => {
+                ((Gtk.ListBox) parent).remove (this);
+                return GLib.Source.REMOVE;
+            });
+        }
+    }
+
     public class ImportView : Dialogs.Preferences.Pages.BasePage {
         public Objects.Backup backup { get; construct; }
 
@@ -333,7 +491,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         }
 
         construct {
-            var title = new Gtk.Label (_("Import Overview")) {
+            var title = new Gtk.Label (_("Restore Backup")) {
                 halign = CENTER,
                 css_classes = { "title-1" }
             };
@@ -374,24 +532,17 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
             collection_group.add (items_row);
             collection_group.add (labels_row);
 
-            var cancel_button = new Gtk.Button.with_label (_("Cancel")) {
+            var confirm_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Restore Backup")) {
                 valign = CENTER,
-                css_classes = { "border-radius-6" }
+                margin_top = 24,
+                css_classes = { "flat", "destructive-action" },
+                halign = CENTER
             };
 
-            var confirm_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Confirm")) {
-                valign = CENTER,
-                css_classes = { "suggested-action", "border-radius-6" }
-            };
-
-            var buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-                homogeneous = true,
+            var buttons_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
                 hexpand = true,
-                vexpand = true,
-                valign = END,
                 margin_bottom = 12
             };
-            buttons_box.append (cancel_button);
             buttons_box.append (confirm_button);
 
             var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -425,13 +576,12 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
             toolbar_view.add_top_bar (new Adw.HeaderBar () {
                 show_title = false
             });
+            toolbar_view.add_top_bar (new Adw.Banner (_("This will replace all your current data")) {
+                revealed = true
+            });
             toolbar_view.content = scrolled_window;
 
             child = toolbar_view;
-
-            signal_map[cancel_button.clicked.connect (() => {
-                preferences_dialog.pop_subpage ();
-            })] = cancel_button;
 
             signal_map[confirm_button.clicked.connect (() => {
                 var dialog = new Adw.AlertDialog (
@@ -447,7 +597,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
 
                 dialog.response.connect ((response) => {
                     if (response == "restore") {
-                        Services.Backups.get_default ().patch_backup (backup);
+                        Services.BackupManager.get_default ().patch_backup (backup);
                     }
                 });
             })] = confirm_button;

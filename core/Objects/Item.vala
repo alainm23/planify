@@ -58,7 +58,6 @@ public class Objects.Item : Objects.BaseObject {
     public ItemType item_type { get; set; default = ItemType.TASK; }
     public string responsible_uid { get; set; default = ""; }
 
-
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
     public Gee.ArrayList<Objects.Label> labels { get; set; default = new Gee.ArrayList<Objects.Label> (); }
 
@@ -470,6 +469,14 @@ public class Objects.Item : Objects.BaseObject {
             labels = get_labels_from_json (node);
         } else {
             labels = get_labels_from_labels_json (node, _labels);
+        }
+
+        if (node.get_object ().has_member ("deadline_date")) {
+            deadline_date = node.get_object ().get_string_member ("deadline_date");
+        }
+
+        if (node.get_object ().has_member ("item_type")) {
+            item_type = ItemType.parse (node.get_object ().get_string_member ("item_type"));
         }
     }
 
