@@ -216,7 +216,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
             Services.Store.instance ().source_added.connect ((source) => {
                 if (source.sync_server) {
-                    source.run_server ();
+                    source.run_server (true);
                 }
             });
 
