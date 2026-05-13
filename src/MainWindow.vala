@@ -183,6 +183,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
             Services.Notification.get_default ();
             Services.TimeMonitor.get_default ().init_timeout ();
+            Services.BackupManager.get_default ().init_auto_backup ();
 
             go_homepage ();
 

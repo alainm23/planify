@@ -32,7 +32,7 @@ core/Objects/Section.vala
 core/Objects/Source.vala
 core/Objects/TranslationMetric.vala
 core/QuickAddCore.vala
-core/Services/Backup.vala
+core/Services/BackupExporter.vala
 core/Services/CalDAV/CalDAVClient.vala
 core/Services/CalDAV/Core.vala
 core/Services/CalDAV/Providers/Nextcloud.vala
@@ -181,7 +181,7 @@ src/MainWindow.vala
 src/Objects/Backup.vala
 src/Services/ActionManager.vala
 src/Services/Api.vala
-src/Services/Backups.vala
+src/Services/BackupManager.vala
 src/Services/DBusServer.vala
 src/Services/ExportService.vala
 src/Services/MigrateFromPlanner.vala
