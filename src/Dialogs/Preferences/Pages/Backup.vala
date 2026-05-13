@@ -72,7 +72,8 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         var location_label = new Gtk.Label (_("Backup files are stored in: %s").printf (Environment.get_user_data_dir () + "/io.github.alainm23.planify/backups")) {
             wrap = true,
             xalign = 0,
-            margin_start = 6
+            margin_start = 6,
+            selectable = true
         };
         location_label.add_css_class ("dimmed");
         location_label.add_css_class ("caption");
