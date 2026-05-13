@@ -244,7 +244,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
 
     private void add_backup_row (Objects.Backup backup, Layouts.HeaderItem group) {
         var row = new BackupRow (backup);
-        group.insert_child (row, 0);
+        group.add_child (row);
     }
 
     private void connect_backup_group_signals () {
