@@ -127,13 +127,16 @@ public class Objects.Source : Objects.BaseObject {
         }
     }
 
-    public void run_server () {
+    public void run_server (bool skip_first_sync = false) {
         if (source_type == SourceType.LOCAL) {
             return;
         }
 
         Services.LogService.get_default ().info ("Source", "Starting sync server for source: %s".printf (display_name));
-        _run_server ();
+
+        if (!skip_first_sync) {
+            _run_server ();
+        }
 
         server_timeout = Timeout.add_seconds (15 * 60, () => {
             if (sync_server) {
