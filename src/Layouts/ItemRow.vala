@@ -1959,7 +1959,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         markdown_editor.is_editable = !item.completed && !item.project.is_deck;
 
         markdown_editor.set_text (item.description);
-        markdown_editor.text_view.update_property (Gtk.AccessibleProperty.LABEL, item.description, -1);
+        markdown_editor.text_view.update_property (Gtk.AccessibleProperty.LABEL, _("Task description"), -1);
+        markdown_editor.text_view.update_property (Gtk.AccessibleProperty.VALUE_TEXT, item.description, -1);
         markdown_revealer.child = markdown_editor;
         markdown_revealer.reveal_child = true;
 

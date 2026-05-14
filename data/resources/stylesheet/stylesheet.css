@@ -674,6 +674,12 @@ checkbutton.theme-selector radio:checked {
     padding: 6px;
 }
 
+.magic-button:focus {
+    outline: 2px solid @accent_color;
+    outline-offset: 1px;
+    border-radius: 50%;
+}
+
 .add-button:hover image,
 .magic-button:hover image {
     transform: rotate(90deg);

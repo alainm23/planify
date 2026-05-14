@@ -720,7 +720,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             margin_start = 6,
             margin_top = 6,
             margin_bottom = 6,
-            halign = START
+            halign = START,
+            tooltip_text = _("Back")
         };
 
         calendar_scroll_view = new Widgets.Calendar.CalendarScroll () {
@@ -754,7 +755,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             margin_start = 6,
             margin_top = 6,
             margin_bottom = 6,
-            halign = START
+            halign = START,
+            tooltip_text = _("Back")
         };
 
         var toolbar_view = new Adw.ToolbarView () {
