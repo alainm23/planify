@@ -67,7 +67,6 @@ sources = files(
   'Widgets/FilterFlowBox.vala',
   'Widgets/FilterFlowBoxChild.vala',
   'Widgets/BypassResolveSwitchRow.vala',
-  'Widgets/IgnoreSSLSwitchRow.vala',
   'Widgets/Attachments.vala',
   'Widgets/AttachmentRow.vala',
   'Widgets/ItemChangeHistoryRow.vala',
@@ -133,6 +132,7 @@ sources = files(
   'Dialogs/Preferences/Pages/Accounts/Accounts.vala',
   'Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala',
   'Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala',
+  'Dialogs/Preferences/Pages/Accounts/CertificateDetails.vala',
   'Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala',
   'Dialogs/Preferences/Pages/Accounts/SourceView.vala',
   'Dialogs/Preferences/Pages/Accounts/InboxPage.vala'

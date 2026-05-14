@@ -176,7 +176,9 @@ public class Objects.Source : Objects.BaseObject {
 
     public async void delete_source () {
         // Remove server_timeout
-        remove_sync_server ();
+        if (sync_server) {
+            remove_sync_server ();
+        }
 
         // Remove DB
         yield Services.Store.instance ().delete_source (this);
@@ -374,7 +376,6 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
     }
     
     public CalDAVType caldav_type { get; set; default = CalDAVType.GENERIC; }
-    public bool ignore_ssl { get; set; default = false; }
 
     public SourceCalDAVData.from_json (string json) {
         Json.Parser parser = new Json.Parser ();
@@ -409,10 +410,6 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
 
             if (object.has_member ("caldav_type")) {
                 caldav_type = CalDAVType.parse (object.get_string_member ("caldav_type"));
-            }
-
-            if (object.has_member ("ignore_ssl")) {
-                ignore_ssl = object.get_boolean_member ("ignore_ssl");
             }
 
             if (object.has_member ("credentials")) {
@@ -453,9 +450,6 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
 
         builder.set_member_name ("calendar_home_url");
         builder.add_string_value (calendar_home_url);
-
-        builder.set_member_name ("ignore_ssl");
-        builder.add_boolean_value (ignore_ssl);
 
         builder.end_object ();
 

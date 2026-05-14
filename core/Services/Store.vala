@@ -191,6 +191,11 @@ public class Services.Store : GLib.Object {
     }
 
     public async void delete_source (Objects.Source source) {
+        if (source.source_type == SourceType.CALDAV) {
+            Services.CalDAV.Core.get_default ().remove_client (source.id);
+            Services.CalDAV.CertificateTrustStore.get_default ().clear_source_state (source.id);
+        }
+
         var projects = get_projects_by_source (source.id);
         const int BATCH_SIZE = 5;
         
