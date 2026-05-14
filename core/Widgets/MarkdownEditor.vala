@@ -96,6 +96,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
             wrap_mode = Gtk.WrapMode.WORD,
             accepts_tab = false
         };
+        text_view.update_property (Gtk.AccessibleProperty.LABEL, _("Task description"), -1);
         text_view.remove_css_class ("view");
         
         create_text_tags ();

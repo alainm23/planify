@@ -61,7 +61,8 @@ public class Widgets.ScrolledWindow : Adw.Bin {
             vscrollbar_policy = orientation == Gtk.Orientation.VERTICAL ? Gtk.PolicyType.AUTOMATIC : Gtk.PolicyType.NEVER,
             child = widget,
             propagate_natural_height = true,
-            propagate_natural_width = true
+            propagate_natural_width = true,
+            focusable = false
         };
 
         drop_motion_ctrl = new Gtk.DropControllerMotion ();
