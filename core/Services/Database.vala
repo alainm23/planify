@@ -40,6 +40,15 @@ public class Services.Database : GLib.Object {
         return _instance;
     }
 
+    private string get_db_dir () {
+        // On macOS prefer the standard Application Support location instead of XDG
+        if (Util.get_default ().is_macos ()) {
+            return Path.build_filename (Environment.get_home_dir (), "Library", "Application Support", "io.github.alainm23.planify");
+        }
+
+        return Path.build_filename (Environment.get_user_data_dir (), "io.github.alainm23.planify");
+    }
+
     construct {
         table_columns["Attachments"] = new Gee.ArrayList<string> ();
         table_columns["Attachments"].add ("id");
@@ -178,7 +187,9 @@ public class Services.Database : GLib.Object {
     }
 
     public void init_database () {
-        db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
+        var db_dir = get_db_dir ();
+        DirUtils.create_with_parents (db_dir, 0755);
+        db_path = Path.build_filename (db_dir, "database.db");
         Sqlite.Database.open (db_path, out db);
 
         create_tables ();
@@ -696,7 +707,7 @@ public class Services.Database : GLib.Object {
     }
 
     public void clear_database () {
-        string db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
+        string db_path = Path.build_filename (get_db_dir (), "database.db");
         File db_file = File.new_for_path (db_path);
 
         if (db_file.query_exists ()) {

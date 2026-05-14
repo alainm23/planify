@@ -372,15 +372,22 @@ public class Util : GLib.Object {
         string _css = """
             popover,
             window {
-                font-size: %s%;
+                font-size: %s%%;
             }
         """;
 
         var provider = new Gtk.CssProvider ();
 
         try {
-            string scale = (100 * Services.Settings.get_default ().get_double ("font-scale")).to_string ();
-            var css = _css.printf (scale);
+            double scale = Services.Settings.get_default ().get_double ("font-scale");
+
+            // On macOS, GTK4 uses a smaller base font size than GNOME/Linux.
+            // Apply 1.2x as default when the user hasn't customized the scale.
+            if (is_macos () && scale == 1.0) {
+                scale = 1.1;
+            }
+
+            var css = _css.printf ((100 * scale).to_string ()).strip ();
 
             provider.load_from_string (css);
             Gtk.StyleContext.add_provider_for_display (
@@ -527,7 +534,15 @@ public class Util : GLib.Object {
     
         return false;
     }
-    
+
+    public bool is_macos () {
+#if __APPLE__
+        return true;
+#else
+        return false;
+#endif
+    }
+
     public List<Gtk.ListBoxRow> get_children (Gtk.ListBox list) {
         List<Gtk.ListBoxRow> response = new List<Gtk.ListBoxRow> ();
 
