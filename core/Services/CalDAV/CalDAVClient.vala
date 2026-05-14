@@ -334,7 +334,43 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 }
 
                 var calendar_data = propstat.get_first_prop_with_tagname ("calendar-data");
-                if (calendar_data == null || calendar_data.text_content == null) {
+                if (calendar_data == null) {
+                    Services.LogService.get_default ().warn ("CalDAV", "calendar_data is null");
+                    continue;
+                }
+
+                string vtodo_content = calendar_data.text_content;
+
+                if (vtodo_content == null) {
+                    Services.LogService.get_default ().debug ("CalDAV", "calendar_data.text_content is null, checking if data is within CDATA");
+
+                    string temp_vtodo = calendar_data.write_string (cancellable);
+
+                    int cdata_start = temp_vtodo.index_of ("<![CDATA[");
+                    if (cdata_start == -1) {
+                        Services.LogService.get_default ().warn ("CalDAV", "No CDATA start marker found in: %s".printf (temp_vtodo));
+                        continue;
+                    }
+
+                    int cdata_end = temp_vtodo.index_of ("]]>", cdata_start);
+                    if (cdata_end == -1) {
+                        Services.LogService.get_default ().warn ("CalDAV", "No CDATA end marker found in: %s".printf (temp_vtodo));
+                        continue;
+                    }
+
+                    int content_start = cdata_start + 9;
+                    int content_length = cdata_end - content_start;
+                    if (content_start < 0 || content_length < 0 || content_start + content_length > temp_vtodo.length) {
+                        Services.LogService.get_default ().warn ("CalDAV", "Invalid CDATA indices: start=%d, length=%d, string_length=%d".printf (content_start, content_length, temp_vtodo.length));
+                        continue;
+                    }
+
+                    vtodo_content = temp_vtodo.substring (content_start, content_length).strip ();
+                    Services.LogService.get_default ().debug ("CalDAV", "Extracted vtodo_content from CDATA: %s".printf (vtodo_content));
+                }
+
+                if (vtodo_content == null) {
+                    Services.LogService.get_default ().warn ("CalDAV", "calendar_data.text_content is null and there is no CDATA");
                     continue;
                 }
 
@@ -342,7 +378,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 string etag = getetag != null ? getetag.text_content.strip () : "";
 
                 var resource_url = get_absolute_url (href);
-                upsert_vtodo_content (project, resource_url, etag, calendar_data.text_content, items_list);
+                upsert_vtodo_content (project, resource_url, etag, vtodo_content, items_list);
             }
 
             if (progress_callback != null && index % 10 == 0) {
