@@ -1,7 +1,7 @@
 project(
   'io.github.alainm23.planify',
   'vala', 'c',
-  version: '4.19.1'
+  version: '4.19.2'
 )
 
 ###########
