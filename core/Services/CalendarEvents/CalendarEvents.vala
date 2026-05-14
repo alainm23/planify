@@ -186,8 +186,16 @@ public class Services.CalendarEvents : Object {
         );
         source_components.set (source, components);
         /* query client view */
-        var iso_first = ECal.isodate_from_time_t ((time_t) data_range.first_dt.to_unix ());
-        var iso_last = ECal.isodate_from_time_t ((time_t) data_range.last_dt.add_days (1).to_unix ());
+        var iso_first = ECal.isodate_from_time_t ((time_t) new GLib.DateTime.local (
+            data_range.first_dt.get_year (),
+            data_range.first_dt.get_month (),
+            data_range.first_dt.get_day_of_month (),
+            0, 0, 0).to_unix ());
+        var iso_last = ECal.isodate_from_time_t ((time_t) new GLib.DateTime.local (
+            data_range.last_dt.get_year (),
+            data_range.last_dt.get_month (),
+            data_range.last_dt.get_day_of_month (),
+            23, 59, 59).to_unix ());
 
         var query = @"(occur-in-time-range? (make-time \"$iso_first\") (make-time \"$iso_last\"))";
 
