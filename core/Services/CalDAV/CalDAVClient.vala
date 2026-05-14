@@ -442,16 +442,21 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                         Services.Store.instance ().delete_item (item);
                     }
                 } else {
+                    bool has_component_parameter = false;
                     bool is_vtodo = false;
 
                     var getcontenttype = propstat.get_first_prop_with_tagname ("getcontenttype");
                     if (getcontenttype != null) {
-                        if (getcontenttype.text_content.down ().index_of ("vtodo") > -1) {
-                            is_vtodo = true;
-                        }
+                        has_component_parameter = getcontenttype.text_content.down ().contains ("component");
+                        is_vtodo = getcontenttype.text_content.down ().contains ("vtodo");
                     }
 
-                    if (is_vtodo) {
+                    if (!has_component_parameter) {
+                        Services.LogService.get_default ().debug ("CalDAV", "No 'component' parameter present in getcontenttype.");
+                        // See https://datatracker.ietf.org/doc/html/rfc5545#section-8.1 -> The component parameter is optional. If it is not present, the iCal data must always be fetched and parsed.
+                    }
+
+                    if (!has_component_parameter || is_vtodo) {
                         var getetag = propstat.get_first_prop_with_tagname ("getetag");
                         string etag = getetag != null ? getetag.text_content.strip () : "";
 
