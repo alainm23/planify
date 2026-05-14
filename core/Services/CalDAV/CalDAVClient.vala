@@ -291,7 +291,6 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 <d:owner/>
                 <d:sync-token/>
                 <d:current-user-privilege-set/>
-                <d:getcontenttype/>
                 <d:resourcetype/>
                 <cal:calendar-data/>
             </d:prop>
