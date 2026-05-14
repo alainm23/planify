@@ -1319,7 +1319,7 @@ public class Objects.Item : Objects.BaseObject {
                         }
                     }
 
-                    rrule.set_by_day_array (values);
+                    rrule.set_by_array (ICal.RecurrenceByRule.BY_DAY, values);
                 } else if (due.recurrency_type == RecurrencyType.EVERY_MONTH) {
                     rrule.set_freq (ICal.RecurrenceFrequency.MONTHLY_RECURRENCE);
                 } else if (due.recurrency_type == RecurrencyType.EVERY_YEAR) {

@@ -224,7 +224,7 @@ public class Utils.Datetime {
 
         if (due.recurrency_type == RecurrencyType.EVERY_WEEK) {
             string recurrency_weeks = "";
-            GLib.Array<short> day_array = recurrence.get_by_day_array ();
+            GLib.Array<short> day_array = recurrence.get_by_array (ICal.RecurrenceByRule.BY_DAY);
 
             if (check_by_day ("1", day_array)) {
                 recurrency_weeks += "7,";
