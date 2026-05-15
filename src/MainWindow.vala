@@ -814,7 +814,7 @@ public class MainWindow : Adw.ApplicationWindow {
             var shortcuts_builder = new Gtk.Builder ();
             shortcuts_builder.add_from_resource ("/io/github/alainm23/planify/shortcuts.ui");
             
-            var shortcuts_window = (Gtk.ShortcutsWindow) shortcuts_builder.get_object ("shortcuts-planify");
+            var shortcuts_window = (Gtk.ShortcutsWindow) shortcuts_builder.get_object ("shortcuts-planify"); // vala-lint=deprecated
             shortcuts_window.set_transient_for (this);
             shortcuts_window.show ();
         } catch (Error e) {

@@ -63,7 +63,6 @@ public class Dialogs.QuickFind.QuickFindFactory : GLib.Object {
     }
 
     private static void on_list_item_teardown (Gtk.SignalListItemFactory factory, GLib.Object list_item_obj) {
-        var list_item = (Gtk.ListItem) list_item_obj;
         // TODO: Signals?
     }
 

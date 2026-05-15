@@ -268,18 +268,6 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         update_items (objects);
     }
 
-    private void set_labels (Gee.HashMap<string, Objects.Label> new_labels) {
-        Gee.ArrayList<Objects.Item> objects = new Gee.ArrayList<Objects.Item> ();
-
-        foreach (string key in items_selected.keys) {
-            var item = items_selected[key].item;
-            item.check_labels (new_labels);
-            objects.add (item);
-        }
-
-        update_items (objects);
-    }
-
     private Gtk.Popover build_menu_popover () {
         complete_item = new Widgets.ContextMenu.MenuItem (_ ("Mark as Completed"), "check-round-outline-symbolic");
 

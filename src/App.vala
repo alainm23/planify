@@ -157,7 +157,7 @@ public class Planify : Adw.Application {
         var provider = new Gtk.CssProvider ();
         provider.load_from_resource ("/io/github/alainm23/planify/index.css");
 
-        Gtk.StyleContext.add_provider_for_display (
+        Gtk.StyleContext.add_provider_for_display ( // vala-lint=deprecated
             Gdk.Display.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );
 
