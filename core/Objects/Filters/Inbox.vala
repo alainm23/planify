@@ -20,8 +20,6 @@
  */
 
 public class Objects.Filters.Inbox : Objects.BaseObject {
-    private Objects.Project inbox_project;
-
     private static Inbox ? _instance;
     public static Inbox get_default () {
         if (_instance == null) {
