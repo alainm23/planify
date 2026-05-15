@@ -137,6 +137,7 @@ public class Services.Database : GLib.Object {
         table_columns["Queue"].add ("query");
         table_columns["Queue"].add ("temp_id");
         table_columns["Queue"].add ("args");
+        table_columns["Queue"].add ("source_id");
         table_columns["Queue"].add ("date_added");
 
         table_columns["Reminders"] = new Gee.ArrayList<string> ();
@@ -322,6 +323,7 @@ public class Services.Database : GLib.Object {
                 query      TEXT,
                 temp_id    TEXT,
                 args       TEXT,
+                source_id  TEXT,
                 date_added TEXT
             );
         """;
@@ -693,6 +695,7 @@ public class Services.Database : GLib.Object {
          */
         add_text_column ("Projects", "markdown_setting", MarkdownSetting.GLOBAL_DEFAULT.to_string ());
         add_text_column ("Sections", "extra_data", "");
+        add_text_column ("Queue", "source_id", "");
     }
 
     public void clear_database () {
@@ -1961,8 +1964,8 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            INSERT OR IGNORE INTO Queue (uuid, object_id, query, temp_id, args, date_added)
-            VALUES ($uuid, $object_id, $query, $temp_id, $args, $date_added);
+            INSERT OR IGNORE INTO Queue (uuid, object_id, query, temp_id, args, source_id, date_added)
+            VALUES ($uuid, $object_id, $query, $temp_id, $args, $source_id, $date_added);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1971,6 +1974,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$query", queue.query);
         set_parameter_str (stmt, "$temp_id", queue.temp_id);
         set_parameter_str (stmt, "$args", queue.args);
+        set_parameter_str (stmt, "$source_id", queue.source_id);
         set_parameter_str (stmt, "$date_added", queue.date_added);
 
         if (stmt.step () != Sqlite.DONE) {
@@ -1978,15 +1982,22 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public Gee.ArrayList<Objects.Queue> get_all_queue () {
+    public Gee.ArrayList<Objects.Queue> get_all_queue (string source_id = "") {
         Gee.ArrayList<Objects.Queue> return_value = new Gee.ArrayList<Objects.Queue> ();
         Sqlite.Statement stmt;
 
-        sql = """
-            SELECT * FROM Queue ORDER BY date_added;
-        """;
-
-        db.prepare_v2 (sql, sql.length, out stmt);
+        if (source_id != "") {
+            sql = """
+                SELECT * FROM Queue WHERE source_id=$source_id ORDER BY date_added;
+            """;
+            db.prepare_v2 (sql, sql.length, out stmt);
+            set_parameter_str (stmt, "$source_id", source_id);
+        } else {
+            sql = """
+                SELECT * FROM Queue ORDER BY date_added;
+            """;
+            db.prepare_v2 (sql, sql.length, out stmt);
+        }
 
         while (stmt.step () == Sqlite.ROW) {
             return_value.add (_fill_queue (stmt));
@@ -2002,7 +2013,8 @@ public class Services.Database : GLib.Object {
         return_value.query = stmt.column_text (2);
         return_value.temp_id = stmt.column_text (3);
         return_value.args = stmt.column_text (4);
-        return_value.date_added = stmt.column_text (5);
+        return_value.source_id = stmt.column_text (5);
+        return_value.date_added = stmt.column_text (6);
         return return_value;
     }
 

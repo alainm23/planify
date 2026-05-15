@@ -89,6 +89,7 @@ public class Services.TodoistItems : GLib.Object {
                 queue.temp_id = temp_id;
                 queue.query = object.type_add;
                 queue.args = object.to_json ();
+                queue.source_id = object.source.id;
 
                 Services.Database.get_default ().insert_queue (queue);
                 Services.Database.get_default ().insert_CurTempIds (object.id, temp_id, object.object_type_string);
@@ -154,6 +155,7 @@ public class Services.TodoistItems : GLib.Object {
                 queue.object_id = object.id;
                 queue.query = object.type_update;
                 queue.args = object.to_json ();
+                queue.source_id = object.source.id;
 
                 Services.Database.get_default ().insert_queue (queue);
                 response.status = true;
@@ -215,6 +217,7 @@ public class Services.TodoistItems : GLib.Object {
                 queue.object_id = object.id;
                 queue.query = object.type_delete;
                 queue.args = object.to_json ();
+                queue.source_id = object.source.id;
 
                 Services.Database.get_default ().insert_queue (queue);
                 response.status = true;
@@ -277,6 +280,7 @@ public class Services.TodoistItems : GLib.Object {
                 queue.object_id = item.id;
                 queue.query = item.checked ? "item_complete" : "item_uncomplete";
                 queue.args = item.to_json ();
+                queue.source_id = item.source.id;
 
                 Services.Database.get_default ().insert_queue (queue);
                 response.status = true;
@@ -339,6 +343,7 @@ public class Services.TodoistItems : GLib.Object {
                 queue.object_id = item.id;
                 queue.query = "item_move";
                 queue.args = item.to_move_json (type, id);
+                queue.source_id = item.source.id;
 
                 Services.Database.get_default ().insert_queue (queue);
                 response.status = true;
