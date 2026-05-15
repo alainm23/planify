@@ -609,11 +609,15 @@ public class Views.Today : Adw.Bin {
 
     private void valid_update_item (Objects.Item item, string update_id) {
         if (items.has_key (item.id)) {
-            items[item.id].update_request ();
+            if (items[item.id].update_id != update_id) {
+                items[item.id].update_request ();
+            }
         }
 
         if (overdue_items.has_key (item.id)) {
-            overdue_items[item.id].update_request ();
+            if (overdue_items[item.id].update_id != update_id) {
+                overdue_items[item.id].update_request ();
+            }
         }
 
         if (items.has_key (item.id) && !item.has_due && !item.has_deadline) {
