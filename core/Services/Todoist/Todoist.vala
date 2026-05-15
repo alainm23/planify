@@ -242,7 +242,7 @@ public class Services.Todoist : GLib.Object {
      */
 
     public async void queue (Objects.Source source) {
-        Gee.ArrayList<Objects.Queue ?> queue_collection = Services.Database.get_default ().get_all_queue ();
+        Gee.ArrayList<Objects.Queue ?> queue_collection = Services.Database.get_default ().get_all_queue (source.id);
         if (queue_collection.size <= 0) {
             return;
         }
@@ -264,24 +264,47 @@ public class Services.Todoist : GLib.Object {
             foreach (var q in queue_collection) {
                 var uuid_member = node.get_object_member ("sync_status").get_member (q.uuid);
                 if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                    var temp_id_mapping = node.get_object_member ("temp_id_mapping");
+
                     if (q.query == "project_add") {
-                        var id = node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id);
-                        Services.Store.instance ().update_project_id (q.object_id, id);
-                        Services.Database.get_default ().remove_CurTempIds (q.object_id);
+                        if (temp_id_mapping.has_member (q.temp_id)) {
+                            var id = temp_id_mapping.get_string_member (q.temp_id);
+                            Services.Store.instance ().update_project_id (q.object_id, id);
+                            Services.Database.get_default ().remove_CurTempIds (q.object_id);
+                        } else {
+                            Services.LogService.get_default ().warn ("Todoist", "temp_id_mapping missing for project_add: %s".printf (q.temp_id));
+                        }
                     }
 
                     if (q.query == "section_add") {
-                        var id = node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id);
-                        Services.Store.instance ().update_section_id (q.object_id, id);
-                        Services.Database.get_default ().remove_CurTempIds (q.object_id);
+                        if (temp_id_mapping.has_member (q.temp_id)) {
+                            var id = temp_id_mapping.get_string_member (q.temp_id);
+                            Services.Store.instance ().update_section_id (q.object_id, id);
+                            Services.Database.get_default ().remove_CurTempIds (q.object_id);
+                        } else {
+                            Services.LogService.get_default ().warn ("Todoist", "temp_id_mapping missing for section_add: %s".printf (q.temp_id));
+                        }
                     }
 
                     if (q.query == "item_add") {
-                        var id = node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id);
-                        Services.Store.instance ().update_item_id (q.object_id, id);
-                        Services.Database.get_default ().remove_CurTempIds (q.object_id);
+                        if (temp_id_mapping.has_member (q.temp_id)) {
+                            var id = temp_id_mapping.get_string_member (q.temp_id);
+                            Services.Store.instance ().update_item_id (q.object_id, id);
+                            Services.Database.get_default ().remove_CurTempIds (q.object_id);
+                        } else {
+                            Services.LogService.get_default ().warn ("Todoist", "temp_id_mapping missing for item_add: %s".printf (q.temp_id));
+                        }
                     }
 
+                    Services.Database.get_default ().remove_queue (q.uuid);
+                } else {
+                    var sync_status = node.get_object_member ("sync_status");
+                    if (sync_status.has_member (q.uuid)) {
+                        var error_obj = sync_status.get_object_member (q.uuid);
+                        Services.LogService.get_default ().warn ("Todoist",
+                            "Queue item failed — query: %s, error: %s".printf (
+                                q.query, error_obj.get_string_member ("error")));
+                    }
                     Services.Database.get_default ().remove_queue (q.uuid);
                 }
             }
@@ -331,7 +354,11 @@ public class Services.Todoist : GLib.Object {
             } else if (q.query == "section_add") {
                 begin_command (builder, "section_add", q.uuid, q.temp_id);
                 builder.set_member_name ("name"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "name"));
-                builder.set_member_name ("project_id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "project_id"));
+                string section_project_id = Utils.JsonUtils.get_string (q.args, "project_id");
+                if (Services.Database.get_default ().curTempIds_exists (section_project_id)) {
+                    section_project_id = Services.Database.get_default ().get_temp_id (section_project_id);
+                }
+                builder.set_member_name ("project_id"); builder.add_string_value (section_project_id);
                 end_command (builder);
             } else if (q.query == "section_update") {
                 begin_command (builder, "section_update", q.uuid);
@@ -346,6 +373,11 @@ public class Services.Todoist : GLib.Object {
                 begin_command (builder, "section_move", q.uuid);
                 builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
                 builder.set_member_name ("project_id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "project_id"));
+                end_command (builder);
+            } else if (q.query == "project_move") {
+                begin_command (builder, "project_move", q.uuid);
+                builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
+                builder.set_member_name ("parent_id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "parent_id"));
                 end_command (builder);
             } else if (q.query == "item_add") {
                 begin_command (builder, "item_add", q.uuid, q.temp_id);
