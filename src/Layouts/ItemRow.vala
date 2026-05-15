@@ -2149,11 +2149,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private void destroy_markdown_signals () {
         foreach (var entry in markdown_handlerses.entries) {
             if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
-                try {
-                    entry.value.disconnect (entry.key);
-                } catch (Error e) {
-                    warning ("Error disconnecting markdown signal: %s", e.message);
-                }
+                entry.value.disconnect (entry.key);
             }
         }
 
@@ -2163,11 +2159,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public override void clean_up () {
         foreach (var entry in signals_map.entries) {
             if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
-                try {
-                    entry.value.disconnect (entry.key);
-                } catch (Error e) {
-                    warning ("Error disconnecting signal: %s", e.message);
-                }
+                entry.value.disconnect (entry.key);
             }
         }
         signals_map.clear ();

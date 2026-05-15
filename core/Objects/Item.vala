@@ -249,12 +249,13 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    GLib.DateTime _deadline_datetime;
-    public GLib.DateTime deadline_datetime {
+    GLib.DateTime? _deadline_datetime;
+    public GLib.DateTime? deadline_datetime {
         get {
             if (!has_deadline) {
                 return null;
             }
+            
             _deadline_datetime = new GLib.DateTime.from_iso8601 (deadline_date, new GLib.TimeZone.local ());
             return _deadline_datetime;
         }

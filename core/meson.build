@@ -13,7 +13,10 @@ core_files = files(
     'Services/Database.vala',
     'Services/LogService.vala',
     'Services/Store.vala',
-    'Services/Todoist.vala',
+    'Services/Todoist/Todoist.vala',
+    'Services/Todoist/TodoistAuth.vala',
+    'Services/Todoist/TodoistItems.vala',
+    'Services/Todoist/TodoistProjects.vala',
     'Services/BackupExporter.vala',
     'Services/ColorSchemeSettings.vala',
 

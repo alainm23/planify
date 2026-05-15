@@ -133,7 +133,7 @@ public class Views.List : Adw.Bin {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             vexpand = true,
-            valign = Gtk.Align.BASELINE,
+            valign = Gtk.Align.BASELINE_FILL,
             margin_bottom = 24
         };
 
