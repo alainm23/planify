@@ -1,7 +1,7 @@
 project(
   'io.github.alainm23.planify',
   'vala', 'c',
-  version: '4.19.1'
+  version: '4.19.2'
 )
 
 ###########
@@ -51,6 +51,12 @@ libspelling = dependency('libspelling-1', required: get_option('spelling'))
 gtksourceview_dep = dependency('gtksourceview-5')
 m_dep = meson.get_compiler('c').find_library('m', required : false)
 icu_uc_dep = dependency('icu-uc')
+
+# is libical version 4 or higher?
+is_libical4 = libical_dep.version().version_compare('>= 4.0.0')
+if is_libical4
+  add_project_arguments('-D', 'IS_LIBICAL4', language: 'vala')
+endif
 
 if icu_uc_dep.found ()
   add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')

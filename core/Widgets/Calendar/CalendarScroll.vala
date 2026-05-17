@@ -344,6 +344,8 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
                 css_classes = { "flat", "calendar-day" }
             };
 
+            button.update_property (Gtk.AccessibleProperty.LABEL, date.format (_("%A, %B %e, %Y")), -1);
+
             if (is_today) {
                 button.add_css_class ("today");
             } else if (is_past) {

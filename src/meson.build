@@ -33,7 +33,7 @@ sources = files(
   'Services/Notification.vala',
   'Services/TimeMonitor.vala',
   'Services/DBusServer.vala',
-  'Services/Backups.vala',
+    'Services/BackupManager.vala',
   'Services/MigrateFromPlanner.vala',
   'Services/ExportService.vala',
 

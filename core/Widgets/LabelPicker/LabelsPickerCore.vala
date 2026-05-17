@@ -37,8 +37,14 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         set {
             picked.clear ();
 
+            foreach (var entry in labels_widgets_map.entries) {
+                entry.value.active = false;
+            }
+
             foreach (Objects.Label label in value) {
-                labels_widgets_map[label.id].active = true;
+                if (labels_widgets_map.has_key (label.id)) {
+                    labels_widgets_map[label.id].active = true;
+                }
                 picked[label.id] = label;
             }
         }

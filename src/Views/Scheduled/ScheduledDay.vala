@@ -157,7 +157,7 @@ public class Views.Scheduled.ScheduledDay : Views.Scheduled.ScheduledSection {
     }
 
     protected override void valid_update_item (Objects.Item item, string? update_id = null) {
-        if (items.has_key (item.id)) {
+        if (items.has_key (item.id) && items[item.id].update_id != update_id) {
             items[item.id].update_request ();
         }
 

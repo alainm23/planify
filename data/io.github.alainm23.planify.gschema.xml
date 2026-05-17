@@ -370,5 +370,17 @@
             <summary>Weekly task completion goal</summary>
             <description>Number of tasks the user aims to complete each week. 0 means not configured.</description>
         </key>
+
+        <key name="backup-automatic" type="b">
+            <default>true</default>
+            <summary>Automatic daily backup</summary>
+            <description>Automatically create a backup every day at midnight</description>
+        </key>
+
+        <key name="backup-extra-folders" type="as">
+            <default>[]</default>
+            <summary>Extra backup folders</summary>
+            <description>Additional folders where backup copies are saved after each backup</description>
+        </key>
     </schema>
 </schemalist>

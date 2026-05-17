@@ -61,6 +61,48 @@
   <url type="donation">https://useplanify.com/donate</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.19.2" date="2026-05-14" urgency="medium">
+      <description translate="no">
+        <p>Planify 4.19.2 brings new features, CalDAV improvements, and several bug fixes.</p>
+        <p>New Features:</p>
+        <ul>
+          <li>Added automatic daily backup with support for extra backup folder locations.</li>
+          <li>Added support for system accent color — Planify now follows your GNOME accent color setting.</li>
+          <li>Added CalDAV section support via VTODO List prefix — create, rename and delete sections that sync bidirectionally with other CalDAV clients.</li>
+          <li>Added past date selection in the date picker — past days are shown dimmed with a Today button to return to the current month.</li>
+          <li>Added Export as .ics option in the context menu for CalDAV tasks.</li>
+          <li>Improved change history — added DEADLINE and PARENT tracking, infinite scroll, and expandable/chip display patterns.</li>
+        </ul>
+        <p>CalDAV Improvements:</p>
+        <ul>
+          <li>Fixed HTTP 200 being treated as an error on Horde and similar servers when creating or updating tasks.</li>
+          <li>Fixed subtasks appearing as main tasks when Horde sends multiple VTODOs in a single .ics file.</li>
+        </ul>
+        <p>Bug Fixes:</p>
+        <ul>
+          <li>Fixed calendar events not updating when Planify is kept open past midnight.</li>
+          <li>Fixed labels not being removed when deselected in the multi-select toolbar.</li>
+          <li>Fixed label picker incorrectly assigning labels from one task to others when closing without changes in multi-select mode.</li>
+          <li>Fixed inaccurate section task counts in Board view after drag and drop.</li>
+          <li>Fixed inbox section visibility and UX in Board view — now auto-hides when empty.</li>
+          <li>Fixed moving tasks between different sources (e.g. CalDAV → Local).</li>
+          <li>Fixed double sync triggered when adding a new source.</li>
+        </ul>
+      </description>
+      <issues>
+        <issue url="https://github.com/alainm23/planify/issues/2412">HTTP 200 on PUT treated as error on Horde</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2441">Calendar events not updated after midnight</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2430">Inbox section UX in Board view</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2375">Allow selecting past dates in date picker</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2372">Allow moving tasks between different sources</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2211">Inaccurate section task counts in Board view</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2154">Cannot deselect label in multi-select toolbar</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2153">Label picker remembers previous selection</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2019">Automatic daily backup</issue>
+        <issue url="https://github.com/alainm23/planify/issues/1884">Change history improvements</issue>
+        <issue url="https://github.com/alainm23/planify/issues/1356">CalDAV section support</issue>
+      </issues>
+    </release>
     <release version="4.19.1" date="2026-04-24" urgency="medium">
       <description translate="no">
         <p>Planify 4.19.1 is a maintenance release focused on bug fixes and improvements.</p>

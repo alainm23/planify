@@ -100,23 +100,6 @@ public class Dialogs.Preferences.Pages.InboxPage : Dialogs.Preferences.Pages.Bas
         }
     }
 
-    private Gtk.Widget get_header_box (string title) {
-        var header_label = new Gtk.Label (title) {
-            css_classes = { "heading" },
-            halign = START,
-            margin_start = 3
-        };
-
-        var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            margin_top = 6,
-            margin_start = 3,
-            margin_bottom = 3
-        };
-
-        header_box.append (header_label);
-
-        return header_box;
-    }
 
     public class ProjectRow : Gtk.ListBoxRow {
         public Objects.Project project { get; construct; }

@@ -14,12 +14,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.16-dev\n"
 
-#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:352
+#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
 msgstr "Proyectos"
 
-#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:356
+#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:515
 msgid "Sections"
 msgstr "Secciones"
 
@@ -27,9 +27,9 @@ msgstr "Secciones"
 msgid "Tasks"
 msgstr "Tareas"
 
-#: core/Enum.vala:177 core/Enum.vala:540 core/Objects/Filters/Labels.vala:33
+#: core/Enum.vala:177 core/Enum.vala:548 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
-#: src/Dialogs/Preferences/Pages/Backup.vala:364 src/Layouts/ItemBoard.vala:791
+#: src/Dialogs/Preferences/Pages/Backup.vala:523 src/Layouts/ItemBoard.vala:791
 #: src/Layouts/ItemRow.vala:1246
 msgid "Labels"
 msgstr "Etiquetas"
@@ -99,7 +99,7 @@ msgstr "Nextcloud"
 msgid "CalDAV"
 msgstr "CalDAV"
 
-#: core/Enum.vala:345 core/Enum.vala:537 core/Widgets/PriorityButton.vala:90
+#: core/Enum.vala:345 core/Enum.vala:545 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:547 src/Views/Project/Project.vala:592
 #: src/Views/Scheduled/Scheduled.vala:241
 #: src/Views/Scheduled/Scheduled.vala:270 src/Views/Today.vala:723
@@ -133,25 +133,34 @@ msgstr "Tarea creada"
 msgid "Task Updated"
 msgstr "Tarea actualizada"
 
-#: core/Enum.vala:528
+#: core/Enum.vala:536
 msgid "Content"
 msgstr "Contenido"
 
-#: core/Enum.vala:531 src/Dialogs/Project.vala:149 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1961 src/Layouts/ItemSidebarView.vala:182
+#: core/Enum.vala:539 src/Dialogs/Project.vala:149 src/Dialogs/Section.vala:91
+#: src/Layouts/ItemRow.vala:1950 src/Layouts/ItemSidebarView.vala:182
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "Descripción"
 
-#: core/Enum.vala:534 core/Objects/Filters/Scheduled.vala:48
+#: core/Enum.vala:542 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
 msgstr "Planificado"
 
-#: core/Enum.vala:543 core/Widgets/PinButton.vala:41
+#: core/Enum.vala:551 core/Widgets/PinButton.vala:41
 #: src/Layouts/ItemBoard.vala:772 src/Layouts/ItemBoard.vala:785
 #: src/Layouts/ItemRow.vala:1227 src/Layouts/ItemRow.vala:1240
 msgid "Pin"
 msgstr "Fijar"
+
+#: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:148
+#: src/Services/ExportService.vala:73
+msgid "Deadline"
+msgstr "Fecha límite"
+
+#: core/Enum.vala:557
+msgid "Parent task"
+msgstr ""
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -221,19 +230,19 @@ msgstr "etiquetas"
 msgid "Pinboard"
 msgstr "Importantes"
 
-#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:118
+#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:117
 msgid "Priority 1: high"
 msgstr "Prioridad 1: alta"
 
-#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:120
+#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:119
 msgid "Priority 2: medium"
 msgstr "Prioridad 2: media"
 
-#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:122
+#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:121
 msgid "Priority 3: low"
 msgstr "Prioridad 3: baja"
 
-#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:124
+#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:123
 msgid "Priority 4: none"
 msgstr "Prioridad 4: ninguna"
 
@@ -314,24 +323,24 @@ msgstr "sin etiqueta"
 msgid "unlabeled"
 msgstr "sin etiquetar"
 
-#: core/Objects/Item.vala:1435 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1442 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr ""
 
-#: core/Objects/Item.vala:1460
+#: core/Objects/Item.vala:1467
 msgid "Task copied to clipboard"
 msgstr "Tarea copiada al portapapeles"
 
-#: core/Objects/Item.vala:1477
+#: core/Objects/Item.vala:1484
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1493
+#: core/Objects/Item.vala:1500
 msgid "Task exported successfully"
 msgstr ""
 
 # # c-format
-#: core/Objects/Item.vala:1791 core/Utils/Util.vala:904
+#: core/Objects/Item.vala:1798 core/Utils/Util.vala:904
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "Tarea movida a %s"
@@ -342,16 +351,16 @@ msgstr "Tarea movida a %s"
 msgid "Delete Label %s"
 msgstr "Eliminar Etiqueta %s"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:876
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:880
 #: core/Objects/Section.vala:407
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:188
-#: src/Layouts/ItemSidebarView.vala:605 src/Layouts/SectionBoard.vala:680
-#: src/Services/Backups.vala:134
+#: src/Layouts/ItemSidebarView.vala:599 src/Layouts/SectionBoard.vala:680
+#: src/Services/BackupManager.vala:189
 msgid "This can not be undone"
 msgstr "Esto no se puede deshacer"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:879
-#: core/Objects/Project.vala:936 core/Objects/Section.vala:410
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:883
+#: core/Objects/Project.vala:940 core/Objects/Section.vala:410
 #: core/Objects/Section.vala:439 core/Utils/Util.vala:454
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:453
@@ -360,49 +369,48 @@ msgstr "Esto no se puede deshacer"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:191
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:220
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
-#: src/Dialogs/Preferences/Pages/Backup.vala:377
-#: src/Dialogs/Preferences/Pages/Backup.vala:443
-#: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:608
-#: src/Layouts/SectionBoard.vala:683 src/Services/Backups.vala:137
+#: src/Dialogs/Preferences/Pages/Backup.vala:594
+#: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:602
+#: src/Layouts/SectionBoard.vala:683 src/Services/BackupManager.vala:192
 #: src/Views/Filter.vala:634 src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:314
+#: src/Widgets/MultiSelectToolbar.vala:309
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:880
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:884
 #: core/Objects/Section.vala:411 core/Widgets/DeadlineButton.vala:207
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:192
-#: src/Dialogs/Preferences/Pages/Backup.vala:273
-#: src/Layouts/ItemSidebarView.vala:609 src/Layouts/SectionBoard.vala:684
-#: src/Services/Backups.vala:138 src/Views/Filter.vala:635
-#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:246
-#: src/Widgets/MultiSelectToolbar.vala:315
+#: src/Dialogs/Preferences/Pages/Backup.vala:360
+#: src/Layouts/ItemSidebarView.vala:603 src/Layouts/SectionBoard.vala:684
+#: src/Services/BackupManager.vala:193 src/Views/Filter.vala:635
+#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:241
+#: src/Widgets/MultiSelectToolbar.vala:310
 msgid "Delete"
 msgstr "Eliminar"
 
-#: core/Objects/Project.vala:839
+#: core/Objects/Project.vala:843
 msgid "The project was copied to the Clipboard."
 msgstr "El proyecto fue copiado al Portapapeles."
 
 # # c-format
-#: core/Objects/Project.vala:875
+#: core/Objects/Project.vala:879
 #, c-format
 msgid "Delete Project %s?"
 msgstr "¿Eliminar proyecto %s?"
 
-#: core/Objects/Project.vala:932 core/Objects/Section.vala:435
+#: core/Objects/Project.vala:936 core/Objects/Section.vala:435
 msgid "Archive?"
 msgstr "¿Archivar?"
 
 # # c-format
-#: core/Objects/Project.vala:933 core/Objects/Section.vala:436
+#: core/Objects/Project.vala:937 core/Objects/Section.vala:436
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Esto archivará %s y todas sus tareas."
 
-#: core/Objects/Project.vala:937 core/Objects/Section.vala:440
+#: core/Objects/Project.vala:941 core/Objects/Section.vala:440
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:672 src/Views/Project/Project.vala:386
 msgid "Archive"
@@ -484,7 +492,7 @@ msgstr ""
 "Lo siento, Añadir Rápido no encuentra ningún proyecto disponible. Intenta "
 "crear un proyecto desde Planify."
 
-#: core/QuickAddCore.vala:1414 src/MainWindow.vala:759
+#: core/QuickAddCore.vala:1414 src/MainWindow.vala:760
 msgid "Keyboard Shortcuts"
 msgstr "Atajos de teclado"
 
@@ -621,7 +629,7 @@ msgstr ""
 msgid "On this computer"
 msgstr "En este ordenador"
 
-#: core/Services/Todoist.vala:33 src/Layouts/SidebarSourceRow.vala:81
+#: core/Services/Todoist.vala:32 src/Layouts/SidebarSourceRow.vala:81
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
@@ -633,36 +641,36 @@ msgstr ""
 msgid "Invalid API token"
 msgstr ""
 
-#: core/Services/Todoist.vala:1624 src/Widgets/ErrorView.vala:187
+#: core/Services/Todoist.vala:1425 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "La solicitud no era correcta."
 
-#: core/Services/Todoist.vala:1625 src/Widgets/ErrorView.vala:188
+#: core/Services/Todoist.vala:1426 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Se requiere autenticación, y ha fallado, o aún no se ha proporcionado."
 
-#: core/Services/Todoist.vala:1626 src/Widgets/ErrorView.vala:189
+#: core/Services/Todoist.vala:1427 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr "La petición era válida, pero para algo que está prohibido."
 
-#: core/Services/Todoist.vala:1627 src/Widgets/ErrorView.vala:190
+#: core/Services/Todoist.vala:1428 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "No se ha podido encontrar el recurso solicitado."
 
-#: core/Services/Todoist.vala:1628 src/Widgets/ErrorView.vala:192
+#: core/Services/Todoist.vala:1429 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "El usuario ha enviado demasiadas solicitudes en un tiempo determinado."
 
-#: core/Services/Todoist.vala:1629 src/Widgets/ErrorView.vala:193
+#: core/Services/Todoist.vala:1430 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "La solicitud ha fallado debido a un error del servidor."
 
-#: core/Services/Todoist.vala:1630 src/Widgets/ErrorView.vala:194
+#: core/Services/Todoist.vala:1431 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "El servidor no puede procesar la solicitud."
 
-#: core/Services/Todoist.vala:1633 src/Widgets/ErrorView.vala:197
+#: core/Services/Todoist.vala:1432 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "Error desconocido"
 
@@ -875,7 +883,7 @@ msgid "Dark Blue"
 msgstr "Azul oscuro"
 
 #: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
-#: src/Views/Today.vala:771
+#: src/Views/Today.vala:771 src/Widgets/ItemChangeHistoryRow.vala:268
 msgid "None"
 msgstr "Ninguno"
 
@@ -1167,37 +1175,37 @@ msgid "Choose a date"
 msgstr "Elija una fecha"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:46
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:173
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:251
 msgid "Su"
 msgstr "Dom"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:47
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:137
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:215
 msgid "Mo"
 msgstr "Lun"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:48
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:143
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:221
 msgid "Tu"
 msgstr "Mar"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:49
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:149
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:227
 msgid "We"
 msgstr "Mie"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:50
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:155
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:233
 msgid "Th"
 msgstr "Jue"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:51
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:161
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:239
 msgid "Fr"
 msgstr "Vie"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:52
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:167
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:245
 msgid "Sa"
 msgstr "Sáb"
 
@@ -1210,7 +1218,7 @@ msgstr "Hora"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:846
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:430
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:571
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
 #: src/Layouts/ItemBoard.vala:695 src/Layouts/ItemRow.vala:1177
 msgid "until"
@@ -1218,7 +1226,7 @@ msgstr "hasta"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:849
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:575
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:698 src/Layouts/ItemRow.vala:1180
 msgid "for"
@@ -1226,7 +1234,7 @@ msgstr "para"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:849
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:575
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:698 src/Layouts/ItemRow.vala:1180
 msgid "times"
@@ -1234,7 +1242,7 @@ msgstr "veces"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:849
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:434
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:575
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:698 src/Layouts/ItemRow.vala:1180
 msgid "time"
@@ -1242,7 +1250,7 @@ msgstr "hora"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:105
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:192
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:89
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:104
 msgid "Repeat"
 msgstr "Repetir"
 
@@ -1291,59 +1299,103 @@ msgid "Custom"
 msgstr "Personalizado"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:873
+#: src/Widgets/ItemChangeHistoryRow.vala:281
 msgid "No date"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:63
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:135
 msgid "Minute(s)"
 msgstr "Minuto(s)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:63
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:135
 msgid "Hour(s)"
 msgstr "Hora(s)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:63
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:135
 msgid "Day(s)"
 msgstr "Día(s)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:63
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:135
 msgid "Week(s)"
 msgstr "Semana(s)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:63
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:135
 msgid "Month(s)"
 msgstr "Mes(es)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:121
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:63
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:135
 msgid "Year(s)"
 msgstr "Año(s)"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:199
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:277
 msgid "Never"
 msgstr "Nunca"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:203
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:281
 msgid "On Date"
 msgstr "A tiempo"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:207
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:285
 msgid "After"
 msgstr "Después"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:255
-#: core/Widgets/MarkdownEditor.vala:1382 src/Layouts/ItemBoard.vala:852
-#: src/Layouts/ItemRow.vala:1314
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:358
+#: core/Widgets/MarkdownEditor.vala:1382 src/Layouts/ItemBoard.vala:846
+#: src/Layouts/ItemRow.vala:1309
 msgid "Apply"
 msgstr "Aplicar"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:268
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:371
 msgid "Repeat every"
 msgstr "Repetir cada"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:275
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:378
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
 msgid "End"
 msgstr "Fin"
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:502
+msgid "Minute"
+msgid_plural "Minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:503
+msgid "Hour"
+msgid_plural "Hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:504
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:508
+msgid "Day"
+msgid_plural "Days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:505
+msgid "Week"
+msgid_plural "Weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:506
+msgid "Month"
+msgid_plural "Months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:507
+msgid "Year"
+msgid_plural "Years"
+msgstr[0] ""
+msgstr[1] ""
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
@@ -1379,10 +1431,6 @@ msgstr ""
 #: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
 msgid "What is the latest date to complete this?"
 msgstr ""
-
-#: core/Widgets/DeadlineButton.vala:148 src/Services/ExportService.vala:73
-msgid "Deadline"
-msgstr "Fecha límite"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1706,36 +1754,29 @@ msgstr "Sin fecha"
 msgid "Done"
 msgstr "Listo"
 
-#: src/Dialogs/ItemChangeHistory.vala:35 src/Layouts/ItemRow.vala:1380
+#: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1375
 #: src/Layouts/ItemSidebarView.vala:518
 msgid "Change History"
 msgstr "Historial de cambios"
 
-#: src/Dialogs/ItemChangeHistory.vala:54
+#: src/Dialogs/ItemChangeHistory.vala:56
 msgid "Added at"
 msgstr "Agregada el"
 
-#: src/Dialogs/ItemChangeHistory.vala:56
+#: src/Dialogs/ItemChangeHistory.vala:58
 msgid "Not available"
 msgstr "No disponible"
 
-#: src/Dialogs/ItemChangeHistory.vala:60
+#: src/Dialogs/ItemChangeHistory.vala:62
 msgid "Updated at"
 msgstr "Actualizada el"
 
-#: src/Dialogs/ItemChangeHistory.vala:69
+#: src/Dialogs/ItemChangeHistory.vala:71
 msgid ""
 "Your change history will be displayed here once you start making changes."
 msgstr ""
 "Tu historial de cambios se mostrará aquí una vez que empieces a realizar "
 "modificaciones."
-
-#: src/Dialogs/ItemChangeHistory.vala:138
-#, c-format
-msgid "Load more history from %d week ago…"
-msgid_plural "Load more history from %d weeks ago…"
-msgstr[0] "Cargar más historial de hace %d semana…"
-msgstr[1] "Cargar más historial de hace %d semanas…"
 
 #: src/Dialogs/Label.vala:45
 msgid "New Label"
@@ -1761,7 +1802,7 @@ msgstr "Actualizar etiqueta"
 msgid "Filter"
 msgstr "Filtro"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:764
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:765
 msgid "Archived Projects"
 msgstr "Proyectos archivados"
 
@@ -2076,12 +2117,12 @@ msgstr ""
 msgid "Font Size"
 msgstr "Tamaño de letra"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:28
+#: src/Dialogs/Preferences/Pages/Backup.vala:29
 #: src/Dialogs/Preferences/PreferencesWindow.vala:132
 msgid "Backups"
 msgstr "Copias de seguridad"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:38
+#: src/Dialogs/Preferences/Pages/Backup.vala:39
 msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
@@ -2089,92 +2130,114 @@ msgstr ""
 "No se preocupe por perder sus datos. Puede crear copias de seguridad de sus "
 "proyectos activos, tareas y comentarios e importarlos más tarde."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:48
+#: src/Dialogs/Preferences/Pages/Backup.vala:50
+msgid "Automatic Daily Backup"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:51
+msgid "Creates a backup every day at midnight"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:58
 msgid "Create Backup"
 msgstr "Crear copia de seguridad"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:52
+#: src/Dialogs/Preferences/Pages/Backup.vala:62
 msgid "Import Backup"
 msgstr "Importar copia de seguridad"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:54
+#: src/Dialogs/Preferences/Pages/Backup.vala:64
 msgid "Backup Files"
 msgstr "Archivos de copia de seguridad"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:57
+#: src/Dialogs/Preferences/Pages/Backup.vala:67
 msgid "No backups found, create one clicking the button above."
 msgstr ""
 "No se encontraron copias de seguridad. Cree una haciendo clic en el botón de "
 "arriba."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:62
+#: src/Dialogs/Preferences/Pages/Backup.vala:72
 #, c-format
 msgid "Backup files are stored in: %s"
 msgstr "Los archivos de la copia de seguridad se almacenan en: %s"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:76
+#: src/Dialogs/Preferences/Pages/Backup.vala:81
+msgid ""
+"Only the last 30 backups are shown here. To access older backups, open the "
+"backup folder directly."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:97
+msgid "Extra Backup Locations"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:100
+msgid "No extra locations added yet."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:112
+msgid ""
+"Backup copies will also be saved to these folders after each backup is "
+"created."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:121
 msgid "Migrate"
 msgstr "Migrar"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:78
+#: src/Dialogs/Preferences/Pages/Backup.vala:123
 msgid "Migrate From Planner"
 msgstr "Migrar desde Planner"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:112
+#: src/Dialogs/Preferences/Pages/Backup.vala:163
 msgid "The Backup was created successfully."
 msgstr "La copia de seguridad se creó correctamente."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:129
+#: src/Dialogs/Preferences/Pages/Backup.vala:180
 msgid "Tasks Migrate Successfully"
 msgstr "Las tareas se migraron con éxito"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:133
+#: src/Dialogs/Preferences/Pages/Backup.vala:184
 msgid "The database file does not exist."
 msgstr "El archivo de base de datos no existe."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:171
+#: src/Dialogs/Preferences/Pages/Backup.vala:261
 msgid "Selected file is invalid"
 msgstr "El archivo seleccionado no es válido"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:216
-msgid "View Backup"
-msgstr "Ver copia de seguridad"
-
-#: src/Dialogs/Preferences/Pages/Backup.vala:272
+#: src/Dialogs/Preferences/Pages/Backup.vala:359
 msgid "Download"
 msgstr "Descargar"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:336
-msgid "Import Overview"
-msgstr "Resumen de la importación"
+#: src/Dialogs/Preferences/Pages/Backup.vala:495
+#: src/Dialogs/Preferences/Pages/Backup.vala:536
+#: src/Dialogs/Preferences/Pages/Backup.vala:595
+msgid "Restore Backup"
+msgstr "Restaurar copia de seguridad"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:348 src/Dialogs/Project.vala:404
+#: src/Dialogs/Preferences/Pages/Backup.vala:507 src/Dialogs/Project.vala:404
 msgid "Sources"
 msgstr "Fuentes"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:360
+#: src/Dialogs/Preferences/Pages/Backup.vala:519
 msgid "To-Dos"
 msgstr "Tareas"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:382
-msgid "Confirm"
-msgstr "Confirmar"
+#: src/Dialogs/Preferences/Pages/Backup.vala:580
+msgid "This will replace all your current data"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:438
+#: src/Dialogs/Preferences/Pages/Backup.vala:589
 msgid "Restore backup"
 msgstr "Restaurar copia de seguridad"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:439
+#: src/Dialogs/Preferences/Pages/Backup.vala:590
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
 msgstr ""
 "¿Estás seguro de que deseas continuar? Esta operación eliminará tus datos "
 "actuales y los reemplazará con los de la copia de seguridad."
-
-#: src/Dialogs/Preferences/Pages/Backup.vala:444
-msgid "Restore Backup"
-msgstr "Restaurar copia de seguridad"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:158
@@ -2575,7 +2638,7 @@ msgstr ""
 "Cuando se activa, se añade por defecto un recordatorio antes de la hora de "
 "vencimiento de la tarea."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:754
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:755
 msgid "Preferences"
 msgstr "Preferencias"
 
@@ -2691,7 +2754,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:757
+#: src/MainWindow.vala:758
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -2732,7 +2795,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:833
+#: src/MainWindow.vala:834
 msgid "See More"
 msgstr "Ver más"
 
@@ -2862,7 +2925,7 @@ msgstr "¡Proyecto añadido correctamente!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:790 src/Layouts/ItemRow.vala:1245
-#: src/Layouts/ItemRow.vala:1373 src/Layouts/ItemSidebarView.vala:512
+#: src/Layouts/ItemRow.vala:1368 src/Layouts/ItemSidebarView.vala:512
 msgid "Move"
 msgstr "Mover"
 
@@ -2914,8 +2977,8 @@ msgid "Unpin"
 msgstr "Desanclar"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:617 src/Layouts/ItemRow.vala:1589
-#: src/Layouts/ItemSidebarView.vala:684
+#: src/Layouts/ItemBoard.vala:617 src/Layouts/ItemRow.vala:1578
+#: src/Layouts/ItemSidebarView.vala:678
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Completada. Próxima ocurrencia: %s"
@@ -2929,28 +2992,28 @@ msgid "Edit"
 msgstr "Editar"
 
 #: src/Layouts/ItemBoard.vala:796 src/Layouts/ItemRow.vala:1251
-#: src/Layouts/ItemRow.vala:1372 src/Layouts/ItemSidebarView.vala:511
+#: src/Layouts/ItemRow.vala:1367 src/Layouts/ItemSidebarView.vala:511
 #: src/Layouts/ProjectRow.vala:705 src/Layouts/SectionBoard.vala:611
 #: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:375
 msgid "Duplicate"
 msgstr "Duplicar"
 
 #: src/Layouts/ItemBoard.vala:798 src/Layouts/ItemRow.vala:1253
-#: src/Layouts/ItemRow.vala:1377 src/Layouts/ItemSidebarView.vala:515
+#: src/Layouts/ItemRow.vala:1372 src/Layouts/ItemSidebarView.vala:515
 msgid "Delete Task"
 msgstr "Eliminar tarea"
 
-#: src/Layouts/ItemBoard.vala:1098 src/Layouts/ItemRow.vala:1831
+#: src/Layouts/ItemBoard.vala:1092 src/Layouts/ItemRow.vala:1820
 msgid "Order changed to 'Custom sort order'"
 msgstr "Orden cambiado a 'Orden personalizado'"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:1199 src/Layouts/ItemRow.vala:1611
+#: src/Layouts/ItemBoard.vala:1193 src/Layouts/ItemRow.vala:1600
 #, c-format
 msgid "%s was deleted"
 msgstr "%s fue eliminado"
 
-#: src/Layouts/ItemBoard.vala:1200 src/Layouts/ItemRow.vala:1612
+#: src/Layouts/ItemBoard.vala:1194 src/Layouts/ItemRow.vala:1601
 msgid "Undo"
 msgstr "Deshacer"
 
@@ -2966,20 +3029,20 @@ msgstr "Ocultar subtareas"
 msgid "Show Sub-tasks"
 msgstr "Mostrar subtareas"
 
-#: src/Layouts/ItemRow.vala:1368 src/Layouts/ItemSidebarView.vala:508
+#: src/Layouts/ItemRow.vala:1363 src/Layouts/ItemSidebarView.vala:508
 msgid "Use as a Note"
 msgstr "Usar como nota"
 
-#: src/Layouts/ItemRow.vala:1371 src/Layouts/ItemSidebarView.vala:510
-#: src/Widgets/MultiSelectToolbar.vala:244
+#: src/Layouts/ItemRow.vala:1366 src/Layouts/ItemSidebarView.vala:510
+#: src/Widgets/MultiSelectToolbar.vala:239
 msgid "Copy to Clipboard"
 msgstr "Copiar al portapapeles"
 
-#: src/Layouts/ItemRow.vala:1374 src/Layouts/ItemSidebarView.vala:513
+#: src/Layouts/ItemRow.vala:1369 src/Layouts/ItemSidebarView.vala:513
 msgid "Export as .ics"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2037
+#: src/Layouts/ItemRow.vala:2026
 msgid "Add Attachments"
 msgstr "Agregar archivos adjuntos"
 
@@ -2999,7 +3062,7 @@ msgstr "Propiedades"
 msgid "Expand Description"
 msgstr ""
 
-#: src/Layouts/ItemSidebarView.vala:604
+#: src/Layouts/ItemSidebarView.vala:598
 msgid "Are you sure you want to delete?"
 msgstr "¿Estás seguro de que quieres eliminarlo?"
 
@@ -3123,35 +3186,35 @@ msgstr "Menú principal"
 msgid "Open Quick Find"
 msgstr "Abrir búsqueda rápida"
 
-#: src/MainWindow.vala:345
+#: src/MainWindow.vala:346
 msgid "Task was modified on another device"
 msgstr ""
 
-#: src/MainWindow.vala:347
+#: src/MainWindow.vala:348
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:762
+#: src/MainWindow.vala:763
 msgid "About Planify"
 msgstr "Acerca de Planify"
 
-#: src/MainWindow.vala:830
+#: src/MainWindow.vala:831
 msgid "Oops! Something happened"
 msgstr "¡Ups! Algo ha ocurrido"
 
-#: src/MainWindow.vala:849 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:850 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Tarea completada"
 
-#: src/MainWindow.vala:850
+#: src/MainWindow.vala:851
 msgid "View"
 msgstr "Vista"
 
-#: src/MainWindow.vala:888
+#: src/MainWindow.vala:889
 msgid "Database Integrity Check Failed"
 msgstr "Falló la verificación de integridad de la base de datos"
 
-#: src/MainWindow.vala:889
+#: src/MainWindow.vala:890
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3174,27 +3237,27 @@ msgstr ""
 "Después del reinicio, podrá restaurar cualquier copia de seguridad que haya "
 "creado previamente. Gracias por su paciencia"
 
-#: src/MainWindow.vala:891
+#: src/MainWindow.vala:892
 msgid "Reset Database"
 msgstr "Reiniciar base de datos"
 
-#: src/Services/Backups.vala:133
+#: src/Services/BackupManager.vala:188
 msgid "Delete Backup"
 msgstr "Eliminar copia de seguridad"
 
-#: src/Services/Backups.vala:265
+#: src/Services/BackupManager.vala:320
 msgid "Backup Successfully Imported"
 msgstr "Copia de seguridad importada correctamente"
 
-#: src/Services/Backups.vala:266
+#: src/Services/BackupManager.vala:321
 msgid "Planify will restart to apply the changes"
 msgstr "Planify se reiniciará para aplicar los cambios"
 
-#: src/Services/Backups.vala:269
+#: src/Services/BackupManager.vala:324
 msgid "Restart Now"
 msgstr "Reiniciar ahora"
 
-#: src/Services/Backups.vala:283
+#: src/Services/BackupManager.vala:338
 msgid "Planify Backup Files"
 msgstr "Archivos de copia de seguridad de Planify"
 
@@ -3535,32 +3598,74 @@ msgid "Task uncompleted"
 msgstr "Tarea no completada"
 
 # # c-format
-#: src/Widgets/ItemChangeHistoryRow.vala:51
+#: src/Widgets/ItemChangeHistoryRow.vala:52
 msgid "Task moved to project"
 msgstr "Tarea movida al proyecto"
 
+#: src/Widgets/ItemChangeHistoryRow.vala:53
+msgid "Unknown project"
+msgstr ""
+
+#: src/Widgets/ItemChangeHistoryRow.vala:56
+msgid "Unknown"
+msgstr ""
+
+#: src/Widgets/ItemChangeHistoryRow.vala:59
+msgid "Unknown section"
+msgstr ""
+
 # # c-format
-#: src/Widgets/ItemChangeHistoryRow.vala:61
+#: src/Widgets/ItemChangeHistoryRow.vala:63
 msgid "Task moved to"
 msgstr "Tarea movida a"
 
-#: src/Widgets/ItemChangeHistoryRow.vala:87
-msgid "Previous"
-msgstr "Anterior"
+#: src/Widgets/ItemChangeHistoryRow.vala:169
+#: src/Widgets/ItemChangeHistoryRow.vala:199
+msgid "See more"
+msgstr ""
 
-#: src/Widgets/ItemChangeHistoryRow.vala:108
-msgid "New"
-msgstr "Nuevo"
+#: src/Widgets/ItemChangeHistoryRow.vala:199
+msgid "See less"
+msgstr ""
 
-#: src/Widgets/ItemChangeHistoryRow.vala:192
-#: src/Widgets/ItemChangeHistoryRow.vala:193
+#: src/Widgets/ItemChangeHistoryRow.vala:276
+msgid "Empty"
+msgstr ""
+
+#: src/Widgets/ItemChangeHistoryRow.vala:290
+msgid "No priority"
+msgstr ""
+
+#: src/Widgets/ItemChangeHistoryRow.vala:298
+msgid "No labels"
+msgstr ""
+
+#: src/Widgets/ItemChangeHistoryRow.vala:303
+msgid "Not pinned"
+msgstr ""
+
+#: src/Widgets/ItemChangeHistoryRow.vala:304
+#: src/Widgets/ItemChangeHistoryRow.vala:305
 msgid "Pin: Active"
 msgstr "Fijar: Activo"
 
-#: src/Widgets/ItemChangeHistoryRow.vala:192
-#: src/Widgets/ItemChangeHistoryRow.vala:193
+#: src/Widgets/ItemChangeHistoryRow.vala:304
+#: src/Widgets/ItemChangeHistoryRow.vala:305
 msgid "Pin: Inactive"
 msgstr "Fijar: Inactivo"
+
+#: src/Widgets/ItemChangeHistoryRow.vala:308
+msgid "No deadline"
+msgstr ""
+
+#: src/Widgets/ItemChangeHistoryRow.vala:319
+msgid "No parent"
+msgstr ""
+
+#: src/Widgets/ItemChangeHistoryRow.vala:322
+#: src/Widgets/ItemChangeHistoryRow.vala:326
+msgid "Unknown task"
+msgstr ""
 
 #: src/Widgets/ItemDetailCompleted.vala:74
 msgid "Completed At"
@@ -3570,34 +3675,34 @@ msgstr "Completado el"
 msgid "Move to Project"
 msgstr "Mover al Proyecto"
 
-#: src/Widgets/MultiSelectToolbar.vala:242
+#: src/Widgets/MultiSelectToolbar.vala:237
 msgid "Mark as Completed"
 msgstr "Marcar como completada"
 
-#: src/Widgets/MultiSelectToolbar.vala:284
+#: src/Widgets/MultiSelectToolbar.vala:279
 #, c-format
 msgid "%d task copied to clipboard"
 msgid_plural "%d tasks copied to clipboard"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Widgets/MultiSelectToolbar.vala:295
+#: src/Widgets/MultiSelectToolbar.vala:290
 msgid "Delete To-Do"
 msgstr "Eliminar tarea pendiente"
 
-#: src/Widgets/MultiSelectToolbar.vala:296
+#: src/Widgets/MultiSelectToolbar.vala:291
 msgid "Are you sure you want to delete this to-do?"
 msgstr "¿Estás seguro de que deseas eliminar esta tarea pendiente?"
 
 # # c-format
-#: src/Widgets/MultiSelectToolbar.vala:299
+#: src/Widgets/MultiSelectToolbar.vala:294
 #, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
 msgstr[0] "Eliminar %d tarea pendiente"
 msgstr[1] "Eliminar %d tareas pendientes"
 
-#: src/Widgets/MultiSelectToolbar.vala:305
+#: src/Widgets/MultiSelectToolbar.vala:300
 #, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
@@ -3605,7 +3710,7 @@ msgstr[0] "¿Estás seguro de que deseas eliminar esta tarea pendiente?"
 msgstr[1] "¿Estás seguro de que deseas eliminar estas tareas pendientes?"
 
 # # c-format
-#: src/Widgets/MultiSelectToolbar.vala:402
+#: src/Widgets/MultiSelectToolbar.vala:397
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
@@ -3780,6 +3885,27 @@ msgstr "Abrir etiquetas"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Abrir Importantes"
+
+#, c-format
+#~ msgid "Load more history from %d week ago…"
+#~ msgid_plural "Load more history from %d weeks ago…"
+#~ msgstr[0] "Cargar más historial de hace %d semana…"
+#~ msgstr[1] "Cargar más historial de hace %d semanas…"
+
+#~ msgid "View Backup"
+#~ msgstr "Ver copia de seguridad"
+
+#~ msgid "Import Overview"
+#~ msgstr "Resumen de la importación"
+
+#~ msgid "Confirm"
+#~ msgstr "Confirmar"
+
+#~ msgid "Previous"
+#~ msgstr "Anterior"
+
+#~ msgid "New"
+#~ msgstr "Nuevo"
 
 #~ msgid "Manage Section Order"
 #~ msgstr "Gestionar el orden de las secciones"

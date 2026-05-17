@@ -106,7 +106,7 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     Objects.Source ? _source;
-    public Objects.Source source {
+    public new Objects.Source source {
         get {
             _source = Services.Store.instance ().get_source (source_id);
             return _source;
@@ -124,7 +124,7 @@ public class Objects.Project : Objects.BaseObject {
     public int child_order { get; set; default = 0; }
 
     string _view_id;
-    public string view_id {
+    public new string view_id {
         get {
             _view_id = "project-%s".printf (id_string);
             return _view_id;
@@ -376,6 +376,10 @@ public class Objects.Project : Objects.BaseObject {
 
         if (node.get_object ().has_member ("calendar_url")) {
             calendar_url = node.get_object ().get_string_member ("calendar_url");
+        }
+
+        if (node.get_object ().has_member ("markdown_setting")) {
+            markdown_setting = MarkdownSetting.parse (node.get_object ().get_string_member ("markdown_setting"));
         }
     }
 

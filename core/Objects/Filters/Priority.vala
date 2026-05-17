@@ -107,7 +107,7 @@ public class Objects.Filters.Priority : Objects.BaseObject {
         }
     }
 
-    public string color {
+    public new string color {
         get {
             if (priority == HIGH) {
                 return "#ff7066";
