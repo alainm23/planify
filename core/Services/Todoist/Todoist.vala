@@ -241,13 +241,23 @@ public class Services.Todoist : GLib.Object {
      * Queue
      */
 
+    private bool _queue_running = false;
+
     public async void queue (Objects.Source source) {
+        if (_queue_running) {
+            Services.LogService.get_default ().debug ("Todoist", "Queue already running, skipping");
+            return;
+        }
+
+        _queue_running = true;
         Gee.ArrayList<Objects.Queue ?> queue_collection = Services.Database.get_default ().get_all_queue (source.id);
         if (queue_collection.size <= 0) {
             return;
         }
 
         string json = get_queue_json (queue_collection);
+        Services.LogService.get_default ().info ("Todoist", "Flushing queue: %d items".printf (queue_collection.size));
+        Services.LogService.get_default ().debug ("Todoist", "Queue JSON: %s".printf (json));
 
         var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
         message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
@@ -263,6 +273,7 @@ public class Services.Todoist : GLib.Object {
 
             foreach (var q in queue_collection) {
                 var uuid_member = node.get_object_member ("sync_status").get_member (q.uuid);
+                Services.LogService.get_default ().debug ("Todoist", "Processing queue item — query: %s, uuid: %s, object_id: %s".printf (q.query, q.uuid, q.object_id));
                 if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                     var temp_id_mapping = node.get_object_member ("temp_id_mapping");
 
@@ -311,6 +322,8 @@ public class Services.Todoist : GLib.Object {
         } catch (Error e) {
             debug (e.message);
         }
+
+        _queue_running = false;
     }
 
     private void begin_command (Json.Builder builder, string type, string uuid, string? temp_id = null) {
@@ -385,8 +398,14 @@ public class Services.Todoist : GLib.Object {
                 builder.set_member_name ("description"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "description"));
                 builder.set_member_name ("priority"); builder.add_int_value (Utils.JsonUtils.get_int (q.args, "priority"));
                 builder.set_member_name ("project_id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "project_id"));
-                builder.set_member_name ("section_id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "section_id"));
-                builder.set_member_name ("parent_id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "parent_id"));
+                var section_id = Utils.JsonUtils.get_string (q.args, "section_id");
+                if (section_id != "") {
+                    builder.set_member_name ("section_id"); builder.add_string_value (section_id);
+                }
+                var parent_id = Utils.JsonUtils.get_string (q.args, "parent_id");
+                if (parent_id != "") {
+                    builder.set_member_name ("parent_id"); builder.add_string_value (parent_id);
+                }
                 end_command (builder);
             } else if (q.query == "item_update") {
                 begin_command (builder, "item_update", q.uuid);
