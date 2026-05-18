@@ -61,6 +61,22 @@
   <url type="donation">https://useplanify.com/donate</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.19.3" date="2026-05-15" urgency="medium">
+      <description translate="no">
+        <p>Planify 4.19.3 is a maintenance release focused on bug fixes.</p>
+        <p>Bug Fixes:</p>
+        <ul>
+          <li>Fixed CalDAV sync with Mailbox (Open-Xchange) — calendar data wrapped in CDATA is now parsed correctly, and tasks are no longer skipped when the content-type lacks the component parameter.</li>
+          <li>Fixed cursor jumping to the end of the text when editing task titles or descriptions in Today and Scheduled views.</li>
+          <li>Fixed long text expanding the sidebar beyond its intended width in HeaderItem.</li>
+        </ul>
+      </description>
+      <issues>
+        <issue url="https://github.com/alainm23/planify/issues/2220">Cursor jumps to end of description</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2472">Long text breaks sidebar width</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2018">Mailbox CalDAV sync regression</issue>
+      </issues>
+    </release>
     <release version="4.19.2" date="2026-05-14" urgency="medium">
       <description translate="no">
         <p>Planify 4.19.2 brings new features, CalDAV improvements, and several bug fixes.</p>
