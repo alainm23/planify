@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-05-06 15:11+0000\n"
-"Last-Translator: hentaku <hentaku@duck.com>\n"
+"PO-Revision-Date: 2026-05-19 00:11+0000\n"
+"Last-Translator: \"Fionn.Pi\" <ominibass93@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hans/>\n"
 "Language: zh\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.17.1\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -151,11 +151,11 @@ msgstr "置顶"
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:148
 #: src/Services/ExportService.vala:73
 msgid "Deadline"
-msgstr ""
+msgstr "截止时间"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "父任务"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -321,7 +321,7 @@ msgstr "尚无标签"
 
 #: core/Objects/Item.vala:1442 src/Services/ExportService.vala:187
 msgid "Deadline:"
-msgstr ""
+msgstr "截止时间："
 
 #: core/Objects/Item.vala:1467
 msgid "Task copied to clipboard"
@@ -329,11 +329,11 @@ msgstr "任务已复制到剪贴板"
 
 #: core/Objects/Item.vala:1484
 msgid "iCalendar Files"
-msgstr ""
+msgstr "iCalendar 文档"
 
 #: core/Objects/Item.vala:1500
 msgid "Task exported successfully"
-msgstr ""
+msgstr "任务导出成功"
 
 #: core/Objects/Item.vala:1798 core/Utils/Util.vala:904
 #, fuzzy, c-format
@@ -543,36 +543,36 @@ msgstr "%s 任务加载中…"
 #: core/Services/CalDAV/CalDAVClient.vala:357
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "已加载任务 %s …"
 
 #: core/Services/CalDAV/CalDAVClient.vala:350
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "正在同步任务%d/%d"
 
 #: core/Services/CalDAV/CalDAVClient.vala:720
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
-msgstr ""
+msgstr "该服务器不允许通过CalDAV创建项目，请直接从日历提供商的网站创建。"
 
 #: core/Services/CalDAV/CalDAVClient.vala:772
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
-msgstr ""
+msgstr "该服务器不允许经由 CalDAV 删除项目，请直接从日历提供者的网站将其删除。"
 
 #: core/Services/CalDAV/CalDAVClient.vala:776
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
-msgstr ""
+msgstr "该服务器不支持经由 CalDAV 删除项目，请直接从服务器删除。"
 
 #: core/Services/CalDAV/CalDAVClient.vala:810
 #: core/Services/CalDAV/CalDAVClient.vala:857
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
-msgstr ""
+msgstr "任务已在另一台设备上有所修改，请进行同步以获取最新版本。"
 
 #: core/Services/CalDAV/Core.vala:169
 msgid "Source already exists"
@@ -597,37 +597,37 @@ msgstr "同步已经完成"
 
 #: core/Services/CalDAV/Core.vala:308
 msgid "Authentication Expired"
-msgstr ""
+msgstr "认证已过期"
 
 #: core/Services/CalDAV/Core.vala:309
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
-msgstr ""
+msgstr "您的会话已过期，请在偏好设置中移除并重新添加您的账户。"
 
 #: core/Services/CalDAV/Core.vala:316
 msgid "Too Many Requests"
-msgstr ""
+msgstr "请求过多"
 
 #: core/Services/CalDAV/Core.vala:317
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
-msgstr ""
+msgstr "服务器正在限制请求速率，请等待几分钟后重试。"
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
-msgstr ""
+msgstr "在此计算机上"
 
 #: core/Services/Todoist.vala:32 src/Layouts/SidebarSourceRow.vala:81
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
-msgstr ""
+msgstr "Todoist 已更新其 API，请在偏好设置中重新连接您的账户以继续同步。"
 
 #: core/Services/Todoist.vala:108
 msgid "Invalid API token"
-msgstr ""
+msgstr "无效的API令牌"
 
 #: core/Services/Todoist.vala:1425 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
@@ -648,53 +648,53 @@ msgstr "找不到请求的资源。"
 
 #: core/Services/Todoist.vala:1429 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "用户在规定时间内发送了过多请求。"
 
 #: core/Services/Todoist.vala:1430 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "服务器错误，请求失败"
 
 #: core/Services/Todoist.vala:1431 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "服务器当前无法处理该请求"
 
 #: core/Services/Todoist.vala:1432 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
-msgstr ""
+msgstr "未知错误"
 
 #: core/Utils/Datetime.vala:72 core/Utils/Datetime.vala:635
 msgid "Yesterday"
-msgstr ""
+msgstr "昨天"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "days"
-msgstr ""
+msgstr "天"
 
 #: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
 msgid "day"
-msgstr ""
+msgstr "天"
 
 #: core/Utils/Datetime.vala:91
 #, c-format
 msgid "%s %s ago"
-msgstr ""
+msgstr "%s%s 前"
 
 #: core/Utils/Datetime.vala:93
 #, c-format
 msgid "%s %s left"
-msgstr ""
+msgstr "%s%s 后"
 
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
-msgstr ""
+msgstr "%-l:%M:%S %p"
 
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
-msgstr ""
+msgstr "%-l:%M %p"
 
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%H:%M:%S"
 
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
@@ -732,30 +732,30 @@ msgstr "周日、"
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
+msgstr[0] "在 %d 天内"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
+msgstr[0] "%d 天之前"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
-msgstr ""
+msgstr "%a, %b %-e, %Y"
 
 #: core/Utils/Datetime.vala:663
 msgid "%b %-e %Y"
-msgstr ""
+msgstr "%b %-e %Y"
 
 #: core/Utils/Datetime.vala:666 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: core/Utils/Datetime.vala:669
 msgid "%b %-e"
-msgstr ""
+msgstr "%b %-e"
 
 #: core/Utils/Datetime.vala:672
 msgid "%a %Y"
@@ -768,7 +768,7 @@ msgstr "%a"
 
 #: core/Utils/Datetime.vala:678
 msgid "%a, %b %-e"
-msgstr ""
+msgstr "%a，%b %-e"
 
 #: core/Utils/Datetime.vala:681
 msgid "%b"
@@ -776,59 +776,59 @@ msgstr "%b"
 
 #: core/Utils/Util.vala:41
 msgid "Berry Red"
-msgstr ""
+msgstr "浆果红"
 
 #: core/Utils/Util.vala:42
 msgid "Red"
-msgstr ""
+msgstr "红"
 
 #: core/Utils/Util.vala:43
 msgid "Orange"
-msgstr ""
+msgstr "橙"
 
 #: core/Utils/Util.vala:44
 msgid "Yellow"
-msgstr ""
+msgstr "黄"
 
 #: core/Utils/Util.vala:45
 msgid "Olive Green"
-msgstr ""
+msgstr "橄榄绿"
 
 #: core/Utils/Util.vala:46
 msgid "Lime Green"
-msgstr ""
+msgstr "柠檬绿"
 
 #: core/Utils/Util.vala:47
 msgid "Green"
-msgstr ""
+msgstr "绿"
 
 #: core/Utils/Util.vala:48
 msgid "Mint Green"
-msgstr ""
+msgstr "薄荷绿"
 
 #: core/Utils/Util.vala:49
 msgid "Teal"
-msgstr ""
+msgstr "青"
 
 #: core/Utils/Util.vala:50
 msgid "Sky Blue"
-msgstr ""
+msgstr "天蓝色"
 
 #: core/Utils/Util.vala:51
 msgid "Light Blue"
-msgstr ""
+msgstr "浅蓝色"
 
 #: core/Utils/Util.vala:52
 msgid "Blue"
-msgstr ""
+msgstr "蓝色"
 
 #: core/Utils/Util.vala:53
 msgid "Grape"
-msgstr ""
+msgstr "葡萄紫"
 
 #: core/Utils/Util.vala:54
 msgid "Violet"
-msgstr ""
+msgstr "紫色"
 
 #: core/Utils/Util.vala:55
 msgid "Lavender"
@@ -836,27 +836,27 @@ msgstr "薰衣草"
 
 #: core/Utils/Util.vala:56
 msgid "Magenta"
-msgstr ""
+msgstr "洋红色"
 
 #: core/Utils/Util.vala:57
 msgid "Salmon"
-msgstr ""
+msgstr "鲑红"
 
 #: core/Utils/Util.vala:58
 msgid "Charcoal"
-msgstr ""
+msgstr "炭灰色"
 
 #: core/Utils/Util.vala:59
 msgid "Grey"
-msgstr ""
+msgstr "灰色"
 
 #: core/Utils/Util.vala:60
 msgid "Taupe"
-msgstr ""
+msgstr "灰褐色"
 
 #: core/Utils/Util.vala:218
 msgid "Light"
-msgstr ""
+msgstr "浅色"
 
 #: core/Utils/Util.vala:221
 msgid "Dark"
@@ -864,16 +864,16 @@ msgstr "暗色"
 
 #: core/Utils/Util.vala:224
 msgid "Dark Blue"
-msgstr ""
+msgstr "暗蓝色"
 
 #: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 #: src/Views/Today.vala:771 src/Widgets/ItemChangeHistoryRow.vala:268
 msgid "None"
-msgstr ""
+msgstr "无"
 
 #: core/Utils/Util.vala:264
 msgid "Today + Inbox"
-msgstr ""
+msgstr "今日+收集箱"
 
 #: core/Utils/Util.vala:455
 msgid "Delete All"
@@ -901,38 +901,40 @@ msgid ""
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
+"本项目为您整理了快速上手所需的核心知识。请放心尝试，您随时可以通过偏好设置恢"
+"复当前项目。"
 
 #: core/Utils/Util.vala:616
 msgid "Tap this task"
-msgstr ""
+msgstr "点击此任务"
 
 #: core/Utils/Util.vala:617
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-msgstr ""
+msgstr "您有一个未完成的待办事项！点击左侧的复选框即可标记为完成。 "
 
 #: core/Utils/Util.vala:622
 msgid "Create a new task"
-msgstr ""
+msgstr "创建新任务"
 
 #: core/Utils/Util.vala:623
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
-msgstr ""
+msgstr "现在，轮到您了！点击项目底部的“+”按钮，输入任务描述，然后点击“添加任务”按钮。"
 
 #: core/Utils/Util.vala:628
 msgid "Plan this to-do for today or later"
-msgstr ""
+msgstr "将这项待办事项安排到今天或稍后完成"
 
 #: core/Utils/Util.vala:629
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
-msgstr ""
+msgstr "点击底部的日历按钮，设置待办事项的完成时间。"
 
 #: core/Utils/Util.vala:634
 msgid "Reorder your to-dos"
-msgstr ""
+msgstr "重新排列您的待办事项"
 
 #: core/Utils/Util.vala:635
 msgid ""
@@ -949,10 +951,12 @@ msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
+"为了更好地组织您的待办事项，请前往左侧面板，在“在此台电脑”区域点击“+”按钮，即"
+"可添加您自己的项目。"
 
 #: core/Utils/Util.vala:646
 msgid "You’re done!"
-msgstr ""
+msgstr "您完成了！"
 
 #: core/Utils/Util.vala:647
 msgid ""
@@ -962,212 +966,221 @@ msgid ""
 "below.\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
+"您只需了解这些基本信息即可开始添加自己的项目和待办事项。\n"
+"您可以稍后回到此项目，继续了解下方的高级功能。\n"
+"我们希望您能喜欢使用 Planify！"
 
 #: core/Utils/Util.vala:661
 msgid "Tune your setup"
-msgstr ""
+msgstr "调整您的设置"
 
 #: core/Utils/Util.vala:669
 msgid "Show your calendar events"
-msgstr ""
+msgstr "显示您的日历事件"
 
 #: core/Utils/Util.vala:670
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
+"您可以在Planify中显示系统的日历事件。前往（偏好设置” > 常规 > 日历事件）即可"
+"开启此功能。"
 
 #: core/Utils/Util.vala:676
 msgid "Enable synchronization with third-party services"
-msgstr ""
+msgstr "启用第三方同步功能"
 
 #: core/Utils/Util.vala:677
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
+"Planify 不仅可以在本地创建任务，还能与您的 Todoist 账户同步。前往（偏好设置 "
+"🡒 账户）即可进行设置。"
 
 #: core/Utils/Util.vala:685
 msgid "Boost your productivity"
-msgstr ""
+msgstr "提升您的生产力"
 
 #: core/Utils/Util.vala:693
 msgid "Drag the plus button!"
-msgstr ""
+msgstr "请拖动加号按钮！"
 
 #: core/Utils/Util.vala:694
 msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
 msgstr ""
+"您在每个页面底部看到的那个蓝色按钮，其功能远不止看上去那么简单，它是可以移动"
+"的！你可以拖拽它到任意位置创建新任务。"
 
 #: core/Utils/Util.vala:700
 msgid "Add labels to your tasks!"
-msgstr ""
+msgstr "为您的任务添加标签！"
 
 #: core/Utils/Util.vala:701
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
-msgstr ""
+msgstr "标签能帮助您组织并分类任务。如需添加标签，请点击底部的标签按钮。"
 
 #: core/Utils/Util.vala:707
 msgid "Set timely reminders!"
-msgstr ""
+msgstr "设置及时提醒！"
 
 #: core/Utils/Util.vala:708
 msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
-msgstr ""
+msgstr "及时获取重要任务或活动的通知。点击下方的时钟按钮即可添加提醒事项。"
 
 #: core/Utils/Util.vala:719
 msgid "💼️Work"
-msgstr ""
+msgstr "💼️工作"
 
 #: core/Utils/Util.vala:725
 msgid "🎒️School"
-msgstr ""
+msgstr "🎒️学校"
 
 #: core/Utils/Util.vala:731
 msgid "👉️Delegated"
-msgstr ""
+msgstr "👉️指派"
 
 #: core/Utils/Util.vala:737
 msgid "🏡️Home"
-msgstr ""
+msgstr "🏡️家庭"
 
 #: core/Utils/Util.vala:743
 msgid "🏃‍♀️️Follow Up"
-msgstr ""
+msgstr "🏃‍♀️️跟进"
 
 #: core/Utils/Util.vala:984
 msgid "Task duplicated"
-msgstr ""
+msgstr "任务已复制"
 
 #: core/Utils/Util.vala:1020
 msgid "Section duplicated"
-msgstr ""
+msgstr "分组已复制"
 
 #: core/Utils/Util.vala:1046 core/Utils/Util.vala:1072
 msgid "Project duplicated"
-msgstr ""
+msgstr "项目已复制"
 
 #: core/Utils/Util.vala:1114 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
-msgstr ""
+msgstr "在到期时"
 
 #: core/Utils/Util.vala:1117 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
-msgstr ""
+msgstr "提前10分钟"
 
 #: core/Utils/Util.vala:1120 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
-msgstr ""
+msgstr "提前30分钟"
 
 #: core/Utils/Util.vala:1123 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
-msgstr ""
+msgstr "提前45分钟"
 
 #: core/Utils/Util.vala:1126 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
-msgstr ""
+msgstr "提前1小时"
 
 #: core/Utils/Util.vala:1129 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
-msgstr ""
+msgstr "提前2小时"
 
 #: core/Utils/Util.vala:1132 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
-msgstr ""
+msgstr "提前3小时"
 
 #: core/Widgets/Calendar/CalendarDay.vala:103
 msgid "%A, %B %e, %Y"
-msgstr ""
+msgstr "%A， %B %e， %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:35
 #: core/Widgets/Calendar/CalendarHeader.vala:54
 msgid "%OB"
-msgstr ""
+msgstr "%OB"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:64 src/Layouts/HeaderBar.vala:88
 msgid "Back"
-msgstr ""
+msgstr "返回"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:66
 msgid "Previous month"
-msgstr ""
+msgstr "上个月"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
-msgstr ""
+msgstr "前进"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
-msgstr ""
+msgstr "下个月"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #, c-format
 msgid "Previous month, %s"
-msgstr ""
+msgstr "上个月，%s"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 msgid "%B %Y"
-msgstr ""
+msgstr "%B %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 #, c-format
 msgid "Next month, %s"
-msgstr ""
+msgstr "下个月，%s"
 
 #: core/Widgets/Calendar/CalendarMonth.vala:82
 #: core/Widgets/Calendar/CalendarMonth.vala:183
 #: core/Widgets/Calendar/CalendarMonth.vala:201
 msgid "Choose a date"
-msgstr ""
+msgstr "选择日期"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:46
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:251
 msgid "Su"
-msgstr ""
+msgstr "周日"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:47
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:215
 msgid "Mo"
-msgstr ""
+msgstr "周一"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:48
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:221
 msgid "Tu"
-msgstr ""
+msgstr "周二"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:49
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:227
 msgid "We"
-msgstr ""
+msgstr "周三"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:50
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:233
 msgid "Th"
-msgstr ""
+msgstr "周四"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:51
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:239
 msgid "Fr"
-msgstr ""
+msgstr "周五"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:52
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:245
 msgid "Sa"
-msgstr ""
+msgstr "周六"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:80
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:190
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:523
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:140
 msgid "Time"
-msgstr ""
+msgstr "时间"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:846
@@ -1175,7 +1188,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:245
 #: src/Layouts/ItemBoard.vala:695 src/Layouts/ItemRow.vala:1177
 msgid "until"
-msgstr ""
+msgstr "直到"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:849
@@ -1183,7 +1196,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:698 src/Layouts/ItemRow.vala:1180
 msgid "for"
-msgstr ""
+msgstr "用于"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:849
@@ -1191,7 +1204,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:698 src/Layouts/ItemRow.vala:1180
 msgid "times"
-msgstr ""
+msgstr "次"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:849
@@ -1199,189 +1212,189 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:248
 #: src/Layouts/ItemBoard.vala:698 src/Layouts/ItemRow.vala:1180
 msgid "time"
-msgstr ""
+msgstr "次"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:105
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:192
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:104
 msgid "Repeat"
-msgstr ""
+msgstr "重复"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:161
 msgid "Type a date…"
-msgstr ""
+msgstr "输入日期…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:399
 msgid "Next week"
-msgstr ""
+msgstr "下周"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:541
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:577
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
 msgid "Daily"
-msgstr ""
+msgstr "每日"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:581
 msgid "Weekdays"
-msgstr ""
+msgstr "工作日"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:585
 msgid "Weekends"
-msgstr ""
+msgstr "周末"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:589
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 msgid "Weekly"
-msgstr ""
+msgstr "每周"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:593
 msgid "Monthly"
-msgstr ""
+msgstr "每月"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:597
 msgid "Yearly"
-msgstr ""
+msgstr "每年"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:601
 msgid "Custom"
-msgstr ""
+msgstr "自定义"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:873
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 msgid "No date"
-msgstr ""
+msgstr "无日期"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:63
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:135
 msgid "Minute(s)"
-msgstr ""
+msgstr "分钟"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:63
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:135
 msgid "Hour(s)"
-msgstr ""
+msgstr "小时"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:63
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:135
 msgid "Day(s)"
-msgstr ""
+msgstr "天"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:63
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:135
 msgid "Week(s)"
-msgstr ""
+msgstr "周"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:63
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:135
 msgid "Month(s)"
-msgstr ""
+msgstr "月"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:63
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:135
 msgid "Year(s)"
-msgstr ""
+msgstr "年"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:277
 msgid "Never"
-msgstr ""
+msgstr "永不"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:281
 msgid "On Date"
-msgstr ""
+msgstr "所在日期"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:285
 msgid "After"
-msgstr ""
+msgstr "之后"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:358
 #: core/Widgets/MarkdownEditor.vala:1382 src/Layouts/ItemBoard.vala:846
 #: src/Layouts/ItemRow.vala:1309
 msgid "Apply"
-msgstr ""
+msgstr "应用"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:371
 msgid "Repeat every"
-msgstr ""
+msgstr "重复于每"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:378
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
 msgid "End"
-msgstr ""
+msgstr "结束"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:502
 msgid "Minute"
 msgid_plural "Minutes"
-msgstr[0] ""
+msgstr[0] "分钟"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:503
 msgid "Hour"
 msgid_plural "Hours"
-msgstr[0] ""
+msgstr[0] "小时"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:504
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:508
 msgid "Day"
 msgid_plural "Days"
-msgstr[0] ""
+msgstr[0] "天"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:505
 msgid "Week"
 msgid_plural "Weeks"
-msgstr[0] ""
+msgstr[0] "周"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:506
 msgid "Month"
 msgid_plural "Months"
-msgstr[0] ""
+msgstr[0] "月"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:507
 msgid "Year"
 msgid_plural "Years"
-msgstr[0] ""
+msgstr[0] "年"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:72
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:80
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:209
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:213
 msgid "The date you plan to work on this task"
-msgstr ""
+msgstr "您计划完成此任务的日期"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
-msgstr ""
+msgstr "移除日期"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "When do you plan to work on this?"
-msgstr ""
+msgstr "您打算什么时候处理？"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
-msgstr ""
+msgstr "设置截止时间"
 
 #: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
 #: core/Widgets/DeadlineButton.vala:135
 msgid "The latest date to complete this task"
-msgstr ""
+msgstr "完成此任务的最晚日期"
 
 #: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
 msgid "What is the latest date to complete this?"
-msgstr ""
+msgstr "完成此项目的最晚日期？"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
 msgid "Select Labels"
-msgstr ""
+msgstr "选择标签"
 
 #: core/Widgets/LabelPicker/LabelQuickPicker.vala:191
 #, c-format
@@ -3418,7 +3431,7 @@ msgstr ""
 
 #: src/Widgets/EventRow.vala:311
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/Widgets/EventRow.vala:321
 msgid "Calendar"

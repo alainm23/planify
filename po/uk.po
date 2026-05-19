@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2026-05-12 14:11+0000\n"
+"PO-Revision-Date: 2026-05-19 00:11+0000\n"
 "Last-Translator: Димко <Dymkovych@proton.me>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/uk/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 2026.5-dev\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -1370,41 +1370,46 @@ msgid "End"
 msgstr "В кінці"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:502
+#, fuzzy
 msgid "Minute"
 msgid_plural "Minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Хвилин"
+msgstr[1] "Хвилини"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:503
+#, fuzzy
 msgid "Hour"
 msgid_plural "Hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Годин"
+msgstr[1] "Години"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:504
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:508
+#, fuzzy
 msgid "Day"
 msgid_plural "Days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "День"
+msgstr[1] "Днів"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:505
+#, fuzzy
 msgid "Week"
 msgid_plural "Weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Тиждень"
+msgstr[1] "Тижні"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:506
+#, fuzzy
 msgid "Month"
 msgid_plural "Months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Місяць"
+msgstr[1] "Місяці"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:507
 msgid "Year"
 msgid_plural "Years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Рік"
+msgstr[1] "Років"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77

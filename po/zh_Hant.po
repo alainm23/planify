@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-05-11 10:19+0000\n"
+"PO-Revision-Date: 2026-05-19 00:11+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hant/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.5-dev\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -154,7 +154,7 @@ msgstr "截止日期"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "上層任務"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -1328,33 +1328,33 @@ msgstr "結束"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:502
 msgid "Minute"
 msgid_plural "Minutes"
-msgstr[0] ""
+msgstr[0] "分鐘"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:503
 msgid "Hour"
 msgid_plural "Hours"
-msgstr[0] ""
+msgstr[0] "小時"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:504
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:508
 msgid "Day"
 msgid_plural "Days"
-msgstr[0] ""
+msgstr[0] "日"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:505
 msgid "Week"
 msgid_plural "Weeks"
-msgstr[0] ""
+msgstr[0] "週"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:506
 msgid "Month"
 msgid_plural "Months"
-msgstr[0] ""
+msgstr[0] "月"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:507
 msgid "Year"
 msgid_plural "Years"
-msgstr[0] ""
+msgstr[0] "年"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
@@ -2061,11 +2061,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:50
 msgid "Automatic Daily Backup"
-msgstr ""
+msgstr "自動每日備份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:51
 msgid "Creates a backup every day at midnight"
-msgstr ""
+msgstr "建立備份於每日午夜"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:58
 msgid "Create Backup"
@@ -2092,21 +2092,21 @@ msgstr "備份檔案儲存於： %s"
 msgid ""
 "Only the last 30 backups are shown here. To access older backups, open the "
 "backup folder directly."
-msgstr ""
+msgstr "此處僅顯示最近 30 個備份。若要存取較舊的備份，請直接開啟備份資料夾。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:97
 msgid "Extra Backup Locations"
-msgstr ""
+msgstr "額外的備份位置"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:100
 msgid "No extra locations added yet."
-msgstr ""
+msgstr "尚無添加額外位置。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:112
 msgid ""
 "Backup copies will also be saved to these folders after each backup is "
 "created."
-msgstr ""
+msgstr "每次建立備份後，備份副本也會儲存到這些資料夾中。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:121
 msgid "Migrate"
@@ -2152,7 +2152,7 @@ msgstr "待辦事項"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:580
 msgid "This will replace all your current data"
-msgstr ""
+msgstr "此將取代您目前全部的資料"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:589
 msgid "Restore backup"
@@ -3496,15 +3496,15 @@ msgstr "任務已經移動至專案"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:53
 msgid "Unknown project"
-msgstr ""
+msgstr "不明專案"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:56
 msgid "Unknown"
-msgstr ""
+msgstr "不明"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:59
 msgid "Unknown section"
-msgstr ""
+msgstr "不明區段"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:63
 msgid "Task moved to"
@@ -3513,27 +3513,27 @@ msgstr "任務移動至"
 #: src/Widgets/ItemChangeHistoryRow.vala:169
 #: src/Widgets/ItemChangeHistoryRow.vala:199
 msgid "See more"
-msgstr ""
+msgstr "查看更多"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:199
 msgid "See less"
-msgstr ""
+msgstr "查看較少"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:276
 msgid "Empty"
-msgstr ""
+msgstr "空白"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:290
 msgid "No priority"
-msgstr ""
+msgstr "無優先等級"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:298
 msgid "No labels"
-msgstr ""
+msgstr "無標籤"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:303
 msgid "Not pinned"
-msgstr ""
+msgstr "尚未釘板"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:304
 #: src/Widgets/ItemChangeHistoryRow.vala:305
@@ -3547,16 +3547,16 @@ msgstr "釘貼：非作用中"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:308
 msgid "No deadline"
-msgstr ""
+msgstr "無截止日期"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:319
 msgid "No parent"
-msgstr ""
+msgstr "無上層"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:322
 #: src/Widgets/ItemChangeHistoryRow.vala:326
 msgid "Unknown task"
-msgstr ""
+msgstr "不明任務"
 
 #: src/Widgets/ItemDetailCompleted.vala:74
 msgid "Completed At"
