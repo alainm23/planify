@@ -92,7 +92,7 @@ public class Services.TodoistItems : GLib.Object {
                 queue.source_id = object.source.id;
 
                 Services.Database.get_default ().insert_queue (queue);
-                Services.Database.get_default ().insert_CurTempIds (object.id, temp_id, object.object_type_string);
+                Services.Database.get_default ().insert_CurTempIds (id, temp_id, object.object_type_string);
 
                 response.status = true;
                 response.data = queue.object_id;

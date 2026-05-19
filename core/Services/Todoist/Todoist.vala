@@ -252,6 +252,7 @@ public class Services.Todoist : GLib.Object {
         _queue_running = true;
         Gee.ArrayList<Objects.Queue ?> queue_collection = Services.Database.get_default ().get_all_queue (source.id);
         if (queue_collection.size <= 0) {
+            _queue_running = false;
             return;
         }
 
@@ -326,6 +327,13 @@ public class Services.Todoist : GLib.Object {
         _queue_running = false;
     }
 
+    private string resolve_id (string id) {
+        if (Services.Database.get_default ().curTempIds_exists (id)) {
+            return Services.Database.get_default ().get_temp_id (id);
+        }
+        return id;
+    }
+
     private void begin_command (Json.Builder builder, string type, string uuid, string? temp_id = null) {
         builder.begin_object ();
         builder.set_member_name ("type"); builder.add_string_value (type);
@@ -367,11 +375,7 @@ public class Services.Todoist : GLib.Object {
             } else if (q.query == "section_add") {
                 begin_command (builder, "section_add", q.uuid, q.temp_id);
                 builder.set_member_name ("name"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "name"));
-                string section_project_id = Utils.JsonUtils.get_string (q.args, "project_id");
-                if (Services.Database.get_default ().curTempIds_exists (section_project_id)) {
-                    section_project_id = Services.Database.get_default ().get_temp_id (section_project_id);
-                }
-                builder.set_member_name ("project_id"); builder.add_string_value (section_project_id);
+                builder.set_member_name ("project_id"); builder.add_string_value (resolve_id (Utils.JsonUtils.get_string (q.args, "project_id")));
                 end_command (builder);
             } else if (q.query == "section_update") {
                 begin_command (builder, "section_update", q.uuid);
@@ -397,10 +401,11 @@ public class Services.Todoist : GLib.Object {
                 builder.set_member_name ("content"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "content"));
                 builder.set_member_name ("description"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "description"));
                 builder.set_member_name ("priority"); builder.add_int_value (Utils.JsonUtils.get_int (q.args, "priority"));
-                builder.set_member_name ("project_id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "project_id"));
+                string item_project_id = resolve_id (Utils.JsonUtils.get_string (q.args, "project_id"));
+                builder.set_member_name ("project_id"); builder.add_string_value (item_project_id);
                 var section_id = Utils.JsonUtils.get_string (q.args, "section_id");
                 if (section_id != "") {
-                    builder.set_member_name ("section_id"); builder.add_string_value (section_id);
+                    builder.set_member_name ("section_id"); builder.add_string_value (resolve_id (section_id));
                 }
                 var parent_id = Utils.JsonUtils.get_string (q.args, "parent_id");
                 if (parent_id != "") {
@@ -409,7 +414,7 @@ public class Services.Todoist : GLib.Object {
                 end_command (builder);
             } else if (q.query == "item_update") {
                 begin_command (builder, "item_update", q.uuid);
-                builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
+                builder.set_member_name ("id"); builder.add_string_value (resolve_id (Utils.JsonUtils.get_string (q.args, "id")));
                 builder.set_member_name ("content"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "content"));
                 builder.set_member_name ("description"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "description"));
                 builder.set_member_name ("priority"); builder.add_int_value (Utils.JsonUtils.get_int (q.args, "priority"));
@@ -424,17 +429,17 @@ public class Services.Todoist : GLib.Object {
                 end_command (builder);
             } else if (q.query == "item_delete") {
                 begin_command (builder, "item_delete", q.uuid);
-                builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
+                builder.set_member_name ("id"); builder.add_string_value (resolve_id (Utils.JsonUtils.get_string (q.args, "id")));
                 end_command (builder);
             } else if (q.query == "item_move") {
                 begin_command (builder, "item_move", q.uuid);
-                builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
+                builder.set_member_name ("id"); builder.add_string_value (resolve_id (Utils.JsonUtils.get_string (q.args, "id")));
                 string move_type = Utils.JsonUtils.get_string (q.args, "type");
-                builder.set_member_name (move_type); builder.add_string_value (Utils.JsonUtils.get_string (q.args, move_type));
+                builder.set_member_name (move_type); builder.add_string_value (resolve_id (Utils.JsonUtils.get_string (q.args, move_type)));
                 end_command (builder);
             } else if (q.query == "item_complete" || q.query == "item_uncomplete") {
                 begin_command (builder, q.query, q.uuid);
-                builder.set_member_name ("id"); builder.add_string_value (Utils.JsonUtils.get_string (q.args, "id"));
+                builder.set_member_name ("id"); builder.add_string_value (resolve_id (Utils.JsonUtils.get_string (q.args, "id")));
                 end_command (builder);
             }
         }
