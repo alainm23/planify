@@ -515,6 +515,8 @@ public class Objects.Item : Objects.BaseObject {
             } else {
                 priority = Constants.PRIORITY_4;
             }
+        } else {
+            priority = Constants.PRIORITY_4;
         }
 
         if (!ical.get_due ().is_null_time ()) {
