@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-05-03 17:09+0000\n"
+"PO-Revision-Date: 2026-05-17 21:12+0000\n"
 "Last-Translator: Stephnie Klim <sylorutu@denipl.net>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/it/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -1463,7 +1463,7 @@ msgstr "Cerca o Crea"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
 msgid "Hide unused labels"
-msgstr ""
+msgstr "Nascondi etichette inutilizzate"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
@@ -1728,7 +1728,7 @@ msgstr "Filtra per"
 
 #: src/Dialogs/DatePicker.vala:69
 msgid "Next Week"
-msgstr ""
+msgstr "Settimana prossima"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:787
 #: src/Layouts/ItemRow.vala:1242 src/Views/Project/Project.vala:564
@@ -2275,7 +2275,7 @@ msgstr "Generale"
 
 #: src/Dialogs/Preferences/Pages/General.vala:36
 msgid "Custom Sort Order"
-msgstr ""
+msgstr "Ordine personalizzato"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:544 src/Views/Scheduled/Scheduled.vala:238
@@ -2958,7 +2958,7 @@ msgstr "Elimina Attività"
 
 #: src/Layouts/ItemBoard.vala:1092 src/Layouts/ItemRow.vala:1820
 msgid "Order changed to 'Custom sort order'"
-msgstr ""
+msgstr "Ordine cambiato in 'Ordine personalizzato'"
 
 #: src/Layouts/ItemBoard.vala:1193 src/Layouts/ItemRow.vala:1600
 #, c-format
@@ -3024,7 +3024,7 @@ msgstr "Elimina Etichetta"
 
 #: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:240
 msgid "Projects sort changed to 'Custom sort order'"
-msgstr ""
+msgstr "Ordine dei progetti cambiato in 'Ordine personalizzato'"
 
 #: src/Layouts/ProjectRow.vala:697 src/Layouts/ProjectRow.vala:703
 msgid "Remove From Favorites"
@@ -3284,7 +3284,7 @@ msgstr ""
 
 #: src/Views/Project/Board.vala:333 src/Views/Project/List.vala:396
 msgid "When?"
-msgstr ""
+msgstr "Quando?"
 
 #: src/Views/Project/List.vala:122
 msgid "Add Some Tasks. Press 'a' to create a new task"
@@ -3333,7 +3333,7 @@ msgstr "Ordinamento"
 
 #: src/Views/Project/Project.vala:543
 msgid "Custom sort order"
-msgstr ""
+msgstr "Ordine personalizzato"
 
 #: src/Views/Project/Project.vala:546 src/Views/Scheduled/Scheduled.vala:240
 #: src/Views/Today.vala:722
@@ -3399,7 +3399,7 @@ msgstr "Cerca tra le attività completate"
 
 #: src/Views/Project/Project.vala:633
 msgid "Sort By"
-msgstr ""
+msgstr "Ordina per"
 
 #: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:163
 msgid "Reschedule"
