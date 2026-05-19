@@ -4,7 +4,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
 "PO-Revision-Date: 2026-05-20 16:11+0000\n"
-"Last-Translator: Renan Mayrinck <renan.mtk@gmail.com>\n"
+"Last-Translator: Sabrina Ferreira <81946935+sabrina-"
+"fs@users.noreply.github.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -2326,7 +2327,7 @@ msgstr "Obrigado pelo seu suporte! 🙏"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:149
 msgid "Your contribution helps keep Planify alive and growing."
-msgstr ""
+msgstr "Sua contribuição ajuda a manter o Planify vivo e crescendo."
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
@@ -2446,11 +2447,11 @@ msgstr "Começo da Semana"
 
 #: src/Dialogs/Preferences/Pages/General.vala:144
 msgid "Smart Date Recognition"
-msgstr ""
+msgstr "Reconhecimento inteligente de data"
 
 #: src/Dialogs/Preferences/Pages/General.vala:145
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr ""
+msgstr "Detectar automaticamente datas como \"amanhã\" ou \"semana que vem\""
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:64
