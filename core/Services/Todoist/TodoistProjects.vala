@@ -80,6 +80,7 @@ public class Services.TodoistProjects : GLib.Object {
                     queue.query = "section_move";
                 }
                 queue.args = base_object.to_json ();
+                queue.source_id = base_object.source.id;
                 response.status = true;
                 Services.Database.get_default ().insert_queue (queue);
             }

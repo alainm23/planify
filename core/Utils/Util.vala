@@ -268,6 +268,20 @@ public class Util : GLib.Object {
         return returned;
     }
 
+    public string get_accent_color () {
+        if (Services.Settings.get_default ().settings.get_boolean ("use-system-accent")) {
+            if (Adw.StyleManager.get_default ().get_system_supports_accent_colors ()) {
+                var rgba = Adw.StyleManager.get_default ().get_accent_color_rgba ();
+                return "#%02x%02x%02x".printf (
+                    (uint) (rgba.red * 255),
+                    (uint) (rgba.green * 255),
+                    (uint) (rgba.blue * 255)
+                );
+            }
+        }
+        return Constants.DEFAULT_ACCENT_COLOR;
+    }
+
     public void update_theme () {
         Appearance appearance_mode = Appearance.parse (Services.Settings.get_default ().settings.get_enum ("appearance"));
         bool dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
@@ -278,17 +292,7 @@ public class Util : GLib.Object {
             dark_mode = color_scheme_settings.prefers_color_scheme == ColorSchemeSettings.Settings.ColorScheme.DARK;
         }
 
-        string accent_color = "#3584e4";
-        if (Services.Settings.get_default ().settings.get_boolean ("use-system-accent")) {
-            if (Adw.StyleManager.get_default ().get_system_supports_accent_colors ()) {
-                var rgba = Adw.StyleManager.get_default ().get_accent_color_rgba ();
-                accent_color = "#%02x%02x%02x".printf (
-                    (uint) (rgba.red * 255),
-                    (uint) (rgba.green * 255),
-                    (uint) (rgba.blue * 255)
-                );
-            }
-        }
+        string accent_color = get_accent_color ();
 
         string window_bg_color = "";
         string popover_bg_color = "";
