@@ -48,6 +48,10 @@ public class Services.BackupManager : Object {
     public signal void backup_added (Objects.Backup backup);
 
     public void init_auto_backup () {
+        if (Services.Settings.get_default ().settings.get_boolean ("backup-automatic")) {
+            _check_missed_backup ();
+        }
+
         Services.EventBus.get_default ().day_changed.connect (() => {
             if (Services.Settings.get_default ().settings.get_boolean ("backup-automatic")) {
                 Services.LogService.get_default ().info ("BackupManager", "Auto backup triggered by day change");
@@ -56,6 +60,28 @@ public class Services.BackupManager : Object {
                 Services.LogService.get_default ().debug ("BackupManager", "Auto backup skipped — disabled in settings");
             }
         });
+    }
+
+    private void _check_missed_backup () {
+        var last_date_str = Services.Settings.get_default ().settings.get_string ("backup-last-date");
+        var today = new GLib.DateTime.now_local ();
+
+        if (last_date_str == "") {
+            Services.LogService.get_default ().info ("BackupManager", "No previous backup found, running initial backup");
+            create_and_distribute_backup ();
+            return;
+        }
+
+        var last_date = new GLib.DateTime.from_iso8601 (last_date_str, new GLib.TimeZone.local ());
+        if (last_date == null) {
+            create_and_distribute_backup ();
+            return;
+        }
+
+        if (today.get_day_of_year () != last_date.get_day_of_year () || today.get_year () != last_date.get_year ()) {
+            Services.LogService.get_default ().info ("BackupManager", "Missed backup detected (last: %s), running now".printf (last_date_str));
+            create_and_distribute_backup ();
+        }
     }
 
     construct {
@@ -120,6 +146,7 @@ public class Services.BackupManager : Object {
         var backup_file = create_backup ();
         if (backup_file != null) {
             Services.LogService.get_default ().info ("BackupManager", "Backup created: %s".printf (backup_file.get_path ()));
+            Services.Settings.get_default ().settings.set_string ("backup-last-date", new GLib.DateTime.now_local ().to_string ());
             copy_to_extra_folders (backup_file);
         } else {
             Services.LogService.get_default ().warn ("BackupManager", "Backup failed — create_backup returned null");
