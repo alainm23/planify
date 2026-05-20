@@ -56,7 +56,7 @@ entry.flat:focus-within {
 }
 
 .color-primary {
-    color: #1e63ec;
+    color: @accent_color;
 }
 
 .color-radio {
@@ -524,13 +524,13 @@ checkbutton.theme-selector radio:checked {
 }
 
 .drop-area {
-    background-color: alpha(#1e63ec, 0.35);
+    background-color: alpha(@accent_color, 0.35);
     border-radius: 6px;
 }
 
 .drop-target:drop(active) {
     border-radius: 6px;
-    background-color: alpha(#1e63ec, 0.35);
+    background-color: alpha(@accent_color, 0.35);
 }
 
 .drop-target-none:drop(active) {
@@ -553,7 +553,7 @@ checkbutton.theme-selector radio:checked {
 }
 
 .indicator {
-    background: #1e63ec;
+    background: @accent_color;
     border-radius: 50%;
 }
 
