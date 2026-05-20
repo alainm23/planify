@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-05-19 00:11+0000\n"
+"PO-Revision-Date: 2026-05-20 16:11+0000\n"
 "Last-Translator: \"Fionn.Pi\" <ominibass93@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hans/>\n"
@@ -1399,19 +1399,19 @@ msgstr "选择标签"
 #: core/Widgets/LabelPicker/LabelQuickPicker.vala:191
 #, c-format
 msgid "Label not found: Create '%s'"
-msgstr ""
+msgstr "未找到该标签：创建 '%s'"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:68
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
-msgstr ""
+msgstr "您的筛选器列表将在此处显示，请输入名称并按回车键创建一个筛选器。"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:69
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
-msgstr ""
+msgstr "创建 '%s'"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Your list of filters will show up here."
@@ -1421,65 +1421,65 @@ msgstr ""
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
-msgstr ""
+msgstr "搜索搜索"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 msgid "Search or Create"
-msgstr ""
+msgstr "搜索或创建"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:102
 msgid "Hide unused labels"
-msgstr ""
+msgstr "隐藏未使用的标签"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:313
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:396
 msgid "No Labels"
-msgstr ""
+msgstr "无标签"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:388
 msgid "All Hidden"
-msgstr ""
+msgstr "全部隐藏"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:389
 msgid "All labels are hidden by the filter. Disable the filter to see them."
-msgstr ""
+msgstr "所有标签均被过滤器隐藏，请关闭过滤器以查看它们。"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
 msgid "Press Enter to create and assign it"
-msgstr ""
+msgstr "按下回车键即可创建并分配"
 
 #: core/Widgets/MarkdownEditor.vala:1387
 msgid "Remove link"
-msgstr ""
+msgstr "删除链接"
 
 #: core/Widgets/PriorityButton.vala:95 core/Widgets/PriorityButton.vala:135
 #: core/Widgets/PriorityButton.vala:200
 msgid "Priority 4: None"
-msgstr ""
+msgstr "优先级4：无"
 
 #: core/Widgets/PriorityButton.vala:126 core/Widgets/PriorityButton.vala:182
 msgid "Priority 1: High"
-msgstr ""
+msgstr "优先级1：高"
 
 #: core/Widgets/PriorityButton.vala:129
 msgid "Priority 2: Medium"
-msgstr ""
+msgstr "优先级2：中"
 
 #: core/Widgets/PriorityButton.vala:132
 msgid "Priority 3: Low"
-msgstr ""
+msgstr "优先级3：低"
 
 #: core/Widgets/PriorityButton.vala:188
 msgid "Priority 1: Medium"
-msgstr ""
+msgstr "优先级1：中"
 
 #: core/Widgets/PriorityButton.vala:194
 msgid "Priority 1: Low"
-msgstr ""
+msgstr "优先级1：低"
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:63
 msgid "Your list of section will show up here."
-msgstr ""
+msgstr "您的分组列表会显示在这里。"
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
@@ -1488,209 +1488,214 @@ msgstr ""
 #: core/Widgets/SectionPicker/SectionPickerRow.vala:38
 #: src/Widgets/CompletedTaskRow.vala:77 src/Widgets/ItemDetailCompleted.vala:80
 msgid "No Section"
-msgstr ""
+msgstr "无分组"
 
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:46
 msgid "Type a search"
-msgstr ""
+msgstr "输入搜索关键词"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:146
 msgid "Reminders"
-msgstr ""
+msgstr "提醒"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:110
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the '+' button."
-msgstr ""
+msgstr "您的提醒列表将显示在此处，点击“+”按钮即可添加一条。"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:154
 msgid "Add Reminder"
-msgstr ""
+msgstr "添加提醒"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:189
 msgid "In 5 minutes"
-msgstr ""
+msgstr "5分钟后"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:190
 msgid "In 15 minutes"
-msgstr ""
+msgstr "15分钟后"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:191
 msgid "In 30 minutes"
-msgstr ""
+msgstr "30分钟后"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:192
 msgid "In 1 hour"
-msgstr ""
+msgstr "1小时后"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:193
 msgid "In 3 hours"
-msgstr ""
+msgstr "3小时后"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:194
 msgid "In 6 hours"
-msgstr ""
+msgstr "6小时后"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
-msgstr ""
+msgstr "设置分组"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:40
 msgid "Select Section"
-msgstr ""
+msgstr "选择分组"
 
 #: core/Widgets/StatusButton.vala:32
 msgid "Set The Status"
-msgstr ""
+msgstr "设置状态"
 
 #: core/Widgets/StatusButton.vala:39
 msgid "Status"
-msgstr ""
+msgstr "状态"
 
 #: core/Widgets/StatusButton.vala:44 core/Widgets/StatusButton.vala:76
 #: core/Widgets/StatusButton.vala:114
 msgid "To Do"
-msgstr ""
+msgstr "待办事项"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:794 src/Layouts/ItemRow.vala:1249
 #: src/Services/Notification.vala:98
 msgid "Complete"
-msgstr ""
+msgstr "完成"
 
 #: src/App.vala:183
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
 msgstr ""
+"Planify 将在设备启动时自动运行，并在关闭窗口后继续在后台工作，以确保你能及时"
+"收到待办通知。"
 
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
 #: src/Views/Project/Project.vala:447
 msgid "Calendar Sync"
-msgstr ""
+msgstr "日历同步"
 
 #: src/Dialogs/CalendarSync.vala:45
 msgid ""
 "Turn your tasks into calendar events automatically. Any task with a date "
 "will appear in your calendar, making it easier to plan your day."
 msgstr ""
+"自动将任务转换为日历事件。所有标注日期的任务都会显示在日历中，助你轻松规划日"
+"程。"
 
 #: src/Dialogs/CalendarSync.vala:53
 msgid ""
 "Requirement: You need a calendar account configured in GNOME Calendar "
 "(Google, Nextcloud, etc.)"
-msgstr ""
+msgstr "前提条件：需在 GNOME 日历中配置好日历账号（如 Google、Nextcloud 等）"
 
 #: src/Dialogs/CalendarSync.vala:62
 msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
-msgstr ""
+msgstr "通过 Google 日历、Outlook 或任意日历应用，在手机上接收任务提醒"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
 "Your tasks sync everywhere: phone, tablet, web browser, and any device with "
 "your calendar"
-msgstr ""
+msgstr "任务全平台同步：手机、平板、浏览器，以及任何支持你日历的设备都能实时查看"
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
-msgstr ""
+msgstr "选择日历"
 
 #: src/Dialogs/CalendarSync.vala:88
 msgid "Select a calendar from the list"
-msgstr ""
+msgstr "从列表中选择一个日历"
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
-msgstr ""
+msgstr "启用同步"
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
-msgstr ""
+msgstr "日历同步已成功关闭"
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
-msgstr ""
+msgstr "日历同步已启用"
 
 #: src/Dialogs/CalendarSync.vala:228
 msgid ""
 "Your tasks are currently synced with your calendar. Any task with a date "
 "automatically appears as a calendar event."
-msgstr ""
+msgstr "任务已与日历同步。所有设置了日期的任务都会自动显示为日历事件。"
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
-msgstr ""
+msgstr "禁用同步"
 
 #: src/Dialogs/CalendarSync.vala:279
 #, c-format
 msgid "Synced with: %s"
-msgstr ""
+msgstr "已同步至：%s"
 
 #: src/Dialogs/CalendarSync.vala:292
 msgid "Sync Enabled!"
-msgstr ""
+msgstr "同步已启用！"
 
 #: src/Dialogs/CalendarSync.vala:297
 msgid ""
 "Your tasks are now synced with your calendar. Any task with a date will "
 "automatically appear as a calendar event."
-msgstr ""
+msgstr "您的任务现已与日历同步，所有设置了日期的任务都将自动显示为日历事件。"
 
 #: src/Dialogs/CalendarSync.vala:305
+#, fuzzy
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 msgid "Completed Tasks"
-msgstr ""
+msgstr "已完成的任务"
 
 #: src/Dialogs/CompletedTasks.vala:59
 msgid "View Filter Menu"
-msgstr ""
+msgstr "查看筛选菜单"
 
 #: src/Dialogs/CompletedTasks.vala:95
 msgid "No completed tasks yet."
-msgstr ""
+msgstr "没有已完成的任务。"
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
 #: src/Views/Filter.vala:603
 msgid "Delete All Completed Tasks"
-msgstr ""
+msgstr "删除所有已完成任务"
 
 #: src/Dialogs/CompletedTasks.vala:165
 #, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
-msgstr[0] ""
+msgstr[0] "此操作将从项目 %s 中删除 %d 个已完成的任务及其子任务"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:642
 #: src/Views/Scheduled/Scheduled.vala:281 src/Views/Today.vala:783
 msgid "Filter By"
-msgstr ""
+msgstr "筛选条件"
 
 #: src/Dialogs/DatePicker.vala:69
 msgid "Next Week"
-msgstr ""
+msgstr "下周"
 
 #: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:787
 #: src/Layouts/ItemRow.vala:1242 src/Views/Project/Project.vala:564
 #: src/Views/Project/Project.vala:735
 msgid "No Date"
-msgstr ""
+msgstr "无日期"
 
 #: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:89
 msgid "Done"
-msgstr ""
+msgstr "完成"
 
 #: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1375
 #: src/Layouts/ItemSidebarView.vala:518
 msgid "Change History"
-msgstr ""
+msgstr "变更历史"
 
 #: src/Dialogs/ItemChangeHistory.vala:56
 msgid "Added at"
