@@ -382,5 +382,11 @@
             <summary>Extra backup folders</summary>
             <description>Additional folders where backup copies are saved after each backup</description>
         </key>
+
+        <key name="backup-last-date" type="s">
+            <default>""</default>
+            <summary>Last automatic backup date</summary>
+            <description>ISO date of the last automatic backup, used to detect missed backups on startup</description>
+        </key>
     </schema>
 </schemalist>
