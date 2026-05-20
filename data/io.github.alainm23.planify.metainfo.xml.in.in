@@ -61,6 +61,22 @@
   <url type="donation">https://useplanify.com/donate</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.19.4" date="2026-05-20" urgency="medium">
+      <description translate="no">
+        <p>Planify 4.19.4 is a maintenance release focused on bug fixes.</p>
+        <p>Bug Fixes:</p>
+        <ul>
+          <li>Fixed a crash when updating a task with no priority set on Mailbox.org and Open-Xchange servers.</li>
+          <li>Fixed completed tasks generating an ambiguous local timestamp in the VTODO — now uses UTC with the Z suffix, fixing sync errors with DAVx5 on Android.</li>
+          <li>Fixed inconsistent accent colors across the app — accent color logic is now centralized and correctly follows the system accent color setting.</li>
+        </ul>
+      </description>
+      <issues>
+        <issue url="https://github.com/alainm23/planify/issues/2489">COMPLETED date causes DAVx5 ClassCastException</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2479">Inconsistent accent colors</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2417">Crash fetching tasks with no priority on Mailbox.org</issue>
+      </issues>
+    </release>
     <release version="4.19.3" date="2026-05-15" urgency="medium">
       <description translate="no">
         <p>Planify 4.19.3 is a maintenance release focused on bug fixes.</p>
