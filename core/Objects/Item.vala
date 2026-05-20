@@ -1365,7 +1365,11 @@ public class Objects.Item : Objects.BaseObject {
             ical.add_property (new ICal.Property.percentcomplete (100));
             // RFC requires Date-Time (https://datatracker.ietf.org/doc/html/rfc5545#section-3.8.2.1)
             // Nextcloud also accepted .today () which didn't include the Timezone, but Radicale and probably other CalDAV implementations want Date-Time
+            #if IS_LIBICAL4
+            ical.add_property (new ICal.Property.completed (new ICal.Time.from_timet_with_zone ((time_t) new GLib.DateTime.now_utc ().to_unix (), false, ICal.Timezone.get_utc_timezone ())));
+            #else
             ical.add_property (new ICal.Property.completed (new ICal.Time.from_timet_with_zone ((time_t) new GLib.DateTime.now_utc ().to_unix (), 0, ICal.Timezone.get_utc_timezone ())));
+            #endif
         } else {
             ical.set_status (ICal.PropertyStatus.NEEDSACTION);
         }
