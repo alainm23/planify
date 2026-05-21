@@ -237,9 +237,15 @@ public class Planify : Adw.Application {
         complete.activate.connect ((parameter) => {
             var item = Services.Store.instance ().get_item (parameter.get_string ());
             if (item != null) {
-                item.checked = true;
-                item.completed_at = new GLib.DateTime.now_local ().to_string ();
-                Services.Store.instance ().complete_item (item, false);
+                if (item.due.is_recurring && !item.due.is_recurrency_end) {
+                    item.update_next_recurrency.begin ((obj, res) => {
+                        item.update_next_recurrency.end (res);
+                    });
+                } else {
+                    item.checked = true;
+                    item.completed_at = new GLib.DateTime.now_local ().to_string ();
+                    Services.Store.instance ().complete_item (item, false);
+                }
             }
         });
 

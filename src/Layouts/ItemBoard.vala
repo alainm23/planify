@@ -505,13 +505,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     private void update_next_recurrency () {
-        var promise = new Services.Promise<GLib.DateTime> ();
-
-        promise.resolved.connect ((result) => {
-            recurrency_update_complete (result);
+        item.update_next_recurrency.begin ((obj, res) => {
+            var next_recurrency = item.update_next_recurrency.end (res);
+            if (next_recurrency != null) {
+                recurrency_update_complete (next_recurrency);
+            }
         });
-
-        item.update_next_recurrency (promise);
     }
 
     private void open_detail () {
