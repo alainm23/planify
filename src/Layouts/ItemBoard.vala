@@ -372,6 +372,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             checked_toggled (checked_button.active);
         })] = checked_button_gesture;
 
+        signals_map[checked_button.toggled.connect (() => {
+            if (!checked_button_gesture.is_active ()) {
+                checked_toggled (checked_button.active);
+            }
+        })] = checked_button;
+
         var select_button_gesture = new Gtk.GestureClick ();
         select_checkbutton.add_controller (select_button_gesture);
         signals_map[select_button_gesture.pressed.connect (() => {

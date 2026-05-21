@@ -765,6 +765,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             checked_toggled (checked_button.active);
         })] = checked_button_gesture;
 
+        signals_map[checked_button.toggled.connect (() => {
+            // Only handle keyboard activation (Enter) — click is handled by GestureClick
+            if (!checked_button_gesture.is_active ()) {
+                checked_toggled (checked_button.active);
+            }
+        })] = checked_button;
+
         signals_map[hide_loading_button.clicked.connect (() => {
             Timeout.add (100, () => {
                 edit = false;
