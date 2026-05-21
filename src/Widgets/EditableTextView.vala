@@ -72,7 +72,8 @@ public class Widgets.EditableTextView : Adw.Bin {
         textview = new Widgets.TextView () {
             wrap_mode = Gtk.WrapMode.WORD_CHAR,
             css_classes = { "flat" },
-            placeholder_text = placeholder_text
+            placeholder_text = placeholder_text,
+            accepts_tab = false
         };
 
         show_more_button = new Gtk.Button.with_label (_("Show more")) {
