@@ -1365,7 +1365,11 @@ public class Objects.Item : Objects.BaseObject {
             ical.add_property (new ICal.Property.percentcomplete (100));
             // RFC requires Date-Time (https://datatracker.ietf.org/doc/html/rfc5545#section-3.8.2.1)
             // Nextcloud also accepted .today () which didn't include the Timezone, but Radicale and probably other CalDAV implementations want Date-Time
+            #if IS_LIBICAL4
+            ical.add_property (new ICal.Property.completed (new ICal.Time.from_timet_with_zone ((time_t) new GLib.DateTime.now_utc ().to_unix (), false, ICal.Timezone.get_utc_timezone ())));
+            #else
             ical.add_property (new ICal.Property.completed (new ICal.Time.from_timet_with_zone ((time_t) new GLib.DateTime.now_utc ().to_unix (), 0, ICal.Timezone.get_utc_timezone ())));
+            #endif
         } else {
             ical.set_status (ICal.PropertyStatus.NEEDSACTION);
         }
@@ -1662,11 +1666,9 @@ public class Objects.Item : Objects.BaseObject {
         update_async ("");
     }
 
-    public void update_next_recurrency (Services.Promise<GLib.DateTime> ? promise) {
+    public async GLib.DateTime? update_next_recurrency () {
         var next_recurrency = Utils.Datetime.next_recurrency (due.datetime, due);
-        due.date = Utils.Datetime.get_todoist_datetime_format (
-            next_recurrency
-        );
+        due.date = Utils.Datetime.get_todoist_datetime_format (next_recurrency);
 
         if (due.end_type == RecurrencyEndType.AFTER) {
             due.recurrency_count = due.recurrency_count - 1;
@@ -1681,33 +1683,31 @@ public class Objects.Item : Objects.BaseObject {
                 Services.EventBus.get_default ().checked_toggled (subitem, old_checked);
             }
         }
+
         if (project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().update_item (this);
-            promise.resolve (next_recurrency);
         } else if (project.source_type == SourceType.TODOIST) {
             loading = true;
-            Services.Todoist.get_default ().update.begin (this, (obj, res) => {
-                var response = Services.Todoist.get_default ().update.end (res);
-                loading = false;
-
-                if (response.status) {
-                    Services.Store.instance ().update_item (this);
-                    promise.resolve (next_recurrency);
-                }
-            });
+            var response = yield Services.Todoist.get_default ().update (this);
+            loading = false;
+            if (response.status) {
+                Services.Store.instance ().update_item (this);
+            } else {
+                return null;
+            }
         } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
             var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-            caldav_client.add_item.begin (this, true, (obj, res) => {
-                var response = caldav_client.add_item.end (res);
-                loading = false;
-
-                if (response.status) {
-                    Services.Store.instance ().update_item (this);
-                    promise.resolve (next_recurrency);
-                }
-            });
+            var response = yield caldav_client.add_item (this, true);
+            loading = false;
+            if (response.status) {
+                Services.Store.instance ().update_item (this);
+            } else {
+                return null;
+            }
         }
+
+        return next_recurrency;
     }
 
     public void move (Objects.Project project, string _section_id, bool notify = true) {

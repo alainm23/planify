@@ -765,6 +765,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             checked_toggled (checked_button.active);
         })] = checked_button_gesture;
 
+        signals_map[checked_button.toggled.connect (() => {
+            // Only handle keyboard activation (Enter) — click is handled by GestureClick
+            if (!checked_button_gesture.is_active ()) {
+                checked_toggled (checked_button.active);
+            }
+        })] = checked_button;
+
         signals_map[hide_loading_button.clicked.connect (() => {
             Timeout.add (100, () => {
                 edit = false;
@@ -1559,13 +1566,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void update_next_recurrency () {
-        var promise = new Services.Promise<GLib.DateTime> ();
-
-        signals_map[promise.resolved.connect ((result) => {
-            recurrency_update_complete (result);
-        })] = promise;
-
-        item.update_next_recurrency (promise);
+        item.update_next_recurrency.begin ((obj, res) => {
+            var next_recurrency = item.update_next_recurrency.end (res);
+            if (next_recurrency != null) {
+                recurrency_update_complete (next_recurrency);
+            }
+        });
     }
 
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
