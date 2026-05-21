@@ -113,7 +113,6 @@ core_files = files(
     'Objects/Queue.vala',
     'Objects/Reminder.vala',
     'Objects/Section.vala',
-    'Objects/Promise.vala',
     'Objects/Attachment.vala',
     'Objects/ObjectEvent.vala',
     'Objects/Source.vala',
