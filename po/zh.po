@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-05-20 16:11+0000\n"
+"PO-Revision-Date: 2026-05-22 12:12+0000\n"
 "Last-Translator: \"Fionn.Pi\" <ominibass93@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hans/>\n"
@@ -1416,7 +1416,7 @@ msgstr "创建 '%s'"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:87
 msgid "Your list of filters will show up here."
-msgstr ""
+msgstr "您的筛选列表将在此处显示。"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:91
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
@@ -1701,61 +1701,61 @@ msgstr "变更历史"
 
 #: src/Dialogs/ItemChangeHistory.vala:56
 msgid "Added at"
-msgstr ""
+msgstr "添加于"
 
 #: src/Dialogs/ItemChangeHistory.vala:58
 msgid "Not available"
-msgstr ""
+msgstr "不可用"
 
 #: src/Dialogs/ItemChangeHistory.vala:62
 msgid "Updated at"
-msgstr ""
+msgstr "更新于"
 
 #: src/Dialogs/ItemChangeHistory.vala:71
 msgid ""
 "Your change history will be displayed here once you start making changes."
-msgstr ""
+msgstr "您开始进行更改后，您的变更历史将显示在此处。"
 
 #: src/Dialogs/Label.vala:45
 msgid "New Label"
-msgstr ""
+msgstr "新建标签"
 
 #: src/Dialogs/Label.vala:52 src/Layouts/LabelRow.vala:161
 msgid "Edit Label"
-msgstr ""
+msgstr "编辑标签"
 
 #: src/Dialogs/Label.vala:65
 msgid "Give your label a name"
-msgstr ""
+msgstr "为您的标签命名"
 
 #: src/Dialogs/Label.vala:89
 msgid "Add Label"
-msgstr ""
+msgstr "添加标签"
 
 #: src/Dialogs/Label.vala:89
 msgid "Update Label"
-msgstr ""
+msgstr "更新标签"
 
 #: src/Dialogs/LabelPicker.vala:62
 msgid "Filter"
-msgstr ""
+msgstr "筛选"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:765
 msgid "Archived Projects"
-msgstr ""
+msgstr "已归档项目"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionBoard.vala:610
 #: src/Layouts/SectionRow.vala:668 src/Views/Project/Project.vala:379
 msgid "Manage Sections"
-msgstr ""
+msgstr "管理分组"
 
 #: src/Dialogs/ManageSectionOrder.vala:54
 msgid "You can sort your sections by dragging and dropping"
-msgstr ""
+msgstr "拖拽分组以对其进行排序"
 
 #: src/Dialogs/ManageSectionOrder.vala:76
 msgid "Archived"
-msgstr ""
+msgstr "已归档"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
@@ -1765,102 +1765,102 @@ msgstr "账户"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
 msgid "Add Source"
-msgstr ""
+msgstr "添加来源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
 msgid "Inbox Page"
-msgstr ""
+msgstr "收集箱页"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:105
 msgid "You can sort your accounts by dragging and dropping"
-msgstr ""
+msgstr "拖拽账户以对其进行排序"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:226
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:593
 msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr ""
+msgstr "Planify 正在同步您的任务，请稍等"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
 msgid "SSL verification is disabled"
-msgstr ""
+msgstr "SSL验证已禁用"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
 msgid "Authentication expired"
-msgstr ""
+msgstr "认证已国企"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Account migration required"
-msgstr ""
+msgstr "需要迁移账户"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:331
 msgid "Reconnect"
-msgstr ""
+msgstr "重新连接"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:449
 msgid "Cannot Hide This Account"
-msgstr ""
+msgstr "无法隐藏此账户"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:450
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
-msgstr ""
+msgstr "此账户包含您当前的收集箱项目，请先修改您的收集箱项目。"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:454
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:221
 msgid "Change Inbox"
-msgstr ""
+msgstr "切换收集箱"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:563
 msgid "Syncing…"
-msgstr ""
+msgstr "正在同步…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
 msgid "Connect to CalDAV"
-msgstr ""
+msgstr "连接至CalDAV"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
 msgid "Connect to any CalDAV-compatible server to sync your tasks"
-msgstr ""
+msgstr "连接到任何兼容CalDAV的服务器以同步您的任务"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
 msgid "Server URL"
-msgstr ""
+msgstr "服务器URL"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:80
 msgid "Username"
-msgstr ""
+msgstr "用户名"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:83
 msgid "Password"
-msgstr ""
+msgstr "密码"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
 msgid "Calendar Home URL"
-msgstr ""
+msgstr "日历主页URL"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
 msgid "Advanced"
-msgstr ""
+msgstr "高级"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Show advanced options"
-msgstr ""
+msgstr "显示高级选项"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Hide advanced options"
-msgstr ""
+msgstr "隐藏高级选项"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
 msgid "Log In"
-msgstr ""
+msgstr "登录"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:28
 msgid "Inbox Project"
-msgstr ""
+msgstr "收集箱项目"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:37
 msgid ""
@@ -1868,278 +1868,283 @@ msgid ""
 "Getting Things Done methodology, it's your capture point for quick ideas and "
 "tasks that you'll organize later"
 msgstr ""
+"收集箱是默认存放新任务的地方。遵循 David Allen 的方法论，它是你快速记录灵感与"
+"任务的收集点，后续再进行整理"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
 msgid "Connect to Nextcloud"
-msgstr ""
+msgstr "连接至Nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:57
 msgid "Sign in with your Nextcloud account to sync tasks via CalDAV"
-msgstr ""
+msgstr "登录您的Nextcloud账户并通过CalDAV同步任务"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
 msgid "https://cloud.example.com"
-msgstr ""
+msgstr "https://cloud.example.com"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:83
+#, fuzzy
 msgid "https://example.com/nextcloud"
-msgstr ""
+msgstr "https://example.com/nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:100
 msgid "URL examples"
-msgstr ""
+msgstr "URL示例"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:179
 msgid "Source"
-msgstr ""
+msgstr "来源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:74
 msgid "Display Name"
-msgstr ""
+msgstr "显示名称"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:80
 msgid "Sync Server"
-msgstr ""
+msgstr "同步服务器"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:83
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
-msgstr ""
+msgstr "启用此设置后，Planify 将每隔 15 分钟自动与您的账户同步一次"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:96
 msgid "Last Sync"
-msgstr ""
+msgstr "上次同步"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:111
 msgid "Delete Source"
-msgstr ""
+msgstr "删除来源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:187
 msgid "Delete Source?"
-msgstr ""
+msgstr "删除来源？"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:216
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "无法删除该来源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:217
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
-msgstr ""
+msgstr "此来源包含您当前的收集箱项目。请先更改您的收集箱项目。"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:89
 msgid "Connect to Todoist"
-msgstr ""
+msgstr "连接到Todoist"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
 msgid "Sign in with your Todoist account to sync your tasks"
-msgstr ""
+msgstr "登录您的Todoist账户以同步任务"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
 msgid "Sign in with Browser"
-msgstr ""
+msgstr "通过浏览器登录"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:113
 msgid "Use API Token instead"
-msgstr ""
+msgstr "改用API令牌"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:155
 msgid "API Token"
-msgstr ""
+msgstr "API令牌"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
 msgid "Connect using your personal Todoist API token"
-msgstr ""
+msgstr "使用您的个人Todoist API令牌进行连接"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:176
 msgid "Paste your API token"
-msgstr ""
+msgstr "粘贴您的API令牌"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:181
 msgid "Connect"
-msgstr ""
+msgstr "连接"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:188
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
-msgstr ""
+msgstr "1. 前往 Todoist → 设置 → 关联应用 → 开发者"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:193
 msgid "2. Copy your API token"
-msgstr ""
+msgstr "2. 复制您的API令牌"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:198
 msgid "3. Paste it in the field above"
-msgstr ""
+msgstr "3. 将其粘贴到上面的输入框中"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
 msgid "How to get your token"
-msgstr ""
+msgstr "如何获取您的令牌"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
 msgid "Waiting for login…"
-msgstr ""
+msgstr "等待登录…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:292
 msgid "Synchronizing…"
-msgstr ""
+msgstr "正在同步…"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:38
 #: src/Dialogs/Preferences/PreferencesWindow.vala:110
 msgid "Appearance"
-msgstr ""
+msgstr "外观"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:53
 msgid "Use System Settings"
-msgstr ""
+msgstr "跟随系统设置"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:68
 msgid "Use System Accent Color"
-msgstr ""
+msgstr "跟随系统强调色"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:78
 msgid "Select theme"
-msgstr ""
+msgstr "选择主题"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:88
 msgid "Light Style"
-msgstr ""
+msgstr "浅色样式"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:89
 msgid "Clean light theme"
-msgstr ""
+msgstr "简洁浅色主题"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:105
 msgid "Dark Style"
-msgstr ""
+msgstr "深色样式"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:106
 msgid "Elegant dark theme"
-msgstr ""
+msgstr "优雅深色主题"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:122
 msgid "Dark Blue Style"
-msgstr ""
+msgstr "暗蓝样式"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:123
 msgid "Professional blue theme"
-msgstr ""
+msgstr "专业蓝色主题"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:139
 msgid "Accent Color"
-msgstr ""
+msgstr "强调色"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:145
 msgid "Custom themes are not available when using the system light theme"
-msgstr ""
+msgstr "使用系统浅色主题时，自定义主题不可用。"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:183
 msgid "Font Size"
-msgstr ""
+msgstr "字体大小"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:29
 #: src/Dialogs/Preferences/PreferencesWindow.vala:132
 msgid "Backups"
-msgstr ""
+msgstr "备份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:39
 msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
 msgstr ""
+"无需再为数据丢失而担忧。您可以随时为当前的项目、任务及评论创建备份，并在需要"
+"时将其导入。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:50
 msgid "Automatic Daily Backup"
-msgstr ""
+msgstr "自动每日备份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:51
 msgid "Creates a backup every day at midnight"
-msgstr ""
+msgstr "每天午夜自动创建备份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:58
 msgid "Create Backup"
-msgstr ""
+msgstr "创建备份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
 msgid "Import Backup"
-msgstr ""
+msgstr "导入备份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:64
 msgid "Backup Files"
-msgstr ""
+msgstr "备份文件"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:67
 msgid "No backups found, create one clicking the button above."
-msgstr ""
+msgstr "未发现备份，请点击上方按钮创建一个。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:72
 #, c-format
 msgid "Backup files are stored in: %s"
-msgstr ""
+msgstr "备份文件存储位置：%s"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:81
 msgid ""
 "Only the last 30 backups are shown here. To access older backups, open the "
 "backup folder directly."
-msgstr ""
+msgstr "此处仅显示最近30个备份。如需访问更早的备份，请直接打开备份文件夹。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:97
 msgid "Extra Backup Locations"
-msgstr ""
+msgstr "额外备份位置"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:100
 msgid "No extra locations added yet."
-msgstr ""
+msgstr "尚未添加额外的备份路径。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:112
 msgid ""
 "Backup copies will also be saved to these folders after each backup is "
 "created."
-msgstr ""
+msgstr "每次备份完成后，相应的备份副本也会自动保存至这些文件夹中。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:121
 msgid "Migrate"
-msgstr ""
+msgstr "迁移"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:123
 msgid "Migrate From Planner"
-msgstr ""
+msgstr "从 Planner 迁移"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:163
 msgid "The Backup was created successfully."
-msgstr ""
+msgstr "备份已成功创建。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:180
 msgid "Tasks Migrate Successfully"
-msgstr ""
+msgstr "任务迁移成功"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:184
 msgid "The database file does not exist."
-msgstr ""
+msgstr "数据库文件不存在。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:261
 msgid "Selected file is invalid"
-msgstr ""
+msgstr "所选文件无效"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:359
 msgid "Download"
-msgstr ""
+msgstr "下载"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:495
 #: src/Dialogs/Preferences/Pages/Backup.vala:536
 #: src/Dialogs/Preferences/Pages/Backup.vala:595
 msgid "Restore Backup"
-msgstr ""
+msgstr "从当前备份恢复"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:507 src/Dialogs/Project.vala:404
 msgid "Sources"
-msgstr ""
+msgstr "来源"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:519
 msgid "To-Dos"
-msgstr ""
+msgstr "待办事项"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:580
 msgid "This will replace all your current data"
