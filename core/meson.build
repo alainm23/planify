@@ -25,32 +25,6 @@ core_files = files(
     'Services/CalDAV/WebDAVClient.vala',
     'Services/CalDAV/Providers/Nextcloud.vala',
 
-    'Services/Chrono/Chrono.vala',
-    'Services/Chrono/LanguageParser.vala',
-    'Services/Chrono/Parser.vala',
-    'Services/Chrono/ParseResult.vala',
-    'Services/Chrono/RecurrenceRule.vala',
-    'Services/Chrono/Common/ISOParser.vala',
-    'Services/Chrono/Common/SlashParser.vala',
-    'Services/Chrono/Common/TimeParser.vala',
-    'Services/Chrono/Locales/en/EnglishParser.vala',
-    'Services/Chrono/Locales/en/ENConstants.vala',
-    'Services/Chrono/Locales/en/ENDateTimeComboParser.vala',
-    'Services/Chrono/Locales/en/ENRecurrenceParser.vala',
-    'Services/Chrono/Locales/en/ENCasualDateParser.vala',
-    'Services/Chrono/Locales/en/ENCasualTimeParser.vala',
-    'Services/Chrono/Locales/en/ENMonthNameParser.vala',
-    'Services/Chrono/Locales/en/ENRelativeDateFormatParser.vala',
-    'Services/Chrono/Locales/en/ENTimeExpressionParser.vala',
-    'Services/Chrono/Locales/es/SpanishParser.vala',
-    'Services/Chrono/Locales/es/ESConstants.vala',
-    'Services/Chrono/Locales/es/ESCasualDateParser.vala',
-    'Services/Chrono/Locales/es/ESCasualTimeParser.vala',
-    'Services/Chrono/Locales/es/ESDateTimeComboParser.vala',
-    'Services/Chrono/Locales/es/ESMonthNameParser.vala',
-    'Services/Chrono/Locales/es/ESRelativeDateFormatParser.vala',
-    'Services/Chrono/Locales/es/ESTimeExpressionParser.vala',
-
     'Layouts/HeaderItem.vala',
 
     'Widgets/LoadingButton.vala',
@@ -141,7 +115,10 @@ if get_option('evolution')
     core_files += 'Services/CalendarEvents/Util.vala'
 endif
 
+chrono_dep = dependency('chrono', fallback: ['chrono', 'libchrono_dep'])
+
 core_deps = [
+  chrono_dep,
   gio_dep,
   glib_dep,
   gee_dep,
