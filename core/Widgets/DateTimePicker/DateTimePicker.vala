@@ -136,7 +136,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    private Chrono.Chrono chrono;
+    private Chrono.Core chrono;
     private uint search_timeout_id = 0;
 
     public DateTimePicker () {
@@ -152,7 +152,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     construct {
-        chrono = new Chrono.Chrono ();
+        chrono = new Chrono.Core ();
         active_revealers = new Gee.ArrayList<Gtk.Revealer> ();
 
         Objects.DueDate ? last_parsed_duedate = null;

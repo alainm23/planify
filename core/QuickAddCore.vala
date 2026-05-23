@@ -89,7 +89,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
     private uint date_detection_timeout_id = 0;
     private string last_detected_date_text = "";
     private bool date_auto_detection_enabled = true;
-    private Chrono.Chrono chrono;
+    private Chrono.Core chrono;
 
     public int position { get; set; default = -1; }
     public NewTaskPosition new_task_position { get; set; default = Services.Settings.get_default ().get_new_task_position (); }
@@ -119,7 +119,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
     }
 
     construct {
-        chrono = new Chrono.Chrono (Util.get_user_language ());
+        chrono = new Chrono.Core (Util.get_user_language ());
         date_auto_detection_enabled = Services.Settings.get_default ().settings.get_boolean ("smart-date-recognition");
         
         item = new Objects.Item ();

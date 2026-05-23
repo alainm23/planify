@@ -147,6 +147,21 @@
             ]
         },
         {
+            "name" : "chrono",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Ddocs=false",
+                "-Dtests=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/alainm23/chrono.git",
+                    "tag" : "1.0.0"
+                }
+            ]
+        },
+        {
             "name" : "planify",
             "builddir" : true,
             "buildsystem" : "meson",
