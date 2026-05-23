@@ -1,0 +1,8 @@
+[wrap-git]
+directory=chrono
+url=https://github.com/alainm23/chrono.git
+revision=1.0.0
+depth=1
+
+[provide]
+chrono = libchrono_dep
