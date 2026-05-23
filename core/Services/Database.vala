@@ -1897,7 +1897,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$item_id", attachment.item_id);
         set_parameter_str (stmt, "$file_type", attachment.file_type);
         set_parameter_str (stmt, "$file_name", attachment.file_name);
-        set_parameter_int64 (stmt, "$file_size", attachment.file_size);
+        set_parameter_str (stmt, "$file_size", attachment.file_size);
         set_parameter_str (stmt, "$file_path", attachment.file_path);
 
         int result = stmt.step ();
@@ -1932,7 +1932,7 @@ public class Services.Database : GLib.Object {
         return_value.item_id = stmt.column_text (1);
         return_value.file_type = stmt.column_text (2);
         return_value.file_name = stmt.column_text (3);
-        return_value.file_size = stmt.column_int64 (4);
+        return_value.file_size = stmt.column_text (4);
         return_value.file_path = stmt.column_text (5);
         return return_value;
     }
