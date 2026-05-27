@@ -34,23 +34,6 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
     }
 
     construct {
-        views_group = new Layouts.HeaderItem (_("Show in Sidebar")) {
-            card = true,
-            reveal = true
-        };
-
-        views_group.add_child (new SidebarRow (Objects.Filters.Inbox.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Today.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Scheduled.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Pinboard.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Labels.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Completed.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Tomorrow.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Anytime.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Repeating.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Unlabeled.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.AllItems.get_default ()));
-
         var show_count_row = new Adw.SwitchRow () {
             title = _("Show Task Count")
         };
@@ -76,6 +59,24 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
         count_group.add (sidebar_width_row);
         count_group.add (list_view_filters_row);
 
+        views_group = new Layouts.HeaderItem (_("Show in Sidebar")) {
+            card = true,
+            reveal = true,
+            margin_top = 12
+        };
+
+        views_group.add_child (new SidebarRow (Objects.Filters.Inbox.get_default ()));
+        views_group.add_child (new SidebarRow (Objects.Filters.Today.get_default ()));
+        views_group.add_child (new SidebarRow (Objects.Filters.Scheduled.get_default ()));
+        views_group.add_child (new SidebarRow (Objects.Filters.Pinboard.get_default ()));
+        views_group.add_child (new SidebarRow (Objects.Filters.Labels.get_default ()));
+        views_group.add_child (new SidebarRow (Objects.Filters.Completed.get_default ()));
+        views_group.add_child (new SidebarRow (Objects.Filters.Tomorrow.get_default ()));
+        views_group.add_child (new SidebarRow (Objects.Filters.Anytime.get_default ()));
+        views_group.add_child (new SidebarRow (Objects.Filters.Repeating.get_default ()));
+        views_group.add_child (new SidebarRow (Objects.Filters.Unlabeled.get_default ()));
+        views_group.add_child (new SidebarRow (Objects.Filters.AllItems.get_default ()));
+
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,
             margin_end = 12,
@@ -91,12 +92,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
             margin_top = 3
         });
 
-        var scrolled_window = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            hexpand = true,
-            vexpand = true,
-            child = content_box
-        };
+        var scrolled_window = new Widgets.ScrolledWindow (content_box);
 
         var toolbar_view = new Adw.ToolbarView () {
             content = scrolled_window
@@ -174,6 +170,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
             add_css_class ("sidebar-row");
             add_css_class ("transition");
             add_css_class ("no-padding");
+            add_css_class ("no-selectable");
 
             check_button = new Gtk.Switch () {
                 valign = CENTER,
@@ -188,6 +185,9 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
                 activatable = true
             };
             action_row.add_prefix (new Gtk.Image.from_icon_name (base_object.icon_name));
+            action_row.add_prefix (new Gtk.Image.from_icon_name ("list-drag-handle-symbolic") {
+                css_classes = { "dimmed" }
+            });
             action_row.add_suffix (check_button);
 
             reorder = new Widgets.ReorderChild (action_row, this);

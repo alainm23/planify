@@ -524,13 +524,20 @@ checkbutton.theme-selector radio:checked {
 }
 
 .drop-area {
-    background-color: alpha(@accent_color, 0.35);
-    border-radius: 6px;
+    background-color: alpha(@accent_color, 0.12);
+    border: 1px solid alpha(@accent_color, 0.35);
+    border-radius: 12px;
+    transition: background-color 150ms ease, border 150ms ease;
+}
+
+.drop-target {
+    transition: background-color 150ms ease, border 150ms ease;
 }
 
 .drop-target:drop(active) {
-    border-radius: 6px;
-    background-color: alpha(@accent_color, 0.35);
+    border-radius: 12px;
+    background-color: alpha(@accent_color, 0.12);
+    border: 1px solid alpha(@accent_color, 0.35);
 }
 
 .drop-target-none:drop(active) {
@@ -542,13 +549,13 @@ checkbutton.theme-selector radio:checked {
 }
 
 .drop-target-list:drop(active) {
-    border-radius: 6px;
+    border-radius: 12px;
 }
 
 .drop-begin {
     padding: 3px;
     background: @selected_color;
-    border-radius: 9px;
+    border-radius: 12px;
     border: 1px solid @item_border_color;
 }
 

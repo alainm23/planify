@@ -23,6 +23,7 @@ public class Widgets.ReorderChild : Adw.Bin {
     public Gtk.Widget widget { get; construct; }
     public weak Gtk.ListBoxRow row { get; construct; }
 
+    private const int TRANSITION_DURATION = 200;
     private Adw.Bin motion_top_grid;
     private Gtk.Revealer motion_top_revealer;
     private Adw.Bin motion_bottom_grid;
@@ -63,22 +64,22 @@ public class Widgets.ReorderChild : Adw.Bin {
 
     construct {
         motion_top_grid = new Adw.Bin () {
-            css_classes = { "drop-target-none" }
+            css_classes = { "drop-target" }
         };
 
         motion_top_revealer = new Gtk.Revealer () {
-            transition_type = SLIDE_UP,
-            transition_duration = 150,
+            transition_type = SLIDE_DOWN,
+            transition_duration = TRANSITION_DURATION,
             child = motion_top_grid
         };
 
         motion_bottom_grid = new Adw.Bin () {
-            css_classes = { "drop-target-none" }
+            css_classes = { "drop-target" }
         };
 
         motion_bottom_revealer = new Gtk.Revealer () {
             transition_type = SLIDE_DOWN,
-            transition_duration = 150,
+            transition_duration = TRANSITION_DURATION,
             child = motion_bottom_grid
         };
 
@@ -124,13 +125,14 @@ public class Widgets.ReorderChild : Adw.Bin {
             return false;
         })] = drag_source;
 
+        // Single DropTarget on the row — avoids the animation gap issue
+        // where motion_top/bottom_grid height is still animating when drop fires
         drop_order_top_target = new Gtk.DropTarget (typeof (Widgets.ReorderChild), Gdk.DragAction.MOVE);
-        motion_top_grid.add_controller (drop_order_top_target);
-        signal_map[drop_order_top_target.drop.connect ((value, x, y) => on_drop (value, x, y, false))] = drop_order_top_target;
-
-        drop_order_bottom_target = new Gtk.DropTarget (typeof (Widgets.ReorderChild), Gdk.DragAction.MOVE);
-        motion_bottom_grid.add_controller (drop_order_bottom_target);
-        signal_map[drop_order_bottom_target.drop.connect ((value, x, y) => on_drop (value, x, y, true))] = drop_order_bottom_target;
+        row.add_controller (drop_order_top_target);
+        signal_map[drop_order_top_target.drop.connect ((value, x, y) => {
+            bool bottom = y >= row.get_height () / 2.0;
+            return on_drop (value, x, y, bottom);
+        })] = drop_order_top_target;
 
         drop_motion_ctrl = new Gtk.DropControllerMotion ();
         row.add_controller (drop_motion_ctrl);
@@ -139,16 +141,30 @@ public class Widgets.ReorderChild : Adw.Bin {
             var row_height = row.get_height ();
             bool is_top_half = (y < row_height / 2);
 
-            if (motion_top_revealer.reveal_child != is_top_half)
+            if (motion_top_revealer.reveal_child != is_top_half) {
                 motion_top_revealer.reveal_child = is_top_half;
+                if (is_top_half) {
+                    motion_top_grid.add_css_class ("drop-area");
+                } else {
+                    motion_top_grid.remove_css_class ("drop-area");
+                }
+            }
 
-            if (motion_bottom_revealer.reveal_child != !is_top_half)
+            if (motion_bottom_revealer.reveal_child != !is_top_half) {
                 motion_bottom_revealer.reveal_child = !is_top_half;
+                if (!is_top_half) {
+                    motion_bottom_grid.add_css_class ("drop-area");
+                } else {
+                    motion_bottom_grid.remove_css_class ("drop-area");
+                }
+            }
         })] = drop_motion_ctrl;
 
         signal_map[drop_motion_ctrl.leave.connect (() => {
             motion_top_revealer.reveal_child = false;
             motion_bottom_revealer.reveal_child = false;
+            motion_top_grid.remove_css_class ("drop-area");
+            motion_bottom_grid.remove_css_class ("drop-area");
         })] = drop_motion_ctrl;
     }
 
@@ -211,13 +227,12 @@ public class Widgets.ReorderChild : Adw.Bin {
             drag_source = null;
         }
 
-        if (drop_order_top_target != null && motion_top_grid != null) {
-            motion_top_grid.remove_controller (drop_order_top_target);
+        if (drop_order_top_target != null && row != null) {
+            row.remove_controller (drop_order_top_target);
             drop_order_top_target = null;
         }
 
-        if (drop_order_bottom_target != null && motion_bottom_grid != null) {
-            motion_bottom_grid.remove_controller (drop_order_bottom_target);
+        if (drop_order_bottom_target != null) {
             drop_order_bottom_target = null;
         }
 
