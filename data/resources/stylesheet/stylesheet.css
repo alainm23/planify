@@ -559,20 +559,6 @@ checkbutton.theme-selector radio:checked {
     border: 1px solid @item_border_color;
 }
 
-/* ReorderChild2 — Ionic-inspired reorder */
-.reorder2-selected {
-    opacity: 0.7;
-    box-shadow: 0 4px 16px alpha(@shade_color, 0.4);
-    border-radius: 9px;
-    transition: opacity 150ms ease, box-shadow 150ms ease;
-}
-
-.reorder2-spacer {
-    background-color: alpha(@accent_color, 0.15);
-    border-radius: 6px;
-    transition: background-color 150ms ease;
-}
-
 .indicator {
     background: @accent_color;
     border-radius: 50%;

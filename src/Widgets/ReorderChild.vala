@@ -114,16 +114,13 @@ public class Widgets.ReorderChild : Adw.Bin {
             var paintable = new Gtk.WidgetPaintable (widget);
             source.set_icon (paintable, 0, 0);
             drag_begin ();
-            print ("[ReorderChild] drag_begin\n");
         })] = drag_source;
 
         signal_map[drag_source.drag_end.connect ((source, drag, delete_data) => {
-            print ("[ReorderChild] drag_end\n");
             drag_end ();
         })] = drag_source;
 
         signal_map[drag_source.drag_cancel.connect ((source, drag, reason) => {
-            print ("[ReorderChild] drag_cancel reason=%s\n", reason.to_string ());
             drag_end ();
             return false;
         })] = drag_source;
@@ -134,8 +131,6 @@ public class Widgets.ReorderChild : Adw.Bin {
         row.add_controller (drop_order_top_target);
         signal_map[drop_order_top_target.drop.connect ((value, x, y) => {
             bool bottom = y >= row.get_height () / 2.0;
-            print ("[ReorderChild] drop x=%.0f y=%.0f row_h=%d bottom=%s\n",
-                x, y, row.get_height (), bottom.to_string ());
             return on_drop (value, x, y, bottom);
         })] = drop_order_top_target;
 
@@ -145,13 +140,6 @@ public class Widgets.ReorderChild : Adw.Bin {
         signal_map[drop_motion_ctrl.motion.connect ((x, y) => {
             var row_height = row.get_height ();
             bool is_top_half = (y < row_height / 2);
-
-            print ("[ReorderChild] motion x=%.0f y=%.0f row_h=%d is_top=%s top_revealed=%s bottom_revealed=%s top_grid_h=%d bottom_grid_h=%d\n",
-                x, y, row_height, is_top_half.to_string (),
-                motion_top_revealer.reveal_child.to_string (),
-                motion_bottom_revealer.reveal_child.to_string (),
-                motion_top_grid.get_height (),
-                motion_bottom_grid.get_height ());
 
             if (motion_top_revealer.reveal_child != is_top_half) {
                 motion_top_revealer.reveal_child = is_top_half;
@@ -173,7 +161,6 @@ public class Widgets.ReorderChild : Adw.Bin {
         })] = drop_motion_ctrl;
 
         signal_map[drop_motion_ctrl.leave.connect (() => {
-            print ("[ReorderChild] leave\n");
             motion_top_revealer.reveal_child = false;
             motion_bottom_revealer.reveal_child = false;
             motion_top_grid.remove_css_class ("drop-area");
