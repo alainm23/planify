@@ -162,6 +162,7 @@ public class Views.AI.AssistantPanel : Adw.Bin {
     }
 
     public void open_sheet () {
+        bottom_sheet.can_open = true;
         bottom_sheet.open = true;
     }
 
