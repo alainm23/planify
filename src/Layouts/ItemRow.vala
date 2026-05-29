@@ -89,6 +89,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer add_subtasks_button_revealer;
     private Gtk.Button add_subtasks_button;
 
+    private Gtk.Button ai_subtask_button;
+    private Gtk.Revealer ai_subtask_revealer;
+    private Gtk.EventControllerMotion hover_ctrl;
+
     private Widgets.SubItems subitems;
     private Gtk.MenuButton menu_button;
     private Gtk.Button hide_subtask_button;
@@ -510,6 +514,40 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         action_box_right.append (menu_button);
+
+        ai_subtask_button = new Gtk.Button.from_icon_name ("starred-symbolic") {
+            css_classes = { "flat", "circular" },
+            tooltip_text = _("Generate subtasks with Claude AI"),
+            valign = Gtk.Align.CENTER
+        };
+
+        ai_subtask_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = ai_subtask_button,
+            reveal_child = false
+        };
+
+        action_box_right.prepend (ai_subtask_revealer);
+
+        hover_ctrl = new Gtk.EventControllerMotion ();
+        signals_map[hover_ctrl.enter.connect ((x, y) => {
+            ai_subtask_revealer.reveal_child = Services.AI.Claude.get_default ().is_configured ();
+        })] = hover_ctrl;
+        signals_map[hover_ctrl.leave.connect (() => {
+            ai_subtask_revealer.reveal_child = false;
+        })] = hover_ctrl;
+        add_controller (hover_ctrl);
+
+        signals_map[ai_subtask_button.clicked.connect (() => {
+            ai_subtask_button.sensitive = false;
+            var parser = new Services.AI.TaskParser ();
+            parser.generate_subtasks.begin (item, (obj, res) => {
+                string[]? subtasks = parser.generate_subtasks.end (res);
+                ai_subtask_button.sensitive = true;
+                if (subtasks == null || subtasks.length == 0) return;
+                show_subtask_popover (subtasks);
+            });
+        })] = ai_subtask_button;
 
         action_box.append (dates_box);
         action_box.append (action_box_right);
@@ -2162,6 +2200,47 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         markdown_handlerses.clear ();
     }
 
+    private void show_subtask_popover (string[] subtasks) {
+        var popover = new Gtk.Popover ();
+        popover.width_request = 300;
+
+        var vbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            margin_top = 8, margin_bottom = 8,
+            margin_start = 8, margin_end = 8
+        };
+
+        var checks = new Gee.ArrayList<Gtk.CheckButton> ();
+        foreach (string title in subtasks) {
+            var cb = new Gtk.CheckButton.with_label (title) { active = true };
+            vbox.append (cb);
+            checks.add (cb);
+        }
+
+        var confirm_button = new Gtk.Button.with_label (_("Add selected")) {
+            css_classes = { "suggested-action" },
+            margin_top = 4
+        };
+        vbox.append (confirm_button);
+
+        confirm_button.clicked.connect (() => {
+            for (int i = 0; i < subtasks.length; i++) {
+                if (checks[i].active) {
+                    var sub = new Objects.Item ();
+                    sub.content = subtasks[i];
+                    sub.project_id = item.project_id;
+                    sub.section_id = item.section_id;
+                    sub.parent_id = item.id;
+                    Services.Store.instance ().insert_item (sub);
+                }
+            }
+            popover.popdown ();
+        });
+
+        popover.child = vbox;
+        popover.set_parent (ai_subtask_button);
+        popover.popup ();
+    }
+
     public override void clean_up () {
         foreach (var entry in signals_map.entries) {
             if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
@@ -2183,7 +2262,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         if (priority_button != null) priority_button.clean_up ();
         if (label_button != null) label_button.clean_up ();
         if (reminder_button != null) reminder_button.clean_up ();
-        
+
+        if (hover_ctrl != null) {
+            remove_controller (hover_ctrl);
+            hover_ctrl = null;
+        }
+
         markdown_editor = null;
     }
 }
