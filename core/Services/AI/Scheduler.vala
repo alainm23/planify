@@ -46,7 +46,7 @@ public class Services.AI.Scheduler : GLib.Object {
             arr.foreach_element ((a, idx, node) => {
                 var obj = node.get_object ();
                 Services.AI.ScheduleSuggestion s = Services.AI.ScheduleSuggestion ();
-                s.item_id = obj.get_string_member ("id");
+                s.item_id = obj.has_member ("id") ? obj.get_string_member ("id") : "";
                 s.suggested_due_date = (obj.has_member ("suggested_due_date") &&
                     obj.get_member ("suggested_due_date").get_node_type () != Json.NodeType.NULL)
                     ? obj.get_string_member ("suggested_due_date") : null;

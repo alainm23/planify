@@ -62,6 +62,12 @@ public class Services.AI.ImportMapper : GLib.Object {
         int offset = 0;
         while (offset < content.length) {
             int end = int.min (offset + CHUNK_SIZE_BYTES, (int) content.length);
+            // Align end to a UTF-8 character boundary
+            if (end < (int) content.length) {
+                while (end > offset && (content[end] & 0xC0) == 0x80) {
+                    end--;
+                }
+            }
             string chunk = content.slice (offset, end);
             Services.AI.ImportResult? chunk_result = yield map_chunk (chunk, mime_hint);
             if (chunk_result != null) {
@@ -69,6 +75,9 @@ public class Services.AI.ImportMapper : GLib.Object {
                 foreach (var a in chunk_result.ambiguities) merged.ambiguities.add (a);
             }
             offset = end;
+        }
+        if (merged.projects.is_empty && merged.ambiguities.is_empty) {
+            return null;
         }
         return merged;
     }
@@ -91,7 +100,7 @@ public class Services.AI.ImportMapper : GLib.Object {
                 projects_arr.foreach_element ((arr, idx, node) => {
                     var proj_obj = node.get_object ();
                     Services.AI.MappedProject project = Services.AI.MappedProject ();
-                    project.name = proj_obj.get_string_member ("name");
+                    project.name = proj_obj.has_member ("name") ? proj_obj.get_string_member ("name") : _("Untitled Project");
                     project.sections = new Gee.ArrayList<Services.AI.MappedSection?> ();
 
                     if (proj_obj.has_member ("sections")) {
@@ -105,7 +114,7 @@ public class Services.AI.ImportMapper : GLib.Object {
                                 sec_obj.get_array_member ("items").foreach_element ((iarr, iidx, inode) => {
                                     var item_obj = inode.get_object ();
                                     Services.AI.MappedItem item = Services.AI.MappedItem ();
-                                    item.title = item_obj.get_string_member ("title");
+                                    item.title = item_obj.has_member ("title") ? item_obj.get_string_member ("title") : _("Untitled Task");
                                     item.due_date = (item_obj.has_member ("due_date") &&
                                         item_obj.get_member ("due_date").get_node_type () != Json.NodeType.NULL)
                                         ? item_obj.get_string_member ("due_date") : null;
@@ -126,9 +135,9 @@ public class Services.AI.ImportMapper : GLib.Object {
                 root.get_array_member ("ambiguities").foreach_element ((arr, idx, node) => {
                     var amb_obj = node.get_object ();
                     Services.AI.AmbiguityFlag flag = Services.AI.AmbiguityFlag ();
-                    flag.line = amb_obj.get_string_member ("line");
-                    flag.reason = amb_obj.get_string_member ("reason");
-                    flag.suggested_fix = amb_obj.get_string_member ("suggested_fix");
+                    flag.line = amb_obj.has_member ("line") ? amb_obj.get_string_member ("line") : "";
+                    flag.reason = amb_obj.has_member ("reason") ? amb_obj.get_string_member ("reason") : "";
+                    flag.suggested_fix = amb_obj.has_member ("suggested_fix") ? amb_obj.get_string_member ("suggested_fix") : "";
                     result.ambiguities.add (flag);
                 });
             }

@@ -27,10 +27,10 @@ public class Services.AI.Prompts : GLib.Object {
             "  \"title\": \"task title as a clean imperative phrase\",\n" +
             "  \"due_date\": \"YYYY-MM-DD or null\",\n" +
             "  \"due_time\": \"HH:MM (24h) or null\",\n" +
-            "  \"priority\": 1,\n" +
+            "  \"priority\": 4,\n" +
             "  \"labels\": [\"label1\"]\n" +
             "}\n" +
-            "Priority scale: 1=urgent, 2=high, 3=medium, 4=none.\n" +
+            "Priority scale: 4=urgent, 3=high, 2=medium, 1=none.\n" +
             "Today is " + new GLib.DateTime.now_local ().format ("%Y-%m-%d") + ".\n" +
             "User input: " + input
         );
@@ -53,8 +53,8 @@ public class Services.AI.Prompts : GLib.Object {
             "Today is " + new GLib.DateTime.now_local ().format ("%Y-%m-%d") + ".\n" +
             "Return ONLY a valid JSON array:\n" +
             "[{\"id\": \"item_id\", \"suggested_due_date\": \"YYYY-MM-DD or null\", " +
-            "\"suggested_priority\": 1, \"reason\": \"brief reason\"}]\n" +
-            "Priority scale: 1=urgent, 2=high, 3=medium, 4=none.\n" +
+            "\"suggested_priority\": 4, \"reason\": \"brief reason\"}]\n" +
+            "Priority scale: 4=urgent, 3=high, 2=medium, 1=none.\n" +
             "Tasks (JSON): " + items_json
         );
     }
@@ -83,6 +83,7 @@ public class Services.AI.Prompts : GLib.Object {
             "\"suggested_fix\": \"suggestion\"}\n" +
             "  ]\n" +
             "}\n" +
+            "Priority scale: 4=urgent, 3=high, 2=medium, 1=none.\n" +
             "File content:\n" + content
         );
     }
