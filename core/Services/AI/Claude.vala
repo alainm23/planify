@@ -126,7 +126,6 @@ public class Services.AI.Claude : GLib.Object {
         var message = new Soup.Message ("POST", API_URL);
         message.request_headers.append ("x-api-key", api_key);
         message.request_headers.append ("anthropic-version", ANTHROPIC_VERSION);
-        message.request_headers.append ("content-type", "application/json");
         message.set_request_body_from_bytes ("application/json", new GLib.Bytes (body.data));
 
         try {
@@ -145,6 +144,7 @@ public class Services.AI.Claude : GLib.Object {
                 return null;
             }
 
+            last_error = "";
             status = Status.CONFIGURED;
             status_changed ();
 
