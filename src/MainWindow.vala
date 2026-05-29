@@ -34,6 +34,7 @@ public class MainWindow : Adw.ApplicationWindow {
     private Widgets.ContextMenu.MenuSeparator archive_separator;
     private Adw.ToastOverlay toast_overlay;
     private Adw.ViewStack view_stack;
+    private Views.AI.AssistantPanel assistant_panel;
     private Gtk.Widget error_db_page;
     private string previous_inbox_project_id = "";
 
@@ -100,6 +101,15 @@ public class MainWindow : Adw.ApplicationWindow {
         sidebar_header.pack_end (settings_button);
         sidebar_header.pack_end (fake_button);
 
+        var ai_wand_button = new Gtk.Button.from_icon_name ("starred-symbolic") {
+            tooltip_text = _("Claude AI Assistant"),
+            css_classes = { "flat" }
+        };
+        ai_wand_button.clicked.connect (() => {
+            assistant_panel.open_sheet ();
+        });
+        sidebar_header.pack_end (ai_wand_button);
+
         sidebar = new Layouts.Sidebar ();
 
         var sidebar_view = new Adw.ToolbarView ();
@@ -132,8 +142,11 @@ public class MainWindow : Adw.ApplicationWindow {
             child = views_split_view
         };
 
+        assistant_panel = new Views.AI.AssistantPanel ();
+        assistant_panel.set_sheet_content (toast_overlay);
+
         overlay_split_view = new Adw.OverlaySplitView () {
-            content = toast_overlay,
+            content = assistant_panel,
             sidebar = sidebar_view
         };
 
