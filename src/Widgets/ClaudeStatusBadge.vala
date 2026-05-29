@@ -19,8 +19,12 @@
 
 public class Widgets.ClaudeStatusBadge : Adw.Bin {
     private Gtk.Image dot;
+    private ulong status_handler_id = 0;
 
     ~ClaudeStatusBadge () {
+        if (status_handler_id != 0) {
+            Services.AI.Claude.get_default ().disconnect (status_handler_id);
+        }
         debug ("Destroying Widgets.ClaudeStatusBadge\n");
     }
 
@@ -34,7 +38,7 @@ public class Widgets.ClaudeStatusBadge : Adw.Bin {
 
         update_from_status (Services.AI.Claude.get_default ().status);
 
-        Services.AI.Claude.get_default ().status_changed.connect (() => {
+        status_handler_id = Services.AI.Claude.get_default ().status_changed.connect (() => {
             update_from_status (Services.AI.Claude.get_default ().status);
         });
     }

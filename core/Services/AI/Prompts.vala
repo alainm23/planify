@@ -27,7 +27,7 @@ public class Services.AI.Prompts : GLib.Object {
             "  \"title\": \"task title as a clean imperative phrase\",\n" +
             "  \"due_date\": \"YYYY-MM-DD or null\",\n" +
             "  \"due_time\": \"HH:MM (24h) or null\",\n" +
-            "  \"priority\": 4,\n" +
+            "  \"priority\": 1,\n" +
             "  \"labels\": [\"label1\"]\n" +
             "}\n" +
             "Priority scale: 4=urgent, 3=high, 2=medium, 1=none.\n" +

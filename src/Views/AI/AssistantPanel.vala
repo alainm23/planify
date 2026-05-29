@@ -31,8 +31,12 @@ public class Views.AI.AssistantPanel : Adw.Bin {
 
     private Gee.ArrayList<Services.AI.ScheduleSuggestion?>? pending_suggestions = null;
     private Gee.ArrayList<Objects.Item>? current_items = null;
+    private ulong status_handler_id = 0;
 
     ~AssistantPanel () {
+        if (status_handler_id != 0) {
+            Services.AI.Claude.get_default ().disconnect (status_handler_id);
+        }
         debug ("Destroying Views.AI.AssistantPanel\n");
     }
 
@@ -70,7 +74,7 @@ public class Views.AI.AssistantPanel : Adw.Bin {
             reveal_child = !Services.AI.Claude.get_default ().is_configured ()
         };
 
-        Services.AI.Claude.get_default ().status_changed.connect (() => {
+        status_handler_id = Services.AI.Claude.get_default ().status_changed.connect (() => {
             bool configured = Services.AI.Claude.get_default ().is_configured ();
             notice_revealer.reveal_child = !configured;
             prioritize_button.sensitive = configured;

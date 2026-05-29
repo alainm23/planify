@@ -879,6 +879,9 @@ public class Layouts.QuickAddCore : Adw.Bin {
     }
 
     private void ai_parse_item () {
+        info_revealer.reveal_child = false;
+        content_entry.remove_css_class ("error");
+
         is_loading = true;
         var parser = new Services.AI.TaskParser ();
         parser.parse_natural_language.begin (content_entry.get_text (), (obj, res) => {
@@ -888,6 +891,11 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
             if (parsed == null) {
                 Services.LogService.get_default ().error ("QuickAdd", "AI parse failed");
+                content_entry.add_css_class ("error");
+                Timeout.add (info_revealer.transition_duration, () => {
+                    info_revealer.reveal_child = true;
+                    return GLib.Source.REMOVE;
+                });
                 return;
             }
 

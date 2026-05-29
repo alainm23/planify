@@ -43,7 +43,9 @@ public class Dialogs.Preferences.Pages.Claude : Dialogs.Preferences.Pages.BasePa
         };
 
         // Row 1 — API key
-        var api_key_row = new Adw.PasswordEntryRow ();
+        var api_key_row = new Adw.PasswordEntryRow () {
+            show_apply_button = true
+        };
         api_key_row.title = _("API Key");
 
         string? env_key = GLib.Environment.get_variable ("ANTHROPIC_API_KEY");
