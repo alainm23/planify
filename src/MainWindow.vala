@@ -759,6 +759,8 @@ public class MainWindow : Adw.ApplicationWindow {
         var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
         preferences_item.secondary_text = "Ctrl+,";
 
+        var import_item = new Widgets.ContextMenu.MenuItem (_("Import Tasks…"));
+
         var productivity_item = new Widgets.ContextMenu.MenuItem (Markup.escape_text (_("Summary & Productivity")));
 
         var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
@@ -772,6 +774,7 @@ public class MainWindow : Adw.ApplicationWindow {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (preferences_item);
+        menu_box.append (import_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (productivity_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -786,6 +789,12 @@ public class MainWindow : Adw.ApplicationWindow {
             width_request = 250,
             position = Gtk.PositionType.BOTTOM
         };
+
+        import_item.clicked.connect (() => {
+            popover.popdown ();
+            var import_dialog = new Dialogs.ImportDialog ();
+            import_dialog.present (this);
+        });
 
         productivity_item.clicked.connect (() => {
             popover.popdown ();
