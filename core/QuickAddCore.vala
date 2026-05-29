@@ -764,7 +764,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
         var ai_parse_shortcut = new Gtk.Shortcut (
             Gtk.ShortcutTrigger.parse_string ("<Control><Shift>Return"),
             new Gtk.CallbackAction (() => {
-                if (Services.AI.Claude.get_default ().is_configured ()) {
+                if (!is_loading && Services.AI.Claude.get_default ().is_configured ()) {
                     ai_parse_button.active = true;
                     ai_parse_item ();
                 }
