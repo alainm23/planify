@@ -1,18 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2025-11-02 17:57+0000\n"
-"PO-Revision-Date: 2026-05-19 00:11+0000\n"
-"Last-Translator: \"Fionn.Pi\" <ominibass93@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
-"projects/planner/io-github-alainm23-planify/zh_Hans/>\n"
+
 "Language: zh\n"
-"MIME-Version: 1.0\n"
+"Language-Team: Chinese (Simplified Han script)\n"
+"Last-Translator: jeff <jeff@wangjunfeng.com.cn>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
