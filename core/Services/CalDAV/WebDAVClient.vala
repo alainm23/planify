@@ -26,16 +26,16 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
     protected string username;
     protected string password;
     protected string base_url;
-    protected bool ignore_ssl;
+    protected string source_id;
     public string? last_response_etag { get; private set; default = null; }
 
 
-    public WebDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false) {
+    public WebDAVClient (Soup.Session session, string base_url, string username, string password, string source_id) {
         this.session = session;
         this.base_url = base_url;
         this.username = username;
         this.password = password;
-        this.ignore_ssl = ignore_ssl;
+        this.source_id = source_id;
     }
 
     public void cleanup () {
@@ -97,11 +97,7 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
             }
         });
 
-        if (ignore_ssl) {
-            msg.accept_certificate.connect (() => {
-                return true;
-            });
-        }
+        Services.CalDAV.CertificateTrustStore.get_default ().attach_certificate_handler (msg, source_id, abs_url);
 
         if (depth != null) {
             msg.request_headers.replace ("Depth", depth);
@@ -122,6 +118,10 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         } catch (Error e) {
             if (e is GLib.IOError.CANCELLED) {
                 Services.LogService.get_default ().info ("WebDAV", "Request cancelled");
+                throw e;
+            }
+            if (e is GLib.TlsError.BAD_CERTIFICATE) {
+                Services.LogService.get_default ().info ("WebDAV", "The request for the source %s failed due to an invalid certificate.".printf (source_id));
                 throw e;
             }
             throw new GLib.IOError.FAILED ("Request failed: %s".printf (e.message));

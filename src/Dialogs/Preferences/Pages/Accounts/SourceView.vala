@@ -21,6 +21,10 @@
 
 public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.BasePage {
     public Objects.Source source { get; construct; }
+    private Gtk.Box? certificate_sections_box;
+    private Adw.ActionRow? last_sync_row;
+    private Gtk.Label? last_sync_label;
+    private Gtk.Image? last_sync_row_arrow_icon;
 
     public SourceView (Adw.PreferencesDialog preferences_dialog, Objects.Source source) {
         Object (
@@ -83,18 +87,17 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
                 "Activate this setting so that Planify automatically synchronizes with your account account every 15 minutes");
         sync_server_row.active = source.sync_server;
 
-        var last_sync_label = new Gtk.Label (
-            Utils.Datetime.get_relative_date_from_date (
-                new GLib.DateTime.from_iso8601 (
-                    source.last_sync, new GLib.TimeZone.local ()
-                )
-            )
-        );
+        last_sync_label = new Gtk.Label ("");
 
-        var last_sync_row = new Adw.ActionRow ();
-        last_sync_row.activatable = false;
+        last_sync_row = new Adw.ActionRow ();
         last_sync_row.title = _("Last Sync");
         last_sync_row.add_suffix (last_sync_label);
+
+        last_sync_row_arrow_icon = new Gtk.Image.from_icon_name ("go-next-symbolic");
+        last_sync_row.add_suffix (last_sync_row_arrow_icon);
+        last_sync_row_arrow_icon.set_visible (false);
+
+        update_last_sync_row ();
 
         var default_group = new Adw.PreferencesGroup () {
             margin_top = 24
@@ -106,6 +109,8 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             default_group.add (sync_server_row);
             default_group.add (last_sync_row);
         }
+
+        certificate_sections_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 
         var delete_button = new Adw.ButtonRow () {
             title = _("Delete Source")
@@ -123,12 +128,13 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
         };
 
         var delete_stack = new Gtk.Stack () {
-            margin_top = 24
+            margin_top = 24,
+            margin_bottom = 24
         };
-        
+
         delete_stack.add_child (delete_group);
         delete_stack.add_child (delete_spinner);
-        
+
         var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             vexpand = true,
             hexpand = true
@@ -137,8 +143,13 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
         if (source.source_type != SourceType.LOCAL) {
             main_content.append (user_box);
         }
-        
+
         main_content.append (default_group);
+
+        if (source.source_type == SourceType.CALDAV) {
+            refresh_certificate_sections ();
+            main_content.append (certificate_sections_box);
+        }
 
         if (source.source_type != SourceType.LOCAL) {
             main_content.append (delete_stack);
@@ -151,8 +162,15 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             child = main_content
         };
 
+        var scrolled_window = new Gtk.ScrolledWindow () {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            hexpand = true,
+            vexpand = true,
+            child = content_clamp
+        };
+
         var toolbar_view = new Adw.ToolbarView () {
-            content = content_clamp
+            content = scrolled_window
         };
         toolbar_view.add_top_bar (new Adw.HeaderBar ());
 
@@ -174,10 +192,14 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             source.save ();
         })] = display_entry;
 
+        signal_map[last_sync_row.activated.connect (() => {
+            show_sync_error_details ();
+        })] = last_sync_row;
+
         signal_map[delete_button.activated.connect (() => {
             string current_inbox_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
             Objects.Project? current_inbox = Services.Store.instance ().get_project (current_inbox_id);
-            
+
             if (current_inbox != null && current_inbox.source_id == source.id) {
                 show_inbox_warning_dialog ();
                 return;
@@ -206,9 +228,134 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             preferences_dialog.pop_subpage ();
         })] = source;
 
+        signal_map[source.sync_failed.connect ((status) => {
+            update_last_sync_row ();
+        })] = source;
+
+        signal_map[source.sync_finished.connect (() => {
+            update_last_sync_row ();
+        })] = source;
+
         destroy.connect (() => {
             clean_up ();
         });
+    }
+
+    private void update_last_sync_row () {
+        if (last_sync_row == null || last_sync_label == null) {
+            return;
+        }
+
+        if (source.sync_status != null) {
+            last_sync_label.label = _("Failed");
+            last_sync_label.add_css_class ("error");
+            last_sync_row.activatable = true;
+            last_sync_row_arrow_icon.set_visible (true);
+            last_sync_row.subtitle = _("View details");
+            return;
+        }
+
+        last_sync_label.remove_css_class ("error");
+        last_sync_row.activatable = false;
+        last_sync_row_arrow_icon.set_visible (false);
+        last_sync_row.subtitle = null;
+
+        if (source.last_sync == null || source.last_sync == "") {
+            last_sync_label.label = _("Never");
+            return;
+        }
+
+        var last_sync_date = new GLib.DateTime.from_iso8601 (source.last_sync, new GLib.TimeZone.local ());
+        if (last_sync_date == null) {
+            last_sync_label.label = _("Unknown");
+            return;
+        }
+
+        last_sync_label.label = Utils.Datetime.get_relative_date_from_date (last_sync_date);
+    }
+
+    private void show_sync_error_details () {
+        if (source.sync_status == null) {
+            return;
+        }
+
+        var can_review_certificate = source.source_type == SourceType.CALDAV &&
+            source.sync_status.error_type == SyncErrorType.CERTIFICATE_ERROR;
+
+        if (can_review_certificate) {
+            open_pending_certificate_dialog ();
+        } else {
+            var dialog = new Adw.AlertDialog (
+                source.sync_status.title,
+                source.sync_status.description
+            );
+
+            dialog.add_response ("close", _("Close"));
+            dialog.close_response = "close";
+
+            dialog.present (Planify._instance.main_window);
+        }
+
+    }
+
+    private void refresh_certificate_sections () {
+        if (certificate_sections_box == null || source.source_type != SourceType.CALDAV) {
+            return;
+        }
+
+        Gtk.Widget? child = certificate_sections_box.get_first_child ();
+        while (child != null) {
+            var next = child.get_next_sibling ();
+            certificate_sections_box.remove (child);
+            child = next;
+        }
+
+        var certificates = Services.CalDAV.CertificateTrustStore.get_default ().get_trusted_certificates_for_source (source.id);
+        if (certificates.size == 0) {
+            return;
+        }
+
+        var certificates_group = new Adw.PreferencesGroup () {
+            title = _("Manually Trusted Certificates")
+        };
+
+        foreach (var certificate in certificates) {
+            var host = certificate.has_key ("host") ? certificate["host"] : _("Unknown host");
+            var fingerprint = certificate.has_key ("fingerprint_sha256") ? certificate["fingerprint_sha256"] : _("Unknown fingerprint");
+            var certificate_host = host;
+
+            var certificate_row = new Adw.ActionRow () {
+                title = host,
+                subtitle = fingerprint,
+                subtitle_selectable = true
+            };
+
+            var delete_certificate_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
+                tooltip_text = _("Untrust Certificate"),
+                valign = Gtk.Align.CENTER,
+                css_classes = { "flat", "destructive-action" }
+            };
+
+            certificate_row.add_suffix (delete_certificate_button);
+
+            signal_map[delete_certificate_button.clicked.connect (() => {
+                var deleted = Services.CalDAV.CertificateTrustStore.get_default ().remove_trusted_certificate_for_source (source.id, certificate_host);
+                if (!deleted) {
+                    popup_toast (_("Could not untrust certificate"));
+                    return;
+                }
+
+                // Force a new Soup.Session for the next request so removed trust does not linger.
+                Services.CalDAV.Core.get_default ().remove_client (source.id);
+                refresh_certificate_sections ();
+                Services.CalDAV.Core.get_default ().sync.begin (source);
+                popup_toast (_("Certificate untrusted"));
+            })] = delete_certificate_button;
+
+            certificates_group.add (certificate_row);
+        }
+
+        certificate_sections_box.append (certificates_group);
     }
 
     private void show_inbox_warning_dialog () {
@@ -229,5 +376,39 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
                 preferences_dialog.push_subpage (new Dialogs.Preferences.Pages.InboxPage (preferences_dialog));
             }
         });
+    }
+
+    public bool open_pending_certificate_dialog () {
+        if (source.source_type != SourceType.CALDAV) {
+            return false;
+        }
+
+        var tls_failure_context = Services.CalDAV.CertificateTrustStore.get_default ().get_last_tls_failure_for_source (source.id);
+        if (tls_failure_context == null || tls_failure_context.flags != GLib.TlsCertificateFlags.UNKNOWN_CA) {
+            return false;
+        }
+
+        var trust_page = Dialogs.Preferences.Pages.CertificateDetails.build_for_source (
+            preferences_dialog,
+            source.id,
+            source.caldav_data.server_url
+        );
+        if (trust_page == null) {
+            return false;
+        }
+
+        signal_map[trust_page.certificate_trusted.connect (() => {
+            var persisted = Services.CalDAV.CertificateTrustStore.get_default ().persist_pending_trusted_certificates_for_source (source.id);
+            if (!persisted) {
+                popup_toast (_("Failed to save trusted certificates"));
+                return;
+            }
+
+            Services.CalDAV.Core.get_default ().sync.begin (source);
+            refresh_certificate_sections ();
+        })] = trust_page;
+
+        preferences_dialog.push_subpage (trust_page);
+        return true;
     }
 }
