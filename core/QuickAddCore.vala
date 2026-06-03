@@ -39,6 +39,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
     private Gtk.Image added_image;
     private Gtk.Stack main_stack;
     private Gtk.ToggleButton create_more_button;
+    private Gtk.ToggleButton ai_parse_button;
     private Gtk.Revealer info_revealer;
     private Gtk.Overlay animation_overlay;
     private Gtk.Fixed animation_container;
@@ -342,7 +343,16 @@ public class Layouts.QuickAddCore : Adw.Bin {
             halign = END
         };
 
+        ai_parse_button = new Gtk.ToggleButton () {
+            icon_name = "starred-symbolic",
+            tooltip_text = _("Parse with Claude AI (Ctrl+Shift+Enter)"),
+            css_classes = { "flat" },
+            visible = false,
+            valign = Gtk.Align.CENTER
+        };
+
         submit_cancel_grid.append (create_more_button);
+        submit_cancel_grid.append (ai_parse_button);
         submit_cancel_grid.append (submit_button);
 
         project_picker_button = new Widgets.ProjectPicker.ProjectPickerButton () {
@@ -751,12 +761,29 @@ public class Layouts.QuickAddCore : Adw.Bin {
             return true;
         }));
 
+        var ai_parse_shortcut = new Gtk.Shortcut (
+            Gtk.ShortcutTrigger.parse_string ("<Control><Shift>Return"),
+            new Gtk.CallbackAction (() => {
+                if (!is_loading && Services.AI.Claude.get_default ().is_configured ()) {
+                    ai_parse_button.active = true;
+                    ai_parse_item ();
+                }
+                return true;
+            })
+        );
+
         shortcut_controller = new Gtk.ShortcutController ();
         shortcut_controller.add_shortcut (open_label_shortcut);
         shortcut_controller.add_shortcut (open_reminder_shortcut);
         shortcut_controller.add_shortcut (toggle_keep_adding_shortcut);
         shortcut_controller.add_shortcut (open_schedule_shortcut);
+        shortcut_controller.add_shortcut (ai_parse_shortcut);
         add_controller (shortcut_controller);
+
+        ai_parse_button.visible = Services.AI.Claude.get_default ().is_configured ();
+        signal_map[Services.AI.Claude.get_default ().status_changed.connect (() => {
+            ai_parse_button.visible = Services.AI.Claude.get_default ().is_configured ();
+        })] = Services.AI.Claude.get_default ();
 
         destroy_controller = new Gtk.EventControllerKey ();
         add_controller (destroy_controller);
@@ -779,6 +806,11 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
     private void add_item () {
         if (is_loading) {
+            return;
+        }
+
+        if (ai_parse_button.active && content_entry.get_text ().strip ().length > 0) {
+            ai_parse_item ();
             return;
         }
 
@@ -844,6 +876,45 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
             return;
         }
+    }
+
+    private void ai_parse_item () {
+        info_revealer.reveal_child = false;
+        content_entry.remove_css_class ("error");
+
+        is_loading = true;
+        var parser = new Services.AI.TaskParser ();
+        parser.parse_natural_language.begin (content_entry.get_text (), (obj, res) => {
+            Services.AI.ParsedItem? parsed = parser.parse_natural_language.end (res);
+            is_loading = false;
+            ai_parse_button.active = false;
+
+            if (parsed == null) {
+                Services.LogService.get_default ().error ("QuickAdd", "AI parse failed");
+                content_entry.add_css_class ("error");
+                Timeout.add (info_revealer.transition_duration, () => {
+                    info_revealer.reveal_child = true;
+                    return GLib.Source.REMOVE;
+                });
+                return;
+            }
+
+            content_entry.set_text (parsed.title);
+
+            if (parsed.due_date != null) {
+                var due = new Objects.DueDate ();
+                if (parsed.due_time != null) {
+                    due.date = parsed.due_date + "T" + parsed.due_time + ":00";
+                } else {
+                    due.date = parsed.due_date;
+                }
+                item.due = due;
+                schedule_button.update_from_item (item);
+            }
+
+            item.priority = parsed.priority;
+            priority_button.update_from_item (item);
+        });
     }
 
     private void _add_item (Objects.Item item) {

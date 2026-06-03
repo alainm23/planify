@@ -24,3 +24,16 @@ test_cli = executable(
 )
 
 test('cli', test_cli, timeout: 30, suite: ['cli'])
+
+test_ai_sources = [
+    'test-ai-unit.vala',
+]
+
+test_ai = executable(
+    'test-ai',
+    test_ai_sources,
+    dependencies: [ core_dep, glib_dep ],
+    install: false
+)
+
+test('ai-unit', test_ai, timeout: 30, suite: ['ai-unit'])

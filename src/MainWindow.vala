@@ -34,6 +34,7 @@ public class MainWindow : Adw.ApplicationWindow {
     private Widgets.ContextMenu.MenuSeparator archive_separator;
     private Adw.ToastOverlay toast_overlay;
     private Adw.ViewStack view_stack;
+    private Views.AI.AssistantPanel assistant_panel;
     private Gtk.Widget error_db_page;
     private string previous_inbox_project_id = "";
 
@@ -100,6 +101,15 @@ public class MainWindow : Adw.ApplicationWindow {
         sidebar_header.pack_end (settings_button);
         sidebar_header.pack_end (fake_button);
 
+        var ai_wand_button = new Gtk.Button.from_icon_name ("starred-symbolic") {
+            tooltip_text = _("Claude AI Assistant"),
+            css_classes = { "flat" }
+        };
+        ai_wand_button.clicked.connect (() => {
+            assistant_panel.open_sheet ();
+        });
+        sidebar_header.pack_end (ai_wand_button);
+
         sidebar = new Layouts.Sidebar ();
 
         var sidebar_view = new Adw.ToolbarView ();
@@ -132,8 +142,11 @@ public class MainWindow : Adw.ApplicationWindow {
             child = views_split_view
         };
 
+        assistant_panel = new Views.AI.AssistantPanel ();
+        assistant_panel.set_sheet_content (toast_overlay);
+
         overlay_split_view = new Adw.OverlaySplitView () {
-            content = toast_overlay,
+            content = assistant_panel,
             sidebar = sidebar_view
         };
 
@@ -746,6 +759,8 @@ public class MainWindow : Adw.ApplicationWindow {
         var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
         preferences_item.secondary_text = "Ctrl+,";
 
+        var import_item = new Widgets.ContextMenu.MenuItem (_("Import Tasks…"));
+
         var productivity_item = new Widgets.ContextMenu.MenuItem (Markup.escape_text (_("Summary & Productivity")));
 
         var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
@@ -759,6 +774,7 @@ public class MainWindow : Adw.ApplicationWindow {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (preferences_item);
+        menu_box.append (import_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (productivity_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -773,6 +789,12 @@ public class MainWindow : Adw.ApplicationWindow {
             width_request = 250,
             position = Gtk.PositionType.BOTTOM
         };
+
+        import_item.clicked.connect (() => {
+            popover.popdown ();
+            var import_dialog = new Dialogs.ImportDialog ();
+            import_dialog.present (this);
+        });
 
         productivity_item.clicked.connect (() => {
             popover.popdown ();
