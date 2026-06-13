@@ -321,9 +321,8 @@ public class Services.Todoist : GLib.Object {
                         Services.LogService.get_default ().warn ("Todoist",
                             "Queue item failed — query: %s, error: %s".printf (
                                 q.query, error_obj.get_string_member ("error")));
-                    } else {
-                        Services.Database.get_default ().remove_queue (q.uuid);
                     }
+                    Services.Database.get_default ().remove_queue (q.uuid);
                 }
             }
         } catch (Error e) {
