@@ -277,6 +277,7 @@ public class Services.Todoist : GLib.Object {
                 Services.LogService.get_default ().debug ("Todoist", "Processing queue item — query: %s, uuid: %s, object_id: %s".printf (q.query, q.uuid, q.object_id));
                 if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                     var temp_id_mapping = node.get_object_member ("temp_id_mapping");
+                    var success = true;
 
                     if (q.query == "project_add") {
                         if (temp_id_mapping.has_member (q.temp_id)) {
@@ -285,6 +286,7 @@ public class Services.Todoist : GLib.Object {
                             Services.Database.get_default ().remove_CurTempIds (q.object_id);
                         } else {
                             Services.LogService.get_default ().warn ("Todoist", "temp_id_mapping missing for project_add: %s".printf (q.temp_id));
+                            success = false;
                         }
                     }
 
@@ -295,6 +297,7 @@ public class Services.Todoist : GLib.Object {
                             Services.Database.get_default ().remove_CurTempIds (q.object_id);
                         } else {
                             Services.LogService.get_default ().warn ("Todoist", "temp_id_mapping missing for section_add: %s".printf (q.temp_id));
+                            success = false;
                         }
                     }
 
@@ -305,10 +308,12 @@ public class Services.Todoist : GLib.Object {
                             Services.Database.get_default ().remove_CurTempIds (q.object_id);
                         } else {
                             Services.LogService.get_default ().warn ("Todoist", "temp_id_mapping missing for item_add: %s".printf (q.temp_id));
+                            success = false;
                         }
                     }
-
-                    Services.Database.get_default ().remove_queue (q.uuid);
+                    if (success) {
+                        Services.Database.get_default ().remove_queue (q.uuid);
+                    }
                 } else {
                     var sync_status = node.get_object_member ("sync_status");
                     if (sync_status.has_member (q.uuid)) {
@@ -316,8 +321,9 @@ public class Services.Todoist : GLib.Object {
                         Services.LogService.get_default ().warn ("Todoist",
                             "Queue item failed — query: %s, error: %s".printf (
                                 q.query, error_obj.get_string_member ("error")));
+                    } else {
+                        Services.Database.get_default ().remove_queue (q.uuid);
                     }
-                    Services.Database.get_default ().remove_queue (q.uuid);
                 }
             }
         } catch (Error e) {
@@ -411,6 +417,15 @@ public class Services.Todoist : GLib.Object {
                 if (parent_id != "") {
                     builder.set_member_name ("parent_id"); builder.add_string_value (parent_id);
                 }
+                if (Utils.JsonUtils.is_null_member (q.args, "due")) {
+                    builder.set_member_name ("due"); builder.add_null_value ();
+                } else {
+                    builder.set_member_name ("due");
+                    builder.begin_object ();
+                    builder.set_member_name ("date"); builder.add_string_value (Utils.JsonUtils.get_object_member (q.args, "due").get_string_member ("date"));
+                    builder.set_member_name ("string"); builder.add_string_value (Utils.JsonUtils.get_object_member (q.args, "due").get_string_member ("string"));
+                    builder.end_object ();
+                }
                 end_command (builder);
             } else if (q.query == "item_update") {
                 begin_command (builder, "item_update", q.uuid);
@@ -424,6 +439,7 @@ public class Services.Todoist : GLib.Object {
                     builder.set_member_name ("due");
                     builder.begin_object ();
                     builder.set_member_name ("date"); builder.add_string_value (Utils.JsonUtils.get_object_member (q.args, "due").get_string_member ("date"));
+                    builder.set_member_name ("string"); builder.add_string_value (Utils.JsonUtils.get_object_member (q.args, "due").get_string_member ("string"));
                     builder.end_object ();
                 }
                 end_command (builder);
@@ -437,7 +453,7 @@ public class Services.Todoist : GLib.Object {
                 string move_type = Utils.JsonUtils.get_string (q.args, "type");
                 builder.set_member_name (move_type); builder.add_string_value (resolve_id (Utils.JsonUtils.get_string (q.args, move_type)));
                 end_command (builder);
-            } else if (q.query == "item_complete" || q.query == "item_uncomplete") {
+            } else if (q.query == "item_complete" || q.query == "item_uncomplete" || q.query == "item_close") {
                 begin_command (builder, q.query, q.uuid);
                 builder.set_member_name ("id"); builder.add_string_value (resolve_id (Utils.JsonUtils.get_string (q.args, "id")));
                 end_command (builder);
@@ -486,6 +502,10 @@ public class Services.Todoist : GLib.Object {
 
     public async HttpResponse complete_item (Objects.Item item) {
         return yield _items.complete_item (item);
+    }
+    
+    public async HttpResponse close_item (Objects.Item item) {
+        return yield _items.close_item (item);
     }
 
     public async HttpResponse move_item (Objects.Item item, string type, string id) {

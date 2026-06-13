@@ -145,9 +145,39 @@ public class Utils.Datetime {
     }
 
     public static void parse_todoist_recurrency (Objects.DueDate duedate, Json.Object object) {
-        if (object.has_member ("lang") && object.get_string_member ("lang") != "en") {
+        if (object.has_member ("lang") && object.get_string_member ("lang") != "en" && object.get_string_member ("lang") != "es") {
             duedate.recurrence_supported = false;
             return;
+        }
+        var lang = object.has_member ("lang") ? object.get_string_member ("lang") : "en";
+        var chrono = new Chrono.Core (lang);
+
+        var result = chrono.parse (duedate.recurrence_string, true);
+        if (result == null || result.recurrence == null) {
+            duedate.recurrence_supported = false;
+            duedate.recurrency_type = RecurrencyType.NONE;
+            duedate.recurrency_interval = 0;
+            duedate.recurrency_weeks = "";
+            return;
+        }
+        
+        duedate.recurrence_supported = true;
+        duedate.is_recurring = true;
+        duedate.recurrency_interval = result.recurrence.interval;
+        switch (result.recurrence.recurrence_type) {
+            case Chrono.RecurrenceType.DAILY:   duedate.recurrency_type = RecurrencyType.EVERY_DAY; break;
+            case Chrono.RecurrenceType.WEEKLY:  duedate.recurrency_type = RecurrencyType.EVERY_WEEK; break;
+            case Chrono.RecurrenceType.MONTHLY: duedate.recurrency_type = RecurrencyType.EVERY_MONTH; break;
+            case Chrono.RecurrenceType.YEARLY:  duedate.recurrency_type = RecurrencyType.EVERY_YEAR; break;
+        }
+
+        if (result.recurrence.days_of_week != null) {
+            string weeks = "";
+            foreach (var day in result.recurrence.days_of_week) {
+                if (day == 0) day = 7;
+                weeks += day.to_string () + ",";
+            }
+            duedate.recurrency_weeks = weeks.substring (0, weeks.length - 1);
         }
     }
 
@@ -483,6 +513,76 @@ public class Utils.Datetime {
             returned = date.format ("%F");
         }
 
+        return returned;
+    }
+
+    private static Regex? _iso_due_regex;
+
+    private static bool is_iso_due_date (string date) {
+        if (date == null || date == "") return false;
+        try {
+            if (_iso_due_regex == null) {
+                _iso_due_regex = new Regex ("^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2})?$");
+            }
+            return _iso_due_regex.match (date);
+        } catch (RegexError e) {
+            return false;
+        }
+    }
+
+    public static string due_to_todoist_natural_language (Objects.DueDate due) {
+        if (due.recurrence_string != "" && due.is_recurring) {
+            return due.recurrence_string;
+        }
+        
+        if (due.date != "" && !is_iso_due_date (due.date)) {
+            return due.date;
+        }
+
+        if (due.is_recurring == false || due.recurrency_type == 0 || due.recurrency_type == 6) {
+            if (due.datetime != null) {
+                return get_todoist_datetime_format (due.datetime);
+            } else {
+                return "";
+            }
+        }
+
+        string[] recurrency_types = {"hour", "day", "week", "month", "year"};
+        string[] days = {"mon,", "tue,", "wed,", "thu,", "fri,", "sat,", "sun,"};
+        string returned = "every ";
+        if (due.recurrency_interval > 1) {
+            returned += due.recurrency_interval.to_string() + " ";
+            returned += recurrency_types[due.recurrency_type - 1];
+            returned += "s ";
+        } else if (!(due.recurrency_type == 3 && due.recurrency_weeks != "")){
+            returned += recurrency_types[due.recurrency_type - 1] + " ";
+        }
+        if (due.recurrency_type == 3 && due.recurrency_weeks != "") {
+            if (due.recurrency_weeks == "1,2,3,4,5") {
+                returned += "weekday";
+                if (due.recurrency_interval > 1) {
+                    returned += "s";
+                }
+                returned += " ";
+            } else {
+                var selected_days = due.recurrency_weeks.split (",");
+                foreach (var day in selected_days) {
+                    returned += days[int.parse (day) - 1];
+                }
+                returned = returned[0:-1] + " ";
+            }
+        }
+
+        if (has_time (due.datetime)) {
+            returned += "at ";
+            var time = due.datetime.format ("%T");
+            returned += time[0:-3];
+        }
+
+        if (due.recurrency_end != "") {
+            returned += "until ";
+            returned += due.end_datetime.format ("%F");
+        }        
         return returned;
     }
 
