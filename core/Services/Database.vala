@@ -308,7 +308,7 @@ public class Services.Database : GLib.Object {
                 due                 TEXT,
                 mm_offset           INTEGER,
                 is_deleted          INTEGER,
-                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE
+                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE ON UPDATE CASCADE
             );
         """;
 
@@ -352,7 +352,7 @@ public class Services.Database : GLib.Object {
                 file_name       TEXT,
                 file_size       TEXT,
                 file_path       TEXT,
-                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE
+                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE ON UPDATE CASCADE
             );
         """;
 

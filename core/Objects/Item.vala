@@ -435,7 +435,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (!node.get_object ().get_null_member ("due")) {
-            due.update_from_json (node.get_object ().get_object_member ("due"));
+            due.update_from_todoist_json (node.get_object ().get_object_member ("due"));
         } else {
             due.reset ();
         }
@@ -1133,6 +1133,9 @@ public class Objects.Item : Objects.BaseObject {
             builder.set_member_name ("due");
             builder.begin_object ();
 
+            builder.set_member_name ("string");
+            builder.add_string_value (Utils.Datetime.due_to_todoist_natural_language (due));
+
             builder.set_member_name ("date");
             builder.add_string_value (due.date);
 
@@ -1224,6 +1227,9 @@ public class Objects.Item : Objects.BaseObject {
 
             builder.set_member_name ("date");
             builder.add_string_value (due.date);
+            
+            builder.set_member_name ("string");
+            builder.add_string_value (Utils.Datetime.due_to_todoist_natural_language (due));
 
             builder.end_object ();
         } else {
@@ -1614,6 +1620,8 @@ public class Objects.Item : Objects.BaseObject {
             return;
         }
 
+        due.recurrence_string = "";
+
         if (duedate.recurrency_type == RecurrencyType.MINUTELY ||
             duedate.recurrency_type == RecurrencyType.HOURLY) {
             if (!has_due) {
@@ -1688,7 +1696,7 @@ public class Objects.Item : Objects.BaseObject {
             Services.Store.instance ().update_item (this);
         } else if (project.source_type == SourceType.TODOIST) {
             loading = true;
-            var response = yield Services.Todoist.get_default ().update (this);
+            var response = yield Services.Todoist.get_default ().close_item (this);
             loading = false;
             if (response.status) {
                 Services.Store.instance ().update_item (this);
@@ -1862,6 +1870,11 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_due (Objects.DueDate duedate) {
+        if (!duedate.is_recurring || duedate.recurrency_type == RecurrencyType.NONE
+            || !due.is_recurrency_equal (duedate)) {
+            due.recurrence_string = "";
+        }
+        
         due.date = duedate.date;
         due.is_recurring = duedate.is_recurring;
         due.recurrency_type = duedate.recurrency_type;
