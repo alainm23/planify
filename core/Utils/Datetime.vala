@@ -165,10 +165,10 @@ public class Utils.Datetime {
         duedate.is_recurring = true;
         duedate.recurrency_interval = result.recurrence.interval;
         switch (result.recurrence.recurrence_type) {
-            case Chrono.RecurrenceType.DAILY:   duedate.recurrency_type = RecurrencyType.EVERY_DAY; break;
-            case Chrono.RecurrenceType.WEEKLY:  duedate.recurrency_type = RecurrencyType.EVERY_WEEK; break;
+            case Chrono.RecurrenceType.DAILY: duedate.recurrency_type = RecurrencyType.EVERY_DAY; break;
+            case Chrono.RecurrenceType.WEEKLY: duedate.recurrency_type = RecurrencyType.EVERY_WEEK; break;
             case Chrono.RecurrenceType.MONTHLY: duedate.recurrency_type = RecurrencyType.EVERY_MONTH; break;
-            case Chrono.RecurrenceType.YEARLY:  duedate.recurrency_type = RecurrencyType.EVERY_YEAR; break;
+            case Chrono.RecurrenceType.YEARLY: duedate.recurrency_type = RecurrencyType.EVERY_YEAR; break;
         }
 
         if (result.recurrence.days_of_week != null) {
@@ -551,10 +551,10 @@ public class Utils.Datetime {
         string[] days = {"mon,", "tue,", "wed,", "thu,", "fri,", "sat,", "sun,"};
         string returned = "every ";
         if (due.recurrency_interval > 1) {
-            returned += due.recurrency_interval.to_string() + " ";
+            returned += due.recurrency_interval.to_string () + " ";
             returned += recurrency_types[due.recurrency_type - 1];
             returned += "s ";
-        } else if (!(due.recurrency_type == 3 && due.recurrency_weeks != "")){
+        } else if (!(due.recurrency_type == 3 && due.recurrency_weeks != "")) {
             returned += recurrency_types[due.recurrency_type - 1] + " ";
         }
         if (due.recurrency_type == 3 && due.recurrency_weeks != "") {
