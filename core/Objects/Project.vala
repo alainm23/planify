@@ -555,12 +555,10 @@ public class Objects.Project : Objects.BaseObject {
         }
 
         foreach (var item in items) {
-            string ? parent_id = Util.find_string_value ("RELATED-TO", item.calendar_data);
-            if (parent_id != null && parent_id != "") {
-                Objects.Item ? parent_item = Services.Store.instance ().get_item (parent_id);
-                
+            if (item.parent_id != "") {
+                Objects.Item? parent_item = Services.Store.instance ().get_item (item.parent_id);
                 if (parent_item == null) {
-                    parent_item = batch_map.has_key (parent_id) ? batch_map[parent_id] : null;
+                    parent_item = batch_map.has_key (item.parent_id) ? batch_map[item.parent_id] : null;
                 }
                 if (parent_item != null) {
                     parent_item.add_item_if_not_exists (item);
