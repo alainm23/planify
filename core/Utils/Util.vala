@@ -774,57 +774,6 @@ We hope you’ll enjoy using Planify!""");
         return result;
     }
 
-    /*
-    *   XML adn CakDAV Util
-    */
-
-
-    public static string find_string_value (string key, string data) {
-        if (key == null || data == null) {
-            return "";
-        }
-        
-        GLib.Regex? regex = null;
-        GLib.MatchInfo match;
-
-        try {
-            regex = new GLib.Regex ("%s:(.*)".printf (key));
-        } catch (GLib.RegexError e) {
-            critical (e.message);
-        }
-
-        if (regex == null) {
-            return "";
-        }
-
-        if (!regex.match (data.strip (), 0, out match)) {
-            return "";
-        }
-
-        return match.fetch_all ()[1];
-    }
-
-    public static bool find_boolean_value (string key, string data) {
-        GLib.Regex? regex = null;
-        GLib.MatchInfo match;
-
-        try {
-            regex = new GLib.Regex ("%s:(.*)".printf (key));
-        } catch (GLib.RegexError e) {
-            critical (e.message);
-        }
-
-        if (regex == null) {
-            return false;
-        }
-
-        if (!regex.match (data, 0, out match)) {
-            return false;
-        }
-
-        return bool.parse (match.fetch_all () [1]);
-    }
-
     public static string generate_extra_data (string ical_url, string etag, string data) {
         var builder = new Json.Builder ();
         builder.begin_object ();

@@ -23,7 +23,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     private Widgets.DateTimePicker.TimePicker time_picker;
     private Widgets.Calendar.CalendarMonth calendar_view;
     private Widgets.Calendar.CalendarScroll calendar_scroll_view;
-    private Widgets.ContextMenu.MenuItem repeat_item;
     private NoDateButton no_date_button;
     private OptionButton time_option_button;
     private OptionButton repeat_option_button;
@@ -267,10 +266,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         repeat_option_button.clear_clicked.connect (() => {
             apply_recurrency (RecurrencyType.NONE, 0, null, false);
-        });
-
-        repeat_item.clicked.connect (() => {
-            show_revealer (repeat_option_revealer);
         });
 
         closed.connect (() => {
