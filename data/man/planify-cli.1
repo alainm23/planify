@@ -31,6 +31,12 @@ Update an existing task. Only provided fields will be changed.
 List all projects.
 .sp
 .B planify-cli list-projects
+.TP
+.B backup
+Export a JSON backup of all tasks, projects, sections, labels, and sources.
+.sp
+.B planify-cli backup
+[OPTIONS]
 .SH OPTIONS
 .SS Global Options
 .TP
@@ -117,6 +123,10 @@ Mark task as complete or incomplete
 .TP
 .B \-\-pin=true|false
 Pin or unpin the task
+.SS backup command options:
+.TP
+.B \-o, \-\-output=FILE
+Output file path (defaults to stdout)
 .SH EXAMPLES
 .TP
 .B 1. Get help for a specific command:
@@ -143,6 +153,37 @@ planify-cli update \-t TASK_ID \-P 2 \-\-complete=true
 .TP
 .B 7. List all projects:
 planify-cli list-projects
+.TP
+.B 8. Add a subtask using a parent ID:
+planify-cli add -c "Write unit tests" -p "Work" --parent-id "abc123"
+.TP
+.B 9. Complete a task:
+planify-cli update --task-id "abc123" --complete true
+.TP
+.B 10. Move a task to another project:
+planify-cli update --task-id "abc123" --project "Personal"
+.TP
+.B 11. Create a JSON backup of all data:
+planify-cli backup --output ~/backup.json
+.TP
+.B 12. Pipe backup output to jq for processing:
+planify-cli backup | jq '.items | length'
+.TP
+.B 13. Automated daily backup with cron:
+.br
+# Add to crontab: daily backup at 2am
+.br
+0 2 * * * planify-cli backup --output ~/backups/planify-$(date +\%Y\%m\%d).json
+.TP
+.B 14. Voice-to-task script example:
+.br
+#!/bin/bash
+.br
+# Record audio, transcribe with Whisper, add as task
+.br
+TASK=$(whisper --model tiny record.wav | tail -1)
+.br
+planify-cli add --content "$TASK"
 .SH NOTES
 • When both name and ID options are available (e.g., \-\-project and \-\-project-id), the ID option is preferred.
 .br
@@ -154,12 +195,16 @@ planify-cli list-projects
 .br
 • Labels should be provided as a comma-separated list without spaces: label1,label2,label3.
 .br
-• You can find the official CLI documentation on https://useplanify.com/cli
+• For Flatpak installations, you can create an alias for convenience:
+.br
+   alias planify-cli="flatpak run --command=io.github.alainm23.planify.cli io.github.alainm23.planify"
 .br
 • Planify is primarily distributed via Flatpak and you can run its commands by:
 .br
    flatpak run --command=io.github.alainm23.planify.cli io.github.alainm23.planify <command>
 .br
+.SH Upstream Document
+You can find the official CLI documentation on https://useplanify.com/cli
 .SH SEE ALSO
 .BR planify (1)
 .BR planify-quick-add (1)
@@ -171,4 +216,4 @@ the Planify issue tracker.
 .SH AUTHOR
 Planify Development Team
 .SH COPYRIGHT
-Copyright © 2023-2026 Alain M. 
+Copyright © 2023-2026 Alain M.
