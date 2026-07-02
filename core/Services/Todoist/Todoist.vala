@@ -68,6 +68,34 @@ public class Services.Todoist : GLib.Object {
      * Sync
      */
 
+    private void process_item_node (Json.Node _node) {
+        Objects.Item ? item = Services.Store.instance ().get_item (_node.get_object ().get_string_member ("id"));
+        if (item != null) {
+            if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                Services.Store.instance ().delete_item (item);
+            } else {
+                string old_project_id = item.project_id;
+                string old_section_id = item.section_id;
+                string old_parent_id = item.parent_id;
+                bool old_checked = item.checked;
+
+                item.update_from_json (_node);
+                Services.Store.instance ().update_item (item);
+
+                if (old_project_id != item.project_id || old_section_id != item.section_id ||
+                    old_parent_id != item.parent_id) {
+                    Services.EventBus.get_default ().item_moved (item, old_project_id, old_section_id, old_parent_id);
+                }
+
+                if (old_checked != item.checked) {
+                    Services.Store.instance ().complete_item (item, old_checked);
+                }
+            }
+        } else {
+            add_item_if_not_exists (_node);
+        }
+    }
+
     public async void sync (Objects.Source source) {
         if (source.todoist_data.access_token == null) {
             return;
@@ -175,31 +203,7 @@ public class Services.Todoist : GLib.Object {
                 // Items
                 unowned Json.Array items = parser.get_root ().get_object ().get_array_member (ITEMS_COLLECTION);
                 foreach (unowned Json.Node _node in items.get_elements ()) {
-                    Objects.Item ? item = Services.Store.instance ().get_item (_node.get_object ().get_string_member ("id"));
-                    if (item != null) {
-                        if (_node.get_object ().get_boolean_member ("is_deleted")) {
-                            Services.Store.instance ().delete_item (item);
-                        } else {
-                            string old_project_id = item.project_id;
-                            string old_section_id = item.section_id;
-                            string old_parent_id = item.parent_id;
-                            bool old_checked = item.checked;
-
-                            item.update_from_json (_node);
-                            Services.Store.instance ().update_item (item);
-
-                            if (old_project_id != item.project_id || old_section_id != item.section_id ||
-                                old_parent_id != item.parent_id) {
-                                Services.EventBus.get_default ().item_moved (item, old_project_id, old_section_id, old_parent_id);
-                            }
-
-                            if (old_checked != item.checked) {
-                                Services.Store.instance ().complete_item (item, old_checked);
-                            }
-                        }
-                    } else {
-                        add_item_if_not_exists (_node);
-                    }
+                    process_item_node (_node);
                 }
 
                 // Reminders
@@ -256,7 +260,7 @@ public class Services.Todoist : GLib.Object {
             return;
         }
 
-        string json = get_queue_json (queue_collection);
+        string json = get_queue_json (queue_collection, source.todoist_data.sync_token);
         Services.LogService.get_default ().info ("Todoist", "Flushing queue: %d items".printf (queue_collection.size));
         Services.LogService.get_default ().debug ("Todoist", "Queue JSON: %s".printf (json));
 
@@ -325,6 +329,11 @@ public class Services.Todoist : GLib.Object {
                     Services.Database.get_default ().remove_queue (q.uuid);
                 }
             }
+            if (node.has_member ("items")) {
+                foreach (unowned Json.Node _node in node.get_array_member ("items").get_elements ()) {
+                    process_item_node (_node);
+                }
+            }
         } catch (Error e) {
             debug (e.message);
         }
@@ -355,9 +364,17 @@ public class Services.Todoist : GLib.Object {
         builder.end_object ();
     }
 
-    public string get_queue_json (Gee.ArrayList<Objects.Queue ?> queue) {
+    public string get_queue_json (Gee.ArrayList<Objects.Queue ?> queue, string sync_token) {
         var builder = new Json.Builder ();
         builder.begin_object ();
+
+        builder.set_member_name ("sync_token");
+        builder.add_string_value (sync_token);
+        builder.set_member_name ("resource_types");
+        builder.begin_array ();
+        builder.add_string_value ("items");
+        builder.end_array ();
+
         builder.set_member_name ("commands");
         builder.begin_array ();
 

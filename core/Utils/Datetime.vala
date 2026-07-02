@@ -169,15 +169,19 @@ public class Utils.Datetime {
             case Chrono.RecurrenceType.WEEKLY: duedate.recurrency_type = RecurrencyType.EVERY_WEEK; break;
             case Chrono.RecurrenceType.MONTHLY: duedate.recurrency_type = RecurrencyType.EVERY_MONTH; break;
             case Chrono.RecurrenceType.YEARLY: duedate.recurrency_type = RecurrencyType.EVERY_YEAR; break;
+            default: duedate.recurrency_type = RecurrencyType.EVERY_DAY; break;
         }
 
+        duedate.recurrency_weeks = "";
         if (result.recurrence.days_of_week != null) {
             string weeks = "";
             foreach (var day in result.recurrence.days_of_week) {
                 if (day == 0) day = 7;
                 weeks += day.to_string () + ",";
             }
-            duedate.recurrency_weeks = weeks.substring (0, weeks.length - 1);
+            if (weeks.length > 0) {
+                duedate.recurrency_weeks = weeks.substring (0, weeks.length - 1);
+            }
         }
     }
 
@@ -539,7 +543,7 @@ public class Utils.Datetime {
             return due.date;
         }
 
-        if (due.is_recurring == false || due.recurrency_type == 0 || due.recurrency_type == 6) {
+        if (due.is_recurring == false || due.recurrency_type < RecurrencyType.HOURLY || due.recurrency_type > RecurrencyType.EVERY_YEAR) {
             if (due.datetime != null) {
                 return get_todoist_datetime_format (due.datetime);
             } else {
@@ -547,17 +551,26 @@ public class Utils.Datetime {
             }
         }
 
-        string[] recurrency_types = {"hour", "day", "week", "month", "year"};
+        var recurrency_type_string = "";
+        switch (due.recurrency_type) {
+            case RecurrencyType.HOURLY: recurrency_type_string = "hour"; break;
+            case RecurrencyType.EVERY_DAY: recurrency_type_string = "day"; break;
+            case RecurrencyType.EVERY_WEEK: recurrency_type_string = "week"; break;
+            case RecurrencyType.EVERY_MONTH: recurrency_type_string = "month"; break;
+            case RecurrencyType.EVERY_YEAR: recurrency_type_string = "year"; break;
+            default: recurrency_type_string = "day"; break;
+        }
+
         string[] days = {"mon,", "tue,", "wed,", "thu,", "fri,", "sat,", "sun,"};
         string returned = "every ";
         if (due.recurrency_interval > 1) {
             returned += due.recurrency_interval.to_string () + " ";
-            returned += recurrency_types[due.recurrency_type - 1];
+            returned += recurrency_type_string;
             returned += "s ";
-        } else if (!(due.recurrency_type == 3 && due.recurrency_weeks != "")) {
-            returned += recurrency_types[due.recurrency_type - 1] + " ";
+        } else if (!(due.recurrency_type == RecurrencyType.EVERY_WEEK && due.recurrency_weeks != "")) { 
+            returned += recurrency_type_string + " ";
         }
-        if (due.recurrency_type == 3 && due.recurrency_weeks != "") {
+        if (due.recurrency_type == RecurrencyType.EVERY_WEEK && due.recurrency_weeks != "") {
             if (due.recurrency_weeks == "1,2,3,4,5") {
                 returned += "weekday";
                 if (due.recurrency_interval > 1) {
@@ -567,13 +580,15 @@ public class Utils.Datetime {
             } else {
                 var selected_days = due.recurrency_weeks.split (",");
                 foreach (var day in selected_days) {
-                    returned += days[int.parse (day) - 1];
+                    int dayint = int.parse (day);
+                    if (dayint > 7 || dayint < 1) continue;
+                    returned += days[dayint - 1];
                 }
                 returned = returned[0:-1] + " ";
             }
         }
 
-        if (has_time (due.datetime)) {
+        if (due.datetime != null && has_time (due.datetime)) {
             returned += "at ";
             var time = due.datetime.format ("%T");
             returned += time[0:-3];

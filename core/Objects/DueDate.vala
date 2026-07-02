@@ -123,8 +123,9 @@ public class Objects.DueDate : GLib.Object {
             date = object.get_string_member ("date");
         }
         
-        if (object.has_member ("recurrence_string"))
+        if (object.has_member ("recurrence_string")) {
             recurrence_string = object.get_string_member ("recurrence_string");
+        }
 
         if (object.has_member ("timezone")) {
             time_zone = object.get_string_member ("timezone");

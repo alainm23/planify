@@ -238,7 +238,7 @@ public class Services.TodoistItems : GLib.Object {
         }
 
         string uuid = Util.get_default ().generate_string ();
-        string json = item.get_check_json (uuid, "item_close");
+        string json = item.get_check_json (uuid, "item_close", item.source.todoist_data.sync_token);
         Objects.Source source = item.source;
 
         var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
@@ -260,6 +260,21 @@ public class Services.TodoistItems : GLib.Object {
                 if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                     source.todoist_data.sync_token = parser.get_root ().get_object ().get_string_member ("sync_token");
                     response.status = true;
+
+                    var root = parser.get_root ().get_object ();
+
+                    if (root.has_member ("items")) {
+                        unowned Json.Array items = root.get_array_member ("items");
+                        foreach (unowned Json.Node node in items.get_elements ()) {
+                            if (node.get_object ().get_string_member ("id") == item.id) {
+                                if (!node.get_object ().get_null_member ("due")) {
+                                    item.due.update_from_todoist_json (node.get_object ().get_object_member ("due"));
+                                }
+                                break;
+                            }
+                        }
+                    }
+
                     source.last_sync = new GLib.DateTime.now_local ().to_string ();
                     source.save ();
                 } else {

@@ -719,10 +719,20 @@ public class Objects.Item : Objects.BaseObject {
         return get_update_json (uuid, temp_id);
     }
 
-    public string get_check_json (string uuid, string type) {
+    public string get_check_json (string uuid, string type, string? sync_token = null) {
         builder.reset ();
 
         builder.begin_object ();
+
+        if (sync_token != null) {
+            builder.set_member_name ("sync_token");
+            builder.add_string_value (sync_token);
+            builder.set_member_name ("resource_types");
+            builder.begin_array ();
+            builder.add_string_value ("items");
+            builder.end_array ();
+        }
+
         builder.set_member_name ("commands");
 
         builder.begin_array ();
@@ -1715,7 +1725,7 @@ public class Objects.Item : Objects.BaseObject {
             }
         }
 
-        return next_recurrency;
+        return due.datetime;
     }
 
     public void move (Objects.Project project, string _section_id, bool notify = true) {
