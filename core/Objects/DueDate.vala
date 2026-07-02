@@ -21,6 +21,7 @@
 
 public class Objects.DueDate : GLib.Object {
     public string date { get; set; default = ""; }
+    public string recurrence_string { get; set; default = ""; }
     public string time_zone { get; set; default = ""; }
     public string recurrency_weeks { get; set; default = ""; }
     public bool is_recurring { get; set; default = false; }
@@ -103,6 +104,10 @@ public class Objects.DueDate : GLib.Object {
             date = object.get_string_member ("date");
         }
 
+        if (object.has_member ("string")) {
+            recurrence_string = object.get_string_member ("string");
+        }
+
         if (object.has_member ("timezone")) {
             time_zone = object.get_string_member ("timezone");
         }
@@ -116,6 +121,10 @@ public class Objects.DueDate : GLib.Object {
     public void update_from_json (Json.Object object) {
         if (object.has_member ("date")) {
             date = object.get_string_member ("date");
+        }
+        
+        if (object.has_member ("recurrence_string")) {
+            recurrence_string = object.get_string_member ("recurrence_string");
         }
 
         if (object.has_member ("timezone")) {
@@ -149,6 +158,7 @@ public class Objects.DueDate : GLib.Object {
 
     public void reset () {
         date = "";
+        recurrence_string = "";
         time_zone = "";
         recurrency_type = RecurrencyType.NONE;
         recurrency_interval = 0;
@@ -161,6 +171,9 @@ public class Objects.DueDate : GLib.Object {
 
         builder.set_member_name ("date");
         builder.add_string_value (date);
+        
+        builder.set_member_name ("recurrence_string");
+        builder.add_string_value (recurrence_string);
 
         builder.set_member_name ("timezone");
         builder.add_string_value (time_zone);
@@ -208,6 +221,7 @@ public class Objects.DueDate : GLib.Object {
     public Objects.DueDate duplicate () {
         var new_due = new Objects.DueDate ();
         new_due.date = date;
+        new_due.recurrence_string = recurrence_string;
         new_due.time_zone = time_zone;
         new_due.recurrency_weeks = recurrency_weeks;
         new_due.is_recurring = is_recurring;

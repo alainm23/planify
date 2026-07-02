@@ -226,6 +226,84 @@ public class Services.TodoistItems : GLib.Object {
 
         return response;
     }
+    
+    public async HttpResponse close_item (Objects.Item item) {
+        HttpResponse response = new HttpResponse ();
+
+        if (item.source.needs_migration ()) {
+            response.status = false;
+            response.error = MIGRATE_MESSAGE;
+            response.error_code = 410;
+            return response;
+        }
+
+        string uuid = Util.get_default ().generate_string ();
+        string json = item.get_check_json (uuid, "item_close", item.source.todoist_data.sync_token);
+        Objects.Source source = item.source;
+
+        var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
+        message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
+        message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
+
+        try {
+            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            var parser = new Json.Parser ();
+            parser.load_from_data ((string) stream.get_data ());
+
+            if (Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
+                response.from_error_json (parser.get_root ());
+                debug_error (message.status_code, Services.Todoist.get_default ().get_todoist_error (message.status_code));
+            } else {
+                var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
+                var uuid_member = sync_status.get_member (uuid);
+
+                if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                    source.todoist_data.sync_token = parser.get_root ().get_object ().get_string_member ("sync_token");
+                    response.status = true;
+
+                    var root = parser.get_root ().get_object ();
+
+                    if (root.has_member ("items")) {
+                        unowned Json.Array items = root.get_array_member ("items");
+                        foreach (unowned Json.Node node in items.get_elements ()) {
+                            if (node.get_object ().get_string_member ("id") == item.id) {
+                                if (!node.get_object ().get_null_member ("due")) {
+                                    item.due.update_from_todoist_json (node.get_object ().get_object_member ("due"));
+                                }
+                                break;
+                            }
+                        }
+                    }
+
+                    source.last_sync = new GLib.DateTime.now_local ().to_string ();
+                    source.save ();
+                } else {
+                    response.error = sync_status.get_object_member (uuid).get_string_member ("error");
+                    debug_error (
+                        (uint) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                        sync_status.get_object_member (uuid).get_string_member ("error")
+                    );
+                }
+            }
+        } catch (Error e) {
+            if (Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
+                response.error = e.message;
+                debug_error (message.status_code, e.message);
+            } else {
+                var queue = new Objects.Queue ();
+                queue.uuid = uuid;
+                queue.object_id = item.id;
+                queue.query = "item_close";
+                queue.args = item.to_json ();
+                queue.source_id = item.source.id;
+
+                Services.Database.get_default ().insert_queue (queue);
+                response.status = true;
+            }
+        }
+
+        return response;
+    }
 
     public async HttpResponse complete_item (Objects.Item item) {
         HttpResponse response = new HttpResponse ();
@@ -411,7 +489,7 @@ public class Services.TodoistItems : GLib.Object {
             if (item.has_due) {
                 builder.set_member_name ("due");
                 builder.begin_object ();
-                builder.set_member_name ("date"); builder.add_string_value (item.due.date);
+                builder.set_member_name ("string"); builder.add_string_value (Utils.Datetime.due_to_todoist_natural_language (item.due));
                 builder.end_object ();
             } else {
                 builder.set_member_name ("due"); builder.add_null_value ();

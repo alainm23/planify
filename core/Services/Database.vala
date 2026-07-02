@@ -258,7 +258,7 @@ public class Services.Database : GLib.Object {
                 color           TEXT,
                 description     TEXT,
                 hidded          INTEGER,
-                FOREIGN KEY (project_id) REFERENCES Projects (id) ON DELETE CASCADE
+                FOREIGN KEY (project_id) REFERENCES Projects (id) ON DELETE CASCADE ON UPDATE CASCADE
             );
         """;
 
@@ -308,7 +308,7 @@ public class Services.Database : GLib.Object {
                 due                 TEXT,
                 mm_offset           INTEGER,
                 is_deleted          INTEGER,
-                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE
+                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE ON UPDATE CASCADE
             );
         """;
 
@@ -352,7 +352,7 @@ public class Services.Database : GLib.Object {
                 file_name       TEXT,
                 file_size       TEXT,
                 file_path       TEXT,
-                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE
+                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE ON UPDATE CASCADE
             );
         """;
 
@@ -696,6 +696,12 @@ public class Services.Database : GLib.Object {
         add_text_column ("Projects", "markdown_setting", MarkdownSetting.GLOBAL_DEFAULT.to_string ());
         add_text_column ("Sections", "extra_data", "");
         add_text_column ("Queue", "source_id", "");
+
+        /*
+         * - Rebuild Sections, Reminders and Attachments so their foreign keys
+         *   use ON UPDATE CASCADE
+         */
+        migrate_foreign_keys_on_update_cascade ();
     }
 
     public void clear_database () {
@@ -2554,5 +2560,127 @@ public class Services.Database : GLib.Object {
                 warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             }
         }
+    }
+
+    private bool table_has_on_update_cascade (string table) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            SELECT sql FROM sqlite_master WHERE type = 'table' AND name = $name;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$name", table);
+
+        if (stmt.step () == Sqlite.ROW) {
+            return stmt.column_text (0).contains ("ON UPDATE CASCADE");
+        }
+
+        return true;
+    }
+
+    private void migrate_foreign_keys_on_update_cascade () {
+        bool migrate_sections = !table_has_on_update_cascade ("Sections");
+        bool migrate_reminders = !table_has_on_update_cascade ("Reminders");
+        bool migrate_attachments = !table_has_on_update_cascade ("Attachments");
+
+        if (!migrate_sections && !migrate_reminders && !migrate_attachments) {
+            return;
+        }
+
+        // PRAGMA foreign_keys is a no-op inside a transaction, so it must be
+        // toggled outside of it (SQLite docs, "Making Other Kinds Of Table
+        // Schema Changes").
+        db.exec ("PRAGMA foreign_keys = OFF;", null, null);
+
+        bool success = db.exec ("BEGIN TRANSACTION;", null, out errormsg) == Sqlite.OK;
+
+        if (success && migrate_sections) {
+            success = rebuild_table (
+                "Sections",
+                """
+                    CREATE TABLE Sections_new (
+                        id              TEXT PRIMARY KEY,
+                        name            TEXT,
+                        archived_at     TEXT,
+                        added_at        TEXT,
+                        project_id      TEXT,
+                        section_order   INTEGER,
+                        collapsed       INTEGER,
+                        is_deleted      INTEGER,
+                        is_archived     INTEGER,
+                        color           TEXT,
+                        description     TEXT,
+                        hidded          INTEGER,
+                        extra_data      TEXT,
+                        FOREIGN KEY (project_id) REFERENCES Projects (id) ON DELETE CASCADE ON UPDATE CASCADE
+                    );
+                """,
+                "id, name, archived_at, added_at, project_id, section_order, collapsed, is_deleted, is_archived, color, description, hidded, extra_data"
+            );
+        }
+
+        if (success && migrate_reminders) {
+            success = rebuild_table (
+                "Reminders",
+                """
+                    CREATE TABLE Reminders_new (
+                        id                  TEXT PRIMARY KEY,
+                        notify_uid          INTEGER,
+                        item_id             TEXT,
+                        service             TEXT,
+                        type                TEXT,
+                        due                 TEXT,
+                        mm_offset           INTEGER,
+                        is_deleted          INTEGER,
+                        FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE ON UPDATE CASCADE
+                    );
+                """,
+                "id, notify_uid, item_id, service, type, due, mm_offset, is_deleted"
+            );
+        }
+
+        if (success && migrate_attachments) {
+            success = rebuild_table (
+                "Attachments",
+                """
+                    CREATE TABLE Attachments_new (
+                        id              TEXT PRIMARY KEY,
+                        item_id         TEXT,
+                        file_type       TEXT,
+                        file_name       TEXT,
+                        file_size       TEXT,
+                        file_path       TEXT,
+                        FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE ON UPDATE CASCADE
+                    );
+                """,
+                "id, item_id, file_type, file_name, file_size, file_path"
+            );
+        }
+
+        if (success) {
+            success = db.exec ("COMMIT;", null, out errormsg) == Sqlite.OK;
+        }
+
+        if (!success) {
+            warning ("Foreign key migration failed, rolling back: %s", errormsg);
+            db.exec ("ROLLBACK;", null, null);
+        }
+
+        db.exec ("PRAGMA foreign_keys = ON;", null, null);
+    }
+
+    private bool rebuild_table (string table, string create_new_sql, string columns) {
+        sql = create_new_sql + """
+            INSERT INTO %s_new (%s) SELECT %s FROM %s;
+            DROP TABLE %s;
+            ALTER TABLE %s_new RENAME TO %s;
+        """.printf (table, columns, columns, table, table, table, table);
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            return false;
+        }
+
+        return true;
     }
 }
