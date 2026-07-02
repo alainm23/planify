@@ -490,7 +490,7 @@ public class Objects.Item : Objects.BaseObject {
         patch_from_vtodo (data, _ical_url, true);
     }
 
-    public void patch_from_vtodo (string data, string _ical_url, bool is_update = false) {
+    private void patch_from_vtodo (string data, string _ical_url, bool is_update = false) {
         ICal.Component ical = ICal.Parser.parse_string (data);
         ICal.Component ? ical_vtodo = ical.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
 
@@ -533,6 +533,13 @@ public class Objects.Item : Objects.BaseObject {
         ICal.Property ? related_to_property = ical_vtodo.get_first_property (ICal.PropertyKind.RELATEDTO_PROPERTY);
         if (related_to_property != null) {
             string related_id = related_to_property.get_relatedto ();
+            ICal.ParameterReltype reltype = ICal.ParameterReltype.PARENT;
+            ICal.Parameter ? reltype_parameter = related_to_property.get_first_parameter (ICal.ParameterKind.RELTYPE_PARAMETER);
+
+            if (reltype_parameter != null) {
+                reltype = reltype_parameter.get_reltype ();
+            }
+            
             if (related_id == id) {
                 warning ("Item/Task %s has a direct self-reference", id);
                 parent_id = "";
@@ -543,7 +550,7 @@ public class Objects.Item : Objects.BaseObject {
                 if (related_section != null) {
                     section_id = related_id;
                     parent_id = "";
-                } else {
+                } else if (reltype == ICal.ParameterReltype.PARENT) {
                     parent_id = related_id;
                     section_id = "";
                 }
