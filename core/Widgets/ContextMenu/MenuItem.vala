@@ -23,6 +23,8 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
     private Gtk.Image menu_icon;
     private Gtk.Revealer menu_icon_revealer;
     private Gtk.Label menu_title;
+    private Gtk.Label subtitle_label;
+    private Gtk.Revealer subtitle_revealer;
     private Gtk.Label secondary_label;
     private Gtk.Label badge_label;
     private Gtk.Revealer loading_revealer;
@@ -72,6 +74,13 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
             secondary_label.label = value;
             secondary_label.tooltip_text = value;
             secondary_label_revealer.reveal_child = value.length > 0;
+        }
+    }
+
+    public string subtitle {
+        set {
+            subtitle_label.label = value;
+            subtitle_revealer.reveal_child = value.length > 0;
         }
     }
 
@@ -148,7 +157,19 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
 
         menu_title = new Gtk.Label (null) {
             use_markup = true,
-            ellipsize = Pango.EllipsizeMode.END
+            ellipsize = Pango.EllipsizeMode.END,
+            halign = START
+        };
+
+        subtitle_label = new Gtk.Label (null) {
+            css_classes = { "caption", "dimmed" },
+            ellipsize = Pango.EllipsizeMode.END,
+            xalign = 0
+        };
+
+        subtitle_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = subtitle_label
         };
 
         select_revealer = new Gtk.Revealer () {
@@ -206,8 +227,14 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
             hexpand = true
         };
 
+        var title_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            valign = CENTER
+        };
+        title_box.append (menu_title);
+        title_box.append (subtitle_revealer);
+
         content_box.append (menu_icon_revealer);
-        content_box.append (menu_title);
+        content_box.append (title_box);
         content_box.append (end_box);
 
         child = content_box;
