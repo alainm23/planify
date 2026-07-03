@@ -523,6 +523,13 @@ public class Objects.Item : Objects.BaseObject {
         ICal.Property ? related_to_property = ical_vtodo.get_first_property (ICal.PropertyKind.RELATEDTO_PROPERTY);
         if (related_to_property != null) {
             string related_id = related_to_property.get_relatedto ();
+            ICal.ParameterReltype reltype = ICal.ParameterReltype.PARENT;
+            ICal.Parameter ? reltype_parameter = related_to_property.get_first_parameter (ICal.ParameterKind.RELTYPE_PARAMETER);
+
+            if (reltype_parameter != null) {
+                reltype = reltype_parameter.get_reltype ();
+            }
+
             if (related_id == id) {
                 warning ("Item/Task %s has a direct self-reference", id);
                 parent_id = "";
@@ -533,7 +540,7 @@ public class Objects.Item : Objects.BaseObject {
                 if (related_section != null) {
                     section_id = related_id;
                     parent_id = "";
-                } else {
+                } else if (reltype == ICal.ParameterReltype.PARENT) {
                     parent_id = related_id;
                     section_id = "";
                 }
@@ -560,7 +567,7 @@ public class Objects.Item : Objects.BaseObject {
             completed_at = "";
         }
 
-        ICal.Property ? sort_order_property = ical_vtodo.get_first_property (ICal.PropertyKind.from_string ("X-APPLE-SORT-ORDER"));
+        ICal.Property ? sort_order_property = find_x_property (ical_vtodo, "X-APPLE-SORT-ORDER");
         if (sort_order_property != null) {
             var sort_order_str = sort_order_property.get_value_as_string ();
             if (sort_order_str != null) {
@@ -578,7 +585,7 @@ public class Objects.Item : Objects.BaseObject {
             }
         }
 
-        ICal.Property ? pinned_property = ical_vtodo.get_first_property (ICal.PropertyKind.from_string ("X-PINNED"));
+        ICal.Property ? pinned_property = find_x_property (ical_vtodo, "X-PINNED");
         if (pinned_property != null) {
             var pinned_str = pinned_property.get_value_as_string ();
             if (pinned_str != null) {
@@ -600,6 +607,17 @@ public class Objects.Item : Objects.BaseObject {
         }
         #endif
         // TODO: Reimplement without ECAL
+    }
+
+    private static ICal.Property ? find_x_property (ICal.Component component, string x_name) {
+        ICal.Property ? prop = component.get_first_property (ICal.PropertyKind.X_PROPERTY);
+        while (prop != null) {
+            if (prop.get_x_name () == x_name) {
+                return prop;
+            }
+            prop = component.get_next_property (ICal.PropertyKind.X_PROPERTY);
+        }
+        return null;
     }
 
     private Gee.ArrayList<Objects.Label> get_caldav_categories (GLib.SList<string> categories_list) {
