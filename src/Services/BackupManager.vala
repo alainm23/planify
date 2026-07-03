@@ -150,6 +150,10 @@ public class Services.BackupManager : Object {
             copy_to_extra_folders (backup_file);
         } else {
             Services.LogService.get_default ().warn ("BackupManager", "Backup failed — create_backup returned null");
+            var toast = new Adw.Toast (_("Automatic backup failed")) {
+                priority = Adw.ToastPriority.HIGH
+            };
+            Services.EventBus.get_default ().send_toast (toast);
         }
     }
 
@@ -192,6 +196,10 @@ public class Services.BackupManager : Object {
                 Services.LogService.get_default ().info ("BackupManager", "Backup copied to: %s".printf (folder_path));
             } catch (Error e) {
                 Services.LogService.get_default ().warn ("BackupManager", "Failed to copy backup to %s: %s".printf (folder_path, e.message));
+                var toast = new Adw.Toast (_("Failed to copy backup to %s").printf (folder_path)) {
+                    priority = Adw.ToastPriority.HIGH
+                };
+                Services.EventBus.get_default ().send_toast (toast);
             }
         }
     }
