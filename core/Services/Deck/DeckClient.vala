@@ -60,8 +60,8 @@ public class Services.Deck.DeckClient : Object {
             try {
                 var dt = new GLib.DateTime.from_iso8601 (if_modified_since, new GLib.TimeZone.utc ());
                 // Format in English locale
-                string[] months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
-                string[] days = {"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
+                string[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+                string[] days = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
                 string imf = "%s, %02d %s %04d %02d:%02d:%02d GMT".printf (
                     days[dt.get_day_of_week () - 1],
                     dt.get_day_of_month (),
