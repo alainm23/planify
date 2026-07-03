@@ -38,7 +38,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
             title = _("Show Task Count")
         };
 
-        var sidebar_width_row = new Adw.SpinRow.with_range (300, 400, 1) {
+        var sidebar_width_row = new Adw.SpinRow.with_range (200, 400, 1) {
             valign = Gtk.Align.CENTER,
             title = _("Sidebar Width"),
             value = Services.Settings.get_default ().settings.get_int ("pane-position")
