@@ -238,6 +238,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         sorted_by_item.add_item (_("Alphabetically"), SortedByType.NAME.to_string ());
         sorted_by_item.add_item (_("Due Date"), SortedByType.DUE_DATE.to_string ());
         sorted_by_item.add_item (_("Date Added"), SortedByType.ADDED_DATE.to_string ());
+        sorted_by_item.add_item (_("Date Modified"), SortedByType.UPDATED_DATE.to_string ());
         sorted_by_item.add_item (_("Priority"), SortedByType.PRIORITY.to_string ());
 
         // Filters

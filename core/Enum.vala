@@ -648,6 +648,7 @@ public enum SortedByType {
     NAME,
     DUE_DATE,
     ADDED_DATE,
+    UPDATED_DATE,
     PRIORITY;
 
     public string to_string () {
@@ -663,6 +664,9 @@ public enum SortedByType {
 
             case ADDED_DATE:
                 return "added-date";
+
+            case UPDATED_DATE:
+                return "updated-date";
 
             case PRIORITY:
                 return "priority";
@@ -685,6 +689,9 @@ public enum SortedByType {
 
             case "added-date":
                 return SortedByType.ADDED_DATE;
+
+            case "updated-date":
+                return SortedByType.UPDATED_DATE;
 
             case "priority":
                 return SortedByType.PRIORITY;

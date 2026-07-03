@@ -1162,6 +1162,10 @@ We hope you’ll enjoy using Planify!""");
             }
         } else if (sorted_by == SortedByType.ADDED_DATE) {
             result = item1.added_datetime.compare (item2.added_datetime);
+        } else if (sorted_by == SortedByType.UPDATED_DATE) {
+            var date1 = item1.updated_at != "" ? item1.updated_datetime : item1.added_datetime;
+            var date2 = item2.updated_at != "" ? item2.updated_datetime : item2.added_datetime;
+            result = date1.compare (date2);
         } else if (sorted_by == SortedByType.PRIORITY) {
             result = item2.priority - item1.priority;
             if (result == 0) {
