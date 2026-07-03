@@ -331,9 +331,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             if (items_map.has_key (item.id)) {
                 if (items_map[item.id].update_id != update_id) {
                     items_map[item.id].update_request ();
-                    if (section.project.sorted_by != SortedByType.MANUAL) {
-                        update_sort ();
-                    }
+                }
+
+                if (section.project.sorted_by != SortedByType.MANUAL) {
+                    update_sort ();
                 }
 
                 if (checked_items_map.has_key (item.id)) {

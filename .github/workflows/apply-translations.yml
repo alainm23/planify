@@ -31,12 +31,12 @@ jobs:
                         core.setOutput("repo", pr.data.head.repo.full_name);
 
             -   name: Checkout main repository
-                uses: actions/checkout@v6
+                uses: actions/checkout@v7
                 with:
                     path: main-repo
 
             -   name: Checkout PR branch
-                uses: actions/checkout@v6
+                uses: actions/checkout@v7
                 with:
                     repository: ${{ steps.pr.outputs.repo }}
                     ref: ${{ steps.pr.outputs.ref }}

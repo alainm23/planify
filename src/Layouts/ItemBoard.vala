@@ -372,6 +372,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             checked_toggled (checked_button.active);
         })] = checked_button_gesture;
 
+        signals_map[checked_button.toggled.connect (() => {
+            if (!checked_button_gesture.is_active ()) {
+                checked_toggled (checked_button.active);
+            }
+        })] = checked_button;
+
         var select_button_gesture = new Gtk.GestureClick ();
         select_checkbutton.add_controller (select_button_gesture);
         signals_map[select_button_gesture.pressed.connect (() => {
@@ -505,13 +511,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     private void update_next_recurrency () {
-        var promise = new Services.Promise<GLib.DateTime> ();
-
-        promise.resolved.connect ((result) => {
-            recurrency_update_complete (result);
+        item.update_next_recurrency.begin ((obj, res) => {
+            var next_recurrency = item.update_next_recurrency.end (res);
+            if (next_recurrency != null) {
+                recurrency_update_complete (next_recurrency);
+            }
         });
-
-        item.update_next_recurrency (promise);
     }
 
     private void open_detail () {
@@ -828,13 +833,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         menu_handle_popover.popup ();
 
         move_item.activate_item.connect (() => {
-            Dialogs.ProjectPicker.ProjectPicker dialog;
-            if (item.project.is_inbox_project) {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-            } else {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
-            }
-
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
             dialog.project = item.project;
             dialog.present (Planify._instance.main_window);
 
@@ -1153,6 +1152,21 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
 
             Utils.TaskUtils.update_single_item_order (target_list, picked_widget, new_index);
+
+            // Update counters for source and target sections
+            if (old_section_id != picked_widget.item.section_id) {
+                var source_section = Services.Store.instance ().get_section (old_section_id);
+                if (source_section != null) {
+                    source_section.update_count ();
+                }
+                
+                var target_section = Services.Store.instance ().get_section (picked_widget.item.section_id);
+                if (target_section != null) {
+                    target_section.update_count ();
+                }
+            }
+
+            picked_widget.item.project.count_update ();
 
             return true;
         })] = drop_order_target;

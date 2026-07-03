@@ -730,7 +730,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         if (!project.inbox_project) {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (archive_item);
-            menu_box.append (delete_item);
+
+            if (!project.is_deck) {
+                menu_box.append (delete_item);
+            }
         }
 
         menu_popover = new Gtk.Popover () {
@@ -842,7 +845,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
     private void add_subprojects () {
         foreach (Objects.Project subproject in project.subprojects) {
-            add_subproject (subproject);
+            if (!subproject.is_archived) {
+                add_subproject (subproject);
+            }
         }
     }
 
@@ -855,7 +860,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     public void add_subproject (Objects.Project project) {
-        if (!subprojects_hashmap.has_key (project.id) && show_subprojects) {
+        if (!subprojects_hashmap.has_key (project.id) && show_subprojects && !project.is_archived) {
             subprojects_hashmap[project.id] = new Layouts.ProjectRow (project);
             listbox.append (subprojects_hashmap[project.id]);
         }

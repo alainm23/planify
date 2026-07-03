@@ -151,11 +151,6 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
         listbox.set_sort_func ((row1, row2) => {
             Objects.Section item1 = ((Widgets.SectionItemRow) row1).section;
             Objects.Section item2 = ((Widgets.SectionItemRow) row2).section;
-
-            if (item1.id == "") {
-                return 0;
-            }
-
             return item1.section_order - item2.section_order;
         });
 
@@ -179,11 +174,6 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
     }
 
     public void add_sections () {
-        var inbox_section = new Objects.Section ();
-        inbox_section.project_id = project.id;
-        inbox_section.name = _("(No Section)");
-
-        add_section (new Widgets.SectionItemRow (inbox_section, "order"));
         foreach (Objects.Section section in project.sections) {
             if (section.was_archived ()) {
                 archived_listbox.append (new Widgets.SectionItemRow (section, "menu"));

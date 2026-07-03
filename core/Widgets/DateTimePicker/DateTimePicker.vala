@@ -23,7 +23,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     private Widgets.DateTimePicker.TimePicker time_picker;
     private Widgets.Calendar.CalendarMonth calendar_view;
     private Widgets.Calendar.CalendarScroll calendar_scroll_view;
-    private Widgets.ContextMenu.MenuItem repeat_item;
     private NoDateButton no_date_button;
     private OptionButton time_option_button;
     private OptionButton repeat_option_button;
@@ -136,7 +135,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    private Chrono.Chrono chrono;
+    private Chrono.Core chrono;
     private uint search_timeout_id = 0;
 
     public DateTimePicker () {
@@ -152,7 +151,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     construct {
-        chrono = new Chrono.Chrono ();
+        chrono = new Chrono.Core ();
         active_revealers = new Gee.ArrayList<Gtk.Revealer> ();
 
         Objects.DueDate ? last_parsed_duedate = null;
@@ -267,10 +266,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         repeat_option_button.clear_clicked.connect (() => {
             apply_recurrency (RecurrencyType.NONE, 0, null, false);
-        });
-
-        repeat_item.clicked.connect (() => {
-            show_revealer (repeat_option_revealer);
         });
 
         closed.connect (() => {
@@ -720,7 +715,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             margin_start = 6,
             margin_top = 6,
             margin_bottom = 6,
-            halign = START
+            halign = START,
+            tooltip_text = _("Back")
         };
 
         calendar_scroll_view = new Widgets.Calendar.CalendarScroll () {
@@ -754,7 +750,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             margin_start = 6,
             margin_top = 6,
             margin_bottom = 6,
-            halign = START
+            halign = START,
+            tooltip_text = _("Back")
         };
 
         var toolbar_view = new Adw.ToolbarView () {

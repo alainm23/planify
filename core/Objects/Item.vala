@@ -26,7 +26,7 @@ public class Objects.Item : Objects.BaseObject {
     public string completed_at { get; set; default = ""; }
     public string updated_at { get; set; default = ""; }
     public string calendar_event_uid { get; set; default = ""; }
-    public string deadline_date { get; set; default = ""; }  
+    public string deadline_date { get; set; default = ""; }
 
     string _section_id = "";
     public string section_id {
@@ -36,7 +36,7 @@ public class Objects.Item : Objects.BaseObject {
             _section = null;
         }
     }
-    
+
     string _project_id = "";
     public string project_id {
         get { return _project_id; }
@@ -45,7 +45,7 @@ public class Objects.Item : Objects.BaseObject {
             _project = null;
         }
     }
-    
+
     string _parent_id = "";
     public string parent_id {
         get { return _parent_id; }
@@ -57,7 +57,6 @@ public class Objects.Item : Objects.BaseObject {
     public string extra_data { get; set; default = ""; }
     public ItemType item_type { get; set; default = ItemType.TASK; }
     public string responsible_uid { get; set; default = ""; }
-
 
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
     public Gee.ArrayList<Objects.Label> labels { get; set; default = new Gee.ArrayList<Objects.Label> (); }
@@ -250,12 +249,13 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    GLib.DateTime _deadline_datetime;
-    public GLib.DateTime deadline_datetime {
+    GLib.DateTime? _deadline_datetime;
+    public GLib.DateTime? deadline_datetime {
         get {
             if (!has_deadline) {
                 return null;
             }
+            
             _deadline_datetime = new GLib.DateTime.from_iso8601 (deadline_date, new GLib.TimeZone.local ());
             return _deadline_datetime;
         }
@@ -435,7 +435,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (!node.get_object ().get_null_member ("due")) {
-            due.update_from_json (node.get_object ().get_object_member ("due"));
+            due.update_from_todoist_json (node.get_object ().get_object_member ("due"));
         } else {
             due.reset ();
         }
@@ -471,6 +471,14 @@ public class Objects.Item : Objects.BaseObject {
         } else {
             labels = get_labels_from_labels_json (node, _labels);
         }
+
+        if (node.get_object ().has_member ("deadline_date")) {
+            deadline_date = node.get_object ().get_string_member ("deadline_date");
+        }
+
+        if (node.get_object ().has_member ("item_type")) {
+            item_type = ItemType.parse (node.get_object ().get_string_member ("item_type"));
+        }
     }
 
     public Item.from_vtodo (string data, string _ical_url, string _project_id) {
@@ -482,7 +490,7 @@ public class Objects.Item : Objects.BaseObject {
         patch_from_vtodo (data, _ical_url, true);
     }
 
-    public void patch_from_vtodo (string data, string _ical_url, bool is_update = false) {
+    private void patch_from_vtodo (string data, string _ical_url, bool is_update = false) {
         ICal.Component ical = ICal.Parser.parse_string (data);
         ICal.Component ? ical_vtodo = ical.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
 
@@ -507,6 +515,8 @@ public class Objects.Item : Objects.BaseObject {
             } else {
                 priority = Constants.PRIORITY_4;
             }
+        } else {
+            priority = Constants.PRIORITY_4;
         }
 
         if (!ical.get_due ().is_null_time ()) {
@@ -727,10 +737,20 @@ public class Objects.Item : Objects.BaseObject {
         return get_update_json (uuid, temp_id);
     }
 
-    public string get_check_json (string uuid, string type) {
+    public string get_check_json (string uuid, string type, string? sync_token = null) {
         builder.reset ();
 
         builder.begin_object ();
+
+        if (sync_token != null) {
+            builder.set_member_name ("sync_token");
+            builder.add_string_value (sync_token);
+            builder.set_member_name ("resource_types");
+            builder.begin_array ();
+            builder.add_string_value ("items");
+            builder.end_array ();
+        }
+
         builder.set_member_name ("commands");
 
         builder.begin_array ();
@@ -1109,6 +1129,9 @@ public class Objects.Item : Objects.BaseObject {
             builder.set_member_name ("due");
             builder.begin_object ();
 
+            builder.set_member_name ("string");
+            builder.add_string_value (Utils.Datetime.due_to_todoist_natural_language (due));
+
             builder.set_member_name ("date");
             builder.add_string_value (due.date);
 
@@ -1200,6 +1223,9 @@ public class Objects.Item : Objects.BaseObject {
 
             builder.set_member_name ("date");
             builder.add_string_value (due.date);
+            
+            builder.set_member_name ("string");
+            builder.add_string_value (Utils.Datetime.due_to_todoist_natural_language (due));
 
             builder.end_object ();
         } else {
@@ -1298,7 +1324,11 @@ public class Objects.Item : Objects.BaseObject {
                         }
                     }
 
+                    #if IS_LIBICAL4
+                    rrule.set_by_array (ICal.RecurrenceByRule.BY_DAY, values);
+                    #else
                     rrule.set_by_day_array (values);
+                    #endif
                 } else if (due.recurrency_type == RecurrencyType.EVERY_MONTH) {
                     rrule.set_freq (ICal.RecurrenceFrequency.MONTHLY_RECURRENCE);
                 } else if (due.recurrency_type == RecurrencyType.EVERY_YEAR) {
@@ -1337,7 +1367,11 @@ public class Objects.Item : Objects.BaseObject {
             ical.add_property (new ICal.Property.percentcomplete (100));
             // RFC requires Date-Time (https://datatracker.ietf.org/doc/html/rfc5545#section-3.8.2.1)
             // Nextcloud also accepted .today () which didn't include the Timezone, but Radicale and probably other CalDAV implementations want Date-Time
-            ical.add_property (new ICal.Property.completed (new ICal.Time.current_with_zone (null)));
+            #if IS_LIBICAL4
+            ical.add_property (new ICal.Property.completed (new ICal.Time.from_timet_with_zone ((time_t) new GLib.DateTime.now_utc ().to_unix (), false, ICal.Timezone.get_utc_timezone ())));
+            #else
+            ical.add_property (new ICal.Property.completed (new ICal.Time.from_timet_with_zone ((time_t) new GLib.DateTime.now_utc ().to_unix (), 0, ICal.Timezone.get_utc_timezone ())));
+            #endif
         } else {
             ical.set_status (ICal.PropertyStatus.NEEDSACTION);
         }
@@ -1535,34 +1569,34 @@ public class Objects.Item : Objects.BaseObject {
     private async void delete_caldav () {
         loading = true;
         var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-        
+
         try {
             yield delete_subitems_caldav (this, caldav_client);
-            
+
             var response = yield caldav_client.delete_item (this);
-            
+
             if (!response.status) {
                 throw new IOError.FAILED (response.error);
             }
-            
+
             Services.Store.instance ().delete_item (this);
         } catch (Error e) {
             Services.EventBus.get_default ().send_error_toast (0, e.message);
         }
-        
+
         loading = false;
     }
 
     private async void delete_subitems_caldav (Objects.Item item, Services.CalDAV.CalDAVClient caldav_client) throws Error {
         foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
             yield delete_subitems_caldav (subitem, caldav_client);
-            
+
             var response = yield caldav_client.delete_item (subitem);
 
             if (!response.status) {
                 throw new IOError.FAILED (response.error);
             }
-            
+
             Services.Store.instance ().delete_item (subitem);
         }
     }
@@ -1585,6 +1619,8 @@ public class Objects.Item : Objects.BaseObject {
         if (due.is_recurrency_equal (duedate)) {
             return;
         }
+
+        due.recurrence_string = "";
 
         if (duedate.recurrency_type == RecurrencyType.MINUTELY ||
             duedate.recurrency_type == RecurrencyType.HOURLY) {
@@ -1638,11 +1674,9 @@ public class Objects.Item : Objects.BaseObject {
         update_async ("");
     }
 
-    public void update_next_recurrency (Services.Promise<GLib.DateTime> ? promise) {
+    public async GLib.DateTime? update_next_recurrency () {
         var next_recurrency = Utils.Datetime.next_recurrency (due.datetime, due);
-        due.date = Utils.Datetime.get_todoist_datetime_format (
-            next_recurrency
-        );
+        due.date = Utils.Datetime.get_todoist_datetime_format (next_recurrency);
 
         if (due.end_type == RecurrencyEndType.AFTER) {
             due.recurrency_count = due.recurrency_count - 1;
@@ -1657,33 +1691,31 @@ public class Objects.Item : Objects.BaseObject {
                 Services.EventBus.get_default ().checked_toggled (subitem, old_checked);
             }
         }
+
         if (project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().update_item (this);
-            promise.resolve (next_recurrency);
         } else if (project.source_type == SourceType.TODOIST) {
             loading = true;
-            Services.Todoist.get_default ().update.begin (this, (obj, res) => {
-                var response = Services.Todoist.get_default ().update.end (res);
-                loading = false;
-
-                if (response.status) {
-                    Services.Store.instance ().update_item (this);
-                    promise.resolve (next_recurrency);
-                }
-            });
+            var response = yield Services.Todoist.get_default ().close_item (this);
+            loading = false;
+            if (response.status) {
+                Services.Store.instance ().update_item (this);
+            } else {
+                return null;
+            }
         } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
             var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-            caldav_client.add_item.begin (this, true, (obj, res) => {
-                var response = caldav_client.add_item.end (res);
-                loading = false;
-
-                if (response.status) {
-                    Services.Store.instance ().update_item (this);
-                    promise.resolve (next_recurrency);
-                }
-            });
+            var response = yield caldav_client.add_item (this, true);
+            loading = false;
+            if (response.status) {
+                Services.Store.instance ().update_item (this);
+            } else {
+                return null;
+            }
         }
+
+        return due.datetime;
     }
 
     public void move (Objects.Project project, string _section_id, bool notify = true) {
@@ -1692,7 +1724,7 @@ public class Objects.Item : Objects.BaseObject {
         } else if (project.source_type == SourceType.TODOIST) {
             loading = true;
             sensitive = false;
-            
+
             string move_id = project.id;
             string move_type = "project_id";
             if (_section_id != "") {
@@ -1713,17 +1745,17 @@ public class Objects.Item : Objects.BaseObject {
         } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
             sensitive = false;
-            
+
             move_caldav_recursive.begin (project, _section_id, notify);
         }
     }
 
     private async void move_caldav_recursive (Objects.Project project, string _section_id, bool notify = true) {
         var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-        
+
         try {
             var response = yield caldav_client.move_item (this, project);
-            
+
             if (!response.status) {
                 throw new IOError.FAILED (response.error);
             }
@@ -1732,21 +1764,21 @@ public class Objects.Item : Objects.BaseObject {
             if (old_parent_id != "") {
                 parent_id = "";
                 response = yield caldav_client.add_item (this, true);
-                
+
                 if (!response.status) {
                     throw new IOError.FAILED (response.error);
                 }
 
                 Services.EventBus.get_default ().item_moved (this, project_id, section_id, old_parent_id);
             }
-            
+
             yield move_all_subitems_caldav (this, project, caldav_client);
-            
+
             _move (project.id, _section_id, notify);
         } catch (Error e) {
             Services.EventBus.get_default ().send_error_toast (0, e.message);
         }
-        
+
         loading = false;
         show_item = true;
     }
@@ -1758,7 +1790,7 @@ public class Objects.Item : Objects.BaseObject {
             if (!response.status) {
                 throw new IOError.FAILED (response.error);
             }
-            
+
             yield move_all_subitems_caldav (subitem, project, caldav_client);
         }
     }
@@ -1775,7 +1807,7 @@ public class Objects.Item : Objects.BaseObject {
         Services.Store.instance ().move_item (this, old_project_id, old_section_id, old_parent_id);
         Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
         Services.EventBus.get_default ().drag_n_drop_active (old_project_id, false);
-        
+
         if (notify) {
             Services.EventBus.get_default ().send_toast (
                 Util.get_default ().create_toast (_("Moved to %s".printf (project.name)))
@@ -1838,6 +1870,11 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_due (Objects.DueDate duedate) {
+        if (!duedate.is_recurring || duedate.recurrency_type == RecurrencyType.NONE
+            || !due.is_recurrency_equal (duedate)) {
+            due.recurrence_string = "";
+        }
+        
         due.date = duedate.date;
         due.is_recurring = duedate.is_recurring;
         due.recurrency_type = duedate.recurrency_type;

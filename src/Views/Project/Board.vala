@@ -206,10 +206,14 @@ public class Views.Board : Adw.Bin {
             Layouts.SectionBoard item = ((Layouts.SectionBoard) child);
 
             if (item.is_inbox_section) {
-                return !project.inbox_section_hidded;
+                bool has_uncompleted = project.items.any_match ((i) => !i.checked);
+                if (project.show_completed) {
+                    return has_uncompleted || project.items_checked.size > 0;
+                }
+                return has_uncompleted;
             }
 
-            return !item.section.hidded;
+            return !item.section.was_archived ();
         });
 
         signal_map[description_widget.changed.connect (() => {
@@ -278,7 +282,10 @@ public class Views.Board : Adw.Bin {
     }
 
     public void prepare_new_item (string content = "") {
-        if (inbox_board != null) {
+        var sections = project.sections;
+        if (sections.size > 0) {
+            sections_map[sections[0].id].prepare_new_item (content);
+        } else if (inbox_board != null) {
             inbox_board.prepare_new_item (content);
         }
     }

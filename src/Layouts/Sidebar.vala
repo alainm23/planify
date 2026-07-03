@@ -303,7 +303,8 @@ public class Layouts.Sidebar : Adw.Bin {
             margin_end = 3,
             margin_top = 3,
             margin_bottom = 3,
-            min_children_per_line = 2
+            min_children_per_line = 2,
+            max_children_per_line = 2,
         };
 
         flowbox.append (new Layouts.FilterPaneChild (Objects.Filters.Inbox.get_default ()));

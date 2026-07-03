@@ -157,7 +157,7 @@ public class Planify : Adw.Application {
         var provider = new Gtk.CssProvider ();
         provider.load_from_resource ("/io/github/alainm23/planify/index.css");
 
-        Gtk.StyleContext.add_provider_for_display (
+        Gtk.StyleContext.add_provider_for_display ( // vala-lint=deprecated
             Gdk.Display.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );
 
@@ -237,9 +237,15 @@ public class Planify : Adw.Application {
         complete.activate.connect ((parameter) => {
             var item = Services.Store.instance ().get_item (parameter.get_string ());
             if (item != null) {
-                item.checked = true;
-                item.completed_at = new GLib.DateTime.now_local ().to_string ();
-                Services.Store.instance ().complete_item (item, false);
+                if (item.due.is_recurring && !item.due.is_recurrency_end) {
+                    item.update_next_recurrency.begin ((obj, res) => {
+                        item.update_next_recurrency.end (res);
+                    });
+                } else {
+                    item.checked = true;
+                    item.completed_at = new GLib.DateTime.now_local ().to_string ();
+                    Services.Store.instance ().complete_item (item, false);
+                }
             }
         });
 

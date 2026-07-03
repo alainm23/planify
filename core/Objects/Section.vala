@@ -152,7 +152,7 @@ public class Objects.Section : Objects.BaseObject {
         });
     }
 
-    public void update_count () {
+    public new void update_count () {
         _section_count = update_section_count ();
         section_count_updated ();
     }

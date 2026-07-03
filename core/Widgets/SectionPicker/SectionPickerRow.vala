@@ -74,11 +74,6 @@ public class Widgets.SectionPicker.SectionPickerRow : Gtk.ListBoxRow {
             child = selected_icon
         };
 
-        var hidded_switch = new Gtk.Switch () {
-            css_classes = { "active-switch" },
-            active = section.id == "" ? !section.project.inbox_section_hidded : !section.hidded
-        };
-
         var order_icon = new Gtk.Image.from_icon_name ("list-drag-handle-symbolic") {
             css_classes = { "dimmed" },
             pixel_size = 12

@@ -552,13 +552,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         });
 
         move_item.clicked.connect (() => {
-            Dialogs.ProjectPicker.ProjectPicker dialog;
-            if (item.project.is_inbox_project) {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-            } else {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
-            }
-
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
             dialog.project = item.project;
             dialog.present (Planify._instance.main_window);
 
@@ -671,13 +665,12 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     private void update_next_recurrency () {
-        var promise = new Services.Promise<GLib.DateTime> ();
-
-        promise.resolved.connect ((result) => {
-            recurrency_update_complete (result);
+        item.update_next_recurrency.begin ((obj, res) => {
+            var next_recurrency = item.update_next_recurrency.end (res);
+            if (next_recurrency != null) {
+                recurrency_update_complete (next_recurrency);
+            }
         });
-
-        item.update_next_recurrency (promise);
     }
 
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
@@ -763,11 +756,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private void destroy_markdown_signals () {
         foreach (var entry in markdown_handlerses.entries) {
             if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
-                try {
-                    entry.value.disconnect (entry.key);
-                } catch (Error e) {
-                    warning ("Error disconnecting markdown signal: %s", e.message);
-                }
+                entry.value.disconnect (entry.key);
             }
         }
 

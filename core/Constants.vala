@@ -56,4 +56,5 @@ namespace Constants {
     public const bool BLOCK_PAST_DAYS = true;
     public const int COMPLETED_PAGE_SIZE = 15;
     public const int HEADERBAR_TITLE_SCROLL_THRESHOLD = 24;
+    public const string DEFAULT_ACCENT_COLOR = "#3584e4";
 }

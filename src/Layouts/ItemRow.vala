@@ -763,6 +763,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             checked_toggled (checked_button.active);
         })] = checked_button_gesture;
 
+        signals_map[checked_button.toggled.connect (() => {
+            // Only handle keyboard activation (Enter) — click is handled by GestureClick
+            if (!checked_button_gesture.is_active ()) {
+                checked_toggled (checked_button.active);
+            }
+        })] = checked_button;
+
         signals_map[hide_loading_button.clicked.connect (() => {
             Timeout.add (100, () => {
                 edit = false;
@@ -1370,6 +1377,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         delete_item.add_css_class ("menu-item-danger");
 
         var more_information_item = new Widgets.ContextMenu.MenuItem (_ ("Change History"), "rotation-edit-symbolic");
+        if (item.updated_at != "") {
+            more_information_item.subtitle = _("Updated: %s").printf (Utils.Datetime.get_relative_date_from_date (item.updated_datetime));
+        } else {
+            more_information_item.subtitle = _("Created: %s").printf (Utils.Datetime.get_relative_date_from_date (item.added_datetime));
+        }
 
         var popover = new Gtk.Popover () {
             has_arrow = false,
@@ -1406,13 +1418,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             })] = export_ics_item;
 
             signals_map[move_item.clicked.connect (() => {
-                Dialogs.ProjectPicker.ProjectPicker dialog;
-
-                if (item.project.is_inbox_project) {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-                } else {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
-                }
+                var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
 
                 signals_map[dialog.changed.connect ((type, id) => {
                     if (type == "project") {
@@ -1562,13 +1568,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void update_next_recurrency () {
-        var promise = new Services.Promise<GLib.DateTime> ();
-
-        signals_map[promise.resolved.connect ((result) => {
-            recurrency_update_complete (result);
-        })] = promise;
-
-        item.update_next_recurrency (promise);
+        item.update_next_recurrency.begin ((obj, res) => {
+            var next_recurrency = item.update_next_recurrency.end (res);
+            if (next_recurrency != null) {
+                recurrency_update_complete (next_recurrency);
+            }
+        });
     }
 
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
@@ -1962,7 +1967,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         markdown_editor.is_editable = !item.completed;
 
         markdown_editor.set_text (item.description);
-        markdown_editor.text_view.update_property (Gtk.AccessibleProperty.LABEL, item.description, -1);
+        markdown_editor.text_view.update_property (Gtk.AccessibleProperty.LABEL, _("Task description"), -1);
+        markdown_editor.text_view.update_property (Gtk.AccessibleProperty.VALUE_TEXT, item.description, -1);
         markdown_revealer.child = markdown_editor;
         markdown_revealer.reveal_child = true;
 
@@ -2151,11 +2157,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private void destroy_markdown_signals () {
         foreach (var entry in markdown_handlerses.entries) {
             if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
-                try {
-                    entry.value.disconnect (entry.key);
-                } catch (Error e) {
-                    warning ("Error disconnecting markdown signal: %s", e.message);
-                }
+                entry.value.disconnect (entry.key);
             }
         }
 
@@ -2165,11 +2167,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public override void clean_up () {
         foreach (var entry in signals_map.entries) {
             if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
-                try {
-                    entry.value.disconnect (entry.key);
-                } catch (Error e) {
-                    warning ("Error disconnecting signal: %s", e.message);
-                }
+                entry.value.disconnect (entry.key);
             }
         }
         signals_map.clear ();

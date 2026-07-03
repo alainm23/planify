@@ -19,16 +19,16 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
-public class Services.Backups : Object {
+public class Services.BackupManager : Object {
     private Json.Generator generator;
     private Json.Builder builder;
     private Json.Parser parser;
     private string path;
 
-    private static Backups ? _instance;
-    public static Backups get_default () {
+    private static BackupManager ? _instance;
+    public static BackupManager get_default () {
         if (_instance == null) {
-            _instance = new Backups ();
+            _instance = new BackupManager ();
         }
 
         return _instance;
@@ -46,6 +46,43 @@ public class Services.Backups : Object {
     }
 
     public signal void backup_added (Objects.Backup backup);
+
+    public void init_auto_backup () {
+        if (Services.Settings.get_default ().settings.get_boolean ("backup-automatic")) {
+            _check_missed_backup ();
+        }
+
+        Services.EventBus.get_default ().day_changed.connect (() => {
+            if (Services.Settings.get_default ().settings.get_boolean ("backup-automatic")) {
+                Services.LogService.get_default ().info ("BackupManager", "Auto backup triggered by day change");
+                create_and_distribute_backup ();
+            } else {
+                Services.LogService.get_default ().debug ("BackupManager", "Auto backup skipped — disabled in settings");
+            }
+        });
+    }
+
+    private void _check_missed_backup () {
+        var last_date_str = Services.Settings.get_default ().settings.get_string ("backup-last-date");
+        var today = new GLib.DateTime.now_local ();
+
+        if (last_date_str == "") {
+            Services.LogService.get_default ().info ("BackupManager", "No previous backup found, running initial backup");
+            create_and_distribute_backup ();
+            return;
+        }
+
+        var last_date = new GLib.DateTime.from_iso8601 (last_date_str, new GLib.TimeZone.local ());
+        if (last_date == null) {
+            create_and_distribute_backup ();
+            return;
+        }
+
+        if (today.get_day_of_year () != last_date.get_day_of_year () || today.get_year () != last_date.get_year ()) {
+            Services.LogService.get_default ().info ("BackupManager", "Missed backup detected (last: %s), running now".printf (last_date_str));
+            create_and_distribute_backup ();
+        }
+    }
 
     construct {
         generator = new Json.Generator ();
@@ -102,30 +139,83 @@ public class Services.Backups : Object {
     }
 
     public string export_to_json () {
-        return Services.Backup.get_default ().export_to_json ();
+        return Services.BackupExporter.get_default ().export_to_json ();
     }
 
-    public void create_backup () {
+    public void create_and_distribute_backup () {
+        var backup_file = create_backup ();
+        if (backup_file != null) {
+            Services.LogService.get_default ().info ("BackupManager", "Backup created: %s".printf (backup_file.get_path ()));
+            Services.Settings.get_default ().settings.set_string ("backup-last-date", new GLib.DateTime.now_local ().to_string ());
+            copy_to_extra_folders (backup_file);
+        } else {
+            Services.LogService.get_default ().warn ("BackupManager", "Backup failed — create_backup returned null");
+            var toast = new Adw.Toast (_("Automatic backup failed")) {
+                priority = Adw.ToastPriority.HIGH
+            };
+            Services.EventBus.get_default ().send_toast (toast);
+        }
+    }
+
+    public GLib.File? create_backup () {
         var datetime = new GLib.DateTime.now_local ();
         var file_name = "Planify backup %s.json".printf (datetime.format ("%c"));
-        var path = path + "/" + file_name;
+        var file_path = path + "/" + file_name;
 
-        var file = File.new_for_path (path);
+        var file = File.new_for_path (file_path);
 
         try {
             var stream = file.create (FileCreateFlags.NONE, null);
             stream.write (export_to_json ().data, null);
             stream.close (null);
 
-            var file_path = File.new_for_path (path);
-            if (file_path.query_exists ()) {
-                var backup = new Objects.Backup.from_file (file_path);
+            if (file.query_exists ()) {
+                var backup = new Objects.Backup.from_file (file);
                 backup_added (backup);
                 _backups.add (backup);
+                return file;
             }
         } catch (Error e) {
             debug ("Error: %s\n", e.message);
         }
+
+        return null;
+    }
+
+    private void copy_to_extra_folders (GLib.File source_file) {
+        var extra_folders = Services.Settings.get_default ().settings.get_strv ("backup-extra-folders");
+        if (extra_folders.length == 0) {
+            Services.LogService.get_default ().debug ("BackupManager", "No extra folders configured, skipping copy");
+            return;
+        }
+
+        foreach (var folder_path in extra_folders) {
+            var dest = File.new_for_path (folder_path + "/" + source_file.get_basename ());
+            try {
+                source_file.copy (dest, GLib.FileCopyFlags.OVERWRITE);
+                Services.LogService.get_default ().info ("BackupManager", "Backup copied to: %s".printf (folder_path));
+            } catch (Error e) {
+                Services.LogService.get_default ().warn ("BackupManager", "Failed to copy backup to %s: %s".printf (folder_path, e.message));
+                var toast = new Adw.Toast (_("Failed to copy backup to %s").printf (folder_path)) {
+                    priority = Adw.ToastPriority.HIGH
+                };
+                Services.EventBus.get_default ().send_toast (toast);
+            }
+        }
+    }
+
+    public void add_extra_folder (string folder_path) {
+        var folders = new Gee.ArrayList<string>.wrap (Services.Settings.get_default ().settings.get_strv ("backup-extra-folders"));
+        if (!folders.contains (folder_path)) {
+            folders.add (folder_path);
+            Services.Settings.get_default ().settings.set_strv ("backup-extra-folders", folders.to_array ());
+        }
+    }
+
+    public void remove_extra_folder (string folder_path) {
+        var folders = new Gee.ArrayList<string>.wrap (Services.Settings.get_default ().settings.get_strv ("backup-extra-folders"));
+        folders.remove (folder_path);
+        Services.Settings.get_default ().settings.set_strv ("backup-extra-folders", folders.to_array ());
     }
 
     public void delete_backup (Objects.Backup backup) {

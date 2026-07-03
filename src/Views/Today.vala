@@ -315,6 +315,9 @@ public class Views.Today : Adw.Bin {
             date = new GLib.DateTime.now_local ();
             update_today_label ();
             add_today_items ();
+            #if WITH_EVOLUTION
+            event_list.refresh (date);
+            #endif
         })] = Services.EventBus.get_default ();
 
         signal_map[Services.Store.instance ().item_added.connect (valid_add_item)] = Services.Store.instance ();
@@ -359,9 +362,9 @@ public class Views.Today : Adw.Bin {
         })] = magic_button;
 
         #if WITH_EVOLUTION
-        signal_map[event_list.change.connect (() => {
+        event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;
-        })] = event_list;
+        });
         #endif
 
         signal_map[Services.Settings.get_default ().settings.changed["today-sort-order"].connect (() => {
@@ -606,11 +609,15 @@ public class Views.Today : Adw.Bin {
 
     private void valid_update_item (Objects.Item item, string update_id) {
         if (items.has_key (item.id)) {
-            items[item.id].update_request ();
+            if (items[item.id].update_id != update_id) {
+                items[item.id].update_request ();
+            }
         }
 
         if (overdue_items.has_key (item.id)) {
-            overdue_items[item.id].update_request ();
+            if (overdue_items[item.id].update_id != update_id) {
+                overdue_items[item.id].update_request ();
+            }
         }
 
         if (items.has_key (item.id) && !item.has_due && !item.has_deadline) {
@@ -717,6 +724,7 @@ public class Views.Today : Adw.Bin {
         sorted_by_item.add_item (_("Alphabetically"), SortedByType.NAME.to_string ());
         sorted_by_item.add_item (_("Due Date"), SortedByType.DUE_DATE.to_string ());
         sorted_by_item.add_item (_("Date Added"), SortedByType.ADDED_DATE.to_string ());
+        sorted_by_item.add_item (_("Date Modified"), SortedByType.UPDATED_DATE.to_string ());
         sorted_by_item.add_item (_("Priority"), SortedByType.PRIORITY.to_string ());
 
         // Filters

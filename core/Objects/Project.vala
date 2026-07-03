@@ -107,7 +107,7 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     Objects.Source ? _source;
-    public Objects.Source source {
+    public new Objects.Source source {
         get {
             _source = Services.Store.instance ().get_source (source_id);
             return _source;
@@ -125,7 +125,7 @@ public class Objects.Project : Objects.BaseObject {
     public int child_order { get; set; default = 0; }
 
     string _view_id;
-    public string view_id {
+    public new string view_id {
         get {
             _view_id = "project-%s".printf (id_string);
             return _view_id;
@@ -379,6 +379,10 @@ public class Objects.Project : Objects.BaseObject {
         if (node.get_object ().has_member ("calendar_url")) {
             calendar_url = node.get_object ().get_string_member ("calendar_url");
         }
+
+        if (node.get_object ().has_member ("markdown_setting")) {
+            markdown_setting = MarkdownSetting.parse (node.get_object ().get_string_member ("markdown_setting"));
+        }
     }
 
     public void update_from_json (Json.Node node) {
@@ -566,12 +570,10 @@ public class Objects.Project : Objects.BaseObject {
         }
 
         foreach (var item in items) {
-            string ? parent_id = Util.find_string_value ("RELATED-TO", item.calendar_data);
-            if (parent_id != null && parent_id != "") {
-                Objects.Item ? parent_item = Services.Store.instance ().get_item (parent_id);
-                
+            if (item.parent_id != "") {
+                Objects.Item? parent_item = Services.Store.instance ().get_item (item.parent_id);
                 if (parent_item == null) {
-                    parent_item = batch_map.has_key (parent_id) ? batch_map[parent_id] : null;
+                    parent_item = batch_map.has_key (item.parent_id) ? batch_map[item.parent_id] : null;
                 }
                 if (parent_item != null) {
                     parent_item.add_item_if_not_exists (item);

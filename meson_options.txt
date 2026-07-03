@@ -3,3 +3,4 @@ option('profile', type: 'combo', choices: ['default', 'development'], value: 'de
 option('spelling', type: 'feature')
 option('portal', type : 'boolean', description: 'build with xdg-portal support for ')
 option('evolution', type : 'boolean', description: 'build with evolution for integration with evolution calendars')
+option('manpage', type: 'boolean', value: false, description: 'install man page')

@@ -35,7 +35,7 @@ public class Widgets.TranslationRow : Adw.PreferencesRow {
         }
     }
 
-    public string title {
+    public new string title {
         owned get {
             return _title_label.label;
         }
