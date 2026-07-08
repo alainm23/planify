@@ -1699,7 +1699,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     private string normalize_url (string url) {
         var trimmed_url = url.strip ();
 
-        if (Regex.match_simple ("^[a-zA-Z][a-zA-Z0-9+.-]*:", trimmed_url)) {
+        if (GLib.Uri.parse_scheme (trimmed_url) != null) {
             return trimmed_url;
         }
 
