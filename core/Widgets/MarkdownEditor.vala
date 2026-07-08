@@ -1698,15 +1698,15 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     
     private string normalize_url (string url) {
         var trimmed_url = url.strip ();
-        
-        if (trimmed_url.contains ("://")) {
+
+        if (Regex.match_simple ("^[a-zA-Z][a-zA-Z0-9+.-]*:", trimmed_url)) {
             return trimmed_url;
         }
-        
+
         if (trimmed_url.contains (".") && !trimmed_url.contains (" ")) {
             return "https://" + trimmed_url;
         }
-        
+
         return trimmed_url;
     }
     
