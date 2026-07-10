@@ -47,7 +47,7 @@ public class Services.CalDAV.Core : GLib.Object {
                 source.caldav_data.server_url,
                 source.caldav_data.username,
                 source.caldav_data.password,
-                source.caldav_data.ignore_ssl
+                source.id
             );
             clients[source.id] = client;
         }
@@ -63,10 +63,16 @@ public class Services.CalDAV.Core : GLib.Object {
 
     public void remove_client (string source_id) {
         Services.LogService.get_default ().info ("CalDAV.Core", "Removing client");
+        if (clients.has_key (source_id)) {
+            clients[source_id].cleanup ();
+        }
         clients.unset (source_id);
     }
 
     public void clear () {
+        foreach (var client in clients.values) {
+            client.cleanup ();
+        }
         clients.clear ();
     }
 
@@ -81,7 +87,7 @@ public class Services.CalDAV.Core : GLib.Object {
         return abs_url;
     }
 
-    public async string resolve_well_known_caldav (Soup.Session session, string base_url, bool ignore_ssl = false) throws GLib.Error {
+    public async string resolve_well_known_caldav (Soup.Session session, string base_url, string source_id) throws GLib.Error {
         Services.LogService.get_default ().info ("CalDAV.Core", "Resolving .well-known/caldav");
         var well_known_url = make_absolute_url (base_url, "/.well-known/caldav");
         var msg = new Soup.Message ("GET", well_known_url);
@@ -89,11 +95,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
         msg.set_flags (Soup.MessageFlags.NO_REDIRECT);
 
-        if (ignore_ssl) {
-            msg.accept_certificate.connect (() => {
-                return true;
-            });
-        }
+        Services.CalDAV.CertificateTrustStore.get_default ().attach_certificate_handler (msg, source_id, well_known_url);
 
         try {
             yield session.send_and_read_async (msg, Priority.DEFAULT, null);
@@ -136,9 +138,9 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
 
-    public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable, bool ignore_ssl = false) throws GLib.Error {
+    public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable, string source_id) throws GLib.Error {
         Services.LogService.get_default ().info ("CalDAV.Core", "Resolving calendar home");
-        var caldav_client = new Services.CalDAV.CalDAVClient (new Soup.Session (), dav_url, username, password, ignore_ssl);
+        var caldav_client = new Services.CalDAV.CalDAVClient (new Soup.Session (), dav_url, username, password, source_id);
 
         try {
             string? principal_url = yield caldav_client.get_principal_url (cancellable);
@@ -159,7 +161,7 @@ public class Services.CalDAV.Core : GLib.Object {
         }
     }
 
-    public async HttpResponse login (CalDAVType caldav_type, string dav_url, string username, string password, string calendar_home, GLib.Cancellable cancellable, bool ignore_ssl = false) {
+    public async HttpResponse login (CalDAVType caldav_type, string dav_url, string username, string password, string calendar_home, GLib.Cancellable cancellable, string source_id) {
         Services.LogService.get_default ().info ("CalDAV.Core", "Starting login");
         HttpResponse response = new HttpResponse ();
 
@@ -170,7 +172,7 @@ public class Services.CalDAV.Core : GLib.Object {
             return response;
         }
 
-        var caldav_client = new Services.CalDAV.CalDAVClient (new Soup.Session (), dav_url, username, password, ignore_ssl);
+        var caldav_client = new Services.CalDAV.CalDAVClient (new Soup.Session (), dav_url, username, password, source_id);
 
         try {
             string? principal_url = yield caldav_client.get_principal_url (cancellable);
@@ -182,7 +184,7 @@ public class Services.CalDAV.Core : GLib.Object {
             }
 
             var source = new Objects.Source ();
-            source.id = Util.get_default ().generate_id ();
+            source.id = source_id;
             source.source_type = SourceType.CALDAV;
             source.last_sync = new GLib.DateTime.now_local ().to_string ();
             source.sync_server = true;
@@ -193,7 +195,6 @@ public class Services.CalDAV.Core : GLib.Object {
             caldav_data.username = username;
             caldav_data.password = password;
             caldav_data.caldav_type = caldav_type;
-            caldav_data.ignore_ssl = ignore_ssl;
 
             source.data = caldav_data;
 
@@ -261,8 +262,16 @@ public class Services.CalDAV.Core : GLib.Object {
             // to avoid concurrent sync triggering duplicate project insertion
             Services.Store.instance ().insert_source (source);
 
+
+            if (!Services.CalDAV.CertificateTrustStore.get_default ().persist_pending_trusted_certificates_for_source (source.id)) {
+                response.error_code = 409;
+                response.error = _("Failed to save trusted certificates");
+                return response;
+            }
+
             sync_progress (projects.size, projects.size, _("Sync completed"));
             Services.LogService.get_default ().info ("CalDAV.Core", "Account added successfully, %d projects synced".printf (projects.size));
+            Services.CalDAV.CertificateTrustStore.get_default ().clear_source_state (source.id);
             response.status = true;
         } catch (Error e) {
             response.error_code = e.code;
@@ -294,9 +303,9 @@ public class Services.CalDAV.Core : GLib.Object {
                 yield caldav_client.sync_tasklist (project, cancellable);
             }
 
-            source.sync_finished ();
             source.sync_status = null;
             source.last_sync = new GLib.DateTime.now_local ().to_string ();
+            source.sync_finished ();
             Services.LogService.get_default ().info ("CalDAV.Core", "Sync completed successfully");
         } catch (Error e) {
             Services.LogService.get_default ().error ("CalDAV.Core", "Failed to sync source '%s': %s".printf (source.display_name, e.message));
@@ -316,6 +325,29 @@ public class Services.CalDAV.Core : GLib.Object {
                     _("Too Many Requests"),
                     _("The server is rate limiting requests. Please wait a few minutes and try again.")
                 );
+                source.sync_failed (source.sync_status);
+            } else if (e is GLib.TlsError.BAD_CERTIFICATE) {
+                var certificate_store = Services.CalDAV.CertificateTrustStore.get_default ();
+                var tls_failure_context = certificate_store.get_last_tls_failure_for_source (source.id);
+                if (tls_failure_context != null && tls_failure_context.flags == GLib.TlsCertificateFlags.UNKNOWN_CA) {
+                    source.sync_status = new SyncStatus (
+                        SyncErrorType.CERTIFICATE_ERROR,
+                        _("Untrusted Certificate Authority"),
+                        _("Your system does not trust the server's self-signed certificate.")
+                    );
+                    Services.LogService.get_default ().warn ("CalDAV.Core", "Sync failed with untrusted certificate for source '%s'".printf (source.id));
+                } else {
+                    var tls_error_message = certificate_store.build_tls_failure_message_for_source (source.id);
+                    source.sync_status = new SyncStatus (
+                        SyncErrorType.SERVER_ERROR,
+                        _("Server Error"),
+                        tls_error_message
+                    );
+                    Services.LogService.get_default ().error (
+                        "CalDAV.Core",
+                        "The sync failed with a BAD_CERTIFICATE error for source '%s': %s".printf (source.id, tls_error_message)
+                    );
+                }
                 source.sync_failed (source.sync_status);
             } else {
                 source.sync_status = null;

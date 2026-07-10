@@ -23,6 +23,8 @@ public class Dialogs.Preferences.Pages.BasePage : Adw.NavigationPage {
     public Adw.PreferencesDialog preferences_dialog { get; construct; }
     public Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
+    public delegate void CertificateRetryCallback ();
+
     public virtual void clean_up () {
         foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
@@ -38,5 +40,28 @@ public class Dialogs.Preferences.Pages.BasePage : Adw.NavigationPage {
         if (preferences_dialog != null) {
             preferences_dialog.add_toast (toast);
         }
+    }
+
+    protected void open_certificate_details_page (
+        string source_id,
+        string server_url,
+        Dialogs.Preferences.Pages.Accounts? accounts_page,
+        CertificateRetryCallback retry_callback
+    ) {
+        var trust_page = Dialogs.Preferences.Pages.CertificateDetails.build_for_source (
+            preferences_dialog,
+            source_id,
+            server_url,
+            accounts_page
+        );
+        if (trust_page == null) {
+            return;
+        }
+
+        signal_map[trust_page.certificate_trusted.connect (() => {
+            retry_callback ();
+        })] = trust_page;
+
+        preferences_dialog.push_subpage (trust_page);
     }
 }

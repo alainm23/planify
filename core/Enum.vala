@@ -760,7 +760,8 @@ public enum Appearance {
 public enum SyncErrorType {
     AUTH_EXPIRED,
     SERVER_ERROR,
-    NETWORK_ERROR
+    NETWORK_ERROR,
+    CERTIFICATE_ERROR
 }
 
 public class SyncStatus : Object {
