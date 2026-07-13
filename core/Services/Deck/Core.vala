@@ -76,6 +76,7 @@ public class Services.Deck.Core : GLib.Object {
                 string board_etag = board.get_string_member ("ETag");
                 string title = board.get_string_member ("title");
                 string color = "#%s".printf (board.get_string_member ("color"));
+                bool board_archived = board.get_boolean_member ("archived");
 
                 // Find or create project
                 Objects.Project? project = get_project_by_board_id (source, board_id);
@@ -86,24 +87,40 @@ public class Services.Deck.Core : GLib.Object {
                     project.source_id = source.id;
                     project.name = title;
                     project.color = color;
+                    project.is_archived = board_archived;
                     project.extra_data = build_board_extra_data (board_id, board_etag);
                     Services.Store.instance ().insert_project (project);
                     Services.LogService.get_default ().debug ("Deck.Core", "Inserted board: %s".printf (title));
                 } else {
-                    string old_etag = Utils.JsonUtils.get_string (project.extra_data, "deck_etag");
-                    if (old_etag == board_etag) {
-                        Services.LogService.get_default ().debug ("Deck.Core", "Board unchanged: %s".printf (title));
-                        return;
-                    }
+                    bool was_archived = project.is_archived;
                     project.name = title;
                     project.color = color;
+                    project.is_archived = board_archived;
                     project.extra_data = build_board_extra_data (board_id, board_etag);
                     Services.Store.instance ().update_project (project);
+
+                    if (was_archived != board_archived) {
+                        Services.Store.instance ().archive_project (project);
+                    }
                 }
 
                 // Sync stacks for this board
                 sync_stacks.begin (client, source, project, board_id);
             });
+
+            // Delete local projects whose boards no longer exist on server
+            var server_board_ids = new Gee.HashSet<int> ();
+            boards.foreach_element ((array, index, node) => {
+                if (node.get_object ().get_int_member ("deletedAt") == 0) {
+                    server_board_ids.add ((int) node.get_object ().get_int_member ("id"));
+                }
+            });
+            foreach (var local_project in Services.Store.instance ().get_projects_by_source (source.id)) {
+                int local_board_id = (int) Utils.JsonUtils.get_int (local_project.extra_data, "deck_board_id");
+                if (local_board_id > 0 && !server_board_ids.contains (local_board_id)) {
+                    Services.Store.instance ().delete_project (local_project);
+                }
+            }
 
             // Update last sync timestamp (must be in English IMF-fixdate format)
             source.caldav_data.deck_last_sync = new GLib.DateTime.now_utc ().format_iso8601 ();
@@ -117,10 +134,7 @@ public class Services.Deck.Core : GLib.Object {
 
     private async void sync_stacks (Services.Deck.DeckClient client, Objects.Source source, Objects.Project project, int board_id) {
         try {
-            string last_sync = source.caldav_data.deck_last_sync;
-            var stacks = yield client.get_stacks (board_id, last_sync != "" ? last_sync : null);
-
-            if (stacks.get_length () == 0) return;
+            var stacks = yield client.get_stacks (board_id, null);
 
             var server_stack_ids = new Gee.HashSet<int> ();
 
@@ -131,6 +145,7 @@ public class Services.Deck.Core : GLib.Object {
                 int stack_id = (int) stack.get_int_member ("id");
                 string stack_etag = stack.get_string_member ("ETag");
                 string stack_title = stack.get_string_member ("title");
+                int stack_order = (int) stack.get_int_member ("order");
                 server_stack_ids.add (stack_id);
 
                 Objects.Section? section = get_section_by_stack_id (project, stack_id);
@@ -140,19 +155,35 @@ public class Services.Deck.Core : GLib.Object {
                     section.id = Util.get_default ().generate_id (section);
                     section.project_id = project.id;
                     section.name = stack_title;
+                    section.section_order = stack_order;
                     section.extra_data = build_stack_extra_data (stack_id, board_id, stack_etag);
                     Services.Store.instance ().insert_section (section);
                 } else {
                     section.name = stack_title;
+                    section.section_order = stack_order;
                     section.extra_data = build_stack_extra_data (stack_id, board_id, stack_etag);
                     Services.Store.instance ().update_section (section);
                 }
 
                 // Sync cards
+                var server_card_ids = new Gee.HashSet<int> ();
                 if (stack.has_member ("cards") && !stack.get_null_member ("cards")) {
                     stack.get_array_member ("cards").foreach_element ((a, i, card_node) => {
-                        upsert_card (source, project, section, board_id, stack_id, card_node.get_object ());
+                        var card_obj = card_node.get_object ();
+                        if (card_obj.get_int_member ("deletedAt") == 0) {
+                            server_card_ids.add ((int) card_obj.get_int_member ("id"));
+                        }
+                        upsert_card (source, project, section, board_id, stack_id, card_obj);
                     });
+                }
+
+                // Delete local items whose cards no longer exist on server
+                foreach (var local_item in Services.Store.instance ().get_items_by_project (project)) {
+                    if (local_item.section_id != section.id) continue;
+                    int local_card_id = (int) Utils.JsonUtils.get_int (local_item.extra_data, "deck_card_id");
+                    if (local_card_id > 0 && !server_card_ids.contains (local_card_id)) {
+                        Services.Store.instance ().delete_item (local_item);
+                    }
                 }
             });
 
@@ -176,7 +207,7 @@ public class Services.Deck.Core : GLib.Object {
         string card_title = card.get_string_member ("title");
         string card_description = card.has_member ("description") && !card.get_null_member ("description")
             ? card.get_string_member ("description") : "";
-        bool card_archived = card.get_boolean_member ("archived");
+        bool card_done = card.has_member ("done") && !card.get_null_member ("done");
 
         string? duedate_str = card.has_member ("duedate") && !card.get_null_member ("duedate")
             ? card.get_string_member ("duedate") : null;
@@ -196,16 +227,17 @@ public class Services.Deck.Core : GLib.Object {
                 item.due.date = duedate_str;
             }
 
-            if (card_archived) {
+            if (card_done) {
                 item.checked = true;
                 item.completed_at = new GLib.DateTime.now_local ().to_string ();
             }
 
-            project.add_item_if_not_exists (item);
-        } else {
-            string old_etag = Utils.JsonUtils.get_string (item.extra_data, "deck_etag");
-            if (old_etag == card_etag) return;
+            // Labels
+            var card_labels = get_card_labels (source, card);
+            item.labels = card_labels;
 
+            Services.Store.instance ().insert_item (item, true);
+        } else {
             item.content = card_title;
             item.description = card_description;
             item.section_id = section.id;
@@ -218,14 +250,30 @@ public class Services.Deck.Core : GLib.Object {
             }
 
             bool old_checked = item.checked;
-            item.checked = card_archived;
+            item.checked = card_done;
             if (item.checked) {
                 item.completed_at = new GLib.DateTime.now_local ().to_string ();
             } else {
                 item.completed_at = "";
             }
 
-            Services.Store.instance ().update_item (item);
+            // Detect section change (card moved between stacks)
+            string old_section_id = item.section_id;
+            if (old_section_id != section.id) {
+                item.section_id = section.id;
+                item.extra_data = build_card_extra_data (card_id, stack_id, board_id, card_etag);
+                Services.Store.instance ().move_item (item, project.id, old_section_id, "");
+                Services.EventBus.get_default ().item_moved (item, project.id, old_section_id, "");
+            } else {
+                item.extra_data = build_card_extra_data (card_id, stack_id, board_id, card_etag);
+                Services.Store.instance ().update_item (item);
+            }
+
+            // Labels
+            var card_labels = get_card_labels (source, card);
+            var labels_map = new Gee.HashMap<string, Objects.Label> ();
+            foreach (var l in card_labels) { labels_map[l.id] = l; }
+            item.check_labels (labels_map);
 
             if (old_checked != item.checked) {
                 Services.Store.instance ().complete_item (item, old_checked);
@@ -259,6 +307,36 @@ public class Services.Deck.Core : GLib.Object {
             }
         }
         return null;
+    }
+
+    private Gee.ArrayList<Objects.Label> get_card_labels (Objects.Source source, Json.Object card) {
+        var result = new Gee.ArrayList<Objects.Label> ();
+        if (!card.has_member ("labels") || card.get_null_member ("labels")) return result;
+
+        card.get_array_member ("labels").foreach_element ((a, i, label_node) => {
+            var label_obj = label_node.get_object ();
+            string label_title = label_obj.get_string_member ("title");
+            string label_color = "#%s".printf (label_obj.get_string_member ("color"));
+            var label = find_or_create_label (source, label_title, label_color);
+            result.add (label);
+        });
+
+        return result;
+    }
+
+    private Objects.Label find_or_create_label (Objects.Source source, string name, string color) {
+        foreach (var label in Services.Store.instance ().get_labels_by_source (source.id)) {
+            if (label.name == name) return label;
+        }
+
+        var label = new Objects.Label ();
+        label.id = Util.get_default ().generate_id (label);
+        label.name = name;
+        label.color = color;
+        label.backend_type = SourceType.CALDAV;
+        label.source_id = source.id;
+        Services.Store.instance ().insert_label (label);
+        return label;
     }
 
     // extra_data builders

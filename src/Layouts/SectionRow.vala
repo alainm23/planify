@@ -782,6 +782,19 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
                         Services.Store.instance ().move_item (picked_widget.item, old_section_id, old_parent_id);
                     }
                 });
+            } else if (picked_widget.item.project.source_type == SourceType.CALDAV) {
+                if (picked_widget.item.project.is_deck) {
+                    picked_widget.item.move_deck.begin (old_section_id, (obj, res) => {
+                        picked_widget.item.move_deck.end (res);
+                    });
+                } else {
+                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_widget.item.project.source);
+                    caldav_client.add_item.begin (picked_widget.item, true, (obj, res) => {
+                        if (caldav_client.add_item.end (res).status) {
+                            Services.Store.instance ().move_item (picked_widget.item, old_section_id, old_parent_id);
+                        }
+                    });
+                }
             } else if (picked_widget.item.project.source_type == SourceType.LOCAL) {
                 Services.Store.instance ().move_item (picked_widget.item, old_section_id, old_parent_id);
             }

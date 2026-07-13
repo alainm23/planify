@@ -132,7 +132,10 @@ public class Services.Deck.DeckClient : Object {
 
     // Boards
     public async Json.Array get_boards () throws GLib.Error {
-        return yield send_array_request ("GET", "/boards");
+        var active = yield send_array_request ("GET", "/boards");
+        var archived = yield send_array_request ("GET", "/boards?archived=1");
+        archived.foreach_element ((a, i, node) => { active.add_element (node); });
+        return active;
     }
 
     public async Json.Object create_board (string title, string color) throws GLib.Error {
@@ -140,8 +143,8 @@ public class Services.Deck.DeckClient : Object {
         return yield send_object_request ("POST", "/boards", body);
     }
 
-    public async void update_board (int board_id, string title, string color) throws GLib.Error {
-        var body = """{"title": "%s", "color": "%s"}""".printf (title, color.replace ("#", ""));
+    public async void update_board (int board_id, string title, string color, bool archived = false) throws GLib.Error {
+        var body = """{"title": "%s", "color": "%s", "archived": %s}""".printf (title, color.replace ("#", ""), archived.to_string ());
         yield send_object_request ("PUT", "/boards/%d".printf (board_id), body);
     }
 
@@ -214,5 +217,37 @@ public class Services.Deck.DeckClient : Object {
 
     public async void delete_card (int board_id, int stack_id, int card_id) throws GLib.Error {
         yield send_object_request ("DELETE", "/boards/%d/stacks/%d/cards/%d".printf (board_id, stack_id, card_id));
+    }
+
+    public async void move_card (int board_id, int stack_id, int card_id, int target_stack_id, int order = 0) throws GLib.Error {
+        var body = "{\"stackId\":%d,\"order\":%d}".printf (target_stack_id, order);
+        yield send_object_request ("PUT", "/boards/%d/stacks/%d/cards/%d/reorder".printf (board_id, stack_id, card_id), body);
+    }
+
+    public async Json.Object create_label (int board_id, string title, string color) throws GLib.Error {
+        var body = "{\"title\":\"%s\",\"color\":\"%s\"}".printf (title, color.replace ("#", ""));
+        return yield send_object_request ("POST", "/boards/%d/labels".printf (board_id), body);
+    }
+
+    public async void assign_label_to_card (int board_id, int stack_id, int card_id, int label_id) throws GLib.Error {
+        var body = "{\"labelId\":%d}".printf (label_id);
+        yield send_object_request ("PUT", "/boards/%d/stacks/%d/cards/%d/assignLabel".printf (board_id, stack_id, card_id), body);
+    }
+
+    public async void remove_label_from_card (int board_id, int stack_id, int card_id, int label_id) throws GLib.Error {
+        var body = "{\"labelId\":%d}".printf (label_id);
+        yield send_object_request ("PUT", "/boards/%d/stacks/%d/cards/%d/removeLabel".printf (board_id, stack_id, card_id), body);
+    }
+
+    public async Json.Array get_board_labels (int board_id) throws GLib.Error {
+        var board = yield send_object_request ("GET", "/boards/%d".printf (board_id));
+        var result = new Json.Array ();
+        if (board.has_member ("labels") && !board.get_null_member ("labels")) {
+            var labels_obj = board.get_object_member ("labels");
+            foreach (var key in labels_obj.get_members ()) {
+                result.add_object_element (labels_obj.get_object_member (key));
+            }
+        }
+        return result;
     }
 }

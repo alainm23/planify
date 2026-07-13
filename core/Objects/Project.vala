@@ -383,6 +383,10 @@ public class Objects.Project : Objects.BaseObject {
         if (node.get_object ().has_member ("markdown_setting")) {
             markdown_setting = MarkdownSetting.parse (node.get_object ().get_string_member ("markdown_setting"));
         }
+
+        if (node.get_object ().has_member ("extra_data")) {
+            extra_data = node.get_object ().get_string_member ("extra_data");
+        }
     }
 
     public void update_from_json (Json.Node node) {
@@ -469,7 +473,7 @@ public class Objects.Project : Objects.BaseObject {
                 if (is_deck) {
                     var deck_client = Services.Deck.Core.get_default ().get_client (source);
                     int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
-                    deck_client.update_board.begin (board_id, name, color_hex, (obj, res) => {
+                    deck_client.update_board.begin (board_id, name, color_hex, false, (obj, res) => {
                         try { deck_client.update_board.end (res); } catch (Error e) {
                             Services.LogService.get_default ().error ("Deck", "Failed to update board: %s".printf (e.message));
                         }
@@ -977,6 +981,9 @@ public class Objects.Project : Objects.BaseObject {
             if (response == "archive") {
                 is_archived = true;
                 Services.Store.instance ().archive_project (this);
+                if (is_deck) {
+                    archive_deck_board (true);
+                }
             }
         });
     }
@@ -984,6 +991,21 @@ public class Objects.Project : Objects.BaseObject {
     public void unarchive_project () {
         is_archived = false;
         Services.Store.instance ().archive_project (this);
+        if (is_deck) {
+            archive_deck_board (false);
+        }
+    }
+
+    private void archive_deck_board (bool archived) {
+        var deck_client = Services.Deck.Core.get_default ().get_client (source);
+        int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
+        deck_client.update_board.begin (board_id, name, color.replace ("#", ""), archived, (obj, res) => {
+            try {
+                deck_client.update_board.end (res);
+            } catch (Error e) {
+                warning ("Failed to archive/unarchive Deck board: %s", e.message);
+            }
+        });
     }
 
     public Objects.Project duplicate () {

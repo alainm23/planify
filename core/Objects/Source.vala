@@ -116,9 +116,15 @@ public class Objects.Source : Objects.BaseObject {
         updated_at = node.get_object ().get_string_member ("updated_at");
         is_visible = node.get_object ().get_boolean_member ("is_visible");
         child_order = (int32) node.get_object ().get_int_member ("child_order");
-        sync_server = node.get_object ().get_boolean_member ("sync_server");
-        last_sync = node.get_object ().get_string_member ("last_sync");
         display_name = node.get_object ().get_string_member ("display_name");
+
+        if (node.get_object ().has_member ("sync_server")) {
+            sync_server = node.get_object ().get_boolean_member ("sync_server");
+        }
+
+        if (node.get_object ().has_member ("last_sync")) {
+            last_sync = node.get_object ().get_string_member ("last_sync");
+        }
 
         if (source_type == SourceType.TODOIST) {
             data = new Objects.SourceTodoistData.from_json (node.get_object ().get_string_member ("data"));

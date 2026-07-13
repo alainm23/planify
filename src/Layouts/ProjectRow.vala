@@ -730,10 +730,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         if (!project.inbox_project) {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (archive_item);
-
-            if (!project.is_deck) {
-                menu_box.append (delete_item);
-            }
+            menu_box.append (delete_item);
         }
 
         menu_popover = new Gtk.Popover () {
@@ -805,8 +802,12 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void sync_project () {
-        var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-        caldav_client.sync_tasklist.begin (project, new GLib.Cancellable ());
+        if (project.is_deck) {
+            Services.Deck.Core.get_default ().sync.begin (project.source);
+        } else {
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.sync_tasklist.begin (project, new GLib.Cancellable ());
+        }
     }
 
     private void update_listbox_revealer () {

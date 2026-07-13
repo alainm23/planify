@@ -74,4 +74,14 @@ public class Utils.JsonUtils {
         var obj = get_object (data);
         return obj.has_member (member) && obj.get_null_member (member);
     }
+
+    public static string set_int (string data, string member, int64 val) {
+        var obj = get_object (data);
+        obj.set_int_member (member, val);
+        var gen = new Json.Generator ();
+        var node = new Json.Node (Json.NodeType.OBJECT);
+        node.set_object (obj);
+        gen.set_root (node);
+        return gen.to_data (null);
+    }
 }

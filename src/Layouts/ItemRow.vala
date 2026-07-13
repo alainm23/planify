@@ -128,8 +128,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 hide_subtask_revealer.reveal_child = false;
                 hide_loading_button.remove_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = true;
-                show_subtasks_revealer.reveal_child = subitems.has_children && edit;
-                add_subtasks_button_revealer.reveal_child = edit;
+                show_subtasks_revealer.reveal_child = subitems.has_children && edit && !item.project.is_deck;
+                add_subtasks_button_revealer.reveal_child = edit && !item.project.is_deck;
 
                 // Due labels
                 due_box_revealer.reveal_child = false;
@@ -165,7 +165,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 content_label_revealer.reveal_child = true;
                 content_entry_revealer.reveal_child = false;
                 project_name_label_revealer.reveal_child = !is_project_view;
-                hide_subtask_revealer.reveal_child = subitems.has_children;
+                hide_subtask_revealer.reveal_child = subitems.has_children && !item.project.is_deck;
                 hide_loading_button.add_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = false;
                 show_subtasks_revealer.reveal_child = false;
@@ -1270,7 +1270,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_box.append (move_item);
         menu_box.append (labels_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (add_item);
+        if (!item.project.is_deck) {
+            menu_box.append (add_item);
+        }
         menu_box.append (duplicate_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 
@@ -1721,6 +1723,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         drop_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
         itemrow_box.add_controller (drop_target);
 
+        dnd_handlerses[drop_target.accept.connect ((drop) => {
+            return !item.project.is_deck;
+        })] = drop_target;
+
         dnd_handlerses[drop_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemRow) value;
             var target_widget = this;
@@ -1872,12 +1878,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                         }
                     });
                 } else if (picked_widget.item.project.source_type == SourceType.CALDAV) {
-                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_widget.item.project.source);
-                    caldav_client.add_item.begin (picked_widget.item, true, (obj, res) => {
-                        if (caldav_client.add_item.end (res).status) {
-                            Services.Store.instance ().move_item (picked_widget.item, old_project_id, old_section_id, old_parent_id);
-                        }
-                    });
+                    if (picked_widget.item.project.is_deck) {
+                        picked_widget.item.move_deck.begin (old_section_id, (obj, res) => {
+                            picked_widget.item.move_deck.end (res);
+                        });
+                    } else {
+                        var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_widget.item.project.source);
+                        caldav_client.add_item.begin (picked_widget.item, true, (obj, res) => {
+                            if (caldav_client.add_item.end (res).status) {
+                                Services.Store.instance ().move_item (picked_widget.item, old_project_id, old_section_id, old_parent_id);
+                            }
+                        });
+                    }
                 }
             }
 

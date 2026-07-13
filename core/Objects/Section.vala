@@ -169,9 +169,18 @@ public class Objects.Section : Objects.BaseObject {
         added_at = node.get_object ().get_string_member ("added_at");
         project_id = node.get_object ().get_string_member ("project_id");
         section_order = (int32) node.get_object ().get_int_member ("section_order");
-        collapsed = node.get_object ().get_boolean_member ("is_collapsed");
         is_deleted = node.get_object ().get_boolean_member ("is_deleted");
         is_archived = node.get_object ().get_boolean_member ("is_archived");
+
+        if (node.get_object ().has_member ("collapsed")) {
+            collapsed = node.get_object ().get_boolean_member ("collapsed");
+        } else if (node.get_object ().has_member ("is_collapsed")) {
+            collapsed = node.get_object ().get_boolean_member ("is_collapsed");
+        }
+
+        if (node.get_object ().has_member ("extra_data")) {
+            extra_data = node.get_object ().get_string_member ("extra_data");
+        }
     }
 
     public void update_from_json (Json.Node node) {
