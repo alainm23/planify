@@ -211,6 +211,7 @@ public class Services.Deck.Core : GLib.Object {
 
         string? duedate_str = card.has_member ("duedate") && !card.get_null_member ("duedate")
             ? card.get_string_member ("duedate") : null;
+        string? parsed_duedate = parse_deck_duedate (duedate_str);
 
         Objects.Item? item = get_item_by_card_id (project, card_id);
 
@@ -223,8 +224,8 @@ public class Services.Deck.Core : GLib.Object {
             item.description = card_description;
             item.extra_data = build_card_extra_data (card_id, stack_id, board_id, card_etag);
 
-            if (duedate_str != null) {
-                item.due.date = duedate_str;
+            if (parsed_duedate != null) {
+                item.due.date = parsed_duedate;
             }
 
             if (card_done) {
@@ -243,8 +244,8 @@ public class Services.Deck.Core : GLib.Object {
             item.section_id = section.id;
             item.extra_data = build_card_extra_data (card_id, stack_id, board_id, card_etag);
 
-            if (duedate_str != null) {
-                item.due.date = duedate_str;
+            if (parsed_duedate != null) {
+                item.due.date = parsed_duedate;
             } else {
                 item.due.reset ();
             }
@@ -374,5 +375,41 @@ public class Services.Deck.Core : GLib.Object {
         var gen = new Json.Generator ();
         gen.set_root (builder.get_root ());
         return gen.to_data (null);
+    }
+
+    // Converts Deck duedate (UTC) to Planify format.
+    // If time is 12:00:00 UTC (our date-only marker), returns just the date.
+    // Otherwise converts UTC to local time.
+    public static string? parse_deck_duedate (string? duedate_str) {
+        if (duedate_str == null || duedate_str == "") return null;
+
+        // Deck format: "2026-07-14T12:00:00+00:00"
+        var parts = duedate_str.split ("T");
+        if (parts.length < 2) return duedate_str;
+
+        string date_part = parts[0]; // "2026-07-14"
+        string time_part = parts[1]; // "12:00:00+00:00"
+
+        // Strip timezone suffix to get raw time
+        string raw_time = time_part.split ("+")[0].split ("Z")[0]; // "12:00:00"
+
+        if (raw_time == "12:00:00") {
+            // Date-only marker: return just the date
+            return date_part;
+        }
+
+        // Has real time: convert UTC to local
+        var date_parts = date_part.split ("-");
+        var time_parts = raw_time.split (":");
+        var utc_dt = new GLib.DateTime.utc (
+            int.parse (date_parts[0]),
+            int.parse (date_parts[1]),
+            int.parse (date_parts[2]),
+            int.parse (time_parts[0]),
+            int.parse (time_parts[1]),
+            int.parse (time_parts[2])
+        );
+        var local_dt = utc_dt.to_local ();
+        return local_dt.format ("%FT%T");
     }
 }

@@ -843,7 +843,14 @@ public class Layouts.QuickAddCore : Adw.Bin {
                         item.section_id = sections[0].id;
                     }
                 }
-                string? duedate = item.has_due ? item.due.datetime.format ("%F") : null;
+                string? duedate = null;
+                if (item.has_due) {
+                    if (item.has_time) {
+                        duedate = item.due.datetime.to_utc ().format ("%FT%T");
+                    } else {
+                        duedate = item.due.datetime.format ("%FT12:00:00");
+                    }
+                }
                 deck_client.create_card.begin (board_id, stack_id, item.content, item.description, duedate, item.child_order, (obj, res) => {
                     is_loading = false;
                     try {

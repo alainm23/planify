@@ -2072,9 +2072,17 @@ public class Objects.Item : Objects.BaseObject {
         return (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
     }
 
+    private string? get_deck_duedate () {
+        if (!has_due) return null;
+        if (has_time) {
+            return due.datetime.to_utc ().format ("%FT%T");
+        }
+        return due.datetime.format ("%FT12:00:00");
+    }
+
     private async void _update_deck (string update_id = "") {
         var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-        string? duedate = has_due ? due.datetime.format ("%F") : null;
+        string? duedate = get_deck_duedate ();
         try {
             yield deck_client.update_card (get_deck_board_id (), get_deck_stack_id (), get_deck_card_id (),
                 content, description, duedate, checked, child_order);
@@ -2164,7 +2172,7 @@ public class Objects.Item : Objects.BaseObject {
     private async HttpResponse _complete_deck_item () {
         HttpResponse response = new HttpResponse ();
         var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-        string? duedate = has_due ? due.datetime.format ("%F") : null;
+        string? duedate = get_deck_duedate ();
         try {
             yield deck_client.update_card (get_deck_board_id (), get_deck_stack_id (), get_deck_card_id (),
                 content, description, duedate, checked, child_order);
@@ -2215,10 +2223,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         try {
-            string? duedate = null;
-            if (has_due) {
-                duedate = due.datetime.format ("%F");
-            }
+            string? duedate = get_deck_duedate ();
 
             var card = yield deck_client.create_card (new_board_id, new_stack_id, content, description, duedate, child_order);
             int new_card_id = (int) card.get_int_member ("id");
