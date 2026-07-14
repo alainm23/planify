@@ -435,7 +435,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (!node.get_object ().get_null_member ("due")) {
-            due.update_from_json (node.get_object ().get_object_member ("due"));
+            due.update_from_todoist_json (node.get_object ().get_object_member ("due"));
         } else {
             due.reset ();
         }
@@ -490,7 +490,7 @@ public class Objects.Item : Objects.BaseObject {
         patch_from_vtodo (data, _ical_url, true);
     }
 
-    public void patch_from_vtodo (string data, string _ical_url, bool is_update = false) {
+    private void patch_from_vtodo (string data, string _ical_url, bool is_update = false) {
         ICal.Component ical = ICal.Parser.parse_string (data);
         ICal.Component ? ical_vtodo = ical.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
 
@@ -533,6 +533,13 @@ public class Objects.Item : Objects.BaseObject {
         ICal.Property ? related_to_property = ical_vtodo.get_first_property (ICal.PropertyKind.RELATEDTO_PROPERTY);
         if (related_to_property != null) {
             string related_id = related_to_property.get_relatedto ();
+            ICal.ParameterReltype reltype = ICal.ParameterReltype.PARENT;
+            ICal.Parameter ? reltype_parameter = related_to_property.get_first_parameter (ICal.ParameterKind.RELTYPE_PARAMETER);
+
+            if (reltype_parameter != null) {
+                reltype = reltype_parameter.get_reltype ();
+            }
+            
             if (related_id == id) {
                 warning ("Item/Task %s has a direct self-reference", id);
                 parent_id = "";
@@ -543,7 +550,7 @@ public class Objects.Item : Objects.BaseObject {
                 if (related_section != null) {
                     section_id = related_id;
                     parent_id = "";
-                } else {
+                } else if (reltype == ICal.ParameterReltype.PARENT) {
                     parent_id = related_id;
                     section_id = "";
                 }
@@ -570,7 +577,7 @@ public class Objects.Item : Objects.BaseObject {
             completed_at = "";
         }
 
-        ICal.Property ? sort_order_property = ical_vtodo.get_first_property (ICal.PropertyKind.from_string ("X-APPLE-SORT-ORDER"));
+        ICal.Property ? sort_order_property = find_x_property (ical_vtodo, "X-APPLE-SORT-ORDER");
         if (sort_order_property != null) {
             var sort_order_str = sort_order_property.get_value_as_string ();
             if (sort_order_str != null) {
@@ -588,7 +595,7 @@ public class Objects.Item : Objects.BaseObject {
             }
         }
 
-        ICal.Property ? pinned_property = ical_vtodo.get_first_property (ICal.PropertyKind.from_string ("X-PINNED"));
+        ICal.Property ? pinned_property = find_x_property (ical_vtodo, "X-PINNED");
         if (pinned_property != null) {
             var pinned_str = pinned_property.get_value_as_string ();
             if (pinned_str != null) {
@@ -610,6 +617,17 @@ public class Objects.Item : Objects.BaseObject {
         }
         #endif
         // TODO: Reimplement without ECAL
+    }
+
+    private static ICal.Property ? find_x_property (ICal.Component component, string x_name) {
+        ICal.Property ? prop = component.get_first_property (ICal.PropertyKind.X_PROPERTY);
+        while (prop != null) {
+            if (prop.get_x_name () == x_name) {
+                return prop;
+            }
+            prop = component.get_next_property (ICal.PropertyKind.X_PROPERTY);
+        }
+        return null;
     }
 
     private Gee.ArrayList<Objects.Label> get_caldav_categories (GLib.SList<string> categories_list) {
@@ -719,10 +737,20 @@ public class Objects.Item : Objects.BaseObject {
         return get_update_json (uuid, temp_id);
     }
 
-    public string get_check_json (string uuid, string type) {
+    public string get_check_json (string uuid, string type, string? sync_token = null) {
         builder.reset ();
 
         builder.begin_object ();
+
+        if (sync_token != null) {
+            builder.set_member_name ("sync_token");
+            builder.add_string_value (sync_token);
+            builder.set_member_name ("resource_types");
+            builder.begin_array ();
+            builder.add_string_value ("items");
+            builder.end_array ();
+        }
+
         builder.set_member_name ("commands");
 
         builder.begin_array ();
@@ -1133,6 +1161,9 @@ public class Objects.Item : Objects.BaseObject {
             builder.set_member_name ("due");
             builder.begin_object ();
 
+            builder.set_member_name ("string");
+            builder.add_string_value (Utils.Datetime.due_to_todoist_natural_language (due));
+
             builder.set_member_name ("date");
             builder.add_string_value (due.date);
 
@@ -1224,6 +1255,9 @@ public class Objects.Item : Objects.BaseObject {
 
             builder.set_member_name ("date");
             builder.add_string_value (due.date);
+            
+            builder.set_member_name ("string");
+            builder.add_string_value (Utils.Datetime.due_to_todoist_natural_language (due));
 
             builder.end_object ();
         } else {
@@ -1614,6 +1648,8 @@ public class Objects.Item : Objects.BaseObject {
             return;
         }
 
+        due.recurrence_string = "";
+
         if (duedate.recurrency_type == RecurrencyType.MINUTELY ||
             duedate.recurrency_type == RecurrencyType.HOURLY) {
             if (!has_due) {
@@ -1688,7 +1724,7 @@ public class Objects.Item : Objects.BaseObject {
             Services.Store.instance ().update_item (this);
         } else if (project.source_type == SourceType.TODOIST) {
             loading = true;
-            var response = yield Services.Todoist.get_default ().update (this);
+            var response = yield Services.Todoist.get_default ().close_item (this);
             loading = false;
             if (response.status) {
                 Services.Store.instance ().update_item (this);
@@ -1707,7 +1743,7 @@ public class Objects.Item : Objects.BaseObject {
             }
         }
 
-        return next_recurrency;
+        return due.datetime;
     }
 
     public void move (Objects.Project project, string _section_id, bool notify = true) {
@@ -1862,6 +1898,11 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_due (Objects.DueDate duedate) {
+        if (!duedate.is_recurring || duedate.recurrency_type == RecurrencyType.NONE
+            || !due.is_recurrency_equal (duedate)) {
+            due.recurrence_string = "";
+        }
+        
         due.date = duedate.date;
         due.is_recurring = duedate.is_recurring;
         due.recurrency_type = duedate.recurrency_type;

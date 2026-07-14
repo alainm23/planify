@@ -183,7 +183,7 @@ public class Services.TodoistProjects : GLib.Object {
             if (item.has_due) {
                 builder.set_member_name ("due");
                 builder.begin_object ();
-                builder.set_member_name ("date"); builder.add_string_value (item.due.date);
+                builder.set_member_name ("string"); builder.add_string_value (Utils.Datetime.due_to_todoist_natural_language (item.due));
                 builder.end_object ();
             }
 

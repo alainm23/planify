@@ -1380,6 +1380,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         delete_item.add_css_class ("menu-item-danger");
 
         var more_information_item = new Widgets.ContextMenu.MenuItem (_ ("Change History"), "rotation-edit-symbolic");
+        if (item.updated_at != "") {
+            more_information_item.subtitle = _("Updated: %s").printf (Utils.Datetime.get_relative_date_from_date (item.updated_datetime));
+        } else {
+            more_information_item.subtitle = _("Created: %s").printf (Utils.Datetime.get_relative_date_from_date (item.added_datetime));
+        }
 
         var popover = new Gtk.Popover () {
             has_arrow = false,

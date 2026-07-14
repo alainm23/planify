@@ -23,7 +23,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     private Widgets.DateTimePicker.TimePicker time_picker;
     private Widgets.Calendar.CalendarMonth calendar_view;
     private Widgets.Calendar.CalendarScroll calendar_scroll_view;
-    private Widgets.ContextMenu.MenuItem repeat_item;
     private NoDateButton no_date_button;
     private OptionButton time_option_button;
     private OptionButton repeat_option_button;
@@ -161,7 +160,18 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             placeholder_text = _("Type a date…")
         };
 
+        var suggested_date_box = new Adw.WrapBox () {
+            child_spacing = 6,
+            line_spacing = 6,
+            margin_bottom = 6
+        };
+
         show.connect (() => {
+            while (suggested_date_box.get_first_child () != null) {
+                suggested_date_box.remove (suggested_date_box.get_first_child ());
+            }
+            add_default_suggestions (suggested_date_box);
+
             Timeout.add (100, () => {
                 search_entry.grab_focus ();
                 return GLib.Source.REMOVE;
@@ -178,12 +188,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
             return false;
         });
-
-        var suggested_date_box = new Adw.WrapBox () {
-            child_spacing = 6,
-            line_spacing = 6,
-            margin_bottom = 6
-        };
 
         calendar_view = new Widgets.Calendar.CalendarMonth ();
 
@@ -248,7 +252,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         child = main_stack;
         add_css_class ("popover-contents");
-        add_default_suggestions (suggested_date_box);
 
         time_option_button.clicked.connect (() => {
             show_revealer (time_option_revealer);
@@ -267,10 +270,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         repeat_option_button.clear_clicked.connect (() => {
             apply_recurrency (RecurrencyType.NONE, 0, null, false);
-        });
-
-        repeat_item.clicked.connect (() => {
-            show_revealer (repeat_option_revealer);
         });
 
         closed.connect (() => {

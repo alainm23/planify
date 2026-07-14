@@ -733,10 +733,13 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_box.append (share_email_item);
         menu_box.append (export_pdf_item);
 
-        if (!project.is_deck && !project.inbox_project) {
+        if (!project.inbox_project) {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (archive_item);
-            menu_box.append (delete_item);
+
+            if (!project.is_deck) {
+                menu_box.append (delete_item);
+            }
         }
 
         menu_popover = new Gtk.Popover () {
