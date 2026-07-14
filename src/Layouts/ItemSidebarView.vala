@@ -321,9 +321,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             }
         });
 
-        if (Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
-            init_markdown_editor ();
-        }
     }
 
     private void update_content_description () {
@@ -347,7 +344,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         item = _item;
         update_id = Util.get_default ().generate_id ();
 
-        if (!always_show) {
+        if (!always_show || markdown_editor == null) {
             build_markdown_editor ();
         }
 
@@ -417,10 +414,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         subitems.clean_up ();
         attachments.clean_up ();
         destroy_markdown_signals ();
-
-        if (!Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
-            destroy_markdown_editor ();
-        }
+        destroy_markdown_editor ();
     }
 
     public void update_request () {
