@@ -833,7 +833,16 @@ public class Layouts.QuickAddCore : Adw.Bin {
             if (item.project.is_deck) {
                 var deck_client = Services.Deck.Core.get_default ().get_client (item.project.source);
                 int board_id = (int) Utils.JsonUtils.get_int (item.project.extra_data, "deck_board_id");
-                int stack_id = item.section_id != "" ? (int) Utils.JsonUtils.get_int (item.section.extra_data, "deck_stack_id") : 0;
+                int stack_id = 0;
+                if (item.section_id != "") {
+                    stack_id = (int) Utils.JsonUtils.get_int (item.section.extra_data, "deck_stack_id");
+                } else {
+                    var sections = Services.Store.instance ().get_sections_by_project (item.project);
+                    if (sections.size > 0) {
+                        stack_id = (int) Utils.JsonUtils.get_int (sections[0].extra_data, "deck_stack_id");
+                        item.section_id = sections[0].id;
+                    }
+                }
                 string? duedate = item.has_due ? item.due.datetime.format ("%F") : null;
                 deck_client.create_card.begin (board_id, stack_id, item.content, item.description, duedate, item.child_order, (obj, res) => {
                     is_loading = false;

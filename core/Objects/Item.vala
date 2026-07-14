@@ -1709,14 +1709,20 @@ public class Objects.Item : Objects.BaseObject {
             }
         } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
-            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-            var response = yield caldav_client.add_item (this, true);
-            loading = false;
-            if (response.status) {
+            if (project.is_deck) {
+                yield _update_deck ();
                 Services.Store.instance ().update_item (this);
             } else {
-                return null;
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                var response = yield caldav_client.add_item (this, true);
+                if (response.status) {
+                    Services.Store.instance ().update_item (this);
+                } else {
+                    loading = false;
+                    return null;
+                }
             }
+            loading = false;
         }
 
         return due.datetime;
@@ -2226,6 +2232,11 @@ public class Objects.Item : Objects.BaseObject {
             extra_data = Utils.JsonUtils.set_int (extra_data, "deck_board_id", new_board_id);
             extra_data = Utils.JsonUtils.set_int (extra_data, "deck_stack_id", new_stack_id);
             extra_data = Utils.JsonUtils.set_int (extra_data, "deck_card_id", new_card_id);
+
+            // Migrate labels to new board
+            if (labels.size > 0) {
+                yield _sync_deck_labels (deck_client);
+            }
 
             project_id = target_project.id;
             section_id = _section_id;
