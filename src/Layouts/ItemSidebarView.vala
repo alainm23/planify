@@ -418,12 +418,17 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     public void update_request () {
-        content_textview.set_text (item.content);
+        if (!content_textview.has_focus || content_textview.get_text () == item.content) {
+            content_textview.set_text (item.content);
+        }
 
         if (markdown_editor != null) {
-            destroy_markdown_signals ();
-            markdown_editor.set_text (item.description);
-            build_markdown_signals ();   
+            var current_text = markdown_editor.get_text ().chomp ();
+            if (!markdown_editor.text_view.has_focus || current_text == item.description) {
+                destroy_markdown_signals ();
+                markdown_editor.set_text (item.description);
+                build_markdown_signals ();
+            }
         }     
 
         schedule_button.update_from_item (item);
