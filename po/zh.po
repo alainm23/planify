@@ -35,7 +35,6 @@ msgid "Filters"
 msgstr "筛选"
 
 #: core/Enum.vala:186
-#, fuzzy
 msgid "Lists"
 msgstr "列表"
 
@@ -303,7 +302,6 @@ msgid "date"
 msgstr "日期"
 
 #: core/Objects/Filters/Unlabeled.vala:33
-#, fuzzy
 msgid "Unlabeled"
 msgstr "无标签"
 
@@ -332,7 +330,7 @@ msgid "Task exported successfully"
 msgstr "任务导出成功"
 
 #: core/Objects/Item.vala:1798 core/Utils/Util.vala:904
-#, fuzzy, c-format
+#, c-format
 msgid "Moved to %s"
 msgstr "任务已移动到%s"
 
@@ -1649,7 +1647,7 @@ msgstr "删除所有已完成的任务"
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
-msgstr[0] ""
+msgstr[0] "此操作将从项目 %s 中删除 %d 个已完成的任务及其子任务"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:642
 #: src/Views/Scheduled/Scheduled.vala:281 src/Views/Today.vala:783
@@ -3549,7 +3547,7 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "确定要删除这 %d 个待办事项吗？"
 
 #: src/Widgets/MultiSelectToolbar.vala:397
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] "任务已移动到%s"

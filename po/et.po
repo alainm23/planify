@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-03-21 04:43-0500\n"
-"PO-Revision-Date: 2025-12-27 23:02+0000\n"
+"PO-Revision-Date: 2026-05-22 12:12+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/et/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -160,7 +160,7 @@ msgstr "Tähtaeg"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "Ülemülesanne"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -325,7 +325,7 @@ msgstr "ilma sildita"
 
 #: core/Objects/Item.vala:1442 src/Services/ExportService.vala:187
 msgid "Deadline:"
-msgstr ""
+msgstr "Tähtaeg:"
 
 #: core/Objects/Item.vala:1467
 msgid "Task copied to clipboard"
@@ -333,16 +333,16 @@ msgstr "Ülesanne on kopeeritud lõikelauale"
 
 #: core/Objects/Item.vala:1484
 msgid "iCalendar Files"
-msgstr ""
+msgstr "iCalendari failid"
 
 #: core/Objects/Item.vala:1500
 msgid "Task exported successfully"
-msgstr ""
+msgstr "Ülesande eksportimine õnnestus"
 
 #: core/Objects/Item.vala:1798 core/Utils/Util.vala:904
-#, fuzzy, c-format
+#, c-format
 msgid "Moved to %s"
-msgstr "Ülesanne asub nüüd uues kohas: %s"
+msgstr "Ümbertõstetud: %s"
 
 #: core/Objects/Label.vala:220
 #, c-format
@@ -529,7 +529,7 @@ msgstr "Avab meeldetuletuste valikud"
 
 #: core/QuickAddCore.vala:1452
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Jäta avatuks peale ülesande lisamist - lülita sisse/välja"
 
 #: core/QuickAddCore.vala:1458
 msgid "Tip"
@@ -553,31 +553,39 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:350
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Ülesanded on sünkroonimisel: %d / %d"
 
 #: core/Services/CalDAV/CalDAVClient.vala:720
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
+"See server ei võimalda projektide lisamist CalDAV-i abil. Palun tee seda "
+"otse kalendriteenuse veebiliidesest."
 
 #: core/Services/CalDAV/CalDAVClient.vala:772
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"See server ei võimalda projektide kustutamist CalDAV-i abil. Palun tee seda "
+"otse kalendriteenuse veebiliidesest."
 
 #: core/Services/CalDAV/CalDAVClient.vala:776
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"See server ei võimalda projektide kustutamist CalDAV-i abil. Palun tee seda "
+"otse serverist."
 
 #: core/Services/CalDAV/CalDAVClient.vala:810
 #: core/Services/CalDAV/CalDAVClient.vala:857
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"Ülesannet on muudetud teisest seadmest. Viimase versiooni laadimiseks palun "
+"sünkrooni andmed."
 
 #: core/Services/CalDAV/Core.vala:169
 msgid "Source already exists"
@@ -602,23 +610,27 @@ msgstr "Sünkroonimine on valmis"
 
 #: core/Services/CalDAV/Core.vala:308
 msgid "Authentication Expired"
-msgstr ""
+msgstr "Autentimine on aegunud"
 
 #: core/Services/CalDAV/Core.vala:309
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr ""
+"Sinu sessioon on aegunud. Palun ava Eelistused ja eemalda sealt oma "
+"kasutajakonto ning lisa siis uuesti."
 
 #: core/Services/CalDAV/Core.vala:316
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Liiga palju päringuid"
 
 #: core/Services/CalDAV/Core.vala:317
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
 msgstr ""
+"Server piirab päringute sagedust. Palun oota mõni minut ja proovi siis "
+"uuesti."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
@@ -629,10 +641,12 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"Todoist on oma API-t uuendanud. Palun ava Eelistused ning sünkroonimise "
+"jätkamiseks ühenda sealt oma kasutajakonto uuesti."
 
 #: core/Services/Todoist.vala:108
 msgid "Invalid API token"
-msgstr ""
+msgstr "Vigane API tunnusluba"
 
 #: core/Services/Todoist.vala:1425 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
@@ -642,26 +656,28 @@ msgstr "Päring polnud korrektne."
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
+"Autentimine on nõutav, aga ta kas pole õnnestunud või sa pole seda veel "
+"proovinud."
 
 #: core/Services/Todoist.vala:1427 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "Päring ise oli korrektne, kuid proovisid pärida seda, mis oli keelatud."
 
 #: core/Services/Todoist.vala:1428 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Päringus märgitud ressurssi ei leidu."
 
 #: core/Services/Todoist.vala:1429 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "Kasutaja on teinud antud ajavahemikus liiga palju päringuid."
 
 #: core/Services/Todoist.vala:1430 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "Päring ei toiminud serveri vea tõttu."
 
 #: core/Services/Todoist.vala:1431 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "Hetkel server ei suuda seda päringut töödelda."
 
 #: core/Services/Todoist.vala:1432 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
@@ -691,54 +707,54 @@ msgstr "jäänud on %s %s"
 
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
-msgstr ""
+msgstr "%-l:%M:%S %p"
 
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
-msgstr ""
+msgstr "%-l:%M %p"
 
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%H:%M:%S"
 
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
-msgstr ""
+msgstr "%H:%M"
 
 #: core/Utils/Datetime.vala:411
 msgid "Mo,"
-msgstr ""
+msgstr "Esmasp,"
 
 #: core/Utils/Datetime.vala:415
 msgid "Tu,"
-msgstr ""
+msgstr "Teisip,"
 
 #: core/Utils/Datetime.vala:419
 msgid "We,"
-msgstr ""
+msgstr "Kolmap,"
 
 #: core/Utils/Datetime.vala:423
 msgid "Th,"
-msgstr ""
+msgstr "Neljap,"
 
 #: core/Utils/Datetime.vala:427
 msgid "Fr,"
-msgstr ""
+msgstr "Reede,"
 
 #: core/Utils/Datetime.vala:431
 msgid "Sa,"
-msgstr ""
+msgstr "Laup,"
 
 #: core/Utils/Datetime.vala:435
 msgid "Su,"
-msgstr ""
+msgstr "Pühap,"
 
 #: core/Utils/Datetime.vala:639
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d päeva pärast"
+msgstr[1] "%d päeva pärast"
 
 #: core/Utils/Datetime.vala:641
 #, c-format
@@ -749,37 +765,37 @@ msgstr[1] "%d päeva tagasi"
 
 #: core/Utils/Datetime.vala:660
 msgid "%a, %b %-e, %Y"
-msgstr ""
+msgstr "%a, %b %-e, %Y"
 
 #: core/Utils/Datetime.vala:663
 msgid "%b %-e %Y"
-msgstr ""
+msgstr "%b %-e %Y"
 
 #: core/Utils/Datetime.vala:666 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: core/Utils/Datetime.vala:669
 msgid "%b %-e"
-msgstr ""
+msgstr "%b %-e"
 
 #: core/Utils/Datetime.vala:672
 msgid "%a %Y"
-msgstr ""
+msgstr "%a %Y"
 
 #: core/Utils/Datetime.vala:675
 #, c-format
 msgid "%a"
-msgstr ""
+msgstr "%a"
 
 #: core/Utils/Datetime.vala:678
 msgid "%a, %b %-e"
-msgstr ""
+msgstr "%a, %b %-e"
 
 #: core/Utils/Datetime.vala:681
 msgid "%b"
-msgstr ""
+msgstr "%b"
 
 #: core/Utils/Util.vala:41
 msgid "Berry Red"
@@ -911,7 +927,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:616
 msgid "Tap this task"
-msgstr ""
+msgstr "Klõpsa seda ülesannet"
 
 #: core/Utils/Util.vala:617
 msgid ""
@@ -920,7 +936,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:622
 msgid "Create a new task"
-msgstr ""
+msgstr "Koosta uus ülesanne"
 
 #: core/Utils/Util.vala:623
 msgid ""
@@ -972,11 +988,11 @@ msgstr ""
 
 #: core/Utils/Util.vala:661
 msgid "Tune your setup"
-msgstr ""
+msgstr "Häälesta oma seadistusi"
 
 #: core/Utils/Util.vala:669
 msgid "Show your calendar events"
-msgstr ""
+msgstr "Näita oma kalendrisüsndmusi"
 
 #: core/Utils/Util.vala:670
 msgid ""
@@ -1000,7 +1016,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:693
 msgid "Drag the plus button!"
-msgstr ""
+msgstr "Lohista plussiga nuppu!"
 
 #: core/Utils/Util.vala:694
 msgid ""
@@ -1020,7 +1036,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:707
 msgid "Set timely reminders!"
-msgstr ""
+msgstr "Lisa asjakohaseid meeldetuletusi!"
 
 #: core/Utils/Util.vala:708
 msgid ""
@@ -1062,71 +1078,71 @@ msgstr "Ettevõtmise koopia on tehtud"
 
 #: core/Utils/Util.vala:1114 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
-msgstr ""
+msgstr "Tähtajal"
 
 #: core/Utils/Util.vala:1117 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
-msgstr ""
+msgstr "10 minutit varem"
 
 #: core/Utils/Util.vala:1120 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
-msgstr ""
+msgstr "30 minutit varem"
 
 #: core/Utils/Util.vala:1123 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
-msgstr ""
+msgstr "45 minutit varem"
 
 #: core/Utils/Util.vala:1126 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
-msgstr ""
+msgstr "1 tund varem"
 
 #: core/Utils/Util.vala:1129 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
-msgstr ""
+msgstr "2 tundi varem"
 
 #: core/Utils/Util.vala:1132 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
-msgstr ""
+msgstr "3 tundi varem"
 
 #: core/Widgets/Calendar/CalendarDay.vala:103
 msgid "%A, %B %e, %Y"
-msgstr ""
+msgstr "%A, %B %e, %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:35
 #: core/Widgets/Calendar/CalendarHeader.vala:54
 msgid "%OB"
-msgstr ""
+msgstr "%OB"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:64 src/Layouts/HeaderBar.vala:88
 msgid "Back"
-msgstr ""
+msgstr "Tagasi"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:66
 msgid "Previous month"
-msgstr ""
+msgstr "Eelmine kuu"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
-msgstr ""
+msgstr "Edasi"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
-msgstr ""
+msgstr "Järgmine kuu"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #, c-format
 msgid "Previous month, %s"
-msgstr ""
+msgstr "Eelmine kuu, %s"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 msgid "%B %Y"
-msgstr ""
+msgstr "%B %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 #, c-format
 msgid "Next month, %s"
-msgstr ""
+msgstr "Järgmine kuu, %s"
 
 #: core/Widgets/Calendar/CalendarMonth.vala:82
 #: core/Widgets/Calendar/CalendarMonth.vala:183
@@ -1225,7 +1241,7 @@ msgstr "Järgmisel nädalal"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:541
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
 msgid "Save"
-msgstr ""
+msgstr "Salvesta"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:577
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
@@ -1260,7 +1276,7 @@ msgstr "Kohandatud"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:873
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 msgid "No date"
-msgstr ""
+msgstr "Kuupäeva pole"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:63
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:135
@@ -1359,23 +1375,23 @@ msgstr[1] ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:68
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:77
 msgid "Date"
-msgstr ""
+msgstr "Kuupäev"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:72
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:80
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:209
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:213
 msgid "The date you plan to work on this task"
-msgstr ""
+msgstr "Kuupäev, mil plaanid selle ülesandega tegeleda"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:129
 msgid "Remove date"
-msgstr ""
+msgstr "Eemalda kuupäev"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:170
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:208
 msgid "When do you plan to work on this?"
-msgstr ""
+msgstr "Millal sa plaanid sellega tegeleda?"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
@@ -1385,11 +1401,11 @@ msgstr "Lisa tähtaeg"
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
 #: core/Widgets/DeadlineButton.vala:135
 msgid "The latest date to complete this task"
-msgstr ""
+msgstr "Viimane kuupäev selle ülesande täitmiseks"
 
 #: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
 msgid "What is the latest date to complete this?"
-msgstr ""
+msgstr "Mis on viimane kuupäev selle ülesande täitmiseks?"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1498,7 +1514,7 @@ msgstr ""
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:146
 msgid "Reminders"
-msgstr ""
+msgstr "Meeldetuletused"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:110
 msgid ""
@@ -1543,22 +1559,22 @@ msgstr "Vali alajaotus"
 
 #: core/Widgets/StatusButton.vala:32
 msgid "Set The Status"
-msgstr ""
+msgstr "Määratle olek"
 
 #: core/Widgets/StatusButton.vala:39
 msgid "Status"
-msgstr ""
+msgstr "Olek"
 
 #: core/Widgets/StatusButton.vala:44 core/Widgets/StatusButton.vala:76
 #: core/Widgets/StatusButton.vala:114
 msgid "To Do"
-msgstr ""
+msgstr "Ülesanded"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:794 src/Layouts/ItemRow.vala:1249
 #: src/Services/Notification.vala:98
 msgid "Complete"
-msgstr ""
+msgstr "Tehtud"
 
 #: src/App.vala:183
 msgid ""
@@ -2137,7 +2153,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:580
 msgid "This will replace all your current data"
-msgstr ""
+msgstr "Järgnevaga asendad kõik oma andmed"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:589
 msgid "Restore backup"
@@ -3474,15 +3490,15 @@ msgstr "Ülesanne on tõstetud ettevõtmisesse/projekti"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:53
 msgid "Unknown project"
-msgstr ""
+msgstr "Tundmatu projekt"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:56
 msgid "Unknown"
-msgstr ""
+msgstr "Pole teada"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:59
 msgid "Unknown section"
-msgstr ""
+msgstr "Tundmatu lõik"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:63
 msgid "Task moved to"
@@ -3491,27 +3507,27 @@ msgstr ""
 #: src/Widgets/ItemChangeHistoryRow.vala:169
 #: src/Widgets/ItemChangeHistoryRow.vala:199
 msgid "See more"
-msgstr ""
+msgstr "Vaata veel"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:199
 msgid "See less"
-msgstr ""
+msgstr "Vaata vähem"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:276
 msgid "Empty"
-msgstr ""
+msgstr "Tühi"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:290
 msgid "No priority"
-msgstr ""
+msgstr "Pole olulisuse märget"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:298
 msgid "No labels"
-msgstr ""
+msgstr "Pole silte"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:303
 msgid "Not pinned"
-msgstr ""
+msgstr "Pole tõstetud esile"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:304
 #: src/Widgets/ItemChangeHistoryRow.vala:305
@@ -3525,16 +3541,16 @@ msgstr "Esiletõstmine: pole aktiivne"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:308
 msgid "No deadline"
-msgstr ""
+msgstr "Tähtaeg puudub"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:319
 msgid "No parent"
-msgstr ""
+msgstr "Ülemülesannet pole"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:322
 #: src/Widgets/ItemChangeHistoryRow.vala:326
 msgid "Unknown task"
-msgstr ""
+msgstr "Tundmatu ülesanne"
 
 #: src/Widgets/ItemDetailCompleted.vala:74
 msgid "Completed At"
