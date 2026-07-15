@@ -41,7 +41,7 @@ public class Views.Filter : Adw.Bin {
 
     private bool has_items {
         get {
-            return items.size > 0;
+            return items_list != null && items_list.size > 0;
         }
     }
 
@@ -101,7 +101,7 @@ public class Views.Filter : Adw.Bin {
             css_classes = { "listbox-background" }
         };
 
-        load_more_button = new Gtk.Button.with_label ("Cargar más") {
+        load_more_button = new Gtk.Button.with_label (_("Load more")) {
             margin_start = 20,
             halign = START,
         };
@@ -197,8 +197,6 @@ public class Views.Filter : Adw.Bin {
             if (items.has_key (item.id)) {
                 items[item.id].update_request ();
             }
-
-            listbox.invalidate_sort ();
         })] = Services.EventBus.get_default ();
 
         signal_map[magic_button.clicked.connect (() => {
@@ -358,10 +356,10 @@ public class Views.Filter : Adw.Bin {
 
         if (remaining > 0) {
             int to_show = remaining < PAGE_SIZE ? remaining : PAGE_SIZE;
-            load_more_button.label = "+%d %s".printf (to_show, _ ("tasks"));
+            load_more_button.label = "+%d %s".printf (to_show, _("tasks"));
             load_more_button_revealer.reveal_child = true;
         } else {
-            load_more_button.set_label ("No more tasks");
+            load_more_button.set_label (_("No more tasks"));
             load_more_button_revealer.reveal_child = false;
         }
     }
@@ -373,41 +371,36 @@ public class Views.Filter : Adw.Bin {
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {
+        if (!insert || items.has_key (item.id)) {
+            validate_placeholder ();
+            return;
+        }
+
+        bool should_add = false;
+
         if (filter is Objects.Filters.Priority) {
             Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
-
-            if (!items.has_key (item.id) && item.priority == priority.priority && insert) {
-                add_item (item);
-            }
+            should_add = item.priority == priority.priority;
         } else if (filter is Objects.Filters.Completed) {
-            if (!items.has_key (item.id) && item.checked && insert) {
-                add_item (item);
-            }
+            should_add = item.checked;
         } else if (filter is Objects.Filters.Tomorrow) {
-            if (!items.has_key (item.id) && item.has_due &&
-                Utils.Datetime.is_tomorrow (item.due.datetime) && insert) {
-                add_item (item);
-            }
+            should_add = item.has_due && Utils.Datetime.is_tomorrow (item.due.datetime);
         } else if (filter is Objects.Filters.Pinboard) {
-            if (!items.has_key (item.id) && item.pinned && insert) {
-                add_item (item);
-            }
+            should_add = item.pinned;
         } else if (filter is Objects.Filters.Anytime) {
-            if (!items.has_key (item.id) && !item.has_due && insert) {
-                add_item (item);
-            }
+            should_add = !item.has_due;
         } else if (filter is Objects.Filters.Repeating) {
-            if (!items.has_key (item.id) && item.has_due && item.due.is_recurring && insert) {
-                add_item (item);
-            }
+            should_add = item.has_due && item.due.is_recurring;
         } else if (filter is Objects.Filters.Unlabeled) {
-            if (!items.has_key (item.id) && item.labels.size <= 0 && insert) {
-                add_item (item);
-            }
+            should_add = item.labels.size <= 0;
         } else if (filter is Objects.Filters.AllItems) {
-            if (!items.has_key (item.id) && insert) {
-                add_item (item);
-            }
+            should_add = true;
+        }
+
+        if (should_add) {
+            items_list.add (item);
+            add_item (item);
+            update_load_more_button_label ();
         }
 
         validate_placeholder ();
@@ -419,6 +412,8 @@ public class Views.Filter : Adw.Bin {
             items.unset (item.id);
         }
 
+        items_list.remove (item);
+        update_load_more_button_label ();
         validate_placeholder ();
     }
 
@@ -615,19 +610,19 @@ public class Views.Filter : Adw.Bin {
         };
 
         delete_all_completed.activate_item.connect (() => {
-            var items = Services.Store.instance ().get_items_checked ();
+            var items_checked = Services.Store.instance ().get_items_checked ();
 
             var dialog = new Adw.AlertDialog (
                 GLib.ngettext (
                     "Delete Completed Task",
                     "Delete Completed Tasks",
-                    items.size
+                    items_checked.size
                 ),
                 GLib.ngettext (
                     "This will delete %d completed task and its subtasks",
                     "This will delete %d completed tasks and their subtasks",
-                    items.size
-                ).printf (items.size)
+                    items_checked.size
+                ).printf (items_checked.size)
             );
 
             dialog.body_use_markup = true;
@@ -638,7 +633,7 @@ public class Views.Filter : Adw.Bin {
 
             dialog.response.connect ((response) => {
                 if (response == "delete") {
-                    foreach (Objects.Item item in items) {
+                    foreach (Objects.Item item in items_checked) {
                         item.delete_item ();
                     }
                 }
