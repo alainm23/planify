@@ -125,7 +125,7 @@ public class MainWindow : Adw.ApplicationWindow {
             min_sidebar_width = 360,
             content = views_stack,
             sidebar = item_sidebar_view,
-            show_sidebar = false
+            show_sidebar = Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")
         };
 
         toast_overlay = new Adw.ToastOverlay () {
