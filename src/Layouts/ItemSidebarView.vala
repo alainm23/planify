@@ -39,6 +39,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Widgets.SubItems subitems;
     private Widgets.Attachments attachments;
 
+    private uint destroy_editor_timeout_id = 0;
     private Widgets.ContextMenu.MenuSwitch use_note_item;
     private Widgets.ContextMenu.MenuItem copy_clipboard_item;
     private Widgets.ContextMenu.MenuItem duplicate_item;
@@ -344,9 +345,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         item = _item;
         update_id = Util.get_default ().generate_id ();
 
-        if (!always_show || markdown_editor == null) {
-            build_markdown_editor ();
-        }
+        build_markdown_editor ();
 
         label_button.source = item.project.source;
         update_request ();
@@ -418,12 +417,17 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     public void update_request () {
-        content_textview.set_text (item.content);
+        if (!content_textview.has_focus || content_textview.get_text () == item.content) {
+            content_textview.set_text (item.content);
+        }
 
         if (markdown_editor != null) {
-            destroy_markdown_signals ();
-            markdown_editor.set_text (item.description);
-            build_markdown_signals ();   
+            var current_text = markdown_editor.get_text ().chomp ();
+            if (!markdown_editor.text_view.has_focus || current_text == item.description) {
+                destroy_markdown_signals ();
+                markdown_editor.set_text (item.description);
+                build_markdown_signals ();
+            }
         }     
 
         schedule_button.update_from_item (item);
@@ -701,6 +705,13 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             return;
         }
 
+        // Cancel pending destroy timeout to prevent it from wiping the new editor
+        if (destroy_editor_timeout_id != 0) {
+            GLib.Source.remove (destroy_editor_timeout_id);
+            destroy_editor_timeout_id = 0;
+            markdown_editor_revealer.child = null;
+        }
+
         markdown_editor = new Widgets.MarkdownEditor () {
             project = item.project
         };
@@ -738,11 +749,17 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         }
 
         destroy_markdown_signals ();
-        
+        markdown_editor = null;
+
+        if (destroy_editor_timeout_id != 0) {
+            GLib.Source.remove (destroy_editor_timeout_id);
+            destroy_editor_timeout_id = 0;
+        }
+
         markdown_editor_revealer.reveal_child = false;
-        Timeout.add (markdown_editor_revealer.transition_duration, () => {
+        destroy_editor_timeout_id = Timeout.add (markdown_editor_revealer.transition_duration, () => {
             markdown_editor_revealer.child = null;
-            markdown_editor = null;
+            destroy_editor_timeout_id = 0;
             return GLib.Source.REMOVE;
         });
     }
