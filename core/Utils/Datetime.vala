@@ -241,6 +241,17 @@ public class Utils.Datetime {
             due.recurrency_type = RecurrencyType.EVERY_WEEK;
         } else if (freq == ICal.RecurrenceFrequency.MONTHLY_RECURRENCE) {
             due.recurrency_type = RecurrencyType.EVERY_MONTH;
+            #if IS_LIBICAL4
+            GLib.Array<short> monthday_array = recurrence.get_by_array (ICal.RecurrenceByRule.BY_MONTH_DAY);
+            #else
+            GLib.Array<short> monthday_array = recurrence.get_by_month_day_array ();
+            #endif
+            foreach (var val in monthday_array) {
+                if (val == -1) {
+                    due.recurrency_last_day_of_month = true;
+                    break;
+                }
+            }
         } else if (freq == ICal.RecurrenceFrequency.YEARLY_RECURRENCE) {
             due.recurrency_type = RecurrencyType.EVERY_YEAR;
         }
@@ -373,7 +384,23 @@ public class Utils.Datetime {
                 returned = next_recurrency_week (datetime, duedate, true);
             }
         } else if (duedate.recurrency_type == RecurrencyType.EVERY_MONTH) {
-            returned = returned.add_months (duedate.recurrency_interval);
+            if (duedate.recurrency_last_day_of_month) {
+                var next_month = returned.add_months (duedate.recurrency_interval);
+                int days = (int) GLib.Date.get_days_in_month (
+                    (GLib.DateMonth) next_month.get_month (),
+                    (GLib.DateYear) next_month.get_year ()
+                );
+                returned = new GLib.DateTime.local (
+                    next_month.get_year (),
+                    next_month.get_month (),
+                    days,
+                    returned.get_hour (),
+                    returned.get_minute (),
+                    returned.get_second ()
+                );
+            } else {
+                returned = returned.add_months (duedate.recurrency_interval);
+            }
         } else if (duedate.recurrency_type == RecurrencyType.EVERY_YEAR) {
             returned = returned.add_years (duedate.recurrency_interval);
         }
@@ -439,10 +466,15 @@ public class Utils.Datetime {
     }
 
     public static string get_recurrency_weeks (RecurrencyType recurrency_type, int recurrency_interval,
-                                               string recurrency_weeks, string end = "") {
+                                               string recurrency_weeks, string end = "",
+                                               bool recurrency_last_day_of_month = false) {
         string returned = recurrency_type.to_friendly_string (recurrency_interval);
 
-        if (recurrency_type == RecurrencyType.EVERY_WEEK &&
+        if (recurrency_type == RecurrencyType.EVERY_MONTH && recurrency_last_day_of_month) {
+            returned = recurrency_interval == 1
+                ? _("Every last day of month")
+                : _("Every %d months (last day)").printf (recurrency_interval);
+        } else if (recurrency_type == RecurrencyType.EVERY_WEEK &&
             recurrency_weeks != null && recurrency_weeks.split (",").length > 0) {
             string weeks = "";
             if (recurrency_weeks.contains ("1")) {

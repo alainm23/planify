@@ -44,6 +44,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
                 datetime_picker.duedate = _duedate;
             } else {
                 datetime_picker.visible_no_date = false;
+                datetime_picker.duedate = _duedate;
             }
         }
     }
@@ -215,6 +216,10 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         }
 
         if (!item.has_due) {
+            if (!datetime_picker.visible) {
+                datetime_picker.reset ();
+                duedate = new Objects.DueDate ();
+            }
             return;
         }
 
@@ -254,7 +259,8 @@ public class Widgets.ScheduleButton : Gtk.Grid {
                 item.due.recurrency_type,
                 item.due.recurrency_interval,
                 item.due.recurrency_weeks,
-                end_label
+                end_label,
+                item.due.recurrency_last_day_of_month
             ).down ();
 
             due_label.label += ", <small>%s</small>".printf (repeat_text);

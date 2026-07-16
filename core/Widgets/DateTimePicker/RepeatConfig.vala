@@ -25,6 +25,8 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
     private Gtk.Label recurrency_type_label;
     private Gtk.Revealer recurrency_type_revealer;
     private Gtk.Revealer weeks_revealer;
+    private Gtk.Revealer last_day_revealer;
+    private Gtk.CheckButton last_day_check;
     private Widgets.ContextMenu.MenuItem[] type_menu_items;
     private Adw.Bin dimming_widget;
     private Gtk.Label repeat_label;
@@ -75,6 +77,9 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
                 sa_button.active = value.recurrency_weeks.contains ("6");
                 su_button.active = value.recurrency_weeks.contains ("7");
             }
+
+            last_day_check.active = value.recurrency_last_day_of_month;
+            last_day_revealer.reveal_child = value.recurrency_type == RecurrencyType.EVERY_MONTH;
 
             if (value.recurrency_end != "") {
                 on_button.active = true;
@@ -178,8 +183,13 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
 
                 if ((RecurrencyType) _selected_type == RecurrencyType.EVERY_WEEK) {
                     weeks_revealer.reveal_child = true;
+                    last_day_revealer.reveal_child = false;
+                } else if ((RecurrencyType) _selected_type == RecurrencyType.EVERY_MONTH) {
+                    weeks_revealer.reveal_child = false;
+                    last_day_revealer.reveal_child = true;
                 } else {
                     weeks_revealer.reveal_child = false;
+                    last_day_revealer.reveal_child = false;
                 }
 
                 update_repeat_label ();
@@ -267,6 +277,16 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         weeks_box.append (fr_button);
         weeks_box.append (sa_button);
         weeks_box.append (su_button);
+
+        last_day_check = new Gtk.CheckButton.with_label (_("Last day of month")) {
+            margin_top = 6
+        };
+
+        last_day_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = false,
+            child = last_day_check
+        };
 
         weeks_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -375,6 +395,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         });
         content_box.append (repeat_box);
         content_box.append (weeks_revealer);
+        content_box.append (last_day_revealer);
         content_box.append (new Gtk.Label (_("End")) {
             css_classes = { "heading", "h4" },
             margin_top = 12,
@@ -439,6 +460,10 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
             update_repeat_label ();
         })] = su_button;
 
+        signal_map[last_day_check.toggled.connect (() => {
+            update_repeat_label ();
+        })] = last_day_check;
+
         submit_button.clicked.connect (() => {
             set_repeat ();
         });
@@ -493,6 +518,9 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         } else {
             duedate.recurrency_weeks = "";
         }
+
+        duedate.recurrency_last_day_of_month = (duedate.recurrency_type == RecurrencyType.EVERY_MONTH)
+            && last_day_check.active;
 
         duedate_change (duedate);
     }

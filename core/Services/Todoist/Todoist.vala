@@ -79,6 +79,10 @@ public class Services.Todoist : GLib.Object {
                 string old_parent_id = item.parent_id;
                 bool old_checked = item.checked;
 
+                if (item.loading) {
+                    return;
+                }
+
                 item.update_from_json (_node);
                 Services.Store.instance ().update_item (item);
 
