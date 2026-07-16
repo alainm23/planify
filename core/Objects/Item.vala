@@ -1366,7 +1366,8 @@ public class Objects.Item : Objects.BaseObject {
                     if (due.recurrency_last_day_of_month) {
                         #if IS_LIBICAL4
                         var values = new GLib.Array<short> ();
-                        values.append_val ((short) -1);
+                        short minus_one = -1;
+                        values.append_val (minus_one);
                         rrule.set_by_array (ICal.RecurrenceByRule.BY_MONTH_DAY, values);
                         #else
                         var values = new GLib.Array<short> ();
