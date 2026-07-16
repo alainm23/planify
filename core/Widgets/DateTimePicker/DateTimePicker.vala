@@ -97,7 +97,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                     _duedate.recurrency_type,
                     _duedate.recurrency_interval,
                     _duedate.recurrency_weeks,
-                    end_label
+                    end_label,
+                    _duedate.recurrency_last_day_of_month
                 ).down ();
                 has_recurrency = true;
             } else {
@@ -514,6 +515,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         _duedate.recurrency_weeks = value.recurrency_weeks;
         _duedate.recurrency_count = value.recurrency_count;
         _duedate.recurrency_end = value.recurrency_end;
+        _duedate.recurrency_last_day_of_month = value.recurrency_last_day_of_month;
 
         visible_no_date = true;
     }

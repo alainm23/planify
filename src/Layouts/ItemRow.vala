@@ -217,6 +217,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     public uint destroy_timeout { get; set; default = 0; }
     public uint complete_timeout { get; set; default = 0; }
+    private bool _recurrency_reset = false;
     public bool drag_enabled { get; set; default = true; }
 
     public signal void item_added ();
@@ -767,7 +768,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         signals_map[checked_button.toggled.connect (() => {
             // Only handle keyboard activation (Enter) — click is handled by GestureClick
-            if (!checked_button_gesture.is_active ()) {
+            if (!checked_button_gesture.is_active () && !_recurrency_reset) {
                 checked_toggled (checked_button.active);
             }
         })] = checked_button;
@@ -1001,6 +1002,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     public override void update_request () {
+        if (_recurrency_reset) {
+            return;
+        }
+
         if (complete_timeout <= 0) {
             Util.get_default ().set_widget_priority (item.priority, checked_button);
             checked_button.active = item.completed;
@@ -1191,7 +1196,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     item.due.recurrency_type,
                     item.due.recurrency_interval,
                     item.due.recurrency_weeks,
-                    end_label
+                    end_label,
+                    item.due.recurrency_last_day_of_month
                 ).down ();
             }
 
@@ -1481,7 +1487,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     private void complete_item (bool old_checked, uint ? time = null) {
         if (Services.Settings.get_default ().settings.get_boolean ("task-complete-tone")) {
-            Services.LogService.get_default ().info ("ItemRow", "Task completed, playing audio: %s".printf (item.content));
             Util.get_default ().play_audio ();
         }
 
@@ -1504,6 +1509,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             complete_timeout = 0;
 
             if (item.due.is_recurring && !item.due.is_recurrency_end) {
+                _recurrency_reset = true;
                 update_next_recurrency ();
             } else {
                 var old_completed_at = item.completed_at;
@@ -1573,6 +1579,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private void update_next_recurrency () {
         item.update_next_recurrency.begin ((obj, res) => {
             var next_recurrency = item.update_next_recurrency.end (res);
+            _recurrency_reset = false;
             if (next_recurrency != null) {
                 recurrency_update_complete (next_recurrency);
             }
@@ -1580,11 +1587,20 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
+        _recurrency_reset = true;
         checked_button.active = false;
+        _recurrency_reset = false;
         complete_timeout = 0;
         itemrow_box.remove_css_class ("complete");
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
+        check_due ();
+
+        due_label.add_css_class ("date-updated");
+        Timeout.add (1200, () => {
+            due_label.remove_css_class ("date-updated");
+            return GLib.Source.REMOVE;
+        });
 
         var title = _("Completed. Next occurrence: %s".printf (
                            Utils.Datetime.get_default_date_format_from_date (next_recurrency)

@@ -166,3 +166,13 @@
     -gtk-icon-transform: rotate(180deg);
     animation: rotate-up 200ms ease-out;
 }
+
+@keyframes date-updated-flash {
+    0%   { color: inherit; }
+    30%  { color: @accent_color; }
+    100% { color: inherit; }
+}
+
+.date-updated {
+    animation: date-updated-flash 1200ms ease-out;
+}

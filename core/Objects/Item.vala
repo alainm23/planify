@@ -1363,6 +1363,21 @@ public class Objects.Item : Objects.BaseObject {
                     #endif
                 } else if (due.recurrency_type == RecurrencyType.EVERY_MONTH) {
                     rrule.set_freq (ICal.RecurrenceFrequency.MONTHLY_RECURRENCE);
+                    if (due.recurrency_last_day_of_month) {
+                        #if IS_LIBICAL4
+                        var values = new GLib.Array<short> ();
+                        short minus_one = -1;
+                        values.append_val (minus_one);
+                        rrule.set_by_array (ICal.RecurrenceByRule.BY_MONTH_DAY, values);
+                        #else
+                        var values = new GLib.Array<short> ();
+                        short minus_one = -1;
+                        short array_max = (short) ICal.RecurrenceArrayMaxValues.RECURRENCE_ARRAY_MAX;
+                        values.append_val (minus_one);
+                        values.append_val (array_max);
+                        rrule.set_by_month_day_array (values);
+                        #endif
+                    }
                 } else if (due.recurrency_type == RecurrencyType.EVERY_YEAR) {
                     rrule.set_freq (ICal.RecurrenceFrequency.YEARLY_RECURRENCE);
                 }
@@ -1910,6 +1925,7 @@ public class Objects.Item : Objects.BaseObject {
         due.recurrency_weeks = duedate.recurrency_weeks;
         due.recurrency_count = duedate.recurrency_count;
         due.recurrency_end = duedate.recurrency_end;
+        due.recurrency_last_day_of_month = duedate.recurrency_last_day_of_month;
 
 
         if (Services.Settings.get_default ().get_boolean ("automatic-reminders-enabled") && has_time) {
