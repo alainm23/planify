@@ -423,7 +423,6 @@ public class Util : GLib.Object {
     private Gtk.MediaFile? _audio_media = null;
 
     public void play_audio () {
-        Services.LogService.get_default ().info ("Audio", "Playing task completion sound");
         _audio_media = Gtk.MediaFile.for_resource ("/io/github/alainm23/planify/success.ogg");
         _audio_media.loop = false;
         _audio_media.notify["ended"].connect (() => {
