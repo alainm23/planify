@@ -330,7 +330,6 @@ msgstr "nema etikete"
 msgid "unlabeled"
 msgstr "bez etikete"
 
-#. Deadline
 #: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "Rok:"
@@ -612,8 +611,6 @@ msgstr "Pokretanje sinkronizacije …"
 msgid "Syncing %s…"
 msgstr "Sinkronizacija %s …"
 
-#. Insert source after all projects and items are fetched
-#. to avoid concurrent sync triggering duplicate project insertion
 #: core/Services/CalDAV/Core.vala:264
 msgid "Sync completed"
 msgstr "Sinkronizacija je završena"
@@ -643,6 +640,53 @@ msgstr "Server ograničava broj zahtjeva. Pričekaj par minuta i pokušaj ponovo
 msgid "On this computer"
 msgstr "Na ovom računalu"
 
+#: core/Services/Todoist/Todoist.vala:594 src/Widgets/ErrorView.vala:187
+msgid "The request was incorrect."
+msgstr "Zahtjev je bio neispravan."
+
+#: core/Services/Todoist/Todoist.vala:595 src/Widgets/ErrorView.vala:188
+msgid ""
+"Authentication is required, and has failed, or has not yet been provided."
+msgstr "Autentifikacija je potrebna, i nije uspjela ili još nije navedena."
+
+#: core/Services/Todoist/Todoist.vala:596 src/Widgets/ErrorView.vala:189
+msgid "The request was valid, but for something that is forbidden."
+msgstr "Zahtjev je bio ispravan, ali za nešto što je zabranjeno."
+
+#: core/Services/Todoist/Todoist.vala:597 src/Widgets/ErrorView.vala:190
+msgid "The requested resource could not be found."
+msgstr "Zatraženi resurs nije pronađen."
+
+#: core/Services/Todoist/Todoist.vala:598 src/Widgets/ErrorView.vala:192
+msgid "The user has sent too many requests in a given amount of time."
+msgstr "Korisnik je poslao previše zahtjeva u određenom vremenu."
+
+#: core/Services/Todoist/Todoist.vala:599 src/Widgets/ErrorView.vala:193
+msgid "The request failed due to a server error."
+msgstr "Zahtjev nije uspio zbog greške servera."
+
+#: core/Services/Todoist/Todoist.vala:600 src/Widgets/ErrorView.vala:194
+msgid "The server is currently unable to handle the request."
+msgstr "Server trenutačno ne može obraditi zahtjev."
+
+#: core/Services/Todoist/Todoist.vala:601 src/Widgets/ErrorView.vala:197
+msgid "Unknown error"
+msgstr "Nepoznata greška"
+
+#: core/Services/Todoist/TodoistAuth.vala:96
+msgid "Invalid API token"
+msgstr "Nevaljani API token"
+
+#: core/Services/Todoist/TodoistItems.vala:26
+#: core/Services/Todoist/TodoistProjects.vala:26
+#: src/Layouts/SidebarSourceRow.vala:81
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Preferences "
+"to continue syncing."
+msgstr ""
+"Usluga Todoist je aktualizirala svoj API. Za nastavljanje sinkronizacije "
+"ponovo poveži svoj račun u postavkama."
+
 #: core/Utils/Datetime.vala:72 core/Utils/Datetime.vala:786
 msgid "Yesterday"
 msgstr "Jučer"
@@ -665,22 +709,18 @@ msgstr "%s %s prije"
 msgid "%s %s left"
 msgstr "%s %s preostalo"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
 msgstr "%-H:%M:%S"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
 msgstr "%-H:%M"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -738,48 +778,39 @@ msgstr[0] "prije %d dan"
 msgstr[1] "prije %d dana"
 msgstr[2] "prije %d dana"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:811
 msgid "%a, %b %-e, %Y"
 msgstr "%a, %d. %m. %Y."
 
-#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:814
 msgid "%b %-e %Y"
 msgstr "%d. %m. %Y."
 
-#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:817 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y."
 
-#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:820
-#, fuzzy, c-format
+#, fuzzy
 msgid "%b %-e"
 msgstr "%d. %m."
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:823
 msgid "%a %Y"
 msgstr "%a, %Y."
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:826
 #, c-format
 msgid "%a"
 msgstr "%a"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:829
-#, fuzzy, c-format
+#, fuzzy
 msgid "%a, %b %-e"
 msgstr "%a, %d. %m."
 
-#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:832
-#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -1287,13 +1318,11 @@ msgstr "Upiši datum …"
 msgid "Next week"
 msgstr "Sljedeći tjedan"
 
-#. Save button
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:542
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
 msgid "Save"
 msgstr "Spremi"
 
-#. Daily goal
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:578
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
 msgid "Daily"
@@ -1307,7 +1336,6 @@ msgstr "Dani tjedna"
 msgid "Weekends"
 msgstr "Vikendi"
 
-#. Weekly goal
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:590
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 msgid "Weekly"
@@ -1487,7 +1515,6 @@ msgstr ""
 "Tvoj popis filtara će se ovdje prikazati. Stvori filtar unosom imena i "
 "pritiskom tipke Enter."
 
-#. vala-lint=naming-convention
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:75
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
@@ -1567,7 +1594,6 @@ msgstr "Prioritet 1: Niski"
 msgid "Your list of section will show up here."
 msgstr "Tvoj popis odjeljaka će se ovdje prikazati."
 
-#. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
@@ -1943,7 +1969,6 @@ msgstr "Korisničko ime"
 msgid "Password"
 msgstr "Lozinka"
 
-#. Advanced options
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
 msgid "Calendar Home URL"
 msgstr "URL početne stranice kalendara"
@@ -2696,7 +2721,6 @@ msgstr "Dijeli greške ili ideje na GitHub-u"
 msgid "Get Involved"
 msgstr "Uključi se"
 
-#. Reach Us Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:206
 msgid "Reach Us"
 msgstr "Javi nam se"
@@ -2855,12 +2879,10 @@ msgstr "Ovaj tjedan"
 msgid "This Month"
 msgstr "Ovaj mjesec"
 
-#. Daily goal progress
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
 msgid "Daily Goal"
 msgstr "Dnevni cilj"
 
-#. Weekly goal progress
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
 msgid "Weekly Goal"
 msgstr "Tjedni cilj"
@@ -2911,7 +2933,6 @@ msgstr "Dodaj projekt"
 msgid "Update Project"
 msgstr "Aktualiziraj projekt"
 
-#. Settings group (only for existing projects)
 #: src/Dialogs/Project.vala:232
 msgid "Global Default"
 msgstr "Globalna zadana vrijednost"
@@ -3194,14 +3215,6 @@ msgstr "Nema dostupnih projekata. Stvori projekt klikom na gumb '+'"
 msgid "Account Migration Required"
 msgstr "Potrebna je migracija računa"
 
-#: src/Layouts/SidebarSourceRow.vala:81
-msgid ""
-"Todoist has updated their API. Please reconnect your account in Preferences "
-"to continue syncing."
-msgstr ""
-"Usluga Todoist je aktualizirala svoj API. Za nastavljanje sinkronizacije "
-"ponovo poveži svoj račun u postavkama."
-
 #: src/MainWindow.vala:81
 msgid "Main Menu"
 msgstr "Glavni izbornik"
@@ -3447,7 +3460,6 @@ msgstr ""
 msgid "Ascending Order"
 msgstr "Uzlazni redoslijed"
 
-#. Filters
 #: src/Views/Project/Project.vala:556
 msgid "Duedate"
 msgstr "Datum roka"
@@ -3517,7 +3529,6 @@ msgstr "Ja"
 msgid "Attachments"
 msgstr "Prilozi"
 
-#. translators: Open file
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Otvori"
@@ -3582,42 +3593,9 @@ msgstr "Za više detalja, dijeli svoju datoteku zapisnika: %s"
 msgid "Report Issue"
 msgstr "Prijavi problem"
 
-#: src/Widgets/ErrorView.vala:187
-msgid "The request was incorrect."
-msgstr "Zahtjev je bio neispravan."
-
-#: src/Widgets/ErrorView.vala:188
-msgid ""
-"Authentication is required, and has failed, or has not yet been provided."
-msgstr "Autentifikacija je potrebna, i nije uspjela ili još nije navedena."
-
-#: src/Widgets/ErrorView.vala:189
-msgid "The request was valid, but for something that is forbidden."
-msgstr "Zahtjev je bio ispravan, ali za nešto što je zabranjeno."
-
-#: src/Widgets/ErrorView.vala:190
-msgid "The requested resource could not be found."
-msgstr "Zatraženi resurs nije pronađen."
-
 #: src/Widgets/ErrorView.vala:191
 msgid "Account migration required."
 msgstr "Potrebna je migracija računa."
-
-#: src/Widgets/ErrorView.vala:192
-msgid "The user has sent too many requests in a given amount of time."
-msgstr "Korisnik je poslao previše zahtjeva u određenom vremenu."
-
-#: src/Widgets/ErrorView.vala:193
-msgid "The request failed due to a server error."
-msgstr "Zahtjev nije uspio zbog greške servera."
-
-#: src/Widgets/ErrorView.vala:194
-msgid "The server is currently unable to handle the request."
-msgstr "Server trenutačno ne može obraditi zahtjev."
-
-#: src/Widgets/ErrorView.vala:197
-msgid "Unknown error"
-msgstr "Nepoznata greška"
 
 #: src/Widgets/EventRow.vala:242
 #, c-format
@@ -3967,9 +3945,6 @@ msgstr "Otvori etikete"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Otvori oglasnu ploču"
-
-#~ msgid "Invalid API token"
-#~ msgstr "Nevaljani API token"
 
 #, c-format
 #~ msgid "Load more history from %d week ago…"

@@ -1,103 +1,59 @@
-name: Check if POTFILES need to be updated
-
+name: Update Translations
 on:
-    pull_request_target:
-        types: [ opened, synchronize, reopened ]
+  push:
+    branches:
+      - main
 
 permissions:
-    contents: read
-    pull-requests: write
+  contents: write
 
 jobs:
-    gettext-check:
-        runs-on: ubuntu-latest
+  gettext:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-        steps:
-            -   name: Checkout main repository
-                uses: actions/checkout@v4
-                with:
-                    path: main-repo
+      - name: Install gettext
+        run: sudo apt-get update && sudo apt-get install -y gettext
 
-            -   name: Checkout PR branch
-                uses: actions/checkout@v4
-                with:
-                    repository: ${{ github.event.pull_request.head.repo.full_name }}
-                    ref: ${{ github.event.pull_request.head.ref }}
-                    path: pr-repo
+      - name: Configure git
+        run: |
+          git config --local user.name "Planify Bot"
+          git config --local user.email "actions@github.com"
 
-            -   name: Install gettext
-                run: sudo apt-get update && sudo apt-get install -y gettext
+      - name: Update POTFILES and translations
+        run: |
+          cat > po/POTFILES << 'EOF'
+          # List of source files containing translatable strings.
+          # Please keep this file sorted alphabetically.
+          EOF
 
-            -   name: Configure git
-                working-directory: pr-repo
-                run: |
-                    git config user.name "Planify Bot"
-                    git config user.email "actions@github.com"
+          find core -name "*.vala" | sort >> po/POTFILES
+          echo >> po/POTFILES
+          find src -name "*.vala" | sort >> po/POTFILES
+          echo >> po/POTFILES
+          find quick-add -name "*.vala" | sort >> po/POTFILES
+          echo >> po/POTFILES
+          echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
 
-            -   name: Update POTFILES and translations
-                working-directory: pr-repo
-                run: |
-                    cat > po/POTFILES << 'EOF'
-                    # List of source files containing translatable strings.
-                    # Please keep this file sorted alphabetically.
-                    EOF
-                    
-                    find core -name "*.vala" | sort >> po/POTFILES
-                    echo >> po/POTFILES
-                    find src -name "*.vala" | sort >> po/POTFILES
-                    echo >> po/POTFILES
-                    find quick-add -name "*.vala" | sort >> po/POTFILES
-                    echo >> po/POTFILES
-                    echo "data/resources/ui/shortcuts.ui" >> po/POTFILES
-                    
-                    python3 ../main-repo/scripts/update_translations.py
+          python3 scripts/update_translations.py
 
-            -   name: Check for changes
-                id: diff
-                working-directory: pr-repo
-                run: |
-                    if git diff --ignore-matching-lines='^"POT-Creation-Date:' \
+      - name: Commit and push changes
+        run: |
+          git add po/
+          if git diff --staged --ignore-matching-lines='^"POT-Creation-Date:' \
                                 --ignore-matching-lines='^"PO-Revision-Date:' \
                                 --ignore-matching-lines='^"Report-Msgid-Bugs-To:' \
-                                --quiet po/; then
-                      echo "changed=false" >> $GITHUB_OUTPUT
-                    else
-                      echo "changed=true" >> $GITHUB_OUTPUT
-                    fi
+                                --quiet; then
+            echo "No meaningful changes, skipping commit"
+          else
+            git commit -m "Update translations"
+            git push origin main
+          fi
 
-            -   name: Comment on PR if updates are needed
-                if: steps.diff.outputs.changed == 'true'
-                uses: actions/github-script@v9
-                with:
-                    script: |
-                        const body = `
-                          **Translation files need updating**
-                          - [ ] **Apply translation updates**
-                          `;
-                        
-                          const { data: comments } = await github.rest.issues.listComments({
-                              owner: context.repo.owner,
-                              repo: context.repo.repo,
-                              issue_number: context.issue.number,
-                          });
-                        
-                          const existing = comments.find(
-                          c => c.user.login === "github-actions[bot]" &&
-                          c.body.includes("Translation files need updating")
-                          );
-                        
-                          if (existing) {
-                              await github.rest.issues.updateComment({
-                                  owner: context.repo.owner,
-                                  repo: context.repo.repo,
-                                  comment_id: existing.id,
-                                  body,
-                              });
-                          } else {
-                              await github.rest.issues.createComment({
-                                  owner: context.repo.owner,
-                                  repo: context.repo.repo,
-                                  issue_number: context.issue.number,
-                                  body,
-                              });
-                          }
+      - name: Notify Weblate
+        run: |
+          curl -X POST "https://hosted.weblate.org/api/components/planner/io-github-alainm23-planify/repository/" \
+            -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"operation": "pull"}'
