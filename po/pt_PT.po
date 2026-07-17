@@ -323,7 +323,6 @@ msgstr "nenhuma etiqueta"
 msgid "unlabeled"
 msgstr "sem etiqueta"
 
-#. Deadline
 #: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "Tempo limite:"
@@ -597,8 +596,6 @@ msgstr "A iniciar sincronização…"
 msgid "Syncing %s…"
 msgstr "A sincronizar %s…"
 
-#. Insert source after all projects and items are fetched
-#. to avoid concurrent sync triggering duplicate project insertion
 #: core/Services/CalDAV/Core.vala:264
 msgid "Sync completed"
 msgstr "Sincronização terminada"
@@ -631,6 +628,54 @@ msgstr ""
 msgid "On this computer"
 msgstr "Neste computador"
 
+#: core/Services/Todoist/Todoist.vala:594 src/Widgets/ErrorView.vala:187
+msgid "The request was incorrect."
+msgstr "A solicitação estava incorreta."
+
+#: core/Services/Todoist/Todoist.vala:595 src/Widgets/ErrorView.vala:188
+msgid ""
+"Authentication is required, and has failed, or has not yet been provided."
+msgstr ""
+"É necessário fazer a autenticação, esta falhou ou ainda não foi fornecida."
+
+#: core/Services/Todoist/Todoist.vala:596 src/Widgets/ErrorView.vala:189
+msgid "The request was valid, but for something that is forbidden."
+msgstr "A solicitação foi válida mas para algo que é proibido."
+
+#: core/Services/Todoist/Todoist.vala:597 src/Widgets/ErrorView.vala:190
+msgid "The requested resource could not be found."
+msgstr "Os recursos solicitados não foram encontrados."
+
+#: core/Services/Todoist/Todoist.vala:598 src/Widgets/ErrorView.vala:192
+msgid "The user has sent too many requests in a given amount of time."
+msgstr "O utilizador enviou demasiadas solicitações num curto espaço de tempo."
+
+#: core/Services/Todoist/Todoist.vala:599 src/Widgets/ErrorView.vala:193
+msgid "The request failed due to a server error."
+msgstr "A solicitação falhou devido a um erro de servidor."
+
+#: core/Services/Todoist/Todoist.vala:600 src/Widgets/ErrorView.vala:194
+msgid "The server is currently unable to handle the request."
+msgstr "Neste momento o servido é incapaz de gerir a solicitação."
+
+#: core/Services/Todoist/Todoist.vala:601 src/Widgets/ErrorView.vala:197
+msgid "Unknown error"
+msgstr "Erro desconhecido"
+
+#: core/Services/Todoist/TodoistAuth.vala:96
+msgid "Invalid API token"
+msgstr "API de Token inválido"
+
+#: core/Services/Todoist/TodoistItems.vala:26
+#: core/Services/Todoist/TodoistProjects.vala:26
+#: src/Layouts/SidebarSourceRow.vala:81
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Preferences "
+"to continue syncing."
+msgstr ""
+"O Todoist atualizou a sua 'API'. Volte a ligar a sua conta em Definições "
+"para continuar a sincronização, por favor."
+
 #: core/Utils/Datetime.vala:72 core/Utils/Datetime.vala:786
 msgid "Yesterday"
 msgstr "Ontem"
@@ -653,22 +698,18 @@ msgstr "Há %s %s"
 msgid "%s %s left"
 msgstr "Faltam %s %s"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
 msgstr "%-l:%M:%S %p"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
 msgstr "%-l:%M %p"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -724,48 +765,37 @@ msgid_plural "%d days ago"
 msgstr[0] "há %d dia atrás"
 msgstr[1] "há %d dias atrás"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:811
 msgid "%a, %b %-e, %Y"
 msgstr "%a, %b %-e, %Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:814
 msgid "%b %-e %Y"
 msgstr "%b %-e %Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:817 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:820
-#, c-format
 msgid "%b %-e"
 msgstr "%b %-e"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:823
 msgid "%a %Y"
 msgstr "%a %Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:826
 #, c-format
 msgid "%a"
 msgstr "%a"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:829
-#, c-format
 msgid "%a, %b %-e"
 msgstr "%a, %b %-e"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:832
-#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -1278,13 +1308,11 @@ msgstr "Escreva uma data…"
 msgid "Next week"
 msgstr "Próxima semana"
 
-#. Save button
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:542
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
 msgid "Save"
 msgstr "Guardar"
 
-#. Daily goal
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:578
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
 msgid "Daily"
@@ -1298,7 +1326,6 @@ msgstr "Dias de semana"
 msgid "Weekends"
 msgstr "Fins de semana"
 
-#. Weekly goal
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:590
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 msgid "Weekly"
@@ -1472,7 +1499,6 @@ msgstr ""
 "A sua lista de filtros vai ser exibida aqui. Crie uma ao inserir o nome "
 "desta e depois de pressionar a tecla Enter."
 
-#. vala-lint=naming-convention
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:75
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
@@ -1553,7 +1579,6 @@ msgstr "Prioridade 1: Baixa"
 msgid "Your list of section will show up here."
 msgstr "A sua lista de secções vai ser exibida aqui."
 
-#. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
@@ -1931,7 +1956,6 @@ msgstr "Nome de utilizador"
 msgid "Password"
 msgstr "Palavra-passe"
 
-#. Advanced options
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
 msgid "Calendar Home URL"
 msgstr "URL do calendário"
@@ -2701,7 +2725,6 @@ msgstr "Partilhe problemas ou ideias no GitHub"
 msgid "Get Involved"
 msgstr "Junte-se a nós"
 
-#. Reach Us Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:206
 msgid "Reach Us"
 msgstr "Venha até nós"
@@ -2865,12 +2888,10 @@ msgstr "Esta semana"
 msgid "This Month"
 msgstr "Este mês"
 
-#. Daily goal progress
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
 msgid "Daily Goal"
 msgstr "Objetivo diário"
 
-#. Weekly goal progress
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
 msgid "Weekly Goal"
 msgstr "Objetivo semanal"
@@ -2921,7 +2942,6 @@ msgstr "Adicionar projeto"
 msgid "Update Project"
 msgstr "Atualizar projeto"
 
-#. Settings group (only for existing projects)
 #: src/Dialogs/Project.vala:232
 msgid "Global Default"
 msgstr "Predefinição global"
@@ -3204,14 +3224,6 @@ msgstr "Não existem projetos disponíveis. Crie um ao clicar no botão '+'"
 msgid "Account Migration Required"
 msgstr "É necessário migrar a conta"
 
-#: src/Layouts/SidebarSourceRow.vala:81
-msgid ""
-"Todoist has updated their API. Please reconnect your account in Preferences "
-"to continue syncing."
-msgstr ""
-"O Todoist atualizou a sua 'API'. Volte a ligar a sua conta em Definições "
-"para continuar a sincronização, por favor."
-
 #: src/MainWindow.vala:81
 msgid "Main Menu"
 msgstr "Menu principal"
@@ -3455,7 +3467,6 @@ msgstr ""
 msgid "Ascending Order"
 msgstr "Ordem ascendente"
 
-#. Filters
 #: src/Views/Project/Project.vala:556
 msgid "Duedate"
 msgstr "A terminar"
@@ -3525,7 +3536,6 @@ msgstr "Eu"
 msgid "Attachments"
 msgstr "Anexos"
 
-#. translators: Open file
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Abrir"
@@ -3590,43 +3600,9 @@ msgstr "Para mais detalhes, partilhe o seu ficheiro de registo: %s"
 msgid "Report Issue"
 msgstr "Reportar problema"
 
-#: src/Widgets/ErrorView.vala:187
-msgid "The request was incorrect."
-msgstr "A solicitação estava incorreta."
-
-#: src/Widgets/ErrorView.vala:188
-msgid ""
-"Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
-"É necessário fazer a autenticação, esta falhou ou ainda não foi fornecida."
-
-#: src/Widgets/ErrorView.vala:189
-msgid "The request was valid, but for something that is forbidden."
-msgstr "A solicitação foi válida mas para algo que é proibido."
-
-#: src/Widgets/ErrorView.vala:190
-msgid "The requested resource could not be found."
-msgstr "Os recursos solicitados não foram encontrados."
-
 #: src/Widgets/ErrorView.vala:191
 msgid "Account migration required."
 msgstr "É necessário migrar a conta."
-
-#: src/Widgets/ErrorView.vala:192
-msgid "The user has sent too many requests in a given amount of time."
-msgstr "O utilizador enviou demasiadas solicitações num curto espaço de tempo."
-
-#: src/Widgets/ErrorView.vala:193
-msgid "The request failed due to a server error."
-msgstr "A solicitação falhou devido a um erro de servidor."
-
-#: src/Widgets/ErrorView.vala:194
-msgid "The server is currently unable to handle the request."
-msgstr "Neste momento o servido é incapaz de gerir a solicitação."
-
-#: src/Widgets/ErrorView.vala:197
-msgid "Unknown error"
-msgstr "Erro desconhecido"
 
 #: src/Widgets/EventRow.vala:242
 #, c-format
@@ -3971,9 +3947,6 @@ msgstr "Abrir 'Etiquetas'"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Abrir 'Afixados'"
-
-#~ msgid "Invalid API token"
-#~ msgstr "API de Token inválido"
 
 #, c-format
 #~ msgid "Load more history from %d week ago…"

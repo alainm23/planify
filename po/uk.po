@@ -323,7 +323,6 @@ msgstr "немає міток"
 msgid "unlabeled"
 msgstr "без міток"
 
-#. Deadline
 #: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "Кінцевий термін:"
@@ -610,8 +609,6 @@ msgstr "Розпочато синхронізацію…"
 msgid "Syncing %s…"
 msgstr "Синхронізація %s…"
 
-#. Insert source after all projects and items are fetched
-#. to avoid concurrent sync triggering duplicate project insertion
 #: core/Services/CalDAV/Core.vala:264
 msgid "Sync completed"
 msgstr "Синхронізацію завершено"
@@ -643,6 +640,54 @@ msgstr ""
 msgid "On this computer"
 msgstr "На цьому комп'ютері"
 
+#: core/Services/Todoist/Todoist.vala:594 src/Widgets/ErrorView.vala:187
+msgid "The request was incorrect."
+msgstr "Запит був неправильним."
+
+#: core/Services/Todoist/Todoist.vala:595 src/Widgets/ErrorView.vala:188
+msgid ""
+"Authentication is required, and has failed, or has not yet been provided."
+msgstr ""
+"Потрібна автентифікація, але вона не була успішна або ще не була надана."
+
+#: core/Services/Todoist/Todoist.vala:596 src/Widgets/ErrorView.vala:189
+msgid "The request was valid, but for something that is forbidden."
+msgstr "Запит був дійсним, але щодо чогось забороненого."
+
+#: core/Services/Todoist/Todoist.vala:597 src/Widgets/ErrorView.vala:190
+msgid "The requested resource could not be found."
+msgstr "Запитаний ресурс не знайдено."
+
+#: core/Services/Todoist/Todoist.vala:598 src/Widgets/ErrorView.vala:192
+msgid "The user has sent too many requests in a given amount of time."
+msgstr "Користувач надіслав забагато запитів за заданий проміжок часу."
+
+#: core/Services/Todoist/Todoist.vala:599 src/Widgets/ErrorView.vala:193
+msgid "The request failed due to a server error."
+msgstr "Запит не вдалося виконати через помилку сервера."
+
+#: core/Services/Todoist/Todoist.vala:600 src/Widgets/ErrorView.vala:194
+msgid "The server is currently unable to handle the request."
+msgstr "Сервер наразі не може обробити запит."
+
+#: core/Services/Todoist/Todoist.vala:601 src/Widgets/ErrorView.vala:197
+msgid "Unknown error"
+msgstr "Невідома помилка"
+
+#: core/Services/Todoist/TodoistAuth.vala:96
+msgid "Invalid API token"
+msgstr "Недійсний токен API"
+
+#: core/Services/Todoist/TodoistItems.vala:26
+#: core/Services/Todoist/TodoistProjects.vala:26
+#: src/Layouts/SidebarSourceRow.vala:81
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Preferences "
+"to continue syncing."
+msgstr ""
+"Todoist оновив свій API. Будь ласка, повторно підключіть свій обліковий "
+"запис у налаштуваннях, щоб продовжити синхронізацію."
+
 #: core/Utils/Datetime.vala:72 core/Utils/Datetime.vala:786
 msgid "Yesterday"
 msgstr "Вчора"
@@ -667,22 +712,18 @@ msgstr "%s %s тому"
 msgid "%s %s left"
 msgstr "%s %s залишилось"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
 msgstr "%-l:%M:%S %p"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
 msgstr "%-l:%M %p"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -738,48 +779,37 @@ msgid_plural "%d days ago"
 msgstr[0] "%d день тому"
 msgstr[1] "%d днів тому"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:811
 msgid "%a, %b %-e, %Y"
 msgstr "%a, %b %-e, %Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:814
 msgid "%b %-e %Y"
 msgstr "%b %-e %Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:817 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:820
-#, c-format
 msgid "%b %-e"
 msgstr "%b %-e"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:823
 msgid "%a %Y"
 msgstr "%a %Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:826
 #, c-format
 msgid "%a"
 msgstr "%a"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:829
-#, c-format
 msgid "%a, %b %-e"
 msgstr "%a, %b %-e"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:832
-#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -1292,13 +1322,11 @@ msgstr "Вкажіть дату…"
 msgid "Next week"
 msgstr "Наступний тиждень"
 
-#. Save button
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:542
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
 msgid "Save"
 msgstr "Зберегти"
 
-#. Daily goal
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:578
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
 msgid "Daily"
@@ -1312,7 +1340,6 @@ msgstr "Будні дні"
 msgid "Weekends"
 msgstr "Вихідні"
 
-#. Weekly goal
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:590
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 msgid "Weekly"
@@ -1492,7 +1519,6 @@ msgstr ""
 "натиснувши клавішу Enter."
 
 # c-format
-#. vala-lint=naming-convention
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:75
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
@@ -1571,7 +1597,6 @@ msgstr "Пріоритет 1: Низький"
 msgid "Your list of section will show up here."
 msgstr "Ваш список розділів відображатиметься тут."
 
-#. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
@@ -1948,7 +1973,6 @@ msgstr "Ім'я користувача"
 msgid "Password"
 msgstr "Пароль"
 
-#. Advanced options
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
 msgid "Calendar Home URL"
 msgstr "URL-адреса головної сторінки Календаря"
@@ -2705,7 +2729,6 @@ msgstr "Діліться помилками або ідеями на GitHub"
 msgid "Get Involved"
 msgstr "Долучитися"
 
-#. Reach Us Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:206
 msgid "Reach Us"
 msgstr "Зв'яжіться з нами"
@@ -2866,12 +2889,10 @@ msgstr "Цього тижня"
 msgid "This Month"
 msgstr "Цього місяця"
 
-#. Daily goal progress
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
 msgid "Daily Goal"
 msgstr "Щоденна ціль"
 
-#. Weekly goal progress
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
 msgid "Weekly Goal"
 msgstr "Тижнева ціль"
@@ -2922,7 +2943,6 @@ msgstr "Додати проєкт"
 msgid "Update Project"
 msgstr "Оновити проєкт"
 
-#. Settings group (only for existing projects)
 #: src/Dialogs/Project.vala:232
 msgid "Global Default"
 msgstr "Стандартно"
@@ -3207,14 +3227,6 @@ msgstr "Немає жодного проєкту. Створіть новий, �
 msgid "Account Migration Required"
 msgstr "Потрібна міграція облікового запису"
 
-#: src/Layouts/SidebarSourceRow.vala:81
-msgid ""
-"Todoist has updated their API. Please reconnect your account in Preferences "
-"to continue syncing."
-msgstr ""
-"Todoist оновив свій API. Будь ласка, повторно підключіть свій обліковий "
-"запис у налаштуваннях, щоб продовжити синхронізацію."
-
 #: src/MainWindow.vala:81
 msgid "Main Menu"
 msgstr "Головне меню"
@@ -3458,7 +3470,6 @@ msgstr ""
 msgid "Ascending Order"
 msgstr "За зростанням"
 
-#. Filters
 #: src/Views/Project/Project.vala:556
 msgid "Duedate"
 msgstr "Дата виконання"
@@ -3528,7 +3539,6 @@ msgstr "Я"
 msgid "Attachments"
 msgstr "Вкладення"
 
-#. translators: Open file
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Відкрити"
@@ -3594,43 +3604,9 @@ msgstr ""
 msgid "Report Issue"
 msgstr "Повідомити про проблему"
 
-#: src/Widgets/ErrorView.vala:187
-msgid "The request was incorrect."
-msgstr "Запит був неправильним."
-
-#: src/Widgets/ErrorView.vala:188
-msgid ""
-"Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
-"Потрібна автентифікація, але вона не була успішна або ще не була надана."
-
-#: src/Widgets/ErrorView.vala:189
-msgid "The request was valid, but for something that is forbidden."
-msgstr "Запит був дійсним, але щодо чогось забороненого."
-
-#: src/Widgets/ErrorView.vala:190
-msgid "The requested resource could not be found."
-msgstr "Запитаний ресурс не знайдено."
-
 #: src/Widgets/ErrorView.vala:191
 msgid "Account migration required."
 msgstr "Потрібна міграція облікового запису."
-
-#: src/Widgets/ErrorView.vala:192
-msgid "The user has sent too many requests in a given amount of time."
-msgstr "Користувач надіслав забагато запитів за заданий проміжок часу."
-
-#: src/Widgets/ErrorView.vala:193
-msgid "The request failed due to a server error."
-msgstr "Запит не вдалося виконати через помилку сервера."
-
-#: src/Widgets/ErrorView.vala:194
-msgid "The server is currently unable to handle the request."
-msgstr "Сервер наразі не може обробити запит."
-
-#: src/Widgets/ErrorView.vala:197
-msgid "Unknown error"
-msgstr "Невідома помилка"
 
 #: src/Widgets/EventRow.vala:242
 #, c-format
@@ -3978,9 +3954,6 @@ msgstr "Відкрити «Мітки»"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Відкрити «Закріплені»"
-
-#~ msgid "Invalid API token"
-#~ msgstr "Недійсний токен API"
 
 # # c-format
 #, c-format
