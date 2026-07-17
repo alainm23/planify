@@ -218,7 +218,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         add_items ();
         show_completed_changed ();
         build_drag_and_drop ();
-        update_count_label (section_count);
+        refresh_count_label ();
 
         listbox.set_filter_func ((row) => {
             var item = ((Layouts.ItemBoard) row).item;
@@ -236,6 +236,10 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         if (is_inbox_section) {
             signals_map[section.project.item_added.connect ((item) => {
                 add_item (item);
+            })] = section.project;
+            
+            signals_map[section.project.count_updated.connect (() => {
+                refresh_count_label ();
             })] = section.project;
         } else {
             signals_map[section.item_added.connect ((item) => {
@@ -337,7 +341,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         })] = Services.EventBus.get_default ();
 
         signals_map[section.section_count_updated.connect (() => {
-            update_count_label (section.section_count);
+            refresh_count_label ();
         })] = section;
 
         signals_map[Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id) => {
@@ -356,6 +360,20 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                         items_map.unset (row.item.id);
                     }
                 }
+                
+                if (old_section_id != row.item.section_id) {
+                    var source_section = Services.Store.instance ().get_section (old_section_id);
+                    if (source_section != null) {
+                        source_section.update_count ();
+                    }
+                    
+                    var target_section = Services.Store.instance ().get_section (row.item.section_id);
+                    if (target_section != null) {
+                        target_section.update_count ();
+                    }
+                }
+
+                section.project.count_update ();
             }
         })] = Services.EventBus.get_default ();
 
@@ -420,6 +438,33 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
     private void update_count_label (int count) {
         count_label.label = count <= 0 ? "" : count.to_string ();
+    }
+
+    private void refresh_count_label () {
+        int count;
+        if (is_inbox_section) {
+            count = 0;
+            foreach (var item in section.project.items) {
+                if (!item.checked) {
+                    count++;
+                    count += get_subitem_count (item);
+                }
+            }
+        } else {
+            count = section.section_count;
+        }
+        update_count_label (count);
+    }
+
+    private int get_subitem_count (Objects.Item item) {
+        int count = 0;
+        foreach (var subitem in Services.Store.instance ().get_subitems (item)) {
+            if (!subitem.checked) {
+                count++;
+                count += get_subitem_count (subitem);
+            }
+        }
+        return count;
     }
 
     public void add_items () {
@@ -562,7 +607,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         var add_item = new Widgets.ContextMenu.MenuItem (_ ("Add Task"), "plus-large-symbolic");
         var edit_item = new Widgets.ContextMenu.MenuItem (_ ("Edit Section"), "edit-symbolic");
         var move_item = new Widgets.ContextMenu.MenuItem (_ ("Move Section"), "arrow3-right-symbolic");
-        var manage_item = new Widgets.ContextMenu.MenuItem (_ ("Manage Section Order"), "view-list-ordered-symbolic");
+        var manage_item = new Widgets.ContextMenu.MenuItem (_ ("Manage Sections"), "view-list-ordered-symbolic");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_ ("Duplicate"), "tabs-stack-symbolic");
         var show_completed_item = new Widgets.ContextMenu.MenuItem (_ ("Show Completed Tasks"), "check-round-outline-symbolic");
 
@@ -740,7 +785,9 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             Utils.TaskUtils.update_single_item_order (listbox, picked_widget, picked_widget.get_index ());
 
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
-            
+
+            section.project.count_update ();
+
             return true;
         })] = drop_target;
     }

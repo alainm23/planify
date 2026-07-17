@@ -69,6 +69,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
     public FocusedWidget current_focus { get; private set; default = FocusedWidget.CONTENT_ENTRY; }
     
     private Objects.DueDate? preserved_duedate = null;
+    private Objects.DueDate? forced_duedate = null;
     private bool preserved_pinned = false;
     private int preserved_priority = Constants.PRIORITY_4;
     private Gee.HashMap<string, Objects.Label>? preserved_labels = null;
@@ -88,7 +89,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
     private uint date_detection_timeout_id = 0;
     private string last_detected_date_text = "";
     private bool date_auto_detection_enabled = true;
-    private Chrono.Chrono chrono;
+    private Chrono.Core chrono;
 
     public int position { get; set; default = -1; }
     public NewTaskPosition new_task_position { get; set; default = Services.Settings.get_default ().get_new_task_position (); }
@@ -118,7 +119,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
     }
 
     construct {
-        chrono = new Chrono.Chrono (Util.get_user_language ());
+        chrono = new Chrono.Core (Util.get_user_language ());
         date_auto_detection_enabled = Services.Settings.get_default ().settings.get_boolean ("smart-date-recognition");
         
         item = new Objects.Item ();
@@ -870,6 +871,9 @@ public class Layouts.QuickAddCore : Adw.Bin {
             if (keep_properties && preserved_duedate != null) {
                 item.due = preserved_duedate.duplicate ();
                 schedule_button.update_from_item (item);
+            } else if (forced_duedate != null) {
+                item.due = forced_duedate.duplicate ();
+                schedule_button.update_from_item (item);
             } else {
                 schedule_button.reset ();
             }
@@ -986,6 +990,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
         item.section_id = old_section_id;
         item.parent_id = old_parent_id;
 
+        position = -1;
+
         item_labels.item = item;
         label_button.source = item.project.source;
         labels_quick_picker.source = item.project.source;
@@ -1001,8 +1007,10 @@ public class Layouts.QuickAddCore : Adw.Bin {
         if (item.due.date == "") {
             item.due.reset ();
             preserved_duedate = null;
+            forced_duedate = null;
         } else {
             preserved_duedate = item.due.duplicate ();
+            forced_duedate = item.due.duplicate ();
         }
 
         schedule_button.update_from_item (item);

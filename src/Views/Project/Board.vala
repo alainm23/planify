@@ -24,6 +24,7 @@ public class Views.Board : Adw.Bin {
 
     private Widgets.IconColorProject icon_project;
     private Gtk.Label title_label;
+    private Widgets.EditableTextView description_widget;
     private Gtk.Image due_image;
     private Gtk.Label due_label;
     private Gtk.Label days_left_label;
@@ -71,7 +72,7 @@ public class Views.Board : Adw.Bin {
         title_box.append (icon_project);
         title_box.append (title_label);
 
-        var description_widget = new Widgets.EditableTextView (_("Note")) {
+        description_widget = new Widgets.EditableTextView (_("Note")) {
             text = project.description,
             margin_top = 12,
             margin_start = 24,
@@ -181,10 +182,14 @@ public class Views.Board : Adw.Bin {
             Layouts.SectionBoard item = ((Layouts.SectionBoard) child);
 
             if (item.is_inbox_section) {
-                return !project.inbox_section_hidded;
+                bool has_uncompleted = project.items.any_match ((i) => !i.checked);
+                if (project.show_completed) {
+                    return has_uncompleted || project.items_checked.size > 0;
+                }
+                return has_uncompleted;
             }
 
-            return !item.section.hidded;
+            return !item.section.was_archived ();
         });
 
         signal_map[description_widget.changed.connect (() => {
@@ -207,6 +212,17 @@ public class Views.Board : Adw.Bin {
 
         signal_map[project.count_updated.connect (() => {
             icon_project.update_request ();
+            flowbox.invalidate_filter ();
+        })] = project;
+
+        signal_map[Services.EventBus.get_default ().checked_toggled.connect ((item) => {
+            if (item.project_id == project.id && item.section_id == "") {
+                flowbox.invalidate_filter ();
+            }
+        })] = Services.EventBus.get_default ();
+
+        signal_map[project.show_completed_changed.connect (() => {
+            flowbox.invalidate_filter ();
         })] = project;
 
         signal_map[project.source.sync_finished.connect (() => {
@@ -217,6 +233,7 @@ public class Views.Board : Adw.Bin {
     public void update_request () {
         icon_project.update_request ();
         title_label.label = project.is_inbox_project ? _("Inbox") : project.name;
+        description_widget.text = project.description;
         update_duedate ();
     }
 
@@ -240,7 +257,12 @@ public class Views.Board : Adw.Bin {
     }
 
     public void prepare_new_item (string content = "") {
-        inbox_board.prepare_new_item (content);
+        var sections = project.sections;
+        if (sections.size > 0) {
+            sections_map[sections[0].id].prepare_new_item (content);
+        } else {
+            inbox_board.prepare_new_item (content);
+        }
     }
 
     private void update_duedate () {

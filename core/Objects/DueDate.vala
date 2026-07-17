@@ -21,6 +21,7 @@
 
 public class Objects.DueDate : GLib.Object {
     public string date { get; set; default = ""; }
+    public string recurrence_string { get; set; default = ""; }
     public string time_zone { get; set; default = ""; }
     public string recurrency_weeks { get; set; default = ""; }
     public bool is_recurring { get; set; default = false; }
@@ -28,6 +29,7 @@ public class Objects.DueDate : GLib.Object {
     public int recurrency_interval { get; set; default = 0; }
     public int recurrency_count { get; set; default = 0; }
     public string recurrency_end { get; set; default = ""; }
+    public bool recurrency_last_day_of_month { get; set; default = false; }
     public bool recurrence_supported { get; set; default = false; }
 
     GLib.DateTime ? _datetime = null;
@@ -103,6 +105,10 @@ public class Objects.DueDate : GLib.Object {
             date = object.get_string_member ("date");
         }
 
+        if (object.has_member ("string")) {
+            recurrence_string = object.get_string_member ("string");
+        }
+
         if (object.has_member ("timezone")) {
             time_zone = object.get_string_member ("timezone");
         }
@@ -116,6 +122,10 @@ public class Objects.DueDate : GLib.Object {
     public void update_from_json (Json.Object object) {
         if (object.has_member ("date")) {
             date = object.get_string_member ("date");
+        }
+        
+        if (object.has_member ("recurrence_string")) {
+            recurrence_string = object.get_string_member ("recurrence_string");
         }
 
         if (object.has_member ("timezone")) {
@@ -145,10 +155,15 @@ public class Objects.DueDate : GLib.Object {
         if (object.has_member ("recurrency_end")) {
             recurrency_end = object.get_string_member ("recurrency_end");
         }
+
+        if (object.has_member ("recurrency_last_day_of_month")) {
+            recurrency_last_day_of_month = bool.parse (object.get_string_member ("recurrency_last_day_of_month"));
+        }
     }
 
     public void reset () {
         date = "";
+        recurrence_string = "";
         time_zone = "";
         recurrency_type = RecurrencyType.NONE;
         recurrency_interval = 0;
@@ -161,6 +176,9 @@ public class Objects.DueDate : GLib.Object {
 
         builder.set_member_name ("date");
         builder.add_string_value (date);
+        
+        builder.set_member_name ("recurrence_string");
+        builder.add_string_value (recurrence_string);
 
         builder.set_member_name ("timezone");
         builder.add_string_value (time_zone);
@@ -183,6 +201,9 @@ public class Objects.DueDate : GLib.Object {
         builder.set_member_name ("recurrency_end");
         builder.add_string_value (recurrency_end);
 
+        builder.set_member_name ("recurrency_last_day_of_month");
+        builder.add_string_value (recurrency_last_day_of_month.to_string ());
+
         builder.end_object ();
 
         Json.Generator generator = new Json.Generator ();
@@ -198,6 +219,7 @@ public class Objects.DueDate : GLib.Object {
                 recurrency_weeks == duedate.recurrency_weeks &&
                 recurrency_count == duedate.recurrency_count &&
                 recurrency_end == duedate.recurrency_end &&
+                recurrency_last_day_of_month == duedate.recurrency_last_day_of_month &&
                 is_recurring == duedate.is_recurring);
     }
 
@@ -208,6 +230,7 @@ public class Objects.DueDate : GLib.Object {
     public Objects.DueDate duplicate () {
         var new_due = new Objects.DueDate ();
         new_due.date = date;
+        new_due.recurrence_string = recurrence_string;
         new_due.time_zone = time_zone;
         new_due.recurrency_weeks = recurrency_weeks;
         new_due.is_recurring = is_recurring;
@@ -216,6 +239,7 @@ public class Objects.DueDate : GLib.Object {
         new_due.recurrency_count = recurrency_count;
         new_due.recurrency_end = recurrency_end;
         new_due.recurrence_supported = recurrence_supported;
+        new_due.recurrency_last_day_of_month = recurrency_last_day_of_month;
         return new_due;
     }
 }

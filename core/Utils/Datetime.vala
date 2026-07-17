@@ -145,9 +145,43 @@ public class Utils.Datetime {
     }
 
     public static void parse_todoist_recurrency (Objects.DueDate duedate, Json.Object object) {
-        if (object.has_member ("lang") && object.get_string_member ("lang") != "en") {
+        if (object.has_member ("lang") && object.get_string_member ("lang") != "en" && object.get_string_member ("lang") != "es") {
             duedate.recurrence_supported = false;
             return;
+        }
+        var lang = object.has_member ("lang") ? object.get_string_member ("lang") : "en";
+        var chrono = new Chrono.Core (lang);
+
+        var result = chrono.parse (duedate.recurrence_string, true);
+        if (result == null || result.recurrence == null) {
+            duedate.recurrence_supported = false;
+            duedate.recurrency_type = RecurrencyType.NONE;
+            duedate.recurrency_interval = 0;
+            duedate.recurrency_weeks = "";
+            return;
+        }
+        
+        duedate.recurrence_supported = true;
+        duedate.is_recurring = true;
+        duedate.recurrency_interval = result.recurrence.interval;
+        switch (result.recurrence.recurrence_type) {
+            case Chrono.RecurrenceType.DAILY: duedate.recurrency_type = RecurrencyType.EVERY_DAY; break;
+            case Chrono.RecurrenceType.WEEKLY: duedate.recurrency_type = RecurrencyType.EVERY_WEEK; break;
+            case Chrono.RecurrenceType.MONTHLY: duedate.recurrency_type = RecurrencyType.EVERY_MONTH; break;
+            case Chrono.RecurrenceType.YEARLY: duedate.recurrency_type = RecurrencyType.EVERY_YEAR; break;
+            default: duedate.recurrency_type = RecurrencyType.EVERY_DAY; break;
+        }
+
+        duedate.recurrency_weeks = "";
+        if (result.recurrence.days_of_week != null) {
+            string weeks = "";
+            foreach (var day in result.recurrence.days_of_week) {
+                if (day == 0) day = 7;
+                weeks += day.to_string () + ",";
+            }
+            if (weeks.length > 0) {
+                duedate.recurrency_weeks = weeks.substring (0, weeks.length - 1);
+            }
         }
     }
 
@@ -207,6 +241,17 @@ public class Utils.Datetime {
             due.recurrency_type = RecurrencyType.EVERY_WEEK;
         } else if (freq == ICal.RecurrenceFrequency.MONTHLY_RECURRENCE) {
             due.recurrency_type = RecurrencyType.EVERY_MONTH;
+            #if IS_LIBICAL4
+            GLib.Array<short> monthday_array = recurrence.get_by_array (ICal.RecurrenceByRule.BY_MONTH_DAY);
+            #else
+            GLib.Array<short> monthday_array = recurrence.get_by_month_day_array ();
+            #endif
+            foreach (var val in monthday_array) {
+                if (val == -1) {
+                    due.recurrency_last_day_of_month = true;
+                    break;
+                }
+            }
         } else if (freq == ICal.RecurrenceFrequency.YEARLY_RECURRENCE) {
             due.recurrency_type = RecurrencyType.EVERY_YEAR;
         }
@@ -224,7 +269,11 @@ public class Utils.Datetime {
 
         if (due.recurrency_type == RecurrencyType.EVERY_WEEK) {
             string recurrency_weeks = "";
+            #if IS_LIBICAL4
+            GLib.Array<short> day_array = recurrence.get_by_array (ICal.RecurrenceByRule.BY_DAY);
+            #else
             GLib.Array<short> day_array = recurrence.get_by_day_array ();
+            #endif
 
             if (check_by_day ("1", day_array)) {
                 recurrency_weeks += "7,";
@@ -335,7 +384,23 @@ public class Utils.Datetime {
                 returned = next_recurrency_week (datetime, duedate, true);
             }
         } else if (duedate.recurrency_type == RecurrencyType.EVERY_MONTH) {
-            returned = returned.add_months (duedate.recurrency_interval);
+            if (duedate.recurrency_last_day_of_month) {
+                var next_month = returned.add_months (duedate.recurrency_interval);
+                int days = (int) GLib.Date.get_days_in_month (
+                    (GLib.DateMonth) next_month.get_month (),
+                    (GLib.DateYear) next_month.get_year ()
+                );
+                returned = new GLib.DateTime.local (
+                    next_month.get_year (),
+                    next_month.get_month (),
+                    days,
+                    returned.get_hour (),
+                    returned.get_minute (),
+                    returned.get_second ()
+                );
+            } else {
+                returned = returned.add_months (duedate.recurrency_interval);
+            }
         } else if (duedate.recurrency_type == RecurrencyType.EVERY_YEAR) {
             returned = returned.add_years (duedate.recurrency_interval);
         }
@@ -401,10 +466,15 @@ public class Utils.Datetime {
     }
 
     public static string get_recurrency_weeks (RecurrencyType recurrency_type, int recurrency_interval,
-                                               string recurrency_weeks, string end = "") {
+                                               string recurrency_weeks, string end = "",
+                                               bool recurrency_last_day_of_month = false) {
         string returned = recurrency_type.to_friendly_string (recurrency_interval);
 
-        if (recurrency_type == RecurrencyType.EVERY_WEEK &&
+        if (recurrency_type == RecurrencyType.EVERY_MONTH && recurrency_last_day_of_month) {
+            returned = recurrency_interval == 1
+                ? _("Every last day of month")
+                : _("Every %d months (last day)").printf (recurrency_interval);
+        } else if (recurrency_type == RecurrencyType.EVERY_WEEK &&
             recurrency_weeks != null && recurrency_weeks.split (",").length > 0) {
             string weeks = "";
             if (recurrency_weeks.contains ("1")) {
@@ -479,6 +549,87 @@ public class Utils.Datetime {
             returned = date.format ("%F");
         }
 
+        return returned;
+    }
+
+    private static Regex? _iso_due_regex;
+
+    private static bool is_iso_due_date (string date) {
+        if (date == null || date == "") return false;
+        try {
+            if (_iso_due_regex == null) {
+                _iso_due_regex = new Regex ("^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2})?$");
+            }
+            return _iso_due_regex.match (date);
+        } catch (RegexError e) {
+            return false;
+        }
+    }
+
+    public static string due_to_todoist_natural_language (Objects.DueDate due) {
+        if (due.recurrence_string != "" && due.is_recurring) {
+            return due.recurrence_string;
+        }
+        
+        if (due.date != "" && !is_iso_due_date (due.date)) {
+            return due.date;
+        }
+
+        if (due.is_recurring == false || due.recurrency_type < RecurrencyType.HOURLY || due.recurrency_type > RecurrencyType.EVERY_YEAR) {
+            if (due.datetime != null) {
+                return get_todoist_datetime_format (due.datetime);
+            } else {
+                return "";
+            }
+        }
+
+        var recurrency_type_string = "";
+        switch (due.recurrency_type) {
+            case RecurrencyType.HOURLY: recurrency_type_string = "hour"; break;
+            case RecurrencyType.EVERY_DAY: recurrency_type_string = "day"; break;
+            case RecurrencyType.EVERY_WEEK: recurrency_type_string = "week"; break;
+            case RecurrencyType.EVERY_MONTH: recurrency_type_string = "month"; break;
+            case RecurrencyType.EVERY_YEAR: recurrency_type_string = "year"; break;
+            default: recurrency_type_string = "day"; break;
+        }
+
+        string[] days = {"mon,", "tue,", "wed,", "thu,", "fri,", "sat,", "sun,"};
+        string returned = "every ";
+        if (due.recurrency_interval > 1) {
+            returned += due.recurrency_interval.to_string () + " ";
+            returned += recurrency_type_string;
+            returned += "s ";
+        } else if (!(due.recurrency_type == RecurrencyType.EVERY_WEEK && due.recurrency_weeks != "")) { 
+            returned += recurrency_type_string + " ";
+        }
+        if (due.recurrency_type == RecurrencyType.EVERY_WEEK && due.recurrency_weeks != "") {
+            if (due.recurrency_weeks == "1,2,3,4,5") {
+                returned += "weekday";
+                if (due.recurrency_interval > 1) {
+                    returned += "s";
+                }
+                returned += " ";
+            } else {
+                var selected_days = due.recurrency_weeks.split (",");
+                foreach (var day in selected_days) {
+                    int dayint = int.parse (day);
+                    if (dayint > 7 || dayint < 1) continue;
+                    returned += days[dayint - 1];
+                }
+                returned = returned[0:-1] + " ";
+            }
+        }
+
+        if (due.datetime != null && has_time (due.datetime)) {
+            returned += "at ";
+            var time = due.datetime.format ("%T");
+            returned += time[0:-3];
+        }
+
+        if (due.recurrency_end != "") {
+            returned += "until ";
+            returned += due.end_datetime.format ("%F");
+        }        
         return returned;
     }
 

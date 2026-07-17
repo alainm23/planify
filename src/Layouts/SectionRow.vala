@@ -331,9 +331,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             if (items_map.has_key (item.id)) {
                 if (items_map[item.id].update_id != update_id) {
                     items_map[item.id].update_request ();
-                    if (section.project.sorted_by != SortedByType.MANUAL) {
-                        update_sort ();
-                    }
+                }
+
+                if (section.project.sorted_by != SortedByType.MANUAL) {
+                    update_sort ();
                 }
 
                 if (checked_items_map.has_key (item.id)) {
@@ -690,9 +691,14 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         if (!is_inbox_section) {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-            menu_box.append (archive_item);
+            if (section.project.source_type != SourceType.CALDAV) {
+                menu_box.append (archive_item);
+            }
             menu_box.append (delete_item);
         }
+
+        move_item.visible = section.project.source_type != SourceType.CALDAV;
+        duplicate_item.visible = section.project.source_type != SourceType.CALDAV;
 
         var menu_popover = new Gtk.Popover () {
             has_arrow = false,

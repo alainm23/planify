@@ -21,8 +21,16 @@
 
 public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
     private Gtk.SpinButton recurrency_interval;
-    private Gtk.DropDown recurrency_combobox;
+    private Gtk.Button recurrency_type_button;
+    private Gtk.Label recurrency_type_label;
+    private Gtk.Revealer recurrency_type_revealer;
+    private Gtk.Revealer weeks_revealer;
+    private Gtk.Revealer last_day_revealer;
+    private Gtk.CheckButton last_day_check;
+    private Widgets.ContextMenu.MenuItem[] type_menu_items;
+    private Adw.Bin dimming_widget;
     private Gtk.Label repeat_label;
+    private int _selected_type = 2; // Default: Day(s)
 
     private Gtk.ToggleButton mo_button;
     private Gtk.ToggleButton tu_button;
@@ -36,8 +44,10 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
     private Gtk.ToggleButton never_button;
     private Gtk.ToggleButton on_button;
     private Gtk.ToggleButton after_button;
-    private Gtk.Calendar calendar;
-    private Gtk.MenuButton datepicker_button;
+    private Widgets.Calendar.Calendar calendar;
+    private Gtk.Button datepicker_button;
+    private Gtk.Label datepicker_label;
+    private Gtk.Revealer calendar_revealer;
     private Gtk.SpinButton count_interval;
     private Gtk.Stack ends_stack;
 
@@ -46,9 +56,16 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
             recurrency_interval.value = value.recurrency_interval;
 
             if (value.recurrency_type == RecurrencyType.NONE) {
-                recurrency_combobox.selected = 0;
+                _selected_type = (int) RecurrencyType.EVERY_DAY;
             } else {
-                recurrency_combobox.selected = (int) value.recurrency_type;
+                _selected_type = (int) value.recurrency_type;
+            }
+
+            string[] recurrency_items = {
+                _("Minute(s)"), _("Hour(s)"), _("Day(s)"), _("Week(s)"), _("Month(s)"), _("Year(s)")
+            };
+            if (recurrency_type_label != null && _selected_type < recurrency_items.length) {
+                recurrency_type_label.label = get_type_label (_selected_type, (int) recurrency_interval.value);
             }
 
             if (value.recurrency_type == RecurrencyType.EVERY_WEEK) {
@@ -61,6 +78,9 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
                 su_button.active = value.recurrency_weeks.contains ("7");
             }
 
+            last_day_check.active = value.recurrency_last_day_of_month;
+            last_day_revealer.reveal_child = value.recurrency_type == RecurrencyType.EVERY_MONTH;
+
             if (value.recurrency_end != "") {
                 on_button.active = true;
             } else if (value.recurrency_count > 0) {
@@ -71,9 +91,9 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
 
             if (value.recurrency_end != "") {
                 var date = Utils.Datetime.get_date_from_string (value.recurrency_end);
-                calendar.year = date.get_year ();
-                calendar.month = date.get_month ();
-                calendar.day = date.get_day_of_month ();
+                if (calendar != null) {
+                    calendar.date = date;
+                }
             }
 
             update_repeat_label ();
@@ -113,18 +133,86 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
 
         recurrency_interval = new Gtk.SpinButton.with_range (1, 100, 1) {
             hexpand = true,
-            valign = CENTER,
-            css_classes = { "popover-spinbutton" }
+            valign = CENTER
         };
 
-        string[] items = {
+        string[] recurrency_items = {
             _("Minute(s)"), _("Hour(s)"), _("Day(s)"), _("Week(s)"), _("Month(s)"), _("Year(s)")
         };
 
-        recurrency_combobox = new Gtk.DropDown.from_strings (items) {
-            valign = CENTER,
-            selected = 2
+        recurrency_type_label = new Gtk.Label (get_type_label (_selected_type, 1)) {
+            hexpand = true,
+            halign = START
         };
+
+        var type_button_box = new Gtk.Box (HORIZONTAL, 6) {
+            margin_start = 9,
+            margin_end = 9,
+            margin_top = 6,
+            margin_bottom = 6
+        };
+        type_button_box.append (recurrency_type_label);
+        type_button_box.append (new Gtk.Image.from_icon_name ("pan-down-symbolic"));
+
+        recurrency_type_button = new Gtk.Button () {
+            child = type_button_box,
+            hexpand = true,
+            valign = CENTER
+        };
+
+        // Build action sheet revealer for type selection
+        var type_items_box = new Gtk.Box (VERTICAL, 0) {
+            margin_start = 9,
+            margin_end = 9,
+            margin_bottom = 9,
+            margin_top = 9
+        };
+
+        type_menu_items = new Widgets.ContextMenu.MenuItem[recurrency_items.length];
+        for (int i = 0; i < recurrency_items.length; i++) {
+            var type_item = new Widgets.ContextMenu.MenuItem (recurrency_items[i]) {
+                autohide_popover = false
+            };
+            type_menu_items[i] = type_item;
+            int index = i;
+            type_item.clicked.connect (() => {
+                _selected_type = index;
+                recurrency_type_label.label = get_type_label (index, (int) recurrency_interval.value);
+                recurrency_type_revealer.reveal_child = false;
+                dimming_widget.visible = false;
+
+                if ((RecurrencyType) _selected_type == RecurrencyType.EVERY_WEEK) {
+                    weeks_revealer.reveal_child = true;
+                    last_day_revealer.reveal_child = false;
+                } else if ((RecurrencyType) _selected_type == RecurrencyType.EVERY_MONTH) {
+                    weeks_revealer.reveal_child = false;
+                    last_day_revealer.reveal_child = true;
+                } else {
+                    weeks_revealer.reveal_child = false;
+                    last_day_revealer.reveal_child = false;
+                }
+
+                update_repeat_label ();
+            });
+            type_items_box.append (type_item);
+        }
+
+        var type_container = new Adw.Bin () {
+            child = type_items_box
+        };
+        type_container.add_css_class ("card");
+
+        recurrency_type_revealer = new Gtk.Revealer () {
+            child = type_container,
+            valign = END,
+            transition_type = SLIDE_UP,
+            reveal_child = false
+        };
+
+        recurrency_type_button.clicked.connect (() => {
+            recurrency_type_revealer.reveal_child = !recurrency_type_revealer.reveal_child;
+            dimming_widget.visible = recurrency_type_revealer.reveal_child;
+        });
 
         var repeat_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
@@ -132,7 +220,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
             homogeneous = true
         };
         repeat_box.append (recurrency_interval);
-        repeat_box.append (recurrency_combobox);
+        repeat_box.append (recurrency_type_button);
 
         mo_button = new Gtk.ToggleButton.with_label (_("Mo")) {
             css_classes = { "no-padding", "caption" },
@@ -190,7 +278,17 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         weeks_box.append (sa_button);
         weeks_box.append (su_button);
 
-        var weeks_revealer = new Gtk.Revealer () {
+        last_day_check = new Gtk.CheckButton.with_label (_("Last day of month")) {
+            margin_top = 6
+        };
+
+        last_day_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = false,
+            child = last_day_check
+        };
+
+        weeks_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             reveal_child = false,
             child = weeks_box
@@ -219,26 +317,51 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         ends_grid.append (on_button);
         ends_grid.append (after_button);
 
-        calendar = new Gtk.Calendar ();
-        var calendar_popover = new Gtk.Popover () {
-            child = calendar,
-            has_arrow = false,
-            halign = Gtk.Align.END,
-            position = Gtk.PositionType.BOTTOM
+        calendar = new Widgets.Calendar.Calendar () {
+            margin_start = 9,
+            margin_end = 9,
+            margin_bottom = 9,
+            margin_top = 9
         };
 
-        datepicker_button = new Gtk.MenuButton () {
-            label = Utils.Datetime.get_default_date_format_from_date (
-                Utils.Datetime.get_date_only (new GLib.DateTime.now_local ().add_days (1))
-                    ),
-            popover = calendar_popover
+        var calendar_container = new Adw.Bin () {
+            child = calendar,
+            margin_start = 0,
+            margin_end = 0,
+            margin_bottom = 0,
+            margin_top = 0
+        };
+        calendar_container.add_css_class ("card");
+
+        calendar_revealer = new Gtk.Revealer () {
+            child = calendar_container,
+            valign = END,
+            transition_type = SLIDE_UP,
+            reveal_child = false
+        };
+
+        datepicker_label = new Gtk.Label (Utils.Datetime.get_default_date_format_from_date (
+            Utils.Datetime.get_date_only (new GLib.DateTime.now_local ().add_days (1))
+        )) {
+            hexpand = true,
+            halign = CENTER
+        };
+
+        var datepicker_box = new Gtk.Box (HORIZONTAL, 6) {
+            margin_start = 9, margin_end = 9, margin_top = 6, margin_bottom = 6
+        };
+        datepicker_box.append (datepicker_label);
+        datepicker_box.append (new Gtk.Image.from_icon_name ("pan-down-symbolic"));
+
+        datepicker_button = new Gtk.Button () {
+            child = datepicker_box,
+            hexpand = true
         };
 
         count_interval = new Gtk.SpinButton.with_range (1, 100, 1) {
             hexpand = true,
             halign = CENTER,
-            valign = CENTER,
-            css_classes = { "popover-spinbutton" }
+            valign = CENTER
         };
 
         ends_stack = new Gtk.Stack () {
@@ -272,6 +395,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         });
         content_box.append (repeat_box);
         content_box.append (weeks_revealer);
+        content_box.append (last_day_revealer);
         content_box.append (new Gtk.Label (_("End")) {
             css_classes = { "heading", "h4" },
             margin_top = 12,
@@ -281,22 +405,32 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         content_box.append (ends_stack);
         content_box.append (submit_button);
 
-        child = content_box;
+        dimming_widget = new Adw.Bin () {
+            visible = false
+        };
+        dimming_widget.add_css_class ("dimming-bg");
+
+        var content_overlay = new Gtk.Overlay () {
+            child = content_box
+        };
+        content_overlay.add_overlay (dimming_widget);
+        content_overlay.add_overlay (recurrency_type_revealer);
+        content_overlay.add_overlay (calendar_revealer);
+
+        var gesture = new Gtk.GestureClick ();
+        dimming_widget.add_controller (gesture);
+        gesture.pressed.connect (() => {
+            recurrency_type_revealer.reveal_child = false;
+            calendar_revealer.reveal_child = false;
+            dimming_widget.visible = false;
+        });
+
+        child = content_overlay;
         update_repeat_label ();
 
         signal_map[recurrency_interval.value_changed.connect (() => {
             update_repeat_label ();
         })] = recurrency_interval;
-
-        signal_map[recurrency_combobox.notify["selected-item"].connect (() => {
-            if ((RecurrencyType) this.recurrency_combobox.selected == RecurrencyType.EVERY_WEEK) {
-                weeks_revealer.reveal_child = true;
-            } else {
-                weeks_revealer.reveal_child = false;
-            }
-
-            update_repeat_label ();
-        })] = recurrency_combobox;
 
         signal_map[mo_button.toggled.connect (() => {
             update_repeat_label ();
@@ -326,6 +460,10 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
             update_repeat_label ();
         })] = su_button;
 
+        signal_map[last_day_check.toggled.connect (() => {
+            update_repeat_label ();
+        })] = last_day_check;
+
         submit_button.clicked.connect (() => {
             set_repeat ();
         });
@@ -346,9 +484,15 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         })] = after_button;
 
         signal_map[calendar.day_selected.connect (() => {
-            calendar_popover.popdown ();
+            calendar_revealer.reveal_child = false;
+            dimming_widget.visible = false;
             update_repeat_label ();
         })] = calendar;
+
+        datepicker_button.clicked.connect (() => {
+            calendar_revealer.reveal_child = !calendar_revealer.reveal_child;
+            dimming_widget.visible = calendar_revealer.reveal_child;
+        });
 
         signal_map[count_interval.value_changed.connect (() => {
             update_repeat_label ();
@@ -358,12 +502,12 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
     private void set_repeat () {
         var duedate = new Objects.DueDate ();
         duedate.is_recurring = true;
-        duedate.recurrency_type = (RecurrencyType) this.recurrency_combobox.selected;
+        duedate.recurrency_type = (RecurrencyType) _selected_type;
         duedate.recurrency_interval = (int) recurrency_interval.value;
 
         if (on_button.active) {
             duedate.recurrency_count = 0;
-            duedate.recurrency_end = calendar.get_date ().to_string ();
+            duedate.recurrency_end = calendar.date != null ? calendar.date.to_string () : "";
         } else if (after_button.active) {
             duedate.recurrency_count = (int) count_interval.value;
             duedate.recurrency_end = "";
@@ -375,7 +519,22 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
             duedate.recurrency_weeks = "";
         }
 
+        duedate.recurrency_last_day_of_month = (duedate.recurrency_type == RecurrencyType.EVERY_MONTH)
+            && last_day_check.active;
+
         duedate_change (duedate);
+    }
+
+    private string get_type_label (int type, int interval) {
+        switch (type) {
+            case 0: return ngettext ("Minute", "Minutes", interval);
+            case 1: return ngettext ("Hour", "Hours", interval);
+            case 2: return ngettext ("Day", "Days", interval);
+            case 3: return ngettext ("Week", "Weeks", interval);
+            case 4: return ngettext ("Month", "Months", interval);
+            case 5: return ngettext ("Year", "Years", interval);
+            default: return ngettext ("Day", "Days", interval);
+        }
     }
 
     private string get_recurrency_weeks () {
@@ -422,19 +581,29 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
     }
 
     private void update_repeat_label () {
+        int interval = (int) recurrency_interval.value;
+        recurrency_type_label.label = get_type_label (_selected_type, interval);
+
+        if (type_menu_items != null) {
+            for (int i = 0; i < type_menu_items.length; i++) {
+                type_menu_items[i].title = get_type_label (i, interval);
+            }
+        }
+
         var end_label = "";
         if (on_button.active) {
+            var cal_date = calendar.date ?? new GLib.DateTime.now_local ().add_days (1);
             var date_label = Utils.Datetime.get_default_date_format_from_date (
-                Utils.Datetime.get_date_only (calendar.get_date ())
+                Utils.Datetime.get_date_only (cal_date)
             );
             end_label = _("until") + " " + date_label;
-            datepicker_button.label = date_label;
+            datepicker_label.label = date_label;
         } else if (after_button.active) {
             int count = (int) count_interval.value;
             end_label = _("for") + " " + "%d %s".printf (count, count > 1 ? _("times") : _("time"));
         }
 
-        RecurrencyType selected_option = (RecurrencyType) this.recurrency_combobox.selected;
+        RecurrencyType selected_option = (RecurrencyType) _selected_type;
         string label = Utils.Datetime.get_recurrency_weeks (
             selected_option,
             (int) recurrency_interval.value,

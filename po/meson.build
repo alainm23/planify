@@ -1,5 +1,5 @@
-i18n.gettext(meson.project_name(),
-    args: '--directory=' + meson.source_root(),
+i18n.gettext(application_id,
+    args: '--directory=' + meson.project_source_root(),
     preset: 'glib'
 )
 subdir('extra')

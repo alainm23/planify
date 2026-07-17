@@ -39,10 +39,12 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Widgets.SubItems subitems;
     private Widgets.Attachments attachments;
 
+    private uint destroy_editor_timeout_id = 0;
     private Widgets.ContextMenu.MenuSwitch use_note_item;
     private Widgets.ContextMenu.MenuItem copy_clipboard_item;
     private Widgets.ContextMenu.MenuItem duplicate_item;
     private Widgets.ContextMenu.MenuItem move_item;
+    private Widgets.ContextMenu.MenuItem export_ics_item;
 
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
     private Gee.HashMap<ulong, weak GLib.Object> markdown_handlerses = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -187,13 +189,31 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         };
         description_title.add_css_class ("heading");
 
+        var expand_button = new Gtk.Button.from_icon_name ("four-arrows-pointing-outward-symbolic") {
+            valign = CENTER,
+            tooltip_text = _("Expand Description")
+        };
+        expand_button.add_css_class ("flat");
+        expand_button.add_css_class ("caption");
+
+        var description_header = new Gtk.Box (HORIZONTAL, 0) {
+            margin_start = 3,
+            margin_end = 3
+        };
+        description_header.append (description_title);
+        description_header.append (expand_button);
+
         var description_group = new Gtk.Box (VERTICAL, 6) {
             margin_start = 9,
             margin_end = 9,
             margin_top = 12
         };
-        description_group.append (description_title);
+        description_group.append (description_header);
         description_group.append (markdown_editor_revealer);
+
+        expand_button.clicked.connect (() => {
+            open_description_dialog ();
+        });
 
         subitems = new Widgets.SubItems.for_board () {
             margin_top = 12
@@ -302,15 +322,14 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             }
         });
 
-        if (Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
-            init_markdown_editor ();
-        }
     }
 
     private void update_content_description () {
         if (item.content != content_textview.get_text () ||
             item.description != markdown_editor.get_text ().chomp ()) {
             item.content = content_textview.get_text ();
+            item.item_type = item.content.has_prefix ("* ") ? ItemType.NOTE : ItemType.TASK;
+            use_note_item.active = item.item_type == ItemType.NOTE;
             item.description = markdown_editor.get_text ().chomp ();
             item.update_async_timeout (update_id);
         }
@@ -326,9 +345,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         item = _item;
         update_id = Util.get_default ().generate_id ();
 
-        if (!always_show) {
-            build_markdown_editor ();
-        }
+        build_markdown_editor ();
 
         label_button.source = item.project.source;
         update_request ();
@@ -396,19 +413,21 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         subitems.clean_up ();
         attachments.clean_up ();
         destroy_markdown_signals ();
-
-        if (!Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
-            destroy_markdown_editor ();
-        }
+        destroy_markdown_editor ();
     }
 
     public void update_request () {
-        content_textview.set_text (item.content);
+        if (!content_textview.has_focus || content_textview.get_text () == item.content) {
+            content_textview.set_text (item.content);
+        }
 
         if (markdown_editor != null) {
-            destroy_markdown_signals ();
-            markdown_editor.set_text (item.description);
-            build_markdown_signals ();   
+            var current_text = markdown_editor.get_text ().chomp ();
+            if (!markdown_editor.text_view.has_focus || current_text == item.description) {
+                destroy_markdown_signals ();
+                markdown_editor.set_text (item.description);
+                build_markdown_signals ();
+            }
         }     
 
         schedule_button.update_from_item (item);
@@ -444,6 +463,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         status_button.sensitive = item.item_type == ItemType.TASK;
         parent_back_button.visible = item.has_parent;
         deadline_button.sensitive = !item.completed;
+        export_ics_item.visible = item.project.source_type == SourceType.CALDAV;
 
         if (item.completed) {
             deadline_button.remove_error_style ();
@@ -488,6 +508,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "clipboard-symbolic");
         duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
         move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
+        export_ics_item = new Widgets.ContextMenu.MenuItem (_("Export as .ics"), "document-save-symbolic");
 
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
@@ -508,6 +529,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         menu_box.append (copy_clipboard_item);
         menu_box.append (duplicate_item);
         menu_box.append (move_item);
+        menu_box.append (export_ics_item);
         menu_box.append (delete_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (more_information_item);
@@ -528,13 +550,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         });
 
         move_item.clicked.connect (() => {
-            Dialogs.ProjectPicker.ProjectPicker dialog;
-            if (item.project.is_inbox_project) {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-            } else {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
-            }
-
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
             dialog.project = item.project;
             dialog.present (Planify._instance.main_window);
 
@@ -554,6 +570,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         more_information_item.activate_item.connect (() => {
             var dialog = new Dialogs.ItemChangeHistory (item);
             dialog.present (Planify._instance.main_window);
+        });
+
+        export_ics_item.clicked.connect (() => {
+            item.export_ics (Planify._instance.main_window);
         });
 
         return popover;
@@ -643,13 +663,12 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     private void update_next_recurrency () {
-        var promise = new Services.Promise<GLib.DateTime> ();
-
-        promise.resolved.connect ((result) => {
-            recurrency_update_complete (result);
+        item.update_next_recurrency.begin ((obj, res) => {
+            var next_recurrency = item.update_next_recurrency.end (res);
+            if (next_recurrency != null) {
+                recurrency_update_complete (next_recurrency);
+            }
         });
-
-        item.update_next_recurrency (promise);
     }
 
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
@@ -659,7 +678,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     private void init_markdown_editor () {
-        markdown_editor = new Widgets.MarkdownEditor ();
+        markdown_editor = new Widgets.MarkdownEditor () {
+            project = item.project
+        };
         markdown_editor.text_view.height_request = 64;
         markdown_editor.margin_start = 12;
         markdown_editor.margin_end = 12;
@@ -684,7 +705,16 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             return;
         }
 
-        markdown_editor = new Widgets.MarkdownEditor ();
+        // Cancel pending destroy timeout to prevent it from wiping the new editor
+        if (destroy_editor_timeout_id != 0) {
+            GLib.Source.remove (destroy_editor_timeout_id);
+            destroy_editor_timeout_id = 0;
+            markdown_editor_revealer.child = null;
+        }
+
+        markdown_editor = new Widgets.MarkdownEditor () {
+            project = item.project
+        };
         markdown_editor.text_view.height_request = 64;
         markdown_editor.margin_start = 12;
         markdown_editor.margin_end = 12;
@@ -719,11 +749,17 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         }
 
         destroy_markdown_signals ();
-        
+        markdown_editor = null;
+
+        if (destroy_editor_timeout_id != 0) {
+            GLib.Source.remove (destroy_editor_timeout_id);
+            destroy_editor_timeout_id = 0;
+        }
+
         markdown_editor_revealer.reveal_child = false;
-        Timeout.add (markdown_editor_revealer.transition_duration, () => {
+        destroy_editor_timeout_id = Timeout.add (markdown_editor_revealer.transition_duration, () => {
             markdown_editor_revealer.child = null;
-            markdown_editor = null;
+            destroy_editor_timeout_id = 0;
             return GLib.Source.REMOVE;
         });
     }
@@ -731,11 +767,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private void destroy_markdown_signals () {
         foreach (var entry in markdown_handlerses.entries) {
             if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
-                try {
-                    entry.value.disconnect (entry.key);
-                } catch (Error e) {
-                    warning ("Error disconnecting markdown signal: %s", e.message);
-                }
+                entry.value.disconnect (entry.key);
             }
         }
 
@@ -745,5 +777,53 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     public void update_deadline (GLib.DateTime ? date) {
         item.deadline_date = date == null ? "" : date.to_string ();
         item.update_async ();
+    }
+
+    private void open_description_dialog () {
+        var editor = new Widgets.MarkdownEditor () {
+            project = item.project,
+            margin_start = 16,
+            margin_end = 16,
+            margin_top = 16,
+            margin_bottom = 16
+        };
+        editor.text_view.height_request = 300;
+        editor.set_text (item.description);
+        editor.is_editable = !item.completed;
+
+        var scrolled = new Gtk.ScrolledWindow () {
+            hexpand = true,
+            vexpand = true,
+            child = editor
+        };
+
+        var toolbar_view = new Adw.ToolbarView ();
+        toolbar_view.add_top_bar (new Adw.HeaderBar ());
+        toolbar_view.content = scrolled;
+
+        var dialog = new Adw.Dialog () {
+            title = item.content,
+            content_width = 700,
+            content_height = 500
+        };
+        dialog.child = toolbar_view;
+        dialog.present (Planify._instance.main_window);
+
+        editor.escape_pressed.connect (() => {
+            dialog.close ();
+        });
+
+        dialog.closed.connect (() => {
+            var new_description = editor.get_text ().chomp ();
+            if (item.description != new_description) {
+                item.description = new_description;
+                item.update_async_timeout (update_id);
+                if (markdown_editor != null) {
+                    destroy_markdown_signals ();
+                    markdown_editor.set_text (item.description);
+                    build_markdown_signals ();
+                }
+            }
+        });
     }
 }

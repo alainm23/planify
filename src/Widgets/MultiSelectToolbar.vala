@@ -34,6 +34,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
     public Gee.HashMap<string, Layouts.ItemBase> items_selected = new Gee.HashMap<string, Layouts.ItemBase> ();
     public Gee.HashMap<string, Objects.Label> labels = new Gee.HashMap<string, Objects.Label> ();
+    private Gee.HashMap<string, Objects.Label> _initial_labels = new Gee.HashMap<string, Objects.Label> ();
     public signal void closed ();
 
     public MultiSelectToolbar (Objects.Project project) {
@@ -151,12 +152,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         });
 
         move_button.clicked.connect (() => {
-            Dialogs.ProjectPicker.ProjectPicker dialog;
-            if (project.is_inbox_project) {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-            } else {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (project.source);
-            }
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
 
             dialog.project = project;
 
@@ -167,10 +163,17 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             dialog.present (Planify._instance.main_window);
         });
 
-        label_button.labels_changed.connect ((labels) => {
-            if (labels.size > 0) {
-                set_labels (labels);
+        label_button.picker_opened.connect ((active) => {
+            if (active) {
+                _initial_labels = new Gee.HashMap<string, Objects.Label> ();
+                foreach (var entry in labels.entries) {
+                    _initial_labels[entry.key] = entry.value;
+                }
             }
+        });
+
+        label_button.labels_changed.connect ((new_labels) => {
+            apply_label_changes (new_labels);
         });
 
         priority_button.changed.connect ((priority) => {
@@ -226,12 +229,39 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         update_items (objects);
     }
 
-    private void set_labels (Gee.HashMap<string, Objects.Label> new_labels) {
-        Gee.ArrayList<Objects.Item> objects = new Gee.ArrayList<Objects.Item> ();
+    private void apply_label_changes (Gee.HashMap<string, Objects.Label> new_labels) {
+        // Labels added by the user
+        var added = new Gee.HashMap<string, Objects.Label> ();
+        foreach (var entry in new_labels.entries) {
+            if (!_initial_labels.has_key (entry.key)) {
+                added[entry.key] = entry.value;
+            }
+        }
 
+        // Labels removed by the user
+        var removed = new Gee.ArrayList<string> ();
+        foreach (var entry in _initial_labels.entries) {
+            if (!new_labels.has_key (entry.key)) {
+                removed.add (entry.key);
+            }
+        }
+
+        if (added.size == 0 && removed.size == 0) {
+            return;
+        }
+
+        Gee.ArrayList<Objects.Item> objects = new Gee.ArrayList<Objects.Item> ();
         foreach (string key in items_selected.keys) {
             var item = items_selected[key].item;
-            item.check_labels (new_labels);
+
+            foreach (var entry in added.entries) {
+                item.add_label_if_not_exists (entry.value);
+            }
+
+            foreach (var label_id in removed) {
+                item.delete_item_label (label_id);
+            }
+
             objects.add (item);
         }
 
@@ -241,12 +271,15 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     private Gtk.Popover build_menu_popover () {
         complete_item = new Widgets.ContextMenu.MenuItem (_ ("Mark as Completed"), "check-round-outline-symbolic");
 
+        var copy_item = new Widgets.ContextMenu.MenuItem (_ ("Copy to Clipboard"), "edit-copy-symbolic");
+
         delete_item = new Widgets.ContextMenu.MenuItem (_ ("Delete"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (complete_item);
+        menu_box.append (copy_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (delete_item);
 
@@ -262,6 +295,30 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             }
 
             unselect_all ();
+        });
+
+        copy_item.clicked.connect (() => {
+            var text = new StringBuilder ();
+            foreach (string key in items_selected.keys) {
+                var item = items_selected[key].item;
+                text.append (item.to_clipboard_text ());
+                text.append ("\n\n");
+            }
+
+            Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+            clipboard.set_text (text.str);
+
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (
+                    GLib.ngettext (
+                        "%d task copied to clipboard",
+                        "%d tasks copied to clipboard",
+                        items_selected.size
+                    ).printf (items_selected.size)
+                )
+            );
+
+            popover.popdown ();
         });
 
         delete_item.clicked.connect (() => {
@@ -332,16 +389,11 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     }
 
     private void check_labels (Objects.Item item, bool active) {
-        if (active) {
-            foreach (Objects.Label label in item.get_labels_list ()) {
+        labels.clear ();
+        foreach (var entry in items_selected.entries) {
+            foreach (Objects.Label label in entry.value.item.get_labels_list ()) {
                 if (!labels.has_key (label.id)) {
                     labels[label.id] = label;
-                }
-            }
-        } else {
-            foreach (Objects.Label label in item.get_labels_list ()) {
-                if (labels.has_key (label.id)) {
-                    labels.unset (label.id);
                 }
             }
         }

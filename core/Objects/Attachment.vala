@@ -24,7 +24,7 @@ public class Objects.Attachment : GLib.Object {
     public string item_id { get; set; default = ""; }
     public string file_type { get; set; default = ""; }
     public string file_name { get; set; default = ""; }
-    public int64 file_size { get; set; default = 0; }
+    public string file_size { get; set; default = ""; }
     public string file_path { get; set; default = ""; }
 
     public signal void deleted ();
@@ -56,7 +56,7 @@ public class Objects.Attachment : GLib.Object {
             item_id,
             file_type,
             file_name,
-            file_size.to_string (),
+            file_size,
             file_path
         );
     }

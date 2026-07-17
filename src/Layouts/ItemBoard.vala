@@ -61,6 +61,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     private Gtk.Revealer select_revealer;
 
     public uint complete_timeout { get; set; default = 0; }
+    private bool _recurrency_reset = false;
 
     private bool _is_loading;
     public bool is_loading {
@@ -372,6 +373,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             checked_toggled (checked_button.active);
         })] = checked_button_gesture;
 
+        signals_map[checked_button.toggled.connect (() => {
+            if (!checked_button_gesture.is_active () && !_recurrency_reset) {
+                checked_toggled (checked_button.active);
+            }
+        })] = checked_button;
+
         var select_button_gesture = new Gtk.GestureClick ();
         select_checkbutton.add_controller (select_button_gesture);
         signals_map[select_button_gesture.pressed.connect (() => {
@@ -505,13 +512,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     private void update_next_recurrency () {
-        var promise = new Services.Promise<GLib.DateTime> ();
-
-        promise.resolved.connect ((result) => {
-            recurrency_update_complete (result);
+        item.update_next_recurrency.begin ((obj, res) => {
+            var next_recurrency = item.update_next_recurrency.end (res);
+            _recurrency_reset = false;
+            if (next_recurrency != null) {
+                recurrency_update_complete (next_recurrency);
+            }
         });
-
-        item.update_next_recurrency (promise);
     }
 
     private void open_detail () {
@@ -564,6 +571,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             complete_timeout = 0;
 
             if (item.due.is_recurring && !item.due.is_recurrency_end) {
+                _recurrency_reset = true;
                 update_next_recurrency ();
             } else {
                 var old_completed_at = item.completed_at;
@@ -601,12 +609,26 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
 
-        Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+        if (response.error_code != 412) {
+            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+        }
     }
-
+    
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
+        _recurrency_reset = true;
         checked_button.active = false;
+        _recurrency_reset = false;
         complete_timeout = 0;
+        card_widget.remove_css_class ("complete");
+        content_label.remove_css_class ("line-through");
+        content_label.remove_css_class ("dimmed");
+        update_due_label ();
+
+        due_label.add_css_class ("date-updated");
+        Timeout.add (1200, () => {
+            due_label.remove_css_class ("date-updated");
+            return GLib.Source.REMOVE;
+        });
 
         var title = _ ("Completed. Next occurrence: %s".printf (Utils.Datetime.get_default_date_format_from_date (next_recurrency)));
         var toast = Util.get_default ().create_toast (title, 3);
@@ -615,6 +637,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     public override void update_request () {
+        if (_recurrency_reset) {
+            return;
+        }
+
         if (complete_timeout <= 0) {
             Util.get_default ().set_widget_priority (item.priority, checked_button);
             checked_button.active = item.completed;
@@ -642,7 +668,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     private void verify_item_type () {
-        if (item.item_type == ItemType.TASK) {
+        bool is_task = item.item_type == ItemType.TASK && !item.content.has_prefix ("* ");
+
+        if (is_task) {
             checked_button_revealer.reveal_child = true;
             description_label.margin_start = 30;
             footer_box.margin_start = 30;
@@ -694,7 +722,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                     item.due.recurrency_type,
                     item.due.recurrency_interval,
                     item.due.recurrency_weeks,
-                    end_label
+                    end_label,
+                    item.due.recurrency_last_day_of_month
                 ).down ();
             }
 
@@ -820,13 +849,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         menu_handle_popover.popup ();
 
         move_item.activate_item.connect (() => {
-            Dialogs.ProjectPicker.ProjectPicker dialog;
-            if (item.project.is_inbox_project) {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-            } else {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
-            }
-
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
             dialog.project = item.project;
             dialog.present (Planify._instance.main_window);
 
@@ -1145,6 +1168,21 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
 
             Utils.TaskUtils.update_single_item_order (target_list, picked_widget, new_index);
+
+            // Update counters for source and target sections
+            if (old_section_id != picked_widget.item.section_id) {
+                var source_section = Services.Store.instance ().get_section (old_section_id);
+                if (source_section != null) {
+                    source_section.update_count ();
+                }
+                
+                var target_section = Services.Store.instance ().get_section (picked_widget.item.section_id);
+                if (target_section != null) {
+                    target_section.update_count ();
+                }
+            }
+
+            picked_widget.item.project.count_update ();
 
             return true;
         })] = drop_order_target;

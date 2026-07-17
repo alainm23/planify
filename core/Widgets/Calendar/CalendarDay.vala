@@ -20,11 +20,16 @@
  */
 
 public class Widgets.Calendar.CalendarDay : Adw.Bin {
+    private Gtk.Label day_label;
+    private Gtk.Label month_label;
+    private Gtk.Button button;
+    private ulong button_clicked_id = 0;
+
     int _day;
     public int day {
         set {
             _day = value;
-            button.label = _day.to_string ();
+            day_label.label = _day.to_string ();
             update_accessible_label ();
         }
         get {
@@ -43,8 +48,14 @@ public class Widgets.Calendar.CalendarDay : Adw.Bin {
         }
     }
 
-    private Gtk.Button button;
-    private ulong button_clicked_id = 0;
+    public bool show_month {
+        set {
+            month_label.visible = value;
+            if (value && _date != null) {
+                month_label.label = _date.format ("%b");
+            }
+        }
+    }
 
     public signal void day_selected ();
 
@@ -56,7 +67,22 @@ public class Widgets.Calendar.CalendarDay : Adw.Bin {
     }
 
     construct {
+        month_label = new Gtk.Label (null) {
+            css_classes = { "caption", "dimmed" },
+            visible = false
+        };
+
+        day_label = new Gtk.Label (null);
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            halign = CENTER,
+            valign = CENTER
+        };
+        box.append (month_label);
+        box.append (day_label);
+
         button = new Gtk.Button () {
+            child = box,
             css_classes = { "flat", "calendar-day" }
         };
 
@@ -66,6 +92,10 @@ public class Widgets.Calendar.CalendarDay : Adw.Bin {
             day_selected ();
             button.add_css_class ("selected");
         });
+    }
+
+    public void add_day_css_class (string css_class) {
+        day_label.add_css_class (css_class);
     }
 
     private void update_accessible_label () {

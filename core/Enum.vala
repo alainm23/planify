@@ -486,7 +486,9 @@ public enum ObjectEventKeyType {
     PINNED,
     CHECKED,
     PROJECT,
-    SECTION;
+    SECTION,
+    DEADLINE,
+    PARENT;
 
     public static ObjectEventKeyType parse (string value) {
         switch (value) {
@@ -517,6 +519,12 @@ public enum ObjectEventKeyType {
             case "section":
                 return ObjectEventKeyType.SECTION;
 
+            case "deadline":
+                return ObjectEventKeyType.DEADLINE;
+
+            case "parent":
+                return ObjectEventKeyType.PARENT;
+
             default:
                 assert_not_reached ();
         }
@@ -541,6 +549,12 @@ public enum ObjectEventKeyType {
 
             case ObjectEventKeyType.PINNED:
                 return _("Pin");
+
+            case ObjectEventKeyType.DEADLINE:
+                return _("Deadline");
+
+            case ObjectEventKeyType.PARENT:
+                return _("Parent task");
 
             default:
                 assert_not_reached ();
@@ -634,6 +648,7 @@ public enum SortedByType {
     NAME,
     DUE_DATE,
     ADDED_DATE,
+    UPDATED_DATE,
     PRIORITY;
 
     public string to_string () {
@@ -649,6 +664,9 @@ public enum SortedByType {
 
             case ADDED_DATE:
                 return "added-date";
+
+            case UPDATED_DATE:
+                return "updated-date";
 
             case PRIORITY:
                 return "priority";
@@ -671,6 +689,9 @@ public enum SortedByType {
 
             case "added-date":
                 return SortedByType.ADDED_DATE;
+
+            case "updated-date":
+                return SortedByType.UPDATED_DATE;
 
             case "priority":
                 return SortedByType.PRIORITY;
@@ -731,6 +752,56 @@ public enum Appearance {
 
             default:
                 return Appearance.LIGHT;
+        }
+    }
+}
+
+
+public enum SyncErrorType {
+    AUTH_EXPIRED,
+    SERVER_ERROR,
+    NETWORK_ERROR
+}
+
+public class SyncStatus : Object {
+    public SyncErrorType error_type { get; set; }
+    public string title { get; set; }
+    public string description { get; set; }
+
+    public SyncStatus (SyncErrorType error_type, string title, string description) {
+        Object (
+            error_type: error_type,
+            title: title,
+            description: description
+        );
+    }
+
+    public string tooltip {
+        owned get {
+            return "%s — %s".printf (title, description);
+        }
+    }
+}
+
+
+public enum MarkdownSetting {
+    GLOBAL_DEFAULT,
+    ENABLED,
+    DISABLED;
+
+    public string to_string () {
+        switch (this) {
+            case ENABLED: return "enabled";
+            case DISABLED: return "disabled";
+            default: return "global-default";
+        }
+    }
+
+    public static MarkdownSetting parse (string value) {
+        switch (value) {
+            case "enabled": return ENABLED;
+            case "disabled": return DISABLED;
+            default: return GLOBAL_DEFAULT;
         }
     }
 }

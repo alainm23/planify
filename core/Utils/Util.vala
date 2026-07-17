@@ -268,6 +268,20 @@ public class Util : GLib.Object {
         return returned;
     }
 
+    public string get_accent_color () {
+        if (Services.Settings.get_default ().settings.get_boolean ("use-system-accent")) {
+            if (Adw.StyleManager.get_default ().get_system_supports_accent_colors ()) {
+                var rgba = Adw.StyleManager.get_default ().get_accent_color_rgba ();
+                return "#%02x%02x%02x".printf (
+                    (uint) (rgba.red * 255),
+                    (uint) (rgba.green * 255),
+                    (uint) (rgba.blue * 255)
+                );
+            }
+        }
+        return Constants.DEFAULT_ACCENT_COLOR;
+    }
+
     public void update_theme () {
         Appearance appearance_mode = Appearance.parse (Services.Settings.get_default ().settings.get_enum ("appearance"));
         bool dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
@@ -278,12 +292,14 @@ public class Util : GLib.Object {
             dark_mode = color_scheme_settings.prefers_color_scheme == ColorSchemeSettings.Settings.ColorScheme.DARK;
         }
 
+        string accent_color = get_accent_color ();
+
         string window_bg_color = "";
         string popover_bg_color = "";
         string sidebar_bg_color = "";
         string item_border_color = "";
         string upcoming_bg_color = "";
-        string upcoming_fg_color = ""; 
+        string upcoming_fg_color = "";
         string selected_color = "";
         string card_bg_color = "";
 
@@ -298,7 +314,7 @@ public class Util : GLib.Object {
                 selected_color = "#2e3a46";
                 card_bg_color = "#222222";
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
-            } else if (appearance_mode == Appearance.DARK_BLUE) {
+            } else {
                 window_bg_color = "#0C0D12";
                 popover_bg_color = "#16171D";
                 sidebar_bg_color = "#14151a";
@@ -330,6 +346,8 @@ public class Util : GLib.Object {
             @define-color upcoming_fg_color %s;
             @define-color selected_color %s;
             @define-color card_bg_color %s;
+            @define-color accent_color %s;
+            @define-color accent_bg_color %s;
         """.printf (
             window_bg_color,
             popover_bg_color,
@@ -338,7 +356,9 @@ public class Util : GLib.Object {
             upcoming_bg_color,
             upcoming_fg_color,
             selected_color,
-            card_bg_color
+            card_bg_color,
+            accent_color,
+            accent_color
         );
 
         var provider = new Gtk.CssProvider ();
@@ -400,13 +420,15 @@ public class Util : GLib.Object {
         return str;
     }
 
-    private Gtk.MediaFile soud_medida = null;
+    private Gtk.MediaFile? _audio_media = null;
+
     public void play_audio () {
-        if (soud_medida == null) {
-            soud_medida = Gtk.MediaFile.for_resource ("/io/github/alainm23/planify/success.ogg");
-        }
-        
-        soud_medida.play ();
+        _audio_media = Gtk.MediaFile.for_resource ("/io/github/alainm23/planify/success.ogg");
+        _audio_media.loop = false;
+        _audio_media.notify["ended"].connect (() => {
+            _audio_media = null;
+        });
+        _audio_media.play ();
     }    
 
     public bool is_input_valid (Gtk.Entry entry) {
@@ -751,57 +773,6 @@ We hope you’ll enjoy using Planify!""");
         return result;
     }
 
-    /*
-    *   XML adn CakDAV Util
-    */
-
-
-    public static string find_string_value (string key, string data) {
-        if (key == null || data == null) {
-            return "";
-        }
-        
-        GLib.Regex? regex = null;
-        GLib.MatchInfo match;
-
-        try {
-            regex = new GLib.Regex ("%s:(.*)".printf (key));
-        } catch (GLib.RegexError e) {
-            critical (e.message);
-        }
-
-        if (regex == null) {
-            return "";
-        }
-
-        if (!regex.match (data.strip (), 0, out match)) {
-            return "";
-        }
-
-        return match.fetch_all ()[1];
-    }
-
-    public static bool find_boolean_value (string key, string data) {
-        GLib.Regex? regex = null;
-        GLib.MatchInfo match;
-
-        try {
-            regex = new GLib.Regex ("%s:(.*)".printf (key));
-        } catch (GLib.RegexError e) {
-            critical (e.message);
-        }
-
-        if (regex == null) {
-            return false;
-        }
-
-        if (!regex.match (data, 0, out match)) {
-            return false;
-        }
-
-        return bool.parse (match.fetch_all () [1]);
-    }
-
     public static string generate_extra_data (string ical_url, string etag, string data) {
         var builder = new Json.Builder ();
         builder.begin_object ();
@@ -898,14 +869,14 @@ We hope you’ll enjoy using Planify!""");
         item.loading = true;
         item.sensitive = false;
 
-        if (item.project.source_type == SourceType.LOCAL) {
+        if (new_item.project.source_type == SourceType.LOCAL) {
             new_item.id = Util.get_default ().generate_id (new_item);
 
             item.loading = false;
             item.sensitive = true;
 
             yield insert_duplicate_item (new_item, item, notify);
-        } else if (item.project.source_type == SourceType.TODOIST) {
+        } else if (new_item.project.source_type == SourceType.TODOIST) {
             HttpResponse response = yield Services.Todoist.get_default ().add (new_item);
             
             item.loading = false;
@@ -915,7 +886,7 @@ We hope you’ll enjoy using Planify!""");
                 new_item.id = response.data;
                 yield insert_duplicate_item (new_item, item, notify);
             }
-        } else if (item.project.source_type == SourceType.CALDAV) {
+        } else if (new_item.project.source_type == SourceType.CALDAV) {
             new_item.id = Util.get_default ().generate_id (new_item);
             var caldav_client = Services.CalDAV.Core.get_default ().get_client (new_item.project.source);
             HttpResponse response = yield caldav_client.add_item (new_item);
@@ -1190,6 +1161,10 @@ We hope you’ll enjoy using Planify!""");
             }
         } else if (sorted_by == SortedByType.ADDED_DATE) {
             result = item1.added_datetime.compare (item2.added_datetime);
+        } else if (sorted_by == SortedByType.UPDATED_DATE) {
+            var date1 = item1.updated_at != "" ? item1.updated_datetime : item1.added_datetime;
+            var date2 = item2.updated_at != "" ? item2.updated_datetime : item2.added_datetime;
+            result = date1.compare (date2);
         } else if (sorted_by == SortedByType.PRIORITY) {
             result = item2.priority - item1.priority;
             if (result == 0) {

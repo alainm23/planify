@@ -42,6 +42,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Label content_label;
     private Gtk.Revealer content_label_revealer;
     private Gtk.Revealer content_entry_revealer;
+    private Widgets.ContextMenu.MenuSwitch use_note_item;
     private Gtk.Box content_box;
 
     #if WITH_LIBSPELLING
@@ -216,6 +217,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     public uint destroy_timeout { get; set; default = 0; }
     public uint complete_timeout { get; set; default = 0; }
+    private bool _recurrency_reset = false;
     public bool drag_enabled { get; set; default = true; }
 
     public signal void item_added ();
@@ -764,6 +766,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             checked_toggled (checked_button.active);
         })] = checked_button_gesture;
 
+        signals_map[checked_button.toggled.connect (() => {
+            // Only handle keyboard activation (Enter) — click is handled by GestureClick
+            if (!checked_button_gesture.is_active () && !_recurrency_reset) {
+                checked_toggled (checked_button.active);
+            }
+        })] = checked_button;
+
         signals_map[hide_loading_button.clicked.connect (() => {
             Timeout.add (100, () => {
                 edit = false;
@@ -976,9 +985,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private void update_content_description () {
         if (item.content != content_textview.buffer.text) {
             item.content = content_textview.buffer.text;
+            item.item_type = item.content.has_prefix ("* ") ? ItemType.NOTE : ItemType.TASK;
             content_label.label = MarkdownProcessor.get_default ().markup_string (item.content);
             content_label.tooltip_text = item.content.strip ();
             content_label.update_property (Gtk.AccessibleProperty.LABEL, item.content, -1);
+            _verify_item_type ();
             item.update_async_timeout (update_id);
             return;
         }
@@ -991,6 +1002,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     public override void update_request () {
+        if (_recurrency_reset) {
+            return;
+        }
+
         if (complete_timeout <= 0) {
             Util.get_default ().set_widget_priority (item.priority, checked_button);
             checked_button.active = item.completed;
@@ -1085,7 +1100,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void _verify_item_type () {
-        if (item.item_type == ItemType.TASK) {
+        bool is_task = item.item_type == ItemType.TASK && !item.content.has_prefix ("* ");
+
+        if (is_task) {
             checked_button_revealer.reveal_child = true;
             action_box.margin_start = 16;
             content_box.margin_start = 6;
@@ -1098,7 +1115,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         if (markdown_editor != null) {
-            markdown_editor.margin_start = item.item_type == ItemType.TASK ? 24 : 0;
+            markdown_editor.margin_start = is_task ? 24 : 0;
+        }
+
+        if (use_note_item != null) {
+            use_note_item.active = !is_task;
         }
     }
 
@@ -1175,7 +1196,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     item.due.recurrency_type,
                     item.due.recurrency_interval,
                     item.due.recurrency_weeks,
-                    end_label
+                    end_label,
+                    item.due.recurrency_last_day_of_month
                 ).down ();
             }
 
@@ -1280,12 +1302,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             })] = no_date_item;
 
             signals_map[move_item.activate_item.connect (() => {
-                Dialogs.ProjectPicker.ProjectPicker dialog;
-                if (item.project.is_inbox_project) {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-                } else {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
-                }
+                var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
 
                 dialog.project = item.project;
 
@@ -1356,17 +1373,24 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private Gtk.Popover build_button_context_menu () {
-        var use_note_item = new Widgets.ContextMenu.MenuSwitch (_ ("Use as a Note"), "paper-symbolic");
+        use_note_item = new Widgets.ContextMenu.MenuSwitch (_ ("Use as a Note"), "paper-symbolic");
         use_note_item.active = item.item_type == ItemType.NOTE;
 
         var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_ ("Copy to Clipboard"), "clipboard-symbolic");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_ ("Duplicate"), "tabs-stack-symbolic");
         var move_item = new Widgets.ContextMenu.MenuItem (_ ("Move"), "arrow3-right-symbolic");
+        var export_ics_item = new Widgets.ContextMenu.MenuItem (_ ("Export as .ics"), "document-save-symbolic");
+        export_ics_item.visible = item.project.source_type == SourceType.CALDAV;
 
         var delete_item = new Widgets.ContextMenu.MenuItem (_ ("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var more_information_item = new Widgets.ContextMenu.MenuItem (_ ("Change History"), "rotation-edit-symbolic");
+        if (item.updated_at != "") {
+            more_information_item.subtitle = _("Updated: %s").printf (Utils.Datetime.get_relative_date_from_date (item.updated_datetime));
+        } else {
+            more_information_item.subtitle = _("Created: %s").printf (Utils.Datetime.get_relative_date_from_date (item.added_datetime));
+        }
 
         var popover = new Gtk.Popover () {
             has_arrow = false,
@@ -1382,6 +1406,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (copy_clipboard_item);
             menu_box.append (duplicate_item);
+            menu_box.append (export_ics_item);
             menu_box.append (move_item);
 
             signals_map[use_note_item.activate_item.connect (() => {
@@ -1397,14 +1422,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
             })] = duplicate_item;
 
-            signals_map[move_item.clicked.connect (() => {
-                Dialogs.ProjectPicker.ProjectPicker dialog;
+            signals_map[export_ics_item.clicked.connect (() => {
+                item.export_ics (Planify._instance.main_window);
+            })] = export_ics_item;
 
-                if (item.project.is_inbox_project) {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-                } else {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
-                }
+            signals_map[move_item.clicked.connect (() => {
+                var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
 
                 signals_map[dialog.changed.connect ((type, id) => {
                     if (type == "project") {
@@ -1486,6 +1509,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             complete_timeout = 0;
 
             if (item.due.is_recurring && !item.due.is_recurrency_end) {
+                _recurrency_reset = true;
                 update_next_recurrency ();
             } else {
                 var old_completed_at = item.completed_at;
@@ -1525,7 +1549,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
 
-        Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+        if (response.error_code != 412) {
+            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+        }
     }
 
     public void update_content (string content = "") {
@@ -1551,21 +1577,30 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void update_next_recurrency () {
-        var promise = new Services.Promise<GLib.DateTime> ();
-
-        signals_map[promise.resolved.connect ((result) => {
-            recurrency_update_complete (result);
-        })] = promise;
-
-        item.update_next_recurrency (promise);
+        item.update_next_recurrency.begin ((obj, res) => {
+            var next_recurrency = item.update_next_recurrency.end (res);
+            _recurrency_reset = false;
+            if (next_recurrency != null) {
+                recurrency_update_complete (next_recurrency);
+            }
+        });
     }
 
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
+        _recurrency_reset = true;
         checked_button.active = false;
+        _recurrency_reset = false;
         complete_timeout = 0;
         itemrow_box.remove_css_class ("complete");
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
+        check_due ();
+
+        due_label.add_css_class ("date-updated");
+        Timeout.add (1200, () => {
+            due_label.remove_css_class ("date-updated");
+            return GLib.Source.REMOVE;
+        });
 
         var title = _("Completed. Next occurrence: %s".printf (
                            Utils.Datetime.get_default_date_format_from_date (next_recurrency)
@@ -1782,6 +1817,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 }
             }
 
+            signals_map[dialog.closed.connect (() => {
+                motion_top_revealer.reveal_child = false;
+            })] = dialog;
             dialog.present (Planify._instance.main_window);
             return true;
         })] = drop_order_magic_button_target;
@@ -1936,7 +1974,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         markdown_editor = new Widgets.MarkdownEditor () {
-            placeholder_text = _("Description")
+            placeholder_text = _("Description"),
+            project = item.project
         };
 
         markdown_editor.text_view.height_request = 64;
@@ -1947,7 +1986,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         markdown_editor.is_editable = !item.completed && !item.project.is_deck;
 
         markdown_editor.set_text (item.description);
-        markdown_editor.text_view.update_property (Gtk.AccessibleProperty.LABEL, item.description, -1);
+        markdown_editor.text_view.update_property (Gtk.AccessibleProperty.LABEL, _("Task description"), -1);
+        markdown_editor.text_view.update_property (Gtk.AccessibleProperty.VALUE_TEXT, item.description, -1);
         markdown_revealer.child = markdown_editor;
         markdown_revealer.reveal_child = true;
 
@@ -2136,11 +2176,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private void destroy_markdown_signals () {
         foreach (var entry in markdown_handlerses.entries) {
             if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
-                try {
-                    entry.value.disconnect (entry.key);
-                } catch (Error e) {
-                    warning ("Error disconnecting markdown signal: %s", e.message);
-                }
+                entry.value.disconnect (entry.key);
             }
         }
 
@@ -2150,11 +2186,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public override void clean_up () {
         foreach (var entry in signals_map.entries) {
             if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
-                try {
-                    entry.value.disconnect (entry.key);
-                } catch (Error e) {
-                    warning ("Error disconnecting signal: %s", e.message);
-                }
+                entry.value.disconnect (entry.key);
             }
         }
         signals_map.clear ();

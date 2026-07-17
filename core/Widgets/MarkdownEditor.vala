@@ -58,9 +58,13 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     private bool updating_programmatically = false;
     
     public string placeholder_text {get; set; default = ""; }
+    public Objects.Project? project { get; set; default = null; }
     
     public bool text_mode {
         get {
+            if (project != null) {
+                return !project.is_markdown_enabled;
+            }
             return !Services.Settings.get_default ().settings.get_boolean ("enable-markdown-formatting");
         }
     }
@@ -92,6 +96,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
             wrap_mode = Gtk.WrapMode.WORD,
             accepts_tab = false
         };
+        text_view.update_property (Gtk.AccessibleProperty.LABEL, _("Task description"), -1);
         text_view.remove_css_class ("view");
         
         create_text_tags ();
@@ -1693,15 +1698,15 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     
     private string normalize_url (string url) {
         var trimmed_url = url.strip ();
-        
-        if (trimmed_url.contains ("://")) {
+
+        if (GLib.Uri.parse_scheme (trimmed_url) != null) {
             return trimmed_url;
         }
-        
+
         if (trimmed_url.contains (".") && !trimmed_url.contains (" ")) {
             return "https://" + trimmed_url;
         }
-        
+
         return trimmed_url;
     }
     

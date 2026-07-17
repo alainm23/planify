@@ -27,8 +27,9 @@ public class Objects.Source : Objects.BaseObject {
     public int child_order { get; set; default = 0; }
     public bool sync_server { get; set; default = false; }
     public string last_sync { get; set; default = ""; }
-    public Objects.SourceData data { get; set; }
+    public Objects.SourceData? data { get; set; }
     public string display_name { get; set; default = ""; }
+    public SyncStatus? sync_status { get; set; default = null; }
 
     Objects.SourceTodoistData _todoist_data;
     public Objects.SourceTodoistData todoist_data {
@@ -106,7 +107,7 @@ public class Objects.Source : Objects.BaseObject {
 
     public signal void sync_started ();
     public signal void sync_finished ();
-    public signal void sync_failed ();
+    public signal void sync_failed (SyncStatus? status = null);
 
     public Source.from_import_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
@@ -114,7 +115,7 @@ public class Objects.Source : Objects.BaseObject {
         added_at = node.get_object ().get_string_member ("added_at");
         updated_at = node.get_object ().get_string_member ("updated_at");
         is_visible = node.get_object ().get_boolean_member ("is_visible");
-        child_order = (int32) node.get_object ().get_int_member ("is_visible");
+        child_order = (int32) node.get_object ().get_int_member ("child_order");
         sync_server = node.get_object ().get_boolean_member ("sync_server");
         last_sync = node.get_object ().get_string_member ("last_sync");
         display_name = node.get_object ().get_string_member ("display_name");
@@ -126,24 +127,35 @@ public class Objects.Source : Objects.BaseObject {
         }
     }
 
-    public void run_server () {
+    public void run_server (bool skip_first_sync = false) {
         if (source_type == SourceType.LOCAL) {
             return;
         }
 
-        _run_server ();
+        Services.LogService.get_default ().info ("Source", "Starting sync server for source: %s".printf (display_name));
+
+        if (!skip_first_sync) {
+            _run_server ();
+        }
 
         server_timeout = Timeout.add_seconds (15 * 60, () => {
             if (sync_server) {
+                Services.LogService.get_default ().info ("Source", "Periodic sync for source: %s".printf (display_name));
                 _run_server ();
                 return true;
             }
 
-            return false; // Don't repeat timeout if sync server isn't active
+            Services.LogService.get_default ().info ("Source", "Sync server stopped for source: %s".printf (display_name));
+            return false;
         });
     }
 
     private void _run_server () {
+        if (!is_visible) {
+            Services.LogService.get_default ().info ("Source", "Skipping sync for disabled source: %s".printf (display_name));
+            return;
+        }
+
         if (source_type == SourceType.TODOIST) {
             Services.Todoist.get_default ().sync.begin (this);
         } else if (source_type == SourceType.CALDAV) {

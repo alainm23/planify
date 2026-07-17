@@ -29,6 +29,7 @@ public class Dialogs.Project : Adw.Dialog {
     private Adw.EntryRow name_entry;
     private Widgets.ColorPickerRow color_picker_row;
     private Widgets.LoadingButton submit_button;
+    private Widgets.ComboWrapRow markdown_row;
     private Gtk.Switch emoji_switch;
     private Gtk.Label emoji_label;
     private Gtk.Label source_selected_label;
@@ -226,11 +227,38 @@ public class Dialogs.Project : Adw.Dialog {
 
         submit_button.add_css_class ("suggested-action");
 
+        // Settings group (only for existing projects)
+        var markdown_model = new Gtk.StringList (null);
+        markdown_model.append (_("Global Default"));
+        markdown_model.append (_("Enabled"));
+        markdown_model.append (_("Disabled"));
+
+        markdown_row = new Widgets.ComboWrapRow ();
+        markdown_row.title = _("Markdown Formatting");
+        markdown_row.subtitle = _("Override the global markdown setting for this project");
+        markdown_row.model = markdown_model;
+        markdown_row.selected = (int) project.markdown_setting;
+
+        var settings_group = new Adw.PreferencesGroup () {
+            margin_top = 12,
+            margin_start = 12,
+            margin_end = 12
+        };
+        settings_group.title = _("Settings");
+        settings_group.add (markdown_row);
+
+        var settings_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = !is_creating,
+            child = settings_group
+        };
+
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (emoji_picker_button);
         content_box.append (name_group);
         content_box.append (source_revealer);
         content_box.append (color_box_revealer);
+        content_box.append (settings_revealer);
         content_box.append (submit_button);
 
         var content_clamp = new Adw.Clamp () {
@@ -389,6 +417,7 @@ public class Dialogs.Project : Adw.Dialog {
         project.icon_style = emoji_switch.active ? ProjectIconStyle.EMOJI : ProjectIconStyle.PROGRESS;
         project.emoji = emoji_label.label;
         project.description = description_textview.get_text ();
+        project.markdown_setting = (MarkdownSetting) markdown_row.selected;
 
         submit_button.is_loading = true;
 

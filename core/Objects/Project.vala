@@ -39,6 +39,17 @@ public class Objects.Project : Objects.BaseObject {
     public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
     public string calendar_url { get; set; default = ""; }
     public string calendar_source_uid { get; set; default = ""; }
+    public MarkdownSetting markdown_setting { get; set; default = MarkdownSetting.GLOBAL_DEFAULT; }
+
+    public bool is_markdown_enabled {
+        get {
+            switch (markdown_setting) {
+                case MarkdownSetting.ENABLED: return true;
+                case MarkdownSetting.DISABLED: return false;
+                default: return Services.Settings.get_default ().settings.get_boolean ("enable-markdown-formatting");
+            }
+        }
+    }
 
     bool _show_completed = false;
     public bool show_completed {
@@ -95,7 +106,7 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     Objects.Source ? _source;
-    public Objects.Source source {
+    public new Objects.Source source {
         get {
             _source = Services.Store.instance ().get_source (source_id);
             return _source;
@@ -113,7 +124,7 @@ public class Objects.Project : Objects.BaseObject {
     public int child_order { get; set; default = 0; }
 
     string _view_id;
-    public string view_id {
+    public new string view_id {
         get {
             _view_id = "project-%s".printf (id_string);
             return _view_id;
@@ -366,6 +377,10 @@ public class Objects.Project : Objects.BaseObject {
         if (node.get_object ().has_member ("calendar_url")) {
             calendar_url = node.get_object ().get_string_member ("calendar_url");
         }
+
+        if (node.get_object ().has_member ("markdown_setting")) {
+            markdown_setting = MarkdownSetting.parse (node.get_object ().get_string_member ("markdown_setting"));
+        }
     }
 
     public void update_from_json (Json.Node node) {
@@ -534,10 +549,17 @@ public class Objects.Project : Objects.BaseObject {
     public void add_items_batched (Gee.ArrayList<Objects.Item> items) {
         var related_items = new Gee.ArrayList<Objects.Item> ();
 
+        var batch_map = new Gee.HashMap<string, Objects.Item> ();
         foreach (var item in items) {
-            string ? parent_id = Util.find_string_value ("RELATED-TO", item.calendar_data);
-            if (parent_id != null && parent_id != "") {
-                Objects.Item ? parent_item = Services.Store.instance ().get_item (parent_id);
+            batch_map[item.id] = item;
+        }
+
+        foreach (var item in items) {
+            if (item.parent_id != "") {
+                Objects.Item? parent_item = Services.Store.instance ().get_item (item.parent_id);
+                if (parent_item == null) {
+                    parent_item = batch_map.has_key (item.parent_id) ? batch_map[item.parent_id] : null;
+                }
                 if (parent_item != null) {
                     parent_item.add_item_if_not_exists (item);
                     related_items.add (item);

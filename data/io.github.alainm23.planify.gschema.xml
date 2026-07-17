@@ -257,12 +257,6 @@
             <description>Display the number of pending tasks next to each project and view in the sidebar for quick overview</description>
         </key>
 
-        <key name="show-support-banner" type="b">
-            <default>true</default>
-            <summary>Show support banner</summary>
-            <description>Display the support banner encouraging donations or contributions</description>
-        </key>
-
         <key name="always-show-completed-subtasks" type="b">
             <default>false</default>
             <summary>Always Show Completed Sub-Tasks</summary>
@@ -329,6 +323,12 @@
             <description>Configure when automatic reminders are triggered - at due time, before due time, or custom intervals</description>
         </key>
 
+        <key name="use-system-accent" type="b">
+            <default>true</default>
+            <summary>Use system accent color</summary>
+            <description>Use the system-wide accent color instead of the default blue accent color</description>
+        </key>
+
         <key name="font-scale" type="d">
             <default>1</default>
             <summary>Font scale</summary>
@@ -357,6 +357,36 @@
             <default>false</default>
             <summary>Keep task properties when adding multiple tasks</summary>
             <description>When "Keep adding" is enabled, preserve date, labels, and pinned status for the next task</description>
+        </key>
+
+        <key name="daily-task-goal" type="i">
+            <default>0</default>
+            <summary>Daily task completion goal</summary>
+            <description>Number of tasks the user aims to complete each day. 0 means not configured.</description>
+        </key>
+
+        <key name="weekly-task-goal" type="i">
+            <default>0</default>
+            <summary>Weekly task completion goal</summary>
+            <description>Number of tasks the user aims to complete each week. 0 means not configured.</description>
+        </key>
+
+        <key name="backup-automatic" type="b">
+            <default>true</default>
+            <summary>Automatic daily backup</summary>
+            <description>Automatically create a backup every day at midnight</description>
+        </key>
+
+        <key name="backup-extra-folders" type="as">
+            <default>[]</default>
+            <summary>Extra backup folders</summary>
+            <description>Additional folders where backup copies are saved after each backup</description>
+        </key>
+
+        <key name="backup-last-date" type="s">
+            <default>""</default>
+            <summary>Last automatic backup date</summary>
+            <description>ISO date of the last automatic backup, used to detect missed backups on startup</description>
         </key>
     </schema>
 </schemalist>

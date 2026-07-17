@@ -22,6 +22,8 @@
 public class MainWindow : Adw.ApplicationWindow {
     public weak Planify app { get; construct; }
 
+    private bool _did_startup_sync = false;
+
     private Layouts.Sidebar sidebar;
     private Adw.ViewStack views_stack;
     private Adw.OverlaySplitView overlay_split_view;
@@ -123,7 +125,7 @@ public class MainWindow : Adw.ApplicationWindow {
             min_sidebar_width = 360,
             content = views_stack,
             sidebar = item_sidebar_view,
-            show_sidebar = false
+            show_sidebar = Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")
         };
 
         toast_overlay = new Adw.ToastOverlay () {
@@ -183,6 +185,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
             Services.Notification.get_default ();
             Services.TimeMonitor.get_default ().init_timeout ();
+            Services.BackupManager.get_default ().init_auto_backup ();
 
             go_homepage ();
 
@@ -209,23 +212,18 @@ public class MainWindow : Adw.ApplicationWindow {
                 foreach (Objects.Source source in Services.Store.instance ().sources) {
                     source.run_server ();
                 }
-                did_startup_sync = true;
+                _did_startup_sync = true;
 
                 return GLib.Source.REMOVE;
             });
 
-            // TODO: network_changed is sometimes called very rapidly, so we should debounce it ...
-            var network_monitor = GLib.NetworkMonitor.get_default ();
-            network_monitor.network_changed.connect (() => {
-                if (did_startup_sync == false) {
-                    debug ("Ignoring early network change due to bug 1690\n");
-                    return;
-                }
-                debug ("Network has changed, starting sync\n");
-                foreach (Objects.Source source in Services.Store.instance ().sources) {
-                    source.run_server ();
+            Services.Store.instance ().source_added.connect ((source) => {
+                if (source.sync_server) {
+                    source.run_server (true);
                 }
             });
+
+            setup_network_monitor ();
             
 #if WITH_EVOLUTION
             Services.Store.instance ().setup_calendar_events ();
@@ -241,6 +239,10 @@ public class MainWindow : Adw.ApplicationWindow {
                 );
                 Util.get_default ().update_theme ();
             }
+        });
+
+        Adw.StyleManager.get_default ().notify["accent-color"].connect (() => {
+            Util.get_default ().update_theme ();
         });
 
         Services.Settings.get_default ().settings.changed["system-appearance"].connect (() => {
@@ -330,6 +332,21 @@ public class MainWindow : Adw.ApplicationWindow {
         });
 
         Services.EventBus.get_default ().send_error_toast.connect (send_toast_error);
+
+        Services.EventBus.get_default ().send_conflict_toast.connect ((source) => {
+            var toast = new Adw.Toast (_("Task was modified on another device")) {
+                timeout = 5,
+                button_label = _("Sync Now")
+            };
+            toast.button_clicked.connect (() => {
+                if (source.source_type == SourceType.TODOIST) {
+                    Services.Todoist.get_default ().sync.begin (source);
+                } else if (source.source_type == SourceType.CALDAV) {
+                    Services.CalDAV.Core.get_default ().sync.begin (source);
+                }
+            });
+            toast_overlay.add_toast (toast);
+        });
 
         Services.EventBus.get_default ().send_task_completed_toast.connect (show_task_completed_toast);
 
@@ -729,6 +746,8 @@ public class MainWindow : Adw.ApplicationWindow {
         var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
         preferences_item.secondary_text = "Ctrl+,";
 
+        var productivity_item = new Widgets.ContextMenu.MenuItem (Markup.escape_text (_("Summary & Productivity")));
+
         var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
         keyboard_shortcuts_item.secondary_text = "F1";
 
@@ -741,6 +760,8 @@ public class MainWindow : Adw.ApplicationWindow {
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (preferences_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (productivity_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (archive_item);
         menu_box.append (archive_separator);
         menu_box.append (keyboard_shortcuts_item);
@@ -752,6 +773,12 @@ public class MainWindow : Adw.ApplicationWindow {
             width_request = 250,
             position = Gtk.PositionType.BOTTOM
         };
+
+        productivity_item.clicked.connect (() => {
+            popover.popdown ();
+            var dialog = new Dialogs.ProductivityReport.ProductivityReportDialog ();
+            dialog.present (Planify._instance.main_window);
+        });
 
         preferences_item.clicked.connect (() => {
             open_preferences_window ();
@@ -778,7 +805,7 @@ public class MainWindow : Adw.ApplicationWindow {
             var shortcuts_builder = new Gtk.Builder ();
             shortcuts_builder.add_from_resource ("/io/github/alainm23/planify/shortcuts.ui");
             
-            var shortcuts_window = (Gtk.ShortcutsWindow) shortcuts_builder.get_object ("shortcuts-planify");
+            var shortcuts_window = (Gtk.ShortcutsWindow) shortcuts_builder.get_object ("shortcuts-planify"); // vala-lint=deprecated
             shortcuts_window.set_transient_for (this);
             shortcuts_window.show ();
         } catch (Error e) {
@@ -882,6 +909,43 @@ public class MainWindow : Adw.ApplicationWindow {
         });
 
         return toolbar_view;
+    }
+
+    private void setup_network_monitor () {
+        uint network_timeout_id = 0;
+        var network_monitor = GLib.NetworkMonitor.get_default ();
+        network_monitor.network_changed.connect (() => {
+            bool available = network_monitor.get_network_available ();
+            Services.LogService.get_default ().info ("NetworkMonitor", "Network changed — available: %s".printf (available.to_string ()));
+
+            if (_did_startup_sync == false) {
+                Services.LogService.get_default ().debug ("NetworkMonitor", "Ignoring early network change (startup sync not done yet)");
+                return;
+            }
+
+            if (!available) {
+                Services.LogService.get_default ().info ("NetworkMonitor", "Network unavailable, skipping sync");
+                if (network_timeout_id != 0) {
+                    GLib.Source.remove (network_timeout_id);
+                    network_timeout_id = 0;
+                }
+                return;
+            }
+
+            if (network_timeout_id != 0) {
+                GLib.Source.remove (network_timeout_id);
+            }
+
+            network_timeout_id = Timeout.add_seconds (3, () => {
+                network_timeout_id = 0;
+                Services.LogService.get_default ().info ("NetworkMonitor", "Network stable, triggering sync for all sources");
+                foreach (Objects.Source source in Services.Store.instance ().sources) {
+                    Services.LogService.get_default ().debug ("NetworkMonitor", "Triggering sync for source: %s".printf (source.display_name));
+                    source.run_server ();
+                }
+                return GLib.Source.REMOVE;
+            });
+        });
     }
 
     private void cleanup_unused_views () {

@@ -24,6 +24,7 @@ public class Views.List : Adw.Bin {
 
     private Widgets.IconColorProject icon_project;
     private Gtk.Label title_label;
+    private Widgets.EditableTextView description_widget;
     private Gtk.Image due_image;
     private Gtk.Label due_label;
     private Gtk.Label days_left_label;
@@ -79,7 +80,7 @@ public class Views.List : Adw.Bin {
         title_box.append (icon_project);
         title_box.append (title_label);
 
-        var description_widget = new Widgets.EditableTextView (_("Note")) {
+        description_widget = new Widgets.EditableTextView (_("Note")) {
             text = project.description,
             margin_top = 12,
             margin_start = 32,
@@ -132,7 +133,7 @@ public class Views.List : Adw.Bin {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             vexpand = true,
-            valign = Gtk.Align.BASELINE,
+            valign = Gtk.Align.BASELINE_FILL,
             margin_bottom = 24
         };
 
@@ -217,12 +218,7 @@ public class Views.List : Adw.Bin {
 
         listbox.set_filter_func ((child) => {
             Layouts.SectionRow item = ((Layouts.SectionRow) child);
-
-            if (item.is_inbox_section) {
-                return !project.inbox_section_hidded;
-            }
-
-            return !item.section.hidded;
+            return !item.section.was_archived ();
         });
 
         signal_map[description_widget.changed.connect (() => {
@@ -326,6 +322,7 @@ public class Views.List : Adw.Bin {
     public void update_request () {
         icon_project.update_request ();
         title_label.label = project.is_inbox_project ? _("Inbox") : project.name;
+        description_widget.text = project.description;
         update_duedate ();
     }
 

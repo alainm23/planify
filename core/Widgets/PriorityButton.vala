@@ -206,6 +206,8 @@ public class Widgets.PriorityButton : Adw.Bin {
 
     public void reset () {
         priority_image.icon_name = "flag-outline-thick-symbolic";
+        priority_image.css_classes = {};
+        Util.get_default ().set_widget_color (((ItemPriority) Constants.PRIORITY_4).get_color (), button);
     }
 
     public void animation () {

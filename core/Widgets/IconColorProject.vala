@@ -26,7 +26,6 @@ public class Widgets.IconColorProject : Adw.Bin {
     private Widgets.CircularProgressBar circular_progress_bar;
     public Gtk.Image inbox_icon;
     private Gtk.Label emoji_label;
-    private Gtk.Stack color_emoji_stack;
     private Gtk.Stack stack;
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();

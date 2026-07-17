@@ -185,7 +185,7 @@ public class Widgets.Attachments : Adw.Bin {
                 if (file_content_type != null) {
                     file_content_type = file_content_type.down ();
 
-                    attachment.file_size = file_info.get_size ();
+                    attachment.file_size = file_info.get_size ().to_string ();
                     attachment.file_type = file_content_type;
                     attachment.file_name = file.get_basename ();
                     attachment.file_path = file.get_uri ();

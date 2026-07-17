@@ -27,7 +27,7 @@ public class Objects.Label : Objects.BaseObject {
     public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
 
     Objects.Source ? _source;
-    public Objects.Source source {
+    public new Objects.Source source {
         get {
             _source = Services.Store.instance ().get_source (source_id);
             return _source;

@@ -1,0 +1,94 @@
+name: Bug Report
+description: Report a bug to help us improve Planify
+labels: ["Type: Bug"]
+body:
+  - type: checkboxes
+    id: existing-issues
+    attributes:
+      label: Prerequisites
+      options:
+        - label: I have searched the [existing issues](https://github.com/alainm23/planify/issues) and this bug has not been reported yet
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      placeholder: A clear and concise description of what the bug is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: installation
+    attributes:
+      label: Installation method
+      options:
+        - Flatpak (Flathub)
+        - Built from source
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Planify version
+      placeholder: "e.g. 4.18.3"
+    validations:
+      required: true
+
+  - type: input
+    id: desktop
+    attributes:
+      label: Desktop environment
+      placeholder: "e.g. GNOME 47, KDE Plasma 6"
+    validations:
+      required: true
+
+  - type: input
+    id: distro
+    attributes:
+      label: Linux distribution
+      placeholder: "e.g. Fedora 41, Ubuntu 24.04"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: sync
+    attributes:
+      label: Sync provider (if relevant)
+      options:
+        - None (local only)
+        - Todoist
+        - Nextcloud (CalDAV)
+        - Other CalDAV
+        - Not relevant
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or logs
+      description: If applicable, add screenshots or paste relevant logs from `journalctl --user -t planify`
+    validations:
+      required: false

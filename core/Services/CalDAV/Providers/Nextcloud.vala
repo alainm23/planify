@@ -30,6 +30,7 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
     }
 
     private string validate_server_url (string url) {
+        Services.LogService.get_default ().info ("Nextcloud", "Validating server URL");
         string server_url = "";
 
         try {
@@ -47,13 +48,14 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
 
             server_url += path;
         } catch (Error e) {
-            debug (e.message);
+            Services.LogService.get_default ().error ("Nextcloud", "Failed to validate server URL: %s".printf (e.message));
         }
 
         return server_url;
     }
 
     public async HttpResponse start_login_flow (string server_url, GLib.Cancellable cancellable, bool ignore_ssl = false) {
+        Services.LogService.get_default ().info ("Nextcloud", "Starting login flow");
         HttpResponse response = new HttpResponse ();
 
         string login_url = "%s/index.php/login/v2".printf (validate_server_url (server_url));
@@ -82,6 +84,8 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
 
             AppInfo.launch_default_for_uri (login_link, null);
 
+            Services.LogService.get_default ().info ("Nextcloud", "Login page opened in browser, waiting for authentication");
+
             int timeout = 20 * 60;
             int interval = 5;
 
@@ -105,14 +109,17 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
                         var poll_object = poll_root.get_object ();
 
                         if (poll_object.has_member ("loginName")) {
+                            Services.LogService.get_default ().info ("Nextcloud", "Authentication successful, resolving CalDAV endpoint");
 
                             var server = poll_object.get_string_member ("server");
                             var login_name = poll_object.get_string_member ("loginName");
                             var app_password = poll_object.get_string_member ("appPassword");
 
                             var dav_endpoint = yield Core.get_default ().resolve_well_known_caldav (session, server);
+                            Services.LogService.get_default ().info ("Nextcloud", "Resolved well-known CalDAV endpoint");
 
                             var calendar_home = yield Core.get_default ().resolve_calendar_home (CalDAVType.NEXTCLOUD, dav_endpoint, login_name, app_password, cancellable, ignore_ssl);
+                            Services.LogService.get_default ().info ("Nextcloud", "Resolved calendar home");
                             
                             var login_response = yield Core.get_default ().login (CalDAVType.NEXTCLOUD, dav_endpoint, login_name, app_password, calendar_home, cancellable, ignore_ssl);
 
@@ -120,6 +127,7 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
                         }
                     }
                 } catch (Error err) {
+                    Services.LogService.get_default ().error ("Nextcloud", "Polling error: %s".printf (err.message));
                     response.error_code = err.code;
                     response.error = "Polling error: %s".printf (err.message);
                     break;
@@ -130,6 +138,7 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
                 timeout -= interval;
             }
         } catch (Error e) {
+            Services.LogService.get_default ().error ("Nextcloud", "Login flow error: %s".printf (e.message));
             response.error_code = e.code;
             response.error = "login error: %s".printf (e.message);
         }

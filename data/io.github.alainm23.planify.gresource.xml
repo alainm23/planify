@@ -119,6 +119,8 @@
     <file alias="people-symbolic.svg">resources/icons/people-symbolic.svg</file>
     <file alias="delay-long-small-symbolic.svg">resources/icons/delay-long-small-symbolic.svg</file>
     <file alias="tab-new-symbolic.svg">resources/icons/tab-new-symbolic.svg</file>
+    <file alias="key4-symbolic.svg">resources/icons/key4-symbolic.svg</file>
+    <file alias="four-arrows-pointing-outward-symbolic.svg">resources/icons/four-arrows-pointing-outward-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
@@ -212,6 +214,8 @@
     <file alias="people-symbolic.svg">resources/icons/people-symbolic.svg</file>
     <file alias="delay-long-small-symbolic.svg">resources/icons/delay-long-small-symbolic.svg</file>
     <file alias="tab-new-symbolic.svg">resources/icons/tab-new-symbolic.svg</file>
+    <file alias="key4-symbolic.svg">resources/icons/key4-symbolic.svg</file>
+    <file alias="four-arrows-pointing-outward-symbolic.svg">resources/icons/four-arrows-pointing-outward-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
@@ -305,5 +309,7 @@
     <file alias="people-symbolic.svg">resources/icons/people-symbolic.svg</file>
     <file alias="delay-long-small-symbolic.svg">resources/icons/delay-long-small-symbolic.svg</file>
     <file alias="tab-new-symbolic.svg">resources/icons/tab-new-symbolic.svg</file>
+    <file alias="key4-symbolic.svg">resources/icons/key4-symbolic.svg</file>
+    <file alias="four-arrows-pointing-outward-symbolic.svg">resources/icons/four-arrows-pointing-outward-symbolic.svg</file>
   </gresource>
 </gresources>

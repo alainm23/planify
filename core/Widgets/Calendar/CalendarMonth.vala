@@ -25,6 +25,8 @@ public class Widgets.Calendar.CalendarMonth : Gtk.Box {
     private Gee.ArrayList<Widgets.Calendar.CalendarDay> days_arraylist;
     private Widgets.ContextMenu.MenuItem date_item;
 
+    private const int TOTAL_DAYS = 21; // 3 weeks
+
     private GLib.DateTime _current_date;
     public GLib.DateTime current_date {
         get {
@@ -118,38 +120,35 @@ public class Widgets.Calendar.CalendarMonth : Gtk.Box {
         days_arraylist.clear ();
 
         var today = current_date;
-        int current_day = today.get_day_of_month ();
-        int max_days = Utils.Datetime.get_days_of_month (today.get_month (), today.get_year ());
-        
         int start_week = Services.Settings.get_default ().settings.get_enum ("start-week");
-        int day_of_week = today.get_day_of_week () - start_week;
-        if (day_of_week < 0) {
-            day_of_week += 7;
-        }
-        day_of_week = (day_of_week + 7) % 7;
 
-        int col = day_of_week;
+        // Calculate starting column for today
+        // get_day_of_week(): 1=Monday...7=Sunday
+        // start_week: 0=Sunday, 1=Monday...6=Saturday
+        int today_dow = today.get_day_of_week () % 7; // Sunday=0, Monday=1...Saturday=6
+        int col = (today_dow - start_week + 7) % 7;
         int row = 0;
 
-        for (int day = current_day; day <= max_days; day++) {
-            var calendar_day = new Widgets.Calendar.CalendarDay ();
-            var day_datetime = new DateTime.local (
-                today.get_year (),
-                today.get_month (),
-                day,
-                0, 0, 0
-            );
+        for (int i = 0; i < TOTAL_DAYS; i++) {
+            var day_datetime = today.add_days (i);
 
-            calendar_day.day = day;
+            var calendar_day = new Widgets.Calendar.CalendarDay ();
+            calendar_day.day = day_datetime.get_day_of_month ();
             calendar_day.date = day_datetime;
             calendar_day.tooltip_text = Utils.Datetime.get_relative_date_from_date (day_datetime);
 
-            if (day_datetime.compare (current_date) == 0) {
+            if (i == 0) {
                 calendar_day.child.add_css_class ("today");
             }
 
+            // Show short month name on first day of next month
+            if (day_datetime.get_day_of_month () == 1 && day_datetime.get_month () != today.get_month ()) {
+                calendar_day.show_month = true;
+                calendar_day.add_day_css_class ("caption");
+            }
+
             signals_map[calendar_day.day_selected.connect (() => {
-                day_selected_style (calendar_day.day, day_datetime);
+                day_selected_style (calendar_day);
             })] = calendar_day;
 
             days_grid.attach (calendar_day, col, row, 1, 1);
@@ -163,37 +162,30 @@ public class Widgets.Calendar.CalendarMonth : Gtk.Box {
         }
     }
 
-    private void day_selected_style (int day, GLib.DateTime date) {
-        _date = date;
+    private void day_selected_style (Widgets.Calendar.CalendarDay selected_day) {
+        _date = selected_day.date;
         day_selected ();
 
         foreach (var day_item in days_arraylist) {
             day_item.child.remove_css_class ("selected");
         }
-        
-        foreach (var day_item in days_arraylist) {
-            if (day_item.day == day) {
-                day_item.child.add_css_class ("selected");
-                break;
-            }
-        }
+
+        selected_day.child.add_css_class ("selected");
     }
 
     private void select_date (GLib.DateTime date) {
         var today = current_date;
-        bool is_in_range = false;
-        
-        if (date.get_year () == today.get_year () && date.get_month () == today.get_month ()) {
-            if (date.get_day_of_month () >= today.get_day_of_month ()) {
-                is_in_range = true;
-            }
-        }
+        var max_date = today.add_days (TOTAL_DAYS - 1);
+
+        bool is_in_range = date.compare (today) >= 0 && date.compare (max_date) <= 0;
 
         if (is_in_range) {
             date_item.title = _("Choose a date");
             foreach (var day_item in days_arraylist) {
                 day_item.child.remove_css_class ("selected");
-                if (day_item.day == date.get_day_of_month ()) {
+                if (day_item.date.get_year () == date.get_year () &&
+                    day_item.date.get_month () == date.get_month () &&
+                    day_item.date.get_day_of_month () == date.get_day_of_month ()) {
                     day_item.child.add_css_class ("selected");
                 }
             }

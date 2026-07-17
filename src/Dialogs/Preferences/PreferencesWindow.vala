@@ -22,7 +22,6 @@
 public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
     public Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
     private Gee.HashMap<string, Dialogs.Preferences.Pages.BasePage> page_map = new Gee.HashMap<string, Dialogs.Preferences.Pages.BasePage> ();
-    private Adw.PreferencesGroup banner_group;
     private Gtk.ShortcutController shortcut_controller;
 
     public PreferencesWindow () {
@@ -41,64 +40,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         page.title = _("Preferences");
         page.name = "preferences";
         page.icon_name = "applications-system-symbolic";
-
-        var banner_title = new Gtk.Label (_("Donate")) {
-            halign = START,
-            css_classes = { "font-bold", "banner-text" }
-        };
-
-        var banner_description =
-            new Gtk.Label (_(
-                               "Planify is being developed with love and passion for open source. However, if you like Planify and want to support its development, please consider supporting us.")) {
-            halign = START,
-            xalign = 0,
-            yalign = 0,
-            wrap = true,
-            css_classes = { "caption", "banner-text" }
-        };
-
-        var banner_button = new Gtk.Button.with_label (_("Donate Now")) {
-            halign = START,
-            margin_top = 6,
-            css_classes = { "banner-text" }
-        };
-
-        var close_button = new Gtk.Button.from_icon_name ("window-close-symbolic") {
-            css_classes = { "border-radius-50", "banner-text" },
-            valign = START,
-            halign = END
-        };
-
-        var banner_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            valign = START,
-            halign = START
-        };
-
-        banner_box.append (banner_title);
-        banner_box.append (banner_description);
-        banner_box.append (banner_button);
-
-        var banner_overlay = new Gtk.Overlay () {
-            css_classes = { "banner", "card" },
-        };
-        banner_overlay.child = banner_box;
-        banner_overlay.add_overlay (close_button);
-
-        banner_group = new Adw.PreferencesGroup ();
-        banner_group.add (banner_overlay);
-
-        Services.Settings.get_default ().settings.bind ("show-support-banner", banner_group, "visible",
-                                                        GLib.SettingsBindFlags.DEFAULT);
-
-        signal_map[banner_button.clicked.connect (() => {
-            push_subpage (build_page ("donate"));
-        })] = banner_button;
-
-        signal_map[close_button.clicked.connect (() => {
-            Services.Settings.get_default ().settings.set_boolean ("show-support-banner", false);
-        })] = close_button;
-
-        page.add (banner_group);
 
         // Accounts
         var accounts_row = new Adw.ActionRow ();

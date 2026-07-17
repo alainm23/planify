@@ -23,7 +23,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     private Widgets.DateTimePicker.TimePicker time_picker;
     private Widgets.Calendar.CalendarMonth calendar_view;
     private Widgets.Calendar.CalendarScroll calendar_scroll_view;
-    private Widgets.ContextMenu.MenuItem repeat_item;
     private NoDateButton no_date_button;
     private OptionButton time_option_button;
     private OptionButton repeat_option_button;
@@ -98,7 +97,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                     _duedate.recurrency_type,
                     _duedate.recurrency_interval,
                     _duedate.recurrency_weeks,
-                    end_label
+                    end_label,
+                    _duedate.recurrency_last_day_of_month
                 ).down ();
                 has_recurrency = true;
             } else {
@@ -136,7 +136,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    private Chrono.Chrono chrono;
+    private Chrono.Core chrono;
     private uint search_timeout_id = 0;
 
     public DateTimePicker () {
@@ -152,7 +152,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     construct {
-        chrono = new Chrono.Chrono ();
+        chrono = new Chrono.Core ();
         active_revealers = new Gee.ArrayList<Gtk.Revealer> ();
 
         Objects.DueDate ? last_parsed_duedate = null;
@@ -160,6 +160,24 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         var search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Type a date…")
         };
+
+        var suggested_date_box = new Adw.WrapBox () {
+            child_spacing = 6,
+            line_spacing = 6,
+            margin_bottom = 6
+        };
+
+        show.connect (() => {
+            while (suggested_date_box.get_first_child () != null) {
+                suggested_date_box.remove (suggested_date_box.get_first_child ());
+            }
+            add_default_suggestions (suggested_date_box);
+
+            Timeout.add (100, () => {
+                search_entry.grab_focus ();
+                return GLib.Source.REMOVE;
+            });
+        });
 
         var search_key_controller = new Gtk.EventControllerKey ();
         search_entry.add_controller (search_key_controller);
@@ -172,13 +190,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             return false;
         });
 
-        var suggested_date_box = new Adw.WrapBox () {
-            child_spacing = 6,
-            line_spacing = 6,
-            margin_top = 9,
-            margin_bottom = 6
-        };
-
         calendar_view = new Widgets.Calendar.CalendarMonth ();
 
         time_option_button = new OptionButton ("clock-symbolic", _("Time"));
@@ -188,10 +199,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 9,
             margin_end = 9,
-            margin_top = 9,
             margin_bottom = 9
         };
-        content_box.append (search_entry);
         content_box.append (suggested_date_box);
         content_box.append (new Widgets.ContextMenu.MenuSeparator ());
         content_box.append (calendar_view);
@@ -201,13 +210,24 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         var popover_scrolled = new Gtk.ScrolledWindow () {
             child = content_box,
-            vscrollbar_policy = NEVER,
-            hscrollbar_policy = NEVER
+            vscrollbar_policy = AUTOMATIC,
+            hscrollbar_policy = NEVER,
+            propagate_natural_height = true,
+            max_content_height = 425
         };
+
+        var search_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_start = 9,
+            margin_end = 9,
+            margin_top = 9,
+            margin_bottom = 9
+        };
+        search_box.append (search_entry);
 
         var toolbar_view = new Adw.ToolbarView () {
             content = popover_scrolled
         };
+        toolbar_view.add_top_bar (search_box);
 
         dimming_widget = new Adw.Bin () {
             visible = false
@@ -233,7 +253,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         child = main_stack;
         add_css_class ("popover-contents");
-        add_default_suggestions (suggested_date_box);
 
         time_option_button.clicked.connect (() => {
             show_revealer (time_option_revealer);
@@ -252,10 +271,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         repeat_option_button.clear_clicked.connect (() => {
             apply_recurrency (RecurrencyType.NONE, 0, null, false);
-        });
-
-        repeat_item.clicked.connect (() => {
-            show_revealer (repeat_option_revealer);
         });
 
         closed.connect (() => {
@@ -342,7 +357,10 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         calendar_view.choose_date_clicked.connect (() => {
             main_stack.visible_child_name = "calendar";
-            calendar_scroll_view.scroll_to_selected_date ();
+            Timeout.add (main_stack.transition_duration + 50, () => {
+                calendar_scroll_view.scroll_to_selected_date ();
+                return GLib.Source.REMOVE;
+            });
         });
 
         hide.connect (() => {
@@ -497,6 +515,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         _duedate.recurrency_weeks = value.recurrency_weeks;
         _duedate.recurrency_count = value.recurrency_count;
         _duedate.recurrency_end = value.recurrency_end;
+        _duedate.recurrency_last_day_of_month = value.recurrency_last_day_of_month;
 
         visible_no_date = true;
     }
@@ -702,7 +721,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             margin_start = 6,
             margin_top = 6,
             margin_bottom = 6,
-            halign = START
+            halign = START,
+            tooltip_text = _("Back")
         };
 
         calendar_scroll_view = new Widgets.Calendar.CalendarScroll () {
@@ -736,7 +756,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             margin_start = 6,
             margin_top = 6,
             margin_bottom = 6,
-            halign = START
+            halign = START,
+            tooltip_text = _("Back")
         };
 
         var toolbar_view = new Adw.ToolbarView () {

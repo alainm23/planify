@@ -99,6 +99,12 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
 
         de_group.add (calendar_events_row);
 
+        var search_provider_row = new Adw.ActionRow ();
+        search_provider_row.title = _("GNOME Shell Search");
+        search_provider_row.subtitle = _("Search tasks and projects directly from GNOME Shell. Enable it in Settings → Search");
+
+        de_group.add (search_provider_row);
+
         var datetime_group = new Adw.PreferencesGroup ();
         datetime_group.title = _("Date and Time");
 
