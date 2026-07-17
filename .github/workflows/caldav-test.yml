@@ -18,6 +18,9 @@ jobs:
       CALDAV_USER: testuser
       CALDAV_PASS: testpass
     steps:
+      - name: Install git
+        run: apt-get update && apt-get install -y git
+
       - name: Checkout code
         uses: actions/checkout@v4
         with:
