@@ -1,12 +1,8 @@
 name: Update Translations
-on:
+'on':
   push:
     branches:
       - main
-
-permissions:
-  contents: write
-
 jobs:
   gettext:
     runs-on: ubuntu-latest
@@ -20,7 +16,7 @@ jobs:
         run: |
           git config --local user.name "Planify Bot"
           git config --local user.email "actions@github.com"
-
+          
       - name: Update POTFILES and translations
         run: |
           cat > po/POTFILES << 'EOF'
@@ -38,20 +34,27 @@ jobs:
 
           python3 scripts/update_translations.py
 
-      - name: Commit and push changes
+      - name: Check for changes
+        id: check_changes
         run: |
-          git add po/
-          if git diff --staged --ignore-matching-lines='^"POT-Creation-Date:' \
-                                --ignore-matching-lines='^"PO-Revision-Date:' \
-                                --ignore-matching-lines='^"Report-Msgid-Bugs-To:' \
-                                --quiet; then
-            echo "No meaningful changes, skipping commit"
+          if git diff --ignore-matching-lines='^"POT-Creation-Date:' \
+                      --ignore-matching-lines='^"PO-Revision-Date:' \
+                      --ignore-matching-lines='^"Report-Msgid-Bugs-To:' \
+                      --quiet po/; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
           else
-            git commit -m "Update translations"
-            git push origin main
+            echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Notify Weblate
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git add po/
+          git diff --staged --quiet || git commit -m "Update translations"
+          git push origin main
+
+      - name: Notify Weblate of changes
+        if: steps.check_changes.outputs.has_changes == 'true'
         run: |
           curl -X POST "https://hosted.weblate.org/api/components/planner/io-github-alainm23-planify/repository/" \
             -H "Authorization: Token ${{ secrets.WEBLATE_TOKEN }}" \

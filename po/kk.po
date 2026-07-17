@@ -324,7 +324,6 @@ msgstr "белгі жоқ"
 msgid "unlabeled"
 msgstr "белгісіз"
 
-#. Deadline
 #: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr ""
@@ -605,8 +604,6 @@ msgstr ""
 msgid "Syncing %s…"
 msgstr "Синхрондалуда…"
 
-#. Insert source after all projects and items are fetched
-#. to avoid concurrent sync triggering duplicate project insertion
 #: core/Services/CalDAV/Core.vala:264
 #, fuzzy
 msgid "Sync completed"
@@ -636,6 +633,51 @@ msgstr ""
 msgid "On this computer"
 msgstr "Осы компьютерде"
 
+#: core/Services/Todoist/Todoist.vala:594 src/Widgets/ErrorView.vala:187
+msgid "The request was incorrect."
+msgstr "Сұраныс дұрыс емес."
+
+#: core/Services/Todoist/Todoist.vala:595 src/Widgets/ErrorView.vala:188
+msgid ""
+"Authentication is required, and has failed, or has not yet been provided."
+msgstr "Аутентификация қажет, бірақ сәтсіз болды немесе әлі берілмеген."
+
+#: core/Services/Todoist/Todoist.vala:596 src/Widgets/ErrorView.vala:189
+msgid "The request was valid, but for something that is forbidden."
+msgstr "Сұраныс дұрыс, бірақ тыйым салынған нәрсе үшін."
+
+#: core/Services/Todoist/Todoist.vala:597 src/Widgets/ErrorView.vala:190
+msgid "The requested resource could not be found."
+msgstr "Сұралған ресурс табылмады."
+
+#: core/Services/Todoist/Todoist.vala:598 src/Widgets/ErrorView.vala:192
+msgid "The user has sent too many requests in a given amount of time."
+msgstr "Пайдаланушы белгілі бір уақыт ішінде тым көп сұраныс жіберді."
+
+#: core/Services/Todoist/Todoist.vala:599 src/Widgets/ErrorView.vala:193
+msgid "The request failed due to a server error."
+msgstr "Сервер қатесі себебінен сұраныс сәтсіз болды."
+
+#: core/Services/Todoist/Todoist.vala:600 src/Widgets/ErrorView.vala:194
+msgid "The server is currently unable to handle the request."
+msgstr "Сервер қазіргі уақытта сұранысты өңдей алмайды."
+
+#: core/Services/Todoist/Todoist.vala:601 src/Widgets/ErrorView.vala:197
+msgid "Unknown error"
+msgstr "Белгісіз қате"
+
+#: core/Services/Todoist/TodoistAuth.vala:96
+msgid "Invalid API token"
+msgstr ""
+
+#: core/Services/Todoist/TodoistItems.vala:26
+#: core/Services/Todoist/TodoistProjects.vala:26
+#: src/Layouts/SidebarSourceRow.vala:81
+msgid ""
+"Todoist has updated their API. Please reconnect your account in Preferences "
+"to continue syncing."
+msgstr ""
+
 #: core/Utils/Datetime.vala:72 core/Utils/Datetime.vala:786
 msgid "Yesterday"
 msgstr "Кеше"
@@ -658,22 +700,18 @@ msgstr "%s %s бұрын"
 msgid "%s %s left"
 msgstr "%s %s қалды"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
 msgstr ""
@@ -729,48 +767,37 @@ msgid_plural "%d days ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: core/Utils/Datetime.vala:811
 msgid "%a, %b %-e, %Y"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: core/Utils/Datetime.vala:814
 msgid "%b %-e %Y"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:817 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: core/Utils/Datetime.vala:820
-#, c-format
 msgid "%b %-e"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:823
 msgid "%a %Y"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:826
 #, c-format
 msgid "%a"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: core/Utils/Datetime.vala:829
-#, c-format
 msgid "%a, %b %-e"
 msgstr ""
 
-#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:832
-#, c-format
 msgid "%b"
 msgstr ""
 
@@ -1294,13 +1321,11 @@ msgstr ""
 msgid "Next week"
 msgstr "Келесі апта"
 
-#. Save button
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:542
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
 msgid "Save"
 msgstr ""
 
-#. Daily goal
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:578
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
 msgid "Daily"
@@ -1316,7 +1341,6 @@ msgstr "Апта сайын"
 msgid "Weekends"
 msgstr "Апта"
 
-#. Weekly goal
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:590
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 msgid "Weekly"
@@ -1491,7 +1515,6 @@ msgstr ""
 "Сүзгілер тізімі осы жерде көрсетіледі. Атауын енгізіп, Enter пернесін басу "
 "арқылы жаңасын жасаңыз."
 
-#. vala-lint=naming-convention
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:75
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
@@ -1571,7 +1594,6 @@ msgstr "Басымдылық 1: Төмен"
 msgid "Your list of section will show up here."
 msgstr "Бөлімдер тізімі осы жерде көрсетіледі."
 
-#. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
 #: core/Widgets/SectionPicker/SectionButton.vala:88
@@ -1936,7 +1958,6 @@ msgstr "Пайдаланушы аты"
 msgid "Password"
 msgstr "Құпия сөз"
 
-#. Advanced options
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
 #, fuzzy
 msgid "Calendar Home URL"
@@ -2687,7 +2708,6 @@ msgstr ""
 msgid "Get Involved"
 msgstr ""
 
-#. Reach Us Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:206
 msgid "Reach Us"
 msgstr "Бізбен байланысу"
@@ -2847,12 +2867,10 @@ msgstr "Осы апта"
 msgid "This Month"
 msgstr "Осы ай"
 
-#. Daily goal progress
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
 msgid "Daily Goal"
 msgstr ""
 
-#. Weekly goal progress
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
 msgid "Weekly Goal"
 msgstr ""
@@ -2903,7 +2921,6 @@ msgstr "Жоба қосу"
 msgid "Update Project"
 msgstr "Жобаны жаңарту"
 
-#. Settings group (only for existing projects)
 #: src/Dialogs/Project.vala:232
 msgid "Global Default"
 msgstr ""
@@ -3191,12 +3208,6 @@ msgstr "Қолжетімді жоба жоқ. '+' түймесін басу ар
 msgid "Account Migration Required"
 msgstr ""
 
-#: src/Layouts/SidebarSourceRow.vala:81
-msgid ""
-"Todoist has updated their API. Please reconnect your account in Preferences "
-"to continue syncing."
-msgstr ""
-
 #: src/MainWindow.vala:81
 msgid "Main Menu"
 msgstr "Негізгі мәзір"
@@ -3445,7 +3456,6 @@ msgstr ""
 msgid "Ascending Order"
 msgstr "Өсу ретімен"
 
-#. Filters
 #: src/Views/Project/Project.vala:556
 msgid "Duedate"
 msgstr "Мерзімі"
@@ -3516,7 +3526,6 @@ msgstr ""
 msgid "Attachments"
 msgstr "Қосымшалар"
 
-#. translators: Open file
 #: src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Ашу"
@@ -3578,42 +3587,9 @@ msgstr ""
 msgid "Report Issue"
 msgstr "Мәселе туралы хабарлау"
 
-#: src/Widgets/ErrorView.vala:187
-msgid "The request was incorrect."
-msgstr "Сұраныс дұрыс емес."
-
-#: src/Widgets/ErrorView.vala:188
-msgid ""
-"Authentication is required, and has failed, or has not yet been provided."
-msgstr "Аутентификация қажет, бірақ сәтсіз болды немесе әлі берілмеген."
-
-#: src/Widgets/ErrorView.vala:189
-msgid "The request was valid, but for something that is forbidden."
-msgstr "Сұраныс дұрыс, бірақ тыйым салынған нәрсе үшін."
-
-#: src/Widgets/ErrorView.vala:190
-msgid "The requested resource could not be found."
-msgstr "Сұралған ресурс табылмады."
-
 #: src/Widgets/ErrorView.vala:191
 msgid "Account migration required."
 msgstr ""
-
-#: src/Widgets/ErrorView.vala:192
-msgid "The user has sent too many requests in a given amount of time."
-msgstr "Пайдаланушы белгілі бір уақыт ішінде тым көп сұраныс жіберді."
-
-#: src/Widgets/ErrorView.vala:193
-msgid "The request failed due to a server error."
-msgstr "Сервер қатесі себебінен сұраныс сәтсіз болды."
-
-#: src/Widgets/ErrorView.vala:194
-msgid "The server is currently unable to handle the request."
-msgstr "Сервер қазіргі уақытта сұранысты өңдей алмайды."
-
-#: src/Widgets/ErrorView.vala:197
-msgid "Unknown error"
-msgstr "Белгісіз қате"
 
 #: src/Widgets/EventRow.vala:242
 #, c-format

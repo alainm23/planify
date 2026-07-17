@@ -46,6 +46,10 @@ core/Services/EventBus.vala
 core/Services/LogService.vala
 core/Services/Settings.vala
 core/Services/Store.vala
+core/Services/Todoist/Todoist.vala
+core/Services/Todoist/TodoistAuth.vala
+core/Services/Todoist/TodoistItems.vala
+core/Services/Todoist/TodoistProjects.vala
 core/Utils/Datetime.vala
 core/Utils/JsonUtils.vala
 core/Utils/MarkdownProcessor.vala
