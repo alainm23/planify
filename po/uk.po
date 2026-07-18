@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
 "PO-Revision-Date: 2026-07-19 18:01+0000\n"
-"Last-Translator: Maksym Dilanian <dilanyan.maxim@gmail.com>\n"
+"Last-Translator: Димко <Dymkovych@proton.me>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/uk/>\n"
 "Language: uk\n"
@@ -2201,7 +2201,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:50
 msgid "Automatic Daily Backup"
-msgstr ""
+msgstr "Щоденне резервне копіювання"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:51
 msgid "Creates a backup every day at midnight"
