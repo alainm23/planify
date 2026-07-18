@@ -137,6 +137,28 @@ namespace PlanifyCLI.Tests.TaskValidator {
         print ("  ✓ Accepts empty date (optional)\n---\n");
     }
 
+    void test_date_with_time () {
+        print ("Testing: Date validation - full ISO timestamps with time components\n");
+        string? error_message;
+        GLib.DateTime? datetime;
+        
+        // Test parsing a full ISO 8601 string containing hours and minutes
+        bool result = PlanifyCLI.TaskValidator.validate_and_parse_date ("2026-07-24T14:30:45", out datetime, out error_message);
+        
+        assert (result == true);
+        assert (datetime != null);
+        assert (datetime.get_year () == 2026);
+        assert (datetime.get_month () == 7);
+        assert (datetime.get_day_of_month () == 24);
+        
+        // CRITICAL EXTRA ASSERTIONS: Verify that hours and minutes survive!
+        assert (datetime.get_hour () == 14);
+        assert (datetime.get_minute () == 30);
+        assert (datetime.get_second () == 45);
+        assert (error_message == null);
+        print ("  ✓ Correctly preserves time components (14:30:45)\n---\n");
+    }
+
     public void register_tests () {
         Test.add_func ("/cli/task_validator/content_required", test_content_required);
         Test.add_func ("/cli/task_validator/content_empty", test_content_empty);
@@ -145,5 +167,6 @@ namespace PlanifyCLI.Tests.TaskValidator {
         Test.add_func ("/cli/task_validator/date_format_valid", test_date_format_valid);
         Test.add_func ("/cli/task_validator/date_format_invalid", test_date_format_invalid);
         Test.add_func ("/cli/task_validator/date_null_or_empty", test_date_null_or_empty);
+        Test.add_func ("/cli/task_validator/date_with_time", test_date_with_time);
     }
 }
