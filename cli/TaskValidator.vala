@@ -53,8 +53,11 @@ namespace PlanifyCLI {
             if (stripped.length == 10) {
                 datetime = new GLib.DateTime.from_iso8601(stripped + "T00:00:00", new GLib.TimeZone.local());
             } else {
-                datetime = new GLib.DateTime.from_iso8601(stripped, new GLib.TimeZone.local());
+                // Try parsing with null to preserve explicit offset metadata.
+                // If the string lacks an offset, GLib returns null, so we cleanly fall back to UTC.
+                datetime = new GLib.DateTime.from_iso8601 (stripped, null) ?? new GLib.DateTime.from_iso8601 (stripped, new GLib.TimeZone.utc ());
             }
+        
             if (datetime == null) {
                 error_message = "Error: Invalid date/time format. Use YYYY-MM-DD or YYYY-MM-DDTHH:MM:SS";
                 return false;
