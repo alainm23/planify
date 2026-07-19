@@ -12,3 +12,4 @@ planify*txt
 .flatpak
 .buildconfig
 .DS_Store
+.superpowers/

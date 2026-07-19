@@ -25,6 +25,12 @@ core_files = files(
     'Services/CalDAV/WebDAVClient.vala',
     'Services/CalDAV/Providers/Nextcloud.vala',
 
+    'Services/AI/Claude.vala',
+    'Services/AI/Prompts.vala',
+    'Services/AI/TaskParser.vala',
+    'Services/AI/ImportMapper.vala',
+    'Services/AI/Scheduler.vala',
+
     'Layouts/HeaderItem.vala',
 
     'Widgets/LoadingButton.vala',
