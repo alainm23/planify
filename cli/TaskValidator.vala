@@ -51,7 +51,7 @@ namespace PlanifyCLI {
 
             string stripped = due_date.strip();
             if (stripped.length == 10) {
-                datetime = new GLib.DateTime.from_iso8601(stripped + "T00:00:00", new GLib.TimeZone.local());
+                datetime = new GLib.DateTime.from_iso8601 (stripped + "T00:00:00", new GLib.TimeZone.local ());
             } else {
                 // Try parsing with null to preserve explicit offset metadata.
                 // If the string lacks an offset, GLib returns null, so we cleanly fall back to UTC.
