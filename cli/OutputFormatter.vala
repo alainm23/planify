@@ -47,6 +47,20 @@ namespace PlanifyCLI {
                 { "project-id", (builder) => builder.add_string_value (item.project_id) },
                 { "section-id", (builder) => builder.add_string_value (item.section_id) },
                 { "parent-id", (builder) => builder.add_string_value (item.parent_id) },
+                { "due", (builder) => {
+                    if (item.due != null && item.due.date != null && item.due.date != "") {
+                        builder.begin_object ();
+                        builder.set_member_name ("date");
+                        builder.add_string_value (item.due.date);
+                        if (item.due.datetime != null) {
+                            builder.set_member_name ("datetime");
+                            builder.add_string_value (item.due.datetime.format ("%Y-%m-%dT%H:%M:%S%z"));
+                        }
+                        builder.end_object ();
+                    } else {
+                        builder.add_null_value ();
+                    }
+                } },
                 { "added-at", (builder) => builder.add_string_value (item.added_at) },
                 { "completed-at", (builder) => builder.add_string_value (item.completed_at) },
                 { "updated-at", (builder) => builder.add_string_value (item.updated_at) },
