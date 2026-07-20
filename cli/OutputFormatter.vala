@@ -56,7 +56,7 @@ namespace PlanifyCLI {
                             builder.set_member_name ("datetime");
                             builder.add_string_value (item.due.datetime.format ("%Y-%m-%dT%H:%M:%S%z"));
                         }
-                        builder.end_object();
+                        builder.end_object ();
                     } else {
                         builder.add_null_value();
                     }
