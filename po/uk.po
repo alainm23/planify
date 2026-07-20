@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-05-19 00:11+0000\n"
+"PO-Revision-Date: 2026-07-19 18:01+0000\n"
 "Last-Translator: Димко <Dymkovych@proton.me>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/uk/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -160,7 +160,7 @@ msgstr "Кінцевий термін"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "Батьківське завдання"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -2201,7 +2201,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:50
 msgid "Automatic Daily Backup"
-msgstr ""
+msgstr "Щоденне резервне копіювання"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:51
 msgid "Creates a backup every day at midnight"
