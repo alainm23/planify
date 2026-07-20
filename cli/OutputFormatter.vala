@@ -50,7 +50,7 @@ namespace PlanifyCLI {
                 { "due", (builder) => {
                     if (item.due != null && item.due.date != null && item.due.date != "") {
                         builder.begin_object ();
-                        builder.set_member_name("date");
+                        builder.set_member_name ("date");
                         builder.add_string_value(item.due.date);
                         if (item.due.datetime != null) {
                             builder.set_member_name("datetime");
