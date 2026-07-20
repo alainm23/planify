@@ -49,7 +49,7 @@ namespace PlanifyCLI {
                 return true; // No date provided is valid
             }
 
-            string stripped = due_date.strip();
+            string stripped = due_date.strip ();
             if (stripped.length == 10) {
                 datetime = new GLib.DateTime.from_iso8601 (stripped + "T00:00:00", new GLib.TimeZone.local ());
             } else {
