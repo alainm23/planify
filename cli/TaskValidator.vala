@@ -49,23 +49,19 @@ namespace PlanifyCLI {
                 return true; // No date provided is valid
             }
 
-            // Parse YYYY-MM-DD format
-            string[] parts = due_date.strip ().split ("-");
-            if (parts.length != 3) {
-                error_message = "Error: Invalid date format. Use YYYY-MM-DD";
+            string stripped = due_date.strip ();
+            if (stripped.length == 10) {
+                datetime = new GLib.DateTime.from_iso8601 (stripped + "T00:00:00", new GLib.TimeZone.local ());
+            } else {
+                // Try parsing with null to preserve explicit offset metadata.
+                // If the string lacks an offset, GLib returns null, so we cleanly fall back to UTC.
+                datetime = new GLib.DateTime.from_iso8601 (stripped, null) ?? new GLib.DateTime.from_iso8601 (stripped, new GLib.TimeZone.utc ());
+            }
+        
+            if (datetime == null) {
+                error_message = "Error: Invalid date/time format. Use YYYY-MM-DD or YYYY-MM-DDTHH:MM:SS";
                 return false;
             }
-
-            int year = int.parse (parts[0]);
-            int month = int.parse (parts[1]);
-            int day = int.parse (parts[2]);
-
-            if (year < 1900 || year > 3000 || month < 1 || month > 12 || day < 1 || day > 31) {
-                error_message = "Error: Invalid date values";
-                return false;
-            }
-
-            datetime = new GLib.DateTime.local (year, month, day, 0, 0, 0);
             return true;
         }
 
