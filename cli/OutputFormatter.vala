@@ -58,7 +58,7 @@ namespace PlanifyCLI {
                         }
                         builder.end_object ();
                     } else {
-                        builder.add_null_value();
+                        builder.add_null_value ();
                     }
                 } },
                 { "added-at", (builder) => builder.add_string_value (item.added_at) },
