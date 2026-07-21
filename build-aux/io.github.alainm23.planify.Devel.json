@@ -126,9 +126,9 @@
             "buildsystem" : "meson",
             "sources" : [
                 {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/gxml.git",
-                    "tag": "0.20.4"
+                    "type" : "archive",
+                    "url" : "https://gitlab.gnome.org/GNOME/gxml/-/archive/0.20.4/gxml-0.20.4.tar.gz",
+                    "sha256" : "237f5d3984b6aa7378bfa030b7dadfad43041720f097bb5b4104e84829d741a5"
                 }
             ]
         },

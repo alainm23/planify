@@ -61,6 +61,41 @@
   <url type="donation">https://useplanify.com/donate</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.19.5" date="2026-06-05" urgency="medium">
+      <description translate="no">
+        <p>Planify 4.19.5 is a maintenance release focused on bug fixes, reliability improvements, and new features.</p>
+        <p>Bug Fixes:</p>
+        <ul>
+          <li>Fixed missed automatic backup on startup — if Planify was closed at midnight, the scheduled backup was silently skipped. Now, if automatic backup is enabled and no backup has run today, one is triggered immediately on startup.</li>
+          <li>Fixed completing a recurring task from a notification — it was marking the task as fully completed instead of advancing to the next occurrence. Now correctly calls update_next_recurrency() as the UI does.</li>
+          <li>Fixed keyboard navigation UX — Tab in EditableTextView now moves focus to the next widget instead of inserting spaces, and pressing Enter on a focused checkbox now completes the task.</li>
+          <li>Fixed attachment file_size integer overflow — file_size is now treated as a string throughout, preventing unhandled overflow errors for values ≥ 2^63.</li>
+          <li>Fixed drag and drop reliability and visual feedback in ReorderChild — softer background, subtle border, and rounder corners using the accent color.</li>
+          <li>Fixed CalDAV related-to parsing — uses the already known related-id from libical and checks the reltype param to determine if a task is a parent.</li>
+          <li>Fixed reading X-PINNED and X-APPLE-SORT-ORDER from CalDAV — replaced ICal.PropertyKind.from_string() with iteration over X_PROPERTY kind and matching by get_x_name(), fixing pin status and sort order persistence with Radicale and other servers.</li>
+        </ul>
+        <p>New Features:</p>
+        <ul>
+          <li>Added "Date Modified" sort option — available in Project, Today, and Scheduled views. Falls back to added_datetime for items that have never been edited.</li>
+          <li>Added subtitle support for context menu items — displays text below the primary label with caption and dimmed styling. The "Change History" item now shows "Updated: &lt;relative date&gt;" or "Created: &lt;relative date&gt;" as subtitle.</li>
+          <li>Added toast notification when automatic backup fails — notifies on backup creation failure or copy-to-extra-folder failure. Successful backups remain silent.</li>
+          <li>Added last day of month recurrency support — new checkbox in the repeat config for monthly tasks, correctly handles Feb 28/29 on leap years.</li>
+          <li>Improved Todoist recurring tasks integration — generates NL string in English for recurring task creation and update, uses item_close as Todoist recommends, and now parses recurrence strings from Todoist using chrono to generate equivalent recurring tasks in Planify.</li>
+          <li>Fixed zombie tasks with reminders created while offline — added ON DELETE CASCADE to tables and improved queue logic to retry on temp_id failures.</li>
+        </ul>
+      </description>
+      <issues>
+        <issue url="https://github.com/alainm23/planify/issues/2492">Missed automatic backup on startup</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2502">Completing recurring task from notification marks it as done</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2507">Attachment file_size integer overflow</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2524">CalDAV related-to parsing</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2540">X-PINNED and X-APPLE-SORT-ORDER not read correctly from CalDAV</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2539">Date Modified sort option</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2531">Notify user when automatic backup fails</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2568">Last day of month recurrency support</issue>
+        <issue url="https://github.com/alainm23/planify/issues/1584">Todoist recurring tasks integration</issue>
+      </issues>
+    </release>
     <release version="4.19.4" date="2026-05-20" urgency="medium">
       <description translate="no">
         <p>Planify 4.19.4 is a maintenance release focused on bug fixes.</p>
