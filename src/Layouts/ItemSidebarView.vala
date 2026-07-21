@@ -351,7 +351,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         update_request ();
 
         subitems.present_item (item);
-        subitems.reveal_child = true;
+        subitems.reveal_child = !item.project.is_deck;
 
         attachments.present_item (item);
         spinner_revealer.reveal_child = false;

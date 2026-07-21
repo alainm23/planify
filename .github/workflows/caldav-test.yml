@@ -18,8 +18,13 @@ jobs:
       CALDAV_USER: testuser
       CALDAV_PASS: testpass
     steps:
+      - name: Install git
+        run: apt-get update && apt-get install -y git
+
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Install dependencies
         run: |
@@ -62,7 +67,7 @@ jobs:
           meson test -C build --suite=caldav-integration --print-errorlogs
 
       - name: Upload Meson test log
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: meson-test-log
           path: build/meson-logs/testlog.txt

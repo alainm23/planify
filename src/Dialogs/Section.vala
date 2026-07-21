@@ -203,20 +203,37 @@ public class Dialogs.Section : Adw.Dialog {
 
         if (section.project.source_type == SourceType.CALDAV) {
             submit_button.is_loading = true;
-            var caldav_client = Services.CalDAV.Core.get_default ().get_client (section.project.source);
-            caldav_client.add_section.begin (section, true, (obj, res) => {
-                submit_button.is_loading = false;
-                HttpResponse caldav_response = caldav_client.add_section.end (res);
+            if (section.project.is_deck) {
+                var deck_client = Services.Deck.Core.get_default ().get_client (section.project.source);
+                int board_id = (int) Utils.JsonUtils.get_int (section.project.extra_data, "deck_board_id");
+                int stack_id = (int) Utils.JsonUtils.get_int (section.extra_data, "deck_stack_id");
+                deck_client.update_stack.begin (board_id, stack_id, section.name, section.section_order, (obj, res) => {
+                    submit_button.is_loading = false;
+                    try {
+                        deck_client.update_stack.end (res);
+                        Services.Store.instance ().update_section (section);
+                    } catch (Error e) {
+                        section.name = _name;
+                        Services.EventBus.get_default ().send_error_toast (0, e.message);
+                    }
+                    close ();
+                });
+            } else {
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (section.project.source);
+                caldav_client.add_section.begin (section, true, (obj, res) => {
+                    submit_button.is_loading = false;
+                    HttpResponse caldav_response = caldav_client.add_section.end (res);
 
-                if (caldav_response.status) {
-                    Services.Store.instance ().update_section (section);
-                    close ();
-                } else {
-                    section.name = _name;
-                    Services.EventBus.get_default ().send_error_toast (caldav_response.error_code, caldav_response.error);
-                    close ();
-                }
-            });
+                    if (caldav_response.status) {
+                        Services.Store.instance ().update_section (section);
+                        close ();
+                    } else {
+                        section.name = _name;
+                        Services.EventBus.get_default ().send_error_toast (caldav_response.error_code, caldav_response.error);
+                        close ();
+                    }
+                });
+            }
         }
     }
 
@@ -250,20 +267,40 @@ public class Dialogs.Section : Adw.Dialog {
         if (section.project.source_type == SourceType.CALDAV) {
             submit_button.is_loading = true;
             section.id = Util.get_default ().generate_id (section);
-            var caldav_client = Services.CalDAV.Core.get_default ().get_client (section.project.source);
-            caldav_client.add_section.begin (section, false, (obj, res) => {
-                submit_button.is_loading = false;
-                HttpResponse response = caldav_client.add_section.end (res);
+            if (section.project.is_deck) {
+                var deck_client = Services.Deck.Core.get_default ().get_client (section.project.source);
+                int board_id = (int) Utils.JsonUtils.get_int (section.project.extra_data, "deck_board_id");
+                int order = section.project.sections.size;
+                deck_client.create_stack.begin (board_id, section.name, order, (obj, res) => {
+                    submit_button.is_loading = false;
+                    try {
+                        var stack = deck_client.create_stack.end (res);
+                        int stack_id = (int) stack.get_int_member ("id");
+                        string stack_etag = stack.get_string_member ("ETag");
+                        section.extra_data = Services.Deck.Core.build_stack_extra_data (stack_id, board_id, stack_etag);
+                        section.project.add_section_if_not_exists (section);
+                        send_toast (_("Section added"));
+                    } catch (Error e) {
+                        Services.EventBus.get_default ().send_error_toast (0, e.message);
+                    }
+                    close ();
+                });
+            } else {
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (section.project.source);
+                caldav_client.add_section.begin (section, false, (obj, res) => {
+                    submit_button.is_loading = false;
+                    HttpResponse response = caldav_client.add_section.end (res);
 
-                if (response.status) {
-                    section.project.add_section_if_not_exists (section);
-                    send_toast (_("Section added"));
-                    close ();
-                } else {
-                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                    close ();
-                }
-            });
+                    if (response.status) {
+                        section.project.add_section_if_not_exists (section);
+                        send_toast (_("Section added"));
+                        close ();
+                    } else {
+                        Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+                        close ();
+                    }
+                });
+            }
         }
     }
 

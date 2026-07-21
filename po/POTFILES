@@ -42,6 +42,8 @@ core/Services/CalendarEvents/DateRange.vala
 core/Services/CalendarEvents/Util.vala
 core/Services/ColorSchemeSettings.vala
 core/Services/Database.vala
+core/Services/Deck/Core.vala
+core/Services/Deck/DeckClient.vala
 core/Services/EventBus.vala
 core/Services/LogService.vala
 core/Services/Settings.vala
