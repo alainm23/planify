@@ -102,66 +102,192 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
 
         default_group.add (display_entry);
 
+        var sync_group = new Adw.PreferencesGroup () {
+            margin_top = 12
+        };
+
         if (source.source_type != SourceType.LOCAL) {
-            default_group.add (sync_server_row);
-            default_group.add (last_sync_row);
+            sync_group.add (sync_server_row);
+            sync_group.add (last_sync_row);
         }
 
-        var delete_button = new Adw.ButtonRow () {
-            title = _("Delete Source")
-        };
-        delete_button.add_css_class ("destructive-action");
+        if (source.source_type == SourceType.CALDAV && source.caldav_data.caldav_type == CalDAVType.NEXTCLOUD) {
+            var deck_row = new Adw.SwitchRow () {
+                title = _("Nextcloud Deck"),
+                subtitle = _("Sync boards and cards from Nextcloud Deck"),
+                active = source.caldav_data.use_deck
+            };
 
-        var delete_group = new Adw.PreferencesGroup ();
-        delete_group.add (delete_button);
+            var deck_group = new Adw.PreferencesGroup () {
+                margin_top = 12
+            };
+            deck_group.add (deck_row);
 
-        var delete_spinner = new Adw.Spinner () {
-            valign = CENTER,
-            halign = CENTER,
-            height_request = 32,
-            width_request = 32
-        };
+            deck_row.notify["active"].connect (() => {
+                if (deck_row.active) {
+                    Services.Deck.Core.get_default ().probe.begin (source, (obj, res) => {
+                        bool available = Services.Deck.Core.get_default ().probe.end (res);
+                        if (available) {
+                            source.caldav_data.use_deck = true;
+                            Services.Store.instance ().update_source (source);
+                            Services.CalDAV.Core.get_default ().sync.begin (source);
+                        } else {
+                            deck_row.active = false;
+                            var toast = Util.get_default ().create_toast (_("Nextcloud Deck is not available on this server"));
+                            Services.EventBus.get_default ().send_toast (toast);
+                        }
+                    });
+                } else {
+                    source.caldav_data.use_deck = false;
+                    Services.Store.instance ().update_source (source);
+                    foreach (var project in Services.Store.instance ().get_projects_by_source (source.id)) {
+                        if (project.is_deck) {
+                            Services.Store.instance ().delete_project (project);
+                        }
+                    }
+                }
+            });
 
-        var delete_stack = new Gtk.Stack () {
-            margin_top = 24
-        };
-        
-        delete_stack.add_child (delete_group);
-        delete_stack.add_child (delete_spinner);
-        
-        var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            vexpand = true,
-            hexpand = true
-        };
+            var delete_button = new Adw.ButtonRow () {
+                title = _("Delete Source")
+            };
+            delete_button.add_css_class ("destructive-action");
 
-        if (source.source_type != SourceType.LOCAL) {
+            var delete_group = new Adw.PreferencesGroup ();
+            delete_group.add (delete_button);
+
+            var delete_spinner = new Adw.Spinner () {
+                valign = CENTER,
+                halign = CENTER,
+                height_request = 32,
+                width_request = 32
+            };
+
+            var delete_stack = new Gtk.Stack () {
+                margin_top = 24
+            };
+            delete_stack.add_child (delete_group);
+            delete_stack.add_child (delete_spinner);
+
+            var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+                vexpand = true,
+                hexpand = true
+            };
             main_content.append (user_box);
-        }
-        
-        main_content.append (default_group);
-
-        if (source.source_type != SourceType.LOCAL) {
+            main_content.append (default_group);
+            main_content.append (deck_group);
+            main_content.append (sync_group);
             main_content.append (delete_stack);
+
+            var content_clamp = new Adw.Clamp () {
+                maximum_size = 600,
+                margin_start = 24,
+                margin_end = 24,
+                child = main_content
+            };
+
+            var toolbar_view = new Adw.ToolbarView () {
+                content = content_clamp
+            };
+            toolbar_view.add_top_bar (new Adw.HeaderBar ());
+            child = toolbar_view;
+
+            signal_map[delete_button.activated.connect (() => {
+                var dialog = new Adw.AlertDialog (
+                    _("Delete Source?"),
+                    _("This can not be undone")
+                );
+                dialog.add_response ("cancel", _("Cancel"));
+                dialog.add_response ("delete", _("Delete"));
+                dialog.close_response = "cancel";
+                dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+                dialog.present (Planify._instance.main_window);
+                dialog.response.connect ((response) => {
+                    if (response == "delete") {
+                        delete_stack.visible_child = delete_spinner;
+                        source.delete_source.begin ();
+                    }
+                });
+            })] = delete_button;
+        } else {
+            var delete_button = new Adw.ButtonRow () {
+                title = _("Delete Source")
+            };
+            delete_button.add_css_class ("destructive-action");
+
+            var delete_group = new Adw.PreferencesGroup ();
+            delete_group.add (delete_button);
+
+            var delete_spinner = new Adw.Spinner () {
+                valign = CENTER,
+                halign = CENTER,
+                height_request = 32,
+                width_request = 32
+            };
+
+            var delete_stack = new Gtk.Stack () {
+                margin_top = 24
+            };
+            delete_stack.add_child (delete_group);
+            delete_stack.add_child (delete_spinner);
+
+            var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+                vexpand = true,
+                hexpand = true
+            };
+
+            if (source.source_type != SourceType.LOCAL) {
+                main_content.append (user_box);
+            }
+            main_content.append (default_group);
+            if (source.source_type != SourceType.LOCAL) {
+                main_content.append (sync_group);
+                main_content.append (delete_stack);
+            }
+
+            var content_clamp = new Adw.Clamp () {
+                maximum_size = 600,
+                margin_start = 24,
+                margin_end = 24,
+                child = main_content
+            };
+
+            var toolbar_view = new Adw.ToolbarView () {
+                content = content_clamp
+            };
+            toolbar_view.add_top_bar (new Adw.HeaderBar ());
+            child = toolbar_view;
+
+            signal_map[delete_button.activated.connect (() => {
+                string current_inbox_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
+                Objects.Project? current_inbox = Services.Store.instance ().get_project (current_inbox_id);
+
+                if (current_inbox != null && current_inbox.source_id == source.id) {
+                    show_inbox_warning_dialog ();
+                    return;
+                }
+
+                var dialog = new Adw.AlertDialog (
+                    _("Delete Source?"),
+                    _("This can not be undone")
+                );
+                dialog.add_response ("cancel", _("Cancel"));
+                dialog.add_response ("delete", _("Delete"));
+                dialog.close_response = "cancel";
+                dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+                dialog.present (Planify._instance.main_window);
+                dialog.response.connect ((response) => {
+                    if (response == "delete") {
+                        delete_stack.visible_child = delete_spinner;
+                        source.delete_source.begin ();
+                    }
+                });
+            })] = delete_button;
         }
-
-        var content_clamp = new Adw.Clamp () {
-            maximum_size = 600,
-            margin_start = 24,
-            margin_end = 24,
-            child = main_content
-        };
-
-        var toolbar_view = new Adw.ToolbarView () {
-            content = content_clamp
-        };
-        toolbar_view.add_top_bar (new Adw.HeaderBar ());
-
-        child = toolbar_view;
 
         signal_map[sync_server_row.notify["active"].connect (() => {
             source.sync_server = sync_server_row.active;
             source.save ();
-
             if (source.sync_server) {
                 source.run_server ();
             } else {
@@ -173,34 +299,6 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             source.display_name = display_entry.text;
             source.save ();
         })] = display_entry;
-
-        signal_map[delete_button.activated.connect (() => {
-            string current_inbox_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
-            Objects.Project? current_inbox = Services.Store.instance ().get_project (current_inbox_id);
-            
-            if (current_inbox != null && current_inbox.source_id == source.id) {
-                show_inbox_warning_dialog ();
-                return;
-            }
-
-            var dialog = new Adw.AlertDialog (
-                _("Delete Source?"),
-                _("This can not be undone")
-            );
-
-            dialog.add_response ("cancel", _("Cancel"));
-            dialog.add_response ("delete", _("Delete"));
-            dialog.close_response = "cancel";
-            dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-            dialog.present (Planify._instance.main_window);
-
-            dialog.response.connect ((response) => {
-                if (response == "delete") {
-                    delete_stack.visible_child = delete_spinner;
-                    source.delete_source.begin ();
-                }
-            });
-        })] = delete_button;
 
         signal_map[source.deleted.connect (() => {
             preferences_dialog.pop_subpage ();

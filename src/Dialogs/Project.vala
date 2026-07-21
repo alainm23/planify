@@ -37,6 +37,8 @@ public class Dialogs.Project : Adw.Dialog {
 
     private Adw.NavigationView navigation_view;
     private Adw.NavigationPage sources_page;
+    private Gtk.Switch deck_switch;
+    private Gtk.Revealer deck_type_revealer;
 
     public bool is_creating {
         get {
@@ -253,10 +255,36 @@ public class Dialogs.Project : Adw.Dialog {
             child = settings_group
         };
 
+        deck_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER,
+            active = false
+        };
+
+        var deck_type_row = new Adw.ActionRow () {
+            title = _("Create as Deck Board"),
+            subtitle = _("Create a Nextcloud Deck board instead of a task list")
+        };
+        deck_type_row.add_suffix (deck_switch);
+        deck_type_row.set_activatable_widget (deck_switch);
+
+        var deck_type_group = new Adw.PreferencesGroup () {
+            margin_end = 12,
+            margin_start = 12,
+            margin_top = 12
+        };
+        deck_type_group.add (deck_type_row);
+
+        deck_type_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = false,
+            child = deck_type_group
+        };
+
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (emoji_picker_button);
         content_box.append (name_group);
         content_box.append (source_revealer);
+        content_box.append (deck_type_revealer);
         content_box.append (color_box_revealer);
         content_box.append (settings_revealer);
         content_box.append (submit_button);
@@ -332,6 +360,14 @@ public class Dialogs.Project : Adw.Dialog {
             navigation_view.push (sources_page);
         })] = source_row;
 
+        // Show deck toggle only when creating a new project with Nextcloud+Deck source
+        if (is_creating &&
+            project.source.source_type == SourceType.CALDAV &&
+            project.source.caldav_data.caldav_type == CalDAVType.NEXTCLOUD &&
+            project.source.caldav_data.use_deck) {
+            deck_type_revealer.reveal_child = true;
+        }
+
         closed.connect (() => {
             clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
@@ -372,6 +408,11 @@ public class Dialogs.Project : Adw.Dialog {
                     source_selected_label.label = source.display_name;
                     source_selected_label.tooltip_text = source.subheader_text;
 
+                    deck_type_revealer.reveal_child = is_creating &&
+                        source.source_type == SourceType.CALDAV &&
+                        source.caldav_data.caldav_type == CalDAVType.NEXTCLOUD &&
+                        source.caldav_data.use_deck;
+
                     navigation_view.pop ();
                 })] = source_row;
 
@@ -380,6 +421,11 @@ public class Dialogs.Project : Adw.Dialog {
 
                     source_selected_label.label = source.display_name;
                     source_selected_label.tooltip_text = source.subheader_text;
+
+                    deck_type_revealer.reveal_child = is_creating &&
+                        source.source_type == SourceType.CALDAV &&
+                        source.caldav_data.caldav_type == CalDAVType.NEXTCLOUD &&
+                        source.caldav_data.use_deck;
 
                     navigation_view.pop ();
                 })] = radio_button;
@@ -440,8 +486,19 @@ public class Dialogs.Project : Adw.Dialog {
         if (project.source_type == SourceType.TODOIST) {
             response = yield Services.Todoist.get_default ().update (project);
         } else if (project.source_type == SourceType.CALDAV) {
-            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-            response = yield caldav_client.update_project (project);
+            if (project.is_deck) {
+                var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
+                int board_id = (int) Utils.JsonUtils.get_int (project.extra_data, "deck_board_id");
+                try {
+                    yield deck_client.update_board (board_id, project.name, project.color_hex);
+                    response = new HttpResponse () { status = true };
+                } catch (Error e) {
+                    response = new HttpResponse () { error = e.message };
+                }
+            } else {
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                response = yield caldav_client.update_project (project);
+            }
         } else {
             close ();
             return;
@@ -477,20 +534,39 @@ public class Dialogs.Project : Adw.Dialog {
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
-            project.id = Util.get_default ().generate_id (project);
-            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-            caldav_client.create_project.begin (project, (obj, res) => {
-                HttpResponse response = caldav_client.create_project.end (res);
+            if (deck_switch.active) {
+                // Create Deck board
+                project.id = Util.get_default ().generate_id (project);
+                var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
+                deck_client.create_board.begin (project.name, project.color_hex, (obj, res) => {
+                    try {
+                        var board = deck_client.create_board.end (res);
+                        int board_id = (int) board.get_int_member ("id");
+                        string board_etag = board.get_string_member ("ETag");
+                        project.extra_data = Services.Deck.Core.build_board_extra_data (board_id, board_etag);
+                        Services.Store.instance ().insert_project (project);
+                        go_project (project.id);
+                    } catch (Error e) {
+                        Services.EventBus.get_default ().send_error_toast (0, e.message);
+                        close ();
+                    }
+                });
+            } else {
+                project.id = Util.get_default ().generate_id (project);
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                caldav_client.create_project.begin (project, (obj, res) => {
+                    HttpResponse response = caldav_client.create_project.end (res);
 
-                if (response.status) {
-                    Services.Store.instance ().insert_project (project);
-                    caldav_client.update_sync_token.begin (project, new GLib.Cancellable ());
-                    go_project (project.id);
-                } else {
-                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                    close ();
-                }
-            });
+                    if (response.status) {
+                        Services.Store.instance ().insert_project (project);
+                        caldav_client.update_sync_token.begin (project, new GLib.Cancellable ());
+                        go_project (project.id);
+                    } else {
+                        Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+                        close ();
+                    }
+                });
+            }
         }
     }
 

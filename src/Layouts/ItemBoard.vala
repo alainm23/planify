@@ -998,6 +998,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         card_widget.add_controller (drop_target);
 
         signals_map[drop_target.accept.connect ((drop) => {
+            if (item.project.is_deck) {
+                return false;
+            }
+
             GLib.Value value = Value (typeof (Gtk.Widget));
 
             try {
@@ -1153,6 +1157,19 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                             Services.Store.instance ().update_item (picked_widget.item);
                         }
                     });
+                } else if (picked_widget.item.project.source_type == SourceType.CALDAV) {
+                    if (picked_widget.item.project.is_deck) {
+                        picked_widget.item.move_deck.begin (old_section_id, (obj, res) => {
+                            picked_widget.item.move_deck.end (res);
+                        });
+                    } else {
+                        var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_widget.item.project.source);
+                        caldav_client.add_item.begin (picked_widget.item, true, (obj, res) => {
+                            if (caldav_client.add_item.end (res).status) {
+                                Services.Store.instance ().update_item (picked_widget.item);
+                            }
+                        });
+                    }
                 } else if (picked_widget.item.project.source_type == SourceType.LOCAL) {
                     Services.Store.instance ().update_item (picked_widget.item);
                 }

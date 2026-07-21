@@ -128,8 +128,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 hide_subtask_revealer.reveal_child = false;
                 hide_loading_button.remove_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = true;
-                show_subtasks_revealer.reveal_child = subitems.has_children && edit;
-                add_subtasks_button_revealer.reveal_child = edit;
+                show_subtasks_revealer.reveal_child = subitems.has_children && edit && !item.project.is_deck;
+                add_subtasks_button_revealer.reveal_child = edit && !item.project.is_deck;
 
                 // Due labels
                 due_box_revealer.reveal_child = false;
@@ -165,7 +165,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 content_label_revealer.reveal_child = true;
                 content_entry_revealer.reveal_child = false;
                 project_name_label_revealer.reveal_child = !is_project_view;
-                hide_subtask_revealer.reveal_child = subitems.has_children;
+                hide_subtask_revealer.reveal_child = subitems.has_children && !item.project.is_deck;
                 hide_loading_button.add_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = false;
                 show_subtasks_revealer.reveal_child = false;
@@ -254,8 +254,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         checked_button = new Gtk.CheckButton () {
-            valign = Gtk.Align.CENTER,
-            sensitive = !item.project.is_deck
+            valign = Gtk.Align.CENTER
         };
         checked_button.add_css_class ("priority-color");
 
@@ -496,8 +495,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin_start = 16,
             margin_top = 6,
-            hexpand = true,
-            sensitive = !item.project.is_deck
+            hexpand = true
         };
 
         if (Services.EventBus.get_default ().mobile_mode) {
@@ -645,7 +643,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         child = main_revealer;
         update_request ();
 
-        if (!item.checked && !item.project.is_deck) {
+        if (!item.checked) {
             build_drag_and_drop ();
         }
 
@@ -802,10 +800,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_handle_gesture.set_button (3);
         itemrow_box.add_controller (menu_handle_gesture);
         signals_map[menu_handle_gesture.pressed.connect ((n_press, x, y) => {
-            if (!item.project.is_deck) {
-                menu_handle_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-                build_handle_context_menu (x, y);
-            }
+            menu_handle_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+            build_handle_context_menu (x, y);
         })] = menu_handle_gesture;
 
         var multiselect_gesture = new Gtk.GestureClick ();
@@ -1075,11 +1071,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         if (edit) {
             add_css_class ("task-editing");
-            content_textview.editable = !item.completed && !item.project.is_deck;
+            content_textview.editable = !item.completed;
             if (markdown_editor != null) {
-                markdown_editor.is_editable = !item.completed && !item.project.is_deck;
+                markdown_editor.is_editable = !item.completed;
             }
-            item_labels.sensitive = !item.completed && !item.project.is_deck;
+            item_labels.sensitive = !item.completed;
 
             if (schedule_button != null) schedule_button.sensitive = !item.completed;
             if (priority_button != null) priority_button.sensitive = !item.completed;
@@ -1269,96 +1265,99 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
-        if (!item.completed && !item.project.is_deck) {
-            menu_box.append (complete_item);
-            menu_box.append (edit_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-            menu_box.append (today_item);
-            menu_box.append (tomorrow_item);
-            menu_box.append (no_date_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-            menu_box.append (pinboard_item);
-            menu_box.append (move_item);
-            menu_box.append (labels_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-            menu_box.append (add_item);
-            menu_box.append (duplicate_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-
-            signals_map[today_item.activate_item.connect (() => {
-                update_date (Utils.Datetime.get_date_only (new DateTime.now_local ()));
-            })] = today_item;
-
-            signals_map[tomorrow_item.activate_item.connect (() => {
-                update_date (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
-            })] = tomorrow_item;
-
-            signals_map[pinboard_item.activate_item.connect (() => {
-                item.update_pin (!item.pinned);
-            })] = pinboard_item;
-
-            signals_map[no_date_item.activate_item.connect (() => {
-                update_due (new Objects.DueDate ());
-            })] = no_date_item;
-
-            signals_map[move_item.activate_item.connect (() => {
-                var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-
-                dialog.project = item.project;
-
-                signals_map[dialog.changed.connect ((type, id) => {
-                    if (type == "project") {
-                        move (Services.Store.instance ().get_project (id), "");
-                    } else {
-                        move (item.project, id);
-                    }
-                })] = dialog;
-
-                dialog.present (Planify._instance.main_window);
-            })] = move_item;
-
-            signals_map[labels_item.activate_item.connect (() => {
-                var dialog = new Dialogs.LabelPicker (LabelPickerType.FILTER_AND_CREATE) {
-                    button_text = _("Apply")
-                };
-
-                dialog.add_labels (item.source);
-                dialog.labels = item.labels;
-
-                signals_map[dialog.labels_changed.connect ((labels) => {
-                    item.update_labels (labels);
-                })] = dialog;
-
-                dialog.present (Planify._instance.main_window);
-            })] = labels_item;
-
-            signals_map[complete_item.activate_item.connect (() => {
-                checked_button.active = !checked_button.active;
-                checked_toggled (checked_button.active);
-            })] = complete_item;
-
-            signals_map[edit_item.activate_item.connect (() => {
-                Services.EventBus.get_default ().open_item (item);
-            })] = edit_item;
-
-            signals_map[add_item.activate_item.connect (() => {
-                var dialog = new Dialogs.QuickAdd ();
-                dialog.for_base_object (item);
-                dialog.present (Planify._instance.main_window);
-            })] = add_item;
-
-            signals_map[duplicate_item.clicked.connect (() => {
-                Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
-            })] = duplicate_item;
-        }
-
+        menu_box.append (complete_item);
+        menu_box.append (edit_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (today_item);
+        menu_box.append (tomorrow_item);
+        menu_box.append (no_date_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (pinboard_item);
+        menu_box.append (move_item);
+        menu_box.append (labels_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         if (!item.project.is_deck) {
-            menu_box.append (delete_item);
-
-            signals_map[delete_item.activate_item.connect (() => {
-                delete_request ();
-            })] = delete_item;
+            menu_box.append (add_item);
         }
+        menu_box.append (duplicate_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+
+        signals_map[today_item.activate_item.connect (() => {
+            update_date (Utils.Datetime.get_date_only (new DateTime.now_local ()));
+        })] = today_item;
+
+        signals_map[tomorrow_item.activate_item.connect (() => {
+            update_date (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
+        })] = tomorrow_item;
+
+        signals_map[pinboard_item.activate_item.connect (() => {
+            item.update_pin (!item.pinned);
+        })] = pinboard_item;
+
+        signals_map[no_date_item.activate_item.connect (() => {
+            update_due (new Objects.DueDate ());
+        })] = no_date_item;
+
+        signals_map[move_item.activate_item.connect (() => {
+            Dialogs.ProjectPicker.ProjectPicker dialog;
+            if (item.project.is_inbox_project) {
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
+            } else {
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
+            }
+
+            dialog.project = item.project;
+
+            signals_map[dialog.changed.connect ((type, id) => {
+                if (type == "project") {
+                    move (Services.Store.instance ().get_project (id), "");
+                } else {
+                    move (item.project, id);
+                }
+            })] = dialog;
+
+            dialog.present (Planify._instance.main_window);
+        })] = move_item;
+
+        signals_map[labels_item.activate_item.connect (() => {
+            var dialog = new Dialogs.LabelPicker (LabelPickerType.FILTER_AND_CREATE) {
+                button_text = _("Apply")
+            };
+
+            dialog.add_labels (item.source);
+            dialog.labels = item.labels;
+
+            signals_map[dialog.labels_changed.connect ((labels) => {
+                item.update_labels (labels);
+            })] = dialog;
+
+            dialog.present (Planify._instance.main_window);
+        })] = labels_item;
+
+        signals_map[complete_item.activate_item.connect (() => {
+            checked_button.active = !checked_button.active;
+            checked_toggled (checked_button.active);
+        })] = complete_item;
+
+        signals_map[edit_item.activate_item.connect (() => {
+            Services.EventBus.get_default ().open_item (item);
+        })] = edit_item;
+
+        signals_map[add_item.activate_item.connect (() => {
+            var dialog = new Dialogs.QuickAdd ();
+            dialog.for_base_object (item);
+            dialog.present (Planify._instance.main_window);
+        })] = add_item;
+
+        signals_map[duplicate_item.clicked.connect (() => {
+            Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
+        })] = duplicate_item;
+
+        menu_box.append (delete_item);
+
+        signals_map[delete_item.activate_item.connect (() => {
+            delete_request ();
+        })] = delete_item;
 
         menu_handle_popover = new Gtk.Popover () {
             has_arrow = false,
@@ -1740,6 +1739,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         drop_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
         itemrow_box.add_controller (drop_target);
 
+        dnd_handlerses[drop_target.accept.connect ((drop) => {
+            return !item.project.is_deck;
+        })] = drop_target;
+
         dnd_handlerses[drop_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemRow) value;
             var target_widget = this;
@@ -1891,12 +1894,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                         }
                     });
                 } else if (picked_widget.item.project.source_type == SourceType.CALDAV) {
-                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_widget.item.project.source);
-                    caldav_client.add_item.begin (picked_widget.item, true, (obj, res) => {
-                        if (caldav_client.add_item.end (res).status) {
-                            Services.Store.instance ().move_item (picked_widget.item, old_project_id, old_section_id, old_parent_id);
-                        }
-                    });
+                    if (picked_widget.item.project.is_deck) {
+                        picked_widget.item.move_deck.begin (old_section_id, (obj, res) => {
+                            picked_widget.item.move_deck.end (res);
+                        });
+                    } else {
+                        var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_widget.item.project.source);
+                        caldav_client.add_item.begin (picked_widget.item, true, (obj, res) => {
+                            if (caldav_client.add_item.end (res).status) {
+                                Services.Store.instance ().move_item (picked_widget.item, old_project_id, old_section_id, old_parent_id);
+                            }
+                        });
+                    }
                 }
             }
 
@@ -1983,7 +1992,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         markdown_editor.margin_end = 6;
         markdown_editor.margin_top = 3;
         markdown_editor.margin_bottom = 12;
-        markdown_editor.is_editable = !item.completed && !item.project.is_deck;
+        markdown_editor.is_editable = !item.completed;
 
         markdown_editor.set_text (item.description);
         markdown_editor.text_view.update_property (Gtk.AccessibleProperty.LABEL, _("Task description"), -1);

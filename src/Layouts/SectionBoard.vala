@@ -675,30 +675,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         });
 
         delete_item.clicked.connect (() => {
-            var dialog = new Adw.AlertDialog (
-                _ ("Delete Section %s".printf (section.name)),
-                _ ("This can not be undone")
-            );
-
-            dialog.add_response ("cancel", _ ("Cancel"));
-            dialog.add_response ("delete", _ ("Delete"));
-            dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-            dialog.present (Planify._instance.main_window);
-
-            dialog.response.connect ((response) => {
-                if (response == "delete") {
-                    is_loading = true;
-
-                    if (section.project.source_type == SourceType.TODOIST) {
-                        Services.Todoist.get_default ().delete.begin (section, (obj, res) => {
-                            Services.Todoist.get_default ().delete.end (res);
-                            Services.Store.instance ().delete_section (section);
-                        });
-                    } else {
-                        Services.Store.instance ().delete_section (section);
-                    }
-                }
-            });
+            section.delete_section ((Gtk.Window) Planify.instance.main_window);
         });
 
         show_completed_item.clicked.connect (() => {
@@ -774,6 +751,19 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                         Services.Store.instance ().move_item (picked_widget.item); 
                     }
                 });
+            } else if (picked_widget.item.project.source_type == SourceType.CALDAV) {
+                if (picked_widget.item.project.is_deck) {
+                    picked_widget.item.move_deck.begin (old_section_id, (obj, res) => {
+                        picked_widget.item.move_deck.end (res);
+                    });
+                } else {
+                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_widget.item.project.source);
+                    caldav_client.add_item.begin (picked_widget.item, true, (obj, res) => {
+                        if (caldav_client.add_item.end (res).status) {
+                            Services.Store.instance ().move_item (picked_widget.item);
+                        }
+                    });
+                }
             } else if (picked_widget.item.project.source_type == SourceType.LOCAL) {
                 Services.Store.instance ().move_item (picked_widget.item);
             }
