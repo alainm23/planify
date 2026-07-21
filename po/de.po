@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-05-30 08:01+0000\n"
-"Last-Translator: Julian Hackenberg <julian@hackenberg.dev>\n"
+"PO-Revision-Date: 2026-07-21 15:24+0000\n"
+"Last-Translator: numerfolt <numerfolt@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/de/>\n"
 "Language: de\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -160,7 +160,7 @@ msgstr "Frist"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "Übergeordnete Aufgabe"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -333,7 +333,7 @@ msgstr "Aufgabe in die Zwischenablage kopiert"
 
 #: core/Objects/Item.vala:1544
 msgid "iCalendar Files"
-msgstr ""
+msgstr "iCalender-Dateien"
 
 #: core/Objects/Item.vala:1560
 msgid "Task exported successfully"
@@ -564,24 +564,32 @@ msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
+"Dieser Server erlaubt kein Erstellen von Projekten mittels CalDAV. Bitte "
+"erzeuge es direkt auf der Website deines Providers."
 
 #: core/Services/CalDAV/CalDAVClient.vala:808
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"Dieser Server erlaubt kein Löschen von Projekten mittels CalDAV. Bitte "
+"lösche es direkt auf der Website deines Providers."
 
 #: core/Services/CalDAV/CalDAVClient.vala:812
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"Dieser Server erlaubt kein Löschen von Projekten mittels CalDAV. Bitte "
+"lösche es direkt auf dem Server."
 
 #: core/Services/CalDAV/CalDAVClient.vala:846
 #: core/Services/CalDAV/CalDAVClient.vala:893
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"Die Aufgabe wurde auf einem anderen Gerät bearbeitet. Bitte synchronisieren, "
+"um die neuste Version zu erhalten."
 
 #: core/Services/CalDAV/Core.vala:169
 msgid "Source already exists"
@@ -724,12 +732,12 @@ msgstr "%H:%M"
 
 #: core/Utils/Datetime.vala:475
 msgid "Every last day of month"
-msgstr ""
+msgstr "Jeden letzten Tag des Monats"
 
 #: core/Utils/Datetime.vala:476
 #, c-format
 msgid "Every %d months (last day)"
-msgstr ""
+msgstr "Alle %d Monate (am letzten Tag)"
 
 #: core/Utils/Datetime.vala:481
 msgid "Mo,"
@@ -787,7 +795,6 @@ msgid "%Y"
 msgstr "%Y"
 
 #: core/Utils/Datetime.vala:820
-#, fuzzy
 msgid "%b %-e"
 msgstr "%-e. %b"
 
@@ -801,7 +808,6 @@ msgid "%a"
 msgstr "%a"
 
 #: core/Utils/Datetime.vala:829
-#, fuzzy
 msgid "%a, %b %-e"
 msgstr "%a, %-e. %b"
 
@@ -1393,7 +1399,7 @@ msgstr "Jahr(e)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:281
 msgid "Last day of month"
-msgstr ""
+msgstr "Letzter Tag des Monats"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:297
 msgid "Never"
@@ -1425,39 +1431,39 @@ msgstr "Ende"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:530
 msgid "Minute"
 msgid_plural "Minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Minute"
+msgstr[1] "Minuten"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:531
 msgid "Hour"
 msgid_plural "Hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Stunde"
+msgstr[1] "Stunden"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:532
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:536
 msgid "Day"
 msgid_plural "Days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tag"
+msgstr[1] "Tage"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:533
 msgid "Week"
 msgid_plural "Weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Woche"
+msgstr[1] "Wochen"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:534
 msgid "Month"
 msgid_plural "Months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Monat"
+msgstr[1] "Monate"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:535
 msgid "Year"
 msgid_plural "Years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Jahr"
+msgstr[1] "Jahre"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:69
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:78
@@ -1558,7 +1564,7 @@ msgstr "Drücke Enter, um das Label zu erstellen und zuzuweisen"
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1989
 msgid "Task description"
-msgstr ""
+msgstr "Aufgabenbeschreibung"
 
 #: core/Widgets/MarkdownEditor.vala:1388
 msgid "Remove link"
@@ -2140,7 +2146,7 @@ msgstr "Systemeinstellungen verwenden"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:68
 msgid "Use System Accent Color"
-msgstr ""
+msgstr "Verwende Akzentfarbe des Systems"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:78
 msgid "Select theme"
@@ -2172,7 +2178,7 @@ msgstr "Professionelles blaues Design"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:139
 msgid "Accent Color"
-msgstr ""
+msgstr "Akzentfarbe"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:145
 msgid "Custom themes are not available when using the system light theme"
@@ -2200,11 +2206,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:50
 msgid "Automatic Daily Backup"
-msgstr ""
+msgstr "Automatische tägliche Sicherung"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:51
 msgid "Creates a backup every day at midnight"
-msgstr ""
+msgstr "Erstellt täglich um Mitternacht eine Sicherung"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:58
 msgid "Create Backup"
@@ -2232,20 +2238,24 @@ msgid ""
 "Only the last 30 backups are shown here. To access older backups, open the "
 "backup folder directly."
 msgstr ""
+"Hier werden nur die letzten 30 Sicherungen angezeigt. Um auf ältere "
+"Sicherungen zuzugreifen, öffne den Sicherungsordner."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:97
 msgid "Extra Backup Locations"
-msgstr ""
+msgstr "Zusätzliche Sicherungsorte"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:100
 msgid "No extra locations added yet."
-msgstr ""
+msgstr "Bisher keine zusätzlichen Orte hinzugefügt."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:112
 msgid ""
 "Backup copies will also be saved to these folders after each backup is "
 "created."
 msgstr ""
+"Sicherungskopien werden zusätzlich in diesen Ordnern gespeichert, nachdem "
+"eine Sicherung erstellt wurde."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:121
 msgid "Migrate"
@@ -2292,7 +2302,7 @@ msgstr "Aufgaben"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:580
 msgid "This will replace all your current data"
-msgstr ""
+msgstr "Dies wird all deine Daten ersetzen"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:589
 msgid "Restore backup"
@@ -3087,17 +3097,17 @@ msgstr "In die Zwischenablage kopieren"
 
 #: src/Layouts/ItemRow.vala:1382 src/Layouts/ItemSidebarView.vala:511
 msgid "Export as .ics"
-msgstr ""
+msgstr "Exportiere als .ics"
 
 #: src/Layouts/ItemRow.vala:1390
 #, c-format
 msgid "Updated: %s"
-msgstr ""
+msgstr "Aktualisiert: %s"
 
 #: src/Layouts/ItemRow.vala:1392
 #, c-format
 msgid "Created: %s"
-msgstr ""
+msgstr "Erstellt: %s"
 
 #: src/Layouts/ItemRow.vala:2054
 msgid "Add Attachments"
@@ -3117,7 +3127,7 @@ msgstr "Eigenschaften"
 
 #: src/Layouts/ItemSidebarView.vala:194
 msgid "Expand Description"
-msgstr ""
+msgstr "Beschreibung ausklappen"
 
 #: src/Layouts/ItemSidebarView.vala:596
 msgid "Are you sure you want to delete?"
@@ -3247,11 +3257,11 @@ msgstr "Schnelle Suche öffnen"
 
 #: src/MainWindow.vala:337
 msgid "Task was modified on another device"
-msgstr ""
+msgstr "Aufgabe wurde auf einem anderen Gerät geändert"
 
 #: src/MainWindow.vala:339
 msgid "Sync Now"
-msgstr ""
+msgstr "Jetzt synchronisieren"
 
 #: src/MainWindow.vala:754
 msgid "About Planify"
@@ -3303,12 +3313,12 @@ msgstr "Datenbank zurücksetzen"
 
 #: src/Services/BackupManager.vala:153
 msgid "Automatic backup failed"
-msgstr ""
+msgstr "Automatische Sicherung fehlgeschlagen"
 
 #: src/Services/BackupManager.vala:199
 #, c-format
 msgid "Failed to copy backup to %s"
-msgstr ""
+msgstr "Konnte Sicherung nicht nach %s kopieren"
 
 #: src/Services/BackupManager.vala:223
 msgid "Delete Backup"
@@ -3372,7 +3382,7 @@ msgstr "Aufgaben"
 
 #: src/Views/Filter.vala:362
 msgid "No more tasks"
-msgstr ""
+msgstr "Keine Aufgaben mehr"
 
 #: src/Views/Filter.vala:617
 msgid "Delete Completed Task"
@@ -3478,7 +3488,7 @@ msgstr "Erstellungsdatum"
 #: src/Views/Project/Project.vala:547 src/Views/Scheduled/Scheduled.vala:241
 #: src/Views/Today.vala:727
 msgid "Date Modified"
-msgstr ""
+msgstr "Datum verändert"
 
 #: src/Views/Project/Project.vala:550
 msgid "Ascending Order"
@@ -3686,15 +3696,15 @@ msgstr "Aufgabe verschoben zum Projekt"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:53
 msgid "Unknown project"
-msgstr ""
+msgstr "Unbekanntes Projekt"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:56
 msgid "Unknown"
-msgstr ""
+msgstr "Unbekannt"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:59
 msgid "Unknown section"
-msgstr ""
+msgstr "Unbekannter Abschnitt"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:63
 msgid "Task moved to"
@@ -3703,27 +3713,27 @@ msgstr "Aufgabe verschoben zu"
 #: src/Widgets/ItemChangeHistoryRow.vala:169
 #: src/Widgets/ItemChangeHistoryRow.vala:199
 msgid "See more"
-msgstr ""
+msgstr "Mehr anzeigen"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:199
 msgid "See less"
-msgstr ""
+msgstr "Weniger anzeigen"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:276
 msgid "Empty"
-msgstr ""
+msgstr "Leer"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:290
 msgid "No priority"
-msgstr ""
+msgstr "Keine Priorität"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:298
 msgid "No labels"
-msgstr ""
+msgstr "Keine Labels"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:303
 msgid "Not pinned"
-msgstr ""
+msgstr "Nicht angepinnt"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:304
 #: src/Widgets/ItemChangeHistoryRow.vala:305
@@ -3737,16 +3747,16 @@ msgstr "Pin: Inaktiv"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:308
 msgid "No deadline"
-msgstr ""
+msgstr "Keine Frist"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:319
 msgid "No parent"
-msgstr ""
+msgstr "Keine übergeordnete Aufgabe"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:322
 #: src/Widgets/ItemChangeHistoryRow.vala:326
 msgid "Unknown task"
-msgstr ""
+msgstr "Unbekannte Aufgabe"
 
 #: src/Widgets/ItemDetailCompleted.vala:74
 msgid "Completed At"
