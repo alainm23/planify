@@ -1504,7 +1504,7 @@ msgstr "全部標籤都已由篩選器隱藏。停用篩選器才能看到它們
 msgid "Press Enter to create and assign it"
 msgstr "按 Enter 鍵進行建立並指派它"
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1998
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1996
 msgid "Task description"
 msgstr "任務描述"
 
@@ -3029,7 +3029,7 @@ msgstr "已經更新： %s"
 msgid "Created: %s"
 msgstr "已經建立： %s"
 
-#: src/Layouts/ItemRow.vala:2063
+#: src/Layouts/ItemRow.vala:2061
 msgid "Add Attachments"
 msgstr "添加附件"
 
