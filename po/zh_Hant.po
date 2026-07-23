@@ -1367,7 +1367,7 @@ msgid "After"
 msgstr "之後"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:378
-#: core/Widgets/MarkdownEditor.vala:1383 src/Layouts/ItemBoard.vala:867
+#: core/Widgets/MarkdownEditor.vala:1405 src/Layouts/ItemBoard.vala:867
 #: src/Layouts/ItemRow.vala:1324
 msgid "Apply"
 msgstr "套用"
@@ -1508,7 +1508,7 @@ msgstr "按 Enter 鍵進行建立並指派它"
 msgid "Task description"
 msgstr "任務描述"
 
-#: core/Widgets/MarkdownEditor.vala:1388
+#: core/Widgets/MarkdownEditor.vala:1410
 msgid "Remove link"
 msgstr "移除連結"
 
