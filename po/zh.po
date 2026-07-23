@@ -701,12 +701,12 @@ msgstr "%H:%M"
 
 #: core/Utils/Datetime.vala:475
 msgid "Every last day of month"
-msgstr ""
+msgstr "每月最后一天"
 
 #: core/Utils/Datetime.vala:476
 #, c-format
 msgid "Every %d months (last day)"
-msgstr ""
+msgstr "每 %d 个月（最后一天）"
 
 #: core/Utils/Datetime.vala:481
 msgid "Mo,"
@@ -1158,37 +1158,37 @@ msgstr "选择日期"
 #: core/Widgets/Calendar/CalendarWeek.vala:46
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:261
 msgid "Su"
-msgstr "日"
+msgstr "周日"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:47
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:225
 msgid "Mo"
-msgstr "一"
+msgstr "周一"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:48
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:231
 msgid "Tu"
-msgstr "二"
+msgstr "周二"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:49
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:237
 msgid "We"
-msgstr "三"
+msgstr "周三"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:50
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:243
 msgid "Th"
-msgstr "四"
+msgstr "周四"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:51
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:249
 msgid "Fr"
-msgstr "五"
+msgstr "周五"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:52
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:255
 msgid "Sa"
-msgstr "六"
+msgstr "周六"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
 #: src/Dialogs/Preferences/Pages/General.vala:123
@@ -1350,7 +1350,7 @@ msgstr "年"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:281
 msgid "Last day of month"
-msgstr ""
+msgstr "每月最后一天"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:297
 msgid "Never"
@@ -1504,7 +1504,7 @@ msgstr "按回车键创建并分配"
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1998
 msgid "Task description"
-msgstr ""
+msgstr "任务描述"
 
 #: core/Widgets/MarkdownEditor.vala:1388
 msgid "Remove link"
@@ -1948,21 +1948,23 @@ msgstr "URL 示例"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:265
 msgid "Nextcloud Deck Detected"
-msgstr ""
+msgstr "检测到 Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:266
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
 msgstr ""
+"此服务器上已启用 Nextcloud Deck。是否要启用 Deck 集成，以便直接在 Planify 中"
+"管理您的看板和卡片？"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
 msgid "Not Now"
-msgstr ""
+msgstr "暂不"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
 msgid "Enable Deck"
-msgstr ""
+msgstr "启用 Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:181
@@ -1989,15 +1991,15 @@ msgstr "上次同步"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
 msgid "Nextcloud Deck"
-msgstr ""
+msgstr "Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
 msgid "Sync boards and cards from Nextcloud Deck"
-msgstr ""
+msgstr "从 Nextcloud Deck 同步看板和卡片"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
 msgid "Nextcloud Deck is not available on this server"
-msgstr ""
+msgstr "此服务器上 Nextcloud Deck 不可用"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:152
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:214
@@ -2883,11 +2885,11 @@ msgstr "覆盖此项目的全局 Markdown 设置"
 
 #: src/Dialogs/Project.vala:264
 msgid "Create as Deck Board"
-msgstr ""
+msgstr "创建为 Deck 看板"
 
 #: src/Dialogs/Project.vala:265
 msgid "Create a Nextcloud Deck board instead of a task list"
-msgstr ""
+msgstr "创建 Nextcloud Deck 看板而非任务列表"
 
 #: src/Dialogs/Project.vala:576
 msgid "Project added successfully!"
@@ -3011,12 +3013,12 @@ msgstr "导出为 .ics"
 #: src/Layouts/ItemRow.vala:1389
 #, c-format
 msgid "Updated: %s"
-msgstr ""
+msgstr "更新于：%s"
 
 #: src/Layouts/ItemRow.vala:1391
 #, c-format
 msgid "Created: %s"
-msgstr ""
+msgstr "创建于：%s"
 
 #: src/Layouts/ItemRow.vala:2063
 msgid "Add Attachments"
@@ -3214,12 +3216,12 @@ msgstr "重置数据库"
 
 #: src/Services/BackupManager.vala:153
 msgid "Automatic backup failed"
-msgstr ""
+msgstr "自动备份失败"
 
 #: src/Services/BackupManager.vala:199
 #, c-format
 msgid "Failed to copy backup to %s"
-msgstr ""
+msgstr "复制备份到 %s 失败"
 
 #: src/Services/BackupManager.vala:223
 msgid "Delete Backup"
@@ -3283,7 +3285,7 @@ msgstr "任务"
 
 #: src/Views/Filter.vala:362
 msgid "No more tasks"
-msgstr ""
+msgstr "没有更多任务"
 
 #: src/Views/Filter.vala:617
 msgid "Delete Completed Task"
@@ -3319,11 +3321,11 @@ msgstr "备注"
 
 #: src/Views/Project/Board.vala:121
 msgid "No Sections Yet"
-msgstr ""
+msgstr "暂无分区"
 
 #: src/Views/Project/Board.vala:122
 msgid "Create a section to start adding tasks to this board"
-msgstr ""
+msgstr "创建分区以开始向此看板添加任务"
 
 #: src/Views/Project/Board.vala:320
 msgid "Schedule"
@@ -3347,7 +3349,7 @@ msgstr "新建任务"
 
 #: src/Views/Project/Project.vala:357
 msgid "Add a section first to create tasks in this board"
-msgstr ""
+msgstr "请先添加分区以在此看板中创建任务"
 
 #: src/Views/Project/Project.vala:389 src/Views/Project/Project.vala:421
 msgid "Project Deadline"
@@ -3394,7 +3396,7 @@ msgstr "添加日期"
 #: src/Views/Project/Project.vala:560 src/Views/Scheduled/Scheduled.vala:241
 #: src/Views/Today.vala:727
 msgid "Date Modified"
-msgstr ""
+msgstr "修改日期"
 
 #: src/Views/Project/Project.vala:563
 msgid "Ascending Order"
