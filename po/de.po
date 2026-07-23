@@ -1416,7 +1416,7 @@ msgid "After"
 msgstr "Nach"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:378
-#: core/Widgets/MarkdownEditor.vala:1383 src/Layouts/ItemBoard.vala:867
+#: core/Widgets/MarkdownEditor.vala:1405 src/Layouts/ItemBoard.vala:867
 #: src/Layouts/ItemRow.vala:1324
 msgid "Apply"
 msgstr "Anwenden"
@@ -1568,7 +1568,7 @@ msgstr "Drücke Enter, um das Label zu erstellen und zuzuweisen"
 msgid "Task description"
 msgstr "Aufgabenbeschreibung"
 
-#: core/Widgets/MarkdownEditor.vala:1388
+#: core/Widgets/MarkdownEditor.vala:1410
 msgid "Remove link"
 msgstr "Link entfernen"
 

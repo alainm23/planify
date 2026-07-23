@@ -1405,7 +1405,7 @@ msgid "After"
 msgstr "Efter"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:378
-#: core/Widgets/MarkdownEditor.vala:1383 src/Layouts/ItemBoard.vala:867
+#: core/Widgets/MarkdownEditor.vala:1405 src/Layouts/ItemBoard.vala:867
 #: src/Layouts/ItemRow.vala:1324
 msgid "Apply"
 msgstr "Anvend"
@@ -1554,7 +1554,7 @@ msgstr "Tryk Enter for at oprette og tildele"
 msgid "Task description"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1388
+#: core/Widgets/MarkdownEditor.vala:1410
 msgid "Remove link"
 msgstr "Fjern link"
 
