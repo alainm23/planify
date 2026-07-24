@@ -22,7 +22,7 @@ jobs:
         run: apt-get update && apt-get install -y git
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: true
 
