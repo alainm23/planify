@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-03-31 12:10+0000\n"
-"Last-Translator: Krzysztof Raczkowski <raczkow@gmail.com>\n"
+"PO-Revision-Date: 2026-07-29 21:01+0000\n"
+"Last-Translator: Grzegorz Cichocki <grzegorz.cichocki@pollub.edu.pl>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/pl/>\n"
 "Language: pl\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -167,7 +167,7 @@ msgstr ""
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "Zadanie nadrzędne"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -344,7 +344,7 @@ msgstr ""
 
 #: core/Objects/Item.vala:1532
 msgid "Task exported successfully"
-msgstr ""
+msgstr "Eksport zadania zakończony sukcesem"
 
 #: core/Objects/Item.vala:1856 core/Utils/Util.vala:856
 #, fuzzy, c-format
