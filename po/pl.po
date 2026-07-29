@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
 "PO-Revision-Date: 2026-07-29 21:01+0000\n"
-"Last-Translator: Grzegorz Cichocki <grzegorz.cichocki@pollub.edu.pl>\n"
+"Last-Translator: Jakub Cygan <ripkillerip@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/pl/>\n"
 "Language: pl\n"
@@ -163,7 +163,7 @@ msgstr "Przypnij"
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:148
 #: src/Services/ExportService.vala:73
 msgid "Deadline"
-msgstr ""
+msgstr "Ostateczny termin"
 
 #: core/Enum.vala:557
 msgid "Parent task"
@@ -332,7 +332,7 @@ msgstr "nieoznaczone"
 
 #: core/Objects/Item.vala:1474 src/Services/ExportService.vala:187
 msgid "Deadline:"
-msgstr ""
+msgstr "Termin:"
 
 #: core/Objects/Item.vala:1499
 msgid "Task copied to clipboard"
@@ -340,14 +340,14 @@ msgstr "Zadanie skopiowane do schowka"
 
 #: core/Objects/Item.vala:1516
 msgid "iCalendar Files"
-msgstr ""
+msgstr "Pliki iCalendar"
 
 #: core/Objects/Item.vala:1532
 msgid "Task exported successfully"
-msgstr "Eksport zadania zakończony sukcesem"
+msgstr "Zadanie wyeksportowane pomyślnie"
 
 #: core/Objects/Item.vala:1856 core/Utils/Util.vala:856
-#, fuzzy, c-format
+#, c-format
 msgid "Moved to %s"
 msgstr "Zadanie przeniesione do %s"
 
@@ -569,24 +569,32 @@ msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
+"Ten serwer nie pozwala na tworzenie projektów poprzez CalDAV. Proszę je "
+"utworzyć bezpośrednio na stronie dostawcy usługi kalendarza."
 
 #: core/Services/CalDAV/CalDAVClient.vala:828
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"Ten serwer nie pozwala na usuwanie projektów poprzez CalDAV. Proszę go "
+"usunąć bezpośrednio na stronie dostawcy usługi kalendarza."
 
 #: core/Services/CalDAV/CalDAVClient.vala:832
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"Ten serwer nie wspiera usuwania projektów przez CalDAV. Usuń je bezpośrednio "
+"z serwera."
 
 #: core/Services/CalDAV/CalDAVClient.vala:866
 #: core/Services/CalDAV/CalDAVClient.vala:913
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"Zadanie zostało zmodyfikowane na inny urządzenie. Zsynchronizuj do "
+"najnowszej wersji."
 
 #: core/Services/CalDAV/Core.vala:170
 msgid "Source already exists"
@@ -611,23 +619,23 @@ msgstr "Synchronizacja ukończona"
 
 #: core/Services/CalDAV/Core.vala:324
 msgid "Authentication Expired"
-msgstr ""
+msgstr "Uwierzytelnienie wygasło"
 
 #: core/Services/CalDAV/Core.vala:325
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
-msgstr ""
+msgstr "Twoja sesja wygasła. Usuń i dodaj konto ponownie w Preferenjach."
 
 #: core/Services/CalDAV/Core.vala:332
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Za dużo zapytań"
 
 #: core/Services/CalDAV/Core.vala:333
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
-msgstr ""
+msgstr "Serwer jest przeciążony. Ponów prób za jakiś kilka minut."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
@@ -644,7 +652,7 @@ msgstr "Błąd uwierzytelniania: brak poświadczeń lub dane są nieprawidłowe.
 
 #: core/Services/Todoist/Todoist.vala:596 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
-msgstr "Żądanie jest poprawne, ale dostęp do zasobu jest zabroniony."
+msgstr "Zapytanie było poprawne, ale było do czegoś zabronionego"
 
 #: core/Services/Todoist/Todoist.vala:597 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
@@ -652,15 +660,15 @@ msgstr "Szukany element nie został znaleziony."
 
 #: core/Services/Todoist/Todoist.vala:598 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
-msgstr "Przekroczono limit zapytań w danym przedziale czasowym."
+msgstr "Użytkownik wykonał zbyt dużo zapytań w danym czasie"
 
 #: core/Services/Todoist/Todoist.vala:599 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
-msgstr "Wystąpił błąd serwera podczas przetwarzania żądania."
+msgstr "Zapytanie nie udało się z powodu błędu serwera"
 
 #: core/Services/Todoist/Todoist.vala:600 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
-msgstr "Usługa jest chwilowo niedostępna."
+msgstr "Serwer nie jest w stanie wykonać zapytania teraz"
 
 #: core/Services/Todoist/Todoist.vala:601 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
@@ -668,7 +676,7 @@ msgstr "Nieznany błąd"
 
 #: core/Services/Todoist/TodoistAuth.vala:96
 msgid "Invalid API token"
-msgstr ""
+msgstr "Niepoprawny token API"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
@@ -700,32 +708,32 @@ msgstr "%s %s temu"
 #: core/Utils/Datetime.vala:93
 #, c-format
 msgid "%s %s left"
-msgstr ""
+msgstr "zostało %s%s"
 
 #: core/Utils/Datetime.vala:103
 msgid "%-l:%M:%S %p"
-msgstr ""
+msgstr "%-l:%M:%S %p"
 
 #: core/Utils/Datetime.vala:106
 msgid "%-l:%M %p"
-msgstr ""
+msgstr "%-l:%M %p"
 
 #: core/Utils/Datetime.vala:111
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%H:%M:%S"
 
 #: core/Utils/Datetime.vala:114
 msgid "%H:%M"
-msgstr ""
+msgstr "%H:%M"
 
 #: core/Utils/Datetime.vala:475
 msgid "Every last day of month"
-msgstr ""
+msgstr "Każdy ostatni dzień miesiąca"
 
 #: core/Utils/Datetime.vala:476
 #, c-format
 msgid "Every %d months (last day)"
-msgstr ""
+msgstr "Każdy %d miesiąca (ostatni dzień)"
 
 #: core/Utils/Datetime.vala:481
 msgid "Mo,"
@@ -1142,12 +1150,12 @@ msgstr "3 godziny przed"
 #: core/Widgets/Calendar/CalendarDay.vala:103
 #: core/Widgets/Calendar/CalendarScroll.vala:347
 msgid "%A, %B %e, %Y"
-msgstr ""
+msgstr "%A, %B %e, %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:35
 #: core/Widgets/Calendar/CalendarHeader.vala:54
 msgid "%OB"
-msgstr ""
+msgstr "%OB"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:64
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:725
@@ -1176,7 +1184,7 @@ msgstr "Poprzedni miesiąc, %s"
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 msgid "%B %Y"
-msgstr ""
+msgstr "%B %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 #, c-format
@@ -1227,37 +1235,37 @@ msgstr "So"
 #: core/Widgets/Calendar/CalendarWeek.vala:56
 #: src/Dialogs/Preferences/Pages/General.vala:123
 msgid "Sunday"
-msgstr ""
+msgstr "Niedziela"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
 #: src/Dialogs/Preferences/Pages/General.vala:124
 msgid "Monday"
-msgstr ""
+msgstr "Poniedziałek"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
 #: src/Dialogs/Preferences/Pages/General.vala:125
 msgid "Tuesday"
-msgstr ""
+msgstr "Wtorek"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
 #: src/Dialogs/Preferences/Pages/General.vala:126
 msgid "Wednesday"
-msgstr ""
+msgstr "Środa"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
 #: src/Dialogs/Preferences/Pages/General.vala:127
 msgid "Thursday"
-msgstr ""
+msgstr "Czwartek"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
 #: src/Dialogs/Preferences/Pages/General.vala:128
 msgid "Friday"
-msgstr ""
+msgstr "Piątek"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
 #: src/Dialogs/Preferences/Pages/General.vala:129
 msgid "Saturday"
-msgstr ""
+msgstr "Sobota"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:79
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:195
@@ -1350,240 +1358,245 @@ msgstr "Niestandardowe"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:876
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 msgid "No date"
-msgstr ""
+msgstr "Bez daty"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:65
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minut-a/y"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:65
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 msgid "Hour(s)"
-msgstr ""
+msgstr "Godzin-a/y"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:65
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 msgid "Day(s)"
-msgstr ""
+msgstr "Dzień/Dni"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:65
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 msgid "Week(s)"
-msgstr ""
+msgstr "Tydzień/Tygodnie"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:65
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 msgid "Month(s)"
-msgstr ""
+msgstr "Miesiąc-/e"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:65
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 msgid "Year(s)"
-msgstr ""
+msgstr "Rok/Lata"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:281
 msgid "Last day of month"
-msgstr ""
+msgstr "Ostatni dzień miesiąca"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:297
 msgid "Never"
-msgstr ""
+msgstr "Nigdy"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:301
+#, fuzzy
 msgid "On Date"
-msgstr ""
+msgstr "Na czas"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:305
 msgid "After"
-msgstr ""
+msgstr "Po"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:378
 #: core/Widgets/MarkdownEditor.vala:1405 src/Layouts/ItemBoard.vala:867
 #: src/Layouts/ItemRow.vala:1324
 msgid "Apply"
-msgstr ""
+msgstr "Zastosuj"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:391
 msgid "Repeat every"
-msgstr ""
+msgstr "Powtarzaj każdego"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:399
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
 msgid "End"
-msgstr ""
+msgstr "Koniec"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:530
 msgid "Minute"
 msgid_plural "Minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Minuta"
+msgstr[1] "Minut"
+msgstr[2] "Minut"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:531
 msgid "Hour"
 msgid_plural "Hours"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Godzina"
+msgstr[1] "Godzin"
+msgstr[2] "Godzin"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:532
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:536
 msgid "Day"
 msgid_plural "Days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Dzień"
+msgstr[1] "Dni"
+msgstr[2] "Dni"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:533
 msgid "Week"
 msgid_plural "Weeks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Tydzień"
+msgstr[1] "Tygodni"
+msgstr[2] "Tygodni"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:534
 msgid "Month"
 msgid_plural "Months"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Miesiąc"
+msgstr[1] "Miesięcy"
+msgstr[2] "Miesięcy"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:535
 msgid "Year"
 msgid_plural "Years"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Rok"
+msgstr[1] "Lat"
+msgstr[2] "Lat"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:69
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:78
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:73
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:81
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:210
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:214
 msgid "The date you plan to work on this task"
-msgstr ""
+msgstr "Czas w którym planujesz wykonać zadanie"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:130
 msgid "Remove date"
-msgstr ""
+msgstr "Usuń date"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:171
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:209
 msgid "When do you plan to work on this?"
-msgstr ""
+msgstr "Kiedy planujesz wykonać zadanie?"
 
 #: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
 msgid "Set Deadline"
-msgstr ""
+msgstr "Ustaw termin wykonania"
 
 #: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
 #: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
 #: core/Widgets/DeadlineButton.vala:135
+#, fuzzy
 msgid "The latest date to complete this task"
-msgstr ""
+msgstr "Termin wykonania zadania"
 
 #: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
+#, fuzzy
 msgid "What is the latest date to complete this?"
-msgstr ""
+msgstr "Kiedy jest termin ostateczny wykonania tego?"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
 msgid "Select Labels"
-msgstr ""
+msgstr "Wybierz etykiety"
 
 #: core/Widgets/LabelPicker/LabelQuickPicker.vala:191
 #, c-format
 msgid "Label not found: Create '%s'"
-msgstr ""
+msgstr "Etykieta nie znaleziona: Utwórz '%s'"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:74
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
 msgstr ""
+"Twoja lista filtrów pokaże się tutaj. Stwórz podając nazwję i wciskając "
+"przycisk Enter."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:75
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
-msgstr ""
+msgstr "Utwórz '%s'"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:93
 msgid "Your list of filters will show up here."
-msgstr ""
+msgstr "Twoja lista filtrów pojawi się tutaj."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
-msgstr ""
+msgstr "Wyszukaj"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
 msgid "Search or Create"
-msgstr ""
+msgstr "Wyszukaj lub Utwórz"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 msgid "Hide unused labels"
-msgstr ""
+msgstr "Ukryj nietypowe etykiety"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:319
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:402
 msgid "No Labels"
-msgstr ""
+msgstr "Brak etykiet"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
 msgid "All Hidden"
-msgstr ""
+msgstr "Wszystko ukryte"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:395
 msgid "All labels are hidden by the filter. Disable the filter to see them."
-msgstr ""
+msgstr "Wszystkie etykiety są ukryte przez filtr. Wyłącz go by móc je zobaczyć."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:400
 msgid "Press Enter to create and assign it"
-msgstr ""
+msgstr "Kliknij Enter by utworzyć i przypisać"
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1996
 msgid "Task description"
-msgstr ""
+msgstr "Opis zaadania"
 
 #: core/Widgets/MarkdownEditor.vala:1410
 msgid "Remove link"
-msgstr ""
+msgstr "Usuń link"
 
 #: core/Widgets/PriorityButton.vala:95 core/Widgets/PriorityButton.vala:135
 #: core/Widgets/PriorityButton.vala:200
 msgid "Priority 4: None"
-msgstr ""
+msgstr "Priorytet 4: Żaden"
 
 #: core/Widgets/PriorityButton.vala:126 core/Widgets/PriorityButton.vala:182
 msgid "Priority 1: High"
-msgstr ""
+msgstr "Priorytet 1: Wysoki"
 
 #: core/Widgets/PriorityButton.vala:129
 msgid "Priority 2: Medium"
-msgstr ""
+msgstr "Priorytet 2: Średni"
 
 #: core/Widgets/PriorityButton.vala:132
 msgid "Priority 3: Low"
-msgstr ""
+msgstr "Priorytet 3: Niski"
 
 #: core/Widgets/PriorityButton.vala:188
 msgid "Priority 1: Medium"
-msgstr ""
+msgstr "Priorytet 1: Średni"
 
 #: core/Widgets/PriorityButton.vala:194
 msgid "Priority 1: Low"
-msgstr ""
+msgstr "Priorytet 1: Niski"
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:63
 msgid "Your list of section will show up here."
-msgstr ""
+msgstr "Twoja lista sekcji pojawi się tutaj."
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
@@ -1592,22 +1605,24 @@ msgstr ""
 #: core/Widgets/SectionPicker/SectionPickerRow.vala:38
 #: src/Widgets/CompletedTaskRow.vala:77 src/Widgets/ItemDetailCompleted.vala:80
 msgid "No Section"
-msgstr ""
+msgstr "Brak sekcji"
 
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:46
+#, fuzzy
 msgid "Type a search"
-msgstr ""
+msgstr "Podaj wyszukanie"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:146
 msgid "Reminders"
-msgstr ""
+msgstr "Przypomnienia"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:110
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the '+' button."
 msgstr ""
+"Twoja lista przypomnień pojawi się tutaj. Dodaj jeden klikając przycisk '+'."
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:154
 msgid "Add Reminder"
@@ -1651,18 +1666,18 @@ msgstr ""
 
 #: core/Widgets/StatusButton.vala:39
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: core/Widgets/StatusButton.vala:44 core/Widgets/StatusButton.vala:76
 #: core/Widgets/StatusButton.vala:114
 msgid "To Do"
-msgstr ""
+msgstr "Do zrobienia"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:815 src/Layouts/ItemRow.vala:1258
 #: src/Services/Notification.vala:98
 msgid "Complete"
-msgstr ""
+msgstr "Ukończ"
 
 #: src/App.vala:183
 msgid ""
@@ -1673,13 +1688,15 @@ msgstr ""
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
 #: src/Views/Project/Project.vala:460
 msgid "Calendar Sync"
-msgstr ""
+msgstr "Synchronizacja kalendarza"
 
 #: src/Dialogs/CalendarSync.vala:45
 msgid ""
 "Turn your tasks into calendar events automatically. Any task with a date "
 "will appear in your calendar, making it easier to plan your day."
 msgstr ""
+"Utwórz swoje zadania do wydarzeń kalendarzowych automatycznie. Każde zadanie "
+"z datą pojawi się w kalendarzu, co ułatwia planowanie dnia."
 
 #: src/Dialogs/CalendarSync.vala:53
 msgid ""
@@ -1692,32 +1709,36 @@ msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
 msgstr ""
+"Otrzymuj informacje dla twoich zadań poprzez Google Calendar, Outlook lub "
+"dowolną aplikację kalendarzową"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
 "Your tasks sync everywhere: phone, tablet, web browser, and any device with "
 "your calendar"
 msgstr ""
+"Twoje zadania synchronizują się wszędzie, przez: telefon, tablet, "
+"przeglądarką internetową oraz każde urządzenie z kalendarzem"
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
-msgstr ""
+msgstr "Wybierz kalendarz"
 
 #: src/Dialogs/CalendarSync.vala:88
 msgid "Select a calendar from the list"
-msgstr ""
+msgstr "Wybierz kalendarz z listy"
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
-msgstr ""
+msgstr "Włącz synchronizacje"
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
-msgstr ""
+msgstr "Pomyślnie wyłączono synchronizacje kalendarza"
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
-msgstr ""
+msgstr "Synchronizacja kalendarza aktywna"
 
 #: src/Dialogs/CalendarSync.vala:228
 msgid ""
@@ -1727,7 +1748,7 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
-msgstr ""
+msgstr "Wyłącz synchronizacje"
 
 #: src/Dialogs/CalendarSync.vala:279
 #, c-format
@@ -3609,7 +3630,7 @@ msgstr ""
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:31
 msgid "Disable SSL certificate validation"
-msgstr ""
+msgstr "Wyłącz walidacje certyfikatu SSL"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:32
 msgid "Not recommended – exposes you to security risks"
@@ -3841,22 +3862,22 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
 msgid "Search"
-msgstr ""
+msgstr "Wyszukaj"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Open Quick Find"
-msgstr ""
+msgstr "Otwórz szybkie szukanie"
 
 #: data/resources/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Control Windows"
-msgstr ""
+msgstr "Kontrola okien"
 
 #: data/resources/ui/shortcuts.ui:61
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "Wyjdź"
 
 #: data/resources/ui/shortcuts.ui:68
 msgctxt "shortcut window"
