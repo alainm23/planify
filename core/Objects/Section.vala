@@ -169,9 +169,18 @@ public class Objects.Section : Objects.BaseObject {
         added_at = node.get_object ().get_string_member ("added_at");
         project_id = node.get_object ().get_string_member ("project_id");
         section_order = (int32) node.get_object ().get_int_member ("section_order");
-        collapsed = node.get_object ().get_boolean_member ("is_collapsed");
         is_deleted = node.get_object ().get_boolean_member ("is_deleted");
         is_archived = node.get_object ().get_boolean_member ("is_archived");
+
+        if (node.get_object ().has_member ("collapsed")) {
+            collapsed = node.get_object ().get_boolean_member ("collapsed");
+        } else if (node.get_object ().has_member ("is_collapsed")) {
+            collapsed = node.get_object ().get_boolean_member ("is_collapsed");
+        }
+
+        if (node.get_object ().has_member ("extra_data")) {
+            extra_data = node.get_object ().get_string_member ("extra_data");
+        }
     }
 
     public void update_from_json (Json.Node node) {
@@ -237,10 +246,21 @@ public class Objects.Section : Objects.BaseObject {
                     Services.Todoist.get_default ().update.end (res);
                 });
             } else if (project.source_type == SourceType.CALDAV && cloud) {
-                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-                caldav_client.add_section.begin (this, true, (obj, res) => {
-                    caldav_client.add_section.end (res);
-                });
+                if (project.is_deck) {
+                    var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
+                    int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
+                    int stack_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_stack_id");
+                    deck_client.update_stack.begin (board_id, stack_id, name, section_order, (obj, res) => {
+                        try { deck_client.update_stack.end (res); } catch (Error e) {
+                            Services.LogService.get_default ().error ("Deck", "Failed to update stack: %s".printf (e.message));
+                        }
+                    });
+                } else {
+                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                    caldav_client.add_section.begin (this, true, (obj, res) => {
+                        caldav_client.add_section.end (res);
+                    });
+                }
             }
 
             return GLib.Source.REMOVE;
@@ -420,9 +440,26 @@ public class Objects.Section : Objects.BaseObject {
                         Services.Todoist.get_default ().delete.end (res);
                         Services.Store.instance ().delete_section (this);
                     });
-                } else if (project.source_type == SourceType.CALDAV && ical_url != "") {
-                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-                    _delete_caldav_section.begin (caldav_client);
+                } else if (project.source_type == SourceType.CALDAV) {
+                    if (project.is_deck) {
+                        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
+                        int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
+                        int stack_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_stack_id");
+                        deck_client.delete_stack.begin (board_id, stack_id, (obj, res) => {
+                            try {
+                                deck_client.delete_stack.end (res);
+                                Services.Store.instance ().delete_section (this);
+                            } catch (Error e) {
+                                Services.EventBus.get_default ().send_error_toast (0, e.message);
+                            }
+                            loading = false;
+                        });
+                    } else if (ical_url != "") {
+                        var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                        _delete_caldav_section.begin (caldav_client);
+                    } else {
+                        Services.Store.instance ().delete_section (this);
+                    }
                 } else {
                     Services.Store.instance ().delete_section (this);
                 }

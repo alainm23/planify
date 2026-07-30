@@ -238,12 +238,16 @@ public class Objects.Label : Objects.BaseObject {
                     loading = true;
                     foreach (Objects.Item item in Services.Store.instance ().get_items_by_label (this, false)) {
                         item.delete_item_label (id);
-                        var caldav_client = Services.CalDAV.Core.get_default ().get_client (item.project.source);
-                        caldav_client.add_item.begin (item, true, (obj, res) => {
-                            if (caldav_client.add_item.end (res).status) {
-                                Services.Store.instance ().update_item (item);
-                            }
-                        });
+                        if (item.project.is_deck) {
+                            item.update_async ("");
+                        } else {
+                            var caldav_client = Services.CalDAV.Core.get_default ().get_client (item.project.source);
+                            caldav_client.add_item.begin (item, true, (obj, res) => {
+                                if (caldav_client.add_item.end (res).status) {
+                                    Services.Store.instance ().update_item (item);
+                                }
+                            });
+                        }
                     }
 
                     Services.Store.instance ().delete_label (this);

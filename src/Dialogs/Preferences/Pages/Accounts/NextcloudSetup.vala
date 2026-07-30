@@ -210,6 +210,15 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
                 Objects.Source source = (Objects.Source) response.data_object.get_object ();
                 main_stack.visible_child_name = "loading-page";
 
+                // Connect deck_detected BEFORE starting add_caldav_account
+                ulong deck_signal_id = 0;
+                deck_signal_id = core_service.deck_detected.connect ((detected_source) => {
+                    if (detected_source.id == source.id) {
+                        core_service.disconnect (deck_signal_id);
+                        show_deck_dialog (source);
+                    }
+                });
+
                 core_service.add_caldav_account.begin (source, cancellable, (obj, res) => {
                     response = core_service.add_caldav_account.end (res);
 
@@ -217,6 +226,7 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
                         Services.LogService.get_default ().info ("NextcloudSetup", "Account synced successfully");
                         preferences_dialog.pop_subpage ();
                     } else {
+                        core_service.disconnect (deck_signal_id);
                         Services.LogService.get_default ().error ("NextcloudSetup", "Account sync failed: %s".printf (response.error));
                         main_stack.visible_child_name = "main-page";
                         login_button.is_loading = false;
@@ -248,5 +258,25 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
         }
 
         return scheme.has_prefix ("http");
+    }
+
+    private void show_deck_dialog (Objects.Source source) {
+        var dialog = new Adw.AlertDialog (
+            _("Nextcloud Deck Detected"),
+            _("Nextcloud Deck is available on this server. Would you like to enable Deck integration to manage your boards and cards directly in Planify?")
+        );
+
+        dialog.add_response ("cancel", _("Not Now"));
+        dialog.add_response ("enable", _("Enable Deck"));
+        dialog.set_response_appearance ("enable", Adw.ResponseAppearance.SUGGESTED);
+        dialog.present (preferences_dialog);
+
+        dialog.response.connect ((response) => {
+            if (response == "enable") {
+                source.caldav_data.use_deck = true;
+                Services.Store.instance ().update_source (source);
+                Services.CalDAV.Core.get_default ().sync.begin (source);
+            }
+        });
     }
 }

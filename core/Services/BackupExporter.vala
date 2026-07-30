@@ -62,6 +62,8 @@ public class Services.BackupExporter : Object {
             builder.set_member_name ("updated_at"); builder.add_string_value (safe (source.updated_at));
             builder.set_member_name ("is_visible"); builder.add_boolean_value (source.is_visible);
             builder.set_member_name ("child_order"); builder.add_int_value (source.child_order);
+            builder.set_member_name ("sync_server"); builder.add_boolean_value (source.sync_server);
+            builder.set_member_name ("last_sync"); builder.add_string_value (safe (source.last_sync));
             if (source.data != null) {
                 builder.set_member_name ("data"); builder.add_string_value (safe (source.data.to_json ()));
             }
@@ -114,6 +116,7 @@ public class Services.BackupExporter : Object {
             builder.set_member_name ("source_id"); builder.add_string_value (safe (project.source_id));
             builder.set_member_name ("calendar_url"); builder.add_string_value (safe (project.calendar_url));
             builder.set_member_name ("markdown_setting"); builder.add_string_value (project.markdown_setting.to_string ());
+            builder.set_member_name ("extra_data"); builder.add_string_value (safe (project.extra_data));
             builder.end_object ();
         }
         builder.end_array ();
@@ -132,6 +135,7 @@ public class Services.BackupExporter : Object {
             builder.set_member_name ("collapsed"); builder.add_boolean_value (section.collapsed);
             builder.set_member_name ("is_deleted"); builder.add_boolean_value (section.is_deleted);
             builder.set_member_name ("is_archived"); builder.add_boolean_value (section.is_archived);
+            builder.set_member_name ("extra_data"); builder.add_string_value (safe (section.extra_data));
             builder.end_object ();
         }
         builder.end_array ();

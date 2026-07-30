@@ -289,6 +289,7 @@ public class Views.List : Adw.Bin {
     }
 
     private void add_inbox_section () {
+        if (project.is_deck) return;
         inbox_section = new Layouts.SectionRow.for_project (project);
         listbox.append (inbox_section);
     }

@@ -351,7 +351,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         update_request ();
 
         subitems.present_item (item);
-        subitems.reveal_child = true;
+        subitems.reveal_child = !item.project.is_deck;
 
         attachments.present_item (item);
         spinner_revealer.reveal_child = false;
@@ -446,8 +446,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         deadline_button.datetime = item.deadline_datetime;
         
-        content_textview.editable = !item.completed;
-        markdown_editor.is_editable = !item.completed;
+        content_textview.editable = true;
+        markdown_editor.is_editable = true;
         schedule_button.sensitive = !item.completed;
         priority_button.sensitive = !item.completed;
         label_button.sensitive = !item.completed;
