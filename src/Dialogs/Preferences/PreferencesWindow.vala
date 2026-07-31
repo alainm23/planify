@@ -132,6 +132,17 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         backups_row.title = _("Backups");
         backups_row.subtitle = _("Backup or migrate from Planner.");
 
+        var claude_row = new Adw.ActionRow ();
+        claude_row.activatable = true;
+        claude_row.add_prefix (generate_icon ("starred-symbolic"));
+        claude_row.add_suffix (generate_icon ("go-next-symbolic"));
+        claude_row.title = _("Claude AI");
+        claude_row.subtitle = _("AI-powered task assistance");
+
+        signal_map[claude_row.activated.connect (() => {
+            push_subpage (build_page ("claude-page"));
+        })] = claude_row;
+
         var tutorial_row = new Adw.ActionRow ();
         tutorial_row.activatable = true;
         tutorial_row.add_prefix (generate_icon ("rescue-symbolic"));
@@ -147,6 +158,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         personalization_group.add (appearance_row);
         personalization_group.add (quick_add_row);
         personalization_group.add (backups_row);
+        personalization_group.add (claude_row);
         personalization_group.add (tutorial_row);
 
         page.add (personalization_group);
@@ -374,6 +386,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
                 break;
             case "donate":
                 page_map[page] = new Dialogs.Preferences.Pages.Donate (this);
+                break;
+            case "claude-page":
+                page_map[page] = new Dialogs.Preferences.Pages.Claude (this);
                 break;
             default:
                 warning ("The page %s does not exist\n", page);

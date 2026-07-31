@@ -388,5 +388,11 @@
             <summary>Last automatic backup date</summary>
             <description>ISO date of the last automatic backup, used to detect missed backups on startup</description>
         </key>
+
+        <key name="claude-model" type="s">
+            <default>"claude-sonnet-4-6"</default>
+            <summary>Claude AI model to use</summary>
+            <description>Model ID used for Claude AI features. Options: claude-haiku-4-5-20251001, claude-sonnet-4-6, claude-opus-4-8</description>
+        </key>
     </schema>
 </schemalist>
