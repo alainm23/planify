@@ -1555,7 +1555,8 @@ msgstr "Wszystko ukryte"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:395
 msgid "All labels are hidden by the filter. Disable the filter to see them."
-msgstr "Wszystkie etykiety są ukryte przez filtr. Wyłącz go by móc je zobaczyć."
+msgstr ""
+"Wszystkie etykiety są ukryte przez filtr. Wyłącz go by móc je zobaczyć."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:400
 msgid "Press Enter to create and assign it"
