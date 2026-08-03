@@ -1257,6 +1257,16 @@ public class Objects.Item : Objects.BaseObject {
 
         ical.set_uid (id);
         ical.set_dtstamp (new ICal.Time.current_with_zone (ICal.Timezone.get_utc_timezone ()));
+
+        var added_datetime = new GLib.DateTime.from_iso8601 (added_at, new GLib.TimeZone.utc ());
+        if (added_datetime != null) {
+            #if IS_LIBICAL4
+            ical.add_property (new ICal.Property.created (new ICal.Time.from_timet_with_zone ((time_t) added_datetime.to_unix (), false, ICal.Timezone.get_utc_timezone ())));
+            #else
+            ical.add_property (new ICal.Property.created (new ICal.Time.from_timet_with_zone ((time_t) added_datetime.to_unix (), 0, ICal.Timezone.get_utc_timezone ())));
+            #endif
+        }
+
         ical.set_summary (content);
         ical.set_description (description);
 
