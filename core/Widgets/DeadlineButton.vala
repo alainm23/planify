@@ -37,6 +37,8 @@ public class Widgets.DeadlineButton : Adw.Bin {
     private Gtk.Label deadline_relative_label;
     private Gtk.Revealer main_revealer;
     private Gtk.Image deadline_icon;
+    private Gee.ArrayList<Gtk.Button> suggestion_buttons = new Gee.ArrayList<Gtk.Button> ();
+    private Gee.ArrayList<GLib.DateTime> suggestion_dates = new Gee.ArrayList<GLib.DateTime> ();
 
     public GLib.DateTime datetime {
         set {
@@ -45,6 +47,7 @@ public class Widgets.DeadlineButton : Adw.Bin {
 
             if (value == null) {
                 calendar_view.reset ();
+                update_suggestion_selection (null);
                 if (button_type == DeadlineButtonType.BUTTON_DETAIL) {
                     deadline_icon.remove_css_class ("error");
 
@@ -58,6 +61,7 @@ public class Widgets.DeadlineButton : Adw.Bin {
                     deadline_icon.remove_css_class ("error");
                 }
             } else {
+                update_suggestion_selection (value);
                 if (button_type == DeadlineButtonType.BUTTON_DETAIL) {
                     deadline_date_label.label = get_date_format (value);
                     deadline_relative_label.label = get_relative_date_format (value);
@@ -204,6 +208,37 @@ public class Widgets.DeadlineButton : Adw.Bin {
     public Gtk.Popover build_popover () {
         calendar_view = new Widgets.Calendar.Calendar (true);
 
+        var suggested_box = new Adw.WrapBox () {
+            child_spacing = 6,
+            line_spacing = 6,
+            margin_bottom = 6
+        };
+
+        var tomorrow_item = build_suggestion (_("Tomorrow"), new DateTime.now_local ().add_days (1));
+        var in_3_days_item = build_suggestion (_("In 3 days"), new DateTime.now_local ().add_days (3));
+        var next_week_item = build_suggestion (_("Next week"), new DateTime.now_local ().add_days (7));
+        var in_2_weeks_item = build_suggestion (_("In 2 weeks"), new DateTime.now_local ().add_days (14));
+        var in_a_month_item = build_suggestion (_("In a month"), new DateTime.now_local ().add_months (1));
+
+        suggestion_buttons.clear ();
+        suggestion_dates.clear ();
+        suggestion_buttons.add (tomorrow_item);
+        suggestion_buttons.add (in_3_days_item);
+        suggestion_buttons.add (next_week_item);
+        suggestion_buttons.add (in_2_weeks_item);
+        suggestion_buttons.add (in_a_month_item);
+        suggestion_dates.add (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
+        suggestion_dates.add (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (3)));
+        suggestion_dates.add (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (7)));
+        suggestion_dates.add (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (14)));
+        suggestion_dates.add (Utils.Datetime.get_date_only (new DateTime.now_local ().add_months (1)));
+
+        suggested_box.append (tomorrow_item);
+        suggested_box.append (in_3_days_item);
+        suggested_box.append (next_week_item);
+        suggested_box.append (in_2_weeks_item);
+        suggested_box.append (in_a_month_item);
+
         var delete_button = new Gtk.Button.with_label (_("Delete")) {
             margin_top = 12
         };
@@ -215,15 +250,52 @@ public class Widgets.DeadlineButton : Adw.Bin {
             reveal_child = false
         };
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_start = 9,
+            margin_end = 9,
+            margin_top = 9
+        };
+        content_box.append (suggested_box);
+        content_box.append (new Widgets.ContextMenu.MenuSeparator ());
         content_box.append (calendar_view);
         content_box.append (delete_revealer);
 
         var popover = new Gtk.Popover () {
             has_arrow = false,
-            child = content_box,
+            child = new Gtk.ScrolledWindow () {
+                hscrollbar_policy = Gtk.PolicyType.NEVER,
+                vscrollbar_policy = Gtk.PolicyType.AUTOMATIC,
+                propagate_natural_height = true,
+                max_content_height = 425,
+                child = content_box
+            },
             position = Gtk.PositionType.BOTTOM
         };
+
+        tomorrow_item.clicked.connect (() => {
+            date_selected (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
+            popover.hide ();
+        });
+
+        in_3_days_item.clicked.connect (() => {
+            date_selected (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (3)));
+            popover.hide ();
+        });
+
+        next_week_item.clicked.connect (() => {
+            date_selected (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (7)));
+            popover.hide ();
+        });
+
+        in_2_weeks_item.clicked.connect (() => {
+            date_selected (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (14)));
+            popover.hide ();
+        });
+
+        in_a_month_item.clicked.connect (() => {
+            date_selected (Utils.Datetime.get_date_only (new DateTime.now_local ().add_months (1)));
+            popover.hide ();
+        });
 
         calendar_view.day_selected.connect (() => {
             date_selected (calendar_view.date);
@@ -234,11 +306,47 @@ public class Widgets.DeadlineButton : Adw.Bin {
             date_selected (null);
             calendar_view.reset ();
             delete_revealer.reveal_child = false;
-            
             popover.hide ();
         });
 
         return popover;
+    }
+
+    private void update_suggestion_selection (GLib.DateTime? date) {
+        for (int i = 0; i < suggestion_buttons.size; i++) {
+            var btn = suggestion_buttons[i];
+            var btn_date = suggestion_dates[i];
+            if (date != null && Utils.Datetime.get_date_only (date).compare (btn_date) == 0) {
+                btn.add_css_class ("suggested-button-selected");
+            } else {
+                btn.remove_css_class ("suggested-button-selected");
+            }
+        }
+    }
+
+    private Gtk.Button build_suggestion (string title, GLib.DateTime date) {
+        string icon_name = Utils.Datetime.is_tomorrow (date) ? "today-calendar-symbolic" : "month-symbolic";
+
+        var icon = new Gtk.Image.from_icon_name (icon_name);
+
+        var label = new Gtk.Label (title);
+
+        var box = new Gtk.Box (HORIZONTAL, 6) {
+            margin_start = 9,
+            margin_end = 9,
+            margin_top = 6,
+            margin_bottom = 6
+        };
+        box.append (icon);
+        box.append (label);
+
+        var button = new Gtk.Button () {
+            child = box,
+            css_classes = { "card" },
+            tooltip_text = Utils.Datetime.get_relative_date_from_date (date)
+        };
+
+        return button;
     }
 
     private string get_date_format (GLib.DateTime date) {
