@@ -569,6 +569,10 @@ checkbutton.theme-selector radio:checked {
     border-radius: 50%;
 }
 
+.unpin-button:hover {
+    background-color: alpha(#ed333b, 0.15);
+}
+
 .video-content,
 .video-content > overlay,
 .video-content > overlay > picture {
