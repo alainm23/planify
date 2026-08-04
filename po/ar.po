@@ -178,7 +178,7 @@ msgstr "مجدول"
 msgid "Pin"
 msgstr "تثبيت"
 
-#: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:148
+#: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
 #: src/Services/ExportService.vala:73
 msgid "Deadline"
 msgstr ""
@@ -307,7 +307,7 @@ msgstr "قادم"
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:782
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/Calendar/CalendarScroll.vala:56
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:387
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:388
 #: src/Dialogs/DatePicker.vala:62
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:285
 #: src/Layouts/ItemBoard.vala:813 src/Layouts/ItemRow.vala:1243
@@ -322,9 +322,9 @@ msgstr "اليوم"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Utils/Datetime.vala:784
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:393
-#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:816
-#: src/Layouts/ItemRow.vala:1246
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:394
+#: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:66
+#: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1246
 msgid "Tomorrow"
 msgstr "غداً"
 
@@ -403,7 +403,7 @@ msgid "Cancel"
 msgstr "الغاء"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:901
-#: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:207
+#: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:242
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
@@ -1145,8 +1145,8 @@ msgid "%OB"
 msgstr ""
 
 #: core/Widgets/Calendar/CalendarHeader.vala:64
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:725
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:760
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:726
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:761
 #: src/Layouts/HeaderBar.vala:88
 msgid "Back"
 msgstr ""
@@ -1255,14 +1255,14 @@ msgid "Saturday"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:79
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:195
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:524
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:525
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:140
 msgid "Time"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:90
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:849
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:856
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:599
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:250
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1185
@@ -1270,7 +1270,7 @@ msgid "until"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:93
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:852
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:859
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:603
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1188
@@ -1278,7 +1278,7 @@ msgid "for"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:93
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:852
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:859
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:603
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1188
@@ -1286,7 +1286,7 @@ msgid "times"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:93
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:852
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:859
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:603
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1188
@@ -1294,7 +1294,7 @@ msgid "time"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:105
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:197
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:198
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:109
 msgid "Repeat"
 msgstr ""
@@ -1303,46 +1303,47 @@ msgstr ""
 msgid "Type a date…"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:399
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:400
+#: core/Widgets/DeadlineButton.vala:219
 msgid "Next week"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:542
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:543
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
 msgid "Save"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:578
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:579
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
 msgid "Daily"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:582
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Weekdays"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:586
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 msgid "Weekends"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:590
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:591
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 msgid "Weekly"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:594
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:595
 msgid "Monthly"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:598
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:599
 msgid "Yearly"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:602
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:603
 msgid "Custom"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:876
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:883
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 msgid "No date"
 msgstr ""
@@ -1490,18 +1491,30 @@ msgstr ""
 msgid "When do you plan to work on this?"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
+#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:135
 msgid "Set Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
-#: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
-#: core/Widgets/DeadlineButton.vala:135
+#: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:90
+#: core/Widgets/DeadlineButton.vala:97 core/Widgets/DeadlineButton.vala:104
+#: core/Widgets/DeadlineButton.vala:139
 msgid "The latest date to complete this task"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
+#: core/Widgets/DeadlineButton.vala:59 core/Widgets/DeadlineButton.vala:157
 msgid "What is the latest date to complete this?"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:218
+msgid "In 3 days"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:220
+msgid "In 2 weeks"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:221
+msgid "In a month"
 msgstr ""
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
