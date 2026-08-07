@@ -154,6 +154,19 @@ public class Planify : Adw.Application {
             main_window.show ();
         }
 
+        #if ANDROID
+        if (!Services.Settings.get_default ().settings.get_boolean ("android-experimental-warning-shown")) {
+            Services.Settings.get_default ().settings.set_boolean ("android-experimental-warning-shown", true);
+
+            var experimental_dialog = new Adw.AlertDialog (
+                _("Experimental Android Build"),
+                _("You're using an early, in-progress Android port of Planify. Expect data loss.")
+            );
+            experimental_dialog.add_response ("ok", _("Got It"));
+            experimental_dialog.present (main_window);
+        }
+        #endif
+
         Services.Settings.get_default ().settings.bind ("window-maximized", main_window, "maximized", SettingsBindFlags.SET);
 
         var provider = new Gtk.CssProvider ();
