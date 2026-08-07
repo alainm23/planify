@@ -468,6 +468,19 @@ public class Util : GLib.Object {
         });
     }
 
+    public async bool open_uri (string uri) {
+        Gtk.Application? app = GLib.Application.get_default () as Gtk.Application;
+        Gtk.Window? window = app != null ? app.get_active_window () : null;
+
+        try {
+            yield new Gtk.UriLauncher (uri).launch (window, null);
+            return true;
+        } catch (Error e) {
+            warning ("Failed to open URI '%s': %s", uri, e.message);
+            return false;
+        }
+    }
+
     public void show_alert_destroy (Gtk.Window window) {
         var dialog = new Adw.AlertDialog (null, _("Process completed, you need to start Planify again."));
 
