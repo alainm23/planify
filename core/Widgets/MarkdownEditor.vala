@@ -1737,13 +1737,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         
         if (url != "") {
             var normalized_url = normalize_url (url);
-            try {
-                AppInfo.launch_default_for_uri (normalized_url, null);
-            } catch (Error e) {
-                Services.EventBus.get_default ().send_toast (
-                    Util.get_default ().create_toast (e.message)
-                );
-            }
+            Util.get_default ().open_uri.begin (normalized_url);
         }
     }
 

@@ -170,11 +170,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         issue_row.subtitle = _("Share bugs or ideas on GitHub");
 
         signal_map[issue_row.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.ISSUE_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
+            Util.get_default ().open_uri.begin (Constants.ISSUE_URL);
         })] = issue_row;
 
         var translation_row = new Widgets.TranslationRow ();
@@ -185,11 +181,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         translation_row.add_controller (click_gesture);
         
         signal_map[click_gesture.pressed.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.WEBLATE_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
+            Util.get_default ().open_uri.begin (Constants.WEBLATE_URL);
         })] = click_gesture;
 
         var collaboration_group = new Adw.PreferencesGroup ();
@@ -213,13 +205,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         contact_us_row.subtitle = _("Request a feature or ask us anything");
 
         signal_map[contact_us_row.activated.connect (() => {
-            string uri = "mailto:%s".printf (Constants.CONTACT_US);
-
-            try {
-                AppInfo.launch_default_for_uri (uri, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
+            Util.get_default ().open_uri.begin ("mailto:%s".printf (Constants.CONTACT_US));
         })] = contact_us_row;
 
         var tweet_us_row = new Adw.ActionRow ();
@@ -230,11 +216,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         tweet_us_row.subtitle = _("Share some love");
 
         signal_map[tweet_us_row.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.TWITTER_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
+            Util.get_default ().open_uri.begin (Constants.TWITTER_URL);
         })] = tweet_us_row;
 
         var discord_row = new Adw.ActionRow ();
@@ -245,11 +227,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         discord_row.subtitle = _("Discuss and share your feedback");
 
         signal_map[discord_row.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.DISCORD_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
+            Util.get_default ().open_uri.begin (Constants.DISCORD_URL);
         })] = discord_row;
 
         var mastodon_row = new Adw.ActionRow ();
@@ -260,11 +238,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         mastodon_row.subtitle = _("Share some love");
 
         signal_map[mastodon_row.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.MASTODON_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
+            Util.get_default ().open_uri.begin (Constants.MASTODON_URL);
         })] = mastodon_row;
 
         reach_us_group.add (contact_us_row);
@@ -305,11 +279,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         })] = backups_row;
 
         signal_map[privacy_policy_row.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.PRIVACY_POLICY_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
+            Util.get_default ().open_uri.begin (Constants.PRIVACY_POLICY_URL);
         })] = privacy_policy_row;
 
         signal_map[delete_row.activated.connect (() => {

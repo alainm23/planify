@@ -82,7 +82,7 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
             var poll_token = poll.get_string_member ("token");
             var poll_endpoint = poll.get_string_member ("endpoint");
 
-            AppInfo.launch_default_for_uri (login_link, null);
+            Util.get_default ().open_uri.begin (login_link);
 
             Services.LogService.get_default ().info ("Nextcloud", "Login page opened in browser, waiting for authentication");
 
