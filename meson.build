@@ -111,6 +111,8 @@ if host_machine.system() == 'android'
     '--pkg', 'gtksourceview-5',
     '--pkg', 'sqlite3',
     '--pkg', 'libical-glib',
+    '--pkg', 'posix',
+    '--disable-since-check',
   ], language: 'vala')
 else
   libical_dep = dependency('libical-glib')
