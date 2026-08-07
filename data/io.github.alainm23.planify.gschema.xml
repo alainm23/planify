@@ -388,5 +388,11 @@
             <summary>Last automatic backup date</summary>
             <description>ISO date of the last automatic backup, used to detect missed backups on startup</description>
         </key>
+
+        <key name="android-experimental-warning-shown" type="b">
+            <default>false</default>
+            <summary>Whether the Android experimental-build warning was shown</summary>
+            <description>Tracks if user has dismissed warning that the build is experimental</description>
+        </key>
     </schema>
 </schemalist>
