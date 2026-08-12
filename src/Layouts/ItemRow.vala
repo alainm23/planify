@@ -1071,9 +1071,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         if (edit) {
             add_css_class ("task-editing");
-            content_textview.editable = !item.completed;
+            content_textview.editable = true;
             if (markdown_editor != null) {
-                markdown_editor.is_editable = !item.completed;
+                markdown_editor.is_editable = true;
             }
             item_labels.sensitive = !item.completed;
 
@@ -1992,8 +1992,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         markdown_editor.margin_end = 6;
         markdown_editor.margin_top = 3;
         markdown_editor.margin_bottom = 12;
-        markdown_editor.is_editable = !item.completed;
-
         markdown_editor.set_text (item.description);
         markdown_editor.text_view.update_property (Gtk.AccessibleProperty.LABEL, _("Task description"), -1);
         markdown_editor.text_view.update_property (Gtk.AccessibleProperty.VALUE_TEXT, item.description, -1);

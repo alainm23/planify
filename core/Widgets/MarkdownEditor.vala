@@ -1059,34 +1059,57 @@ public class Widgets.MarkdownEditor : Adw.Bin {
                 } while (match_info.next ());
             }
             
-            var code_regex = new GLib.Regex ("`([^`]+)`");
-            
+            // Fenced code blocks (``` ... ```) — apply code_tag only, no invisible_tag
+            var fenced_code_regex = new GLib.Regex ("```([\\s\\S]*?)```", GLib.RegexCompileFlags.MULTILINE);
+
+            if (fenced_code_regex.match (text, 0, out match_info)) {
+                do {
+                    int start_pos, end_pos;
+                    match_info.fetch_pos (0, out start_pos, out end_pos);
+
+                    var start_chars = text.substring (0, start_pos).char_count ();
+                    var end_chars = text.substring (0, end_pos).char_count ();
+
+                    Gtk.TextIter fence_start, fence_end;
+                    buffer.get_iter_at_offset (out fence_start, start_chars);
+                    buffer.get_iter_at_offset (out fence_end, end_chars);
+
+                    buffer.apply_tag (code_tag, fence_start, fence_end);
+                } while (match_info.next ());
+            }
+
+            // Inline code (`...`) — exclude triple backticks
+            var code_regex = new GLib.Regex ("(?<!`)(`{1})(?!`)([^`\\n]+?)(?<!`)\\1(?!`)");
+
             if (code_regex.match (text, 0, out match_info)) {
                 do {
                     int start_pos, end_pos;
                     match_info.fetch_pos (0, out start_pos, out end_pos);
-                    
+
                     var start_chars = text.substring (0, start_pos).char_count ();
                     var end_chars = text.substring (0, end_pos).char_count ();
-                    
+
                     Gtk.TextIter code_start, code_end;
                     buffer.get_iter_at_offset (out code_start, start_chars);
                     buffer.get_iter_at_offset (out code_end, end_chars);
-                    
+
+                    if (code_start.has_tag (code_tag)) {
+                        continue;
+                    }
+
                     Gtk.TextIter tick_end = code_start;
                     tick_end.forward_chars (1);
                     buffer.apply_tag (invisible_tag, code_start, tick_end);
-                    
+
                     Gtk.TextIter text_start = code_start;
                     text_start.forward_chars (1);
                     Gtk.TextIter text_end = code_end;
                     text_end.backward_chars (1);
                     buffer.apply_tag (code_tag, text_start, text_end);
-                    
+
                     Gtk.TextIter last_tick_start = code_end;
                     last_tick_start.backward_chars (1);
                     buffer.apply_tag (invisible_tag, last_tick_start, code_end);
-                    
                 } while (match_info.next ());
             }
             
@@ -1330,7 +1353,6 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     public string get_text () {
         var text = get_real_text ();
         text = text.replace ("• ", "- ");
-
         return text;
     }
     
