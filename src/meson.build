@@ -8,6 +8,10 @@ if icu_uc_dep.found()
   deps += icu_uc_dep
 endif
 
+if host_machine.system() == 'android'
+  deps += dependency('gioopenssl')
+endif
+
 
 if get_option('portal')
     if libportal_dep.found()
