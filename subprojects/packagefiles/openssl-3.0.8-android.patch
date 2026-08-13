@@ -1,0 +1,62 @@
+diff --git a/crypto/x509/by_dir.c b/crypto/x509/by_dir.c
+index cb40c77..547d01d 100644
+--- a/crypto/x509/by_dir.c
++++ b/crypto/x509/by_dir.c
+@@ -233,7 +233,9 @@ static int get_cert_by_subject_ex(X509_LOOKUP *xl, X509_LOOKUP_TYPE type,
+         X509_CRL crl;
+     } data;
+     int ok = 0;
+-    int i, j, k;
++    int i, j, k, l;
++    unsigned long hash[2];
++    int valid_hash[2]; /* '0' for invalid value in `hash` array */
+     unsigned long h;
+     BUF_MEM *b = NULL;
+     X509_OBJECT stmp, *tmp;
+@@ -261,9 +263,19 @@ static int get_cert_by_subject_ex(X509_LOOKUP *xl, X509_LOOKUP_TYPE type,
+     }
+
+     ctx = (BY_DIR *)xl->method_data;
+-    h = X509_NAME_hash_ex(name, libctx, propq, &i);
+-    if (i == 0)
+-        goto finish;
++    hash[0] = X509_NAME_hash_ex(name, libctx, propq, &i);
++    valid_hash[0] = (i != 0);
++#ifndef OPENSSL_NO_MD5
++    hash[1] = X509_NAME_hash_old(name); /* MD5 name hash */
++    valid_hash[1] = 1;
++#else
++    valid_hash[1] = 0;
++#endif
++    for (l = 0; l < 2; ++l) {
++        h = hash[l];
++        if (valid_hash[l] == 0)
++            continue; /* skip invalid hash */
++
+     for (i = 0; i < sk_BY_DIR_ENTRY_num(ctx->dirs); i++) {
+         BY_DIR_ENTRY *ent;
+         int idx;
+@@ -416,6 +428,7 @@ static int get_cert_by_subject_ex(X509_LOOKUP *xl, X509_LOOKUP_TYPE type,
+             goto finish;
+         }
+     }
++    }
+  finish:
+     BUF_MEM_free(b);
+     return ok;
+diff --git a/include/internal/cryptlib.h b/include/internal/cryptlib.h
+index 934d4b0..277d10d 100644
+--- a/include/internal/cryptlib.h
++++ b/include/internal/cryptlib.h
+@@ -65,7 +65,11 @@ DEFINE_LHASH_OF(MEM);
+
+ # ifndef OPENSSL_SYS_VMS
+ #  define X509_CERT_AREA          OPENSSLDIR
++# if defined(ANDROID) || defined(__ANDROID__)
++#  define X509_CERT_DIR           "/system/etc/security/cacerts"
++# else
+ #  define X509_CERT_DIR           OPENSSLDIR "/certs"
++# endif
+ #  define X509_CERT_FILE          OPENSSLDIR "/cert.pem"
+ #  define X509_PRIVATE_DIR        OPENSSLDIR "/private"
+ #  define CTLOG_FILE              OPENSSLDIR "/ct_log_list.cnf"
