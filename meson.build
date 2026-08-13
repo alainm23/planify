@@ -44,13 +44,16 @@ libsoup_dep = dependency('libsoup-3.0')
 sqlite3_dep = dependency('sqlite3')
 libadwaita_dep = dependency('libadwaita-1', version: '>= 1.7.0')
 json_dep = dependency('json-glib-1.0')
-libical_dep = dependency('libical-glib')
 libgxml_dep = dependency('gxml-0.20')
-libsecret_dep = dependency('libsecret-1')
+libsecret_dep = dependency('libsecret-1', required : false)
 libspelling = dependency('libspelling-1', required: get_option('spelling'))
 gtksourceview_dep = dependency('gtksourceview-5')
 m_dep = meson.get_compiler('c').find_library('m', required : false)
-icu_uc_dep = dependency('icu-uc')
+icu_uc_dep = dependency('icu-uc',
+  required: host_machine.system() != 'android',
+  allow_fallback: host_machine.system() != 'android',
+)
+libical_dep = dependency('libical-glib')
 
 # is libical version 4 or higher?
 is_libical4 = libical_dep.version().version_compare('>= 4.0.0')
@@ -58,7 +61,7 @@ if is_libical4
   add_project_arguments('-D', 'IS_LIBICAL4', language: 'vala')
 endif
 
-if icu_uc_dep.found ()
+if icu_uc_dep.found () or host_machine.system() == 'android'
   add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
 endif
 
@@ -160,6 +163,6 @@ summary({
 
 gnome.post_install(
   glib_compile_schemas: true,
-  gtk_update_icon_cache: true,
+  gtk_update_icon_cache: host_machine.system() != 'android',
   update_desktop_database: true,
 )

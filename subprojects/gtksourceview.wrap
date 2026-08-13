@@ -1,0 +1,10 @@
+[wrap-git]
+directory=gtksourceview
+url=https://gitlab.gnome.org/GNOME/gtksourceview.git
+revision=e46bb9bf434966b7be9d3de67bd0c11b309342a3
+depth=1
+diff_files=gtksourceview.patch
+
+[provide]
+gtksourceview-5 = gtksource_dep
+dependency_names = gtksourceview-5
