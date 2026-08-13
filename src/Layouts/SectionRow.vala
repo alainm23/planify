@@ -62,8 +62,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         }
     }
 
-    public Gee.HashMap<string, Layouts.ItemRow> items_map = new Gee.HashMap<string, Layouts.ItemRow> ();
-    public Gee.HashMap<string, Layouts.ItemRow> checked_items_map = new Gee.HashMap<string, Layouts.ItemRow> ();
+    public Gee.HashMap<string, Layouts.ItemRow> items_map;
+    public Gee.HashMap<string, Layouts.ItemRow> checked_items_map;
 
     private Gee.ArrayList<Objects.Item> completed_items_list;
     private int completed_page_index = 0;
@@ -102,7 +102,9 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         add_css_class ("no-selectable");
         add_css_class ("no-padding");
 
-        hide_subtask_button = new Gtk.Button () {
+        items_map = new Gee.HashMap<string, Layouts.ItemRow> ();
+        checked_items_map = new Gee.HashMap<string, Layouts.ItemRow> ();
+ = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
             css_classes = { "flat", "dimmed", "no-padding", "hidden-button" },
             child = new Gtk.Image.from_icon_name ("go-next-symbolic") {
@@ -512,9 +514,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     }
 
     public void add_items () {
-        items_map.clear ();
-        
         var items = is_inbox_section ? section.project.items : section.items;
+
+        items_map = new Gee.HashMap<string, Layouts.ItemRow> (null, null, null, items.size.clamp (16, 256));
+        checked_items_map = new Gee.HashMap<string, Layouts.ItemRow> ();
+
         items.sort ((item1, item2) => {
             return Util.get_default ().set_item_sort_func (
                 item1,
@@ -853,7 +857,9 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         // Clear Signals
         foreach (var entry in signal_map.entries) {
-            entry.value.disconnect (entry.key);
+            if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
+                entry.value.disconnect (entry.key);
+            }
         }
 
         signal_map.clear ();
