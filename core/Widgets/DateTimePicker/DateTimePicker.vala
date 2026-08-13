@@ -164,7 +164,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         var suggested_date_box = new Adw.WrapBox () {
             child_spacing = 6,
             line_spacing = 6,
-            margin_bottom = 6
+            margin_bottom = 6,
+            margin_top = 1
         };
 
         show.connect (() => {
@@ -816,12 +817,18 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                 ellipsize = END
             };
 
-            var date_box = new Gtk.Box (HORIZONTAL, 6);
+            var date_box = new Gtk.Box (HORIZONTAL, 6) {
+                margin_start = 9,
+                margin_end = 9,
+                margin_top = 6,
+                margin_bottom = 6
+            };
             date_box.append (date_icon);
             date_box.append (date_label);
 
             button = new Gtk.Button () {
-                child = date_box
+                child = date_box,
+                css_classes = { "card" },
             };
 
             button.clicked.connect (() => clicked ());
