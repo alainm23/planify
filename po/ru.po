@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-08-12 00:51+0000\n"
-"Last-Translator: Fraxinus Acer <yasson2008@ya.ru>\n"
+"PO-Revision-Date: 2026-08-14 00:01+0000\n"
+"Last-Translator: Vladislav Dub <vlad.milosta@outlook.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/ru/>\n"
 "Language: ru\n"
@@ -2139,7 +2139,7 @@ msgstr "API токен"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
 msgid "Connect using your personal Todoist API token"
-msgstr ""
+msgstr "Подключение с использованием токена API Todoist"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:176
 msgid "Paste your API token"
@@ -2955,7 +2955,7 @@ msgstr "Итого"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:57
 msgid "Pending"
-msgstr ""
+msgstr "Ожидание"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:59
 #: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
@@ -3136,17 +3136,17 @@ msgstr "Скопировать в буфер обмена"
 
 #: src/Layouts/ItemRow.vala:1381 src/Layouts/ItemSidebarView.vala:511
 msgid "Export as .ics"
-msgstr ""
+msgstr "Экспортировать как .ics"
 
 #: src/Layouts/ItemRow.vala:1389
 #, c-format
 msgid "Updated: %s"
-msgstr ""
+msgstr "Обновлено: %s"
 
 #: src/Layouts/ItemRow.vala:1391
 #, c-format
 msgid "Created: %s"
-msgstr ""
+msgstr "Создано: %s"
 
 #: src/Layouts/ItemRow.vala:2061
 msgid "Add Attachments"
@@ -3207,7 +3207,7 @@ msgstr "Отправить по E-Mail"
 
 #: src/Layouts/ProjectRow.vala:710
 msgid "Export as PDF"
-msgstr ""
+msgstr "Экспортировать как PDF"
 
 #: src/Layouts/ProjectRow.vala:785
 msgid "Project exported as PDF"
