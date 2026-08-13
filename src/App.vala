@@ -19,6 +19,11 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
+#if ANDROID
+[CCode (cname = "g_io_openssl_load")]
+extern void g_io_openssl_load (GLib.IOModule? module);
+#endif
+
 public class Planify : Adw.Application {
     public MainWindow main_window;
 
@@ -281,6 +286,10 @@ public class Planify : Adw.Application {
     }
 
     public static int main (string[] args) {
+        #if ANDROID
+            g_io_openssl_load (null);
+        #endif
+
         Planify app = Planify.instance;
         return app.run (args);
     }
