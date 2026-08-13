@@ -104,7 +104,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         items_map = new Gee.HashMap<string, Layouts.ItemRow> ();
         checked_items_map = new Gee.HashMap<string, Layouts.ItemRow> ();
- = new Gtk.Button () {
+
+        hide_subtask_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
             css_classes = { "flat", "dimmed", "no-padding", "hidden-button" },
             child = new Gtk.Image.from_icon_name ("go-next-symbolic") {
@@ -516,7 +517,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     public void add_items () {
         var items = is_inbox_section ? section.project.items : section.items;
 
-        items_map = new Gee.HashMap<string, Layouts.ItemRow> (null, null, null, items.size.clamp (16, 256));
+        items_map = new Gee.HashMap<string, Layouts.ItemRow> ();
         checked_items_map = new Gee.HashMap<string, Layouts.ItemRow> ();
 
         items.sort ((item1, item2) => {
