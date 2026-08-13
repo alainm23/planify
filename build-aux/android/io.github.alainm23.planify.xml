@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app xmlns="https://sp1rit.arpa/pixiewood/">
+    <metainfo>
+        <component type="desktop-application" xmlns="https://specifications.freedesktop.org/metainfo/1.0">
+            <id>io.github.alainm23.planify</id>
+
+            <metadata_license>CC0</metadata_license>
+            <project_license>GPL-3.0+</project_license>
+
+            <name translate="no">Planify</name>
+            <summary>Forget about forgetting things</summary>
+
+            <description>
+                <p>Planify is your modern and powerful task manager that helps you keep your life organized. With a clean and intuitive interface, cloud synchronization, and advanced features, you'll never forget what matters again.</p>
+            </description>
+
+            <developer id="com.github.alainm23">
+                <name translate="no">Alain</name>
+            </developer>
+
+            <requires>
+                <internet>always</internet>
+            </requires>
+
+            <url type="homepage">https://useplanify.com/</url>
+
+            <launchable type="desktop-id">
+                io.github.alainm23.planify.desktop
+            </launchable>
+
+            <branding>
+                <color scheme_preference="light" type="primary">#f9f06b</color>
+                <color scheme_preference="dark" type="primary">#9141ac</color>
+            </branding>
+
+            <releases>
+                <release version="4.19.5" date="2026-06-05">
+                    <description translate="no">
+                        <p>See https://github.com/alainm23/planify/releases for release notes.</p>
+                    </description>
+                </release>
+            </releases>
+        </component>
+    </metainfo>
+    <style>
+        <theme name="adw" />
+        <icon type="generate">
+            <drawable path="src://data/icons/hicolor/scalable/apps/io.github.alainm23.planify.svg" scale=".66" target="foreground"
+                type="svg" />
+            <color target="background">#FFFFFF</color>
+            <drawable target="monochrome" scale=".5" type="svg" path="src://data/icons/hicolor/symbolic/apps/io.github.alainm23.planify-symbolic.svg"/>
+        </icon>
+    </style>
+    <dependencies>
+        <glib>
+        <patch>hack</patch>
+        <patch>pthread-restrictions</patch>
+        </glib>
+        <harfbuzz />
+        <fontconfig />
+        <gtk revision="4.23.3" />
+        <libadwaita revision="1.10.beta.1" />
+    </dependencies>
+    <build target="io.github.alainm23.planify">
+        <configure-options>
+            <option>-Dspelling=disabled</option>
+            <option>-Dportal=false</option>
+            <option>-Devolution=false</option>
+            <option>-Dlibadwaita:introspection=disabled</option>
+            <option>-Dlibadwaita:tests=false</option>
+            <option>-Dlibadwaita:examples=false</option>
+            <option>-Dlibadwaita:documentation=false</option>
+            <option>-Dgtk:introspection=disabled</option>
+            <option>-Dgtk:media-gstreamer=disabled</option>
+            <option>-Dlibsoup:introspection=disabled</option>
+            <option>-Dlibsoup:docs=disabled</option>
+            <option>-Dlibsoup:tests=false</option>
+            <option>-Dlibsoup:tls_check=true</option>
+            <option>-Djson-glib:introspection=disabled</option>
+            <option>-Djson-glib:documentation=disabled</option>
+            <option>-Djson-glib:tests=false</option>
+            <option>-Dgtksourceview-5:introspection=disabled</option>
+            <option>-Dgtksourceview-5:documentation=disabled</option>
+            <option>-Dglib-networking:gnome_proxy=disabled</option>
+            <option>-Dglib-networking:environment_proxy=disabled</option>
+            <option>-Dglib-networking:gnutls=disabled</option>
+            <option>-Dglib-networking:openssl=enabled</option>
+            <option>-Dglib-networking:libproxy=disabled</option>
+            <option>-Dglib-networking:default_library=static</option>
+        </configure-options>
+    </build>
+</app>
