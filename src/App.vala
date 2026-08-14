@@ -148,7 +148,9 @@ public class Planify : Adw.Application {
             main_window.maximize ();
         }
 
-        if (!run_in_background) {
+        if (run_in_background) {
+            hold ();
+        } else {
             main_window.show ();
         }
 
