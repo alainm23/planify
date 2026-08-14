@@ -483,7 +483,7 @@ msgstr ""
 "Rất tiếc, Quick Add không tìm thấy dự án nào khả dụng, hãy thử tạo dự án từ "
 "Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:753
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
 msgid "Keyboard Shortcuts"
 msgstr "Phím Tắt"
 
@@ -1646,7 +1646,7 @@ msgstr "Cần làm"
 msgid "Complete"
 msgstr "Hoàn thành"
 
-#: src/App.vala:183
+#: src/App.vala:185
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1838,7 +1838,7 @@ msgstr "Cập Nhật Nhãn"
 msgid "Filter"
 msgstr "Bộ lọc"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:758
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
 msgid "Archived Projects"
 msgstr "Dự Án Đã Lưu Trữ"
 
@@ -2669,7 +2669,7 @@ msgstr ""
 "Khi được bật, lời nhắc trước thời gian đến hạn của nhiệm vụ sẽ được thêm mặc "
 "định."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:748
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
 msgid "Preferences"
 msgstr "Tùy Chọn"
 
@@ -2784,7 +2784,7 @@ msgstr "Xóa vĩnh viễn tất cả danh sách, nhiệm vụ và lời nhắc c
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:751
+#: src/MainWindow.vala:752
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -2825,7 +2825,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:827
+#: src/MainWindow.vala:828
 msgid "See More"
 msgstr "Xem Thêm"
 
@@ -3238,27 +3238,27 @@ msgstr ""
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:756
+#: src/MainWindow.vala:757
 msgid "About Planify"
 msgstr "Về Planify"
 
-#: src/MainWindow.vala:824
+#: src/MainWindow.vala:825
 msgid "Oops! Something happened"
 msgstr "Ối! Đã xảy ra lỗi"
 
-#: src/MainWindow.vala:843 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Nhiệm vụ đã hoàn thành"
 
-#: src/MainWindow.vala:844
+#: src/MainWindow.vala:845
 msgid "View"
 msgstr "Xem"
 
-#: src/MainWindow.vala:882
+#: src/MainWindow.vala:883
 msgid "Database Integrity Check Failed"
 msgstr "Kiểm Tra Tính Toàn Vẹn Cơ Sở Dữ Liệu Thất Bại"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:884
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3280,7 +3280,7 @@ msgstr ""
 "Sau khi đặt lại, bạn sẽ có thể khôi phục bất kỳ bản sao lưu nào bạn đã tạo "
 "trước đó. Cảm ơn sự kiên nhẫn của bạn"
 
-#: src/MainWindow.vala:885
+#: src/MainWindow.vala:886
 msgid "Reset Database"
 msgstr "Đặt Lại Cơ Sở Dữ Liệu"
 

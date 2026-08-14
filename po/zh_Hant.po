@@ -481,7 +481,7 @@ msgid ""
 "project from Planify."
 msgstr "抱歉，快速添加無法找到任何可用的專案，請從 Planify 中建立一個專案。"
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:753
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
 msgid "Keyboard Shortcuts"
 msgstr "鍵盤快速鍵"
 
@@ -1633,7 +1633,7 @@ msgstr "待辦事項"
 msgid "Complete"
 msgstr "完成"
 
-#: src/App.vala:183
+#: src/App.vala:185
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1815,7 +1815,7 @@ msgstr "更新標籤"
 msgid "Filter"
 msgstr "篩選"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:758
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
 msgid "Archived Projects"
 msgstr "已經封存的專案"
 
@@ -2625,7 +2625,7 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr "當已經啟用，依照預設在任務到期時間之前會添加提醒。"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:748
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
 msgid "Preferences"
 msgstr "偏好設定"
 
@@ -2740,7 +2740,7 @@ msgstr "刪除全部您的清單、任務和提醒，無法救回"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:751
+#: src/MainWindow.vala:752
 msgid "Summary & Productivity"
 msgstr "摘要總結與生產力"
 
@@ -2781,7 +2781,7 @@ msgstr "生產力"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:827
+#: src/MainWindow.vala:828
 msgid "See More"
 msgstr "查看更多"
 
@@ -3193,27 +3193,27 @@ msgstr "任務已在另一台裝置上有所修改"
 msgid "Sync Now"
 msgstr "立即進行同步"
 
-#: src/MainWindow.vala:756
+#: src/MainWindow.vala:757
 msgid "About Planify"
 msgstr "關於 Planify"
 
-#: src/MainWindow.vala:824
+#: src/MainWindow.vala:825
 msgid "Oops! Something happened"
 msgstr "哎呀！有事發生了"
 
-#: src/MainWindow.vala:843 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "任務已經完成"
 
-#: src/MainWindow.vala:844
+#: src/MainWindow.vala:845
 msgid "View"
 msgstr "檢視"
 
-#: src/MainWindow.vala:882
+#: src/MainWindow.vala:883
 msgid "Database Integrity Check Failed"
 msgstr "資料庫整合檢查失敗"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:884
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3232,7 +3232,7 @@ msgstr ""
 "\n"
 "重設之後，您將能夠恢復先前建立的任何備份。感謝您耐心等侯"
 
-#: src/MainWindow.vala:885
+#: src/MainWindow.vala:886
 msgid "Reset Database"
 msgstr "重設資料庫"
 

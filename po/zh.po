@@ -482,7 +482,7 @@ msgid ""
 msgstr ""
 "抱歉，快速添加功能找不到任何可用的项目，请先在 Planify 中创建一个项目。"
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:753
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
 msgid "Keyboard Shortcuts"
 msgstr "快捷键"
 
@@ -1634,7 +1634,7 @@ msgstr "待办"
 msgid "Complete"
 msgstr "完成"
 
-#: src/App.vala:183
+#: src/App.vala:185
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1811,7 +1811,7 @@ msgstr "更新标签"
 msgid "Filter"
 msgstr "筛选"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:758
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
 msgid "Archived Projects"
 msgstr "已归档项目"
 
@@ -2617,7 +2617,7 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr "启用后，将默认在任务到期前添加提醒。"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:748
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
 msgid "Preferences"
 msgstr "偏好设置"
 
@@ -2732,7 +2732,7 @@ msgstr "不可逆地删除所有列表、任务和提醒"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:751
+#: src/MainWindow.vala:752
 msgid "Summary & Productivity"
 msgstr "摘要与效率"
 
@@ -2773,7 +2773,7 @@ msgstr "效率"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:827
+#: src/MainWindow.vala:828
 msgid "See More"
 msgstr "查看更多"
 
@@ -3185,27 +3185,27 @@ msgstr "任务已在其他设备上修改"
 msgid "Sync Now"
 msgstr "立即同步"
 
-#: src/MainWindow.vala:756
+#: src/MainWindow.vala:757
 msgid "About Planify"
 msgstr "关于 Planify"
 
-#: src/MainWindow.vala:824
+#: src/MainWindow.vala:825
 msgid "Oops! Something happened"
 msgstr "糟糕！出了点问题"
 
-#: src/MainWindow.vala:843 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "任务已完成"
 
-#: src/MainWindow.vala:844
+#: src/MainWindow.vala:845
 msgid "View"
 msgstr "查看"
 
-#: src/MainWindow.vala:882
+#: src/MainWindow.vala:883
 msgid "Database Integrity Check Failed"
 msgstr "数据库完整性检查失败"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:884
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3224,7 +3224,7 @@ msgstr ""
 "\n"
 "重置后，您可以恢复之前创建的任何备份。感谢您的耐心等待。"
 
-#: src/MainWindow.vala:885
+#: src/MainWindow.vala:886
 msgid "Reset Database"
 msgstr "重置数据库"
 
