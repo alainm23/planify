@@ -317,23 +317,23 @@ msgstr "无标签"
 msgid "unlabeled"
 msgstr "尚无标签"
 
-#: core/Objects/Item.vala:1492 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "截止日期："
 
-#: core/Objects/Item.vala:1517
+#: core/Objects/Item.vala:1527
 msgid "Task copied to clipboard"
 msgstr "任务已复制到剪贴板"
 
-#: core/Objects/Item.vala:1534
+#: core/Objects/Item.vala:1544
 msgid "iCalendar Files"
 msgstr "iCalendar 文件"
 
-#: core/Objects/Item.vala:1550
+#: core/Objects/Item.vala:1560
 msgid "Task exported successfully"
 msgstr "任务导出成功"
 
-#: core/Objects/Item.vala:1874 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1884 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "任务已移动到%s"

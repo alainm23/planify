@@ -322,6 +322,7 @@ msgid "Deadline:"
 msgstr "Tenggat:"
 
 #: core/Objects/Item.vala:1499 core/Objects/Item.vala:1517
+#: core/Objects/Item.vala:1527
 msgid "Task copied to clipboard"
 msgstr "Tugas disalin ke papan klip"
 

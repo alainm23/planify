@@ -328,6 +328,7 @@ msgid "Deadline:"
 msgstr "Срок:"
 
 #: core/Objects/Item.vala:1499 core/Objects/Item.vala:1517
+#: core/Objects/Item.vala:1527
 msgid "Task copied to clipboard"
 msgstr "Задача скопирована в буфер обмена"
 
