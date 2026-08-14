@@ -491,7 +491,7 @@ msgstr ""
 "უკაცრავად, მაგრამ სწრაფმა დამატებამ ხელმისაწვდომი პროექტი ვერ იპოვა. სცადეთ, "
 "ჯერ შექმნათ პროექტი Planify-დან."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:753
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
 msgid "Keyboard Shortcuts"
 msgstr "კლავიატურის მალსახმობები"
 
@@ -1661,7 +1661,7 @@ msgstr "გასაკეთებელი"
 msgid "Complete"
 msgstr "დასრულებულია"
 
-#: src/App.vala:183
+#: src/App.vala:185
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1837,7 +1837,7 @@ msgstr "ჭდის განახლება"
 msgid "Filter"
 msgstr "ფილტრი"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:758
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
 msgid "Archived Projects"
 msgstr "დაარქივებული პროექტები"
 
@@ -2651,7 +2651,7 @@ msgid ""
 msgstr ""
 "როცა ჩართულია, ამოცანის შესრულებამდე შემხსებელი ნაგულისხმევად დაემატება."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:748
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
 msgid "Preferences"
 msgstr "მორგება"
 
@@ -2766,7 +2766,7 @@ msgstr "შეუქცევადად წაშლის ყველა თ
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:751
+#: src/MainWindow.vala:752
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -2807,7 +2807,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:827
+#: src/MainWindow.vala:828
 msgid "See More"
 msgstr "იხილეთ მეტი"
 
@@ -3225,27 +3225,27 @@ msgstr ""
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:756
+#: src/MainWindow.vala:757
 msgid "About Planify"
 msgstr "Planify-ის შესახებ"
 
-#: src/MainWindow.vala:824
+#: src/MainWindow.vala:825
 msgid "Oops! Something happened"
 msgstr "ვაი! რაღაც მოხდა"
 
-#: src/MainWindow.vala:843 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "ამოცანა დასრულდა"
 
-#: src/MainWindow.vala:844
+#: src/MainWindow.vala:845
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:882
+#: src/MainWindow.vala:883
 msgid "Database Integrity Check Failed"
 msgstr "მონაცემთა ბაზის მთლიანობის შემოწმება ჩავარდა"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:884
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3258,7 +3258,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:885
+#: src/MainWindow.vala:886
 msgid "Reset Database"
 msgstr "მონაცემთა ბაზის ჩამოყრა"
 

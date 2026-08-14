@@ -496,7 +496,7 @@ msgstr ""
 "Žao mi je, brzo dodavanje ne može pronaći nijedan dostupan projekt, pokušaj "
 "stvoriti projekt iz aplikacije Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:753
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
 msgid "Keyboard Shortcuts"
 msgstr "Tipkovni prečaci"
 
@@ -1690,7 +1690,7 @@ msgstr "Zadatak"
 msgid "Complete"
 msgstr "Završi"
 
-#: src/App.vala:183
+#: src/App.vala:185
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1884,7 +1884,7 @@ msgstr "Aktualiziraj etiketu"
 msgid "Filter"
 msgstr "Filtar"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:758
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
 msgid "Archived Projects"
 msgstr "Arhivirani projekti"
 
@@ -2716,7 +2716,7 @@ msgid ""
 msgstr ""
 "Kada je uključeno, standardno će se dodati podsjetnik prije roka zadatka."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:748
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
 msgid "Preferences"
 msgstr "Osobitosti"
 
@@ -2831,7 +2831,7 @@ msgstr "Nepovratno briše sve tvoje popise, zadatke i podsjetnike"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:751
+#: src/MainWindow.vala:752
 msgid "Summary & Productivity"
 msgstr "Sažetak i produktivnost"
 
@@ -2872,7 +2872,7 @@ msgstr "Produktivnost"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:827
+#: src/MainWindow.vala:828
 msgid "See More"
 msgstr "Pogledaj više"
 
@@ -3286,27 +3286,27 @@ msgstr "Zadatak je promijenjen na jednom drugom uređaju"
 msgid "Sync Now"
 msgstr "Sinkroniziraj sada"
 
-#: src/MainWindow.vala:756
+#: src/MainWindow.vala:757
 msgid "About Planify"
 msgstr "O aplikaciji Planify"
 
-#: src/MainWindow.vala:824
+#: src/MainWindow.vala:825
 msgid "Oops! Something happened"
 msgstr "Ups! Nešto se dogodilo"
 
-#: src/MainWindow.vala:843 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Zadatak završen"
 
-#: src/MainWindow.vala:844
+#: src/MainWindow.vala:845
 msgid "View"
 msgstr "Prikaz"
 
-#: src/MainWindow.vala:882
+#: src/MainWindow.vala:883
 msgid "Database Integrity Check Failed"
 msgstr "Provjera integriteta baze podataka nije uspjela"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:884
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3329,7 +3329,7 @@ msgstr ""
 "Nakon resetiranja možeš obnoviti bazu podataka pomoću prethodno izrađene "
 "sigurnosne kopije. Hvala na strpljenju"
 
-#: src/MainWindow.vala:885
+#: src/MainWindow.vala:886
 msgid "Reset Database"
 msgstr "Resetiraj bazu podataka"
 

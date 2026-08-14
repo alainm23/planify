@@ -496,7 +496,7 @@ msgstr ""
 "Przykro mi, szybkie dodawanie nie może znaleźć żadnego dostępnego projektu. "
 "Spróbuj utworzyć projekt w Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:753
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
 msgid "Keyboard Shortcuts"
 msgstr "Skróty klawiszowe"
 
@@ -1693,7 +1693,7 @@ msgstr "Do zrobienia"
 msgid "Complete"
 msgstr "Ukończ"
 
-#: src/App.vala:183
+#: src/App.vala:185
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1876,7 +1876,7 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:758
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
 msgid "Archived Projects"
 msgstr ""
 
@@ -2676,7 +2676,7 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:748
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
 msgid "Preferences"
 msgstr "Ustawienia"
 
@@ -2792,7 +2792,7 @@ msgstr "Usunie wszystkie twoje listy, zadania i przypomnienia nieodwracalne"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:751
+#: src/MainWindow.vala:752
 msgid "Summary & Productivity"
 msgstr "Podsumowanie i Produktywność"
 
@@ -2833,7 +2833,7 @@ msgstr "Produktywność"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:827
+#: src/MainWindow.vala:828
 #, fuzzy
 msgid "See More"
 msgstr "Zobacz więcej"
@@ -3246,27 +3246,27 @@ msgstr "Zadanie zostało zmodyfikowane na innym urządzeniu"
 msgid "Sync Now"
 msgstr "Synchronizuj teraz"
 
-#: src/MainWindow.vala:756
+#: src/MainWindow.vala:757
 msgid "About Planify"
 msgstr "O aplikacji Planify"
 
-#: src/MainWindow.vala:824
+#: src/MainWindow.vala:825
 msgid "Oops! Something happened"
 msgstr "Ups! Coś się stało"
 
-#: src/MainWindow.vala:843 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Zadanie ukończone"
 
-#: src/MainWindow.vala:844
+#: src/MainWindow.vala:845
 msgid "View"
 msgstr "Widok"
 
-#: src/MainWindow.vala:882
+#: src/MainWindow.vala:883
 msgid "Database Integrity Check Failed"
 msgstr "Sprawdzanie integralności bazy danych zakończone niepowodzeniem"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:884
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3279,7 +3279,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:885
+#: src/MainWindow.vala:886
 msgid "Reset Database"
 msgstr "Reset bazy danych"
 

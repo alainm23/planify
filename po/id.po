@@ -486,6 +486,7 @@ msgstr ""
 "proyek dari Planify."
 
 #: core/QuickAddCore.vala:1449 src/MainWindow.vala:751 src/MainWindow.vala:753
+#: src/MainWindow.vala:754
 msgid "Keyboard Shortcuts"
 msgstr "Pintasan papan ketik"
 
@@ -1672,7 +1673,7 @@ msgstr "Harus dikerjakan"
 msgid "Complete"
 msgstr "Selesai"
 
-#: src/App.vala:183
+#: src/App.vala:183 src/App.vala:185
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1864,7 +1865,7 @@ msgid "Filter"
 msgstr "Filter"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:756
-#: src/MainWindow.vala:758
+#: src/MainWindow.vala:758 src/MainWindow.vala:759
 msgid "Archived Projects"
 msgstr "Proyek yang Diarsipkan"
 
@@ -2709,7 +2710,7 @@ msgstr ""
 "secara bawaan."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:746
-#: src/MainWindow.vala:748
+#: src/MainWindow.vala:748 src/MainWindow.vala:749
 msgid "Preferences"
 msgstr "Preferensi"
 
@@ -2867,7 +2868,7 @@ msgstr "Produktivitas"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:825 src/MainWindow.vala:827
+#: src/MainWindow.vala:825 src/MainWindow.vala:827 src/MainWindow.vala:828
 msgid "See More"
 msgstr "Lihat Selengkapnya"
 
@@ -3286,28 +3287,28 @@ msgstr "Tugas diubah di perangkat lain"
 msgid "Sync Now"
 msgstr "Sinkronkan Sekarang"
 
-#: src/MainWindow.vala:754 src/MainWindow.vala:756
+#: src/MainWindow.vala:754 src/MainWindow.vala:756 src/MainWindow.vala:757
 msgid "About Planify"
 msgstr "Tentang Planify"
 
-#: src/MainWindow.vala:822 src/MainWindow.vala:824
+#: src/MainWindow.vala:822 src/MainWindow.vala:824 src/MainWindow.vala:825
 msgid "Oops! Something happened"
 msgstr "Ups! Terjadi sesuatu"
 
 #: src/MainWindow.vala:841 src/Widgets/ItemChangeHistoryRow.vala:48
-#: src/MainWindow.vala:843
+#: src/MainWindow.vala:843 src/MainWindow.vala:844
 msgid "Task completed"
 msgstr "Tugas selesai"
 
-#: src/MainWindow.vala:842 src/MainWindow.vala:844
+#: src/MainWindow.vala:842 src/MainWindow.vala:844 src/MainWindow.vala:845
 msgid "View"
 msgstr "Tampilan"
 
-#: src/MainWindow.vala:880 src/MainWindow.vala:882
+#: src/MainWindow.vala:880 src/MainWindow.vala:882 src/MainWindow.vala:883
 msgid "Database Integrity Check Failed"
 msgstr "Pemeriksaan Integritas Basis Data Gagal"
 
-#: src/MainWindow.vala:881 src/MainWindow.vala:883
+#: src/MainWindow.vala:881 src/MainWindow.vala:883 src/MainWindow.vala:884
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3330,7 +3331,7 @@ msgstr ""
 "Setelah reset, Anda akan dapat memulihkan cadangan apa pun yang sebelumnya "
 "Anda buat. Terima kasih atas kesabaran Anda"
 
-#: src/MainWindow.vala:883 src/MainWindow.vala:885
+#: src/MainWindow.vala:883 src/MainWindow.vala:885 src/MainWindow.vala:886
 msgid "Reset Database"
 msgstr "Reset Basis Data"
 

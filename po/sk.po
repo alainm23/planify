@@ -497,7 +497,7 @@ msgstr ""
 "Ľutujeme, Quick Add nemôže nájsť žiadny dostupný projekt, skúste vytvoriť "
 "projekt z Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:753
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové skratky"
 
@@ -1708,7 +1708,7 @@ msgstr "Na vykonanie"
 msgid "Complete"
 msgstr "Dokončené"
 
-#: src/App.vala:183
+#: src/App.vala:185
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1885,7 +1885,7 @@ msgstr "Aktualizovať štítok"
 msgid "Filter"
 msgstr "Filter"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:758
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
 msgid "Archived Projects"
 msgstr "Archivované projekty"
 
@@ -2713,7 +2713,7 @@ msgid ""
 msgstr ""
 "Keď je povolené, pred časom splnenia úlohy sa automaticky pridá pripomienka."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:748
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
 msgid "Preferences"
 msgstr "Predvoľby"
 
@@ -2828,7 +2828,7 @@ msgstr "Nezvratne vymaže všetky vaše zoznamy, úlohy a pripomienky"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:751
+#: src/MainWindow.vala:752
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -2869,7 +2869,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:827
+#: src/MainWindow.vala:828
 msgid "See More"
 msgstr "Zobraziť viac"
 
@@ -3290,27 +3290,27 @@ msgstr ""
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:756
+#: src/MainWindow.vala:757
 msgid "About Planify"
 msgstr "O Planify"
 
-#: src/MainWindow.vala:824
+#: src/MainWindow.vala:825
 msgid "Oops! Something happened"
 msgstr "Ups! Niečo sa stalo"
 
-#: src/MainWindow.vala:843 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Úloha dokončená"
 
-#: src/MainWindow.vala:844
+#: src/MainWindow.vala:845
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:882
+#: src/MainWindow.vala:883
 msgid "Database Integrity Check Failed"
 msgstr "Kontrola integrity databázy zlyhala"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:884
 #, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
@@ -3330,7 +3330,7 @@ msgstr ""
 "existujúce údaje budú odstránené. Po resetovaní budete môcť obnoviť "
 "akúkoľvek zálohu, ktorú ste vytvorili. Ďakujeme za vašu trpezlivosť"
 
-#: src/MainWindow.vala:885
+#: src/MainWindow.vala:886
 msgid "Reset Database"
 msgstr "Resetovať databázu"
 
