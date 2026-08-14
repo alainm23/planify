@@ -493,7 +493,7 @@ msgstr ""
 "Es tut uns leid, 'Schnell hinzufügen' kann kein verfügbares Projekt finden. "
 "Versuche ein Projekt in Planify zu erstellen."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:753
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
 msgid "Keyboard Shortcuts"
 msgstr "Tastenkombinationen"
 
@@ -1696,7 +1696,7 @@ msgstr "Zu tun"
 msgid "Complete"
 msgstr "Erledigt"
 
-#: src/App.vala:183
+#: src/App.vala:185
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1890,7 +1890,7 @@ msgstr "Label aktualisieren"
 msgid "Filter"
 msgstr "Filter"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:758
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
 msgid "Archived Projects"
 msgstr "Archivierte Projekte"
 
@@ -2740,7 +2740,7 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr "Wenn aktiv wird eine Erinnerung zur Fälligkeit hinzugefügt."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:748
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
 msgid "Preferences"
 msgstr "Einstellungen"
 
@@ -2857,7 +2857,7 @@ msgstr "Löscht alle Listen, Aufgaben und Erinnerungen unwiderruflich"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:751
+#: src/MainWindow.vala:752
 msgid "Summary & Productivity"
 msgstr "Zusammenfassung & Produktivität"
 
@@ -2899,7 +2899,7 @@ msgstr "Produktivität"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:827
+#: src/MainWindow.vala:828
 msgid "See More"
 msgstr "Weitere erstellen"
 
@@ -3318,27 +3318,27 @@ msgstr "Aufgabe wurde auf einem anderen Gerät geändert"
 msgid "Sync Now"
 msgstr "Jetzt synchronisieren"
 
-#: src/MainWindow.vala:756
+#: src/MainWindow.vala:757
 msgid "About Planify"
 msgstr "Über Planify"
 
-#: src/MainWindow.vala:824
+#: src/MainWindow.vala:825
 msgid "Oops! Something happened"
 msgstr "Hoppla! Etwas ist passiert"
 
-#: src/MainWindow.vala:843 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Aufgabe erledigt"
 
-#: src/MainWindow.vala:844
+#: src/MainWindow.vala:845
 msgid "View"
 msgstr "Ansicht"
 
-#: src/MainWindow.vala:882
+#: src/MainWindow.vala:883
 msgid "Database Integrity Check Failed"
 msgstr "Integritätsprüfung der Datenbank fehlgeschlagen"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:884
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3362,7 +3362,7 @@ msgstr ""
 "Nach dem Zurücksetzen können alle zuvor erstellten Sicherungen "
 "wiederherstellen. Danke für dein Verständnis"
 
-#: src/MainWindow.vala:885
+#: src/MainWindow.vala:886
 msgid "Reset Database"
 msgstr "Datenbank zurücksetzen"
 
