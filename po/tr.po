@@ -323,24 +323,24 @@ msgstr "etiketler"
 msgid "unlabeled"
 msgstr "etiketler"
 
-#: core/Objects/Item.vala:1492 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr ""
 
-#: core/Objects/Item.vala:1517
+#: core/Objects/Item.vala:1527
 msgid "Task copied to clipboard"
 msgstr "Görev panoya kopyalandı"
 
-#: core/Objects/Item.vala:1534
+#: core/Objects/Item.vala:1544
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1550
+#: core/Objects/Item.vala:1560
 msgid "Task exported successfully"
 msgstr ""
 
 # c-format
-#: core/Objects/Item.vala:1874 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1884 core/Utils/Util.vala:856
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "Görev %s projesine taşındı"

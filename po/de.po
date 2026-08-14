@@ -323,23 +323,23 @@ msgstr "kein Label"
 msgid "unlabeled"
 msgstr "nicht gelabelt"
 
-#: core/Objects/Item.vala:1492 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "Frist:"
 
-#: core/Objects/Item.vala:1517
+#: core/Objects/Item.vala:1527
 msgid "Task copied to clipboard"
 msgstr "Aufgabe in die Zwischenablage kopiert"
 
-#: core/Objects/Item.vala:1534
+#: core/Objects/Item.vala:1544
 msgid "iCalendar Files"
 msgstr "iCalender-Dateien"
 
-#: core/Objects/Item.vala:1550
+#: core/Objects/Item.vala:1560
 msgid "Task exported successfully"
 msgstr "Aufgabe erfolgreich exportiert"
 
-#: core/Objects/Item.vala:1874 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1884 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "Verschoben nach: %s"
