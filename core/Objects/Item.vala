@@ -234,29 +234,40 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     GLib.DateTime _added_datetime;
+    string _added_at_cached = "";
     public GLib.DateTime added_datetime {
         get {
-            _added_datetime = new GLib.DateTime.from_iso8601 (added_at, new GLib.TimeZone.local ());
+            if (_added_at_cached != added_at) {
+                _added_datetime = new GLib.DateTime.from_iso8601 (added_at, new GLib.TimeZone.local ());
+                _added_at_cached = added_at;
+            }
             return _added_datetime;
         }
     }
 
     GLib.DateTime _updated_datetime;
+    string _updated_at_cached = "";
     public GLib.DateTime updated_datetime {
         get {
-            _updated_datetime = new GLib.DateTime.from_iso8601 (updated_at, new GLib.TimeZone.local ());
+            if (_updated_at_cached != updated_at) {
+                _updated_datetime = new GLib.DateTime.from_iso8601 (updated_at, new GLib.TimeZone.local ());
+                _updated_at_cached = updated_at;
+            }
             return _updated_datetime;
         }
     }
 
     GLib.DateTime? _deadline_datetime;
+    string _deadline_date_cached = "";
     public GLib.DateTime? deadline_datetime {
         get {
             if (!has_deadline) {
                 return null;
             }
-            
-            _deadline_datetime = new GLib.DateTime.from_iso8601 (deadline_date, new GLib.TimeZone.local ());
+            if (_deadline_date_cached != deadline_date) {
+                _deadline_datetime = new GLib.DateTime.from_iso8601 (deadline_date, new GLib.TimeZone.local ());
+                _deadline_date_cached = deadline_date;
+            }
             return _deadline_datetime;
         }
     }
@@ -309,27 +320,33 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     Gee.ArrayList<Objects.Item> _items;
+    bool _items_loaded = false;
     public Gee.ArrayList<Objects.Item> items {
         get {
-            _items = Services.Store.instance ().get_subitems (this);
-            _items.sort ((a, b) => {
-                if (a.child_order > b.child_order) {
-                    return 1;
-                }
-                if (a.child_order == b.child_order) {
-                    return 0;
-                }
-
-                return -1;
-            });
+            if (!_items_loaded) {
+                _items = Services.Store.instance ().get_subitems (this);
+                _items.sort ((a, b) => {
+                    if (a.child_order > b.child_order) return 1;
+                    if (a.child_order == b.child_order) return 0;
+                    return -1;
+                });
+                _items_loaded = true;
+            }
             return _items;
         }
+    }
+
+    public void invalidate_subitems () {
+        _items_loaded = false;
+        _items_uncomplete = null;
     }
 
     Gee.ArrayList<Objects.Item> _items_uncomplete;
     public Gee.ArrayList<Objects.Item> items_uncomplete {
         get {
-            _items_uncomplete = Services.Store.instance ().get_subitems_uncomplete (this);
+            if (_items_uncomplete == null) {
+                _items_uncomplete = Services.Store.instance ().get_subitems_uncomplete (this);
+            }
             return _items_uncomplete;
         }
     }
@@ -1464,6 +1481,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void add_item (Objects.Item item) {
+        invalidate_subitems ();
         _items.add (item);
     }
 
