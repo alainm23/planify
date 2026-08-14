@@ -321,7 +321,7 @@ msgstr "tanpa label"
 msgid "Deadline:"
 msgstr "Tenggat:"
 
-#: core/Objects/Item.vala:1499
+#: core/Objects/Item.vala:1499 core/Objects/Item.vala:1517
 msgid "Task copied to clipboard"
 msgstr "Tugas disalin ke papan klip"
 
@@ -405,6 +405,7 @@ msgstr "Ini akan mengarsipkan %s dan semua tugasnya."
 #: core/Objects/Project.vala:975 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:673 src/Views/Project/Project.vala:399
+#: src/Layouts/SectionRow.vala:678
 msgid "Archive"
 msgstr "Arsipkan"
 
@@ -464,6 +465,7 @@ msgstr "Tambahkan pengingat"
 
 #: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
 #: src/Layouts/SectionRow.vala:666 src/Widgets/MagicButton.vala:50
+#: src/Layouts/SectionRow.vala:671
 msgid "Add Task"
 msgstr "Tambahkan tugas"
 
@@ -483,7 +485,7 @@ msgstr ""
 "Maaf, Tambah Cepat tidak dapat menemukan proyek yang tersedia; coba buat "
 "proyek dari Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:751
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:751 src/MainWindow.vala:753
 msgid "Keyboard Shortcuts"
 msgstr "Pintasan papan ketik"
 
@@ -1140,6 +1142,7 @@ msgstr "3 jam sebelumnya"
 
 #: core/Widgets/Calendar/CalendarDay.vala:103
 #: core/Widgets/Calendar/CalendarScroll.vala:347
+#: core/Widgets/Calendar/CalendarScroll.vala:353
 msgid "%A, %B %e, %Y"
 msgstr "%A, %B %e, %Y"
 
@@ -1861,11 +1864,13 @@ msgid "Filter"
 msgstr "Filter"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:756
+#: src/MainWindow.vala:758
 msgid "Archived Projects"
 msgstr "Proyek yang Diarsipkan"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionBoard.vala:610
 #: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:392
+#: src/Layouts/SectionRow.vala:674
 msgid "Manage Sections"
 msgstr "Kelola Bagian"
 
@@ -2704,6 +2709,7 @@ msgstr ""
 "secara bawaan."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:746
+#: src/MainWindow.vala:748
 msgid "Preferences"
 msgstr "Preferensi"
 
@@ -2861,7 +2867,7 @@ msgstr "Produktivitas"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:825
+#: src/MainWindow.vala:825 src/MainWindow.vala:827
 msgid "See More"
 msgstr "Lihat Selengkapnya"
 
@@ -3020,7 +3026,7 @@ msgid "New Section"
 msgstr "Bagian Baru"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
-#: src/Layouts/SectionRow.vala:667
+#: src/Layouts/SectionRow.vala:667 src/Layouts/SectionRow.vala:672
 msgid "Edit Section"
 msgstr "Sunting Bagian"
 
@@ -3069,6 +3075,7 @@ msgstr "Sunting"
 #: src/Layouts/ItemRow.vala:1379 src/Layouts/ItemSidebarView.vala:509
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:611
 #: src/Layouts/SectionRow.vala:670 src/Views/Project/Project.vala:388
+#: src/Layouts/SectionRow.vala:675
 msgid "Duplicate"
 msgstr "Duplikasi"
 
@@ -3195,6 +3202,7 @@ msgid "(No Section)"
 msgstr "(Tanpa Bagian)"
 
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
+#: src/Layouts/SectionRow.vala:227
 msgid "Add tasks"
 msgstr "Tambahkan tugas"
 
@@ -3203,20 +3211,22 @@ msgid "Load more"
 msgstr "Muat lebih banyak"
 
 #: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:623
-#: src/Widgets/SubItems.vala:420
+#: src/Widgets/SubItems.vala:420 src/Layouts/SectionRow.vala:628
 msgid "completed tasks"
 msgstr "tugas yang selesai"
 
 #: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:668
+#: src/Layouts/SectionRow.vala:673
 msgid "Move Section"
 msgstr "Pindahkan Bagian"
 
 #: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:671
+#: src/Layouts/SectionRow.vala:676
 msgid "Show Completed Tasks"
 msgstr "Tampilkan Tugas yang Selesai"
 
 #: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:674
-#: src/Widgets/SectionItemRow.vala:186
+#: src/Widgets/SectionItemRow.vala:186 src/Layouts/SectionRow.vala:679
 msgid "Delete Section"
 msgstr "Hapus Bagian"
 
@@ -3260,11 +3270,11 @@ msgstr "Tidak ada proyek yang tersedia. Buat satu dengan mengeklik tombol '+'"
 msgid "Account Migration Required"
 msgstr "Migrasi Akun Diperlukan"
 
-#: src/MainWindow.vala:81
+#: src/MainWindow.vala:81 src/MainWindow.vala:82
 msgid "Main Menu"
 msgstr "Menu Utama"
 
-#: src/MainWindow.vala:86
+#: src/MainWindow.vala:86 src/MainWindow.vala:87
 msgid "Open Quick Find"
 msgstr "Buka Pencarian Cepat"
 
@@ -3276,27 +3286,28 @@ msgstr "Tugas diubah di perangkat lain"
 msgid "Sync Now"
 msgstr "Sinkronkan Sekarang"
 
-#: src/MainWindow.vala:754
+#: src/MainWindow.vala:754 src/MainWindow.vala:756
 msgid "About Planify"
 msgstr "Tentang Planify"
 
-#: src/MainWindow.vala:822
+#: src/MainWindow.vala:822 src/MainWindow.vala:824
 msgid "Oops! Something happened"
 msgstr "Ups! Terjadi sesuatu"
 
 #: src/MainWindow.vala:841 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:843
 msgid "Task completed"
 msgstr "Tugas selesai"
 
-#: src/MainWindow.vala:842
+#: src/MainWindow.vala:842 src/MainWindow.vala:844
 msgid "View"
 msgstr "Tampilan"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:880 src/MainWindow.vala:882
 msgid "Database Integrity Check Failed"
 msgstr "Pemeriksaan Integritas Basis Data Gagal"
 
-#: src/MainWindow.vala:881
+#: src/MainWindow.vala:881 src/MainWindow.vala:883
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3319,7 +3330,7 @@ msgstr ""
 "Setelah reset, Anda akan dapat memulihkan cadangan apa pun yang sebelumnya "
 "Anda buat. Terima kasih atas kesabaran Anda"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:883 src/MainWindow.vala:885
 msgid "Reset Database"
 msgstr "Reset Basis Data"
 
