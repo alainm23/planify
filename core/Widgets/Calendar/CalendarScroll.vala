@@ -120,9 +120,15 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
         });
     }
 
+    private const int MAX_FUTURE_MONTHS = 24;
+
     private void load_more_months () {
+        if (loaded_months >= MAX_FUTURE_MONTHS) {
+            return;
+        }
         var today = new GLib.DateTime.now_local ();
         for (int i = 0; i < 2; i++) {
+            if (loaded_months >= MAX_FUTURE_MONTHS) break;
             add_month_section (today.add_months (loaded_months));
             loaded_months++;
         }
