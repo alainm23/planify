@@ -474,6 +474,7 @@ public class MainWindow : Adw.ApplicationWindow {
                 hide ();
                 return true;
             }
+            Planify.instance.release ();
             return false;
         });
     }

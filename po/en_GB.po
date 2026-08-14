@@ -323,23 +323,23 @@ msgstr "no label"
 msgid "unlabeled"
 msgstr "unlabeled"
 
-#: core/Objects/Item.vala:1474 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1492 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr ""
 
-#: core/Objects/Item.vala:1499
+#: core/Objects/Item.vala:1517
 msgid "Task copied to clipboard"
 msgstr "Task copied to clipboard"
 
-#: core/Objects/Item.vala:1516
+#: core/Objects/Item.vala:1534
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1532
+#: core/Objects/Item.vala:1550
 msgid "Task exported successfully"
 msgstr ""
 
-#: core/Objects/Item.vala:1856 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1874 core/Utils/Util.vala:856
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "Task moved to %s"
@@ -410,7 +410,7 @@ msgstr "This will archive %s and all its tasks."
 
 #: core/Objects/Project.vala:975 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
-#: src/Layouts/SectionRow.vala:673 src/Views/Project/Project.vala:399
+#: src/Layouts/SectionRow.vala:678 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Archive"
 
@@ -469,7 +469,7 @@ msgid "Add Reminders"
 msgstr "Add Reminders"
 
 #: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
-#: src/Layouts/SectionRow.vala:666 src/Widgets/MagicButton.vala:50
+#: src/Layouts/SectionRow.vala:671 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Add Task"
 
@@ -489,7 +489,7 @@ msgstr ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:751
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:753
 msgid "Keyboard Shortcuts"
 msgstr "Keyboard Shortcuts"
 
@@ -1141,7 +1141,7 @@ msgid "3 hours before"
 msgstr "3 hours before"
 
 #: core/Widgets/Calendar/CalendarDay.vala:103
-#: core/Widgets/Calendar/CalendarScroll.vala:347
+#: core/Widgets/Calendar/CalendarScroll.vala:353
 msgid "%A, %B %e, %Y"
 msgstr ""
 
@@ -1854,12 +1854,12 @@ msgstr "Update Label"
 msgid "Filter"
 msgstr "Filter"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:756
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:758
 msgid "Archived Projects"
 msgstr "Archived Projects"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionBoard.vala:610
-#: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:392
+#: src/Layouts/SectionRow.vala:674 src/Views/Project/Project.vala:392
 msgid "Manage Sections"
 msgstr "Manage Sections"
 
@@ -2669,7 +2669,7 @@ msgid ""
 msgstr ""
 "When enabled, a reminder before the task’s due time will be added by default."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:746
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:748
 msgid "Preferences"
 msgstr "Preferences"
 
@@ -2784,7 +2784,7 @@ msgstr "Deletes all your lists, tasks, and reminders irreversibly"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:749
+#: src/MainWindow.vala:751
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -2825,7 +2825,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:825
+#: src/MainWindow.vala:827
 msgid "See More"
 msgstr "See More"
 
@@ -2981,7 +2981,7 @@ msgid "New Section"
 msgstr "New Section"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
-#: src/Layouts/SectionRow.vala:667
+#: src/Layouts/SectionRow.vala:672
 msgid "Edit Section"
 msgstr "Edit Section"
 
@@ -3029,7 +3029,7 @@ msgstr "Edit"
 #: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1260
 #: src/Layouts/ItemRow.vala:1379 src/Layouts/ItemSidebarView.vala:509
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:611
-#: src/Layouts/SectionRow.vala:670 src/Views/Project/Project.vala:388
+#: src/Layouts/SectionRow.vala:675 src/Views/Project/Project.vala:388
 msgid "Duplicate"
 msgstr "Duplicate"
 
@@ -3155,7 +3155,7 @@ msgstr ""
 msgid "(No Section)"
 msgstr "(No Section)"
 
-#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
+#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:227
 msgid "Add tasks"
 msgstr "Add tasks"
 
@@ -3163,20 +3163,20 @@ msgstr "Add tasks"
 msgid "Load more"
 msgstr "Load more"
 
-#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:623
+#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:628
 #: src/Widgets/SubItems.vala:420
 msgid "completed tasks"
 msgstr "completed tasks"
 
-#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:668
+#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:673
 msgid "Move Section"
 msgstr "Move Section"
 
-#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:671
+#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:676
 msgid "Show Completed Tasks"
 msgstr "Show Completed Tasks"
 
-#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:674
+#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:679
 #: src/Widgets/SectionItemRow.vala:186
 msgid "Delete Section"
 msgstr "Delete Section"
@@ -3223,43 +3223,43 @@ msgstr "No project available. Create one by clicking on the '+' button"
 msgid "Account Migration Required"
 msgstr ""
 
-#: src/MainWindow.vala:81
+#: src/MainWindow.vala:82
 msgid "Main Menu"
 msgstr "Main Menu"
 
-#: src/MainWindow.vala:86
+#: src/MainWindow.vala:87
 msgid "Open Quick Find"
 msgstr "Open Quick Find"
 
-#: src/MainWindow.vala:337
+#: src/MainWindow.vala:338
 msgid "Task was modified on another device"
 msgstr ""
 
-#: src/MainWindow.vala:339
+#: src/MainWindow.vala:340
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:754
+#: src/MainWindow.vala:756
 msgid "About Planify"
 msgstr "About Planify"
 
-#: src/MainWindow.vala:822
+#: src/MainWindow.vala:824
 msgid "Oops! Something happened"
 msgstr "Oops! Something happened"
 
-#: src/MainWindow.vala:841 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:843 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Task completed"
 
-#: src/MainWindow.vala:842
+#: src/MainWindow.vala:844
 msgid "View"
 msgstr "View"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:882
 msgid "Database Integrity Check Failed"
 msgstr "Database Integrity Check Failed"
 
-#: src/MainWindow.vala:881
+#: src/MainWindow.vala:883
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3281,7 +3281,7 @@ msgstr ""
 "After the reset, you’ll be able to restore any backup you’ve created "
 "previously. Thank you for your patience"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:885
 msgid "Reset Database"
 msgstr "Reset Database"
 
