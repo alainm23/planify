@@ -86,12 +86,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             _pin_mode = value;
 
             if (_pin_mode) {
-                hide_loading_revealer.reveal_child = true;
                 card_widget.margin_end = 6;
                 card_widget.margin_top = 6;
                 handle_grid.width_request = 200;
-                hide_loading_button.margin_end = 0;
-                hide_loading_button.margin_top = 0;
+                hide_loading_button.margin_end = 1;
+                hide_loading_button.margin_top = 1;
             } else {
                 card_widget.margin_end = 0;
                 card_widget.margin_top = 0;
@@ -150,17 +149,17 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             use_markup = true
         };
 
-        hide_loading_button = new Widgets.LoadingButton.with_icon ("window-close", 16) {
+        hide_loading_button = new Widgets.LoadingButton.with_icon ("pin-symbolic", 16) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             tooltip_text = _ ("Unpin"),
-            css_classes = { "min-height-0", "view-button" },
+            css_classes = { "min-height-0", "view-button", "card" },
             margin_end = 6,
             margin_top = 6
         };
 
         hide_loading_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
             valign = Gtk.Align.START,
             halign = Gtk.Align.END,
             vexpand = true,
@@ -334,6 +333,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         overlay.child = card_widget;
         overlay.add_overlay (hide_loading_revealer);
 
+        var hover_ctrl = new Gtk.EventControllerMotion ();
+        overlay.add_controller (hover_ctrl);
+
         var v_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 3
         };
@@ -501,6 +503,17 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         signals_map[hide_loading_button.clicked.connect (() => {
             item.update_pin (false);
         })] = hide_loading_button;
+
+        signals_map[hover_ctrl.enter.connect ((x, y) => {
+            if (_pin_mode) {
+                hide_loading_revealer.reveal_child = true;
+            }
+        })] = hover_ctrl;
+        signals_map[hover_ctrl.leave.connect (() => {
+            if (_pin_mode) {
+                hide_loading_revealer.reveal_child = false;
+            }
+        })] = hover_ctrl;
 
         signals_map[Services.EventBus.get_default ().day_changed.connect (() => {
             update_request ();
