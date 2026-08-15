@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-05-06 15:11+0000\n"
-"Last-Translator: Bart van der Woude <bartwoude@gmail.com>\n"
+"PO-Revision-Date: 2026-08-10 23:58+0000\n"
+"Last-Translator: Bart Ratgers <bart@optiprise.nl>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/nl/>\n"
 "Language: nl\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -160,7 +160,7 @@ msgstr "Deadline"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "Bovenliggende taak"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -736,12 +736,12 @@ msgstr "%U:%M"
 
 #: core/Utils/Datetime.vala:475
 msgid "Every last day of month"
-msgstr ""
+msgstr "Elke laatste dag van de maand"
 
 #: core/Utils/Datetime.vala:476
 #, c-format
 msgid "Every %d months (last day)"
-msgstr ""
+msgstr "Elke %d maanden (laatste dag)"
 
 #: core/Utils/Datetime.vala:481
 msgid "Mo,"
@@ -1410,7 +1410,7 @@ msgstr "Ja(a)r(en)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:281
 msgid "Last day of month"
-msgstr ""
+msgstr "Laatste dag van de maand"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:297
 msgid "Never"
@@ -1442,39 +1442,39 @@ msgstr "Einde"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:530
 msgid "Minute"
 msgid_plural "Minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Minuut"
+msgstr[1] "Minuten"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:531
 msgid "Hour"
 msgid_plural "Hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Uur"
+msgstr[1] "Uren"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:532
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:536
 msgid "Day"
 msgid_plural "Days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Dag"
+msgstr[1] "Dagen"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:533
 msgid "Week"
 msgid_plural "Weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Week"
+msgstr[1] "Weken"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:534
 msgid "Month"
 msgid_plural "Months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Maand"
+msgstr[1] "Maanden"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:535
 msgid "Year"
 msgid_plural "Years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Jaar"
+msgstr[1] "Jaren"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:69
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:78
@@ -1513,15 +1513,15 @@ msgstr "Wat is de laatste dag om dit af te ronden?"
 
 #: core/Widgets/DeadlineButton.vala:218
 msgid "In 3 days"
-msgstr ""
+msgstr "In 3 dagen"
 
 #: core/Widgets/DeadlineButton.vala:220
 msgid "In 2 weeks"
-msgstr ""
+msgstr "In 2 weken"
 
 #: core/Widgets/DeadlineButton.vala:221
 msgid "In a month"
-msgstr ""
+msgstr "In een maand"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1587,7 +1587,7 @@ msgstr "Druk op Enter om het aan te maken en toe te voegen"
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1996
 msgid "Task description"
-msgstr ""
+msgstr "Taakomschrijving"
 
 #: core/Widgets/MarkdownEditor.vala:1410
 msgid "Remove link"
@@ -2003,16 +2003,16 @@ msgstr "Home-URL kalender"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
 msgid "Advanced"
-msgstr ""
+msgstr "Geavanceerd"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Show advanced options"
-msgstr ""
+msgstr "Toon geavanceerde opties"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Hide advanced options"
-msgstr ""
+msgstr "Verberg geavanceerd opties"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
@@ -3740,15 +3740,15 @@ msgstr "Taak verplaatst naar project"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:53
 msgid "Unknown project"
-msgstr ""
+msgstr "Onbekend project"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:56
 msgid "Unknown"
-msgstr ""
+msgstr "Onbekend"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:59
 msgid "Unknown section"
-msgstr ""
+msgstr "Onbekende sectie"
 
 # # c-format
 #: src/Widgets/ItemChangeHistoryRow.vala:63
@@ -3758,23 +3758,23 @@ msgstr "Taak verplaatst naar"
 #: src/Widgets/ItemChangeHistoryRow.vala:169
 #: src/Widgets/ItemChangeHistoryRow.vala:199
 msgid "See more"
-msgstr ""
+msgstr "Zie meer"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:199
 msgid "See less"
-msgstr ""
+msgstr "Zie minder"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:276
 msgid "Empty"
-msgstr ""
+msgstr "Leeg"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:290
 msgid "No priority"
-msgstr ""
+msgstr "Geen prioriteit"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:298
 msgid "No labels"
-msgstr ""
+msgstr "Geen labels"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:303
 msgid "Not pinned"
@@ -3801,7 +3801,7 @@ msgstr ""
 #: src/Widgets/ItemChangeHistoryRow.vala:322
 #: src/Widgets/ItemChangeHistoryRow.vala:326
 msgid "Unknown task"
-msgstr ""
+msgstr "Onbekende taak"
 
 #: src/Widgets/ItemDetailCompleted.vala:74
 msgid "Completed At"
@@ -3820,8 +3820,8 @@ msgstr "Als afgerond markeren"
 #, c-format
 msgid "%d task copied to clipboard"
 msgid_plural "%d tasks copied to clipboard"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d taak gekopieerd naar het klembord"
+msgstr[1] "%d taken gekopieerd naar het klembord"
 
 #: src/Widgets/MultiSelectToolbar.vala:325
 msgid "Delete To-Do"
