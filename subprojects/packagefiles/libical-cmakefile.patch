@@ -1,0 +1,95 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6f9c616..5b238bf 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -506,6 +506,15 @@ endif()
+ # Use GNUInstallDirs
+ 
+ include(GNUInstallDirs)
++
++if(DEFINED MESON_UNINSTALLED_PKGCONFIG_DIR)
++  string(REGEX REPLACE "^usr/" "" CMAKE_INSTALL_BINDIR "${CMAKE_INSTALL_BINDIR}")
++  string(REGEX REPLACE "^usr/" "" CMAKE_INSTALL_LIBDIR "${CMAKE_INSTALL_LIBDIR}")
++  string(REGEX REPLACE "^usr/" "" CMAKE_INSTALL_INCLUDEDIR "${CMAKE_INSTALL_INCLUDEDIR}")
++  string(REGEX REPLACE "^usr/" "" CMAKE_INSTALL_LIBEXECDIR "${CMAKE_INSTALL_LIBEXECDIR}")
++  string(REGEX REPLACE "^usr/" "" CMAKE_INSTALL_DATAROOTDIR "${CMAKE_INSTALL_DATAROOTDIR}")
++endif()
++
+ set(BIN_INSTALL_DIR ${CMAKE_INSTALL_BINDIR} CACHE STRING "User executables directory name" FORCE)
+ set(LIB_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR} CACHE STRING "Library directory name" FORCE)
+ set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR} CACHE STRING "Include directory name" FORCE)
+@@ -685,6 +694,9 @@ if(LIBICAL_GLIB OR LIBICAL_BUILD_VZIC)
+     )
+   endif()
+ 
++  if(DEFINED MESON_UNINSTALLED_PKGCONFIG_DIR)
++    set(ENV{PKG_CONFIG_PATH} "${MESON_UNINSTALLED_PKGCONFIG_DIR}:$ENV{PKG_CONFIG_PATH}")
++  endif()
+   pkg_search_module(
+     GLIB
+     glib-2.0>=${MIN_GLIB}
+@@ -693,6 +705,13 @@ if(LIBICAL_GLIB OR LIBICAL_BUILD_VZIC)
+     GOBJECT
+     gobject-2.0>=${MIN_GLIB}
+   )
++
++  if(DEFINED MESON_UNINSTALLED_PKGCONFIG_DIR)
++    foreach(_pkgconf_var GLIB_CFLAGS GOBJECT_CFLAGS GLIB_INCLUDE_DIRS GOBJECT_INCLUDE_DIRS)
++      string(REGEX REPLACE "-I?[^ ;]*/(pcre2-10\\.46|libffi-3\\.5\\.2|proxy-libintl-0\\.5)[^ ;]*" "" ${_pkgconf_var} "${${_pkgconf_var}}")
++      string(REGEX REPLACE "-I?[^ ;]*/glib-2\\.0/include[^ ;]*" "" ${_pkgconf_var} "${${_pkgconf_var}}")
++    endforeach()
++  endif()
+   set_package_properties(
+     GLIB
+     PROPERTIES
+diff --git a/src/libical-glib/CMakeLists.txt b/src/libical-glib/CMakeLists.txt
+index d63bbf3..47f65db 100644
+--- a/src/libical-glib/CMakeLists.txt
++++ b/src/libical-glib/CMakeLists.txt
+@@ -8,6 +8,7 @@ endif()
+ add_definitions(-Dlibical_ical_EXPORTS)
+ 
+ # build ical-glib-src-generator
++if(NOT CMAKE_CROSSCOMPILING)
+ add_executable(
+   ical-glib-src-generator
+   tools/generator.c
+@@ -39,11 +40,10 @@ target_link_libraries(
+ install(
+   TARGETS
+     ical-glib-src-generator
+-  EXPORT IcalGlibSrcGenerator
+   RUNTIME
+     DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/libical
+ )
+-install(EXPORT IcalGlibSrcGenerator NAMESPACE native- DESTINATION ${LIB_INSTALL_DIR}/cmake/LibIcal)
++endif()
+ 
+ # iCalendar files
+ list(
+@@ -147,15 +147,13 @@ foreach(file IN LISTS API_FILES)
+ endforeach()
+ 
+ if(CMAKE_CROSSCOMPILING)
+-  # import native ical-glib-src-generator when cross-compiling
+   set(
+     IMPORT_ICAL_GLIB_SRC_GENERATOR
+     "ICAL_GLIB_SRC_GENERATOR-NOTFOUND"
+     CACHE FILEPATH
+-    "Path to exported ical-glib-src-generator target from native build"
++    "Path to the natively-built ical-glib-src-generator executable"
+   )
+-  include(${IMPORT_ICAL_GLIB_SRC_GENERATOR})
+-  set(ical-glib-src-generator_EXE native-ical-glib-src-generator)
++  set(ical-glib-src-generator_EXE "${IMPORT_ICAL_GLIB_SRC_GENERATOR}")
+ else()
+   set(ical-glib-src-generator_EXE ical-glib-src-generator)
+ endif()
+@@ -172,6 +170,7 @@ add_custom_command(
+     ${LIBICAL_GLIB_SOURCES}
+     ${CMAKE_CURRENT_BINARY_DIR}/i-cal-forward-declarations.h
+     ${CMAKE_CURRENT_BINARY_DIR}/ical-glib-build-check.c
++    ${CMAKE_CURRENT_BINARY_DIR}/libical-glib.h
+   COMMAND
+     ${ical-glib-src-generator_EXE} "${CMAKE_CURRENT_SOURCE_DIR}/tools" "${CMAKE_CURRENT_SOURCE_DIR}/api"
+   DEPENDS
