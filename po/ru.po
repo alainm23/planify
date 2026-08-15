@@ -324,6 +324,7 @@ msgid "unlabeled"
 msgstr "непомеченн"
 
 #: core/Objects/Item.vala:1474 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1502
 msgid "Deadline:"
 msgstr "Срок:"
 
@@ -332,16 +333,17 @@ msgstr "Срок:"
 msgid "Task copied to clipboard"
 msgstr "Задача скопирована в буфер обмена"
 
-#: core/Objects/Item.vala:1516
+#: core/Objects/Item.vala:1516 core/Objects/Item.vala:1544
 msgid "iCalendar Files"
 msgstr "Файлы iCalendar"
 
-#: core/Objects/Item.vala:1532
+#: core/Objects/Item.vala:1532 core/Objects/Item.vala:1560
 msgid "Task exported successfully"
 msgstr "Задача успешно экспортирована"
 
 # c-format
 #: core/Objects/Item.vala:1856 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1884
 #, c-format
 msgid "Moved to %s"
 msgstr "Перемещено в %s"
@@ -2846,7 +2848,7 @@ msgstr "Безвозвратно удаляет списки, задачи и н
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:749
+#: src/MainWindow.vala:749 src/MainWindow.vala:752
 msgid "Summary & Productivity"
 msgstr "Сводка и Продуктивность"
 

@@ -318,6 +318,7 @@ msgid "unlabeled"
 msgstr "tanpa label"
 
 #: core/Objects/Item.vala:1474 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1502
 msgid "Deadline:"
 msgstr "Tenggat:"
 
@@ -326,15 +327,16 @@ msgstr "Tenggat:"
 msgid "Task copied to clipboard"
 msgstr "Tugas disalin ke papan klip"
 
-#: core/Objects/Item.vala:1516
+#: core/Objects/Item.vala:1516 core/Objects/Item.vala:1544
 msgid "iCalendar Files"
 msgstr "File iCalendar"
 
-#: core/Objects/Item.vala:1532
+#: core/Objects/Item.vala:1532 core/Objects/Item.vala:1560
 msgid "Task exported successfully"
 msgstr "Tugas berhasil diekspor"
 
 #: core/Objects/Item.vala:1856 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1884
 #, c-format
 msgid "Moved to %s"
 msgstr "Dipindahkan ke %s"
@@ -2826,7 +2828,7 @@ msgstr "Menghapus semua daftar, tugas, dan pengingat Anda secara permanen"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:749
+#: src/MainWindow.vala:749 src/MainWindow.vala:752
 msgid "Summary & Productivity"
 msgstr "Ringkasan & Produktivitas"
 
@@ -3280,11 +3282,11 @@ msgstr "Menu Utama"
 msgid "Open Quick Find"
 msgstr "Buka Pencarian Cepat"
 
-#: src/MainWindow.vala:337
+#: src/MainWindow.vala:337 src/MainWindow.vala:338
 msgid "Task was modified on another device"
 msgstr "Tugas diubah di perangkat lain"
 
-#: src/MainWindow.vala:339
+#: src/MainWindow.vala:339 src/MainWindow.vala:340
 msgid "Sync Now"
 msgstr "Sinkronkan Sekarang"
 

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2026-03-24 14:09+0000\n"
-"Last-Translator: Krzysztof Raczkowski <raczkow@gmail.com>\n"
+"PO-Revision-Date: 2026-07-30 13:01+0000\n"
+"Last-Translator: Jakub Cygan <ripkillerip@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/planner/planify-"
 "extra/pl/>\n"
 "Language: pl\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:7
 #: data/io.github.alainm23.planify.desktop.in.in:4
 msgid "Forget about forgetting things"
-msgstr "Zapomnij o zapominaniu różnych rzeczy"
+msgstr "Koniec z zapominaniem różnych rzeczy"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:13
 msgid ""
@@ -41,7 +41,7 @@ msgstr "✨ Podstawowe funkcje:"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:16
 msgid "Modern and clean interface designed with GTK4 and libadwaita"
-msgstr "Nowoczesny i przejrzysty interfejs zaprojektowany z GTK4 i libadwaita"
+msgstr "Nowoczesny i przejrzysty interfejs zaprojektowany w GTK4 i libadwaita"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:17
 msgid "Drag and drop to organize tasks and projects effortlessly"
