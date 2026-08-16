@@ -2,6 +2,7 @@
 directory=gxml-0.20
 url=https://gitlab.gnome.org/GNOME/gxml.git
 revision=gxml-0.20
+diff_files=gxml-0.20-add-vapi.patch
 
 [provide]
 gxml-0.20 = libgxml_dep
