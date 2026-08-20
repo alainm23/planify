@@ -317,23 +317,23 @@ msgstr "không có nhãn"
 msgid "unlabeled"
 msgstr "chưa có nhãn"
 
-#: core/Objects/Item.vala:1474 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr ""
 
-#: core/Objects/Item.vala:1499
+#: core/Objects/Item.vala:1527
 msgid "Task copied to clipboard"
 msgstr "Nhiệm vụ đã sao chép vào bộ nhớ tạm"
 
-#: core/Objects/Item.vala:1516
+#: core/Objects/Item.vala:1544
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1532
+#: core/Objects/Item.vala:1560
 msgid "Task exported successfully"
 msgstr ""
 
-#: core/Objects/Item.vala:1856 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1884 core/Utils/Util.vala:856
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "%d nhiệm vụ đã di chuyển đến %s"
@@ -404,7 +404,7 @@ msgstr "Điều này sẽ lưu trữ %s và tất cả nhiệm vụ của nó."
 
 #: core/Objects/Project.vala:975 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
-#: src/Layouts/SectionRow.vala:673 src/Views/Project/Project.vala:399
+#: src/Layouts/SectionRow.vala:678 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Lưu Trữ"
 
@@ -463,7 +463,7 @@ msgid "Add Reminders"
 msgstr "Thêm Lời Nhắc"
 
 #: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
-#: src/Layouts/SectionRow.vala:666 src/Widgets/MagicButton.vala:50
+#: src/Layouts/SectionRow.vala:671 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Thêm Nhiệm Vụ"
 
@@ -483,7 +483,7 @@ msgstr ""
 "Rất tiếc, Quick Add không tìm thấy dự án nào khả dụng, hãy thử tạo dự án từ "
 "Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:751
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
 msgid "Keyboard Shortcuts"
 msgstr "Phím Tắt"
 
@@ -1117,7 +1117,7 @@ msgid "3 hours before"
 msgstr "3 giờ trước"
 
 #: core/Widgets/Calendar/CalendarDay.vala:103
-#: core/Widgets/Calendar/CalendarScroll.vala:347
+#: core/Widgets/Calendar/CalendarScroll.vala:353
 msgid "%A, %B %e, %Y"
 msgstr "%A, %B %e, %Y"
 
@@ -1646,7 +1646,7 @@ msgstr "Cần làm"
 msgid "Complete"
 msgstr "Hoàn thành"
 
-#: src/App.vala:183
+#: src/App.vala:185
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1838,12 +1838,12 @@ msgstr "Cập Nhật Nhãn"
 msgid "Filter"
 msgstr "Bộ lọc"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:756
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
 msgid "Archived Projects"
 msgstr "Dự Án Đã Lưu Trữ"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionBoard.vala:610
-#: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:392
+#: src/Layouts/SectionRow.vala:674 src/Views/Project/Project.vala:392
 msgid "Manage Sections"
 msgstr "Quản Lý Phần"
 
@@ -2669,7 +2669,7 @@ msgstr ""
 "Khi được bật, lời nhắc trước thời gian đến hạn của nhiệm vụ sẽ được thêm mặc "
 "định."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:746
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
 msgid "Preferences"
 msgstr "Tùy Chọn"
 
@@ -2784,7 +2784,7 @@ msgstr "Xóa vĩnh viễn tất cả danh sách, nhiệm vụ và lời nhắc c
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:749
+#: src/MainWindow.vala:752
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -2825,7 +2825,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:825
+#: src/MainWindow.vala:828
 msgid "See More"
 msgstr "Xem Thêm"
 
@@ -2982,7 +2982,7 @@ msgid "New Section"
 msgstr "Phần Mới"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
-#: src/Layouts/SectionRow.vala:667
+#: src/Layouts/SectionRow.vala:672
 msgid "Edit Section"
 msgstr "Chỉnh Sửa Phần"
 
@@ -3030,7 +3030,7 @@ msgstr "Chỉnh Sửa"
 #: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1260
 #: src/Layouts/ItemRow.vala:1379 src/Layouts/ItemSidebarView.vala:509
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:611
-#: src/Layouts/SectionRow.vala:670 src/Views/Project/Project.vala:388
+#: src/Layouts/SectionRow.vala:675 src/Views/Project/Project.vala:388
 msgid "Duplicate"
 msgstr "Tạo Bản Sao"
 
@@ -3156,7 +3156,7 @@ msgstr ""
 msgid "(No Section)"
 msgstr "(Không có Phần)"
 
-#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
+#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:227
 msgid "Add tasks"
 msgstr "Thêm nhiệm vụ"
 
@@ -3164,20 +3164,20 @@ msgstr "Thêm nhiệm vụ"
 msgid "Load more"
 msgstr "Tải thêm"
 
-#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:623
+#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:628
 #: src/Widgets/SubItems.vala:420
 msgid "completed tasks"
 msgstr "nhiệm vụ đã hoàn thành"
 
-#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:668
+#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:673
 msgid "Move Section"
 msgstr "Di Chuyển Phần"
 
-#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:671
+#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:676
 msgid "Show Completed Tasks"
 msgstr "Hiển Thị Nhiệm Vụ Đã Hoàn Thành"
 
-#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:674
+#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:679
 #: src/Widgets/SectionItemRow.vala:186
 msgid "Delete Section"
 msgstr "Xóa Phần"
@@ -3222,43 +3222,43 @@ msgstr "Không có dự án nào. Tạo một dự án bằng cách nhấp vào 
 msgid "Account Migration Required"
 msgstr "Yêu cầu di chuyển tài khoản"
 
-#: src/MainWindow.vala:81
+#: src/MainWindow.vala:82
 msgid "Main Menu"
 msgstr "Menu Chính"
 
-#: src/MainWindow.vala:86
+#: src/MainWindow.vala:87
 msgid "Open Quick Find"
 msgstr "Mở Tìm Kiếm Nhanh"
 
-#: src/MainWindow.vala:337
+#: src/MainWindow.vala:338
 msgid "Task was modified on another device"
 msgstr ""
 
-#: src/MainWindow.vala:339
+#: src/MainWindow.vala:340
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:754
+#: src/MainWindow.vala:757
 msgid "About Planify"
 msgstr "Về Planify"
 
-#: src/MainWindow.vala:822
+#: src/MainWindow.vala:825
 msgid "Oops! Something happened"
 msgstr "Ối! Đã xảy ra lỗi"
 
-#: src/MainWindow.vala:841 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Nhiệm vụ đã hoàn thành"
 
-#: src/MainWindow.vala:842
+#: src/MainWindow.vala:845
 msgid "View"
 msgstr "Xem"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:883
 msgid "Database Integrity Check Failed"
 msgstr "Kiểm Tra Tính Toàn Vẹn Cơ Sở Dữ Liệu Thất Bại"
 
-#: src/MainWindow.vala:881
+#: src/MainWindow.vala:884
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3280,7 +3280,7 @@ msgstr ""
 "Sau khi đặt lại, bạn sẽ có thể khôi phục bất kỳ bản sao lưu nào bạn đã tạo "
 "trước đó. Cảm ơn sự kiên nhẫn của bạn"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:886
 msgid "Reset Database"
 msgstr "Đặt Lại Cơ Sở Dữ Liệu"
 

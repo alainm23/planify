@@ -21,6 +21,8 @@
 
 public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
     private Gtk.SearchEntry search_entry;
+    private Gtk.Label results_count_label;
+    private Gtk.Revealer results_count_revealer;
     private Gtk.ListView list_view;
     private Gtk.ScrolledWindow list_view_scrolled;
     private ListStore list_store;
@@ -30,6 +32,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
     private Gtk.SignalListItemFactory list_item_factory;
     private Gtk.SignalListItemFactory header_factory;
     private Gtk.Stack stack;
+    private Adw.ToolbarView toolbar_view;
 
     public QuickFind () {
         Object (
@@ -52,6 +55,17 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
 
         var cancel_button = new Gtk.Button.with_label (_ ("Cancel")) {
             css_classes = { "flat" }
+        };
+
+        results_count_label = new Gtk.Label (null) {
+            css_classes = { "caption", "dimmed" },
+            margin_top = 6,
+            margin_bottom = 6
+        };
+
+        results_count_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
+            child = results_count_label
         };
 
         var headerbar_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
@@ -121,8 +135,12 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         stack.add_titled (get_placeholder (), "placeholder", "Placeholder");
         stack.add_titled (list_view_scrolled, "list", "List");
 
-        var toolbar_view = new Adw.ToolbarView ();
+        toolbar_view = new Adw.ToolbarView () {
+            bottom_bar_style = Adw.ToolbarStyle.RAISED_BORDER,
+            reveal_bottom_bars = false
+        };
         toolbar_view.add_top_bar (headerbar);
+        toolbar_view.add_bottom_bar (results_count_revealer);
         toolbar_view.content = stack;
 
         child = toolbar_view;
@@ -240,6 +258,11 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         var has_results = filter_model.get_n_items () > 0;
         stack.set_visible_child_name (has_results ? "list" : "placeholder");
 
+        var count = filter_model.get_n_items ();
+        results_count_label.label = ngettext ("%u result", "%u results", count).printf (count);
+        results_count_revealer.reveal_child = search_entry.text.strip () != "" && has_results;
+        toolbar_view.reveal_bottom_bars = search_entry.text.strip () != "" && has_results;
+
         if (has_results) {
             Idle.add (() => {
                 list_view_scrolled.vadjustment.set_value (0);
@@ -306,7 +329,18 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         } else if (base_object is Objects.Item) {
             var item_obj = (Objects.Item) base_object;
             var item_content = item_obj.content.down ();
-            matches = search_text_lower in item_content;
+            var item_description = item_obj.description.down ();
+            bool content_match = search_text_lower in item_content;
+            bool description_match = search_text_lower in item_description;
+            matches = content_match || description_match;
+            item.matched_description = !content_match && description_match;
+            if (item.matched_description) {
+                item.description_snippet = get_description_snippet (item_obj.description, search_text_lower);
+            }
+        } else if (base_object is Objects.Section) {
+            var section = (Objects.Section) base_object;
+            matches = search_text_lower in section.name.down () ||
+                      search_text_lower in section.project.name.down ();
         } else {
             matches = search_text_lower in base_object.name.down ();
         }
@@ -371,5 +405,18 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
 
     private void hide_destroy () {
         close ();
+    }
+
+    private string get_description_snippet (string description, string pattern) {
+        var desc_lower = description.down ();
+        int idx = desc_lower.index_of (pattern);
+        if (idx < 0) return "";
+
+        int start = int.max (0, idx - 30);
+        int end = int.min (description.length, idx + pattern.length + 30);
+        var snippet = description.substring (start, end - start).strip ();
+        if (start > 0) snippet = "…" + snippet;
+        if (end < description.length) snippet = snippet + "…";
+        return snippet;
     }
 }

@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-05-22 12:12+0000\n"
-"Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-08-10 23:59+0000\n"
+"Last-Translator: user21172121683 <lukas@messing.ee>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/et/>\n"
 "Language: et\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -323,23 +323,23 @@ msgstr "silt puudub"
 msgid "unlabeled"
 msgstr "ilma sildita"
 
-#: core/Objects/Item.vala:1474 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "Tähtaeg:"
 
-#: core/Objects/Item.vala:1499
+#: core/Objects/Item.vala:1527
 msgid "Task copied to clipboard"
 msgstr "Ülesanne on kopeeritud lõikelauale"
 
-#: core/Objects/Item.vala:1516
+#: core/Objects/Item.vala:1544
 msgid "iCalendar Files"
 msgstr "iCalendari failid"
 
-#: core/Objects/Item.vala:1532
+#: core/Objects/Item.vala:1560
 msgid "Task exported successfully"
 msgstr "Ülesande eksportimine õnnestus"
 
-#: core/Objects/Item.vala:1856 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1884 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "Ümbertõstetud: %s"
@@ -410,7 +410,7 @@ msgstr "Järgnevaga arhiveerime „%s“ ja kõik tema ülesanded."
 
 #: core/Objects/Project.vala:975 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
-#: src/Layouts/SectionRow.vala:673 src/Views/Project/Project.vala:399
+#: src/Layouts/SectionRow.vala:678 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Arhiveeri"
 
@@ -469,7 +469,7 @@ msgid "Add Reminders"
 msgstr "Lisa meeldetuletusi"
 
 #: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
-#: src/Layouts/SectionRow.vala:666 src/Widgets/MagicButton.vala:50
+#: src/Layouts/SectionRow.vala:671 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Lisa ülesanne"
 
@@ -489,7 +489,7 @@ msgstr ""
 "Vabandust, kiirlisamine ei suuda ühtegi projekti/ettevõtmist leida. Proovi "
 "mõni Planify's lisada."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:751
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
 msgid "Keyboard Shortcuts"
 msgstr "Klaviatuuri kiirklahvid"
 
@@ -728,40 +728,40 @@ msgstr "%H:%M"
 
 #: core/Utils/Datetime.vala:475
 msgid "Every last day of month"
-msgstr ""
+msgstr "Iga kuu viimane päev"
 
 #: core/Utils/Datetime.vala:476
 #, c-format
 msgid "Every %d months (last day)"
-msgstr ""
+msgstr "Iga %d kuu tagant (viimane päev)"
 
 #: core/Utils/Datetime.vala:481
 msgid "Mo,"
-msgstr "Esmasp,"
+msgstr "E,"
 
 #: core/Utils/Datetime.vala:485
 msgid "Tu,"
-msgstr "Teisip,"
+msgstr "T,"
 
 #: core/Utils/Datetime.vala:489
 msgid "We,"
-msgstr "Kolmap,"
+msgstr "K,"
 
 #: core/Utils/Datetime.vala:493
 msgid "Th,"
-msgstr "Neljap,"
+msgstr "N,"
 
 #: core/Utils/Datetime.vala:497
 msgid "Fr,"
-msgstr "Reede,"
+msgstr "R,"
 
 #: core/Utils/Datetime.vala:501
 msgid "Sa,"
-msgstr "Laup,"
+msgstr "L,"
 
 #: core/Utils/Datetime.vala:505
 msgid "Su,"
-msgstr "Pühap,"
+msgstr "P,"
 
 #: core/Utils/Datetime.vala:790
 #, c-format
@@ -938,6 +938,8 @@ msgid ""
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
+"See projekt tutvustab sulle kõike vajalikku, et kiiresti hoog sisse saada. "
+"Ära pelga siin kõike ümber mängida – selle saab alati Eelistustest taastada."
 
 #: core/Utils/Util.vala:619
 msgid "Tap this task"
@@ -947,6 +949,7 @@ msgstr "Klõpsa seda ülesannet"
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
+"Tegemist on ülesandega! Märgi see tehtuks vajutades vasakulolevat ruutu. "
 
 #: core/Utils/Util.vala:625
 msgid "Create a new task"
@@ -957,6 +960,8 @@ msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
 msgstr ""
+"Nüüd on sinu kord! Klõpsa allolevat '+' nuppu, sisesta ülesande kirjeldus, "
+"ning vajuta nuppu 'Lisa ülesanne'."
 
 #: core/Utils/Util.vala:631
 msgid "Plan this to-do for today or later"
@@ -966,6 +971,7 @@ msgstr "Ajasta see ülesanne tänaseks või hilisemaks"
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
+"Klõpsa allolevat kalendrinuppu, et määrata, millal tegeleda selle ülesandega."
 
 #: core/Utils/Util.vala:637
 msgid "Reorder your to-dos"
@@ -989,7 +995,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:649
 msgid "You’re done!"
-msgstr ""
+msgstr "Tehtud!"
 
 #: core/Utils/Util.vala:650
 msgid ""
@@ -999,6 +1005,10 @@ msgid ""
 "below.\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
+"Tead nüüd kõike, mida võib vaja minna. Hakka aga lisama oma ettevõtmisi ja "
+"ülesandeid.\n"
+"Saad alati tulla siia tagasi, et tutvuda keerulisemate funktsioonidega.\n"
+"Meeldivat planeerimist!"
 
 #: core/Utils/Util.vala:664
 msgid "Tune your setup"
@@ -1006,7 +1016,7 @@ msgstr "Häälesta oma seadistusi"
 
 #: core/Utils/Util.vala:672
 msgid "Show your calendar events"
-msgstr "Näita oma kalendrisüsndmusi"
+msgstr "Näita oma kalendrisündmusi"
 
 #: core/Utils/Util.vala:673
 msgid ""
@@ -1026,7 +1036,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:688
 msgid "Boost your productivity"
-msgstr ""
+msgstr "Tõsta oma tootlikkust"
 
 #: core/Utils/Util.vala:696
 msgid "Drag the plus button!"
@@ -1037,6 +1047,8 @@ msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
 msgstr ""
+"Allolev värviline nupp on võimsam kui näib: seda saab liigutada! Lohista "
+"seda kuhu iganes on vaja ülesannet lisada."
 
 #: core/Utils/Util.vala:703
 msgid "Add labels to your tasks!"
@@ -1047,6 +1059,8 @@ msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
+"Siltidega saab organiseerida ja jaotada oma ülesandeid. Sildi lisamiseks "
+"vajuta allolevat sildinuppu."
 
 #: core/Utils/Util.vala:710
 msgid "Set timely reminders!"
@@ -1119,7 +1133,7 @@ msgid "3 hours before"
 msgstr "3 tundi varem"
 
 #: core/Widgets/Calendar/CalendarDay.vala:103
-#: core/Widgets/Calendar/CalendarScroll.vala:347
+#: core/Widgets/Calendar/CalendarScroll.vala:353
 msgid "%A, %B %e, %Y"
 msgstr "%A, %B %e, %Y"
 
@@ -1171,37 +1185,37 @@ msgstr "Vali kuupäev"
 #: core/Widgets/Calendar/CalendarWeek.vala:46
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:261
 msgid "Su"
-msgstr "Pühap"
+msgstr "P"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:47
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:225
 msgid "Mo"
-msgstr "Esmasp"
+msgstr "E"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:48
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:231
 msgid "Tu"
-msgstr "Teisip"
+msgstr "T"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:49
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:237
 msgid "We"
-msgstr "Kolmap"
+msgstr "K"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:50
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:243
 msgid "Th"
-msgstr "Neljap"
+msgstr "N"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:51
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:249
 msgid "Fr"
-msgstr "Reede"
+msgstr "R"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:52
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:255
 msgid "Sa"
-msgstr "Laup"
+msgstr "L"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
 #: src/Dialogs/Preferences/Pages/General.vala:123
@@ -1335,36 +1349,36 @@ msgstr "Kuupäeva pole"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:65
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minut(it)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:65
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 msgid "Hour(s)"
-msgstr ""
+msgstr "Tund(i)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:65
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 msgid "Day(s)"
-msgstr ""
+msgstr "Päev(a)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:65
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 msgid "Week(s)"
-msgstr ""
+msgstr "Nädal(at)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:65
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 msgid "Month(s)"
-msgstr ""
+msgstr "Kuu(d)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:65
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 msgid "Year(s)"
-msgstr ""
+msgstr "Aasta(t)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:281
 msgid "Last day of month"
-msgstr ""
+msgstr "Kuu viimane päev"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:297
 msgid "Never"
@@ -1386,7 +1400,7 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:391
 msgid "Repeat every"
-msgstr ""
+msgstr "Korda iga"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:399
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
@@ -1396,39 +1410,39 @@ msgstr ""
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:530
 msgid "Minute"
 msgid_plural "Minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Minut"
+msgstr[1] "Minutit"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:531
 msgid "Hour"
 msgid_plural "Hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tund"
+msgstr[1] "Tundi"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:532
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:536
 msgid "Day"
 msgid_plural "Days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Päev"
+msgstr[1] "Päeva"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:533
 msgid "Week"
 msgid_plural "Weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Nädal"
+msgstr[1] "Nädalat"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:534
 msgid "Month"
 msgid_plural "Months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kuu"
+msgstr[1] "Kuud"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:535
 msgid "Year"
 msgid_plural "Years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Aasta"
+msgstr[1] "Aastat"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:69
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:78
@@ -1467,15 +1481,15 @@ msgstr "Mis on viimane kuupäev selle ülesande täitmiseks?"
 
 #: core/Widgets/DeadlineButton.vala:218
 msgid "In 3 days"
-msgstr ""
+msgstr "3 päeva pärast"
 
 #: core/Widgets/DeadlineButton.vala:220
 msgid "In 2 weeks"
-msgstr ""
+msgstr "2 nädala pärast"
 
 #: core/Widgets/DeadlineButton.vala:221
 msgid "In a month"
-msgstr ""
+msgstr "Kuu aja pärast"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1511,16 +1525,16 @@ msgstr ""
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
 msgid "Search or Create"
-msgstr ""
+msgstr "Otsi või lisa"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 msgid "Hide unused labels"
-msgstr ""
+msgstr "Peita kasutamata sildid"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:319
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:402
 msgid "No Labels"
-msgstr ""
+msgstr "Silte pole"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
 msgid "All Hidden"
@@ -1536,36 +1550,36 @@ msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1996
 msgid "Task description"
-msgstr ""
+msgstr "Ülesande kirjeldus"
 
 #: core/Widgets/MarkdownEditor.vala:1410
 msgid "Remove link"
-msgstr ""
+msgstr "Eemalda link"
 
 #: core/Widgets/PriorityButton.vala:95 core/Widgets/PriorityButton.vala:135
 #: core/Widgets/PriorityButton.vala:200
 msgid "Priority 4: None"
-msgstr ""
+msgstr "Prioriteet 4: Puudub"
 
 #: core/Widgets/PriorityButton.vala:126 core/Widgets/PriorityButton.vala:182
 msgid "Priority 1: High"
-msgstr ""
+msgstr "Prioriteet 1: Kõrge"
 
 #: core/Widgets/PriorityButton.vala:129
 msgid "Priority 2: Medium"
-msgstr ""
+msgstr "Prioriteet 2: Keskmine"
 
 #: core/Widgets/PriorityButton.vala:132
 msgid "Priority 3: Low"
-msgstr ""
+msgstr "Prioriteet 3: Madal"
 
 #: core/Widgets/PriorityButton.vala:188
 msgid "Priority 1: Medium"
-msgstr ""
+msgstr "Prioriteet 1: Keskmine"
 
 #: core/Widgets/PriorityButton.vala:194
 msgid "Priority 1: Low"
-msgstr ""
+msgstr "Prioriteet 1: Madal"
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:63
 msgid "Your list of section will show up here."
@@ -1582,7 +1596,7 @@ msgstr "Alajaotust pole"
 
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:46
 msgid "Type a search"
-msgstr ""
+msgstr "Sisesta otsing"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:108
@@ -1593,7 +1607,7 @@ msgstr "Meeldetuletused"
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:110
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the '+' button."
-msgstr ""
+msgstr "Meeldetuletused ilmuvad siia. Lisamiseks vajuta '+' nuppu."
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:154
 msgid "Add Reminder"
@@ -1601,27 +1615,27 @@ msgstr "Lisa meeldetuletus"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:189
 msgid "In 5 minutes"
-msgstr ""
+msgstr "5 minuti pärast"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:190
 msgid "In 15 minutes"
-msgstr ""
+msgstr "15 minuti pärast"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:191
 msgid "In 30 minutes"
-msgstr ""
+msgstr "30 minuti pärast"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:192
 msgid "In 1 hour"
-msgstr ""
+msgstr "1 tunni pärast"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:193
 msgid "In 3 hours"
-msgstr ""
+msgstr "3 tunni pärast"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:194
 msgid "In 6 hours"
-msgstr ""
+msgstr "6 tunni pärast"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
@@ -1650,7 +1664,7 @@ msgstr "Ülesanded"
 msgid "Complete"
 msgstr "Tehtud"
 
-#: src/App.vala:183
+#: src/App.vala:185
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1659,7 +1673,7 @@ msgstr ""
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
 #: src/Views/Project/Project.vala:460
 msgid "Calendar Sync"
-msgstr ""
+msgstr "Kalendrisünkroonimine"
 
 #: src/Dialogs/CalendarSync.vala:45
 msgid ""
@@ -1687,11 +1701,11 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
-msgstr ""
+msgstr "Vali kalender"
 
 #: src/Dialogs/CalendarSync.vala:88
 msgid "Select a calendar from the list"
-msgstr ""
+msgstr "Vali loendist kalender"
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
@@ -1703,7 +1717,7 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
-msgstr ""
+msgstr "Kalendrisünkroonimine on aktiivne"
 
 #: src/Dialogs/CalendarSync.vala:228
 msgid ""
@@ -1736,7 +1750,7 @@ msgstr ""
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 msgid "Completed Tasks"
-msgstr ""
+msgstr "Lõpetatud ülesanded"
 
 #: src/Dialogs/CompletedTasks.vala:59
 msgid "View Filter Menu"
@@ -1744,12 +1758,12 @@ msgstr ""
 
 #: src/Dialogs/CompletedTasks.vala:95
 msgid "No completed tasks yet."
-msgstr ""
+msgstr "Pole veel ühtegi lõpetatud ülesannet."
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
 #: src/Views/Filter.vala:598
 msgid "Delete All Completed Tasks"
-msgstr ""
+msgstr "Kustuta kõik lõpetatud ülesanded"
 
 #: src/Dialogs/CompletedTasks.vala:165
 #, c-format
@@ -1789,7 +1803,7 @@ msgstr "Lisamise aeg"
 
 #: src/Dialogs/ItemChangeHistory.vala:58
 msgid "Not available"
-msgstr ""
+msgstr "Pole saadaval"
 
 #: src/Dialogs/ItemChangeHistory.vala:62
 msgid "Updated at"
@@ -1798,7 +1812,7 @@ msgstr ""
 #: src/Dialogs/ItemChangeHistory.vala:71
 msgid ""
 "Your change history will be displayed here once you start making changes."
-msgstr ""
+msgstr "Siia ilmub sinu tehtud muudatuste ajalugu, kui oled midagi muutnud."
 
 #: src/Dialogs/Label.vala:45
 msgid "New Label"
@@ -1824,12 +1838,12 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:756
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
 msgid "Archived Projects"
 msgstr "Arhiveeritud ettevõtmised"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionBoard.vala:610
-#: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:392
+#: src/Layouts/SectionRow.vala:674 src/Views/Project/Project.vala:392
 msgid "Manage Sections"
 msgstr "Halda alajaotusi"
 
@@ -1839,13 +1853,13 @@ msgstr "Sa võid lohistades muuta alajaotuste järjestust"
 
 #: src/Dialogs/ManageSectionOrder.vala:76
 msgid "Archived"
-msgstr ""
+msgstr "Arhiveeritud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
 #: src/Dialogs/Preferences/PreferencesWindow.vala:49
 msgid "Accounts"
-msgstr ""
+msgstr "Kontod"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
 msgid "Add Source"
@@ -2622,7 +2636,7 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:746
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
 msgid "Preferences"
 msgstr "Eelistused"
 
@@ -2738,7 +2752,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:749
+#: src/MainWindow.vala:752
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -2779,7 +2793,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:825
+#: src/MainWindow.vala:828
 msgid "See More"
 msgstr "Vaata veel"
 
@@ -2936,7 +2950,7 @@ msgid "New Section"
 msgstr "Uus alajaotus"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
-#: src/Layouts/SectionRow.vala:667
+#: src/Layouts/SectionRow.vala:672
 msgid "Edit Section"
 msgstr "Muuda alajaotust"
 
@@ -2984,7 +2998,7 @@ msgstr "Muuda"
 #: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1260
 #: src/Layouts/ItemRow.vala:1379 src/Layouts/ItemSidebarView.vala:509
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:611
-#: src/Layouts/SectionRow.vala:670 src/Views/Project/Project.vala:388
+#: src/Layouts/SectionRow.vala:675 src/Views/Project/Project.vala:388
 msgid "Duplicate"
 msgstr "Tee koopia"
 
@@ -3110,7 +3124,7 @@ msgstr ""
 msgid "(No Section)"
 msgstr "(Alajaotust pole)"
 
-#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
+#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:227
 msgid "Add tasks"
 msgstr "Lisa ülesandeid"
 
@@ -3118,20 +3132,20 @@ msgstr "Lisa ülesandeid"
 msgid "Load more"
 msgstr "Laadi veel"
 
-#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:623
+#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:628
 #: src/Widgets/SubItems.vala:420
 msgid "completed tasks"
 msgstr "täidetud ülesanded"
 
-#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:668
+#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:673
 msgid "Move Section"
 msgstr "Teisalda alajaotus"
 
-#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:671
+#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:676
 msgid "Show Completed Tasks"
 msgstr "Näita täidetud ülesandeid"
 
-#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:674
+#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:679
 #: src/Widgets/SectionItemRow.vala:186
 msgid "Delete Section"
 msgstr "Kustuta alajaotus"
@@ -3178,43 +3192,43 @@ msgstr ""
 msgid "Account Migration Required"
 msgstr ""
 
-#: src/MainWindow.vala:81
+#: src/MainWindow.vala:82
 msgid "Main Menu"
 msgstr "Põhimenüü"
 
-#: src/MainWindow.vala:86
+#: src/MainWindow.vala:87
 msgid "Open Quick Find"
 msgstr "Ava kiirotsing"
 
-#: src/MainWindow.vala:337
+#: src/MainWindow.vala:338
 msgid "Task was modified on another device"
 msgstr ""
 
-#: src/MainWindow.vala:339
+#: src/MainWindow.vala:340
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:754
+#: src/MainWindow.vala:757
 msgid "About Planify"
 msgstr "Rakenduse teave: Planify"
 
-#: src/MainWindow.vala:822
+#: src/MainWindow.vala:825
 msgid "Oops! Something happened"
 msgstr "Vaat, kus lops! Nüüd küll juhtus midagi"
 
-#: src/MainWindow.vala:841 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Ülesanne on lõpetatud"
 
-#: src/MainWindow.vala:842
+#: src/MainWindow.vala:845
 msgid "View"
 msgstr "Vaata"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:883
 msgid "Database Integrity Check Failed"
 msgstr ""
 
-#: src/MainWindow.vala:881
+#: src/MainWindow.vala:884
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3227,7 +3241,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:886
 msgid "Reset Database"
 msgstr ""
 

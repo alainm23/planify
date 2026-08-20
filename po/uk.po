@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-07-19 18:01+0000\n"
-"Last-Translator: Димко <Dymkovych@proton.me>\n"
+"PO-Revision-Date: 2026-08-03 10:01+0000\n"
+"Last-Translator: Maksym Dilanian <dilanyan.maxim@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/uk/>\n"
 "Language: uk\n"
@@ -323,24 +323,24 @@ msgstr "немає міток"
 msgid "unlabeled"
 msgstr "без міток"
 
-#: core/Objects/Item.vala:1474 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "Кінцевий термін:"
 
-#: core/Objects/Item.vala:1499
+#: core/Objects/Item.vala:1527
 msgid "Task copied to clipboard"
 msgstr "Завдання скопійовано в буфер обміну"
 
-#: core/Objects/Item.vala:1516
+#: core/Objects/Item.vala:1544
 msgid "iCalendar Files"
 msgstr "Файли iCalendar"
 
-#: core/Objects/Item.vala:1532
+#: core/Objects/Item.vala:1560
 msgid "Task exported successfully"
 msgstr "Завдання успішно експортовано"
 
 # c-format
-#: core/Objects/Item.vala:1856 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1884 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "Завдання перемещіно в %s"
@@ -414,7 +414,7 @@ msgstr "Це призведе до архівування %s і всіх йог�
 
 #: core/Objects/Project.vala:975 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
-#: src/Layouts/SectionRow.vala:673 src/Views/Project/Project.vala:399
+#: src/Layouts/SectionRow.vala:678 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Архівувати"
 
@@ -474,7 +474,7 @@ msgid "Add Reminders"
 msgstr "Додати нагадування"
 
 #: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
-#: src/Layouts/SectionRow.vala:666 src/Widgets/MagicButton.vala:50
+#: src/Layouts/SectionRow.vala:671 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Додати завдання"
 
@@ -494,7 +494,7 @@ msgstr ""
 "Вибачте, функція швидкого додавання не може знайти жодного доступного "
 "проєкту. Спробуйте створити проєкт в Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:751
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
 msgid "Keyboard Shortcuts"
 msgstr "Комбінації клавіш"
 
@@ -732,12 +732,12 @@ msgstr "%H:%M"
 
 #: core/Utils/Datetime.vala:475
 msgid "Every last day of month"
-msgstr ""
+msgstr "Кожен останній день місяця"
 
 #: core/Utils/Datetime.vala:476
 #, c-format
 msgid "Every %d months (last day)"
-msgstr ""
+msgstr "Кожні %d місяців (останній день)"
 
 #: core/Utils/Datetime.vala:481
 msgid "Mo,"
@@ -1152,7 +1152,7 @@ msgid "3 hours before"
 msgstr "За 3 години до"
 
 #: core/Widgets/Calendar/CalendarDay.vala:103
-#: core/Widgets/Calendar/CalendarScroll.vala:347
+#: core/Widgets/Calendar/CalendarScroll.vala:353
 msgid "%A, %B %e, %Y"
 msgstr "%A, %B %e, %Y"
 
@@ -1397,7 +1397,7 @@ msgstr "Рік"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:281
 msgid "Last day of month"
-msgstr ""
+msgstr "Останній день місяця"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:297
 msgid "Never"
@@ -1577,7 +1577,7 @@ msgstr "Натисніть Enter, щоб створити та призначи�
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1996
 msgid "Task description"
-msgstr ""
+msgstr "Опис завдання"
 
 #: core/Widgets/MarkdownEditor.vala:1410
 msgid "Remove link"
@@ -1695,7 +1695,7 @@ msgstr "Завдання"
 msgid "Complete"
 msgstr "Завершити"
 
-#: src/App.vala:183
+#: src/App.vala:185
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1888,12 +1888,12 @@ msgstr "Оновити мітку"
 msgid "Filter"
 msgstr "Фільтр"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:756
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
 msgid "Archived Projects"
 msgstr "Архівні проєкти"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionBoard.vala:610
-#: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:392
+#: src/Layouts/SectionRow.vala:674 src/Views/Project/Project.vala:392
 msgid "Manage Sections"
 msgstr "Керування розділами"
 
@@ -2048,21 +2048,23 @@ msgstr "Приклади URL-адрес"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:265
 msgid "Nextcloud Deck Detected"
-msgstr ""
+msgstr "Виявлено Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:266
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
 msgstr ""
+"Nextcloud Deck доступний на цьому сервері. Бажаєте ввімкнути інтеграцію Deck "
+"для керування вашими дошками та картками безпосередньо в Planify?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
 msgid "Not Now"
-msgstr ""
+msgstr "Не зараз"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
 msgid "Enable Deck"
-msgstr ""
+msgstr "Увімкнути Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:181
@@ -2091,15 +2093,15 @@ msgstr "Остання синхронізація"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
 msgid "Nextcloud Deck"
-msgstr ""
+msgstr "Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
 msgid "Sync boards and cards from Nextcloud Deck"
-msgstr ""
+msgstr "Синхронізуйте дошки та картки з Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
 msgid "Nextcloud Deck is not available on this server"
-msgstr ""
+msgstr "Nextcloud Deck недоступний на цьому сервері"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:152
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:214
@@ -2252,7 +2254,7 @@ msgstr "Щоденне резервне копіювання"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:51
 msgid "Creates a backup every day at midnight"
-msgstr ""
+msgstr "Створює резервну копію щодня опівночі"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:58
 msgid "Create Backup"
@@ -2280,20 +2282,24 @@ msgid ""
 "Only the last 30 backups are shown here. To access older backups, open the "
 "backup folder directly."
 msgstr ""
+"Тут показано лише останні 30 резервних копій. Щоб отримати доступ до "
+"старіших резервних копій, відкрийте папку резервних копій безпосередньо."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:97
 msgid "Extra Backup Locations"
-msgstr ""
+msgstr "Додаткові розташування резервних копій"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:100
 msgid "No extra locations added yet."
-msgstr ""
+msgstr "Додаткових місць поки що не додано."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:112
 msgid ""
 "Backup copies will also be saved to these folders after each backup is "
 "created."
 msgstr ""
+"Резервні копії також будуть збережені в цих папках після створення кожної "
+"резервної копії."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:121
 msgid "Migrate"
@@ -2339,7 +2345,7 @@ msgstr "Завдання"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:580
 msgid "This will replace all your current data"
-msgstr ""
+msgstr "Це замінить усі ваші поточні дані"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:589
 msgid "Restore backup"
@@ -2723,7 +2729,7 @@ msgstr ""
 "Якщо цю функцію ввімкнено, нагадування перед терміном виконання завдання "
 "буде додано за замовчуванням."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:746
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
 msgid "Preferences"
 msgstr "Налаштування"
 
@@ -2839,7 +2845,7 @@ msgstr "Безповоротно видаляє всі ваші списки, з
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:749
+#: src/MainWindow.vala:752
 msgid "Summary & Productivity"
 msgstr "Підсумок та продуктивність"
 
@@ -2880,7 +2886,7 @@ msgstr "Продуктивність"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:825
+#: src/MainWindow.vala:828
 msgid "See More"
 msgstr "Дивитися більше"
 
@@ -3040,7 +3046,7 @@ msgid "New Section"
 msgstr "Новий розділ"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
-#: src/Layouts/SectionRow.vala:667
+#: src/Layouts/SectionRow.vala:672
 msgid "Edit Section"
 msgstr "Редагувати розділ"
 
@@ -3089,7 +3095,7 @@ msgstr "Редагувати"
 #: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1260
 #: src/Layouts/ItemRow.vala:1379 src/Layouts/ItemSidebarView.vala:509
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:611
-#: src/Layouts/SectionRow.vala:670 src/Views/Project/Project.vala:388
+#: src/Layouts/SectionRow.vala:675 src/Views/Project/Project.vala:388
 msgid "Duplicate"
 msgstr "Дублювати"
 
@@ -3216,7 +3222,7 @@ msgstr "Проект експортовано у форматі PDF"
 msgid "(No Section)"
 msgstr "(Без розділу)"
 
-#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
+#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:227
 msgid "Add tasks"
 msgstr "Додати завдання"
 
@@ -3224,20 +3230,20 @@ msgstr "Додати завдання"
 msgid "Load more"
 msgstr "Завантажити більше"
 
-#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:623
+#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:628
 #: src/Widgets/SubItems.vala:420
 msgid "completed tasks"
 msgstr "Виконані завдання"
 
-#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:668
+#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:673
 msgid "Move Section"
 msgstr "Перемістити розділ"
 
-#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:671
+#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:676
 msgid "Show Completed Tasks"
 msgstr "Показати виконані завдання"
 
-#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:674
+#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:679
 #: src/Widgets/SectionItemRow.vala:186
 msgid "Delete Section"
 msgstr "Видалити розділ"
@@ -3282,43 +3288,43 @@ msgstr "Немає жодного проєкту. Створіть новий, �
 msgid "Account Migration Required"
 msgstr "Потрібна міграція облікового запису"
 
-#: src/MainWindow.vala:81
+#: src/MainWindow.vala:82
 msgid "Main Menu"
 msgstr "Головне меню"
 
-#: src/MainWindow.vala:86
+#: src/MainWindow.vala:87
 msgid "Open Quick Find"
 msgstr "Відкрити Швидкий пошук"
 
-#: src/MainWindow.vala:337
+#: src/MainWindow.vala:338
 msgid "Task was modified on another device"
 msgstr "Завдання було змінено на іншому пристрої"
 
-#: src/MainWindow.vala:339
+#: src/MainWindow.vala:340
 msgid "Sync Now"
 msgstr "Синхронізувати зараз"
 
-#: src/MainWindow.vala:754
+#: src/MainWindow.vala:757
 msgid "About Planify"
 msgstr "Про Planify"
 
-#: src/MainWindow.vala:822
+#: src/MainWindow.vala:825
 msgid "Oops! Something happened"
 msgstr "Ой! Щось трапилося"
 
-#: src/MainWindow.vala:841 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Завдання виконано"
 
-#: src/MainWindow.vala:842
+#: src/MainWindow.vala:845
 msgid "View"
 msgstr "Переглянути"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:883
 msgid "Database Integrity Check Failed"
 msgstr "Перевірка цілісності бази даних не вдалася"
 
-#: src/MainWindow.vala:881
+#: src/MainWindow.vala:884
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3340,7 +3346,7 @@ msgstr ""
 "Після скидання ви зможете відновити будь-яку резервну копію, яку створили "
 "раніше. Дякуємо за ваше терпіння"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:886
 msgid "Reset Database"
 msgstr "Скинути базу даних"
 
