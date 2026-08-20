@@ -132,7 +132,7 @@ msgid "Content"
 msgstr "目錄"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1986 src/Layouts/ItemSidebarView.vala:183
+#: src/Layouts/ItemRow.vala:1986 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "描述"
@@ -347,7 +347,7 @@ msgstr "刪除標籤 %s"
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
-#: src/Layouts/ItemSidebarView.vala:597 src/Services/BackupManager.vala:224
+#: src/Layouts/ItemSidebarView.vala:604 src/Services/BackupManager.vala:224
 msgid "This can not be undone"
 msgstr "此項無法取消動作"
 
@@ -363,7 +363,7 @@ msgstr "此項無法取消動作"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:318
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:594
-#: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:600
+#: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:607
 #: src/Services/BackupManager.vala:227 src/Views/Filter.vala:629
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -377,7 +377,7 @@ msgstr "取消"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:360
-#: src/Layouts/ItemSidebarView.vala:601 src/Services/BackupManager.vala:228
+#: src/Layouts/ItemSidebarView.vala:608 src/Services/BackupManager.vala:228
 #: src/Views/Filter.vala:630 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
@@ -427,7 +427,7 @@ msgid "Task added successfully!"
 msgstr "任務已經加入成功！"
 
 #: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:402
-#: src/Layouts/ItemSidebarView.vala:122 src/Widgets/ItemDetailCompleted.vala:52
+#: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "待辦事項名稱"
 
@@ -1770,7 +1770,7 @@ msgid "Done"
 msgstr "完成"
 
 #: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1387
-#: src/Layouts/ItemSidebarView.vala:516
+#: src/Layouts/ItemSidebarView.vala:523
 msgid "Change History"
 msgstr "變更歷史記錄"
 
@@ -2919,15 +2919,21 @@ msgstr "專案已經添加成功！"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemRow.vala:1254
-#: src/Layouts/ItemRow.vala:1380 src/Layouts/ItemSidebarView.vala:510
+#: src/Layouts/ItemRow.vala:1380 src/Layouts/ItemSidebarView.vala:517
 msgid "Move"
 msgstr "移動"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:48
+#: src/Dialogs/QuickFind/QuickFind.vala:51
 msgid "Quick Find"
 msgstr "快速尋找"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:318
+#: src/Dialogs/QuickFind/QuickFind.vala:262
+#, c-format
+msgid "%u result"
+msgid_plural "%u results"
+msgstr[0] ""
+
+#: src/Dialogs/QuickFind/QuickFind.vala:352
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr "快速切換專案及檢視、尋找任務、依照標籤搜尋"
 
@@ -2969,7 +2975,7 @@ msgid "Unpin"
 msgstr "解除釘貼"
 
 #: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemRow.vala:1604
-#: src/Layouts/ItemSidebarView.vala:675
+#: src/Layouts/ItemSidebarView.vala:682
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "已經完成。下次發生：%s"
@@ -2983,14 +2989,14 @@ msgid "Edit"
 msgstr "編輯"
 
 #: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1260
-#: src/Layouts/ItemRow.vala:1379 src/Layouts/ItemSidebarView.vala:509
+#: src/Layouts/ItemRow.vala:1379 src/Layouts/ItemSidebarView.vala:516
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:611
 #: src/Layouts/SectionRow.vala:675 src/Views/Project/Project.vala:388
 msgid "Duplicate"
 msgstr "製作複本"
 
 #: src/Layouts/ItemBoard.vala:832 src/Layouts/ItemRow.vala:1262
-#: src/Layouts/ItemRow.vala:1384 src/Layouts/ItemSidebarView.vala:513
+#: src/Layouts/ItemRow.vala:1384 src/Layouts/ItemSidebarView.vala:520
 msgid "Delete Task"
 msgstr "刪除任務"
 
@@ -3019,25 +3025,25 @@ msgstr "隱藏子任務"
 msgid "Show Sub-tasks"
 msgstr "顯示子任務"
 
-#: src/Layouts/ItemRow.vala:1375 src/Layouts/ItemSidebarView.vala:506
+#: src/Layouts/ItemRow.vala:1375 src/Layouts/ItemSidebarView.vala:513
 msgid "Use as a Note"
 msgstr "用作為記事"
 
-#: src/Layouts/ItemRow.vala:1378 src/Layouts/ItemSidebarView.vala:508
+#: src/Layouts/ItemRow.vala:1378 src/Layouts/ItemSidebarView.vala:515
 #: src/Widgets/MultiSelectToolbar.vala:274
 msgid "Copy to Clipboard"
 msgstr "複製至剪貼簿"
 
-#: src/Layouts/ItemRow.vala:1381 src/Layouts/ItemSidebarView.vala:511
+#: src/Layouts/ItemRow.vala:1381 src/Layouts/ItemSidebarView.vala:518
 msgid "Export as .ics"
 msgstr "匯出成為 .ics"
 
-#: src/Layouts/ItemRow.vala:1389
+#: src/Layouts/ItemRow.vala:1389 src/Layouts/ItemSidebarView.vala:470
 #, c-format
 msgid "Updated: %s"
 msgstr "已經更新： %s"
 
-#: src/Layouts/ItemRow.vala:1391
+#: src/Layouts/ItemRow.vala:1391 src/Layouts/ItemSidebarView.vala:472
 #, c-format
 msgid "Created: %s"
 msgstr "已經建立： %s"
@@ -3046,23 +3052,23 @@ msgstr "已經建立： %s"
 msgid "Add Attachments"
 msgstr "添加附件"
 
-#: src/Layouts/ItemSidebarView.vala:79
+#: src/Layouts/ItemSidebarView.vala:80
 msgid "Close Detail"
 msgstr "關閉詳情"
 
-#: src/Layouts/ItemSidebarView.vala:146 src/Widgets/ItemDetailCompleted.vala:64
+#: src/Layouts/ItemSidebarView.vala:147 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
 msgstr "標題"
 
-#: src/Layouts/ItemSidebarView.vala:178 src/Widgets/ItemDetailCompleted.vala:90
+#: src/Layouts/ItemSidebarView.vala:179 src/Widgets/ItemDetailCompleted.vala:90
 msgid "Properties"
 msgstr "屬性"
 
-#: src/Layouts/ItemSidebarView.vala:194
+#: src/Layouts/ItemSidebarView.vala:195
 msgid "Expand Description"
 msgstr "展開說明"
 
-#: src/Layouts/ItemSidebarView.vala:596
+#: src/Layouts/ItemSidebarView.vala:603
 msgid "Are you sure you want to delete?"
 msgstr "您確定要刪除嗎？"
 
