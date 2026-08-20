@@ -138,7 +138,7 @@ msgid "Content"
 msgstr "Sisu"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1986 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:1987 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "Kirjeldus"
@@ -323,23 +323,23 @@ msgstr "silt puudub"
 msgid "unlabeled"
 msgstr "ilma sildita"
 
-#: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "Tähtaeg:"
 
-#: core/Objects/Item.vala:1527
+#: core/Objects/Item.vala:1528
 msgid "Task copied to clipboard"
 msgstr "Ülesanne on kopeeritud lõikelauale"
 
-#: core/Objects/Item.vala:1544
+#: core/Objects/Item.vala:1545
 msgid "iCalendar Files"
 msgstr "iCalendari failid"
 
-#: core/Objects/Item.vala:1560
+#: core/Objects/Item.vala:1561
 msgid "Task exported successfully"
 msgstr "Ülesande eksportimine õnnestus"
 
-#: core/Objects/Item.vala:1884 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "Ümbertõstetud: %s"
@@ -489,7 +489,7 @@ msgstr ""
 "Vabandust, kiirlisamine ei suuda ühtegi projekti/ettevõtmist leida. Proovi "
 "mõni Planify's lisada."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:756
 msgid "Keyboard Shortcuts"
 msgstr "Klaviatuuri kiirklahvid"
 
@@ -1548,7 +1548,7 @@ msgstr ""
 msgid "Press Enter to create and assign it"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1996
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1997
 msgid "Task description"
 msgstr "Ülesande kirjeldus"
 
@@ -1838,7 +1838,7 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:761
 msgid "Archived Projects"
 msgstr "Arhiveeritud ettevõtmised"
 
@@ -2636,7 +2636,7 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:751
 msgid "Preferences"
 msgstr "Eelistused"
 
@@ -2752,7 +2752,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:752
+#: src/MainWindow.vala:754
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -2793,7 +2793,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:828
+#: src/MainWindow.vala:830
 msgid "See More"
 msgstr "Vaata veel"
 
@@ -3014,16 +3014,16 @@ msgstr "Tee koopia"
 msgid "Delete Task"
 msgstr "Kustuta ülesanne"
 
-#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1850
+#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1851
 msgid "Order changed to 'Custom sort order'"
 msgstr ""
 
-#: src/Layouts/ItemBoard.vala:1244 src/Layouts/ItemRow.vala:1626
+#: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1628
 #, c-format
 msgid "%s was deleted"
 msgstr "%s on kustutatud"
 
-#: src/Layouts/ItemBoard.vala:1245 src/Layouts/ItemRow.vala:1627
+#: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1629
 msgid "Undo"
 msgstr "Võta tegevus tagasi"
 
@@ -3062,7 +3062,7 @@ msgstr ""
 msgid "Created: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2061
+#: src/Layouts/ItemRow.vala:2062
 msgid "Add Attachments"
 msgstr "Lisa manuseid"
 
@@ -3207,35 +3207,35 @@ msgstr "Põhimenüü"
 msgid "Open Quick Find"
 msgstr "Ava kiirotsing"
 
-#: src/MainWindow.vala:338
+#: src/MainWindow.vala:340
 msgid "Task was modified on another device"
 msgstr ""
 
-#: src/MainWindow.vala:340
+#: src/MainWindow.vala:342
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:757
+#: src/MainWindow.vala:759
 msgid "About Planify"
 msgstr "Rakenduse teave: Planify"
 
-#: src/MainWindow.vala:825
+#: src/MainWindow.vala:827
 msgid "Oops! Something happened"
 msgstr "Vaat, kus lops! Nüüd küll juhtus midagi"
 
-#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:846 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Ülesanne on lõpetatud"
 
-#: src/MainWindow.vala:845
+#: src/MainWindow.vala:847
 msgid "View"
 msgstr "Vaata"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:885
 msgid "Database Integrity Check Failed"
 msgstr ""
 
-#: src/MainWindow.vala:884
+#: src/MainWindow.vala:886
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3248,7 +3248,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:886
+#: src/MainWindow.vala:888
 msgid "Reset Database"
 msgstr ""
 
