@@ -129,6 +129,7 @@ public class Objects.Item : Objects.BaseObject {
     public int day_order { get; set; default = 0; }
     public bool checked { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
+    public bool is_trash { get; set; default = false; }
 
     private bool _collapsed = false;
     public bool collapsed {
