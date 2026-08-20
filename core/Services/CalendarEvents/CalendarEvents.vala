@@ -84,9 +84,11 @@ public class Services.CalendarEvents : Object {
             registry.source_removed.connect (remove_source);
             registry.source_added.connect ((source) => add_source_async.begin (source));
 
+            var disabled_sources = Services.Settings.get_default ().settings.get_strv ("calendar-sources-disabled");
+
             registry.list_sources (E.SOURCE_EXTENSION_CALENDAR).foreach ((source) => {
                 E.SourceCalendar cal = (E.SourceCalendar) source.get_extension (E.SOURCE_EXTENSION_CALENDAR);
-                if (cal.selected == true && source.enabled == true) {
+                if (cal.selected == true && source.enabled == true && !(source.dup_uid () in disabled_sources)) {
                     add_source_async.begin (source);
                 }
             });
@@ -330,6 +332,29 @@ public class Services.CalendarEvents : Object {
         });
 
         return sources;
+    }
+
+    public void set_source_enabled (E.Source source, bool enabled) {
+        var uid = source.dup_uid ();
+        var disabled = Services.Settings.get_default ().settings.get_strv ("calendar-sources-disabled");
+        var list = new Gee.ArrayList<string>.wrap (disabled);
+
+        if (enabled) {
+            list.remove (uid);
+            add_source_async.begin (source);
+        } else {
+            if (!list.contains (uid)) {
+                list.add (uid);
+            }
+            remove_source (source);
+        }
+
+        Services.Settings.get_default ().settings.set_strv ("calendar-sources-disabled", list.to_array ());
+    }
+
+    public bool is_source_enabled (E.Source source) {
+        var disabled = Services.Settings.get_default ().settings.get_strv ("calendar-sources-disabled");
+        return !(source.dup_uid () in disabled);
     }
 
     private async ECal.Client? get_client (string source_uid) {
