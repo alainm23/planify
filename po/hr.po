@@ -145,7 +145,7 @@ msgid "Content"
 msgstr "Sadržaj"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1986 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:1987 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "Opis"
@@ -330,23 +330,23 @@ msgstr "nema etikete"
 msgid "unlabeled"
 msgstr "bez etikete"
 
-#: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "Rok:"
 
-#: core/Objects/Item.vala:1527
+#: core/Objects/Item.vala:1528
 msgid "Task copied to clipboard"
 msgstr "Zadatak je kopiran u međuspremnik"
 
-#: core/Objects/Item.vala:1544
+#: core/Objects/Item.vala:1545
 msgid "iCalendar Files"
 msgstr "iCalendar datoteke"
 
-#: core/Objects/Item.vala:1560
+#: core/Objects/Item.vala:1561
 msgid "Task exported successfully"
 msgstr "Zadatak je uspješno izvezen"
 
-#: core/Objects/Item.vala:1884 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "Premješteno u %s"
@@ -496,7 +496,7 @@ msgstr ""
 "Žao mi je, brzo dodavanje ne može pronaći nijedan dostupan projekt, pokušaj "
 "stvoriti projekt iz aplikacije Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:756
 msgid "Keyboard Shortcuts"
 msgstr "Tipkovni prečaci"
 
@@ -1572,7 +1572,7 @@ msgstr ""
 msgid "Press Enter to create and assign it"
 msgstr "Pritisni tipku Enter za stvaranje i dodjelu"
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1996
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1997
 msgid "Task description"
 msgstr ""
 
@@ -1884,7 +1884,7 @@ msgstr "Aktualiziraj etiketu"
 msgid "Filter"
 msgstr "Filtar"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:761
 msgid "Archived Projects"
 msgstr "Arhivirani projekti"
 
@@ -2716,7 +2716,7 @@ msgid ""
 msgstr ""
 "Kada je uključeno, standardno će se dodati podsjetnik prije roka zadatka."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:751
 msgid "Preferences"
 msgstr "Osobitosti"
 
@@ -2831,7 +2831,7 @@ msgstr "Nepovratno briše sve tvoje popise, zadatke i podsjetnike"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:752
+#: src/MainWindow.vala:754
 msgid "Summary & Productivity"
 msgstr "Sažetak i produktivnost"
 
@@ -2872,7 +2872,7 @@ msgstr "Produktivnost"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:828
+#: src/MainWindow.vala:830
 msgid "See More"
 msgstr "Pogledaj više"
 
@@ -3094,16 +3094,16 @@ msgstr "Dupliciraj"
 msgid "Delete Task"
 msgstr "Izbriši zadatak"
 
-#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1850
+#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1851
 msgid "Order changed to 'Custom sort order'"
 msgstr "Redoslijed je promijenjen u „Prilagođeni redoslijed razvrstavanja“"
 
-#: src/Layouts/ItemBoard.vala:1244 src/Layouts/ItemRow.vala:1626
+#: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1628
 #, c-format
 msgid "%s was deleted"
 msgstr "%s je izbrisan"
 
-#: src/Layouts/ItemBoard.vala:1245 src/Layouts/ItemRow.vala:1627
+#: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1629
 msgid "Undo"
 msgstr "Poništi"
 
@@ -3142,7 +3142,7 @@ msgstr ""
 msgid "Created: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2061
+#: src/Layouts/ItemRow.vala:2062
 msgid "Add Attachments"
 msgstr "Dodaj priloge"
 
@@ -3286,35 +3286,35 @@ msgstr "Glavni izbornik"
 msgid "Open Quick Find"
 msgstr "Otvori brzo pronalaženje"
 
-#: src/MainWindow.vala:338
+#: src/MainWindow.vala:340
 msgid "Task was modified on another device"
 msgstr "Zadatak je promijenjen na jednom drugom uređaju"
 
-#: src/MainWindow.vala:340
+#: src/MainWindow.vala:342
 msgid "Sync Now"
 msgstr "Sinkroniziraj sada"
 
-#: src/MainWindow.vala:757
+#: src/MainWindow.vala:759
 msgid "About Planify"
 msgstr "O aplikaciji Planify"
 
-#: src/MainWindow.vala:825
+#: src/MainWindow.vala:827
 msgid "Oops! Something happened"
 msgstr "Ups! Nešto se dogodilo"
 
-#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:846 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Zadatak završen"
 
-#: src/MainWindow.vala:845
+#: src/MainWindow.vala:847
 msgid "View"
 msgstr "Prikaz"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:885
 msgid "Database Integrity Check Failed"
 msgstr "Provjera integriteta baze podataka nije uspjela"
 
-#: src/MainWindow.vala:884
+#: src/MainWindow.vala:886
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3337,7 +3337,7 @@ msgstr ""
 "Nakon resetiranja možeš obnoviti bazu podataka pomoću prethodno izrađene "
 "sigurnosne kopije. Hvala na strpljenju"
 
-#: src/MainWindow.vala:886
+#: src/MainWindow.vala:888
 msgid "Reset Database"
 msgstr "Resetiraj bazu podataka"
 

@@ -229,6 +229,8 @@ public class MainWindow : Adw.ApplicationWindow {
 #if WITH_EVOLUTION
             Services.Store.instance ().setup_calendar_events ();
 #endif
+
+            Services.Store.instance ().cleanup_trash_on_startup ();
         });
 
         var color_scheme_settings = ColorSchemeSettings.Settings.get_default ();
