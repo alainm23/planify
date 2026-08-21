@@ -1451,15 +1451,15 @@ msgstr "完成此任务的最晚日期是？"
 
 #: core/Widgets/DeadlineButton.vala:218
 msgid "In 3 days"
-msgstr ""
+msgstr "3天内"
 
 #: core/Widgets/DeadlineButton.vala:220
 msgid "In 2 weeks"
-msgstr ""
+msgstr "2周内"
 
 #: core/Widgets/DeadlineButton.vala:221
 msgid "In a month"
-msgstr ""
+msgstr "1个月内"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -2270,11 +2270,11 @@ msgstr "日历事件"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:41
 msgid "Show Calendar Events"
-msgstr ""
+msgstr "显示日历事件"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:42
 msgid "Display events from your calendars in Planify"
-msgstr ""
+msgstr "在Planify里显示你的日历事件"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:172
@@ -2650,7 +2650,7 @@ msgstr "自定义您的侧边栏"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:121
 msgid "Manage which calendars are shown"
-msgstr ""
+msgstr "管理要显示的日历"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:135
 msgid "Adding to-do's from anywhere"
