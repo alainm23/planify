@@ -1389,6 +1389,18 @@ public class Services.Store : GLib.Object {
         }
     }
 
+    public void cleanup_trash_on_startup () {
+        var trash_items = Services.Database.get_default ().get_items_in_trash ();
+        foreach (var item in trash_items) {
+            item.delete_item ();
+        }
+    }
+
+    public void set_item_trash (Objects.Item item, bool trash) {
+        item.is_trash = trash;
+        Services.Database.get_default ().update_item_trash (item);
+    }
+
     // Reminders
     public void insert_reminder (Objects.Reminder reminder) {
         if (Services.Database.get_default ().insert_reminder (reminder)) {

@@ -245,6 +245,12 @@
             <description>Enable calendar integration to display tasks with due dates in calendar views and sync with system calendar</description>
         </key>
 
+        <key name="calendar-sources-disabled" type="as">
+            <default>[]</default>
+            <summary>Disabled calendar sources</summary>
+            <description>List of calendar source UIDs that are hidden from Planify's calendar views</description>
+        </key>
+
         <key name="views-order-visible" type="as">
             <default>['inbox', 'today', 'scheduled', 'labels']</default>
             <summary>Visible views and their order</summary>

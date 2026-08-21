@@ -138,7 +138,7 @@ msgid "Content"
 msgstr "Conteúdo"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1986 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:1987 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "Descrição"
@@ -323,23 +323,23 @@ msgstr "nenhuma etiqueta"
 msgid "unlabeled"
 msgstr "sem etiqueta"
 
-#: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "Tempo limite:"
 
-#: core/Objects/Item.vala:1527
+#: core/Objects/Item.vala:1528
 msgid "Task copied to clipboard"
 msgstr "A tarefa foi copiada para a área de transferência"
 
-#: core/Objects/Item.vala:1544
+#: core/Objects/Item.vala:1545
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1560
+#: core/Objects/Item.vala:1561
 msgid "Task exported successfully"
 msgstr ""
 
-#: core/Objects/Item.vala:1884 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "A tarefa foi movida para %s"
@@ -489,7 +489,7 @@ msgstr ""
 "Lamentamos mas o 'Adicionar rápido' não encontrou nenhum projeto disponível, "
 "tente criar um a partir do Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:756
 msgid "Keyboard Shortcuts"
 msgstr "Atalhos do teclado"
 
@@ -1223,37 +1223,37 @@ msgid "Sa"
 msgstr "Sa"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:123
+#: src/Dialogs/Preferences/Pages/General.vala:111
 msgid "Sunday"
 msgstr "Domingo"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:124
+#: src/Dialogs/Preferences/Pages/General.vala:112
 msgid "Monday"
 msgstr "Segunda-feira"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:125
+#: src/Dialogs/Preferences/Pages/General.vala:113
 msgid "Tuesday"
 msgstr "Terça-feira"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:126
+#: src/Dialogs/Preferences/Pages/General.vala:114
 msgid "Wednesday"
 msgstr "Quarta-feira"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
-#: src/Dialogs/Preferences/Pages/General.vala:127
+#: src/Dialogs/Preferences/Pages/General.vala:115
 msgid "Thursday"
 msgstr "Quinta-feira"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
-#: src/Dialogs/Preferences/Pages/General.vala:128
+#: src/Dialogs/Preferences/Pages/General.vala:116
 msgid "Friday"
 msgstr "Sexta-feira"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
-#: src/Dialogs/Preferences/Pages/General.vala:129
+#: src/Dialogs/Preferences/Pages/General.vala:117
 msgid "Saturday"
 msgstr "Sábado"
 
@@ -1557,7 +1557,7 @@ msgstr ""
 msgid "Press Enter to create and assign it"
 msgstr "Pressione Enter para a criar e atribuir"
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1996
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1997
 msgid "Task description"
 msgstr ""
 
@@ -1872,7 +1872,7 @@ msgstr "Atualizar etiqueta"
 msgid "Filter"
 msgstr "Filtro"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:761
 msgid "Archived Projects"
 msgstr "Arquivar projetos"
 
@@ -2164,7 +2164,7 @@ msgid "Synchronizing…"
 msgstr "A sincronizar…"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:38
-#: src/Dialogs/Preferences/PreferencesWindow.vala:110
+#: src/Dialogs/Preferences/PreferencesWindow.vala:111
 msgid "Appearance"
 msgstr "Aspeto"
 
@@ -2219,7 +2219,7 @@ msgid "Font Size"
 msgstr "Tamanho da fonte"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:29
-#: src/Dialogs/Preferences/PreferencesWindow.vala:132
+#: src/Dialogs/Preferences/PreferencesWindow.vala:145
 msgid "Backups"
 msgstr "Cópias de segurança"
 
@@ -2341,8 +2341,21 @@ msgstr ""
 "Tem a certeza de que pretende continuar? Este procedimento vai eliminar os "
 "seus dados atuais e substituir os mesmos pelos dados da cópia de segurança."
 
+#: src/Dialogs/Preferences/Pages/CalendarEvents.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:120
+msgid "Calendar Events"
+msgstr "Eventos do calendário"
+
+#: src/Dialogs/Preferences/Pages/CalendarEvents.vala:41
+msgid "Show Calendar Events"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/CalendarEvents.vala:42
+msgid "Display events from your calendars in Planify"
+msgstr ""
+
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:158
+#: src/Dialogs/Preferences/PreferencesWindow.vala:172
 msgid "Donate"
 msgstr "Doar"
 
@@ -2406,7 +2419,7 @@ msgstr "A sua contribuição ajuda a manter o Planify vivo e a crescer."
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
-#: src/Dialogs/Preferences/PreferencesWindow.vala:78
+#: src/Dialogs/Preferences/PreferencesWindow.vala:79
 msgid "General"
 msgstr "Geral"
 
@@ -2457,15 +2470,11 @@ msgid "Keep Planify running in the system tray when closing the window"
 msgstr ""
 "Manter o Planify em execução no tabuleiro do sistema quando fechar a janela"
 
-#: src/Dialogs/Preferences/Pages/General.vala:96
-msgid "Calendar Events"
-msgstr "Eventos do calendário"
-
-#: src/Dialogs/Preferences/Pages/General.vala:103
+#: src/Dialogs/Preferences/Pages/General.vala:91
 msgid "GNOME Shell Search"
 msgstr "Pesquisa do GNOME Shell"
 
-#: src/Dialogs/Preferences/Pages/General.vala:104
+#: src/Dialogs/Preferences/Pages/General.vala:92
 msgid ""
 "Search tasks and projects directly from GNOME Shell. Enable it in Settings → "
 "Search"
@@ -2473,31 +2482,31 @@ msgstr ""
 "Pesquise diretamente por tarefas e projetos a partir do GNOME Shell. Ative "
 "em Definições → Pesquisar"
 
-#: src/Dialogs/Preferences/Pages/General.vala:109
+#: src/Dialogs/Preferences/Pages/General.vala:97
 msgid "Date and Time"
 msgstr "Data e hora"
 
-#: src/Dialogs/Preferences/Pages/General.vala:112
+#: src/Dialogs/Preferences/Pages/General.vala:100
 msgid "24h"
 msgstr "24h"
 
-#: src/Dialogs/Preferences/Pages/General.vala:113
+#: src/Dialogs/Preferences/Pages/General.vala:101
 msgid "12h"
 msgstr "12h"
 
-#: src/Dialogs/Preferences/Pages/General.vala:116
+#: src/Dialogs/Preferences/Pages/General.vala:104
 msgid "Clock Format"
 msgstr "Formato do relógio"
 
-#: src/Dialogs/Preferences/Pages/General.vala:132
+#: src/Dialogs/Preferences/Pages/General.vala:120
 msgid "Start of the Week"
 msgstr "Começo da semana"
 
-#: src/Dialogs/Preferences/Pages/General.vala:144
+#: src/Dialogs/Preferences/Pages/General.vala:132
 msgid "Smart Date Recognition"
 msgstr "Reconhecimento inteligente de data"
 
-#: src/Dialogs/Preferences/Pages/General.vala:145
+#: src/Dialogs/Preferences/Pages/General.vala:133
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
 msgstr "Deteta automaticamente as datas como \"amanhã\" ou \"próxima semana\""
 
@@ -2507,7 +2516,7 @@ msgid "Home View"
 msgstr "Página principal"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:121
+#: src/Dialogs/Preferences/PreferencesWindow.vala:134
 msgid "Quick Add"
 msgstr "Adicionar rápido"
 
@@ -2558,7 +2567,7 @@ msgid "The command was copied to the clipboard"
 msgstr "O comando foi copiado para a sua área de transferência"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
-#: src/Dialogs/Preferences/PreferencesWindow.vala:99
+#: src/Dialogs/Preferences/PreferencesWindow.vala:100
 msgid "Sidebar"
 msgstr "Barra lateral"
 
@@ -2587,7 +2596,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "Pode ordenar as suas visualizações ao clicar, arrastar e largar"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:89
+#: src/Dialogs/Preferences/PreferencesWindow.vala:90
 msgid "Task Settings"
 msgstr "Definições de tarefas"
 
@@ -2718,7 +2727,7 @@ msgstr ""
 "Quando ativado, vai ser notificado de que tem uma tarefa a aproximar-se do "
 "tempo limite."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:751
 msgid "Preferences"
 msgstr "Definições"
 
@@ -2730,106 +2739,110 @@ msgstr "Sincronizar com os seus gestores de tarefas favoritos"
 msgid "Set the view shown at first launch"
 msgstr "Defina o que deseja ver na página principal ao iniciar a aplicação"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:79
+#: src/Dialogs/Preferences/PreferencesWindow.vala:80
 msgid "Customize to your liking"
 msgstr "Personalize ao seu gosto"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:100
+#: src/Dialogs/Preferences/PreferencesWindow.vala:101
 msgid "Customize your sidebar"
 msgstr "Personalizar a sua barra lateral"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:122
+#: src/Dialogs/Preferences/PreferencesWindow.vala:121
+msgid "Manage which calendars are shown"
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:135
 msgid "Adding to-do's from anywhere"
 msgstr "Adicionar tarefas a partir de qualquer lado"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:133
+#: src/Dialogs/Preferences/PreferencesWindow.vala:146
 msgid "Backup or migrate from Planner."
 msgstr "Cópia de segurança ou migrar a partir do Planner."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:139
+#: src/Dialogs/Preferences/PreferencesWindow.vala:152
 msgid "Create Tutorial Project"
 msgstr "Criar o projeto de tutorial"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:140
+#: src/Dialogs/Preferences/PreferencesWindow.vala:153
 msgid "Learn the app step by step with a short tutorial project"
 msgstr ""
 "Aprenda como usar a aplicação passo a passo, com um projeto de tutorial "
 "pequeno"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:159
+#: src/Dialogs/Preferences/PreferencesWindow.vala:173
 msgid "Want to buy me a drink?"
 msgstr "Quer pagar-me uma bebida?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:169
+#: src/Dialogs/Preferences/PreferencesWindow.vala:183
 msgid "Report Issue or Request Feature"
 msgstr "Reportar um problema ou solicitar uma funcionalidade"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:170
+#: src/Dialogs/Preferences/PreferencesWindow.vala:184
 msgid "Share bugs or ideas on GitHub"
 msgstr "Partilhe problemas ou ideias no GitHub"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:196
+#: src/Dialogs/Preferences/PreferencesWindow.vala:210
 msgid "Get Involved"
 msgstr "Junte-se a nós"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:206
+#: src/Dialogs/Preferences/PreferencesWindow.vala:220
 msgid "Reach Us"
 msgstr "Venha até nós"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:212
+#: src/Dialogs/Preferences/PreferencesWindow.vala:226
 msgid "Contact Us"
 msgstr "Contacte-nos"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:213
+#: src/Dialogs/Preferences/PreferencesWindow.vala:227
 msgid "Request a feature or ask us anything"
 msgstr "Solicite uma funcionalidade ou coloque as questões que quiser"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:229
+#: src/Dialogs/Preferences/PreferencesWindow.vala:243
 msgid "Tweet Us"
 msgstr "Envie-nos um tweet"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:230
-#: src/Dialogs/Preferences/PreferencesWindow.vala:260
+#: src/Dialogs/Preferences/PreferencesWindow.vala:244
+#: src/Dialogs/Preferences/PreferencesWindow.vala:274
 msgid "Share some love"
 msgstr "Partilhe o seu carinho"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:244
+#: src/Dialogs/Preferences/PreferencesWindow.vala:258
 msgid "Discord"
 msgstr "Discord"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:245
+#: src/Dialogs/Preferences/PreferencesWindow.vala:259
 msgid "Discuss and share your feedback"
 msgstr "Converse ou partilhe as suas opiniões"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:259
+#: src/Dialogs/Preferences/PreferencesWindow.vala:273
 msgid "Mastodon"
 msgstr "Mastodon"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:278
+#: src/Dialogs/Preferences/PreferencesWindow.vala:292
 msgid "Privacy"
 msgstr "Privacidade"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:284
+#: src/Dialogs/Preferences/PreferencesWindow.vala:298
 msgid "Privacy Policy"
 msgstr "Política de privacidade"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:285
+#: src/Dialogs/Preferences/PreferencesWindow.vala:299
 msgid "We have nothing on you"
 msgstr "Não guardamos nada sobre si"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:291
+#: src/Dialogs/Preferences/PreferencesWindow.vala:305
 msgid "Delete App Data"
 msgstr "Eliminar dados da aplicação"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:300
+#: src/Dialogs/Preferences/PreferencesWindow.vala:314
 msgid "A tutorial project has been created"
 msgstr "O projeto do tutorial foi criado"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:316
+#: src/Dialogs/Preferences/PreferencesWindow.vala:330
 msgid "Delete All Data?"
 msgstr "Eliminar todos os dados?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:317
+#: src/Dialogs/Preferences/PreferencesWindow.vala:331
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr ""
 "Isto vai eliminar todas as suas listas, tarefas e lembretes de forma "
@@ -2837,7 +2850,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:752
+#: src/MainWindow.vala:754
 msgid "Summary & Productivity"
 msgstr "Resumo & Produtividade"
 
@@ -2878,7 +2891,7 @@ msgstr "Produtividade"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:828
+#: src/MainWindow.vala:830
 msgid "See More"
 msgstr "Ver mais"
 
@@ -3103,16 +3116,16 @@ msgstr "Duplicar"
 msgid "Delete Task"
 msgstr "Eliminar tarefa"
 
-#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1850
+#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1851
 msgid "Order changed to 'Custom sort order'"
 msgstr "Ordem alterada para 'Ordenação personalizada'"
 
-#: src/Layouts/ItemBoard.vala:1244 src/Layouts/ItemRow.vala:1626
+#: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1628
 #, c-format
 msgid "%s was deleted"
 msgstr "%s foi eliminado"
 
-#: src/Layouts/ItemBoard.vala:1245 src/Layouts/ItemRow.vala:1627
+#: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1629
 msgid "Undo"
 msgstr "Reverter"
 
@@ -3151,7 +3164,7 @@ msgstr ""
 msgid "Created: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2061
+#: src/Layouts/ItemRow.vala:2062
 msgid "Add Attachments"
 msgstr "Adicionar anexos"
 
@@ -3294,35 +3307,35 @@ msgstr "Menu principal"
 msgid "Open Quick Find"
 msgstr "Abrir procura rápida"
 
-#: src/MainWindow.vala:338
+#: src/MainWindow.vala:340
 msgid "Task was modified on another device"
 msgstr ""
 
-#: src/MainWindow.vala:340
+#: src/MainWindow.vala:342
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:757
+#: src/MainWindow.vala:759
 msgid "About Planify"
 msgstr "Acerca do Planify"
 
-#: src/MainWindow.vala:825
+#: src/MainWindow.vala:827
 msgid "Oops! Something happened"
 msgstr "Ups! Ocorreu algum problema"
 
-#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:846 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Tarefa terminada"
 
-#: src/MainWindow.vala:845
+#: src/MainWindow.vala:847
 msgid "View"
 msgstr "Vista"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:885
 msgid "Database Integrity Check Failed"
 msgstr "A verificação de integridade da base de dados falhou"
 
-#: src/MainWindow.vala:884
+#: src/MainWindow.vala:886
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3345,7 +3358,7 @@ msgstr ""
 "Após o processo terminar, vai poder restaurar uma das suas cópia de "
 "segurança que criou anteriormente. Obrigado pela sua compreensão"
 
-#: src/MainWindow.vala:886
+#: src/MainWindow.vala:888
 msgid "Reset Database"
 msgstr "Restaurar base de dados"
 

@@ -132,7 +132,7 @@ msgid "Content"
 msgstr "目錄"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1986 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:1987 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "描述"
@@ -317,23 +317,23 @@ msgstr "無標籤"
 msgid "unlabeled"
 msgstr "尚無標籤"
 
-#: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "截止日期："
 
-#: core/Objects/Item.vala:1527
+#: core/Objects/Item.vala:1528
 msgid "Task copied to clipboard"
 msgstr "任務已經複製至剪貼簿"
 
-#: core/Objects/Item.vala:1544
+#: core/Objects/Item.vala:1545
 msgid "iCalendar Files"
 msgstr "iCalendar 檔案"
 
-#: core/Objects/Item.vala:1560
+#: core/Objects/Item.vala:1561
 msgid "Task exported successfully"
 msgstr "任務匯出成功"
 
-#: core/Objects/Item.vala:1884 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "已經移至 %s"
@@ -481,7 +481,7 @@ msgid ""
 "project from Planify."
 msgstr "抱歉，快速添加無法找到任何可用的專案，請從 Planify 中建立一個專案。"
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:756
 msgid "Keyboard Shortcuts"
 msgstr "鍵盤快速鍵"
 
@@ -1193,37 +1193,37 @@ msgid "Sa"
 msgstr "週六"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:123
+#: src/Dialogs/Preferences/Pages/General.vala:111
 msgid "Sunday"
 msgstr "週日"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:124
+#: src/Dialogs/Preferences/Pages/General.vala:112
 msgid "Monday"
 msgstr "週一"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:125
+#: src/Dialogs/Preferences/Pages/General.vala:113
 msgid "Tuesday"
 msgstr "週二"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:126
+#: src/Dialogs/Preferences/Pages/General.vala:114
 msgid "Wednesday"
 msgstr "週三"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
-#: src/Dialogs/Preferences/Pages/General.vala:127
+#: src/Dialogs/Preferences/Pages/General.vala:115
 msgid "Thursday"
 msgstr "週四"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
-#: src/Dialogs/Preferences/Pages/General.vala:128
+#: src/Dialogs/Preferences/Pages/General.vala:116
 msgid "Friday"
 msgstr "週五"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
-#: src/Dialogs/Preferences/Pages/General.vala:129
+#: src/Dialogs/Preferences/Pages/General.vala:117
 msgid "Saturday"
 msgstr "週六"
 
@@ -1517,7 +1517,7 @@ msgstr "全部標籤都已由篩選器隱藏。停用篩選器才能看到它們
 msgid "Press Enter to create and assign it"
 msgstr "按 Enter 鍵進行建立並指派它"
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1996
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1997
 msgid "Task description"
 msgstr "任務描述"
 
@@ -1815,7 +1815,7 @@ msgstr "更新標籤"
 msgid "Filter"
 msgstr "篩選"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:761
 msgid "Archived Projects"
 msgstr "已經封存的專案"
 
@@ -2099,7 +2099,7 @@ msgid "Synchronizing…"
 msgstr "正在同步中…"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:38
-#: src/Dialogs/Preferences/PreferencesWindow.vala:110
+#: src/Dialogs/Preferences/PreferencesWindow.vala:111
 msgid "Appearance"
 msgstr "外觀"
 
@@ -2152,7 +2152,7 @@ msgid "Font Size"
 msgstr "字型大小"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:29
-#: src/Dialogs/Preferences/PreferencesWindow.vala:132
+#: src/Dialogs/Preferences/PreferencesWindow.vala:145
 msgid "Backups"
 msgstr "備份"
 
@@ -2269,8 +2269,21 @@ msgid ""
 "data and replace it with the backup data."
 msgstr "確定要繼續嗎？此操作將刪除您目前的資料，並用備份資料來取代。"
 
+#: src/Dialogs/Preferences/Pages/CalendarEvents.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:120
+msgid "Calendar Events"
+msgstr "行事曆事件"
+
+#: src/Dialogs/Preferences/Pages/CalendarEvents.vala:41
+msgid "Show Calendar Events"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/CalendarEvents.vala:42
+msgid "Display events from your calendars in Planify"
+msgstr ""
+
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:158
+#: src/Dialogs/Preferences/PreferencesWindow.vala:172
 msgid "Donate"
 msgstr "贊助"
 
@@ -2333,7 +2346,7 @@ msgstr "您的貢獻有助於維持 Planify 生長茁壯。"
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
-#: src/Dialogs/Preferences/PreferencesWindow.vala:78
+#: src/Dialogs/Preferences/PreferencesWindow.vala:79
 msgid "General"
 msgstr "通則"
 
@@ -2383,45 +2396,41 @@ msgstr "背景執行"
 msgid "Keep Planify running in the system tray when closing the window"
 msgstr "保持 Planify 在系統匣中運行 當關閉視窗時"
 
-#: src/Dialogs/Preferences/Pages/General.vala:96
-msgid "Calendar Events"
-msgstr "行事曆事件"
-
-#: src/Dialogs/Preferences/Pages/General.vala:103
+#: src/Dialogs/Preferences/Pages/General.vala:91
 msgid "GNOME Shell Search"
 msgstr "GNOME Shell 搜尋"
 
-#: src/Dialogs/Preferences/Pages/General.vala:104
+#: src/Dialogs/Preferences/Pages/General.vala:92
 msgid ""
 "Search tasks and projects directly from GNOME Shell. Enable it in Settings → "
 "Search"
 msgstr "搜尋任務和項目直接來自 GNOME Shell 。在 設定 →搜尋 中設定啟用"
 
-#: src/Dialogs/Preferences/Pages/General.vala:109
+#: src/Dialogs/Preferences/Pages/General.vala:97
 msgid "Date and Time"
 msgstr "日期時間"
 
-#: src/Dialogs/Preferences/Pages/General.vala:112
+#: src/Dialogs/Preferences/Pages/General.vala:100
 msgid "24h"
 msgstr "24h"
 
-#: src/Dialogs/Preferences/Pages/General.vala:113
+#: src/Dialogs/Preferences/Pages/General.vala:101
 msgid "12h"
 msgstr "12h"
 
-#: src/Dialogs/Preferences/Pages/General.vala:116
+#: src/Dialogs/Preferences/Pages/General.vala:104
 msgid "Clock Format"
 msgstr "時鐘格式"
 
-#: src/Dialogs/Preferences/Pages/General.vala:132
+#: src/Dialogs/Preferences/Pages/General.vala:120
 msgid "Start of the Week"
 msgstr "一週開始"
 
-#: src/Dialogs/Preferences/Pages/General.vala:144
+#: src/Dialogs/Preferences/Pages/General.vala:132
 msgid "Smart Date Recognition"
 msgstr "智能日期識別"
 
-#: src/Dialogs/Preferences/Pages/General.vala:145
+#: src/Dialogs/Preferences/Pages/General.vala:133
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
 msgstr "自動偵測日期，像是\"明日\"或\"下週\""
 
@@ -2431,7 +2440,7 @@ msgid "Home View"
 msgstr "主頁檢視"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:121
+#: src/Dialogs/Preferences/PreferencesWindow.vala:134
 msgid "Quick Add"
 msgstr "快速添加"
 
@@ -2475,7 +2484,7 @@ msgid "The command was copied to the clipboard"
 msgstr "該指令已經複製至剪貼簿"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
-#: src/Dialogs/Preferences/PreferencesWindow.vala:99
+#: src/Dialogs/Preferences/PreferencesWindow.vala:100
 msgid "Sidebar"
 msgstr "側邊列"
 
@@ -2504,7 +2513,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "您可以排序檢視，利用拖放操作"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:89
+#: src/Dialogs/Preferences/PreferencesWindow.vala:90
 msgid "Task Settings"
 msgstr "任務設定"
 
@@ -2625,7 +2634,7 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr "當已經啟用，依照預設在任務到期時間之前會添加提醒。"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:751
 msgid "Preferences"
 msgstr "偏好設定"
 
@@ -2637,110 +2646,114 @@ msgstr "同步您最愛的待辦事項提供者"
 msgid "Set the view shown at first launch"
 msgstr "在首次啟動時，設定檢視顯示"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:79
+#: src/Dialogs/Preferences/PreferencesWindow.vala:80
 msgid "Customize to your liking"
 msgstr "依您喜好進行自訂"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:100
+#: src/Dialogs/Preferences/PreferencesWindow.vala:101
 msgid "Customize your sidebar"
 msgstr "自訂您的側邊列"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:122
+#: src/Dialogs/Preferences/PreferencesWindow.vala:121
+msgid "Manage which calendars are shown"
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:135
 msgid "Adding to-do's from anywhere"
 msgstr "從任何位置添加待辦事項"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:133
+#: src/Dialogs/Preferences/PreferencesWindow.vala:146
 msgid "Backup or migrate from Planner."
 msgstr "備份或移轉來自 Planner。"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:139
+#: src/Dialogs/Preferences/PreferencesWindow.vala:152
 msgid "Create Tutorial Project"
 msgstr "建立教學專案"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:140
+#: src/Dialogs/Preferences/PreferencesWindow.vala:153
 msgid "Learn the app step by step with a short tutorial project"
 msgstr "經由簡短的教學專案來逐步學習應用程式"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:159
+#: src/Dialogs/Preferences/PreferencesWindow.vala:173
 msgid "Want to buy me a drink?"
 msgstr "想請我喝一杯嗎？"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:169
+#: src/Dialogs/Preferences/PreferencesWindow.vala:183
 msgid "Report Issue or Request Feature"
 msgstr "提報問題或請求功能"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:170
+#: src/Dialogs/Preferences/PreferencesWindow.vala:184
 msgid "Share bugs or ideas on GitHub"
 msgstr "分享錯誤問題或點子想法於 GitHub 網站"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:196
+#: src/Dialogs/Preferences/PreferencesWindow.vala:210
 msgid "Get Involved"
 msgstr "取得參與"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:206
+#: src/Dialogs/Preferences/PreferencesWindow.vala:220
 msgid "Reach Us"
 msgstr "聯絡我們"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:212
+#: src/Dialogs/Preferences/PreferencesWindow.vala:226
 msgid "Contact Us"
 msgstr "聯絡我們"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:213
+#: src/Dialogs/Preferences/PreferencesWindow.vala:227
 msgid "Request a feature or ask us anything"
 msgstr "請求功能或任何提問"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:229
+#: src/Dialogs/Preferences/PreferencesWindow.vala:243
 msgid "Tweet Us"
 msgstr "Tweet 通訊"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:230
-#: src/Dialogs/Preferences/PreferencesWindow.vala:260
+#: src/Dialogs/Preferences/PreferencesWindow.vala:244
+#: src/Dialogs/Preferences/PreferencesWindow.vala:274
 msgid "Share some love"
 msgstr "分享這份愛"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:244
+#: src/Dialogs/Preferences/PreferencesWindow.vala:258
 msgid "Discord"
 msgstr "Discord 聊天"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:245
+#: src/Dialogs/Preferences/PreferencesWindow.vala:259
 msgid "Discuss and share your feedback"
 msgstr "討論分享您的意見"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:259
+#: src/Dialogs/Preferences/PreferencesWindow.vala:273
 msgid "Mastodon"
 msgstr "Mastodon 社群"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:278
+#: src/Dialogs/Preferences/PreferencesWindow.vala:292
 msgid "Privacy"
 msgstr "隱私"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:284
+#: src/Dialogs/Preferences/PreferencesWindow.vala:298
 msgid "Privacy Policy"
 msgstr "隱私政策"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:285
+#: src/Dialogs/Preferences/PreferencesWindow.vala:299
 msgid "We have nothing on you"
 msgstr "我們對於您一無所悉"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:291
+#: src/Dialogs/Preferences/PreferencesWindow.vala:305
 msgid "Delete App Data"
 msgstr "刪除應用程式資料"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:300
+#: src/Dialogs/Preferences/PreferencesWindow.vala:314
 msgid "A tutorial project has been created"
 msgstr "教學專案已經建立"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:316
+#: src/Dialogs/Preferences/PreferencesWindow.vala:330
 msgid "Delete All Data?"
 msgstr "刪除全部資料？"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:317
+#: src/Dialogs/Preferences/PreferencesWindow.vala:331
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "刪除全部您的清單、任務和提醒，無法救回"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:752
+#: src/MainWindow.vala:754
 msgid "Summary & Productivity"
 msgstr "摘要總結與生產力"
 
@@ -2781,7 +2794,7 @@ msgstr "生產力"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:828
+#: src/MainWindow.vala:830
 msgid "See More"
 msgstr "查看更多"
 
@@ -3000,16 +3013,16 @@ msgstr "製作複本"
 msgid "Delete Task"
 msgstr "刪除任務"
 
-#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1850
+#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1851
 msgid "Order changed to 'Custom sort order'"
 msgstr "順序變更為〔自訂排列順序〕"
 
-#: src/Layouts/ItemBoard.vala:1244 src/Layouts/ItemRow.vala:1626
+#: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1628
 #, c-format
 msgid "%s was deleted"
 msgstr "%s 已經刪除"
 
-#: src/Layouts/ItemBoard.vala:1245 src/Layouts/ItemRow.vala:1627
+#: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1629
 msgid "Undo"
 msgstr "取消動作"
 
@@ -3048,7 +3061,7 @@ msgstr "已經更新： %s"
 msgid "Created: %s"
 msgstr "已經建立： %s"
 
-#: src/Layouts/ItemRow.vala:2061
+#: src/Layouts/ItemRow.vala:2062
 msgid "Add Attachments"
 msgstr "添加附件"
 
@@ -3191,35 +3204,35 @@ msgstr "主要選單"
 msgid "Open Quick Find"
 msgstr "開啟快速尋找"
 
-#: src/MainWindow.vala:338
+#: src/MainWindow.vala:340
 msgid "Task was modified on another device"
 msgstr "任務已在另一台裝置上有所修改"
 
-#: src/MainWindow.vala:340
+#: src/MainWindow.vala:342
 msgid "Sync Now"
 msgstr "立即進行同步"
 
-#: src/MainWindow.vala:757
+#: src/MainWindow.vala:759
 msgid "About Planify"
 msgstr "關於 Planify"
 
-#: src/MainWindow.vala:825
+#: src/MainWindow.vala:827
 msgid "Oops! Something happened"
 msgstr "哎呀！有事發生了"
 
-#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:846 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "任務已經完成"
 
-#: src/MainWindow.vala:845
+#: src/MainWindow.vala:847
 msgid "View"
 msgstr "檢視"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:885
 msgid "Database Integrity Check Failed"
 msgstr "資料庫整合檢查失敗"
 
-#: src/MainWindow.vala:884
+#: src/MainWindow.vala:886
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3238,7 +3251,7 @@ msgstr ""
 "\n"
 "重設之後，您將能夠恢復先前建立的任何備份。感謝您耐心等侯"
 
-#: src/MainWindow.vala:886
+#: src/MainWindow.vala:888
 msgid "Reset Database"
 msgstr "重設資料庫"
 

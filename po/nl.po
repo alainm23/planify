@@ -138,7 +138,7 @@ msgid "Content"
 msgstr "Inhoud"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1986 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:1987 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "Beschrijving"
@@ -323,24 +323,24 @@ msgstr "geen label"
 msgid "unlabeled"
 msgstr "ongelabeld"
 
-#: core/Objects/Item.vala:1502 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "Deadline:"
 
-#: core/Objects/Item.vala:1527
+#: core/Objects/Item.vala:1528
 msgid "Task copied to clipboard"
 msgstr "Taak gekopieerd naar klembord"
 
-#: core/Objects/Item.vala:1544
+#: core/Objects/Item.vala:1545
 msgid "iCalendar Files"
 msgstr "iCalendar Bestanden"
 
-#: core/Objects/Item.vala:1560
+#: core/Objects/Item.vala:1561
 msgid "Task exported successfully"
 msgstr "Taak succesvol geëxporteerd"
 
 # # c-format
-#: core/Objects/Item.vala:1884 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "Verplaatst naar %s"
@@ -494,7 +494,7 @@ msgstr ""
 "Sorry, snel toevoegen lukt niet zonder een project, probeer eerst een "
 "project aan te maken."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:754
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:756
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
@@ -1250,37 +1250,37 @@ msgid "Sa"
 msgstr "Za"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:123
+#: src/Dialogs/Preferences/Pages/General.vala:111
 msgid "Sunday"
 msgstr "Zondag"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:124
+#: src/Dialogs/Preferences/Pages/General.vala:112
 msgid "Monday"
 msgstr "Maandag"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:125
+#: src/Dialogs/Preferences/Pages/General.vala:113
 msgid "Tuesday"
 msgstr "Dinsdag"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:126
+#: src/Dialogs/Preferences/Pages/General.vala:114
 msgid "Wednesday"
 msgstr "Woensdag"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
-#: src/Dialogs/Preferences/Pages/General.vala:127
+#: src/Dialogs/Preferences/Pages/General.vala:115
 msgid "Thursday"
 msgstr "Donderdag"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
-#: src/Dialogs/Preferences/Pages/General.vala:128
+#: src/Dialogs/Preferences/Pages/General.vala:116
 msgid "Friday"
 msgstr "Vrijdag"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
-#: src/Dialogs/Preferences/Pages/General.vala:129
+#: src/Dialogs/Preferences/Pages/General.vala:117
 msgid "Saturday"
 msgstr "Zaterdag"
 
@@ -1585,7 +1585,7 @@ msgstr ""
 msgid "Press Enter to create and assign it"
 msgstr "Druk op Enter om het aan te maken en toe te voegen"
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1996
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1997
 msgid "Task description"
 msgstr "Taakomschrijving"
 
@@ -1899,7 +1899,7 @@ msgstr "Label bewerken"
 msgid "Filter"
 msgstr "Filteren"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:759
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:761
 msgid "Archived Projects"
 msgstr "Gearchiveerde projecten"
 
@@ -2187,7 +2187,7 @@ msgid "Synchronizing…"
 msgstr "Synchroniseren…"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:38
-#: src/Dialogs/Preferences/PreferencesWindow.vala:110
+#: src/Dialogs/Preferences/PreferencesWindow.vala:111
 msgid "Appearance"
 msgstr "Uiterlijk"
 
@@ -2242,7 +2242,7 @@ msgid "Font Size"
 msgstr "Lettergrootte"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:29
-#: src/Dialogs/Preferences/PreferencesWindow.vala:132
+#: src/Dialogs/Preferences/PreferencesWindow.vala:145
 msgid "Backups"
 msgstr "Back-ups"
 
@@ -2362,8 +2362,21 @@ msgstr ""
 "Weet je zeker dat je verder wil gaan? Dit zal alle huidige data verwijderen "
 "en vervangen met die uit de back-up."
 
+#: src/Dialogs/Preferences/Pages/CalendarEvents.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:120
+msgid "Calendar Events"
+msgstr "Kalenderevenementen"
+
+#: src/Dialogs/Preferences/Pages/CalendarEvents.vala:41
+msgid "Show Calendar Events"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/CalendarEvents.vala:42
+msgid "Display events from your calendars in Planify"
+msgstr ""
+
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:158
+#: src/Dialogs/Preferences/PreferencesWindow.vala:172
 msgid "Donate"
 msgstr "Doneren"
 
@@ -2426,7 +2439,7 @@ msgstr "Jouw bijdrage helpt Planify levend te houden."
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
-#: src/Dialogs/Preferences/PreferencesWindow.vala:78
+#: src/Dialogs/Preferences/PreferencesWindow.vala:79
 msgid "General"
 msgstr "Algemeen"
 
@@ -2476,45 +2489,41 @@ msgstr "Op de achtergrond draaien"
 msgid "Keep Planify running in the system tray when closing the window"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:96
-msgid "Calendar Events"
-msgstr "Kalenderevenementen"
-
-#: src/Dialogs/Preferences/Pages/General.vala:103
+#: src/Dialogs/Preferences/Pages/General.vala:91
 msgid "GNOME Shell Search"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:104
+#: src/Dialogs/Preferences/Pages/General.vala:92
 msgid ""
 "Search tasks and projects directly from GNOME Shell. Enable it in Settings → "
 "Search"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/General.vala:109
+#: src/Dialogs/Preferences/Pages/General.vala:97
 msgid "Date and Time"
 msgstr "Datum en tijd"
 
-#: src/Dialogs/Preferences/Pages/General.vala:112
+#: src/Dialogs/Preferences/Pages/General.vala:100
 msgid "24h"
 msgstr "24-uur"
 
-#: src/Dialogs/Preferences/Pages/General.vala:113
+#: src/Dialogs/Preferences/Pages/General.vala:101
 msgid "12h"
 msgstr "12-uur"
 
-#: src/Dialogs/Preferences/Pages/General.vala:116
+#: src/Dialogs/Preferences/Pages/General.vala:104
 msgid "Clock Format"
 msgstr "Klokformaat"
 
-#: src/Dialogs/Preferences/Pages/General.vala:132
+#: src/Dialogs/Preferences/Pages/General.vala:120
 msgid "Start of the Week"
 msgstr "Start van de week"
 
-#: src/Dialogs/Preferences/Pages/General.vala:144
+#: src/Dialogs/Preferences/Pages/General.vala:132
 msgid "Smart Date Recognition"
 msgstr "Slimme datumherkenning"
 
-#: src/Dialogs/Preferences/Pages/General.vala:145
+#: src/Dialogs/Preferences/Pages/General.vala:133
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
 msgstr "Detecteert automatisch datums zoals \"morgen\" of \"volgende week\""
 
@@ -2524,7 +2533,7 @@ msgid "Home View"
 msgstr "Startpagina"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:121
+#: src/Dialogs/Preferences/PreferencesWindow.vala:134
 msgid "Quick Add"
 msgstr "Snel toevoegen"
 
@@ -2571,7 +2580,7 @@ msgid "The command was copied to the clipboard"
 msgstr "Het commando werd naar het klembord gekopieerd"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
-#: src/Dialogs/Preferences/PreferencesWindow.vala:99
+#: src/Dialogs/Preferences/PreferencesWindow.vala:100
 msgid "Sidebar"
 msgstr "Zijbalk"
 
@@ -2600,7 +2609,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "Je kan je weergaves sorteren door drag-'n-drop"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:89
+#: src/Dialogs/Preferences/PreferencesWindow.vala:90
 msgid "Task Settings"
 msgstr "Taakinstellingen"
 
@@ -2727,7 +2736,7 @@ msgstr ""
 "Wanneer ingeschakeld zal er standaard een herinnering ingesteld worden "
 "vooraleer de deadline van de taak afloopt."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:749
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:751
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -2739,110 +2748,114 @@ msgstr "Synchroniseer met je favoriete providers"
 msgid "Set the view shown at first launch"
 msgstr "De pagina instellen die getoond wordt bij het opstarten"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:79
+#: src/Dialogs/Preferences/PreferencesWindow.vala:80
 msgid "Customize to your liking"
 msgstr "Planify naar wens aanpassen"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:100
+#: src/Dialogs/Preferences/PreferencesWindow.vala:101
 msgid "Customize your sidebar"
 msgstr "Pas de zijbalk aan"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:122
+#: src/Dialogs/Preferences/PreferencesWindow.vala:121
+msgid "Manage which calendars are shown"
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:135
 msgid "Adding to-do's from anywhere"
 msgstr "Taken van eender waar toevoegen"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:133
+#: src/Dialogs/Preferences/PreferencesWindow.vala:146
 msgid "Backup or migrate from Planner."
 msgstr "Back-up maken of migreren van Planner."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:139
+#: src/Dialogs/Preferences/PreferencesWindow.vala:152
 msgid "Create Tutorial Project"
 msgstr "Voorbeeldproject aanmaken"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:140
+#: src/Dialogs/Preferences/PreferencesWindow.vala:153
 msgid "Learn the app step by step with a short tutorial project"
 msgstr "Leer stap voor stap hoe de applicatie werkt via een voorbeeldproject"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:159
+#: src/Dialogs/Preferences/PreferencesWindow.vala:173
 msgid "Want to buy me a drink?"
 msgstr "Wil je me trakteren op een koffie?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:169
+#: src/Dialogs/Preferences/PreferencesWindow.vala:183
 msgid "Report Issue or Request Feature"
 msgstr "Probleem rapporteren of uitbreiding aanvragen"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:170
+#: src/Dialogs/Preferences/PreferencesWindow.vala:184
 msgid "Share bugs or ideas on GitHub"
 msgstr "Deel bugs of ideeën via GitHub"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:196
+#: src/Dialogs/Preferences/PreferencesWindow.vala:210
 msgid "Get Involved"
 msgstr "Geraak betrokken"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:206
+#: src/Dialogs/Preferences/PreferencesWindow.vala:220
 msgid "Reach Us"
 msgstr "Bereik ons"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:212
+#: src/Dialogs/Preferences/PreferencesWindow.vala:226
 msgid "Contact Us"
 msgstr "Contacteer ons"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:213
+#: src/Dialogs/Preferences/PreferencesWindow.vala:227
 msgid "Request a feature or ask us anything"
 msgstr "Stel een nieuwe functionaliteit voor of stel ons een vraag"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:229
+#: src/Dialogs/Preferences/PreferencesWindow.vala:243
 msgid "Tweet Us"
 msgstr "Tweet ons"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:230
-#: src/Dialogs/Preferences/PreferencesWindow.vala:260
+#: src/Dialogs/Preferences/PreferencesWindow.vala:244
+#: src/Dialogs/Preferences/PreferencesWindow.vala:274
 msgid "Share some love"
 msgstr "Deel in de liefde"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:244
+#: src/Dialogs/Preferences/PreferencesWindow.vala:258
 msgid "Discord"
 msgstr "Discord"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:245
+#: src/Dialogs/Preferences/PreferencesWindow.vala:259
 msgid "Discuss and share your feedback"
 msgstr "Bespreek en deel je feedback"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:259
+#: src/Dialogs/Preferences/PreferencesWindow.vala:273
 msgid "Mastodon"
 msgstr "Mastodon"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:278
+#: src/Dialogs/Preferences/PreferencesWindow.vala:292
 msgid "Privacy"
 msgstr "Privacy"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:284
+#: src/Dialogs/Preferences/PreferencesWindow.vala:298
 msgid "Privacy Policy"
 msgstr "Privacy-verklaring"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:285
+#: src/Dialogs/Preferences/PreferencesWindow.vala:299
 msgid "We have nothing on you"
 msgstr "We weten niets over jou"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:291
+#: src/Dialogs/Preferences/PreferencesWindow.vala:305
 msgid "Delete App Data"
 msgstr "App-data verwijderen"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:300
+#: src/Dialogs/Preferences/PreferencesWindow.vala:314
 msgid "A tutorial project has been created"
 msgstr "Een voorbeeldproject werd aangemaakt"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:316
+#: src/Dialogs/Preferences/PreferencesWindow.vala:330
 msgid "Delete All Data?"
 msgstr "Alle data verwijderen?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:317
+#: src/Dialogs/Preferences/PreferencesWindow.vala:331
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "Verwijdert permanent al je lijsten, taken, en herinneringen"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:752
+#: src/MainWindow.vala:754
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -2883,7 +2896,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:828
+#: src/MainWindow.vala:830
 msgid "See More"
 msgstr "Meer tonen"
 
@@ -3106,17 +3119,17 @@ msgstr "Dupliceren"
 msgid "Delete Task"
 msgstr "Taak verwijderen"
 
-#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1850
+#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1851
 msgid "Order changed to 'Custom sort order'"
 msgstr "Volgorde aangepast naar 'Aangepaste volgorde'"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:1244 src/Layouts/ItemRow.vala:1626
+#: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1628
 #, c-format
 msgid "%s was deleted"
 msgstr "%s werd verwijderd"
 
-#: src/Layouts/ItemBoard.vala:1245 src/Layouts/ItemRow.vala:1627
+#: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1629
 msgid "Undo"
 msgstr "Ongedaan maken"
 
@@ -3155,7 +3168,7 @@ msgstr ""
 msgid "Created: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2061
+#: src/Layouts/ItemRow.vala:2062
 msgid "Add Attachments"
 msgstr "Bijlagen toevoegen"
 
@@ -3300,35 +3313,35 @@ msgstr "Hoofdmenu"
 msgid "Open Quick Find"
 msgstr "Snel zoeken openen"
 
-#: src/MainWindow.vala:338
+#: src/MainWindow.vala:340
 msgid "Task was modified on another device"
 msgstr ""
 
-#: src/MainWindow.vala:340
+#: src/MainWindow.vala:342
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:757
+#: src/MainWindow.vala:759
 msgid "About Planify"
 msgstr "Over Planify"
 
-#: src/MainWindow.vala:825
+#: src/MainWindow.vala:827
 msgid "Oops! Something happened"
 msgstr "Oeps! Er is iets gebeurd"
 
-#: src/MainWindow.vala:844 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:846 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Taak afgewerkt"
 
-#: src/MainWindow.vala:845
+#: src/MainWindow.vala:847
 msgid "View"
 msgstr "Weergave"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:885
 msgid "Database Integrity Check Failed"
 msgstr "Integriteitscheck database mislukt"
 
-#: src/MainWindow.vala:884
+#: src/MainWindow.vala:886
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3350,7 +3363,7 @@ msgstr ""
 "\n"
 "Hierna kan je één van je vorige back-ups terugzetten. Bedankt voor je geduld."
 
-#: src/MainWindow.vala:886
+#: src/MainWindow.vala:888
 msgid "Reset Database"
 msgstr "Database opnieuw instellen"
 
