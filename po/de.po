@@ -2241,7 +2241,7 @@ msgid "Font Size"
 msgstr "Schriftgröße"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:29
-#: src/Dialogs/Preferences/PreferencesWindow.vala:145
+#: src/Dialogs/Preferences/PreferencesWindow.vala:147
 msgid "Backups"
 msgstr "Wiederherstellungskopien"
 
@@ -2367,7 +2367,7 @@ msgstr ""
 "aktuellen Daten löschen und durch die Sicherungsdaten ersetzen."
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:120
+#: src/Dialogs/Preferences/PreferencesWindow.vala:121
 msgid "Calendar Events"
 msgstr "Kalender Ereignisse"
 
@@ -2380,7 +2380,7 @@ msgid "Display events from your calendars in Planify"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:172
+#: src/Dialogs/Preferences/PreferencesWindow.vala:176
 msgid "Donate"
 msgstr "Spenden"
 
@@ -2543,7 +2543,7 @@ msgid "Home View"
 msgstr "Startseite"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:134
+#: src/Dialogs/Preferences/PreferencesWindow.vala:136
 msgid "Quick Add"
 msgstr "Schnell hinzufügen"
 
@@ -2772,102 +2772,102 @@ msgstr "An deinen Geschmack anpassen"
 msgid "Customize your sidebar"
 msgstr "Passe deine Seitenleiste an"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:121
+#: src/Dialogs/Preferences/PreferencesWindow.vala:122
 msgid "Manage which calendars are shown"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:135
+#: src/Dialogs/Preferences/PreferencesWindow.vala:137
 msgid "Adding to-do's from anywhere"
 msgstr "Aufgaben von überall hinzufügen"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:146
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Backup or migrate from Planner."
 msgstr "Sichern oder von Planner migrieren."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:152
+#: src/Dialogs/Preferences/PreferencesWindow.vala:154
 msgid "Create Tutorial Project"
 msgstr "Tutorial-Projekt erstellen"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:153
+#: src/Dialogs/Preferences/PreferencesWindow.vala:155
 msgid "Learn the app step by step with a short tutorial project"
 msgstr ""
 "Entdecke die Funktionen der App Schritt für Schritt mit einem kurzen "
 "Tutorial-Projekt"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:173
+#: src/Dialogs/Preferences/PreferencesWindow.vala:177
 msgid "Want to buy me a drink?"
 msgstr "Willst du mir einen Drink ausgeben?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:183
+#: src/Dialogs/Preferences/PreferencesWindow.vala:187
 msgid "Report Issue or Request Feature"
 msgstr "Berichte Problem oder schlage Funktionen vor"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:184
+#: src/Dialogs/Preferences/PreferencesWindow.vala:188
 msgid "Share bugs or ideas on GitHub"
 msgstr "Teile Bugs oder Ideen auf GitHub"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:210
+#: src/Dialogs/Preferences/PreferencesWindow.vala:214
 msgid "Get Involved"
 msgstr "Beteilige dich"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:220
+#: src/Dialogs/Preferences/PreferencesWindow.vala:224
 msgid "Reach Us"
 msgstr "Kontakt aufnehmen"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:226
+#: src/Dialogs/Preferences/PreferencesWindow.vala:230
 msgid "Contact Us"
 msgstr "Kontaktiere uns"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:227
+#: src/Dialogs/Preferences/PreferencesWindow.vala:231
 msgid "Request a feature or ask us anything"
 msgstr "Schlage eine Funktion vor oder frage uns etwas"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:243
+#: src/Dialogs/Preferences/PreferencesWindow.vala:247
 msgid "Tweet Us"
 msgstr "Tweete uns"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:244
-#: src/Dialogs/Preferences/PreferencesWindow.vala:274
+#: src/Dialogs/Preferences/PreferencesWindow.vala:248
+#: src/Dialogs/Preferences/PreferencesWindow.vala:278
 msgid "Share some love"
 msgstr "Teile etwas Liebe"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:258
+#: src/Dialogs/Preferences/PreferencesWindow.vala:262
 msgid "Discord"
 msgstr "Discord"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:259
+#: src/Dialogs/Preferences/PreferencesWindow.vala:263
 msgid "Discuss and share your feedback"
 msgstr "Diskutiere und teile dein Feedback"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:273
+#: src/Dialogs/Preferences/PreferencesWindow.vala:277
 msgid "Mastodon"
 msgstr "Mastodon"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:292
+#: src/Dialogs/Preferences/PreferencesWindow.vala:296
 msgid "Privacy"
 msgstr "Datenschutz"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:298
+#: src/Dialogs/Preferences/PreferencesWindow.vala:302
 msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:299
+#: src/Dialogs/Preferences/PreferencesWindow.vala:303
 msgid "We have nothing on you"
 msgstr "Wir besitzen keine Daten über dich"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:305
+#: src/Dialogs/Preferences/PreferencesWindow.vala:309
 msgid "Delete App Data"
 msgstr "App-Daten löschen"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:314
+#: src/Dialogs/Preferences/PreferencesWindow.vala:318
 msgid "A tutorial project has been created"
 msgstr "Es wurde ein Tutorial-Projekt erstellt"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:330
+#: src/Dialogs/Preferences/PreferencesWindow.vala:334
 msgid "Delete All Data?"
 msgstr "Alle Daten löschen?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:331
+#: src/Dialogs/Preferences/PreferencesWindow.vala:335
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "Löscht alle Listen, Aufgaben und Erinnerungen unwiderruflich"
 

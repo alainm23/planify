@@ -2204,7 +2204,7 @@ msgid "Font Size"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:29
-#: src/Dialogs/Preferences/PreferencesWindow.vala:145
+#: src/Dialogs/Preferences/PreferencesWindow.vala:147
 msgid "Backups"
 msgstr "백업"
 
@@ -2323,7 +2323,7 @@ msgstr ""
 "계속하시겠습니까? 이 작업은 현재 데이터를 삭제하고 백업 데이터로 교체합니다."
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:120
+#: src/Dialogs/Preferences/PreferencesWindow.vala:121
 msgid "Calendar Events"
 msgstr "캘린더 이벤트"
 
@@ -2336,7 +2336,7 @@ msgid "Display events from your calendars in Planify"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:172
+#: src/Dialogs/Preferences/PreferencesWindow.vala:176
 msgid "Donate"
 msgstr ""
 
@@ -2492,7 +2492,7 @@ msgid "Home View"
 msgstr "홈 페이지"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:134
+#: src/Dialogs/Preferences/PreferencesWindow.vala:136
 msgid "Quick Add"
 msgstr "빠른 추가"
 
@@ -2712,100 +2712,100 @@ msgstr "원하는 대로 사용자 정의"
 msgid "Customize your sidebar"
 msgstr "사이드바 사용자 정의"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:121
+#: src/Dialogs/Preferences/PreferencesWindow.vala:122
 msgid "Manage which calendars are shown"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:135
+#: src/Dialogs/Preferences/PreferencesWindow.vala:137
 msgid "Adding to-do's from anywhere"
 msgstr "어디서나 할 일 추가"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:146
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Backup or migrate from Planner."
 msgstr "플래너에서 백업 또는 마이그레이션."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:152
+#: src/Dialogs/Preferences/PreferencesWindow.vala:154
 msgid "Create Tutorial Project"
 msgstr "튜토리얼 프로젝트 생성"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:153
+#: src/Dialogs/Preferences/PreferencesWindow.vala:155
 msgid "Learn the app step by step with a short tutorial project"
 msgstr "짧은 튜토리얼 프로젝트로앱을 단계별로 배우세요"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:173
+#: src/Dialogs/Preferences/PreferencesWindow.vala:177
 msgid "Want to buy me a drink?"
 msgstr "제게 음료수를 사주고 싶으신가요?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:183
+#: src/Dialogs/Preferences/PreferencesWindow.vala:187
 msgid "Report Issue or Request Feature"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:184
+#: src/Dialogs/Preferences/PreferencesWindow.vala:188
 msgid "Share bugs or ideas on GitHub"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:210
+#: src/Dialogs/Preferences/PreferencesWindow.vala:214
 msgid "Get Involved"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:220
+#: src/Dialogs/Preferences/PreferencesWindow.vala:224
 msgid "Reach Us"
 msgstr "연락처"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:226
+#: src/Dialogs/Preferences/PreferencesWindow.vala:230
 msgid "Contact Us"
 msgstr "문의하기"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:227
+#: src/Dialogs/Preferences/PreferencesWindow.vala:231
 msgid "Request a feature or ask us anything"
 msgstr "기능 요청 또는 문의 사항"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:243
+#: src/Dialogs/Preferences/PreferencesWindow.vala:247
 msgid "Tweet Us"
 msgstr "트윗 보내기"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:244
-#: src/Dialogs/Preferences/PreferencesWindow.vala:274
+#: src/Dialogs/Preferences/PreferencesWindow.vala:248
+#: src/Dialogs/Preferences/PreferencesWindow.vala:278
 msgid "Share some love"
 msgstr "애정을 공유하세요"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:258
+#: src/Dialogs/Preferences/PreferencesWindow.vala:262
 msgid "Discord"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:259
+#: src/Dialogs/Preferences/PreferencesWindow.vala:263
 msgid "Discuss and share your feedback"
 msgstr "피드백 논의 및 공유"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:273
+#: src/Dialogs/Preferences/PreferencesWindow.vala:277
 msgid "Mastodon"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:292
+#: src/Dialogs/Preferences/PreferencesWindow.vala:296
 msgid "Privacy"
 msgstr "개인정보 보호"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:298
+#: src/Dialogs/Preferences/PreferencesWindow.vala:302
 msgid "Privacy Policy"
 msgstr "개인정보 보호정책"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:299
+#: src/Dialogs/Preferences/PreferencesWindow.vala:303
 msgid "We have nothing on you"
 msgstr "우리는 당신에 대해 아무것도 모릅니다"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:305
+#: src/Dialogs/Preferences/PreferencesWindow.vala:309
 msgid "Delete App Data"
 msgstr "앱 데이터 삭제"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:314
+#: src/Dialogs/Preferences/PreferencesWindow.vala:318
 msgid "A tutorial project has been created"
 msgstr "튜토리얼 프로젝트가 생성되었습니다"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:330
+#: src/Dialogs/Preferences/PreferencesWindow.vala:334
 msgid "Delete All Data?"
 msgstr "모든 데이터를 삭제하시겠습니까?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:331
+#: src/Dialogs/Preferences/PreferencesWindow.vala:335
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "모든 목록, 작업 및 알림을 되돌릴 수 없게 삭제합니다"
 
