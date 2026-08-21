@@ -24,6 +24,7 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
 
     private Gtk.ListBox listbox;
     private Gtk.ListBox archived_listbox;
+    private Gtk.Stack listbox_stack;
     private Widgets.ScrolledWindow scrolled_window;
 
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
@@ -73,6 +74,29 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
             valign = START
         };
 
+        var listbox_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        listbox_box.append (listbox_card);
+        listbox_box.append (label);
+
+        var add_section_button = new Gtk.Button.with_label (_("New Section")) {
+            halign = CENTER
+        };
+        add_section_button.add_css_class ("pill");
+        add_section_button.add_css_class ("suggested-action");
+
+        var placeholder = new Adw.StatusPage () {
+            title = _("No Sections"),
+            description = _("Add a section to organize your tasks"),
+            child = add_section_button,
+            vexpand = true
+        };
+
+        listbox_stack = new Gtk.Stack () {
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
+        listbox_stack.add_named (listbox_box, "listbox");
+        listbox_stack.add_named (placeholder, "placeholder");
+
         var archived_title = new Gtk.Label (_("Archived")) {
             halign = START,
             css_classes = { "heading", "h4" },
@@ -110,8 +134,7 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_bottom = 6,
         };
-        content_box.append (listbox_card);
-        content_box.append (label);
+        content_box.append (listbox_stack);
         content_box.append (archived_revealer);
 
         scrolled_window = new Widgets.ScrolledWindow (content_box);
@@ -122,7 +145,14 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
 
         child = toolbar_view;
         add_sections ();
+        check_placeholder ();
         Services.EventBus.get_default ().disconnect_typing_accel ();
+
+        add_section_button.clicked.connect (() => {
+            close ();
+            var dialog = new Dialogs.Section.new (project);
+            dialog.present (Planify._instance.main_window);
+        });
 
         Timeout.add (225, () => {
             set_sort_func ();
@@ -132,14 +162,20 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
         signal_map[Services.Store.instance ().section_deleted.connect ((section) => {
             if (section.project_id == project.id) {
                 archived_revealer.reveal_child = project.sections_archived.size > 0;
+                check_placeholder ();
             }
         })] = Services.Store.instance ();
 
         signal_map[Services.Store.instance ().section_unarchived.connect ((section) => {
             if (section.project_id == project.id) {
                 archived_revealer.reveal_child = project.sections_archived.size > 0;
+                check_placeholder ();
             }
         })] = Services.Store.instance ();
+
+        signal_map[project.section_added.connect ((section) => {
+            check_placeholder ();
+        })] = project;
 
         closed.connect (() => {
             clean_up ();
@@ -178,6 +214,10 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
 
             row_index++;
         } while (section_row != null);
+    }
+
+    private void check_placeholder () {
+        listbox_stack.visible_child_name = project.sections.size > 0 ? "listbox" : "placeholder";
     }
 
     public void add_sections () {
