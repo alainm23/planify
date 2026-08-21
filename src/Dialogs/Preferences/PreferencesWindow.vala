@@ -71,17 +71,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             push_subpage (build_page ("home-view"));
         })] = home_page_row;
 
-        var calendar_events_row = new Adw.ActionRow () {
-            activatable = true,
-            title = _("Calendar Events"),
-            subtitle = _("Manage which calendars are shown")
-        };
-        calendar_events_row.add_prefix (generate_icon ("office-calendar-symbolic"));
-        calendar_events_row.add_suffix (generate_icon ("go-next-symbolic"));
-
-        signal_map[calendar_events_row.activated.connect (() => {
-            push_subpage (build_page ("calendar-events"));
-        })] = calendar_events_row;
 
         var general_row = new Adw.ActionRow ();
         general_row.activatable = true;
@@ -126,6 +115,18 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
             push_subpage (build_page ("appearance"));
         })] = appearance_row;
 
+        var calendar_events_row = new Adw.ActionRow () {
+            activatable = true,
+            title = _("Calendar Events"),
+            subtitle = _("Manage which calendars are shown")
+        };
+        calendar_events_row.add_prefix (generate_icon ("month-symbolic"));
+        calendar_events_row.add_suffix (generate_icon ("go-next-symbolic"));
+
+        signal_map[calendar_events_row.activated.connect (() => {
+            push_subpage (build_page ("calendar-events"));
+        })] = calendar_events_row;
+
         var quick_add_row = new Adw.ActionRow ();
         quick_add_row.activatable = true;
         quick_add_row.add_prefix (generate_icon ("tab-new-symbolic"));
@@ -153,11 +154,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
         var personalization_group = new Adw.PreferencesGroup ();
         personalization_group.add (home_page_row);
-        personalization_group.add (calendar_events_row);
         personalization_group.add (general_row);
         personalization_group.add (task_setting_row);
         personalization_group.add (sidebar_row);
         personalization_group.add (appearance_row);
+        personalization_group.add (calendar_events_row);
         personalization_group.add (quick_add_row);
         personalization_group.add (backups_row);
         personalization_group.add (tutorial_row);

@@ -50,8 +50,11 @@ public class Dialogs.Preferences.Pages.CalendarEvents : Dialogs.Preferences.Page
         sources_group.title = _("Calendars");
         sources_group.description = _("Choose which calendars to show in Planify");
 
+        var sources_map = new Gee.HashMap<string, Gtk.Switch> ();
+
         var calendar_service = Services.CalendarEvents.get_default ();
-        foreach (E.Source source in calendar_service.get_all_sources ()) {
+        var all_sources = calendar_service.get_all_sources ();
+        foreach (E.Source source in all_sources) {
             if (!source.has_extension (E.SOURCE_EXTENSION_CALENDAR)) {
                 continue;
             }
@@ -63,25 +66,45 @@ public class Dialogs.Preferences.Pages.CalendarEvents : Dialogs.Preferences.Page
 
             var source_switch = new Gtk.Switch () {
                 valign = Gtk.Align.CENTER,
-                active = calendar_service.is_source_enabled (source),
+                active = !(source.dup_uid () in Services.Settings.get_default ().settings.get_strv ("calendar-sources-disabled")),
                 sensitive = calendar_enabled_switch.active
             };
 
-            var color_dot = new Gtk.Image () {
-                pixel_size = 14
+            sources_map[source.dup_uid ()] = source_switch;
+
+            var color_grid = new Gtk.Grid () {
+                width_request = 3,
+                height_request = 24,
+                valign = Gtk.Align.CENTER,
+                css_classes = { "event-bar" }
             };
-            color_dot.add_css_class ("calendar-color-dot");
+            Util.get_default ().set_widget_color (cal.dup_color (), color_grid);
 
             var source_row = new Adw.ActionRow ();
             source_row.title = source.dup_display_name ();
+            source_row.use_markup = false;
+
+            var parent_uid = source.dup_parent ();
+            if (parent_uid != null) {
+                var parent = calendar_service.registry.ref_source (parent_uid);
+                if (parent != null) {
+                    source_row.subtitle = parent.dup_display_name ();
+                }
+            }
             source_row.set_activatable_widget (source_switch);
-            source_row.add_prefix (color_dot);
+            source_row.add_prefix (color_grid);
             source_row.add_suffix (source_switch);
 
             sources_group.add (source_row);
 
             signal_map[source_switch.notify["active"].connect (() => {
-                calendar_service.set_source_enabled (source, source_switch.active);
+                string[] sources_disabled = {};
+                foreach (var entry in sources_map.entries) {
+                    if (!entry.value.active) {
+                        sources_disabled += entry.key;
+                    }
+                }
+                Services.Settings.get_default ().settings.set_strv ("calendar-sources-disabled", sources_disabled);
             })] = source_switch;
         }
 
