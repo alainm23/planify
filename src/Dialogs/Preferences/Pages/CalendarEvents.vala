@@ -46,11 +46,8 @@ public class Dialogs.Preferences.Pages.CalendarEvents : Dialogs.Preferences.Page
         var enabled_group = new Adw.PreferencesGroup ();
         enabled_group.add (calendar_enabled_row);
 
-        var sources_group = new Adw.PreferencesGroup ();
-        sources_group.title = _("Calendars");
-        sources_group.description = _("Choose which calendars to show in Planify");
-
         var sources_map = new Gee.HashMap<string, Gtk.Switch> ();
+        var groups_map = new Gee.HashMap<string, Adw.PreferencesGroup> ();
 
         var calendar_service = Services.CalendarEvents.get_default ();
         var all_sources = calendar_service.get_all_sources ();
@@ -83,19 +80,20 @@ public class Dialogs.Preferences.Pages.CalendarEvents : Dialogs.Preferences.Page
             var source_row = new Adw.ActionRow ();
             source_row.title = source.dup_display_name ();
             source_row.use_markup = false;
-
-            var parent_uid = source.dup_parent ();
-            if (parent_uid != null) {
-                var parent = calendar_service.registry.ref_source (parent_uid);
-                if (parent != null) {
-                    source_row.subtitle = parent.dup_display_name ();
-                }
-            }
             source_row.set_activatable_widget (source_switch);
             source_row.add_prefix (color_grid);
             source_row.add_suffix (source_switch);
 
-            sources_group.add (source_row);
+            var parent_uid = source.dup_parent () ?? "";
+            if (!groups_map.has_key (parent_uid)) {
+                var group = new Adw.PreferencesGroup ();
+                var parent = calendar_service.registry.ref_source (parent_uid);
+                if (parent != null) {
+                    group.title = parent.dup_display_name ();
+                }
+                groups_map[parent_uid] = group;
+            }
+            groups_map[parent_uid].add (source_row);
 
             signal_map[source_switch.notify["active"].connect (() => {
                 string[] sources_disabled = {};
@@ -115,7 +113,11 @@ public class Dialogs.Preferences.Pages.CalendarEvents : Dialogs.Preferences.Page
             margin_top = 6
         };
         content_box.append (enabled_group);
-        content_box.append (sources_group);
+        var sorted_keys = new Gee.ArrayList<string>.wrap (groups_map.keys.to_array ());
+        sorted_keys.sort ((a, b) => groups_map[a].title.collate (groups_map[b].title));
+        foreach (var key in sorted_keys) {
+            content_box.append (groups_map[key]);
+        }
 
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
@@ -132,7 +134,9 @@ public class Dialogs.Preferences.Pages.CalendarEvents : Dialogs.Preferences.Page
 
         signal_map[calendar_enabled_switch.notify["active"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("calendar-enabled", calendar_enabled_switch.active);
-            sources_group.sensitive = calendar_enabled_switch.active;
+            foreach (var group in groups_map.values) {
+                group.sensitive = calendar_enabled_switch.active;
+            }
         })] = calendar_enabled_switch;
 
         destroy.connect (() => {
