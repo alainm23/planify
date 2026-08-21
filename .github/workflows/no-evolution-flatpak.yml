@@ -9,7 +9,7 @@ on:
 
 jobs:
   flatpak:
-    name: "Flatpak"
+    name: "Flatpak (No Evolution)"
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-50
@@ -21,13 +21,3 @@ jobs:
           bundle: planify.Devel.flatpak
           manifest-path: build-aux/no-evolution.json
           cache-key: flatpak-builder-${{ github.sha }}
-
-  lint:
-    name: "Vala Lint"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: elementary/actions/vala-lint@main
-        with:
-          dir: .
-          conf: .vala-lint.conf
