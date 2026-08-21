@@ -1878,15 +1878,17 @@ msgstr "Proyek yang Diarsipkan"
 
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionBoard.vala:610
 #: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:392
-#: src/Layouts/SectionRow.vala:674
+#: src/Layouts/SectionRow.vala:674 src/Dialogs/ManageSectionOrder.vala:35
 msgid "Manage Sections"
 msgstr "Kelola Bagian"
 
 #: src/Dialogs/ManageSectionOrder.vala:54
+#: src/Dialogs/ManageSectionOrder.vala:55
 msgid "You can sort your sections by dragging and dropping"
 msgstr "Anda dapat mengurutkan bagian dengan menyeret dan melepas"
 
 #: src/Dialogs/ManageSectionOrder.vala:76
+#: src/Dialogs/ManageSectionOrder.vala:100
 msgid "Archived"
 msgstr "Diarsipkan"
 
@@ -3050,6 +3052,7 @@ msgstr ""
 
 #: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:258
 #: src/Views/Project/Project.vala:359 src/Views/Project/Project.vala:390
+#: src/Dialogs/ManageSectionOrder.vala:81
 msgid "New Section"
 msgstr "Bagian Baru"
 
@@ -3420,11 +3423,13 @@ msgstr "Menu Opsi Tampilan"
 
 #: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
 #: src/Views/Project/List.vala:117 src/Views/Today.vala:251
+#: src/Views/Project/Board.vala:121
 msgid "Add Some Tasks"
 msgstr "Tambahkan Beberapa Tugas"
 
 #: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
 #: src/Views/Project/List.vala:118 src/Views/Today.vala:252
+#: src/Views/Project/Board.vala:122
 msgid "Press 'a' to create a new task"
 msgstr "Tekan 'a' untuk membuat tugas baru"
 
@@ -3485,11 +3490,12 @@ msgstr "Belum Ada Bagian"
 msgid "Create a section to start adding tasks to this board"
 msgstr "Buat bagian untuk mulai menambahkan tugas ke papan ini"
 
-#: src/Views/Project/Board.vala:320
+#: src/Views/Project/Board.vala:320 src/Views/Project/Board.vala:326
 msgid "Schedule"
 msgstr "Jadwalkan"
 
 #: src/Views/Project/Board.vala:358 src/Views/Project/List.vala:397
+#: src/Views/Project/Board.vala:364
 msgid "When?"
 msgstr "Kapan?"
 
@@ -4034,6 +4040,14 @@ msgstr "Buka Label"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Buka Papan Sematan"
+
+#: src/Dialogs/ManageSectionOrder.vala:88
+msgid "No Sections"
+msgstr ""
+
+#: src/Dialogs/ManageSectionOrder.vala:89
+msgid "Add a section to organize your tasks"
+msgstr ""
 
 #, c-format
 #~ msgid "Load more history from %d week ago…"

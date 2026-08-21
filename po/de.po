@@ -1894,16 +1894,30 @@ msgstr "Filter"
 msgid "Archived Projects"
 msgstr "Archivierte Projekte"
 
-#: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionBoard.vala:610
+#: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:610
 #: src/Layouts/SectionRow.vala:674 src/Views/Project/Project.vala:392
 msgid "Manage Sections"
 msgstr "Abschnitte verwalten"
 
-#: src/Dialogs/ManageSectionOrder.vala:54
+#: src/Dialogs/ManageSectionOrder.vala:55
 msgid "You can sort your sections by dragging and dropping"
 msgstr "Du kannst deine Abschnitte per Drag & Drop sortieren"
 
-#: src/Dialogs/ManageSectionOrder.vala:76
+#: src/Dialogs/ManageSectionOrder.vala:81 src/Dialogs/Section.vala:46
+#: src/Views/Project/Project.vala:258 src/Views/Project/Project.vala:359
+#: src/Views/Project/Project.vala:390
+msgid "New Section"
+msgstr "Neuer Abschnitt"
+
+#: src/Dialogs/ManageSectionOrder.vala:88
+msgid "No Sections"
+msgstr ""
+
+#: src/Dialogs/ManageSectionOrder.vala:89
+msgid "Add a section to organize your tasks"
+msgstr ""
+
+#: src/Dialogs/ManageSectionOrder.vala:100
 msgid "Archived"
 msgstr "Archiviert"
 
@@ -3074,11 +3088,6 @@ msgstr ""
 "Wechsle schnell zwischen Projekten und Ansichten, finde Aufgaben, suche nach "
 "Labels"
 
-#: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:258
-#: src/Views/Project/Project.vala:359 src/Views/Project/Project.vala:390
-msgid "New Section"
-msgstr "Neuer Abschnitt"
-
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
 #: src/Layouts/SectionRow.vala:672
 msgid "Edit Section"
@@ -3437,12 +3446,14 @@ msgid "View Option Menu"
 msgstr "Optionenmenü anzeigen"
 
 #: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
-#: src/Views/Project/List.vala:117 src/Views/Today.vala:251
+#: src/Views/Project/Board.vala:121 src/Views/Project/List.vala:117
+#: src/Views/Today.vala:251
 msgid "Add Some Tasks"
 msgstr "Aufgaben hinzufügen"
 
 #: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
-#: src/Views/Project/List.vala:118 src/Views/Today.vala:252
+#: src/Views/Project/Board.vala:122 src/Views/Project/List.vala:118
+#: src/Views/Today.vala:252
 msgid "Press 'a' to create a new task"
 msgstr "Drücke a, um eine neue Aufgabe zu erstellen"
 
@@ -3508,11 +3519,11 @@ msgstr "Noch keine Abschnitte vorhanden"
 msgid "Create a section to start adding tasks to this board"
 msgstr "Erstelle einen Abschnitt, um Aufgaben zu diesem Board hinzuzufügen"
 
-#: src/Views/Project/Board.vala:320
+#: src/Views/Project/Board.vala:326
 msgid "Schedule"
 msgstr "Terminplan"
 
-#: src/Views/Project/Board.vala:358 src/Views/Project/List.vala:397
+#: src/Views/Project/Board.vala:364 src/Views/Project/List.vala:397
 msgid "When?"
 msgstr "Wann?"
 
