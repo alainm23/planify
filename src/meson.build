@@ -126,7 +126,6 @@ sources = files(
   'Dialogs/Preferences/Pages/Sidebar.vala',
   'Dialogs/Preferences/Pages/Appearance.vala',
   'Dialogs/Preferences/Pages/HomeView.vala',
-  'Dialogs/Preferences/Pages/CalendarEvents.vala',
   'Dialogs/Preferences/Pages/General.vala',
   'Dialogs/Preferences/Pages/TaskSetting.vala',
   'Dialogs/Preferences/Pages/QuickAdd.vala',
@@ -143,6 +142,7 @@ if get_option('evolution')
     sources += 'Widgets/EventRow.vala'
     sources += 'Widgets/EventsList.vala'
     sources += 'Dialogs/CalendarSync.vala'
+    sources += 'Dialogs/Preferences/Pages/CalendarEvents.vala',
 endif
 
 executable(
