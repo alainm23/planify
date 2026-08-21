@@ -2200,7 +2200,7 @@ msgid "Font Size"
 msgstr "Skriftstørrelse"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:29
-#: src/Dialogs/Preferences/PreferencesWindow.vala:145
+#: src/Dialogs/Preferences/PreferencesWindow.vala:147
 msgid "Backups"
 msgstr "Sikkerhetskopier"
 
@@ -2321,7 +2321,7 @@ msgstr ""
 "nåværende data og erstatte dem med sikkerhetskopidataene."
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:120
+#: src/Dialogs/Preferences/PreferencesWindow.vala:121
 msgid "Calendar Events"
 msgstr "Kalenderhendelser"
 
@@ -2334,7 +2334,7 @@ msgid "Display events from your calendars in Planify"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:172
+#: src/Dialogs/Preferences/PreferencesWindow.vala:176
 msgid "Donate"
 msgstr "Doner"
 
@@ -2492,7 +2492,7 @@ msgid "Home View"
 msgstr "Hjem visning"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:134
+#: src/Dialogs/Preferences/PreferencesWindow.vala:136
 msgid "Quick Add"
 msgstr "Hurtigtillegg"
 
@@ -2715,100 +2715,100 @@ msgstr "Tilpass etter din smak"
 msgid "Customize your sidebar"
 msgstr "Tilpass sidefeltet"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:121
+#: src/Dialogs/Preferences/PreferencesWindow.vala:122
 msgid "Manage which calendars are shown"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:135
+#: src/Dialogs/Preferences/PreferencesWindow.vala:137
 msgid "Adding to-do's from anywhere"
 msgstr "Legge til gjøremål fra hvor som helst"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:146
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Backup or migrate from Planner."
 msgstr "Sikkerhetskopier eller migrer fra Planner."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:152
+#: src/Dialogs/Preferences/PreferencesWindow.vala:154
 msgid "Create Tutorial Project"
 msgstr "Opprett veiledningsprosjekt"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:153
+#: src/Dialogs/Preferences/PreferencesWindow.vala:155
 msgid "Learn the app step by step with a short tutorial project"
 msgstr "Lær appen trinn for trinn med et kort veiledningsprosjekt"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:173
+#: src/Dialogs/Preferences/PreferencesWindow.vala:177
 msgid "Want to buy me a drink?"
 msgstr "Vil du kjøpe meg en drink?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:183
+#: src/Dialogs/Preferences/PreferencesWindow.vala:187
 msgid "Report Issue or Request Feature"
 msgstr "Rapporter problem eller be om funksjon"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:184
+#: src/Dialogs/Preferences/PreferencesWindow.vala:188
 msgid "Share bugs or ideas on GitHub"
 msgstr "Del feil eller ideer på GitHub"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:210
+#: src/Dialogs/Preferences/PreferencesWindow.vala:214
 msgid "Get Involved"
 msgstr "Bli involvert"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:220
+#: src/Dialogs/Preferences/PreferencesWindow.vala:224
 msgid "Reach Us"
 msgstr "Nå oss"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:226
+#: src/Dialogs/Preferences/PreferencesWindow.vala:230
 msgid "Contact Us"
 msgstr "Kontakt oss"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:227
+#: src/Dialogs/Preferences/PreferencesWindow.vala:231
 msgid "Request a feature or ask us anything"
 msgstr "Be om en funksjon eller spør oss om hva som helst"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:243
+#: src/Dialogs/Preferences/PreferencesWindow.vala:247
 msgid "Tweet Us"
 msgstr "Tweet oss"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:244
-#: src/Dialogs/Preferences/PreferencesWindow.vala:274
+#: src/Dialogs/Preferences/PreferencesWindow.vala:248
+#: src/Dialogs/Preferences/PreferencesWindow.vala:278
 msgid "Share some love"
 msgstr "Del litt kjærlighet"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:258
+#: src/Dialogs/Preferences/PreferencesWindow.vala:262
 msgid "Discord"
 msgstr "Discord"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:259
+#: src/Dialogs/Preferences/PreferencesWindow.vala:263
 msgid "Discuss and share your feedback"
 msgstr "Diskuter og del tilbakemeldingene dine"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:273
+#: src/Dialogs/Preferences/PreferencesWindow.vala:277
 msgid "Mastodon"
 msgstr "Mastodon"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:292
+#: src/Dialogs/Preferences/PreferencesWindow.vala:296
 msgid "Privacy"
 msgstr "Personvern"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:298
+#: src/Dialogs/Preferences/PreferencesWindow.vala:302
 msgid "Privacy Policy"
 msgstr "Personvernregler"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:299
+#: src/Dialogs/Preferences/PreferencesWindow.vala:303
 msgid "We have nothing on you"
 msgstr "Vi har ingenting på deg"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:305
+#: src/Dialogs/Preferences/PreferencesWindow.vala:309
 msgid "Delete App Data"
 msgstr "Slett App data"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:314
+#: src/Dialogs/Preferences/PreferencesWindow.vala:318
 msgid "A tutorial project has been created"
 msgstr "Et veiledningsprosjekt er opprettet"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:330
+#: src/Dialogs/Preferences/PreferencesWindow.vala:334
 msgid "Delete All Data?"
 msgstr "Slett alle data?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:331
+#: src/Dialogs/Preferences/PreferencesWindow.vala:335
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "Sletter alle listene, oppgavene og påminnelsene dine permanent"
 

@@ -2147,7 +2147,7 @@ msgid "Font Size"
 msgstr "字体大小"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:29
-#: src/Dialogs/Preferences/PreferencesWindow.vala:145
+#: src/Dialogs/Preferences/PreferencesWindow.vala:147
 msgid "Backups"
 msgstr "备份"
 
@@ -2264,7 +2264,7 @@ msgid ""
 msgstr "确定要继续吗？此操作将删除您当前的数据并替换为备份数据。"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:120
+#: src/Dialogs/Preferences/PreferencesWindow.vala:121
 msgid "Calendar Events"
 msgstr "日历事件"
 
@@ -2277,7 +2277,7 @@ msgid "Display events from your calendars in Planify"
 msgstr "在Planify里显示你的日历事件"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:172
+#: src/Dialogs/Preferences/PreferencesWindow.vala:176
 msgid "Donate"
 msgstr "捐赠"
 
@@ -2434,7 +2434,7 @@ msgid "Home View"
 msgstr "主页视图"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:134
+#: src/Dialogs/Preferences/PreferencesWindow.vala:136
 msgid "Quick Add"
 msgstr "快速添加"
 
@@ -2648,100 +2648,100 @@ msgstr "根据您的喜好自定义"
 msgid "Customize your sidebar"
 msgstr "自定义您的侧边栏"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:121
+#: src/Dialogs/Preferences/PreferencesWindow.vala:122
 msgid "Manage which calendars are shown"
 msgstr "管理要显示的日历"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:135
+#: src/Dialogs/Preferences/PreferencesWindow.vala:137
 msgid "Adding to-do's from anywhere"
 msgstr "从任何地方添加待办事项"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:146
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Backup or migrate from Planner."
 msgstr "备份或从 Planner 迁移。"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:152
+#: src/Dialogs/Preferences/PreferencesWindow.vala:154
 msgid "Create Tutorial Project"
 msgstr "创建教程项目"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:153
+#: src/Dialogs/Preferences/PreferencesWindow.vala:155
 msgid "Learn the app step by step with a short tutorial project"
 msgstr "通过简短的教程项目逐步学习应用"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:173
+#: src/Dialogs/Preferences/PreferencesWindow.vala:177
 msgid "Want to buy me a drink?"
 msgstr "想请我喝一杯吗？"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:183
+#: src/Dialogs/Preferences/PreferencesWindow.vala:187
 msgid "Report Issue or Request Feature"
 msgstr "报告问题或请求功能"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:184
+#: src/Dialogs/Preferences/PreferencesWindow.vala:188
 msgid "Share bugs or ideas on GitHub"
 msgstr "在 GitHub 上分享错误或想法"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:210
+#: src/Dialogs/Preferences/PreferencesWindow.vala:214
 msgid "Get Involved"
 msgstr "参与贡献"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:220
+#: src/Dialogs/Preferences/PreferencesWindow.vala:224
 msgid "Reach Us"
 msgstr "联系我们"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:226
+#: src/Dialogs/Preferences/PreferencesWindow.vala:230
 msgid "Contact Us"
 msgstr "联系我们"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:227
+#: src/Dialogs/Preferences/PreferencesWindow.vala:231
 msgid "Request a feature or ask us anything"
 msgstr "请求功能或向我们提问"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:243
+#: src/Dialogs/Preferences/PreferencesWindow.vala:247
 msgid "Tweet Us"
 msgstr "在 Twitter 上联系我们"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:244
-#: src/Dialogs/Preferences/PreferencesWindow.vala:274
+#: src/Dialogs/Preferences/PreferencesWindow.vala:248
+#: src/Dialogs/Preferences/PreferencesWindow.vala:278
 msgid "Share some love"
 msgstr "分享您的喜爱"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:258
+#: src/Dialogs/Preferences/PreferencesWindow.vala:262
 msgid "Discord"
 msgstr "Discord"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:259
+#: src/Dialogs/Preferences/PreferencesWindow.vala:263
 msgid "Discuss and share your feedback"
 msgstr "讨论并分享您的反馈"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:273
+#: src/Dialogs/Preferences/PreferencesWindow.vala:277
 msgid "Mastodon"
 msgstr "Mastodon"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:292
+#: src/Dialogs/Preferences/PreferencesWindow.vala:296
 msgid "Privacy"
 msgstr "隐私"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:298
+#: src/Dialogs/Preferences/PreferencesWindow.vala:302
 msgid "Privacy Policy"
 msgstr "隐私政策"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:299
+#: src/Dialogs/Preferences/PreferencesWindow.vala:303
 msgid "We have nothing on you"
 msgstr "我们不会收集您的任何信息"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:305
+#: src/Dialogs/Preferences/PreferencesWindow.vala:309
 msgid "Delete App Data"
 msgstr "删除应用数据"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:314
+#: src/Dialogs/Preferences/PreferencesWindow.vala:318
 msgid "A tutorial project has been created"
 msgstr "教程项目已创建"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:330
+#: src/Dialogs/Preferences/PreferencesWindow.vala:334
 msgid "Delete All Data?"
 msgstr "删除所有数据？"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:331
+#: src/Dialogs/Preferences/PreferencesWindow.vala:335
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "不可逆地删除所有列表、任务和提醒"
 
