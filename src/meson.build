@@ -142,7 +142,7 @@ if get_option('evolution')
     sources += 'Widgets/EventRow.vala'
     sources += 'Widgets/EventsList.vala'
     sources += 'Dialogs/CalendarSync.vala'
-    sources += 'Dialogs/Preferences/Pages/CalendarEvents.vala',
+    sources += 'Dialogs/Preferences/Pages/CalendarEvents.vala'
 endif
 
 executable(
