@@ -117,9 +117,9 @@ public class Views.Board : Adw.Bin {
         flowbox_scrolled.margin = 100;
 
         var deck_placeholder = new Adw.StatusPage () {
-            icon_name = "view-columns-symbolic",
-            title = _("No Sections Yet"),
-            description = _("Create a section to start adding tasks to this board"),
+            icon_name = project.is_deck ? "view-columns-symbolic" : "check-round-outline-symbolic",
+            title = project.is_deck ? _("No Sections Yet") : _("Add Some Tasks"),
+            description = project.is_deck ? _("Create a section to start adding tasks to this board") : _("Press 'a' to create a new task"),
             can_focus = false,
             vexpand = true,
             hexpand = true,
@@ -261,11 +261,17 @@ public class Views.Board : Adw.Bin {
     }
 
     private void check_placeholder () {
-        if (!project.is_deck) {
+        if (project.is_deck) {
+            flowbox_placeholder_stack.visible_child_name = sections_map.size > 0 ? "board" : "placeholder";
             return;
         }
-        
-        flowbox_placeholder_stack.visible_child_name = sections_map.size > 0 ? "board" : "placeholder";
+
+        int count = project.item_count + sections_map.size;
+        if (project.show_completed) {
+            count = count + project.items_checked.size;
+        }
+
+        flowbox_placeholder_stack.visible_child_name = count > 0 ? "board" : "placeholder";
     }
 
     private void add_inbox_section () {
