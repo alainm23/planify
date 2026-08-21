@@ -126,6 +126,7 @@ sources = files(
   'Dialogs/Preferences/Pages/Sidebar.vala',
   'Dialogs/Preferences/Pages/Appearance.vala',
   'Dialogs/Preferences/Pages/HomeView.vala',
+  'Dialogs/Preferences/Pages/CalendarEvents.vala',
   'Dialogs/Preferences/Pages/General.vala',
   'Dialogs/Preferences/Pages/TaskSetting.vala',
   'Dialogs/Preferences/Pages/QuickAdd.vala',
