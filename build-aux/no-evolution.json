@@ -125,7 +125,7 @@
             "config-opts" : [
                 "-Dtracing=true",
                 "-Dprofile=development",
-                "-Devolution=false"
+                "-Devolution=false",
                 "--libdir=lib"
             ],
             "sources" : [
