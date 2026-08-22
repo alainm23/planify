@@ -36,6 +36,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     private Adw.Bin handle_grid;
     private Widgets.LoadingButton add_button;
     private Gtk.Button hide_subtask_button;
+    private Gtk.Revealer hide_subtask_revealer;
 
     public bool is_inbox_section {
         get {
@@ -113,6 +114,12 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             }
         };
 
+        hide_subtask_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            reveal_child = false,
+            child = hide_subtask_button
+        };
+
         name_label = new Gtk.Label (section.name) {
             halign = START,
             css_classes = { "font-bold" },
@@ -150,16 +157,32 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             margin_start = 3
         };
 
-        sectionrow_box.append (hide_subtask_button);
+        sectionrow_box.append (hide_subtask_revealer);
         sectionrow_box.append (name_label);
         sectionrow_box.append (count_label);
         sectionrow_box.append (actions_box_revealer);
+
+        var sectionrow_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            visible = !is_inbox_section,
+            margin_start = 36,
+            margin_end = 12,
+            margin_top = 3
+        };
 
         var sectionrow_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             reveal_child = !is_inbox_section,
             child = sectionrow_box
         };
+
+        var motion_controller = new Gtk.EventControllerMotion ();
+        sectionrow_box.add_controller (motion_controller);
+        motion_controller.enter.connect ((x, y) => {
+            hide_subtask_revealer.reveal_child = true;
+        });
+        motion_controller.leave.connect (() => {
+            hide_subtask_revealer.reveal_child = false;
+        });
 
         handle_grid = new Adw.Bin () {
             css_classes = { "transition", "drop-target" },
@@ -191,7 +214,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             css_classes = { "listbox-background" }
         };
 
-        load_more_button = new Gtk.Button.with_label ("Cargar más") {
+        load_more_button = new Gtk.Button.with_label (_("Load more")) {
             margin_start = 9,
             halign = START,
         };
@@ -260,6 +283,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         };
 
         content_box.append (handle_grid);
+        content_box.append (sectionrow_separator);
         content_box.append (bottom_revealer);
 
         content_revealer = new Gtk.Revealer () {
@@ -628,7 +652,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             load_more_button.label = "+%d %s".printf (to_show, _ ("completed tasks"));
             load_more_button_revealer.reveal_child = true;
         } else {
-            load_more_button.set_label ("No more tasks");
+            load_more_button.set_label (_("No more tasks"));
             load_more_button_revealer.reveal_child = false;
         }
     }
