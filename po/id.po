@@ -1864,16 +1864,30 @@ msgstr "Filter"
 msgid "Archived Projects"
 msgstr "Proyek yang Diarsipkan"
 
-#: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionBoard.vala:610
+#: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:610
 #: src/Layouts/SectionRow.vala:674 src/Views/Project/Project.vala:392
 msgid "Manage Sections"
 msgstr "Kelola Bagian"
 
-#: src/Dialogs/ManageSectionOrder.vala:54
+#: src/Dialogs/ManageSectionOrder.vala:55
 msgid "You can sort your sections by dragging and dropping"
 msgstr "Anda dapat mengurutkan bagian dengan menyeret dan melepas"
 
-#: src/Dialogs/ManageSectionOrder.vala:76
+#: src/Dialogs/ManageSectionOrder.vala:81 src/Dialogs/Section.vala:46
+#: src/Views/Project/Project.vala:258 src/Views/Project/Project.vala:359
+#: src/Views/Project/Project.vala:390
+msgid "New Section"
+msgstr "Bagian Baru"
+
+#: src/Dialogs/ManageSectionOrder.vala:88
+msgid "No Sections"
+msgstr ""
+
+#: src/Dialogs/ManageSectionOrder.vala:89
+msgid "Add a section to organize your tasks"
+msgstr ""
+
+#: src/Dialogs/ManageSectionOrder.vala:100
 msgid "Archived"
 msgstr "Diarsipkan"
 
@@ -3033,11 +3047,6 @@ msgstr ""
 "Beralih proyek dan tampilan dengan cepat, temukan tugas, cari berdasarkan "
 "label"
 
-#: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:258
-#: src/Views/Project/Project.vala:359 src/Views/Project/Project.vala:390
-msgid "New Section"
-msgstr "Bagian Baru"
-
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
 #: src/Layouts/SectionRow.vala:672
 msgid "Edit Section"
@@ -3390,12 +3399,14 @@ msgid "View Option Menu"
 msgstr "Menu Opsi Tampilan"
 
 #: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
-#: src/Views/Project/List.vala:117 src/Views/Today.vala:251
+#: src/Views/Project/Board.vala:121 src/Views/Project/List.vala:117
+#: src/Views/Today.vala:251
 msgid "Add Some Tasks"
 msgstr "Tambahkan Beberapa Tugas"
 
 #: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
-#: src/Views/Project/List.vala:118 src/Views/Today.vala:252
+#: src/Views/Project/Board.vala:122 src/Views/Project/List.vala:118
+#: src/Views/Today.vala:252
 msgid "Press 'a' to create a new task"
 msgstr "Tekan 'a' untuk membuat tugas baru"
 
@@ -3456,11 +3467,11 @@ msgstr "Belum Ada Bagian"
 msgid "Create a section to start adding tasks to this board"
 msgstr "Buat bagian untuk mulai menambahkan tugas ke papan ini"
 
-#: src/Views/Project/Board.vala:320
+#: src/Views/Project/Board.vala:326
 msgid "Schedule"
 msgstr "Jadwalkan"
 
-#: src/Views/Project/Board.vala:358 src/Views/Project/List.vala:397
+#: src/Views/Project/Board.vala:364 src/Views/Project/List.vala:397
 msgid "When?"
 msgstr "Kapan?"
 
