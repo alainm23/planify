@@ -537,7 +537,7 @@ checkbutton.theme-selector radio:checked {
 .drop-target:drop(active) {
     border-radius: 12px;
     background-color: alpha(@accent_color, 0.12);
-    border: 1px solid alpha(@accent_color, 0.35);
+    outline: 1px solid alpha(@accent_color, 0.35);
 }
 
 .drop-target-none:drop(active) {
@@ -763,7 +763,6 @@ checkbutton.theme-selector radio:checked {
 .dimming-bg {
     background: rgba(0, 0, 0, 0.25);
 }
-
 
 /* Heatmap levels */
 .heatmap-cell-0,
