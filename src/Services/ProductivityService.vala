@@ -88,7 +88,7 @@ public class Services.ProductivityService : Object {
         }
 
         completed_today = c_today;
-        completed_week  = c_week;
+        completed_week = c_week;
         completed_month = c_month;
 
         use_dynamic = Services.Settings.get_default ().settings.get_boolean ("use-dynamic-goal");
@@ -99,7 +99,7 @@ public class Services.ProductivityService : Object {
             weekly_goal = Services.Store.instance ().get_items_by_date_range (week_start, today, false).size
                         + Services.Store.instance ().get_items_by_date_range (week_start, today, true).size;
         } else {
-            daily_goal  = Services.Settings.get_default ().settings.get_int ("daily-task-goal");
+            daily_goal = Services.Settings.get_default ().settings.get_int ("daily-task-goal");
             weekly_goal = Services.Settings.get_default ().settings.get_int ("weekly-task-goal");
         }
 
