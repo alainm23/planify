@@ -537,7 +537,7 @@ checkbutton.theme-selector radio:checked {
 .drop-target:drop(active) {
     border-radius: 12px;
     background-color: alpha(@accent_color, 0.12);
-    border: 1px solid alpha(@accent_color, 0.35);
+    outline: 1px solid alpha(@accent_color, 0.35);
 }
 
 .drop-target-none:drop(active) {
@@ -762,4 +762,38 @@ checkbutton.theme-selector radio:checked {
 
 .dimming-bg {
     background: rgba(0, 0, 0, 0.25);
+}
+
+/* Heatmap levels */
+.heatmap-cell-0,
+.heatmap-cell-1,
+.heatmap-cell-2,
+.heatmap-cell-3,
+.heatmap-cell-4 {
+    border-radius: 4px;
+}
+
+.heatmap-cell-0 {
+    background-color: alpha(@window_fg_color, 0.08);
+}
+
+.heatmap-cell-1 {
+    background-color: alpha(@accent_color, 0.25);
+}
+
+.heatmap-cell-2 {
+    background-color: alpha(@accent_color, 0.45);
+}
+
+.heatmap-cell-3 {
+    background-color: alpha(@accent_color, 0.65);
+}
+
+.heatmap-cell-4 {
+    background-color: alpha(@accent_color, 0.85);
+}
+
+.heatmap-cell-today {
+    outline: 2px solid @accent_color;
+    outline-offset: -2px;
 }

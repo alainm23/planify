@@ -115,21 +115,56 @@ public abstract class Views.Scheduled.ScheduledSection : Gtk.ListBoxRow {
 #endif
 
 
+    protected Gtk.MenuButton header_menu_button;
+
     protected Gtk.Box create_header (Gtk.Widget title_widget) {
+        header_menu_button = new Gtk.MenuButton () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
+            popover = build_header_context_menu (),
+            icon_name = "view-more-symbolic",
+            css_classes = { "flat" }
+        };
+
+        var title_row = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            hexpand = true
+        };
+        title_row.append (title_widget);
+        title_row.append (header_menu_button);
+
         var header = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             valign = Gtk.Align.START,
-            margin_start = 30,
-            margin_end = 24
+            margin_top = 6,
+            margin_start = 6,
+            margin_end = 6,
+            margin_bottom = 6
         };
 
-        header.append (title_widget);
+        header.append (title_row);
         header.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_top = 6,
-            margin_bottom = 3
+            margin_top = 3
         });
 
         return header;
+    }
+
+    protected void open_quick_add (GLib.DateTime date) {
+        var dialog = new Dialogs.QuickAdd ();
+        dialog.set_due (Utils.Datetime.get_date_only (date));
+        dialog.present (Planify._instance.main_window);
+    }
+
+    protected virtual Gtk.Popover build_header_context_menu () {
+        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        menu_box.margin_top = menu_box.margin_bottom = 3;
+
+        return new Gtk.Popover () {
+            has_arrow = false,
+            child = menu_box,
+            position = Gtk.PositionType.BOTTOM,
+            width_request = 250
+        };
     }
 
     protected void add_item (Objects.Item item) {
