@@ -23,6 +23,7 @@ public class Views.Scheduled.ScheduledMonth : Views.Scheduled.ScheduledSection {
     public GLib.DateTime date { get; construct; }
 
     private Gtk.Box header_content;
+    private Adw.Bin header_content_wraper;
 
     public ScheduledMonth (GLib.DateTime date) {
         Object (
@@ -54,6 +55,11 @@ public class Views.Scheduled.ScheduledMonth : Views.Scheduled.ScheduledSection {
         setup_events (header_content);
         #endif
 
+        header_content_wraper = new Adw.Bin () {
+            child = header_content,
+            margin_start = 24
+        };
+
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
             activate_on_single_click = true,
@@ -79,7 +85,7 @@ public class Views.Scheduled.ScheduledMonth : Views.Scheduled.ScheduledSection {
             valign = Gtk.Align.START,
             margin_bottom = 32
         };
-        content.append (header_content);
+        content.append (header_content_wraper);
         content.append (listbox_revealer);
 
         child = content;
@@ -92,6 +98,7 @@ public class Views.Scheduled.ScheduledMonth : Views.Scheduled.ScheduledSection {
         setup_listbox ();
         setup_item_signals ();
         add_items ();
+        build_drag_and_drop ();
 
         signal_map[Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id)) {
@@ -102,6 +109,50 @@ public class Views.Scheduled.ScheduledMonth : Views.Scheduled.ScheduledSection {
         signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
             header_content.sensitive = !active;
         })] = Services.EventBus.get_default ();
+    }
+
+    private void build_drag_and_drop () {
+        var drop_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
+        header_content_wraper.add_controller (drop_target);
+
+        drop_target.enter.connect ((x, y) => {
+            header_content_wraper.add_css_class ("drop-target");
+            return Gdk.DragAction.MOVE;
+        });
+
+        drop_target.leave.connect (() => {
+            header_content_wraper.remove_css_class ("drop-target");
+        });
+
+        drop_target.drop.connect ((val, x, y) => {
+            header_content_wraper.remove_css_class ("drop-target");
+            var dialog = new Dialogs.QuickAdd ();
+            dialog.set_due (Utils.Datetime.get_date_only (date));
+            dialog.present (Planify._instance.main_window);
+            return true;
+        });
+    }
+
+    protected override Gtk.Popover build_header_context_menu () {
+        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Task"), "plus-large-symbolic");
+
+        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        menu_box.margin_top = menu_box.margin_bottom = 3;
+        menu_box.append (add_item);
+
+        var popover = new Gtk.Popover () {
+            has_arrow = false,
+            child = menu_box,
+            position = Gtk.PositionType.BOTTOM,
+            width_request = 250
+        };
+
+        add_item.clicked.connect (() => {
+            popover.popdown ();
+            open_quick_add (date);
+        });
+
+        return popover;
     }
 
     protected override void add_items () {

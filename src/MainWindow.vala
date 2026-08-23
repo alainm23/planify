@@ -39,7 +39,8 @@ public class MainWindow : Adw.ApplicationWindow {
 
     public Services.ActionManager action_manager;
 
-    private const int64 VIEW_TIMEOUT = 300000000;
+    private const int64 VIEW_TIMEOUT = 60000000;  // 1 min
+    private const int MAX_PROJECT_VIEWS = 2;
     private Gee.ArrayList<ViewCacheItem> view_cache = new Gee.ArrayList<ViewCacheItem> ();
 
     public MainWindow (Planify application) {
@@ -228,6 +229,8 @@ public class MainWindow : Adw.ApplicationWindow {
 #if WITH_EVOLUTION
             Services.Store.instance ().setup_calendar_events ();
 #endif
+
+            Services.Store.instance ().cleanup_trash_on_startup ();
         });
 
         var color_scheme_settings = ColorSchemeSettings.Settings.get_default ();
@@ -409,8 +412,8 @@ public class MainWindow : Adw.ApplicationWindow {
             }
         });
 
-        // Cleanup every 2 minutes
-        Timeout.add_seconds (120, () => {
+        // Cleanup every minute
+        Timeout.add_seconds (60, () => {
             cleanup_unused_views ();
             return Source.CONTINUE;
         });
@@ -473,6 +476,7 @@ public class MainWindow : Adw.ApplicationWindow {
                 hide ();
                 return true;
             }
+            Planify.instance.release ();
             return false;
         });
     }
@@ -555,6 +559,7 @@ public class MainWindow : Adw.ApplicationWindow {
     public Views.Project add_project_view (Objects.Project project) {
         Views.Project ? project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
         if (project_view == null) {
+            evict_oldest_project_view ();
             project_view = new Views.Project (project);
             views_stack.add_named (project_view, project.view_id);
             add_view_to_cache (project.view_id, project_view);
@@ -742,11 +747,33 @@ public class MainWindow : Adw.ApplicationWindow {
         }
     }
 
+    private void update_productivity_visibility (Widgets.ContextMenu.MenuItem item, Widgets.ProductivityMiniWidget mini) {
+        bool show_mini = Services.ProductivityService.instance ().has_goals ();
+        item.visible = !show_mini;
+        mini.visible = show_mini;
+    }
+
     private Gtk.Popover build_menu_app () {
         var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
         preferences_item.secondary_text = "Ctrl+,";
 
         var productivity_item = new Widgets.ContextMenu.MenuItem (Markup.escape_text (_("Summary & Productivity")));
+
+        var productivity_mini = new Widgets.ProductivityMiniWidget ();
+
+        var settings = Services.Settings.get_default ().settings;
+
+        update_productivity_visibility (productivity_item, productivity_mini);
+
+        settings.changed["daily-task-goal"].connect (() => {
+            update_productivity_visibility (productivity_item, productivity_mini);
+            productivity_mini.refresh ();
+        });
+
+        settings.changed["use-dynamic-goal"].connect (() => {
+            update_productivity_visibility (productivity_item, productivity_mini);
+            productivity_mini.refresh ();
+        });
 
         var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
         keyboard_shortcuts_item.secondary_text = "F1";
@@ -761,6 +788,7 @@ public class MainWindow : Adw.ApplicationWindow {
         menu_box.append (preferences_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (productivity_item);
+        menu_box.append (productivity_mini);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (archive_item);
         menu_box.append (archive_separator);
@@ -775,6 +803,12 @@ public class MainWindow : Adw.ApplicationWindow {
         };
 
         productivity_item.clicked.connect (() => {
+            popover.popdown ();
+            var dialog = new Dialogs.ProductivityReport.ProductivityReportDialog ();
+            dialog.present (Planify._instance.main_window);
+        });
+
+        productivity_mini.clicked.connect (() => {
             popover.popdown ();
             var dialog = new Dialogs.ProductivityReport.ProductivityReportDialog ();
             dialog.present (Planify._instance.main_window);
@@ -970,14 +1004,32 @@ public class MainWindow : Adw.ApplicationWindow {
 
     private int64 get_timeout_for_view (string view_id) {
         if (view_id.has_prefix ("project-")) {
-            return 600000000; // 10 min
+            return 120000000; // 2 min
         }
 
-        if (view_id == "today-view") {
-            return 180000000; // 3 min
+        return VIEW_TIMEOUT; // 1 min
+    }
+
+    private void evict_oldest_project_view () {
+        var project_views = new Gee.ArrayList<ViewCacheItem> ();
+        foreach (var item in view_cache) {
+            if (item.view_id.has_prefix ("project-") && item.view_id != views_stack.visible_child_name) {
+                project_views.add (item);
+            }
         }
 
-        return VIEW_TIMEOUT; // 5 min
+        if (project_views.size < MAX_PROJECT_VIEWS) {
+            return;
+        }
+
+        project_views.sort ((a, b) => {
+            return (int) (a.last_access - b.last_access);
+        });
+
+        var oldest = project_views[0];
+        cleanup_view (oldest.view);
+        views_stack.remove (oldest.view);
+        view_cache.remove (oldest);
     }
 
     private void cleanup_view (Gtk.Widget view) {

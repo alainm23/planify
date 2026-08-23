@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-01-29 13:30+0000\n"
+"PO-Revision-Date: 2026-08-03 10:02+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/id/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -29,7 +29,7 @@ msgstr "Tugas"
 
 #: core/Enum.vala:177 core/Enum.vala:548 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
-#: src/Dialogs/Preferences/Pages/Backup.vala:523 src/Layouts/ItemBoard.vala:812
+#: src/Dialogs/Preferences/Pages/Backup.vala:523 src/Layouts/ItemBoard.vala:825
 #: src/Layouts/ItemRow.vala:1255
 msgid "Labels"
 msgstr "Label"
@@ -95,8 +95,8 @@ msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:545 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:606
-#: src/Views/Scheduled/Scheduled.vala:242
-#: src/Views/Scheduled/Scheduled.vala:271 src/Views/Today.vala:728
+#: src/Views/Scheduled/Scheduled.vala:236
+#: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:728
 #: src/Views/Today.vala:757 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "Prioritas"
@@ -106,7 +106,7 @@ msgid "Label"
 msgstr "Label"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:558
-#: src/Views/Scheduled/Scheduled.vala:239 src/Views/Today.vala:725
+#: src/Views/Scheduled/Scheduled.vala:233 src/Views/Today.vala:725
 msgid "Due Date"
 msgstr "Tanggal jatuh tempo"
 
@@ -132,7 +132,7 @@ msgid "Content"
 msgstr "Konten"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:1986 src/Layouts/ItemSidebarView.vala:183
+#: src/Layouts/ItemRow.vala:1987 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "Deskripsi"
@@ -142,19 +142,19 @@ msgid "Scheduled"
 msgstr "Terjadwal"
 
 #: core/Enum.vala:551 core/Widgets/PinButton.vala:41
-#: src/Layouts/ItemBoard.vala:793 src/Layouts/ItemBoard.vala:806
+#: src/Layouts/ItemBoard.vala:806 src/Layouts/ItemBoard.vala:819
 #: src/Layouts/ItemRow.vala:1236 src/Layouts/ItemRow.vala:1249
 msgid "Pin"
 msgstr "Sematkan"
 
-#: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:148
+#: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
 #: src/Services/ExportService.vala:73
 msgid "Deadline"
 msgstr "Tenggat"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "Tugas induk"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -276,12 +276,10 @@ msgstr "akan datang"
 #: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:782
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/Calendar/CalendarScroll.vala:56
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:387
-#: src/Dialogs/DatePicker.vala:62
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:285
-#: src/Layouts/ItemBoard.vala:800 src/Layouts/ItemRow.vala:1243
-#: src/Views/Project/Project.vala:573 src/Views/Project/Project.vala:739
-#: src/Views/Today.vala:203
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:388
+#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:813
+#: src/Layouts/ItemRow.vala:1243 src/Views/Project/Project.vala:573
+#: src/Views/Project/Project.vala:739 src/Views/Today.vala:203
 msgid "Today"
 msgstr "Hari ini"
 
@@ -291,9 +289,9 @@ msgstr "hari ini"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
 #: core/Utils/Datetime.vala:784
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:393
-#: src/Dialogs/DatePicker.vala:66 src/Layouts/ItemBoard.vala:803
-#: src/Layouts/ItemRow.vala:1246
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:394
+#: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:66
+#: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1246
 msgid "Tomorrow"
 msgstr "Besok"
 
@@ -317,26 +315,26 @@ msgstr "tanpa label"
 msgid "unlabeled"
 msgstr "tanpa label"
 
-#: core/Objects/Item.vala:1474 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
 msgid "Deadline:"
-msgstr ""
+msgstr "Tenggat:"
 
-#: core/Objects/Item.vala:1499
+#: core/Objects/Item.vala:1528
 msgid "Task copied to clipboard"
 msgstr "Tugas disalin ke papan klip"
 
-#: core/Objects/Item.vala:1516
+#: core/Objects/Item.vala:1545
 msgid "iCalendar Files"
-msgstr ""
+msgstr "File iCalendar"
 
-#: core/Objects/Item.vala:1532
+#: core/Objects/Item.vala:1561
 msgid "Task exported successfully"
-msgstr ""
+msgstr "Tugas berhasil diekspor"
 
-#: core/Objects/Item.vala:1856 core/Utils/Util.vala:856
-#, fuzzy, c-format
+#: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
+#, c-format
 msgid "Moved to %s"
-msgstr "%d tugas dipindahkan ke %s"
+msgstr "Dipindahkan ke %s"
 
 #: core/Objects/Label.vala:220
 #, c-format
@@ -347,7 +345,7 @@ msgstr "Hapus label %s"
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
-#: src/Layouts/ItemSidebarView.vala:597 src/Services/BackupManager.vala:224
+#: src/Layouts/ItemSidebarView.vala:604 src/Services/BackupManager.vala:224
 msgid "This can not be undone"
 msgstr "Ini tidak dapat dibatalkan"
 
@@ -363,7 +361,7 @@ msgstr "Ini tidak dapat dibatalkan"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:318
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:594
-#: src/Dialogs/QuickFind/QuickFind.vala:53 src/Layouts/ItemSidebarView.vala:600
+#: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:607
 #: src/Services/BackupManager.vala:227 src/Views/Filter.vala:629
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -372,12 +370,12 @@ msgid "Cancel"
 msgstr "Batal"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:901
-#: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:207
+#: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:242
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:360
-#: src/Layouts/ItemSidebarView.vala:601 src/Services/BackupManager.vala:228
+#: src/Layouts/ItemSidebarView.vala:608 src/Services/BackupManager.vala:228
 #: src/Views/Filter.vala:630 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
@@ -404,7 +402,7 @@ msgstr "Ini akan mengarsipkan %s dan semua tugasnya."
 
 #: core/Objects/Project.vala:975 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
-#: src/Layouts/SectionRow.vala:673 src/Views/Project/Project.vala:399
+#: src/Layouts/SectionRow.vala:702 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Arsipkan"
 
@@ -427,7 +425,7 @@ msgid "Task added successfully!"
 msgstr "Tugas berhasil ditambahkan!"
 
 #: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:402
-#: src/Layouts/ItemSidebarView.vala:122 src/Widgets/ItemDetailCompleted.vala:52
+#: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Nama tugas"
 
@@ -463,7 +461,9 @@ msgid "Add Reminders"
 msgstr "Tambahkan pengingat"
 
 #: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
-#: src/Layouts/SectionRow.vala:666 src/Widgets/MagicButton.vala:50
+#: src/Layouts/SectionRow.vala:695 src/Views/Scheduled/ScheduledDay.vala:148
+#: src/Views/Scheduled/ScheduledMonth.vala:137
+#: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Tambahkan tugas"
 
@@ -483,7 +483,7 @@ msgstr ""
 "Maaf, Tambah Cepat tidak dapat menemukan proyek yang tersedia; coba buat "
 "proyek dari Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:751
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:778
 msgid "Keyboard Shortcuts"
 msgstr "Pintasan papan ketik"
 
@@ -556,24 +556,32 @@ msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
+"Server ini tidak mengizinkan pembuatan proyek melalui CalDAV. Silakan buat "
+"langsung melalui situs web penyedia kalender Anda."
 
 #: core/Services/CalDAV/CalDAVClient.vala:828
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"Server ini tidak mengizinkan penghapusan proyek melalui CalDAV. Silakan "
+"hapus langsung melalui situs web penyedia kalender Anda."
 
 #: core/Services/CalDAV/CalDAVClient.vala:832
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"Server ini tidak mendukung penghapusan proyek melalui CalDAV. Silakan hapus "
+"langsung dari server."
 
 #: core/Services/CalDAV/CalDAVClient.vala:866
 #: core/Services/CalDAV/CalDAVClient.vala:913
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"Tugas diubah di perangkat lain. Silakan sinkronkan untuk mendapatkan versi "
+"terbaru."
 
 #: core/Services/CalDAV/Core.vala:170
 msgid "Source already exists"
@@ -598,23 +606,27 @@ msgstr "Sinkronisasi selesai"
 
 #: core/Services/CalDAV/Core.vala:324
 msgid "Authentication Expired"
-msgstr ""
+msgstr "Autentikasi Kedaluwarsa"
 
 #: core/Services/CalDAV/Core.vala:325
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr ""
+"Sesi Anda telah berakhir. Silakan hapus lalu tambahkan kembali akun Anda di "
+"Preferensi."
 
 #: core/Services/CalDAV/Core.vala:332
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Terlalu Banyak Permintaan"
 
 #: core/Services/CalDAV/Core.vala:333
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
 msgstr ""
+"Server sedang membatasi permintaan. Silakan tunggu beberapa menit lalu coba "
+"lagi."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
@@ -657,7 +669,7 @@ msgstr "Kesalahan tidak dikenal"
 
 #: core/Services/Todoist/TodoistAuth.vala:96
 msgid "Invalid API token"
-msgstr ""
+msgstr "Token API tidak valid"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
@@ -666,6 +678,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"Todoist telah memperbarui API mereka. Silakan hubungkan kembali akun Anda di "
+"Preferensi untuk melanjutkan sinkronisasi."
 
 #: core/Utils/Datetime.vala:72 core/Utils/Datetime.vala:786
 msgid "Yesterday"
@@ -707,12 +721,12 @@ msgstr "%H:%M"
 
 #: core/Utils/Datetime.vala:475
 msgid "Every last day of month"
-msgstr ""
+msgstr "Setiap hari terakhir dalam bulan"
 
 #: core/Utils/Datetime.vala:476
 #, c-format
 msgid "Every %d months (last day)"
-msgstr ""
+msgstr "Setiap %d bulan (hari terakhir)"
 
 #: core/Utils/Datetime.vala:481
 msgid "Mo,"
@@ -1061,6 +1075,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
+"Dapatkan notifikasi tentang tugas atau acara penting. Ketuk tombol jam di "
+"bawah untuk menambahkan pengingat."
 
 #: core/Utils/Util.vala:722
 msgid "💼️Work"
@@ -1123,7 +1139,7 @@ msgid "3 hours before"
 msgstr "3 jam sebelumnya"
 
 #: core/Widgets/Calendar/CalendarDay.vala:103
-#: core/Widgets/Calendar/CalendarScroll.vala:347
+#: core/Widgets/Calendar/CalendarScroll.vala:353
 msgid "%A, %B %e, %Y"
 msgstr "%A, %B %e, %Y"
 
@@ -1133,8 +1149,8 @@ msgid "%OB"
 msgstr "%OB"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:64
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:725
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:760
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:726
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:761
 #: src/Layouts/HeaderBar.vala:88
 msgid "Back"
 msgstr "Kembali"
@@ -1208,81 +1224,81 @@ msgid "Sa"
 msgstr "Sab"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:123
+#: src/Dialogs/Preferences/Pages/General.vala:111
 msgid "Sunday"
 msgstr "Minggu"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:124
+#: src/Dialogs/Preferences/Pages/General.vala:112
 msgid "Monday"
 msgstr "Senin"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:125
+#: src/Dialogs/Preferences/Pages/General.vala:113
 msgid "Tuesday"
 msgstr "Selasa"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:56
-#: src/Dialogs/Preferences/Pages/General.vala:126
+#: src/Dialogs/Preferences/Pages/General.vala:114
 msgid "Wednesday"
 msgstr "Rabu"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
-#: src/Dialogs/Preferences/Pages/General.vala:127
+#: src/Dialogs/Preferences/Pages/General.vala:115
 msgid "Thursday"
 msgstr "Kamis"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
-#: src/Dialogs/Preferences/Pages/General.vala:128
+#: src/Dialogs/Preferences/Pages/General.vala:116
 msgid "Friday"
 msgstr "Jumat"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:57
-#: src/Dialogs/Preferences/Pages/General.vala:129
+#: src/Dialogs/Preferences/Pages/General.vala:117
 msgid "Saturday"
 msgstr "Sabtu"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:79
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:195
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:524
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:525
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:140
 msgid "Time"
 msgstr "Waktu"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:90
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:849
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:856
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:599
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:250
-#: src/Layouts/ItemBoard.vala:715 src/Layouts/ItemRow.vala:1185
+#: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1185
 msgid "until"
 msgstr "sampai"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:93
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:852
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:859
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:603
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
-#: src/Layouts/ItemBoard.vala:718 src/Layouts/ItemRow.vala:1188
+#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1188
 msgid "for"
 msgstr "selama"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:93
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:852
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:859
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:603
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
-#: src/Layouts/ItemBoard.vala:718 src/Layouts/ItemRow.vala:1188
+#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1188
 msgid "times"
 msgstr "kali"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:93
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:852
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:859
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:603
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
-#: src/Layouts/ItemBoard.vala:718 src/Layouts/ItemRow.vala:1188
+#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1188
 msgid "time"
 msgstr "kali"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:105
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:197
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:198
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:109
 msgid "Repeat"
 msgstr "Ulangi"
@@ -1291,49 +1307,48 @@ msgstr "Ulangi"
 msgid "Type a date…"
 msgstr "Ketik tanggal…"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:399
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:400
+#: core/Widgets/DeadlineButton.vala:219
 msgid "Next week"
 msgstr "Minggu depan"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:542
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:543
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 msgid "Save"
-msgstr ""
+msgstr "Simpan"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:578
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:579
 msgid "Daily"
 msgstr "Harian"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:582
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Weekdays"
 msgstr "Hari kerja"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:586
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 msgid "Weekends"
 msgstr "Akhir pekan"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:590
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:591
 msgid "Weekly"
 msgstr "Mingguan"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:594
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:595
 msgid "Monthly"
 msgstr "Bulanan"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:598
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:599
 msgid "Yearly"
 msgstr "Tahunan"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:602
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:603
 msgid "Custom"
 msgstr "Kustom"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:876
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:883
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 msgid "No date"
-msgstr ""
+msgstr "Tanpa tanggal"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:65
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:140
@@ -1367,7 +1382,7 @@ msgstr "Tahun"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:281
 msgid "Last day of month"
-msgstr ""
+msgstr "Hari terakhir dalam bulan"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:297
 msgid "Never"
@@ -1382,7 +1397,7 @@ msgid "After"
 msgstr "Setelah"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:378
-#: core/Widgets/MarkdownEditor.vala:1405 src/Layouts/ItemBoard.vala:867
+#: core/Widgets/MarkdownEditor.vala:1405 src/Layouts/ItemBoard.vala:880
 #: src/Layouts/ItemRow.vala:1324
 msgid "Apply"
 msgstr "Terapkan"
@@ -1399,33 +1414,33 @@ msgstr "Berakhir"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:530
 msgid "Minute"
 msgid_plural "Minutes"
-msgstr[0] ""
+msgstr[0] "Menit"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:531
 msgid "Hour"
 msgid_plural "Hours"
-msgstr[0] ""
+msgstr[0] "Jam"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:532
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:536
 msgid "Day"
 msgid_plural "Days"
-msgstr[0] ""
+msgstr[0] "Hari"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:533
 msgid "Week"
 msgid_plural "Weeks"
-msgstr[0] ""
+msgstr[0] "Minggu"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:534
 msgid "Month"
 msgid_plural "Months"
-msgstr[0] ""
+msgstr[0] "Bulan"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:535
 msgid "Year"
 msgid_plural "Years"
-msgstr[0] ""
+msgstr[0] "Tahun"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:69
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:78
@@ -1437,7 +1452,7 @@ msgstr "Tanggal"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:210
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:214
 msgid "The date you plan to work on this task"
-msgstr ""
+msgstr "Tanggal saat Anda berencana mengerjakan tugas ini"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:130
 msgid "Remove date"
@@ -1446,20 +1461,32 @@ msgstr "Hapus tanggal"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:171
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:209
 msgid "When do you plan to work on this?"
-msgstr ""
+msgstr "Kapan Anda berencana mengerjakan ini?"
 
-#: core/Widgets/DeadlineButton.vala:51 core/Widgets/DeadlineButton.vala:131
+#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:135
 msgid "Set Deadline"
 msgstr "Atur tenggat"
 
-#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:86
-#: core/Widgets/DeadlineButton.vala:93 core/Widgets/DeadlineButton.vala:100
-#: core/Widgets/DeadlineButton.vala:135
+#: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:90
+#: core/Widgets/DeadlineButton.vala:97 core/Widgets/DeadlineButton.vala:104
+#: core/Widgets/DeadlineButton.vala:139
 msgid "The latest date to complete this task"
+msgstr "Tanggal paling akhir untuk menyelesaikan tugas ini"
+
+#: core/Widgets/DeadlineButton.vala:59 core/Widgets/DeadlineButton.vala:157
+msgid "What is the latest date to complete this?"
+msgstr "Apa tanggal paling akhir untuk menyelesaikan ini?"
+
+#: core/Widgets/DeadlineButton.vala:218
+msgid "In 3 days"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:56 core/Widgets/DeadlineButton.vala:153
-msgid "What is the latest date to complete this?"
+#: core/Widgets/DeadlineButton.vala:220
+msgid "In 2 weeks"
+msgstr ""
+
+#: core/Widgets/DeadlineButton.vala:221
+msgid "In a month"
 msgstr ""
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
@@ -1502,28 +1529,29 @@ msgstr "Cari atau Buat"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 msgid "Hide unused labels"
-msgstr ""
+msgstr "Sembunyikan label yang tidak digunakan"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:319
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:402
 msgid "No Labels"
-msgstr ""
+msgstr "Tanpa Label"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
 msgid "All Hidden"
-msgstr ""
+msgstr "Semua Tersembunyi"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:395
 msgid "All labels are hidden by the filter. Disable the filter to see them."
 msgstr ""
+"Semua label disembunyikan oleh filter. Nonaktifkan filter untuk melihatnya."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:400
 msgid "Press Enter to create and assign it"
-msgstr ""
+msgstr "Tekan Enter untuk membuat dan menetapkannya"
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1996
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1997
 msgid "Task description"
-msgstr ""
+msgstr "Deskripsi tugas"
 
 #: core/Widgets/MarkdownEditor.vala:1410
 msgid "Remove link"
@@ -1634,12 +1662,12 @@ msgid "To Do"
 msgstr "Harus dikerjakan"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:815 src/Layouts/ItemRow.vala:1258
+#: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1258
 #: src/Services/Notification.vala:98
 msgid "Complete"
 msgstr "Selesai"
 
-#: src/App.vala:183
+#: src/App.vala:185
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -1764,7 +1792,7 @@ msgstr[0] ""
 "Ini akan menghapus %d tugas yang selesai beserta subtugasnya dari proyek %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:656
-#: src/Views/Scheduled/Scheduled.vala:282 src/Views/Today.vala:788
+#: src/Views/Scheduled/Scheduled.vala:276 src/Views/Today.vala:788
 msgid "Filter By"
 msgstr "Filter Berdasarkan"
 
@@ -1772,7 +1800,7 @@ msgstr "Filter Berdasarkan"
 msgid "Next Week"
 msgstr "Minggu Depan"
 
-#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:808
+#: src/Dialogs/DatePicker.vala:74 src/Layouts/ItemBoard.vala:821
 #: src/Layouts/ItemRow.vala:1251 src/Views/Project/Project.vala:578
 #: src/Views/Project/Project.vala:749
 msgid "No Date"
@@ -1783,7 +1811,7 @@ msgid "Done"
 msgstr "Selesai"
 
 #: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1387
-#: src/Layouts/ItemSidebarView.vala:516
+#: src/Layouts/ItemSidebarView.vala:523
 msgid "Change History"
 msgstr "Riwayat Perubahan"
 
@@ -1830,20 +1858,34 @@ msgstr "Perbarui Label"
 msgid "Filter"
 msgstr "Filter"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:756
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:783
 msgid "Archived Projects"
 msgstr "Proyek yang Diarsipkan"
 
-#: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionBoard.vala:610
-#: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:392
+#: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:610
+#: src/Layouts/SectionRow.vala:698 src/Views/Project/Project.vala:392
 msgid "Manage Sections"
 msgstr "Kelola Bagian"
 
-#: src/Dialogs/ManageSectionOrder.vala:54
+#: src/Dialogs/ManageSectionOrder.vala:55
 msgid "You can sort your sections by dragging and dropping"
 msgstr "Anda dapat mengurutkan bagian dengan menyeret dan melepas"
 
-#: src/Dialogs/ManageSectionOrder.vala:76
+#: src/Dialogs/ManageSectionOrder.vala:81 src/Dialogs/Section.vala:46
+#: src/Views/Project/Project.vala:258 src/Views/Project/Project.vala:359
+#: src/Views/Project/Project.vala:390
+msgid "New Section"
+msgstr "Bagian Baru"
+
+#: src/Dialogs/ManageSectionOrder.vala:88
+msgid "No Sections"
+msgstr ""
+
+#: src/Dialogs/ManageSectionOrder.vala:89
+msgid "Add a section to organize your tasks"
+msgstr ""
+
+#: src/Dialogs/ManageSectionOrder.vala:100
 msgid "Archived"
 msgstr "Diarsipkan"
 
@@ -1877,7 +1919,7 @@ msgstr "Verifikasi SSL dinonaktifkan"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
 msgid "Authentication expired"
-msgstr ""
+msgstr "Autentikasi kedaluwarsa"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Account migration required"
@@ -1910,11 +1952,13 @@ msgstr "Menyinkronkan…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
 msgid "Connect to CalDAV"
-msgstr ""
+msgstr "Hubungkan ke CalDAV"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
 msgid "Connect to any CalDAV-compatible server to sync your tasks"
 msgstr ""
+"Hubungkan ke server apa pun yang kompatibel dengan CalDAV untuk "
+"menyinkronkan tugas Anda"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
@@ -1935,16 +1979,16 @@ msgstr "URL Beranda Kalender"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
 msgid "Advanced"
-msgstr ""
+msgstr "Lanjutan"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Show advanced options"
-msgstr ""
+msgstr "Tampilkan opsi lanjutan"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Hide advanced options"
-msgstr ""
+msgstr "Sembunyikan opsi lanjutan"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
@@ -1967,41 +2011,44 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
 msgid "Connect to Nextcloud"
-msgstr ""
+msgstr "Hubungkan ke Nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:57
 msgid "Sign in with your Nextcloud account to sync tasks via CalDAV"
 msgstr ""
+"Masuk dengan akun Nextcloud Anda untuk menyinkronkan tugas melalui CalDAV"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
 msgid "https://cloud.example.com"
-msgstr ""
+msgstr "[https://cloud.example.com](https://cloud.example.com)"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:83
 msgid "https://example.com/nextcloud"
-msgstr ""
+msgstr "[https://example.com/nextcloud](https://example.com/nextcloud)"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:100
 msgid "URL examples"
-msgstr ""
+msgstr "Contoh URL"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:265
 msgid "Nextcloud Deck Detected"
-msgstr ""
+msgstr "Nextcloud Deck Terdeteksi"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:266
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
 msgstr ""
+"Nextcloud Deck tersedia di server ini. Apakah Anda ingin mengaktifkan "
+"integrasi Deck untuk mengelola papan dan kartu langsung di Planify?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
 msgid "Not Now"
-msgstr ""
+msgstr "Nanti Saja"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
 msgid "Enable Deck"
-msgstr ""
+msgstr "Aktifkan Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:181
@@ -2030,15 +2077,15 @@ msgstr "Sinkronisasi terakhir"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
 msgid "Nextcloud Deck"
-msgstr ""
+msgstr "Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
 msgid "Sync boards and cards from Nextcloud Deck"
-msgstr ""
+msgstr "Sinkronkan papan dan kartu dari Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
 msgid "Nextcloud Deck is not available on this server"
-msgstr ""
+msgstr "Nextcloud Deck tidak tersedia di server ini"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:152
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:214
@@ -2064,35 +2111,35 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:89
 msgid "Connect to Todoist"
-msgstr ""
+msgstr "Hubungkan ke Todoist"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
 msgid "Sign in with your Todoist account to sync your tasks"
-msgstr ""
+msgstr "Masuk dengan akun Todoist Anda untuk menyinkronkan tugas"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
 msgid "Sign in with Browser"
-msgstr ""
+msgstr "Masuk dengan Browser"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:113
 msgid "Use API Token instead"
-msgstr ""
+msgstr "Gunakan Token API sebagai gantinya"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:155
 msgid "API Token"
-msgstr ""
+msgstr "Token API"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
 msgid "Connect using your personal Todoist API token"
-msgstr ""
+msgstr "Hubungkan menggunakan token API pribadi Todoist Anda"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:176
 msgid "Paste your API token"
-msgstr ""
+msgstr "Tempel token API Anda"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:181
 msgid "Connect"
-msgstr ""
+msgstr "Hubungkan"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:188
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
@@ -2100,7 +2147,7 @@ msgstr "1. Buka Todoist → Pengaturan → Integrasi → Pengembang"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:193
 msgid "2. Copy your API token"
-msgstr ""
+msgstr "2. Salin token API Anda"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:198
 msgid "3. Paste it in the field above"
@@ -2108,18 +2155,18 @@ msgstr "3. Tempelkan token itu di kolom di atas"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
 msgid "How to get your token"
-msgstr ""
+msgstr "Cara mendapatkan token Anda"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
 msgid "Waiting for login…"
-msgstr ""
+msgstr "Menunggu login…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:292
 msgid "Synchronizing…"
 msgstr "Menyinkronkan…"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:38
-#: src/Dialogs/Preferences/PreferencesWindow.vala:110
+#: src/Dialogs/Preferences/PreferencesWindow.vala:111
 msgid "Appearance"
 msgstr "Tampilan"
 
@@ -2129,7 +2176,7 @@ msgstr "Gunakan Pengaturan Sistem"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:68
 msgid "Use System Accent Color"
-msgstr ""
+msgstr "Gunakan Warna Aksen Sistem"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:78
 msgid "Select theme"
@@ -2161,7 +2208,7 @@ msgstr "Tema biru profesional"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:139
 msgid "Accent Color"
-msgstr ""
+msgstr "Warna Aksen"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:145
 msgid "Custom themes are not available when using the system light theme"
@@ -2172,7 +2219,7 @@ msgid "Font Size"
 msgstr "Ukuran Font"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:29
-#: src/Dialogs/Preferences/PreferencesWindow.vala:132
+#: src/Dialogs/Preferences/PreferencesWindow.vala:147
 msgid "Backups"
 msgstr "Cadangan"
 
@@ -2186,11 +2233,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:50
 msgid "Automatic Daily Backup"
-msgstr ""
+msgstr "Cadangan Harian Otomatis"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:51
 msgid "Creates a backup every day at midnight"
-msgstr ""
+msgstr "Membuat cadangan setiap hari pada tengah malam"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:58
 msgid "Create Backup"
@@ -2219,20 +2266,24 @@ msgid ""
 "Only the last 30 backups are shown here. To access older backups, open the "
 "backup folder directly."
 msgstr ""
+"Hanya 30 cadangan terakhir yang ditampilkan di sini. Untuk mengakses "
+"cadangan yang lebih lama, buka langsung folder cadangan."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:97
 msgid "Extra Backup Locations"
-msgstr ""
+msgstr "Lokasi Cadangan Ekstra"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:100
 msgid "No extra locations added yet."
-msgstr ""
+msgstr "Belum ada lokasi tambahan."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:112
 msgid ""
 "Backup copies will also be saved to these folders after each backup is "
 "created."
 msgstr ""
+"Salinan cadangan juga akan disimpan ke folder-folder ini setelah setiap "
+"cadangan dibuat."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:121
 msgid "Migrate"
@@ -2278,7 +2329,7 @@ msgstr "Tugas"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:580
 msgid "This will replace all your current data"
-msgstr ""
+msgstr "Ini akan menggantikan semua data Anda saat ini"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:589
 msgid "Restore backup"
@@ -2292,16 +2343,29 @@ msgstr ""
 "Apakah Anda yakin ingin melanjutkan? Operasi ini akan menghapus data Anda "
 "saat ini dan menggantinya dengan data cadangan."
 
+#: src/Dialogs/Preferences/Pages/CalendarEvents.vala:26
+#: src/Dialogs/Preferences/PreferencesWindow.vala:121
+msgid "Calendar Events"
+msgstr "Acara Kalender"
+
+#: src/Dialogs/Preferences/Pages/CalendarEvents.vala:41
+msgid "Show Calendar Events"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/CalendarEvents.vala:42
+msgid "Display events from your calendars in Planify"
+msgstr ""
+
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:158
+#: src/Dialogs/Preferences/PreferencesWindow.vala:176
 msgid "Donate"
 msgstr "Donasi"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:53
+#: src/Dialogs/Preferences/Pages/Donate.vala:52
 msgid "Support Planify Development"
 msgstr "Dukung Pengembangan Planify"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:58
+#: src/Dialogs/Preferences/Pages/Donate.vala:57
 msgid ""
 "Help keep Planify free and open source! Your donations directly support "
 "development, new features, and maintenance. Every contribution, no matter "
@@ -2311,53 +2375,53 @@ msgstr ""
 "langsung mendukung pengembangan, fitur baru, dan pemeliharaan. Setiap "
 "kontribusi, sekecil apa pun, membuat perbedaan."
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:74
+#: src/Dialogs/Preferences/Pages/Donate.vala:73
 msgid "Patreon"
 msgstr "Patreon"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:75
+#: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Monthly recurring support"
 msgstr "Dukungan berulang bulanan"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:88
+#: src/Dialogs/Preferences/Pages/Donate.vala:87
 msgid "PayPal"
 msgstr "PayPal"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:89
+#: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "One-time donation"
 msgstr "Donasi satu kali"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:102
+#: src/Dialogs/Preferences/Pages/Donate.vala:101
 msgid "Liberapay"
 msgstr "Liberapay"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:103
+#: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Weekly recurring donations"
 msgstr "Donasi berulang mingguan"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:116
+#: src/Dialogs/Preferences/Pages/Donate.vala:115
 msgid "Ko-fi"
 msgstr "Ko-fi"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:117
+#: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Buy me a coffee ☕"
 msgstr "Traktir saya kopi ☕"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:128
+#: src/Dialogs/Preferences/Pages/Donate.vala:127
 msgid "Choose Your Preferred Platform"
 msgstr "Pilih Platform Pilihan Anda"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:142
+#: src/Dialogs/Preferences/Pages/Donate.vala:141
 msgid "Thank you for your support! 🙏"
 msgstr "Terima kasih atas dukungan Anda! 🙏"
 
-#: src/Dialogs/Preferences/Pages/Donate.vala:149
+#: src/Dialogs/Preferences/Pages/Donate.vala:148
 msgid "Your contribution helps keep Planify alive and growing."
 msgstr "Kontribusi Anda membantu menjaga Planify tetap hidup dan berkembang."
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
-#: src/Dialogs/Preferences/PreferencesWindow.vala:78
+#: src/Dialogs/Preferences/PreferencesWindow.vala:79
 msgid "General"
 msgstr "Umum"
 
@@ -2366,7 +2430,7 @@ msgid "Custom Sort Order"
 msgstr "Urutan Pengurutan Kustom"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
-#: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:238
+#: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:232
 #: src/Views/Today.vala:724
 msgid "Alphabetically"
 msgstr "Menurut abjad"
@@ -2397,7 +2461,7 @@ msgstr "Jalankan saat Startup"
 
 #: src/Dialogs/Preferences/Pages/General.vala:70
 msgid "Launch Planify automatically when you start your computer"
-msgstr ""
+msgstr "Luncurkan Planify secara otomatis saat Anda menyalakan komputer"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run in Background"
@@ -2405,47 +2469,45 @@ msgstr "Jalankan di Latar Belakang"
 
 #: src/Dialogs/Preferences/Pages/General.vala:83
 msgid "Keep Planify running in the system tray when closing the window"
-msgstr ""
+msgstr "Biarkan Planify tetap berjalan di baki sistem saat jendela ditutup"
 
-#: src/Dialogs/Preferences/Pages/General.vala:96
-msgid "Calendar Events"
-msgstr "Acara Kalender"
-
-#: src/Dialogs/Preferences/Pages/General.vala:103
+#: src/Dialogs/Preferences/Pages/General.vala:91
 msgid "GNOME Shell Search"
-msgstr ""
+msgstr "Pencarian GNOME Shell"
 
-#: src/Dialogs/Preferences/Pages/General.vala:104
+#: src/Dialogs/Preferences/Pages/General.vala:92
 msgid ""
 "Search tasks and projects directly from GNOME Shell. Enable it in Settings → "
 "Search"
 msgstr ""
+"Cari tugas dan proyek langsung dari GNOME Shell. Aktifkan di Pengaturan → "
+"Pencarian"
 
-#: src/Dialogs/Preferences/Pages/General.vala:109
+#: src/Dialogs/Preferences/Pages/General.vala:97
 msgid "Date and Time"
 msgstr "Tanggal dan Waktu"
 
-#: src/Dialogs/Preferences/Pages/General.vala:112
+#: src/Dialogs/Preferences/Pages/General.vala:100
 msgid "24h"
 msgstr "24 jam"
 
-#: src/Dialogs/Preferences/Pages/General.vala:113
+#: src/Dialogs/Preferences/Pages/General.vala:101
 msgid "12h"
 msgstr "12 jam"
 
-#: src/Dialogs/Preferences/Pages/General.vala:116
+#: src/Dialogs/Preferences/Pages/General.vala:104
 msgid "Clock Format"
 msgstr "Format Jam"
 
-#: src/Dialogs/Preferences/Pages/General.vala:132
+#: src/Dialogs/Preferences/Pages/General.vala:120
 msgid "Start of the Week"
 msgstr "Awal Minggu"
 
-#: src/Dialogs/Preferences/Pages/General.vala:144
+#: src/Dialogs/Preferences/Pages/General.vala:132
 msgid "Smart Date Recognition"
 msgstr "Pengenalan Tanggal Cerdas"
 
-#: src/Dialogs/Preferences/Pages/General.vala:145
+#: src/Dialogs/Preferences/Pages/General.vala:133
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
 msgstr ""
 "Mendeteksi tanggal secara otomatis seperti \\\"besok\\\" atau \\\"minggu "
@@ -2457,7 +2519,7 @@ msgid "Home View"
 msgstr "Tampilan Beranda"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:121
+#: src/Dialogs/Preferences/PreferencesWindow.vala:136
 msgid "Quick Add"
 msgstr "Tambah Cepat"
 
@@ -2492,18 +2554,20 @@ msgstr "Jika tidak dicentang, proyek bawaan yang dipilih adalah Kotak Masuk"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:100
 msgid "Keep Task Properties"
-msgstr ""
+msgstr "Pertahankan Properti Tugas"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:101
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
 msgstr ""
+"Saat \"Terus menambahkan\" diaktifkan, pertahankan tanggal, label, dan "
+"status sematan"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:130
 msgid "The command was copied to the clipboard"
 msgstr "Perintah disalin ke papan klip"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
-#: src/Dialogs/Preferences/PreferencesWindow.vala:99
+#: src/Dialogs/Preferences/PreferencesWindow.vala:100
 msgid "Sidebar"
 msgstr "Bilah samping"
 
@@ -2532,7 +2596,7 @@ msgid "You can sort your views by dragging and dropping"
 msgstr "Anda dapat mengurutkan tampilan dengan menyeret dan melepas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
-#: src/Dialogs/Preferences/PreferencesWindow.vala:89
+#: src/Dialogs/Preferences/PreferencesWindow.vala:90
 msgid "Task Settings"
 msgstr "Pengaturan Tugas"
 
@@ -2660,7 +2724,7 @@ msgstr ""
 "Jika diaktifkan, pengingat sebelum waktu jatuh tempo tugas akan ditambahkan "
 "secara bawaan."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:746
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:757
 msgid "Preferences"
 msgstr "Preferensi"
 
@@ -2672,223 +2736,268 @@ msgstr "Sinkronkan penyedia to-do favorit Anda"
 msgid "Set the view shown at first launch"
 msgstr "Atur tampilan yang ditampilkan pada peluncuran pertama"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:79
+#: src/Dialogs/Preferences/PreferencesWindow.vala:80
 msgid "Customize to your liking"
 msgstr "Sesuaikan sesuai selera Anda"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:100
+#: src/Dialogs/Preferences/PreferencesWindow.vala:101
 msgid "Customize your sidebar"
 msgstr "Sesuaikan bilah samping Anda"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:122
+msgid "Manage which calendars are shown"
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:137
 msgid "Adding to-do's from anywhere"
 msgstr "Menambahkan tugas dari mana saja"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:133
+#: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Backup or migrate from Planner."
 msgstr "Cadangkan atau migrasikan dari Planner."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:139
+#: src/Dialogs/Preferences/PreferencesWindow.vala:154
 msgid "Create Tutorial Project"
 msgstr "Buat Proyek Tutorial"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:140
+#: src/Dialogs/Preferences/PreferencesWindow.vala:155
 msgid "Learn the app step by step with a short tutorial project"
 msgstr "Pelajari aplikasi langkah demi langkah dengan proyek tutorial singkat"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:159
+#: src/Dialogs/Preferences/PreferencesWindow.vala:177
 msgid "Want to buy me a drink?"
 msgstr "Ingin membelikan saya minuman?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:169
+#: src/Dialogs/Preferences/PreferencesWindow.vala:187
 msgid "Report Issue or Request Feature"
 msgstr "Laporkan Isu atau Ajukan Fitur"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:170
+#: src/Dialogs/Preferences/PreferencesWindow.vala:188
 msgid "Share bugs or ideas on GitHub"
 msgstr "Bagikan bug atau ide di GitHub"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:196
+#: src/Dialogs/Preferences/PreferencesWindow.vala:214
 msgid "Get Involved"
 msgstr "Ikut Terlibat"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:206
+#: src/Dialogs/Preferences/PreferencesWindow.vala:224
 msgid "Reach Us"
 msgstr "Hubungi Kami"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:212
+#: src/Dialogs/Preferences/PreferencesWindow.vala:230
 msgid "Contact Us"
 msgstr "Kontak Kami"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:213
+#: src/Dialogs/Preferences/PreferencesWindow.vala:231
 msgid "Request a feature or ask us anything"
 msgstr "Minta fitur atau tanyakan apa pun kepada kami"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:229
+#: src/Dialogs/Preferences/PreferencesWindow.vala:247
 msgid "Tweet Us"
 msgstr "Cuitkan kepada Kami"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:230
-#: src/Dialogs/Preferences/PreferencesWindow.vala:260
+#: src/Dialogs/Preferences/PreferencesWindow.vala:248
+#: src/Dialogs/Preferences/PreferencesWindow.vala:278
 msgid "Share some love"
 msgstr "Bagikan sedikit apresiasi"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:244
+#: src/Dialogs/Preferences/PreferencesWindow.vala:262
 msgid "Discord"
 msgstr "Discord"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:245
+#: src/Dialogs/Preferences/PreferencesWindow.vala:263
 msgid "Discuss and share your feedback"
 msgstr "Diskusikan dan bagikan masukan Anda"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:259
+#: src/Dialogs/Preferences/PreferencesWindow.vala:277
 msgid "Mastodon"
 msgstr "Mastodon"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:278
+#: src/Dialogs/Preferences/PreferencesWindow.vala:296
 msgid "Privacy"
 msgstr "Privasi"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:284
+#: src/Dialogs/Preferences/PreferencesWindow.vala:302
 msgid "Privacy Policy"
 msgstr "Kebijakan Privasi"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:285
+#: src/Dialogs/Preferences/PreferencesWindow.vala:303
 msgid "We have nothing on you"
 msgstr "Kami tidak memiliki apa pun tentang Anda"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:291
+#: src/Dialogs/Preferences/PreferencesWindow.vala:309
 msgid "Delete App Data"
 msgstr "Hapus Data Aplikasi"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:300
+#: src/Dialogs/Preferences/PreferencesWindow.vala:318
 msgid "A tutorial project has been created"
 msgstr "Proyek tutorial telah dibuat"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:316
+#: src/Dialogs/Preferences/PreferencesWindow.vala:334
 msgid "Delete All Data?"
 msgstr "Hapus Semua Data?"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:317
+#: src/Dialogs/Preferences/PreferencesWindow.vala:335
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "Menghapus semua daftar, tugas, dan pengingat Anda secara permanen"
 
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "M"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "T"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "W"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "F"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "S"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:57
+msgid "Last 8 weeks"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:119
+#, c-format
+msgid "%d task"
+msgid_plural "%d tasks"
+msgstr[0] ""
+
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:749
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
+#: src/MainWindow.vala:760
 msgid "Summary & Productivity"
+msgstr "Ringkasan & Produktivitas"
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:87
+msgid "Use Scheduled Tasks as Goal"
 msgstr ""
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
-msgid "Set Up Goals"
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:88
+msgid "Use today's scheduled tasks as your daily goal"
 msgstr ""
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
-msgid "Define how many tasks you want to complete per day and week"
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:93
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
+#: src/Widgets/ProductivityMiniWidget.vala:31
+msgid "Daily Goal"
+msgstr "Sasaran Harian"
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:98
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:263
+msgid "Weekly Goal"
+msgstr "Sasaran Mingguan"
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:103
+msgid "Fixed Goals"
 msgstr ""
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:207
 msgid "Summary Details"
-msgstr ""
+msgstr "Detail Ringkasan"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:208
 msgid "Detailed summary will appear here"
-msgstr ""
+msgstr "Detail ringkasan akan muncul di sini"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:216
 #: src/Dialogs/ProductivityReport/SummarySection.vala:33
 msgid "Summary"
 msgstr "Ringkasan"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:224
 msgid "Productivity Details"
-msgstr ""
+msgstr "Detail Produktivitas"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:225
 msgid "Detailed productivity stats will appear here"
-msgstr ""
+msgstr "Statistik produktivitas terperinci akan muncul di sini"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:233
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:38
 msgid "Productivity"
-msgstr ""
+msgstr "Produktivitas"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:825
+#: src/MainWindow.vala:859
 msgid "See More"
 msgstr "Lihat Selengkapnya"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:117
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:121
+#: src/Widgets/ProductivityMiniWidget.vala:76
+msgid "(scheduled)"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:165
 msgid "All goals achieved! You're unstoppable"
-msgstr ""
+msgstr "Semua sasaran tercapai! Anda luar biasa"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:169
 msgid "Daily goal crushed! Keep the momentum going"
-msgstr ""
+msgstr "Sasaran harian tercapai! Pertahankan momentumnya"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:173
 msgid "Weekly goal achieved! Enjoy the rest of your week"
-msgstr ""
+msgstr "Sasaran mingguan tercapai! Nikmati sisa minggu Anda"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:177
 msgid "Start your day, your first task awaits"
-msgstr ""
+msgstr "Mulailah hari Anda, tugas pertama menunggu"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:181
 msgid "Almost there! Just a few more tasks today"
-msgstr ""
+msgstr "Sedikit lagi! Tinggal beberapa tugas lagi hari ini"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:185
 msgid "Great pace this week, you're almost at your goal"
-msgstr ""
+msgstr "Laju minggu ini bagus, Anda hampir mencapai sasaran"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:189
 msgid "Halfway through your daily goal, nice progress"
-msgstr ""
+msgstr "Setengah jalan menuju sasaran harian, progres bagus"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:193
 msgid "Solid week so far, keep it up"
-msgstr ""
+msgstr "Minggu ini berjalan solid, lanjutkan"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:196
 msgid "Every task completed is a step forward"
-msgstr ""
+msgstr "Setiap tugas yang selesai adalah satu langkah ke depan"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:200
 msgid "Set your daily and weekly goals to start tracking your productivity"
 msgstr ""
+"Tetapkan sasaran harian dan mingguan Anda untuk mulai melacak produktivitas"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:286
-#: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
-msgid "This Week"
-msgstr "Minggu Ini"
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:207
+msgid "Set Up Goals"
+msgstr "Siapkan Sasaran"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:287
-#: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
-msgid "This Month"
-msgstr "Bulan Ini"
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
-msgid "Daily Goal"
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:313
+msgid "Goals"
 msgstr ""
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
-msgid "Weekly Goal"
-msgstr ""
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:321
 msgid "Edit Goals"
-msgstr ""
+msgstr "Edit Sasaran"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:56
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:57
 msgid "Pending"
-msgstr ""
+msgstr "Tertunda"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:59
 #: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
@@ -2897,7 +3006,7 @@ msgstr "Terlambat"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:73
 msgid "Progress"
-msgstr ""
+msgstr "Progres"
 
 #: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -2926,55 +3035,56 @@ msgstr "Perbarui Proyek"
 
 #: src/Dialogs/Project.vala:234
 msgid "Global Default"
-msgstr ""
+msgstr "Default Global"
 
 #: src/Dialogs/Project.vala:236
 msgid "Disabled"
-msgstr ""
+msgstr "Dinonaktifkan"
 
 #: src/Dialogs/Project.vala:239
 msgid "Markdown Formatting"
-msgstr ""
+msgstr "Pemformatan Markdown"
 
 #: src/Dialogs/Project.vala:240
 msgid "Override the global markdown setting for this project"
-msgstr ""
+msgstr "Timpa pengaturan markdown global untuk proyek ini"
 
 #: src/Dialogs/Project.vala:264
 msgid "Create as Deck Board"
-msgstr ""
+msgstr "Buat sebagai Papan Deck"
 
 #: src/Dialogs/Project.vala:265
 msgid "Create a Nextcloud Deck board instead of a task list"
-msgstr ""
+msgstr "Buat papan Nextcloud Deck, bukan daftar tugas"
 
 #: src/Dialogs/Project.vala:576
 msgid "Project added successfully!"
 msgstr "Proyek berhasil ditambahkan!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:811 src/Layouts/ItemRow.vala:1254
-#: src/Layouts/ItemRow.vala:1380 src/Layouts/ItemSidebarView.vala:510
+#: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemRow.vala:1254
+#: src/Layouts/ItemRow.vala:1380 src/Layouts/ItemSidebarView.vala:517
 msgid "Move"
 msgstr "Pindahkan"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:48
+#: src/Dialogs/QuickFind/QuickFind.vala:51
 msgid "Quick Find"
 msgstr "Pencarian Cepat"
 
-#: src/Dialogs/QuickFind/QuickFind.vala:318
+#: src/Dialogs/QuickFind/QuickFind.vala:262
+#, c-format
+msgid "%u result"
+msgid_plural "%u results"
+msgstr[0] ""
+
+#: src/Dialogs/QuickFind/QuickFind.vala:352
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 "Beralih proyek dan tampilan dengan cepat, temukan tugas, cari berdasarkan "
 "label"
 
-#: src/Dialogs/Section.vala:46 src/Views/Project/Project.vala:258
-#: src/Views/Project/Project.vala:359 src/Views/Project/Project.vala:390
-msgid "New Section"
-msgstr "Bagian Baru"
-
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
-#: src/Layouts/SectionRow.vala:667
+#: src/Layouts/SectionRow.vala:696
 msgid "Edit Section"
 msgstr "Sunting Bagian"
 
@@ -2999,48 +3109,48 @@ msgstr "Bagian ditambahkan"
 msgid "Open/Close Sidebar"
 msgstr "Buka/Tutup Bilah Samping"
 
-#: src/Layouts/ItemBoard.vala:156 src/Layouts/ItemBoard.vala:793
-#: src/Layouts/ItemBoard.vala:806 src/Layouts/ItemRow.vala:1236
+#: src/Layouts/ItemBoard.vala:155 src/Layouts/ItemBoard.vala:806
+#: src/Layouts/ItemBoard.vala:819 src/Layouts/ItemRow.vala:1236
 #: src/Layouts/ItemRow.vala:1249
 msgid "Unpin"
 msgstr "Lepas sematan"
 
-#: src/Layouts/ItemBoard.vala:633 src/Layouts/ItemRow.vala:1604
-#: src/Layouts/ItemSidebarView.vala:675
+#: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemRow.vala:1604
+#: src/Layouts/ItemSidebarView.vala:682
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Selesai. Kemunculan berikutnya: %s"
 
-#: src/Layouts/ItemBoard.vala:814 src/Layouts/ItemRow.vala:1257
+#: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemRow.vala:1257
 msgid "Add Subtask"
 msgstr "Tambahkan subtugas"
 
-#: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1259
+#: src/Layouts/ItemBoard.vala:829 src/Layouts/ItemRow.vala:1259
 msgid "Edit"
 msgstr "Sunting"
 
-#: src/Layouts/ItemBoard.vala:817 src/Layouts/ItemRow.vala:1260
-#: src/Layouts/ItemRow.vala:1379 src/Layouts/ItemSidebarView.vala:509
+#: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1260
+#: src/Layouts/ItemRow.vala:1379 src/Layouts/ItemSidebarView.vala:516
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:611
-#: src/Layouts/SectionRow.vala:670 src/Views/Project/Project.vala:388
+#: src/Layouts/SectionRow.vala:699 src/Views/Project/Project.vala:388
 msgid "Duplicate"
 msgstr "Duplikasi"
 
-#: src/Layouts/ItemBoard.vala:819 src/Layouts/ItemRow.vala:1262
-#: src/Layouts/ItemRow.vala:1384 src/Layouts/ItemSidebarView.vala:513
+#: src/Layouts/ItemBoard.vala:832 src/Layouts/ItemRow.vala:1262
+#: src/Layouts/ItemRow.vala:1384 src/Layouts/ItemSidebarView.vala:520
 msgid "Delete Task"
 msgstr "Hapus Tugas"
 
-#: src/Layouts/ItemBoard.vala:1117 src/Layouts/ItemRow.vala:1850
+#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1851
 msgid "Order changed to 'Custom sort order'"
 msgstr "Urutan diubah menjadi 'Urutan pengurutan kustom'"
 
-#: src/Layouts/ItemBoard.vala:1231 src/Layouts/ItemRow.vala:1626
+#: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1628
 #, c-format
 msgid "%s was deleted"
 msgstr "%s telah dihapus"
 
-#: src/Layouts/ItemBoard.vala:1232 src/Layouts/ItemRow.vala:1627
+#: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1629
 msgid "Undo"
 msgstr "Batalkan"
 
@@ -3056,50 +3166,50 @@ msgstr "Sembunyikan subtugas"
 msgid "Show Sub-tasks"
 msgstr "Tampilkan subtugas"
 
-#: src/Layouts/ItemRow.vala:1375 src/Layouts/ItemSidebarView.vala:506
+#: src/Layouts/ItemRow.vala:1375 src/Layouts/ItemSidebarView.vala:513
 msgid "Use as a Note"
 msgstr "Gunakan sebagai Catatan"
 
-#: src/Layouts/ItemRow.vala:1378 src/Layouts/ItemSidebarView.vala:508
+#: src/Layouts/ItemRow.vala:1378 src/Layouts/ItemSidebarView.vala:515
 #: src/Widgets/MultiSelectToolbar.vala:274
 msgid "Copy to Clipboard"
 msgstr "Salin ke Papan Klip"
 
-#: src/Layouts/ItemRow.vala:1381 src/Layouts/ItemSidebarView.vala:511
+#: src/Layouts/ItemRow.vala:1381 src/Layouts/ItemSidebarView.vala:518
 msgid "Export as .ics"
-msgstr ""
+msgstr "Ekspor sebagai .ics"
 
-#: src/Layouts/ItemRow.vala:1389
+#: src/Layouts/ItemRow.vala:1389 src/Layouts/ItemSidebarView.vala:470
 #, c-format
 msgid "Updated: %s"
-msgstr ""
+msgstr "Diperbarui: %s"
 
-#: src/Layouts/ItemRow.vala:1391
+#: src/Layouts/ItemRow.vala:1391 src/Layouts/ItemSidebarView.vala:472
 #, c-format
 msgid "Created: %s"
-msgstr ""
+msgstr "Dibuat: %s"
 
-#: src/Layouts/ItemRow.vala:2061
+#: src/Layouts/ItemRow.vala:2062
 msgid "Add Attachments"
 msgstr "Tambahkan Lampiran"
 
-#: src/Layouts/ItemSidebarView.vala:79
+#: src/Layouts/ItemSidebarView.vala:80
 msgid "Close Detail"
 msgstr "Tutup Detail"
 
-#: src/Layouts/ItemSidebarView.vala:146 src/Widgets/ItemDetailCompleted.vala:64
+#: src/Layouts/ItemSidebarView.vala:147 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
 msgstr "Judul"
 
-#: src/Layouts/ItemSidebarView.vala:178 src/Widgets/ItemDetailCompleted.vala:90
+#: src/Layouts/ItemSidebarView.vala:179 src/Widgets/ItemDetailCompleted.vala:90
 msgid "Properties"
 msgstr "Properti"
 
-#: src/Layouts/ItemSidebarView.vala:194
+#: src/Layouts/ItemSidebarView.vala:195
 msgid "Expand Description"
-msgstr ""
+msgstr "Perluas Deskripsi"
 
-#: src/Layouts/ItemSidebarView.vala:596
+#: src/Layouts/ItemSidebarView.vala:603
 msgid "Are you sure you want to delete?"
 msgstr "Apakah Anda yakin ingin menghapus?"
 
@@ -3138,41 +3248,46 @@ msgstr "Kirim melalui E-mail"
 
 #: src/Layouts/ProjectRow.vala:710
 msgid "Export as PDF"
-msgstr ""
+msgstr "Ekspor sebagai PDF"
 
 #: src/Layouts/ProjectRow.vala:785
 msgid "Project exported as PDF"
-msgstr ""
+msgstr "Proyek berhasil diekspor sebagai PDF"
 
-#: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:88
+#: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:89
 msgid "(No Section)"
 msgstr "(Tanpa Bagian)"
 
-#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:224
+#: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:250
 msgid "Add tasks"
 msgstr "Tambahkan tugas"
 
-#: src/Layouts/SectionBoard.vala:175 src/Views/Filter.vala:104
+#: src/Layouts/SectionBoard.vala:175 src/Layouts/SectionRow.vala:217
+#: src/Views/Filter.vala:104
 msgid "Load more"
 msgstr "Muat lebih banyak"
 
-#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:623
+#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:652
 #: src/Widgets/SubItems.vala:420
 msgid "completed tasks"
 msgstr "tugas yang selesai"
 
-#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:668
+#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:697
 msgid "Move Section"
 msgstr "Pindahkan Bagian"
 
-#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:671
+#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:700
 msgid "Show Completed Tasks"
 msgstr "Tampilkan Tugas yang Selesai"
 
-#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:674
+#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:703
 #: src/Widgets/SectionItemRow.vala:186
 msgid "Delete Section"
 msgstr "Hapus Bagian"
+
+#: src/Layouts/SectionRow.vala:655 src/Views/Filter.vala:362
+msgid "No more tasks"
+msgstr "Tidak ada tugas lagi"
 
 #: src/Layouts/Sidebar.vala:40
 msgid "Favorites"
@@ -3214,43 +3329,43 @@ msgstr "Tidak ada proyek yang tersedia. Buat satu dengan mengeklik tombol '+'"
 msgid "Account Migration Required"
 msgstr "Migrasi Akun Diperlukan"
 
-#: src/MainWindow.vala:81
+#: src/MainWindow.vala:82
 msgid "Main Menu"
 msgstr "Menu Utama"
 
-#: src/MainWindow.vala:86
+#: src/MainWindow.vala:87
 msgid "Open Quick Find"
 msgstr "Buka Pencarian Cepat"
 
-#: src/MainWindow.vala:337
+#: src/MainWindow.vala:340
 msgid "Task was modified on another device"
-msgstr ""
+msgstr "Tugas diubah di perangkat lain"
 
-#: src/MainWindow.vala:339
+#: src/MainWindow.vala:342
 msgid "Sync Now"
-msgstr ""
+msgstr "Sinkronkan Sekarang"
 
-#: src/MainWindow.vala:754
+#: src/MainWindow.vala:781
 msgid "About Planify"
 msgstr "Tentang Planify"
 
-#: src/MainWindow.vala:822
+#: src/MainWindow.vala:856
 msgid "Oops! Something happened"
 msgstr "Ups! Terjadi sesuatu"
 
-#: src/MainWindow.vala:841 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:875 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Tugas selesai"
 
-#: src/MainWindow.vala:842
+#: src/MainWindow.vala:876
 msgid "View"
 msgstr "Tampilan"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:914
 msgid "Database Integrity Check Failed"
 msgstr "Pemeriksaan Integritas Basis Data Gagal"
 
-#: src/MainWindow.vala:881
+#: src/MainWindow.vala:915
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3273,18 +3388,18 @@ msgstr ""
 "Setelah reset, Anda akan dapat memulihkan cadangan apa pun yang sebelumnya "
 "Anda buat. Terima kasih atas kesabaran Anda"
 
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:917
 msgid "Reset Database"
 msgstr "Reset Basis Data"
 
 #: src/Services/BackupManager.vala:153
 msgid "Automatic backup failed"
-msgstr ""
+msgstr "Pencadangan otomatis gagal"
 
 #: src/Services/BackupManager.vala:199
 #, c-format
 msgid "Failed to copy backup to %s"
-msgstr ""
+msgstr "Gagal menyalin cadangan ke %s"
 
 #: src/Services/BackupManager.vala:223
 msgid "Delete Backup"
@@ -3325,12 +3440,14 @@ msgid "View Option Menu"
 msgstr "Menu Opsi Tampilan"
 
 #: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
-#: src/Views/Project/List.vala:117 src/Views/Today.vala:251
+#: src/Views/Project/Board.vala:121 src/Views/Project/List.vala:117
+#: src/Views/Today.vala:251
 msgid "Add Some Tasks"
 msgstr "Tambahkan Beberapa Tugas"
 
 #: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
-#: src/Views/Project/List.vala:118 src/Views/Today.vala:252
+#: src/Views/Project/Board.vala:122 src/Views/Project/List.vala:118
+#: src/Views/Today.vala:252
 msgid "Press 'a' to create a new task"
 msgstr "Tekan 'a' untuk membuat tugas baru"
 
@@ -3344,11 +3461,7 @@ msgstr "Kerja bagus, tidak ada yang tersisa untuk dikerjakan 🎉"
 
 #: src/Views/Filter.vala:359
 msgid "tasks"
-msgstr ""
-
-#: src/Views/Filter.vala:362
-msgid "No more tasks"
-msgstr ""
+msgstr "tugas"
 
 #: src/Views/Filter.vala:617
 msgid "Delete Completed Task"
@@ -3368,15 +3481,16 @@ msgstr "Tidak ada label yang tersedia. Buat satu dengan mengeklik tombol '+'"
 
 #: src/Views/Label/LabelSourceRow.vala:122
 msgid "All labels are hidden by the filter"
-msgstr ""
+msgstr "Semua label disembunyikan oleh filter"
 
 #: src/Views/Label/Labels.vala:148
 msgid "Only Active Projects"
-msgstr ""
+msgstr "Hanya Proyek Aktif"
 
 #: src/Views/Label/Labels.vala:149
 msgid "Only show labels used by tasks in active (non-archived) projects"
 msgstr ""
+"Hanya tampilkan label yang digunakan oleh tugas dalam proyek aktif (nonarsip)"
 
 #: src/Views/Project/Board.vala:76 src/Views/Project/List.vala:83
 msgid "Note"
@@ -3384,17 +3498,17 @@ msgstr "Catatan"
 
 #: src/Views/Project/Board.vala:121
 msgid "No Sections Yet"
-msgstr ""
+msgstr "Belum Ada Bagian"
 
 #: src/Views/Project/Board.vala:122
 msgid "Create a section to start adding tasks to this board"
-msgstr ""
+msgstr "Buat bagian untuk mulai menambahkan tugas ke papan ini"
 
-#: src/Views/Project/Board.vala:320
+#: src/Views/Project/Board.vala:326
 msgid "Schedule"
 msgstr "Jadwalkan"
 
-#: src/Views/Project/Board.vala:358 src/Views/Project/List.vala:397
+#: src/Views/Project/Board.vala:364 src/Views/Project/List.vala:397
 msgid "When?"
 msgstr "Kapan?"
 
@@ -3412,7 +3526,7 @@ msgstr "Tugas Baru"
 
 #: src/Views/Project/Project.vala:357
 msgid "Add a section first to create tasks in this board"
-msgstr ""
+msgstr "Tambahkan bagian terlebih dahulu untuk membuat tugas di papan ini"
 
 #: src/Views/Project/Project.vala:389 src/Views/Project/Project.vala:421
 msgid "Project Deadline"
@@ -3442,7 +3556,7 @@ msgstr "Daftar"
 msgid "Board"
 msgstr "Papan"
 
-#: src/Views/Project/Project.vala:553 src/Views/Scheduled/Scheduled.vala:235
+#: src/Views/Project/Project.vala:553 src/Views/Scheduled/Scheduled.vala:229
 #: src/Views/Today.vala:721
 msgid "Sorting"
 msgstr "Pengurutan"
@@ -3451,15 +3565,15 @@ msgstr "Pengurutan"
 msgid "Custom sort order"
 msgstr "Urutan pengurutan kustom"
 
-#: src/Views/Project/Project.vala:559 src/Views/Scheduled/Scheduled.vala:240
+#: src/Views/Project/Project.vala:559 src/Views/Scheduled/Scheduled.vala:234
 #: src/Views/Today.vala:726
 msgid "Date Added"
 msgstr "Tanggal Ditambahkan"
 
-#: src/Views/Project/Project.vala:560 src/Views/Scheduled/Scheduled.vala:241
+#: src/Views/Project/Project.vala:560 src/Views/Scheduled/Scheduled.vala:235
 #: src/Views/Today.vala:727
 msgid "Date Modified"
-msgstr ""
+msgstr "Tanggal Diubah"
 
 #: src/Views/Project/Project.vala:563
 msgid "Ascending Order"
@@ -3473,35 +3587,43 @@ msgstr "Tanggal jatuh tempo"
 msgid "All (default)"
 msgstr "Semua (bawaan)"
 
+#: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
+msgid "This Week"
+msgstr "Minggu Ini"
+
 #: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
 msgid "Next 7 Days"
 msgstr "7 Hari Ke Depan"
+
+#: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
+msgid "This Month"
+msgstr "Bulan Ini"
 
 #: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
 msgid "Next 30 Days"
 msgstr "30 Hari Ke Depan"
 
-#: src/Views/Project/Project.vala:584 src/Views/Scheduled/Scheduled.vala:249
+#: src/Views/Project/Project.vala:584 src/Views/Scheduled/Scheduled.vala:243
 #: src/Views/Today.vala:735
 msgid "P1"
 msgstr "P1"
 
-#: src/Views/Project/Project.vala:590 src/Views/Scheduled/Scheduled.vala:255
+#: src/Views/Project/Project.vala:590 src/Views/Scheduled/Scheduled.vala:249
 #: src/Views/Today.vala:741
 msgid "P2"
 msgstr "P2"
 
-#: src/Views/Project/Project.vala:596 src/Views/Scheduled/Scheduled.vala:261
+#: src/Views/Project/Project.vala:596 src/Views/Scheduled/Scheduled.vala:255
 #: src/Views/Today.vala:747
 msgid "P3"
 msgstr "P3"
 
-#: src/Views/Project/Project.vala:602 src/Views/Scheduled/Scheduled.vala:267
+#: src/Views/Project/Project.vala:602 src/Views/Scheduled/Scheduled.vala:261
 #: src/Views/Today.vala:753
 msgid "P4"
 msgstr "P4"
 
-#: src/Views/Project/Project.vala:609 src/Views/Scheduled/Scheduled.vala:274
+#: src/Views/Project/Project.vala:609 src/Views/Scheduled/Scheduled.vala:268
 #: src/Views/Today.vala:760
 msgid "Filter by Labels"
 msgstr "Filter berdasarkan Label"
@@ -3587,12 +3709,12 @@ msgstr "Tampilkan lebih sedikit"
 
 #: src/Widgets/ErrorView.vala:111
 msgid "Copy error message"
-msgstr ""
+msgstr "Salin pesan kesalahan"
 
 #: src/Widgets/ErrorView.vala:129
 #, c-format
 msgid "For more details, share your log file: %s"
-msgstr ""
+msgstr "Untuk detail lebih lanjut, bagikan file log Anda: %s"
 
 #: src/Widgets/ErrorView.vala:148
 msgid "Report Issue"
@@ -3600,7 +3722,7 @@ msgstr "Laporkan Isu"
 
 #: src/Widgets/ErrorView.vala:191
 msgid "Account migration required."
-msgstr ""
+msgstr "Migrasi akun diperlukan."
 
 #: src/Widgets/EventRow.vala:242
 #, c-format
@@ -3665,15 +3787,15 @@ msgstr "Tugas dipindahkan ke proyek"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:53
 msgid "Unknown project"
-msgstr ""
+msgstr "Proyek tidak dikenal"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:56
 msgid "Unknown"
-msgstr ""
+msgstr "Tidak dikenal"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:59
 msgid "Unknown section"
-msgstr ""
+msgstr "Bagian tidak dikenal"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:63
 msgid "Task moved to"
@@ -3682,27 +3804,27 @@ msgstr "Tugas dipindahkan ke"
 #: src/Widgets/ItemChangeHistoryRow.vala:169
 #: src/Widgets/ItemChangeHistoryRow.vala:199
 msgid "See more"
-msgstr ""
+msgstr "Lihat selengkapnya"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:199
 msgid "See less"
-msgstr ""
+msgstr "Lihat lebih sedikit"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:276
 msgid "Empty"
-msgstr ""
+msgstr "Kosong"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:290
 msgid "No priority"
-msgstr ""
+msgstr "Tidak ada prioritas"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:298
 msgid "No labels"
-msgstr ""
+msgstr "Tidak ada label"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:303
 msgid "Not pinned"
-msgstr ""
+msgstr "Tidak disematkan"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:304
 #: src/Widgets/ItemChangeHistoryRow.vala:305
@@ -3716,16 +3838,16 @@ msgstr "Sematkan: Tidak Aktif"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:308
 msgid "No deadline"
-msgstr ""
+msgstr "Tidak ada tenggat"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:319
 msgid "No parent"
-msgstr ""
+msgstr "Tanpa induk"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:322
 #: src/Widgets/ItemChangeHistoryRow.vala:326
 msgid "Unknown task"
-msgstr ""
+msgstr "Tugas tidak dikenal"
 
 #: src/Widgets/ItemDetailCompleted.vala:74
 msgid "Completed At"
@@ -3743,7 +3865,7 @@ msgstr "Tandai sebagai Selesai"
 #, c-format
 msgid "%d task copied to clipboard"
 msgid_plural "%d tasks copied to clipboard"
-msgstr[0] ""
+msgstr[0] "%d tugas disalin ke papan klip"
 
 #: src/Widgets/MultiSelectToolbar.vala:325
 msgid "Delete To-Do"
@@ -3790,6 +3912,10 @@ msgstr "Perbarui Sekarang"
 #: src/Widgets/NewVersionPopup.vala:98
 msgid "Dismiss"
 msgstr "Tutup"
+
+#: src/Widgets/ProductivityMiniWidget.vala:75
+msgid "No tasks scheduled"
+msgstr ""
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:185
 msgid "Unarchive"
@@ -3939,6 +4065,11 @@ msgstr "Buka Label"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Buka Papan Sematan"
+
+#~ msgid "Define how many tasks you want to complete per day and week"
+#~ msgstr ""
+#~ "Tentukan berapa banyak tugas yang ingin Anda selesaikan per hari dan per "
+#~ "minggu"
 
 #, c-format
 #~ msgid "Load more history from %d week ago…"

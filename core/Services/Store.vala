@@ -724,6 +724,10 @@ public class Services.Store : GLib.Object {
             if (item.has_section && item.section != null) {
                 item.section.item_deleted (item);
             }
+
+            if (item.has_parent && item.parent != null) {
+                item.parent.invalidate_subitems ();
+            }
         }
     }
 
@@ -1116,13 +1120,14 @@ public class Services.Store : GLib.Object {
 
     public Gee.ArrayList<Objects.Item> get_items_by_scheduled (bool checked = true) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        var now = new GLib.DateTime.now_local ();
         lock (_items) {
             foreach (Objects.Item item in items) {
                 if (item != null &&
                     item.has_due &&
                     !item.was_archived () &&
                     item.checked == checked &&
-                    item.due.datetime.compare (new GLib.DateTime.now_local ()) > 0) {
+                    item.due.datetime.compare (now) > 0) {
                     return_value.add (item);
                 }
             }
@@ -1382,6 +1387,18 @@ public class Services.Store : GLib.Object {
 
             return return_value;
         }
+    }
+
+    public void cleanup_trash_on_startup () {
+        var trash_items = Services.Database.get_default ().get_items_in_trash ();
+        foreach (var item in trash_items) {
+            item.delete_item ();
+        }
+    }
+
+    public void set_item_trash (Objects.Item item, bool trash) {
+        item.is_trash = trash;
+        Services.Database.get_default ().update_item_trash (item);
     }
 
     // Reminders

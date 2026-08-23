@@ -245,6 +245,12 @@
             <description>Enable calendar integration to display tasks with due dates in calendar views and sync with system calendar</description>
         </key>
 
+        <key name="calendar-sources-disabled" type="as">
+            <default>[]</default>
+            <summary>Disabled calendar sources</summary>
+            <description>List of calendar source UIDs that are hidden from Planify's calendar views</description>
+        </key>
+
         <key name="views-order-visible" type="as">
             <default>['inbox', 'today', 'scheduled', 'labels']</default>
             <summary>Visible views and their order</summary>
@@ -369,6 +375,12 @@
             <default>0</default>
             <summary>Weekly task completion goal</summary>
             <description>Number of tasks the user aims to complete each week. 0 means not configured.</description>
+        </key>
+
+        <key name="use-dynamic-goal" type="b">
+            <default>false</default>
+            <summary>Use dynamic productivity goal</summary>
+            <description>When enabled, the daily and weekly goals are calculated automatically based on scheduled tasks instead of fixed values.</description>
         </key>
 
         <key name="backup-automatic" type="b">

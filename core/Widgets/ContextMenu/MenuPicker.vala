@@ -133,8 +133,10 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
             listbox_revealer.reveal_child = !listbox_revealer.reveal_child;
             if (listbox_revealer.reveal_child) {
                 arrow_icon.add_css_class ("opened");
+                value_label.visible = false;
             } else {
                 arrow_icon.remove_css_class ("opened");
+                value_label.visible = true;
             }
         });
     }

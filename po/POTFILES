@@ -118,6 +118,7 @@ src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala
 src/Dialogs/Preferences/Pages/Appearance.vala
 src/Dialogs/Preferences/Pages/Backup.vala
 src/Dialogs/Preferences/Pages/BasePage.vala
+src/Dialogs/Preferences/Pages/CalendarEvents.vala
 src/Dialogs/Preferences/Pages/Donate.vala
 src/Dialogs/Preferences/Pages/General.vala
 src/Dialogs/Preferences/Pages/HomeView.vala
@@ -125,6 +126,7 @@ src/Dialogs/Preferences/Pages/QuickAdd.vala
 src/Dialogs/Preferences/Pages/Sidebar.vala
 src/Dialogs/Preferences/Pages/TaskSetting.vala
 src/Dialogs/Preferences/PreferencesWindow.vala
+src/Dialogs/ProductivityReport/HeatMap.vala
 src/Dialogs/ProductivityReport/ProductivityReport.vala
 src/Dialogs/ProductivityReport/ProductivitySection.vala
 src/Dialogs/ProductivityReport/StatCard.vala
@@ -161,6 +163,7 @@ src/Services/DBusServer.vala
 src/Services/ExportService.vala
 src/Services/MigrateFromPlanner.vala
 src/Services/Notification.vala
+src/Services/ProductivityService.vala
 src/Services/TimeMonitor.vala
 src/Utils/TaskUtils.vala
 src/Views/Filter.vala
@@ -197,6 +200,7 @@ src/Widgets/MagicButton.vala
 src/Widgets/MultiSelectToolbar.vala
 src/Widgets/NewVersionPopup.vala
 src/Widgets/PinnedItemsBox.vala
+src/Widgets/ProductivityMiniWidget.vala
 src/Widgets/ProjectItemRow.vala
 src/Widgets/ReorderChild.vala
 src/Widgets/ScrolledWindow.vala
