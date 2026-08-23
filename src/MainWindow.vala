@@ -747,11 +747,33 @@ public class MainWindow : Adw.ApplicationWindow {
         }
     }
 
+    private void update_productivity_visibility (Widgets.ContextMenu.MenuItem item, Widgets.ProductivityMiniWidget mini) {
+        bool show_mini = Services.ProductivityService.instance ().has_goals ();
+        item.visible = !show_mini;
+        mini.visible = show_mini;
+    }
+
     private Gtk.Popover build_menu_app () {
         var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
         preferences_item.secondary_text = "Ctrl+,";
 
         var productivity_item = new Widgets.ContextMenu.MenuItem (Markup.escape_text (_("Summary & Productivity")));
+
+        var productivity_mini = new Widgets.ProductivityMiniWidget ();
+
+        var settings = Services.Settings.get_default ().settings;
+
+        update_productivity_visibility (productivity_item, productivity_mini);
+
+        settings.changed["daily-task-goal"].connect (() => {
+            update_productivity_visibility (productivity_item, productivity_mini);
+            productivity_mini.refresh ();
+        });
+
+        settings.changed["use-dynamic-goal"].connect (() => {
+            update_productivity_visibility (productivity_item, productivity_mini);
+            productivity_mini.refresh ();
+        });
 
         var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
         keyboard_shortcuts_item.secondary_text = "F1";
@@ -766,6 +788,7 @@ public class MainWindow : Adw.ApplicationWindow {
         menu_box.append (preferences_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (productivity_item);
+        menu_box.append (productivity_mini);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (archive_item);
         menu_box.append (archive_separator);
@@ -780,6 +803,12 @@ public class MainWindow : Adw.ApplicationWindow {
         };
 
         productivity_item.clicked.connect (() => {
+            popover.popdown ();
+            var dialog = new Dialogs.ProductivityReport.ProductivityReportDialog ();
+            dialog.present (Planify._instance.main_window);
+        });
+
+        productivity_mini.clicked.connect (() => {
             popover.popdown ();
             var dialog = new Dialogs.ProductivityReport.ProductivityReportDialog ();
             dialog.present (Planify._instance.main_window);

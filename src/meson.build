@@ -36,6 +36,7 @@ sources = files(
     'Services/BackupManager.vala',
   'Services/MigrateFromPlanner.vala',
   'Services/ExportService.vala',
+  'Services/ProductivityService.vala',
 
   'Utils/TaskUtils.vala',
 
@@ -63,6 +64,7 @@ sources = files(
   'Widgets/LabelsSummary.vala',
   'Widgets/SectionsOrderPopover.vala',
   'Widgets/ScrolledWindow.vala',
+  'Widgets/ProductivityMiniWidget.vala',
   'Widgets/ReorderChild.vala',
   'Widgets/FilterFlowBox.vala',
   'Widgets/FilterFlowBoxChild.vala',
@@ -113,6 +115,7 @@ sources = files(
   'Dialogs/ProductivityReport/SummarySection.vala',
   'Dialogs/ProductivityReport/ProductivitySection.vala',
   'Dialogs/ProductivityReport/StatCard.vala',
+  'Dialogs/ProductivityReport/HeatMap.vala',
   
   'Dialogs/QuickFind/QuickFind.vala',
   'Dialogs/QuickFind/QuickFindItem.vala',

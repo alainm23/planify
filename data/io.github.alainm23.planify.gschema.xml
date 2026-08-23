@@ -377,6 +377,12 @@
             <description>Number of tasks the user aims to complete each week. 0 means not configured.</description>
         </key>
 
+        <key name="use-dynamic-goal" type="b">
+            <default>false</default>
+            <summary>Use dynamic productivity goal</summary>
+            <description>When enabled, the daily and weekly goals are calculated automatically based on scheduled tasks instead of fixed values.</description>
+        </key>
+
         <key name="backup-automatic" type="b">
             <default>true</default>
             <summary>Automatic daily backup</summary>
