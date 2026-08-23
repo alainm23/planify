@@ -79,7 +79,7 @@ public class Dialogs.ProductivityReport.HeatMap : Adw.Bin {
         var today = Utils.Datetime.get_date_only (new GLib.DateTime.now_local ());
 
         int today_dow = today.get_day_of_week (); // 1=Mon, 7=Sun
-        var grid_start = today.add_days (-(today_dow - 1) - 49); // Monday 8 weeks ago
+        var grid_start = today.add_days (- (today_dow - 1) - 49); // Monday 8 weeks ago
 
         var counts = new Gee.HashMap<string, int> ();
         foreach (Objects.Item item in Services.Store.instance ().items) {
