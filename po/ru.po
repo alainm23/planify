@@ -509,7 +509,7 @@ msgstr ""
 "Попробуйте создать проект в Planify."
 
 #: core/QuickAddCore.vala:1449 src/MainWindow.vala:751 src/MainWindow.vala:753
-#: src/MainWindow.vala:754 src/MainWindow.vala:756
+#: src/MainWindow.vala:754 src/MainWindow.vala:756 src/MainWindow.vala:778
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
@@ -1343,6 +1343,7 @@ msgstr "Следующая неделя"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:543
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 msgid "Save"
 msgstr "Сохранить"
 
@@ -1901,6 +1902,7 @@ msgstr "Фильтр"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:756
 #: src/MainWindow.vala:758 src/MainWindow.vala:759 src/MainWindow.vala:761
+#: src/MainWindow.vala:783
 msgid "Archived Projects"
 msgstr "Архивированные проекты"
 
@@ -2757,6 +2759,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:746
 #: src/MainWindow.vala:748 src/MainWindow.vala:749 src/MainWindow.vala:751
+#: src/MainWindow.vala:757
 msgid "Preferences"
 msgstr "Параметры"
 
@@ -2876,11 +2879,14 @@ msgstr "Безвозвратно удаляет списки, задачи и н
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
 #: src/MainWindow.vala:749 src/MainWindow.vala:752 src/MainWindow.vala:754
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
+#: src/MainWindow.vala:760
 msgid "Summary & Productivity"
 msgstr "Сводка и Продуктивность"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:207
 msgid "Set Up Goals"
 msgstr "Поставить цели"
 
@@ -2889,28 +2895,35 @@ msgid "Define how many tasks you want to complete per day and week"
 msgstr "Определите, сколько задач вы хотите выполнить в день и неделю"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:207
 msgid "Summary Details"
 msgstr "Подробности сводки"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:208
 msgid "Detailed summary will appear here"
 msgstr "Здесь появится подробная сводка"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
 #: src/Dialogs/ProductivityReport/SummarySection.vala:33
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:216
 msgid "Summary"
 msgstr "Сводка"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:224
 msgid "Productivity Details"
 msgstr "Детали производительности"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:225
 msgid "Detailed productivity stats will appear here"
 msgstr "Подробные данные о производительности появятся здесь"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:233
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:38
 msgid "Productivity"
 msgstr "Продуктивность"
 
@@ -2918,48 +2931,60 @@ msgstr "Продуктивность"
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
 #: src/MainWindow.vala:825 src/MainWindow.vala:827 src/MainWindow.vala:828
 #: src/MainWindow.vala:830
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
+#: src/MainWindow.vala:859
 msgid "See More"
 msgstr "Подробнее"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:165
 msgid "All goals achieved! You're unstoppable"
 msgstr "Все цели достигнуты! Вы неудержимы"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:169
 msgid "Daily goal crushed! Keep the momentum going"
 msgstr "Ежедневная цель сокрушена! Не сбавляйте темп"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:173
 #, fuzzy
 msgid "Weekly goal achieved! Enjoy the rest of your week"
 msgstr ""
 "Еженедельная цель достигнута! Наслаждайтесь остальной частью вашей недели"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:177
 msgid "Start your day, your first task awaits"
 msgstr "Начните свой день, ваша первая задача ждет"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:181
 msgid "Almost there! Just a few more tasks today"
 msgstr "Почти готово! Осталось всего несколько задач на сегодня"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:185
 msgid "Great pace this week, you're almost at your goal"
 msgstr "Отличный темп на этой неделе, ты почти у цели"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:189
 msgid "Halfway through your daily goal, nice progress"
 msgstr "Половина пути к вашей ежедневной цели, хороший прогресс"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:193
 msgid "Solid week so far, keep it up"
 msgstr "Неплохая неделя пока что, продолжай в том же духе"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:196
 msgid "Every task completed is a step forward"
 msgstr "Каждая выполненная задача — это шаг вперёд"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:200
 msgid "Set your daily and weekly goals to start tracking your productivity"
 msgstr ""
 "Установите ежедневные и еженедельные цели, чтобы отслеживать свою "
@@ -2976,14 +3001,20 @@ msgid "This Month"
 msgstr "В этом месяце"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:93
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
+#: src/Widgets/ProductivityMiniWidget.vala:31
 msgid "Daily Goal"
 msgstr "Ежедневная цель"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:98
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:263
 msgid "Weekly Goal"
 msgstr "Еженедельная цель"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:321
 msgid "Edit Goals"
 msgstr "Изменить цели"
 
@@ -3358,32 +3389,33 @@ msgid "Sync Now"
 msgstr ""
 
 #: src/MainWindow.vala:754 src/MainWindow.vala:756 src/MainWindow.vala:757
-#: src/MainWindow.vala:759
+#: src/MainWindow.vala:759 src/MainWindow.vala:781
 msgid "About Planify"
 msgstr "О Planify"
 
 #: src/MainWindow.vala:822 src/MainWindow.vala:824 src/MainWindow.vala:825
-#: src/MainWindow.vala:827
+#: src/MainWindow.vala:827 src/MainWindow.vala:856
 msgid "Oops! Something happened"
 msgstr "Произошла ошибка"
 
 #: src/MainWindow.vala:841 src/Widgets/ItemChangeHistoryRow.vala:48
 #: src/MainWindow.vala:843 src/MainWindow.vala:844 src/MainWindow.vala:846
+#: src/MainWindow.vala:875
 msgid "Task completed"
 msgstr "Задача выполнена"
 
 #: src/MainWindow.vala:842 src/MainWindow.vala:844 src/MainWindow.vala:845
-#: src/MainWindow.vala:847
+#: src/MainWindow.vala:847 src/MainWindow.vala:876
 msgid "View"
 msgstr "Обзор"
 
 #: src/MainWindow.vala:880 src/MainWindow.vala:882 src/MainWindow.vala:883
-#: src/MainWindow.vala:885
+#: src/MainWindow.vala:885 src/MainWindow.vala:914
 msgid "Database Integrity Check Failed"
 msgstr "Проверка целостности базы данных не выполнена"
 
 #: src/MainWindow.vala:881 src/MainWindow.vala:883 src/MainWindow.vala:884
-#: src/MainWindow.vala:886
+#: src/MainWindow.vala:886 src/MainWindow.vala:915
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3407,7 +3439,7 @@ msgstr ""
 "Благодарим вас за терпение"
 
 #: src/MainWindow.vala:883 src/MainWindow.vala:885 src/MainWindow.vala:886
-#: src/MainWindow.vala:888
+#: src/MainWindow.vala:888 src/MainWindow.vala:917
 msgid "Reset Database"
 msgstr "Сбросить базу данных"
 
@@ -4096,6 +4128,63 @@ msgstr ""
 
 #: src/Dialogs/ManageSectionOrder.vala:89
 msgid "Add a section to organize your tasks"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "M"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "T"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "W"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "F"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "S"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:57
+msgid "Last 8 weeks"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:119
+#, c-format
+msgid "%d task"
+msgid_plural "%d tasks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:87
+msgid "Use Scheduled Tasks as Goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:88
+msgid "Use today's scheduled tasks as your daily goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:103
+msgid "Fixed Goals"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:117
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:121
+#: src/Widgets/ProductivityMiniWidget.vala:76
+msgid "(scheduled)"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:313
+msgid "Goals"
+msgstr ""
+
+#: src/Widgets/ProductivityMiniWidget.vala:75
+msgid "No tasks scheduled"
 msgstr ""
 
 # # c-format

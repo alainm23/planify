@@ -277,11 +277,9 @@ msgstr "近期"
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/Calendar/CalendarScroll.vala:56
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:388
-#: src/Dialogs/DatePicker.vala:62
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:285
-#: src/Layouts/ItemBoard.vala:813 src/Layouts/ItemRow.vala:1243
-#: src/Views/Project/Project.vala:573 src/Views/Project/Project.vala:739
-#: src/Views/Today.vala:203
+#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:813
+#: src/Layouts/ItemRow.vala:1243 src/Views/Project/Project.vala:573
+#: src/Views/Project/Project.vala:739 src/Views/Today.vala:203
 msgid "Today"
 msgstr "今天"
 
@@ -484,7 +482,7 @@ msgid ""
 msgstr ""
 "抱歉，快速添加功能找不到任何可用的项目，请先在 Planify 中创建一个项目。"
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:756
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:778
 msgid "Keyboard Shortcuts"
 msgstr "快捷键"
 
@@ -1285,12 +1283,11 @@ msgid "Next week"
 msgstr "下周"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:543
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 msgid "Save"
 msgstr "保存"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:579
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
 msgid "Daily"
 msgstr "每天"
 
@@ -1303,7 +1300,6 @@ msgid "Weekends"
 msgstr "周末"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:591
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 msgid "Weekly"
 msgstr "每周"
 
@@ -1813,7 +1809,7 @@ msgstr "更新标签"
 msgid "Filter"
 msgstr "筛选"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:761
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:783
 msgid "Archived Projects"
 msgstr "已归档项目"
 
@@ -2644,7 +2640,7 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr "启用后，将默认在任务到期前添加提醒。"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:751
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:757
 msgid "Preferences"
 msgstr "偏好设置"
 
@@ -2761,112 +2757,152 @@ msgstr "删除所有数据？"
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "不可逆地删除所有列表、任务和提醒"
 
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "M"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "T"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "W"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "F"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "S"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:57
+msgid "Last 8 weeks"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:119
+#, c-format
+msgid "%d task"
+msgid_plural "%d tasks"
+msgstr[0] ""
+
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:754
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
+#: src/MainWindow.vala:760
 msgid "Summary & Productivity"
 msgstr "摘要与效率"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
-msgid "Set Up Goals"
-msgstr "设置目标"
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:87
+msgid "Use Scheduled Tasks as Goal"
+msgstr ""
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
-msgid "Define how many tasks you want to complete per day and week"
-msgstr "设定您每天和每周想要完成的任务数量"
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:88
+msgid "Use today's scheduled tasks as your daily goal"
+msgstr ""
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:93
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
+#: src/Widgets/ProductivityMiniWidget.vala:31
+msgid "Daily Goal"
+msgstr "每日目标"
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:98
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:263
+msgid "Weekly Goal"
+msgstr "每周目标"
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:103
+msgid "Fixed Goals"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:207
 msgid "Summary Details"
 msgstr "摘要详情"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:208
 msgid "Detailed summary will appear here"
 msgstr "详细摘要将显示在此处"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:216
 #: src/Dialogs/ProductivityReport/SummarySection.vala:33
 msgid "Summary"
 msgstr "摘要"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:224
 msgid "Productivity Details"
 msgstr "效率详情"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:225
 msgid "Detailed productivity stats will appear here"
 msgstr "详细效率统计将显示在此处"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:233
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:38
 msgid "Productivity"
 msgstr "效率"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:830
+#: src/MainWindow.vala:859
 msgid "See More"
 msgstr "查看更多"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:117
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:121
+#: src/Widgets/ProductivityMiniWidget.vala:76
+msgid "(scheduled)"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:165
 msgid "All goals achieved! You're unstoppable"
 msgstr "所有目标已达成！您势不可挡"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:169
 msgid "Daily goal crushed! Keep the momentum going"
 msgstr "每日目标已完成！保持势头"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:173
 msgid "Weekly goal achieved! Enjoy the rest of your week"
 msgstr "每周目标已达成！享受本周剩余时光"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:177
 msgid "Start your day, your first task awaits"
 msgstr "开始新的一天，您的第一个任务在等着您"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:181
 msgid "Almost there! Just a few more tasks today"
 msgstr "快完成了！今天只需再完成几个任务"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:185
 msgid "Great pace this week, you're almost at your goal"
 msgstr "本周进展良好，您已接近目标"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:189
 msgid "Halfway through your daily goal, nice progress"
 msgstr "每日目标已完成一半，进展不错"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:193
 msgid "Solid week so far, keep it up"
 msgstr "本周表现稳健，继续保持"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:196
 msgid "Every task completed is a step forward"
 msgstr "每完成一个任务都是向前迈出的一步"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:200
 msgid "Set your daily and weekly goals to start tracking your productivity"
 msgstr "设置每日和每周目标以开始追踪您的效率"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:286
-#: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
-msgid "This Week"
-msgstr "本周"
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:207
+msgid "Set Up Goals"
+msgstr "设置目标"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:287
-#: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
-msgid "This Month"
-msgstr "本月"
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:313
+msgid "Goals"
+msgstr ""
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
-msgid "Daily Goal"
-msgstr "每日目标"
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
-msgid "Weekly Goal"
-msgstr "每周目标"
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:321
 msgid "Edit Goals"
 msgstr "编辑目标"
 
@@ -3222,27 +3258,27 @@ msgstr "任务已在其他设备上修改"
 msgid "Sync Now"
 msgstr "立即同步"
 
-#: src/MainWindow.vala:759
+#: src/MainWindow.vala:781
 msgid "About Planify"
 msgstr "关于 Planify"
 
-#: src/MainWindow.vala:827
+#: src/MainWindow.vala:856
 msgid "Oops! Something happened"
 msgstr "糟糕！出了点问题"
 
-#: src/MainWindow.vala:846 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:875 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "任务已完成"
 
-#: src/MainWindow.vala:847
+#: src/MainWindow.vala:876
 msgid "View"
 msgstr "查看"
 
-#: src/MainWindow.vala:885
+#: src/MainWindow.vala:914
 msgid "Database Integrity Check Failed"
 msgstr "数据库完整性检查失败"
 
-#: src/MainWindow.vala:886
+#: src/MainWindow.vala:915
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3261,7 +3297,7 @@ msgstr ""
 "\n"
 "重置后，您可以恢复之前创建的任何备份。感谢您的耐心等待。"
 
-#: src/MainWindow.vala:888
+#: src/MainWindow.vala:917
 msgid "Reset Database"
 msgstr "重置数据库"
 
@@ -3459,9 +3495,17 @@ msgstr "截止日期"
 msgid "All (default)"
 msgstr "全部（默认）"
 
+#: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
+msgid "This Week"
+msgstr "本周"
+
 #: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
 msgid "Next 7 Days"
 msgstr "未来 7 天"
+
+#: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
+msgid "This Month"
+msgstr "本月"
 
 #: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
 msgid "Next 30 Days"
@@ -3772,6 +3816,10 @@ msgstr "立即更新"
 msgid "Dismiss"
 msgstr "忽略"
 
+#: src/Widgets/ProductivityMiniWidget.vala:75
+msgid "No tasks scheduled"
+msgstr ""
+
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:185
 msgid "Unarchive"
 msgstr "取消归档"
@@ -3920,6 +3968,9 @@ msgstr "打开标签"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "打开置顶板"
+
+#~ msgid "Define how many tasks you want to complete per day and week"
+#~ msgstr "设定您每天和每周想要完成的任务数量"
 
 #, c-format
 #~ msgid "Processing task %d of %d"
