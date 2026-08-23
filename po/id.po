@@ -277,11 +277,9 @@ msgstr "akan datang"
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/Calendar/CalendarScroll.vala:56
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:388
-#: src/Dialogs/DatePicker.vala:62
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:285
-#: src/Layouts/ItemBoard.vala:813 src/Layouts/ItemRow.vala:1243
-#: src/Views/Project/Project.vala:573 src/Views/Project/Project.vala:739
-#: src/Views/Today.vala:203
+#: src/Dialogs/DatePicker.vala:62 src/Layouts/ItemBoard.vala:813
+#: src/Layouts/ItemRow.vala:1243 src/Views/Project/Project.vala:573
+#: src/Views/Project/Project.vala:739 src/Views/Today.vala:203
 msgid "Today"
 msgstr "Hari ini"
 
@@ -485,7 +483,7 @@ msgstr ""
 "Maaf, Tambah Cepat tidak dapat menemukan proyek yang tersedia; coba buat "
 "proyek dari Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:756
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:778
 msgid "Keyboard Shortcuts"
 msgstr "Pintasan papan ketik"
 
@@ -1315,12 +1313,11 @@ msgid "Next week"
 msgstr "Minggu depan"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:543
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 msgid "Save"
 msgstr "Simpan"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:579
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
 msgid "Daily"
 msgstr "Harian"
 
@@ -1333,7 +1330,6 @@ msgid "Weekends"
 msgstr "Akhir pekan"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:591
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 msgid "Weekly"
 msgstr "Mingguan"
 
@@ -1862,7 +1858,7 @@ msgstr "Perbarui Label"
 msgid "Filter"
 msgstr "Filter"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:761
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:783
 msgid "Archived Projects"
 msgstr "Proyek yang Diarsipkan"
 
@@ -2728,7 +2724,7 @@ msgstr ""
 "Jika diaktifkan, pengingat sebelum waktu jatuh tempo tugas akan ditambahkan "
 "secara bawaan."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:751
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:757
 msgid "Preferences"
 msgstr "Preferensi"
 
@@ -2845,115 +2841,153 @@ msgstr "Hapus Semua Data?"
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
 msgstr "Menghapus semua daftar, tugas, dan pengingat Anda secara permanen"
 
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "M"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "T"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "W"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "F"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:34
+msgid "S"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:57
+msgid "Last 8 weeks"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/HeatMap.vala:119
+#, c-format
+msgid "%d task"
+msgid_plural "%d tasks"
+msgstr[0] ""
+
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
-#: src/MainWindow.vala:754
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
+#: src/MainWindow.vala:760
 msgid "Summary & Productivity"
 msgstr "Ringkasan & Produktivitas"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:86
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:260
-msgid "Set Up Goals"
-msgstr "Siapkan Sasaran"
-
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:91
-msgid "Define how many tasks you want to complete per day and week"
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:87
+msgid "Use Scheduled Tasks as Goal"
 msgstr ""
-"Tentukan berapa banyak tugas yang ingin Anda selesaikan per hari dan per "
-"minggu"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:250
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:88
+msgid "Use today's scheduled tasks as your daily goal"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:93
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
+#: src/Widgets/ProductivityMiniWidget.vala:31
+msgid "Daily Goal"
+msgstr "Sasaran Harian"
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:98
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:263
+msgid "Weekly Goal"
+msgstr "Sasaran Mingguan"
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:103
+msgid "Fixed Goals"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:207
 msgid "Summary Details"
 msgstr "Detail Ringkasan"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:251
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:208
 msgid "Detailed summary will appear here"
 msgstr "Detail ringkasan akan muncul di sini"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:259
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:216
 #: src/Dialogs/ProductivityReport/SummarySection.vala:33
 msgid "Summary"
 msgstr "Ringkasan"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:267
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:224
 msgid "Productivity Details"
 msgstr "Detail Produktivitas"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:268
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:225
 msgid "Detailed productivity stats will appear here"
 msgstr "Statistik produktivitas terperinci akan muncul di sini"
 
-#: src/Dialogs/ProductivityReport/ProductivityReport.vala:276
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:40
+#: src/Dialogs/ProductivityReport/ProductivityReport.vala:233
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:38
 msgid "Productivity"
 msgstr "Produktivitas"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:45
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:830
+#: src/MainWindow.vala:859
 msgid "See More"
 msgstr "Lihat Selengkapnya"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:204
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:117
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:121
+#: src/Widgets/ProductivityMiniWidget.vala:76
+msgid "(scheduled)"
+msgstr ""
+
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:165
 msgid "All goals achieved! You're unstoppable"
 msgstr "Semua sasaran tercapai! Anda luar biasa"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:208
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:169
 msgid "Daily goal crushed! Keep the momentum going"
 msgstr "Sasaran harian tercapai! Pertahankan momentumnya"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:212
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:173
 msgid "Weekly goal achieved! Enjoy the rest of your week"
 msgstr "Sasaran mingguan tercapai! Nikmati sisa minggu Anda"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:216
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:177
 msgid "Start your day, your first task awaits"
 msgstr "Mulailah hari Anda, tugas pertama menunggu"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:220
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:181
 msgid "Almost there! Just a few more tasks today"
 msgstr "Sedikit lagi! Tinggal beberapa tugas lagi hari ini"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:224
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:185
 msgid "Great pace this week, you're almost at your goal"
 msgstr "Laju minggu ini bagus, Anda hampir mencapai sasaran"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:228
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:189
 msgid "Halfway through your daily goal, nice progress"
 msgstr "Setengah jalan menuju sasaran harian, progres bagus"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:232
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:193
 msgid "Solid week so far, keep it up"
 msgstr "Minggu ini berjalan solid, lanjutkan"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:196
 msgid "Every task completed is a step forward"
 msgstr "Setiap tugas yang selesai adalah satu langkah ke depan"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:253
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:200
 msgid "Set your daily and weekly goals to start tracking your productivity"
 msgstr ""
 "Tetapkan sasaran harian dan mingguan Anda untuk mulai melacak produktivitas"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:286
-#: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
-msgid "This Week"
-msgstr "Minggu Ini"
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:207
+msgid "Set Up Goals"
+msgstr "Siapkan Sasaran"
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:287
-#: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
-msgid "This Month"
-msgstr "Bulan Ini"
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:313
+msgid "Goals"
+msgstr ""
 
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:300
-msgid "Daily Goal"
-msgstr "Sasaran Harian"
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:328
-msgid "Weekly Goal"
-msgstr "Sasaran Mingguan"
-
-#: src/Dialogs/ProductivityReport/ProductivitySection.vala:380
+#: src/Dialogs/ProductivityReport/ProductivitySection.vala:321
 msgid "Edit Goals"
 msgstr "Edit Sasaran"
 
@@ -3311,27 +3345,27 @@ msgstr "Tugas diubah di perangkat lain"
 msgid "Sync Now"
 msgstr "Sinkronkan Sekarang"
 
-#: src/MainWindow.vala:759
+#: src/MainWindow.vala:781
 msgid "About Planify"
 msgstr "Tentang Planify"
 
-#: src/MainWindow.vala:827
+#: src/MainWindow.vala:856
 msgid "Oops! Something happened"
 msgstr "Ups! Terjadi sesuatu"
 
-#: src/MainWindow.vala:846 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:875 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Tugas selesai"
 
-#: src/MainWindow.vala:847
+#: src/MainWindow.vala:876
 msgid "View"
 msgstr "Tampilan"
 
-#: src/MainWindow.vala:885
+#: src/MainWindow.vala:914
 msgid "Database Integrity Check Failed"
 msgstr "Pemeriksaan Integritas Basis Data Gagal"
 
-#: src/MainWindow.vala:886
+#: src/MainWindow.vala:915
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3354,7 +3388,7 @@ msgstr ""
 "Setelah reset, Anda akan dapat memulihkan cadangan apa pun yang sebelumnya "
 "Anda buat. Terima kasih atas kesabaran Anda"
 
-#: src/MainWindow.vala:888
+#: src/MainWindow.vala:917
 msgid "Reset Database"
 msgstr "Reset Basis Data"
 
@@ -3553,9 +3587,17 @@ msgstr "Tanggal jatuh tempo"
 msgid "All (default)"
 msgstr "Semua (bawaan)"
 
+#: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
+msgid "This Week"
+msgstr "Minggu Ini"
+
 #: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
 msgid "Next 7 Days"
 msgstr "7 Hari Ke Depan"
+
+#: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
+msgid "This Month"
+msgstr "Bulan Ini"
 
 #: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
 msgid "Next 30 Days"
@@ -3871,6 +3913,10 @@ msgstr "Perbarui Sekarang"
 msgid "Dismiss"
 msgstr "Tutup"
 
+#: src/Widgets/ProductivityMiniWidget.vala:75
+msgid "No tasks scheduled"
+msgstr ""
+
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:185
 msgid "Unarchive"
 msgstr "Batalkan arsip"
@@ -4019,6 +4065,11 @@ msgstr "Buka Label"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Buka Papan Sematan"
+
+#~ msgid "Define how many tasks you want to complete per day and week"
+#~ msgstr ""
+#~ "Tentukan berapa banyak tugas yang ingin Anda selesaikan per hari dan per "
+#~ "minggu"
 
 #, c-format
 #~ msgid "Load more history from %d week ago…"
