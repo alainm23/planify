@@ -30,12 +30,12 @@ public class Services.ProductivityService : Object {
 
     public signal void stats_changed ();
 
-    public int completed_today  { get; private set; default = 0; }
-    public int completed_week   { get; private set; default = 0; }
-    public int completed_month  { get; private set; default = 0; }
-    public int daily_goal       { get; private set; default = 0; }
-    public int weekly_goal      { get; private set; default = 0; }
-    public bool use_dynamic     { get; private set; default = false; }
+    public int completed_today { get; private set; default = 0; }
+    public int completed_week { get; private set; default = 0; }
+    public int completed_month { get; private set; default = 0; }
+    public int daily_goal { get; private set; default = 0; }
+    public int weekly_goal { get; private set; default = 0; }
+    public bool use_dynamic { get; private set; default = false; }
 
     public double daily_progress {
         get { return daily_goal > 0 ? (double) completed_today / daily_goal : 0.0; }
