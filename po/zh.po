@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"Last-Translator: Dawn Chan <dawnchan030920@outlook.com>\n"
+"Last-Translator: Jeff Wang <jeff@wangjunfeng.com.cn>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hans/>\n"
 "Language: zh\n"
@@ -1830,11 +1830,11 @@ msgstr "新建分区"
 
 #: src/Dialogs/ManageSectionOrder.vala:88
 msgid "No Sections"
-msgstr ""
+msgstr "暂无分区"
 
 #: src/Dialogs/ManageSectionOrder.vala:89
 msgid "Add a section to organize your tasks"
-msgstr ""
+msgstr "添加一个分区来组织你的任务"
 
 #: src/Dialogs/ManageSectionOrder.vala:100
 msgid "Archived"
@@ -2759,27 +2759,27 @@ msgstr "不可逆地删除所有列表、任务和提醒"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "T"
-msgstr ""
+msgstr "T"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "W"
-msgstr ""
+msgstr "W"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "F"
-msgstr ""
+msgstr "F"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:57
 msgid "Last 8 weeks"
-msgstr ""
+msgstr "近8周"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:119
 #, c-format
@@ -2795,11 +2795,11 @@ msgstr "摘要与效率"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:87
 msgid "Use Scheduled Tasks as Goal"
-msgstr ""
+msgstr "将计划任务设为目标"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:88
 msgid "Use today's scheduled tasks as your daily goal"
-msgstr ""
+msgstr "将今日的计划任务设为您每日目标"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:93
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
@@ -2814,7 +2814,7 @@ msgstr "每周目标"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:103
 msgid "Fixed Goals"
-msgstr ""
+msgstr "固定目标"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:207
 msgid "Summary Details"
@@ -2852,7 +2852,7 @@ msgstr "查看更多"
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:121
 #: src/Widgets/ProductivityMiniWidget.vala:76
 msgid "(scheduled)"
-msgstr ""
+msgstr "(计划中)"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:165
 msgid "All goals achieved! You're unstoppable"
@@ -2900,7 +2900,7 @@ msgstr "设置目标"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:313
 msgid "Goals"
-msgstr ""
+msgstr "目标"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:321
 msgid "Edit Goals"
@@ -3818,7 +3818,7 @@ msgstr "忽略"
 
 #: src/Widgets/ProductivityMiniWidget.vala:75
 msgid "No tasks scheduled"
-msgstr ""
+msgstr "没有计划中的任务"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:185
 msgid "Unarchive"
