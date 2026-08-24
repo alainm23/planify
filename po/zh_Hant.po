@@ -272,8 +272,8 @@ msgstr "行程"
 msgid "upcoming"
 msgstr "即將來到"
 
-#: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:68
-#: core/Utils/Datetime.vala:89 core/Utils/Datetime.vala:782
+#: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:60
+#: core/Utils/Datetime.vala:81 core/Utils/Datetime.vala:774
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/Calendar/CalendarScroll.vala:56
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:388
@@ -287,8 +287,8 @@ msgstr "今日"
 msgid "today"
 msgstr "今日"
 
-#: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:70
-#: core/Utils/Datetime.vala:784
+#: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:62
+#: core/Utils/Datetime.vala:776
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:394
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:66
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1246
@@ -664,124 +664,124 @@ msgid ""
 "to continue syncing."
 msgstr "Todoist 已經更新其 API。請在〔偏好設定〕中重新連接您的帳戶以繼續同步。"
 
-#: core/Utils/Datetime.vala:72 core/Utils/Datetime.vala:786
+#: core/Utils/Datetime.vala:64 core/Utils/Datetime.vala:778
 msgid "Yesterday"
 msgstr "昨日"
 
-#: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
+#: core/Utils/Datetime.vala:83 core/Utils/Datetime.vala:85
 msgid "days"
 msgstr "日"
 
-#: core/Utils/Datetime.vala:91 core/Utils/Datetime.vala:93
+#: core/Utils/Datetime.vala:83 core/Utils/Datetime.vala:85
 msgid "day"
 msgstr "日"
 
-#: core/Utils/Datetime.vala:91
+#: core/Utils/Datetime.vala:83
 #, c-format
 msgid "%s %s ago"
 msgstr "%s %s 之前"
 
-#: core/Utils/Datetime.vala:93
+#: core/Utils/Datetime.vala:85
 #, c-format
 msgid "%s %s left"
 msgstr "%s %s 剩下"
 
-#: core/Utils/Datetime.vala:103
+#: core/Utils/Datetime.vala:95
 msgid "%-l:%M:%S %p"
 msgstr "%-l:%M:%S %p"
 
-#: core/Utils/Datetime.vala:106
+#: core/Utils/Datetime.vala:98
 msgid "%-l:%M %p"
 msgstr "%-l:%M %p"
 
-#: core/Utils/Datetime.vala:111
+#: core/Utils/Datetime.vala:103
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
-#: core/Utils/Datetime.vala:114
+#: core/Utils/Datetime.vala:106
 msgid "%H:%M"
 msgstr "%H:%M"
 
-#: core/Utils/Datetime.vala:475
+#: core/Utils/Datetime.vala:467
 msgid "Every last day of month"
 msgstr "月底最後一天"
 
-#: core/Utils/Datetime.vala:476
+#: core/Utils/Datetime.vala:468
 #, c-format
 msgid "Every %d months (last day)"
 msgstr "每隔 %d 個月(最後一天)"
 
-#: core/Utils/Datetime.vala:481
+#: core/Utils/Datetime.vala:473
 msgid "Mo,"
 msgstr "週一、"
 
-#: core/Utils/Datetime.vala:485
+#: core/Utils/Datetime.vala:477
 msgid "Tu,"
 msgstr "週二、"
 
-#: core/Utils/Datetime.vala:489
+#: core/Utils/Datetime.vala:481
 msgid "We,"
 msgstr "週三、"
 
-#: core/Utils/Datetime.vala:493
+#: core/Utils/Datetime.vala:485
 msgid "Th,"
 msgstr "週四、"
 
-#: core/Utils/Datetime.vala:497
+#: core/Utils/Datetime.vala:489
 msgid "Fr,"
 msgstr "週五、"
 
-#: core/Utils/Datetime.vala:501
+#: core/Utils/Datetime.vala:493
 msgid "Sa,"
 msgstr "週六、"
 
-#: core/Utils/Datetime.vala:505
+#: core/Utils/Datetime.vala:497
 msgid "Su,"
 msgstr "週日、"
 
-#: core/Utils/Datetime.vala:790
+#: core/Utils/Datetime.vala:782
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
 msgstr[0] "於 %d 日內"
 
-#: core/Utils/Datetime.vala:792
+#: core/Utils/Datetime.vala:784
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
 msgstr[0] "%d 日之前"
 
-#: core/Utils/Datetime.vala:811
+#: core/Utils/Datetime.vala:803
 msgid "%a, %b %-e, %Y"
 msgstr "%a, %b %-e, %Y"
 
-#: core/Utils/Datetime.vala:814
+#: core/Utils/Datetime.vala:806
 msgid "%b %-e %Y"
 msgstr "%b %-e %Y"
 
-#: core/Utils/Datetime.vala:817 core/Widgets/Calendar/CalendarHeader.vala:36
+#: core/Utils/Datetime.vala:809 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
-#: core/Utils/Datetime.vala:820
+#: core/Utils/Datetime.vala:812
 msgid "%b %-e"
 msgstr "%b %-e"
 
-#: core/Utils/Datetime.vala:823
+#: core/Utils/Datetime.vala:815
 msgid "%a %Y"
 msgstr "%a %Y"
 
-#: core/Utils/Datetime.vala:826
+#: core/Utils/Datetime.vala:818
 #, c-format
 msgid "%a"
 msgstr "%a"
 
-#: core/Utils/Datetime.vala:829
+#: core/Utils/Datetime.vala:821
 msgid "%a, %b %-e"
 msgstr "%a, %b %-e"
 
-#: core/Utils/Datetime.vala:832
+#: core/Utils/Datetime.vala:824
 msgid "%b"
 msgstr "%b"
 
