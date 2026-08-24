@@ -21,37 +21,29 @@
 
 public class Utils.Datetime {
     public static GLib.DateTime ? get_todoist_datetime (string? date) {
-        if (date == "" || date == null) {
+        if (date == null || date == "") {
             return null;
         }
 
-        GLib.DateTime datetime = null;
+        GLib.DateTime? datetime = null;
 
-        // YYYY-MM-DD
-        if (date.length <= 10) {
-            var _date = date.split ("-");
+        try {
+            if (date.length <= 10) {
+                // YYYY-MM-DD
+                var parts = date.split ("-");
+                if (parts.length < 3) return null;
 
-            datetime = new GLib.DateTime.local (
-                int.parse (_date[0]),
-                int.parse (_date[1]),
-                int.parse (_date[2]),
-                0,
-                0,
-                0
-            );
-            // YYYY-MM-DDTHH:MM:SS
-        } else {
-            var _date = date.split ("T")[0].split ("-");
-            var _time = date.split ("T")[1].split (":");
+                int year = int.parse (parts[0]);
+                if (year < 1970) return null;
 
-            datetime = new GLib.DateTime.local (
-                int.parse (_date[0]),
-                int.parse (_date[1]),
-                int.parse (_date[2]),
-                int.parse (_time[0]),
-                int.parse (_time[1]),
-                int.parse (_time[2])
-            );
+                datetime = new GLib.DateTime.local (year, int.parse (parts[1]), int.parse (parts[2]), 0, 0, 0);
+            } else {
+                // YYYY-MM-DDTHH:MM:SS[...] — use from_iso8601 for full datetime strings
+                datetime = new GLib.DateTime.from_iso8601 (date, new GLib.TimeZone.local ());
+                if (datetime == null || datetime.get_year () < 1970) return null;
+            }
+        } catch (Error e) {
+            return null;
         }
 
         return datetime;
