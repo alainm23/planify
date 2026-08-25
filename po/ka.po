@@ -16,6 +16,8 @@ msgstr ""
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
+#: core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
+#: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
 msgid "Projects"
 msgstr "პროექტები"
 
@@ -216,6 +218,7 @@ msgstr "ჟურნალი"
 #: src/Views/Project/Board.vala:250 src/Views/Project/List.vala:325
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:194
 #: src/Widgets/ProjectItemRow.vala:139
+#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:129
 msgid "Inbox"
 msgstr "საფოსტო ყუთი"
 
@@ -372,7 +375,7 @@ msgstr "ეს ქმედება შეუქცევადია"
 #: src/Services/BackupManager.vala:227 src/Views/Filter.vala:629
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:344
+#: src/Widgets/MultiSelectToolbar.vala:344 src/Views/Filter.vala:695
 msgid "Cancel"
 msgstr "გაუქმება"
 
@@ -385,7 +388,7 @@ msgstr "გაუქმება"
 #: src/Layouts/ItemSidebarView.vala:608 src/Services/BackupManager.vala:228
 #: src/Views/Filter.vala:630 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
-#: src/Widgets/MultiSelectToolbar.vala:345
+#: src/Widgets/MultiSelectToolbar.vala:345 src/Views/Filter.vala:696
 msgid "Delete"
 msgstr "წაშლა"
 
@@ -1570,6 +1573,7 @@ msgid "No Section"
 msgstr "სექციის გარეშე"
 
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:46
+#: core/Widgets/ProjectPicker/ProjectPickerCore.vala:57
 msgid "Type a search"
 msgstr "აკრიფეთ მოსაძებნად"
 
@@ -1738,7 +1742,7 @@ msgid "No completed tasks yet."
 msgstr "დასრულებული ამოცანების გარეშე."
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:598
+#: src/Views/Filter.vala:598 src/Views/Filter.vala:664
 msgid "Delete All Completed Tasks"
 msgstr "ყველა დასრულებული ამოცანის წაშლა"
 
@@ -3182,7 +3186,7 @@ msgid "Add tasks"
 msgstr "ამოცანების დამატება"
 
 #: src/Layouts/SectionBoard.vala:175 src/Layouts/SectionRow.vala:217
-#: src/Views/Filter.vala:104
+#: src/Views/Filter.vala:104 src/Views/Filter.vala:147
 msgid "Load more"
 msgstr ""
 
@@ -3205,6 +3209,7 @@ msgid "Delete Section"
 msgstr "განყოფილების წაშლა"
 
 #: src/Layouts/SectionRow.vala:655 src/Views/Filter.vala:362
+#: src/Views/Filter.vala:408
 msgid "No more tasks"
 msgstr ""
 
@@ -3344,19 +3349,19 @@ msgstr "დადუმება 1 საათით"
 
 #: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
 #: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
-#: src/Views/Today.vala:92
+#: src/Views/Today.vala:92 src/Views/Filter.vala:129
 msgid "View Option Menu"
 msgstr "მორგების მენიუს ნახვა"
 
 #: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
 #: src/Views/Project/Board.vala:121 src/Views/Project/List.vala:117
-#: src/Views/Today.vala:309
+#: src/Views/Today.vala:309 src/Views/Filter.vala:168 src/Views/Filter.vala:619
 msgid "Add Some Tasks"
 msgstr "რამდენიმე ამოცანის დამატება"
 
 #: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
 #: src/Views/Project/Board.vala:122 src/Views/Project/List.vala:118
-#: src/Views/Today.vala:310
+#: src/Views/Today.vala:310 src/Views/Filter.vala:169 src/Views/Filter.vala:620
 msgid "Press 'a' to create a new task"
 msgstr "ახალი ამოცანის შესაქმნელად დააჭირეთ ღილაკს 'a'"
 
@@ -3364,11 +3369,11 @@ msgstr "ახალი ამოცანის შესაქმნელა�
 msgid "All tasks completed!"
 msgstr "ყველა ამოცანა დასრულდა!"
 
-#: src/Views/Filter.vala:130
+#: src/Views/Filter.vala:130 src/Views/Filter.vala:617
 msgid "Great job, nothing left to do 🎉"
 msgstr ""
 
-#: src/Views/Filter.vala:359
+#: src/Views/Filter.vala:359 src/Views/Filter.vala:405
 msgid "tasks"
 msgstr ""
 
@@ -3968,6 +3973,25 @@ msgstr "ჭდეების გახან"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "დაფის გახსნა"
+
+#: src/Views/Filter.vala:102 src/Views/Filter.vala:656
+msgid "All Projects"
+msgstr ""
+
+#: src/Views/Filter.vala:613
+msgid "No completed tasks"
+msgstr ""
+
+#: src/Views/Filter.vala:614
+msgid "No tasks found for the selected projects"
+msgstr ""
+
+#: src/Views/Filter.vala:658
+#, c-format
+msgid "%d Project"
+msgid_plural "%d Projects"
+msgstr[0] ""
+msgstr[1] ""
 
 #, fuzzy, c-format
 #~ msgid "Load more history from %d week ago…"
