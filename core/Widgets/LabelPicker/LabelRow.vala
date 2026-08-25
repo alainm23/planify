@@ -87,10 +87,15 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
         loading_revealer = new Gtk.Revealer () {
             child = new Adw.Spinner (),
             hexpand = true,
-            halign = END
+            halign = END,
         };
 
-        content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 6,
+            margin_top = 6,
+            margin_end = 6,
+            margin_bottom = 6
+        };
         content_box.append (checked_button);
         content_box.append (color_grid);
         content_box.append (name_label);
