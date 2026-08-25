@@ -43,12 +43,6 @@ public class Views.Filter : Adw.Bin {
     private int page_index = 0;
     private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
 
-    private bool has_items {
-        get {
-            return items_list != null && items_list.size > 0;
-        }
-    }
-
     private bool has_visible_items {
         get {
             if (items_list == null || items_list.size == 0) return false;
@@ -615,7 +609,7 @@ public class Views.Filter : Adw.Bin {
     }
 
     private void validate_placeholder () {
-        if (!has_visible_items && selected_project_ids.size > 0) {
+        if (filter is Objects.Filters.Completed && !has_visible_items && selected_project_ids.size > 0) {
             listbox_placeholder.title = _("No completed tasks");
             listbox_placeholder.description = _("No tasks found for the selected projects");
         } else if (filter is Objects.Filters.Completed) {
