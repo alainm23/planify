@@ -21,19 +21,30 @@
 
 public class Widgets.ProjectPickerCore : Adw.Bin {
     public Objects.Source ? source { get; construct; }
+    public bool multiselect { get; construct; default = false; }
 
     private Gtk.ListBox listbox;
     private Gtk.Revealer search_entry_revealer;
     private Objects.Project _selected_project;
+    private Gee.ArrayList<string> _selected_ids = new Gee.ArrayList<string> ();
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     public signal void selected (Objects.Project project);
+    public signal void multiselect_changed (Gee.ArrayList<string> ids);
     public signal void close ();
 
     public ProjectPickerCore (Objects.Source ? source = null) {
         Object (
-            source: source
+            source: source,
+            multiselect: false
+        );
+    }
+
+    public ProjectPickerCore.with_multiselect (Objects.Source ? source = null) {
+        Object (
+            source: source,
+            multiselect: true
         );
     }
 
@@ -44,10 +55,8 @@ public class Widgets.ProjectPickerCore : Adw.Bin {
     construct {
         var search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Type a search"),
-            margin_top = 12,
             margin_start = 12,
-            margin_end = 12,
-            margin_bottom = 12
+            margin_end = 12
         };
 
         search_entry_revealer = new Gtk.Revealer () {
@@ -61,7 +70,9 @@ public class Widgets.ProjectPickerCore : Adw.Bin {
             css_classes = { "listbox-background" },
             margin_start = 12,
             margin_end = 12,
-            margin_bottom = 12
+            margin_bottom = 12,
+            margin_top = 6,
+            selection_mode = multiselect ? Gtk.SelectionMode.NONE : Gtk.SelectionMode.SINGLE
         };
 
         listbox.set_sort_func (sort_source_function);
@@ -94,11 +105,14 @@ public class Widgets.ProjectPickerCore : Adw.Bin {
             listbox.invalidate_filter ();
         })] = search_entry;
 
-        signal_map[listbox.row_activated.connect ((row) => {
-            update_selected_project (((Widgets.ProjectPicker.ProjectPickerRow) row).project);
-            selected (_selected_project);
-            close ();
-        })] = listbox;
+        if (!multiselect) {
+            signal_map[listbox.row_activated.connect ((row) => {
+                var project_row = (Widgets.ProjectPicker.ProjectPickerRow) row;
+                update_selected_project (project_row.project);
+                selected (_selected_project);
+                close ();
+            })] = listbox;
+        }
 
         var listbox_controller_key = new Gtk.EventControllerKey ();
         listbox.add_controller (listbox_controller_key);
@@ -192,12 +206,23 @@ public class Widgets.ProjectPickerCore : Adw.Bin {
     }
 
     private Gtk.Widget build_project_row (Objects.Project project) {
-        var row = new Widgets.ProjectPicker.ProjectPickerRow (project);
+        var row = new Widgets.ProjectPicker.ProjectPickerRow (project, multiselect);
 
         signal_map[row.selected.connect (() => {
-            update_selected_project (row.project);
-            selected (_selected_project);
-            close ();
+            if (multiselect) {
+                if (_selected_ids.contains (row.project.id)) {
+                    _selected_ids.remove (row.project.id);
+                    row.is_selected = false;
+                } else {
+                    _selected_ids.add (row.project.id);
+                    row.is_selected = true;
+                }
+                multiselect_changed (_selected_ids);
+            } else {
+                update_selected_project (row.project);
+                selected (_selected_project);
+                close ();
+            }
         })] = row;
 
         return row;
@@ -223,16 +248,30 @@ public class Widgets.ProjectPickerCore : Adw.Bin {
         }
 
         var row = (Widgets.ProjectPicker.ProjectPickerRow) lbrow;
-        
+
         if (row.project.is_inbox_project) {
             row.margin_top = 6;
             row.margin_bottom = 6;
             row.set_header (null);
             return;
         }
-        
+
         if (lbbefore != null && lbbefore is Widgets.ProjectPicker.ProjectPickerRow) {
             var before = (Widgets.ProjectPicker.ProjectPickerRow) lbbefore;
+
+            if (source != null) {
+                if (before.project.is_inbox_project) {
+                    row.set_header (get_header_box (_("Projects")));
+                } else {
+                    row.set_header (null);
+                }
+                return;
+            }
+
+            if (before.project.is_inbox_project) {
+                row.set_header (get_header_box (row.project.source.header_text));
+                return;
+            }
 
             if (row.project.source.id == before.project.source.id) {
                 row.set_header (null);
@@ -240,7 +279,7 @@ public class Widgets.ProjectPickerCore : Adw.Bin {
             }
         }
 
-        row.set_header (get_header_box (row.project.source.header_text));
+        row.set_header (get_header_box (source != null ? _("Projects") : row.project.source.header_text));
     }
 
     private Gtk.Widget get_header_box (string title) {
@@ -251,11 +290,15 @@ public class Widgets.ProjectPickerCore : Adw.Bin {
         };
 
         var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            margin_top = 12,
+            margin_top = 3,
             margin_bottom = 6
         };
 
         header_box.append (header_label);
+        header_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_start = 3,
+            margin_end = 6
+        });
 
         return header_box;
     }
@@ -271,6 +314,14 @@ public class Widgets.ProjectPickerCore : Adw.Bin {
 
     public void set_selected_project (Objects.Project project) {
         update_selected_project (project);
+    }
+
+    public void set_selected_ids (Gee.ArrayList<string> ids) {
+        _selected_ids = ids;
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
+            var row = (Widgets.ProjectPicker.ProjectPickerRow) child;
+            row.is_selected = _selected_ids.contains (row.project.id);
+        }
     }
 
     public void clean_up () {
