@@ -51,6 +51,7 @@ public class Widgets.IconColorProject : Adw.Bin {
             pixel_size = 16,
             valign = CENTER,
             halign = CENTER,
+            css_classes = { "view-icon" }
         };
 
         stack = new Gtk.Stack () {
@@ -74,6 +75,7 @@ public class Widgets.IconColorProject : Adw.Bin {
         emoji_label.label = project.emoji;
 
         if (project.is_inbox_project) {
+            Util.get_default ().set_widget_color (Objects.Filters.Inbox.get_default ().theme_color (), inbox_icon);
             stack.visible_child_name = "inbox";
             return;
         }

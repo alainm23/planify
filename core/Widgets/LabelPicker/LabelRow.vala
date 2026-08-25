@@ -91,10 +91,10 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
         };
 
         content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 6,
-            margin_top = 6,
-            margin_end = 6,
-            margin_bottom = 6
+            margin_start = 3,
+            margin_top = 3,
+            margin_end = 3,
+            margin_bottom = 3
         };
         content_box.append (checked_button);
         content_box.append (color_grid);
