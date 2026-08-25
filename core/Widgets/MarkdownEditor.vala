@@ -150,6 +150,19 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         });
     }
     
+    private string get_theme_color (string color_name, string fallback) {
+        var context = text_view.get_style_context ();
+        Gdk.RGBA color;
+        if (context.lookup_color (color_name, out color)) {
+            return "#%02x%02x%02x".printf (
+                (int)(color.red * 255),
+                (int)(color.green * 255),
+                (int)(color.blue * 255)
+            );
+        }
+        return fallback;
+    }
+
     private void create_text_tags () {
         bold_tag = buffer.create_tag ("bold",
                                      "weight", Pango.Weight.BOLD);
@@ -170,10 +183,10 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         
         code_tag = buffer.create_tag ("code",
                                          "family", "monospace",
-                                         "foreground", "#cf222e");
+                                         "foreground", get_theme_color ("error_color", "#cf222e"));
         
         link_tag = buffer.create_tag ("link",
-                                     "foreground", "#0969da",
+                                     "foreground", get_theme_color ("link_color", "#0969da"),
                                      "underline", Pango.Underline.SINGLE);
         
         invisible_tag = buffer.create_tag ("invisible",
