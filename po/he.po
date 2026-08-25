@@ -1361,7 +1361,7 @@ msgid "After"
 msgstr "לאחר"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:378
-#: core/Widgets/MarkdownEditor.vala:1405 src/Layouts/ItemBoard.vala:880
+#: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:880
 #: src/Layouts/ItemRow.vala:1346
 msgid "Apply"
 msgstr "החלה"
@@ -1520,7 +1520,7 @@ msgstr ""
 msgid "Task description"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1410
+#: core/Widgets/MarkdownEditor.vala:1427
 msgid "Remove link"
 msgstr "הסרת קישור"
 
