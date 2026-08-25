@@ -31,6 +31,10 @@ public class Views.Filter : Adw.Bin {
     private Gtk.Revealer view_setting_revealer;
     private Gtk.Button load_more_button;
     private Gtk.Revealer load_more_button_revealer;
+    private Gtk.MenuButton project_filter_button;
+    private Gtk.Revealer project_filter_revealer;
+    private Adw.StatusPage listbox_placeholder;
+    private Gee.ArrayList<string> selected_project_ids = new Gee.ArrayList<string> ();
 
     private Gee.HashMap<string, Layouts.ItemRow> items = new Gee.HashMap<string, Layouts.ItemRow> ();
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -42,6 +46,17 @@ public class Views.Filter : Adw.Bin {
     private bool has_items {
         get {
             return items_list != null && items_list.size > 0;
+        }
+    }
+
+    private bool has_visible_items {
+        get {
+            if (items_list == null || items_list.size == 0) return false;
+            if (selected_project_ids.size == 0) return true;
+            foreach (var item in items_list) {
+                if (selected_project_ids.contains (item.project_id)) return true;
+            }
+            return false;
         }
     }
 
@@ -75,6 +90,40 @@ public class Views.Filter : Adw.Bin {
 
         title_box.append (title_icon);
         title_box.append (title_label);
+
+        var project_picker_core = new Widgets.ProjectPickerCore.with_multiselect () {
+            margin_top = 12
+        };
+
+        var project_picker_popover = new Gtk.Popover () {
+            has_arrow = false,
+            position = BOTTOM,
+            width_request = 260,
+            height_request = 300,
+            child = project_picker_core,
+            css_classes = { "popover-contents" }
+        };
+
+        project_filter_button = new Gtk.MenuButton () {
+            label = _("All Projects"),
+            popover = project_picker_popover,
+            css_classes = { "flat", "suggestion-chip" },
+            margin_start = 30,
+            margin_top = 12,
+            halign = START
+        };
+
+        project_picker_core.multiselect_changed.connect ((ids) => {
+            selected_project_ids = ids;
+            update_project_filter_label ();
+            listbox.invalidate_filter ();
+            validate_placeholder ();
+        });
+
+        project_filter_revealer = new Gtk.Revealer () {
+            transition_type = SLIDE_DOWN,
+            child = project_filter_button
+        };
 
         var view_setting_button = new Gtk.MenuButton () {
             valign = Gtk.Align.CENTER,
@@ -120,15 +169,11 @@ public class Views.Filter : Adw.Bin {
         listbox_box.append (listbox);
         listbox_box.append (load_more_button_revealer);
 
-        var listbox_placeholder = new Adw.StatusPage ();
-        listbox_placeholder.icon_name = "check-round-outline-symbolic";
-        listbox_placeholder.title = _("Add Some Tasks");
-        listbox_placeholder.description = _("Press 'a' to create a new task");
-        
-        if (filter is Objects.Filters.Completed) {
-            listbox_placeholder.title = _("All tasks completed!");
-            listbox_placeholder.description = _("Great job, nothing left to do 🎉");
-        }
+        listbox_placeholder = new Adw.StatusPage () {
+            icon_name = "check-round-outline-symbolic",
+            title = _("Add Some Tasks"),
+            description = _("Press 'a' to create a new task")
+        };
 
         listbox_stack = new Gtk.Stack () {
             hexpand = true,
@@ -145,6 +190,7 @@ public class Views.Filter : Adw.Bin {
         };
 
         content.append (title_box);
+        content.append (project_filter_revealer);
         content.append (listbox_stack);
 
         var content_clamp = new Adw.Clamp () {
@@ -174,6 +220,11 @@ public class Views.Filter : Adw.Bin {
             content = content_overlay
         };
         toolbar_view.add_top_bar (headerbar);
+
+        listbox.set_filter_func ((row) => {
+            if (selected_project_ids.size == 0) return true;
+            return selected_project_ids.contains (((Layouts.ItemRow) row).item.project_id);
+        });
 
         child = toolbar_view;
         update_request ();
@@ -272,6 +323,7 @@ public class Views.Filter : Adw.Bin {
 
         headerbar.title = title_label.label;
         view_setting_revealer.reveal_child = filter is Objects.Filters.Completed;
+        project_filter_revealer.reveal_child = filter is Objects.Filters.Completed;
     }
 
     private void add_items () {
@@ -563,7 +615,17 @@ public class Views.Filter : Adw.Bin {
     }
 
     private void validate_placeholder () {
-        listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
+        if (!has_visible_items && selected_project_ids.size > 0) {
+            listbox_placeholder.title = _("No completed tasks");
+            listbox_placeholder.description = _("No tasks found for the selected projects");
+        } else if (filter is Objects.Filters.Completed) {
+            listbox_placeholder.title = _("All tasks completed!");
+            listbox_placeholder.description = _("Great job, nothing left to do 🎉");
+        } else {
+            listbox_placeholder.title = _("Add Some Tasks");
+            listbox_placeholder.description = _("Press 'a' to create a new task");
+        }
+        listbox_stack.visible_child_name = has_visible_items ? "listbox" : "placeholder";
         invalidate_listbox ();
     }
 
@@ -580,6 +642,7 @@ public class Views.Filter : Adw.Bin {
         };
 
         header_box.append (header_label);
+        header_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
             ulong handler_id = Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
@@ -592,6 +655,15 @@ public class Views.Filter : Adw.Bin {
         }
 
         return header_box;
+    }
+
+    private void update_project_filter_label () {
+        if (selected_project_ids.size == 0) {
+            project_filter_button.label = _("All Projects");
+        } else {
+            project_filter_button.label = ngettext ("%d Project", "%d Projects", selected_project_ids.size)
+                .printf (selected_project_ids.size);
+        }
     }
 
     private Gtk.Popover build_view_setting_popover () {
