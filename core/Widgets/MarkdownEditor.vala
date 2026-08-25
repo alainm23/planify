@@ -121,6 +121,12 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         Services.Settings.get_default ().settings.changed["enable-markdown-formatting"].connect (() => {
             update_mode ();
         });
+
+        Services.EventBus.get_default ().theme_changed.connect (() => {
+            link_tag.foreground = get_theme_color ("markdown_link_color", "#0969da");
+            code_tag.foreground = get_theme_color ("markdown_code_color", "#cf222e");
+            apply_markdown_formatting ();
+        });
         
         buffer.changed.connect (on_buffer_changed);
         buffer.notify["has-selection"].connect (on_selection_lost);
@@ -151,14 +157,12 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     }
     
     private string get_theme_color (string color_name, string fallback) {
-        var context = text_view.get_style_context ();
-        Gdk.RGBA color;
-        if (context.lookup_color (color_name, out color)) {
-            return "#%02x%02x%02x".printf (
-                (int)(color.red * 255),
-                (int)(color.green * 255),
-                (int)(color.blue * 255)
-            );
+        bool dark = Adw.StyleManager.get_default ().dark;
+        if (color_name == "markdown_link_color") {
+            return dark ? "#79c0ff" : "#0969da";
+        }
+        if (color_name == "markdown_code_color") {
+            return dark ? "#ff7b72" : "#cf222e";
         }
         return fallback;
     }
@@ -183,10 +187,10 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         
         code_tag = buffer.create_tag ("code",
                                          "family", "monospace",
-                                         "foreground", get_theme_color ("error_color", "#cf222e"));
+                                         "foreground", get_theme_color ("markdown_code_color", "#cf222e"));
         
         link_tag = buffer.create_tag ("link",
-                                     "foreground", get_theme_color ("link_color", "#0969da"),
+                                     "foreground", get_theme_color ("markdown_link_color", "#0969da"),
                                      "underline", Pango.Underline.SINGLE);
         
         invisible_tag = buffer.create_tag ("invisible",
