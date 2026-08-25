@@ -103,8 +103,8 @@ msgstr "CalDAV"
 #: core/Enum.vala:345 core/Enum.vala:545 core/Widgets/PriorityButton.vala:90
 #: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:606
 #: src/Views/Scheduled/Scheduled.vala:236
-#: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:728
-#: src/Views/Today.vala:757 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:843
+#: src/Views/Today.vala:872 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "Prioridade"
 
@@ -113,7 +113,7 @@ msgid "Label"
 msgstr "Rótulo"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:558
-#: src/Views/Scheduled/Scheduled.vala:233 src/Views/Today.vala:725
+#: src/Views/Scheduled/Scheduled.vala:233 src/Views/Today.vala:840
 msgid "Due Date"
 msgstr "Data de vencimento"
 
@@ -122,7 +122,7 @@ msgstr "Data de vencimento"
 msgid "Section"
 msgstr "Seções"
 
-#: core/Enum.vala:357 src/Views/Today.vala:781
+#: core/Enum.vala:357 src/Views/Today.vala:896
 msgid "Assignment"
 msgstr "Atribuição"
 
@@ -198,6 +198,7 @@ msgstr "sem data"
 
 #: core/Objects/Filters/Completed.vala:33
 #: src/Dialogs/ProductivityReport/SummarySection.vala:58
+#: src/Views/Today.vala:259
 msgid "Completed"
 msgstr "Concluído"
 
@@ -286,7 +287,7 @@ msgstr "por vir"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:388
 #: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:813
 #: src/Layouts/ItemRow.vala:1248 src/Views/Project/Project.vala:573
-#: src/Views/Project/Project.vala:739 src/Views/Today.vala:203
+#: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
 msgid "Today"
 msgstr "Hoje"
 
@@ -911,7 +912,7 @@ msgid "Dark Blue"
 msgstr "Azul Escuro"
 
 #: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
-#: src/Views/Today.vala:776 src/Widgets/ItemChangeHistoryRow.vala:268
+#: src/Views/Today.vala:891 src/Widgets/ItemChangeHistoryRow.vala:268
 msgid "None"
 msgstr "Nenhum"
 
@@ -1834,7 +1835,7 @@ msgstr[1] ""
 "Isto irá deletar %d tarefas concluídas e suas subtarefas do projeto %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:656
-#: src/Views/Scheduled/Scheduled.vala:276 src/Views/Today.vala:788
+#: src/Views/Scheduled/Scheduled.vala:276 src/Views/Today.vala:907
 msgid "Filter By"
 msgstr "Filtrar por"
 
@@ -2472,7 +2473,7 @@ msgstr "Ordenação personalizada"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:232
-#: src/Views/Today.vala:724
+#: src/Views/Today.vala:839
 msgid "Alphabetically"
 msgstr "Alfabeticamente"
 
@@ -3044,7 +3045,7 @@ msgid "Pending"
 msgstr ""
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:59
-#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:155
+#: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:159
 msgid "Overdue"
 msgstr "Atrasado"
 
@@ -3497,19 +3498,19 @@ msgstr "Em 1 hora"
 
 #: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
 #: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
-#: src/Views/Today.vala:88
+#: src/Views/Today.vala:92
 msgid "View Option Menu"
 msgstr "Ver menu de opções"
 
 #: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
 #: src/Views/Project/Board.vala:121 src/Views/Project/List.vala:117
-#: src/Views/Today.vala:251
+#: src/Views/Today.vala:309
 msgid "Add Some Tasks"
 msgstr "Adicione Algumas Tarefas"
 
 #: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
 #: src/Views/Project/Board.vala:122 src/Views/Project/List.vala:118
-#: src/Views/Today.vala:252
+#: src/Views/Today.vala:310
 msgid "Press 'a' to create a new task"
 msgstr "Pressione 'a' para criar uma nova tarefa"
 
@@ -3624,7 +3625,7 @@ msgid "Board"
 msgstr "Quadro"
 
 #: src/Views/Project/Project.vala:553 src/Views/Scheduled/Scheduled.vala:229
-#: src/Views/Today.vala:721
+#: src/Views/Today.vala:836
 msgid "Sorting"
 msgstr "Nos Apoiando"
 
@@ -3633,12 +3634,12 @@ msgid "Custom sort order"
 msgstr "Ordem de classificação personalizada"
 
 #: src/Views/Project/Project.vala:559 src/Views/Scheduled/Scheduled.vala:234
-#: src/Views/Today.vala:726
+#: src/Views/Today.vala:841
 msgid "Date Added"
 msgstr "Dados adicionados"
 
 #: src/Views/Project/Project.vala:560 src/Views/Scheduled/Scheduled.vala:235
-#: src/Views/Today.vala:727
+#: src/Views/Today.vala:842
 msgid "Date Modified"
 msgstr ""
 
@@ -3672,35 +3673,35 @@ msgid "Next 30 Days"
 msgstr "Próximos 30 dias"
 
 #: src/Views/Project/Project.vala:584 src/Views/Scheduled/Scheduled.vala:243
-#: src/Views/Today.vala:735
+#: src/Views/Today.vala:850
 msgid "P1"
 msgstr "P1"
 
 #: src/Views/Project/Project.vala:590 src/Views/Scheduled/Scheduled.vala:249
-#: src/Views/Today.vala:741
+#: src/Views/Today.vala:856
 msgid "P2"
 msgstr "P2"
 
 #: src/Views/Project/Project.vala:596 src/Views/Scheduled/Scheduled.vala:255
-#: src/Views/Today.vala:747
+#: src/Views/Today.vala:862
 msgid "P3"
 msgstr "P3"
 
 #: src/Views/Project/Project.vala:602 src/Views/Scheduled/Scheduled.vala:261
-#: src/Views/Today.vala:753
+#: src/Views/Today.vala:868
 msgid "P4"
 msgstr "P4"
 
 #: src/Views/Project/Project.vala:609 src/Views/Scheduled/Scheduled.vala:268
-#: src/Views/Today.vala:760
+#: src/Views/Today.vala:875
 msgid "Filter by Labels"
 msgstr "Filtrar por Rótulos"
 
-#: src/Views/Project/Project.vala:613
+#: src/Views/Project/Project.vala:613 src/Views/Today.vala:899
 msgid "Show Completed"
 msgstr ""
 
-#: src/Views/Project/Project.vala:614
+#: src/Views/Project/Project.vala:614 src/Views/Today.vala:900
 msgid "Display completed tasks in the list"
 msgstr ""
 
@@ -3713,11 +3714,11 @@ msgstr "Esconder tarefas concluídas"
 msgid "Sort By"
 msgstr "Ordenar por"
 
-#: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:163
+#: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:167
 msgid "Reschedule"
 msgstr "Reagendar"
 
-#: src/Views/Today.vala:769
+#: src/Views/Today.vala:884
 msgid "Me"
 msgstr ""
 
