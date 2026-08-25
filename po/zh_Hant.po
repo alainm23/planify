@@ -2460,7 +2460,7 @@ msgstr "主頁檢視"
 msgid "Quick Add"
 msgstr "快速添加"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:40
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:44
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
@@ -2468,34 +2468,34 @@ msgstr ""
 "使用〔快速添加〕，只需要點按幾下按鍵，即可在桌面任何位置上建立出待辦事項。您"
 "甚至不必離開當下所在用的應用程式。"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:52
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:56
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
 msgstr ""
 "前往〔系統設定 → 鍵盤 → 快速鍵 → 自訂〕，然後用以下方式添加新的快速鍵："
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:81 src/Dialogs/Project.vala:249
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:249
 msgid "Settings"
 msgstr "設定"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:89
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "Save Last Selected Project"
 msgstr "儲存上次最後所選的專案"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:90
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:94
 msgid "If unchecked, the default project selected is Inbox"
 msgstr "若無勾選，預設所選的專案是收件箱"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:100
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
 msgid "Keep Task Properties"
 msgstr "保留任務屬性"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:101
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:105
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
 msgstr "當'保持添加'已為啟用時，保留日期、標籤和釘上狀態"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:130
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:134
 msgid "The command was copied to the clipboard"
 msgstr "該指令已經複製至剪貼簿"
 

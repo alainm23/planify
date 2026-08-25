@@ -2542,7 +2542,7 @@ msgstr "Page d’accueil"
 msgid "Quick Add"
 msgstr "Ajout rapide"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:40
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:44
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
@@ -2551,7 +2551,7 @@ msgstr ""
 "sur votre bureau, avec une combinaison de touches. Vous n’aurez même pas à "
 "quitter l’application que vous étiez en train d’utiliser."
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:52
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:56
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
@@ -2559,31 +2559,31 @@ msgstr ""
 "Allez dans Paramètres système → Clavier → Raccourcis → Personnalisé, et "
 "ajoutez un nouveau raccourci avec la commande suivante :"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:81 src/Dialogs/Project.vala:249
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:249
 msgid "Settings"
 msgstr "Paramètres"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:89
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "Save Last Selected Project"
 msgstr "Enregistrer le dernier projet sélectionné"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:90
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:94
 msgid "If unchecked, the default project selected is Inbox"
 msgstr ""
 "Si rien n’est coché, le projet sélectionné par défaut sera la boîte de "
 "réception"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:100
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
 msgid "Keep Task Properties"
 msgstr "Conserver les propriétés de la tâche"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:101
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:105
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
 msgstr ""
 "Quand \"Laisser ajouter\" est activé, conserve la date, les étiquettes, et "
 "le statut épinglé"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:130
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:134
 msgid "The command was copied to the clipboard"
 msgstr "Commande copiée vers le presse-papiers"
 

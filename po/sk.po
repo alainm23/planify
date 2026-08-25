@@ -2538,7 +2538,7 @@ msgstr "Hlavná stránka"
 msgid "Quick Add"
 msgstr "Rýchle pridanie"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:40
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:44
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
@@ -2547,7 +2547,7 @@ msgstr ""
 "pracovnom stole pomocou niekoľkých stlačení kláves. Nemusíte ani opustiť "
 "aplikáciu, v ktorej sa práve nachádzate."
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:52
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:56
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
@@ -2555,27 +2555,27 @@ msgstr ""
 "Prejdite do Nastavení systému → Klávesnica → Klávesové skratky → Vlastné, "
 "potom pridajte novú skratku s nasledujúcim:"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:81 src/Dialogs/Project.vala:249
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:249
 msgid "Settings"
 msgstr "Nastavenia"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:89
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "Save Last Selected Project"
 msgstr "Uložiť posledný vybraný projekt"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:90
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:94
 msgid "If unchecked, the default project selected is Inbox"
 msgstr "Ak je nezaškrtnuté, predvolený vybraný projekt je Doručená pošta"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:100
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
 msgid "Keep Task Properties"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:101
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:105
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:130
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:134
 msgid "The command was copied to the clipboard"
 msgstr "Príkaz bol skopírovaný do schránky"
 

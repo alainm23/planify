@@ -2553,7 +2553,7 @@ msgstr "Startpagina"
 msgid "Quick Add"
 msgstr "Snel toevoegen"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:40
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:44
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
@@ -2561,7 +2561,7 @@ msgstr ""
 "Gebruik snel toevoegen om taken van eender waar aan te maken met een paar "
 "toetsaanslagen. Je hoeft niet eens van applicatie te wisselen."
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:52
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:56
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
@@ -2569,29 +2569,29 @@ msgstr ""
 "Ga naar Instellingen → Toetsenbord → Sneltoetsen bekijken en aanpassen → "
 "Aangepaste sneltoets, en voeg een sneltoets toe met onderstaande inhoud:"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:81 src/Dialogs/Project.vala:249
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:249
 msgid "Settings"
 msgstr "Instellingen"
 
 # Assumed task is saved to the last selected project
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:89
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "Save Last Selected Project"
 msgstr "Laatst geselecteerde project onthouden"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:90
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:94
 msgid "If unchecked, the default project selected is Inbox"
 msgstr "Wanneer uitgeschakeld zal het standaardproject het postvak zijn"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:100
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
 msgid "Keep Task Properties"
 msgstr "Onthou taak eigenschappen"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:101
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:105
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
 msgstr ""
 "Als \"Blijven toevoegen\" aanstaat, onthou de datum, labels en pin status"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:130
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:134
 msgid "The command was copied to the clipboard"
 msgstr "Het commando werd naar het klembord gekopieerd"
 

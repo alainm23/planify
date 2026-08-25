@@ -2528,7 +2528,7 @@ msgstr "मुख पृष्ठ"
 msgid "Quick Add"
 msgstr "शीघ्र जोड़ें"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:40
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:44
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
@@ -2536,7 +2536,7 @@ msgstr ""
 "बस कुछ कीस्ट्रोक्स के साथ अपने डेस्कटॉप पर कहीं से भी करने-हेतु कार्य बनाने के लिए शीघ्र जोड़ें "
 "का उपयोग करें। आपको वह ऐप छोड़ने की भी ज़रूरत नहीं है जिसमें आप वर्तमान में हैं।"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:52
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:56
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
@@ -2544,27 +2544,27 @@ msgstr ""
 "सिस्टम सेटिंग → कीबोर्ड → शॉर्टकट → तदनुकूल पर जाएं, फिर निम्नलिखित के साथ एक नया "
 "शॉर्टकट जोड़ें:"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:81 src/Dialogs/Project.vala:249
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:249
 msgid "Settings"
 msgstr "सेटिंग"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:89
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "Save Last Selected Project"
 msgstr "अंतिम चयनित परियोजना सहेजें"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:90
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:94
 msgid "If unchecked, the default project selected is Inbox"
 msgstr "यदि जांचा नहीं गया है, तो चयनित तयशुदा परियोजना इनबॉक्स है"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:100
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
 msgid "Keep Task Properties"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:101
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:105
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:130
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:134
 msgid "The command was copied to the clipboard"
 msgstr "कमांड को क्लिपबोर्ड पर कॉपी किया गया था"
 
