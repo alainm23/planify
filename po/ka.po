@@ -1369,7 +1369,7 @@ msgstr "შემდეგ"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:378
 #: core/Widgets/MarkdownEditor.vala:1405 src/Layouts/ItemBoard.vala:880
-#: src/Layouts/ItemRow.vala:1346
+#: src/Layouts/ItemRow.vala:1346 core/Widgets/MarkdownEditor.vala:1422
 msgid "Apply"
 msgstr ""
 
