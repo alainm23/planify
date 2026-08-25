@@ -748,7 +748,6 @@ public class Views.Today : Adw.Bin {
             valid_add_item (item);
         }
 
-        // item completado — mover de items/overdue a completed
         if (item.checked) {
             if (items.has_key (item.id)) {
                 items[item.id].hide_destroy ();
@@ -765,7 +764,6 @@ public class Views.Today : Adw.Bin {
                 add_completed_item (item);
             }
         } else {
-            // item descompletado — remover de completed
             if (completed_items.has_key (item.id)) {
                 completed_items[item.id].hide_destroy ();
                 completed_items.unset (item.id);
