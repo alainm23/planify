@@ -421,7 +421,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         pin_button = new Widgets.PinButton () {
             sensitive = !item.completed,
-            no_padding = true
+            no_padding = true,
+            icon_size = 13
         };
 
         hide_loading_button = new Widgets.LoadingButton.with_icon ("go-up-symbolic", 16) {
@@ -839,6 +840,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             subitems.prepare_new_item ();
         })] = add_subitem_gesture;
 
+        signals_map[add_subtasks_button.clicked.connect (() => {
+            subitems.prepare_new_item ();
+        })] = add_subtasks_button;
+
         signals_map[item.loading_change.connect (() => {
             is_loading = item.loading;
         })] = item;
@@ -1246,6 +1251,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var tomorrow_item = new Widgets.ContextMenu.MenuItem (_ ("Tomorrow"), "month-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
+        var pick_date_item = new Widgets.ContextMenu.MenuItem (_ ("Pick a Date"), "month-symbolic");
+
         pinboard_item = new Widgets.ContextMenu.MenuItem (item.pinned ? _ ("Unpin") : _ ("Pin"), "pin-symbolic");
 
         no_date_item = new Widgets.ContextMenu.MenuItem (_ ("No Date"), "cross-large-circle-filled-symbolic");
@@ -1270,6 +1277,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (today_item);
         menu_box.append (tomorrow_item);
+        menu_box.append (pick_date_item);
         menu_box.append (no_date_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (pinboard_item);
@@ -1289,6 +1297,20 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         signals_map[tomorrow_item.activate_item.connect (() => {
             update_date (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
         })] = tomorrow_item;
+
+        signals_map[pick_date_item.activate_item.connect (() => {
+            var dialog = new Dialogs.DatePicker (_("Pick a Date"));
+            if (item.has_due) {
+                dialog.datetime = item.due.datetime;
+            }
+            dialog.present (Planify._instance.main_window);
+            signals_map[dialog.date_changed.connect (() => {
+                if (dialog.datetime != null) {
+                    update_date (Utils.Datetime.get_date_only (dialog.datetime));
+                }
+                dialog.clean_up ();
+            })] = dialog;
+        })] = pick_date_item;
 
         signals_map[pinboard_item.activate_item.connect (() => {
             item.update_pin (!item.pinned);
