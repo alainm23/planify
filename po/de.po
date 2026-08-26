@@ -324,23 +324,23 @@ msgstr "kein Label"
 msgid "unlabeled"
 msgstr "nicht gelabelt"
 
-#: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1569 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "Frist:"
 
-#: core/Objects/Item.vala:1528
+#: core/Objects/Item.vala:1594
 msgid "Task copied to clipboard"
 msgstr "Aufgabe in die Zwischenablage kopiert"
 
-#: core/Objects/Item.vala:1545
+#: core/Objects/Item.vala:1611
 msgid "iCalendar Files"
 msgstr "iCalender-Dateien"
 
-#: core/Objects/Item.vala:1561
+#: core/Objects/Item.vala:1627
 msgid "Task exported successfully"
 msgstr "Aufgabe erfolgreich exportiert"
 
-#: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1951 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "Verschoben nach: %s"
@@ -480,7 +480,7 @@ msgstr "Erinnerungen hinzufügen"
 msgid "Add Task"
 msgstr "Aufgabe hinzufügen"
 
-#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
 msgid "Keep adding"
 msgstr "Weitere hinzufügen"
 
@@ -496,55 +496,55 @@ msgstr ""
 "Es tut uns leid, 'Schnell hinzufügen' kann kein verfügbares Projekt finden. "
 "Versuche ein Projekt in Planify zu erstellen."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:778
+#: core/QuickAddCore.vala:1455 src/MainWindow.vala:778
 msgid "Keyboard Shortcuts"
 msgstr "Tastenkombinationen"
 
-#: core/QuickAddCore.vala:1455
+#: core/QuickAddCore.vala:1461
 msgid "Speed up task creation with these shortcuts"
 msgstr "Beschleunige die Aufgabenerstellung mit diesen Tastenkürzel"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1475
 msgid "Set priority"
 msgstr "Priorität setzen"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1475
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = höchste, p4 = niedrigste"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1476
 msgid "Add labels"
 msgstr "Label(s) hinzufügen"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1476
 msgid "Opens label selector"
 msgstr "Labels öffnen"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1477
 msgid "Assign project"
 msgstr "Projekt zuweisen"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1477
 msgid "Opens project selector"
 msgstr "Öffnet Projektauswahl"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1478
 msgid "Set reminder"
 msgstr "Erinnerungen einstellen"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1478
 msgid "Opens reminder options"
 msgstr "Erinnerungseinstellungen öffnen"
 
-#: core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:1493
 msgid "Toggle stay open after creating task"
 msgstr "Weiterhin geöffnet bleiben, nachdem Aufgabe erstellt wurde"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1499
 msgid "Tip"
 msgstr "Tipp"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1499
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Kombiniere Tastenkürzel im Titelfeld für eine schnellere Erstellung"
 
@@ -564,7 +564,7 @@ msgstr "Aufgaben für %s wurden geladen…"
 msgid "Syncing task %d of %d"
 msgstr "Aufgabe %d von %d wird synchronisiert"
 
-#: core/Services/CalDAV/CalDAVClient.vala:776
+#: core/Services/CalDAV/CalDAVClient.vala:777
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -572,7 +572,7 @@ msgstr ""
 "Dieser Server erlaubt kein Erstellen von Projekten mittels CalDAV. Bitte "
 "erzeuge es direkt auf der Website deines Providers."
 
-#: core/Services/CalDAV/CalDAVClient.vala:828
+#: core/Services/CalDAV/CalDAVClient.vala:829
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -580,7 +580,7 @@ msgstr ""
 "Dieser Server erlaubt kein Löschen von Projekten mittels CalDAV. Bitte "
 "lösche es direkt auf der Website deines Providers."
 
-#: core/Services/CalDAV/CalDAVClient.vala:832
+#: core/Services/CalDAV/CalDAVClient.vala:833
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -588,8 +588,8 @@ msgstr ""
 "Dieser Server erlaubt kein Löschen von Projekten mittels CalDAV. Bitte "
 "lösche es direkt auf dem Server."
 
-#: core/Services/CalDAV/CalDAVClient.vala:866
-#: core/Services/CalDAV/CalDAVClient.vala:913
+#: core/Services/CalDAV/CalDAVClient.vala:867
+#: core/Services/CalDAV/CalDAVClient.vala:914
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""

@@ -338,27 +338,30 @@ msgstr "непомеченн"
 
 #: core/Objects/Item.vala:1474 src/Services/ExportService.vala:187
 #: core/Objects/Item.vala:1502 core/Objects/Item.vala:1503
+#: core/Objects/Item.vala:1569
 msgid "Deadline:"
 msgstr "Срок:"
 
 #: core/Objects/Item.vala:1499 core/Objects/Item.vala:1517
 #: core/Objects/Item.vala:1527 core/Objects/Item.vala:1528
+#: core/Objects/Item.vala:1594
 msgid "Task copied to clipboard"
 msgstr "Задача скопирована в буфер обмена"
 
 #: core/Objects/Item.vala:1516 core/Objects/Item.vala:1544
-#: core/Objects/Item.vala:1545
+#: core/Objects/Item.vala:1545 core/Objects/Item.vala:1611
 msgid "iCalendar Files"
 msgstr "Файлы iCalendar"
 
 #: core/Objects/Item.vala:1532 core/Objects/Item.vala:1560
-#: core/Objects/Item.vala:1561
+#: core/Objects/Item.vala:1561 core/Objects/Item.vala:1627
 msgid "Task exported successfully"
 msgstr "Задача успешно экспортирована"
 
 # c-format
 #: core/Objects/Item.vala:1856 core/Utils/Util.vala:856
 #: core/Objects/Item.vala:1884 core/Objects/Item.vala:1885
+#: core/Objects/Item.vala:1951
 #, c-format
 msgid "Moved to %s"
 msgstr "Перемещено в %s"
@@ -502,6 +505,7 @@ msgid "Add Task"
 msgstr "Добавить задачу"
 
 #: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:1493
 msgid "Keep adding"
 msgstr "Добавить заметку"
 
@@ -519,54 +523,55 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1449 src/MainWindow.vala:751 src/MainWindow.vala:753
 #: src/MainWindow.vala:754 src/MainWindow.vala:756 src/MainWindow.vala:778
+#: core/QuickAddCore.vala:1455
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: core/QuickAddCore.vala:1455
+#: core/QuickAddCore.vala:1455 core/QuickAddCore.vala:1461
 msgid "Speed up task creation with these shortcuts"
 msgstr "Ускорьте создание задач с помощью этих комбинаций клавиш"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1469 core/QuickAddCore.vala:1475
 msgid "Set priority"
 msgstr "Задать важность"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1469 core/QuickAddCore.vala:1475
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = высший, p4 = низший"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1470 core/QuickAddCore.vala:1476
 msgid "Add labels"
 msgstr "Добавить метки"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1470 core/QuickAddCore.vala:1476
 msgid "Opens label selector"
 msgstr "Открыть селектор меток"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1471 core/QuickAddCore.vala:1477
 msgid "Assign project"
 msgstr "Начать проект"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1471 core/QuickAddCore.vala:1477
 msgid "Opens project selector"
 msgstr "Открыть селектор проекта"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1472 core/QuickAddCore.vala:1478
 msgid "Set reminder"
 msgstr "Установить напоминания"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1472 core/QuickAddCore.vala:1478
 msgid "Opens reminder options"
 msgstr "Открыть настройки напоминания"
 
-#: core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:1487 core/QuickAddCore.vala:1493
 msgid "Toggle stay open after creating task"
 msgstr "Переключатель остаётся открытым после создания задачи"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:1499
 msgid "Tip"
 msgstr "Подсказка"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:1499
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Комбинируйте ярлыки в поле заголовка для более быстрого создания"
 
@@ -587,6 +592,7 @@ msgid "Syncing task %d of %d"
 msgstr "Синхронизировано %d задач из %d"
 
 #: core/Services/CalDAV/CalDAVClient.vala:776
+#: core/Services/CalDAV/CalDAVClient.vala:777
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -595,6 +601,7 @@ msgstr ""
 "создайте его напрямую с сайта вашего поставщика календарей."
 
 #: core/Services/CalDAV/CalDAVClient.vala:828
+#: core/Services/CalDAV/CalDAVClient.vala:829
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -603,6 +610,7 @@ msgstr ""
 "его непосредственно с сайта вашего поставщика услуг календаря."
 
 #: core/Services/CalDAV/CalDAVClient.vala:832
+#: core/Services/CalDAV/CalDAVClient.vala:833
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -612,6 +620,8 @@ msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:866
 #: core/Services/CalDAV/CalDAVClient.vala:913
+#: core/Services/CalDAV/CalDAVClient.vala:867
+#: core/Services/CalDAV/CalDAVClient.vala:914
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""

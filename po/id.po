@@ -332,26 +332,29 @@ msgstr "tanpa label"
 
 #: core/Objects/Item.vala:1474 src/Services/ExportService.vala:187
 #: core/Objects/Item.vala:1502 core/Objects/Item.vala:1503
+#: core/Objects/Item.vala:1569
 msgid "Deadline:"
 msgstr "Tenggat:"
 
 #: core/Objects/Item.vala:1499 core/Objects/Item.vala:1517
 #: core/Objects/Item.vala:1527 core/Objects/Item.vala:1528
+#: core/Objects/Item.vala:1594
 msgid "Task copied to clipboard"
 msgstr "Tugas disalin ke papan klip"
 
 #: core/Objects/Item.vala:1516 core/Objects/Item.vala:1544
-#: core/Objects/Item.vala:1545
+#: core/Objects/Item.vala:1545 core/Objects/Item.vala:1611
 msgid "iCalendar Files"
 msgstr "File iCalendar"
 
 #: core/Objects/Item.vala:1532 core/Objects/Item.vala:1560
-#: core/Objects/Item.vala:1561
+#: core/Objects/Item.vala:1561 core/Objects/Item.vala:1627
 msgid "Task exported successfully"
 msgstr "Tugas berhasil diekspor"
 
 #: core/Objects/Item.vala:1856 core/Utils/Util.vala:856
 #: core/Objects/Item.vala:1884 core/Objects/Item.vala:1885
+#: core/Objects/Item.vala:1951
 #, c-format
 msgid "Moved to %s"
 msgstr "Dipindahkan ke %s"
@@ -491,6 +494,7 @@ msgid "Add Task"
 msgstr "Tambahkan tugas"
 
 #: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:1493
 msgid "Keep adding"
 msgstr "Terus menambahkan"
 
@@ -508,54 +512,55 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1449 src/MainWindow.vala:751 src/MainWindow.vala:753
 #: src/MainWindow.vala:754 src/MainWindow.vala:756 src/MainWindow.vala:778
+#: core/QuickAddCore.vala:1455
 msgid "Keyboard Shortcuts"
 msgstr "Pintasan papan ketik"
 
-#: core/QuickAddCore.vala:1455
+#: core/QuickAddCore.vala:1455 core/QuickAddCore.vala:1461
 msgid "Speed up task creation with these shortcuts"
 msgstr "Percepat pembuatan tugas dengan pintasan ini"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1469 core/QuickAddCore.vala:1475
 msgid "Set priority"
 msgstr "Atur prioritas"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1469 core/QuickAddCore.vala:1475
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = tertinggi, p4 = terendah"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1470 core/QuickAddCore.vala:1476
 msgid "Add labels"
 msgstr "Tambahkan label"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1470 core/QuickAddCore.vala:1476
 msgid "Opens label selector"
 msgstr "Membuka pemilih label"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1471 core/QuickAddCore.vala:1477
 msgid "Assign project"
 msgstr "Tetapkan proyek"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1471 core/QuickAddCore.vala:1477
 msgid "Opens project selector"
 msgstr "Membuka pemilih proyek"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1472 core/QuickAddCore.vala:1478
 msgid "Set reminder"
 msgstr "Atur pengingat"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1472 core/QuickAddCore.vala:1478
 msgid "Opens reminder options"
 msgstr "Membuka opsi pengingat"
 
-#: core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:1487 core/QuickAddCore.vala:1493
 msgid "Toggle stay open after creating task"
 msgstr "Alihkan tetap terbuka setelah membuat tugas"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:1499
 msgid "Tip"
 msgstr "Tips"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:1499
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Gabungkan pintasan di kolom judul untuk pembuatan yang lebih cepat"
 
@@ -576,6 +581,7 @@ msgid "Syncing task %d of %d"
 msgstr "Menyinkronkan tugas %d dari %d"
 
 #: core/Services/CalDAV/CalDAVClient.vala:776
+#: core/Services/CalDAV/CalDAVClient.vala:777
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -584,6 +590,7 @@ msgstr ""
 "langsung melalui situs web penyedia kalender Anda."
 
 #: core/Services/CalDAV/CalDAVClient.vala:828
+#: core/Services/CalDAV/CalDAVClient.vala:829
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -592,6 +599,7 @@ msgstr ""
 "hapus langsung melalui situs web penyedia kalender Anda."
 
 #: core/Services/CalDAV/CalDAVClient.vala:832
+#: core/Services/CalDAV/CalDAVClient.vala:833
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -601,6 +609,8 @@ msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:866
 #: core/Services/CalDAV/CalDAVClient.vala:913
+#: core/Services/CalDAV/CalDAVClient.vala:867
+#: core/Services/CalDAV/CalDAVClient.vala:914
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""

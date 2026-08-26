@@ -629,6 +629,10 @@ public class Objects.Item : Objects.BaseObject {
 
         extra_data = Util.generate_extra_data (_ical_url, "", ical.as_ical_string ());
 
+        if (is_update) {
+            sync_reminders_from_vtodo (ical_vtodo);
+        }
+
         #if WITH_EVOLUTION
         ECal.Component ecal = new ECal.Component.from_icalcomponent (ical_vtodo);
 
@@ -650,6 +654,44 @@ public class Objects.Item : Objects.BaseObject {
             prop = component.get_next_property (ICal.PropertyKind.X_PROPERTY);
         }
         return null;
+    }
+
+    public void sync_reminders_from_vtodo (ICal.Component vtodo) {
+        var server_datetimes = new Gee.HashSet<string> ();
+
+        ICal.Component ? valarm = vtodo.get_first_component (ICal.ComponentKind.VALARM_COMPONENT);
+        while (valarm != null) {
+            ICal.Property ? trigger_prop = valarm.get_first_property (ICal.PropertyKind.TRIGGER_PROPERTY);
+            if (trigger_prop != null) {
+                ICal.Parameter ? value_param = trigger_prop.get_first_parameter (ICal.ParameterKind.VALUE_PARAMETER);
+                bool is_datetime = value_param != null && value_param.get_value () == ICal.ParameterValue.DATETIME;
+
+                if (is_datetime) {
+                    var trigger = trigger_prop.get_trigger ();
+                    if (trigger != null) {
+                        var trigger_time = trigger.get_time ();
+                        if (!trigger_time.is_null_time ()) {
+                            var dt = Utils.Datetime.ical_to_date_time_local (trigger_time);
+                            server_datetimes.add (dt.to_string ());
+
+                            var reminder = new Objects.Reminder ();
+                            reminder.item_id = id;
+                            reminder.reminder_type = ReminderType.ABSOLUTE;
+                            reminder.due.date = dt.to_string ();
+                            add_reminder_if_not_exists (reminder, id != "");
+                        }
+                    }
+                }
+            }
+            valarm = vtodo.get_next_component (ICal.ComponentKind.VALARM_COMPONENT);
+        }
+
+        foreach (var existing in reminders) {
+            if (existing.reminder_type == ReminderType.ABSOLUTE &&
+                !server_datetimes.contains (existing.datetime.to_string ())) {
+                existing.delete ();
+            }
+        }
     }
 
     private Gee.ArrayList<Objects.Label> get_caldav_categories (GLib.SList<string> categories_list) {
@@ -1447,11 +1489,35 @@ public class Objects.Item : Objects.BaseObject {
         child_order_property.set_x (child_order.to_string ());
         ical.add_property (child_order_property);
 
-        return "%s%s%s".printf (
+        var vtodo_string = ical.as_ical_string ();
+        var valarms = build_valarm_strings ();
+        if (valarms != "") {
+            vtodo_string = vtodo_string.replace ("END:VTODO", valarms + "END:VTODO");
+        }
+
+        var result = "%s%s%s".printf (
             "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Planify App (https://github.com/alainm23/planify)\n",
-            ical.as_ical_string (),
+            vtodo_string,
             "END:VCALENDAR\n"
         );
+
+        return result;
+    }
+
+    private string build_valarm_strings () {
+        var sb = new StringBuilder ();
+        foreach (var reminder in reminders) {
+            var dt = reminder.datetime;
+            if (dt == null) continue;
+            var utc = dt.to_utc ();
+            string trigger = utc.format ("%Y%m%dT%H%M%SZ");
+            sb.append ("BEGIN:VALARM\n");
+            sb.append ("TRIGGER;VALUE=DATE-TIME:%s\n".printf (trigger));
+            sb.append ("ACTION:DISPLAY\n");
+            sb.append ("DESCRIPTION:%s\n".printf (content));
+            sb.append ("END:VALARM\n");
+        }
+        return sb.str;
     }
 
     public Objects.Item add_item_if_not_exists (Objects.Item new_item, bool insert = true) {
@@ -1997,6 +2063,10 @@ public class Objects.Item : Objects.BaseObject {
         } else {
             reminder.id = Util.get_default ().generate_id (reminder);
             add_reminder_if_not_exists (reminder);
+
+            if (project.source_type == SourceType.CALDAV && !project.is_deck) {
+                update_async ();
+            }
         }
     }
 
