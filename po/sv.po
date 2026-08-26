@@ -324,23 +324,23 @@ msgstr "ingen etikett"
 msgid "unlabeled"
 msgstr "omärkt"
 
-#: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1569 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr ""
 
-#: core/Objects/Item.vala:1528
+#: core/Objects/Item.vala:1594
 msgid "Task copied to clipboard"
 msgstr "Uppgift kopierad till anslagstavla"
 
-#: core/Objects/Item.vala:1545
+#: core/Objects/Item.vala:1611
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1561
+#: core/Objects/Item.vala:1627
 msgid "Task exported successfully"
 msgstr ""
 
-#: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1951 core/Utils/Util.vala:856
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "Uppgift flyttad till %s"
@@ -476,7 +476,7 @@ msgstr "Lägg till Påminnelser"
 msgid "Add Task"
 msgstr "Lägg till Uppgift"
 
-#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
 msgid "Keep adding"
 msgstr "Fortsätt lägga till"
 
@@ -492,55 +492,55 @@ msgstr ""
 "Jag är ledsen, Snabb Tillägg kan inte hitta något tillgängligt projekt. "
 "Försök skapa ett projekt från Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:778
+#: core/QuickAddCore.vala:1455 src/MainWindow.vala:778
 msgid "Keyboard Shortcuts"
 msgstr "Kortkommandon"
 
-#: core/QuickAddCore.vala:1455
+#: core/QuickAddCore.vala:1461
 msgid "Speed up task creation with these shortcuts"
 msgstr "Snabba upp skapandet av uppgifter med dessa genvägar"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1475
 msgid "Set priority"
 msgstr "Ställ in prioritet"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1475
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = högsta, p4 = lägsta"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1476
 msgid "Add labels"
 msgstr "Lägg till etiketter"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1476
 msgid "Opens label selector"
 msgstr "Öppnar etikettväljaren"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1477
 msgid "Assign project"
 msgstr "Tilldela projekt"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1477
 msgid "Opens project selector"
 msgstr "Öppnar projektväljaren"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1478
 msgid "Set reminder"
 msgstr "Ställ in påminnelse"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1478
 msgid "Opens reminder options"
 msgstr "Öppnar påminnelsealternativ"
 
-#: core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:1493
 msgid "Toggle stay open after creating task"
 msgstr "Växla mellan att hålla öppet efter att ha skapat en uppgift"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1499
 msgid "Tip"
 msgstr "Tips"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1499
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Kombinera genvägar i titelfältet för snabbare skapande"
 
@@ -560,26 +560,26 @@ msgstr "Laddade uppgifter för %s…"
 msgid "Syncing task %d of %d"
 msgstr "Synkronisera uppgift %d av %d"
 
-#: core/Services/CalDAV/CalDAVClient.vala:776
+#: core/Services/CalDAV/CalDAVClient.vala:777
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:828
+#: core/Services/CalDAV/CalDAVClient.vala:829
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:832
+#: core/Services/CalDAV/CalDAVClient.vala:833
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:866
-#: core/Services/CalDAV/CalDAVClient.vala:913
+#: core/Services/CalDAV/CalDAVClient.vala:867
+#: core/Services/CalDAV/CalDAVClient.vala:914
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""

@@ -337,23 +337,23 @@ msgstr "brez oznake"
 msgid "unlabeled"
 msgstr "neoznačeno"
 
-#: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1569 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr ""
 
-#: core/Objects/Item.vala:1528
+#: core/Objects/Item.vala:1594
 msgid "Task copied to clipboard"
 msgstr "Naloga je bila kopirana v odložišče"
 
-#: core/Objects/Item.vala:1545
+#: core/Objects/Item.vala:1611
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1561
+#: core/Objects/Item.vala:1627
 msgid "Task exported successfully"
 msgstr ""
 
-#: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1951 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr ""
@@ -489,7 +489,7 @@ msgstr "Dodaj Opomnik"
 msgid "Add Task"
 msgstr "Dodaj Nalogo"
 
-#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
 msgid "Keep adding"
 msgstr "Nadaljujte z dodajanjem"
 
@@ -505,55 +505,55 @@ msgstr ""
 "Oprostite, Quick Add ne najde nobenega razpoložljivega projekta. Poskusite "
 "ustvariti projekt iz programa Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:778
+#: core/QuickAddCore.vala:1455 src/MainWindow.vala:778
 msgid "Keyboard Shortcuts"
 msgstr "Tipkovnične bljižnice"
 
-#: core/QuickAddCore.vala:1455
+#: core/QuickAddCore.vala:1461
 msgid "Speed up task creation with these shortcuts"
 msgstr "Pospešite ustvarjanje nalog s temi bližnjicami"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1475
 msgid "Set priority"
 msgstr "Nastavi prioriteto"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1475
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1476
 msgid "Add labels"
 msgstr "Dodaj oznako"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1476
 msgid "Opens label selector"
 msgstr "Odpre izbirnik oznak"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1477
 msgid "Assign project"
 msgstr "Dodeli projekt"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1477
 msgid "Opens project selector"
 msgstr "Odpre izbirnik projektov"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1478
 msgid "Set reminder"
 msgstr "Nastavi opomnik"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1478
 msgid "Opens reminder options"
 msgstr "Odpre možnosti opomnika"
 
-#: core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:1493
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1499
 msgid "Tip"
 msgstr "Namig"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1499
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Združite bližnjice v polju za naslov za hitrejše ustvarjanje"
 
@@ -573,26 +573,26 @@ msgstr ""
 msgid "Syncing task %d of %d"
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:776
+#: core/Services/CalDAV/CalDAVClient.vala:777
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:828
+#: core/Services/CalDAV/CalDAVClient.vala:829
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:832
+#: core/Services/CalDAV/CalDAVClient.vala:833
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:866
-#: core/Services/CalDAV/CalDAVClient.vala:913
+#: core/Services/CalDAV/CalDAVClient.vala:867
+#: core/Services/CalDAV/CalDAVClient.vala:914
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""

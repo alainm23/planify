@@ -324,23 +324,23 @@ msgstr "אין תווית"
 msgid "unlabeled"
 msgstr "ללא תווית"
 
-#: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1569 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr ""
 
-#: core/Objects/Item.vala:1528
+#: core/Objects/Item.vala:1594
 msgid "Task copied to clipboard"
 msgstr "המטלה הועתקה ללוח"
 
-#: core/Objects/Item.vala:1545
+#: core/Objects/Item.vala:1611
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1561
+#: core/Objects/Item.vala:1627
 msgid "Task exported successfully"
 msgstr ""
 
-#: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1951 core/Utils/Util.vala:856
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "המטלה הועברה אל %s"
@@ -476,7 +476,7 @@ msgstr "הוסף תזכורות"
 msgid "Add Task"
 msgstr "הוסף מטלה"
 
-#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
 msgid "Keep adding"
 msgstr "המשך להוסיף"
 
@@ -491,55 +491,55 @@ msgid ""
 msgstr ""
 "מצטער, \"הוספה מהירה\" לא מצאה אף פרויקט זמין, נסה ליצור פרויקט מ-Planify."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:778
+#: core/QuickAddCore.vala:1455 src/MainWindow.vala:778
 msgid "Keyboard Shortcuts"
 msgstr "קיצורי מקלדת"
 
-#: core/QuickAddCore.vala:1455
+#: core/QuickAddCore.vala:1461
 msgid "Speed up task creation with these shortcuts"
 msgstr "האץ יצירת מטלות באמצעות קיצורי הדרך האלה"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1475
 msgid "Set priority"
 msgstr "הגדר חשיבות"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1475
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1476
 msgid "Add labels"
 msgstr "הוסף תוויות"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1476
 msgid "Opens label selector"
 msgstr "פותח את בורר התוויות"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1477
 msgid "Assign project"
 msgstr "שיוך פרויקט"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1477
 msgid "Opens project selector"
 msgstr "פותח את בורר הפרויקטים"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1478
 msgid "Set reminder"
 msgstr "הגדר תזכורת"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1478
 msgid "Opens reminder options"
 msgstr "פותח אפשרויות תזכורת"
 
-#: core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:1493
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1499
 msgid "Tip"
 msgstr "עצה"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1499
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -559,26 +559,26 @@ msgstr "המשימות עבור %s נטענו…"
 msgid "Syncing task %d of %d"
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:776
+#: core/Services/CalDAV/CalDAVClient.vala:777
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:828
+#: core/Services/CalDAV/CalDAVClient.vala:829
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:832
+#: core/Services/CalDAV/CalDAVClient.vala:833
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:866
-#: core/Services/CalDAV/CalDAVClient.vala:913
+#: core/Services/CalDAV/CalDAVClient.vala:867
+#: core/Services/CalDAV/CalDAVClient.vala:914
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""

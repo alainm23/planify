@@ -324,23 +324,23 @@ msgstr "silt puudub"
 msgid "unlabeled"
 msgstr "ilma sildita"
 
-#: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1569 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "Tähtaeg:"
 
-#: core/Objects/Item.vala:1528
+#: core/Objects/Item.vala:1594
 msgid "Task copied to clipboard"
 msgstr "Ülesanne on kopeeritud lõikelauale"
 
-#: core/Objects/Item.vala:1545
+#: core/Objects/Item.vala:1611
 msgid "iCalendar Files"
 msgstr "iCalendari failid"
 
-#: core/Objects/Item.vala:1561
+#: core/Objects/Item.vala:1627
 msgid "Task exported successfully"
 msgstr "Ülesande eksportimine õnnestus"
 
-#: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1951 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "Ümbertõstetud: %s"
@@ -476,7 +476,7 @@ msgstr "Lisa meeldetuletusi"
 msgid "Add Task"
 msgstr "Lisa ülesanne"
 
-#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
 msgid "Keep adding"
 msgstr "Jätka lisamist"
 
@@ -492,55 +492,55 @@ msgstr ""
 "Vabandust, kiirlisamine ei suuda ühtegi projekti/ettevõtmist leida. Proovi "
 "mõni Planify's lisada."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:778
+#: core/QuickAddCore.vala:1455 src/MainWindow.vala:778
 msgid "Keyboard Shortcuts"
 msgstr "Klaviatuuri kiirklahvid"
 
-#: core/QuickAddCore.vala:1455
+#: core/QuickAddCore.vala:1461
 msgid "Speed up task creation with these shortcuts"
 msgstr "Ülesannete koostamist saad kiirendada nende kiirklahvidega"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1475
 msgid "Set priority"
 msgstr "Määra olulisus"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1475
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = olulisim, p4 = ebaoluline"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1476
 msgid "Add labels"
 msgstr "Lisa silte"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1476
 msgid "Opens label selector"
 msgstr "Avab sildivalija"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1477
 msgid "Assign project"
 msgstr "Määra projekti/ettevõtmise täitja"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1477
 msgid "Opens project selector"
 msgstr "Avab ettevõtmiste valija"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1478
 msgid "Set reminder"
 msgstr "Lisa meeldetuletus"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1478
 msgid "Opens reminder options"
 msgstr "Avab meeldetuletuste valikud"
 
-#: core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:1493
 msgid "Toggle stay open after creating task"
 msgstr "Jäta avatuks peale ülesande lisamist - lülita sisse/välja"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1499
 msgid "Tip"
 msgstr "Soovitus"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1499
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -560,7 +560,7 @@ msgstr ""
 msgid "Syncing task %d of %d"
 msgstr "Ülesanded on sünkroonimisel: %d / %d"
 
-#: core/Services/CalDAV/CalDAVClient.vala:776
+#: core/Services/CalDAV/CalDAVClient.vala:777
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -568,7 +568,7 @@ msgstr ""
 "See server ei võimalda projektide lisamist CalDAV-i abil. Palun tee seda "
 "otse kalendriteenuse veebiliidesest."
 
-#: core/Services/CalDAV/CalDAVClient.vala:828
+#: core/Services/CalDAV/CalDAVClient.vala:829
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -576,7 +576,7 @@ msgstr ""
 "See server ei võimalda projektide kustutamist CalDAV-i abil. Palun tee seda "
 "otse kalendriteenuse veebiliidesest."
 
-#: core/Services/CalDAV/CalDAVClient.vala:832
+#: core/Services/CalDAV/CalDAVClient.vala:833
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -584,8 +584,8 @@ msgstr ""
 "See server ei võimalda projektide kustutamist CalDAV-i abil. Palun tee seda "
 "otse serverist."
 
-#: core/Services/CalDAV/CalDAVClient.vala:866
-#: core/Services/CalDAV/CalDAVClient.vala:913
+#: core/Services/CalDAV/CalDAVClient.vala:867
+#: core/Services/CalDAV/CalDAVClient.vala:914
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""

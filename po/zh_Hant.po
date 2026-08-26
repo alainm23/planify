@@ -318,23 +318,23 @@ msgstr "無標籤"
 msgid "unlabeled"
 msgstr "尚無標籤"
 
-#: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1569 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "截止日期："
 
-#: core/Objects/Item.vala:1528
+#: core/Objects/Item.vala:1594
 msgid "Task copied to clipboard"
 msgstr "任務已經複製至剪貼簿"
 
-#: core/Objects/Item.vala:1545
+#: core/Objects/Item.vala:1611
 msgid "iCalendar Files"
 msgstr "iCalendar 檔案"
 
-#: core/Objects/Item.vala:1561
+#: core/Objects/Item.vala:1627
 msgid "Task exported successfully"
 msgstr "任務匯出成功"
 
-#: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1951 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "已經移至 %s"
@@ -470,7 +470,7 @@ msgstr "添加提醒"
 msgid "Add Task"
 msgstr "添加任務"
 
-#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
 msgid "Keep adding"
 msgstr "保持添加"
 
@@ -484,55 +484,55 @@ msgid ""
 "project from Planify."
 msgstr "抱歉，快速添加無法找到任何可用的專案，請從 Planify 中建立一個專案。"
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:778
+#: core/QuickAddCore.vala:1455 src/MainWindow.vala:778
 msgid "Keyboard Shortcuts"
 msgstr "鍵盤快速鍵"
 
-#: core/QuickAddCore.vala:1455
+#: core/QuickAddCore.vala:1461
 msgid "Speed up task creation with these shortcuts"
 msgstr "利用這些快速鍵來加快任務建立"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1475
 msgid "Set priority"
 msgstr "設定優先等級"
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1475
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = 最高 、 p4 = 最低"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1476
 msgid "Add labels"
 msgstr "添加標籤"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1476
 msgid "Opens label selector"
 msgstr "開啟標籤選取"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1477
 msgid "Assign project"
 msgstr "指派專案"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1477
 msgid "Opens project selector"
 msgstr "開啟專案選擇"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1478
 msgid "Set reminder"
 msgstr "設定提醒"
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1478
 msgid "Opens reminder options"
 msgstr "開啟提醒選項"
 
-#: core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:1493
 msgid "Toggle stay open after creating task"
 msgstr "切換成保持開啟狀態，在建立任務之後"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1499
 msgid "Tip"
 msgstr "技巧"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1499
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "在標題欄位中組合快速鍵操作，以利更快建立"
 
@@ -552,27 +552,27 @@ msgstr "已經載入任務用於 %s…"
 msgid "Syncing task %d of %d"
 msgstr "正在同步任務 %d / %d"
 
-#: core/Services/CalDAV/CalDAVClient.vala:776
+#: core/Services/CalDAV/CalDAVClient.vala:777
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr "該伺服器不允許經由 CalDAV 建立專案項目。請直接從日曆提供者的網站建立。"
 
-#: core/Services/CalDAV/CalDAVClient.vala:828
+#: core/Services/CalDAV/CalDAVClient.vala:829
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
 "該伺服器不允許經由 CalDAV 刪除專案項目。請直接從日曆提供者的網站將其刪除。"
 
-#: core/Services/CalDAV/CalDAVClient.vala:832
+#: core/Services/CalDAV/CalDAVClient.vala:833
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr "該伺服器不支援經由 CalDAV 刪除專案項目。請直接從伺服器刪除。"
 
-#: core/Services/CalDAV/CalDAVClient.vala:866
-#: core/Services/CalDAV/CalDAVClient.vala:913
+#: core/Services/CalDAV/CalDAVClient.vala:867
+#: core/Services/CalDAV/CalDAVClient.vala:914
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr "任務已在另一台裝置上有所修改。請進行同步以取得最新版本。"
