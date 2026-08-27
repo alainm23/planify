@@ -324,24 +324,24 @@ msgstr "sin etiqueta"
 msgid "unlabeled"
 msgstr "sin etiquetar"
 
-#: core/Objects/Item.vala:1569 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1571 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "Fecha límite:"
 
-#: core/Objects/Item.vala:1594
+#: core/Objects/Item.vala:1596
 msgid "Task copied to clipboard"
 msgstr "Tarea copiada al portapapeles"
 
-#: core/Objects/Item.vala:1611
+#: core/Objects/Item.vala:1613
 msgid "iCalendar Files"
 msgstr "Archivos iCalendar"
 
-#: core/Objects/Item.vala:1627
+#: core/Objects/Item.vala:1629
 msgid "Task exported successfully"
 msgstr "Tarea exportada correctamente"
 
 # # c-format
-#: core/Objects/Item.vala:1951 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1953 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "Movida a %s"
@@ -3552,11 +3552,11 @@ msgstr ""
 msgid "Create a section to start adding tasks to this board"
 msgstr ""
 
-#: src/Views/Project/Board.vala:326
+#: src/Views/Project/Board.vala:327
 msgid "Schedule"
 msgstr "Cronograma"
 
-#: src/Views/Project/Board.vala:364 src/Views/Project/List.vala:397
+#: src/Views/Project/Board.vala:365 src/Views/Project/List.vala:397
 msgid "When?"
 msgstr "¿Cuándo?"
 
