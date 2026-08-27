@@ -27,9 +27,15 @@ public class Utils.JsonUtils {
             parser.load_from_data (data, -1);
         } catch (Error e) {
             debug (e.message);
+            return new Json.Object ();
         }
 
-        return parser.get_root ().get_object ();
+        var root = parser.get_root ();
+        if (root == null || root.get_node_type () != Json.NodeType.OBJECT) {
+            return new Json.Object ();
+        }
+
+        return root.get_object ();
     }
 
     public static Json.Object get_object_member (string data, string member) {

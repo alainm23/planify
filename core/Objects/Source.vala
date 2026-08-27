@@ -252,15 +252,16 @@ public class Objects.SourceTodoistData : Objects.SourceData {
     public bool user_is_premium { get; set; default = false; }
     public string api_version { get; set; default = "v9"; }
 
-    public SourceTodoistData.from_json (string json) {
+        public SourceTodoistData.from_json (string json) {
         Json.Parser parser = new Json.Parser ();
-
         try {
             parser.load_from_data (json, -1);
-            var object = parser.get_root ().get_object ();
-
+            var root = parser.get_root ();
+            if (root == null || root.get_node_type () != Json.NodeType.OBJECT) {
+                return;
+            }
+            var object = root.get_object ();
             if (object.has_member ("access_token")) {
-                access_token = object.get_string_member ("access_token");
             }
 
             if (object.has_member ("sync_token")) {
@@ -397,11 +398,13 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
 
     public SourceCalDAVData.from_json (string json) {
         Json.Parser parser = new Json.Parser ();
-
         try {
             parser.load_from_data (json, -1);
-            var object = parser.get_root ().get_object ();
-
+            var root = parser.get_root ();
+            if (root == null || root.get_node_type () != Json.NodeType.OBJECT) {
+                return;
+            }
+            var object = root.get_object ();
             if (object.has_member ("server_url")) {
                 server_url = object.get_string_member ("server_url");
             }
