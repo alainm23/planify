@@ -14,10 +14,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2026.9.dev0\n"
 
-#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
-#: src/Dialogs/Preferences/Pages/General.vala:55
-#: core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
+#: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
+#: src/Dialogs/Preferences/Pages/Backup.vala:511
+#: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
 msgstr "პროექტები"
 
@@ -214,11 +214,10 @@ msgstr "ჟურნალი"
 #: core/Objects/Filters/Inbox.vala:33 core/Utils/Util.vala:258
 #: core/Utils/Util.vala:593
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
-#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
+#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:129
 #: src/Views/Project/Board.vala:250 src/Views/Project/List.vala:325
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:194
 #: src/Widgets/ProjectItemRow.vala:139
-#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:129
 msgid "Inbox"
 msgstr "საფოსტო ყუთი"
 
@@ -325,23 +324,23 @@ msgstr "ჭდის გარეშე"
 msgid "unlabeled"
 msgstr "ჭდემოხსნილი"
 
-#: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1569 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "ვადა:"
 
-#: core/Objects/Item.vala:1528 core/Objects/Item.vala:1594
+#: core/Objects/Item.vala:1594
 msgid "Task copied to clipboard"
 msgstr "ამოცანა დაკოპირდა ბუფერში"
 
-#: core/Objects/Item.vala:1545 core/Objects/Item.vala:1611
+#: core/Objects/Item.vala:1611
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1561 core/Objects/Item.vala:1627
+#: core/Objects/Item.vala:1627
 msgid "Task exported successfully"
 msgstr ""
 
-#: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1951 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "გადატანილია %s-ში"
@@ -372,10 +371,10 @@ msgstr "ეს ქმედება შეუქცევადია"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:594
 #: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:607
-#: src/Services/BackupManager.vala:227 src/Views/Filter.vala:629
+#: src/Services/BackupManager.vala:227 src/Views/Filter.vala:695
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:344 src/Views/Filter.vala:695
+#: src/Widgets/MultiSelectToolbar.vala:344
 msgid "Cancel"
 msgstr "გაუქმება"
 
@@ -386,9 +385,9 @@ msgstr "გაუქმება"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:360
 #: src/Layouts/ItemSidebarView.vala:608 src/Services/BackupManager.vala:228
-#: src/Views/Filter.vala:630 src/Widgets/AttachmentRow.vala:52
+#: src/Views/Filter.vala:696 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
-#: src/Widgets/MultiSelectToolbar.vala:345 src/Views/Filter.vala:696
+#: src/Widgets/MultiSelectToolbar.vala:345
 msgid "Delete"
 msgstr "წაშლა"
 
@@ -477,8 +476,7 @@ msgstr "შემხსნებლების დამატება"
 msgid "Add Task"
 msgstr "ამოცანის დამატება"
 
-#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1487
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
 msgid "Keep adding"
 msgstr ""
 
@@ -494,56 +492,55 @@ msgstr ""
 "უკაცრავად, მაგრამ სწრაფმა დამატებამ ხელმისაწვდომი პროექტი ვერ იპოვა. სცადეთ, "
 "ჯერ შექმნათ პროექტი Planify-დან."
 
-#: core/QuickAddCore.vala:1449 src/MainWindow.vala:778
-#: core/QuickAddCore.vala:1455
+#: core/QuickAddCore.vala:1455 src/MainWindow.vala:778
 msgid "Keyboard Shortcuts"
 msgstr "კლავიატურის მალსახმობები"
 
-#: core/QuickAddCore.vala:1455 core/QuickAddCore.vala:1461
+#: core/QuickAddCore.vala:1461
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1475
 msgid "Set priority"
 msgstr "პრიორიტეტის დაყენება"
 
-#: core/QuickAddCore.vala:1469 core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1475
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1476
 msgid "Add labels"
 msgstr "ჭდეების დამატება"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1476
 msgid "Opens label selector"
 msgstr "გახსნის ჭდის ამრჩევს"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1477
 msgid "Assign project"
 msgstr "პროექტის მინიჭება"
 
-#: core/QuickAddCore.vala:1471 core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1477
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1478
 msgid "Set reminder"
 msgstr "შეხსენების დაყენება"
 
-#: core/QuickAddCore.vala:1472 core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1478
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1487 core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1493
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1499
 msgid "Tip"
 msgstr "მინიშნება"
 
-#: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1499
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -563,29 +560,24 @@ msgstr ""
 msgid "Syncing task %d of %d"
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:776
 #: core/Services/CalDAV/CalDAVClient.vala:777
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:828
 #: core/Services/CalDAV/CalDAVClient.vala:829
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:832
 #: core/Services/CalDAV/CalDAVClient.vala:833
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:866
-#: core/Services/CalDAV/CalDAVClient.vala:913
 #: core/Services/CalDAV/CalDAVClient.vala:867
 #: core/Services/CalDAV/CalDAVClient.vala:914
 msgid ""
@@ -1378,8 +1370,8 @@ msgid "After"
 msgstr "შემდეგ"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:378
-#: core/Widgets/MarkdownEditor.vala:1405 src/Layouts/ItemBoard.vala:880
-#: src/Layouts/ItemRow.vala:1346 core/Widgets/MarkdownEditor.vala:1422
+#: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:880
+#: src/Layouts/ItemRow.vala:1346
 msgid "Apply"
 msgstr ""
 
@@ -1537,7 +1529,7 @@ msgstr ""
 msgid "Task description"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1410
+#: core/Widgets/MarkdownEditor.vala:1427
 msgid "Remove link"
 msgstr "ბმულის წაშლა"
 
@@ -1579,7 +1571,6 @@ msgstr "თქვენი სექციების სია აქ გა�
 msgid "No Section"
 msgstr "სექციის გარეშე"
 
-#: core/Widgets/ProjectPicker/ProjectPickerCore.vala:46
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:57
 msgid "Type a search"
 msgstr "აკრიფეთ მოსაძებნად"
@@ -1749,7 +1740,7 @@ msgid "No completed tasks yet."
 msgstr "დასრულებული ამოცანების გარეშე."
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:598 src/Views/Filter.vala:664
+#: src/Views/Filter.vala:664
 msgid "Delete All Completed Tasks"
 msgstr "ყველა დასრულებული ამოცანის წაშლა"
 
@@ -3193,7 +3184,7 @@ msgid "Add tasks"
 msgstr "ამოცანების დამატება"
 
 #: src/Layouts/SectionBoard.vala:175 src/Layouts/SectionRow.vala:217
-#: src/Views/Filter.vala:104 src/Views/Filter.vala:147
+#: src/Views/Filter.vala:147
 msgid "Load more"
 msgstr ""
 
@@ -3215,8 +3206,7 @@ msgstr "დასრულებული ამოცანების ჩვ�
 msgid "Delete Section"
 msgstr "განყოფილების წაშლა"
 
-#: src/Layouts/SectionRow.vala:655 src/Views/Filter.vala:362
-#: src/Views/Filter.vala:408
+#: src/Layouts/SectionRow.vala:655 src/Views/Filter.vala:408
 msgid "No more tasks"
 msgstr ""
 
@@ -3354,43 +3344,62 @@ msgstr "დადუმება 30 წუთით"
 msgid "Snooze for 1 hour"
 msgstr "დადუმება 1 საათით"
 
-#: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
+#: src/Views/Filter.vala:102 src/Views/Filter.vala:656
+msgid "All Projects"
+msgstr ""
+
+#: src/Views/Filter.vala:129 src/Views/Label/Labels.vala:45
 #: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
-#: src/Views/Today.vala:92 src/Views/Filter.vala:129
+#: src/Views/Today.vala:92
 msgid "View Option Menu"
 msgstr "მორგების მენიუს ნახვა"
 
-#: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
-#: src/Views/Project/Board.vala:121 src/Views/Project/List.vala:117
-#: src/Views/Today.vala:309 src/Views/Filter.vala:168 src/Views/Filter.vala:619
+#: src/Views/Filter.vala:168 src/Views/Filter.vala:619
+#: src/Views/Label/Label.vala:97 src/Views/Project/Board.vala:121
+#: src/Views/Project/List.vala:117 src/Views/Today.vala:309
 msgid "Add Some Tasks"
 msgstr "რამდენიმე ამოცანის დამატება"
 
-#: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
-#: src/Views/Project/Board.vala:122 src/Views/Project/List.vala:118
-#: src/Views/Today.vala:310 src/Views/Filter.vala:169 src/Views/Filter.vala:620
+#: src/Views/Filter.vala:169 src/Views/Filter.vala:620
+#: src/Views/Label/Label.vala:98 src/Views/Project/Board.vala:122
+#: src/Views/Project/List.vala:118 src/Views/Today.vala:310
 msgid "Press 'a' to create a new task"
 msgstr "ახალი ამოცანის შესაქმნელად დააჭირეთ ღილაკს 'a'"
 
-#: src/Views/Filter.vala:129
-msgid "All tasks completed!"
-msgstr "ყველა ამოცანა დასრულდა!"
-
-#: src/Views/Filter.vala:130 src/Views/Filter.vala:617
-msgid "Great job, nothing left to do 🎉"
-msgstr ""
-
-#: src/Views/Filter.vala:359 src/Views/Filter.vala:405
+#: src/Views/Filter.vala:405
 msgid "tasks"
 msgstr ""
 
+#: src/Views/Filter.vala:613
+msgid "No completed tasks"
+msgstr ""
+
+#: src/Views/Filter.vala:614
+msgid "No tasks found for the selected projects"
+msgstr ""
+
+#: src/Views/Filter.vala:616
+msgid "All tasks completed!"
+msgstr "ყველა ამოცანა დასრულდა!"
+
 #: src/Views/Filter.vala:617
+msgid "Great job, nothing left to do 🎉"
+msgstr ""
+
+#: src/Views/Filter.vala:658
+#, c-format
+msgid "%d Project"
+msgid_plural "%d Projects"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Views/Filter.vala:683
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "ყველა დასრულებული ამოცანის წაშლა"
 msgstr[1] "ყველა დასრულებული ამოცანის წაშლა"
 
-#: src/Views/Filter.vala:622
+#: src/Views/Filter.vala:688
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
@@ -3980,25 +3989,6 @@ msgstr "ჭდეების გახან"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "დაფის გახსნა"
-
-#: src/Views/Filter.vala:102 src/Views/Filter.vala:656
-msgid "All Projects"
-msgstr ""
-
-#: src/Views/Filter.vala:613
-msgid "No completed tasks"
-msgstr ""
-
-#: src/Views/Filter.vala:614
-msgid "No tasks found for the selected projects"
-msgstr ""
-
-#: src/Views/Filter.vala:658
-#, c-format
-msgid "%d Project"
-msgid_plural "%d Projects"
-msgstr[0] ""
-msgstr[1] ""
 
 #, fuzzy, c-format
 #~ msgid "Load more history from %d week ago…"
