@@ -326,6 +326,7 @@ msgid "unlabeled"
 msgstr "ჭდემოხსნილი"
 
 #: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1569
 msgid "Deadline:"
 msgstr "ვადა:"
 
@@ -342,6 +343,7 @@ msgid "Task exported successfully"
 msgstr ""
 
 #: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1951
 #, c-format
 msgid "Moved to %s"
 msgstr "გადატანილია %s-ში"
@@ -503,7 +505,7 @@ msgstr "კლავიატურის მალსახმობები"
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1469
+#: core/QuickAddCore.vala:1469 core/QuickAddCore.vala:1475
 msgid "Set priority"
 msgstr "პრიორიტეტის დაყენება"
 
@@ -511,15 +513,15 @@ msgstr "პრიორიტეტის დაყენება"
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1470 core/QuickAddCore.vala:1476
 msgid "Add labels"
 msgstr "ჭდეების დამატება"
 
-#: core/QuickAddCore.vala:1470
+#: core/QuickAddCore.vala:1470 core/QuickAddCore.vala:1476
 msgid "Opens label selector"
 msgstr "გახსნის ჭდის ამრჩევს"
 
-#: core/QuickAddCore.vala:1471
+#: core/QuickAddCore.vala:1471 core/QuickAddCore.vala:1477
 msgid "Assign project"
 msgstr "პროექტის მინიჭება"
 
@@ -527,7 +529,7 @@ msgstr "პროექტის მინიჭება"
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1472
+#: core/QuickAddCore.vala:1472 core/QuickAddCore.vala:1478
 msgid "Set reminder"
 msgstr "შეხსენების დაყენება"
 
@@ -539,7 +541,7 @@ msgstr ""
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:1499
 msgid "Tip"
 msgstr "მინიშნება"
 
@@ -1537,7 +1539,7 @@ msgstr ""
 msgid "Task description"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1410
+#: core/Widgets/MarkdownEditor.vala:1410 core/Widgets/MarkdownEditor.vala:1427
 msgid "Remove link"
 msgstr "ბმულის წაშლა"
 
@@ -3372,7 +3374,7 @@ msgstr "რამდენიმე ამოცანის დამატე�
 msgid "Press 'a' to create a new task"
 msgstr "ახალი ამოცანის შესაქმნელად დააჭირეთ ღილაკს 'a'"
 
-#: src/Views/Filter.vala:129
+#: src/Views/Filter.vala:129 src/Views/Filter.vala:616
 msgid "All tasks completed!"
 msgstr "ყველა ამოცანა დასრულდა!"
 
@@ -3384,13 +3386,13 @@ msgstr ""
 msgid "tasks"
 msgstr ""
 
-#: src/Views/Filter.vala:617
+#: src/Views/Filter.vala:617 src/Views/Filter.vala:683
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "ყველა დასრულებული ამოცანის წაშლა"
 msgstr[1] "ყველა დასრულებული ამოცანის წაშლა"
 
-#: src/Views/Filter.vala:622
+#: src/Views/Filter.vala:622 src/Views/Filter.vala:688
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
