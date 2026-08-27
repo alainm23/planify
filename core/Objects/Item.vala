@@ -672,13 +672,15 @@ public class Objects.Item : Objects.BaseObject {
                         var trigger_time = trigger.get_time ();
                         if (!trigger_time.is_null_time ()) {
                             var dt = Utils.Datetime.ical_to_date_time_local (trigger_time);
-                            server_datetimes.add (dt.to_string ());
+                            if (dt.compare (new GLib.DateTime.now_local ()) > 0) {
+                                server_datetimes.add (dt.to_string ());
 
-                            var reminder = new Objects.Reminder ();
-                            reminder.item_id = id;
-                            reminder.reminder_type = ReminderType.ABSOLUTE;
-                            reminder.due.date = dt.to_string ();
-                            add_reminder_if_not_exists (reminder, id != "");
+                                var reminder = new Objects.Reminder ();
+                                reminder.item_id = id;
+                                reminder.reminder_type = ReminderType.ABSOLUTE;
+                                reminder.due.date = dt.to_string ();
+                                add_reminder_if_not_exists (reminder, id != "");
+                            }
                         }
                     }
                 }
