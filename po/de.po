@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-07-27 08:01+0000\n"
+"PO-Revision-Date: 2026-08-19 09:51+0000\n"
 "Last-Translator: numerfolt <numerfolt@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/de/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -1507,15 +1507,15 @@ msgstr "Bis wann sollte das spätestens erledigt sein?"
 
 #: core/Widgets/DeadlineButton.vala:218
 msgid "In 3 days"
-msgstr ""
+msgstr "In 3 Tagen"
 
 #: core/Widgets/DeadlineButton.vala:220
 msgid "In 2 weeks"
-msgstr ""
+msgstr "In 2 Wochen"
 
 #: core/Widgets/DeadlineButton.vala:221
 msgid "In a month"
-msgstr ""
+msgstr "In einem Monat"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -2073,14 +2073,17 @@ msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
 msgstr ""
+"Nextcloud Deck ist auf diesem Server verfügbar. Möchtest du die Deck-"
+"Integration aktivieren, um deine Boards und Karten direkt in Planify zu "
+"verwalten?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
 msgid "Not Now"
-msgstr ""
+msgstr "Nicht jetzt"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
 msgid "Enable Deck"
-msgstr ""
+msgstr "Aktiviere Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:181
@@ -2110,15 +2113,15 @@ msgstr "Letzte Synchronisation"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
 msgid "Nextcloud Deck"
-msgstr ""
+msgstr "Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
 msgid "Sync boards and cards from Nextcloud Deck"
-msgstr ""
+msgstr "Synchronisiere Boards und Karten mit Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
 msgid "Nextcloud Deck is not available on this server"
-msgstr ""
+msgstr "Nextcloud Deck ist auf diesem Server nicht verfügbar"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:152
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:214
@@ -3094,11 +3097,11 @@ msgstr "Überschreibe für dieses Projekt die Markdown-Standardeinstellungen"
 
 #: src/Dialogs/Project.vala:264
 msgid "Create as Deck Board"
-msgstr ""
+msgstr "Als Deck-Board erstellen"
 
 #: src/Dialogs/Project.vala:265
 msgid "Create a Nextcloud Deck board instead of a task list"
-msgstr ""
+msgstr "Erstelle ein Nextcloud Deck Board anstatt einer Aufgabenliste"
 
 #: src/Dialogs/Project.vala:576
 msgid "Project added successfully!"
@@ -3576,11 +3579,11 @@ msgstr "Notiz"
 
 #: src/Views/Project/Board.vala:121
 msgid "No Sections Yet"
-msgstr ""
+msgstr "Noch keine Abschnitte vorhanden"
 
 #: src/Views/Project/Board.vala:122
 msgid "Create a section to start adding tasks to this board"
-msgstr ""
+msgstr "Erstelle einen Abschnitt, um Aufgaben zu diesem Board hinzuzufügen"
 
 #: src/Views/Project/Board.vala:326
 msgid "Schedule"
@@ -3605,6 +3608,7 @@ msgstr "Neue Aufgabe"
 #: src/Views/Project/Project.vala:357
 msgid "Add a section first to create tasks in this board"
 msgstr ""
+"Füge erst einen Abschnitt hinzu, um Aufgaben in diesem Board zu erstellen"
 
 #: src/Views/Project/Project.vala:389 src/Views/Project/Project.vala:421
 msgid "Project Deadline"
