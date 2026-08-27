@@ -272,6 +272,7 @@ public class Views.Board : Adw.Bin {
         }
 
         flowbox_placeholder_stack.visible_child_name = count > 0 ? "board" : "placeholder";
+        flowbox.invalidate_filter ();
     }
 
     private void add_inbox_section () {
