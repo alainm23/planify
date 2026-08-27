@@ -325,10 +325,6 @@ public class Widgets.DeadlineButton : Adw.Bin {
     }
 
     private Gtk.Button build_suggestion (string title, GLib.DateTime date) {
-        string icon_name = Utils.Datetime.is_tomorrow (date) ? "today-calendar-symbolic" : "month-symbolic";
-
-        var icon = new Gtk.Image.from_icon_name (icon_name);
-
         var label = new Gtk.Label (title);
 
         var box = new Gtk.Box (HORIZONTAL, 6) {
@@ -337,12 +333,11 @@ public class Widgets.DeadlineButton : Adw.Bin {
             margin_top = 6,
             margin_bottom = 6
         };
-        box.append (icon);
         box.append (label);
 
         var button = new Gtk.Button () {
             child = box,
-            css_classes = { "card" },
+            css_classes = { "suggestion-chip" },
             tooltip_text = Utils.Datetime.get_relative_date_from_date (date)
         };
 

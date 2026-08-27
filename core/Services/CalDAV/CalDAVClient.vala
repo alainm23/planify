@@ -592,6 +592,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                             } else {
                                 project.add_item_if_not_exists (new_item);
                             }
+                            new_item.sync_reminders_from_vtodo (vtodo_comp);
                         }
                     }
                 }

@@ -36,8 +36,8 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
         Object (
             source: source,
             title: _("Move"),
-            content_width: 400,
-            content_height: 550
+            content_width: 350,
+            content_height: 420
         );
     }
 
@@ -45,8 +45,8 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
         Object (
             source: null,
             title: _("Move"),
-            content_width: 400,
-            content_height: 550
+            content_width: 350,
+            content_height: 420
         );
     }
 
