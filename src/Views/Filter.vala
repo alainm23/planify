@@ -22,6 +22,24 @@
 public class Views.Filter : Adw.Bin {
     public Objects.BaseObject filter { get; construct; }
 
+    /**
+     * Sort key used to group tasks by their parent project. This is the historical
+     * (and default) ordering of the All Tasks view, and has no SortedByType member
+     * because it is only meaningful in a view that spans several projects.
+     */
+    private const string SORT_BY_PROJECT = "project";
+
+    private const string SORT_ORDER_KEY = "all-items-sort-order";
+    private const string SORT_ASCENDING_KEY = "all-items-sort-ascending";
+    private const string FILTERS_KEY = "all-items-filters";
+    private const string SHOW_COMPLETED_KEY = "all-items-show-completed";
+
+    private Widgets.ContextMenu.MenuPicker due_date_item;
+    private Widgets.ContextMenu.MenuCheckPicker priority_filter;
+    private Widgets.ContextMenu.MenuSwitch show_completed_item;
+    private Gtk.Revealer indicator_revealer;
+    private uint rebuild_idle_id = 0;
+
     private Layouts.HeaderBar headerbar;
     private Gtk.Image title_icon;
     private Gtk.Label title_label;
@@ -33,6 +51,7 @@ public class Views.Filter : Adw.Bin {
     private Gtk.Revealer load_more_button_revealer;
     private Gtk.MenuButton project_filter_button;
     private Gtk.Revealer project_filter_revealer;
+    private Widgets.FilterFlowBox ? filters_flowbox;
     private Adw.StatusPage listbox_placeholder;
     private Gee.ArrayList<string> selected_project_ids = new Gee.ArrayList<string> ();
 
@@ -43,12 +62,31 @@ public class Views.Filter : Adw.Bin {
     private int page_index = 0;
     private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
 
+    /**
+     * Whether this filter view offers the sort menu. Only All Tasks does for now;
+     * when the Label view gains the same menu the settings keys above should become
+     * a per-view prefix rather than constants.
+     */
+    private bool sorting_supported {
+        get {
+            return filter is Objects.Filters.AllItems;
+        }
+    }
+
     private bool has_visible_items {
         get {
             if (items_list == null || items_list.size == 0) return false;
-            if (selected_project_ids.size == 0) return true;
+            if (selected_project_ids.size == 0 && filter.filters.size == 0) return true;
             foreach (var item in items_list) {
-                if (selected_project_ids.contains (item.project_id)) return true;
+                if (selected_project_ids.size > 0 && !selected_project_ids.contains (item.project_id)) {
+                    continue;
+                }
+
+                if (sorting_supported && !Utils.TaskUtils.items_filter_func (item, filter.filters)) {
+                    continue;
+                }
+
+                return true;
             }
             return false;
         }
@@ -129,9 +167,31 @@ public class Views.Filter : Adw.Bin {
             tooltip_text = _("View Option Menu")
         };
 
+        var indicator_grid = new Gtk.Grid () {
+            width_request = 9,
+            height_request = 9,
+            margin_top = 6,
+            margin_end = 6,
+            css_classes = { "indicator" }
+        };
+
+        indicator_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = indicator_grid,
+            halign = END,
+            valign = START,
+            sensitive = false,
+            reveal_child = false
+        };
+
+        var view_setting_overlay = new Gtk.Overlay () {
+            child = view_setting_button
+        };
+        view_setting_overlay.add_overlay (indicator_revealer);
+
         view_setting_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-            child = view_setting_button
+            child = view_setting_overlay
         };
 
         headerbar = new Layouts.HeaderBar ();
@@ -185,6 +245,26 @@ public class Views.Filter : Adw.Bin {
 
         content.append (title_box);
         content.append (project_filter_revealer);
+
+        // Removable chips for the active filters, the same affordance the project views offer.
+        // The widget renders the current bag on assignment and then keeps itself in sync from
+        // BaseObject's filter signals, so it needs no wiring beyond the base_object.
+        if (sorting_supported) {
+            filters_flowbox = new Widgets.FilterFlowBox () {
+                valign = Gtk.Align.START,
+                vexpand = false,
+                vexpand_set = true,
+                base_object = filter
+            };
+
+            filters_flowbox.flowbox.margin_start = 30;
+            filters_flowbox.flowbox.margin_top = 12;
+            filters_flowbox.flowbox.margin_end = 12;
+            filters_flowbox.flowbox.margin_bottom = 3;
+
+            content.append (filters_flowbox);
+        }
+
         content.append (listbox_stack);
 
         var content_clamp = new Adw.Clamp () {
@@ -216,8 +296,17 @@ public class Views.Filter : Adw.Bin {
         toolbar_view.add_top_bar (headerbar);
 
         listbox.set_filter_func ((row) => {
-            if (selected_project_ids.size == 0) return true;
-            return selected_project_ids.contains (((Layouts.ItemRow) row).item.project_id);
+            var item = ((Layouts.ItemRow) row).item;
+
+            if (selected_project_ids.size > 0 && !selected_project_ids.contains (item.project_id)) {
+                return false;
+            }
+
+            if (sorting_supported && !Utils.TaskUtils.items_filter_func (item, filter.filters)) {
+                return false;
+            }
+
+            return true;
         });
 
         child = toolbar_view;
@@ -262,7 +351,74 @@ public class Views.Filter : Adw.Bin {
 
         signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
             title_box.sensitive = !active;
+
+            if (filters_flowbox != null) {
+                filters_flowbox.sensitive = !active;
+            }
         })] = Services.EventBus.get_default ();
+
+        if (sorting_supported) {
+            signal_map[Services.Settings.get_default ().settings.changed[SORT_ORDER_KEY].connect (() => {
+                apply_sort_changed ();
+                check_default_filters ();
+            })] = Services.Settings.get_default ().settings;
+
+            signal_map[Services.Settings.get_default ().settings.changed[SORT_ASCENDING_KEY].connect (() => {
+                apply_sort_changed ();
+                check_default_filters ();
+            })] = Services.Settings.get_default ().settings;
+
+            signal_map[filter.filter_added.connect (() => {
+                apply_filters_changed ();
+            })] = filter;
+
+            signal_map[filter.filter_removed.connect ((filter_item) => {
+                if (filter_item.filter_type == FilterItemType.PRIORITY) {
+                    priority_filter.unchecked (filter_item);
+                } else if (filter_item.filter_type == FilterItemType.DUE_DATE) {
+                    due_date_item.update_selected ("0");
+                }
+
+                apply_filters_changed ();
+            })] = filter;
+
+            signal_map[filter.filter_updated.connect (() => {
+                apply_filters_changed ();
+            })] = filter;
+
+            check_default_filters ();
+        }
+    }
+
+    private void apply_filters_changed () {
+        save_filters ();
+        listbox.invalidate_filter ();
+        validate_placeholder ();
+        check_default_filters ();
+    }
+
+    /**
+     * Re-sorts and re-pages the list after the sort settings change. The whole list
+     * has to be rebuilt rather than merely invalidated, because pagination decides
+     * which items are loaded at all from the sorted backing list.
+     */
+    private void apply_sort_changed () {
+        // Deferred to an idle callback rather than run inline. Rebuilding tears down and
+        // frees every ItemRow, and this runs from inside a signal emission (a GSettings
+        // "changed" handler) that can still touch those rows once we return — which shows
+        // up as GTK_IS_LABEL/GTK_IS_WIDGET assertions on freed widgets. The idle source
+        // also coalesces a burst of rapid filter clicks into a single rebuild.
+        if (rebuild_idle_id != 0) {
+            return;
+        }
+
+        rebuild_idle_id = Idle.add (() => {
+            rebuild_idle_id = 0;
+            update_header_func ();
+            add_items ();
+            validate_placeholder ();
+            return GLib.Source.REMOVE;
+        });
     }
 
     public void prepare_new_item (string content = "") {
@@ -296,7 +452,7 @@ public class Views.Filter : Adw.Bin {
             Util.get_default ().set_widget_color (priority.color, title_icon);
             
             title_label.label = priority.title;
-            listbox.set_header_func (header_project_function);
+            update_header_func ();
             magic_button.visible = true;
         } else {
             title_icon.icon_name = filter.icon_name;
@@ -306,17 +462,20 @@ public class Views.Filter : Adw.Bin {
 
             if (filter is Objects.Filters.Completed) {
                 magic_button.visible = false;
-                listbox.set_header_func (header_completed_function);
                 listbox.set_sort_func ((row1, row2) => {
                     return sort_completed_function (((Layouts.ItemRow) row1).item, ((Layouts.ItemRow) row2).item);
                 });
-            } else {
-                listbox.set_header_func (header_project_function);
+            } else if (sorting_supported) {
+                listbox.set_sort_func ((row1, row2) => {
+                    return sort_items_function (((Layouts.ItemRow) row1).item, ((Layouts.ItemRow) row2).item);
+                });
             }
-        } 
+
+            update_header_func ();
+        }
 
         headerbar.title = title_label.label;
-        view_setting_revealer.reveal_child = filter is Objects.Filters.Completed;
+        view_setting_revealer.reveal_child = filter is Objects.Filters.Completed || sorting_supported;
         project_filter_revealer.reveal_child = filter is Objects.Filters.Completed;
     }
 
@@ -367,11 +526,24 @@ public class Views.Filter : Adw.Bin {
             foreach (Objects.Item item in Services.Store.instance ().get_items_no_parent (false)) {
                 items_list.add (item);
             }
+
+            if (show_completed ()) {
+                foreach (Objects.Item item in Services.Store.instance ().get_items_no_parent (true)) {
+                    items_list.add (item);
+                }
+            }
         }
 
         if (filter is Objects.Filters.Completed) {
             items_list.sort ((a, b) => {
                 return sort_completed_function (a, b);
+            });
+        } else if (sorting_supported) {
+            // The list is paginated, so the backing list has to carry the sort too:
+            // otherwise the first page would be chosen by the old order and only
+            // re-sorted among itself.
+            items_list.sort ((a, b) => {
+                return sort_items_function (a, b);
             });
         } else {
             items_list.sort ((a, b) => {
@@ -544,7 +716,8 @@ public class Views.Filter : Adw.Bin {
             filter is Objects.Filters.AllItems
         ) {
             if (!old_checked) {
-                if (items.has_key (item.id) && item.completed) {
+                // Keep the row in place when the view is explicitly showing completed tasks.
+                if (items.has_key (item.id) && item.completed && !show_completed ()) {
                     items[item.id].hide_destroy ();
                     items.unset (item.id);
                     Services.EventBus.get_default ().unfocus_item ();
@@ -605,7 +778,8 @@ public class Views.Filter : Adw.Bin {
             }
         }
 
-        row.set_header (get_header_box (row.item.project.name));
+        Objects.Project ? project = row.item.project;
+        row.set_header (get_header_box (project == null ? "" : project.name));
     }
 
     private void validate_placeholder () {
@@ -615,6 +789,9 @@ public class Views.Filter : Adw.Bin {
         } else if (filter is Objects.Filters.Completed) {
             listbox_placeholder.title = _("All tasks completed!");
             listbox_placeholder.description = _("Great job, nothing left to do 🎉");
+        } else if (sorting_supported && !has_visible_items && filter.filters.size > 0) {
+            listbox_placeholder.title = _("No tasks found");
+            listbox_placeholder.description = _("No tasks match the selected filters");
         } else {
             listbox_placeholder.title = _("Add Some Tasks");
             listbox_placeholder.description = _("Press 'a' to create a new task");
@@ -661,6 +838,10 @@ public class Views.Filter : Adw.Bin {
     }
 
     private Gtk.Popover build_view_setting_popover () {
+        if (sorting_supported) {
+            return build_sort_setting_popover ();
+        }
+
         var delete_all_completed = new Widgets.ContextMenu.MenuItem (_("Delete All Completed Tasks"), "user-trash-symbolic");
         delete_all_completed.add_css_class ("menu-item-danger");
 
@@ -709,6 +890,364 @@ public class Views.Filter : Adw.Bin {
         return popover;
     }
 
+    private Gtk.Popover build_sort_setting_popover () {
+        var sorted_by_item = new Widgets.ContextMenu.MenuPicker (_("Sorting"), "vertical-arrows-long-symbolic") {
+            selected = Services.Settings.get_default ().settings.get_string (SORT_ORDER_KEY)
+        };
+
+        sorted_by_item.add_item (_("Project"), SORT_BY_PROJECT);
+        sorted_by_item.add_item (_("Alphabetically"), SortedByType.NAME.to_string ());
+        sorted_by_item.add_item (_("Due Date"), SortedByType.DUE_DATE.to_string ());
+        sorted_by_item.add_item (_("Date Added"), SortedByType.ADDED_DATE.to_string ());
+        sorted_by_item.add_item (_("Date Modified"), SortedByType.UPDATED_DATE.to_string ());
+        sorted_by_item.add_item (_("Priority"), SortedByType.PRIORITY.to_string ());
+
+        var sort_order_item = new Widgets.ContextMenu.MenuSwitch (_("Ascending Order"), "vertical-arrows-long-symbolic") {
+            active = Services.Settings.get_default ().settings.get_boolean (SORT_ASCENDING_KEY)
+        };
+
+        due_date_item = new Widgets.ContextMenu.MenuPicker (_("Duedate"), "month-symbolic") {
+            selected = "0"
+        };
+        due_date_item.add_item (_("All (default)"), "0");
+        due_date_item.add_item (_("Today"), "1");
+        due_date_item.add_item (_("This Week"), "2");
+        due_date_item.add_item (_("Next 7 Days"), "3");
+        due_date_item.add_item (_("This Month"), "4");
+        due_date_item.add_item (_("Next 30 Days"), "5");
+        due_date_item.add_item (_("No Date"), "6");
+
+        var priority_items = new Gee.ArrayList<Objects.Filters.FilterItem> ();
+        priority_items.add (new Objects.Filters.FilterItem () {
+            filter_type = FilterItemType.PRIORITY,
+            name = _("P1"),
+            value = Constants.PRIORITY_1.to_string ()
+        });
+        priority_items.add (new Objects.Filters.FilterItem () {
+            filter_type = FilterItemType.PRIORITY,
+            name = _("P2"),
+            value = Constants.PRIORITY_2.to_string ()
+        });
+        priority_items.add (new Objects.Filters.FilterItem () {
+            filter_type = FilterItemType.PRIORITY,
+            name = _("P3"),
+            value = Constants.PRIORITY_3.to_string ()
+        });
+        priority_items.add (new Objects.Filters.FilterItem () {
+            filter_type = FilterItemType.PRIORITY,
+            name = _("P4"),
+            value = Constants.PRIORITY_4.to_string ()
+        });
+
+        priority_filter = new Widgets.ContextMenu.MenuCheckPicker (_("Priority"), "flag-outline-thick-symbolic");
+        priority_filter.set_items (priority_items);
+
+        var labels_filter = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "tag-outline-symbolic") {
+            arrow = true
+        };
+
+        show_completed_item = new Widgets.ContextMenu.MenuSwitch (_("Show Completed"), "check-round-outline-symbolic") {
+            active = Services.Settings.get_default ().settings.get_boolean (SHOW_COMPLETED_KEY),
+            tooltip_text = _("Display completed tasks in the list")
+        };
+
+        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        menu_box.margin_top = menu_box.margin_bottom = 3;
+        menu_box.append (new Gtk.Label (_("Sort By")) {
+            css_classes = { "heading", "h4" },
+            margin_start = 6,
+            margin_top = 6,
+            margin_bottom = 6,
+            halign = Gtk.Align.START
+        });
+        menu_box.append (sorted_by_item);
+        menu_box.append (sort_order_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (new Gtk.Label (_("Filter By")) {
+            css_classes = { "heading", "h4" },
+            margin_start = 6,
+            margin_top = 6,
+            margin_bottom = 6,
+            halign = Gtk.Align.START
+        });
+        menu_box.append (due_date_item);
+        menu_box.append (priority_filter);
+        menu_box.append (labels_filter);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (show_completed_item);
+
+        var popover = new Gtk.Popover () {
+            has_arrow = false,
+            position = Gtk.PositionType.BOTTOM,
+            child = menu_box,
+            width_request = 250
+        };
+
+        restore_filters ();
+
+        signal_map[sorted_by_item.notify["selected"].connect (() => {
+            Services.Settings.get_default ().settings.set_string (SORT_ORDER_KEY, sorted_by_item.selected);
+        })] = sorted_by_item;
+
+        signal_map[sort_order_item.activate_item.connect (() => {
+            Services.Settings.get_default ().settings.set_boolean (SORT_ASCENDING_KEY, sort_order_item.active);
+        })] = sort_order_item;
+
+        signal_map[due_date_item.notify["selected"].connect (() => {
+            update_due_date_filter (int.parse (due_date_item.selected));
+        })] = due_date_item;
+
+        signal_map[priority_filter.filter_change.connect ((filter_item, active) => {
+            if (active) {
+                filter.add_filter (filter_item);
+            } else {
+                filter.remove_filter (filter_item);
+            }
+        })] = priority_filter;
+
+        signal_map[labels_filter.activate_item.connect (() => {
+            show_labels_filter_dialog ();
+        })] = labels_filter;
+
+        signal_map[show_completed_item.activate_item.connect (() => {
+            Services.Settings.get_default ().settings.set_boolean (SHOW_COMPLETED_KEY, show_completed_item.active);
+            apply_sort_changed ();
+            check_default_filters ();
+        })] = show_completed_item;
+
+        return popover;
+    }
+
+    private void update_due_date_filter (int selected) {
+        Objects.Filters.FilterItem ? due_filter = filter.get_filter (FilterItemType.DUE_DATE.to_string ());
+
+        if (selected <= 0) {
+            if (due_filter != null) {
+                filter.remove_filter (due_filter);
+            }
+
+            return;
+        }
+
+        bool insert = false;
+        if (due_filter == null) {
+            due_filter = new Objects.Filters.FilterItem ();
+            due_filter.filter_type = FilterItemType.DUE_DATE;
+            insert = true;
+        }
+
+        due_filter.name = due_date_name (selected);
+        due_filter.value = selected.to_string ();
+
+        if (insert) {
+            filter.add_filter (due_filter);
+        } else {
+            filter.update_filter (due_filter);
+        }
+    }
+
+    private string due_date_name (int selected) {
+        switch (selected) {
+            case 1:
+                return _("Today");
+
+            case 2:
+                return _("This Week");
+
+            case 3:
+                return _("Next 7 Days");
+
+            case 4:
+                return _("This Month");
+
+            case 5:
+                return _("Next 30 Days");
+
+            case 6:
+                return _("No Date");
+
+            default:
+                return _("All (default)");
+        }
+    }
+
+    private void show_labels_filter_dialog () {
+        Gee.ArrayList<Objects.Label> selected_labels = new Gee.ArrayList<Objects.Label> ();
+        foreach (Objects.Filters.FilterItem filter_item in filter.filters.values) {
+            if (filter_item.filter_type == FilterItemType.LABEL) {
+                Objects.Label ? label = Services.Store.instance ().get_label (filter_item.value);
+                if (label != null) {
+                    selected_labels.add (label);
+                }
+            }
+        }
+
+        var dialog = new Dialogs.LabelPicker ();
+        dialog.add_labels_list (Services.Store.instance ().labels);
+        dialog.labels = selected_labels;
+
+        // Scoped to the dialog, not the view's signal_map: handler ids are per-instance,
+        // so tracking a transient object there collides with an existing key and leaves the
+        // view disconnecting that id against the wrong instance.
+        ulong labels_handler = dialog.labels_changed.connect ((labels) => {
+            foreach (Objects.Label label in labels.values) {
+                var label_filter = new Objects.Filters.FilterItem ();
+                label_filter.filter_type = FilterItemType.LABEL;
+                label_filter.name = label.name;
+                label_filter.value = label.id;
+
+                filter.add_filter (label_filter);
+            }
+
+            var to_remove = new Gee.ArrayList<Objects.Filters.FilterItem> ();
+            foreach (Objects.Filters.FilterItem filter_item in filter.filters.values) {
+                if (filter_item.filter_type == FilterItemType.LABEL && !labels.has_key (filter_item.value)) {
+                    to_remove.add (filter_item);
+                }
+            }
+
+            foreach (Objects.Filters.FilterItem filter_item in to_remove) {
+                filter.remove_filter (filter_item);
+            }
+        });
+
+        dialog.closed.connect (() => {
+            if (GLib.SignalHandler.is_connected (dialog, labels_handler)) {
+                dialog.disconnect (labels_handler);
+            }
+        });
+
+        dialog.present (Planify._instance.main_window);
+    }
+
+    /**
+     * Restores the filters persisted for this view and syncs the menu widgets to them.
+     * Each entry is stored as "filter-type:value"; the display name is re-derived rather
+     * than persisted, so a renamed label shows its current name.
+     */
+    private void restore_filters () {
+        string[] stored = Services.Settings.get_default ().settings.get_strv (FILTERS_KEY);
+
+        foreach (string entry in stored) {
+            string[] parts = entry.split (":", 2);
+            if (parts.length != 2) {
+                continue;
+            }
+
+            string type = parts[0];
+            string value = parts[1];
+
+            var filter_item = new Objects.Filters.FilterItem ();
+            filter_item.value = value;
+
+            if (type == FilterItemType.PRIORITY.to_string ()) {
+                filter_item.filter_type = FilterItemType.PRIORITY;
+                filter_item.name = "P%d".printf (Constants.PRIORITY_1 - int.parse (value) + 1);
+            } else if (type == FilterItemType.LABEL.to_string ()) {
+                Objects.Label ? label = Services.Store.instance ().get_label (value);
+                if (label == null) {
+                    // The label was deleted since the filter was stored.
+                    continue;
+                }
+
+                filter_item.filter_type = FilterItemType.LABEL;
+                filter_item.name = label.name;
+            } else if (type == FilterItemType.DUE_DATE.to_string ()) {
+                filter_item.filter_type = FilterItemType.DUE_DATE;
+                filter_item.name = due_date_name (int.parse (value));
+            } else {
+                continue;
+            }
+
+            filter.add_filter (filter_item);
+        }
+
+        sync_menu_to_filters ();
+    }
+
+    private void sync_menu_to_filters () {
+        foreach (Objects.Filters.FilterItem filter_item in filter.filters.values) {
+            if (filter_item.filter_type == FilterItemType.PRIORITY) {
+                if (priority_filter.filters_map.has_key (filter_item.id)) {
+                    priority_filter.filters_map[filter_item.id].active = true;
+                }
+            } else if (filter_item.filter_type == FilterItemType.DUE_DATE) {
+                due_date_item.update_selected (filter_item.value);
+            }
+        }
+    }
+
+    private void save_filters () {
+        // Build a native string[] rather than going through Gee's generic to_array():
+        // for a reference-type generic that returns unowned element pointers, which are
+        // freed before set_strv() reads them (SIGSEGV inside g_utf8_validate).
+        string[] stored = {};
+
+        foreach (Objects.Filters.FilterItem filter_item in filter.filters.values) {
+            stored += "%s:%s".printf (filter_item.filter_type.to_string (), filter_item.value);
+        }
+
+        Services.Settings.get_default ().settings.set_strv (FILTERS_KEY, stored);
+    }
+
+    private bool show_completed () {
+        return sorting_supported && Services.Settings.get_default ().settings.get_boolean (SHOW_COMPLETED_KEY);
+    }
+
+    /**
+     * Reveals the dot on the view-settings button whenever the view is not showing
+     * its default sort and no filters, mirroring the project view's affordance.
+     */
+    private void check_default_filters () {
+        if (indicator_revealer == null) {
+            return;
+        }
+
+        bool has_filters = filter.filters.size > 0;
+        bool default_sort = sorted_by_project () &&
+            Services.Settings.get_default ().settings.get_boolean (SORT_ASCENDING_KEY);
+
+        indicator_revealer.reveal_child = has_filters || !default_sort || show_completed ();
+    }
+
+    private SortOrderType get_sort_order () {
+        return Services.Settings.get_default ().settings.get_boolean (SORT_ASCENDING_KEY)
+            ? SortOrderType.ASC : SortOrderType.DESC;
+    }
+
+    private bool sorted_by_project () {
+        return Services.Settings.get_default ().settings.get_string (SORT_ORDER_KEY) == SORT_BY_PROJECT;
+    }
+
+    private int sort_items_function (Objects.Item item1, Objects.Item item2) {
+        if (sorted_by_project ()) {
+            return Util.get_default ().set_item_project_sort_func (item1, item2, get_sort_order ());
+        }
+
+        return Util.get_default ().set_item_sort_func (
+            item1,
+            item2,
+            SortedByType.parse (Services.Settings.get_default ().settings.get_string (SORT_ORDER_KEY)),
+            get_sort_order ()
+        );
+    }
+
+    private void update_header_func () {
+        if (filter is Objects.Filters.Completed) {
+            listbox.set_header_func (header_completed_function);
+            return;
+        }
+
+        // Grouping headers only make sense while the list is grouped by project;
+        // under any other sort they would fragment the order into noise.
+        if (sorting_supported && !sorted_by_project ()) {
+            listbox.set_header_func (null);
+            return;
+        }
+
+        listbox.set_header_func (header_project_function);
+    }
+
     private void invalidate_listbox () {
         listbox.invalidate_sort ();
         listbox.invalidate_headers ();
@@ -727,6 +1266,11 @@ public class Views.Filter : Adw.Bin {
     }
 
     public void clean_up () {
+        if (rebuild_idle_id != 0) {
+            GLib.Source.remove (rebuild_idle_id);
+            rebuild_idle_id = 0;
+        }
+
         listbox.set_sort_func (null);
         listbox.set_header_func (null);
 
@@ -735,7 +1279,9 @@ public class Views.Filter : Adw.Bin {
         }
         
         foreach (var entry in signal_map.entries) {
-            entry.value.disconnect (entry.key);
+            if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
+                entry.value.disconnect (entry.key);
+            }
         }
 
         signal_map.clear ();
