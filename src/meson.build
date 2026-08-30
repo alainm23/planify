@@ -82,6 +82,7 @@ sources = files(
   'Widgets/ProjectItemRow.vala',
   'Widgets/SectionItemRow.vala',
   'Widgets/ComboWrapRow.vala',
+  'Widgets/ClaudeStatusBadge.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',
@@ -91,7 +92,8 @@ sources = files(
   'Views/Label/Labels.vala',
   'Views/Label/LabelSourceRow.vala',
   'Views/Filter.vala',
-  
+  'Views/AI/AssistantPanel.vala',
+
   'Views/Scheduled/Scheduled.vala',
   'Views/Scheduled/ScheduledSection.vala',
   'Views/Scheduled/ScheduledDay.vala',
@@ -103,6 +105,7 @@ sources = files(
   'Dialogs/Section.vala',
   'Dialogs/Label.vala',
   'Dialogs/QuickAdd.vala',
+  'Dialogs/ImportDialog.vala',
   'Dialogs/ManageSectionOrder.vala',
   'Dialogs/ProjectPicker.vala',
   'Dialogs/ManageProjects.vala',
@@ -133,6 +136,7 @@ sources = files(
   'Dialogs/Preferences/Pages/TaskSetting.vala',
   'Dialogs/Preferences/Pages/QuickAdd.vala',
   'Dialogs/Preferences/Pages/Donate.vala',
+  'Dialogs/Preferences/Pages/Claude.vala',
   'Dialogs/Preferences/Pages/Accounts/Accounts.vala',
   'Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala',
   'Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala',
