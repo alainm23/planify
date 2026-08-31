@@ -1136,6 +1136,39 @@ We hope you’ll enjoy using Planify!""");
         }
     }
 
+    /**
+     * Compares two items for a view that groups tasks by project: by project name, then by
+     * project id so two projects sharing a name never interleave, and finally by priority
+     * (highest first, ties broken by date added) inside a group.
+     *
+     * sort_order flips the grouping only. Priority stays highest first in both directions,
+     * because the toggle controls the grouping, not the ranking inside it.
+     */
+    public int set_item_project_sort_func (Objects.Item item1, Objects.Item item2, SortOrderType sort_order) {
+        // A project may be missing for an orphaned task, so fall back to empty values
+        // rather than dereferencing null while sorting.
+        Objects.Project ? project1 = item1.project;
+        Objects.Project ? project2 = item2.project;
+
+        int result = (project1 == null ? "" : project1.name).collate (
+            project2 == null ? "" : project2.name
+        );
+
+        if (result == 0) {
+            // Opaque identifiers: compare bytes, not locale collation.
+            result = strcmp (
+                project1 == null ? "" : project1.id,
+                project2 == null ? "" : project2.id
+            );
+        }
+
+        if (result != 0) {
+            return sort_order == SortOrderType.ASC ? result : -result;
+        }
+
+        return set_item_sort_func (item1, item2, SortedByType.PRIORITY, SortOrderType.ASC);
+    }
+
     public int set_item_sort_func (Objects.Item item1, Objects.Item item2, SortedByType sorted_by, SortOrderType sort_order) {
         int result = 0;
         

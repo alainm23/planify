@@ -828,7 +828,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
             button = new Gtk.Button () {
                 child = date_box,
-                css_classes = { "card" },
+                css_classes = { "suggestion-chip" },
             };
 
             button.clicked.connect (() => clicked ());

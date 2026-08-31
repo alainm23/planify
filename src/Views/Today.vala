@@ -37,9 +37,13 @@ public class Views.Today : Adw.Bin {
     private Gtk.Revealer indicator_revealer;
     private Widgets.ContextMenu.MenuCheckPicker priority_filter;
     private Widgets.ContextMenu.MenuCheckPicker assignment_filter;
+    private Gtk.ListBox completed_listbox;
+    private Gtk.Revealer completed_revealer;
+    private Widgets.ContextMenu.MenuSwitch show_completed_item;
 
     public Gee.HashMap<string, Layouts.ItemRow> overdue_items = new Gee.HashMap<string, Layouts.ItemRow> ();
     public Gee.HashMap<string, Layouts.ItemRow> items = new Gee.HashMap<string, Layouts.ItemRow> ();
+    public Gee.HashMap<string, Layouts.ItemRow> completed_items = new Gee.HashMap<string, Layouts.ItemRow> ();
 
     public GLib.DateTime date { get; set; default = new GLib.DateTime.now_local (); }
 
@@ -165,12 +169,17 @@ public class Views.Today : Adw.Bin {
             visible_no_date = true
         };
 
-        var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 30,
+        var overdue_header = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        overdue_header.append (overdue_label);
+        overdue_header.append (reschedule_button);
+
+        var overdue_header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_start = 33,
             margin_end = 24
         };
-        overdue_header_box.append (overdue_label);
-        overdue_header_box.append (reschedule_button);
+
+        overdue_header_box.append (overdue_header);
+        overdue_header_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         overdue_listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -208,12 +217,13 @@ public class Views.Today : Adw.Bin {
 
         today_label.add_css_class ("font-bold");
 
-        var today_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 30,
+        var today_header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            margin_start = 33,
             margin_end = 24,
-            margin_top = 12
+            margin_top = 24
         };
         today_header_box.append (today_label);
+        today_header_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         today_revealer = new Gtk.Revealer () {
             transition_type = SLIDE_DOWN,
@@ -245,6 +255,54 @@ public class Views.Today : Adw.Bin {
         content.append (overdue_revealer);
         content.append (today_revealer);
         content.append (listbox_grid);
+
+        var completed_title = new Gtk.Label (_("Completed")) {
+            halign = START,
+            valign = CENTER,
+            hexpand = true,
+            css_classes = { "font-bold" }
+        };
+
+        var completed_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 33,
+            margin_end = 24,
+            margin_top = 24
+        };
+
+        completed_header_box.append (completed_title);
+
+        completed_listbox = new Gtk.ListBox () {
+            valign = START,
+            activate_on_single_click = true,
+            selection_mode = SINGLE,
+            hexpand = true,
+            css_classes = { "listbox-background" },
+            margin_end = 24
+        };
+
+        var completed_listbox_grid = new Gtk.Grid () {
+            margin_top = 6,
+            margin_start = 3
+        };
+        completed_listbox_grid.attach (completed_listbox, 0, 0);
+
+        var completed_content = new Gtk.Box (VERTICAL, 0);
+        completed_content.append (completed_header_box);
+        completed_content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_start = 33,
+            margin_end = 24,
+            margin_top = 6
+        });
+        completed_content.append (completed_listbox_grid);
+
+        completed_revealer = new Gtk.Revealer () {
+            transition_type = SLIDE_DOWN,
+            child = completed_content
+        };
+
+        content.append (completed_revealer);
+
+
 
         var listbox_placeholder = new Adw.StatusPage ();
         listbox_placeholder.icon_name = "check-round-outline-symbolic";
@@ -503,7 +561,8 @@ public class Views.Today : Adw.Bin {
     }
 
     private void check_placeholder () {
-        if (overdue_has_children || today_has_children) {
+        bool has_completed = show_completed_item != null && show_completed_item.active && completed_items.size > 0;
+        if (overdue_has_children || today_has_children || has_completed) {
             listbox_placeholder_stack.visible_child_name = "listbox";
         } else {
             listbox_placeholder_stack.visible_child_name = "placeholder";
@@ -546,7 +605,29 @@ public class Views.Today : Adw.Bin {
             }
         }
 
+        completed_items.clear ();
+
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (completed_listbox)) {
+            completed_listbox.remove (child);
+        }
+
+        completed_revealer.reveal_child = false;
+
+        foreach (Objects.Item item in Services.Store.instance ().get_items_by_date (date, true)) {
+            add_completed_item (item);
+        }
+
         update_headers ();
+    }
+
+    private void add_completed_item (Objects.Item item) {
+        completed_items[item.id] = new Layouts.ItemRow (item);
+        completed_items[item.id].disable_drag_and_drop ();
+        completed_listbox.append (completed_items[item.id]);
+
+        if (show_completed_item != null && show_completed_item.active) {
+            completed_revealer.reveal_child = true;
+        }
     }
 
     private void add_item (Objects.Item item) {
@@ -584,6 +665,11 @@ public class Views.Today : Adw.Bin {
             add_overdue_item (item);
         }
 
+        if (item.checked && !completed_items.has_key (item.id) &&
+            item.has_due && Services.Store.instance ().valid_item_by_date (item, date, true)) {
+            add_completed_item (item);
+        }
+
         update_headers ();
         check_placeholder ();
         listbox.invalidate_filter ();
@@ -601,9 +687,13 @@ public class Views.Today : Adw.Bin {
             overdue_items.unset (item.id);
         }
 
-        update_headers ();
-        check_placeholder ();
-        listbox.invalidate_filter ();
+        if (completed_items.has_key (item.id)) {
+            completed_items[item.id].hide_destroy ();
+            completed_items.unset (item.id);
+            if (completed_items.size == 0) {
+                completed_revealer.reveal_child = false;
+            }
+        }
         overdue_listbox.invalidate_filter ();
     }
 
@@ -656,6 +746,31 @@ public class Views.Today : Adw.Bin {
 
         if (item.has_due || item.has_deadline) {
             valid_add_item (item);
+        }
+
+        if (item.checked) {
+            if (items.has_key (item.id)) {
+                items[item.id].hide_destroy ();
+                items.unset (item.id);
+            }
+
+            if (overdue_items.has_key (item.id)) {
+                overdue_items[item.id].hide_destroy ();
+                overdue_items.unset (item.id);
+            }
+
+            if (!completed_items.has_key (item.id) &&
+                item.has_due && Services.Store.instance ().valid_item_by_date (item, date, true)) {
+                add_completed_item (item);
+            }
+        } else {
+            if (completed_items.has_key (item.id)) {
+                completed_items[item.id].hide_destroy ();
+                completed_items.unset (item.id);
+                if (completed_items.size == 0) {
+                    completed_revealer.reveal_child = false;
+                }
+            }
         }
 
         update_headers ();
@@ -781,6 +896,10 @@ public class Views.Today : Adw.Bin {
         assignment_filter = new Widgets.ContextMenu.MenuCheckPicker (_("Assignment"), "avatar-default-symbolic");
         assignment_filter.set_items (assignment_items);
 
+        show_completed_item = new Widgets.ContextMenu.MenuSwitch (_ ("Show Completed"), "check-round-outline-symbolic") {
+            tooltip_text = _("Display completed tasks in the list")
+        };
+
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (sorted_by_item);
@@ -795,6 +914,8 @@ public class Views.Today : Adw.Bin {
         menu_box.append (priority_filter);
         menu_box.append (labels_filter);
         menu_box.append (assignment_filter);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (show_completed_item);
 
         var popover = new Gtk.Popover () {
             has_arrow = false,
@@ -806,6 +927,11 @@ public class Views.Today : Adw.Bin {
         signal_map[sorted_by_item.notify["selected"].connect (() => {
             Services.Settings.get_default ().settings.set_string ("today-sort-order", sorted_by_item.selected);
         })] = sorted_by_item;
+
+        signal_map[show_completed_item.activate_item.connect (() => {
+            completed_revealer.reveal_child = show_completed_item.active && completed_items.size > 0;
+            check_placeholder ();
+        })] = show_completed_item;
 
         signal_map[priority_filter.filter_change.connect ((filter, active) => {
             if (active) {
@@ -891,6 +1017,10 @@ public class Views.Today : Adw.Bin {
         overdue_listbox.set_sort_func (null);
 
         foreach (var row in Util.get_default ().get_children (overdue_listbox)) {
+            ((Layouts.ItemRow) row).clean_up ();
+        }
+
+        foreach (var row in Util.get_default ().get_children (completed_listbox)) {
             ((Layouts.ItemRow) row).clean_up ();
         }
 

@@ -865,6 +865,12 @@ public class Layouts.QuickAddCore : Adw.Bin {
                 });
             } else {
                 var caldav_client = Services.CalDAV.Core.get_default ().get_client (item.project.source);
+                var pending_reminders = reminder_button.reminders ();
+                foreach (var r in pending_reminders) {
+                    r.item_id = item.id;
+                    r.id = Util.get_default ().generate_id (r);
+                    item.add_reminder_events (r);
+                }
                 caldav_client.add_item.begin (item, false, (obj, res) => {
                     HttpResponse response = caldav_client.add_item.end (res);
                     is_loading = false;

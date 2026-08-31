@@ -797,3 +797,14 @@ checkbutton.theme-selector radio:checked {
     outline: 2px solid @accent_color;
     outline-offset: -2px;
 }
+
+.suggestion-chip {
+    background-color: @popover_bg_color;
+    border: 1px solid @item_border_color;
+    border-radius: 9px;
+    padding: 0;
+}
+
+.suggestion-chip:hover {
+    background-color: mix(@item_border_color, @popover_bg_color, 0.4);
+}
