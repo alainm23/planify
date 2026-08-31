@@ -32,11 +32,9 @@ public class Views.Filter : Adw.Bin {
     private const string SORT_ORDER_KEY = "all-items-sort-order";
     private const string SORT_ASCENDING_KEY = "all-items-sort-ascending";
     private const string FILTERS_KEY = "all-items-filters";
-    private const string SHOW_COMPLETED_KEY = "all-items-show-completed";
 
     private Widgets.ContextMenu.MenuPicker due_date_item;
     private Widgets.ContextMenu.MenuCheckPicker priority_filter;
-    private Widgets.ContextMenu.MenuSwitch show_completed_item;
     private Gtk.Revealer indicator_revealer;
     private uint rebuild_idle_id = 0;
 
@@ -78,15 +76,9 @@ public class Views.Filter : Adw.Bin {
             if (items_list == null || items_list.size == 0) return false;
             if (selected_project_ids.size == 0 && filter.filters.size == 0) return true;
             foreach (var item in items_list) {
-                if (selected_project_ids.size > 0 && !selected_project_ids.contains (item.project_id)) {
-                    continue;
+                if (item_matches_filters (item)) {
+                    return true;
                 }
-
-                if (sorting_supported && !Utils.TaskUtils.items_filter_func (item, filter.filters)) {
-                    continue;
-                }
-
-                return true;
             }
             return false;
         }
@@ -148,8 +140,7 @@ public class Views.Filter : Adw.Bin {
         project_picker_core.multiselect_changed.connect ((ids) => {
             selected_project_ids = ids;
             update_project_filter_label ();
-            listbox.invalidate_filter ();
-            validate_placeholder ();
+            rebuild_list ();
         });
 
         project_filter_revealer = new Gtk.Revealer () {
@@ -181,7 +172,6 @@ public class Views.Filter : Adw.Bin {
             halign = END,
             valign = START,
             sensitive = false,
-            reveal_child = false
         };
 
         var view_setting_overlay = new Gtk.Overlay () {
@@ -296,17 +286,7 @@ public class Views.Filter : Adw.Bin {
         toolbar_view.add_top_bar (headerbar);
 
         listbox.set_filter_func ((row) => {
-            var item = ((Layouts.ItemRow) row).item;
-
-            if (selected_project_ids.size > 0 && !selected_project_ids.contains (item.project_id)) {
-                return false;
-            }
-
-            if (sorting_supported && !Utils.TaskUtils.items_filter_func (item, filter.filters)) {
-                return false;
-            }
-
-            return true;
+            return item_matches_filters (((Layouts.ItemRow) row).item);
         });
 
         child = toolbar_view;
@@ -359,12 +339,12 @@ public class Views.Filter : Adw.Bin {
 
         if (sorting_supported) {
             signal_map[Services.Settings.get_default ().settings.changed[SORT_ORDER_KEY].connect (() => {
-                apply_sort_changed ();
+                rebuild_list ();
                 check_default_filters ();
             })] = Services.Settings.get_default ().settings;
 
             signal_map[Services.Settings.get_default ().settings.changed[SORT_ASCENDING_KEY].connect (() => {
-                apply_sort_changed ();
+                rebuild_list ();
                 check_default_filters ();
             })] = Services.Settings.get_default ().settings;
 
@@ -392,17 +372,17 @@ public class Views.Filter : Adw.Bin {
 
     private void apply_filters_changed () {
         save_filters ();
-        listbox.invalidate_filter ();
-        validate_placeholder ();
+        rebuild_list ();
         check_default_filters ();
     }
 
     /**
-     * Re-sorts and re-pages the list after the sort settings change. The whole list
-     * has to be rebuilt rather than merely invalidated, because pagination decides
-     * which items are loaded at all from the sorted backing list.
+     * Re-sorts, re-filters and re-pages the list after the sort or filter settings change.
+     * The whole list has to be rebuilt rather than merely invalidated, because pagination
+     * decides which items are loaded at all from the sorted and filtered backing list —
+     * invalidating the loaded rows alone would leave matches beyond the first page unreachable.
      */
-    private void apply_sort_changed () {
+    private void rebuild_list () {
         // Deferred to an idle callback rather than run inline. Rebuilding tears down and
         // frees every ItemRow, and this runs from inside a signal emission (a GSettings
         // "changed" handler) that can still touch those rows once we return — which shows
@@ -479,6 +459,22 @@ public class Views.Filter : Adw.Bin {
         project_filter_revealer.reveal_child = filter is Objects.Filters.Completed;
     }
 
+    /**
+     * Whether an item survives the view's active filters — the project picker of the
+     * Completed view and the sort/filter menu of the All Tasks view.
+     */
+    private bool item_matches_filters (Objects.Item item) {
+        if (selected_project_ids.size > 0 && !selected_project_ids.contains (item.project_id)) {
+            return false;
+        }
+
+        if (sorting_supported && !Utils.TaskUtils.items_filter_func (item, filter.filters)) {
+            return false;
+        }
+
+        return true;
+    }
+
     private void add_items () {
         foreach (Layouts.ItemRow row in items.values) {
             row.clean_up ();
@@ -526,13 +522,20 @@ public class Views.Filter : Adw.Bin {
             foreach (Objects.Item item in Services.Store.instance ().get_items_no_parent (false)) {
                 items_list.add (item);
             }
+        }
 
-            if (show_completed ()) {
-                foreach (Objects.Item item in Services.Store.instance ().get_items_no_parent (true)) {
-                    items_list.add (item);
-                }
+        // The filters have to be applied to the backing list, not merely to the loaded rows:
+        // pagination decides which items are loaded at all, so filtering afterwards would
+        // hide the first page and never reach the matches behind it. Keeping the backing
+        // list filtered also keeps the "Load more" count honest.
+        var filtered_list = new Gee.ArrayList<Objects.Item> ();
+        foreach (Objects.Item item in items_list) {
+            if (item_matches_filters (item)) {
+                filtered_list.add (item);
             }
         }
+
+        items_list = filtered_list;
 
         if (filter is Objects.Filters.Completed) {
             items_list.sort ((a, b) => {
@@ -615,7 +618,7 @@ public class Views.Filter : Adw.Bin {
             should_add = true;
         }
 
-        if (should_add) {
+        if (should_add && item_matches_filters (item)) {
             items_list.add (item);
             add_item (item);
             update_load_more_button_label ();
@@ -716,8 +719,7 @@ public class Views.Filter : Adw.Bin {
             filter is Objects.Filters.AllItems
         ) {
             if (!old_checked) {
-                // Keep the row in place when the view is explicitly showing completed tasks.
-                if (items.has_key (item.id) && item.completed && !show_completed ()) {
+                if (items.has_key (item.id) && item.completed) {
                     items[item.id].hide_destroy ();
                     items.unset (item.id);
                     Services.EventBus.get_default ().unfocus_item ();
@@ -946,11 +948,6 @@ public class Views.Filter : Adw.Bin {
             arrow = true
         };
 
-        show_completed_item = new Widgets.ContextMenu.MenuSwitch (_("Show Completed"), "check-round-outline-symbolic") {
-            active = Services.Settings.get_default ().settings.get_boolean (SHOW_COMPLETED_KEY),
-            tooltip_text = _("Display completed tasks in the list")
-        };
-
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (new Gtk.Label (_("Sort By")) {
@@ -973,8 +970,6 @@ public class Views.Filter : Adw.Bin {
         menu_box.append (due_date_item);
         menu_box.append (priority_filter);
         menu_box.append (labels_filter);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (show_completed_item);
 
         var popover = new Gtk.Popover () {
             has_arrow = false,
@@ -1008,12 +1003,6 @@ public class Views.Filter : Adw.Bin {
         signal_map[labels_filter.activate_item.connect (() => {
             show_labels_filter_dialog ();
         })] = labels_filter;
-
-        signal_map[show_completed_item.activate_item.connect (() => {
-            Services.Settings.get_default ().settings.set_boolean (SHOW_COMPLETED_KEY, show_completed_item.active);
-            apply_sort_changed ();
-            check_default_filters ();
-        })] = show_completed_item;
 
         return popover;
     }
@@ -1190,24 +1179,16 @@ public class Views.Filter : Adw.Bin {
         Services.Settings.get_default ().settings.set_strv (FILTERS_KEY, stored);
     }
 
-    private bool show_completed () {
-        return sorting_supported && Services.Settings.get_default ().settings.get_boolean (SHOW_COMPLETED_KEY);
-    }
-
     /**
      * Reveals the dot on the view-settings button whenever the view is not showing
      * its default sort and no filters, mirroring the project view's affordance.
      */
     private void check_default_filters () {
-        if (indicator_revealer == null) {
-            return;
-        }
-
         bool has_filters = filter.filters.size > 0;
         bool default_sort = sorted_by_project () &&
             Services.Settings.get_default ().settings.get_boolean (SORT_ASCENDING_KEY);
 
-        indicator_revealer.reveal_child = has_filters || !default_sort || show_completed ();
+        indicator_revealer.reveal_child = has_filters || !default_sort;
     }
 
     private SortOrderType get_sort_order () {

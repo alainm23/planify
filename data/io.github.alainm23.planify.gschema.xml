@@ -197,12 +197,6 @@
             <description>Active filters in the All Tasks view, each stored as "type:value"</description>
         </key>
 
-        <key name="all-items-show-completed" type="b">
-            <default>false</default>
-            <summary>Show completed tasks in the All Tasks view</summary>
-            <description>Display completed tasks in the All Tasks view alongside pending ones</description>
-        </key>
-
         <key name="scheduled-sort-order" type="s">
             <default>"name"</default>
             <summary>Scheduled view sort order</summary>
