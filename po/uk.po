@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-08-03 10:01+0000\n"
-"Last-Translator: Maksym Dilanian <dilanyan.maxim@gmail.com>\n"
+"PO-Revision-Date: 2026-08-31 15:49+0000\n"
+"Last-Translator: Димко <Dymkovych@proton.me>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/uk/>\n"
 "Language: uk\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -499,11 +499,11 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1455 src/MainWindow.vala:778
 msgid "Keyboard Shortcuts"
-msgstr "Комбінації клавіш"
+msgstr "Клавіатурні скорочення"
 
 #: core/QuickAddCore.vala:1461
 msgid "Speed up task creation with these shortcuts"
-msgstr "Пришвидшіть створення завдань за допомогою цих комбінацій клавіш"
+msgstr "Пришвидшіть створення завдань за допомогою цих скорочень"
 
 #: core/QuickAddCore.vala:1475
 msgid "Set priority"
@@ -2208,7 +2208,7 @@ msgstr "Використовувати налаштування системи"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:68
 msgid "Use System Accent Color"
-msgstr "Використовувати системний"
+msgstr "Системний"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:78
 msgid "Select theme"
@@ -2455,7 +2455,7 @@ msgstr "Ваш внесок допомагає Planify жити та розви�
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
 #: src/Dialogs/Preferences/PreferencesWindow.vala:79
 msgid "General"
-msgstr "Загальні"
+msgstr "Загальне"
 
 #: src/Dialogs/Preferences/Pages/General.vala:36
 msgid "Custom Sort Order"
@@ -2874,23 +2874,23 @@ msgstr "Безповоротно видаляє всі ваші списки, з
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "M"
-msgstr ""
+msgstr "П"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "T"
-msgstr ""
+msgstr "В"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "W"
-msgstr ""
+msgstr "С"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "F"
-msgstr ""
+msgstr "П"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "S"
-msgstr ""
+msgstr "С"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:57
 msgid "Last 8 weeks"
@@ -3635,7 +3635,7 @@ msgstr "Датою додавання"
 #: src/Views/Project/Project.vala:560 src/Views/Scheduled/Scheduled.vala:235
 #: src/Views/Today.vala:842
 msgid "Date Modified"
-msgstr ""
+msgstr "За датою зміни"
 
 #: src/Views/Project/Project.vala:563
 msgid "Ascending Order"
@@ -3647,7 +3647,7 @@ msgstr "Дата виконання"
 
 #: src/Views/Project/Project.vala:572
 msgid "All (default)"
-msgstr "Всі (за замовчуванням)"
+msgstr "Всі (типово)"
 
 #: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
 msgid "This Week"
@@ -3852,7 +3852,7 @@ msgstr "Завдання перенесено до проєкту %s"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:53
 msgid "Unknown project"
-msgstr ""
+msgstr "Невідомий проєкт"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:56
 msgid "Unknown"
@@ -3878,7 +3878,7 @@ msgstr ""
 
 #: src/Widgets/ItemChangeHistoryRow.vala:276
 msgid "Empty"
-msgstr ""
+msgstr "Пусто"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:290
 msgid "No priority"
@@ -4076,7 +4076,7 @@ msgstr "Пошук"
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Open Quick Find"
-msgstr "Відкрити швидкий пошук"
+msgstr "Швидкий пошук"
 
 #: data/resources/ui/shortcuts.ui:57
 msgctxt "shortcut window"
@@ -4091,17 +4091,17 @@ msgstr "Вийти"
 #: data/resources/ui/shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Open Preferences"
-msgstr "Відкрити налаштування"
+msgstr "Налаштування"
 
 #: data/resources/ui/shortcuts.ui:75
 msgctxt "shortcut window"
 msgid "Toggle Sidebar"
-msgstr "Перемикання бічної панелі"
+msgstr "Бічна панель"
 
 #: data/resources/ui/shortcuts.ui:82
 msgctxt "shortcut window"
 msgid "Open Keyboard Shortcuts"
-msgstr "Відкрити клавіатурні скорочення"
+msgstr "Клавіатурні скорочення"
 
 #: data/resources/ui/shortcuts.ui:90
 msgctxt "shortcut window"
