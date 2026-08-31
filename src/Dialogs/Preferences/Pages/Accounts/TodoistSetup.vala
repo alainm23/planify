@@ -132,7 +132,7 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
         content_box.append (token_button);
 
         signal_map[oauth_button.clicked.connect (() => {
-            start_oauth_flow ();
+            start_oauth_flow.begin ();
         })] = oauth_button;
 
         signal_map[cancel_button.clicked.connect (() => {
@@ -239,7 +239,7 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
         return content_box;
     }
 
-    private void start_oauth_flow () {
+    private async void start_oauth_flow () {
         oauth_state = Util.get_default ().generate_string ();
 
         string oauth_url = "https://todoist.com/oauth/authorize?client_id=%s&scope=%s&state=%s&redirect_uri=%s".printf (
@@ -254,10 +254,7 @@ public class Dialogs.Preferences.Pages.TodoistSetup : Dialogs.Preferences.Pages.
         cancel_button.visible = true;
         title = _("Waiting for login…");
 
-        try {
-            AppInfo.launch_default_for_uri (oauth_url, null);
-        } catch (Error e) {
-            warning ("Error opening browser: %s", e.message);
+        if (!yield Util.get_default ().open_uri (oauth_url)) {
             oauth_button.is_loading = false;
             cancel_button.visible = false;
             title = _("Todoist");

@@ -19,6 +19,11 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
+#if ANDROID
+[CCode (cname = "g_io_openssl_load")]
+extern void g_io_openssl_load (GLib.IOModule? module);
+#endif
+
 public class Planify : Adw.Application {
     public MainWindow main_window;
 
@@ -154,6 +159,19 @@ public class Planify : Adw.Application {
             main_window.show ();
         }
 
+        #if ANDROID
+        if (!Services.Settings.get_default ().settings.get_boolean ("android-experimental-warning-shown")) {
+            Services.Settings.get_default ().settings.set_boolean ("android-experimental-warning-shown", true);
+
+            var experimental_dialog = new Adw.AlertDialog (
+                _("Experimental Android Build"),
+                _("You're using an early, in-progress Android port of Planify. Expect data loss.")
+            );
+            experimental_dialog.add_response ("ok", _("Got It"));
+            experimental_dialog.present (main_window);
+        }
+        #endif
+
         Services.Settings.get_default ().settings.bind ("window-maximized", main_window, "maximized", SettingsBindFlags.SET);
 
         var provider = new Gtk.CssProvider ();
@@ -268,6 +286,10 @@ public class Planify : Adw.Application {
     }
 
     public static int main (string[] args) {
+        #if ANDROID
+            g_io_openssl_load (null);
+        #endif
+
         Planify app = Planify.instance;
         return app.run (args);
     }

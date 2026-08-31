@@ -7,7 +7,11 @@ build-aux/.flatpak-builder
 build-aux/io.github.alainm23.planify.Devel.flatpak
 .flatpak-builder/
 subprojects/gxml**/
+subprojects/chrono**/
 planify*txt
 .flatpak
 .buildconfig
 .DS_Store
+.pixiewood
+
+!build-aux/android/**

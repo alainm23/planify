@@ -864,11 +864,7 @@ public class Objects.Project : Objects.BaseObject {
     public void share_mail () {
         string uri = "";
         uri += "mailto:?subject=%s&body=%s".printf (name, to_markdown ());
-        try {
-            AppInfo.launch_default_for_uri (uri, null);
-        } catch (Error e) {
-            warning ("%s\n", e.message);
-        }
+        Util.get_default ().open_uri.begin (uri);
     }
 
     private string to_markdown () {

@@ -418,11 +418,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         };
         
         join_button.clicked.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (url, null);
-            } catch (Error e) {
-                warning ("Error opening URL: %s", e.message);
-            }
+            Util.get_default ().open_uri.begin (url);
         });
 
         var grid = new Gtk.Grid () {
