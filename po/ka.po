@@ -106,6 +106,7 @@ msgstr "CalDAV"
 #: src/Views/Scheduled/Scheduled.vala:236
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:843
 #: src/Views/Today.vala:872 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Filter.vala:905 src/Views/Filter.vala:944
 msgid "Priority"
 msgstr "პრიორიტეტი"
 
@@ -115,6 +116,7 @@ msgstr "ჭდე"
 
 #: core/Enum.vala:351 src/Views/Project/Project.vala:558
 #: src/Views/Scheduled/Scheduled.vala:233 src/Views/Today.vala:840
+#: src/Views/Filter.vala:902
 msgid "Due Date"
 msgstr "თარიღამდე"
 
@@ -290,6 +292,7 @@ msgstr "დაგეგმილია"
 #: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:813
 #: src/Layouts/ItemRow.vala:1248 src/Views/Project/Project.vala:573
 #: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
+#: src/Views/Filter.vala:915 src/Views/Filter.vala:1041
 msgid "Today"
 msgstr "დღეს"
 
@@ -381,6 +384,7 @@ msgstr "ეს ქმედება შეუქცევადია"
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344 src/Views/Filter.vala:695
+#: src/Views/Filter.vala:878
 msgid "Cancel"
 msgstr "გაუქმება"
 
@@ -394,6 +398,7 @@ msgstr "გაუქმება"
 #: src/Views/Filter.vala:630 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345 src/Views/Filter.vala:696
+#: src/Views/Filter.vala:879
 msgid "Delete"
 msgstr "წაშლა"
 
@@ -1755,6 +1760,7 @@ msgstr "დასრულებული ამოცანების გა�
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
 #: src/Views/Filter.vala:598 src/Views/Filter.vala:664
+#: src/Views/Filter.vala:847
 msgid "Delete All Completed Tasks"
 msgstr "ყველა დასრულებული ამოცანის წაშლა"
 
@@ -1768,12 +1774,14 @@ msgstr[1] "ეს წაშლის %d დასრულებულ ამო
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:656
 #: src/Views/Scheduled/Scheduled.vala:276 src/Views/Today.vala:907
+#: src/Views/Filter.vala:963
 msgid "Filter By"
 msgstr "ფილტრი"
 
 #: src/Dialogs/DatePicker.vala:84 src/Layouts/ItemBoard.vala:821
 #: src/Layouts/ItemRow.vala:1258 src/Views/Project/Project.vala:578
-#: src/Views/Project/Project.vala:749
+#: src/Views/Project/Project.vala:749 src/Views/Filter.vala:920
+#: src/Views/Filter.vala:1056
 msgid "No Date"
 msgstr "თარიღის გარეშე"
 
@@ -2379,7 +2387,7 @@ msgstr "მორგებული დალაგების მიმდე�
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:232
-#: src/Views/Today.vala:839
+#: src/Views/Today.vala:839 src/Views/Filter.vala:901
 msgid "Alphabetically"
 msgstr "ანბანის მიხედვით"
 
@@ -3199,6 +3207,7 @@ msgstr "ამოცანების დამატება"
 
 #: src/Layouts/SectionBoard.vala:175 src/Layouts/SectionRow.vala:217
 #: src/Views/Filter.vala:104 src/Views/Filter.vala:147
+#: src/Views/Filter.vala:197
 msgid "Load more"
 msgstr ""
 
@@ -3221,7 +3230,7 @@ msgid "Delete Section"
 msgstr "განყოფილების წაშლა"
 
 #: src/Layouts/SectionRow.vala:655 src/Views/Filter.vala:362
-#: src/Views/Filter.vala:408
+#: src/Views/Filter.vala:408 src/Views/Filter.vala:583
 msgid "No more tasks"
 msgstr ""
 
@@ -3361,41 +3370,48 @@ msgstr "დადუმება 1 საათით"
 
 #: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
 #: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
-#: src/Views/Today.vala:92 src/Views/Filter.vala:129
+#: src/Views/Today.vala:92 src/Views/Filter.vala:129 src/Views/Filter.vala:158
 msgid "View Option Menu"
 msgstr "მორგების მენიუს ნახვა"
 
 #: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
 #: src/Views/Project/Board.vala:121 src/Views/Project/List.vala:117
 #: src/Views/Today.vala:309 src/Views/Filter.vala:168 src/Views/Filter.vala:619
+#: src/Views/Filter.vala:218 src/Views/Filter.vala:798
 msgid "Add Some Tasks"
 msgstr "რამდენიმე ამოცანის დამატება"
 
 #: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
 #: src/Views/Project/Board.vala:122 src/Views/Project/List.vala:118
 #: src/Views/Today.vala:310 src/Views/Filter.vala:169 src/Views/Filter.vala:620
+#: src/Views/Filter.vala:219 src/Views/Filter.vala:799
 msgid "Press 'a' to create a new task"
 msgstr "ახალი ამოცანის შესაქმნელად დააჭირეთ ღილაკს 'a'"
 
 #: src/Views/Filter.vala:129 src/Views/Filter.vala:616
+#: src/Views/Filter.vala:792
 msgid "All tasks completed!"
 msgstr "ყველა ამოცანა დასრულდა!"
 
 #: src/Views/Filter.vala:130 src/Views/Filter.vala:617
+#: src/Views/Filter.vala:793
 msgid "Great job, nothing left to do 🎉"
 msgstr ""
 
 #: src/Views/Filter.vala:359 src/Views/Filter.vala:405
+#: src/Views/Filter.vala:580
 msgid "tasks"
 msgstr ""
 
 #: src/Views/Filter.vala:617 src/Views/Filter.vala:683
+#: src/Views/Filter.vala:866
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "ყველა დასრულებული ამოცანის წაშლა"
 msgstr[1] "ყველა დასრულებული ამოცანის წაშლა"
 
 #: src/Views/Filter.vala:622 src/Views/Filter.vala:688
+#: src/Views/Filter.vala:871
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
@@ -3485,7 +3501,7 @@ msgid "Board"
 msgstr "ბორდი"
 
 #: src/Views/Project/Project.vala:553 src/Views/Scheduled/Scheduled.vala:229
-#: src/Views/Today.vala:836
+#: src/Views/Today.vala:836 src/Views/Filter.vala:896
 msgid "Sorting"
 msgstr "დალაგება"
 
@@ -3494,65 +3510,70 @@ msgid "Custom sort order"
 msgstr "დალაგების მომხმარებლის მიმდევრობა"
 
 #: src/Views/Project/Project.vala:559 src/Views/Scheduled/Scheduled.vala:234
-#: src/Views/Today.vala:841
+#: src/Views/Today.vala:841 src/Views/Filter.vala:903
 msgid "Date Added"
 msgstr "დამატებულია"
 
 #: src/Views/Project/Project.vala:560 src/Views/Scheduled/Scheduled.vala:235
-#: src/Views/Today.vala:842
+#: src/Views/Today.vala:842 src/Views/Filter.vala:904
 msgid "Date Modified"
 msgstr ""
 
-#: src/Views/Project/Project.vala:563
+#: src/Views/Project/Project.vala:563 src/Views/Filter.vala:907
 msgid "Ascending Order"
 msgstr "აღმავალი მიმდევრობით"
 
-#: src/Views/Project/Project.vala:569
+#: src/Views/Project/Project.vala:569 src/Views/Filter.vala:911
 msgid "Duedate"
 msgstr "შესრულების დრო"
 
-#: src/Views/Project/Project.vala:572
+#: src/Views/Project/Project.vala:572 src/Views/Filter.vala:914
+#: src/Views/Filter.vala:1059
 msgid "All (default)"
 msgstr "ყველა (ნაგულისხმევი)"
 
 #: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
+#: src/Views/Filter.vala:916 src/Views/Filter.vala:1044
 msgid "This Week"
 msgstr "ამ კვირაში"
 
 #: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
+#: src/Views/Filter.vala:917 src/Views/Filter.vala:1047
 msgid "Next 7 Days"
 msgstr "შემდეგი 7 დღე"
 
 #: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
+#: src/Views/Filter.vala:918 src/Views/Filter.vala:1050
 msgid "This Month"
 msgstr "ამ თვეში"
 
 #: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
+#: src/Views/Filter.vala:919 src/Views/Filter.vala:1053
 msgid "Next 30 Days"
 msgstr "შემდეგი 30 დღე"
 
 #: src/Views/Project/Project.vala:584 src/Views/Scheduled/Scheduled.vala:243
-#: src/Views/Today.vala:850
+#: src/Views/Today.vala:850 src/Views/Filter.vala:925
 msgid "P1"
 msgstr "P1"
 
 #: src/Views/Project/Project.vala:590 src/Views/Scheduled/Scheduled.vala:249
-#: src/Views/Today.vala:856
+#: src/Views/Today.vala:856 src/Views/Filter.vala:930
 msgid "P2"
 msgstr "P2"
 
 #: src/Views/Project/Project.vala:596 src/Views/Scheduled/Scheduled.vala:255
-#: src/Views/Today.vala:862
+#: src/Views/Today.vala:862 src/Views/Filter.vala:935
 msgid "P3"
 msgstr "P3"
 
 #: src/Views/Project/Project.vala:602 src/Views/Scheduled/Scheduled.vala:261
-#: src/Views/Today.vala:868
+#: src/Views/Today.vala:868 src/Views/Filter.vala:940
 msgid "P4"
 msgstr "P4"
 
 #: src/Views/Project/Project.vala:609 src/Views/Scheduled/Scheduled.vala:268
-#: src/Views/Today.vala:875
+#: src/Views/Today.vala:875 src/Views/Filter.vala:947
 msgid "Filter by Labels"
 msgstr "ჭდეებით გაფილტვრა"
 
@@ -3568,7 +3589,7 @@ msgstr ""
 msgid "Search completed tasks"
 msgstr "დასრულებული ამოცანების ძებნა"
 
-#: src/Views/Project/Project.vala:647
+#: src/Views/Project/Project.vala:647 src/Views/Filter.vala:953
 msgid "Sort By"
 msgstr "დახარისხება"
 
@@ -3988,23 +4009,36 @@ msgid "Open Pinboard"
 msgstr "დაფის გახსნა"
 
 #: src/Views/Filter.vala:102 src/Views/Filter.vala:656
+#: src/Views/Filter.vala:132 src/Views/Filter.vala:835
 msgid "All Projects"
 msgstr ""
 
-#: src/Views/Filter.vala:613
+#: src/Views/Filter.vala:613 src/Views/Filter.vala:789
 msgid "No completed tasks"
 msgstr ""
 
-#: src/Views/Filter.vala:614
+#: src/Views/Filter.vala:614 src/Views/Filter.vala:790
 msgid "No tasks found for the selected projects"
 msgstr ""
 
-#: src/Views/Filter.vala:658
+#: src/Views/Filter.vala:658 src/Views/Filter.vala:837
 #, c-format
 msgid "%d Project"
 msgid_plural "%d Projects"
 msgstr[0] ""
 msgstr[1] ""
+
+#: src/Views/Filter.vala:795
+msgid "No tasks found"
+msgstr ""
+
+#: src/Views/Filter.vala:796
+msgid "No tasks match the selected filters"
+msgstr ""
+
+#: src/Views/Filter.vala:900
+msgid "Project"
+msgstr ""
 
 #, fuzzy, c-format
 #~ msgid "Load more history from %d week ago…"
