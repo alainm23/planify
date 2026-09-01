@@ -519,7 +519,7 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1449 src/MainWindow.vala:751 src/MainWindow.vala:753
 #: src/MainWindow.vala:754 src/MainWindow.vala:756 src/MainWindow.vala:778
-#: core/QuickAddCore.vala:1455
+#: core/QuickAddCore.vala:1455 src/MainWindow.vala:792
 msgid "Keyboard Shortcuts"
 msgstr "Pintasan papan ketik"
 
@@ -1929,7 +1929,7 @@ msgstr "Filter"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:756
 #: src/MainWindow.vala:758 src/MainWindow.vala:759 src/MainWindow.vala:761
-#: src/MainWindow.vala:783
+#: src/MainWindow.vala:783 src/MainWindow.vala:797
 msgid "Archived Projects"
 msgstr "Proyek yang Diarsipkan"
 
@@ -2788,7 +2788,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:746
 #: src/MainWindow.vala:748 src/MainWindow.vala:749 src/MainWindow.vala:751
-#: src/MainWindow.vala:757
+#: src/MainWindow.vala:757 src/MainWindow.vala:771
 msgid "Preferences"
 msgstr "Preferensi"
 
@@ -2909,7 +2909,7 @@ msgstr "Menghapus semua daftar, tugas, dan pengingat Anda secara permanen"
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:242
 #: src/MainWindow.vala:749 src/MainWindow.vala:752 src/MainWindow.vala:754
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:760
+#: src/MainWindow.vala:760 src/MainWindow.vala:774
 msgid "Summary & Productivity"
 msgstr "Ringkasan & Produktivitas"
 
@@ -2963,7 +2963,7 @@ msgstr "Produktivitas"
 #: src/MainWindow.vala:825 src/MainWindow.vala:827 src/MainWindow.vala:828
 #: src/MainWindow.vala:830
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
-#: src/MainWindow.vala:859
+#: src/MainWindow.vala:859 src/MainWindow.vala:873
 msgid "See More"
 msgstr "Lihat Selengkapnya"
 
@@ -3434,33 +3434,33 @@ msgid "Sync Now"
 msgstr "Sinkronkan Sekarang"
 
 #: src/MainWindow.vala:754 src/MainWindow.vala:756 src/MainWindow.vala:757
-#: src/MainWindow.vala:759 src/MainWindow.vala:781
+#: src/MainWindow.vala:759 src/MainWindow.vala:781 src/MainWindow.vala:795
 msgid "About Planify"
 msgstr "Tentang Planify"
 
 #: src/MainWindow.vala:822 src/MainWindow.vala:824 src/MainWindow.vala:825
-#: src/MainWindow.vala:827 src/MainWindow.vala:856
+#: src/MainWindow.vala:827 src/MainWindow.vala:856 src/MainWindow.vala:870
 msgid "Oops! Something happened"
 msgstr "Ups! Terjadi sesuatu"
 
 #: src/MainWindow.vala:841 src/Widgets/ItemChangeHistoryRow.vala:48
 #: src/MainWindow.vala:843 src/MainWindow.vala:844 src/MainWindow.vala:846
-#: src/MainWindow.vala:875
+#: src/MainWindow.vala:875 src/MainWindow.vala:889
 msgid "Task completed"
 msgstr "Tugas selesai"
 
 #: src/MainWindow.vala:842 src/MainWindow.vala:844 src/MainWindow.vala:845
-#: src/MainWindow.vala:847 src/MainWindow.vala:876
+#: src/MainWindow.vala:847 src/MainWindow.vala:876 src/MainWindow.vala:890
 msgid "View"
 msgstr "Tampilan"
 
 #: src/MainWindow.vala:880 src/MainWindow.vala:882 src/MainWindow.vala:883
-#: src/MainWindow.vala:885 src/MainWindow.vala:914
+#: src/MainWindow.vala:885 src/MainWindow.vala:914 src/MainWindow.vala:928
 msgid "Database Integrity Check Failed"
 msgstr "Pemeriksaan Integritas Basis Data Gagal"
 
 #: src/MainWindow.vala:881 src/MainWindow.vala:883 src/MainWindow.vala:884
-#: src/MainWindow.vala:886 src/MainWindow.vala:915
+#: src/MainWindow.vala:886 src/MainWindow.vala:915 src/MainWindow.vala:929
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3484,7 +3484,7 @@ msgstr ""
 "Anda buat. Terima kasih atas kesabaran Anda"
 
 #: src/MainWindow.vala:883 src/MainWindow.vala:885 src/MainWindow.vala:886
-#: src/MainWindow.vala:888 src/MainWindow.vala:917
+#: src/MainWindow.vala:888 src/MainWindow.vala:917 src/MainWindow.vala:931
 msgid "Reset Database"
 msgstr "Reset Basis Data"
 
@@ -4277,6 +4277,21 @@ msgstr ""
 
 #: src/Views/Filter.vala:900
 msgid "Project"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:136
+msgctxt "shortcut window"
+msgid "Open the Nth Project"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:143
+msgctxt "shortcut window"
+msgid "Open Next Project"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:150
+msgctxt "shortcut window"
+msgid "Open Previous Project"
 msgstr ""
 
 #, c-format
