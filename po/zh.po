@@ -408,7 +408,7 @@ msgstr "将会归档%s及其所有任务。"
 
 #: core/Objects/Project.vala:975 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
-#: src/Layouts/SectionRow.vala:702 src/Views/Project/Project.vala:399
+#: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "归档"
 
@@ -467,7 +467,7 @@ msgid "Add Reminders"
 msgstr "添加提醒"
 
 #: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
-#: src/Layouts/SectionRow.vala:695 src/Views/Scheduled/ScheduledDay.vala:148
+#: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
@@ -556,26 +556,26 @@ msgstr "载入任务用于 %s…"
 msgid "Syncing task %d of %d"
 msgstr "正在同步任务 %d / %d"
 
-#: core/Services/CalDAV/CalDAVClient.vala:777
+#: core/Services/CalDAV/CalDAVClient.vala:779
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr "该服务器不允许经由 CalDAV 建立专案项目。请直接从日历提供者的网站建立。"
 
-#: core/Services/CalDAV/CalDAVClient.vala:829
+#: core/Services/CalDAV/CalDAVClient.vala:831
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr "此服务器不允许通过 CalDAV 删除项目。请直接从您的日历服务商网站删除。"
 
-#: core/Services/CalDAV/CalDAVClient.vala:833
+#: core/Services/CalDAV/CalDAVClient.vala:835
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr "此服务器不支持通过 CalDAV 删除项目。请直接从服务器删除。"
 
-#: core/Services/CalDAV/CalDAVClient.vala:867
-#: core/Services/CalDAV/CalDAVClient.vala:914
+#: core/Services/CalDAV/CalDAVClient.vala:869
+#: core/Services/CalDAV/CalDAVClient.vala:916
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr "任务已在其他设备上修改。请同步以获取最新版本。"
@@ -1823,7 +1823,7 @@ msgid "Archived Projects"
 msgstr "已归档项目"
 
 #: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:610
-#: src/Layouts/SectionRow.vala:698 src/Views/Project/Project.vala:392
+#: src/Layouts/SectionRow.vala:702 src/Views/Project/Project.vala:392
 msgid "Manage Sections"
 msgstr "管理分区"
 
@@ -3006,7 +3006,7 @@ msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr "快速切换项目和视图、查找任务、按标签搜索"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
-#: src/Layouts/SectionRow.vala:696
+#: src/Layouts/SectionRow.vala:700
 msgid "Edit Section"
 msgstr "编辑分区"
 
@@ -3054,7 +3054,7 @@ msgstr "编辑"
 #: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1267
 #: src/Layouts/ItemRow.vala:1401 src/Layouts/ItemSidebarView.vala:516
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:611
-#: src/Layouts/SectionRow.vala:699 src/Views/Project/Project.vala:388
+#: src/Layouts/SectionRow.vala:703 src/Views/Project/Project.vala:388
 msgid "Duplicate"
 msgstr "复制"
 
@@ -3193,25 +3193,25 @@ msgstr "添加任务"
 msgid "Load more"
 msgstr "加载更多"
 
-#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:652
+#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:656
 #: src/Widgets/SubItems.vala:420
 msgid "completed tasks"
 msgstr "已完成的任务"
 
-#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:697
+#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:701
 msgid "Move Section"
 msgstr "移动分区"
 
-#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:700
+#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:704
 msgid "Show Completed Tasks"
 msgstr "显示已完成的任务"
 
-#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:703
+#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:707
 #: src/Widgets/SectionItemRow.vala:186
 msgid "Delete Section"
 msgstr "删除分区"
 
-#: src/Layouts/SectionRow.vala:655 src/Views/Filter.vala:583
+#: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:583
 msgid "No more tasks"
 msgstr "没有更多任务"
 
