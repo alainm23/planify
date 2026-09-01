@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-04-04 02:09+0000\n"
-"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
+"PO-Revision-Date: 2026-09-01 22:25+0000\n"
+"Last-Translator: Ak In <reend21@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/tr/>\n"
 "Language: tr\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -127,7 +127,7 @@ msgstr "Bölümler"
 
 #: core/Enum.vala:357 src/Views/Today.vala:896
 msgid "Assignment"
-msgstr ""
+msgstr "Görev"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -160,11 +160,11 @@ msgstr "İğnelenmiş"
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
 #: src/Services/ExportService.vala:73
 msgid "Deadline"
-msgstr ""
+msgstr "Son teslim tarihi"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "Ebeveyn görev"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -329,7 +329,7 @@ msgstr "etiketler"
 
 #: core/Objects/Item.vala:1571 src/Services/ExportService.vala:187
 msgid "Deadline:"
-msgstr ""
+msgstr "Son teslim tarihi:"
 
 #: core/Objects/Item.vala:1596
 msgid "Task copied to clipboard"
@@ -337,15 +337,15 @@ msgstr "Görev panoya kopyalandı"
 
 #: core/Objects/Item.vala:1613
 msgid "iCalendar Files"
-msgstr ""
+msgstr "iCalendar dosyaları"
 
 #: core/Objects/Item.vala:1629
 msgid "Task exported successfully"
-msgstr ""
+msgstr "Görev başarıyla dışa aktarıldı"
 
 # c-format
 #: core/Objects/Item.vala:1953 core/Utils/Util.vala:856
-#, fuzzy, c-format
+#, c-format
 msgid "Moved to %s"
 msgstr "Görev %s projesine taşındı"
 
@@ -544,7 +544,6 @@ msgid "Toggle stay open after creating task"
 msgstr "Görev oluşturulduktan sonra açık kalmayı değiştir"
 
 #: core/QuickAddCore.vala:1499
-#, fuzzy
 msgid "Tip"
 msgstr "İpucu"
 
@@ -561,36 +560,44 @@ msgstr "%s için görevler yükleniyor…"
 #: core/Services/CalDAV/CalDAVClient.vala:408
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "%s görevler yüklendi"
 
 #: core/Services/CalDAV/CalDAVClient.vala:401
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "%d'deki %d görevleri senkronize ediliyor"
 
 #: core/Services/CalDAV/CalDAVClient.vala:779
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
+"Bu sunucu CalDAV kullanarak proje oluşturulmasına müsade etmiyor. Lütfen "
+"direkt olarak takvim sağlayıcınızdan proje oluşturun."
 
 #: core/Services/CalDAV/CalDAVClient.vala:834
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"Bu sunucu CalDAV kullanarak proje silinmesine müsade etmiyor. Lütfen direkt "
+"olarak takvim sağlayıcınızdan projeyi silin."
 
 #: core/Services/CalDAV/CalDAVClient.vala:838
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"Bu sunucu CalDAV kullanarak proje silinmesine müsade etmiyor. Lütfen direkt "
+"olarak sunucudan projeyi silin."
 
 #: core/Services/CalDAV/CalDAVClient.vala:872
 #: core/Services/CalDAV/CalDAVClient.vala:919
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"Görev başka bir cihazda değiştirildi. En yeni versiyon için senkronizasyon "
+"yapın."
 
 #: core/Services/CalDAV/Core.vala:170
 msgid "Source already exists"
@@ -615,17 +622,19 @@ msgstr "Senkronizasyon tamamlandı"
 
 #: core/Services/CalDAV/Core.vala:324
 msgid "Authentication Expired"
-msgstr ""
+msgstr "Doğrulamanın süresi sona erdi"
 
 #: core/Services/CalDAV/Core.vala:325
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr ""
+"Oturumunuzun süresi doldu. Lütfen Tercihlerden hesabınızı kaldırıp tekrar "
+"ekleyin."
 
 #: core/Services/CalDAV/Core.vala:332
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Çok şey istiyorsun"
 
 #: core/Services/CalDAV/Core.vala:333
 msgid ""
@@ -672,7 +681,7 @@ msgstr "Bilinmeyen hata"
 
 #: core/Services/Todoist/TodoistAuth.vala:96
 msgid "Invalid API token"
-msgstr ""
+msgstr "Geçersiz API tokeni"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
@@ -681,6 +690,8 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"Todoist API'lerini güncelledi. Senkronizasyona devam etmek için Tercihlerden "
+"hesabını tekrar bağlayın."
 
 #: core/Utils/Datetime.vala:64 core/Utils/Datetime.vala:778
 msgid "Yesterday"
@@ -708,15 +719,15 @@ msgstr "%s %s kaldı"
 
 #: core/Utils/Datetime.vala:95
 msgid "%-l:%M:%S %p"
-msgstr ""
+msgstr "%-l:%M:%S %p"
 
 #: core/Utils/Datetime.vala:98
 msgid "%-l:%M %p"
-msgstr ""
+msgstr "%-l:%M %p"
 
 #: core/Utils/Datetime.vala:103
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%H:%M:%S"
 
 #: core/Utils/Datetime.vala:106
 msgid "%H:%M"
@@ -724,12 +735,12 @@ msgstr "%H:%M"
 
 #: core/Utils/Datetime.vala:467
 msgid "Every last day of month"
-msgstr ""
+msgstr "Her ayın sonu günü"
 
 #: core/Utils/Datetime.vala:468
 #, c-format
 msgid "Every %d months (last day)"
-msgstr ""
+msgstr "Her ayın %d'si (son günü)"
 
 #: core/Utils/Datetime.vala:473
 msgid "Mo,"
@@ -763,23 +774,23 @@ msgstr "Paz,"
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d gün içinde"
+msgstr[1] "%d gün içinde"
 
 #: core/Utils/Datetime.vala:784
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d gün önce"
+msgstr[1] "%d gün önce"
 
 #: core/Utils/Datetime.vala:803
 msgid "%a, %b %-e, %Y"
-msgstr ""
+msgstr "%a, %b %-e, %Y"
 
 #: core/Utils/Datetime.vala:806
 msgid "%b %-e %Y"
-msgstr ""
+msgstr "%b %-e %Y"
 
 #: core/Utils/Datetime.vala:809 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
@@ -788,11 +799,11 @@ msgstr "%Y"
 
 #: core/Utils/Datetime.vala:812
 msgid "%b %-e"
-msgstr ""
+msgstr "%b %-e"
 
 #: core/Utils/Datetime.vala:815
 msgid "%a %Y"
-msgstr ""
+msgstr "%a %Y"
 
 #: core/Utils/Datetime.vala:818
 #, c-format
@@ -801,11 +812,11 @@ msgstr "%a"
 
 #: core/Utils/Datetime.vala:821
 msgid "%a, %b %-e"
-msgstr ""
+msgstr "%a, %b %-e"
 
 #: core/Utils/Datetime.vala:824
 msgid "%b"
-msgstr ""
+msgstr "%b"
 
 #: core/Utils/Util.vala:41
 msgid "Berry Red"
@@ -1001,7 +1012,6 @@ msgid "You’re done!"
 msgstr "Bitti!"
 
 #: core/Utils/Util.vala:650
-#, fuzzy
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -1011,10 +1021,8 @@ msgid ""
 msgstr ""
 "Gerçekten bilmeniz gereken tek şey bu. Kendi projelerinizi ve yapılacak "
 "işlerinizi eklemekten çekinmeyin.\n"
-"\n"
 "Aşağıdaki gelişmiş özellikleri öğrenmek için bu projeye daha sonra geri "
-"dönebilirsiniz...\n"
-"\n"
+"dönebilirsiniz.\n"
 "Planify'ı kullanmaktan keyif alacağınızı umuyoruz!"
 
 #: core/Utils/Util.vala:664
@@ -1082,6 +1090,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
+"Önemli görev veya etkinlikler hakkında bildirim alın. Bir hatırlatıcı "
+"eklemek için aşağıdaki saat butonuna tıklayın."
 
 #: core/Utils/Util.vala:722
 msgid "💼️Work"
@@ -1117,7 +1127,7 @@ msgstr "Projeler"
 
 #: core/Utils/Util.vala:1066 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
-msgstr ""
+msgstr "Zamanı geldiğinde"
 
 #: core/Utils/Util.vala:1069 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
@@ -1146,7 +1156,7 @@ msgstr "3 saat önce"
 #: core/Widgets/Calendar/CalendarDay.vala:103
 #: core/Widgets/Calendar/CalendarScroll.vala:353
 msgid "%A, %B %e, %Y"
-msgstr ""
+msgstr "%A, %B %e, %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:35
 #: core/Widgets/Calendar/CalendarHeader.vala:54
@@ -1180,7 +1190,7 @@ msgstr "Önceki ay, %s"
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 msgid "%B %Y"
-msgstr ""
+msgstr "%B %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 #, c-format
@@ -1284,7 +1294,7 @@ msgstr "şu zamana kadar"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
 msgid "for"
-msgstr ""
+msgstr "için"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:93
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:859
@@ -1292,7 +1302,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
 msgid "times"
-msgstr ""
+msgstr "kere"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:93
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:859
@@ -1311,7 +1321,7 @@ msgstr "Yinele"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:161
 #: src/Dialogs/DatePicker.vala:68
 msgid "Type a date…"
-msgstr ""
+msgstr "Bir tarih yazın…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:400
 #: core/Widgets/DeadlineButton.vala:219
@@ -1321,7 +1331,7 @@ msgstr "Sonraki hafta"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:543
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 msgid "Save"
-msgstr ""
+msgstr "Kaydet"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:579
 msgid "Daily"
@@ -1354,7 +1364,7 @@ msgstr "Özel"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:883
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 msgid "No date"
-msgstr ""
+msgstr "Tarih yok"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:65
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:140
@@ -1388,7 +1398,7 @@ msgstr "Yıl"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:281
 msgid "Last day of month"
-msgstr ""
+msgstr "Ayın son günü"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:297
 msgid "Never"
@@ -1414,46 +1424,45 @@ msgstr "Yinele"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:399
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
-#, fuzzy
 msgid "End"
-msgstr "Etkin"
+msgstr "Bitiş"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:530
 msgid "Minute"
 msgid_plural "Minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Dakika"
+msgstr[1] "Dakika"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:531
 msgid "Hour"
 msgid_plural "Hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Saat"
+msgstr[1] "Saat"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:532
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:536
 msgid "Day"
 msgid_plural "Days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Gün"
+msgstr[1] "Günler"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:533
 msgid "Week"
 msgid_plural "Weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hafta"
+msgstr[1] "Haftalar"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:534
 msgid "Month"
 msgid_plural "Months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ay"
+msgstr[1] "Aylar"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:535
 msgid "Year"
 msgid_plural "Years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Yıl"
+msgstr[1] "Yıllar"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:69
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:78
@@ -1465,7 +1474,7 @@ msgstr "Tarih"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:210
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:214
 msgid "The date you plan to work on this task"
-msgstr ""
+msgstr "Bu görev üzerinde çalışmak istediğiniz tarih"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:130
 msgid "Remove date"
@@ -1474,33 +1483,33 @@ msgstr "Tarihi kaldır"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:171
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:209
 msgid "When do you plan to work on this?"
-msgstr ""
+msgstr "Bunun üzerinde ne zaman çalışmayı düşünüyorsunuz?"
 
 #: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:135
 msgid "Set Deadline"
-msgstr ""
+msgstr "Son teslim tarihi ayarla"
 
 #: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:90
 #: core/Widgets/DeadlineButton.vala:97 core/Widgets/DeadlineButton.vala:104
 #: core/Widgets/DeadlineButton.vala:139
 msgid "The latest date to complete this task"
-msgstr ""
+msgstr "Bu görevi tamamlamak için son tarih"
 
 #: core/Widgets/DeadlineButton.vala:59 core/Widgets/DeadlineButton.vala:157
 msgid "What is the latest date to complete this?"
-msgstr ""
+msgstr "Bunu halletmek için son tarih nedir?"
 
 #: core/Widgets/DeadlineButton.vala:218
 msgid "In 3 days"
-msgstr ""
+msgstr "3 gün içinde"
 
 #: core/Widgets/DeadlineButton.vala:220
 msgid "In 2 weeks"
-msgstr ""
+msgstr "2 hafta içinde"
 
 #: core/Widgets/DeadlineButton.vala:221
 msgid "In a month"
-msgstr ""
+msgstr "Bir ay içerisinde"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1545,16 +1554,16 @@ msgstr "Ara veya Oluştur"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 msgid "Hide unused labels"
-msgstr ""
+msgstr "Kullaılmayan nitelikleri kaldır"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:316
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:399
 msgid "No Labels"
-msgstr ""
+msgstr "Nitelik yok"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:391
 msgid "All Hidden"
-msgstr ""
+msgstr "Tümü gizlendi"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:392
 msgid "All labels are hidden by the filter. Disable the filter to see them."
