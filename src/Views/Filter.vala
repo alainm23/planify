@@ -791,7 +791,12 @@ public class Views.Filter : Adw.Bin {
         var row = (Layouts.ItemRow) lbrow;
         if (lbbefore != null && lbbefore is Layouts.ItemRow) {
             var before = (Layouts.ItemRow) lbbefore;
-            if (row.project_id == before.project_id) {
+            // Group on the item's own project, not Layouts.ItemRow's cached project_id: that copy
+            // is taken in construct and never refreshed, so after a task is moved to another
+            // project the row still carries the old id and is read as the start of a new group —
+            // a second header for a project that already has one. The header text below already
+            // comes from the live item, which is why the duplicate is labelled identically.
+            if (row.item.project_id == before.item.project_id) {
                 row.set_header (null);
                 return;
             }
