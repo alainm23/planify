@@ -335,26 +335,28 @@ msgstr "ჭდემოხსნილი"
 
 #: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
 #: core/Objects/Item.vala:1569 core/Objects/Item.vala:1571
+#: core/Objects/Item.vala:1594
 msgid "Deadline:"
 msgstr "ვადა:"
 
 #: core/Objects/Item.vala:1528 core/Objects/Item.vala:1594
-#: core/Objects/Item.vala:1596
+#: core/Objects/Item.vala:1596 core/Objects/Item.vala:1619
 msgid "Task copied to clipboard"
 msgstr "ამოცანა დაკოპირდა ბუფერში"
 
 #: core/Objects/Item.vala:1545 core/Objects/Item.vala:1611
-#: core/Objects/Item.vala:1613
+#: core/Objects/Item.vala:1613 core/Objects/Item.vala:1636
 msgid "iCalendar Files"
 msgstr ""
 
 #: core/Objects/Item.vala:1561 core/Objects/Item.vala:1627
-#: core/Objects/Item.vala:1629
+#: core/Objects/Item.vala:1629 core/Objects/Item.vala:1652
 msgid "Task exported successfully"
 msgstr ""
 
 #: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
 #: core/Objects/Item.vala:1951 core/Objects/Item.vala:1953
+#: core/Objects/Item.vala:1976
 #, c-format
 msgid "Moved to %s"
 msgstr "გადატანილია %s-ში"

@@ -346,24 +346,26 @@ msgstr "непомеченн"
 #: core/Objects/Item.vala:1474 src/Services/ExportService.vala:187
 #: core/Objects/Item.vala:1502 core/Objects/Item.vala:1503
 #: core/Objects/Item.vala:1569 core/Objects/Item.vala:1571
+#: core/Objects/Item.vala:1594
 msgid "Deadline:"
 msgstr "Срок:"
 
 #: core/Objects/Item.vala:1499 core/Objects/Item.vala:1517
 #: core/Objects/Item.vala:1527 core/Objects/Item.vala:1528
 #: core/Objects/Item.vala:1594 core/Objects/Item.vala:1596
+#: core/Objects/Item.vala:1619
 msgid "Task copied to clipboard"
 msgstr "Задача скопирована в буфер обмена"
 
 #: core/Objects/Item.vala:1516 core/Objects/Item.vala:1544
 #: core/Objects/Item.vala:1545 core/Objects/Item.vala:1611
-#: core/Objects/Item.vala:1613
+#: core/Objects/Item.vala:1613 core/Objects/Item.vala:1636
 msgid "iCalendar Files"
 msgstr "Файлы iCalendar"
 
 #: core/Objects/Item.vala:1532 core/Objects/Item.vala:1560
 #: core/Objects/Item.vala:1561 core/Objects/Item.vala:1627
-#: core/Objects/Item.vala:1629
+#: core/Objects/Item.vala:1629 core/Objects/Item.vala:1652
 msgid "Task exported successfully"
 msgstr "Задача успешно экспортирована"
 
@@ -371,6 +373,7 @@ msgstr "Задача успешно экспортирована"
 #: core/Objects/Item.vala:1856 core/Utils/Util.vala:856
 #: core/Objects/Item.vala:1884 core/Objects/Item.vala:1885
 #: core/Objects/Item.vala:1951 core/Objects/Item.vala:1953
+#: core/Objects/Item.vala:1976
 #, c-format
 msgid "Moved to %s"
 msgstr "Перемещено в %s"

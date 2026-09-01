@@ -327,24 +327,24 @@ msgstr "geen label"
 msgid "unlabeled"
 msgstr "ongelabeld"
 
-#: core/Objects/Item.vala:1571 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1594 src/Services/ExportService.vala:187
 msgid "Deadline:"
 msgstr "Deadline:"
 
-#: core/Objects/Item.vala:1596
+#: core/Objects/Item.vala:1619
 msgid "Task copied to clipboard"
 msgstr "Taak gekopieerd naar klembord"
 
-#: core/Objects/Item.vala:1613
+#: core/Objects/Item.vala:1636
 msgid "iCalendar Files"
 msgstr "iCalendar Bestanden"
 
-#: core/Objects/Item.vala:1629
+#: core/Objects/Item.vala:1652
 msgid "Task exported successfully"
 msgstr "Taak succesvol geëxporteerd"
 
 # # c-format
-#: core/Objects/Item.vala:1953 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1976 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "Verplaatst naar %s"
