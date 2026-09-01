@@ -500,7 +500,7 @@ msgstr ""
 "Функция быстрого добавления не может найти ни одного доступного проекта. "
 "Попробуйте создать проект в Planify."
 
-#: core/QuickAddCore.vala:1455 src/MainWindow.vala:778
+#: core/QuickAddCore.vala:1455 src/MainWindow.vala:792
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
@@ -1888,7 +1888,7 @@ msgstr "Обновить метку"
 msgid "Filter"
 msgstr "Фильтр"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:783
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:797
 msgid "Archived Projects"
 msgstr "Архивированные проекты"
 
@@ -2753,7 +2753,7 @@ msgstr ""
 "Если эта функция включена, по умолчанию будет добавлено напоминание до "
 "наступления срока выполнения задачи."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:757
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:771
 msgid "Preferences"
 msgstr "Параметры"
 
@@ -2903,7 +2903,7 @@ msgstr[1] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:760
+#: src/MainWindow.vala:774
 msgid "Summary & Productivity"
 msgstr "Сводка и Продуктивность"
 
@@ -2958,7 +2958,7 @@ msgstr "Продуктивность"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:859
+#: src/MainWindow.vala:873
 msgid "See More"
 msgstr "Подробнее"
 
@@ -3385,27 +3385,27 @@ msgstr ""
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:781
+#: src/MainWindow.vala:795
 msgid "About Planify"
 msgstr "О Planify"
 
-#: src/MainWindow.vala:856
+#: src/MainWindow.vala:870
 msgid "Oops! Something happened"
 msgstr "Произошла ошибка"
 
-#: src/MainWindow.vala:875 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:889 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Задача выполнена"
 
-#: src/MainWindow.vala:876
+#: src/MainWindow.vala:890
 msgid "View"
 msgstr "Обзор"
 
-#: src/MainWindow.vala:914
+#: src/MainWindow.vala:928
 msgid "Database Integrity Check Failed"
 msgstr "Проверка целостности базы данных не выполнена"
 
-#: src/MainWindow.vala:915
+#: src/MainWindow.vala:929
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3428,7 +3428,7 @@ msgstr ""
 "После сброса вы сможете восстановить любую резервную копию, созданную ранее. "
 "Благодарим вас за терпение"
 
-#: src/MainWindow.vala:917
+#: src/MainWindow.vala:931
 msgid "Reset Database"
 msgstr "Сбросить базу данных"
 
@@ -4153,6 +4153,21 @@ msgstr "Открыть «Метки»"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Открыть «Закреплённые»"
+
+#: data/resources/ui/shortcuts.ui:136
+msgctxt "shortcut window"
+msgid "Open the Nth Project"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:143
+msgctxt "shortcut window"
+msgid "Open Next Project"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:150
+msgctxt "shortcut window"
+msgid "Open Previous Project"
+msgstr ""
 
 #~ msgid "Define how many tasks you want to complete per day and week"
 #~ msgstr "Определите, сколько задач вы хотите выполнить в день и неделю"

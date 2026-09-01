@@ -488,7 +488,7 @@ msgid ""
 msgstr ""
 "抱歉，快速添加功能找不到任何可用的项目，请先在 Planify 中创建一个项目。"
 
-#: core/QuickAddCore.vala:1455 src/MainWindow.vala:778
+#: core/QuickAddCore.vala:1455 src/MainWindow.vala:792
 msgid "Keyboard Shortcuts"
 msgstr "快捷键"
 
@@ -1818,7 +1818,7 @@ msgstr "更新标签"
 msgid "Filter"
 msgstr "筛选"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:783
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:797
 msgid "Archived Projects"
 msgstr "已归档项目"
 
@@ -2649,7 +2649,7 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr "启用后，将默认在任务到期前添加提醒。"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:757
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:771
 msgid "Preferences"
 msgstr "偏好设置"
 
@@ -2798,7 +2798,7 @@ msgstr[0] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:760
+#: src/MainWindow.vala:774
 msgid "Summary & Productivity"
 msgstr "摘要与效率"
 
@@ -2853,7 +2853,7 @@ msgstr "效率"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:859
+#: src/MainWindow.vala:873
 msgid "See More"
 msgstr "查看更多"
 
@@ -3271,27 +3271,27 @@ msgstr "任务已在其他设备上修改"
 msgid "Sync Now"
 msgstr "立即同步"
 
-#: src/MainWindow.vala:781
+#: src/MainWindow.vala:795
 msgid "About Planify"
 msgstr "关于 Planify"
 
-#: src/MainWindow.vala:856
+#: src/MainWindow.vala:870
 msgid "Oops! Something happened"
 msgstr "糟糕！出了点问题"
 
-#: src/MainWindow.vala:875 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:889 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "任务已完成"
 
-#: src/MainWindow.vala:876
+#: src/MainWindow.vala:890
 msgid "View"
 msgstr "查看"
 
-#: src/MainWindow.vala:914
+#: src/MainWindow.vala:928
 msgid "Database Integrity Check Failed"
 msgstr "数据库完整性检查失败"
 
-#: src/MainWindow.vala:915
+#: src/MainWindow.vala:929
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3310,7 +3310,7 @@ msgstr ""
 "\n"
 "重置后，您可以恢复之前创建的任何备份。感谢您的耐心等待。"
 
-#: src/MainWindow.vala:917
+#: src/MainWindow.vala:931
 msgid "Reset Database"
 msgstr "重置数据库"
 
@@ -4016,6 +4016,21 @@ msgstr "打开标签"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "打开置顶板"
+
+#: data/resources/ui/shortcuts.ui:136
+msgctxt "shortcut window"
+msgid "Open the Nth Project"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:143
+msgctxt "shortcut window"
+msgid "Open Next Project"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:150
+msgctxt "shortcut window"
+msgid "Open Previous Project"
+msgstr ""
 
 #~ msgid "Define how many tasks you want to complete per day and week"
 #~ msgstr "设定您每天和每周想要完成的任务数量"
