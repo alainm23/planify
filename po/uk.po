@@ -575,7 +575,7 @@ msgstr ""
 "Цей сервер не дозволяє створювати проєкти через CalDAV. Будь ласка, створіть "
 "їх безпосередньо на вебсайті постачальника вашого календаря."
 
-#: core/Services/CalDAV/CalDAVClient.vala:831
+#: core/Services/CalDAV/CalDAVClient.vala:834
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -583,7 +583,7 @@ msgstr ""
 "Цей сервер не дозволяє видаляти проєкти через CalDAV. Будь ласка, видаліть "
 "їх безпосередньо з вебсайту постачальника вашого календаря."
 
-#: core/Services/CalDAV/CalDAVClient.vala:835
+#: core/Services/CalDAV/CalDAVClient.vala:838
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -591,8 +591,8 @@ msgstr ""
 "Цей сервер не підтримує видалення проектів через CalDAV. Будь ласка, "
 "видаліть їх безпосередньо із сервера."
 
-#: core/Services/CalDAV/CalDAVClient.vala:869
-#: core/Services/CalDAV/CalDAVClient.vala:916
+#: core/Services/CalDAV/CalDAVClient.vala:872
+#: core/Services/CalDAV/CalDAVClient.vala:919
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
