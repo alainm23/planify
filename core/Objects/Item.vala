@@ -204,15 +204,38 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    string ? _extra_data_key = null;
+    Json.Object ? _extra_data_object = null;
+
+    private Json.Object ? get_extra_data_object () {
+        if (_extra_data_key != extra_data) {
+            _extra_data_object = Utils.JsonUtils.get_object (extra_data);
+            _extra_data_key = extra_data;
+        }
+
+        return _extra_data_object;
+    }
+
+    private string get_extra_data_member (string member) {
+        var json_object = get_extra_data_object ();
+
+        if (json_object != null && json_object.has_member (member) && !json_object.get_null_member (member)) {
+            return json_object.get_string_member (member);
+        }
+
+        return "";
+    }
+
     string _ical_url = "";
     public string ical_url {
         get {
-            var json_object = Utils.JsonUtils.get_object (extra_data);
+            var json_object = get_extra_data_object ();
 
-            if (json_object.has_member ("ics")) {
+            // Nothing writes "ics" any more; kept for databases written by older versions.
+            if (json_object != null && json_object.has_member ("ics")) {
                 _ical_url = "%s/%s".printf (project.calendar_url, json_object.get_string_member ("ics"));
             } else {
-                _ical_url = Utils.JsonUtils.get_string (extra_data, "ical_url");
+                _ical_url = get_extra_data_member ("ical_url");
             }
             return _ical_url;
         }
@@ -221,7 +244,7 @@ public class Objects.Item : Objects.BaseObject {
     string _calendar_data = "";
     public string calendar_data {
         get {
-            _calendar_data = Utils.JsonUtils.get_string (extra_data, "calendar-data");
+            _calendar_data = get_extra_data_member ("calendar-data");
             return _calendar_data;
         }
     }
@@ -229,7 +252,7 @@ public class Objects.Item : Objects.BaseObject {
     string _etag = "";
     public string etag {
         get {
-            _etag = Utils.JsonUtils.get_string (extra_data, "etag");
+            _etag = get_extra_data_member ("etag");
             return _etag;
         }
     }
