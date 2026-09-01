@@ -323,31 +323,23 @@ public class Objects.Project : Objects.BaseObject {
         backend_type = SourceType.CALDAV;
     }
 
-    // TODO: add extra null checks
     public void update_from_propstat (Services.CalDAV.WebDAVPropStat propstat, bool update_sync_token = true) {
-        if (propstat.get_first_prop_with_tagname ("displayname") != null) {
-            name = propstat.get_first_prop_with_tagname ("displayname").text_content;
+        var displayname = propstat.get_first_prop_with_tagname ("displayname");
+        if (displayname != null) {
+            name = displayname.text_content;
         }
-        if (propstat.get_first_prop_with_tagname ("calendar-color") != null) {
-            color = propstat.get_first_prop_with_tagname ("calendar-color").text_content;
+
+        var calendar_color = propstat.get_first_prop_with_tagname ("calendar-color");
+        if (calendar_color != null) {
+            color = calendar_color.text_content;
         }
+
         if (update_sync_token) {
-            sync_id = propstat.get_first_prop_with_tagname ("sync-token").text_content;
+            var sync_token = propstat.get_first_prop_with_tagname ("sync-token");
+            if (sync_token != null) {
+                sync_id = sync_token.text_content;
+            }
         }
-    }
-
-    public string get_id_from_url (GXml.DomElement element) {
-        if (element.get_elements_by_tag_name ("d:href").length <= 0) {
-            return "";
-        }
-
-        GXml.DomElement href = element.get_elements_by_tag_name ("d:href").get_element (0);
-        string[] parts = href.text_content.split ("/");
-        return parts[parts.length - 2];
-    }
-
-    public string get_content (GXml.DomElement element) {
-        return element.text_content;
     }
 
     public Project.from_import_json (Json.Node node) {
