@@ -135,16 +135,14 @@ public abstract class Views.Scheduled.ScheduledSection : Gtk.ListBoxRow {
         var header = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             valign = Gtk.Align.START,
-            margin_top = 6,
-            margin_start = 6,
+            margin_top = 3,
+            margin_start = 12,
             margin_end = 6,
             margin_bottom = 6
         };
 
         header.append (title_row);
-        header.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_top = 3
-        });
+        header.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         return header;
     }
