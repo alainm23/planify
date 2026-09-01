@@ -366,7 +366,7 @@ msgstr ""
 msgid "Delete Label %s"
 msgstr ""
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:897
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:889
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
@@ -374,8 +374,8 @@ msgstr ""
 msgid "This can not be undone"
 msgstr "Tega ni mogoče razveljaviti"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:900
-#: core/Objects/Project.vala:974 core/Objects/Section.vala:430
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:892
+#: core/Objects/Project.vala:966 core/Objects/Section.vala:430
 #: core/Objects/Section.vala:476 core/Utils/Util.vala:457
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:453
@@ -394,7 +394,7 @@ msgstr "Tega ni mogoče razveljaviti"
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:901
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:893
 #: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:242
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
@@ -407,25 +407,25 @@ msgstr "Prekliči"
 msgid "Delete"
 msgstr "Zbriši"
 
-#: core/Objects/Project.vala:860
+#: core/Objects/Project.vala:852
 msgid "The project was copied to the Clipboard."
 msgstr "Projekt je bil kopiran v odložišče."
 
-#: core/Objects/Project.vala:896
+#: core/Objects/Project.vala:888
 #, c-format
 msgid "Delete Project %s?"
 msgstr ""
 
-#: core/Objects/Project.vala:970 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:962 core/Objects/Section.vala:472
 msgid "Archive?"
 msgstr ""
 
-#: core/Objects/Project.vala:971 core/Objects/Section.vala:473
+#: core/Objects/Project.vala:963 core/Objects/Section.vala:473
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr ""
 
-#: core/Objects/Project.vala:975 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:967 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 msgid "Archive"
