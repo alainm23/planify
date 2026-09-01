@@ -57,7 +57,7 @@ public class Views.Scheduled.ScheduledMonth : Views.Scheduled.ScheduledSection {
 
         header_content_wraper = new Adw.Bin () {
             child = header_content,
-            margin_start = 24
+            margin_start = 18
         };
 
         listbox = new Gtk.ListBox () {
@@ -83,7 +83,7 @@ public class Views.Scheduled.ScheduledMonth : Views.Scheduled.ScheduledSection {
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             valign = Gtk.Align.START,
-            margin_bottom = 32
+            margin_bottom = 24
         };
         content.append (header_content_wraper);
         content.append (listbox_revealer);
