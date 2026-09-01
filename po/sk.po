@@ -360,7 +360,7 @@ msgstr "Úloha presunutá do %s"
 msgid "Delete Label %s"
 msgstr "Odstrániť štítok %s"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:897
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:889
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
@@ -368,8 +368,8 @@ msgstr "Odstrániť štítok %s"
 msgid "This can not be undone"
 msgstr "Toto nie je možné zrušiť"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:900
-#: core/Objects/Project.vala:974 core/Objects/Section.vala:430
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:892
+#: core/Objects/Project.vala:966 core/Objects/Section.vala:430
 #: core/Objects/Section.vala:476 core/Utils/Util.vala:457
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:453
@@ -388,7 +388,7 @@ msgstr "Toto nie je možné zrušiť"
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:901
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:893
 #: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:242
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
@@ -401,25 +401,25 @@ msgstr "Zrušiť"
 msgid "Delete"
 msgstr "Odstrániť"
 
-#: core/Objects/Project.vala:860
+#: core/Objects/Project.vala:852
 msgid "The project was copied to the Clipboard."
 msgstr "Projekt bol skopírovaný do schránky."
 
-#: core/Objects/Project.vala:896
+#: core/Objects/Project.vala:888
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Odstrániť projekt %s?"
 
-#: core/Objects/Project.vala:970 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:962 core/Objects/Section.vala:472
 msgid "Archive?"
 msgstr "Archív?"
 
-#: core/Objects/Project.vala:971 core/Objects/Section.vala:473
+#: core/Objects/Project.vala:963 core/Objects/Section.vala:473
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Toto archivuje %s a všetky jeho úlohy."
 
-#: core/Objects/Project.vala:975 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:967 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 msgid "Archive"

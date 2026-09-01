@@ -356,7 +356,7 @@ msgstr "कार्य को %s पर भेजा गया"
 msgid "Delete Label %s"
 msgstr "लेबल %s मिटाएं"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:897
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:889
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
@@ -364,8 +364,8 @@ msgstr "लेबल %s मिटाएं"
 msgid "This can not be undone"
 msgstr "इसे पूर्ववत नहीं किया जा सकता"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:900
-#: core/Objects/Project.vala:974 core/Objects/Section.vala:430
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:892
+#: core/Objects/Project.vala:966 core/Objects/Section.vala:430
 #: core/Objects/Section.vala:476 core/Utils/Util.vala:457
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:453
@@ -384,7 +384,7 @@ msgstr "इसे पूर्ववत नहीं किया जा सक�
 msgid "Cancel"
 msgstr "रद्द करें"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:901
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:893
 #: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:242
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
@@ -397,27 +397,27 @@ msgstr "रद्द करें"
 msgid "Delete"
 msgstr "मिटाएं"
 
-#: core/Objects/Project.vala:860
+#: core/Objects/Project.vala:852
 msgid "The project was copied to the Clipboard."
 msgstr "परियोजना को क्लिपबोर्ड पर कॉपी किया गया था।"
 
 # # c-format
-#: core/Objects/Project.vala:896
+#: core/Objects/Project.vala:888
 #, c-format
 msgid "Delete Project %s?"
 msgstr "परियोजना %s मिटाएं?"
 
-#: core/Objects/Project.vala:970 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:962 core/Objects/Section.vala:472
 msgid "Archive?"
 msgstr "संग्रहित करें?"
 
 # # c-format
-#: core/Objects/Project.vala:971 core/Objects/Section.vala:473
+#: core/Objects/Project.vala:963 core/Objects/Section.vala:473
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "यह %s और उसके सभी कार्यों को संग्रहीत करेगा।"
 
-#: core/Objects/Project.vala:975 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:967 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 msgid "Archive"
