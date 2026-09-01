@@ -27,6 +27,8 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
     private Widgets.DateTimePicker.TimePicker time_picker;
     private Adw.NavigationView navigation_view;
     private Widgets.LoadingButton submit_button;
+    private Gtk.Revealer error_revealer;
+    private Gtk.Label error_label;
 
     private Gee.HashMap<string, Widgets.ReminderPicker.ReminderRow> reminders_map = new Gee.HashMap<string, Widgets.ReminderPicker.ReminderRow> ();
     private Gee.HashMap<string, Adw.NavigationPage> pages_map = new Gee.HashMap<string, Adw.NavigationPage> ();
@@ -127,7 +129,9 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         signal_map[add_button.clicked.connect (() => {
             calendar.date = new GLib.DateTime.now_local ();
             time_picker.time = new GLib.DateTime.now_local ().add_hours (1);
-            
+
+            hide_error ();
+
             navigation_view.push (build_page ("picker"));
         })] = add_button;
 
@@ -159,6 +163,20 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
             css_classes = { "suggested-action" }
         };
 
+        error_label = new Gtk.Label ("") {
+            halign = Gtk.Align.CENTER,
+            wrap = true,
+            css_classes = { "error", "caption" }
+        };
+
+        error_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = error_label,
+            margin_top = 6,
+            margin_start = 12,
+            margin_end = 12
+        };
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.append (calendar);
         main_box.append (new Gtk.Separator (Gtk.Orientation.VERTICAL) {
@@ -168,6 +186,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
             margin_bottom = 6
         });
         main_box.append (time_box);
+        main_box.append (error_revealer);
         main_box.append (submit_button);
 
         var toolbar_view = new Adw.ToolbarView () {
@@ -186,51 +205,51 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
     }
 
     private Adw.NavigationPage build_suggestions_page () {
-        var 5_m_item = new Widgets.ContextMenu.MenuItem (_("In 5 minutes"), "delay-symbolic");
-        var 15_m_item = new Widgets.ContextMenu.MenuItem (_("In 15 minutes"), "delay-symbolic");
-        var 30_m_item = new Widgets.ContextMenu.MenuItem (_("In 30 minutes"), "delay-symbolic");
-        var 1_h_item = new Widgets.ContextMenu.MenuItem (_("In 1 hour"), "delay-symbolic");
-        var 3_h_item = new Widgets.ContextMenu.MenuItem (_("In 3 hours"), "delay-symbolic");
-        var 6_h_item = new Widgets.ContextMenu.MenuItem (_("In 6 hours"), "delay-symbolic");
+        var item_5m = new Widgets.ContextMenu.MenuItem (_("In 5 minutes"), "delay-symbolic");
+        var item_15m = new Widgets.ContextMenu.MenuItem (_("In 15 minutes"), "delay-symbolic");
+        var item_30m = new Widgets.ContextMenu.MenuItem (_("In 30 minutes"), "delay-symbolic");
+        var item_1h = new Widgets.ContextMenu.MenuItem (_("In 1 hour"), "delay-symbolic");
+        var item_3h = new Widgets.ContextMenu.MenuItem (_("In 3 hours"), "delay-symbolic");
+        var item_6h = new Widgets.ContextMenu.MenuItem (_("In 6 hours"), "delay-symbolic");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (5_m_item);
-        menu_box.append (15_m_item);
-        menu_box.append (30_m_item);
-        menu_box.append (1_h_item);
-        menu_box.append (3_h_item);
-        menu_box.append (6_h_item);
+        menu_box.append (item_5m);
+        menu_box.append (item_15m);
+        menu_box.append (item_30m);
+        menu_box.append (item_1h);
+        menu_box.append (item_3h);
+        menu_box.append (item_6h);
 
-        signal_map[5_m_item.clicked.connect (() => {
+        signal_map[item_5m.clicked.connect (() => {
             var datetime = new GLib.DateTime.now_local ().add_minutes (5);
             _insert_reminder (datetime, datetime, true);
-        })] = 5_m_item;
+        })] = item_5m;
 
-        signal_map[15_m_item.clicked.connect (() => {
+        signal_map[item_15m.clicked.connect (() => {
             var datetime = new GLib.DateTime.now_local ().add_minutes (15);
             _insert_reminder (datetime, datetime, true);
-        })] = 15_m_item;
+        })] = item_15m;
 
-        signal_map[30_m_item.clicked.connect (() => {
+        signal_map[item_30m.clicked.connect (() => {
             var datetime = new GLib.DateTime.now_local ().add_minutes (30);
             _insert_reminder (datetime, datetime, true);
-        })] = 30_m_item;
+        })] = item_30m;
 
-        signal_map[1_h_item.clicked.connect (() => {
+        signal_map[item_1h.clicked.connect (() => {
             var datetime = new GLib.DateTime.now_local ().add_hours (1);
             _insert_reminder (datetime, datetime, true);
-        })] = 1_h_item;
+        })] = item_1h;
 
-        signal_map[3_h_item.clicked.connect (() => {
+        signal_map[item_3h.clicked.connect (() => {
             var datetime = new GLib.DateTime.now_local ().add_hours (3);
             _insert_reminder (datetime, datetime, true);
-        })] = 3_h_item;
+        })] = item_3h;
 
-        signal_map[6_h_item.clicked.connect (() => {
+        signal_map[item_6h.clicked.connect (() => {
             var datetime = new GLib.DateTime.now_local ().add_hours (6);
             _insert_reminder (datetime, datetime, true);
-        })] = 6_h_item;
+        })] = item_6h;
 
         return new Adw.NavigationPage (menu_box, "suggestions");
     }
@@ -244,10 +263,30 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
     }
 
     private void _insert_reminder (GLib.DateTime date, GLib.DateTime time, bool is_suggestion = false) {
+        var datetime = Utils.Datetime.get_datetime_no_seconds (date, time);
+
+        if (datetime.compare (new GLib.DateTime.now_local ()) <= 0) {
+            if (!is_suggestion) {
+                show_error (_("Choose a time in the future"));
+            }
+
+            submit_button.is_loading = false;
+            return;
+        }
+
+        if (has_reminder_at (datetime)) {
+            if (!is_suggestion) {
+                show_error (_("You already have a reminder at that time"));
+            }
+
+            submit_button.is_loading = false;
+            return;
+        }
+
+        hide_error ();
+
         var reminder = new Objects.Reminder ();
-        reminder.due.date = Utils.Datetime.get_todoist_datetime_format (
-            Utils.Datetime.get_datetime_no_seconds (date, time)
-        );
+        reminder.due.date = Utils.Datetime.get_todoist_datetime_format (datetime);
 
         reminder_added (reminder);
 
@@ -258,6 +297,32 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
 
         navigation_view.pop ();
         submit_button.is_loading = false;
+    }
+
+    private bool has_reminder_at (GLib.DateTime datetime) {
+        foreach (Widgets.ReminderPicker.ReminderRow row in reminders_map.values) {
+            if (row.reminder.datetime.compare (datetime) == 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void show_error (string message) {
+        if (error_label != null) {
+            error_label.label = message;
+        }
+
+        if (error_revealer != null) {
+            error_revealer.reveal_child = true;
+        }
+    }
+
+    private void hide_error () {
+        if (error_revealer != null) {
+            error_revealer.reveal_child = false;
+        }
     }
 
     public void set_reminders (Gee.ArrayList<Objects.Reminder> reminders) {
@@ -274,21 +339,23 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
     }
 
     public void add_reminder (Objects.Reminder reminder) {
-        if (!reminders_map.has_key (reminder.id)) {
-            reminders_map[reminder.id] = new Widgets.ReminderPicker.ReminderRow (reminder);
-
-            signal_map[reminders_map[reminder.id].deleted.connect (() => {
-                if (!is_creating) {
-                    reminder.delete ();
-                } else {
-                    delete_reminder (reminder);
-                }
-
-                reminder_deleted (reminder);
-            })] = reminders_map[reminder.id];
-
-            reminders_view.add_child (reminders_map[reminder.id]);
+        if (reminders_map.has_key (reminder.id) || has_reminder_at (reminder.datetime)) {
+            return;
         }
+
+        reminders_map[reminder.id] = new Widgets.ReminderPicker.ReminderRow (reminder);
+
+        signal_map[reminders_map[reminder.id].deleted.connect (() => {
+            if (!is_creating) {
+                reminder.delete ();
+            } else {
+                delete_reminder (reminder);
+            }
+
+            reminder_deleted (reminder);
+        })] = reminders_map[reminder.id];
+
+        reminders_view.add_child (reminders_map[reminder.id]);
     }
 
     public void delete_reminder (Objects.Reminder reminder) {
