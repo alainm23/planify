@@ -443,6 +443,7 @@ msgstr "Это действие заархивирует %s и все его з�
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:673 src/Views/Project/Project.vala:399
 #: src/Layouts/SectionRow.vala:678 src/Layouts/SectionRow.vala:702
+#: src/Layouts/SectionRow.vala:706
 msgid "Archive"
 msgstr "Архивировать"
 
@@ -506,7 +507,7 @@ msgstr "Добавить напоминания"
 #: src/Layouts/SectionRow.vala:671 src/Layouts/SectionRow.vala:695
 #: src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
-#: src/Views/Scheduled/ScheduledRange.vala:147
+#: src/Views/Scheduled/ScheduledRange.vala:147 src/Layouts/SectionRow.vala:699
 msgid "Add Task"
 msgstr "Добавить задачу"
 
@@ -599,6 +600,7 @@ msgstr "Синхронизировано %d задач из %d"
 
 #: core/Services/CalDAV/CalDAVClient.vala:776
 #: core/Services/CalDAV/CalDAVClient.vala:777
+#: core/Services/CalDAV/CalDAVClient.vala:779
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -608,6 +610,7 @@ msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:828
 #: core/Services/CalDAV/CalDAVClient.vala:829
+#: core/Services/CalDAV/CalDAVClient.vala:831
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -617,6 +620,7 @@ msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:832
 #: core/Services/CalDAV/CalDAVClient.vala:833
+#: core/Services/CalDAV/CalDAVClient.vala:835
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -628,6 +632,8 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:913
 #: core/Services/CalDAV/CalDAVClient.vala:867
 #: core/Services/CalDAV/CalDAVClient.vala:914
+#: core/Services/CalDAV/CalDAVClient.vala:869
+#: core/Services/CalDAV/CalDAVClient.vala:916
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
@@ -1951,7 +1957,7 @@ msgstr "Архивированные проекты"
 #: src/Dialogs/ManageSectionOrder.vala:34 src/Layouts/SectionBoard.vala:610
 #: src/Layouts/SectionRow.vala:669 src/Views/Project/Project.vala:392
 #: src/Layouts/SectionRow.vala:674 src/Dialogs/ManageSectionOrder.vala:35
-#: src/Layouts/SectionRow.vala:698
+#: src/Layouts/SectionRow.vala:698 src/Layouts/SectionRow.vala:702
 msgid "Manage Sections"
 msgstr "Управление разделами"
 
@@ -3166,7 +3172,7 @@ msgstr "Новый раздел"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
 #: src/Layouts/SectionRow.vala:667 src/Layouts/SectionRow.vala:672
-#: src/Layouts/SectionRow.vala:696
+#: src/Layouts/SectionRow.vala:696 src/Layouts/SectionRow.vala:700
 msgid "Edit Section"
 msgstr "Изменить раздел"
 
@@ -3221,6 +3227,7 @@ msgstr "Изменить"
 #: src/Layouts/SectionRow.vala:670 src/Views/Project/Project.vala:388
 #: src/Layouts/SectionRow.vala:675 src/Layouts/SectionRow.vala:699
 #: src/Layouts/ItemRow.vala:1267 src/Layouts/ItemRow.vala:1401
+#: src/Layouts/SectionRow.vala:703
 msgid "Duplicate"
 msgstr "Дублировать"
 
@@ -3372,23 +3379,25 @@ msgstr "Загрузить ещё"
 
 #: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:623
 #: src/Widgets/SubItems.vala:420 src/Layouts/SectionRow.vala:628
-#: src/Layouts/SectionRow.vala:652
+#: src/Layouts/SectionRow.vala:652 src/Layouts/SectionRow.vala:656
 msgid "completed tasks"
 msgstr "выполненные задачи"
 
 #: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:668
 #: src/Layouts/SectionRow.vala:673 src/Layouts/SectionRow.vala:697
+#: src/Layouts/SectionRow.vala:701
 msgid "Move Section"
 msgstr "Перенести раздел"
 
 #: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:671
 #: src/Layouts/SectionRow.vala:676 src/Layouts/SectionRow.vala:700
+#: src/Layouts/SectionRow.vala:704
 msgid "Show Completed Tasks"
 msgstr "Показать выполненные задачи"
 
 #: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:674
 #: src/Widgets/SectionItemRow.vala:186 src/Layouts/SectionRow.vala:679
-#: src/Layouts/SectionRow.vala:703
+#: src/Layouts/SectionRow.vala:703 src/Layouts/SectionRow.vala:707
 msgid "Delete Section"
 msgstr "Удалить раздел"
 
@@ -3584,6 +3593,7 @@ msgstr "задачи"
 
 #: src/Views/Filter.vala:362 src/Layouts/SectionRow.vala:655
 #: src/Views/Filter.vala:408 src/Views/Filter.vala:583
+#: src/Layouts/SectionRow.vala:659
 msgid "No more tasks"
 msgstr ""
 
