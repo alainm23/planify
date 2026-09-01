@@ -315,15 +315,22 @@ public class Services.Store : GLib.Object {
 
     /**
      * Returns every project in the order the sidebar displays it: visible sources by child_order,
-     * and within each source its top-level, non-archived projects.
+     * and within each source its top-level, non-archived projects, again by child_order.
+     *
+     * Both orderings have to be computed rather than read off the store's own list: that list is
+     * ordered once at load, while reordering a project by dragging it writes the new child_order
+     * onto the live Objects.Project and to the database without moving anything in the list. Custom
+     * order taken from the list order would therefore stay on the pre-drag order until the next
+     * restart, while the sidebar showed the new one.
      *
      * Matches what the sidebar actually shows, so callers that address projects by position agree
      * with what the user sees. That is two conditions, not one: Layouts.SidebarSourceRow's
      * add_row_project () decides which rows are built, and Layouts.ProjectRow then keeps the
      * designated inbox hidden (main_revealer.reveal_child = !project.is_inbox_project), so a row
      * existing in the sidebar's list box does not mean it is visible. The alphabetical mode is the
-     * same as projects_sort_func (). Subprojects are excluded because they are rendered nested
-     * inside their parent, not as siblings in this list.
+     * same as projects_sort_func (); custom order ignores the projects-ordered direction exactly as
+     * the sidebar does, which installs no sort function at all in that mode. Subprojects are
+     * excluded because they are rendered nested inside their parent, not as siblings in this list.
      */
     public Gee.ArrayList<Objects.Project> get_projects_display_order () {
         Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
@@ -354,6 +361,10 @@ public class Services.Store : GLib.Object {
             if (alphabetically) {
                 source_projects.sort ((a, b) => {
                     return ordered == 0 ? b.name.collate (a.name) : a.name.collate (b.name);
+                });
+            } else {
+                source_projects.sort ((a, b) => {
+                    return a.child_order - b.child_order;
                 });
             }
 
