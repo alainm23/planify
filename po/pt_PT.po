@@ -467,8 +467,7 @@ msgstr "Definir a prioridade"
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
-#: core/Widgets/ReminderPicker/ReminderButton.vala:150
-#: core/Widgets/ReminderPicker/ReminderButton.vala:177
+#: core/Widgets/ReminderPicker/ReminderButton.vala:168
 msgid "Add Reminders"
 msgstr "Adicionar lembretes"
 
@@ -1266,7 +1265,7 @@ msgstr "Sábado"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:79
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:196
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:525
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:140
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:144
 msgid "Time"
 msgstr "Hora"
 
@@ -1613,45 +1612,53 @@ msgid "Type a search"
 msgstr "Escreva para procurar"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:108
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:110
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:146
 msgid "Reminders"
 msgstr "Lembretes"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:110
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:112
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the '+' button."
 msgstr ""
 "A sua lista de lembretes vai ser exibida aqui. Adicione uma ao clicar no "
 "botão '+'."
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:154
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:158
 msgid "Add Reminder"
 msgstr "Adicionar lembrete"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:189
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:208
 msgid "In 5 minutes"
 msgstr "Dentro de 5 minutos"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:190
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:209
 msgid "In 15 minutes"
 msgstr "Dentro de 15 minutos"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:191
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:210
 msgid "In 30 minutes"
 msgstr "Dentro de 30 minutos"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:192
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:211
 msgid "In 1 hour"
 msgstr "Dentro de 1 hora"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:193
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:212
 msgid "In 3 hours"
 msgstr "Dentro de 2 horas"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:194
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:213
 msgid "In 6 hours"
 msgstr "Dentro de 6 horas"
+
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:270
+msgid "Choose a time in the future"
+msgstr ""
+
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:279
+msgid "You already have a reminder at that time"
+msgstr ""
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
