@@ -617,6 +617,7 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:828
 #: core/Services/CalDAV/CalDAVClient.vala:829
 #: core/Services/CalDAV/CalDAVClient.vala:831
+#: core/Services/CalDAV/CalDAVClient.vala:834
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -627,6 +628,7 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:832
 #: core/Services/CalDAV/CalDAVClient.vala:833
 #: core/Services/CalDAV/CalDAVClient.vala:835
+#: core/Services/CalDAV/CalDAVClient.vala:838
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -640,6 +642,8 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:914
 #: core/Services/CalDAV/CalDAVClient.vala:869
 #: core/Services/CalDAV/CalDAVClient.vala:916
+#: core/Services/CalDAV/CalDAVClient.vala:872
+#: core/Services/CalDAV/CalDAVClient.vala:919
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
