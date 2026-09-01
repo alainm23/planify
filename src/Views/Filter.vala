@@ -615,7 +615,10 @@ public class Views.Filter : Adw.Bin {
         } else if (filter is Objects.Filters.Unlabeled) {
             should_add = item.labels.size <= 0;
         } else if (filter is Objects.Filters.AllItems) {
-            should_add = true;
+            // Unchecked only, matching what add_items () loads. A newly added item is never
+            // checked, but this path is also reached from valid_update_item (), where the item may
+            // be a completed one whose content changed.
+            should_add = !item.checked;
         }
 
         if (should_add && item_matches_filters (item)) {
@@ -703,6 +706,20 @@ public class Views.Filter : Adw.Bin {
             if (items.has_key (item.id) && item.labels.size > 0) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
+                Services.EventBus.get_default ().unfocus_item ();
+            }
+
+            valid_add_item (item);
+        } else if (filter is Objects.Filters.AllItems) {
+            // Membership of this view is conditional now that it carries filters, so an edit can
+            // move an item into or out of the list: an item added before it matched arrives here
+            // still absent, and one that no longer matches has to go. The view is kept alive in
+            // MainWindow's stack between visits, so this signal is the only thing that reaches it.
+            if (items.has_key (item.id) && !item_matches_filters (item)) {
+                items[item.id].hide_destroy ();
+                items.unset (item.id);
+                items_list.remove (item);
+                update_load_more_button_label ();
                 Services.EventBus.get_default ().unfocus_item ();
             }
 
