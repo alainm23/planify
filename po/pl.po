@@ -421,7 +421,7 @@ msgstr "To zarchiwizuje %s i wszystkie jego zadania."
 
 #: core/Objects/Project.vala:975 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
-#: src/Layouts/SectionRow.vala:702 src/Views/Project/Project.vala:399
+#: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Zarchiwizuj"
 
@@ -480,7 +480,7 @@ msgid "Add Reminders"
 msgstr "Dodaj przypomnienia"
 
 #: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
-#: src/Layouts/SectionRow.vala:695 src/Views/Scheduled/ScheduledDay.vala:148
+#: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
@@ -570,7 +570,7 @@ msgstr "Wczytano zadania dla %s…"
 msgid "Syncing task %d of %d"
 msgstr "Synchronizacja zadania %d z %d"
 
-#: core/Services/CalDAV/CalDAVClient.vala:777
+#: core/Services/CalDAV/CalDAVClient.vala:779
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -578,7 +578,7 @@ msgstr ""
 "Ten serwer nie zezwala na tworzenie projektów poprzez CalDAV. Proszę "
 "utworzyć nowy projekt z poziomu aplikacji Twojego dostawcy kalendarza."
 
-#: core/Services/CalDAV/CalDAVClient.vala:829
+#: core/Services/CalDAV/CalDAVClient.vala:831
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -586,7 +586,7 @@ msgstr ""
 "Ten serwer nie pozwala na usuwanie projektów poprzez CalDAV. Proszę go "
 "usunąć bezpośrednio na stronie dostawcy usługi kalendarza."
 
-#: core/Services/CalDAV/CalDAVClient.vala:833
+#: core/Services/CalDAV/CalDAVClient.vala:835
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -594,8 +594,8 @@ msgstr ""
 "Ten serwer nie wspiera usuwania projektów przez CalDAV. Usuń je bezpośrednio "
 "z serwera."
 
-#: core/Services/CalDAV/CalDAVClient.vala:867
-#: core/Services/CalDAV/CalDAVClient.vala:914
+#: core/Services/CalDAV/CalDAVClient.vala:869
+#: core/Services/CalDAV/CalDAVClient.vala:916
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
@@ -1888,7 +1888,7 @@ msgid "Archived Projects"
 msgstr ""
 
 #: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:610
-#: src/Layouts/SectionRow.vala:698 src/Views/Project/Project.vala:392
+#: src/Layouts/SectionRow.vala:702 src/Views/Project/Project.vala:392
 msgid "Manage Sections"
 msgstr ""
 
@@ -3069,7 +3069,7 @@ msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
-#: src/Layouts/SectionRow.vala:696
+#: src/Layouts/SectionRow.vala:700
 msgid "Edit Section"
 msgstr "Edytuj sekcje"
 
@@ -3117,7 +3117,7 @@ msgstr "Edytuj"
 #: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1267
 #: src/Layouts/ItemRow.vala:1401 src/Layouts/ItemSidebarView.vala:516
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:611
-#: src/Layouts/SectionRow.vala:699 src/Views/Project/Project.vala:388
+#: src/Layouts/SectionRow.vala:703 src/Views/Project/Project.vala:388
 msgid "Duplicate"
 msgstr "Zrób kopię"
 
@@ -3256,25 +3256,25 @@ msgstr "Dodaj zadania"
 msgid "Load more"
 msgstr "Załaduj więcej"
 
-#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:652
+#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:656
 #: src/Widgets/SubItems.vala:420
 msgid "completed tasks"
 msgstr "Ukończone zadania"
 
-#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:697
+#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:701
 msgid "Move Section"
 msgstr "Przenieś sekcje"
 
-#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:700
+#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:704
 msgid "Show Completed Tasks"
 msgstr "Pokaż ukończone zadania"
 
-#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:703
+#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:707
 #: src/Widgets/SectionItemRow.vala:186
 msgid "Delete Section"
 msgstr "Usuń sekcję"
 
-#: src/Layouts/SectionRow.vala:655 src/Views/Filter.vala:583
+#: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:583
 msgid "No more tasks"
 msgstr "Brak więcej zadań"
 
