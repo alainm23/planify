@@ -102,7 +102,7 @@ msgid "CalDAV"
 msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:545 core/Widgets/PriorityButton.vala:90
-#: src/Views/Filter.vala:905 src/Views/Filter.vala:944
+#: src/Views/Filter.vala:922 src/Views/Filter.vala:961
 #: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:606
 #: src/Views/Scheduled/Scheduled.vala:236
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:843
@@ -114,7 +114,7 @@ msgstr "Prioriteit"
 msgid "Label"
 msgstr "Label"
 
-#: core/Enum.vala:351 src/Views/Filter.vala:902
+#: core/Enum.vala:351 src/Views/Filter.vala:919
 #: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
 #: src/Views/Today.vala:840
 msgid "Due Date"
@@ -289,8 +289,8 @@ msgstr "aankomend"
 #: core/Widgets/Calendar/CalendarScroll.vala:56
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:388
 #: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:813
-#: src/Layouts/ItemRow.vala:1248 src/Views/Filter.vala:915
-#: src/Views/Filter.vala:1041 src/Views/Project/Project.vala:573
+#: src/Layouts/ItemRow.vala:1248 src/Views/Filter.vala:932
+#: src/Views/Filter.vala:1058 src/Views/Project/Project.vala:573
 #: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
 msgid "Today"
 msgstr "Vandaag"
@@ -376,7 +376,7 @@ msgstr "Dit kan niet ongedaan gemaakt worden"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:594
 #: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:607
-#: src/Services/BackupManager.vala:227 src/Views/Filter.vala:878
+#: src/Services/BackupManager.vala:227 src/Views/Filter.vala:895
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344
@@ -390,7 +390,7 @@ msgstr "Annuleren"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:360
 #: src/Layouts/ItemSidebarView.vala:608 src/Services/BackupManager.vala:228
-#: src/Views/Filter.vala:879 src/Widgets/AttachmentRow.vala:52
+#: src/Views/Filter.vala:896 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
 msgid "Delete"
@@ -1821,7 +1821,7 @@ msgid "No completed tasks yet."
 msgstr "Nog geen afgeronde taken."
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:847
+#: src/Views/Filter.vala:864
 msgid "Delete All Completed Tasks"
 msgstr "Alle afgeronde taken verwijderen"
 
@@ -1838,15 +1838,15 @@ msgstr[1] ""
 "Dit zal %d afgeronde taken en hun onderliggende subtaken uit project %s "
 "verwijderen"
 
-#: src/Dialogs/CompletedTasks.vala:322 src/Views/Filter.vala:963
+#: src/Dialogs/CompletedTasks.vala:322 src/Views/Filter.vala:980
 #: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
 #: src/Views/Today.vala:907
 msgid "Filter By"
 msgstr "Filteren op"
 
 #: src/Dialogs/DatePicker.vala:84 src/Layouts/ItemBoard.vala:821
-#: src/Layouts/ItemRow.vala:1258 src/Views/Filter.vala:920
-#: src/Views/Filter.vala:1056 src/Views/Project/Project.vala:578
+#: src/Layouts/ItemRow.vala:1258 src/Views/Filter.vala:937
+#: src/Views/Filter.vala:1073 src/Views/Project/Project.vala:578
 #: src/Views/Project/Project.vala:749
 msgid "No Date"
 msgstr "Geen datum"
@@ -2468,7 +2468,7 @@ msgstr "Algemeen"
 msgid "Custom Sort Order"
 msgstr "Aangepaste volgorde"
 
-#: src/Dialogs/Preferences/Pages/General.vala:37 src/Views/Filter.vala:901
+#: src/Dialogs/Preferences/Pages/General.vala:37 src/Views/Filter.vala:918
 #: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:232
 #: src/Views/Today.vala:839
 msgid "Alphabetically"
@@ -3474,7 +3474,7 @@ msgstr "30 minuten uitstellen"
 msgid "Snooze for 1 hour"
 msgstr "1 uur uitstellen"
 
-#: src/Views/Filter.vala:132 src/Views/Filter.vala:835
+#: src/Views/Filter.vala:132 src/Views/Filter.vala:852
 msgid "All Projects"
 msgstr ""
 
@@ -3484,13 +3484,13 @@ msgstr ""
 msgid "View Option Menu"
 msgstr "Optiemenu bekijken"
 
-#: src/Views/Filter.vala:218 src/Views/Filter.vala:798
+#: src/Views/Filter.vala:218 src/Views/Filter.vala:815
 #: src/Views/Label/Label.vala:97 src/Views/Project/Board.vala:121
 #: src/Views/Project/List.vala:117 src/Views/Today.vala:309
 msgid "Add Some Tasks"
 msgstr "Voeg enkele taken toe"
 
-#: src/Views/Filter.vala:219 src/Views/Filter.vala:799
+#: src/Views/Filter.vala:219 src/Views/Filter.vala:816
 #: src/Views/Label/Label.vala:98 src/Views/Project/Board.vala:122
 #: src/Views/Project/List.vala:118 src/Views/Today.vala:310
 msgid "Press 'a' to create a new task"
@@ -3500,129 +3500,129 @@ msgstr "Druk op 'a' om een nieuwe taak aan te maken"
 msgid "tasks"
 msgstr "taken"
 
-#: src/Views/Filter.vala:789
+#: src/Views/Filter.vala:806
 msgid "No completed tasks"
 msgstr ""
 
-#: src/Views/Filter.vala:790
+#: src/Views/Filter.vala:807
 msgid "No tasks found for the selected projects"
 msgstr ""
 
-#: src/Views/Filter.vala:792
+#: src/Views/Filter.vala:809
 msgid "All tasks completed!"
 msgstr "Alle taken afgewerkt!"
 
-#: src/Views/Filter.vala:793
+#: src/Views/Filter.vala:810
 msgid "Great job, nothing left to do 🎉"
 msgstr "Goed gedaan, er is niets meer te doen 🎉"
 
-#: src/Views/Filter.vala:795
+#: src/Views/Filter.vala:812
 msgid "No tasks found"
 msgstr ""
 
-#: src/Views/Filter.vala:796
+#: src/Views/Filter.vala:813
 msgid "No tasks match the selected filters"
 msgstr ""
 
-#: src/Views/Filter.vala:837
+#: src/Views/Filter.vala:854
 #, c-format
 msgid "%d Project"
 msgid_plural "%d Projects"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Views/Filter.vala:866
+#: src/Views/Filter.vala:883
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "Afgeronde taak verwijderen"
 msgstr[1] "Afgeronde taken verwijderen"
 
 # # c-format
-#: src/Views/Filter.vala:871
+#: src/Views/Filter.vala:888
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
 msgstr[0] "Dit zal %d afgeronde taak en de bijhorende subtaken verwijderen"
 msgstr[1] "Dit zal %d afgeronde taken en de bijhorende subtaken verwijderen"
 
-#: src/Views/Filter.vala:896 src/Views/Project/Project.vala:553
+#: src/Views/Filter.vala:913 src/Views/Project/Project.vala:553
 #: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:836
 msgid "Sorting"
 msgstr "Sortering"
 
-#: src/Views/Filter.vala:900
+#: src/Views/Filter.vala:917
 msgid "Project"
 msgstr ""
 
-#: src/Views/Filter.vala:903 src/Views/Project/Project.vala:559
+#: src/Views/Filter.vala:920 src/Views/Project/Project.vala:559
 #: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:841
 msgid "Date Added"
 msgstr "Datum ingesteld"
 
-#: src/Views/Filter.vala:904 src/Views/Project/Project.vala:560
+#: src/Views/Filter.vala:921 src/Views/Project/Project.vala:560
 #: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:842
 msgid "Date Modified"
 msgstr ""
 
-#: src/Views/Filter.vala:907 src/Views/Project/Project.vala:563
+#: src/Views/Filter.vala:924 src/Views/Project/Project.vala:563
 msgid "Ascending Order"
 msgstr "Oplopende volgorde"
 
-#: src/Views/Filter.vala:911 src/Views/Project/Project.vala:569
+#: src/Views/Filter.vala:928 src/Views/Project/Project.vala:569
 msgid "Duedate"
 msgstr "Deadline"
 
-#: src/Views/Filter.vala:914 src/Views/Filter.vala:1059
+#: src/Views/Filter.vala:931 src/Views/Filter.vala:1076
 #: src/Views/Project/Project.vala:572
 msgid "All (default)"
 msgstr "Alles (standaard)"
 
-#: src/Views/Filter.vala:916 src/Views/Filter.vala:1044
+#: src/Views/Filter.vala:933 src/Views/Filter.vala:1061
 #: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
 msgid "This Week"
 msgstr "Deze week"
 
-#: src/Views/Filter.vala:917 src/Views/Filter.vala:1047
+#: src/Views/Filter.vala:934 src/Views/Filter.vala:1064
 #: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
 msgid "Next 7 Days"
 msgstr "Volgende 7 dagen"
 
-#: src/Views/Filter.vala:918 src/Views/Filter.vala:1050
+#: src/Views/Filter.vala:935 src/Views/Filter.vala:1067
 #: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
 msgid "This Month"
 msgstr "Deze maand"
 
-#: src/Views/Filter.vala:919 src/Views/Filter.vala:1053
+#: src/Views/Filter.vala:936 src/Views/Filter.vala:1070
 #: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
 msgid "Next 30 Days"
 msgstr "Volgende 30 dagen"
 
-#: src/Views/Filter.vala:925 src/Views/Project/Project.vala:584
+#: src/Views/Filter.vala:942 src/Views/Project/Project.vala:584
 #: src/Views/Scheduled/Scheduled.vala:243 src/Views/Today.vala:850
 msgid "P1"
 msgstr "P1"
 
-#: src/Views/Filter.vala:930 src/Views/Project/Project.vala:590
+#: src/Views/Filter.vala:947 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:249 src/Views/Today.vala:856
 msgid "P2"
 msgstr "P2"
 
-#: src/Views/Filter.vala:935 src/Views/Project/Project.vala:596
+#: src/Views/Filter.vala:952 src/Views/Project/Project.vala:596
 #: src/Views/Scheduled/Scheduled.vala:255 src/Views/Today.vala:862
 msgid "P3"
 msgstr "P3"
 
-#: src/Views/Filter.vala:940 src/Views/Project/Project.vala:602
+#: src/Views/Filter.vala:957 src/Views/Project/Project.vala:602
 #: src/Views/Scheduled/Scheduled.vala:261 src/Views/Today.vala:868
 msgid "P4"
 msgstr "P4"
 
-#: src/Views/Filter.vala:947 src/Views/Project/Project.vala:609
+#: src/Views/Filter.vala:964 src/Views/Project/Project.vala:609
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:875
 msgid "Filter by Labels"
 msgstr "Op label filteren"
 
-#: src/Views/Filter.vala:953 src/Views/Project/Project.vala:647
+#: src/Views/Filter.vala:970 src/Views/Project/Project.vala:647
 msgid "Sort By"
 msgstr "Sorteren op"
 
