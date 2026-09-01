@@ -615,7 +615,10 @@ public class Views.Filter : Adw.Bin {
         } else if (filter is Objects.Filters.Unlabeled) {
             should_add = item.labels.size <= 0;
         } else if (filter is Objects.Filters.AllItems) {
-            should_add = true;
+            // Unchecked only, matching what add_items () loads. A newly added item is never
+            // checked, but this path is also reached from valid_update_item (), where the item may
+            // be a completed one whose content changed.
+            should_add = !item.checked;
         }
 
         if (should_add && item_matches_filters (item)) {
@@ -707,6 +710,20 @@ public class Views.Filter : Adw.Bin {
             }
 
             valid_add_item (item);
+        } else if (filter is Objects.Filters.AllItems) {
+            // Membership of this view is conditional now that it carries filters, so an edit can
+            // move an item into or out of the list: an item added before it matched arrives here
+            // still absent, and one that no longer matches has to go. The view is kept alive in
+            // MainWindow's stack between visits, so this signal is the only thing that reaches it.
+            if (items.has_key (item.id) && !item_matches_filters (item)) {
+                items[item.id].hide_destroy ();
+                items.unset (item.id);
+                items_list.remove (item);
+                update_load_more_button_label ();
+                Services.EventBus.get_default ().unfocus_item ();
+            }
+
+            valid_add_item (item);
         }
 
         validate_placeholder ();
@@ -774,7 +791,12 @@ public class Views.Filter : Adw.Bin {
         var row = (Layouts.ItemRow) lbrow;
         if (lbbefore != null && lbbefore is Layouts.ItemRow) {
             var before = (Layouts.ItemRow) lbbefore;
-            if (row.project_id == before.project_id) {
+            // Group on the item's own project, not Layouts.ItemRow's cached project_id: that copy
+            // is taken in construct and never refreshed, so after a task is moved to another
+            // project the row still carries the old id and is read as the start of a new group —
+            // a second header for a project that already has one. The header text below already
+            // comes from the live item, which is why the duplicate is labelled identically.
+            if (row.item.project_id == before.item.project_id) {
                 row.set_header (null);
                 return;
             }
