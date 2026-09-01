@@ -20,7 +20,7 @@
  */
 
 public class Utils.JsonUtils {
-    public static Json.Object get_object (string data) {
+    public static Json.Object? get_object (string data) {
         var parser = new Json.Parser ();
 
         try {
@@ -29,7 +29,13 @@ public class Utils.JsonUtils {
             debug (e.message);
         }
 
-        return parser.get_root ().get_object ();
+        var root = parser.get_root ();
+        
+        if (root != null) {
+            return root.get_object ();
+        }
+
+        return null;
     }
 
     public static Json.Object get_object_member (string data, string member) {
@@ -39,7 +45,7 @@ public class Utils.JsonUtils {
     public static string get_string (string data, string member) {
         var obj = get_object (data);
 
-        if (obj.has_member (member) && !obj.get_null_member (member)) {
+        if (obj != null && obj.has_member (member) && !obj.get_null_member (member)) {
             return obj.get_string_member (member);
         }
 
@@ -49,7 +55,7 @@ public class Utils.JsonUtils {
     public static int64 get_int (string data, string member) {
         var obj = get_object (data);
 
-        if (obj.has_member (member) && !obj.get_null_member (member)) {
+        if (obj != null && obj.has_member (member) && !obj.get_null_member (member)) {
             return obj.get_int_member (member);
         }
 
@@ -59,7 +65,7 @@ public class Utils.JsonUtils {
     public static bool get_bool (string data, string member) {
         var obj = get_object (data);
 
-        if (obj.has_member (member) && !obj.get_null_member (member)) {
+        if (obj != null && obj.has_member (member) && !obj.get_null_member (member)) {
             return obj.get_boolean_member (member);
         }
 
