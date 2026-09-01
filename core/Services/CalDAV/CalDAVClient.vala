@@ -589,6 +589,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                                 } else {
                                     project.add_item_if_not_exists (new_item);
                                 }
+                            } else if (new_item.section_id != "" && new_item.section != null) {
+                                new_item.section.add_item_if_not_exists (new_item);
                             } else {
                                 project.add_item_if_not_exists (new_item);
                             }

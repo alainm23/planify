@@ -570,6 +570,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     }
 
     public void add_item (Objects.Item item) {
+        if (item.section_id != section.id) {
+            return;
+        }
+
         if (item.checked) {
             return;
         }
