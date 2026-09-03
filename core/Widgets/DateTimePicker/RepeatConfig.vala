@@ -27,6 +27,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
     private Gtk.Revealer weeks_revealer;
     private Gtk.Revealer last_day_revealer;
     private Gtk.CheckButton last_day_check;
+    private Gtk.CheckButton from_completion_check;
     private Widgets.ContextMenu.MenuItem[] type_menu_items;
     private Adw.Bin dimming_widget;
     private Gtk.Label repeat_label;
@@ -80,6 +81,8 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
 
             last_day_check.active = value.recurrency_last_day_of_month;
             last_day_revealer.reveal_child = value.recurrency_type == RecurrencyType.EVERY_MONTH;
+
+            from_completion_check.active = value.recurrency_from_completion;
 
             if (value.recurrency_end != "") {
                 on_button.active = true;
@@ -282,6 +285,11 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
             margin_top = 6
         };
 
+        from_completion_check = new Gtk.CheckButton.with_label (_("Repeat from completion date")) {
+            margin_top = 6,
+            tooltip_text = _("Calculate the next occurrence from the day you complete the task instead of its due date")
+        };
+
         last_day_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             reveal_child = false,
@@ -396,6 +404,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
         content_box.append (repeat_box);
         content_box.append (weeks_revealer);
         content_box.append (last_day_revealer);
+        content_box.append (from_completion_check);
         content_box.append (new Gtk.Label (_("End")) {
             css_classes = { "heading", "h4" },
             margin_top = 12,
@@ -521,6 +530,8 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
 
         duedate.recurrency_last_day_of_month = (duedate.recurrency_type == RecurrencyType.EVERY_MONTH)
             && last_day_check.active;
+
+        duedate.recurrency_from_completion = from_completion_check.active;
 
         duedate_change (duedate);
     }

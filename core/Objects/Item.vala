@@ -1814,8 +1814,36 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public async GLib.DateTime? update_next_recurrency () {
-        var next_recurrency = Utils.Datetime.next_recurrency (due.datetime, due);
+        GLib.DateTime base_datetime = due.datetime;
+
+        print ("\n[REPEAT-DEBUG] ===== update_next_recurrency =====\n");
+        print ("[REPEAT-DEBUG] item content: %s\n", content);
+        print ("[REPEAT-DEBUG] recurrency_from_completion = %s\n", due.recurrency_from_completion.to_string ());
+        print ("[REPEAT-DEBUG] recurrency_type = %d, interval = %d\n", (int) due.recurrency_type, due.recurrency_interval);
+        print ("[REPEAT-DEBUG] current due.datetime = %s\n", due.datetime != null ? due.datetime.format ("%Y-%m-%d %H:%M:%S") : "null");
+        print ("[REPEAT-DEBUG] now_local = %s\n", new GLib.DateTime.now_local ().format ("%Y-%m-%d %H:%M:%S"));
+
+        if (due.recurrency_from_completion) {
+            // Repeat from the completion date: anchor the next occurrence to today,
+            // keeping the original due time-of-day so a task due at 09:00 stays at 09:00.
+            var now = new GLib.DateTime.now_local ();
+            base_datetime = new GLib.DateTime.local (
+                now.get_year (),
+                now.get_month (),
+                now.get_day_of_month (),
+                due.datetime.get_hour (),
+                due.datetime.get_minute (),
+                due.datetime.get_second ()
+            );
+        }
+
+        print ("[REPEAT-DEBUG] base_datetime (used for calc) = %s\n", base_datetime != null ? base_datetime.format ("%Y-%m-%d %H:%M:%S") : "null");
+
+        var next_recurrency = Utils.Datetime.next_recurrency (base_datetime, due);
         due.date = Utils.Datetime.get_todoist_datetime_format (next_recurrency);
+
+        print ("[REPEAT-DEBUG] => next_recurrency = %s\n", next_recurrency != null ? next_recurrency.format ("%Y-%m-%d %H:%M:%S") : "null");
+        print ("[REPEAT-DEBUG] ===================================\n\n");
 
         if (due.end_type == RecurrencyEndType.AFTER) {
             due.recurrency_count = due.recurrency_count - 1;
@@ -1833,6 +1861,7 @@ public class Objects.Item : Objects.BaseObject {
 
         if (project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().update_item (this);
+            print ("[REPEAT-DEBUG] LOCAL persisted. due.datetime now = %s\n", due.datetime != null ? due.datetime.format ("%Y-%m-%d %H:%M:%S") : "null");
         } else if (project.source_type == SourceType.TODOIST) {
             loading = true;
             var response = yield Services.Todoist.get_default ().close_item (this);
