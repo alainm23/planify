@@ -517,6 +517,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         _duedate.recurrency_count = value.recurrency_count;
         _duedate.recurrency_end = value.recurrency_end;
         _duedate.recurrency_last_day_of_month = value.recurrency_last_day_of_month;
+        _duedate.recurrency_from_completion = value.recurrency_from_completion;
 
         visible_no_date = true;
     }

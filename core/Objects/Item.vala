@@ -1814,7 +1814,23 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public async GLib.DateTime? update_next_recurrency () {
-        var next_recurrency = Utils.Datetime.next_recurrency (due.datetime, due);
+        GLib.DateTime base_datetime = due.datetime;
+
+        if (due.recurrency_from_completion) {
+            // Repeat from the completion date: anchor the next occurrence to today,
+            // keeping the original due time-of-day so a task due at 09:00 stays at 09:00.
+            var now = new GLib.DateTime.now_local ();
+            base_datetime = new GLib.DateTime.local (
+                now.get_year (),
+                now.get_month (),
+                now.get_day_of_month (),
+                due.datetime.get_hour (),
+                due.datetime.get_minute (),
+                due.datetime.get_second ()
+            );
+        }
+
+        var next_recurrency = Utils.Datetime.next_recurrency (base_datetime, due);
         due.date = Utils.Datetime.get_todoist_datetime_format (next_recurrency);
 
         if (due.end_type == RecurrencyEndType.AFTER) {
