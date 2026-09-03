@@ -142,7 +142,7 @@ msgid "Content"
 msgstr "შემცველობა"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:2009 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:2014 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "აღწერა"
@@ -343,7 +343,7 @@ msgstr ""
 msgid "Task exported successfully"
 msgstr ""
 
-#: core/Objects/Item.vala:1976 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1992 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
 msgstr "გადატანილია %s-ში"
@@ -1123,8 +1123,8 @@ msgid "%OB"
 msgstr "%OB"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:64
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:726
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:761
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:727
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:762
 #: src/Layouts/HeaderBar.vala:88
 msgid "Back"
 msgstr "უკან"
@@ -1163,37 +1163,37 @@ msgid "Choose a date"
 msgstr "აირჩიეთ თარიღი"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:46
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:261
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:264
 msgid "Su"
 msgstr "კვი"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:47
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:225
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:228
 msgid "Mo"
 msgstr "თვ"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:48
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:231
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:234
 msgid "Tu"
 msgstr "სამშ"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:49
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:237
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:240
 msgid "We"
 msgstr "ოთხშ"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:50
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:243
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:246
 msgid "Th"
 msgstr "ხუთშ"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:51
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:249
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:252
 msgid "Fr"
 msgstr "პარ"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:52
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:255
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:258
 msgid "Sa"
 msgstr "შაბ"
 
@@ -1234,38 +1234,38 @@ msgstr "შაბათი"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:79
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:196
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:525
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:526
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:144
 msgid "Time"
 msgstr "დრო"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:90
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:856
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:599
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:857
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:610
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:250
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1190
 msgid "until"
 msgstr "დასასრულის დრო"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:93
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:859
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:603
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:860
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
 msgid "for"
 msgstr "ვისთვის"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:93
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:859
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:603
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:860
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
 msgid "times"
 msgstr "რამდენჯერ"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:93
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:859
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:603
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:860
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
 msgid "time"
@@ -1273,7 +1273,7 @@ msgstr "დრო"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:105
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:198
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:109
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:112
 msgid "Repeat"
 msgstr "გამეორება"
 
@@ -1287,137 +1287,147 @@ msgstr ""
 msgid "Next week"
 msgstr "შემდეგი კვირა"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:543
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:544
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 msgid "Save"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:579
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:580
 msgid "Daily"
 msgstr "დღიურად"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:583
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:584
 msgid "Weekdays"
 msgstr "სამუშაო დღეები"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:587
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:588
 msgid "Weekends"
 msgstr "შაბათკვირები"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:591
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:592
 msgid "Weekly"
 msgstr "კვირაში ერთხელ"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:595
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:596
 msgid "Monthly"
 msgstr "თვეში ერთხელ"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:599
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:600
 msgid "Yearly"
 msgstr "წლიურად"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:603
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:604
 msgid "Custom"
 msgstr "ხელით"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:883
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:884
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 msgid "No date"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:65
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:140
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:66
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Minute(s)"
 msgstr "წუთი"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:65
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:140
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:66
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Hour(s)"
 msgstr "საათი"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:65
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:140
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:66
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Day(s)"
 msgstr "დღე"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:65
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:140
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:66
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Week(s)"
 msgstr "კვირა"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:65
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:140
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:66
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Month(s)"
 msgstr "თვე"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:65
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:140
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:66
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Year(s)"
 msgstr "წელი"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:281
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:284
 msgid "Last day of month"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:297
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:288
+msgid "Repeat from completion date"
+msgstr ""
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:290
+msgid ""
+"Calculate the next occurrence from the day you complete the task instead of "
+"its due date"
+msgstr ""
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:305
 msgid "Never"
 msgstr "არასდროს"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:301
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:309
 msgid "On Date"
 msgstr "თარიღზე"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:305
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:313
 msgid "After"
 msgstr "შემდეგ"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:378
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:386
 #: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:880
 #: src/Layouts/ItemRow.vala:1346
 msgid "Apply"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:391
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:399
 msgid "Repeat every"
 msgstr "გამეორება ყოველ"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:399
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:408
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
 msgid "End"
 msgstr "დასასრული"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:530
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:541
 msgid "Minute"
 msgid_plural "Minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:531
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:542
 msgid "Hour"
 msgid_plural "Hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:532
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:536
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:543
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:547
 msgid "Day"
 msgid_plural "Days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:533
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:544
 msgid "Week"
 msgid_plural "Weeks"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:534
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:545
 msgid "Month"
 msgid_plural "Months"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:535
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:546
 msgid "Year"
 msgid_plural "Years"
 msgstr[0] ""
@@ -1527,7 +1537,7 @@ msgstr ""
 msgid "Press Enter to create and assign it"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2019
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2024
 msgid "Task description"
 msgstr ""
 
@@ -3044,8 +3054,7 @@ msgstr "გვერდითი პანელის გახსნა/და
 msgid "Unpin"
 msgstr "ჩამოხსნა"
 
-#: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemRow.vala:1626
-#: src/Layouts/ItemSidebarView.vala:682
+#: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemSidebarView.vala:682
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "დასრულდა. შემდეგი დრო: %s"
@@ -3070,16 +3079,16 @@ msgstr "დუბლირება"
 msgid "Delete Task"
 msgstr "ამოცანის წაშლა"
 
-#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1873
+#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1878
 msgid "Order changed to 'Custom sort order'"
 msgstr "მიმდევრობა შეიცვალა 'მორგებულ დალაგების მიმდევრობაზე'"
 
-#: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1650
+#: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1655
 #, c-format
 msgid "%s was deleted"
 msgstr "%s წაშლილია"
 
-#: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1651
+#: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1656
 msgid "Undo"
 msgstr "დაბრუნება"
 
@@ -3122,7 +3131,12 @@ msgstr ""
 msgid "Created: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2084
+#: src/Layouts/ItemRow.vala:1631
+#, c-format
+msgid "Task completed · Next: %s"
+msgstr ""
+
+#: src/Layouts/ItemRow.vala:2089
 msgid "Add Attachments"
 msgstr "მიმაგრებული ფაილების დამატება"
 
