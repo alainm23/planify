@@ -107,6 +107,7 @@ msgstr "CalDAV"
 #: src/Views/Scheduled/Scheduled.vala:236
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:843
 #: src/Views/Today.vala:872 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Today.vala:846 src/Views/Today.vala:875
 msgid "Priority"
 msgstr "Öncelik"
 
@@ -116,7 +117,7 @@ msgstr "Etiketler"
 
 #: core/Enum.vala:351 src/Views/Filter.vala:924
 #: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
-#: src/Views/Today.vala:840
+#: src/Views/Today.vala:840 src/Views/Today.vala:843
 msgid "Due Date"
 msgstr "Bitiş tarihi"
 
@@ -293,6 +294,7 @@ msgstr "yaklaşan"
 #: src/Layouts/ItemRow.vala:1248 src/Views/Filter.vala:937
 #: src/Views/Filter.vala:1063 src/Views/Project/Project.vala:573
 #: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:389
 msgid "Today"
 msgstr "Bugün"
 
@@ -305,6 +307,7 @@ msgstr "bugün"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:394
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:210
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1251
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:395
 msgid "Tomorrow"
 msgstr "Yarın"
 
@@ -913,6 +916,7 @@ msgstr "Koyu Mavi"
 
 #: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 #: src/Views/Today.vala:891 src/Widgets/ItemChangeHistoryRow.vala:268
+#: src/Views/Today.vala:894
 msgid "None"
 msgstr "Hiçbiri"
 
@@ -1170,6 +1174,8 @@ msgstr "%OB"
 #: src/Layouts/HeaderBar.vala:88
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:727
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:762
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:728
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:763
 msgid "Back"
 msgstr "Yedekler"
 
@@ -1288,6 +1294,9 @@ msgstr "Cumartesi"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:525
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:144
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:526
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:80
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:197
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:527
 msgid "Time"
 msgstr "Zaman"
 
@@ -1298,6 +1307,8 @@ msgstr "Zaman"
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1190
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:857
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:610
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:91
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:858
 msgid "until"
 msgstr "şu zamana kadar"
 
@@ -1324,6 +1335,8 @@ msgstr "kere"
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:860
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 msgid "time"
 msgstr "zaman"
 
@@ -1331,6 +1344,8 @@ msgstr "zaman"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:198
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:109
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:112
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:106
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:199
 msgid "Repeat"
 msgstr "Yinele"
 
@@ -1341,6 +1356,7 @@ msgstr "Bir tarih yazın…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:400
 #: core/Widgets/DeadlineButton.vala:219
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:401
 msgid "Next week"
 msgstr "Sonraki hafta"
 
@@ -1351,36 +1367,43 @@ msgstr "Kaydet"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:579
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:580
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:581
 msgid "Daily"
 msgstr "Günlük"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:584
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:585
 msgid "Weekdays"
 msgstr "Haftanın günleri"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:588
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:589
 msgid "Weekends"
 msgstr "Hafta sonları"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:591
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:592
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:593
 msgid "Weekly"
 msgstr "Haftalık"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:595
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:596
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:597
 msgid "Monthly"
 msgstr "Aylık"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:599
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:600
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:601
 msgid "Yearly"
 msgstr "Yıllık"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:603
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:604
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:605
 msgid "Custom"
 msgstr "Özel"
 
@@ -1859,7 +1882,7 @@ msgstr[1] ""
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Filter.vala:985
 #: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
-#: src/Views/Today.vala:907
+#: src/Views/Today.vala:907 src/Views/Today.vala:910
 msgid "Filter By"
 msgstr "Filtrele"
 
@@ -2487,7 +2510,7 @@ msgstr "Özel Sıralama Düzeni"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37 src/Views/Filter.vala:923
 #: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:232
-#: src/Views/Today.vala:839
+#: src/Views/Today.vala:839 src/Views/Today.vala:842
 msgid "Alphabetically"
 msgstr "Alfabetik"
 
@@ -3575,6 +3598,7 @@ msgstr[1] ""
 
 #: src/Views/Filter.vala:918 src/Views/Project/Project.vala:553
 #: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:836
+#: src/Views/Today.vala:839
 msgid "Sorting"
 msgstr "Bizi Destekleyin"
 
@@ -3584,11 +3608,13 @@ msgstr ""
 
 #: src/Views/Filter.vala:925 src/Views/Project/Project.vala:559
 #: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:841
+#: src/Views/Today.vala:844
 msgid "Date Added"
 msgstr "Eklenme tarihi"
 
 #: src/Views/Filter.vala:926 src/Views/Project/Project.vala:560
 #: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:842
+#: src/Views/Today.vala:845
 msgid "Date Modified"
 msgstr ""
 
@@ -3628,26 +3654,31 @@ msgstr ""
 
 #: src/Views/Filter.vala:947 src/Views/Project/Project.vala:584
 #: src/Views/Scheduled/Scheduled.vala:243 src/Views/Today.vala:850
+#: src/Views/Today.vala:853
 msgid "P1"
 msgstr ""
 
 #: src/Views/Filter.vala:952 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:249 src/Views/Today.vala:856
+#: src/Views/Today.vala:859
 msgid "P2"
 msgstr ""
 
 #: src/Views/Filter.vala:957 src/Views/Project/Project.vala:596
 #: src/Views/Scheduled/Scheduled.vala:255 src/Views/Today.vala:862
+#: src/Views/Today.vala:865
 msgid "P3"
 msgstr ""
 
 #: src/Views/Filter.vala:962 src/Views/Project/Project.vala:602
 #: src/Views/Scheduled/Scheduled.vala:261 src/Views/Today.vala:868
+#: src/Views/Today.vala:871
 msgid "P4"
 msgstr ""
 
 #: src/Views/Filter.vala:969 src/Views/Project/Project.vala:609
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:875
+#: src/Views/Today.vala:878
 msgid "Filter by Labels"
 msgstr "Etiketlere Göre Filtrele"
 
@@ -3743,10 +3774,12 @@ msgid "Custom sort order"
 msgstr "Özel sıralama düzeni"
 
 #: src/Views/Project/Project.vala:613 src/Views/Today.vala:899
+#: src/Views/Today.vala:902
 msgid "Show Completed"
 msgstr ""
 
 #: src/Views/Project/Project.vala:614 src/Views/Today.vala:900
+#: src/Views/Today.vala:903
 msgid "Display completed tasks in the list"
 msgstr ""
 
@@ -3759,7 +3792,7 @@ msgstr "Tamamlanan Görevleri Göster"
 msgid "Reschedule"
 msgstr "Yeniden zamanla"
 
-#: src/Views/Today.vala:884
+#: src/Views/Today.vala:884 src/Views/Today.vala:887
 msgid "Me"
 msgstr ""
 

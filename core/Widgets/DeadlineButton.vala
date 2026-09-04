@@ -240,7 +240,8 @@ public class Widgets.DeadlineButton : Adw.Bin {
         suggested_box.append (in_a_month_item);
 
         var delete_button = new Gtk.Button.with_label (_("Delete")) {
-            margin_top = 12
+            margin_top = 12,
+            margin_bottom = 12,
         };
         delete_button.add_css_class ("destructive-action");
 
@@ -251,9 +252,9 @@ public class Widgets.DeadlineButton : Adw.Bin {
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_start = 9,
-            margin_end = 9,
-            margin_top = 9
+            margin_start = 12,
+            margin_end = 12,
+            margin_top = 12
         };
         content_box.append (suggested_box);
         content_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -269,6 +270,7 @@ public class Widgets.DeadlineButton : Adw.Bin {
                 max_content_height = 425,
                 child = content_box
             },
+            css_classes = { "popover-contents" },
             position = Gtk.PositionType.BOTTOM
         };
 

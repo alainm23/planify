@@ -110,7 +110,8 @@ msgstr "протокол CalDAV"
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:843
 #: src/Views/Today.vala:872 src/Views/Filter.vala:905 src/Views/Filter.vala:944
 #: src/Views/Filter.vala:922 src/Views/Filter.vala:961
-#: src/Views/Filter.vala:927 src/Views/Filter.vala:966
+#: src/Views/Filter.vala:927 src/Views/Filter.vala:966 src/Views/Today.vala:846
+#: src/Views/Today.vala:875
 msgid "Priority"
 msgstr "По приоритету"
 
@@ -122,7 +123,7 @@ msgstr "Метка"
 #: src/Views/Scheduled/Scheduled.vala:239 src/Views/Today.vala:725
 #: src/Views/Scheduled/Scheduled.vala:233 src/Views/Today.vala:840
 #: src/Views/Filter.vala:902 src/Views/Filter.vala:919
-#: src/Views/Filter.vala:924
+#: src/Views/Filter.vala:924 src/Views/Today.vala:843
 msgid "Due Date"
 msgstr "По сроку выполнения"
 
@@ -132,6 +133,7 @@ msgid "Section"
 msgstr "Раздел"
 
 #: core/Enum.vala:357 src/Views/Today.vala:781 src/Views/Today.vala:896
+#: src/Views/Today.vala:899
 msgid "Assignment"
 msgstr "Назначение"
 
@@ -308,6 +310,7 @@ msgstr "запланировано"
 #: src/Views/Filter.vala:915 src/Views/Filter.vala:1041
 #: src/Views/Filter.vala:932 src/Views/Filter.vala:1058
 #: src/Views/Filter.vala:937 src/Views/Filter.vala:1063
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:389
 msgid "Today"
 msgstr "Сегодня"
 
@@ -321,6 +324,7 @@ msgstr "сегодня"
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:66
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1246
 #: src/Dialogs/DatePicker.vala:210 src/Layouts/ItemRow.vala:1251
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:395
 msgid "Tomorrow"
 msgstr "Завтра"
 
@@ -972,7 +976,7 @@ msgstr "Тёмно-синий"
 
 #: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 #: src/Views/Today.vala:776 src/Widgets/ItemChangeHistoryRow.vala:268
-#: src/Views/Today.vala:891
+#: src/Views/Today.vala:891 src/Views/Today.vala:894
 msgid "None"
 msgstr "Нет"
 
@@ -1229,6 +1233,8 @@ msgstr "%OB"
 #: src/Layouts/HeaderBar.vala:88
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:727
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:762
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:728
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:763
 msgid "Back"
 msgstr "Назад"
 
@@ -1347,6 +1353,9 @@ msgstr "Суббота"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:525
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:144
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:526
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:80
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:197
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:527
 msgid "Time"
 msgstr "Время"
 
@@ -1358,6 +1367,8 @@ msgstr "Время"
 #: src/Layouts/ItemRow.vala:1190
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:857
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:610
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:91
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:858
 msgid "until"
 msgstr "до"
 
@@ -1369,6 +1380,8 @@ msgstr "до"
 #: src/Layouts/ItemRow.vala:1193
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:860
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 msgid "for"
 msgstr " "
 
@@ -1380,6 +1393,8 @@ msgstr " "
 #: src/Layouts/ItemRow.vala:1193
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:860
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 msgid "times"
 msgstr "раз(а)"
 
@@ -1391,6 +1406,8 @@ msgstr "раз(а)"
 #: src/Layouts/ItemRow.vala:1193
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:860
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 msgid "time"
 msgstr "раз"
 
@@ -1398,16 +1415,20 @@ msgstr "раз"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:198
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:109
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:112
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:106
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:199
 msgid "Repeat"
 msgstr "Повторять"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:161
 #: src/Dialogs/DatePicker.vala:68
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:162
 msgid "Type a date…"
 msgstr "Введите дату…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:400
 #: core/Widgets/DeadlineButton.vala:219
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:401
 msgid "Next week"
 msgstr "Следующая неделя"
 
@@ -1415,49 +1436,58 @@ msgstr "Следующая неделя"
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:151
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:544
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:545
 msgid "Save"
 msgstr "Сохранить"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:579
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:580
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:581
 msgid "Daily"
 msgstr "Ежедневно"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:584
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:585
 msgid "Weekdays"
 msgstr "По будням"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:588
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:589
 msgid "Weekends"
 msgstr "Выходные"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:591
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:592
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:593
 msgid "Weekly"
 msgstr "Еженедельно"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:595
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:596
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:597
 msgid "Monthly"
 msgstr "Ежемесячно"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:599
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:600
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:601
 msgid "Yearly"
 msgstr "Ежегодно"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:603
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:604
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:605
 msgid "Custom"
 msgstr "Установить вручную"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:883
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:884
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:885
 msgid "No date"
 msgstr "Нет даты"
 
@@ -1959,7 +1989,7 @@ msgstr[1] ""
 #: src/Views/Scheduled/Scheduled.vala:282 src/Views/Today.vala:788
 #: src/Views/Scheduled/Scheduled.vala:276 src/Views/Today.vala:907
 #: src/Views/Filter.vala:963 src/Views/Filter.vala:980
-#: src/Views/Filter.vala:985
+#: src/Views/Filter.vala:985 src/Views/Today.vala:910
 msgid "Filter By"
 msgstr "Фильтровать по"
 
@@ -2595,7 +2625,7 @@ msgstr "Ручной Порядок Сортировки"
 #: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:238
 #: src/Views/Today.vala:724 src/Views/Scheduled/Scheduled.vala:232
 #: src/Views/Today.vala:839 src/Views/Filter.vala:901 src/Views/Filter.vala:918
-#: src/Views/Filter.vala:923
+#: src/Views/Filter.vala:923 src/Views/Today.vala:842
 msgid "Alphabetically"
 msgstr "По алфавиту"
 
@@ -3792,7 +3822,7 @@ msgstr "Доска"
 #: src/Views/Project/Project.vala:553 src/Views/Scheduled/Scheduled.vala:235
 #: src/Views/Today.vala:721 src/Views/Scheduled/Scheduled.vala:229
 #: src/Views/Today.vala:836 src/Views/Filter.vala:896 src/Views/Filter.vala:913
-#: src/Views/Filter.vala:918
+#: src/Views/Filter.vala:918 src/Views/Today.vala:839
 msgid "Sorting"
 msgstr "Сортировка"
 
@@ -3803,14 +3833,14 @@ msgstr "Вручную"
 #: src/Views/Project/Project.vala:559 src/Views/Scheduled/Scheduled.vala:240
 #: src/Views/Today.vala:726 src/Views/Scheduled/Scheduled.vala:234
 #: src/Views/Today.vala:841 src/Views/Filter.vala:903 src/Views/Filter.vala:920
-#: src/Views/Filter.vala:925
+#: src/Views/Filter.vala:925 src/Views/Today.vala:844
 msgid "Date Added"
 msgstr "По дате добавления"
 
 #: src/Views/Project/Project.vala:560 src/Views/Scheduled/Scheduled.vala:241
 #: src/Views/Today.vala:727 src/Views/Scheduled/Scheduled.vala:235
 #: src/Views/Today.vala:842 src/Views/Filter.vala:904 src/Views/Filter.vala:921
-#: src/Views/Filter.vala:926
+#: src/Views/Filter.vala:926 src/Views/Today.vala:845
 msgid "Date Modified"
 msgstr ""
 
@@ -3848,43 +3878,45 @@ msgstr "Следующие 30 дней"
 #: src/Views/Project/Project.vala:584 src/Views/Scheduled/Scheduled.vala:249
 #: src/Views/Today.vala:735 src/Views/Scheduled/Scheduled.vala:243
 #: src/Views/Today.vala:850 src/Views/Filter.vala:925 src/Views/Filter.vala:942
-#: src/Views/Filter.vala:947
+#: src/Views/Filter.vala:947 src/Views/Today.vala:853
 msgid "P1"
 msgstr "П1"
 
 #: src/Views/Project/Project.vala:590 src/Views/Scheduled/Scheduled.vala:255
 #: src/Views/Today.vala:741 src/Views/Scheduled/Scheduled.vala:249
 #: src/Views/Today.vala:856 src/Views/Filter.vala:930 src/Views/Filter.vala:947
-#: src/Views/Filter.vala:952
+#: src/Views/Filter.vala:952 src/Views/Today.vala:859
 msgid "P2"
 msgstr "П2"
 
 #: src/Views/Project/Project.vala:596 src/Views/Scheduled/Scheduled.vala:261
 #: src/Views/Today.vala:747 src/Views/Scheduled/Scheduled.vala:255
 #: src/Views/Today.vala:862 src/Views/Filter.vala:935 src/Views/Filter.vala:952
-#: src/Views/Filter.vala:957
+#: src/Views/Filter.vala:957 src/Views/Today.vala:865
 msgid "P3"
 msgstr "П3"
 
 #: src/Views/Project/Project.vala:602 src/Views/Scheduled/Scheduled.vala:267
 #: src/Views/Today.vala:753 src/Views/Scheduled/Scheduled.vala:261
 #: src/Views/Today.vala:868 src/Views/Filter.vala:940 src/Views/Filter.vala:957
-#: src/Views/Filter.vala:962
+#: src/Views/Filter.vala:962 src/Views/Today.vala:871
 msgid "P4"
 msgstr "П4"
 
 #: src/Views/Project/Project.vala:609 src/Views/Scheduled/Scheduled.vala:274
 #: src/Views/Today.vala:760 src/Views/Scheduled/Scheduled.vala:268
 #: src/Views/Today.vala:875 src/Views/Filter.vala:947 src/Views/Filter.vala:964
-#: src/Views/Filter.vala:969
+#: src/Views/Filter.vala:969 src/Views/Today.vala:878
 msgid "Filter by Labels"
 msgstr "Фильтровать по меткам"
 
 #: src/Views/Project/Project.vala:613 src/Views/Today.vala:899
+#: src/Views/Today.vala:902
 msgid "Show Completed"
 msgstr "Показать завершенные"
 
 #: src/Views/Project/Project.vala:614 src/Views/Today.vala:900
+#: src/Views/Today.vala:903
 msgid "Display completed tasks in the list"
 msgstr "Показывать выполненные задачи в списке"
 
@@ -3902,7 +3934,7 @@ msgstr "Сортировать По"
 msgid "Reschedule"
 msgstr "Перепланировать"
 
-#: src/Views/Today.vala:769 src/Views/Today.vala:884
+#: src/Views/Today.vala:769 src/Views/Today.vala:884 src/Views/Today.vala:887
 msgid "Me"
 msgstr "Я"
 

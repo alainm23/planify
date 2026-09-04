@@ -66,6 +66,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             if (_duedate != null && _duedate.datetime != null) {
                 calendar_view.date = _duedate.datetime;
                 calendar_scroll_view.date = _duedate.datetime;
+                visible_no_date = true;
             }
 
             if (_duedate != null && time_picker != null && _duedate.datetime != null && Utils.Datetime.has_time (_duedate.datetime)) {
@@ -403,7 +404,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         connect_suggested_date (next_week_item);
 
         no_date_button = new NoDateButton () {
-            visible = false
+            visible = _duedate != null && _duedate.datetime != null
         };
         box.append (no_date_button);
         no_date_button.clicked.connect (() => {
@@ -885,12 +886,16 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                 ellipsize = END
             };
 
-            var date_box = new Gtk.Box (HORIZONTAL, 6);
+            var date_box = new Gtk.Box (HORIZONTAL, 6) {
+                margin_start = 6,
+                margin_end = 6
+            };
             date_box.append (date_icon);
             date_box.append (date_label);
 
             var button = new Gtk.Button () {
-                child = date_box
+                child = date_box,
+                css_classes = { "suggestion-chip" }
             };
 
             button.clicked.connect (() => clicked ());
