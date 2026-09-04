@@ -541,7 +541,10 @@ public class Views.Today : Adw.Bin {
 
         signal_map[reschedule_button.duedate_changed.connect (() => {
             foreach (unowned Gtk.Widget child in Util.get_default ().get_children (overdue_listbox)) {
-                ((Layouts.ItemRow) child).update_due (reschedule_button.duedate);
+                var item = ((Layouts.ItemRow) child).item;
+                var new_due = item.due.duplicate ();
+                new_due.datetime = reschedule_button.duedate.datetime;
+                ((Layouts.ItemRow) child).update_due (new_due);
             }
         })] = reschedule_button;
 
