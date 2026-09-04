@@ -105,8 +105,8 @@ msgstr "CalDAV"
 #: src/Views/Filter.vala:927 src/Views/Filter.vala:966
 #: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:606
 #: src/Views/Scheduled/Scheduled.vala:236
-#: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:843
-#: src/Views/Today.vala:872 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:846
+#: src/Views/Today.vala:875 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
 msgstr "პრიორიტეტი"
 
@@ -116,7 +116,7 @@ msgstr "ჭდე"
 
 #: core/Enum.vala:351 src/Views/Filter.vala:924
 #: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
-#: src/Views/Today.vala:840
+#: src/Views/Today.vala:843
 msgid "Due Date"
 msgstr "თარიღამდე"
 
@@ -125,7 +125,7 @@ msgstr "თარიღამდე"
 msgid "Section"
 msgstr "განყოფილება"
 
-#: core/Enum.vala:357 src/Views/Today.vala:896
+#: core/Enum.vala:357 src/Views/Today.vala:899
 msgid "Assignment"
 msgstr "მინიჭება"
 
@@ -287,7 +287,7 @@ msgstr "დაგეგმილია"
 #: core/Utils/Datetime.vala:81 core/Utils/Datetime.vala:774
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/Calendar/CalendarScroll.vala:56
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:388
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:389
 #: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:813
 #: src/Layouts/ItemRow.vala:1248 src/Views/Filter.vala:937
 #: src/Views/Filter.vala:1063 src/Views/Project/Project.vala:573
@@ -301,7 +301,7 @@ msgstr "დღეს"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:62
 #: core/Utils/Datetime.vala:776
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:394
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:395
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:210
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1251
 msgid "Tomorrow"
@@ -894,7 +894,7 @@ msgid "Dark Blue"
 msgstr "მუქი ლურჯი"
 
 #: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
-#: src/Views/Today.vala:891 src/Widgets/ItemChangeHistoryRow.vala:268
+#: src/Views/Today.vala:894 src/Widgets/ItemChangeHistoryRow.vala:268
 msgid "None"
 msgstr "არცერთი"
 
@@ -1123,8 +1123,8 @@ msgid "%OB"
 msgstr "%OB"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:64
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:727
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:762
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:728
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:763
 #: src/Layouts/HeaderBar.vala:88
 msgid "Back"
 msgstr "უკან"
@@ -1232,95 +1232,95 @@ msgstr "პარასკევი"
 msgid "Saturday"
 msgstr "შაბათი"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:79
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:196
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:526
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:80
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:197
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:527
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:144
 msgid "Time"
 msgstr "დრო"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:90
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:857
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:91
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:858
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:610
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:250
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1190
 msgid "until"
 msgstr "დასასრულის დრო"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:93
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:860
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
 msgid "for"
 msgstr "ვისთვის"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:93
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:860
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
 msgid "times"
 msgstr "რამდენჯერ"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:93
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:860
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
 msgid "time"
 msgstr "დრო"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:105
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:198
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:106
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:199
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:112
 msgid "Repeat"
 msgstr "გამეორება"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:161
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:162
 #: src/Dialogs/DatePicker.vala:68
 msgid "Type a date…"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:400
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:401
 #: core/Widgets/DeadlineButton.vala:219
 msgid "Next week"
 msgstr "შემდეგი კვირა"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:544
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:545
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 msgid "Save"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:580
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:581
 msgid "Daily"
 msgstr "დღიურად"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:584
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:585
 msgid "Weekdays"
 msgstr "სამუშაო დღეები"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:588
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:589
 msgid "Weekends"
 msgstr "შაბათკვირები"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:592
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:593
 msgid "Weekly"
 msgstr "კვირაში ერთხელ"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:596
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:597
 msgid "Monthly"
 msgstr "თვეში ერთხელ"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:600
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:601
 msgid "Yearly"
 msgstr "წლიურად"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:604
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:605
 msgid "Custom"
 msgstr "ხელით"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:884
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:885
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 msgid "No date"
 msgstr ""
@@ -1774,7 +1774,7 @@ msgstr[1] "ეს წაშლის %d დასრულებულ ამო
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Filter.vala:985
 #: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
-#: src/Views/Today.vala:907
+#: src/Views/Today.vala:910
 msgid "Filter By"
 msgstr "ფილტრი"
 
@@ -2387,7 +2387,7 @@ msgstr "მორგებული დალაგების მიმდე�
 
 #: src/Dialogs/Preferences/Pages/General.vala:37 src/Views/Filter.vala:923
 #: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:232
-#: src/Views/Today.vala:839
+#: src/Views/Today.vala:842
 msgid "Alphabetically"
 msgstr "ანბანის მიხედვით"
 
@@ -3441,7 +3441,7 @@ msgstr[0] "ეს წაშლის %d დასრულებულ ამო
 msgstr[1] "ეს წაშლის %d დასრულებულ ამოცანას და მათ ქვეამოცანებს"
 
 #: src/Views/Filter.vala:918 src/Views/Project/Project.vala:553
-#: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:836
+#: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:839
 msgid "Sorting"
 msgstr "დალაგება"
 
@@ -3450,12 +3450,12 @@ msgid "Project"
 msgstr ""
 
 #: src/Views/Filter.vala:925 src/Views/Project/Project.vala:559
-#: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:841
+#: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:844
 msgid "Date Added"
 msgstr "დამატებულია"
 
 #: src/Views/Filter.vala:926 src/Views/Project/Project.vala:560
-#: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:842
+#: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:845
 msgid "Date Modified"
 msgstr ""
 
@@ -3493,27 +3493,27 @@ msgid "Next 30 Days"
 msgstr "შემდეგი 30 დღე"
 
 #: src/Views/Filter.vala:947 src/Views/Project/Project.vala:584
-#: src/Views/Scheduled/Scheduled.vala:243 src/Views/Today.vala:850
+#: src/Views/Scheduled/Scheduled.vala:243 src/Views/Today.vala:853
 msgid "P1"
 msgstr "P1"
 
 #: src/Views/Filter.vala:952 src/Views/Project/Project.vala:590
-#: src/Views/Scheduled/Scheduled.vala:249 src/Views/Today.vala:856
+#: src/Views/Scheduled/Scheduled.vala:249 src/Views/Today.vala:859
 msgid "P2"
 msgstr "P2"
 
 #: src/Views/Filter.vala:957 src/Views/Project/Project.vala:596
-#: src/Views/Scheduled/Scheduled.vala:255 src/Views/Today.vala:862
+#: src/Views/Scheduled/Scheduled.vala:255 src/Views/Today.vala:865
 msgid "P3"
 msgstr "P3"
 
 #: src/Views/Filter.vala:962 src/Views/Project/Project.vala:602
-#: src/Views/Scheduled/Scheduled.vala:261 src/Views/Today.vala:868
+#: src/Views/Scheduled/Scheduled.vala:261 src/Views/Today.vala:871
 msgid "P4"
 msgstr "P4"
 
 #: src/Views/Filter.vala:969 src/Views/Project/Project.vala:609
-#: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:875
+#: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:878
 msgid "Filter by Labels"
 msgstr "ჭდეებით გაფილტვრა"
 
@@ -3606,11 +3606,11 @@ msgstr "ბორდი"
 msgid "Custom sort order"
 msgstr "დალაგების მომხმარებლის მიმდევრობა"
 
-#: src/Views/Project/Project.vala:613 src/Views/Today.vala:899
+#: src/Views/Project/Project.vala:613 src/Views/Today.vala:902
 msgid "Show Completed"
 msgstr ""
 
-#: src/Views/Project/Project.vala:614 src/Views/Today.vala:900
+#: src/Views/Project/Project.vala:614 src/Views/Today.vala:903
 msgid "Display completed tasks in the list"
 msgstr ""
 
@@ -3622,7 +3622,7 @@ msgstr "დასრულებული ამოცანების ძე�
 msgid "Reschedule"
 msgstr "განრიგში თავიდან ჩამატება"
 
-#: src/Views/Today.vala:884
+#: src/Views/Today.vala:887
 msgid "Me"
 msgstr ""
 
