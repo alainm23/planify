@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-01-03 13:01+0000\n"
-"Last-Translator: Guillem Servera <guillem@gservera.com>\n"
+"PO-Revision-Date: 2026-08-31 15:49+0000\n"
+"Last-Translator: Veler posteo <veler@posteo.es>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/ca/>\n"
 "Language: ca\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -164,7 +164,7 @@ msgstr "Termini"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "Tasca mare"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -341,7 +341,7 @@ msgstr ""
 
 #: core/Objects/Item.vala:1652
 msgid "Task exported successfully"
-msgstr ""
+msgstr "Tasca exportada amb èxit"
 
 #: core/Objects/Item.vala:1992 core/Utils/Util.vala:856
 #, fuzzy, c-format
