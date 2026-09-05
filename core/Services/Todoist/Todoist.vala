@@ -617,11 +617,4 @@ public class HttpResponse {
         error = node.get_object ().get_string_member ("error");
         http_code = (int) node.get_object ().get_int_member ("http_code");
     }
-
-    public void from_error_xml (GXml.DomDocument doc, int error_code) {
-        status = false;
-        this.error_code = error_code;
-        http_code = error_code;
-        error = doc.get_elements_by_tag_name ("o:hint").get_element (0).text_content;
-    }
 }
