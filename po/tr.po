@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-09-01 22:25+0000\n"
-"Last-Translator: Ak In <reend21@protonmail.com>\n"
+"PO-Revision-Date: 2026-09-06 16:45+0000\n"
+"Last-Translator: Akın Birdal <reend21@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/tr/>\n"
 "Language: tr\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.9.1.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -645,6 +645,8 @@ msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
 msgstr ""
+"Sunucu gelen istekleri şu anda sınırlandırıyor. Bir kaç dakika sonra tekrar "
+"deneyin."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
@@ -1631,15 +1633,17 @@ msgstr "Tümü gizlendi"
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:392
 msgid "All labels are hidden by the filter. Disable the filter to see them."
 msgstr ""
+"Tüm etiketler filtreler tarafından gizlendi. Etiketleri görmek için "
+"filtreleri devre dışı bırakın."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:397
 msgid "Press Enter to create and assign it"
-msgstr ""
+msgstr "Oluşturup atamak için Enter tuşuna basın."
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2019
 #: src/Layouts/ItemRow.vala:2024
 msgid "Task description"
-msgstr ""
+msgstr "Görev açıklaması"
 
 #: core/Widgets/MarkdownEditor.vala:1427
 msgid "Remove link"
@@ -1671,11 +1675,8 @@ msgid "Priority 1: Low"
 msgstr "Öncelik 3: düşük"
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:63
-#, fuzzy
 msgid "Your list of section will show up here."
-msgstr ""
-"Hatırlatıcılar listeniz burada görünecek. '+' düğmesine tıklayarak bir tane "
-"ekleyin"
+msgstr "Hatırlatıcılar listeniz burada görünecek."
 
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:94
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:132
@@ -1736,11 +1737,11 @@ msgstr "6 saat içinde"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:270
 msgid "Choose a time in the future"
-msgstr ""
+msgstr "Gelecekte bir tarih seçin"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:279
 msgid "You already have a reminder at that time"
-msgstr ""
+msgstr "Şu anda zaten aktif bir hatırlatıcınız var"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
@@ -1787,24 +1788,33 @@ msgid ""
 "Turn your tasks into calendar events automatically. Any task with a date "
 "will appear in your calendar, making it easier to plan your day."
 msgstr ""
+"Görevlerinizi otomatik olarak takvim etkinliklerine çevirin. Gününüzü daha "
+"kolay planlamanıza yardımcı olmak için tarihe sahip olan her görev takvime "
+"eklenecek."
 
 #: src/Dialogs/CalendarSync.vala:53
 msgid ""
 "Requirement: You need a calendar account configured in GNOME Calendar "
 "(Google, Nextcloud, etc.)"
 msgstr ""
+"Gereksinim: GNOME Takvimlerde bir takvim hesabı ayarlamanız gerek (Google, "
+"Nextcloud, vs.)"
 
 #: src/Dialogs/CalendarSync.vala:62
 msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
 msgstr ""
+"Google Takvimler, Outlook veya herhangi bir takvim uygulaması üzerinden "
+"görevleriniz için mobil bildirimler alın."
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
 "Your tasks sync everywhere: phone, tablet, web browser, and any device with "
 "your calendar"
 msgstr ""
+"Görevleriniz her yerde senkronize olacak: telefon, tablet, internet "
+"tarayıcısı ve takviminize sahip her cihaz."
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
@@ -1831,6 +1841,8 @@ msgid ""
 "Your tasks are currently synced with your calendar. Any task with a date "
 "automatically appears as a calendar event."
 msgstr ""
+"Görevleriniz şu anda takviminiz ile senkronize oluyor. Tarihe sahip her "
+"görev otomatik olarak takviminizde yer alacak."
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
@@ -1839,7 +1851,7 @@ msgstr "Eşzamanlamayı Devre Dışı Bırak"
 #: src/Dialogs/CalendarSync.vala:279
 #, c-format
 msgid "Synced with: %s"
-msgstr ""
+msgstr "%s ile senkronize edildi"
 
 #: src/Dialogs/CalendarSync.vala:292
 msgid "Sync Enabled!"
@@ -1850,6 +1862,8 @@ msgid ""
 "Your tasks are now synced with your calendar. Any task with a date will "
 "automatically appear as a calendar event."
 msgstr ""
+"Görevleriniz şu anda takviminiz ile senkronize oluyor. Tarihe sahip her "
+"görev otomatik olarak takviminizde yer alacak."
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
@@ -1878,7 +1892,9 @@ msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
 msgstr[0] ""
+"Bu, %d tamamlanmış görevini ve bunun alt görevini %s projesinden silecektir"
 msgstr[1] ""
+"Bu, %d görevlerini ve bunların alt görevlerini %s projesinden silecektir"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Filter.vala:985
 #: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
@@ -1971,11 +1987,11 @@ msgstr "Yeni Bölüm"
 
 #: src/Dialogs/ManageSectionOrder.vala:88
 msgid "No Sections"
-msgstr ""
+msgstr "Bölüm yok"
 
 #: src/Dialogs/ManageSectionOrder.vala:89
 msgid "Add a section to organize your tasks"
-msgstr ""
+msgstr "Görevlerinizi organize etmek için bölüm ekleyin"
 
 #: src/Dialogs/ManageSectionOrder.vala:100
 msgid "Archived"
@@ -1996,14 +2012,13 @@ msgid "Inbox Page"
 msgstr "Gelen Kutusu Sayfası"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:105
-#, fuzzy
 msgid "You can sort your accounts by dragging and dropping"
-msgstr "Görünümlerinizi sürükleyip bırakarak sıralayabilirsiniz"
+msgstr "Hesaplarınızı sürükleyip bırakarak sıralayabilirsiniz"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:226
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:593
 msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr ""
+msgstr "Planify görevlerinizi senkronize ediyor, bu birazcık sürebilir"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
 msgid "SSL verification is disabled"
@@ -2011,15 +2026,15 @@ msgstr "SSL doğrulama devre dışı bırakıldı"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
 msgid "Authentication expired"
-msgstr ""
+msgstr "Doğrulamanın süresi doldu"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 msgid "Account migration required"
-msgstr ""
+msgstr "Hesap taşıma gerekli"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:331
 msgid "Reconnect"
-msgstr ""
+msgstr "Yeniden Bağlan"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:449
 msgid "Cannot Hide This Account"
@@ -2042,11 +2057,11 @@ msgstr "Eşzamanlanıyor…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
 msgid "Connect to CalDAV"
-msgstr ""
+msgstr "CalDAV'a bağlan"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
 msgid "Connect to any CalDAV-compatible server to sync your tasks"
-msgstr ""
+msgstr "Görevlerinizi senkronize etmek için CalDAV uyumlu bir sunucuya bağlanın"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
@@ -2068,16 +2083,16 @@ msgstr "Takvim Etkinlikleri"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
 msgid "Advanced"
-msgstr ""
+msgstr "Gelişmiş"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Show advanced options"
-msgstr ""
+msgstr "Gelişmiş seçenekleri göster"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
 msgid "Hide advanced options"
-msgstr ""
+msgstr "Gelişmiş seçenekleri gizle"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
@@ -2085,9 +2100,8 @@ msgid "Log In"
 msgstr "Giriş Yap"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:28
-#, fuzzy
 msgid "Inbox Project"
-msgstr "Öntanımlı Gelen Kutusu Projesi"
+msgstr "Gelen Kutusu Projesi"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:37
 msgid ""
@@ -2095,44 +2109,53 @@ msgid ""
 "Getting Things Done methodology, it's your capture point for quick ideas and "
 "tasks that you'll organize later"
 msgstr ""
+"Gelen kutunuz yeni görevlerinizin varsayılan olarak düştüğü yerdir. David "
+"Allen'in \"Getting Things Done\" metodolojisine dayanarak, burası aklınıza "
+"aniden gelen fikirleriniz ve sonra organize edeceğiniz görevleriniz için bir "
+"toplama noktasıdır"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
 msgid "Connect to Nextcloud"
-msgstr ""
+msgstr "Nextcloud'a bağlan"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:57
 msgid "Sign in with your Nextcloud account to sync tasks via CalDAV"
 msgstr ""
+"CalDAV ile görevlerinizi senkronize etmek için Nextcloud hesabınıza giriş "
+"yapın"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
 msgid "https://cloud.example.com"
-msgstr ""
+msgstr "https://cloud.example.com"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:83
 msgid "https://example.com/nextcloud"
-msgstr ""
+msgstr "https://example.com/nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:100
 msgid "URL examples"
-msgstr ""
+msgstr "URL örnekleri"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:265
 msgid "Nextcloud Deck Detected"
-msgstr ""
+msgstr "Nextcloud Deck Tespit Edildi"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:266
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
 msgstr ""
+"Nextcloud Deck bu sunucuda kullanılabilir. Pano ve kartlarınızı direkt "
+"olarak Planify üzerinden yönetmek için Deck entegrasyonunu etkinleştirmek "
+"ister misiniz?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
 msgid "Not Now"
-msgstr ""
+msgstr "Şimdi Olmaz"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
 msgid "Enable Deck"
-msgstr ""
+msgstr "Deck'i etkinleştir"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:181
@@ -2161,92 +2184,93 @@ msgstr "Son Eşzamanlama"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
 msgid "Nextcloud Deck"
-msgstr ""
+msgstr "Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
 msgid "Sync boards and cards from Nextcloud Deck"
-msgstr ""
+msgstr "Pano ve kartlarınızı Nextcloud Deck üzerinden senkronize edin"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
 msgid "Nextcloud Deck is not available on this server"
-msgstr ""
+msgstr "Nextcloud Deck bu sunucuda kullanılabilir değil"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:152
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:214
-#, fuzzy
 msgid "Delete Source"
-msgstr "Bölümü Sil"
+msgstr "Kaynağı Sil"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:197
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:271
 msgid "Delete Source?"
-msgstr "Bölümü Sil"
+msgstr "Kaynağı sileyim mi?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
 msgid "Cannot Delete This Source"
-msgstr ""
+msgstr "Bu Kaynağı Silemem"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:315
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Bu kaynak gelen kutusu projenizi içeriyor. Lütfen önce gelen kutusu "
+"projenizi değiştirin."
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:89
 msgid "Connect to Todoist"
-msgstr ""
+msgstr "Todoist'e Bağlan"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
 msgid "Sign in with your Todoist account to sync your tasks"
-msgstr ""
+msgstr "Görevlerinizi senkronize etmek için Todoist hesabınıza bağlanın"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
 msgid "Sign in with Browser"
-msgstr ""
+msgstr "Tarayıcınızdan Giriş Yapın"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:113
 msgid "Use API Token instead"
-msgstr ""
+msgstr "Bunun yerine API Tokeni kullan"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:155
 msgid "API Token"
-msgstr ""
+msgstr "API Tokeni"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
 msgid "Connect using your personal Todoist API token"
-msgstr ""
+msgstr "Şahsi Todoist API tokeninizi kullanarak bağlanın"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:176
 msgid "Paste your API token"
-msgstr ""
+msgstr "API Tokeninizi yapıştırın"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:181
 msgid "Connect"
-msgstr ""
+msgstr "Bağlan"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:188
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
-msgstr ""
+msgstr "1. Todoist'e gidin → Ayarlar → Entegrasyonlar → Geliştirici"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:193
 msgid "2. Copy your API token"
-msgstr ""
+msgstr "2. API tokeninizi kopyalayın"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:198
 msgid "3. Paste it in the field above"
-msgstr ""
+msgstr "3. Aşağıdaki alana yapıştırın"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
 msgid "How to get your token"
-msgstr ""
+msgstr "Tokenimi nasıl alacağım"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
 msgid "Waiting for login…"
-msgstr ""
+msgstr "Giriş için bekleniyor…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:292
 msgid "Synchronizing…"
-msgstr "Eşzamanlanıyor…"
+msgstr "Senkronize ediliyor…"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:38
 #: src/Dialogs/Preferences/PreferencesWindow.vala:111
@@ -2259,12 +2283,11 @@ msgstr "Sistem Ayarlarını Kullan"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:68
 msgid "Use System Accent Color"
-msgstr ""
+msgstr "Sistem Vurgu Rengini Kullan"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:78
-#, fuzzy
 msgid "Select theme"
-msgstr "Seç"
+msgstr "Biçem seç"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:88
 msgid "Light Style"
@@ -2272,7 +2295,7 @@ msgstr "Açık Biçem"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:89
 msgid "Clean light theme"
-msgstr ""
+msgstr "Temiz açık biçem"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:105
 msgid "Dark Style"
@@ -2280,7 +2303,7 @@ msgstr "Koyu Biçem"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:106
 msgid "Elegant dark theme"
-msgstr ""
+msgstr "Şık koyu biçem"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:122
 msgid "Dark Blue Style"
@@ -2288,19 +2311,19 @@ msgstr "Koyu Mavi Biçem"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:123
 msgid "Professional blue theme"
-msgstr ""
+msgstr "Profesyonel mavi biçem"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:139
 msgid "Accent Color"
-msgstr ""
+msgstr "Vurgu Rengi"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:145
 msgid "Custom themes are not available when using the system light theme"
-msgstr ""
+msgstr "Sistem açık biçemini kullanırken özel biçemler kullanılamaz"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:183
 msgid "Font Size"
-msgstr ""
+msgstr "Yazı Tipi Boyutu"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:29
 #: src/Dialogs/Preferences/PreferencesWindow.vala:147
@@ -2318,11 +2341,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:50
 msgid "Automatic Daily Backup"
-msgstr ""
+msgstr "Otomatik Günlük Yedekleme"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:51
 msgid "Creates a backup every day at midnight"
-msgstr ""
+msgstr "Her gün geceyarısı bir yedek oluşturur"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:58
 msgid "Create Backup"
@@ -2338,34 +2361,36 @@ msgstr "Yedek Dosyaları"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:67
 msgid "No backups found, create one clicking the button above."
-msgstr ""
-"Hesap bulunamadı. '+' düğmesine tıklayarak bir tane eşzamanlama "
-"oluşturabilirsiniz"
+msgstr "Hiç yedekleme bulunamadı, üstteki butona tıklayarak bir tane oluşturun."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:72
 #, c-format
 msgid "Backup files are stored in: %s"
-msgstr ""
+msgstr "Yedekleme dosyaları %s'te depolandı"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:81
 msgid ""
 "Only the last 30 backups are shown here. To access older backups, open the "
 "backup folder directly."
 msgstr ""
+"Sadece son 30 yedekleme burada gösterilir. Daha eski yedeklere ulaşmak için "
+"direkt yedekleme klasörünü açın."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:97
 msgid "Extra Backup Locations"
-msgstr ""
+msgstr "Ekstra Yedekleme Lokasyonları"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:100
 msgid "No extra locations added yet."
-msgstr ""
+msgstr "Henüz ekstra lokasyon eklenmedi."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:112
 msgid ""
 "Backup copies will also be saved to these folders after each backup is "
 "created."
 msgstr ""
+"Her bir yeni yedekleme dosyası oluşturulunca ayrıca bu klasörlerde de "
+"yedeklenecek."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:121
 msgid "Migrate"
@@ -2377,7 +2402,7 @@ msgstr "Planlayıcıdan Geçiş Yapın"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:163
 msgid "The Backup was created successfully."
-msgstr "Görevler Başarıyla Eşzamanlandı"
+msgstr "Yedekleme başarıyla oluşturuldu."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:180
 msgid "Tasks Migrate Successfully"
@@ -2385,7 +2410,7 @@ msgstr "Görevler Başarıyla Eşzamanlandı"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:184
 msgid "The database file does not exist."
-msgstr "Veritabanı dosyası yok"
+msgstr "Veritabanı dosyası yok."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:261
 msgid "Selected file is invalid"
@@ -2411,7 +2436,7 @@ msgstr "Yapılacak Ekle"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:580
 msgid "This will replace all your current data"
-msgstr ""
+msgstr "Bu şu anki tüm verinizin yerine geçecek"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:589
 msgid "Restore backup"
@@ -2432,20 +2457,20 @@ msgstr "Takvim Etkinlikleri"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:41
 msgid "Show Calendar Events"
-msgstr ""
+msgstr "Takvim Etkinliklerini Göster"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:42
 msgid "Display events from your calendars in Planify"
-msgstr ""
+msgstr "Planify'da Takviminiz üzerindeki etkinlikleri görüntüleyin"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:176
 msgid "Donate"
-msgstr ""
+msgstr "Bağış"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:52
 msgid "Support Planify Development"
-msgstr ""
+msgstr "Planify'ın Geliştirilmesini Destekleyin"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:57
 msgid ""
@@ -2453,6 +2478,10 @@ msgid ""
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
 msgstr ""
+"Planify'ın bedava ve açık kaynak kalmasına yardım edin! Bağışlarınız "
+"doğrudan uygulamanın geliştirilmesine, yeni gelecek özelliklerin "
+"geliştirilmesine ve bakımına destek olacak. Büyüklüğü ne olursa olsun her "
+"bir katkı büyük fark yaratıyor."
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:73
 msgid "Patreon"
@@ -2460,7 +2489,7 @@ msgstr "Patreon"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Monthly recurring support"
-msgstr ""
+msgstr "Aylık yinelenen destek"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:87
 msgid "PayPal"
@@ -2468,7 +2497,7 @@ msgstr "PayPal"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "One-time donation"
-msgstr ""
+msgstr "Tek seferlik bağış"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:101
 msgid "Liberapay"
@@ -2476,7 +2505,7 @@ msgstr "Liberapay"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Weekly recurring donations"
-msgstr ""
+msgstr "Haftalık yinelenen bağışlar"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:115
 msgid "Ko-fi"
@@ -2484,19 +2513,19 @@ msgstr "Ko-fi"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Buy me a coffee ☕"
-msgstr ""
+msgstr "Bana bir kahve ısmarla ☕"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:127
 msgid "Choose Your Preferred Platform"
-msgstr ""
+msgstr "Tercih Ettiğiniz Platformu Seçin"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:141
 msgid "Thank you for your support! 🙏"
-msgstr ""
+msgstr "Desteğiniz için minnettarız!🙏"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:148
 msgid "Your contribution helps keep Planify alive and growing."
-msgstr ""
+msgstr "Katkınız, Planify'ın yaşayıp büyümesine yardım ediyor."
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
