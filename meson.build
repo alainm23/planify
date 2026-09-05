@@ -90,6 +90,15 @@ if get_option('evolution')
     endif
 endif
 
+if get_option('goa')
+    goa_dep = dependency('goa-1.0', required: true)
+    add_project_arguments('-D', 'WITH_GOA', language: 'vala')
+    add_project_arguments('-DGOA_API_IS_SUBJECT_TO_CHANGE', language: 'c')
+    if not goa_dep.found()
+        error('goa-1.0 requested but not found')
+    endif
+endif
+
 ############
 # Resources #
 ############

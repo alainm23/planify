@@ -15,6 +15,7 @@
         "--socket=wayland",
         "--talk-name=org.gnome.evolution.dataserver.Calendar8",
         "--talk-name=org.gnome.evolution.dataserver.Sources5",
+        "--talk-name=org.gnome.OnlineAccounts",
         "--talk-name=org.gnome.ScreenSaver",
         "--talk-name=io.github.alainm23.planify",
         "--talk-name=io.github.alainm23.planify.quick-add",
@@ -158,6 +159,62 @@
                     "type" : "git",
                     "url" : "https://github.com/alainm23/chrono.git",
                     "tag" : "1.0.0"
+                }
+            ]
+        },
+        {
+            "name" : "librest",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dexamples=false",
+                "-Dtests=false",
+                "-Dgtk_doc=false",
+                "-Dintrospection=false",
+                "-Dvapi=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://download.gnome.org/sources/librest/0.10/librest-0.10.2.tar.xz",
+                    "sha256" : "7b6cb912bb3a22cfa7dcf005925dcb62883024db0c09099486e7d6851185c9b8",
+                    "x-checker-data" : {
+                        "type" : "gnome",
+                        "name" : "librest"
+                    }
+                }
+            ]
+        },
+        {
+            "name" : "gnome-online-accounts",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dgoabackend=true",
+                "-Downcloud=true",
+                "-Dwebdav=true",
+                "-Dexchange=false",
+                "-Dgoogle=false",
+                "-Dimap_smtp=false",
+                "-Dkerberos=false",
+                "-Dms_graph=false",
+                "-Ddocumentation=false",
+                "-Dman=false",
+                "-Dvapi=true",
+                "-Dintrospection=true"
+            ],
+            "cleanup" : [
+                "/bin",
+                "/share/dbus-1",
+                "/share/GConf"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://download.gnome.org/sources/gnome-online-accounts/3.58/gnome-online-accounts-3.58.1.tar.xz",
+                    "sha256" : "9ec1900cc51409c2067c07c828c10be06fe3bf68d2999bb72d7d5ed325ed9bbc",
+                    "x-checker-data" : {
+                        "type" : "gnome",
+                        "name" : "gnome-online-accounts"
+                    }
                 }
             ]
         },

@@ -216,6 +216,15 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         });
     }
 
+    public void prefill (string url, string? username = null) {
+        server_entry.text = url;
+        if (username != null && username != "") {
+            username_entry.text = username;
+        }
+        validate_entries ();
+        password_entry.grab_focus ();
+    }
+
     private void validate_entries () {
         bool valid = server_entry.text != null && server_entry.text != "" &&
                      username_entry.text != null && username_entry.text != "" &&

@@ -22,6 +22,12 @@ if get_option('evolution')
     endif
 endif
 
+if get_option('goa')
+    if goa_dep.found()
+        deps += goa_dep
+    endif
+endif
+
 
 sources = files(
   'App.vala',
