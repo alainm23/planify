@@ -84,13 +84,13 @@ msgid "Every year"
 msgid_plural "Every %d years"
 msgstr[0] "每 %d 年"
 
-#: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
+#: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:45
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:124
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
 msgstr "CalDAV"
@@ -359,7 +359,7 @@ msgstr "无法撤销"
 #: core/Objects/Project.vala:966 core/Objects/Section.vala:430
 #: core/Objects/Section.vala:476 core/Utils/Util.vala:457
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:453
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:148
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:115
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:200
@@ -418,7 +418,7 @@ msgid "Delete Section %s"
 msgstr "删除部分%s"
 
 #: core/Objects/Source.vala:60
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:44
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
@@ -1866,61 +1866,79 @@ msgstr "添加一个分区来组织你的任务"
 msgid "Archived"
 msgstr "已归档"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:35
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:69
 #: src/Dialogs/Preferences/PreferencesWindow.vala:49
 msgid "Accounts"
 msgstr "账户"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:65
 msgid "Add Source"
 msgstr "添加来源"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
+msgid "Task sources you sync with. Drag to reorder."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
 msgid "Inbox Page"
 msgstr "收件箱页面"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:105
-msgid "You can sort your accounts by dragging and dropping"
-msgstr "您可以通过拖放来排序账户"
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
+msgid "Detected Accounts"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:226
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:593
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
+msgid "Accounts configured in GNOME Online Accounts"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
+#, c-format
+msgid "%d account available to import from GNOME Online Accounts"
+msgid_plural "%d accounts available to import from GNOME Online Accounts"
+msgstr[0] ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
+msgid "Import"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:411
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr "Planify 正在同步您的任务，这可能需要一些时间"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:484
 msgid "SSL verification is disabled"
 msgstr "SSL 验证已禁用"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:494
 msgid "Authentication expired"
 msgstr "身份验证已过期"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 msgid "Account migration required"
 msgstr "需要迁移账户"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:331
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:516
 msgid "Reconnect"
 msgstr "重新连接"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:449
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:634
 msgid "Cannot Hide This Account"
 msgstr "无法隐藏此账户"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:450
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:635
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr "此账户包含您当前的收件箱项目。请先更改您的收件箱项目。"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:454
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
 msgid "Change Inbox"
 msgstr "更改收件箱"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:563
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:748
 msgid "Syncing…"
 msgstr "同步中…"
 
@@ -2000,11 +2018,11 @@ msgstr "https://example.com/nextcloud"
 msgid "URL examples"
 msgstr "URL 示例"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:265
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
 msgid "Nextcloud Deck Detected"
 msgstr "检测到 Nextcloud Deck"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:266
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
@@ -2012,11 +2030,11 @@ msgstr ""
 "此服务器上已启用 Nextcloud Deck。是否要启用 Deck 集成，以便直接在 Planify 中"
 "管理您的看板和卡片？"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:273
 msgid "Not Now"
 msgstr "暂时不用"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:274
 msgid "Enable Deck"
 msgstr "启用 Deck"
 
@@ -4052,6 +4070,9 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#~ msgid "You can sort your accounts by dragging and dropping"
+#~ msgstr "您可以通过拖放来排序账户"
 
 #~ msgid "Define how many tasks you want to complete per day and week"
 #~ msgstr "设定您每天和每周想要完成的任务数量"

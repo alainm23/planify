@@ -92,12 +92,14 @@ msgstr[1] "Каждые %d года (лет)"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:45
 msgid "Nextcloud"
 msgstr "Облако Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:124
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 msgid "CalDAV"
 msgstr "протокол CalDAV"
 
@@ -416,6 +418,7 @@ msgstr "Это действие не может быть отменено"
 #: src/Widgets/MultiSelectToolbar.vala:344 src/Views/Filter.vala:695
 #: src/Views/Filter.vala:878 src/Views/Filter.vala:895
 #: src/Views/Filter.vala:900
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -474,6 +477,7 @@ msgstr "Удалить раздел %s"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:288
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:44
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -2085,14 +2089,18 @@ msgstr "Архивированное"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
 #: src/Dialogs/Preferences/PreferencesWindow.vala:49
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:35
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:69
 msgid "Accounts"
 msgstr "Учётные записи"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:65
 msgid "Add Source"
 msgstr "Добавить источник"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
 msgid "Inbox Page"
 msgstr "Страница Входящие"
 
@@ -2102,30 +2110,38 @@ msgstr "Вы можете сортироваться свои учётные з�
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:226
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:593
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:411
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr "Planify синхронизирует ваши задачи, это может занять несколько минут"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:484
 msgid "SSL verification is disabled"
 msgstr "Верификация по SSL выключена"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:494
 msgid "Authentication expired"
 msgstr "Идентификация истекла"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 msgid "Account migration required"
 msgstr "Требуется перенос аккаунта"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:331
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:516
 msgid "Reconnect"
 msgstr "Переподключение"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:449
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:634
 msgid "Cannot Hide This Account"
 msgstr "Невозможно скрыть этот аккаунт"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:450
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:635
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -2135,10 +2151,12 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:454
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
 msgid "Change Inbox"
 msgstr "Изменить «Входящие»"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:563
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:748
 msgid "Syncing…"
 msgstr "Синхронизирование…"
 
@@ -2225,20 +2243,24 @@ msgid "URL examples"
 msgstr "Примеры ссылок"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:265
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
 msgid "Nextcloud Deck Detected"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:266
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:273
 msgid "Not Now"
 msgstr "Не сейчас"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:274
 msgid "Enable Deck"
 msgstr ""
 
@@ -4494,6 +4516,29 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1631
 #, c-format
 msgid "Task completed · Next: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
+msgid "Task sources you sync with. Drag to reorder."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
+msgid "Detected Accounts"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
+msgid "Accounts configured in GNOME Online Accounts"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
+#, c-format
+msgid "%d account available to import from GNOME Online Accounts"
+msgid_plural "%d accounts available to import from GNOME Online Accounts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
+msgid "Import"
 msgstr ""
 
 # # c-format

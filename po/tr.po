@@ -92,12 +92,14 @@ msgstr[1] "%d yılda bir"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:45
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:124
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 msgid "CalDAV"
 msgstr "CalDAV"
 
@@ -384,6 +386,7 @@ msgstr "Bu geri alınamaz"
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
 msgid "Cancel"
 msgstr "İptal"
 
@@ -438,6 +441,7 @@ msgstr "%s Bölümünü Sil"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:288
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:44
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -2000,14 +2004,18 @@ msgstr "Arşivlendi"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
 #: src/Dialogs/Preferences/PreferencesWindow.vala:49
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:35
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:69
 msgid "Accounts"
 msgstr "Hesaplar"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:65
 msgid "Add Source"
 msgstr "Kaynak"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
 msgid "Inbox Page"
 msgstr "Gelen Kutusu Sayfası"
 
@@ -2021,6 +2029,7 @@ msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr "Planify görevlerinizi senkronize ediyor, bu birazcık sürebilir"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:484
 msgid "SSL verification is disabled"
 msgstr "SSL doğrulama devre dışı bırakıldı"
 
@@ -2037,10 +2046,12 @@ msgid "Reconnect"
 msgstr "Yeniden Bağlan"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:449
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:634
 msgid "Cannot Hide This Account"
 msgstr "Bu Hesap Gizlenemez"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:450
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:635
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -2048,10 +2059,12 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:454
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
 msgid "Change Inbox"
 msgstr "Gelen Kutusunu Değiştir"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:563
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:748
 msgid "Syncing…"
 msgstr "Eşzamanlanıyor…"
 
@@ -2061,7 +2074,8 @@ msgstr "CalDAV'a bağlan"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
 msgid "Connect to any CalDAV-compatible server to sync your tasks"
-msgstr "Görevlerinizi senkronize etmek için CalDAV uyumlu bir sunucuya bağlanın"
+msgstr ""
+"Görevlerinizi senkronize etmek için CalDAV uyumlu bir sunucuya bağlanın"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
@@ -2361,7 +2375,8 @@ msgstr "Yedek Dosyaları"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:67
 msgid "No backups found, create one clicking the button above."
-msgstr "Hiç yedekleme bulunamadı, üstteki butona tıklayarak bir tane oluşturun."
+msgstr ""
+"Hiç yedekleme bulunamadı, üstteki butona tıklayarak bir tane oluşturun."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:72
 #, c-format
@@ -4275,6 +4290,29 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1631
 #, c-format
 msgid "Task completed · Next: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
+msgid "Task sources you sync with. Drag to reorder."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
+msgid "Detected Accounts"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
+msgid "Accounts configured in GNOME Online Accounts"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
+#, c-format
+msgid "%d account available to import from GNOME Online Accounts"
+msgid_plural "%d accounts available to import from GNOME Online Accounts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
+msgid "Import"
 msgstr ""
 
 # # c-format
