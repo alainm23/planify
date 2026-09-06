@@ -90,13 +90,13 @@ msgid_plural "Every %d years"
 msgstr[0] "Elk jaar"
 msgstr[1] "Elk %d jaren"
 
-#: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
+#: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:45
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:124
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
 msgstr "CalDAV"
@@ -367,7 +367,7 @@ msgstr "Dit kan niet ongedaan gemaakt worden"
 #: core/Objects/Project.vala:966 core/Objects/Section.vala:430
 #: core/Objects/Section.vala:476 core/Utils/Util.vala:457
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:453
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:148
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:115
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:200
@@ -429,7 +429,7 @@ msgid "Delete Section %s"
 msgstr "Onderverdeling %s verwijderen"
 
 #: core/Objects/Source.vala:60
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:44
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
@@ -1954,50 +1954,69 @@ msgstr ""
 msgid "Archived"
 msgstr "Gearchiveerd"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:35
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:69
 #: src/Dialogs/Preferences/PreferencesWindow.vala:49
 msgid "Accounts"
 msgstr "Accounts"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:65
 msgid "Add Source"
 msgstr "Bron toevoegen"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
+msgid "Task sources you sync with. Drag to reorder."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
 msgid "Inbox Page"
 msgstr "Postvak-pagina"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:105
-msgid "You can sort your accounts by dragging and dropping"
-msgstr "Je kan accounts sorteren door te slepen"
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
+msgid "Detected Accounts"
+msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:226
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:593
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
+msgid "Accounts configured in GNOME Online Accounts"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
+#, c-format
+msgid "%d account available to import from GNOME Online Accounts"
+msgid_plural "%d accounts available to import from GNOME Online Accounts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
+msgid "Import"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:411
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr "Planify synchroniseert je taken, even geduld"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:484
 msgid "SSL verification is disabled"
 msgstr "SSL-verificatie staat uit"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:494
 msgid "Authentication expired"
 msgstr "Aanmelding verlopen"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 msgid "Account migration required"
 msgstr "Accountmigratie vereist"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:331
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:516
 msgid "Reconnect"
 msgstr "Opnieuw verbinden"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:449
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:634
 msgid "Cannot Hide This Account"
 msgstr "Dit account kan niet worden verborgen"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:450
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:635
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -2005,12 +2024,12 @@ msgstr ""
 "Deze account bevat je huidige postvak-project. Gelieve je postvak-project "
 "eerst te wijzigen."
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:454
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
 msgid "Change Inbox"
 msgstr "Postvak veranderen"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:563
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:748
 msgid "Syncing…"
 msgstr "Synchroniseren…"
 
@@ -2091,21 +2110,21 @@ msgstr ""
 msgid "URL examples"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:265
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
 msgid "Nextcloud Deck Detected"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:266
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:273
 msgid "Not Now"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:274
 msgid "Enable Deck"
 msgstr ""
 
@@ -4190,6 +4209,9 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#~ msgid "You can sort your accounts by dragging and dropping"
+#~ msgstr "Je kan accounts sorteren door te slepen"
 
 # # c-format
 #, c-format

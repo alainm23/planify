@@ -45,6 +45,7 @@ core/Services/Database.vala
 core/Services/Deck/Core.vala
 core/Services/Deck/DeckClient.vala
 core/Services/EventBus.vala
+core/Services/GOA.vala
 core/Services/LogService.vala
 core/Services/Settings.vala
 core/Services/Store.vala
