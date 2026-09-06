@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-01-17 16:01+0000\n"
-"Last-Translator: Nagi <smash.mudy.y.s@gmail.com>\n"
+"PO-Revision-Date: 2026-09-06 16:45+0000\n"
+"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/ja/>\n"
 "Language: ja\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.9.1.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -52,37 +52,37 @@ msgstr "繰り返さない"
 #, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
-msgstr[0] ""
+msgstr[0] "%d 分ごと"
 
 #: core/Enum.vala:218
 #, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
-msgstr[0] ""
+msgstr[0] "%d 時間ごと"
 
 #: core/Enum.vala:220
 #, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
-msgstr[0] ""
+msgstr[0] "%d 日ごと"
 
 #: core/Enum.vala:222
 #, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
-msgstr[0] ""
+msgstr[0] "%d 週間ごと"
 
 #: core/Enum.vala:224
 #, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
-msgstr[0] ""
+msgstr[0] "%d か月ごと"
 
 #: core/Enum.vala:226
 #, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
-msgstr[0] ""
+msgstr[0] "%d 年ごと"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
@@ -112,7 +112,7 @@ msgstr "ラベル"
 #: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
 #: src/Views/Today.vala:843
 msgid "Due Date"
-msgstr ""
+msgstr "期日"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
@@ -121,19 +121,19 @@ msgstr "セクション"
 
 #: core/Enum.vala:357 src/Views/Today.vala:899
 msgid "Assignment"
-msgstr ""
+msgstr "担当"
 
 #: core/Enum.vala:469
 msgid "Task Created"
-msgstr ""
+msgstr "タスクを作成しました"
 
 #: core/Enum.vala:472
 msgid "Task Updated"
-msgstr ""
+msgstr "タスクを更新しました"
 
 #: core/Enum.vala:536
 msgid "Content"
-msgstr ""
+msgstr "内容"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2014 src/Layouts/ItemSidebarView.vala:184
@@ -154,11 +154,11 @@ msgstr "ピン止め"
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
 #: src/Services/ExportService.vala:73
 msgid "Deadline"
-msgstr ""
+msgstr "期限"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "親タスク"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -174,11 +174,11 @@ msgstr "すべて"
 
 #: core/Objects/Filters/Anytime.vala:33
 msgid "Anytime"
-msgstr ""
+msgstr "いつでも"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "anytime"
-msgstr ""
+msgstr "いつでも"
 
 #: core/Objects/Filters/Anytime.vala:34 core/Objects/Filters/Completed.vala:34
 #: core/Objects/Filters/Inbox.vala:34 core/Objects/Filters/Labels.vala:34
@@ -191,7 +191,7 @@ msgstr "フィルター"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr ""
+msgstr "日付なし"
 
 #: core/Objects/Filters/Completed.vala:33
 #: src/Dialogs/ProductivityReport/SummarySection.vala:58
@@ -205,7 +205,7 @@ msgstr "完了済み"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "logbook"
-msgstr ""
+msgstr "日誌"
 
 #: core/Objects/Filters/Inbox.vala:33 core/Utils/Util.vala:258
 #: core/Utils/Util.vala:593
@@ -215,11 +215,11 @@ msgstr ""
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:194
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr ""
+msgstr "受信ボックス"
 
 #: core/Objects/Filters/Inbox.vala:34
 msgid "inbox"
-msgstr ""
+msgstr "受信ボックス"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
@@ -231,19 +231,19 @@ msgstr "ピン止め"
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:117
 msgid "Priority 1: high"
-msgstr "優先度 1:高"
+msgstr "優先度 1: 高"
 
 #: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:119
 msgid "Priority 2: medium"
-msgstr "優先度 2:中"
+msgstr "優先度 2: 中"
 
 #: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:121
 msgid "Priority 3: low"
-msgstr "優先度 3:低"
+msgstr "優先度 3: 低"
 
 #: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:123
 msgid "Priority 4: none"
-msgstr "優先度 4:なし"
+msgstr "優先度 4: なし"
 
 #: core/Objects/Filters/Priority.vala:182
 msgid "high"
@@ -271,11 +271,11 @@ msgstr "繰り返し"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr ""
+msgstr "スケジュール"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
-msgstr ""
+msgstr "今後"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:60
 #: core/Utils/Datetime.vala:81 core/Utils/Datetime.vala:774
@@ -287,11 +287,11 @@ msgstr ""
 #: src/Views/Filter.vala:1063 src/Views/Project/Project.vala:573
 #: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
 msgid "Today"
-msgstr ""
+msgstr "今日"
 
 #: core/Objects/Filters/Today.vala:50
 msgid "today"
-msgstr ""
+msgstr "今日"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:62
 #: core/Utils/Datetime.vala:776
@@ -299,53 +299,53 @@ msgstr ""
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:210
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1251
 msgid "Tomorrow"
-msgstr ""
+msgstr "明日"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "tomorrow"
-msgstr ""
+msgstr "明日"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "date"
-msgstr ""
+msgstr "日付"
 
 #: core/Objects/Filters/Unlabeled.vala:33
 msgid "Unlabeled"
-msgstr ""
+msgstr "ラベルなし"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "no label"
-msgstr ""
+msgstr "ラベルなし"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "unlabeled"
-msgstr ""
+msgstr "ラベルなし"
 
 #: core/Objects/Item.vala:1594 src/Services/ExportService.vala:187
 msgid "Deadline:"
-msgstr ""
+msgstr "期限:"
 
 #: core/Objects/Item.vala:1619
 msgid "Task copied to clipboard"
-msgstr ""
+msgstr "タスクをクリップボードにコピーしました"
 
 #: core/Objects/Item.vala:1636
 msgid "iCalendar Files"
-msgstr ""
+msgstr "iCalendar ファイル"
 
 #: core/Objects/Item.vala:1652
 msgid "Task exported successfully"
-msgstr ""
+msgstr "タスクをエクスポートしました"
 
 #: core/Objects/Item.vala:1992 core/Utils/Util.vala:856
 #, c-format
 msgid "Moved to %s"
-msgstr ""
+msgstr "%s に移動しました"
 
 #: core/Objects/Label.vala:220
 #, c-format
 msgid "Delete Label %s"
-msgstr ""
+msgstr "ラベル %s を削除"
 
 #: core/Objects/Label.vala:221 core/Objects/Project.vala:889
 #: core/Objects/Section.vala:427
@@ -353,7 +353,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
 #: src/Layouts/ItemSidebarView.vala:604 src/Services/BackupManager.vala:224
 msgid "This can not be undone"
-msgstr ""
+msgstr "これは元に戻せません"
 
 #: core/Objects/Label.vala:224 core/Objects/Project.vala:892
 #: core/Objects/Project.vala:966 core/Objects/Section.vala:430
@@ -395,16 +395,16 @@ msgstr "プロジェクトをクリップボードにコピーしました。"
 #: core/Objects/Project.vala:888
 #, c-format
 msgid "Delete Project %s?"
-msgstr ""
+msgstr "プロジェクト %s を削除しますか?"
 
 #: core/Objects/Project.vala:962 core/Objects/Section.vala:472
 msgid "Archive?"
-msgstr "アーカイブしますか？"
+msgstr "アーカイブしますか?"
 
 #: core/Objects/Project.vala:963 core/Objects/Section.vala:473
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "%s とそのタスクをアーカイブします。"
 
 #: core/Objects/Project.vala:967 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
@@ -415,7 +415,7 @@ msgstr "アーカイブ"
 #: core/Objects/Section.vala:426
 #, c-format
 msgid "Delete Section %s"
-msgstr ""
+msgstr "セクション %s を削除"
 
 #: core/Objects/Source.vala:60
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
@@ -428,12 +428,12 @@ msgstr "Todoist"
 
 #: core/QuickAddCore.vala:149
 msgid "Task added successfully!"
-msgstr "タスクを追加しました！"
+msgstr "タスクを追加しました!"
 
 #: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:402
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
-msgstr "To-do名"
+msgstr "To-do 名"
 
 #: core/QuickAddCore.vala:195
 msgid "This field is required"
@@ -492,7 +492,7 @@ msgstr "キーボードショートカット"
 
 #: core/QuickAddCore.vala:1461
 msgid "Speed up task creation with these shortcuts"
-msgstr ""
+msgstr "これらのショートカットを使用してタスク作成を高速化できます"
 
 #: core/QuickAddCore.vala:1475
 msgid "Set priority"
@@ -541,18 +541,18 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:330
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr ""
+msgstr "%s のタスクを読み込み中…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:341
 #: core/Services/CalDAV/CalDAVClient.vala:408
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "%s のタスクを読み込みました…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:401
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "タスク %d / %d を同期中"
 
 #: core/Services/CalDAV/CalDAVClient.vala:779
 msgid ""
@@ -3896,114 +3896,114 @@ msgstr ""
 
 #: quick-add/MainWindow.vala:9
 msgid "Planify - Quick Add"
-msgstr ""
+msgstr "Planify - クイック追加"
 
 #: data/resources/ui/shortcuts.ui:12
 msgctxt "shortcut window"
 msgid "Used Anywhere"
-msgstr ""
+msgstr "任意の画面"
 
 #: data/resources/ui/shortcuts.ui:16
 msgctxt "shortcut window"
 msgid "Create a New Task"
-msgstr ""
+msgstr "新しいタスクを作成する"
 
 #: data/resources/ui/shortcuts.ui:23
 msgctxt "shortcut window"
 msgid "Paste Plain Text to Create New Task"
-msgstr ""
+msgstr "プレーンテキストを貼り付けて新しいタスクを作成する"
 
 #: data/resources/ui/shortcuts.ui:30
 msgctxt "shortcut window"
 msgid "Create a New Project"
-msgstr ""
+msgstr "新しいプロジェクトを作成する"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Create a New Section in a Project"
-msgstr ""
+msgstr "プロジェクトに新しいセクションを作成する"
 
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
 msgid "Search"
-msgstr ""
+msgstr "検索"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Open Quick Find"
-msgstr ""
+msgstr "クイック検索を開く"
 
 #: data/resources/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Control Windows"
-msgstr ""
+msgstr "ウィンドウの管理"
 
 #: data/resources/ui/shortcuts.ui:61
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "終了する"
 
 #: data/resources/ui/shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Open Preferences"
-msgstr ""
+msgstr "設定を開く"
 
 #: data/resources/ui/shortcuts.ui:75
 msgctxt "shortcut window"
 msgid "Toggle Sidebar"
-msgstr ""
+msgstr "サイドバーを表示/非表示"
 
 #: data/resources/ui/shortcuts.ui:82
 msgctxt "shortcut window"
 msgid "Open Keyboard Shortcuts"
-msgstr ""
+msgstr "キーボードショートカットを開く"
 
 #: data/resources/ui/shortcuts.ui:90
 msgctxt "shortcut window"
 msgid "Navigate"
-msgstr ""
+msgstr "表示"
 
 #: data/resources/ui/shortcuts.ui:94
 msgctxt "shortcut window"
 msgid "Open Homepage"
-msgstr ""
+msgstr "ホーム画面を開く"
 
 #: data/resources/ui/shortcuts.ui:101
 msgctxt "shortcut window"
 msgid "Open Inbox"
-msgstr ""
+msgstr "受信ボックスを開く"
 
 #: data/resources/ui/shortcuts.ui:108
 msgctxt "shortcut window"
 msgid "Open Today"
-msgstr ""
+msgstr "“今日”を開く"
 
 #: data/resources/ui/shortcuts.ui:115
 msgctxt "shortcut window"
 msgid "Open Scheduled"
-msgstr ""
+msgstr "“日時設定あり”を開く"
 
 #: data/resources/ui/shortcuts.ui:122
 msgctxt "shortcut window"
 msgid "Open Labels"
-msgstr ""
+msgstr "“ラベル”を開く"
 
 #: data/resources/ui/shortcuts.ui:129
 msgctxt "shortcut window"
 msgid "Open Pinboard"
-msgstr ""
+msgstr "ピン止めを開く"
 
 #: data/resources/ui/shortcuts.ui:136
 msgctxt "shortcut window"
 msgid "Open the Nth Project"
-msgstr ""
+msgstr "n 番目のプロジェクトを開く"
 
 #: data/resources/ui/shortcuts.ui:143
 msgctxt "shortcut window"
 msgid "Open Next Project"
-msgstr ""
+msgstr "次のプロジェクトを開く"
 
 #: data/resources/ui/shortcuts.ui:150
 msgctxt "shortcut window"
 msgid "Open Previous Project"
-msgstr ""
+msgstr "前のプロジェクトを開く"
