@@ -158,7 +158,7 @@ msgid "Pin"
 msgstr "Afixar"
 
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
-#: src/Services/ExportService.vala:73
+#: src/Services/ExportService.vala:57
 msgid "Deadline"
 msgstr "Data limite"
 
@@ -327,7 +327,7 @@ msgstr "nenhuma etiqueta"
 msgid "unlabeled"
 msgstr "sem etiqueta"
 
-#: core/Objects/Item.vala:1594 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1594 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Tempo limite:"
 
@@ -3330,6 +3330,10 @@ msgstr "Exportar como PDF"
 msgid "Project exported as PDF"
 msgstr "O projeto foi exportado como PDF"
 
+#: src/Layouts/ProjectRow.vala:787 src/Widgets/Attachments.vala:142
+msgid "Open"
+msgstr "Abrir"
+
 #: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:89
 msgid "(No Section)"
 msgstr "(Nenhuma secção)"
@@ -3770,10 +3774,6 @@ msgstr "Eu"
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
 msgstr "Anexos"
-
-#: src/Widgets/Attachments.vala:142
-msgid "Open"
-msgstr "Abrir"
 
 #: src/Widgets/Attachments.vala:248
 msgid "No attachments found. Add files here."

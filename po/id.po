@@ -166,7 +166,7 @@ msgid "Pin"
 msgstr "Sematkan"
 
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
-#: src/Services/ExportService.vala:73
+#: src/Services/ExportService.vala:73 src/Services/ExportService.vala:57
 msgid "Deadline"
 msgstr "Tenggat"
 
@@ -347,7 +347,7 @@ msgstr "tanpa label"
 #: core/Objects/Item.vala:1474 src/Services/ExportService.vala:187
 #: core/Objects/Item.vala:1502 core/Objects/Item.vala:1503
 #: core/Objects/Item.vala:1569 core/Objects/Item.vala:1571
-#: core/Objects/Item.vala:1594
+#: core/Objects/Item.vala:1594 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Tenggat:"
 
@@ -3938,7 +3938,7 @@ msgstr "Saya"
 msgid "Attachments"
 msgstr "Lampiran"
 
-#: src/Widgets/Attachments.vala:142
+#: src/Widgets/Attachments.vala:142 src/Layouts/ProjectRow.vala:787
 msgid "Open"
 msgstr "Buka"
 

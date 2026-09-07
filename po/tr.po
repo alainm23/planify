@@ -3844,7 +3844,7 @@ msgstr ""
 msgid "Attachments"
 msgstr "Görev Ekle"
 
-#: src/Widgets/Attachments.vala:142
+#: src/Widgets/Attachments.vala:142 src/Layouts/ProjectRow.vala:787
 msgid "Open"
 msgstr ""
 
