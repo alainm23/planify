@@ -2,7 +2,8 @@ deps = [
   core_dep,
   gee_dep,
   m_dep,
-  icu_uc_dep
+  icu_uc_dep,
+  pangocairo_dep
 ]
 
 
