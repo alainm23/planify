@@ -158,7 +158,7 @@ msgid "Pin"
 msgstr "Fastgør"
 
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
-#: src/Services/ExportService.vala:73
+#: src/Services/ExportService.vala:57
 msgid "Deadline"
 msgstr "Tidsfrist"
 
@@ -327,7 +327,7 @@ msgstr "ingen label"
 msgid "unlabeled"
 msgstr "uden label"
 
-#: core/Objects/Item.vala:1594 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1594 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Tidsfrist:"
 
@@ -3310,6 +3310,10 @@ msgstr "Eksporter som PDF"
 msgid "Project exported as PDF"
 msgstr "Projekt eksporteret som PDF"
 
+#: src/Layouts/ProjectRow.vala:787 src/Widgets/Attachments.vala:142
+msgid "Open"
+msgstr "Åbn"
+
 #: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:89
 msgid "(No Section)"
 msgstr "(Ingen sektion)"
@@ -3750,10 +3754,6 @@ msgstr "Mig"
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
 msgstr "Tilføjelser"
-
-#: src/Widgets/Attachments.vala:142
-msgid "Open"
-msgstr "Åbn"
 
 #: src/Widgets/Attachments.vala:248
 msgid "No attachments found. Add files here."

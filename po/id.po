@@ -152,7 +152,7 @@ msgid "Pin"
 msgstr "Sematkan"
 
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
-#: src/Services/ExportService.vala:73
+#: src/Services/ExportService.vala:57
 msgid "Deadline"
 msgstr "Tenggat"
 
@@ -321,7 +321,7 @@ msgstr "tanpa label"
 msgid "unlabeled"
 msgstr "tanpa label"
 
-#: core/Objects/Item.vala:1594 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1594 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Tenggat:"
 
@@ -3306,6 +3306,10 @@ msgstr "Ekspor sebagai PDF"
 msgid "Project exported as PDF"
 msgstr "Proyek berhasil diekspor sebagai PDF"
 
+#: src/Layouts/ProjectRow.vala:787 src/Widgets/Attachments.vala:142
+msgid "Open"
+msgstr "Buka"
+
 #: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:89
 msgid "(No Section)"
 msgstr "(Tanpa Bagian)"
@@ -3742,10 +3746,6 @@ msgstr "Saya"
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
 msgstr "Lampiran"
-
-#: src/Widgets/Attachments.vala:142
-msgid "Open"
-msgstr "Buka"
 
 #: src/Widgets/Attachments.vala:248
 msgid "No attachments found. Add files here."
