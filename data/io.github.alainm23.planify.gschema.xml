@@ -418,5 +418,11 @@
             <summary>Last automatic backup date</summary>
             <description>ISO date of the last automatic backup, used to detect missed backups on startup</description>
         </key>
+
+        <key name="backup-max-count" type="i">
+            <default>30</default>
+            <summary>Maximum number of backups to keep</summary>
+            <description>When greater than zero, older backups beyond this count are removed automatically after each new backup. Zero keeps all backups.</description>
+        </key>
     </schema>
 </schemalist>
