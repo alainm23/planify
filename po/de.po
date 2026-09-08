@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-08-19 09:51+0000\n"
+"PO-Revision-Date: 2026-09-09 08:51+0000\n"
 "Last-Translator: numerfolt <numerfolt@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/de/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -337,7 +337,7 @@ msgstr "Aufgabe in die Zwischenablage kopiert"
 
 #: core/Objects/Item.vala:1636
 msgid "iCalendar Files"
-msgstr "iCalender-Dateien"
+msgstr "iCalendar-Dateien"
 
 #: core/Objects/Item.vala:1652
 msgid "Task exported successfully"
@@ -571,8 +571,8 @@ msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
-"Dieser Server erlaubt kein Erstellen von Projekten mittels CalDAV. Bitte "
-"erzeuge es direkt auf der Website deines Providers."
+"Dieser Server lässt das Erstellen von Projekten über CalDAV nicht zu. Bitte "
+"erstelle es direkt im Web-Interface Deines Kalender-Providers."
 
 #: core/Services/CalDAV/CalDAVClient.vala:834
 msgid ""
@@ -587,8 +587,8 @@ msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
-"Dieser Server erlaubt kein Löschen von Projekten mittels CalDAV. Bitte "
-"lösche es direkt auf dem Server."
+"Dieser Server unterstützt kein Löschen von Projekten via CalDAV. Bitte "
+"lösche es direkt über den Server."
 
 #: core/Services/CalDAV/CalDAVClient.vala:872
 #: core/Services/CalDAV/CalDAVClient.vala:919
@@ -1329,7 +1329,7 @@ msgstr "Wiederholen"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:162
 #: src/Dialogs/DatePicker.vala:68
 msgid "Type a date…"
-msgstr "Gib ein Datum ein…"
+msgstr "Datum eingeben…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:401
 #: core/Widgets/DeadlineButton.vala:219
@@ -1410,13 +1410,15 @@ msgstr "Letzter Tag des Monats"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:288
 msgid "Repeat from completion date"
-msgstr ""
+msgstr "Wiederhole ab dem Fertigstellungsdatum"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:290
 msgid ""
 "Calculate the next occurrence from the day you complete the task instead of "
 "its due date"
 msgstr ""
+"Berechne den nächsten Termin anhand des Tags der Fertigstellung, nicht dem "
+"Fälligkeitsdatum"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:305
 msgid "Never"
@@ -1685,11 +1687,11 @@ msgstr "In 6 Stunden"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:270
 msgid "Choose a time in the future"
-msgstr ""
+msgstr "Wähle einen Zeitpunkt in der Zukunft"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:279
 msgid "You already have a reminder at that time"
-msgstr ""
+msgstr "Zu diesem Zeitpunkt hast du bereits eine Erinnerung"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
@@ -1753,16 +1755,16 @@ msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
 msgstr ""
-"Erhalte Benachrichtigungen für deine Aufgaben durch Google Calendar, Outlook "
-"oder eine beliebige Kalender-App"
+"Erhalte mobile Benachrichtigungen für deine Aufgaben über Google Calendar, "
+"Outlook oder eine beliebige Kalender-App"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
 "Your tasks sync everywhere: phone, tablet, web browser, and any device with "
 "your calendar"
 msgstr ""
-"Deine Aufgaben werden überall synchronisiert: Smartphone, Tablet, Browser "
-"und alle anderen Geräte mit deinem Kalender"
+"Deine Aufgaben werden überall synchron gehalten: Smartphone, Tablet, "
+"Webbrowser und alle anderen Geräte mit deinem Kalender"
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
@@ -1935,11 +1937,11 @@ msgstr "Neuer Abschnitt"
 
 #: src/Dialogs/ManageSectionOrder.vala:88
 msgid "No Sections"
-msgstr ""
+msgstr "Keine Abschnitte"
 
 #: src/Dialogs/ManageSectionOrder.vala:89
 msgid "Add a section to organize your tasks"
-msgstr ""
+msgstr "Füge einen Abschnitt hinzu, um deine Aufgaben zu organisieren"
 
 #: src/Dialogs/ManageSectionOrder.vala:100
 msgid "Archived"
@@ -1957,7 +1959,7 @@ msgstr "Quelle hinzufügen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
 msgid "Task sources you sync with. Drag to reorder."
-msgstr ""
+msgstr "Aufgabenquellen, die synchronisiert werden. Zum Umsortieren ziehen."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
 msgid "Inbox Page"
@@ -1965,22 +1967,22 @@ msgstr "Posteingang-Seite"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
 msgid "Detected Accounts"
-msgstr ""
+msgstr "Gelöschte Konten"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 msgid "Accounts configured in GNOME Online Accounts"
-msgstr ""
+msgstr "Konten, die In GNOME-Online-Konten konfiguriert sind"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
 #, c-format
 msgid "%d account available to import from GNOME Online Accounts"
 msgid_plural "%d accounts available to import from GNOME Online Accounts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Konto kann aus GNOME-Online-Konten importiert werden"
+msgstr[1] "%d Konten können aus GNOME-Online-Konten importiert werden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
 msgid "Import"
-msgstr ""
+msgstr "Importieren"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:411
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
@@ -2120,7 +2122,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:273
 msgid "Not Now"
-msgstr "Nicht jetzt"
+msgstr "Jetzt nicht"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:274
 msgid "Enable Deck"
@@ -2321,11 +2323,11 @@ msgstr "Erstellt täglich um Mitternacht eine Sicherung"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:61
 msgid "Backups to Keep"
-msgstr ""
+msgstr "Anzahl der zu behaltenden Sicherungen"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
 msgid "Older backups are removed automatically. Zero keeps them all"
-msgstr ""
+msgstr "Ältere Sicherungen werden automatisch entfernt. Null behält alle"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:70
 msgid "Create Backup"
@@ -2345,11 +2347,11 @@ msgstr "Kein Backup gefunden, erstelle eins mit den Optionen oben."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:88
 msgid "Open backup folder"
-msgstr ""
+msgstr "Sicherungsordner öffnen"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:93
 msgid "Backup Location"
-msgstr ""
+msgstr "Sicherungsort"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:132
 msgid "Extra Backup Locations"
@@ -2433,11 +2435,11 @@ msgstr "Kalender Ereignisse"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:41
 msgid "Show Calendar Events"
-msgstr ""
+msgstr "Kalenderereignisse anzeigen"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:42
 msgid "Display events from your calendars in Planify"
-msgstr ""
+msgstr "Zeige Ereignisse von deinen Kalendern in Planify an"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:176
@@ -2834,7 +2836,7 @@ msgstr "Passe deine Seitenleiste an"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:122
 msgid "Manage which calendars are shown"
-msgstr ""
+msgstr "Verwalte, welche Kalender gezeigt werden"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:137
 msgid "Adding to-do's from anywhere"
@@ -2933,34 +2935,34 @@ msgstr "Löscht alle Listen, Aufgaben und Erinnerungen unwiderruflich"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "T"
-msgstr ""
+msgstr "D"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "W"
-msgstr ""
+msgstr "M"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "F"
-msgstr ""
+msgstr "F"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:57
 msgid "Last 8 weeks"
-msgstr ""
+msgstr "Letzte 8 Wochen"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:119
 #, c-format
 msgid "%d task"
 msgid_plural "%d tasks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Aufgabe"
+msgstr[1] "%d Aufgaben"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
@@ -2970,11 +2972,11 @@ msgstr "Zusammenfassung & Produktivität"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:87
 msgid "Use Scheduled Tasks as Goal"
-msgstr ""
+msgstr "Verwende geplante Aufgaben als Ziel"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:88
 msgid "Use today's scheduled tasks as your daily goal"
-msgstr ""
+msgstr "Nutze die heute geplanten Aufgaben als tägliches Ziel"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:93
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
@@ -2989,7 +2991,7 @@ msgstr "Wochenziel"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:103
 msgid "Fixed Goals"
-msgstr ""
+msgstr "Feste Ziele"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:207
 msgid "Summary Details"
@@ -3027,7 +3029,7 @@ msgstr "Weitere erstellen"
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:121
 #: src/Widgets/ProductivityMiniWidget.vala:76
 msgid "(scheduled)"
-msgstr ""
+msgstr "(geplant)"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:165
 msgid "All goals achieved! You're unstoppable"
@@ -3075,7 +3077,7 @@ msgstr "Ziele Festlegen"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:313
 msgid "Goals"
-msgstr ""
+msgstr "Ziele"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:321
 msgid "Edit Goals"
@@ -3165,8 +3167,8 @@ msgstr "Schnelle Suche"
 #, c-format
 msgid "%u result"
 msgid_plural "%u results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u Ergebnis"
+msgstr[1] "%u Ergebnisse"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:352
 msgid "Quickly switch projects and views, find tasks, search by labels"
@@ -3260,7 +3262,7 @@ msgstr "Unteraufgaben anzeigen"
 
 #: src/Layouts/ItemRow.vala:1254 src/Layouts/ItemRow.vala:1302
 msgid "Pick a Date"
-msgstr ""
+msgstr "Wähle ein Datum"
 
 #: src/Layouts/ItemRow.vala:1397 src/Layouts/ItemSidebarView.vala:513
 msgid "Use as a Note"
@@ -3288,7 +3290,7 @@ msgstr "Erstellt: %s"
 #: src/Layouts/ItemRow.vala:1631
 #, c-format
 msgid "Task completed · Next: %s"
-msgstr ""
+msgstr "Aufgabe abgeschlossen · Nächste: %s"
 
 #: src/Layouts/ItemRow.vala:2089
 msgid "Add Attachments"
@@ -3544,7 +3546,7 @@ msgstr "Für 1 Stunde schlummern"
 
 #: src/Views/Filter.vala:132 src/Views/Filter.vala:857
 msgid "All Projects"
-msgstr ""
+msgstr "Alle Projekte"
 
 #: src/Views/Filter.vala:158 src/Views/Label/Labels.vala:45
 #: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
@@ -3570,11 +3572,11 @@ msgstr "Aufgaben"
 
 #: src/Views/Filter.vala:811
 msgid "No completed tasks"
-msgstr ""
+msgstr "Keine abgeschlossenen Aufgaben"
 
 #: src/Views/Filter.vala:812
 msgid "No tasks found for the selected projects"
-msgstr ""
+msgstr "Keine Aufgaben für die gewählten Projekte gefunden"
 
 #: src/Views/Filter.vala:814
 msgid "All tasks completed!"
@@ -3586,18 +3588,18 @@ msgstr "Tolle Arbeit, nichts mehr zu tun 🎉"
 
 #: src/Views/Filter.vala:817
 msgid "No tasks found"
-msgstr ""
+msgstr "Keine Aufgaben gefunden"
 
 #: src/Views/Filter.vala:818
 msgid "No tasks match the selected filters"
-msgstr ""
+msgstr "Keine Aufgaben stimmen mit den gewählten Filtern überein"
 
 #: src/Views/Filter.vala:859
 #, c-format
 msgid "%d Project"
 msgid_plural "%d Projects"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Projekt"
+msgstr[1] "%d Projekte"
 
 #: src/Views/Filter.vala:888
 msgid "Delete Completed Task"
@@ -3620,7 +3622,7 @@ msgstr "Sortieren"
 
 #: src/Views/Filter.vala:922
 msgid "Project"
-msgstr ""
+msgstr "Projekt"
 
 #: src/Views/Filter.vala:925 src/Views/Project/Project.vala:559
 #: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:844
@@ -4071,7 +4073,7 @@ msgstr "Verwerfen"
 
 #: src/Widgets/ProductivityMiniWidget.vala:75
 msgid "No tasks scheduled"
-msgstr ""
+msgstr "Keine Aufgaben geplant"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:185
 msgid "Unarchive"
@@ -4226,17 +4228,17 @@ msgstr "'Pinnwand' öffnen"
 #: data/resources/ui/shortcuts.ui:136
 msgctxt "shortcut window"
 msgid "Open the Nth Project"
-msgstr ""
+msgstr "Öffne das Nte Projekt"
 
 #: data/resources/ui/shortcuts.ui:143
 msgctxt "shortcut window"
 msgid "Open Next Project"
-msgstr ""
+msgstr "Öffne das nächste Projekt"
 
 #: data/resources/ui/shortcuts.ui:150
 msgctxt "shortcut window"
 msgid "Open Previous Project"
-msgstr ""
+msgstr "Öffne das vorherige Projekt"
 
 #, c-format
 #~ msgid "Backup files are stored in: %s"
