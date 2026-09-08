@@ -16,12 +16,12 @@ msgstr ""
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
-#: src/Dialogs/Preferences/Pages/Backup.vala:511
+#: src/Dialogs/Preferences/Pages/Backup.vala:619
 #: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
 msgstr ""
 
-#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:515
+#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:623
 msgid "Sections"
 msgstr ""
 
@@ -31,7 +31,7 @@ msgstr ""
 
 #: core/Enum.vala:177 core/Enum.vala:548 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
-#: src/Dialogs/Preferences/Pages/Backup.vala:523 src/Layouts/ItemBoard.vala:825
+#: src/Dialogs/Preferences/Pages/Backup.vala:631 src/Layouts/ItemBoard.vala:825
 #: src/Layouts/ItemRow.vala:1262
 msgid "Labels"
 msgstr ""
@@ -363,7 +363,7 @@ msgstr ""
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
-#: src/Layouts/ItemSidebarView.vala:604 src/Services/BackupManager.vala:224
+#: src/Layouts/ItemSidebarView.vala:604 src/Services/BackupManager.vala:225
 msgid "This can not be undone"
 msgstr ""
 
@@ -378,9 +378,9 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:274
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:318
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
-#: src/Dialogs/Preferences/Pages/Backup.vala:594
+#: src/Dialogs/Preferences/Pages/Backup.vala:702
 #: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:607
-#: src/Services/BackupManager.vala:227 src/Views/Filter.vala:900
+#: src/Services/BackupManager.vala:228 src/Views/Filter.vala:900
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344
@@ -392,8 +392,8 @@ msgstr ""
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
-#: src/Dialogs/Preferences/Pages/Backup.vala:360
-#: src/Layouts/ItemSidebarView.vala:608 src/Services/BackupManager.vala:228
+#: src/Dialogs/Preferences/Pages/Backup.vala:468
+#: src/Layouts/ItemSidebarView.vala:608 src/Services/BackupManager.vala:229
 #: src/Views/Filter.vala:901 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
@@ -2209,117 +2209,122 @@ msgstr ""
 msgid "Font Size"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:29
+#: src/Dialogs/Preferences/Pages/Backup.vala:34
 #: src/Dialogs/Preferences/PreferencesWindow.vala:147
 msgid "Backups"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:39
+#: src/Dialogs/Preferences/Pages/Backup.vala:44
 msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:50
+#: src/Dialogs/Preferences/Pages/Backup.vala:55
 msgid "Automatic Daily Backup"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:51
+#: src/Dialogs/Preferences/Pages/Backup.vala:56
 msgid "Creates a backup every day at midnight"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:58
-msgid "Create Backup"
+#: src/Dialogs/Preferences/Pages/Backup.vala:61
+msgid "Backups to Keep"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
+msgid "Older backups are removed automatically. Zero keeps them all"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:70
+msgid "Create Backup"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:74
 msgid "Import Backup"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:64
+#: src/Dialogs/Preferences/Pages/Backup.vala:76
 msgid "Backup Files"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:67
+#: src/Dialogs/Preferences/Pages/Backup.vala:79
 msgid "No backups found, create one clicking the button above."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:72
-#, c-format
-msgid "Backup files are stored in: %s"
+#: src/Dialogs/Preferences/Pages/Backup.vala:88
+msgid "Open backup folder"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:81
-msgid ""
-"Only the last 30 backups are shown here. To access older backups, open the "
-"backup folder directly."
+#: src/Dialogs/Preferences/Pages/Backup.vala:93
+msgid "Backup Location"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:97
+#: src/Dialogs/Preferences/Pages/Backup.vala:132
 msgid "Extra Backup Locations"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:100
+#: src/Dialogs/Preferences/Pages/Backup.vala:135
 msgid "No extra locations added yet."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:112
+#: src/Dialogs/Preferences/Pages/Backup.vala:147
 msgid ""
 "Backup copies will also be saved to these folders after each backup is "
 "created."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:121
+#: src/Dialogs/Preferences/Pages/Backup.vala:156
 msgid "Migrate"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:123
+#: src/Dialogs/Preferences/Pages/Backup.vala:158
 msgid "Migrate From Planner"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:163
+#: src/Dialogs/Preferences/Pages/Backup.vala:212
 msgid "The Backup was created successfully."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:180
+#: src/Dialogs/Preferences/Pages/Backup.vala:229
 msgid "Tasks Migrate Successfully"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:184
+#: src/Dialogs/Preferences/Pages/Backup.vala:233
 msgid "The database file does not exist."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:261
+#: src/Dialogs/Preferences/Pages/Backup.vala:369
 msgid "Selected file is invalid"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:359
+#: src/Dialogs/Preferences/Pages/Backup.vala:467
 msgid "Download"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:495
-#: src/Dialogs/Preferences/Pages/Backup.vala:536
-#: src/Dialogs/Preferences/Pages/Backup.vala:595
+#: src/Dialogs/Preferences/Pages/Backup.vala:603
+#: src/Dialogs/Preferences/Pages/Backup.vala:644
+#: src/Dialogs/Preferences/Pages/Backup.vala:703
 msgid "Restore Backup"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:507 src/Dialogs/Project.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:615 src/Dialogs/Project.vala:450
 msgid "Sources"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:519
+#: src/Dialogs/Preferences/Pages/Backup.vala:627
 msgid "To-Dos"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:580
+#: src/Dialogs/Preferences/Pages/Backup.vala:688
 msgid "This will replace all your current data"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:589
+#: src/Dialogs/Preferences/Pages/Backup.vala:697
 msgid "Restore backup"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:590
+#: src/Dialogs/Preferences/Pages/Backup.vala:698
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
@@ -3356,32 +3361,32 @@ msgstr ""
 msgid "Reset Database"
 msgstr ""
 
-#: src/Services/BackupManager.vala:153
+#: src/Services/BackupManager.vala:154
 msgid "Automatic backup failed"
 msgstr ""
 
-#: src/Services/BackupManager.vala:199
+#: src/Services/BackupManager.vala:200
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr ""
 
-#: src/Services/BackupManager.vala:223
+#: src/Services/BackupManager.vala:224
 msgid "Delete Backup"
 msgstr ""
 
-#: src/Services/BackupManager.vala:355
+#: src/Services/BackupManager.vala:394
 msgid "Backup Successfully Imported"
 msgstr ""
 
-#: src/Services/BackupManager.vala:356
+#: src/Services/BackupManager.vala:395
 msgid "Planify will restart to apply the changes"
 msgstr ""
 
-#: src/Services/BackupManager.vala:359
+#: src/Services/BackupManager.vala:398
 msgid "Restart Now"
 msgstr ""
 
-#: src/Services/BackupManager.vala:373
+#: src/Services/BackupManager.vala:412
 msgid "Planify Backup Files"
 msgstr ""
 
