@@ -59,6 +59,11 @@ if is_libical4
   add_project_arguments('-D', 'IS_LIBICAL4', language: 'vala')
 endif
 
+# Datetime.vala reads the locale's short date format via Posix.nl_langinfo, so
+# the posix vapi must be linked for every build variant (it is otherwise only
+# pulled in transitively by the evolution-only CalendarEvents.vala).
+add_project_arguments(['--pkg=posix'], language: 'vala')
+
 if icu_uc_dep.found ()
   add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
 endif
