@@ -18,10 +18,12 @@ msgstr ""
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
 #: src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
+#: src/Dialogs/Preferences/Pages/Backup.vala:619
 msgid "Projects"
 msgstr "Projeler"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:515
+#: src/Dialogs/Preferences/Pages/Backup.vala:623
 msgid "Sections"
 msgstr "Bölümler"
 
@@ -32,7 +34,7 @@ msgstr "Görevler"
 #: core/Enum.vala:177 core/Enum.vala:548 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:523 src/Layouts/ItemBoard.vala:825
-#: src/Layouts/ItemRow.vala:1262
+#: src/Layouts/ItemRow.vala:1262 src/Dialogs/Preferences/Pages/Backup.vala:631
 msgid "Labels"
 msgstr "Etiketler"
 
@@ -366,6 +368,7 @@ msgstr "%s Etiketini Sil"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
 #: src/Layouts/ItemSidebarView.vala:604 src/Services/BackupManager.vala:224
+#: src/Services/BackupManager.vala:225
 msgid "This can not be undone"
 msgstr "Bu geri alınamaz"
 
@@ -387,6 +390,8 @@ msgstr "Bu geri alınamaz"
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
+#: src/Dialogs/Preferences/Pages/Backup.vala:702
+#: src/Services/BackupManager.vala:228
 msgid "Cancel"
 msgstr "İptal"
 
@@ -400,6 +405,8 @@ msgstr "İptal"
 #: src/Views/Filter.vala:901 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
+#: src/Dialogs/Preferences/Pages/Backup.vala:468
+#: src/Services/BackupManager.vala:229
 msgid "Delete"
 msgstr "Sil"
 
@@ -2341,10 +2348,12 @@ msgstr "Yazı Tipi Boyutu"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:29
 #: src/Dialogs/Preferences/PreferencesWindow.vala:147
+#: src/Dialogs/Preferences/Pages/Backup.vala:34
 msgid "Backups"
 msgstr "Yedekler"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:39
+#: src/Dialogs/Preferences/Pages/Backup.vala:44
 msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
@@ -2362,18 +2371,22 @@ msgid "Creates a backup every day at midnight"
 msgstr "Her gün geceyarısı bir yedek oluşturur"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:58
+#: src/Dialogs/Preferences/Pages/Backup.vala:70
 msgid "Create Backup"
 msgstr "Yedek Oluştur"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
+#: src/Dialogs/Preferences/Pages/Backup.vala:74
 msgid "Import Backup"
 msgstr "Yedeği İçe Aktar"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:64
+#: src/Dialogs/Preferences/Pages/Backup.vala:76
 msgid "Backup Files"
 msgstr "Yedek Dosyaları"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:67
+#: src/Dialogs/Preferences/Pages/Backup.vala:79
 msgid "No backups found, create one clicking the button above."
 msgstr ""
 "Hiç yedekleme bulunamadı, üstteki butona tıklayarak bir tane oluşturun."
@@ -2408,44 +2421,56 @@ msgstr ""
 "yedeklenecek."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:121
+#: src/Dialogs/Preferences/Pages/Backup.vala:156
 msgid "Migrate"
 msgstr "Geçiş yap"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:123
+#: src/Dialogs/Preferences/Pages/Backup.vala:158
 msgid "Migrate From Planner"
 msgstr "Planlayıcıdan Geçiş Yapın"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:163
+#: src/Dialogs/Preferences/Pages/Backup.vala:212
 msgid "The Backup was created successfully."
 msgstr "Yedekleme başarıyla oluşturuldu."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:180
+#: src/Dialogs/Preferences/Pages/Backup.vala:229
 msgid "Tasks Migrate Successfully"
 msgstr "Görevler Başarıyla Eşzamanlandı"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:184
+#: src/Dialogs/Preferences/Pages/Backup.vala:233
 msgid "The database file does not exist."
 msgstr "Veritabanı dosyası yok."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:261
+#: src/Dialogs/Preferences/Pages/Backup.vala:369
 msgid "Selected file is invalid"
 msgstr "Seçilen dosya geçersiz"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:359
+#: src/Dialogs/Preferences/Pages/Backup.vala:467
 msgid "Download"
 msgstr "İndir"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:495
 #: src/Dialogs/Preferences/Pages/Backup.vala:536
 #: src/Dialogs/Preferences/Pages/Backup.vala:595
+#: src/Dialogs/Preferences/Pages/Backup.vala:603
+#: src/Dialogs/Preferences/Pages/Backup.vala:644
+#: src/Dialogs/Preferences/Pages/Backup.vala:703
 msgid "Restore Backup"
 msgstr "Yedeği Geri Yükle"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:507 src/Dialogs/Project.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:615
 msgid "Sources"
 msgstr "Kaynak"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:519
+#: src/Dialogs/Preferences/Pages/Backup.vala:627
 msgid "To-Dos"
 msgstr "Yapılacak Ekle"
 
@@ -2454,10 +2479,12 @@ msgid "This will replace all your current data"
 msgstr "Bu şu anki tüm verinizin yerine geçecek"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:589
+#: src/Dialogs/Preferences/Pages/Backup.vala:697
 msgid "Restore backup"
 msgstr "Yedeği geri yükle"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:590
+#: src/Dialogs/Preferences/Pages/Backup.vala:698
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
@@ -3522,32 +3549,32 @@ msgstr ""
 msgid "Reset Database"
 msgstr "Tümünü sıfırla"
 
-#: src/Services/BackupManager.vala:153
+#: src/Services/BackupManager.vala:153 src/Services/BackupManager.vala:154
 msgid "Automatic backup failed"
 msgstr ""
 
-#: src/Services/BackupManager.vala:199
+#: src/Services/BackupManager.vala:199 src/Services/BackupManager.vala:200
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr ""
 
-#: src/Services/BackupManager.vala:223
+#: src/Services/BackupManager.vala:223 src/Services/BackupManager.vala:224
 msgid "Delete Backup"
 msgstr "Yedek Oluştur"
 
-#: src/Services/BackupManager.vala:355
+#: src/Services/BackupManager.vala:355 src/Services/BackupManager.vala:394
 msgid "Backup Successfully Imported"
 msgstr "Yedek Başarıyla İçe Aktarıldı"
 
-#: src/Services/BackupManager.vala:356
+#: src/Services/BackupManager.vala:356 src/Services/BackupManager.vala:395
 msgid "Planify will restart to apply the changes"
 msgstr ""
 
-#: src/Services/BackupManager.vala:359
+#: src/Services/BackupManager.vala:359 src/Services/BackupManager.vala:398
 msgid "Restart Now"
 msgstr ""
 
-#: src/Services/BackupManager.vala:373
+#: src/Services/BackupManager.vala:373 src/Services/BackupManager.vala:412
 msgid "Planify Backup Files"
 msgstr "Planify Yedek Dosyaları"
 
@@ -4313,6 +4340,22 @@ msgstr[1] ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
 msgid "Import"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:61
+msgid "Backups to Keep"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:62
+msgid "Older backups are removed automatically. Zero keeps them all"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:88
+msgid "Open backup folder"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:93
+msgid "Backup Location"
 msgstr ""
 
 # # c-format
