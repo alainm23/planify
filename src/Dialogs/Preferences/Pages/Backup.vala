@@ -23,9 +23,10 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
     private Layouts.HeaderItem backups_group;
     private Layouts.HeaderItem extra_group;
 
-    private Gtk.Box pagination_box;
+    private Adw.ToggleGroup pagination_group;
+    private bool updating_pagination = false;
     private int current_page = 0;
-    private const int PAGE_SIZE = 7;
+    private const int PAGE_SIZE = 10;
 
     public Backup (Adw.PreferencesDialog preferences_dialog) {
         Object (
@@ -102,18 +103,30 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         };
         location_group.add (location_row);
 
-        pagination_box = new Gtk.Box (HORIZONTAL, 6) {
+        pagination_group = new Adw.ToggleGroup () {
             halign = CENTER,
-            margin_top = 6
+            margin_top = 6,
+            can_shrink = false
         };
-        pagination_box.add_css_class ("linked");
-        pagination_box.visible = false;
+        pagination_group.visible = false;
+
+        pagination_group.notify["active"].connect (() => {
+            if (updating_pagination) {
+                return;
+            }
+
+            int page = (int) pagination_group.active;
+            if (page != current_page) {
+                current_page = page;
+                render_backups_page ();
+            }
+        });
 
         var backups_box = new Gtk.Box (VERTICAL, 6) {
             margin_top = 12
         };
         backups_box.append (backups_group);
-        backups_box.append (pagination_box);
+        backups_box.append (pagination_group);
         backups_box.append (location_group);
 
         extra_group = new Layouts.HeaderItem (_("Extra Backup Locations")) {
@@ -317,44 +330,29 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         build_pagination (total_pages);
     }
 
-    // Rebuild the numbered page buttons. Hidden when there is only one page.
+    // Rebuild the numbered page toggles. Hidden when there is only one page.
     private void build_pagination (int total_pages) {
-        Gtk.Widget? child = pagination_box.get_first_child ();
-        while (child != null) {
-            Gtk.Widget? next = child.get_next_sibling ();
-            pagination_box.remove (child);
-            child = next;
-        }
+        updating_pagination = true;
+
+        pagination_group.remove_all ();
 
         if (total_pages <= 1) {
-            pagination_box.visible = false;
+            pagination_group.visible = false;
+            updating_pagination = false;
             return;
         }
 
-        pagination_box.visible = true;
-
         for (int page = 0; page < total_pages; page++) {
-            int page_index = page; // capture for the closure
-            var button = new Gtk.Button.with_label ((page + 1).to_string ()) {
-                width_request = 36
+            var toggle = new Adw.Toggle () {
+                label = (page + 1).to_string ()
             };
-            button.add_css_class ("pagination-button");
-
-            if (page_index == current_page) {
-                button.add_css_class ("suggested-action");
-            } else {
-                button.add_css_class ("flat");
-            }
-
-            button.clicked.connect (() => {
-                if (page_index != current_page) {
-                    current_page = page_index;
-                    render_backups_page ();
-                }
-            });
-
-            pagination_box.append (button);
+            pagination_group.add (toggle);
         }
+
+        pagination_group.active = current_page;
+        pagination_group.visible = true;
+
+        updating_pagination = false;
     }
 
     private void connect_backup_group_signals () {
