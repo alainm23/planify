@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-09-06 16:45+0000\n"
+"PO-Revision-Date: 2026-09-09 08:51+0000\n"
 "Last-Translator: Akın Birdal <reend21@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/tr/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.1.dev0\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -1986,9 +1986,8 @@ msgid "Manage Sections"
 msgstr "Bölüm Sıralamasını Yönet"
 
 #: src/Dialogs/ManageSectionOrder.vala:55
-#, fuzzy
 msgid "You can sort your sections by dragging and dropping"
-msgstr "Görünümlerinizi sürükleyip bırakarak sıralayabilirsiniz"
+msgstr "Bölümlerinizi sürükleyip bırakarak sıralayabilirsiniz"
 
 #: src/Dialogs/ManageSectionOrder.vala:81 src/Dialogs/Section.vala:46
 #: src/Views/Project/Project.vala:258 src/Views/Project/Project.vala:359
@@ -2063,6 +2062,8 @@ msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Bu hesap şu anki gelen kutunuzu içerir. Önce gelen kutusu projenizi "
+"değiştirin."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:454
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
@@ -2098,9 +2099,8 @@ msgid "Password"
 msgstr "Parola"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
-#, fuzzy
 msgid "Calendar Home URL"
-msgstr "Takvim Etkinlikleri"
+msgstr "Takvim Ev URL'si"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
 msgid "Advanced"
@@ -2611,7 +2611,7 @@ msgstr "Başlangıçta Çalıştır"
 
 #: src/Dialogs/Preferences/Pages/General.vala:70
 msgid "Launch Planify automatically when you start your computer"
-msgstr ""
+msgstr "Planify'ı bilgisayarı açtığımda otomatik olarak başlat"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run in Background"
@@ -2619,17 +2619,19 @@ msgstr "Arka Planda Çalıştır"
 
 #: src/Dialogs/Preferences/Pages/General.vala:83
 msgid "Keep Planify running in the system tray when closing the window"
-msgstr ""
+msgstr "Planify'ı kapatırken sistem tepsisinde açık tutun"
 
 #: src/Dialogs/Preferences/Pages/General.vala:91
 msgid "GNOME Shell Search"
-msgstr ""
+msgstr "GNOME Shell Araması"
 
 #: src/Dialogs/Preferences/Pages/General.vala:92
 msgid ""
 "Search tasks and projects directly from GNOME Shell. Enable it in Settings → "
 "Search"
 msgstr ""
+"Görev ve projeleri direkt olarak GNOME Shell üzerinden arayın. Ayarlar → "
+"Arama kısmından etkinleştirilebilir"
 
 #: src/Dialogs/Preferences/Pages/General.vala:97
 msgid "Date and Time"
@@ -2653,15 +2655,14 @@ msgstr "Hafta Haşlangıcı"
 
 #: src/Dialogs/Preferences/Pages/General.vala:132
 msgid "Smart Date Recognition"
-msgstr ""
+msgstr "Akıllı Tarih Tanımlama"
 
 #: src/Dialogs/Preferences/Pages/General.vala:133
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr ""
+msgstr "\"yarın\" veya \"haftaya\" gibi tarihleri otomatik tespit eder"
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:64
-#, fuzzy
 msgid "Home View"
 msgstr "Ana Sayfa"
 
@@ -2701,7 +2702,7 @@ msgstr "İşaretlenmezse, öntanımlı proje Gelen Kutusu olarak seçilir"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
 msgid "Keep Task Properties"
-msgstr ""
+msgstr "Görev Önceliklerini Koru"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:105
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
@@ -2730,7 +2731,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:49
 msgid "Show filters in a simple list instead of a grid"
-msgstr ""
+msgstr "Izgara görünümü yerine filtreleri basit bir listede görüntüleyin"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:62
 msgid "Show in Sidebar"
@@ -2746,23 +2747,20 @@ msgid "Task Settings"
 msgstr "Görev Ayarları"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:40
-#, fuzzy
 msgid "Complete Instantly"
-msgstr "Anında"
+msgstr "Anında Tamamla"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:41
-#, fuzzy
 msgid "Complete with Undo"
-msgstr "Tamamlandı"
+msgstr "Geri Alma ile Tamamla"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:44
-#, fuzzy
 msgid "Task Completion"
-msgstr "Görevi Tamamla"
+msgstr "Görev Tamamlama"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:45
 msgid "Choose how tasks behave when marked as complete"
-msgstr ""
+msgstr "Tamamlanmış olarak işaretlendiğindde görevlerin nasıl davranacağını seç"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:52
 msgid "Priority 1"
@@ -2786,7 +2784,7 @@ msgstr "Tamamlanan Görevleri Göster"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:77
 msgid "Start"
-msgstr ""
+msgstr "Başla"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:81
 msgid "New Task Position"
@@ -2798,7 +2796,7 @@ msgstr "Tamamlanan Görevleri Göster"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:89
 msgid "Keep all completed subtasks visible without collapsing them"
-msgstr ""
+msgstr "Onları bozmadan tüm tamamlanmış alt görevleri görünür tut"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:96
 msgid "Task Complete Tone"
@@ -2809,22 +2807,24 @@ msgid "Play a sound when tasks are completed"
 msgstr "Görevler tamamlandığında bir ses çalın"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:104
-#, fuzzy
 msgid "Open Tasks in Sidebar View"
-msgstr "Görevi Kenar Çubuğu Görünümünde Açın"
+msgstr "Görevleri Kenar Çubuğu Görünümünde Açın"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:105
 msgid ""
 "Always display task details in the sidebar instead of expanding in list view."
 msgstr ""
+"Görev detaylarını liste görünümde genişletmek yerine her zaman kenar "
+"çubuğunda görüntüle."
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:112
 msgid "Single Task Focus Mode"
-msgstr ""
+msgstr "Tek Görevli Odak Modu"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:113
 msgid "Allow only one task to be expanded at a time in list view"
 msgstr ""
+"Liste görünümünde tek bir seferde sadece bir görevin genişlemesine izin verin"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:122
 msgid "Enable Markdown Formatting"
@@ -2835,23 +2835,24 @@ msgid "Toggle Markdown support for tasks on or off"
 msgstr "Görevler için Markdown desteğini açma veya kapatma"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:130
-#, fuzzy
 msgid "Always Show Details Sidebar"
-msgstr "Kenar Çubuğunda Göster"
+msgstr "Detayları Her Zaman Yan Panelde Göster"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:131
 msgid ""
 "Keep the details sidebar always visible for faster task navigation, without "
 "repeatedly opening and closing it"
 msgstr ""
+"Kenar çubuğunu görevler arasında daha hızlı gezinmek için hep açık tut, "
+"ikidebir açıp kapatmak yerine"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:138
 msgid "Enable Spell Checking"
-msgstr ""
+msgstr "Yazım Denetimini Etkinleştir"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:139
 msgid "Check spelling in task descriptions and notes"
-msgstr ""
+msgstr "Görev açıklamaları ve notlarda yazım denetimini etkinleştir"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
 #: src/Dialogs/Project.vala:235
@@ -2860,7 +2861,7 @@ msgstr "Etkin"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:164
 msgid "Automatic reminders"
-msgstr "Zamanlı hatırlatıcılar ayarlayın!"
+msgstr "Otomatik hatırlatıcılar"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:166
 msgid ""
@@ -2879,7 +2880,7 @@ msgstr "Gözde yapılacaklar sağlayıcılarınızla eşzamanlayın"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:65
 msgid "Set the view shown at first launch"
-msgstr ""
+msgstr "İlk başlatmada gösterilecek görünümü seç"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:80
 msgid "Customize to your liking"
@@ -2891,7 +2892,7 @@ msgstr "Kenar çubuğunuzu özelleştirin"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:122
 msgid "Manage which calendars are shown"
-msgstr ""
+msgstr "Hangi takvimlerin görüntüleneceğini yönet"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:137
 msgid "Adding to-do's from anywhere"
@@ -2899,7 +2900,7 @@ msgstr "Her yerden yapılacaklar ekleme"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:148
 msgid "Backup or migrate from Planner."
-msgstr "Planlayıcı'dan yedekleme veya taşıma"
+msgstr "Planlayıcı'dan yedekleme yap veya taşı."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:154
 msgid "Create Tutorial Project"
@@ -2915,15 +2916,15 @@ msgstr "Bana bir içecek ısmarlamak ister misin?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:187
 msgid "Report Issue or Request Feature"
-msgstr ""
+msgstr "Sorun Bildir veya Özellik Rica et"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:188
 msgid "Share bugs or ideas on GitHub"
-msgstr ""
+msgstr "Github'da hatalar veya fikirler paylaşın"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:214
 msgid "Get Involved"
-msgstr ""
+msgstr "Topluluğa Katılın"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:224
 msgid "Reach Us"
@@ -2948,7 +2949,7 @@ msgstr "Sevginizi paylaşın"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:262
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:263
 msgid "Discuss and share your feedback"
@@ -2980,7 +2981,7 @@ msgstr "Öğretici proje oluşturuldu"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:334
 msgid "Delete All Data?"
-msgstr "Planify Verilerini Sil"
+msgstr "Tüm Veriyi Sil?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:335
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
@@ -2990,40 +2991,40 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "T"
-msgstr ""
+msgstr "T"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "W"
-msgstr ""
+msgstr "W"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "F"
-msgstr ""
+msgstr "F"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:34
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:57
 msgid "Last 8 weeks"
-msgstr ""
+msgstr "Son 8 hafta"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:119
 #, c-format
 msgid "%d task"
 msgid_plural "%d tasks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d görevi"
+msgstr[1] "%d görevleri"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
 #: src/MainWindow.vala:774
 msgid "Summary & Productivity"
-msgstr ""
+msgstr "Özet & Verimlilik"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:87
 msgid "Use Scheduled Tasks as Goal"
