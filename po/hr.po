@@ -165,7 +165,7 @@ msgid "Pin"
 msgstr "Prikvači"
 
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
-#: src/Services/ExportService.vala:73
+#: src/Services/ExportService.vala:57
 msgid "Deadline"
 msgstr "Rok"
 
@@ -334,7 +334,7 @@ msgstr "nema etikete"
 msgid "unlabeled"
 msgstr "bez etikete"
 
-#: core/Objects/Item.vala:1594 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1594 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Rok:"
 
@@ -3324,6 +3324,10 @@ msgstr "Izvezi kao PDF"
 msgid "Project exported as PDF"
 msgstr "Projekt je izvezen kao PDF"
 
+#: src/Layouts/ProjectRow.vala:787 src/Widgets/Attachments.vala:142
+msgid "Open"
+msgstr "Otvori"
+
 #: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:89
 msgid "(No Section)"
 msgstr "(Nema odjeljka)"
@@ -3767,10 +3771,6 @@ msgstr "Ja"
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
 msgstr "Prilozi"
-
-#: src/Widgets/Attachments.vala:142
-msgid "Open"
-msgstr "Otvori"
 
 #: src/Widgets/Attachments.vala:248
 msgid "No attachments found. Add files here."

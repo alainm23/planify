@@ -39,44 +39,32 @@ public class Services.ExportService : GLib.Object {
         double y = MARGIN;
 
         // Project name
-        cr.select_font_face ("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.BOLD);
-        cr.set_font_size (24);
-        cr.set_source_rgb (0, 0, 0);
-        y += 24;
-        cr.move_to (MARGIN, y);
-        cr.show_text (project.name);
+        y += draw_markup (cr, "<b>%s</b>".printf (escape (project.name)),
+                          MARGIN, y, 24, PAGE_WIDTH - MARGIN * 2, "#000000");
 
         // Description
         if (project.description != "") {
-            y += 24;
-            cr.select_font_face ("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.NORMAL);
-            cr.set_font_size (11);
-            cr.set_source_rgb (0.4, 0.4, 0.4);
-
-            foreach (string line in wrap_text (cr, project.description, PAGE_WIDTH - MARGIN * 2)) {
-                cr.move_to (MARGIN, y);
-                cr.show_text (line);
-                y += 16;
-            }
+            y += 8;
+            y += draw_markup (cr, escape (project.description),
+                              MARGIN, y, 11, PAGE_WIDTH - MARGIN * 2, "#666666");
         }
 
         // Due date
         if (project.due_date != "") {
-            y += 6;
-            cr.select_font_face ("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.NORMAL);
-            cr.set_font_size (10);
-            cr.set_source_rgb (0.3, 0.3, 0.3);
-            cr.move_to (MARGIN, y);
-
             var datetime = Utils.Datetime.get_date_from_string (project.due_date);
             if (datetime != null) {
-                cr.show_text ("%s: %s".printf (_("Deadline"), Utils.Datetime.get_short_date_format_from_date (datetime)));
+                y += 6;
+                string due = "%s: %s".printf (_("Deadline"),
+                    Utils.Datetime.get_short_date_format_from_date (datetime));
+                y += draw_markup (cr, escape (due), MARGIN, y, 10,
+                                  PAGE_WIDTH - MARGIN * 2, "#4d4d4d");
             }
         }
 
         // Tasks without section
         if (project.items.size > 0) {
-            y += 12;
+            // Give the first task more air when there was no description above it.
+            y += project.description != "" ? 12 : 24;
             y = draw_items (cr, surface, project.items, y, MARGIN);
         }
 
@@ -94,19 +82,12 @@ public class Services.ExportService : GLib.Object {
                 y = MARGIN;
             }
 
-            if (is_first_section && project.items.size <= 0) {
-                y += 24;
-            } else {
-                y += 12;
-            }
-
+            y += (is_first_section && project.items.size <= 0) ? 24 : 12;
             is_first_section = false;
-            cr.select_font_face ("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.BOLD);
-            cr.set_font_size (11);
-            cr.set_source_rgb (0, 0, 0);
-            cr.move_to (MARGIN, y);
-            cr.show_text (section.name);
-            y += 24;
+
+            y += draw_markup (cr, "<b>%s</b>".printf (escape (section.name)),
+                              MARGIN, y, 11, PAGE_WIDTH - MARGIN * 2, "#000000");
+            y += 8;
 
             if (section.items.size > 0) {
                 y = draw_items (cr, surface, section.items, y, MARGIN);
@@ -126,72 +107,60 @@ public class Services.ExportService : GLib.Object {
                 y = MARGIN;
             }
 
-            string checkbox = item.checked ? "- [x]" : "- [ ]";
+            // Build the whole task line as one Pango markup string so emoji,
+            // per-span colors and wrapping are all resolved together.
+            var markup = new StringBuilder ();
 
-            cr.select_font_face ("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.NORMAL);
-            cr.set_font_size (11);
-            cr.set_source_rgb (0.3, 0.3, 0.3);
-            cr.move_to (x, y);
-            cr.show_text (checkbox);
+            // Checkbox
+            markup.append (item.checked ? "- [x] " : "- [ ] ");
 
-            Cairo.TextExtents extents;
-            cr.text_extents (checkbox + " ", out extents);
-            double text_x = x + extents.x_advance;
-
-            // Due date
+            // Due date prefix
             if (item.has_due) {
-                string date_str = "[%s] ".printf (Utils.Datetime.get_relative_date_from_date (item.due.datetime));
-                cr.set_source_rgb (0.4, 0.4, 0.4);
-                cr.set_font_size (9);
-                cr.move_to (text_x, y);
-                cr.show_text (date_str);
-
-                Cairo.TextExtents date_extents;
-                cr.text_extents (date_str, out date_extents);
-                text_x += date_extents.x_advance;
+                string date_str = "[%s] ".printf (
+                    Utils.Datetime.get_relative_date_from_date (item.due.datetime));
+                markup.append ("<span size='9000' foreground='#666666'>%s</span>"
+                    .printf (escape (date_str)));
             }
 
             // Title
-            cr.set_font_size (11);
-            if (item.checked) {
-                cr.set_source_rgb (0.5, 0.5, 0.5);
-            } else {
-                cr.set_source_rgb (0, 0, 0);
-            }
-
-            cr.move_to (text_x, y);
-            cr.show_text (item.content);
+            string title_color = item.checked ? "#808080" : "#000000";
+            markup.append ("<span foreground='%s'>%s</span>"
+                .printf (title_color, escape (item.content)));
 
             // Priority
             if (item.priority != Constants.PRIORITY_4) {
-                string priority_str = " (P%d)".printf (4 - item.priority + 1);
-                Cairo.TextExtents content_extents;
-                cr.text_extents (item.content, out content_extents);
-
-                cr.set_font_size (9);
-                set_priority_color (cr, item.priority);
-                cr.move_to (text_x + content_extents.x_advance, y);
-                cr.show_text (priority_str);
-
-                Cairo.TextExtents priority_extents;
-                cr.text_extents (priority_str, out priority_extents);
-                text_x += content_extents.x_advance + priority_extents.x_advance;
-            } else {
-                Cairo.TextExtents content_extents;
-                cr.text_extents (item.content, out content_extents);
-                text_x += content_extents.x_advance;
+                markup.append ("<span size='9000' foreground='%s'> (P%d)</span>"
+                    .printf (priority_hex (item.priority), 4 - item.priority + 1));
             }
 
             // Deadline
             if (item.has_deadline) {
-                string deadline_str = " · %s %s".printf (_("Deadline:"), Utils.Datetime.get_relative_time_from_date (item.deadline_datetime));
-                cr.set_font_size (9);
-                cr.set_source_rgb (0.5, 0.5, 0.5);
-                cr.move_to (text_x, y);
-                cr.show_text (deadline_str);
+                string deadline_str = " · %s %s".printf (_("Deadline:"),
+                    Utils.Datetime.get_relative_time_from_date (item.deadline_datetime));
+                markup.append ("<span size='9000' foreground='#808080'>%s</span>"
+                    .printf (escape (deadline_str)));
             }
 
-            y += 20;
+            // Labels — each in its own color, appended after the title.
+            foreach (Objects.Label label in item.labels) {
+                markup.append ("<span size='9000' foreground='%s'>  %s</span>"
+                    .printf (Util.get_default ().get_color (label.color), escape (label.name)));
+            }
+
+            double line_h = draw_markup (cr, markup.str, x, y, 11,
+                                         PAGE_WIDTH - MARGIN - x, "#000000");
+            y += line_h;
+
+            // Description — indented under the task text.
+            if (item.description.strip () != "") {
+                y += 3;
+                double desc_x = x + 22; // roughly the checkbox width, aligns under the title
+                y += draw_markup (cr, escape (item.description), desc_x, y, 9,
+                                  PAGE_WIDTH - MARGIN - desc_x, "#808080");
+                y += 4;
+            } else {
+                y += 6;
+            }
 
             // Sub-items
             if (item.items.size > 0) {
@@ -202,54 +171,59 @@ public class Services.ExportService : GLib.Object {
         return y;
     }
 
-    private Gee.ArrayList<string> wrap_text (Cairo.Context cr, string text, double max_width) {
-        var lines = new Gee.ArrayList<string> ();
-        string[] paragraphs = text.split ("\n");
+    /**
+     * Render Pango markup at (x, y) wrapped to `wrap_width`, using the system
+     * font stack (so emoji and missing glyphs fall back correctly). Returns the
+     * height consumed so the caller can advance y.
+     */
+    private double draw_markup (Cairo.Context cr, string markup, double x, double y,
+                                int size_pt, double wrap_width, string default_hex) {
+        var layout = Pango.cairo_create_layout (cr);
 
-        foreach (string paragraph in paragraphs) {
-            if (paragraph.strip () == "") {
-                lines.add ("");
-                continue;
-            }
+        // Pango defaults to 96 DPI, but a PDF surface works in 72-point units,
+        // so sizes came out ~33% too large. Pin the layout's font resolution to
+        // 72 DPI so a Pango size in points matches Cairo's user-space points.
+        Pango.cairo_context_set_resolution (layout.get_context (), 72.0);
 
-            string[] words = paragraph.split (" ");
-            string current_line = "";
+        var font = new Pango.FontDescription ();
+        font.set_family ("Sans");
+        font.set_size (size_pt * Pango.SCALE);
+        layout.set_font_description (font);
 
-            foreach (string word in words) {
-                string test_line = current_line == "" ? word : current_line + " " + word;
-                Cairo.TextExtents extents;
-                cr.text_extents (test_line, out extents);
+        layout.set_width ((int) (wrap_width * Pango.SCALE));
+        layout.set_wrap (Pango.WrapMode.WORD_CHAR); // wrap on words, break long words too
 
-                if (extents.width > max_width && current_line != "") {
-                    lines.add (current_line);
-                    current_line = word;
-                } else {
-                    current_line = test_line;
-                }
-            }
-
-            if (current_line != "") {
-                lines.add (current_line);
-            }
+        try {
+            layout.set_markup (markup, -1);
+        } catch (Error e) {
+            // Fall back to plain text if the markup is somehow invalid.
+            layout.set_text (markup, -1);
         }
 
-        return lines;
+        var rgba = Gdk.RGBA ();
+        if (!rgba.parse (default_hex)) {
+            rgba.parse ("#000000");
+        }
+        cr.set_source_rgb (rgba.red, rgba.green, rgba.blue);
+
+        cr.move_to (x, y);
+        Pango.cairo_show_layout (cr, layout);
+
+        int w, h;
+        layout.get_pixel_size (out w, out h);
+        return (double) h;
     }
 
-    private void set_priority_color (Cairo.Context cr, int priority) {
+    private string escape (string text) {
+        return Markup.escape_text (text);
+    }
+
+    private string priority_hex (int priority) {
         switch (priority) {
-            case Constants.PRIORITY_1: // P1 - red
-                cr.set_source_rgb (1.0, 0.44, 0.40);
-                break;
-            case Constants.PRIORITY_2: // P2 - orange
-                cr.set_source_rgb (1.0, 0.60, 0.08);
-                break;
-            case Constants.PRIORITY_3: // P3 - blue
-                cr.set_source_rgb (0.32, 0.59, 1.0);
-                break;
-            default:
-                cr.set_source_rgb (0.4, 0.4, 0.4);
-                break;
+            case Constants.PRIORITY_1: return "#ff7066"; // red
+            case Constants.PRIORITY_2: return "#ff9914"; // orange
+            case Constants.PRIORITY_3: return "#5297ff"; // blue
+            default: return "#666666";
         }
     }
 }

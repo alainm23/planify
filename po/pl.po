@@ -165,7 +165,7 @@ msgid "Pin"
 msgstr "Przypnij"
 
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
-#: src/Services/ExportService.vala:73
+#: src/Services/ExportService.vala:57
 msgid "Deadline"
 msgstr "Ostateczny termin"
 
@@ -334,7 +334,7 @@ msgstr "bez etykiety"
 msgid "unlabeled"
 msgstr "nieoznaczone"
 
-#: core/Objects/Item.vala:1594 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1594 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Termin:"
 
@@ -3284,6 +3284,10 @@ msgstr "Eksportuj jako PDF"
 msgid "Project exported as PDF"
 msgstr "Projekt wyeksportowany jako PDF"
 
+#: src/Layouts/ProjectRow.vala:787 src/Widgets/Attachments.vala:142
+msgid "Open"
+msgstr ""
+
 #: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:89
 msgid "(No Section)"
 msgstr "(Brak sekcji)"
@@ -3714,10 +3718,6 @@ msgstr ""
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
-msgstr ""
-
-#: src/Widgets/Attachments.vala:142
-msgid "Open"
 msgstr ""
 
 #: src/Widgets/Attachments.vala:248
