@@ -23,6 +23,10 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
     private Layouts.HeaderItem backups_group;
     private Layouts.HeaderItem extra_group;
 
+    private Gtk.Box pagination_box;
+    private int current_page = 0;
+    private const int PAGE_SIZE = 7;
+
     public Backup (Adw.PreferencesDialog preferences_dialog) {
         Object (
             preferences_dialog: preferences_dialog,
@@ -52,8 +56,15 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         };
         auto_backup_row.active = Services.Settings.get_default ().settings.get_boolean ("backup-automatic");
 
+        var max_backups_row = new Adw.SpinRow.with_range (0, 365, 1) {
+            title = _("Backups to Keep"),
+            subtitle = _("Older backups are removed automatically. Zero keeps them all"),
+            value = Services.Settings.get_default ().settings.get_int ("backup-max-count")
+        };
+
         var auto_backup_group = new Adw.PreferencesGroup ();
         auto_backup_group.add (auto_backup_row);
+        auto_backup_group.add (max_backups_row);
 
         var add_button = new Gtk.Button.with_label (_("Create Backup")) {
             margin_top = 12
@@ -69,30 +80,41 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
 
         backups_group.set_sort_func (set_sort_func);
 
-        var location_label = new Gtk.Label (_("Backup files are stored in: %s").printf (Environment.get_user_data_dir () + "/io.github.alainm23.planify/backups")) {
-            wrap = true,
-            xalign = 0,
-            margin_start = 6,
-            selectable = true
-        };
-        location_label.add_css_class ("dimmed");
-        location_label.add_css_class ("caption");
+        string backups_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/backups";
 
-        var max_backups_label = new Gtk.Label (_("Only the last 30 backups are shown here. To access older backups, open the backup folder directly.")) {
-            wrap = true,
-            xalign = 0,
-            margin_start = 6
+        var open_folder_button = new Gtk.Button.from_icon_name ("folder-open-symbolic") {
+            valign = CENTER,
+            tooltip_text = _("Open backup folder"),
+            css_classes = { "flat" }
         };
-        max_backups_label.add_css_class ("dimmed");
-        max_backups_label.add_css_class ("caption");
-        max_backups_label.visible = false;
+
+        var location_row = new Adw.ActionRow () {
+            title = _("Backup Location"),
+            subtitle = backups_path,
+            subtitle_selectable = true
+        };
+        location_row.add_prefix (new Gtk.Image.from_icon_name ("folder-symbolic"));
+        location_row.add_suffix (open_folder_button);
+        location_row.activatable_widget = open_folder_button;
+
+        var location_group = new Adw.PreferencesGroup () {
+            margin_top = 12
+        };
+        location_group.add (location_row);
+
+        pagination_box = new Gtk.Box (HORIZONTAL, 6) {
+            halign = CENTER,
+            margin_top = 6
+        };
+        pagination_box.add_css_class ("linked");
+        pagination_box.visible = false;
 
         var backups_box = new Gtk.Box (VERTICAL, 6) {
             margin_top = 12
         };
         backups_box.append (backups_group);
-        backups_box.append (location_label);
-        backups_box.append (max_backups_label);
+        backups_box.append (pagination_box);
+        backups_box.append (location_group);
 
         extra_group = new Layouts.HeaderItem (_("Extra Backup Locations")) {
             card = true,
@@ -158,6 +180,20 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
             Services.Settings.get_default ().settings.set_boolean ("backup-automatic", auto_backup_row.active);
         })] = auto_backup_row;
 
+        signal_map[open_folder_button.clicked.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri (File.new_for_path (backups_path).get_uri (), null);
+            } catch (Error e) {
+                warning ("Error opening backup folder: %s", e.message);
+            }
+        })] = open_folder_button;
+
+        signal_map[max_backups_row.notify["value"].connect (() => {
+            Services.Settings.get_default ().settings.set_int ("backup-max-count", (int) max_backups_row.value);
+            // Apply the new limit right away so lowering it trims existing backups.
+            Services.BackupManager.get_default ().prune_old_backups ();
+        })] = max_backups_row;
+
         signal_map[add_button.clicked.connect (() => {
             Services.BackupManager.get_default ().create_and_distribute_backup ();
             popup_toast (_("The Backup was created successfully."));
@@ -201,24 +237,16 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
 
         connect_backup_group_signals ();
 
-        var all_backups = Services.BackupManager.get_default ().backups;
-        var sorted_backups = new Gee.ArrayList<Objects.Backup> ();
-        sorted_backups.add_all (all_backups);
-        sorted_backups.sort ((a, b) => b.datetime.compare (a.datetime));
-        int count = 0;
-        foreach (Objects.Backup backup in sorted_backups) {
-            if (count >= 30) break;
-            add_backup_row (backup, backups_group);
-            count++;
-        }
-        max_backups_label.visible = all_backups.size > 30;
+        render_backups_page ();
 
         foreach (var folder_path in Services.Settings.get_default ().settings.get_strv ("backup-extra-folders")) {
             add_extra_folder_row (folder_path);
         }
 
         signal_map[Services.BackupManager.get_default ().backup_added.connect ((backup) => {
-            add_backup_row (backup, backups_group);
+            // A new backup lands on page 1; jump there and re-render.
+            current_page = 0;
+            render_backups_page ();
         })] = Services.BackupManager.get_default ();
 
         destroy.connect (() => {
@@ -245,6 +273,88 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
     private void add_backup_row (Objects.Backup backup, Layouts.HeaderItem group) {
         var row = new BackupRow (backup);
         group.add_child (row);
+
+        // When a backup is deleted (manually or by retention pruning), refresh
+        // the page + pagination. Deferred so a batch prune collapses into one
+        // re-render instead of one per deleted file.
+        signal_map[backup.deleted.connect (() => {
+            Idle.add (() => {
+                render_backups_page ();
+                return GLib.Source.REMOVE;
+            });
+        })] = backup;
+    }
+
+    // Render the current page of backups (PAGE_SIZE per page, newest first)
+    // and rebuild the numbered page buttons below the list.
+    private void render_backups_page () {
+        var all_backups = new Gee.ArrayList<Objects.Backup> ();
+        all_backups.add_all (Services.BackupManager.get_default ().backups);
+        all_backups.sort ((a, b) => b.datetime.compare (a.datetime));
+
+        int total = all_backups.size;
+        int total_pages = (total + PAGE_SIZE - 1) / PAGE_SIZE; // ceil
+        if (total_pages < 1) {
+            total_pages = 1;
+        }
+
+        // Keep the current page within range (e.g. after pruning).
+        if (current_page >= total_pages) {
+            current_page = total_pages - 1;
+        }
+        if (current_page < 0) {
+            current_page = 0;
+        }
+
+        backups_group.clear ();
+
+        int start = current_page * PAGE_SIZE;
+        int end = int.min (start + PAGE_SIZE, total);
+        for (int i = start; i < end; i++) {
+            add_backup_row (all_backups.get (i), backups_group);
+        }
+
+        build_pagination (total_pages);
+    }
+
+    // Rebuild the numbered page buttons. Hidden when there is only one page.
+    private void build_pagination (int total_pages) {
+        Gtk.Widget? child = pagination_box.get_first_child ();
+        while (child != null) {
+            Gtk.Widget? next = child.get_next_sibling ();
+            pagination_box.remove (child);
+            child = next;
+        }
+
+        if (total_pages <= 1) {
+            pagination_box.visible = false;
+            return;
+        }
+
+        pagination_box.visible = true;
+
+        for (int page = 0; page < total_pages; page++) {
+            int page_index = page; // capture for the closure
+            var button = new Gtk.Button.with_label ((page + 1).to_string ()) {
+                width_request = 36
+            };
+            button.add_css_class ("pagination-button");
+
+            if (page_index == current_page) {
+                button.add_css_class ("suggested-action");
+            } else {
+                button.add_css_class ("flat");
+            }
+
+            button.clicked.connect (() => {
+                if (page_index != current_page) {
+                    current_page = page_index;
+                    render_backups_page ();
+                }
+            });
+
+            pagination_box.append (button);
+        }
     }
 
     private void connect_backup_group_signals () {
