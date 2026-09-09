@@ -115,7 +115,7 @@ public class Dialogs.ProductivityReport.HeatMap : Adw.Bin {
                     width_request = CELL_SIZE,
                     height_request = CELL_SIZE,
                     tooltip_text = "%s — %s".printf (
-                        cell_date.format ("%a, %b %d"),
+                        cell_date.format (Utils.Datetime.get_default_date_format (true, true, false)),
                         ngettext ("%d task", "%d tasks", count).printf (count)
                     )
                 };

@@ -137,7 +137,7 @@ msgstr "内容"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2014 src/Layouts/ItemSidebarView.vala:184
-#: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
+#: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "説明"
 
@@ -755,37 +755,21 @@ msgid "%d day ago"
 msgid_plural "%d days ago"
 msgstr[0] ""
 
-#: core/Utils/Datetime.vala:803
-msgid "%a, %b %-e, %Y"
-msgstr ""
-
-#: core/Utils/Datetime.vala:806
-msgid "%b %-e %Y"
-msgstr ""
-
-#: core/Utils/Datetime.vala:809 core/Widgets/Calendar/CalendarHeader.vala:36
+#: core/Utils/Datetime.vala:853 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr ""
 
-#: core/Utils/Datetime.vala:812
-msgid "%b %-e"
-msgstr ""
-
-#: core/Utils/Datetime.vala:815
+#: core/Utils/Datetime.vala:858
 msgid "%a %Y"
 msgstr ""
 
-#: core/Utils/Datetime.vala:818
+#: core/Utils/Datetime.vala:861
 #, c-format
 msgid "%a"
 msgstr ""
 
-#: core/Utils/Datetime.vala:821
-msgid "%a, %b %-e"
-msgstr ""
-
-#: core/Utils/Datetime.vala:824
+#: core/Utils/Datetime.vala:866
 msgid "%b"
 msgstr ""
 
@@ -3683,39 +3667,39 @@ msgstr ""
 msgid "Account migration required."
 msgstr ""
 
-#: src/Widgets/EventRow.vala:242
+#: src/Widgets/EventRow.vala:245
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
 msgstr[0] ""
 
-#: src/Widgets/EventRow.vala:244
+#: src/Widgets/EventRow.vala:247
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
 msgstr[0] ""
 
-#: src/Widgets/EventRow.vala:249
+#: src/Widgets/EventRow.vala:252
 msgid "Happening now"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:284
+#: src/Widgets/EventRow.vala:287
 msgid "Location"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:297
+#: src/Widgets/EventRow.vala:300
 msgid "Organizer"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:311
+#: src/Widgets/EventRow.vala:314
 msgid "URL"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:321
+#: src/Widgets/EventRow.vala:324
 msgid "Calendar"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:416
+#: src/Widgets/EventRow.vala:419
 msgid "Join"
 msgstr ""
 

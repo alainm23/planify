@@ -137,7 +137,7 @@ msgstr "目錄"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2014 src/Layouts/ItemSidebarView.vala:184
-#: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
+#: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "描述"
 
@@ -756,37 +756,21 @@ msgid "%d day ago"
 msgid_plural "%d days ago"
 msgstr[0] "%d 日之前"
 
-#: core/Utils/Datetime.vala:803
-msgid "%a, %b %-e, %Y"
-msgstr "%a, %b %-e, %Y"
-
-#: core/Utils/Datetime.vala:806
-msgid "%b %-e %Y"
-msgstr "%b %-e %Y"
-
-#: core/Utils/Datetime.vala:809 core/Widgets/Calendar/CalendarHeader.vala:36
+#: core/Utils/Datetime.vala:853 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
-#: core/Utils/Datetime.vala:812
-msgid "%b %-e"
-msgstr "%b %-e"
-
-#: core/Utils/Datetime.vala:815
+#: core/Utils/Datetime.vala:858
 msgid "%a %Y"
 msgstr "%a %Y"
 
-#: core/Utils/Datetime.vala:818
+#: core/Utils/Datetime.vala:861
 #, c-format
 msgid "%a"
 msgstr "%a"
 
-#: core/Utils/Datetime.vala:821
-msgid "%a, %b %-e"
-msgstr "%a, %b %-e"
-
-#: core/Utils/Datetime.vala:824
+#: core/Utils/Datetime.vala:866
 msgid "%b"
 msgstr "%b"
 
@@ -3728,39 +3712,39 @@ msgstr "提報問題"
 msgid "Account migration required."
 msgstr "帳戶遷移是必須的。"
 
-#: src/Widgets/EventRow.vala:242
+#: src/Widgets/EventRow.vala:245
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
 msgstr[0] "於 %d 分鐘內"
 
-#: src/Widgets/EventRow.vala:244
+#: src/Widgets/EventRow.vala:247
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
 msgstr[0] "於 %d 小時內"
 
-#: src/Widgets/EventRow.vala:249
+#: src/Widgets/EventRow.vala:252
 msgid "Happening now"
 msgstr "現正發生"
 
-#: src/Widgets/EventRow.vala:284
+#: src/Widgets/EventRow.vala:287
 msgid "Location"
 msgstr "地點"
 
-#: src/Widgets/EventRow.vala:297
+#: src/Widgets/EventRow.vala:300
 msgid "Organizer"
 msgstr "發起人"
 
-#: src/Widgets/EventRow.vala:311
+#: src/Widgets/EventRow.vala:314
 msgid "URL"
 msgstr "URL"
 
-#: src/Widgets/EventRow.vala:321
+#: src/Widgets/EventRow.vala:324
 msgid "Calendar"
 msgstr "行事曆"
 
-#: src/Widgets/EventRow.vala:416
+#: src/Widgets/EventRow.vala:419
 msgid "Join"
 msgstr "加入"
 
@@ -4081,6 +4065,18 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#~ msgid "%a, %b %-e, %Y"
+#~ msgstr "%a, %b %-e, %Y"
+
+#~ msgid "%b %-e %Y"
+#~ msgstr "%b %-e %Y"
+
+#~ msgid "%b %-e"
+#~ msgstr "%b %-e"
+
+#~ msgid "%a, %b %-e"
+#~ msgstr "%a, %b %-e"
 
 #, c-format
 #~ msgid "Backup files are stored in: %s"

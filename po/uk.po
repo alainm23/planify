@@ -150,6 +150,7 @@ msgstr "Зміст"
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2014 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
+#: src/Widgets/EventRow.vala:359
 msgid "Description"
 msgstr "Опис"
 
@@ -823,7 +824,7 @@ msgid "%b %-e %Y"
 msgstr "%b %-e %Y"
 
 #: core/Utils/Datetime.vala:809 core/Widgets/Calendar/CalendarHeader.vala:36
-#: core/Widgets/Calendar/CalendarHeader.vala:57
+#: core/Widgets/Calendar/CalendarHeader.vala:57 core/Utils/Datetime.vala:853
 msgid "%Y"
 msgstr "%Y"
 
@@ -831,11 +832,11 @@ msgstr "%Y"
 msgid "%b %-e"
 msgstr "%b %-e"
 
-#: core/Utils/Datetime.vala:815
+#: core/Utils/Datetime.vala:815 core/Utils/Datetime.vala:858
 msgid "%a %Y"
 msgstr "%a %Y"
 
-#: core/Utils/Datetime.vala:818
+#: core/Utils/Datetime.vala:818 core/Utils/Datetime.vala:861
 #, c-format
 msgid "%a"
 msgstr "%a"
@@ -844,7 +845,7 @@ msgstr "%a"
 msgid "%a, %b %-e"
 msgstr "%a, %b %-e"
 
-#: core/Utils/Datetime.vala:824
+#: core/Utils/Datetime.vala:824 core/Utils/Datetime.vala:866
 msgid "%b"
 msgstr "%b"
 
@@ -3966,41 +3967,41 @@ msgstr "Повідомити про проблему"
 msgid "Account migration required."
 msgstr "Потрібна міграція облікового запису."
 
-#: src/Widgets/EventRow.vala:242
+#: src/Widgets/EventRow.vala:242 src/Widgets/EventRow.vala:245
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
 msgstr[0] "Через %d хвилину"
 msgstr[1] "Через %d хвилин"
 
-#: src/Widgets/EventRow.vala:244
+#: src/Widgets/EventRow.vala:244 src/Widgets/EventRow.vala:247
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
 msgstr[0] "Через %d годину"
 msgstr[1] "Через %d годин"
 
-#: src/Widgets/EventRow.vala:249
+#: src/Widgets/EventRow.vala:249 src/Widgets/EventRow.vala:252
 msgid "Happening now"
 msgstr "Відбувається зараз"
 
-#: src/Widgets/EventRow.vala:284
+#: src/Widgets/EventRow.vala:284 src/Widgets/EventRow.vala:287
 msgid "Location"
 msgstr "Розташування"
 
-#: src/Widgets/EventRow.vala:297
+#: src/Widgets/EventRow.vala:297 src/Widgets/EventRow.vala:300
 msgid "Organizer"
 msgstr "Організатор"
 
-#: src/Widgets/EventRow.vala:311
+#: src/Widgets/EventRow.vala:311 src/Widgets/EventRow.vala:314
 msgid "URL"
 msgstr "URL"
 
-#: src/Widgets/EventRow.vala:321
+#: src/Widgets/EventRow.vala:321 src/Widgets/EventRow.vala:324
 msgid "Calendar"
 msgstr "Календар"
 
-#: src/Widgets/EventRow.vala:416
+#: src/Widgets/EventRow.vala:416 src/Widgets/EventRow.vala:419
 msgid "Join"
 msgstr "Приєднатися"
 

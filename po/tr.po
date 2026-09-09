@@ -149,7 +149,7 @@ msgstr "İçerik"
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2009 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
-#: src/Layouts/ItemRow.vala:2014
+#: src/Layouts/ItemRow.vala:2014 src/Widgets/EventRow.vala:359
 msgid "Description"
 msgstr "Açıklama"
 
@@ -810,7 +810,7 @@ msgid "%b %-e %Y"
 msgstr "%b %-e %Y"
 
 #: core/Utils/Datetime.vala:809 core/Widgets/Calendar/CalendarHeader.vala:36
-#: core/Widgets/Calendar/CalendarHeader.vala:57
+#: core/Widgets/Calendar/CalendarHeader.vala:57 core/Utils/Datetime.vala:853
 msgid "%Y"
 msgstr "%Y"
 
@@ -822,7 +822,7 @@ msgstr "%b %-e"
 msgid "%a %Y"
 msgstr "%a %Y"
 
-#: core/Utils/Datetime.vala:818
+#: core/Utils/Datetime.vala:818 core/Utils/Datetime.vala:861
 #, c-format
 msgid "%a"
 msgstr "%a"
@@ -2760,7 +2760,8 @@ msgstr "Görev Tamamlama"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:45
 msgid "Choose how tasks behave when marked as complete"
-msgstr "Tamamlanmış olarak işaretlendiğindde görevlerin nasıl davranacağını seç"
+msgstr ""
+"Tamamlanmış olarak işaretlendiğindde görevlerin nasıl davranacağını seç"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:52
 msgid "Priority 1"
@@ -3937,41 +3938,41 @@ msgstr ""
 msgid "Account migration required."
 msgstr ""
 
-#: src/Widgets/EventRow.vala:242
+#: src/Widgets/EventRow.vala:242 src/Widgets/EventRow.vala:245
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Widgets/EventRow.vala:244
+#: src/Widgets/EventRow.vala:244 src/Widgets/EventRow.vala:247
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Widgets/EventRow.vala:249
+#: src/Widgets/EventRow.vala:249 src/Widgets/EventRow.vala:252
 msgid "Happening now"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:284
+#: src/Widgets/EventRow.vala:284 src/Widgets/EventRow.vala:287
 msgid "Location"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:297
+#: src/Widgets/EventRow.vala:297 src/Widgets/EventRow.vala:300
 msgid "Organizer"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:311
+#: src/Widgets/EventRow.vala:311 src/Widgets/EventRow.vala:314
 msgid "URL"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:321
+#: src/Widgets/EventRow.vala:321 src/Widgets/EventRow.vala:324
 msgid "Calendar"
 msgstr "Takvim"
 
-#: src/Widgets/EventRow.vala:416
+#: src/Widgets/EventRow.vala:416 src/Widgets/EventRow.vala:419
 msgid "Join"
 msgstr ""
 
