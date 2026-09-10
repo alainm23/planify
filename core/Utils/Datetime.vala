@@ -792,24 +792,67 @@ public class Utils.Datetime {
         var date_only = get_date_only (date);
         
         var day_name = date_only.format ("%a");
-        var day_month = date_only.format ("%e %b");
+        var day_month = date_only.format (day_month_format ());
 
         return "%s, %s".printf (day_name, day_month);
     }
 
+    // Whether the system locale writes the day before the month (e.g. en_GB
+    // "15 Dec"), as opposed to month before day (e.g. en_US "Dec 15"). Read once
+    // from the locale's short date format (LC_TIME) and cached.
+    private static int _day_first = -1; // -1 unknown, 0 month-first, 1 day-first
+    private static bool locale_day_before_month () {
+        if (_day_first == -1) {
+            _day_first = 0; // default to month-first if it can't be determined
+            unowned string d_fmt = Posix.NLItem.D_FMT.to_string ();
+            if (d_fmt != null && d_fmt != "") {
+                int day_pos = first_token_pos (d_fmt, "de");   // %d, %e
+                int month_pos = first_token_pos (d_fmt, "mbBh"); // %m, %b, %B, %h
+                if (day_pos >= 0 && month_pos >= 0 && day_pos < month_pos) {
+                    _day_first = 1;
+                }
+            }
+        }
+
+        return _day_first == 1;
+    }
+
+    // Position of the first %<token> in `fmt` whose letter is in `tokens`,
+    // or -1 if none is present.
+    private static int first_token_pos (string fmt, string tokens) {
+        int best = -1;
+        for (int i = 0; i < fmt.length - 1; i++) {
+            if (fmt[i] == '%') {
+                char c = fmt[i + 1];
+                if (tokens.index_of_char (c) >= 0) {
+                    if (best == -1 || i < best) {
+                        best = i;
+                    }
+                }
+                i++; // skip the token letter
+            }
+        }
+
+        return best;
+    }
+
+    // Day + abbreviated month in the order the system locale prefers.
+    private static string day_month_format () {
+        return locale_day_before_month () ? "%-e %b" : "%b %-e";
+    }
+
     public static string get_default_date_format (bool with_weekday = false, bool with_day = true, bool with_year = false) {
+        string dm = day_month_format ();
+
         if (with_weekday == true && with_day == true && with_year == true) {
-            /// TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
-            return _("%a, %b %-e, %Y");
+            return "%%a, %s, %%Y".printf (dm);
         } else if (with_weekday == false && with_day == true && with_year == true) {
-            /// TRANSLATORS: a GLib.DateTime format showing the date and year
-            return _("%b %-e %Y");
+            return "%s %%Y".printf (dm);
         } else if (with_weekday == false && with_day == false && with_year == true) {
             /// TRANSLATORS: a GLib.DateTime format showing the year
             return _("%Y");
         } else if (with_weekday == false && with_day == true && with_year == false) {
-            /// TRANSLATORS: a GLib.DateTime format showing the date
-            return _("%b %-e");
+            return dm;
         } else if (with_weekday == true && with_day == false && with_year == true) {
             /// TRANSLATORS: a GLib.DateTime format showing the weekday and year.
             return _("%a %Y");
@@ -817,8 +860,7 @@ public class Utils.Datetime {
             /// TRANSLATORS: a GLib.DateTime format showing the weekday
             return _("%a");
         } else if (with_weekday == true && with_day == true && with_year == false) {
-            /// TRANSLATORS: a GLib.DateTime format showing the weekday and date
-            return _("%a, %b %-e");
+            return "%%a, %s".printf (dm);
         } else if (with_weekday == false && with_day == false && with_year == false) {
             /// TRANSLATORS: a GLib.DateTime format showing the month.
             return _("%b");

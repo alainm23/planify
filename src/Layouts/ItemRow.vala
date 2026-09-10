@@ -1617,15 +1617,20 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_label.remove_css_class ("line-through");
         check_due ();
 
-        due_label.add_css_class ("date-updated");
+        // Re-trigger the flash even if the class is still present from a rapid previous completion.
+        due_label.remove_css_class ("date-updated");
+        Timeout.add (10, () => {
+            due_label.add_css_class ("date-updated");
+            return GLib.Source.REMOVE;
+        });
         Timeout.add (1200, () => {
             due_label.remove_css_class ("date-updated");
             return GLib.Source.REMOVE;
         });
 
-        var title = _("Completed. Next occurrence: %s".printf (
-                           Utils.Datetime.get_default_date_format_from_date (next_recurrency)
-        ));
+        var title = _("Task completed · Next: %s").printf (
+            Utils.Datetime.get_relative_date_from_date (next_recurrency)
+        );
         var toast = Util.get_default ().create_toast (title, 3);
         Services.EventBus.get_default ().send_toast (toast);
     }

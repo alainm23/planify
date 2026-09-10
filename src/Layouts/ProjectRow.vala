@@ -781,9 +781,20 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                 try {
                     var file = file_dialog.save.end (res);
                     Services.ExportService.get_default ().export_project_pdf (project, file.get_path ());
-                    Services.EventBus.get_default ().send_toast (
-                        Util.get_default ().create_toast (_("Project exported as PDF"))
-                    );
+
+                    var toast = new Adw.Toast (_("Project exported as PDF")) {
+                        timeout = 3,
+                        button_label = _("Open")
+                    };
+                    string pdf_uri = file.get_uri ();
+                    toast.button_clicked.connect (() => {
+                        try {
+                            AppInfo.launch_default_for_uri (pdf_uri, null);
+                        } catch (Error e) {
+                            warning ("Error opening PDF: %s", e.message);
+                        }
+                    });
+                    Services.EventBus.get_default ().send_toast (toast);
                 } catch (Error e) {
                     if (!(e is IOError.CANCELLED)) {
                         warning ("Error exporting PDF: %s", e.message);

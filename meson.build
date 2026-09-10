@@ -40,6 +40,7 @@ gio_dep = dependency('gio-2.0')
 glib_dep = dependency('glib-2.0')
 gee_dep = dependency('gee-0.8')
 gtk_dep = dependency('gtk4')
+pangocairo_dep = dependency('pangocairo')
 libsoup_dep = dependency('libsoup-3.0')
 sqlite3_dep = dependency('sqlite3')
 libadwaita_dep = dependency('libadwaita-1', version: '>= 1.7.0')
@@ -57,6 +58,11 @@ is_libical4 = libical_dep.version().version_compare('>= 4.0.0')
 if is_libical4
   add_project_arguments('-D', 'IS_LIBICAL4', language: 'vala')
 endif
+
+# Datetime.vala reads the locale's short date format via Posix.nl_langinfo, so
+# the posix vapi must be linked for every build variant (it is otherwise only
+# pulled in transitively by the evolution-only CalendarEvents.vala).
+add_project_arguments(['--pkg=posix'], language: 'vala')
 
 if icu_uc_dep.found ()
   add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
@@ -87,6 +93,15 @@ if get_option('evolution')
     endif
     if not libedataserver_dep.found()
         error('libedataserver-1.2 requested but not found')
+    endif
+endif
+
+if get_option('goa')
+    goa_dep = dependency('goa-1.0', required: true)
+    add_project_arguments('-D', 'WITH_GOA', language: 'vala')
+    add_project_arguments('-DGOA_API_IS_SUBJECT_TO_CHANGE', language: 'c')
+    if not goa_dep.found()
+        error('goa-1.0 requested but not found')
     endif
 endif
 

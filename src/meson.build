@@ -2,7 +2,8 @@ deps = [
   core_dep,
   gee_dep,
   m_dep,
-  icu_uc_dep
+  icu_uc_dep,
+  pangocairo_dep
 ]
 
 
@@ -19,6 +20,12 @@ endif
 if get_option('evolution')
     if libedataserver_dep.found()
         deps += libedataserver_dep
+    endif
+endif
+
+if get_option('goa')
+    if goa_dep.found()
+        deps += goa_dep
     endif
 endif
 
