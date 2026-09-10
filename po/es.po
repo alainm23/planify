@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-05-30 08:01+0000\n"
-"Last-Translator: Abel Oscopri <moses.oscopri@proton.me>\n"
+"PO-Revision-Date: 2026-08-30 11:42+0000\n"
+"Last-Translator: Rodrigo Cofre <rampagestate@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/es/>\n"
 "Language: es\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -580,18 +580,24 @@ msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"Este servidor no permite eliminar proyectos vía CalDAV. Por favor, elimínelo "
+"directamente desde el sitio web de su proveedor de calendarios."
 
 #: core/Services/CalDAV/CalDAVClient.vala:838
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"Este servidor no soporta eliminar proyectos vía CalDAV. Por favor elimínelo "
+"desde el servidor directamente."
 
 #: core/Services/CalDAV/CalDAVClient.vala:872
 #: core/Services/CalDAV/CalDAVClient.vala:919
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"La tarea fue modificada en otro dispositivo. Por favor sincronice para "
+"obtener la última versión."
 
 #: core/Services/CalDAV/Core.vala:170
 msgid "Source already exists"
@@ -599,7 +605,7 @@ msgstr "La fuente ya existe"
 
 #: core/Services/CalDAV/Core.vala:181 core/Services/CalDAV/Core.vala:229
 msgid "Failed to resolve principal url"
-msgstr "No se pudo resolver la URL principal"
+msgstr "No se pudo resolver la url principal"
 
 #: core/Services/CalDAV/Core.vala:238
 msgid "Starting sync…"
@@ -616,27 +622,31 @@ msgstr "Sincronización finalizada"
 
 #: core/Services/CalDAV/Core.vala:324
 msgid "Authentication Expired"
-msgstr ""
+msgstr "Las credenciales han expirado"
 
 #: core/Services/CalDAV/Core.vala:325
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr ""
+"Tu sesión ha expirado. Por favor, elimina y vuelve a agregar tu cuenta en "
+"Preferencias."
 
 #: core/Services/CalDAV/Core.vala:332
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Demasiadas solicitudes"
 
 #: core/Services/CalDAV/Core.vala:333
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
 msgstr ""
+"El servidor está limitando las solicitudes. Por favor, espere unos minutos y "
+"vuelva a intentarlo."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
-msgstr "En este ordenador"
+msgstr "En este equipo"
 
 #: core/Services/Todoist/Todoist.vala:594 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
