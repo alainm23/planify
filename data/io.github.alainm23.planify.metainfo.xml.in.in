@@ -61,6 +61,77 @@
   <url type="donation">https://useplanify.com/donate</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.20.0" date="2026-09-10" urgency="medium">
+      <description translate="no">
+        <p>Planify 4.20.0 is a big release with Nextcloud Deck integration, CalDAV reminder sync, productivity goals, GNOME Online Accounts detection, and many features, fixes and performance improvements. Update now and enjoy a smoother experience.</p>
+        <p>New Features:</p>
+        <ul>
+          <li>Added Nextcloud Deck integration — boards, stacks and cards sync two-way as projects, sections and tasks, with labels, archive, drag and drop between stacks and boards, and order preservation.</li>
+          <li>Added a productivity goals system — daily and weekly targets (fixed or dynamic), a mini progress widget in the app menu, and an 8-week activity heatmap in the productivity report.</li>
+          <li>Added "Repeat from completion date" — recurring tasks can repeat from the day they are completed instead of their due date, per task, matching how apps like Tasks.org behave (local and Todoist).</li>
+          <li>Added detection and import of CalDAV accounts from GNOME Online Accounts — a subtle link under the account list imports Nextcloud/ownCloud (via Login Flow v2) or generic CalDAV accounts with the server URL prefilled.</li>
+          <li>Added a completed tasks section to the Today view, toggleable from the view settings.</li>
+          <li>Added a project filter to the Completed view and sort/filter controls to the All Tasks view, matching the project views.</li>
+          <li>Added All Tasks and Labels as Home View options in Preferences.</li>
+          <li>Added a calendar sources preferences page to choose which calendars are shown.</li>
+          <li>Added quick date shortcuts to the Deadline picker (Tomorrow, In 3 days, Next week, In 2 weeks, In a month), matching the Date picker.</li>
+          <li>Added keyboard shortcuts to jump to projects (Ctrl+1–Ctrl+9) and cycle through them (Ctrl+Page Down / Ctrl+Page Up).</li>
+          <li>Improved the date picker with natural-language search (via Chrono), suggestion chips, and pre-selection of the item's existing due date.</li>
+          <li>Improved QuickFind — searches task descriptions, shows the parent project name for sections, adds a result count footer, and highlights a snippet when the match is in the description.</li>
+          <li>Improved the PDF export — long titles wrap (with character breaking for URLs), task descriptions and colored labels are included, and text renders via Pango so emoji show in color. The export toast gains an "Open" button.</li>
+          <li>Added drag-and-drop and context-menu task creation on Scheduled section headers, pre-filling the date in Quick Add.</li>
+        </ul>
+        <p>CalDAV &amp; Sync:</p>
+        <ul>
+          <li>Added bidirectional reminder sync with CalDAV servers (Nextcloud, Radicale) and compatible apps (Tasks.org, Thunderbird) via VALARM.</li>
+          <li>Added the CREATED property to VTODO output, fixing a NOT NULL constraint error when syncing with DAVx5/jtx via Nextcloud.</li>
+        </ul>
+        <p>Bug Fixes:</p>
+        <ul>
+          <li>Fixed a crash on startup caused by CalDAV tasks with invalid dates (e.g. year 1).</li>
+          <li>Fixed tasks reappearing after closing the app soon after deleting them — pending deletes now persist across restarts.</li>
+          <li>Fixed the --background flag exiting immediately instead of keeping the app running.</li>
+          <li>Fixed date order to follow the system locale (LC_TIME) — day-month vs month-day now matches your region across tasks, deadlines, events and the heatmap.</li>
+          <li>Allowed editing the description of completed tasks.</li>
+          <li>Fixed fenced code blocks losing their backticks in the markdown editor.</li>
+          <li>Fixed low contrast of links and code in the markdown editor on dark themes.</li>
+          <li>Fixed the (No Section) column in Board view not hiding when empty.</li>
+          <li>Fixed the Label view not updating items in real time.</li>
+          <li>Fixed CLI due-time being truncated/ignored and exposed the due date in JSON output.</li>
+          <li>Added automatic backup retention — a "Backups to Keep" setting prunes old backups (default 30, zero keeps all), the backup list is now paginated, and the backup location is shown as a row with an Open button.</li>
+          <li>Fixed recurrence being lost when rescheduling an overdue task, and the missing "No Date" button on scheduled items.</li>
+          <li>Changed the Unpin button to use the pin icon and show only on hover, reducing confusion and visual noise.</li>
+          <li>Added placeholder states for Board and List views and improved section-order management UX.</li>
+        </ul>
+        <p>Performance:</p>
+        <ul>
+          <li>Reduced memory usage and allocation pressure — a hard cap on cached project views with shorter timeouts, cached item getters, pre-sized section maps, and a cap on future calendar months.</li>
+        </ul>
+      </description>
+      <issues>
+        <issue url="https://github.com/alainm23/planify/issues/2393">Productivity goals and mini widget</issue>
+        <issue url="https://github.com/alainm23/planify/issues/1902">Repeat from completion date</issue>
+        <issue url="https://github.com/alainm23/planify/issues/1145">Detect and import CalDAV accounts from GNOME Online Accounts</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2529">Sync reminders with CalDAV via VALARM</issue>
+        <issue url="https://github.com/alainm23/planify/issues/1207">CalDAV reminder sync</issue>
+        <issue url="https://github.com/alainm23/planify/issues/1410">CalDAV reminder sync</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2581">CREATED property missing in VTODO</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2633">Crash on startup with invalid CalDAV dates</issue>
+        <issue url="https://github.com/alainm23/planify/issues/1242">Tasks reappear after closing app post-delete</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2614">--background flag exits immediately</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2107">Date order does not follow system locale</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2588">Allow editing description on completed tasks</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2589">Backticks lost in fenced code blocks</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2639">Link and code contrast in dark theme</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2645">(No Section) column not hiding in Board view</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2632">Backup retention and pagination</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2677">PDF export improvements</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2579">Quick date shortcuts for Deadline button</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2580">Unpin button icon and hover behavior</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2662">Recurrence lost on reschedule</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2601">Missing No Date button on scheduled items</issue>
+      </issues>
+    </release>
     <release version="4.19.5" date="2026-06-05" urgency="medium">
       <description translate="no">
         <p>Planify 4.19.5 is a maintenance release focused on bug fixes, reliability improvements, and new features.</p>
