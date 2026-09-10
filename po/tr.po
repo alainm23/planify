@@ -130,7 +130,7 @@ msgstr "Bitiş tarihi"
 msgid "Section"
 msgstr "Bölümler"
 
-#: core/Enum.vala:357 src/Views/Today.vala:896
+#: core/Enum.vala:357 src/Views/Today.vala:896 src/Views/Today.vala:899
 msgid "Assignment"
 msgstr "Görev"
 
@@ -164,7 +164,7 @@ msgid "Pin"
 msgstr "İğnelenmiş"
 
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
-#: src/Services/ExportService.vala:73
+#: src/Services/ExportService.vala:73 src/Services/ExportService.vala:57
 msgid "Deadline"
 msgstr "Son teslim tarihi"
 
@@ -336,6 +336,7 @@ msgid "unlabeled"
 msgstr "etiketler"
 
 #: core/Objects/Item.vala:1571 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1594 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Son teslim tarihi:"
 
@@ -343,16 +344,17 @@ msgstr "Son teslim tarihi:"
 msgid "Task copied to clipboard"
 msgstr "Görev panoya kopyalandı"
 
-#: core/Objects/Item.vala:1613
+#: core/Objects/Item.vala:1613 core/Objects/Item.vala:1636
 msgid "iCalendar Files"
 msgstr "iCalendar dosyaları"
 
-#: core/Objects/Item.vala:1629
+#: core/Objects/Item.vala:1629 core/Objects/Item.vala:1652
 msgid "Task exported successfully"
 msgstr "Görev başarıyla dışa aktarıldı"
 
 # c-format
 #: core/Objects/Item.vala:1953 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1992
 #, c-format
 msgid "Moved to %s"
 msgstr "Görev %s projesine taşındı"
@@ -818,7 +820,7 @@ msgstr "%Y"
 msgid "%b %-e"
 msgstr "%b %-e"
 
-#: core/Utils/Datetime.vala:815
+#: core/Utils/Datetime.vala:815 core/Utils/Datetime.vala:858
 msgid "%a %Y"
 msgstr "%a %Y"
 
@@ -831,7 +833,7 @@ msgstr "%a"
 msgid "%a, %b %-e"
 msgstr "%a, %b %-e"
 
-#: core/Utils/Datetime.vala:824
+#: core/Utils/Datetime.vala:824 core/Utils/Datetime.vala:866
 msgid "%b"
 msgstr "%b"
 
@@ -1330,6 +1332,9 @@ msgstr "şu zamana kadar"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:603
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 msgid "for"
 msgstr "için"
 
@@ -1338,6 +1343,9 @@ msgstr "için"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:603
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 msgid "times"
 msgstr "kere"
 
@@ -1364,6 +1372,7 @@ msgstr "Yinele"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:161
 #: src/Dialogs/DatePicker.vala:68
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:162
 msgid "Type a date…"
 msgstr "Bir tarih yazın…"
 
@@ -1375,6 +1384,7 @@ msgstr "Sonraki hafta"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:543
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:545
 msgid "Save"
 msgstr "Kaydet"
 
@@ -1422,6 +1432,7 @@ msgstr "Özel"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:883
 #: src/Widgets/ItemChangeHistoryRow.vala:281
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:885
 msgid "No date"
 msgstr "Tarih yok"
 
@@ -1468,6 +1479,7 @@ msgid "Year(s)"
 msgstr "Yıl"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:281
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:284
 msgid "Last day of month"
 msgstr "Ayın son günü"
 
@@ -1500,16 +1512,19 @@ msgstr "Yinele"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:399
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:408
 msgid "End"
 msgstr "Bitiş"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:530
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:541
 msgid "Minute"
 msgid_plural "Minutes"
 msgstr[0] "Dakika"
 msgstr[1] "Dakika"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:531
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:542
 msgid "Hour"
 msgid_plural "Hours"
 msgstr[0] "Saat"
@@ -1517,24 +1532,29 @@ msgstr[1] "Saat"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:532
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:536
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:543
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:547
 msgid "Day"
 msgid_plural "Days"
 msgstr[0] "Gün"
 msgstr[1] "Günler"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:533
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:544
 msgid "Week"
 msgid_plural "Weeks"
 msgstr[0] "Hafta"
 msgstr[1] "Haftalar"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:534
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:545
 msgid "Month"
 msgid_plural "Months"
 msgstr[0] "Ay"
 msgstr[1] "Aylar"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:535
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:546
 msgid "Year"
 msgid_plural "Years"
 msgstr[0] "Yıl"
@@ -2031,6 +2051,8 @@ msgstr "Hesaplarınızı sürükleyip bırakarak sıralayabilirsiniz"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:226
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:593
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:411
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr "Planify görevlerinizi senkronize ediyor, bu birazcık sürebilir"
 
@@ -2040,14 +2062,17 @@ msgid "SSL verification is disabled"
 msgstr "SSL doğrulama devre dışı bırakıldı"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:494
 msgid "Authentication expired"
 msgstr "Doğrulamanın süresi doldu"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 msgid "Account migration required"
 msgstr "Hesap taşıma gerekli"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:331
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:516
 msgid "Reconnect"
 msgstr "Yeniden Bağlan"
 
@@ -2158,10 +2183,12 @@ msgid "URL examples"
 msgstr "URL örnekleri"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:265
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
 msgid "Nextcloud Deck Detected"
 msgstr "Nextcloud Deck Tespit Edildi"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:266
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
@@ -2171,10 +2198,12 @@ msgstr ""
 "ister misiniz?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:273
 msgid "Not Now"
 msgstr "Şimdi Olmaz"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:274
 msgid "Enable Deck"
 msgstr "Deck'i etkinleştir"
 
@@ -2363,10 +2392,12 @@ msgstr ""
 "sonra içe aktarabilirsiniz."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:50
+#: src/Dialogs/Preferences/Pages/Backup.vala:55
 msgid "Automatic Daily Backup"
 msgstr "Otomatik Günlük Yedekleme"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:51
+#: src/Dialogs/Preferences/Pages/Backup.vala:56
 msgid "Creates a backup every day at midnight"
 msgstr "Her gün geceyarısı bir yedek oluşturur"
 
@@ -2405,14 +2436,17 @@ msgstr ""
 "direkt yedekleme klasörünü açın."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:97
+#: src/Dialogs/Preferences/Pages/Backup.vala:132
 msgid "Extra Backup Locations"
 msgstr "Ekstra Yedekleme Lokasyonları"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:100
+#: src/Dialogs/Preferences/Pages/Backup.vala:135
 msgid "No extra locations added yet."
 msgstr "Henüz ekstra lokasyon eklenmedi."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:112
+#: src/Dialogs/Preferences/Pages/Backup.vala:147
 msgid ""
 "Backup copies will also be saved to these folders after each backup is "
 "created."
@@ -2475,6 +2509,7 @@ msgid "To-Dos"
 msgstr "Yapılacak Ekle"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:580
+#: src/Dialogs/Preferences/Pages/Backup.vala:688
 msgid "This will replace all your current data"
 msgstr "Bu şu anki tüm verinizin yerine geçecek"
 

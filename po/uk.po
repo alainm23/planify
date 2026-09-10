@@ -3792,7 +3792,7 @@ msgid "Date Added"
 msgstr "Датою додавання"
 
 #: src/Views/Project/Project.vala:560 src/Views/Scheduled/Scheduled.vala:235
-#: src/Views/Today.vala:842
+#: src/Views/Today.vala:842 src/Views/Filter.vala:926 src/Views/Today.vala:845
 msgid "Date Modified"
 msgstr "За датою зміни"
 
