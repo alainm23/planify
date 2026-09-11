@@ -359,6 +359,43 @@ namespace PlanifyCLI {
         return 0;
     }
 
+    private static int delete_item (DeleteArguments args) {
+        if (args.task_id == null && args.project_id == null && args.section_id == null) {
+            stderr.printf ("Error: one of --task-id, --project-id or --section-id is required\n");
+            return 1;
+        }
+
+        Services.Database.get_default ().init_database ();
+
+        if (args.task_id != null) {
+            Objects.Item? item = Services.Store.instance ().get_item (args.task_id.strip ());
+            if (item == null) {
+                stderr.printf ("Error: Task ID '%s' not found\n", args.task_id);
+                return 1;
+            }
+            item.delete_item ();
+            stdout.printf ("Task '%s' deleted\n", item.content);
+        } else if (args.section_id != null) {
+            Objects.Section? section = Services.Store.instance ().get_section (args.section_id.strip ());
+            if (section == null) {
+                stderr.printf ("Error: Section ID '%s' not found\n", args.section_id);
+                return 1;
+            }
+            section.delete_section (null);
+            stdout.printf ("Section '%s' deleted\n", section.name);
+        } else {
+            Objects.Project? project = Services.Store.instance ().get_project (args.project_id.strip ());
+            if (project == null) {
+                stderr.printf ("Error: Project ID '%s' not found\n", args.project_id);
+                return 1;
+            }
+            project.delete_project (null);
+            stdout.printf ("Project '%s' deleted\n", project.name);
+        }
+
+        return 0;
+    }
+
     private static int backup (BackupArguments args) {
         Services.Database.get_default ().init_database ();
 
@@ -410,6 +447,8 @@ namespace PlanifyCLI {
                 return add_task (parsed.task_args);
             case CommandType.BACKUP:
                 return backup (parsed.backup_args);
+            case CommandType.DELETE:
+                return delete_item (parsed.delete_args);
             default:
                 stderr.printf ("Error: Unknown command\n");
                 return 1;
