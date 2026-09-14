@@ -60,6 +60,7 @@ jobs:
              > build-aux/ci-matrix-${{ matrix.name }}.json
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
+          bundle: planify-${{ matrix.name }}.Devel.flatpak
           manifest-path: build-aux/ci-matrix-${{ matrix.name }}.json
           cache-key: flatpak-builder-${{ matrix.name }}-${{ github.sha }}
 
