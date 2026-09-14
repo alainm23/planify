@@ -140,6 +140,10 @@ public class Objects.Source : Objects.BaseObject {
 
         Services.LogService.get_default ().info ("Source", "Starting sync server for source: %s".printf (display_name));
 
+        // run_server () is called again on every network change and from the
+        // preferences; drop the previous periodic timer so they don't pile up.
+        remove_sync_server ();
+
         if (!skip_first_sync) {
             _run_server ();
         }
@@ -171,8 +175,10 @@ public class Objects.Source : Objects.BaseObject {
 
     public void remove_sync_server () {
         // Remove server_timeout
-        GLib.Source.remove (server_timeout);
-        server_timeout = 0;
+        if (server_timeout != 0) {
+            GLib.Source.remove (server_timeout);
+            server_timeout = 0;
+        }
     }
 
     public void save () {
