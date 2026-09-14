@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"Last-Translator: Jeff Wang <jeff@wangjunfeng.com.cn>\n"
+"Last-Translator: jeff wang <jeff@wangjunfeng.com.cn>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hans/>\n"
 "Language: zh\n"
@@ -11,8 +11,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"PO-Revision-Date: 2026-07-27 08:01+0000\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"PO-Revision-Date: 2026-09-15 01:51+0000\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -1344,13 +1344,13 @@ msgstr "每月最后一天"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:288
 msgid "Repeat from completion date"
-msgstr ""
+msgstr "从完成日期起重复"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:290
 msgid ""
 "Calculate the next occurrence from the day you complete the task instead of "
 "its due date"
-msgstr ""
+msgstr "下次发生的时间应从你完成任务之日算起，而不是从任务截止日期算起"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:305
 msgid "Never"
@@ -1605,11 +1605,11 @@ msgstr "6 小时后"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:270
 msgid "Choose a time in the future"
-msgstr ""
+msgstr "选择一个未来的时间"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:279
 msgid "You already have a reminder at that time"
-msgstr ""
+msgstr "届时您已经有一个提醒"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
@@ -1860,7 +1860,7 @@ msgstr "添加来源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
 msgid "Task sources you sync with. Drag to reorder."
-msgstr ""
+msgstr "您同步的任务源。拖动即可重新排序。"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
 msgid "Inbox Page"
@@ -1868,21 +1868,21 @@ msgstr "收件箱页面"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
 msgid "Detected Accounts"
-msgstr ""
+msgstr "已检测到的帐户"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 msgid "Accounts configured in GNOME Online Accounts"
-msgstr ""
+msgstr "在GNOME在线账号中配置账号"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
 #, c-format
 msgid "%d account available to import from GNOME Online Accounts"
 msgid_plural "%d accounts available to import from GNOME Online Accounts"
-msgstr[0] ""
+msgstr[0] "可从GNOME在线账号中导入%d个账号"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
 msgid "Import"
-msgstr ""
+msgstr "导入"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:411
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
@@ -2206,11 +2206,11 @@ msgstr "每天午夜创建备份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:61
 msgid "Backups to Keep"
-msgstr ""
+msgstr "需要保留的备份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
 msgid "Older backups are removed automatically. Zero keeps them all"
-msgstr ""
+msgstr "较旧的备份会自动删除。0 则会保留所有备份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:70
 msgid "Create Backup"
@@ -2230,11 +2230,11 @@ msgstr "未找到备份，点击上方按钮创建一个。"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:88
 msgid "Open backup folder"
-msgstr ""
+msgstr "打开备份文件夹"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:93
 msgid "Backup Location"
-msgstr ""
+msgstr "备份位置"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:132
 msgid "Extra Backup Locations"
@@ -2816,7 +2816,7 @@ msgstr "近8周"
 #, c-format
 msgid "%d task"
 msgid_plural "%d tasks"
-msgstr[0] ""
+msgstr[0] "%d个任务"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
@@ -3021,7 +3021,7 @@ msgstr "快速查找"
 #, c-format
 msgid "%u result"
 msgid_plural "%u results"
-msgstr[0] ""
+msgstr[0] "%u个结果"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:352
 msgid "Quickly switch projects and views, find tasks, search by labels"
@@ -3111,7 +3111,7 @@ msgstr "显示子任务"
 
 #: src/Layouts/ItemRow.vala:1254 src/Layouts/ItemRow.vala:1302
 msgid "Pick a Date"
-msgstr ""
+msgstr "选择日期"
 
 #: src/Layouts/ItemRow.vala:1397 src/Layouts/ItemSidebarView.vala:513
 msgid "Use as a Note"
@@ -3139,7 +3139,7 @@ msgstr "创建于：%s"
 #: src/Layouts/ItemRow.vala:1631
 #, c-format
 msgid "Task completed · Next: %s"
-msgstr ""
+msgstr "任务已完成 · 下一个：%s"
 
 #: src/Layouts/ItemRow.vala:2089
 msgid "Add Attachments"
@@ -3387,7 +3387,7 @@ msgstr "暂停 1 小时"
 
 #: src/Views/Filter.vala:132 src/Views/Filter.vala:857
 msgid "All Projects"
-msgstr ""
+msgstr "所有项目"
 
 #: src/Views/Filter.vala:158 src/Views/Label/Labels.vala:45
 #: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
@@ -3413,11 +3413,11 @@ msgstr "任务"
 
 #: src/Views/Filter.vala:811
 msgid "No completed tasks"
-msgstr ""
+msgstr "未完成的任务"
 
 #: src/Views/Filter.vala:812
 msgid "No tasks found for the selected projects"
-msgstr ""
+msgstr "在选中的项目中没有找到任务"
 
 #: src/Views/Filter.vala:814
 msgid "All tasks completed!"
@@ -3429,17 +3429,17 @@ msgstr "太棒了，没有待办事项了 🎉"
 
 #: src/Views/Filter.vala:817
 msgid "No tasks found"
-msgstr ""
+msgstr "没找到任务"
 
 #: src/Views/Filter.vala:818
 msgid "No tasks match the selected filters"
-msgstr ""
+msgstr "没有符合条件的任务"
 
 #: src/Views/Filter.vala:859
 #, c-format
 msgid "%d Project"
 msgid_plural "%d Projects"
-msgstr[0] ""
+msgstr[0] "%d个项目"
 
 #: src/Views/Filter.vala:888
 msgid "Delete Completed Task"
@@ -3459,7 +3459,7 @@ msgstr "排序"
 
 #: src/Views/Filter.vala:922
 msgid "Project"
-msgstr ""
+msgstr "项目"
 
 #: src/Views/Filter.vala:925 src/Views/Project/Project.vala:559
 #: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:844
@@ -4046,17 +4046,17 @@ msgstr "打开置顶板"
 #: data/resources/ui/shortcuts.ui:136
 msgctxt "shortcut window"
 msgid "Open the Nth Project"
-msgstr ""
+msgstr "打开第N个项目"
 
 #: data/resources/ui/shortcuts.ui:143
 msgctxt "shortcut window"
 msgid "Open Next Project"
-msgstr ""
+msgstr "打开下一个项目"
 
 #: data/resources/ui/shortcuts.ui:150
 msgctxt "shortcut window"
 msgid "Open Previous Project"
-msgstr ""
+msgstr "打开上一个项目"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%Y年%m月%d日 %a"
