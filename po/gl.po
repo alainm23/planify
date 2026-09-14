@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2025-12-14 10:01+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-09-15 01:51+0000\n"
+"Last-Translator: Xosé Calvo <xosecalvo@gmail.com>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/gl/>\n"
 "Language: gl\n"
@@ -12,94 +12,95 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
 #: src/Dialogs/Preferences/Pages/Backup.vala:619
 #: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
-msgstr ""
+msgstr "Proxectos"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:623
 msgid "Sections"
-msgstr ""
+msgstr "Seccións"
 
 #: core/Enum.vala:174 core/Enum.vala:183
 msgid "Tasks"
-msgstr ""
+msgstr "Tarefas"
 
 #: core/Enum.vala:177 core/Enum.vala:548 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:631 src/Layouts/ItemBoard.vala:825
 #: src/Layouts/ItemRow.vala:1262
 msgid "Labels"
-msgstr ""
+msgstr "Etiquetas"
 
 #: core/Enum.vala:180 src/Dialogs/Preferences/Pages/HomeView.vala:35
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #: core/Enum.vala:186
 msgid "Lists"
-msgstr ""
+msgstr "Listas"
 
 #: core/Enum.vala:214
 msgid "Don't Repeat"
-msgstr ""
+msgstr "Non repetir"
 
 #: core/Enum.vala:216
 #, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Cada minuto"
+msgstr[1] "Cada %d minutos"
 
 #: core/Enum.vala:218
 #, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Cada hora"
+msgstr[1] "Cada %d horas"
 
 #: core/Enum.vala:220
 #, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Cada día"
+msgstr[1] "Cada %d días"
 
 #: core/Enum.vala:222
 #, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Cada semana"
+msgstr[1] "Cada %d semanas"
 
 #: core/Enum.vala:224
 #, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Cada mes"
+msgstr[1] "Cada %d meses"
 
 #: core/Enum.vala:226
 #, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Cada ano"
+msgstr[1] "Cada %d anos"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:45
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
 msgid "Nextcloud"
-msgstr ""
+msgstr "Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:124
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
+#, fuzzy
 msgid "CalDAV"
-msgstr ""
+msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:545 core/Widgets/PriorityButton.vala:90
 #: src/Views/Filter.vala:927 src/Views/Filter.vala:966
@@ -108,83 +109,83 @@ msgstr ""
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:846
 #: src/Views/Today.vala:875 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
-msgstr ""
+msgstr "Prioridade"
 
 #: core/Enum.vala:348
 msgid "Label"
-msgstr ""
+msgstr "Etiqueta"
 
 #: core/Enum.vala:351 src/Views/Filter.vala:924
 #: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
 #: src/Views/Today.vala:843
 msgid "Due Date"
-msgstr ""
+msgstr "Dava de vencemento"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
-msgstr ""
+msgstr "Sección"
 
 #: core/Enum.vala:357 src/Views/Today.vala:899
 msgid "Assignment"
-msgstr ""
+msgstr "Asignación"
 
 #: core/Enum.vala:469
 msgid "Task Created"
-msgstr ""
+msgstr "Tarefa creada"
 
 #: core/Enum.vala:472
 msgid "Task Updated"
-msgstr ""
+msgstr "Tarefa actualizada"
 
 #: core/Enum.vala:536
 msgid "Content"
-msgstr ""
+msgstr "Contido"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2014 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
-msgstr ""
+msgstr "Descrición"
 
 #: core/Enum.vala:542 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr ""
+msgstr "Programada"
 
 #: core/Enum.vala:551 core/Widgets/PinButton.vala:47
 #: src/Layouts/ItemBoard.vala:806 src/Layouts/ItemBoard.vala:819
 #: src/Layouts/ItemRow.vala:1241 src/Layouts/ItemRow.vala:1256
 msgid "Pin"
-msgstr ""
+msgstr "Fixado"
 
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
 #: src/Services/ExportService.vala:57
 msgid "Deadline"
-msgstr ""
+msgstr "Data límite"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "Tarefa principal"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr ""
+msgstr "Todas as tarefas"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
-msgstr ""
+msgstr "todas as tarefas"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all"
-msgstr ""
+msgstr "todo"
 
 #: core/Objects/Filters/Anytime.vala:33
 msgid "Anytime"
-msgstr ""
+msgstr "Calquera momento"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "anytime"
-msgstr ""
+msgstr "calquera momento"
 
 #: core/Objects/Filters/Anytime.vala:34 core/Objects/Filters/Completed.vala:34
 #: core/Objects/Filters/Inbox.vala:34 core/Objects/Filters/Labels.vala:34
@@ -193,25 +194,25 @@ msgstr ""
 #: core/Objects/Filters/Scheduled.vala:49 core/Objects/Filters/Today.vala:50
 #: core/Objects/Filters/Tomorrow.vala:34 core/Objects/Filters/Unlabeled.vala:34
 msgid "filters"
-msgstr ""
+msgstr "filtros"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr ""
+msgstr "sen data"
 
 #: core/Objects/Filters/Completed.vala:33
 #: src/Dialogs/ProductivityReport/SummarySection.vala:58
 #: src/Views/Today.vala:259
 msgid "Completed"
-msgstr ""
+msgstr "Concluídas"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "completed"
-msgstr ""
+msgstr "concluídas"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "logbook"
-msgstr ""
+msgstr "rexistro de eventos"
 
 #: core/Objects/Filters/Inbox.vala:33 core/Utils/Util.vala:258
 #: core/Utils/Util.vala:593
@@ -221,51 +222,51 @@ msgstr ""
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:194
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr ""
+msgstr "Caixa de entrada"
 
 #: core/Objects/Filters/Inbox.vala:34
 msgid "inbox"
-msgstr ""
+msgstr "caixa de entrada"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
-msgstr ""
+msgstr "etiquetas"
 
 #: core/Objects/Filters/Pinboard.vala:34
 msgid "Pinboard"
-msgstr ""
+msgstr "Elementos fixados"
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:117
 msgid "Priority 1: high"
-msgstr ""
+msgstr "Prioridade 1: alta"
 
 #: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:119
 msgid "Priority 2: medium"
-msgstr ""
+msgstr "Prioridade 2: media"
 
 #: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:121
 msgid "Priority 3: low"
-msgstr ""
+msgstr "Prioridade 3: baixa"
 
 #: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:123
 msgid "Priority 4: none"
-msgstr ""
+msgstr "Prioridade 4: ningunha"
 
 #: core/Objects/Filters/Priority.vala:182
 msgid "high"
-msgstr ""
+msgstr "alta"
 
 #: core/Objects/Filters/Priority.vala:184
 msgid "medium"
-msgstr ""
+msgstr "media"
 
 #: core/Objects/Filters/Priority.vala:186
 msgid "low"
-msgstr ""
+msgstr "baixa"
 
 #: core/Objects/Filters/Priority.vala:188
 msgid "none"
-msgstr ""
+msgstr "ningunha"
 
 #: core/Objects/Filters/Repeating.vala:33
 msgid "Repeating"
