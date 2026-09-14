@@ -57,10 +57,10 @@ jobs:
              '.modules |= map(select(.name as $n | ($drop | index($n)) | not))
               | (.modules[-1]["config-opts"]) += [$opt]' \
              build-aux/io.github.alainm23.planify.Devel.json \
-             > /tmp/manifest-${{ matrix.name }}.json
+             > build-aux/ci-matrix-${{ matrix.name }}.json
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          manifest-path: /tmp/manifest-${{ matrix.name }}.json
+          manifest-path: build-aux/ci-matrix-${{ matrix.name }}.json
           cache-key: flatpak-builder-${{ matrix.name }}-${{ github.sha }}
 
   lint:
