@@ -140,12 +140,14 @@ public class Objects.Source : Objects.BaseObject {
 
         Services.LogService.get_default ().info ("Source", "Starting sync server for source: %s".printf (display_name));
 
-        // run_server () is called again on every network change and from the
-        // preferences; drop the previous periodic timer so they don't pile up.
-        remove_sync_server ();
-
         if (!skip_first_sync) {
             _run_server ();
+        }
+
+        // run_server () is called again on every network change and from the
+        // preferences; keep the periodic timer that is already armed.
+        if (server_timeout != 0) {
+            return;
         }
 
         server_timeout = Timeout.add_seconds (15 * 60, () => {
@@ -156,6 +158,7 @@ public class Objects.Source : Objects.BaseObject {
             }
 
             Services.LogService.get_default ().info ("Source", "Sync server stopped for source: %s".printf (display_name));
+            server_timeout = 0;
             return false;
         });
     }
