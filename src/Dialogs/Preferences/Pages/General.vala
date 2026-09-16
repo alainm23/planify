@@ -87,18 +87,6 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
         de_group.add (run_background_row);
         #endif
 
-        var calendar_events_switch = new Gtk.Switch () {
-            valign = Gtk.Align.CENTER,
-            active = Services.Settings.get_default ().settings.get_boolean ("calendar-enabled")
-        };
-
-        var calendar_events_row = new Adw.ActionRow ();
-        calendar_events_row.title = _("Calendar Events");
-        calendar_events_row.set_activatable_widget (calendar_events_switch);
-        calendar_events_row.add_suffix (calendar_events_switch);
-
-        de_group.add (calendar_events_row);
-
         var search_provider_row = new Adw.ActionRow ();
         search_provider_row.title = _("GNOME Shell Search");
         search_provider_row.subtitle = _("Search tasks and projects directly from GNOME Shell. Enable it in Settings → Search");
@@ -195,10 +183,6 @@ public class Dialogs.Preferences.Pages.General : Dialogs.Preferences.Pages.BaseP
 
         signal_map[run_on_startup_handler] = run_on_startup_switch;
 #endif
-
-        signal_map[calendar_events_switch.notify["active"].connect (() => {
-            Services.Settings.get_default ().settings.set_boolean ("calendar-enabled", calendar_events_switch.active);
-        })] = calendar_events_switch;
 
         signal_map[smart_date_recognition_switch.notify["active"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("smart-date-recognition", smart_date_recognition_switch.active);

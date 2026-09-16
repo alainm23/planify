@@ -187,6 +187,10 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
         });
     }
 
+    public void prefill (string url) {
+        server_entry.text = url;
+    }
+
     private void on_login_button_clicked () {
         Services.LogService.get_default ().info ("NextcloudSetup", "Login button clicked");
         GLib.Cancellable cancellable = new GLib.Cancellable ();

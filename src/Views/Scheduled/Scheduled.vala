@@ -23,7 +23,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
     private Gtk.Revealer indicator_revealer;
     Widgets.ContextMenu.MenuCheckPicker priority_filter;
     private Gtk.ListBox listbox;
-    private Gtk.ScrolledWindow scrolled_window;
+    private Widgets.ScrolledWindow scrolled_window;
 
     public Gee.HashMap<string, Layouts.ItemRow> items;
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -135,13 +135,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             child = content
         };
 
-        scrolled_window = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            hexpand = true,
-            vexpand = true
-        };
-
-        scrolled_window.child = content_clamp;
+        scrolled_window = new Widgets.ScrolledWindow (content_clamp);
 
         var magic_button = new Widgets.MagicButton ();
 

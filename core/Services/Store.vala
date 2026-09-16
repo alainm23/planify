@@ -313,6 +313,67 @@ public class Services.Store : GLib.Object {
         }
     }
 
+    /**
+     * Returns every project in the order the sidebar displays it: visible sources by child_order,
+     * and within each source its top-level, non-archived projects, again by child_order.
+     *
+     * Both orderings have to be computed rather than read off the store's own list: that list is
+     * ordered once at load, while reordering a project by dragging it writes the new child_order
+     * onto the live Objects.Project and to the database without moving anything in the list. Custom
+     * order taken from the list order would therefore stay on the pre-drag order until the next
+     * restart, while the sidebar showed the new one.
+     *
+     * Matches what the sidebar actually shows, so callers that address projects by position agree
+     * with what the user sees. That is two conditions, not one: Layouts.SidebarSourceRow's
+     * add_row_project () decides which rows are built, and Layouts.ProjectRow then keeps the
+     * designated inbox hidden (main_revealer.reveal_child = !project.is_inbox_project), so a row
+     * existing in the sidebar's list box does not mean it is visible. The alphabetical mode is the
+     * same as projects_sort_func (); custom order ignores the projects-ordered direction exactly as
+     * the sidebar does, which installs no sort function at all in that mode. Subprojects are
+     * excluded because they are rendered nested inside their parent, not as siblings in this list.
+     */
+    public Gee.ArrayList<Objects.Project> get_projects_display_order () {
+        Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
+
+        var visible_sources = new Gee.ArrayList<Objects.Source> ();
+        foreach (var source in sources) {
+            if (source.is_visible) {
+                visible_sources.add (source);
+            }
+        }
+
+        visible_sources.sort ((a, b) => {
+            return a.child_order - b.child_order;
+        });
+
+        bool alphabetically = Services.Settings.get_default ().settings.get_enum ("projects-sort-by") == 1;
+        int ordered = Services.Settings.get_default ().settings.get_enum ("projects-ordered");
+
+        foreach (var source in visible_sources) {
+            var source_projects = new Gee.ArrayList<Objects.Project> ();
+
+            foreach (var project in get_projects_by_source (source.id)) {
+                if (project.parent_id == "" && !project.is_archived && !project.is_inbox_project) {
+                    source_projects.add (project);
+                }
+            }
+
+            if (alphabetically) {
+                source_projects.sort ((a, b) => {
+                    return ordered == 0 ? b.name.collate (a.name) : a.name.collate (b.name);
+                });
+            } else {
+                source_projects.sort ((a, b) => {
+                    return a.child_order - b.child_order;
+                });
+            }
+
+            return_value.add_all (source_projects);
+        }
+
+        return return_value;
+    }
+
     public async void delete_project (Objects.Project project) {
         var sections = get_sections_by_project (project);
         var items = get_items_by_project (project);
@@ -724,6 +785,10 @@ public class Services.Store : GLib.Object {
             if (item.has_section && item.section != null) {
                 item.section.item_deleted (item);
             }
+
+            if (item.has_parent && item.parent != null) {
+                item.parent.invalidate_subitems ();
+            }
         }
     }
 
@@ -1116,13 +1181,14 @@ public class Services.Store : GLib.Object {
 
     public Gee.ArrayList<Objects.Item> get_items_by_scheduled (bool checked = true) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        var now = new GLib.DateTime.now_local ();
         lock (_items) {
             foreach (Objects.Item item in items) {
                 if (item != null &&
                     item.has_due &&
                     !item.was_archived () &&
                     item.checked == checked &&
-                    item.due.datetime.compare (new GLib.DateTime.now_local ()) > 0) {
+                    item.due.datetime.compare (now) > 0) {
                     return_value.add (item);
                 }
             }
@@ -1382,6 +1448,18 @@ public class Services.Store : GLib.Object {
 
             return return_value;
         }
+    }
+
+    public void cleanup_trash_on_startup () {
+        var trash_items = Services.Database.get_default ().get_items_in_trash ();
+        foreach (var item in trash_items) {
+            item.delete_item ();
+        }
+    }
+
+    public void set_item_trash (Objects.Item item, bool trash) {
+        item.is_trash = trash;
+        Services.Database.get_default ().update_item_trash (item);
     }
 
     // Reminders

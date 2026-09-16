@@ -1241,6 +1241,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     private void delete_undo () {
+        Services.Store.instance ().set_item_trash (item, true);
+
         var toast = new Adw.Toast (_ ("%s was deleted".printf (Util.get_default ().get_short_name (item.content))));
         toast.button_label = _ ("Undo");
         toast.priority = Adw.ToastPriority.HIGH;
@@ -1249,12 +1251,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         Services.EventBus.get_default ().send_toast (toast);
 
         toast.dismissed.connect (() => {
-            if (!main_revealer.reveal_child) {
-                item.delete_item ();
-            }
+            item.delete_item ();
         });
 
         toast.button_clicked.connect (() => {
+            Services.Store.instance ().set_item_trash (item, false);
             main_revealer.reveal_child = true;
         });
     }

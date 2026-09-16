@@ -40,7 +40,13 @@ public class Widgets.EventsList : Adw.Bin {
 
     public bool has_items {
         get {
-            return event_hashmap.size > 0;
+            var disabled = Services.Settings.get_default ().settings.get_strv ("calendar-sources-disabled");
+            foreach (var entry in event_hashmap.entries) {
+                if (!(entry.value.source.dup_uid () in disabled)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
@@ -92,6 +98,11 @@ public class Widgets.EventsList : Adw.Bin {
         };
 
         listbox.set_sort_func (sort_event_function);
+        listbox.set_filter_func ((row) => {
+            var event_row = (Widgets.EventRow) row;
+            var disabled = Services.Settings.get_default ().settings.get_strv ("calendar-sources-disabled");
+            return !(event_row.source.dup_uid () in disabled);
+        });
         listbox.add_css_class ("listbox-background");
 
         var listbox_grid = new Gtk.Grid () {
@@ -118,6 +129,11 @@ public class Widgets.EventsList : Adw.Bin {
 
         signal_map[Services.Settings.get_default ().settings.changed["calendar-enabled"].connect (() => {
             main_revealer.reveal_child = Services.Settings.get_default ().settings.get_boolean ("calendar-enabled");
+        })] = Services.Settings.get_default ();
+
+        signal_map[Services.Settings.get_default ().settings.changed["calendar-sources-disabled"].connect (() => {
+            listbox.invalidate_filter ();
+            change ();
         })] = Services.Settings.get_default ();
     }
 

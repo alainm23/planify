@@ -240,7 +240,8 @@ public class Widgets.DeadlineButton : Adw.Bin {
         suggested_box.append (in_a_month_item);
 
         var delete_button = new Gtk.Button.with_label (_("Delete")) {
-            margin_top = 12
+            margin_top = 12,
+            margin_bottom = 12,
         };
         delete_button.add_css_class ("destructive-action");
 
@@ -251,9 +252,9 @@ public class Widgets.DeadlineButton : Adw.Bin {
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_start = 9,
-            margin_end = 9,
-            margin_top = 9
+            margin_start = 12,
+            margin_end = 12,
+            margin_top = 12
         };
         content_box.append (suggested_box);
         content_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -269,6 +270,7 @@ public class Widgets.DeadlineButton : Adw.Bin {
                 max_content_height = 425,
                 child = content_box
             },
+            css_classes = { "popover-contents" },
             position = Gtk.PositionType.BOTTOM
         };
 
@@ -325,10 +327,6 @@ public class Widgets.DeadlineButton : Adw.Bin {
     }
 
     private Gtk.Button build_suggestion (string title, GLib.DateTime date) {
-        string icon_name = Utils.Datetime.is_tomorrow (date) ? "today-calendar-symbolic" : "month-symbolic";
-
-        var icon = new Gtk.Image.from_icon_name (icon_name);
-
         var label = new Gtk.Label (title);
 
         var box = new Gtk.Box (HORIZONTAL, 6) {
@@ -337,12 +335,11 @@ public class Widgets.DeadlineButton : Adw.Bin {
             margin_top = 6,
             margin_bottom = 6
         };
-        box.append (icon);
         box.append (label);
 
         var button = new Gtk.Button () {
             child = box,
-            css_classes = { "card" },
+            css_classes = { "suggestion-chip" },
             tooltip_text = Utils.Datetime.get_relative_date_from_date (date)
         };
 

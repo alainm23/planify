@@ -421,7 +421,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         pin_button = new Widgets.PinButton () {
             sensitive = !item.completed,
-            no_padding = true
+            no_padding = true,
+            icon_size = 13
         };
 
         hide_loading_button = new Widgets.LoadingButton.with_icon ("go-up-symbolic", 16) {
@@ -839,6 +840,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             subitems.prepare_new_item ();
         })] = add_subitem_gesture;
 
+        signals_map[add_subtasks_button.clicked.connect (() => {
+            subitems.prepare_new_item ();
+        })] = add_subtasks_button;
+
         signals_map[item.loading_change.connect (() => {
             is_loading = item.loading;
         })] = item;
@@ -1246,6 +1251,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var tomorrow_item = new Widgets.ContextMenu.MenuItem (_ ("Tomorrow"), "month-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
+        var pick_date_item = new Widgets.ContextMenu.MenuItem (_ ("Pick a Date"), "month-symbolic");
+
         pinboard_item = new Widgets.ContextMenu.MenuItem (item.pinned ? _ ("Unpin") : _ ("Pin"), "pin-symbolic");
 
         no_date_item = new Widgets.ContextMenu.MenuItem (_ ("No Date"), "cross-large-circle-filled-symbolic");
@@ -1270,6 +1277,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (today_item);
         menu_box.append (tomorrow_item);
+        menu_box.append (pick_date_item);
         menu_box.append (no_date_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (pinboard_item);
@@ -1289,6 +1297,20 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         signals_map[tomorrow_item.activate_item.connect (() => {
             update_date (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
         })] = tomorrow_item;
+
+        signals_map[pick_date_item.activate_item.connect (() => {
+            var dialog = new Dialogs.DatePicker (_("Pick a Date"));
+            if (item.has_due) {
+                dialog.datetime = item.due.datetime;
+            }
+            dialog.present (Planify._instance.main_window);
+            signals_map[dialog.date_changed.connect (() => {
+                if (dialog.datetime != null) {
+                    update_date (Utils.Datetime.get_date_only (dialog.datetime));
+                }
+                dialog.clean_up ();
+            })] = dialog;
+        })] = pick_date_item;
 
         signals_map[pinboard_item.activate_item.connect (() => {
             item.update_pin (!item.pinned);
@@ -1595,15 +1617,20 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_label.remove_css_class ("line-through");
         check_due ();
 
-        due_label.add_css_class ("date-updated");
+        // Re-trigger the flash even if the class is still present from a rapid previous completion.
+        due_label.remove_css_class ("date-updated");
+        Timeout.add (10, () => {
+            due_label.add_css_class ("date-updated");
+            return GLib.Source.REMOVE;
+        });
         Timeout.add (1200, () => {
             due_label.remove_css_class ("date-updated");
             return GLib.Source.REMOVE;
         });
 
-        var title = _("Completed. Next occurrence: %s".printf (
-                           Utils.Datetime.get_default_date_format_from_date (next_recurrency)
-        ));
+        var title = _("Task completed · Next: %s").printf (
+            Utils.Datetime.get_relative_date_from_date (next_recurrency)
+        );
         var toast = Util.get_default ().create_toast (title, 3);
         Services.EventBus.get_default ().send_toast (toast);
     }
@@ -1623,6 +1650,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void delete_undo () {
+        Services.Store.instance ().set_item_trash (item, true);
+
         var toast = new Adw.Toast (_("%s was deleted".printf (Util.get_default ().get_short_name (item.content))));
         toast.button_label = _("Undo");
         toast.priority = HIGH;
@@ -1631,12 +1660,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         Services.EventBus.get_default ().send_toast (toast);
 
         signals_map[toast.dismissed.connect (() => {
-            if (!main_revealer.reveal_child) {
-                item.delete_item ();
-            }
+            item.delete_item ();
         })] = toast;
 
         signals_map[toast.button_clicked.connect (() => {
+            Services.Store.instance ().set_item_trash (item, false);
             main_revealer.reveal_child = true;
         })] = toast;
     }

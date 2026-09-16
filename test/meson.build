@@ -24,3 +24,17 @@ test_cli = executable(
 )
 
 test('cli', test_cli, timeout: 30, suite: ['cli'])
+
+test_core_sources = [
+    'test-core-runner.vala',
+    'core/test-item-sorting.vala'
+]
+
+test_core = executable(
+    'test-core',
+    test_core_sources,
+    dependencies: [ core_dep, glib_dep ],
+    install: false
+)
+
+test('core', test_core, timeout: 30, suite: ['core'])

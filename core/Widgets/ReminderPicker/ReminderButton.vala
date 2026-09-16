@@ -146,39 +146,27 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     }
 
     public void set_reminders (Gee.ArrayList<Objects.Reminder> reminders) {
-        if (is_board) {
-            value_label.label = _("Add Reminders");
-            value_label.tooltip_text = null;
-        }
-
         reminder_picker.set_reminders (reminders);
-
-        if (reminders.size > 0) {
-            build_value_label (reminders);
-        }
-
-        indicator_revealer.reveal_child = reminder_picker.has_reminders;
+        refresh_state (reminders);
     }
 
     public void add_reminder (Objects.Reminder reminder, Gee.ArrayList<Objects.Reminder> reminders) {
         reminder_picker.add_reminder (reminder);
-
-        if (reminders.size > 0 && is_board) {
-            build_value_label (reminders);
-        }
-
-        indicator_revealer.reveal_child = reminder_picker.has_reminders;
+        refresh_state (reminders);
     }
 
     public void delete_reminder (Objects.Reminder reminder, Gee.ArrayList<Objects.Reminder> reminders) {
         reminder_picker.delete_reminder (reminder);
+        refresh_state (reminders);
+    }
 
+    private void refresh_state (Gee.ArrayList<Objects.Reminder> reminders) {
         if (is_board) {
-            value_label.label = _("Add Reminders");
-            value_label.tooltip_text = null;
-
             if (reminders.size > 0) {
                 build_value_label (reminders);
+            } else {
+                value_label.label = _("Add Reminders");
+                value_label.tooltip_text = null;
             }
         }
 
@@ -186,17 +174,12 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     }
 
     private void build_value_label (Gee.ArrayList<Objects.Reminder> reminders) {
-        value_label.label = "";
-        for (int index = 0; index < reminders.size; index++) {
-            string date = reminders[index].relative_text;
-
-            if (index < reminders.size - 1) {
-                value_label.label += date + ", ";
-            } else {
-                value_label.label += date;
-            }
+        var parts = new Gee.ArrayList<string> ();
+        foreach (Objects.Reminder reminder in reminders) {
+            parts.add (reminder.relative_text);
         }
 
+        value_label.label = string.joinv (", ", parts.to_array ());
         value_label.tooltip_text = value_label.label;
     }
 

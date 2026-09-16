@@ -45,6 +45,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Widgets.ContextMenu.MenuItem duplicate_item;
     private Widgets.ContextMenu.MenuItem move_item;
     private Widgets.ContextMenu.MenuItem export_ics_item;
+    private Widgets.ContextMenu.MenuItem more_information_item;
 
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
     private Gee.HashMap<ulong, weak GLib.Object> markdown_handlerses = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -465,6 +466,12 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         deadline_button.sensitive = !item.completed;
         export_ics_item.visible = item.project.source_type == SourceType.CALDAV;
 
+        if (item.updated_at != "") {
+            more_information_item.subtitle = _("Updated: %s").printf (Utils.Datetime.get_relative_date_from_date (item.updated_datetime));
+        } else {
+            more_information_item.subtitle = _("Created: %s").printf (Utils.Datetime.get_relative_date_from_date (item.added_datetime));
+        }
+
         if (item.completed) {
             deadline_button.remove_error_style ();
         }
@@ -513,7 +520,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
-        var more_information_item = new Widgets.ContextMenu.MenuItem (_("Change History"), "rotation-edit-symbolic");
+        more_information_item = new Widgets.ContextMenu.MenuItem (_("Change History"), "rotation-edit-symbolic");
 
         var popover = new Gtk.Popover () {
             has_arrow = false,

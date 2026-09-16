@@ -64,7 +64,9 @@ public class Dialogs.Preferences.Pages.HomeView : Dialogs.Preferences.Pages.Base
             Objects.Filters.Inbox.get_default (),
             Objects.Filters.Today.get_default (),
             Objects.Filters.Scheduled.get_default (),
-            Objects.Filters.Pinboard.get_default ()
+            Objects.Filters.Pinboard.get_default (),
+            Objects.Filters.Labels.get_default (),
+            Objects.Filters.AllItems.get_default ()
         };
 
         foreach (Objects.BaseObject object in filters) {

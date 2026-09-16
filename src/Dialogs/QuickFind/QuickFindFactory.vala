@@ -168,6 +168,16 @@ public class Dialogs.QuickFind.QuickFindFactory : GLib.Object {
         main_grid.attach (checked_button, 0, 0, 1, 2);
         main_grid.attach (content_label, 1, 0, 1, 1);
         main_grid.attach (project_label, 1, 1, 1, 1);
+
+        if (item.matched_description && item.description_snippet != "") {
+            var snippet_label = new Gtk.Label (markup_string_with_search (item.description_snippet, item.pattern)) {
+                ellipsize = Pango.EllipsizeMode.END,
+                xalign = 0,
+                use_markup = true,
+                css_classes = { "dimmed", "caption" }
+            };
+            main_grid.attach (snippet_label, 1, 2, 1, 1);
+        }
     }
 
     private static void bind_label (QuickFindItem item, Gtk.Grid main_grid) {

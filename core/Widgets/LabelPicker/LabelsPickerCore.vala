@@ -127,10 +127,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             valign = Gtk.Align.START
         };
         listbox.add_css_class ("listbox-background");
-        listbox.add_css_class ("listbox-separator-6");
-
         listbox.set_placeholder (get_placeholder ());
-
         listbox.set_sort_func ((row1, row2) => {
             Objects.Label item1 = ((Widgets.LabelPicker.LabelRow) row1).label;
             Objects.Label item2 = ((Widgets.LabelPicker.LabelRow) row2).label;
