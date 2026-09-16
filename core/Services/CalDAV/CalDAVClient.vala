@@ -589,6 +589,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                                 } else {
                                     project.add_item_if_not_exists (new_item);
                                 }
+                            } else if (new_item.section_id != "" && new_item.section != null) {
+                                new_item.section.add_item_if_not_exists (new_item);
                             } else {
                                 project.add_item_if_not_exists (new_item);
                             }
@@ -819,8 +821,11 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         HttpResponse response = new HttpResponse ();
 
         try {
+            // NOT_FOUND counts as success, as for sections and items: a calendar already removed
+            // on the server would otherwise leave a project that cannot be deleted here.
             yield send_request ("DELETE", project.calendar_url, "text/calendar", null, null, null,
-                                { Soup.Status.NO_CONTENT, Soup.Status.MULTI_STATUS, Soup.Status.OK });
+                                { Soup.Status.NO_CONTENT, Soup.Status.MULTI_STATUS, Soup.Status.OK,
+                                  Soup.Status.NOT_FOUND });
             response.status = true;
         } catch (Error e) {
             if ("HTTP 403" in e.message) {
@@ -977,7 +982,10 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield send_request ("DELETE", item.ical_url, "", null, null, null, { Soup.Status.NO_CONTENT, Soup.Status.OK });
+            // NOT_FOUND counts as success, as for sections: an item already deleted elsewhere would
+            // otherwise be undeletable here.
+            yield send_request ("DELETE", item.ical_url, "", null, null, null,
+                                { Soup.Status.NO_CONTENT, Soup.Status.OK, Soup.Status.NOT_FOUND });
 
             response.status = true;
         } catch (Error e) {
@@ -1022,7 +1030,12 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield send_request ("DELETE", section.ical_url, "", null, null, null, { Soup.Status.NO_CONTENT, Soup.Status.OK });
+            // NOT_FOUND counts as success: the section's VTODO may already have been deleted from
+            // another client, and treating that as a failure leaves a section that can never be
+            // removed here — the delete is refused every time because the server has nothing left
+            // to delete.
+            yield send_request ("DELETE", section.ical_url, "", null, null, null,
+                                { Soup.Status.NO_CONTENT, Soup.Status.OK, Soup.Status.NOT_FOUND });
             response.status = true;
         } catch (Error e) {
             Services.LogService.get_default ().error ("CalDAV", "Failed to delete section: %s".printf (e.message));

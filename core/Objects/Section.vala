@@ -527,6 +527,9 @@ public class Objects.Section : Objects.BaseObject {
     }
 
     public static bool is_vtodo_section (string summary) {
+        if (CALDAV_PREFIX == null) {
+            return false;
+        }
         return summary != null && summary.has_prefix (CALDAV_PREFIX);
     }
 

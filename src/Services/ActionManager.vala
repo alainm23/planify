@@ -44,6 +44,13 @@ public class Services.ActionManager : Object {
     public const string ACTION_VIEW_LABELS = "action_view_labels";
     public const string ACTION_VIEW_HOME = "action_view_home";
     public const string ACTION_SHOW_HIDE_SIDEBAR = "action_show_hide_sidebar";
+    public const string ACTION_VIEW_PROJECT = "action_view_project";
+    public const string ACTION_NEXT_PROJECT = "action_next_project";
+    public const string ACTION_PREV_PROJECT = "action_prev_project";
+
+    // Ctrl+1..8 select that position in the sidebar order; Ctrl+9 always selects the last project,
+    // following the convention used by browsers and chat apps for numbered tab shortcuts.
+    private const int PROJECT_SHORTCUTS = 9;
 
     public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
     public static Gee.MultiMap<string, string> typing_accelerators = new Gee.HashMultiMap<string, string> ();
@@ -66,7 +73,10 @@ public class Services.ActionManager : Object {
         { ACTION_VIEW_PINBOARD, action_view_pinboard },
         { ACTION_VIEW_LABELS, action_view_labels },
         { ACTION_VIEW_HOME, action_view_home },
-        { ACTION_SHOW_HIDE_SIDEBAR, action_show_hide_sidebar }
+        { ACTION_SHOW_HIDE_SIDEBAR, action_show_hide_sidebar },
+        { ACTION_VIEW_PROJECT, action_view_project, "i" },
+        { ACTION_NEXT_PROJECT, action_next_project },
+        { ACTION_PREV_PROJECT, action_prev_project }
     };
 
     public ActionManager (Planify app, MainWindow window) {
@@ -89,6 +99,15 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_VIEW_SCHEDULED, "<Control>u");
         action_accelerators.set (ACTION_VIEW_LABELS, "<Control>l");
         action_accelerators.set (ACTION_VIEW_PINBOARD, "<Control>p");
+        action_accelerators.set (ACTION_NEXT_PROJECT, "<Control>Page_Down");
+        action_accelerators.set (ACTION_PREV_PROJECT, "<Control>Page_Up");
+
+        // Keyed by detailed action name ("action_view_project(1)") rather than a bare action name.
+        // The enable/disable loops below only prepend ACTION_PREFIX, and "win.action_view_project(1)"
+        // is a valid detailed name, so the numbered shortcuts need no special handling there.
+        for (int i = 1; i <= PROJECT_SHORTCUTS; i++) {
+            action_accelerators.set ("%s(%d)".printf (ACTION_VIEW_PROJECT, i), "<Control>%d".printf (i));
+        }
 
         typing_accelerators.set (ACTION_ADD_TASK, "a");
         typing_accelerators.set (ACTION_ADD_TASK_PASTE, "<Control>v");
@@ -239,5 +258,75 @@ public class Services.ActionManager : Object {
 
     private void action_view_home () {
         window.go_homepage ();
+    }
+
+    private void action_view_project (SimpleAction action, Variant ? parameter) {
+        if (parameter == null) {
+            return;
+        }
+
+        var projects = Services.Store.instance ().get_projects_display_order ();
+        if (projects.size <= 0) {
+            return;
+        }
+
+        int position = parameter.get_int32 ();
+
+        // The highest shortcut jumps to the last project, however many there are; the rest are
+        // positional and simply do nothing when there is no project at that position.
+        int index = position >= PROJECT_SHORTCUTS ? projects.size - 1 : position - 1;
+
+        if (index < 0 || index >= projects.size) {
+            return;
+        }
+
+        open_project (projects[index]);
+    }
+
+    private void action_next_project () {
+        move_project_selection (1);
+    }
+
+    private void action_prev_project () {
+        move_project_selection (-1);
+    }
+
+    /**
+     * Moves to the project offset places away from the current one, wrapping at both ends. When the
+     * visible view is not a project, moves to the first or last one depending on the direction.
+     */
+    private void move_project_selection (int offset) {
+        var projects = Services.Store.instance ().get_projects_display_order ();
+        if (projects.size <= 0) {
+            return;
+        }
+
+        Objects.Project ? current = window.get_current_project ();
+        int index = -1;
+
+        if (current != null) {
+            for (int i = 0; i < projects.size; i++) {
+                if (projects[i].id == current.id) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+
+        if (index < 0) {
+            open_project (offset > 0 ? projects[0] : projects[projects.size - 1]);
+            return;
+        }
+
+        int next = (index + offset) % projects.size;
+        if (next < 0) {
+            next += projects.size;
+        }
+
+        open_project (projects[next]);
+    }
+
+    private void open_project (Objects.Project project) {
+        Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id);
     }
 }

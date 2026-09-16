@@ -747,6 +747,20 @@ public class MainWindow : Adw.ApplicationWindow {
         }
     }
 
+    /**
+     * The project currently on screen, or null when the visible view is not a project.
+     */
+    public Objects.Project ? get_current_project () {
+        if (views_stack.visible_child is Views.Project) {
+            Views.Project ? project_view = (Views.Project) views_stack.visible_child;
+            if (project_view != null) {
+                return project_view.project;
+            }
+        }
+
+        return null;
+    }
+
     private void update_productivity_visibility (Widgets.ContextMenu.MenuItem item, Widgets.ProductivityMiniWidget mini) {
         bool show_mini = Services.ProductivityService.instance ().has_goals ();
         item.visible = !show_mini;

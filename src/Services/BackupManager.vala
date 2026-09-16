@@ -148,6 +148,7 @@ public class Services.BackupManager : Object {
             Services.LogService.get_default ().info ("BackupManager", "Backup created: %s".printf (backup_file.get_path ()));
             Services.Settings.get_default ().settings.set_string ("backup-last-date", new GLib.DateTime.now_local ().to_string ());
             copy_to_extra_folders (backup_file);
+            prune_old_backups ();
         } else {
             Services.LogService.get_default ().warn ("BackupManager", "Backup failed — create_backup returned null");
             var toast = new Adw.Toast (_("Automatic backup failed")) {
@@ -231,19 +232,57 @@ public class Services.BackupManager : Object {
 
         dialog.response.connect ((response) => {
             if (response == "delete") {
-                File db_file = File.new_for_path (backup.path);
-                if (db_file.query_exists ()) {
-                    try {
-                        if (db_file.delete ()) {
-                            backup.deleted ();
-                            _backups.remove (backup);
-                        }
-                    } catch (Error err) {
-                        warning (err.message);
-                    }
-                }
+                delete_backup_file (backup);
             }
         });
+    }
+
+    // Delete a backup's file without a confirmation dialog. Used by both the
+    // manual delete (after the user confirms) and automatic pruning.
+    private bool delete_backup_file (Objects.Backup backup) {
+        File db_file = File.new_for_path (backup.path);
+        if (db_file.query_exists ()) {
+            try {
+                if (db_file.delete ()) {
+                    backup.deleted ();
+                    _backups.remove (backup);
+                    return true;
+                }
+            } catch (Error err) {
+                warning (err.message);
+            }
+        }
+
+        return false;
+    }
+
+    // Enforce the "keep last N backups" retention setting. When
+    // backup-max-count is greater than zero, the oldest backups beyond that
+    // count are removed. Zero keeps everything (previous behaviour).
+    public void prune_old_backups () {
+        int max_count = Services.Settings.get_default ().settings.get_int ("backup-max-count");
+        if (max_count <= 0) {
+            return;
+        }
+
+        // Work on a sorted copy: newest first.
+        var sorted = new Gee.ArrayList<Objects.Backup> ();
+        sorted.add_all (backups);
+        sorted.sort ((a, b) => {
+            return b.datetime.compare (a.datetime);
+        });
+
+        if (sorted.size <= max_count) {
+            return;
+        }
+
+        for (int i = max_count; i < sorted.size; i++) {
+            var old_backup = sorted.get (i);
+            if (delete_backup_file (old_backup)) {
+                Services.LogService.get_default ().info (
+                    "BackupManager", "Pruned old backup: %s".printf (old_backup.title));
+            }
+        }
     }
 
     public void save_file_as (Objects.Backup backup) {

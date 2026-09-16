@@ -58,6 +58,11 @@ public class Views.Scheduled.ScheduledOverdue : Views.Scheduled.ScheduledSection
         setup_events (header_content);
         #endif
 
+        var header_content_wraper = new Adw.Bin () {
+            child = header_content,
+            margin_start = 18 
+        };
+
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
             activate_on_single_click = true,
@@ -75,10 +80,10 @@ public class Views.Scheduled.ScheduledOverdue : Views.Scheduled.ScheduledSection
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             valign = Gtk.Align.START,
-            margin_bottom = 32,
+            margin_bottom = 24
         };
 
-        content.append (header_content);
+        content.append (header_content_wraper);
         content.append (listbox_grid);
 
         main_revealer = new Gtk.Revealer () {
@@ -118,7 +123,10 @@ public class Views.Scheduled.ScheduledOverdue : Views.Scheduled.ScheduledSection
 
         signal_map[reschedule_button.duedate_changed.connect (() => {
             foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
-                ((Layouts.ItemRow) child).update_due (reschedule_button.duedate);
+                var item = ((Layouts.ItemRow) child).item;
+                var new_due = item.due.duplicate ();
+                new_due.datetime = reschedule_button.duedate.datetime;
+                ((Layouts.ItemRow) child).update_due (new_due);
             }
         })] = reschedule_button;
 
