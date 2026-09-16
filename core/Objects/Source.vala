@@ -144,6 +144,12 @@ public class Objects.Source : Objects.BaseObject {
             _run_server ();
         }
 
+        // run_server () is called again on every network change and from the
+        // preferences; keep the periodic timer that is already armed.
+        if (server_timeout != 0) {
+            return;
+        }
+
         server_timeout = Timeout.add_seconds (15 * 60, () => {
             if (sync_server) {
                 Services.LogService.get_default ().info ("Source", "Periodic sync for source: %s".printf (display_name));
@@ -152,6 +158,7 @@ public class Objects.Source : Objects.BaseObject {
             }
 
             Services.LogService.get_default ().info ("Source", "Sync server stopped for source: %s".printf (display_name));
+            server_timeout = 0;
             return false;
         });
     }
@@ -171,8 +178,10 @@ public class Objects.Source : Objects.BaseObject {
 
     public void remove_sync_server () {
         // Remove server_timeout
-        GLib.Source.remove (server_timeout);
-        server_timeout = 0;
+        if (server_timeout != 0) {
+            GLib.Source.remove (server_timeout);
+            server_timeout = 0;
+        }
     }
 
     public void save () {
