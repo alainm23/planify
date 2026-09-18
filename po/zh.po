@@ -136,7 +136,7 @@ msgid "Content"
 msgstr "目录"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:2014 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:2023 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "描述"
@@ -337,7 +337,7 @@ msgstr "iCalendar 文件"
 msgid "Task exported successfully"
 msgstr "任务导出成功"
 
-#: core/Objects/Item.vala:1992 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1992 core/Utils/Util.vala:869
 #, c-format
 msgid "Moved to %s"
 msgstr "任务已移动到%s"
@@ -351,7 +351,7 @@ msgstr "已删除标签%s"
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
-#: src/Layouts/ItemSidebarView.vala:604 src/Services/BackupManager.vala:225
+#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:225
 msgid "This can not be undone"
 msgstr "无法撤销"
 
@@ -367,7 +367,7 @@ msgstr "无法撤销"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:318
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:702
-#: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:607
+#: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
 #: src/Services/BackupManager.vala:228 src/Views/Filter.vala:900
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -381,7 +381,7 @@ msgstr "取消"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
-#: src/Layouts/ItemSidebarView.vala:608 src/Services/BackupManager.vala:229
+#: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:229
 #: src/Views/Filter.vala:901 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
@@ -1055,43 +1055,49 @@ msgstr "🏡️家庭"
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️跟进"
 
-#: core/Utils/Util.vala:936
+#: core/Utils/Util.vala:804 src/Layouts/ItemBoard.vala:1275
+#: src/Layouts/ItemRow.vala:1678 src/Layouts/ItemSidebarView.vala:601
+#: src/Widgets/MultiSelectToolbar.vala:439
+msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
+msgstr ""
+
+#: core/Utils/Util.vala:949
 msgid "Task duplicated"
 msgstr "任务已复制"
 
-#: core/Utils/Util.vala:972
+#: core/Utils/Util.vala:985
 msgid "Section duplicated"
 msgstr "分区已复制"
 
-#: core/Utils/Util.vala:998 core/Utils/Util.vala:1024
+#: core/Utils/Util.vala:1011 core/Utils/Util.vala:1037
 msgid "Project duplicated"
 msgstr "项目已复制"
 
-#: core/Utils/Util.vala:1066 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1079 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
 msgstr "到期时"
 
-#: core/Utils/Util.vala:1069 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1082 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
 msgstr "提前 10 分钟"
 
-#: core/Utils/Util.vala:1072 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1085 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
 msgstr "提前 30 分钟"
 
-#: core/Utils/Util.vala:1075 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1088 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
 msgstr "提前 45 分钟"
 
-#: core/Utils/Util.vala:1078 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1091 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
 msgstr "提前 1 小时"
 
-#: core/Utils/Util.vala:1081 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
+#: core/Utils/Util.vala:1094 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
 msgstr "提前 2 小时"
 
-#: core/Utils/Util.vala:1084 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
+#: core/Utils/Util.vala:1097 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
 msgstr "提前 3 小时"
 
@@ -1365,7 +1371,7 @@ msgid "After"
 msgstr "之后"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
-#: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:880
+#: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:886
 #: src/Layouts/ItemRow.vala:1346
 msgid "Apply"
 msgstr "应用"
@@ -1514,7 +1520,7 @@ msgstr "所有标签已被筛选器隐藏。禁用筛选器以查看它们。"
 msgid "Press Enter to create and assign it"
 msgstr "按回车键创建并分配"
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2024
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2033
 msgid "Task description"
 msgstr "任务描述"
 
@@ -3059,7 +3065,7 @@ msgstr "打开/关闭侧边栏"
 msgid "Unpin"
 msgstr "取消置顶"
 
-#: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemSidebarView.vala:682
+#: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemSidebarView.vala:697
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "已完成。下次出现：%s"
@@ -3084,16 +3090,16 @@ msgstr "复制"
 msgid "Delete Task"
 msgstr "删除任务"
 
-#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1878
+#: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1887
 msgid "Order changed to 'Custom sort order'"
 msgstr "排序方式已更改为'自定义排序'"
 
-#: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1655
+#: src/Layouts/ItemBoard.vala:1252 src/Layouts/ItemRow.vala:1655
 #, c-format
 msgid "%s was deleted"
 msgstr "%s 已删除"
 
-#: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1656
+#: src/Layouts/ItemBoard.vala:1253 src/Layouts/ItemRow.vala:1656
 msgid "Undo"
 msgstr "撤销"
 
@@ -3141,7 +3147,7 @@ msgstr "创建于：%s"
 msgid "Task completed · Next: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2089
+#: src/Layouts/ItemRow.vala:2098
 msgid "Add Attachments"
 msgstr "添加附件"
 
@@ -3161,7 +3167,7 @@ msgstr "属性"
 msgid "Expand Description"
 msgstr "展开描述"
 
-#: src/Layouts/ItemSidebarView.vala:603
+#: src/Layouts/ItemSidebarView.vala:618
 msgid "Are you sure you want to delete?"
 msgstr "确定要删除吗？"
 
@@ -3866,7 +3872,7 @@ msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "确定要删除这 %d 个待办事项吗？"
 
-#: src/Widgets/MultiSelectToolbar.vala:427
+#: src/Widgets/MultiSelectToolbar.vala:447
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"

@@ -149,7 +149,7 @@ msgid "Content"
 msgstr "Sadržaj"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:2014 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:2023 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "Opis"
@@ -350,7 +350,7 @@ msgstr "iCalendar datoteke"
 msgid "Task exported successfully"
 msgstr "Zadatak je uspješno izvezen"
 
-#: core/Objects/Item.vala:1992 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1992 core/Utils/Util.vala:869
 #, c-format
 msgid "Moved to %s"
 msgstr "Premješteno u %s"
@@ -364,7 +364,7 @@ msgstr "Izbriši etiketu %s"
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
-#: src/Layouts/ItemSidebarView.vala:604 src/Services/BackupManager.vala:225
+#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:225
 msgid "This can not be undone"
 msgstr "Ovo se ne može poništiti"
 
@@ -380,7 +380,7 @@ msgstr "Ovo se ne može poništiti"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:318
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:702
-#: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:607
+#: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
 #: src/Services/BackupManager.vala:228 src/Views/Filter.vala:900
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -394,7 +394,7 @@ msgstr "Odustani"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
-#: src/Layouts/ItemSidebarView.vala:608 src/Services/BackupManager.vala:229
+#: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:229
 #: src/Views/Filter.vala:901 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
@@ -1094,43 +1094,49 @@ msgstr "🏡️Doma"
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️Daljnje postupanje"
 
-#: core/Utils/Util.vala:936
+#: core/Utils/Util.vala:804 src/Layouts/ItemBoard.vala:1275
+#: src/Layouts/ItemRow.vala:1678 src/Layouts/ItemSidebarView.vala:601
+#: src/Widgets/MultiSelectToolbar.vala:439
+msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
+msgstr ""
+
+#: core/Utils/Util.vala:949
 msgid "Task duplicated"
 msgstr "Zadatak je dupliciran"
 
-#: core/Utils/Util.vala:972
+#: core/Utils/Util.vala:985
 msgid "Section duplicated"
 msgstr "Odjeljak je dupliciran"
 
-#: core/Utils/Util.vala:998 core/Utils/Util.vala:1024
+#: core/Utils/Util.vala:1011 core/Utils/Util.vala:1037
 msgid "Project duplicated"
 msgstr "Projekt je dupliciran"
 
-#: core/Utils/Util.vala:1066 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1079 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
 msgstr "U vrijeme događaja"
 
-#: core/Utils/Util.vala:1069 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1082 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
 msgstr "10 minuta prije"
 
-#: core/Utils/Util.vala:1072 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1085 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
 msgstr "30 minuta prije"
 
-#: core/Utils/Util.vala:1075 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1088 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
 msgstr "45 minuta prije"
 
-#: core/Utils/Util.vala:1078 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1091 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
 msgstr "1 sat prije"
 
-#: core/Utils/Util.vala:1081 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
+#: core/Utils/Util.vala:1094 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
 msgstr "2 sata prije"
 
-#: core/Utils/Util.vala:1084 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
+#: core/Utils/Util.vala:1097 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
 msgstr "3 sata prije"
 
@@ -1404,7 +1410,7 @@ msgid "After"
 msgstr "Nakon"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
-#: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:880
+#: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:886
 #: src/Layouts/ItemRow.vala:1346
 msgid "Apply"
 msgstr "Primijeni"
@@ -1568,7 +1574,7 @@ msgstr ""
 msgid "Press Enter to create and assign it"
 msgstr "Pritisni tipku Enter za stvaranje i dodjelu"
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2024
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2033
 msgid "Task description"
 msgstr ""
 
@@ -3163,7 +3169,7 @@ msgstr "Otvori/zatvori bočnu traku"
 msgid "Unpin"
 msgstr "Otkvači"
 
-#: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemSidebarView.vala:682
+#: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemSidebarView.vala:697
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Završeno. Sljedeće pojavljivanje: %s"
@@ -3188,16 +3194,16 @@ msgstr "Dupliciraj"
 msgid "Delete Task"
 msgstr "Izbriši zadatak"
 
-#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1878
+#: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1887
 msgid "Order changed to 'Custom sort order'"
 msgstr "Redoslijed je promijenjen u „Prilagođeni redoslijed razvrstavanja“"
 
-#: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1655
+#: src/Layouts/ItemBoard.vala:1252 src/Layouts/ItemRow.vala:1655
 #, c-format
 msgid "%s was deleted"
 msgstr "%s je izbrisan"
 
-#: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1656
+#: src/Layouts/ItemBoard.vala:1253 src/Layouts/ItemRow.vala:1656
 msgid "Undo"
 msgstr "Poništi"
 
@@ -3245,7 +3251,7 @@ msgstr ""
 msgid "Task completed · Next: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2089
+#: src/Layouts/ItemRow.vala:2098
 msgid "Add Attachments"
 msgstr "Dodaj priloge"
 
@@ -3265,7 +3271,7 @@ msgstr "Svojstva"
 msgid "Expand Description"
 msgstr "Proširi opis"
 
-#: src/Layouts/ItemSidebarView.vala:603
+#: src/Layouts/ItemSidebarView.vala:618
 msgid "Are you sure you want to delete?"
 msgstr "Stvarno želiš izbrisati?"
 
@@ -3995,7 +4001,7 @@ msgstr[0] "Stvarno želiš izbrisati ovaj %d zadatak?"
 msgstr[1] "Stvarno želiš izbrisati ova %d zadatka?"
 msgstr[2] "Stvarno želiš izbrisati ovih %d zadataka?"
 
-#: src/Widgets/MultiSelectToolbar.vala:427
+#: src/Widgets/MultiSelectToolbar.vala:447
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
