@@ -795,6 +795,19 @@ We hope you’ll enjoy using Planify!""");
     }
 
     public async void move_backend_type_item (Objects.Item item, Objects.Project target_project, string parent_id = "", bool notify = true) {
+        if (item.project.is_deck || target_project.is_deck) {
+            item.loading = false;
+            item.sensitive = true;
+
+            if (notify) {
+                Services.EventBus.get_default ().send_toast (
+                    create_toast (_("Moving tasks to or from a Nextcloud Deck board isn't supported yet"), 3)
+                );
+            }
+
+            return;
+        }
+
         var new_item = item.duplicate ();
         new_item.project_id = target_project.id;
         new_item.parent_id = parent_id;

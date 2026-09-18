@@ -153,6 +153,7 @@ msgstr "Konten"
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 #: src/Layouts/ItemRow.vala:1987 src/Layouts/ItemRow.vala:2009
 #: src/Layouts/ItemRow.vala:2014 src/Widgets/EventRow.vala:359
+#: src/Layouts/ItemRow.vala:2023
 msgid "Description"
 msgstr "Deskripsi"
 
@@ -377,6 +378,7 @@ msgstr "Tugas berhasil diekspor"
 #: core/Objects/Item.vala:1884 core/Objects/Item.vala:1885
 #: core/Objects/Item.vala:1951 core/Objects/Item.vala:1953
 #: core/Objects/Item.vala:1976 core/Objects/Item.vala:1992
+#: core/Utils/Util.vala:869
 #, c-format
 msgid "Moved to %s"
 msgstr "Dipindahkan ke %s"
@@ -391,7 +393,7 @@ msgstr "Hapus label %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
 #: src/Layouts/ItemSidebarView.vala:604 src/Services/BackupManager.vala:224
-#: src/Services/BackupManager.vala:225
+#: src/Services/BackupManager.vala:225 src/Layouts/ItemSidebarView.vala:619
 msgid "This can not be undone"
 msgstr "Ini tidak dapat dibatalkan"
 
@@ -416,7 +418,7 @@ msgstr "Ini tidak dapat dibatalkan"
 #: src/Views/Filter.vala:900
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
 #: src/Dialogs/Preferences/Pages/Backup.vala:702
-#: src/Services/BackupManager.vala:228
+#: src/Services/BackupManager.vala:228 src/Layouts/ItemSidebarView.vala:622
 msgid "Cancel"
 msgstr "Batal"
 
@@ -432,7 +434,7 @@ msgstr "Batal"
 #: src/Widgets/MultiSelectToolbar.vala:345 src/Views/Filter.vala:696
 #: src/Views/Filter.vala:879 src/Views/Filter.vala:896
 #: src/Views/Filter.vala:901 src/Dialogs/Preferences/Pages/Backup.vala:468
-#: src/Services/BackupManager.vala:229
+#: src/Services/BackupManager.vala:229 src/Layouts/ItemSidebarView.vala:623
 msgid "Delete"
 msgstr "Hapus"
 
@@ -1174,43 +1176,51 @@ msgstr "🏡️Rumah"
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️Tindak Lanjut"
 
-#: core/Utils/Util.vala:936
+#: core/Utils/Util.vala:936 core/Utils/Util.vala:949
 msgid "Task duplicated"
 msgstr "Tugas diduplikasi"
 
-#: core/Utils/Util.vala:972
+#: core/Utils/Util.vala:972 core/Utils/Util.vala:985
 msgid "Section duplicated"
 msgstr "Bagian diduplikasi"
 
-#: core/Utils/Util.vala:998 core/Utils/Util.vala:1024
+#: core/Utils/Util.vala:998 core/Utils/Util.vala:1024 core/Utils/Util.vala:1011
+#: core/Utils/Util.vala:1037
 msgid "Project duplicated"
 msgstr "Proyek diduplikasi"
 
 #: core/Utils/Util.vala:1066 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1079
 msgid "At due time"
 msgstr "Pada waktu jatuh tempo"
 
 #: core/Utils/Util.vala:1069 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1082
 msgid "10 minutes before"
 msgstr "10 menit sebelumnya"
 
 #: core/Utils/Util.vala:1072 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1085
 msgid "30 minutes before"
 msgstr "30 menit sebelumnya"
 
 #: core/Utils/Util.vala:1075 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1088
 msgid "45 minutes before"
 msgstr "45 menit sebelumnya"
 
 #: core/Utils/Util.vala:1078 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1091
 msgid "1 hour before"
 msgstr "1 jam sebelumnya"
 
 #: core/Utils/Util.vala:1081 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
+#: core/Utils/Util.vala:1094
 msgid "2 hours before"
 msgstr "2 jam sebelumnya"
 
 #: core/Utils/Util.vala:1084 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
+#: core/Utils/Util.vala:1097
 msgid "3 hours before"
 msgstr "3 jam sebelumnya"
 
@@ -1556,6 +1566,7 @@ msgstr "Setelah"
 #: src/Layouts/ItemRow.vala:1324 src/Layouts/ItemRow.vala:1346
 #: core/Widgets/MarkdownEditor.vala:1422
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
+#: src/Layouts/ItemBoard.vala:886
 msgid "Apply"
 msgstr "Terapkan"
 
@@ -1722,7 +1733,7 @@ msgstr "Tekan Enter untuk membuat dan menetapkannya"
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:1996
 #: src/Layouts/ItemRow.vala:1997 src/Layouts/ItemRow.vala:2019
-#: src/Layouts/ItemRow.vala:2024
+#: src/Layouts/ItemRow.vala:2024 src/Layouts/ItemRow.vala:2033
 msgid "Task description"
 msgstr "Deskripsi tugas"
 
@@ -3355,6 +3366,7 @@ msgstr "Lepas sematan"
 
 #: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemRow.vala:1604
 #: src/Layouts/ItemSidebarView.vala:682 src/Layouts/ItemRow.vala:1626
+#: src/Layouts/ItemSidebarView.vala:697
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Selesai. Kemunculan berikutnya: %s"
@@ -3387,13 +3399,15 @@ msgstr "Hapus Tugas"
 
 #: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1850
 #: src/Layouts/ItemRow.vala:1851 src/Layouts/ItemRow.vala:1873
-#: src/Layouts/ItemRow.vala:1878
+#: src/Layouts/ItemRow.vala:1878 src/Layouts/ItemBoard.vala:1136
+#: src/Layouts/ItemRow.vala:1887
 msgid "Order changed to 'Custom sort order'"
 msgstr "Urutan diubah menjadi 'Urutan pengurutan kustom'"
 
 #: src/Layouts/ItemBoard.vala:1244 src/Layouts/ItemRow.vala:1626
 #: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1628
 #: src/Layouts/ItemRow.vala:1650 src/Layouts/ItemRow.vala:1655
+#: src/Layouts/ItemBoard.vala:1252
 #, c-format
 msgid "%s was deleted"
 msgstr "%s telah dihapus"
@@ -3401,6 +3415,7 @@ msgstr "%s telah dihapus"
 #: src/Layouts/ItemBoard.vala:1245 src/Layouts/ItemRow.vala:1627
 #: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1629
 #: src/Layouts/ItemRow.vala:1651 src/Layouts/ItemRow.vala:1656
+#: src/Layouts/ItemBoard.vala:1253
 msgid "Undo"
 msgstr "Batalkan"
 
@@ -3445,6 +3460,7 @@ msgstr "Dibuat: %s"
 
 #: src/Layouts/ItemRow.vala:2061 src/Layouts/ItemRow.vala:2062
 #: src/Layouts/ItemRow.vala:2084 src/Layouts/ItemRow.vala:2089
+#: src/Layouts/ItemRow.vala:2098
 msgid "Add Attachments"
 msgstr "Tambahkan Lampiran"
 
@@ -3464,7 +3480,7 @@ msgstr "Properti"
 msgid "Expand Description"
 msgstr "Perluas Deskripsi"
 
-#: src/Layouts/ItemSidebarView.vala:603
+#: src/Layouts/ItemSidebarView.vala:603 src/Layouts/ItemSidebarView.vala:618
 msgid "Are you sure you want to delete?"
 msgstr "Apakah Anda yakin ingin menghapus?"
 
@@ -4203,6 +4219,7 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Apakah Anda yakin ingin menghapus %d tugas ini?"
 
 #: src/Widgets/MultiSelectToolbar.vala:427
+#: src/Widgets/MultiSelectToolbar.vala:447
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
@@ -4549,6 +4566,12 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:93
 msgid "Backup Location"
+msgstr ""
+
+#: core/Utils/Util.vala:804 src/Layouts/ItemBoard.vala:1275
+#: src/Layouts/ItemRow.vala:1678 src/Layouts/ItemSidebarView.vala:601
+#: src/Widgets/MultiSelectToolbar.vala:439
+msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
 
 #, c-format

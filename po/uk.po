@@ -150,7 +150,7 @@ msgstr "Зміст"
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2014 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
-#: src/Widgets/EventRow.vala:359
+#: src/Widgets/EventRow.vala:359 src/Layouts/ItemRow.vala:2023
 msgid "Description"
 msgstr "Опис"
 
@@ -356,6 +356,7 @@ msgstr "Завдання успішно експортовано"
 
 # c-format
 #: core/Objects/Item.vala:1992 core/Utils/Util.vala:856
+#: core/Utils/Util.vala:869
 #, c-format
 msgid "Moved to %s"
 msgstr "Завдання перемещіно в %s"
@@ -371,7 +372,7 @@ msgstr "Видалити мітку %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
 #: src/Layouts/ItemSidebarView.vala:604 src/Services/BackupManager.vala:224
-#: src/Services/BackupManager.vala:225
+#: src/Services/BackupManager.vala:225 src/Layouts/ItemSidebarView.vala:619
 msgid "This can not be undone"
 msgstr "Це не можна скасувати"
 
@@ -394,7 +395,7 @@ msgstr "Це не можна скасувати"
 #: src/Widgets/MultiSelectToolbar.vala:344 src/Views/Filter.vala:878
 #: src/Views/Filter.vala:895 src/Views/Filter.vala:900
 #: src/Dialogs/Preferences/Pages/Backup.vala:702
-#: src/Services/BackupManager.vala:228
+#: src/Services/BackupManager.vala:228 src/Layouts/ItemSidebarView.vala:622
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -410,7 +411,7 @@ msgstr "Скасувати"
 #: src/Widgets/MultiSelectToolbar.vala:345 src/Views/Filter.vala:879
 #: src/Views/Filter.vala:896 src/Views/Filter.vala:901
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
-#: src/Services/BackupManager.vala:229
+#: src/Services/BackupManager.vala:229 src/Layouts/ItemSidebarView.vala:623
 msgid "Delete"
 msgstr "Видалити"
 
@@ -1146,43 +1147,51 @@ msgstr "🏡️ Дім"
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️ Відстежити"
 
-#: core/Utils/Util.vala:936
+#: core/Utils/Util.vala:936 core/Utils/Util.vala:949
 msgid "Task duplicated"
 msgstr "Завдання дублювано"
 
-#: core/Utils/Util.vala:972
+#: core/Utils/Util.vala:972 core/Utils/Util.vala:985
 msgid "Section duplicated"
 msgstr "Розділ дублювано"
 
-#: core/Utils/Util.vala:998 core/Utils/Util.vala:1024
+#: core/Utils/Util.vala:998 core/Utils/Util.vala:1024 core/Utils/Util.vala:1011
+#: core/Utils/Util.vala:1037
 msgid "Project duplicated"
 msgstr "Проєкт дублювано"
 
 #: core/Utils/Util.vala:1066 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1079
 msgid "At due time"
 msgstr "У належний час"
 
 #: core/Utils/Util.vala:1069 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1082
 msgid "10 minutes before"
 msgstr "За 10 хвилин до"
 
 #: core/Utils/Util.vala:1072 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1085
 msgid "30 minutes before"
 msgstr "За 30 хвилин до"
 
 #: core/Utils/Util.vala:1075 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1088
 msgid "45 minutes before"
 msgstr "За 45 хвилин до"
 
 #: core/Utils/Util.vala:1078 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1091
 msgid "1 hour before"
 msgstr "За 1 годину до"
 
 #: core/Utils/Util.vala:1081 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
+#: core/Utils/Util.vala:1094
 msgid "2 hours before"
 msgstr "За 2 години до"
 
 #: core/Utils/Util.vala:1084 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
+#: core/Utils/Util.vala:1097
 msgid "3 hours before"
 msgstr "За 3 години до"
 
@@ -1483,7 +1492,7 @@ msgstr "Після"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
 #: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:880
-#: src/Layouts/ItemRow.vala:1346
+#: src/Layouts/ItemRow.vala:1346 src/Layouts/ItemBoard.vala:886
 msgid "Apply"
 msgstr "Застосувати"
 
@@ -1646,6 +1655,7 @@ msgid "Press Enter to create and assign it"
 msgstr "Натисніть Enter, щоб створити та призначити його"
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2024
+#: src/Layouts/ItemRow.vala:2033
 msgid "Task description"
 msgstr "Опис завдання"
 
@@ -3282,6 +3292,7 @@ msgstr "Відкріпити"
 
 # # c-format
 #: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemSidebarView.vala:682
+#: src/Layouts/ItemSidebarView.vala:697
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Завершено. Наступний повтор: %s"
@@ -3308,16 +3319,19 @@ msgid "Delete Task"
 msgstr "Видалити завдання"
 
 #: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1878
+#: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1887
 msgid "Order changed to 'Custom sort order'"
 msgstr "Порядок змінено на «Власний порядок сортування»"
 
 # # c-format
 #: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1655
+#: src/Layouts/ItemBoard.vala:1252
 #, c-format
 msgid "%s was deleted"
 msgstr "%s було видалено"
 
 #: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1656
+#: src/Layouts/ItemBoard.vala:1253
 msgid "Undo"
 msgstr "Скасувати"
 
@@ -3365,7 +3379,7 @@ msgstr ""
 msgid "Task completed · Next: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2089
+#: src/Layouts/ItemRow.vala:2089 src/Layouts/ItemRow.vala:2098
 msgid "Add Attachments"
 msgstr "Додати вкладення"
 
@@ -3385,7 +3399,7 @@ msgstr "Властивості"
 msgid "Expand Description"
 msgstr "Розгорнути опис"
 
-#: src/Layouts/ItemSidebarView.vala:603
+#: src/Layouts/ItemSidebarView.vala:603 src/Layouts/ItemSidebarView.vala:618
 msgid "Are you sure you want to delete?"
 msgstr "Ви впевнені, що хочете видалити?"
 
@@ -4139,6 +4153,7 @@ msgstr[1] "Ви впевнені, що хочете видалити ці %d з�
 
 # c-format
 #: src/Widgets/MultiSelectToolbar.vala:427
+#: src/Widgets/MultiSelectToolbar.vala:447
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
@@ -4362,6 +4377,12 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:93
 msgid "Backup Location"
+msgstr ""
+
+#: core/Utils/Util.vala:804 src/Layouts/ItemBoard.vala:1275
+#: src/Layouts/ItemRow.vala:1678 src/Layouts/ItemSidebarView.vala:601
+#: src/Widgets/MultiSelectToolbar.vala:439
+msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
 
 #~ msgid "You can sort your accounts by dragging and dropping"
