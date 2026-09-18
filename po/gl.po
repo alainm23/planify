@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2025-12-14 10:01+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-09-18 16:28+0000\n"
+"Last-Translator: Xosé Calvo <xosecalvo@gmail.com>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/gl/>\n"
 "Language: gl\n"
@@ -12,94 +12,95 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
 #: src/Dialogs/Preferences/Pages/Backup.vala:619
 #: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
-msgstr ""
+msgstr "Proxectos"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:623
 msgid "Sections"
-msgstr ""
+msgstr "Seccións"
 
 #: core/Enum.vala:174 core/Enum.vala:183
 msgid "Tasks"
-msgstr ""
+msgstr "Tarefas"
 
 #: core/Enum.vala:177 core/Enum.vala:548 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:631 src/Layouts/ItemBoard.vala:825
 #: src/Layouts/ItemRow.vala:1262
 msgid "Labels"
-msgstr ""
+msgstr "Etiquetas"
 
 #: core/Enum.vala:180 src/Dialogs/Preferences/Pages/HomeView.vala:35
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #: core/Enum.vala:186
 msgid "Lists"
-msgstr ""
+msgstr "Listas"
 
 #: core/Enum.vala:214
 msgid "Don't Repeat"
-msgstr ""
+msgstr "Non repetir"
 
 #: core/Enum.vala:216
 #, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Cada minuto"
+msgstr[1] "Cada %d minutos"
 
 #: core/Enum.vala:218
 #, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Cada hora"
+msgstr[1] "Cada %d horas"
 
 #: core/Enum.vala:220
 #, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Cada día"
+msgstr[1] "Cada %d días"
 
 #: core/Enum.vala:222
 #, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Cada semana"
+msgstr[1] "Cada %d semanas"
 
 #: core/Enum.vala:224
 #, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Cada mes"
+msgstr[1] "Cada %d meses"
 
 #: core/Enum.vala:226
 #, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Cada ano"
+msgstr[1] "Cada %d anos"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:45
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
 msgid "Nextcloud"
-msgstr ""
+msgstr "Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:124
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
+#, fuzzy
 msgid "CalDAV"
-msgstr ""
+msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:545 core/Widgets/PriorityButton.vala:90
 #: src/Views/Filter.vala:927 src/Views/Filter.vala:966
@@ -108,83 +109,83 @@ msgstr ""
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:846
 #: src/Views/Today.vala:875 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
-msgstr ""
+msgstr "Prioridade"
 
 #: core/Enum.vala:348
 msgid "Label"
-msgstr ""
+msgstr "Etiqueta"
 
 #: core/Enum.vala:351 src/Views/Filter.vala:924
 #: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
 #: src/Views/Today.vala:843
 msgid "Due Date"
-msgstr ""
+msgstr "Dava de vencemento"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
-msgstr ""
+msgstr "Sección"
 
 #: core/Enum.vala:357 src/Views/Today.vala:899
 msgid "Assignment"
-msgstr ""
+msgstr "Asignación"
 
 #: core/Enum.vala:469
 msgid "Task Created"
-msgstr ""
+msgstr "Tarefa creada"
 
 #: core/Enum.vala:472
 msgid "Task Updated"
-msgstr ""
+msgstr "Tarefa actualizada"
 
 #: core/Enum.vala:536
 msgid "Content"
-msgstr ""
+msgstr "Contido"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2023 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
-msgstr ""
+msgstr "Descrición"
 
 #: core/Enum.vala:542 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr ""
+msgstr "Programada"
 
 #: core/Enum.vala:551 core/Widgets/PinButton.vala:47
 #: src/Layouts/ItemBoard.vala:806 src/Layouts/ItemBoard.vala:819
 #: src/Layouts/ItemRow.vala:1241 src/Layouts/ItemRow.vala:1256
 msgid "Pin"
-msgstr ""
+msgstr "Fixado"
 
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
 #: src/Services/ExportService.vala:57
 msgid "Deadline"
-msgstr ""
+msgstr "Data límite"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "Tarefa principal"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr ""
+msgstr "Todas as tarefas"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
-msgstr ""
+msgstr "todas as tarefas"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all"
-msgstr ""
+msgstr "todo"
 
 #: core/Objects/Filters/Anytime.vala:33
 msgid "Anytime"
-msgstr ""
+msgstr "Calquera momento"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "anytime"
-msgstr ""
+msgstr "calquera momento"
 
 #: core/Objects/Filters/Anytime.vala:34 core/Objects/Filters/Completed.vala:34
 #: core/Objects/Filters/Inbox.vala:34 core/Objects/Filters/Labels.vala:34
@@ -193,25 +194,25 @@ msgstr ""
 #: core/Objects/Filters/Scheduled.vala:49 core/Objects/Filters/Today.vala:50
 #: core/Objects/Filters/Tomorrow.vala:34 core/Objects/Filters/Unlabeled.vala:34
 msgid "filters"
-msgstr ""
+msgstr "filtros"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr ""
+msgstr "sen data"
 
 #: core/Objects/Filters/Completed.vala:33
 #: src/Dialogs/ProductivityReport/SummarySection.vala:58
 #: src/Views/Today.vala:259
 msgid "Completed"
-msgstr ""
+msgstr "Concluídas"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "completed"
-msgstr ""
+msgstr "concluídas"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "logbook"
-msgstr ""
+msgstr "rexistro de eventos"
 
 #: core/Objects/Filters/Inbox.vala:33 core/Utils/Util.vala:258
 #: core/Utils/Util.vala:593
@@ -221,51 +222,51 @@ msgstr ""
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:194
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr ""
+msgstr "Caixa de entrada"
 
 #: core/Objects/Filters/Inbox.vala:34
 msgid "inbox"
-msgstr ""
+msgstr "caixa de entrada"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
-msgstr ""
+msgstr "etiquetas"
 
 #: core/Objects/Filters/Pinboard.vala:34
 msgid "Pinboard"
-msgstr ""
+msgstr "Elementos fixados"
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:117
 msgid "Priority 1: high"
-msgstr ""
+msgstr "Prioridade 1: alta"
 
 #: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:119
 msgid "Priority 2: medium"
-msgstr ""
+msgstr "Prioridade 2: media"
 
 #: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:121
 msgid "Priority 3: low"
-msgstr ""
+msgstr "Prioridade 3: baixa"
 
 #: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:123
 msgid "Priority 4: none"
-msgstr ""
+msgstr "Prioridade 4: ningunha"
 
 #: core/Objects/Filters/Priority.vala:182
 msgid "high"
-msgstr ""
+msgstr "alta"
 
 #: core/Objects/Filters/Priority.vala:184
 msgid "medium"
-msgstr ""
+msgstr "media"
 
 #: core/Objects/Filters/Priority.vala:186
 msgid "low"
-msgstr ""
+msgstr "baixa"
 
 #: core/Objects/Filters/Priority.vala:188
 msgid "none"
-msgstr ""
+msgstr "ningunha"
 
 #: core/Objects/Filters/Repeating.vala:33
 msgid "Repeating"
@@ -526,145 +527,155 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1478
 msgid "Set reminder"
-msgstr ""
+msgstr "Estabelecer recordatorio"
 
 #: core/QuickAddCore.vala:1478
 msgid "Opens reminder options"
-msgstr ""
+msgstr "Abre opcións de recordatorio"
 
 #: core/QuickAddCore.vala:1493
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Alternar manter aberto após crear tarefa"
 
 #: core/QuickAddCore.vala:1499
 msgid "Tip"
-msgstr ""
+msgstr "Suxestión"
 
 #: core/QuickAddCore.vala:1499
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "Combinar atallos no campo de título para creación máis rápida"
 
 #: core/Services/CalDAV/CalDAVClient.vala:330
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr ""
+msgstr "A cargar tarefas para %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:341
 #: core/Services/CalDAV/CalDAVClient.vala:408
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Tarefas cargadas para %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:401
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "A sincronizar tarefa %d de %d"
 
 #: core/Services/CalDAV/CalDAVClient.vala:779
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
+"Este servidor non permite crear proxectos con CalDAV. Créeo directamente no "
+"sitio web do fornecedor do calendario."
 
 #: core/Services/CalDAV/CalDAVClient.vala:834
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"Este servidor non permite eliminar proxectos con CalDAV. Elimíneo "
+"directamente desde o sitio web do fornecedor do calendario."
 
 #: core/Services/CalDAV/CalDAVClient.vala:838
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"Este servidor non admite eliminar proxectos con CalDAV. Elimíneo do servidor "
+"directamente."
 
 #: core/Services/CalDAV/CalDAVClient.vala:872
 #: core/Services/CalDAV/CalDAVClient.vala:919
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"A tarefa foi modificada noutro dispositivo. Sincronice para recibir a "
+"versión máis recente."
 
 #: core/Services/CalDAV/Core.vala:170
 msgid "Source already exists"
-msgstr ""
+msgstr "Xa existe a fonte"
 
 #: core/Services/CalDAV/Core.vala:181 core/Services/CalDAV/Core.vala:229
 msgid "Failed to resolve principal url"
-msgstr ""
+msgstr "Non foi posíbel resolver o URL principal"
 
 #: core/Services/CalDAV/Core.vala:238
 msgid "Starting sync…"
-msgstr ""
+msgstr "A iniciar a sincronización…"
 
 #: core/Services/CalDAV/Core.vala:253
 #, c-format
 msgid "Syncing %s…"
-msgstr ""
+msgstr "A sincronizar %s…"
 
 #: core/Services/CalDAV/Core.vala:274
 msgid "Sync completed"
-msgstr ""
+msgstr "Sincronización rematada"
 
 #: core/Services/CalDAV/Core.vala:324
 msgid "Authentication Expired"
-msgstr ""
+msgstr "Autenticación caducada"
 
 #: core/Services/CalDAV/Core.vala:325
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
-msgstr ""
+msgstr "A sesión caducou. Retire e engada de novo a súa conta nas Preferencias."
 
 #: core/Services/CalDAV/Core.vala:332
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Demasiadas peticións"
 
 #: core/Services/CalDAV/Core.vala:333
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
 msgstr ""
+"O servidor está a limitar a frecuencia de peticións. Agarde uns minutos e "
+"ténteo de novo."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
-msgstr ""
+msgstr "Neste computador"
 
 #: core/Services/Todoist/Todoist.vala:594 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
-msgstr ""
+msgstr "A solicitude era incorrecta."
 
 #: core/Services/Todoist/Todoist.vala:595 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Requírese autenticación e esta fallou ou aínda non foi fornecida."
 
 #: core/Services/Todoist/Todoist.vala:596 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "A solicitude era válida mais por algo que está prohibido."
 
 #: core/Services/Todoist/Todoist.vala:597 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Non foi posíbel atopar o recurso solicitado."
 
 #: core/Services/Todoist/Todoist.vala:598 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "O usuario enviou demasiadas peticións nun período de tempo dado."
 
 #: core/Services/Todoist/Todoist.vala:599 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "A solicitude fallou debido a un erro do servidor."
 
 #: core/Services/Todoist/Todoist.vala:600 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "O servidor non pode xestionar a solicitude neste momento."
 
 #: core/Services/Todoist/Todoist.vala:601 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
-msgstr ""
+msgstr "Erro descoñecido"
 
 #: core/Services/Todoist/TodoistAuth.vala:96
 msgid "Invalid API token"
-msgstr ""
+msgstr "Token de API incorrecto"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
@@ -673,28 +684,30 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"O Todoist actualizou a súa API. Conecte de novo a súa aconta nas "
+"Preferencias para continuar coa sincronización."
 
 #: core/Utils/Datetime.vala:64 core/Utils/Datetime.vala:778
 msgid "Yesterday"
-msgstr ""
+msgstr "Onte"
 
 #: core/Utils/Datetime.vala:83 core/Utils/Datetime.vala:85
 msgid "days"
-msgstr ""
+msgstr "días"
 
 #: core/Utils/Datetime.vala:83 core/Utils/Datetime.vala:85
 msgid "day"
-msgstr ""
+msgstr "día"
 
 #: core/Utils/Datetime.vala:83
 #, c-format
 msgid "%s %s ago"
-msgstr ""
+msgstr "Hai %s %s"
 
 #: core/Utils/Datetime.vala:85
 #, c-format
 msgid "%s %s left"
-msgstr ""
+msgstr "Faltan %s %s"
 
 #: core/Utils/Datetime.vala:95
 msgid "%-l:%M:%S %p"
@@ -719,49 +732,49 @@ msgstr ""
 #: core/Utils/Datetime.vala:468
 #, c-format
 msgid "Every %d months (last day)"
-msgstr ""
+msgstr "Cada %d meses (derradeiro día)"
 
 #: core/Utils/Datetime.vala:473
 msgid "Mo,"
-msgstr ""
+msgstr "Lu"
 
 #: core/Utils/Datetime.vala:477
 msgid "Tu,"
-msgstr ""
+msgstr "Ma"
 
 #: core/Utils/Datetime.vala:481
 msgid "We,"
-msgstr ""
+msgstr "Mé"
 
 #: core/Utils/Datetime.vala:485
 msgid "Th,"
-msgstr ""
+msgstr "Xo"
 
 #: core/Utils/Datetime.vala:489
 msgid "Fr,"
-msgstr ""
+msgstr "Ve"
 
 #: core/Utils/Datetime.vala:493
 msgid "Sa,"
-msgstr ""
+msgstr "Sá"
 
 #: core/Utils/Datetime.vala:497
 msgid "Su,"
-msgstr ""
+msgstr "Do"
 
 #: core/Utils/Datetime.vala:782
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "dentro de % día"
+msgstr[1] "dentro de % días"
 
 #: core/Utils/Datetime.vala:784
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "hai %d día"
+msgstr[1] "hai %d días"
 
 #: core/Utils/Datetime.vala:853 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
