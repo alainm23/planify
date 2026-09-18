@@ -1672,6 +1672,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public void move (Objects.Project project, string section_id) {
         string project_id = project.id;
 
+        if (item.project.is_deck != project.is_deck) {
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (
+                    _("Moving tasks to or from a Nextcloud Deck board isn't supported yet"), 3
+                )
+            );
+            return;
+        }
+
         if (item.project.source_id != project.source_id) {
             Util.get_default ().move_backend_type_item.begin (item, project);
         } else {
