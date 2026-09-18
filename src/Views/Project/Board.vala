@@ -218,7 +218,7 @@ public class Views.Board : Adw.Bin {
 
         signal_map[description_widget.changed.connect (() => {
             project.description = description_widget.text;
-            project.update_local ();
+            project.update ();
         })] = description_widget;
 
         signal_map[Services.Store.instance ().section_archived.connect ((section) => {
