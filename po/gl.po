@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-09-15 01:51+0000\n"
+"PO-Revision-Date: 2026-09-18 16:28+0000\n"
 "Last-Translator: Xosé Calvo <xosecalvo@gmail.com>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/gl/>\n"
@@ -527,145 +527,155 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1478
 msgid "Set reminder"
-msgstr ""
+msgstr "Estabelecer recordatorio"
 
 #: core/QuickAddCore.vala:1478
 msgid "Opens reminder options"
-msgstr ""
+msgstr "Abre opcións de recordatorio"
 
 #: core/QuickAddCore.vala:1493
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "Alternar manter aberto após crear tarefa"
 
 #: core/QuickAddCore.vala:1499
 msgid "Tip"
-msgstr ""
+msgstr "Suxestión"
 
 #: core/QuickAddCore.vala:1499
 msgid "Combine shortcuts in the title field for faster creation"
-msgstr ""
+msgstr "Combinar atallos no campo de título para creación máis rápida"
 
 #: core/Services/CalDAV/CalDAVClient.vala:330
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr ""
+msgstr "A cargar tarefas para %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:341
 #: core/Services/CalDAV/CalDAVClient.vala:408
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Tarefas cargadas para %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:401
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "A sincronizar tarefa %d de %d"
 
 #: core/Services/CalDAV/CalDAVClient.vala:779
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
+"Este servidor non permite crear proxectos con CalDAV. Créeo directamente no "
+"sitio web do fornecedor do calendario."
 
 #: core/Services/CalDAV/CalDAVClient.vala:834
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"Este servidor non permite eliminar proxectos con CalDAV. Elimíneo "
+"directamente desde o sitio web do fornecedor do calendario."
 
 #: core/Services/CalDAV/CalDAVClient.vala:838
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"Este servidor non admite eliminar proxectos con CalDAV. Elimíneo do servidor "
+"directamente."
 
 #: core/Services/CalDAV/CalDAVClient.vala:872
 #: core/Services/CalDAV/CalDAVClient.vala:919
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"A tarefa foi modificada noutro dispositivo. Sincronice para recibir a "
+"versión máis recente."
 
 #: core/Services/CalDAV/Core.vala:170
 msgid "Source already exists"
-msgstr ""
+msgstr "Xa existe a fonte"
 
 #: core/Services/CalDAV/Core.vala:181 core/Services/CalDAV/Core.vala:229
 msgid "Failed to resolve principal url"
-msgstr ""
+msgstr "Non foi posíbel resolver o URL principal"
 
 #: core/Services/CalDAV/Core.vala:238
 msgid "Starting sync…"
-msgstr ""
+msgstr "A iniciar a sincronización…"
 
 #: core/Services/CalDAV/Core.vala:253
 #, c-format
 msgid "Syncing %s…"
-msgstr ""
+msgstr "A sincronizar %s…"
 
 #: core/Services/CalDAV/Core.vala:274
 msgid "Sync completed"
-msgstr ""
+msgstr "Sincronización rematada"
 
 #: core/Services/CalDAV/Core.vala:324
 msgid "Authentication Expired"
-msgstr ""
+msgstr "Autenticación caducada"
 
 #: core/Services/CalDAV/Core.vala:325
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
-msgstr ""
+msgstr "A sesión caducou. Retire e engada de novo a súa conta nas Preferencias."
 
 #: core/Services/CalDAV/Core.vala:332
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Demasiadas peticións"
 
 #: core/Services/CalDAV/Core.vala:333
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
 msgstr ""
+"O servidor está a limitar a frecuencia de peticións. Agarde uns minutos e "
+"ténteo de novo."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
-msgstr ""
+msgstr "Neste computador"
 
 #: core/Services/Todoist/Todoist.vala:594 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
-msgstr ""
+msgstr "A solicitude era incorrecta."
 
 #: core/Services/Todoist/Todoist.vala:595 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Requírese autenticación e esta fallou ou aínda non foi fornecida."
 
 #: core/Services/Todoist/Todoist.vala:596 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "A solicitude era válida mais por algo que está prohibido."
 
 #: core/Services/Todoist/Todoist.vala:597 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Non foi posíbel atopar o recurso solicitado."
 
 #: core/Services/Todoist/Todoist.vala:598 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "O usuario enviou demasiadas peticións nun período de tempo dado."
 
 #: core/Services/Todoist/Todoist.vala:599 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "A solicitude fallou debido a un erro do servidor."
 
 #: core/Services/Todoist/Todoist.vala:600 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "O servidor non pode xestionar a solicitude neste momento."
 
 #: core/Services/Todoist/Todoist.vala:601 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
-msgstr ""
+msgstr "Erro descoñecido"
 
 #: core/Services/Todoist/TodoistAuth.vala:96
 msgid "Invalid API token"
-msgstr ""
+msgstr "Token de API incorrecto"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
@@ -674,28 +684,30 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"O Todoist actualizou a súa API. Conecte de novo a súa aconta nas "
+"Preferencias para continuar coa sincronización."
 
 #: core/Utils/Datetime.vala:64 core/Utils/Datetime.vala:778
 msgid "Yesterday"
-msgstr ""
+msgstr "Onte"
 
 #: core/Utils/Datetime.vala:83 core/Utils/Datetime.vala:85
 msgid "days"
-msgstr ""
+msgstr "días"
 
 #: core/Utils/Datetime.vala:83 core/Utils/Datetime.vala:85
 msgid "day"
-msgstr ""
+msgstr "día"
 
 #: core/Utils/Datetime.vala:83
 #, c-format
 msgid "%s %s ago"
-msgstr ""
+msgstr "Hai %s %s"
 
 #: core/Utils/Datetime.vala:85
 #, c-format
 msgid "%s %s left"
-msgstr ""
+msgstr "Faltan %s %s"
 
 #: core/Utils/Datetime.vala:95
 msgid "%-l:%M:%S %p"
@@ -720,49 +732,49 @@ msgstr ""
 #: core/Utils/Datetime.vala:468
 #, c-format
 msgid "Every %d months (last day)"
-msgstr ""
+msgstr "Cada %d meses (derradeiro día)"
 
 #: core/Utils/Datetime.vala:473
 msgid "Mo,"
-msgstr ""
+msgstr "Lu"
 
 #: core/Utils/Datetime.vala:477
 msgid "Tu,"
-msgstr ""
+msgstr "Ma"
 
 #: core/Utils/Datetime.vala:481
 msgid "We,"
-msgstr ""
+msgstr "Mé"
 
 #: core/Utils/Datetime.vala:485
 msgid "Th,"
-msgstr ""
+msgstr "Xo"
 
 #: core/Utils/Datetime.vala:489
 msgid "Fr,"
-msgstr ""
+msgstr "Ve"
 
 #: core/Utils/Datetime.vala:493
 msgid "Sa,"
-msgstr ""
+msgstr "Sá"
 
 #: core/Utils/Datetime.vala:497
 msgid "Su,"
-msgstr ""
+msgstr "Do"
 
 #: core/Utils/Datetime.vala:782
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "dentro de % día"
+msgstr[1] "dentro de % días"
 
 #: core/Utils/Datetime.vala:784
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "hai %d día"
+msgstr[1] "hai %d días"
 
 #: core/Utils/Datetime.vala:853 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
