@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-09-16 10:29+0000\n"
+"PO-Revision-Date: 2026-09-20 07:51+0000\n"
 "Last-Translator: Filip <filip.rund@email.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/cs/>\n"
@@ -1063,6 +1063,7 @@ msgstr ""
 #: src/Widgets/MultiSelectToolbar.vala:439
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
+"Přesouvání úkolů na nástěnku Nextcloud Deck nebo z ní zatím není podporováno"
 
 #: core/Utils/Util.vala:949
 msgid "Task duplicated"
