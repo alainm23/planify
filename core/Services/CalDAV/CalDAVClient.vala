@@ -892,7 +892,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 headers = new HashTable<string, string> (str_hash, str_equal);
                 headers.insert ("If-Match", item.etag);
             }
-            yield send_request ("PUT", item.ical_url, "text/calendar", body, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED }, headers);
+            yield send_request ("PUT", item.ical_url, "text/calendar", body, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED, Soup.Status.OK }, headers);
             item.extra_data = Util.generate_extra_data (item.ical_url, last_response_etag ?? "", body);
             response.status = true;
         } catch (Error e) {
@@ -910,7 +910,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                         retry_headers = new HashTable<string, string> (str_hash, str_equal);
                         retry_headers.insert ("If-Match", fresh_etag);
                     }
-                    yield send_request ("PUT", item.ical_url, "text/calendar", body, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED }, retry_headers);
+                    yield send_request ("PUT", item.ical_url, "text/calendar", body, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED, Soup.Status.OK }, retry_headers);
                     item.extra_data = Util.generate_extra_data (item.ical_url, last_response_etag ?? "", body);
                     response.status = true;
                 } catch (Error retry_error) {
