@@ -27,15 +27,17 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
     protected string password;
     protected string base_url;
     protected bool ignore_ssl;
+    protected GLib.TlsCertificate? client_certificate;
     public string? last_response_etag { get; private set; default = null; }
 
 
-    public WebDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false) {
+    public WebDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false, GLib.TlsCertificate? client_certificate = null) {
         this.session = session;
         this.base_url = base_url;
         this.username = username;
         this.password = password;
         this.ignore_ssl = ignore_ssl;
+        this.client_certificate = client_certificate;
     }
 
     public void cleanup () {
@@ -74,6 +76,10 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
 
         var msg = new Soup.Message (method, abs_url);
         msg.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);
+
+        if (client_certificate != null) {
+            msg.set_tls_client_certificate (client_certificate);
+        }
 
         msg.authenticate.connect ((auth, retrying) => {
             if (retrying) {
