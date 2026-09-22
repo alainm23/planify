@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-02-04 22:01+0000\n"
-"Last-Translator: Ali Basheer <kaon2004a@gmail.com>\n"
+"PO-Revision-Date: 2026-09-18 07:51+0000\n"
+"Last-Translator: Abdurrahman Almajayda <tasarimhesabi27@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/ar/>\n"
 "Language: ar\n"
@@ -13,14 +13,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
 #: src/Dialogs/Preferences/Pages/Backup.vala:619
 #: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
-msgstr "مشاريع"
+msgstr "المشاريع"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:623
 msgid "Sections"
@@ -152,7 +152,7 @@ msgstr "قسم"
 
 #: core/Enum.vala:357 src/Views/Today.vala:899
 msgid "Assignment"
-msgstr ""
+msgstr "تعيين"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -185,11 +185,11 @@ msgstr "تثبيت"
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
 #: src/Services/ExportService.vala:57
 msgid "Deadline"
-msgstr ""
+msgstr "الموعد النهائي"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "المهمة الرئيسية"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -354,7 +354,7 @@ msgstr "غير مسمى"
 
 #: core/Objects/Item.vala:1594 src/Services/ExportService.vala:138
 msgid "Deadline:"
-msgstr ""
+msgstr "الموعد النهائي:"
 
 #: core/Objects/Item.vala:1619
 msgid "Task copied to clipboard"
@@ -362,11 +362,11 @@ msgstr "تم نسخ المهمة الى الحافظة"
 
 #: core/Objects/Item.vala:1636
 msgid "iCalendar Files"
-msgstr ""
+msgstr "ملفات iCalendar"
 
 #: core/Objects/Item.vala:1652
 msgid "Task exported successfully"
-msgstr ""
+msgstr "تم تصدير المهمة بنجاح"
 
 #: core/Objects/Item.vala:1992 core/Utils/Util.vala:869
 #, fuzzy, c-format
@@ -476,7 +476,7 @@ msgstr "أضف وصفاً…"
 
 #: core/QuickAddCore.vala:260
 msgid "Set date"
-msgstr ""
+msgstr "حدد التاريخ"
 
 #: core/QuickAddCore.vala:272 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
@@ -604,6 +604,7 @@ msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"هذا الخادم لا يدعم حذف المشاريع عبر CalDAV. يرجى حذفها من الخادم مباشرةً."
 
 #: core/Services/CalDAV/CalDAVClient.vala:872
 #: core/Services/CalDAV/CalDAVClient.vala:919
