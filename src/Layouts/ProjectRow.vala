@@ -593,6 +593,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             if (value.dup_object () is Layouts.ItemRow) {
                 var picked_widget = (Layouts.ItemRow) value;
 
+                // Already here: a CalDAV MOVE onto its own URL fails with 403.
+                if (picked_widget.item.project_id == project.id) {
+                    return false;
+                }
+
                 if (picked_widget.item.project.is_inbox_project) {
                     return true;
                 }
@@ -608,6 +613,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         signals_map[drop_row_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
+
+            if (picked_widget.item.project_id == target_widget.project.id) {
+                return false;
+            }
 
             if (picked_widget.item.project.source_id != target_widget.project.source_id) {
                 Util.get_default ().move_backend_type_item.begin (picked_widget.item, target_widget.project);
