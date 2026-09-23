@@ -26,8 +26,8 @@
  * renders the stale list.
  *
  * Services.Store reads its collections from Services.Database, so the tests open a throwaway
- * database under the XDG_DATA_HOME that test/meson.build sets. The Store is a singleton shared by every test, so
- * each test uses its own ids.
+ * database under the XDG_DATA_HOME that test/meson.build sets. The Store is a singleton shared
+ * by every test, so each test uses its own ids.
  */
 
 namespace Planify.Tests.SubitemCache {
@@ -124,6 +124,31 @@ namespace Planify.Tests.SubitemCache {
         assert_true (contains_id (new_parent.items, child.id));
     }
 
+    /**
+     * Dropping a task onto another task's row, and CalDAV/Todoist sync, reparent through
+     * Store.update_item () + EventBus.item_moved instead of Store.move_item ().
+     */
+    private void test_item_moved_event_updates_old_and_new_parent_items () {
+        ensure_database ();
+
+        var old_parent = make_item ("event-old-parent");
+        var new_parent = make_item ("event-new-parent");
+        var child = make_item ("event-child", old_parent.id);
+        Services.Store.instance ().insert_item (old_parent);
+        Services.Store.instance ().insert_item (new_parent);
+        Services.Store.instance ().insert_item (child);
+
+        assert_true (contains_id (old_parent.items, child.id));
+        assert_cmpint (new_parent.items.size, CompareOperator.EQ, 0);
+
+        child.parent_id = new_parent.id;
+        Services.Store.instance ().update_item (child);
+        Services.EventBus.get_default ().item_moved (child, child.project_id, "", old_parent.id);
+
+        assert_false (contains_id (old_parent.items, child.id));
+        assert_true (contains_id (new_parent.items, child.id));
+    }
+
     private void test_complete_updates_parent_items_uncomplete () {
         ensure_database ();
 
@@ -143,6 +168,7 @@ namespace Planify.Tests.SubitemCache {
     public void register_tests () {
         Test.add_func ("/core/subitem_cache/insert_updates_parent_items", test_insert_updates_parent_items);
         Test.add_func ("/core/subitem_cache/move_updates_old_and_new_parent_items", test_move_updates_old_and_new_parent_items);
+        Test.add_func ("/core/subitem_cache/item_moved_event_updates_old_and_new_parent_items", test_item_moved_event_updates_old_and_new_parent_items);
         Test.add_func ("/core/subitem_cache/complete_updates_parent_items_uncomplete", test_complete_updates_parent_items_uncomplete);
     }
 }

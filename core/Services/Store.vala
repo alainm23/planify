@@ -64,6 +64,14 @@ public class Services.Store : GLib.Object {
 
     private Gee.HashMap<string, Gee.ArrayList<Objects.Item> > _items_by_project_cache = new Gee.HashMap<string, Gee.ArrayList<Objects.Item> > ();
 
+    construct {
+        // Dropping a task onto another task's row, and CalDAV/Todoist sync, reparent through
+        // update_item () + this event rather than move_item (), so invalidate here too.
+        Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
+            invalidate_parent_subitems (item, old_parent_id);
+        });
+    }
+
     Gee.ArrayList<Objects.Source> _sources = null;
     public Gee.ArrayList<Objects.Source> sources {
         get {
@@ -678,9 +686,7 @@ public class Services.Store : GLib.Object {
             clear_project_cache (item.project_id);
             items.add (item);
 
-            if (item.has_parent && item.parent != null) {
-                item.parent.invalidate_subitems ();
-            }
+            invalidate_parent_subitems (item);
 
             item_added (item, insert);
 
@@ -802,14 +808,7 @@ public class Services.Store : GLib.Object {
             _items_by_project_cache.unset (old_project_id);
             _items_by_project_cache.unset (item.project_id);
 
-            var old_parent = old_parent_id != "" ? get_item (old_parent_id) : null;
-            if (old_parent != null) {
-                old_parent.invalidate_subitems ();
-            }
-
-            if (item.has_parent && item.parent != null) {
-                item.parent.invalidate_subitems ();
-            }
+            invalidate_parent_subitems (item, old_parent_id);
 
             #if WITH_EVOLUTION            
             if (item.has_due) {
@@ -859,9 +858,7 @@ public class Services.Store : GLib.Object {
             _items_by_project_cache.unset (item.project_id);
 
             // The parent's cached items_uncomplete depends on this item's checked state.
-            if (item.has_parent && item.parent != null) {
-                item.parent.invalidate_subitems ();
-            }
+            invalidate_parent_subitems (item);
 
             if (complete_subitems) {
                 foreach (Objects.Item subitem in get_subitems (item)) {
@@ -1574,5 +1571,22 @@ public class Services.Store : GLib.Object {
 
     public void clear_project_cache (string project_id) {
         _items_by_project_cache.unset (project_id);
+    }
+
+    /**
+     * Drops the cached subitem lists of an item's current parent and, when given, of the
+     * parent it just left, so views built afterwards read the new children.
+     */
+    private void invalidate_parent_subitems (Objects.Item item, string old_parent_id = "") {
+        if (old_parent_id != "" && old_parent_id != item.parent_id) {
+            var old_parent = get_item (old_parent_id);
+            if (old_parent != null) {
+                old_parent.invalidate_subitems ();
+            }
+        }
+
+        if (item.has_parent && item.parent != null) {
+            item.parent.invalidate_subitems ();
+        }
     }
 }
