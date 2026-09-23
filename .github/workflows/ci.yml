@@ -6,6 +6,9 @@ on:
       - opened
       - reopened
       - synchronize
+  push:
+    branches:
+      - main
 
 jobs:
   flatpak:
@@ -21,6 +24,45 @@ jobs:
           bundle: planify.Devel.flatpak
           manifest-path: build-aux/io.github.alainm23.planify.Devel.json
           cache-key: flatpak-builder-${{ github.sha }}
+
+  flatpak-flag-matrix:
+    name: "Flatpak (${{ matrix.name }})"
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-50
+      options: --privileged
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: no-spelling
+            config-opt: "-Dspelling=disabled"
+            drop-modules: '["libspelling"]'
+          - name: no-portal
+            config-opt: "-Dportal=false"
+            drop-modules: '["libportal"]'
+          - name: no-evolution
+            config-opt: "-Devolution=false"
+            drop-modules: '["evolution-data-server"]'
+          - name: no-goa
+            config-opt: "-Dgoa=false"
+            drop-modules: '["gnome-online-accounts", "librest"]'
+    steps:
+      - uses: actions/checkout@v7
+      - name: Patch manifest for ${{ matrix.name }}
+        run: |
+          jq --argjson drop '${{ matrix.drop-modules }}' \
+             --arg opt '${{ matrix.config-opt }}' \
+             '.modules |= map(select(.name as $n | ($drop | index($n)) | not))
+              | (.modules[-1]["config-opts"]) += [$opt]' \
+             build-aux/io.github.alainm23.planify.Devel.json \
+             > build-aux/ci-matrix-${{ matrix.name }}.json
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: planify-${{ matrix.name }}.Devel.flatpak
+          manifest-path: build-aux/ci-matrix-${{ matrix.name }}.json
+          cache-key: flatpak-builder-${{ matrix.name }}-${{ github.sha }}
 
   lint:
     name: "Vala Lint"
