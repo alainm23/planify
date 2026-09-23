@@ -136,7 +136,7 @@ msgid "Content"
 msgstr ""
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:2014 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:2023 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "설명"
@@ -339,7 +339,7 @@ msgid "Task exported successfully"
 msgstr ""
 
 # # c-format
-#: core/Objects/Item.vala:1992 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1992 core/Utils/Util.vala:869
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "작업이 %s(으)로 이동되었습니다"
@@ -350,16 +350,16 @@ msgstr "작업이 %s(으)로 이동되었습니다"
 msgid "Delete Label %s"
 msgstr "라벨 %s 삭제"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:889
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:891
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
-#: src/Layouts/ItemSidebarView.vala:604 src/Services/BackupManager.vala:225
+#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:225
 msgid "This can not be undone"
 msgstr "이 작업은 취소할 수 없습니다"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:892
-#: core/Objects/Project.vala:966 core/Objects/Section.vala:430
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:894
+#: core/Objects/Project.vala:968 core/Objects/Section.vala:430
 #: core/Objects/Section.vala:476 core/Utils/Util.vala:457
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
@@ -370,7 +370,7 @@ msgstr "이 작업은 취소할 수 없습니다"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:318
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:702
-#: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:607
+#: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
 #: src/Services/BackupManager.vala:228 src/Views/Filter.vala:900
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -378,40 +378,40 @@ msgstr "이 작업은 취소할 수 없습니다"
 msgid "Cancel"
 msgstr "취소"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:893
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:895
 #: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:242
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
-#: src/Layouts/ItemSidebarView.vala:608 src/Services/BackupManager.vala:229
+#: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:229
 #: src/Views/Filter.vala:901 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
 msgid "Delete"
 msgstr "삭제"
 
-#: core/Objects/Project.vala:852
+#: core/Objects/Project.vala:854
 msgid "The project was copied to the Clipboard."
 msgstr "프로젝트가 클립보드에 복사되었습니다."
 
 # # c-format
-#: core/Objects/Project.vala:888
+#: core/Objects/Project.vala:890
 #, c-format
 msgid "Delete Project %s?"
 msgstr "프로젝트 %s을(를) 삭제하시겠습니까?"
 
-#: core/Objects/Project.vala:962 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:964 core/Objects/Section.vala:472
 msgid "Archive?"
 msgstr "보관하시겠습니까?"
 
 # # c-format
-#: core/Objects/Project.vala:963 core/Objects/Section.vala:473
+#: core/Objects/Project.vala:965 core/Objects/Section.vala:473
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "%s 및 모든 작업이 보관됩니다."
 
-#: core/Objects/Project.vala:967 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:969 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 msgid "Archive"
@@ -1091,43 +1091,49 @@ msgstr "🏡️집"
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍️️확인 필요"
 
-#: core/Utils/Util.vala:936
+#: core/Utils/Util.vala:804 src/Layouts/ItemBoard.vala:1275
+#: src/Layouts/ItemRow.vala:1678 src/Layouts/ItemSidebarView.vala:601
+#: src/Widgets/MultiSelectToolbar.vala:439
+msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
+msgstr ""
+
+#: core/Utils/Util.vala:949
 msgid "Task duplicated"
 msgstr "작업이 복제되었습니다"
 
-#: core/Utils/Util.vala:972
+#: core/Utils/Util.vala:985
 msgid "Section duplicated"
 msgstr "섹션이 복제되었습니다"
 
-#: core/Utils/Util.vala:998 core/Utils/Util.vala:1024
+#: core/Utils/Util.vala:1011 core/Utils/Util.vala:1037
 msgid "Project duplicated"
 msgstr "프로젝트가 복제되었습니다"
 
-#: core/Utils/Util.vala:1066 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1079 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
 msgstr ""
 
-#: core/Utils/Util.vala:1069 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1082 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
 msgstr ""
 
-#: core/Utils/Util.vala:1072 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1085 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
 msgstr ""
 
-#: core/Utils/Util.vala:1075 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1088 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
 msgstr ""
 
-#: core/Utils/Util.vala:1078 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1091 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
 msgstr ""
 
-#: core/Utils/Util.vala:1081 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
+#: core/Utils/Util.vala:1094 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
 msgstr ""
 
-#: core/Utils/Util.vala:1084 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
+#: core/Utils/Util.vala:1097 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
 msgstr ""
 
@@ -1404,7 +1410,7 @@ msgid "After"
 msgstr "후에"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
-#: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:880
+#: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:886
 #: src/Layouts/ItemRow.vala:1346
 msgid "Apply"
 msgstr ""
@@ -1555,7 +1561,7 @@ msgstr ""
 msgid "Press Enter to create and assign it"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2024
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2033
 msgid "Task description"
 msgstr ""
 
@@ -3126,7 +3132,7 @@ msgid "Unpin"
 msgstr ""
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemSidebarView.vala:682
+#: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemSidebarView.vala:697
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "완료되었습니다. 다음 발생: %s"
@@ -3151,17 +3157,17 @@ msgstr "복제"
 msgid "Delete Task"
 msgstr "작업 삭제"
 
-#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1878
+#: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1887
 msgid "Order changed to 'Custom sort order'"
 msgstr "정렬이 '사용자 정의 순서'로 변경되었습니다"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1655
+#: src/Layouts/ItemBoard.vala:1252 src/Layouts/ItemRow.vala:1655
 #, c-format
 msgid "%s was deleted"
 msgstr "%s이(가) 삭제되었습니다"
 
-#: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1656
+#: src/Layouts/ItemBoard.vala:1253 src/Layouts/ItemRow.vala:1656
 msgid "Undo"
 msgstr "되돌리기"
 
@@ -3211,7 +3217,7 @@ msgstr ""
 msgid "Task completed · Next: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2089
+#: src/Layouts/ItemRow.vala:2098
 msgid "Add Attachments"
 msgstr "첨부 팡리 추가"
 
@@ -3231,7 +3237,7 @@ msgstr "속성"
 msgid "Expand Description"
 msgstr ""
 
-#: src/Layouts/ItemSidebarView.vala:603
+#: src/Layouts/ItemSidebarView.vala:618
 msgid "Are you sure you want to delete?"
 msgstr "삭제하시겠습니까?"
 
@@ -3953,7 +3959,7 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "이 할 일을 삭제하시겠습니까?"
 
 # # c-format
-#: src/Widgets/MultiSelectToolbar.vala:427
+#: src/Widgets/MultiSelectToolbar.vala:447
 #, fuzzy, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"

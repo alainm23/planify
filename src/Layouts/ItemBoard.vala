@@ -862,7 +862,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         menu_handle_popover.popup ();
 
         move_item.activate_item.connect (() => {
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
+            Dialogs.ProjectPicker.ProjectPicker dialog;
+            if (item.project.is_inbox_project) {
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
+            } else {
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
+            }
+
             dialog.project = item.project;
             dialog.present (Planify._instance.main_window);
 
@@ -1262,6 +1268,15 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     public void move (Objects.Project project, string section_id) {
         string project_id = project.id;
+
+        if (item.project.is_deck != project.is_deck) {
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (
+                    _("Moving tasks to or from a Nextcloud Deck board isn't supported yet"), 3
+                )
+            );
+            return;
+        }
 
         if (item.project.source_id != project.source_id) {
             Util.get_default ().move_backend_type_item.begin (item, project);

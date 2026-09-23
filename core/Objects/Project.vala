@@ -418,6 +418,10 @@ public class Objects.Project : Objects.BaseObject {
             inbox_project = node.get_object ().get_boolean_member ("inbox_project");
         }
 
+        if (node.get_object ().has_member ("description") && !node.get_object ().get_null_member ("description")) {
+            description = node.get_object ().get_string_member ("description");
+        }
+
         shared = node.get_object ().get_boolean_member ("shared");
 
         view_style = node.get_object ().get_string_member ("view_style") == "board" ?
@@ -670,10 +674,8 @@ public class Objects.Project : Objects.BaseObject {
             builder.add_null_value ();
         }
 
-        if (description != "") {
-            builder.set_member_name ("description");
-            builder.add_string_value (description);
-        }
+        builder.set_member_name ("description");
+        builder.add_string_value (description);
 
         builder.end_object ();
         builder.end_object ();
