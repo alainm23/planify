@@ -27,7 +27,9 @@ test('cli', test_cli, timeout: 30, suite: ['cli'])
 
 test_core_sources = [
     'test-core-runner.vala',
-    'core/test-item-sorting.vala'
+    'core/test-item-sorting.vala',
+    'core/test-all-items-filter.vala',
+    'core/test-item-reparent.vala'
 ]
 
 test_core = executable(
