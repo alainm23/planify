@@ -820,11 +820,11 @@ public class Objects.Item : Objects.BaseObject {
 
     /**
      * Whether this item may be dropped onto @target to become its subtask. Refuses the item
-     * itself, a task in another project, and any of this item's own descendants, which would
-     * make a cycle.
+     * itself and any of this item's own descendants, which would make a cycle. A target in
+     * another project is fine: the drop moves the item there first.
      */
     public bool can_become_subtask_of (Objects.Item target) {
-        if (target.id == id || target.project_id != project_id) {
+        if (target.id == id) {
             return false;
         }
 
@@ -1905,12 +1905,49 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void move (Objects.Project project, string _section_id, bool notify = true) {
-        if (project.source_type == SourceType.LOCAL) {
-            _move (project.id, _section_id, notify);
-        } else if (project.source_type == SourceType.TODOIST) {
+        if (project.source_type == SourceType.CALDAV && project.is_deck) {
             loading = true;
             sensitive = false;
 
+            if (project.id == project_id) {
+                // Same board, just move between stacks
+                string old_section = section_id;
+                section_id = _section_id;
+                move_deck.begin (old_section, (obj, res) => {
+                    move_deck.end (res);
+                    loading = false;
+                    sensitive = true;
+                });
+            } else {
+                // Different board: create on new, delete from old
+                move_deck_cross_board.begin (project, _section_id, notify, (obj, res) => {
+                    move_deck_cross_board.end (res);
+                    loading = false;
+                    sensitive = true;
+                });
+            }
+
+            return;
+        }
+
+        move_to.begin (project, _section_id, notify);
+    }
+
+    /**
+     * Moves the item to @project (not a Deck board), waiting for the backend. Returns whether
+     * the move went through; on failure an error toast has already been shown.
+     */
+    public async bool move_to (Objects.Project project, string _section_id, bool notify = true) {
+        if (project.source_type == SourceType.LOCAL) {
+            _move (project.id, _section_id, notify);
+            return true;
+        }
+
+        loading = true;
+        sensitive = false;
+
+        bool moved = false;
+        if (project.source_type == SourceType.TODOIST) {
             string move_id = project.id;
             string move_type = "project_id";
             if (_section_id != "") {
@@ -1918,47 +1955,26 @@ public class Objects.Item : Objects.BaseObject {
                 move_id = _section_id;
             }
 
-            Services.Todoist.get_default ().move_item.begin (this, move_type, move_id, (obj, res) => {
-                var response = Services.Todoist.get_default ().move_item.end (res);
-                loading = false;
-                sensitive = true;
-
-                if (response.status) {
-                    _move (project.id, _section_id, notify);
-                } else {
-                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                }
-            });
-        } else if (project.source_type == SourceType.CALDAV) {
-            loading = true;
-            sensitive = false;
-
-            if (project.is_deck) {
-                if (project.id == project_id) {
-                    // Same board, just move between stacks
-                    string old_section = section_id;
-                    section_id = _section_id;
-                    move_deck.begin (old_section, (obj, res) => {
-                        move_deck.end (res);
-                        loading = false;
-                        sensitive = true;
-                    });
-                } else {
-                    // Different board: create on new, delete from old
-                    move_deck_cross_board.begin (project, _section_id, notify, (obj, res) => {
-                        move_deck_cross_board.end (res);
-                        loading = false;
-                        sensitive = true;
-                    });
-                }
+            var response = yield Services.Todoist.get_default ().move_item (this, move_type, move_id);
+            if (response.status) {
+                _move (project.id, _section_id, notify);
+                moved = true;
             } else {
-                move_caldav_recursive.begin (project, _section_id, notify);
+                Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
             }
+        } else if (project.source_type == SourceType.CALDAV) {
+            moved = yield move_caldav_recursive (project, _section_id, notify);
         }
+
+        loading = false;
+        // A row that stays in view (All Tasks, or after an error) would otherwise stay greyed out.
+        sensitive = true;
+        return moved;
     }
 
-    private async void move_caldav_recursive (Objects.Project project, string _section_id, bool notify = true) {
+    private async bool move_caldav_recursive (Objects.Project project, string _section_id, bool notify = true) {
         var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+        bool moved = false;
 
         try {
             var response = yield caldav_client.move_item (this, project);
@@ -1982,15 +1998,13 @@ public class Objects.Item : Objects.BaseObject {
             yield move_all_subitems_caldav (this, project, caldav_client);
 
             _move (project.id, _section_id, notify);
+            moved = true;
         } catch (Error e) {
             Services.EventBus.get_default ().send_error_toast (0, e.message);
         }
 
-        loading = false;
-        // move () disabled the item; a row that stays in view (All Tasks, or after an error)
-        // would otherwise stay greyed out.
-        sensitive = true;
         show_item = true;
+        return moved;
     }
 
     private async void move_all_subitems_caldav (Objects.Item item, Objects.Project project, Services.CalDAV.CalDAVClient caldav_client) throws Error {
