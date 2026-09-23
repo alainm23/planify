@@ -219,6 +219,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public uint complete_timeout { get; set; default = 0; }
     private bool _recurrency_reset = false;
     public bool drag_enabled { get; set; default = true; }
+    // Off in views that span projects: they can reparent by dropping onto a row, but a manual
+    // order across projects means nothing.
+    private bool reorder_enabled = true;
 
     public signal void item_added ();
 
@@ -1699,7 +1702,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         _disable_drag_and_drop ();
         
         // Drop Motion
-        build_drop_motion ();
+        if (reorder_enabled) {
+            build_drop_motion ();
+        }
 
         // Drag Souyrce
         build_drag_source ();
@@ -1711,7 +1716,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         build_drop_magic_button_target ();
 
         // Drop Order
-        build_drop_order_target ();
+        if (reorder_enabled) {
+            build_drop_order_target ();
+        }
     }
 
     private void build_drop_motion () {
@@ -1791,6 +1798,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             Services.EventBus.get_default ().drag_n_drop_active (item.project_id, false);
 
             if (picked_widget == target_widget || target_widget == null) {
+                return false;
+            }
+
+            if (!picked_item.can_become_subtask_of (target_item)) {
+                if (picked_item.project_id != target_item.project_id) {
+                    Services.EventBus.get_default ().send_toast (
+                        Util.get_default ().create_toast (_("A task can only become a subtask of a task in the same project"))
+                    );
+                }
+
                 return false;
             }
 
@@ -1959,6 +1976,20 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             return true;
         })] = drop_order_target;
+    }
+
+    /**
+     * Keeps dragging and dropping onto a row (to make a subtask) but removes the targets for
+     * reordering, here and in every subtask row, including ones added later.
+     */
+    public void disable_reorder () {
+        reorder_enabled = false;
+
+        if (drag_source != null) {
+            build_drag_and_drop ();
+        }
+
+        subitems.disable_reorder ();
     }
 
     public void disable_drag_and_drop () {

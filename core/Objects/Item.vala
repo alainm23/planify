@@ -818,6 +818,31 @@ public class Objects.Item : Objects.BaseObject {
         _parent = item;
     }
 
+    /**
+     * Whether this item may be dropped onto @target to become its subtask. Refuses the item
+     * itself, a task in another project, and any of this item's own descendants, which would
+     * make a cycle.
+     */
+    public bool can_become_subtask_of (Objects.Item target) {
+        if (target.id == id || target.project_id != project_id) {
+            return false;
+        }
+
+        var visited = new Gee.HashSet<string> ();
+        for (Objects.Item ? ancestor = target.parent; ancestor != null; ancestor = ancestor.parent) {
+            if (ancestor.id == id) {
+                return false;
+            }
+
+            // A pre-existing cycle further up must not hang the walk.
+            if (!visited.add (ancestor.id)) {
+                break;
+            }
+        }
+
+        return true;
+    }
+
     public void set_project (Objects.Project project) {
         _project = project;
     }
