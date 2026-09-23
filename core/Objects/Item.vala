@@ -1921,6 +1921,7 @@ public class Objects.Item : Objects.BaseObject {
             Services.Todoist.get_default ().move_item.begin (this, move_type, move_id, (obj, res) => {
                 var response = Services.Todoist.get_default ().move_item.end (res);
                 loading = false;
+                sensitive = true;
 
                 if (response.status) {
                     _move (project.id, _section_id, notify);
@@ -1940,12 +1941,14 @@ public class Objects.Item : Objects.BaseObject {
                     move_deck.begin (old_section, (obj, res) => {
                         move_deck.end (res);
                         loading = false;
+                        sensitive = true;
                     });
                 } else {
                     // Different board: create on new, delete from old
                     move_deck_cross_board.begin (project, _section_id, notify, (obj, res) => {
                         move_deck_cross_board.end (res);
                         loading = false;
+                        sensitive = true;
                     });
                 }
             } else {
@@ -1984,6 +1987,9 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         loading = false;
+        // move () disabled the item; a row that stays in view (All Tasks, or after an error)
+        // would otherwise stay greyed out.
+        sensitive = true;
         show_item = true;
     }
 
