@@ -27,7 +27,8 @@ test('cli', test_cli, timeout: 30, suite: ['cli'])
 
 test_core_sources = [
     'test-core-runner.vala',
-    'core/test-item-sorting.vala'
+    'core/test-item-sorting.vala',
+    'core/test-subitem-cache.vala'
 ]
 
 test_core = executable(
@@ -37,4 +38,5 @@ test_core = executable(
     install: false
 )
 
-test('core', test_core, timeout: 30, suite: ['core'])
+test('core', test_core, timeout: 30, suite: ['core'],
+    env: ['XDG_DATA_HOME=' + meson.current_build_dir() / 'test-core-data'])

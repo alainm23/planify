@@ -28,6 +28,7 @@ int main (string[] args) {
     Test.init (ref args);
 
     Planify.Tests.ItemSorting.register_tests ();
+    Planify.Tests.SubitemCache.register_tests ();
 
     return Test.run ();
 }

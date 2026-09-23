@@ -677,6 +677,11 @@ public class Services.Store : GLib.Object {
         if (!persist || Services.Database.get_default ().insert_item (item)) {
             clear_project_cache (item.project_id);
             items.add (item);
+
+            if (item.has_parent && item.parent != null) {
+                item.parent.invalidate_subitems ();
+            }
+
             item_added (item, insert);
 
             if (insert) {
@@ -797,6 +802,15 @@ public class Services.Store : GLib.Object {
             _items_by_project_cache.unset (old_project_id);
             _items_by_project_cache.unset (item.project_id);
 
+            var old_parent = old_parent_id != "" ? get_item (old_parent_id) : null;
+            if (old_parent != null) {
+                old_parent.invalidate_subitems ();
+            }
+
+            if (item.has_parent && item.parent != null) {
+                item.parent.invalidate_subitems ();
+            }
+
             #if WITH_EVOLUTION            
             if (item.has_due) {
                 var old_project = get_project (old_project_id);
@@ -843,6 +857,11 @@ public class Services.Store : GLib.Object {
     public void complete_item (Objects.Item item, bool old_checked, bool complete_subitems = true) {
         if (Services.Database.get_default ().complete_item (item, old_checked)) {
             _items_by_project_cache.unset (item.project_id);
+
+            // The parent's cached items_uncomplete depends on this item's checked state.
+            if (item.has_parent && item.parent != null) {
+                item.parent.invalidate_subitems ();
+            }
 
             if (complete_subitems) {
                 foreach (Objects.Item subitem in get_subitems (item)) {
