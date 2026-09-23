@@ -58,10 +58,11 @@ namespace Planify.Tests.ItemReparent {
         assert_false (picked.can_become_subtask_of (picked));
     }
 
-    private void test_refuses_a_task_in_another_project () {
+    // The drop moves the task into the target's project first.
+    private void test_allows_a_task_in_another_project () {
         var picked = make_item ("picked", "project-a");
         var target = make_item ("target", "project-b");
-        assert_false (picked.can_become_subtask_of (target));
+        assert_true (picked.can_become_subtask_of (target));
     }
 
     private void test_refuses_its_own_child () {
@@ -81,7 +82,7 @@ namespace Planify.Tests.ItemReparent {
         Test.add_func ("/core/item_reparent/allows_a_task_in_the_same_project", test_allows_a_task_in_the_same_project);
         Test.add_func ("/core/item_reparent/allows_a_subtask_moving_to_another_parent", test_allows_a_subtask_moving_to_another_parent);
         Test.add_func ("/core/item_reparent/refuses_the_task_itself", test_refuses_the_task_itself);
-        Test.add_func ("/core/item_reparent/refuses_a_task_in_another_project", test_refuses_a_task_in_another_project);
+        Test.add_func ("/core/item_reparent/allows_a_task_in_another_project", test_allows_a_task_in_another_project);
         Test.add_func ("/core/item_reparent/refuses_its_own_child", test_refuses_its_own_child);
         Test.add_func ("/core/item_reparent/refuses_its_own_grandchild", test_refuses_its_own_grandchild);
     }

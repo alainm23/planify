@@ -1802,47 +1802,75 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
 
             if (!picked_item.can_become_subtask_of (target_item)) {
-                if (picked_item.project_id != target_item.project_id) {
-                    Services.EventBus.get_default ().send_toast (
-                        Util.get_default ().create_toast (_("A task can only become a subtask of a task in the same project"))
-                    );
-                }
-
                 return false;
             }
 
-            string old_parent_id = picked_item.parent_id;
-            string old_project_id = picked_item.project_id;
-            string old_section_id = picked_item.section_id;
-
-            picked_item.section_id = "";
-            picked_item.parent_id = target_item.id;
-
-            if (picked_item.project.source_type == SourceType.LOCAL) {
-                target_item.collapsed = true;
-                Services.Store.instance ().update_item (picked_item);
-                Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
-            } else if (picked_item.project.source_type == SourceType.TODOIST) {
-                Services.Todoist.get_default ().move_item.begin (picked_item, "parent_id", picked_item.parent_id, (obj, res) => {
-                    if (Services.Todoist.get_default ().move_item.end (res).status) {
-                        target_item.collapsed = true;
-                        Services.Store.instance ().update_item (picked_widget.item);
-                        Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
-                    }
-                });
-            } else if (picked_item.project.source_type == SourceType.CALDAV) {
-                var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_item.project.source);
-                caldav_client.add_item.begin (picked_item, true, (obj, res) => {
-                    if (caldav_client.add_item.end (res).status) {
-                        target_item.collapsed = true;
-                        Services.Store.instance ().update_item (picked_widget.item);
-                        Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
-                    }
-                });
+            if (picked_item.project_id == target_item.project_id) {
+                make_subtask_of (picked_item, target_item);
+                return true;
             }
+
+            // Another list: move the task there first. Across accounts that means recreating it
+            // under a new id, and into or out of a Deck board it isn't supported at all.
+            if (picked_item.project.source_id != target_item.project.source_id) {
+                Services.EventBus.get_default ().send_toast (
+                    Util.get_default ().create_toast (_("A task can only become a subtask of a task in the same account"))
+                );
+                return false;
+            }
+
+            if (picked_item.project.is_deck != target_item.project.is_deck) {
+                Services.EventBus.get_default ().send_toast (
+                    Util.get_default ().create_toast (
+                        _("Moving tasks to or from a Nextcloud Deck board isn't supported yet"), 3
+                    )
+                );
+                return false;
+            }
+
+            picked_item.move_to.begin (target_item.project, "", false, (obj, res) => {
+                if (picked_item.move_to.end (res)) {
+                    make_subtask_of (picked_item, target_item);
+                }
+            });
 
             return true;
         })] = drop_target;
+    }
+
+    /**
+     * Makes @picked_item a subtask of @target_item, which is in the same project.
+     */
+    private void make_subtask_of (Objects.Item picked_item, Objects.Item target_item) {
+        string old_parent_id = picked_item.parent_id;
+        string old_project_id = picked_item.project_id;
+        string old_section_id = picked_item.section_id;
+
+        picked_item.section_id = "";
+        picked_item.parent_id = target_item.id;
+
+        if (picked_item.project.source_type == SourceType.LOCAL) {
+            target_item.collapsed = true;
+            Services.Store.instance ().update_item (picked_item);
+            Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
+        } else if (picked_item.project.source_type == SourceType.TODOIST) {
+            Services.Todoist.get_default ().move_item.begin (picked_item, "parent_id", picked_item.parent_id, (obj, res) => {
+                if (Services.Todoist.get_default ().move_item.end (res).status) {
+                    target_item.collapsed = true;
+                    Services.Store.instance ().update_item (picked_item);
+                    Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
+                }
+            });
+        } else if (picked_item.project.source_type == SourceType.CALDAV) {
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_item.project.source);
+            caldav_client.add_item.begin (picked_item, true, (obj, res) => {
+                if (caldav_client.add_item.end (res).status) {
+                    target_item.collapsed = true;
+                    Services.Store.instance ().update_item (picked_item);
+                    Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
+                }
+            });
+        }
     }
 
     private void build_drop_magic_button_target () {
