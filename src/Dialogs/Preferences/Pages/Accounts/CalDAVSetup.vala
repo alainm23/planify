@@ -34,6 +34,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
     private Adw.EntryRow calendar_home_entry;
     private Widgets.IgnoreSSLSwitchRow ignore_ssl_row;
     private Widgets.BypassResolveSwitchRow bypass_resolve_row;
+    private Widgets.ClientCertificateRow client_cert_row;
 
     public CalDAVSetup (Adw.PreferencesDialog preferences_dialog, Accounts accounts_page) {
         Object (
@@ -95,6 +96,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
 
         ignore_ssl_row = new Widgets.IgnoreSSLSwitchRow ();
         bypass_resolve_row = new Widgets.BypassResolveSwitchRow ();
+        client_cert_row = new Widgets.ClientCertificateRow ();
 
         var advanced_group = new Adw.PreferencesGroup () {
             margin_bottom = 3,
@@ -105,6 +107,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         advanced_group.add (calendar_home_entry);
         advanced_group.add (ignore_ssl_row);
         advanced_group.add (bypass_resolve_row);
+        advanced_group.add (client_cert_row);
 
         var advanced_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -274,6 +277,25 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
 
         Services.LogService.get_default ().info ("CalDAVSetup", "Starting login flow");
 
+        GLib.TlsCertificate? client_cert = null;
+        string cert_data = "";
+        string cert_format = "";
+        string cert_password = "";
+        if (client_cert_row.has_certificate) {
+            cert_data = client_cert_row.cert_data;
+            cert_format = client_cert_row.cert_format;
+            cert_password = client_cert_row.cert_password;
+            try {
+                client_cert = Objects.SourceCalDAVData.build_client_certificate (cert_data, cert_format, cert_password);
+            } catch (Error e) {
+                Services.LogService.get_default ().error ("CalDAVSetup", "Failed to load client certificate: %s".printf (e.message));
+                login_button.is_loading = false;
+                cancel_button.visible = false;
+                accounts_page.show_message_error (0, "Failed to load client certificate: %s".printf (e.message));
+                return;
+            }
+        }
+
         /*
          * The `resolve_well_known_caldav ()` function can fail on misconfigured CalDAV servers where
          * the `Location` header doesn't contain the configured port.
@@ -287,7 +309,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         } else {
             Services.LogService.get_default ().info ("CalDAVSetup", "Resolving well-known CalDAV endpoint");
             try {
-                dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (new Soup.Session (), server_entry.text, ignore_ssl_row.active);
+                dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (new Soup.Session (), server_entry.text, ignore_ssl_row.active, client_cert);
             } catch (Error e) {
                 if (e is GLib.IOError.CANCELLED) {
                     login_button.is_loading = false;
@@ -314,7 +336,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         } else {
             Services.LogService.get_default ().info ("CalDAVSetup", "Resolving calendar home");
             try {
-                calendar_home = yield Services.CalDAV.Core.get_default ().resolve_calendar_home (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, cancellable, ignore_ssl_row.active);
+                calendar_home = yield Services.CalDAV.Core.get_default ().resolve_calendar_home (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, cancellable, ignore_ssl_row.active, client_cert);
             } catch (Error e) {
                 if (e is GLib.IOError.CANCELLED) {
                     login_button.is_loading = false;
@@ -345,7 +367,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         }
 
         Services.LogService.get_default ().info ("CalDAVSetup", "Attempting login");
-        HttpResponse response = yield Services.CalDAV.Core.get_default ().login (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, calendar_home, cancellable, ignore_ssl_row.active);
+        HttpResponse response = yield Services.CalDAV.Core.get_default ().login (CalDAVType.GENERIC, dav_endpoint, username_entry.text, password_entry.text, calendar_home, cancellable, ignore_ssl_row.active, cert_data, cert_format, cert_password);
 
         if (response.status) {
             Services.LogService.get_default ().info ("CalDAVSetup", "Login successful, syncing account");
@@ -368,7 +390,7 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
             login_button.is_loading = false;
             cancel_button.visible = false;
 
-            if (response.error_code == 409) {
+            if (response.error_code == 409 || response.error_code == 495) {
                 var toast = new Adw.Toast (response.error.strip ());
                 toast.timeout = 3;
                 preferences_dialog.add_toast (toast);
