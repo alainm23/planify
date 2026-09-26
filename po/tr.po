@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-09-09 08:51+0000\n"
+"PO-Revision-Date: 2026-09-27 18:51+0000\n"
 "Last-Translator: Akın Birdal <reend21@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/tr/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.1\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -3167,31 +3167,31 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:196
 msgid "Every task completed is a step forward"
-msgstr ""
+msgstr "Tamamlanan her görev bir adımdır"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:200
 msgid "Set your daily and weekly goals to start tracking your productivity"
-msgstr ""
+msgstr "Üretkenliğinizi takip etmek için günlük ve haftalık hedefler belirleyin"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:207
 msgid "Set Up Goals"
-msgstr ""
+msgstr "Hedef Ekleyin"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:313
 msgid "Goals"
-msgstr ""
+msgstr "Hedefler"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:321
 msgid "Edit Goals"
-msgstr ""
+msgstr "Hedefleri Düzenleyin"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:56
 msgid "Total"
-msgstr ""
+msgstr "Toplam"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:57
 msgid "Pending"
-msgstr ""
+msgstr "Bekleniyor"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:59
 #: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:159
@@ -3200,7 +3200,7 @@ msgstr "Süresi doldu"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:73
 msgid "Progress"
-msgstr ""
+msgstr "İlerleme"
 
 #: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -3229,19 +3229,19 @@ msgstr "Projeyi Güncelle"
 
 #: src/Dialogs/Project.vala:234
 msgid "Global Default"
-msgstr ""
+msgstr "Küresel Varsayılan"
 
 #: src/Dialogs/Project.vala:236
 msgid "Disabled"
-msgstr ""
+msgstr "Devre Dışı"
 
 #: src/Dialogs/Project.vala:239
 msgid "Markdown Formatting"
-msgstr ""
+msgstr "Markdown Formatlama"
 
 #: src/Dialogs/Project.vala:240
 msgid "Override the global markdown setting for this project"
-msgstr ""
+msgstr "Bu proje için küresel markdown formatlamayı geçersiz kıl"
 
 #: src/Dialogs/Project.vala:264
 msgid "Create as Deck Board"
@@ -3269,8 +3269,8 @@ msgstr "Hızlı Arama"
 #, c-format
 msgid "%u result"
 msgid_plural "%u results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u Sonuç"
+msgstr[1] "%u Sonuç"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:352
 msgid "Quickly switch projects and views, find tasks, search by labels"
@@ -3297,9 +3297,8 @@ msgstr "Bölümü Güncelle"
 
 #: src/Dialogs/Section.vala:244 src/Dialogs/Section.vala:258
 #: src/Dialogs/Section.vala:282 src/Dialogs/Section.vala:296
-#, fuzzy
 msgid "Section added"
-msgstr "Bölüm Adı"
+msgstr "Bölüm eklendi"
 
 #: src/Layouts/HeaderBar.vala:79
 msgid "Open/Close Sidebar"
@@ -3309,7 +3308,7 @@ msgstr "Kenar Çubuğunu Aç/Kapat"
 #: src/Layouts/ItemBoard.vala:819 src/Layouts/ItemRow.vala:1241
 #: src/Layouts/ItemRow.vala:1256
 msgid "Unpin"
-msgstr ""
+msgstr "Sabitlemeden çıkar"
 
 # # c-format
 #: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemRow.vala:1626
@@ -3361,22 +3360,20 @@ msgid "Add Subtasks"
 msgstr "Alt Görev Ekle"
 
 #: src/Layouts/ItemRow.vala:1070
-#, fuzzy
 msgid "Hide Sub-tasks"
-msgstr "Alt Görev Ekle"
+msgstr "Alt Görevleri Gizle"
 
 #: src/Layouts/ItemRow.vala:1070
-#, fuzzy
 msgid "Show Sub-tasks"
-msgstr "Alt Görev Ekle"
+msgstr "Alt Görevleri Göster"
 
 #: src/Layouts/ItemRow.vala:1254 src/Layouts/ItemRow.vala:1302
 msgid "Pick a Date"
-msgstr ""
+msgstr "Bir Tarih Seç"
 
 #: src/Layouts/ItemRow.vala:1397 src/Layouts/ItemSidebarView.vala:513
 msgid "Use as a Note"
-msgstr "Tarih seçiniz"
+msgstr "Not olarak kullan"
 
 #: src/Layouts/ItemRow.vala:1400 src/Layouts/ItemSidebarView.vala:515
 #: src/Widgets/MultiSelectToolbar.vala:274
@@ -3408,19 +3405,19 @@ msgstr "Ayrıntıları Göster"
 
 #: src/Layouts/ItemSidebarView.vala:147 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
-msgstr ""
+msgstr "Başlık"
 
 #: src/Layouts/ItemSidebarView.vala:179 src/Widgets/ItemDetailCompleted.vala:90
 msgid "Properties"
-msgstr ""
+msgstr "Özellikler"
 
 #: src/Layouts/ItemSidebarView.vala:195
 msgid "Expand Description"
-msgstr ""
+msgstr "Açıklamayı Genişlet"
 
 #: src/Layouts/ItemSidebarView.vala:603 src/Layouts/ItemSidebarView.vala:618
 msgid "Are you sure you want to delete?"
-msgstr "%s ögesini silmek istediğinizden emin misiniz?"
+msgstr "Silmek istediğinizden emin misiniz?"
 
 #: src/Layouts/LabelRow.vala:162
 msgid "Delete Label"
@@ -3440,7 +3437,7 @@ msgstr "Gözdelere Ekle"
 
 #: src/Layouts/ProjectRow.vala:702
 msgid "Refresh"
-msgstr ""
+msgstr "Yenile"
 
 #: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:400
 #: src/Widgets/ProjectItemRow.vala:154
@@ -3468,20 +3465,18 @@ msgid "(No Section)"
 msgstr "(Bölüm Yok)"
 
 #: src/Layouts/SectionBoard.vala:157 src/Layouts/SectionRow.vala:250
-#, fuzzy
 msgid "Add tasks"
 msgstr "Görev Ekle"
 
 #: src/Layouts/SectionBoard.vala:175 src/Layouts/SectionRow.vala:217
 #: src/Views/Filter.vala:197
 msgid "Load more"
-msgstr ""
+msgstr "Daha fazla yükle"
 
 #: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:656
 #: src/Widgets/SubItems.vala:420
-#, fuzzy
 msgid "completed tasks"
-msgstr "Görevi Tamamla"
+msgstr "tamamlanan görevler"
 
 #: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:701
 msgid "Move Section"
@@ -3498,26 +3493,23 @@ msgstr "Bölümü Sil"
 
 #: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:583
 msgid "No more tasks"
-msgstr ""
+msgstr "Başka görev yok, aferin"
 
 #: src/Layouts/Sidebar.vala:40
 msgid "Favorites"
-msgstr "Gözdeler"
+msgstr "Favoriler"
 
 #: src/Layouts/Sidebar.vala:42
 msgid "No favorites available. Create one by clicking on the '+' button"
-msgstr ""
-"Gözdeler bulunamadı. '+' düğmesine tıklayarak bir tane oluşturabilirsiniz"
+msgstr "Favori bulunamadı. '+' düğmesine tıklayarak bir tane oluşturabilirsiniz"
 
 #: src/Layouts/Sidebar.vala:122
-#, fuzzy
 msgid "Add Account"
-msgstr "Hesaplar"
+msgstr "Hesap Ekle"
 
 #: src/Layouts/Sidebar.vala:123
-#, fuzzy
 msgid "Customize Sidebar"
-msgstr "Kenar çubuğunuzu özelleştirin"
+msgstr "Kenar Çubuğunu Özelleştir"
 
 #: src/Layouts/Sidebar.vala:313 src/Layouts/Sidebar.vala:365
 msgid "Go to Today"
@@ -3565,20 +3557,19 @@ msgstr "Planify Hakkında"
 
 #: src/MainWindow.vala:870
 msgid "Oops! Something happened"
-msgstr ""
+msgstr "Amanın! Bir şeyler oldu"
 
 #: src/MainWindow.vala:889 src/Widgets/ItemChangeHistoryRow.vala:48
-#, fuzzy
 msgid "Task completed"
-msgstr "tamamlandı"
+msgstr "Görev tamamlandı"
 
 #: src/MainWindow.vala:890
 msgid "View"
-msgstr ""
+msgstr "Göz at"
 
 #: src/MainWindow.vala:928
 msgid "Database Integrity Check Failed"
-msgstr ""
+msgstr "Veritabanı Uyumluluğu Geçersiz"
 
 #: src/MainWindow.vala:929
 msgid ""
