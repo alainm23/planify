@@ -37,8 +37,8 @@ public class Services.Deck.DeckClient : Object {
         this.session.user_agent = Constants.SOUP_USER_AGENT;
     }
 
-    private Soup.Message build_message (string method, string endpoint, string? body = null) {
-        var url = base_url + endpoint;
+    private Soup.Message build_message (string method, string endpoint, string? body = null, bool use_internal = false) {
+        var url = (use_internal ? internal_base_url : base_url) + endpoint;
         var msg = new Soup.Message (method, url);
 
         if (client_certificate != null) {
@@ -102,15 +102,7 @@ public class Services.Deck.DeckClient : Object {
     }
 
     private async Json.Object send_object_request (string method, string endpoint, string? body = null, bool use_internal = false) throws GLib.Error {
-        var url = (use_internal ? internal_base_url : base_url) + endpoint;
-        var msg = new Soup.Message (method, url);
-        var credentials = Base64.encode (("%s:%s".printf (username, password)).data);
-        msg.request_headers.append ("Authorization", "Basic %s".printf (credentials));
-        msg.request_headers.append ("OCS-APIRequest", "true");
-        msg.request_headers.append ("Content-Type", "application/json");
-        if (body != null) {
-            msg.set_request_body_from_bytes ("application/json", new Bytes (body.data));
-        }
+        var msg = build_message (method, endpoint, body, use_internal);
 
         Services.LogService.get_default ().debug ("Deck", "%s %s%s\nBody: %s".printf (method, base_url, endpoint, body ?? "(null)"));
 
