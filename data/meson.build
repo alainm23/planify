@@ -38,6 +38,8 @@ appstream_file = i18n.merge_file(
 
 install_data('io.github.alainm23.planify.gschema.xml',
   install_dir: get_option('datadir') / 'glib-2.0/schemas',
+  # Needed for pixiewood to install settings schema
+  install_tag: 'runtime',
 )
 
 compile_schemas = find_program('glib-compile-schemas', required: false)

@@ -84,6 +84,14 @@ public class Widgets.TranslationRow : Adw.PreferencesRow {
         is_ready_to_animate = true;
     }
     
+    private string get_language_display_name (string code, string display_locale) {
+        #if ANDROID
+                return code;
+        #else
+                return ICU.get_display_language (code, display_locale);
+        #endif
+    }
+
     public void trigger_animation () {
         if (_animation_played || !is_ready_to_animate) {
             return;
@@ -136,12 +144,12 @@ public class Widgets.TranslationRow : Adw.PreferencesRow {
 
             if (metric != null && metric.translated_percent > 0.0) {
                 title = _ ("Help improve translations");
-                var language_name = ICU.get_display_language (metric.code, metric.code);
+                var language_name = get_language_display_name (metric.code, metric.code);
                 prepare_animation (language_name, metric.translated_percent);
                 return;
             }
 
-            string language_name = ICU.get_display_language (metric.code, "en");
+            string language_name = get_language_display_name (metric.code, "en");
 
             title = _ ("Start a new translation");
             subtitle = _ ("<b>%s</b> is not available yet. Be the first to translate it!").printf (language_name);

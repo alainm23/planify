@@ -74,11 +74,7 @@ public class Dialogs.Preferences.Pages.Donate : Dialogs.Preferences.Pages.BasePa
         patreon_row.subtitle = _("Monthly recurring support");
 
         signal_map[patreon_row.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.PATREON_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
+            Util.get_default ().open_uri.begin (Constants.PATREON_URL);
         })] = patreon_row;
 
         var paypal_row = new Adw.ActionRow ();
@@ -88,11 +84,7 @@ public class Dialogs.Preferences.Pages.Donate : Dialogs.Preferences.Pages.BasePa
         paypal_row.subtitle = _("One-time donation");
 
         signal_map[paypal_row.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.PAYPAL_ME_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
+            Util.get_default ().open_uri.begin (Constants.PAYPAL_ME_URL);
         })] = paypal_row;
 
         var liberapay_row = new Adw.ActionRow ();
@@ -102,11 +94,7 @@ public class Dialogs.Preferences.Pages.Donate : Dialogs.Preferences.Pages.BasePa
         liberapay_row.subtitle = _("Weekly recurring donations");
 
         signal_map[liberapay_row.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.LIBERAPAY_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
+            Util.get_default ().open_uri.begin (Constants.LIBERAPAY_URL);
         })] = liberapay_row;
 
         var kofi_row = new Adw.ActionRow ();
@@ -116,11 +104,7 @@ public class Dialogs.Preferences.Pages.Donate : Dialogs.Preferences.Pages.BasePa
         kofi_row.subtitle = _("Buy me a coffee ☕");
 
         signal_map[kofi_row.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.KOFI_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
+            Util.get_default ().open_uri.begin (Constants.KOFI_URL);
         })] = kofi_row;
 
         var group = new Adw.PreferencesGroup () {

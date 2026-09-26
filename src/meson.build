@@ -6,6 +6,14 @@ deps = [
   pangocairo_dep
 ]
 
+if icu_uc_dep.found()
+  deps += icu_uc_dep
+endif
+
+if host_machine.system() == 'android'
+  deps += dependency('gioopenssl')
+endif
+
 
 if get_option('portal')
     if libportal_dep.found()
@@ -33,7 +41,6 @@ endif
 sources = files(
   'App.vala',
   'MainWindow.vala',
-
   'Objects/Backup.vala',
   'Services/ActionManager.vala',
   'Services/Api.vala',
@@ -161,7 +168,8 @@ executable(
   asresources,
   config_file,
   dependencies: deps,
-  install: true
+  install: true,
+  android_exe_type: 'application'
 )
 
 
