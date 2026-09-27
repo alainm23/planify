@@ -66,6 +66,7 @@
             <option>-Dspelling=disabled</option>
             <option>-Dportal=false</option>
             <option>-Devolution=false</option>
+            <option>-Dgoa=false</option>
             <option>-Dlibadwaita:introspection=disabled</option>
             <option>-Dlibadwaita:tests=false</option>
             <option>-Dlibadwaita:examples=false</option>
