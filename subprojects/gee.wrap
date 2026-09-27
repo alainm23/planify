@@ -1,0 +1,13 @@
+[wrap-file]
+directory = libgee-0.20.8
+source_url = https://download.gnome.org/sources/libgee/0.20/libgee-0.20.8.tar.xz
+source_filename = libgee-0.20.8.tar.xz
+source_hash = 189815ac143d89867193b0c52b7dc31f3aa108a15f04d6b5dca2b6adfad0b0ee
+patch_filename = gee_0.20.8-1_patch.zip
+patch_url = https://wrapdb.mesonbuild.com/v2/gee_0.20.8-1/get_patch
+patch_hash = 65149b30d3f54c9bce2c17a89c57b230b89e415bb3743abdb40525b16c054699
+source_fallback_url = https://github.com/mesonbuild/wrapdb/releases/download/gee_0.20.8-1/libgee-0.20.8.tar.xz
+wrapdb_version = 0.20.8-1
+
+[provide]
+dependency_names = gee-0.8

@@ -422,7 +422,13 @@
         <key name="backup-max-count" type="i">
             <default>30</default>
             <summary>Maximum number of backups to keep</summary>
-            <description>When greater than zero, older backups beyond this count are removed automatically after each new backup. Zero keeps all backups.</description>
+	    <description>When greater than zero, older backups beyond this count are removed automatically after each new backup. Zero keeps all backups.</description>
+	</ke>
+
+        <key name="android-experimental-warning-shown" type="b">
+            <default>false</default>
+            <summary>Whether the Android experimental-build warning was shown</summary>
+            <description>Tracks if user has dismissed warning that the build is experimental</description>
         </key>
     </schema>
 </schemalist>
