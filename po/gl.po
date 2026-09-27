@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-09-22 18:51+0000\n"
+"PO-Revision-Date: 2026-09-27 18:51+0000\n"
 "Last-Translator: Xosé Calvo <xosecalvo@gmail.com>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/gl/>\n"
@@ -2533,15 +2533,15 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:120
 msgid "Start of the Week"
-msgstr ""
+msgstr "Comezo da semana"
 
 #: src/Dialogs/Preferences/Pages/General.vala:132
 msgid "Smart Date Recognition"
-msgstr ""
+msgstr "Recoñecemento intelixente da data"
 
 #: src/Dialogs/Preferences/Pages/General.vala:133
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
-msgstr ""
+msgstr "Detecta automaticamente datas como «mañá» ou «próxima semana»"
 
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:64
@@ -2551,27 +2551,32 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:136
 msgid "Quick Add"
-msgstr ""
+msgstr "Engadir rapidamente"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:44
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
 msgstr ""
+"Empregue «Engadir rapidamente» para crear tarefas desde calquera parte do "
+"escritorio con sú uns toques de tecla. Non hai nin que deixar a aplicación "
+"coa que se estea a traballar."
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:56
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
 msgstr ""
+"Vaia a Configuración do sistema → Teclado → Atallos → Personalizados e "
+"engada un atallo novo co seguinte:"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:249
 msgid "Settings"
-msgstr ""
+msgstr "Configuración"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:93
 msgid "Save Last Selected Project"
-msgstr ""
+msgstr "Gardar o último proxecto seleccionado"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:94
 msgid "If unchecked, the default project selected is Inbox"
@@ -2579,85 +2584,87 @@ msgstr "Se non está marcado, o proxecto predeterminado seleccionado é Inicio"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:104
 msgid "Keep Task Properties"
-msgstr ""
+msgstr "Manter propiedades da tarefa"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:105
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
 msgstr ""
+"Se «Continuar engadido» está activado, conservar datas, etiquetas e estado "
+"de fixado ou non fixado"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:134
 msgid "The command was copied to the clipboard"
-msgstr ""
+msgstr "A orde foi copiada ao portapapeis"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
 #: src/Dialogs/Preferences/PreferencesWindow.vala:100
 msgid "Sidebar"
-msgstr ""
+msgstr "Barra lateral"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:38
 msgid "Show Task Count"
-msgstr ""
+msgstr "Mostrar contaxe de tarefas"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:43
 msgid "Sidebar Width"
-msgstr ""
+msgstr "Largura da barra lateral"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:48
 msgid "List View for Filters"
-msgstr ""
+msgstr "Vista de lista dos filtros"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:49
 msgid "Show filters in a simple list instead of a grid"
-msgstr ""
+msgstr "Mostra os filtros nunha lista simples en vez de nunha grade"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:62
 msgid "Show in Sidebar"
-msgstr ""
+msgstr "Mostrar na barra lateral"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:88
 msgid "You can sort your views by dragging and dropping"
-msgstr ""
+msgstr "Pode ordenar as vistas arrastrando e soltando"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:90
 msgid "Task Settings"
-msgstr ""
+msgstr "Configuracións das tarefas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:40
 msgid "Complete Instantly"
-msgstr ""
+msgstr "Completar instantaneamente"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:41
 msgid "Complete with Undo"
-msgstr ""
+msgstr "Completar con Desfacer"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:44
 msgid "Task Completion"
-msgstr ""
+msgstr "Conclusión das tarefas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:45
 msgid "Choose how tasks behave when marked as complete"
-msgstr ""
+msgstr "Escolla como se comportan as tarefas ao marcalas como concluídas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:52
 msgid "Priority 1"
-msgstr ""
+msgstr "Prioridade 1"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:53
 msgid "Priority 2"
-msgstr ""
+msgstr "Prioridade 2"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:54
 msgid "Priority 3"
-msgstr ""
+msgstr "Prioridade 3"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:58
 msgid "Default Priority"
-msgstr ""
+msgstr "Prioridade predeterminada"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:70
 msgid "Cross Out Completed Tasks"
-msgstr ""
+msgstr "Riscas tarefas concluídas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:77
 msgid "Start"
@@ -2665,11 +2672,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:81
 msgid "New Task Position"
-msgstr ""
+msgstr "Nova posición de tarefa"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:88
 msgid "Always Show Completed Sub-Tasks"
-msgstr ""
+msgstr "Mostar sempre as subtarefas completadas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:89
 msgid "Keep all completed subtasks visible without collapsing them"
