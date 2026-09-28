@@ -38,6 +38,23 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         this.ignore_ssl = ignore_ssl;
     }
 
+    private static GLib.Regex ? between_tags_regex;
+
+    private string minify_xml (string xml) {
+        try {
+            if (between_tags_regex == null) {
+                between_tags_regex = new GLib.Regex (">\\s+<");
+            }
+
+            string result = between_tags_regex.replace_literal (xml, -1, 0, "><");
+
+            return result.strip ();
+        } catch (RegexError e) {
+            Services.LogService.get_default ().error ("WebDAV", "Regex error: " + e.message);
+            return xml;
+        }
+    }
+
     public void cleanup () {
         Services.LogService.get_default ().info ("WebDAV", "Cleaning up session");
         if (session != null) {
@@ -57,12 +74,12 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
 
     public async WebDAVMultiStatus propfind (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
         Services.LogService.get_default ().debug ("WebDAV", "PROPFIND request (depth: %s)".printf (depth));
-        return new WebDAVMultiStatus.from_string (yield send_request ("PROPFIND", url, "application/xml", xml, depth, cancellable, { Soup.Status.MULTI_STATUS }));
+        return new WebDAVMultiStatus.from_string (yield send_request ("PROPFIND", url, "application/xml", minify_xml (xml), depth, cancellable, { Soup.Status.MULTI_STATUS }));
     }
 
     public async WebDAVMultiStatus report (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
         Services.LogService.get_default ().debug ("WebDAV", "REPORT request (depth: %s)".printf (depth));
-        return new WebDAVMultiStatus.from_string (yield send_request ("REPORT", url, "application/xml", xml, depth, cancellable, { Soup.Status.MULTI_STATUS }));
+        return new WebDAVMultiStatus.from_string (yield send_request ("REPORT", url, "application/xml", minify_xml (xml), depth, cancellable, { Soup.Status.MULTI_STATUS }));
     }
 
     protected async string send_request (string method, string url, string content_type, string? body, string? depth, GLib.Cancellable? cancellable, Soup.Status[] expected_statuses, HashTable<string,string>? extra_headers = null) throws GLib.Error {
