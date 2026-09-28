@@ -1,0 +1,332 @@
+
+/* Planify Quick View — dark styles.
+   Each variant file is self-sufficient: the shell loads exactly one of
+   stylesheet.css / stylesheet-dark.css / stylesheet-light.css. Card rules
+   use ".popup-menu-content.pqv-content" to out-specify shell themes. */
+
+/* ---- Panel indicator ---- */
+
+.pqv-panelbox {
+    spacing: 6px;
+}
+
+.pqv-badge {
+    background-color: -st-accent-color;
+    color: -st-accent-fg-color;
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+}
+
+/* ---- BoxPointer: keep transparent, no arrow, no own shadow ---- */
+
+.pqv-menu {
+    -arrow-base: 0px;
+    -arrow-rise: 0px;
+    -arrow-border-width: 0px;
+    -arrow-border-color: transparent;
+    -boxpointer-gap: 8px;
+}
+
+/* ---- Card: styled directly on the theme's content node ---- */
+
+.popup-menu-content.pqv-content {
+    width: 372px;
+    margin: 0px;
+    padding: 8px;
+    border-radius: 32px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: rgba(35, 35, 36, 0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* ---- Header ---- */
+
+.pqv-header {
+    padding: 6px 8px 10px 8px;
+    spacing: 8px;
+}
+
+.pqv-header-col {
+    spacing: 2px;
+}
+
+.pqv-header-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.94);
+}
+
+.pqv-header-sub {
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.52);
+}
+
+.pqv-iconbtn {
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+    padding: 7px;
+}
+
+.pqv-iconbtn:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.pqv-iconbtn:active {
+    background-color: rgba(255, 255, 255, 0.16);
+}
+
+/* ---- Task list ---- */
+
+.pqv-scroll {
+    max-height: 420px;
+}
+
+.pqv-scroll StScrollBar {
+    min-width: 5px;
+    min-height: 5px;
+}
+
+.pqv-scroll StScrollBar StBin#trough {
+    background-color: transparent;
+}
+
+.pqv-scroll StScrollBar StBin#vhandle {
+    background-color: rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    min-width: 5px;
+}
+
+.pqv-list {
+    padding: 0px 16px 0px 2px;
+}
+
+.pqv-section {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.52);
+    padding: 8px 8px 4px 8px;
+}
+
+.pqv-section-overdue {
+    color: #f66151;
+}
+
+/* ---- Task row ---- */
+
+.pqv-row {
+    border-radius: 12px;
+    padding: 8px 8px;
+    spacing: 10px;
+    margin-bottom: 2px;
+}
+
+.pqv-row:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.pqv-row:active {
+    background-color: rgba(255, 255, 255, 0.16);
+}
+
+.pqv-row-subtask {
+    padding-left: 26px;
+}
+
+.pqv-row-col {
+    spacing: 2px;
+}
+
+.pqv-title-row {
+    spacing: 6px;
+}
+
+.pqv-title {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.94);
+}
+
+.pqv-title-done {
+    color: rgba(255, 255, 255, 0.52);
+}
+
+.pqv-flag {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+}
+
+.pqv-sub {
+    spacing: 6px;
+}
+
+.pqv-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+}
+
+.pqv-project {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.52);
+}
+
+.pqv-due {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.62);
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 999px;
+    padding: 1px 7px;
+}
+
+.pqv-due-overdue {
+    color: #ff8a80;
+    background-color: rgba(237, 83, 83, 0.16);
+}
+
+.pqv-recurring {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.52);
+}
+
+/* Circle checkbox — border color set inline from the project color,
+   matching the Planify app. */
+
+.pqv-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    background-color: transparent;
+}
+
+.pqv-circle-done {
+    background-color: -st-accent-color;
+    border-color: -st-accent-color;
+}
+
+.pqv-check {
+    color: -st-accent-fg-color;
+}
+
+/* ---- Empty state ---- */
+
+.pqv-empty {
+    padding: 26px 0px 22px 0px;
+    spacing: 8px;
+}
+
+.pqv-empty-icon {
+    color: rgba(255, 255, 255, 0.52);
+}
+
+.pqv-empty-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.94);
+}
+
+.pqv-empty-sub {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.52);
+}
+
+/* ---- Footer ---- */
+
+.pqv-footer {
+    border-radius: 12px;
+    padding: 9px 10px;
+    spacing: 9px;
+    margin-top: 6px;
+}
+
+.pqv-footer:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.pqv-footer:active {
+    background-color: rgba(255, 255, 255, 0.16);
+}
+
+.pqv-footer-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.94);
+}
+
+/* ---- Pending completion (undo window) ---- */
+
+.pqv-circle-pending {
+    background-color: -st-accent-color;
+    border-color: -st-accent-color;
+}
+
+.pqv-undo {
+    color: -st-accent-fg-color;
+}
+
+/* ---- Description reveal ---- */
+
+.pqv-desc-reveal {
+    padding: 5px 0px 0px 30px;
+    spacing: 6px;
+}
+
+.pqv-desc {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.pqv-desc-empty {
+    color: rgba(255, 255, 255, 0.38);
+}
+
+.pqv-copybtn {
+    border-radius: 8px;
+    padding: 5px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.pqv-copybtn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.pqv-copybtn-done {
+    color: -st-accent-color;
+}
+
+
+/* ---- Inline quick-add ---- */
+
+.pqv-addrow {
+    padding: 0px 8px 8px 8px;
+}
+
+.pqv-addentry {
+    border-radius: 10px;
+    padding: 8px 10px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.94);
+}
+
+.pqv-addentry:focus {
+    background-color: rgba(255, 255, 255, 0.09);
+    border-color: -st-accent-color;
+}
+
+/* ---- Pinboard + badge variants ---- */
+
+.pqv-section-pinned {
+    color: -st-accent-color;
+}
+
+.pqv-badge-dot {
+    padding: 4px 5px;
+    font-size: 6px;
+}
