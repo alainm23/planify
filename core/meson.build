@@ -135,7 +135,6 @@ core_deps = [
   json_dep,
   libsoup_dep,
   libical_dep,
-  libgxml_dep,
   libsecret_dep,
   libspelling,
   gtksourceview_dep

@@ -24,6 +24,7 @@ public class HttpResponse {
     public string error { get; set; default = ""; }
     public int error_code { get; set; default = 0; }
     public int http_code { get; set; default = 0; }
+    public string? etag { get; set; default = null; }
     public string data { get; set; }
     public GLib.Value data_object { get; set; }
 }

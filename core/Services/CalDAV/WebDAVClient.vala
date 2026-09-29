@@ -1,5 +1,6 @@
 /*
  * Copyright © 2025 Alain M. (https://github.com/alainm23/planify)
+ * Copyright © 2025 byquanton
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -16,7 +17,7 @@
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301 USA
  *
- * Authored by: Alain M. <alainmh23@gmail.com>
+ * Authored by: byquanton
  */
 
 public class Services.CalDAV.WebDAVClient : GLib.Object {
@@ -27,8 +28,6 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
     protected string password;
     protected string base_url;
     protected bool ignore_ssl;
-    public string? last_response_etag { get; private set; default = null; }
-
 
     public WebDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false) {
         this.session = session;
@@ -55,14 +54,7 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         }
     }
 
-    public void cleanup () {
-        Services.LogService.get_default ().info ("WebDAV", "Cleaning up session");
-        if (session != null) {
-            session.abort ();
-        }
-    }
-
-    public string get_absolute_url (string href) {
+    protected string get_absolute_url (string href) {
         string abs_url = null;
         try {
             abs_url = GLib.Uri.resolve_relative (base_url, href, GLib.UriFlags.NONE).to_string ();
@@ -74,15 +66,17 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
 
     public async WebDAVMultiStatus propfind (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
         Services.LogService.get_default ().debug ("WebDAV", "PROPFIND request (depth: %s)".printf (depth));
-        return new WebDAVMultiStatus.from_string (yield send_request ("PROPFIND", url, "application/xml", minify_xml (xml), depth, cancellable, { Soup.Status.MULTI_STATUS }));
+        var result = yield send_request ("PROPFIND", url, "application/xml", minify_xml (xml), depth, cancellable, { Soup.Status.MULTI_STATUS });
+        return new WebDAVMultiStatus.from_string (result.data);
     }
 
     public async WebDAVMultiStatus report (string url, string xml, string depth, GLib.Cancellable cancellable) throws GLib.Error {
         Services.LogService.get_default ().debug ("WebDAV", "REPORT request (depth: %s)".printf (depth));
-        return new WebDAVMultiStatus.from_string (yield send_request ("REPORT", url, "application/xml", minify_xml (xml), depth, cancellable, { Soup.Status.MULTI_STATUS }));
+        var result = yield send_request ("REPORT", url, "application/xml", minify_xml (xml), depth, cancellable, { Soup.Status.MULTI_STATUS });
+        return new WebDAVMultiStatus.from_string (result.data);
     }
 
-    protected async string send_request (string method, string url, string content_type, string? body, string? depth, GLib.Cancellable? cancellable, Soup.Status[] expected_statuses, HashTable<string,string>? extra_headers = null) throws GLib.Error {
+    protected async HttpResponse send_request (string method, string url, string content_type, string? body, string? depth, GLib.Cancellable? cancellable, Soup.Status[] expected_statuses, HashTable<string,string>? extra_headers = null) throws GLib.Error {
         var abs_url = get_absolute_url (url);
         if (abs_url == null)
             throw new GLib.IOError.FAILED ("Invalid URL: %s".printf (url));
@@ -164,44 +158,148 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         var response_data = response.get_data ();
         response_data += '\0';
 
-        last_response_etag = msg.response_headers.get_one ("ETag");
-
-        return (string) response_data;
+        return new HttpResponse () {
+            status = true,
+            http_code = (int) msg.status_code,
+            etag = msg.response_headers.get_one ("ETag"),
+            data = (string) response_data
+        };
     }
-
 }
 
 
-public class Services.CalDAV.WebDAVMultiStatus : Object {
-    private GXml.DomElement root;
-    private string xml_content;
+public class Services.CalDAV.WebDAVXmlElement {
+    private string local_name;
+    public string text_content = "";
+    private Gee.ArrayList<WebDAVXmlElement>? children = null;
+    private Gee.HashMap<string, string>? attributes = null;
 
-    public WebDAVMultiStatus.from_string (string xml) throws GLib.Error {
-        this.xml_content = xml;
-        this.root = new GXml.XDocument.from_string (xml).document_element;
+    public WebDAVXmlElement (string local_name) {
+        this.local_name = local_name;
     }
 
-    public void debug_print () {
-        Services.LogService.get_default ().debug ("WebDAV", "Response XML: %s".printf (xml_content));
-    }
-
-    public Gee.ArrayList<WebDAVResponse> responses () {
-        var list = new Gee.ArrayList<WebDAVResponse> ();
-        foreach (var resp in root.get_elements_by_tag_name ("response")) {
-            list.add (new WebDAVResponse (resp));
+    internal void add_child (WebDAVXmlElement child) {
+        if (children == null) {
+            children = new Gee.ArrayList<WebDAVXmlElement> ();
         }
-        return list;
+        children.add (child);
     }
 
-    public string ? get_first_text_content_by_tag_name (string tag_name) {
-        foreach (var h in root.get_elements_by_tag_name (tag_name)) {
-            var text = h.text_content.strip ();
-            if (text != null && text.length > 0) {
-                return text;
+    internal void set_attribute (string name, string value) {
+        if (attributes == null) {
+            attributes = new Gee.HashMap<string, string> ();
+        }
+        attributes[name] = value;
+    }
+
+    public string? get_attribute (string name) {
+        return attributes != null ? attributes[name] : null;
+    }
+
+    public WebDAVXmlElement? get_child (string name) {
+        if (children != null) {
+            foreach (var child in children) {
+                if (child.local_name == name) {
+                    return child;
+                }
             }
         }
 
         return null;
+    }
+
+    public string get_text () {
+        return text_content.strip ();
+    }
+
+    public Gee.ArrayList<WebDAVXmlElement> get_children (string name) {
+        var results = new Gee.ArrayList<WebDAVXmlElement> ();
+        if (children != null) {
+            foreach (var child in children) {
+                if (child.local_name == name) {
+                    results.add (child);
+                }
+            }
+        }
+
+        return results;
+    }
+}
+
+private class Services.CalDAV.WebDAVXmlParser {
+    private WebDAVXmlElement? root = null;
+    private Gee.ArrayList<WebDAVXmlElement> stack = new Gee.ArrayList<WebDAVXmlElement> ();
+
+    public static WebDAVXmlElement parse (string xml) throws GLib.Error {
+        var builder = new WebDAVXmlParser ();
+
+        GLib.MarkupParser parser = {
+            WebDAVXmlParser.on_start_element,
+            WebDAVXmlParser.on_end_element,
+            WebDAVXmlParser.on_text,
+            null,
+            null
+        };
+
+        var context = new GLib.MarkupParseContext (parser, GLib.MarkupParseFlags.TREAT_CDATA_AS_TEXT, builder, null);
+        context.parse (xml, -1);
+        context.end_parse ();
+
+        if (builder.root == null) {
+            throw new GLib.MarkupError.EMPTY ("Empty XML document");
+        }
+
+        return builder.root;
+    }
+
+    private static string local_name (string name) {
+        int idx = name.last_index_of (":");
+        return idx >= 0 ? name.substring (idx + 1) : name;
+    }
+
+    private static void on_start_element (GLib.MarkupParseContext context, string element_name, [CCode (array_length = false, array_null_terminated = true)] string[] attr_names, [CCode (array_length = false, array_null_terminated = true)] string[] attr_values) throws GLib.MarkupError {
+        unowned WebDAVXmlParser self = (WebDAVXmlParser) context.get_user_data ();
+        var element = new WebDAVXmlElement (local_name (element_name));
+
+        for (int i = 0; attr_names[i] != null; i++) {
+            element.set_attribute (local_name (attr_names[i]), attr_values[i]);
+        }
+
+        if (self.stack.is_empty) {
+            self.root = element;
+        } else {
+            self.stack.last ().add_child (element);
+        }
+        self.stack.add (element);
+    }
+
+    private static void on_end_element (GLib.MarkupParseContext context, string element_name) throws GLib.MarkupError {
+        unowned WebDAVXmlParser self = (WebDAVXmlParser) context.get_user_data ();
+        self.stack.remove_at (self.stack.size - 1);
+    }
+
+    private static void on_text (GLib.MarkupParseContext context, string text, size_t text_len) throws GLib.MarkupError {
+        unowned WebDAVXmlParser self = (WebDAVXmlParser) context.get_user_data ();
+        if (!self.stack.is_empty) {
+            self.stack.last ().text_content += text;
+        }
+    }
+}
+
+
+public class Services.CalDAV.WebDAVMultiStatus : Object {
+    public WebDAVXmlElement root { get; private set; }
+
+    public WebDAVMultiStatus.from_string (string xml) throws GLib.Error {
+        this.root = WebDAVXmlParser.parse (xml);
+    }
+
+    public Gee.ArrayList<WebDAVResponse> responses () {
+        var list = new Gee.ArrayList<WebDAVResponse> ();
+        foreach (var resp in root.get_children ("response")) {
+            list.add (new WebDAVResponse (resp));
+        }
+        return list;
     }
 }
 
@@ -209,96 +307,41 @@ public class Services.CalDAV.WebDAVMultiStatus : Object {
 public class Services.CalDAV.WebDAVResponse : Object {
     public string? href { get; private set; }
     public Soup.Status status { get; private set; default = Soup.Status.NONE; }
-    private GXml.DomElement element;
 
-    public WebDAVResponse (GXml.DomElement element) {
-        this.element = element;
-        parse_href ();
-        parse_status ();
-    }
+    private Gee.ArrayList<WebDAVXmlElement> ok_props = new Gee.ArrayList<WebDAVXmlElement> ();
 
-    private void parse_href () {
-        foreach (var h in element.get_elements_by_tag_name ("href")) {
-            var text = h.text_content.strip ();
-            if (text != null && text.length > 0) {
-                href = text;
-                break;
+    public WebDAVResponse (WebDAVXmlElement element) {
+        href = element.get_child ("href")?.get_text ();
+        status = parse_status_line (element.get_child ("status")?.get_text () ?? "");
+
+        foreach (var propstat in element.get_children ("propstat")) {
+            var prop = propstat.get_child ("prop");
+            if (prop != null && parse_status_line (propstat.get_child ("status")?.get_text () ?? "") == Soup.Status.OK) {
+                ok_props.add (prop);
             }
         }
     }
 
-    private void parse_status () {
-        foreach (var s in element.get_elements_by_tag_name ("status")) {
-            var text = s.text_content.strip ();
-            if (text != null && text.length > 0) {
-                status = parse_status_line (text);
-                break;
+    public WebDAVXmlElement? get_prop (string name) {
+        foreach (var prop in ok_props) {
+            var found = prop.get_child (name);
+            if (found != null) {
+                return found;
             }
-        }
-    }
-
-    private Soup.Status parse_status_line (string status_line) {
-        Soup.HTTPVersion ver;
-        uint code;
-        string reason;
-
-        if (Soup.headers_parse_status_line (status_line, out ver, out code, out reason)) {
-            return (Soup.Status) code;
-        }
-
-        return Soup.Status.NONE;
-    }
-
-    public Gee.ArrayList<WebDAVPropStat> propstats () {
-        var results = new Gee.ArrayList<WebDAVPropStat> ();
-        foreach (var ps in element.get_elements_by_tag_name ("propstat")) {
-            results.add (new WebDAVPropStat (ps));
-        }
-        return results;
-    }
-}
-
-
-public class Services.CalDAV.WebDAVPropStat : Object {
-    public Soup.Status status { get; private set; }
-    public GXml.DomElement prop { get; private set; }
-
-    public WebDAVPropStat (GXml.DomElement element) {
-        var status_list = element.get_elements_by_tag_name ("status");
-        if (status_list.length == 1) {
-            var text = status_list[0].text_content.strip ();
-            if (text != null && text.length > 0)
-                status = parse_status_line (text);
-        }
-
-        var prop_list = element.get_elements_by_tag_name ("prop");
-        if (prop_list.length == 1) {
-            prop = prop_list[0];
-        }
-    }
-
-    private Soup.Status parse_status_line (string status_line) {
-        Soup.HTTPVersion ver;
-        uint code;
-        string reason;
-
-        if (Soup.headers_parse_status_line (status_line, out ver, out code, out reason)) {
-            return (Soup.Status) code;
-        }
-
-        return Soup.Status.NONE;
-    }
-
-    public GXml.DomElement? get_first_prop_with_tagname (string tagname) {
-        if (prop == null) {
-            return null;
-        }
-
-        foreach (var e in prop.get_elements_by_tag_name (tagname)) {
-            return e;
         }
 
         return null;
     }
 
+    private Soup.Status parse_status_line (string status_line) {
+        Soup.HTTPVersion ver;
+        uint code;
+        string reason;
+
+        if (Soup.headers_parse_status_line (status_line, out ver, out code, out reason)) {
+            return (Soup.Status) code;
+        }
+
+        return Soup.Status.NONE;
+    }
 }

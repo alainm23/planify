@@ -76,7 +76,6 @@
 | libedataserver-1.2 | ≥ 3.52.4 |
 | libportal | ≥ 0.7.1 |
 | libportal-gtk4 | ≥ 0.7.1 |
-| gxml-0.20 | ≥ 0.21.0 |
 | libsecret-1 | ≥ 0.21.4 |
 | libspelling-dev | latest |
 | gtksourceview-5 | 5.12.1 |
